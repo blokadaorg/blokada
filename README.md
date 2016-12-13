@@ -29,3 +29,5 @@ We maintain several lists based on your feedback, so other users have easier tim
 ## Contact
 
 You can always send an email with your feedback to hello@blokada.org.
+
+Follow us: [Twitter](http://go.blokada.org/social_twitter), [Facebook](http://go.blokada.org/social_facebook), [Google+](http://go.blokada.org/social_gplus)
