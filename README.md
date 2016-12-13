@@ -2,33 +2,29 @@
 
 Blokada is a free, compact, fast ad blocker for Android that works for all apps and does not require root.
 
-This is the official repository for Blokada. For general information, go to http://blokada.org.
-
-## Download
-
-If you just want to try it out, please follow this link to [download Blokada](http://blokada.org/#download). If you want to help and get involved, kudos to you! Read on.
+Want to try out this app? Click here to [download Blokada](http://go.blokada.org/download_section). If you are experiencing problems, or want to give feedback, you are in the right place. Read on.
 
 ## Bugs and issues
 
 All ongoing work for the project can be followed and commented on our bug tracker. We prioritise issues based on your votes and feedback so don't hesitate to participate.
 
-- [Bug tracker](https://github.com/blokadaorg/blokada/issues)
-- [Add a new bug](https://github.com/blokadaorg/blokada/issues/new)
+- [Bug tracker](http://go.blokada.org/dev_issues)
+- **[Add a new bug](http://go.blokada.org/dev_issues_new)**
 
 ## New ideas
 
 You can propose new ideas and vote for new features on our ideas forum. We prioritise our efforts based on the votes.
 
-- [Ideas forum](https://feedback.userreport.com/3ff9476e-fcde-4126-a718-6187ac075da7/#ideas/popular)
-- [Add a new idea](https://feedback.userreport.com/3ff9476e-fcde-4126-a718-6187ac075da7/#submit/idea)
+- [Ideas forum](http://go.blokada.org/dev_ideas_popular)
+- **[Add a new idea](http://go.blokada.org/dev_ideas_new)**
 
 ## Knowledge base
 
 We maintain several lists based on your feedback, so other users have easier time if they are experiencing problems. Feel free to add new items or comment on existing ones that affect you.
 
-- [Apps blacklist](https://github.com/blokadaorg/apps/issues) - A list of problematic apps that display some ads even if Blokada is on.
-- [Devices blacklist](https://github.com/blokadaorg/devices/issues) - A list of problematic devices for which Blokada may not work properly.
-- [Freuqently Asked Questions](https://github.com/blokadaorg/blokada/wiki/FAQ) - Answers to the most commonly asked questions about Blokada.
+- [Apps blacklist](http://go.blokada.org/dev_blacklist_apps) - A list of problematic apps that display some ads even if Blokada is on.
+- [Devices blacklist](http://go.blokada.org/dev_blacklist_devices) - A list of problematic devices for which Blokada may not work properly.
+- [Freuqently Asked Questions](http://go.blokada.org/info_faq) - Answers to the most commonly asked questions about Blokada.
 
 ## Contact
 
