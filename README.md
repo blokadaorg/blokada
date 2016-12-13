@@ -6,7 +6,7 @@ This is the official repository for Blokada. For general information, go to http
 
 ## Download
 
-If you just want to try out Blokada, [please follow this link to download it](http://blokada.org/#download). If you want to help and get involved, kudos to you! Read on.
+If you just want to try it out, please follow this link to [download Blokada](http://blokada.org/#download). If you want to help and get involved, kudos to you! Read on.
 
 ## Bugs and issues
 
