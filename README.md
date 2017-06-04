@@ -1,4 +1,4 @@
-# Blokada v1.2.1
+# Blokada v1.2.2
 
 Blokada is a free, compact, fast ad blocker for Android that works for all apps and does not require root.
 
