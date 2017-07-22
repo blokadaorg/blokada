@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="update_infotext">Uma atualização está disponível! Toque no ícone de atualização abaixo para detalhes.</string>
+    <string name="update_button">Download da atualização</string>
+    <string name="update_notification_title">Atualização disponível</string>
+    <!-- Parameter: new app version, for example 2.0.1 -->
+    <string name="update_notification_text">Versão %1$s pronta para download! Toque para iniciar.</string>
+    <!-- Header displaying the new app version. Parameters: branded app name, and new app version. For example: NEW! Blokada 2.0.1 -->
+    <string name="update_header">NOVO! %1$s %2$s</string>
+    <string name="update_header_noupdate">Não há atualizações</string>
+    <string name="update_description">Atualizações fornecem novas funções, correções e também otimizações de bateria e performance. Você pode instalar essa atualização agora! Se tiver algum problema voce pode &lt;a href=\"%1$s\"&gt;fazer o download manualmente&lt;/a&gt;.</string>
+    <string name="update_description_noupdate">Sua versão atual está atualizada. As atualizações fornecem novas funções, correções e também otimizações de bateria e performance. Você será notificado quando uma atualização estiver disponível.</string>
+    <!-- Technical information about app version and versions of used libraries. Please keep the HTML tags and formatting. It's ok to just copy paste the untranslated string. -->
+    <string name="update_header_current">Atual: &lt;b&gt;%1$s %2$s&lt;/b&gt;&lt;br/&gt; Core: %3$s&lt;br/&gt; UI: %4$s</string>
+    <!-- Feel free to make this string a bit more localised. For example it can say, "This app and its Spanish version is made possible thanks to:" -->
+    <string name="update_credits_header">Este aplicativo é um projeto de código aberto feito com a ajuda de:</string>
+    <!-- We appreciate you translating this app and welcome you to add your name here - it will show up in the About/Update screen. Please add yourself before everyone, one name per line. If you add a link, your name will be clickable (John Doe: http://my-website.com) -->
+    <string name="update_credits">Karsen: http://kar.gs\n... e você!</string>
+    <string name="update_dash_desc">Toque para exibir as informações de atualização.</string>
+    <!-- Displayed in the home screen when there is an update. Keep it short. -->
+    <string name="update_dash_available">&lt;b&gt;Atualização disponível!&lt;/b&gt;</string>
+    <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
+    <string name="update_dash_uptodate">Atualizado</string>
+    <!-- Displayed in menu to open the About/Update screen. -->
+    <string name="update_about">Sobre</string>
+    <string name="update_about_desc">Toque para ver informações sobre este aplicativo.</string>
+    <string name="update_force_dash_desc">Toque para verificar atualizações agora.</string>
+    <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">Detalhes do App</string>
+    <!-- A toast message displayed when the update process is starting. -->
+    <string name="update_starting">Iniciando, por favor aguarde &#8230;</string>
+</resources>

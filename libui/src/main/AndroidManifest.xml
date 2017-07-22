@@ -1,0 +1,38 @@
+<manifest package="org.blokada.lib.ui"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:theme="@style/BlokadaColors.Main.NoActionBar"
+        >
+        <activity
+            android:name="org.blokada.ui.app.android.MainActivity"
+            android:label="@string/branding_app_name"
+            android:launchMode="singleTask"
+            android:theme="@style/BlokadaColors.Main.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="org.blokada.ui.app.android.ANotificationsOffService">
+        </service>
+        <service
+            android:name="org.blokada.ui.app.android.ANotificationsWhitelistService">
+        </service>
+        <service
+            android:name="org.blokada.ui.app.android.AQuickSettingsService"
+            android:label="@string/main_quicksettings_toggle"
+            android:icon="@drawable/ic_blokada"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.blokada.ui.app.android.AWelcomeView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/main_welcome"
+        android:layout_width="match_parent"
+        android:text="@string/main_welcome"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content">
+
+
+        <org.blokada.ui.framework.android.ASwitchCompat
+            android:id="@+id/main_advanced"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:theme="@style/Switch" />
+
+        <TextView
+            android:id="@+id/main_advanced_text"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorActive"
+            android:text="@string/main_advanced_off"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</org.blokada.ui.app.android.AWelcomeView>

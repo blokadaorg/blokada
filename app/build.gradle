@@ -1,0 +1,88 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: '../version.gradle'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "org.blokada"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode extVersionCode
+        versionName extVersionName
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        dev.java.srcDirs += 'src/dev/kotlin'
+        prod.java.srcDirs += 'src/prod/kotlin'
+        release.java.srcDirs += 'src/release/kotlin'
+        release.java.srcDirs += 'src/firebase/kotlin'
+        debug.java.srcDirs += 'src/debug/kotlin'
+        incognito.java.srcDirs += 'src/incognito/kotlin'
+    }
+    signingConfigs {
+        release {
+            keyAlias 'blokada'
+            keyPassword BLOKADA_KEY_PASSWORD
+            storeFile file(BLOKADA_KEY_PATH)
+            storePassword BLOKADA_STORE_PASSWORD
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        incognito {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            versionNameSuffix '-incognito'
+        }
+        debug {
+            versionNameSuffix '-debug'
+        }
+    }
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+        }
+        prod {
+            applicationIdSuffix ".alarm"
+            minSdkVersion 21
+        }
+    }
+}
+
+dependencies {
+    // The UI Blokada library
+    debugCompile project(path: ':libui', configuration: 'debug')
+    incognitoCompile project(path: ':libui', configuration: 'release')
+    releaseCompile project(path: ':libui', configuration: 'release')
+
+    // Analytics and debugging
+    releaseCompile 'com.google.firebase:firebase-core:10.2.4'
+    releaseCompile 'com.google.firebase:firebase-crash:10.2.4'
+
+    // Test dependencies
+    testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+buildscript {
+    ext.kotlin_version = '1.1.2-3'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}

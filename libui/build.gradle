@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: '../version.gradle'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    publishNonDefault true
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode extVersionCode
+        versionName extVersionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    signingConfigs {
+        release {
+            keyAlias 'blokada'
+            keyPassword BLOKADA_KEY_PASSWORD
+            storeFile file(BLOKADA_KEY_PATH)
+            storePassword BLOKADA_STORE_PASSWORD
+        }
+    }
+    buildTypes {
+        release {
+            //minifyEnabled true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            versionNameSuffix '-debug'
+        }
+    }
+}
+
+dependencies {
+    // The main (core) Blokada library (it includes support, Kotlin, etc)
+    debugCompile project(path: ':libcore', configuration: 'debug')
+    releaseCompile project(path: ':libcore', configuration: 'release')
+
+    // Android support libraries
+    compile 'com.android.support:design:25.3.1'
+
+    // UI libraries
+    compile ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
+        transitive = true
+    }
+
+    // Test dependencies
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+buildscript {
+    ext.kotlin_version = '1.1.2-3'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}

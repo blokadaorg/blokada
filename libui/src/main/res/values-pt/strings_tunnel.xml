@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="tunnel_hosts_desc">Mostra o número de endereços configurados para serem bloqueado pelo %s.</string>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <plurals name="tunnel_hosts_count">
+        <item quantity="one">%d endereço</item>
+        <item quantity="other">%d endereços</item>
+    </plurals>
+    <string name="tunnel_ads_desc">Mostra o número total de anúncios bloqueados até agora.</string>
+    <!-- The counter displayed the total number of ads blocked (in the home screen). Parameter: number of ads blocked. -->
+    <plurals name="tunnel_ads_blocked">
+        <item quantity="one">%d anúncio bloqueado</item>
+        <item quantity="other">%d anúncios bloqueados</item>
+    </plurals>
+    <string name="tunnel_selected_desc">Toque para escolher o mecanismo de bloqueio que melhor funciona em seu dispositivo.</string>
+    <string name="tunnel_selected_legacy">Bloqueio padrão</string>
+    <string name="tunnel_selected_legacy_desc">Este mecanismo de bloqueio funciona bem em todos os dispositivos, mas pode aumentar um pouco o consumo de bateria ou afetar o desempenho. Se o Bloqueio Otimizado não for suportado por seu dispositivo, use este mecanismo.</string>
+    <string name="tunnel_selected_lollipop">Bloqueio otimizado</string>
+    <string name="tunnel_selected_lollipop_desc">Este é o novo mecanismo de bloqueio com mínimo impacto na bateria e performance, e é suportado por seu dispositivo! Se não estiver experimentando nenhum problema, está é a opção recomendada.</string>
+    <string name="tunnel_selected_lollipop_desc_unsupported">Este novo mecanismo de bloqueio tem mínimo impacto na bateria e na performance. Infelizmente é necessário o Android 5 ou superior, então não pode ser ativado em seu dispositivo.</string>
+</resources>

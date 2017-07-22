@@ -1,0 +1,12 @@
+*.iml
+.gradle
+/version.gradle
+.idea
+.DS_Store
+*.aar
+vendor
+/local.properties
+/build
+/captures
+firebase.xml
+google-services.json
