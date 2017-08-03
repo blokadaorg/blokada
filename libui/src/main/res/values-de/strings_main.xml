@@ -77,7 +77,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_enabled">%s wird nun hin und wieder anonyme Zustandsberichte versenden.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_connectivity_desc">Wenn aktiviert, wird %s den Online-Status überwachen und pausieren, wenn Dein Gerät offline ist.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">Nur online</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_status_desc">Dieses Icon zeigt den aktuellen Status von %s und ob alles korrekt funktioniert.</string>
     <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
