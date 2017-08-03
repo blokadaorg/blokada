@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBackground">#1d1d1d</color>
+    <!--<color name="colorBackground">#383838</color>-->
+    <color name="colorBackgroundLight">#404040</color>
+    <color name="colorBackgroundThird">#262626</color>
+    <color name="colorBackgroundTrans">#001d1d1d</color>
+    <color name="colorBackgroundTransCenter">#DD1d1d1d</color>
+    <color name="colorBackgroundAbout">#000</color>
+    <color name="colorBackgroundAboutLight">#101010</color>
+    <color name="colorText">#c4c4c4</color>
+    <color name="colorTextUnimportant">#3b3b3b</color>
+    <color name="colorActive">#ffffff</color>
+    <color name="colorShadow">#181818</color>
+    <color name="colorLogoWaiting">#99ffffff</color>
+    <color name="colorLogoWaitingFab">#EDB899</color>
+    <color name="colorLogoInactive">#fff</color>
+
+    <color name="colorPrimaryTrans">#DD1D1D1D</color>
+    <color name="colorPrimaryDark">#1D1D1D</color>
+    <color name="colorPrimaryDarker">#1a1a1a</color>
+    <color name="colorPrimaryDarkerTrans">#DD1a1a1a</color>
+    <color name="colorPrimaryLight">#FFFFFF</color>
+    <color name="colorPrimaryLightTrans">#DDFFFFFF</color>
+
+    <color name="colorSecondary">#3e3e3e</color>
+    <color name="colorAccent">#DF5401</color>
+    <color name="colorAccentDark">#B64401</color>
+    <color name="colorAccentLight">#ff690e</color>
+    <color name="colorTextDark">#1D1D1D</color>
+    <color name="colorInactive">#AAA</color>
+    <color name="colorThumbStart">#fdfdfd</color>
+    <color name="colorThumbEnd">#f5f5f5</color>
+    <color name="colorIconHehe">#c2c2c2</color>
+
+
+
+    <color name="ksw_md_ripple_normal">#1E000000</color>
+    <color name="ksw_md_ripple_checked">#33DF5401</color>
+    <color name="ksw_md_solid_shadow">#33000000</color>
+    <color name="ksw_md_solid_normal">#ECECEC</color>
+    <color name="ksw_md_solid_checked">#DF5401</color>
+    <color name="ksw_md_solid_disable">#FFFFFF</color>
+    <color name="ksw_md_solid_checked_disable">#aaaaaa</color>
+</resources>

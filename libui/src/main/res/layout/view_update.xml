@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.blokada.ui.app.android.AUpdateView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundAbout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left">
+
+            <Button
+                android:id="@+id/update_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/update_button" />
+            <Button
+                android:id="@+id/update_appinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/update_button_appinfo" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/update_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/main_loading"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/update_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_new_releases"
+                android:tint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/update_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:text="@string/update_description"
+                android:textColor="@color/colorActive" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/update_changelog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:linksClickable="true"
+            android:padding="8dp"
+            android:text="@string/main_loading"
+            android:textColor="@color/colorActive" />
+
+        <TextView
+            android:id="@+id/update_current"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:padding="8dp"
+            android:text="@string/update_header_current"
+            android:textColor="@color/colorTextUnimportant" />
+
+        <TextView
+            android:id="@+id/update_credits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="48dp"
+            android:text="@string/update_credits"
+            android:textColor="@color/colorActive" />
+
+        <ImageView
+            android:id="@+id/update_maker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="100dp"
+            android:src="@drawable/maker" />
+    </LinearLayout>
+</org.blokada.ui.app.android.AUpdateView>

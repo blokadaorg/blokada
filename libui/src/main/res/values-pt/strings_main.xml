@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome">Obrigado por instalar o %1$s!\n\nEste aplicativo funciona do seu jeito. Apenas feche esta janela, toque no escudo para ativá-lo e está tudo pronto!\n\nEntretanto, se for precisar de mais controle, use a chave abaixo para ativar os recursos avançados.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_cleanup">Você possui diversas versões do %1$s instaladas em seu dispositivo. Você gostaria de manter a melhor versão e desinstalar as demais agora?</string>
+    <string name="main_cleanup_done">Desinstalação iniciada &#8230;</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_migrate">Obrigado por manter o %1$s atualizado! ❤\n\nVocê está utilizando a versão clássica deste aplicativo. Seu dispositivo suporta uma versão menor e mais rápida que você pode instalar gratuitamente. Você gostaria de trocar agora?</string>
+    <string name="main_migrate_slim">Sim, eu quero a versão mais rápida (recomendado)</string>
+    <string name="main_migrate_prod">Sim, mas eu utilizo o bloqueio padrão</string>
+    <string name="main_advanced_off">Eu sou novo (recomendado)</string>
+    <string name="main_advanced_on">Eu sou um usuário avançado</string>
+    <string name="main_continue">Continue</string>
+    <string name="main_install">Instalar</string>
+    <string name="main_skip">Pular</string>
+    <string name="main_loading">Carregando...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_intro">Bem vindo ao %s! Toque no escudo para ativar o aplicativo. Forneça as permissões quando solicitado.</string>
+    <string name="main_error">Algo deu errado. Por favor verifique sua conexão com a internet e tente novamente.</string>
+    <string-array name="main_activating">
+        <item>Aplicando alterações...</item>
+        <item>Em andamento...</item>
+        <item>Configurando...</item>
+        <item>Carregando...</item>
+        <item>Trabalhando...</item>
+        <item>Processando...</item>
+    </string-array>
+    <string name="main_activating_new">Configurando seu dispositivo, aguarde por favor...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_deactivating_new">Desativando o %s. Aguarde por favor...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_active">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>O %s está ativo.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>O %s está funcionando corretamente.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>O %s está trabalhando bem.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s está ativo.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_new">O %1$s agora está protegendo seu dispositivo contra anúncios. Você pode ajustar o %1$s abaixo, ou apenas prossiga e use seu dispositivo!</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_paused">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>O %s está inativo.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s está pausado.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s desativado.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable">O %1$s está pausado porque seu dispositivo está desconectado. O %1$s irá se ativar automaticamente quando a conexão com a Internet estiver disponível.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable_tethering">%1$s está pausado porque seu dispositivo está com o Hotspot WiFi habilitado. O %1$s irá se ativar automaticamente quando o Hotspot WiFi for desativado.</string>
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">Bloqueio de anúncio</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <string name="main_quicksettings_on">Ativo</string>
+    <!-- Disabled status for the Quick Settings toggle -->
+    <string name="main_quicksettings_off">Desativado</string>
+    <string name="main_faq_desc">Toque para ver as respostas para as perguntas mais comuns.</string>
+    <string name="main_faq_text">Ajuda</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_donate_desc">Seu apoio faz o %s possível!</string>
+    <string name="main_donate_text">Doar</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_blog_desc">Toque para ver as atualizações mais recentes feitas pela comunidade %s .</string>
+    <string name="main_blog_text">Comunidade</string>
+    <string name="main_tracking_desc">Quando ativado, %s poderá enviar informações anônimas sobre sua performance. Isso é necessário para podermos continuar a melhorar o aplicativo.</string>
+    <string name="main_tracking_text">Relatório de uso</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_disabled">%s não enviará mais nenhum relatório de desempenho. Você precisará reiniciar o aplicativo para que esta opção tenha efeito.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_enabled">%s enviará periodicamente relatórios anônimos de desempenho.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_status_desc">Este ícone mostra o status atual do %s e se tudo está funcionando corretamente.</string>
+    <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
+    <string name="main_status_long">%2$s está %1$s</string>
+    <!-- App status (very short). For example: active. Parameter: app status. -->
+    <string name="main_status_short">%1$s</string>
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">Ativo</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">Desativado</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">Ativando</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">Desativando</string>
+    <string name="main_status_error">Ocorreu um problema</string>
+    <string name="main_autostart_text">Iniciar no boot</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_autostart_desc">Quando ativo, %s irá iniciar automaticamente quando o dispositivo for iniciado.</string>
+    <string name="main_data_start">Economia de dados inativa</string>
+    <!-- How much megabytes of data was saved so far. Displayed in the home screen. Parameter: number of MB saved, as in 2.35 MB. -->
+    <string name="main_data_normal">%.2f MB economizados</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_data_desc">Quando %s está ativo, este contador mostra a estimativa de dados economizados.</string>
+    <string name="main_feedback_text">Comentários</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_feedback_desc">Toque para sugerir novas idéias e ajudar o %s a melhorar!</string>
+    <string name="main_bug_text">Relatar problema</string>
+    <string name="main_bug_desc">Toque para relatar um problema e deixe-nos ajudá-lo.</string>
+</resources>

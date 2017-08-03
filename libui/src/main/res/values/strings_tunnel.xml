@@ -1,0 +1,23 @@
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="tunnel_hosts_desc">Displays the number of hosts configured to be blocked by %s.</string>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <plurals name="tunnel_hosts_count">
+        <item quantity="one">One host</item>
+        <item quantity="other">%d hosts</item>
+    </plurals>
+
+    <string name="tunnel_ads_desc">Displays the total number of ads blocked so far.</string>
+    <!-- The counter displayed the total number of ads blocked (in the home screen). Parameter: number of ads blocked. -->
+    <plurals name="tunnel_ads_blocked">
+        <item quantity="one">One ad blocked</item>
+        <item quantity="other">%d ads blocked</item>
+    </plurals>
+
+    <string name="tunnel_selected_desc">Tap to choose the blocking mechanism that works best for your device.</string>
+    <string name="tunnel_selected_legacy">Standard blocking</string>
+    <string name="tunnel_selected_legacy_desc">This blocking mechanism works on all devices, but may slightly increase battery drain or affect performance. If the Optimized blocking is not supported by your device, use this mechanism instead.</string>
+    <string name="tunnel_selected_lollipop">Optimized blocking</string>
+    <string name="tunnel_selected_lollipop_desc">This is the new blocking mechanism with minimal impact on battery and performance, and it is supported by your device! Unless you are experiencing problems with it, this is the recommended choice.</string>
+    <string name="tunnel_selected_lollipop_desc_unsupported">This is the new blocking mechanism with minimal impact on battery and performance. Unfortunately, Android 5 or newer is required, so it cannot be activated on your device.</string>
+</resources>

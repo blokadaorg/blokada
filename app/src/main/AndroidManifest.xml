@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="org.blokada"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".app.android.MainApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_blokada"
+        android:label="@string/branding_app_name"
+        android:supportsRtl="true"
+        android:theme="@style/BlokadaColors.Main.NoActionBar"
+        tools:replace="android:label">
+    </application>
+
+</manifest>

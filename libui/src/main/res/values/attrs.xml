@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AFilterView">
+        <attr name="fv_thumb" format="reference" />
+        <attr name="fv_name" format="string" localization="suggested" />
+        <attr name="fv_host" format="string" localization="suggested" />
+        <attr name="fv_tapped" format="boolean" />
+    </declare-styleable>
+</resources>

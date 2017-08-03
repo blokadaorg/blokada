@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome">Bedankt voor het installeren van %1$s! ❤\n\nDeze app werkt zoals jij wilt. Sluit dit scherm, tik het schild aan om te activeren en je bent er klaar voor!\n\nMocht je meer controle willen, gebruik dan de knop hieronder om de geavanceerde functies te activeren</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_cleanup">Je hebt verschillende versies van %1$s geinstalleerd op je apparaat. Wil je de beste versie behouden en de anderen nu verwijderen?</string>
+    <string name="main_cleanup_done">Begonnen met verwijderen&#8230;</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_migrate">Bedankt voor het bijwerken van %1$s! ❤\n\nJe gebruikt een oude versie van deze app. Je apparaat ondersteunt een snellere, kleinere versie die je gratis kan installeren. Wil je nu overstappen?</string>
+    <string name="main_migrate_slim">Ja, ik wil de snellere versie (aanbevolen)</string>
+    <string name="main_migrate_prod">Ja, maar ik gebruik standaard blokkering</string>
+    <string name="main_advanced_off">Ik ben nieuw (aanbevolen)</string>
+    <string name="main_advanced_on">Ik ben ervaren</string>
+    <string name="main_continue">Doorgaan</string>
+    <string name="main_install">Installeren</string>
+    <string name="main_skip">Overslaan</string>
+    <string name="main_loading">Laden...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_intro">Welcome bij %s! Tik het schild aan om de app te activeren. Verleen permissies wanneer gevraagd.</string>
+    <string name="main_error">Er is een fout opgetreden. Controleer je internetverbinding en probeer het nogmaals.</string>
+    <string-array name="main_activating">
+        <item>Wijzigingen toepassen...</item>
+        <item>Bezig...</item>
+        <item>Opzetten...</item>
+        <item>Laden...</item>
+        <item>Werken...</item>
+        <item>Verwerken...</item>
+    </string-array>
+    <string name="main_activating_new">Je apparaat instellen, even geduld...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_deactivating_new">Uitschakelen %s. Even geduld...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_active">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s is actief.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s werkt naar behoren.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s werkt prima.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s is actief.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_new">%1$s beschermd je apparaat nu tegen advertenties. Je kan %1$s hieronder verder instellen of maak gewoon gebruik van je apparaat!</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_paused">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s is inactief.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s is gepauzeerd.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s is uit.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable">%1$s is gepauzeerd omdat je apparaat geen verbinding heeft. %1$s zal automatisch geactiveerd worden zodra een internet verbinding beschikbaar is.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable_tethering">%1$s is gepauzeerd omdat je apparaat WiFi Hotspot ingeschakeld heeft. %1$s zal automatisch geactiveerd worden zodra WiFi Hotspot uitgeschakeld is.</string>
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">Adv. blokkering</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <string name="main_quicksettings_on">Actief</string>
+    <!-- Disabled status for the Quick Settings toggle -->
+    <string name="main_quicksettings_off">Uitgeschakeld</string>
+    <string name="main_faq_desc">Tik aan om antwoorden te zien op veelgestelde vragen</string>
+    <string name="main_faq_text">Hulp</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_donate_desc">Jouw hulp maakt %s mogelijk!</string>
+    <string name="main_donate_text">Doneren</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_blog_desc">Tik aan om het recente nieuws van de %s community te lezen</string>
+    <string name="main_blog_text">Gemeenschap</string>
+    <string name="main_tracking_desc">Indien ingeschakeld zal %s anonieme prestatie gegevens verzenden. We hebben dit nodig om de app te blijven verbeteren</string>
+    <string name="main_tracking_text">Gezondheidsrapport</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_disabled">%s zal geen gezondheidsrapporten meer verzenden. Je moet de app herstarten om dit toe te passen</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_enabled">%s zal nu van tijd tot tijd anonieme gezondheidsrapporten verzenden.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_status_desc">Dit icoon toont de huidige status van %s en of alles naar behoren werkt.</string>
+    <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
+    <string name="main_status_long">%2$s is %1$s</string>
+    <!-- App status (very short). For example: active. Parameter: app status. -->
+    <string name="main_status_short">%1$s</string>
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">Actief</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">Uitgeschakeld</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">Activeren</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">Deactiveren</string>
+    <string name="main_status_error">Probleem opgetreden</string>
+    <string name="main_autostart_text">Starten bij opstarten</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_autostart_desc">Wanneer ingeschakeld, start %s automatisch als het apparaat gestart wordt.</string>
+    <string name="main_data_start">Databesparing uit</string>
+    <!-- How much megabytes of data was saved so far. Displayed in the home screen. Parameter: number of MB saved, as in 2.35 MB. -->
+    <string name="main_data_normal">%.2f MB bespaard</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_data_desc">Wanneer %s actief is toont deze teller de geschatte databesparing</string>
+    <string name="main_feedback_text">Feedback</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_feedback_desc">Tik aan om een nieuw idee voor te stellen en help ons %s te verbeteren!</string>
+    <string name="main_bug_text">Meld een fout</string>
+    <string name="main_bug_desc">Tik aan om een probleem te melden en laat ons je helpen</string>
+</resources>

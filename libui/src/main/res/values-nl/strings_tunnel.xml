@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="tunnel_hosts_desc">Toont het aantal door %s geblokkeerde hostnamen.</string>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <plurals name="tunnel_hosts_count">
+        <item quantity="one">%d hostnaam</item>
+        <item quantity="other">%d hostnamen</item>
+    </plurals>
+    <string name="tunnel_ads_desc">Toont het totaal aantal geblokkeerde advertenties tot nu toe.</string>
+    <!-- The counter displayed the total number of ads blocked (in the home screen). Parameter: number of ads blocked. -->
+    <plurals name="tunnel_ads_blocked">
+        <item quantity="one">%d adv. geblokkeerd</item>
+        <item quantity="other">%d adv. geblokkeerd</item>
+    </plurals>
+    <string name="tunnel_selected_desc">Tik aan om een blokkeermechanisme te kiezen dat het beste werkt voor jouw apparaat</string>
+    <string name="tunnel_selected_legacy">Standaard blokkade</string>
+    <string name="tunnel_selected_legacy_desc">Dit blokkeermechanisme werkt op alle apparaten, maar kan een impact hebben op batterijverbruik en prestaties. Gebruik dit mechanisme wanneer de Geoptimaliseerde blokkade niet ondersteund wordt door jouw apparaat.</string>
+    <string name="tunnel_selected_lollipop">Geoptimaliseerde blokkade</string>
+    <string name="tunnel_selected_lollipop_desc">Dit is het nieuwe blokkeermechanisme met minimale impact op batterijverbruik en prestaties, en het wordt door jouw apparaat ondersteund! Tenzij je problemen ondervindt is dit de aanbevolen keuze.</string>
+    <string name="tunnel_selected_lollipop_desc_unsupported">Dit is het nieuwe blokkeermechanisme met minimale impact op batterijverbruik en prestaties. Helaas is Android 5 of nieuwer vereist, waardoor het niet geactiveerd kan worden op jouw apparaat.</string>
+</resources>
