@@ -81,7 +81,8 @@
 
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_connectivity_desc">When enabled, %s will monitor Internet connection and pause whenever your device is offline.</string>
-    <string name="main_connectivity_text">Connectivity</string>
+    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">Online only</string>
 
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_status_desc">This icon displays the current status of %s and if everything is working correctly.</string>
