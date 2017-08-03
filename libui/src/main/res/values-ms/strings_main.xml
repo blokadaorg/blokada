@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome">Terima kasih kerana memasang %1$s! ❤\n\nAplikasi ini berfungi mengikut cara anda. Sila biarkan tetingkap ini terbuka, sentuh pada perisai untuk hidupkan, dan ia sedia untuk beraksi.\n\nAkan tetapi, jika anda memerlukan kawalan yang lebih, sila gunakan suis di bawah untuk menghidupkan fungsi lanjutan.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_cleanup">Terdapat beberapa versi  %1$s pada peranti anda. Adakah anda ingin menyimpan versi terbaru dan nyahpasang yang lain sekarang?</string>
+    <string name="main_cleanup_done">Nyahpasang dimulakan&#8230;</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_migrate">Terima kasih kerana mengemas kini %1$s ! ❤\n\nSekarang anda menggunakan versi klasik untuk apalikasi ini. Peranti ini boleh menampung versi yang lebih pantas dan ringan yang mana ia boleh dipasang dengan percuma. Adakah anda ingin bertukar kepada versi ini sekarang?</string>
+    <string name="main_migrate_slim">Ya, saya mahu menggunakan versi yang lebih pantas (disyorkan)</string>
+    <string name="main_migrate_prod">Ya, tetapi saya menggunakan sekatan umum</string>
+    <string name="main_advanced_off">Saya pengguna baru (disyorkan)</string>
+    <string name="main_advanced_on">Saya pengguna advan</string>
+    <string name="main_continue">Teruskan</string>
+    <string name="main_install">Pasang</string>
+    <string name="main_skip">Langkah</string>
+    <string name="main_loading">Dimuatkan...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_intro">Selamat datang ke %s! Sila sentuh perisai untuk menghidupkan aplikasi ini. Sila beri kebenaran jika diminta.</string>
+    <string name="main_error">Ada sesuatu yang tidak kena. Sila periksa sambungan Internet anda dan cuba lagi.</string>
+    <string-array name="main_activating">
+        <item>Menetapkan pertukaran...</item>
+        <item>Dalam proses...</item>
+        <item>Penetapan...</item>
+        <item>Memuatkan…</item>
+        <item>Bekerja...</item>
+        <item>Proses...</item>
+    </string-array>
+    <string name="main_activating_new">Menatapkan peranti anda, sila tunggu...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_deactivating_new">Mematikan %s. Sila tunggu...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_active">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s dihidupkan</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s berfungsi dengan betul.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s bekerja dengan betul.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s hidup.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_new">%1$s sedang melindungi peranti anda dari iklan. Anda boleh menala %1$s di bawah, atau terus menggunakan peranti anda sekarang!</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_paused">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s tidak aktiv.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s dihentikan.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s dipadamkan.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable">%1$s terhenti kerana peranti anda tidak bersambung kepada rangkain. %1$s akan kembali aktiv apabila sambungan Internet anda pulih kembali.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable_tethering">%1$s terhenti kerana peranti anda sedang menggunakan aplikasi WiFi Hotspot. %1$s akan kembali aktiv apabila aplikasi WiFi Hotspot ini dimatikan.</string>
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">Penghalang iklan</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <string name="main_quicksettings_on">Aktiv</string>
+    <!-- Disabled status for the Quick Settings toggle -->
+    <string name="main_quicksettings_off">Dimatikan</string>
+    <string name="main_faq_desc">Sentuh untuk melihat jawapan kepada soalan² umum.</string>
+    <string name="main_faq_text">Bantuan</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_donate_desc">Sokongan anda merialisasikan %s!</string>
+    <string name="main_donate_text">Derma</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_blog_desc">Sentuh untuk memaparkan update terbaru daripada %s Komuniti.</string>
+    <string name="main_blog_text">Komuniti</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_desc">Apabila dihidupkan, %s akan menghantar maklumat tentang pencapaiannya secara anonymous. Kami memerlukan maklumat ini untuk penambahbaikkan kepada aplikasi ini.</string>
+    <string name="main_tracking_text">Laporan kesihatan</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_disabled">%s tidak akan lagi menhantar laporan kesihatan. Anda perlu restart aplikasi ini untuk perubahan ini.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_enabled">Mulai sekarang %s akan menghantar laporan kasihatan secara anonymous dari masa ke masa.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_status_desc">Ikon ini memaparkan kondisi terkini %s dan jika semua berjalan dengan baik.</string>
+    <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
+    <string name="main_status_long">%2$s sedang %1$s</string>
+    <!-- App status (very short). For example: active. Parameter: app status. -->
+    <string name="main_status_short">%1$s</string>
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">Aktiv</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">Dimatikan</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">Sedang Diaktivkan</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">Sedang Dimatikan</string>
+    <string name="main_status_error">Masalah ditemui</string>
+    <string name="main_autostart_text">Mula pada boot</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_autostart_desc">Apabila dihidupkan, %s akan dimulakan secara automatik apabila peranti anda dimulakan.</string>
+    <string name="main_data_start">Penjimatan data dimatikan</string>
+    <!-- How much megabytes of data was saved so far. Displayed in the home screen. Parameter: number of MB saved, as in 2.35 MB. -->
+    <string name="main_data_normal">%.2f MB dijimatkan</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_data_desc">Apabila %s sedang aktiv, ruangan ini akan menunjukkan anggaran jumlah data yang telah dijimatkan.</string>
+    <string name="main_feedback_text">Maklumbalas</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_feedback_desc">Sentuh untuk cadangan idea baru dan bantu memajukan %s!</string>
+    <string name="main_bug_text">Laporkan pepijat</string>
+    <string name="main_bug_desc">Sentuh untuk laporan masalah dan benarkan kami membantu anda.</string>
+</resources>

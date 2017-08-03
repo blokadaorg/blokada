@@ -69,12 +69,15 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">"Wybierz aby sprawdzić co słychać w społeczności %s. "</string>
     <string name="main_blog_text">Społeczność</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_desc">Aktywuj aby %s mogła zbierać anonimowe dane na temat jej wydajności. Jest to nam potrzebne do ulepszania tej aplikacji.</string>
     <string name="main_tracking_text">Raport</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_disabled">%s nie będzie już wysyłać żadnych raportów wydajności (musisz zrestartować aplikację).</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_enabled">%s będzie sporadycznie wysyłać anonimowy raport wydajności.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_status_desc">Ta ikonka wskazuje aktualny status aplikacji %s.</string>
     <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->

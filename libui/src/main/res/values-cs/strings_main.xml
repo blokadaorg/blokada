@@ -70,12 +70,15 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Klepněte pro zobrazení nejnovější aktualizace ze společenství %s.</string>
     <string name="main_blog_text">Společenství</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_desc">Pokud je povoleno, %s odešle anonymní informace o jeho výkonu. Potřebujeme to, abychom neustále zlepšovali aplikaci.</string>
     <string name="main_tracking_text">Zpráva o stavu</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_disabled">%s již neodesílá žádné zprávy. Potřebujete restartovat aplikaci, aby se tato skutečnost projevila.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_enabled">%s nyní občas odesílá anonymní zprávy.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_status_desc">Tato ikona zobrazuje aktuální stav %s pokud vše funguje správně.</string>
     <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
