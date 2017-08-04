@@ -43,25 +43,22 @@ fun newAppModule(): Kodein.Module {
             s.active.doWhenChanged(withInit = true).then {
                 if (s.active() && s.tunnelState(TunnelState.INACTIVE)) {
                     s.retries %= s.retries() - 1
-                    var attempts = 3
                     s.tunnelState %= TunnelState.ACTIVATING
-                    while (attempts-- > 0 && !s.tunnelState(TunnelState.ACTIVE)) {
+                    s.tunnelPermission.refresh(blocking = true)
+                    if (s.tunnelPermission(false)) {
+                        hasCompleted(j, {
+                            if (s.firstRun(true)) j.event(Events.FIRST_ACTIVE_ASK_VPN)
+                            perms.askForPermissions()
+                        })
                         s.tunnelPermission.refresh(blocking = true)
-                        if (s.tunnelPermission(false)) {
-                            hasCompleted(j, {
-                                if (s.firstRun(true)) j.event(Events.FIRST_ACTIVE_ASK_VPN)
-                                perms.askForPermissions()
-                            })
-                            s.tunnelPermission.refresh(blocking = true)
-                        }
+                    }
 
-                        if (s.tunnelPermission(true)) {
-                            val (completed, err) = hasCompleted(null, { engine.start() })
-                            if (completed) {
-                                s.tunnelState %= TunnelState.ACTIVE
-                            } else {
-                                j.log(Exception("could not activate: ${err}"))
-                            }
+                    if (s.tunnelPermission(true)) {
+                        val (completed, err) = hasCompleted(null, { engine.start() })
+                        if (completed) {
+                            s.tunnelState %= TunnelState.ACTIVE
+                        } else {
+                            j.log(Exception("could not activate: ${err}"))
                         }
                     }
 
