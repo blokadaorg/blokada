@@ -84,7 +84,7 @@ fun newAppModule(): Kodein.Module {
                     // Reset retry counter in case we seem to be stable
                     resetRetriesTask = task(retryKctx) {
                         if (s.tunnelState(TunnelState.ACTIVE)) {
-                            Thread.sleep(10 * 1000)
+                            Thread.sleep(15 * 1000)
                             if (s.tunnelState(TunnelState.ACTIVE)) s.retries.refresh()
                         }
                     }
@@ -169,7 +169,15 @@ fun newAppModule(): Kodein.Module {
 
             // Make sure watchdog is started and stopped as user wishes
             s.watchdogOn.doWhenChanged().then { when {
-                s.watchdogOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> watchdog.start()
+                s.watchdogOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> {
+                    // Flip the connected flag so we detect the change if now we're actually connected
+                    s.connection %= Connection(
+                            connected = false,
+                            tethering = s.connection().tethering,
+                            dnsServers = s.connection().dnsServers
+                    )
+                    watchdog.start()
+                }
                 s.watchdogOn(false) -> {
                     watchdog.stop()
                     s.connection.refresh()
