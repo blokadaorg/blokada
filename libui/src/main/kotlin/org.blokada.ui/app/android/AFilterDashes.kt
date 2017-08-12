@@ -122,7 +122,7 @@ class AddBlacklist(
                 newFilter.whitelist = false
                 s.filters %= s.filters() + newFilter
             }
-            dialog.show(null)
+            dialog.show(null, whitelist = false)
             false
         }
 )
@@ -140,7 +140,7 @@ class AddWhitelist(
                 newFilter.whitelist = true
                 s.filters %= s.filters() + newFilter
             }
-            dialog.show(null)
+            dialog.show(null, whitelist = true)
             false
         }
 )

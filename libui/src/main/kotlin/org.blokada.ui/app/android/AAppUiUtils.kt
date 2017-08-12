@@ -1,7 +1,10 @@
 package org.blokada.ui.app.android
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import org.blokada.app.IFilterSource
+import org.blokada.app.android.FilterSourceApp
 import org.blokada.app.android.FilterSourceLink
 import org.blokada.app.android.FilterSourceUri
 import org.blokada.framework.IEnvironment
@@ -34,10 +37,26 @@ internal fun sourceToName(ctx: android.content.Context, source: IFilterSource): 
             ctx.getString(R.string.filter_name_file, source.source?.lastPathSegment
                     ?: ctx.getString(R.string.filter_name_file_unknown))
         }
+        is FilterSourceApp -> { try {
+            ctx.packageManager.getApplicationLabel(
+                    ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
+            ).toString()
+        } catch (e: Exception) { source.toUserInput() }}
         else -> null
     }
 
     return name ?: source.toString()
+}
+
+internal fun sourceToIcon(ctx: android.content.Context, source: IFilterSource): Drawable? {
+    return when (source) {
+        is FilterSourceApp -> { try {
+            ctx.packageManager.getApplicationIcon(
+                    ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
+            )
+        } catch (e: Exception) { null }}
+        else -> null
+    }
 }
 
 internal fun canShowNotification(last: Long, env: IEnvironment, cooldownMillis: Long): Boolean {

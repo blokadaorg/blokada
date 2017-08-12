@@ -74,6 +74,7 @@ class AppModuleTest {
                             changelog = "changes",
                             lastRefreshMillis = 0L
                     ) })
+                    override val apps = newProperty(kctx, { emptyMap<String, String>() })
                     override val filterConfig = newProperty(kctx, {
                         FilterConfig(
                                 cacheFile = File("dummy"),

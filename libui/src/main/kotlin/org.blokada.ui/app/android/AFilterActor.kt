@@ -8,7 +8,9 @@ import org.blokada.app.android.FilterSourceUri
 import org.blokada.app.Filter
 import org.blokada.app.FilterSourceSingle
 import org.blokada.app.State
+import org.blokada.app.android.FilterSourceApp
 import org.blokada.framework.android.di
+import org.blokada.lib.ui.R
 
 
 class AFilterActor(
@@ -47,12 +49,22 @@ class AFilterActor(
         v.description = filter.localised?.comment
         v.active = filter.active
 
-        if (filter.source is FilterSourceSingle) {
+        if (filter.source is FilterSourceApp) {
+            v.multiple = false
+            v.icon = sourceToIcon(v.context, filter.source)
+            v.counter = null
+            v.source = filter.source.toUserInput()
+            if (filter.localised?.comment == null && s.tunnelActiveEngine() != "lollipop")
+                v.description = v.context.getString(R.string.filter_edit_app_unsupported)
+            v.credit = null
+        } else if (filter.source is FilterSourceSingle) {
+            v.icon = null
             v.multiple = false
             v.counter = null
             v.source = null
             v.credit = null
         } else {
+            v.icon = null
             v.multiple = true
             v.counter = if (filter.hosts.isNotEmpty()) filter.hosts.size else null
 

@@ -94,6 +94,7 @@ fun newAndroidAppModule(ctx: Context): Kodein.Module {
             when (sourceId) {
                 "link" -> FilterSourceLink(cfg.fetchTimeoutMillis, processor)
                 "file" -> FilterSourceUri(ctx = instance(), processor = instance())
+                "app" -> FilterSourceApp(ctx = instance())
                 else -> FilterSourceSingle()
             }}
         bind<FilterSerializer>() with singleton { FilterSerializer(s = instance(),

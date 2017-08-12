@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.VpnService
 import com.github.salomonbrys.kodein.instance
 import org.blokada.app.State
+import org.blokada.app.android.FilterSourceApp
 import org.blokada.app.android.ITunnelEvents
 import org.blokada.framework.IJournal
 import org.blokada.framework.android.di
@@ -69,9 +70,10 @@ internal class ALollipopTunnelEvents(
             }
         }
 
-        // TODO: support any apps
-        builder.addDisallowedApplication("com.android.vending")
-        builder.addDisallowedApplication("com.google.android.apps.docs")
+        s.filters().filter { it.whitelist && it.active && it.source is FilterSourceApp }.forEach {
+            builder.addDisallowedApplication(it.source.toUserInput())
+        }
+
         builder.setBlocking(true)
         return 0L
     }

@@ -18,6 +18,8 @@ import org.blokada.framework.nullIfEmpty
 import org.blokada.app.FilterSourceSingle
 import org.blokada.app.IFilterSource
 import org.blokada.app.LocalisedFilter
+import org.blokada.app.State
+import org.blokada.app.android.FilterSourceApp
 import org.blokada.framework.android.di
 
 /**
@@ -34,6 +36,7 @@ class AFilterAddDialog(
     private val view = LayoutInflater.from(themedContext)
             .inflate(R.layout.view_filtersadd, null, false) as AFiltersAddView
     private val dialog: AlertDialog
+    private var whitelist: Boolean = false
 
     init {
         val d = AlertDialog.Builder(activity)
@@ -43,11 +46,15 @@ class AFilterAddDialog(
         dialog = d.create()
     }
 
-    fun show(filter: Filter?) {
+    fun show(filter: Filter?, whitelist: Boolean = false) {
+        this.whitelist = whitelist
+
+        view.showApp = whitelist
         view.forceType = when {
             filter?.source is FilterSourceLink -> AFiltersAddView.Tab.LINK
             filter?.source is FilterSourceUri -> AFiltersAddView.Tab.FILE
             filter?.source is FilterSourceSingle -> AFiltersAddView.Tab.SINGLE
+            filter?.source is FilterSourceApp -> AFiltersAddView.Tab.APP
             else -> null
         }
 
@@ -69,6 +76,10 @@ class AFilterAddDialog(
                 view.fileView.comment = filter.localised?.comment ?: ""
                 view.fileView.filters = filter.hosts
             }
+            AFiltersAddView.Tab.APP -> {
+                view.appView.text = filter.source.toUserInput()
+                view.appView.comment = filter.localised?.comment ?: ""
+            }
         }
 
         dialog.show()
@@ -89,6 +100,7 @@ class AFilterAddDialog(
                             id = filter?.id ?: view.singleView.text,
                             source = FilterSourceSingle(view.singleView.text),
                             active = true,
+                            whitelist = filter?.whitelist ?: whitelist,
                             localised = LocalisedFilter(view.singleView.text,
                             view.singleView.comment.nullIfEmpty())
                     ))
@@ -111,6 +123,7 @@ class AFilterAddDialog(
                                 source = it.first,
                                 hosts = it.second,
                                 active = true,
+                                whitelist = filter?.whitelist ?: whitelist,
                                 localised = LocalisedFilter(sourceToName(ctx, it.first),
                                 view.linkView.comment.nullIfEmpty())
                         ))
@@ -138,6 +151,7 @@ class AFilterAddDialog(
                                 source = it.first,
                                 hosts = it.second,
                                 active = true,
+                                whitelist = filter?.whitelist ?: whitelist,
                                 localised = LocalisedFilter(sourceToName(ctx, it.first),
                                 view.fileView.comment.nullIfEmpty())
                         ))
@@ -145,6 +159,31 @@ class AFilterAddDialog(
                     } failUi {
                         view.fileView.correct = false
                         view.fileView.showError = true
+                    }
+                }
+            }
+            AFiltersAddView.Tab.APP -> {
+                if (!view.appView.correct) view.appView.showError = true
+                else {
+                    task {
+                        val source = sourceProvider("app")
+                        if (!source.fromUserInput(view.appView.text))
+                            throw Exception("invalid source")
+                        source
+                    } successUi {
+                        dialog.dismiss()
+                        onSave(Filter(
+                                id = filter?.id ?: it.serialize(),
+                                source = it,
+                                active = true,
+                                whitelist = true,
+                                localised = LocalisedFilter(sourceToName(ctx, it),
+                                        view.appView.comment.nullIfEmpty())
+                        ))
+                        view.appView.correct = true
+                    } failUi {
+                        view.appView.correct = false
+                        view.appView.showError = true
                     }
                 }
             }

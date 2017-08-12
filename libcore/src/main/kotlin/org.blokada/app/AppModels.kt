@@ -35,6 +35,8 @@ abstract class State {
     abstract val repo: IProperty<Repo>
     abstract val localised: IProperty<Localised>
 
+    abstract val apps: IProperty<Map<String, String>>
+
     // Those do not change during lifetime of the app
     abstract val filterConfig: IProperty<FilterConfig>
     abstract val tunnelConfig: IProperty<TunnelConfig>

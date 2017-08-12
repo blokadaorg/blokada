@@ -5,6 +5,7 @@ import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
 import org.blokada.app.android.AUpdateDownloader
+import org.blokada.app.android.FilterSourceApp
 import org.blokada.framework.*
 
 
@@ -205,6 +206,25 @@ fun newAppModule(): Kodein.Module {
                 j.setUserProperty(Properties.ENGINE_ACTIVE, s.tunnelActiveEngine())
 
                 s.tunnelActiveEngine %= selected!!.id
+            }
+
+            // Reload engine in case whitelisted apps selection changes
+            var currentApps = listOf<Filter>()
+            s.filters.doWhenSet().then {
+                val newApps = s.filters().filter { it.whitelist && it.active && it.source is FilterSourceApp }
+                if (newApps != currentApps) {
+                    currentApps = newApps
+
+                    if (!s.enabled()) {
+                    } else if (s.active()) {
+                        s.restart %= true
+                        s.active %= false
+                    } else {
+                        s.retries.refresh()
+                        s.restart %= false
+                        s.active %= true
+                    }
+                }
             }
 
             // Compile filters every time they change

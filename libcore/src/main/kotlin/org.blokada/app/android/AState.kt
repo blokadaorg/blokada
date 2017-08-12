@@ -1,6 +1,7 @@
 package org.blokada.app.android
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.PowerManager
 import com.github.salomonbrys.kodein.instance
@@ -295,5 +296,13 @@ class AState(
             }
     )
 
+    override val apps = newProperty(kctx, zeroValue = { emptyMap<String, String>() },
+            refresh = {
+                val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+                installed.flatMap { listOf(
+                        ctx.packageManager.getApplicationLabel(it).toString() to it.packageName,
+                        it.packageName to it.packageName
+                )}.toMap()
+            })
 }
 

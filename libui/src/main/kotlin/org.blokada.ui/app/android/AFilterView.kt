@@ -2,6 +2,7 @@ package org.blokada.ui.app.android
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.SwitchCompat
 import android.text.Html
 import android.util.AttributeSet
@@ -27,8 +28,17 @@ class AFilterView(
     var multiple: Boolean = false
         set(value) {
             field = value
+            iconView.setColorFilter(ctx.resources.getColor(R.color.colorActive))
             if (multiple) iconView.setImageResource(R.drawable.ic_hexagon_multiple)
             else iconView.setImageResource(R.drawable.ic_hexagon)
+        }
+
+    var icon: Drawable? = null
+        set(value) {
+            field = value
+            iconView.setColorFilter(ctx.resources.getColor(android.R.color.transparent))
+            if (value != null) iconView.setImageDrawable(value)
+            else multiple = multiple // To refresh default icon
         }
 
     var active: Boolean? = false

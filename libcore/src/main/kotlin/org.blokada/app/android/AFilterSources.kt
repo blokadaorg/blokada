@@ -10,6 +10,7 @@ import org.blokada.framework.load
 import org.blokada.framework.openUrl
 import com.github.salomonbrys.kodein.instance
 import org.blokada.app.IHostlineProcessor
+import org.blokada.app.State
 import org.blokada.framework.IJournal
 import org.blokada.framework.android.di
 import java.net.URL
@@ -116,6 +117,56 @@ class FilterSourceUri(
 
     override fun equals(other: Any?): Boolean {
         if (other !is FilterSourceUri) return false
+        return source?.equals(other.source) ?: false
+    }
+
+    override fun hashCode(): Int {
+        return source?.hashCode() ?: 0
+    }
+}
+
+class FilterSourceApp(
+        private val ctx: Context,
+        var source: String? = null
+) : IFilterSource {
+
+    private val apps by lazy {
+        val s = ctx.di().instance<org.blokada.app.State>()
+        if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
+        s.apps().keys.map { it.toLowerCase() to s.apps()[it] }.toMap()
+    }
+
+    override fun id(): String {
+        return "app"
+    }
+
+    override fun fetch(): List<String> {
+        // This is a special type that doesn't have hosts domains
+        return emptyList()
+    }
+
+    override fun fromUserInput(vararg string: String): Boolean {
+        return try {
+            source = apps[string[0].toLowerCase()] ?: throw Exception()
+            true
+        } catch (e: Exception) { false }
+    }
+
+    override fun toUserInput(): String {
+        return source.toString()
+    }
+
+    override fun serialize(): String {
+        return source.toString()
+    }
+
+    override fun deserialize(string: String, version: Int): FilterSourceApp {
+        source = string // todo: validation
+        return this
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is FilterSourceApp) return false
         return source?.equals(other.source) ?: false
     }
 

@@ -31,6 +31,14 @@
     <string name="filter_edit_link_placeholder">http://example.com/hosts.txt</string>
     <string name="filter_edit_link_error">This link cannot be downloaded or does not seem to contain hosts.</string>
 
+    <!-- Name of a tab that allows to whitelist app. -->
+    <string name="filter_edit_app">App</string>
+    <string name="filter_edit_app_enter">Enter app name or package name</string>
+    <!-- An example package name of app to whitelist. -->
+    <string name="filter_edit_app_placeholder">Google Play Store</string>
+    <string name="filter_edit_app_error">This app does not exist or cannot be whitelisted.</string>
+    <string name="filter_edit_app_unsupported">(not supported by standard blocking)</string>
+
     <string name="filter_edit_save">Save</string>
     <string name="filter_edit_cancel">Cancel</string>
     <string name="filter_edit_comments">Comments</string>
