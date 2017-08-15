@@ -11,7 +11,7 @@
 
 langs="es pt fr pl cs de nl ms"
 xml="filter main notification tunnel update"
-pages="donate.html help.html"
+pages="donate.html help.html contribute.html"
 props="strings_repo.properties strings_store.properties strings_filters.properties"
 
 l=""
