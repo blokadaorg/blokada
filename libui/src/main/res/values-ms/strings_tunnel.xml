@@ -16,5 +16,5 @@
     <string name="tunnel_selected_legacy_desc">Mekanisasi penyekatan ini berfungi untuk semua peranti, tetapi mungkin  memendekkan hayat bateri dan mengganggu prestasi. Jika peranti anda menyokong penyekatan optimum, sila gunakan mekanisasi ini.</string>
     <string name="tunnel_selected_lollipop">Penyekatan Optimum</string>
     <string name="tunnel_selected_lollipop_desc">Ini adalah mekanisasi penyekatan baharu dengan pengurangan penggunaan bateri dan prestasi, dan ia dapat disokong oleh peranti anda! Ia adalah pilihan yang disyorkan kecuali anda mengalami masalah dengannya.</string>
-    <string name="tunnel_selected_lollipop_desc_unsupported">Ini adalah mekanisasi penyekatan terbaharu dengan pengurangan penggunaan bateri dan prestasi. Akan tetapi ia memerlukan Android 5 dan keatas, jadi ia tidak dapat diaktivkan pada peranti ini.</string>
+    <string name="tunnel_selected_lollipop_desc_unsupported">Ini adalah mekanisasi penyekatan terbaharu dengan pengurangan penggunaan bateri dan prestasi. Akan tetapi ia memerlukan Android 5 dan keatas, jadi ia tidak dapat diaktifkan pada peranti ini.</string>
 </resources>

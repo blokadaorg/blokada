@@ -23,7 +23,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_disabled">%s tidak lagi melindungi penjimatan bateri atau ingatan.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_enabled">Mulai sekarang, %s akan melindungi dirinya daripada dinyah-aktivkan oleh system pengoperasian.</string>
+    <string name="notification_keepalive_enabled">Mulai sekarang, %s akan melindungi dirinya daripada dinyah-aktifkan oleh system pengoperasian.</string>
     <!-- The ads blocked counter, displayed in the Keep Alive notification. Parameter: ads blocked counter. -->
     <plurals name="notification_keepalive_title">
         <item quantity="other">%d iklan disekat</item>

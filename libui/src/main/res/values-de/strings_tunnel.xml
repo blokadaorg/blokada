@@ -7,16 +7,16 @@
         <item quantity="one">%d host</item>
         <item quantity="other">%d hosts</item>
     </plurals>
-    <string name="tunnel_ads_desc">Zeigt die Anzahl der bisher blockierten Anzeigen</string>
+    <string name="tunnel_ads_desc">Zeigt die Anzahl der bisher blockierten Anzeigen.</string>
     <!-- The counter displayed the total number of ads blocked (in the home screen). Parameter: number of ads blocked. -->
     <plurals name="tunnel_ads_blocked">
         <item quantity="one">%d Anzeige blockiert</item>
         <item quantity="other">%d Anzeigen blockiert</item>
     </plurals>
     <string name="tunnel_selected_desc">Wähle den Blocking-Mechanismus, der am besten für dein Gerät funktioniert.</string>
-    <string name="tunnel_selected_legacy">Standard blocking</string>
+    <string name="tunnel_selected_legacy">Standard-Blocking</string>
     <string name="tunnel_selected_legacy_desc">Dieser Blocking-Mechanismus funktioniert auf allen Geräten, könnte aber einen minimal höheren Akkuverbrauch haben oder die Performance beeinflussen. Wenn optimiertes Blocking von deinem Gerät nicht unterstützt wird, nutze diese Methode.</string>
-    <string name="tunnel_selected_lollipop">Optimiertes blocking</string>
+    <string name="tunnel_selected_lollipop">Optimiertes Blocking</string>
     <string name="tunnel_selected_lollipop_desc">Dies ist der neue Blocking-Mechanismus mit minimalem Einfluss auf Akku und Performance, und er wird von deinem Gerät unterstützt! Solange Du keine Probleme feststellst, ist dies die empfohlene Methode.</string>
     <string name="tunnel_selected_lollipop_desc_unsupported">Dies ist der neue Blocking-Mechanismus mit minimalem Einfluss auf Akku und Performance. Leider wird hierfür Android 5 oder höher vorausgesetzt, weshalb er auf deinem Gerät nicht aktiviert werden kann.</string>
 </resources>

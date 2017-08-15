@@ -15,7 +15,7 @@
     <!-- Feel free to make this string a bit more localised. For example it can say, "This app and its Spanish version is made possible thanks to:" -->
     <string name="update_credits_header">Esta aplicación es un proyecto de código abierto hecha posible gracias a:</string>
     <!-- We appreciate you translating this app and welcome you to add your name here - it will show up in the About/Update screen. Please add yourself before everyone, one name per line. If you add a link, your name will be clickable (John Doe: http://my-website.com) -->
-    <string name="update_credits">Wolf Igmc4 (Español)\nKarsen: http://kar.gs</string>
+    <string name="update_credits">Wolf Igmc4 (Español)\nKarsen: http://kar.gs\n... ¡y tú!</string>
     <string name="update_dash_desc">Toca para mostrar detalles de la actualización.</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
     <string name="update_dash_available">&lt;b&gt;¡Actualización disponible!&lt;/b&gt;</string>

@@ -6,9 +6,11 @@
     <string name="main_welcome_cleanup">Du hast mehrere Versionen von %1$s auf deinem Gerät installiert. Möchtest Du die beste Version behalten und den Rest deinstallieren?</string>
     <string name="main_cleanup_done">Deinstallation gestartet&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Danke, dass Du %1$s aktuell hältst! ❤\n\nDu benutzt die Classic-Version dieser App. Dein Gerät unterstützt eine schnellere und kompaktere Version, die Du kostenlos installieren kannst. Möchtest Du jetzt umsteigen?</string>
     <string name="main_migrate_slim">Ja, ich möchte die schnellere Version (empfohlen)</string>
-    <string name="main_migrate_prod">Ja, aber ich benutze Standard-Blocking</string>
+    <string name="main_migrate_prod">Ja, aber Ich benutze das Standard-Blocking</string>
     <string name="main_advanced_off">Ich bin neu hier (empfohlen)</string>
     <string name="main_advanced_on">Ich bin ein erfahrener Nutzer</string>
     <string name="main_continue">Fortsetzen</string>
@@ -28,7 +30,7 @@
     </string-array>
     <string name="main_activating_new">Dein Gerät wird eingerichtet, bitte warten...</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_deactivating_new">Deaktiviere %s ab. Bitte warten...</string>
+    <string name="main_deactivating_new">Deaktiviere %s. Bitte warten...</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string-array name="main_active">
     <!-- Parameter: branded app name (Blokada). -->
@@ -66,6 +68,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_donate_desc">Dein Support macht %s möglich!</string>
     <string name="main_donate_text">Spenden</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Antippen, um Updates der %s-Community zu sehen.</string>
     <string name="main_blog_text">Community</string>
@@ -106,6 +109,6 @@
     <string name="main_feedback_text">Feedback</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_feedback_desc">Klicke, um eine Idee zu übermitteln und zu helfen, %s zu verbessern!</string>
-    <string name="main_bug_text">Melde einen Fehler</string>
+    <string name="main_bug_text">Fehler melden</string>
     <string name="main_bug_desc">Klicke, um ein Problem zu melden und Hilfe zu erhalten.</string>
 </resources>

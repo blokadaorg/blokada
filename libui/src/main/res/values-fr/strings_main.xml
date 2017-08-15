@@ -6,6 +6,8 @@
     <string name="main_welcome_cleanup">Vous avez plusieurs versions de %1$s installées sur votre appareil. Voulez-vous garder la meilleure version et désinstaller les autres maintenant ?</string>
     <string name="main_cleanup_done">Désinstallation démarrée&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Merci de maintenir %1$s à jour ! ❤\n\nVous utilisez la version classique de l\'appli. Votre appareil supporte une version plus légère et rapide que vous pouvez installer gratuitement. Voulez-vous basculer maintenant ?</string>
     <string name="main_migrate_slim">Oui, je veux la version la plus rapide (recommandé)</string>
     <string name="main_migrate_prod">Oui, mais j\'utilise le blocage classique</string>
@@ -67,6 +69,7 @@
     <string name="main_donate_desc">Votre support rend %s possible !</string>
     <string name="main_donate_text">Donner</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Cliquer pour voir les dernières mises à jour de la communauté %s</string>
     <string name="main_blog_text">Communauté</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -77,7 +80,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_enabled">%s enverra désormais des rapports de santé de temps en temps.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_connectivity_desc">Lorsqu\'activé, %s surveillera la connexion internet et se mettra en pause quand votre appareil est hors connexion.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">En ligne uniquement</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_status_desc">Cet icone montre le statut actuel de %s et si tout fonctionne correctement.</string>
     <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->

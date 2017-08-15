@@ -6,6 +6,8 @@
     <string name="main_welcome_cleanup">Na vašem zařízení máte nainstalováno několik verzí %1$s. Chcete si udržet nejlepší verzi a odinstalovat zbytečné?</string>
     <string name="main_cleanup_done">Odinstalování&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Děkujeme, že jste si aktualizovali %1$s! ❤\n\nPoužíváte klasickou verzi této aplikace. Vaše zařízení podporuje rychlejší, menší verzi, kterou si můžete zdarma nainstalovat. Chcete přejít nyní?</string>
     <string name="main_migrate_slim">Ano, chci rychlejší verzi (doporučeno)</string>
     <string name="main_migrate_prod">Ano, ale používám standardní blokování</string>
@@ -67,6 +69,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_donate_desc">Vaše podpora je možná %s!</string>
     <string name="main_donate_text">Darovat</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Klepněte pro zobrazení nejnovější aktualizace ze společenství %s.</string>
     <string name="main_blog_text">Společenství</string>

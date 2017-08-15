@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <resources>
-    <string name="notification_on_text">Notifications</string>
+    <string name="notification_on_text">Benachrichtigungen</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_on_desc">Wenn aktiviert, zeigt %s eine Benachrichtigung für jede blockierte Anzeige.</string>
     <!-- Title of the notification that shows up every time ad is blocked. -->
@@ -14,7 +14,7 @@
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
     <string name="notification_blocked_whitelist_applied">Fertig! Die Änderungen werden in wenigen Sekunden aktiv.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_disabled">%s wird keine Notifications anzeigen.</string>
+    <string name="notification_disabled">%s wird keine Benachrichtigungen anzeigen.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_enabled">%s zeigt eine Benachrichtigung für jede blockierte Anzeige.</string>
     <string name="notification_keepalive_text">Aktiv halten</string>

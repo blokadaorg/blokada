@@ -22,7 +22,7 @@
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
     <string name="update_dash_uptodate">Terbaharu</string>
     <!-- Displayed in menu to open the About/Update screen. -->
-    <string name="update_about">Prihal</string>
+    <string name="update_about">Mengenai</string>
     <string name="update_about_desc">Sentuh untuk memaparkan informasi berkenaan aplikasi ini.</string>
     <string name="update_force_dash_desc">Sentuh untuk mengemaskini sekarang</string>
     <!-- A button that opens system preferences for this app. -->

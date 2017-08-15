@@ -6,6 +6,8 @@
     <string name="main_welcome_cleanup">Je hebt verschillende versies van %1$s geinstalleerd op je apparaat. Wil je de beste versie behouden en de anderen nu verwijderen?</string>
     <string name="main_cleanup_done">Begonnen met verwijderen&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Bedankt voor het bijwerken van %1$s! ❤\n\nJe gebruikt een oude versie van deze app. Je apparaat ondersteunt een snellere, kleinere versie die je gratis kan installeren. Wil je nu overstappen?</string>
     <string name="main_migrate_slim">Ja, ik wil de snellere versie (aanbevolen)</string>
     <string name="main_migrate_prod">Ja, maar ik gebruik standaard blokkering</string>
@@ -67,6 +69,7 @@
     <string name="main_donate_desc">Jouw hulp maakt %s mogelijk!</string>
     <string name="main_donate_text">Doneren</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Tik aan om het recente nieuws van de %s community te lezen</string>
     <string name="main_blog_text">Gemeenschap</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -77,7 +80,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_enabled">%s zal nu van tijd tot tijd anonieme gezondheidsrapporten verzenden.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_connectivity_desc">Wanneer ingeschakeld, zal %s je internet verbinding monitoren en gepauzeerd worden als je apparaat offline is.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">Alleen online</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_status_desc">Dit icoon toont de huidige status van %s en of alles naar behoren werkt.</string>
     <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
