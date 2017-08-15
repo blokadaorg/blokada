@@ -8,6 +8,7 @@ import com.github.salomonbrys.kodein.instance
 import org.blokada.app.*
 import org.blokada.framework.*
 import org.blokada.framework.android.*
+import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.net.URL
 import java.nio.charset.Charset
@@ -46,6 +47,10 @@ class AState(
     )
 
     override val updating = newProperty(kctx, { false })
+
+    override val obsolete = newPersistedProperty(kctx, APrefsPersistence(ctx, "obsolete"),
+            { false }
+    )
 
     override val startOnBoot  = newPersistedProperty(kctx, APrefsPersistence(ctx, "startOnBoot"),
             { true }
@@ -187,7 +192,7 @@ class AState(
         val fetchTimeout = repoConfig().fetchTimeoutMillis
 
         try {
-            j.event(Events.UPDATE_CHECK_START)
+            j.event(Events.REPO_CHECK_START)
             val repo = load({ openUrl(repoURL, fetchTimeout) })
             val locales = repo[1].split(" ").map { Locale(it) }
             val x = 2 + 2 * locales.size
@@ -205,7 +210,10 @@ class AState(
                     lastRefreshMillis = now
             )
         } catch (e: Exception) {
-            j.event(Events.UPDATE_CHECK_FAIL)
+            j.event(Events.REPO_CHECK_FAIL)
+            if (e is FileNotFoundException) {
+                obsolete %= true
+            }
             throw e
         }
     }

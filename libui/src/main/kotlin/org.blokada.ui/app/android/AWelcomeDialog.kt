@@ -18,10 +18,13 @@ import org.blokada.lib.ui.R
 import org.blokada.ui.app.UiState
 import org.blokada.app.State
 import org.blokada.app.UpdateCoordinator
+import org.blokada.lib.ui.BuildConfig
+import org.blokada.ui.app.android.ContentActor.Companion.X_END
 import java.net.URL
 
 class AWelcomeDialog(
-        private val ctx: Context
+        private val ctx: Context,
+        private val contentActor: ContentActor
 ) {
 
     private val activity by lazy { ctx.di().instance<AActivityContext<MainActivity>>().getActivity() }
@@ -33,6 +36,7 @@ class AWelcomeDialog(
     private val s by lazy { ctx.di().instance<State>() }
     private val ui by lazy { ctx.di().instance<UiState>() }
     private val updater by lazy { ctx.di().instance<UpdateCoordinator>() }
+    private var shown = false
 
     init {
         val d = AlertDialog.Builder(activity)
@@ -41,22 +45,25 @@ class AWelcomeDialog(
             getInstalledBuilds().size > 1 -> setupForBuildsCleanup(d)
             ctx.packageName == "org.blokada" -> setupForMigration(d)
             ctx.packageName == "org.blokada.dev" -> setupForMigration(d) // Just to test the flow
+            s.obsolete() -> setupForObsolete(d)
+            ui.version() < BuildConfig.VERSION_CODE -> setupforUpdated(d)
             else -> setupForWelcome(d)
         }
     }
 
     fun shouldShow(): Boolean {
-        return ui.seenWelcome(false)
+        return !shown && (ui.seenWelcome(false) || ui.version() < BuildConfig.VERSION_CODE || s.obsolete())
     }
 
     fun show() {
         ui.seenWelcome %= true
+        ui.version %= BuildConfig.VERSION_CODE
         dialog.window.clearFlags(
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
                         WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
         )
         dialog.show()
-
+        shown = true
     }
 
     private fun setupForBuildsCleanup(d: AlertDialog.Builder): AlertDialog {
@@ -95,6 +102,7 @@ class AWelcomeDialog(
     }
 
     private fun setupForWelcome(d: AlertDialog.Builder): AlertDialog {
+        j.event(Events.Companion.FIRST_WELCOME)
         view.mode = AWelcomeView.Mode.WELCOME
         d.setPositiveButton(R.string.main_continue, { dia, int -> })
         val dialog = d.create()
@@ -109,6 +117,44 @@ class AWelcomeDialog(
                 ui.dashes %= ui.dashes()
 
                 j.event(Events.Companion.FIRST_WELCOME_ADVANCED)
+            }
+        }
+        return dialog
+    }
+
+    private fun setupForObsolete(d: AlertDialog.Builder): AlertDialog {
+        view.mode = AWelcomeView.Mode.OBSOLETE
+        d.setPositiveButton(R.string.main_install, { dia, int ->
+            // TODO: event
+            // TODO: https links
+            // TODO: not hardcoded urls
+            val url = URL("http://go.blokada.org/apk2_origin")
+            updater.start(listOf(url))
+        })
+        d.setNegativeButton(R.string.main_skip, { dia, int -> })
+        return d.create()
+    }
+
+    private fun setupforUpdated(d: AlertDialog.Builder): AlertDialog {
+        view.mode = AWelcomeView.Mode.UPDATED
+        view.checked = true
+        d.setPositiveButton(R.string.main_continue, { dia, int -> })
+        d.setNegativeButton(R.string.main_skip, { dia, int -> })
+        val dialog = d.create()
+        dialog.setOnDismissListener {
+            val dash = if (view.checked) {
+                // Open donate screen
+                ui.dashes().firstOrNull { it.id == DASH_ID_DONATE }
+            } else {
+                // Open support screen (translate, contribute, etc)
+                ui.dashes().firstOrNull { it.id == DASH_ID_CONTRIBUTE }
+            }
+
+            if (dash != null) {
+                contentActor.back {
+                    j.event(Events.Companion.CLICK_DASH(dash.id))
+                    contentActor.reveal(dash, X_END, 0)
+                }
             }
         }
         return dialog

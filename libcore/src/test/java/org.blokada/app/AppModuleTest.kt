@@ -28,6 +28,7 @@ class AppModuleTest {
                     override val restart = newProperty(kctx, { false })
                     override val firstRun = newProperty(kctx, { false })
                     override val updating = newProperty(kctx, { false })
+                    override val obsolete = newProperty(kctx, { false })
                     override val startOnBoot = newProperty(kctx, { false })
                     override val keepAlive = newProperty(kctx, { false })
                     override val identity = newProperty(kctx, { generateIdentity(IDENTITY_UUID) })

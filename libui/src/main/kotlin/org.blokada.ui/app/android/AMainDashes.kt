@@ -16,6 +16,7 @@ import org.blokada.ui.app.Dash
 import org.blokada.ui.app.UiState
 
 val DASH_ID_DONATE = "main_donate"
+val DASH_ID_CONTRIBUTE = "main_contribute"
 val DASH_ID_BLOG = "main_blog"
 val DASH_ID_FAQ = "main_faq"
 val DASH_ID_FEEDBACK = "main_feedback"
@@ -34,6 +35,23 @@ class DonateDash(val ctx: Context) : Dash(
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
                 false)
         val actor = ADonateActor(view)
+        onBack = { actor.reload() }
+        return view
+    }
+}
+
+class ContributeDash(val ctx: Context) : Dash(
+        DASH_ID_CONTRIBUTE,
+        R.drawable.ic_code_tags,
+        ctx.getBrandedString(R.string.main_contribute_desc),
+        text = ctx.getString(R.string.main_contribute_text),
+        hasView = true
+) {
+
+    override fun createView(parent: Any): Any? {
+        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
+                false)
+        val actor = AContributeActor(view)
         onBack = { actor.reload() }
         return view
     }

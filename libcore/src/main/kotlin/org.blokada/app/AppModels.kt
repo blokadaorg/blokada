@@ -14,6 +14,7 @@ abstract class State {
     abstract val retries: IProperty<Int>
     abstract val firstRun: IProperty<Boolean>
     abstract val updating: IProperty<Boolean>
+    abstract val obsolete: IProperty<Boolean>
     abstract val startOnBoot: IProperty<Boolean>
     abstract val keepAlive: IProperty<Boolean>
     abstract val identity: IProperty<Identity>

@@ -5,6 +5,7 @@ import org.blokada.framework.IProperty
 abstract class UiState {
 
     abstract val seenWelcome: IProperty<Boolean>
+    abstract val version: IProperty<Int>
     abstract val notifications: IProperty<Boolean>
     abstract val editUi: IProperty<Boolean>
 

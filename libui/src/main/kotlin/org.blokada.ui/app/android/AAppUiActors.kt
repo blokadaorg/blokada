@@ -71,6 +71,22 @@ class ADonateActor(
     }
 }
 
+class AContributeActor(
+        private val parent: View
+) {
+
+    private val URL = {
+        val s: State = parent.context.di().instance()
+        java.net.URL("${s.localised().content}/contribute.html")
+    }
+
+    val actor = AWebViewActor(parent, URL)
+
+    fun reload() {
+        actor.reload()
+    }
+}
+
 class ABlogActor(
         private val parent: View
 ) {

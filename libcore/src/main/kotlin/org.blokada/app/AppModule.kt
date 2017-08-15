@@ -55,11 +55,13 @@ fun newAppModule(): Kodein.Module {
                     }
 
                     if (s.tunnelPermission(true)) {
+                        if (s.firstRun(true)) j.event(Events.FIRST_ACTIVE_START)
                         val (completed, err) = hasCompleted(null, { engine.start() })
                         if (completed) {
                             s.tunnelState %= TunnelState.ACTIVE
                         } else {
                             j.log(Exception("could not activate: ${err}"))
+                            if (s.firstRun(true)) j.event(Events.FIRST_ACTIVE_FAIL)
                         }
                     }
 
@@ -112,6 +114,8 @@ fun newAppModule(): Kodein.Module {
                                 s.retries.refresh()
                                 s.restart %= true
                                 s.tunnelState %= TunnelState.INACTIVE
+                            } else if (s.enabled() && s.firstRun()) {
+                                j.event(Events.FIRST_ACTIVE_FINISH)
                             }
                         }
                     }
@@ -263,7 +267,6 @@ fun newAppModule(): Kodein.Module {
             // Report enabled property and first activation started event
             s.enabled.doWhenChanged(withInit = true).then {
                 j.setUserProperty(Properties.ENABLED, s.enabled())
-                if (s.firstRun(true)) j.event(Events.FIRST_ACTIVE_START)
             }
 
             // Report tunnel_state property
@@ -274,11 +277,6 @@ fun newAppModule(): Kodein.Module {
             // Report watchdog property
             s.watchdogOn.doWhenChanged(withInit = true).then {
                 j.setUserProperty(Properties.WATCHDOG, s.watchdogOn)
-            }
-
-            // Report first activation successfuly finished event
-            s.tunnelState.doWhen { s.tunnelState(TunnelState.ACTIVE) && s.firstRun(true) }.then {
-                j.event(Events.FIRST_ACTIVE_FINISH)
             }
 
             // Report start on boot property

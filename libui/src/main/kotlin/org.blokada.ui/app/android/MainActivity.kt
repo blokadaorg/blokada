@@ -139,12 +139,10 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         }
 
         MainActivity.Companion.staticContext.set(java.lang.ref.WeakReference(this))
+
+        val d = AWelcomeDialog(this, contentActor!!)
         listener13 = ui.seenWelcome.doOnUiWhenSet().then {
-            val d = AWelcomeDialog(this)
-            if (d.shouldShow()) {
-                d.show()
-                j.event(Events.Companion.FIRST_WELCOME)
-            }
+            if (d.shouldShow()) d.show()
         }
 
 //        if (Build.VERSION.SDK_INT >= 21) {

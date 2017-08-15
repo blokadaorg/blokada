@@ -7,6 +7,7 @@ import org.blokada.ui.app.Info
 import org.blokada.ui.app.UiState
 import android.content.Context
 import org.blokada.framework.newProperty
+import org.blokada.lib.ui.BuildConfig
 
 class AUiState(
         private val ctx: Context,
@@ -15,6 +16,10 @@ class AUiState(
 
     override val seenWelcome = newPersistedProperty(kctx, APrefsPersistence(ctx, "seenWelcome"),
             { false }
+    )
+
+    override val version = newPersistedProperty(kctx, APrefsPersistence(ctx, "version"),
+            { BuildConfig.VERSION_CODE }
     )
 
     override val notifications = newPersistedProperty(kctx, APrefsPersistence(ctx, "notifications"),
@@ -37,6 +42,7 @@ class AUiState(
             TunnelDashHostsCount(ctx).activate(false),
             TunnelDashEngineSelected(ctx).activate(false),
             DonateDash(ctx).activate(true),
+            ContributeDash(ctx).activate(false),
             FaqDash(ctx).activate(false).activate(true),
             BugReportDash(ctx).activate(false),
             FeedbackDash(ctx).activate(false),
