@@ -27,6 +27,8 @@
     <!-- An example format of a link to hosts file. -->
     <string name="filter_edit_link_placeholder">http://contoh.com/hos.txt</string>
     <string name="filter_edit_link_error">Pautan ini tidak dapat dimuat turun atau tidak mengandungi hos.</string>
+    <!-- Name of a tab that allows to whitelist app. -->
+    <!-- An example package name of app to whitelist. -->
     <string name="filter_edit_save">Simpan</string>
     <string name="filter_edit_cancel">Batal</string>
     <string name="filter_edit_comments">Ulasan</string>

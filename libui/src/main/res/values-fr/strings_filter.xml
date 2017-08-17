@@ -27,6 +27,8 @@
     <!-- An example format of a link to hosts file. -->
     <string name="filter_edit_link_placeholder">http://exemple.com/hosts.txt</string>
     <string name="filter_edit_link_error">Ce lien ne peut être téléchargé ou ne semble pas contenir d\'hôtes.</string>
+    <!-- Name of a tab that allows to whitelist app. -->
+    <!-- An example package name of app to whitelist. -->
     <string name="filter_edit_save">Sauver</string>
     <string name="filter_edit_cancel">Annuler</string>
     <string name="filter_edit_comments">Commentaires</string>

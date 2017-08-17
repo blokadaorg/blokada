@@ -27,6 +27,13 @@
     <!-- An example format of a link to hosts file. -->
     <string name="filter_edit_link_placeholder">http://example.com/hosts.txt</string>
     <string name="filter_edit_link_error">Tento odkaz nemůže být stažen, nebo nemá, a neobsahuje hostitele.</string>
+    <!-- Name of a tab that allows to whitelist app. -->
+    <string name="filter_edit_app">Aplikace</string>
+    <string name="filter_edit_app_enter">Zadejte název aplikace nebo název balíčku</string>
+    <!-- An example package name of app to whitelist. -->
+    <string name="filter_edit_app_placeholder">Obchod Google Play</string>
+    <string name="filter_edit_app_error">Tato aplikace neexistuje nebo nemůže být na seznamu povolených.</string>
+    <string name="filter_edit_app_unsupported">(Standardní blokování není podporováno)</string>
     <string name="filter_edit_save">Uložit</string>
     <string name="filter_edit_cancel">Zrušení</string>
     <string name="filter_edit_comments">Komentář</string>
@@ -41,12 +48,12 @@
     <string name="filter_blacklist_desc">Klepněte pro ověření, které mají být blokovány.</string>
     <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
     <plurals name="filter_blacklist_text">
-        <item quantity="one">%d na blacklist</item>
-        <item quantity="other">%d na blacklist</item>
-        <item quantity="few">%d na blacklist</item>
-        <item quantity="many">%d na blacklist</item>
+        <item quantity="one">%d v černé listině</item>
+        <item quantity="other">%d v černé listině</item>
+        <item quantity="few">%d v černé listině</item>
+        <item quantity="many">%d v černé listině</item>
     </plurals>
-    <string name="filter_blacklist_text_none">Blacklist je neaktivní</string>
+    <string name="filter_blacklist_text_none">Černá listina je neaktivní</string>
     <string name="filter_whitelist_desc">Klepněte pro ověření,tyto by nikdy neměly být blokovány.</string>
     <!-- Displayed in the home screen, keep it short. Parameter: number of whitelisted entries. -->
     <plurals name="filter_whitelist_text">
@@ -55,5 +62,5 @@
         <item quantity="few">%d v povolených</item>
         <item quantity="many">%d v povolených</item>
     </plurals>
-    <string name="filter_whitelist_text_none">whitelist je neaktivní</string>
+    <string name="filter_whitelist_text_none">Bílá listina je neaktivní</string>
 </resources>

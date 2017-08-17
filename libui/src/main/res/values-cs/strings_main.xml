@@ -6,7 +6,11 @@
     <string name="main_welcome_cleanup">Na vašem zařízení máte nainstalováno několik verzí %1$s. Chcete si udržet nejlepší verzi a odinstalovat zbytečné?</string>
     <string name="main_cleanup_done">Odinstalování&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">Používáte velmi starou, nepodporovanou verzi %1$s. Je k dispozici nová, mnohem lepší verze, kterou si můžete zdarma nainstalovat. Chtěli byste to teď udělat?</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">Váš ůčet %1$s byl právě aktualizován,užívejte.!\n\nPoskytování aktualizací a vylepšení vyžaduje mnoho práce. %1$s existuje pouze díky vaší podpoře. Zvažte podporu tohoto projektu.</string>
+    <string name="main_updated_donate">Rád bych daroval</string>
+    <string name="main_updated_other">Chtěl bych pomoci jiným způsobem</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Děkujeme, že jste si aktualizovali %1$s! ❤\n\nPoužíváte klasickou verzi této aplikace. Vaše zařízení podporuje rychlejší, menší verzi, kterou si můžete zdarma nainstalovat. Chcete přejít nyní?</string>
     <string name="main_migrate_slim">Ano, chci rychlejší verzi (doporučeno)</string>
@@ -70,6 +74,8 @@
     <string name="main_donate_desc">Vaše podpora je možná %s!</string>
     <string name="main_donate_text">Darovat</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">Přispívat kódem, překlady nebo jí propagovat %s k jejímu vývoji.</string>
+    <string name="main_contribute_text">Zapojte se</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Klepněte pro zobrazení nejnovější aktualizace ze společenství %s.</string>
     <string name="main_blog_text">Společenství</string>
@@ -81,7 +87,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_enabled">%s nyní občas odesílá anonymní zprávy.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_connectivity_desc">Pokud je povoleno, %s bude sledovat připojení k Internetu a pozastaví se vždy, když je vaše zařízení offline..</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">pouze online</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_status_desc">Tato ikona zobrazuje aktuální stav %s pokud vše funguje správně.</string>
     <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->

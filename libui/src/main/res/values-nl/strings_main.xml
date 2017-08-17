@@ -6,7 +6,11 @@
     <string name="main_welcome_cleanup">Je hebt verschillende versies van %1$s geinstalleerd op je apparaat. Wil je de beste versie behouden en de anderen nu verwijderen?</string>
     <string name="main_cleanup_done">Begonnen met verwijderen&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">Je gebruikt een erg oude en niet meer ondersteunde versie van %1$s. Een nieuwe en verbeterde versie is beschikbaar die je gratis kunt installeren. Wil je dit nu doen?</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">Je %1$s is bijgewerkt. Veel plezier ermee!\n\nHet beschikbaar stellen van updates en verbeteringen kost erg veel werk. %1$s kan slechts bestaan dankzij jouw hulp. Overweeg alsjeblieft dit project te ondersteunen.</string>
+    <string name="main_updated_donate">Ik wil graag doneren</string>
+    <string name="main_updated_other">Ik wil graag op een andere manier helpen</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Bedankt voor het bijwerken van %1$s! ❤\n\nJe gebruikt een oude versie van deze app. Je apparaat ondersteunt een snellere, kleinere versie die je gratis kan installeren. Wil je nu overstappen?</string>
     <string name="main_migrate_slim">Ja, ik wil de snellere versie (aanbevolen)</string>
@@ -69,6 +73,8 @@
     <string name="main_donate_desc">Jouw hulp maakt %s mogelijk!</string>
     <string name="main_donate_text">Doneren</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">Draag bij aan code of de vertalingen of promoot %s om de ontwikkeling te ondersteunen.</string>
+    <string name="main_contribute_text">Raak betrokken</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Tik aan om het recente nieuws van de %s community te lezen</string>
     <string name="main_blog_text">Gemeenschap</string>

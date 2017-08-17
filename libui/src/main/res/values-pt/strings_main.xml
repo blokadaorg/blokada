@@ -6,7 +6,11 @@
     <string name="main_welcome_cleanup">Você possui diversas versões do %1$s instaladas em seu dispositivo. Você gostaria de manter a melhor versão e desinstalar as demais agora?</string>
     <string name="main_cleanup_done">Desinstalação iniciada &#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">Você está usando uma versão antiga sem suporte do %1$s. Uma versão nova, bem melhor está disponível gratuitamente para instalação. Gostaria de instalar agora?</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">Seu %1$s acaba de ser atualizado. Divirta-se!\n\nOferecer atualizações e melhorias dão bastante trabalho. O %1$s existe apenas graças ao seu suporte. Por favor, considere doar para este projeto.</string>
+    <string name="main_updated_donate">Eu gostaria de doar</string>
+    <string name="main_updated_other">Eu gostaria de colaborar de outra forma</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Obrigado por manter o %1$s atualizado! ❤\n\nVocê está utilizando a versão clássica deste aplicativo. Seu dispositivo suporta uma versão menor e mais rápida que você pode instalar gratuitamente. Você gostaria de trocar agora?</string>
     <string name="main_migrate_slim">Sim, eu quero a versão mais rápida (recomendado)</string>
@@ -69,6 +73,8 @@
     <string name="main_donate_desc">Seu apoio faz o %s possível!</string>
     <string name="main_donate_text">Doar</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">Contribuir com código, traduções ou promover o %s para ajudar seu desenvolvimento.</string>
+    <string name="main_contribute_text">Participe</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Toque para ver as atualizações mais recentes feitas pela comunidade %s .</string>
     <string name="main_blog_text">Comunidade</string>

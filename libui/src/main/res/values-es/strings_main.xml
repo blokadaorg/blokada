@@ -6,7 +6,11 @@
     <string name="main_welcome_cleanup">Tienes varias versiones de %1$s instaladas en tu dispositivo. ¿Te gustaría mantener la mejor versión y desinstalar el resto ahora?</string>
     <string name="main_cleanup_done">Se inició la desinstalación&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">Estás utilizando una versión obsoleta e incompatible de %1$s. Una nueva versión, mucho mejor, está disponible para instalarse de forma gratuita. ¿Quieres hacerlo ahora?</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">Tu %1$s acaba de actualizarse. ¡Disfruta!\n\nProporcionar actualizaciones y mejoras requiere mucho trabajo. %1$s existe únicamente gracias a vuestro apoyo. Por favor considera ayudar a este proyecto.</string>
+    <string name="main_updated_donate">Me gustaría hacer una donación</string>
+    <string name="main_updated_other">Me gustaría ayudar de otra forma</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">¡Gracias por mantener %1$s actualizado! ❤\n\nEstás usando la versión clásica de la aplicación. Tu dispositivo admite una versión más rápida y más pequeña que puedes instalar de forma gratuita. ¿Quieres cambiar ahora?</string>
     <string name="main_migrate_slim">Sí, quiero la versión más rápida (recomendado)</string>
@@ -69,6 +73,8 @@
     <string name="main_donate_desc">¡Eres la razón por la que %s se mantiene gratis, segura e independiente!</string>
     <string name="main_donate_text">Donar</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">Contribuye programando, traduciendo o promocionando %s para ayudar a su desarrollo.</string>
+    <string name="main_contribute_text">Involúcrate</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Toca para ver las últimas actualizaciones de la comunidad de %s.</string>
     <string name="main_blog_text">Comunidad</string>

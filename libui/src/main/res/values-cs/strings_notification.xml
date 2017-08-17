@@ -10,7 +10,7 @@
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">Nezobrazovat</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
-    <string name="notification_blocked_whitelist">Whitelist</string>
+    <string name="notification_blocked_whitelist">Bílý list</string>
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
     <string name="notification_blocked_whitelist_applied">Hotovo! Změna může trvat několik sekund.</string>
     <!-- Parameter: branded app name (Blokada). -->

@@ -27,6 +27,13 @@
     <!-- An example format of a link to hosts file. -->
     <string name="filter_edit_link_placeholder">http://exemplo.com/hosts.txt</string>
     <string name="filter_edit_link_error">Este link não pôde ser baixado ou não parece conter endereços.</string>
+    <!-- Name of a tab that allows to whitelist app. -->
+    <string name="filter_edit_app">App</string>
+    <string name="filter_edit_app_enter">Insira o nome do app ou pacote</string>
+    <!-- An example package name of app to whitelist. -->
+    <string name="filter_edit_app_placeholder">Google Play Store</string>
+    <string name="filter_edit_app_error">Este app não existe ou não pode ser adicionado à lista branca.</string>
+    <string name="filter_edit_app_unsupported">(não suportado pelo bloqueio padrão)</string>
     <string name="filter_edit_save">Salvar</string>
     <string name="filter_edit_cancel">Cancelar</string>
     <string name="filter_edit_comments">Comentários</string>
