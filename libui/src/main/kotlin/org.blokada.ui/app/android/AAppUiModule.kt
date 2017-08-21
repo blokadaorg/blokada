@@ -25,6 +25,16 @@ fun newAndroidAppUiModule(ctx: Context): Kodein.Module {
         bind<AFilterAddDialog>() with provider { AFilterAddDialog(ctx,
                 sourceProvider = { type: String -> with(type).instance<IFilterSource>() }
         ) }
+        bind<AFilterGenerateDialog>(true) with provider { AFilterGenerateDialog(ctx,
+                s = instance(),
+                sourceProvider = { type: String -> with(type).instance<IFilterSource>() },
+                whitelist = true
+        ) }
+        bind<AFilterGenerateDialog>(false) with provider { AFilterGenerateDialog(ctx,
+                s = instance(),
+                sourceProvider = { type: String -> with(type).instance<IFilterSource>() },
+                whitelist = false
+        ) }
 
         onReady {
             val s: State = instance()
@@ -84,6 +94,11 @@ fun newAndroidAppUiModule(ctx: Context): Kodein.Module {
                     ui.lastSeenUpdateMillis %= env.now()
                     j.event(Events.UPDATE_NOTIFY)
                 }
+            }
+
+            // Refresh filters list whenever system apps switch is changed
+            ui.showSystemApps.doWhenChanged().then {
+                s.filters %= s.filters()
             }
         }
     }

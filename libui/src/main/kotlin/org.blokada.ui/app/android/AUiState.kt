@@ -56,5 +56,8 @@ class AUiState(
             { 0L }
     )
 
+    override val showSystemApps = newPersistedProperty(kctx, APrefsPersistence(ctx, "showSystemApps"),
+            { true })
+
 }
 

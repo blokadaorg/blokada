@@ -41,6 +41,7 @@
 
     <string name="filter_edit_save">Save</string>
     <string name="filter_edit_cancel">Cancel</string>
+    <string name="filter_edit_do">Continue</string>
     <string name="filter_edit_comments">Comments</string>
     <string name="filter_edit_comments_none">No comments</string>
     <!-- Parameter: number of hosts. -->
@@ -64,4 +65,17 @@
         <item quantity="other">%d in whitelist</item>
     </plurals>
     <string name="filter_whitelist_text_none">Whitelist inactive</string>
+
+    <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Quick actions</string>
+    <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">Add all system apps (enabled)</string>
+    <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Add all system apps (disabled)</string>
+    <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">Add all apps (enabled)</string>
+    <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">Add all apps (disabled)</string>
+    <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Restore defaults (blacklist &amp; whitelist)</string>
 </resources>

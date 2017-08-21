@@ -1,6 +1,7 @@
 package org.blokada.app.android
 
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.PowerManager
@@ -14,6 +15,7 @@ import java.net.URL
 import java.nio.charset.Charset
 import java.util.*
 import java.util.Properties
+import kotlin.Comparator
 
 /**
  * of Trance
@@ -304,13 +306,15 @@ class AState(
             }
     )
 
-    override val apps = newProperty(kctx, zeroValue = { emptyMap<String, String>() },
+    override val apps = newProperty(kctx, zeroValue = { emptyList<App>() },
             refresh = {
                 val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-                installed.flatMap { listOf(
-                        ctx.packageManager.getApplicationLabel(it).toString() to it.packageName,
-                        it.packageName to it.packageName
-                )}.toMap()
+                installed.map { App(
+                        appId = it.packageName,
+                        label = ctx.packageManager.getApplicationLabel(it).toString(),
+                        system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+                ) }.sortedBy { it.label }
+
             })
 }
 

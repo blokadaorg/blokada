@@ -130,10 +130,14 @@ class FilterSourceApp(
         var source: String? = null
 ) : IFilterSource {
 
+    var system: Boolean = false
+        private set
+
+    private val s by lazy { ctx.di().instance<org.blokada.app.State>() }
+
     private val apps by lazy {
-        val s = ctx.di().instance<org.blokada.app.State>()
         if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
-        s.apps().keys.map { it.toLowerCase() to s.apps()[it] }.toMap()
+        s.apps().flatMap { listOf(it.appId to it.appId, it.label to it.appId) }.toMap()
     }
 
     override fun id(): String {
@@ -148,6 +152,7 @@ class FilterSourceApp(
     override fun fromUserInput(vararg string: String): Boolean {
         return try {
             source = apps[string[0].toLowerCase()] ?: throw Exception()
+            system = s.apps().first { it.appId == source }.system
             true
         } catch (e: Exception) { false }
     }

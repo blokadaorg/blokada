@@ -36,7 +36,7 @@ abstract class State {
     abstract val repo: IProperty<Repo>
     abstract val localised: IProperty<Localised>
 
-    abstract val apps: IProperty<Map<String, String>>
+    abstract val apps: IProperty<List<App>>
 
     // Those do not change during lifetime of the app
     abstract val filterConfig: IProperty<FilterConfig>
@@ -75,6 +75,12 @@ data class Filter(
         return source.equals(other.source)
     }
 }
+
+data class App(
+        val appId: String,
+        val label: String,
+        val system: Boolean
+)
 
 data class LocalisedFilter(
         val name: String,

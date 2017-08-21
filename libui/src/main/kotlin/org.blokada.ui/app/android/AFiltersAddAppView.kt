@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.github.salomonbrys.kodein.instance
-import org.blokada.app.State
-import org.blokada.app.hostnameRegex
 import org.blokada.framework.android.di
 import org.blokada.lib.ui.R
 
@@ -128,14 +126,14 @@ class AFiltersAddAppView(
 
     private val appNames by lazy {
         if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
-        s.apps().filter { it.key != it.value }.map { "${it.key} | ${it.value}" }
+        s.apps().map { "${it.label} | ${it.appId}" }
     }
 
-    private val apps by lazy {
-        s.apps().keys.map { it.toLowerCase() }
+    private val appSearch by lazy {
+        s.apps().flatMap { listOf(it.appId, it.label) }
     }
 
     private fun isTextCorrect(s: CharSequence): Boolean {
-        return s.toString().toLowerCase() in apps
+        return s.toString().toLowerCase() in appSearch
     }
 }

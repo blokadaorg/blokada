@@ -11,8 +11,10 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
+import org.blokada.app.android.FilterSourceApp
 import org.blokada.framework.IWhen
 import org.blokada.framework.android.di
+import org.blokada.ui.app.UiState
 
 class AFilterListView(
         ctx: Context,
@@ -20,6 +22,7 @@ class AFilterListView(
 ) : RecyclerView(ctx, attributeSet) {
 
     private val s by lazy { context.di().instance<org.blokada.app.State>() }
+    private val ui by lazy { context.di().instance<UiState>() }
     private var filters = listOf<Filter>()
     private var listener: IWhen? = null
 
@@ -49,7 +52,15 @@ class AFilterListView(
     }
 
     private fun refreshFilters() {
-        filters = s.filters().filter { it.whitelist == whitelist }
+        if (whitelist) {
+            filters = s.filters().filter {
+                it.whitelist == true
+                        && (ui.showSystemApps()
+                        || !((it.source as? FilterSourceApp)?.system ?: false))
+            }
+        } else {
+            filters = s.filters().filter { it.whitelist == false }
+        }
         adapter.notifyDataSetChanged()
     }
 

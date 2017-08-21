@@ -14,4 +14,6 @@ abstract class UiState {
     abstract val infoQueue: IProperty<List<Info>>
 
     abstract val lastSeenUpdateMillis: IProperty<Long>
+
+    abstract val showSystemApps: IProperty<Boolean>
 }
