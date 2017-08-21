@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome">برای نصب %1$s سپاسگزاریم!❤️\n\nاین برنامه به دلخواه شما کار میکند. فقط این پنجره را ببنید، رو سپر زربه بزنید تا فعال شود!\n\nاگر نیاز به کنترل بیشتر داشتید! از گزینه پایین برای فعال سازی قابلیت های پیشرفته استفاده کنید.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_cleanup">شما ورژن‌های متعددی از %1$ را بر روی دستگاهتان نصب دارید.
+آیا می‌خواهید که بهترین ورژن را نگه دارید و بقیه را حذف نصب کنید؟</string>
+    <string name="main_cleanup_done">حذف نصب آغاز شد&#8230;</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">شما از یک نسخه خیلی قدیمی و پشتیبانی نشده از %1$s دارید استفاده میکنید. نسخه فوق‌العاده بهتری به رایگان قابل دریافت است، آیا تمایل دارید الان این کار را انجام دهید؟</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">%1$s شما هم اکنون یک بروزرسانی دریافت کرد. لذت ببرید!\n\nفراهم آوردن بروزرسانی و پیشرفت ها کلی کار لازم دارند. وجود %1$s با پشتیبانی شما مقدور است. لطفاً پشتیبانی از این پروژه را در نظر داشته باشید.</string>
+    <string name="main_updated_donate">من میخواهم اهدا کنم</string>
+    <string name="main_updated_other">من میخواهم از روش های دیگر کمک کنم</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_migrate">برای به روز نگه داشتنه %1$s متشکریم!❤️\n\nشما از نسخه‌ی کلاسیک این برنامه استفاده میکنید. دستگاه شما از نسخه سریعتر و کم حجم تر از نسخه‌ی فعلی پشتیبانی میکند که به رایگان قابل نصب است. آیا الان به ورژن بهتر به روز رسانی میکنید؟</string>
+    <string name="main_migrate_slim">بله، من ورژن سریعتر را می‌خواهم (پیشنهاد ما)</string>
+    <string name="main_migrate_prod">بله، اما از بلاک کننده استاندارد استفاده خواهم کرد</string>
+    <string name="main_advanced_off">من تازه کار هستم (پیشنهاد ما)</string>
+    <string name="main_advanced_on">من کاربر متخصص هستم</string>
+    <string name="main_continue">ادامه دادن</string>
+    <string name="main_install">نصب</string>
+    <string name="main_skip">رد کردن</string>
+    <string name="main_loading">در حال بارگذاری...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_intro">به %s خوش آمدید! برای فعال کردن برنامه روی سپر زربه بزنید. مجوزهای لازم را در صورت درخواست تایید کنید.</string>
+    <string name="main_error">یک اشتباه به وجود آمده است. لطفاً اتصال اینترنت را بررسی کنید و دوباره امتحان کنید.</string>
+    <string-array name="main_activating">
+        <item>درحال انجام تغییرات...</item>
+        <item>درحال پردازش...</item>
+        <item>درحال راه اندازی...</item>
+        <item>درحال بارگزاری...</item>
+        <item>درحال انجام کار...</item>
+        <item>درحال پردازش...</item>
+    </string-array>
+    <string name="main_activating_new">درحال راه اندازی دستگاه شما، لطفاً صبر کنید...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_deactivating_new">درحال خاموشی %s. لطفاً صبر کنید...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_active">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s فعال است.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s به درستی کار میکند.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s به درستی کار می کند.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s روشن است.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_new">%1$s از شما در برابر تبلیغات محافظت می‌کند. میتوانید تنظیمات دقیق تر %1$s را در پایین انجام دهید، یا هم اکنون میتوانید از دستگاه خود استفاده کنید!</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_paused">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s غیر فعال است.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s متوقف شده است.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s خاموش است.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable">%1$s بدلیل عدم اتصال دستگاه شما به اینترنت متوقف شده. %1$s در زمان برقراری اتصال اینترنت به صورت خودکار فعال خواهد شد.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable_tethering">%1$s بدلیل فعال شدن هات اسپات دستگاه شما متوقف شد. وقتی هات اسپات غیر فعال شد %1$s به صورت خودکار فعال خواهد شد.</string>
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">بلاک کردن تبلیغات</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <string name="main_quicksettings_on">فعال</string>
+    <!-- Disabled status for the Quick Settings toggle -->
+    <string name="main_quicksettings_off">غیرفعال</string>
+    <string name="main_faq_desc">برای دیدن جواب به سوالات متداول زربه بزنید.</string>
+    <string name="main_faq_text">کمک</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_donate_desc">پشتیبانی شما %s ممکن است!</string>
+    <string name="main_donate_text">اهدا کردن</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">کد همکاری، ترجمه یا ترقی دادن %s برای کمک به پیشرفتش.</string>
+    <string name="main_contribute_text">ملحق شدن</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_blog_desc">برای دیدن آخرین بروزرسانی ها از انجمنه %s زربه بزنید.</string>
+    <string name="main_blog_text">انجمن</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_desc">وقتی فعال شود، %s اطلاعات ناشناسی درباره‌ی کارایی برنامه ارسال خواهد کرد. ما به این برای بهبود بخشیدن به برنامه نیاز داریم.</string>
+    <string name="main_tracking_text">گزارش سلامت</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_disabled">%s دیگر گزارش سلامت نخواهد فرستاد. برای اعمال این تغییر برنامه را راه اندازی مجدد کنید.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_enabled">%s از حالا به بعد گهگداری گزارش سلامت خواهد فرستاد.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_connectivity_desc">وقتی فعال شود، %s اتصال اینترنت را رصد خواهد کرد و در صورت آفلاین شدن دستگاه توقف خواهد کرد.</string>
+    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">فقط آنلاین</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_status_desc">این آیکن وضعیت فعلی %s را نشان می‌دهد و همه چیز به درستی کار میکند.</string>
+    <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
+    <string name="main_status_long">%2$s همان %1$s است</string>
+    <!-- App status (very short). For example: active. Parameter: app status. -->
+    <string name="main_status_short">%1$s</string>
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">فعال</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">غیرفعال</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">درحال فعال سازی</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">درحال غیر فعال شدن</string>
+    <string name="main_status_error">مشکلی پیش آمده</string>
+    <string name="main_autostart_text">شروع در راه‌اندازی دستگاه</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_autostart_desc">اگر فعال شود، %s بطور خودکار با راه‌اندازی دستگاه فعال خواهد شد.</string>
+    <string name="main_data_start">ذخیره دیتا خاموش است</string>
+    <!-- How much megabytes of data was saved so far. Displayed in the home screen. Parameter: number of MB saved, as in 2.35 MB. -->
+    <string name="main_data_normal">%.2f مگابایت صرفه‌جویی شد</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_data_desc">زمانیکه %s فعال است، این شماره مقدار حدودی دیتا صرفه‌جویی شده را نشان می‌دهد.</string>
+    <string name="main_feedback_text">دادن بازخورد</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_feedback_desc">برای دادن پیشنهاد برای بهتر شدن %s زربه بزنید!</string>
+    <string name="main_bug_text">گزارش یک ایراد</string>
+    <string name="main_bug_desc">برای گزارش یک مشکل و درخواست کمک از ما زربه بزنید.</string>
+</resources>
