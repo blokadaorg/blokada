@@ -9,7 +9,7 @@
 # - app-path - Where is Blokada app repo
 # - web-path - Where is Blokada website repo
 
-langs="es pt fr pl cs de nl ms"
+langs="es pt fr pl cs de nl ms he fa it"
 xml="filter main notification tunnel update"
 pages="donate.html help.html contribute.html"
 props="strings_repo.properties strings_store.properties strings_filters.properties"
