@@ -36,6 +36,7 @@
     <string name="filter_edit_app_unsupported">(não suportado pelo bloqueio padrão)</string>
     <string name="filter_edit_save">Salvar</string>
     <string name="filter_edit_cancel">Cancelar</string>
+    <string name="filter_edit_do">Continue</string>
     <string name="filter_edit_comments">Comentários</string>
     <string name="filter_edit_comments_none">Sem comentários</string>
     <!-- Parameter: number of hosts. -->
@@ -57,4 +58,16 @@
         <item quantity="other">%d na lista branca</item>
     </plurals>
     <string name="filter_whitelist_text_none">Lista branca inativa</string>
+    <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Ações rápidas</string>
+    <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">Adicionar apps de sistema (ativados)</string>
+    <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Adicionar apps de sistema (desativados)</string>
+    <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">Adicionar todos os apps (ativados)</string>
+    <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">Adicionar todos os apps (desativados)</string>
+    <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Restaurar configurações (lista negra e branca)</string>
 </resources>

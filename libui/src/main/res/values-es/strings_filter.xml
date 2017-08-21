@@ -57,4 +57,10 @@
         <item quantity="other">%d en lista blanca</item>
     </plurals>
     <string name="filter_whitelist_text_none">Lista blanca inactiva</string>
+    <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <!-- Deletes all filters and fetches default ones. -->
 </resources>

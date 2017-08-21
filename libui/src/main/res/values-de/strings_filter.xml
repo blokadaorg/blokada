@@ -36,6 +36,7 @@
     <string name="filter_edit_app_unsupported">(vom Standard-Blocking nicht unterstützt)</string>
     <string name="filter_edit_save">Speichern</string>
     <string name="filter_edit_cancel">Abbrechen</string>
+    <string name="filter_edit_do">Fortsetzen</string>
     <string name="filter_edit_comments">Kommentare</string>
     <string name="filter_edit_comments_none">Keine Kommentare</string>
     <!-- Parameter: number of hosts. -->
@@ -57,4 +58,14 @@
         <item quantity="other">%d in Whitelist</item>
     </plurals>
     <string name="filter_whitelist_text_none">Whitelist inaktiv</string>
+    <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Schnellzugriff</string>
+    <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">Alle System-Apps erlauben</string>
+    <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Alle System-Apps blockieren</string>
+    <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Zurücksetzen (Blacklist &amp; Whitelist)</string>
 </resources>

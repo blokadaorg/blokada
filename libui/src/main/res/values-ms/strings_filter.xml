@@ -28,7 +28,12 @@
     <string name="filter_edit_link_placeholder">http://contoh.com/hos.txt</string>
     <string name="filter_edit_link_error">Pautan ini tidak dapat dimuat turun atau tidak mengandungi hos.</string>
     <!-- Name of a tab that allows to whitelist app. -->
+    <string name="filter_edit_app">Apikasi</string>
+    <string name="filter_edit_app_enter">Masukkan nama aplikasi atau nama pekej</string>
     <!-- An example package name of app to whitelist. -->
+    <string name="filter_edit_app_placeholder">Google Play Store</string>
+    <string name="filter_edit_app_error">Aplikasi ini tidak wujud atau tidak dapat disenaraikan.</string>
+    <string name="filter_edit_app_unsupported">(tidak disokong oleh penyekatan umum)</string>
     <string name="filter_edit_save">Simpan</string>
     <string name="filter_edit_cancel">Batal</string>
     <string name="filter_edit_comments">Ulasan</string>
@@ -49,4 +54,10 @@
         <item quantity="other">%d disenarai putihkan</item>
     </plurals>
     <string name="filter_whitelist_text_none">Senarai putih dimatikan</string>
+    <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <!-- Deletes all filters and fetches default ones. -->
 </resources>

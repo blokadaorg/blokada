@@ -6,7 +6,11 @@
     <string name="main_welcome_cleanup">Terdapat beberapa versi  %1$s pada peranti anda. Adakah anda ingin menyimpan versi terbaru dan nyahpasang yang lain sekarang?</string>
     <string name="main_cleanup_done">Nyahpasang dimulakan&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">Anda sedang menggunakan versi yang sangat lama, versi %1$s tidak lagi disokong. Versi baharu telah tersedia, lebih baik dan ia boleh dipasang secara percuma. Adakah anda ingin melakukanya sekarang?</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">%1$s Telah dikemas kini. Selamat Mengguna!\n\nMenyediakan kemas kini dan penambah baikkan memerlukan banyak kerja. %1$s wujud disebabkan sokongan anda. Sila pertimbangkan untuk anda menyokong projek ini.</string>
+    <string name="main_updated_donate">Saya berminat untuk menderma</string>
+    <string name="main_updated_other">Saya berminat untuk menolong dari segi yang lain</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Terima kasih kerana mengemas kini %1$s ! ❤\n\nSekarang anda menggunakan versi klasik untuk apalikasi ini. Peranti ini boleh menampung versi yang lebih pantas dan ringan yang mana ia boleh dipasang dengan percuma. Adakah anda ingin bertukar kepada versi ini sekarang?</string>
     <string name="main_migrate_slim">Ya, saya mahu menggunakan versi yang lebih pantas (disyorkan)</string>
@@ -69,6 +73,8 @@
     <string name="main_donate_desc">Sokongan anda merialisasikan %s!</string>
     <string name="main_donate_text">Derma</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">Menyumbangkan kod, alihbahasa atau promosi %s untuk membatu pembagunannya.</string>
+    <string name="main_contribute_text">Libatkan diri</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Sentuh untuk memaparkan update terbaru daripada %s Komuniti.</string>
     <string name="main_blog_text">Komuniti</string>
