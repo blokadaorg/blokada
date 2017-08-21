@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- A recommended option, for example: Optimised blocking (recommended). Parameter: name of the option. -->
+    <string name="filter_recommended">%s (מומלץ)</string>
+    <!-- Parameter: host name of the link. For example: A link from example.com -->
+    <string name="filter_name_link">קישור מ%s</string>
+    <!-- As in, "A link from the Internet". -->
+    <string name="filter_name_link_unknown">האינטרנט</string>
+    <!-- Parameter: directory of the file. For example: A file from Downloads -->
+    <string name="filter_name_file">קובץ מ%s</string>
+    <!-- As in, "A a file from this device". -->
+    <string name="filter_name_file_unknown">המכשיר הזה</string>
+    <!-- Name of a tab for adding a new host to the blacklist / whitelist. -->
+    <string name="filter_edit_name">שרת</string>
+    <!-- An example format of a hostname. -->
+    <string name="filter_edit_name_placeholder">example.com</string>
+    <string name="filter_edit_name_enter">הכנס שם שרת</string>
+    <string name="filter_edit_name_error">זה לא נראה תקין. אנא וודא שהכנסת שם דומיין (כתובת), כמו example.com.</string>
+    <!-- Name of a tab that allows to add a file with hosts. -->
+    <string name="filter_edit_file">קובץ</string>
+    <string name="filter_edit_file_choose">בחר קובץ עם שרתים</string>
+    <string name="filter_edit_file_none">לא נבחר אף קובץ שרתים</string>
+    <string name="filter_edit_file_error">לא נראה שהקובץ הנבחר מכיל שרתים.</string>
+    <!-- Name of a tab that allows to add a link to hosts. -->
+    <string name="filter_edit_link">קישור</string>
+    <string name="filter_edit_link_enter">הכנס קישור לקובץ השרתים</string>
+    <!-- An example format of a link to hosts file. -->
+    <string name="filter_edit_link_placeholder">http://example.com/hosts.txt</string>
+    <string name="filter_edit_link_error">לא ניתן להוריד מהקישור או שהקובץ לא מכיל שרתים.</string>
+    <!-- Name of a tab that allows to whitelist app. -->
+    <string name="filter_edit_app">אפליקציה</string>
+    <string name="filter_edit_app_enter">הכנס את שם האפליקציה או את שם החבילה</string>
+    <!-- An example package name of app to whitelist. -->
+    <string name="filter_edit_app_placeholder">Google Play Store</string>
+    <string name="filter_edit_app_error">האפליקציה לא קיימת או שלא ניתן להכניס אותה לרשימת האפליקציות המאושרות.</string>
+    <string name="filter_edit_app_unsupported">(לא נתמך בחסימה סטנדרטית)</string>
+    <string name="filter_edit_save">שמור</string>
+    <string name="filter_edit_cancel">בטל</string>
+    <string name="filter_edit_do">המשך</string>
+    <string name="filter_edit_comments">תגובות</string>
+    <string name="filter_edit_comments_none">אין תגובות</string>
+    <!-- Parameter: number of hosts. -->
+    <plurals name="filter_edit_count">
+        <item quantity="other">מכיל %d שרתים</item>
+        <item quantity="one">מכיל שרת אחד</item>
+        <item quantity="many">מכיל הרבה שרתים (%d)</item>
+        <item quantity="two">מכיל %d שרתים</item>
+    </plurals>
+    <string name="filter_blacklist_desc">לחץ על מנת לנהל את השרתים שצריכים להחסם.</string>
+    <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
+    <plurals name="filter_blacklist_text">
+        <item quantity="one">%d ברשימה השחורה</item>
+        <item quantity="other">%d ברשימה השחורה</item>
+        <item quantity="many">%d ברשימה השחורה</item>
+        <item quantity="two">%d ברשימה השחורה</item>
+    </plurals>
+    <string name="filter_blacklist_text_none">רשימה שחורה אינה פעילה</string>
+    <string name="filter_whitelist_desc">לחץ על מנת לנהל את השרתים שאינם צריכים להחסם.</string>
+    <!-- Displayed in the home screen, keep it short. Parameter: number of whitelisted entries. -->
+    <plurals name="filter_whitelist_text">
+        <item quantity="one">%d ברשימה הלבנה</item>
+        <item quantity="other">%d ברשימה הלבנה</item>
+        <item quantity="many">%d ברשימה הלבנה</item>
+        <item quantity="two">%d ברשימה הלבנה</item>
+    </plurals>
+    <string name="filter_whitelist_text_none">רשימה לבנה אינה פעילה</string>
+    <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <!-- Deletes all filters and fetches default ones. -->
+</resources>

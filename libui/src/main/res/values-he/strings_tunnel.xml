@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="tunnel_hosts_desc">מציג את מספר השרתים אשר מוגדרים להחסם ע\"י %s.</string>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <plurals name="tunnel_hosts_count">
+        <item quantity="one">שרת אחד</item>
+        <item quantity="other">%d שרתים</item>
+        <item quantity="many">הרבה שרתים</item>
+        <item quantity="two">שני שרתים</item>
+    </plurals>
+    <string name="tunnel_ads_desc">מציג את מספר הפרסומות שנחסמו עד כה.</string>
+    <!-- The counter displayed the total number of ads blocked (in the home screen). Parameter: number of ads blocked. -->
+    <plurals name="tunnel_ads_blocked">
+        <item quantity="one">פרסומת אחת נחסמה</item>
+        <item quantity="other">%d פרסומות נחסמו</item>
+        <item quantity="many">הרבה פרסומות נחסמו</item>
+        <item quantity="two">שתי פרסומות נחסמו</item>
+    </plurals>
+    <string name="tunnel_selected_desc">לחץ על מנת לבחור את שיטת החסימה הטובה ביותר למכשריך.</string>
+    <string name="tunnel_selected_legacy">חסימה סטנדרטית</string>
+    <string name="tunnel_selected_legacy_desc">שיטת החסימה עובדת על כלל המכשירים, אבל יכול להעלות את צריכה הסוללה או להשפיע על הביצועים. אם החסימה אינה נתמכת במכשירך, אנא בחר בשיטה הזו במקום.</string>
+    <string name="tunnel_selected_lollipop">חסימה מיטבית</string>
+    <string name="tunnel_selected_lollipop_desc">זו שיטה חדשה לחסימה עם השפעה מינימלית על הבטריה והביצועים, היא גם נתמכת במכשירך! אם אינך חווה בעיות איתה זו הבחירה המומלצת.</string>
+    <string name="tunnel_selected_lollipop_desc_unsupported">זו שיטת החסימות החדשה עם השפעה מינימלית על הבטריה והביצועים. למרבה הצער נדרשת גרסאת אנדרואיד 5 ומעלה ולכן אינה יכולה לפעול במכשירך.</string>
+</resources>

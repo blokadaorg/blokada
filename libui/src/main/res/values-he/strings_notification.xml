@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="notification_on_text">התראות</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_on_desc">כאשר פעילה, %s תציג התראה בכול פעם שפרסומת נחסמת.</string>
+    <!-- Title of the notification that shows up every time ad is blocked. -->
+    <string name="notification_blocked_title">פרסומת נחסמה</string>
+    <!-- Content of the notification that shows up every time ad is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">אל תציג</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">רשימה לבנה</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">נשמר! ייתכן והשינויים יופעלו רק בעוד מספר שניות.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_disabled">%s לא תציג התראות על פרסומות.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_enabled">%s לא תציג התראה בכול פעם שפרסומת נחסמה.</string>
+    <string name="notification_keepalive_text">השאר בחיים</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_desc">כאשר פעילה, %s תשתמש בשיטות אשר יעזרו לה לשרוד ניקוי זיכרון(RAM).</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_disabled">%s אינה מוגנת מפני חסכון בסוללה או זיכרון יותר.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_enabled">%s מוגנת כעת מפני כיבוי ע\"י מערכת ההפעלה.</string>
+    <!-- The ads blocked counter, displayed in the Keep Alive notification. Parameter: ads blocked counter. -->
+    <plurals name="notification_keepalive_title">
+        <item quantity="one">פרסומת אחת נחסמה</item>
+        <item quantity="other">%d פרסומות נחסמו</item>
+        <item quantity="many">הרבה פרסומות נחסמו</item>
+        <item quantity="two">שתי פרסומות נחסמו</item>
+    </plurals>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">אחרון: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">עדיין כלום</string>
+</resources>
