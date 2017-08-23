@@ -33,12 +33,12 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            versionNameSuffix '-fb'
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-            versionNameSuffix '-fdroid'
         }
         debug {
             versionNameSuffix '-debug'
