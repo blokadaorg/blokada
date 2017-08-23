@@ -36,14 +36,15 @@
     <string name="filter_edit_app_unsupported">(Standardní blokování není podporováno)</string>
     <string name="filter_edit_save">Uložit</string>
     <string name="filter_edit_cancel">Zrušení</string>
+    <string name="filter_edit_do">Pokračovat</string>
     <string name="filter_edit_comments">Komentář</string>
     <string name="filter_edit_comments_none">Bez komentáře</string>
     <!-- Parameter: number of hosts. -->
     <plurals name="filter_edit_count">
         <item quantity="other">Obsahuje %d hostitele</item>
         <item quantity="one">Obsahuje %d hostitele</item>
-        <item quantity="few">Zdrojový jazyk neobsahuje tento plurál</item>
-        <item quantity="many">Zdrojový jazyk neobsahuje tento plurál</item>
+        <item quantity="few">Obsahuje %d hostitele</item>
+        <item quantity="many">Obsahuje %d hostitele</item>
     </plurals>
     <string name="filter_blacklist_desc">Klepněte pro ověření, které mají být blokovány.</string>
     <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
@@ -54,7 +55,7 @@
         <item quantity="many">%d v černé listině</item>
     </plurals>
     <string name="filter_blacklist_text_none">Černá listina je neaktivní</string>
-    <string name="filter_whitelist_desc">Klepněte pro ověření,tyto by nikdy neměly být blokovány.</string>
+    <string name="filter_whitelist_desc">Klepnutím upravte hostitele, které by nikdy neměly být blokovány.</string>
     <!-- Displayed in the home screen, keep it short. Parameter: number of whitelisted entries. -->
     <plurals name="filter_whitelist_text">
         <item quantity="one">%d v povolených</item>
@@ -64,9 +65,15 @@
     </plurals>
     <string name="filter_whitelist_text_none">Bílá listina je neaktivní</string>
     <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Rychlé akce</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">Přidání všech systémových aplikací (povoleno)</string>
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Přidání všech systémových aplikací (zakázáno)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">Přidání všech aplikací (povoleno)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">Přidání všech aplikací (zakázáno)</string>
     <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Obnovení výchozích hodnot (černá a bílá listina)</string>
 </resources>

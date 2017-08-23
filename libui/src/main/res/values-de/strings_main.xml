@@ -8,7 +8,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_obsolete">Du nutzt eine alte, nicht mehr unterstützte Version von %1$s. Eine neue und deutlich bessere Version ist zum kostenlosen Download verfügbar. Möchtest du jetzt aktualisieren?</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_welcome_updated">Dein %1$s wurde aktualisiert. Viel Spaß!\n\nUpdates und Verbesserungen sind mit einer Menge Aufwand verbunden. %1$s existiert nur Dank Deiner Hilfe. Bitte erwäge, dieses Projekt zu unterstützen.</string>
+    <string name="main_welcome_updated">%1$s wurde aktualisiert. Viel Spaß!\n\nUpdates und Verbesserungen sind mit einer Menge Arbeit verbunden. %1$s gibt es nur Dank Deiner Hilfe. Bitte erwäge, dieses Projekt zu unterstützen.</string>
     <string name="main_updated_donate">Ich möchte spenden</string>
     <string name="main_updated_other">Ich möchte auf anderem Wege helfen</string>
     <!-- Parameter: branded app name (Blokada). -->

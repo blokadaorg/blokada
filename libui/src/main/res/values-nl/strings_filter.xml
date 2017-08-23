@@ -36,6 +36,7 @@
     <string name="filter_edit_app_unsupported">(niet ondersteund door standaard blokkade)</string>
     <string name="filter_edit_save">Opslaan</string>
     <string name="filter_edit_cancel">Annuleren</string>
+    <string name="filter_edit_do">Doorgaan</string>
     <string name="filter_edit_comments">Reacties</string>
     <string name="filter_edit_comments_none">Geen reacties</string>
     <!-- Parameter: number of hosts. -->
@@ -58,9 +59,15 @@
     </plurals>
     <string name="filter_whitelist_text_none">Witte lijst inactief</string>
     <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Snelle acties</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">Alle systeem apps toevoegen (ingeschakeld)</string>
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Alle systeem apps toevoegen (uitgeschakeld)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">Alle apps toevoegen (ingeschakeld)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">Alle apps toevoegen (uitgeschakeld)</string>
     <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Standaard waarden herstellen (zwarte lijst en witte lijst)</string>
 </resources>

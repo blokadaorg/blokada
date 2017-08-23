@@ -5,7 +5,7 @@
     <!-- Parameter: host name of the link. For example: A link from example.com -->
     <string name="filter_name_link">Un link desde %s</string>
     <!-- As in, "A link from the Internet". -->
-    <string name="filter_name_link_unknown">de internet</string>
+    <string name="filter_name_link_unknown">internet</string>
     <!-- Parameter: directory of the file. For example: A file from Downloads -->
     <string name="filter_name_file">Un archivo desde %s</string>
     <!-- As in, "A a file from this device". -->
@@ -36,6 +36,7 @@
     <string name="filter_edit_app_unsupported">(no soportado por el bloqueo estándar)</string>
     <string name="filter_edit_save">Guardar</string>
     <string name="filter_edit_cancel">Cancelar</string>
+    <string name="filter_edit_do">Continuar</string>
     <string name="filter_edit_comments">Comentarios</string>
     <string name="filter_edit_comments_none">Sin comentarios</string>
     <!-- Parameter: number of hosts. -->
@@ -58,9 +59,15 @@
     </plurals>
     <string name="filter_whitelist_text_none">Lista blanca inactiva</string>
     <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Acciones rápidas</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">Añadir todas las aplicaciones del sistema (habilitado)</string>
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Añadir todas las aplicaciones del sistema (deshabilitado)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">Añadir todas las aplicaciones (habilitado)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">Añadir todas las aplicaciones (deshabilitado)</string>
     <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Restaurar valores (lista negra y blanca)</string>
 </resources>

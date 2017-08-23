@@ -36,6 +36,7 @@
     <string name="filter_edit_app_unsupported">(tidak disokong oleh penyekatan umum)</string>
     <string name="filter_edit_save">Simpan</string>
     <string name="filter_edit_cancel">Batal</string>
+    <string name="filter_edit_do">Teruskan</string>
     <string name="filter_edit_comments">Ulasan</string>
     <string name="filter_edit_comments_none">Tiada ulasan</string>
     <!-- Parameter: number of hosts. -->
@@ -55,9 +56,15 @@
     </plurals>
     <string name="filter_whitelist_text_none">Senarai putih dimatikan</string>
     <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Tindakan Pantas</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">Masukkan semua aplikasi sistem (dihidupkan)</string>
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Masukkan semua aplikasi sistem (dimatikan)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">Masukkan semua aplikasi  (dihidupkan)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">Masukkan semua aplikasi  (dimatikan)</string>
     <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Kembalikan ke asal (senarai hitam &amp; putih)</string>
 </resources>
