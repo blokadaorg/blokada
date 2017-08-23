@@ -39,8 +39,8 @@ function release {
     export VARIANT=Release
 }
 
-function incognito {
-    export VARIANT=Incognito
+function firebase {
+    export VARIANT=Firebase
 }
 
 function run {
@@ -56,7 +56,7 @@ function run {
 	dev
         make ${*:3}
     else
-        >&2 echo "Unknown flavor: $1. Usage: ./makef flavor (d|r|i) targets to execute"
+        >&2 echo "Unknown flavor: $1. Usage: ./makef flavor (d|r|f) targets to execute"
         exit 1
     fi
 }
@@ -67,17 +67,17 @@ if [ "$2" = "d" ]; then
 elif [ "$2" = "r" ]; then
     release
     run $@
-elif [ "$2" = "i" ]; then
-    incognito
+elif [ "$2" = "f" ]; then
+    firebase
     run $@
 elif [ "$2" = "all" ]; then
     debug
     run $@
     release
     run $@
-    incognito
+    firebase
     run $@
 else
-    >&2 echo "Unknown variant: $2. Usage: ./makef flavor (d|r|i) targets to execute"
+    >&2 echo "Unknown variant: $2. Usage: ./makef flavor (d|r|f) targets to execute"
     exit 1
 fi

@@ -19,6 +19,6 @@ class MainApplication: Application(), KodeinAware {
         import(newAppUiModule())
         import(newAndroidAppUiModule(this@MainApplication))
         import(newAndroidAppConfigModule(this@MainApplication), allowOverride = true)
+        import(newFirebaseModule(), allowOverride = true)
     }
 }
-

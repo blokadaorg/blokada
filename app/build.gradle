@@ -16,10 +16,9 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
         dev.java.srcDirs += 'src/dev/kotlin'
         prod.java.srcDirs += 'src/prod/kotlin'
-        release.java.srcDirs += 'src/release/kotlin'
-        release.java.srcDirs += 'src/firebase/kotlin'
+        firebase.java.srcDirs += 'src/firebase/kotlin'
         debug.java.srcDirs += 'src/debug/kotlin'
-        incognito.java.srcDirs += 'src/incognito/kotlin'
+        release.java.srcDirs += 'src/release/kotlin'
     }
     signingConfigs {
         release {
@@ -30,12 +29,12 @@ android {
         }
     }
     buildTypes {
-        release {
+        firebase {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-        incognito {
+        release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -59,12 +58,12 @@ android {
 dependencies {
     // The UI Blokada library
     debugCompile project(path: ':libui', configuration: 'debug')
-    incognitoCompile project(path: ':libui', configuration: 'release')
+    firebaseCompile project(path: ':libui', configuration: 'release')
     releaseCompile project(path: ':libui', configuration: 'release')
 
     // Analytics and debugging
-    releaseCompile 'com.google.firebase:firebase-core:10.2.4'
-    releaseCompile 'com.google.firebase:firebase-crash:10.2.4'
+    firebaseCompile 'com.google.firebase:firebase-core:10.2.4'
+    firebaseCompile 'com.google.firebase:firebase-crash:10.2.4'
 
     // Test dependencies
     testCompile 'junit:junit:4.12'
