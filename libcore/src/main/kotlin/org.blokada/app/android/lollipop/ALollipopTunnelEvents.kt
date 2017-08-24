@@ -74,6 +74,9 @@ internal class ALollipopTunnelEvents(
             builder.addDisallowedApplication(it.source.toUserInput())
         }
 
+        // People kept asking why GPlay doesnt work
+        try { builder.addDisallowedApplication("com.android.vending") } catch (e: Exception) {}
+
         builder.setBlocking(true)
         return 0L
     }
