@@ -83,11 +83,11 @@ class AWebViewActor(
     }
 
     private fun handleError(url: String?) {
-        try {
-            if (url?.contains(url().host) ?: false) {
-                loaded = false
-                handler.sendEmptyMessageDelayed(0, RELOAD_ERROR_MILLIS)
-            }
-        } catch (e: Exception) {}
+//        try {
+//            if (url?.contains(url().host) ?: false) {
+//                loaded = false
+//                handler.sendEmptyMessageDelayed(0, RELOAD_ERROR_MILLIS)
+//            }
+//        } catch (e: Exception) {}
     }
 }
