@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <resources>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_welcome">Vielen Dank für die Installation von %1$s! ❤\n\n%1$s funktioniert wie von dir gewünscht. Schließe einfach dieses Fenster, tippe auf das Schild, um %1$s zu aktivieren, und es kann losgehen!\n\nWenn Du jedoch mehr Kontrolle benötigst, verwende den folgenden Schalter, um erweiterte Funktionen zu aktivieren.</string>
+    <string name="main_welcome">Vielen Dank für die Installation von %1$s! ❤\n\n%1$s arbeitet nach Deinen Wünschen. Schließe einfach dieses Fenster, tippe auf das Schild, um %1$s zu aktivieren, und es kann losgehen!\n\nWenn Du mehr Kontrolle benötigst, verwende den folgenden Schalter, um erweiterte Funktionen zu aktivieren.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_cleanup">Du hast mehrere Versionen von %1$s auf deinem Gerät installiert. Möchtest Du die beste Version behalten und den Rest deinstallieren?</string>
     <string name="main_cleanup_done">Deinstallation gestartet&#8230;</string>

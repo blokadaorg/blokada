@@ -20,7 +20,7 @@
     <string name="main_continue">Continue</string>
     <string name="main_install">Instalar</string>
     <string name="main_skip">Pular</string>
-    <string name="main_loading">Carregando...</string>
+    <string name="main_loading">Carregando</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_intro">Bem vindo ao %s! Toque no escudo para ativar o aplicativo. Forneça as permissões quando solicitado.</string>
     <string name="main_error">Algo deu errado. Por favor verifique sua conexão com a internet e tente novamente.</string>
@@ -28,8 +28,8 @@
         <item>Aplicando alterações...</item>
         <item>Em andamento...</item>
         <item>Configurando...</item>
-        <item>Carregando...</item>
-        <item>Trabalhando...</item>
+        <item>Carregando</item>
+        <item>Trabalhando</item>
         <item>Processando...</item>
     </string-array>
     <string name="main_activating_new">Configurando seu dispositivo, aguarde por favor...</string>
@@ -62,7 +62,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable_tethering">%1$s está pausado porque seu dispositivo está com o Hotspot WiFi habilitado. O %1$s irá se ativar automaticamente quando o Hotspot WiFi for desativado.</string>
     <!-- Label for the Quick Settings toggle -->
-    <string name="main_quicksettings_toggle">Bloqueio de anúncio</string>
+    <string name="main_quicksettings_toggle">Bloquear anúncios</string>
     <!-- Active status for the Quick Settings toggle -->
     <string name="main_quicksettings_on">Ativo</string>
     <!-- Disabled status for the Quick Settings toggle -->
@@ -107,7 +107,7 @@
     <string name="main_autostart_text">Iniciar no boot</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_autostart_desc">Quando ativo, %s irá iniciar automaticamente quando o dispositivo for iniciado.</string>
-    <string name="main_data_start">Economia de dados inativa</string>
+    <string name="main_data_start">Economizar dados inativo</string>
     <!-- How much megabytes of data was saved so far. Displayed in the home screen. Parameter: number of MB saved, as in 2.35 MB. -->
     <string name="main_data_normal">%.2f MB economizados</string>
     <!-- Parameter: branded app name (Blokada). -->

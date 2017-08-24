@@ -59,9 +59,15 @@
     </plurals>
     <string name="filter_whitelist_text_none">لیس مجازِ غیر فعال</string>
     <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">تنظیمات سریع</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">اضافه کردن تمام برنامه‌های سیستمی (فعال)</string>
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">افزودن تمام برنامه‌های سیستمی (غیرفعال)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">تمام برنامه‌ها (فعال)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">افزودن تمام برنامه‌ها (غیرفعال)</string>
     <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">بازگرداندن به پیشفرض ها (لیست سیاه و مجاز)</string>
 </resources>
