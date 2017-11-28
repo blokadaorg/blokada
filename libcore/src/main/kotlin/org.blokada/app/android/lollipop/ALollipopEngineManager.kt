@@ -1,3 +1,15 @@
+/* Copyright (C) 2017 Karsen Gauss <a@kar.gs>
+ *
+ * Derived from DNS66:
+ * Copyright (C) 2016 Julian Andres Klode <jak@jak-linux.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * Contributions shall also be provided under any later versions of the
+ * GPL.
+ */
 package org.blokada.app.android.lollipop
 
 import android.annotation.TargetApi
