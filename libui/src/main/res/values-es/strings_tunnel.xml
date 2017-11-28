@@ -13,7 +13,7 @@
         <item quantity="one">%d anuncio bloqueado</item>
         <item quantity="other">%d anuncios bloqueados</item>
     </plurals>
-    <string name="tunnel_selected_desc">Toca para elegir el mejor mecanismo de bloqueo que funcione con tu dispositivo.</string>
+    <string name="tunnel_selected_desc">Toca para elegir el mecanismo de bloqueo que mejor funcione con tu dispositivo.</string>
     <string name="tunnel_selected_legacy">Bloqueo estándar</string>
     <string name="tunnel_selected_legacy_desc">Este mecanismo de bloqueo funciona en todos los dispositivos, pero puede incrementar ligeramente el uso de batería o afectar al rendimiento. Si el modo de bloqueo optimizado no es soportado por tu dispositivo, usa este mecanismo en su lugar.</string>
     <string name="tunnel_selected_lollipop">Bloqueo optimizado</string>

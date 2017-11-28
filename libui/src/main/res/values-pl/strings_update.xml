@@ -15,7 +15,7 @@
     <!-- Feel free to make this string a bit more localised. For example it can say, "This app and its Spanish version is made possible thanks to:" -->
     <string name="update_credits_header">Polska wersja Blokady jest możliwa dzięki poniższym osobom:</string>
     <!-- We appreciate you translating this app and welcome you to add your name here - it will show up in the About/Update screen. Please add yourself before everyone, one name per line. If you add a link, your name will be clickable (John Doe: http://my-website.com) -->
-    <string name="update_credits">Ewelina Łapińska \nKarsen: http://kar.gs\n... a także dzięki Tobie!</string>
+    <string name="update_credits">Ewelina Łapińska \nKarsen: http://kar.gs\nBruno\n... a także dzięki Tobie!</string>
     <string name="update_dash_desc">Wybierz, aby wyświetlić informacje o aktualizacji.</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
     <string name="update_dash_available">&lt;b&gt;Dostępna aktualizacja!&lt;/b&gt;</string>

@@ -75,5 +75,5 @@
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
     <string name="filter_generate_whitelist_all_disabled">Dodaj wszystkie aplikacje (dezaktywowane)</string>
     <!-- Deletes all filters and fetches default ones. -->
-    <string name="filter_generate_defaults">Przywróc domyślne filtry (blokowane i zezwolone)</string>
+    <string name="filter_generate_defaults">Przywróć domyślne filtry (blokowane i zezwolone)</string>
 </resources>

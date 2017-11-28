@@ -65,9 +65,15 @@
     </plurals>
     <string name="filter_whitelist_text_none">רשימה לבנה אינה פעילה</string>
     <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">פעולות מהירות</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">הוספת כל אפליקציות מערכת ההפעלה (מופעל)</string>
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">הוספת כל אפליקציות מערכת ההפעלה (מבוטל)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">הוספת כל האפליקציות (מופעל)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">הוספת כל האפליקציות (מבוטל)</string>
     <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">חזרה להגדרות ברירת מחדל (רשימה שחורה ולבנה)</string>
 </resources>

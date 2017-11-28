@@ -6,7 +6,11 @@
     <string name="main_welcome_cleanup">Vous avez plusieurs versions de %1$s installées sur votre appareil. Voulez-vous garder la meilleure version et désinstaller les autres maintenant ?</string>
     <string name="main_cleanup_done">Désinstallation démarrée&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">Vous utilisez une version de %1$s très vieille et non supportée. Une version meilleure et plus récente et disponible en téléchargement gratuit. Voulez-vous le faire maintenant ?</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">Votre %1$s vient d\'être mise à jour. Profitez !\n\nFournir des améliorations et mise à jour demande du temps. %1$s existe uniquement grâce à votre support. Considérez, svp, supporter ce projet.</string>
+    <string name="main_updated_donate">J\'aimerais faire un don</string>
+    <string name="main_updated_other">J\'aimerais aider d\'une autre façon</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_migrate">Merci de maintenir %1$s à jour ! ❤\n\nVous utilisez la version classique de l\'appli. Votre appareil supporte une version plus légère et rapide que vous pouvez installer gratuitement. Voulez-vous basculer maintenant ?</string>
     <string name="main_migrate_slim">Oui, je veux la version la plus rapide (recommandé)</string>
@@ -69,6 +73,8 @@
     <string name="main_donate_desc">Votre support rend %s possible !</string>
     <string name="main_donate_text">Donner</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">Contribuez du code, traductions, ou promouvez %s pour favoriser son développement.</string>
+    <string name="main_contribute_text">Participez</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Cliquer pour voir les dernières mises à jour de la communauté %s</string>
     <string name="main_blog_text">Communauté</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <resources>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_welcome">¡Gracias por instalarnos %1$s!  ❤\n\n%1$s funciona a tu manera. Sólo cierra esta ventana, toca el escudo para activar los filtros %1$s, ¡y ya eres libre para hacer lo que desees!\n\nEn cualquier caso, si necesitas más control, toca el botón de abajo para habilitar opciones avanzadas.</string>
+    <string name="main_welcome">¡Gracias por instalar %1$s!  ❤\n\n%1$s funciona a tu manera. Sólo cierra esta ventana, toca el escudo para activar los filtros, ¡y ya eres libre para hacer lo que desees!\n\nEn cualquier caso, si necesitas más control, toca el botón de abajo para habilitar opciones avanzadas.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_welcome_cleanup">Tienes varias versiones de %1$s instaladas en tu dispositivo. ¿Te gustaría mantener la mejor versión y desinstalar el resto ahora?</string>
+    <string name="main_welcome_cleanup">Tienes varias versiones de %1$s instaladas en el dispositivo. ¿Te gustaría mantener la mejor versión y desinstalar el resto ahora?</string>
     <string name="main_cleanup_done">Se inició la desinstalación&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_obsolete">Estás utilizando una versión obsoleta e incompatible de %1$s. Una nueva versión, mucho mejor, está disponible para instalarse de forma gratuita. ¿Quieres hacerlo ahora?</string>
@@ -12,7 +12,7 @@
     <string name="main_updated_donate">Me gustaría hacer una donación</string>
     <string name="main_updated_other">Me gustaría ayudar de otra forma</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_welcome_migrate">¡Gracias por mantener %1$s actualizado! ❤\n\nEstás usando la versión clásica de la aplicación. Tu dispositivo admite una versión más rápida y más pequeña que puedes instalar de forma gratuita. ¿Quieres cambiar ahora?</string>
+    <string name="main_welcome_migrate">¡Gracias por mantener %1$s actualizado! ❤\n\nEstás usando la versión clásica de la aplicación. Tu dispositivo admite una versión más rápida y más pequeña que puedes instalar de forma gratuita. ¿Quieres cambiar Blokada ahora?</string>
     <string name="main_migrate_slim">Sí, quiero la versión más rápida (recomendado)</string>
     <string name="main_migrate_prod">Sí, pero utilizo el bloqueo estándar</string>
     <string name="main_advanced_off">Soy nuevo (recomendado)</string>
@@ -47,7 +47,7 @@
         <item>%s está activado.</item>
     </string-array>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_active_new">%1$s está protegiendo tu dispositivo de los anuncios. ¡Puedes ajustar %1$s debajo, o simplemente pasar y usar tu dispositivo!</string>
+    <string name="main_active_new">%1$s está protegiendo tu dispositivo de los anuncios. ¡Puedes ajustar %1$s abajo, o simplemente pasar y usar tu dispositivo!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string-array name="main_paused">
     <!-- Parameter: branded app name (Blokada). -->
@@ -58,7 +58,7 @@
         <item>%s está desactivado.</item>
     </string-array>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_paused_autoenable">%1$s está pausado debido a que tú dispositivo no tiene conexión. %1$s se activará automáticamente una vez te vuelvas a conectar.</string>
+    <string name="main_paused_autoenable">%1$s está pausado debido a que tú dispositivo no tiene conexión. %1$s se activará automáticamente en cuanto te vuelvas a conectar.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable_tethering">%1$s está pausado porque tú dispositivo tiene el punto de acceso WiFi activado. %1$s se reanudará automáticamente después de que el punto de acceso WiFi se haya desactivado.</string>
     <!-- Label for the Quick Settings toggle -->
@@ -73,7 +73,7 @@
     <string name="main_donate_desc">¡Eres la razón por la que %s se mantiene gratis, segura e independiente!</string>
     <string name="main_donate_text">Donar</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_contribute_desc">Contribuye programando, traduciendo o promocionando %s para ayudar a su desarrollo.</string>
+    <string name="main_contribute_desc">Contribuye programando, traduciendo o promoviendo %s para ayudar a su desarrollo.</string>
     <string name="main_contribute_text">Involúcrate</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_blog_desc">Toca para ver las últimas actualizaciones de la comunidad de %s.</string>
@@ -86,13 +86,13 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_tracking_enabled">%s enviará informes de rendimiento anónimos de vez en cuando.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_connectivity_desc">Cuando está activado, %s monitorizará la conexión de internet y se pasará cuando tu dispositivo esté desconectado.</string>
+    <string name="main_connectivity_desc">Cuando está activado, %s monitorizará la conexión de internet y se pausará cuando tu dispositivo esté desconectado.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
-    <string name="main_connectivity_text">Sólo en línea</string>
+    <string name="main_connectivity_text">Sólo conectado</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_status_desc">El icono muestra el estado actual de %s y si todo funciona bien.</string>
     <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
-    <string name="main_status_long">%2$s es %1$s</string>
+    <string name="main_status_long">%2$s está %1$s</string>
     <!-- App status (very short). For example: active. Parameter: app status. -->
     <string name="main_status_short">%1$s</string>
     <!-- App status, as in: Blokada is Active -->
@@ -114,7 +114,7 @@
     <string name="main_data_desc">Cuando %s está activado, este contador mostrará el número de datos ahorrados.</string>
     <string name="main_feedback_text">Comentarios</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_feedback_desc">¡Toca para recomendar una idea y ayudar a %s a mejorar!</string>
+    <string name="main_feedback_desc">¡Toca para añadir una idea y ayudar a %s a mejorar!</string>
     <string name="main_bug_text">Reportar bug</string>
     <string name="main_bug_desc">Toca para reportar un problema y deja que te ayudemos.</string>
 </resources>

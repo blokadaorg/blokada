@@ -14,14 +14,14 @@
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
     <string name="notification_blocked_whitelist_applied">¡Listo! Los cambios tardarán unos instantes en realizarse.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_disabled">%s no mostrará notificaciones de anuncios.</string>
+    <string name="notification_disabled">%s no mostrará notificaciones de anuncios bloqueados.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_enabled">%s mostrará una notificación cada vez que un anuncio sea bloqueado.</string>
     <string name="notification_keepalive_text">Mantener activo</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_desc">Cuando esté activado, %s usará técnicas que ayudarán a que no se detenga la aplicación cuando se limpie la RAM.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_disabled">%s no estará protegida de la limpieza de RAM o batería.</string>
+    <string name="notification_keepalive_disabled">%s no estará protegida de la limpieza de RAM.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_enabled">%s ahora se protegerá de ser desactivada por el sistema operativo.</string>
     <!-- The ads blocked counter, displayed in the Keep Alive notification. Parameter: ads blocked counter. -->

@@ -28,9 +28,15 @@
     <string name="filter_edit_link_placeholder">http://exemple.com/hosts.txt</string>
     <string name="filter_edit_link_error">Ce lien ne peut être téléchargé ou ne semble pas contenir d\'hôtes.</string>
     <!-- Name of a tab that allows to whitelist app. -->
+    <string name="filter_edit_app">Appli</string>
+    <string name="filter_edit_app_enter">Entrez le nom de l\'appli ou du paquetage</string>
     <!-- An example package name of app to whitelist. -->
+    <string name="filter_edit_app_placeholder">Google Play Store</string>
+    <string name="filter_edit_app_error">Cette appli n\'existe pas ou ne peut pas être mise en liste blanche.</string>
+    <string name="filter_edit_app_unsupported">(non supporté par le blocage standard)</string>
     <string name="filter_edit_save">Sauver</string>
     <string name="filter_edit_cancel">Annuler</string>
+    <string name="filter_edit_do">Continuer</string>
     <string name="filter_edit_comments">Commentaires</string>
     <string name="filter_edit_comments_none">Aucun commentaire</string>
     <!-- Parameter: number of hosts. -->
@@ -53,9 +59,15 @@
     </plurals>
     <string name="filter_whitelist_text_none">Liste blanche inactive</string>
     <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Actions rapides</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_system">Ajouter toutes les applis système (activé)</string>
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Ajouter toutes les applis système (désactivé)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">Ajouter toutes les applis (activé)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">Ajouter toutes les applis (désactivé)</string>
     <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Restaurer les valeurs par défaut  (listes blanches et noires)</string>
 </resources>

@@ -6,7 +6,7 @@
     <string name="main_welcome_cleanup">Masz kilka wersji aplikacji %1$s. Czy chcesz pozostawić tylko najlepszą wersję i usunąć wszystkie inne?</string>
     <string name="main_cleanup_done">Rozpoczynam usuwanie&#8230;</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_welcome_obsolete">Używasz bardzo starej wersji aplikacji %1$s. Ta wersja nie jest już wspierana. Możesz pobrać nowszą, o wiele lepszą wersję, która jest dostępna za darmo. Czy chciałbyś to zrobić teraz?</string>
+    <string name="main_welcome_obsolete">Używasz bardzo starej wersji aplikacji %1$s. Ta wersja nie jest już wspierana. Możesz pobrać nowszą o wiele lepszą wersję, która jest dostępna za darmo. Czy chciałbyś to zrobić teraz?</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_welcome_updated">Twoja %1$s właśnie została zaktualizowana!\n\nAktualizacje i usprawnienia wymagają dużo pracy. %1$s istnieje tylko dzięki Twojemu wsparciu. Prosimy, rozważ aktywną pomoc temu projektowi.</string>
     <string name="main_updated_donate">Chcę dokonać dotacji</string>

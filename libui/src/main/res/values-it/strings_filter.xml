@@ -59,9 +59,14 @@
     </plurals>
     <string name="filter_whitelist_text_none">Whitelist non attiva</string>
     <!-- Title of menu with quick actions for whitelist / blacklist -->
+    <string name="filter_generate_title">Azioni rapide</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_system_disabled">Aggiungi tutte le applicazioni di sistema (disabilitato)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
+    <string name="filter_generate_whitelist_all">Aggiungi tutte le app (abilitato)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
+    <string name="filter_generate_whitelist_all_disabled">Aggiungi tutte le app (disabilitato)</string>
     <!-- Deletes all filters and fetches default ones. -->
+    <string name="filter_generate_defaults">Ripristina predefinite  (blacklist e whitelist)</string>
 </resources>

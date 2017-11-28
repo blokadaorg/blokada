@@ -13,7 +13,7 @@
     <!-- Technical information about app version and versions of used libraries. Please keep the HTML tags and formatting. It's ok to just copy paste the untranslated string. -->
     <string name="update_header_current">Semasa: &lt;b&gt;%1$s %2$s&lt;/b&gt;&lt;br/&gt;core: %3$s&lt;br/&gt;ui: %4$s</string>
     <!-- Feel free to make this string a bit more localised. For example it can say, "This app and its Spanish version is made possible thanks to:" -->
-    <string name="update_credits_header">Aplikasi ini adalah satu projek Suber Terbuka yang telah dilaksanakan oleh:</string>
+    <string name="update_credits_header">Aplikasi ini adalah satu projek Sumber Terbuka yang telah dilaksanakan oleh:</string>
     <!-- We appreciate you translating this app and welcome you to add your name here - it will show up in the About/Update screen. Please add yourself before everyone, one name per line. If you add a link, your name will be clickable (John Doe: http://my-website.com) -->
     <string name="update_credits">Karsen: http://kar.gs\n... dan anda!</string>
     <string name="update_dash_desc">Sentuh untuk memaparkan informasi kemaskini.</string>
