@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome">Hvala što ste instalirali %1$s! ❤\n\nOva aplikacija radi onako kako vi želite. Zatvorite ovaj prozor, dodirnite štit da aktivirate Blokadu i sve je spremno!\n\nIpak, ako želite veću kontrolu, ovdje možete pristupiti naprednim opcijama.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_cleanup">Na vašem uređaju je instalirano nekoliko verzija %1$s - želite li zadržati najbolju verziju a ostale deinstalirati?</string>
+    <string name="main_cleanup_done">Deinstalacija počinje&#8230;</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">Koristite vrlo staru, nepodržanu verziju %1$s. Dostupna je novija i bolja verzija, i možete ju besplatno instalirati. Želite li to učiniti odmah?</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">Vaša  %1$s je ažurirana. Uživajte!\n\nAžuriranje i poboljšavanje zahtijeva puno uloženog truda.  %1$s postoji samo zbog vaše potpore. Molimo vas da uzmete u obzir podržavanje ovog projekta.</string>
+    <string name="main_updated_donate">Želim donirati</string>
+    <string name="main_updated_other">Želim pomoći na neki drugi način</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_migrate">Hvala što ste ažurirali  %1$s! \n\nKoristite klasičnu verziju ove aplikacije. Vaš uređaj podržava bržu i laganiju verziju koju možete instalirati besplatno. Želite li ju promijeniti odmah?</string>
+    <string name="main_migrate_slim">Da, želim bržu verziju (preporučeno)</string>
+    <string name="main_migrate_prod">Da, ali koristim standardno blokiranje</string>
+    <string name="main_advanced_off">Novi korisnik (preporučeno)</string>
+    <string name="main_advanced_on">Napredni korisnik</string>
+    <string name="main_continue">Nastavak</string>
+    <string name="main_install">Instalacija</string>
+    <string name="main_skip">Preskoči</string>
+    <string name="main_loading">Učitavanje</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_intro">Dobrodošli u %s! Dodirnite štit da aktivirate aplikaciju. Omogućite dozvole kad bude zatraženo.</string>
+    <string name="main_error">Nešto nije u redu. Provjerite svoju internet vezu i pokušajte opet.</string>
+    <string-array name="main_activating">
+        <item>Spremanje izmjena...</item>
+        <item>Pričekajte...</item>
+        <item>Postavljanje...</item>
+        <item>Trenutak...</item>
+        <item>Obrada...</item>
+        <item>Obrada...</item>
+    </string-array>
+    <string name="main_activating_new">Prilagođavanje vašem uređaju, pričekajte...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_deactivating_new">%s se isključuje. Molimo pričekajte...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_active">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s je aktivna.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s funkcionira kako treba.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s radi kako treba.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s uključena.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_new">%1$s sad štiti vaš uređaj od reklama. Dolje možete pogledati detaljnije %1$s postavke, a slobodno možete i odmah početi koristiti vaš uređaj!</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_paused">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s nije aktivna.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s je pauzirana.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s isključena.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable">%1$s je pauzirana jer uređaj nije spojen na internet. %1$s će se automatski aktivirati kad internet veza bude dostupna.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable_tethering">%1$s je pauzirana jer je na vašem uređaju uključen WiFi Hotspot. %1$s će se automatski aktivirati kad WiFi Hotspot bude isključen.</string>
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">Blokada reklama</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <string name="main_quicksettings_on">Aktivna</string>
+    <!-- Disabled status for the Quick Settings toggle -->
+    <string name="main_quicksettings_off">Onemogućena</string>
+    <string name="main_faq_desc">Pogledajte odgovore na uobičajena pitanja.</string>
+    <string name="main_faq_text">Pomoć</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_donate_desc">%s je moguća zbog vaše potpore!</string>
+    <string name="main_donate_text">Donacija</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">Dajte doprinos kodom, prijevodom ili promovirajte %s da pomognete u razvoju.</string>
+    <string name="main_contribute_text">Uključite se</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_blog_desc">Pogledajte zadnje novosti iz %s  Zajednice.</string>
+    <string name="main_blog_text">Zajednica</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_desc">Ako je omogućeno, %s šalje anonimne informacije o tome kako funkcionira. Ovo nam je potrebno da možemo i dalje poboljšavati aplikaciju.</string>
+    <string name="main_tracking_text">Izvješće o zdravlju</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_disabled">%s više neće slati izvješća o zdravlju. Za primjenu ponovno pokrenite aplikaciju.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_enabled">%s će sada povremeno slati izvješća o zdravlju.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_connectivity_desc">Kada je omogućeno, %s će pratiti internet konekciju i pauzirati kad god vaš uređaj bude offline.</string>
+    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">Samo online</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_status_desc">Ova ikona pokazuje %s status i funkcionira li sve korektno.</string>
+    <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
+    <string name="main_status_long">%2$s je %1$s</string>
+    <!-- App status (very short). For example: active. Parameter: app status. -->
+    <string name="main_status_short">%1$s</string>
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">aktivna</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">onemogućena</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">Aktiviranje</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">Deaktiviranje</string>
+    <string name="main_status_error">Pojavio se problem</string>
+    <string name="main_autostart_text">Start pri bootanju</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_autostart_desc">Ako je omogućeno, %s se automatski uključuje pri pokretanju uređaja.</string>
+    <string name="main_data_start">Ne štedi data promet</string>
+    <!-- How much megabytes of data was saved so far. Displayed in the home screen. Parameter: number of MB saved, as in 2.35 MB. -->
+    <string name="main_data_normal">Ušteđeno %.2f MB</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_data_desc">Kad je %s aktivna, ovdje se prikazuje procjena ušteđenog podatkovnog prometa.</string>
+    <string name="main_feedback_text">Feedback</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_feedback_desc">Sugerirajte novu ideju i pomognite da se %s još više poboljša!</string>
+    <string name="main_bug_text">Prijavite bug</string>
+    <string name="main_bug_desc">Prijavite problem i dozvolite da vam pomognemo.</string>
+</resources>

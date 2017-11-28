@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="tunnel_hosts_desc">Menampilkan jumlah host yang dikonfigurasi agar terhalang oleh %s.</string>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <plurals name="tunnel_hosts_count">
+        <item quantity="other">%d hosts</item>
+    </plurals>
+    <string name="tunnel_ads_desc">Menampilkan jumlah total iklan yang diblokir sejauh ini.</string>
+    <!-- The counter displayed the total number of ads blocked (in the home screen). Parameter: number of ads blocked. -->
+    <plurals name="tunnel_ads_blocked">
+        <item quantity="other">%d iklan diblokir</item>
+    </plurals>
+    <string name="tunnel_selected_desc">Ketuk untuk memilih mekanisme pencekalan yang paling sesuai untuk perangkat Anda.</string>
+    <string name="tunnel_selected_legacy">Pemblokiran standar</string>
+    <string name="tunnel_selected_legacy_desc">Mekanisme pemblokiran ini bekerja pada semua perangkat, namun mungkin sedikit meningkatkan penguras baterai atau mempengaruhi kinerja. Jika pemblokiran yang Dioptimalkan tidak didukung oleh perangkat Anda, gunakan mekanisme ini sebagai gantinya.</string>
+    <string name="tunnel_selected_lollipop">Pemblokiran optimal</string>
+    <string name="tunnel_selected_lollipop_desc">Ini adalah mekanisme pemblokiran baru dengan dampak minimal pada baterai dan kinerja, dan ini didukung oleh perangkat Anda! Kecuali Anda mengalami masalah dengan hal itu, ini adalah pilihan yang disarankan.</string>
+    <string name="tunnel_selected_lollipop_desc_unsupported">Ini adalah mekanisme pemblokiran baru dengan dampak minimal pada baterai dan kinerja. Sayangnya, Android 5 atau yang lebih baru diperlukan, jadi tidak dapat diaktifkan pada perangkat Anda.</string>
+</resources>

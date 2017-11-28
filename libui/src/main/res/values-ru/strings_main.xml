@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome">Благодарим вас за установку %1$s! ❤\n\n\nЭто приложение работает для вас! Просто закройте это окно, нажмите на щит для включения, и на этом все!\n\n\nОднако, если требуется больший контроль, используйте переключатель ниже, чтобы включить дополнительные функции.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_cleanup">На вашем устройстве установлено несколько версий %1$s. Желаете сохранить лучшую версию и удалить остальные?</string>
+    <string name="main_cleanup_done">Начато удаление&#8230;</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">Вы используете очень старую, не поддерживаемую версию %1$s. Новая, улучшенная версия доступна для установки бесплатно. Хотите сделать это сейчас?</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">%1$s только что обновилась. Наслаждайтесь!\n\n\nОбеспечение обновлений и улучшений требует большой работы. %1$s существует исключительно благодаря вашей поддержке. Пожалуйста, подумайте о поддержке этого проекта.</string>
+    <string name="main_updated_donate">Я хотел бы пожертвовать</string>
+    <string name="main_updated_other">Я хотел бы помочь другим способом</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_migrate">Благодарим за обновление %1$s! ❤\n\n\nВы используете классическую версию приложения. Ваше устройство поддерживает более быструю и оптимизированную версию, которую можно установить бесплатно. Хотите перейти на нее сейчас?</string>
+    <string name="main_migrate_slim">Да, я хочу улучшенную версию (рекомендуется)</string>
+    <string name="main_migrate_prod">Да, но я использую стандартную блокировку</string>
+    <string name="main_advanced_off">Я новенький (рекомендуется)</string>
+    <string name="main_advanced_on">Я опытный пользователь</string>
+    <string name="main_continue">Продолжить</string>
+    <string name="main_install">Установить</string>
+    <string name="main_skip">Пропустить</string>
+    <string name="main_loading">Загрузка…</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_intro">Добро пожаловать в %s! Нажмите на щит, чтобы активировать приложение. Предоставьте разрешения при запросе.</string>
+    <string name="main_error">Что-то пошло не так. Пожалуйста, проверьте подключение к интернету и повторите попытку.</string>
+    <string-array name="main_activating">
+        <item>Применение изменений…</item>
+        <item>Выполняется...</item>
+        <item>Настройка…</item>
+        <item>Загрузка…</item>
+        <item>Работаем…</item>
+        <item>Обработка…</item>
+    </string-array>
+    <string name="main_activating_new">Настройка устройства, пожалуйста, подождите…</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_deactivating_new">Отключение %s. Пожалуйста, подождите…</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_active">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s активно.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s функционирует правильно.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s работает отлично.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s включено.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_new">%1$s теперь защищает ваше устройство от рекламы. Можно выполнить тонкую настройку %1$s ниже, или просто перейти к использованию устройства!</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_paused">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s неактивно.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s приостановлено.</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s отключено.</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable">%1$s приостановлено, так как ваше устройство не в сети. %1$s автоматически станет активно при подключении к интернету.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable_tethering">%1$s приостановлено, т.к. на Вашем устройстве включена точка доступа WiFi. %1$s станет активно автоматически при отключении точки доступа WiFi.</string>
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">Блокировка рекламы</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <string name="main_quicksettings_on">Активно</string>
+    <!-- Disabled status for the Quick Settings toggle -->
+    <string name="main_quicksettings_off">Отключено</string>
+    <string name="main_faq_desc">Коснитесь, чтобы увидеть ответы на распространенные вопросы.</string>
+    <string name="main_faq_text">Помощь</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_donate_desc">Ваша поддержка помогает существованию %s.</string>
+    <string name="main_donate_text">Пожертвовать</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">Распространите, переведите или помогите улучшить %s, чтобы поддержать его разработку.</string>
+    <string name="main_contribute_text">Присоединиться</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_blog_desc">Коснитесь, чтобы узнать о последних изменениях от сообщества %s.</string>
+    <string name="main_blog_text">Сообщество</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_desc">Когда включено, %s будет собирать анонимную информацию о производительности. Это необходимо для улучшения приложения.</string>
+    <string name="main_tracking_text">Отчет о состоянии</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_disabled">%s не будет отправлять отчеты о состоянии. Перезапустите приложение, чтобы изменения вступили в силу.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_enabled">%s будет отправлять анонимные отчеты о состоянии время от времени.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_connectivity_desc">Когда включено, %s будет следить за подключением к сети и будет приостанавливаться, когда устройство отключается от сети.</string>
+    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">Только онлайн</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_status_desc">Эта иконка отображает текущий статус %s и его корректную работу.</string>
+    <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
+    <string name="main_status_long">%2$s %1$s</string>
+    <!-- App status (very short). For example: active. Parameter: app status. -->
+    <string name="main_status_short">%1$s</string>
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">Активно</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">Отключено</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">Включение</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">Отключение</string>
+    <string name="main_status_error">Возникла проблема</string>
+    <string name="main_autostart_text">Запуск при загрузке</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_autostart_desc">Когда включено, %s будет запускаться автоматически при включении устройства.</string>
+    <string name="main_data_start">Экономия трафика выкл.</string>
+    <!-- How much megabytes of data was saved so far. Displayed in the home screen. Parameter: number of MB saved, as in 2.35 MB. -->
+    <string name="main_data_normal">%.2f МБ сэкономлено</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_data_desc">Когда %s включено, этот счетчик отображает примерное значение сэкономленного трафика.</string>
+    <string name="main_feedback_text">Обратная связь</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_feedback_desc">Коснитесь, чтобы предложить новую идею и помочь улучшить %s!</string>
+    <string name="main_bug_text">Сообщить об ошибке</string>
+    <string name="main_bug_desc">Коснитесь, чтобы сообщить о проблеме и позволить нам помочь вам.</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="tunnel_hosts_desc">Prikazuje broj hostova koje je %s konfigurirana blokirati.</string>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <plurals name="tunnel_hosts_count">
+        <item quantity="one">%d host</item>
+        <item quantity="other">%d hostova</item>
+        <item quantity="few"></item>
+    </plurals>
+    <string name="tunnel_ads_desc">Prikazuje ukupni broj do sada blokiranih reklama.</string>
+    <!-- The counter displayed the total number of ads blocked (in the home screen). Parameter: number of ads blocked. -->
+    <plurals name="tunnel_ads_blocked">
+        <item quantity="one">%d blokirana reklama</item>
+        <item quantity="other">%d blokiranih reklama</item>
+        <item quantity="few">%d blokiranih reklama</item>
+    </plurals>
+    <string name="tunnel_selected_desc">Izaberite način blokiranja najprikladniji vašem uređaju.</string>
+    <string name="tunnel_selected_legacy">Standardno blokiranje</string>
+    <string name="tunnel_selected_legacy_desc">Ovaj način blokiranja radi na svim uređajima, ali može neznatno povećati trošenje baterije ili utjecati na brzinu uređaja. Ako vaš uređaj ne podržava Optimizirano blokiranje, umjesto njega koristite ovaj način.</string>
+    <string name="tunnel_selected_lollipop">Optimizirano blokiranje</string>
+    <string name="tunnel_selected_lollipop_desc">Ovo je novi način blokiranja sa minimalnim utjecajem na bateriju i brzinu, i vaš uređaj ga podržava! Ako sa njegovim radom nemate problema, ovo je preporučeni izbor.</string>
+    <string name="tunnel_selected_lollipop_desc_unsupported">Ovo je novi način blokiranja sa minimalnim utjecajem na bateriju i brzinu. Na žalost, potreban je Android 5.0 ili noviji, pa se na vašem uređaju ne može aktivirati.</string>
+</resources>
