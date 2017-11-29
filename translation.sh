@@ -9,7 +9,7 @@
 # - app-path - Where is Blokada app repo
 # - web-path - Where is Blokada website repo
 
-langs="es pt fr pl cs de nl ms he fa it id hr hu ru"
+langs="es pt fr pl cs de nl ms he fa it id hr hu ru zh-rCN zh-rTW"
 xml="filter main notification tunnel update"
 pages="donate.html help.html contribute.html"
 props="strings_repo.properties strings_store.properties strings_filters.properties"
@@ -56,17 +56,19 @@ if [ "$choice" = "y" ]; then
 	    x="$j"
 	    runXml
 	done
+	i=$(echo $i | sed -e "s/-r/-/g")
 	for j in $pages; do
             l="$i"
 	    x="$j"
 	    runPages
 	done
+	runIndex
+	i=$(echo $i | sed -e "s/-/_/g")
 	for j in $props; do
             l="$i"
 	    x="$j"
 	    runProps
 	done
-	runIndex
     done
 else
     echo "Cancelled"
