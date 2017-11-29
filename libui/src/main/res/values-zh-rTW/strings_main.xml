@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome">感謝您安裝 %1$s！❤\n\n這個應用程式的工作方式。只要關閉這個視窗，點觸防盾圖示啟動它後，您就可以出發了！\n\n然而，如果您需要更多的控制，請使用下面的開關來啟用進階功能。</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_cleanup">在您的裝置上已安裝了多個版本的 %1$s 。您現在想保留最佳的版本，而解除安裝其它的嗎？</string>
+    <string name="main_cleanup_done">解除安裝已開始&#8230;</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_obsolete">您正在使用的版本 %1$s 非常舊已不支援。有個更新、更好的版本能用，您可以免費的安裝。您想現在就安裝嗎？</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_updated">您的 %1$s 已經更新。請享用！\n\n提供更新和改進需要花費很多的工作。%1$s 的存在完全歸功於您的支持。請考量支援此專案。</string>
+    <string name="main_updated_donate">我想捐助</string>
+    <string name="main_updated_other">我想以其他方式提供幫助</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_welcome_migrate">感謝您將 %1$s 保留最新的！❤\n\n您正在使用這個應用程式的經典版本。您的裝置支援一個更快、更小的版本，您可以免費的安裝。您想現在切換嗎？</string>
+    <string name="main_migrate_slim">是的，我想要更快的版本（推薦）</string>
+    <string name="main_migrate_prod">是的，但我使用標準阻擋</string>
+    <string name="main_advanced_off">我是新手（推薦）</string>
+    <string name="main_advanced_on">我是老手</string>
+    <string name="main_continue">繼續</string>
+    <string name="main_install">安裝</string>
+    <string name="main_skip">跳過</string>
+    <string name="main_loading">正在載入…</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_intro">歡迎來到 %s！點觸螢幕以啟動應用程式。有請求時給予允許權限。</string>
+    <string name="main_error">出了些問題。請檢查您的網路連線，然後重試。</string>
+    <string-array name="main_activating">
+        <item>正在套用變更...</item>
+        <item>正在進行…</item>
+        <item>設定中…</item>
+        <item>正在載入…</item>
+        <item>工作中…</item>
+        <item>處理中...</item>
+    </string-array>
+    <string name="main_activating_new">正在設定您的裝置，請稍候...</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_deactivating_new">正在關閉 %s。請稍候…</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_active">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s 處於動作狀態。</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s 功能正常。</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s 工作正常。</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s 已開啟。</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_new">現在 %1$s 可以保護您的裝置免受廣告干擾。您可以在下面細調 %1$s，或者繼續使用您的裝置！</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string-array name="main_paused">
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s 已失效。</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s 已暫停。</item>
+    <!-- Parameter: branded app name (Blokada). -->
+        <item>%s 已關閉。</item>
+    </string-array>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable">%1$s 已暫停，因為您的裝置已斷開連線。連接上網路後，%1$s 將會自行啟動。</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_paused_autoenable_tethering">%1$s 已暫停，因為您的裝置已啟用 WiFi 熱點。停用 WiFi 熱點後，%1$s 將會自行啟動。</string>
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">正在阻擋廣告</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <string name="main_quicksettings_on">啟動</string>
+    <!-- Disabled status for the Quick Settings toggle -->
+    <string name="main_quicksettings_off">停用</string>
+    <string name="main_faq_desc">點觸查看常見問題。</string>
+    <string name="main_faq_text">幫助</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_donate_desc">您的支持讓 %s 成為可能！</string>
+    <string name="main_donate_text">捐助</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_contribute_desc">捐助碼、翻譯或晉升為 %s 以幫助其發展。</string>
+    <string name="main_contribute_text">參與</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_blog_desc">點觸即可查看 %s 社群的最新更新。</string>
+    <string name="main_blog_text">社群</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_desc">當啟用後，%s 會發送關於其效能的匿名資訊。我們需要這個來持續改良應用程式。</string>
+    <string name="main_tracking_text">健康狀況報告</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_disabled">%s 不會再發送任何的健康狀況報告。您需要重新啟動應用程式才能生效。</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_tracking_enabled">%s 現在將不定時發送匿名的健康狀況報告。</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_connectivity_desc">當啟用後，%s 將監視網路連接並在裝置離線時暫停。</string>
+    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
+    <string name="main_connectivity_text">僅上網時</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_status_desc">此圖示顯示 %s 的目前狀態，以及一切是否工作正常。</string>
+    <!-- App status (short). For example: Blokada is active. Parameters: branded app name, and status. -->
+    <string name="main_status_long">%2$s 為 %1$s</string>
+    <!-- App status (very short). For example: active. Parameter: app status. -->
+    <string name="main_status_short">%1$s</string>
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">啟動</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">停用</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">啟動中</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">停用中</string>
+    <string name="main_status_error">發生問題</string>
+    <string name="main_autostart_text">在開機時啟動</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_autostart_desc">當啟用時，%s 會在此裝置開機後自動啟動。</string>
+    <string name="main_data_start">資料儲存關閉</string>
+    <!-- How much megabytes of data was saved so far. Displayed in the home screen. Parameter: number of MB saved, as in 2.35 MB. -->
+    <string name="main_data_normal">%.2f MB 已儲存</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_data_desc">當 %s 處於啟動狀態，此計數器將顯示儲存的統計資料量。</string>
+    <string name="main_feedback_text">反應</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_feedback_desc">點觸來建議一個新構想，並幫助 %s 改善！</string>
+    <string name="main_bug_text">回報錯誤</string>
+    <string name="main_bug_desc">點觸回報問題，讓我們來幫助您。</string>
+</resources>

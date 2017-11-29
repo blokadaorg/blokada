@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<resources>
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="tunnel_hosts_desc">显示已配置被 %s 拦截主机名的数量</string>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <plurals name="tunnel_hosts_count">
+        <item quantity="other">%d 条规则</item>
+    </plurals>
+    <string name="tunnel_ads_desc">显示至今为止已拦截广告的数量。</string>
+    <!-- The counter displayed the total number of ads blocked (in the home screen). Parameter: number of ads blocked. -->
+    <plurals name="tunnel_ads_blocked">
+        <item quantity="other">已拦截 %d 条广告</item>
+    </plurals>
+    <string name="tunnel_selected_desc">轻触以选择在您的设备上运行得最好的一种拦截机制。</string>
+    <string name="tunnel_selected_legacy">标准拦截机制</string>
+    <string name="tunnel_selected_legacy_desc">这种拦截机制在所有设备上有用，但是可能会对电池消耗或者设备性能有轻微的影响。如果优化的拦截机制不受您的设备支持，那么就使用这种拦截机制吧。</string>
+    <string name="tunnel_selected_lollipop">优化的拦截机制</string>
+    <string name="tunnel_selected_lollipop_desc">这是一个新的对电池和设备性能影响极小的拦截机制，并且您的设备也支持这个拦截机制！除非您使用这种机制遇到了一些问题，这就是您的不二之选。</string>
+    <string name="tunnel_selected_lollipop_desc_unsupported">这是一个新的对电池和设备性能影响极小的拦截机制。不幸的是，这需要Android5.0及更高的版本才能实现，所以这不能在您的设备上启用。</string>
+</resources>
