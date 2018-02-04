@@ -63,9 +63,9 @@ class ATopBarView(
 
     private val actions by lazy { listOf(action1, action2, action3, action4) }
     private val logo by lazy { findViewById(R.id.topbar_logo) as ImageView }
-    private val back by lazy { findViewById(R.id.topbar_back) }
+    private val back by lazy { findViewById(R.id.topbar_back) as View }
 
-    private val header by lazy { findViewById(R.id.topbar_header) }
+    private val header by lazy { findViewById(R.id.topbar_header) as View }
 
     private val dur = 200L
 

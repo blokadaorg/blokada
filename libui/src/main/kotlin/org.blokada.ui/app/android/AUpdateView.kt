@@ -59,7 +59,7 @@ class AUpdateView(
     private val iconView by lazy { findViewById(R.id.update_icon) as ImageView }
     private val descriptionView by lazy { findViewById(R.id.update_description) as TextView }
     private val changelogView by lazy { findViewById(R.id.update_changelog) as TextView }
-    private val makerView by lazy { findViewById(R.id.update_maker) }
+    private val makerView by lazy { findViewById(R.id.update_maker) as View }
     private val appInfo by lazy { findViewById(R.id.update_appinfo) as TextView }
 
     private val branding by lazy { ctx.di().instance<VersionConfig>() }

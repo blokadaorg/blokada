@@ -148,10 +148,10 @@ class AFilterView(
     private val hostView by lazy { findViewById(R.id.filter_host) as TextView }
     private val descView by lazy { findViewById(R.id.filter_desc) as TextView }
     private val counterView by lazy { findViewById(R.id.filter_counter) as TextView }
-    private val counterIcon by lazy { findViewById(R.id.filter_counter_icon) }
-    private val sourceIcon by lazy { findViewById(R.id.filter_source) }
-    private val deleteIcon by lazy { findViewById(R.id.filter_delete) }
-    private val deleteSmallIcon by lazy { findViewById(R.id.filter_delete_small) }
+    private val counterIcon by lazy { findViewById(R.id.filter_counter_icon) as View }
+    private val sourceIcon by lazy { findViewById(R.id.filter_source) as View }
+    private val deleteIcon by lazy { findViewById(R.id.filter_delete) as View }
+    private val deleteSmallIcon by lazy { findViewById(R.id.filter_delete_small) as View }
     private val activeSwitch by lazy { findViewById(R.id.filter_active) as SwitchCompat }
 
     private val inter = AccelerateDecelerateInterpolator()

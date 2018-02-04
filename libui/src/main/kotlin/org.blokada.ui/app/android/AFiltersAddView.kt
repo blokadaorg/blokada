@@ -79,12 +79,12 @@ class AFiltersAddView(
                 return context.getString(displayedPages!![position].second.first)
             }
 
-            override fun getItemPosition(obj: Any?): Int {
+            override fun getItemPosition(obj: Any): Int {
                 return POSITION_NONE // To reload on notifyDataSetChanged()
             }
 
             override fun getCount(): Int { return displayedPages?.size ?: 0 }
-            override fun isViewFromObject(view: android.view.View?, obj: Any?): Boolean { return view == obj }
+            override fun isViewFromObject(view: android.view.View, obj: Any): Boolean { return view == obj }
         }
         pager.setOnPageChangeListener(object : android.support.v4.view.ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
@@ -111,7 +111,7 @@ class AFiltersAddView(
             displayedPages = pages.filter { it.first == value }
             currentTab = value
         }
-        pager.adapter.notifyDataSetChanged()
+        pager.adapter?.notifyDataSetChanged()
     }
 
 }
