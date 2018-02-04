@@ -3,13 +3,11 @@ apply plugin: 'kotlin-android'
 apply from: '../version.gradle'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
-    publishNonDefault true
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode extVersionCode
         versionName extVersionName
 
@@ -33,6 +31,9 @@ android {
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
+        firebase {
+            initWith(release)
+        }
         debug {
             versionNameSuffix '-debug'
         }
@@ -41,20 +42,25 @@ android {
 
 dependencies {
     // The main (core) Blokada library (it includes support, Kotlin, etc)
-    debugCompile project(path: ':libcore', configuration: 'debug')
-    releaseCompile project(path: ':libcore', configuration: 'release')
+    api project(':libcore')
 
     // Android support libraries
-    compile 'com.android.support:design:25.3.1'
+    api 'com.android.support:design:27.0.2'
+
+    // Kotlin and its dependencies
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.github.salomonbrys.kodein:kodein:4.1.0'
+    implementation 'nl.komponents.kovenant:kovenant-core:3.3.0'
+    implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
 
     // UI libraries
-    compile ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
+    api ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
         transitive = true
     }
 
     // Test dependencies
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
@@ -67,9 +73,10 @@ repositories {
 }
 
 buildscript {
-    ext.kotlin_version = '1.1.2-3'
+    ext.kotlin_version = '1.2.21'
     repositories {
         mavenCentral()
+        google()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

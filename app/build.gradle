@@ -3,12 +3,11 @@ apply plugin: 'kotlin-android'
 apply from: '../version.gradle'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
     defaultConfig {
         applicationId "org.blokada"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode extVersionCode
         versionName extVersionName
     }
@@ -29,21 +28,20 @@ android {
         }
     }
     buildTypes {
-        firebase {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-            versionNameSuffix '-fb'
-        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
+        firebase {
+            initWith(release)
+            versionNameSuffix '-fb'
+        }
         debug {
             versionNameSuffix '-debug'
         }
     }
+    flavorDimensions("blokada")
     productFlavors {
         dev {
             applicationIdSuffix ".dev"
@@ -57,16 +55,20 @@ android {
 
 dependencies {
     // The UI Blokada library
-    debugCompile project(path: ':libui', configuration: 'debug')
-    firebaseCompile project(path: ':libui', configuration: 'release')
-    releaseCompile project(path: ':libui', configuration: 'release')
+    implementation project(':libui')
+
+    // Kotlin and its dependencies
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.github.salomonbrys.kodein:kodein:4.1.0'
+    implementation 'nl.komponents.kovenant:kovenant-core:3.3.0'
+    implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
 
     // Analytics and debugging
-    firebaseCompile 'com.google.firebase:firebase-core:10.2.4'
-    firebaseCompile 'com.google.firebase:firebase-crash:10.2.4'
+    firebaseImplementation 'com.google.firebase:firebase-core:11.8.0'
+    firebaseImplementation 'com.google.firebase:firebase-crash:11.8.0'
 
     // Test dependencies
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
 repositories {
@@ -77,9 +79,10 @@ repositories {
 }
 
 buildscript {
-    ext.kotlin_version = '1.1.2-3'
+    ext.kotlin_version = '1.2.21'
     repositories {
         mavenCentral()
+        google()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
