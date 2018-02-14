@@ -71,7 +71,7 @@ interface IProperty<T> {
      * executed, it is, asynchronously, and the provided listener is called afterwards. Is used with
      * `property { "value is now $it" }` syntax.
      */
-    operator fun invoke(after: (value: T) -> Unit)
+    operator fun invoke(force: Boolean = false, after: (value: T) -> Unit)
 
     /**
      * Compare current value of this property with provided value(s). If at least one value is equal
@@ -130,7 +130,7 @@ fun <T> newPersistedProperty(
         zeroValue: () -> T,
         refresh: ((value: T) -> T)? = null,
         shouldRefresh: (value: T) -> Boolean = { true }
- ) : IProperty<T> {
+) : IProperty<T> {
     return PersistedProperty(kctx, persistence, zeroValue, refresh, shouldRefresh)
 }
 
@@ -223,7 +223,8 @@ private open class BaseProperty<T>(
     }
 
     internal var value: T? = null
-        set(value) {
+        @Synchronized get
+        @Synchronized set(value) {
             field = value
             task(kctx) {
                 listeners.forEach { aWhen ->
@@ -232,43 +233,53 @@ private open class BaseProperty<T>(
             }
         }
 
-    @Synchronized override fun doWhen(condition: () -> Boolean): IWhen {
+    override fun doWhen(condition: () -> Boolean): IWhen {
         val newWhen = When(kctx, condition, immediate = value != null)
-        listeners.add(newWhen)
+        task(kctx) {
+            listeners.add(newWhen)
+        }
         return newWhen
     }
 
-    @Synchronized override fun doWhenSet(): IWhen {
+    override fun doWhenSet(): IWhen {
         return doWhen { true }
     }
 
-    @Synchronized override fun doOnUiWhenSet(): IWhen {
+    override fun doOnUiWhenSet(): IWhen {
         val newWhen = When(null, { true }, immediate = value != null)
-        listeners.add(newWhen)
+        task(kctx) {
+            listeners.add(newWhen)
+        }
         return newWhen
     }
 
-    @Synchronized override fun doWhenChanged(withInit: Boolean): IWhen {
+    override fun doWhenChanged(withInit: Boolean): IWhen {
         val newWhen = WhenChanged(this, withInit, When(kctx, { true }, immediate = false))
-        listeners.add(newWhen)
+        task(kctx) {
+            listeners.add(newWhen)
+        }
         return newWhen
     }
 
-    @Synchronized override fun doOnUiWhenChanged(withInit: Boolean): IWhen {
+    override fun doOnUiWhenChanged(withInit: Boolean): IWhen {
         val newWhen = WhenChanged(this, withInit, When(null, { true }, immediate = false))
-        listeners.add(newWhen)
+        task(kctx) {
+            listeners.add(newWhen)
+        }
         return newWhen
     }
 
-    @Synchronized override fun cancel(existingWhen: IWhen?) {
-        listeners.remove(existingWhen)
+    override fun cancel(existingWhen: IWhen?) {
+        task(kctx) {
+            listeners.remove(existingWhen)
+        }
     }
 
-    @Synchronized override operator fun remAssign(value: T) {
+    override operator fun remAssign(value: T) {
         this.value = value
     }
 
-    @Synchronized override fun refresh(force: Boolean, blocking: Boolean) {
+    override fun refresh(force: Boolean, blocking: Boolean) {
         val value = this.value
         if (blocking) {
             if (value == null) {
@@ -306,11 +317,11 @@ private open class BaseProperty<T>(
         }
     }
 
-    @Synchronized override operator fun invoke(): T {
+    override operator fun invoke(): T {
         return value ?: zeroValue()
     }
 
-    @Synchronized override fun invoke(after: (value: T) -> Unit) {
+    override fun invoke(force: Boolean, after: (value: T) -> Unit) {
         val value = this.value
         if (value == null) {
             task(kctx) {
@@ -322,14 +333,22 @@ private open class BaseProperty<T>(
             } success {
                 after(it)
             } fail { throw it }
+        } else if (force) {
+            task(kctx) {
+                val v = refresh(value)
+                this.value = v
+                v
+            } success {
+                after(it)
+            } fail { throw it }
         } else after(value)
     }
 
-    @Synchronized override operator fun invoke(vararg others: T): Boolean {
+    override operator fun invoke(vararg others: T): Boolean {
         return others.any { it == (value ?: zeroValue) }
     }
 
-    @Synchronized override fun toString(): String {
+    override fun toString(): String {
         return value.toString()
     }
 
