@@ -31,7 +31,7 @@ class AboutDash(
 ) {
 
     override fun createView(parent: Any): Any? {
-        return createUpdateView(ctx, parent as ViewGroup, s)
+        return createUpdateView(parent as ViewGroup, s)
     }
 }
 
@@ -73,14 +73,14 @@ class UpdateDash(
         }
     }
     override fun createView(parent: Any): Any? {
-        val context = if (parent is View) parent.context else ctx
-        return createUpdateView(context, parent as ViewGroup, s)
+        return createUpdateView(parent as ViewGroup, s)
     }
 }
 
 private var listener: IWhen? = null
 private var updateView: AUpdateView? = null
-private fun createUpdateView(ctx: Context, parent: ViewGroup, s: State): AUpdateView {
+private fun createUpdateView(parent: ViewGroup, s: State): AUpdateView {
+    val ctx = parent.context
     val view = LayoutInflater.from(ctx).inflate(R.layout.view_update, parent, false) as AUpdateView
     if (view is AUpdateView) {
         val u = s.repo()
