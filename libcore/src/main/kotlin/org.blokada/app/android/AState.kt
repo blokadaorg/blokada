@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.PowerManager
+import android.util.Log
 import com.github.salomonbrys.kodein.instance
 import org.blokada.app.*
 import org.blokada.framework.*
@@ -306,15 +307,15 @@ class AState(
             }
     )
 
-    override val apps = newProperty(kctx, zeroValue = { emptyList<App>() },
-            refresh = {
-                val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-                installed.map { App(
-                        appId = it.packageName,
-                        label = ctx.packageManager.getApplicationLabel(it).toString(),
-                        system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-                ) }.sortedBy { it.label }
+    private val appsRefresh = {
+        val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        installed.map { App(
+                appId = it.packageName,
+                label = ctx.packageManager.getApplicationLabel(it).toString(),
+                system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+        ) }.sortedBy { it.label }
+    }
 
-            })
+    override val apps = newProperty(kctx, zeroValue = { appsRefresh() }, refresh = { appsRefresh() })
 }
 

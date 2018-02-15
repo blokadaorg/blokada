@@ -16,7 +16,7 @@ fun newAppModule(): Kodein.Module {
             newSingleThreadedKContext(j = instance(), prefix = it)
         }
         bind<KContext>(10) with multiton { it: String ->
-            newConcurrentKContext(j = instance(), prefix = it, tasks = 2)
+            newConcurrentKContext(j = instance(), prefix = it, tasks = 1)
         }
         // Probably should be somewhere else
         bind<EnabledStateActor>() with singleton {

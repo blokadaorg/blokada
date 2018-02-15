@@ -4,6 +4,7 @@ import android.os.Build
 import android.content.Context
 import android.net.Uri
 import android.util.Base64
+import android.util.Log
 import org.blokada.app.IFilterSource
 import org.blokada.app.hostnameRegex
 import org.blokada.framework.load
@@ -136,7 +137,9 @@ class FilterSourceApp(
     private val s by lazy { ctx.di().instance<org.blokada.app.State>() }
 
     private val apps by lazy {
-        if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
+        if (s.apps().isEmpty()) {
+            s.apps.refresh(force = true, blocking = true)
+        }
         s.apps().flatMap { listOf(it.appId to it.appId, it.label to it.appId) }.toMap()
     }
 
