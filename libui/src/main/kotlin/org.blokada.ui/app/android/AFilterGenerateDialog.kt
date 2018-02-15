@@ -29,11 +29,15 @@ class AFilterGenerateDialog(
         d.setTitle(R.string.filter_generate_title)
         val options = if (whitelist) { arrayOf(
                 ctx.getString(R.string.filter_generate_defaults),
+                ctx.getString(R.string.filter_generate_refetch),
                 ctx.getString(R.string.filter_generate_whitelist_system),
                 ctx.getString(R.string.filter_generate_whitelist_system_disabled),
                 ctx.getString(R.string.filter_generate_whitelist_all),
                 ctx.getString(R.string.filter_generate_whitelist_all_disabled)
-        ) } else { arrayOf(ctx.getString(R.string.filter_generate_defaults)) }
+        ) } else { arrayOf(
+                ctx.getString(R.string.filter_generate_defaults),
+                ctx.getString(R.string.filter_generate_refetch)
+        ) }
         d.setSingleChoiceItems(options, which, object : DialogInterface.OnClickListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 this@AFilterGenerateDialog.which = which
@@ -60,7 +64,10 @@ class AFilterGenerateDialog(
                 s.filters %= emptyList()
                 s.filters.refresh()
             }
-            1, 2, 3, 4 -> {
+            1 -> {
+                s.filters.refresh(force = true)
+            }
+            2, 3, 4, 5 -> {
                 val filters = s.apps().filter { which in listOf(3, 4) || it.system }
                         .map { it.appId }.map { app ->
                     val source = sourceProvider("app")

@@ -78,4 +78,6 @@
     <string name="filter_generate_whitelist_all_disabled">Add all apps (disabled)</string>
     <!-- Deletes all filters and fetches default ones. -->
     <string name="filter_generate_defaults">Restore defaults (blacklist &amp; whitelist)</string>
+    <!-- Forcefully refetch filters ignoring cache. -->
+    <string name="filter_generate_refetch">Refresh filters</string>
 </resources>
