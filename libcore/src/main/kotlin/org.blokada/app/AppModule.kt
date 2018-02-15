@@ -133,7 +133,7 @@ fun newAppModule(): Kodein.Module {
                 }
             }
 
-            // Auto off in case of no connectivity or tethering enabled, and auto on once connected
+            // Auto off in case of no connectivity, and auto on once connected
             s.connection.doWhenChanged(withInit = true).then {
                 val c = s.connection()
                 when {
@@ -141,11 +141,7 @@ fun newAppModule(): Kodein.Module {
                         s.restart %= true
                         s.active %= false
                     }
-                    c.connected && c.tethering && s.active() -> {
-                        s.restart %= true
-                        s.active %= false
-                    }
-                    c.connected && !c.tethering && s.restart() && !s.updating() && s.enabled() -> {
+                    c.connected && s.restart() && !s.updating() && s.enabled() -> {
                         s.restart %= false
                         s.active %= true
                     }
