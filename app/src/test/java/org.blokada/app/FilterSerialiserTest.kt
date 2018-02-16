@@ -7,6 +7,7 @@ import com.github.salomonbrys.kodein.singleton
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.testMode
 import org.blokada.framework.*
+import org.blokada.property.*
 import org.junit.Test
 import org.junit.Assert.*
 import java.io.File
@@ -38,17 +39,21 @@ class FilterSerialiserTest {
                     override val tunnelPermission = newProperty(kctx, { false })
                     override val tunnelEngines = newProperty(kctx, { listOf(
                             Engine("default", "Engine 1", "This is engine 1",
-                                    createIEngineManager = { object : IEngineManager {
-                                        override fun start() {}
-                                        override fun updateFilters() {}
-                                        override fun stop() {}
-                                    }}),
+                                    createIEngineManager = {
+                                        object : IEngineManager {
+                                            override fun start() {}
+                                            override fun updateFilters() {}
+                                            override fun stop() {}
+                                        }
+                                    }),
                             Engine("two", "Engine 2", "This is engine 2",
-                                    createIEngineManager = { object : IEngineManager {
-                                        override fun start() {}
-                                        override fun updateFilters() {}
-                                        override fun stop() {}
-                                    }})
+                                    createIEngineManager = {
+                                        object : IEngineManager {
+                                            override fun start() {}
+                                            override fun updateFilters() {}
+                                            override fun stop() {}
+                                        }
+                                    })
                     ) })
                     override val tunnelActiveEngine = newProperty(kctx, { "default" })
                     override val tunnelAdsCount = newProperty(kctx, { 0 })
@@ -64,13 +69,15 @@ class FilterSerialiserTest {
                                 pages = mapOf()
                         )
                     })
-                    override val localised = newProperty(kctx, { Localised(
-                            content = URL("http://example.com/content"),
-                            bug = URL("http://example.com/bug"),
-                            feedback = URL("http://example.com/feedback"),
-                            changelog = "changes",
-                            lastRefreshMillis = 0L
-                    ) })
+                    override val localised = newProperty(kctx, {
+                        Localised(
+                                content = URL("http://example.com/content"),
+                                bug = URL("http://example.com/bug"),
+                                feedback = URL("http://example.com/feedback"),
+                                changelog = "changes",
+                                lastRefreshMillis = 0L
+                        )
+                    })
                     override val apps = newProperty(kctx, { emptyList<App>() })
                     override val filterConfig = newProperty(kctx, {
                         FilterConfig(

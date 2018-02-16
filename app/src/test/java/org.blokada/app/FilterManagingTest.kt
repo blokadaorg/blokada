@@ -1,6 +1,8 @@
 package org.blokada.app
 
-import org.blokada.app.android.combine
+import org.blokada.framework.combine
+import org.blokada.property.Filter
+import org.blokada.property.FilterSourceSingle
 import org.junit.Assert
 import org.junit.Test
 

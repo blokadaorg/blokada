@@ -44,7 +44,7 @@
             android:background="@drawable/bg_infotext"
             android:layout_height="wrap_content" />
 
-        <org.blokada.ui.app.android.AInfoView
+        <org.blokada.presentation.AInfoView
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -79,7 +79,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <org.blokada.ui.app.android.AFloaterView
+    <org.blokada.presentation.AFloaterView
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

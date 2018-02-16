@@ -47,24 +47,24 @@
             </intent-filter>
         </service>
         <service
-            android:name="org.blokada.app.android.ATunnelService"
+            android:name="org.blokada.main.ATunnelService"
             android:permission="android.permission.BIND_VPN_SERVICE">
             <intent-filter>
                 <action android:name="android.net.VpnService"/>
             </intent-filter>
         </service>
         <service
-            android:name="org.blokada.app.android.AKeepAliveService">
+            android:name="org.blokada.main.AKeepAliveService">
         </service>
 
         <receiver
-            android:name="org.blokada.app.android.ABootReceiver">
+            android:name="org.blokada.main.ABootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name="org.blokada.app.android.AConnectivityReceiver">
+            android:name="org.blokada.main.AConnectivityReceiver">
             <intent-filter>
                 <action android:name="android.net.wifi.STATE_CHANGE"/>
                 <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
@@ -72,14 +72,14 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="org.blokada.app.android.AScreenOnReceiver">
+            android:name="org.blokada.main.AScreenOnReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_ON"/>
                 <action android:name="org.blokada.keepAlive"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name="org.blokada.app.android.ALocaleReceiver">
+            android:name="org.blokada.main.ALocaleReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED"/>
             </intent-filter>

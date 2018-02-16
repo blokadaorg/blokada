@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.blokada.ui.app.android.AFilterView xmlns:android="http://schemas.android.com/apk/res/android"
+<org.blokada.presentation.AFilterView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -144,4 +144,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</org.blokada.ui.app.android.AFilterView>
+</org.blokada.presentation.AFilterView>

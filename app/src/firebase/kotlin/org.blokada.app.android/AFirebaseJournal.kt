@@ -4,15 +4,15 @@ import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crash.FirebaseCrash
 import org.blokada.app.Events
-import org.blokada.framework.IJournal
+import gs.environment.Journal
 
 /**
- * Deps here need to be lazy to avoid dependency loop from KContext -> IJournal
+ * Deps here need to be lazy to avoid dependency loop from KContext -> Journal
  */
 class AFirebaseJournal(
         private val firebase: () -> FirebaseAnalytics,
         private val fState: FirebaseState
-) : IJournal {
+) : Journal {
 
     private var userId: String? = null
     private val userProperties = mutableMapOf<String, String>()

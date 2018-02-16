@@ -5,7 +5,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import org.blokada.R
 import org.blokada.app.IHostlineProcessor
 import org.blokada.app.hostnameRegex
-import org.blokada.framework.IJournal
+import gs.environment.Journal
 import org.blokada.framework.newConcurrentKContext
 import org.blokada.ui.app.UiState
 import org.blokada.ui.app.android.FirebaseDashOn
@@ -21,7 +21,7 @@ fun newFirebaseModule(): Kodein.Module {
         bind<FirebaseAnalytics>() with singleton {
             FirebaseAnalytics.getInstance(instance())
         }
-        bind<IJournal>(overrides = true) with singleton {
+        bind<Journal>(overrides = true) with singleton {
             AFirebaseJournal(firebase = provider(), fState = instance())
         }
         bind<IHostlineProcessor>(overrides = true) with singleton {
