@@ -1,1 +1,2 @@
-include ':app', ':libcore', ':libui'
+include ':app', ':gscore'
+apply from: 'paths.gradle'

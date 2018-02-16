@@ -10,6 +10,7 @@ android {
         targetSdkVersion 27
         versionCode extVersionCode
         versionName extVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -53,8 +54,13 @@ android {
 }
 
 dependencies {
-    // The UI Blokada library
-    implementation project(':libui')
+    // Core library for kar.gs projects
+    implementation project(':gscore')
+
+    // Android support libraries
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:support-v4:27.0.2'
+    implementation 'com.android.support:design:27.0.2'
 
     // Kotlin and its dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -62,12 +68,25 @@ dependencies {
     implementation 'nl.komponents.kovenant:kovenant-core:3.3.0'
     implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
 
+    // Proxy
+    implementation 'org.pcap4j:pcap4j-core:1.7.0'
+    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.0'
+    implementation 'dnsjava:dnsjava:2.1.8'
+
+    // UI libraries
+    implementation ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
+        transitive = true
+    }
+
     // Analytics and debugging
     firebaseImplementation 'com.google.firebase:firebase-core:11.8.0'
     firebaseImplementation 'com.google.firebase:firebase-crash:11.8.0'
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
 
 repositories {

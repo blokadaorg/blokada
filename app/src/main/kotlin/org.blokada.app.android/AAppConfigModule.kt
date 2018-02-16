@@ -1,13 +1,14 @@
 package org.blokada.app.android
 
+import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.VpnService
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.instance
-import com.github.salomonbrys.kodein.singleton
+import com.github.salomonbrys.kodein.*
+import gs.environment.AActivityProvider
+import gs.property.Welcome
+import gs.property.WelcomeImpl
 import org.blokada.BuildConfig
 import org.blokada.R
 import org.blokada.app.*
@@ -39,8 +40,8 @@ fun newAndroidAppConfigModule(ctx: Context): Kodein.Module {
                 appName = ctx.getString(R.string.branding_app_name),
                 appVersion = BuildConfig.VERSION_NAME,
                 appVersionCode = BuildConfig.VERSION_CODE,
-                coreVersion = org.blokada.lib.BuildConfig.VERSION_NAME,
-                uiVersion = org.blokada.lib.ui.BuildConfig.VERSION_NAME
+                coreVersion = org.blokada.BuildConfig.VERSION_NAME,
+                uiVersion = org.blokada.BuildConfig.VERSION_NAME
         ) }
         bind<TunnelConfig>(overrides = true) with singleton { TunnelConfig(defaultEngine = "lollipop") }
         bind<List<Engine>>(overrides = true) with singleton { listOf(Engine(
@@ -72,5 +73,13 @@ fun newAndroidAppConfigModule(ctx: Context): Kodein.Module {
                 }
             }
         }
+        bind<Welcome>() with singleton {
+            val w = WelcomeImpl(w = with("welcome").instance(), xx = instance())
+            w.introUrl %= URL("http://blokada.org/content/en/contribute.html")
+            w.guideUrl %= URL("http://blokada.org/content/en/help.html")
+            w
+        }
+
+        bind<AActivityProvider<Activity>>() with singleton { AActivityProvider<Activity>() }
     }
 }

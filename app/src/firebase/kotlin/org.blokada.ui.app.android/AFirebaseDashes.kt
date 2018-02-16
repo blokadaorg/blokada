@@ -4,7 +4,7 @@ import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import org.blokada.app.android.FirebaseState
 import org.blokada.framework.android.di
-import org.blokada.lib.ui.R
+import org.blokada.R
 import org.blokada.ui.app.Dash
 
 val DASH_ID_FIREBASE = "firebase_on"

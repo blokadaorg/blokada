@@ -3,6 +3,13 @@
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:name=".app.android.MainApplication"
         android:allowBackup="true"
@@ -11,6 +18,72 @@
         android:supportsRtl="true"
         android:theme="@style/BlokadaColors.Main.NoActionBar"
         tools:replace="android:label">
+
+        <activity
+            android:name="org.blokada.ui.app.android.MainActivity"
+            android:label="@string/branding_app_name"
+            android:launchMode="singleTask"
+            android:theme="@style/BlokadaColors.Main.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="org.blokada.ui.app.android.ANotificationsOffService">
+        </service>
+        <service
+            android:name="org.blokada.ui.app.android.ANotificationsWhitelistService">
+        </service>
+        <service
+            android:name="org.blokada.ui.app.android.AQuickSettingsService"
+            android:label="@string/main_quicksettings_toggle"
+            android:icon="@drawable/ic_blokada"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="org.blokada.app.android.ATunnelService"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="org.blokada.app.android.AKeepAliveService">
+        </service>
+
+        <receiver
+            android:name="org.blokada.app.android.ABootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="org.blokada.app.android.AConnectivityReceiver">
+            <intent-filter>
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
+                <action android:name="android.net.conn.TETHER_STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="org.blokada.app.android.AScreenOnReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON"/>
+                <action android:name="org.blokada.keepAlive"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="org.blokada.app.android.ALocaleReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

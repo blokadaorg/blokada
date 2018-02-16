@@ -30,3 +30,10 @@
     public void debug(...);
     public void trace(...);
 }
+
+# blokada
+-keep class org.blokada.** { *; }
+
+-keepclassmembers class * {
+    private <fields>;
+}

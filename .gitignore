@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /version.gradle
+/paths.gradle
 .idea
 .DS_Store
 *.aar
