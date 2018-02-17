@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorBackground">#1d1d1d</color>
+    <color name="colorBackground">#0e0e0e</color>
     <!--<color name="colorBackground">#383838</color>-->
-    <color name="colorBackgroundLight">#404040</color>
+    <color name="colorBackgroundLight">#2e2e2e</color>
     <color name="colorBackgroundThird">#262626</color>
-    <color name="colorBackgroundTrans">#001d1d1d</color>
-    <color name="colorBackgroundTransCenter">#DD1d1d1d</color>
+    <color name="colorBackgroundTrans">#000e0e0e</color>
+    <color name="colorBackgroundTransCenter">#DD0e0e0e</color>
     <color name="colorBackgroundAbout">#000</color>
     <color name="colorBackgroundAboutLight">#101010</color>
     <color name="colorText">#eaeaea</color>

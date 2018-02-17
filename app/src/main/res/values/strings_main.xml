@@ -122,7 +122,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_data_desc">When %s is active, this counter displays the estimated amount of data saved.</string>
 
-    <string name="main_feedback_text">Feedback</string>
+    <string name="main_feedback_text">Feedback / Contact</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_feedback_desc">Tap to suggest a new idea and help %s improve!</string>
 
