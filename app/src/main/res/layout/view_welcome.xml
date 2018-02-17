@@ -21,7 +21,7 @@
         android:layout_height="wrap_content">
 
 
-        <org.blokada.ui.framework.android.ASwitchCompat
+        <gs.presentation.SwitchCompatView
             android:id="@+id/main_advanced"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

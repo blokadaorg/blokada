@@ -118,7 +118,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
             FilterSerializer(s = instance(),
                     sourceProvider = { type: String -> with(type).instance<IFilterSource>() })
         }
-        bind<FilterConfig>(overrides = true) with singleton {
+        bind<FilterConfig>() with singleton {
             FilterConfig(
                     cacheFile = File(getPersistencePath(ctx).absoluteFile, "filters"),
                     exportFile = getPublicPersistencePath("blokada-export")
@@ -128,7 +128,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     fetchTimeoutMillis = 10 * 1000
             )
         }
-        bind<RepoConfig>(overrides = true) with singleton {
+        bind<RepoConfig>() with singleton {
             RepoConfig(
                     cacheFile = File(getPersistencePath(ctx).absoluteFile, "repo"),
                     cacheTTLMillis = 24 * 60 * 60 * 1000L, // A day
@@ -137,7 +137,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     notificationCooldownMillis = 24 * 60 * 60 * 1000L // A day
             )
         }
-        bind<VersionConfig>(overrides = true) with singleton {
+        bind<VersionConfig>() with singleton {
             VersionConfig(
                     appName = ctx.getString(R.string.branding_app_name),
                     appVersion = BuildConfig.VERSION_NAME,
@@ -146,8 +146,8 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     uiVersion = BuildConfig.VERSION_NAME
             )
         }
-        bind<TunnelConfig>(overrides = true) with singleton { TunnelConfig(defaultEngine = "lollipop") }
-        bind<List<Engine>>(overrides = true) with singleton { listOf(Engine(
+        bind<TunnelConfig>() with singleton { TunnelConfig(defaultEngine = "lollipop") }
+        bind<List<Engine>>() with singleton { listOf(Engine(
                 id = "lollipop",
                 text = ctx.getString(R.string.tunnel_selected_lollipop),
                 comment = ctx.getString(R.string.tunnel_selected_lollipop_desc),
@@ -161,14 +161,14 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     )
                 }
         )) }
-        bind<IPermissionsAsker>(overrides = true) with singleton {
+        bind<IPermissionsAsker>() with singleton {
             object : IPermissionsAsker {
                 override fun askForPermissions() {
                     MainActivity.askPermissions()
                 }
             }
         }
-        bind<ATunnelService.IBuilderConfigurator>(overrides = true) with singleton {
+        bind<ATunnelService.IBuilderConfigurator>() with singleton {
             object : ATunnelService.IBuilderConfigurator {
                 override fun configure(builder: VpnService.Builder) {
                     builder.setSession(ctx.getString(R.string.branding_app_name))
@@ -181,8 +181,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
         bind<Welcome>() with singleton {
             WelcomeImpl(w = with("welcome").instance(), xx = instance())
         }
-
-        bind<ActivityProvider<Activity>>() with singleton { ActivityProvider<Activity>() }
 
 
         onReady {
@@ -445,7 +443,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 val welcome: Welcome = instance()
                 welcome.introUrl %= URL("${root}/intro.html")
                 welcome.guideUrl %= URL("${root}/help.html")
-                welcome.optionalUrl %= URL("${root}/contribute.html")
+                welcome.optionalUrl %= URL("${root}/patron_redirect.html")
                 welcome.updatedUrl %= URL("${root}/updated.html")
                 welcome.obsoleteUrl %= URL("${root}/obsolete.html")
                 welcome.cleanupUrl %= URL("${root}/cleanup.html")

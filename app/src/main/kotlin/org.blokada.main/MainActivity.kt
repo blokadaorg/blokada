@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
         val welcome: Welcome by instance()
         val m = WelcomeDialogManager(xx(), BuildConfig.VERSION_CODE, {})
-        listener13 = welcome.introUrl.doOnUiWhenSet().then {
+        listener13 = welcome.introUrl.doOnUiWhenChanged().then {
             m.run()
         }
 
