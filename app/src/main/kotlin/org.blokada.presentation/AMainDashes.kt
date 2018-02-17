@@ -1,6 +1,8 @@
 package org.blokada.presentation
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
@@ -11,14 +13,15 @@ import org.blokada.framework.di
 import org.blokada.R
 import org.blokada.ui.app.Dash
 import org.blokada.ui.app.UiState
+import java.net.URL
 
 val DASH_ID_DONATE = "main_donate"
 val DASH_ID_CONTRIBUTE = "main_contribute"
 val DASH_ID_BLOG = "main_blog"
 val DASH_ID_FAQ = "main_faq"
 val DASH_ID_FEEDBACK = "main_feedback"
-val DASH_ID_STATUS = "main_status"
-val DASH_ID_BUG = "main_bug"
+val DASH_ID_PATRON = "main_patron"
+val DASH_ID_PATRON_ABOUT = "main_patron_about"
 
 class DonateDash(val ctx: Context) : Dash(
         DASH_ID_DONATE,
@@ -103,84 +106,34 @@ class FeedbackDash(val ctx: Context) : Dash(
     }
 }
 
-class BugReportDash(val ctx: Context) : Dash(
-        DASH_ID_BUG,
-        R.drawable.ic_bug,
-        ctx.getBrandedString(R.string.main_bug_desc),
-        text = ctx.getString(R.string.main_bug_text),
-        hasView = true
+class PatronDash(val ctx: Context, val s: State = ctx.di().instance()) : Dash(
+        DASH_ID_PATRON,
+        R.drawable.ic_settings,
+        text = ctx.getString(R.string.main_patron),
+        hasView = true,
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, {
+            URL("${s.localised().content}/patron_redirect.html")
+        }))
 ) {
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = ABugActor(view)
+        val actor = PatronActor(view)
         onBack = { actor.reload() }
         return view
     }
 }
 
-class StatusDash(
-        val ctx: Context,
-        val enabledStateActor: EnabledStateActor = ctx.di().instance()
-) : Dash(
-        DASH_ID_STATUS,
-        R.drawable.ic_vpn_key,
-        ctx.getBrandedString(R.string.main_status_desc)
-), IEnabledStateActorListener {
-
-    private val j by lazy { ctx.di().instance<Journal>() }
-    private val ui by lazy { ctx.di().instance<UiState>() }
-    private val s by lazy { ctx.di().instance<State>() }
-
-    private var canClick = true
-
-    init {
-        finishDeactivating()
-        enabledStateActor.listeners.add(this)
-
-        onClick = {
-            if (canClick) {
-                s.enabled %= !s.enabled()
-            }
-            true
-        }
-    }
-
-    override fun startActivating() {
-        icon = R.drawable.ic_timer_sand_empty
-        text = getStatusText(R.string.main_status_activating, long = false)
-        description = ctx.getRandomString(R.array.main_activating, R.string.branding_app_name_short)
-        canClick = false
-    }
-
-    override fun finishActivating() {
-        icon = R.drawable.ic_vpn_key
-        text = getStatusText(R.string.main_status_active_recent, long = true)
-        description = ctx.getRandomString(R.array.main_active, R.string.branding_app_name_short)
-        canClick = true
-    }
-
-    override fun startDeactivating() {
-        icon = R.drawable.ic_timer_sand_empty
-        text = getStatusText(R.string.main_status_deactivating, long = false)
-        description = ctx.getBrandedString(R.string.main_status_deactivating)
-        canClick = false
-    }
-
-    override fun finishDeactivating() {
-        icon = R.drawable.ic_key_remove
-        text = getStatusText(R.string.main_status_disabled, long = true)
-        description = ctx.getRandomString(R.array.main_paused, R.string.branding_app_name_short)
-        canClick = true
-    }
-
-    private fun getStatusText(status: Int, long: Boolean): String {
-        return if (long) {
-            ctx.getString(R.string.main_status_long,
-                    ctx.getString(status).toLowerCase(),
-                    ctx.getString(R.string.branding_app_name_short))
-        } else {
-            ctx.getString(R.string.main_status_short, ctx.getString(status))
-        }
+class PatronAboutDash(val ctx: Context) : Dash(
+        DASH_ID_PATRON_ABOUT,
+        R.drawable.ic_settings,
+        text = ctx.getString(R.string.main_patron_about),
+        hasView = true
+) {
+    override fun createView(parent: Any): Any? {
+        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
+        val actor = PatronAboutActor(view)
+        onBack = { actor.reload() }
+        return view
     }
 }
 
@@ -206,31 +159,6 @@ class AutoStartDash(
     init {
         listener = s.startOnBoot.doOnUiWhenSet().then {
             checked = s.startOnBoot()
-        }
-    }
-}
-
-class DataSavedDash(
-        val ctx: Context,
-        val s: State = ctx.di().instance()
-) : Dash(
-    "main_data_saved",
-    R.drawable.ic_data_usage,
-    ctx.getBrandedString(R.string.main_data_desc)
-) {
-    private var listener: IWhen? = null
-    private var listener2: IWhen? = null
-    init {
-        updateText()
-        listener = s.enabled.doOnUiWhenSet().then { updateText() }
-        listener2 = s.tunnelAdsCount.doOnUiWhenSet().then { updateText() }
-    }
-
-    private fun updateText() {
-        text = if (!s.enabled()) {
-            ctx.getString(R.string.main_data_start)
-        } else {
-            ctx.getString(R.string.main_data_normal, s.tunnelAdsCount() * 0.003f)
         }
     }
 }
@@ -261,3 +189,17 @@ class ConnectivityDash(
     }
 }
 
+class OpenInBrowserDash(
+        val ctx: Context,
+        val url: () -> URL
+) : Dash(
+        "open_in_browser",
+        R.drawable.ic_open_in_new,
+        onClick = { dashRef ->
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.setData(Uri.parse(url().toString()))
+            ctx.startActivity(intent)
+            true
+        }
+)

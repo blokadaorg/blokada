@@ -96,7 +96,8 @@ class ATopBarActor(
     fun resetActions() {
         dash1 = null
         dash2 = null
-        dash3 = DashEditMode(v.context, ui)
+//        dash3 = DashEditMode(v.context, ui)
+        dash3 = null
     }
 
     private fun handleDashChange(dash: Dash?, dashView: ADashView, dashActor: ADashActor): Dash? {

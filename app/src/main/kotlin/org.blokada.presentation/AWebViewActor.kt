@@ -82,6 +82,13 @@ class AWebViewActor(
         web.loadUrl(url().toExternalForm())
     }
 
+    fun openInBrowser() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.setData(Uri.parse(url().toString()))
+        parent.context.startActivity(intent)
+    }
+
     private fun handleError(url: String?) {
 //        try {
 //            if (url?.contains(url().host) ?: false) {

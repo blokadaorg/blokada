@@ -93,6 +93,7 @@ class ATopBarView(
         }
 
         fromActive {}
+        mode = Mode.BAR
     }
 
     private fun rotate(view: View, how: Float, after: () -> Unit) {

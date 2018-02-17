@@ -6,30 +6,14 @@ import org.blokada.property.State
 import org.blokada.framework.di
 
 
-class ABugActor(
-        private val parent: View
-) {
-
-    private val URL = {
-        val s: State = parent.context.di().instance()
-        s.localised().bug
-    }
-
-    private val actor = AWebViewActor(parent, URL, forceEmbedded = true)
-
-    fun reload() {
-        actor.reload()
-    }
-
-}
-
 class AFeedbackActor(
         private val parent: View
 ) {
 
     private val URL = {
-        val s: State = parent.context.di().instance()
-        s.localised().feedback
+//        val s: State = parent.context.di().instance()
+//        s.localised().feedback
+        java.net.URL("https://goo.gl/forms/5YnfrUT9pdILccKx1")
     }
 
     private val actor = AWebViewActor(parent, URL, forceEmbedded = true)
@@ -78,6 +62,32 @@ class AContributeActor(
     private val URL = {
         val s: State = parent.context.di().instance()
         java.net.URL("${s.localised().content}/contribute.html")
+    }
+
+    val actor = AWebViewActor(parent, URL)
+
+    fun reload() {
+        actor.reload()
+    }
+}
+
+class PatronActor(private val parent: View) {
+    private val URL = {
+        val s: State = parent.context.di().instance()
+        java.net.URL("${s.localised().content}/patron_redirect.html")
+    }
+
+    val actor = AWebViewActor(parent, URL, forceEmbedded = true)
+
+    fun reload() {
+        actor.reload()
+    }
+}
+
+class PatronAboutActor(private val parent: View) {
+    private val URL = {
+        val s: State = parent.context.di().instance()
+        java.net.URL("${s.localised().content}/patron.html")
     }
 
     val actor = AWebViewActor(parent, URL)

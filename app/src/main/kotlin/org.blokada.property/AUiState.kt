@@ -29,24 +29,22 @@ class AUiState(
     override val editUi = newProperty(kctx, { false })
 
     override val dashes = newPersistedProperty(kctx, ADashesPersistence(ctx), { listOf(
-            UpdateDash(ctx).activate(false),
-            StatusDash(ctx).activate(false),
+            UpdateDash(ctx).activate(true),
             TunnelDashAdsBlocked(ctx).activate(true),
-            DataSavedDash(ctx).activate(true),
-            DashFilterBlacklist(ctx).activate(false),
-            DashFilterWhitelist(ctx).activate(false),
+            DashFilterBlacklist(ctx).activate(true),
+            DashFilterWhitelist(ctx).activate(true),
             NotificationDashOn(ctx).activate(true),
-            NotificationDashKeepAlive(ctx).activate(false),
+            NotificationDashKeepAlive(ctx).activate(true),
             AutoStartDash(ctx).activate(true),
             ConnectivityDash(ctx).activate(true),
-            TunnelDashHostsCount(ctx).activate(false),
-            TunnelDashEngineSelected(ctx).activate(false),
-            DonateDash(ctx).activate(true),
+            TunnelDashHostsCount(ctx).activate(true),
+            PatronDash(ctx).activate(false),
+            PatronAboutDash(ctx).activate(false),
+            DonateDash(ctx).activate(false),
             ContributeDash(ctx).activate(false),
-            FaqDash(ctx).activate(false).activate(true),
-            BugReportDash(ctx).activate(false),
-            FeedbackDash(ctx).activate(false),
             BlogDash(ctx).activate(false),
+            FeedbackDash(ctx).activate(false),
+            FaqDash(ctx).activate(false).activate(false),
             AboutDash(ctx).activate(false)
     ) })
 
