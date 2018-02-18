@@ -17,7 +17,6 @@ class NotificationDashOn(
 ) : Dash(
         "notification_on",
         icon = false,
-        description = ctx.getBrandedString(R.string.notification_on_desc),
         text = ctx.getString(R.string.notification_on_text),
         isSwitch = true
 ) {
@@ -42,7 +41,6 @@ class NotificationDashKeepAlive(
 ) : Dash(
         DASH_ID_KEEPALIVE,
         icon = false,
-        description = ctx.getBrandedString(R.string.notification_keepalive_desc),
         text = ctx.getString(R.string.notification_keepalive_text),
         isSwitch = true
 ) {

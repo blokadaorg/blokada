@@ -266,20 +266,17 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
                 i.param is Int -> brandedString(i.param)
                 else -> throw Exception("custom info without a param")
             }
-            InfoType.ERROR -> brandedString(R.string.main_error)
+            InfoType.ERROR -> brandedString(R.string.main_paused)
             InfoType.PAUSED -> when {
                 s.firstRun() -> brandedString(R.string.main_intro)
-                else -> brandedRandomString(R.array.main_paused)
+                else -> brandedString(R.string.main_paused)
             }
             InfoType.PAUSED_TETHERING -> brandedString(R.string.main_paused_autoenable_tethering)
             InfoType.PAUSED_OFFLINE -> brandedString(R.string.main_paused_autoenable)
-            InfoType.ACTIVATING -> when {
-                s.firstRun() -> brandedString(R.string.main_activating_new)
-                else -> brandedRandomString(R.array.main_activating)
-            }
+            InfoType.ACTIVATING -> brandedString(R.string.main_loading)
             InfoType.ACTIVE -> when {
                 s.firstRun() -> brandedString(R.string.main_active_new)
-                else -> brandedRandomString(R.array.main_active)
+                else -> brandedString(R.string.main_active)
             }
             InfoType.DEACTIVATING -> brandedString(R.string.main_deactivating_new)
             InfoType.NOTIFICATIONS_DISABLED -> brandedString(R.string.notification_disabled)
@@ -317,10 +314,6 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
     private fun brandedString(resId: Int): String {
         return getBrandedString(resId)
-    }
-
-    private fun brandedRandomString(resId: Int): String {
-        return getRandomString(resId, R.string.branding_app_name_short)
     }
 
     companion object {

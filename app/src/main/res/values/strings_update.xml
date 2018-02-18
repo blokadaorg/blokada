@@ -5,19 +5,14 @@
     <!-- Parameter: new app version, for example 2.0.1 -->
     <string name="update_notification_text">Release %1$s is ready to download! Tap to proceed.</string>
     <!-- Header displaying the new app version. Parameters: branded app name, and new app version. For example: NEW! Blokada 2.0.1 -->
-    <string name="update_header">NEW! %1$s %2$s</string>
+    <string name="update_header">New update!</string>
     <string name="update_header_noupdate">No new updates</string>
-    <string name="update_description">Updates provide new features, bug fixes, as well as performance and battery optimisations. You can install this update now! In case of any problems, you can &lt;a href="%1$s"&gt;download it manually&lt;/a&gt;.</string>
-    <string name="update_description_noupdate">Your currently installed version is up to date. Updates provide new features, bug fixes, as well as performance and battery optimisations. You will be notified once an update is available.</string>
-    <!-- Technical information about app version and versions of used libraries. Please keep the HTML tags and formatting. It's ok to just copy paste the untranslated string. -->
-    <string name="update_header_current">Current: &lt;b&gt;%1$s %2$s&lt;/b&gt;&lt;br/&gt;core: %3$s&lt;br/&gt;ui: %4$s</string>
 
     <!-- Feel free to make this string a bit more localised. For example it can say, "This app and its Spanish version is made possible thanks to:" -->
     <string name="update_credits_header">This app is an open source project made possible thanks to:</string>
-    <!-- We appreciate you translating this app and welcome you to add your name here - it will show up in the About/Update screen. Please add yourself before everyone, one name per line. If you add a link, your name will be clickable (John Doe: http://my-website.com) -->
-    <string name="update_credits">Karsen: http://kar.gs\n... and you!</string>
+    <!-- We appreciate you translating this app and welcome you to add your name here - it will show up in the About/Update screen. Please add yourself in a new line. If you add a link, your name will be clickable (John Doe: http://my-website.com) -->
+    <string name="update_credits">The Blokada Community: https://blokada.org</string>
 
-    <string name="update_dash_desc">Tap to display update information.</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
     <string name="update_dash_available">&lt;b&gt;Update available!&lt;/b&gt;</string>
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
@@ -25,9 +20,6 @@
 
     <!-- Displayed in menu to open the About/Update screen. -->
     <string name="update_about">About</string>
-    <string name="update_about_desc">Tap to display information about the app.</string>
-
-    <string name="update_force_dash_desc">Tap to check for updates now.</string>
 
     <!-- A button that opens system preferences for this app. -->
     <string name="update_button_appinfo">App Details</string>

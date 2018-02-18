@@ -33,15 +33,6 @@
                 android:text="@string/update_button_appinfo" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/update_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/main_loading"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,13 +48,15 @@
                 android:tint="@color/colorAccent" />
 
             <TextView
-                android:id="@+id/update_description"
+                android:id="@+id/update_header"
                 android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:text="@string/update_description"
-                android:textColor="@color/colorActive" />
+                android:text="@string/main_loading"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
         <TextView
@@ -83,7 +76,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:padding="8dp"
-            android:text="@string/update_header_current"
+            android:text="@string/main_loading"
             android:textColor="@color/colorTextUnimportant" />
 
         <TextView

@@ -60,7 +60,7 @@ fun hideNotification(ctx: Context) {
  */
 fun displayNotificationKeepAlive(ctx: Context, count: Int, last: String) {
     val b = NotificationCompat.Builder(ctx)
-    b.setContentTitle(ctx.resources.getQuantityString(R.plurals.notification_keepalive_title, count, count))
+    b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, count))
     b.setContentText(ctx.getString(R.string.notification_keepalive_content, last))
     b.setSmallIcon(R.drawable.ic_stat_blokada)
     b.setPriority(NotificationCompat.PRIORITY_LOW)

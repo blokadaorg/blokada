@@ -1,7 +1,5 @@
 <resources>
     <string name="notification_on_text">Notifications</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_on_desc">When enabled, %s will display a notification every time an ad is blocked.</string>
 
     <!-- Title of the notification that shows up every time ad is blocked. -->
     <string name="notification_blocked_title">Ad blocked</string>
@@ -22,18 +20,13 @@
 
     <string name="notification_keepalive_text">Keep alive</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_desc">When enabled, %s will use techniques that help it to survive memory cleanup.</string>
-    <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_disabled">%s is not protected from battery or memory saving anymore.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_enabled">%s will now protect itself from being deactivated by the operating system.</string>
     <!-- The ads blocked counter, displayed in the Keep Alive notification. Parameter: ads blocked counter. -->
-    <plurals name="notification_keepalive_title">
-        <item quantity="one">One ad blocked</item>
-        <item quantity="other">%d ads blocked</item>
-    </plurals>
+    <string name="notification_keepalive_title">%d ads blocked</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">Last: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
-    <string name="notification_keepalive_none">nothing yet</string>
+    <string name="notification_keepalive_none">monitoring</string>
 </resources>

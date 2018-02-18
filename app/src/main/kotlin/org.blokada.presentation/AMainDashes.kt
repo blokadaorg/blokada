@@ -26,7 +26,6 @@ val DASH_ID_PATRON_ABOUT = "main_patron_about"
 class DonateDash(val ctx: Context) : Dash(
         DASH_ID_DONATE,
         R.drawable.ic_heart_box,
-        ctx.getBrandedString(R.string.main_donate_desc),
         text = ctx.getString(R.string.main_donate_text),
         hasView = true
 ) {
@@ -43,7 +42,6 @@ class DonateDash(val ctx: Context) : Dash(
 class ContributeDash(val ctx: Context) : Dash(
         DASH_ID_CONTRIBUTE,
         R.drawable.ic_code_tags,
-        ctx.getBrandedString(R.string.main_contribute_desc),
         text = ctx.getString(R.string.main_contribute_text),
         hasView = true
 ) {
@@ -60,7 +58,6 @@ class ContributeDash(val ctx: Context) : Dash(
 class BlogDash(val ctx: Context) : Dash(
         DASH_ID_BLOG,
         R.drawable.ic_comment_multiple_outline,
-        ctx.getBrandedString(R.string.main_blog_desc),
         text = ctx.getString(R.string.main_blog_text),
         hasView = true
 ) {
@@ -77,7 +74,6 @@ class BlogDash(val ctx: Context) : Dash(
 class FaqDash(val ctx: Context) : Dash(
         DASH_ID_FAQ,
         R.drawable.ic_help_outline,
-        ctx.getString(R.string.main_faq_desc),
         text = ctx.getString(R.string.main_faq_text),
         hasView = true
 ) {
@@ -94,7 +90,6 @@ class FaqDash(val ctx: Context) : Dash(
 class FeedbackDash(val ctx: Context) : Dash(
         DASH_ID_FEEDBACK,
         R.drawable.ic_feedback,
-        ctx.getBrandedString(R.string.main_feedback_desc),
         text = ctx.getString(R.string.main_feedback_text),
         hasView = true
 ) {
@@ -143,7 +138,6 @@ class AutoStartDash(
 ) : Dash(
         "main_autostart",
         icon = false,
-        description = ctx.getBrandedString(R.string.main_autostart_desc),
         text = ctx.getString(R.string.main_autostart_text),
         isSwitch = true
 ) {
@@ -169,7 +163,6 @@ class ConnectivityDash(
 ) : Dash(
         "main_connectivity",
         icon = false,
-        description = ctx.getBrandedString(R.string.main_connectivity_desc),
         text = ctx.getString(R.string.main_connectivity_text),
         isSwitch = true
 ) {

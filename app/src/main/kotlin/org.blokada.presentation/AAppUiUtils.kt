@@ -12,17 +12,6 @@ import org.blokada.R
 import java.util.*
 
 
-internal fun Context.getRandomString(stringArray: Int, name: Int? = null): String {
-    val strings = resources.getStringArray(stringArray)
-    val i = Random().nextInt(strings.size)
-    if (name == null) {
-        return strings[i]
-    } else {
-        val n = resources.getString(name)
-        return String.format(strings[i], n)
-    }
-}
-
 fun Context.getBrandedString(resId: Int): String {
     return getString(resId, getString(R.string.branding_app_name_short))
 }

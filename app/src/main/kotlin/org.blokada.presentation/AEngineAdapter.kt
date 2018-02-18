@@ -53,18 +53,18 @@ class AEngineAdapter(
 
         v.tag = pos
         v.tapped = s.tunnelActiveEngine() == s.tunnelEngines()[pos].id
-        v.name = e.text
+//        v.name = e.text
 
         if (e.supported) {
             v.alpha = 1.0f
             v.isEnabled = true
             v.recommended = e.recommended
-            v.description = e.comment
+//            v.description = e.comment
         } else {
             v.alpha = 0.2f
             v.isEnabled = false
             v.recommended = false
-            v.description = e.commentUnsupported
+//            v.description = e.commentUnsupported
         }
     }
 

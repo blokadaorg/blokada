@@ -13,9 +13,6 @@ class ALollipopEngine(
         private val agent: ATunnelAgent
 ) : Engine(
         id = ENGINE_ID_LOLLIPOP,
-        text = ctx.getString(R.string.tunnel_selected_lollipop),
-        comment = ctx.getString(R.string.tunnel_selected_lollipop_desc),
-        commentUnsupported = ctx.getString(R.string.tunnel_selected_lollipop_desc_unsupported),
         supported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP,
         recommended = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP,
         createIEngineManager = { e: EngineEvents ->

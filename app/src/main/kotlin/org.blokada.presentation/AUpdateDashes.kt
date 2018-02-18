@@ -21,7 +21,6 @@ class AboutDash(
         val s: State = ctx.di().instance()
 ) : Dash(DASH_ID_ABOUT,
         R.drawable.ic_info,
-        ctx.getString(R.string.update_about_desc),
         text = ctx.getString(R.string.update_about),
         hasView = true,
         topBarColor = R.color.colorBackgroundAboutLight
@@ -38,7 +37,6 @@ class UpdateDash(
         val ui: UiState = ctx.di().instance()
 ) : Dash("update_update",
         R.drawable.ic_info,
-        ctx.getString(R.string.update_dash_desc),
         text = ctx.getString(R.string.update_dash_uptodate),
         menuDashes = Triple(UpdateForceDash(ctx, s), null, null),
         hasView = true,
@@ -108,7 +106,6 @@ class UpdateForceDash(
         val s: State = ctx.di().instance()
 ) : Dash("update_force",
         R.drawable.ic_reload,
-        ctx.getString(R.string.update_force_dash_desc),
         onClick = { s.repo.refresh(force = true); true }
 )
 

@@ -1,19 +1,13 @@
 package org.blokada.presentation
 
-import android.app.Activity
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import org.blokada.R
-import gs.environment.ActivityProvider
-import org.blokada.property.State
 import org.blokada.framework.di
+import org.blokada.property.State
 import org.blokada.ui.app.Dash
-import org.blokada.ui.app.android.MainActivity
 
 val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
-val DASH_ID_ENGINE_SELECTED = "tunnel_selected"
 
 class TunnelDashAdsBlocked(
         val ctx: Context,
@@ -32,7 +26,7 @@ class TunnelDashAdsBlocked(
     }
 
     private fun getBlockedString(blocked: Int): String {
-        return ctx.resources.getQuantityString(R.plurals.tunnel_ads_blocked, blocked, blocked)
+        return ctx.resources.getString(R.string.tunnel_ads_blocked, blocked)
     }
 }
 
@@ -54,37 +48,7 @@ class TunnelDashHostsCount(
     }
 
     private fun getCountString(count: Int): String {
-        return ctx.resources.getQuantityString(R.plurals.tunnel_hosts_count, count, count)
+        return ctx.resources.getString(R.string.tunnel_hosts_count, count)
     }
 }
 
-class TunnelDashEngineSelected(
-        val ctx: Context,
-        val s: State = ctx.di().instance()
-) : Dash(DASH_ID_ENGINE_SELECTED,
-        R.drawable.ic_tune,
-        ctx.getBrandedString(R.string.tunnel_selected_desc),
-        hasView = true
-) {
-
-    private var listener: Any? = null
-    init {
-        text = "-"
-        listener = s.tunnelActiveEngine.doOnUiWhenSet().then {
-            update(s.tunnelActiveEngine())
-        }
-    }
-
-    private fun update(engineId: String) {
-        text = s.tunnelEngines().firstOrNull { it.id == engineId }?.text ?: engineId
-    }
-
-    override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.view_enginegrid, parent as ViewGroup, false)
-        if (view is AEngineGridView) {
-            val activity: ActivityProvider<MainActivity> = ctx.di().instance()
-            view.landscape = activity.get()?.landscape ?: false
-        }
-        return view
-    }
-}

@@ -54,7 +54,7 @@ class AFiltersAddLinkView(
             } else {
                 filtersGroup.visibility = View.VISIBLE
                 filtersView.text = value.joinToString(separator = "\n", limit = 100)
-                filtersCountView.text = context.resources.getQuantityString(R.plurals.filter_edit_count, value.size, value.size)
+                filtersCountView.text = context.resources.getString(R.string.filter_edit_count, value.size)
             }
         }
 

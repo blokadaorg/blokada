@@ -150,9 +150,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
         bind<TunnelConfig>() with singleton { TunnelConfig(defaultEngine = "lollipop") }
         bind<List<Engine>>() with singleton { listOf(Engine(
                 id = "lollipop",
-                text = ctx.getString(R.string.tunnel_selected_lollipop),
-                comment = ctx.getString(R.string.tunnel_selected_lollipop_desc),
-                commentUnsupported = ctx.getString(R.string.tunnel_selected_lollipop_desc_unsupported),
                 createIEngineManager = {
                     ALollipopEngineManager(ctx,
                             agent = instance(),

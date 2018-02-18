@@ -89,9 +89,6 @@ data class LocalisedFilter(
 
 open class Engine (
         val id: String,
-        val text: String,
-        val comment: String,
-        val commentUnsupported: String = comment,
         val supported: Boolean = true,
         val recommended: Boolean = false,
         val createIEngineManager: (e: EngineEvents) -> IEngineManager

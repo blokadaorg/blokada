@@ -45,25 +45,14 @@
     <string name="filter_edit_comments">Comments</string>
     <string name="filter_edit_comments_none">No comments</string>
     <!-- Parameter: number of hosts. -->
-    <plurals name="filter_edit_count">
-        <item quantity="one">Contains one host</item>
-        <item quantity="other">Contains %d hosts</item>
-    </plurals>
+    <string name="filter_edit_count">Contains %d host(s)</string>
 
-    <string name="filter_blacklist_desc">Tap to manage hosts which should be blocked.</string>
     <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
-    <plurals name="filter_blacklist_text">
-        <item quantity="one">One in blacklist</item>
-        <item quantity="other">%d in blacklist</item>
-    </plurals>
+    <string name="filter_blacklist_text">%d in blacklist</string>
     <string name="filter_blacklist_text_none">Blacklist inactive</string>
 
-    <string name="filter_whitelist_desc">Tap to manage hosts which should never be blocked.</string>
     <!-- Displayed in the home screen, keep it short. Parameter: number of whitelisted entries. -->
-    <plurals name="filter_whitelist_text">
-        <item quantity="one">One in whitelist</item>
-        <item quantity="other">%d in whitelist</item>
-    </plurals>
+    <string name="filter_whitelist_text">%d in whitelist</string>
     <string name="filter_whitelist_text_none">Whitelist inactive</string>
 
     <!-- Title of menu with quick actions for whitelist / blacklist -->

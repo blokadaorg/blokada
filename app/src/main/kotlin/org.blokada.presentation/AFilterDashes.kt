@@ -1,19 +1,18 @@
 package org.blokada.presentation
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
 import com.github.salomonbrys.kodein.with
+import gs.environment.ActivityProvider
 import nl.komponents.kovenant.task
 import org.blokada.R
-import gs.environment.ActivityProvider
-import org.blokada.property.Filter
-import org.blokada.property.State
 import org.blokada.framework.IWhen
 import org.blokada.framework.di
+import org.blokada.property.Filter
+import org.blokada.property.State
 import org.blokada.ui.app.Dash
 import org.blokada.ui.app.UiState
 import org.blokada.ui.app.android.MainActivity
@@ -28,7 +27,6 @@ class DashFilterBlacklist(
         val s: State = ctx.di().instance()
 ) : Dash(DASH_ID_BLACKLIST,
         R.drawable.ic_shield_outline,
-        ctx.getString(R.string.filter_blacklist_desc),
         text = ctx.getString(R.string.filter_blacklist_text_none),
         menuDashes = Triple(AddBlacklist(ctx, s), GenerateBlacklist(ctx, s), null),
         onDashOpen = { task(ctx.di().with(KCTX).instance()) {
@@ -53,7 +51,7 @@ class DashFilterBlacklist(
 
     private fun update(filters: List<Filter>) {
         if (filters.isEmpty()) text = ctx.getString(R.string.filter_blacklist_text_none)
-        else text = ctx.resources.getQuantityString(R.plurals.filter_blacklist_text, filters.size, filters.size)
+        else text = ctx.resources.getString(R.string.filter_blacklist_text, filters.size)
     }
 
     override fun createView(parent: Any): Any? {
@@ -73,7 +71,6 @@ class DashFilterWhitelist(
         val ui: UiState = ctx.di().instance()
 ) : Dash(DASH_ID_WHITELIST,
         R.drawable.ic_verified,
-        ctx.getString(R.string.filter_whitelist_desc),
         text = ctx.getString(R.string.filter_whitelist_text_none),
         menuDashes = Triple(
                 AddWhitelist(ctx, s), GenerateWhitelist(ctx, s), ShowSystemAppsWhitelist(ctx, ui)
@@ -101,7 +98,7 @@ class DashFilterWhitelist(
 
     private fun update(filters: List<Filter>) {
         if (filters.isEmpty()) text = ctx.getString(R.string.filter_whitelist_text_none)
-        else text = ctx.resources.getQuantityString(R.plurals.filter_whitelist_text, filters.size, filters.size)
+        else text = ctx.resources.getString(R.string.filter_whitelist_text, filters.size)
     }
 
     override fun createView(parent: Any): Any? {

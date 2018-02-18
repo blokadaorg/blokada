@@ -33,18 +33,13 @@ class AUpdateView(
                 headerView.setTextColor(context.resources.getColor(R.color.colorActive))
                 iconView.setColorFilter(context.resources.getColor(R.color.colorActive))
                 iconView.setImageResource(R.drawable.ic_info)
-                descriptionView.setText(R.string.update_description_noupdate)
                 changelogView.visibility = View.GONE
             } else {
                 download.visibility = View.VISIBLE
-                headerView.text = context.getString(R.string.update_header,
-                        context.getString(R.string.branding_app_name),
-                        value.first)
+                headerView.text = "${context.getString(R.string.update_header)} ${context.getString(R.string.branding_app_name)} ${value.first}"
                 headerView.setTextColor(context.resources.getColor(R.color.colorAccent))
                 iconView.setColorFilter(context.resources.getColor(R.color.colorAccent))
                 iconView.setImageResource(R.drawable.ic_new_releases)
-                descriptionView.setText(Html.fromHtml(context.getString(R.string.update_description,
-                        context.getString(R.string.branding_update_url))))
                 changelogView.visibility = View.VISIBLE
                 changelogView.setText(Html.fromHtml(value.second.replace("\n", "<br/>")))
             }
@@ -57,7 +52,6 @@ class AUpdateView(
     private val download by lazy { findViewById(R.id.update_download) as TextView }
     private val headerView by lazy { findViewById(R.id.update_header) as TextView }
     private val iconView by lazy { findViewById(R.id.update_icon) as ImageView }
-    private val descriptionView by lazy { findViewById(R.id.update_description) as TextView }
     private val changelogView by lazy { findViewById(R.id.update_changelog) as TextView }
     private val makerView by lazy { findViewById(R.id.update_maker) as View }
     private val appInfo by lazy { findViewById(R.id.update_appinfo) as TextView }
@@ -66,7 +60,6 @@ class AUpdateView(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        descriptionView.movementMethod = LinkMovementMethod()
         changelogView.movementMethod = LinkMovementMethod()
         currentView.text = Html.fromHtml("${ver.appName} ${ver.name}<br/>core: ${ver.nameCore}")
 

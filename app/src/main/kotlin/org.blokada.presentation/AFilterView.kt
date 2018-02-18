@@ -108,7 +108,7 @@ class AFilterView(
             if (value != null) {
                 counterView.visibility = View.VISIBLE
                 counterIcon.visibility = View.VISIBLE
-                counterView.text = ctx.resources.getQuantityString(R.plurals.tunnel_hosts_count, value, value)
+                counterView.text = ctx.resources.getString(R.string.tunnel_hosts_count, value)
             } else {
                 counterView.visibility = View.GONE
                 counterIcon.visibility = View.GONE
