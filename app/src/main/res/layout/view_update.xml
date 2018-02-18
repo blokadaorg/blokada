@@ -21,14 +21,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
                 android:text="@string/update_button" />
+            <Button
+                android:id="@+id/update_changelog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/update_button_changelog" />
             <Button
                 android:id="@+id/update_appinfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
                 android:text="@string/update_button_appinfo" />
         </LinearLayout>
 
@@ -57,16 +61,6 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/update_changelog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:linksClickable="true"
-            android:padding="8dp"
-            android:text="@string/main_loading"
-            android:textColor="@color/colorActive" />
 
         <TextView
             android:id="@+id/update_current"

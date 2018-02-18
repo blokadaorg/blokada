@@ -12,8 +12,8 @@ import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
 import gs.property.Version
-import org.obsolete.di
 import org.blokada.R
+import org.obsolete.di
 import java.net.URL
 
 
@@ -33,15 +33,12 @@ class AUpdateView(
                 headerView.setTextColor(context.resources.getColor(R.color.colorActive))
                 iconView.setColorFilter(context.resources.getColor(R.color.colorActive))
                 iconView.setImageResource(R.drawable.ic_info)
-                changelogView.visibility = View.GONE
             } else {
                 download.visibility = View.VISIBLE
                 headerView.text = "${context.getString(R.string.update_header)} ${context.getString(R.string.branding_app_name)} ${value.first}"
                 headerView.setTextColor(context.resources.getColor(R.color.colorAccent))
                 iconView.setColorFilter(context.resources.getColor(R.color.colorAccent))
                 iconView.setImageResource(R.drawable.ic_new_releases)
-                changelogView.visibility = View.VISIBLE
-                changelogView.setText(Html.fromHtml(value.second.replace("\n", "<br/>")))
             }
         }
 
@@ -52,7 +49,7 @@ class AUpdateView(
     private val download by lazy { findViewById(R.id.update_download) as TextView }
     private val headerView by lazy { findViewById(R.id.update_header) as TextView }
     private val iconView by lazy { findViewById(R.id.update_icon) as ImageView }
-    private val changelogView by lazy { findViewById(R.id.update_changelog) as TextView }
+    private val changelogView by lazy { findViewById(R.id.update_changelog) as View }
     private val makerView by lazy { findViewById(R.id.update_maker) as View }
     private val appInfo by lazy { findViewById(R.id.update_appinfo) as TextView }
 
@@ -60,7 +57,6 @@ class AUpdateView(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        changelogView.movementMethod = LinkMovementMethod()
         currentView.text = Html.fromHtml("${ver.appName} ${ver.name}<br/>core: ${ver.nameCore}")
 
         creditsView.movementMethod = LinkMovementMethod()
@@ -73,6 +69,10 @@ class AUpdateView(
             canClick = false
             onClick()
         }}
+
+        changelogView.setOnClickListener {
+
+        }
 
         makerView.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
