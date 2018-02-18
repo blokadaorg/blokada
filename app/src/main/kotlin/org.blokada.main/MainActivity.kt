@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
     private val enabledStateActor: EnabledStateActor by instance()
     private val activityContext: ActivityProvider<Activity> by instance()
-    private val activityProvider: ActivityProvider<Activity> by instance()
+    private val activityProvider: ActivityProvider<MainActivity> by instance()
     private val j: Journal by instance()
 
     private val s: State by instance()

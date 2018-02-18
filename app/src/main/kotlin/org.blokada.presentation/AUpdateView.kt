@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
-import org.blokada.property.VersionConfig
+import gs.property.Version
 import org.blokada.framework.di
 import org.blokada.R
 import java.net.URL
@@ -62,18 +62,13 @@ class AUpdateView(
     private val makerView by lazy { findViewById(R.id.update_maker) as View }
     private val appInfo by lazy { findViewById(R.id.update_appinfo) as TextView }
 
-    private val branding by lazy { ctx.di().instance<VersionConfig>() }
+    private val ver by lazy { ctx.di().instance<Version>() }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
         descriptionView.movementMethod = LinkMovementMethod()
         changelogView.movementMethod = LinkMovementMethod()
-        currentView.text = Html.fromHtml(context.getString(R.string.update_header_current,
-                branding.appName,
-                branding.appVersion,
-                branding.coreVersion,
-                branding.uiVersion
-        ))
+        currentView.text = Html.fromHtml("${ver.appName} ${ver.name}<br/>core: ${ver.nameCore}")
 
         creditsView.movementMethod = LinkMovementMethod()
         creditsView.text = Html.fromHtml("%s<br/><br/><b>%s</b>".format(

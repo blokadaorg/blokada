@@ -9,6 +9,7 @@ import com.github.salomonbrys.kodein.*
 import gs.environment.ActivityProvider
 import gs.environment.Journal
 import gs.environment.Time
+import gs.property.Version
 import gs.property.Welcome
 import gs.property.WelcomeImpl
 import nl.komponents.kovenant.Kovenant
@@ -450,6 +451,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 welcome.optionalShow %= true
             }
 
+            val version: Version = instance()
+            version.appName %= ctx.getString(R.string.branding_app_name)
+            version.name %= BuildConfig.VERSION_NAME
 
             val ui: UiState = instance()
 

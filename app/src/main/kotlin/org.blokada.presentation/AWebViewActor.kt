@@ -12,7 +12,8 @@ import java.net.URL
 class AWebViewActor(
         private val parent: View,
         private val url: () -> URL,
-        private val forceEmbedded: Boolean = false
+        private val forceEmbedded: Boolean = false,
+        private val reloadOnError: Boolean = false
 ) {
 
     private val RELOAD_ERROR_MILLIS = 5 * 1000L
@@ -90,11 +91,12 @@ class AWebViewActor(
     }
 
     private fun handleError(url: String?) {
-//        try {
-//            if (url?.contains(url().host) ?: false) {
-//                loaded = false
-//                handler.sendEmptyMessageDelayed(0, RELOAD_ERROR_MILLIS)
-//            }
-//        } catch (e: Exception) {}
+        if (!reloadOnError) return
+        try {
+            if (url?.contains(url().host) ?: false) {
+                loaded = false
+                handler.sendEmptyMessageDelayed(0, RELOAD_ERROR_MILLIS)
+            }
+        } catch (e: Exception) {}
     }
 }
