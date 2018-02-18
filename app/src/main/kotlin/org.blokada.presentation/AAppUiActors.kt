@@ -90,7 +90,7 @@ class PatronAboutActor(private val parent: View) {
         java.net.URL("${s.localised().content}/patron.html")
     }
 
-    val actor = AWebViewActor(parent, URL)
+    val actor = AWebViewActor(parent, URL, forceEmbedded = true)
 
     fun reload() {
         actor.reload()
