@@ -16,6 +16,7 @@ import org.blokada.framework.IWhen
 import org.blokada.framework.di
 import org.blokada.ui.app.Dash
 import org.blokada.ui.app.UiState
+import org.blokada.ui.app.android.MainActivity
 
 val DASH_ID_BLACKLIST = "filter_blacklist"
 val DASH_ID_WHITELIST = "filter_whitelist"
@@ -58,9 +59,8 @@ class DashFilterBlacklist(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.view_customlist, parent as ViewGroup, false)
         if (view is AFilterListView) {
-            val activity: ActivityProvider<Activity> = ctx.di().instance()
-//            view.landscape = activity.getActivity()?.landscape ?: false
-            // TODO
+            val activity: ActivityProvider<MainActivity> = ctx.di().instance()
+            view.landscape = activity.get()?.landscape ?: false
             view.whitelist = false
         }
         return view
@@ -107,9 +107,8 @@ class DashFilterWhitelist(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.view_customlist, parent as ViewGroup, false)
         if (view is AFilterListView) {
-            val activity: ActivityProvider<Activity> = ctx.di().instance()
-//            view.landscape = activity.getActivity()?.landscape ?: false
-            // TODO
+            val activity: ActivityProvider<MainActivity> = ctx.di().instance()
+            view.landscape = activity.get()?.landscape ?: false
             view.whitelist = true
         }
         return view

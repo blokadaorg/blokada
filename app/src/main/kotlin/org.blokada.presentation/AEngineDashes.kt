@@ -10,6 +10,7 @@ import gs.environment.ActivityProvider
 import org.blokada.property.State
 import org.blokada.framework.di
 import org.blokada.ui.app.Dash
+import org.blokada.ui.app.android.MainActivity
 
 val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
 val DASH_ID_ENGINE_SELECTED = "tunnel_selected"
@@ -81,9 +82,8 @@ class TunnelDashEngineSelected(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.view_enginegrid, parent as ViewGroup, false)
         if (view is AEngineGridView) {
-            val activity: ActivityProvider<Activity> = ctx.di().instance()
-//            view.landscape = activity.get().landscape ?: false
-            // TODO
+            val activity: ActivityProvider<MainActivity> = ctx.di().instance()
+            view.landscape = activity.get()?.landscape ?: false
         }
         return view
     }
