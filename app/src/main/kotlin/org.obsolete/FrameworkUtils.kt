@@ -1,4 +1,4 @@
-package org.blokada.framework
+package org.obsolete
 
 import gs.environment.Journal
 import nl.komponents.kovenant.Kovenant
@@ -15,7 +15,7 @@ class Sync<T>(private var value: T) {
     }
 
     @Synchronized fun set(newValue: T) {
-        value = newValue;
+        value = newValue
     }
 }
 
@@ -49,30 +49,9 @@ internal fun load(opener: () -> InputStream, lineProcessor: (String) -> String? 
 
 internal fun openUrl(url: URL, timeoutMillis: Int): InputStream {
     val c = url.openConnection()
-    c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36");
+    c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36")
     c.connectTimeout = timeoutMillis
     return c.getInputStream()
-}
-
-internal fun openFile(file: File): InputStream {
-    return file.inputStream()
-}
-
-internal fun newSingleThreadedKContext(j: Journal, prefix: String): KContext {
-    return Kovenant.createContext {
-        callbackContext.dispatcher = buildDispatcher {
-            name = "$prefix-callback"
-            concurrentTasks = 1
-            errorHandler = { j.log(it) }
-            exceptionHandler = { j.log(it) }
-        }
-        workerContext.dispatcher = buildDispatcher {
-            name = "$prefix-worker"
-            concurrentTasks = 1
-            errorHandler = { j.log(it) }
-            exceptionHandler = { j.log(it) }
-        }
-    }
 }
 
 fun newConcurrentKContext(j: Journal?, prefix: String, tasks: Int): KContext {

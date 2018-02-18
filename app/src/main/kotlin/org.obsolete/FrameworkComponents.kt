@@ -1,4 +1,4 @@
-package org.blokada.framework
+package org.obsolete
 
 typealias KContext = nl.komponents.kovenant.Context
 

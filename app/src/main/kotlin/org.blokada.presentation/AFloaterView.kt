@@ -36,15 +36,6 @@ class AFloaterView(
             }
         }
 
-    var hide = false
-        set(value) {
-            when (value) {
-                field -> Unit
-                true -> toHide { field = value }
-                else -> fromHide { field = value }
-            }
-        }
-
     override fun onFinishInflate() {
         super.onFinishInflate()
         setOnClickListener {

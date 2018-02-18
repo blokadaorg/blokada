@@ -1,14 +1,13 @@
 package org.blokada.property
 
-import android.os.Build
 import android.content.Context
 import android.net.Uri
 import android.util.Base64
-import org.blokada.framework.load
-import org.blokada.framework.openUrl
+import org.obsolete.load
+import org.obsolete.openUrl
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
-import org.blokada.framework.di
+import org.obsolete.di
 import java.net.URL
 
 /**
@@ -80,9 +79,7 @@ class FilterSourceUri(
     override fun fetch(): List<String> {
         return try {
             load({
-                if (Build.VERSION.SDK_INT >= 19) {
-                    ctx.contentResolver.takePersistableUriPermission(source!!, flags)
-                }
+                ctx.contentResolver.takePersistableUriPermission(source!!, flags)
                 openFile(ctx, source!!)
             }, { processor.process(it) })
         } catch (e: Exception) {

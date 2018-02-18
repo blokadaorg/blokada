@@ -9,13 +9,13 @@ import com.github.salomonbrys.kodein.with
 import gs.environment.ActivityProvider
 import nl.komponents.kovenant.task
 import org.blokada.R
-import org.blokada.framework.IWhen
-import org.blokada.framework.di
+import org.obsolete.IWhen
+import org.obsolete.di
 import org.blokada.property.Filter
 import org.blokada.property.State
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.UiState
-import org.blokada.ui.app.android.MainActivity
+import org.blokada.property.Dash
+import org.blokada.property.UiState
+import org.blokada.main.MainActivity
 
 val DASH_ID_BLACKLIST = "filter_blacklist"
 val DASH_ID_WHITELIST = "filter_whitelist"
@@ -115,7 +115,7 @@ class DashFilterWhitelist(
 class AddBlacklist(
         val ctx: Context,
         val s: State = ctx.di().instance()
-) : Dash (
+) : Dash(
         "filter_blacklist_add",
         R.drawable.ic_filter_add,
         onClick = {
@@ -133,7 +133,7 @@ class AddBlacklist(
 class AddWhitelist(
         val ctx: Context,
         val s: State = ctx.di().instance()
-) : Dash (
+) : Dash(
         "filter_whitelist_add",
         R.drawable.ic_filter_add,
         onClick = {
@@ -151,7 +151,7 @@ class AddWhitelist(
 class GenerateWhitelist(
         val ctx: Context,
         val s: State = ctx.di().instance()
-) : Dash (
+) : Dash(
         "filter_whitelist_generate",
         R.drawable.ic_tune,
         onClick = {
@@ -165,7 +165,7 @@ class GenerateWhitelist(
 class GenerateBlacklist(
         val ctx: Context,
         val s: State = ctx.di().instance()
-) : Dash (
+) : Dash(
         "filter_blacklist_generate",
         R.drawable.ic_tune,
         onClick = {
@@ -179,7 +179,7 @@ class GenerateBlacklist(
 class ShowSystemAppsWhitelist(
         val ctx: Context,
         val ui: UiState = ctx.di().instance()
-) : Dash (
+) : Dash(
         "filter_whitelist_showsystem",
         icon = false,
         isSwitch = true

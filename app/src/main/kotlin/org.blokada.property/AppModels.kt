@@ -1,7 +1,7 @@
 package org.blokada.property
 
 import gs.environment.Identity
-import org.blokada.framework.IProperty
+import org.obsolete.IProperty
 import java.io.File
 import java.net.InetAddress
 import java.net.URL

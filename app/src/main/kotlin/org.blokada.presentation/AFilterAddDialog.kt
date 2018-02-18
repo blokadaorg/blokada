@@ -15,12 +15,12 @@ import org.blokada.property.FilterSourceLink
 import org.blokada.property.FilterSourceUri
 import org.blokada.property.Filter
 import org.blokada.R
-import org.blokada.framework.nullIfEmpty
+import org.obsolete.nullIfEmpty
 import org.blokada.property.FilterSourceSingle
 import org.blokada.property.IFilterSource
 import org.blokada.property.LocalisedFilter
 import org.blokada.property.FilterSourceApp
-import org.blokada.framework.di
+import org.obsolete.di
 
 /**
  * TODO: This poor thing needs love (like me)

@@ -1,6 +1,6 @@
 package org.blokada.property
 
-import org.blokada.framework.batch
+import org.obsolete.batch
 
 /**
  * AFilterSerialiser is responsible for serialising and deserialising filters.

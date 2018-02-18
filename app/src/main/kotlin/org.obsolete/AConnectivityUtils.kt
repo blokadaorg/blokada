@@ -1,4 +1,4 @@
-package org.blokada.framework
+package org.obsolete
 
 import android.content.Context
 import android.content.Intent

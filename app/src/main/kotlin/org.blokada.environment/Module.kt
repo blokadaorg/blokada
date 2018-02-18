@@ -15,17 +15,15 @@ import gs.property.WelcomeImpl
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
+import org.obsolete.*
 import org.blokada.BuildConfig
 import org.blokada.R
-import org.blokada.app.android.registerUncaughtExceptionHandler
-import org.blokada.framework.*
 import org.blokada.main.*
 import org.blokada.presentation.*
 import org.blokada.property.*
-import org.blokada.ui.app.Info
-import org.blokada.ui.app.InfoType
-import org.blokada.ui.app.UiState
-import org.blokada.ui.app.android.*
+import org.blokada.property.Info
+import org.blokada.property.InfoType
+import org.blokada.property.UiState
 import java.io.File
 import java.net.URL
 

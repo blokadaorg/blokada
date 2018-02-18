@@ -3,16 +3,12 @@ package org.blokada.property
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.PowerManager
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
 import gs.environment.Time
 import gs.environment.identityFrom
-import org.blokada.app.android.combine
-import org.blokada.app.android.downloadFilters
-import org.blokada.app.android.getPreferredLocales
-import org.blokada.framework.*
+import org.obsolete.*
 import org.blokada.main.Events
 import org.blokada.main.checkTunnelPermissions
 import java.io.FileNotFoundException
@@ -80,7 +76,7 @@ class AState(
 
     override val screenOn = newProperty(kctx, {
         val pm: PowerManager = ctx.di().instance()
-        if (Build.VERSION.SDK_INT >= 20) { pm.isInteractive } else { pm.isScreenOn }
+        pm.isInteractive
     })
 
     override val watchdogOn = newPersistedProperty(kctx, APrefsPersistence(ctx, "watchdogOn"),
@@ -137,7 +133,7 @@ class AState(
                 when {
                     !isCacheValid(c.cacheFile, c.cacheTTLMillis, now) -> true
                     it.isEmpty() -> true
-                    // TODO: maybe check if we have connectivity (assuming we can trust it)
+                // TODO: maybe check if we have connectivity (assuming we can trust it)
                     else -> false
                 }
             }
@@ -149,7 +145,7 @@ class AState(
             refresh = {
                 val selected = filters().filter(Filter::active)
                 downloadFilters(selected)
-                val selectedBlacklist = selected.filter{ !it.whitelist }
+                val selectedBlacklist = selected.filter { !it.whitelist }
                 val selectedWhitelist = selected.filter(Filter::whitelist)
 
                 // Report counts as events

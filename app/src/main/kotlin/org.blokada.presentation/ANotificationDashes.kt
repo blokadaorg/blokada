@@ -2,11 +2,11 @@ package org.blokada.presentation
 
 import org.blokada.R
 import org.blokada.property.State
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.UiState
+import org.blokada.property.Dash
+import org.blokada.property.UiState
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
-import org.blokada.framework.di
+import org.obsolete.di
 
 val DASH_ID_KEEPALIVE = "notifiction_keepalive"
 

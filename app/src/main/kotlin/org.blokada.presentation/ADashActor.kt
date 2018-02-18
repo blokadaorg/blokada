@@ -3,11 +3,11 @@ package org.blokada.presentation
 import com.github.salomonbrys.kodein.instance
 import org.blokada.main.Events
 import gs.environment.Journal
-import org.blokada.framework.di
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.InfoType
-import org.blokada.ui.app.Info
-import org.blokada.ui.app.UiState
+import org.obsolete.di
+import org.blokada.property.Dash
+import org.blokada.property.InfoType
+import org.blokada.property.Info
+import org.blokada.property.UiState
 
 class ADashActor(
         initialDash: Dash,

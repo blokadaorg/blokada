@@ -3,7 +3,6 @@ package org.blokada.presentation
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -17,9 +16,9 @@ import com.github.salomonbrys.kodein.instance
 import org.blokada.property.IHostlineProcessor
 import gs.environment.ActivityProvider
 import org.blokada.property.FilterSourceUri
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.R
-import org.blokada.ui.app.android.MainActivity
+import org.blokada.main.MainActivity
 
 class AFiltersAddFileView(
         ctx: Context,
@@ -87,7 +86,6 @@ class AFiltersAddFileView(
     private val errorView by lazy { findViewById(R.id.filter_error) as ViewGroup }
     private val commentView by lazy { findViewById(R.id.filter_comment) as EditText }
     private val commentReadView by lazy { findViewById(R.id.filter_comment_read) as TextView }
-    private val commentGroupView by lazy { findViewById(R.id.filter_comment_group) as ViewGroup }
     private val filtersGroup by lazy { findViewById(R.id.filter_link_loaded_group) as View }
     private val filtersView by lazy { findViewById(R.id.filter_link_loaded) as TextView }
     private val filtersCountView by lazy { findViewById(R.id.filter_link_loaded_count) as TextView }
@@ -115,8 +113,7 @@ class AFiltersAddFileView(
         buttonView.setOnClickListener {
             val a = activity.get()
             if (a != null) {
-                val intent = if(Build.VERSION.SDK_INT >= 19) Intent(Intent.ACTION_OPEN_DOCUMENT)
-                else Intent(Intent.ACTION_GET_CONTENT)
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
 
                 intent.type = "text/plain"
                 intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -133,12 +130,8 @@ class AFiltersAddFileView(
                     }
                 }
 
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-                    a.startActivityForResult(intent, 0)
-                } else {
-                    a.startActivityForResult(Intent.createChooser(intent,
+                a.startActivityForResult(Intent.createChooser(intent,
                             context.getString(R.string.filter_edit_file_choose)), 0)
-                }
             }
         }
 

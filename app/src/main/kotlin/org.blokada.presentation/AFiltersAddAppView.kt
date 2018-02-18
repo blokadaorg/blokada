@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.github.salomonbrys.kodein.instance
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.R
 import org.blokada.property.State
 

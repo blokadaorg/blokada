@@ -7,8 +7,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import org.blokada.R
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.UiState
+import org.blokada.property.Dash
+import org.blokada.property.UiState
 import gs.presentation.Spacing
 
 class AGridView(

@@ -10,7 +10,7 @@ import org.blokada.main.Events
 import gs.environment.Journal
 import org.blokada.R
 import org.blokada.property.State
-import org.blokada.framework.di
+import org.obsolete.di
 
 class AEngineAdapter(
         private val ctx: Context

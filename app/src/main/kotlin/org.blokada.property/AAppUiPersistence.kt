@@ -1,8 +1,7 @@
 package org.blokada.property
 
 import android.content.Context
-import org.blokada.framework.IPersistence
-import org.blokada.ui.app.Dash
+import org.obsolete.IPersistence
 
 class ADashesPersistence(
         val ctx: Context

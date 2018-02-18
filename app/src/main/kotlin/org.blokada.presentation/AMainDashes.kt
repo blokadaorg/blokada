@@ -6,13 +6,11 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
-import gs.environment.Journal
-import org.blokada.property.State
-import org.blokada.framework.IWhen
-import org.blokada.framework.di
 import org.blokada.R
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.UiState
+import org.blokada.property.Dash
+import org.blokada.property.State
+import org.obsolete.IWhen
+import org.obsolete.di
 import java.net.URL
 
 val DASH_ID_DONATE = "main_donate"
@@ -103,7 +101,7 @@ class FeedbackDash(val ctx: Context) : Dash(
 
 class PatronDash(val ctx: Context, val s: State = ctx.di().instance()) : Dash(
         DASH_ID_PATRON,
-        R.drawable.ic_settings,
+        R.drawable.ic_info,
         text = ctx.getString(R.string.main_patron),
         hasView = true,
         menuDashes = Triple(null, null, OpenInBrowserDash(ctx, {
@@ -120,7 +118,7 @@ class PatronDash(val ctx: Context, val s: State = ctx.di().instance()) : Dash(
 
 class PatronAboutDash(val ctx: Context) : Dash(
         DASH_ID_PATRON_ABOUT,
-        R.drawable.ic_settings,
+        R.drawable.ic_info,
         text = ctx.getString(R.string.main_patron_about),
         hasView = true
 ) {

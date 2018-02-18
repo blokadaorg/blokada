@@ -2,8 +2,8 @@ package org.blokada.presentation
 
 import android.content.Context
 import android.util.AttributeSet
-import org.blokada.R
 import gs.presentation.doAfter
+import org.blokada.R
 
 
 class ADashView(
@@ -11,7 +11,7 @@ class ADashView(
         attributeSet: AttributeSet
 ) : android.widget.LinearLayout(ctx, attributeSet) {
 
-    var iconRes: Int = R.drawable.ic_settings
+    var iconRes: Int = R.drawable.ic_info
         set(value) {
             setIcon(value, { field = value })
         }

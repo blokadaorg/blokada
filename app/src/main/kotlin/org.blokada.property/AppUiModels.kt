@@ -1,25 +1,25 @@
-package org.blokada.ui.app
+package org.blokada.property
 
 /**
  * Dash defines the UI element to be displayed in the home screen as well as the UI that opens
  * up (optionally) once clicked.
  */
 open class Dash (
-    val id: String,
-    icon: Any,
-    var description: String? = null,
-    active: Boolean = true,
-    text: String? = null,
-    val isSwitch: Boolean = false,
-    checked: Boolean = false,
-    val hasView: Boolean = false,
-    emphasized: Boolean = false,
-    val topBarColor: Int? = null,
-    var menuDashes: Triple<Dash?, Dash?, Dash?> = Triple(null, null, null),
-    var onClick: ((dashRef: Any) -> Boolean)? = null,
-    var onDashOpen: () -> Unit = {},
-    var onBack: () -> Unit = {},
-    var onUpdate: MutableSet<() -> Unit> = mutableSetOf()
+        val id: String,
+        icon: Any,
+        var description: String? = null,
+        active: Boolean = true,
+        text: String? = null,
+        val isSwitch: Boolean = false,
+        checked: Boolean = false,
+        val hasView: Boolean = false,
+        emphasized: Boolean = false,
+        val topBarColor: Int? = null,
+        var menuDashes: Triple<Dash?, Dash?, Dash?> = Triple(null, null, null),
+        var onClick: ((dashRef: Any) -> Boolean)? = null,
+        var onDashOpen: () -> Unit = {},
+        var onBack: () -> Unit = {},
+        var onUpdate: MutableSet<() -> Unit> = mutableSetOf()
 ) {
     fun activate(active: Boolean): Dash {
         this.active = active

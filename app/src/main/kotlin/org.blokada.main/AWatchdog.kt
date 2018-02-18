@@ -10,8 +10,8 @@ import org.blokada.property.Connection
 import org.blokada.property.IWatchdog
 import org.blokada.property.State
 import gs.environment.Journal
-import org.blokada.framework.KContext
-import org.blokada.framework.di
+import org.obsolete.KContext
+import org.obsolete.di
 import java.net.InetSocketAddress
 import java.net.Socket
 

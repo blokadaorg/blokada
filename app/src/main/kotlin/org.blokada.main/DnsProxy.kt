@@ -13,7 +13,7 @@
 package org.blokada.main
 
 import org.blokada.property.State
-import org.blokada.framework.IWhen
+import org.obsolete.IWhen
 import org.pcap4j.packet.*
 import org.xbill.DNS.*
 import java.io.IOException
@@ -30,7 +30,7 @@ class DnsProxy(
 ) {
 
     private val NAME = Name("org.blokada.invalid.")
-    private val BLOCK_CACHE_RESPONSE = SOARecord(NAME, DClass.IN, 5L, NAME, NAME, 0, 0, 0, 0, 5L);
+    private val BLOCK_CACHE_RESPONSE = SOARecord(NAME, DClass.IN, 5L, NAME, NAME, 0, 0, 0, 0, 5L)
 
     var block: Set<String> = setOf()
         @Synchronized get

@@ -4,10 +4,10 @@ import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Identity
 import gs.environment.identityFrom
-import org.blokada.framework.*
-import org.blokada.framework.di
-import org.blokada.framework.readFromCache
-import org.blokada.framework.saveToCache
+import org.obsolete.IPersistence
+import org.obsolete.di
+import org.obsolete.readFromCache
+import org.obsolete.saveToCache
 import java.net.URL
 import java.util.*
 

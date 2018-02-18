@@ -6,6 +6,8 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.testMode
+import org.obsolete.KContext
+import org.obsolete.newConcurrentKContext
 import org.blokada.environment.newAppModule
 import org.blokada.framework.*
 import org.blokada.property.*
@@ -24,46 +26,48 @@ class AppModuleTest {
         return Kodein.Module {
             bind<State>() with singleton {
                 object : State() {
-                    override val enabled = newProperty(kctx, { false })
-                    override val active = newProperty(kctx, { false })
-                    override val retries = newProperty(kctx, { 3 })
-                    override val restart = newProperty(kctx, { false })
-                    override val firstRun = newProperty(kctx, { false })
-                    override val updating = newProperty(kctx, { false })
-                    override val obsolete = newProperty(kctx, { false })
-                    override val startOnBoot = newProperty(kctx, { false })
-                    override val keepAlive = newProperty(kctx, { false })
-                    override val identity = newProperty(kctx, { generateIdentity(IDENTITY_UUID) })
-                    override val connection = newProperty(kctx, { Connection(connected = true) })
-                    override val watchdogOn = newProperty(kctx, { false })
-                    override val screenOn = newProperty(kctx, { true })
-                    override val filters = newProperty(kctx, { listOf<Filter>() })
-                    override val filtersCompiled = newProperty(kctx, { setOf<String>() },
-                            refresh = { filters().flatMap { it.hosts }.toSet() } )
-                    override val tunnelState = newProperty(kctx, { TunnelState.INACTIVE })
-                    override val tunnelPermission = newProperty(kctx, { tunnelPerm })
-                    override val tunnelEngines = newProperty(kctx, { listOf(
-                            Engine("default", "Engine 1", "This is engine 1",
-                                    createIEngineManager = {
-                                        object : IEngineManager {
-                                            override fun start() {}
-                                            override fun updateFilters() {}
-                                            override fun stop() {}
-                                        }
-                                    }),
-                            Engine("two", "Engine 2", "This is engine 2",
-                                    createIEngineManager = {
-                                        object : IEngineManager {
-                                            override fun start() {}
-                                            override fun updateFilters() {}
-                                            override fun stop() {}
-                                        }
-                                    })
-                    ) })
-                    override val tunnelActiveEngine = newProperty(kctx, { "default" })
-                    override val tunnelAdsCount = newProperty(kctx, { 0 })
-                    override val tunnelRecentAds = newProperty(kctx, { listOf<String>() })
-                    override val repo = newProperty(kctx, {
+                    override val enabled = org.obsolete.newProperty(kctx, { false })
+                    override val active = org.obsolete.newProperty(kctx, { false })
+                    override val retries = org.obsolete.newProperty(kctx, { 3 })
+                    override val restart = org.obsolete.newProperty(kctx, { false })
+                    override val firstRun = org.obsolete.newProperty(kctx, { false })
+                    override val updating = org.obsolete.newProperty(kctx, { false })
+                    override val obsolete = org.obsolete.newProperty(kctx, { false })
+                    override val startOnBoot = org.obsolete.newProperty(kctx, { false })
+                    override val keepAlive = org.obsolete.newProperty(kctx, { false })
+                    override val identity = org.obsolete.newProperty(kctx, { generateIdentity(IDENTITY_UUID) })
+                    override val connection = org.obsolete.newProperty(kctx, { Connection(connected = true) })
+                    override val watchdogOn = org.obsolete.newProperty(kctx, { false })
+                    override val screenOn = org.obsolete.newProperty(kctx, { true })
+                    override val filters = org.obsolete.newProperty(kctx, { listOf<Filter>() })
+                    override val filtersCompiled = org.obsolete.newProperty(kctx, { setOf<String>() },
+                            refresh = { filters().flatMap { it.hosts }.toSet() })
+                    override val tunnelState = org.obsolete.newProperty(kctx, { TunnelState.INACTIVE })
+                    override val tunnelPermission = org.obsolete.newProperty(kctx, { tunnelPerm })
+                    override val tunnelEngines = org.obsolete.newProperty(kctx, {
+                        listOf(
+                                Engine("default", "Engine 1", "This is engine 1",
+                                        createIEngineManager = {
+                                            object : IEngineManager {
+                                                override fun start() {}
+                                                override fun updateFilters() {}
+                                                override fun stop() {}
+                                            }
+                                        }),
+                                Engine("two", "Engine 2", "This is engine 2",
+                                        createIEngineManager = {
+                                            object : IEngineManager {
+                                                override fun start() {}
+                                                override fun updateFilters() {}
+                                                override fun stop() {}
+                                            }
+                                        })
+                        )
+                    })
+                    override val tunnelActiveEngine = org.obsolete.newProperty(kctx, { "default" })
+                    override val tunnelAdsCount = org.obsolete.newProperty(kctx, { 0 })
+                    override val tunnelRecentAds = org.obsolete.newProperty(kctx, { listOf<String>() })
+                    override val repo = org.obsolete.newProperty(kctx, {
                         Repo(
                                 contentPath = URL("http://example.com/content"),
                                 locales = listOf(Locale("en")),
@@ -74,7 +78,7 @@ class AppModuleTest {
                                 pages = mapOf()
                         )
                     })
-                    override val localised = newProperty(kctx, {
+                    override val localised = org.obsolete.newProperty(kctx, {
                         Localised(
                                 content = URL("http://example.com/content"),
                                 bug = URL("http://example.com/bug"),
@@ -83,8 +87,8 @@ class AppModuleTest {
                                 lastRefreshMillis = 0L
                         )
                     })
-                    override val apps = newProperty(kctx, { emptyList<App>() })
-                    override val filterConfig = newProperty(kctx, {
+                    override val apps = org.obsolete.newProperty(kctx, { emptyList<App>() })
+                    override val filterConfig = org.obsolete.newProperty(kctx, {
                         FilterConfig(
                                 cacheFile = File("dummy"),
                                 exportFile = File("dummy2"),
@@ -93,8 +97,8 @@ class AppModuleTest {
                                 fetchTimeoutMillis = 10 * 1000
                         )
                     })
-                    override val tunnelConfig = newProperty(kctx, { TunnelConfig("default") })
-                    override val repoConfig = newProperty(kctx, {
+                    override val tunnelConfig = org.obsolete.newProperty(kctx, { TunnelConfig("default") })
+                    override val repoConfig = org.obsolete.newProperty(kctx, {
                         RepoConfig(
                                 cacheFile = File("dummy"),
                                 cacheTTLMillis = 0,
@@ -103,7 +107,7 @@ class AppModuleTest {
                                 fetchTimeoutMillis = 10 * 1000
                         )
                     })
-                    override val versionConfig = newProperty(kctx, {
+                    override val versionConfig = org.obsolete.newProperty(kctx, {
                         VersionConfig(
                                 appName = "app",
                                 appVersionCode = 9,

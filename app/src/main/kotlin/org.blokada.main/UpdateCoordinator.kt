@@ -2,7 +2,7 @@ package org.blokada.main
 
 import org.blokada.property.State
 import org.blokada.property.TunnelState
-import org.blokada.framework.IWhen
+import org.obsolete.IWhen
 import java.net.URL
 
 /**

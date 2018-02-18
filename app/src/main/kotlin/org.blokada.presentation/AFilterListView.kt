@@ -12,9 +12,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import org.blokada.property.FilterSourceApp
-import org.blokada.framework.IWhen
-import org.blokada.framework.di
-import org.blokada.ui.app.UiState
+import org.obsolete.IWhen
+import org.obsolete.di
+import org.blokada.property.UiState
 
 class AFilterListView(
         ctx: Context,

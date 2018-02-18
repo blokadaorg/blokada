@@ -5,7 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import org.blokada.main.Events
 import gs.environment.Journal
 import org.blokada.property.State
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.R
 
 /**

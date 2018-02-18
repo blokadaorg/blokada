@@ -7,10 +7,10 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import io.codetail.animation.ViewAnimationUtils
 import io.codetail.widget.RevealFrameLayout
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.Info
-import org.blokada.ui.app.InfoType
-import org.blokada.ui.app.UiState
+import org.blokada.property.Dash
+import org.blokada.property.Info
+import org.blokada.property.InfoType
+import org.blokada.property.UiState
 
 private data class OpenDash(val d: Dash, val x: Int, val y: Int)
 

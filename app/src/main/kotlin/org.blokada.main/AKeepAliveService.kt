@@ -6,7 +6,7 @@ import android.os.Binder
 import android.os.IBinder
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.property.State
 
 
@@ -23,7 +23,7 @@ class AKeepAliveService : Service() {
         val s: State = di().instance()
 
         j.log("KeepAliveService start command")
-        return Service.START_STICKY;
+        return Service.START_STICKY
     }
 
     private var binder: KeepAliveBinder? = null

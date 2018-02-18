@@ -20,8 +20,8 @@ import nl.komponents.kovenant.any
 import org.blokada.property.IEngineManager
 import org.blokada.property.State
 import nl.komponents.kovenant.task
-import org.blokada.framework.KContext
-import org.blokada.framework.di
+import org.obsolete.KContext
+import org.obsolete.di
 
 @TargetApi(21)
 class ALollipopEngineManager(

@@ -1,6 +1,7 @@
 package org.blokada.presentation
 
 import android.content.Context
+import android.support.v7.widget.AppCompatTextView
 import android.text.Html
 import android.util.AttributeSet
 import android.widget.TextView
@@ -11,7 +12,7 @@ import gs.presentation.doAfter
 class AInfoView(
         private val ctx: Context,
         private val attributeSet: AttributeSet
-): TextView(ctx, attributeSet) {
+): AppCompatTextView(ctx, attributeSet) {
 
     var waitMillis: Int? = null
 

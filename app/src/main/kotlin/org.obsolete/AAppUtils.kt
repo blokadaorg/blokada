@@ -1,5 +1,6 @@
-package org.blokada.app.android
+package org.obsolete
 
+import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -7,7 +8,6 @@ import android.content.Intent
 import android.content.res.Resources
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
-import org.blokada.framework.di
 import org.blokada.main.AKeepAliveService
 import org.blokada.property.Filter
 import java.util.*
@@ -47,6 +47,7 @@ internal fun combine(blacklist: List<Filter>, whitelist: List<Filter>): Set<Stri
     return set
 }
 
+@TargetApi(24)
 internal fun getPreferredLocales(): List<Locale> {
     val cfg = Resources.getSystem().configuration
     return try {

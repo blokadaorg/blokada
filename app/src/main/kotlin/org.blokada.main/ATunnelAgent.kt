@@ -11,8 +11,8 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.deferred
-import org.blokada.framework.KContext
-import org.blokada.framework.di
+import org.obsolete.KContext
+import org.obsolete.di
 import java.io.FileDescriptor
 import java.net.DatagramSocket
 
@@ -40,7 +40,7 @@ class ATunnelAgent(val ctx: Context) {
 
     fun bind(events: ITunnelEvents): Promise<ATunnelBinder, Exception> {
         this.events = events
-        this.deferred = deferred<ATunnelBinder, Exception>(tunnelKctx)
+        this.deferred = deferred(tunnelKctx)
         val intent = Intent(ctx, ATunnelService::class.java)
         intent.setAction(ATunnelService.BINDER_ACTION)
         return when (ctx.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE
@@ -67,7 +67,6 @@ class ATunnelBinder(
 interface ITunnelActions {
     fun turnOn(): Int
     fun turnOff()
-    fun protect(fd: Int): Boolean
     fun protect(socket: DatagramSocket): Boolean
     fun fd(): FileDescriptor?
 }

@@ -1,4 +1,4 @@
-package org.blokada.framework
+package org.obsolete
 
 import nl.komponents.kovenant.task
 import nl.komponents.kovenant.ui.promiseOnUi

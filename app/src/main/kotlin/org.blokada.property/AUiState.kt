@@ -1,11 +1,9 @@
 package org.blokada.property
 
-import org.blokada.framework.KContext
-import org.blokada.framework.newPersistedProperty
-import org.blokada.ui.app.Info
-import org.blokada.ui.app.UiState
+import org.obsolete.KContext
+import org.obsolete.newPersistedProperty
 import android.content.Context
-import org.blokada.framework.newProperty
+import org.obsolete.newProperty
 import org.blokada.BuildConfig
 import org.blokada.presentation.*
 

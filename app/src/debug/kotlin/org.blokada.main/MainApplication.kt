@@ -1,4 +1,4 @@
-package org.blokada.app.android
+package org.blokada.main
 
 import android.app.Application
 import com.github.salomonbrys.kodein.Kodein

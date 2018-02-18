@@ -6,10 +6,10 @@ import android.widget.PopupMenu
 import com.github.salomonbrys.kodein.instance
 import org.blokada.main.Events
 import gs.environment.Journal
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.R
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.UiState
+import org.blokada.property.Dash
+import org.blokada.property.UiState
 import org.blokada.presentation.ContentActor.Companion.X_END
 
 
@@ -68,22 +68,3 @@ class DashMainMenu(
     }
 }
 
-class DashEditMode(
-        val ctx: Context,
-        val ui: UiState
-) : Dash(
-        "main_edit",
-        R.drawable.ic_mode_edit,
-        onClick = { dashRef ->
-            ui.editUi %= !ui.editUi()
-            false
-        }
-
-) {
-    private var listener: Any? = null
-    init {
-        listener = ui.editUi.doOnUiWhenChanged().then {
-            emphasized = ui.editUi()
-        }
-    }
-}

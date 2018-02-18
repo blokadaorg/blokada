@@ -1,4 +1,4 @@
-package org.blokada.ui.app.android
+package org.blokada.main
 
 import android.annotation.TargetApi
 import android.service.quicksettings.Tile
@@ -6,10 +6,10 @@ import android.service.quicksettings.TileService
 import com.github.salomonbrys.kodein.instance
 import org.blokada.property.State
 import org.blokada.R
-import org.blokada.framework.Sync
+import org.obsolete.Sync
 import org.blokada.presentation.EnabledStateActor
 import org.blokada.presentation.IEnabledStateActorListener
-import org.blokada.framework.di
+import org.obsolete.di
 
 /**
  *

@@ -8,7 +8,7 @@ import android.net.ConnectivityManager
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import nl.komponents.kovenant.task
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.property.State
 
 /**
@@ -49,9 +49,6 @@ class AConnectivityReceiver : BroadcastReceiver() {
             ctx.registerReceiver(ctx.di().instance<AConnectivityReceiver>(), filter)
         }
 
-        fun unregister(ctx: Context) {
-            ctx.unregisterReceiver(ctx.di().instance<AConnectivityReceiver>())
-        }
     }
 
 }
@@ -74,9 +71,6 @@ class AScreenOnReceiver : BroadcastReceiver() {
             ctx.registerReceiver(ctx.di().instance<AScreenOnReceiver>(), filter)
         }
 
-        fun unregister(ctx: Context) {
-            ctx.unregisterReceiver(ctx.di().instance<AScreenOnReceiver>())
-        }
     }
 }
 
@@ -95,8 +89,5 @@ class ALocaleReceiver : BroadcastReceiver() {
             ctx.registerReceiver(ctx.di().instance<ALocaleReceiver>(), filter)
         }
 
-        fun unregister(ctx: Context) {
-            ctx.unregisterReceiver(ctx.di().instance<ALocaleReceiver>())
-        }
     }
 }

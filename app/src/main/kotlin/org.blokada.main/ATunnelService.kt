@@ -8,7 +8,7 @@ import android.os.ParcelFileDescriptor
 import android.os.SystemClock
 import com.github.salomonbrys.kodein.instance
 import nl.komponents.kovenant.task
-import org.blokada.framework.di
+import org.obsolete.di
 import java.io.FileDescriptor
 
 /**
@@ -28,7 +28,7 @@ class ATunnelService : VpnService(), ITunnelActions {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return Service.START_STICKY;
+        return Service.START_STICKY
     }
 
     private var binder: ATunnelBinder? = null
@@ -102,8 +102,7 @@ class ATunnelService : VpnService(), ITunnelActions {
             lastReleasedMillis = 0
             Thread.sleep(0 - timeSinceLastReleased)
         }
-        val descriptor = tunnel.establish() ?: throw Exception("vpn not prepared or revoked")
-        return descriptor
+        return tunnel.establish() ?: throw Exception("vpn not prepared or revoked")
     }
 
     private fun releaseTunnelInternal() {

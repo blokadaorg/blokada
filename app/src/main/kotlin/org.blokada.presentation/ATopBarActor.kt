@@ -6,8 +6,8 @@ import android.view.animation.DecelerateInterpolator
 import gs.presentation.ResizeAnimation
 import org.blokada.property.State
 import org.blokada.R
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.UiState
+import org.blokada.property.Dash
+import org.blokada.property.UiState
 
 class ATopBarActor(
         private val m: State,

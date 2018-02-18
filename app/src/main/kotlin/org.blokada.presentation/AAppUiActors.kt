@@ -3,7 +3,7 @@ package org.blokada.presentation
 import android.view.View
 import com.github.salomonbrys.kodein.instance
 import org.blokada.property.State
-import org.blokada.framework.di
+import org.obsolete.di
 
 
 class AFeedbackActor(

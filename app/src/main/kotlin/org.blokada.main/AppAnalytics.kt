@@ -2,8 +2,6 @@ package org.blokada.main
 
 class Events {
     companion object {
-        val FIRST_WELCOME = "first_welcome"
-        val FIRST_WELCOME_ADVANCED = "first_welcome_advanced"
         val FIRST_ACTIVE_START = "first_active_start"
         val FIRST_ACTIVE_ASK_VPN = "first_active_ask_vpn"
         val FIRST_ACTIVE_FAIL = "first_active_fail"
@@ -19,7 +17,6 @@ class Events {
         val CLICK_LONG_DASH = { id: String -> ClickLongDash(id) }
         val SHOW_DASH = { id: String -> ShowDash(id) }
         val HIDE_DASH = { id: String -> HideDash(id) }
-        val CLICK_CONFIG = { id: String -> ClickConfig(id) }
         val COUNT_BLACKLIST_HOSTS = { count: Int -> CountBlacklistHosts(count) }
         val COUNT_WHITELIST_HOSTS = { count: Int -> CountWhitelistHosts(count) }
         val AD_BLOCKED = { host: String -> AdBlocked(host) }

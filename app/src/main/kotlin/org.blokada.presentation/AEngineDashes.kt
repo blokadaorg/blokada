@@ -3,9 +3,9 @@ package org.blokada.presentation
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import org.blokada.R
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.property.State
-import org.blokada.ui.app.Dash
+import org.blokada.property.Dash
 
 val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
 

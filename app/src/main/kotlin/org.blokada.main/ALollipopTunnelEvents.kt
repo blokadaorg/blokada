@@ -19,8 +19,8 @@ import com.github.salomonbrys.kodein.instance
 import org.blokada.property.State
 import org.blokada.property.FilterSourceApp
 import gs.environment.Journal
-import org.blokada.framework.di
-import org.blokada.framework.hasIpV6Servers
+import org.obsolete.di
+import org.obsolete.hasIpV6Servers
 import java.net.Inet4Address
 import java.net.Inet6Address
 import java.net.InetAddress

@@ -9,7 +9,7 @@ import org.blokada.property.Filter
 import org.blokada.property.FilterSourceSingle
 import org.blokada.property.State
 import org.blokada.property.FilterSourceApp
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.R
 
 

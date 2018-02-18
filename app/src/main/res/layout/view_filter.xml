@@ -52,7 +52,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
-                    android:lines="1"
                     android:singleLine="true"
                     android:text="@string/filter_edit_name_placeholder"
                     android:textColor="@color/colorTextUnimportant" />

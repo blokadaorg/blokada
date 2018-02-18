@@ -1,6 +1,8 @@
-package org.blokada.ui.app
+package org.blokada.property
 
-import org.blokada.framework.IProperty
+import org.obsolete.IProperty
+import org.blokada.property.Dash
+import org.blokada.property.Info
 
 abstract class UiState {
 

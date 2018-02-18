@@ -1,10 +1,10 @@
-package org.blokada.ui.app.android
+package org.blokada.main
 
 import android.app.IntentService
 import android.content.Intent
 import com.github.salomonbrys.kodein.instance
-import org.blokada.framework.di
-import org.blokada.ui.app.UiState
+import org.obsolete.di
+import org.blokada.property.UiState
 
 
 /**

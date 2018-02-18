@@ -1,4 +1,4 @@
-package org.blokada.ui.app.android
+package org.blokada.presentation
 
 import android.annotation.TargetApi
 import android.app.NotificationManager
@@ -9,6 +9,9 @@ import android.support.v4.app.NotificationCompat
 import org.blokada.R
 import android.app.NotificationChannel
 import android.os.Build
+import org.blokada.main.ANotificationsOffService
+import org.blokada.main.ANotificationsWhitelistService
+import org.blokada.main.MainActivity
 
 
 /**
@@ -117,7 +120,3 @@ fun displayNotificationForUpdate(ctx: Context, versionName: String) {
     notif.notify(2, b.build())
 }
 
-fun hideNotificationForUpdate(ctx: Context) {
-    val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    notif.cancel(2)
-}

@@ -3,13 +3,12 @@ package org.blokada.presentation
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import org.blokada.property.IFilterSource
+import gs.environment.Time
+import org.blokada.R
 import org.blokada.property.FilterSourceApp
 import org.blokada.property.FilterSourceLink
 import org.blokada.property.FilterSourceUri
-import gs.environment.Time
-import org.blokada.R
-import java.util.*
+import org.blokada.property.IFilterSource
 
 
 fun Context.getBrandedString(resId: Int): String {

@@ -11,7 +11,7 @@ import org.blokada.property.IFilterSource
 import org.blokada.property.LocalisedFilter
 import org.blokada.property.State
 import gs.environment.ActivityProvider
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.R
 
 class AFilterGenerateDialog(

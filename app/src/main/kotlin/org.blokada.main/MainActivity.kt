@@ -1,4 +1,4 @@
-package org.blokada.ui.app.android
+package org.blokada.main
 
 import android.app.Activity
 import android.app.NotificationManager
@@ -17,22 +17,20 @@ import gs.presentation.WelcomeDialogManager
 import gs.presentation.isWrongInstance
 import io.codetail.widget.RevealFrameLayout
 import nl.komponents.kovenant.task
-import org.blokada.main.startAskTunnelPermissions
-import org.blokada.main.stopAskTunnelPermissions
 import gs.environment.Journal
 import gs.property.Welcome
-import org.blokada.framework.IWhen
-import org.blokada.framework.KContext
-import org.blokada.framework.Sync
-import org.blokada.framework.di
+import org.obsolete.IWhen
+import org.obsolete.KContext
+import org.obsolete.Sync
+import org.obsolete.di
 import org.blokada.BuildConfig
 import org.blokada.R
 import org.blokada.presentation.*
 import org.blokada.property.State
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.Info
-import org.blokada.ui.app.InfoType
-import org.blokada.ui.app.UiState
+import org.blokada.property.Dash
+import org.blokada.property.Info
+import org.blokada.property.InfoType
+import org.blokada.property.UiState
 import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity(), LazyKodeinAware {
@@ -69,8 +67,8 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         activityProvider.set(this)
 
         if (isWrongInstance(this)) {
-            finish();
-            return;
+            finish()
+            return
         }
 
         landscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
@@ -145,7 +143,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             fab.layoutParams = lp
         }
 
-        MainActivity.Companion.staticContext.set(java.lang.ref.WeakReference(this))
+        staticContext.set(java.lang.ref.WeakReference(this))
 
 //        val d = AWelcomeDialog(this, contentActor!!)
 //        listener13 = ui.seenWelcome.doOnUiWhenSet().then {
@@ -191,7 +189,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             j.log("Started main activity for askForPermissions permissions")
             task {
                 try {
-                    MainActivity.askPermissions()
+                    askPermissions()
                 } catch (e: Exception) {
                     s.active %= false
                 }

@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
-        android:name=".app.android.MainApplication"
+        android:name=".main.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -21,7 +21,7 @@
         tools:replace="android:label">
 
         <activity
-            android:name="org.blokada.ui.app.android.MainActivity"
+            android:name="org.blokada.main.MainActivity"
             android:label="@string/branding_app_name"
             android:launchMode="singleTask"
             android:theme="@style/BlokadaColors.Main.NoActionBar">
@@ -33,13 +33,13 @@
         </activity>
 
         <service
-            android:name="org.blokada.ui.app.android.ANotificationsOffService">
+            android:name="org.blokada.main.ANotificationsOffService">
         </service>
         <service
-            android:name="org.blokada.ui.app.android.ANotificationsWhitelistService">
+            android:name="org.blokada.main.ANotificationsWhitelistService">
         </service>
         <service
-            android:name="org.blokada.ui.app.android.AQuickSettingsService"
+            android:name="org.blokada.main.AQuickSettingsService"
             android:label="@string/main_quicksettings_toggle"
             android:icon="@drawable/ic_blokada"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">

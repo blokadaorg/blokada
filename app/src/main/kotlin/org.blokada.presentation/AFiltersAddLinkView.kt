@@ -83,7 +83,6 @@ class AFiltersAddLinkView(
     private val errorView by lazy { findViewById(R.id.filter_error) as ViewGroup }
     private val commentView by lazy { findViewById(R.id.filter_comment) as EditText }
     private val commentReadView by lazy { findViewById(R.id.filter_comment_read) as TextView }
-    private val commentGroupView by lazy { findViewById(R.id.filter_comment_group) as ViewGroup }
     private val filtersGroup by lazy { findViewById(R.id.filter_link_loaded_group) as View }
     private val filtersView by lazy { findViewById(R.id.filter_link_loaded) as TextView }
     private val filtersCountView by lazy { findViewById(R.id.filter_link_loaded_count) as TextView }

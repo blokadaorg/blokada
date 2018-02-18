@@ -9,10 +9,10 @@ import org.blokada.property.VersionConfig
 import org.blokada.R
 import org.blokada.property.State
 import org.blokada.main.UpdateCoordinator
-import org.blokada.framework.IWhen
-import org.blokada.framework.di
-import org.blokada.ui.app.Dash
-import org.blokada.ui.app.UiState
+import org.obsolete.IWhen
+import org.obsolete.di
+import org.blokada.property.Dash
+import org.blokada.property.UiState
 
 val DASH_ID_ABOUT = "update_about"
 

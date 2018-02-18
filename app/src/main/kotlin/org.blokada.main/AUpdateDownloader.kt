@@ -10,7 +10,7 @@ import android.os.Build
 import android.support.v4.content.FileProvider
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
-import org.blokada.framework.di
+import org.obsolete.di
 import java.io.File
 import java.net.URL
 

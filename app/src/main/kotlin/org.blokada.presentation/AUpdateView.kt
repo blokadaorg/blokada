@@ -12,7 +12,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
 import gs.property.Version
-import org.blokada.framework.di
+import org.obsolete.di
 import org.blokada.R
 import java.net.URL
 
