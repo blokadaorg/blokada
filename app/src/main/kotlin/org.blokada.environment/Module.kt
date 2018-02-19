@@ -387,17 +387,18 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 wasConnected = s.connection().connected
             }
 
+            val welcome: Welcome = instance()
+            welcome.conflictingBuilds %= listOf("org.blokada.origin.alarm", "org.blokada.alarm", "org.blokada", "org.blokada.dev")
+            welcome.obsoleteUrl %= URL("https://blokada.org/api/legacy/content/root/obsolete.html")
 
             // On locale change, refresh all localised content
             val i18n: I18n = instance()
 
             i18n.locale.doWhenSet().then {
                 val root = i18n.contentUrl()
-                val welcome: Welcome = instance()
                 welcome.guideUrl %= URL("${root}/help.html")
                 welcome.optionalUrl %= URL("${root}/patron_redirect.html")
                 welcome.updatedUrl %= URL("${root}/updated.html")
-                welcome.obsoleteUrl %= URL("${root}/obsolete.html")
                 welcome.cleanupUrl %= URL("${root}/cleanup.html")
                 welcome.optionalShow %= true
                 // Last one because it triggers dialogs

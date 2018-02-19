@@ -149,6 +149,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         val m = WelcomeDialogManager(kodein, BuildConfig.VERSION_CODE, {})
         m.run()
         welcome.introUrl.doOnUiWhenChanged(withInit = true).then { m.run() }
+        welcome.obsolete.doOnUiWhenChanged(withInit = true).then { m.run() }
 
     }
 

@@ -17,8 +17,6 @@ android {
         dev.java.srcDirs += 'src/dev/kotlin'
         prod.java.srcDirs += 'src/prod/kotlin'
         firebase.java.srcDirs += 'src/firebase/kotlin'
-        debug.java.srcDirs += 'src/debug/kotlin'
-        release.java.srcDirs += 'src/release/kotlin'
     }
     signingConfigs {
         release {
@@ -34,10 +32,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-        firebase {
-            initWith(release)
-            versionNameSuffix '-fb'
-        }
         debug {
             versionNameSuffix '-debug'
         }
@@ -49,6 +43,9 @@ android {
         }
         prod {
             applicationIdSuffix ".alarm"
+        }
+        firebase {
+            applicationIdSuffix ".origin.alarm"
         }
     }
 }
@@ -106,3 +103,5 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

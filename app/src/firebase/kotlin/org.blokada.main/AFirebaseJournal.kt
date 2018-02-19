@@ -1,41 +1,29 @@
-package org.blokada.app.android
+package org.blokada.main
 
 import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crash.FirebaseCrash
-import org.blokada.app.Events
 import gs.environment.Journal
 
 /**
  * Deps here need to be lazy to avoid dependency loop from KContext -> Journal
  */
 class AFirebaseJournal(
-        private val firebase: () -> FirebaseAnalytics,
-        private val fState: FirebaseState
+        private val firebase: () -> FirebaseAnalytics
 ) : Journal {
 
     private var userId: String? = null
     private val userProperties = mutableMapOf<String, String>()
 
-    init {
-        fState.enabled.doWhen { fState.enabled(true) }.then {
-            if (userId != null) firebase().setUserId(userId)
-            userProperties.forEach { k, v -> firebase().setUserProperty(k, v) }
-        }
-    }
-
     override fun setUserId(id: String) {
-        if (fState.enabled()) firebase().setUserId(id)
-        else userId = id
+        userId = id
     }
 
     override fun setUserProperty(key: String, value: Any) {
-        if (fState.enabled()) firebase().setUserProperty(key, value.toString())
-        else userProperties.put(key, value.toString())
+        userProperties.put(key, value.toString())
     }
 
     override fun event(vararg events: Any) {
-        if (fState.enabled(false)) return
         events.forEach { event ->
             when(event) {
                 is Events.EventInt -> {
@@ -54,7 +42,6 @@ class AFirebaseJournal(
     }
 
     override fun log(vararg errors: Any) {
-        if (fState.enabled(false)) return
         errors.forEach { error ->
             when (error) {
                 is Exception -> {
