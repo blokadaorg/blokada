@@ -1,28 +1,28 @@
 package org.blokada.presentation
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
-import org.blokada.R
-import org.blokada.property.Filter
-import gs.presentation.Spacing
 import android.util.AttributeSet
-import android.content.Context
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
+import gs.environment.inject
+import gs.presentation.Spacing
+import org.blokada.R
+import org.blokada.property.Filter
 import org.blokada.property.FilterSourceApp
-import org.obsolete.IWhen
-import org.obsolete.di
 import org.blokada.property.UiState
+import org.obsolete.IWhen
 
 class AFilterListView(
         ctx: Context,
         attributeSet: AttributeSet
 ) : RecyclerView(ctx, attributeSet) {
 
-    private val s by lazy { context.di().instance<org.blokada.property.State>() }
-    private val ui by lazy { context.di().instance<UiState>() }
+    private val s by lazy { context.inject().instance<org.blokada.property.State>() }
+    private val ui by lazy { context.inject().instance<UiState>() }
     private var filters = listOf<Filter>()
     private var listener: IWhen? = null
 

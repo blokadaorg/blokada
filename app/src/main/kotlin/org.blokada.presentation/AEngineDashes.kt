@@ -2,8 +2,8 @@ package org.blokada.presentation
 
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
+import gs.environment.inject
 import org.blokada.R
-import org.obsolete.di
 import org.blokada.property.State
 import org.blokada.property.Dash
 
@@ -11,7 +11,7 @@ val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
 
 class TunnelDashAdsBlocked(
         val ctx: Context,
-        val t: State = ctx.di().instance()
+        val t: State = ctx.inject().instance()
 ) : Dash("tunnel_ads",
         R.drawable.ic_block,
         ctx.getString(R.string.tunnel_ads_desc)
@@ -32,7 +32,7 @@ class TunnelDashAdsBlocked(
 
 class TunnelDashHostsCount(
         val ctx: Context,
-        val s: State = ctx.di().instance()
+        val s: State = ctx.inject().instance()
 ) : Dash(DASH_ID_HOSTS_COUNT,
         R.drawable.ic_counter,
         ctx.getBrandedString(R.string.tunnel_hosts_desc),

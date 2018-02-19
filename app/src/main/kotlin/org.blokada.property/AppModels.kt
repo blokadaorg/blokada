@@ -4,8 +4,6 @@ import gs.environment.Identity
 import org.obsolete.IProperty
 import java.io.File
 import java.net.InetAddress
-import java.net.URL
-import java.util.*
 
 abstract class State {
     abstract val enabled: IProperty<Boolean>
@@ -33,16 +31,11 @@ abstract class State {
     abstract val tunnelAdsCount: IProperty<Int>
     abstract val tunnelRecentAds: IProperty<List<String>>
 
-    abstract val repo: IProperty<Repo>
-    abstract val localised: IProperty<Localised>
-
     abstract val apps: IProperty<List<App>>
 
     // Those do not change during lifetime of the app
     abstract val filterConfig: IProperty<FilterConfig>
     abstract val tunnelConfig: IProperty<TunnelConfig>
-    abstract val repoConfig: IProperty<RepoConfig>
-    abstract val versionConfig: IProperty<VersionConfig>
 }
 
 data class Connection(
@@ -104,27 +97,10 @@ enum class TunnelState {
     INACTIVE, ACTIVATING, ACTIVE, DEACTIVATING, DEACTIVATED
 }
 
-data class Repo(
-        val contentPath: URL?,
-        val locales: List<Locale>,
-        val pages: Map<Locale, Pair<URL, URL>>,
-        val newestVersionCode: Int,
-        val newestVersionName: String,
-        val downloadLinks: List<URL>,
-        val lastRefreshMillis: Long
-)
-
-data class Localised(
-        val content: URL,
-        val lastRefreshMillis: Long
-        // TODO: filters too?
-)
-
 data class FilterConfig(
         val cacheFile: File,
         val exportFile: File,
         val cacheTTLMillis: Long,
-        val repoURL: URL,
         val fetchTimeoutMillis: Int
 )
 
@@ -132,18 +108,3 @@ data class TunnelConfig(
         val defaultEngine: String
 )
 
-data class RepoConfig(
-        val cacheFile: File,
-        val cacheTTLMillis: Long,
-        val repoURL: URL,
-        val fetchTimeoutMillis: Int,
-        val notificationCooldownMillis: Long
-)
-
-data class VersionConfig(
-        val appName: String,
-        val appVersion: String,
-        val appVersionCode: Int,
-        val coreVersion: String,
-        val uiVersion: String? = null
-)

@@ -1,14 +1,14 @@
 package org.blokada.presentation
 
-import android.util.AttributeSet
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.github.salomonbrys.kodein.instance
-import org.obsolete.di
+import gs.environment.inject
 import org.blokada.R
 import org.blokada.property.State
 
@@ -123,7 +123,7 @@ class AFiltersAddAppView(
         }
     }
 
-    private val s by lazy { ctx.di().instance<State>() }
+    private val s by lazy { ctx.inject().instance<State>() }
 
     private val appNames by lazy {
         if (s.apps().isEmpty()) s.apps.refresh(blocking = true)

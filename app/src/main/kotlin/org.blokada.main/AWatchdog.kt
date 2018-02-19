@@ -3,15 +3,15 @@ package org.blokada.main
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import gs.environment.Journal
+import gs.environment.inject
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
 import org.blokada.property.Connection
 import org.blokada.property.IWatchdog
 import org.blokada.property.State
-import gs.environment.Journal
 import org.obsolete.KContext
-import org.obsolete.di
 import java.net.InetSocketAddress
 import java.net.Socket
 
@@ -25,9 +25,9 @@ class AWatchdog(
         private val ctx: Context
 ) : IWatchdog {
 
-    private val s by lazy { ctx.di().instance<State>() }
-    private val j by lazy { ctx.di().instance<Journal>() }
-    private val kctx by lazy { ctx.di().with("watchdog").instance<KContext>() }
+    private val s by lazy { ctx.inject().instance<State>() }
+    private val j by lazy { ctx.inject().instance<Journal>() }
+    private val kctx by lazy { ctx.inject().with("watchdog").instance<KContext>() }
 
     override fun test(): Boolean {
         if (!s.watchdogOn()) return true

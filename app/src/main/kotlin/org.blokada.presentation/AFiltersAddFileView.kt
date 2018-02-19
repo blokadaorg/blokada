@@ -13,12 +13,12 @@ import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
-import org.blokada.property.IHostlineProcessor
 import gs.environment.ActivityProvider
-import org.blokada.property.FilterSourceUri
-import org.obsolete.di
+import gs.environment.inject
 import org.blokada.R
 import org.blokada.main.MainActivity
+import org.blokada.property.FilterSourceUri
+import org.blokada.property.IHostlineProcessor
 
 class AFiltersAddFileView(
         ctx: Context,
@@ -90,8 +90,8 @@ class AFiltersAddFileView(
     private val filtersView by lazy { findViewById(R.id.filter_link_loaded) as TextView }
     private val filtersCountView by lazy { findViewById(R.id.filter_link_loaded_count) as TextView }
 
-    private val activity by lazy { ctx.di().instance<ActivityProvider<MainActivity>>() }
-    private val processor by lazy { ctx.di().instance<IHostlineProcessor>() }
+    private val activity by lazy { ctx.inject().instance<ActivityProvider<MainActivity>>() }
+    private val processor by lazy { ctx.inject().instance<IHostlineProcessor>() }
 
     var uri: android.net.Uri? = null
         set(value) {

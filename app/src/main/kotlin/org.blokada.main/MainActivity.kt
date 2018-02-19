@@ -13,7 +13,8 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import gs.environment.ActivityProvider
 import gs.environment.Journal
-import gs.environment.xx
+import gs.environment.inject
+import gs.obsolete.Sync
 import gs.presentation.WelcomeDialogManager
 import gs.presentation.isWrongInstance
 import gs.property.Welcome
@@ -25,13 +26,11 @@ import org.blokada.presentation.*
 import org.blokada.property.*
 import org.obsolete.IWhen
 import org.obsolete.KContext
-import org.obsolete.Sync
-import org.obsolete.di
 import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
-    override val kodein = LazyKodein(di)
+    override val kodein = LazyKodein(inject)
 
     var landscape = false
 
@@ -147,18 +146,10 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 //        }
 
         val welcome: Welcome by instance()
-        val m = WelcomeDialogManager(xx(), BuildConfig.VERSION_CODE, {})
-//        listener13 = welcome.introUrl.doOnUiWhenChanged().then {
-            m.run()
-//        }
+        val m = WelcomeDialogManager(kodein, BuildConfig.VERSION_CODE, {})
+        m.run()
+        welcome.introUrl.doOnUiWhenChanged(withInit = true).then { m.run() }
 
-//        listener13 = repo.content.doOnUiWhenSet().then {
-//            if (repo.content().contentPath != null) m.run()
-//        }
-
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            window.navigationBarColor = resources.getColor(R.color.colorBackground)
-//        }
     }
 
     val activityResultListeners = mutableListOf({result: Int, data: Intent? -> })
@@ -178,7 +169,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         super.onNewIntent(intent)
 
         if (intent.getBooleanExtra("notification", false)) {
-            val n: NotificationManager = di().instance()
+            val n: NotificationManager = inject().instance()
             n.cancel(1)
         }
         if (intent.getBooleanExtra("askPermissions", false)) {

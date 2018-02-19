@@ -5,12 +5,12 @@ import android.view.View
 import android.widget.PopupMenu
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
+import gs.environment.inject
 import org.blokada.R
 import org.blokada.main.Events
 import org.blokada.presentation.ContentActor.Companion.X_END
 import org.blokada.property.Dash
 import org.blokada.property.UiState
-import org.obsolete.di
 
 
 class DashNoop : Dash("main_noop", icon = false)
@@ -24,7 +24,7 @@ class DashMainMenu(
         R.drawable.ic_more
 ) {
 
-    private val a by lazy { ctx.di().instance<Journal>() }
+    private val a by lazy { ctx.inject().instance<Journal>() }
     private var menu: PopupMenu? = null
 
     init {

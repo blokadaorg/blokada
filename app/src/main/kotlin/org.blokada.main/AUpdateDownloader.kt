@@ -10,7 +10,7 @@ import android.os.Build
 import android.support.v4.content.FileProvider
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
-import org.obsolete.di
+import gs.environment.inject
 import java.io.File
 import java.net.URL
 
@@ -21,8 +21,8 @@ class AUpdateDownloader(
         private val ctx: Context
 ) {
 
-    private val dm by lazy { ctx.di().instance<DownloadManager>() }
-    private val j by lazy { ctx.di().instance<Journal>() }
+    private val dm by lazy { ctx.inject().instance<DownloadManager>() }
+    private val j by lazy { ctx.inject().instance<Journal>() }
 
     private var enqueue: Long? = null
     private var links: List<java.net.URL> = emptyList()

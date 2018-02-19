@@ -5,30 +5,29 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.PowerManager
 import com.github.salomonbrys.kodein.instance
-import gs.environment.Journal
-import gs.environment.Time
-import gs.environment.identityFrom
+import gs.environment.*
+import gs.obsolete.hasCompleted
+import gs.property.isCacheValid
 import org.blokada.main.Events
 import org.blokada.main.checkTunnelPermissions
 import org.obsolete.*
-import java.io.FileNotFoundException
 import java.io.InputStreamReader
-import java.net.URL
 import java.nio.charset.Charset
-import java.util.*
+import java.util.Properties
 
 /**
  * of Trance
  */
 class AState(
-        private val ctx: Context,
-        private val kctx: KContext
+        private val kctx: KContext,
+        private val xx: Environment,
+        private val ctx: Context
 ) : State() {
 
-    override val filterConfig = newProperty<FilterConfig>(kctx, { ctx.di().instance() })
-    override val tunnelConfig = newProperty<TunnelConfig>(kctx, { ctx.di().instance() })
-    override val repoConfig = newProperty<RepoConfig>(kctx, { ctx.di().instance() })
-    override val versionConfig = newProperty<VersionConfig>(kctx, { ctx.di().instance() })
+    private val pages: Pages by xx.instance()
+
+    override val filterConfig = newProperty<FilterConfig>(kctx, { ctx.inject().instance() })
+    override val tunnelConfig = newProperty<TunnelConfig>(kctx, { ctx.inject().instance() })
 
     override val enabled = newPersistedProperty(kctx, APrefsPersistence(ctx, "enabled"),
             { false }
@@ -65,7 +64,7 @@ class AState(
     override val identity = newPersistedProperty(kctx, AIdentityPersistence(ctx), { identityFrom("") })
 
     override val connection = newProperty(kctx, {
-        val watchdog: IWatchdog = ctx.di().instance()
+        val watchdog: IWatchdog = ctx.inject().instance()
         Connection(
                 connected = isConnected(ctx) or watchdog.test(),
                 tethering = isTethering(ctx),
@@ -74,7 +73,7 @@ class AState(
     })
 
     override val screenOn = newProperty(kctx, {
-        val pm: PowerManager = ctx.di().instance()
+        val pm: PowerManager = ctx.inject().instance()
         pm.isInteractive
     })
 
@@ -84,13 +83,13 @@ class AState(
 
     private val filtersRefresh = { it: List<Filter> ->
         val c = filterConfig()
-        val serialiser: FilterSerializer = ctx.di().instance()
+        val serialiser: FilterSerializer = ctx.inject().instance()
         val builtinFilters = try {
-            serialiser.deserialise(load({ openUrl(c.repoURL, c.fetchTimeoutMillis) }))
+            serialiser.deserialise(load({ openUrl(pages.filters(), c.fetchTimeoutMillis) }))
         } catch (e: Exception) {
             // We may make this request exactly while establishing VPN, erroring out. Simply wait a bit.
             Thread.sleep(3000)
-            serialiser.deserialise(load({ openUrl(c.repoURL, c.fetchTimeoutMillis) }))
+            serialiser.deserialise(load({ openUrl(pages.filters(), c.fetchTimeoutMillis) }))
         }
 
         val newFilters = if (it.isEmpty()) {
@@ -110,8 +109,7 @@ class AState(
 
         // Try to fetch localised copy for filters if available
         val prop = Properties()
-        prop.load(InputStreamReader(openUrl(URL("${localised().content}/strings_filters.properties"),
-                c.fetchTimeoutMillis), Charset.forName("UTF-8")))
+        prop.load(InputStreamReader(openUrl(pages.filtersStrings(), c.fetchTimeoutMillis), Charset.forName("UTF-8")))
         newFilters.forEach { try {
             it.localised = LocalisedFilter(
                     name = prop.getProperty("${it.id}_name")!!,
@@ -128,7 +126,7 @@ class AState(
             refresh = filtersRefresh,
             shouldRefresh = {
                 val c = filterConfig()
-                val now = ctx.di().instance<Time>().now()
+                val now = ctx.inject().instance<Time>().now()
                 when {
                     !isCacheValid(c.cacheFile, c.cacheTTLMillis, now) -> true
                     it.isEmpty() -> true
@@ -148,7 +146,7 @@ class AState(
                 val selectedWhitelist = selected.filter(Filter::whitelist)
 
                 // Report counts as events
-                val j = ctx.di().instance<Journal>()
+                val j = ctx.inject().instance<Journal>()
                 val blacklistCount = selectedBlacklist.map { it.hosts.size }.sum()
                 val whitelistCount = selectedWhitelist.map { it.hosts.size }.sum()
                 j.event(Events.COUNT_BLACKLIST_HOSTS(blacklistCount))
@@ -158,7 +156,7 @@ class AState(
             },
             shouldRefresh = {
                 val c = filterConfig()
-                val now = ctx.di().instance<Time>().now()
+                val now = ctx.inject().instance<Time>().now()
                 when {
                     !isCacheValid(c.cacheFile, c.cacheTTLMillis, now) -> true
                     it.isEmpty() -> true
@@ -175,7 +173,7 @@ class AState(
     })
 
     override val tunnelEngines = newProperty<List<Engine>>(kctx, {
-        ctx.di().instance()
+        ctx.inject().instance()
     })
 
     override val tunnelActiveEngine = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelActiveEngine"),
@@ -187,123 +185,6 @@ class AState(
     )
 
     override val tunnelRecentAds = newProperty<List<String>>(kctx, { listOf() })
-
-    private val repoRefresh = {
-        val j = ctx.di().instance<Journal>()
-        val now = ctx.di().instance<Time>().now()
-        val repoURL = repoConfig().repoURL
-        val fetchTimeout = repoConfig().fetchTimeoutMillis
-
-        try {
-            j.event(Events.REPO_CHECK_START)
-            val repo = load({ openUrl(repoURL, fetchTimeout) })
-            val locales = repo[1].split(" ").map { Locale(it) }
-            val x = 2 + 2 * locales.size
-            val pages = repo.subList(2, x).asSequence().batch(2).mapIndexed { i, l ->
-                locales[i] to (URL(l[0]) to URL(l[1]))
-            }.toMap()
-
-            Repo(
-                    contentPath = URL(repo[0]),
-                    locales = locales,
-                    pages = pages,
-                    newestVersionCode = repo[x].toInt(),
-                    newestVersionName = repo[x + 1],
-                    downloadLinks = repo.subList(x + 2, repo.size).map { URL(it) },
-                    lastRefreshMillis = now
-            )
-        } catch (e: Exception) {
-            j.event(Events.REPO_CHECK_FAIL)
-            if (e is FileNotFoundException) {
-                obsolete %= true
-            }
-            throw e
-        }
-    }
-
-    override val repo = newPersistedProperty(kctx, ARepoPersistence(ctx,
-            default = repoRefresh),
-            zeroValue = {
-                Repo(
-                        contentPath = null,
-                        locales = emptyList(),
-                        pages = emptyMap(),
-                        newestVersionCode = 0,
-                        newestVersionName = "",
-                        downloadLinks = emptyList(),
-                        lastRefreshMillis = 0L
-                )
-            },
-            refresh = { repoRefresh() },
-            shouldRefresh = {
-                val now = ctx.di().instance<Time>().now()
-                val ttl = repoConfig().cacheTTLMillis
-
-                when {
-                    it.lastRefreshMillis + ttl < now -> true
-                    it.downloadLinks.isEmpty() -> true
-                    it.contentPath == null -> true
-                    it.locales.isEmpty() -> true
-                    else -> false
-                }
-            }
-    )
-
-    private val localisedRefresh = {
-        val now = ctx.di().instance<Time>().now()
-        val preferred = getPreferredLocales()
-        val available = repo().locales
-
-        /**
-         * Since pulling in proper locale lookup would take a lot of code dependencies, for now
-         * I coded up something dead simple. If no exact match is found amoung available locales,
-         * try matching just the language tag. This isn't a nice approach, but since we will support
-         * only the main languages for a long time to come, it should do the job.
-         */
-        val exact = preferred.firstOrNull { available.contains(it) }
-        val tag = if (exact == null) {
-            val langs = preferred.map { it.language }.distinct()
-            val lang = langs.firstOrNull { available.map { it.language }.contains(it) }
-            lang ?: "en"
-        } else exact.toString()
-        val locale = Locale(tag)
-
-        val content = URL("${repo().contentPath}/$tag")
-
-        val changelog = try {
-            val prop = Properties()
-            prop.load(InputStreamReader(openUrl(URL("${content}/strings_repo.properties"),
-                    repoConfig().fetchTimeoutMillis), Charset.forName("UTF-8")))
-            prop.getProperty("b_changelog")
-        } catch (e: Exception) {
-            ""
-        }
-
-        Localised(
-                content = content,
-                lastRefreshMillis = now
-        )
-    }
-
-    override val localised = newPersistedProperty(kctx, ALocalisedPersistence(ctx,
-            default = localisedRefresh),
-            zeroValue = {
-                Localised(
-                        content = URL("http://blokada.org/content/en"),
-                        lastRefreshMillis = 0L
-                )
-            },
-            refresh = { localisedRefresh() },
-            shouldRefresh = {
-                val now = ctx.di().instance<Time>().now()
-                val ttl = repoConfig().cacheTTLMillis
-
-                when {
-                    it.lastRefreshMillis + ttl < now -> true
-                    else -> false
-                }
-            }
-    )
 
     private val appsRefresh = {
         val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)

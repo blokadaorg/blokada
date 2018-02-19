@@ -11,7 +11,7 @@ val DASH_ID_FIREBASE = "firebase_on"
 
 class FirebaseDashOn(
         val ctx: Context,
-        val fState: FirebaseState = ctx.di().instance()
+        val fState: FirebaseState = ctx.inject().instance()
 ) : Dash(
         DASH_ID_FIREBASE,
         icon = false,

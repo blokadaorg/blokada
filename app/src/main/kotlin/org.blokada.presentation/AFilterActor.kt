@@ -3,22 +3,17 @@ package org.blokada.presentation
 import android.content.Intent
 import android.net.Uri
 import com.github.salomonbrys.kodein.instance
-import org.blokada.property.FilterSourceLink
-import org.blokada.property.FilterSourceUri
-import org.blokada.property.Filter
-import org.blokada.property.FilterSourceSingle
-import org.blokada.property.State
-import org.blokada.property.FilterSourceApp
-import org.obsolete.di
+import gs.environment.inject
 import org.blokada.R
+import org.blokada.property.*
 
 
 class AFilterActor(
         initialFilter: Filter,
         private val v: AFilterView
 ) {
-    private val dialog by lazy { v.context.di().instance<AFilterAddDialog>() }
-    private val s by lazy { v.context.di().instance<State>() }
+    private val dialog by lazy { v.context.inject().instance<AFilterAddDialog>() }
+    private val s by lazy { v.context.inject().instance<State>() }
 
     var filter = initialFilter
         set(value) {

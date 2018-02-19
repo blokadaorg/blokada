@@ -11,9 +11,9 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
+import gs.environment.inject
 import gs.property.Version
 import org.blokada.R
-import org.obsolete.di
 import java.net.URL
 
 
@@ -53,7 +53,7 @@ class AUpdateView(
     private val makerView by lazy { findViewById(R.id.update_maker) as View }
     private val appInfo by lazy { findViewById(R.id.update_appinfo) as TextView }
 
-    private val ver by lazy { ctx.di().instance<Version>() }
+    private val ver by lazy { ctx.inject().instance<Version>() }
 
     override fun onFinishInflate() {
         super.onFinishInflate()

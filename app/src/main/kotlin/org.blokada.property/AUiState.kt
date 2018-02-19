@@ -11,9 +11,10 @@ import org.obsolete.newProperty
 
 class AUiState(
         private val kctx: KContext,
-        private val xx: Environment,
-        private val ctx: Context = xx().instance()
+        private val xx: Environment
 ) : UiState() {
+
+    private val ctx: Context by xx.instance()
 
     override val seenWelcome = newPersistedProperty(kctx, APrefsPersistence(ctx, "seenWelcome"),
             { false }

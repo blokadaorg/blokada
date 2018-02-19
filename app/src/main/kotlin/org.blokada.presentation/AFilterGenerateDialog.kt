@@ -6,13 +6,13 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
+import gs.environment.ActivityProvider
+import gs.environment.inject
+import org.blokada.R
 import org.blokada.property.Filter
 import org.blokada.property.IFilterSource
 import org.blokada.property.LocalisedFilter
 import org.blokada.property.State
-import gs.environment.ActivityProvider
-import org.obsolete.di
-import org.blokada.R
 
 class AFilterGenerateDialog(
         private val ctx: Context,
@@ -21,7 +21,7 @@ class AFilterGenerateDialog(
         private val whitelist: Boolean
 ) {
 
-    private val activity by lazy { ctx.di().instance<ActivityProvider<Activity>>().get() }
+    private val activity by lazy { ctx.inject().instance<ActivityProvider<Activity>>().get() }
     private val dialog: AlertDialog
     private var which: Int = 0
 

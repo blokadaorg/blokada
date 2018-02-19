@@ -7,8 +7,8 @@ import android.os.IBinder
 import android.os.ParcelFileDescriptor
 import android.os.SystemClock
 import com.github.salomonbrys.kodein.instance
+import gs.environment.inject
 import nl.komponents.kovenant.task
-import org.obsolete.di
 import java.io.FileDescriptor
 
 /**
@@ -90,7 +90,7 @@ class ATunnelService : VpnService(), ITunnelActions {
     }
 
     private fun establishTunnelInternal(): ParcelFileDescriptor {
-        val configurator: IBuilderConfigurator = di().instance()
+        val configurator: IBuilderConfigurator = inject().instance()
         val tunnel = super<VpnService>.Builder()
         configurator.configure(tunnel)
 

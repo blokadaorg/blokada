@@ -5,20 +5,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
+import gs.environment.inject
+import gs.property.Repo
+import gs.property.Version
 import org.blokada.R
 import org.blokada.main.UpdateCoordinator
 import org.blokada.property.Dash
-import org.blokada.property.State
 import org.blokada.property.UiState
-import org.blokada.property.VersionConfig
-import org.obsolete.IWhen
-import org.obsolete.di
 
 val DASH_ID_ABOUT = "update_about"
 
 class AboutDash(
         val ctx: Context,
-        val s: State = ctx.di().instance()
+        val s: Repo = ctx.inject().instance()
 ) : Dash(DASH_ID_ABOUT,
         R.drawable.ic_info,
         text = ctx.getString(R.string.update_about),
@@ -33,12 +32,12 @@ class AboutDash(
 
 class UpdateDash(
         val ctx: Context,
-        val s: State = ctx.di().instance(),
-        val ui: UiState = ctx.di().instance()
+        val repo: Repo = ctx.inject().instance(),
+        val ui: UiState = ctx.inject().instance()
 ) : Dash("update_update",
         R.drawable.ic_info,
         text = ctx.getString(R.string.update_dash_uptodate),
-        menuDashes = Triple(UpdateForceDash(ctx, s), null, null),
+        menuDashes = Triple(UpdateForceDash(ctx, repo), null, null),
         hasView = true,
         topBarColor = R.color.colorBackgroundAboutLight,
         onDashOpen = {
@@ -48,8 +47,8 @@ class UpdateDash(
 
     private val listener: Any
     init {
-        listener = s.repo.doOnUiWhenSet().then {
-            update(s.repo().newestVersionCode)
+        listener = repo.content.doOnUiWhenSet().then {
+            update(repo.content().newestVersionCode)
         }
     }
 
@@ -68,18 +67,18 @@ class UpdateDash(
         }
     }
     override fun createView(parent: Any): Any? {
-        return createUpdateView(parent as ViewGroup, s)
+        return createUpdateView(parent as ViewGroup, repo)
     }
 }
 
-private var listener: IWhen? = null
+private var listener: gs.property.IWhen? = null
 private var updateView: AUpdateView? = null
-private fun createUpdateView(parent: ViewGroup, s: State): AUpdateView {
+private fun createUpdateView(parent: ViewGroup, s: Repo): AUpdateView {
     val ctx = parent.context
     val view = LayoutInflater.from(ctx).inflate(R.layout.view_update, parent, false) as AUpdateView
     if (view is AUpdateView) {
-        val u = s.repo()
-        val updater: UpdateCoordinator = ctx.di().instance()
+        val u = s.content()
+        val updater: UpdateCoordinator = ctx.inject().instance()
 
         view.update = if (isUpdate(ctx, u.newestVersionCode))
             u.newestVersionName
@@ -90,9 +89,9 @@ private fun createUpdateView(parent: ViewGroup, s: State): AUpdateView {
             updater.start(u.downloadLinks)
         }
 
-        if (listener != null) s.repo.cancel(listener)
-        listener = s.repo.doOnUiWhenSet().then {
-            val u = s.repo()
+        if (listener != null) s.content.cancel(listener)
+        listener = s.content.doOnUiWhenSet().then {
+            val u = s.content()
             view.update = if (isUpdate(ctx, u.newestVersionCode)) u.newestVersionName
             else null
         }
@@ -103,13 +102,13 @@ private fun createUpdateView(parent: ViewGroup, s: State): AUpdateView {
 
 class UpdateForceDash(
         val ctx: Context,
-        val s: State = ctx.di().instance()
+        val s: Repo = ctx.inject().instance()
 ) : Dash("update_force",
         R.drawable.ic_reload,
-        onClick = { s.repo.refresh(force = true); true }
+        onClick = { s.content.refresh(force = true); true }
 )
 
 fun isUpdate(ctx: Context, code: Int): Boolean {
-    val appVersionCode = ctx.di().instance<VersionConfig>().appVersionCode
+    val appVersionCode = ctx.inject().instance<Version>().code()
     return code > appVersionCode
 }

@@ -4,12 +4,10 @@ import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Identity
 import gs.environment.identityFrom
+import gs.environment.inject
+import gs.property.readFromCache
+import gs.property.saveToCache
 import org.obsolete.IPersistence
-import org.obsolete.di
-import org.obsolete.readFromCache
-import org.obsolete.saveToCache
-import java.net.URL
-import java.util.*
 
 
 class APrefsPersistence<T>(
@@ -61,45 +59,6 @@ class AIdentityPersistence(
 
 }
 
-class ARepoPersistence(
-        val ctx: Context,
-        val default: () -> Repo
-) : IPersistence<Repo> {
-
-    val p by lazy { ctx.getSharedPreferences("repo", Context.MODE_PRIVATE) }
-
-    override fun read(current: Repo): Repo {
-        return try {
-            Repo(
-                    contentPath = URL(p.getString("contentPath", null)),
-                    locales = p.getStringSet("locales", null).map { Locale(it) }.toList(),
-                    pages = p.getStringSet("pages", null).map {
-                        val parts = it.split("^")
-                        Locale(parts[0]) to (URL(parts[1]) to URL(parts[2]))
-                    }.toMap(),
-                    newestVersionCode = p.getInt("code", 0),
-                    newestVersionName = p.getString("name", null),
-                    downloadLinks = p.getStringSet("links", null).map { URL(it) }.toList(),
-                    lastRefreshMillis = p.getLong("lastRefresh", 0)
-            )
-        } catch (e: Exception) {
-            default()
-        }
-    }
-
-    override fun write(source: Repo) {
-        val e = p.edit()
-        e.putString("contentPath", source.contentPath?.toString() ?: "")
-        e.putStringSet("locales", source.locales.map { it.toString() }.toSet())
-        e.putStringSet("pages", source.pages.map { "${it.key}^${it.value.first}^${it.value.second}" }.toSet())
-        e.putInt("code", source.newestVersionCode)
-        e.putString("name", source.newestVersionName)
-        e.putStringSet("links", source.downloadLinks.map { it.toString() }.toSet())
-        e.putLong("lastRefresh", source.lastRefreshMillis)
-        e.apply()
-    }
-
-}
 
 class AFiltersPersistence(
         val ctx: Context,
@@ -109,13 +68,13 @@ class AFiltersPersistence(
     val p by lazy { ctx.getSharedPreferences("filters", Context.MODE_PRIVATE) }
 
     override fun read(current: List<Filter>): List<Filter> {
-        val s : FilterSerializer = ctx.di().instance()
+        val s : FilterSerializer = ctx.inject().instance()
         val filters = s.deserialise(p.getString("filters", "").split("^"))
         return if (filters.isNotEmpty()) filters else default()
     }
 
     override fun write(source: List<Filter>) {
-        val s : FilterSerializer = ctx.di().instance()
+        val s : FilterSerializer = ctx.inject().instance()
         val e = p.edit()
         e.putInt("migratedVersion", 20)
         e.putString("filters", s.serialise(source).joinToString("^"))
@@ -128,7 +87,7 @@ class ACompiledFiltersPersistence(
         val ctx: Context
 ) : IPersistence<Set<String>> {
 
-    private val cache by lazy { ctx.di().instance<FilterConfig>().cacheFile }
+    private val cache by lazy { ctx.inject().instance<FilterConfig>().cacheFile }
 
     override fun read(current: Set<String>): Set<String> {
         return try { readFromCache(cache).toSet() } catch (e: Exception) { setOf() }
@@ -140,29 +99,3 @@ class ACompiledFiltersPersistence(
 
 }
 
-class ALocalisedPersistence(
-        val ctx: Context,
-        val default: () -> Localised
-) : IPersistence<Localised> {
-
-    val p by lazy { ctx.getSharedPreferences("localised", Context.MODE_PRIVATE) }
-
-    override fun read(current: Localised): Localised {
-        return try {
-            Localised(
-                    content = URL(p.getString("content", null)),
-                    lastRefreshMillis = p.getLong("lastRefresh", 0)
-            )
-        } catch (e: Exception) {
-            default()
-        }
-    }
-
-    override fun write(source: Localised) {
-        val e = p.edit()
-        e.putString("content", source.content.toExternalForm())
-        e.putLong("lastRefresh", source.lastRefreshMillis)
-        e.apply()
-    }
-
-}

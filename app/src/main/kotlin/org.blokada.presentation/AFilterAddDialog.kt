@@ -7,20 +7,14 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
+import gs.environment.ActivityProvider
+import gs.environment.inject
+import gs.presentation.nullIfEmpty
 import nl.komponents.kovenant.task
 import nl.komponents.kovenant.ui.failUi
 import nl.komponents.kovenant.ui.successUi
-import gs.environment.ActivityProvider
-import org.blokada.property.FilterSourceLink
-import org.blokada.property.FilterSourceUri
-import org.blokada.property.Filter
 import org.blokada.R
-import org.obsolete.nullIfEmpty
-import org.blokada.property.FilterSourceSingle
-import org.blokada.property.IFilterSource
-import org.blokada.property.LocalisedFilter
-import org.blokada.property.FilterSourceApp
-import org.obsolete.di
+import org.blokada.property.*
 
 /**
  * TODO: This poor thing needs love (like me)
@@ -31,7 +25,7 @@ class AFilterAddDialog(
 ) {
     var onSave = { filter: Filter -> }
 
-    private val activity by lazy { ctx.di().instance<ActivityProvider<Activity>>().get() }
+    private val activity by lazy { ctx.inject().instance<ActivityProvider<Activity>>().get() }
     private val themedContext by lazy { ContextThemeWrapper(ctx, R.style.BlokadaColors_Dialog) }
     private val view = LayoutInflater.from(themedContext)
             .inflate(R.layout.view_filtersadd, null, false) as AFiltersAddView

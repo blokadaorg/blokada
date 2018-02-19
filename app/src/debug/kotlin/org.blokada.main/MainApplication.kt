@@ -11,6 +11,7 @@ import org.blokada.environment.newAppModule
  * MainApplication puts together all modules.
  */
 class MainApplication: Application(), KodeinAware {
+
     override val kodein by Kodein.lazy {
         import(newGscoreModule(this@MainApplication))
         import(newAppModule(this@MainApplication), allowOverride = true)

@@ -5,13 +5,13 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.VpnService
+import android.util.Log
 import com.github.salomonbrys.kodein.*
 import gs.environment.ActivityProvider
 import gs.environment.Journal
 import gs.environment.Time
-import gs.property.Version
-import gs.property.Welcome
-import gs.property.WelcomeImpl
+import gs.obsolete.hasCompleted
+import gs.property.*
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
@@ -20,7 +20,9 @@ import org.blokada.R
 import org.blokada.main.*
 import org.blokada.presentation.*
 import org.blokada.property.*
-import org.obsolete.*
+import org.obsolete.IWhen
+import org.obsolete.KContext
+import org.obsolete.registerUncaughtExceptionHandler
 import java.io.File
 import java.net.URL
 
@@ -34,8 +36,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
             UpdateCoordinator(s = instance(), downloader = AUpdateDownloader(ctx = instance()))
         }
 
-        bind<State>() with singleton { AState(ctx, kctx = with("state").instance(10)) }
-        bind<UiState>() with singleton { AUiState(kctx = with("uistate").instance(10), xx = instance()) }
+        bind<State>() with singleton { AState(kctx = with("gscore").instance(10), xx = lazy,
+                ctx = ctx) }
+        bind<UiState>() with singleton { AUiState(kctx = with("gscore").instance(10), xx = lazy) }
 
         bind<ActivityProvider<Activity>>() with singleton { ActivityProvider<Activity>() }
         bind<ActivityProvider<MainActivity>>() with singleton { ActivityProvider<MainActivity>() }
@@ -111,7 +114,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 else -> FilterSourceSingle()
             }}
         bind<FilterSerializer>() with singleton {
-            FilterSerializer(s = instance(),
+            FilterSerializer(i18n = instance(),
                     sourceProvider = { type: String -> with(type).instance<IFilterSource>() })
         }
         bind<FilterConfig>() with singleton {
@@ -120,17 +123,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     exportFile = getPublicPersistencePath("blokada-export")
                             ?: File(getPersistencePath(ctx).absoluteFile, "blokada-export"),
                     cacheTTLMillis = 7 * 24 * 60 * 60 * 100L, // A week
-                    repoURL = URL("https://blokada.org/api/${BuildConfig.VERSION_CODE}/${BuildConfig.FLAVOR}/filters.txt"),
                     fetchTimeoutMillis = 10 * 1000
-            )
-        }
-        bind<RepoConfig>() with singleton {
-            RepoConfig(
-                    cacheFile = File(getPersistencePath(ctx).absoluteFile, "repo"),
-                    cacheTTLMillis = 24 * 60 * 60 * 1000L, // A day
-                    repoURL = URL("https://blokada.org/api/${BuildConfig.VERSION_CODE}/${BuildConfig.FLAVOR}/repo.txt"),
-                    fetchTimeoutMillis = 10 * 1000,
-                    notificationCooldownMillis = 24 * 60 * 60 * 1000L // A day
             )
         }
         bind<TunnelConfig>() with singleton { TunnelConfig(defaultEngine = "lollipop") }
@@ -162,8 +155,8 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 }
             }
         }
-        bind<Welcome>() with singleton {
-            WelcomeImpl(w = with("welcome").instance(), xx = instance())
+        bind<Pages>() with singleton {
+            PagesImpl(with("gscore").instance(), lazy)
         }
 
 
@@ -173,7 +166,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
             val engine: IEngineManager = instance()
             val perms: IPermissionsAsker = instance()
             val watchdog: IWatchdog = instance()
-            val retryKctx: KContext = with("retry").instance()
+            val retryKctx: KContext = with("gscore").instance()
 
             // React to user switching us off / on
             s.enabled.doWhenChanged(withInit = true).then {
@@ -378,26 +371,42 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 engine.updateFilters()
             }
 
+            val repo: Repo = instance()
+
             // Check for update periodically
             s.tunnelState.doWhen { s.tunnelState(TunnelState.ACTIVE) }.then {
                 // This "pokes" the cache and refreshes if needed
-                s.repo.refresh()
+                repo.content.refresh()
                 s.filters.refresh()
             }
 
             // Since having filters is really important, poke whenever we get connectivity
             var wasConnected = false
             s.connection.doWhenChanged().then {
-                if (s.connection().connected && !wasConnected) s.repo.refresh()
+                if (s.connection().connected && !wasConnected) repo.content.refresh()
                 wasConnected = s.connection().connected
             }
 
-            s.repo.doWhenChanged(withInit = true).then {
-                s.localised.refresh(force = true)
-            }
 
             // On locale change, refresh all localised content
-            s.localised.doWhenChanged(withInit = true).then {
+            val i18n: I18n = instance()
+
+            i18n.locale.doWhenSet().then {
+                val root = i18n.contentUrl()
+                val welcome: Welcome = instance()
+                welcome.guideUrl %= URL("${root}/help.html")
+                welcome.optionalUrl %= URL("${root}/patron_redirect.html")
+                welcome.updatedUrl %= URL("${root}/updated.html")
+                welcome.obsoleteUrl %= URL("${root}/obsolete.html")
+                welcome.cleanupUrl %= URL("${root}/cleanup.html")
+                welcome.optionalShow %= true
+                // Last one because it triggers dialogs
+                welcome.introUrl %= URL("${root}/intro.html")
+            }
+
+            i18n.locale.doWhenChanged(withInit = true).then {
+                // TODO: This may cause unnecessary fetch
+                Log.i("blokada", "refresh filters from locale change")
                 s.filters.refresh(force = true)
             }
 
@@ -422,31 +431,11 @@ fun newAppModule(ctx: Context): Kodein.Module {
             }
 
 
-            s.localised.doWhenChanged(withInit = true).then {
-                val root = s.localised().content
-                val welcome: Welcome = instance()
-                welcome.introUrl %= URL("${root}/intro.html")
-                welcome.guideUrl %= URL("${root}/help.html")
-                welcome.optionalUrl %= URL("${root}/patron_redirect.html")
-                welcome.updatedUrl %= URL("${root}/updated.html")
-                welcome.obsoleteUrl %= URL("${root}/obsolete.html")
-                welcome.cleanupUrl %= URL("${root}/cleanup.html")
-                welcome.optionalShow %= true
-
-                val pages: Pages = instance()
-                pages.patron %= URL("${root}/patron_redirect.html")
-                pages.patronAbout %= URL("${root}/patron.html")
-                pages.donate %= URL("${root}/donate.html")
-                pages.contribute %= URL("${root}/contribute.html")
-                pages.help %= URL("${root}/help.html")
-                pages.feedback %= URL("https://goo.gl/forms/5YnfrUT9pdILccKx1")
-                pages.community %= URL("http://block.blokada.org")
-                pages.changelog %= URL("${root}/changelog.html")
-            }
-
             val version: Version = instance()
             version.appName %= ctx.getString(R.string.branding_app_name)
             version.name %= BuildConfig.VERSION_NAME
+            version.code %= BuildConfig.VERSION_CODE
+
 
             val ui: UiState = instance()
 
@@ -517,8 +506,8 @@ fun newAppModule(ctx: Context): Kodein.Module {
             }
 
             // Display an info message when update is available
-            s.repo.doOnUiWhenSet().then {
-                if (isUpdate(ctx, s.repo().newestVersionCode)) {
+            repo.content.doOnUiWhenSet().then {
+                if (isUpdate(ctx, repo.content().newestVersionCode)) {
                     ui.infoQueue %= ui.infoQueue() + Info(InfoType.CUSTOM, R.string.update_infotext)
                     ui.lastSeenUpdateMillis.refresh(force = true)
                 }
@@ -526,9 +515,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
 
             // Display notifications for updates
             ui.lastSeenUpdateMillis.doOnUiWhenSet().then {
-                val u = s.repo()
+                val u = repo.content()
                 val last = ui.lastSeenUpdateMillis()
-                val cooldown = s.repoConfig().notificationCooldownMillis
+                val cooldown = 86400 * 1000L
                 val env: Time = instance()
                 val j: Journal = instance()
 
@@ -560,8 +549,8 @@ fun newAppModule(ctx: Context): Kodein.Module {
             s.tunnelActiveEngine {}
             s.filtersCompiled {}
 
-            // This will fetch locale configuration unless already cached
-            s.repo {}
+            // This will fetch repo unless already cached
+            repo.url %= "https://blokada.org/api/${BuildConfig.VERSION_CODE}/${BuildConfig.FLAVOR}/repo.txt"
         }
     }
 }

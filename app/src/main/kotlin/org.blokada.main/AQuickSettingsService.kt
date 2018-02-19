@@ -4,12 +4,12 @@ import android.annotation.TargetApi
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import com.github.salomonbrys.kodein.instance
-import org.blokada.property.State
+import gs.environment.inject
+import gs.obsolete.Sync
 import org.blokada.R
-import org.obsolete.Sync
 import org.blokada.presentation.EnabledStateActor
 import org.blokada.presentation.IEnabledStateActorListener
-import org.obsolete.di
+import org.blokada.property.State
 
 /**
  *
@@ -17,8 +17,8 @@ import org.obsolete.di
 @TargetApi(24)
 class AQuickSettingsService : TileService(), IEnabledStateActorListener {
 
-    private val s by lazy { di().instance<State>() }
-    private val enabledStateActor by lazy { di().instance<EnabledStateActor>() }
+    private val s by lazy { inject().instance<State>() }
+    private val enabledStateActor by lazy { inject().instance<EnabledStateActor>() }
     private var waiting = Sync(false)
 
     override fun onStartListening() {

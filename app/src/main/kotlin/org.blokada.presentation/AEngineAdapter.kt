@@ -6,19 +6,19 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
-import org.blokada.main.Events
 import gs.environment.Journal
+import gs.environment.inject
 import org.blokada.R
+import org.blokada.main.Events
 import org.blokada.property.State
-import org.obsolete.di
 
 class AEngineAdapter(
         private val ctx: Context
 ) : RecyclerView.Adapter<AFilterViewHolder>() {
 
     private val themedContext by lazy { ContextThemeWrapper(ctx, R.style.Switch) }
-    private val a by lazy { ctx.di().instance<Journal>() }
-    private val s by lazy { ctx.di().instance<State>() }
+    private val a by lazy { ctx.inject().instance<Journal>() }
+    private val s by lazy { ctx.inject().instance<State>() }
 
     private var listener: Any? = null
     init {

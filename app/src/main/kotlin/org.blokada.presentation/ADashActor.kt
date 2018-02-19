@@ -1,12 +1,12 @@
 package org.blokada.presentation
 
 import com.github.salomonbrys.kodein.instance
-import org.blokada.main.Events
 import gs.environment.Journal
-import org.obsolete.di
+import gs.environment.inject
+import org.blokada.main.Events
 import org.blokada.property.Dash
-import org.blokada.property.InfoType
 import org.blokada.property.Info
+import org.blokada.property.InfoType
 import org.blokada.property.UiState
 
 class ADashActor(
@@ -15,7 +15,7 @@ class ADashActor(
         private val ui: UiState,
         private val contentActor: ContentActor
 ) {
-    private val j by lazy { v.context.di().instance<Journal>() }
+    private val j by lazy { v.context.inject().instance<Journal>() }
 
     var dash = initialDash
         set(value) {

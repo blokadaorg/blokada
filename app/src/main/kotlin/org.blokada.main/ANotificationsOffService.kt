@@ -3,7 +3,7 @@ package org.blokada.main
 import android.app.IntentService
 import android.content.Intent
 import com.github.salomonbrys.kodein.instance
-import org.obsolete.di
+import gs.environment.inject
 import org.blokada.property.UiState
 
 
@@ -12,7 +12,7 @@ import org.blokada.property.UiState
  */
 class ANotificationsOffService : IntentService("notification") {
 
-    private val state by lazy { di().instance<UiState>() }
+    private val state by lazy { inject().instance<UiState>() }
 
     override fun onHandleIntent(intent: Intent) {
         state.notifications %= false

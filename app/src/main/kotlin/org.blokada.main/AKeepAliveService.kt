@@ -6,7 +6,7 @@ import android.os.Binder
 import android.os.IBinder
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
-import org.obsolete.di
+import gs.environment.inject
 import org.blokada.property.State
 
 
@@ -19,8 +19,8 @@ class AKeepAliveService : Service() {
     class KeepAliveBinder : Binder()
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val j: Journal = di().instance()
-        val s: State = di().instance()
+        val j: Journal = inject().instance()
+        val s: State = inject().instance()
 
         j.log("KeepAliveService start command")
         return Service.START_STICKY

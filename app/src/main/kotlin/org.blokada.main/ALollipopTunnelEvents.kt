@@ -16,11 +16,11 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.net.VpnService
 import com.github.salomonbrys.kodein.instance
-import org.blokada.property.State
-import org.blokada.property.FilterSourceApp
 import gs.environment.Journal
-import org.obsolete.di
-import org.obsolete.hasIpV6Servers
+import gs.environment.hasIpV6Servers
+import gs.environment.inject
+import org.blokada.property.FilterSourceApp
+import org.blokada.property.State
 import java.net.Inet4Address
 import java.net.Inet6Address
 import java.net.InetAddress
@@ -32,8 +32,8 @@ internal class ALollipopTunnelEvents(
         private val onRevoked: () -> Unit = {}
 ) : ITunnelEvents {
 
-    private val s by lazy { ctx.di().instance<State>() }
-    private val j by lazy { ctx.di().instance<Journal>() }
+    private val s by lazy { ctx.inject().instance<State>() }
+    private val j by lazy { ctx.inject().instance<Journal>() }
 
     private var dnsIndex = 1
 

@@ -1,6 +1,7 @@
 package org.blokada.property
 
-import org.obsolete.batch
+import gs.environment.batch
+import gs.property.I18n
 
 /**
  * AFilterSerialiser is responsible for serialising and deserialising filters.
@@ -22,12 +23,12 @@ import org.obsolete.batch
  * Both name and comment are optional and can be just empty lines. They are suspect for localisation.
  */
 class FilterSerializer(
-        private val s: State,
+        private val i18n: I18n,
         private val sourceProvider: (String) -> IFilterSource
 ) {
 
     private fun backupUrl(id: String): String {
-        return "${s.localised().content}/cache/${id}.txt"
+        return "${i18n.contentUrl()}/cache/${id}.txt"
     }
 
     /**

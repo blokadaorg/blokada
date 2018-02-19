@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.res.Resources
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
+import gs.environment.inject
 import org.blokada.main.AKeepAliveService
 import org.blokada.property.Filter
 import java.util.*
@@ -22,13 +23,13 @@ internal fun registerUncaughtExceptionHandler(ctx: Context) {
 }
 
 private fun restartApplicationThroughService(ctx: Context, delayMillis: Int) {
-    val alarm: AlarmManager = ctx.di().instance()
+    val alarm: AlarmManager = ctx.inject().instance()
 
     val restartIntent = Intent(ctx, AKeepAliveService::class.java)
     val intent = PendingIntent.getService(ctx, 0, restartIntent, 0)
     alarm.set(AlarmManager.RTC, System.currentTimeMillis() + delayMillis, intent)
 
-    ctx.di().instance<Journal>().log("restarting app")
+    ctx.inject().instance<Journal>().log("restarting app")
 }
 
 internal fun downloadFilters(filters: List<Filter>) {

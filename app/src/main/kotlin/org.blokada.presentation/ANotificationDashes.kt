@@ -6,14 +6,14 @@ import org.blokada.property.Dash
 import org.blokada.property.UiState
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
-import org.obsolete.di
+import gs.environment.inject
 
 val DASH_ID_KEEPALIVE = "notifiction_keepalive"
 
 class NotificationDashOn(
         val ctx: Context,
-        val s: State = ctx.di().instance(),
-        val ui: UiState = ctx.di().instance()
+        val s: State = ctx.inject().instance(),
+        val ui: UiState = ctx.inject().instance()
 ) : Dash(
         "notification_on",
         icon = false,
@@ -37,7 +37,7 @@ class NotificationDashOn(
 
 class NotificationDashKeepAlive(
         val ctx: Context,
-        val s: State = ctx.di().instance()
+        val s: State = ctx.inject().instance()
 ) : Dash(
         DASH_ID_KEEPALIVE,
         icon = false,

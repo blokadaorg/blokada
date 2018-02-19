@@ -16,12 +16,12 @@ import android.annotation.TargetApi
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import gs.environment.inject
 import nl.komponents.kovenant.any
+import nl.komponents.kovenant.task
 import org.blokada.property.IEngineManager
 import org.blokada.property.State
-import nl.komponents.kovenant.task
 import org.obsolete.KContext
-import org.obsolete.di
 
 @TargetApi(21)
 class ALollipopEngineManager(
@@ -32,8 +32,8 @@ class ALollipopEngineManager(
         private val onRevoked: () -> Unit = {}
 ) : IEngineManager {
 
-    private val s by lazy { ctx.di().instance<State>() }
-    private val waitKctx by lazy { ctx.di().with("engineManagerWait").instance<KContext>() }
+    private val s by lazy { ctx.inject().instance<State>() }
+    private val waitKctx by lazy { ctx.inject().with("engineManagerWait").instance<KContext>() }
     private val events = ALollipopTunnelEvents(ctx, onRevoked)
     private var binder: ATunnelBinder? = null
     private var thread: TunnelThreadLollipopAndroid? = null

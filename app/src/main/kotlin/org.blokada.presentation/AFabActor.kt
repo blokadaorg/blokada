@@ -2,11 +2,11 @@ package org.blokada.presentation
 
 import android.support.v4.content.ContextCompat.getColorStateList
 import com.github.salomonbrys.kodein.instance
-import org.blokada.main.Events
 import gs.environment.Journal
-import org.blokada.property.State
-import org.obsolete.di
+import gs.environment.inject
 import org.blokada.R
+import org.blokada.main.Events
+import org.blokada.property.State
 
 /**
  *
@@ -21,7 +21,7 @@ class AFabActor(
     private val ctx by lazy { fabView.context }
     private val colorsActive by lazy { getColorStateList(ctx, R.color.fab_active) }
     private val colorsAccent by lazy { getColorStateList(ctx, R.color.fab_accent) }
-    private val a by lazy { ctx.di().instance<Journal>() }
+    private val a by lazy { ctx.inject().instance<Journal>() }
 
     init {
         contentActor.onDashOpen += { dash -> when {

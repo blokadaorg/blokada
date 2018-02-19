@@ -3,11 +3,11 @@ package org.blokada.property
 import android.content.Context
 import android.net.Uri
 import android.util.Base64
-import org.obsolete.load
-import org.obsolete.openUrl
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
-import org.obsolete.di
+import gs.environment.inject
+import gs.environment.load
+import gs.environment.openUrl
 import java.net.URL
 
 /**
@@ -83,7 +83,7 @@ class FilterSourceUri(
                 openFile(ctx, source!!)
             }, { processor.process(it) })
         } catch (e: Exception) {
-            ctx.di().instance<Journal>().log(Exception("source file load failed", e))
+            ctx.inject().instance<Journal>().log(Exception("source file load failed", e))
             emptyList()
         }
     }
@@ -126,7 +126,7 @@ class FilterSourceApp(
     var system: Boolean = false
         private set
 
-    private val s by lazy { ctx.di().instance<State>() }
+    private val s by lazy { ctx.inject().instance<State>() }
 
     private val apps by lazy {
         if (s.apps().isEmpty()) {

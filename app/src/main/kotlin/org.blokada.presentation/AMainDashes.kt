@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Environment
+import gs.environment.inject
 import gs.presentation.WebViewActor
 import gs.property.IProperty
 import org.blokada.R
@@ -14,7 +15,6 @@ import org.blokada.property.Dash
 import org.blokada.property.Pages
 import org.blokada.property.State
 import org.obsolete.IWhen
-import org.obsolete.di
 import java.net.URL
 
 val DASH_ID_DONATE = "main_donate"
@@ -181,7 +181,7 @@ class ChangelogDash(
 
 class AutoStartDash(
         val ctx: Context,
-        val s: State = ctx.di().instance()
+        val s: State = ctx.inject().instance()
 ) : Dash(
         "main_autostart",
         icon = false,
@@ -206,7 +206,7 @@ class AutoStartDash(
 
 class ConnectivityDash(
         val ctx: Context,
-        val s: State = ctx.di().instance()
+        val s: State = ctx.inject().instance()
 ) : Dash(
         "main_connectivity",
         icon = false,

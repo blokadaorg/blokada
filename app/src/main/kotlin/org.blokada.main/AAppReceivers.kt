@@ -7,8 +7,9 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import gs.environment.inject
+import gs.property.I18n
 import nl.komponents.kovenant.task
-import org.obsolete.di
 import org.blokada.property.State
 
 /**
@@ -17,9 +18,9 @@ import org.blokada.property.State
  */
 class ABootReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
-        task(ctx.di().with("ABootReceiver").instance()) {
+        task(ctx.inject().with("ABootReceiver").instance()) {
             // This causes everything to load
-            val s: State = ctx.di().instance()
+            val s: State = ctx.inject().instance()
             s.connection.refresh()
         }
     }
@@ -35,9 +36,9 @@ class ABootReceiver : BroadcastReceiver() {
 class AConnectivityReceiver : BroadcastReceiver() {
 
     override fun onReceive(ctx: Context, intent: Intent?) {
-        task(ctx.di().with("AConnectivityReceiver").instance()) {
+        task(ctx.inject().with("AConnectivityReceiver").instance()) {
             // Do it async so that Android can refresh the current network info before we access it
-            val s: State = ctx.di().instance()
+            val s: State = ctx.inject().instance()
             s.connection.refresh()
         }
     }
@@ -46,7 +47,7 @@ class AConnectivityReceiver : BroadcastReceiver() {
         fun register(ctx: Context) {
             val filter = IntentFilter()
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
-            ctx.registerReceiver(ctx.di().instance<AConnectivityReceiver>(), filter)
+            ctx.registerReceiver(ctx.inject().instance<AConnectivityReceiver>(), filter)
         }
 
     }
@@ -55,9 +56,9 @@ class AConnectivityReceiver : BroadcastReceiver() {
 
 class AScreenOnReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
-        task(ctx.di().with("AScreenOnReceiver").instance()) {
+        task(ctx.inject().with("AScreenOnReceiver").instance()) {
             // This causes everything to load
-            val s: State = ctx.di().instance()
+            val s: State = ctx.inject().instance()
             s.screenOn.refresh()
         }
     }
@@ -68,7 +69,7 @@ class AScreenOnReceiver : BroadcastReceiver() {
             val filter = IntentFilter()
             filter.addAction(Intent.ACTION_SCREEN_ON)
             filter.addAction(Intent.ACTION_SCREEN_OFF)
-            ctx.registerReceiver(ctx.di().instance<AScreenOnReceiver>(), filter)
+            ctx.registerReceiver(ctx.inject().instance<AScreenOnReceiver>(), filter)
         }
 
     }
@@ -76,9 +77,9 @@ class AScreenOnReceiver : BroadcastReceiver() {
 
 class ALocaleReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
-        task(ctx.di().with("ALocaleReceiver").instance()) {
-            val s: State = ctx.di().instance()
-            s.localised.refresh(force = true)
+        task(ctx.inject().with("ALocaleReceiver").instance()) {
+            val i18n: I18n = ctx.inject().instance()
+            i18n.locale.refresh(force = true)
         }
     }
 
@@ -86,7 +87,7 @@ class ALocaleReceiver : BroadcastReceiver() {
         fun register(ctx: Context) {
             val filter = IntentFilter()
             filter.addAction(Intent.ACTION_LOCALE_CHANGED)
-            ctx.registerReceiver(ctx.di().instance<ALocaleReceiver>(), filter)
+            ctx.registerReceiver(ctx.inject().instance<ALocaleReceiver>(), filter)
         }
 
     }
