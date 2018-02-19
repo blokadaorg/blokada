@@ -8,15 +8,14 @@ import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
 import gs.environment.Time
 import gs.environment.identityFrom
-import org.obsolete.*
 import org.blokada.main.Events
 import org.blokada.main.checkTunnelPermissions
+import org.obsolete.*
 import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.net.URL
 import java.nio.charset.Charset
 import java.util.*
-import java.util.Properties
 
 /**
  * of Trance
@@ -282,9 +281,6 @@ class AState(
 
         Localised(
                 content = content,
-                feedback = repo().pages.get(locale)?.first ?: URL("${content}/help.html"),
-                bug = repo().pages.get(locale)?.second ?: URL("${content}/help.html"),
-                changelog = changelog,
                 lastRefreshMillis = now
         )
     }
@@ -294,9 +290,6 @@ class AState(
             zeroValue = {
                 Localised(
                         content = URL("http://blokada.org/content/en"),
-                        feedback = URL("http://localhost/feedback"),
-                        bug = URL("http://localhost/bug"),
-                        changelog = "",
                         lastRefreshMillis = 0L
                 )
             },

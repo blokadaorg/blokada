@@ -6,8 +6,12 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
+import gs.environment.Environment
+import gs.presentation.WebViewActor
+import gs.property.IProperty
 import org.blokada.R
 import org.blokada.property.Dash
+import org.blokada.property.Pages
 import org.blokada.property.State
 import org.obsolete.IWhen
 import org.obsolete.di
@@ -20,8 +24,13 @@ val DASH_ID_FAQ = "main_faq"
 val DASH_ID_FEEDBACK = "main_feedback"
 val DASH_ID_PATRON = "main_patron"
 val DASH_ID_PATRON_ABOUT = "main_patron_about"
+val DASH_ID_CHANGELOG = "main_changelog"
 
-class DonateDash(val ctx: Context) : Dash(
+class DonateDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
         DASH_ID_DONATE,
         R.drawable.ic_heart_box,
         text = ctx.getString(R.string.main_donate_text),
@@ -31,13 +40,17 @@ class DonateDash(val ctx: Context) : Dash(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
                 false)
-        val actor = ADonateActor(view)
+        val actor = WebViewActor(view, pages.donate)
         onBack = { actor.reload() }
         return view
     }
 }
 
-class ContributeDash(val ctx: Context) : Dash(
+class ContributeDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
         DASH_ID_CONTRIBUTE,
         R.drawable.ic_code_tags,
         text = ctx.getString(R.string.main_contribute_text),
@@ -47,13 +60,17 @@ class ContributeDash(val ctx: Context) : Dash(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
                 false)
-        val actor = AContributeActor(view)
+        val actor = WebViewActor(view, pages.contribute)
         onBack = { actor.reload() }
         return view
     }
 }
 
-class BlogDash(val ctx: Context) : Dash(
+class BlogDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
         DASH_ID_BLOG,
         R.drawable.ic_comment_multiple_outline,
         text = ctx.getString(R.string.main_blog_text),
@@ -63,13 +80,17 @@ class BlogDash(val ctx: Context) : Dash(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
                 false)
-        val actor = ABlogActor(view)
+        val actor = WebViewActor(view, pages.community, forceEmbedded = true, javascript = true)
         onBack = { actor.reload() }
         return view
     }
 }
 
-class FaqDash(val ctx: Context) : Dash(
+class FaqDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
         DASH_ID_FAQ,
         R.drawable.ic_help_outline,
         text = ctx.getString(R.string.main_faq_text),
@@ -79,13 +100,17 @@ class FaqDash(val ctx: Context) : Dash(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
                 false)
-        val actor = AFaqActor(view)
+        val actor = WebViewActor(view, pages.help)
         onBack = { actor.reload() }
         return view
     }
 }
 
-class FeedbackDash(val ctx: Context) : Dash(
+class FeedbackDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
         DASH_ID_FEEDBACK,
         R.drawable.ic_feedback,
         text = ctx.getString(R.string.main_feedback_text),
@@ -93,30 +118,36 @@ class FeedbackDash(val ctx: Context) : Dash(
 ) {
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = AFeedbackActor(view)
+        val actor = WebViewActor(view, pages.feedback, forceEmbedded = true, javascript = true)
         onBack = { actor.reload() }
         return view
     }
 }
 
-class PatronDash(val ctx: Context, val s: State = ctx.di().instance()) : Dash(
+class PatronDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
         DASH_ID_PATRON,
         R.drawable.ic_info,
         text = ctx.getString(R.string.main_patron),
         hasView = true,
-        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, {
-            URL("${s.localised().content}/patron_redirect.html")
-        }))
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.patron))
 ) {
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = PatronActor(view)
+        val actor = WebViewActor(view, pages.patron, forceEmbedded = true, javascript = true)
         onBack = { actor.reload() }
         return view
     }
 }
 
-class PatronAboutDash(val ctx: Context) : Dash(
+class PatronAboutDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
         DASH_ID_PATRON_ABOUT,
         R.drawable.ic_info,
         text = ctx.getString(R.string.main_patron_about),
@@ -124,7 +155,25 @@ class PatronAboutDash(val ctx: Context) : Dash(
 ) {
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = PatronAboutActor(view)
+        val actor = WebViewActor(view, pages.patronAbout, forceEmbedded = true, javascript = true)
+        onBack = { actor.reload() }
+        return view
+    }
+}
+
+class ChangelogDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
+        DASH_ID_CHANGELOG,
+        R.drawable.ic_info,
+        text = ctx.getString(R.string.main_changelog),
+        hasView = true
+) {
+    override fun createView(parent: Any): Any? {
+        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
+        val actor = WebViewActor(view, pages.changelog)
         onBack = { actor.reload() }
         return view
     }
@@ -182,7 +231,7 @@ class ConnectivityDash(
 
 class OpenInBrowserDash(
         val ctx: Context,
-        val url: () -> URL
+        val url: IProperty<URL>
 ) : Dash(
         "open_in_browser",
         R.drawable.ic_open_in_new,

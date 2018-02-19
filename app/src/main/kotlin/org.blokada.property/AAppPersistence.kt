@@ -151,9 +151,6 @@ class ALocalisedPersistence(
         return try {
             Localised(
                     content = URL(p.getString("content", null)),
-                    feedback = URL(p.getString("feedback", null)),
-                    bug = URL(p.getString("bug", null)),
-                    changelog = p.getString("changelog", null),
                     lastRefreshMillis = p.getLong("lastRefresh", 0)
             )
         } catch (e: Exception) {
@@ -164,9 +161,6 @@ class ALocalisedPersistence(
     override fun write(source: Localised) {
         val e = p.edit()
         e.putString("content", source.content.toExternalForm())
-        e.putString("feedback", source.feedback.toExternalForm())
-        e.putString("bug", source.bug.toExternalForm())
-        e.putString("changelog", source.changelog)
         e.putLong("lastRefresh", source.lastRefreshMillis)
         e.apply()
     }

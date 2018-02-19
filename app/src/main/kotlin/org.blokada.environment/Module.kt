@@ -15,15 +15,12 @@ import gs.property.WelcomeImpl
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
-import org.obsolete.*
 import org.blokada.BuildConfig
 import org.blokada.R
 import org.blokada.main.*
 import org.blokada.presentation.*
 import org.blokada.property.*
-import org.blokada.property.Info
-import org.blokada.property.InfoType
-import org.blokada.property.UiState
+import org.obsolete.*
 import java.io.File
 import java.net.URL
 
@@ -38,7 +35,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
         }
 
         bind<State>() with singleton { AState(ctx, kctx = with("state").instance(10)) }
-        bind<UiState>() with singleton { AUiState(ctx, kctx = with("uistate").instance(10)) }
+        bind<UiState>() with singleton { AUiState(kctx = with("uistate").instance(10), xx = instance()) }
 
         bind<ActivityProvider<Activity>>() with singleton { ActivityProvider<Activity>() }
         bind<ActivityProvider<MainActivity>>() with singleton { ActivityProvider<MainActivity>() }
@@ -123,7 +120,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     exportFile = getPublicPersistencePath("blokada-export")
                             ?: File(getPersistencePath(ctx).absoluteFile, "blokada-export"),
                     cacheTTLMillis = 7 * 24 * 60 * 60 * 100L, // A week
-                    repoURL = URL("http://blokada.org/api/${BuildConfig.VERSION_CODE}/${BuildConfig.FLAVOR}/filters.txt"),
+                    repoURL = URL("https://blokada.org/api/${BuildConfig.VERSION_CODE}/${BuildConfig.FLAVOR}/filters.txt"),
                     fetchTimeoutMillis = 10 * 1000
             )
         }
@@ -131,18 +128,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
             RepoConfig(
                     cacheFile = File(getPersistencePath(ctx).absoluteFile, "repo"),
                     cacheTTLMillis = 24 * 60 * 60 * 1000L, // A day
-                    repoURL = URL("http://blokada.org/api/${BuildConfig.VERSION_CODE}/${BuildConfig.FLAVOR}/repo.txt"),
+                    repoURL = URL("https://blokada.org/api/${BuildConfig.VERSION_CODE}/${BuildConfig.FLAVOR}/repo.txt"),
                     fetchTimeoutMillis = 10 * 1000,
                     notificationCooldownMillis = 24 * 60 * 60 * 1000L // A day
-            )
-        }
-        bind<VersionConfig>() with singleton {
-            VersionConfig(
-                    appName = ctx.getString(R.string.branding_app_name),
-                    appVersion = BuildConfig.VERSION_NAME,
-                    appVersionCode = BuildConfig.VERSION_CODE,
-                    coreVersion = BuildConfig.VERSION_NAME,
-                    uiVersion = BuildConfig.VERSION_NAME
             )
         }
         bind<TunnelConfig>() with singleton { TunnelConfig(defaultEngine = "lollipop") }
@@ -444,6 +432,16 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 welcome.obsoleteUrl %= URL("${root}/obsolete.html")
                 welcome.cleanupUrl %= URL("${root}/cleanup.html")
                 welcome.optionalShow %= true
+
+                val pages: Pages = instance()
+                pages.patron %= URL("${root}/patron_redirect.html")
+                pages.patronAbout %= URL("${root}/patron.html")
+                pages.donate %= URL("${root}/donate.html")
+                pages.contribute %= URL("${root}/contribute.html")
+                pages.help %= URL("${root}/help.html")
+                pages.feedback %= URL("https://goo.gl/forms/5YnfrUT9pdILccKx1")
+                pages.community %= URL("http://block.blokada.org")
+                pages.changelog %= URL("${root}/changelog.html")
             }
 
             val version: Version = instance()

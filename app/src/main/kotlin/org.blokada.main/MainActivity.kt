@@ -12,25 +12,21 @@ import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import gs.environment.ActivityProvider
+import gs.environment.Journal
 import gs.environment.xx
 import gs.presentation.WelcomeDialogManager
 import gs.presentation.isWrongInstance
+import gs.property.Welcome
 import io.codetail.widget.RevealFrameLayout
 import nl.komponents.kovenant.task
-import gs.environment.Journal
-import gs.property.Welcome
+import org.blokada.BuildConfig
+import org.blokada.R
+import org.blokada.presentation.*
+import org.blokada.property.*
 import org.obsolete.IWhen
 import org.obsolete.KContext
 import org.obsolete.Sync
 import org.obsolete.di
-import org.blokada.BuildConfig
-import org.blokada.R
-import org.blokada.presentation.*
-import org.blokada.property.State
-import org.blokada.property.Dash
-import org.blokada.property.Info
-import org.blokada.property.InfoType
-import org.blokada.property.UiState
 import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity(), LazyKodeinAware {
@@ -152,9 +148,9 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
         val welcome: Welcome by instance()
         val m = WelcomeDialogManager(xx(), BuildConfig.VERSION_CODE, {})
-        listener13 = welcome.introUrl.doOnUiWhenChanged().then {
+//        listener13 = welcome.introUrl.doOnUiWhenChanged().then {
             m.run()
-        }
+//        }
 
 //        listener13 = repo.content.doOnUiWhenSet().then {
 //            if (repo.content().contentPath != null) m.run()

@@ -1,15 +1,18 @@
 package org.blokada.property
 
-import org.obsolete.KContext
-import org.obsolete.newPersistedProperty
 import android.content.Context
-import org.obsolete.newProperty
+import com.github.salomonbrys.kodein.instance
+import gs.environment.Environment
 import org.blokada.BuildConfig
 import org.blokada.presentation.*
+import org.obsolete.KContext
+import org.obsolete.newPersistedProperty
+import org.obsolete.newProperty
 
 class AUiState(
-        private val ctx: Context,
-        private val kctx: KContext
+        private val kctx: KContext,
+        private val xx: Environment,
+        private val ctx: Context = xx().instance()
 ) : UiState() {
 
     override val seenWelcome = newPersistedProperty(kctx, APrefsPersistence(ctx, "seenWelcome"),
@@ -36,13 +39,14 @@ class AUiState(
             AutoStartDash(ctx).activate(true),
             ConnectivityDash(ctx).activate(true),
             TunnelDashHostsCount(ctx).activate(true),
-            PatronDash(ctx).activate(false),
-            PatronAboutDash(ctx).activate(false),
-            DonateDash(ctx).activate(false),
-            ContributeDash(ctx).activate(false),
-            BlogDash(ctx).activate(false),
-            FeedbackDash(ctx).activate(false),
-            FaqDash(ctx).activate(false).activate(false),
+            PatronDash(xx).activate(false),
+            PatronAboutDash(xx).activate(false),
+            DonateDash(xx).activate(false),
+            ContributeDash(xx).activate(false),
+            BlogDash(xx).activate(false),
+            FeedbackDash(xx).activate(false),
+            FaqDash(xx).activate(false),
+            ChangelogDash(xx).activate(false),
             AboutDash(ctx).activate(false)
     ) })
 

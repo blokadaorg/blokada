@@ -59,4 +59,5 @@
     <string name="main_feedback_text">Feedback / Contact</string>
     <string name="main_patron">Visit Patron</string>
     <string name="main_patron_about">Patron Vote</string>
+    <string name="main_changelog">Changelog</string>
 </resources>

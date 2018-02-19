@@ -116,9 +116,6 @@ data class Repo(
 
 data class Localised(
         val content: URL,
-        val feedback: URL,
-        val bug: URL,
-        val changelog: String,
         val lastRefreshMillis: Long
         // TODO: filters too?
 )

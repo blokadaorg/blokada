@@ -24,7 +24,7 @@ class AUpdateView(
 
     var canClick: Boolean = true
 
-    var update: Pair<String, String>? = null
+    var update: String? = null
         set(value) {
             field = value
             if (value == null) {
@@ -35,7 +35,7 @@ class AUpdateView(
                 iconView.setImageResource(R.drawable.ic_info)
             } else {
                 download.visibility = View.VISIBLE
-                headerView.text = "${context.getString(R.string.update_header)} ${context.getString(R.string.branding_app_name)} ${value.first}"
+                headerView.text = "${context.getString(R.string.update_header)} ${context.getString(R.string.branding_app_name)} ${value    }"
                 headerView.setTextColor(context.resources.getColor(R.color.colorAccent))
                 iconView.setColorFilter(context.resources.getColor(R.color.colorAccent))
                 iconView.setImageResource(R.drawable.ic_new_releases)

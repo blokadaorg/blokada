@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
-import org.blokada.property.VersionConfig
 import org.blokada.R
-import org.blokada.property.State
 import org.blokada.main.UpdateCoordinator
+import org.blokada.property.Dash
+import org.blokada.property.State
+import org.blokada.property.UiState
+import org.blokada.property.VersionConfig
 import org.obsolete.IWhen
 import org.obsolete.di
-import org.blokada.property.Dash
-import org.blokada.property.UiState
 
 val DASH_ID_ABOUT = "update_about"
 
@@ -82,7 +82,7 @@ private fun createUpdateView(parent: ViewGroup, s: State): AUpdateView {
         val updater: UpdateCoordinator = ctx.di().instance()
 
         view.update = if (isUpdate(ctx, u.newestVersionCode))
-            (u.newestVersionName to s.localised().changelog)
+            u.newestVersionName
         else null
 
         view.onClick = {
@@ -93,7 +93,7 @@ private fun createUpdateView(parent: ViewGroup, s: State): AUpdateView {
         if (listener != null) s.repo.cancel(listener)
         listener = s.repo.doOnUiWhenSet().then {
             val u = s.repo()
-            view.update = if (isUpdate(ctx, u.newestVersionCode)) (u.newestVersionName to s.localised().changelog)
+            view.update = if (isUpdate(ctx, u.newestVersionCode)) u.newestVersionName
             else null
         }
     }
