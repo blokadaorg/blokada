@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
     private val s: State by instance()
     private val ui: UiState by instance()
+    private val pages: Pages by instance()
 
     private val ictx: KContext by kodein.with("infotext").instance()
     private var currentlyDisplayed: InfoType? = null
@@ -99,7 +100,8 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
                 infoViewShadow = findViewById(R.id.info_shadow),
                 shadow = findViewById(R.id.shadow),
                 window = window,
-                ui = ui
+                ui = ui,
+                pages = pages
         )
 
         grid = findViewById(R.id.grid) as AGridView

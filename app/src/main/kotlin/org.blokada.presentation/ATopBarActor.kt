@@ -4,9 +4,10 @@ import android.view.View
 import android.view.Window
 import android.view.animation.DecelerateInterpolator
 import gs.presentation.ResizeAnimation
-import org.blokada.property.State
 import org.blokada.R
 import org.blokada.property.Dash
+import org.blokada.property.Pages
+import org.blokada.property.State
 import org.blokada.property.UiState
 
 class ATopBarActor(
@@ -18,7 +19,8 @@ class ATopBarActor(
         private val infoView: AInfoView,
         private val infoViewShadow: View,
         private val shadow: View,
-        private val window: Window
+        private val window: Window,
+        private val pages: Pages
 ) : IEnabledStateActorListener {
 
     var dash1: Dash? = null
@@ -97,7 +99,7 @@ class ATopBarActor(
         dash1 = null
         dash2 = null
 //        dash3 = DashEditMode(v.context, ui)
-        dash3 = null
+        dash3 = ChatDash(v.context, pages.chat)
     }
 
     private fun handleDashChange(dash: Dash?, dashView: ADashView, dashActor: ADashActor): Dash? {

@@ -34,13 +34,14 @@ class DonateDash(
         DASH_ID_DONATE,
         R.drawable.ic_heart_box,
         text = ctx.getString(R.string.main_donate_text),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.donate)),
         hasView = true
 ) {
 
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
                 false)
-        val actor = WebViewActor(view, pages.donate)
+        val actor = WebViewActor(view, pages.donate, javascript = true)
         onBack = { actor.reload() }
         return view
     }
@@ -54,6 +55,7 @@ class ContributeDash(
         DASH_ID_CONTRIBUTE,
         R.drawable.ic_code_tags,
         text = ctx.getString(R.string.main_contribute_text),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.contribute)),
         hasView = true
 ) {
 
@@ -74,6 +76,7 @@ class BlogDash(
         DASH_ID_BLOG,
         R.drawable.ic_comment_multiple_outline,
         text = ctx.getString(R.string.main_blog_text),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.community)),
         hasView = true
 ) {
 
@@ -94,6 +97,7 @@ class FaqDash(
         DASH_ID_FAQ,
         R.drawable.ic_help_outline,
         text = ctx.getString(R.string.main_faq_text),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.help)),
         hasView = true
 ) {
 
@@ -114,6 +118,7 @@ class FeedbackDash(
         DASH_ID_FEEDBACK,
         R.drawable.ic_feedback,
         text = ctx.getString(R.string.main_feedback_text),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.feedback)),
         hasView = true
 ) {
     override fun createView(parent: Any): Any? {
@@ -151,6 +156,7 @@ class PatronAboutDash(
         DASH_ID_PATRON_ABOUT,
         R.drawable.ic_info,
         text = ctx.getString(R.string.main_patron_about),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.patronAbout)),
         hasView = true
 ) {
     override fun createView(parent: Any): Any? {
@@ -169,6 +175,7 @@ class ChangelogDash(
         DASH_ID_CHANGELOG,
         R.drawable.ic_info,
         text = ctx.getString(R.string.main_changelog),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.changelog)),
         hasView = true
 ) {
     override fun createView(parent: Any): Any? {
@@ -235,6 +242,21 @@ class OpenInBrowserDash(
 ) : Dash(
         "open_in_browser",
         R.drawable.ic_open_in_new,
+        onClick = { dashRef ->
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.setData(Uri.parse(url().toString()))
+            ctx.startActivity(intent)
+            true
+        }
+)
+
+class ChatDash(
+        val ctx: Context,
+        val url: IProperty<URL>
+) : Dash(
+        "chat",
+        R.drawable.ic_comment_multiple_outline,
         onClick = { dashRef ->
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

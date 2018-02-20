@@ -19,6 +19,7 @@ abstract class Pages {
     abstract val changelog: IProperty<URL>
     abstract val filters: IProperty<URL>
     abstract val filtersStrings: IProperty<URL>
+    abstract val chat: IProperty<URL>
 }
 class PagesImpl (
         w: Worker,
@@ -52,5 +53,6 @@ class PagesImpl (
 
     override val community = newProperty(w, { URL("http://block.blokada.org") })
     override val feedback = newProperty(w, { URL("https://goo.gl/forms/5YnfrUT9pdILccKx1") })
+    override val chat = newProperty(w, { URL("http://go.blokada.org/chat") })
 
 }

@@ -12,8 +12,11 @@ import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
 import gs.environment.inject
+import gs.presentation.SimpleDialog
+import gs.presentation.WebViewActor
 import gs.property.Version
 import org.blokada.R
+import org.blokada.property.Pages
 import java.net.URL
 
 
@@ -35,7 +38,7 @@ class AUpdateView(
                 iconView.setImageResource(R.drawable.ic_info)
             } else {
                 download.visibility = View.VISIBLE
-                headerView.text = "${context.getString(R.string.update_header)} ${context.getString(R.string.branding_app_name)} ${value    }"
+                headerView.text = "${context.getString(R.string.update_header)} ${context.getString(R.string.branding_app_name)} ${value}"
                 headerView.setTextColor(context.resources.getColor(R.color.colorAccent))
                 iconView.setColorFilter(context.resources.getColor(R.color.colorAccent))
                 iconView.setImageResource(R.drawable.ic_new_releases)
@@ -54,10 +57,17 @@ class AUpdateView(
     private val appInfo by lazy { findViewById(R.id.update_appinfo) as TextView }
 
     private val ver by lazy { ctx.inject().instance<Version>() }
+    private val pages by lazy { ctx.inject().instance<Pages>() }
+
+    private val dialogChangelog by lazy {
+        val dialog = SimpleDialog(ctx, R.layout.webview)
+        WebViewActor(dialog.view, pages.changelog, reloadOnError = true)
+        dialog
+    }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        currentView.text = Html.fromHtml("${ver.appName} ${ver.name}<br/>core: ${ver.nameCore}")
+        currentView.text = Html.fromHtml("${ver.appName} ${ver.name}<br/>gscore: ${ver.nameCore}")
 
         creditsView.movementMethod = LinkMovementMethod()
         creditsView.text = Html.fromHtml("%s<br/><br/><b>%s</b>".format(
@@ -71,7 +81,7 @@ class AUpdateView(
         }}
 
         changelogView.setOnClickListener {
-
+            dialogChangelog.show()
         }
 
         makerView.setOnClickListener {
