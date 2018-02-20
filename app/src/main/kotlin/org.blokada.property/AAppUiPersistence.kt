@@ -7,7 +7,7 @@ class ADashesPersistence(
         val ctx: Context
 ) : IPersistence<List<Dash>> {
 
-    val p by lazy { ctx.getSharedPreferences("State", Context.MODE_PRIVATE) }
+    val p by lazy { ctx.getSharedPreferences("State2", Context.MODE_PRIVATE) }
 
     override fun read(current: List<Dash>): List<Dash> {
         val dashes = ArrayList(current)
