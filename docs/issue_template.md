@@ -5,8 +5,8 @@ Thanks for reporting issues back Blokada! Please follow few simple rules:
 - Use search to check if your issue has not been reported already
 - Having a problem with a particular app? Maybe we know already, check http://go.blokada.org/issue_app
 - Blokada not working at all? Maybe your device has known issues, check http://go.blokada.org/issue_device
-- Reporting a bug? Your title must answer a question "What does not work for you?" (examples: "Blokada randomly closes after few days", or, "Some icons are not visible in landscape orientation"). Also make sure you follow the rest of the template and provide complete information.
-- Requesting a feature? Your title must be a full sentence starting with "I want" (examples: "I want a widget for turning filtering on/off", or, "I want Tasker support"). You can skip the rest of the template.
+- Reporting a bug? Your title must answer a question "What does not work for you?" (example: "Blokada randomly closes after few days", but not, "It doesn't work"). Also make sure you follow the rest of the template and provide complete information.
+- Requesting a feature? Your title must be a full sentence starting with "I want" (example: "I want a widget for turning filtering on/off", but not, "Tasker support"). You can skip the rest of the template.
 
 -->
 
