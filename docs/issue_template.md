@@ -1,5 +1,5 @@
 <!--
-Thanks for reporting issues back Blokada! Please follow few simple rules:
+Thanks for reporting issues back to Blokada! Please follow few simple rules:
 
 - Read answers to common questions at http://go.blokada.org/faq
 - Use search to check if your issue has not been reported already
