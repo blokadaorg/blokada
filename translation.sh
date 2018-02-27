@@ -7,26 +7,31 @@
 # Notes:
 # - source-path - Where the translations package (unpacked) resides
 # - app-path - Where is Blokada app repo
+# - gscore-path - Where is gscore lib repo
 # - web-path - Where is Blokada website repo
 
-langs="es pt fr pl cs de nl ms he fa it id hr hu ru zh-rCN zh-rTW"
+langs="es fr pl cs de nl ms it hu ru zh-rTW"
 xml="filter main notification tunnel update"
-pages="donate.html help.html contribute.html"
-props="strings_repo.properties strings_store.properties strings_filters.properties"
+pages="cleanup.html contribute.html donate.html help.html intro.html obsolete.html patron_redirect.html patron.html updated.html"
+props="filters.properties"
 
 l=""
 x=""
 
 function runXml {
-    cp "$src/strings_$x.xml/values-$l/strings_$x.xml" "$app/libui/src/main/res/values-$l/"
+    cp "$src/strings_$x.xml/values-$l/strings_$x.xml" "$app/app/src/main/res/values-$l/"
+}
+
+function runXmlGscore {
+    cp "$src/strings_gscore.xml/values-$l/strings_$x.xml" "$gscore/src/main/res/values-$l/"
 }
 
 function runPages {
-    cp "$src/$x/$l.html" "$web/content/$l/$x"
+    cp "$src/$x/$l.html" "$web/api/v3/content/$l/$x"
 }
 
 function runProps {
-    cp "$src/$x/$l.properties" "$web/content/$l/$x"
+    cp "$src/$x/$l.properties" "$web/api/v3/content/$l/$x"
 }
 
 function runIndex {
@@ -36,10 +41,12 @@ function runIndex {
 
 src=$1
 app=$2
-web=$3
+gscore=$3
+web=$4
 
 echo "source: $src"
 echo "app: $app"
+echo "gscore: $gscore"
 echo "web: $web"
 echo "languages: $langs"
 echo "xml: $xml"
@@ -56,6 +63,7 @@ if [ "$choice" = "y" ]; then
 	    x="$j"
 	    runXml
 	done
+	runXmlGscore
 	i=$(echo $i | sed -e "s/-r/-/g")
 	for j in $pages; do
             l="$i"
