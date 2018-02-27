@@ -10,7 +10,7 @@
 # - gscore-path - Where is gscore lib repo
 # - web-path - Where is Blokada website repo
 
-langs="es fr pl cs de nl ms it hu ru zh-rTW tr pt-BR pt-PT hr"
+langs="es fr pl cs de nl ms it hu ru zh-rTW tr pt-rBR pt-rPT hr"
 xml="filter main notification tunnel update"
 pages="cleanup.html contribute.html donate.html help.html intro.html obsolete.html patron_redirect.html patron.html updated.html"
 props="filters.properties"
