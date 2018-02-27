@@ -27,10 +27,12 @@ function runXmlGscore {
 }
 
 function runPages {
+    rm "$web/api/v3/content/$l/$x"
     cp "$src/$x/$l.html" "$web/api/v3/content/$l/$x"
 }
 
 function runProps {
+    rm "$web/api/v3/content/$l/$x"
     cp "$src/$x/$l.properties" "$web/api/v3/content/$l/$x"
 }
 
