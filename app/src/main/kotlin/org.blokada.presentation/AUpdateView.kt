@@ -106,8 +106,8 @@ fun newAppDetailsIntent(packageName: String): Intent {
 }
 
 private fun formatCredits(credits: String): String {
-    return credits.split("\n").map {
-        val parts = it.split(" ").map { it.trim() }
+    return credits.split("-").map {
+        val parts = it.trim().split(" ").map { it.trim() }
         when (parts.size) {
             0 -> null
             1 -> parts[0]
