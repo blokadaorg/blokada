@@ -1,6 +1,7 @@
 package org.blokada.environment
 
 import android.app.Activity
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -22,7 +23,6 @@ import org.blokada.presentation.*
 import org.blokada.property.*
 import org.obsolete.IWhen
 import org.obsolete.KContext
-import org.obsolete.registerUncaughtExceptionHandler
 import java.io.File
 import java.net.URL
 
@@ -405,8 +405,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 welcome.introUrl %= URL("${root}/intro.html")
             }
 
-            i18n.locale.doWhenChanged(withInit = true).then {
-                // TODO: This may cause unnecessary fetch
+            i18n.locale.doWhenChanged().then {
                 Log.i("blokada", "refresh filters from locale change")
                 s.filters.refresh(force = true)
             }
@@ -475,10 +474,13 @@ fun newAppModule(ctx: Context): Kodein.Module {
 
             // Start / stop the keep alive service depending on the configuration flag
             val keepAliveNotificationUpdater = { adsBlocked: Int ->
-                displayNotificationKeepAlive(ctx = instance(), count = adsBlocked,
+                val ctx: Context = instance()
+                val nm: NotificationManager = instance()
+                val n = createNotificationKeepAlive(ctx = ctx, count = adsBlocked,
                         last = s.tunnelRecentAds().lastOrNull() ?:
                         ctx.getString(R.string.notification_keepalive_none)
                 )
+                nm.notify(3, n)
             }
             var w: IWhen? = null
             s.keepAlive.doWhenSet().then {
@@ -489,7 +491,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     }
                     keepAliveAgent.bind(ctx)
                 } else {
-                    hideNotificationKeepAlive(ctx)
                     s.tunnelAdsCount.cancel(w)
                     keepAliveAgent.unbind(ctx)
                 }
@@ -540,7 +541,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 AConnectivityReceiver.register(ctx)
                 AScreenOnReceiver.register(ctx)
                 ALocaleReceiver.register(ctx)
-                registerUncaughtExceptionHandler(ctx)
             }
 
             // Initialize default values for properties that need it (async)
@@ -557,4 +557,4 @@ fun newAppModule(ctx: Context): Kodein.Module {
 }
 
 // So that it's never GC'd, not sure if it actually does anything
-private val keepAliveAgent by lazy { AKeepAliveAgent() }
+private val keepAliveAgent by lazy { KeepAliveAgent() }

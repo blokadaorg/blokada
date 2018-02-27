@@ -1,16 +1,19 @@
 package org.blokada.main
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.*
 import android.net.ConnectivityManager
+import android.net.wifi.WifiManager
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import gs.environment.Journal
 import gs.environment.inject
 import gs.property.I18n
 import nl.komponents.kovenant.task
 import org.blokada.property.State
+
+
 
 /**
  * ABootReceiver gets a ping from the OS after boot. Don't forget to register
@@ -18,11 +21,15 @@ import org.blokada.property.State
  */
 class ABootReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
-        task(ctx.inject().with("ABootReceiver").instance()) {
-            // This causes everything to load
-            val s: State = ctx.inject().instance()
-            s.connection.refresh()
-        }
+        scheduleJob(ctx)
+    }
+
+    fun scheduleJob(ctx: Context) {
+        val serviceComponent = ComponentName(ctx, BootJobService::class.java)
+        val builder = JobInfo.Builder(0, serviceComponent)
+        builder.setOverrideDeadline(3 * 1000L)
+        val jobScheduler = ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobScheduler.schedule(builder.build())
     }
 }
 
@@ -47,6 +54,8 @@ class AConnectivityReceiver : BroadcastReceiver() {
         fun register(ctx: Context) {
             val filter = IntentFilter()
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+            filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION)
+            filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
             ctx.registerReceiver(ctx.inject().instance<AConnectivityReceiver>(), filter)
         }
 
@@ -58,6 +67,8 @@ class AScreenOnReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
         task(ctx.inject().with("AScreenOnReceiver").instance()) {
             // This causes everything to load
+            val j: Journal = ctx.inject().instance()
+            j.log("screen change")
             val s: State = ctx.inject().instance()
             s.screenOn.refresh()
         }

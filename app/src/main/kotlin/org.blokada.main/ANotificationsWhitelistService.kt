@@ -13,7 +13,7 @@ import org.blokada.property.FilterSourceSingle
 import org.blokada.property.LocalisedFilter
 import org.blokada.property.State
 
-class ANotificationsWhitelistService : IntentService("notificationWhitelist") {
+class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
 
     private val s by lazy { inject().instance<State>() }
 

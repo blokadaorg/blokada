@@ -1,14 +1,15 @@
 package org.blokada.presentation
 
 import android.annotation.TargetApi
+import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.support.v4.app.NotificationCompat
 import org.blokada.R
-import android.app.NotificationChannel
-import android.os.Build
 import org.blokada.main.ANotificationsOffService
 import org.blokada.main.ANotificationsWhitelistService
 import org.blokada.main.MainActivity
@@ -61,7 +62,7 @@ fun hideNotification(ctx: Context) {
 /**
  * Will display / update a system notification to prevent Android from killing this app.
  */
-fun displayNotificationKeepAlive(ctx: Context, count: Int, last: String) {
+fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notification {
     val b = NotificationCompat.Builder(ctx)
     b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, count))
     b.setContentText(ctx.getString(R.string.notification_keepalive_content, last))
@@ -79,8 +80,7 @@ fun displayNotificationKeepAlive(ctx: Context, count: Int, last: String) {
         b.setChannelId(id)
     }
 
-    val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    notif.notify(3, b.build())
+    return b.build()
 }
 
 val id = "blokada"

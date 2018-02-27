@@ -10,7 +10,7 @@ import org.blokada.property.UiState
 /**
  * ANotificationsOffService turns off notifications once intent is sent to it.
  */
-class ANotificationsOffService : IntentService("notification") {
+class ANotificationsOffService : IntentService("notifications") {
 
     private val state by lazy { inject().instance<UiState>() }
 
