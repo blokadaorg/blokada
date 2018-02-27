@@ -12,6 +12,9 @@ android {
         versionName extVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    lintOptions {
+        abortOnError false
+    }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         dev.java.srcDirs += 'src/dev/kotlin'
