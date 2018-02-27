@@ -1,29 +1,26 @@
 <?xml version="1.0"?>
 <resources>
-    <string name="update_infotext">Aktualizacja jest dostępna! Wybierz ikonkę aktualizacji poniżej, aby kontynuować.</string>
-    <string name="update_button">Pobierz aktualizację</string>
-    <string name="update_notification_title">Aktualizacja dostępna</string>
+    <string name="update_infotext">Está disponível uma actualização! Pressione o ícone da actualização para mais detalhes.</string>
+    <string name="update_button">Transferir actualização</string>
+    <string name="update_notification_title">Actualização disponível</string>
     <!-- Parameter: new app version, for example 2.0.1 -->
-    <string name="update_notification_text">Wersja %1$s jest gotowa do pobrania. Wybierz, aby kontynuować.</string>
+    <string name="update_notification_text">A versão %1$s está pronta para ser transferida! Pressione para continuar.</string>
     <!-- Header displaying the new app version. Parameters: branded app name, and new app version. For example: NEW! Blokada 2.0.1 -->
-    <string name="update_header">Nowa aktualizacja!</string>
-    <string name="update_header_noupdate">Brak aktualizacji</string>
+    <string name="update_header">Nova actualização!</string>
+    <string name="update_header_noupdate">Sem actualizações</string>
     <!-- Feel free to make this string a bit more localised. For example it can say, "This app and its Spanish version is made possible thanks to:" -->
-    <string name="update_credits_header">Polska wersja Blokady jest możliwa dzięki poniższym osobom:</string>
+    <string name="update_credits_header">Esta aplicação é um projecto de código aberto, concretizado graças a:</string>
     <!-- We appreciate you translating this app and welcome you to add your name here - it will show up in the About/Update screen. Please add yourself in a new line, and use a dash "-" to list yourself. If you add a link, your name will be clickable (- John Doe: http://my-website.com) -->
-    <string name="update_credits">- Ewelina Łapińska 
-- Bruno
-- Społeczność Blokady https://blokada.org</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
-    <string name="update_dash_available">&lt;b&gt;Dostępna aktualizacja!&lt;/b&gt;</string>
+    <string name="update_dash_available">&lt;b&gt;Actualização disponível!&lt;/b&gt;</string>
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
-    <string name="update_dash_uptodate">Brak aktualizacji</string>
+    <string name="update_dash_uptodate">Actualizado</string>
     <!-- Displayed in menu to open the About/Update screen. -->
-    <string name="update_about">O aplikacji</string>
+    <string name="update_about">Sobre</string>
     <!-- A button that opens system preferences for this app. -->
-    <string name="update_button_appinfo">Szczegóły</string>
+    <string name="update_button_appinfo">Detalhes da app</string>
     <!-- A button that opens the changelog. -->
     <string name="update_button_changelog">Changelog</string>
     <!-- A toast message displayed when the update process is starting. -->
-    <string name="update_starting">Aktualizuję, proszę czekać&#8230;</string>
+    <string name="update_starting">A iniciar, por favor aguarde&#8230;</string>
 </resources>
