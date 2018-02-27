@@ -434,8 +434,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
             val version: Version = instance()
             version.appName %= ctx.getString(R.string.branding_app_name)
             version.name %= BuildConfig.VERSION_NAME
-            version.code %= BuildConfig.VERSION_CODE
-
 
             val ui: UiState = instance()
 

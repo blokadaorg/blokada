@@ -7,7 +7,7 @@ import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
 import gs.environment.inject
 import gs.property.Repo
-import gs.property.Version
+import org.blokada.BuildConfig
 import org.blokada.R
 import org.blokada.main.UpdateCoordinator
 import org.blokada.property.Dash
@@ -109,6 +109,5 @@ class UpdateForceDash(
 )
 
 fun isUpdate(ctx: Context, code: Int): Boolean {
-    val appVersionCode = ctx.inject().instance<Version>().code()
-    return code > appVersionCode
+    return code > BuildConfig.VERSION_CODE
 }
