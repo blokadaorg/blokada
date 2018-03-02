@@ -400,6 +400,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 welcome.optionalUrl %= URL("${root}/patron_redirect.html")
                 welcome.updatedUrl %= URL("${root}/updated.html")
                 welcome.cleanupUrl %= URL("${root}/cleanup.html")
+                welcome.ctaUrl %= URL("${root}/cta.html")
                 welcome.optionalShow %= true
                 // Last one because it triggers dialogs
                 welcome.introUrl %= URL("${root}/intro.html")

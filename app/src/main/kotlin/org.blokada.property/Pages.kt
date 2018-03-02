@@ -57,8 +57,8 @@ class PagesImpl (
     override val filters = newProperty(w, { URL("http://localhost") })
     override val filtersStrings = newProperty(w, { URL("http://localhost") })
 
-    override val news = newProperty(w, { URL("http://block.blokada.org") })
-    override val feedback = newProperty(w, { URL("https://goo.gl/forms/5YnfrUT9pdILccKx1") })
+    override val news = newProperty(w, { URL("http://go.blokada.org/news") })
+    override val feedback = newProperty(w, { URL("http://go.blokada.org/feedback") })
     override val chat = newProperty(w, { URL("http://go.blokada.org/chat") })
 
 }
