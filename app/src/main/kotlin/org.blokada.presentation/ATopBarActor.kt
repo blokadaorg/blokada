@@ -3,6 +3,7 @@ package org.blokada.presentation
 import android.view.View
 import android.view.Window
 import android.view.animation.DecelerateInterpolator
+import gs.environment.Environment
 import gs.presentation.ResizeAnimation
 import org.blokada.R
 import org.blokada.property.Dash
@@ -11,6 +12,7 @@ import org.blokada.property.State
 import org.blokada.property.UiState
 
 class ATopBarActor(
+        private val xx: Environment,
         private val m: State,
         private val ui: UiState,
         private val v: ATopBarView,
@@ -97,9 +99,8 @@ class ATopBarActor(
 
     fun resetActions() {
         dash1 = null
-        dash2 = null
-//        dash3 = DashEditMode(v.context, ui)
-        dash3 = ChatDash(v.context, pages.chat)
+        dash2 = ChatDash(v.context, pages.chat)
+        dash3 = NewsDash(xx)
     }
 
     private fun handleDashChange(dash: Dash?, dashView: ADashView, dashActor: ADashActor): Dash? {

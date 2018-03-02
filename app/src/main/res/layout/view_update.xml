@@ -29,6 +29,12 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/update_button_changelog" />
             <Button
+                android:id="@+id/update_credits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/main_credits" />
+            <Button
                 android:id="@+id/update_appinfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,17 +77,6 @@
             android:padding="8dp"
             android:text="@string/main_loading"
             android:textColor="@color/colorTextUnimportant" />
-
-        <TextView
-            android:id="@+id/update_credits"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:padding="48dp"
-            android:text="@string/update_credits"
-            android:textColor="@color/colorActive" />
 
         <ImageView
             android:id="@+id/update_maker"

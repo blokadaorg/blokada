@@ -56,8 +56,16 @@
 
     <string name="main_autostart_text">Start on boot</string>
 
-    <string name="main_feedback_text">Feedback / Contact</string>
+    <!-- A menu option to send feedback or contact us -->
+    <string name="main_feedback_text">Feedback</string>
+    <!-- A menu option to open Patron of the month -->
     <string name="main_patron">Visit Patron</string>
+    <!-- A menu option to open Patron voting screen -->
     <string name="main_patron_about">Patron Vote</string>
+    <!-- A menu option to take this month's action to help Blokada. -->
+    <string name="main_cta">Chip in</string>
+    <!-- A menu option to open changelog -->
     <string name="main_changelog">Changelog</string>
+    <!-- A menu option to open credits screen -->
+    <string name="main_credits">Credits</string>
 </resources>

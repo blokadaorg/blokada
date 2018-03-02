@@ -44,11 +44,13 @@ class AUiState(
             PatronAboutDash(xx).activate(false),
             DonateDash(xx).activate(false),
             ContributeDash(xx).activate(false),
-            BlogDash(xx).activate(false),
+            NewsDash(xx).activate(false),
             FeedbackDash(xx).activate(false),
             FaqDash(xx).activate(false),
             ChangelogDash(xx).activate(false),
-            AboutDash(ctx).activate(false)
+            AboutDash(ctx).activate(false),
+            CreditsDash(xx).activate(false),
+            CtaDash(xx).activate(false)
     ) })
 
     override val infoQueue = newProperty(kctx, { listOf<Info>() })

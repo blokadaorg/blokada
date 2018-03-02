@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         )
 
         ATopBarActor(
+                xx = kodein,
                 m = s,
                 v = topBar!!,
                 enabledStateActor = enabledStateActor,

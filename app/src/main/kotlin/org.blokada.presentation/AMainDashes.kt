@@ -24,7 +24,9 @@ val DASH_ID_FAQ = "main_faq"
 val DASH_ID_FEEDBACK = "main_feedback"
 val DASH_ID_PATRON = "main_patron"
 val DASH_ID_PATRON_ABOUT = "main_patron_about"
+val DASH_ID_CTA = "main_cta"
 val DASH_ID_CHANGELOG = "main_changelog"
+val DASH_ID_CREDITS = "main_credits"
 
 class DonateDash(
         val xx: Environment,
@@ -68,22 +70,22 @@ class ContributeDash(
     }
 }
 
-class BlogDash(
+class NewsDash(
         val xx: Environment,
         val ctx: Context = xx().instance(),
         val pages: Pages = xx().instance()
 ) : Dash(
         DASH_ID_BLOG,
-        R.drawable.ic_comment_multiple_outline,
+        R.drawable.ic_earth,
         text = ctx.getString(R.string.main_blog_text),
-        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.community)),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.news)),
         hasView = true
 ) {
 
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
                 false)
-        val actor = WebViewActor(view, pages.community, forceEmbedded = true, javascript = true)
+        val actor = WebViewActor(view, pages.news, forceEmbedded = true, javascript = true)
         onBack = { actor.reload() }
         return view
     }
@@ -167,6 +169,25 @@ class PatronAboutDash(
     }
 }
 
+class CtaDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
+        DASH_ID_CTA,
+        R.drawable.ic_info,
+        text = ctx.getString(R.string.main_cta),
+        hasView = true,
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.cta))
+) {
+    override fun createView(parent: Any): Any? {
+        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
+        val actor = WebViewActor(view, pages.cta, forceEmbedded = true, javascript = true)
+        onBack = { actor.reload() }
+        return view
+    }
+}
+
 class ChangelogDash(
         val xx: Environment,
         val ctx: Context = xx().instance(),
@@ -181,6 +202,25 @@ class ChangelogDash(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
         val actor = WebViewActor(view, pages.changelog)
+        onBack = { actor.reload() }
+        return view
+    }
+}
+
+class CreditsDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val pages: Pages = xx().instance()
+) : Dash(
+        DASH_ID_CREDITS,
+        R.drawable.ic_info,
+        text = ctx.getString(R.string.main_credits),
+        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.credits)),
+        hasView = true
+) {
+    override fun createView(parent: Any): Any? {
+        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
+        val actor = WebViewActor(view, pages.credits)
         onBack = { actor.reload() }
         return view
     }
