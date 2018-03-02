@@ -12,7 +12,7 @@
 
 langs="es fr pl cs de nl ms it hu ru zh-rTW tr pt-rBR pt-rPT hr in"
 xml="filter main notification tunnel update"
-pages="cleanup.html contribute.html credits.html cta.html donate.html help.html intro.html obsolete.html patron_redirect.html patron.html updated.html"
+pages="cleanup.html contribute.html credits.html cta.html donate.html help.html intro.html obsolete.html patron.html updated.html"
 props="filters.properties"
 
 l=""

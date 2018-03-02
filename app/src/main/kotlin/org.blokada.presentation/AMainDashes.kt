@@ -144,7 +144,7 @@ class PatronDash(
 ) {
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = WebViewActor(view, pages.patron, forceEmbedded = true, javascript = true)
+        val actor = WebViewActor(view, pages.patron, forceEmbedded = true, javascript = true, reloadOnError = false)
         onBack = { actor.reload() }
         return view
     }
