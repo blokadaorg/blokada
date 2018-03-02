@@ -31,6 +31,7 @@ class AUpdateView(
             if (value == null) {
                 download.visibility = View.GONE
                 creditsView.visibility = View.VISIBLE
+                appInfo.visibility = View.VISIBLE
                 headerView.text = context.getString(R.string.update_header_noupdate)
                 headerView.setTextColor(context.resources.getColor(R.color.colorActive))
                 iconView.setColorFilter(context.resources.getColor(R.color.colorActive))
@@ -38,6 +39,7 @@ class AUpdateView(
             } else {
                 download.visibility = View.VISIBLE
                 creditsView.visibility = View.GONE
+                appInfo.visibility = View.GONE
                 headerView.text = "${context.getString(R.string.update_header)} ${context.getString(R.string.branding_app_name)} ${value}"
                 headerView.setTextColor(context.resources.getColor(R.color.colorAccent))
                 iconView.setColorFilter(context.resources.getColor(R.color.colorAccent))
@@ -46,6 +48,7 @@ class AUpdateView(
         }
 
     var onClick = {}
+    var onClickBackup = {}
 
     private val currentView by lazy { findViewById(R.id.update_current) as TextView }
     private val creditsView by lazy { findViewById(R.id.update_credits) as View }
@@ -78,6 +81,8 @@ class AUpdateView(
         download.setOnClickListener { if (canClick) {
             canClick = false
             onClick()
+        } else {
+            onClickBackup()
         }}
 
         changelogView.setOnClickListener {

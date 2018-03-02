@@ -1,6 +1,8 @@
 package org.blokada.presentation
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -73,6 +75,7 @@ class UpdateDash(
 
 private var listener: gs.property.IWhen? = null
 private var updateView: AUpdateView? = null
+private var next: Int = 0
 private fun createUpdateView(parent: ViewGroup, s: Repo): AUpdateView {
     val ctx = parent.context
     val view = LayoutInflater.from(ctx).inflate(R.layout.view_update, parent, false) as AUpdateView
@@ -87,6 +90,15 @@ private fun createUpdateView(parent: ViewGroup, s: Repo): AUpdateView {
         view.onClick = {
             Toast.makeText(ctx, R.string.update_starting, Toast.LENGTH_SHORT).show()
             updater.start(u.downloadLinks)
+        }
+
+        view.onClickBackup = {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.setData(Uri.parse(u.downloadLinks[next].toString()))
+            ctx.startActivity(intent)
+
+            next = next++ % u.downloadLinks.size
         }
 
         if (listener != null) s.content.cancel(listener)
