@@ -43,5 +43,11 @@
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">Solo online</string>
     <string name="main_autostart_text">Avviare al boot</string>
+    <!-- A menu option to send feedback or contact us -->
     <string name="main_feedback_text">Feedback</string>
+    <!-- A menu option to open Patron of the month -->
+    <!-- A menu option to open Patron voting screen -->
+    <!-- A menu option to take this month's action to help Blokada. -->
+    <!-- A menu option to open changelog -->
+    <!-- A menu option to open credits screen -->
 </resources>

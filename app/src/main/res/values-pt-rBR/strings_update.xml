@@ -10,10 +10,6 @@
     <string name="update_header_noupdate">Não há atualizações</string>
     <!-- Feel free to make this string a bit more localised. For example it can say, "This app and its Spanish version is made possible thanks to:" -->
     <string name="update_credits_header">Este aplicativo é um projeto de código aberto feito com a ajuda de:</string>
-    <!-- We appreciate you translating this app and welcome you to add your name here - it will show up in the About/Update screen. Please add yourself in a new line, and use a dash "-" to list yourself. If you add a link, your name will be clickable (- John Doe: http://my-website.com) -->
-    <string name="update_credits">- Karsen: http://kar.gs
-- Vinicius A. Castro (PT-BR)
-- RinaldiMe: http://rinaldi.me (PT-BR)</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
     <string name="update_dash_available">&lt;b&gt;Atualização disponível!&lt;/b&gt;</string>
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
