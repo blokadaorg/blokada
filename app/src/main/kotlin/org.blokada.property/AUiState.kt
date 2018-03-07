@@ -32,7 +32,7 @@ class AUiState(
 
     override val dashes = newPersistedProperty(kctx, ADashesPersistence(ctx), { listOf(
             UpdateDash(ctx).activate(true),
-            TunnelDashAdsBlocked(ctx).activate(true),
+            TunnelDashCountDropped(ctx).activate(true),
             DashFilterBlacklist(ctx).activate(true),
             DashFilterWhitelist(ctx).activate(true),
             NotificationDashOn(ctx).activate(true),

@@ -180,11 +180,11 @@ class AState(
             { tunnelConfig().defaultEngine }
     )
 
-    override val tunnelAdsCount = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsCount"),
+    override val tunnelDropCount = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelDropCount"),
             { 0 }
     )
 
-    override val tunnelRecentAds = newProperty<List<String>>(kctx, { listOf() })
+    override val tunnelRecentDropped = newProperty<List<String>>(kctx, { listOf() })
 
     private val appsRefresh = {
         val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)

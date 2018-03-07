@@ -65,8 +65,8 @@ class AppModuleTest {
                         )
                     })
                     override val tunnelActiveEngine = org.obsolete.newProperty(kctx, { "default" })
-                    override val tunnelAdsCount = org.obsolete.newProperty(kctx, { 0 })
-                    override val tunnelRecentAds = org.obsolete.newProperty(kctx, { listOf<String>() })
+                    override val tunnelDropCount = org.obsolete.newProperty(kctx, { 0 })
+                    override val tunnelRecentDropped = org.obsolete.newProperty(kctx, { listOf<String>() })
                     override val repo = org.obsolete.newProperty(kctx, {
                         Repo(
                                 contentPath = URL("http://example.com/content"),

@@ -70,8 +70,8 @@ class KeepAliveService : Service() {
             binder = KeepAliveService.KeepAliveBinder()
 
             val s: State = inject().instance()
-            val count = s.tunnelAdsCount()
-            val last = s.tunnelRecentAds().lastOrNull() ?: getString(R.string.notification_keepalive_none)
+            val count = s.tunnelDropCount()
+            val last = s.tunnelRecentDropped().lastOrNull() ?: getString(R.string.notification_keepalive_none)
             val n = createNotificationKeepAlive(this, count, last)
             startForeground(3, n)
 

@@ -1,9 +1,9 @@
 <resources>
     <string name="notification_on_text">Notifications</string>
 
-    <!-- Title of the notification that shows up every time ad is blocked. -->
-    <string name="notification_blocked_title">Ad blocked</string>
-    <!-- Content of the notification that shows up every time ad is blocked. Parameter: blocked host name. -->
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Blocked</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
     <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">Don\'t show</string>
@@ -14,17 +14,17 @@
     <string name="notification_blocked_whitelist_applied">Done! Changes may take a few seconds.</string>
 
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_disabled">%s will not display ad notifications.</string>
+    <string name="notification_disabled">%s will not display notifications.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_enabled">%s will now display notifications every time an ad is blocked.</string>
+    <string name="notification_enabled">%s will now display notifications every time something is blocked.</string>
 
     <string name="notification_keepalive_text">Keep alive</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_disabled">%s is not protected from battery or memory saving anymore.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_enabled">%s will now protect itself from being deactivated by the operating system.</string>
-    <!-- The ads blocked counter, displayed in the Keep Alive notification. Parameter: ads blocked counter. -->
-    <string name="notification_keepalive_title">%d ads blocked</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d blocked</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">Last: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->

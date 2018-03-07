@@ -28,8 +28,8 @@ abstract class State {
     abstract val tunnelPermission: IProperty<Boolean>
     abstract val tunnelEngines: IProperty<List<Engine>>
     abstract val tunnelActiveEngine: IProperty<String>
-    abstract val tunnelAdsCount: IProperty<Int>
-    abstract val tunnelRecentAds: IProperty<List<String>>
+    abstract val tunnelDropCount: IProperty<Int>
+    abstract val tunnelRecentDropped: IProperty<List<String>>
 
     abstract val apps: IProperty<List<App>>
 

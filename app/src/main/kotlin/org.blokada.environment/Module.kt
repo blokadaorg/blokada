@@ -70,9 +70,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
 
             AEngineManagerProvider(s,
                     adBlocked = { host ->
-                        s.tunnelAdsCount %= s.tunnelAdsCount() + 1
-                        val ads = s.tunnelRecentAds() + host
-                        s.tunnelRecentAds %= ads.takeLast(10)
+                        s.tunnelDropCount %= s.tunnelDropCount() + 1
+                        val dropped = s.tunnelRecentDropped() + host
+                        s.tunnelRecentDropped %= dropped.takeLast(10)
                         j.event(Events.AD_BLOCKED(host))
                         if (s.firstRun(true)) {
                             j.event(Events.FIRST_AD_BLOCKED)
@@ -472,11 +472,11 @@ fun newAppModule(ctx: Context): Kodein.Module {
             }
 
             // Start / stop the keep alive service depending on the configuration flag
-            val keepAliveNotificationUpdater = { adsBlocked: Int ->
+            val keepAliveNotificationUpdater = { dropped: Int ->
                 val ctx: Context = instance()
                 val nm: NotificationManager = instance()
-                val n = createNotificationKeepAlive(ctx = ctx, count = adsBlocked,
-                        last = s.tunnelRecentAds().lastOrNull() ?:
+                val n = createNotificationKeepAlive(ctx = ctx, count = dropped,
+                        last = s.tunnelRecentDropped().lastOrNull() ?:
                         ctx.getString(R.string.notification_keepalive_none)
                 )
                 nm.notify(3, n)
@@ -484,21 +484,21 @@ fun newAppModule(ctx: Context): Kodein.Module {
             var w: IWhen? = null
             s.keepAlive.doWhenSet().then {
                 if (s.keepAlive()) {
-                    s.tunnelAdsCount.cancel(w)
-                    w = s.tunnelAdsCount.doOnUiWhenSet().then {
-                        keepAliveNotificationUpdater(s.tunnelAdsCount())
+                    s.tunnelDropCount.cancel(w)
+                    w = s.tunnelDropCount.doOnUiWhenSet().then {
+                        keepAliveNotificationUpdater(s.tunnelDropCount())
                     }
                     keepAliveAgent.bind(ctx)
                 } else {
-                    s.tunnelAdsCount.cancel(w)
+                    s.tunnelDropCount.cancel(w)
                     keepAliveAgent.unbind(ctx)
                 }
             }
 
-            // Display notifications for blocked ads
-            s.tunnelRecentAds.doOnUiWhenSet().then {
-                if (s.tunnelRecentAds().isEmpty()) hideNotification(ctx)
-                else if (ui.notifications()) displayNotification(ctx, s.tunnelRecentAds().last())
+            // Display notifications for dropped
+            s.tunnelRecentDropped.doOnUiWhenSet().then {
+                if (s.tunnelRecentDropped().isEmpty()) hideNotification(ctx)
+                else if (ui.notifications()) displayNotification(ctx, s.tunnelRecentDropped().last())
             }
 
             // Hide notification when disabled
@@ -543,7 +543,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
             }
 
             // Initialize default values for properties that need it (async)
-            s.tunnelAdsCount {}
+            s.tunnelDropCount {}
             s.startOnBoot {}
             s.keepAlive {}
             s.tunnelActiveEngine {}

@@ -4,29 +4,29 @@ import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import gs.environment.inject
 import org.blokada.R
-import org.blokada.property.State
 import org.blokada.property.Dash
+import org.blokada.property.State
 
 val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
 
-class TunnelDashAdsBlocked(
+class TunnelDashCountDropped(
         val ctx: Context,
         val t: State = ctx.inject().instance()
-) : Dash("tunnel_ads",
+) : Dash("tunnel_drop",
         R.drawable.ic_block,
-        ctx.getString(R.string.tunnel_ads_desc)
+        ctx.getString(R.string.tunnel_dropped_count_desc)
 ) {
 
     private val listener: Any
     init {
         text = getBlockedString(0)
-        listener = t.tunnelAdsCount.doOnUiWhenSet().then {
-            text = getBlockedString(t.tunnelAdsCount())
+        listener = t.tunnelDropCount.doOnUiWhenSet().then {
+            text = getBlockedString(t.tunnelDropCount())
         } // TODO: think item lifetime vs listener leak
     }
 
     private fun getBlockedString(blocked: Int): String {
-        return ctx.resources.getString(R.string.tunnel_ads_blocked, blocked)
+        return ctx.resources.getString(R.string.tunnel_dropped_count, blocked)
     }
 }
 

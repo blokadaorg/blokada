@@ -11,7 +11,7 @@
     <string name="main_active">%s is active.</string>
 
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_active_new">%1$s is now protecting your device from ads. You can fine-tune %1$s below, or just go ahead and use your device!</string>
+    <string name="main_active_new">%1$s is now protecting your device. You can fine-tune %1$s below, or just go ahead and use your device!</string>
 
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s is inactive.</string>
@@ -22,7 +22,7 @@
     <string name="main_paused_autoenable_tethering">%1$s is paused because your device has WiFi Hotspot enabled. %1$s will automatically become active once WiFi Hotspot is disabled.</string>
 
     <!-- Label for the Quick Settings toggle -->
-    <string name="main_quicksettings_toggle">Ad blocking</string>
+    <string name="main_quicksettings_toggle">Activator</string>
     <!-- Active status for the Quick Settings toggle -->
     <string name="main_quicksettings_on">Active</string>
     <!-- Disabled status for the Quick Settings toggle -->
@@ -44,12 +44,6 @@
     <string name="main_contribute_text">Get involved</string>
 
     <string name="main_blog_text">News</string>
-
-    <string name="main_tracking_text">Health report</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_disabled">%s will not send any health reports anymore. You need to restart the app for this to take effect.</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_enabled">%s will now send anonymous health reports from time to time.</string>
 
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">Online only</string>
