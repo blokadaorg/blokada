@@ -17,9 +17,10 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-        dev.java.srcDirs += 'src/dev/kotlin'
-        prod.java.srcDirs += 'src/prod/kotlin'
-        firebase.java.srcDirs += 'src/firebase/kotlin'
+        debug.java.srcDirs += 'src/unofficial/kotlin'
+        release.java.srcDirs += 'src/unofficial/kotlin'
+        staging.java.srcDirs += 'src/unofficial/kotlin'
+        official.java.srcDirs += 'src/official/kotlin'
     }
     signingConfigs {
         release {
@@ -30,26 +31,39 @@ android {
         }
     }
     buildTypes {
+        debug {
+            versionNameSuffix '-debug'
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-        debug {
-            versionNameSuffix '-debug'
+        staging {
+            versionNameSuffix '-staging'
+            matchingFallbacks = ['debug', 'release']
+        }
+        official {
+            initWith(release)
+            versionNameSuffix '-official'
+            matchingFallbacks = ['release']
         }
     }
-    flavorDimensions("blokada")
+    flavorDimensions("model")
     productFlavors {
-        dev {
-            applicationIdSuffix ".dev"
+        a {
+            // Default Blokada build; used on F-Droid
+            applicationId "org.blokada.alarm"
         }
-        prod {
-            applicationIdSuffix ".alarm"
+        aLegacy {
+            // First ever Blokada build; used on XDA
+            applicationId "org.blokada"
         }
-        firebase {
-            applicationIdSuffix ".origin.alarm"
+        aLegacyOrigin {
+            // Now-defunct Blokada Origin build; used on homepage
+            applicationId "org.blokada.origin.alarm"
         }
+        d {}
     }
 }
 
@@ -79,8 +93,8 @@ dependencies {
     }
 
     // Analytics and debugging
-    firebaseImplementation 'com.google.firebase:firebase-core:11.8.0'
-    firebaseImplementation 'com.google.firebase:firebase-crash:11.8.0'
+    officialImplementation 'com.google.firebase:firebase-core:11.8.0'
+    officialImplementation 'com.google.firebase:firebase-crash:11.8.0'
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
