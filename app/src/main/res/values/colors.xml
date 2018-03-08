@@ -9,7 +9,7 @@
     <color name="colorBackgroundAbout">#000</color>
     <color name="colorBackgroundAboutLight">#101010</color>
     <color name="colorText">#eaeaea</color>
-    <color name="colorTextUnimportant">#3b3b3b</color>
+    <color name="colorTextUnimportant">#6c6c6c</color>
     <color name="colorActive">#ffffff</color>
     <color name="colorShadow">#181818</color>
     <color name="colorLogoWaiting">#99ffffff</color>

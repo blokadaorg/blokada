@@ -1,6 +1,6 @@
 package org.obsolete
 
-import org.blokada.property.Filter
+import core.Filter
 
 internal fun downloadFilters(filters: List<Filter>) {
     filters.forEach { filter ->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.blokada.presentation.AUpdateView xmlns:android="http://schemas.android.com/apk/res/android"
+<update.AUpdateView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundAbout">
@@ -86,4 +86,4 @@
             android:layout_marginBottom="100dp"
             android:src="@drawable/maker" />
     </LinearLayout>
-</org.blokada.presentation.AUpdateView>
+</update.AUpdateView>

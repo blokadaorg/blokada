@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name=".main.MainApplication"
+        android:name="core.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -23,7 +23,7 @@
         tools:replace="android:label">
 
         <activity
-            android:name="org.blokada.main.MainActivity"
+            android:name="core.MainActivity"
             android:label="@string/branding_app_name"
             android:launchMode="singleTask"
             android:theme="@style/BlokadaColors.Main.NoActionBar">
@@ -35,13 +35,13 @@
         </activity>
 
         <service
-            android:name="org.blokada.main.ANotificationsOffService">
+            android:name="notification.ANotificationsOffService">
         </service>
         <service
-            android:name="org.blokada.main.ANotificationsWhitelistService">
+            android:name="notification.ANotificationsWhitelistService">
         </service>
         <service
-            android:name="org.blokada.main.AQuickSettingsService"
+            android:name="core.AQuickSettingsService"
             android:label="@string/main_quicksettings_toggle"
             android:icon="@drawable/ic_blokada"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -50,17 +50,17 @@
             </intent-filter>
         </service>
         <service
-            android:name="org.blokada.main.ATunnelService"
+            android:name="tunnel.ATunnelService"
             android:permission="android.permission.BIND_VPN_SERVICE">
             <intent-filter>
                 <action android:name="android.net.VpnService"/>
             </intent-filter>
         </service>
         <service
-            android:name="org.blokada.main.KeepAliveService">
+            android:name="core.KeepAliveService">
         </service>
         <service
-            android:name="org.blokada.main.BootJobService"
+            android:name="core.BootJobService"
             android:permission="android.permission.BIND_JOB_SERVICE">
         </service>
         <service
@@ -68,7 +68,7 @@
         </service>
 
         <receiver
-            android:name="org.blokada.main.ABootReceiver"
+            android:name="core.ABootReceiver"
             android:directBootAware="true">
             <intent-filter>
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
@@ -77,19 +77,19 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="org.blokada.main.ALocaleReceiver">
+            android:name="core.ALocaleReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name="org.blokada.main.AConnectivityReceiver">
+            android:name="core.AConnectivityReceiver">
             <intent-filter>
                 <action android:name="org.blokada.keepAlive"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name="org.blokada.main.AScreenOnReceiver">
+            android:name="core.AScreenOnReceiver">
         </receiver>
     </application>
 

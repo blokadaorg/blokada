@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<core.DnsAddTabView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/filters_pager"
+        android:layout_width="match_parent"
+        android:layout_height="280dp">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/filters_tabs"
+            app:tabMode="scrollable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.design.widget.TabLayout>
+
+    </android.support.v4.view.ViewPager>
+</core.DnsAddTabView>

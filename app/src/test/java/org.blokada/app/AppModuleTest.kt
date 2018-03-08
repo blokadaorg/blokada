@@ -4,13 +4,13 @@ import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
+import core.*
+import filter.FilterSourceSingle
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.testMode
 import org.obsolete.KContext
 import org.obsolete.newConcurrentKContext
-import org.blokada.environment.newAppModule
 import org.blokada.framework.*
-import org.blokada.property.*
 import org.junit.Test
 import org.junit.Assert.*
 import java.io.File

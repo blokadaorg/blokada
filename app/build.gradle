@@ -19,8 +19,15 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
         debug.java.srcDirs += 'src/unofficial/kotlin'
         release.java.srcDirs += 'src/unofficial/kotlin'
-        staging.java.srcDirs += 'src/unofficial/kotlin'
         official.java.srcDirs += 'src/official/kotlin'
+        adblockerHome.java.srcDirs += 'src/adblocker/kotlin'
+        adblockerHome.res.srcDirs += 'src/adblocker/res'
+        adblockerFdroid.java.srcDirs += 'src/adblocker/kotlin'
+        adblockerFdroid.res.srcDirs += 'src/adblocker/res'
+        adblockerXda.java.srcDirs += 'src/adblocker/kotlin'
+        adblockerXda.res.srcDirs += 'src/adblocker/res'
+        dnsHome.java.srcDirs += 'src/dns/kotlin'
+        dnsHome.res.srcDirs += 'src/dns/res'
     }
     signingConfigs {
         release {
@@ -39,10 +46,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-        staging {
-            versionNameSuffix '-staging'
-            matchingFallbacks = ['debug', 'release']
-        }
         official {
             initWith(release)
             versionNameSuffix '-official'
@@ -51,19 +54,18 @@ android {
     }
     flavorDimensions("model")
     productFlavors {
-        a {
-            // Default Blokada build; used on F-Droid
-            applicationId "org.blokada.alarm"
-        }
-        aLegacy {
-            // First ever Blokada build; used on XDA
-            applicationId "org.blokada"
-        }
-        aLegacyOrigin {
-            // Now-defunct Blokada Origin build; used on homepage
+        adblockerHome {
             applicationId "org.blokada.origin.alarm"
         }
-        d {}
+        adblockerFdroid {
+            applicationId "org.blokada.alarm"
+        }
+        adblockerXda {
+            applicationId "org.blokada"
+        }
+        dnsHome {
+            applicationId "org.blokada.alarm.dns"
+        }
     }
 }
 
