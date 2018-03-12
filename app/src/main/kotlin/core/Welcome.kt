@@ -117,11 +117,12 @@ class WelcomeDialogManager (
                 // Will display once website is loaded
                 displaying = true
             }
-            step == 1 && welcome.guideSeen(false) -> {
+            step == 1 -> {
                 dialogGuide.listener = { accept ->
                     displaying = false
                     if (accept == 1) {
-                        welcome.guideSeen %= true
+                    } else if (accept == 2) {
+                        guideActor?.openInBrowser()
                     }
                     run(step = 9)
                 }
@@ -193,10 +194,12 @@ class WelcomeDialogManager (
     }
 
     private val dialogGuide by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview)
-        WebViewActor(dialog, pages.help, reloadOnError = true, showDialog = true)
+        val dialog = SimpleDialog(ctx, R.layout.webview, additionalButton = R.string.welcome_open)
+        guideActor = WebViewActor(dialog, pages.help, reloadOnError = true, showDialog = true)
         dialog
     }
+
+    private var guideActor: WebViewActor? = null
 
     private val dialogPatron by lazy {
         val dialog = SimpleDialog(ctx, R.layout.webview_patron, continueButton = R.string.welcome_open,
