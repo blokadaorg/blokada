@@ -4,12 +4,12 @@ import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance
+import core.IFilterSource
+import core.State
 import gs.environment.Journal
 import gs.environment.inject
 import gs.environment.load
 import gs.environment.openUrl
-import core.IFilterSource
-import core.State
 import java.net.URL
 
 /**
@@ -134,7 +134,8 @@ class FilterSourceApp(
         if (s.apps().isEmpty()) {
             s.apps.refresh(force = true, blocking = true)
         }
-        s.apps().flatMap { listOf(it.appId to it.appId, it.label to it.appId) }.toMap()
+        s.apps().flatMap { listOf(it.appId to it.appId, it.appId.toLowerCase() to it.appId,
+                it.label to it.appId, it.label.toLowerCase() to it.label) }.toMap()
     }
 
     override fun id(): String {

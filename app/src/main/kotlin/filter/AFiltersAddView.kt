@@ -23,7 +23,7 @@ class AFiltersAddView(
             if (ready) updateForce(forceType, value)
         }
 
-    var currentTab = Tab.SINGLE
+    var currentTab = Tab.APP
         private set
 
     val appView by lazy {
@@ -46,10 +46,10 @@ class AFiltersAddView(
     }
 
     private val pages by lazy { listOf(
-            Tab.SINGLE to Pair(R.string.filter_edit_name, singleView),
-            Tab.FILE to Pair(R.string.filter_edit_file, fileView),
+            Tab.APP to Pair(R.string.filter_edit_app, appView),
             Tab.LINK to Pair(R.string.filter_edit_link, linkView),
-            Tab.APP to Pair(R.string.filter_edit_app, appView)
+            Tab.SINGLE to Pair(R.string.filter_edit_name, singleView),
+            Tab.FILE to Pair(R.string.filter_edit_file, fileView)
     )}
 
     private var displayedPages: List<Pair<Tab, Pair<Int, android.view.View>>>? = null
@@ -106,7 +106,7 @@ class AFiltersAddView(
             linkView.reset()
             fileView.reset()
             pager.currentItem = 0
-            currentTab = Tab.SINGLE
+            currentTab = displayedPages!!.first().first
         } else {
             displayedPages = pages.filter { it.first == value }
             currentTab = value

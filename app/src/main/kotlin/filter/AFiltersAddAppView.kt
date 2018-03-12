@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.github.salomonbrys.kodein.instance
+import core.State
 import gs.environment.inject
 import org.blokada.R
-import core.State
 
 class AFiltersAddAppView(
         ctx: Context,
@@ -131,7 +131,7 @@ class AFiltersAddAppView(
     }
 
     private val appSearch by lazy {
-        s.apps().flatMap { listOf(it.appId, it.label) }
+        s.apps().flatMap { listOf(it.appId.toLowerCase(), it.label.toLowerCase()) }
     }
 
     private fun isTextCorrect(s: CharSequence): Boolean {

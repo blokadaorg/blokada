@@ -7,6 +7,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
+import core.*
 import gs.environment.ActivityProvider
 import gs.environment.inject
 import gs.presentation.nullIfEmpty
@@ -14,10 +15,6 @@ import nl.komponents.kovenant.task
 import nl.komponents.kovenant.ui.failUi
 import nl.komponents.kovenant.ui.successUi
 import org.blokada.R
-import core.sourceToName
-import core.Filter
-import core.IFilterSource
-import core.LocalisedFilter
 
 /**
  * TODO: This poor thing needs love (like me)
@@ -52,6 +49,7 @@ class AFilterAddDialog(
             filter?.source is FilterSourceUri -> AFiltersAddView.Tab.FILE
             filter?.source is FilterSourceSingle -> AFiltersAddView.Tab.SINGLE
             filter?.source is FilterSourceApp -> AFiltersAddView.Tab.APP
+            Product.current(ctx) == Product.DNS -> AFiltersAddView.Tab.APP
             else -> null
         }
 
