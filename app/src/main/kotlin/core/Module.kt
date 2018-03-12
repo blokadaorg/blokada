@@ -91,7 +91,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     cacheFile = File(getPersistencePath(ctx).absoluteFile, "filters"),
                     exportFile = getPublicPersistencePath("blokada-export")
                             ?: File(getPersistencePath(ctx).absoluteFile, "blokada-export"),
-                    cacheTTLMillis = 1 * 24 * 60 * 60 * 100L, // A day
+                    cacheTTLMillis = 1 * 24 * 60 * 60 * 100L, // A
                     fetchTimeoutMillis = 10 * 1000
             )
         }
@@ -198,7 +198,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     // Reset retry counter after a longer break since we never give up, never surrender
                     resetRetriesTask = task(retryKctx) {
                         if (s.enabled() && s.retries(0) && !s.tunnelState(TunnelState.ACTIVE)) {
-                            Thread.sleep(30 * 1000)
+                            Thread.sleep(5 * 1000)
                             if (s.enabled() && !s.tunnelState(TunnelState.ACTIVE)) {
                                 j.log("restart after long wait")
                                 s.retries.refresh()
