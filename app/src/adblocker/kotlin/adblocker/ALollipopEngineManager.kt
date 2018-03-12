@@ -12,15 +12,15 @@
  */
 package adblocker
 
-import android.annotation.TargetApi
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import core.IEngineManager
+import core.State
+import gs.environment.Journal
 import gs.environment.inject
 import nl.komponents.kovenant.any
 import nl.komponents.kovenant.task
-import core.IEngineManager
-import core.State
 import org.obsolete.KContext
 import tunnel.ATunnelAgent
 import tunnel.ATunnelBinder
@@ -35,6 +35,7 @@ class ALollipopEngineManager(
 
     private val s by lazy { ctx.inject().instance<State>() }
     private val waitKctx by lazy { ctx.inject().with("engineManagerWait").instance<KContext>() }
+    private val j by lazy { ctx.inject().instance<Journal>() }
     private val events = ALollipopTunnelEvents(ctx, onRevoked)
     private var binder: ATunnelBinder? = null
     private var thread: TunnelThreadLollipopAndroid? = null
@@ -44,7 +45,7 @@ class ALollipopEngineManager(
         binding.success {
             binder = it
             binder!!.actions.turnOn()
-            thread = TunnelThreadLollipopAndroid(it.actions, s, adBlocked, error)
+            thread = TunnelThreadLollipopAndroid(it.actions, j, s, adBlocked, error)
         }
         val wait = task(waitKctx) {
             Thread.sleep(3000)

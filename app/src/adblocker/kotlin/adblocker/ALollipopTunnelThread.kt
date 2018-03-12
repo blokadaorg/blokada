@@ -18,6 +18,7 @@ import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
 import core.State
+import gs.environment.Journal
 import org.pcap4j.packet.IpPacket
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
 import org.pcap4j.util.PropertiesLoader
@@ -33,6 +34,7 @@ import java.util.*
 @android.annotation.TargetApi(21)
 class TunnelThreadLollipopAndroid(
         val actions: ITunnelActions,
+        val j: Journal,
         val s: State,
         val adBlocked: (String) -> Unit,
         val error: (String) -> Unit
@@ -62,14 +64,15 @@ class TunnelThreadLollipopAndroid(
                     dnsSocket = null
                 }
             } catch (e: IOException) {
+                j.log("forward error", e)
                 try {
                     dnsSocket?.close()
                 } catch (e: Exception) {
                 }
                 if (e.cause is ErrnoException) {
                     val errnoExc = e.cause as ErrnoException
-                    if (errnoExc.errno == OsConstants.ENETUNREACH || errnoExc.errno == OsConstants.EPERM) {
-                        throw Exception("Cannot forward packet")
+                    if (errnoExc.errno == OsConstants.EPERM) {
+                        throw Exception("EPERM")
                     }
                 }
                 return
