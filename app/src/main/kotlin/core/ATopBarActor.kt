@@ -95,8 +95,8 @@ class ATopBarActor(
 
     fun resetActions() {
         dash1 = null
-        dash2 = ChatDash(v.context, pages.chat)
-        dash3 = NewsDash(xx)
+        dash2 = null
+        dash3 = ChatDash(v.context, pages.chat)
     }
 
     private fun handleDashChange(dash: Dash?, dashView: ADashView, dashActor: ADashActor): Dash? {
