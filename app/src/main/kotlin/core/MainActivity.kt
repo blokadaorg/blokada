@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.FrameLayout
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
@@ -90,6 +91,9 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
                 radiusSize = getRadiusSize()
         )
 
+        val shadow = findViewById(R.id.info_shadow) as View
+        shadow.visibility = if(landscape) View.INVISIBLE else View.VISIBLE
+
         ATopBarActor(
                 xx = kodein,
                 m = s,
@@ -97,7 +101,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
                 enabledStateActor = enabledStateActor,
                 contentActor = contentActor!!,
                 infoView = infoView!!,
-                infoViewShadow = findViewById(R.id.info_shadow),
+                infoViewShadow = shadow,
                 shadow = findViewById(R.id.shadow),
                 window = window,
                 ui = ui,
