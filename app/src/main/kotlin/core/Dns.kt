@@ -215,7 +215,7 @@ class DashDns(
         text = when {
             dns.servers.isEmpty() -> ctx.getString(R.string.dns_text_none)
             dns.id.startsWith("custom") -> printServers(dns.servers)
-            else -> i18n.localisedOrNull("dns_${id}_name") ?: dns.id.capitalize()
+            else -> i18n.localisedOrNull("dns_${dns.id}_name") ?: dns.id.capitalize()
         }
     }
 

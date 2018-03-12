@@ -23,17 +23,17 @@
 
         <ImageView
             android:id="@+id/topbar_header"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="28dp"
             android:layout_marginStart="4dp"
             android:scaleType="fitStart"
             android:src="@drawable/bg_header" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:orientation="horizontal">
 
             <include

@@ -11,9 +11,9 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import gs.presentation.ResizeAnimation
-import org.blokada.R
 import gs.presentation.doAfter
 import gs.presentation.toPx
+import org.blokada.R
 
 class ATopBarView(
         ctx: Context,
@@ -93,7 +93,7 @@ class ATopBarView(
         }
 
         fromActive {}
-        mode = Mode.BAR
+        mode = Mode.WELCOME
     }
 
     private fun rotate(view: View, how: Float, after: () -> Unit) {
@@ -122,7 +122,7 @@ class ATopBarView(
             header.visibility = View.GONE
         }
 
-        back.animate().setDuration(dur).translationX(-140f)
+        back.animate().setDuration(dur).translationX(-180f)
 
         actions.forEach { action ->
             action.animate().translationX(50f).alpha(0f)
@@ -143,7 +143,7 @@ class ATopBarView(
         header.visibility = View.VISIBLE
         header.animate().translationX(0f).alpha(1f)
 
-        back.animate().setDuration(dur).translationX(-140f)
+        back.animate().setDuration(dur).translationX(-180f)
 
         actions.forEach { action ->
             action.animate().translationX(0f).alpha(1f)
@@ -158,7 +158,7 @@ class ATopBarView(
         a.duration = 300
         a.interpolator = DecelerateInterpolator()
         logo.startAnimation(a)
-        logo.animate().setDuration(dur).translationX(-200f).doAfter {
+        logo.animate().setDuration(dur).translationX(-240f).doAfter {
             logo.visibility = View.GONE
         }
 
