@@ -104,7 +104,6 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                 PatronDash(lazy).activate(false),
                 PatronAboutDash(lazy).activate(false),
                 DonateDash(lazy).activate(false),
-                ContributeDash(lazy).activate(false),
                 NewsDash(lazy).activate(false),
                 FeedbackDash(lazy).activate(false),
                 FaqDash(lazy).activate(false),

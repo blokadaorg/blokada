@@ -372,8 +372,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
 
             i18n.locale.doWhenSet().then {
                 val root = i18n.contentUrl()
-                welcome.guideUrl %= URL("${root}/help.html")
-                welcome.optionalUrl %= URL("${root}/patron_redirect.html")
                 welcome.updatedUrl %= URL("${root}/updated.html")
                 welcome.cleanupUrl %= URL("${root}/cleanup.html")
                 welcome.ctaUrl %= URL("${root}/cta.html")

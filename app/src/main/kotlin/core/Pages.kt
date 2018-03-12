@@ -6,6 +6,7 @@ import gs.environment.Worker
 import gs.property.I18n
 import gs.property.IProperty
 import gs.property.newProperty
+import java.net.HttpURLConnection
 import java.net.URL
 
 abstract class Pages {
@@ -44,6 +45,8 @@ class PagesImpl (
             filtersStrings %= URL("$c/filters.properties")
             dns %= URL("$c/dns.txt")
             dnsStrings %= URL("$c/dns.properties")
+
+            patron %= resolveRedirect(patron())
         }
     }
 
@@ -63,4 +66,14 @@ class PagesImpl (
     override val chat = newProperty(w, { URL("http://go.blokada.org/chat") })
     override val patron = newProperty(w, { URL("http://go.blokada.org/patron_redirect") })
 
+}
+
+private fun resolveRedirect(url: URL): URL {
+    return try {
+        val ucon = url.openConnection() as HttpURLConnection
+        ucon.setInstanceFollowRedirects(false)
+        URL(ucon.getHeaderField("Location"))
+    } catch (e: Exception) {
+        url
+    }
 }

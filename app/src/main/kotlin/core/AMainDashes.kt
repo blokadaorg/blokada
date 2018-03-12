@@ -46,27 +46,6 @@ class DonateDash(
     }
 }
 
-class ContributeDash(
-        val xx: Environment,
-        val ctx: Context = xx().instance(),
-        val pages: Pages = xx().instance()
-) : Dash(
-        DASH_ID_CONTRIBUTE,
-        R.drawable.ic_code_tags,
-        text = ctx.getString(R.string.main_contribute_text),
-        menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.contribute)),
-        hasView = true
-) {
-
-    override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
-                false)
-        val actor = WebViewActor(null, pages.contribute, view)
-        onBack = { actor.reload() }
-        return view
-    }
-}
-
 class NewsDash(
         val xx: Environment,
         val ctx: Context = xx().instance(),

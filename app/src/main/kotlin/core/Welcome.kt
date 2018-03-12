@@ -1,27 +1,28 @@
 package core
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.support.v4.app.ShareCompat
 import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
+import gs.environment.ActivityProvider
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.Worker
-import gs.kar.R
 import gs.presentation.SimpleDialog
 import gs.presentation.WebViewActor
 import gs.presentation.toPx
 import gs.property.*
+import org.blokada.R
 import java.net.URL
 
 abstract class Welcome {
     abstract val introUrl: IProperty<URL>
     abstract val introSeen: IProperty<Boolean>
-    abstract val guideUrl: IProperty<URL>
     abstract val guideSeen: IProperty<Boolean>
     abstract val patronShow: IProperty<Boolean>
-    abstract val optionalUrl: IProperty<URL>
     abstract val patronSeen: IProperty<Boolean>
     abstract val ctaUrl: IProperty<URL>
     abstract val ctaSeenCounter: IProperty<Int>
@@ -38,10 +39,8 @@ class WelcomeImpl (
 ) : Welcome() {
     override val introUrl = newProperty(w, { URL("http://localhost") })
     override val introSeen = newPersistedProperty(w, BasicPersistence(xx, "intro_seen"), { false })
-    override val guideUrl = newProperty(w, { URL("http://localhost") })
     override val guideSeen = newPersistedProperty(w, BasicPersistence(xx, "guide_seen"), { false })
     override val patronShow = newProperty(w, { false })
-    override val optionalUrl = newProperty(w, { URL("http://localhost") })
     override val patronSeen = newPersistedProperty(w, BasicPersistence(xx, "optional_seen"), { false })
     override val ctaUrl = newProperty(w, { URL("http://localhost") })
     override val ctaSeenCounter = newPersistedProperty(w, BasicPersistence(xx, "cta_seen"), { 3 })
@@ -64,6 +63,7 @@ class WelcomeDialogManager (
     private val version: Version by xx.instance()
     private val pages: Pages by xx.instance()
     private val j: Journal by xx.instance()
+    private val activity: ActivityProvider<Activity> by xx.instance()
 
     private var displaying = false
 
@@ -92,11 +92,10 @@ class WelcomeDialogManager (
             step == 0 && version.previousCode() < currentAppVersion -> {
                 dialogUpdate.listener = { accept ->
                     displaying = false
+                    version.previousCode %= currentAppVersion
                     if (accept == 1) {
-                        version.previousCode %= currentAppVersion
                         OpenInBrowserDash(ctx, pages.donate).onClick?.invoke(0)
                     } else if (accept == 2) {
-                        version.previousCode %= currentAppVersion
                         run(step = 2)
                     } else {
                         run(step = 2)
@@ -133,9 +132,16 @@ class WelcomeDialogManager (
             step == 2 -> {
                 dialogPatron.listener = { button ->
                     displaying = false
-                    if (button == 2) {
+                    if (button == 1) {
                         patronActor?.openInBrowser()
-                    } else if (button != null) welcome.patronSeen %= true
+                    } else if (button == 2) {
+                        ShareCompat.IntentBuilder.from(activity.get())
+                                .setType("text/plain")
+                                .setChooserTitle(R.string.welcome_share)
+                                .setText(pages.patron().toExternalForm())
+                                .startChooser();
+                    }
+                    welcome.patronSeen %= true
                     run(step = 9)
                 }
                 // Will display once website is loaded
@@ -188,14 +194,15 @@ class WelcomeDialogManager (
 
     private val dialogGuide by lazy {
         val dialog = SimpleDialog(ctx, R.layout.webview)
-        WebViewActor(dialog, welcome.guideUrl, reloadOnError = true, showDialog = true)
+        WebViewActor(dialog, pages.help, reloadOnError = true, showDialog = true)
         dialog
     }
 
     private val dialogPatron by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview, additionalButton = R.string.welcome_optional)
+        val dialog = SimpleDialog(ctx, R.layout.webview_patron, continueButton = R.string.welcome_open,
+                additionalButton = R.string.welcome_share)
         dialog.view.minimumHeight = ctx.resources.toPx(480)
-        patronActor = WebViewActor(dialog, welcome.optionalUrl, forceEmbedded = true,
+        patronActor = WebViewActor(dialog, pages.patron, forceEmbedded = true,
                 javascript = true, showDialog = true)
         dialog
     }
