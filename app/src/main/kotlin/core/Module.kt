@@ -91,7 +91,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     cacheFile = File(getPersistencePath(ctx).absoluteFile, "filters"),
                     exportFile = getPublicPersistencePath("blokada-export")
                             ?: File(getPersistencePath(ctx).absoluteFile, "blokada-export"),
-                    cacheTTLMillis = 7 * 24 * 60 * 60 * 100L, // A week
+                    cacheTTLMillis = 1 * 24 * 60 * 60 * 100L, // A day
                     fetchTimeoutMillis = 10 * 1000
             )
         }
