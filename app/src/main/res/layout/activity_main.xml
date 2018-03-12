@@ -87,6 +87,7 @@
         android:layout_margin="24dp"
         android:src="@drawable/ic_power"
         android:tint="@color/colorActive"
+        android:contentDescription="main action"
         app:borderWidth="0dp"
         app:elevation="4dp" />
 </android.support.design.widget.CoordinatorLayout>

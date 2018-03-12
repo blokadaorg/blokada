@@ -18,6 +18,7 @@
             android:layout_gravity="center"
             android:padding="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="go back"
             android:src="@drawable/ic_arrow_back"
             android:tint="@color/colorActive" />
 
@@ -76,5 +77,6 @@
         android:paddingBottom="8dp"
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
+        android:contentDescription="activate or deactivate"
         android:src="@drawable/ic_blokada" />
 </core.ATopBarView>
