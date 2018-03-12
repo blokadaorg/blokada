@@ -71,7 +71,7 @@ class WelcomeDialogManager (
         when {
             displaying -> Unit
             step == 0 && version.obsolete() -> dialogObsolete.show()
-            step == 0 && welcome.introSeen(false) -> {
+            step == 0 && !welcome.introSeen() -> {
                 dialogIntro.listener = { accept ->
                     displaying = false
                     if (accept == 1) {
