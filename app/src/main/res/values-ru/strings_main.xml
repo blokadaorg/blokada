@@ -35,11 +35,6 @@
     <string name="main_donate_text">Пожертвовать</string>
     <string name="main_contribute_text">Присоединиться</string>
     <string name="main_blog_text">Сообщество</string>
-    <string name="main_tracking_text">Отчет о состоянии</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_disabled">%s не будет отправлять отчеты о состоянии. Перезапустите приложение, чтобы изменения вступили в силу.</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_enabled">%s будет отправлять анонимные отчеты о состоянии время от времени.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">Только онлайн</string>
     <string name="main_autostart_text">Запуск при загрузке</string>
@@ -53,4 +48,5 @@
     <!-- A menu option to open changelog -->
     <string name="main_changelog">История изменений</string>
     <!-- A menu option to open credits screen -->
+    <!-- An overlay header on top of Patron page -->
 </resources>

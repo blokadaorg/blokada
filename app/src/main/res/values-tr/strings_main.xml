@@ -36,11 +36,6 @@
     <string name="main_donate_text">Bağış yap</string>
     <string name="main_contribute_text">Dahil olun</string>
     <string name="main_blog_text">Topluluk</string>
-    <string name="main_tracking_text">Sağlık raporu</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_disabled">%s artık sağlık raporu göndermeyecek. Değişikliğin etkin olması için uygulamayı yeniden başlatın.</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_enabled">%s zaman zaman isimsiz sağlık raporu gönderecek.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">Sadece çevrimiçi</string>
     <string name="main_autostart_text">Açılışta çalıştır</string>
@@ -51,4 +46,5 @@
     <!-- A menu option to take this month's action to help Blokada. -->
     <!-- A menu option to open changelog -->
     <!-- A menu option to open credits screen -->
+    <!-- An overlay header on top of Patron page -->
 </resources>

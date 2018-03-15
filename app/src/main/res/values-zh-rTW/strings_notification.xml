@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <resources>
     <string name="notification_on_text">通知</string>
-    <!-- Title of the notification that shows up every time ad is blocked. -->
+    <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">廣告阻擋</string>
-    <!-- Content of the notification that shows up every time ad is blocked. Parameter: blocked host name. -->
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
     <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">不要顯示</string>
@@ -20,7 +20,7 @@
     <string name="notification_keepalive_disabled">%s 不再受電池或記憶體節電的保護。</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_enabled">現在 %s 將自我保護免被作業系統停用。</string>
-    <!-- The ads blocked counter, displayed in the Keep Alive notification. Parameter: ads blocked counter. -->
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">已阻擋 %d 個廣告</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">上次的：%s</string>

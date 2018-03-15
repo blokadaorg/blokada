@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <resources>
     <string name="notification_on_text">Notifiche</string>
-    <!-- Title of the notification that shows up every time ad is blocked. -->
+    <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Ad bloccati</string>
-    <!-- Content of the notification that shows up every time ad is blocked. Parameter: blocked host name. -->
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
     <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">Non mostrare</string>
@@ -20,7 +20,7 @@
     <string name="notification_keepalive_disabled">%s non è più protetto dal risparmio di memoria e batteria.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_enabled">%s ora si proteggerà dall\'essere disattivato dal sistema operativo.</string>
-    <!-- The ads blocked counter, displayed in the Keep Alive notification. Parameter: ads blocked counter. -->
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d ad bloccati</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">Ultimo: %s</string>

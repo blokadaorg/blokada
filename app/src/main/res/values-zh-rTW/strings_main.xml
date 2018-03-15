@@ -35,11 +35,6 @@
     <string name="main_donate_text">捐助</string>
     <string name="main_contribute_text">參與</string>
     <string name="main_blog_text">社群</string>
-    <string name="main_tracking_text">健康狀況報告</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_disabled">%s 不會再發送任何的健康狀況報告。您需要重新啟動應用程式才能生效。</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_enabled">%s 現在將不定時發送匿名的健康狀況報告。</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">僅上網時</string>
     <string name="main_autostart_text">在開機時啟動</string>
@@ -53,4 +48,5 @@
     <!-- A menu option to open changelog -->
     <string name="main_changelog">修訂紀錄</string>
     <!-- A menu option to open credits screen -->
+    <!-- An overlay header on top of Patron page -->
 </resources>

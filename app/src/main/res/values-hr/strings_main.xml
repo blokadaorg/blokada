@@ -33,11 +33,6 @@
     <string name="main_donate_text">Donacija</string>
     <string name="main_contribute_text">Uključite se</string>
     <string name="main_blog_text">Zajednica</string>
-    <string name="main_tracking_text">Izvješće o zdravlju</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_disabled">%s više neće slati izvješća o zdravlju. Za primjenu ponovno pokrenite aplikaciju.</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_enabled">%s će sada povremeno slati izvješća o zdravlju.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">Samo online</string>
     <string name="main_autostart_text">Start pri bootanju</string>
@@ -48,4 +43,5 @@
     <!-- A menu option to take this month's action to help Blokada. -->
     <!-- A menu option to open changelog -->
     <!-- A menu option to open credits screen -->
+    <!-- An overlay header on top of Patron page -->
 </resources>

@@ -35,11 +35,6 @@
     <string name="main_donate_text">Doar</string>
     <string name="main_contribute_text">Participe</string>
     <string name="main_blog_text">Notícias</string>
-    <string name="main_tracking_text">Relatório de saúde</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_disabled">O %s não irá enviar mais relatórios de saúde. É necessário reiniciar a aplicação para que isto tenha efeito.</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_enabled">O %s irá ocasionalmente enviar relatórios de saúde anónimos.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">Online apenas</string>
     <string name="main_autostart_text">Iniciar no arranque</string>
@@ -53,4 +48,5 @@
     <!-- A menu option to open changelog -->
     <string name="main_changelog">Changelog</string>
     <!-- A menu option to open credits screen -->
+    <!-- An overlay header on top of Patron page -->
 </resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <resources>
     <string name="notification_on_text">Notifikasi</string>
-    <!-- Title of the notification that shows up every time ad is blocked. -->
+    <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Iklan disekat</string>
-    <!-- Content of the notification that shows up every time ad is blocked. Parameter: blocked host name. -->
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
     <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">Sembunyikan</string>
@@ -12,7 +12,7 @@
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
     <string name="notification_blocked_whitelist_applied">Siap! Pertukaran mungkin mengambil sedikit masa.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_disabled">%s tidak akan memaparkan notifikasi iklan.</string>
+    <string name="notification_disabled">%s tidak akan memaparkan pemberitahuan iklan.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_enabled">Sekarang %s akan memaparkan notifikasi setiap kali iklan telah disekat.</string>
     <string name="notification_keepalive_text">Biarkan hidup</string>
@@ -20,7 +20,7 @@
     <string name="notification_keepalive_disabled">%s tidak lagi melindungi penjimatan bateri atau ingatan.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_enabled">Mulai sekarang, %s akan melindungi dirinya daripada dinyah-aktifkan oleh system pengoperasian.</string>
-    <!-- The ads blocked counter, displayed in the Keep Alive notification. Parameter: ads blocked counter. -->
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d iklan disekat</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">Terkahir: %s</string>

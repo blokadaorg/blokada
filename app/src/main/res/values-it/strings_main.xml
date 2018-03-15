@@ -35,11 +35,6 @@
     <string name="main_donate_text">Dona</string>
     <string name="main_contribute_text">Partecipa</string>
     <string name="main_blog_text">Comunità</string>
-    <string name="main_tracking_text">Rapporto salute</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_disabled">%s non invierà più rapporti sulla salute. Per applicare l\'impostazione dei riavviare l\'applicazione.</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_enabled">%s di tanto in tanto invierà report anonimi sulla salute.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">Solo online</string>
     <string name="main_autostart_text">Avviare al boot</string>
@@ -50,4 +45,5 @@
     <!-- A menu option to take this month's action to help Blokada. -->
     <!-- A menu option to open changelog -->
     <!-- A menu option to open credits screen -->
+    <!-- An overlay header on top of Patron page -->
 </resources>

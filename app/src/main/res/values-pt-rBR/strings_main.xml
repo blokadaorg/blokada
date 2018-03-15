@@ -33,11 +33,6 @@
     <string name="main_donate_text">Doar</string>
     <string name="main_contribute_text">Participe</string>
     <string name="main_blog_text">Comunidade</string>
-    <string name="main_tracking_text">Relatório de uso</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_disabled">%s não enviará mais nenhum relatório de desempenho. Você precisará reiniciar o aplicativo para que esta opção tenha efeito.</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_tracking_enabled">%s enviará periodicamente relatórios anônimos de desempenho.</string>
     <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
     <string name="main_connectivity_text">Apenas conectado</string>
     <string name="main_autostart_text">Iniciar no boot</string>
@@ -48,4 +43,5 @@
     <!-- A menu option to take this month's action to help Blokada. -->
     <!-- A menu option to open changelog -->
     <!-- A menu option to open credits screen -->
+    <!-- An overlay header on top of Patron page -->
 </resources>
