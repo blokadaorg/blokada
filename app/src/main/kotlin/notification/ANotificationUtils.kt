@@ -25,7 +25,7 @@ fun displayNotification(ctx: Context, reason: String) {
     b.setContentTitle(ctx.getString(R.string.notification_blocked_title))
     b.setContentText(ctx.getString(R.string.notification_blocked_text, reason))
     b.setSmallIcon(R.drawable.ic_stat_blokada)
-    b.setPriority(NotificationCompat.PRIORITY_HIGH)
+    b.setPriority(NotificationCompat.PRIORITY_MAX)
     b.setVibrate(LongArray(0))
 
     val intentActivity = Intent(ctx, MainActivity::class.java)
