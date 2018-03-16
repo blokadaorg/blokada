@@ -1,10 +1,13 @@
 package buildtype
 
 import android.os.Bundle
+import android.util.Log
+import com.crashlytics.android.Crashlytics
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.crash.FirebaseCrash
 import core.Events
 import gs.environment.Journal
+import java.io.PrintWriter
+import java.io.StringWriter
 
 /**
  * Deps here need to be lazy to avoid dependency loop from KContext -> Journal
@@ -44,13 +47,12 @@ class AFirebaseJournal(
 
     override fun log(vararg errors: Any) {
         errors.forEach { error ->
-            when (error) {
-                is Exception -> {
-                    FirebaseCrash.report(error)
-                }
-                else -> {
-                    FirebaseCrash.log(error.toString())
-                }
+            Crashlytics.log(Log.VERBOSE, "blokada", error.toString())
+            if (error is Exception) {
+                Crashlytics.logException(error)
+                val sw = StringWriter()
+                error.printStackTrace(PrintWriter(sw))
+                Crashlytics.log(Log.VERBOSE, "blokada", sw.toString())
             }
         }
     }

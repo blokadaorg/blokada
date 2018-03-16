@@ -70,8 +70,8 @@ class AState(
                 connected = isConnected(ctx) or watchdog.test(),
                 tethering = isTethering(ctx),
                 dnsServers = {
-                    val d = dns.choices().first { it.active }
-                    if (d.servers.isEmpty()) getDnsServers(ctx)
+                    val d = dns.choices().firstOrNull { it.active }
+                    if (d == null || d.servers.isEmpty()) getDnsServers(ctx)
                     else d.servers
                 }()
         )

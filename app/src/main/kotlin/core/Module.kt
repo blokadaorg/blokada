@@ -321,8 +321,8 @@ fun newAppModule(ctx: Context): Kodein.Module {
             val dns: Dns = instance()
             var currentDns: DnsChoice? = null
             dns.choices.doWhenSet().then {
-                val newChoice = dns.choices().first { it.active }
-                if (newChoice != currentDns) {
+                val newChoice = dns.choices().firstOrNull { it.active }
+                if (newChoice != null && newChoice != currentDns) {
                     currentDns = newChoice
 
                     if (!s.enabled()) {

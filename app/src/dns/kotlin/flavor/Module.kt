@@ -70,8 +70,10 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             val dns: Dns = instance()
             object : ATunnelService.IBuilderConfigurator {
                 override fun configure(builder: VpnService.Builder) {
-                    val choice = dns.choices().first { it.active }
-                    choice.servers.forEach { builder.addDnsServer(it) }
+                    val choice = dns.choices().firstOrNull { it.active }
+                    if (choice != null) {
+                        choice.servers.forEach { builder.addDnsServer(it) }
+                    }
                     builder.setSession(ctx.getString(R.string.branding_app_name))
                             .setConfigureIntent(PendingIntent.getActivity(ctx, 1,
                                     Intent(ctx, MainActivity::class.java),

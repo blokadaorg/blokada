@@ -44,6 +44,7 @@ class DnsImpl(
 ) : Dns() {
 
     private val refresh = { it: List<DnsChoice> ->
+        j.log("dns: refresh: start ${pages.dns()}")
         var builtInDns = listOf(DnsChoice("default", emptyList(), active = false))
         builtInDns += try {
             serialiser.deserialise(load({ openUrl(pages.dns(), 10000) }))
@@ -57,6 +58,7 @@ class DnsImpl(
                 emptyList<DnsChoice>()
             }
         }
+        j.log("dns: refresh: got ${builtInDns.size}")
 
         val newDns = if (it.isEmpty()) {
             builtInDns
@@ -78,6 +80,7 @@ class DnsImpl(
             newDns.first().active = true
         }
 
+        j.log("dns: refresh: done")
         fetcher.fetch()
         newDns
     }
@@ -173,18 +176,25 @@ class DnsSerialiser {
 class DnsLocalisedFetcher(
         private val xx: Environment,
         private val i18n: I18n = xx().instance(),
-        private val pages: Pages = xx().instance()
+        private val pages: Pages = xx().instance(),
+        private val j: Journal = xx().instance()
 ) {
     init {
         i18n.locale.doWhenChanged().then { fetch() }
     }
 
     fun fetch() {
+        j.log("dns: fetch strings: start ${pages.dnsStrings()}")
         val prop = Properties()
-        prop.load(InputStreamReader(openUrl(pages.dnsStrings(), 10000), Charset.forName("UTF-8")))
-        prop.stringPropertyNames().iterator().forEach {
-            i18n.set("dns_$it", prop.getProperty(it))
+        try {
+            prop.load(InputStreamReader(openUrl(pages.dnsStrings(), 10000), Charset.forName("UTF-8")))
+            prop.stringPropertyNames().iterator().forEach {
+                i18n.set("dns_$it", prop.getProperty(it))
+            }
+        } catch (e: Exception) {
+            j.log("dns: fetch strings crash", e)
         }
+        j.log("dns: fetch strings: done")
     }
 }
 
@@ -207,12 +217,13 @@ class DashDns(
 
     init {
         listener = dns.choices.doOnUiWhenSet().then {
-            update(dns.choices().first { it.active })
+            update(dns.choices().firstOrNull { it.active })
         }
     }
 
-    private fun update(dns: DnsChoice) {
+    private fun update(dns: DnsChoice?) {
         text = when {
+            dns == null -> ctx.getString(R.string.dns_text_none)
             dns.servers.isEmpty() -> ctx.getString(R.string.dns_text_none)
             dns.id.startsWith("custom") -> printServers(dns.servers)
             else -> i18n.localisedOrNull("dns_${dns.id}_name") ?: dns.id.capitalize()

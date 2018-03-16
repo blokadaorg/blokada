@@ -1,6 +1,7 @@
 package core
 
 import android.content.Context
+import nl.komponents.kovenant.ui.promiseOnUi
 import org.obsolete.IPersistence
 
 class ADashesPersistence(
@@ -12,9 +13,11 @@ class ADashesPersistence(
     override fun read(current: List<Dash>): List<Dash> {
         val dashes = ArrayList(current)
         val updateDash = { id: String, active: Boolean ->
-            val dash = dashes.firstOrNull { it.id == id }
-            if (dash != null) {
-                dash.active = active
+            promiseOnUi {
+                val dash = dashes.firstOrNull { it.id == id }
+                if (dash != null) {
+                    dash.active = active
+                }
             }
         }
         p.getStringSet("dashes-active", setOf()).forEach { id -> updateDash(id, true)}
