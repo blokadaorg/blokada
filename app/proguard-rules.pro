@@ -34,6 +34,19 @@
 # blokada
 -keep class org.blokada.** { *; }
 
+# base Blokada modules
+-keep class core.** { *; }
+-keep class buildtype.** { *; }
+-keep class flavor.** { *; }
+
+# other Blokada modules
+-keep class adblocker.** { *; }
+-keep class dns.** { *; }
+-keep class filter.** { *; }
+-keep class notification.** { *; }
+-keep class tunnel.** { *; }
+-keep class update.** { *; }
+
 -keepclassmembers class * {
     private <fields>;
 }

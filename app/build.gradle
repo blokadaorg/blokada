@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: '../version.gradle'
 
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -42,7 +43,7 @@ android {
             versionNameSuffix '-debug'
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -96,7 +97,7 @@ dependencies {
 
     // Analytics and debugging
     officialImplementation 'com.google.firebase:firebase-core:11.8.0'
-    officialImplementation 'com.google.firebase:firebase-crash:11.8.0'
+    officialImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
@@ -124,3 +125,4 @@ buildscript {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
