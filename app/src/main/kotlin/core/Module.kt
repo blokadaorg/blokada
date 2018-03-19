@@ -150,7 +150,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
                         if (completed) {
                             s.tunnelState %= TunnelState.ACTIVE
                         } else {
-                            j.log(Exception("could not activate: ${err}"))
+                            j.log(Exception("could not activate", err))
                             if (s.firstRun(true)) j.event(Events.FIRST_ACTIVE_FAIL)
                         }
                     }
@@ -228,10 +228,12 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 val c = s.connection()
                 when {
                     !c.connected && s.active() -> {
+                        j.log("no connectivity, deactivating")
                         s.restart %= true
                         s.active %= false
                     }
                     c.connected && s.restart() && !s.updating() && s.enabled() -> {
+                        j.log("connectivity back, activating")
                         s.restart %= false
                         s.active %= true
                     }
@@ -372,6 +374,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
 
             i18n.locale.doWhenSet().then {
                 val root = i18n.contentUrl()
+                j.log("setting locale. contentUrl: $root")
                 welcome.updatedUrl %= URL("${root}/updated.html")
                 welcome.cleanupUrl %= URL("${root}/cleanup.html")
                 welcome.ctaUrl %= URL("${root}/cta.html")
@@ -404,7 +407,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
             s.startOnBoot.doWhenChanged(withInit = true).then {
                 j.setUserProperty(Properties.AUTO_START, s.startOnBoot())
             }
-
 
             val version: Version = instance()
             version.appName %= ctx.getString(R.string.branding_app_name)

@@ -43,6 +43,8 @@ class AConnectivityReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
         task(ctx.inject().with("AConnectivityReceiver").instance()) {
             // Do it async so that Android can refresh the current network info before we access it
+            val j: Journal = ctx.inject().instance()
+            j.log("connectivity change")
             val s: State = ctx.inject().instance()
             s.connection.refresh()
         }
@@ -87,6 +89,8 @@ class AScreenOnReceiver : BroadcastReceiver() {
 class ALocaleReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
         task(ctx.inject().with("ALocaleReceiver").instance()) {
+            val j: Journal = ctx.inject().instance()
+            j.log("locale change")
             val i18n: I18n = ctx.inject().instance()
             i18n.locale.refresh(force = true)
         }

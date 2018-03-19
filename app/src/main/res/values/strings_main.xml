@@ -66,4 +66,5 @@
     <!-- An overlay header on top of Patron page -->
     <string name="main_patron_overlay">As Blokada Community, we find promising new projects and help them grow. Please share!</string>
 
+    <string name="main_log">Share Log</string>
 </resources>

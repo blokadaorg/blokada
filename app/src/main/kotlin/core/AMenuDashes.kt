@@ -35,8 +35,9 @@ class DashMainMenu(
                 m.add(0, 3, 3, R.string.main_donate_text)
                 m.add(0, 4, 4, R.string.main_faq_text)
                 m.add(0, 5, 5, R.string.main_feedback_text)
-                m.add(0, 6, 6, R.string.main_credits)
-                m.add(0, 7, 7, R.string.update_about)
+                m.add(0, 6, 6, R.string.main_log)
+                m.add(0, 7, 7, R.string.main_credits)
+                m.add(0, 8, 8, R.string.update_about)
                 menu!!.setOnMenuItemClickListener { openMenu(it.itemId); true }
             }
             menu!!.show()
@@ -51,14 +52,19 @@ class DashMainMenu(
             3 -> ui.dashes().firstOrNull { it.id == DASH_ID_DONATE }
             4 -> ui.dashes().firstOrNull { it.id == DASH_ID_FAQ }
             5 -> ui.dashes().firstOrNull { it.id == DASH_ID_FEEDBACK }
-            6 -> ui.dashes().firstOrNull { it.id == DASH_ID_CREDITS }
-            7 -> ui.dashes().firstOrNull { it.id == DASH_ID_ABOUT }
+            6 -> ui.dashes().firstOrNull { it.id == DASH_ID_LOG }
+            7 -> ui.dashes().firstOrNull { it.id == DASH_ID_CREDITS }
+            8 -> ui.dashes().firstOrNull { it.id == DASH_ID_ABOUT }
             else -> null
         }
-        if (dash != null) {
-            contentActor.back {
-                a.event(Events.Companion.CLICK_DASH(dash.id))
-                contentActor.reveal(dash, X_END, 0)
+        when {
+            dash == null -> Unit
+            !dash.hasView -> dash.onClick?.invoke(0)
+            else -> {
+                contentActor.back {
+                    a.event(Events.Companion.CLICK_DASH(dash.id))
+                    contentActor.reveal(dash, X_END, 0)
+                }
             }
         }
     }

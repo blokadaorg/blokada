@@ -9,9 +9,9 @@ import android.net.Uri
 import android.os.Build
 import android.support.v4.content.FileProvider
 import com.github.salomonbrys.kodein.instance
+import core.Events
 import gs.environment.Journal
 import gs.environment.inject
-import core.Events
 import java.io.File
 import java.net.URL
 
@@ -74,7 +74,7 @@ class AUpdateDownloader(
             val openFileIntent = Intent(Intent.ACTION_VIEW)
             openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            openFileIntent.data = FileProvider.getUriForFile(ctx, "${ctx.packageName}.update",
+            openFileIntent.data = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files",
                     File(uri.path))
             ctx.startActivity(openFileIntent)
         } else {

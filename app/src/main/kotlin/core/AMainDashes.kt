@@ -1,17 +1,26 @@
 package core
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.support.v4.app.ShareCompat
+import android.support.v4.content.FileProvider
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
+import gs.environment.ActivityProvider
 import gs.environment.Environment
+import gs.environment.Journal
 import gs.environment.inject
 import gs.presentation.WebViewActor
 import gs.property.IProperty
+import gs.property.getPersistencePath
+import org.blokada.BuildConfig
 import org.blokada.R
 import org.obsolete.IWhen
+import java.io.File
 import java.net.URL
 
 val DASH_ID_DONATE = "main_donate"
@@ -278,6 +287,43 @@ class ChatDash(
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.setData(Uri.parse(url().toString()))
             ctx.startActivity(intent)
+            true
+        }
+)
+
+val DASH_ID_LOG = "share_log"
+
+class ShareLogDash(
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val activity: ActivityProvider<Activity> = xx().instance(),
+        val j: Journal = xx().instance(),
+        val s: State = xx().instance()
+) : Dash(
+        DASH_ID_LOG,
+        R.drawable.ic_comment_multiple_outline,
+        onClick = { dashRef ->
+            try {
+                // Log basics
+                j.log("basic config start (v1)")
+                j.log("device: ${Build.MANUFACTURER}, ${Build.MODEL}, ${Build.PRODUCT}")
+                j.log("os: ${Build.VERSION.SDK_INT}")
+                j.log("app: ${BuildConfig.FLAVOR} ${BuildConfig.BUILD_TYPE} ${BuildConfig.VERSION_CODE}")
+                j.log("hostsCount: ${s.filtersCompiled().size}")
+                j.log("keepAlive: ${s.keepAlive()}")
+                j.log("onlineOnly: ${s.watchdogOn()}")
+                j.log("basic config end")
+
+                val file = File(getPersistencePath(ctx).absoluteFile, "blokada-log.txt")
+                Runtime.getRuntime().exec(arrayOf("logcat", "-f", file.absolutePath));
+                val uri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", file)
+                val intent = ShareCompat.IntentBuilder.from(activity.get()).setStream(uri).intent
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                intent.setData(uri)
+                ctx.startActivity(intent)
+            } catch (e: Exception) {
+                j.log("could not share log", e)
+            }
             true
         }
 )
