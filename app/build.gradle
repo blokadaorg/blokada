@@ -61,11 +61,8 @@ android {
         adblockerFdroid {
             applicationId "org.blokada.alarm"
         }
-        adblockerXda {
-            applicationId "org.blokada"
-        }
         dnsHome {
-            applicationId "org.blokada.alarm.dns"
+            applicationId "org.blokada.alarm.dnschanger"
         }
     }
 }
