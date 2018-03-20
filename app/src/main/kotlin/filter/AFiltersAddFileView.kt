@@ -13,7 +13,7 @@ import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
-import gs.environment.ActivityProvider
+import gs.environment.ComponentProvider
 import gs.environment.inject
 import org.blokada.R
 import core.MainActivity
@@ -89,7 +89,7 @@ class AFiltersAddFileView(
     private val filtersView by lazy { findViewById(R.id.filter_link_loaded) as TextView }
     private val filtersCountView by lazy { findViewById(R.id.filter_link_loaded_count) as TextView }
 
-    private val activity by lazy { ctx.inject().instance<ActivityProvider<MainActivity>>() }
+    private val activity by lazy { ctx.inject().instance<ComponentProvider<MainActivity>>() }
     private val processor by lazy { ctx.inject().instance<IHostlineProcessor>() }
 
     var uri: android.net.Uri? = null

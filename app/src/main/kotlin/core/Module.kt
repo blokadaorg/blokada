@@ -6,7 +6,7 @@ import android.content.Context
 import android.util.Log
 import com.github.salomonbrys.kodein.*
 import filter.*
-import gs.environment.ActivityProvider
+import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.Time
 import gs.obsolete.hasCompleted
@@ -42,8 +42,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 ctx = ctx) }
         bind<UiState>() with singleton { AUiState(kctx = with("gscore").instance(10), xx = lazy) }
 
-        bind<ActivityProvider<Activity>>() with singleton { ActivityProvider<Activity>() }
-        bind<ActivityProvider<MainActivity>>() with singleton { ActivityProvider<MainActivity>() }
+        bind<ComponentProvider<Activity>>() with singleton { ComponentProvider<Activity>() }
+        bind<ComponentProvider<MainActivity>>() with singleton { ComponentProvider<MainActivity>() }
+        bind<ComponentProvider<BootJobService>>() with singleton { ComponentProvider<BootJobService>() }
 
         bind<AFilterAddDialog>() with provider {
             AFilterAddDialog(ctx,

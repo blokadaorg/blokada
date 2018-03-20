@@ -205,7 +205,7 @@ class DashDns(
         val ctx: Context = xx().instance(),
         val w: Worker = xx().with("dash_dns").instance(),
         val dns: Dns = xx().instance(),
-        val act: ActivityProvider<MainActivity> = xx().instance(),
+        val act: ComponentProvider<MainActivity> = xx().instance(),
         val i18n: I18n = xx().instance()
 ) : Dash(DASH_ID_DNS,
         R.drawable.ic_server,
@@ -274,7 +274,7 @@ class GenerateDialog(
         private val dns: Dns = xx().instance()
 ) {
 
-    private val activity by lazy { xx().instance<ActivityProvider<Activity>>().get() }
+    private val activity by lazy { xx().instance<ComponentProvider<Activity>>().get() }
     private val dialog: AlertDialog
     private var which: Int = 0
 
@@ -460,7 +460,7 @@ class AddDialog(
 ) {
     var onSave = { filter: DnsChoice -> }
 
-    private val activity by lazy { ctx.inject().instance<ActivityProvider<Activity>>().get() }
+    private val activity by lazy { ctx.inject().instance<ComponentProvider<Activity>>().get() }
     private val themedContext by lazy { ContextThemeWrapper(ctx, R.style.BlokadaColors_Dialog) }
     private val view = LayoutInflater.from(themedContext)
             .inflate(R.layout.view_dnstab, null, false) as DnsAddTabView

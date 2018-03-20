@@ -12,7 +12,7 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
-import gs.environment.ActivityProvider
+import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.inject
 import gs.obsolete.Sync
@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
     private var contentActor: ContentActor? = null
 
     private val enabledStateActor: EnabledStateActor by instance()
-    private val activityContext: ActivityProvider<Activity> by instance()
-    private val activityProvider: ActivityProvider<MainActivity> by instance()
+    private val activityContext: ComponentProvider<Activity> by instance()
+    private val activityProvider: ComponentProvider<MainActivity> by instance()
     private val j: Journal by instance()
 
     private val s: State by instance()

@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
-import gs.environment.ActivityProvider
+import gs.environment.ComponentProvider
 import gs.environment.inject
 import org.blokada.R
 import core.sourceToName
@@ -22,7 +22,7 @@ class AFilterGenerateDialog(
         private val whitelist: Boolean
 ) {
 
-    private val activity by lazy { ctx.inject().instance<ActivityProvider<Activity>>().get() }
+    private val activity by lazy { ctx.inject().instance<ComponentProvider<Activity>>().get() }
     private val dialog: AlertDialog
     private var which: Int = 0
 

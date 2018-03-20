@@ -10,7 +10,7 @@ import android.support.v4.content.FileProvider
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
-import gs.environment.ActivityProvider
+import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.inject
@@ -296,7 +296,7 @@ val DASH_ID_LOG = "share_log"
 class ShareLogDash(
         val xx: Environment,
         val ctx: Context = xx().instance(),
-        val activity: ActivityProvider<Activity> = xx().instance(),
+        val activity: ComponentProvider<Activity> = xx().instance(),
         val j: Journal = xx().instance(),
         val s: State = xx().instance()
 ) : Dash(

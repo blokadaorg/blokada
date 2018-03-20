@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
 import com.github.salomonbrys.kodein.with
-import gs.environment.ActivityProvider
+import gs.environment.ComponentProvider
 import gs.environment.inject
 import nl.komponents.kovenant.task
 import org.blokada.R
@@ -57,7 +57,7 @@ class DashFilterBlacklist(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.view_customlist, parent as ViewGroup, false)
         if (view is AFilterListView) {
-            val activity: ActivityProvider<MainActivity> = ctx.inject().instance()
+            val activity: ComponentProvider<MainActivity> = ctx.inject().instance()
             view.landscape = activity.get()?.landscape ?: false
             view.whitelist = false
         }
@@ -104,7 +104,7 @@ class DashFilterWhitelist(
     override fun createView(parent: Any): Any? {
         val view = LayoutInflater.from(ctx).inflate(R.layout.view_customlist, parent as ViewGroup, false)
         if (view is AFilterListView) {
-            val activity: ActivityProvider<MainActivity> = ctx.inject().instance()
+            val activity: ComponentProvider<MainActivity> = ctx.inject().instance()
             view.landscape = activity.get()?.landscape ?: false
             view.whitelist = true
         }

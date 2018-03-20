@@ -12,6 +12,7 @@ import android.content.ServiceConnection
 import android.os.Binder
 import android.os.IBinder
 import com.github.salomonbrys.kodein.instance
+import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.inject
 import notification.createNotificationKeepAlive
@@ -74,6 +75,13 @@ class KeepAliveService : Service() {
             val n = createNotificationKeepAlive(this, count, last)
             startForeground(3, n)
 
+            val provider: ComponentProvider<BootJobService> = inject().instance()
+            val service = provider.get()
+            if (service != null) {
+                try { service.jobFinished(service.params, false) } catch (e: Exception) {}
+                provider.unset()
+            }
+
             return binder
         }
         return null
@@ -95,12 +103,19 @@ class KeepAliveService : Service() {
 
 class BootJobService : JobService() {
 
+    var params: JobParameters? = null
+
     override fun onStartJob(params: JobParameters?): Boolean {
         // Simply creating a context will init the app.
         // If KeepAlive is enabled, it'll keep the app alive from now on.
         val s: State = inject().instance()
         s.connection.refresh()
-        return true
+        if (s.keepAlive()) {
+            val provider: ComponentProvider<BootJobService> = inject().instance()
+            provider.set(this)
+            this.params = params
+            return true
+        } else return false
     }
 
     override fun onStopJob(params: JobParameters?): Boolean {

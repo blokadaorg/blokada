@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
 import core.*
-import gs.environment.ActivityProvider
+import gs.environment.ComponentProvider
 import gs.environment.inject
 import gs.presentation.nullIfEmpty
 import nl.komponents.kovenant.task
@@ -25,7 +25,7 @@ class AFilterAddDialog(
 ) {
     var onSave = { filter: Filter -> }
 
-    private val activity by lazy { ctx.inject().instance<ActivityProvider<Activity>>().get() }
+    private val activity by lazy { ctx.inject().instance<ComponentProvider<Activity>>().get() }
     private val themedContext by lazy { ContextThemeWrapper(ctx, R.style.BlokadaColors_Dialog) }
     private val view = LayoutInflater.from(themedContext)
             .inflate(R.layout.view_filtersadd, null, false) as AFiltersAddView

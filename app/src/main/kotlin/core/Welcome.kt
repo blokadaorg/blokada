@@ -7,7 +7,7 @@ import android.net.Uri
 import android.support.v4.app.ShareCompat
 import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
-import gs.environment.ActivityProvider
+import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.Worker
@@ -63,7 +63,7 @@ class WelcomeDialogManager (
     private val version: Version by xx.instance()
     private val pages: Pages by xx.instance()
     private val j: Journal by xx.instance()
-    private val activity: ActivityProvider<Activity> by xx.instance()
+    private val activity: ComponentProvider<Activity> by xx.instance()
 
     private var displaying = false
 
