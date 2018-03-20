@@ -2,11 +2,11 @@ package adblocker
 
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
-import gs.environment.inject
-import org.blokada.R
-import core.getBrandedString
 import core.Dash
 import core.State
+import core.getBrandedString
+import gs.environment.inject
+import org.blokada.R
 
 val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
 
@@ -15,7 +15,8 @@ class TunnelDashCountDropped(
         val t: State = ctx.inject().instance()
 ) : Dash("tunnel_drop",
         R.drawable.ic_block,
-        ctx.getString(R.string.tunnel_dropped_count_desc)
+        ctx.getString(R.string.tunnel_dropped_count_desc),
+        onLongClick = { t.tunnelDropCount %= 0; true }
 ) {
 
     private val listener: Any

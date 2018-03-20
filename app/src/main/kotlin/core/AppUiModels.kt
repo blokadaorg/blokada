@@ -17,6 +17,7 @@ open class Dash (
         val topBarColor: Int? = null,
         var menuDashes: Triple<Dash?, Dash?, Dash?> = Triple(null, null, null),
         var onClick: ((dashRef: Any) -> Boolean)? = null,
+        var onLongClick: ((dashRef: Any) -> Boolean)? = null,
         var onDashOpen: () -> Unit = {},
         var onBack: () -> Unit = {},
         var onUpdate: MutableSet<() -> Unit> = mutableSetOf()

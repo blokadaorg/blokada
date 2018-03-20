@@ -1,16 +1,11 @@
 package core
 
-import com.github.salomonbrys.kodein.instance
-import gs.environment.Journal
-import gs.environment.inject
-
 class ADashActor(
         initialDash: Dash,
         private val v: ADashView,
         private val ui: UiState,
         private val contentActor: ContentActor
 ) {
-    private val j by lazy { v.context.inject().instance<Journal>() }
 
     var dash = initialDash
         set(value) {
@@ -24,11 +19,11 @@ class ADashActor(
         v.onChecked = { checked -> dash.checked = checked }
         v.onClick = {
             if (dash.onClick?.invoke(v) ?: true) defaultClick()
-            j.event(Events.Companion.CLICK_DASH(dash.id))
         }
         v.onLongClick = {
-            ui.infoQueue %= ui.infoQueue() + Info(InfoType.CUSTOM, dash.description)
-            j.event(Events.Companion.CLICK_LONG_DASH(dash.id))
+            if (dash.onLongClick?.invoke(v) ?: true) {
+                ui.infoQueue %= ui.infoQueue() + Info(InfoType.CUSTOM, dash.description)
+            }
         }
 
         dash.onUpdate.add { update() }
@@ -37,8 +32,6 @@ class ADashActor(
     private fun defaultClick() {
         if (ui.editUi()) {
             dash.active = !dash.active
-            if (dash.active) j.event(Events.Companion.SHOW_DASH(dash.id))
-            else j.event(Events.Companion.HIDE_DASH(dash.id))
         } else {
             contentActor.reveal(dash,
                     x = v.x.toInt() + v.measuredWidth / 2,
