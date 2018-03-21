@@ -11,7 +11,7 @@ enum class Product {
                 "org.blokada",
                 "org.blokada.origin.alarm",
                 "org.blokada.alarm" -> Product.A
-                "org.blokada.alarm.dns" -> Product.DNS
+                "org.blokada.alarm.dnschanger" -> Product.DNS
                 else -> Product.A
             }
         }
