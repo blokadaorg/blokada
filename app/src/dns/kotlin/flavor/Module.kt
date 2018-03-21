@@ -8,6 +8,7 @@ import android.net.VpnService
 import com.github.salomonbrys.kodein.*
 import core.*
 import filter.DashFilterWhitelist
+import filter.FilterSourceApp
 import gs.environment.Journal
 import gs.environment.Worker
 import nl.komponents.kovenant.any
@@ -68,6 +69,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
         )) }
         bind<ATunnelService.IBuilderConfigurator>() with singleton {
             val dns: Dns = instance()
+            val s: State = instance()
             object : ATunnelService.IBuilderConfigurator {
                 override fun configure(builder: VpnService.Builder) {
                     val choice = dns.choices().firstOrNull { it.active }
@@ -93,6 +95,13 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                         // If no subnet worked, just go with something safe.
                         builder.addAddress("192.168.50.1", 24)
                     }
+
+                    s.filters().filter { it.whitelist && it.active && it.source is FilterSourceApp }.forEach {
+                        builder.addDisallowedApplication(it.source.toUserInput())
+                    }
+
+                    // People kept asking why GPlay doesnt work
+                    try { builder.addDisallowedApplication("com.android.vending") } catch (e: Exception) {}
                 }
             }
         }
