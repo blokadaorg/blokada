@@ -65,6 +65,12 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     whitelist = false
             )
         }
+        bind<AddDialog>() with provider {
+            AddDialog(ctx)
+        }
+        bind<GenerateDialog>() with provider {
+            GenerateDialog(xx = lazy)
+        }
 
         // Various components
         bind<AConnectivityReceiver>() with singleton { AConnectivityReceiver() }

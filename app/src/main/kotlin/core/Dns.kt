@@ -17,6 +17,7 @@ import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
+import com.github.salomonbrys.kodein.provider
 import com.github.salomonbrys.kodein.with
 import filter.AFilterView
 import filter.AFilterViewHolder
@@ -242,11 +243,12 @@ class DashDns(
 class Add(
         val ctx: Context,
         val dns: Dns = ctx.inject().instance(),
-        val dialog: AddDialog = AddDialog(ctx)
+        val dialogProvider: () -> AddDialog = ctx.inject().provider()
 ) : Dash(
         "dns_add",
         R.drawable.ic_filter_add,
         onClick = {
+            val dialog = dialogProvider()
             dialog.onSave = { newFilter ->
                 if (!dns.choices().contains(newFilter))
                     dns.choices %= dns.choices() + newFilter
@@ -254,15 +256,16 @@ class Add(
             dialog.show(null)
             false
         }
-)
+) {}
 
 class QuickActions(
         val xx: Environment,
-        val dialog: GenerateDialog = GenerateDialog(xx)
+        val dialogProvider: () -> GenerateDialog = xx().provider()
 ) : Dash(
         "dns_generate",
         R.drawable.ic_tune,
         onClick = {
+            val dialog = dialogProvider()
             dialog.show()
             false
         }
