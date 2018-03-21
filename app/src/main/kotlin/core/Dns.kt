@@ -275,6 +275,7 @@ class GenerateDialog(
 ) {
 
     private val activity by lazy { xx().instance<ComponentProvider<Activity>>().get() }
+    private val j by lazy { ctx.inject().instance<Journal>() }
     private val dialog: AlertDialog
     private var which: Int = 0
 
@@ -296,12 +297,17 @@ class GenerateDialog(
     }
 
     fun show() {
-        dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { handleSave() }
-        dialog.window.clearFlags(
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                        WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
-        )
+        if (dialog.isShowing) return
+        try {
+            dialog.show()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { handleSave() }
+            dialog.window.clearFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+            )
+        } catch (e: Exception) {
+            j.log(e)
+        }
     }
 
     private fun handleSave() {
@@ -461,6 +467,7 @@ class AddDialog(
     var onSave = { filter: DnsChoice -> }
 
     private val activity by lazy { ctx.inject().instance<ComponentProvider<Activity>>().get() }
+    private val j by lazy { ctx.inject().instance<Journal>() }
     private val themedContext by lazy { ContextThemeWrapper(ctx, R.style.BlokadaColors_Dialog) }
     private val view = LayoutInflater.from(themedContext)
             .inflate(R.layout.view_dnstab, null, false) as DnsAddTabView
@@ -484,12 +491,17 @@ class AddDialog(
             view.appView.comment = filter.comment ?: ""
         }
 
-        dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { handleSave(filter) }
-        dialog.window.clearFlags(
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                        WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
-        )
+        if (dialog.isShowing) return
+        try {
+            dialog.show()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { handleSave(filter) }
+            dialog.window.clearFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+            )
+        } catch (e: Exception) {
+            j.log(e)
+        }
     }
 
     private fun handleSave(filter: DnsChoice?) {

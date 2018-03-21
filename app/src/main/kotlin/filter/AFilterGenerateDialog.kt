@@ -6,14 +6,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
+import core.*
 import gs.environment.ComponentProvider
+import gs.environment.Journal
 import gs.environment.inject
 import org.blokada.R
-import core.sourceToName
-import core.Filter
-import core.IFilterSource
-import core.LocalisedFilter
-import core.State
 
 class AFilterGenerateDialog(
         private val ctx: Context,
@@ -23,6 +20,7 @@ class AFilterGenerateDialog(
 ) {
 
     private val activity by lazy { ctx.inject().instance<ComponentProvider<Activity>>().get() }
+    private val j by lazy { ctx.inject().instance<Journal>() }
     private val dialog: AlertDialog
     private var which: Int = 0
 
@@ -51,12 +49,17 @@ class AFilterGenerateDialog(
     }
 
     fun show() {
-        dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { handleSave() }
-        dialog.window.clearFlags(
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                        WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
-        )
+        if (dialog.isShowing) return
+        try {
+            dialog.show()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { handleSave() }
+            dialog.window.clearFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+            )
+        } catch (e: Exception) {
+            j.log(e)
+        }
     }
 
     private fun handleSave() {
