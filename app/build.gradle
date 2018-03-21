@@ -112,7 +112,7 @@ repositories {
 }
 
 buildscript {
-    ext.kotlin_version = '1.2.3'
+    ext.kotlin_version = '1.2.30'
     repositories {
         mavenCentral()
         google()
