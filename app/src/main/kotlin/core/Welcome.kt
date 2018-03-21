@@ -90,9 +90,9 @@ class WelcomeDialogManager (
                 displaying = true
             }
             step == 0 && version.previousCode() < currentAppVersion -> {
+                version.previousCode %= currentAppVersion
                 dialogUpdate.listener = { accept ->
                     displaying = false
-                    version.previousCode %= currentAppVersion
                     if (accept == 1) {
                         OpenInBrowserDash(ctx, pages.donate).onClick?.invoke(0)
                     } else if (accept == 2) {
