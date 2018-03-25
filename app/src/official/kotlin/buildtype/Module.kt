@@ -14,7 +14,7 @@ fun newBuildTypeModule(ctx: Context): Kodein.Module {
             FirebaseAnalytics.getInstance(instance())
         }
         bind<Journal>(overrides = true) with singleton {
-            AFirebaseJournal(firebase = provider())
+            AFirebaseJournal(ctx = ctx, firebase = provider())
         }
         bind<IHostlineProcessor>(overrides = true) with singleton {
             object : IHostlineProcessor {
