@@ -22,7 +22,7 @@ class AppModuleTest {
 
     private var tunnelPerm = false
 
-    private fun newDeps(kctx: KContext): Kodein.Module {
+    private fun newDeps(kctx: Worker): Kodein.Module {
         return Kodein.Module {
             bind<State>() with singleton {
                 object : State() {

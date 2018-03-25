@@ -1,7 +1,7 @@
 package core
 
 import gs.environment.Identity
-import org.obsolete.IProperty
+import gs.property.IProperty
 import java.io.File
 import java.net.InetAddress
 

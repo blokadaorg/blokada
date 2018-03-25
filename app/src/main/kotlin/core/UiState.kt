@@ -1,6 +1,6 @@
 package core
 
-import org.obsolete.IProperty
+import gs.property.IProperty
 
 abstract class UiState {
 

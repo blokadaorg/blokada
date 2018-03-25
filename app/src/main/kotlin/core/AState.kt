@@ -9,7 +9,10 @@ import filter.FilterSerializer
 import gs.environment.*
 import gs.obsolete.hasCompleted
 import gs.property.isCacheValid
-import org.obsolete.*
+import gs.property.newPersistedProperty
+import gs.property.newProperty
+import org.obsolete.combine
+import org.obsolete.downloadFilters
 import tunnel.checkTunnelPermissions
 import java.io.InputStreamReader
 import java.nio.charset.Charset
@@ -19,7 +22,7 @@ import java.util.Properties
  * of Trance
  */
 class AState(
-        private val kctx: KContext,
+        private val kctx: Worker,
         private val xx: Environment,
         private val ctx: Context
 ) : State() {

@@ -3,14 +3,14 @@ package core
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import gs.environment.Environment
+import gs.environment.Worker
 import gs.environment.inject
+import gs.property.newPersistedProperty
+import gs.property.newProperty
 import org.blokada.BuildConfig
-import org.obsolete.KContext
-import org.obsolete.newPersistedProperty
-import org.obsolete.newProperty
 
 class AUiState(
-        private val kctx: KContext,
+        private val kctx: Worker,
         private val xx: Environment
 ) : UiState() {
 

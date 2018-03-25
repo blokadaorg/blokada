@@ -7,11 +7,11 @@ import core.Connection
 import core.IWatchdog
 import core.State
 import gs.environment.Journal
+import gs.environment.Worker
 import gs.environment.inject
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
-import org.obsolete.KContext
 import java.net.InetSocketAddress
 import java.net.Socket
 
@@ -27,7 +27,7 @@ class AWatchdog(
 
     private val s by lazy { ctx.inject().instance<State>() }
     private val j by lazy { ctx.inject().instance<Journal>() }
-    private val kctx by lazy { ctx.inject().with("watchdog").instance<KContext>() }
+    private val kctx by lazy { ctx.inject().with("watchdog").instance<Worker>() }
 
     override fun test(): Boolean {
         if (!s.watchdogOn()) return true

@@ -337,7 +337,7 @@ class DnsListView(
     private val s by lazy { context.inject().instance<core.State>() }
     private var choices = listOf<DnsChoice>()
     private var listener: IWhen? = null
-    private var listener2: org.obsolete.IWhen? = null
+    private var listener2: IWhen? = null
 
     var landscape: Boolean = false
         set(value) {

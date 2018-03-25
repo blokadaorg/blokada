@@ -14,16 +14,16 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import gs.environment.ComponentProvider
 import gs.environment.Journal
+import gs.environment.Worker
 import gs.environment.inject
 import gs.obsolete.Sync
 import gs.presentation.isWrongInstance
+import gs.property.IWhen
 import gs.property.Version
 import io.codetail.widget.RevealFrameLayout
 import nl.komponents.kovenant.task
 import org.blokada.BuildConfig
 import org.blokada.R
-import org.obsolete.IWhen
-import org.obsolete.KContext
 import tunnel.startAskTunnelPermissions
 import tunnel.stopAskTunnelPermissions
 import java.lang.ref.WeakReference
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
     private val ui: UiState by instance()
     private val pages: Pages by instance()
 
-    private val ictx: KContext by kodein.with("infotext").instance()
+    private val ictx: Worker by kodein.with("infotext").instance()
     private var currentlyDisplayed: InfoType? = null
 
     // TODO: less stuff in this class, more modules

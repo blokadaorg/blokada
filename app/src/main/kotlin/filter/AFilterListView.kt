@@ -12,8 +12,8 @@ import core.Filter
 import core.UiState
 import gs.environment.inject
 import gs.presentation.Spacing
+import gs.property.IWhen
 import org.blokada.R
-import org.obsolete.IWhen
 
 class AFilterListView(
         ctx: Context,

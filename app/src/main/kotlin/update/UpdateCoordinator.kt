@@ -2,7 +2,7 @@ package update
 
 import core.State
 import core.TunnelState
-import org.obsolete.IWhen
+import gs.property.IWhen
 import java.net.URL
 
 /**

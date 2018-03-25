@@ -9,6 +9,7 @@ import filter.*
 import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.Time
+import gs.environment.Worker
 import gs.obsolete.hasCompleted
 import gs.property.*
 import nl.komponents.kovenant.Kovenant
@@ -18,8 +19,6 @@ import notification.createNotificationKeepAlive
 import notification.displayNotificationForUpdate
 import org.blokada.BuildConfig
 import org.blokada.R
-import org.obsolete.IWhen
-import org.obsolete.KContext
 import tunnel.ATunnelAgent
 import tunnel.AWatchdog
 import update.AUpdateDownloader
@@ -129,7 +128,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
             val engine: IEngineManager = instance()
             val perms: IPermissionsAsker = instance()
             val watchdog: IWatchdog = instance()
-            val retryKctx: KContext = with("gscore").instance()
+            val retryKctx: Worker = with("gscore").instance()
 
             // React to user switching us off / on
             s.enabled.doWhenChanged(withInit = true).then {

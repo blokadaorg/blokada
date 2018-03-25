@@ -1,12 +1,12 @@
 package core
 
 import android.content.Context
+import gs.property.Persistence
 import nl.komponents.kovenant.ui.promiseOnUi
-import org.obsolete.IPersistence
 
 class ADashesPersistence(
         val ctx: Context
-) : IPersistence<List<Dash>> {
+) : Persistence<List<Dash>> {
 
     val p by lazy { ctx.getSharedPreferences("State2", Context.MODE_PRIVATE) }
 

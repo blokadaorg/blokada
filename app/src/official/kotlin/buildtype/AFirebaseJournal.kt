@@ -12,7 +12,7 @@ import java.io.PrintWriter
 import java.io.StringWriter
 
 /**
- * Deps here need to be lazy to avoid dependency loop from KContext -> Journal
+ * Deps here need to be lazy to avoid dependency loop from Worker -> Journal
  */
 class AFirebaseJournal(
         private val ctx: Context,

@@ -18,10 +18,10 @@ import com.github.salomonbrys.kodein.with
 import core.IEngineManager
 import core.State
 import gs.environment.Journal
+import gs.environment.Worker
 import gs.environment.inject
 import nl.komponents.kovenant.any
 import nl.komponents.kovenant.task
-import org.obsolete.KContext
 import tunnel.ATunnelAgent
 import tunnel.ATunnelBinder
 
@@ -34,7 +34,7 @@ class ALollipopEngineManager(
 ) : IEngineManager {
 
     private val s by lazy { ctx.inject().instance<State>() }
-    private val waitKctx by lazy { ctx.inject().with("engineManagerWait").instance<KContext>() }
+    private val waitKctx by lazy { ctx.inject().with("engineManagerWait").instance<Worker>() }
     private val j by lazy { ctx.inject().instance<Journal>() }
     private val events = ALollipopTunnelEvents(ctx, onRevoked)
     private var binder: ATunnelBinder? = null

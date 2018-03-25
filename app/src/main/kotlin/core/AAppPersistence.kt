@@ -6,15 +6,15 @@ import filter.FilterSerializer
 import gs.environment.Identity
 import gs.environment.identityFrom
 import gs.environment.inject
+import gs.property.Persistence
 import gs.property.readFromCache
 import gs.property.saveToCache
-import org.obsolete.IPersistence
 
 
 class APrefsPersistence<T>(
         val ctx: Context,
         val key: String
-) : IPersistence<T> {
+) : Persistence<T> {
 
     val p by lazy { ctx.getSharedPreferences("default", Context.MODE_PRIVATE) }
 
@@ -44,7 +44,7 @@ class APrefsPersistence<T>(
 
 class AIdentityPersistence(
         val ctx: Context
-) : IPersistence<Identity> {
+) : Persistence<Identity> {
 
     val p by lazy { ctx.getSharedPreferences("AState", Context.MODE_PRIVATE) }
 
@@ -64,7 +64,7 @@ class AIdentityPersistence(
 class AFiltersPersistence(
         val ctx: Context,
         val default: () -> List<Filter>
-) : IPersistence<List<Filter>> {
+) : Persistence<List<Filter>> {
 
     val p by lazy { ctx.getSharedPreferences("filters", Context.MODE_PRIVATE) }
 
@@ -86,7 +86,7 @@ class AFiltersPersistence(
 
 class ACompiledFiltersPersistence(
         val ctx: Context
-) : IPersistence<Set<String>> {
+) : Persistence<Set<String>> {
 
     private val cache by lazy { ctx.inject().instance<FilterConfig>().cacheFile }
 

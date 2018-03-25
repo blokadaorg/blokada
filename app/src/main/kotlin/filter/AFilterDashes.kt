@@ -6,16 +6,12 @@ import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
 import com.github.salomonbrys.kodein.with
+import core.*
 import gs.environment.ComponentProvider
 import gs.environment.inject
+import gs.property.IWhen
 import nl.komponents.kovenant.task
 import org.blokada.R
-import core.MainActivity
-import core.Dash
-import core.Filter
-import core.State
-import core.UiState
-import org.obsolete.IWhen
 
 val DASH_ID_BLACKLIST = "filter_blacklist"
 val DASH_ID_WHITELIST = "filter_whitelist"

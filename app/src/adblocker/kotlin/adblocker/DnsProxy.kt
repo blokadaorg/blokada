@@ -13,7 +13,7 @@
 package adblocker
 
 import core.State
-import org.obsolete.IWhen
+import gs.property.IWhen
 import org.pcap4j.packet.*
 import org.xbill.DNS.*
 import java.io.IOException

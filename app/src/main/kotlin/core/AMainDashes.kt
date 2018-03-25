@@ -16,10 +16,10 @@ import gs.environment.Journal
 import gs.environment.inject
 import gs.presentation.WebViewActor
 import gs.property.IProperty
+import gs.property.IWhen
 import gs.property.getPersistencePath
 import org.blokada.BuildConfig
 import org.blokada.R
-import org.obsolete.IWhen
 import java.io.File
 import java.net.URL
 

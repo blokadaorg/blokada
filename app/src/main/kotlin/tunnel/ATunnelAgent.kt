@@ -9,10 +9,10 @@ import android.os.Binder
 import android.os.IBinder
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import gs.environment.Worker
 import gs.environment.inject
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.deferred
-import org.obsolete.KContext
 import java.io.FileDescriptor
 import java.net.DatagramSocket
 
@@ -21,7 +21,7 @@ import java.net.DatagramSocket
  */
 class ATunnelAgent(val ctx: Context) {
 
-    private val tunnelKctx by lazy { ctx.inject().with("tunnel").instance<KContext>() }
+    private val tunnelKctx by lazy { ctx.inject().with("tunnel").instance<Worker>() }
 
     private var events: ITunnelEvents? = null
     private var deferred = deferred<ATunnelBinder, Exception>(tunnelKctx)
