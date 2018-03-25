@@ -5,10 +5,10 @@ import android.net.Uri
 import com.github.salomonbrys.kodein.instance
 import core.Filter
 import core.State
-import gs.environment.inject
-import org.blokada.R
 import core.sourceToIcon
 import core.sourceToName
+import gs.environment.inject
+import org.blokada.R
 
 
 class AFilterActor(
@@ -66,14 +66,10 @@ class AFilterActor(
             v.multiple = true
             v.counter = if (filter.hosts.isNotEmpty()) filter.hosts.size else null
 
-            // Credit source
-            val source = filter.source
+            // Credit
+            val credit = filter.credit
             v.credit = try {
-                Intent(Intent.ACTION_VIEW, when (source) {
-                    is FilterSourceLink -> Uri.parse(source.source?.toExternalForm())
-                    is FilterSourceUri -> source.source
-                    else -> throw Exception("no source")
-                })
+                Intent(Intent.ACTION_VIEW, Uri.parse(credit))
             } catch (e: Exception) { null }
             v.credit?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
