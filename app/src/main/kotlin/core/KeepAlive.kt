@@ -109,8 +109,11 @@ class BootJobService : JobService() {
         // Simply creating a context will init the app.
         // If KeepAlive is enabled, it'll keep the app alive from now on.
         val s: State = inject().instance()
+        val j: Journal = inject().instance()
+        j.log("BootJobService onStartJob")
         s.connection.refresh()
         if (s.keepAlive()) {
+            j.log("BootJobService: KeepAlive is on")
             val provider: ComponentProvider<BootJobService> = inject().instance()
             provider.set(this)
             this.params = params
