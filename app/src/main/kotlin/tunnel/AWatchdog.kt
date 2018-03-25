@@ -33,7 +33,7 @@ class AWatchdog(
         if (!s.watchdogOn()) return true
         val socket = Socket()
         socket.soTimeout = 3000
-        return try { socket.connect(InetSocketAddress("google.com", 80), 3000); true }
+        return try { socket.connect(InetSocketAddress("dns.watch", 80), 3000); true }
         catch (e: Exception) { false } finally {
             try { socket.close() } catch (e: Exception) {}
         }
