@@ -73,9 +73,9 @@ dependencies {
     implementation project(':gscore')
 
     // Android support libraries
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:support-v4:27.0.2'
-    implementation 'com.android.support:design:27.0.2'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
 
     // Kotlin and its dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -94,7 +94,7 @@ dependencies {
     }
 
     // Analytics and debugging
-    officialImplementation 'com.google.firebase:firebase-core:11.8.0'
+    officialImplementation 'com.google.firebase:firebase-core:12.0.0'
     officialImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
 
     // Test dependencies
