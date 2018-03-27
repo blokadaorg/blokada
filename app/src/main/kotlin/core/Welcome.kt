@@ -52,7 +52,7 @@ class WelcomeImpl (
     override val cleanupUrl = newProperty(w, { URL("http://localhost") })
     override val conflictingBuilds = newProperty(w, { listOf<String>() })
 
-    fun init() {
+    init {
         i18n.locale.doWhenSet().then {
             val root = i18n.contentUrl()
             j.log("setting locale. contentUrl: $root")
