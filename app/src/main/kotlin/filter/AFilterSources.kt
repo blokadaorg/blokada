@@ -4,8 +4,8 @@ import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance
-import core.IFilterSource
 import core.Filters
+import core.IFilterSource
 import gs.environment.Journal
 import gs.environment.inject
 import gs.environment.load
@@ -131,9 +131,7 @@ class FilterSourceApp(
     private val s by lazy { ctx.inject().instance<Filters>() }
 
     private val apps by lazy {
-        if (s.apps().isEmpty()) {
-            s.apps.refresh(force = true, blocking = true)
-        }
+        s.apps.refresh(blocking = true)
         s.apps().flatMap { listOf(it.appId to it.appId, it.appId.toLowerCase() to it.appId,
                 it.label to it.appId, it.label.toLowerCase() to it.label) }.toMap()
     }

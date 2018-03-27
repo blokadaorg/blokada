@@ -126,7 +126,7 @@ class AFiltersAddAppView(
     private val s by lazy { ctx.inject().instance<Filters>() }
 
     private val appNames by lazy {
-        if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
+        s.apps.refresh(blocking = true)
         s.apps().map { "${it.label} | ${it.appId}" }
     }
 

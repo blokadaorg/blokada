@@ -56,11 +56,15 @@ fun newAppModule(ctx: Context): Kodein.Module {
         onReady {
             val d: Device = instance()
             val repo: Repo = instance()
+            val f: Filters = instance()
 
             // Since having filters is really important, poke whenever we get connectivity
             var wasConnected = false
             d.connected.doWhenChanged().then {
-                if (d.connected() && !wasConnected) repo.content.refresh()
+                if (d.connected() && !wasConnected) {
+                    repo.content.refresh()
+                    f.filters.refresh()
+                }
                 wasConnected = d.connected()
             }
 

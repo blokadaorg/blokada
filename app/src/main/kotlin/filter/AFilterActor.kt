@@ -38,7 +38,7 @@ class AFilterActor(
         v.showDelete = true
         v.onSwitched = { active ->
             filter.active = active
-            s.filters %= s.filters()
+            s.changed %= true
         }
     }
 

@@ -89,7 +89,7 @@ fun newTunnelModule(ctx: Context): Module {
             val engine: IEngineManager = instance()
             val perms: IPermissionsAsker = instance()
             val watchdog: IWatchdog = instance()
-            val retryKctx: Worker = with("gscore").instance()
+            val retryKctx: Worker = with("retry").instance()
 
             // todo: refresh watchdog on connection change (or)
             // React to user switching us off / on
@@ -116,7 +116,7 @@ fun newTunnelModule(ctx: Context): Module {
                         if (completed) {
                             s.tunnelState %= TunnelState.ACTIVE
                         } else {
-                            j.log(Exception("could not activate", err))
+                            j.log(Exception("tunnel: could not activate", err))
                         }
                     }
 
@@ -143,6 +143,7 @@ fun newTunnelModule(ctx: Context): Module {
                     resetRetriesTask = task(retryKctx) {
                         if (s.tunnelState(TunnelState.ACTIVE)) {
                             Thread.sleep(15 * 1000)
+                            j.log("tunnel: stable")
                             if (s.tunnelState(TunnelState.ACTIVE)) s.retries.refresh()
                         }
                     }
@@ -165,7 +166,7 @@ fun newTunnelModule(ctx: Context): Module {
                         if (s.enabled() && s.retries(0) && !s.tunnelState(TunnelState.ACTIVE)) {
                             Thread.sleep(5 * 1000)
                             if (s.enabled() && !s.tunnelState(TunnelState.ACTIVE)) {
-                                j.log("restart after long wait")
+                                j.log("tunnel: restart after wait")
                                 s.retries.refresh()
                                 s.restart %= true
                                 s.tunnelState %= TunnelState.INACTIVE
@@ -190,12 +191,12 @@ fun newTunnelModule(ctx: Context): Module {
             d.connected.doWhenChanged(withInit = true).then {
                 when {
                     !d.connected() && s.active() -> {
-                        j.log("no connectivity, deactivating")
+                        j.log("tunnel: no connectivity, deactivating")
                         s.restart %= true
                         s.active %= false
                     }
                     d.connected() && s.restart() && !s.updating() && s.enabled() -> {
-                        j.log("connectivity back, activating")
+                        j.log("tunnel: connectivity back, activating")
                         s.restart %= false
                         s.active %= true
                     }
@@ -207,7 +208,7 @@ fun newTunnelModule(ctx: Context): Module {
                 s.tunnelState(TunnelState.INACTIVE) && s.enabled() && s.restart() && s.updating(false)
                         && !d.isWaiting() && s.retries() > 0
             }.then {
-                j.log("auto restart")
+                j.log("tunnel: auto restart")
                 s.restart %= false
                 s.active %= true
             }

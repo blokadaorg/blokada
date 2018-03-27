@@ -7,8 +7,6 @@ import com.github.salomonbrys.kodein.*
 import filter.*
 import gs.environment.*
 import gs.property.*
-import org.obsolete.combine
-import org.obsolete.downloadFilters
 import java.io.File
 import java.io.InputStreamReader
 import java.nio.charset.Charset
@@ -17,6 +15,7 @@ import java.util.Properties
 abstract class Filters {
     abstract val filters: IProperty<List<Filter>>
     abstract val filtersCompiled: IProperty<Set<String>>
+    abstract val changed: IProperty<Boolean>
     abstract val apps: IProperty<List<App>>
 
     // Those do not change during lifetime of the app
@@ -26,14 +25,17 @@ abstract class Filters {
 class FiltersImpl(
         private val kctx: Worker,
         private val xx: Environment,
-        private val ctx: Context
+        private val ctx: Context = xx().instance(),
+        private val j: Journal = xx().instance()
 ) : Filters() {
 
     private val pages: Pages by xx.instance()
 
     override val filterConfig = newProperty<FilterConfig>(kctx, { ctx.inject().instance() })
+    override val changed = newProperty(kctx, { false })
 
     private val filtersRefresh = { it: List<Filter> ->
+        j.log("filters: refresh: start")
         val c = filterConfig()
         val serialiser: FilterSerializer = ctx.inject().instance()
         val builtinFilters = try {
@@ -43,6 +45,7 @@ class FiltersImpl(
             Thread.sleep(3000)
             serialiser.deserialise(load({ openUrl(pages.filters(), c.fetchTimeoutMillis) }))
         }
+        j.log("filters: refresh: downloaded")
 
         val newFilters = if (it.isEmpty()) {
             // First preselect
@@ -60,6 +63,7 @@ class FiltersImpl(
         }
 
         // Try to fetch localised copy for filters if available
+        j.log("filters: refresh: fetch localisation")
         val prop = Properties()
         prop.load(InputStreamReader(openUrl(pages.filtersStrings(), c.fetchTimeoutMillis), Charset.forName("UTF-8")))
         newFilters.forEach { try {
@@ -69,6 +73,8 @@ class FiltersImpl(
             )
         } catch (e: Exception) {}}
 
+        j.log("filters: refresh: finish")
+        changed %= true
         newFilters
     }
 
@@ -92,17 +98,30 @@ class FiltersImpl(
             persistence = ACompiledFiltersPersistence(ctx),
             zeroValue = { emptySet() },
             refresh = {
+                j.log("filters: compile: start")
+
+                // Drop any not-selected filters to free memory
+                filters().filter { !it.active }.forEach {
+                    it.hosts = emptyList()
+                }
+
                 val selected = filters().filter(Filter::active)
+                j.log("filters: compile: downloading")
                 downloadFilters(selected)
                 val selectedBlacklist = selected.filter { !it.whitelist }
                 val selectedWhitelist = selected.filter(Filter::whitelist)
 
-                combine(selectedBlacklist, selectedWhitelist)
+                j.log("filters: compile: combining")
+                val c = combine(selectedBlacklist, selectedWhitelist)
+                j.log("filters: compile: finish")
+                changed %= false
+                c
             },
             shouldRefresh = {
                 val c = filterConfig()
                 val now = ctx.inject().instance<Time>().now()
                 when {
+                    changed() -> true
                     !isCacheValid(c.cacheFile, c.cacheTTLMillis, now) -> true
                     it.isEmpty() -> true
                     else -> false
@@ -111,19 +130,38 @@ class FiltersImpl(
     )
 
     private val appsRefresh = {
+        j.log("filters: apps: start")
         val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        installed.map {
+        val a = installed.map {
             App(
                     appId = it.packageName,
                     label = ctx.packageManager.getApplicationLabel(it).toString(),
                     system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
             )
         }.sortedBy { it.label }
+        j.log("filters: apps: found ${a.size} apps")
+        a
     }
 
-    override val apps = newProperty(kctx, zeroValue = { appsRefresh() }, refresh = { appsRefresh() })
+    override val apps = newProperty(kctx, zeroValue = { emptyList<App>() }, refresh = { appsRefresh() },
+            shouldRefresh = { it.isEmpty() })
 }
 
+internal fun downloadFilters(filters: List<Filter>) {
+    filters.forEach { filter ->
+        if (filter.hosts.isEmpty()) {
+            filter.hosts = filter.source.fetch()
+            filter.valid = filter.hosts.isNotEmpty()
+        }
+    }
+}
+
+internal fun combine(blacklist: List<Filter>, whitelist: List<Filter>): Set<String> {
+    val set = mutableSetOf<String>()
+    blacklist.forEach { set.addAll(it.hosts) }
+    whitelist.forEach { set.removeAll(it.hosts) }
+    return set
+}
 
 fun newFiltersModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
@@ -197,8 +235,8 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
             }
 
             // Compile filters every time they change
-            s.filters.doWhenSet().then {
-                s.filtersCompiled.refresh(force = true)
+            s.changed.doWhenChanged().then {
+                s.filtersCompiled.refresh()
             }
 
             // Push filters to engine every time they're changed

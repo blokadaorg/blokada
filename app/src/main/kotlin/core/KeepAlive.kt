@@ -126,10 +126,10 @@ class KeepAliveService : Service() {
     }
 
     class KeepAliveBinder : Binder()
+    private val j by lazy { inject().instance<Journal>() }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val j: Journal = inject().instance()
-        j.log("KeepAliveService start command")
+        j.log("KeepAliveService: start command")
         return Service.START_STICKY;
     }
 
@@ -144,6 +144,7 @@ class KeepAliveService : Service() {
             val n = createNotificationKeepAlive(this, count, last)
             startForeground(3, n)
 
+            j.log("KeepAliveService: bound")
             return binder
         }
         return null
@@ -152,11 +153,13 @@ class KeepAliveService : Service() {
     override fun onUnbind(intent: Intent?): Boolean {
         binder = null
         stopForeground(true)
+        j.log("KeepAliveService: unbind")
         return super.onUnbind(intent)
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        j.log("KeepAliveService: destroy")
         // This is probably pointless
         if (binder != null) sendBroadcast(Intent("org.blokada.keepAlive"))
     }

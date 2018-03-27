@@ -25,16 +25,6 @@ class DashFilterBlacklist(
         R.drawable.ic_shield_outline,
         text = ctx.getString(R.string.filter_blacklist_text_none),
         menuDashes = Triple(AddBlacklist(ctx, s), GenerateBlacklist(ctx, s), null),
-        onDashOpen = { task(ctx.inject().with(KCTX).instance()) {
-            var changed = false
-            s.filters().filter { !it.whitelist }.forEach {
-                if (it.hosts.isEmpty()) {
-                    it.hosts = it.source.fetch()
-                    changed = true
-                }
-            }
-            if (changed) s.filters %= s.filters()
-        }},
         hasView = true
 ) {
     private var listener: IWhen? = null
