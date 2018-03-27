@@ -2,17 +2,18 @@ package notification
 
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
+import core.Dash
+import core.Filters
+import core.KeepAlive
+import core.UiState
 import gs.environment.inject
 import org.blokada.R
-import core.Dash
-import core.State
-import core.UiState
 
 val DASH_ID_KEEPALIVE = "notifiction_keepalive"
 
 class NotificationDashOn(
         val ctx: Context,
-        val s: State = ctx.inject().instance(),
+        val s: Filters = ctx.inject().instance(),
         val ui: UiState = ctx.inject().instance()
 ) : Dash(
         "notification_on",
@@ -37,7 +38,7 @@ class NotificationDashOn(
 
 class NotificationDashKeepAlive(
         val ctx: Context,
-        val s: State = ctx.inject().instance()
+        val s: KeepAlive = ctx.inject().instance()
 ) : Dash(
         DASH_ID_KEEPALIVE,
         icon = false,

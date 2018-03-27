@@ -5,7 +5,7 @@ import android.net.Uri
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance
 import core.IFilterSource
-import core.State
+import core.Filters
 import gs.environment.Journal
 import gs.environment.inject
 import gs.environment.load
@@ -128,7 +128,7 @@ class FilterSourceApp(
     var system: Boolean = false
         private set
 
-    private val s by lazy { ctx.inject().instance<State>() }
+    private val s by lazy { ctx.inject().instance<Filters>() }
 
     private val apps by lazy {
         if (s.apps().isEmpty()) {

@@ -16,11 +16,12 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.net.VpnService
 import com.github.salomonbrys.kodein.instance
+import core.Dns
+import core.Filters
+import filter.FilterSourceApp
 import gs.environment.Journal
 import gs.environment.hasIpV6Servers
 import gs.environment.inject
-import filter.FilterSourceApp
-import core.State
 import tunnel.ITunnelEvents
 import java.net.Inet4Address
 import java.net.Inet6Address
@@ -33,7 +34,8 @@ internal class ALollipopTunnelEvents(
         private val onRevoked: () -> Unit = {}
 ) : ITunnelEvents {
 
-    private val s by lazy { ctx.inject().instance<State>() }
+    private val dns by lazy { ctx.inject().instance<Dns>() }
+    private val f by lazy { ctx.inject().instance<Filters>() }
     private val j by lazy { ctx.inject().instance<Journal>() }
 
     private var dnsIndex = 1
@@ -61,7 +63,7 @@ internal class ALollipopTunnelEvents(
         // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
         var ipv6Template: ByteArray? = byteArrayOf(32, 1, 13, (184 and 0xFF).toByte(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-        if (hasIpV6Servers(s.connection().dnsServers)) {
+        if (hasIpV6Servers(dns.dnsServers())) {
             try {
                 val address = Inet6Address.getByAddress(ipv6Template)
                 builder.addAddress(address, 120)
@@ -74,7 +76,7 @@ internal class ALollipopTunnelEvents(
         }
 
         dnsIndex = 1
-        for (address in s.connection().dnsServers) {
+        for (address in dns.dnsServers()) {
             try {
                 builder.addDnsServer(format, ipv6Template, address)
             } catch (e: Exception) {
@@ -82,7 +84,7 @@ internal class ALollipopTunnelEvents(
             }
         }
 
-        s.filters().filter { it.whitelist && it.active && it.source is FilterSourceApp }.forEach {
+        f.filters().filter { it.whitelist && it.active && it.source is FilterSourceApp }.forEach {
             builder.addDisallowedApplication(it.source.toUserInput())
         }
 

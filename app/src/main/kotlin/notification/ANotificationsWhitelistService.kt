@@ -10,11 +10,11 @@ import org.blokada.R
 import core.Filter
 import filter.FilterSourceSingle
 import core.LocalisedFilter
-import core.State
+import core.Filters
 
 class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
 
-    private val s by lazy { inject().instance<State>() }
+    private val s by lazy { inject().instance<Filters>() }
 
     override fun onHandleIntent(intent: Intent) {
         val host = intent.getStringExtra("host") ?: return

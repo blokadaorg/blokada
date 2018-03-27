@@ -9,7 +9,7 @@ import org.blokada.R
 
 class ATopBarActor(
         private val xx: Environment,
-        private val m: State,
+        private val m: Tunnel,
         private val ui: UiState,
         private val v: ATopBarView,
         private val enabledStateActor: EnabledStateActor,

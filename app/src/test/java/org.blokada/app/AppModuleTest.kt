@@ -24,8 +24,8 @@ class AppModuleTest {
 
     private fun newDeps(kctx: Worker): Kodein.Module {
         return Kodein.Module {
-            bind<State>() with singleton {
-                object : State() {
+            bind<Filters>() with singleton {
+                object : Filters() {
                     override val enabled = org.obsolete.newProperty(kctx, { false })
                     override val active = org.obsolete.newProperty(kctx, { false })
                     override val retries = org.obsolete.newProperty(kctx, { 3 })
@@ -144,7 +144,7 @@ class AppModuleTest {
             import(newAppModule())
         }
 
-        val s: State = kodein.instance()
+        val s: Filters = kodein.instance()
         s.enabled %= true
 
         // Turn off if can't get permissions for the tunnel
@@ -235,7 +235,7 @@ class AppModuleTest {
             import(newAppModule())
         }
 
-        val s: State = kodein.instance()
+        val s: Filters = kodein.instance()
 
         // Turn off if can't get permissions for the tunnel
         assertFalse(s.active())
@@ -262,7 +262,7 @@ class AppModuleTest {
             import(newAppModule())
         }
 
-        val s: State = kodein.instance()
+        val s: Filters = kodein.instance()
 
         // The app does start by itself (if enabled)
         tunnelPerm = true

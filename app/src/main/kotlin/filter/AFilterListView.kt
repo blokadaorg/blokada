@@ -20,7 +20,7 @@ class AFilterListView(
         attributeSet: AttributeSet
 ) : RecyclerView(ctx, attributeSet) {
 
-    private val s by lazy { context.inject().instance<core.State>() }
+    private val s by lazy { context.inject().instance<core.Filters>() }
     private val ui by lazy { context.inject().instance<UiState>() }
     private var filters = listOf<Filter>()
     private var listener: IWhen? = null

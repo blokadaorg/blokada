@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.github.salomonbrys.kodein.instance
-import core.State
+import core.Filters
 import gs.environment.inject
 import org.blokada.R
 
@@ -123,7 +123,7 @@ class AFiltersAddAppView(
         }
     }
 
-    private val s by lazy { ctx.inject().instance<State>() }
+    private val s by lazy { ctx.inject().instance<Filters>() }
 
     private val appNames by lazy {
         if (s.apps().isEmpty()) s.apps.refresh(blocking = true)

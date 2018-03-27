@@ -6,7 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.ShareCompat
 import android.widget.Toast
-import com.github.salomonbrys.kodein.instance
+import com.github.salomonbrys.kodein.*
 import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Journal
@@ -35,7 +35,9 @@ abstract class Welcome {
 
 class WelcomeImpl (
         w: Worker,
-        xx: Environment
+        xx: Environment,
+        val i18n: I18n = xx().instance(),
+        val j: Journal = xx().instance()
 ) : Welcome() {
     override val introUrl = newProperty(w, { URL("http://localhost") })
     override val introSeen = newPersistedProperty(w, BasicPersistence(xx, "intro_seen"), { false })
@@ -50,6 +52,29 @@ class WelcomeImpl (
     override val cleanupUrl = newProperty(w, { URL("http://localhost") })
     override val conflictingBuilds = newProperty(w, { listOf<String>() })
 
+    fun init() {
+        i18n.locale.doWhenSet().then {
+            val root = i18n.contentUrl()
+            j.log("setting locale. contentUrl: $root")
+            updatedUrl %= URL("${root}/updated.html")
+            cleanupUrl %= URL("${root}/cleanup.html")
+            ctaUrl %= URL("${root}/cta.html")
+            patronShow %= true
+            // Last one because it triggers dialogs
+            introUrl %= URL("${root}/intro.html")
+        }
+
+        conflictingBuilds %= listOf("org.blokada.origin.alarm", "org.blokada.alarm", "org.blokada", "org.blokada.dev")
+        obsoleteUrl %= URL("https://blokada.org/api/legacy/content/root/obsolete.html")
+    }
+}
+
+fun newWelcomeModule(ctx: Context): Kodein.Module {
+    return Kodein.Module {
+        bind<Welcome>() with singleton {
+            WelcomeImpl(w = with("gscore").instance(2), xx = lazy)
+        }
+    }
 }
 
 class WelcomeDialogManager (
@@ -130,7 +155,7 @@ class WelcomeDialogManager (
                 dialogGuide.show()
                 displaying = true
             }
-            step == 2 -> {
+            step == 2 && welcome.patronShow() -> {
                 dialogPatron.listener = { button ->
                     displaying = false
                     if (button == 1) {

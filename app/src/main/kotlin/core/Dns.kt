@@ -16,9 +16,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
-import com.github.salomonbrys.kodein.instance
-import com.github.salomonbrys.kodein.provider
-import com.github.salomonbrys.kodein.with
+import com.github.salomonbrys.kodein.*
 import filter.AFilterView
 import filter.AFilterViewHolder
 import gs.environment.*
@@ -30,8 +28,50 @@ import java.net.InetAddress
 import java.nio.charset.Charset
 import java.util.Properties
 
+fun newDnsModule(ctx: Context): Kodein.Module {
+    return Kodein.Module {
+        bind<AddDialog>() with provider {
+            AddDialog(ctx)
+        }
+        bind<GenerateDialog>() with provider {
+            GenerateDialog(xx = lazy)
+        }
+        bind<Dns>() with singleton {
+            DnsImpl(with("gscore").instance(), lazy)
+        }
+        bind<DnsLocalisedFetcher>() with singleton {
+            DnsLocalisedFetcher(xx = lazy)
+        }
+        onReady {
+            val s: Tunnel = instance()
+
+            // Reload engine in case dns selection changes
+            val dns: Dns = instance()
+            var currentDns: DnsChoice? = null
+            dns.choices.doWhenSet().then {
+                val newChoice = dns.choices().firstOrNull { it.active }
+                if (newChoice != null && newChoice != currentDns) {
+                    currentDns = newChoice
+
+                    if (!s.enabled()) {
+                    } else if (s.active()) {
+                        s.restart %= true
+                        s.active %= false
+                    } else {
+                        s.retries.refresh()
+                        s.restart %= false
+                        s.active %= true
+                    }
+                }
+            }
+
+        }
+    }
+}
+
 abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
+    abstract val dnsServers: IProperty<List<InetAddress>>
 }
 
 class DnsImpl(
@@ -41,7 +81,8 @@ class DnsImpl(
         serialiser: DnsSerialiser = DnsSerialiser(),
         fetcher: DnsLocalisedFetcher = xx().instance(),
         j: Journal = xx().instance(),
-        s: State = xx().instance()
+        s: Filters = xx().instance(),
+        ctx: Context = xx().instance()
 ) : Dns() {
 
     private val refresh = { it: List<DnsChoice> ->
@@ -91,14 +132,21 @@ class DnsImpl(
             refresh = refresh,
             shouldRefresh = { it.size <= 1 })
 
+    override val dnsServers = newProperty(w, {
+        val d = choices().firstOrNull { it.active }
+        if (d?.servers?.isEmpty() ?: true) getDnsServers(ctx)
+        else d?.servers!!
+    })
+
     init {
         pages.dns.doWhenSet().then {
             choices.refresh()
         }
 
         choices.doOnUiWhenSet().then {
-            s.connection.refresh()
+            dnsServers.refresh()
         }
+        // TODO: refresh dns servers on connection change
     }
 
 }
@@ -334,7 +382,7 @@ class DnsListView(
 ) : RecyclerView(ctx, attributeSet) {
 
     private val dns by lazy { context.inject().instance<Dns>() }
-    private val s by lazy { context.inject().instance<core.State>() }
+    private val s by lazy { context.inject().instance<Device>() }
     private var choices = listOf<DnsChoice>()
     private var listener: IWhen? = null
     private var listener2: IWhen? = null
@@ -356,8 +404,8 @@ class DnsListView(
 
         dns.choices.cancel(listener)
         listener = dns.choices.doOnUiWhenSet().then { refreshFilters() }
-        s.connection.cancel(listener2)
-        listener2 = s.connection.doOnUiWhenChanged().then { adapter.notifyDataSetChanged() }
+        s.connected.cancel(listener2)
+        listener2 = s.connected.doOnUiWhenChanged().then { adapter.notifyDataSetChanged() }
     }
 
     private fun refreshFilters() {
@@ -400,7 +448,6 @@ class DnsActor(
 ) {
     private val dialog by lazy { AddDialog(v.context) }
     private val dns by lazy { v.context.inject().instance<Dns>() }
-    private val s by lazy { v.context.inject().instance<State>() }
     private val ic by lazy { v.resources.getDrawable(R.drawable.ic_server) }
     private val i18n by lazy { v.context.inject().instance<I18n>() }
 
@@ -441,7 +488,7 @@ class DnsActor(
         v.name = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
         v.description = filter.comment ?: i18n.localisedOrNull("dns_${id}_comment")
         v.source = {
-            val s = if (filter.servers.isNotEmpty()) filter.servers else s.connection().dnsServers
+            val s = if (filter.servers.isNotEmpty()) filter.servers else dns.dnsServers()
             printServers(s)
         }()
 

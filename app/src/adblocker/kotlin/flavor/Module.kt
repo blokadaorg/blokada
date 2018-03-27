@@ -1,6 +1,5 @@
 package flavor
 
-import adblocker.AEngineManagerProvider
 import adblocker.ALollipopEngineManager
 import adblocker.TunnelDashCountDropped
 import adblocker.TunnelDashHostsCount
@@ -26,22 +25,16 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
         // EngineManager that can switch between concrete engines
         bind<IEngineManager>() with singleton {
-            val s: State = instance()
+            val s: Tunnel = instance()
             val j: Journal = instance()
 
-            AEngineManagerProvider(s,
+            ALollipopEngineManager(ctx,
                     adBlocked = { host ->
                         s.tunnelDropCount %= s.tunnelDropCount() + 1
                         val dropped = s.tunnelRecentDropped() + host
                         s.tunnelRecentDropped %= dropped.takeLast(10)
-                        j.event(Events.AD_BLOCKED(host))
-                        if (s.firstRun(true)) {
-                            j.event(Events.FIRST_AD_BLOCKED)
-                            s.firstRun %= false
-                        }
                     },
                     error = {
-                        if (s.firstRun(true)) j.event(Events.FIRST_ACTIVE_FAIL)
                         j.log(Exception("engine error while running: $it"))
 
                         // Reload the engine and hope now it works
@@ -49,25 +42,27 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                             s.restart %= true
                             s.active %= false
                         }
+
                     },
                     onRevoked = {
                         s.tunnelPermission.refresh(blocking = true)
                         s.restart %= true
                         s.active %= false
-                    }
-            )
+
+                    })
         }
-        bind<List<Engine>>() with singleton { listOf(Engine(
-                id = "lollipop",
-                createIEngineManager = {
-                    ALollipopEngineManager(ctx,
-                            agent = instance(),
-                            adBlocked = it.adBlocked,
-                            error = it.error,
-                            onRevoked = it.onRevoked
-                    )
-                }
-        )) }
+        bind<List<Engine>>() with singleton {
+            listOf(Engine(
+                    id = "lollipop",
+                    createIEngineManager = {
+                        ALollipopEngineManager(ctx,
+                                adBlocked = it.adBlocked,
+                                error = it.error,
+                                onRevoked = it.onRevoked
+                        )
+                    }
+            ))
+        }
         bind<ATunnelService.IBuilderConfigurator>() with singleton {
             val dns: Dns = instance()
             object : ATunnelService.IBuilderConfigurator {
@@ -79,32 +74,33 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                 }
             }
         }
-        bind<List<Dash>>() with singleton { listOf(
-                UpdateDash(ctx).activate(true),
-                TunnelDashCountDropped(ctx).activate(true),
-                DashFilterBlacklist(ctx).activate(true),
-                DashFilterWhitelist(ctx).activate(true),
-                DashDns(lazy).activate(true),
-                NotificationDashOn(ctx).activate(true),
-                NotificationDashKeepAlive(ctx).activate(true),
-                AutoStartDash(ctx).activate(true),
-                ConnectivityDash(ctx).activate(true),
-                TunnelDashHostsCount(ctx).activate(true),
-                PatronDash(lazy).activate(false),
-                PatronAboutDash(lazy).activate(false),
-                DonateDash(lazy).activate(false),
-                NewsDash(lazy).activate(false),
-                FeedbackDash(lazy).activate(false),
-                FaqDash(lazy).activate(false),
-                ChangelogDash(lazy).activate(false),
-                AboutDash(ctx).activate(false),
-                CreditsDash(lazy).activate(false),
-                CtaDash(lazy).activate(false),
-                ShareLogDash(lazy).activate(false)
-        )}
+        bind<List<Dash>>() with singleton {
+            listOf(
+                    UpdateDash(ctx).activate(true),
+                    TunnelDashCountDropped(ctx).activate(true),
+                    DashFilterBlacklist(ctx).activate(true),
+                    DashFilterWhitelist(ctx).activate(true),
+                    DashDns(lazy).activate(true),
+                    NotificationDashOn(ctx).activate(true),
+                    NotificationDashKeepAlive(ctx).activate(true),
+                    AutoStartDash(ctx).activate(true),
+                    ConnectivityDash(ctx).activate(true),
+                    TunnelDashHostsCount(ctx).activate(true),
+                    PatronDash(lazy).activate(false),
+                    PatronAboutDash(lazy).activate(false),
+                    DonateDash(lazy).activate(false),
+                    NewsDash(lazy).activate(false),
+                    FeedbackDash(lazy).activate(false),
+                    FaqDash(lazy).activate(false),
+                    ChangelogDash(lazy).activate(false),
+                    AboutDash(ctx).activate(false),
+                    CreditsDash(lazy).activate(false),
+                    CtaDash(lazy).activate(false),
+                    ShareLogDash(lazy).activate(false)
+            )
+        }
         onReady {
-            val s: State = instance()
-            val j: Journal = instance()
+            val s: Tunnel = instance()
             val ui: UiState = instance()
 
             // Show confirmation message to the user whenever notifications are enabled or disabled
@@ -114,11 +110,6 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                 } else {
                     ui.infoQueue %= ui.infoQueue() + Info(InfoType.NOTIFICATIONS_DISABLED)
                 }
-            }
-
-            // Report user property for notifications
-            ui.notifications.doWhenSet().then {
-                j.setUserProperty(Properties.NOTIFICATIONS, ui.notifications())
             }
 
             // Display notifications for dropped
@@ -134,7 +125,6 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
 
             // Initialize default values for properties that need it (async)
             s.tunnelDropCount {}
-            s.tunnelActiveEngine {}
         }
     }
 }

@@ -213,7 +213,7 @@ class CreditsDash(
 
 class AutoStartDash(
         val ctx: Context,
-        val s: State = ctx.inject().instance()
+        val s: Tunnel = ctx.inject().instance()
 ) : Dash(
         "main_autostart",
         icon = false,
@@ -238,7 +238,7 @@ class AutoStartDash(
 
 class ConnectivityDash(
         val ctx: Context,
-        val s: State = ctx.inject().instance()
+        val s: Tunnel = ctx.inject().instance()
 ) : Dash(
         "main_connectivity",
         icon = false,
@@ -298,7 +298,9 @@ class ShareLogDash(
         val ctx: Context = xx().instance(),
         val activity: ComponentProvider<Activity> = xx().instance(),
         val j: Journal = xx().instance(),
-        val s: State = xx().instance()
+        val s: Tunnel = xx().instance(),
+        val k: KeepAlive = xx().instance(),
+        val f: Filters = xx().instance()
 ) : Dash(
         DASH_ID_LOG,
         R.drawable.ic_comment_multiple_outline,
@@ -309,8 +311,8 @@ class ShareLogDash(
                 j.log("device: ${Build.MANUFACTURER}, ${Build.MODEL}, ${Build.PRODUCT}")
                 j.log("os: ${Build.VERSION.SDK_INT}")
                 j.log("app: ${BuildConfig.FLAVOR} ${BuildConfig.BUILD_TYPE} ${BuildConfig.VERSION_CODE}")
-                j.log("hostsCount: ${s.filtersCompiled().size}")
-                j.log("keepAlive: ${s.keepAlive()}")
+                j.log("hostsCount: ${f.filtersCompiled().size}")
+                j.log("keepAlive: ${k.keepAlive()}")
                 j.log("onlineOnly: ${s.watchdogOn()}")
                 j.log("basic config end")
 

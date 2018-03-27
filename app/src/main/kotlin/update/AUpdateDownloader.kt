@@ -9,8 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.support.v4.content.FileProvider
 import com.github.salomonbrys.kodein.instance
-import core.Events
-import gs.environment.Journal
 import gs.environment.inject
 import java.io.File
 import java.net.URL
@@ -23,7 +21,6 @@ class AUpdateDownloader(
 ) {
 
     private val dm by lazy { ctx.inject().instance<DownloadManager>() }
-    private val j by lazy { ctx.inject().instance<Journal>() }
 
     private var enqueue: Long? = null
     private var links: List<java.net.URL> = emptyList()
@@ -51,7 +48,6 @@ class AUpdateDownloader(
                     } else {
                         links = emptyList()
                         listener(null)
-                        j.event(Events.UPDATE_DOWNLOAD_FAIL)
                     }
                 }
             }
@@ -66,7 +62,6 @@ class AUpdateDownloader(
         val request = DownloadManager.Request(Uri.parse(links[0].toExternalForm()))
         request.setDestinationInExternalFilesDir(ctx, null, "blokada-update.apk")
         enqueue = dm.enqueue(request)
-        j.event(Events.UPDATE_DOWNLOAD_START)
     }
 
     fun openInstall(uri: Uri) {
@@ -84,7 +79,6 @@ class AUpdateDownloader(
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             ctx.startActivity(intent)
         }
-        j.event(Events.UPDATE_INSTALL_ASK)
     }
 
     private fun register() {

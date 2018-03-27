@@ -17,7 +17,7 @@ class EnabledStateActor(
     private val listener3: Any
 
     init {
-        val s: State = di().instance()
+        val s: Tunnel = di().instance()
 
         listener1 = s.enabled.doOnUiWhenChanged().then { update(s) }
         listener2 = s.active.doOnUiWhenChanged().then { update(s) }
@@ -25,7 +25,7 @@ class EnabledStateActor(
         update(s)
     }
 
-    fun update(s: State) {
+    fun update(s: Tunnel) {
         when {
             s.tunnelState(TunnelState.ACTIVATING) -> startActivating()
             s.tunnelState(TunnelState.DEACTIVATING) -> startDeactivating()

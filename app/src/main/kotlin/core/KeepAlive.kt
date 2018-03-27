@@ -1,22 +1,88 @@
 package core
 
+import android.app.NotificationManager
 import android.app.Service
 import android.app.job.JobInfo
-import android.app.job.JobParameters
 import android.app.job.JobScheduler
-import android.app.job.JobService
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Binder
 import android.os.IBinder
-import com.github.salomonbrys.kodein.instance
-import gs.environment.ComponentProvider
-import gs.environment.Journal
-import gs.environment.inject
+import com.github.salomonbrys.kodein.*
+import gs.environment.*
+import gs.property.IProperty
+import gs.property.IWhen
+import gs.property.newPersistedProperty
 import notification.createNotificationKeepAlive
 import org.blokada.R
+
+abstract class KeepAlive {
+    abstract val keepAlive: IProperty<Boolean>
+}
+
+
+class KeepAliveImpl(
+        private val kctx: Worker,
+        private val xx: Environment,
+        private val ctx: Context = xx().instance()
+) : KeepAlive() {
+    override val keepAlive = newPersistedProperty(kctx, APrefsPersistence(ctx, "keepAlive"),
+            { false }
+    )
+}
+
+fun newKeepAliveModule(ctx: Context): Kodein.Module {
+    return Kodein.Module {
+        bind<KeepAlive>() with singleton {
+            KeepAliveImpl(kctx = with("gscore").instance(), xx = lazy)
+        }
+        onReady {
+            val ui: UiState = instance()
+            val s: KeepAlive = instance()
+            val t: Tunnel = instance()
+
+            // Show confirmation message whenever keepAlive configuration is changed
+            s.keepAlive.doWhenChanged().then {
+                if (s.keepAlive()) {
+                    ui.infoQueue %= ui.infoQueue() + Info(InfoType.NOTIFICATIONS_KEEPALIVE_ENABLED)
+                } else {
+                    ui.infoQueue %= ui.infoQueue() + Info(InfoType.NOTIFICATIONS_KEEPALIVE_DISABLED)
+                }
+            }
+
+            // Start / stop the keep alive service depending on the configuration flag
+            val keepAliveNotificationUpdater = { dropped: Int ->
+                val ctx: Context = instance()
+                val nm: NotificationManager = instance()
+                val n = createNotificationKeepAlive(ctx = ctx, count = dropped,
+                        last = t.tunnelRecentDropped().lastOrNull() ?:
+                        ctx.getString(R.string.notification_keepalive_none)
+                )
+                nm.notify(3, n)
+            }
+            var w: IWhen? = null
+            s.keepAlive.doWhenSet().then {
+                if (s.keepAlive()) {
+                    t.tunnelDropCount.cancel(w)
+                    w = t.tunnelDropCount.doOnUiWhenSet().then {
+                        keepAliveNotificationUpdater(t.tunnelDropCount())
+                    }
+                    keepAliveAgent.bind(ctx)
+                } else {
+                    t.tunnelDropCount.cancel(w)
+                    keepAliveAgent.unbind(ctx)
+                }
+            }
+
+            s.keepAlive {}
+        }
+    }
+}
+
+// So that it's never GC'd, not sure if it actually does anything
+private val keepAliveAgent by lazy { KeepAliveAgent() }
 
 class KeepAliveAgent {
     private val serviceConnection = object: ServiceConnection {
@@ -69,18 +135,14 @@ class KeepAliveService : Service() {
         if (BINDER_ACTION.equals(intent?.action)) {
             binder = KeepAliveBinder()
 
-            val s: State = inject().instance()
+            val s: Tunnel = inject().instance()
             val count = s.tunnelDropCount()
             val last = s.tunnelRecentDropped().lastOrNull() ?: getString(R.string.notification_keepalive_none)
             val n = createNotificationKeepAlive(this, count, last)
             startForeground(3, n)
 
             val provider: ComponentProvider<BootJobService> = inject().instance()
-            val service = provider.get()
-            if (service != null) {
-                try { service.jobFinished(service.params, false) } catch (e: Exception) {}
-                provider.unset()
-            }
+            provider.get()?.finishJob() // todo: move it somewhere
 
             return binder
         }
@@ -101,28 +163,4 @@ class KeepAliveService : Service() {
 
 }
 
-class BootJobService : JobService() {
 
-    var params: JobParameters? = null
-
-    override fun onStartJob(params: JobParameters?): Boolean {
-        // Simply creating a context will init the app.
-        // If KeepAlive is enabled, it'll keep the app alive from now on.
-        val s: State = inject().instance()
-        val j: Journal = inject().instance()
-        j.log("BootJobService onStartJob")
-        s.connection.refresh()
-        if (s.keepAlive()) {
-            j.log("BootJobService: KeepAlive is on")
-            val provider: ComponentProvider<BootJobService> = inject().instance()
-            provider.set(this)
-            this.params = params
-            return true
-        } else return false
-    }
-
-    override fun onStopJob(params: JobParameters?): Boolean {
-        return true
-    }
-
-}

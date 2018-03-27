@@ -17,7 +17,8 @@ import android.system.ErrnoException
 import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
-import core.State
+import core.Dns
+import core.Filters
 import gs.environment.Journal
 import org.pcap4j.packet.IpPacket
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
@@ -35,7 +36,8 @@ import java.util.*
 class TunnelThreadLollipopAndroid(
         val actions: ITunnelActions,
         val j: Journal,
-        val s: State,
+        val s: Dns,
+        val f: Filters,
         val adBlocked: (String) -> Unit,
         val error: (String) -> Unit
 ) : Runnable {
@@ -47,7 +49,7 @@ class TunnelThreadLollipopAndroid(
     private var blockFd: FileDescriptor? = null
     private var interruptFd: FileDescriptor? = null
 
-    private val proxy = DnsProxy(s, object : IProxyEvents {
+    private val proxy = DnsProxy(s, f, object : IProxyEvents {
 
         override fun forward(packet: DatagramPacket, request: IpPacket?) {
             var dnsSocket: DatagramSocket? = null

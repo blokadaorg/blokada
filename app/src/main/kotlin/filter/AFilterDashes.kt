@@ -20,7 +20,7 @@ private val KCTX = "filter-dashes"
 
 class DashFilterBlacklist(
         val ctx: Context,
-        val s: State = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance()
 ) : Dash(DASH_ID_BLACKLIST,
         R.drawable.ic_shield_outline,
         text = ctx.getString(R.string.filter_blacklist_text_none),
@@ -63,7 +63,7 @@ class DashFilterBlacklist(
 
 class DashFilterWhitelist(
         val ctx: Context,
-        val s: State = ctx.inject().instance(),
+        val s: Filters = ctx.inject().instance(),
         val ui: UiState = ctx.inject().instance()
 ) : Dash(DASH_ID_WHITELIST,
         R.drawable.ic_verified,
@@ -110,7 +110,7 @@ class DashFilterWhitelist(
 
 class AddBlacklist(
         val ctx: Context,
-        val s: State = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance()
 ) : Dash(
         "filter_blacklist_add",
         R.drawable.ic_filter_add,
@@ -128,7 +128,7 @@ class AddBlacklist(
 
 class AddWhitelist(
         val ctx: Context,
-        val s: State = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance()
 ) : Dash(
         "filter_whitelist_add",
         R.drawable.ic_filter_add,
@@ -146,7 +146,7 @@ class AddWhitelist(
 
 class GenerateWhitelist(
         val ctx: Context,
-        val s: State = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance()
 ) : Dash(
         "filter_whitelist_generate",
         R.drawable.ic_tune,
@@ -160,7 +160,7 @@ class GenerateWhitelist(
 
 class GenerateBlacklist(
         val ctx: Context,
-        val s: State = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance()
 ) : Dash(
         "filter_blacklist_generate",
         R.drawable.ic_tune,

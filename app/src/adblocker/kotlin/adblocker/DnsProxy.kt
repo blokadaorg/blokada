@@ -12,7 +12,8 @@
  */
 package adblocker
 
-import core.State
+import core.Dns
+import core.Filters
 import gs.property.IWhen
 import org.pcap4j.packet.*
 import org.xbill.DNS.*
@@ -24,7 +25,8 @@ import java.net.InetAddress
 import java.util.*
 
 class DnsProxy(
-        val s: State,
+        val s: Dns,
+        val f: Filters,
         val proxyEvents: IProxyEvents,
         val adBlocked: (String) -> Unit
 ) {
@@ -43,12 +45,12 @@ class DnsProxy(
     var listener: IWhen? = null
 
     init {
-        listener = s.filtersCompiled.doWhenSet().then { updateFilters(s.filtersCompiled()) }
-        updateFilters(s.filtersCompiled())
+        listener = f.filtersCompiled.doWhenSet().then { updateFilters(f.filtersCompiled()) }
+        updateFilters(f.filtersCompiled())
     }
 
     fun stop() {
-        s.filtersCompiled.cancel(listener)
+        f.filtersCompiled.cancel(listener)
     }
 
     fun handleRequest(packetBytes: ByteArray) {
@@ -124,7 +126,7 @@ class DnsProxy(
     }
 
     private fun rewriteDnsAddress(packet: IpPacket): InetAddress {
-        val servers = s.connection().dnsServers
+        val servers = s.dnsServers()
         val current = packet.header.dstAddr
         return when {
             servers.isEmpty() -> current

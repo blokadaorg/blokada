@@ -12,9 +12,9 @@ import org.blokada.R
  *
  */
 @TargetApi(24)
-class AQuickSettingsService : TileService(), IEnabledStateActorListener {
+class QuickSettingsService : TileService(), IEnabledStateActorListener {
 
-    private val s by lazy { inject().instance<State>() }
+    private val s by lazy { inject().instance<Tunnel>() }
     private val enabledStateActor by lazy { inject().instance<EnabledStateActor>() }
     private var waiting = Sync(false)
 

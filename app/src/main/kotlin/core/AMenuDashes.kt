@@ -3,10 +3,7 @@ package core
 import android.content.Context
 import android.view.View
 import android.widget.PopupMenu
-import com.github.salomonbrys.kodein.instance
 import core.ContentActor.Companion.X_END
-import gs.environment.Journal
-import gs.environment.inject
 import org.blokada.R
 import update.DASH_ID_ABOUT
 
@@ -22,7 +19,6 @@ class DashMainMenu(
         R.drawable.ic_more
 ) {
 
-    private val a by lazy { ctx.inject().instance<Journal>() }
     private var menu: PopupMenu? = null
 
     init {
@@ -62,7 +58,6 @@ class DashMainMenu(
             !dash.hasView -> dash.onClick?.invoke(0)
             else -> {
                 contentActor.back {
-                    a.event(Events.Companion.CLICK_DASH(dash.id))
                     contentActor.reveal(dash, X_END, 0)
                 }
             }

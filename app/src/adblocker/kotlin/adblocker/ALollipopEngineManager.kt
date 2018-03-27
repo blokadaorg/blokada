@@ -15,8 +15,9 @@ package adblocker
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import core.Dns
+import core.Filters
 import core.IEngineManager
-import core.State
 import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.inject
@@ -27,25 +28,26 @@ import tunnel.ATunnelBinder
 
 class ALollipopEngineManager(
         private val ctx: Context,
-        private val agent: ATunnelAgent,
         private val adBlocked: (String) -> Unit = {},
         private val error: (String) -> Unit = {},
         private val onRevoked: () -> Unit = {}
 ) : IEngineManager {
 
-    private val s by lazy { ctx.inject().instance<State>() }
+    private val s by lazy { ctx.inject().instance<Dns>() }
+    private val f by lazy { ctx.inject().instance<Filters>() }
     private val waitKctx by lazy { ctx.inject().with("engineManagerWait").instance<Worker>() }
     private val j by lazy { ctx.inject().instance<Journal>() }
     private val events = ALollipopTunnelEvents(ctx, onRevoked)
     private var binder: ATunnelBinder? = null
     private var thread: TunnelThreadLollipopAndroid? = null
+    private val agent by lazy { ATunnelAgent(ctx) }
 
     @Synchronized override fun start() {
         val binding = agent.bind(events)
         binding.success {
             binder = it
             binder!!.actions.turnOn()
-            thread = TunnelThreadLollipopAndroid(it.actions, j, s, adBlocked, error)
+            thread = TunnelThreadLollipopAndroid(it.actions, j, s, f, adBlocked, error)
         }
         val wait = task(waitKctx) {
             Thread.sleep(3000)

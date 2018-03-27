@@ -3,12 +3,12 @@ package tunnel
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
-import core.Connection
 import core.IWatchdog
-import core.State
+import core.Tunnel
 import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.inject
+import gs.property.Device
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
@@ -25,7 +25,8 @@ class AWatchdog(
         private val ctx: Context
 ) : IWatchdog {
 
-    private val s by lazy { ctx.inject().instance<State>() }
+    private val s by lazy { ctx.inject().instance<Tunnel>() }
+    private val d by lazy { ctx.inject().instance<Device>() }
     private val j by lazy { ctx.inject().instance<Journal>() }
     private val kctx by lazy { ctx.inject().with("watchdog").instance<Worker>() }
 
@@ -67,15 +68,10 @@ class AWatchdog(
                 val connected = test()
                 val next = if (connected) wait * 2 else wait
                 wait *= 2
-                val c = s.connection()
-                if (c.connected != connected) {
+                if (d.connected() != connected) {
                     // Connection state change will cause reactivating (and restarting watchdog)
                     j.log("watchdog change: connected: $connected")
-                    s.connection %= Connection(
-                            connected = connected,
-                            tethering = c.tethering,
-                            dnsServers = c.dnsServers
-                    )
+                    d.connected %= connected // todo: this wont work
                     stop()
                 } else {
                     Thread.sleep(Math.min(next, MAX) * 1000L)

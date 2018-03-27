@@ -23,6 +23,21 @@
         android:theme="@style/BlokadaColors.Main.NoActionBar"
         tools:replace="android:label">
 
+        <receiver
+            android:name="core.BootReceiver"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="core.BootJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+        </service>
+        
         <activity
             android:name="core.MainActivity"
             android:label="@string/branding_app_name"
@@ -30,7 +45,6 @@
             android:theme="@style/BlokadaColors.Main.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -42,7 +56,7 @@
             android:name="notification.ANotificationsWhitelistService">
         </service>
         <service
-            android:name="core.AQuickSettingsService"
+            android:name="core.QuickSettingsService"
             android:label="@string/main_quicksettings_toggle"
             android:icon="@drawable/ic_blokada"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -60,37 +74,21 @@
         <service
             android:name="core.KeepAliveService">
         </service>
-        <service
-            android:name="core.BootJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-        </service>
-        <service
-            android:name="gs.main.RestartService">
-        </service>
 
         <receiver
-            android:name="core.ABootReceiver"
-            android:directBootAware="true">
-            <intent-filter>
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="core.ALocaleReceiver">
+            android:name="gs.property.LocaleReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name="core.AConnectivityReceiver">
+            android:name="gs.property.ConnectivityReceiver">
             <intent-filter>
                 <action android:name="org.blokada.keepAlive"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name="core.AScreenOnReceiver">
+            android:name="gs.property.ScreenOnReceiver">
         </receiver>
         <provider
             android:name="android.support.v4.content.FileProvider"

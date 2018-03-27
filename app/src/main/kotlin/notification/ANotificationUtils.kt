@@ -10,7 +10,10 @@ import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import com.github.salomonbrys.kodein.instance
-import core.*
+import core.Dns
+import core.MainActivity
+import core.Product
+import core.printServers
 import gs.environment.inject
 import gs.property.I18n
 import org.blokada.R
@@ -70,7 +73,7 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
         val choice = ctx.inject().instance<Dns>().choices().first { it.active }
         val id = if (choice.id.startsWith("custom")) "custom" else choice.id
         val provider = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
-        val servers = printServers(ctx.inject().instance<State>().connection().dnsServers)
+        val servers = printServers(ctx.inject().instance<Dns>().dnsServers())
 
         b.setContentTitle(provider)
         b.setContentText(ctx.getString(R.string.dns_keepalive_content, servers))

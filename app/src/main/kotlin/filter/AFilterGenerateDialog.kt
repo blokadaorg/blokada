@@ -14,7 +14,7 @@ import org.blokada.R
 
 class AFilterGenerateDialog(
         private val ctx: Context,
-        private val s: State,
+        private val s: Filters,
         private val sourceProvider: (String) -> IFilterSource,
         private val whitelist: Boolean
 ) {

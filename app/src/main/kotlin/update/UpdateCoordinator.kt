@@ -1,6 +1,6 @@
 package update
 
-import core.State
+import core.Tunnel
 import core.TunnelState
 import gs.property.IWhen
 import java.net.URL
@@ -9,7 +9,7 @@ import java.net.URL
  * It makes sure Blokada is inactive during update download.
  */
 class UpdateCoordinator(
-        private val s: State,
+        private val s: Tunnel,
         private val downloader: AUpdateDownloader
 ) {
 

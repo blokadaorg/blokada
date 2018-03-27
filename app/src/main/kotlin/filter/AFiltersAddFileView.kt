@@ -13,11 +13,10 @@ import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
+import core.MainActivity
 import gs.environment.ComponentProvider
 import gs.environment.inject
 import org.blokada.R
-import core.MainActivity
-import core.sourceToName
 
 class AFiltersAddFileView(
         ctx: Context,

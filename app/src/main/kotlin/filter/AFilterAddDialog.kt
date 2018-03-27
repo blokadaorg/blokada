@@ -3,11 +3,15 @@ package filter
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.pm.PackageManager
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
-import core.*
+import core.Filter
+import core.IFilterSource
+import core.LocalisedFilter
+import core.Product
 import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.inject
@@ -192,5 +196,26 @@ class AFilterAddDialog(
         }
     }
 
+}
+
+internal fun sourceToName(ctx: android.content.Context, source: IFilterSource): String {
+    val name = when (source) {
+        is FilterSourceLink -> {
+            ctx.getString(R.string.filter_name_link, source.source?.host
+                    ?: ctx.getString(R.string.filter_name_link_unknown))
+        }
+        is FilterSourceUri -> {
+            ctx.getString(R.string.filter_name_file, source.source?.lastPathSegment
+                    ?: ctx.getString(R.string.filter_name_file_unknown))
+        }
+        is FilterSourceApp -> { try {
+            ctx.packageManager.getApplicationLabel(
+                    ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
+            ).toString()
+        } catch (e: Exception) { source.toUserInput() }}
+        else -> null
+    }
+
+    return name ?: source.toString()
 }
 

@@ -1,6 +1,7 @@
 package core
 
-import com.github.salomonbrys.kodein.instance
+import android.content.Context
+import com.github.salomonbrys.kodein.*
 import gs.environment.Environment
 import gs.environment.Worker
 import gs.property.I18n
@@ -68,6 +69,13 @@ class PagesImpl (
 
 }
 
+fun newPagesModule(ctx: Context): Kodein.Module {
+    return Kodein.Module {
+        bind<Pages>() with singleton {
+            PagesImpl(with("gscore").instance(), lazy)
+        }
+    }
+}
 private fun resolveRedirect(url: URL): URL {
     return try {
         val ucon = url.openConnection() as HttpURLConnection

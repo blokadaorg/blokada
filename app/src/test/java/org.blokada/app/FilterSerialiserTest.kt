@@ -21,8 +21,8 @@ class FilterSerialiserTest {
 
     private fun newDeps(kctx: KContext): Kodein.Module {
         return Kodein.Module {
-            bind<State>() with singleton {
-                object : State() {
+            bind<Filters>() with singleton {
+                object : Filters() {
                     override val enabled = org.obsolete.newProperty(kctx, { false })
                     override val active = org.obsolete.newProperty(kctx, { false })
                     override val retries = org.obsolete.newProperty(kctx, { 3 })
@@ -124,7 +124,7 @@ class FilterSerialiserTest {
         val kodein = Kodein {
             import(module)
         }
-        val s: State = kodein.instance()
+        val s: Filters = kodein.instance()
 
         val sourceProvider = { sourceId: String -> FilterSourceSingle() }
 
