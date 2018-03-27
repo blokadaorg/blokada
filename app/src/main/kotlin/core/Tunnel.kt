@@ -217,8 +217,6 @@ fun newTunnelModule(ctx: Context): Module {
                 s.tunnelState(TunnelState.INACTIVE) && s.enabled() && s.restart() && s.updating(false)
                         && !d.isWaiting() && s.retries() > 0
             }.then {
-                // Do last retry without the watchdog in case it doesn't work on this device
-                if (s.retries() == 1) s.watchdogOn %= false
                 j.log("restart. watchdog ${s.watchdogOn()}")
 
                 s.restart %= false

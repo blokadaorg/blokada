@@ -71,7 +71,7 @@ class AWatchdog(
                 if (d.connected() != connected) {
                     // Connection state change will cause reactivating (and restarting watchdog)
                     j.log("watchdog change: connected: $connected")
-                    d.connected %= connected // todo: this wont work
+                    d.connected %= connected
                     stop()
                 } else {
                     Thread.sleep(Math.min(next, MAX) * 1000L)
