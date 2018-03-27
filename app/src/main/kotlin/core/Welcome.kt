@@ -59,7 +59,7 @@ class WelcomeImpl (
             updatedUrl %= URL("${root}/updated.html")
             cleanupUrl %= URL("${root}/cleanup.html")
             ctaUrl %= URL("${root}/cta.html")
-            patronShow %= true
+            patronShow %= false
             // Last one because it triggers dialogs
             introUrl %= URL("${root}/intro.html")
         }
