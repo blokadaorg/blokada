@@ -10,12 +10,12 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
+import core.Pages
 import gs.environment.inject
 import gs.presentation.SimpleDialog
 import gs.presentation.WebViewActor
 import gs.property.Version
 import org.blokada.R
-import core.Pages
 
 
 class AUpdateView(
@@ -98,6 +98,9 @@ class AUpdateView(
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.setData(Uri.parse(context.getString(R.string.branding_maker_url)))
             context.startActivity(intent)
+        }
+        makerView.setOnLongClickListener {
+            throw Exception("Are we 1984?")
         }
 
         appInfo.setOnClickListener {

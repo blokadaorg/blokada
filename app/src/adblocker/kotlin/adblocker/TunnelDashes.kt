@@ -17,7 +17,7 @@ class TunnelDashCountDropped(
 ) : Dash("tunnel_drop",
         R.drawable.ic_block,
         ctx.getString(R.string.tunnel_dropped_count_desc),
-        onLongClick = { throw Exception("cry hard"); true }
+        onLongClick = { t.tunnelDropCount %= 0; true }
 ) {
 
     private val listener: Any
