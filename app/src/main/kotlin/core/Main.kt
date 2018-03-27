@@ -15,11 +15,11 @@ import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.lazy
 import flavor.newFlavorModule
-import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.inject
 import gs.environment.newGscoreModule
 import gs.property.Device
+import gs.property.IWhen
 import gs.property.newDeviceModule
 import gs.property.newUserModule
 
@@ -80,30 +80,48 @@ class BootReceiver : BroadcastReceiver() {
 
 class BootJobService : JobService() {
 
+    private val j by lazy { inject().instance<Journal>() }
+    private val d by lazy { inject().instance<Device>() }
+    private val t by lazy { inject().instance<Tunnel>() }
+
     override fun onStartJob(params: JobParameters?): Boolean {
-        val s: Device = inject().instance()
-        val j: Journal = inject().instance()
         j.log("BootJobService: onStartJob")
-        s.connected.refresh()
-        this.params = params
-        return scheduleJobFinish()
+        d.connected.refresh()
+        return scheduleJobFinish(params)
     }
 
-    private fun scheduleJobFinish(): Boolean {
-        val p: ComponentProvider<BootJobService> = inject().instance()
-        // If existing job is still to be finished, just quit
-        if (p.get() != null) return false
-        p.set(this)
-        return true
+    private fun scheduleJobFinish(params: JobParameters?): Boolean {
+        return try {
+            when {
+                t.active() -> {
+                    j.log("BootJobService: finnish immediately, already active")
+                    false
+                }
+                !t.enabled() -> {
+                    j.log("BootJobService: finnish immediately, not enabled")
+                    false
+                }
+                listener != null -> {
+                    j.log("BootJobService: finnish immediately, service waiting")
+                    false
+                }
+                else -> {
+                    j.log("BootJobService: scheduling to stop when tunnel active")
+                    listener = t.active.doOnUiWhenChanged().then {
+                        t.active.cancel(listener)
+                        listener = null
+                        jobFinished(params, false)
+                    }
+                    true
+                }
+            }
+        } catch (e: Exception) {
+            j.log("BootJobService: finish immediately, error", e)
+            false
+        }
     }
 
-    private var params: JobParameters? = null
-
-    fun finishJob() {
-        try { jobFinished(params, false) } catch (e: Exception) {}
-        val p: ComponentProvider<BootJobService> = inject().instance()
-        p.unset()
-    }
+    private var listener: IWhen? = null
 
     override fun onStopJob(params: JobParameters?): Boolean {
         return true

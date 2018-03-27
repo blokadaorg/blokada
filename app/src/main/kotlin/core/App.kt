@@ -52,7 +52,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
         bind<UiState>() with singleton { AUiState(kctx = with("gscore").instance(10), xx = lazy) }
         bind<ComponentProvider<Activity>>() with singleton { ComponentProvider<Activity>() }
         bind<ComponentProvider<MainActivity>>() with singleton { ComponentProvider<MainActivity>() }
-        bind<ComponentProvider<BootJobService>>() with singleton { ComponentProvider<BootJobService>() }
 
         onReady {
             val d: Device = instance()

@@ -15,6 +15,7 @@ import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.inject
 import gs.presentation.WebViewActor
+import gs.property.Device
 import gs.property.IProperty
 import gs.property.IWhen
 import gs.property.getPersistencePath
@@ -238,7 +239,7 @@ class AutoStartDash(
 
 class ConnectivityDash(
         val ctx: Context,
-        val s: Tunnel = ctx.inject().instance()
+        val s: Device = ctx.inject().instance()
 ) : Dash(
         "main_connectivity",
         icon = false,
@@ -298,7 +299,7 @@ class ShareLogDash(
         val ctx: Context = xx().instance(),
         val activity: ComponentProvider<Activity> = xx().instance(),
         val j: Journal = xx().instance(),
-        val s: Tunnel = xx().instance(),
+        val s: Device = xx().instance(),
         val k: KeepAlive = xx().instance(),
         val f: Filters = xx().instance()
 ) : Dash(

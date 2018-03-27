@@ -11,7 +11,10 @@ import android.content.ServiceConnection
 import android.os.Binder
 import android.os.IBinder
 import com.github.salomonbrys.kodein.*
-import gs.environment.*
+import gs.environment.Environment
+import gs.environment.Journal
+import gs.environment.Worker
+import gs.environment.inject
 import gs.property.IProperty
 import gs.property.IWhen
 import gs.property.newPersistedProperty
@@ -140,9 +143,6 @@ class KeepAliveService : Service() {
             val last = s.tunnelRecentDropped().lastOrNull() ?: getString(R.string.notification_keepalive_none)
             val n = createNotificationKeepAlive(this, count, last)
             startForeground(3, n)
-
-            val provider: ComponentProvider<BootJobService> = inject().instance()
-            provider.get()?.finishJob() // todo: move it somewhere
 
             return binder
         }

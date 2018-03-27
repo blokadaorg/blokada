@@ -8,14 +8,10 @@ import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.inject
 import gs.obsolete.hasCompleted
-import gs.property.Device
-import gs.property.IProperty
-import gs.property.newPersistedProperty
-import gs.property.newProperty
+import gs.property.*
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
-import tunnel.AWatchdog
 import tunnel.checkTunnelPermissions
 
 abstract class Tunnel {
@@ -29,7 +25,6 @@ abstract class Tunnel {
     abstract val tunnelDropCount: IProperty<Int>
     abstract val tunnelRecentDropped: IProperty<List<String>>
     abstract val tunnelConfig: IProperty<TunnelConfig>
-    abstract val watchdogOn: IProperty<Boolean>
     abstract val startOnBoot: IProperty<Boolean>
 }
 
@@ -57,10 +52,6 @@ class TunnelImpl(
 
     override val updating = newProperty(kctx, { false })
 
-    override val watchdogOn = newPersistedProperty(kctx, APrefsPersistence(ctx, "watchdogOn"),
-            { true }
-    )
-
     override val tunnelState = newProperty(kctx, { TunnelState.INACTIVE })
 
     override val tunnelPermission = newProperty(kctx, {
@@ -84,7 +75,6 @@ fun newTunnelModule(ctx: Context): Module {
     return Module {
         bind<Tunnel>() with singleton { TunnelImpl(kctx = with("gscore").instance(), xx = lazy) }
         bind<TunnelConfig>() with singleton { TunnelConfig(defaultEngine = "lollipop") }
-        bind<IWatchdog>() with singleton { AWatchdog(ctx) }
         bind<IPermissionsAsker>() with singleton {
             object : IPermissionsAsker {
                 override fun askForPermissions() {
@@ -217,20 +207,19 @@ fun newTunnelModule(ctx: Context): Module {
                 s.tunnelState(TunnelState.INACTIVE) && s.enabled() && s.restart() && s.updating(false)
                         && !d.isWaiting() && s.retries() > 0
             }.then {
-                j.log("restart. watchdog ${s.watchdogOn()}")
-
+                j.log("auto restart")
                 s.restart %= false
                 s.active %= true
             }
 
             // Make sure watchdog is started and stopped as user wishes
-            s.watchdogOn.doWhenChanged().then { when {
-                s.watchdogOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> {
+            d.watchdogOn.doWhenChanged().then { when {
+                d.watchdogOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> {
                     // Flip the connected flag so we detect the change if now we're actually connected
                     d.connected %= false
                     watchdog.start()
                 }
-                s.watchdogOn(false) -> {
+                d.watchdogOn(false) -> {
                     watchdog.stop()
                     d.connected.refresh()
                 }
@@ -279,8 +268,3 @@ interface IPermissionsAsker {
     fun askForPermissions()
 }
 
-interface IWatchdog {
-    fun start()
-    fun stop()
-    fun test(): Boolean
-}
