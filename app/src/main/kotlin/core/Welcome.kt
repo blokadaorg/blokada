@@ -201,7 +201,7 @@ class WelcomeDialogManager (
 
     private val dialogIntro by lazy {
         val dash = WebDash(xx, pages.intro, reloadOnError = true)
-        SimpleDialog(xx, dash, additionalButton = R.string.welcome_help)
+        SimpleDialog(xx, dash, additionalButton = R.string.welcome_help, loadFirst = true)
     }
 
     private val dialogGuide by lazy {

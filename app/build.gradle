@@ -21,6 +21,7 @@ android {
         debug.java.srcDirs += 'src/unofficial/kotlin'
         release.java.srcDirs += 'src/unofficial/kotlin'
         official.java.srcDirs += 'src/official/kotlin'
+        beta.java.srcDirs += 'src/official/kotlin'
         adblockerHome.java.srcDirs += 'src/adblocker/kotlin'
         adblockerHome.res.srcDirs += 'src/adblocker/res'
         adblockerFdroid.java.srcDirs += 'src/adblocker/kotlin'
@@ -51,6 +52,11 @@ android {
         official {
             initWith(release)
             versionNameSuffix '-official'
+            matchingFallbacks = ['release']
+        }
+        beta {
+            initWith(release)
+            versionNameSuffix ' (Beta Channel)'
             matchingFallbacks = ['release']
         }
     }
@@ -96,6 +102,8 @@ dependencies {
     // Analytics and debugging
     officialImplementation 'com.google.firebase:firebase-core:12.0.0'
     officialImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
+    betaImplementation 'com.google.firebase:firebase-core:12.0.0'
+    betaImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
