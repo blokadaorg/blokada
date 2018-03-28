@@ -95,7 +95,7 @@ class FiltersImpl(
     )
 
     override val filtersCompiled = newPersistedProperty(kctx,
-            persistence = ACompiledFiltersPersistence(ctx),
+            persistence = ACompiledFiltersPersistence(xx),
             zeroValue = { emptySet() },
             refresh = {
                 j.log("filters: compile: start")
@@ -339,13 +339,23 @@ interface IFilterSource {
 
 
 class ACompiledFiltersPersistence(
-        val ctx: Context
+        val xx: Environment,
+        val ctx: Context = xx().instance(),
+        val j: Journal = xx().instance()
 ) : Persistence<Set<String>> {
 
     private val cache by lazy { ctx.inject().instance<FilterConfig>().cacheFile }
 
     override fun read(current: Set<String>): Set<String> {
-        return try { readFromCache(cache).toSet() } catch (e: Exception) { setOf() }
+        return try {
+            j.log("compiledFiltersPersistence: start")
+            val c = readFromCache(cache).toSet()
+            j.log("compiledFiltersPersistence: finish")
+            c
+        } catch (e: Exception) {
+            j.log("compiledFiltersPersistence: fail", e)
+            setOf()
+        }
     }
 
     override fun write(source: Set<String>) {
