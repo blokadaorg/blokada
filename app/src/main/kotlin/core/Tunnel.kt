@@ -59,7 +59,7 @@ class TunnelImpl(
         completed
     })
 
-    override val tunnelDropCount = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelDropCount"),
+    override val tunnelDropCount = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsCount"),
             { 0 }
     )
 
