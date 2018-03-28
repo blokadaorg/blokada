@@ -11,7 +11,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s schützt Dein Gerät nun vor Werbung. Du kannst %1$s unten genauer einstellen, oder Du legst einfach los und benutzt Dein Gerät!</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_paused">%s ist inaktive.</string>
+    <string name="main_paused">%s ist inaktiv.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable">%1$s wurde angehalten, weil dein Gerät nicht verbunden ist. %1$s wird automatisch fortgesetzt, wenn eine Internetverbindung verfügbar ist.</string>
     <!-- Parameter: branded app name (Blokada). -->
