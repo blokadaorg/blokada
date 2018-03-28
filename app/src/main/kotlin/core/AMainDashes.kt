@@ -323,10 +323,11 @@ class ShareLogDash(
                 j.log("basic config end")
 
                 val file = File(getPersistencePath(ctx).absoluteFile, "blokada-log.txt")
-                Runtime.getRuntime().exec(arrayOf("logcat", "-f", file.absolutePath));
+                Runtime.getRuntime().exec(arrayOf("logcat", "-v", "threadtime", "-f", file.absolutePath));
                 val uri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", file)
                 val intent = ShareCompat.IntentBuilder.from(activity.get()).setStream(uri).intent
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 intent.setData(uri)
                 ctx.startActivity(intent)
             } catch (e: Exception) {
