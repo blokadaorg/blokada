@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    android:fitsSystemWindows="true"
-    tools:context="org.blokada.core.MainActivity">
+    android:fitsSystemWindows="true">
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -7,14 +7,13 @@ import android.net.Uri
 import android.os.Build
 import android.support.v4.app.ShareCompat
 import android.support.v4.content.FileProvider
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.inject
-import gs.presentation.WebViewActor
+import gs.presentation.WebDash
 import gs.property.Device
 import gs.property.IProperty
 import gs.property.IWhen
@@ -48,9 +47,9 @@ class DonateDash(
 ) {
 
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
-                false)
-        val actor = WebViewActor(null, pages.donate, view, javascript = true)
+        val actor = WebDash(xx, pages.donate, javascript = true)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
         onBack = { actor.reload() }
         return view
     }
@@ -69,9 +68,9 @@ class NewsDash(
 ) {
 
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
-                false)
-        val actor = WebViewActor(null, pages.news, view, forceEmbedded = true, javascript = true)
+        val actor = WebDash(xx, pages.news, forceEmbedded = true, javascript = true)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
         onBack = { actor.reload() }
         return view
     }
@@ -90,9 +89,9 @@ class FaqDash(
 ) {
 
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup,
-                false)
-        val actor = WebViewActor(null, pages.help, view)
+        val actor = WebDash(xx, pages.help)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
         onBack = { actor.reload() }
         return view
     }
@@ -110,9 +109,10 @@ class FeedbackDash(
         hasView = true
 ) {
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = WebViewActor(null, pages.feedback, view, forceEmbedded = true, javascript = true)
-        onBack = { actor.reload() }
+        val actor = WebDash(xx, pages.feedback, forceEmbedded = true, javascript = true)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
+        onBack = { actor.detach(view) }
         return view
     }
 }
@@ -129,8 +129,9 @@ class PatronDash(
         menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.patron))
 ) {
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = WebViewActor(null, pages.patron, view, forceEmbedded = true, javascript = true, reloadOnError = false)
+        val actor = WebDash(xx, pages.patron, forceEmbedded = true, javascript = true, reloadOnError = false)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
         onBack = { actor.reload() }
         return view
     }
@@ -148,8 +149,9 @@ class PatronAboutDash(
         hasView = true
 ) {
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = WebViewActor(null, pages.patronAbout, view, forceEmbedded = true, javascript = true)
+        val actor = WebDash(xx, pages.patronAbout, forceEmbedded = true, javascript = true)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
         onBack = { actor.reload() }
         return view
     }
@@ -167,8 +169,9 @@ class CtaDash(
         menuDashes = Triple(null, null, OpenInBrowserDash(ctx, pages.cta))
 ) {
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = WebViewActor(null, pages.cta, view, forceEmbedded = true, javascript = true)
+        val actor = WebDash(xx, pages.cta, forceEmbedded = true, javascript = true)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
         onBack = { actor.reload() }
         return view
     }
@@ -186,8 +189,9 @@ class ChangelogDash(
         hasView = true
 ) {
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = WebViewActor(null, pages.changelog, view)
+        val actor = WebDash(xx, pages.changelog)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
         onBack = { actor.reload() }
         return view
     }
@@ -205,8 +209,9 @@ class CreditsDash(
         hasView = true
 ) {
     override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.content_webview, parent as ViewGroup, false)
-        val actor = WebViewActor(null, pages.credits, view)
+        val actor = WebDash(xx, pages.credits)
+        val view = actor.createView(ctx, parent as ViewGroup)
+        actor.attach(view)
         onBack = { actor.reload() }
         return view
     }

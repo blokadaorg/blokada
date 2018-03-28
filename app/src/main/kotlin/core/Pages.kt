@@ -3,6 +3,7 @@ package core
 import android.content.Context
 import com.github.salomonbrys.kodein.*
 import gs.environment.Environment
+import gs.environment.Journal
 import gs.environment.Worker
 import gs.property.I18n
 import gs.property.IProperty
@@ -11,6 +12,12 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 abstract class Pages {
+    abstract val loaded: IProperty<Boolean>
+    abstract val intro: IProperty<URL>
+    abstract val updated: IProperty<URL>
+    abstract val obsolete: IProperty<URL>
+    abstract val download: IProperty<URL>
+    abstract val cleanup: IProperty<URL>
     abstract val patron: IProperty<URL>
     abstract val patronAbout: IProperty<URL>
     abstract val cta: IProperty<URL>
@@ -28,7 +35,8 @@ abstract class Pages {
 }
 class PagesImpl (
         w: Worker,
-        xx: Environment
+        xx: Environment,
+        j: Journal = xx().instance()
 ) : Pages() {
 
     val i18n: I18n by xx.instance()
@@ -36,22 +44,32 @@ class PagesImpl (
     init {
         i18n.locale.doWhenSet().then {
             val c = i18n.contentUrl()
-            patronAbout %= URL("$c/patron.html")
-            cta %= URL("$c/cta.html")
-            donate %= URL("$c/donate.html")
-            help %= URL("$c/help.html")
-            changelog %= URL("$c/changelog.html")
-            credits %= URL("$c/credits.html")
-            filters %= URL("$c/filters.txt")
-            filtersStrings %= URL("$c/filters.properties")
-            dns %= URL("$c/dns.txt")
-            dnsStrings %= URL("$c/dns.properties")
-
-            patron %= resolveRedirect(patron())
+            if (!c.startsWith("http://localhost")) {
+                j.log("pages: locale set: contentUrl: $c")
+                intro %= URL("$c/intro.html")
+                updated %= URL("$c/updated.html")
+                cleanup %= URL("$c/cleanup.html")
+                patronAbout %= URL("$c/patron.html")
+                cta %= URL("$c/cta.html")
+                donate %= URL("$c/donate.html")
+                help %= URL("$c/help.html")
+                changelog %= URL("$c/changelog.html")
+                credits %= URL("$c/credits.html")
+                filters %= URL("$c/filters.txt")
+                filtersStrings %= URL("$c/filters.properties")
+                dns %= URL("$c/dns.txt")
+                dnsStrings %= URL("$c/dns.properties")
+                patron %= resolveRedirect(patron())
+                loaded %= true
+            }
         }
     }
 
+    override val loaded = newProperty(w, { false })
+    override val intro = newProperty(w, { URL("http://localhost") })
+    override val updated = newProperty(w, { URL("http://localhost") })
     override val patronAbout = newProperty(w, { URL("http://localhost") })
+    override val cleanup = newProperty(w, { URL("http://localhost") })
     override val cta = newProperty(w, { URL("http://localhost") })
     override val donate = newProperty(w, { URL("http://localhost") })
     override val help = newProperty(w, { URL("http://localhost") })
@@ -66,6 +84,8 @@ class PagesImpl (
     override val feedback = newProperty(w, { URL("http://go.blokada.org/feedback") })
     override val chat = newProperty(w, { URL("http://go.blokada.org/chat") })
     override val patron = newProperty(w, { URL("http://go.blokada.org/patron_redirect") })
+    override val obsolete = newProperty(w, { URL("https://blokada.org/api/legacy/content/en/obsolete.html") })
+    override val download = newProperty(w, { URL("https://blokada.org/#download") })
 
 }
 

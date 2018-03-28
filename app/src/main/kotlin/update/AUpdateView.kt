@@ -9,11 +9,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
+import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import core.Pages
 import gs.environment.inject
 import gs.presentation.SimpleDialog
-import gs.presentation.WebViewActor
+import gs.presentation.WebDash
 import gs.property.Version
 import org.blokada.R
 
@@ -62,16 +63,15 @@ class AUpdateView(
     private val ver by lazy { ctx.inject().instance<Version>() }
     private val pages by lazy { ctx.inject().instance<Pages>() }
 
+    private val xx = LazyKodein(ctx.inject)
     private val dialogChangelog by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview)
-        WebViewActor(dialog, pages.changelog, reloadOnError = true)
-        dialog
+        val dash = WebDash(xx, pages.changelog, reloadOnError = true)
+        SimpleDialog(xx, dash)
     }
 
     private val dialogCredits by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview)
-        WebViewActor(dialog, pages.credits, reloadOnError = true)
-        dialog
+        val dash = WebDash(xx, pages.credits, reloadOnError = true)
+        SimpleDialog(xx, dash)
     }
 
     override fun onFinishInflate() {

@@ -1,35 +1,25 @@
 package core
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v4.app.ShareCompat
 import android.widget.Toast
 import com.github.salomonbrys.kodein.*
-import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.Worker
 import gs.presentation.SimpleDialog
-import gs.presentation.WebViewActor
-import gs.presentation.toPx
+import gs.presentation.WebDash
 import gs.property.*
 import org.blokada.R
-import java.net.URL
 
 abstract class Welcome {
-    abstract val introUrl: IProperty<URL>
     abstract val introSeen: IProperty<Boolean>
     abstract val guideSeen: IProperty<Boolean>
     abstract val patronShow: IProperty<Boolean>
     abstract val patronSeen: IProperty<Boolean>
-    abstract val ctaUrl: IProperty<URL>
     abstract val ctaSeenCounter: IProperty<Int>
-    abstract val updatedUrl: IProperty<URL>
     abstract val advanced: IProperty<Boolean>
-    abstract val obsoleteUrl: IProperty<URL>
-    abstract val cleanupUrl: IProperty<URL>
     abstract val conflictingBuilds: IProperty<List<String>>
 }
 
@@ -39,33 +29,22 @@ class WelcomeImpl (
         val i18n: I18n = xx().instance(),
         val j: Journal = xx().instance()
 ) : Welcome() {
-    override val introUrl = newProperty(w, { URL("http://localhost") })
     override val introSeen = newPersistedProperty(w, BasicPersistence(xx, "intro_seen"), { false })
     override val guideSeen = newPersistedProperty(w, BasicPersistence(xx, "guide_seen"), { false })
     override val patronShow = newProperty(w, { false })
     override val patronSeen = newPersistedProperty(w, BasicPersistence(xx, "optional_seen"), { false })
-    override val ctaUrl = newProperty(w, { URL("http://localhost") })
     override val ctaSeenCounter = newPersistedProperty(w, BasicPersistence(xx, "cta_seen"), { 3 })
-    override val updatedUrl = newProperty(w, { URL("http://localhost") })
     override val advanced = newPersistedProperty(w, BasicPersistence(xx, "advanced"), { false })
-    override val obsoleteUrl = newProperty(w, { URL("http://localhost") })
-    override val cleanupUrl = newProperty(w, { URL("http://localhost") })
     override val conflictingBuilds = newProperty(w, { listOf<String>() })
 
     init {
         i18n.locale.doWhenSet().then {
             val root = i18n.contentUrl()
-            j.log("setting locale. contentUrl: $root")
-            updatedUrl %= URL("${root}/updated.html")
-            cleanupUrl %= URL("${root}/cleanup.html")
-            ctaUrl %= URL("${root}/cta.html")
-            patronShow %= false
-            // Last one because it triggers dialogs
-            introUrl %= URL("${root}/intro.html")
+            j.log("welcome: locale set: contentUrl: $root")
+            patronShow %= true
         }
 
         conflictingBuilds %= listOf("org.blokada.origin.alarm", "org.blokada.alarm", "org.blokada", "org.blokada.dev")
-        obsoleteUrl %= URL("https://blokada.org/api/legacy/content/root/obsolete.html")
     }
 }
 
@@ -88,16 +67,34 @@ class WelcomeDialogManager (
     private val version: Version by xx.instance()
     private val pages: Pages by xx.instance()
     private val j: Journal by xx.instance()
-    private val activity: ComponentProvider<Activity> by xx.instance()
 
     private var displaying = false
 
+    init {
+        pages.loaded.doOnUiWhenChanged(withInit = true).then {
+            run()
+        }
+        version.obsolete.doOnUiWhenChanged(withInit = true).then {
+            run()
+        }
+    }
+
     fun run(step: Int = 0) {
         when {
+            !pages.loaded() -> Unit
             displaying -> Unit
-            step == 0 && version.obsolete() -> dialogObsolete.show()
+            step == 0 && version.obsolete() -> {
+                dialogObsolete.onClosed = { accept ->
+                    displaying = false
+                    if (accept == 1) {
+                        OpenInBrowserDash(ctx, pages.download).onClick?.invoke(0)
+                    }
+                }
+                dialogObsolete.show()
+                displaying = true
+            }
             step == 0 && !welcome.introSeen() -> {
-                dialogIntro.listener = { accept ->
+                dialogIntro.onClosed = { accept ->
                     displaying = false
                     if (accept == 1) {
                         welcome.introSeen %= true
@@ -110,23 +107,20 @@ class WelcomeDialogManager (
                         run(step = 9)
                     }
                 }
-                // Shows immediately and loads website
                 dialogIntro.show()
                 displaying = true
             }
             step == 0 && version.previousCode() < currentAppVersion -> {
                 version.previousCode %= currentAppVersion
-                dialogUpdate.listener = { accept ->
+                dialogUpdate.onClosed = { accept ->
                     displaying = false
                     if (accept == 1) {
                         OpenInBrowserDash(ctx, pages.donate).onClick?.invoke(0)
                     } else if (accept == 2) {
                         run(step = 2)
-                    } else {
-                        run(step = 2)
                     }
                 }
-                // Will display once website is loaded
+                dialogUpdate.show()
                 displaying = true
             }
             step == 0 && welcome.ctaSeenCounter() > 0 -> {
@@ -134,47 +128,40 @@ class WelcomeDialogManager (
                 run(step = 9)
             }
             step == 0 && welcome.ctaSeenCounter() == 0 -> {
-                dialogCta.listener = { accept ->
+                dialogCta.onClosed = { accept ->
                     displaying = false
                     if (accept == 1) welcome.ctaSeenCounter %= 5
                     run(step = 9)
                 }
-                // Will display once website is loaded
+                dialogCta.show()
                 displaying = true
             }
             step == 1 -> {
-                dialogGuide.listener = { accept ->
+                dialogGuide.onClosed = { accept ->
                     displaying = false
                     if (accept == 1) {
                     } else if (accept == 2) {
-                        guideActor?.openInBrowser()
+                        OpenInBrowserDash(ctx, pages.help).onClick?.invoke(0)
                     }
                     run(step = 9)
                 }
-                // Shows immediately and loads website
                 dialogGuide.show()
                 displaying = true
             }
             step == 2 && welcome.patronShow() -> {
-                dialogPatron.listener = { button ->
+                dialogPatron.onClosed = { button ->
                     displaying = false
                     if (button == 1) {
-                        patronActor?.openInBrowser()
-                    } else if (button == 2) {
-                        ShareCompat.IntentBuilder.from(activity.get())
-                                .setType("text/plain")
-                                .setChooserTitle(R.string.welcome_share)
-                                .setText(pages.patron().toExternalForm())
-                                .startChooser();
+                        OpenInBrowserDash(ctx, pages.patron).onClick?.invoke(0)
                     }
                     welcome.patronSeen %= true
                     run(step = 9)
                 }
-                // Will display once website is loaded
+                dialogPatron.show()
                 displaying = true
             }
             getInstalledBuilds().size > 1 -> {
-                dialogCleanup.listener = { accept ->
+                dialogCleanup.onClosed = { accept ->
                     displaying = false
                     if (accept == 1) {
                         Toast.makeText(ctx, R.string.welcome_cleanup_done, Toast.LENGTH_SHORT).show()
@@ -184,7 +171,7 @@ class WelcomeDialogManager (
                         }
                     }
                 }
-                // Will display once website is loaded
+                dialogCleanup.show()
                 displaying = true
             }
         }
@@ -213,53 +200,40 @@ class WelcomeDialogManager (
     }
 
     private val dialogIntro by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview, additionalButton = R.string.welcome_help)
-        WebViewActor(dialog, welcome.introUrl, reloadOnError = true)
-        dialog
+        val dash = WebDash(xx, pages.intro, reloadOnError = true)
+        SimpleDialog(xx, dash, additionalButton = R.string.welcome_help)
     }
 
     private val dialogGuide by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview, additionalButton = R.string.welcome_open)
-        guideActor = WebViewActor(dialog, pages.help, reloadOnError = true, showDialog = true)
-        dialog
+        val dash = WebDash(xx, pages.help, reloadOnError = true)
+        SimpleDialog(xx, dash, additionalButton = R.string.welcome_open, loadFirst = true)
     }
-
-    private var guideActor: WebViewActor? = null
 
     private val dialogPatron by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview_patron, continueButton = R.string.welcome_open,
-                additionalButton = R.string.welcome_share)
-        dialog.view.minimumHeight = ctx.resources.toPx(480)
-        patronActor = WebViewActor(dialog, pages.patron, forceEmbedded = true,
-                javascript = true, showDialog = true)
-        dialog
+        val dash = WebDash(xx, pages.patron, reloadOnError = true, forceEmbedded = true,
+                javascript = true, big = true)
+        SimpleDialog(xx, dash, continueButton = R.string.welcome_open, loadFirst = true)
     }
 
-    private var patronActor: WebViewActor? = null
-
     private val dialogCta by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview)
-        WebViewActor(dialog, welcome.ctaUrl, reloadOnError = true, showDialog = true)
-        dialog
+        val dash = WebDash(xx, pages.cta, reloadOnError = true)
+        SimpleDialog(xx, dash, loadFirst = true)
     }
 
     private val dialogUpdate by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview, continueButton = R.string.welcome_donate,
-                additionalButton = R.string.welcome_patron)
-        WebViewActor(dialog, welcome.updatedUrl, reloadOnError = true, showDialog = true)
-        dialog
+        val dash = WebDash(xx, pages.updated, reloadOnError = true)
+       SimpleDialog(xx, dash, continueButton = R.string.welcome_donate, additionalButton = R.string.welcome_insiders,
+               loadFirst = true)
     }
 
     private val dialogObsolete by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview)
-        WebViewActor(dialog, welcome.obsoleteUrl, reloadOnError = true, showDialog = true)
-        dialog
+        val dash = WebDash(xx, pages.obsolete, reloadOnError = true)
+        SimpleDialog(xx, dash, continueButton = R.string.update_button, loadFirst = true)
     }
 
     private val dialogCleanup by lazy {
-        val dialog = SimpleDialog(ctx, R.layout.webview)
-        WebViewActor(dialog, welcome.cleanupUrl, reloadOnError = true, showDialog = true)
-        dialog
+        val dash = WebDash(xx, pages.cleanup, reloadOnError = true)
+        SimpleDialog(xx, dash, loadFirst = true)
     }
 
 }

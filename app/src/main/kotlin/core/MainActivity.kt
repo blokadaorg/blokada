@@ -153,9 +153,6 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         val version: Version by instance()
         val m = WelcomeDialogManager(kodein, BuildConfig.VERSION_CODE, {})
         m.run()
-        welcome.introUrl.doOnUiWhenChanged(withInit = true).then { m.run() }
-        version.obsolete.doOnUiWhenChanged(withInit = true).then { m.run() }
-
     }
 
     val activityResultListeners = mutableListOf({result: Int, data: Intent? -> })
