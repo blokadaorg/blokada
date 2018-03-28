@@ -1,11 +1,9 @@
 package buildtype
 
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.google.firebase.analytics.FirebaseAnalytics
-import core.Events
 import gs.environment.Journal
 import io.fabric.sdk.android.Fabric
 import java.io.PrintWriter
@@ -36,19 +34,7 @@ class AFirebaseJournal(
 
     override fun event(vararg events: Any) {
         events.forEach { event ->
-            when(event) {
-                is Events.EventInt -> {
-                    val params =  Bundle()
-                    params.putLong(FirebaseAnalytics.Param.QUANTITY, event.value.toLong())
-                    firebase().logEvent(event.toString(), params)
-                }
-                is Events.AdBlocked -> {
-                    val params =  Bundle()
-                    params.putString(FirebaseAnalytics.Param.ITEM_NAME, event.host)
-                    firebase().logEvent(event.name, params)
-                }
-                else -> firebase().logEvent(event.toString(), null)
-            }
+            firebase().logEvent(event.toString(), null)
         }
     }
 

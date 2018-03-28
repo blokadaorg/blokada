@@ -235,7 +235,8 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
             }
 
             // Compile filters every time they change
-            s.changed.doWhenChanged().then {
+            s.changed.doWhenChanged(withInit = true).then {
+                j.log("filters: compiled: refresh ping")
                 s.filtersCompiled.refresh()
             }
 
