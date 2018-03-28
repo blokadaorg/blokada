@@ -59,7 +59,7 @@ class FiltersImpl(
                     newFilter.localised = filter.localised
                     newFilter
                 } else filter
-            }
+            }.plus(builtinFilters.minus(it))
         }
 
         // Try to fetch localised copy for filters if available

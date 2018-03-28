@@ -112,7 +112,7 @@ class DnsImpl(
                     new.servers = dns.servers
                     new
                 } else dns
-            }
+            }.plus(builtInDns.minus(it))
         }
 
         // Make sure only one is active
