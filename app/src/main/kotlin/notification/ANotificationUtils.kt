@@ -51,7 +51,7 @@ fun displayNotification(ctx: Context, reason: String) {
 
     if (Build.VERSION.SDK_INT >= 26) {
         createNotificationChannel(ctx)
-        b.setChannelId(id)
+        b.setChannelId(default_id)
     }
 
     val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -93,17 +93,16 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
 
     if (Build.VERSION.SDK_INT >= 26) {
         createNotificationChannel(ctx)
-        b.setChannelId(id)
+        b.setChannelId(default_id)
     }
 
     return b.build()
 }
 
-val id = "blokada"
+val default_id = "blokada"
 @TargetApi(26)
-fun createNotificationChannel(ctx: Context) {
+fun createNotificationChannel(ctx: Context, id: String = default_id, name: String = ctx.getString(R.string.branding_app_name) ) {
     val mNotificationManager = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    val name = ctx.getString(R.string.branding_app_name)
     val importance = NotificationManager.IMPORTANCE_LOW
     val mChannel = NotificationChannel(id, name, importance)
     mNotificationManager.createNotificationChannel(mChannel)
@@ -128,8 +127,8 @@ fun displayNotificationForUpdate(ctx: Context, versionName: String) {
     b.setContentIntent(piActivity)
 
     if (Build.VERSION.SDK_INT >= 26) {
-        createNotificationChannel(ctx)
-        b.setChannelId(id)
+        createNotificationChannel(ctx, "blokada_update", ctx.getString(R.string.update_notification_channel))
+        b.setChannelId("blokada_update")
     }
 
     val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

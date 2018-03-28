@@ -82,6 +82,7 @@ class AUpdateView(
             canClick = false
             onClick()
         } else {
+            canClick = true
             onClickBackup()
         }}
 

@@ -35,7 +35,7 @@ fun newUpdateModule(ctx: Context): Kodein.Module {
             UpdateImpl(w = with("gscore").instance(), xx = lazy)
         }
         bind<UpdateCoordinator>() with singleton {
-            UpdateCoordinator(s = instance(), downloader = AUpdateDownloader(ctx = instance()))
+            UpdateCoordinator(xx = lazy, downloader = AUpdateDownloader(ctx = instance()))
         }
         onReady {
             val s: Filters = instance()

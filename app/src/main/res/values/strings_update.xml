@@ -7,8 +7,9 @@
     <!-- Header displaying the new app version. Parameters: branded app name, and new app version. For example: NEW! Blokada 2.0.1 -->
     <string name="update_header">New update!</string>
     <string name="update_header_noupdate">No new updates</string>
+    <string name="update_notification_channel">Update notifications</string>
 
-    <!-- Feel free to make this string a bit more localised. For example it can say, "This app and its Spanish version is made possible thanks to:" -->
+    <string name="update_info">If you downloaded the app from Play Store, F-Droid, or other app store, you will receive updates from the store as they become available. Make sure Blokada is deactivated during the update. If you experience any problems updating, go to blokada.org and download the app manually. There is no need to uninstall existing version beforehand.</string>
     <string name="update_credits_header">This app is an open source project made possible thanks to the Blokada Community.</string>
 
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
