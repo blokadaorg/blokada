@@ -69,9 +69,11 @@ class AFilterGenerateDialog(
         if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
         when (which) {
             0 -> {
+                s.apps.refresh(force = true)
                 s.filters.refresh(force = true)
             }
             1 -> {
+                s.apps.refresh(force = true)
                 s.filters %= emptyList()
                 s.filters.refresh()
             }
