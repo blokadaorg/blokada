@@ -81,7 +81,7 @@ class DnsImpl(
         serialiser: DnsSerialiser = DnsSerialiser(),
         fetcher: DnsLocalisedFetcher = xx().instance(),
         j: Journal = xx().instance(),
-        s: Filters = xx().instance(),
+        d: Device = xx().instance(),
         ctx: Context = xx().instance()
 ) : Dns() {
 
@@ -146,7 +146,9 @@ class DnsImpl(
         choices.doOnUiWhenSet().then {
             dnsServers.refresh()
         }
-        // TODO: refresh dns servers on connection change
+        d.connected.doOnUiWhenSet().then {
+            dnsServers.refresh()
+        }
     }
 
 }
@@ -382,7 +384,6 @@ class DnsListView(
 ) : RecyclerView(ctx, attributeSet) {
 
     private val dns by lazy { context.inject().instance<Dns>() }
-    private val s by lazy { context.inject().instance<Device>() }
     private var choices = listOf<DnsChoice>()
     private var listener: IWhen? = null
     private var listener2: IWhen? = null
@@ -404,8 +405,8 @@ class DnsListView(
 
         dns.choices.cancel(listener)
         listener = dns.choices.doOnUiWhenSet().then { refreshFilters() }
-        s.connected.cancel(listener2)
-        listener2 = s.connected.doOnUiWhenChanged().then { adapter.notifyDataSetChanged() }
+        dns.dnsServers.cancel(listener2)
+        listener2 = dns.dnsServers.doOnUiWhenSet().then { adapter.notifyDataSetChanged() }
     }
 
     private fun refreshFilters() {
