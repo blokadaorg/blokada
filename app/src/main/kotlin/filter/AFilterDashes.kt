@@ -29,7 +29,7 @@ class DashFilterBlacklist(
     private var listener: IWhen? = null
 
     init {
-        listener = s.filters.doOnUiWhenSet().then {
+        listener = s.changed.doOnUiWhenSet().then {
             update(s.filters().filter { it.active && !it.whitelist })
         }
     }
@@ -67,7 +67,7 @@ class DashFilterWhitelist(
     private var listener: IWhen? = null
 
     init {
-        listener = s.filters.doOnUiWhenSet().then {
+        listener = s.changed.doOnUiWhenSet().then {
             update(s.filters().filter { it.active && it.whitelist })
         }
     }
