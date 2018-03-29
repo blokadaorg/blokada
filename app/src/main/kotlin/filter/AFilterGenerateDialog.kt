@@ -66,7 +66,6 @@ class AFilterGenerateDialog(
     }
 
     private fun handleSave() {
-        if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
         when (which) {
             0 -> {
                 s.apps.refresh(force = true)
@@ -78,6 +77,7 @@ class AFilterGenerateDialog(
                 s.filters.refresh()
             }
             2, 3, 4, 5 -> {
+                if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
                 val filters = s.apps().filter { which in listOf(3, 4) || it.system }
                         .map { it.appId }.map { app ->
                     val source = sourceProvider("app")

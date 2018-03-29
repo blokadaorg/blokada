@@ -78,8 +78,25 @@ class FiltersImpl(
         newFilters
     }
 
+    private val appsRefresh = {
+        j.log("filters: apps: start")
+        val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        val a = installed.map {
+            App(
+                    appId = it.packageName,
+                    label = ctx.packageManager.getApplicationLabel(it).toString(),
+                    system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+            )
+        }.sortedBy { it.label }
+        j.log("filters: apps: found ${a.size} apps")
+        a
+    }
+
+    override val apps = newProperty(kctx, zeroValue = { emptyList<App>() }, refresh = { appsRefresh() },
+            shouldRefresh = { it.isEmpty() })
+
     override val filters = newPersistedProperty(kctx,
-            persistence = AFiltersPersistence(ctx, { filtersRefresh(emptyList()) }),
+            persistence = AFiltersPersistence(xx = xx, apps = apps, default = { filtersRefresh(emptyList()) }),
             zeroValue = { emptyList() },
             refresh = filtersRefresh,
             shouldRefresh = {
@@ -129,22 +146,6 @@ class FiltersImpl(
             }
     )
 
-    private val appsRefresh = {
-        j.log("filters: apps: start")
-        val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        val a = installed.map {
-            App(
-                    appId = it.packageName,
-                    label = ctx.packageManager.getApplicationLabel(it).toString(),
-                    system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-            )
-        }.sortedBy { it.label }
-        j.log("filters: apps: found ${a.size} apps")
-        a
-    }
-
-    override val apps = newProperty(kctx, zeroValue = { emptyList<App>() }, refresh = { appsRefresh() },
-            shouldRefresh = { it.isEmpty() })
 }
 
 internal fun downloadFilters(filters: List<Filter>) {
@@ -175,7 +176,7 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
             when (sourceId) {
                 "link" -> FilterSourceLink(cfg.fetchTimeoutMillis, processor)
                 "file" -> FilterSourceUri(ctx = instance(), processor = instance())
-                "app" -> FilterSourceApp(ctx = instance())
+                "app" -> FilterSourceApp(ctx = instance(), j = instance())
                 else -> FilterSourceSingle()
             }}
         bind<FilterSerializer>() with singleton {
@@ -306,15 +307,21 @@ data class FilterConfig(
 )
 
 class AFiltersPersistence(
-        val ctx: Context,
+        val xx: Environment,
+        val apps: IProperty<List<App>>,
+        val ctx: Context = xx().instance(),
+        val j: Journal = xx().instance(),
         val default: () -> List<Filter>
 ) : Persistence<List<Filter>> {
 
     val p by lazy { ctx.getSharedPreferences("filters", Context.MODE_PRIVATE) }
 
     override fun read(current: List<Filter>): List<Filter> {
+        j.log("FiltersPersistence: read: refresh apps")
+        apps.refresh(blocking = true)
         val s : FilterSerializer = ctx.inject().instance()
         val filters = s.deserialise(p.getString("filters", "").split("^"))
+        j.log("FiltersPersistence: read: ${filters.size} loaded")
         return if (filters.isNotEmpty()) filters else default()
     }
 

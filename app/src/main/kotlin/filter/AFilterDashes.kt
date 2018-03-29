@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
-import com.github.salomonbrys.kodein.with
 import core.*
 import gs.environment.ComponentProvider
 import gs.environment.inject
 import gs.property.IWhen
-import nl.komponents.kovenant.task
 import org.blokada.R
 
 val DASH_ID_BLACKLIST = "filter_blacklist"
@@ -25,6 +23,7 @@ class DashFilterBlacklist(
         R.drawable.ic_shield_outline,
         text = ctx.getString(R.string.filter_blacklist_text_none),
         menuDashes = Triple(AddBlacklist(ctx, s), GenerateBlacklist(ctx, s), null),
+        onBack = { s.changed %= true },
         hasView = true
 ) {
     private var listener: IWhen? = null
@@ -61,16 +60,7 @@ class DashFilterWhitelist(
         menuDashes = Triple(
                 AddWhitelist(ctx, s), GenerateWhitelist(ctx, s), ShowSystemAppsWhitelist(ctx, ui)
         ),
-        onDashOpen = { task(ctx.inject().with(KCTX).instance()) {
-            var changed = false
-            s.filters().filter { it.whitelist }.forEach {
-                if (it.hosts.isEmpty()) {
-                    it.hosts = it.source.fetch()
-                    changed = true
-                }
-            }
-            if (changed) s.filters %= s.filters()
-        }},
+        onBack = { s.changed %= true },
         hasView = true
 ) {
 
