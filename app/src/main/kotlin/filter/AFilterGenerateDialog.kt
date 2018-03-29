@@ -95,6 +95,7 @@ class AFilterGenerateDialog(
 
                 // TODO: preserve user comments
                 s.filters %= s.filters().minus(filters).plus(filters) // To re-add equal instances
+                s.changed %= true
             }
         }
         dialog.dismiss()

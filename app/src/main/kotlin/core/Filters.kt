@@ -218,7 +218,7 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
 
             // Reload engine in case whitelisted apps selection changes
             var currentApps = listOf<Filter>()
-            s.filters.doWhenSet().then {
+            s.changed.doWhenSet().then {
                 val newApps = s.filters().filter { it.whitelist && it.active && it.source is FilterSourceApp }
                 if (newApps != currentApps) {
                     currentApps = newApps

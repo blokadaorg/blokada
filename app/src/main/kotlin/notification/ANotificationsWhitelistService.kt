@@ -30,9 +30,10 @@ class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
         val existing = s.filters().firstOrNull { it == filter }
         if (existing == null) {
             s.filters %= s.filters() + filter
+            s.changed %= true
         } else if (!existing.active) {
             existing.active = true
-            s.filters %= s.filters() // TODO: not sure if it's nice
+            s.changed %= true
         }
 
         promiseOnUi {
