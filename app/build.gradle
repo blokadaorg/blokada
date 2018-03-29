@@ -41,7 +41,7 @@ android {
     }
     buildTypes {
         debug {
-            versionNameSuffix '-debug'
+            versionNameSuffix ' (Debug)'
         }
         release {
             minifyEnabled false
@@ -51,7 +51,7 @@ android {
         }
         official {
             initWith(release)
-            versionNameSuffix '-official'
+            versionNameSuffix ' (Official)'
             matchingFallbacks = ['release']
         }
         beta {
