@@ -60,6 +60,10 @@ class PagesImpl (
                 dns %= URL("$c/dns.txt")
                 dnsStrings %= URL("$c/dns.properties")
                 patron %= resolveRedirect(patron())
+                chat %= if (i18n.locale().startsWith("es")) {
+                    URL("http://go.blokada.org/es_chat")
+                } else URL("http://go.blokada.org/chat")
+
                 loaded %= true
             }
         }
@@ -79,10 +83,10 @@ class PagesImpl (
     override val filtersStrings = newProperty(w, { URL("http://localhost") })
     override val dns = newProperty(w, { URL("http://localhost") })
     override val dnsStrings = newProperty(w, { URL("http://localhost") })
+    override val chat = newProperty(w, { URL("http://go.blokada.org/chat") })
 
     override val news = newProperty(w, { URL("http://go.blokada.org/news") })
     override val feedback = newProperty(w, { URL("http://go.blokada.org/feedback") })
-    override val chat = newProperty(w, { URL("http://go.blokada.org/chat") })
     override val patron = newProperty(w, { URL("http://go.blokada.org/patron_redirect") })
     override val obsolete = newProperty(w, { URL("https://blokada.org/api/legacy/content/en/obsolete.html") })
     override val download = newProperty(w, { URL("https://blokada.org/#download") })
