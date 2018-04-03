@@ -24,12 +24,9 @@
         tools:replace="android:label">
 
         <receiver
-            android:name="core.BootReceiver"
-            android:directBootAware="true">
+            android:name="core.BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
 
