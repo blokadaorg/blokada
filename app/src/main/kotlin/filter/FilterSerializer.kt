@@ -1,10 +1,10 @@
 package filter
 
-import gs.environment.batch
-import gs.property.I18n
 import core.Filter
 import core.IFilterSource
 import core.LocalisedFilter
+import gs.environment.batch
+import gs.property.Repo
 
 /**
  * AFilterSerialiser is responsible for serialising and deserialising filters.
@@ -26,12 +26,12 @@ import core.LocalisedFilter
  * Both name and comment are optional and can be just empty lines. They are suspect for localisation.
  */
 class FilterSerializer(
-        private val i18n: I18n,
+        private val repo: Repo,
         private val sourceProvider: (String) -> IFilterSource
 ) {
 
     private fun backupUrl(id: String): String {
-        return "${i18n.contentUrl()}/cache/${id}.txt"
+        return "${repo.content().contentPath?.toExternalForm()}/canonical/cache/${id}.txt"
     }
 
     /**
