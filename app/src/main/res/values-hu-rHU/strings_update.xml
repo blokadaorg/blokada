@@ -10,7 +10,7 @@
   <string name="update_header">Új frissítés!</string>
   <string name="update_header_noupdate">Nincs új frissítés</string>
   <string name="update_notification_channel">Frissítési értesítések</string>
-  <string name="update_info">Ha a Play Áruházból, F-Droidból vagy más áruházból töltötted le az alkalmazást, az áruházban fogsz frissítéseket kapni amint van elérhető. Bizonyosodj meg róla, hogy a Blokada nem aktív a frissítés során. Ha problémát tapasztalsz s frissítéskor, látogass a blokada.org-ra és töltsd le az alkalmazást manuálisan. Nem kell előtte letörölni az előző verziót.</string>
+  <string name="update_info">Ha a Play Áruházból, F-Droidból vagy más áruházból töltötted le az alkalmazást, az áruházban fogsz frissítéseket kapni, amint van elérhető. Bizonyosodj meg róla, hogy a Blokada nem aktív a frissítés során. Ha problémát tapasztalsz frissítéskor, látogass el a blokada.org-ra és töltsd le az alkalmazást manuálisan. Nem kell előtte letörölni az előző verziót.</string>
   <string name="update_credits_header">A nyílt forráskódú alkalmazás a Blokada Közösségnek köszönhetően jött létre.</string>
   <!-- Displayed in the home screen when there is an update. Keep it short. -->
   <string name="update_dash_available">&lt;b&gt;Frissítés elérhető!&lt;/b&gt;</string>
