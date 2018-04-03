@@ -180,7 +180,7 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
                 else -> FilterSourceSingle()
             }}
         bind<FilterSerializer>() with singleton {
-            FilterSerializer(i18n = instance(),
+            FilterSerializer(repo = instance(),
                     sourceProvider = { type: String -> with(type).instance<IFilterSource>() })
         }
         bind<FilterConfig>() with singleton {
