@@ -73,7 +73,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
             version.name %= BuildConfig.VERSION_NAME
 
             // This will fetch repo unless already cached
-            repo.url %= "https://blokada.org/api/${BuildConfig.VERSION_CODE}/${BuildConfig.FLAVOR}/${BuildConfig.BUILD_TYPE}/repo.txt"
+            repo.url %= "https://blokada.org/api/v3/${BuildConfig.FLAVOR}/${BuildConfig.BUILD_TYPE}/repo.txt"
         }
     }
 }
