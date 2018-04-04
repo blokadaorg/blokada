@@ -11,13 +11,13 @@ import filter.DashFilterWhitelist
 import filter.FilterSourceApp
 import gs.environment.Journal
 import gs.environment.Worker
+import gs.property.IWhen
 import nl.komponents.kovenant.any
 import nl.komponents.kovenant.task
 import nl.komponents.kovenant.then
 import notification.NotificationDashKeepAlive
 import notification.createNotificationKeepAlive
 import org.blokada.R
-import org.obsolete.IWhen
 import tunnel.ATunnelAgent
 import tunnel.ATunnelBinder
 import tunnel.ATunnelService
@@ -69,7 +69,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
         )) }
         bind<ATunnelService.IBuilderConfigurator>() with singleton {
             val dns: Dns = instance()
-            val s: State = instance()
+            val s: Filters = instance()
             object : ATunnelService.IBuilderConfigurator {
                 override fun configure(builder: VpnService.Builder) {
                     val choice = dns.choices().firstOrNull { it.active }
@@ -125,7 +125,9 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                 ShareLogDash(lazy).activate(false)
         ) }
         onReady {
-            val s: State = instance()
+            val s: Tunnel = instance()
+            val k: KeepAlive = instance()
+            val d: Dns = instance()
 
             // Keep DNS servers up to date on notification
             val keepAliveNotificationUpdater = {
@@ -134,20 +136,19 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                 nm.notify(3, n)
             }
             var w: IWhen? = null
-            s.keepAlive.doWhenSet().then {
-                if (s.keepAlive()) {
-                    w = s.connection.doOnUiWhenSet().then {
+            k.keepAlive.doWhenSet().then {
+                if (k.keepAlive()) {
+                    w = d.dnsServers.doOnUiWhenSet().then {
                         keepAliveNotificationUpdater()
                     }
                 } else {
-                    s.connection.cancel(w)
+                    d.dnsServers.cancel(w)
                     // Will be turned off by logic in core module
                 }
             }
 
             // Initialize default values for properties that need it (async)
             s.tunnelDropCount {}
-            s.tunnelActiveEngine {}
         }
     }
 }
