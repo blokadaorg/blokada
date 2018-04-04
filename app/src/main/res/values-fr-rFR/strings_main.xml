@@ -42,12 +42,16 @@
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Commentaires</string>
   <!-- A menu option to open Patron of the month -->
+  <string name="main_patron">Visiter le site du Patron</string>
   <!-- A menu option to open Patron voting screen -->
-  <!-- A menu option to take this month's action to help Blokada. -->
+  <string name="main_patron_about">Voter pour le Patron</string>
+  <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+  <string name="main_cta">Donner votre avis</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Liste de changements</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Crédits</string>
   <!-- An overlay header on top of Patron page -->
+  <string name="main_patron_overlay">En tant que communauté Blokada, nous trouvons de nouveaux projets prometteurs et essayons de les aider à grandir. N\'hésitez pas à partager !</string>
   <string name="main_log">Partager un log</string>
 </resources>

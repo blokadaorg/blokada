@@ -6,7 +6,7 @@
   <string name="update_notification_title">Güncelleme mevcut</string>
   <!-- Parameter: new app version, for example 2.0.1 -->
   <string name="update_notification_text">Sürüm %1$s indirmeye hazır! Devam etmek için dokunun.</string>
-  <!-- Header displaying the new app version. Parameters: branded app name, and new app version. For example: NEW! Blokada 2.0.1 -->
+  <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
   <string name="update_header">Yeni güncelleme!</string>
   <string name="update_header_noupdate">Yeni güncelleme yok</string>
   <string name="update_notification_channel">Güncelleme bildirimleri</string>

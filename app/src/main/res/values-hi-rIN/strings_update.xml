@@ -6,7 +6,7 @@
   <string name="update_notification_title">अपडेट उपलब्ध</string>
   <!-- Parameter: new app version, for example 2.0.1 -->
   <string name="update_notification_text">रिलीज %1$s डाउनलोड करने के लिए तैयार है! आगे बढ़ने के लिए टैप करें ।</string>
-  <!-- Header displaying the new app version. Parameters: branded app name, and new app version. For example: NEW! Blokada 2.0.1 -->
+  <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
   <string name="update_header">नई अपडेट!</string>
   <string name="update_header_noupdate">कोई नया अपडेट नहीं</string>
   <string name="update_notification_channel">अपडेट सूचनाएं</string>

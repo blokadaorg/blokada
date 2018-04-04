@@ -45,7 +45,7 @@
   <string name="main_patron">Patron\'u gör</string>
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Patron\'u oyla</string>
-  <!-- A menu option to take this month's action to help Blokada. -->
+  <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
   <string name="main_cta">Chip in</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Değişiklikler</string>

@@ -14,9 +14,9 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_paused">%s está desactivado.</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="main_paused_autoenable">%1$s está pausado debido a que tú dispositivo no tiene conexión. %1$s se activará automáticamente en cuanto te vuelvas a conectar.</string>
+  <string name="main_paused_autoenable">%1$s se ha pausado debido a que tú dispositivo no tiene conexión. %1$s se activará automáticamente cuando te vuelvas a conectar.</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="main_paused_autoenable_tethering">%1$s está pausado porque tú dispositivo tiene la zona WiFi activada. %1$s se reanudará automáticamente después de que se haya desactivado.</string>
+  <string name="main_paused_autoenable_tethering">%1$s se ha pausado porque tu dispositivo tiene la zona WiFi activada. %1$s se reanudará automáticamente después de que se haya desactivado.</string>
   <!-- Label for the Quick Settings toggle -->
   <string name="main_quicksettings_toggle">Activador</string>
   <!-- Active status for the Quick Settings toggle -->
@@ -45,7 +45,7 @@
   <string name="main_patron">Visitar Patrón</string>
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Votación del Patrón</string>
-  <!-- A menu option to take this month's action to help Blokada. -->
+  <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
   <string name="main_cta">Colaborar</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Historial de cambios</string>

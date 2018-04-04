@@ -6,11 +6,11 @@
   <string name="update_notification_title">Actualización disponible</string>
   <!-- Parameter: new app version, for example 2.0.1 -->
   <string name="update_notification_text">¡La versión %1$s está lista para descargarse! Toca para continuar.</string>
-  <!-- Header displaying the new app version. Parameters: branded app name, and new app version. For example: NEW! Blokada 2.0.1 -->
+  <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
   <string name="update_header">¡Nueva actualización disponible!</string>
   <string name="update_header_noupdate">No hay actualizaciones disponibles</string>
   <string name="update_notification_channel">Notificaciones de actualización</string>
-  <string name="update_info">Si has descargado la aplicación desde Play Store, F-Droid u otra tienda de aplicaciones, recibirás actualizaciones desde la propia tienda cuando estén disponibles. Asegúrate de que Blokada esté desactivado durante la actualización. Si tiene problemas para actualizar, visita blokada.org y descarga la aplicación manualmente. No es necesario desinstalar la versión existente por lo general.</string>
+  <string name="update_info">Si has descargado la aplicación desde Play Store, F-Droid u otra tienda de aplicaciones, recibirás actualizaciones desde la propia tienda cuando estén disponibles. Asegúrate de que Blokada esté desactivado durante la actualización. Si tienes problemas para actualizar, visita blokada.org y descarga la aplicación manualmente. No es necesario desinstalar la versión existente por lo general.</string>
   <string name="update_credits_header">Esta aplicación es un proyecto de código abierto hecha posible gracias a:</string>
   <!-- Displayed in the home screen when there is an update. Keep it short. -->
   <string name="update_dash_available">&lt;b&gt;¡Actualización disponible!&lt;/b&gt;</string>

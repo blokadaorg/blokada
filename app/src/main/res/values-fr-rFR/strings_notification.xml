@@ -3,7 +3,9 @@
 <resources>
   <string name="notification_on_text">Notifications</string>
   <!-- Title of the notification that shows up every time something is blocked. -->
+  <string name="notification_blocked_title">Élément bloqué</string>
   <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+  <string name="notification_blocked_text">%s</string>
   <!-- Button to turn off notifications. -->
   <string name="notification_blocked_off">Ne plus afficher</string>
   <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
@@ -14,11 +16,13 @@
   <string name="notification_disabled">%s n\'affichera pas de notifications.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s affichera maintenant une notification chaque fois qu\'un élément sera bloqué.</string>
+  <string name="notification_keepalive_text">Garder en vie</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s n\'est plus protégé contre l\'économiseur de batterie ou de mémoire de votre appareil.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_enabled">%s se protégera désormais contre sa désactivation par le système.</string>
   <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+  <string name="notification_keepalive_title">%d éléments bloqués</string>
   <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
   <string name="notification_keepalive_content">Dernier: %s</string>
   <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->

@@ -6,7 +6,7 @@
   <string name="update_notification_title">Доступно обновление</string>
   <!-- Parameter: new app version, for example 2.0.1 -->
   <string name="update_notification_text">Версия %1$s готова к загрузке! Коснитесь, чтобы продолжить.</string>
-  <!-- Header displaying the new app version. Parameters: branded app name, and new app version. For example: NEW! Blokada 2.0.1 -->
+  <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
   <string name="update_header">Новая версия!</string>
   <string name="update_header_noupdate">Нет новой версии</string>
   <string name="update_notification_channel">Уведомления об обновлении</string>
