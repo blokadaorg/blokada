@@ -31,7 +31,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             object : IEngineManager {
                 var binder: ATunnelBinder? = null
                 val j: Journal by lazy { instance<Journal>() }
-                val agent: ATunnelAgent by lazy { instance<ATunnelAgent>() }
+                val agent: ATunnelAgent by lazy { ATunnelAgent(ctx)}
                 val waitKctx: Worker by lazy { with("ienginemanager").instance<Worker>() }
                 override fun start() {
                     val binding = agent.bind(object : ITunnelEvents {
