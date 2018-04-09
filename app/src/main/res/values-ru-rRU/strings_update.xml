@@ -10,7 +10,7 @@
   <string name="update_header">Новая версия!</string>
   <string name="update_header_noupdate">Нет новой версии</string>
   <string name="update_notification_channel">Уведомления об обновлении</string>
-  <string name="update_info">Если вы загрузили приложение из Play Маркета, F-Droid или другого магазина приложений, вы будете получать обновления из магазина по мере их появления. Убедитесь, что Blokada отключена во время обновления. Если у вас возникли проблемы с обновлением, перейдите на blokada.org и загрузите приложение вручную. Удалять текущую версию нет необходимости.</string>
+  <string name="update_info">Если вы загрузили приложение из Play Store, F-Droid или другого магазина приложений, вы будете получать обновления из магазина по мере их появления. Убедитесь, что Blokada отключена во время обновления. Если у вас возникли проблемы с обновлением, перейдите на blokada.org и загрузите приложение вручную. Удалять текущую версию нет необходимости.</string>
   <string name="update_credits_header">Это приложение является проектом с открытым исходным кодом и существует благодаря сообществу Blokada.</string>
   <!-- Displayed in the home screen when there is an update. Keep it short. -->
   <string name="update_dash_available">&lt;b&gt;Доступно обновление!&lt;/b&gt;</string>

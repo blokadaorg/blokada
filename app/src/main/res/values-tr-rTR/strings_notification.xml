@@ -8,7 +8,7 @@
   <!-- Button to turn off notifications. -->
   <string name="notification_blocked_off">Gösterme</string>
   <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
-  <string name="notification_blocked_whitelist">Beyaz liste</string>
+  <string name="notification_blocked_whitelist">Beyaz Liste</string>
   <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
   <string name="notification_blocked_whitelist_applied">Tamam! Değişikliklerin uygulanması biraz zaman alabilir.</string>
   <!-- Parameter: branded app name (Blokada). -->
@@ -25,5 +25,5 @@
   <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
   <string name="notification_keepalive_content">En son: %s</string>
   <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
-  <string name="notification_keepalive_none">Şimdilik yok</string>
+  <string name="notification_keepalive_none">Takip Ediliyor</string>
 </resources>

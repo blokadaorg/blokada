@@ -46,9 +46,9 @@
   <!-- Title of menu with quick actions for whitelist / blacklist -->
   <string name="filter_generate_title">Schnellzugriff</string>
   <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
-  <string name="filter_generate_whitelist_system">System-Apps hinzufügen (aktiviert)</string>
+  <string name="filter_generate_whitelist_system">Alle Systemapps hinzufügen (aktiviert)</string>
   <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
-  <string name="filter_generate_whitelist_system_disabled">System-Apps hinzufügen (deaktiviert)</string>
+  <string name="filter_generate_whitelist_system_disabled">Alle Systemapps hinzufügen (deaktiviert)</string>
   <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
   <string name="filter_generate_whitelist_all">Alle Apps hinzufügen (aktiviert)</string>
   <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->

@@ -4,9 +4,9 @@
   <!-- A recommended option, for example: Optimised blocking (recommended). Parameter: name of the option. -->
   <string name="filter_recommended">%s (recomendado)</string>
   <!-- Parameter: host name of the link. For example: A link from example.com -->
-  <string name="filter_name_link">Un link desde %s</string>
+  <string name="filter_name_link">Un enlace desde %s</string>
   <!-- As in, "A link from the Internet". -->
-  <string name="filter_name_link_unknown">internet</string>
+  <string name="filter_name_link_unknown">Internet</string>
   <!-- Parameter: directory of the file. For example: A file from Downloads -->
   <string name="filter_name_file">Un archivo desde %s</string>
   <!-- As in, "A a file from this device". -->
@@ -23,11 +23,11 @@
   <string name="filter_edit_file_none">Archivo host no seleccionado</string>
   <string name="filter_edit_file_error">El archivo seleccionado no parece tener hosts.</string>
   <!-- Name of a tab that allows to add a link to hosts. -->
-  <string name="filter_edit_link">Link</string>
-  <string name="filter_edit_link_enter">Introduce el link de un archivo host</string>
+  <string name="filter_edit_link">Enlace</string>
+  <string name="filter_edit_link_enter">Introduce el enlace de un archivo host</string>
   <!-- An example format of a link to hosts file. -->
   <string name="filter_edit_link_placeholder">http://ejemplo.com/host.txt</string>
-  <string name="filter_edit_link_error">Este link no puede ser descargado o no tiene hosts.</string>
+  <string name="filter_edit_link_error">Este enlace no puede ser descargado o no tiene hosts.</string>
   <!-- Name of a tab that allows to whitelist app. -->
   <string name="filter_edit_app">App</string>
   <string name="filter_edit_app_enter">Introduce el nombre de la aplicación o del paquete</string>

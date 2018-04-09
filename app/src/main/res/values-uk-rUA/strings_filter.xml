@@ -38,11 +38,11 @@
   <!-- Parameter: number of hosts. -->
   <string name="filter_edit_count">Містить хостів: %d</string>
   <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
-  <string name="filter_blacklist_text">%d у \"чорному\" списку</string>
-  <string name="filter_blacklist_text_none">\"Чорний\" список неактивний</string>
+  <string name="filter_blacklist_text">%d у чорному списку</string>
+  <string name="filter_blacklist_text_none">Чорний список неактивний</string>
   <!-- Displayed in the home screen, keep it short. Parameter: number of whitelisted entries. -->
-  <string name="filter_whitelist_text">%d у \"білому\" списку</string>
-  <string name="filter_whitelist_text_none">\"Білий\" список неактивний</string>
+  <string name="filter_whitelist_text">%d у білому списку</string>
+  <string name="filter_whitelist_text_none">Білий список неактивний</string>
   <!-- Title of menu with quick actions for whitelist / blacklist -->
   <string name="filter_generate_title">Швидкі дії</string>
   <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
@@ -54,7 +54,7 @@
   <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
   <string name="filter_generate_whitelist_all_disabled">Додати всі програми (вимкнено)</string>
   <!-- Deletes all filters and fetches default ones. -->
-  <string name="filter_generate_defaults">Відновити типові (\"чорний\" та \"білий\" списки)</string>
+  <string name="filter_generate_defaults">Відновити типові (чорний та білий списки)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Оновити фільтри</string>
 </resources>

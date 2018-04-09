@@ -37,8 +37,8 @@
   <string name="main_contribute_text">Dahil Olun</string>
   <string name="main_blog_text">Haberler</string>
   <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
-  <string name="main_connectivity_text">Sadece çevrimiçi</string>
-  <string name="main_autostart_text">Açılışta çalıştır</string>
+  <string name="main_connectivity_text">Sadece Çevrimiçi</string>
+  <string name="main_autostart_text">Açılışta Çalıştır</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Geri Bildirim</string>
   <!-- A menu option to open Patron of the month -->

@@ -10,7 +10,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_active">%s está activado.</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="main_active_new">%1$s está protegiendo tu dispositivo. ¡Puedes ajustar %1$s abajo, o simplemente pasar y usar tu dispositivo!</string>
+  <string name="main_active_new">%1$s está protegiendo tu dispositivo. ¡Puedes ajustar %1$s debajo, o simplemente pasar y usar tu dispositivo!</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_paused">%s está desactivado.</string>
   <!-- Parameter: branded app name (Blokada). -->
@@ -46,7 +46,7 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Votación del Patrón</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-  <string name="main_cta">Colaborar</string>
+  <string name="main_cta">Participa</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Historial de cambios</string>
   <!-- A menu option to open credits screen -->

@@ -28,7 +28,7 @@
   <!-- App status, as in: Blokada is Disabled -->
   <string name="main_status_disabled">Вимкнено</string>
   <!-- App status, always displayed without the "Blokada is" part. -->
-  <string name="main_status_activating">Вмикання</string>
+  <string name="main_status_activating">Вмикається</string>
   <!-- App status, always displayed without the "Blokada is" part. -->
   <string name="main_status_deactivating">Вимикається</string>
   <string name="main_status_error">Сталася помилка</string>
