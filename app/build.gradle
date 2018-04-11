@@ -19,9 +19,11 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         debug.java.srcDirs += 'src/unofficial/kotlin'
-        release.java.srcDirs += 'src/unofficial/kotlin'
+        release.java.srcDirs += 'src/official/kotlin'
         official.java.srcDirs += 'src/official/kotlin'
+        official.res.srcDirs += 'src/official/res'
         beta.java.srcDirs += 'src/official/kotlin'
+        beta.res.srcDirs += 'src/official/res'
         adblockerHome.java.srcDirs += 'src/adblocker/kotlin'
         adblockerHome.res.srcDirs += 'src/adblocker/res'
         adblockerFdroid.java.srcDirs += 'src/adblocker/kotlin'
@@ -41,7 +43,7 @@ android {
     }
     buildTypes {
         debug {
-            versionNameSuffix ' (Debug)'
+            versionNameSuffix ' Debug'
         }
         release {
             minifyEnabled false
@@ -51,12 +53,12 @@ android {
         }
         official {
             initWith(release)
-            versionNameSuffix ' (Official)'
+            versionNameSuffix ' Official'
             matchingFallbacks = ['release']
         }
         beta {
             initWith(release)
-            versionNameSuffix ' (Beta Channel)'
+            versionNameSuffix ' Beta'
             matchingFallbacks = ['release']
         }
     }
@@ -99,13 +101,8 @@ dependencies {
         transitive = true
     }
 
-    // Analytics and debugging
-    officialImplementation 'com.google.firebase:firebase-core:12.0.0'
-    officialImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
-    betaImplementation 'com.google.firebase:firebase-core:12.0.0'
-    betaImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
-
-    // Test dependencies
+    // Testing and debugging
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -130,5 +127,3 @@ buildscript {
     }
 }
 
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
