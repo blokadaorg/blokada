@@ -35,7 +35,7 @@ class FiltersImpl(
     override val changed = newProperty(kctx, { false })
 
     private val filtersRefresh = { it: List<Filter> ->
-        j.log("filters: refresh: start")
+        j.log("filters: refresh: start ${pages.filters}")
         val c = filterConfig()
         val serialiser: FilterSerializer = ctx.inject().instance()
         val builtinFilters = try {
