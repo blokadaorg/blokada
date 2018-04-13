@@ -28,8 +28,6 @@ android {
         adblockerHome.res.srcDirs += 'src/adblocker/res'
         adblockerFdroid.java.srcDirs += 'src/adblocker/kotlin'
         adblockerFdroid.res.srcDirs += 'src/adblocker/res'
-        adblockerXda.java.srcDirs += 'src/adblocker/kotlin'
-        adblockerXda.res.srcDirs += 'src/adblocker/res'
         dnsHome.java.srcDirs += 'src/dns/kotlin'
         dnsHome.res.srcDirs += 'src/dns/res'
     }
@@ -81,9 +79,9 @@ dependencies {
     implementation project(':gscore')
 
     // Android support libraries
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:support-v4:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
 
     // Kotlin and its dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
