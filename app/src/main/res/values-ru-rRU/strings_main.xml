@@ -52,5 +52,6 @@
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Благодарность</string>
   <!-- An overlay header on top of Patron page -->
+  <string name="main_patron_overlay">Как сообщество Blokada, мы находим многообещающие новые проекты и помогаем им расти. Поделись, пожалуйста!</string>
   <string name="main_log">Отправить журнал</string>
 </resources>

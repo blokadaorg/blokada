@@ -3,13 +3,13 @@
 <resources>
   <string name="notification_on_text">Oznámení</string>
   <!-- Title of the notification that shows up every time something is blocked. -->
-  <string name="notification_blocked_title">Blokováno</string>
+  <string name="notification_blocked_title">Zablokováno</string>
   <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
   <string name="notification_blocked_text">%s</string>
   <!-- Button to turn off notifications. -->
   <string name="notification_blocked_off">Nezobrazovat</string>
   <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
-  <string name="notification_blocked_whitelist">Whitelist</string>
+  <string name="notification_blocked_whitelist">Seznam povolených</string>
   <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
   <string name="notification_blocked_whitelist_applied">Hotovo! Změna může trvat několik vteřin.</string>
   <!-- Parameter: branded app name (Blokada). -->

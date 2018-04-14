@@ -14,7 +14,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_paused">%s je neaktivní.</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="main_paused_autoenable">%1$s pozastaveno, protože je přístroj odpojen. %1$s automaticky se stane aktivní, jakmile bude připojen k internetu.</string>
+  <string name="main_paused_autoenable">%1$s je pozastaveno, protože je váš přístroj odpojen. %1$s automaticky se stane aktivní, jakmile bude připojen k internetu.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_paused_autoenable_tethering">%1$s pozastaveno, protože vaše zařízení má zapnutý WiFi Hotspot. %1$s automaticky se stane aktivní, jakmile Hotspot zakážete.</string>
   <!-- Label for the Quick Settings toggle -->

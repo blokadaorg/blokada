@@ -27,6 +27,7 @@
   <!-- An example format of a link to hosts file. -->
   <string name="filter_edit_link_error">Este link não pôde ser baixado ou parece não conter endereços.</string>
   <!-- Name of a tab that allows to whitelist app. -->
+  <string name="filter_edit_app">Aplicativo</string>
   <string name="filter_edit_app_enter">Insira o nome do app ou pacote</string>
   <!-- An example package name of app to whitelist. -->
   <string name="filter_edit_app_error">Este app não existe ou não pode ser adicionado à lista branca.</string>

@@ -4,7 +4,7 @@
   <string name="dns_tab_v4">IPv4</string>
   <string name="dns_tab_v6">IPv6</string>
   <string name="dns_default_name">DNS-серверы по умолчанию</string>
-  <string name="dns_default_comment">При включениии будут использоваться DNS-серверы по умолчанию в зависимости от вашей мобильной сети и WiFi.</string>
+  <string name="dns_default_comment">При включениии будут использоваться DNS-серверы по умолчанию, в зависимости от вашей мобильной сети и WiFi.</string>
   <!-- A name used for DNS servers added by user. -->
   <string name="dns_custom_name">Пользовательские</string>
   <!-- An example format of a DNS server address. -->

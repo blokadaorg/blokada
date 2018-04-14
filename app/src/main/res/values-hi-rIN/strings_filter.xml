@@ -27,6 +27,7 @@
   <!-- An example format of a link to hosts file. -->
   <string name="filter_edit_link_error">यह लिंक डाउनलोड नहीं किया जा सकता या होस्ट शामिल करने के लिए नहीं लगता ।</string>
   <!-- Name of a tab that allows to whitelist app. -->
+  <string name="filter_edit_app">एैप्स</string>
   <string name="filter_edit_app_enter">एप्लिकेशन नाम या पैकेज नाम दर्ज करें</string>
   <!-- An example package name of app to whitelist. -->
   <string name="filter_edit_app_error">इस एप्लिकेशन मौजूद नहीं है या श्वेत सूची में शामिल नहीं किया जा सकता है ।</string>
