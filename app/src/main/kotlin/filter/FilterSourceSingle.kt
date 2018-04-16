@@ -3,7 +3,7 @@ package filter
 import core.IFilterSource
 
 
-val hostnameRegex = Regex("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$")
+val hostnameRegex = Regex("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}$")
 
 class FilterSourceSingle(
         private var host: String = ""
