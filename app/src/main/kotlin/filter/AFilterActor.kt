@@ -33,7 +33,14 @@ class AFilterActor(
             dialog.show(filter)
         }
         v.onDelete = {
-            s.filters %= s.filters().minus(filter)
+            if (filter.id.startsWith("b_")) {
+                // Hide default Blokada filters instead of deleting them, so they dont reappear on refresh
+                filter.hidden = true
+                filter.active = false
+                s.filters %= s.filters()
+            } else {
+                s.filters %= s.filters().minus(filter)
+            }
         }
         v.showDelete = true
         v.onSwitched = { active ->

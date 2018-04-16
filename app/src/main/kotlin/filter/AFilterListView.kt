@@ -53,12 +53,12 @@ class AFilterListView(
     private fun refreshFilters() {
         if (whitelist) {
             filters = s.filters().filter {
-                it.whitelist == true
+                it.whitelist == true && it.hidden == false
                         && (ui.showSystemApps()
                         || !((it.source as? FilterSourceApp)?.system ?: false))
             }
         } else {
-            filters = s.filters().filter { it.whitelist == false }
+            filters = s.filters().filter { it.whitelist == false && it.hidden == false }
         }
         adapter.notifyDataSetChanged()
     }

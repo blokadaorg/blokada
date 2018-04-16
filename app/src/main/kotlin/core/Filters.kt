@@ -57,6 +57,7 @@ class FiltersImpl(
                 if (newFilter != null) {
                     newFilter.active = filter.active
                     newFilter.localised = filter.localised
+                    newFilter.hidden = filter.hidden
                     newFilter
                 } else filter
             }.plus(builtinFilters.minus(it))
@@ -152,7 +153,6 @@ internal fun downloadFilters(filters: List<Filter>) {
     filters.forEach { filter ->
         if (filter.hosts.isEmpty()) {
             filter.hosts = filter.source.fetch()
-            filter.valid = filter.hosts.isNotEmpty()
         }
     }
 }
@@ -270,11 +270,11 @@ data class Filter(
         val id: String,
         val source: IFilterSource,
         val credit: String? = null,
-        var valid: Boolean = false,
         var active: Boolean = false,
         var whitelist: Boolean = false,
         var hosts: List<String> = emptyList(),
-        var localised: LocalisedFilter? = null
+        var localised: LocalisedFilter? = null,
+        var hidden: Boolean = false
 ) {
 
     override fun hashCode(): Int {

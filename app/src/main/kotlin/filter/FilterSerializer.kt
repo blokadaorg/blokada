@@ -48,7 +48,10 @@ class FilterSerializer(
             val comment = it.localised?.comment?.replace("\n", "\\n") ?: ""
 
             "${i++}\n${it.id}\n${whitelist}\n${active}\n${it.credit}\n${soureId}\n${source}\n${name}\n${comment}"
-        }.flatMap { it.split("\n") }
+        }.flatMap { it.split("\n") }.plus("-1").plus(
+                // Add ids of hidden items as last two lines so its compatible with older APIs
+                filters.filter { it.hidden }.map { it.id }.joinToString(";")
+        )
     }
 
     /**
@@ -58,7 +61,7 @@ class FilterSerializer(
     fun deserialise(repo: List<String>): List<Filter> {
         if (repo.size <= 1) return emptyList()
         val filters = repo.asSequence().batch(9).map { entry ->
-            entry[0].toInt() to try {
+             entry[0].toInt()to try {
                 val id = entry[1]
                 val whitelist = entry[2] == "whitelist"
                 val active = entry[3] == "active"
@@ -73,11 +76,16 @@ class FilterSerializer(
 
                 val localised = if (name.isNotBlank()) LocalisedFilter(name, comment) else null
 
-                Filter(id, source, credit, true, active, whitelist, emptyList(), localised)
+                Filter(id, source, credit, active, whitelist, emptyList(), localised)
             } catch (e: Exception) {
                 null
             }
         }.toList().sortedBy { it.first }.map { it.second }.filterNotNull()
+
+        // Set hidden flag
+        repo.asSequence().last().split(';').forEach { h ->
+            filters.firstOrNull { it.id == h }?.hidden = true
+        }
 
         return filters
     }

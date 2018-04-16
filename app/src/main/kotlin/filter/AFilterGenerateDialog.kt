@@ -85,7 +85,6 @@ class AFilterGenerateDialog(
                         Filter(
                                 id = app,
                                 source = source,
-                                valid = true,
                                 active = which in listOf(1, 3),
                                 whitelist = true,
                                 localised = LocalisedFilter(sourceToName(ctx, source))
