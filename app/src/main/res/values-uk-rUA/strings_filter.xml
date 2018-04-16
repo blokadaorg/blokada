@@ -27,6 +27,7 @@
   <!-- An example format of a link to hosts file. -->
   <string name="filter_edit_link_error">Посилання не вдалося завантажити або отриманий файл не містить хостів.</string>
   <!-- Name of a tab that allows to whitelist app. -->
+  <string name="filter_edit_app">Додаток</string>
   <string name="filter_edit_app_enter">Введіть назву програми чи пакета</string>
   <!-- An example package name of app to whitelist. -->
   <string name="filter_edit_app_error">Такої програми не існує або вона не може бути додана.</string>
