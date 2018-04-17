@@ -67,4 +67,7 @@
     <string name="main_patron_overlay">As Blokada Community, we find promising new projects and help them grow. Please share!</string>
 
     <string name="main_log">Share Log</string>
+    <string name="main_report_title">Blokada Report</string>
+    <string name="main_report_text">Blokada has experienced a problem (or you requested to send a report). A log will be attached which may contain private information. Only trusted Insiders will be able to read your report, and it will be deleted once it is not needed anymore.</string>
+    <string name="main_report_comment">Please provide a short description what did you do before the problem occurred:</string>
 </resources>

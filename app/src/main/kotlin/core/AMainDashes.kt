@@ -4,9 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import android.support.v4.app.ShareCompat
-import android.support.v4.content.FileProvider
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import gs.environment.*
@@ -14,12 +11,9 @@ import gs.presentation.WebDash
 import gs.property.Device
 import gs.property.IProperty
 import gs.property.IWhen
-import gs.property.getPersistencePath
-import org.blokada.BuildConfig
+import org.acra.ACRA
 import org.blokada.R
-import java.io.File
 import java.net.URL
-import java.text.SimpleDateFormat
 
 val DASH_ID_DONATE = "main_donate"
 val DASH_ID_CONTRIBUTE = "main_contribute"
@@ -296,7 +290,6 @@ class ChatDash(
 )
 
 val DASH_ID_LOG = "share_log"
-val format = SimpleDateFormat("yyyyMMdd-HHmm")
 
 class ShareLogDash(
         val xx: Environment,
@@ -311,30 +304,10 @@ class ShareLogDash(
         DASH_ID_LOG,
         R.drawable.ic_comment_multiple_outline,
         onClick = { dashRef ->
-            try {
-                // Log basics
-                j.log("basic config start (v1)")
-                j.log("device: ${Build.MANUFACTURER}, ${Build.MODEL}, ${Build.PRODUCT}")
-                j.log("os: ${Build.VERSION.SDK_INT}")
-                j.log("app: ${BuildConfig.FLAVOR} ${BuildConfig.BUILD_TYPE} ${BuildConfig.VERSION_CODE}")
-                j.log("hostsCount: ${f.filtersCompiled().size}")
-                j.log("filtersActiveCount: ${f.filters().filter { it.active }.size}")
-                j.log("keepAlive: ${k.keepAlive()}")
-                j.log("onlineOnly: ${s.watchdogOn()}")
-                j.log("basic config end")
-
-                val now = format.format(time.now())
-                val file = File(getPersistencePath(ctx).absoluteFile, "blokada-log-${now}.txt")
-                Runtime.getRuntime().exec(arrayOf("logcat", "-v", "threadtime", "-f", file.absolutePath));
-                val uri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", file)
-                val intent = ShareCompat.IntentBuilder.from(activity.get()).setStream(uri).intent
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                intent.setData(uri)
-                ctx.startActivity(intent)
-            } catch (e: Exception) {
-                j.log("could not share log", e)
-            }
+            val r = ACRA.getErrorReporter()
+            r.putCustomData("hostsCount", "${f.filtersCompiled().size}")
+            r.putCustomData("filtersActiveCount", "${f.filters().filter { it.active }.size}")
+            r.handleException(null)
             true
         }
 )

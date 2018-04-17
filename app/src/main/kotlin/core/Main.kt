@@ -22,6 +22,17 @@ import gs.property.Device
 import gs.property.IWhen
 import gs.property.newDeviceModule
 import gs.property.newUserModule
+import org.acra.ACRA
+import org.acra.ReportField
+import org.acra.config.CoreConfigurationBuilder
+import org.acra.config.DialogConfigurationBuilder
+import org.acra.config.HttpSenderConfigurationBuilder
+import org.acra.config.LimiterConfigurationBuilder
+import org.acra.data.StringFormat
+import org.acra.sender.HttpSender
+import org.blokada.BuildConfig
+import org.blokada.R
+
 
 /**
  * Main.kt contains all entry points of the app.
@@ -60,9 +71,58 @@ class MainApplication: Application(), KodeinAware {
         setRestartAppOnCrash()
     }
 
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        val builder = CoreConfigurationBuilder(this)
+        builder.setBuildConfigClass(BuildConfig::class.java).setReportFormat(StringFormat.JSON)
+        builder.setLogcatArguments("-t", "300", "-v", "threadtime")
+        builder.setReportContent(
+                ReportField.INSTALLATION_ID,
+                ReportField.USER_COMMENT,
+                ReportField.BUILD_CONFIG,
+                ReportField.CUSTOM_DATA,
+                ReportField.SHARED_PREFERENCES,
+                ReportField.STACK_TRACE,
+                ReportField.THREAD_DETAILS,
+                ReportField.LOGCAT,
+                ReportField.PACKAGE_NAME,
+                ReportField.ANDROID_VERSION,
+                ReportField.APP_VERSION_NAME,
+                ReportField.TOTAL_MEM_SIZE,
+                ReportField.AVAILABLE_MEM_SIZE,
+                ReportField.SETTINGS_SYSTEM,
+                ReportField.SETTINGS_SECURE
+        )
+        builder.setAdditionalSharedPreferences("default", "basic")
+
+        val c = builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder::class.java)
+        c.setEnabled(true)
+        c.setHttpMethod(HttpSender.Method.POST)
+        c.setUri(getString(R.string.acra_uri))
+        c.setBasicAuthLogin(getString(R.string.acra_login))
+        c.setBasicAuthPassword(getString(R.string.acra_password))
+        c.setDropReportsOnTimeout(true)
+
+        val limiter = builder.getPluginConfigurationBuilder(LimiterConfigurationBuilder::class.java)
+        limiter.setEnabled(true)
+        limiter.setOverallLimit(25)
+        limiter.setStacktraceLimit(25)
+        limiter.setExceptionClassLimit(25)
+
+        val dialog = builder.getPluginConfigurationBuilder(DialogConfigurationBuilder::class.java)
+        dialog.setEnabled(true)
+        dialog.setResTitle(R.string.main_report_title)
+        dialog.setResText(R.string.main_report_text)
+        dialog.setResCommentPrompt(R.string.main_report_comment)
+        dialog.setResTheme(R.style.GsTheme_Dialog)
+        dialog.setResIcon(R.drawable.ic_blokada)
+        ACRA.init(this, builder)
+    }
+
     private fun setRestartAppOnCrash() {
         Thread.setDefaultUncaughtExceptionHandler { _, ex ->
             try {
+                ACRA.getErrorReporter().handleException(ex)
                 val j: Journal = inject().instance()
                 j.log("fatal", ex)
             } catch (e: Exception) {}
