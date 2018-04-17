@@ -96,12 +96,11 @@ class WelcomeDialogManager (
             step == 0 && !welcome.introSeen() -> {
                 dialogIntro.onClosed = { accept ->
                     displaying = false
+                    welcome.introSeen %= true
                     if (accept == 1) {
-                        welcome.introSeen %= true
                         afterWelcome()
                         run(step = 9)
                     } else if (accept == 2) {
-                        welcome.introSeen %= true
                         run(step = 1)
                     } else {
                         run(step = 9)
@@ -130,7 +129,7 @@ class WelcomeDialogManager (
             step == 0 && welcome.ctaSeenCounter() == 0 -> {
                 dialogCta.onClosed = { accept ->
                     displaying = false
-                    if (accept == 1) welcome.ctaSeenCounter %= 5
+                    welcome.ctaSeenCounter %= 5
                     run(step = 9)
                 }
                 dialogCta.show()
