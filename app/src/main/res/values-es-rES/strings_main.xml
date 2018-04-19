@@ -53,5 +53,5 @@
   <string name="main_credits">Créditos</string>
   <!-- An overlay header on top of Patron page -->
   <string name="main_patron_overlay">Como Comunidad Blokada, encontramos nuevos y prometedores proyectos y los ayudamos a crecer. Por favor, ¡compártelo!</string>
-  <string name="main_log">Compartir Registro</string>
+  <string name="main_log">Enviar registro</string>
 </resources>

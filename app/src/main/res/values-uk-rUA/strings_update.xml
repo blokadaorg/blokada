@@ -13,7 +13,7 @@
   <string name="update_info">Якщо ви завантажили додаток з Play Store, F-Droid або з іншого магазину, ви будете отримувати оновлення з цього магазину, як тільки вони стануть доступними. Переконайтеся, що Blokada буде відключено під час оновлення. Якщо у вас виникли будь-які проблеми з оновленням, перейдіть на blokada.org і завантажте програму вручну. Немає необхідності видаляти існуючі версії заздалегідь.</string>
   <string name="update_credits_header">Цей додаток є проектом з відкритим кодом, що став реальним завдяки спільноті Blokada.</string>
   <!-- Displayed in the home screen when there is an update. Keep it short. -->
-  <string name="update_dash_available">&lt;b&gt;оновлення доступне!&lt;/b&gt;</string>
+  <string name="update_dash_available">&lt;b&gt;Оновлення доступне!&lt;/b&gt;</string>
   <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
   <string name="update_dash_uptodate">Все свіже</string>
   <!-- Displayed in menu to open the About/Update screen. -->

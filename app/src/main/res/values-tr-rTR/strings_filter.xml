@@ -12,10 +12,10 @@
   <!-- As in, "A a file from this device". -->
   <string name="filter_name_file_unknown">Bu cihaz</string>
   <!-- Name of a tab for adding a new host to the blacklist / whitelist. -->
-  <string name="filter_edit_name">Host</string>
+  <string name="filter_edit_name">Bağlantı</string>
   <!-- An example format of a hostname. -->
   <string name="filter_edit_name_placeholder">örnek.com</string>
-  <string name="filter_edit_name_enter">Bir sunucu adı girin</string>
+  <string name="filter_edit_name_enter">Bir bağlantı adı girin</string>
   <string name="filter_edit_name_error">Bu doğru görünmüyor. Ornek.com gibi bir alan adı yazdığınıza emin olun.</string>
   <!-- Name of a tab that allows to add a file with hosts. -->
   <string name="filter_edit_file">Dosya</string>
@@ -23,7 +23,7 @@
   <string name="filter_edit_file_none">Hiçbir hosts dosyası seçilmedi</string>
   <string name="filter_edit_file_error">Seçilen dosya sunucu adresleri içermiyor.</string>
   <!-- Name of a tab that allows to add a link to hosts. -->
-  <string name="filter_edit_link">Bağlantı</string>
+  <string name="filter_edit_link">Hosts</string>
   <string name="filter_edit_link_enter">Hosts dosyasının bağlantısını girin</string>
   <!-- An example format of a link to hosts file. -->
   <string name="filter_edit_link_placeholder">http://example.com/hosts.txt</string>
