@@ -24,6 +24,7 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
         debug.java.srcDirs += 'src/unofficial/kotlin'
         release.java.srcDirs += 'src/official/kotlin'
+        release.res.srcDirs += 'src/official/res'
         official.java.srcDirs += 'src/official/kotlin'
         official.res.srcDirs += 'src/official/res'
         beta.java.srcDirs += 'src/official/kotlin'
