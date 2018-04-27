@@ -1,7 +1,26 @@
+buildscript {
+    ext.kotlin_version = '1.2.31'
+    ext.acraVersion = '5.1.3'
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id 'com.gladed.androidgitversion' version '0.4.3'
+}
+
+androidGitVersion {
+    codeFormat 'MNNPPPPBB'
+    format '%tag%'
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply from: '../version.gradle'
-
 
 android {
     compileSdkVersion 27
@@ -13,8 +32,8 @@ android {
         applicationId "org.blokada"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode extVersionCode
-        versionName extVersionName
+        versionName androidGitVersion.name()
+        versionCode androidGitVersion.code()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
@@ -119,18 +138,6 @@ repositories {
     mavenCentral()
     maven {
         url "https://jitpack.io"
-    }
-}
-
-buildscript {
-    ext.kotlin_version = '1.2.31'
-    ext.acraVersion = '5.1.3'
-    repositories {
-        mavenCentral()
-        google()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
