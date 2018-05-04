@@ -57,7 +57,7 @@
     <!-- A menu option to open Patron voting screen -->
     <string name="main_patron_about">Patron Vote</string>
     <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-    <string name="main_cta">Chip in</string>
+    <string name="main_cta">Your voice</string>
     <!-- A menu option to open changelog -->
     <string name="main_changelog">Changelog</string>
     <!-- A menu option to open credits screen -->
@@ -66,7 +66,7 @@
     <!-- An overlay header on top of Patron page -->
     <string name="main_patron_overlay">As Blokada Community, we find promising new projects and help them grow. Please share!</string>
 
-    <string name="main_log">Share Log</string>
+    <string name="main_log">Share log</string>
     <string name="main_report_title">Blokada Report</string>
     <string name="main_report_text">Blokada has experienced a problem (or you requested to send a report). A log will be attached which may contain private information. Only trusted Insiders will be able to read your report, and it will be deleted once it is not needed anymore.</string>
     <string name="main_report_comment">Reports with comments are prioritised. What did you do before the problem occurred?</string>
