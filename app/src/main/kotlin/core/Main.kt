@@ -105,9 +105,10 @@ class MainApplication: Application(), KodeinAware {
 
         val limiter = builder.getPluginConfigurationBuilder(LimiterConfigurationBuilder::class.java)
         limiter.setEnabled(true)
-        limiter.setOverallLimit(25)
-        limiter.setStacktraceLimit(25)
-        limiter.setExceptionClassLimit(25)
+        limiter.setOverallLimit(10)
+        limiter.setStacktraceLimit(3)
+        limiter.setExceptionClassLimit(5)
+        limiter.setResIgnoredCrashToast(R.string.main_report_limit)
 
         val dialog = builder.getPluginConfigurationBuilder(DialogConfigurationBuilder::class.java)
         dialog.setEnabled(true)
