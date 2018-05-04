@@ -10,7 +10,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import gs.kar.R
+import org.blokada.R
 import gs.property.IProperty
 import gs.property.IWhen
 

@@ -76,7 +76,7 @@ class AUpdateView(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        currentView.text = Html.fromHtml("${ver.appName} ${ver.name}<br/>gscore: ${ver.nameCore}")
+        currentView.text = Html.fromHtml("${ver.appName} ${ver.name}")
 
         download.setOnClickListener { if (canClick) {
             canClick = false

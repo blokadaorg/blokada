@@ -1,5 +1,7 @@
 package gs.presentation
 
+import org.blokada.R
+
 
 class TopBar(
         val v: TopBarView,
@@ -33,13 +35,13 @@ class TopBar(
 
         v.onModeSwitched = {
             // Bar mode configuration
-            var bg = v.bg ?: gs.kar.R.color.colorBackground
+            var bg = v.bg ?: R.color.colorBackground
 //            var bg = v.bg ?: R.color.colorBackgroundLight
             var shadowAlpha = 1f
 
             when (v.mode) {
                 TopBarView.Mode.WELCOME -> {
-                    bg = gs.kar.R.color.colorBackground
+                    bg = R.color.colorBackground
                     shadowAlpha = 0f
                 }
                 TopBarView.Mode.BACK -> {

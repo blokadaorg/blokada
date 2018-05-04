@@ -1,13 +1,9 @@
 package gs.presentation
 
 import android.content.Context
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import gs.kar.R
-import gs.property.IProperty
-import gs.property.IWhen
-import java.util.*
+import org.blokada.R
 
 
 class MenuDash(

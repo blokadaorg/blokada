@@ -15,9 +15,9 @@ import com.github.salomonbrys.kodein.with
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.LazyProvider
-import gs.kar.R
 import gs.property.IProperty
 import gs.property.IWhen
+import org.blokada.R
 import java.net.URL
 
 class WebDash(

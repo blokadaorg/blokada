@@ -70,7 +70,12 @@ fun newAppModule(ctx: Context): Kodein.Module {
 
             val version: Version = instance()
             version.appName %= ctx.getString(R.string.branding_app_name)
-            version.name %= BuildConfig.VERSION_NAME
+
+            val p = BuildConfig.VERSION_NAME.split('.')
+            version.name %= if (p.size == 3) "%s.%s (%s)".format(p[0], p[1], p[2])
+            else BuildConfig.VERSION_NAME
+
+            version.name %= version.name() + " " + BuildConfig.BUILD_TYPE.capitalize()
 
             // This will fetch repo unless already cached
             repo.url %= "https://blokada.org/api/v3/${BuildConfig.FLAVOR}/${BuildConfig.BUILD_TYPE}/repo.txt"

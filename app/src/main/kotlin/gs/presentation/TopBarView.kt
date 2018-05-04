@@ -1,7 +1,7 @@
 package gs.presentation
 
 import android.view.View
-import gs.kar.R
+import org.blokada.R
 
 class TopBarView(
         ctx: android.content.Context,

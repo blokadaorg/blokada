@@ -4,8 +4,8 @@ import android.content.Context
 import gs.presentation.doAfter
 import gs.property.Persistence
 import nl.komponents.kovenant.ui.promiseOnUi
-import org.blokada.R
 import android.util.AttributeSet
+import org.blokada.R
 
 /**
  * Dash defines the UI element to be displayed in the home screen as well as the UI that opens

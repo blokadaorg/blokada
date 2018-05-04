@@ -11,7 +11,7 @@ import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.inject
-import gs.kar.R
+import org.blokada.R
 
 class SimpleDialog(
         private val xx: Environment,

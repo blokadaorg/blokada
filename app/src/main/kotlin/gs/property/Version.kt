@@ -2,7 +2,7 @@ package gs.property
 
 import gs.environment.Environment
 import gs.environment.Worker
-import gs.kar.BuildConfig
+import org.blokada.BuildConfig
 
 abstract class Version {
         abstract val appName: IProperty<String>
