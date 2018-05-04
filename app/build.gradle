@@ -14,8 +14,15 @@ plugins {
     id 'com.gladed.androidgitversion' version '0.4.3'
 }
 
+repositories {
+    mavenCentral()
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 androidGitVersion {
-    codeFormat 'MNNPPPPBB'
+    codeFormat 'MNNPPPPPP'
     format '%tag%'
 }
 
@@ -100,7 +107,7 @@ android {
 
 dependencies {
     // Core library for kar.gs projects
-    implementation project(':gscore')
+    implementation 'com.github.kar:gscore:1.7.*'
 
     // Android support libraries
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -133,11 +140,3 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
-
-repositories {
-    mavenCentral()
-    maven {
-        url "https://jitpack.io"
-    }
-}
-
