@@ -252,7 +252,7 @@ internal class JournalCallbacks(val clientInstance: JournalClient?) : Applicatio
         }
     }
 
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle) {}
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
 
     override fun onActivityDestroyed(activity: Activity) {}
 
