@@ -106,9 +106,6 @@ android {
 }
 
 dependencies {
-    // Core library for kar.gs projects
-    implementation 'com.github.kar:gscore:1.7.*'
-
     // Android support libraries
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
