@@ -58,10 +58,10 @@ class SimpleDialog(
             this.dialog = dialog
             this.view = view
             if (loadFirst) {
-                dash.onAttached {
+                dash.onAttached { try {
                     dialog.show()
                     setButtons()
-                }
+                } catch (e: Exception) {} }
                 dash.attach(view)
             } else {
                 dialog.show()
