@@ -8,6 +8,7 @@
   <string name="welcome_continue">Folytatás</string>
   <string name="welcome_donate">Támogatás</string>
   <string name="welcome_patron">Patron</string>
+  <!-- Opens info screen about the Blokada Insiders program, which invites user to be part of the team improving Blokada. -->
   <string name="welcome_insiders">Insiders</string>
   <string name="welcome_help">Instrukciók</string>
   <string name="gscore_loading">Betöltés&#8230;</string>
