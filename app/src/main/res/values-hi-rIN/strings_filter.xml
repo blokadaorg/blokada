@@ -15,35 +15,35 @@
   <string name="filter_edit_name">होस्ट</string>
   <!-- An example format of a hostname. -->
   <string name="filter_edit_name_enter">एक होस्ट का नाम दर्ज करें</string>
-  <string name="filter_edit_name_error">यह सही नहीं दिखता है । सुनिश्चित करें कि आप एक डोमेन नाम दर्ज करें, example.com की तरह ।</string>
+  <string name="filter_edit_name_error">यह सही नहीं दिखराहा है । सुनिश्चित करें कि आप एक डोमेन नाम दर्ज कर रहे है, जेसे example.com ।</string>
   <!-- Name of a tab that allows to add a file with hosts. -->
   <string name="filter_edit_file">फ़ाइल</string>
-  <string name="filter_edit_file_choose">किसी होस्ट्स फ़ाइल का चयन करें</string>
-  <string name="filter_edit_file_none">कोई होस्ट्स फ़ाइल चयनित नहीं</string>
-  <string name="filter_edit_file_error">चयनित फ़ाइल में कोई होस्ट मौजूद नहीं है ।</string>
+  <string name="filter_edit_file_choose">किसी होस्ट्स फ़ाइल को चुने ।</string>
+  <string name="filter_edit_file_none">कोई होस्ट्स फ़ाइल नहीं चुनी है ।</string>
+  <string name="filter_edit_file_error">चुनी हुई फ़ाइल में कोई होस्ट मौजूद नहीं है ।</string>
   <!-- Name of a tab that allows to add a link to hosts. -->
   <string name="filter_edit_link">लिंक</string>
   <string name="filter_edit_link_enter">किसी होस्ट्स फ़ाइल का लिंक दर्ज करें</string>
   <!-- An example format of a link to hosts file. -->
-  <string name="filter_edit_link_error">यह लिंक डाउनलोड नहीं किया जा सकता या होस्ट शामिल करने के लिए नहीं लगता ।</string>
+  <string name="filter_edit_link_error">यह लिंक डाउनलोड नहीं किया जा सकता या इसमे कोई होस्ट नहीं है ।</string>
   <!-- Name of a tab that allows to whitelist app. -->
-  <string name="filter_edit_app">एैप्स</string>
-  <string name="filter_edit_app_enter">एप्लिकेशन नाम या पैकेज नाम दर्ज करें</string>
+  <string name="filter_edit_app">एप</string>
+  <string name="filter_edit_app_enter">एप्लिकेशन का नाम या पैकेज का नाम दर्ज करें</string>
   <!-- An example package name of app to whitelist. -->
-  <string name="filter_edit_app_error">इस एप्लिकेशन मौजूद नहीं है या श्वेत सूची में शामिल नहीं किया जा सकता है ।</string>
-  <string name="filter_edit_save">सेव</string>
-  <string name="filter_edit_cancel">कैंसिल</string>
+  <string name="filter_edit_app_error">यह एप्लिकेशन मौजूद नहीं है या whitelist में शामिल नहीं किया जा सकता है ।</string>
+  <string name="filter_edit_save">सहेज करे</string>
+  <string name="filter_edit_cancel">रद्द करें</string>
   <string name="filter_edit_do">जारी रखें</string>
   <string name="filter_edit_comments">टिप्पणियां</string>
   <string name="filter_edit_comments_none">कोई टिप्पणी नहीं</string>
   <!-- Parameter: number of hosts. -->
   <string name="filter_edit_count">%d होस्ट शामिल करें</string>
   <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
-  <string name="filter_blacklist_text">ब्लैकलिस्ट में %d</string>
-  <string name="filter_blacklist_text_none">ब्लैकलिस्ट निष्क्रिय</string>
+  <string name="filter_blacklist_text">%d blacklist में है</string>
+  <string name="filter_blacklist_text_none">Blacklist निष्क्रिय</string>
   <!-- Displayed in the home screen, keep it short. Parameter: number of whitelisted entries. -->
-  <string name="filter_whitelist_text">श्वेत सूची में %d</string>
-  <string name="filter_whitelist_text_none">श्वेत सूची निष्क्रिय</string>
+  <string name="filter_whitelist_text">whitelist में %d</string>
+  <string name="filter_whitelist_text_none">Whitelist निष्क्रिय</string>
   <!-- Title of menu with quick actions for whitelist / blacklist -->
   <string name="filter_generate_title">त्वरित कार्रवाई</string>
   <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
@@ -55,7 +55,7 @@
   <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
   <string name="filter_generate_whitelist_all_disabled">सभी एप्लिकेशन जोड़ें (अक्षम)</string>
   <!-- Deletes all filters and fetches default ones. -->
-  <string name="filter_generate_defaults">पूर्वनिर्धारित पुनर्स्थापित करें (ब्लैकलिस्ट &amp; श्वेत सूची)</string>
+  <string name="filter_generate_defaults">पूर्वनिर्धारित पुनर्स्थापित करें (blacklist &amp; whitelist)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">फ़िल्टर्स ताज़ा करें</string>
 </resources>

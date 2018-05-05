@@ -27,6 +27,7 @@
   <!-- An example format of a link to hosts file. -->
   <string name="filter_edit_link_error">Pautan ini tidak dapat dimuat turun atau tidak mengandungi hos.</string>
   <!-- Name of a tab that allows to whitelist app. -->
+  <string name="filter_edit_app">Aplikasi</string>
   <string name="filter_edit_app_enter">Masukkan nama aplikasi atau nama pekej</string>
   <!-- An example package name of app to whitelist. -->
   <string name="filter_edit_app_error">Aplikasi ini tidak wujud atau tidak dapat disenaraikan.</string>

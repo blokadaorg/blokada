@@ -15,7 +15,7 @@
   <string name="filter_edit_name">Dominio</string>
   <!-- An example format of a hostname. -->
   <string name="filter_edit_name_placeholder">ejemplo.com</string>
-  <string name="filter_edit_name_enter">Introduce un dominio</string>
+  <string name="filter_edit_name_enter">Introduce una página web</string>
   <string name="filter_edit_name_error">Esto no pinta bien. Revisa que hayas escrito un nombre de dominio, como ejemplo.com.</string>
   <!-- Name of a tab that allows to add a file with hosts. -->
   <string name="filter_edit_file">Archivo</string>
@@ -24,7 +24,7 @@
   <string name="filter_edit_file_error">El archivo seleccionado no parece tener hosts.</string>
   <!-- Name of a tab that allows to add a link to hosts. -->
   <string name="filter_edit_link">Enlace</string>
-  <string name="filter_edit_link_enter">Introduce el enlace de un archivo host</string>
+  <string name="filter_edit_link_enter">Introduce el enlace a un archivo host</string>
   <!-- An example format of a link to hosts file. -->
   <string name="filter_edit_link_placeholder">http://ejemplo.com/host.txt</string>
   <string name="filter_edit_link_error">Este enlace no puede ser descargado o no tiene hosts.</string>
