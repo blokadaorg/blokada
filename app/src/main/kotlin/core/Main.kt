@@ -103,12 +103,14 @@ class MainApplication: Application(), KodeinAware {
         c.setBasicAuthPassword(getString(R.string.acra_password))
         c.setDropReportsOnTimeout(true)
 
-        val limiter = builder.getPluginConfigurationBuilder(LimiterConfigurationBuilder::class.java)
-        limiter.setEnabled(true)
-        limiter.setOverallLimit(10)
-        limiter.setStacktraceLimit(3)
-        limiter.setExceptionClassLimit(5)
-        limiter.setResIgnoredCrashToast(R.string.main_report_limit)
+        if (ProductType.isPublic()) {
+            val limiter = builder.getPluginConfigurationBuilder(LimiterConfigurationBuilder::class.java)
+            limiter.setEnabled(true)
+            limiter.setOverallLimit(10)
+            limiter.setStacktraceLimit(3)
+            limiter.setExceptionClassLimit(5)
+            limiter.setResIgnoredCrashToast(R.string.main_report_limit)
+        }
 
         val dialog = builder.getPluginConfigurationBuilder(DialogConfigurationBuilder::class.java)
         dialog.setEnabled(true)
