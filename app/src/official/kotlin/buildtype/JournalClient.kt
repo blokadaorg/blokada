@@ -823,7 +823,7 @@ class JournalClient(instance: String) {
         try {
             val preimage = apiVersionString + apiKey + events + timestampString
 
-            val messageDigest = MD5()
+            val messageDigest = buildtype.MD5()
             checksumString = bytesToHexString(messageDigest.digest(preimage.toByteArray(charset("UTF-8"))))
         } catch (e: UnsupportedEncodingException) {
             logger.e(TAG, e.toString())
