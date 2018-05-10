@@ -46,11 +46,15 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Patron stemmegivning</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-  <string name="main_cta">Bidra</string>
+  <string name="main_cta">Din stemme</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Endringslogg</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Takk til</string>
   <!-- An overlay header on top of Patron page -->
   <string name="main_log">Del loggen</string>
+  <string name="main_report_title">Blokada rapport</string>
+  <string name="main_report_text">Blokada har opplevd et problem (eller du har blitt bedt om å sende en rapport). En logg vil bli vedlagt som kan inneholde privat informasjon. Kun betroede Insiders vil kunne lese rapporten, og den blir slettet når den ikke lenger er nødvendig.</string>
+  <string name="main_report_comment">Rapporter med kommentarer blir prioritert. Hva gjorde du før problemet oppstod?</string>
+  <string name="main_report_limit">Rapportgrense nådd. Vennligst vent på en oppdatering. Takk for din tilbakemelding!</string>
 </resources>

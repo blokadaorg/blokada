@@ -8,6 +8,7 @@
   <string name="welcome_continue">Continuar</string>
   <string name="welcome_donate">Donar</string>
   <string name="welcome_patron">Patrón</string>
+  <!-- Opens info screen about the Blokada Insiders program, which invites user to be part of the team improving Blokada. -->
   <string name="welcome_insiders">Insiders</string>
   <string name="welcome_help">Instrucciones</string>
   <string name="gscore_loading">Cargando&#8230;</string>

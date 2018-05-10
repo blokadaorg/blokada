@@ -46,7 +46,7 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Votación del Patrón</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-  <string name="main_cta">Participa</string>
+  <string name="main_cta">Tu voz</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Historial de cambios</string>
   <!-- A menu option to open credits screen -->
@@ -54,4 +54,8 @@
   <!-- An overlay header on top of Patron page -->
   <string name="main_patron_overlay">Como Comunidad Blokada, encontramos nuevos y prometedores proyectos y los ayudamos a crecer. Por favor, ¡compártelo!</string>
   <string name="main_log">Enviar registro</string>
+  <string name="main_report_title">Informe Blokada</string>
+  <string name="main_report_text">Blokada ha tenido un problema (o has solicitado enviar un informe). Se adjuntará un registro que puede contener información privada. Solo los Insiders de confianza podrán leer tu informe, y será borrado cuando ya no sea necesario.</string>
+  <string name="main_report_comment">Se da prioridad a los informes con comentarios. ¿Qué hiciste antes de que ocurriera el problema?</string>
+  <string name="main_report_limit">Se ha alcanzado el límite de envío de informes. Por favor, mantente atento para una actualización. ¡Gracias por tus comentarios!</string>
 </resources>

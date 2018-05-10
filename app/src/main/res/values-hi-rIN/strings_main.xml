@@ -46,7 +46,7 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Patron Vote</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-  <string name="main_cta">शामिल हो</string>
+  <string name="main_cta">तुम्हारी आवाज़</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">परिवर्तन</string>
   <!-- A menu option to open credits screen -->
@@ -54,4 +54,8 @@
   <!-- An overlay header on top of Patron page -->
   <string name="main_patron_overlay">Blokada समुदाय के रूप में, हम नई परियोजनाओं का वादा कर पाते है और उंहें बढ़ने में मदद । शेयर कृपया!</string>
   <string name="main_log">लॉग शेयर करें</string>
+  <string name="main_report_title">Blokada रिपोर्ट</string>
+  <string name="main_report_text">ब्लोकडा ने एक समस्या का अनुभव किया है (या आपने एक रिपोर्ट भेजने का अनुरोध किया है)। एक लॉग संलग्न किया जाएगा जिसमें निजी जानकारी हो सकती है। केवल भरोसेमंद अंदरूनी सूत्र आपकी रिपोर्ट को पढ़ने में सक्षम होंगे, और इसकी आवश्यकता होने के बाद इसे हटा दिया जाएगा।</string>
+  <string name="main_report_comment">टिप्पणियां के साथ रिपोर्ट prioritised हैं । समस्या उत्पन्न होने से पहले आपने क्या किया?</string>
+  <string name="main_report_limit">रिपोर्ट सीमा तक पहुंच गई । कृपया एक अद्यतन के लिए देखते रहें । आपकी प्रतिक्रिया के लिए धंयवाद!</string>
 </resources>

@@ -46,11 +46,15 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Голосувати за Спонсора</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-  <string name="main_cta">Прикластися</string>
+  <string name="main_cta">Ваш голос</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Журнал змін</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Подяки</string>
   <!-- An overlay header on top of Patron page -->
   <string name="main_log">Поділитися логом</string>
+  <string name="main_report_title">Звіт про Blokada</string>
+  <string name="main_report_text">Blokada зустрілася з помилкою (або ви вирішили відправити звіт). До звіту буде додано лог, який може включати особисті дані. Тільки довірені люди будуть мати доступ до вашого звіту і він буде видалений, як тільки робота з ним буде завершена.</string>
+  <string name="main_report_comment">Звіти з коментарями пріоритетні. Що ви зробили перед тим, як виникла проблема?</string>
+  <string name="main_report_limit">Досягнуто ліміту звітів. Будь ласка, очікуйте оновлення. Дякуємо за вашу допомогу!</string>
 </resources>

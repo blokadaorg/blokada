@@ -46,7 +46,7 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Выбор Покровителя</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-  <string name="main_cta">Участвовать</string>
+  <string name="main_cta">Ваш голос</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">История изменений</string>
   <!-- A menu option to open credits screen -->
@@ -54,4 +54,8 @@
   <!-- An overlay header on top of Patron page -->
   <string name="main_patron_overlay">Как сообщество Blokada, мы находим многообещающие новые проекты и помогаем им расти. Поделись, пожалуйста!</string>
   <string name="main_log">Отправить журнал</string>
+  <string name="main_report_title">Blokada отчет</string>
+  <string name="main_report_text">У Blokada возникла проблема (или вы просили отправить отчет). Будет прикреплен журнал, который может содержать личную информацию. Только доверенные инсайдеры смогут прочитать ваш отчет, и он будет удален сразу после его обработки.</string>
+  <string name="main_report_comment">Приоритет отдается отчетам с комментариями. Что вы делали до возникновения проблемы?</string>
+  <string name="main_report_limit">Достигнут лимит отчетов. Пожалуйста, следите за обновлениями. Спасибо за ваш отзыв!</string>
 </resources>
