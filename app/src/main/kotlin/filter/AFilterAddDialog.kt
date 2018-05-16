@@ -4,13 +4,13 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
 import core.Filter
 import core.IFilterSource
-import core.LocalisedFilter
 import core.Product
 import gs.environment.ComponentProvider
 import gs.environment.Journal
@@ -26,7 +26,7 @@ import org.blokada.R
  */
 class AFilterAddDialog(
         private val ctx: Context,
-        var sourceProvider: (String) -> IFilterSource
+        var sourceProvider: DefaultSourceProvider
 ) {
     var onSave = { filter: Filter -> }
 
@@ -51,35 +51,33 @@ class AFilterAddDialog(
 
         view.showApp = whitelist
         view.forceType = when {
-            filter?.source is FilterSourceLink -> AFiltersAddView.Tab.LINK
-            filter?.source is FilterSourceUri -> AFiltersAddView.Tab.FILE
-            filter?.source is FilterSourceSingle -> AFiltersAddView.Tab.SINGLE
-            filter?.source is FilterSourceApp -> AFiltersAddView.Tab.APP
+            filter?.source?.id == "link" -> AFiltersAddView.Tab.LINK
+            filter?.source?.id == "file" -> AFiltersAddView.Tab.FILE
+            filter?.source?.id == "single" -> AFiltersAddView.Tab.SINGLE
+            filter?.source?.id == "app" -> AFiltersAddView.Tab.APP
             Product.current(ctx) == Product.DNS -> AFiltersAddView.Tab.APP
             else -> null
         }
 
         if (filter != null) when (view.forceType) {
             AFiltersAddView.Tab.SINGLE -> {
-                view.singleView.text = filter.source.toUserInput()
-                view.singleView.comment = filter.localised?.comment ?: ""
+                view.singleView.text = filter.source.source
+                view.singleView.comment = filter.customComment ?: ""
             }
             AFiltersAddView.Tab.LINK -> {
-                view.linkView.text = filter.source.toUserInput()
+                view.linkView.text = filter.source.source
                 view.linkView.correct = true
-                view.linkView.comment = filter.localised?.comment ?: ""
-                view.linkView.filters = filter.hosts
+                view.linkView.comment = filter.customComment ?: ""
             }
             AFiltersAddView.Tab.FILE -> {
                 val source = filter.source as FilterSourceUri
                 view.fileView.uri = source.source
                 view.fileView.correct = true
-                view.fileView.comment = filter.localised?.comment ?: ""
-                view.fileView.filters = filter.hosts
+                view.fileView.comment = filter.customComment ?: ""
             }
             AFiltersAddView.Tab.APP -> {
-                view.appView.text = filter.source.toUserInput()
-                view.appView.comment = filter.localised?.comment ?: ""
+                view.appView.text = filter.source.source
+                view.appView.comment = filter.customComment ?: ""
             }
         }
 
@@ -103,12 +101,12 @@ class AFilterAddDialog(
                 else {
                     dialog.dismiss()
                     onSave(Filter(
-                            id = filter?.id ?: view.singleView.text,
-                            source = FilterSourceSingle(view.singleView.text),
+                            id = filter?.id ?: id(view.singleView.text, whitelist),
+                            source = FilterSourceDescriptor("single", view.singleView.text),
                             active = true,
                             whitelist = filter?.whitelist ?: whitelist,
-                            localised = LocalisedFilter(view.singleView.text,
-                                    view.singleView.comment.nullIfEmpty())
+                            customName = filter?.customName,
+                            customComment = view.singleView.comment.nullIfEmpty()
                     ))
                 }
             }
@@ -116,7 +114,7 @@ class AFilterAddDialog(
                 if (!view.linkView.correct) view.linkView.showError = true
                 else {
                     task {
-                        val source = sourceProvider("link")
+                        val source = sourceProvider.from("link")
                         if (!source.fromUserInput(view.linkView.text))
                             throw Exception("invalid source")
                         val hosts = source.fetch()
@@ -125,13 +123,12 @@ class AFilterAddDialog(
                     } successUi {
                         dialog.dismiss()
                         onSave(Filter(
-                                id = filter?.id ?: it.first.serialize(),
-                                source = it.first,
-                                hosts = it.second,
+                                id = filter?.id ?: id(it.first.serialize(), whitelist),
+                                source = FilterSourceDescriptor("link", view.linkView.text),
                                 active = true,
                                 whitelist = filter?.whitelist ?: whitelist,
-                                localised = LocalisedFilter(sourceToName(ctx, it.first),
-                                        view.linkView.comment.nullIfEmpty())
+                                customName = filter?.customName,
+                                customComment = view.linkView.comment.nullIfEmpty()
                         ))
                         view.linkView.correct = true
                     } failUi {
@@ -144,7 +141,7 @@ class AFilterAddDialog(
                 if (!view.fileView.correct) view.fileView.showError = true
                 else {
                     task {
-                        val source = sourceProvider("file") as FilterSourceUri
+                        val source = sourceProvider.from("file") as FilterSourceUri
                         source.source = view.fileView.uri
                         source.flags = view.fileView.flags
                         val hosts = source.fetch()
@@ -153,13 +150,12 @@ class AFilterAddDialog(
                     } successUi {
                         dialog.dismiss()
                         onSave(Filter(
-                                id = filter?.id ?: it.first.serialize(),
-                                source = it.first,
-                                hosts = it.second,
+                                id = filter?.id ?: id(it.first.serialize(), whitelist),
+                                source = FilterSourceDescriptor("file", view.fileView.text),
                                 active = true,
                                 whitelist = filter?.whitelist ?: whitelist,
-                                localised = LocalisedFilter(sourceToName(ctx, it.first),
-                                        view.fileView.comment.nullIfEmpty())
+                                customName = filter?.customName,
+                                customComment = view.fileView.comment.nullIfEmpty()
                         ))
                         view.fileView.correct = true
                     } failUi {
@@ -172,19 +168,19 @@ class AFilterAddDialog(
                 if (!view.appView.correct) view.appView.showError = true
                 else {
                     task {
-                        val source = sourceProvider("app")
+                        val source = sourceProvider.from("app")
                         if (!source.fromUserInput(view.appView.text))
                             throw Exception("invalid source")
                         source
                     } successUi {
                         dialog.dismiss()
                         onSave(Filter(
-                                id = filter?.id ?: it.serialize(),
-                                source = it,
+                                id = filter?.id ?: id(it.serialize(), whitelist),
+                                source = FilterSourceDescriptor("app", view.appView.text),
                                 active = true,
                                 whitelist = true,
-                                localised = LocalisedFilter(sourceToName(ctx, it),
-                                        view.appView.comment.nullIfEmpty())
+                                customName = filter?.customName,
+                                customComment = view.appView.comment.nullIfEmpty()
                         ))
                         view.appView.correct = true
                     } failUi {
@@ -196,6 +192,10 @@ class AFilterAddDialog(
         }
     }
 
+}
+
+internal fun id(name: String, whitelist: Boolean): String {
+    return if(whitelist) "${name}_wl" else name
 }
 
 internal fun sourceToName(ctx: android.content.Context, source: IFilterSource): String {
@@ -219,3 +219,23 @@ internal fun sourceToName(ctx: android.content.Context, source: IFilterSource): 
     return name ?: source.toString()
 }
 
+internal fun sourceToName(ctx: android.content.Context, source: FilterSourceDescriptor): String {
+    val name = when (source.id) {
+        "link" -> {
+            ctx.getString(R.string.filter_name_link, source.source)
+        }
+        "file" -> {
+            val source = try { Uri.parse(source.source) } catch (e: Exception) { null }
+            ctx.getString(R.string.filter_name_file, source?.lastPathSegment
+                    ?: ctx.getString(R.string.filter_name_file_unknown))
+        }
+        "app" -> { try {
+            ctx.packageManager.getApplicationLabel(
+                    ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
+            ).toString()
+        } catch (e: Exception) { source.source }}
+        else -> null
+    }
+
+    return name ?: source.toString()
+}

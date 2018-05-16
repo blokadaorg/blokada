@@ -4,12 +4,14 @@ import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance
+import core.FilterId
 import core.Filters
 import core.IFilterSource
 import gs.environment.Journal
 import gs.environment.inject
 import gs.environment.load
 import gs.environment.openUrl
+import gs.property.Repo
 import java.net.URL
 
 /**
@@ -181,4 +183,55 @@ class FilterSourceApp(
 
 private fun openFile(ctx: Context, uri: Uri): java.io.InputStream {
     return ctx.contentResolver.openInputStream(uri)
+}
+
+class FilterSourceDescriptor(
+        val id: String,
+        val source: String
+) {
+    override fun toString(): String {
+        return "$id:$source"
+    }
+}
+
+class DefaultSourceProvider(
+        val ctx: Context,
+        val j: Journal,
+        val repo: Repo,
+        val f: Filters,
+        val processor: IHostlineProcessor
+) {
+
+    fun from(id: String, source: String? = null, filterId: FilterId? = null): IFilterSource {
+        return when (id) {
+            "app" -> {
+                f.apps.refresh(blocking = true)
+                val f = FilterSourceApp(ctx, j)
+                if (source != null) f.fromUserInput(source)
+                f
+            }
+            "file" -> {
+                val f = FilterSourceUri(ctx, processor)
+                if (source != null) f.fromUserInput(source)
+                f
+            }
+            "link" -> {
+                val f = FilterSourceLink(10000, processor)
+                if (source != null) {
+                    if (filterId != null) f.fromUserInput(source, backupUrl(filterId))
+                    else f.fromUserInput(source)
+                }
+                f
+            }
+            else -> {
+                val f = FilterSourceSingle()
+                if (source != null) f.deserialize(source, 0)
+                f
+            }
+        }
+    }
+
+    private fun backupUrl(id: String): String {
+        return "${repo.content().contentPath?.toExternalForm()}/canonical/cache/$id.txt"
+    }
 }

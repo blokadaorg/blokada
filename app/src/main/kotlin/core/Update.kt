@@ -48,7 +48,6 @@ fun newUpdateModule(ctx: Context): Kodein.Module {
             t.tunnelState.doWhen { t.tunnelState(TunnelState.ACTIVE) }.then {
                 // This "pokes" the cache and refreshes if needed
                 repo.content.refresh()
-                s.filters.refresh()
             }
 
             // Display an info message when update is available

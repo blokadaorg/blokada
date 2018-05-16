@@ -6,10 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
-import core.Filter
-import core.Filters
-import core.IFilterSource
-import core.LocalisedFilter
+import core.*
 import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.inject
@@ -18,7 +15,8 @@ import org.blokada.R
 class AFilterGenerateDialog(
         private val ctx: Context,
         private val s: Filters,
-        private val sourceProvider: (String) -> IFilterSource,
+        private val cmd: Commands,
+        private val sourceProvider: DefaultSourceProvider,
         private val whitelist: Boolean
 ) {
 
@@ -30,17 +28,21 @@ class AFilterGenerateDialog(
     init {
         val d = AlertDialog.Builder(activity)
         d.setTitle(R.string.filter_generate_title)
-        val options = if (whitelist) { arrayOf(
-                ctx.getString(R.string.filter_generate_refetch),
-                ctx.getString(R.string.filter_generate_defaults),
-                ctx.getString(R.string.filter_generate_whitelist_system),
-                ctx.getString(R.string.filter_generate_whitelist_system_disabled),
-                ctx.getString(R.string.filter_generate_whitelist_all),
-                ctx.getString(R.string.filter_generate_whitelist_all_disabled)
-        ) } else { arrayOf(
-                ctx.getString(R.string.filter_generate_refetch),
-                ctx.getString(R.string.filter_generate_defaults)
-        ) }
+        val options = if (whitelist) {
+            arrayOf(
+                    ctx.getString(R.string.filter_generate_refetch),
+                    ctx.getString(R.string.filter_generate_defaults),
+                    ctx.getString(R.string.filter_generate_whitelist_system),
+                    ctx.getString(R.string.filter_generate_whitelist_system_disabled),
+                    ctx.getString(R.string.filter_generate_whitelist_all),
+                    ctx.getString(R.string.filter_generate_whitelist_all_disabled)
+            )
+        } else {
+            arrayOf(
+                    ctx.getString(R.string.filter_generate_refetch),
+                    ctx.getString(R.string.filter_generate_defaults)
+            )
+        }
         d.setSingleChoiceItems(options, which, object : DialogInterface.OnClickListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 this@AFilterGenerateDialog.which = which
@@ -69,31 +71,29 @@ class AFilterGenerateDialog(
         when (which) {
             0 -> {
                 s.apps.refresh(force = true)
-                s.filters.refresh(force = true)
+                cmd.send(InvalidateAllFiltersCache())
+                cmd.send(SyncFilters())
+                cmd.send(SyncHostsCache())
+                cmd.send(SaveFilters())
             }
             1 -> {
                 s.apps.refresh(force = true)
-                s.filters %= emptyList()
-                s.filters.refresh()
+                cmd.send(DeleteAllFilters())
+                cmd.send(SyncFilters())
+                cmd.send(SyncHostsCache())
+                cmd.send(SaveFilters())
             }
             2, 3, 4, 5 -> {
                 if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
-                val filters = s.apps().filter { which in listOf(3, 4) || it.system }
+                s.apps().filter { which in listOf(4, 5) || it.system }
                         .map { it.appId }.map { app ->
-                    val source = sourceProvider("app")
-                    if (source.fromUserInput(app)) {
-                        Filter(
-                                id = app,
-                                source = source,
-                                active = which in listOf(1, 3),
-                                whitelist = true,
-                                localised = LocalisedFilter(sourceToName(ctx, source))
-                        )
-                    } else null
-                }.filterNotNull()
-
-                // TODO: preserve user comments
-                s.filters %= s.filters().minus(filters).plus(filters) // To re-add equal instances
+                            Filter(
+                                    id = id(app, whitelist = true),
+                                    source = FilterSourceDescriptor("app", app),
+                                    active = which in listOf(2, 4),
+                                    whitelist = true
+                            )
+                        }.forEach { cmd.send(UpdateFilter(it.id, it)) }
                 s.changed %= true
             }
         }

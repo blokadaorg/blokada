@@ -17,6 +17,7 @@ import android.system.ErrnoException
 import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
+import core.Commands
 import core.Dns
 import core.Filters
 import gs.environment.Journal
@@ -38,6 +39,7 @@ class TunnelThreadLollipopAndroid(
         val j: Journal,
         val s: Dns,
         val f: Filters,
+        val commands: Commands,
         val adBlocked: (String) -> Unit,
         val error: (String) -> Unit
 ) : Runnable {
@@ -85,7 +87,7 @@ class TunnelThreadLollipopAndroid(
             loopbackQueue.add(packet.rawData)
         }
 
-    }, adBlocked)
+    }, adBlocked, commands)
 
     init {
         // Init has to be below the proxy property initialisation, otherwise NPE. nice.

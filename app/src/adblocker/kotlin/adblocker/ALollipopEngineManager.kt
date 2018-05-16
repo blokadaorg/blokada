@@ -18,6 +18,7 @@ import com.github.salomonbrys.kodein.with
 import core.Dns
 import core.Filters
 import core.IEngineManager
+import core.Commands
 import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.inject
@@ -41,13 +42,14 @@ class ALollipopEngineManager(
     private var binder: ATunnelBinder? = null
     private var thread: TunnelThreadLollipopAndroid? = null
     private val agent by lazy { ATunnelAgent(ctx) }
+    private val operator by lazy { ctx.inject().instance<Commands>() }
 
     @Synchronized override fun start() {
         val binding = agent.bind(events)
         binding.success {
             binder = it
             binder!!.actions.turnOn()
-            thread = TunnelThreadLollipopAndroid(it.actions, j, s, f, adBlocked, error)
+            thread = TunnelThreadLollipopAndroid(it.actions, j, s, f, operator, adBlocked, error)
         }
         val wait = task(waitKctx) {
             Thread.sleep(3000)

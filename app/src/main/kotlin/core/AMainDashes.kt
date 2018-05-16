@@ -299,14 +299,15 @@ class ShareLogDash(
         val s: Device = xx().instance(),
         val k: KeepAlive = xx().instance(),
         val f: Filters = xx().instance(),
+        val cmd: Commands = xx().instance(),
         val time: Time = xx().instance()
 ) : Dash(
         DASH_ID_LOG,
         R.drawable.ic_comment_multiple_outline,
         onClick = { dashRef ->
             val r = ACRA.getErrorReporter()
-            r.putCustomData("hostsCount", "${f.filtersCompiled().size}")
-            r.putCustomData("filtersActiveCount", "${f.filters().filter { it.active }.size}")
+            r.putCustomData("hostsCount", "${cmd.one(MonitorHostsCount())}")
+            r.putCustomData("filtersActiveCount", "${cmd.one(MonitorFilters()).filter { it.active }.size}")
             r.handleException(null)
             true
         }

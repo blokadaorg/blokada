@@ -22,6 +22,7 @@ import gs.property.Device
 import gs.property.IWhen
 import gs.property.newDeviceModule
 import gs.property.newUserModule
+import io.paperdb.Paper
 import org.acra.ACRA
 import org.acra.ReportField
 import org.acra.config.CoreConfigurationBuilder
@@ -69,6 +70,7 @@ class MainApplication: Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         setRestartAppOnCrash()
+        Paper.init(this)
     }
 
     override fun attachBaseContext(base: Context?) {

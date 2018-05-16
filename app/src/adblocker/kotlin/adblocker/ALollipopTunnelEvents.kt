@@ -16,9 +16,9 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.net.VpnService
 import com.github.salomonbrys.kodein.instance
+import core.Commands
 import core.Dns
-import core.Filters
-import filter.FilterSourceApp
+import core.MonitorFilters
 import gs.environment.Journal
 import gs.environment.hasIpV6Servers
 import gs.environment.inject
@@ -35,7 +35,7 @@ internal class ALollipopTunnelEvents(
 ) : ITunnelEvents {
 
     private val dns by lazy { ctx.inject().instance<Dns>() }
-    private val f by lazy { ctx.inject().instance<Filters>() }
+    private val cmd by lazy { ctx.inject().instance<Commands>() }
     private val j by lazy { ctx.inject().instance<Journal>() }
 
     private var dnsIndex = 1
@@ -84,8 +84,8 @@ internal class ALollipopTunnelEvents(
             }
         }
 
-        f.filters().filter { it.whitelist && it.active && it.source is FilterSourceApp }.forEach {
-            builder.addDisallowedApplication(it.source.toUserInput())
+        cmd.one(MonitorFilters()).filter { it.whitelist && it.active && it.source.id == "app" }.forEach {
+            builder.addDisallowedApplication(it.source.source)
         }
 
         // People kept asking why GPlay doesnt work

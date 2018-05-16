@@ -10,7 +10,7 @@ class ALogcatJournal(private val tag: String) : Journal {
 
     override fun log(vararg errors: Any) {
         errors.forEach { when(it) {
-            is Exception -> Log.e(tag, "------", it)
+            is Throwable -> Log.e(tag, "------", it)
             else -> Log.e(tag, it.toString())
         }}
     }

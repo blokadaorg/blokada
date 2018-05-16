@@ -4,42 +4,33 @@ import android.app.IntentService
 import android.content.Intent
 import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
+import core.*
+import filter.FilterSourceDescriptor
+import filter.id
 import gs.environment.inject
-import nl.komponents.kovenant.ui.promiseOnUi
 import org.blokada.R
-import core.Filter
-import filter.FilterSourceSingle
-import core.LocalisedFilter
-import core.Filters
 
 class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
 
-    private val s by lazy { inject().instance<Filters>() }
+    private val cmd by lazy { inject().instance<Commands>() }
 
     override fun onHandleIntent(intent: Intent) {
         val host = intent.getStringExtra("host") ?: return
 
-        val filter = Filter(
-                id = host,
-                source = FilterSourceSingle(host),
+        val f = Filter(
+                id(host, whitelist = true),
+                source = FilterSourceDescriptor("single", host),
                 active = true,
-                whitelist = true,
-                localised = LocalisedFilter(host)
+                whitelist = true
         )
 
-        val existing = s.filters().firstOrNull { it == filter }
-        if (existing == null) {
-            s.filters %= s.filters() + filter
-            s.changed %= true
-        } else if (!existing.active) {
-            existing.active = true
-            s.changed %= true
-        }
+        cmd.send(UpdateFilter(f.id, f))
+        cmd.send(SyncFilters())
+        cmd.send(SyncHostsCache())
+        cmd.send(SaveFilters())
 
-        promiseOnUi {
-            Toast.makeText(this, R.string.notification_blocked_whitelist_applied, Toast.LENGTH_SHORT).show()
-            hideNotification(this)
-        }
+        Toast.makeText(this, R.string.notification_blocked_whitelist_applied, Toast.LENGTH_SHORT).show()
+        hideNotification(this)
     }
 
 }

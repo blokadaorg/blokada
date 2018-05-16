@@ -7,8 +7,9 @@ import android.content.Intent
 import android.net.VpnService
 import com.github.salomonbrys.kodein.*
 import core.*
+import core.Commands
+import core.MonitorFilters
 import filter.DashFilterWhitelist
-import filter.FilterSourceApp
 import gs.environment.Journal
 import gs.environment.Worker
 import gs.property.IWhen
@@ -69,6 +70,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
         )) }
         bind<ATunnelService.IBuilderConfigurator>() with singleton {
             val dns: Dns = instance()
+            val cmd: Commands = instance()
             val s: Filters = instance()
             object : ATunnelService.IBuilderConfigurator {
                 override fun configure(builder: VpnService.Builder) {
@@ -96,8 +98,8 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                         builder.addAddress("192.168.50.1", 24)
                     }
 
-                    s.filters().filter { it.whitelist && it.active && it.source is FilterSourceApp }.forEach {
-                        builder.addDisallowedApplication(it.source.toUserInput())
+                    cmd.one(MonitorFilters()).filter { it.whitelist && it.active && it.source.id == "app" }.forEach {
+                        builder.addDisallowedApplication(it.source.source)
                     }
 
                     // People kept asking why GPlay doesnt work

@@ -3,11 +3,13 @@ package core
 import android.app.Activity
 import android.content.Context
 import com.github.salomonbrys.kodein.*
-import gs.environment.ComponentProvider
-import gs.environment.Environment
-import gs.environment.Worker
-import gs.environment.inject
+import filter.DefaultSourceProvider
+import gs.environment.*
 import gs.property.*
+import kotlinx.coroutines.experimental.channels.ReceiveChannel
+import kotlinx.coroutines.experimental.channels.consumeEach
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.runBlocking
 import org.blokada.BuildConfig
 import org.blokada.R
 
@@ -44,6 +46,19 @@ class AUiState(
 
 }
 
+fun logChannel(name: String, c: ReceiveChannel<Any>, j: Journal) = launch {
+    for (value in c) {
+        when {
+            value is Exception -> {
+                j.log("$name: $value", value)
+            }
+            else -> {
+                j.log("$name: $value")
+            }
+        }
+    }
+}
+
 fun newAppModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
         bind<EnabledStateActor>() with singleton {
@@ -52,18 +67,95 @@ fun newAppModule(ctx: Context): Kodein.Module {
         bind<UiState>() with singleton { AUiState(kctx = with("gscore").instance(10), xx = lazy) }
         bind<ComponentProvider<Activity>>() with singleton { ComponentProvider<Activity>() }
         bind<ComponentProvider<MainActivity>>() with singleton { ComponentProvider<MainActivity>() }
+        bind<DefaultSourceProvider>() with singleton {
+            DefaultSourceProvider(ctx = instance(), j = instance(), processor = instance(),
+                    repo = instance(), f = instance())
+        }
+        bind<Commands>() with singleton {
+            val pages: Pages = instance()
+            val source: DefaultSourceProvider = instance()
+            val f: Filters = instance()
+
+            val filtersActor = filtersActor(
+                    url = { pages.filters() },
+                    getSource = { descriptor, id -> source.from(descriptor.id, descriptor.source, id) },
+                    isCacheValid = {
+                        it.cache.isNotEmpty()
+                                && it.fetchTimeMillis + 86400 * 1000 > System.currentTimeMillis()
+                    },
+                    legacyCache = {
+                        val p = ctx.getSharedPreferences("filters", Context.MODE_PRIVATE)
+                        val legacy = p.getString("filters", "").split("^")
+                        p.edit().putString("filters", "").apply()
+                        legacy
+                    },
+                    isFiltersCacheValid = { info, url ->
+                        info.cache.isNotEmpty()
+                                && info.url == url.toExternalForm()
+                                && info.fetchTimeMillis + 86400 * 1000 > System.currentTimeMillis()
+                    },
+                    processDownloadedFilters = {
+                        f.apps.refresh(blocking = true)
+                        it.map {
+                            when {
+                                it.source.id != "app" -> it
+                                f.apps().firstOrNull { a -> a.appId == it.source.source } == null -> {
+                                    it.alter(newHidden = true, newActive = false)
+                                }
+                                else -> it
+                            }
+                        }.toSet()
+                    }
+            )
+
+            val localisationsActor = localisationActor(
+                    urls = {
+                        mapOf(
+                                pages.filtersStrings() to "filters"
+                        )
+                    },
+                    cacheValid = { info, url ->
+                        info.get(url) + 86400 * 1000 > System.currentTimeMillis()
+                    },
+                    i18n = instance()
+            )
+
+            Commands(filtersActor, localisationsActor)
+        }
 
         onReady {
             val d: Device = instance()
             val repo: Repo = instance()
             val f: Filters = instance()
+            val cmd: Commands = instance()
+            val j: Journal = instance()
+            val pages: Pages = instance()
+
+            // New code init
+            runBlocking {
+                // Log changes to important state
+//                logChannel("blokada", blokadaLogChannel, j = instance())
+                logChannel("blokada-filters", cmd.channel(MonitorFilters()), j)
+                logChannel("blokada-cache", cmd.channel(MonitorHostsCache()), j)
+
+                cmd.send(LoadFilters())
+            }
+
+            launch {
+                cmd.channel(MonitorHostsCount()).consumeEach {
+                    // Todo: a nicer hook would be good to minimise unnecessary downloads
+                    // Todo: dont sync all translations, just filters related
+                    cmd.send(SyncTranslations())
+                }
+            }
 
             // Since having filters is really important, poke whenever we get connectivity
             var wasConnected = false
             d.connected.doWhenChanged().then {
                 if (d.connected() && !wasConnected) {
                     repo.content.refresh()
-                    f.filters.refresh()
+                    cmd.send(SyncFilters())
+                    cmd.send(SyncHostsCache())
                 }
                 wasConnected = d.connected()
             }
@@ -76,6 +168,11 @@ fun newAppModule(ctx: Context): Kodein.Module {
             else BuildConfig.VERSION_NAME
 
             version.name %= version.name() + " " + BuildConfig.BUILD_TYPE.capitalize()
+
+            pages.filters.doWhenChanged(withInit = true).then {
+                cmd.send(SyncFilters())
+                cmd.send(SyncHostsCache())
+            }
 
             // This will fetch repo unless already cached
             repo.url %= "https://blokada.org/api/v3/${BuildConfig.FLAVOR}/${BuildConfig.BUILD_TYPE}/repo.txt"

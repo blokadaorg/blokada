@@ -4,15 +4,22 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
-import core.Filter
+import core.Filters
 import core.UiState
+import core.Commands
+import core.Filter
+import core.MonitorFilters
 import gs.environment.inject
 import gs.presentation.Spacing
-import gs.property.IWhen
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.channels.ReceiveChannel
+import kotlinx.coroutines.experimental.channels.consumeEach
+import kotlinx.coroutines.experimental.launch
 import org.blokada.R
 
 class AFilterListView(
@@ -20,10 +27,12 @@ class AFilterListView(
         attributeSet: AttributeSet
 ) : RecyclerView(ctx, attributeSet) {
 
-    private val s by lazy { context.inject().instance<core.Filters>() }
     private val ui by lazy { context.inject().instance<UiState>() }
+    private val cmd by lazy { context.inject().instance<Commands>() }
+    private val f by lazy { context.inject().instance<Filters>() }
+    private var allFilters = setOf<Filter>()
     private var filters = listOf<Filter>()
-    private var listener: IWhen? = null
+    private var openChannel: ReceiveChannel<Set<Filter>>? = null
 
     var landscape: Boolean = false
         set(value) {
@@ -46,19 +55,33 @@ class AFilterListView(
         setAdapter(adapter)
         landscape = false
 
-        s.filters.cancel(listener)
-        s.filters.doOnUiWhenSet().then { refreshFilters() }
+        if (openChannel == null) {
+            openChannel = cmd.channel(MonitorFilters())
+            launch {
+                openChannel?.consumeEach { launch(UI) { setFilters(it) }}
+            }
+        }
+
+        ui.showSystemApps.doOnUiWhenChanged().then {
+            refreshFilters()
+        }
+    }
+
+    private fun setFilters(filter: Set<Filter>) {
+        allFilters = filter
+        refreshFilters()
     }
 
     private fun refreshFilters() {
         if (whitelist) {
-            filters = s.filters().filter {
+            Log.v("blokada", "systemapps: ${ui.showSystemApps()}")
+            filters = allFilters.filter {
                 it.whitelist == true && it.hidden == false
                         && (ui.showSystemApps()
-                        || !((it.source as? FilterSourceApp)?.system ?: false))
+                        || !(f.apps().firstOrNull { app -> app.appId == it.source.source }?.system ?: false))
             }
         } else {
-            filters = s.filters().filter { it.whitelist == false && it.hidden == false }
+            filters = allFilters.filter { !it.whitelist && !it.hidden }.toList().sortedBy { it.priority }
         }
         adapter.notifyDataSetChanged()
     }

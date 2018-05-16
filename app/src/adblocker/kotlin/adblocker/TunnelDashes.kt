@@ -2,11 +2,11 @@ package adblocker
 
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
-import core.Dash
-import core.Filters
-import core.Tunnel
-import core.getBrandedString
+import core.*
 import gs.environment.inject
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.channels.consumeEach
+import kotlinx.coroutines.experimental.launch
 import org.blokada.R
 
 val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
@@ -35,19 +35,21 @@ class TunnelDashCountDropped(
 
 class TunnelDashHostsCount(
         val ctx: Context,
-        val s: Filters = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance(),
+        val cmd: Commands = ctx.inject().instance()
 ) : Dash(DASH_ID_HOSTS_COUNT,
         R.drawable.ic_counter,
         ctx.getBrandedString(R.string.tunnel_hosts_desc),
-        onClick = { s.filters.refresh(); s.filtersCompiled.refresh(); true }
+        onClick = { cmd.send(SyncFilters()); cmd.send(SyncHostsCache()); true }
 ) {
 
-    private val listener: Any
     init {
-        text = getCountString(0)
-        listener = s.filtersCompiled.doOnUiWhenSet().then {
-            text = getCountString(s.filtersCompiled().size)
-        } // TODO: think item lifetime vs listener leak
+        val request = MonitorHostsCount()
+        launch {
+            cmd.channel(request).consumeEach {
+                launch(UI) { text = getCountString(it) }
+            }
+        }
     }
 
     private fun getCountString(count: Int): String {

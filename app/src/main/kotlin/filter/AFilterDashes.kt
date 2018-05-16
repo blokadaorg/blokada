@@ -5,10 +5,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
-import core.*
+import core.Dash
+import core.Filters
+import core.MainActivity
+import core.UiState
+import core.Commands
+import core.Filter
+import core.MonitorFilters
+import core.UpdateFilter
 import gs.environment.ComponentProvider
 import gs.environment.inject
-import gs.property.IWhen
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.channels.consumeEach
+import kotlinx.coroutines.experimental.launch
 import org.blokada.R
 
 val DASH_ID_BLACKLIST = "filter_blacklist"
@@ -18,7 +27,8 @@ private val KCTX = "filter-dashes"
 
 class DashFilterBlacklist(
         val ctx: Context,
-        val s: Filters = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance(),
+        val cmd: Commands = ctx.inject().instance()
 ) : Dash(DASH_ID_BLACKLIST,
         R.drawable.ic_shield_outline,
         text = ctx.getString(R.string.filter_blacklist_text_none),
@@ -26,17 +36,17 @@ class DashFilterBlacklist(
         onBack = { s.changed %= true },
         hasView = true
 ) {
-    private var listener: IWhen? = null
-
     init {
-        listener = s.changed.doOnUiWhenSet().then {
-            update(s.filters().filter { it.active && !it.whitelist })
+        launch {
+            cmd.channel(MonitorFilters()).consumeEach {
+                launch(UI) { update(it.filter { it.active && !it.whitelist })}
+            }
         }
     }
 
-    private fun update(filters: List<Filter>) {
-        if (filters.isEmpty()) text = ctx.getString(R.string.filter_blacklist_text_none)
-        else text = ctx.resources.getString(R.string.filter_blacklist_text, filters.size)
+    private fun update(downloadedFilters: Collection<Filter>) {
+        if (downloadedFilters.isEmpty()) text = ctx.getString(R.string.filter_blacklist_text_none)
+        else text = ctx.resources.getString(R.string.filter_blacklist_text, downloadedFilters.size)
     }
 
     override fun createView(parent: Any): Any? {
@@ -53,7 +63,8 @@ class DashFilterBlacklist(
 class DashFilterWhitelist(
         val ctx: Context,
         val s: Filters = ctx.inject().instance(),
-        val ui: UiState = ctx.inject().instance()
+        val ui: UiState = ctx.inject().instance(),
+        val cmd: Commands = ctx.inject().instance()
 ) : Dash(DASH_ID_WHITELIST,
         R.drawable.ic_verified,
         text = ctx.getString(R.string.filter_whitelist_text_none),
@@ -64,17 +75,17 @@ class DashFilterWhitelist(
         hasView = true
 ) {
 
-    private var listener: IWhen? = null
-
     init {
-        listener = s.changed.doOnUiWhenSet().then {
-            update(s.filters().filter { it.active && it.whitelist })
+        launch {
+            cmd.channel(MonitorFilters()).consumeEach {
+                launch(UI) { update(it.filter { it.active && it.whitelist })}
+            }
         }
     }
 
-    private fun update(filters: List<Filter>) {
-        if (filters.isEmpty()) text = ctx.getString(R.string.filter_whitelist_text_none)
-        else text = ctx.resources.getString(R.string.filter_whitelist_text, filters.size)
+    private fun update(downloadedFilters: List<Filter>) {
+        if (downloadedFilters.isEmpty()) text = ctx.getString(R.string.filter_whitelist_text_none)
+        else text = ctx.resources.getString(R.string.filter_whitelist_text, downloadedFilters.size)
     }
 
     override fun createView(parent: Any): Any? {
@@ -90,7 +101,8 @@ class DashFilterWhitelist(
 
 class AddBlacklist(
         val ctx: Context,
-        val s: Filters = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance(),
+        val cmd: Commands = ctx.inject().instance()
 ) : Dash(
         "filter_blacklist_add",
         R.drawable.ic_filter_add,
@@ -98,8 +110,7 @@ class AddBlacklist(
             val dialogProvider: () -> AFilterAddDialog = ctx.inject().provider()
             val dialog: AFilterAddDialog = dialogProvider()
             dialog.onSave = { newFilter ->
-                newFilter.whitelist = false
-                s.filters %= s.filters() + newFilter
+                cmd.send(UpdateFilter(newFilter.id, newFilter))
             }
             dialog.show(null, whitelist = false)
             false
@@ -108,7 +119,8 @@ class AddBlacklist(
 
 class AddWhitelist(
         val ctx: Context,
-        val s: Filters = ctx.inject().instance()
+        val s: Filters = ctx.inject().instance(),
+        val cmd: Commands = ctx.inject().instance()
 ) : Dash(
         "filter_whitelist_add",
         R.drawable.ic_filter_add,
@@ -116,8 +128,7 @@ class AddWhitelist(
             val dialogProvider: () -> AFilterAddDialog = ctx.inject().provider()
             val dialog: AFilterAddDialog = dialogProvider()
             dialog.onSave = { newFilter ->
-                newFilter.whitelist = true
-                s.filters %= s.filters() + newFilter
+                cmd.send(UpdateFilter(newFilter.id, newFilter))
             }
             dialog.show(null, whitelist = true)
             false

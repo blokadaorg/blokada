@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.Resources
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import core.Commands
+import core.SyncTranslations
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.Worker
@@ -32,6 +34,7 @@ class I18nImpl (
 
     private val ctx: Context by xx.instance()
     private val repo: Repo by xx.instance()
+    private val cmd: Commands by xx.instance()
     private val res: Resources by lazy { ctx.resources }
 
     override fun contentUrl(): String {
@@ -116,6 +119,11 @@ class I18nImpl (
         locale.doWhenSet().then {
             val strings = localisedMap.getOrPut(locale(), { mutableMapOf<Key, Localised>() })
             strings.putAll(persistence(locale()).read(strings))
+        }
+
+        locale.doWhenChanged().then {
+            j.log("refresh filters from locale change")
+            cmd.send(SyncTranslations())
         }
     }
 

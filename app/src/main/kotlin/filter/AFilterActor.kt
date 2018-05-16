@@ -5,10 +5,11 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import com.github.salomonbrys.kodein.instance
+import core.Commands
 import core.Filter
-import core.Filters
-import core.IFilterSource
+import core.UpdateFilter
 import gs.environment.inject
+import gs.property.I18n
 
 
 class AFilterActor(
@@ -16,7 +17,8 @@ class AFilterActor(
         private val v: AFilterView
 ) {
     private val dialog by lazy { v.context.inject().instance<AFilterAddDialog>() }
-    private val s by lazy { v.context.inject().instance<Filters>() }
+    private val cmd by lazy { v.context.inject().instance<Commands>() }
+    private val i18n by lazy { v.context.inject().instance<I18n>() }
 
     var filter = initialFilter
         set(value) {
@@ -28,38 +30,38 @@ class AFilterActor(
         update()
         v.setOnClickListener ret@ {
             dialog.onSave = { newFilter ->
-                s.filters %= s.filters().map { if (it == filter) newFilter else it }
+                cmd.send(UpdateFilter(newFilter.id, newFilter))
             }
             dialog.show(filter)
         }
         v.onDelete = {
             if (filter.id.startsWith("b_")) {
                 // Hide default Blokada filters instead of deleting them, so they dont reappear on refresh
-                filter.hidden = true
-                filter.active = false
-                s.filters %= s.filters()
+                filter = filter.alter(newHidden = true, newActive = false)
+                cmd.send(UpdateFilter(filter.id, filter))
             } else {
-                s.filters %= s.filters().minus(filter)
+                cmd.send(UpdateFilter(filter.id, null))
             }
         }
         v.showDelete = true
         v.onSwitched = { active ->
-            filter.active = active
+            filter = filter.alter(newActive = active)
+            cmd.send(UpdateFilter(filter.id, filter))
         }
     }
 
     private fun update() {
-        v.name = filter.localised?.name ?: sourceToName(v.context, filter.source)
-        v.description = filter.localised?.comment
+        v.name = filter.customName ?: i18n.localisedOrNull("filters_${filter.id}_name") ?: sourceToName(v.context, filter.source)
+        v.description = filter.customComment ?: i18n.localisedOrNull("filters_${filter.id}_comment")
         v.active = filter.active
 
-        if (filter.source is FilterSourceApp) {
+        if (filter.source.id == "app") {
             v.multiple = false
-            v.icon = sourceToIcon(v.context, filter.source)
+            v.icon = sourceToIcon(v.context, filter.source.source)
             v.counter = null
-            v.source = filter.source.toUserInput()
+            v.source = filter.source.source
             v.credit = null
-        } else if (filter.source is FilterSourceSingle) {
+        } else if (filter.source.id == "single") {
             v.icon = null
             v.multiple = false
             v.counter = null
@@ -68,7 +70,7 @@ class AFilterActor(
         } else {
             v.icon = null
             v.multiple = true
-            v.counter = if (filter.hosts.isNotEmpty()) filter.hosts.size else null
+//            v.counter = if (filter.hosts.isNotEmpty()) filter.hosts.size else null
 
             // Credit
             val credit = filter.credit
@@ -79,23 +81,15 @@ class AFilterActor(
 
             // Host
             val host = filter.source
-            v.source = when (host) {
-                is FilterSourceLink -> host.source?.toExternalForm()
-                is FilterSourceUri -> host.source?.toString()
-                else -> null
-            }
+            v.source = host.source
         }
     }
 }
 
-internal fun sourceToIcon(ctx: android.content.Context, source: IFilterSource): Drawable? {
-    return when (source) {
-        is FilterSourceApp -> { try {
-            ctx.packageManager.getApplicationIcon(
-                    ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
-            )
-        } catch (e: Exception) { null }}
-        else -> null
-    }
+internal fun sourceToIcon(ctx: android.content.Context, source: String): Drawable? {
+    return try {
+        ctx.packageManager.getApplicationIcon(
+                ctx.packageManager.getApplicationInfo(source, PackageManager.GET_META_DATA)
+        )
+    } catch (e: Exception) { null }
 }
-

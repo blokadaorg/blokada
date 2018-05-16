@@ -12,9 +12,13 @@
  */
 package adblocker
 
+import core.Commands
 import core.Dns
 import core.Filters
-import gs.property.IWhen
+import core.MonitorHostsCache
+import kotlinx.coroutines.experimental.channels.ReceiveChannel
+import kotlinx.coroutines.experimental.channels.consumeEach
+import kotlinx.coroutines.experimental.launch
 import org.pcap4j.packet.*
 import org.xbill.DNS.*
 import java.io.IOException
@@ -28,7 +32,8 @@ class DnsProxy(
         val s: Dns,
         val f: Filters,
         val proxyEvents: IProxyEvents,
-        val adBlocked: (String) -> Unit
+        val adBlocked: (String) -> Unit,
+        val cmd: Commands
 ) {
 
     private val NAME = Name("org.blokada.invalid.")
@@ -38,19 +43,20 @@ class DnsProxy(
         @Synchronized get
         @Synchronized set
 
-    var updateFilters = { filters: Set<String> ->
-        block = filters
-    }
-
-    var listener: IWhen? = null
+    var openChannel: ReceiveChannel<Set<String>>? = null
 
     init {
-        listener = f.filtersCompiled.doWhenSet().then { updateFilters(f.filtersCompiled()) }
-        updateFilters(f.filtersCompiled())
+        launch {
+            val request = MonitorHostsCache()
+            cmd.send(request)
+            val channel = request.deferred.await()
+            openChannel = channel
+            channel.consumeEach { block = it }
+        }
     }
 
     fun stop() {
-        f.filtersCompiled.cancel(listener)
+        // TODO stop monitoring cache
     }
 
     fun handleRequest(packetBytes: ByteArray) {

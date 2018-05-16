@@ -14,8 +14,6 @@ import gs.property.Device
 import gs.property.IProperty
 import gs.property.newPersistedProperty
 import org.blokada.R
-import java.io.PrintWriter
-import java.io.StringWriter
 
 fun newBuildTypeModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
@@ -91,15 +89,10 @@ class OfficialJournal(
     }
 
     override fun log(vararg errors: Any) {
-        errors.forEach { error ->
-            Log.v("blokada", error.toString())
-            if (error is Exception) {
-                Log.e("blokada", error.message)
-                val sw = StringWriter()
-                error.printStackTrace(PrintWriter(sw))
-                Log.e("blokada", sw.toString())
-            }
-        }
+        errors.forEach { when(it) {
+            is Throwable -> Log.e("blokada", "------", it)
+            else -> Log.e("blokada", it.toString())
+        }}
     }
 
 }
