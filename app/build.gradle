@@ -116,6 +116,8 @@ dependencies {
     implementation 'com.github.salomonbrys.kodein:kodein:4.1.0'
     implementation 'nl.komponents.kovenant:kovenant-core:3.3.0'
     implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
+    implementation 'com.github.kittinunf.result:result-coroutines:1.4.0'
 
     // Proxy
     implementation 'org.pcap4j:pcap4j-core:1.7.0'
