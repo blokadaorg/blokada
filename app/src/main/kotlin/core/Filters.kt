@@ -188,7 +188,7 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
                     cacheFile = File(getPersistencePath(ctx).absoluteFile, "filters"),
                     exportFile = getPublicPersistencePath("blokada-export")
                             ?: File(getPersistencePath(ctx).absoluteFile, "blokada-export"),
-                    cacheTTLMillis = 1 * 24 * 60 * 60 * 100L, // A
+                    cacheTTLMillis = 1 * 24 * 60 * 60 * 1000L, // A
                     fetchTimeoutMillis = 10 * 1000
             )
         }
