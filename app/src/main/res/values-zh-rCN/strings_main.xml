@@ -3,8 +3,6 @@
 <resources>
   <string name="main_loading">正在加载......</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="main_intro">欢迎使用 %s!轻触盾牌来启用app。当设备询问时请授予它权限。</string>
-  <string name="main_error">哟，出了点小状况。请检查你的互联网连接并再试一次。</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_deactivating_new">正在关闭 %s.请等待......</string>
   <!-- Parameter: branded app name (Blokada). -->

@@ -27,6 +27,7 @@
   <!-- An example format of a link to hosts file. -->
   <string name="filter_edit_link_error">A megadott link nem letölthető, vagy nem tartalmaz hosztokat.</string>
   <!-- Name of a tab that allows to whitelist app. -->
+  <string name="filter_edit_app">Alkalmazás</string>
   <string name="filter_edit_app_enter">Adj meg alkalmazás vagy csomag nevet</string>
   <!-- An example package name of app to whitelist. -->
   <string name="filter_edit_app_error">Ez az alkalmazás nem létezik, vagy nem nem lehet a kivételek közé tenni.</string>

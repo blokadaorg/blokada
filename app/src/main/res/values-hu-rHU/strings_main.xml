@@ -12,7 +12,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_active_new">A %1$s mostantól megvédi az eszközt a reklámoktól. Finomhangolhatod a %1$s beállításait alább, vagy csak használd tovább az eszközöd ahogy van.</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="main_paused">A %s aktív.</string>
+  <string name="main_paused">A %s inaktív.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_paused_autoenable">A %1$s szünetel, mert az eszközöd szétkapcsolt állapotban van. A %1$s automatikusan aktív lesz internetkapcsolat esetén.</string>
   <!-- Parameter: branded app name (Blokada). -->
@@ -44,11 +44,17 @@
   <!-- A menu option to open Patron of the month -->
   <string name="main_patron">Patron megnézése</string>
   <!-- A menu option to open Patron voting screen -->
-  <string name="main_patron_about">Patron szavazás</string>
+  <string name="main_patron_about">Pártoló szavazás</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+  <string name="main_cta">A Te hangod</string>
   <!-- A menu option to open changelog -->
-  <string name="main_changelog">Változásnapló</string>
+  <string name="main_changelog">Változáslista</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Készítők</string>
   <!-- An overlay header on top of Patron page -->
+  <string name="main_log">Napló megosztása</string>
+  <string name="main_report_title">Blokada jelentés</string>
+  <string name="main_report_text">A Blokada problémát észlelt (vagy egy jelentés küldését kérted). Olyan naplót csatolunk, amely személyes adatokat is tartalmazhat. Csak a megbízható Bennfentesek olvashatják az elküldött jelentésed, és a törlésére akkor kerül sor, ha már nincs rá szükség.</string>
+  <string name="main_report_comment">A megjegyzésekkel ellátott jelentések prioritást élveznek. Mit csináltál a probléma megjelenése előtt?</string>
+  <string name="main_report_limit">Jelentések határszáma elérve. Kérjük, várd meg a frissítést. Köszönjük a visszajelzésed!</string>
 </resources>

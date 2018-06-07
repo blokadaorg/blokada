@@ -46,9 +46,15 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Undi Patron</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+  <string name="main_cta">Suara anda</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Log perubahan</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Kepujian</string>
   <!-- An overlay header on top of Patron page -->
+  <string name="main_log">Kongsi Log</string>
+  <string name="main_report_title">Laproan Blokada</string>
+  <string name="main_report_text">Blokada telah mengalami masalah (atau anda akan diminta untuk menghantar laporan). Log akan dilampirkan yang mungkin mengandungi maklumat peribadi. Hanya orang dalam yang dipercayai akan dapat membaca laporan anda, dan ia akan dihapuskan sebaik sahaja ia tidak diperlukan lagi.</string>
+  <string name="main_report_comment">Laporan dengan komentar akan diutamakan. Apa yang anda lakukan sebelum masalah berlaku?</string>
+  <string name="main_report_limit">Mencapai had laporan. Sila sentiasa siap sedia untuk kemas kini. Terima kasih untuk maklum balas anda!</string>
 </resources>

@@ -7,7 +7,7 @@
   <!-- Parameter: new app version, for example 2.0.1 -->
   <string name="update_notification_text">發行版 %1$s 已準備好下載！點觸以繼續。</string>
   <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
-  <string name="update_header">新的！%1$s %2$s</string>
+  <string name="update_header">新的！</string>
   <string name="update_header_noupdate">沒有新的更新</string>
   <string name="update_notification_channel">更新通知</string>
   <string name="update_info">如果從 Play 商店、F-Droid 或商店下載此應用程式，將從商店接收到更新。請確認 Blokada 在更新時是停用的。如果遇到任何更新問題，前往 blokada.org，並手動下載應用程式，這不需要預先解除安裝現有的版本。</string>

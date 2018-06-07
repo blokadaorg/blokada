@@ -8,14 +8,11 @@
   <!-- As in, "A a file from this device". -->
   <!-- Name of a tab for adding a new host to the blacklist / whitelist. -->
   <!-- An example format of a hostname. -->
-  <string name="filter_edit_name_placeholder">example.com</string>
   <!-- Name of a tab that allows to add a file with hosts. -->
   <!-- Name of a tab that allows to add a link to hosts. -->
   <!-- An example format of a link to hosts file. -->
-  <string name="filter_edit_link_placeholder">http://example.com/hosts.txt</string>
   <!-- Name of a tab that allows to whitelist app. -->
   <!-- An example package name of app to whitelist. -->
-  <string name="filter_edit_app_placeholder">谷歌应用商店</string>
   <!-- Parameter: number of hosts. -->
   <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
   <!-- Displayed in the home screen, keep it short. Parameter: number of whitelisted entries. -->

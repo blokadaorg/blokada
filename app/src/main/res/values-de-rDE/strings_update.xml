@@ -10,7 +10,7 @@
   <string name="update_header">Neu!</string>
   <string name="update_header_noupdate">Keine Updates verfügbar</string>
   <string name="update_notification_channel">Benachrichtigungen aktualisieren</string>
-  <string name="update_info">Wenn Sie die app von Play Store, F-Droid oder anderen app-Store heruntergeladen haben, erhalten Sie Updates aus dem Store, sobald sie verfügbar sind. Seellen Sie sicher, dass Blokada während der Aktualisierung deaktiviert ist. Wenn irgendwelche Probleme beim Aktualisieren auftreten, gehen Sie zu blokada.org und laden Sie die app manuell. Es gibt keine Notwendigkeit die vorhandene Version vorher zu deinstallieren.</string>
+  <string name="update_info">Wenn Du die App vom Play Store, F-Droid oder einem anderen App-Store heruntergeladen hast, erhälst Du Updates aus diesem Store, sobald sie verfügbar sind. Stell sicher, dass Blokada während der Aktualisierung deaktiviert ist. Wenn irgendwelche Probleme beim Aktualisieren auftreten, geh zu blokada.org und lad die App manuell herunter. Es ist nicht nötig die vorhandene Version vorher zu deinstallieren.</string>
   <string name="update_credits_header">Diese App ist ein Open Source-Projekt mit der Unterstützung von:</string>
   <!-- Displayed in the home screen when there is an update. Keep it short. -->
   <string name="update_dash_available">&lt;b&gt;Update verfügbar!&lt;/b&gt;</string>
