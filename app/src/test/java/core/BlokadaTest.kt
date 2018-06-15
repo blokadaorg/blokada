@@ -1,14 +1,14 @@
 package core
 
 import filter.FilterSourceDescriptor
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.channels.BroadcastChannel
 import kotlinx.coroutines.experimental.channels.Channel
-import kotlinx.coroutines.experimental.channels.ReceiveChannel
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.experimental.channels.produce
 import org.junit.Assert.*
 import org.junit.Test
 import java.net.URL
+import kotlin.reflect.KClass
 
 /**
  * Goals
@@ -71,33 +71,60 @@ class BlokadaTest {
     }
 
     @Test
-    fun filters_basics() {
-        TEST = true
-        class FakeFilterSource(var hosts: List<String>) : IFilterSource {
-            override fun fetch(): List<String> {
-                return hosts
-            }
+    fun actor_timeout() {
+        LOG_TEST = true
 
-            override fun fromUserInput(vararg string: String): Boolean {
-                throw Exception()
-            }
+        val stuckActor = object : CommandsActor() {
+            override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> { return mapOf(
+                MonitorHostsCount::class to ::getStuck
+            )}
 
-            override fun toUserInput(): String {
-                throw Exception()
-            }
-
-            override fun serialize(): String {
-                throw Exception()
-            }
-
-            override fun deserialize(string: String, version: Int): IFilterSource {
-                throw Exception()
-            }
-
-            override fun id(): String {
-                return "fake"
+            private fun getStuck(cmd: Cmd) = runBlocking {
+                var bomb = emptyList<Job>()
+                repeat(6) { bomb += launch {
+                    Thread.sleep(10000)
+//                    delay(10000)
+                }}
+                bomb.forEach { it.join() }
             }
         }
+
+        val cmd = stuckActor.create()
+        runBlocking {
+            cmd.send(MonitorHostsCount())
+            delay(7000)
+        }
+    }
+
+    class FakeFilterSource(var hosts: List<String>) : IFilterSource {
+        override fun fetch(): List<String> {
+            return hosts
+        }
+
+        override fun fromUserInput(vararg string: String): Boolean {
+            throw Exception()
+        }
+
+        override fun toUserInput(): String {
+            throw Exception()
+        }
+
+        override fun serialize(): String {
+            throw Exception()
+        }
+
+        override fun deserialize(string: String, version: Int): IFilterSource {
+            throw Exception()
+        }
+
+        override fun id(): String {
+            return "fake"
+        }
+    }
+
+    @Test
+    fun filters_basics() {
+        LOG_TEST = true
 
         val blacklisted1 = Filter(
                 id = "b1",
@@ -142,7 +169,11 @@ class BlokadaTest {
 
         var isCacheValid = true
 
-        val cmd = filtersActor(
+        val hostsCountMonitor = BroadcastChannel<Int>(Channel.CONFLATED)
+        val filtersMonitor = BroadcastChannel<Set<Filter>>(Channel.CONFLATED)
+        val cacheMonitor = BroadcastChannel<Set<String>>(Channel.CONFLATED)
+
+        val cmd = FiltersActor(
                 url = { URL("http://localhost") },
                 loadFilters = { FiltersCache(setOf(blacklisted1, blacklisted2, whitelisted1)) },
                 saveFilters = {},
@@ -150,18 +181,18 @@ class BlokadaTest {
                 saveHosts = {},
                 downloadFilters = { emptySet() },
                 getSource = { descriptor, id -> FakeFilterSource(descriptor.source.split(";")) },
-                isCacheValid = { isCacheValid }
-        )
+                isCacheValid = { isCacheValid },
+                hostsCountSync = hostsCountMonitor,
+                filtersSync = filtersMonitor,
+                cacheSync = cacheMonitor
+        ).create()
 
         runBlocking {
-            val r = MonitorFilters()
-            cmd.send(r)
-            val filtersChannel = r.deferred.await()
-            filtersChannel.receive() // First output is always current value
+            val filtersChannel = filtersMonitor.openSubscription()
+            val cacheChannel = cacheMonitor.openSubscription()
 
-            val r2 = MonitorHostsCache()
-            cmd.send(r2)
-            val cacheChannel = r2.deferred.await()
+            // Check if performing commands on empty cache is fine
+            cmd.send(SyncHostsCache())
             cacheChannel.receive()
 
             // Check if we load saved cache
@@ -220,18 +251,95 @@ class BlokadaTest {
             assertFalse(c.contains("host1.com"))
         }
     }
-}
 
-fun handleChannel(name: String, c: ReceiveChannel<Any>) = launch {
-    for (value in c) {
-        when {
-            value is Exception -> {
-                System.err.println("$name: ${value.message}")
-//            value.printStackTrace()
-            }
-            else -> {
-                System.out.println("$name: $value")
-            }
+    class FailingSource: IFilterSource {
+        override fun fetch(): List<String> {
+            throw Exception("failed downloading")
+        }
+
+        override fun fromUserInput(vararg string: String): Boolean {
+            throw Exception()
+        }
+
+        override fun toUserInput(): String {
+            throw Exception()
+        }
+
+        override fun serialize(): String {
+            throw Exception()
+        }
+
+        override fun deserialize(string: String, version: Int): IFilterSource {
+            throw Exception()
+        }
+
+        override fun id(): String {
+            return "failing"
+        }
+    }
+
+    @Test
+    fun filters_empty() {
+        LOG_TEST = true
+
+        val blacklisted1 = Filter(
+                id = "b1",
+                source = FilterSourceDescriptor("failing", ""),
+                active = true,
+                priority = 0
+        )
+
+        val blacklisted2 = Filter(
+                id = "b2",
+                source = FilterSourceDescriptor("failing", ""),
+                active = true,
+                priority = 1
+        )
+
+        val filtersMonitor = BroadcastChannel<Set<Filter>>(Channel.CONFLATED)
+        val cmd = FiltersActor(
+                url = { URL("http://localhost") },
+                loadFilters = { FiltersCache() },
+                saveFilters = {},
+                loadHosts = { emptySet() },
+                saveHosts = {},
+                downloadFilters = { setOf(blacklisted1, blacklisted2) },
+                getSource = { descriptor, id -> FailingSource() },
+                isCacheValid = { false },
+                filtersSync = filtersMonitor
+        ).create()
+
+        // Trying to sync empty filters should not stuck the actor
+        runBlocking {
+            cmd.send(SyncFilters())
+            cmd.send(SyncHostsCache())
+            val c = filtersMonitor.openSubscription()
+            val filters = c.receive()
+            assertEquals(2, filters.size)
+        }
+    }
+
+    @Test
+    fun localisations_basics() {
+        LOG_TEST = true
+        val actor = LocalisationActor(
+                urls = { mapOf(URL("http://localhost") to "fixture") },
+                load = { v("loaded"); TranslationsCacheInfo() },
+                save = {},
+                downloadTranslations = { urls ->
+                    produce {
+                        send(URL("http://localhost") to listOf("fixture_test1" to "value1"))
+                    }
+                },
+                setI18n = { key, value ->
+                    if (key != "fixture_test1") fail("unexpected key")
+                    if (value != "value1") fail("unexpected value")
+                }
+        )
+        val cmd = actor.create()
+        runBlocking {
+            cmd.send(SyncTranslations())
+            delay(5000)
         }
     }
 }

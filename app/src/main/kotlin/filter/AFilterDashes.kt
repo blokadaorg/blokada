@@ -38,7 +38,7 @@ class DashFilterBlacklist(
 ) {
     init {
         launch {
-            cmd.channel(MonitorFilters()).consumeEach {
+            cmd.subscribe(MonitorFilters()).consumeEach {
                 launch(UI) { update(it.filter { it.active && !it.whitelist })}
             }
         }
@@ -77,7 +77,7 @@ class DashFilterWhitelist(
 
     init {
         launch {
-            cmd.channel(MonitorFilters()).consumeEach {
+            cmd.subscribe(MonitorFilters()).consumeEach {
                 launch(UI) { update(it.filter { it.active && it.whitelist })}
             }
         }

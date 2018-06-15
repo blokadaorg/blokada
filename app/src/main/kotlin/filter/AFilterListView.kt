@@ -9,11 +9,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
-import core.Filters
-import core.UiState
-import core.Commands
-import core.Filter
-import core.MonitorFilters
+import core.*
 import gs.environment.inject
 import gs.presentation.Spacing
 import kotlinx.coroutines.experimental.android.UI
@@ -56,8 +52,8 @@ class AFilterListView(
         landscape = false
 
         if (openChannel == null) {
-            openChannel = cmd.channel(MonitorFilters())
             launch {
+                openChannel = cmd.subscribe(MonitorFilters())
                 openChannel?.consumeEach { launch(UI) { setFilters(it) }}
             }
         }

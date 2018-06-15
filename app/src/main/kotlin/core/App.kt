@@ -6,6 +6,8 @@ import com.github.salomonbrys.kodein.*
 import filter.DefaultSourceProvider
 import gs.environment.*
 import gs.property.*
+import kotlinx.coroutines.experimental.channels.BroadcastChannel
+import kotlinx.coroutines.experimental.channels.Channel
 import kotlinx.coroutines.experimental.channels.ReceiveChannel
 import kotlinx.coroutines.experimental.channels.consumeEach
 import kotlinx.coroutines.experimental.launch
@@ -47,7 +49,7 @@ class AUiState(
 }
 
 fun logChannel(name: String, c: ReceiveChannel<Any>, j: Journal) = launch {
-    for (value in c) {
+    c.consumeEach { value ->
         when {
             value is Exception -> {
                 j.log("$name: $value", value)
@@ -76,7 +78,11 @@ fun newAppModule(ctx: Context): Kodein.Module {
             val source: DefaultSourceProvider = instance()
             val f: Filters = instance()
 
-            val filtersActor = filtersActor(
+            val hostsCountSync = BroadcastChannel<Int>(Channel.CONFLATED)
+            val filtersMonitor = BroadcastChannel<Set<Filter>>(Channel.CONFLATED)
+            val cacheMonitor = BroadcastChannel<Set<String>>(Channel.CONFLATED)
+
+            val filtersActor = FiltersActor(
                     url = { pages.filters() },
                     getSource = { descriptor, id -> source.from(descriptor.id, descriptor.source, id) },
                     isCacheValid = {
@@ -105,10 +111,13 @@ fun newAppModule(ctx: Context): Kodein.Module {
                                 else -> it
                             }
                         }.toSet()
-                    }
-            )
+                    },
+                    hostsCountSync = hostsCountSync,
+                    filtersSync = filtersMonitor,
+                    cacheSync = cacheMonitor
+            ).create()
 
-            val localisationsActor = localisationActor(
+            val localisationsActor = LocalisationActor(
                     urls = {
                         mapOf(
                                 pages.filtersStrings() to "filters"
@@ -117,10 +126,13 @@ fun newAppModule(ctx: Context): Kodein.Module {
                     cacheValid = { info, url ->
                         info.get(url) + 86400 * 1000 > System.currentTimeMillis()
                     },
-                    i18n = instance()
+                    setI18n = { key, value ->
+                        val i18n: I18n = instance()
+                        i18n.set(key, value)
+                    }
             )
 
-            Commands(filtersActor, localisationsActor)
+            Commands(filtersActor, localisationsActor, hostsCountSync, filtersMonitor, cacheMonitor)
         }
 
         onReady {
@@ -133,19 +145,17 @@ fun newAppModule(ctx: Context): Kodein.Module {
 
             // New code init
             runBlocking {
-                // Log changes to important state
-//                logChannel("blokada", blokadaLogChannel, j = instance())
-                logChannel("blokada-filters", cmd.channel(MonitorFilters()), j)
-                logChannel("blokada-cache", cmd.channel(MonitorHostsCache()), j)
-
                 cmd.send(LoadFilters())
             }
 
             launch {
-                cmd.channel(MonitorHostsCount()).consumeEach {
+                cmd.subscribe(MonitorHostsCount()).consumeEach {
                     // Todo: a nicer hook would be good to minimise unnecessary downloads
                     // Todo: dont sync all translations, just filters related
-                    cmd.send(SyncTranslations())
+                    if (it != HOST_COUNT_UPDATING) {
+                        cmd.send(SaveFilters())
+                        cmd.send(SyncTranslations())
+                    }
                 }
             }
 

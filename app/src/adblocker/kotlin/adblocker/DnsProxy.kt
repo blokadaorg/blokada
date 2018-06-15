@@ -16,7 +16,6 @@ import core.Commands
 import core.Dns
 import core.Filters
 import core.MonitorHostsCache
-import kotlinx.coroutines.experimental.channels.ReceiveChannel
 import kotlinx.coroutines.experimental.channels.consumeEach
 import kotlinx.coroutines.experimental.launch
 import org.pcap4j.packet.*
@@ -43,15 +42,9 @@ class DnsProxy(
         @Synchronized get
         @Synchronized set
 
-    var openChannel: ReceiveChannel<Set<String>>? = null
-
     init {
         launch {
-            val request = MonitorHostsCache()
-            cmd.send(request)
-            val channel = request.deferred.await()
-            openChannel = channel
-            channel.consumeEach { block = it }
+            cmd.subscribe(MonitorHostsCache()).consumeEach { block = it }
         }
     }
 

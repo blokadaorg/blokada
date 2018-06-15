@@ -44,16 +44,17 @@ class TunnelDashHostsCount(
 ) {
 
     init {
-        val request = MonitorHostsCount()
         launch {
-            cmd.channel(request).consumeEach {
+            val request = MonitorHostsCount()
+            cmd.subscribe(request).consumeEach {
                 launch(UI) { text = getCountString(it) }
             }
         }
     }
 
     private fun getCountString(count: Int): String {
-        return ctx.resources.getString(R.string.tunnel_hosts_count, count)
+        return if (count >= 0) ctx.resources.getString(R.string.tunnel_hosts_count, count)
+        else ctx.resources.getString(R.string.tunnel_hosts_updating)
     }
 }
 
