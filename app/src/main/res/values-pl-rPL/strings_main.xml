@@ -46,9 +46,15 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Głosuj na Patrona</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+  <string name="main_cta">Twój głos</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Historia zmian</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Autorzy</string>
   <!-- An overlay header on top of Patron page -->
+  <string name="main_log">Wyślij Log</string>
+  <string name="main_report_title">Raport błędów</string>
+  <string name="main_report_text">Blokada napotkała problem (lub sam zdecydowałeś przesłać raport). Dołączony zostanie dziennik, który może zawierać prywatne informacje. Tylko zaufani użytkownicy będą mogli odczytać raport, który zostanie usunięty, gdy nie będzie już potrzebny.</string>
+  <string name="main_report_comment">Raporty z komentarzami są traktowane priorytetowo. Co zrobiłeś, zanim wystąpił problem?</string>
+  <string name="main_report_limit">Osiągnięto limit raportów. Proszę czekać na aktualizację. Dziekuję za odpowiedź!</string>
 </resources>
