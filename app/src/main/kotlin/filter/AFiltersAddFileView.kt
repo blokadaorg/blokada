@@ -96,7 +96,7 @@ class AFiltersAddFileView(
             field = value
             if (value == null) text = ""
             else try {
-                text = sourceToName(context, FilterSourceUri(context, processor, value))
+                text = FilterSourceUri(context, processor, value).toUserInput()
             } catch (e: Exception) {
                 text = value.toString()
             }

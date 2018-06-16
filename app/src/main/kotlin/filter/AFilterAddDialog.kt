@@ -70,8 +70,8 @@ class AFilterAddDialog(
                 view.linkView.comment = filter.customComment ?: ""
             }
             AFiltersAddView.Tab.FILE -> {
-                val source = filter.source as FilterSourceUri
-                view.fileView.uri = source.source
+                val source = filter.source
+                view.fileView.uri = Uri.parse(source.source)
                 view.fileView.correct = true
                 view.fileView.comment = filter.customComment ?: ""
             }

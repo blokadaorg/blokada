@@ -384,10 +384,13 @@ class FiltersActor(
                         old.customComment != null && cmd.filter.customComment == null -> {
                     filters += cmd.filter.alter(
                             newCustomName = cmd.filter.customName ?: old.customName,
-                            newCustomComment = cmd.filter.customComment ?: old.customComment
+                            newCustomComment = cmd.filter.customComment ?: old.customComment,
+                            newPriority = old.priority
                     )
                 }
-                else -> filters += cmd.filter
+                else -> filters += cmd.filter.alter(
+                        newPriority = old.priority
+                )
             }
             if (!hosts.containsKey(cmd.id)) {
                 hosts += cmd.id to HostsCache(cmd.id)
