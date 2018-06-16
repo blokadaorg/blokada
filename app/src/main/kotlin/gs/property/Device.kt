@@ -89,7 +89,7 @@ fun newDeviceModule(ctx: Context): Kodein.Module {
         onReady {
             // Register various Android listeners to receive events
             task {
-//                 In a task because we are in DI and using DI can lead to stack overflow
+                // In a task because we are in DI and using DI can lead to stack overflow
                 ConnectivityReceiver.register(ctx)
                 ScreenOnReceiver.register(ctx)
                 LocaleReceiver.register(ctx)

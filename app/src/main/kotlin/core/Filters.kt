@@ -1,6 +1,9 @@
 package core
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.github.salomonbrys.kodein.*
@@ -11,11 +14,13 @@ import filter.IHostlineProcessor
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.Worker
+import gs.environment.inject
 import gs.property.IProperty
 import gs.property.newProperty
 import kotlinx.coroutines.experimental.channels.consumeEach
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.runBlocking
+import nl.komponents.kovenant.task
 
 abstract class Filters {
     abstract val changed: IProperty<Boolean>
@@ -74,6 +79,7 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
                     cmd = instance()
             )
         }
+        bind<AppInstallReceiver>() with singleton { AppInstallReceiver() }
         onReady {
             val s: Filters = instance()
             val t: Tunnel = instance()
@@ -118,6 +124,11 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
             ui.showSystemApps.doWhenChanged().then {
 //                s.filters %= s.filters()
             }
+
+            task {
+                // In a task because we are in DI and using DI can lead to stack overflow
+                AppInstallReceiver.register(ctx)
+            }
         }
     }
 }
@@ -157,3 +168,28 @@ interface IFilterSource {
     fun id(): String
 }
 
+class AppInstallReceiver : BroadcastReceiver() {
+
+    override fun onReceive(ctx: Context, intent: Intent?) {
+        task(ctx.inject().with("AppInstallReceiver").instance()) {
+            val j: Journal = ctx.inject().instance()
+            j.log("AppInstallReceiver: ping")
+            val f: Filters = ctx.inject().instance()
+            f.apps.refresh(force = true)
+        }
+    }
+
+    companion object {
+        fun register(ctx: Context) {
+            val j: Journal = ctx.inject().instance()
+            j.log("AppInstallReceiver: registering")
+            val filter = IntentFilter()
+            filter.addAction(Intent.ACTION_PACKAGE_ADDED)
+            filter.addAction(Intent.ACTION_PACKAGE_FULLY_REMOVED)
+            filter.addDataScheme("package")
+            ctx.registerReceiver(ctx.inject().instance<AppInstallReceiver>(), filter)
+        }
+
+    }
+
+}
