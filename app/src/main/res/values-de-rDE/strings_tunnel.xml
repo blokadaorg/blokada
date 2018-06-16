@@ -4,6 +4,7 @@
   <string name="tunnel_hosts_desc">Zeigt die Anzahl der konfigurierten Hosts, die von %s blockiert werden.</string>
   <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
   <string name="tunnel_hosts_count">%d hosts</string>
+  <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being updated. -->
   <string name="tunnel_dropped_count_desc">Zeigt die Gesamtzahl der bisher blockierten Hosts.</string>
   <string name="tunnel_dropped_count">%d Anzeigen blockiert</string>
 </resources>

@@ -4,6 +4,7 @@
   <string name="tunnel_hosts_desc">显示已配置被 %s 拦截主机名的数量</string>
   <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
   <string name="tunnel_hosts_count">%d 条规则</string>
+  <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being updated. -->
   <string name="tunnel_dropped_count_desc">显示迄今为止已被拦截的主机数量</string>
   <string name="tunnel_dropped_count">%d 已拦截</string>
 </resources>
