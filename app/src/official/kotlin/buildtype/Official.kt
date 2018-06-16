@@ -5,6 +5,7 @@ import android.content.Context
 import android.text.format.DateUtils
 import android.util.Log
 import com.github.salomonbrys.kodein.*
+import core.Tunnel
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.Time
@@ -28,28 +29,43 @@ fun newBuildTypeModule(ctx: Context): Kodein.Module {
             val d: Device = instance()
 
             // I assume this will happen at least once a day
-            d.screenOn.doWhenChanged().then { e.lastDailyMillis.refresh() }
+            d.screenOn.doWhenChanged().then {
+                e.lastDailyMillis.refresh()
+                e.lastActiveMillis.refresh()
+            }
 
             // This will happen when loading the app to memory
             e.lastDailyMillis.refresh()
+            e.lastActiveMillis.refresh()
         }
     }
 }
 
 abstract class Events {
     abstract val lastDailyMillis: IProperty<Long>
+    abstract val lastActiveMillis: IProperty<Long>
 }
 
 class EventsImpl(
         private val kctx: Worker,
         private val xx: Environment,
         private val time: Time = xx().instance(),
-        private val j: Journal = xx().instance()
+        private val j: Journal = xx().instance(),
+        private val t: Tunnel = xx().instance()
 ) : Events() {
     override val lastDailyMillis = newPersistedProperty(kctx, BasicPersistence(xx, "daily"), { 0L },
             refresh = {
-                j.event("daily");
+                j.event("daily")
                 time.now()
+            },
+            shouldRefresh = { !DateUtils.isToday(it) })
+
+    override val lastActiveMillis = newPersistedProperty(kctx, BasicPersistence(xx, "daily-active"), { 0L },
+            refresh = {
+                if (t.active()) {
+                    j.event("daily-active")
+                    time.now()
+                } else it
             },
             shouldRefresh = { !DateUtils.isToday(it) })
 }
