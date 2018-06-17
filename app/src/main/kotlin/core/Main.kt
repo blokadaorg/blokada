@@ -108,9 +108,9 @@ class MainApplication: Application(), KodeinAware {
         if (ProductType.isPublic()) {
             val limiter = builder.getPluginConfigurationBuilder(LimiterConfigurationBuilder::class.java)
             limiter.setEnabled(true)
-            limiter.setOverallLimit(10)
-            limiter.setStacktraceLimit(3)
-            limiter.setExceptionClassLimit(5)
+            limiter.setOverallLimit(7)
+            limiter.setStacktraceLimit(2)
+            limiter.setExceptionClassLimit(3)
             limiter.setResIgnoredCrashToast(R.string.main_report_limit)
         }
 
