@@ -176,7 +176,9 @@ class BlokadaTest {
         val cmd = FiltersActor(
                 url = { URL("http://localhost") },
                 loadFilters = { FiltersCache(setOf(blacklisted1, blacklisted2, whitelisted1)) },
-                saveFilters = {},
+                saveFilters = {_, _ -> },
+                loadFiltersPath = { null },
+                saveFiltersPath = {},
                 loadHosts = { savedHosts() },
                 saveHosts = {},
                 downloadFilters = { emptySet() },
@@ -300,7 +302,9 @@ class BlokadaTest {
         val cmd = FiltersActor(
                 url = { URL("http://localhost") },
                 loadFilters = { FiltersCache() },
-                saveFilters = {},
+                saveFilters = { _, _ -> },
+                loadFiltersPath = { null },
+                saveFiltersPath = {},
                 loadHosts = { emptySet() },
                 saveHosts = {},
                 downloadFilters = { setOf(blacklisted1, blacklisted2) },
