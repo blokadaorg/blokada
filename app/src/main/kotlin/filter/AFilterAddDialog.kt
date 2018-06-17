@@ -237,5 +237,5 @@ internal fun sourceToName(ctx: android.content.Context, source: FilterSourceDesc
         else -> null
     }
 
-    return name ?: source.toString()
+    return name ?: source.source
 }

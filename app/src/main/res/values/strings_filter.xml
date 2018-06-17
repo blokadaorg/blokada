@@ -74,7 +74,7 @@
     <string name="filter_generate_export">Import / Export</string>
 
     <!-- A button to open directory chooser to export settings to. -->
-    <string name="filter_export_select">Select where settings should be saved</string>
+    <string name="filter_export_select">Select where settings should be saved to</string>
     <string name="filter_export_error">Selected directory cannot be used. Check write permissions.</string>
     <string name="filter_export_import">Import from external storage</string>
     <string name="filter_export_import2">Import now</string>
