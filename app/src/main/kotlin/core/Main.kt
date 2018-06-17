@@ -77,7 +77,7 @@ class MainApplication: Application(), KodeinAware {
         super.attachBaseContext(base)
         val builder = CoreConfigurationBuilder(this)
         builder.setBuildConfigClass(BuildConfig::class.java).setReportFormat(StringFormat.JSON)
-        builder.setLogcatArguments("-t", "300", "-v", "threadtime")
+        builder.setLogcatArguments("-t", "600", "-v", "threadtime")
         builder.setReportContent(
                 ReportField.INSTALLATION_ID,
                 ReportField.USER_COMMENT,
