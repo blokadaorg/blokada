@@ -286,13 +286,13 @@ class FiltersActor(
             InvalidateAllFiltersCache::class to ::invalidateAllFiltersCache
     )}
 
-    var filtersPath: String? = null
-    var filters = FiltersCache(fetchTimeMillis = 0)
-    var hosts = mapOf<FilterId, HostsCache>()
-    var combinedHosts = emptySet<String>()
+    private var filtersPath: String? = null
+    private var filters = FiltersCache(fetchTimeMillis = 0)
+    private var hosts = mapOf<FilterId, HostsCache>()
+    private var combinedHosts = emptySet<String>()
 
 
-    val getActiveFiltersCache = { whitelist: Boolean? ->
+    private val getActiveFiltersCache = { whitelist: Boolean? ->
         filters.cache.filter {
             it.active &&
                     (whitelist == null || it.whitelist == whitelist)
@@ -301,20 +301,28 @@ class FiltersActor(
         }.filterNotNull()
     }
 
-    val selectInvalidCache = { hosts: List<HostsCache> ->
+    private val selectInvalidCache = { hosts: List<HostsCache> ->
         hosts.filter { !isCacheValid(it) }
     }
 
-    val combineCache = {
+    private val combineCache = {
         v("combining cache")
         combinedHosts = getActiveFiltersCache(false).flatMap { it.cache }.minus(
                 getActiveFiltersCache(true).flatMap { it.cache }
         ).toSet()
     }
 
+    private val cleansePriority = {
+        val cache = filters.cache
+        cache.toList().sortedBy { it.priority }.mapIndexed { index, filter ->
+            filter.alter(newPriority = index) }
+        filters = FiltersCache(cache, filters.fetchTimeMillis, filters.url)
+    }
+
     private fun load(cmd: Cmd) = runBlocking {
         filtersPath = loadFiltersPath()
         filters = loadFilters(filtersPath)
+        cleansePriority()
         v("loaded persistence", filtersPath ?: "default filters path")
 
         hosts = emptyMap()
@@ -364,6 +372,7 @@ class FiltersActor(
                 }.plus(builtinFilters.minus(filters.cache))
             }
             filters = FiltersCache(newFilters.toSet(), url = url().toExternalForm())
+            cleansePriority()
             filters.cache.filter { !hosts.containsKey(it.id) }.forEach {
                 hosts += it.id to HostsCache(it.id)
             }

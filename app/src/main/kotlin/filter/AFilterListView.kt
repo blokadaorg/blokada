@@ -75,7 +75,7 @@ class AFilterListView(
                 it.whitelist == true && it.hidden == false
                         && (ui.showSystemApps()
                         || !(f.apps().firstOrNull { app -> app.appId == it.source.source }?.system ?: false))
-            }
+            }.toList().sortedBy { it.priority }
         } else {
             filters = allFilters.filter { !it.whitelist && !it.hidden }.toList().sortedBy { it.priority }
         }
