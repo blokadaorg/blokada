@@ -4,26 +4,68 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
-import android.view.WindowManager
+import android.view.*
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.ComponentProvider
+import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.inject
+import gs.presentation.CallbackDash
+import gs.presentation.SimpleDialog
 import org.blokada.R
 
+class ExportDash(
+        private val xx: Environment
+) : CallbackDash {
+
+    override fun createView(ctx: Context, parent: ViewGroup): View {
+        val themedContext = ContextThemeWrapper(ctx, R.style.GsTheme_Dialog)
+        return LayoutInflater.from(themedContext).inflate(R.layout.view_export, parent, false)
+    }
+
+    override fun attach(view: View) {
+        view as FiltersExportView
+    }
+
+    override fun detach(view: View) {
+        (view.parent as ViewGroup).removeView(view)
+        detached()
+        detached = {}
+        attached = {}
+    }
+
+    private var attached: () -> Unit = {}
+    private var detached: () -> Unit = {}
+
+    override fun onAttached(attached: () -> Unit) {
+        this.attached = attached
+    }
+
+    override fun onDetached(detached: () -> Unit) {
+        this.detached = detached
+    }
+
+}
+
 class AFilterGenerateDialog(
-        private val ctx: Context,
-        private val s: Filters,
-        private val cmd: Commands,
-        private val sourceProvider: DefaultSourceProvider,
-        private val whitelist: Boolean
+        private val xx: Environment,
+        private val ctx: Context = xx().instance(),
+        private val s: Filters = xx().instance(),
+        private val cmd: Commands = xx().instance(),
+        private val sourceProvider: DefaultSourceProvider = xx().instance(),
+        private val whitelist: Boolean = false
 ) {
 
     private val activity by lazy { ctx.inject().instance<ComponentProvider<Activity>>().get() }
     private val j by lazy { ctx.inject().instance<Journal>() }
     private val dialog: AlertDialog
     private var which: Int = 0
+
+    private val dialogExport by lazy {
+        val dash = ExportDash(xx)
+        SimpleDialog(xx, dash)
+    }
 
     init {
         val d = AlertDialog.Builder(activity)
@@ -32,6 +74,7 @@ class AFilterGenerateDialog(
             arrayOf(
                     ctx.getString(R.string.filter_generate_refetch),
                     ctx.getString(R.string.filter_generate_defaults),
+                    ctx.getString(R.string.filter_generate_export),
                     ctx.getString(R.string.filter_generate_whitelist_system),
                     ctx.getString(R.string.filter_generate_whitelist_system_disabled),
                     ctx.getString(R.string.filter_generate_whitelist_all),
@@ -40,7 +83,8 @@ class AFilterGenerateDialog(
         } else {
             arrayOf(
                     ctx.getString(R.string.filter_generate_refetch),
-                    ctx.getString(R.string.filter_generate_defaults)
+                    ctx.getString(R.string.filter_generate_defaults),
+                    ctx.getString(R.string.filter_generate_export)
             )
         }
         d.setSingleChoiceItems(options, which, object : DialogInterface.OnClickListener {
@@ -83,14 +127,22 @@ class AFilterGenerateDialog(
                 cmd.send(SyncHostsCache())
                 cmd.send(SaveFilters())
             }
-            2, 3, 4, 5 -> {
+            2 -> {
+                dialogExport.onClosed = { accept ->
+                    cmd.send(SyncFilters())
+                    cmd.send(SyncHostsCache())
+                    cmd.send(SaveFilters())
+                }
+                dialogExport.show()
+            }
+            3, 4, 5, 6 -> {
                 if (s.apps().isEmpty()) s.apps.refresh(blocking = true)
-                s.apps().filter { which in listOf(4, 5) || it.system }
+                s.apps().filter { which in listOf(5, 6) || it.system }
                         .map { it.appId }.map { app ->
                             Filter(
                                     id = id(app, whitelist = true),
                                     source = FilterSourceDescriptor("app", app),
-                                    active = which in listOf(2, 4),
+                                    active = which in listOf(3, 5),
                                     whitelist = true
                             )
                         }.forEach { cmd.send(UpdateFilter(it.id, it)) }

@@ -69,4 +69,15 @@
     <string name="filter_generate_defaults">Restore defaults (blacklist &amp; whitelist)</string>
     <!-- Forcefully refetch filters ignoring cache. -->
     <string name="filter_generate_refetch">Refresh filters</string>
+
+    <!-- Select save location for filters  -->
+    <string name="filter_generate_export">Import / Export</string>
+
+    <!-- A button to open directory chooser to export settings to. -->
+    <string name="filter_export_select">Select where settings should be saved</string>
+    <string name="filter_export_error">Selected directory cannot be used. Check write permissions.</string>
+    <string name="filter_export_import">Import from external storage</string>
+    <string name="filter_export_import2">Import now</string>
+    <string name="filter_export_internal">Internal storage (default)</string>
+    <string name="filter_export_external">External storage</string>
 </resources>

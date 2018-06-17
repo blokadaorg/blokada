@@ -64,19 +64,13 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
             AFilterAddDialog(ctx, sourceProvider = instance())
         }
         bind<AFilterGenerateDialog>(true) with provider {
-            AFilterGenerateDialog(ctx,
-                    s = instance(),
-                    sourceProvider = instance(),
-                    whitelist = true,
-                    cmd = instance()
+            AFilterGenerateDialog(lazy,
+                    whitelist = true
             )
         }
         bind<AFilterGenerateDialog>(false) with provider {
-            AFilterGenerateDialog(ctx,
-                    s = instance(),
-                    sourceProvider = instance(),
-                    whitelist = false,
-                    cmd = instance()
+            AFilterGenerateDialog(lazy,
+                    whitelist = false
             )
         }
         bind<AppInstallReceiver>() with singleton { AppInstallReceiver() }

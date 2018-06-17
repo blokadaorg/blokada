@@ -122,7 +122,7 @@ class Commands(
     private fun decide(cmd: Cmd): SendChannel<Cmd> {
         return when (cmd) {
             is LoadFilters, is SaveFilters, is UpdateFilter, is SyncFilters, is SyncHostsCache,
-                    is DeleteAllFilters, is InvalidateAllFiltersCache -> filters
+                    is DeleteAllFilters, is InvalidateAllFiltersCache, is SetFiltersPath -> filters
             is SyncTranslations -> loc
             else -> throw Exception("unknown command $cmd")
         }
@@ -201,6 +201,7 @@ data class FiltersCache(
 
 class LoadFilters : Cmd()
 class SaveFilters : Cmd()
+class SetFiltersPath(val path: String?) : Cmd()
 class SyncFilters : Cmd()
 class SyncHostsCache : Cmd()
 class MonitorHostsCache : Monitor<Set<String>>()
@@ -221,9 +222,15 @@ fun silent(exec: () -> Unit) {
 class FiltersActor(
         val url: () -> URL,
         val legacyCache: () -> List<String> = { emptyList() },
-        val loadFilters: () -> FiltersCache = {
+        val loadFiltersPath: () -> String? = { Paper.book().read("filters-path") },
+        val saveFiltersPath: (String?) -> Unit = {
+            if (it != null) Paper.book().write("filters-path", it)
+            else Paper.book().delete("filters-path")
+        },
+        val loadFilters: (String?) -> FiltersCache = { path ->
             // First, check legacy persistence and see if it contains anything
             try {
+                if (path != null) throw Exception("path set, skip legacy")
                 val leg = legacyCache()
                 val old = FilterSerializer().deserialise(leg)
                 if (old.isNotEmpty()) {
@@ -234,10 +241,14 @@ class FiltersActor(
             } catch (e: Exception) {
                 // No legacy. Use the new and fancy.
                 v("loading from the new persistence")
-                Paper.book().read<FiltersCache>("filters2", FiltersCache(fetchTimeMillis = 0))
+                val book = if (path != null) Paper.bookOn(path) else Paper.book()
+                book.read<FiltersCache>("filters2", FiltersCache(fetchTimeMillis = 0))
             }
         },
-        val saveFilters: (FiltersCache) -> Unit = { Paper.book().write("filters2", it) },
+        val saveFilters: (FiltersCache, String?) -> Unit = { cache, path ->
+            val book = if (path != null) Paper.bookOn(path) else Paper.book()
+            book.write("filters2", cache)
+        },
         val loadHosts: () -> Set<HostsCache> = { Paper.book().read<Set<HostsCache>>("hosts2", emptySet()) },
         val saveHosts: (Set<HostsCache>) -> Unit = { Paper.book().write("hosts2", it) },
         val downloadFilters: () -> Set<Filter> = { runBlocking {
@@ -267,6 +278,7 @@ class FiltersActor(
     override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> { return mapOf(
             LoadFilters::class to ::load,
             SaveFilters::class to ::save,
+            SetFiltersPath::class to ::setFiltersPath,
             SyncFilters::class to ::syncFilters,
             SyncHostsCache::class to ::syncHostsCache,
             UpdateFilter::class to ::updateFilter,
@@ -274,6 +286,7 @@ class FiltersActor(
             InvalidateAllFiltersCache::class to ::invalidateAllFiltersCache
     )}
 
+    var filtersPath: String? = null
     var filters = FiltersCache(fetchTimeMillis = 0)
     var hosts = mapOf<FilterId, HostsCache>()
     var combinedHosts = emptySet<String>()
@@ -300,8 +313,9 @@ class FiltersActor(
     }
 
     private fun load(cmd: Cmd) = runBlocking {
-        filters = loadFilters()
-        v("loaded persistence")
+        filtersPath = loadFiltersPath()
+        filters = loadFilters(filtersPath)
+        v("loaded persistence", filtersPath ?: "default filters path")
 
         hosts = emptyMap()
         loadHosts().forEach { hosts += it.id to it }
@@ -317,8 +331,15 @@ class FiltersActor(
     }
 
     private fun save(cmd: Cmd) {
-        saveFilters(FiltersCache(filters.cache, url = filters.url))
+        saveFilters(FiltersCache(filters.cache, url = filters.url), filtersPath)
         saveHosts(hosts.values.toSet())
+    }
+
+    private fun setFiltersPath(cmd: Cmd) {
+        cmd as SetFiltersPath
+        filtersPath = cmd.path
+        saveFiltersPath(filtersPath)
+        v(cmd, filtersPath ?: "default filters path")
     }
 
     private fun syncFilters(cmd: Cmd) = runBlocking {
