@@ -394,13 +394,18 @@ class FiltersActor(
 
     fun updateFilter(cmd: Cmd) = runBlocking {
         cmd as UpdateFilter
-        if (cmd.filter == null) filters -= filters.cache.first { it.id == cmd.id }
+        if (cmd.filter == null) {
+            filters -= filters.cache.first { it.id == cmd.id }
+            v(cmd, "removing filter", cmd.id)
+        }
         else {
             val old = filters.cache.firstOrNull { it.id == cmd.id }
             when {
-                old == null -> filters += cmd.filter.alter(
-                        newPriority = filters.cache.map { it.priority }.sorted().last() + 1
-                )
+                old == null -> {
+                    val priority = filters.cache.map { it.priority }.sorted().last() + 1
+                    filters += cmd.filter.alter(newPriority = priority)
+                    v(cmd, "adding new filter", cmd.id, priority)
+                }
                 old.customName != null && cmd.filter.customName == null ||
                         old.customComment != null && cmd.filter.customComment == null -> {
                     filters += cmd.filter.alter(
@@ -408,10 +413,12 @@ class FiltersActor(
                             newCustomComment = cmd.filter.customComment ?: old.customComment,
                             newPriority = old.priority
                     )
+                    v(cmd, "updating filter", cmd.id, old.priority, "preserving name/comment")
                 }
-                else -> filters += cmd.filter.alter(
-                        newPriority = old.priority
-                )
+                else -> {
+                    filters += cmd.filter.alter(newPriority = old.priority)
+                    v(cmd, "updating filter", cmd.id, old.priority)
+                }
             }
             if (!hosts.containsKey(cmd.id)) {
                 hosts += cmd.id to HostsCache(cmd.id)
