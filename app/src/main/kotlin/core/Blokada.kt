@@ -321,9 +321,17 @@ class FiltersActor(
 
     private fun load(cmd: Cmd) = runBlocking {
         filtersPath = loadFiltersPath()
-        filters = loadFilters(filtersPath)
+
+        try {
+            filters = loadFilters(filtersPath)
+        } catch (e: Exception) {
+            w(cmd, "cannot load persistence, will reset path", filtersPath ?: "default filters path")
+            filtersPath = null
+            filters = loadFilters(filtersPath)
+        }
+
         cleansePriority()
-        v("loaded persistence", filtersPath ?: "default filters path")
+        v(cmd, "loaded persistence", filtersPath ?: "default filters path")
 
         hosts = emptyMap()
         loadHosts().forEach { hosts += it.id to it }
@@ -331,7 +339,7 @@ class FiltersActor(
             hosts += it.id to HostsCache(it.id)
         }
 
-        v("updated memory, notifying monitors")
+        v(cmd, "updated memory, notifying monitors")
         filtersSync.send(filters.cache)
         combineCache()
         cacheSync.send(combinedHosts)
@@ -339,7 +347,13 @@ class FiltersActor(
     }
 
     private fun save(cmd: Cmd) {
-        saveFilters(FiltersCache(filters.cache, url = filters.url), filtersPath)
+        try {
+            saveFilters(FiltersCache(filters.cache, url = filters.url), filtersPath)
+        } catch (e: Exception) {
+            w(cmd, "cannot save persistence, will reset path", filtersPath ?: "default filters path")
+            filtersPath = null
+            saveFilters(FiltersCache(filters.cache, url = filters.url), filtersPath)
+        }
         saveHosts(hosts.values.toSet())
     }
 

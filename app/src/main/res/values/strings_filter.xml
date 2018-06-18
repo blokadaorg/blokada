@@ -80,4 +80,5 @@
     <string name="filter_export_import2">Import now</string>
     <string name="filter_export_internal">Internal storage (default)</string>
     <string name="filter_export_external">External storage</string>
+    <string name="filter_export_external_info">Note: your choice applies to both blacklist and whitelist. Make sure you have granted external storage permissions for Blokada (in system settings), otherwise internal storage will be used despite your choice. If you are importing existing settings, tap Import Now before closing this window, or they will be overwritten.</string>
 </resources>
