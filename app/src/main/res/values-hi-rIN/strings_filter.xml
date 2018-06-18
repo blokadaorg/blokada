@@ -58,4 +58,6 @@
   <string name="filter_generate_defaults">पूर्वनिर्धारित पुनर्स्थापित करें (blacklist &amp; whitelist)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">फ़िल्टर्स ताज़ा करें</string>
+  <!-- Select save location for filters  -->
+  <!-- A button to open directory chooser to export settings to. -->
 </resources>

@@ -58,4 +58,6 @@
   <string name="filter_generate_defaults">Standaard waarden herstellen (zwarte lijst en witte lijst)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Ververs filters</string>
+  <!-- Select save location for filters  -->
+  <!-- A button to open directory chooser to export settings to. -->
 </resources>

@@ -62,4 +62,13 @@
   <string name="filter_generate_defaults">Gjenopprett standardinnstillinger (svarteliste &amp; hviteliste)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Oppdater filtre</string>
+  <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Import / Eksport</string>
+  <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Velg hvor innstillingene skal lagres til</string>
+  <string name="filter_export_error">Valgt katalog kan ikke brukes. Kontroller skriverettighetene.</string>
+  <string name="filter_export_import">Importer fra ekstern lagring</string>
+  <string name="filter_export_import2">Importer nå</string>
+  <string name="filter_export_internal">Intern lagring (standard)</string>
+  <string name="filter_export_external">Ekstern lagring</string>
 </resources>

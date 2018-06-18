@@ -23,4 +23,6 @@
   <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
   <!-- Deletes all filters and fetches default ones. -->
   <!-- Forcefully refetch filters ignoring cache. -->
+  <!-- Select save location for filters  -->
+  <!-- A button to open directory chooser to export settings to. -->
 </resources>

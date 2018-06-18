@@ -61,4 +61,13 @@
   <string name="filter_generate_defaults">Ripristina predefinite (blacklist e whitelist)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Aggiorna filtri</string>
+  <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Importa / Esporta</string>
+  <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Seleziona dove salvare le impostazioni</string>
+  <string name="filter_export_error">La directory selezionata non può essere utilizzata. Controlla i permessi di scrittura.</string>
+  <string name="filter_export_import">Importa da memoria esterna</string>
+  <string name="filter_export_import2">Importa adesso</string>
+  <string name="filter_export_internal">Memoria interna (predefinita)</string>
+  <string name="filter_export_external">Memoria esterna</string>
 </resources>

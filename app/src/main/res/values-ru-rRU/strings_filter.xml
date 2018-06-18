@@ -62,4 +62,13 @@
   <string name="filter_generate_defaults">Восстановить значения по умолчанию (черный и белый списки)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Обновить фильтры</string>
+  <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Импорт / Экспорт</string>
+  <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Выберите место сохранения настроек</string>
+  <string name="filter_export_error">Нельзя использовать выбранную папку. Проверьте разрешения на запись.</string>
+  <string name="filter_export_import">Импорт из внешнего хранилища</string>
+  <string name="filter_export_import2">Импортировать сейчас</string>
+  <string name="filter_export_internal">Внутреннее хранилище (по умолчанию)</string>
+  <string name="filter_export_external">Внешнее хранилище</string>
 </resources>

@@ -58,4 +58,13 @@
   <string name="filter_generate_defaults">Restaurar padrões (lista negra &amp; lista branca)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Atualizar filtros</string>
+  <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Importar / Exportar</string>
+  <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Selecione onde as configurações devem ser salvas</string>
+  <string name="filter_export_error">Diretório selecionado não pode ser usado. Verifique as permissões de gravação.</string>
+  <string name="filter_export_import">Importar de armazenamento externo</string>
+  <string name="filter_export_import2">Importar agora</string>
+  <string name="filter_export_internal">Armazenamento interno (padrão)</string>
+  <string name="filter_export_external">Armazenamento externo</string>
 </resources>

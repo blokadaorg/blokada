@@ -62,4 +62,6 @@
   <string name="filter_generate_defaults">Restaurer les valeurs par défaut  (listes blanches et noires)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Actualiser les filtres</string>
+  <!-- Select save location for filters  -->
+  <!-- A button to open directory chooser to export settings to. -->
 </resources>

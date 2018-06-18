@@ -59,4 +59,6 @@
   <string name="filter_generate_defaults">重設成預設值(白名單和黑名單)</string>
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">重新整理過濾器</string>
+  <!-- Select save location for filters  -->
+  <!-- A button to open directory chooser to export settings to. -->
 </resources>
