@@ -184,6 +184,12 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 cmd.send(SyncHostsCache())
             }
 
+            val i18n: I18n = instance()
+            i18n.locale.doWhenChanged().then {
+                j.log("refresh filters from locale change")
+                cmd.send(SyncTranslations())
+            }
+
             // This will fetch repo unless already cached
             repo.url %= "https://blokada.org/api/v3/${BuildConfig.FLAVOR}/${BuildConfig.BUILD_TYPE}/repo.txt"
         }
