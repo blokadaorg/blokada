@@ -526,25 +526,25 @@ class LocalisationActor(
         val load: () -> TranslationsCacheInfo = { Paper.book().read("translationsCacheInfo", TranslationsCacheInfo()) },
         val save: (TranslationsCacheInfo) -> Unit = { Paper.book().write("translationsCacheInfo", it) },
         val cacheValid: (TranslationsCacheInfo, URL) -> Boolean = { _, _ -> false },
-        val downloadTranslations: (Map<URL, Prefix>) -> ReceiveChannel<Pair<URL, List<Pair<Key, Translation>>>> = { urls ->
-            produce {
-                var jobs: Set<Job> = emptySet()
+        val downloadTranslations: (Map<URL, Prefix>) -> Deferred<List<Pair<URL, List<Pair<Key, Translation>>>>> = { urls ->
+            async {
+                val result = mutableListOf<Pair<URL, List<Pair<Key, Translation>>>>()
                 urls.forEach { (url, prefix) ->
-                    jobs += launch {
-                        try {
-                            val prop = Properties()
-                            prop.load(InputStreamReader(
-                                    openUrl(url, 10 * 1000), Charset.forName("UTF-8")))
-                            val res = url to prop.stringPropertyNames().map { key ->
-                                "${prefix}_$key" to prop.getProperty(key) }
-                            send(res)
-                        } catch (e: Exception) {
-                            e("fail fetch localisation", e)
-                            send(url to emptyList())
-                        }
+                    try {
+                        v("start fetch localisation", url)
+                        val prop = Properties()
+                        prop.load(InputStreamReader(
+                                openUrl(url, 10 * 1000), Charset.forName("UTF-8")))
+                        val res = url to prop.stringPropertyNames().map { key ->
+                            "${prefix}_$key" to prop.getProperty(key) }
+                        v("send fetch localisation", url)
+                        result.add(res)
+                    } catch (e: Exception) {
+                        e("fail fetch localisation", e)
+                        result.add(url to emptyList())
                     }
                 }
-                jobs.forEach { it.join() }
+                result
             }
         },
         val setI18n: (key: String, value: String) -> Unit = { _, _ -> }
@@ -560,7 +560,7 @@ class LocalisationActor(
         info = load()
         v("loaded persistence")
         val invalid = urls().filter { !cacheValid(info, it.key) }
-        downloadTranslations(invalid).consumeEach {
+        downloadTranslations(invalid).await().forEach {
             val (url, result) = it
             if (result.isNotEmpty()) {
                 result.forEach { translation ->

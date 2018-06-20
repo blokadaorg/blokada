@@ -4,7 +4,6 @@ import filter.FilterSourceDescriptor
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.channels.BroadcastChannel
 import kotlinx.coroutines.experimental.channels.Channel
-import kotlinx.coroutines.experimental.channels.produce
 import org.junit.Assert.*
 import org.junit.Test
 import java.net.URL
@@ -331,8 +330,8 @@ class BlokadaTest {
                 load = { v("loaded"); TranslationsCacheInfo() },
                 save = {},
                 downloadTranslations = { urls ->
-                    produce {
-                        send(URL("http://localhost") to listOf("fixture_test1" to "value1"))
+                    async {
+                        listOf(URL("http://localhost") to listOf("fixture_test1" to "value1"))
                     }
                 },
                 setI18n = { key, value ->
