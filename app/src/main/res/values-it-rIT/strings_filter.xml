@@ -70,4 +70,5 @@
   <string name="filter_export_import2">Importa adesso</string>
   <string name="filter_export_internal">Memoria interna (predefinita)</string>
   <string name="filter_export_external">Memoria esterna</string>
+  <string name="filter_export_external_info">Attenzione: la tua scelta si applica sia alla blacklist che alla whitelist. Assicurati di aver garantito a Blokada l\'autorizzazione ad accedere alla memoria esterna (nelle impostazioni di sistema), altrimenti verrà utilizzata la memoria interna, quale che sia la tua scelta. Se stai importando le impostazioni attuali, seleziona Importa Adesso prima di chiudere questa finestra, altrimenti queste verranno sovrascritte.</string>
 </resources>

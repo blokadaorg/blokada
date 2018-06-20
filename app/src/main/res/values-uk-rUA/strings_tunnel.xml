@@ -5,6 +5,7 @@
   <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
   <string name="tunnel_hosts_count">%d хостів</string>
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being updated. -->
+  <string name="tunnel_hosts_updating">Оновлюється...</string>
   <string name="tunnel_dropped_count_desc">Показує кількість заблокованих хостів загалом.</string>
   <string name="tunnel_dropped_count">%d заблоковано</string>
 </resources>

@@ -59,5 +59,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Оновити фільтри</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Імпорт та експорт</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Виберіть, де зберегти параметри</string>
+  <string name="filter_export_error">Не вдалося записати у обрану теку! Перевірте права доступу.</string>
+  <string name="filter_export_import">Імпорт із зовнішнього сховища</string>
+  <string name="filter_export_import2">Імпортувати зараз</string>
+  <string name="filter_export_internal">Внутрішня пам\'ять (типово)</string>
+  <string name="filter_export_external">Зовнішня пам\'ять</string>
+  <string name="filter_export_external_info">Зауваження: ваш вибір застосовується одночасно до чорного та білого списків. Впевніться, що ви надали Blokada дозвіл на доступ до зовнішнього сховища (у налаштуваннях системи), інакше буде використовуватися внутрішнє сховище, не зважаючи на налаштування. Якщо ви імпортуєте наявні налаштування, натисніть Імпорт перед тим, як закрити це вікно, інакше вони будуть перезаписані.</string>
 </resources>

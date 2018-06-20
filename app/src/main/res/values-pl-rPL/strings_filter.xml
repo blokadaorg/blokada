@@ -62,5 +62,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Odśwież filtry</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Import / Eksport</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Wybierz gdzie zapisywać ustawienia</string>
+  <string name="filter_export_error">Nie można zapisać do tej lokalizacji. Sprawdź uprawnienia zapisu.</string>
+  <string name="filter_export_import">Import z pamięci zewnętrznej</string>
+  <string name="filter_export_import2">Importuj teraz</string>
+  <string name="filter_export_internal">Pamięć wewnętrzna (domyślne)</string>
+  <string name="filter_export_external">Pamięć zewnętrzna</string>
+  <string name="filter_export_external_info">Informacje: Twój wybór ma zastosowanie do czarnej listy jak i białej listy. Upewnij się, że udzieliłeś uprawnień do zewnętrznej pamięci dla Blokady (w ustawieniach systemowych), w przeciwnym razie pamięć wewnętrzna będzie używana mimo twojego wyboru. Jeśli importujesz poprzednie ustawienia, tapnij Importuj Teraz przed zamknięciem tego okienka, inaczej zostaną one nadpisane.</string>
 </resources>

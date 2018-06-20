@@ -71,4 +71,5 @@
   <string name="filter_export_import2">Importar ahora</string>
   <string name="filter_export_internal">Almacenamiento interno (predeterminado)</string>
   <string name="filter_export_external">Almacenamiento externo</string>
+  <string name="filter_export_external_info">Nota: tu elección se aplica tanto a la lista negra como a la blanca. Asegúrate de que has concedido permisos de almacenamiento externo a Blokada (en la configuración del sistema), si no, el almacenamiento interno se utilizará a pesar de tu elección. Si estás importando configuraciones existentes, toca Importar antes de cerrar esta ventana, o se sobrescribirán.</string>
 </resources>

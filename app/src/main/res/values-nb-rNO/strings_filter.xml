@@ -71,4 +71,5 @@
   <string name="filter_export_import2">Importer nå</string>
   <string name="filter_export_internal">Intern lagring (standard)</string>
   <string name="filter_export_external">Ekstern lagring</string>
+  <string name="filter_export_external_info">Merk: ditt valg gjelder både svartelisten og hvitelisten. Pass på at du har gitt eksterne lagringsrettigheter for Blokada (i systeminnstillingene), ellers vil intern lagring bli brukt til tross for ditt valg. Hvis du importerer eksisterende innstillinger, klikker du på Importer nå før du lukker dette vinduet, eller de blir overskrevet.</string>
 </resources>

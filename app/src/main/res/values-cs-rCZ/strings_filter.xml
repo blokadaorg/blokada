@@ -63,5 +63,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Obnovit filtry</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Import / Export</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Zvolte, kam chcete vaše nastavení uložit</string>
+  <string name="filter_export_error">Vybraný adresář nelze použít. Zkontrolujte oprávnění pro zápis.</string>
+  <string name="filter_export_import">Import z externího úložiště</string>
+  <string name="filter_export_import2">Importovat nyní</string>
+  <string name="filter_export_internal">Interní úložiště (výchozí)</string>
+  <string name="filter_export_external">Externí úložiště</string>
+  <string name="filter_export_external_info">Poznámka: vaše volba platí jak pro černou listinu, tak pro seznam povolených položek. Ujistěte se, že jste pro Blokadu (v systémových nastaveních) udělili oprávnění pro ukládání dat do externího úložiště, jinak se bude i nadále používat interní úložiště. Pokud importujete stávající nastavení, klepnutím na \"Importovat\" nyní zavřete toto okno nebo dojde k přepsání.</string>
 </resources>

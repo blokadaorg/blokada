@@ -60,5 +60,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">重新整理過濾器</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">匯入／匯出</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">選取設應該儲存到哪裡</string>
+  <string name="filter_export_error">選定的目錄無法使用。請檢查寫入權限。</string>
+  <string name="filter_export_import">從外部儲存空間匯入</string>
+  <string name="filter_export_import2">現在匯入</string>
+  <string name="filter_export_internal">內建儲存空間（預設）</string>
+  <string name="filter_export_external">外部儲存空間</string>
+  <string name="filter_export_external_info">注意：您的選擇會同時套用到黑名單與白名單。請確定您已經給予 Blokada 存取外部儲存空間的權限（在系統設定中），否則將會使用內部儲存空間。如果您匯入既有的設定，在關閉此視窗前輕點現在匯入，不然其將會被覆寫。</string>
 </resources>

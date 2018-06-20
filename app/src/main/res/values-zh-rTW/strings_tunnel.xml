@@ -5,6 +5,7 @@
   <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
   <string name="tunnel_hosts_count">%d 主機</string>
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being updated. -->
+  <string name="tunnel_hosts_updating">更新中...</string>
   <string name="tunnel_dropped_count_desc">顯示迄今阻擋的主機總數。</string>
   <string name="tunnel_dropped_count">%d 已阻擋</string>
 </resources>
