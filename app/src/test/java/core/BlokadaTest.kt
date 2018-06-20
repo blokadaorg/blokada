@@ -330,9 +330,7 @@ class BlokadaTest {
                 load = { v("loaded"); TranslationsCacheInfo() },
                 save = {},
                 downloadTranslations = { urls ->
-                    async {
-                        listOf(URL("http://localhost") to listOf("fixture_test1" to "value1"))
-                    }
+                    listOf(URL("http://localhost") to listOf("fixture_test1" to "value1"))
                 },
                 setI18n = { key, value ->
                     if (key != "fixture_test1") fail("unexpected key")

@@ -526,26 +526,24 @@ class LocalisationActor(
         val load: () -> TranslationsCacheInfo = { Paper.book().read("translationsCacheInfo", TranslationsCacheInfo()) },
         val save: (TranslationsCacheInfo) -> Unit = { Paper.book().write("translationsCacheInfo", it) },
         val cacheValid: (TranslationsCacheInfo, URL) -> Boolean = { _, _ -> false },
-        val downloadTranslations: (Map<URL, Prefix>) -> Deferred<List<Pair<URL, List<Pair<Key, Translation>>>>> = { urls ->
-            async {
-                val result = mutableListOf<Pair<URL, List<Pair<Key, Translation>>>>()
-                urls.forEach { (url, prefix) ->
-                    try {
-                        v("start fetch localisation", url)
-                        val prop = Properties()
-                        prop.load(InputStreamReader(
-                                openUrl(url, 10 * 1000), Charset.forName("UTF-8")))
-                        val res = url to prop.stringPropertyNames().map { key ->
-                            "${prefix}_$key" to prop.getProperty(key) }
-                        v("send fetch localisation", url)
-                        result.add(res)
-                    } catch (e: Exception) {
-                        e("fail fetch localisation", e)
-                        result.add(url to emptyList())
-                    }
+        val downloadTranslations: (Map<URL, Prefix>) -> List<Pair<URL, List<Pair<Key, Translation>>>> = { urls ->
+            val result = mutableListOf<Pair<URL, List<Pair<Key, Translation>>>>()
+            urls.forEach { (url, prefix) ->
+                try {
+                    v("start fetch localisation", url)
+                    val prop = Properties()
+                    prop.load(InputStreamReader(
+                            openUrl(url, 10 * 1000), Charset.forName("UTF-8")))
+                    val res = url to prop.stringPropertyNames().map { key ->
+                        "${prefix}_$key" to prop.getProperty(key) }
+                    v("send fetch localisation", url)
+                    result.add(res)
+                } catch (e: Exception) {
+                    e("fail fetch localisation", e)
+                    result.add(url to emptyList())
                 }
-                result
             }
+            result
         },
         val setI18n: (key: String, value: String) -> Unit = { _, _ -> }
 ): CommandsActor() {
@@ -558,9 +556,10 @@ class LocalisationActor(
 
     private fun sync(cmd: Cmd) = runBlocking {
         info = load()
-        v("loaded persistence")
+        v(cmd, "loaded persistence")
         val invalid = urls().filter { !cacheValid(info, it.key) }
-        downloadTranslations(invalid).await().forEach {
+        v(cmd, "localisations to download", invalid.size)
+        downloadTranslations(invalid).forEach {
             val (url, result) = it
             if (result.isNotEmpty()) {
                 result.forEach { translation ->
@@ -569,9 +568,9 @@ class LocalisationActor(
                 info = info.put(url)
             }
         }
-        v("downloaded all translations")
+        v(cmd, "downloaded all translations")
         save(info)
-        v("saved persistence")
+        v(cmd, "saved persistence")
     }
 }
 
