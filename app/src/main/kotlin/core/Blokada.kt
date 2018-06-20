@@ -406,7 +406,7 @@ class FiltersActor(
                 null
             }
         })
-        d.consumeEach {
+        d().forEach {
             hosts += it.id to HostsCache(it.id, it.cache)
         }
 
@@ -459,23 +459,21 @@ class FiltersActor(
         hosts = emptyMap()
     }
 
-    private fun download(filters: List<Pair<HostsCache, IFilterSource>>) = produce {
-        var jobs = emptyList<Job>()
+    private fun download(filters: List<Pair<HostsCache, IFilterSource>>) = {
+        val result = mutableListOf<HostsCache>()
         filters.forEach {
-            jobs += launch {
-                val id = it.first.id
-                val source = it.second
-                try {
-                    v("download filters: processing", id)
-                    val hosts = source.fetch()
-                    send(HostsCache(id, hosts.toSet()))
-                    v("download filters: finished", id)
-                } catch (e: Exception) {
-                    w("download filters: fail", id, e)
-                }
+            val id = it.first.id
+            val source = it.second
+            try {
+                v("download filters: processing", id)
+                val hosts = source.fetch()
+                result.add(HostsCache(id, hosts.toSet()))
+                v("download filters: finished", id)
+            } catch (e: Exception) {
+                w("download filters: fail", id, e)
             }
         }
-        jobs.forEach { it.join() }
+        result
     }
 }
 
