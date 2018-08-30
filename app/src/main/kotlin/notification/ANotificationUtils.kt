@@ -17,6 +17,8 @@ import core.printServers
 import gs.environment.inject
 import gs.property.I18n
 import org.blokada.R
+import java.text.NumberFormat
+import java.util.*
 
 
 /**
@@ -78,7 +80,7 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
         b.setContentTitle(provider)
         b.setContentText(ctx.getString(R.string.dns_keepalive_content, servers))
     } else {
-        b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, count))
+        b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, getFormatNumberString(count)))
         b.setContentText(ctx.getString(R.string.notification_keepalive_content, last))
     }
 
@@ -97,6 +99,10 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
     }
 
     return b.build()
+}
+
+fun getFormatNumberString(number: Int): String {
+    return NumberFormat.getNumberInstance(Locale.getDefault()).format(number.toLong())
 }
 
 val default_id = "blokada"

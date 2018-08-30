@@ -21,7 +21,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_enabled">%s 将会从现在开始保护自身不被操作系统所停用。</string>
   <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-  <string name="notification_keepalive_title">已拦截 %d 条广告</string>
+  <string name="notification_keepalive_title">已拦截 %s 条广告</string>
   <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
   <string name="notification_keepalive_content">最后拦截： %s</string>
   <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
