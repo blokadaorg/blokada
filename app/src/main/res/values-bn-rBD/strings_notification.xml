@@ -21,7 +21,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_enabled">%s নিজেকে সুরক্ষিত করবে অপারেটিং সিস্টেম দ্বারা বন্ধ হয়ে যাওয়া থেকে।</string>
   <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-  <string name="notification_keepalive_title">%d ব্লকড</string>
+  <string name="notification_keepalive_title">%s ব্লকড</string>
   <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
   <string name="notification_keepalive_content">সর্বশেষঃ%s</string>
   <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
