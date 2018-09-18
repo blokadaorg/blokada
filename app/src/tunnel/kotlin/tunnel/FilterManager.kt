@@ -109,7 +109,7 @@ internal class FilterManager(
     fun sync(ktx: Kontext) = {
         syncFiltersWithRepo(ktx)
         val hosts = syncRules(ktx)
-        ktx.v("memory can fit roughly ${Memory.linesAvailable()} more hosts")
+        ktx.emit(Events.MEMORY_CAPACITY, Memory.linesAvailable())
         hosts
     }()
 

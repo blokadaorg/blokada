@@ -46,9 +46,15 @@ class TunnelConfigView(
 
         syncView()
 
+        var capacity = 0
+        context.ktx().on(tunnel.Events.MEMORY_CAPACITY) {
+            capacity = it
+        }
+
         context.ktx().on(tunnel.Events.RULESET_BUILT, { event ->
             val (deny, allow) = event
-            status.text = context.resources.getString(R.string.tunnel_hosts_count, deny - allow)
+            status.text = context.resources.getString(R.string.tunnel_hosts_count, deny - allow) +
+                    " / ${capacity}"
         })
 
         context.ktx().on(tunnel.Events.RULESET_BUILDING, {

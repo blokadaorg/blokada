@@ -13,16 +13,13 @@ internal class Forwarder(val ttl: Time = 10 * 1000) : Iterable<ForwardRule> {
 
     fun add(ktx: Kontext, socket: DatagramSocket, originEnvelope: Packet) {
         if (store.size >= 1024) {
-            ktx.v("removing socket because list is full", store.element().socket)
             Result.of { store.element().socket.close() }
             store.remove()
         }
         while (store.isNotEmpty() && store.element().isOld()) {
-            ktx.v("removing socket because it is too old", store.element().socket)
             Result.of { store.element().socket.close() }
             store.remove()
         }
-        ktx.v("adding socket to list", socket)
         store.add(ForwardRule(socket, originEnvelope, ttl))
     }
 

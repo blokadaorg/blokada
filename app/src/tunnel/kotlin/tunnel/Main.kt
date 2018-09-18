@@ -18,6 +18,7 @@ object Events {
     val FILTERS_CHANGED = "FILTERS_CHANGED".newEventOf<Collection<Filter>>()
     val BLOCKED = "BLOCKED".newEventOf<String>()
     val TUNNEL_POWER_SAVING = "TUNNEL_POWER_SAVING".newEvent()
+    val MEMORY_CAPACITY = "MEMORY_CAPACITY".newEventOf<Int>()
 }
 
 class Main(
