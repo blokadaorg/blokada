@@ -59,5 +59,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Segarkan filter</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Impor / Ekspor</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Pilih di mana pengaturan harus disimpan</string>
+  <string name="filter_export_error">Direktori dipilih tidak dapat digunakan. Periksa izin menulis.</string>
+  <string name="filter_export_import">Impor dari penyimpanan eksternal</string>
+  <string name="filter_export_import2">Impor sekarang</string>
+  <string name="filter_export_internal">Penyimpanan internal (default)</string>
+  <string name="filter_export_external">Penyimpanan eksternal</string>
+  <string name="filter_export_external_info">Catatan: pilihan Anda berlaku untuk daftar hitam dan daftar putih. Pastikan Anda telah memberikan izin penyimpanan eksternal untuk Blokada (dalam pengaturan sistem), jika tidak penyimpanan internal akan digunakan meskipun Anda memilihnya. Jika Anda mengimpor pengaturan yang ada, ketuk Impor Sekarang sebelum menutup jendela ini, atau mereka akan ditimpa.</string>
 </resources>

@@ -4,8 +4,22 @@
   <string name="tunnel_hosts_desc">Mostra o número de endereços configurados para serem bloqueado pelo %s.</string>
   <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
   <string name="tunnel_hosts_count">%d endereços</string>
-  <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being updated. -->
+  <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
   <string name="tunnel_hosts_updating">Atualizando...</string>
+  <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+  <string name="tunnel_hosts_downloading">Baixando...</string>
+  <string name="tunnel_config_wifi">Baixar filtros apenas quando em uma rede wifi</string>
   <string name="tunnel_dropped_count_desc">Mostra o número total de endereços bloqueados até agora.</string>
   <string name="tunnel_dropped_count">%d bloqueado</string>
+  <string name="tunnel_config_refetch_now_title">Lista de Downloads</string>
+  <string name="tunnel_config_refetch_now">Baixar listas agora</string>
+  <string name="tunnel_config_refetch_now_description">Use o botão abaixo para remover o cache e baixar sua lista novamente. Isto pode ajudar se você tiver algum problema com sua filtragem.</string>
+  <string name="tunnel_config_refetch_frequency_title">Listas de frequência de download </string>
+  <string name="tunnel_config_refetch_frequency_description">Selecione uma das opções para configurar quantas vezes o app deve baixar suas listas.</string>
+  <string name="tunnel_config_refetch_frequency_1">Diariamente</string>
+  <string name="tunnel_config_refetch_frequency_2">Duas vezes por semana</string>
+  <string name="tunnel_config_refetch_frequency_3">Uma vez por semana</string>
+  <string name="tunnel_config_refetch_frequency_4">Uma vez por mês</string>
+  <string name="tunnel_config_wifi_only_title">Baixar somente via Wi-Fi</string>
+  <string name="tunnel_config_wifi_only_description">Ative essa opção se desejar que o aplicativo faça o download de listas apenas quando o dispositivo estiver conectado a WiFi. Caso contrário, o app também pode baixar listas quando o dispositivo estiver conectado a uma rede móvel e usar seu plano de dados.</string>
 </resources>

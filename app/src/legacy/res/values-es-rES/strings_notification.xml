@@ -20,7 +20,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s no estará protegido de la optimización de memoria o batería.</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="notification_keepalive_enabled">%s ahora se protegerá de ser desactivado por el sistema operativo.</string>
+  <string name="notification_keepalive_enabled">%s ahora se protegerá de ser desactivado por el sistema.</string>
   <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
   <string name="notification_keepalive_title">%d bloqueados</string>
   <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->

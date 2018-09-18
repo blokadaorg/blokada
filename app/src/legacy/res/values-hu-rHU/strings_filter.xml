@@ -59,5 +59,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Szűrők frissítése</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Importálás / Exportálás</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Válaszd ki, hova mentsük a beállításokat</string>
+  <string name="filter_export_error">A kijelölt könyvtár nem használható. Ellenőrizd az írási engedélyt.</string>
+  <string name="filter_export_import">Importálás külső tárhelyről</string>
+  <string name="filter_export_import2">Importálás most</string>
+  <string name="filter_export_internal">Belső tárhely (alapértelmezett)</string>
+  <string name="filter_export_external">Külső tárhely</string>
+  <string name="filter_export_external_info">Megjegyzés: a választásod mind a tiltólistára, mind az engedélyezőlistára vonatkozik. Ellenőrizd, hogy a Blokada külső tárolási jogosultságait megadtad (a rendszer beállításaiban), különben a belső tárhelyet a választásod ellenére használni fogja. Ha meglévő beállításokat importálsz, érintsd meg az Importálás most gombot az ablak bezárása előtt, különben azok felülírásra kerülnek.</string>
 </resources>

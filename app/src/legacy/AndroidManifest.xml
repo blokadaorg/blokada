@@ -49,7 +49,7 @@
             android:name="core.PowersaveActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            />
+            android:theme="@style/TransparentWindow" />
 
         <service
             android:name="notification.ANotificationsOffService">

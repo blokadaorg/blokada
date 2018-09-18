@@ -59,5 +59,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Segarkan Penapis</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Import / Eksport</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Pilih di mana konfigurasi perlu disimpan untuk</string>
+  <string name="filter_export_error">Direktori terpilih tidak boleh digunakan. Semak keizinan menulis.</string>
+  <string name="filter_export_import">Import dari storan luar</string>
+  <string name="filter_export_import2">Import sekarang</string>
+  <string name="filter_export_internal">Simpanan Dalaman (lalai)</string>
+  <string name="filter_export_external">Storan luaran</string>
+  <string name="filter_export_external_info">Nota: pilihan anda yang boleh digunakan bagi kedua-dua senarai hitam dan senarai putih. Pastikan anda telah memberikan kebenaran Menyimpan luar bagi Blokada (dalam seting sistem), sebaliknya simpanan dalaman akan digunakan walau apapun pilihan anda. Jika anda mengimport seting sedia ada, sentuh Import sekarang sebelum tutup tetingkap ini, atau ia akan ditulis ganti.</string>
 </resources>

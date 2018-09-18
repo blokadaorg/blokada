@@ -14,7 +14,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_paused">%s está desactivado.</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="main_paused_autoenable">%1$s se ha pausado debido a que tú dispositivo no tiene conexión. %1$s se activará automáticamente cuando te vuelvas a conectar.</string>
+  <string name="main_paused_autoenable">%1$s se ha pausado debido a que tu dispositivo no tiene conexión. %1$s se reactivará automáticamente cuando te vuelvas a conectar.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_paused_autoenable_tethering">%1$s se ha pausado porque tu dispositivo tiene la zona WiFi activada. %1$s se reanudará automáticamente después de que se haya desactivado.</string>
   <!-- Label for the Quick Settings toggle -->
