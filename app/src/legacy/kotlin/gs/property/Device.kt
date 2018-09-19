@@ -42,7 +42,7 @@ class DeviceImpl (
 
     override val appInForeground = newProperty(kctx, { false })
     override val screenOn = newProperty(kctx, { pm.isInteractive })
-    override val connected = newProperty(kctx, {
+    override val connected = newProperty(kctx, zeroValue = { true }, refresh = {
         val c = isConnected(ctx) or watchdog.test()
         j.log("device: connected: ${c}")
         c

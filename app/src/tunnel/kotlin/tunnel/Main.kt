@@ -6,6 +6,7 @@ import com.github.michaelbull.result.onFailure
 import core.*
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
+import kotlinx.coroutines.experimental.runBlocking
 import java.io.FileDescriptor
 import java.net.DatagramSocket
 import java.net.InetAddress
@@ -111,13 +112,6 @@ class Main(
         restartTunnelThread(ktx)
     }
 
-    fun pause(ktx: AndroidKontext) = async(CTRL) {
-        maybeStopTunnelThread(ktx)
-        maybeStopVpn(ktx)
-        usePausedConfigurator = true
-        maybeStartVpn(ktx)
-    }
-
     fun stop(ktx: AndroidKontext) = async(CTRL) {
         maybeStopTunnelThread(ktx)
         maybeStopVpn(ktx)
@@ -187,11 +181,17 @@ class Main(
     }
 
     private suspend fun startVpn(ktx: AndroidKontext) {
-        val binding = connector.bind(ktx)
-        binder = binding.await()
-        fd = binder!!.service.turnOn(ktx)
-        ktx.on(Events.BLOCKED, onBlocked)
-        ktx.v("vpn started")
+        Result.of {
+            val binding = connector.bind(ktx)
+            runBlocking { binding.join() }
+            binder = binding.getCompleted()
+            fd = binder!!.service.turnOn(ktx)
+            ktx.on(Events.BLOCKED, onBlocked)
+            ktx.v("vpn started")
+        }.onFailure { ex ->
+            ktx.e("failed starting vpn", ex)
+            onVpnClose(ktx)
+        }
     }
 
     private fun startTunnelThread(ktx: Kontext) {
@@ -215,6 +215,7 @@ class Main(
     }
 
     private fun stopVpn(ktx: AndroidKontext) {
+        ktx.cancel(Events.BLOCKED, onBlocked)
         binder?.service?.turnOff(ktx)
         connector.unbind(ktx).mapError { ex -> ktx.w("failed unbinding connector", ex) }
         binder = null

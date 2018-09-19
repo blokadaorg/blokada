@@ -13,6 +13,7 @@ import tunnel.Filter
 
 class AFilterActor(
         initialFilter: Filter,
+        initialSwitchEnabled: Boolean,
         private val v: AFilterView
 ) {
     private val dialog by lazy { v.context.inject().instance<AFilterAddDialog>() }
@@ -24,6 +25,8 @@ class AFilterActor(
             field = value
             update()
         }
+
+    var switchEnabled = initialSwitchEnabled
 
     init {
         update()
@@ -53,6 +56,7 @@ class AFilterActor(
         v.name = filter.customName ?: i18n.localisedOrNull("filters_${filter.id}_name") ?: sourceToName(v.context, filter.source)
         v.description = filter.customComment ?: i18n.localisedOrNull("filters_${filter.id}_comment")
         v.active = filter.active
+        v.switchEnabled = switchEnabled
 
         if (filter.source.id == "app") {
             v.multiple = false

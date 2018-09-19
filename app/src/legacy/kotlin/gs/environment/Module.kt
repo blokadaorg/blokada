@@ -1,12 +1,8 @@
 package gs.environment
 
-import android.app.AlarmManager
 import android.app.DownloadManager
 import android.app.NotificationManager
-import android.app.job.JobScheduler
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.wifi.WifiManager
 import android.os.PowerManager
 import android.view.View
 import com.github.salomonbrys.kodein.*
@@ -52,26 +48,14 @@ fun newGscoreModule(ctx: Context): Kodein.Module {
 
         bind<LazyProvider<View>>() with multiton { it: String -> LazyProvider<View>() }
 
-        bind<ConnectivityManager>() with singleton {
-            ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        }
-        bind<WifiManager>() with singleton {
-            ctx.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        }
         bind<DownloadManager>() with singleton {
             ctx.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        }
-        bind<AlarmManager>() with singleton {
-            ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         }
         bind<NotificationManager>() with singleton {
             ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         }
         bind<PowerManager>() with singleton {
             ctx.getSystemService(Context.POWER_SERVICE) as PowerManager
-        }
-        bind<JobScheduler>() with singleton {
-            ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
         }
 
         KovenantUi.uiContext {

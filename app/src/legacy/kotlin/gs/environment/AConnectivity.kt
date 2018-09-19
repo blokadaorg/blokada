@@ -1,14 +1,14 @@
 package gs.environment
 
+import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
-import com.github.salomonbrys.kodein.instance
 
 /**
  * Contains various utility functions related to connectivity on Android.
  */
 
 fun isConnected(ctx: android.content.Context): Boolean {
-    val cm = ctx.inject().instance<android.net.ConnectivityManager>()
+    val cm = ctx.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeInfo = cm.activeNetworkInfo ?: return false
     return activeInfo.isConnectedOrConnecting
 }
@@ -28,7 +28,7 @@ fun getDnsServers(ctx: android.content.Context): List<java.net.InetAddress> {
 }
 
 fun isWifi(ctx: android.content.Context): Boolean {
-    val wm = ctx.inject().instance<WifiManager>()
+    val wm = ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
     return when {
         !wm.isWifiEnabled -> false
         wm.connectionInfo?.networkId ?: -1 != -1 -> true
@@ -41,7 +41,7 @@ fun hasIpV6Servers(dnsServers: Collection<java.net.InetAddress>): Boolean {
 }
 
 private fun isTetheringMethod1(ctx: android.content.Context): Boolean {
-    val wm: android.net.wifi.WifiManager = ctx.inject().instance()
+    val wm = ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
     return try {
         val m = wm.javaClass.getMethod("isWifiApEnabled")
         m.isAccessible = true
@@ -53,7 +53,7 @@ private fun isTetheringMethod1(ctx: android.content.Context): Boolean {
 }
 
 private fun isTetheringMethod2(ctx: android.content.Context): Boolean {
-    val wm: android.net.wifi.WifiManager = ctx.inject().instance()
+    val wm = ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
     return try {
         val m = wm.javaClass.getMethod("getWifiApState")
         m.isAccessible = true
@@ -78,7 +78,7 @@ private fun isTetheringMethod3(bundle: android.os.Bundle): Boolean {
 
 @android.annotation.TargetApi(21)
 private fun getDnsServersMethod1(ctx: android.content.Context): List<java.net.InetAddress> {
-    val cm: android.net.ConnectivityManager = ctx.inject().instance()
+    val cm = ctx.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val servers = mutableListOf<java.net.InetAddress>()
 
     val activeInfo = cm.activeNetworkInfo ?: return servers

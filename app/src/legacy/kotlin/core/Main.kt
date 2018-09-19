@@ -41,7 +41,7 @@ import org.blokada.R
 
 private fun startThroughJobScheduler(
         ctx: Context,
-        scheduler: JobScheduler = ctx.inject().instance()
+        scheduler: JobScheduler = ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
 ) {
     val serviceComponent = ComponentName(ctx, BootJobService::class.java)
     val builder = JobInfo.Builder(0, serviceComponent)

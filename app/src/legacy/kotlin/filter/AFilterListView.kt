@@ -1,6 +1,7 @@
 package filter
 
 import android.content.Context
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
@@ -43,11 +44,30 @@ class AFilterListView(
             refreshFilters()
         }
 
+    var switchEnabled = true
+    val switchHandler = Handler {
+        switchEnabled = true
+        adapter.notifyDataSetChanged()
+        true
+    }
+
+
     override fun onFinishInflate() {
         super.onFinishInflate()
         addItemDecoration(Spacing(context))
         setAdapter(adapter)
         landscape = false
+
+        val updateSwitch = {
+            switchHandler.removeMessages(0)
+            switchHandler.sendEmptyMessageDelayed(0, 3000)
+            switchEnabled = false
+            adapter.notifyDataSetChanged()
+            Unit
+        }
+
+        context.ktx().cancel(tunnel.Events.RULESET_BUILDING, updateSwitch)
+        context.ktx().on(tunnel.Events.RULESET_BUILDING, updateSwitch)
 
         val updateFilters = { it: Collection<Filter> ->
             setFilters(it.toSet())
@@ -93,8 +113,9 @@ class AFilterListView(
             val v = holder.view
             val i = filters[position]
             if (v.tag == null) {
-                v.tag = AFilterActor(i, v)
+                v.tag = AFilterActor(i, switchEnabled, v)
             } else {
+                (v.tag as AFilterActor).switchEnabled = switchEnabled
                 (v.tag as AFilterActor).filter = i
             }
         }

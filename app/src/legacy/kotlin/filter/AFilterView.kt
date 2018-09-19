@@ -61,6 +61,13 @@ class AFilterView(
             }
         }
 
+    var switchEnabled: Boolean = true
+        set(value) {
+            if (field == value) return
+            field = value
+            activeSwitch.isEnabled = value
+        }
+
     var tapped: Boolean = false
         set(selected) {
             field = selected
