@@ -59,7 +59,7 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">רענון מסננים</string>
   <!-- Select save location for filters  -->
-  <string name="filter_generate_export">ייבוא\ייצוא</string>
+  <string name="filter_generate_export">ייבוא / ייצוא</string>
   <!-- A button to open directory chooser to export settings to. -->
   <string name="filter_export_select">בחר היכן יש לשמור את ההגדרות</string>
   <string name="filter_export_error">לא ניתן להשתמש בתיקייה שנבחרה. בדוק הרשאות כתיבה.</string>
