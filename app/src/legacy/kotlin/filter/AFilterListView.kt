@@ -44,8 +44,8 @@ class AFilterListView(
             refreshFilters()
         }
 
-    var switchEnabled = true
-    val switchHandler = Handler {
+    private var switchEnabled = true
+    private val switchHandler = Handler {
         switchEnabled = true
         adapter.notifyDataSetChanged()
         true
@@ -58,16 +58,26 @@ class AFilterListView(
         setAdapter(adapter)
         landscape = false
 
-        val updateSwitch = {
+        val switchInactive = {
             switchHandler.removeMessages(0)
-            switchHandler.sendEmptyMessageDelayed(0, 3000)
+            switchHandler.sendEmptyMessageDelayed(0, 5000)
             switchEnabled = false
             adapter.notifyDataSetChanged()
             Unit
         }
 
-        context.ktx().cancel(tunnel.Events.RULESET_BUILDING, updateSwitch)
-        context.ktx().on(tunnel.Events.RULESET_BUILDING, updateSwitch)
+        val switchActive = { _: Pair<Int, Int> ->
+            switchHandler.removeMessages(0)
+            switchEnabled = true
+            adapter.notifyDataSetChanged()
+            Unit
+        }
+
+        context.ktx().cancel(tunnel.Events.FILTERS_CHANGING, switchInactive)
+        context.ktx().on(tunnel.Events.FILTERS_CHANGING, switchInactive)
+
+        context.ktx().cancel(tunnel.Events.RULESET_BUILT, switchActive)
+        context.ktx().on(tunnel.Events.RULESET_BUILT, switchActive)
 
         val updateFilters = { it: Collection<Filter> ->
             setFilters(it.toSet())

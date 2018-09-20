@@ -48,7 +48,7 @@ class AFilterActor(
         v.showDelete = true
         v.onSwitched = { active ->
             filter = filter.copy(active = active)
-            t.putFilter(v.context.ktx("filter:switch"), filter)
+            t.putFilter(v.context.ktx("filter:switch"), filter, sync = false)
         }
     }
 

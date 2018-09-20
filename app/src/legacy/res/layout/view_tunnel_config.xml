@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:lines="2"
-                    android:text="once" />
+                    android:text="@string/tunnel_config_refetch_frequency_1" />
 
                 <Button
                     android:id="@+id/frequency_2"

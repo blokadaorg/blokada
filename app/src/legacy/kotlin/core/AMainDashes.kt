@@ -14,7 +14,8 @@ import gs.presentation.WebDash
 import gs.property.Device
 import gs.property.IProperty
 import gs.property.IWhen
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import org.acra.ACRA
 import org.blokada.R
 import java.net.URL
@@ -306,13 +307,15 @@ class ShareLogDash(
 ) : Dash(
         DASH_ID_LOG,
         R.drawable.ic_comment_multiple_outline,
-        onClick = { dashRef -> runBlocking {
-            val r = ACRA.getErrorReporter()
-            r.putCustomData("hostsCount", ShareLogDash.getHostsCount().toString())
-            r.putCustomData("filtersActiveCount", ShareLogDash.getActiveFiltersCount().toString())
-            r.handleException(null)
+        onClick = { dashRef ->
+            launch(UI) {
+                val r = ACRA.getErrorReporter()
+                r.putCustomData("hostsCount", ShareLogDash.getHostsCount().toString())
+                r.putCustomData("filtersActiveCount", ShareLogDash.getActiveFiltersCount().toString())
+                r.handleException(null)
+            }
             true
-        } }
+        }
 ) {
 
 

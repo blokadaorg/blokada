@@ -3,6 +3,7 @@ package core
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.Kodein.Module
 import filter.DefaultSourceProvider
@@ -133,7 +134,6 @@ fun newTunnelModule(ctx: Context): Module {
             val watchdog: IWatchdog = instance()
             val retryKctx: Worker = with("retry").instance()
 
-            // glue
             dns.dnsServers.doWhenChanged(withInit = true).then {
                 engine.setup(ctx.ktx("dns:changed"), dns.dnsServers())
             }
@@ -143,9 +143,8 @@ fun newTunnelModule(ctx: Context): Module {
                     engine.setUrl("filtersUrl:changed".ktx(), pages.filters().toExternalForm())
             }
 
-            // todo: refresh watchdog on connection change (or)
             // React to user switching us off / on
-            s.enabled.doWhenChanged(withInit = true).then {
+            s.enabled.doWhenSet().then {
                 s.restart %= s.enabled() && (s.restart() || d.isWaiting())
                 s.active %= s.enabled() && !d.isWaiting()
             }
@@ -155,13 +154,10 @@ fun newTunnelModule(ctx: Context): Module {
             pKtx.on(tunnel.Events.TUNNEL_POWER_SAVING) {
                 pKtx.w("power saving detected")
                 ctx.startActivity(Intent(ctx, PowersaveActivity::class.java))
-//                d.connected %= false
             }
 
-            var paused = false
-
             // The tunnel setup routine (with permissions request)
-            s.active.doWhenChanged(withInit = true).then {
+            s.active.doWhenSet().then {
                 if (s.active() && s.tunnelState(TunnelState.INACTIVE)) {
                     s.retries %= s.retries() - 1
                     s.tunnelState %= TunnelState.ACTIVATING
@@ -176,7 +172,6 @@ fun newTunnelModule(ctx: Context): Module {
                     if (s.tunnelPermission(true)) {
                         val ktx = ctx.ktx("tunnel:start")
                         val (completed, err) = hasCompleted(null, { runBlocking {
-                            paused = false
                             engine.setup(ktx, dns.dnsServers(), start = true).await()
                         } })
                         if (completed) {
@@ -189,7 +184,6 @@ fun newTunnelModule(ctx: Context): Module {
                     if (!s.tunnelState(TunnelState.ACTIVE)) {
                         s.tunnelState %= TunnelState.DEACTIVATING
                         hasCompleted(j, {
-                            paused = false
                             engine.stop(ctx.ktx("tunnel:stop:failStarting"))
                         })
                         s.tunnelState %= TunnelState.DEACTIVATED
@@ -251,26 +245,12 @@ fun newTunnelModule(ctx: Context): Module {
                         && s.tunnelState(TunnelState.ACTIVE, TunnelState.ACTIVATING)) {
                     watchdog.stop()
                     s.tunnelState %= TunnelState.DEACTIVATING
-//                    if (s.enabled())
-//                        hasCompleted(j, {
-//                            paused = true
-//                            engine.pause(ctx.ktx("tunnel:pause"))
-//                        })
-//                    else
-                        hasCompleted(j, {
-                            paused = false
-                            engine.stop(ctx.ktx("tunnel:stop"))
-                        })
+                    hasCompleted(j, {
+                        engine.stop(ctx.ktx("tunnel:stop"))
+                    })
                     s.tunnelState %= TunnelState.DEACTIVATED
                 }
             }
-
-//            s.restart.doWhenChanged().then {
-//                if (s.restart(false) && s.enabled(false) && paused) {
-//                    paused = false
-//                    engine.stop(ctx.ktx("tunnel:stop:afterPause"))
-//                }
-//            }
 
             // Auto off in case of no connectivity, and auto on once connected
             val ktx = "connectivity".ktx()

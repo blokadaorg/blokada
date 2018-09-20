@@ -122,10 +122,11 @@ class Main(
         restartTunnelThread(ktx)
     }
 
-    fun sync(ktx: Kontext) = async(CTRL) {
+    fun sync(ktx: AndroidKontext, restartVpn: Boolean = false) = async(CTRL) {
         ktx.v("syncing on request")
         filters.sync(ktx)
         filters.save(ktx)
+        if (restartVpn) restartVpn(ktx)
         restartTunnelThread(ktx)
     }
 
@@ -142,13 +143,10 @@ class Main(
         restartTunnelThread(ktx)
     }
 
-    fun putFilter(ktx: AndroidKontext, filter: Filter) = async(CTRL) {
+    fun putFilter(ktx: AndroidKontext, filter: Filter, sync: Boolean = true) = async(CTRL) {
         ktx.v("putting filter", filter.id)
         filters.put(ktx, filter)
-        filters.sync(ktx)
-        filters.save(ktx)
-        if (filter.source.id == "app") restartVpn(ktx)
-        restartTunnelThread(ktx)
+        if (sync) sync(ktx, restartVpn = filter.source.id == "app")
     }
 
     fun putFilters(ktx: AndroidKontext, newFilters: Collection<Filter>) = async(CTRL) {
