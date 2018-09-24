@@ -5,7 +5,22 @@
   <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
   <string name="tunnel_hosts_count">%d hosts</string>
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
+  <string name="tunnel_hosts_updating">Aktualisiere...</string>
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+  <string name="tunnel_hosts_downloading">Lade herunter...</string>
+  <string name="tunnel_config_wifi">Filter nur über WLAN herunterladen</string>
   <string name="tunnel_dropped_count_desc">Zeigt die Gesamtzahl der bisher blockierten Hosts.</string>
   <string name="tunnel_dropped_count">%d Anzeigen blockiert</string>
+  <string name="tunnel_config_refetch_now_title">Listen downloaden</string>
+  <string name="tunnel_config_refetch_now">Listen jetzt herunterladen</string>
+  <string name="tunnel_config_refetch_now_description">Verwenden den Button unten, um Cache zu leeren und Deine Listen erneut herunterzuladen. Dies kann helfen, wenn Du irgendwelche Probleme mit Deinen Filtern hast.</string>
+  <string name="tunnel_config_refetch_frequency_title">Listen download Rhytmus</string>
+  <string name="tunnel_config_refetch_frequency_description">Wählen Sie eine der Optionen aus, um zu konfigurieren, wie oft die App Ihre Listen herunterladen soll.</string>
+  <string name="tunnel_config_refetch_frequency_1">Einmal am Tag</string>
+  <string name="tunnel_config_refetch_frequency_2">Zweimal pro Woche</string>
+  <string name="tunnel_config_refetch_frequency_3">Einmal pro Woche</string>
+  <string name="tunnel_config_refetch_frequency_4">Einmal im Monat</string>
+  <string name="tunnel_config_wifi_only_title">Nur über WLAN herunterladen</string>
+  <string name="tunnel_config_wifi_only_description">Aktiviere des Einstellung, wenn die Listen nur über WLAN heruntergeladen werden sollen. Andernfalls kann die App auch Listen herunterladen, wenn Dein Gerät mit einem Mobilfunknetz verbunden ist und Deinen Datentarif verwendet.
+</string>
 </resources>

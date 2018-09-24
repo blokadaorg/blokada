@@ -18,7 +18,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_paused_autoenable_tethering">%1$s ist pausiert, weil ein WLAN-Hotspot aktiv ist. %1$s wird automatisch fortgesetzt, wenn der Hotspot deaktiviert wird.</string>
   <!-- Label for the Quick Settings toggle -->
-  <string name="main_quicksettings_toggle">Ad blocking</string>
+  <string name="main_quicksettings_toggle">Aktivator</string>
   <!-- Active status for the Quick Settings toggle -->
   <string name="main_quicksettings_on">Aktiv</string>
   <!-- Disabled status for the Quick Settings toggle -->
@@ -48,7 +48,7 @@
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
   <string name="main_cta">Ihre Stimme</string>
   <!-- A menu option to open changelog -->
-  <string name="main_changelog">Changelog</string>
+  <string name="main_changelog">Änderungen</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Mitwirkende</string>
   <!-- An overlay header on top of Patron page -->

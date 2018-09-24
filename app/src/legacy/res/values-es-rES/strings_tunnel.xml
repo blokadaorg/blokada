@@ -16,10 +16,10 @@
   <string name="tunnel_config_refetch_now_description">Usa el botón de debajo para limpiar el caché y descargar las listas de nuevo. Podría ayudar si tienes problemas con los filtros.</string>
   <string name="tunnel_config_refetch_frequency_title">Frecuencia de actualización de listas</string>
   <string name="tunnel_config_refetch_frequency_description">Elige una de las opciones para configurar cada cuánto tiempo la app actualizará tus listas.</string>
-  <string name="tunnel_config_refetch_frequency_1">Una al día</string>
-  <string name="tunnel_config_refetch_frequency_2">Dos a la semana</string>
-  <string name="tunnel_config_refetch_frequency_3">Una a la semana</string>
-  <string name="tunnel_config_refetch_frequency_4">Una al mes</string>
+  <string name="tunnel_config_refetch_frequency_1">Una vez al día</string>
+  <string name="tunnel_config_refetch_frequency_2">Dos veces a la semana</string>
+  <string name="tunnel_config_refetch_frequency_3">Una vez a la semana</string>
+  <string name="tunnel_config_refetch_frequency_4">Una vez al mes</string>
   <string name="tunnel_config_wifi_only_title">Descargar solo por WiFi</string>
   <string name="tunnel_config_wifi_only_description">Activa este interruptor si quieres que la aplicación descargue las listas solo cuando tu dispositivo esté conectado a una WiFi. De lo contrario, la app también podrá descargar listas cuando tu dispositivo esté conectado a una red móvil usando tu plan de datos.</string>
 </resources>

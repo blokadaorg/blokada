@@ -17,8 +17,8 @@
   <string name="tunnel_config_refetch_frequency_title">Freqüència de baixada de les llistes</string>
   <string name="tunnel_config_refetch_frequency_description">Seleccioneu una de les opcions per configurar la freqüència amb què l\'aplicació ha de baixar les vostres llistes.</string>
   <string name="tunnel_config_refetch_frequency_1">Un cop al dia</string>
-  <string name="tunnel_config_refetch_frequency_2">Dos cops per setmana</string>
-  <string name="tunnel_config_refetch_frequency_3">Un cop per setmana</string>
+  <string name="tunnel_config_refetch_frequency_2">Dos cops per set.</string>
+  <string name="tunnel_config_refetch_frequency_3">Un cop per set.</string>
   <string name="tunnel_config_refetch_frequency_4">Un cop al mes</string>
   <string name="tunnel_config_wifi_only_title">Baixa només amb Wi-Fi</string>
   <string name="tunnel_config_wifi_only_description">Activeu aquest interruptor si voleu que l\'aplicació baixi les llistes només quan el dispositiu estigui connectat a Wi-Fi. En cas contrari, l\'aplicació també pot baixar les llistes quan el dispositiu estigui connectat a una xarxa mòbil i utilitzeu el vostre pla de dades.</string>

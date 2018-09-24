@@ -7,6 +7,19 @@
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
   <string name="tunnel_hosts_updating">Aggiornamento...</string>
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+  <string name="tunnel_hosts_downloading">Sto scaricando...</string>
+  <string name="tunnel_config_wifi">Scarica filtri solo tramite WiFi</string>
   <string name="tunnel_dropped_count_desc">Visualizza il numero totale di host bloccati finora.</string>
   <string name="tunnel_dropped_count">%d bloccati</string>
+  <string name="tunnel_config_refetch_now_title">Scarica le liste</string>
+  <string name="tunnel_config_refetch_now">Scarica le liste adesso</string>
+  <string name="tunnel_config_refetch_now_description">Premi il pulsante sotto per pulire la cache e scaricare nuovamente le liste. Questo potrebbe essere d\'aiuto in caso di problemi con i filtri.</string>
+  <string name="tunnel_config_refetch_frequency_title">Frequenza di aggiornamento delle liste</string>
+  <string name="tunnel_config_refetch_frequency_description">Seleziona una delle seguenti opzioni per configurare quanto spesso l\'app deve aggiornare le tue liste.</string>
+  <string name="tunnel_config_refetch_frequency_1">Una volta al giorno</string>
+  <string name="tunnel_config_refetch_frequency_2">Due volte a settimana</string>
+  <string name="tunnel_config_refetch_frequency_3">Una volta a settimana</string>
+  <string name="tunnel_config_refetch_frequency_4">Una volta al mese</string>
+  <string name="tunnel_config_wifi_only_title">Scarica solo tramite WiFi</string>
+  <string name="tunnel_config_wifi_only_description">Attiva questa opzione se preferisci che l\'app scarichi le liste solo quando il tuo dispositivo è connesso ad una rete WiFi. Altrimenti, l\'app potrebbe scaricare le liste anche mentre il tuo dispositivo è connesso ad una rete mobile e utilizzare il tuo piano dati.</string>
 </resources>
