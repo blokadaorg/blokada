@@ -86,7 +86,7 @@ class DefaultEmit(id: String, val common: Emit = commonEmit) : Emit {
     private val log = DefaultLog(id)
 
     override fun <T> emit(event: EventType<T>, value: T): Job {
-        log.w("event:emit", event, value.toString())
+        log.v("event:emit", event, value.toString())
         return common.emit(event, value)
     }
 
@@ -103,7 +103,7 @@ class DefaultEmit(id: String, val common: Emit = commonEmit) : Emit {
     override suspend fun <T> getMostRecent(event: EventType<T>) = common.getMostRecent(event)
 
     override fun emit(event: SimpleEvent): Job {
-        log.w("event emit", event)
+        log.v("event emit", event)
         return common.emit(event)
     }
 

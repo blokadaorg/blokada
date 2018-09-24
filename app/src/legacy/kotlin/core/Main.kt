@@ -128,8 +128,7 @@ class MainApplication: Application(), KodeinAware {
         Thread.setDefaultUncaughtExceptionHandler { _, ex ->
             try {
                 ACRA.getErrorReporter().handleException(ex)
-                val j: Journal = inject().instance()
-                j.log("fatal", ex)
+                "fatal".ktx().e(ex)
             } catch (e: Exception) {}
             startThroughJobScheduler(this)
             System.exit(2)

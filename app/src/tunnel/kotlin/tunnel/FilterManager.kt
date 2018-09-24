@@ -107,16 +107,17 @@ internal class FilterManager(
     }()
 
     fun sync(ktx: Kontext) = {
-        syncFiltersWithRepo(ktx)
-        val hosts = syncRules(ktx)
-        ktx.emit(Events.MEMORY_CAPACITY, Memory.linesAvailable())
-        hosts
+        if (syncFiltersWithRepo(ktx)) {
+            val success = syncRules(ktx)
+            ktx.emit(Events.MEMORY_CAPACITY, Memory.linesAvailable())
+            success
+        } else false
     }()
 
-    private fun syncFiltersWithRepo(ktx: Kontext) {
+    private fun syncFiltersWithRepo(ktx: Kontext): Boolean {
         if (store.url.isEmpty()) {
             ktx.w("trying to sync without url set, ignoring")
-            return
+            return false
         }
 
         if (!doValidateFilterStoreCache(store)) {
@@ -153,12 +154,13 @@ internal class FilterManager(
                     }
             )
         }
+
+        return true
     }
 
     private fun syncRules(ktx: Kontext) = {
         val active = store.cache.filter { it.active }
         val downloaded = mutableSetOf<Filter>()
-        var hosts = 0
         active.forEach { filter ->
             if (!doValidateRulesetCache(filter)) {
                 ktx.v("fetching ruleset", filter.id)
@@ -167,7 +169,6 @@ internal class FilterManager(
                         success = {
                             blockade.set(ktx, filter.id, it)
                             downloaded.add(filter.copy(lastFetch = System.currentTimeMillis()))
-                            hosts += it.size
                             ktx.v("saved", filter.id, it.size)
                         },
                         failure = {
@@ -184,7 +185,7 @@ internal class FilterManager(
 
         ktx.v("attempting to build rules", denied, allowed)
         blockade.build(ktx, denied, allowed)
-        hosts
+        allowed.size > 0 || denied.size > 0
     }()
 
 }

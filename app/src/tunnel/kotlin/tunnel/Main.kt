@@ -74,15 +74,16 @@ class Main(
                 0L
             })
 
-            filters.sync(ktx)
-            filters.save(ktx)
+            if (filters.sync(ktx)) {
+                filters.save(ktx)
 
-            restartVpn(ktx)
-            restartTunnelThread(ktx)
+                restartVpn(ktx)
+                restartTunnelThread(ktx)
 
-            if (start) {
-                maybeStartVpn(ktx)
-                maybeStartTunnelThread(ktx)
+                if (start) {
+                    maybeStartVpn(ktx)
+                    maybeStartTunnelThread(ktx)
+                }
             }
             Unit
         }
@@ -107,9 +108,10 @@ class Main(
                 }
         )
         filters.load(ktx)
-        filters.sync(ktx)
-        filters.save(ktx)
-        restartTunnelThread(ktx)
+        if (filters.sync(ktx)) {
+            filters.save(ktx)
+            restartTunnelThread(ktx)
+        }
     }
 
     fun stop(ktx: AndroidKontext) = async(CTRL) {
@@ -124,18 +126,18 @@ class Main(
 
     fun sync(ktx: AndroidKontext, restartVpn: Boolean = false) = async(CTRL) {
         ktx.v("syncing on request")
-        filters.sync(ktx)
-        filters.save(ktx)
-        if (restartVpn) restartVpn(ktx)
-        restartTunnelThread(ktx)
+        if (filters.sync(ktx)) {
+            filters.save(ktx)
+            if (restartVpn) restartVpn(ktx)
+            restartTunnelThread(ktx)
+        }
     }
 
     fun setUrl(ktx: Kontext, url: String) = async(CTRL) {
         val cfg = Persistence.config.load(ktx)
         ktx.v("setting url, firstLoad: ${cfg.firstLoad}", url)
         filters.setUrl(ktx, url)
-        val hosts = filters.sync(ktx)
-        if (hosts > 0) {
+        if (filters.sync(ktx)) {
             ktx.v("first fetch successful, unsetting firstLoad flag")
             Persistence.config.save(cfg.copy(firstLoad = false))
         }
@@ -152,30 +154,34 @@ class Main(
     fun putFilters(ktx: AndroidKontext, newFilters: Collection<Filter>) = async(CTRL) {
         ktx.v("batch putting filters", newFilters.size)
         newFilters.forEach { filters.put(ktx, it) }
-        filters.sync(ktx)
-        filters.save(ktx)
-        if (newFilters.any { it.source.id == "app" }) restartVpn(ktx)
-        restartTunnelThread(ktx)
+        if (filters.sync(ktx)) {
+            filters.save(ktx)
+            if (newFilters.any { it.source.id == "app" }) restartVpn(ktx)
+            restartTunnelThread(ktx)
+        }
     }
 
     fun removeFilter(ktx: Kontext, filter: Filter) = async(CTRL) {
         filters.remove(ktx, filter)
-        filters.sync(ktx)
-        filters.save(ktx)
-        restartTunnelThread(ktx)
+        if (filters.sync(ktx)) {
+            filters.save(ktx)
+            restartTunnelThread(ktx)
+        }
     }
 
     fun invalidateFilters(ktx: Kontext) = async(CTRL) {
         filters.invalidateCache(ktx)
-        filters.sync(ktx)
-        filters.save(ktx)
-        restartTunnelThread(ktx)
+        if(filters.sync(ktx)) {
+            filters.save(ktx)
+            restartTunnelThread(ktx)
+        }
     }
 
     fun deleteAllFilters(ktx: Kontext) = async(CTRL) {
         filters.removeAll(ktx)
-        filters.sync(ktx)
-        restartTunnelThread(ktx)
+        if (filters.sync(ktx)) {
+            restartTunnelThread(ktx)
+        }
     }
 
     private suspend fun startVpn(ktx: AndroidKontext) {

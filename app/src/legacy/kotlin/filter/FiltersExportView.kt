@@ -96,6 +96,18 @@ class FiltersExportView(
             }
         }
 
+        if (Persistence.global.loadPath() == Persistence.DEFAULT_PATH) {
+            buttonView.alpha = 0.5f
+            button2View.alpha = 1.0f
+            buttonView.isEnabled = false
+            button2View.isEnabled = true
+        } else {
+            buttonView.alpha = 1.0f
+            button2View.alpha = 0.5f
+            buttonView.isEnabled = true
+            button2View.isEnabled = false
+        }
+
 //        buttonView.setOnClickListener {
 //            val a = activity.get()
 //            if (a != null) {

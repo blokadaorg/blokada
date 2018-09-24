@@ -18,27 +18,42 @@
 
             <Button
                 android:id="@+id/update_download"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:text="@string/update_button" />
+
             <Button
                 android:id="@+id/update_changelog"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/update_button_changelog" />
+                android:layout_weight="1"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:text="@string/main_changelog" />
+
             <Button
                 android:id="@+id/update_credits"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:text="@string/main_credits" />
+
             <Button
                 android:id="@+id/update_appinfo"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:text="@string/update_button_appinfo" />
         </LinearLayout>
 
@@ -59,9 +74,9 @@
             <TextView
                 android:id="@+id/update_header"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_weight="1"
                 android:text="@string/main_loading"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
@@ -83,9 +98,9 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_weight="1"
                 android:text="@string/update_info"
                 android:textColor="@color/colorActive" />
 
@@ -106,8 +121,8 @@
             android:id="@+id/update_maker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginBottom="100dp"
+            android:layout_marginTop="32dp"
             android:src="@drawable/maker" />
     </LinearLayout>
 </update.AUpdateView>

@@ -3,7 +3,6 @@ package core
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.Kodein.Module
 import filter.DefaultSourceProvider
