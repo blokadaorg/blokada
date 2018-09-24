@@ -99,7 +99,7 @@ class Main(
                 doValidateRulesetCache = { it ->
                     it.source.id in listOf("app")
                             || it.lastFetch + cfg.cacheTTL * 1000 > System.currentTimeMillis()
-                            || cfg.wifiOnly && !onWifi && !cfg.firstLoad
+                            || cfg.wifiOnly && !onWifi && !cfg.firstLoad && it.source.id == "link"
                 },
                 doValidateFilterStoreCache = { it ->
                     it.cache.isNotEmpty()

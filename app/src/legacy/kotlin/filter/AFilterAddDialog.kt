@@ -20,7 +20,6 @@ import nl.komponents.kovenant.ui.successUi
 import org.blokada.R
 import tunnel.Filter
 import tunnel.FilterSourceDescriptor
-import tunnel.IFilterSource
 
 /**
  * TODO: This poor thing needs love (like me)
@@ -197,27 +196,6 @@ class AFilterAddDialog(
 
 internal fun id(name: String, whitelist: Boolean): String {
     return if(whitelist) "${name}_wl" else name
-}
-
-internal fun sourceToName(ctx: android.content.Context, source: IFilterSource): String {
-    val name = when (source) {
-        is FilterSourceLink -> {
-            ctx.getString(R.string.filter_name_link, source.source?.host
-                    ?: ctx.getString(R.string.filter_name_link_unknown))
-        }
-        is FilterSourceUri -> {
-            ctx.getString(R.string.filter_name_file, source.source?.lastPathSegment
-                    ?: ctx.getString(R.string.filter_name_file_unknown))
-        }
-        is FilterSourceApp -> { try {
-            ctx.packageManager.getApplicationLabel(
-                    ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
-            ).toString()
-        } catch (e: Exception) { source.toUserInput() }}
-        else -> null
-    }
-
-    return name ?: source.toString()
 }
 
 internal fun sourceToName(ctx: android.content.Context, source: FilterSourceDescriptor): String {

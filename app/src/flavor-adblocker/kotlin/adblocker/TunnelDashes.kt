@@ -11,6 +11,7 @@ import core.ktx
 import gs.environment.inject
 import org.blokada.R
 import tunnel.TunnelConfigView
+import kotlin.math.max
 
 val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
 
@@ -51,7 +52,7 @@ class TunnelDashHostsCount(
 
         ctx.ktx().on(tunnel.Events.RULESET_BUILT, { event ->
             val (deny, allow) = event
-            text = ctx.resources.getString(R.string.tunnel_hosts_count, deny - allow)
+            text = ctx.resources.getString(R.string.tunnel_hosts_count, max(deny - allow, 0))
         })
 
         ctx.ktx().on(tunnel.Events.RULESET_BUILDING, {

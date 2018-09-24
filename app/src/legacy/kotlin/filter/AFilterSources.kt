@@ -127,11 +127,18 @@ class FilterSourceUri(
     }
 
     override fun serialize(): String {
-        return source.toString()
+        return Base64.encodeToString(source.toString().toByteArray(), Base64.NO_WRAP)
     }
 
     override fun deserialize(string: String, version: Int): FilterSourceUri {
-        source = Uri.parse(string)
+        if (version <= 306092000) {
+            source = Uri.parse(string)
+        } else {
+            val bytes = Base64.decode(string, Base64.NO_WRAP)
+            try {
+                source = Uri.parse(String(bytes))
+            } catch (e: Exception) { }
+        }
         return this
     }
 

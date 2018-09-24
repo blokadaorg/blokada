@@ -8,6 +8,7 @@ import android.widget.TextView
 import core.ktx
 import gs.presentation.SwitchCompatView
 import org.blokada.R
+import kotlin.math.max
 
 
 class TunnelConfigView(
@@ -51,10 +52,15 @@ class TunnelConfigView(
             capacity = it
         }
 
+        val formatCapacity = { capacity: Int ->
+            if (capacity > 1_000_000) "%.2f million".format(capacity / 1_000_000.0)
+            else "%d thousand".format(capacity / 1_000)
+        }
+
         context.ktx().on(tunnel.Events.RULESET_BUILT, { event ->
             val (deny, allow) = event
-            status.text = context.resources.getString(R.string.tunnel_hosts_count, deny - allow) +
-                    " / ${capacity}"
+            status.text = context.resources.getString(R.string.tunnel_hosts_count, max(deny - allow, 0)) +
+                    ", ${formatCapacity(capacity + deny)} can fit into memory"
         })
 
         context.ktx().on(tunnel.Events.RULESET_BUILDING, {
