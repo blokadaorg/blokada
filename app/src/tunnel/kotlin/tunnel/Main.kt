@@ -125,6 +125,7 @@ class Main(
     fun stop(ktx: AndroidKontext) = async(CTRL) {
         maybeStopTunnelThread(ktx)
         maybeStopVpn(ktx)
+        currentServers = emptyList()
     }
 
     fun load(ktx: AndroidKontext) = async(CTRL) {
