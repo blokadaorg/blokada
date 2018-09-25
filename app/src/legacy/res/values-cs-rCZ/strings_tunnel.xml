@@ -13,13 +13,13 @@
   <string name="tunnel_dropped_count">%d zablokováno reklam</string>
   <string name="tunnel_config_refetch_now_title">Stáhnout seznamy</string>
   <string name="tunnel_config_refetch_now">Stáhnout seznamy nyní</string>
-  <string name="tunnel_config_refetch_now_description">Pomocí tlačítka níže odstraňte mezipaměť a seznamy stáhněte znovu. To může pomoci, pokud se vyskytnou problémy s filtrováním.</string>
+  <string name="tunnel_config_refetch_now_description">Pomocí tlačítka níže odstraňte mezipaměť a znovu stáhněte seznamy. To může pomoci, pokud se vyskytnou problémy s filtrováním.</string>
   <string name="tunnel_config_refetch_frequency_title">Frekvence stahování seznamů</string>
   <string name="tunnel_config_refetch_frequency_description">Vyberte jednu z možností konfigurace, jak často by měla aplikace seznamy stahovat.</string>
   <string name="tunnel_config_refetch_frequency_1">Jednou denně</string>
-  <string name="tunnel_config_refetch_frequency_2">Dvakrát za týden</string>
-  <string name="tunnel_config_refetch_frequency_3">Jednou za týden</string>
-  <string name="tunnel_config_refetch_frequency_4">Jednou za měsíc</string>
+  <string name="tunnel_config_refetch_frequency_2">Dvakrát týdně</string>
+  <string name="tunnel_config_refetch_frequency_3">Jednou týdně</string>
+  <string name="tunnel_config_refetch_frequency_4">Jednou měsíčně</string>
   <string name="tunnel_config_wifi_only_title">Stahování pouze přes WiFi</string>
   <string name="tunnel_config_wifi_only_description">Aktivujte tento přepínač, chcete-li aby aplikace stáhla seznamy pouze v případě, že je vaše zařízení připojeno k WiFi. V opačném případě může aplikace stáhnout seznamy i když je vaše zařízení připojeno k mobilní síti a používá váš datový plán.</string>
 </resources>

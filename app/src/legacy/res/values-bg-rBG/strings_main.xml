@@ -30,7 +30,7 @@
   <!-- App status, always displayed without the "Blokada is" part. -->
   <string name="main_status_activating">Активна</string>
   <!-- App status, always displayed without the "Blokada is" part. -->
-  <string name="main_status_deactivating">Изключена</string>
+  <string name="main_status_deactivating">Деактивирана</string>
   <string name="main_status_error">Възникна проблем</string>
   <string name="main_faq_text">Помощ</string>
   <string name="main_donate_text">Дарение</string>
