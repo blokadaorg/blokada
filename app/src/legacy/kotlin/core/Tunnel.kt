@@ -133,7 +133,7 @@ fun newTunnelModule(ctx: Context): Module {
             val watchdog: IWatchdog = instance()
             val retryKctx: Worker = with("retry").instance()
 
-            dns.dnsServers.doWhenChanged(withInit = true).then {
+            dns.dnsServers.doWhenSet().then {
                 engine.setup(ctx.ktx("dns:changed"), dns.dnsServers())
             }
 

@@ -146,7 +146,7 @@ class DnsImpl(
         choices.doOnUiWhenSet().then {
             dnsServers.refresh()
         }
-        d.connected.doOnUiWhenChanged(withInit = true).then {
+        d.connected.doOnUiWhenSet().then {
             dnsServers.refresh()
         }
     }

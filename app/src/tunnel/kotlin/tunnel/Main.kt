@@ -41,6 +41,7 @@ class Main(
             onClose = onVpnClose,
             onConfigure = { ktx, tunnel -> 0L }
     )
+    private var currentServers = emptyList<InetAddress>()
 
     private var tunnelThread: Thread? = null
     private var fd: FileDescriptor? = null
@@ -52,41 +53,48 @@ class Main(
 
     fun setup(ktx: AndroidKontext, servers: List<InetAddress>, start: Boolean = false) = async(CTRL) {
         ktx.v("setup tunnel", servers)
-        if (servers.isEmpty()) {
-            ktx.v("empty dns servers, will disable tunnel")
-            maybeStopVpn(ktx)
-            maybeStopTunnelThread(ktx)
-        } else {
-            val socketCreator = {
-                val socket = DatagramSocket()
-                binder?.service?.protect(socket)
-                socket
+        when {
+            servers.isEmpty() -> {
+                ktx.v("empty dns servers, will disable tunnel")
+                maybeStopVpn(ktx)
+                maybeStopTunnelThread(ktx)
             }
-            proxy = Proxy(servers, blockade, forwarder, loopback, doCreateSocket = socketCreator)
-            tunnel = Tunnel(proxy, forwarder, loopback)
+            currentServers == servers -> {
+                ktx.v("unchanged dns servers, ignoring")
+            }
+            else -> {
+                val socketCreator = {
+                    val socket = DatagramSocket()
+                    binder?.service?.protect(socket)
+                    socket
+                }
+                proxy = Proxy(servers, blockade, forwarder, loopback, doCreateSocket = socketCreator)
+                tunnel = Tunnel(proxy, forwarder, loopback)
 
-            val configurator = if (usePausedConfigurator) PausedVpnConfigurator(servers, filters)
-            else VpnConfigurator(servers, filters)
+                val configurator = if (usePausedConfigurator) PausedVpnConfigurator(servers, filters)
+                else VpnConfigurator(servers, filters)
 
-            connector = ServiceConnector(onVpnClose, onConfigure = { ktx, vpn ->
-                configurator.configure(ktx, vpn)
-                onVpnConfigure(ktx, vpn)
-                0L
-            })
+                connector = ServiceConnector(onVpnClose, onConfigure = { ktx, vpn ->
+                    configurator.configure(ktx, vpn)
+                    onVpnConfigure(ktx, vpn)
+                    0L
+                })
+                currentServers = servers
 
-            if (filters.sync(ktx)) {
-                filters.save(ktx)
+                if (filters.sync(ktx)) {
+                    filters.save(ktx)
 
-                restartVpn(ktx)
-                restartTunnelThread(ktx)
+                    restartVpn(ktx)
+                    restartTunnelThread(ktx)
 
-                if (start) {
-                    maybeStartVpn(ktx)
-                    maybeStartTunnelThread(ktx)
+                    if (start) {
+                        maybeStartVpn(ktx)
+                        maybeStartTunnelThread(ktx)
+                    }
                 }
             }
-            Unit
         }
+        Unit
     }
 
     fun reloadConfig(ktx: AndroidKontext, onWifi: Boolean) = async(CTRL) {
