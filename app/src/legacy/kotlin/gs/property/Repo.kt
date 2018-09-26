@@ -1,10 +1,10 @@
 package gs.property
 
 import com.github.salomonbrys.kodein.instance
+import core.ktx
 import core.loadGzip
 import core.openUrl
 import gs.environment.Environment
-import gs.environment.Journal
 import gs.environment.Time
 import gs.environment.Worker
 import java.net.URL
@@ -30,7 +30,6 @@ class RepoImpl(
         private val xx: Environment
 ) : Repo() {
 
-    private val j: Journal by xx.instance()
     private val time: Time by xx.instance()
     private val version: Version by xx.instance()
 
@@ -38,13 +37,14 @@ class RepoImpl(
 
     init {
         url.doWhenSet().then {
-            j.log("repo: url set: ${url()}")
+            "repo:url".ktx().v("url set", url())
             content.refresh(force = true)
         }
     }
 
     private val repoRefresh = {
-        j.log("repo: refresh: start")
+        val ktx = "repo:refresh".ktx()
+        ktx.v("repo refresh start")
         val repoURL = java.net.URL(url())
         val fetchTimeout = 10 * 10000
 
@@ -59,7 +59,7 @@ class RepoImpl(
                     else -> Locale(parts[0])
                 }
             }
-            j.log("repo: refresh: downloaded")
+            ktx.v("repo downloaded")
 
             lastRefreshMillis %= time.now()
             RepoContent(
@@ -71,9 +71,9 @@ class RepoImpl(
                     fetchedUrl = url()
             )
         } catch (e: Exception) {
-            j.log("repo: refresh: fail", e)
+            ktx.e("repo refresh fail", e)
             if (e is java.io.FileNotFoundException) {
-                j.log("repo: obsolete", e)
+                ktx.w("app version is obsolete", e)
                 version.obsolete %= true
             }
             throw e

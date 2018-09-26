@@ -3,7 +3,6 @@ package core
 import android.content.Context
 import com.github.salomonbrys.kodein.*
 import gs.environment.Environment
-import gs.environment.Journal
 import gs.environment.Worker
 import gs.property.I18n
 import gs.property.IProperty
@@ -35,8 +34,7 @@ abstract class Pages {
 }
 class PagesImpl (
         w: Worker,
-        xx: Environment,
-        j: Journal = xx().instance()
+        xx: Environment
 ) : Pages() {
 
     val i18n: I18n by xx.instance()
@@ -45,7 +43,7 @@ class PagesImpl (
         i18n.locale.doWhenSet().then {
             val c = i18n.contentUrl()
             if (!c.startsWith("http://localhost")) {
-                j.log("pages: locale set: contentUrl: $c")
+                "pages:onLocaleSet".ktx().v("setting content url", c)
                 intro %= URL("$c/intro.html")
                 updated %= URL("$c/updated.html")
                 cleanup %= URL("$c/cleanup.html")

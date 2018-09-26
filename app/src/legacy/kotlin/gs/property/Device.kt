@@ -33,8 +33,7 @@ abstract class Device {
 class DeviceImpl (
         kctx: Worker,
         xx: Environment,
-        ctx: Context = xx().instance(),
-        j: Journal = xx().instance()
+        ctx: Context = xx().instance()
 ) : Device() {
 
     private val pm: PowerManager by xx.instance()
@@ -44,7 +43,7 @@ class DeviceImpl (
     override val screenOn = newProperty(kctx, { pm.isInteractive })
     override val connected = newProperty(kctx, zeroValue = { true }, refresh = {
         val c = isConnected(ctx) or watchdog.test()
-        j.log("device: connected: ${c}")
+        "device".ktx().v("connected", c)
         c
     } )
     override val tethering = newProperty(kctx, { isTethering(ctx)} )
@@ -61,8 +60,7 @@ class ConnectivityReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
         task(ctx.inject().with("ConnectivityReceiver").instance()) {
             // Do it async so that Android can refresh the current network info before we access it
-            val j: Journal = ctx.inject().instance()
-            j.log("ConnectivityReceiver: ping")
+            "device:connectivity".ktx().v("connectivity receiver ping")
             val s: Device = ctx.inject().instance()
             s.connected.refresh()
             s.onWifi.refresh()
@@ -107,8 +105,7 @@ class ScreenOnReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
         task(ctx.inject().with("ScreenOnReceiver").instance()) {
             // This causes everything to load
-            val j: Journal = ctx.inject().instance()
-            j.log("ScreenOnReceiver: ping")
+            "device:screenOn".ktx().v("screen receiver ping")
             val s: Device = ctx.inject().instance()
             s.screenOn.refresh()
         }
@@ -129,8 +126,7 @@ class ScreenOnReceiver : BroadcastReceiver() {
 class LocaleReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
         task(ctx.inject().with("LocaleReceiver").instance()) {
-            val j: Journal = ctx.inject().instance()
-            j.log("LocaleReceiver: ping")
+            "device:locale".ktx().v("locale receiver ping")
             val i18n: I18n = ctx.inject().instance()
             i18n.locale.refresh(force = true)
         }
@@ -163,9 +159,8 @@ class AWatchdog(
 ) : IWatchdog {
 
     private val d by lazy { ctx.inject().instance<Device>() }
-    private val j by lazy { ctx.inject().instance<Journal>() }
     private val kctx by lazy { ctx.inject().with("watchdog").instance<Worker>() }
-    private val ktx by lazy { "connectivity".ktx() }
+    private val ktx by lazy { "device:watchdog".ktx() }
 
     override fun test(): Boolean {
         if (!d.watchdogOn()) return true
@@ -178,7 +173,7 @@ class AWatchdog(
             true
         }
         catch (e: Exception) {
-            ktx.v("watchdog ping not ok")
+            ktx.v("watchdog ping fail")
             false
         } finally {
             try { socket.close() } catch (e: Exception) {}

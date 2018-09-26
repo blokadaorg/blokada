@@ -5,8 +5,8 @@ import android.content.res.Resources
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import core.Format
+import core.ktx
 import gs.environment.Environment
-import gs.environment.Journal
 import gs.environment.Worker
 import gs.main.getPreferredLocales
 import java.util.*
@@ -27,8 +27,7 @@ typealias Localised = String
 
 class I18nImpl (
         private val kctx: Worker,
-        private val xx: Environment,
-        private val j: Journal = xx().instance()
+        private val xx: Environment
 ) : I18n() {
 
     private val ctx: Context by xx.instance()
@@ -41,9 +40,10 @@ class I18nImpl (
 
     override val locale = newPersistedProperty(kctx, BasicPersistence(xx, "locale"), { "en" },
             refresh = {
+                val ktx = "i18n:locale:refresh".ktx()
                 val preferred = getPreferredLocales()
                 val available = repo.content().locales
-                j.log("locale: refresh", "preferred/available", preferred, available)
+                ktx.v("locale preferred/available", preferred, available)
 
                 /**
                  * Try matching exactly, if not, try matching by language tag. Use order of preferred
@@ -61,7 +61,7 @@ class I18nImpl (
                         else -> null
                     }
                 }.filterNotNull()
-                j.log("locale: refresh: matches", matches.toList())
+                ktx.v("locale matches", matches)
                 (matches.firstOrNull() ?: Locale("en")).toString()
             })
 

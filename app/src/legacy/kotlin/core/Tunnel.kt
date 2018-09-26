@@ -7,7 +7,6 @@ import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.Kodein.Module
 import filter.DefaultSourceProvider
 import gs.environment.Environment
-import gs.environment.Journal
 import gs.environment.Worker
 import gs.obsolete.hasCompleted
 import gs.property.*
@@ -59,7 +58,8 @@ class TunnelImpl(
     override val tunnelState = newProperty(kctx, { TunnelState.INACTIVE })
 
     override val tunnelPermission = newProperty(kctx, {
-        val (completed, _) = hasCompleted(null, { checkTunnelPermissions(ctx.ktx("check perm")) })
+        val (completed, _) = hasCompleted("tunnel:permission".ktx(),
+                { checkTunnelPermissions(ctx.ktx("check perm")) })
         completed
     })
 
@@ -127,11 +127,11 @@ fun newTunnelModule(ctx: Context): Module {
             val d: Device = instance()
             val dns: Dns = instance()
             val pages: Pages = instance()
-            val j: Journal = instance()
             val engine: tunnel.Main = instance()
             val perms: IPermissionsAsker = instance()
             val watchdog: IWatchdog = instance()
             val retryKctx: Worker = with("retry").instance()
+            val ktx = "tunnel:legacy".ktx()
 
             dns.dnsServers.doWhenSet().then {
                 engine.setup(ctx.ktx("dns:changed"), dns.dnsServers())
@@ -149,9 +149,8 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             // React to device power saving blocking our tunnel
-            val pKtx = ctx.ktx("power:saving")
-            pKtx.on(tunnel.Events.TUNNEL_POWER_SAVING) {
-                pKtx.w("power saving detected")
+            ktx.on(tunnel.Events.TUNNEL_POWER_SAVING) {
+                ktx.w("power saving detected")
                 ctx.startActivity(Intent(ctx, PowersaveActivity::class.java))
             }
 
@@ -162,7 +161,7 @@ fun newTunnelModule(ctx: Context): Module {
                     s.tunnelState %= TunnelState.ACTIVATING
                     s.tunnelPermission.refresh(blocking = true)
                     if (s.tunnelPermission(false)) {
-                        hasCompleted(j, {
+                        hasCompleted(ktx, {
                             perms.askForPermissions()
                         })
                         s.tunnelPermission.refresh(blocking = true)
@@ -170,7 +169,7 @@ fun newTunnelModule(ctx: Context): Module {
 
                     if (s.tunnelPermission(true)) {
                         val ktx = ctx.ktx("tunnel:start")
-                        val (completed, err) = hasCompleted(null, { runBlocking {
+                        val (completed, err) = hasCompleted(ktx, { runBlocking {
                             engine.setup(ktx, dns.dnsServers(), start = true).await()
                         } })
                         if (completed) {
@@ -182,7 +181,7 @@ fun newTunnelModule(ctx: Context): Module {
 
                     if (!s.tunnelState(TunnelState.ACTIVE)) {
                         s.tunnelState %= TunnelState.DEACTIVATING
-                        hasCompleted(j, {
+                        hasCompleted(ktx, {
                             engine.stop(ctx.ktx("tunnel:stop:failStarting"))
                         })
                         s.tunnelState %= TunnelState.DEACTIVATED
@@ -205,7 +204,7 @@ fun newTunnelModule(ctx: Context): Module {
                     resetRetriesTask = task(retryKctx) {
                         if (s.tunnelState(TunnelState.ACTIVE)) {
                             Thread.sleep(15 * 1000)
-                            j.log("tunnel: stable")
+                            ktx.v("tunnel stable")
                             if (s.tunnelState(TunnelState.ACTIVE)) s.retries.refresh()
                         }
                     }
@@ -228,7 +227,7 @@ fun newTunnelModule(ctx: Context): Module {
                         if (s.enabled() && s.retries(0) && !s.tunnelState(TunnelState.ACTIVE)) {
                             Thread.sleep(5 * 1000)
                             if (s.enabled() && !s.tunnelState(TunnelState.ACTIVE)) {
-                                j.log("tunnel: restart after wait")
+                                ktx.v("tunnel restart after wait")
                                 s.retries.refresh()
                                 s.restart %= true
                                 s.tunnelState %= TunnelState.INACTIVE
@@ -244,7 +243,7 @@ fun newTunnelModule(ctx: Context): Module {
                         && s.tunnelState(TunnelState.ACTIVE, TunnelState.ACTIVATING)) {
                     watchdog.stop()
                     s.tunnelState %= TunnelState.DEACTIVATING
-                    hasCompleted(j, {
+                    hasCompleted(ktx, {
                         engine.stop(ctx.ktx("tunnel:stop"))
                     })
                     s.tunnelState %= TunnelState.DEACTIVATED
@@ -252,7 +251,6 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             // Auto off in case of no connectivity, and auto on once connected
-            val ktx = "connectivity".ktx()
             d.connected.doWhenChanged(withInit = true).then {
                 when {
                     !d.connected() && s.active() -> {
@@ -262,7 +260,6 @@ fun newTunnelModule(ctx: Context): Module {
                     }
                     d.connected() && s.restart() && !s.updating() && s.enabled() -> {
                         ktx.v("connectivity back, activating")
-                        j.log("tunnel: connectivity back, activating")
                         s.restart %= false
                         s.active %= true
                     }
@@ -274,7 +271,7 @@ fun newTunnelModule(ctx: Context): Module {
                 s.tunnelState(TunnelState.INACTIVE) && s.enabled() && s.restart() && s.updating(false)
                         && !d.isWaiting() && s.retries() > 0
             }.then {
-                j.log("tunnel: auto restart")
+                ktx.v("tunnel auto restart")
                 s.restart %= false
                 s.active %= true
             }

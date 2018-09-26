@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Context
 import com.github.salomonbrys.kodein.*
 import filter.DefaultSourceProvider
-import gs.environment.*
+import gs.environment.ComponentProvider
+import gs.environment.Environment
+import gs.environment.Worker
+import gs.environment.inject
 import gs.property.*
 import kotlinx.coroutines.experimental.launch
 import org.blokada.BuildConfig
@@ -71,9 +74,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
         onReady {
             val d: Device = instance()
             val repo: Repo = instance()
-            val f: Filters = instance()
-            val j: Journal = instance()
-            val pages: Pages = instance()
             val t: tunnel.Main = instance()
             val g11: g11n.Main = instance()
 
@@ -88,7 +88,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
 
             val i18n: I18n = instance()
             i18n.locale.doWhenChanged().then {
-                j.log("refresh filters from locale change")
+                "app:onLocaleSet".ktx().v("refresh filters on locale set")
                 g11.sync("translations:sync:locale".ktx())
             }
 

@@ -35,7 +35,7 @@ fun loadGzip(opener: () -> URLConnection, lineProcessor: (String) -> String? = {
     val charset = "UTF-8" // You should determine it based on response header.
 
     val input = if (con.contentEncoding == "gzip" || con.url.file.endsWith(".gz")) {
-        android.util.Log.v("b3", "uzing gzip download: ${con.url}")
+        "http".ktx().v("using gzip download", con.url)
         BufferedReader(InputStreamReader(GZIPInputStream(con.getInputStream()), charset))
     } else {
         BufferedReader(InputStreamReader(con.getInputStream(), charset))

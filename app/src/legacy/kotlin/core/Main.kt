@@ -15,7 +15,6 @@ import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.lazy
 import flavor.newFlavorModule
-import gs.environment.Journal
 import gs.environment.inject
 import gs.environment.newGscoreModule
 import gs.property.Device
@@ -144,12 +143,12 @@ class BootReceiver : BroadcastReceiver() {
 
 class BootJobService : JobService() {
 
-    private val j by lazy { inject().instance<Journal>() }
     private val d by lazy { inject().instance<Device>() }
     private val t by lazy { inject().instance<Tunnel>() }
+    private val ktx by lazy { "boot:service".ktx() }
 
     override fun onStartJob(params: JobParameters?): Boolean {
-        j.log("BootJobService: onStartJob")
+        ktx.v("boot job start")
         d.connected.refresh()
         d.onWifi.refresh()
         return scheduleJobFinish(params)
@@ -159,19 +158,19 @@ class BootJobService : JobService() {
         return try {
             when {
                 t.active() -> {
-                    j.log("BootJobService: finnish immediately, already active")
+                    ktx.v("boot job finnish immediately, already active")
                     false
                 }
                 !t.enabled() -> {
-                    j.log("BootJobService: finnish immediately, not enabled")
+                    ktx.v("boot job finnish immediately, not enabled")
                     false
                 }
                 listener != null -> {
-                    j.log("BootJobService: finnish immediately, service waiting")
+                    ktx.v("boot job finnish immediately, service waiting")
                     false
                 }
                 else -> {
-                    j.log("BootJobService: scheduling to stop when tunnel active")
+                    ktx.v("boot job scheduling to stop when tunnel active")
                     listener = t.active.doOnUiWhenChanged().then {
                         t.active.cancel(listener)
                         listener = null
@@ -181,7 +180,7 @@ class BootJobService : JobService() {
                 }
             }
         } catch (e: Exception) {
-            j.log("BootJobService: finish immediately, error", e)
+            ktx.e("boot job fail", e)
             false
         }
     }

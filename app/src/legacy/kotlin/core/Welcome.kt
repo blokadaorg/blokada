@@ -26,8 +26,7 @@ abstract class Welcome {
 class WelcomeImpl (
         w: Worker,
         xx: Environment,
-        val i18n: I18n = xx().instance(),
-        val j: Journal = xx().instance()
+        val i18n: I18n = xx().instance()
 ) : Welcome() {
     override val introSeen = newPersistedProperty(w, BasicPersistence(xx, "intro_seen"), { false })
     override val guideSeen = newPersistedProperty(w, BasicPersistence(xx, "guide_seen"), { false })
@@ -39,8 +38,6 @@ class WelcomeImpl (
 
     init {
         i18n.locale.doWhenSet().then {
-            val root = i18n.contentUrl()
-            j.log("welcome: locale set: contentUrl: $root")
             patronShow %= true
         }
 

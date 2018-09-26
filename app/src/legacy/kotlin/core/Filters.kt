@@ -27,14 +27,15 @@ abstract class Filters {
 class FiltersImpl(
         private val kctx: Worker,
         private val xx: Environment,
-        private val ctx: Context = xx().instance(),
-        private val j: Journal = xx().instance()
+        private val ctx: Context = xx().instance()
 ) : Filters() {
 
     override val changed = newProperty(kctx, { false })
 
     private val appsRefresh = {
-        j.log("filters: apps: start")
+        val ktx = "filters:apps:refresh".ktx()
+        ktx.v("apps refresh start")
+
         val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
         val a = installed.map {
             App(
@@ -43,7 +44,7 @@ class FiltersImpl(
                     system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
             )
         }.sortedBy { it.label }
-        j.log("filters: apps: found ${a.size} apps")
+        ktx.v("found ${a.size} apps")
         a
     }
 
@@ -103,8 +104,7 @@ class AppInstallReceiver : BroadcastReceiver() {
 
     override fun onReceive(ctx: Context, intent: Intent?) {
         task(ctx.inject().with("AppInstallReceiver").instance()) {
-            val j: Journal = ctx.inject().instance()
-            j.log("AppInstallReceiver: ping")
+            "filters:app".ktx().v("app install receiver ping")
             val f: Filters = ctx.inject().instance()
             f.apps.refresh(force = true)
         }
@@ -112,8 +112,6 @@ class AppInstallReceiver : BroadcastReceiver() {
 
     companion object {
         fun register(ctx: Context) {
-            val j: Journal = ctx.inject().instance()
-            j.log("AppInstallReceiver: registering")
             val filter = IntentFilter()
             filter.addAction(Intent.ACTION_PACKAGE_ADDED)
             filter.addAction(Intent.ACTION_PACKAGE_FULLY_REMOVED)
