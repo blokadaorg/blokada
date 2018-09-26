@@ -10,7 +10,7 @@
   <string name="update_header">¡Nueva actualización disponible!</string>
   <string name="update_header_noupdate">No hay actualizaciones disponibles</string>
   <string name="update_notification_channel">Notificaciones de actualización</string>
-  <string name="update_info">Si has descargado la aplicación desde Play Store, F-Droid u otra tienda de aplicaciones, recibirás actualizaciones desde la propia tienda cuando estén disponibles. Asegúrate de que Blokada esté desactivado durante la actualización. Si tienes problemas para actualizar, visita blokada.org y descarga la aplicación manualmente. No es necesario desinstalar la versión existente por lo general.</string>
+  <string name="update_info">Si has descargado la aplicación desde Play Store, F-Droid u otra tienda de aplicaciones, recibirás actualizaciones desde la propia tienda cuando estén disponibles. Asegúrate de que Blokada esté desactivado durante la actualización. Si tienes problemas para actualizar, visita blokada.org y descarga la aplicación manualmente. No es necesario desinstalar la versión existente, por lo general.</string>
   <string name="update_credits_header">Esta aplicación es un proyecto de código abierto hecha posible gracias a:</string>
   <!-- Displayed in the home screen when there is an update. Keep it short. -->
   <string name="update_dash_available">&lt;b&gt;¡Actualización disponible!&lt;/b&gt;</string>
