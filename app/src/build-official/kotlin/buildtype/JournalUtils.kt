@@ -994,7 +994,7 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
         protected val EVENT_TABLE_NAME = "events"
         protected val IDENTIFY_TABLE_NAME = "identifys"
         private val ID_FIELD = "id"
-        private val EVENT_FIELD = "newEvent"
+        private val EVENT_FIELD = "event"
 
         private val CREATE_STORE_TABLE = ("CREATE TABLE IF NOT EXISTS "
                 + STORE_TABLE_NAME + " (" + KEY_FIELD + " TEXT PRIMARY KEY NOT NULL, "

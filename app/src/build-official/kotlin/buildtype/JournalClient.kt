@@ -369,7 +369,7 @@ class JournalClient(instance: String) {
             result = saveEvent(eventType, event)
         } catch (e: JSONException) {
             logger.e(TAG, String.format(
-                    "JSON Serialization of newEvent type %s failed, skipping: %s", eventType, e.toString()
+                    "JSON Serialization of event type %s failed, skipping: %s", eventType, e.toString()
             ))
         }
 
@@ -380,7 +380,7 @@ class JournalClient(instance: String) {
         val eventString = event.toString()
         if (Utils.isEmptyString(eventString)) {
             logger.e(TAG, String.format(
-                    "Detected empty newEvent string for newEvent type %s, skipping", eventType
+                    "Detected empty event string for event type %s, skipping", eventType
             ))
             return -1
         }
@@ -763,7 +763,7 @@ class JournalClient(instance: String) {
             } catch (e: CursorWindowAllocationException) {
                 uploadingCurrently.set(false)
                 logger.e(TAG, String.format(
-                        "Caught Cursor window exception during newEvent upload, deferring upload: %s",
+                        "Caught Cursor window exception during event upload, deferring upload: %s",
                         e.message
                 ))
             }
