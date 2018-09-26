@@ -59,7 +59,7 @@ class Main(
                 maybeStopVpn(ktx)
                 maybeStopTunnelThread(ktx)
             }
-            currentServers == servers -> {
+            currentServers == servers && isVpnOn() -> {
                 ktx.v("unchanged dns servers, ignoring")
             }
             else -> {
@@ -123,6 +123,7 @@ class Main(
     }
 
     fun stop(ktx: AndroidKontext) = async(CTRL) {
+        ktx.v("stopping tunnel")
         maybeStopTunnelThread(ktx)
         maybeStopVpn(ktx)
         currentServers = emptyList()
@@ -244,7 +245,7 @@ class Main(
     }
 
     private suspend fun restartVpn(ktx: AndroidKontext) {
-        if (binder != null) {
+        if (isVpnOn()) {
             stopVpn(ktx)
             startVpn(ktx)
         }
@@ -258,10 +259,11 @@ class Main(
         stopTunnelThread(ktx); true
     } else false
 
-    private suspend fun maybeStartVpn(ktx: AndroidKontext) = if (binder == null) startVpn(ktx) else Unit
+    private suspend fun maybeStartVpn(ktx: AndroidKontext) = if (!isVpnOn()) startVpn(ktx) else Unit
 
-    private fun maybeStopVpn(ktx: AndroidKontext) = if (binder != null) {
+    private fun maybeStopVpn(ktx: AndroidKontext) = if (isVpnOn()) {
         stopVpn(ktx); true
     } else false
 
+    private fun isVpnOn() = binder != null
 }
