@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.Button
 import android.widget.ScrollView
 import android.widget.TextView
+import core.Format
 import core.ktx
 import gs.presentation.SwitchCompatView
 import org.blokada.R
@@ -52,15 +53,14 @@ class TunnelConfigView(
             capacity = it
         }
 
-        val formatCapacity = { capacity: Int ->
-            if (capacity > 1_000_000) "%.2f million".format(capacity / 1_000_000.0)
-            else "%d thousand".format(capacity / 1_000)
-        }
-
         context.ktx().on(tunnel.Events.RULESET_BUILT, { event ->
             val (deny, allow) = event
-            status.text = context.resources.getString(R.string.tunnel_hosts_count, max(deny - allow, 0)) +
-                    ", ${formatCapacity(capacity + deny)} can fit into memory"
+            status.text = "%s\n%s".format(
+                    context.resources.getString(R.string.tunnel_hosts_count2,
+                            Format.counter(max(deny - allow, 0))),
+                    context.resources.getString(R.string.tunnel_config_memory_capacity,
+                            Format.counter(capacity + deny, round = true))
+            )
         })
 
         context.ktx().on(tunnel.Events.RULESET_BUILDING, {
@@ -75,7 +75,7 @@ class TunnelConfigView(
     private fun syncView() {
         currentFrequency.text = ttlToString(config.cacheTTL)
         wifiOnlySwitch.isChecked = config.wifiOnly
-        status.text = context.resources.getString(R.string.tunnel_hosts_count, 0)
+        status.text = context.resources.getString(R.string.tunnel_hosts_count2, 0.toString())
     }
 
     private fun ttlToString(ttl: Long) = when(ttl) {

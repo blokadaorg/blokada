@@ -46,9 +46,6 @@
                         android:id="@+id/status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:singleLine="true"
                         android:text="@string/tunnel_hosts_count"
                         android:textColor="@color/colorActive" />
 
@@ -185,8 +182,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
@@ -194,7 +189,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:lines="2"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
                     android:text="@string/tunnel_config_refetch_frequency_1" />
 
                 <Button
@@ -202,15 +198,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:lines="2"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
                     android:text="@string/tunnel_config_refetch_frequency_2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/frequency_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:lines="2"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
                     android:text="@string/tunnel_config_refetch_frequency_3" />
 
                 <Button
@@ -218,7 +223,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:lines="2"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
                     android:text="@string/tunnel_config_refetch_frequency_4" />
             </LinearLayout>
 
@@ -293,6 +299,6 @@
             android:gravity="center">
 
         </LinearLayout>
-
     </LinearLayout>
+
 </tunnel.TunnelConfigView>

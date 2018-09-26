@@ -71,4 +71,10 @@
     <string name="main_report_text">Blokada has experienced a problem (or you requested to send a report). A log will be attached which may contain private information. Only trusted Insiders will be able to read your report, and it will be deleted once it is not needed anymore.</string>
     <string name="main_report_comment">Reports with comments are prioritised. What did you do before the problem occurred?</string>
     <string name="main_report_limit">Report limit reached. Please stay tuned for an update. Thanks for your feedback!</string>
+
+    <!-- To display a big number in short way, eg. 1.69 million -->
+    <string name="core_format_million">%s million</string>
+
+    <!-- To display a big number in short way, eg. 420 thousand -->
+    <string name="core_format_thousand">%s thousand</string>
 </resources>

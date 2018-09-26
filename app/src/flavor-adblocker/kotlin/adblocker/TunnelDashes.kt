@@ -4,10 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
-import core.Dash
-import core.Filters
-import core.Tunnel
-import core.ktx
+import core.*
 import gs.environment.inject
 import org.blokada.R
 import tunnel.TunnelConfigView
@@ -33,7 +30,7 @@ class TunnelDashCountDropped(
     }
 
     private fun getBlockedString(blocked: Int): String {
-        return ctx.resources.getString(R.string.tunnel_dropped_count, blocked)
+        return ctx.resources.getString(R.string.tunnel_dropped_count2, Format.counter(blocked))
     }
 }
 
@@ -48,11 +45,12 @@ class TunnelDashHostsCount(
 ) {
 
     init {
-        text = ctx.resources.getString(R.string.tunnel_hosts_count, 0)
+        text = ctx.resources.getString(R.string.tunnel_hosts_count2, 0.toString())
 
         ctx.ktx().on(tunnel.Events.RULESET_BUILT, { event ->
             val (deny, allow) = event
-            text = ctx.resources.getString(R.string.tunnel_hosts_count, max(deny - allow, 0))
+            text = ctx.resources.getString(R.string.tunnel_hosts_count2,
+                    Format.counter(max(deny - allow, 0)))
         })
 
         ctx.ktx().on(tunnel.Events.RULESET_BUILDING, {
