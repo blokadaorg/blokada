@@ -31,16 +31,7 @@ fun load(opener: () -> InputStream, lineProcessor: (String) -> String? = { it })
 }
 
 fun loadGzip(opener: () -> URLConnection, lineProcessor: (String) -> String? = { it }): List<String> {
-    val con = opener()
-
-    val charset = "UTF-8" // You should determine it based on response header.
-
-    val input = if (con.contentEncoding == "gzip" || con.url.file.endsWith(".gz")) {
-        "http".ktx().v("using gzip download", con.url)
-        BufferedReader(InputStreamReader(GZIPInputStream(con.getInputStream()), charset))
-    } else {
-        BufferedReader(InputStreamReader(con.getInputStream(), charset))
-    }
+    val input = createStream(opener())
 
     val response = mutableListOf<String>()
     var line: String?
@@ -59,12 +50,22 @@ fun loadGzip(opener: () -> URLConnection, lineProcessor: (String) -> String? = {
     return response
 }
 
+fun createStream(con: URLConnection) = {
+    val charset = "UTF-8"
+    if (con.contentEncoding == "gzip" || con.url.file.endsWith(".gz")) {
+        "http".ktx().v("using gzip download", con.url)
+        BufferedReader(InputStreamReader(GZIPInputStream(con.getInputStream()), charset))
+    } else {
+        BufferedReader(InputStreamReader(con.getInputStream(), charset))
+    }
+}()
+
 fun openUrl(url: URL, timeoutMillis: Int) = {
     val c = url.openConnection() as HttpURLConnection
     c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36");
     c.setRequestProperty("Accept-Encoding", "gzip")
     c.connectTimeout = timeoutMillis
-    c.readTimeout = timeoutMillis * 10
+    c.readTimeout = timeoutMillis
     c.instanceFollowRedirects = true
     c
 }

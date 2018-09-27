@@ -3,13 +3,8 @@ package g11n
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
-import core.Kontext
-import core.Result
-import core.Url
-import core.openUrl
-import java.io.InputStreamReader
+import core.*
 import java.net.URL
-import java.nio.charset.Charset
 import java.util.*
 
 internal class TranslationsFetcher(
@@ -22,8 +17,7 @@ internal class TranslationsFetcher(
         val doFetchTranslations: (Url, Prefix) -> Result<Translations> = { url, prefix ->
             Result.of {
                 val prop = Properties()
-                prop.load(InputStreamReader(openUrl(URL(url), 10 * 1000)().getInputStream(),
-                        Charset.forName("UTF-8")))
+                prop.load(createStream(openUrl(URL(url), 10 * 1000)()))
                 prop.stringPropertyNames().map { key -> "${prefix}_$key" to prop.getProperty(key)}
             }
         },
