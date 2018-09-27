@@ -59,5 +59,7 @@
   <string name="main_report_comment">Приоритет отдается отчетам с комментариями. Что вы делали до возникновения проблемы?</string>
   <string name="main_report_limit">Достигнут лимит отчетов. Пожалуйста, следите за обновлениями. Спасибо за ваш отзыв!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s млн.</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s тыс.</string>
 </resources>

@@ -58,5 +58,7 @@
   <string name="main_report_comment">Es prioritzen els informes amb comentaris. Què vau fer abans que es produís el problema?</string>
   <string name="main_report_limit">S\'ha arribat al límit de l\'informe. Estigueu atents per rebre actualitzacions. Gràcies pels vostres suggeriments!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s milions</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s mil</string>
 </resources>
