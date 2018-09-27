@@ -5,6 +5,7 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
 import java.util.zip.GZIPInputStream
@@ -59,11 +60,12 @@ fun loadGzip(opener: () -> URLConnection, lineProcessor: (String) -> String? = {
 }
 
 fun openUrl(url: URL, timeoutMillis: Int) = {
-    val c = url.openConnection()
+    val c = url.openConnection() as HttpURLConnection
     c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36");
     c.setRequestProperty("Accept-Encoding", "gzip")
     c.connectTimeout = timeoutMillis
     c.readTimeout = timeoutMillis * 10
+    c.instanceFollowRedirects = true
     c
 }
 
