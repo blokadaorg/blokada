@@ -58,4 +58,6 @@
   <string name="main_report_text">Blokada ha tenido un problema (o has solicitado enviar un informe). Se adjuntará un registro que puede contener información privada. Solo los Insiders de confianza podrán leer tu informe, y será borrado cuando ya no sea necesario.</string>
   <string name="main_report_comment">Se da prioridad a los informes con comentarios. ¿Qué hiciste antes de que ocurriera el problema?</string>
   <string name="main_report_limit">Se ha alcanzado el límite de envío de informes. Por favor, mantente atento para una actualización. ¡Gracias por tus comentarios!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

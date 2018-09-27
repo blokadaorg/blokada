@@ -57,4 +57,6 @@
   <string name="main_report_text">Blokada heeft een probleem ervaren (of u verzocht om een verslag te sturen). Een logboek wordt gekoppeld dat persoonlijke informatie kan bevatten. Alleen vertrouwde Insiders zal zitten kundig voor uw verslag gelezen, en het zal worden geschrapt zodra het niet meer nodig is.</string>
   <string name="main_report_comment">Rapporten met opmerkingen hebben prioriteit. Wat deed je voordat het probleem zich voordeed?</string>
   <string name="main_report_limit">Rapportlimiet bereikt. Blijf alstublieft op de hoogte voor een update. Bedankt voor je feedback!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

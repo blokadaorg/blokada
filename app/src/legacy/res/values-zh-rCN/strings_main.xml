@@ -49,4 +49,6 @@
   <!-- A menu option to open credits screen -->
   <string name="main_credits">致谢</string>
   <!-- An overlay header on top of Patron page -->
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

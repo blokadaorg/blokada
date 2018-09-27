@@ -58,4 +58,6 @@
   <string name="main_report_text">В Blokada възникна проблем (или сте поискали да изпратите отчет). Ще бъде прикрепен дневник на дейността, който може да съдържа лична информация. Само доверени лица ще могат да четат доклада ви и той ще бъде изтрит след като вече не е необходим.</string>
   <string name="main_report_comment">Приоритет имат отчети с коментари. Какво правехте преди да възникне проблема?</string>
   <string name="main_report_limit">Достигнат лимит на отчетите. Моля, следете за обновления. Благодарим за вашия отзив!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

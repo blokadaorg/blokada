@@ -57,4 +57,6 @@
   <string name="main_report_text">Ocorreu um erro com o Blokada (ou você pediu para enviar um relatório). Será anexado um registo que pode conter informações privadas. Apenas os programadores terão acesso ao relatório e, assim que já não for necessário, será apagado.</string>
   <string name="main_report_comment">Os relatórios com comentários têm prioridade. O que você fez antes de ocorrer o erro?</string>
   <string name="main_report_limit">Limite de relatórios atingido. Por favor, fique atento para uma atualização. Obrigado pelo seu feedback!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

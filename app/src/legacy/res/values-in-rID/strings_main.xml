@@ -57,4 +57,6 @@
   <string name="main_report_text">Blokada telah mengalami masalah (atau Anda diminta untuk mengirimkan laporan). Log akan dilampirkan yang mungkin berisi informasi pribadi. Hanya Insiders terpercaya akan membaca laporan Anda, dan itu akan dihapus setelah tidak diperlukan lagi.</string>
   <string name="main_report_comment">Laporan dengan komentar diprioritaskan. Apa yang kau lakukan sebelum masalah terjadi?</string>
   <string name="main_report_limit">Batas laporan tercapai. Silakan menantikan untuk pembaruan. Terima kasih untuk umpan balik Anda!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

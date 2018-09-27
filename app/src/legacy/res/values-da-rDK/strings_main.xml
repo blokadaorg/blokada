@@ -23,4 +23,6 @@
   <!-- A menu option to open changelog -->
   <!-- A menu option to open credits screen -->
   <!-- An overlay header on top of Patron page -->
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

@@ -52,9 +52,14 @@
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Készítők</string>
   <!-- An overlay header on top of Patron page -->
+  <string name="main_patron_overlay">A Blokada Közösségként keressük az ígéretes projekteket és segítünk nekik növekedni. Kérlek oszd meg te is!</string>
   <string name="main_log">Napló megosztása</string>
   <string name="main_report_title">Blokada jelentés</string>
   <string name="main_report_text">A Blokada problémát észlelt (vagy egy jelentés küldését kérted). Olyan naplót csatolunk, amely személyes adatokat is tartalmazhat. Csak a megbízható Bennfentesek olvashatják az elküldött jelentésed, és a törlésére akkor kerül sor, ha már nincs rá szükség.</string>
   <string name="main_report_comment">A megjegyzésekkel ellátott jelentések prioritást élveznek. Mit csináltál a probléma megjelenése előtt?</string>
   <string name="main_report_limit">Jelentések határszáma elérve. Kérjük, várd meg a frissítést. Köszönjük a visszajelzésed!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s millió</string>
+  <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s száz</string>
 </resources>

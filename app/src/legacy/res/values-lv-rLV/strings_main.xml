@@ -57,4 +57,6 @@
   <string name="main_report_text">Blokada radusies kāda problēma (vai jums piedāvā nosūtīt ziņojumu). Tiks pievienots log fails, kas var saturēt privātu informāciju. Tikai uzticami biedri varēs izlasīt jūsu ziņojumu un tas tiks dzēsts, kad vairs nebūs nepieciešams.</string>
   <string name="main_report_comment">Ziņojumiem ar komentāriem tiek dota priekšroka. Ko jūs darījāt, kad notika problēma?</string>
   <string name="main_report_limit">Ziņojumu limits sasniegts. Lūdzu, sekojiet līdzi jauninājumiem. Paldies par atsaucību!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

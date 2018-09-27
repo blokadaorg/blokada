@@ -59,4 +59,6 @@
   <string name="main_report_comment">Le segnalazioni con commenti avranno priorità. Cosa stavi facendo quando si è verificato il problema?</string>
   <string name="main_report_limit">È stato raggiunto il limite di segnalazioni. Per favore, resta in attesa di ulteriori aggiornamenti.
 Grazie per il tuo feedback!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

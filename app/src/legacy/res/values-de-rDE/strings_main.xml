@@ -58,4 +58,6 @@
   <string name="main_report_text">Bei Blokada ist ein Problem aufgetreten (oder Du hast angefordert, einen Bericht zu senden). Ein Protokoll wird angehängt, das private Informationen enthalten kann. Nur vertrauenswürdige Insider können Ihren Bericht lesen und er wird gelöscht, sobald er nicht mehr benötigt wird.</string>
   <string name="main_report_comment">Berichte mit Kommentaren werden priorisiert. Was hast Du gemacht, bevor das Problem auftrat?</string>
   <string name="main_report_limit">Berichtslimit erreicht. Bitte bleib dran für ein Update. Vielen Dank für Dein Feedback!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

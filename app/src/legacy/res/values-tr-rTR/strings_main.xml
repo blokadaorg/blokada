@@ -52,4 +52,6 @@
   <string name="main_credits">Emeği Geçenler</string>
   <!-- An overlay header on top of Patron page -->
   <string name="main_patron_overlay">Blokada topluluğu olarak umut vaat eden yeni projeleri buluyor ve destekliyoruz. Lütfen paylaşın!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

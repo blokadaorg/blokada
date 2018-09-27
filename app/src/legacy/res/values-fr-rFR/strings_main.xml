@@ -58,4 +58,6 @@
   <string name="main_report_text">Blokada a rencontré un problème (ou vous avez choisi d’envoyer un rapport). Un log sera transmis et celui-ci peut contenir quelques données personnelles. Seules des personnes de confiance seront autorisées à lire votre rapport. Ce dernier sera supprimé une fois qu’il n’est plus nécessaire ou que le problème sera réglé.</string>
   <string name="main_report_comment">Les rapports contenant des commentaires sont prioritaires. Que faisiez vous avant que le problème ne survienne ?</string>
   <string name="main_report_limit">Limite du nombre de rapports atteinte. Veuillez, s\'il vous plaît, attendre une prochaine mise à jour. Merci pour vos retours!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

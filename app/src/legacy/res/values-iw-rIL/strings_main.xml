@@ -57,4 +57,8 @@
   <string name="main_report_text">Blokada חווה בעיה (או שביקשת לשלוח דיווח). הדיווח יכלול יומן שעשוי להכיל מידע אישי. רק משתמשים פנימיים מאושרים יוכלו לקרוא את הדיווח שלך, והוא יוסר ברגע שלא יהיה נחוץ יותר.</string>
   <string name="main_report_comment">דוחות עם הערות מקבלים העדפה. מה עשית לפני שהבעיה קרתה?</string>
   <string name="main_report_limit">הגעת למגבלת דוחות. אנא המתן לעדכון. תודה על המשוב!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s מיליון</string>
+  <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s אלף</string>
 </resources>

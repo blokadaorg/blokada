@@ -58,4 +58,8 @@
   <string name="main_report_text">Blokada zaznamenala nějaký problém (nebo jste požádali o odeslání hlášení o chybách). K hlášení bude připojen protokol, který může obsahovat soukromé informace. Pouze důvěryhodní zkušení uživatelé si budou moci přečíst vaši zprávu. Ta bude odstraněna, jakmile ji již nebudeme potřebovat.</string>
   <string name="main_report_comment">Hlášení o chybách s komentáři mají prioritu. Co jste udělali předtím, než k problému došlo?</string>
   <string name="main_report_limit">Došlo k dosažení limitu zprávy hlášení o chybách. Zůstaňte prosím naladěni na další aktualizaci. Děkujeme za vaši odezvu!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s milion</string>
+  <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s tisíc</string>
 </resources>

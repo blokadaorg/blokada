@@ -58,4 +58,6 @@
   <string name="main_report_text">Blokada har opplevd et problem (eller du har blitt bedt om å sende en rapport). En logg vil bli vedlagt som kan inneholde privat informasjon. Kun betroede Insiders vil kunne lese rapporten, og den blir slettet når den ikke lenger er nødvendig.</string>
   <string name="main_report_comment">Rapporter med kommentarer blir prioritert. Hva gjorde du før problemet oppstod?</string>
   <string name="main_report_limit">Rapportgrense nådd. Vennligst vent på en oppdatering. Takk for din tilbakemelding!</string>
+  <!-- To display a big number in short way, eg. 1.69 million -->
+  <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>
