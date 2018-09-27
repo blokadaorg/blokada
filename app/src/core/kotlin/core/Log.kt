@@ -63,7 +63,6 @@ class FileLogWriter {
         writer
     } catch (ex: Exception) {
         logcatWriter(LOG_WARNING, LOG_DEFAULT_TAG, "fail opening log file: ${ex.message}")
-        exceptionWriter(LOG_WARNING, LOG_DEFAULT_TAG, ex)
         null
     }
 

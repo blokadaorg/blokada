@@ -68,6 +68,8 @@ class MainApplication: Application(), KodeinAware {
 
     override fun onCreate() {
         super.onCreate()
+        val ktx = "boot".ktx()
+        repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
         setRestartAppOnCrash()
         Paper.init(this)
     }
@@ -137,6 +139,7 @@ class MainApplication: Application(), KodeinAware {
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent?) {
+        "boot".ktx().v("received boot event")
         startThroughJobScheduler(ctx)
     }
 }
