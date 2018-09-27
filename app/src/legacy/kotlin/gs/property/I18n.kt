@@ -19,6 +19,7 @@ abstract class I18n {
     abstract fun getString(resId: Int): String
     abstract fun getQuantityString(resId: Int, quantity: Int, vararg arguments: Any): String
     abstract fun contentUrl(): String
+    abstract fun fallbackContentUrl(): String
 }
 
 typealias LanguageTag = String
@@ -36,6 +37,10 @@ class I18nImpl (
 
     override fun contentUrl(): String {
         return "%s/%s".format(repo.content().contentPath ?: "http://localhost", locale())
+    }
+
+    override fun fallbackContentUrl(): String {
+        return "%s/%s".format(repo.content().contentPath ?: "http://localhost", "en")
     }
 
     override val locale = newPersistedProperty(kctx, BasicPersistence(xx, "locale"), { "en" },

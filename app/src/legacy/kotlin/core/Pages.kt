@@ -28,6 +28,7 @@ abstract class Pages {
     abstract val credits: IProperty<URL>
     abstract val filters: IProperty<URL>
     abstract val filtersStrings: IProperty<URL>
+    abstract val filtersStringsFallback: IProperty<URL>
     abstract val chat: IProperty<URL>
     abstract val dns: IProperty<URL>
     abstract val dnsStrings: IProperty<URL>
@@ -55,6 +56,7 @@ class PagesImpl (
                 credits %= URL("$c/credits.html")
                 filters %= URL("$c/filters.txt")
                 filtersStrings %= URL("$c/filters.properties")
+                filtersStringsFallback %= URL("${i18n.fallbackContentUrl()}/filters.properties")
                 dns %= URL("$c/dns.txt")
                 dnsStrings %= URL("$c/dns.properties")
                 patron %= resolveRedirect(patron())
@@ -79,6 +81,7 @@ class PagesImpl (
     override val credits = newProperty(w, { URL("http://localhost") })
     override val filters = newProperty(w, { URL("http://localhost") })
     override val filtersStrings = newProperty(w, { URL("http://localhost") })
+    override val filtersStringsFallback = newProperty(w, { URL("http://localhost") })
     override val dns = newProperty(w, { URL("http://localhost") })
     override val dnsStrings = newProperty(w, { URL("http://localhost") })
     override val chat = newProperty(w, { URL("http://go.blokada.org/chat") })

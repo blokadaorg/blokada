@@ -183,7 +183,7 @@ internal class FilterManager(
         val allowed = store.cache.filter { it.whitelist && it.active }.map { it.id }
         val denied = store.cache.filter { !it.whitelist && it.active }.map { it.id }
 
-        ktx.v("attempting to build rules", denied, allowed)
+        ktx.v("attempting to build rules, denied/allowed", denied.size, allowed.size)
         blockade.build(ktx, denied, allowed)
         allowed.size > 0 || denied.size > 0
     }()

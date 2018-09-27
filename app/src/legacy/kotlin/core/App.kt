@@ -63,6 +63,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
             val i18n: I18n = instance()
             g11n.Main(
                     urls = { mapOf(
+                            pages.filtersStringsFallback().toExternalForm() to "filters",
                             pages.filtersStrings().toExternalForm() to "filters"
                     ) },
                     doPutTranslation = { key, value ->

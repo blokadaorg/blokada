@@ -27,6 +27,10 @@ data class Filter(
         if (other !is Filter) return false
         return id == other.id
     }
+
+    override fun toString(): String {
+        return id
+    }
 }
 
 data class FilterStore(
