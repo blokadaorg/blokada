@@ -61,7 +61,8 @@ class AFilterGenerateDialog(
 
     private val activity by lazy { ctx.inject().instance<ComponentProvider<Activity>>().get() }
     private val j by lazy { ctx.inject().instance<Journal>() }
-    private val t by lazy { ctx.inject().instance<tunnel.Main>() }
+    private val tunnel by lazy { ctx.inject().instance<tunnel.Main>() }
+    private val translations by lazy { ctx.inject().instance<g11n.Main>() }
     private val dialog: AlertDialog
     private var which: Int = 0
 
@@ -119,17 +120,21 @@ class AFilterGenerateDialog(
             0 -> {
                 val ktx = "quickActions:refresh".ktx()
                 s.apps.refresh(force = true)
-                t.invalidateFilters(ktx)
+                tunnel.invalidateFilters(ktx)
+                translations.invalidateCache(ktx)
+                translations.sync(ktx)
             }
             1 -> {
                 val ktx = "quickActions:restore".ktx()
                 s.apps.refresh(force = true)
-                t.deleteAllFilters(ktx)
+                tunnel.deleteAllFilters(ktx)
+                translations.invalidateCache(ktx)
+                translations.sync(ktx)
             }
             2 -> {
                 dialogExport.onClosed = { accept ->
                     val ktx = "quickActions:export:close".ktx()
-                    t.invalidateFilters(ktx)
+                    tunnel.invalidateFilters(ktx)
                 }
                 dialogExport.show()
             }
@@ -145,7 +150,7 @@ class AFilterGenerateDialog(
                                     whitelist = true
                             )
                         }
-                t.putFilters(ktx, new)
+                tunnel.putFilters(ktx, new)
                 s.changed %= true
             }
         }

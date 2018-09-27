@@ -28,7 +28,7 @@ internal class TranslationsFetcher(
 
     private var store = TranslationStore()
 
-    fun load(ktx: Kontext) {
+    @Synchronized fun load(ktx: Kontext) {
         doLoadTranslationStore().mapBoth(
                 success = {
                     ktx.v("loaded TranslationStore from persistence", it.cache.size)
@@ -41,14 +41,14 @@ internal class TranslationsFetcher(
         )
     }
 
-    fun save(ktx: Kontext) {
+    @Synchronized fun save(ktx: Kontext) {
         doSaveTranslationStore(store).mapBoth(
                 success = { ktx.v("saved TranslationStore to persistence") },
                 failure = { ktx.e("failed saving TranslationStore to persistence", it) }
         )
     }
 
-    fun sync(ktx: Kontext) {
+    @Synchronized fun sync(ktx: Kontext) {
         val invalid = urls().filter { !doValidateCacheForUrl(store, it.key) }
         ktx.v("attempting to fetch ${invalid.size} translation urls")
 
@@ -71,5 +71,10 @@ internal class TranslationsFetcher(
         }
 
         ktx.v("finished fetching translations; $failed failed")
+    }
+
+    @Synchronized fun invalidateCache(ktx: Kontext) {
+        ktx.v("invalidating translations cache")
+        store = TranslationStore()
     }
 }

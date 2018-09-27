@@ -25,4 +25,8 @@ class Main(
         fetcher.sync(ktx)
         fetcher.save(ktx)
     }
+
+    fun invalidateCache(ktx: Kontext) = async(COMMON) {
+        fetcher.invalidateCache(ktx)
+    }
 }
