@@ -16,6 +16,7 @@ package buildtype;
  * put("MessageDigest.MD5", "org.rodage.pub.java.security.MD5");
  */
 //package org.rodage.pub.java.security
+
 import java.security.DigestException;
 import java.security.MessageDigest;
 //--+---+1--+---+--2+---+---+3--+---+--4+---+---+5--+---+--6+---+---+7--+---+-
@@ -70,12 +71,12 @@ import java.security.MessageDigest;
  *
  * <p>References:</p>
  * <ol>
- *   <li>Rivest R., "The <a href="http://www.ietf.org/rfc/rfc1321.txt">MD5</a>
- *     Message-Digest Algorithm", Informational RFC 1321, MIT Laboratory for
- *     Computer Science, and RSA Data Security, Inc., April 1992.</li>
- *   <li>RFC Editor, "<a
- *     href="http://www.rfc-editor.org/cgi-bin/errataSearch.pl?rfc=1321&">Erratum</a>
- *     for RFC 1321", 2002-06-14, 2001-01-19, 2000-04-12.</li>
+ * <li>Rivest R., "The <a href="http://www.ietf.org/rfc/rfc1321.txt">MD5</a>
+ * Message-Digest Algorithm", Informational RFC 1321, MIT Laboratory for
+ * Computer Science, and RSA Data Security, Inc., April 1992.</li>
+ * <li>RFC Editor, "<a
+ * href="http://www.rfc-editor.org/cgi-bin/errataSearch.pl?rfc=1321&">Erratum</a>
+ * for RFC 1321", 2002-06-14, 2001-01-19, 2000-04-12.</li>
  * </ol>
  */
 public final class MD5 extends MessageDigest implements Cloneable {
@@ -112,17 +113,18 @@ public final class MD5 extends MessageDigest implements Cloneable {
      * Clones this object.
      */
     public Object clone() throws CloneNotSupportedException {
-        final MD5 that = (MD5)super.clone();
-        that.pad = (byte[])this.pad.clone();
+        final MD5 that = (MD5) super.clone();
+        that.pad = this.pad.clone();
         return that;
     }
 
     /**
      * Reset then initialize the digest context.<br/>
-     *
+     * <p>
      * Overrides the protected abstract method of
      * <code>java.security.MessageDigestSpi</code>.
-     * @modifies  this
+     *
+     * @modifies this
      */
     public void engineReset() {
         padded = 0;
@@ -144,7 +146,8 @@ public final class MD5 extends MessageDigest implements Cloneable {
 
     /**
      * Initialize the digest context.
-     * @modifies  this
+     *
+     * @modifies this
      */
     protected void init() {
         /* Set to MD5/RIPEMD128 magic values. */
@@ -157,11 +160,12 @@ public final class MD5 extends MessageDigest implements Cloneable {
     /**
      * Updates the digest using the specified byte.
      * Requires internal buffering, and may be slow.<br/>
-     *
+     * <p>
      * Overrides the protected abstract method of
      * <code>java.security.MessageDigestSpi</code>.
-     * @param input  the byte to use for the update.
-     * @modifies  this
+     *
+     * @param input the byte to use for the update.
+     * @modifies this
      */
     public void engineUpdate(final byte input) {
         bytes++;
@@ -177,16 +181,17 @@ public final class MD5 extends MessageDigest implements Cloneable {
     /**
      * Updates the digest using the specified array of bytes,
      * starting at the specified offset.<br/>
-     *
+     * <p>
      * Input length can be any size. May require internal buffering,
      * if input blocks are not multiple of 64 bytes.<br/>
-     *
+     * <p>
      * Overrides the protected abstract method of
      * <code>java.security.MessageDigestSpi</code>.
+     *
      * @param input  the array of bytes to use for the update.
-     * @param offset  the offset to start from in the array of bytes.
-     * @param length  the number of bytes to use, starting at offset.
-     * @modifies  this
+     * @param offset the offset to start from in the array of bytes.
+     * @param length the number of bytes to use, starting at offset.
+     * @modifies this
      */
     public void engineUpdate(byte[] input, int offset, int length) {
         if (offset >= 0 && length >= 0 && offset + length <= input.length) {
@@ -195,7 +200,7 @@ public final class MD5 extends MessageDigest implements Cloneable {
             if (padded > 0 && padded + length >= 64) {
                 final int remaining;
                 System.arraycopy(input, offset, pad, padded,
-                    remaining = 64 - padded);
+                        remaining = 64 - padded);
                 engineUpdate(pad, padded = 0);
                 offset += remaining;
                 length -= remaining;
@@ -235,14 +240,15 @@ public final class MD5 extends MessageDigest implements Cloneable {
      * value as a byte[16] array. Once engineDigest has been called,
      * the engine will be automatically reset as specified in the
      * Java Security MessageDigest specification.<br/>
-     *
+     * <p>
      * For faster operations with multiple digests, allocate your own
      * array and use engineDigest(byte[], int offset, int len).<br/>
-     *
+     * <p>
      * Overrides the protected abstract method of
      * <code>java.security.MessageDigestSpi</code>.
+     *
      * @return the length of the digest stored in the output buffer.
-     * @modifies  this
+     * @modifies this
      */
     public byte[] engineDigest() {
         try {
@@ -257,10 +263,11 @@ public final class MD5 extends MessageDigest implements Cloneable {
     /**
      * Returns the digest length in bytes. Can be used to allocate your own
      * output buffer when computing multiple digests.<br/>
-     *
+     * <p>
      * Overrides the protected abstract method of
      * <code>java.security.MessageDigestSpi</code>.
-     * @return  the digest length in bytes.
+     *
+     * @return the digest length in bytes.
      */
     public int engineGetDigestLength() {
         return 16; /* digest length in bytes */
@@ -270,25 +277,26 @@ public final class MD5 extends MessageDigest implements Cloneable {
      * Completes the hash computation by performing final operations
      * such as padding. Once engineDigest has been called, the engine
      * will be automatically reset (see engineReset).<br/>
-     *
+     * <p>
      * Overrides the protected abstract method of
      * <code>java.security.MessageDigestSpi</code>.
-     * @param hashvalue  the output buffer in which to store the digest.
-     * @param offset  offset to start from in the output buffer
-     * @param length  number of bytes within buf allotted for the digest.
-     *                Both this default implementation and the SUN provider
-     *                do not return partial digests.  The presence of this
-     *                parameter is solely for consistency in our API's.
-     *                If the value of this parameter is less than the
-     *                actual digest length, the method will throw a
-     *                DigestException.  This parameter is ignored if its
-     *                value is greater than or equal to the actual digest
-     *                length.
-     * @return  the length of the digest stored in the output buffer.
-     * @modifies  this
+     *
+     * @param hashvalue the output buffer in which to store the digest.
+     * @param offset    offset to start from in the output buffer
+     * @param length    number of bytes within buf allotted for the digest.
+     *                  Both this default implementation and the SUN provider
+     *                  do not return partial digests.  The presence of this
+     *                  parameter is solely for consistency in our API's.
+     *                  If the value of this parameter is less than the
+     *                  actual digest length, the method will throw a
+     *                  DigestException.  This parameter is ignored if its
+     *                  value is greater than or equal to the actual digest
+     *                  length.
+     * @return the length of the digest stored in the output buffer.
+     * @modifies this
      */
     public int engineDigest(final byte[] hashvalue, int offset,
-            final int length) throws DigestException {
+                            final int length) throws DigestException {
         if (length >= 16) { /* digest length in bytes */
             if (hashvalue.length - offset >= 16) { /* digest length in bytes */
                 /* Flush the trailing bytes, adding padded bytes into last
@@ -297,19 +305,27 @@ public final class MD5 extends MessageDigest implements Cloneable {
                 /* Add padded null bytes but replace the last 8 padded bytes
                  * by the little-endian 64-bit digested message bit-length. */
                 final byte[] buf;
-                (buf=pad)[i=padded] = (byte)0x80;/* required 1st padded byte */
+                (buf = pad)[i = padded] = (byte) 0x80;/* required 1st padded byte */
                 /* Check if 8 bytes are available in pad to store the total
                  * message size */
                 switch (i) { /* INVARIANT: i must be in [0..63] */
-                case 56: buf[57] = (byte)0x00; /* no break; falls thru */
-                case 57: buf[58] = (byte)0x00; /* no break; falls thru */
-                case 58: buf[59] = (byte)0x00; /* no break; falls thru */
-                case 59: buf[60] = (byte)0x00; /* no break; falls thru */
-                case 60: buf[61] = (byte)0x00; /* no break; falls thru */
-                case 61: buf[62] = (byte)0x00; /* no break; falls thru */
-                case 62: buf[63] = (byte)0x00; /* no break; falls thru */
-                case 63: engineUpdate(buf, 0);
-                         i = -1;
+                    case 56:
+                        buf[57] = (byte) 0x00; /* no break; falls thru */
+                    case 57:
+                        buf[58] = (byte) 0x00; /* no break; falls thru */
+                    case 58:
+                        buf[59] = (byte) 0x00; /* no break; falls thru */
+                    case 59:
+                        buf[60] = (byte) 0x00; /* no break; falls thru */
+                    case 60:
+                        buf[61] = (byte) 0x00; /* no break; falls thru */
+                    case 61:
+                        buf[62] = (byte) 0x00; /* no break; falls thru */
+                    case 62:
+                        buf[63] = (byte) 0x00; /* no break; falls thru */
+                    case 63:
+                        engineUpdate(buf, 0);
+                        i = -1;
                 }
                 /* Clear the rest of the 56 first bytes of pad[]. */
                 switch (i & 7) {
@@ -392,7 +408,7 @@ public final class MD5 extends MessageDigest implements Cloneable {
                 return 16; /* digest length in bytes */
             }
             throw new DigestException(
-                "insufficient space in output buffer to store the digest");
+                    "insufficient space in output buffer to store the digest");
         }
         throw new DigestException("partial digests not returned");
     }
@@ -401,15 +417,15 @@ public final class MD5 extends MessageDigest implements Cloneable {
      * Updates the digest using the specified array of bytes,
      * starting at the specified offset, but an implied length
      * of exactly 64 bytes.<br/>
-     *
+     * <p>
      * Requires no internal buffering, but assumes a fixed input size,
      * in which the required padding bytes must have been added.
      *
      * @param input  the array of bytes to use for the update.
-     * @param offset  the offset to start from in the array of bytes.
-     * @modifies  this
+     * @param offset the offset to start from in the array of bytes.
+     * @modifies this
      */
-    private final void engineUpdate(final byte[] input, int offset) {
+    private void engineUpdate(final byte[] input, int offset) {
         /* Intermediate sub-digest values. */
         int a, b, c, d;
         /* Store the input block into the local working set of 32-bit values,
