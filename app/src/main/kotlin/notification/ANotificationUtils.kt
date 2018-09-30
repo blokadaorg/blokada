@@ -18,17 +18,17 @@ import gs.environment.inject
 import gs.property.I18n
 import org.blokada.R
 
-
 /**
  * Will display / update a system notification for blocked packet.
  */
 var requestCode = 0
+
 fun displayNotification(ctx: Context, reason: String) {
     val b = NotificationCompat.Builder(ctx)
     b.setContentTitle(ctx.getString(R.string.notification_blocked_title))
     b.setContentText(ctx.getString(R.string.notification_blocked_text, reason))
     b.setSmallIcon(R.drawable.ic_stat_blokada)
-    b.setPriority(NotificationCompat.PRIORITY_MAX)
+    b.priority = NotificationCompat.PRIORITY_MAX
     b.setVibrate(LongArray(0))
 
     val intentActivity = Intent(ctx, MainActivity::class.java)
@@ -83,7 +83,7 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
     }
 
     b.setSmallIcon(R.drawable.ic_stat_blokada)
-    b.setPriority(NotificationCompat.PRIORITY_MIN)
+    b.priority = NotificationCompat.PRIORITY_MIN
     b.setOngoing(true)
 
     val intentActivity = Intent(ctx, MainActivity::class.java)
@@ -101,7 +101,7 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
 
 val default_id = "blokada"
 @TargetApi(26)
-fun createNotificationChannel(ctx: Context, id: String = default_id, name: String = ctx.getString(R.string.branding_app_name) ) {
+fun createNotificationChannel(ctx: Context, id: String = default_id, name: String = ctx.getString(R.string.branding_app_name)) {
     val mNotificationManager = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val importance = NotificationManager.IMPORTANCE_LOW
     val mChannel = NotificationChannel(id, name, importance)
@@ -118,7 +118,7 @@ fun displayNotificationForUpdate(ctx: Context, versionName: String) {
     b.setContentTitle(ctx.getString(R.string.update_notification_title))
     b.setContentText(ctx.getString(R.string.update_notification_text, versionName))
     b.setSmallIcon(R.drawable.ic_stat_blokada)
-    b.setPriority(NotificationCompat.PRIORITY_LOW)
+    b.priority = NotificationCompat.PRIORITY_LOW
     b.setVibrate(LongArray(0))
 
     val intentActivity = Intent(ctx, MainActivity::class.java)
@@ -134,4 +134,3 @@ fun displayNotificationForUpdate(ctx: Context, versionName: String) {
     val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     notif.notify(2, b.build())
 }
-

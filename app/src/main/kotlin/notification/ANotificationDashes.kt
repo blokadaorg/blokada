@@ -22,13 +22,16 @@ class NotificationDashOn(
         isSwitch = true
 ) {
     override var checked = false
-        set(value) { if (field != value) {
-            field = value
-            ui.notifications %= value
-            onUpdate.forEach { it() }
-        }}
+        set(value) {
+            if (field != value) {
+                field = value
+                ui.notifications %= value
+                onUpdate.forEach { it() }
+            }
+        }
 
     private val listener: Any
+
     init {
         listener = ui.notifications.doOnUiWhenSet().then {
             checked = ui.notifications()
@@ -46,13 +49,16 @@ class NotificationDashKeepAlive(
         isSwitch = true
 ) {
     override var checked = false
-        set(value) { if (field != value) {
-            field = value
-            s.keepAlive %= value
-            onUpdate.forEach { it() }
-        }}
+        set(value) {
+            if (field != value) {
+                field = value
+                s.keepAlive %= value
+                onUpdate.forEach { it() }
+            }
+        }
 
     private val listener: Any
+
     init {
         listener = s.keepAlive.doOnUiWhenSet().then {
             checked = s.keepAlive()

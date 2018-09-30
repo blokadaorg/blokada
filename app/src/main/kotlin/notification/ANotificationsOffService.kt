@@ -6,7 +6,6 @@ import com.github.salomonbrys.kodein.instance
 import gs.environment.inject
 import core.UiState
 
-
 /**
  * ANotificationsOffService turns off notifications once intent is sent to it.
  */
