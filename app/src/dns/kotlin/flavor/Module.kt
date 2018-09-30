@@ -32,11 +32,14 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             object : IEngineManager {
                 var binder: ATunnelBinder? = null
                 val j: Journal by lazy { instance<Journal>() }
-                val agent: ATunnelAgent by lazy { ATunnelAgent(ctx)}
+                val agent: ATunnelAgent by lazy { ATunnelAgent(ctx) }
                 val waitKctx: Worker by lazy { with("ienginemanager").instance<Worker>() }
                 override fun start() {
                     val binding = agent.bind(object : ITunnelEvents {
-                        override fun configure(builder: VpnService.Builder): Long { return 0L }
+                        override fun configure(builder: VpnService.Builder): Long {
+                            return 0L
+                        }
+
                         override fun revoked() {}
                     }).then {
                         binder = it
@@ -51,6 +54,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                         throw Exception("could not bind to lollipop agent")
                     }
                 }
+
                 override fun updateFilters() {}
                 override fun stop() {
                     binder?.actions?.turnOff()
@@ -61,13 +65,16 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
         }
         bind<List<Engine>>() with singleton {
             listOf(Engine(
-                id = "dummy",
-                createIEngineManager = { object: IEngineManager {
-                    override fun start() {}
-                    override fun updateFilters() {}
-                    override fun stop() {}
-                } }
-        )) }
+                    id = "dummy",
+                    createIEngineManager = {
+                        object : IEngineManager {
+                            override fun start() {}
+                            override fun updateFilters() {}
+                            override fun stop() {}
+                        }
+                    }
+            ))
+        }
         bind<ATunnelService.IBuilderConfigurator>() with singleton {
             val dns: Dns = instance()
             val cmd: Commands = instance()
@@ -90,7 +97,8 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                             builder.addAddress(prefix + ".1", 24)
                             found = true
                             break
-                        } catch (e: IllegalArgumentException) { }
+                        } catch (e: IllegalArgumentException) {
+                        }
                     }
 
                     if (!found) {
@@ -103,29 +111,34 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                     }
 
                     // People kept asking why GPlay doesnt work
-                    try { builder.addDisallowedApplication("com.android.vending") } catch (e: Exception) {}
+                    try {
+                        builder.addDisallowedApplication("com.android.vending")
+                    } catch (e: Exception) {
+                    }
                 }
             }
         }
-        bind<List<Dash>>() with singleton { listOf(
-                UpdateDash(ctx).activate(true),
-                DashDns(lazy).activate(true),
-                DashFilterWhitelist(ctx).activate(true),
-                NotificationDashKeepAlive(ctx).activate(true),
-                AutoStartDash(ctx).activate(true),
-                ConnectivityDash(ctx).activate(true),
-                PatronDash(lazy).activate(false),
-                PatronAboutDash(lazy).activate(false),
-                DonateDash(lazy).activate(false),
-                NewsDash(lazy).activate(false),
-                FeedbackDash(lazy).activate(false),
-                FaqDash(lazy).activate(false),
-                ChangelogDash(lazy).activate(false),
-                AboutDash(ctx).activate(false),
-                CreditsDash(lazy).activate(false),
-                CtaDash(lazy).activate(false),
-                ShareLogDash(lazy).activate(false)
-        ) }
+        bind<List<Dash>>() with singleton {
+            listOf(
+                    UpdateDash(ctx).activate(true),
+                    DashDns(lazy).activate(true),
+                    DashFilterWhitelist(ctx).activate(true),
+                    NotificationDashKeepAlive(ctx).activate(true),
+                    AutoStartDash(ctx).activate(true),
+                    ConnectivityDash(ctx).activate(true),
+                    PatronDash(lazy).activate(false),
+                    PatronAboutDash(lazy).activate(false),
+                    DonateDash(lazy).activate(false),
+                    NewsDash(lazy).activate(false),
+                    FeedbackDash(lazy).activate(false),
+                    FaqDash(lazy).activate(false),
+                    ChangelogDash(lazy).activate(false),
+                    AboutDash(ctx).activate(false),
+                    CreditsDash(lazy).activate(false),
+                    CtaDash(lazy).activate(false),
+                    ShareLogDash(lazy).activate(false)
+            )
+        }
         onReady {
             val s: Tunnel = instance()
             val k: KeepAlive = instance()
