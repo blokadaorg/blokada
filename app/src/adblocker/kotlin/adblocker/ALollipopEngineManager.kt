@@ -15,10 +15,10 @@ package adblocker
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import core.Commands
 import core.Dns
 import core.Filters
 import core.IEngineManager
-import core.Commands
 import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.inject
@@ -31,7 +31,7 @@ class ALollipopEngineManager(
         private val ctx: Context,
         private val adBlocked: (String) -> Unit = {},
         private val error: (String) -> Unit = {},
-        private val onRevoked: () -> Unit = {}
+        onRevoked: () -> Unit = {}
 ) : IEngineManager {
 
     private val s by lazy { ctx.inject().instance<Dns>() }
@@ -44,7 +44,8 @@ class ALollipopEngineManager(
     private val agent by lazy { ATunnelAgent(ctx) }
     private val operator by lazy { ctx.inject().instance<Commands>() }
 
-    @Synchronized override fun start() {
+    @Synchronized
+    override fun start() {
         val binding = agent.bind(events)
         binding.success {
             binder = it
@@ -58,11 +59,13 @@ class ALollipopEngineManager(
         if (!binding.isSuccess()) throw Exception("could not bind to lollipop agent")
     }
 
-    @Synchronized override fun updateFilters() {
+    @Synchronized
+    override fun updateFilters() {
         // Filters are fetched directly from the property
     }
 
-    @Synchronized override fun stop() {
+    @Synchronized
+    override fun stop() {
         thread?.stopThread()
         thread = null
         binder?.actions?.turnOff()

@@ -4,7 +4,10 @@ import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject
-import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.android.Main
 import kotlinx.coroutines.experimental.channels.consumeEach
 import kotlinx.coroutines.experimental.launch
 import org.blokada.R
@@ -21,6 +24,7 @@ class TunnelDashCountDropped(
 ) {
 
     private val listener: Any
+
     init {
         text = getBlockedString(0)
         listener = t.tunnelDropCount.doOnUiWhenSet().then {
@@ -44,12 +48,12 @@ class TunnelDashHostsCount(
 ) {
 
     init {
-        launch {
+        GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
             val request = MonitorHostsCount()
             cmd.subscribe(request).consumeEach {
-                launch(UI) { text = getCountString(it) }
+                launch(Dispatchers.Main) { text = getCountString(it) }
             }
-        }
+        })
     }
 
     private fun getCountString(count: Int): String {
@@ -57,4 +61,3 @@ class TunnelDashHostsCount(
         else ctx.resources.getString(R.string.tunnel_hosts_updating)
     }
 }
-

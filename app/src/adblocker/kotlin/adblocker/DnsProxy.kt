@@ -16,6 +16,9 @@ import core.Commands
 import core.Dns
 import core.Filters
 import core.MonitorHostsCache
+import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.channels.consumeEach
 import kotlinx.coroutines.experimental.launch
 import org.pcap4j.packet.*
@@ -43,9 +46,9 @@ class DnsProxy(
         @Synchronized set
 
     init {
-        launch {
+        GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
             cmd.subscribe(MonitorHostsCache()).consumeEach { block = it }
-        }
+        })
     }
 
     fun stop() {
@@ -139,7 +142,8 @@ class DnsProxy(
         }
     }
 
-    @Synchronized fun isBlocked(host: String): Boolean {
+    @Synchronized
+    fun isBlocked(host: String): Boolean {
         return block.contains(host.toLowerCase(Locale.ENGLISH))
     }
 

@@ -46,12 +46,12 @@ internal class ALollipopTunnelEvents(
         // Those are TEST-NET IP ranges from RFC5735, so that we don't collide.
         for (prefix in arrayOf("203.0.113", "198.51.100", "192.0.2")) {
             try {
-                builder.addAddress(prefix + ".1", 24)
+                builder.addAddress("$prefix.1", 24)
             } catch (e: IllegalArgumentException) {
                 continue
             }
 
-            format = prefix + ".%d"
+            format = "$prefix.%d"
             break
         }
 
@@ -89,7 +89,10 @@ internal class ALollipopTunnelEvents(
         }
 
         // People kept asking why GPlay doesnt work
-        try { builder.addDisallowedApplication("com.android.vending") } catch (e: Exception) {}
+        try {
+            builder.addDisallowedApplication("com.android.vending")
+        } catch (e: Exception) {
+        }
 
         builder.setBlocking(true)
         return 0L

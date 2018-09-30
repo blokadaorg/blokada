@@ -40,7 +40,7 @@ class TunnelThreadLollipopAndroid(
         val s: Dns,
         val f: Filters,
         val commands: Commands,
-        val adBlocked: (String) -> Unit,
+        adBlocked: (String) -> Unit,
         val error: (String) -> Unit
 ) : Runnable {
 
@@ -97,11 +97,15 @@ class TunnelThreadLollipopAndroid(
     fun stopThread() {
         proxy.stop()
         thread.interrupt()
-        if (interruptFd != null) try { Os.close(interruptFd) } catch (e: ErrnoException) {}
+        if (interruptFd != null) try {
+            Os.close(interruptFd)
+        } catch (e: ErrnoException) {
+        }
         interruptFd = null
         try {
             thread.join(2000)
-        } catch (e: InterruptedException) { }
+        } catch (e: InterruptedException) {
+        }
     }
 
     override fun run() {
@@ -112,15 +116,19 @@ class TunnelThreadLollipopAndroid(
                 connectTimeMillis = System.currentTimeMillis()
                 loopTunnel()
                 break
-            } catch (e: InterruptedException) { break
-            } catch (e: Exception) { /* retry below */ }
+            } catch (e: InterruptedException) {
+                break
+            } catch (e: Exception) { /* retry below */
+            }
 
             // todo refactor retry logic
             if (System.currentTimeMillis() - connectTimeMillis >= 60 * 1000) retry = 5
 
             try {
                 Thread.sleep(retry * 1000L)
-            } catch (e: InterruptedException) { break }
+            } catch (e: InterruptedException) {
+                break
+            }
 
             if (retry < 2 * 60) retry *= 2
         }
@@ -137,11 +145,15 @@ class TunnelThreadLollipopAndroid(
             val fd = actions.fd()!!
             val inputStream = FileInputStream(fd)
             val outFd = FileOutputStream(fd)
-            while (step(inputStream, outFd, packet)) {}
+            while (step(inputStream, outFd, packet)) {
+            }
         } catch (e: Exception) {
             error(e.message ?: "unknown")
         } finally {
-            if (blockFd != null) try { Os.close(blockFd) } catch (e: ErrnoException) {}
+            if (blockFd != null) try {
+                Os.close(blockFd)
+            } catch (e: ErrnoException) {
+            }
             blockFd = null
             throw Exception("loopTunnel failed")
         }
@@ -232,7 +244,8 @@ class TunnelThreadLollipopAndroid(
                 field.isAccessible = true
                 val loader = field.get(l) as PropertiesLoader
                 loader.clearCache()
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+            }
         }
     }
 
