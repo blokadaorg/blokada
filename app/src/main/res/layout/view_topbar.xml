@@ -16,18 +16,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="go back"
+            android:padding="16dp"
             android:src="@drawable/ic_arrow_back"
             android:tint="@color/colorActive" />
 
         <ImageView
             android:id="@+id/topbar_header"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="28dp"
             android:layout_marginStart="4dp"
+            android:layout_weight="1"
             android:scaleType="fitStart"
             android:src="@drawable/bg_header" />
 
@@ -42,28 +42,28 @@
                 layout="@layout/view_dash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp" />
+                android:layout_marginEnd="4dp" />
 
             <include
                 android:id="@+id/topbar_action2"
                 layout="@layout/view_dash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp" />
+                android:layout_marginEnd="4dp" />
 
             <include
                 android:id="@+id/topbar_action3"
                 layout="@layout/view_dash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp" />
+                android:layout_marginEnd="4dp" />
 
             <include
                 android:id="@+id/topbar_action4"
                 layout="@layout/view_dash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp" />
+                android:layout_marginEnd="10dp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -74,9 +74,9 @@
         android:layout_height="64dp"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
         android:contentDescription="activate or deactivate"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:src="@drawable/ic_blokada" />
 </core.ATopBarView>

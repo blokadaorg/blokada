@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <gs.presentation.TopBarView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorBackground"
@@ -17,8 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
             android:src="@drawable/ic_arrow_back"
             android:tint="@color/colorActive" />
 
@@ -26,15 +25,14 @@
             android:id="@+id/topbar_header"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_marginLeft="12dp"
-            android:text="by Karsen &amp; Gauss"
-            />
+            android:layout_marginStart="12dp"
+            android:text="by Karsen &amp; Gauss" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:orientation="horizontal">
 
             <include
@@ -42,28 +40,28 @@
                 layout="@layout/dash_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp" />
+                android:layout_marginEnd="4dp" />
 
             <include
                 android:id="@+id/topbar_action2"
                 layout="@layout/dash_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp" />
+                android:layout_marginEnd="4dp" />
 
             <include
                 android:id="@+id/topbar_action3"
                 layout="@layout/dash_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp" />
+                android:layout_marginEnd="4dp" />
 
             <include
                 android:id="@+id/topbar_action4"
                 layout="@layout/dash_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp" />
+                android:layout_marginEnd="10dp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -74,8 +72,8 @@
         android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
         android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:src="@drawable/ic_info" />
 </gs.presentation.TopBarView>

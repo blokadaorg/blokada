@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left">
+            android:gravity="start">
 
             <Button
                 android:id="@+id/update_download"
@@ -22,18 +22,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/update_button" />
+
             <Button
                 android:id="@+id/update_changelog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/update_button_changelog" />
+
             <Button
                 android:id="@+id/update_credits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/main_credits" />
+
             <Button
                 android:id="@+id/update_appinfo"
                 android:layout_width="wrap_content"
@@ -59,9 +62,9 @@
             <TextView
                 android:id="@+id/update_header"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:text="@string/main_loading"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
@@ -83,9 +86,9 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:text="@string/update_info"
                 android:textColor="@color/colorActive" />
 
@@ -95,9 +98,9 @@
         <TextView
             android:id="@+id/update_current"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="end"
             android:padding="8dp"
             android:text="@string/main_loading"
             android:textColor="@color/colorTextUnimportant" />

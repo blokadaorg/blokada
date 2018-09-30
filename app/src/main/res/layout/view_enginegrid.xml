@@ -4,10 +4,10 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
         android:id="@+id/engine_grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp" />
 
 </adblocker.AEngineGridView>

@@ -20,8 +20,8 @@
         <Button
             android:id="@+id/filter_file_button"
             android:layout_width="match_parent"
-            android:text="@string/filter_edit_file_none"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/filter_edit_file_none" />
 
         <LinearLayout
             android:id="@+id/filter_link_loaded_group"
@@ -42,7 +42,7 @@
                 android:id="@+id/filter_link_loaded"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:text="@string/main_loading"
                 android:textColor="@color/colorText" />
         </LinearLayout>
@@ -58,7 +58,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_info"
                 android:tint="@color/colorActive" />
 
@@ -87,7 +87,7 @@
                 android:id="@+id/filter_comment_read"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:text="@string/filter_edit_comments_none"
                 android:textColor="@color/colorText" />
 
