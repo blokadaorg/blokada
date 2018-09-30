@@ -11,7 +11,6 @@ import core.UpdateFilter
 import gs.environment.inject
 import gs.property.I18n
 
-
 class AFilterActor(
         initialFilter: Filter,
         private val v: AFilterView
@@ -28,7 +27,7 @@ class AFilterActor(
 
     init {
         update()
-        v.setOnClickListener ret@ {
+        v.setOnClickListener ret@{
             dialog.onSave = { newFilter ->
                 cmd.send(UpdateFilter(newFilter.id, newFilter))
             }
@@ -55,33 +54,39 @@ class AFilterActor(
         v.description = filter.customComment ?: i18n.localisedOrNull("filters_${filter.id}_comment")
         v.active = filter.active
 
-        if (filter.source.id == "app") {
-            v.multiple = false
-            v.icon = sourceToIcon(v.context, filter.source.source)
-            v.counter = null
-            v.source = filter.source.source
-            v.credit = null
-        } else if (filter.source.id == "single") {
-            v.icon = null
-            v.multiple = false
-            v.counter = null
-            v.source = null
-            v.credit = null
-        } else {
-            v.icon = null
-            v.multiple = true
+        when {
+            filter.source.id == "app" -> {
+                v.multiple = false
+                v.icon = sourceToIcon(v.context, filter.source.source)
+                v.counter = null
+                v.source = filter.source.source
+                v.credit = null
+            }
+            filter.source.id == "single" -> {
+                v.icon = null
+                v.multiple = false
+                v.counter = null
+                v.source = null
+                v.credit = null
+            }
+            else -> {
+                v.icon = null
+                v.multiple = true
 //            v.counter = if (filter.hosts.isNotEmpty()) filter.hosts.size else null
 
-            // Credit
-            val credit = filter.credit
-            v.credit = try {
-                Intent(Intent.ACTION_VIEW, Uri.parse(credit))
-            } catch (e: Exception) { null }
-            v.credit?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                // Credit
+                val credit = filter.credit
+                v.credit = try {
+                    Intent(Intent.ACTION_VIEW, Uri.parse(credit))
+                } catch (e: Exception) {
+                    null
+                }
+                v.credit?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
-            // Host
-            val host = filter.source
-            v.source = host.source
+                // Host
+                val host = filter.source
+                v.source = host.source
+            }
         }
     }
 }
@@ -91,5 +96,7 @@ internal fun sourceToIcon(ctx: android.content.Context, source: String): Drawabl
         ctx.packageManager.getApplicationIcon(
                 ctx.packageManager.getApplicationInfo(source, PackageManager.GET_META_DATA)
         )
-    } catch (e: Exception) { null }
+    } catch (e: Exception) {
+        null
+    }
 }

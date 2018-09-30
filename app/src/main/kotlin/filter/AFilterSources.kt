@@ -31,17 +31,26 @@ class FilterSourceLink(
     override fun fetch(): List<String> {
         return try {
             load({ openUrl(source!!, timeoutMillis) }, { processor.process(it) })
-        } catch (e: Exception) { try {
-            load({ openUrl(backupSource!!, timeoutMillis) }, { processor.process(it) })
-        } catch (e: Exception) { emptyList() }}
+        } catch (e: Exception) {
+            try {
+                load({ openUrl(backupSource!!, timeoutMillis) }, { processor.process(it) })
+            } catch (e: Exception) {
+                emptyList()
+            }
+        }
     }
 
     override fun fromUserInput(vararg string: String): Boolean {
         val ret = try {
             source = URL(string[0])
             true
-        } catch (e: Exception) { false }
-        try { backupSource = URL(string[1]) } catch (e: Exception) {}
+        } catch (e: Exception) {
+            false
+        }
+        try {
+            backupSource = URL(string[1])
+        } catch (e: Exception) {
+        }
         return ret
     }
 
@@ -96,7 +105,9 @@ class FilterSourceUri(
         return try {
             source = Uri.parse(string[0])
             true
-        } catch (e: Exception) { false }
+        } catch (e: Exception) {
+            false
+        }
     }
 
     override fun toUserInput(): String {
@@ -134,8 +145,10 @@ class FilterSourceApp(
     private val s by lazy { ctx.inject().instance<Filters>() }
 
     private val apps by lazy {
-        s.apps().flatMap { listOf(it.appId to it.appId, it.appId.toLowerCase() to it.appId,
-                it.label to it.appId, it.label.toLowerCase() to it.label) }.toMap()
+        s.apps().flatMap {
+            listOf(it.appId to it.appId, it.appId.toLowerCase() to it.appId,
+                    it.label to it.appId, it.label.toLowerCase() to it.label)
+        }.toMap()
     }
 
     override fun id(): String {

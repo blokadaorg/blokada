@@ -5,17 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
-import core.Dash
-import core.Filters
-import core.MainActivity
-import core.UiState
-import core.Commands
-import core.Filter
-import core.MonitorFilters
-import core.UpdateFilter
+import core.*
 import gs.environment.ComponentProvider
 import gs.environment.inject
-import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.android.Main
 import kotlinx.coroutines.experimental.channels.consumeEach
 import kotlinx.coroutines.experimental.launch
 import org.blokada.R
@@ -37,16 +33,16 @@ class DashFilterBlacklist(
         hasView = true
 ) {
     init {
-        launch {
+        GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
             cmd.subscribe(MonitorFilters()).consumeEach {
-                launch(UI) { update(it.filter { it.active && !it.whitelist })}
+                launch(Dispatchers.Main) { update(it.filter { it.active && !it.whitelist }) }
             }
-        }
+        })
     }
 
     private fun update(downloadedFilters: Collection<Filter>) {
-        if (downloadedFilters.isEmpty()) text = ctx.getString(R.string.filter_blacklist_text_none)
-        else text = ctx.resources.getString(R.string.filter_blacklist_text, downloadedFilters.size)
+        text = if (downloadedFilters.isEmpty()) ctx.getString(R.string.filter_blacklist_text_none)
+        else ctx.resources.getString(R.string.filter_blacklist_text, downloadedFilters.size)
     }
 
     override fun createView(parent: Any): Any? {
@@ -76,16 +72,16 @@ class DashFilterWhitelist(
 ) {
 
     init {
-        launch {
+        GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
             cmd.subscribe(MonitorFilters()).consumeEach {
-                launch(UI) { update(it.filter { it.active && it.whitelist })}
+                launch(Dispatchers.Main) { update(it.filter { it.active && it.whitelist }) }
             }
-        }
+        })
     }
 
     private fun update(downloadedFilters: List<Filter>) {
-        if (downloadedFilters.isEmpty()) text = ctx.getString(R.string.filter_whitelist_text_none)
-        else text = ctx.resources.getString(R.string.filter_whitelist_text, downloadedFilters.size)
+        text = if (downloadedFilters.isEmpty()) ctx.getString(R.string.filter_whitelist_text_none)
+        else ctx.resources.getString(R.string.filter_whitelist_text, downloadedFilters.size)
     }
 
     override fun createView(parent: Any): Any? {
@@ -172,13 +168,16 @@ class ShowSystemAppsWhitelist(
         isSwitch = true
 ) {
     override var checked = false
-        set(value) { if (field != value) {
-            field = value
-            ui.showSystemApps %= value
-            onUpdate.forEach { it() }
-        }}
+        set(value) {
+            if (field != value) {
+                field = value
+                ui.showSystemApps %= value
+                onUpdate.forEach { it() }
+            }
+        }
 
     private val listener: Any
+
     init {
         listener = ui.showSystemApps.doOnUiWhenSet().then {
             checked = ui.showSystemApps()

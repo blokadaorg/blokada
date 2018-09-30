@@ -24,7 +24,9 @@ class AFiltersAddFileView(
 ) : ScrollView(ctx, attributeSet) {
 
     var text = ""
-        get() { return field.trim() }
+        get() {
+            return field.trim()
+        }
         set(value) {
             field = value
             buttonView.text = if (value.isEmpty()) context.getString(R.string.filter_edit_file_choose)
@@ -33,7 +35,9 @@ class AFiltersAddFileView(
         }
 
     var comment = ""
-        get() { return field.trim() }
+        get() {
+            return field.trim()
+        }
         set(value) {
             field = value
             if (commentView.text.toString() != value) {
@@ -80,13 +84,14 @@ class AFiltersAddFileView(
         commentView.visibility = View.GONE
         commentReadView.visibility = View.VISIBLE
     }
-    private val buttonView by lazy { findViewById(R.id.filter_file_button) as Button }
-    private val errorView by lazy { findViewById(R.id.filter_error) as ViewGroup }
-    private val commentView by lazy { findViewById(R.id.filter_comment) as EditText }
-    private val commentReadView by lazy { findViewById(R.id.filter_comment_read) as TextView }
-    private val filtersGroup by lazy { findViewById(R.id.filter_link_loaded_group) as View }
-    private val filtersView by lazy { findViewById(R.id.filter_link_loaded) as TextView }
-    private val filtersCountView by lazy { findViewById(R.id.filter_link_loaded_count) as TextView }
+
+    private val buttonView by lazy { findViewById<Button>(R.id.filter_file_button) }
+    private val errorView by lazy { findViewById<ViewGroup>(R.id.filter_error) }
+    private val commentView by lazy { findViewById<EditText>(R.id.filter_comment) }
+    private val commentReadView by lazy { findViewById<TextView>(R.id.filter_comment_read) }
+    private val filtersGroup by lazy { findViewById<View>(R.id.filter_link_loaded_group) }
+    private val filtersView by lazy { findViewById<TextView>(R.id.filter_link_loaded) }
+    private val filtersCountView by lazy { findViewById<TextView>(R.id.filter_link_loaded_count) }
 
     private val activity by lazy { ctx.inject().instance<ComponentProvider<MainActivity>>() }
     private val processor by lazy { ctx.inject().instance<IHostlineProcessor>() }
@@ -94,11 +99,11 @@ class AFiltersAddFileView(
     var uri: android.net.Uri? = null
         set(value) {
             field = value
-            if (value == null) text = ""
+            text = if (value == null) ""
             else try {
-                text = FilterSourceUri(context, processor, value).toUserInput()
+                FilterSourceUri(context, processor, value).toUserInput()
             } catch (e: Exception) {
-                text = value.toString()
+                value.toString()
             }
         }
 
@@ -129,7 +134,7 @@ class AFiltersAddFileView(
                 }
 
                 a.startActivityForResult(Intent.createChooser(intent,
-                            context.getString(R.string.filter_edit_file_choose)), 0)
+                        context.getString(R.string.filter_edit_file_choose)), 0)
             }
         }
 
@@ -160,10 +165,8 @@ class AFiltersAddFileView(
         if (showError && !correct) {
             errorView.visibility = View.VISIBLE
             filters = listOf()
-        }
-        else {
+        } else {
             errorView.visibility = View.GONE
         }
     }
-
 }

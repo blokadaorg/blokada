@@ -45,18 +45,20 @@ class AFiltersAddView(
                 as AFiltersAddLinkView
     }
 
-    private val pages by lazy { listOf(
-            Tab.APP to Pair(R.string.filter_edit_app, appView),
-            Tab.LINK to Pair(R.string.filter_edit_link, linkView),
-            Tab.SINGLE to Pair(R.string.filter_edit_name, singleView),
-            Tab.FILE to Pair(R.string.filter_edit_file, fileView)
-    )}
+    private val pages by lazy {
+        listOf(
+                Tab.APP to Pair(R.string.filter_edit_app, appView),
+                Tab.LINK to Pair(R.string.filter_edit_link, linkView),
+                Tab.SINGLE to Pair(R.string.filter_edit_name, singleView),
+                Tab.FILE to Pair(R.string.filter_edit_file, fileView)
+        )
+    }
 
     private var displayedPages: List<Pair<Tab, Pair<Int, android.view.View>>>? = null
 
     private var ready = false
 
-    private val pager by lazy { findViewById(R.id.filters_pager) as android.support.v4.view.ViewPager }
+    private val pager by lazy { findViewById<android.support.v4.view.ViewPager>(R.id.filters_pager) }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -83,8 +85,13 @@ class AFiltersAddView(
                 return POSITION_NONE // To reload on notifyDataSetChanged()
             }
 
-            override fun getCount(): Int { return displayedPages?.size ?: 0 }
-            override fun isViewFromObject(view: android.view.View, obj: Any): Boolean { return view == obj }
+            override fun getCount(): Int {
+                return displayedPages?.size ?: 0
+            }
+
+            override fun isViewFromObject(view: android.view.View, obj: Any): Boolean {
+                return view == obj
+            }
         }
         pager.setOnPageChangeListener(object : android.support.v4.view.ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
@@ -99,8 +106,8 @@ class AFiltersAddView(
 
     private fun updateForce(value: Tab?, showApp: Boolean) {
         if (value == null) {
-            if (showApp) displayedPages = pages
-            else displayedPages = pages.filter { it.first != Tab.APP }
+            displayedPages = if (showApp) pages
+            else pages.filter { it.first != Tab.APP }
             appView.reset()
             singleView.reset()
             linkView.reset()
@@ -113,5 +120,4 @@ class AFiltersAddView(
         }
         pager.adapter?.notifyDataSetChanged()
     }
-
 }

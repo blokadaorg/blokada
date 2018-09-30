@@ -2,7 +2,6 @@ package filter
 
 import core.IFilterSource
 
-
 val hostnameRegex = Regex("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}$")
 
 class FilterSourceSingle(
@@ -39,7 +38,7 @@ class FilterSourceSingle(
 
     override fun equals(other: Any?): Boolean {
         if (other !is FilterSourceSingle) return false
-        return host.equals(other.host)
+        return host == other.host
     }
 
     override fun hashCode(): Int {

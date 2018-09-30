@@ -3,7 +3,6 @@ package filter
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.view.*
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -54,7 +53,7 @@ class AFilterGenerateDialog(
         private val s: Filters = xx().instance(),
         private val cmd: Commands = xx().instance(),
         private val sourceProvider: DefaultSourceProvider = xx().instance(),
-        private val whitelist: Boolean = false
+        whitelist: Boolean = false
 ) {
 
     private val activity by lazy { ctx.inject().instance<ComponentProvider<Activity>>().get() }
@@ -87,13 +86,9 @@ class AFilterGenerateDialog(
                     ctx.getString(R.string.filter_generate_export)
             )
         }
-        d.setSingleChoiceItems(options, which, object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                this@AFilterGenerateDialog.which = which
-            }
-        })
-        d.setPositiveButton(R.string.filter_edit_do, { dia, int -> })
-        d.setNegativeButton(R.string.filter_edit_cancel, { dia, int -> })
+        d.setSingleChoiceItems(options, which) { dialog, which -> this@AFilterGenerateDialog.which = which }
+        d.setPositiveButton(R.string.filter_edit_do) { dia, int -> }
+        d.setNegativeButton(R.string.filter_edit_cancel) { dia, int -> }
         dialog = d.create()
     }
 
@@ -151,6 +146,5 @@ class AFilterGenerateDialog(
         }
         dialog.dismiss()
     }
-
 }
 

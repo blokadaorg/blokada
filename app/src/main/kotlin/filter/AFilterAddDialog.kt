@@ -41,8 +41,8 @@ class AFilterAddDialog(
     init {
         val d = AlertDialog.Builder(activity)
         d.setView(view)
-        d.setPositiveButton(R.string.filter_edit_save, { dia, int -> })
-        d.setNegativeButton(R.string.filter_edit_cancel, { dia, int -> })
+        d.setPositiveButton(R.string.filter_edit_save) { dia, int -> }
+        d.setNegativeButton(R.string.filter_edit_cancel) { dia, int -> }
         dialog = d.create()
     }
 
@@ -195,7 +195,7 @@ class AFilterAddDialog(
 }
 
 internal fun id(name: String, whitelist: Boolean): String {
-    return if(whitelist) "${name}_wl" else name
+    return if (whitelist) "${name}_wl" else name
 }
 
 internal fun sourceToName(ctx: android.content.Context, source: IFilterSource): String {
@@ -208,11 +208,15 @@ internal fun sourceToName(ctx: android.content.Context, source: IFilterSource): 
             ctx.getString(R.string.filter_name_file, source.source?.lastPathSegment
                     ?: ctx.getString(R.string.filter_name_file_unknown))
         }
-        is FilterSourceApp -> { try {
-            ctx.packageManager.getApplicationLabel(
-                    ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
-            ).toString()
-        } catch (e: Exception) { source.toUserInput() }}
+        is FilterSourceApp -> {
+            try {
+                ctx.packageManager.getApplicationLabel(
+                        ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
+                ).toString()
+            } catch (e: Exception) {
+                source.toUserInput()
+            }
+        }
         else -> null
     }
 
@@ -225,15 +229,23 @@ internal fun sourceToName(ctx: android.content.Context, source: FilterSourceDesc
             ctx.getString(R.string.filter_name_link, source.source)
         }
         "file" -> {
-            val source = try { Uri.parse(source.source) } catch (e: Exception) { null }
+            val source = try {
+                Uri.parse(source.source)
+            } catch (e: Exception) {
+                null
+            }
             ctx.getString(R.string.filter_name_file, source?.lastPathSegment
                     ?: ctx.getString(R.string.filter_name_file_unknown))
         }
-        "app" -> { try {
-            ctx.packageManager.getApplicationLabel(
-                    ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
-            ).toString()
-        } catch (e: Exception) { source.source }}
+        "app" -> {
+            try {
+                ctx.packageManager.getApplicationLabel(
+                        ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
+                ).toString()
+            } catch (e: Exception) {
+                source.source
+            }
+        }
         else -> null
     }
 

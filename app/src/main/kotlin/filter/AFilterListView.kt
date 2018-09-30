@@ -12,6 +12,9 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject
 import gs.presentation.Spacing
+import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.channels.ReceiveChannel
 import kotlinx.coroutines.experimental.channels.consumeEach
@@ -52,10 +55,10 @@ class AFilterListView(
         landscape = false
 
         if (openChannel == null) {
-            launch {
+            GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
                 openChannel = cmd.subscribe(MonitorFilters())
-                openChannel?.consumeEach { launch(UI) { setFilters(it) }}
-            }
+                openChannel?.consumeEach { launch(UI) { setFilters(it) } }
+            })
         }
 
         ui.showSystemApps.doOnUiWhenChanged().then {
@@ -69,15 +72,16 @@ class AFilterListView(
     }
 
     private fun refreshFilters() {
-        if (whitelist) {
+        filters = if (whitelist) {
             Log.v("blokada", "systemapps: ${ui.showSystemApps()}")
-            filters = allFilters.filter {
+            allFilters.filter {
                 it.whitelist == true && it.hidden == false
                         && (ui.showSystemApps()
-                        || !(f.apps().firstOrNull { app -> app.appId == it.source.source }?.system ?: false))
+                        || !(f.apps().firstOrNull { app -> app.appId == it.source.source }?.system
+                        ?: false))
             }.toList().sortedBy { it.priority }
         } else {
-            filters = allFilters.filter { !it.whitelist && !it.hidden }.toList().sortedBy { it.priority }
+            allFilters.filter { !it.whitelist && !it.hidden }.toList().sortedBy { it.priority }
         }
         adapter.notifyDataSetChanged()
     }
@@ -107,4 +111,4 @@ class AFilterListView(
     }
 }
 
-data class AFilterViewHolder(val view: AFilterView): RecyclerView.ViewHolder(view)
+data class AFilterViewHolder(val view: AFilterView) : RecyclerView.ViewHolder(view)
