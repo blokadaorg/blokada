@@ -13,6 +13,6 @@ fun assertThrows(f: () -> Unit) {
     try {
         f()
         fail("did not throw expected exception")
-    } catch (e: Exception) {}
+    } catch (e: Exception) {
+    }
 }
-

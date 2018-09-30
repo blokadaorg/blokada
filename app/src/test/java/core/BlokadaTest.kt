@@ -51,18 +51,18 @@ class BlokadaTest {
     fun coroutines_basics() {
         val c1 = Channel<Any>()
         val c2 = Channel<Any>()
-        launch {
+        GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
             for (c in c1) {
                 c2.send(c)
             }
             c2.close()
             c2.close()
-        }
+        })
 
-        async {
+        GlobalScope.async(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
             c1.send("hello")
             c1.close()
-        }
+        })
 
         runBlocking {
             val got = c2.receive()
@@ -75,16 +75,20 @@ class BlokadaTest {
         LOG_TEST = true
 
         val stuckActor = object : CommandsActor() {
-            override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> { return mapOf(
-                MonitorHostsCount::class to ::getStuck
-            )}
+            override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> {
+                return mapOf(
+                        MonitorHostsCount::class to ::getStuck
+                )
+            }
 
             private fun getStuck(cmd: Cmd) = runBlocking {
                 var bomb = emptyList<Job>()
-                repeat(6) { bomb += launch {
-                    Thread.sleep(10000)
+                repeat(6) {
+                    bomb += launch {
+                        Thread.sleep(10000)
 //                    delay(10000)
-                }}
+                    }
+                }
                 bomb.forEach { it.join() }
             }
         }
@@ -176,7 +180,7 @@ class BlokadaTest {
         val cmd = FiltersActor(
                 url = { URL("http://localhost") },
                 loadFilters = { FiltersCache(setOf(blacklisted1, blacklisted2, whitelisted1)) },
-                saveFilters = {_, _ -> },
+                saveFilters = { _, _ -> },
                 loadFiltersPath = { null },
                 saveFiltersPath = {},
                 loadHosts = { savedHosts() },
@@ -254,7 +258,7 @@ class BlokadaTest {
         }
     }
 
-    class FailingSource: IFilterSource {
+    class FailingSource : IFilterSource {
         override fun fetch(): List<String> {
             throw Exception("failed downloading")
         }
@@ -331,9 +335,10 @@ class BlokadaTest {
                 load = { v("loaded"); TranslationsCacheInfo() },
                 save = {},
                 downloadTranslations = { urls ->
-                    produce {
-                        send(URL("http://localhost") to listOf("fixture_test1" to "value1"))
-                    }
+                    GlobalScope.produce(Dispatchers.Default, 0, null,
+                            {
+                                send(URL("http://localhost") to listOf("fixture_test1" to "value1"))
+                            })
                 },
                 setI18n = { key, value ->
                     if (key != "fixture_test1") fail("unexpected key")
@@ -347,4 +352,3 @@ class BlokadaTest {
         }
     }
 }
-
