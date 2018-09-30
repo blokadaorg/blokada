@@ -19,7 +19,6 @@ import gs.presentation.WebDash
 import gs.property.Version
 import org.blokada.R
 
-
 class AUpdateView(
         ctx: Context,
         attributeSet: AttributeSet
@@ -52,14 +51,14 @@ class AUpdateView(
     var onClick = {}
     var onClickBackup = {}
 
-    private val currentView by lazy { findViewById(R.id.update_current) as TextView }
-    private val creditsView by lazy { findViewById(R.id.update_credits) as View }
-    private val download by lazy { findViewById(R.id.update_download) as TextView }
-    private val headerView by lazy { findViewById(R.id.update_header) as TextView }
-    private val iconView by lazy { findViewById(R.id.update_icon) as ImageView }
-    private val changelogView by lazy { findViewById(R.id.update_changelog) as View }
-    private val makerView by lazy { findViewById(R.id.update_maker) as View }
-    private val appInfo by lazy { findViewById(R.id.update_appinfo) as TextView }
+    private val currentView by lazy { findViewById<TextView>(R.id.update_current) }
+    private val creditsView by lazy { findViewById<View>(R.id.update_credits) }
+    private val download by lazy { findViewById<TextView>(R.id.update_download) }
+    private val headerView by lazy { findViewById<TextView>(R.id.update_header) }
+    private val iconView by lazy { findViewById<ImageView>(R.id.update_icon) }
+    private val changelogView by lazy { findViewById<View>(R.id.update_changelog) }
+    private val makerView by lazy { findViewById<View>(R.id.update_maker) }
+    private val appInfo by lazy { findViewById<TextView>(R.id.update_appinfo) }
 
     private val ver by lazy { ctx.inject().instance<Version>() }
     private val pages by lazy { ctx.inject().instance<Pages>() }
@@ -85,13 +84,15 @@ class AUpdateView(
         super.onFinishInflate()
         currentView.text = Html.fromHtml("${ver.appName} ${ver.name}")
 
-        download.setOnClickListener { if (canClick) {
-            canClick = false
-            onClick()
-        } else {
-            canClick = true
-            onClickBackup()
-        }}
+        download.setOnClickListener {
+            if (canClick) {
+                canClick = false
+                onClick()
+            } else {
+                canClick = true
+                onClickBackup()
+            }
+        }
 
         changelogView.setOnClickListener {
             dialogChangelog.show()
@@ -104,7 +105,7 @@ class AUpdateView(
         makerView.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.setData(Uri.parse(context.getString(R.string.branding_maker_url)))
+            intent.data = Uri.parse(context.getString(R.string.branding_maker_url))
             context.startActivity(intent)
         }
         makerView.setOnLongClickListener {
@@ -115,13 +116,11 @@ class AUpdateView(
             context.startActivity(newAppDetailsIntent(context.packageName))
         }
     }
-
 }
 
 fun newAppDetailsIntent(packageName: String): Intent {
     val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    intent.data = Uri.parse("package:" + packageName)
+    intent.data = Uri.parse("package:$packageName")
     return intent
 }
-

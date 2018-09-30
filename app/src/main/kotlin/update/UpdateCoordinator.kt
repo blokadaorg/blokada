@@ -25,8 +25,7 @@ class UpdateCoordinator(
         if (downloading) return
         if (s.tunnelState(TunnelState.INACTIVE)) {
             download(urls)
-        }
-        else {
+        } else {
             j.log("UpdateCoordinator: deactivate tunnel: ${s.tunnelState()}")
             s.tunnelState.cancel(w)
             w = s.tunnelState.doOnUiWhenChanged().then {
@@ -49,13 +48,11 @@ class UpdateCoordinator(
     private fun download(urls: List<URL>) {
         j.log("UpdateCoordinator: start download")
         downloading = true
-        downloader.downloadUpdate(urls, { uri ->
+        downloader.downloadUpdate(urls) { uri ->
             j.log("UpdateCoordinator: downloaded: url $uri")
             if (uri != null) downloader.openInstall(uri)
             s.updating %= false
             downloading = false
-        })
+        }
     }
-
 }
-

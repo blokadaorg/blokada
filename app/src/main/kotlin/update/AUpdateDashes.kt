@@ -47,6 +47,7 @@ class UpdateDash(
 ) {
 
     private val listener: Any
+
     init {
         listener = repo.content.doOnUiWhenSet().then {
             update(repo.content().newestVersionCode)
@@ -54,7 +55,7 @@ class UpdateDash(
     }
 
     private fun update(code: Int) {
-        when(isUpdate(ctx, code)) {
+        when (isUpdate(ctx, code)) {
             true -> {
                 active = true
                 text = ctx.getString(R.string.update_dash_available)
@@ -67,6 +68,7 @@ class UpdateDash(
             }
         }
     }
+
     override fun createView(parent: Any): Any? {
         return createUpdateView(parent as ViewGroup, repo)
     }
@@ -78,7 +80,7 @@ private var next: Int = 0
 private fun createUpdateView(parent: ViewGroup, s: Repo): AUpdateView {
     val ctx = parent.context
     val view = LayoutInflater.from(ctx).inflate(R.layout.view_update, parent, false) as AUpdateView
-    if (view is AUpdateView) {
+    if (true) {
         val u = s.content()
         val updater: UpdateCoordinator = ctx.inject().instance()
 
@@ -94,7 +96,7 @@ private fun createUpdateView(parent: ViewGroup, s: Repo): AUpdateView {
         view.onClickBackup = {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.setData(Uri.parse(u.downloadLinks[next].toString()))
+            intent.data = Uri.parse(u.downloadLinks[next].toString())
             ctx.startActivity(intent)
 
             next = next++ % u.downloadLinks.size

@@ -39,15 +39,17 @@ class AUpdateDownloader(
                 val c = dm.query(query)
                 if (c.moveToFirst()) {
                     val columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS)
-                    if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-                        val uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
-                        links = emptyList()
-                        listener(Uri.parse(uriString))
-                    } else if (links.size > 1) {
-                        downloadUpdate(links.subList(1, links.size), listener)
-                    } else {
-                        links = emptyList()
-                        listener(null)
+                    when {
+                        DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex) -> {
+                            val uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
+                            links = emptyList()
+                            listener(Uri.parse(uriString))
+                        }
+                        links.size > 1 -> downloadUpdate(links.subList(1, links.size), listener)
+                        else -> {
+                            links = emptyList()
+                            listener(null)
+                        }
                     }
                 }
             }
@@ -55,7 +57,10 @@ class AUpdateDownloader(
     }
 
     fun downloadUpdate(links: List<URL>, listener: (Uri?) -> Unit) {
-        try { unregister() } catch (e: Exception) {}
+        try {
+            unregister()
+        } catch (e: Exception) {
+        }
         register()
         this.listener = listener
         this.links = links
@@ -89,4 +94,3 @@ class AUpdateDownloader(
         ctx.unregisterReceiver(receiver)
     }
 }
-
