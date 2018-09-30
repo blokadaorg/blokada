@@ -41,17 +41,19 @@ class AGridView(
         addItemDecoration(Spacing(context, top = 24))
         landscape = false
         addOnScrollListener(object : OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) { when {
-                scrollState != SCROLL_STATE_IDLE -> Unit
-                !canScrollVertically(-1) && !isTop -> {
-                    isTop = true
-                    onScrollToTop(true)
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                when {
+                    scrollState != SCROLL_STATE_IDLE -> Unit
+                    !canScrollVertically(-1) && !isTop -> {
+                        isTop = true
+                        onScrollToTop(true)
+                    }
+                    canScrollVertically(-1) && isTop -> {
+                        isTop = false
+                        onScrollToTop(false)
+                    }
                 }
-                canScrollVertically(-1) && isTop -> {
-                    isTop = false
-                    onScrollToTop(false)
-                }
-            }}
+            }
         })
     }
 

@@ -11,7 +11,7 @@ import org.blokada.R
  * Dash defines the UI element to be displayed in the home screen as well as the UI that opens
  * up (optionally) once clicked.
  */
-open class Dash (
+open class Dash(
         val id: String,
         icon: Any,
         var description: String? = null,
@@ -64,7 +64,9 @@ open class Dash (
             onUpdate.forEach { it() }
         }
 
-    open fun createView(parent: Any): Any? { return null }
+    open fun createView(parent: Any): Any? {
+        return null
+    }
 }
 
 enum class InfoType {
@@ -92,8 +94,8 @@ class ADashesPersistence(
                 }
             }
         }
-        p.getStringSet("dashes-active", setOf()).forEach { id -> updateDash(id, true)}
-        p.getStringSet("dashes-inactive", setOf()).forEach { id -> updateDash(id, false)}
+        p.getStringSet("dashes-active", setOf()).forEach { id -> updateDash(id, true) }
+        p.getStringSet("dashes-inactive", setOf()).forEach { id -> updateDash(id, false) }
         return dashes
     }
 
@@ -130,10 +132,10 @@ class ADashActor(
         update()
         v.onChecked = { checked -> dash.checked = checked }
         v.onClick = {
-            if (dash.onClick?.invoke(v) ?: true) defaultClick()
+            if (dash.onClick?.invoke(v) != false) defaultClick()
         }
         v.onLongClick = {
-            if (dash.onLongClick?.invoke(v) ?: true) {
+            if (dash.onLongClick?.invoke(v) != false) {
                 ui.infoQueue %= ui.infoQueue() + Info(InfoType.CUSTOM, dash.description)
             }
         }
@@ -171,35 +173,40 @@ class ADashView(
 
     var iconRes: Int = R.drawable.ic_info
         set(value) {
-            setIcon(value, { field = value })
+            setIcon(value) { field = value }
         }
 
     var checked: Boolean? = null
-        set(value) { when {
-            value == null -> fromChecked { field = value }
-            else -> setChecked(value, {
-                val old = field
-                field = value
-                if (old != value) onChecked(value)
-            })
-        }}
+        set(value) {
+            when (value) {
+                null -> fromChecked { field = value }
+                else -> setChecked(value) {
+                    val old = field
+                    field = value
+                    if (old != value) onChecked(value)
+                }
+            }
+        }
 
     var text: String? = null
-        set(value) { when (value) {
-            field -> Unit
-            null -> hideText()
-            else -> showText(value)
-        }
+        set(value) {
+            when (value) {
+                field -> Unit
+                null -> hideText()
+                else -> showText(value)
+            }
 
             field = value
         }
 
     var active = true
-        set(value) { when {
-            field == value -> Unit
-            value == true -> toActive { field = value }
-            else -> fromActive { field = value }
-        }}
+        set(value) {
+            when {
+                field == value -> Unit
+                value -> toActive { field = value }
+                else -> fromActive { field = value }
+            }
+        }
 
     var emphasized = true
         set(value) {
@@ -214,9 +221,9 @@ class ADashView(
 
     var showClickAnim = true
 
-    private val iconView by lazy { findViewById(R.id.dash_icon) as android.widget.ImageView }
-    private val switchView by lazy { findViewById(R.id.dash_switch) as android.support.v7.widget.SwitchCompat }
-    private val textView by lazy { findViewById(R.id.dash_text) as android.widget.TextView }
+    private val iconView by lazy { findViewById<android.widget.ImageView>(R.id.dash_icon) }
+    private val switchView by lazy { findViewById<android.support.v7.widget.SwitchCompat>(R.id.dash_switch) }
+    private val textView by lazy { findViewById<android.widget.TextView>(R.id.dash_text) }
     private val inter = android.view.animation.AccelerateDecelerateInterpolator()
     private val dur = 80L
 
@@ -232,14 +239,14 @@ class ADashView(
             if (!canClick) // Anim in progress
             else if (showClickAnim) {
                 canClick = false
-                rotate(-15f, {
-                    rotate(30f, {
-                        rotate(-15f, {
+                rotate(-15f) {
+                    rotate(30f) {
+                        rotate(-15f) {
                             onClick()
                             canClick = true
-                        })
-                    })
-                })
+                        }
+                    }
+                }
             } else onClick()
         }
         setOnLongClickListener { onLongClick(); true }

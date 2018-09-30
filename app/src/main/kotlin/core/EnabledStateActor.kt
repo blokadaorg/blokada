@@ -36,19 +36,31 @@ class EnabledStateActor(
     }
 
     private fun startActivating() {
-        try { listeners.forEach { it.startActivating() } } catch (e: Exception) {}
+        try {
+            listeners.forEach { it.startActivating() }
+        } catch (e: Exception) {
+        }
     }
 
     private fun finishActivating() {
-        try { listeners.forEach { it.finishActivating() } } catch (e: Exception) {}
+        try {
+            listeners.forEach { it.finishActivating() }
+        } catch (e: Exception) {
+        }
     }
 
     private fun startDeactivating() {
-        try { listeners.forEach { it.startDeactivating() } } catch (e: Exception) {}
+        try {
+            listeners.forEach { it.startDeactivating() }
+        } catch (e: Exception) {
+        }
     }
 
     private fun finishDeactivating() {
-        try { listeners.forEach { it.finishDeactivating() } } catch (e: Exception) {}
+        try {
+            listeners.forEach { it.finishDeactivating() }
+        } catch (e: Exception) {
+        }
     }
 }
 

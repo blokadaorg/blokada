@@ -33,7 +33,8 @@ abstract class Pages {
     abstract val dns: IProperty<URL>
     abstract val dnsStrings: IProperty<URL>
 }
-class PagesImpl (
+
+class PagesImpl(
         w: Worker,
         xx: Environment,
         j: Journal = xx().instance()
@@ -100,10 +101,11 @@ fun newPagesModule(ctx: Context): Kodein.Module {
         }
     }
 }
+
 private fun resolveRedirect(url: URL): URL {
     return try {
         val ucon = url.openConnection() as HttpURLConnection
-        ucon.setInstanceFollowRedirects(false)
+        ucon.instanceFollowRedirects = false
         URL(ucon.getHeaderField("Location"))
     } catch (e: Exception) {
         url

@@ -36,7 +36,7 @@ class ATopBarView(
         set(value) {
             when {
                 field == value -> Unit
-                value == true -> toActive { field = value }
+                value -> toActive { field = value }
                 else -> fromActive { field = value }
             }
         }
@@ -45,7 +45,7 @@ class ATopBarView(
         set(value) {
             when {
                 field == value -> Unit
-                value == true -> toWaiting { field = value }
+                value -> toWaiting { field = value }
                 else -> fromWaiting { field = value }
             }
         }
@@ -56,16 +56,16 @@ class ATopBarView(
     var onBackClick = {}
     var onModeSwitched = {}
 
-    val action1 by lazy { findViewById(R.id.topbar_action1) as ADashView }
-    val action2 by lazy { findViewById(R.id.topbar_action2) as ADashView }
-    val action3 by lazy { findViewById(R.id.topbar_action3) as ADashView }
-    val action4 by lazy { findViewById(R.id.topbar_action4) as ADashView }
+    val action1 by lazy { findViewById<ADashView>(R.id.topbar_action1) }
+    val action2 by lazy { findViewById<ADashView>(R.id.topbar_action2) }
+    val action3 by lazy { findViewById<ADashView>(R.id.topbar_action3) }
+    val action4 by lazy { findViewById<ADashView>(R.id.topbar_action4) }
 
     private val actions by lazy { listOf(action1, action2, action3, action4) }
-    private val logo by lazy { findViewById(R.id.topbar_logo) as ImageView }
-    private val back by lazy { findViewById(R.id.topbar_back) as View }
+    private val logo by lazy { findViewById<ImageView>(R.id.topbar_logo) }
+    private val back by lazy { findViewById<View>(R.id.topbar_back) }
 
-    private val header by lazy { findViewById(R.id.topbar_header) as View }
+    private val header by lazy { findViewById<View>(R.id.topbar_header) }
 
     private val dur = 200L
 
@@ -73,23 +73,23 @@ class ATopBarView(
         super.onFinishInflate()
 
         logo.setOnClickListener {
-            rotate(logo, -5f, {
-                rotate(logo, 10f, {
-                    rotate(logo, -5f, {
+            rotate(logo, -5f) {
+                rotate(logo, 10f) {
+                    rotate(logo, -5f) {
                         onLogoClick()
-                    })
-                })
-            })
+                    }
+                }
+            }
         }
 
         back.setOnClickListener {
-            rotate(back, -15f, {
-                rotate(back, 30f, {
-                    rotate(back, -15f, {
+            rotate(back, -15f) {
+                rotate(back, 30f) {
+                    rotate(back, -15f) {
                         onBackClick()
-                    })
-                })
-            })
+                    }
+                }
+            }
         }
 
         fromActive {}

@@ -7,7 +7,6 @@ import core.ContentActor.Companion.X_END
 import org.blokada.R
 import update.DASH_ID_ABOUT
 
-
 class DashNoop : Dash("main_noop", icon = false)
 
 class DashMainMenu(
@@ -64,4 +63,3 @@ class DashMainMenu(
         }
     }
 }
-

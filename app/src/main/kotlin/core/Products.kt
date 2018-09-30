@@ -8,7 +8,7 @@ enum class Product {
 
     companion object {
         fun current(ctx: Context): Product {
-            return when(ctx.packageName) {
+            return when (ctx.packageName) {
                 "org.blokada",
                 "org.blokada.origin.alarm",
                 "org.blokada.alarm" -> Product.A
@@ -24,7 +24,7 @@ enum class ProductType {
 
     companion object {
         fun current(): ProductType {
-            return when(BuildConfig.BUILD_TYPE.toLowerCase()) {
+            return when (BuildConfig.BUILD_TYPE.toLowerCase()) {
                 "debug" -> DEBUG
                 "official" -> OFFICIAL
                 "beta" -> BETA

@@ -27,7 +27,7 @@ class ContentActor(
         if (openDash?.d == dash) return
         openDash = OpenDash(dash, x, y)
 
-        val view = dashesCaches.get(dash.id)
+        val view = dashesCaches[dash.id]
         if (view is View) {
             revealContainer.addView(view)
         } else if (dash.isSwitch) {
@@ -54,7 +54,7 @@ class ContentActor(
                 if (v == null) {
                     v = dash.createView(reveal)
                     if (v is View) {
-                        dashesCaches.put(dash.id, v)
+                        dashesCaches[dash.id] = v
                         revealContainer.addView(v)
                     }
                 }

@@ -10,9 +10,9 @@ import org.blokada.R
 class ATopBarActor(
         private val xx: Environment,
         private val m: Tunnel,
-        private val ui: UiState,
+        ui: UiState,
         private val v: ATopBarView,
-        private val enabledStateActor: EnabledStateActor,
+        enabledStateActor: EnabledStateActor,
         private val contentActor: ContentActor,
         private val infoView: AInfoView,
         private val infoViewShadow: View,
@@ -22,11 +22,17 @@ class ATopBarActor(
 ) : IEnabledStateActorListener {
 
     var dash1: Dash? = null
-        set(value) { field = handleDashChange(value, v.action1, dashActor1) }
+        set(value) {
+            field = handleDashChange(value, v.action1, dashActor1)
+        }
     var dash2: Dash? = null
-        set(value) { field = handleDashChange(value, v.action2, dashActor2) }
+        set(value) {
+            field = handleDashChange(value, v.action2, dashActor2)
+        }
     var dash3: Dash? = null
-        set(value) { field = handleDashChange(value, v.action3, dashActor3) }
+        set(value) {
+            field = handleDashChange(value, v.action3, dashActor3)
+        }
 
     private val dashActor1: ADashActor = ADashActor(DashNoop(), v.action1, ui, contentActor)
     private val dashActor2: ADashActor = ADashActor(DashNoop(), v.action2, ui, contentActor)
@@ -42,7 +48,9 @@ class ATopBarActor(
         }
 
         v.onModeSwitched = {
-            if (initialInfoViewHeight == null) { initialInfoViewHeight = infoView.measuredHeight }
+            if (initialInfoViewHeight == null) {
+                initialInfoViewHeight = infoView.measuredHeight
+            }
 
             // Bar mode configuration
             var bg = v.bg ?: R.color.colorBackgroundLight
@@ -77,15 +85,17 @@ class ATopBarActor(
 
         v.onBackClick = { contentActor.back() }
 
-        contentActor.onDashOpen += { dash -> when(dash) {
-            null -> resetActions()
-            else -> {
-                val dashes = dash.menuDashes
-                dash1 = dashes.first
-                dash2 = dashes.second
-                dash3 = dashes.third
+        contentActor.onDashOpen += { dash ->
+            when (dash) {
+                null -> resetActions()
+                else -> {
+                    val dashes = dash.menuDashes
+                    dash1 = dashes.first
+                    dash2 = dashes.second
+                    dash3 = dashes.third
+                }
             }
-        }}
+        }
 
         resetActions()
         v.action4.showClickAnim = false

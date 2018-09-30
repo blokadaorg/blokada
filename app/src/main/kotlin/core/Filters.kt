@@ -17,9 +17,8 @@ import gs.environment.Worker
 import gs.environment.inject
 import gs.property.IProperty
 import gs.property.newProperty
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.channels.consumeEach
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.runBlocking
 import nl.komponents.kovenant.task
 
 abstract class Filters {
@@ -28,7 +27,7 @@ abstract class Filters {
 }
 
 class FiltersImpl(
-        private val kctx: Worker,
+        kctx: Worker,
         private val xx: Environment,
         private val ctx: Context = xx().instance(),
         private val j: Journal = xx().instance()
@@ -57,8 +56,10 @@ class FiltersImpl(
 
 fun newFiltersModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
-        bind<Filters>() with singleton { FiltersImpl(kctx = with("gscore").instance(10), xx = lazy,
-                ctx = ctx) }
+        bind<Filters>() with singleton {
+            FiltersImpl(kctx = with("gscore").instance(10), xx = lazy,
+                    ctx = ctx)
+        }
         bind<IHostlineProcessor>() with singleton { DefaultHostlineProcessor() }
         bind<AFilterAddDialog>() with provider {
             AFilterAddDialog(ctx, sourceProvider = instance())
@@ -81,7 +82,7 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
             val cmd: Commands = instance()
 
             // Reload engine in case whitelisted apps selection changes
-            launch {
+            GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
                 var currentApps = listOf<Filter>()
                 cmd.subscribe(MonitorFilters()).consumeEach { filters ->
                     val newApps = filters.filter { it.whitelist && it.active && it.source.id == "app" }
@@ -99,7 +100,7 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
                         }
                     }
                 }
-            }
+            })
 
             // Compile filters every time they change
             s.changed.doWhenChanged(withInit = true).then {
@@ -116,7 +117,7 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
             // Refresh filters list whenever system apps switch is changed
             val ui: UiState = instance()
             ui.showSystemApps.doWhenChanged().then {
-//                s.filters %= s.filters()
+                //                s.filters %= s.filters()
             }
 
             task {
@@ -143,7 +144,7 @@ data class DownloadedFilter(
 
     override fun equals(other: Any?): Boolean {
         if (other !is DownloadedFilter) return false
-        return source.equals(other.source)
+        return source == other.source
     }
 }
 
@@ -183,7 +184,5 @@ class AppInstallReceiver : BroadcastReceiver() {
             filter.addDataScheme("package")
             ctx.registerReceiver(ctx.inject().instance<AppInstallReceiver>(), filter)
         }
-
     }
-
 }

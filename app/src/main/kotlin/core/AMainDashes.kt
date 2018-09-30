@@ -220,13 +220,16 @@ class AutoStartDash(
 ) {
 
     override var checked = false
-        set(value) { if (field != value) {
-            field = value
-            s.startOnBoot %= value
-            onUpdate.forEach { it() }
-        }}
+        set(value) {
+            if (field != value) {
+                field = value
+                s.startOnBoot %= value
+                onUpdate.forEach { it() }
+            }
+        }
 
     private var listener: IWhen? = null
+
     init {
         listener = s.startOnBoot.doOnUiWhenSet().then {
             checked = s.startOnBoot()
@@ -245,13 +248,16 @@ class ConnectivityDash(
 ) {
 
     override var checked = false
-        set(value) { if (field != value) {
-            field = value
-            s.watchdogOn %= value
-            onUpdate.forEach { it() }
-        }}
+        set(value) {
+            if (field != value) {
+                field = value
+                s.watchdogOn %= value
+                onUpdate.forEach { it() }
+            }
+        }
 
     private var listener: IWhen? = null
+
     init {
         listener = s.watchdogOn.doOnUiWhenSet().then {
             checked = s.watchdogOn()
@@ -268,7 +274,7 @@ class OpenInBrowserDash(
         onClick = { dashRef ->
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.setData(Uri.parse(url().toString()))
+            intent.data = Uri.parse(url().toString())
             ctx.startActivity(intent)
             true
         }
@@ -283,7 +289,7 @@ class ChatDash(
         onClick = { dashRef ->
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.setData(Uri.parse(url().toString()))
+            intent.data = Uri.parse(url().toString())
             ctx.startActivity(intent)
             true
         }

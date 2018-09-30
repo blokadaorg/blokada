@@ -25,11 +25,10 @@ abstract class KeepAlive {
     abstract val keepAlive: IProperty<Boolean>
 }
 
-
 class KeepAliveImpl(
-        private val kctx: Worker,
+        kctx: Worker,
         private val xx: Environment,
-        private val ctx: Context = xx().instance()
+        ctx: Context = xx().instance()
 ) : KeepAlive() {
     override val keepAlive = newPersistedProperty(kctx, APrefsPersistence(ctx, "keepAlive"),
             { false }
@@ -60,8 +59,8 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
                 val ctx: Context = instance()
                 val nm: NotificationManager = instance()
                 val n = createNotificationKeepAlive(ctx = ctx, count = dropped,
-                        last = t.tunnelRecentDropped().lastOrNull() ?:
-                        ctx.getString(R.string.notification_keepalive_none)
+                        last = t.tunnelRecentDropped().lastOrNull()
+                                ?: ctx.getString(R.string.notification_keepalive_none)
                 )
                 nm.notify(3, n)
             }
@@ -88,9 +87,14 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
 private val keepAliveAgent by lazy { KeepAliveAgent() }
 
 class KeepAliveAgent {
-    private val serviceConnection = object: ServiceConnection {
-        @Synchronized override fun onServiceConnected(name: ComponentName, binder: IBinder) {}
-        @Synchronized override fun onServiceDisconnected(name: ComponentName?) {}
+    private val serviceConnection = object : ServiceConnection {
+        @Synchronized
+        override fun onServiceConnected(name: ComponentName, binder: IBinder) {
+        }
+
+        @Synchronized
+        override fun onServiceDisconnected(name: ComponentName?) {
+        }
     }
 
     fun bind(ctx: Context) {
@@ -101,8 +105,14 @@ class KeepAliveAgent {
     }
 
     fun unbind(ctx: Context) {
-        try { unscheduleJob(ctx) } catch (e: Exception) {}
-        try { ctx.unbindService(serviceConnection) } catch (e: Exception) {}
+        try {
+            unscheduleJob(ctx)
+        } catch (e: Exception) {
+        }
+        try {
+            ctx.unbindService(serviceConnection)
+        } catch (e: Exception) {
+        }
     }
 
     fun scheduleJob(ctx: Context) {
@@ -126,21 +136,23 @@ class KeepAliveService : Service() {
     }
 
     class KeepAliveBinder : Binder()
+
     private val j by lazy { inject().instance<Journal>() }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         j.log("KeepAliveService: start command")
-        return Service.START_STICKY;
+        return Service.START_STICKY
     }
 
     private var binder: KeepAliveBinder? = null
     override fun onBind(intent: Intent?): IBinder? {
-        if (BINDER_ACTION.equals(intent?.action)) {
+        if (BINDER_ACTION == intent?.action) {
             binder = KeepAliveBinder()
 
             val s: Tunnel = inject().instance()
             val count = s.tunnelDropCount()
-            val last = s.tunnelRecentDropped().lastOrNull() ?: getString(R.string.notification_keepalive_none)
+            val last = s.tunnelRecentDropped().lastOrNull()
+                    ?: getString(R.string.notification_keepalive_none)
             val n = createNotificationKeepAlive(this, count, last)
             startForeground(3, n)
 
@@ -163,7 +175,4 @@ class KeepAliveService : Service() {
         // This is probably pointless
         if (binder != null) sendBroadcast(Intent("org.blokada.keepAlive"))
     }
-
 }
-
-

@@ -113,16 +113,16 @@ class Commands(
         monitor.openSubscription()
     }
 
-    fun send(cmd: Cmd) = launch {
+    fun send(cmd: Cmd) = GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
         decide(cmd).send(cmd)
-    }
+    })
 
     val loc by lazy { localisations.create() }
 
     private fun decide(cmd: Cmd): SendChannel<Cmd> {
         return when (cmd) {
             is LoadFilters, is SaveFilters, is UpdateFilter, is SyncFilters, is SyncHostsCache,
-                    is DeleteAllFilters, is InvalidateAllFiltersCache, is SetFiltersPath -> filters
+            is DeleteAllFilters, is InvalidateAllFiltersCache, is SetFiltersPath -> filters
             is SyncTranslations -> loc
             else -> throw Exception("unknown command $cmd")
         }
@@ -175,7 +175,7 @@ data class Filter(
 
     override fun equals(other: Any?): Boolean {
         if (other !is Filter) return false
-        return id.equals(other.id)
+        return id == other.id
     }
 }
 
@@ -216,7 +216,8 @@ val HOST_COUNT_UPDATING = -1
 fun silent(exec: () -> Unit) {
     try {
         exec()
-    } catch (e: Exception) {}
+    } catch (e: Exception) {
+    }
 }
 
 class FiltersActor(
@@ -251,9 +252,10 @@ class FiltersActor(
         },
         val loadHosts: () -> Set<HostsCache> = { Paper.book().read<Set<HostsCache>>("hosts2", emptySet()) },
         val saveHosts: (Set<HostsCache>) -> Unit = { Paper.book().write("hosts2", it) },
-        val downloadFilters: () -> Set<Filter> = { runBlocking {
-            val serializer = FilterSerializer()
-            try {
+        val downloadFilters: () -> Set<Filter> = {
+            runBlocking {
+                val serializer = FilterSerializer()
+                try {
                     serializer.deserialise(load({ openUrl(url(), 10 * 1000) }))
                 } catch (e: Exception) {
                     // Try one more time in case it was a ephemeral problem
@@ -265,7 +267,8 @@ class FiltersActor(
                         emptySet<Filter>()
                     }
                 }
-        }},
+            }
+        },
         val processDownloadedFilters: (Set<Filter>) -> Set<Filter> = { it },
         val getSource: (FilterSourceDescriptor, FilterId) -> IFilterSource,
         val isCacheValid: (HostsCache) -> Boolean = { false },
@@ -273,18 +276,20 @@ class FiltersActor(
         val hostsCountSync: BroadcastChannel<Int> = BroadcastChannel(Channel.CONFLATED),
         val filtersSync: BroadcastChannel<Set<Filter>> = BroadcastChannel(Channel.CONFLATED),
         val cacheSync: BroadcastChannel<Set<String>> = BroadcastChannel(Channel.CONFLATED)
-): CommandsActor() {
+) : CommandsActor() {
 
-    override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> { return mapOf(
-            LoadFilters::class to ::load,
-            SaveFilters::class to ::save,
-            SetFiltersPath::class to ::setFiltersPath,
-            SyncFilters::class to ::syncFilters,
-            SyncHostsCache::class to ::syncHostsCache,
-            UpdateFilter::class to ::updateFilter,
-            DeleteAllFilters::class to ::deleteAllFilters,
-            InvalidateAllFiltersCache::class to ::invalidateAllFiltersCache
-    )}
+    override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> {
+        return mapOf(
+                LoadFilters::class to ::load,
+                SaveFilters::class to ::save,
+                SetFiltersPath::class to ::setFiltersPath,
+                SyncFilters::class to ::syncFilters,
+                SyncHostsCache::class to ::syncHostsCache,
+                UpdateFilter::class to ::updateFilter,
+                DeleteAllFilters::class to ::deleteAllFilters,
+                InvalidateAllFiltersCache::class to ::invalidateAllFiltersCache
+        )
+    }
 
     private var filtersPath: String? = null
     private var filters = FiltersCache(fetchTimeMillis = 0)
@@ -296,9 +301,9 @@ class FiltersActor(
         filters.cache.filter {
             it.active &&
                     (whitelist == null || it.whitelist == whitelist)
-        }.map {
+        }.mapNotNull {
             hosts[it.id]
-        }.filterNotNull()
+        }
     }
 
     private val selectInvalidCache = { hosts: List<HostsCache> ->
@@ -315,7 +320,8 @@ class FiltersActor(
     private val cleansePriority = {
         val cache = filters.cache
         cache.toList().sortedBy { it.priority }.mapIndexed { index, filter ->
-            filter.alter(newPriority = index) }
+            filter.alter(newPriority = index)
+        }
         filters = FiltersCache(cache, filters.fetchTimeMillis, filters.url)
     }
 
@@ -325,7 +331,8 @@ class FiltersActor(
         try {
             filters = loadFilters(filtersPath)
         } catch (e: Exception) {
-            w(cmd, "cannot load persistence, will reset path", filtersPath ?: "default filters path")
+            w(cmd, "cannot load persistence, will reset path", filtersPath
+                    ?: "default filters path")
             filtersPath = null
             filters = loadFilters(filtersPath)
         }
@@ -350,7 +357,8 @@ class FiltersActor(
         try {
             saveFilters(FiltersCache(filters.cache, url = filters.url), filtersPath)
         } catch (e: Exception) {
-            w(cmd, "cannot save persistence, will reset path", filtersPath ?: "default filters path")
+            w(cmd, "cannot save persistence, will reset path", filtersPath
+                    ?: "default filters path")
             filtersPath = null
             saveFilters(FiltersCache(filters.cache, url = filters.url), filtersPath)
         }
@@ -376,13 +384,11 @@ class FiltersActor(
                 v(cmd, "combine with existing filters")
                 filters.cache.map { existing ->
                     val newFilter = builtinFilters.find { it == existing }
-                    if (newFilter != null) {
-                        newFilter.alter(
-                                newActive = existing.active,
-                                newHidden = existing.hidden,
-                                newPriority = existing.priority
-                        )
-                    } else existing
+                    newFilter?.alter(
+                            newActive = existing.active,
+                            newHidden = existing.hidden,
+                            newPriority = existing.priority
+                    ) ?: existing
                 }.plus(builtinFilters.minus(filters.cache))
             }
             filters = FiltersCache(newFilters.toSet(), url = url().toExternalForm())
@@ -420,8 +426,7 @@ class FiltersActor(
         if (cmd.filter == null) {
             filters -= filters.cache.first { it.id == cmd.id }
             v(cmd, "removing filter", cmd.id)
-        }
-        else {
+        } else {
             val old = filters.cache.firstOrNull { it.id == cmd.id }
             when {
                 old == null -> {
@@ -459,24 +464,25 @@ class FiltersActor(
         hosts = emptyMap()
     }
 
-    private fun download(filters: List<Pair<HostsCache, IFilterSource>>) = produce {
-        var jobs = emptyList<Job>()
-        filters.forEach {
-            jobs += launch {
-                val id = it.first.id
-                val source = it.second
-                try {
-                    v("download filters: processing", id)
-                    val hosts = source.fetch()
-                    send(HostsCache(id, hosts.toSet()))
-                    v("download filters: finished", id)
-                } catch (e: Exception) {
-                    w("download filters: fail", id, e)
+    private fun download(filters: List<Pair<HostsCache, IFilterSource>>) =
+            GlobalScope.produce(Dispatchers.Default, 0, null, {
+                var jobs = emptyList<Job>()
+                filters.forEach {
+                    jobs += launch {
+                        val id = it.first.id
+                        val source = it.second
+                        try {
+                            v("download filters: processing", id)
+                            val hosts = source.fetch()
+                            send(HostsCache(id, hosts.toSet()))
+                            v("download filters: finished", id)
+                        } catch (e: Exception) {
+                            w("download filters: fail", id, e)
+                        }
+                    }
                 }
-            }
-        }
-        jobs.forEach { it.join() }
-    }
+                jobs.forEach { it.join() }
+            })
 }
 
 class SyncTranslations : Cmd()
@@ -513,7 +519,7 @@ abstract class CommandsActor {
     }
 
     fun create(): SendChannel<Cmd> {
-        val newContext = newCoroutineContext(DefaultDispatcher, parent = null)
+        val newContext = newCoroutineContext(Dispatchers.Default, parent = null)
         val channel = Channel<Cmd>(capacity = 0)
         val coroutine = ActorCoroutine(newContext, channel, active = true)
         coroutine.start(CoroutineStart.DEFAULT, coroutine, block)
@@ -527,7 +533,7 @@ class LocalisationActor(
         val save: (TranslationsCacheInfo) -> Unit = { Paper.book().write("translationsCacheInfo", it) },
         val cacheValid: (TranslationsCacheInfo, URL) -> Boolean = { _, _ -> false },
         val downloadTranslations: (Map<URL, Prefix>) -> ReceiveChannel<Pair<URL, List<Pair<Key, Translation>>>> = { urls ->
-            produce {
+            GlobalScope.produce(Dispatchers.Default, 0, null, {
                 var jobs: Set<Job> = emptySet()
                 urls.forEach { (url, prefix) ->
                     jobs += launch {
@@ -536,7 +542,8 @@ class LocalisationActor(
                             prop.load(InputStreamReader(
                                     openUrl(url, 10 * 1000), Charset.forName("UTF-8")))
                             val res = url to prop.stringPropertyNames().map { key ->
-                                "${prefix}_$key" to prop.getProperty(key) }
+                                "${prefix}_$key" to prop.getProperty(key)
+                            }
                             send(res)
                         } catch (e: Exception) {
                             e("fail fetch localisation", e)
@@ -545,14 +552,16 @@ class LocalisationActor(
                     }
                 }
                 jobs.forEach { it.join() }
-            }
+            })
         },
         val setI18n: (key: String, value: String) -> Unit = { _, _ -> }
-): CommandsActor() {
+) : CommandsActor() {
 
-    override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> { return mapOf(
-            SyncTranslations::class to ::sync
-    )}
+    override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> {
+        return mapOf(
+                SyncTranslations::class to ::sync
+        )
+    }
 
     private var info = TranslationsCacheInfo()
 
@@ -579,8 +588,9 @@ data class TranslationsCacheInfo(
         private val info: Map<URL, Long> = emptyMap()
 ) {
     fun get(url: URL): Long {
-        return info.getOrElse(url, { 0 })
+        return info.getOrElse(url) { 0 }
     }
+
     fun put(url: URL): TranslationsCacheInfo {
         return TranslationsCacheInfo(info.plus(url to System.currentTimeMillis()))
     }
@@ -615,4 +625,3 @@ private open class ActorCoroutine<E>(
         if (cause != null) handleCoroutineException(context, cause)
     }
 }
-

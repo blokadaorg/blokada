@@ -8,7 +8,6 @@ import android.content.res.Configuration
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.FrameLayout
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.instance
@@ -22,7 +21,6 @@ import gs.presentation.isWrongInstance
 import gs.property.Device
 import gs.property.IWhen
 import gs.property.Version
-import io.codetail.widget.RevealFrameLayout
 import nl.komponents.kovenant.task
 import org.blokada.BuildConfig
 import org.blokada.R
@@ -75,10 +73,10 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
         setContentView(R.layout.activity_main)
 
-        infoView = findViewById(R.id.info) as AInfoView
+        infoView = findViewById(R.id.info)
         enabledStateActor.listeners.add(enabledStateListener)
 
-        topBar = findViewById(R.id.topbar) as ATopBarView
+        topBar = findViewById(R.id.topbar)
 
         val getRadiusSize = {
             val size = android.graphics.Point()
@@ -89,14 +87,14 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
         contentActor = ContentActor(
                 ui = ui,
-                reveal = findViewById(R.id.reveal) as RevealFrameLayout,
-                revealContainer = findViewById(R.id.reveal_container) as FrameLayout,
+                reveal = findViewById(R.id.reveal),
+                revealContainer = findViewById(R.id.reveal_container),
                 topBar = topBar!!,
                 radiusSize = getRadiusSize()
         )
 
-        val shadow = findViewById(R.id.info_shadow) as View
-        shadow.visibility = if(landscape) View.INVISIBLE else View.VISIBLE
+        val shadow = findViewById<View>(R.id.info_shadow)
+        shadow.visibility = if (landscape) View.INVISIBLE else View.VISIBLE
 
         ATopBarActor(
                 xx = kodein,
@@ -112,12 +110,12 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
                 pages = pages
         )
 
-        grid = findViewById(R.id.grid) as AGridView
+        grid = findViewById(R.id.grid)
         grid?.ui = ui
         grid?.contentActor = contentActor
 
         val updateItems = {
-                ui.dashes().filter(Dash::active)
+            ui.dashes().filter(Dash::active)
         }
 
         grid?.items = updateItems()
@@ -129,7 +127,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             if (!isTop && !landscape) topBar?.mode = ATopBarView.Mode.BAR
         }
 
-        val fab = findViewById(R.id.fab) as AFloaterView
+        val fab = findViewById<AFloaterView>(R.id.fab)
         AFabActor(fab, t, enabledStateActor, contentActor!!)
 
         if (landscape) {
@@ -138,7 +136,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             grid?.landscape = true
             grid?.adapter = grid?.adapter // To refresh grid
             val lp = fab.layoutParams as CoordinatorLayout.LayoutParams
-            lp.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.RIGHT
+            lp.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.END
             fab.layoutParams = lp
         }
 
@@ -155,7 +153,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         m.run()
     }
 
-    val activityResultListeners = mutableListOf({result: Int, data: Intent? -> })
+    val activityResultListeners = mutableListOf({ result: Int, data: Intent? -> })
 
     fun addOnNextActivityResultListener(listener: (result: Int, data: Intent?) -> Unit) {
         activityResultListeners.add(listener)
@@ -204,10 +202,6 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         infoQueueHandler(ui.infoQueue())
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     override fun onDestroy() {
 //        staticContext.set(WeakReference(null as Activity?))
         super.onDestroy()
@@ -217,7 +211,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
     }
 
     override fun onBackPressed() {
-        if (!(contentActor?.back() ?: false)) super.onBackPressed()
+        if (contentActor?.back() != true) super.onBackPressed()
     }
 
     private val display = { i: Info ->
@@ -302,18 +296,18 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         var staticContext = Sync(WeakReference(null as Activity?))
         fun askPermissions() {
             val act = staticContext.get().get()
-            if (act == null) {
-//                Log.e("blokada", "Trying to start main activity")
-//                val ctx: Context = globalKodein().instance()
-//                val intent = Intent(ctx, MainActivity::class.java)
-//                intent.putExtra("askPermissions", true)
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//                ctx.startActivity(intent)
-                throw Exception("starting MainActivity")
-            }
+                    ?: //                Log.e("blokada", "Trying to start main activity")
+                    //                val ctx: Context = globalKodein().instance()
+                    //                val intent = Intent(ctx, MainActivity::class.java)
+                    //                intent.putExtra("askPermissions", true)
+                    //                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    //                ctx.startActivity(intent)
+                    throw Exception("starting MainActivity")
 
             val task = startAskTunnelPermissions(act).promise.get()
-            if (!task) { throw Exception("Could not get tunnel permissions") }
+            if (!task) {
+                throw Exception("Could not get tunnel permissions")
+            }
         }
 
 //        fun share(id: String) {

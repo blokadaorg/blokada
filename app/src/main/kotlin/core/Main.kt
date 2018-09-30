@@ -34,7 +34,6 @@ import org.acra.sender.HttpSender
 import org.blokada.BuildConfig
 import org.blokada.R
 
-
 /**
  * Main.kt contains all entry points of the app.
  */
@@ -49,7 +48,7 @@ private fun startThroughJobScheduler(
     scheduler.schedule(builder.build())
 }
 
-class MainApplication: Application(), KodeinAware {
+class MainApplication : Application(), KodeinAware {
 
     override val kodein by Kodein.lazy {
         import(newGscoreModule(this@MainApplication))
@@ -130,7 +129,8 @@ class MainApplication: Application(), KodeinAware {
                 ACRA.getErrorReporter().handleException(ex)
                 val j: Journal = inject().instance()
                 j.log("fatal", ex)
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+            }
             startThroughJobScheduler(this)
             System.exit(2)
         }

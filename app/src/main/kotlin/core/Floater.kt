@@ -28,7 +28,7 @@ class AFloaterView(
                 else -> {
                     toHide {
                         setImageResource(value)
-                        setColorFilter(colorFilter) //TODO
+                        colorFilter = colorFilter //TODO
                         fromHide {
                             field = value
                         }
@@ -40,13 +40,13 @@ class AFloaterView(
     override fun onFinishInflate() {
         super.onFinishInflate()
         setOnClickListener {
-            rotate(-20f, {
-                rotate(40f, {
-                    rotate(-20f, {
+            rotate(-20f) {
+                rotate(40f) {
+                    rotate(-20f) {
                         onClick()
-                    })
-                })
-            })
+                    }
+                }
+            }
         }
     }
 
@@ -66,14 +66,13 @@ class AFloaterView(
     private fun rotate(how: Float, after: () -> Unit) {
         animate().rotationBy(how).setInterpolator(inter3).setDuration(100).doAfter(after)
     }
-
 }
 
 class AFabActor(
         private val fabView: AFloaterView,
         private val s: Tunnel,
         private val enabledStateActor: EnabledStateActor,
-        private val contentActor: ContentActor
+        contentActor: ContentActor
 ) : IEnabledStateActorListener {
 
     private val ctx by lazy { fabView.context }
@@ -81,19 +80,21 @@ class AFabActor(
     private val colorsAccent by lazy { getColorStateList(ctx, R.color.fab_accent) }
 
     init {
-        contentActor.onDashOpen += { dash -> when {
-            dash == null -> reset()
-            dash.menuDashes.first != null -> {
-                val d = dash.menuDashes.first!!
-                enabledStateActor.listeners.remove(this)
-                val icon = d.icon as Int
-                fabView.icon = icon
-                fabView.onClick = {
-                    d.onClick?.invoke(d)
+        contentActor.onDashOpen += { dash ->
+            when {
+                dash == null -> reset()
+                dash.menuDashes.first != null -> {
+                    val d = dash.menuDashes.first!!
+                    enabledStateActor.listeners.remove(this)
+                    val icon = d.icon as Int
+                    fabView.icon = icon
+                    fabView.onClick = {
+                        d.onClick?.invoke(d)
+                    }
                 }
+                else -> fabView.icon = null
             }
-            else -> fabView.icon = null
-        }}
+        }
 
         reset()
     }

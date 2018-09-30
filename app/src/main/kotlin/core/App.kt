@@ -6,12 +6,11 @@ import com.github.salomonbrys.kodein.*
 import filter.DefaultSourceProvider
 import gs.environment.*
 import gs.property.*
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.channels.BroadcastChannel
 import kotlinx.coroutines.experimental.channels.Channel
 import kotlinx.coroutines.experimental.channels.ReceiveChannel
 import kotlinx.coroutines.experimental.channels.consumeEach
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.runBlocking
 import org.blokada.BuildConfig
 import org.blokada.R
 
@@ -25,8 +24,8 @@ abstract class UiState {
 }
 
 class AUiState(
-        private val kctx: Worker,
-        private val xx: Environment
+        kctx: Worker,
+        xx: Environment
 ) : UiState() {
 
     private val ctx: Context by xx.instance()
@@ -50,8 +49,8 @@ class AUiState(
 
 fun logChannel(name: String, c: ReceiveChannel<Any>, j: Journal) = launch {
     c.consumeEach { value ->
-        when {
-            value is Exception -> {
+        when (value) {
+            is Exception -> {
                 j.log("$name: $value", value)
             }
             else -> {
@@ -148,16 +147,16 @@ fun newAppModule(ctx: Context): Kodein.Module {
                 cmd.send(LoadFilters())
             }
 
-            launch {
+            GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
                 cmd.subscribe(MonitorHostsCount()).consumeEach {
                     // Todo: a nicer hook would be good to minimise unnecessary downloads
-                    // Todo: dont sync all translations, just filters related
+                    // Todo: don't sync all translations, just filters related
                     if (it != HOST_COUNT_UPDATING) {
                         cmd.send(SaveFilters())
                         cmd.send(SyncTranslations())
                     }
                 }
-            }
+            })
 
             // Since having filters is really important, poke whenever we get connectivity
             var wasConnected = false
@@ -209,14 +208,13 @@ class APrefsPersistence<T>(
 
     override fun write(source: T) {
         val e = p.edit()
-        when(source) {
+        when (source) {
             is Boolean -> e.putBoolean(key, source)
             is Int -> e.putInt(key, source)
             is Long -> e.putLong(key, source)
             is String -> e.putString(key, source)
-            else -> throw Exception("unsupported type for ${key}")
+            else -> throw Exception("unsupported type for $key")
         }
         e.apply()
     }
-
 }

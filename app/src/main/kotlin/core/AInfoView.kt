@@ -4,15 +4,13 @@ import android.content.Context
 import android.support.v7.widget.AppCompatTextView
 import android.text.Html
 import android.util.AttributeSet
-import android.widget.TextView
-import nl.komponents.kovenant.ui.promiseOnUi
 import gs.presentation.doAfter
-
+import nl.komponents.kovenant.ui.promiseOnUi
 
 class AInfoView(
-        private val ctx: Context,
-        private val attributeSet: AttributeSet
-): AppCompatTextView(ctx, attributeSet) {
+        ctx: Context,
+        attributeSet: AttributeSet
+) : AppCompatTextView(ctx, attributeSet) {
 
     var waitMillis: Int? = null
 
@@ -37,10 +35,12 @@ class AInfoView(
         }
 
     var shown = true
-        set(value) { when(value) {
-            field -> Unit
-            else -> field = value
-        }}
+        set(value) {
+            when (value) {
+                field -> Unit
+                else -> field = value
+            }
+        }
 
     init {
 //        movementMethod = LinkMovementMethod()

@@ -23,7 +23,7 @@ abstract class Welcome {
     abstract val conflictingBuilds: IProperty<List<String>>
 }
 
-class WelcomeImpl (
+class WelcomeImpl(
         w: Worker,
         xx: Environment,
         val i18n: I18n = xx().instance(),
@@ -56,7 +56,7 @@ fun newWelcomeModule(ctx: Context): Kodein.Module {
     }
 }
 
-class WelcomeDialogManager (
+class WelcomeDialogManager(
         private val xx: Environment,
         private val currentAppVersion: Int,
         private val afterWelcome: () -> Unit
@@ -97,13 +97,13 @@ class WelcomeDialogManager (
                 dialogIntro.onClosed = { accept ->
                     displaying = false
                     welcome.introSeen %= true
-                    if (accept == 1) {
-                        afterWelcome()
-                        run(step = 9)
-                    } else if (accept == 2) {
-                        run(step = 1)
-                    } else {
-                        run(step = 9)
+                    when (accept) {
+                        1 -> {
+                            afterWelcome()
+                            run(step = 9)
+                        }
+                        2 -> run(step = 1)
+                        else -> run(step = 9)
                     }
                 }
                 dialogIntro.show()
@@ -177,13 +177,13 @@ class WelcomeDialogManager (
     }
 
     private fun getInstalledBuilds(): List<String> {
-        return welcome.conflictingBuilds().map {
+        return welcome.conflictingBuilds().mapNotNull {
             if (isPackageInstalled(it)) it else null
-        }.filterNotNull()
+        }
     }
 
     private fun isPackageInstalled(appId: String): Boolean {
-        val intent = ctx.packageManager.getLaunchIntentForPackage(appId) as Intent? ?: return false
+        val intent = ctx.packageManager.getLaunchIntentForPackage(appId) ?: return false
         val activities = ctx.packageManager.queryIntentActivities(intent, 0)
         return activities.size > 0
     }
@@ -191,7 +191,7 @@ class WelcomeDialogManager (
     private fun uninstallPackage(appId: String) {
         try {
             val intent = Intent(Intent.ACTION_DELETE)
-            intent.data = Uri.parse("package:" + appId)
+            intent.data = Uri.parse("package:$appId")
             ctx.startActivity(intent)
         } catch (e: Exception) {
             j.log(e)
@@ -221,8 +221,8 @@ class WelcomeDialogManager (
 
     private val dialogUpdate by lazy {
         val dash = WebDash(xx, pages.updated, reloadOnError = true)
-       SimpleDialog(xx, dash, continueButton = R.string.welcome_donate, additionalButton = R.string.welcome_insiders,
-               loadFirst = true)
+        SimpleDialog(xx, dash, continueButton = R.string.welcome_donate, additionalButton = R.string.welcome_insiders,
+                loadFirst = true)
     }
 
     private val dialogObsolete by lazy {

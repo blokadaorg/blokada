@@ -3,7 +3,6 @@ package core
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
@@ -64,7 +63,6 @@ fun newDnsModule(ctx: Context): Kodein.Module {
                     }
                 }
             }
-
         }
     }
 }
@@ -134,7 +132,7 @@ class DnsImpl(
 
     override val dnsServers = newProperty(w, {
         val d = choices().firstOrNull { it.active }
-        if (d?.servers?.isEmpty() ?: true) getDnsServers(ctx)
+        if (d?.servers?.isEmpty() != false) getDnsServers(ctx)
         else d?.servers!!
     })
 
@@ -150,7 +148,6 @@ class DnsImpl(
             dnsServers.refresh()
         }
     }
-
 }
 
 data class DnsChoice(
@@ -167,7 +164,7 @@ data class DnsChoice(
 
     override fun equals(other: Any?): Boolean {
         if (other !is DnsChoice) return false
-        return id.equals(other.id)
+        return id == other.id
     }
 }
 
@@ -187,7 +184,6 @@ class DnsChoicePersistence(xx: Environment) : PersistenceWithSerialiser<List<Dns
         e.putString("dns", s.serialise(source).joinToString("^"))
         e.apply()
     }
-
 }
 
 class DnsSerialiser {
@@ -200,7 +196,7 @@ class DnsSerialiser {
             val credit = it.credit ?: ""
             val comment = it.comment ?: ""
 
-            "${i++}\n${it.id}\n${active}\n${ipv6}\n${servers}\n${credit}\n${comment}"
+            "${i++}\n${it.id}\n$active\n$ipv6\n$servers\n$credit\n$comment"
         }.flatMap { it.split("\n") }
     }
 
@@ -306,7 +302,7 @@ class Add(
             dialog.show(null)
             false
         }
-) {}
+)
 
 class QuickActions(
         val xx: Environment,
@@ -339,13 +335,9 @@ class GenerateDialog(
                 ctx.getString(R.string.dns_generate_refetch),
                 ctx.getString(R.string.dns_generate_defaults)
         )
-        d.setSingleChoiceItems(options, which, object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                this@GenerateDialog.which = which
-            }
-        })
-        d.setPositiveButton(R.string.filter_edit_do, { dia, int -> })
-        d.setNegativeButton(R.string.filter_edit_cancel, { dia, int -> })
+        d.setSingleChoiceItems(options, which) { dialog, which -> this@GenerateDialog.which = which }
+        d.setPositiveButton(R.string.filter_edit_do) { dia, int -> }
+        d.setNegativeButton(R.string.filter_edit_cancel) { dia, int -> }
         dialog = d.create()
     }
 
@@ -440,7 +432,7 @@ class DnsListView(
 }
 
 fun printServers(s: List<InetAddress>): String {
-    return s.map { it.hostAddress.replace("/", "") }.joinToString (", ")
+    return s.joinToString(", ") { it.hostAddress.replace("/", "") }
 }
 
 class DnsActor(
@@ -460,7 +452,7 @@ class DnsActor(
 
     init {
         update()
-        v.setOnClickListener ret@ {
+        v.setOnClickListener ret@{
             dialog.onSave = { newFilter ->
                 if (filter.id == "default" && !dns.choices().contains(newFilter))
                     dns.choices %= dns.choices() + newFilter
@@ -527,8 +519,8 @@ class AddDialog(
     init {
         val d = AlertDialog.Builder(activity)
         d.setView(view)
-        d.setPositiveButton(R.string.filter_edit_save, { dia, int -> })
-        d.setNegativeButton(R.string.filter_edit_cancel, { dia, int -> })
+        d.setPositiveButton(R.string.filter_edit_save) { dia, int -> }
+        d.setNegativeButton(R.string.filter_edit_cancel) { dia, int -> }
         dialog = d.create()
     }
 
@@ -537,7 +529,7 @@ class AddDialog(
         if (filter != null) {
             val s = filter.servers.map { it.hostAddress }.toMutableList()
             view.appView.server1 = s.first()
-            view.appView.server2 = s.getOrElse(1, {""})
+            view.appView.server2 = s.getOrElse(1) { "" }
             view.appView.correct = true
             view.appView.comment = filter.comment ?: ""
         }
@@ -563,7 +555,7 @@ class AddDialog(
             }
             dialog.dismiss()
             onSave(DnsChoice(
-                    id = filter?.id ?: "custom_" + s.toString(),
+                    id = filter?.id ?: "custom_"+s.toString(),
                     servers = s,
                     active = false,
                     comment = if (view.appView.comment.isNotBlank()) view.appView.comment else null
@@ -646,11 +638,11 @@ class DnsAddView(
         commentReadView.visibility = View.VISIBLE
     }
 
-    private val editView by lazy { findViewById(R.id.filter_edit) as AutoCompleteTextView }
-    private val editView2 by lazy { findViewById(R.id.filter_edit2) as AutoCompleteTextView }
-    private val errorView by lazy { findViewById(R.id.filter_error) as ViewGroup }
-    private val commentView by lazy { findViewById(R.id.filter_comment) as EditText }
-    private val commentReadView by lazy { findViewById(R.id.filter_comment_read) as TextView }
+    private val editView by lazy { findViewById<AutoCompleteTextView>(R.id.filter_edit) }
+    private val editView2 by lazy { findViewById<AutoCompleteTextView>(R.id.filter_edit2) }
+    private val errorView by lazy { findViewById<ViewGroup>(R.id.filter_error) }
+    private val commentView by lazy { findViewById<EditText>(R.id.filter_comment) }
+    private val commentReadView by lazy { findViewById<TextView>(R.id.filter_comment_read) }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -709,10 +701,13 @@ class DnsAddView(
         return when {
             forceNotEmpty && s.isBlank() -> false
             s.isBlank() -> true
-            else -> { try {
+            else -> {
+                try {
                     InetAddress.getByName(s)
                     true
-                } catch (e: Exception) { false }
+                } catch (e: Exception) {
+                    false
+                }
             }
         }
     }
@@ -730,7 +725,7 @@ class DnsAddTabView(
 
     private var ready = false
 
-    private val pager by lazy { findViewById(R.id.filters_pager) as android.support.v4.view.ViewPager }
+    private val pager by lazy { findViewById<android.support.v4.view.ViewPager>(R.id.filters_pager) }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -756,9 +751,13 @@ class DnsAddTabView(
                 return POSITION_NONE // To reload on notifyDataSetChanged()
             }
 
-            override fun getCount(): Int { return 1 }
-            override fun isViewFromObject(view: android.view.View, obj: Any): Boolean { return view == obj }
+            override fun getCount(): Int {
+                return 1
+            }
+
+            override fun isViewFromObject(view: android.view.View, obj: Any): Boolean {
+                return view == obj
+            }
         }
     }
-
 }

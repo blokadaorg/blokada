@@ -19,7 +19,7 @@ abstract class Update {
     abstract val lastSeenUpdateMillis: IProperty<Long>
 }
 
-class UpdateImpl (
+class UpdateImpl(
         w: Worker,
         xx: Environment,
         val ctx: Context = xx().instance()
@@ -71,8 +71,6 @@ fun newUpdateModule(ctx: Context): Kodein.Module {
                     u.lastSeenUpdateMillis %= env.now()
                 }
             }
-
-
         }
     }
 }

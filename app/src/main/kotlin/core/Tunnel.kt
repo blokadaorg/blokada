@@ -55,7 +55,7 @@ class TunnelImpl(
     override val tunnelState = newProperty(kctx, { TunnelState.INACTIVE })
 
     override val tunnelPermission = newProperty(kctx, {
-        val (completed, _) = hasCompleted(null, { checkTunnelPermissions(ctx) })
+        val (completed, _) = hasCompleted(null) { checkTunnelPermissions(ctx) }
         completed
     })
 
@@ -65,7 +65,7 @@ class TunnelImpl(
 
     override val tunnelRecentDropped = newProperty<List<String>>(kctx, { listOf() })
 
-    override val startOnBoot  = newPersistedProperty(kctx, APrefsPersistence(ctx, "startOnBoot"),
+    override val startOnBoot = newPersistedProperty(kctx, APrefsPersistence(ctx, "startOnBoot"),
             { true }
     )
 
@@ -105,14 +105,14 @@ fun newTunnelModule(ctx: Context): Module {
                     s.tunnelState %= TunnelState.ACTIVATING
                     s.tunnelPermission.refresh(blocking = true)
                     if (s.tunnelPermission(false)) {
-                        hasCompleted(j, {
+                        hasCompleted(j) {
                             perms.askForPermissions()
-                        })
+                        }
                         s.tunnelPermission.refresh(blocking = true)
                     }
 
                     if (s.tunnelPermission(true)) {
-                        val (completed, err) = hasCompleted(null, { engine.start() })
+                        val (completed, err) = hasCompleted(null) { engine.start() }
                         if (completed) {
                             s.tunnelState %= TunnelState.ACTIVE
                         } else {
@@ -122,7 +122,7 @@ fun newTunnelModule(ctx: Context): Module {
 
                     if (!s.tunnelState(TunnelState.ACTIVE)) {
                         s.tunnelState %= TunnelState.DEACTIVATING
-                        hasCompleted(j, { engine.stop() })
+                        hasCompleted(j) { engine.stop() }
                         s.tunnelState %= TunnelState.DEACTIVATED
                     }
 
@@ -182,7 +182,7 @@ fun newTunnelModule(ctx: Context): Module {
                         && s.tunnelState(TunnelState.ACTIVE, TunnelState.ACTIVATING)) {
                     watchdog.stop()
                     s.tunnelState %= TunnelState.DEACTIVATING
-                    hasCompleted(j, { engine.stop() })
+                    hasCompleted(j) { engine.stop() }
                     s.tunnelState %= TunnelState.DEACTIVATED
                 }
             }
@@ -214,24 +214,28 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             // Make sure watchdog is started and stopped as user wishes
-            d.watchdogOn.doWhenChanged().then { when {
-                d.watchdogOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> {
-                    // Flip the connected flag so we detect the change if now we're actually connected
-                    d.connected %= false
-                    watchdog.start()
+            d.watchdogOn.doWhenChanged().then {
+                when {
+                    d.watchdogOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> {
+                        // Flip the connected flag so we detect the change if now we're actually connected
+                        d.connected %= false
+                        watchdog.start()
+                    }
+                    d.watchdogOn(false) -> {
+                        watchdog.stop()
+                        d.connected.refresh()
+                    }
                 }
-                d.watchdogOn(false) -> {
-                    watchdog.stop()
-                    d.connected.refresh()
-                }
-            }}
+            }
 
             // Monitor connectivity only when user is interacting with device
-            d.screenOn.doWhenChanged().then { when {
-                s.enabled(false) -> Unit
-                d.screenOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> watchdog.start()
-                d.screenOn(false) -> watchdog.stop()
-            }}
+            d.screenOn.doWhenChanged().then {
+                when {
+                    s.enabled(false) -> Unit
+                    d.screenOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> watchdog.start()
+                    d.screenOn(false) -> watchdog.stop()
+                }
+            }
 
             s.startOnBoot {}
         }
@@ -242,14 +246,14 @@ enum class TunnelState {
     INACTIVE, ACTIVATING, ACTIVE, DEACTIVATING, DEACTIVATED
 }
 
-open class Engine (
+open class Engine(
         val id: String,
         val supported: Boolean = true,
         val recommended: Boolean = false,
         val createIEngineManager: (e: EngineEvents) -> IEngineManager
 )
 
-data class EngineEvents (
+data class EngineEvents(
         val adBlocked: (String) -> Unit = {},
         val error: (String) -> Unit = {},
         val onRevoked: () -> Unit = {}
@@ -268,4 +272,3 @@ interface IEngineManager {
 interface IPermissionsAsker {
     fun askForPermissions()
 }
-
