@@ -68,18 +68,18 @@ object Utils {
             logger.e(TAG, e.toString())
         }
 
-        val len = if (nameArray != null) nameArray.length() else 0
+        val len = nameArray?.length() ?: 0
 
         val names = arrayOfNulls<String>(len)
         for (i in 0 until len) {
             names[i] = nameArray!!.optString(i)
         }
 
-        try {
-            return JSONObject(obj, names)
+        return try {
+            JSONObject(obj, names)
         } catch (e: JSONException) {
             logger.e(TAG, e.toString())
-            return null
+            null
         }
 
     }
@@ -130,7 +130,7 @@ object Utils {
     }
 
     fun isEmptyString(s: String?): Boolean {
-        return s == null || s.length == 0
+        return s == null || s.isEmpty()
     }
 
     fun normalizeInstanceName(instance: String?): String {
@@ -141,7 +141,6 @@ object Utils {
         return instance!!.toLowerCase()
     }
 }
-
 
 class CursorWindowAllocationException(description: String) : RuntimeException(description)
 
@@ -241,7 +240,7 @@ class JournalLog private constructor() {
 
 internal class JournalCallbacks(val clientInstance: JournalClient?) : Application.ActivityLifecycleCallbacks {
 
-    protected val currentTimeMillis: Long
+    private val currentTimeMillis: Long
         get() = System.currentTimeMillis()
 
     init {
@@ -476,7 +475,7 @@ object Constants {
 class Identify {
 
     private var userPropertiesOperationsInternal = JSONObject()
-    protected var userProperties: MutableSet<String> = HashSet()
+    private var userProperties: MutableSet<String> = HashSet()
 
     fun clearAll(): Identify {
         if (userPropertiesOperationsInternal.length() > 0) {
@@ -561,7 +560,9 @@ class Identify {
     }
 }
 
-internal class DatabaseHelper protected constructor(context: Context, instance: String) : SQLiteOpenHelper(context, getDatabaseName(instance), null, Constants.DATABASE_VERSION) {
+internal open class DatabaseHelper
+private constructor(context: Context, instance: String) :
+        SQLiteOpenHelper(context, getDatabaseName(instance), null, Constants.DATABASE_VERSION) {
 
     private val file: File
     private val instanceName: String
@@ -583,9 +584,6 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_STORE_TABLE)
         db.execSQL(CREATE_LONG_STORE_TABLE)
-
-
-
         db.execSQL(CREATE_EVENTS_TABLE)
         db.execSQL(CREATE_IDENTIFYS_TABLE)
     }
@@ -744,7 +742,7 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
     }
 
     @Synchronized
-    protected fun getValueFromTable(table: String, key: String): Any? {
+    private fun getValueFromTable(table: String, key: String): Any? {
         var value: Any? = null
         var cursor: Cursor? = null
         try {
@@ -754,7 +752,8 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
                     arrayOf(key), null, null, null, null
             )
             if (cursor.moveToFirst()) {
-                value = if (table == STORE_TABLE_NAME) cursor.getString(1) else cursor.getLong(1)
+                value = if (table == STORE_TABLE_NAME) cursor.getString(1)
+                else cursor.getLong(1)
             }
         } catch (e: SQLiteException) {
             logger.e(TAG, String.format("getValue from %s failed", table), e)
@@ -767,9 +766,7 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
         } catch (e: RuntimeException) {
             convertIfCursorWindowException(e)
         } finally {
-            if (cursor != null) {
-                cursor.close()
-            }
+            cursor?.close()
             close()
         }
         return value
@@ -791,7 +788,7 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
 
     @Synchronized
     @Throws(JSONException::class)
-    protected fun getEventsFromTable(
+    private fun getEventsFromTable(
             table: String, upToId: Long, limit: Long): List<JSONObject> {
         val events = LinkedList<JSONObject>()
         var cursor: Cursor? = null
@@ -799,8 +796,9 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
             val db = readableDatabase
             cursor = queryDb(
                     db, table, arrayOf(ID_FIELD, EVENT_FIELD),
-                    if (upToId >= 0) "$ID_FIELD <= $upToId" else null, null, null, null,
-                    "$ID_FIELD ASC", if (limit >= 0) "" + limit else null
+                    if (upToId >= 0) "$ID_FIELD <= $upToId" else null, null,
+                    null, null, "$ID_FIELD ASC",
+                    if (limit >= 0) "" + limit else null
             )
 
             while (cursor.moveToNext()) {
@@ -825,9 +823,7 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
         } catch (e: RuntimeException) {
             convertIfCursorWindowException(e)
         } finally {
-            if (cursor != null) {
-                cursor.close()
-            }
+            cursor?.close()
             close()
         }
         return events
@@ -851,9 +847,7 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
 
             delete()
         } finally {
-            if (statement != null) {
-                statement.close()
-            }
+            statement?.close()
             close()
         }
         return numberRows
@@ -894,9 +888,7 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
 
             delete()
         } finally {
-            if (statement != null) {
-                statement.close()
-            }
+            statement?.close()
             close()
         }
         return nthEventId
@@ -986,13 +978,13 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
 
         private val TAG = "buildtype.DatabaseHelper"
 
-        protected val STORE_TABLE_NAME = "store"
-        protected val LONG_STORE_TABLE_NAME = "long_store"
+        private val STORE_TABLE_NAME = "store"
+        private val LONG_STORE_TABLE_NAME = "long_store"
         private val KEY_FIELD = "key"
         private val VALUE_FIELD = "value"
 
-        protected val EVENT_TABLE_NAME = "events"
-        protected val IDENTIFY_TABLE_NAME = "identifys"
+        private val EVENT_TABLE_NAME = "events"
+        private val IDENTIFY_TABLE_NAME = "identifys"
         private val ID_FIELD = "id"
         private val EVENT_FIELD = "event"
 
@@ -1024,7 +1016,9 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
         }
 
         private fun getDatabaseName(instance: String): String {
-            return if (Utils.isEmptyString(instance) || instance == Constants.DEFAULT_INSTANCE) Constants.DATABASE_NAME else Constants.DATABASE_NAME + "_" + instance
+            return if (Utils.isEmptyString(instance) || instance ==
+                    Constants.DEFAULT_INSTANCE) Constants.DATABASE_NAME
+            else Constants.DATABASE_NAME + "_" + instance
         }
 
         private fun convertIfCursorWindowException(e: RuntimeException) {

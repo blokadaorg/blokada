@@ -47,7 +47,7 @@ abstract class Events {
 }
 
 class EventsImpl(
-        private val kctx: Worker,
+        kctx: Worker,
         private val xx: Environment,
         private val time: Time = xx().instance(),
         private val j: Journal = xx().instance(),
@@ -94,7 +94,7 @@ class OfficialJournal(
     }
 
     override fun setUserProperty(key: String, value: Any) {
-        userProperties.put(key, value.toString())
+        userProperties[key] = value.toString()
     }
 
     override fun event(vararg events: Any) {
@@ -105,10 +105,12 @@ class OfficialJournal(
     }
 
     override fun log(vararg errors: Any) {
-        errors.forEach { when(it) {
-            is Throwable -> Log.e("blokada", "------", it)
-            else -> Log.e("blokada", it.toString())
-        }}
+        errors.forEach {
+            when (it) {
+                is Throwable -> Log.e("blokada", "------", it)
+                else -> Log.e("blokada", it.toString())
+            }
+        }
     }
 
 }
@@ -123,7 +125,7 @@ object JournalFactory {
     @Synchronized
     fun getInstance(instance: String = ""): JournalClient {
         var instance = instance
-        instance = Utils.normalizeInstanceName(instance!!)
+        instance = Utils.normalizeInstanceName(instance)
         var client: JournalClient? = instances[instance]
         if (client == null) {
             client = JournalClient(instance)
@@ -132,5 +134,3 @@ object JournalFactory {
         return client
     }
 }
-
-
