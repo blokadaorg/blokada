@@ -33,7 +33,7 @@ class ATunnelService : VpnService(), ITunnelActions {
 
     private var binder: ATunnelBinder? = null
     override fun onBind(intent: Intent?): IBinder? {
-        if (BINDER_ACTION.equals(intent?.action)) {
+        if (BINDER_ACTION == intent?.action) {
             binder = ATunnelBinder(this)
             return binder
         }
@@ -41,7 +41,7 @@ class ATunnelService : VpnService(), ITunnelActions {
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        if (BINDER_ACTION.equals(intent?.action)) {
+        if (BINDER_ACTION == intent?.action) {
 //            binder = null
             return false
         }
@@ -59,7 +59,8 @@ class ATunnelService : VpnService(), ITunnelActions {
         super.onRevoke()
     }
 
-    @Synchronized override fun turnOn(): Int {
+    @Synchronized
+    override fun turnOn(): Int {
         try {
             tunDescriptor = task {
                 establishTunnelInternal()
@@ -72,7 +73,8 @@ class ATunnelService : VpnService(), ITunnelActions {
         return tunFd
     }
 
-    @Synchronized override fun turnOff() {
+    @Synchronized
+    override fun turnOff() {
         task {
             releaseTunnelInternal()
         } always {
@@ -81,7 +83,8 @@ class ATunnelService : VpnService(), ITunnelActions {
         }
     }
 
-    @Synchronized override fun fd(): FileDescriptor? {
+    @Synchronized
+    override fun fd(): FileDescriptor? {
         return tunDescriptor?.fileDescriptor
     }
 
@@ -96,10 +99,10 @@ class ATunnelService : VpnService(), ITunnelActions {
 
         val cooldownMillis = binder?.events?.configure(tunnel) ?: 0L
 
-        val timeSinceLastReleased = SystemClock.uptimeMillis() - ATunnelService.Statics.lastReleasedMillis - cooldownMillis
+        val timeSinceLastReleased = SystemClock.uptimeMillis() - ATunnelService.lastReleasedMillis - cooldownMillis
         if (timeSinceLastReleased < 0) {
             // To not trigger strange VPN bugs (establish not earlier than X sec after last release)
-            ATunnelService.Statics.lastReleasedMillis = 0
+            ATunnelService.lastReleasedMillis = 0
             Thread.sleep(0 - timeSinceLastReleased)
         }
         return tunnel.establish() ?: throw Exception("vpn not prepared or revoked")
@@ -115,8 +118,8 @@ class ATunnelService : VpnService(), ITunnelActions {
                 } finally {
                     try {
                         tunDescriptor?.close()
-                    } catch (e: Exception) {}
-                    finally {
+                    } catch (e: Exception) {
+                    } finally {
                         lastReleasedMillis = SystemClock.uptimeMillis()
                     }
                 }

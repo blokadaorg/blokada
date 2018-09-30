@@ -26,14 +26,16 @@ class ATunnelAgent(val ctx: Context) {
     private var events: ITunnelEvents? = null
     private var deferred = deferred<ATunnelBinder, Exception>(tunnelKctx)
 
-    private val serviceConnection = object: ServiceConnection {
-        @Synchronized override fun onServiceConnected(name: ComponentName, binder: IBinder) {
+    private val serviceConnection = object : ServiceConnection {
+        @Synchronized
+        override fun onServiceConnected(name: ComponentName, binder: IBinder) {
             val b = binder as ATunnelBinder
             b.events = events
             deferred.resolve(b)
         }
 
-        @Synchronized override fun onServiceDisconnected(name: ComponentName?) {
+        @Synchronized
+        override fun onServiceDisconnected(name: ComponentName?) {
             deferred.reject(Exception("service disconnected"))
         }
     }
@@ -42,9 +44,9 @@ class ATunnelAgent(val ctx: Context) {
         this.events = events
         this.deferred = deferred(tunnelKctx)
         val intent = Intent(ctx, ATunnelService::class.java)
-        intent.setAction(ATunnelService.BINDER_ACTION)
+        intent.action = ATunnelService.BINDER_ACTION
         return when (ctx.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE
-            or Context.BIND_ABOVE_CLIENT or Context.BIND_IMPORTANT)) {
+                or Context.BIND_ABOVE_CLIENT or Context.BIND_IMPORTANT)) {
             true -> deferred.promise
             else -> {
                 deferred.reject(Exception("could not bind in TunnelAgent"))
@@ -55,7 +57,10 @@ class ATunnelAgent(val ctx: Context) {
 
     fun unbind() {
         this.events = null
-        try { ctx.unbindService(serviceConnection) } catch (e: Exception) {}
+        try {
+            ctx.unbindService(serviceConnection)
+        } catch (e: Exception) {
+        }
     }
 }
 

@@ -6,7 +6,6 @@ import android.net.VpnService
 import nl.komponents.kovenant.Deferred
 import nl.komponents.kovenant.deferred
 
-
 /**
  * ATunnelPermsUtils contains bits and pieces required to ask user for Tunnel
  * permissions using Android APIs.
@@ -55,10 +54,13 @@ fun checkTunnelPermissions(ctx: Context) {
  * TODO: make this thing nicer.
  */
 private var deferredActivityResult: Deferred<Boolean, Exception>? = null
-@Synchronized private fun setDeferred(deferred: Deferred<Boolean, Exception>?) {
+
+@Synchronized
+private fun setDeferred(deferred: Deferred<Boolean, Exception>?) {
     deferredActivityResult = deferred
 }
-@Synchronized private fun getDeferred(): Deferred<Boolean, Exception>? {
+
+@Synchronized
+private fun getDeferred(): Deferred<Boolean, Exception>? {
     return deferredActivityResult
 }
-
