@@ -4,8 +4,6 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
-import gs.presentation.DashAdapter
-import gs.presentation.Spacing
 
 class DashListView(
         ctx: Context,
@@ -29,6 +27,4 @@ class DashListView(
         setAdapter(adapter)
         landscape = false
     }
-
-
 }

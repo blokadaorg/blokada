@@ -2,7 +2,6 @@ package gs.presentation
 
 import org.blokada.R
 
-
 class TopBar(
         val v: TopBarView,
         private val shadow: android.view.View,
@@ -10,13 +9,21 @@ class TopBar(
 ) {
 
     var dash1: IconDash? = null
-        set(value) { field = handleDashChange(value, v.action1, field) }
+        set(value) {
+            field = handleDashChange(value, v.action1, field)
+        }
     var dash2: IconDash? = null
-        set(value) { field = handleDashChange(value, v.action2, field) }
+        set(value) {
+            field = handleDashChange(value, v.action2, field)
+        }
     var dash3: IconDash? = null
-        set(value) { field = handleDashChange(value, v.action3, field) }
+        set(value) {
+            field = handleDashChange(value, v.action3, field)
+        }
     var dash4: IconDash? = null
-        set(value) { field = handleDashChange(value, v.action4, field) }
+        set(value) {
+            field = handleDashChange(value, v.action4, field)
+        }
 
     var onBack = {}
         set(value) {
@@ -30,7 +37,7 @@ class TopBar(
         shadow.alpha = 0f
 
         v.onLogoClick = {
-//            m.enabled %= !m.enabled()
+            //            m.enabled %= !m.enabled()
         }
 
         v.onModeSwitched = {

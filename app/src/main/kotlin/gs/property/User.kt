@@ -8,9 +8,9 @@ abstract class User {
     abstract val identity: IProperty<Identity>
 }
 
-class UserImpl (
-    private val kctx: Worker,
-    private val xx: Environment
+class UserImpl(
+        kctx: Worker,
+        xx: Environment
 ) : User() {
 
     private val ctx: Context by xx.instance()

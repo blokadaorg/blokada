@@ -10,7 +10,6 @@ import com.github.salomonbrys.kodein.instance
 import gs.environment.Journal
 import gs.environment.inject
 
-
 internal fun registerUncaughtExceptionHandler(ctx: android.content.Context) {
     val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
     Thread.setDefaultUncaughtExceptionHandler { thread, ex ->
@@ -34,8 +33,10 @@ internal fun getPreferredLocales(): List<java.util.Locale> {
     return try {
         // Android, a custom list type that is not an iterable. Just wow.
         val locales = cfg.locales
-        (0..locales.size() - 1).map { locales.get(it) }
-    } catch (t: Throwable) { listOf(cfg.locale) }
+        (0 until locales.size()).map { locales.get(it) }
+    } catch (t: Throwable) {
+        listOf(cfg.locale)
+    }
 }
 
 class RestartService : Service() {
@@ -47,7 +48,6 @@ class RestartService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val j: Journal = inject().instance()
         j.log("RestartService start command")
-        return Service.START_STICKY;
+        return Service.START_STICKY
     }
-
 }

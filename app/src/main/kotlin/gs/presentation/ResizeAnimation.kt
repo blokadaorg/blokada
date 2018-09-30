@@ -10,10 +10,6 @@ class ResizeAnimation(var view: android.view.View, val targetHeight: Int, var st
         view.requestLayout()
     }
 
-    override fun initialize(width: Int, height: Int, parentWidth: Int, parentHeight: Int) {
-        super.initialize(width, height, parentWidth, parentHeight)
-    }
-
     override fun willChangeBounds(): Boolean {
         return true
     }

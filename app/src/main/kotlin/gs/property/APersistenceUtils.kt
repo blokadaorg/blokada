@@ -27,7 +27,10 @@ fun getPublicPersistencePath(publicName: String): java.io.File? {
 }
 
 fun saveToCache(hosts: Collection<String>, cache: java.io.File) {
-    try { cache.createNewFile() } catch (e: Exception) {}
+    try {
+        cache.createNewFile()
+    } catch (e: Exception) {
+    }
     val w = java.io.PrintWriter(cache)
     w.print(hosts.joinToString("\n"))
     if (w.checkError()) throw Exception("could not save cache")
@@ -39,10 +42,10 @@ fun readFromCache(cache: java.io.File): Set<String> {
 }
 
 fun isCacheValid(cache: java.io.File, ttlMillis: Long, nowMillis: Long): Boolean {
-    try {
-        return nowMillis - cache.lastModified() - ttlMillis < 0
+    return try {
+        nowMillis - cache.lastModified() - ttlMillis < 0
     } catch (e: Exception) {
-        return false
+        false
     }
 }
 

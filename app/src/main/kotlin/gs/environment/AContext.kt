@@ -25,11 +25,11 @@ val Context.inject: () -> Kodein get() = { (applicationContext as KodeinAware).k
 fun Context.getRandomString(stringArray: Int, name: Int? = null): String {
     val strings = resources.getStringArray(stringArray)
     val i = Random().nextInt(strings.size)
-    if (name == null) {
-        return strings[i]
+    return if (name == null) {
+        strings[i]
     } else {
         val n = resources.getString(name)
-        return String.format(strings[i], n)
+        String.format(strings[i], n)
     }
 }
 
@@ -45,20 +45,23 @@ fun canShowNotification(last: Long, env: Time, cooldownMillis: Long): Boolean {
  * ComponentProvider wraps activity context in a weak reference in order to deliver it to interested
  * parties while not leaking it.
  */
-class ComponentProvider<T: Context> : LazyProvider<T>()
+class ComponentProvider<T : Context> : LazyProvider<T>()
 
 open class LazyProvider<T> {
     private var value: WeakReference<T>? = null
 
-    @Synchronized fun get(): T? {
+    @Synchronized
+    fun get(): T? {
         return value?.get()
     }
 
-    @Synchronized fun set(v: T) {
+    @Synchronized
+    fun set(v: T) {
         value = WeakReference(v)
     }
 
-    @Synchronized fun unset() {
+    @Synchronized
+    fun unset() {
         value = null
     }
 }
@@ -71,7 +74,7 @@ fun newAndroidModule(ctx: Context): Kodein.Module {
             ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         }
         bind<WifiManager>() with singleton {
-            ctx.getSystemService(Context.WIFI_SERVICE) as WifiManager
+            ctx.getApplicationContext().getSystemService(Context.WIFI_SERVICE) as WifiManager
         }
         bind<DownloadManager>() with singleton {
             ctx.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -93,5 +96,3 @@ fun newAndroidModule(ctx: Context): Kodein.Module {
         }
     }
 }
-
-

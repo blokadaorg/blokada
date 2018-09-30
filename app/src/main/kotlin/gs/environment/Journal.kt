@@ -22,6 +22,5 @@ open class Events {
 }
 
 open class Properties {
-    companion object {
-    }
+    companion object
 }

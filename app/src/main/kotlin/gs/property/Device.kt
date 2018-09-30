@@ -28,7 +28,7 @@ abstract class Device {
 
 }
 
-class DeviceImpl (
+class DeviceImpl(
         kctx: Worker,
         xx: Environment,
         ctx: Context = xx().instance(),
@@ -42,10 +42,10 @@ class DeviceImpl (
     override val screenOn = newProperty(kctx, { pm.isInteractive })
     override val connected = newProperty(kctx, {
         val c = isConnected(ctx) or watchdog.test()
-        j.log("device: connected: ${c}")
+        j.log("device: connected: $c")
         c
-    } )
-    override val tethering = newProperty(kctx, { isTethering(ctx)} )
+    })
+    override val tethering = newProperty(kctx, { isTethering(ctx) })
 
     override val watchdogOn = newPersistedProperty(kctx, BasicPersistence(xx, "watchdogOn"),
             { true })
@@ -117,7 +117,6 @@ class ScreenOnReceiver : BroadcastReceiver() {
             filter.addAction(Intent.ACTION_SCREEN_OFF)
             ctx.registerReceiver(ctx.inject().instance<ScreenOnReceiver>(), filter)
         }
-
     }
 }
 
@@ -137,7 +136,6 @@ class LocaleReceiver : BroadcastReceiver() {
             filter.addAction(Intent.ACTION_LOCALE_CHANGED)
             ctx.registerReceiver(ctx.inject().instance<LocaleReceiver>(), filter)
         }
-
     }
 }
 
@@ -165,9 +163,15 @@ class AWatchdog(
         if (!d.watchdogOn()) return true
         val socket = Socket()
         socket.soTimeout = 3000
-        return try { socket.connect(InetSocketAddress("cloudflare.com", 80), 3000); true }
-        catch (e: Exception) { false } finally {
-            try { socket.close() } catch (e: Exception) {}
+        return try {
+            socket.connect(InetSocketAddress("cloudflare.com", 80), 3000); true
+        } catch (e: Exception) {
+            false
+        } finally {
+            try {
+                socket.close()
+            } catch (e: Exception) {
+            }
         }
     }
 
@@ -176,16 +180,20 @@ class AWatchdog(
     private var wait = 1
     private var nextTask: Promise<*, *>? = null
 
-    @Synchronized override fun start() {
+    @Synchronized
+    override fun start() {
         if (started) return
-        if (!d.watchdogOn()) { return }
+        if (!d.watchdogOn()) {
+            return
+        }
         started = true
         wait = 1
         if (nextTask != null) Kovenant.cancel(nextTask!!, Exception("cancelled"))
         nextTask = tick()
     }
 
-    @Synchronized override fun stop() {
+    @Synchronized
+    override fun stop() {
         started = false
         if (nextTask != null) Kovenant.cancel(nextTask!!, Exception("cancelled"))
         nextTask = null

@@ -42,7 +42,7 @@ class DashCoordinator(
                 if (v == null) {
                     v = dash.createView(reveal.context, reveal)
                     revealContainer.addView(v)
-                    dashesCaches.put(dash, v)
+                    dashesCaches[dash] = v
                 }
 
                 onDashOpen.forEach { it(dash) }
@@ -79,19 +79,22 @@ class DashCoordinator(
             }
         })
         animator.start()
-        try { dash.detach(revealContainer.getChildAt(0)) } catch (e: Exception) {}
+        try {
+            dash.detach(revealContainer.getChildAt(0))
+        } catch (e: Exception) {
+        }
         onDashOpen.forEach { it(null) }
         return true
     }
 
     private fun getWidth(x: Int): Int {
-        return if (x == gs.presentation.DashCoordinator.Companion.X_END) topBar.v.measuredWidth
-        else if (x == gs.presentation.DashCoordinator.Companion.X_HALF) topBar.v.measuredWidth / 2
+        return if (x == gs.presentation.DashCoordinator.X_END) topBar.v.measuredWidth
+        else if (x == gs.presentation.DashCoordinator.X_HALF) topBar.v.measuredWidth / 2
         else x
     }
 
     private fun getHeight(y: Int): Int {
-        return if (y == gs.presentation.DashCoordinator.Companion.Y_END) revealContainer.measuredHeight
+        return if (y == gs.presentation.DashCoordinator.Y_END) revealContainer.measuredHeight
         else y
     }
 

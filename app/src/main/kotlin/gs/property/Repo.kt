@@ -21,8 +21,8 @@ abstract class Repo {
 }
 
 class RepoImpl(
-        private val kctx: Worker,
-        private val xx: Environment
+        kctx: Worker,
+        xx: Environment
 ) : Repo() {
 
     private val j: Journal by xx.instance()
@@ -48,7 +48,7 @@ class RepoImpl(
             val locales = repo[1].split(" ").map {
                 // Because Java APIs suck
                 val parts = it.split("_")
-                when(parts.size) {
+                when (parts.size) {
                     3 -> Locale(parts[0], parts[1], parts[2])
                     2 -> Locale(parts[0], parts[1])
                     else -> Locale(parts[0])
@@ -124,6 +124,4 @@ class ARepoPersistence(xx: Environment) : PersistenceWithSerialiser<RepoContent>
         e.putString("fetchedUrl", source.fetchedUrl)
         e.apply()
     }
-
 }
-

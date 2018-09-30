@@ -61,7 +61,6 @@ open class SwitchDash(
         v.onChecked = {}
         property.cancel(changeListener)
     }
-
 }
 
 class SwitchDashView(
@@ -70,29 +69,32 @@ class SwitchDashView(
 ) : LinearLayout(ctx, attributeSet) {
 
     var checked: Boolean? = null
-        set(value) { when {
-            value == null -> fromChecked { field = value }
-            else -> setChecked(value, {
-                val old = field
-                field = value
-                if (old != value) onChecked(value)
-            })
-        }}
+        set(value) {
+            when (value) {
+                null -> fromChecked { field = value }
+                else -> setChecked(value) {
+                    val old = field
+                    field = value
+                    if (old != value) onChecked(value)
+                }
+            }
+        }
 
     var text: String? = null
-        set(value) { when (value) {
-            field -> Unit
-            null -> hideText()
-            else -> showText(value)
-        }
+        set(value) {
+            when (value) {
+                field -> Unit
+                null -> hideText()
+                else -> showText(value)
+            }
 
             field = value
         }
 
     var onChecked = { active: Boolean -> }
 
-    private val switchView by lazy { findViewById(R.id.dash_switch) as SwitchCompat }
-    private val textView by lazy { findViewById(R.id.dash_text) as TextView }
+    private val switchView by lazy { findViewById<SwitchCompat>(R.id.dash_switch) }
+    private val textView by lazy { findViewById<TextView>(R.id.dash_text) }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -154,11 +156,12 @@ class IconDashView(
 
     var iconRes: Int = R.drawable.ic_info
         set(value) {
-            setIcon(value, { field = value })
+            setIcon(value) { field = value }
         }
 
     var text: String? = null
-        set(value) { when (value) {
+        set(value) {
+            when (value) {
                 field -> Unit
                 null -> hideText()
                 else -> showText(value)
@@ -178,8 +181,8 @@ class IconDashView(
 
     var showClickAnim = true
 
-    private val iconView by lazy { findViewById(R.id.dash_icon) as ImageView }
-    private val textView by lazy { findViewById(R.id.dash_text) as TextView }
+    private val iconView by lazy { findViewById<ImageView>(R.id.dash_icon) }
+    private val textView by lazy { findViewById<TextView>(R.id.dash_text) }
     private val inter = AccelerateDecelerateInterpolator()
     private val dur = 80L
 
@@ -192,14 +195,14 @@ class IconDashView(
             if (!canClick) // Anim in progress
             else if (showClickAnim) {
                 canClick = false
-                rotate(-15f, {
-                    rotate(30f, {
-                        rotate(-15f, {
+                rotate(-15f) {
+                    rotate(30f) {
+                        rotate(-15f) {
                             onClick()
                             canClick = true
-                        })
-                    })
-                })
+                        }
+                    }
+                }
             } else onClick()
         }
     }

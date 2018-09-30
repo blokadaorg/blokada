@@ -11,7 +11,7 @@ abstract class Update {
 }
 
 class UpdateImpl(
-        private val kctx: Worker,
+        kctx: Worker,
         private val xx: Environment
 ) : Update() {
     override val updating = newProperty(kctx, { false })

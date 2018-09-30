@@ -39,9 +39,9 @@ class SimpleDialog(
             val parent = activity.get()?.findViewById<ViewGroup>(R.id.root)!!
             val view = dash.createView(ctx, parent)
             d.setView(view)
-            d.setPositiveButton(continueButton, { dia, int -> })
+            d.setPositiveButton(continueButton) { dia, int -> }
             if (additionalButton != null) {
-                d.setNeutralButton(ctx.getString(additionalButton), { dia, int -> })
+                d.setNeutralButton(ctx.getString(additionalButton)) { dia, int -> }
             }
             val dialog = d.create()
             d.setView(null)
@@ -53,15 +53,18 @@ class SimpleDialog(
 
             dialog.window.clearFlags(
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                    WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
             )
             this.dialog = dialog
             this.view = view
             if (loadFirst) {
-                dash.onAttached { try {
-                    dialog.show()
-                    setButtons()
-                } catch (e: Exception) {} }
+                dash.onAttached {
+                    try {
+                        dialog.show()
+                        setButtons()
+                    } catch (e: Exception) {
+                    }
+                }
                 dash.attach(view)
             } else {
                 dialog.show()
@@ -90,11 +93,10 @@ class SimpleDialog(
 
     private fun hide() {
         onClosed = {}
-        if (dialog?.isShowing ?: false) dialog?.dismiss()
+        if (dialog?.isShowing == true) dialog?.dismiss()
         if (view != null) dash.detach(view!!)
         dialog?.setView(null)
         dialog = null
         view = null
     }
 }
-

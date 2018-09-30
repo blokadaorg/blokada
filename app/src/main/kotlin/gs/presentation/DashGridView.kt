@@ -30,21 +30,21 @@ class DashGridView(
         setItemViewCacheSize(0)
         landscape = false
         addOnScrollListener(object : android.support.v7.widget.RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: android.support.v7.widget.RecyclerView, newState: Int) { when {
-                scrollState != SCROLL_STATE_IDLE -> Unit
-                !canScrollVertically(-1) && !isTop -> {
-                    isTop = true
-                    onScrollToTop(true)
+            override fun onScrollStateChanged(recyclerView: android.support.v7.widget.RecyclerView, newState: Int) {
+                when {
+                    scrollState != SCROLL_STATE_IDLE -> Unit
+                    !canScrollVertically(-1) && !isTop -> {
+                        isTop = true
+                        onScrollToTop(true)
+                    }
+                    canScrollVertically(-1) && isTop -> {
+                        isTop = false
+                        onScrollToTop(false)
+                    }
                 }
-                canScrollVertically(-1) && isTop -> {
-                    isTop = false
-                    onScrollToTop(false)
-                }
-            }}
+            }
         })
     }
-
-
 }
 
 class DashAdapter(val ctx: Context) : RecyclerView.Adapter<DashViewHolder>() {

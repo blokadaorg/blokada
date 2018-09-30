@@ -12,15 +12,13 @@ fun load(opener: () -> InputStream, lineProcessor: (String) -> String? = { it })
     val response = mutableListOf<String>()
     var line: String?
 
-    try {
+    input.use { input ->
         do {
             line = input.readLine()
             if (line == null) break
-            line = lineProcessor(line)
-            if (line != null) response.add(line)
+            line = lineProcessor(line!!)
+            if (line != null) response.add(line!!)
         } while (true)
-    } finally {
-        input.close()
     }
 
     return response
@@ -28,7 +26,7 @@ fun load(opener: () -> InputStream, lineProcessor: (String) -> String? = { it })
 
 fun openUrl(url: URL, timeoutMillis: Int): InputStream {
     val c = url.openConnection()
-    c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36");
+    c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36")
     c.connectTimeout = timeoutMillis
     return c.getInputStream()
 }

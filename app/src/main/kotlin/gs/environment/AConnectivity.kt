@@ -86,12 +86,13 @@ private fun getDnsServersMethod1(ctx: android.content.Context): List<java.net.In
 private fun getDnsServersMethod2(): List<java.net.InetAddress> {
     val servers = mutableListOf<java.net.InetAddress>()
     try {
-        val SystemProperties = Class.forName("android.os.SystemProperties")
-        val method = SystemProperties.getMethod("get", *arrayOf<Class<*>>(String::class.java))
+        val systemProperties = Class.forName("android.os.SystemProperties")
+        val method = systemProperties.getMethod("get", String::class.java)
         for (name in arrayOf("net.dns1", "net.dns2", "net.dns3", "net.dns4")) {
             val value = method.invoke(null, name) as String? ?: continue
             if (value.isNotBlank()) servers.add(java.net.InetAddress.getByName(value))
         }
-    } catch (e: Exception) {}
+    } catch (e: Exception) {
+    }
     return servers
 }

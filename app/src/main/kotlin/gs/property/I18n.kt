@@ -26,8 +26,8 @@ typealias LanguageTag = String
 typealias Key = String
 typealias Localised = String
 
-class I18nImpl (
-        private val kctx: Worker,
+class I18nImpl(
+        kctx: Worker,
         private val xx: Environment,
         private val j: Journal = xx().instance()
 ) : I18n() {
@@ -78,15 +78,15 @@ class I18nImpl (
         val realKey = if (key is Int) res.getResourceName(key) else key.toString()
 
         // Get all cached translations for current locale
-        val strings = localisedMap.getOrPut(locale(), { mutableMapOf<Key, Localised>() })
+        val strings = localisedMap.getOrPut(locale()) { mutableMapOf() }
 
         // If cache miss, try getting it from resources
-        var string = strings.get(realKey)
+        var string = strings[realKey]
         if (string == null) {
             val id = res.getIdentifier(realKey, "string", ctx.packageName)
             if (id != 0) {
                 string = res.getString(id)
-                strings.put(realKey, string)
+                strings[realKey] = string
             }
         }
         string
@@ -98,8 +98,8 @@ class I18nImpl (
 
     override val set: (key: Any, value: String) -> Unit
         get() = { key, value ->
-            val strings = localisedMap.getOrPut(locale(), { mutableMapOf<Key, Localised>() })
-            strings.put(key.toString(), value)
+            val strings = localisedMap.getOrPut(locale()) { mutableMapOf() }
+            strings[key.toString()] = value
             persistence(locale()).write(strings)
         }
 
@@ -117,7 +117,7 @@ class I18nImpl (
             locale.refresh(force = true)
         }
         locale.doWhenSet().then {
-            val strings = localisedMap.getOrPut(locale(), { mutableMapOf<Key, Localised>() })
+            val strings = localisedMap.getOrPut(locale()) { mutableMapOf() }
             strings.putAll(persistence(locale()).read(strings))
         }
 
@@ -126,7 +126,6 @@ class I18nImpl (
             cmd.send(SyncTranslations())
         }
     }
-
 }
 
 class I18nPersistence(

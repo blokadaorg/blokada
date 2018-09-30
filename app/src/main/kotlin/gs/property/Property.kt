@@ -23,6 +23,7 @@ interface IProperty<T> {
      * @return An identifier of the listener that can be used to cancel it.
      */
     fun doWhenSet(): IWhen
+
     fun doOnUiWhenSet(): IWhen
 
     /**
@@ -32,6 +33,7 @@ interface IProperty<T> {
      * also will trigger this callback.
      */
     fun doWhenChanged(withInit: Boolean = false): IWhen
+
     fun doOnUiWhenChanged(withInit: Boolean = false): IWhen
 
     /**
@@ -131,7 +133,7 @@ fun <T> newPersistedProperty(
         zeroValue: () -> T,
         refresh: ((value: T) -> T)? = null,
         shouldRefresh: (value: T) -> Boolean = { true }
- ) : IProperty<T> {
+): IProperty<T> {
     return PersistedProperty(kctx, persistence, zeroValue, refresh, shouldRefresh)
 }
 
@@ -148,7 +150,7 @@ private class When(
         private val condition: () -> Boolean,
         private val immediate: Boolean = true,
         private var action: () -> Unit = {}
-): IWhenExecute {
+) : IWhenExecute {
 
     override fun then(action: () -> Unit): IWhen {
         this.action = action
@@ -183,7 +185,7 @@ private class WhenChanged<T>(
         private var property: BaseProperty<T>,
         private val withInit: Boolean,
         private val w: IWhenExecute
-): IWhenExecute {
+) : IWhenExecute {
 
     private var lastValue: T? = property.value
 
@@ -215,7 +217,7 @@ private open class BaseProperty<T>(
         private val init: () -> T = zeroValue,
         private val refresh: (value: T) -> T = { init() },
         private val shouldRefresh: (value: T) -> Boolean = { true }
-): IProperty<T> {
+) : IProperty<T> {
 
     private val listeners: MutableList<IWhenExecute> = mutableListOf()
 
@@ -280,7 +282,7 @@ private open class BaseProperty<T>(
         this.value = value
     }
 
-    override fun refresh(force: Boolean, blocking: Boolean) {
+    final override fun refresh(force: Boolean, blocking: Boolean) {
         val value = this.value
         if (blocking) {
             if (value == null) {
@@ -324,8 +326,8 @@ private open class BaseProperty<T>(
 
     override fun invoke(force: Boolean, after: (value: T) -> Unit) {
         val value = this.value
-        if (value == null) {
-            task(kctx) {
+        when {
+            value == null -> task(kctx) {
                 if (this.value == null) {
                     val v = init()
                     this.value = v
@@ -334,15 +336,15 @@ private open class BaseProperty<T>(
             } success {
                 after(it)
             } fail { throw it }
-        } else if (force) {
-            task(kctx) {
+            force -> task(kctx) {
                 val v = refresh(value)
                 this.value = v
                 v
             } success {
                 after(it)
             } fail { throw it }
-        } else after(value)
+            else -> after(value)
+        }
     }
 
     override operator fun invoke(vararg others: T): Boolean {
@@ -356,12 +358,12 @@ private open class BaseProperty<T>(
 }
 
 private class PersistedProperty<T>(
-        private val kctx: Worker,
+        kctx: Worker,
         private val persistence: Persistence<T>,
         private val zeroValue: () -> T,
-        private val refresh: ((value: T) -> T)? = null,
-        private val shouldRefresh: (value: T) -> Boolean = { false }
-): BaseProperty<T>(
+        refresh: ((value: T) -> T)? = null,
+        shouldRefresh: (value: T) -> Boolean = { false }
+) : BaseProperty<T>(
         kctx = kctx,
         zeroValue = { persistence.read(zeroValue()) },
         refresh = refresh ?: { persistence.read(it) },
@@ -374,5 +376,4 @@ private class PersistedProperty<T>(
         }
         refresh()
     }
-
 }

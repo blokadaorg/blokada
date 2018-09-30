@@ -29,12 +29,12 @@ class WebDash(
         private val big: Boolean = false,
         private val j: Journal = xx().instance(),
         private val provider: LazyProvider<View> = xx().with("webview").instance()
-): CallbackDash {
+) : CallbackDash {
 
     override fun createView(ctx: Context, parent: ViewGroup): View {
         var v = provider.get()
         if (v == null) {
-            // TODO: Dont use inflater
+            // TODO: Don't use inflater
             val themedContext = ContextThemeWrapper(ctx, R.style.GsTheme_Dialog)
             // TODO: one instance for all
             v = LayoutInflater.from(themedContext).inflate(R.layout.webview, parent, false)
@@ -89,9 +89,9 @@ class WebDash(
 
         web.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                if (url.contains(url().host) || forceEmbedded) {
+                return if (url.contains(url().host) || forceEmbedded) {
                     view.loadUrl(url)
-                    return false
+                    false
                 } else {
                     // Open external urls in browser
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -101,7 +101,7 @@ class WebDash(
                     } catch (e: Exception) {
                         j.log("WebDash: failed to open external url", e)
                     }
-                    return true
+                    true
                 }
             }
 
@@ -129,7 +129,11 @@ class WebDash(
     }
 
     private fun load() {
-        try { loader.sendEmptyMessage(0) } catch (e: Exception) { handleError(null, e) }
+        try {
+            loader.sendEmptyMessage(0)
+        } catch (e: Exception) {
+            handleError(null, e)
+        }
     }
 
     fun reload() {
@@ -143,7 +147,8 @@ class WebDash(
             clean = false
             if (!reloadOnError) return
             if (reloadCounter++ <= 10) loader.sendEmptyMessageDelayed(0, RELOAD_ERROR_MILLIS)
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+        }
     }
 
     override fun detach(view: View) {
@@ -157,5 +162,4 @@ class WebDash(
         detached = {}
         attached = {}
     }
-
 }

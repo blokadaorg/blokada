@@ -30,16 +30,18 @@ class AUpdateDownloader(
                 val c = dm.query(query)
                 if (c.moveToFirst()) {
                     val columnIndex = c.getColumnIndex(android.app.DownloadManager.COLUMN_STATUS)
-                    if (android.app.DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-                        val uriString = c.getString(c.getColumnIndex(android.app.DownloadManager.COLUMN_LOCAL_URI))
-                        links = emptyList()
-                        listener(android.net.Uri.parse(uriString))
-                    } else if (links.size > 1) {
-                        downloadUpdate(links.subList(1, links.size), listener)
-                    } else {
-                        links = emptyList()
-                        listener(null)
-//                        j.event(Events.UPDATE_DOWNLOAD_FAIL)
+                    when {
+                        android.app.DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex) -> {
+                            val uriString = c.getString(c.getColumnIndex(android.app.DownloadManager.COLUMN_LOCAL_URI))
+                            links = emptyList()
+                            listener(android.net.Uri.parse(uriString))
+                        }
+                        links.size > 1 -> downloadUpdate(links.subList(1, links.size), listener)
+                        else -> {
+                            links = emptyList()
+                            listener(null)
+                            //                        j.event(Events.UPDATE_DOWNLOAD_FAIL)
+                        }
                     }
                 }
             }
@@ -47,7 +49,10 @@ class AUpdateDownloader(
     }
 
     fun downloadUpdate(links: List<java.net.URL>, listener: (android.net.Uri?) -> Unit) {
-        try { unregister() } catch (e: Exception) {}
+        try {
+            unregister()
+        } catch (e: Exception) {
+        }
         register()
         this.listener = listener
         this.links = links
@@ -83,4 +88,3 @@ class AUpdateDownloader(
         ctx.unregisterReceiver(receiver)
     }
 }
-

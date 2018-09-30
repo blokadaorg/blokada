@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import org.blokada.R
 
-
 class MenuDash(
         val menuDashes: Map<Dash, String>,
         val dashCoordinator: DashCoordinator
@@ -37,4 +36,3 @@ class MenuDash(
         }
     }
 }
-

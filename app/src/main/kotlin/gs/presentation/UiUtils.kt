@@ -1,15 +1,8 @@
 package gs.presentation
 
-import android.animation.Animator
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView
-import android.util.TypedValue
 import android.view.View
-import android.view.ViewPropertyAnimator
 
 /**
  * Dev tools and the play store (and others?) launch with a different intent, and so
@@ -19,11 +12,11 @@ import android.view.ViewPropertyAnimator
  */
 fun isWrongInstance(a: android.app.Activity): Boolean {
     if (!a.isTaskRoot) {
-        val intent = a.intent;
-        val isMainAction = intent.action != null && intent.action.equals(android.content.Intent.ACTION_MAIN);
-        return intent.hasCategory(android.content.Intent.CATEGORY_LAUNCHER) && isMainAction;
+        val intent = a.intent
+        val isMainAction = intent.action != null && intent.action == android.content.Intent.ACTION_MAIN
+        return intent.hasCategory(android.content.Intent.CATEGORY_LAUNCHER) && isMainAction
     }
-    return false;
+    return false
 }
 
 fun android.view.ViewPropertyAnimator.doAfter(f: () -> Unit) {
@@ -46,15 +39,14 @@ fun android.view.ViewPropertyAnimator.doAfter(f: () -> Unit) {
 
 fun android.content.res.Resources.toPx(dp: Int): Int {
     return android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(),
-            this.displayMetrics).toInt();
+            this.displayMetrics).toInt()
 }
 
 class Spacing(val ctx: android.content.Context,
               val top: Int = 8, val bottom: Int = 0,
               val left: Int = 4, val right: Int = 4
 ) : android.support.v7.widget.RecyclerView.ItemDecoration() {
-    override fun getItemOffsets(outRect: android.graphics.Rect, view: android.view.View?, parent: android.support.v7.widget.RecyclerView?,
-                                state: android.support.v7.widget.RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         outRect.top = ctx.resources.toPx(top)
         outRect.bottom = ctx.resources.toPx(bottom)
         outRect.right = ctx.resources.toPx(right)

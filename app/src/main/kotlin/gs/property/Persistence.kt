@@ -34,9 +34,9 @@ interface Serialiser {
     fun edit(): gs.property.Serialiser.Editor
 }
 
-abstract class PersistenceWithSerialiser<T>(val xx: Environment): gs.property.Persistence<T> {
+abstract class PersistenceWithSerialiser<T>(val xx: Environment) : gs.property.Persistence<T> {
     protected fun serialiser(key: String): gs.property.Serialiser {
-        return xx().with(key).instance<Serialiser>()
+        return xx().with(key).instance()
     }
 }
 
@@ -58,26 +58,26 @@ class BasicPersistence<T>(
             is Long -> p.getLong(key, current)
             is String -> p.getString(key, current)
             is Set<*> -> p.getStringSet(key, current as Set<String>)
-            else -> throw Exception("unsupported type for ${key}")
+            else -> throw Exception("unsupported type for $key")
         } as T
     }
 
     override fun write(source: T) {
         val e = p.edit()
-        when(source) {
+        when (source) {
             is Boolean -> e.putBoolean(key, source)
             is Int -> e.putInt(key, source)
             is Long -> e.putLong(key, source)
             is String -> e.putString(key, source)
             is Set<*> -> e.putStringSet(key, source as Set<String>)
-            else -> throw Exception("unsupported type for ${key}")
+            else -> throw Exception("unsupported type for $key")
         }
         e.apply()
     }
 
 }
 
-class SharedPreferencesWrapper(val p: SharedPreferences): Serialiser {
+class SharedPreferencesWrapper(val p: SharedPreferences) : Serialiser {
 
     override val all: Map<String, *> by p.all
     override fun getString(key: String, defValue: String): String {
@@ -112,7 +112,7 @@ class SharedPreferencesWrapper(val p: SharedPreferences): Serialiser {
         return EditorWrapper(p.edit())
     }
 
-    class EditorWrapper(val e: SharedPreferences.Editor): Serialiser.Editor {
+    class EditorWrapper(val e: SharedPreferences.Editor) : Serialiser.Editor {
 
         override fun putString(key: String, value: String): Serialiser.Editor {
             e.putString(key, value)
@@ -157,9 +157,5 @@ class SharedPreferencesWrapper(val p: SharedPreferences): Serialiser {
         override fun apply() {
             e.apply()
         }
-
     }
 }
-
-
-

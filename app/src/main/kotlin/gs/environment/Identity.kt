@@ -12,8 +12,8 @@ import java.util.*
  */
 class Identity internal constructor(private val version: Int, private val id: String) {
     override fun toString(): String {
-        return when(version) {
-            0 -> "00-" + id
+        return when (version) {
+            0 -> "00-$id"
             gs.environment.IDENTITY_UUID -> id
             else -> String.format("%02d-%s", version, id)
         }
@@ -26,7 +26,7 @@ class Identity internal constructor(private val version: Int, private val id: St
  * TODO: currently hardcoded.
  */
 fun generateIdentity(version: Int): gs.environment.Identity {
-    return when(version) {
+    return when (version) {
         0 -> gs.environment.Identity(version, "anonymous")
         gs.environment.IDENTITY_UUID -> gs.environment.Identity(version, UUID.randomUUID().toString())
         else -> throw Exception("unknown version")
@@ -69,5 +69,4 @@ class AIdentityPersistence(
         e.putString("id", source.toString())
         e.apply()
     }
-
 }

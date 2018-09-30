@@ -24,6 +24,4 @@ class DashBarView(
         addItemDecoration(Spacing(context, top = 6, left = 2, right = 2, bottom = 6))
         landscape = false
     }
-
 }
-
