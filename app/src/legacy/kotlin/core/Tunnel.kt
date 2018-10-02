@@ -151,7 +151,9 @@ fun newTunnelModule(ctx: Context): Module {
             // React to device power saving blocking our tunnel
             ktx.on(tunnel.Events.TUNNEL_POWER_SAVING) {
                 ktx.w("power saving detected")
-                ctx.startActivity(Intent(ctx, PowersaveActivity::class.java))
+                ctx.startActivity(Intent(ctx, PowersaveActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
             }
 
             // The tunnel setup routine (with permissions request)

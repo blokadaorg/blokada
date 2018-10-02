@@ -8,7 +8,7 @@ import kotlin.coroutines.experimental.CoroutineContext
 open class Kontext internal constructor(
         private val id: Any,
         private val log: Log = DefaultLog(id.toString()),
-        private val emit: Emit = DefaultEmit(id.toString()),
+        private val emit: Emit = DefaultEmit(id.toString(), log = log),
         val coroutineContext: () -> CoroutineContext = { throw Exception("coroutineContext not linked") }
 ): Log by log, Emit by emit {
 
@@ -29,9 +29,8 @@ open class Kontext internal constructor(
                 id = id,
                 log = log,
                 coroutineContext = { coroutineContext },
-                emit = CommonEmit(ktx = { Kontext.forCoroutine(coroutineContext, "$id:emit",
-                        log = DefaultLog(id, writer = systemWriter,
-                                exceptionWriter = systemExceptionWriter)) })
+                emit = CommonEmit(ktx = { Kontext("$id:emit", log = log,
+                        coroutineContext = { coroutineContext }) })
         )
     }
 }

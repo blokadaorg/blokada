@@ -51,13 +51,13 @@ private val logcatExceptionWriter = { priority: Int, tag: String, ex: Throwable 
     android.util.Log.println(priority, tag, android.util.Log.getStackTraceString(ex))
 }
 
-val defaultWriter = FileLogWriter()
+val defaultWriter by lazy { FileLogWriter() }
 
 class FileLogWriter {
 
     private var file: PrintWriter? = try {
         val path = File(getExternalPath(), "blokada.log")
-        val writer = PrintWriter(FileOutputStream(path, true))
+        val writer = PrintWriter(FileOutputStream(path, true), true)
         if (path.length() > 10 * 1024 * 1024) path.delete()
         logcatWriter(LOG_VERBOSE, LOG_DEFAULT_TAG, "writing logs to file: ${path.canonicalPath}")
         writer

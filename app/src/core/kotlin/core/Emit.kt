@@ -81,9 +81,7 @@ internal fun newEmitExceptionLogger(ktx: Kontext = "emit:exception".ktx())
         = CoroutineExceptionHandler { _, throwable -> ktx.e(throwable)
 }
 
-class DefaultEmit(id: String, val common: Emit = commonEmit) : Emit {
-
-    private val log = DefaultLog(id)
+class DefaultEmit(id: String, val common: Emit = commonEmit, val log: Log = DefaultLog(id)) : Emit {
 
     override fun <T> emit(event: EventType<T>, value: T): Job {
         log.v("event:emit", event, value.toString())

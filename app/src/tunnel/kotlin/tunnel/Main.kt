@@ -46,18 +46,21 @@ class Main(
     private var tunnelThread: Thread? = null
     private var fd: FileDescriptor? = null
     private var binder: ServiceBinder? = null
+    private var enabled: Boolean = false
 
     private val CTRL = newSingleThreadContext("tunnel-ctrl")
     private var threadCounter = 0
     private var usePausedConfigurator = false
 
     fun setup(ktx: AndroidKontext, servers: List<InetAddress>, start: Boolean = false) = async(CTRL) {
-        ktx.v("setup tunnel", servers)
+        ktx.v("setup tunnel, start = ${start}", servers)
         when {
             servers.isEmpty() -> {
                 ktx.v("empty dns servers, will disable tunnel")
+                currentServers = emptyList()
                 maybeStopVpn(ktx)
                 maybeStopTunnelThread(ktx)
+                enabled = true
             }
             currentServers == servers && isVpnOn() -> {
                 ktx.v("unchanged dns servers, ignoring")
@@ -87,7 +90,8 @@ class Main(
                     restartVpn(ktx)
                     restartTunnelThread(ktx)
 
-                    if (start) {
+                    if (start || enabled) {
+                        enabled = true
                         maybeStartVpn(ktx)
                         maybeStartTunnelThread(ktx)
                     }
@@ -127,6 +131,7 @@ class Main(
         maybeStopTunnelThread(ktx)
         maybeStopVpn(ktx)
         currentServers = emptyList()
+        enabled = false
     }
 
     fun load(ktx: AndroidKontext) = async(CTRL) {
@@ -210,9 +215,11 @@ class Main(
 
     private fun startTunnelThread(ktx: Kontext) {
         tunnel = Tunnel(proxy, forwarder, loopback)
-        tunnelThread = Thread({ tunnel.runWithRetry(ktx, fd!!) }, "tunnel-${threadCounter++}")
-        tunnelThread?.start()
-        ktx.v("tunnel thread started", tunnelThread!!)
+        if (fd != null) {
+            tunnelThread = Thread({ tunnel.runWithRetry(ktx, fd!!) }, "tunnel-${threadCounter++}")
+            tunnelThread?.start()
+            ktx.v("tunnel thread started", tunnelThread!!)
+        } else ktx.w("attempting to start tunnel thread with no fd")
     }
 
     private fun stopTunnelThread(ktx: Kontext) {
