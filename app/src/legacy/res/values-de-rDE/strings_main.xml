@@ -59,5 +59,7 @@
   <string name="main_report_comment">Berichte mit Kommentaren werden priorisiert. Was hast Du gemacht, bevor das Problem auftrat?</string>
   <string name="main_report_limit">Berichtslimit erreicht. Bitte bleib dran für ein Update. Vielen Dank für Dein Feedback!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s Millionen</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s Tausend</string>
 </resources>

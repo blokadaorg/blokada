@@ -60,5 +60,7 @@
   <string name="main_report_limit">È stato raggiunto il limite di segnalazioni. Per favore, resta in attesa di ulteriori aggiornamenti.
 Grazie per il tuo feedback!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s milione/i</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s mila</string>
 </resources>

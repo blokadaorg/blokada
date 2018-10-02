@@ -58,5 +58,7 @@
   <string name="main_report_comment">Ziņojumiem ar komentāriem tiek dota priekšroka. Ko jūs darījāt, kad notika problēma?</string>
   <string name="main_report_limit">Ziņojumu limits sasniegts. Lūdzu, sekojiet līdzi jauninājumiem. Paldies par atsaucību!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s miljoni</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s tūkstoši</string>
 </resources>

@@ -3,6 +3,7 @@
 <resources>
   <string name="tunnel_hosts_desc">Показва броя на хостовете конфигурирани да бъдат блокирани %s.</string>
   <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+  <string name="tunnel_hosts_count2">%s хоста</string>
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
   <string name="tunnel_hosts_updating">Актуализиране...</string>
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -10,6 +11,7 @@
   <string name="tunnel_config_wifi">Изтегляне на филтри само при наличен WiFi</string>
   <string name="tunnel_dropped_count_desc">Показва общия брой блокирани досега хостове.</string>
   <string name="tunnel_dropped_count">%d блокирани</string>
+  <string name="tunnel_dropped_count2">%s блокирани</string>
   <string name="tunnel_config_refetch_now_title">Изтегляне на списък</string>
   <string name="tunnel_config_refetch_now">Изтеглете списъците сега</string>
   <string name="tunnel_config_refetch_now_description">Използвайте бутона по-долу за да премахнете кеша и да изтеглите списъците отново. Това може да помогне ако имате някакви проблеми с филтрирането.</string>
@@ -21,4 +23,5 @@
   <string name="tunnel_config_refetch_frequency_4">Веднъж месечно</string>
   <string name="tunnel_config_wifi_only_title">Изтегляне само при налична WiFi връзка</string>
   <string name="tunnel_config_wifi_only_description">Активирайте тази опция ако желаете приложението да изтегля списъци, само когато вашето устройство е свързано към WiFi мрежа. В противен случай приложението може да изтегля списъци, когато вашето устройство е свързано към мобилна мрежа и да използва вашия план за данни.</string>
+  <string name="tunnel_config_memory_capacity">%s може да се побере в паметта</string>
 </resources>
