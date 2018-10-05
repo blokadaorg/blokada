@@ -6,6 +6,7 @@ import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
 import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.onFailure
 import core.Kontext
 import core.Result
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
@@ -30,10 +31,12 @@ internal class Tunnel(
     private var cooldownCounter = 0
     private var epermCounter = 0
 
+    private var packetBuffer = ByteArray(32767)
+    private var datagramBuffer = ByteArray(1024)
+
     fun run(ktx: Kontext, tunnel: FileDescriptor) {
         ktx.v("running tunnel thread", this)
 
-        val packetBuffer = ByteArray(32767)
         val input = FileInputStream(tunnel)
         val output = FileOutputStream(tunnel)
 
@@ -74,6 +77,8 @@ internal class Tunnel(
         } finally {
             ktx.v("cleaning up resources", this)
             Result.of { Os.close(error) }
+            Result.of { input.close() }
+            Result.of { output.close() }
         }
     }
 
@@ -151,11 +156,12 @@ internal class Tunnel(
             val rule = iterator.next()
             if (polls[2 + index++].isEvent(OsConstants.POLLIN)) {
                 iterator.remove()
-                val datagram = ByteArray(1024)
-                val responsePacket = DatagramPacket(datagram, datagram.size)
-                rule.socket.receive(responsePacket)
-                proxy.toDevice(ktx, datagram, rule.originEnvelope)
-                rule.socket.close()
+                val responsePacket = DatagramPacket(datagramBuffer, datagramBuffer.size)
+                Result.of {
+                    rule.socket.receive(responsePacket)
+                    proxy.toDevice(ktx, datagramBuffer, rule.originEnvelope)
+                }.onFailure { ktx.w("failed receiving socket", it) }
+                Result.of { rule.socket.close() }.onFailure { ktx.w("failed closing socket") }
             }
         }
     }
