@@ -24,4 +24,8 @@
   <string name="tunnel_config_wifi_only_title">只在 Wi-Fi 環境下下載</string>
   <string name="tunnel_config_wifi_only_description">如果你希望這個應用程式只在您連線到 Wi-Fi 時下載列表，請啟用這個開關。否則這個應用程式將可能也在您裝置連線到行動數據時下載列表，並消耗您的數據流量。</string>
   <string name="tunnel_config_memory_capacity">%s 可以放入記憶體中</string>
+  <string name="tunnel_config_watchdog_title">Watchdog</string>
+  <string name="tunnel_config_watchdog_description">如果您希望應用程式僅在有網路連線時啟動 VPN，並在有連線問題時重新啟動連線通道，請啟用此開關。這可能對某些裝置有幫助。注意，在較舊的版本中，此選項稱為「僅上網時」。</string>
+  <string name="tunnel_config_powersave_title">主動喚醒</string>
+  <string name="tunnel_config_powersave_description">如果您遇到您的裝置因省電功能而引起的問題，請啟用此開關。當應用程式偵測到連線通到問題時，它將會嘗試將本身提高到有較高的優先權，使其脫離省電功能的影響。</string>
 </resources>

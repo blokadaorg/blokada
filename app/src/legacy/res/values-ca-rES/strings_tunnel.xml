@@ -24,4 +24,6 @@
   <string name="tunnel_config_wifi_only_title">Baixa només amb Wi-Fi</string>
   <string name="tunnel_config_wifi_only_description">Activeu aquest interruptor si voleu que l\'aplicació baixi les llistes només quan el dispositiu estigui connectat a Wi-Fi. En cas contrari, l\'aplicació també pot baixar les llistes quan el dispositiu estigui connectat a una xarxa mòbil i utilitzeu el vostre pla de dades.</string>
   <string name="tunnel_config_memory_capacity">%s pot cabre en memòria</string>
+  <string name="tunnel_config_watchdog_description">Activeu aquest commutador si voleu que l\'aplicació activi la VPN només si hi ha connectivitat a Internet i reinicia el túnel en cas que hi hagi problemes de connectivitat. Això pot ser útil per a alguns dispositius. Nota: en versions anteriors aquesta opció es deia «Només en línia».</string>
+  <string name="tunnel_config_powersave_description">Activeu aquest commutador si teniu problemes causats amb la funció d\'estalvi d\'energia del dispositiu. Quan l\'aplicació detecti problemes de connectivitat al túnel, intentarà augmentar la seva prioritat per treure-ho del mode d\'estalvi d\'energia.</string>
 </resources>

@@ -36,8 +36,7 @@
   <string name="main_donate_text">Dotacja</string>
   <string name="main_contribute_text">Wspomóż nas</string>
   <string name="main_blog_text">Wiadomości</string>
-  <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
-  <string name="main_connectivity_text">Tylko online</string>
+  <string name="main_settings_text">Zaawansowane</string>
   <string name="main_autostart_text">Auto start</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Sugestie</string>
@@ -58,5 +57,7 @@
   <string name="main_report_comment">Raporty z komentarzami są traktowane priorytetowo. Co zrobiłeś, zanim wystąpił problem?</string>
   <string name="main_report_limit">Osiągnięto limit raportów. Proszę czekać na aktualizację. Dziekuję za odpowiedź!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s milionów</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s tysięcy</string>
 </resources>

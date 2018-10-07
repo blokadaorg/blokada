@@ -36,8 +36,6 @@
   <string name="main_donate_text">ডোনেট করুন</string>
   <string name="main_contribute_text">সম্পৃক্ত হোন</string>
   <string name="main_blog_text">সংবাদ</string>
-  <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
-  <string name="main_connectivity_text">শুধু অনলাইন হলে কাজ করবে</string>
   <string name="main_autostart_text">মোবাইল চালুর সময় শুরু করুন</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">মতামত পাঠান</string>

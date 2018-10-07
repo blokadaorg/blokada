@@ -17,6 +17,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s będzie teraz wyświetlała powiadomienie za każdym razem, gdy coś zablokuje.</string>
   <string name="notification_keepalive_text">Zawsze w tle</string>
+  <string name="notification_keepalive_description">Aktywuj jeśli doświadczasz problemów z żywotnością aplikacji. Włączy to stałe powiadomienie, które powstrzyma system przed zatrzymywaniem tej aplikacji.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s już nie jest chroniona przed czyszczeniem pamięci.</string>
   <!-- Parameter: branded app name (Blokada). -->

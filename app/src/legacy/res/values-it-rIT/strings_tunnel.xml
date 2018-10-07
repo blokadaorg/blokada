@@ -24,4 +24,8 @@
   <string name="tunnel_config_wifi_only_title">Scarica solo tramite WiFi</string>
   <string name="tunnel_config_wifi_only_description">Attiva questa opzione se preferisci che l\'app scarichi le liste solo quando il tuo dispositivo è connesso ad una rete WiFi. Altrimenti, l\'app potrebbe scaricare le liste anche mentre il tuo dispositivo è connesso ad una rete mobile e utilizzare il tuo piano dati.</string>
   <string name="tunnel_config_memory_capacity">%s possono occupare la RAM</string>
+  <string name="tunnel_config_watchdog_title">Watchdog</string>
+  <string name="tunnel_config_watchdog_description">Attiva questa opzione se preferisci che l\'app attivi la VPN solo in presenza di connessione ad Internet, e riavvii il tunnel in caso di problemi di connettività. Questa opzione potrebbe essere d\'aiuto per alcuni dispositivi. Nota: nelle versioni precedenti, questa opzione era chiamata \"Solo Online\".</string>
+  <string name="tunnel_config_powersave_title">Forza risveglio</string>
+  <string name="tunnel_config_powersave_description">Attiva questa opzione se riscontri problemi causati dalle impostazioni di risparmio energetico del tuo dispositivo. Quando l\'app rileverà problemi di connessione al tunnel, tenterà di aumentare la sua priorità per scavalcare la modalità di risparmio energetico.</string>
 </resources>

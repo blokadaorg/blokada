@@ -36,8 +36,6 @@
   <string name="main_donate_text">Donatius</string>
   <string name="main_contribute_text">Involucreu-vos</string>
   <string name="main_blog_text">Notícies</string>
-  <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
-  <string name="main_connectivity_text">Només en línia</string>
   <string name="main_autostart_text">Inicia en l\'inici</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Comentaris</string>

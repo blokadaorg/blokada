@@ -13,10 +13,11 @@
   <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
   <string name="notification_blocked_whitelist_applied">¡Listo! Los cambios tardarán unos instantes en realizarse.</string>
   <!-- Parameter: branded app name (Blokada). -->
-  <string name="notification_disabled">%s no mostrará notificaciones de anuncios bloqueados.</string>
+  <string name="notification_disabled">%s no mostrará notificaciones sobre los anuncios bloqueados.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s mostrará una notificación cada vez que un anuncio sea bloqueado.</string>
   <string name="notification_keepalive_text">Mantener activo</string>
+  <string name="notification_keepalive_description">Activa este interruptor si tienes problemas para que la aplicación se mantenga activa. Se creará una notificación permanente para evitar que el sistema la cierre.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s no estará protegido de la optimización de memoria o batería.</string>
   <!-- Parameter: branded app name (Blokada). -->

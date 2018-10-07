@@ -16,6 +16,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s ara mostrarà notificacions cada cop que es bloquegi alguna cosa.</string>
   <string name="notification_keepalive_text">Mantén actiu</string>
+  <string name="notification_keepalive_description">Activeu aquest commutador si teniu problemes perquè l\'aplicació es mantingui activa. Es crearà una notificació permanent per evitar que el sistema la tanqui.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s ja no està protegit de la bateria ni de l\'estalvi de memòria.</string>
   <!-- Parameter: branded app name (Blokada). -->

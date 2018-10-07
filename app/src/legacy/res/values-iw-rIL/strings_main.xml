@@ -36,8 +36,7 @@
   <string name="main_donate_text">תרום</string>
   <string name="main_contribute_text">תהיה מעורב</string>
   <string name="main_blog_text">חדשות</string>
-  <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
-  <string name="main_connectivity_text">חיבור זמין בלבד</string>
+  <string name="main_settings_text">הגדרות מתקדמות</string>
   <string name="main_autostart_text">הפעל בזמן הדלקה</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">משוב</string>

@@ -17,6 +17,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s bude zobrazovat oznámení pokaždé, když bude reklama zablokována.</string>
   <string name="notification_keepalive_text">Udržet naživu</string>
+  <string name="notification_keepalive_description">Aktivujte tento přepínač, pokud má aplikace problém zůstat aktivní. Tato volba zapne trvalé oznámení v notifikační liště, což zabrání systému Blokadu ukončit.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s není chráněno před využitím baterie a pamětí.</string>
   <!-- Parameter: branded app name (Blokada). -->

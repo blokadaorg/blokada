@@ -24,4 +24,8 @@
   <string name="tunnel_config_wifi_only_title">Stahování pouze přes WiFi</string>
   <string name="tunnel_config_wifi_only_description">Aktivujte tento přepínač, chcete-li aby aplikace stáhla seznamy pouze v případě, že je vaše zařízení připojeno k WiFi. V opačném případě může aplikace stáhnout seznamy i když je vaše zařízení připojeno k mobilní síti a používá váš datový plán.</string>
   <string name="tunnel_config_memory_capacity">%s se vejde do paměti</string>
+  <string name="tunnel_config_watchdog_title">Hlídací pes</string>
+  <string name="tunnel_config_watchdog_description">Aktivujte tento přepínač, pokud chcete, aby aplikace aktivovala VPN pouze v případě připojení k internetu, a restartovala komunikační kanál v případě, že dojde k problémům s připojením. To může u některých zařízení pomoci. Poznámka: V předchozích verzích se tato volba označovala jako \"Pouze on-line\".</string>
+  <string name="tunnel_config_powersave_title">Agresivní probuzení</string>
+  <string name="tunnel_config_powersave_description">Aktivujte tento přepínač, pokud se setkáte s problémy způsobenými funkcemi úspory energie. Když aplikace rozpozná problémy s připojením ke komunikačnímu kanálu, pokusí se zvýšit svou prioritu, aby byla vyřazena z úsporného režimu.</string>
 </resources>

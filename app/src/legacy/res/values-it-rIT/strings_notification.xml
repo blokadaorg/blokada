@@ -17,6 +17,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s ora mostrerà notifiche ogni volta che un ad viene bloccato.</string>
   <string name="notification_keepalive_text">Mantieni attivo</string>
+  <string name="notification_keepalive_description">Attiva questa opzione se riscontri problemi nel mantenere attiva l\'app. Verrà abilitata una notifica permanente per cercare di prevenire la chiusura dell\'app da parte del sistema.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s non è più protetta dal risparmio di memoria e batteria.</string>
   <!-- Parameter: branded app name (Blokada). -->

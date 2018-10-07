@@ -24,4 +24,8 @@
   <string name="tunnel_config_wifi_only_title">הורד על WiFi בלבד</string>
   <string name="tunnel_config_wifi_only_description">הפעל בורר זה אם ברצונך שהישום יוריד את הרשימות רק כאשר המכשיר מחובר לרשת WiFi. אחרת, הישום עשוי להוריד את הרשימות גם כאשר המכשיר מחובר לרשת סלולאר ולנצל את חבילת הגלישה שלך.</string>
   <string name="tunnel_config_memory_capacity">%s יכולים להתאים לתוך הזיכרון</string>
+  <string name="tunnel_config_watchdog_title">ניטור קישוריות</string>
+  <string name="tunnel_config_watchdog_description">הפעל מתג זה אם ברצונך שהיישום יפעיל את ה-VPN רק אם יש חיבור אינטרנט פעיל, ויפעיל מחדש את את ה-VPN במקרה שיש בעיות קישוריות. תהליך זה עשוי לעזור למכשירים מסוימים. הערה: בגרסאות קודמות אפשרות זו נקראה \"חיבור בלבד\".</string>
+  <string name="tunnel_config_powersave_title">הפעלה אגרסיבית</string>
+  <string name="tunnel_config_powersave_description">הפעל מתג זה אם הינך נתקל בבעיות הנגרמות על ידי תכונת \'חיסכון בסוללה\' של מכשירך. כאשר היישום מזהה בעיות קישוריות, הוא ינסה להעלות את העדיפות שלו בכדי להוציא את עצמו ממצב החיסכון בסוללה.</string>
 </resources>

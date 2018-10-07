@@ -34,8 +34,6 @@
   <string name="main_donate_text">捐赠</string>
   <string name="main_contribute_text">参与其中</string>
   <string name="main_blog_text">新闻</string>
-  <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
-  <string name="main_connectivity_text">仅在线</string>
   <string name="main_autostart_text">开机自启动</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">提出意见</string>
