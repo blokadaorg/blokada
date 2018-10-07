@@ -72,7 +72,6 @@ class TunnelImpl(
     override val startOnBoot  = newPersistedProperty(kctx, APrefsPersistence(ctx, "startOnBoot"),
             { true }
     )
-
 }
 
 fun newTunnelModule(ctx: Context): Module {

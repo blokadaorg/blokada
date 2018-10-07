@@ -49,7 +49,7 @@ class DeviceImpl (
     override val tethering = newProperty(kctx, { isTethering(ctx)} )
 
     override val watchdogOn = newPersistedProperty(kctx, BasicPersistence(xx, "watchdogOn"),
-            { true })
+            { false })
 
     override val onWifi = newProperty(kctx, { isWifi(ctx) } )
 

@@ -45,8 +45,7 @@
 
     <string name="main_blog_text">News</string>
 
-    <!-- A switch in the Home screen, that allows to turn off connectivity monitoring. -->
-    <string name="main_connectivity_text">Online only</string>
+    <string name="main_settings_text">Advanced Settings</string>
 
     <string name="main_autostart_text">Start on boot</string>
 

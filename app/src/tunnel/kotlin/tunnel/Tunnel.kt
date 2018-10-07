@@ -19,6 +19,7 @@ import kotlin.math.min
 
 internal class Tunnel(
         private var proxy: Proxy,
+        private val config: TunnelConfig,
         private val forwarder: Forwarder = Forwarder(),
         private val loopback: Queue<ByteArray> = LinkedList()
 ) {
@@ -65,7 +66,7 @@ internal class Tunnel(
         } catch (ex: Exception) {
             val cause = ex.cause
             if (cause is ErrnoException && cause.errno == OsConstants.EPERM) {
-                if (++epermCounter >= 3) {
+                if (++epermCounter >= 3 && config.powersave) {
                     ktx.emit(Events.TUNNEL_POWER_SAVING)
                     epermCounter = 0
                 }

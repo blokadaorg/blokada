@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
 import gs.environment.ComponentProvider
@@ -18,6 +19,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.acra.ACRA
 import org.blokada.R
+import tunnel.TunnelConfigView
 import java.net.URL
 
 val DASH_ID_DONATE = "main_donate"
@@ -239,28 +241,35 @@ class AutoStartDash(
     }
 }
 
-class ConnectivityDash(
+class SettingsDash(
         val ctx: Context,
-        val s: Device = ctx.inject().instance()
+        val d: gs.property.Device = ctx.inject().instance(),
+        val t: tunnel.Main = ctx.inject().instance()
 ) : Dash(
-        "main_connectivity",
-        icon = false,
-        text = ctx.getString(R.string.main_connectivity_text),
-        isSwitch = true
+        "main_settings",
+        icon = R.drawable.ic_tune,
+        text = ctx.getString(R.string.main_settings_text),
+        hasView = true
 ) {
 
-    override var checked = false
-        set(value) { if (field != value) {
-            field = value
-            s.watchdogOn %= value
-            onUpdate.forEach { it() }
-        }}
+    override fun createView(parent: Any): Any? {
+        return createConfigView(parent as ViewGroup)
+    }
 
-    private var listener: IWhen? = null
-    init {
-        listener = s.watchdogOn.doOnUiWhenSet().then {
-            checked = s.watchdogOn()
+    private var configView: TunnelConfigView? = null
+
+    private fun createConfigView(parent: ViewGroup): TunnelConfigView {
+        val ctx = parent.context
+        configView = LayoutInflater.from(ctx).inflate(R.layout.view_tunnel_config, parent, false) as TunnelConfigView
+        configView?.onRefreshClick = {
+            t.invalidateFilters("tunnelDash:config:refresh".ktx())
         }
+        configView?.onNewConfig = {
+            tunnel.Persistence.config.save(it)
+            t.reloadConfig(ctx.ktx("tunnelDassh:config:new"), d.onWifi())
+        }
+        configView?.config = tunnel.Persistence.config.load("tunnelDash:config:load".ktx())
+        return configView!!
     }
 }
 

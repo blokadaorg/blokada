@@ -5,9 +5,13 @@ import android.util.AttributeSet
 import android.widget.Button
 import android.widget.ScrollView
 import android.widget.TextView
+import com.github.salomonbrys.kodein.instance
 import core.Format
+import core.KeepAlive
 import core.ktx
+import gs.environment.inject
 import gs.presentation.SwitchCompatView
+import gs.property.Device
 import org.blokada.R
 import kotlin.math.max
 
@@ -24,6 +28,10 @@ class TunnelConfigView(
             onNewConfig(value)
         }
 
+    val watchdogOn by lazy { ctx.inject().instance<Device>().watchdogOn }
+    val keepAlive by lazy { ctx.inject().instance<KeepAlive>().keepAlive }
+    val autostart by lazy { ctx.inject().instance<core.Tunnel>().startOnBoot }
+
     var onRefreshClick = {}
     var onNewConfig = { config: TunnelConfig -> }
 
@@ -34,6 +42,10 @@ class TunnelConfigView(
     private val frequency3Button by lazy { findViewById<Button>(R.id.frequency_3) }
     private val frequency4Button by lazy { findViewById<Button>(R.id.frequency_4) }
     private val wifiOnlySwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_wifi_only) }
+    private val watchdogSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_watchdog) }
+    private val powersaveSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_powersave) }
+    private val keepAliveSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_keepalive) }
+    private val autoStartSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_autostart) }
     private val status by lazy { findViewById<TextView>(R.id.status) }
 
     override fun onFinishInflate() {
@@ -41,6 +53,14 @@ class TunnelConfigView(
         refreshButton.setOnClickListener { onRefreshClick() }
         wifiOnlySwitch.setOnCheckedChangeListener { _, isChecked ->
             config = config.copy(wifiOnly = isChecked) }
+        watchdogSwitch.setOnCheckedChangeListener { _, isChecked ->
+            watchdogOn %= isChecked }
+        powersaveSwitch.setOnCheckedChangeListener { _, isChecked ->
+            config = config.copy(powersave = isChecked) }
+        keepAliveSwitch.setOnCheckedChangeListener { _, isChecked ->
+            keepAlive %= isChecked }
+        autoStartSwitch.setOnCheckedChangeListener { _, isChecked ->
+            autostart %= isChecked }
 
         listOf(frequency1Button, frequency2Button, frequency3Button, frequency4Button).forEach {
             it.setOnClickListener { config = config.copy(cacheTTL = idToTtl(it.id)) }
@@ -70,12 +90,25 @@ class TunnelConfigView(
         context.ktx().on(tunnel.Events.FILTERS_CHANGING, {
             status.text = context.resources.getString(R.string.tunnel_hosts_downloading)
         })
+
+        watchdogOn.doOnUiWhenSet().then {
+            watchdogSwitch.isChecked = watchdogOn()
+        }
+
+        autostart.doOnUiWhenSet().then {
+            autoStartSwitch.isChecked = autostart()
+        }
+
+        keepAlive.doOnUiWhenSet().then {
+            keepAliveSwitch.isChecked = keepAlive()
+        }
     }
 
     private fun syncView() {
         currentFrequency.text = ttlToString(config.cacheTTL)
         wifiOnlySwitch.isChecked = config.wifiOnly
         status.text = context.resources.getString(R.string.tunnel_hosts_count2, 0.toString())
+        watchdogSwitch.isChecked = watchdogOn()
     }
 
     private fun ttlToString(ttl: Long) = when(ttl) {

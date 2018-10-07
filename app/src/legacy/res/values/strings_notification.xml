@@ -19,6 +19,8 @@
     <string name="notification_enabled">%s will now display notifications every time something is blocked.</string>
 
     <string name="notification_keepalive_text">Keep alive</string>
+    <string name="notification_keepalive_description">Activate this switch if you experience problems with app staying active. The app will enable a permanent notification to prevent system from killing it.</string>
+
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_disabled">%s is not protected from battery or memory saving anymore.</string>
     <!-- Parameter: branded app name (Blokada). -->

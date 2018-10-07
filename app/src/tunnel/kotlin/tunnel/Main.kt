@@ -35,8 +35,9 @@ class Main(
     private val blockade = Blockade()
     private var filters = FilterManager(blockade = blockade, doResolveFilterSource =
     doResolveFilterSource, doProcessFetchedFilters = doProcessFetchedFilters)
+    private var config = TunnelConfig()
     private var proxy = Proxy(emptyList(), blockade, forwarder, loopback)
-    private var tunnel = Tunnel(proxy, forwarder, loopback)
+    private var tunnel = Tunnel(proxy, config, forwarder, loopback)
     private var connector = ServiceConnector(
             onClose = onVpnClose,
             onConfigure = { ktx, tunnel -> 0L }
@@ -72,7 +73,7 @@ class Main(
                     socket
                 }
                 proxy = Proxy(servers, blockade, forwarder, loopback, doCreateSocket = socketCreator)
-                tunnel = Tunnel(proxy, forwarder, loopback)
+                tunnel = Tunnel(proxy, config, forwarder, loopback)
 
                 val configurator = if (usePausedConfigurator) PausedVpnConfigurator(servers, filters)
                 else VpnConfigurator(servers, filters)
@@ -102,21 +103,22 @@ class Main(
     }
 
     fun reloadConfig(ktx: AndroidKontext, onWifi: Boolean) = async(CTRL) {
-        val cfg = Persistence.config.load(ktx)
-        ktx.v("reloading config, onWifi: $onWifi, firstLoad: ${cfg.firstLoad}", cfg)
+        config = Persistence.config.load(ktx)
+        ktx.v("reloading config, onWifi: $onWifi, firstLoad: ${config.firstLoad}", config)
+        tunnel = Tunnel(proxy, config, forwarder, loopback)
         filters = FilterManager(
                 blockade = blockade,
                 doResolveFilterSource = doResolveFilterSource,
                 doProcessFetchedFilters = doProcessFetchedFilters,
                 doValidateRulesetCache = { it ->
                     it.source.id in listOf("app")
-                            || it.lastFetch + cfg.cacheTTL * 1000 > System.currentTimeMillis()
-                            || cfg.wifiOnly && !onWifi && !cfg.firstLoad && it.source.id == "link"
+                            || it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
+                            || config.wifiOnly && !onWifi && !config.firstLoad && it.source.id == "link"
                 },
                 doValidateFilterStoreCache = { it ->
                     it.cache.isNotEmpty()
-                            && (it.lastFetch + cfg.cacheTTL * 1000 > System.currentTimeMillis()
-                            || cfg.wifiOnly && !onWifi)
+                            && (it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
+                            || config.wifiOnly && !onWifi)
                 }
         )
         filters.load(ktx)
@@ -214,7 +216,7 @@ class Main(
     }
 
     private fun startTunnelThread(ktx: Kontext) {
-        tunnel = Tunnel(proxy, forwarder, loopback)
+        tunnel = Tunnel(proxy, config, forwarder, loopback)
         if (fd != null) {
             tunnelThread = Thread({ tunnel.runWithRetry(ktx, fd!!) }, "tunnel-${threadCounter++}")
             tunnelThread?.start()

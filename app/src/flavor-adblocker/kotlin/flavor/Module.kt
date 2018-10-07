@@ -7,7 +7,6 @@ import com.github.salomonbrys.kodein.*
 import core.*
 import filter.DashFilterBlacklist
 import filter.DashFilterWhitelist
-import notification.NotificationDashKeepAlive
 import notification.NotificationDashOn
 import notification.displayNotification
 import notification.hideNotification
@@ -24,10 +23,8 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                     DashFilterWhitelist(ctx).activate(true),
                     DashDns(lazy).activate(true),
                     NotificationDashOn(ctx).activate(true),
-                    NotificationDashKeepAlive(ctx).activate(true),
-                    AutoStartDash(ctx).activate(true),
-                    ConnectivityDash(ctx).activate(true),
                     TunnelDashHostsCount(ctx).activate(true),
+                    SettingsDash(ctx).activate(true),
                     PatronDash(lazy).activate(false),
                     PatronAboutDash(lazy).activate(false),
                     DonateDash(lazy).activate(false),

@@ -80,5 +80,6 @@ class FilterSourceDescriptor(
 data class TunnelConfig(
         val wifiOnly: Boolean = true,
         val firstLoad: Boolean = true,
+        val powersave: Boolean = false,
         val cacheTTL: Long = 86400
 )
