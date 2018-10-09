@@ -86,11 +86,22 @@ android {
         testAdblockerHome.java.srcDirs += 'src/test-tunnel/kotlin'
         testAdblockerHome.java.srcDirs += 'src/test-g11n/kotlin'
 
+        adblockerFdroid.manifest.srcFile 'src/legacy/AndroidManifest.xml'
         adblockerFdroid.java.srcDirs += 'src/core/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/tunnel/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/g11n/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/legacy/kotlin'
         adblockerFdroid.java.srcDirs += 'src/flavor-adblocker/kotlin'
+        adblockerFdroid.res.srcDirs += 'src/legacy/res'
         adblockerFdroid.res.srcDirs += 'src/flavor-adblocker/res'
+
+        dnsHome.manifest.srcFile 'src/legacy/AndroidManifest.xml'
         dnsHome.java.srcDirs += 'src/core/kotlin'
+        dnsHome.java.srcDirs += 'src/tunnel/kotlin'
+        dnsHome.java.srcDirs += 'src/g11n/kotlin'
+        dnsHome.java.srcDirs += 'src/legacy/kotlin'
         dnsHome.java.srcDirs += 'src/flavor-dns/kotlin'
+        dnsHome.res.srcDirs += 'src/legacy/res'
         dnsHome.res.srcDirs += 'src/flavor-dns/res'
 
         // Build types are cross combined with flavors to make a final release
