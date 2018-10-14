@@ -109,6 +109,7 @@ class TunnelConfigView(
         wifiOnlySwitch.isChecked = config.wifiOnly
         status.text = context.resources.getString(R.string.tunnel_hosts_count2, 0.toString())
         watchdogSwitch.isChecked = watchdogOn()
+        powersaveSwitch.isChecked = config.powersave
     }
 
     private fun ttlToString(ttl: Long) = when(ttl) {

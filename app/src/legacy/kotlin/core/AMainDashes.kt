@@ -266,7 +266,7 @@ class SettingsDash(
         }
         configView?.onNewConfig = {
             tunnel.Persistence.config.save(it)
-            t.reloadConfig(ctx.ktx("tunnelDassh:config:new"), d.onWifi())
+            t.reloadConfig(ctx.ktx("tunnelDash:config:new"), d.onWifi())
         }
         configView?.config = tunnel.Persistence.config.load("tunnelDash:config:load".ktx())
         return configView!!
