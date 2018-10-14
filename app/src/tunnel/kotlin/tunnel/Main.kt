@@ -43,6 +43,7 @@ class Main(
             onConfigure = { ktx, tunnel -> 0L }
     )
     private var currentServers = emptyList<InetAddress>()
+    private var currentUrl: String = ""
 
     private var tunnelThread: Thread? = null
     private var fd: FileDescriptor? = null
@@ -103,30 +104,30 @@ class Main(
     }
 
     fun reloadConfig(ktx: AndroidKontext, onWifi: Boolean) = async(CTRL) {
-        config = Persistence.config.load(ktx)
-        ktx.v("reloading config, onWifi: $onWifi, firstLoad: ${config.firstLoad}", config)
-        tunnel = Tunnel(proxy, config, forwarder, loopback)
-        filters = FilterManager(
-                blockade = blockade,
-                doResolveFilterSource = doResolveFilterSource,
-                doProcessFetchedFilters = doProcessFetchedFilters,
-                doValidateRulesetCache = { it ->
-                    it.source.id in listOf("app")
-                            || it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
-                            || config.wifiOnly && !onWifi && !config.firstLoad && it.source.id == "link"
-                },
-                doValidateFilterStoreCache = { it ->
-                    it.cache.isNotEmpty()
-                            && (it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
-                            || config.wifiOnly && !onWifi)
-                }
-        )
-        filters.load(ktx)
+        createComponents(ktx, onWifi)
         if (filters.sync(ktx)) {
             filters.save(ktx)
             restartTunnelThread(ktx)
         }
     }
+
+    fun setUrl(ktx: AndroidKontext, url: String, onWifi: Boolean) = async(CTRL) {
+        if (url != currentUrl) {
+            currentUrl = url
+
+            val cfg = Persistence.config.load(ktx)
+            ktx.v("setting url, firstLoad: ${cfg.firstLoad}", url)
+            createComponents(ktx, onWifi)
+            filters.setUrl(ktx, url)
+            if (filters.sync(ktx)) {
+                ktx.v("first fetch successful, unsetting firstLoad flag")
+                Persistence.config.save(cfg.copy(firstLoad = false))
+            }
+            filters.save(ktx)
+            restartTunnelThread(ktx)
+        } else ktx.w("ignoring setUrl, same url already set")
+    }
+
 
     fun stop(ktx: AndroidKontext) = async(CTRL) {
         ktx.v("stopping tunnel")
@@ -148,18 +149,6 @@ class Main(
             if (restartVpn) restartVpn(ktx)
             restartTunnelThread(ktx)
         }
-    }
-
-    fun setUrl(ktx: Kontext, url: String) = async(CTRL) {
-        val cfg = Persistence.config.load(ktx)
-        ktx.v("setting url, firstLoad: ${cfg.firstLoad}", url)
-        filters.setUrl(ktx, url)
-        if (filters.sync(ktx)) {
-            ktx.v("first fetch successful, unsetting firstLoad flag")
-            Persistence.config.save(cfg.copy(firstLoad = false))
-        }
-        filters.save(ktx)
-        restartTunnelThread(ktx)
     }
 
     fun putFilter(ktx: AndroidKontext, filter: Filter, sync: Boolean = true) = async(CTRL) {
@@ -199,6 +188,28 @@ class Main(
         if (filters.sync(ktx)) {
             restartTunnelThread(ktx)
         }
+    }
+
+    private fun createComponents(ktx: AndroidKontext, onWifi: Boolean) {
+        config = Persistence.config.load(ktx)
+        ktx.v("create components, onWifi: $onWifi, firstLoad: ${config.firstLoad}", config)
+        tunnel = Tunnel(proxy, config, forwarder, loopback)
+        filters = FilterManager(
+                blockade = blockade,
+                doResolveFilterSource = doResolveFilterSource,
+                doProcessFetchedFilters = doProcessFetchedFilters,
+                doValidateRulesetCache = { it ->
+                    it.source.id in listOf("app")
+                            || it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
+                            || config.wifiOnly && !onWifi && !config.firstLoad && it.source.id == "link"
+                },
+                doValidateFilterStoreCache = { it ->
+                    it.cache.isNotEmpty()
+                            && (it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
+                            || config.wifiOnly && !onWifi)
+                }
+        )
+        filters.load(ktx)
     }
 
     private suspend fun startVpn(ktx: AndroidKontext) {

@@ -141,7 +141,7 @@ fun newTunnelModule(ctx: Context): Module {
                 val url = pages.filters().toExternalForm()
                 if (pages.filters().host != "localhost" && url != oldUrl) {
                     oldUrl = pages.filters().toExternalForm()
-                    engine.setUrl("filtersUrl:changed".ktx(), url)
+                    engine.setUrl(ctx.ktx("filtersUrl:changed"), url, d.onWifi())
                 }
             }
 
