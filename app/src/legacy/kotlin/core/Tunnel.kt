@@ -136,9 +136,13 @@ fun newTunnelModule(ctx: Context): Module {
                 engine.setup(ctx.ktx("dns:changed"), dns.dnsServers())
             }
 
-            pages.filters.doWhenChanged(withInit = true).then {
-                if (pages.filters().host != "localhost")
-                    engine.setUrl("filtersUrl:changed".ktx(), pages.filters().toExternalForm())
+            var oldUrl = "localhost"
+            pages.filters.doWhenSet().then {
+                val url = pages.filters().toExternalForm()
+                if (pages.filters().host != "localhost" && url != oldUrl) {
+                    oldUrl = pages.filters().toExternalForm()
+                    engine.setUrl("filtersUrl:changed".ktx(), url)
+                }
             }
 
             // React to user switching us off / on
