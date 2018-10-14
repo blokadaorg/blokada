@@ -36,7 +36,8 @@
   <string name="main_donate_text">Donatius</string>
   <string name="main_contribute_text">Involucreu-vos</string>
   <string name="main_blog_text">Notícies</string>
-  <string name="main_autostart_text">Inicia en l\'inici</string>
+  <string name="main_settings_text">Configuració avançada</string>
+  <string name="main_autostart_text">Inicia a l\'arrencada</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Comentaris</string>
   <!-- A menu option to open Patron of the month -->

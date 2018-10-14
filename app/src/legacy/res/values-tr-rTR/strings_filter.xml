@@ -63,5 +63,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Filtreleri yenile</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">İçeri aktar / Dışa aktar</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Ayarların nereye kaydedileceğini seçin</string>
+  <string name="filter_export_error">Seçilen dizin kullanılamaz. Yazma izinlerini kontrol edin.</string>
+  <string name="filter_export_import">Harici depolamadan içe aktar</string>
+  <string name="filter_export_import2">Şimdi içe aktar</string>
+  <string name="filter_export_internal">Dahili depolama (varsayılan)</string>
+  <string name="filter_export_external">Harici depolama</string>
+  <string name="filter_export_external_info">Not: Seçiminiz hem kara liste hem de beyaz liste için geçerlidir. Blokada için (sistem ayarlarında) harici depolama izinleri verdiğinizden emin olun; aksi halde, seçtiğiniz seçeneğe rağmen dahili depolama kullanılır. Mevcut ayarları içe aktarıyorsanız, bu pencereyi kapatmadan önce Şimdi İçe Aktar\'a dokunun ya da üzerine yazılacaktır.</string>
 </resources>

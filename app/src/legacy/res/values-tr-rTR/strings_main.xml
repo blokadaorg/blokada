@@ -36,6 +36,7 @@
   <string name="main_donate_text">Bağış Yap</string>
   <string name="main_contribute_text">Dahil Olun</string>
   <string name="main_blog_text">Haberler</string>
+  <string name="main_settings_text">Gelişmiş Ayarlar</string>
   <string name="main_autostart_text">Açılışta Çalıştır</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Geri Bildirim</string>
@@ -44,12 +45,20 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">Patron\'u oyla</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+  <string name="main_cta">Senin Sesin</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">Değişiklikler</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">Emeği Geçenler</string>
   <!-- An overlay header on top of Patron page -->
   <string name="main_patron_overlay">Blokada topluluğu olarak umut vaat eden yeni projeleri buluyor ve destekliyoruz. Lütfen paylaşın!</string>
+  <string name="main_log">Hata raporu paylaş</string>
+  <string name="main_report_title">Blokada Raporu</string>
+  <string name="main_report_text">Blokada bir sorun yaşadı (veya bir rapor göndermeyi talep ettiniz). Özel bilgi içerebilen bir günlük eklenir. Sadece güvenilir içeridekiler raporunuzu okuyabilecek ve artık ihtiyaç duyulmadığında silinecektir.</string>
+  <string name="main_report_comment">Yorum içeren raporlara öncelik verilir. Hata oluşmadan önce ne yapıyordunuz?</string>
+  <string name="main_report_limit">Rapor limitine ulaşıldı. Lütfen bir güncelleme için bizi takip etmeye devam edin. Geri bildiriminiz için teşekkürler!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s milyon</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s bin</string>
 </resources>

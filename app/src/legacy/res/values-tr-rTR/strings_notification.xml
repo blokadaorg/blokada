@@ -17,6 +17,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s her reklam engellendiğinde bildirim gösterecek.</string>
   <string name="notification_keepalive_text">Sürekli Çalış</string>
+  <string name="notification_keepalive_description">Etkin kalmasıyla ilgili sorun yaşarsanız bu anahtarı etkinleştirin. Uygulama, sistemin durdurulmasını önlemek için kalıcı bir bildirim sağlayacaktır.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s artık batarya veya hafıza korumalarından korunmuyor.</string>
   <!-- Parameter: branded app name (Blokada). -->

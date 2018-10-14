@@ -36,6 +36,7 @@
   <string name="main_donate_text">Дарение</string>
   <string name="main_contribute_text">Присъединете се сега</string>
   <string name="main_blog_text">Новини</string>
+  <string name="main_settings_text">Разширени настройки</string>
   <string name="main_autostart_text">Старт със системата</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Обратна връзка</string>

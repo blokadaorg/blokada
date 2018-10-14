@@ -16,7 +16,7 @@
   <string name="notification_disabled">%s не будет отображать уведомления.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s будет отображать уведомление при каждой блокировке рекламы.</string>
-  <string name="notification_keepalive_text">Подержка активности</string>
+  <string name="notification_keepalive_text">Активный режим</string>
   <string name="notification_keepalive_description">Включите этот параметр, если приложение не работает в фоновом режиме. При этом будет активировано постоянное уведомление, что позволит защитить приложение от выгрузки его из памяти.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s больше не защищена от экономии батареи или сохранения памяти.</string>

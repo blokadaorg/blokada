@@ -11,7 +11,7 @@
   <string name="tunnel_config_wifi">Descargar filtros sol con wifi</string>
   <string name="tunnel_dropped_count_desc">Muestra el total de hosts bloqueados hasta el momento.</string>
   <string name="tunnel_dropped_count">%d bloqueados</string>
-  <string name="tunnel_dropped_count2">%s bloqueado</string>
+  <string name="tunnel_dropped_count2">%s bloqueados</string>
   <string name="tunnel_config_refetch_now_title">Descargar listas</string>
   <string name="tunnel_config_refetch_now">Descargar listas ahora</string>
   <string name="tunnel_config_refetch_now_description">Usa el botón de debajo para limpiar el caché y descargar las listas de nuevo. Podría ayudar si tienes problemas con los filtros.</string>

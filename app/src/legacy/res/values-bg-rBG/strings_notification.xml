@@ -17,6 +17,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s ще показва известия всеки път, когато нещо бъде блокирано.</string>
   <string name="notification_keepalive_text">Винаги в активност</string>
+  <string name="notification_keepalive_description">Активирайте тази опция ако изпитвате проблем приложението да е винаги активно. Приложението ще разреши постоянно съобщение, което ще предотврати спирането му от системата.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s не защитава батерията вече или запазването на паметта.</string>
   <!-- Parameter: branded app name (Blokada). -->
