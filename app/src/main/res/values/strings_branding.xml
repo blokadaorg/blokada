@@ -1,6 +1,0 @@
-<resources>
-    <string name="branding_app_name">Blokada</string>
-    <string name="branding_app_name_short">Blokada</string>
-    <string name="branding_update_url">https://blokada.org/#download</string>
-    <string name="branding_maker_url">http://kar.gs</string>
-</resources>

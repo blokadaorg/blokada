@@ -37,23 +37,70 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-        debug.java.srcDirs += 'src/unofficial/kotlin'
-        release.java.srcDirs += 'src/official/kotlin'
-        release.res.srcDirs += 'src/official/res'
-        release.java.srcDirs += 'src/official-imports/kotlin'
-        official.java.srcDirs += 'src/official/kotlin'
-        official.res.srcDirs += 'src/official/res'
-        official.java.srcDirs += 'src/official-imports/kotlin'
-        beta.java.srcDirs += 'src/official/kotlin'
-        beta.res.srcDirs += 'src/official/res'
-        beta.java.srcDirs += 'src/official-imports/kotlin'
-        adblockerHome.java.srcDirs += 'src/adblocker/kotlin'
-        adblockerHome.res.srcDirs += 'src/adblocker/res'
-        adblockerFdroid.java.srcDirs += 'src/adblocker/kotlin'
-        adblockerFdroid.res.srcDirs += 'src/adblocker/res'
-        dnsHome.java.srcDirs += 'src/dns/kotlin'
-        dnsHome.res.srcDirs += 'src/dns/res'
+        // Modules do NOT make a runnable app separately
+        moduleCore.java.srcDirs += 'src/core/kotlin'
+        testModuleCore.java.srcDirs += 'src/test-core/kotlin'
+
+        moduleTunnel.java.srcDirs += 'src/core/kotlin'
+        moduleTunnel.java.srcDirs += 'src/tunnel/kotlin'
+        testModuleTunnel.java.srcDirs += 'src/test-core/kotlin'
+        testModuleTunnel.java.srcDirs += 'src/test-tunnel/kotlin'
+
+        moduleG11n.java.srcDirs += 'src/core/kotlin'
+        moduleG11n.java.srcDirs += 'src/g11n/kotlin'
+        testModuleG11n.java.srcDirs += 'src/test-core/kotlin'
+        testModuleG11n.java.srcDirs += 'src/test-g11n/kotlin'
+
+        moduleLegacy.java.srcDirs += 'src/core/kotlin'
+        moduleLegacy.java.srcDirs += 'src/tunnel/kotlin'
+        moduleLegacy.java.srcDirs += 'src/legacy/kotlin'
+        moduleLegacy.res.srcDirs += 'src/legacy/res'
+        testModuleLegacy.java.srcDirs += 'src/test-core/kotlin'
+        testModuleLegacy.java.srcDirs += 'src/test-tunnel/kotlin'
+        testModuleLegacy.java.srcDirs += 'src/test-legacy/kotlin'
+
+        // Flavors put together modules and flavor config
+        adblockerHome.manifest.srcFile 'src/legacy/AndroidManifest.xml'
+        adblockerHome.java.srcDirs += 'src/core/kotlin'
+        adblockerHome.java.srcDirs += 'src/tunnel/kotlin'
+        adblockerHome.java.srcDirs += 'src/g11n/kotlin'
+        adblockerHome.java.srcDirs += 'src/legacy/kotlin'
+        adblockerHome.java.srcDirs += 'src/flavor-adblocker/kotlin'
+        adblockerHome.res.srcDirs += 'src/legacy/res'
+        adblockerHome.res.srcDirs += 'src/flavor-adblocker/res'
+        testAdblockerHome.java.srcDirs += 'src/test-core/kotlin'
+        testAdblockerHome.java.srcDirs += 'src/test-tunnel/kotlin'
+        testAdblockerHome.java.srcDirs += 'src/test-g11n/kotlin'
+
+        adblockerFdroid.manifest.srcFile 'src/legacy/AndroidManifest.xml'
+        adblockerFdroid.java.srcDirs += 'src/core/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/tunnel/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/g11n/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/legacy/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/flavor-adblocker/kotlin'
+        adblockerFdroid.res.srcDirs += 'src/legacy/res'
+        adblockerFdroid.res.srcDirs += 'src/flavor-adblocker/res'
+
+        dnsHome.manifest.srcFile 'src/legacy/AndroidManifest.xml'
+        dnsHome.java.srcDirs += 'src/core/kotlin'
+        dnsHome.java.srcDirs += 'src/tunnel/kotlin'
+        dnsHome.java.srcDirs += 'src/g11n/kotlin'
+        dnsHome.java.srcDirs += 'src/legacy/kotlin'
+        dnsHome.java.srcDirs += 'src/flavor-dns/kotlin'
+        dnsHome.res.srcDirs += 'src/legacy/res'
+        dnsHome.res.srcDirs += 'src/flavor-dns/res'
+
+        // Build types are cross combined with flavors to make a final release
+        debug.java.srcDirs += 'src/build-unofficial/kotlin'
+        release.java.srcDirs += 'src/build-official/kotlin'
+        release.res.srcDirs += 'src/build-official/res'
+        release.java.srcDirs += 'src/build-official-imports/kotlin'
+        official.java.srcDirs += 'src/build-official/kotlin'
+        official.res.srcDirs += 'src/build-official/res'
+        official.java.srcDirs += 'src/build-official-imports/kotlin'
+        beta.java.srcDirs += 'src/build-official/kotlin'
+        beta.res.srcDirs += 'src/build-official/res'
+        beta.java.srcDirs += 'src/build-official-imports/kotlin'
     }
 
     signingConfigs {
@@ -95,6 +142,10 @@ android {
         dnsHome {
             applicationIdSuffix ".alarm.dnschanger"
         }
+        moduleCore {}
+        moduleTunnel {}
+        moduleG11n {}
+        moduleLegacy {}
     }
 }
 
@@ -116,6 +167,7 @@ dependencies {
     implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0'
     implementation 'io.paperdb:paperdb:2.6'
+    implementation 'com.github.michaelbull:kotlin-result:1.0.8'
 
     // Proxy
     implementation 'org.pcap4j:pcap4j-core:1.7.3' ////2.0.0-alpha
