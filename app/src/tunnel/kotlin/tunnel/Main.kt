@@ -55,14 +55,14 @@ class Main(
     private var usePausedConfigurator = false
 
     fun setup(ktx: AndroidKontext, servers: List<InetAddress>, start: Boolean = false) = async(CTRL) {
-        ktx.v("setup tunnel, start = ${start}", servers)
+        ktx.v("setup tunnel, start = $start, enabled = $enabled", servers)
         when {
             servers.isEmpty() -> {
                 ktx.v("empty dns servers, will disable tunnel")
                 currentServers = emptyList()
                 maybeStopVpn(ktx)
                 maybeStopTunnelThread(ktx)
-                enabled = true
+                if (start) enabled = true
             }
             currentServers == servers && isVpnOn() -> {
                 ktx.v("unchanged dns servers, ignoring")
@@ -93,6 +93,7 @@ class Main(
                     restartTunnelThread(ktx)
 
                     if (start || enabled) {
+                        ktx.v("starting vpn")
                         enabled = true
                         maybeStartVpn(ktx)
                         maybeStartTunnelThread(ktx)
