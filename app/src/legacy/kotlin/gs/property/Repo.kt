@@ -42,6 +42,8 @@ class RepoImpl(
         }
     }
 
+    override val lastRefreshMillis = newPersistedProperty(kctx, BasicPersistence(xx, "repo_refresh"), zeroValue = { 0L })
+
     private val repoRefresh = {
         val ktx = "repo:refresh".ktx()
         ktx.v("repo refresh start")
@@ -96,8 +98,6 @@ class RepoImpl(
                 }
             }
     )
-
-    override val lastRefreshMillis = newPersistedProperty(kctx, BasicPersistence(xx, "repo_refresh"), zeroValue = { 0L })
 }
 
 class ARepoPersistence(xx: Environment) : PersistenceWithSerialiser<RepoContent>(xx) {

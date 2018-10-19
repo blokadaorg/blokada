@@ -52,7 +52,7 @@ class Memory {
         val linesAvailable = {
             val r = Runtime.getRuntime()
             val free = r.maxMemory() - (r.totalMemory() - r.freeMemory())
-            (free / (18 * 2 * 5)).toInt() // (avg chars per host name) * (char size) * (correction)
+            (free / (18 * 2 * 6)).toInt() // (avg chars per host name) * (char size) * (correction)
         }
     }
 }

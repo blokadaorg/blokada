@@ -22,6 +22,8 @@ import filter.AFilterViewHolder
 import gs.environment.*
 import gs.presentation.Spacing
 import gs.property.*
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.runBlocking
 import org.blokada.R
 import java.io.InputStreamReader
 import java.net.InetAddress
@@ -560,7 +562,9 @@ class AddDialog(
         if (!view.appView.correct) view.appView.showError = true
         else {
             val s = listOf(view.appView.server1, view.appView.server2).filter { it.isNotBlank() }.map {
-                InetAddress.getByName(it)
+                runBlocking { async {
+                    InetAddress.getByName(it)
+                }.await() }
             }
             dialog.dismiss()
             onSave(DnsChoice(

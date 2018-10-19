@@ -229,8 +229,9 @@ class Main(
 
     private fun startTunnelThread(ktx: Kontext) {
         tunnel = Tunnel(proxy, config, forwarder, loopback)
-        if (fd != null) {
-            tunnelThread = Thread({ tunnel.runWithRetry(ktx, fd!!) }, "tunnel-${threadCounter++}")
+        val f = fd
+        if (f != null) {
+            tunnelThread = Thread({ tunnel.runWithRetry(ktx, f) }, "tunnel-${threadCounter++}")
             tunnelThread?.start()
             ktx.v("tunnel thread started", tunnelThread!!)
         } else ktx.w("attempting to start tunnel thread with no fd")
