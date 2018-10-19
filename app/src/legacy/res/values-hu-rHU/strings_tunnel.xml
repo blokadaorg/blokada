@@ -24,4 +24,8 @@
   <string name="tunnel_config_wifi_only_title">Csak Wi-Fi mellett töltse le</string>
   <string name="tunnel_config_wifi_only_description">Ezt a kapcsolót akkor kapcsold be, ha azt szeretnéd, hogy az alkalmazás csak akkor töltse le a listákat, ha a készüléked Wi-Fi-hez csatlakozik. Ellenkező esetben az alkalmazás akkor is letöltheti a listákat, amikor az eszköz mobilnethez csatlakozik, így az adatkeretedet is fogyasztja.</string>
   <string name="tunnel_config_memory_capacity">% elfér a memóriában</string>
+  <string name="tunnel_config_watchdog_title">Watchdog</string>
+  <string name="tunnel_config_watchdog_description">Akkor kapcsold be ezt a kapcsolót, ha azt szeretnéd, hogy az alkalmazás csak akkor aktiválja a VPN-t, ha van internetkapcsolat, és újraindítsa az alagutat, ha problémák vannak a kapcsolattal. Ez segíthet néhány eszközön. Megjegyzés: a korábbi verziókban ennek a neve \"Csak online\" volt.</string>
+  <string name="tunnel_config_powersave_title">Agresszív ébresztés</string>
+  <string name="tunnel_config_powersave_description">Akkor kapcsold be ezt a kapcsolót, ha olyan problémák merülnek fel, amelyeket az eszközöd energiatakarékos módja okozott. Amikor az alkalmazás alagút kapcsolódási problémát észlel, akkor megpróbálja növelni annak prioritását, hogy elkerülje az energiatakarékos módot.</string>
 </resources>

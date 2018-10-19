@@ -36,6 +36,7 @@
   <string name="main_donate_text">Doneren</string>
   <string name="main_contribute_text">Draag bij</string>
   <string name="main_blog_text">Nieuws</string>
+  <string name="main_settings_text">Geavanceerde instellingen</string>
   <string name="main_autostart_text">Starten bij opstarten</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Feedback</string>
@@ -56,5 +57,7 @@
   <string name="main_report_comment">Rapporten met opmerkingen hebben prioriteit. Wat deed je voordat het probleem zich voordeed?</string>
   <string name="main_report_limit">Rapportlimiet bereikt. Blijf alstublieft op de hoogte voor een update. Bedankt voor je feedback!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s miljoen</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s duizend</string>
 </resources>

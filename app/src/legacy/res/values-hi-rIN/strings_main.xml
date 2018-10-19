@@ -36,6 +36,7 @@
   <string name="main_donate_text">दान</string>
   <string name="main_contribute_text">शामिल हो</string>
   <string name="main_blog_text">समाचार</string>
+  <string name="main_settings_text">उन्नत सेटिंग्स</string>
   <string name="main_autostart_text">बूट पर प्रारंभ करें</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">प्रतिक्रिया</string>

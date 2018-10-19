@@ -59,5 +59,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Ververs filters</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Importeren / Exporteren</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Selecteer waar de instellingen moeten worden opgeslagen</string>
+  <string name="filter_export_error">Geselecteerde map kan niet worden gebruikt. Controleer schrijfrechten.</string>
+  <string name="filter_export_import">Importeren van externe opslag</string>
+  <string name="filter_export_import2">Nu importeren</string>
+  <string name="filter_export_internal">Interne opslag (standaard)</string>
+  <string name="filter_export_external">Externe opslag</string>
+  <string name="filter_export_external_info">Opmerking: uw keuze is van toepassing op zowel de zwarte lijst als de witte lijst. Zorg ervoor dat je Blokada externe opslagrechten hebt toegewezen (in systeeminstellingen), anders wordt je interne opslag gebruikt, ondanks je keuze. Als u bestaande instellingen importeert, tikt u op Nu importeren voordat u dit venster sluit, anders worden ze overschreven.</string>
 </resources>

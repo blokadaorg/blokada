@@ -63,5 +63,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Actualiser les filtres</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">Importer / Exporter</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_select">Sélectionnez où les paramètres devraient être sauvegardés</string>
+  <string name="filter_export_error">Le répertoire selectionné ne peut être utilisé. Vérifiez les permissions d\'écriture.</string>
+  <string name="filter_export_import">Importation à partir du stockage externe</string>
+  <string name="filter_export_import2">Importer maintenenant</string>
+  <string name="filter_export_internal">Stockage interne (par défaut)</string>
+  <string name="filter_export_external">Stockage externe</string>
+  <string name="filter_export_external_info">Remarque : votre choix s\'applique à la fois à votre liste noire et à votre liste blanche. Assurez-vous que vous avez accordé les permissions d\'accès au stockage externe à Blockada (dans les paramètres système), sinon le stockage interne sera utilisé peu importe votre choix. Si vous importez des paramètres existants, appuyez sur Importer Maintenant avant de fermer cette fenêtre, sinon ils seront écrasés.</string>
 </resources>

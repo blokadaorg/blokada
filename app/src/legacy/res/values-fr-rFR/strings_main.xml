@@ -36,6 +36,7 @@
   <string name="main_donate_text">Faire un don</string>
   <string name="main_contribute_text">Impliquez-vous</string>
   <string name="main_blog_text">Actualités</string>
+  <string name="main_settings_text">Paramètres Avancés</string>
   <string name="main_autostart_text">Activer au démarrage</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Commentaires</string>
@@ -57,5 +58,7 @@
   <string name="main_report_comment">Les rapports contenant des commentaires sont prioritaires. Que faisiez vous avant que le problème ne survienne ?</string>
   <string name="main_report_limit">Limite du nombre de rapports atteinte. Veuillez, s\'il vous plaît, attendre une prochaine mise à jour. Merci pour vos retours!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s million</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s millier</string>
 </resources>

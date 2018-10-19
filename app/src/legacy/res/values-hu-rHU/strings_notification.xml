@@ -17,6 +17,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">A %s mostantól értesítést fog mutatni, valahányszor egy reklámot blokkol.</string>
   <string name="notification_keepalive_text">Életben tart</string>
+  <string name="notification_keepalive_description">Akkor kapcsold be ezt a kapcsolót, ha problémákat tapasztaltál az alkalmazás folyamatos aktív állapotával kapcsolatban. Az alkalmazás egy állandó értesítést engedélyez, mely megakadályozza, hogy a rendszer kilője.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">A %s mostantól nem védett az akkumulátor vagy memória takarékoskodástól.</string>
   <!-- Parameter: branded app name (Blokada). -->

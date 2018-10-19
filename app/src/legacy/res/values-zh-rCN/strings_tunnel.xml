@@ -4,7 +4,18 @@
   <string name="tunnel_hosts_desc">显示已配置被 %s 拦截主机名的数量</string>
   <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
+  <string name="tunnel_hosts_updating">更新中...</string>
   <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+  <string name="tunnel_hosts_downloading">下载中...</string>
+  <string name="tunnel_config_wifi">仅在 wifi 上网时下载过滤器</string>
   <string name="tunnel_dropped_count_desc">显示迄今为止已被拦截的主机数量</string>
   <string name="tunnel_dropped_count">%d 已拦截</string>
+  <string name="tunnel_config_refetch_now_title">下载列表</string>
+  <string name="tunnel_config_refetch_now">立即下载列表</string>
+  <string name="tunnel_config_refetch_frequency_title">列出下载频率</string>
+  <string name="tunnel_config_refetch_frequency_1">每天一次</string>
+  <string name="tunnel_config_refetch_frequency_2">每周两次</string>
+  <string name="tunnel_config_refetch_frequency_3">每周一次</string>
+  <string name="tunnel_config_refetch_frequency_4">每月一次</string>
+  <string name="tunnel_config_wifi_only_title">仅从wifi下载</string>
 </resources>

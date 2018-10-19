@@ -17,6 +17,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s zeigt eine Benachrichtigung für jede blockierte Anzeige.</string>
   <string name="notification_keepalive_text">Aktiv halten</string>
+  <string name="notification_keepalive_description">Aktiviere diesen Schalter, wenn es Probleme mit dem Hintergunddienst und somit dem aktiv halten der App gibt. Diese Einstellung verhindert das das System die App beenden kann.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s ist nicht mehr vor Akku- oder Speicheroptimierungen geschützt.</string>
   <!-- Parameter: branded app name (Blokada). -->

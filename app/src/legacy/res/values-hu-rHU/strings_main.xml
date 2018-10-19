@@ -36,6 +36,7 @@
   <string name="main_donate_text">Támogatás</string>
   <string name="main_contribute_text">Vegyél részt benne</string>
   <string name="main_blog_text">Hírek</string>
+  <string name="main_settings_text">Speciális beállítások</string>
   <string name="main_autostart_text">Bootoláskor indul</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Visszajelzés</string>

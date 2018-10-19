@@ -36,6 +36,7 @@
   <string name="main_donate_text">Derma</string>
   <string name="main_contribute_text">Libatkan diri</string>
   <string name="main_blog_text">Berita</string>
+  <string name="main_settings_text">Tetapan Lebih Lanjut</string>
   <string name="main_autostart_text">Mula pada boot</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Maklumbalas</string>
@@ -56,5 +57,7 @@
   <string name="main_report_comment">Laporan dengan komentar akan diutamakan. Apa yang anda lakukan sebelum masalah berlaku?</string>
   <string name="main_report_limit">Mencapai had laporan. Sila sentiasa siap sedia untuk kemas kini. Terima kasih untuk maklum balas anda!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s juta</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s ribu</string>
 </resources>

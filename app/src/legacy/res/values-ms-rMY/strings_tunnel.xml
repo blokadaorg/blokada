@@ -24,4 +24,8 @@
   <string name="tunnel_config_wifi_only_title">Muat turun pada WiFi sahaja</string>
   <string name="tunnel_config_wifi_only_description">Aktifkan suis ini jika anda mahu aplikasi ini untuk memuat turun senarai hanya apabila peranti anda disambungkan ke WiFi. Sebaliknya, aplikasi ini juga boleh muat turun senarai apabila peranti anda disambungkan ke rangkaian mudah alih dan menggunakan pelan data anda.</string>
   <string name="tunnel_config_memory_capacity">%s boleh dimuatkan ke dalam memori</string>
+  <string name="tunnel_config_watchdog_title">Pemerhati</string>
+  <string name="tunnel_config_watchdog_description">Aktifkan suis ini jika anda mahu aplikasi untuk mengaktifkan VPN hanya jika terdapat sambungan Internet, dan mulakan semula tunnel sekiranya terdapat masalah sambungan. Ini mungkin membantu untuk sesetengah peranti. Nota: dalam versi terdahulu opsyen ini dipanggil \"Dalam talian sahaja\".</string>
+  <string name="tunnel_config_powersave_title">Terjaga agresif</string>
+  <string name="tunnel_config_powersave_description">Aktifkan suis ini jika anda mengalami masalah yang disebabkan oleh ciri penjimatan tenaga oleh peranti anda. Apabila aplikasi mengesan masalah sambungan tunnel, ia akan cuba meningkatkan keutamaannya untuk membawanya keluar dari fungsi penjimatan tenaga.</string>
 </resources>

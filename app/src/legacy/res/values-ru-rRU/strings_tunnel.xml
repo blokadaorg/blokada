@@ -23,6 +23,7 @@
   <string name="tunnel_config_refetch_frequency_4">Раз в месяц</string>
   <string name="tunnel_config_wifi_only_title">Загружать только через Wi-Fi</string>
   <string name="tunnel_config_wifi_only_description">Активируйте этот переключатель, если хотите, чтобы приложение загружало списки только при подключении к WiFi. В противном случае приложение сможет загружать списки через мобильную сеть.</string>
+  <string name="tunnel_config_memory_capacity">%s может загружаться в память</string>
   <string name="tunnel_config_watchdog_title">Сторож</string>
   <string name="tunnel_config_watchdog_description">Включите этот параметр, если вы хотите, чтобы приложение запускало соединение VPN, только при наличии подключения к интернету, и перезапускало туннель в случае возникновения проблем с подключением. Это может помочь некоторым устройствам. Примечание: в более ранних версиях этот параметр назывался \'Только онлайн\'.</string>
   <string name="tunnel_config_powersave_title">Агрессивное пробуждение</string>

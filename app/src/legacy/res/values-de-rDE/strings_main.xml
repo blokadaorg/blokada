@@ -36,6 +36,7 @@
   <string name="main_donate_text">Spenden</string>
   <string name="main_contribute_text">Mach mit</string>
   <string name="main_blog_text">Community</string>
+  <string name="main_settings_text">Erweiterte Einstellungen</string>
   <string name="main_autostart_text">Beim Booten starten</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Feedback</string>

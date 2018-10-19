@@ -25,4 +25,8 @@
   <string name="tunnel_config_wifi_only_description">Aktiviere des Einstellung, wenn die Listen nur über WLAN heruntergeladen werden sollen. Andernfalls kann die App auch Listen herunterladen, wenn Dein Gerät mit einem Mobilfunknetz verbunden ist und Deinen Datentarif verwendet.
 </string>
   <string name="tunnel_config_memory_capacity">%s kann in den Speicher passen.</string>
+  <string name="tunnel_config_watchdog_title">Watchdog</string>
+  <string name="tunnel_config_watchdog_description">Aktiviere diesen Schalter, wenn die App das VPN nur aktivieren soll, wenn eine aktive Internetverbindung besteht. Die Einstellung startet das VPN neu, falls Verbindungsprobleme auftreten. Dies kann für einige Geräte hilfreich sein. Hinweis: In früheren Versionen wurde diese Option \"Nur Online\" genannt.</string>
+  <string name="tunnel_config_powersave_title">Aggressives Aufwachen.</string>
+  <string name="tunnel_config_powersave_description">Aktiviere diesen Schalter, wenn Probleme auftreten die durch die Powersave-Funktion des Geräts verursacht werden. Wenn die App Probleme mit der VPN feststellt, versucht sie die Priorität zu erhöhen, um den Energiesparmodus zu deaktivieren.</string>
 </resources>

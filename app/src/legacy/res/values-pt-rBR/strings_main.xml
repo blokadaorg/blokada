@@ -36,6 +36,7 @@
   <string name="main_donate_text">Doar</string>
   <string name="main_contribute_text">Participe</string>
   <string name="main_blog_text">Novidades</string>
+  <string name="main_settings_text">Configurações Avançadas</string>
   <string name="main_autostart_text">Executar ao iniciar</string>
   <!-- A menu option to send feedback or contact us -->
   <string name="main_feedback_text">Comentários</string>
@@ -56,5 +57,7 @@
   <string name="main_report_comment">Os relatórios com comentários têm prioridade. O que você fez antes de ocorrer o erro?</string>
   <string name="main_report_limit">Limite de relatórios atingido. Por favor, fique atento para uma atualização. Obrigado pelo seu feedback!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
+  <string name="core_format_million">%s milhão</string>
   <!-- To display a big number in short way, eg. 420 thousand -->
+  <string name="core_format_thousand">%s mil</string>
 </resources>

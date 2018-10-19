@@ -59,5 +59,9 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">फ़िल्टर्स ताज़ा करें</string>
   <!-- Select save location for filters  -->
+  <string name="filter_generate_export">आयात / निर्यात</string>
   <!-- A button to open directory chooser to export settings to. -->
+  <string name="filter_export_error">चयनित निर्देशिका का उपयोग नहीं किया जा सकता है। लिखने की अनुमति जांचें।</string>
+  <string name="filter_export_import">बाह्य भंडारण से आयात करें</string>
+  <string name="filter_export_import2">अभी आयात करें</string>
 </resources>

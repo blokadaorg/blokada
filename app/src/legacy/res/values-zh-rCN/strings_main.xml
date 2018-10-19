@@ -3,6 +3,8 @@
 <resources>
   <string name="main_loading">正在加载......</string>
   <!-- Parameter: branded app name (Blokada). -->
+  <string name="main_intro">欢迎使用 %s!轻触盾牌来启用app。当设备询问时请授予它权限。</string>
+  <string name="main_error">嗯～出了点小状况。请检查您的网络连接并再试一次。</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="main_deactivating_new">正在关闭 %s.请等待......</string>
   <!-- Parameter: branded app name (Blokada). -->
@@ -42,11 +44,17 @@
   <!-- A menu option to open Patron voting screen -->
   <string name="main_patron_about">赞助人投票</string>
   <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+  <string name="main_cta">你的建议</string>
   <!-- A menu option to open changelog -->
   <string name="main_changelog">更新日志</string>
   <!-- A menu option to open credits screen -->
   <string name="main_credits">致谢</string>
   <!-- An overlay header on top of Patron page -->
+  <string name="main_log">分享日志记录</string>
+  <string name="main_report_title">Blokada 报告</string>
+  <string name="main_report_text">Blokada 遇到了问题 (或者您要求发送报告)。将附加一份日志记录, 其中可能包含私人信息。只有受信任的内部人员才能阅读您的报告, 一旦不再需要, 它将被删除。</string>
+  <string name="main_report_comment">含有注释的报告将优先处理。请问在问题发生之前你做了什么？</string>
+  <string name="main_report_limit">已达到报告限制！请继续关注更新。感谢您的反馈!</string>
   <!-- To display a big number in short way, eg. 1.69 million -->
   <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

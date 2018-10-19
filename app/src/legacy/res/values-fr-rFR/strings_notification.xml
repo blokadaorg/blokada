@@ -17,6 +17,7 @@
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_enabled">%s affichera maintenant une notification chaque fois qu\'un élément sera bloqué.</string>
   <string name="notification_keepalive_text">Garder en vie</string>
+  <string name="notification_keepalive_description">Activez cette option si vous rencontrez des problèmes pour que l\'application reste active. L\'application activera une notification permanente pour empêcher le système de la fermer.</string>
   <!-- Parameter: branded app name (Blokada). -->
   <string name="notification_keepalive_disabled">%s n\'est plus protégé contre l\'économiseur de batterie ou de mémoire de votre appareil.</string>
   <!-- Parameter: branded app name (Blokada). -->
