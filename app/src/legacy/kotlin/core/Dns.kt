@@ -27,8 +27,10 @@ import kotlinx.coroutines.experimental.runBlocking
 import org.blokada.R
 import java.io.InputStreamReader
 import java.net.InetAddress
+import java.net.InetSocketAddress
 import java.nio.charset.Charset
 import java.util.Properties
+import org.pcap4j.packet.namednumber.UdpPort
 
 fun newDnsModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
@@ -73,7 +75,7 @@ fun newDnsModule(ctx: Context): Kodein.Module {
 
 abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
-    abstract val dnsServers: IProperty<List<InetAddress>>
+    abstract val dnsServers: IProperty<List<InetSocketAddress>>
 }
 
 class DnsImpl(
@@ -157,7 +159,7 @@ class DnsImpl(
 
 data class DnsChoice(
         val id: String,
-        var servers: List<InetAddress>,
+        var servers: List<InetSocketAddress>,
         var active: Boolean = false,
         var ipv6: Boolean = false,
         val credit: String? = null,
@@ -198,7 +200,7 @@ class DnsSerialiser {
         return dns.map {
             val active = if (it.active) "active" else "inactive"
             val ipv6 = if (it.ipv6) "ipv6" else "ipv4"
-            val servers = it.servers.map { it.hostAddress }.joinToString(";")
+            val servers = it.servers.map { it.toString() }.joinToString(";")
             val credit = it.credit ?: ""
             val comment = it.comment ?: ""
 
@@ -213,7 +215,12 @@ class DnsSerialiser {
                 val id = entry[1]
                 val active = entry[2] == "active"
                 val ipv6 = entry[3] == "ipv6"
-                val servers = entry[4].split(";").filter { it.isNotBlank() }.map { InetAddress.getByName(it) }
+                val servers = entry[4].split(";").filter { it.isNotBlank() }.map {
+                    val hostport = it.split(':')
+                    val host = hostport[0]
+                    val port = (hostport[1] ?: UdpPort.DOMAIN) as Int
+                    InetSocketAddress(InetAddress.getByName(host), port)
+                }
                 val credit = if (entry[5].isNotBlank()) entry[5] else null
                 val comment = if (entry[6].isNotBlank()) entry[6] else null
 
@@ -442,8 +449,8 @@ class DnsListView(
     }
 }
 
-fun printServers(s: List<InetAddress>): String {
-    return s.map { it.hostAddress.replace("/", "") }.joinToString (", ")
+fun printServers(s: List<InetSocketAddress>): String {
+    return s.map { it.toString() }.joinToString (", ")
 }
 
 class DnsActor(
@@ -538,7 +545,7 @@ class AddDialog(
     fun show(filter: DnsChoice?) {
         view.appView.reset()
         if (filter != null) {
-            val s = filter.servers.map { it.hostAddress }.toMutableList()
+            val s = filter.servers.map { it.toString() }.toMutableList()
             view.appView.server1 = s.first()
             view.appView.server2 = s.getOrElse(1, {""})
             view.appView.correct = true
@@ -563,7 +570,10 @@ class AddDialog(
         else {
             val s = listOf(view.appView.server1, view.appView.server2).filter { it.isNotBlank() }.map {
                 runBlocking { async {
-                    InetAddress.getByName(it)
+                    val hostport = it.split(':')
+                    val host = hostport[0]
+                    val port = (hostport[1] ?: UdpPort.DOMAIN) as Int
+                    InetSocketAddress(InetAddress.getByName(host), port)
                 }.await() }
             }
             dialog.dismiss()
@@ -715,7 +725,10 @@ class DnsAddView(
             forceNotEmpty && s.isBlank() -> false
             s.isBlank() -> true
             else -> { try {
-                    InetAddress.getByName(s)
+                    val hostport = s.split(':')
+                    val host = hostport[0]
+                    val port = (hostport[1] ?: UdpPort.DOMAIN) as Int
+                    InetSocketAddress(InetAddress.getByName(host), port)
                     true
                 } catch (e: Exception) { false }
             }

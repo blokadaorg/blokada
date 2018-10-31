@@ -10,6 +10,7 @@ import org.xbill.DNS.*
 import java.io.IOException
 import java.net.*
 import java.util.*
+import org.pcap4j.packet.namednumber.UdpPort
 
 internal class Proxy(
         private val dnsServers: List<InetSocketAddress>,
@@ -116,7 +117,7 @@ internal class Proxy(
 
     private fun resolveActualDestination(packet: IpPacket): InetSocketAddress {
         val servers = dnsServers
-        val current = InetSocketAddress(packet.header.dstAddr, packet.header.dstPort)
+        val current = InetSocketAddress(packet.header.dstAddr, UdpPort.DOMAIN as Int)
         return when {
             servers.isEmpty() -> current
             else -> try {
