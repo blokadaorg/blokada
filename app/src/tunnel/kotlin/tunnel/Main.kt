@@ -9,7 +9,7 @@ import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlinx.coroutines.experimental.runBlocking
 import java.io.FileDescriptor
 import java.net.DatagramSocket
-import java.net.InetAddress
+import java.net.InetSocketAddress
 import java.util.*
 
 object Events {
@@ -42,7 +42,7 @@ class Main(
             onClose = onVpnClose,
             onConfigure = { ktx, tunnel -> 0L }
     )
-    private var currentServers = emptyList<InetAddress>()
+    private var currentServers = emptyList<InetSocketAddress>()
     private var currentUrl: String = ""
 
     private var tunnelThread: Thread? = null
@@ -54,7 +54,7 @@ class Main(
     private var threadCounter = 0
     private var usePausedConfigurator = false
 
-    fun setup(ktx: AndroidKontext, servers: List<InetAddress>, start: Boolean = false) = async(CTRL) {
+    fun setup(ktx: AndroidKontext, servers: List<InetSocketAddress>, start: Boolean = false) = async(CTRL) {
         ktx.v("setup tunnel, start = $start, enabled = $enabled", servers)
         when {
             servers.isEmpty() -> {

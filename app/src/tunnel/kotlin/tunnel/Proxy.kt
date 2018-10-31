@@ -12,7 +12,7 @@ import java.net.*
 import java.util.*
 
 internal class Proxy(
-        private val dnsServers: List<InetAddress>,
+        private val dnsServers: List<InetSocketAddress>,
         private val blockade: Blockade,
         private val forwarder: Forwarder,
         private val loopback: Queue<ByteArray>,
@@ -37,7 +37,7 @@ internal class Proxy(
 
         if (udp.payload == null) {
             // Some apps use empty UDP packets for something good
-            val proxiedUdp = DatagramPacket(ByteArray(0), 0, 0, destination,
+            val proxiedUdp = DatagramPacket(ByteArray(0), 0, 0, destination.getAddress(),
                     udp.header.dstPort.valueAsInt())
             forward(ktx, proxiedUdp)
             return
@@ -54,8 +54,8 @@ internal class Proxy(
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
         if (blockade.allowed(host) || !blockade.denied(host)) {
-            val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination,
-                    udp.header.dstPort.valueAsInt())
+            val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
+                    destination.getPort())
             forward(ktx, proxiedDns, originEnvelope)
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
@@ -114,14 +114,14 @@ internal class Proxy(
 
     private fun loopback(ktx: Kontext, response: ByteArray) = loopback.add(response)
 
-    private fun resolveActualDestination(packet: IpPacket): InetAddress {
+    private fun resolveActualDestination(packet: IpPacket): InetSocketAddress {
         val servers = dnsServers
-        val current = packet.header.dstAddr
+        val current = InetSocketAddress(packet.header.dstAddr, packet.header.dstPort)
         return when {
             servers.isEmpty() -> current
             else -> try {
                 // Last octet of DNS server IP corresponds to its index
-                val index = current.address.last() - 2
+                val index = current.getAddress().address.last() - 2
                 servers[index]
             } catch (e: Exception) {
                 current

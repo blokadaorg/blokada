@@ -5,11 +5,11 @@ import core.Kontext
 import core.Result
 import java.net.Inet4Address
 import java.net.Inet6Address
-import java.net.InetAddress
+import java.net.InetSocketAddress
 import java.util.*
 
 internal class VpnConfigurator(
-        private val dnsServers: List<InetAddress>,
+        private val dnsServers: List<InetSocketAddress>,
         private val filterManager: FilterManager
 ): Configurator {
 
@@ -39,7 +39,7 @@ internal class VpnConfigurator(
         var ipv6Template: ByteArray? = byteArrayOf(32, 1, 13, (184 and 0xFF).toByte(),
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-        if (dnsServers.any { it is Inet6Address }) {
+        if (dnsServers.any { it.getAddress() is Inet6Address }) {
             try {
                 val address = Inet6Address.getByAddress(ipv6Template)
                 builder.addAddress(address, 120)
@@ -71,13 +71,13 @@ internal class VpnConfigurator(
     }
 
     private fun VpnService.Builder.addDnsServer(format: String?, ipv6Template: ByteArray?,
-                                                            address: InetAddress) = when {
-        address is Inet6Address && ipv6Template != null -> {
+                                                            address: InetSocketAddress) = when {
+        address.getAddress() is Inet6Address && ipv6Template != null -> {
             ipv6Template[ipv6Template.size - 1] = (++dnsIndex).toByte()
             val ipv6Address = Inet6Address.getByAddress(ipv6Template)
             this.addDnsServer(ipv6Address)
         }
-        address is Inet4Address && format != null -> {
+        address.getAddress() is Inet4Address && format != null -> {
             val alias = String.format(Locale.ENGLISH, format, ++dnsIndex)
             this.addDnsServer(alias)
             this.addRoute(alias, 32)
@@ -87,14 +87,14 @@ internal class VpnConfigurator(
 }
 
 internal class PausedVpnConfigurator(
-        private val dnsServers: List<InetAddress>,
+        private val dnsServers: List<InetSocketAddress>,
         private val filterManager: FilterManager
 ): Configurator {
 
     override fun configure(ktx: Kontext, builder: VpnService.Builder) {
         for (address in dnsServers) {
             try {
-                builder.addDnsServer(address)
+                builder.addDnsServer(address.getAddress())
             } catch (e: Exception) {
                 ktx.e("failed adding dns server", e)
             }
