@@ -117,7 +117,7 @@ internal class Proxy(
 
     private fun resolveActualDestination(packet: IpPacket): InetSocketAddress {
         val servers = dnsServers
-        val current = InetSocketAddress(packet.header.dstAddr, UdpPort.DOMAIN as Int)
+        val current = InetSocketAddress(packet.header.dstAddr, UdpPort.DOMAIN.valueAsInt())
         return when {
             servers.isEmpty() -> current
             else -> try {

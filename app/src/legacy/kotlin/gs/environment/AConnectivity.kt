@@ -25,7 +25,7 @@ fun isTethering(ctx: android.content.Context, intent: android.content.Intent? = 
 fun getDnsServers(ctx: android.content.Context): List<java.net.InetSocketAddress> {
     var servers = if (android.os.Build.VERSION.SDK_INT >= 21) gs.environment.getDnsServersMethod1(ctx) else emptyList()
     if (servers.isEmpty()) servers = gs.environment.getDnsServersMethod2()
-    return servers.map { java.net.InetSocketAddress(it, UdpPort.DOMAIN as Int) }
+    return servers.map { java.net.InetSocketAddress(it, UdpPort.DOMAIN.valueAsInt()) }
 }
 
 fun isWifi(ctx: android.content.Context): Boolean {
