@@ -218,7 +218,7 @@ class DnsSerialiser {
                 val servers = entry[4].split(";").filter { it.isNotBlank() }.map {
                     val hostport = it.split(':',limit=2)
                     val host = hostport[0]
-                    val port = hostport[1].toIntOrNull() ?:UdpPort.DOMAIN.valueAsInt()
+                    val port = (if (hostport.size==2) hostport[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
                     InetSocketAddress(InetAddress.getByName(host), port)
                 }
                 val credit = if (entry[5].isNotBlank()) entry[5] else null
@@ -572,7 +572,7 @@ class AddDialog(
                 runBlocking { async {
                     val hostport = it.split(':',limit=2)
                     val host = hostport[0]
-                    val port = hostport[1].toIntOrNull() ?:UdpPort.DOMAIN.valueAsInt()
+                    val port = (if (hostport.size==2) hostport[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
                     InetSocketAddress(InetAddress.getByName(host), port)
                 }.await() }
             }
@@ -727,8 +727,8 @@ class DnsAddView(
             else -> { try {
                     val hostport = s.split(':',limit=2)
                     val host = hostport[0]
-                    val port = hostport[1].toIntOrNull() ?:UdpPort.DOMAIN.valueAsInt()
-                    InetSocketAddress(InetAddress.getByName(host), port)
+                    val port = (if (hostport.size==2) hostport[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
+                InetSocketAddress(InetAddress.getByName(host), port)
                     true
                 } catch (e: Exception) { false }
             }
