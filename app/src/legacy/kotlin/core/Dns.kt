@@ -200,7 +200,7 @@ class DnsSerialiser {
         return dns.map {
             val active = if (it.active) "active" else "inactive"
             val ipv6 = if (it.ipv6) "ipv6" else "ipv4"
-            val servers = it.servers.map { it.toString() }.joinToString(";")
+            val servers = it.servers.map { it.getHostString() + ( if(it.getPort()!=53) ":" + it.getPort().toString() else "" ) }.joinToString(";")
             val credit = it.credit ?: ""
             val comment = it.comment ?: ""
 
@@ -450,7 +450,7 @@ class DnsListView(
 }
 
 fun printServers(s: List<InetSocketAddress>): String {
-    return s.map { it.toString() }.joinToString (", ")
+    return s.map { it.getHostString() + ( if(it.getPort()!=53) ":" + it.getPort().toString() else "" ) }.joinToString (", ")
 }
 
 class DnsActor(
@@ -545,7 +545,7 @@ class AddDialog(
     fun show(filter: DnsChoice?) {
         view.appView.reset()
         if (filter != null) {
-            val s = filter.servers.map { it.toString() }.toMutableList()
+            val s = filter.servers.map { it.getHostString() + ( if(it.getPort()!=53) ":" + it.getPort().toString() else "" ) }.toMutableList()
             view.appView.server1 = s.first()
             view.appView.server2 = s.getOrElse(1, {""})
             view.appView.correct = true
