@@ -1,6 +1,6 @@
 ## Blokada
 
-Blokada is a Mobile App that helps you block unwanted ads on your mobile phone.  We all know how annoying it is to get these unwanted ads. I don't know about your but as for me it pisses me off.  That is why with Blokada you don't have to worry about unwanted ads
+Blokada is a Mobile App that helps you block unwanted ads on your mobile phone.  We all know how annoying it is to get these unwanted ads. I don't know about your but as for me it angers me alot.  That is why with Blokada you don't have to worry about unwanted ads
 
 
 ## Features of Blokada.  
