@@ -61,7 +61,7 @@ internal class VpnConfigurator(
             }
         }
         if (dnsServers.none { it is Inet6Address }) {
-            // If we add no IPv6 route or DNS server, all IPv6 access is blocked by default
+            // If we add no IPv6 route or DNS server, all IPv6 access is otherwise blocked by default
             builder.allowFamily(OsConstants.AF_INET6)
         }
 
