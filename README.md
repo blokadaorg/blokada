@@ -1,6 +1,6 @@
 # Blokada v3
 
-Blokada is a free, open source, compact, fast ad blocker for Android that works for all apps and does not require root.
+Blokada is a free, open source, compact, fast ad blocker for Android that works for all apps and does not require root because it uses the VPN API
 
 Want to try out this app? Click here to **[download Blokada](http://go.blokada.org/download_section)**.
 
