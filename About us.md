@@ -29,10 +29,9 @@ The main feature of Blokada is blocking ads but what makes blokada different is 
 
 * Blokada is free to use. 
 
-* Works well with both unrooted and rooted devices. Unrooted devices utilize the VPN API
+* Works well with both unrooted and rooted devices. Unrooted as well as rooted devices utilize the VPN API, for consistency and easier support if issues occur
 
 Give Blokada a try today and enjoy surfing the internet without annoying ads.
-
 
 
 
