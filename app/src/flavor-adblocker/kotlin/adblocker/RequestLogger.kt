@@ -1,12 +1,12 @@
 package adblocker
 
 import android.Manifest
+import android.app.Activity
 import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.IBinder
-import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -15,10 +15,14 @@ import android.widget.CheckBox
 import android.widget.ScrollView
 import android.widget.Toast
 import com.github.michaelbull.result.mapBoth
+import com.github.salomonbrys.kodein.instance
 import core.*
+import gs.environment.ComponentProvider
 import gs.presentation.SwitchCompatView
+import gs.property.I18n
 import org.blokada.R
 import tunnel.Events
+import tunnel.Request
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintWriter
@@ -152,20 +156,20 @@ class RequestLogger : Service() {
     }
 
     private var logger: RequestLogWriter? = null
-    private var onAllowed = { host: String -> log(host, false) }
-    private var onBlocked = { host: String -> log(host, true) }
+    private var onAllowed = { r: Request -> if (!r.blocked) log(r.domain, false) }
+    private var onBlocked = { r: Request -> if (r.blocked) log(r.domain, true) }
     var config = LoggerConfig()
         set(value) {
             if (field != value) {
-                this.ktx().cancel(Events.ALLOWED, onAllowed)
-                this.ktx().cancel(Events.BLOCKED, onBlocked)
+                this.ktx().cancel(Events.REQUEST, onAllowed)
+                this.ktx().cancel(Events.REQUEST, onBlocked)
                 if (value.active) {
                     logger = RequestLogWriter()
                     if (value.logAllowed) {
-                        this.ktx().on(Events.ALLOWED, onAllowed)
+                        this.ktx().on(Events.REQUEST, onAllowed)
                     }
                     if (value.logDenied) {
-                        this.ktx().on(Events.BLOCKED, onBlocked)
+                        this.ktx().on(Events.REQUEST, onBlocked)
                     }
                 } else {
                     stopSelf()
@@ -201,8 +205,76 @@ class RequestLogger : Service() {
     }
 
     override fun onDestroy() {
-        this.ktx().cancel(Events.ALLOWED, onAllowed)
-        this.ktx().cancel(Events.BLOCKED, onBlocked)
+        this.ktx().cancel(Events.REQUEST, onAllowed)
+        this.ktx().cancel(Events.REQUEST, onBlocked)
         super.onDestroy()
+    }
+}
+
+class LoggerVB (
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        private val activity: ComponentProvider<Activity> = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+): SlotVB(onTap) {
+
+    val persistence = LoggerConfigPersistence()
+
+    override fun attach(view: SlotView) {
+        view.type = Slot.Type.INFO
+        view.enableAlternativeBackground()
+        val config = persistence.load(ktx)
+        view.apply {
+            content = Slot.Content(
+                    label = i18n.getString(R.string.logger_slot_title),
+                    description = i18n.getString(R.string.logger_slot_desc),
+                    values = listOf(
+                            i18n.getString(R.string.logger_slot_mode_off),
+                            i18n.getString(R.string.logger_slot_mode_denied),
+                            i18n.getString(R.string.logger_slot_mode_allowed),
+                            i18n.getString(R.string.logger_slot_mode_all)
+                    ),
+                    selected = configToMode(config)
+            )
+        }
+        view.onSelect = {
+            askForExternalStoragePermissionsIfNeeded(activity)
+            val newConfig = modeToConfig(it)
+            persistence.save(newConfig)
+            sendConfigToService(ktx.ctx, newConfig)
+        }
+    }
+
+    private fun configToMode(config: LoggerConfig) = i18n.getString(
+            when {
+                !config.active -> R.string.logger_slot_mode_off
+                config.logAllowed && config.logDenied -> R.string.logger_slot_mode_all
+                config.logDenied -> R.string.logger_slot_mode_denied
+                else -> R.string.logger_slot_mode_allowed
+    })
+
+    private fun modeToConfig(mode: String) = when (mode) {
+        i18n.getString(R.string.logger_slot_mode_off) -> LoggerConfig(active = false)
+        i18n.getString(R.string.logger_slot_mode_allowed) -> LoggerConfig(active = true, logAllowed = true)
+        i18n.getString(R.string.logger_slot_mode_denied) -> LoggerConfig(active = true, logDenied = true)
+        else -> LoggerConfig(active = true, logAllowed = true, logDenied = true)
+    }
+
+    private fun sendConfigToService(ctx: Context, config: LoggerConfig) {
+        val serviceIntent = Intent(ctx.applicationContext, RequestLogger::class.java)
+        val newConfigArray = BooleanArray(3)
+        newConfigArray[0] = config.active
+        newConfigArray[1] = config.logAllowed
+        newConfigArray[2] = config.logDenied
+        serviceIntent.putExtra("config", newConfigArray)
+        ctx.startService(serviceIntent)
+    }
+
+    private fun askForExternalStoragePermissionsIfNeeded(activity: ComponentProvider<Activity>) {
+        if (!checkStoragePermissions(ktx)) {
+            activity.get()?.apply {
+                askStoragePermission(ktx, this)
+            }
+        }
     }
 }

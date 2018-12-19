@@ -11,7 +11,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.RemoteViews
+import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject
@@ -19,6 +22,7 @@ import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
 import tunnel.Events
+import tunnel.Request
 
 
 val NEW_WIDGET = "NEW_WIDGET".newEventOf<WidgetData>()
@@ -107,7 +111,7 @@ class ActiveWidgetProvider : AppWidgetProvider() {
 
 class UpdateWidgetService : Service() {
 
-    private val onBlockedEvent = { host: String -> onBlocked(host) }
+    private val onBlockedEvent = { request: Request -> if (request.blocked) onBlocked(request.domain) }
     private val onNewWidgetEvent = { data: WidgetData -> onNewWidget(data) }
     private val onRestoreEvent = { restoreData: WidgetRestoreData -> onRestoreWidget(restoreData) }
     private val onDeleteEvent = { appWidgetIds: IntArray -> onDeleteWidget(appWidgetIds) }
@@ -159,7 +163,7 @@ class UpdateWidgetService : Service() {
         } else {
             onBlocked(droppedlist.last())
         }
-        this.ktx().on(Events.BLOCKED, onBlockedEvent)
+        this.ktx().on(Events.REQUEST, onBlockedEvent)
 
         onTunnelStateChanged()
         onTunnelStateEvent = t.tunnelState.doOnUiWhenChanged(withInit = true).then {
@@ -175,7 +179,7 @@ class UpdateWidgetService : Service() {
     }
 
     override fun onDestroy() {
-        this.ktx().cancel(Events.BLOCKED, onBlockedEvent)
+        this.ktx().cancel(Events.REQUEST, onBlockedEvent)
         this.ktx().cancel(NEW_WIDGET, onNewWidgetEvent)
         this.ktx().cancel(RESTORE_WIDGET, onRestoreEvent)
         this.ktx().cancel(DELETE_WIDGET, onDeleteEvent)

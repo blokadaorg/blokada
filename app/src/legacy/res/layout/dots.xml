@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/content"
+        android:layout_alignTop="@id/content"
+        android:background="@color/colorBackground"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:padding="@dimen/dots_padding"
+        android:paddingEnd="@dimen/dots_padding_sides"
+        android:paddingStart="@dimen/dots_padding_sides">
+
+        <TextView
+            android:id="@+id/section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/dots_text_size" />
+
+        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+            android:id="@+id/worm_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dots_margin_top"
+            app:dotsColor="@color/colorActive"
+            app:dotsCornerRadius="@dimen/dots_corner_radius"
+            app:dotsSize="@dimen/dots_size"
+            app:dotsSpacing="@dimen/dots_spacing"
+            app:dotsWidthFactor="2.5" />
+
+    </LinearLayout>
+
+</RelativeLayout>

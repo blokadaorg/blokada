@@ -16,8 +16,8 @@ import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
 import org.blokada.R
-import tunnel.Main
-import tunnel.checkTunnelPermissions
+import tunnel.*
+import tunnel.Persistence
 
 abstract class Tunnel {
     abstract val enabled: IProperty<Boolean>
@@ -85,7 +85,7 @@ fun newTunnelModule(ctx: Context): Module {
         bind<IPermissionsAsker>() with singleton {
             object : IPermissionsAsker {
                 override fun askForPermissions() {
-                    MainActivity.askPermissions()
+                    activityRegister.askPermissions()
                 }
             }
         }
@@ -105,10 +105,14 @@ fun newTunnelModule(ctx: Context): Module {
                                 Intent(ctx, MainActivity::class.java),
                                 PendingIntent.FLAG_CANCEL_CURRENT))
                 },
-                onBlocked = { host ->
-                    tunnelState.tunnelDropCount %= tunnelState.tunnelDropCount() + 1
-                    val dropped = tunnelState.tunnelRecentDropped() + host
-                    tunnelState.tunnelRecentDropped %= dropped.takeLast(10)
+                onRequest = { request ->
+                    if (request.blocked) {
+                        tunnelState.tunnelDropCount %= tunnelState.tunnelDropCount() + 1
+                        val dropped = tunnelState.tunnelRecentDropped() + request.domain
+                        tunnelState.tunnelRecentDropped %= dropped.takeLast(10)
+                    }
+
+                    Persistence.request.save(request)
                 },
                 doResolveFilterSource = {
                     res.from(it.source.id, it.source.source)
@@ -137,15 +141,21 @@ fun newTunnelModule(ctx: Context): Module {
             val retryKctx: Worker = with("retry").instance()
             val ktx = "tunnel:legacy".ktx()
 
-            dns.dnsServers.doWhenSet().then {
+            dns.dnsServers.doWhenChanged(withInit = true).then {
                 engine.setup(ctx.ktx("dns:changed"), dns.dnsServers())
+            }
+
+            async {
+                ktx.on(BLOCKA_CONFIG, { cfg ->
+                    engine.setup(ctx.ktx("blocka:vpn:switched"), dns.dnsServers(), cfg)
+                })
             }
 
             var oldUrl = "localhost"
             pages.filters.doWhenSet().then {
                 val url = pages.filters().toExternalForm()
                 if (pages.filters().host != "localhost" && url != oldUrl) {
-                    oldUrl = pages.filters().toExternalForm()
+                    oldUrl = url
                     engine.setUrl(ctx.ktx("filtersUrl:changed"), url, d.onWifi())
                 }
             }
@@ -314,6 +324,9 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             async {
+                registerTunnelConfigEvent(ktx)
+                registerBlockaConfigEvent(ctx.ktx("blockaConfigInit"))
+
                 engine.reloadConfig(ctx.ktx("load:persistence:after:start"), d.onWifi())
             }
         }

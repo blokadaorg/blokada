@@ -33,6 +33,7 @@ import org.acra.data.StringFormat
 import org.acra.sender.HttpSender
 import org.blokada.BuildConfig
 import org.blokada.R
+import tunnel.newRestApiModule
 
 
 /**
@@ -62,6 +63,8 @@ class MainApplication: Application(), KodeinAware {
         import(newPagesModule(this@MainApplication))
         import(newUpdateModule(this@MainApplication))
         import(newKeepAliveModule(this@MainApplication))
+        import(newBatteryModule(this@MainApplication))
+        import(newRestApiModule(this@MainApplication))
         import(newAppModule(this@MainApplication), allowOverride = true)
         import(newFlavorModule(this@MainApplication), allowOverride = true)
         import(newBuildTypeModule(this@MainApplication), allowOverride = true)

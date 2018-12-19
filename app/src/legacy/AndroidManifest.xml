@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name="core.MainApplication"
@@ -23,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/BlokadaColors.Main.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning"
+        android:networkSecurityConfig="@xml/whitelist_blokada"
         tools:replace="android:label">
+        <meta-data android:name="android.notch_support" android:value="true"/>
 
         <receiver
             android:name="core.BootReceiver"
@@ -54,6 +57,38 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="core.PanelActivity"
+            android:label="Blokada Panel"
+            android:launchMode="singleTask"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:theme="@style/BlokadaColors.Main.NoActionBar">
+            <meta-data android:name="android.notch_support" android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="core.StepActivity"
+            android:label="Blokada Steps"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentWindow">
+            <meta-data android:name="android.notch_support" android:value="true"/>
+        </activity>
+        <activity
+            android:name="core.SubscriptionActivity"
+            android:label="Blokada Subscription"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentWindow">
+            <meta-data android:name="android.notch_support" android:value="true"/>
         </activity>
         <activity
             android:name="core.PowersaveActivity"

@@ -1,7 +1,6 @@
 package tunnel
 
 import android.net.VpnService
-import android.system.OsConstants
 import core.Kontext
 import core.Result
 import java.net.Inet4Address
@@ -9,7 +8,10 @@ import java.net.Inet6Address
 import java.net.InetSocketAddress
 import java.util.*
 
-internal class VpnConfigurator(
+/**
+ * A VPN tunnel configuration that only redirects DNS requests.
+ */
+internal class DnsVpnConfigurator(
         private val dnsServers: List<InetSocketAddress>,
         private val filterManager: FilterManager
 ): Configurator {
@@ -87,6 +89,10 @@ internal class VpnConfigurator(
     }
 }
 
+/**
+ * A VPN tunnel configuration that forwards nothing to the tunnel.
+ * Used when functionality should be disabled, but the tunnel should be on.
+ */
 internal class PausedVpnConfigurator(
         private val dnsServers: List<InetSocketAddress>,
         private val filterManager: FilterManager
@@ -109,6 +115,46 @@ internal class PausedVpnConfigurator(
         Result.of { builder.addDisallowedApplication("com.android.vending") }
 
         builder.addAddress("203.0.113.0", 32)
+        builder.setBlocking(true)
+    }
+
+}
+
+/**
+ * A VPN configuration for the true VPN functionality (towards blocka.net).
+ */
+internal class BlockaVpnConfigurator(
+        private val dnsServers: List<InetSocketAddress>,
+        private val filterManager: FilterManager,
+        private val blockaConfig: BlockaConfig
+): Configurator {
+
+    override fun configure(ktx: Kontext, builder: VpnService.Builder) {
+        for (address in dnsServers) {
+            try {
+                builder.addDnsServer(address.getAddress())
+            } catch (e: Exception) {
+                ktx.e("failed adding dns server", e)
+            }
+        }
+
+        filterManager.getWhitelistedApps(ktx).forEach {
+            builder.addDisallowedApplication(it)
+        }
+
+        dnsServers.forEach {
+            builder.addDnsServer(it.address)
+        }
+
+        // TODO: support configurable ipv6 servers - this one is cloudflare
+        builder.addDnsServer("2606:4700:4700::1111")
+
+        builder.addAddress(blockaConfig.vip4, 32)
+        builder.addAddress(blockaConfig.vip6, 128)
+
+        builder.addRoute("0.0.0.0", 0)
+        builder.addRoute("::", 0)
+
         builder.setBlocking(true)
     }
 

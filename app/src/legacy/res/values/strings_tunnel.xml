@@ -10,7 +10,7 @@
 
     <string name="tunnel_dropped_count_desc">Displays the total number of hosts blocked so far.</string>
     <string name="tunnel_dropped_count">%d blocked</string>
-    <string name="tunnel_dropped_count2">%s blocked</string>
+    <string name="tunnel_dropped_count2">%s domains blocked</string>
 
     <string name="tunnel_config_refetch_now_title">Download lists</string>
     <string name="tunnel_config_refetch_now">Download lists now</string>

@@ -27,26 +27,6 @@
                 android:text="@string/update_button" />
 
             <Button
-                android:id="@+id/update_changelog"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:ellipsize="middle"
-                android:singleLine="true"
-                android:text="@string/main_changelog" />
-
-            <Button
-                android:id="@+id/update_credits"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:ellipsize="middle"
-                android:singleLine="true"
-                android:text="@string/main_credits" />
-
-            <Button
                 android:id="@+id/update_appinfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

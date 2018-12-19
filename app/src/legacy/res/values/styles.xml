@@ -7,17 +7,20 @@
         <item name="colorControlNormal">@color/colorActive</item>
         <item name="android:textColorPrimary">@color/colorText</item>
         <item name="android:textColorLink">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
         <item name="android:colorForeground">@color/colorActive</item>
     </style>
 
     <style name="BlokadaColors.Main">
-        <item name="android:windowBackground">@drawable/bg_window_nontransparent</item>
     </style>
 
     <style name="BlokadaColors.Main.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="BlokadaColors.Dialog" parent="Theme.AppCompat.Dialog">
@@ -66,7 +69,7 @@
         <item name="android:colorForeground">@color/colorActive</item>
     </style>
 
-    <style name="TransparentWindow">
+    <style name="TransparentWindow" parent="BlokadaColors.Dialog">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>

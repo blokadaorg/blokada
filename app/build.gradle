@@ -1,6 +1,8 @@
 buildscript {
     ext.kotlin_version = '1.2.41'
     ext.acraVersion = '5.1.3'
+    ext.retrofitVersion = '2.5.0'
+    ext.okhttpVersion = '3.14.0'
     repositories {
         mavenCentral()
         google()
@@ -11,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.gladed.androidgitversion' version '0.4.3'
+    id 'com.gladed.androidgitversion' version '0.4.7'
 }
 
 repositories {
@@ -29,9 +31,10 @@ androidGitVersion {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -42,7 +45,7 @@ android {
     defaultConfig {
         applicationId "org.blokada"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionName androidGitVersion.name()
         versionCode androidGitVersion.code()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -162,9 +165,9 @@ android {
 
 dependencies {
     // Android support libraries
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
 
     // Kotlin and its dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -179,11 +182,29 @@ dependencies {
     implementation 'org.pcap4j:pcap4j-core:1.7.0'
     implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.0'
     implementation 'dnsjava:dnsjava:2.1.8'
+    implementation 'org.slf4j:slf4j-nop:1.6.1'
 
     // UI libraries
     implementation('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
         transitive = true
     }
+    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
+    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'com.ramotion.foldingcell:folding-cell:1.2.2'
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:2.1.2'
+    implementation 'jp.wasabeef:blurry:3.0.0'
+
+    // REST api
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion"){
+        exclude module: 'okhttp'
+    }
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // Testing and debugging
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'

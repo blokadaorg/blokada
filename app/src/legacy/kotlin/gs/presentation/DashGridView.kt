@@ -49,7 +49,7 @@ class DashGridView(
 
 class DashAdapter(val ctx: Context) : RecyclerView.Adapter<DashViewHolder>() {
 
-    var items = listOf<Dash>()
+    var items = listOf<ViewBinder>()
         set(value) {
             field = value
             viewTypes = value.map { it to it::class.java.hashCode() }.toMap()
@@ -57,8 +57,8 @@ class DashAdapter(val ctx: Context) : RecyclerView.Adapter<DashViewHolder>() {
             notifyDataSetChanged()
         }
 
-    private var viewTypes = mapOf<Dash, Int>()
-    private var dashes = mapOf<Int, Dash>()
+    private var viewTypes = mapOf<ViewBinder, Int>()
+    private var dashes = mapOf<Int, ViewBinder>()
 
     override fun getItemViewType(position: Int): Int {
         val d = items[position]

@@ -17,19 +17,15 @@ import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.inject
-import gs.obsolete.Sync
 import gs.presentation.isWrongInstance
 import gs.property.Device
 import gs.property.IWhen
 import gs.property.Version
 import io.codetail.widget.RevealFrameLayout
-import kotlinx.coroutines.experimental.runBlocking
 import nl.komponents.kovenant.task
 import org.blokada.BuildConfig
 import org.blokada.R
-import tunnel.askTunnelPermission
 import tunnel.tunnelPermissionResult
-import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
@@ -143,7 +139,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             fab.layoutParams = lp
         }
 
-        staticContext.set(java.lang.ref.WeakReference(this))
+        activityRegister.register(this)
 
 //        val d = AWelcomeDialog(this, contentActor!!)
 //        listener13 = ui.seenWelcome.doOnUiWhenSet().then {
@@ -186,7 +182,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             j.log("Started main activity for askForPermissions permissions")
             task {
                 try {
-                    askPermissions()
+                    activityRegister.askPermissions()
                 } catch (e: Exception) {
                     t.active %= false
                 }
@@ -305,26 +301,26 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         return getBrandedString(resId)
     }
 
-    companion object {
-        var staticContext = Sync(WeakReference(null as Activity?))
-        fun askPermissions() {
-            val act = staticContext.get().get()
-            if (act == null) {
+//    companion object {
+//        var staticContext = Sync(WeakReference(null as Activity?))
+//        fun askPermissions() {
+//            val act = staticContext.get().get()
+//            if (act == null) {
 //                Log.e("blokada", "Trying to start main activity")
 //                val ctx: Context = globalKodein().instance()
 //                val intent = Intent(ctx, MainActivity::class.java)
 //                intent.putExtra("askPermissions", true)
 //                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 //                ctx.startActivity(intent)
-                throw Exception("starting MainActivity")
-            }
-
-            val deferred = askTunnelPermission(Kontext.new("static perm ask"), act)
-            runBlocking {
-                val response = deferred.await()
-                if (!response) { throw Exception("could not get tunnel permissions") }
-            }
-        }
+//                throw Exception("starting MainActivity")
+//            }
+//
+//            val deferred = askTunnelPermission(Kontext.new("static perm ask"), act)
+//            runBlocking {
+//                val response = deferred.await()
+//                if (!response) { throw Exception("could not get tunnel permissions") }
+//            }
+//        }
 
 //        fun share(id: String) {
 //            val act = staticContext.get().get() ?: throw Status.exception("activity not started")
@@ -336,7 +332,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 //                    "http://play.google.com/store/apps/details?id=${act.packageName}&referrer=${id}")
 //            act.startActivity(intent)
 //        }
-    }
+//    }
 }
 
 fun Context.getBrandedString(resId: Int): String {

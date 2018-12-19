@@ -7,12 +7,14 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import com.github.salomonbrys.kodein.instance
 import core.Product
 import gs.environment.ComponentProvider
 import gs.environment.Journal
 import gs.environment.inject
+import gs.presentation.LayoutViewBinder
 import gs.presentation.nullIfEmpty
 import nl.komponents.kovenant.task
 import nl.komponents.kovenant.ui.failUi
@@ -20,6 +22,50 @@ import nl.komponents.kovenant.ui.successUi
 import org.blokada.R
 import tunnel.Filter
 import tunnel.FilterSourceDescriptor
+
+class EditFilterDash(
+        private val filter: Filter? = null,
+        private var whitelist: Boolean = false
+) : LayoutViewBinder(R.layout.view_filtersadd) {
+
+    override fun attach(view: View) {
+        view as AFiltersAddView
+        view.showApp = whitelist
+        view.forceType = when {
+            filter?.source?.id == "link" -> AFiltersAddView.Tab.LINK
+            filter?.source?.id == "file" -> AFiltersAddView.Tab.FILE
+            filter?.source?.id == "single" -> AFiltersAddView.Tab.SINGLE
+            filter?.source?.id == "app" -> AFiltersAddView.Tab.APP
+            Product.current(view.context) == Product.DNS -> AFiltersAddView.Tab.APP
+            else -> null
+        }
+
+        if (filter != null) when (view.forceType) {
+            AFiltersAddView.Tab.SINGLE -> {
+                view.singleView.text = filter.source.source
+                view.singleView.comment = filter.customComment ?: ""
+            }
+            AFiltersAddView.Tab.LINK -> {
+                view.linkView.text = filter.source.source
+                view.linkView.correct = true
+                view.linkView.comment = filter.customComment ?: ""
+            }
+            AFiltersAddView.Tab.FILE -> {
+                val source = filter.source
+                view.fileView.uri = Uri.parse(source.source)
+                view.fileView.correct = true
+                view.fileView.comment = filter.customComment ?: ""
+            }
+            AFiltersAddView.Tab.APP -> {
+                view.appView.text = filter.source.source
+                view.appView.comment = filter.customComment ?: ""
+            }
+        }
+    }
+
+    override fun detach(view: View) {
+    }
+}
 
 /**
  * TODO: This poor thing needs love (like me)

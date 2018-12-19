@@ -17,12 +17,18 @@ import java.util.*
 import kotlin.math.min
 
 
-internal class Tunnel(
+interface Tunnel {
+    fun run(ktx: Kontext, tunnel: FileDescriptor)
+    fun runWithRetry(ktx: Kontext, tunnel: FileDescriptor)
+    fun stop(ktx: Kontext)
+}
+
+internal class DnsTunnel(
         private var proxy: Proxy,
         private val config: TunnelConfig,
         private val forwarder: Forwarder = Forwarder(),
-        private val loopback: Queue<ByteArray> = LinkedList()
-) {
+        private val loopback: Queue<Triple<ByteArray, Int, Int>> = LinkedList()
+) : Tunnel {
 
     private var device: FileDescriptor? = null
     private var error: FileDescriptor? = null
@@ -35,7 +41,7 @@ internal class Tunnel(
     private var packetBuffer = ByteArray(32767)
     private var datagramBuffer = ByteArray(1024)
 
-    fun run(ktx: Kontext, tunnel: FileDescriptor) {
+    override fun run(ktx: Kontext, tunnel: FileDescriptor) {
         ktx.v("running tunnel thread", this)
 
         val input = FileInputStream(tunnel)
@@ -83,7 +89,7 @@ internal class Tunnel(
         }
     }
 
-    fun runWithRetry(ktx: Kontext, tunnel: FileDescriptor) {
+    override fun runWithRetry(ktx: Kontext, tunnel: FileDescriptor) {
         var interrupted = false
         do {
             Result.of { run(ktx, tunnel) }.mapError {
@@ -100,7 +106,7 @@ internal class Tunnel(
         ktx.v("tunnel thread shutdown", this)
     }
 
-    fun stop(ktx: Kontext) {
+    override fun stop(ktx: Kontext) {
         ktx.v("stopping poll, if any")
         Result.of { Os.close(error) }
         error = null
@@ -160,7 +166,7 @@ internal class Tunnel(
                 val responsePacket = DatagramPacket(datagramBuffer, datagramBuffer.size)
                 Result.of {
                     rule.socket.receive(responsePacket)
-                    proxy.toDevice(ktx, datagramBuffer, rule.originEnvelope)
+                    proxy.toDevice(ktx, datagramBuffer, responsePacket.length, rule.originEnvelope)
                 }.onFailure { ktx.w("failed receiving socket", it) }
                 Result.of { rule.socket.close() }.onFailure { ktx.w("failed closing socket") }
             }
@@ -169,7 +175,8 @@ internal class Tunnel(
 
     private fun fromLoopbackToDevice(ktx: Kontext, device: StructPollfd, output: OutputStream) {
         if (device.isEvent(OsConstants.POLLOUT)) {
-            output.write(loopback.poll())
+            val (buffer, offset, length) = loopback.poll()
+            output.write(buffer, offset, length)
         }
     }
 
@@ -180,7 +187,7 @@ internal class Tunnel(
             if (length > 0) {
                 // TODO: nocopy
                 val readPacket = Arrays.copyOfRange(buffer, 0, length)
-                proxy.fromDevice(ktx, readPacket)
+                proxy.fromDevice(ktx, readPacket, length)
             }
         }
     }

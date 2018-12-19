@@ -44,6 +44,8 @@ class AFilterListView(
             refreshFilters()
         }
 
+    var onItemClick = { x: Int, y: Int, filter: Filter? -> }
+
     private var switchEnabled = true
     private val switchHandler = Handler {
         switchEnabled = true
@@ -127,6 +129,10 @@ class AFilterListView(
             } else {
                 (v.tag as AFilterActor).switchEnabled = switchEnabled
                 (v.tag as AFilterActor).filter = i
+            }
+
+            v.setOnClickListener {
+                onItemClick((v.x + v.width / 2).toInt(), (v.y + v.height / 2).toInt(), i)
             }
         }
 

@@ -1,22 +1,22 @@
 package core
 
 import android.content.Context
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.content.res.AppCompatResources.getColorStateList
 import android.util.AttributeSet
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import android.widget.ImageButton
 import gs.presentation.doAfter
-import gs.presentation.toPx
 import org.blokada.R
 
 class AFloaterView(
-        ctx: Context,
+        val ctx: Context,
         attributeSet: AttributeSet
-) : FloatingActionButton(ctx, attributeSet) {
+) : ImageButton(ctx, attributeSet) {
 
     var onClick = {}
+    private val colorsActive by lazy { getColorStateList(ctx, R.color.fab_active) }
 
     var icon: Int? = R.drawable.ic_power
         set(value) {
@@ -39,6 +39,8 @@ class AFloaterView(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
+        backgroundTintList = colorsActive
+        setColorFilter(ctx.resources.getColor(R.color.colorBackground))
         setOnClickListener {
             rotate(-20f, {
                 rotate(40f, {
@@ -54,13 +56,12 @@ class AFloaterView(
     private val inter2 = DecelerateInterpolator(3f)
     private val inter3 = AccelerateDecelerateInterpolator()
 
-    private fun toHide(after: () -> Unit) {
-        animate().setInterpolator(inter).setDuration(200).translationY(resources.toPx(100)
-                .toFloat()).doAfter(after)
+    fun toHide(after: () -> Unit) {
+        animate().setInterpolator(inter).setDuration(400).alpha(0f).doAfter(after)
     }
 
-    private fun fromHide(after: () -> Unit) {
-        animate().setInterpolator(inter2).setDuration(200).translationY(0f).doAfter(after)
+    fun fromHide(after: () -> Unit) {
+        animate().setInterpolator(inter2).setDuration(400).alpha(1f).doAfter(after)
     }
 
     private fun rotate(how: Float, after: () -> Unit) {

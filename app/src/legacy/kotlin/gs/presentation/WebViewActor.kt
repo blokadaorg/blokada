@@ -12,6 +12,9 @@ import android.view.ViewGroup
 import android.webkit.*
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
+import core.ListSection
+import core.Scrollable
+import core.SlotVB
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.LazyProvider
@@ -28,8 +31,31 @@ class WebDash(
         private val javascript: Boolean = false,
         private val big: Boolean = false,
         private val j: Journal = xx().instance(),
-        private val provider: LazyProvider<View> = xx().with("webview").instance()
-): CallbackDash {
+        private val provider: LazyProvider<View> = xx().with("webview").instance(),
+        private val small: Boolean = false,
+        private val onLoadSpecificUrl: Pair<String, () -> Unit>? = null
+): CallbackViewBinder, Scrollable, ListSection {
+
+    override val viewType = 43
+
+    override fun getScrollableView() = webView!!
+
+    override fun setOnScroll(onScrollDown: () -> Unit, onScrollUp: () -> Unit, onScrollStopped: () -> Unit) {
+    }
+
+    override fun setOnSelected(listener: (item: SlotVB?) -> Unit) = Unit
+
+    override fun scrollToSelected() = Unit
+
+    override fun selectNext() {
+        webView?.scrollBy(0, 100)
+    }
+
+    override fun selectPrevious() {
+        webView?.scrollBy(0, -100)
+    }
+
+    override fun unselect() = Unit
 
     override fun createView(ctx: Context, parent: ViewGroup): View {
         var v = provider.get()
@@ -37,7 +63,11 @@ class WebDash(
             // TODO: Dont use inflater
             val themedContext = ContextThemeWrapper(ctx, R.style.GsTheme_Dialog)
             // TODO: one instance for all
-            v = LayoutInflater.from(themedContext).inflate(R.layout.webview, parent, false)
+            v = LayoutInflater.from(themedContext).inflate(
+                    if (small) R.layout.webview_small
+                    else if (big) R.layout.webview_big
+                    else R.layout.webview
+                    , parent, false)
 //            provider.set(v)
         }
         return v!!
@@ -89,7 +119,10 @@ class WebDash(
 
         web.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                if (url.contains(url().host) || forceEmbedded) {
+                if (onLoadSpecificUrl != null && url.contains(onLoadSpecificUrl.first)) {
+                    onLoadSpecificUrl.second()
+                    return true
+                } else if (forceEmbedded || url.contains(url().host)) {
                     view.loadUrl(url)
                     return false
                 } else {
@@ -108,7 +141,8 @@ class WebDash(
             override fun onReceivedError(view: WebView?, request: WebResourceRequest?,
                                          error: WebResourceError?) {
                 val url = if (Build.VERSION.SDK_INT >= 21) request?.url?.toString() else null
-                handleError(url, Exception("onReceivedError $error"))
+                if (Build.VERSION.SDK_INT >= 23) handleError(url, Exception("onReceivedError: ${error?.errorCode} ${error?.description}"))
+                else handleError(url, Exception("onReceivedError: $error"))
             }
 
             override fun onReceivedError(view: WebView?, errorCode: Int,
@@ -147,7 +181,7 @@ class WebDash(
     }
 
     override fun detach(view: View) {
-        (view.parent as ViewGroup).removeView(view)
+        (view.parent as ViewGroup?)?.removeView(view)
         webView = null
         url.cancel(urlChanged)
         urlChanged = null
