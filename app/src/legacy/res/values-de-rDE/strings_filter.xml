@@ -61,13 +61,13 @@
   <!-- Forcefully refetch filters ignoring cache. -->
   <string name="filter_generate_refetch">Filter aktualisieren</string>
   <!-- Select save location for filters  -->
-  <string name="filter_generate_export">Importieren / Exportieren</string>
+  <string name="filter_generate_export">Importieren/ Exportieren</string>
   <!-- A button to open directory chooser to export settings to. -->
   <string name="filter_export_select">Wähle aus, wo die Einstellungen gespeichert werden sollen</string>
-  <string name="filter_export_error">Das ausgewählte Verzeichnis kann nicht verwendet werden. Überprüfen Sie die schreib Berechtigung.</string>
+  <string name="filter_export_error">Das ausgewählte Verzeichnis kann nicht verwendet werden. Überprüfen Sie die Schreibberechtigung des Verzeichnisses.</string>
   <string name="filter_export_import">Importieren von externem Speicher</string>
   <string name="filter_export_import2">Jetzt importieren</string>
-  <string name="filter_export_internal">Interner Speicher (standart)</string>
+  <string name="filter_export_internal">Interner Speicher (standard)</string>
   <string name="filter_export_external">Externer Speicher</string>
-  <string name="filter_export_external_info">Merke: Deine Auswahl betrifft die blacklist sowie die whitelist. Machen Sie sich sicher, dass Sie Blokada die Erlaubnis für den externen Speicher erteilt haben (in den system Einstellungen). Ansonsten wird der interne Speicher genutzt, egal welchen Speicher sie auswählen. Wenn Sie bereits existierende Einstellungen importieren wollen, tippen Sie auf jetzt importieren bevor Sie dieses Fenster schließen, ansonst werden die Einstellungen überschrieben.</string>
+  <string name="filter_export_external_info">Merke: Deine Auswahl betrifft die blacklist sowie die whitelist. Machen Sie sich sicher, dass Sie Blokada die Erlaubnis für den externen Speicher erteilt haben (in den Systemeinstellungen). Ansonsten wird der interne Speicher genutzt, egal welchen Speicher sie auswählen. Wenn Sie bereits existierende Einstellungen importieren wollen, tippen Sie auf jetzt importieren bevor Sie dieses Fenster schließen, ansonsten werden die Einstellungen überschrieben.</string>
 </resources>
