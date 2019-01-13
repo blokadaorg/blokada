@@ -1,6 +1,7 @@
 package tunnel
 
 import android.net.VpnService
+import android.system.OsConstants
 import core.Kontext
 import core.Result
 import java.net.Inet4Address
@@ -58,6 +59,10 @@ internal class VpnConfigurator(
             } catch (e: Exception) {
                 ktx.e("failed adding dns server", e)
             }
+        }
+        if (dnsServers.none { it is Inet6Address }) {
+            // If we add no IPv6 route or DNS server, all IPv6 access is otherwise blocked by default
+            builder.allowFamily(OsConstants.AF_INET6)
         }
 
         filterManager.getWhitelistedApps(ktx).forEach {
