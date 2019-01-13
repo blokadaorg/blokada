@@ -60,7 +60,7 @@ internal class VpnConfigurator(
                 ktx.e("failed adding dns server", e)
             }
         }
-        if (dnsServers.none { it is Inet6Address }) {
+        if (dnsServers.none { it.getAddress() is Inet6Address }) {
             // If we add no IPv6 route or DNS server, all IPv6 access is otherwise blocked by default
             builder.allowFamily(OsConstants.AF_INET6)
         }
