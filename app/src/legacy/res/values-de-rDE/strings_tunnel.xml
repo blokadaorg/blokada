@@ -14,7 +14,7 @@
   <string name="tunnel_dropped_count2">%s blockiert</string>
   <string name="tunnel_config_refetch_now_title">Listen downloaden</string>
   <string name="tunnel_config_refetch_now">Listen jetzt herunterladen</string>
-  <string name="tunnel_config_refetch_now_description">Verwenden den Button unten, um Cache zu leeren und Deine Listen erneut herunterzuladen. Dies kann helfen, wenn Du irgendwelche Probleme mit Deinen Filtern hast.</string>
+  <string name="tunnel_config_refetch_now_description">Verwende den Button unten, um Cache zu leeren und Deine Listen erneut herunterzuladen. Dies kann helfen, wenn Du irgendwelche Probleme mit Deinen Filtern hast.</string>
   <string name="tunnel_config_refetch_frequency_title">Listen download Rhytmus</string>
   <string name="tunnel_config_refetch_frequency_description">Wählen Sie eine der Optionen aus, um zu konfigurieren, wie oft die App Ihre Listen herunterladen soll.</string>
   <string name="tunnel_config_refetch_frequency_1">Einmal am Tag</string>
@@ -22,11 +22,11 @@
   <string name="tunnel_config_refetch_frequency_3">Einmal pro Woche</string>
   <string name="tunnel_config_refetch_frequency_4">Einmal im Monat</string>
   <string name="tunnel_config_wifi_only_title">Nur über WLAN herunterladen</string>
-  <string name="tunnel_config_wifi_only_description">Aktiviere des Einstellung, wenn die Listen nur über WLAN heruntergeladen werden sollen. Andernfalls kann die App auch Listen herunterladen, wenn Dein Gerät mit einem Mobilfunknetz verbunden ist und Deinen Datentarif verwendet.
+  <string name="tunnel_config_wifi_only_description">Aktiviere diese Einstellung, wenn die Listen nur über WLAN heruntergeladen werden sollen. Andernfalls kann die App auch Listen herunterladen, wenn Dein Gerät mit einem Mobilfunknetz verbunden ist und Deinen Datentarif verwendet.
 </string>
   <string name="tunnel_config_memory_capacity">%s kann in den Speicher passen.</string>
   <string name="tunnel_config_watchdog_title">Watchdog</string>
   <string name="tunnel_config_watchdog_description">Aktiviere diesen Schalter, wenn die App das VPN nur aktivieren soll, wenn eine aktive Internetverbindung besteht. Die Einstellung startet das VPN neu, falls Verbindungsprobleme auftreten. Dies kann für einige Geräte hilfreich sein. Hinweis: In früheren Versionen wurde diese Option \"Nur Online\" genannt.</string>
   <string name="tunnel_config_powersave_title">Aggressives Aufwachen.</string>
-  <string name="tunnel_config_powersave_description">Aktiviere diesen Schalter, wenn Probleme auftreten die durch die Powersave-Funktion des Geräts verursacht werden. Wenn die App Probleme mit der VPN feststellt, versucht sie die Priorität zu erhöhen, um den Energiesparmodus zu deaktivieren.</string>
+  <string name="tunnel_config_powersave_description">Aktiviere diesen Schalter, wenn Probleme auftreten, die durch die Powersave-Funktion des Geräts verursacht werden. Wenn die App Probleme mit dem VPN feststellt, versucht sie die Priorität zu erhöhen, um den Energiesparmodus zu deaktivieren.</string>
 </resources>
