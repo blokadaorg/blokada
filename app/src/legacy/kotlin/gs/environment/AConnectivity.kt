@@ -2,6 +2,7 @@ package gs.environment
 
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
+import org.pcap4j.packet.namednumber.UdpPort
 
 /**
  * Contains various utility functions related to connectivity on Android.
@@ -21,10 +22,10 @@ fun isTethering(ctx: android.content.Context, intent: android.content.Intent? = 
     return tethering
 }
 
-fun getDnsServers(ctx: android.content.Context): List<java.net.InetAddress> {
+fun getDnsServers(ctx: android.content.Context): List<java.net.InetSocketAddress> {
     var servers = if (android.os.Build.VERSION.SDK_INT >= 21) gs.environment.getDnsServersMethod1(ctx) else emptyList()
     if (servers.isEmpty()) servers = gs.environment.getDnsServersMethod2()
-    return servers
+    return servers.map { java.net.InetSocketAddress(it, UdpPort.DOMAIN.valueAsInt()) }
 }
 
 fun isWifi(ctx: android.content.Context): Boolean {

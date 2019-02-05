@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <core.DnsAddView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
@@ -21,9 +22,8 @@
             android:id="@+id/filter_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dns_edit_name_placeholder"
-            android:digits="0123456789."
-            android:inputType="numberSigned|numberDecimal" />
+            android:digits="0123456789.:"
+            android:hint="@string/dns_edit_name_placeholder" />
 
         <TextView
             android:layout_width="match_parent"
