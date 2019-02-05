@@ -28,4 +28,6 @@
     <string name="tunnel_config_watchdog_description">Activate this switch if you wish the app to activate the VPN only if there is Internet connectivity, and restart the tunnel in case there are connectivity problems. This may help for some devices. Note: in earlier versions this option was called "Online Only".</string>
     <string name="tunnel_config_powersave_title">Aggressive wakeup</string>
     <string name="tunnel_config_powersave_description">Activate this switch if you experience problems caused by your device powersave feature. When the app detects tunnel connectivity problems, it will attempt raise its priority to bring it out of the powersaving mode.</string>
+    <string name="tunnel_config_reports_title">Reports</string>
+    <string name="tunnel_config_reports_description">Activate this switch to allow the app to send reports helping us fix problems and bugs. This will happen only once per day, or when the app crashes. Disabling this may make it hard for us to solve any problems you may be experiencing. You may need to restart the app for this setting to take effect.</string>
 </resources>

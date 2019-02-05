@@ -31,6 +31,7 @@ class TunnelConfigView(
     val watchdogOn by lazy { ctx.inject().instance<Device>().watchdogOn }
     val keepAlive by lazy { ctx.inject().instance<KeepAlive>().keepAlive }
     val autostart by lazy { ctx.inject().instance<core.Tunnel>().startOnBoot }
+    val reports by lazy { ctx.inject().instance<Device>().reports }
 
     var onRefreshClick = {}
     var onNewConfig = { config: TunnelConfig -> }
@@ -43,6 +44,7 @@ class TunnelConfigView(
     private val frequency4Button by lazy { findViewById<Button>(R.id.frequency_4) }
     private val wifiOnlySwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_wifi_only) }
     private val watchdogSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_watchdog) }
+    private val reportsSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_reports) }
     private val powersaveSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_powersave) }
     private val keepAliveSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_keepalive) }
     private val autoStartSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_autostart) }
@@ -55,6 +57,8 @@ class TunnelConfigView(
             config = config.copy(wifiOnly = isChecked) }
         watchdogSwitch.setOnCheckedChangeListener { _, isChecked ->
             watchdogOn %= isChecked }
+        reportsSwitch.setOnCheckedChangeListener { _, isChecked ->
+            reports %= isChecked }
         powersaveSwitch.setOnCheckedChangeListener { _, isChecked ->
             config = config.copy(powersave = isChecked) }
         keepAliveSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -95,6 +99,10 @@ class TunnelConfigView(
             watchdogSwitch.isChecked = watchdogOn()
         }
 
+        reports.doOnUiWhenSet().then {
+            reportsSwitch.isChecked = reports()
+        }
+
         autostart.doOnUiWhenSet().then {
             autoStartSwitch.isChecked = autostart()
         }
@@ -109,6 +117,7 @@ class TunnelConfigView(
         wifiOnlySwitch.isChecked = config.wifiOnly
         status.text = context.resources.getString(R.string.tunnel_hosts_count2, 0.toString())
         watchdogSwitch.isChecked = watchdogOn()
+        reportsSwitch.isChecked = reports()
         powersaveSwitch.isChecked = config.powersave
     }
 

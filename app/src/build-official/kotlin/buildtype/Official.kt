@@ -30,13 +30,17 @@ fun newBuildTypeModule(ctx: Context): Kodein.Module {
 
             // I assume this will happen at least once a day
             d.screenOn.doWhenChanged().then {
-                e.lastDailyMillis.refresh()
-                e.lastActiveMillis.refresh()
+                if (d.reports()) {
+                    e.lastDailyMillis.refresh()
+                    e.lastActiveMillis.refresh()
+                }
             }
 
             // This will happen when loading the app to memory
-            e.lastDailyMillis.refresh()
-            e.lastActiveMillis.refresh()
+            if (d.reports()) {
+                e.lastDailyMillis.refresh()
+                e.lastActiveMillis.refresh()
+            }
         }
     }
 }

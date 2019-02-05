@@ -122,7 +122,9 @@ class MainApplication: Application(), KodeinAware {
         dialog.setResCommentPrompt(R.string.main_report_comment)
         dialog.setResTheme(R.style.GsTheme_Dialog)
         dialog.setResIcon(R.drawable.ic_blokada)
-        ACRA.init(this, builder)
+
+        val d: Device = kodein.instance()
+        if (d.reports()) ACRA.init(this, builder)
     }
 
     private fun setRestartAppOnCrash() {

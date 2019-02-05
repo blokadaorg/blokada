@@ -23,6 +23,7 @@ abstract class Device {
     abstract val tethering: IProperty<Boolean>
     abstract val watchdogOn: IProperty<Boolean>
     abstract val onWifi: IProperty<Boolean>
+    abstract val reports: IProperty<Boolean>
 
     fun isWaiting(): Boolean {
         return !connected()
@@ -52,6 +53,10 @@ class DeviceImpl (
             { false })
 
     override val onWifi = newProperty(kctx, { isWifi(ctx) } )
+
+    override val reports = newPersistedProperty(kctx, BasicPersistence(xx, "reports"),
+            { true }
+    )
 
 }
 
