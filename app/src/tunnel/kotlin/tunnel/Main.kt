@@ -82,7 +82,7 @@ class Main(
                 connector = ServiceConnector(onVpnClose, onConfigure = { ktx, vpn ->
                     configurator.configure(ktx, vpn)
                     onVpnConfigure(ktx, vpn)
-                    0L
+                    5000L
                 })
                 currentServers = servers
 
