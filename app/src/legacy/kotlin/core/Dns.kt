@@ -153,8 +153,28 @@ class DnsImpl(
         d.connected.doOnUiWhenSet().then {
             dnsServers.refresh()
         }
+
+        dnsServers.doWhenChanged(withInit = true).then {
+            val current = dnsServers()
+            if (isLocalServers(current)) {
+                dnsServers %= listOf(
+                        InetSocketAddress("1.1.1.1", 53),
+                        InetSocketAddress("1.0.0.1", 53)
+                )
+                "dns".ktx().w("local DNS detected, setting CloudFlare as workaround")
+            }
+        }
     }
 
+    private fun isLocalServers(servers: List<InetSocketAddress>): Boolean {
+        return when {
+            servers.isEmpty() -> true
+            servers.first().address.isLinkLocalAddress -> true
+            servers.first().address.isSiteLocalAddress -> true
+            servers.first().address.isLoopbackAddress -> true
+            else -> false
+        }
+    }
 }
 
 data class DnsChoice(
