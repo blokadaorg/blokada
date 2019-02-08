@@ -22,6 +22,7 @@ import gs.property.IWhen
 import gs.property.newDeviceModule
 import gs.property.newUserModule
 import io.paperdb.Paper
+import kotlinx.coroutines.experimental.launch
 import org.acra.ACRA
 import org.acra.ReportField
 import org.acra.config.CoreConfigurationBuilder
@@ -68,14 +69,16 @@ class MainApplication: Application(), KodeinAware {
 
     override fun onCreate() {
         super.onCreate()
+        Paper.init(this)
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
         setRestartAppOnCrash()
-        Paper.init(this)
     }
 
-    override fun attachBaseContext(base: Context?) {
+    override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
+        Paper.init(this)
+
         val builder = CoreConfigurationBuilder(this)
         builder.setBuildConfigClass(BuildConfig::class.java).setReportFormat(StringFormat.JSON)
         builder.setLogcatArguments("-t", "600", "-v", "threadtime")
@@ -123,8 +126,10 @@ class MainApplication: Application(), KodeinAware {
         dialog.setResTheme(R.style.GsTheme_Dialog)
         dialog.setResIcon(R.drawable.ic_blokada)
 
-        val d: Device = kodein.instance()
-        if (d.reports()) ACRA.init(this, builder)
+        launch {
+            val d: Device = kodein.instance()
+            if (d.reports()) ACRA.init(this@MainApplication, builder)
+        }
     }
 
     private fun setRestartAppOnCrash() {
