@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.instance
+import core.Dns
 import core.Format
 import core.KeepAlive
 import core.ktx
@@ -32,6 +33,7 @@ class TunnelConfigView(
     val keepAlive by lazy { ctx.inject().instance<KeepAlive>().keepAlive }
     val autostart by lazy { ctx.inject().instance<core.Tunnel>().startOnBoot }
     val reports by lazy { ctx.inject().instance<Device>().reports }
+    val fallback by lazy { ctx.inject().instance<Dns>().fallback }
 
     var onRefreshClick = {}
     var onNewConfig = { config: TunnelConfig -> }
@@ -48,6 +50,7 @@ class TunnelConfigView(
     private val powersaveSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_powersave) }
     private val keepAliveSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_keepalive) }
     private val autoStartSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_autostart) }
+    private val fallbackSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_fallback) }
     private val status by lazy { findViewById<TextView>(R.id.status) }
 
     override fun onFinishInflate() {
@@ -65,6 +68,8 @@ class TunnelConfigView(
             keepAlive %= isChecked }
         autoStartSwitch.setOnCheckedChangeListener { _, isChecked ->
             autostart %= isChecked }
+        fallbackSwitch.setOnCheckedChangeListener { _, isChecked ->
+            fallback %= isChecked }
 
         listOf(frequency1Button, frequency2Button, frequency3Button, frequency4Button).forEach {
             it.setOnClickListener { config = config.copy(cacheTTL = idToTtl(it.id)) }
@@ -110,6 +115,10 @@ class TunnelConfigView(
         keepAlive.doOnUiWhenSet().then {
             keepAliveSwitch.isChecked = keepAlive()
         }
+
+        fallback.doOnUiWhenSet().then {
+            fallbackSwitch.isChecked = fallback()
+        }
     }
 
     private fun syncView() {
@@ -119,6 +128,7 @@ class TunnelConfigView(
         watchdogSwitch.isChecked = watchdogOn()
         reportsSwitch.isChecked = reports()
         powersaveSwitch.isChecked = config.powersave
+        fallbackSwitch.isChecked = fallback()
     }
 
     private fun ttlToString(ttl: Long) = when(ttl) {

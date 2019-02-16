@@ -76,6 +76,7 @@ fun newDnsModule(ctx: Context): Kodein.Module {
 abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
     abstract val dnsServers: IProperty<List<InetSocketAddress>>
+    abstract val fallback: IProperty<Boolean>
 }
 
 class DnsImpl(
@@ -142,6 +143,8 @@ class DnsImpl(
         else d?.servers!!
     })
 
+    override val fallback = newPersistedProperty(w, BasicPersistence(xx, "dnsFallback"), { true })
+
     init {
         pages.dns.doWhenSet().then {
             choices.refresh()
@@ -156,7 +159,7 @@ class DnsImpl(
 
         dnsServers.doWhenChanged(withInit = true).then {
             val current = dnsServers()
-            if (isLocalServers(current)) {
+            if (fallback() && isLocalServers(current)) {
                 dnsServers %= listOf(
                         InetSocketAddress("1.1.1.1", 53),
                         InetSocketAddress("1.0.0.1", 53)
