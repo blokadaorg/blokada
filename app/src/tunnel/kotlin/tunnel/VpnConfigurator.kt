@@ -60,10 +60,6 @@ internal class VpnConfigurator(
                 ktx.e("failed adding dns server", e)
             }
         }
-        if (dnsServers.none { it.getAddress() is Inet6Address }) {
-            // If we add no IPv6 route or DNS server, all IPv6 access is otherwise blocked by default
-            builder.allowFamily(OsConstants.AF_INET6)
-        }
 
         filterManager.getWhitelistedApps(ktx).forEach {
             builder.addDisallowedApplication(it)
