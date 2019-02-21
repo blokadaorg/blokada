@@ -29,4 +29,8 @@
 Nota: em versões anteriores esta opção era chamada de \"Apenas Online\".</string>
     <string name="tunnel_config_powersave_title">Despertar agressivo</string>
     <string name="tunnel_config_powersave_description">Ative esta opção se você tiver problemas causados pelo recurso de economia de energia do seu dispositivo. Quando o aplicativo detectar problemas de conectividade do túnel, ele tentará aumentar sua prioridade para tirá-lo do modo de economia de energia.</string>
+    <string name="tunnel_config_reports_title">Relatórios</string>
+    <string name="tunnel_config_reports_description">Ative essa opção para permitir que o aplicativo envie relatórios, nos ajudando a resolver problemas e bugs. Isto acontecerá somente uma vez por dia, ou quando o app parar de funcionar. Desabilitar isso pode tornar difícil para nós resolvermos quaisquer problemas que você possa estar enfrentando. Talvez você precise reiniciar o aplicativo para que essa configuração tenha efeito.</string>
+    <string name="tunnel_config_fallback_title">Recuar DNS</string>
+    <string name="tunnel_config_fallback_description">Ative essa opção se você estiver perdendo o acesso à Internet em algumas situações, como seu Wi-Fi. Isto fará o app alternar temporariamente para o DNS do Cloudflare, para sustentar sua conectividade. Talvez você precise selecionar novamente seus servidores na seção de DNS para que essa configuração tenha efeito.</string>
 </resources>

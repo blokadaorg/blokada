@@ -53,7 +53,7 @@
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">Comparteix el registre</string>
     <string name="main_report_title">Informe del Blokada</string>
-    <string name="main_report_text">Blokada ha experimentat un problema (o heu sol·licitat enviar un informe). S\'adjuntarà un registre que pot contenir informació privada. Només els insiders de confiança podran llegir el vostre informe i se suprimirà un cop ja no sigui necessari.</string>
+    <string name="main_report_text">El Blokada ha experimentat un problema (o heu sol·licitat enviar un informe). S\'adjuntarà un registre que pot contenir informació privada. Només els insiders de confiança podran llegir el vostre informe i se suprimirà un cop ja no sigui necessari.</string>
     <string name="main_report_comment">Es prioritzen els informes amb comentaris. Què vau fer abans que es produís el problema?</string>
     <string name="main_report_limit">S\'ha arribat al límit de l\'informe. Estigueu atents per rebre actualitzacions. Gràcies pels vostres suggeriments!</string>
     <!-- To display a big number in short way, eg. 1.69 million -->

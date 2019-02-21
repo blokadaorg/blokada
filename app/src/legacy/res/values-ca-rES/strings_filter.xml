@@ -67,5 +67,5 @@
     <string name="filter_export_import2">Importa ara</string>
     <string name="filter_export_internal">Emmagatzematge intern (per defecte)</string>
     <string name="filter_export_external">Emmagatzematge extern</string>
-    <string name="filter_export_external_info">Nota: la vostra elecció s\'aplica a la llista negra i a la llista blanca. Assegureu-vos que heu concedit permisos d\'emmagatzematge externs per a Blokada (en la configuració del sistema), en cas contrari es farà servir l\'emmagatzematge intern a pesar de la vostra elecció. Si esteu important la configuració existent, toqueu Importa ara abans de tancar aquesta finestra o se sobreescriuran.</string>
+    <string name="filter_export_external_info">Nota: la vostra elecció s\'aplica a la llista negra i a la llista blanca. Assegureu-vos que heu concedit permisos d\'emmagatzematge externs per al Blokada (en la configuració del sistema), en cas contrari es farà servir l\'emmagatzematge intern a pesar de la vostra elecció. Si esteu important la configuració existent, toqueu Importa ara abans de tancar aquesta finestra o se sobreescriuran.</string>
 </resources>

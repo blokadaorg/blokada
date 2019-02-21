@@ -30,4 +30,6 @@
     <string name="tunnel_config_powersave_description">Akkor kapcsold be ezt a kapcsolót, ha olyan problémák merülnek fel, amelyeket az eszközöd energiatakarékos módja okozott. Amikor az alkalmazás alagút kapcsolódási problémát észlel, akkor megpróbálja növelni annak prioritását, hogy elkerülje az energiatakarékos módot.</string>
     <string name="tunnel_config_reports_title">Jelentések</string>
     <string name="tunnel_config_reports_description">Aktiváld ezt a kapcsolót, hogy lehetővé tedd az alkalmazás számára a jelentések küldését, amelyek segítenek megoldani a problémákat és a hibákat. Ez naponta egyszer történik meg, vagy amikor az alkalmazás összeomlik. Ennek letiltása megnehezítheti számunkra a felmerülő problémák megoldását. Lehet, hogy újra kell indítanod az alkalmazást, hogy ez a beállítás érvénybe léphessen.</string>
+    <string name="tunnel_config_fallback_title">DNS megkerülés</string>
+    <string name="tunnel_config_fallback_description">Ezt a kapcsolót akkor aktiváld, ha bizonyos helyzetekben elveszíted az internet-hozzáférést, például a Wi-Fi-t. Ezzel az alkalmazás ideiglenesen átkapcsol a Cloudflare DNS-re a kapcsolat fenntartásához. Előfordulhat, hogy a beállítás aktiválásához a DNS szakaszban újra ki kell választanod a kiszolgálókat.</string>
 </resources>

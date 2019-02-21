@@ -28,4 +28,5 @@
     <string name="tunnel_config_watchdog_description">Aktivizējiet šo slēdzi, ja vēlaties, lai lietotne aktivizētu VPN tikai tad, kad ir pieejams aktīvs interneta savienojums, un restartētu tuneli gadījumā, ja ir problēmas ar savienojumu. Dažām ierīcēm šis var palīdzēt. Piezīme: iepriekšējās versijās šo iestatījumu sauca \"Tikai tiešsaitē\".</string>
     <string name="tunnel_config_powersave_title">Agresīva pamodināšana</string>
     <string name="tunnel_config_powersave_description">Aktivizējiet šo slēdzi, ja saskaraties ar problēmām, ko izraisa sistēmas enerģijas taupīšanas funkcija. Kad lietotne konstatēs tuneļa savienojuma problēmas, tā mēģinās paaugstināt prioritāti, lai to neietekmētu enerģijas taupīšana funkcija.</string>
+    <string name="tunnel_config_reports_title">Ziņojumi</string>
 </resources>

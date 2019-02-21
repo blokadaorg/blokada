@@ -51,6 +51,7 @@
     <!-- A menu option to open credits screen -->
     <string name="main_credits">Credits</string>
     <!-- An overlay header on top of Patron page -->
+    <string name="main_patron_overlay">Als Blokada Gemeenschap vinden we veelbelovende nieuwe projecten en helpen ze te groeien. Deel alstublieft!</string>
     <string name="main_log">Deel log</string>
     <string name="main_report_title">Blokada Verslag</string>
     <string name="main_report_text">Blokada heeft een probleem ervaren (of u verzocht om een verslag te sturen). Een logboek wordt gekoppeld dat persoonlijke informatie kan bevatten. Alleen vertrouwde Insiders zal zitten kundig voor uw verslag gelezen, en het zal worden geschrapt zodra het niet meer nodig is.</string>

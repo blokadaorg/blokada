@@ -28,4 +28,8 @@
     <string name="tunnel_config_watchdog_description">Kích hoạt công tắc này nếu bạn muốn ứng dụng bắt đầu kết nối VPN chỉ khi có mạng Internet, và khởi động lại kết nối khi có vấn đề mạng. Cách này có thể giúp một số thiết bị. Lưu ý: ở những phiên bản trước tùy chọn này được gọi là \"Chỉ khi có mạng\".</string>
     <string name="tunnel_config_powersave_title">Chặn quyết liệt</string>
     <string name="tunnel_config_powersave_description">Kích hoạt công tắc này nếu bạn đang gặp vấn đề với trình tiết kiệm pin trên thiết bị. Khi ứng dụng phát hiện vấn đề kết nối, nó sẽ cố gắng tăng mức ưu tiên để ra khỏi chế độ tiết kiệm pin.</string>
+    <string name="tunnel_config_reports_title">Báo cáo</string>
+    <string name="tunnel_config_reports_description">Kích hoạt lựa chọn này để cho phép ứng dụng gửi những báo cáo giúp chúng tôi sửa các vấn đề và lỗi. Điều này sẽ chỉ xảy ra một lần mỗi ngày, hoặc khi ứng dụng bị thoát đột ngột. Không kích hoạt lựa chọn này có thể làm cho việc sửa những lỗi bạn đang gặp trở nên khó khăn hơn. Bạn có thể sẽ cần khởi động lại ứng dụng để cài đặt này có hiệu lực.</string>
+    <string name="tunnel_config_fallback_title">DNS dự phòng</string>
+    <string name="tunnel_config_fallback_description">Kích hoạt lựa chọn này nếu bạn đang mất kết nối Internet trong một số trường hợp, chẳng hạn như WiFi của bạn. Lựa chọn này sẽ làm cho ứng dụng tạm thời chuyển sang Cloudflare DNS để duy trì kết nối. Bạn có thể sẽ cần phải chọn lại máy chủ của bạn trong mục DNS để cài đặt này có hiệu lực.</string>
 </resources>

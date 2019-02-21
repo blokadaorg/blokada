@@ -59,5 +59,10 @@
     <!-- Forcefully refetch filters ignoring cache. -->
     <string name="filter_generate_refetch">Actualizar filtros</string>
     <!-- Select save location for filters  -->
+    <string name="filter_generate_export">Importar/exportar</string>
     <!-- A button to open directory chooser to export settings to. -->
+    <string name="filter_export_import">Importar desde o almacenamento externo</string>
+    <string name="filter_export_import2">Importar agora</string>
+    <string name="filter_export_internal">Almacenamento interno (predefinido)</string>
+    <string name="filter_export_external">Almacenamento externo</string>
 </resources>

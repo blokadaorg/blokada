@@ -26,12 +26,15 @@
     <string name="filter_edit_link">Link</string>
     <string name="filter_edit_link_enter">Vul link naar hosts bestand in</string>
     <!-- An example format of a link to hosts file. -->
+    <string name="filter_edit_link_placeholder">http://voorbeeld.com/hosts.txt</string>
     <string name="filter_edit_link_error">De link kan niet gedownload worden of lijkt geen hosts te bevatten</string>
     <!-- Name of a tab that allows to whitelist app. -->
     <string name="filter_edit_app">Applicatie</string>
     <string name="filter_edit_app_enter">Vul de naam van de app of het pakket in</string>
     <!-- An example package name of app to whitelist. -->
+    <string name="filter_edit_app_placeholder">Google Play Store</string>
     <string name="filter_edit_app_error">Deze app bestaat niet of kan niet op de witte lijst geplaatst worden.</string>
+    <string name="filter_edit_app_unsupported">(niet ondersteund door standaard blokkering)</string>
     <string name="filter_edit_save">Opslaan</string>
     <string name="filter_edit_cancel">Annuleren</string>
     <string name="filter_edit_do">Doorgaan</string>
