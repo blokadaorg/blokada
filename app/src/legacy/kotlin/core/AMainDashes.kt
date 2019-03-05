@@ -19,6 +19,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.acra.ACRA
 import org.blokada.R
+import tunnel.DnsConfigView
 import tunnel.TunnelConfigView
 import java.net.URL
 
@@ -269,6 +270,29 @@ class SettingsDash(
             t.reloadConfig(ctx.ktx("tunnelDash:config:new"), d.onWifi())
         }
         configView?.config = tunnel.Persistence.config.load("tunnelDash:config:load".ktx())
+        return configView!!
+    }
+}
+
+class DnsSettingsDash(
+        val ctx: Context,
+        val d: gs.property.Device = ctx.inject().instance()
+) : Dash(
+        "main_settings_dns",
+        icon = R.drawable.ic_tune,
+        text = ctx.getString(R.string.main_settings_text),
+        hasView = true
+) {
+
+    override fun createView(parent: Any): Any? {
+        return createConfigView(parent as ViewGroup)
+    }
+
+    private var configView: DnsConfigView? = null
+
+    private fun createConfigView(parent: ViewGroup): DnsConfigView {
+        val ctx = parent.context
+        configView = LayoutInflater.from(ctx).inflate(R.layout.view_dns_config, parent, false) as DnsConfigView
         return configView!!
     }
 }

@@ -19,6 +19,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                 DashFilterWhitelist(ctx).activate(true),
                 NotificationDashKeepAlive(ctx).activate(true),
                 AutoStartDash(ctx).activate(true),
+                DnsSettingsDash(ctx).activate(true),
                 PatronDash(lazy).activate(false),
                 PatronAboutDash(lazy).activate(false),
                 DonateDash(lazy).activate(false),
