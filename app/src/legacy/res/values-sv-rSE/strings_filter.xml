@@ -67,7 +67,7 @@
     <string name="filter_export_import2">Importera nu</string>
     <string name="filter_export_internal">Intern minnesplats (förvald)</string>
     <string name="filter_export_external">Extern minnesplats</string>
-    <string name="filter_export_external_info">Obs! Detta gäller både för svartlistan och vitlistan. Se till att tillräckligt med rättigheter för tillgång till den externa minnesplatsen finns för Blokada (i systeminställningarna). Om inte, så väljs det interna utrymmet istället, oavsett ditt val.
+    <string name="filter_export_external_info">"Obs! Detta gäller både för svartlistan och vitlistan. Se till att tillräckligt med rättigheter för tillgång till den externa minnesplatsen finns för Blokada (i systeminställningarna). Om inte, så väljs det interna utrymmet istället, oavsett ditt val.
 
-Om inställningarna redan existerar, välj först Importera nu, innan du stänger fönstret, annars skrivs de över.</string>
+Om inställningarna redan existerar, välj först Importera nu, innan du stänger fönstret, annars skrivs de över."</string>
 </resources>

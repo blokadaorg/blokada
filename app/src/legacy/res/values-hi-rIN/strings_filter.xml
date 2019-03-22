@@ -61,7 +61,11 @@
     <!-- Select save location for filters  -->
     <string name="filter_generate_export">आयात / निर्यात</string>
     <!-- A button to open directory chooser to export settings to. -->
+    <string name="filter_export_select">चयन करें कि कहां सेटिंग्स सहेजी जानी चाहिए</string>
     <string name="filter_export_error">चयनित निर्देशिका का उपयोग नहीं किया जा सकता है। लिखने की अनुमति जांचें।</string>
     <string name="filter_export_import">बाह्य भंडारण से आयात करें</string>
     <string name="filter_export_import2">अभी आयात करें</string>
+    <string name="filter_export_internal">आंतरिक संग्रहण (डिफ़ॉल्ट)</string>
+    <string name="filter_export_external">बाह्य संग्रहण</string>
+    <string name="filter_export_external_info">नोट: अपनी पसंद ब्लैकलिस्ट और श्वेत सूची दोनों पर लागू होता है । सुनिश्चित करें कि आप ब्लोकडा के लिए बाह्य भंडारण अनुमति प्रदान की है (सिस्टम सेटिंग्स में), अन्यथा आंतरिक भंडारण अपनी पसंद के बावजूद इस्तेमाल किया जाएगा । यदि आप मौजूदा सेटिंग को आयात कर रहे हैं, तो इस विंडो को बंद करने से पहले अब आयात करें पर टैप कर देंगे, या वे अधिलेखित हो जाएंगे ।</string>
 </resources>

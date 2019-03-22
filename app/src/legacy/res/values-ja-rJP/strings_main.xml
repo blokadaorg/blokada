@@ -30,6 +30,8 @@
     <string name="main_status_error">問題が発生しました</string>
     <string name="main_faq_text">ヘルプ</string>
     <string name="main_donate_text">寄付する</string>
+    <string name="main_blog_text">ニュース</string>
+    <string name="main_settings_text">詳細設定</string>
     <string name="main_autostart_text">起動時に実行</string>
     <!-- A menu option to send feedback or contact us -->
     <string name="main_feedback_text">フィードバック</string>

@@ -30,4 +30,6 @@
     <string name="tunnel_config_powersave_description">Aktifkan suis ini jika anda mengalami masalah yang disebabkan oleh ciri penjimatan tenaga oleh peranti anda. Apabila aplikasi mengesan masalah sambungan tunnel, ia akan cuba meningkatkan keutamaannya untuk membawanya keluar dari fungsi penjimatan tenaga.</string>
     <string name="tunnel_config_reports_title">Laporan</string>
     <string name="tunnel_config_reports_description">Aktifkan suis ini untuk membenarkan aplikasi menghantar laporan yang membantu kami menyelesaikan masalah dan pepijat. Ini akan berlaku hanya sekali sehari, atau apabila aplikasi rosak. Menyahaktifkan fungsi ini akan menyebabkan kesukaran bagi kami untuk menyelesaikan sebarang masalah yang mungkin dialami oleh anda. Anda mungkin perlu memulakan semula aplikasi untuk tetapan ini berfungsi.</string>
+    <string name="tunnel_config_fallback_title">DNS fallback</string>
+    <string name="tunnel_config_fallback_description">Aktifkan suis ini jika anda kehilangan akses Internet di dalam sesetengah keadaan, seperti WiFi anda. Ini akan membuat aplikasi beralih sementara ke DNS Cloudflare untuk mengekalkan sambungan anda. Anda mungkin perlu untuk memilih semula pelayan anda di bahagian DNS untuk seting ini berkesan.</string>
 </resources>

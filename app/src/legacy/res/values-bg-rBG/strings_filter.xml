@@ -27,7 +27,7 @@
     <string name="filter_edit_link_enter">Въведете връзка към хост файла</string>
     <!-- An example format of a link to hosts file. -->
     <string name="filter_edit_link_placeholder">http://example.com/hosts.txt</string>
-    <string name="filter_edit_link_error">Тази връзка не може да бъде изтеглена или изглежда не съдържа хостове.</string>
+    <string name="filter_edit_link_error">От тази връзка не може да бъде изтеглено или изглежда не съдържа хостове.</string>
     <!-- Name of a tab that allows to whitelist app. -->
     <string name="filter_edit_app">Приложение</string>
     <string name="filter_edit_app_enter">Въведете името на приложението или името на пакета</string>

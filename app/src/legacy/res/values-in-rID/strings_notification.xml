@@ -5,10 +5,11 @@
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Diblokir</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
-    <string name="notification_blocked_off">Jangan tunjukkan</string>
+    <string name="notification_blocked_off">Jangan tampilkan</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
-    <string name="notification_blocked_whitelist">Daftar putih</string>
+    <string name="notification_blocked_whitelist">Whitelist</string>
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
     <string name="notification_blocked_whitelist_applied">Selesai! Perubahan mungkin membutuhkan waktu beberapa detik.</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -16,9 +17,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_enabled">%s sekarang akan menampilkan pemberitahuan setiap kali ada sesuatu yang diblokir.</string>
     <string name="notification_keepalive_text">Tetap hidupkan</string>
-    <string name="notification_keepalive_description">Aktifkan tombol ini jika Anda mengalami masalah dengan aplikasi yang tetap aktif. Aplikasi ini akan mengaktifkan notifikasi permanen yang mencegah sistem operasi mematikan aplikasi.</string>
+    <string name="notification_keepalive_description">Aktifkan switch ini jika Anda mengalami masalah dengan aplikasi yang tidak bisa tetap aktif. Blokada akan mengaktifkan notifikasi permanen yang mencegah sistem operasi mematikan aplikasi.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_disabled">%s tidak dilindungi dari penghematan baterai atau memori lagi.</string>
+    <string name="notification_keepalive_disabled">%s tidak lagi dilindungi dari penghematan baterai atau memori.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_enabled">%s sekarang akan melindungi dirinya sendiri dari dinonaktifkan oleh sistem operasi.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -26,5 +27,5 @@
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">Terakhir: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
-    <string name="notification_keepalive_none">pemantauan</string>
+    <string name="notification_keepalive_none">memantau</string>
 </resources>

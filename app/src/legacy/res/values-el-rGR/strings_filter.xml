@@ -50,5 +50,7 @@
     <!-- Deletes all filters and fetches default ones. -->
     <!-- Forcefully refetch filters ignoring cache. -->
     <!-- Select save location for filters  -->
+    <string name="filter_generate_export">Εισαγωγή / Εξαγωγή</string>
     <!-- A button to open directory chooser to export settings to. -->
+    <string name="filter_export_external">Εξωτερικός χώρος αποθήκευσης</string>
 </resources>

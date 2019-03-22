@@ -29,4 +29,7 @@
     <string name="tunnel_config_powersave_title">Agresīva pamodināšana</string>
     <string name="tunnel_config_powersave_description">Aktivizējiet šo slēdzi, ja saskaraties ar problēmām, ko izraisa sistēmas enerģijas taupīšanas funkcija. Kad lietotne konstatēs tuneļa savienojuma problēmas, tā mēģinās paaugstināt prioritāti, lai to neietekmētu enerģijas taupīšana funkcija.</string>
     <string name="tunnel_config_reports_title">Ziņojumi</string>
+    <string name="tunnel_config_reports_description">Aktivizējiet šo slēdzi, lai atļautu lietotnei sūtīt ziņojumus par kļūdām, tas mums palīdzēs tās novērst. Ziņojumi tiks sūtīti reizi dienā, vai, kad lietotne neparedzēti aizvērsies. Šo deaktivizējot, mums būs grūtāk novērst kļūdas un problēmas, ar kurām jūs, iespējams, sastopaties. Lai šis iestatījums stātos spēkā, restartējiet lietotni.</string>
+    <string name="tunnel_config_fallback_title">DNS fallback</string>
+    <string name="tunnel_config_fallback_description">Aktivizējiet šo slēdzi, ja jums mēdz pazust interneta savienojums. Šis liks lietotnei īslaicīgi pārslēgties uz Cloudfare DNS, lai saglabātu savienojumu. Jums, iespējams, vajadzēs atkārtoti atzīmēt serverus DNS sekcijā, lai šis iestatījums stātos spēkā.</string>
 </resources>

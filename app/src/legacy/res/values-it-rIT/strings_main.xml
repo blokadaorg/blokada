@@ -56,8 +56,8 @@
     <string name="main_report_title">Segnalazione Blokada</string>
     <string name="main_report_text">Blokada ha riscontrato un problema (oppure tu hai chiesto di inviare una segnalazione). Verrà allegato un file log che potrebbe contenere informazioni private. Solamente alcuni membri di fiducia potranno leggere la tua segnalazione, che sarà eliminata non appena non sarà più necessaria.</string>
     <string name="main_report_comment">Le segnalazioni con commenti avranno priorità. Cosa stavi facendo quando si è verificato il problema?</string>
-    <string name="main_report_limit">È stato raggiunto il limite di segnalazioni. Per favore, resta in attesa di ulteriori aggiornamenti.
-Grazie per il tuo feedback!</string>
+    <string name="main_report_limit">"È stato raggiunto il limite di segnalazioni. Per favore, resta in attesa di ulteriori aggiornamenti.
+Grazie per il tuo feedback!"</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
     <string name="core_format_million">%s milione/i</string>
     <!-- To display a big number in short way, eg. 420 thousand -->

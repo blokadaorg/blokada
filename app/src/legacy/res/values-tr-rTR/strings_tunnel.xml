@@ -31,5 +31,5 @@
     <string name="tunnel_config_reports_title">Raporlar</string>
     <string name="tunnel_config_reports_description">Uygulamanın, sorunları ve hataları düzeltmemize yardımcı olacak raporlar göndermesine izin vermek için bu anahtarı etkinleştirin. Bu, günde yalnızca bir kez veya uygulama çöktüğünde gerçekleşir. Bunu devre dışı bırakmak, yaşadığınız sorunları çözmemizi zorlaştırabilir. Bu ayarın geçerli olması için uygulamayı yeniden başlatmanız gerekebilir.</string>
     <string name="tunnel_config_fallback_title">DNS geri dönüşü</string>
-    <string name="tunnel_config_fallback_description">WiFi gibi bazı durumlarda İnternet erişimini kaybediyorsanız bu anahtarı etkinleştirin. Bu, uygulamanın bağlantısını sürdürebilmesi için geçici olarak Cloudflare DNS\'e geçiş yapmasını sağlar. Bu ayarın geçerli olması için DNS bölümünden sunucularınızı yeniden seçmeniz gerekebilir.</string>
+    <string name="tunnel_config_fallback_description">WiFi gibi, bazı durumlarda internet erişimini kaybediyorsanız; bu anahtarı etkinleştirin. Bu, uygulama bağlantısının sürdürebilmesi için Cloudflare DNS\'e geçici olarak geçiş yapar. Bu ayarın geçerli olması için, DNS bölümünden sunucularınızı yeniden seçmeniz gerekebilir.</string>
 </resources>

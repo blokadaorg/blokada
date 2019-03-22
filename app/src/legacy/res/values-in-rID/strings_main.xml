@@ -3,30 +3,30 @@
 <resources>
     <string name="main_loading">Memuat, harap tunggu…</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_intro">Selamat datang di %s! Ketuk perisai untuk mengaktifkan aplikasi. Berikan izin saat ditanya.</string>
-    <string name="main_error">Ada yang salah. Silakan periksa koneksi internet anda dan coba lagi.</string>
+    <string name="main_intro">Selamat datang di %s! Tekan perisai untuk mengaktifkan aplikasi ini. Berikan izin saat diminta.</string>
+    <string name="main_error">Ada yang salah. Silakan periksa koneksi internet Anda dan coba lagi.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_deactivating_new">Menonaktifkan %s. Mohon tunggu…</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s aktif.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_active_new">%1$s sekarang melindungi perangkat Anda. Anda dapat menyempurnakan %1$s di bawah, atau langsung saja gunakan perangkat Anda!</string>
+    <string name="main_active_new">%1$s sekarang melindungi perangkat Anda. Anda dapat mengatur %1$s lebih lanjut di bawah, atau langsung saja gunakan perangkat Anda!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s tidak aktif.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_paused_autoenable">%1$s dihentikan sementara karena perangkat Anda terputus. %1$s akan otomatis aktif setelah koneksi internet tersedia.</string>
+    <string name="main_paused_autoenable">%1$s dihentikan sementara karena perangkat Anda tidak tersambung dengan jaringan. %1$s akan otomatis aktif setelah koneksi internet tersedia.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable_tethering">%1$s dihentikan sementara karena perangkat Anda mengaktifkan WiFi Hotspot. %1$s secara otomatis akan menjadi aktif setelah WiFi Hotspot dinonaktifkan.</string>
     <!-- Label for the Quick Settings toggle -->
-    <string name="main_quicksettings_toggle">Penggerak</string>
+    <string name="main_quicksettings_toggle">Aktifkan</string>
     <!-- Active status for the Quick Settings toggle -->
     <string name="main_quicksettings_on">Aktif</string>
     <!-- Disabled status for the Quick Settings toggle -->
-    <string name="main_quicksettings_off">nonaktif</string>
+    <string name="main_quicksettings_off">Nonaktif</string>
     <!-- App status, as in: Blokada is Active -->
     <string name="main_status_active_recent">Aktif</string>
     <!-- App status, as in: Blokada is Disabled -->
-    <string name="main_status_disabled">nonaktif</string>
+    <string name="main_status_disabled">Nonaktif</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
     <string name="main_status_activating">Mengaktifkan</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
@@ -34,28 +34,29 @@
     <string name="main_status_error">Terjadi masalah</string>
     <string name="main_faq_text">Bantuan</string>
     <string name="main_donate_text">Donasi</string>
-    <string name="main_contribute_text">Ikut terlibat</string>
+    <string name="main_contribute_text">Bantu Kami</string>
     <string name="main_blog_text">Berita</string>
     <string name="main_settings_text">Pengaturan Lanjut</string>
-    <string name="main_autostart_text">Mulai saat boot</string>
+    <string name="main_autostart_text">Aktifkan saat boot</string>
     <!-- A menu option to send feedback or contact us -->
-    <string name="main_feedback_text">Umpan balik</string>
+    <string name="main_feedback_text">Saran dan Masukan</string>
     <!-- A menu option to open Patron of the month -->
     <string name="main_patron">Kunjungi Patron</string>
     <!-- A menu option to open Patron voting screen -->
     <string name="main_patron_about">Pilih Patron</string>
     <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-    <string name="main_cta">Suara Anda</string>
+    <string name="main_cta">Saran Anda</string>
     <!-- A menu option to open changelog -->
     <string name="main_changelog">Changelog</string>
     <!-- A menu option to open credits screen -->
-    <string name="main_credits">Kredit</string>
+    <string name="main_credits">Kontributor</string>
     <!-- An overlay header on top of Patron page -->
+    <string name="main_patron_overlay">Kami, Komunitas Blokada, mencari proyek-proyek baru yang menarik dan menantang dan kami bantu agar lebih berkembang lagi. Silakan sebarluaskan!</string>
     <string name="main_log">Bagikan Log</string>
     <string name="main_report_title">Laporan Blokada</string>
-    <string name="main_report_text">Blokada telah mengalami masalah (atau Anda diminta untuk mengirimkan laporan). Log akan dilampirkan yang mungkin berisi informasi pribadi. Hanya Insiders terpercaya akan membaca laporan Anda, dan itu akan dihapus setelah tidak diperlukan lagi.</string>
-    <string name="main_report_comment">Laporan dengan komentar diprioritaskan. Apa yang kau lakukan sebelum masalah terjadi?</string>
-    <string name="main_report_limit">Batas laporan tercapai. Silakan menantikan untuk pembaruan. Terima kasih untuk umpan balik Anda!</string>
+    <string name="main_report_text">Blokada telah mengalami masalah (atau Anda diminta untuk mengirimkan laporan). Log akan dilampirkan yang mungkin berisi informasi pribadi. Hanya Insiders terpercaya akan membaca laporan Anda, dan laporan akan dihapus setelah tidak diperlukan lagi.</string>
+    <string name="main_report_comment">Laporan yang dilengkapi dengan komentar lebih diprioritaskan. Apa yang Anda lakukan sebelum masalah terjadi?</string>
+    <string name="main_report_limit">Jumlah laporan sudah melewati batas normal. Silakan tunggu pembaruan selanjutnya. Terima kasih untuk umpan balik Anda!</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
     <string name="core_format_million">%s juta</string>
     <!-- To display a big number in short way, eg. 420 thousand -->

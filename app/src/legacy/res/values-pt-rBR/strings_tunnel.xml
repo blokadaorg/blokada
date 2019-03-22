@@ -25,8 +25,8 @@
     <string name="tunnel_config_wifi_only_description">Ative essa opção se desejar que o aplicativo faça o download de listas apenas quando o dispositivo estiver conectado a WiFi. Caso contrário, o app também pode baixar listas quando o dispositivo estiver conectado a uma rede móvel e usar seu plano de dados.</string>
     <string name="tunnel_config_memory_capacity">%s que pode caber na memória</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
-    <string name="tunnel_config_watchdog_description">Ative esta opção se quiser que o aplicativo ative a VPN somente se houver conectividade com a Internet e reinicie o túnel, caso haja problemas de conectividade. Isso pode ajudar em alguns dispositivos. 
-Nota: em versões anteriores esta opção era chamada de \"Apenas Online\".</string>
+    <string name="tunnel_config_watchdog_description">"Ative esta opção se quiser que o aplicativo ative a VPN somente se houver conectividade com a Internet e reinicie o túnel, caso haja problemas de conectividade. Isso pode ajudar em alguns dispositivos. 
+Nota: em versões anteriores esta opção era chamada de \"Apenas Online\"."</string>
     <string name="tunnel_config_powersave_title">Despertar agressivo</string>
     <string name="tunnel_config_powersave_description">Ative esta opção se você tiver problemas causados pelo recurso de economia de energia do seu dispositivo. Quando o aplicativo detectar problemas de conectividade do túnel, ele tentará aumentar sua prioridade para tirá-lo do modo de economia de energia.</string>
     <string name="tunnel_config_reports_title">Relatórios</string>

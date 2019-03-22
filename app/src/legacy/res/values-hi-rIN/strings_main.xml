@@ -59,4 +59,5 @@
     <string name="main_report_limit">रिपोर्ट सीमा तक पहुंच गई । कृपया एक अद्यतन के लिए देखते रहें । आपकी प्रतिक्रिया के लिए धंयवाद!</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
     <!-- To display a big number in short way, eg. 420 thousand -->
+    <string name="core_format_thousand">%s हजार</string>
 </resources>
