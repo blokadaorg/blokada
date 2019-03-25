@@ -26,4 +26,4 @@ If you found a bug, or have an idea for new functionality, feel free to report i
 [Issue tracker](http://go.blokada.org/issue) | [Devices Database](http://go.blokada.org/issue_device) | [Apps Database](http://go.blokada.org/issue_app)
 
 ## Official and Unofficial pages
-The only pages that give the official full experience is blockada.org ,as well as F-droid and this GitHub page.We have been made aware of a unofficial site,which i shall not name,and their apk files do not seem to match up with official apk files. We do NOT support such unofficial sites and cannot help if you did not obtain the app from an official source.
+The only pages that give the official full experience is blockada.org ,XDA ,as well as F-droid and this GitHub page.We have been made aware of a unofficial site,which i shall not name,and their apk files do not seem to match up with official apk files. We do NOT support such unofficial sites and cannot help if you did not obtain the app from an official source.
