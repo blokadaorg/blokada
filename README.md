@@ -36,6 +36,7 @@ Trustworthy sources to download:
 - https://www.heise.de
 - https://f-droid.org/
 - https://labs.xda-developers.com
+
 If you find a website that looks like ours, but the URL differs from that, please report it on Google SafeBrowsing (link: https://safebrowsing.google.com/safebrowsing/report_badware/?hl=en ).
 
 Make the internet a better, safer place together.
