@@ -25,14 +25,12 @@ If you found a bug, or have an idea for new functionality, feel free to report i
 
 [Issue tracker](http://go.blokada.org/issue) | [Devices Database](http://go.blokada.org/issue_device) | [Apps Database](http://go.blokada.org/issue_app)
 
-
-
 ## Warning about fake websites
 
 From time to time, some of the malware sites copy our product and try to act as an official site.
 Only the https://blokada.org is our official and trustworthy website, every other copy or mirror isn't in relation with us, with the Blokada team or our official application.
 Trustworthy sources to download:
-- https://blokara.org
+- https://blokada.org
 - https://www.heise.de
 - https://f-droid.org/
 - https://labs.xda-developers.com
