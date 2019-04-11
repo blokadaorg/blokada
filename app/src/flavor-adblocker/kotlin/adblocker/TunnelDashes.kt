@@ -15,7 +15,7 @@ class TunnelDashCountDropped(
 ) : Dash("tunnel_drop",
         R.drawable.ic_block,
         ctx.getString(R.string.tunnel_dropped_count_desc),
-        onLongClick = { t.tunnelDropCount %= 0; true }
+        onLongClick = { t.tunnelDropCount %= 0; t.tunnelDropStart %= System.currentTimeMillis(); true }
 ) {
 
     private val listener: Any

@@ -1,0 +1,12 @@
+<resources>
+    <string name="social_share_count">Share</string>
+    <string name="social_share_body">Blokada blocked %s ads and trackers in the last %s! If you want to get rid of ads too go to blokada.org and get the app now!</string>
+    <string name="social_share_sub">Blokada</string>
+    <string name="social_share_with">Share with</string>
+    <string-array name="social_time_units">
+        <item>minutes</item>
+        <item>hours</item>
+        <item>days</item>
+        <item>weeks</item>
+    </string-array>
+</resources>

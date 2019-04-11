@@ -28,6 +28,7 @@ abstract class Tunnel {
     abstract val tunnelState: IProperty<TunnelState>
     abstract val tunnelPermission: IProperty<Boolean>
     abstract val tunnelDropCount: IProperty<Int>
+    abstract val tunnelDropStart: IProperty<Long>
     abstract val tunnelRecentDropped: IProperty<List<String>>
     abstract val startOnBoot: IProperty<Boolean>
 }
@@ -65,6 +66,10 @@ class TunnelImpl(
 
     override val tunnelDropCount = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsCount"),
             { 0 }
+    )
+
+    override val tunnelDropStart = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsStart"),
+            { System.currentTimeMillis() }
     )
 
     override val tunnelRecentDropped = newProperty<List<String>>(kctx, { listOf() })

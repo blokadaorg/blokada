@@ -1,0 +1,11 @@
+<resources>
+    <string name="social_share_count">Teilen</string>
+    <string name="social_share_body">Blokada hat bei mir %s Werbeanzeigen und Tracker in den letzten %s geblockt! Hol dir die App auf blokada.org, wenn du auch keine Werbung mehr willst.</string>
+    <string name="social_share_with">Teilen</string>
+    <string-array name="social_time_units">
+        <item>Minuten</item>
+        <item>Stunden</item>
+        <item>Tage</item>
+        <item>Wochen</item>
+    </string-array>
+</resources>
