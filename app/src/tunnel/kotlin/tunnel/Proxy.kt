@@ -29,6 +29,8 @@ internal class Proxy(
             ktx.w("failed reading origin packet", e)
             return
         }
+        val inspector = Inspector ()
+        inspector.inspect(ktx, originEnvelope)
 
         if (originEnvelope.payload !is UdpPacket) return
 
