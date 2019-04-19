@@ -1,12 +1,15 @@
 package flavor
 
-import adblocker.TunnelDashCountDropped
-import adblocker.TunnelDashHostsCount
+import adblocker.*
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import com.github.salomonbrys.kodein.*
 import core.*
 import filter.DashFilterBlacklist
 import filter.DashFilterWhitelist
+import gs.environment.inject
 import notification.NotificationDashOn
 import notification.displayNotification
 import notification.hideNotification
@@ -60,6 +63,13 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             // Hide notification when disabled
             ui.notifications.doOnUiWhenSet().then {
                 hideNotification(ctx)
+            }
+            val wm: AppWidgetManager = AppWidgetManager.getInstance(ctx)
+            val ids = wm.getAppWidgetIds(ComponentName(ctx, ActiveWidgetProvider::class.java))
+            if(ids.isNotEmpty()){
+                val serviceIntent = Intent(ctx.applicationContext,
+                        UpdateWidgetService::class.java)
+                ctx.startService(serviceIntent)
             }
 
             // Initialize default values for properties that need it (async)
