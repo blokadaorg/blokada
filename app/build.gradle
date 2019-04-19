@@ -119,9 +119,9 @@ android {
     signingConfigs {
         release {
             keyAlias 'blokada'
-            keyPassword BLOKADA_KEY_PASSWORD
-            storeFile file(BLOKADA_KEY_PATH)
-            storePassword BLOKADA_STORE_PASSWORD
+            keyPassword 'default'
+            storeFile file('default')
+            storePassword 'default'
         }
     }
     buildTypes {
@@ -145,7 +145,7 @@ android {
     flavorDimensions("model")
     productFlavors {
         adblockerHome {
-            applicationId "org.blokada.origin.alarm"
+            applicationId 'org.blockada.origin.alarm'
         }
         adblockerFdroid {
             applicationId "org.blokada.alarm"
@@ -165,26 +165,22 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:design:27.1.1'
-
     // Kotlin and its dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.github.salomonbrys.kodein:kodein:4.1.0'
     implementation 'nl.komponents.kovenant:kovenant-core:3.3.0'
     implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.1"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.1'
     implementation 'io.paperdb:paperdb:2.6'
     implementation 'com.github.michaelbull:kotlin-result:1.0.8'
-
     // Proxy
     implementation 'org.pcap4j:pcap4j-core:1.7.0'
     implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.0'
     implementation 'dnsjava:dnsjava:2.1.8'
-
     // UI libraries
-    implementation ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
+    implementation('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
         transitive = true
     }
-
     // Testing and debugging
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation "ch.acra:acra-http:$acraVersion"

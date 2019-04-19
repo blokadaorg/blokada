@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundLight"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/widget_show_counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/widget_show_counter"
+        android:textSize="12sp" />
+
+    <CheckBox
+        android:id="@+id/widget_show_host"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/widget_show_domain"
+        android:textSize="12sp" />
+
+    <CheckBox
+        android:id="@+id/widget_show_dns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/widget_show_dns"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/widget_alpha"
+        android:textSize="12sp" />
+
+    <SeekBar
+        android:id="@+id/widget_alpha"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:max="255"
+        android:progress="255" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff888888">
+
+        <include
+            android:id="@+id/widget_preview"
+            layout="@layout/widget_active"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="5dp" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/widget_okay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/widget_okay" />
+</LinearLayout>

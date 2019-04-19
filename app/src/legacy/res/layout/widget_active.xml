@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundThird"
+    android:orientation="horizontal"
+    android:weightSum="2">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:maxWidth="10dp"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <ImageButton
+            android:id="@+id/widget_active"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:background="#00000000"
+            android:saveEnabled="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_blokada" />
+
+        <TextView
+            android:id="@+id/widget_counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:saveEnabled="true"
+            android:text="@string/main_loading"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/widget_exta_info"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/widget_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:saveEnabled="true"
+            android:text="@string/main_loading"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/widget_spacer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/widget_dns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:saveEnabled="true"
+            android:text="@string/main_loading"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+</LinearLayout>

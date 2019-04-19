@@ -11,3 +11,9 @@ vendor
 /captures
 firebase.xml
 google-services.json
+*.patch
+builds/kotlin-build/version.txt
+builds/intermediates/lint-cache/maven.google/master-index.xml
+builds/intermediates/lint-cache/maven.google/com/android/support/group-index.xml
+*.apk
+app/adblockerHome/release/output.json
