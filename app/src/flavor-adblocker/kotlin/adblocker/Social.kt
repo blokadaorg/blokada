@@ -6,8 +6,6 @@ import core.*
 import gs.environment.inject
 import org.blokada.R
 import android.content.Intent
-import java.text.SimpleDateFormat
-import java.util.*
 
 val DASH_ID_SHARE_COUNT = "social_share"
 
@@ -18,10 +16,10 @@ class SocialShareCount(
         R.drawable.ic_share,
         text = ctx.resources.getString(R.string.social_share_count),
         onClick = {
-            val sharingIntent = Intent(android.content.Intent.ACTION_SEND)
+            val sharingIntent = Intent(Intent.ACTION_SEND)
             sharingIntent.type = "text/plain"
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, ctx.resources.getString(R.string.social_share_sub))
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ctx.resources.getString(R.string.social_share_body, t.tunnelDropCount.toString(), getElapsedTime(ctx, t.tunnelDropStart.invoke())))
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, ctx.resources.getString(R.string.social_share_sub))
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, getMessage(ctx, t.tunnelDropStart.invoke(), t.tunnelDropCount.invoke()))
 
             val chooserIntent = Intent.createChooser(sharingIntent, ctx.resources.getString(R.string.social_share_with))
             chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -32,20 +30,20 @@ class SocialShareCount(
     }
 }
 
-fun getElapsedTime(ctx: Context, timeStamp: Long): String {
+fun getMessage(ctx: Context, timeStamp: Long, dropCount: Int): String {
     var elapsed: Long = System.currentTimeMillis() - timeStamp
     elapsed /= 60000
     if(elapsed < 120) {
-        return elapsed.toString(10) + ' ' + ctx.resources.getStringArray(R.array.social_time_units)[0]
+        return ctx.resources.getString(R.string.social_share_bodym, dropCount, elapsed)
     }
     elapsed /= 60
     if(elapsed < 48) {
-        return elapsed.toString(10) + ' ' + ctx.resources.getStringArray(R.array.social_time_units)[1]
+        return ctx.resources.getString(R.string.social_share_bodyh, dropCount, elapsed)
     }
     elapsed /= 24
     if(elapsed < 28) {
-        return elapsed.toString(10) + ' ' + ctx.resources.getStringArray(R.array.social_time_units)[2]
+        return ctx.resources.getString(R.string.social_share_bodyd, dropCount, elapsed)
     }
     elapsed /= 7
-    return elapsed.toString(10) + ' ' + ctx.resources.getStringArray(R.array.social_time_units)[3]
+    return ctx.resources.getString(R.string.social_share_bodyw, dropCount, elapsed)
 }
