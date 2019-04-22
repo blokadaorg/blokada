@@ -145,7 +145,7 @@ android {
     flavorDimensions("model")
     productFlavors {
         adblockerHome {
-            applicationId 'org.blockada.origin.alarm'
+            applicationId 'org.blokada.origin.alarm'
         }
         adblockerFdroid {
             applicationId "org.blokada.alarm"
