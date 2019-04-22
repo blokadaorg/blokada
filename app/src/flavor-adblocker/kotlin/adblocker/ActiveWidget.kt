@@ -20,10 +20,13 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import core.*
 import gs.property.I18n
-import gs.property.IProperty
 import gs.property.IWhen
-import tunnel.Main
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
 
+
+val NEW_WIDGET = "NEW_WIDGET".newEventOf<WidgetData>()
+val WIDGET_BUTTON = "WIDGET_BUTTON".newEventOf<Int>()
 
 class ActiveWidgetProvider : AppWidgetProvider() {
 
@@ -36,10 +39,11 @@ class ActiveWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
-        //enabled %=
+        //TODO enabled %=
     }
 
     override fun onRestored(context: Context?, oldWidgetIds: IntArray?, newWidgetIds: IntArray?) {
+        //TODO change ids
         super.onRestored(context, oldWidgetIds, newWidgetIds)
     }
 
@@ -57,31 +61,56 @@ class WidgetData{
     var host: Boolean = false
     var dns: Boolean = false
     var counter: Boolean = false
+    var alpha: Int = 0
+
+    override fun hashCode(): Int {
+        return id
+    }
 }
 
 class UpdateWidgetService : Service() { //TODO: kill Service if device is locked; Impact battery?
 
-    private val onBlockedEvent = { host: String -> update(host)}
+    private val onBlockedEvent = { host: String -> onBlocked(host)}
     var onDnsEvent: IWhen? = null
-    var widgetList: List<WidgetData> = List(0) {WidgetData()}
+    var widgetList: LinkedHashSet<WidgetData> = LinkedHashSet(5)
 
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        //TODO load widgets
         this.ktx().on(Events.BLOCKED, onBlockedEvent)
 
+        this.ktx().on(NEW_WIDGET) {
+            data ->
+            widgetList.add(data)
+            setWidget(data)
+            if(data.host or data.counter){
+                val t: Tunnel = this.inject().instance()
+                val droppedlist = t.tunnelRecentDropped.invoke()
+                if(droppedlist.isEmpty()){
+                    onBlocked("")
+                }else{
+                    onBlocked(droppedlist.last())
+                }
+            }
+            if(data.dns){
+                onDnsChanged()
+            }
+            onTunnelStateChanged()
+            print(data)
+        }
 
         val t: Tunnel = this.inject().instance()
         val droppedlist = t.tunnelRecentDropped.invoke()
         if(droppedlist.isEmpty()){
-            update("")
+            onBlocked("")
         }else{
-            update(droppedlist.last())
+            onBlocked(droppedlist.last())
         }
 
-        t.tunnelState.doWhenChanged().then{
+        t.tunnelState.doOnUiWhenChanged(withInit = true).then{
             onTunnelStateChanged()
         }
 
@@ -103,24 +132,22 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
         val remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
         val thisWidget = ComponentName(this, ActiveWidgetProvider::class.java)
         val t: Tunnel = this.inject().instance()
-        remoteViews.setInt(R.id.widget_active,"setColorFilter",color(active = true, waiting = false))
         when(t.tunnelState.invoke()){
             TunnelState.ACTIVE ->
                 remoteViews.setInt(R.id.widget_active,"setColorFilter",color(active = true, waiting = false))
             TunnelState.ACTIVATING ->
-                remoteViews.setInt(R.id.widget_active,"setColorFilter",color(active = true, waiting = false))
+                remoteViews.setInt(R.id.widget_active,"setColorFilter",color(active = true, waiting = true))
             TunnelState.DEACTIVATING ->
                 remoteViews.setInt(R.id.widget_active,"setColorFilter",color(active = false, waiting = true))
             TunnelState.DEACTIVATED, TunnelState.INACTIVE ->
                 remoteViews.setInt(R.id.widget_active,"setColorFilter",color(active = false, waiting = false))
         }
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(appWidgetManager.getAppWidgetIds(thisWidget), remoteViews)
     }
 
     private fun onDnsChanged(){
         val appWidgetManager = AppWidgetManager.getInstance(this)
         val remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
-        val thisWidget = ComponentName(this, ActiveWidgetProvider::class.java)
         val d: Dns = this.inject().instance()
         val i18n: I18n = this.inject().instance()
         val dc = d.choices.invoke().find { it.active }
@@ -132,21 +159,54 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
         }
 
         remoteViews.setTextViewText(R.id.widget_dns, name)
-
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if(e.dns) e.id else null  }.toIntArray(), remoteViews)
     }
 
-    private fun update(host: String){
+    private fun onBlocked(host: String){
         val appWidgetManager = AppWidgetManager.getInstance(this)
-        val remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
-        val thisWidget = ComponentName(this, ActiveWidgetProvider::class.java)
+        var remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
 
         val t: Tunnel = this.inject().instance()
         remoteViews.setTextViewText(R.id.widget_counter, t.tunnelDropCount.toString())
 
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if(e.counter) e.id else null  }.toIntArray(), remoteViews)
+
+        remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
         remoteViews.setTextViewText(R.id.widget_host, host)
 
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if(e.host) e.id else null  }.toIntArray(), remoteViews)
+    }
+
+    private fun setWidget(data: WidgetData){
+
+        val appWidgetManager = AppWidgetManager.getInstance(this)
+        val views = RemoteViews(this.packageName,
+                R.layout.widget_active)
+        if(data.counter){
+            views.setViewVisibility(R.id.widget_counter,View.VISIBLE)
+        }else{
+            views.setViewVisibility(R.id.widget_counter,View.GONE)
+        }
+
+        if(data.host){
+            views.setViewVisibility(R.id.widget_host,View.VISIBLE)
+        }else{
+            views.setViewVisibility(R.id.widget_spacer,View.GONE)
+            views.setViewVisibility(R.id.widget_host,View.GONE)
+        }
+
+        if(data.dns){
+            views.setViewVisibility(R.id.widget_dns,View.VISIBLE)
+        }else{
+            views.setViewVisibility(R.id.widget_spacer,View.GONE)
+            views.setViewVisibility(R.id.widget_dns,View.GONE)
+        }
+
+        views.setInt(R.id.widget_root,"setBackgroundColor", data.alpha shl 24 or 0x00262626)
+
+        
+
+        appWidgetManager.updateAppWidget(data.id, views)
     }
 
     private fun color(active: Boolean, waiting: Boolean): Int {
@@ -267,53 +327,16 @@ class ConfigWidgetActivity: Activity(){
 
         val btn = findViewById<Button>(R.id.widget_okay)
         btn.setOnClickListener {
-            val appWidgetManager = AppWidgetManager.getInstance(this)
+            val data = WidgetData()
 
-            val views = RemoteViews(this.packageName,
-                    R.layout.widget_active)
+            data.counter = findViewById<CheckBox>(R.id.widget_show_counter).isChecked
+            data.host = findViewById<CheckBox>(R.id.widget_show_host).isChecked
+            data.dns = findViewById<CheckBox>(R.id.widget_show_dns).isChecked
+            data.alpha = findViewById<SeekBar>(R.id.widget_alpha).progress
+            data.id = appWidgetId
 
-            if(findViewById<CheckBox>(R.id.widget_show_counter).isChecked){
-                val t: Tunnel = this.inject().instance()
-                views.setTextViewText(R.id.widget_counter, t.tunnelDropCount.toString())
-                views.setViewVisibility(R.id.widget_counter,View.VISIBLE)
-            }else{
-                views.setViewVisibility(R.id.widget_counter,View.GONE)
-            }
+            ktx().emit(NEW_WIDGET, data)
 
-            if(findViewById<CheckBox>(R.id.widget_show_host).isChecked){
-                val t: Tunnel = this.inject().instance()
-                val droppedlist = t.tunnelRecentDropped.invoke()
-                if(droppedlist.isNotEmpty()){
-                            views.setTextViewText(R.id.widget_host,droppedlist.last())
-                }
-                views.setViewVisibility(R.id.widget_host,View.VISIBLE)
-            }else{
-                views.setViewVisibility(R.id.widget_spacer,View.GONE)
-                views.setViewVisibility(R.id.widget_host,View.GONE)
-            }
-
-            if(findViewById<CheckBox>(R.id.widget_show_dns).isChecked){
-                val d: Dns = this.inject().instance()
-                val i18n: I18n = this.inject().instance()
-                val dc = d.choices.invoke().find { it.active }
-                val name = when {
-                    dc == null -> this.getString(R.string.dns_text_none)
-                    dc.servers.isEmpty() -> this.getString(R.string.dns_text_none)
-                    dc.id.startsWith("custom") -> printServers(dc.servers)
-                    else -> i18n.localisedOrNull("dns_${dc.id}_name") ?: dc.id.capitalize()
-                }
-                views.setTextViewText(R.id.widget_dns, name)
-
-                views.setViewVisibility(R.id.widget_dns,View.VISIBLE)
-            }else{
-                views.setViewVisibility(R.id.widget_spacer,View.GONE)
-                views.setViewVisibility(R.id.widget_dns,View.GONE)
-            }
-
-            views.setInt(R.id.widget_root,"setBackgroundColor", findViewById<SeekBar>(R.id.widget_alpha).progress shl 24 or 0x00262626)
-
-            appWidgetManager.updateAppWidget(appWidgetId, views)
-            //appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.notes_list);
             val resultValue = Intent()
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             setResult(RESULT_OK, resultValue)
