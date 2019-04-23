@@ -113,10 +113,10 @@
 
         <activity android:name="adblocker.ConfigWidgetActivity">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"></action>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-        <service android:name="adblocker.UpdateWidgetService"></service>
+        <service android:name="adblocker.UpdateWidgetService" />
         <receiver android:name="adblocker.ActiveWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

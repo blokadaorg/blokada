@@ -22,11 +22,10 @@ import core.*
 import gs.property.I18n
 import gs.property.IWhen
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 
 
 val NEW_WIDGET = "NEW_WIDGET".newEventOf<WidgetData>()
-val WIDGET_BUTTON = "WIDGET_BUTTON".newEventOf<Int>()
+val RESTORE_WIDGET = "RESTORE_WIDGET".newEventOf<WidgetRestoreData>()
 
 class ActiveWidgetProvider : AppWidgetProvider() {
 
@@ -37,13 +36,32 @@ class ActiveWidgetProvider : AppWidgetProvider() {
         context?.startService(serviceIntent)
     }
 
-    override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
-        super.onUpdate(context, appWidgetManager, appWidgetIds)
-        //TODO enabled %=
+    override fun onReceive(context: Context?, intent: Intent?) {
+        if((context != null) and (intent != null)) {
+            if(intent?.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE){
+                super.onReceive(context, intent)
+                val extras = intent.extras
+                if (extras != null) {
+                    val appWidgetId = extras.getInt(
+                            AppWidgetManager.EXTRA_APPWIDGET_ID,
+                            AppWidgetManager.INVALID_APPWIDGET_ID)
+                    if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+                        return
+                    }
+                    if (extras.containsKey("changeBlokadaState")){
+                        val t: Tunnel = context!!.inject().instance()
+                        t.enabled %= !t.enabled.invoke()
+                    }
+                }
+            }
+        }
     }
 
     override fun onRestored(context: Context?, oldWidgetIds: IntArray?, newWidgetIds: IntArray?) {
-        //TODO change ids
+        val restoreData = WidgetRestoreData
+        restoreData.oldWidgetIds = oldWidgetIds!!
+        restoreData.newWidgetIds = newWidgetIds!!
+        context!!.ktx().emit(RESTORE_WIDGET, restoreData)
         super.onRestored(context, oldWidgetIds, newWidgetIds)
     }
 
@@ -56,6 +74,11 @@ class ActiveWidgetProvider : AppWidgetProvider() {
 
 }
 
+object WidgetRestoreData{
+    var oldWidgetIds: IntArray = IntArray(0)
+    var newWidgetIds: IntArray = IntArray(0)
+}
+
 class WidgetData{
     var id: Int = -1
     var host: Boolean = false
@@ -66,25 +89,76 @@ class WidgetData{
     override fun hashCode(): Int {
         return id
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as WidgetData
+
+        if (id != other.id) return false
+        if (host != other.host) return false
+        if (dns != other.dns) return false
+        if (counter != other.counter) return false
+        if (alpha != other.alpha) return false
+
+        return true
+    }
 }
 
 class UpdateWidgetService : Service() { //TODO: kill Service if device is locked; Impact battery?
 
     private val onBlockedEvent = { host: String -> onBlocked(host)}
-    var onDnsEvent: IWhen? = null
-    var widgetList: LinkedHashSet<WidgetData> = LinkedHashSet(5)
+    private var onDnsEvent: IWhen? = null
+    private var widgetList: LinkedHashSet<WidgetData> = LinkedHashSet(5)
 
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        //TODO load widgets
+        val pref = this.getSharedPreferences("widgets", Context.MODE_PRIVATE)
+
+        val appWidgetManager = AppWidgetManager.getInstance(this)
+        val thisWidget = ComponentName(this, ActiveWidgetProvider::class.java)
+        val widgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
+        widgetIds.forEach {
+            if(pref.contains("widget-$it")){
+                val widgetConf = pref.getInt("widget-$it",0 )
+                val data = WidgetData()
+                data.id = it
+                data.alpha = widgetConf and 0xff
+                data.counter = (widgetConf and 0x100) > 0
+                data.host = (widgetConf and 0x200) > 0
+                data.dns = (widgetConf and 0x400) > 0
+                widgetList.add(data)
+                setWidget(data)
+            }else{
+                this.ktx().v("widget not found!")
+                val remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
+                remoteViews.setTextViewText(R.id.widget_counter, "ERROR")
+                remoteViews.setTextViewText(R.id.widget_host, "ERROR")
+                remoteViews.setTextViewText(R.id.widget_dns, "ERROR")
+                appWidgetManager.partiallyUpdateAppWidget(it, remoteViews)
+            }
+        }
+
         this.ktx().on(Events.BLOCKED, onBlockedEvent)
 
         this.ktx().on(NEW_WIDGET) {
             data ->
             widgetList.add(data)
+            var widgetConf = data.alpha and 0xff
+            if(data.counter){
+                widgetConf = widgetConf or 0x100
+            }
+            if(data.host){
+                widgetConf = widgetConf or 0x200
+            }
+            if(data.dns){
+                widgetConf = widgetConf or 0x400
+            }
+            pref.edit().putInt("widget-${data.id}",widgetConf).apply()
             setWidget(data)
             if(data.host or data.counter){
                 val t: Tunnel = this.inject().instance()
@@ -102,6 +176,23 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
             print(data)
         }
 
+        this.ktx().on(RESTORE_WIDGET) {
+            restoreData ->
+            val prefEdit = pref.edit()
+
+            for ((index, oldId) in restoreData.oldWidgetIds.withIndex()) {
+                if(pref.contains("widget-$oldId")) {
+                    val widgetConf = pref.getInt("widget-$oldId", 0)
+                    prefEdit.remove("widget-$oldId")
+                    prefEdit.putInt("widget-" + restoreData.newWidgetIds[index], widgetConf)
+                    (widgetList.find { wd -> wd.id == oldId })?.id = restoreData.newWidgetIds[index]
+                }else{
+                    this.ktx().v("old widget id not found!")
+                }
+            }
+            prefEdit.apply()
+        }
+
         val t: Tunnel = this.inject().instance()
         val droppedlist = t.tunnelRecentDropped.invoke()
         if(droppedlist.isEmpty()){
@@ -110,10 +201,12 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
             onBlocked(droppedlist.last())
         }
 
+        onTunnelStateChanged()
         t.tunnelState.doOnUiWhenChanged(withInit = true).then{
             onTunnelStateChanged()
         }
 
+        onDnsChanged()
         val d: Dns = this.inject().instance()
         onDnsEvent = d.dnsServers.doWhenChanged().then {
             onDnsChanged()
@@ -204,7 +297,13 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
 
         views.setInt(R.id.widget_root,"setBackgroundColor", data.alpha shl 24 or 0x00262626)
 
-        
+        val intent = Intent(this, ActiveWidgetProvider::class.java)
+        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, data.id)
+        intent.putExtra("changeBlokadaState", true)
+        val pendingIntent = PendingIntent.getBroadcast(this,
+                0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        views.setOnClickPendingIntent(R.id.widget_okay, pendingIntent)
 
         appWidgetManager.updateAppWidget(data.id, views)
     }
