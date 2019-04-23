@@ -117,8 +117,11 @@
             </intent-filter>
         </activity>
         <service android:name="adblocker.UpdateWidgetService" />
-        <receiver android:name="adblocker.ActiveWidgetProvider" >
+        <receiver android:name="adblocker.ActiveWidgetProvider" android:exported="true">
             <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"

@@ -25,6 +25,7 @@ import android.app.PendingIntent
 
 
 val NEW_WIDGET = "NEW_WIDGET".newEventOf<WidgetData>()
+val DELETE_WIDGET = "DELETE_WIDGET".newEventOf<IntArray>()
 val RESTORE_WIDGET = "RESTORE_WIDGET".newEventOf<WidgetRestoreData>()
 
 class ActiveWidgetProvider : AppWidgetProvider() {
@@ -37,9 +38,9 @@ class ActiveWidgetProvider : AppWidgetProvider() {
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        super.onReceive(context, intent)
         if((context != null) and (intent != null)) {
             if(intent?.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE){
-                super.onReceive(context, intent)
                 val extras = intent.extras
                 if (extras != null) {
                     val appWidgetId = extras.getInt(
@@ -63,6 +64,11 @@ class ActiveWidgetProvider : AppWidgetProvider() {
         restoreData.newWidgetIds = newWidgetIds!!
         context!!.ktx().emit(RESTORE_WIDGET, restoreData)
         super.onRestored(context, oldWidgetIds, newWidgetIds)
+    }
+
+    override fun onDeleted(context: Context?, appWidgetIds: IntArray?) {
+        context!!.ktx().emit(DELETE_WIDGET, appWidgetIds!!)
+        super.onDeleted(context, appWidgetIds)
     }
 
     override fun onDisabled(context: Context?) {
@@ -97,10 +103,6 @@ class WidgetData{
         other as WidgetData
 
         if (id != other.id) return false
-        if (host != other.host) return false
-        if (dns != other.dns) return false
-        if (counter != other.counter) return false
-        if (alpha != other.alpha) return false
 
         return true
     }
@@ -191,6 +193,19 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
                 }
             }
             prefEdit.apply()
+        }
+
+        this.ktx().on(DELETE_WIDGET){
+            appWidgetIds ->
+            appWidgetIds.forEach { appWidgetId ->
+                val wd = widgetList.find { wd -> wd.id == appWidgetId }
+                widgetList.remove(wd)
+                val prefEdit = pref.edit()
+                if(pref.contains("widget-" + wd?.id)) {
+                    prefEdit.remove("widget-" + wd?.id)
+                }
+                prefEdit.apply()
+            }
         }
 
         val t: Tunnel = this.inject().instance()
@@ -301,7 +316,7 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, data.id)
         intent.putExtra("changeBlokadaState", true)
-        val pendingIntent = PendingIntent.getBroadcast(this,
+        val pendingIntent = PendingIntent.getBroadcast(this.applicationContext,
                 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         views.setOnClickPendingIntent(R.id.widget_okay, pendingIntent)
 
