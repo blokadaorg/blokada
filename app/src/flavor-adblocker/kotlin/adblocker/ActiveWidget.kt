@@ -274,7 +274,11 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
         var remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
 
         val t: Tunnel = this.inject().instance()
-        remoteViews.setTextViewText(R.id.widget_counter, t.tunnelDropCount.toString())
+        when(t.tunnelDropCount.invoke()){
+            in 0..9999 -> remoteViews.setTextViewText(R.id.widget_counter, t.tunnelDropCount.toString())
+            in 10000..999999 -> remoteViews.setTextViewText(R.id.widget_counter, String.format("%.1fk",t.tunnelDropCount.invoke() / 1000.0))
+            else -> remoteViews.setTextViewText(R.id.widget_counter, String.format("%.2fm",t.tunnelDropCount.invoke() / 1000000.0))
+        }
 
         appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if(e.counter) e.id else null  }.toIntArray(), remoteViews)
 
