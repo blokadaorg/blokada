@@ -1,27 +1,26 @@
 package adblocker
 
 import android.app.Activity
-import android.appwidget.AppWidgetManager
-import android.content.Intent
-import android.appwidget.AppWidgetProvider
-import android.content.Context
-import com.github.salomonbrys.kodein.instance
-import gs.environment.inject
-import org.blokada.R
-import tunnel.Events
-import android.content.ComponentName
+import android.app.PendingIntent
 import android.app.Service
+import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
 import android.widget.*
 import android.widget.LinearLayout
-import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import com.github.salomonbrys.kodein.instance
 import core.*
+import gs.environment.inject
 import gs.property.I18n
 import gs.property.IWhen
-import android.app.PendingIntent
+import org.blokada.R
+import tunnel.Events
 
 
 val NEW_WIDGET = "NEW_WIDGET".newEventOf<WidgetData>()
@@ -51,7 +50,7 @@ class ActiveWidgetProvider : AppWidgetProvider() {
                     }
                     if (extras.containsKey("changeBlokadaState")){
                         val t: Tunnel = context!!.inject().instance()
-                        t.enabled %= !t.enabled.invoke()
+                        t.enabled %= !t.enabled()
                     }
                 }
             }
@@ -318,7 +317,7 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
         intent.putExtra("changeBlokadaState", true)
         val pendingIntent = PendingIntent.getBroadcast(this.applicationContext,
                 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        views.setOnClickPendingIntent(R.id.widget_okay, pendingIntent)
+        views.setOnClickPendingIntent(R.id.widget_active, pendingIntent)
 
         appWidgetManager.updateAppWidget(data.id, views)
     }
@@ -349,13 +348,13 @@ class ConfigWidgetActivity: Activity(){
         }
 
 
-        val preview = findViewById<View>(R.id.widget_preview)
+        val preview = findViewById<View>(R.id.widget_cv_preview)
 
         preview.findViewById<TextView>(R.id.widget_counter).text = "17835"
         preview.findViewById<TextView>(R.id.widget_host).text = "evil-tracker.com"
         preview.findViewById<TextView>(R.id.widget_dns).text = "1.1.1.1"
 
-        var cb = findViewById<CheckBox>(R.id.widget_show_counter)
+        var cb = findViewById<CheckBox>(R.id.widget_cv_show_counter)
 
         cb.setOnCheckedChangeListener { buttonView, isChecked ->
             val tv = preview.findViewById<TextView>(R.id.widget_counter)
@@ -367,7 +366,7 @@ class ConfigWidgetActivity: Activity(){
             }
         }
 
-        cb = findViewById(R.id.widget_show_host)
+        cb = findViewById(R.id.widget_cv_show_host)
 
         cb.setOnCheckedChangeListener { buttonView, isChecked ->
             val host = preview.findViewById<TextView>(R.id.widget_host)
@@ -380,22 +379,22 @@ class ConfigWidgetActivity: Activity(){
                 infoParams.width = LinearLayout.LayoutParams.WRAP_CONTENT
                 ll.layoutParams = infoParams
 
-                ll = findViewById(R.id.widget_preview)
+                ll = findViewById(R.id.widget_cv_preview)
                 ll.weightSum = 2.0f
             }else{
                 host.visibility = View.INVISIBLE
-                if(!findViewById<CheckBox>(R.id.widget_show_dns).isChecked){
+                if(!findViewById<CheckBox>(R.id.widget_cv_show_dns).isChecked){
                     infoParams.weight = 0f
                     infoParams.width = 0
                     ll.layoutParams = infoParams
 
-                    ll = findViewById(R.id.widget_preview)
+                    ll = findViewById(R.id.widget_cv_preview)
                     ll.weightSum = 1.0f
                 }
             }
         }
 
-        cb = findViewById(R.id.widget_show_dns)
+        cb = findViewById(R.id.widget_cv_show_dns)
 
         cb.setOnCheckedChangeListener { buttonView, isChecked ->
             val dns = preview.findViewById<TextView>(R.id.widget_dns)
@@ -408,22 +407,22 @@ class ConfigWidgetActivity: Activity(){
                 infoParams.width = LinearLayout.LayoutParams.WRAP_CONTENT
 
                 ll.layoutParams = infoParams
-                ll = findViewById(R.id.widget_preview)
+                ll = findViewById(R.id.widget_cv_preview)
                 ll.weightSum = 2.0f
             }else{
                 dns.visibility = View.INVISIBLE
-                if(!findViewById<CheckBox>(R.id.widget_show_host).isChecked){
+                if(!findViewById<CheckBox>(R.id.widget_cv_show_host).isChecked){
                     infoParams.weight = 0f
                     infoParams.width = 0
                     ll.layoutParams = infoParams
 
-                    ll = findViewById(R.id.widget_preview)
+                    ll = findViewById(R.id.widget_cv_preview)
                     ll.weightSum = 1.0f
                 }
             }
         }
 
-        val sb = findViewById<SeekBar>(R.id.widget_alpha)
+        val sb = findViewById<SeekBar>(R.id.widget_cv_alpha)
         sb.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
@@ -439,14 +438,14 @@ class ConfigWidgetActivity: Activity(){
 
         //TODO: change min-width for different configs?
 
-        val btn = findViewById<Button>(R.id.widget_okay)
+        val btn = findViewById<Button>(R.id.widget_cv_okay)
         btn.setOnClickListener {
             val data = WidgetData()
 
-            data.counter = findViewById<CheckBox>(R.id.widget_show_counter).isChecked
-            data.host = findViewById<CheckBox>(R.id.widget_show_host).isChecked
-            data.dns = findViewById<CheckBox>(R.id.widget_show_dns).isChecked
-            data.alpha = findViewById<SeekBar>(R.id.widget_alpha).progress
+            data.counter = findViewById<CheckBox>(R.id.widget_cv_show_counter).isChecked
+            data.host = findViewById<CheckBox>(R.id.widget_cv_show_host).isChecked
+            data.dns = findViewById<CheckBox>(R.id.widget_cv_show_dns).isChecked
+            data.alpha = findViewById<SeekBar>(R.id.widget_cv_alpha).progress
             data.id = appWidgetId
 
             ktx().emit(NEW_WIDGET, data)
