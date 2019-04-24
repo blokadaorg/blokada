@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <CheckBox
-        android:id="@+id/widget_show_counter"
+        android:id="@+id/widget_cv_show_counter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="true"
@@ -14,7 +14,7 @@
         android:textSize="12sp" />
 
     <CheckBox
-        android:id="@+id/widget_show_host"
+        android:id="@+id/widget_cv_show_host"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="true"
@@ -22,7 +22,7 @@
         android:textSize="12sp" />
 
     <CheckBox
-        android:id="@+id/widget_show_dns"
+        android:id="@+id/widget_cv_show_dns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="true"
@@ -36,7 +36,7 @@
         android:textSize="12sp" />
 
     <SeekBar
-        android:id="@+id/widget_alpha"
+        android:id="@+id/widget_cv_alpha"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:max="255"
@@ -48,7 +48,7 @@
         android:background="#ff888888">
 
         <include
-            android:id="@+id/widget_preview"
+            android:id="@+id/widget_cv_preview"
             layout="@layout/widget_active"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -56,7 +56,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/widget_okay"
+        android:id="@+id/widget_cv_okay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/widget_okay" />
