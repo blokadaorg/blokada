@@ -66,7 +66,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             }
             val wm: AppWidgetManager = AppWidgetManager.getInstance(ctx)
             val ids = wm.getAppWidgetIds(ComponentName(ctx, ActiveWidgetProvider::class.java))
-            if(ids.isNotEmpty()){
+            if((ids != null) and (ids.isNotEmpty())){
                 val serviceIntent = Intent(ctx.applicationContext,
                         UpdateWidgetService::class.java)
                 ctx.startService(serviceIntent)
