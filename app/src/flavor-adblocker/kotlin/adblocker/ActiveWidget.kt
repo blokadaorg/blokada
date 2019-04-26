@@ -18,66 +18,14 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject
 import gs.property.I18n
-import gs.property.IWhen
 import org.blokada.R
 import tunnel.Events
 
 
 val NEW_WIDGET = "NEW_WIDGET".newEventOf<WidgetData>()
-val DELETE_WIDGET = "DELETE_WIDGET".newEventOf<IntArray>()
 val RESTORE_WIDGET = "RESTORE_WIDGET".newEventOf<WidgetRestoreData>()
+val DELETE_WIDGET = "DELETE_WIDGET".newEventOf<IntArray>()
 
-class ActiveWidgetProvider : AppWidgetProvider() {
-
-    override fun onEnabled(context: Context?) {
-        super.onEnabled(context)
-        val serviceIntent = Intent(context?.applicationContext,
-                UpdateWidgetService::class.java)
-        context?.startService(serviceIntent)
-    }
-
-    override fun onReceive(context: Context?, intent: Intent?) {
-        super.onReceive(context, intent)
-        if((context != null) and (intent != null)) {
-            if(intent?.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE){
-                val extras = intent.extras
-                if (extras != null) {
-                    val appWidgetId = extras.getInt(
-                            AppWidgetManager.EXTRA_APPWIDGET_ID,
-                            AppWidgetManager.INVALID_APPWIDGET_ID)
-                    if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-                        return
-                    }
-                    if (extras.containsKey("changeBlokadaState")){
-                        val t: Tunnel = context!!.inject().instance()
-                        t.enabled %= !t.enabled()
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onRestored(context: Context?, oldWidgetIds: IntArray?, newWidgetIds: IntArray?) {
-        val restoreData = WidgetRestoreData
-        restoreData.oldWidgetIds = oldWidgetIds!!
-        restoreData.newWidgetIds = newWidgetIds!!
-        context!!.ktx().emit(RESTORE_WIDGET, restoreData)
-        super.onRestored(context, oldWidgetIds, newWidgetIds)
-    }
-
-    override fun onDeleted(context: Context?, appWidgetIds: IntArray?) {
-        context!!.ktx().emit(DELETE_WIDGET, appWidgetIds!!)
-        super.onDeleted(context, appWidgetIds)
-    }
-
-    override fun onDisabled(context: Context?) {
-        super.onDisabled(context)
-        val serviceIntent = Intent(context?.applicationContext,
-                UpdateWidgetService::class.java)
-        context?.stopService(serviceIntent)
-    }
-
-}
 
 object WidgetRestoreData{
     var oldWidgetIds: IntArray = IntArray(0)
@@ -107,10 +55,63 @@ class WidgetData{
     }
 }
 
-class UpdateWidgetService : Service() { //TODO: kill Service if device is locked; Impact battery?
+
+class ActiveWidgetProvider : AppWidgetProvider() {
+    override fun onEnabled(context: Context?) {
+        super.onEnabled(context)
+        val serviceIntent = Intent(context?.applicationContext,
+                UpdateWidgetService::class.java)
+        context?.startService(serviceIntent)
+    }
+
+    override fun onReceive(context: Context?, intent: Intent?) {
+        super.onReceive(context, intent)
+        if((context != null) and (intent != null)) {
+            if(intent?.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE){
+                val extras = intent.extras
+                if (extras != null) {
+                    val appWidgetId = extras.getInt(
+                            AppWidgetManager.EXTRA_APPWIDGET_ID,
+                            AppWidgetManager.INVALID_APPWIDGET_ID)
+                    if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+                        return
+                    }
+                    if (extras.containsKey("changeBlokadaState")){
+                        val t: Tunnel = context!!.inject().instance()
+                        t.enabled %= !t.enabled()
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onRestored(context: Context?, oldWidgetIds: IntArray?, newWidgetIds: IntArray?) {
+        super.onRestored(context, oldWidgetIds, newWidgetIds)
+        val restoreData = WidgetRestoreData
+        restoreData.oldWidgetIds = oldWidgetIds ?: IntArray(0)
+        restoreData.newWidgetIds = newWidgetIds ?: IntArray(0)
+        context?.ktx()?.emit(RESTORE_WIDGET, restoreData)
+    }
+
+    override fun onDeleted(context: Context?, appWidgetIds: IntArray?) {
+        super.onDeleted(context, appWidgetIds)
+        context!!.ktx().emit(DELETE_WIDGET, appWidgetIds ?: IntArray(0))
+    }
+
+    override fun onDisabled(context: Context?) {
+        super.onDisabled(context)
+        val serviceIntent = Intent(context?.applicationContext,
+                UpdateWidgetService::class.java)
+        context?.stopService(serviceIntent)
+    }
+}
+
+class UpdateWidgetService : Service() {
 
     private val onBlockedEvent = { host: String -> onBlocked(host)}
-    private var onDnsEvent: IWhen? = null
+    private val onNewWidgetEvent = { data: WidgetData -> onNewWidget(data)}
+    private val onRestoreEvent = { restoreData: WidgetRestoreData -> onRestoreWidget(restoreData)}
+    private val onDeleteEvent = { appWidgetIds: IntArray -> onDeleteWidget(appWidgetIds)}
     private var widgetList: LinkedHashSet<WidgetData> = LinkedHashSet(5)
 
     override fun onBind(intent: Intent): IBinder? {
@@ -144,68 +145,11 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
             }
         }
 
-        this.ktx().on(Events.BLOCKED, onBlockedEvent)
+        this.ktx().on(NEW_WIDGET, onNewWidgetEvent)
 
-        this.ktx().on(NEW_WIDGET) {
-            data ->
-            widgetList.add(data)
-            var widgetConf = data.alpha and 0xff
-            if(data.counter){
-                widgetConf = widgetConf or 0x100
-            }
-            if(data.host){
-                widgetConf = widgetConf or 0x200
-            }
-            if(data.dns){
-                widgetConf = widgetConf or 0x400
-            }
-            pref.edit().putInt("widget-${data.id}",widgetConf).apply()
-            setWidget(data)
-            if(data.host or data.counter){
-                val t: Tunnel = this.inject().instance()
-                val droppedlist = t.tunnelRecentDropped.invoke()
-                if(droppedlist.isEmpty()){
-                    onBlocked("")
-                }else{
-                    onBlocked(droppedlist.last())
-                }
-            }
-            if(data.dns){
-                onDnsChanged()
-            }
-            onTunnelStateChanged()
-            print(data)
-        }
+        this.ktx().on(RESTORE_WIDGET, onRestoreEvent)
 
-        this.ktx().on(RESTORE_WIDGET) {
-            restoreData ->
-            val prefEdit = pref.edit()
-
-            for ((index, oldId) in restoreData.oldWidgetIds.withIndex()) {
-                if(pref.contains("widget-$oldId")) {
-                    val widgetConf = pref.getInt("widget-$oldId", 0)
-                    prefEdit.remove("widget-$oldId")
-                    prefEdit.putInt("widget-" + restoreData.newWidgetIds[index], widgetConf)
-                    (widgetList.find { wd -> wd.id == oldId })?.id = restoreData.newWidgetIds[index]
-                }else{
-                    this.ktx().v("old widget id not found!")
-                }
-            }
-            prefEdit.apply()
-        }
-
-        this.ktx().on(DELETE_WIDGET){
-            appWidgetIds ->
-            appWidgetIds.forEach { appWidgetId ->
-                val wd = widgetList.find { wd -> wd.id == appWidgetId }
-                widgetList.remove(wd)
-                val prefEdit = pref.edit()
-                if(pref.contains("widget-" + wd?.id)) {
-                    prefEdit.remove("widget-" + wd?.id)
-                }
-                prefEdit.apply()
-            }
-        }
+        this.ktx().on(DELETE_WIDGET, onDeleteEvent)
 
         val t: Tunnel = this.inject().instance()
         val droppedlist = t.tunnelRecentDropped.invoke()
@@ -214,6 +158,7 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
         }else{
             onBlocked(droppedlist.last())
         }
+        this.ktx().on(Events.BLOCKED, onBlockedEvent)
 
         onTunnelStateChanged()
         t.tunnelState.doOnUiWhenChanged(withInit = true).then{
@@ -222,7 +167,7 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
 
         onDnsChanged()
         val d: Dns = this.inject().instance()
-        onDnsEvent = d.dnsServers.doWhenChanged().then {
+        d.dnsServers.doWhenChanged().then {
             onDnsChanged()
         }
         return START_STICKY
@@ -230,8 +175,70 @@ class UpdateWidgetService : Service() { //TODO: kill Service if device is locked
 
     override fun onDestroy() {
         this.ktx().cancel(Events.BLOCKED, onBlockedEvent)
-
+        this.ktx().cancel(NEW_WIDGET, onNewWidgetEvent)
+        this.ktx().cancel(RESTORE_WIDGET, onRestoreEvent)
+        this.ktx().cancel(DELETE_WIDGET, onDeleteEvent)
         super.onDestroy()
+    }
+
+    private fun onNewWidget(data: WidgetData){
+        val pref = this.getSharedPreferences("widgets", Context.MODE_PRIVATE)
+        widgetList.add(data)
+        var widgetConf = data.alpha and 0xff
+        if(data.counter){
+            widgetConf = widgetConf or 0x100
+        }
+        if(data.host){
+            widgetConf = widgetConf or 0x200
+        }
+        if(data.dns){
+            widgetConf = widgetConf or 0x400
+        }
+        pref.edit().putInt("widget-${data.id}",widgetConf).apply()
+        setWidget(data)
+        if(data.host or data.counter){
+            val t: Tunnel = this.inject().instance()
+            val droppedlist = t.tunnelRecentDropped.invoke()
+            if(droppedlist.isEmpty()){
+                onBlocked("")
+            }else{
+                onBlocked(droppedlist.last())
+            }
+        }
+        if(data.dns){
+            onDnsChanged()
+        }
+        onTunnelStateChanged()
+    }
+
+    private fun onRestoreWidget(restoreData: WidgetRestoreData){
+        val pref = this.getSharedPreferences("widgets", Context.MODE_PRIVATE)
+        val prefEdit = pref.edit()
+
+        for ((index, oldId) in restoreData.oldWidgetIds.withIndex()) {
+            if(pref.contains("widget-$oldId")) {
+                val widgetConf = pref.getInt("widget-$oldId", 0)
+                prefEdit.remove("widget-$oldId")
+                prefEdit.putInt("widget-" + restoreData.newWidgetIds[index], widgetConf)
+                (widgetList.find { wd -> wd.id == oldId })?.id = restoreData.newWidgetIds[index]
+            }else{
+                this.ktx().v("old widget id not found!")
+            }
+        }
+        prefEdit.apply()
+    }
+
+    private fun onDeleteWidget(appWidgetIds: IntArray){
+        val pref = this.getSharedPreferences("widgets", Context.MODE_PRIVATE)
+        val prefEdit = pref.edit()
+        appWidgetIds.forEach { appWidgetId ->
+            val wd = widgetList.find { wd -> wd.id == appWidgetId }
+            widgetList.remove(wd)
+            if(pref.contains("widget-" + wd?.id)) {
+                prefEdit.remove("widget-" + wd?.id)
+            }
+        }
+        prefEdit.apply()
     }
 
     private fun onTunnelStateChanged(){
@@ -439,8 +446,6 @@ class ConfigWidgetActivity: Activity(){
                 (preview as LinearLayout).background.alpha = progress
             }
         })
-
-        //TODO: change min-width for different configs?
 
         val btn = findViewById<Button>(R.id.widget_cv_okay)
         btn.setOnClickListener {
