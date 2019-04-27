@@ -34,7 +34,7 @@ class AUiState(
     )
 
     override val notifications = newPersistedProperty(kctx, APrefsPersistence(ctx, "notifications"),
-            { true }
+            { false } // By default, have notifications off. 
     )
 
     override val dashes = newPersistedProperty(kctx, ADashesPersistence(ctx), { ctx.inject().instance() })
