@@ -28,6 +28,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                     NotificationDashOn(ctx).activate(true),
                     TunnelDashHostsCount(ctx).activate(true),
                     SettingsDash(ctx).activate(true),
+                    SocialShareCount(ctx).activate(true),
                     PatronDash(lazy).activate(false),
                     PatronAboutDash(lazy).activate(false),
                     DonateDash(lazy).activate(false),
