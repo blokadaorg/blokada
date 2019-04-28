@@ -12,8 +12,6 @@ import android.os.Bundle
 import android.os.IBinder
 import android.view.View
 import android.widget.*
-import android.widget.LinearLayout
-import android.widget.SeekBar.OnSeekBarChangeListener
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject

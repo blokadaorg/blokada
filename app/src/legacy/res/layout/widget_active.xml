@@ -27,23 +27,25 @@
             android:tint="@color/colorActive" />
 
         <TextView
-            android:id="@+id/widget_counter"
+            android:id="@+id/widget_host"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:paddingEnd="8dp"
+            android:maxLines="2"
             android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="@string/main_status_disabled"
             android:textColor="@color/colorText"
             android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/widget_host"
-        android:layout_width="match_parent"
+        android:id="@+id/widget_counter"
+        android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:gravity="center_horizontal"
         android:lines="1"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"

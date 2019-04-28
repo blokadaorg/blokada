@@ -38,7 +38,7 @@
             android:id="@+id/widget_cv_preview"
             layout="@layout/widget_active"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp" />
     </FrameLayout>
 
