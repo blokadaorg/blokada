@@ -4,82 +4,60 @@
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundThird"
-    android:orientation="horizontal"
-    android:weightSum="2">
+    android:background="@drawable/bg_rounded"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="2dp"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp"
+    android:paddingTop="2dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:maxWidth="10dp"
-        android:orientation="vertical"
-        android:weightSum="10">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/widget_active"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9"
-            android:background="@android:color/transparent"
-            android:saveEnabled="true"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_blokada" />
+            android:src="@drawable/ic_blokada"
+            android:tint="@color/colorActive" />
 
         <TextView
             android:id="@+id/widget_counter"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:saveEnabled="true"
-            android:text="@string/main_loading"
-            android:textSize="18sp" />
+            android:ellipsize="end"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:text="@string/main_status_disabled"
+            android:textColor="@color/colorText"
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/widget_exta_info"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:weightSum="10">
+    <TextView
+        android:id="@+id/widget_host"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/colorText"
+        android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/widget_host"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="end|center_vertical"
-            android:saveEnabled="true"
-            android:text="@string/main_loading"
-            android:textSize="18sp"
-            android:visibility="visible" />
-
-        <LinearLayout
-            android:id="@+id/widget_spacer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/widget_dns"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="end|center_vertical"
-            android:saveEnabled="true"
-            android:text="@string/main_loading"
-            android:textSize="18sp"
-            android:visibility="visible" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/widget_dns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="end"
+        android:lines="1"
+        android:textColor="@color/colorTextUnimportant"
+        android:textSize="12sp" />
 
 </LinearLayout>

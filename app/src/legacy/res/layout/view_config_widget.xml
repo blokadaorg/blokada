@@ -29,19 +29,6 @@
         android:text="@string/widget_show_dns"
         android:textSize="12sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/widget_alpha"
-        android:textSize="12sp" />
-
-    <SeekBar
-        android:id="@+id/widget_cv_alpha"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:max="255"
-        android:progress="255" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

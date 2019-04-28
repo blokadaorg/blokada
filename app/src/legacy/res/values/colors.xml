@@ -6,6 +6,7 @@
     <color name="colorBackgroundThird">#262626</color>
     <color name="colorBackgroundTrans">#000e0e0e</color>
     <color name="colorBackgroundTransCenter">#DD0e0e0e</color>
+    <color name="colorBackgroundTransWidget">#AA0e0e0e</color>
     <color name="colorBackgroundAbout">#000</color>
     <color name="colorBackgroundAboutLight">#101010</color>
     <color name="colorText">#eaeaea</color>
