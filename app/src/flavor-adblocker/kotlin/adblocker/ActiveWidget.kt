@@ -16,6 +16,7 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject
 import gs.property.I18n
+import gs.property.IWhen
 import org.blokada.R
 import tunnel.Events
 
@@ -110,6 +111,8 @@ class UpdateWidgetService : Service() {
     private val onNewWidgetEvent = { data: WidgetData -> onNewWidget(data) }
     private val onRestoreEvent = { restoreData: WidgetRestoreData -> onRestoreWidget(restoreData) }
     private val onDeleteEvent = { appWidgetIds: IntArray -> onDeleteWidget(appWidgetIds) }
+    private var onTunnelStateEvent: IWhen? = null
+    private var onDNSEvent: IWhen? = null
     private var widgetList: LinkedHashSet<WidgetData> = LinkedHashSet(5)
 
     override fun onBind(intent: Intent): IBinder? {
@@ -159,13 +162,13 @@ class UpdateWidgetService : Service() {
         this.ktx().on(Events.BLOCKED, onBlockedEvent)
 
         onTunnelStateChanged()
-        t.tunnelState.doOnUiWhenChanged(withInit = true).then {
+        onTunnelStateEvent = t.tunnelState.doOnUiWhenChanged(withInit = true).then {
             onTunnelStateChanged()
         }
 
         onDnsChanged()
         val d: Dns = this.inject().instance()
-        d.dnsServers.doOnUiWhenChanged(withInit = true).then {
+        onDNSEvent = d.dnsServers.doOnUiWhenChanged(withInit = true).then {
             onDnsChanged()
         }
         return START_STICKY
@@ -176,6 +179,10 @@ class UpdateWidgetService : Service() {
         this.ktx().cancel(NEW_WIDGET, onNewWidgetEvent)
         this.ktx().cancel(RESTORE_WIDGET, onRestoreEvent)
         this.ktx().cancel(DELETE_WIDGET, onDeleteEvent)
+        val t: Tunnel = this.inject().instance()
+        t.tunnelState.cancel(onTunnelStateEvent)
+        val d: Dns = this.inject().instance()
+        d.dnsServers.cancel(onDNSEvent)
         super.onDestroy()
     }
 
