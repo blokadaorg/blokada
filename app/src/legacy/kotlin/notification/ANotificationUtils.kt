@@ -9,14 +9,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
+import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
-import core.Dns
-import core.MainActivity
-import core.Product
-import core.printServers
+import core.*
 import gs.environment.inject
 import gs.property.I18n
 import org.blokada.R
+import android.text.format.DateUtils
+import android.widget.RemoteViews
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+
+
+
 
 
 /**
@@ -78,10 +83,38 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
         b.setContentTitle(provider)
         b.setContentText(ctx.getString(R.string.dns_keepalive_content, servers))
     } else {
-        b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, count))
-        b.setContentText(ctx.getString(R.string.notification_keepalive_content, last))
-    }
+        val expandedView = RemoteViews(ctx.packageName, R.layout.view_keepalive_expanded)
+        expandedView.setTextViewText(R.id.keep_alive_title, ctx.resources.getString(R.string.notification_keepalive_title, count))
+        expandedView.setTextViewText(R.id.keep_alive_text, ctx.getString(R.string.notification_keepalive_content, last))
+        expandedView.setTextViewText(R.id.keep_alive_timestamp, DateUtils.formatDateTime(ctx, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME))
 
+        val t: Tunnel = ctx.inject().instance()
+        var domainList = ""
+        val duplicates =ArrayList<String>(0)
+        t.tunnelRecentDropped().asReversed().forEach { s ->
+            if(!duplicates.contains(s)){
+                duplicates.add(s)
+                domainList += s + '\n'
+            }
+        }
+        expandedView.setTextViewText(R.id.keep_alive_message, domainList)
+
+        val intent = Intent(ctx, ANotificationsToggleService::class.java)
+        intent.putExtra("new_state",!t.enabled())
+        expandedView.setOnClickPendingIntent(R.id.keep_alive_button, PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
+        if(t.enabled()) {
+            expandedView.setTextViewText(R.id.keep_alive_button, "Deactivate")
+        }else{
+            expandedView.setTextViewText(R.id.keep_alive_button, "Activate")
+        }
+
+        val collapsedView = RemoteViews(ctx.packageName, R.layout.view_keepalive_collapsed)
+        collapsedView.setTextViewText(R.id.keep_alive_title, ctx.resources.getString(R.string.notification_keepalive_title, count))
+        collapsedView.setTextViewText(R.id.keep_alive_text, ctx.getString(R.string.notification_keepalive_content, last))
+        collapsedView.setTextViewText(R.id.keep_alive_timestamp, DateUtils.formatDateTime(ctx, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME))
+        b.setCustomContentView(collapsedView)
+        b.setCustomBigContentView(expandedView)
+    }
     b.setSmallIcon(R.drawable.ic_stat_blokada)
     b.setPriority(NotificationCompat.PRIORITY_MIN)
     b.setOngoing(true)
@@ -135,3 +168,9 @@ fun displayNotificationForUpdate(ctx: Context, versionName: String) {
     notif.notify(2, b.build())
 }
 
+
+class DisplayToastRunnable(private val mContext: Context, private var mText: String) : Runnable {
+    override fun run() {
+        Toast.makeText(mContext, mText, Toast.LENGTH_SHORT).show()
+    }
+}

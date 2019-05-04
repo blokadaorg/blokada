@@ -63,6 +63,7 @@
 
         <service android:name="notification.ANotificationsOffService"></service>
         <service android:name="notification.ANotificationsWhitelistService"></service>
+        <service android:name="notification.ANotificationsToggleService"></service>
         <service
             android:name="core.QuickSettingsService"
             android:icon="@drawable/ic_blokada"
@@ -112,6 +113,13 @@
         <receiver
             android:name="adblocker.ActiveWidgetProvider"
             android:exported="true">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/active_widget_info" />
+        </receiver>
+        <receiver
+            android:name="adblocker.ListWidgetProvider"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
                 <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
@@ -120,7 +128,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/active_widget_info" />
+                android:resource="@xml/list_widget_info" />
         </receiver>
 
         <service android:name="adblocker.RequestLogger" />

@@ -2,6 +2,7 @@ package notification
 
 import android.app.IntentService
 import android.content.Intent
+import android.os.Handler
 import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
 import core.ktx
@@ -14,6 +15,7 @@ import tunnel.FilterSourceDescriptor
 class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
 
     private val tunnel by lazy { inject().instance<tunnel.Main>() }
+    private var mHandler: Handler = Handler()
 
     override fun onHandleIntent(intent: Intent) {
         val host = intent.getStringExtra("host") ?: return
@@ -27,7 +29,7 @@ class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
 
         tunnel.putFilter(ktx("whitelistFromNotification"), f)
 
-        Toast.makeText(this, R.string.notification_blocked_whitelist_applied, Toast.LENGTH_SHORT).show()
+        mHandler.post(DisplayToastRunnable(this, getString(R.string.notification_blocked_whitelist_applied)))
         hideNotification(this)
     }
 
