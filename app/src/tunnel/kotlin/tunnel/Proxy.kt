@@ -61,16 +61,21 @@ internal class Proxy(
         // URL in whitelist 'blokada.allowed(host)'
         // or '||'
         // not '!' in blokada.denied(host)
-        if (blockade.allowed(host) || !blockade.denied(host)) {
+        //TODO change allowed to inWhitelist // reason: when someone who is trying to add to blokada comes accress allowed,
+        // they assume that means the two requires have already been checked.
+        // Farther, when they are looking for where blacklist is, it is not intuitive that denied means url is the blacklist
+        // In current code, denied is blacklist, but still can be allowed if url is also in whitelist but that isn't accounted for in the denied call
+        //TODO change denined to inBlacklist
+        //TODO create call (my appologizes if call is not the right word. might be function or class)
+        // called blockade.allowed(host) and check it against the if ((blokada.Inwhitelist(hosts) || !blockada.Inblacklist(host)){return true else return false}
+        //TODO consider changing host to URL
+         if (blockade.allowed(host) || !blockade.denied(host)) {
             // ALLOW url to pass
-            Log.d("newy21", ""+blockade.allowed(host) + "  " + !blockade.denied(host))
             val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                     destination.getPort())
-            Log.d("newy22", "host for Allowed is " + host + " flag is " + Flags.QR.toInt() + "Rcode is " + Rcode.NOERROR + " section.AUTHORITY IS " + Section.AUTHORITY)
                     forward(ktx, proxiedDns, originEnvelope)
         } else {
             // block the URL
-            Log.d("newy22", "host for Blocked is " + host + " flag is " + Flags.QR.toInt() + "Rcode is " + Rcode.NOERROR + " section.AUTHORITY IS " + Section.AUTHORITY)
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
