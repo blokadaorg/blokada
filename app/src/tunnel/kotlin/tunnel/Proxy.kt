@@ -2,7 +2,6 @@ package tunnel
 
 import android.system.ErrnoException
 import android.system.OsConstants
-import android.util.Log
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.toResultOr
 import core.Kontext
@@ -69,7 +68,7 @@ internal class Proxy(
         //TODO create call (my appologizes if call is not the right word. might be function or class)
         // called blockade.allowed(host) and check it against the if ((blokada.Inwhitelist(hosts) || !blockada.Inblacklist(host)){return true else return false}
         //TODO consider changing host to URL
-         if (blockade.allowed(host) || !blockade.denied(host)) {
+        if (blockade.allowed(host) || !blockade.denied(host)) {
             // ALLOW url to pass
             val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                     destination.getPort())
