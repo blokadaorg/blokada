@@ -2,7 +2,9 @@ package tunnel
 
 import android.system.ErrnoException
 import android.system.OsConstants
+import android.util.Log
 import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.toResultOr
 import core.Kontext
 import core.Result
 import org.pcap4j.packet.*
@@ -54,16 +56,27 @@ internal class Proxy(
         if (dnsMessage.question == null) return
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
+        // This is where code decides to allow or block a URL.
+        // IF EITHER OF THE FOLLOWING BELOW ARE TRUE THEN ALLOW URL TO PASS. If neither are true block the URL
+        // URL in whitelist 'blokada.allowed(host)'
+        // or '||'
+        // not '!' in blokada.denied(host)
         if (blockade.allowed(host) || !blockade.denied(host)) {
+            // ALLOW url to pass
+            Log.d("newy21", ""+blockade.allowed(host) + "  " + !blockade.denied(host))
             val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                     destination.getPort())
-            forward(ktx, proxiedDns, originEnvelope)
+            Log.d("newy22", "host for Allowed is " + host + " flag is " + Flags.QR.toInt() + "Rcode is " + Rcode.NOERROR + " section.AUTHORITY IS " + Section.AUTHORITY)
+                    forward(ktx, proxiedDns, originEnvelope)
         } else {
+            // block the URL
+            Log.d("newy22", "host for Blocked is " + host + " flag is " + Flags.QR.toInt() + "Rcode is " + Rcode.NOERROR + " section.AUTHORITY IS " + Section.AUTHORITY)
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
             toDevice(ktx, dnsMessage.toWire(), originEnvelope)
             ktx.emit(Events.BLOCKED, host)
+
         }
     }
 

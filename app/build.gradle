@@ -118,10 +118,15 @@ android {
     }
     signingConfigs {
         release {
+            //TODO change back before uploading. Made this change so blokada would compile on everyone elses computer that doesn't have the offical signing credentials required to publish an offical update
+//            keyAlias 'blokada'
+//            keyPassword BLOKADA_KEY_PASSWORD
+//            storeFile file(BLOKADA_KEY_PATH)
+//            storePassword BLOKADA_STORE_PASSWORD
             keyAlias 'blokada'
-            keyPassword BLOKADA_KEY_PASSWORD
-            storeFile file(BLOKADA_KEY_PATH)
-            storePassword BLOKADA_STORE_PASSWORD
+            keyPassword 'default'
+            storeFile file('default')
+            storePassword 'default'
         }
     }
     buildTypes {
