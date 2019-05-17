@@ -280,7 +280,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    app:theme="@style/Switch" />
+                    android:theme="@style/Switch" />
 
             </LinearLayout>
 
@@ -344,7 +344,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    app:theme="@style/Switch" />
+                    android:theme="@style/Switch" />
 
             </LinearLayout>
         </LinearLayout>
@@ -399,7 +399,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    app:theme="@style/Switch" />
+                    android:theme="@style/Switch" />
 
             </LinearLayout>
 
@@ -463,7 +463,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    app:theme="@style/Switch" />
+                    android:theme="@style/Switch" />
 
             </LinearLayout>
 
@@ -527,7 +527,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    app:theme="@style/Switch" />
+                    android:theme="@style/Switch" />
 
             </LinearLayout>
 
@@ -590,7 +590,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    app:theme="@style/Switch" />
+                    android:theme="@style/Switch" />
 
             </LinearLayout>
 
@@ -653,7 +653,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    app:theme="@style/Switch" />
+                    android:theme="@style/Switch" />
 
             </LinearLayout>
 

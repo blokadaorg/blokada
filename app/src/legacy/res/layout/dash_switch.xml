@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:theme="@style/Switch" />
+        android:theme="@style/Switch" />
 
     <TextView
         android:id="@+id/dash_text"
