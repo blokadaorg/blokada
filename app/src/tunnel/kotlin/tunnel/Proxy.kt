@@ -58,6 +58,7 @@ internal class Proxy(
             val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                     destination.getPort())
             forward(ktx, proxiedDns, originEnvelope)
+            ktx.emit(Events.ALLOWED, host)
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR

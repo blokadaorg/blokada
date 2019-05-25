@@ -122,6 +122,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/active_widget_info" />
         </receiver>
+
+        <service android:name="adblocker.RequestLogger" />
     </application>
 
 </manifest>
