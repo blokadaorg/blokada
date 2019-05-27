@@ -42,7 +42,8 @@ class AUiState(
     override val infoQueue = newProperty(kctx, { listOf<Info>() })
 
     override val showSystemApps = newPersistedProperty(kctx, APrefsPersistence(ctx, "showSystemApps"),
-            { true })
+            { true }
+    )
 
 }
 

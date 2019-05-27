@@ -39,13 +39,13 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                     AboutDash(ctx).activate(false),
                     CreditsDash(lazy).activate(false),
                     CtaDash(lazy).activate(false),
-                    ShareLogDash(lazy).activate(false)
+                    ShareLogDash(lazy).activate(false),
+                    LoggerDash(ctx).activate(true)
             )
         }
         onReady {
             val s: Tunnel = instance()
             val ui: UiState = instance()
-
             // Show confirmation message to the user whenever notifications are enabled or disabled
             ui.notifications.doWhenChanged().then {
                 if (ui.notifications()) {
@@ -72,6 +72,11 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                         UpdateWidgetService::class.java)
                 ctx.startService(serviceIntent)
             }
+
+            val serviceIntent = Intent(ctx.applicationContext,
+                    RequestLogger::class.java)
+            serviceIntent.putExtra("load_on_start", true)
+            ctx.startService(serviceIntent)
 
             // Initialize default values for properties that need it (async)
             s.tunnelDropCount {}
