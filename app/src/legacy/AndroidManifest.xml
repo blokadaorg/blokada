@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="org.blokada" android:sharedUserId="org.blokada"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.blokada"
+    android:sharedUserId="org.blokada">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
@@ -17,16 +18,17 @@
         android:name="core.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:installLocation="internalOnly"
         android:label="@string/branding_app_name"
         android:supportsRtl="true"
-        android:installLocation="internalOnly"
         android:theme="@style/BlokadaColors.Main.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
 
         <receiver
             android:name="core.BootReceiver"
-            android:exported="true"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter android:priority="500">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -36,20 +38,21 @@
             </intent-filter>
         </receiver>
 
+
         <service
             android:name="core.BootJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-        </service>
-        
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
+
         <activity
             android:name="core.MainActivity"
             android:label="@string/branding_app_name"
             android:launchMode="singleTask"
             android:theme="@style/BlokadaColors.Main.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -58,16 +61,12 @@
             android:launchMode="singleInstance"
             android:theme="@style/TransparentWindow" />
 
-        <service
-            android:name="notification.ANotificationsOffService">
-        </service>
-        <service
-            android:name="notification.ANotificationsWhitelistService">
-        </service>
+        <service android:name="notification.ANotificationsOffService"></service>
+        <service android:name="notification.ANotificationsWhitelistService"></service>
         <service
             android:name="core.QuickSettingsService"
-            android:label="@string/main_quicksettings_toggle"
             android:icon="@drawable/ic_blokada"
+            android:label="@string/main_quicksettings_toggle"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -77,28 +76,23 @@
             android:name="tunnel.Service"
             android:permission="android.permission.BIND_VPN_SERVICE">
             <intent-filter>
-                <action android:name="android.net.VpnService"/>
+                <action android:name="android.net.VpnService" />
             </intent-filter>
         </service>
-        <service
-            android:name="core.KeepAliveService">
-        </service>
+        <service android:name="core.KeepAliveService"></service>
 
-        <receiver
-            android:name="gs.property.LocaleReceiver">
+        <receiver android:name="gs.property.LocaleReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name="gs.property.ConnectivityReceiver">
+        <receiver android:name="gs.property.ConnectivityReceiver">
             <intent-filter>
-                <action android:name="org.blokada.keepAlive"/>
+                <action android:name="org.blokada.keepAlive" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name="gs.property.ScreenOnReceiver">
-        </receiver>
+        <receiver android:name="gs.property.ScreenOnReceiver"></receiver>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.files"
@@ -108,6 +102,26 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_update" />
         </provider>
+
+        <activity android:name="adblocker.ConfigWidgetActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <service android:name="adblocker.UpdateWidgetService" />
+        <receiver
+            android:name="adblocker.ActiveWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/active_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

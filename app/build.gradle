@@ -181,7 +181,7 @@ dependencies {
     implementation 'dnsjava:dnsjava:2.1.8'
 
     // UI libraries
-    implementation ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
+    implementation('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
         transitive = true
     }
 
