@@ -5,7 +5,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:alpha="10"
-    android:background="@color/colorBackgroundTransWidget"
     android:padding="8dp">
 
     <RelativeLayout
@@ -20,7 +19,7 @@
             android:paddingLeft="4dp"
             android:paddingRight="6dp"
             android:paddingBottom="1dp"
-            android:src="@drawable/ic_stat_blokada" />
+            android:src="@mipmap/ic_launcher" />
 
     </RelativeLayout>
 
