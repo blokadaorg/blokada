@@ -13,7 +13,7 @@
     <string name="panel_section_ads_whitelist">Allowed</string>
     <string name="panel_section_ads_settings">Settings</string>
     <string name="panel_section_advanced_dns">DNS</string>
-    <string name="panel_section_apps_all">All</string>
+    <string name="panel_section_apps_all">Installed</string>
     <string name="panel_section_apps_system">System</string>
     <string name="panel_section_advanced_settings">Settings</string>
 

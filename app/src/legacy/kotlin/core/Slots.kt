@@ -1378,7 +1378,7 @@ class GatewayVB(
                     // cant 'unselect' for now
                 } else {
                     cfg?.run {
-                        newLease(ktx, this, gateway)
+                        redoLease(ktx, this, gateway)
                     }
                 }
             }

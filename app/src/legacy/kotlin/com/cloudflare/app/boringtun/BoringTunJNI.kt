@@ -16,6 +16,24 @@ class BoringTunJNI {
         /// Write dst buffer to the interface as an ipv6 packet. Size indicates the number of bytes to write.
         const val WRITE_TO_TUNNEL_IPV6 = 6
 
+        val errors = arrayOf(
+            "DestinationBufferTooSmall",
+            "IncorrectPacketLength",
+            "UnexpectedPacket",
+            "WrongPacketType",
+            "WrongIndex",
+            "WrongKey",
+            "InvalidTai64nTimestamp",
+            "WrongTai64nTimestamp",
+            "InvalidMac",
+            "InvalidAeadTag",
+            "InvalidCounter",
+            "InvalidPacket",
+            "NoCurrentSession",
+            "LockFailed",
+            "ConnectionExpired"
+        )
+
         external fun x25519_secret_key(): ByteArray
         external fun x25519_public_key(secret_key: ByteArray): ByteArray
         external fun x25519_key_to_hex(key: ByteArray): String

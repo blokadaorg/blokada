@@ -156,6 +156,7 @@ internal class BlockaVpnConfigurator(
         builder.addRoute("::", 0)
 
         builder.setBlocking(true)
+        builder.setMtu(1420)
     }
 
 }

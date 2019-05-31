@@ -1,16 +1,13 @@
 package tunnel
 
-import android.system.ErrnoException
-import android.system.OsConstants
 import com.cloudflare.app.boringtun.BoringTunJNI
-import com.github.michaelbull.result.mapError
 import core.Kontext
-import core.Result
-import core.ktx
+import core.getExternalPath
 import org.pcap4j.packet.*
 import org.xbill.DNS.*
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
-import java.net.DatagramPacket
 import java.net.Inet4Address
 import java.net.Inet6Address
 import java.net.InetSocketAddress
@@ -25,17 +22,29 @@ interface Proxy {
 internal class BlockaProxy(
         private val dnsServers: List<InetSocketAddress>,
         private val blockade: Blockade,
-        private val loopback: Queue<Triple<ByteArray, Int, Int>>,
         private val config: BlockaConfig,
-        var forward: (Kontext, DatagramPacket) -> Unit = { _, _ -> },
+        private val buffers: Buffers,
+        internal var forward: (Kontext, Int) -> Unit = { ktx, _ ->  ktx.w("forward not set")},
+        internal var loopback: (Kontext, Int) -> Unit = { ktx, _ ->  ktx.w("loopback not set")},
         private val denyResponse: SOARecord = SOARecord(Name("org.blokada.invalid."), DClass.IN,
                 5L, Name("org.blokada.invalid."), Name("org.blokada.invalid."), 0, 0, 0, 0, 5)
 ) : Proxy {
-    var tunnel: Long? = null
-    val dest = ByteBuffer.allocateDirect(65535)
-    val op = ByteBuffer.allocateDirect(8)
 
-    val empty = ByteArray(1)
+    private var droppedPackets: FileOutputStream? = try {
+        val path = File(getExternalPath(), "dropped-packets")
+        FileOutputStream(path, true)
+    } catch (ex: Exception) {
+        null
+    }
+
+    private var tunnel: Long? = null
+    private val op = ByteBuffer.allocateDirect(8)
+    private val empty = ByteArray(1)
+
+    fun createTunnel(ktx: Kontext) {
+        ktx.v("creating boringtun tunnel", config.gatewayId)
+        tunnel = BoringTunJNI.new_tunnel(config.privateKey, config.gatewayId)
+    }
 
     private fun interceptDns(ktx: Kontext, packetBytes: ByteArray, length: Int): Boolean {
         val originEnvelope = try {
@@ -74,90 +83,74 @@ internal class BlockaProxy(
         }
     }
 
-    override fun fromDevice(ktx: Kontext, packetBytes: ByteArray, length: Int) {
-        if (config.adblocking && interceptDns(ktx, packetBytes, length)) return
+    override fun fromDevice(ktx: Kontext, fromDevice: ByteArray, length: Int) {
+        if (config.adblocking && interceptDns(ktx, fromDevice, length)) return
 
-        if (tunnel == null) {
-            ktx.v("creating boringtun tunnel", config.gatewayId)
-            tunnel = BoringTunJNI.new_tunnel(config.privateKey, config.gatewayId)
-        }
-
-        var written = 0
+        var i = 0
         do {
-//            ktx.v("tun $tunnel, wireguard write")
-            dest.rewind()
             op.rewind()
-            val resp = BoringTunJNI.wireguard_write(tunnel!!, if (written == 0) packetBytes else empty,
-                    length, dest, dest.capacity(), op)
-            op.rewind()
-            written++
+            val destinationId = buffers.getFreeBuffer()
+            val destination = buffers[destinationId]
+            val source = if (i++ == 0) fromDevice else empty
+            val response = BoringTunJNI.wireguard_write(tunnel!!, source, length, destination,
+                    destination.capacity(), op)
+            destination.limit(response)
             when (op[0].toInt()) {
                 BoringTunJNI.WRITE_TO_NETWORK -> {
-//                    ktx.v("writing to network (size: $resp)")
-                    Result.of {
-                        val udp = DatagramPacket(dest.array(), dest.arrayOffset(), resp)
-                        forward(ktx, udp)
-                    }.mapError { ex ->
-                        ktx.w("failed sending to gateway", ex.message ?: "")
-                        val cause = ex.cause
-                        if (cause is ErrnoException && cause.errno == OsConstants.EBADF) throw ex
-                    }
+//                    ktx.v("will write to network: $response, buffer: ${destinationId}")
+                    forward(ktx, destinationId)
                 }
                 BoringTunJNI.WIREGUARD_ERROR -> {
-                    ktx.e("wireguard error: $resp")
+                    ktx.e("wireguard error: ${BoringTunJNI.errors[response]}")
+                    buffers.returnBuffer(destinationId)
                 }
-                BoringTunJNI.WIREGUARD_DONE -> { }
+                BoringTunJNI.WIREGUARD_DONE -> {
+                    if (i == 1) ktx.e("did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
+//                    droppedPackets?.write(fromDevice, 0, length)
+                    buffers.returnBuffer(destinationId)
+                }
                 else -> {
                     ktx.w("wireguard write unknown response: ${op[0].toInt()}")
+                    buffers.returnBuffer(destinationId)
                 }
             }
-        } while (resp == BoringTunJNI.WRITE_TO_NETWORK)
+        } while (response == BoringTunJNI.WRITE_TO_NETWORK)
     }
 
-    override fun toDevice(ktx: Kontext, response: ByteArray, length: Int, originEnvelope: Packet?) {
-        val ktx = "boringtun".ktx()
-        var written = 0
+    override fun toDevice(ktx: Kontext, source: ByteArray, length: Int, originEnvelope: Packet?) {
+        var i = 0
         do {
-//            ktx.v("tun $tunnel, reading packet")
             op.rewind()
-            dest.rewind()
-            val resp = BoringTunJNI.wireguard_read(tunnel!!, if (written == 0) response else empty,
-                    length, dest, dest.capacity(), op)
-            written++
-            op.rewind()
+//            ktx.v("read: received length: $length")
+            val destinationBufferId = buffers.getFreeBuffer()
+            val destination = buffers[destinationBufferId]
+            val source = if (i++ == 0) source else empty
+            val response = BoringTunJNI.wireguard_read(tunnel!!, source, length, destination,
+                    destination.capacity(), op)
+            destination.limit(response) // TODO: what if -1
             when (op[0].toInt()) {
                 BoringTunJNI.WRITE_TO_NETWORK -> {
-//                    ktx.v("read: writing to network")
-                    Result.of {
-                       val udp = DatagramPacket(dest.array(), dest.arrayOffset(), resp)
-                       forward(ktx, udp)
-                    }.mapError { ex ->
-                        ktx.w("failed sending to gateway", ex.message ?: "")
-                        val cause = ex.cause
-                        if (cause is ErrnoException && cause.errno == OsConstants.EBADF) throw ex
-                    }
+//                    ktx.v("read: will write: $response, length: $length")
+                    forward(ktx, destinationBufferId)
                 }
                 BoringTunJNI.WIREGUARD_ERROR -> {
-                    ktx.e("read: wireguard error: $resp, for response size: $length")
+                    ktx.e("read: wireguard error: ${BoringTunJNI.errors[response]}")
+                    buffers.returnBuffer(destinationBufferId)
                 }
-                BoringTunJNI.WIREGUARD_DONE -> { }
-                BoringTunJNI.WRITE_TO_TUNNEL_IPV4, BoringTunJNI.WRITE_TO_TUNNEL_IPV6 -> {
-//                    ktx.v("read: writing to tunnel")
-                    //val array = ByteArray(resp) // todo: no copy
-                    dest.get(array, 0, resp)
-                    loopback.add(Triple(array, 0, resp))
-
-                    // TODO: Should be like this but offset is ignored or something?
-//                    loopback.add(Triple(dest.array(), dest.arrayOffset(), resp))
+                BoringTunJNI.WIREGUARD_DONE -> {
+                    if (i == 1) ktx.e("read: did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
+//                    droppedPackets?.write(source, 0, length)
+                    buffers.returnBuffer(destinationBufferId)
                 }
+                BoringTunJNI.WRITE_TO_TUNNEL_IPV4,
+                BoringTunJNI.WRITE_TO_TUNNEL_IPV6 -> loopback(ktx, destinationBufferId)
                 else -> {
                     ktx.w("read: wireguard unknown response: ${op[0].toInt()}")
+                    buffers.returnBuffer(destinationBufferId)
                 }
             }
-        } while (resp == BoringTunJNI.WRITE_TO_NETWORK)
+        } while (response == BoringTunJNI.WRITE_TO_NETWORK)
     }
-
-    private val array = ByteArray(65535)
 
     private fun toDeviceFakeDnsResponse(ktx: Kontext, response: ByteArray, originEnvelope: Packet?) {
         originEnvelope as IpPacket
@@ -188,42 +181,38 @@ internal class BlockaProxy(
                     .payloadBuilder(udpResponse)
                     .build()
         }
-        val buffer = envelope.rawData
-        loopback.add(Triple(buffer, 0, buffer.size))
+
+        val destinationBufferId = buffers.getFreeBuffer()
+        val destination = buffers[destinationBufferId]
+        destination.put(envelope.rawData)
+        destination.position(0)
+        destination.limit(envelope.rawData.size)
+        loopback(ktx, destinationBufferId)
     }
 
-    fun tick() {
-        val ktx = "boringtun:tick".ktx()
-        if (tunnel == null) {
-            return
-        }
+    fun tick(ktx: Kontext) {
+        if (tunnel == null) return
 
-        dest.rewind()
         op.rewind()
-        val resp = BoringTunJNI.wireguard_tick(tunnel!!, dest, dest.capacity(), op)
-        op.rewind()
+        val destinationBufferId = buffers.getFreeBuffer()
+        val destination = buffers[destinationBufferId]
+        val response = BoringTunJNI.wireguard_tick(tunnel!!, destination, destination.capacity(), op)
+        destination.limit(response)
         when (op[0].toInt()) {
             BoringTunJNI.WRITE_TO_NETWORK -> {
-                ktx.v("timer: writing to network")
-                Result.of {
-                    val array = ByteArray(resp) // todo: no copy
-                    dest.get(array, 0, resp)
-                    val udp = DatagramPacket(array, 0, resp)
-                    forward(ktx, udp)
-                }.mapError { ex ->
-                    ktx.w("tick: failed sending to gateway", ex.message ?: "")
-                    val cause = ex.cause
-                    if (cause is ErrnoException && cause.errno == OsConstants.EBADF) throw ex
-                }
+//                ktx.v("tick: write: $response")
+                forward(ktx, destinationBufferId)
             }
             BoringTunJNI.WIREGUARD_ERROR -> {
-                ktx.e("wireguard error: $resp")
+                buffers.returnBuffer(destinationBufferId)
+                ktx.e("tick: wireguard error: ${BoringTunJNI.errors[response]}")
             }
             BoringTunJNI.WIREGUARD_DONE -> {
-//                    ktx.v("done")
+                buffers.returnBuffer(destinationBufferId)
             }
             else -> {
-                ktx.w("wireguard timer unknown response: ${op[0].toInt()}")
+                buffers.returnBuffer(destinationBufferId)
+                ktx.w("tick: wireguard timer unknown response: ${op[0].toInt()}")
             }
         }
     }

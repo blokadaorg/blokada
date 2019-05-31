@@ -42,6 +42,7 @@ class Main(
     }
     private var config = TunnelConfig()
     private var blockaConfig = BlockaConfig()
+    private val buffers = Buffers()
     private var proxy = createProxy()
     private var tunnel = createTunnel()
     private var connector = ServiceConnector(
@@ -59,11 +60,11 @@ class Main(
     private var threadCounter = 0
     private var usePausedConfigurator = false
 
-    private fun createProxy() = if (blockaConfig.blockaVpn) BlockaProxy(currentServers, blockade, loopback, blockaConfig)
+    private fun createProxy() = if (blockaConfig.blockaVpn) BlockaProxy(currentServers, blockade, blockaConfig, buffers)
             else DnsProxy(currentServers, blockade, forwarder, loopback, doCreateSocket = socketCreator)
 
     private fun createTunnel() = if (blockaConfig.blockaVpn) BlockaTunnel(proxy as BlockaProxy, config,
-            blockaConfig, loopback, socketCreator)
+            blockaConfig, buffers, socketCreator)
             else DnsTunnel(proxy, config, forwarder, loopback)
 
     private fun createConfigurator() = when {

@@ -14,15 +14,75 @@ import java.io.*
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress
-import java.util.*
+import java.nio.ByteBuffer
 import kotlin.math.min
 
+class Buffers {
+    companion object {
+        val MTU = 1600
+        val BUFFERS = 5
+    }
+
+    private val FREE = 0
+    private val TAKEN = 1
+
+    private val buffers = arrayOfNulls<ByteBuffer>(BUFFERS)
+    private val bufferStatus = arrayOfNulls<Int>(BUFFERS)
+
+    private var currentBuffer = 0
+
+    init {
+        for (i in 0 until BUFFERS) {
+            buffers[i] = ByteBuffer.allocateDirect(MTU)
+            bufferStatus[i] = FREE
+        }
+    }
+
+    fun getFreeBuffer(): Int {
+        if (bufferStatus[currentBuffer] == FREE) {
+//            "buffer".ktx().e("XXX getting buffer $currentBuffer")
+            bufferStatus[currentBuffer] = TAKEN
+            val b = buffers[currentBuffer]!!
+            b.limit(b.capacity())
+            b.rewind()
+            return currentBuffer
+        }
+        else {
+            var takenBuffers = 1
+            do {
+                currentBuffer = (currentBuffer + 1) % BUFFERS
+                if (bufferStatus[currentBuffer] == FREE) {
+//                    "buffer".ktx().e("XXX getting buffer $currentBuffer")
+                    bufferStatus[currentBuffer] = TAKEN
+                    val b = buffers[currentBuffer]!!
+                    b.rewind()
+                    b.limit(b.capacity())
+                    return currentBuffer
+                }
+                else if (takenBuffers++ == BUFFERS) throw Exception("no free buffers left")
+            } while (true)
+        }
+    }
+
+    operator fun get(index: Int): ByteBuffer {
+        return buffers[index]!!
+    }
+
+    fun returnBuffer(bufferId: Int) {
+//        "buffer".ktx().e("XXX returning buffer $bufferId", Exception())
+        bufferStatus[bufferId] = FREE
+    }
+
+    fun returnAllBuffers() {
+        bufferStatus.map { FREE }
+    }
+}
 
 internal class BlockaTunnel(
         private var proxy: BlockaProxy,
         private val config: TunnelConfig,
         private val blockaConfig: BlockaConfig,
-        private val loopback: Queue<Triple<ByteArray, Int, Int>> = LinkedList(),
+        private val buffers: Buffers,
         private val doCreateSocket: () -> DatagramSocket
 ): Tunnel {
 
@@ -37,12 +97,26 @@ internal class BlockaTunnel(
     private var cooldownCounter = 0
     private var epermCounter = 0
 
-    private var packetBuffer = ByteArray(32767)
+    private val loopbackBuffers = arrayOfNulls<ByteBuffer>(Buffers.BUFFERS)
+    private val forwardBuffers = arrayOfNulls<ByteBuffer>(Buffers.BUFFERS)
+    private val loopbackBuffersReverse = arrayOfNulls<Int>(Buffers.BUFFERS)
+    private val forwardBuffersReverse = arrayOfNulls<Int>(Buffers.BUFFERS)
+
+    private var currentLoopbackBuffer = 0
+    private var currentForwardBuffer = 0
+    private var lastLoopbackBuffer = 0
+    private var lastForwardBuffer = 0
+
+    private var loopbackQueued = false
+    private var forwardQueued = false
+
+    private val memory = ByteArray(Buffers.MTU)
+
+    private val packet1 = DatagramPacket(memory, 0, 1)
+    private val packet2 = DatagramPacket(memory, 0, 1)
 
     private var lastTickMs = 0L
     private val tickIntervalMs = 100
-
-    private val packetsToForward: Queue<DatagramPacket> = LinkedList()
 
     fun openGatewaySocket(ktx: Kontext) {
         gatewayParcelFileDescriptor?.close()
@@ -50,8 +124,26 @@ internal class BlockaTunnel(
         gatewaySocket = doCreateSocket()
         gatewaySocket?.connect(InetAddress.getByName(blockaConfig.gatewayIp), blockaConfig.gatewayPort)
         ktx.v("connect to gateway ip: ${blockaConfig.gatewayIp}")
-        proxy.forward = { ktx, udp ->
-            packetsToForward.add(udp)
+
+        proxy.forward = { ktx, bufferId ->
+            val b = buffers[bufferId]
+            packet1.setData(b.array(), b.arrayOffset() + b.position(), b.limit())
+
+            Result.of {
+                buffers.returnBuffer(bufferId)
+                gatewaySocket!!.send(packet1)
+            }.mapError { ex ->
+                ktx.e("failed sending to gateway", ex.message ?: "", ex)
+                throw ex
+            }
+        }
+
+        proxy.loopback = { ktx, bufferId ->
+            loopbackQueued = true
+            loopbackBuffers[currentLoopbackBuffer] = buffers[bufferId]
+            loopbackBuffersReverse[currentLoopbackBuffer] = bufferId
+            lastLoopbackBuffer = currentLoopbackBuffer++
+//            ktx.w("queued loopbacks: ${currentLoopbackBuffer}")
         }
     }
 
@@ -65,6 +157,7 @@ internal class BlockaTunnel(
             val errors = setupErrorsPipe()
             val device = setupDevicePipe(input)
 
+            proxy.createTunnel(ktx)
             openGatewaySocket(ktx)
 
             val polls = setupPolls(ktx, errors, device)
@@ -72,22 +165,18 @@ internal class BlockaTunnel(
             while (true) {
                 if (threadInterrupted()) throw InterruptedException()
 
-                if (loopback.isNotEmpty()) {
+                if (loopbackQueued) {
                     device.listenFor(OsConstants.POLLIN or OsConstants.POLLOUT)
                 } else device.listenFor(OsConstants.POLLIN)
 
                 val gateway = polls[2]
-                if (packetsToForward.isNotEmpty()) {
-                    gateway.listenFor(OsConstants.POLLIN or OsConstants.POLLOUT)
-                } else gateway.listenFor(OsConstants.POLLIN)
-
-                tick(ktx)
+                gateway.listenFor(OsConstants.POLLIN)
 
                 poll(ktx, polls)
+                tick(ktx)
                 fromLoopbackToDevice(ktx, device, output)
-                fromProxyToGateway(ktx, polls)
-                fromGatewayToProxy(ktx, polls)
                 fromDeviceToProxy(ktx, device, input)
+                fromGatewayToProxy(ktx, gateway)
                 cleanup()
             }
         } catch (ex: InterruptedException) {
@@ -108,6 +197,7 @@ internal class BlockaTunnel(
             throw ex
         } finally {
             ktx.v("cleaning up resources", this)
+            buffers.returnAllBuffers()
             Result.of { Os.close(error) }
             Result.of { input.close() }
             Result.of { output.close() }
@@ -187,28 +277,22 @@ internal class BlockaTunnel(
         }
     }
 
-    private fun fromProxyToGateway(ktx: Kontext, polls: Array<StructPollfd>) {
-        if (polls[2].isEvent(OsConstants.POLLOUT)) {
-            while (packetsToForward.isNotEmpty()) {
-                val udp = packetsToForward.poll()
-                Result.of {
-                    gatewaySocket!!.send(udp)
-                }.mapError { ex ->
-                    ktx.w("failed sending to gateway", ex.message ?: "")
-                    val cause = ex.cause
-                    if (cause is ErrnoException && cause.errno == OsConstants.EBADF) throw ex
-                    else if (cause is ErrnoException && cause.errno == OsConstants.EPERM) throw ex
-                }
+    private fun fromDeviceToProxy(ktx: Kontext, device: StructPollfd, input: InputStream) {
+        if (device.isEvent(OsConstants.POLLIN)) {
+            val length = input.read(memory, 0, Buffers.MTU)
+            if (length > 0) {
+                proxy.fromDevice(ktx, memory, length)
             }
         }
     }
 
-    private fun fromGatewayToProxy(ktx: Kontext, polls: Array<StructPollfd>) {
-        if (polls[2].isEvent(OsConstants.POLLIN)) {
-            val responsePacket = DatagramPacket(packetBuffer, packetBuffer.size)
+    private fun fromGatewayToProxy(ktx: Kontext, gateway: StructPollfd) {
+        if (gateway.isEvent(OsConstants.POLLIN)) {
+//            ktx.v("from gateway to proxy")
             Result.of {
-                gatewaySocket?.receive(responsePacket)
-                proxy.toDevice(ktx, packetBuffer, responsePacket.length)
+                packet1.setData(memory)
+                gatewaySocket?.receive(packet1) ?: ktx.e("no socket")
+                proxy.toDevice(ktx, memory, packet1.length)
             }.mapError { ex ->
                 ktx.w("failed receiving from gateway", ex.message ?: "")
                 val cause = ex.cause
@@ -220,28 +304,27 @@ internal class BlockaTunnel(
 
     private fun fromLoopbackToDevice(ktx: Kontext, device: StructPollfd, output: OutputStream) {
         if (device.isEvent(OsConstants.POLLOUT)) {
-            while (loopback.isNotEmpty()) {
-                val (buffer, offset, length) = loopback.poll()
-                output.write(buffer, offset, length)
+//            ktx.v("from loopback to device")
+            repeat(lastLoopbackBuffer + 1) {
+                val b = loopbackBuffers[it]!!
+                val id = loopbackBuffersReverse[it]!!
+                buffers.returnBuffer(id)
+                output.write(b.array(), b.arrayOffset() + b.position(), b.limit())
             }
+            loopbackQueued = false
+            currentLoopbackBuffer = 0
+            lastLoopbackBuffer = 0
+//            ktx.v("queued loopbacks: 0")
         }
     }
 
-    private fun fromDeviceToProxy(ktx: Kontext, device: StructPollfd, input: InputStream) {
-        if (device.isEvent(OsConstants.POLLIN)) {
-            val length = input.read(packetBuffer)
-            if (length > 0) {
-                proxy.fromDevice(ktx, packetBuffer, length)
-            }
-        }
-    }
 
     private fun tick(ktx: Kontext) {
+        // TODO: system current time called to often?
         val now = System.currentTimeMillis()
         if (now > (lastTickMs + tickIntervalMs)) {
-//            "boringtun:tick2".ktx().v("tick after ${now - lastTickMs}ms")
             lastTickMs = now
-            proxy.tick()
+            proxy.tick(ktx)
         }
     }
 
