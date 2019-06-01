@@ -1,0 +1,516 @@
+[33mcommit eebee1d2f48fa6835461edc49ee94aaac46b5a1a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Thomas499 <38442058+Thomas499@users.noreply.github.com>
+Date:   Mon May 13 05:51:08 2019 -0700
+
+    dickingaround
+    
+    dkdkd
+
+[33mcommit 6324d868f976d10f5c0cdcab4c1e606ed28a9f51[m
+Author: Thomas499 <38442058+Thomas499@users.noreply.github.com>
+Date:   Sat May 11 09:10:33 2019 -0700
+
+    Update Proxy.kt
+
+[33mcommit 95c7675ba39d28079bfb39cb1c715e63dd83016b[m
+Author: Thomas499 <38442058+Thomas499@users.noreply.github.com>
+Date:   Sat May 11 09:09:33 2019 -0700
+
+    Update Proxy.kt
+
+[33mcommit 0314ea46a68f0087ef60e693a4368241e1ff0138[m
+Author: Thomas499 <38442058+Thomas499@users.noreply.github.com>
+Date:   Sat May 11 09:05:16 2019 -0700
+
+    Added clarity to how this code works
+    
+    Added future considerations so code will be more intuitive in the future for others who want to contribute. The easier it is for them to figure out how it works, the more they get can done
+
+[33mcommit bd511ec386ba8f32662147e481618ae1188ae8c0[m
+Author: Thomas499 <38442058+Thomas499@users.noreply.github.com>
+Date:   Sat May 11 08:48:19 2019 -0700
+
+    Updated default preferences
+    
+    Version 4.0 will have reports off by default anyway. onWifi should be on by default because if phone doesn't have access to wifi what is the point of running blokada? What user will experience is phone battery will drain from running app which has no benifit to user when phone doesn't have access to wifi. Personally I don't care if watchdogOn is true by default.
+
+[33mcommit 9197d976934f3fd6166e5ea380fcb48d8d42794f[m
+Author: Thomas499 <38442058+Thomas499@users.noreply.github.com>
+Date:   Sat May 11 08:42:33 2019 -0700
+
+    Code now compiles OUT OF THE BOX
+    
+    Makes custom apps compile straight from being forked so other programmers who don't have the offical signing key required to push out offical updates can start programming pull request using code from github that is ready to compile on their computers out of the box
+
+[33mcommit 8e0776558768d5aebcba7a3023ad824c030ad69b[m[33m ([m[1;31mupstream/master[m[33m)[m
+Author: Thomas499 <38442058+Thomas499@users.noreply.github.com>
+Date:   Sat Apr 27 05:07:50 2019 -0700
+
+    Update App.kt (#374)
+    
+    Most users will not want a new notification each time something is blocked. This will annoy the user. By default have notifications off. Perminiate notifications are ok because they don't give user impression they have a new message each time something is blocked.
+
+[33mcommit 86701ebdb404ff6d47998c4d6ed831ba136f838c[m
+Author: De_Coder <ps10000@gmx.de>
+Date:   Sat Apr 27 09:10:00 2019 +0200
+
+    Added Share-Button (#368)
+    
+    * Added Share-Button
+    
+    Added button that allows the user to share the number of blocked ads/trackers.
+    
+    * Fixes for translation
+    
+    changed the way the message text gets created to make translation easier.
+    removed all uses of string-array (bad for translation platforms).
+    removed german translation
+
+[33mcommit 044d5be8bbad9c62b470a990cd6653551bb0bec6[m
+Author: pan93412 <28441561+pan93412@users.noreply.github.com>
+Date:   Sat Apr 6 23:38:41 2019 +0800
+
+    Add warnings about fake websites to README.md (#363)
+    
+    Also fix some issues on PR #351
+
+[33mcommit 9f7eae09ec8f263e6ae6da52d2bc944845900c42[m
+Author: kar <hi@kar.gs>
+Date:   Tue Mar 5 07:58:24 2019 +0100
+
+    migrate dns fallback and reports switch to dns changer
+
+[33mcommit 82a6595beab4b15c14d900570ea357443cde5a18[m
+Author: kar <hi@kar.gs>
+Date:   Thu Feb 21 08:01:54 2019 +0100
+
+    update translations
+
+[33mcommit 0eb98f2ca9914ec2ec3d1519a1dab293ceeebb66[m[33m ([m[1;33mtag: 3.7.022000[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Wed Feb 20 08:23:08 2019 +0100
+
+    revert allow family ipv6
+
+[33mcommit a1e7cc264432e7b6e4fd5dd753ae4e1ef1ff5647[m[33m ([m[1;33mtag: 3.7.021800[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Mon Feb 18 08:56:48 2019 +0100
+
+    update translations
+
+[33mcommit 6e87e0029a3d8410d188062bc560026c125a0db7[m[33m ([m[1;33mtag: 3.7.021601[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Sat Feb 16 10:30:16 2019 +0100
+
+    add fallback configurable
+
+[33mcommit 0cf07058beaa0dfb74b0bd4fcc405187923abfc5[m
+Author: kar <hi@kar.gs>
+Date:   Fri Feb 8 17:21:08 2019 +0100
+
+    fix too late persistance init
+
+[33mcommit 9c1c9534dddd9793b1ef2a0c35f4bf63f4423f4a[m
+Author: kar <hi@kar.gs>
+Date:   Tue Feb 5 16:30:26 2019 +0100
+
+    add opt out to reports
+
+[33mcommit 09f4dcab8012155c0773d291050386d5baddff87[m
+Author: kar <hi@kar.gs>
+Date:   Tue Feb 5 10:43:23 2019 +0100
+
+    introduce a cloudflare dns fallback for link local dns
+
+[33mcommit 2c79ee9b79fd005cfbb5e365fbc64483cb6374ac[m
+Author: kar <hi@kar.gs>
+Date:   Tue Feb 5 10:43:11 2019 +0100
+
+    reintroduce tunnel re-establish delay
+
+[33mcommit a49a71a5254f865fb9563b4761f5a9b6fd4640ef[m
+Author: kar <hi@kar.gs>
+Date:   Tue Feb 5 08:13:33 2019 +0100
+
+    improve code style for custom dns port
+
+[33mcommit 7852c2382be078821cb6f64cbbfd93461b010e76[m
+Author: Trevor Xiao <tkterris@gmail.com>
+Date:   Sat Feb 16 03:46:01 2019 -0500
+
+    Open main activity on QS tile long press (#325)
+    
+    Update the AndroidManifest so that long-pressing the quick settings tile navigates to the main activity (instead of opening the app info page)
+
+[33mcommit 39d05dc5439923528d665e7515dc07a069737b81[m
+Merge: c11aeb7 206c30f
+Author: Karol Gusak <hi@kar.gs>
+Date:   Tue Feb 5 07:59:23 2019 +0100
+
+    Merge pull request #288 from ant9000/master
+    
+    Patch for using DNS servers on nonstandard ports
+
+[33mcommit c11aeb7e9c492bfb460e52577eff278253d7c422[m
+Author: Michael Knight <dex2000@users.noreply.github.com>
+Date:   Fri Jan 18 04:40:12 2019 +0100
+
+    Fix some Typos (#315)
+    
+    * Update strings_dns.xml
+    
+    typo
+    
+    * Update strings_filter.xml
+    
+    * Update strings_notification.xml
+    
+    * Update strings_tunnel.xml
+    
+    * Update strings_update.xml
+
+[33mcommit 206c30f3c05070b2c5d1314eae1283f68c9a557e[m
+Author: Antonio Galea <antonio.galea@gmail.com>
+Date:   Sun Jan 13 17:53:16 2019 +0100
+
+    fix IPv6 support
+
+[33mcommit 8235bcd310861cae87fd967af2f0c5450f25fac6[m
+Merge: 846b5ce 2cf18c3
+Author: Antonio Galea <antonio.galea@gmail.com>
+Date:   Sun Jan 13 17:42:50 2019 +0100
+
+    Merge remote-tracking branch 'upstream/master'
+
+[33mcommit 2cf18c3a9d3242a3c22d2cd228f278648ec2cb90[m
+Merge: 07efa1f f306648
+Author: Karol Gusak <hi@kar.gs>
+Date:   Mon Dec 17 09:45:46 2018 +0100
+
+    Merge pull request #295 from cbruegg/basic-ipv6-support
+    
+    Enable basic IPv6 support - DNS results now include AAAA records
+
+[33mcommit 07efa1fb8ad92c075c854195831357691426381f[m
+Author: pan93412 <28441561+pan93412@users.noreply.github.com>
+Date:   Sat Dec 15 15:06:29 2018 +0800
+
+    Rename About us.md to about_us.md (#305)
+
+[33mcommit 7d341ce22c87a719d1874b0d8e3d4e58e876c927[m
+Author: animeking9901 <tbradleyfb@gmail.com>
+Date:   Fri Dec 7 19:22:51 2018 -0500
+
+    Update About us.md
+    
+    Clarification on VPN API for rooted and unrooted devices
+
+[33mcommit cd2450f07b7aabf5a23e4ab49a00437895630be0[m
+Author: fmilligan <45692508+fmilligan@users.noreply.github.com>
+Date:   Fri Dec 7 19:04:13 2018 -0500
+
+    Update About us.md (#300)
+
+[33mcommit adf80d9776309fa623bdac0f3c7f6f8cea6f24df[m
+Author: fmilligan <45692508+fmilligan@users.noreply.github.com>
+Date:   Fri Dec 7 19:02:53 2018 -0500
+
+    Update README.md (#299)
+
+[33mcommit f306648dc68c4788fc5450a1f3b7286d73a4c5b4[m
+Author: Christian Brüggemann <mail@cbruegg.com>
+Date:   Fri Nov 23 18:17:56 2018 +0100
+
+    Clarify wording
+
+[33mcommit f0e1a5af1e96be49f5ac0a3009cba1dc4ec96e97[m
+Author: Christian Brüggemann <mail@cbruegg.com>
+Date:   Fri Nov 23 18:09:11 2018 +0100
+
+    Enable basic IPv6 support - DNS results now include AAAA records
+
+[33mcommit f17e6a912b6d0418a5d70d2d3639d87e2032c57b[m
+Author: animeking9901 <tbradleyfb@gmail.com>
+Date:   Sat Nov 17 11:22:48 2018 -0500
+
+    Profanity removal
+
+[33mcommit d53c175ef4806805141d3efe9c12bea5b818c957[m
+Author: ewuoso <33087808+ewuoso@users.noreply.github.com>
+Date:   Sat Nov 17 12:43:56 2018 +0100
+
+    Create About us.md
+
+[33mcommit 846b5ce01a51d74eee6b3344960a705a81c6d0d4[m
+Author: Antonio Galea <antonio.galea@gmail.com>
+Date:   Mon Nov 12 00:42:19 2018 +0100
+
+    fix: show/save host:port in DNS setting dialog
+
+[33mcommit 8a883cd54bf1bdce20613d8e03d81b6645e9e01c[m
+Author: Antonio Galea <antonio.galea@gmail.com>
+Date:   Sat Nov 10 11:19:21 2018 +0100
+
+    fix: hostport split size
+
+[33mcommit 1f35799ec72437b37380dd5dc9c83608c0283fda[m
+Author: Antonio Galea <antonio.galea@gmail.com>
+Date:   Sat Nov 10 10:52:00 2018 +0100
+
+    fix: udp port type conversion
+
+[33mcommit 4fafdaf1e782addc38af55e5f44fc38529ea8bac[m
+Author: Antonio Galea <antonio.galea@gmail.com>
+Date:   Wed Oct 31 20:51:30 2018 +0100
+
+    support for nonstandard DNS port
+
+[33mcommit 2c253967f97f1ba863ab3d414621190b376cf779[m
+Author: Antonio Galea <antonio.galea@gmail.com>
+Date:   Wed Oct 31 12:29:22 2018 +0100
+
+    tunnel: add support for nonstandard DNS port
+
+[33mcommit e2be40ecc17637ac9622e272884085219a965a5e[m[33m ([m[1;33mtag: 3.6.101900[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Fri Oct 19 14:52:18 2018 +0200
+
+    sync translations
+
+[33mcommit 09ed39948cca757959a604ad6de36e54ba50cca8[m
+Author: kar <hi@kar.gs>
+Date:   Fri Oct 19 14:47:05 2018 +0200
+
+    fixes based on reports
+
+[33mcommit 280d3a1476295c7bd7b4227f3f81922040b4a8a9[m
+Author: kar <hi@kar.gs>
+Date:   Wed Oct 17 07:47:25 2018 +0200
+
+    fix airplane mode disabling vpn
+
+[33mcommit da0f9bfa3bd351f33f2bc8fdba18832ad66d555b[m[33m ([m[1;33mtag: 3.6.101401[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Sun Oct 14 21:53:32 2018 +0200
+
+    fix problem when loading filters after locale set
+
+[33mcommit a942ab4c0ead49d5aac45c179dfa8720decb66db[m[33m ([m[1;33mtag: 3.6.101400[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Sun Oct 14 19:33:55 2018 +0200
+
+    sync translations
+
+[33mcommit 5dfc17c5b2f573a9576689797e1828bccd9789d7[m
+Author: kar <hi@kar.gs>
+Date:   Sun Oct 14 19:33:06 2018 +0200
+
+    fix aggressive wakeup config reset problem
+
+[33mcommit 6738d5df72fcbe03c8e15191fc53e1ebcd8f8cb8[m
+Author: kar <hi@kar.gs>
+Date:   Sun Oct 14 19:15:41 2018 +0200
+
+    fix the 3.4 to 3.6 update issues
+
+[33mcommit 1f90fb0dd132189e2c6b3cd69df99ac7df23ddc0[m[33m ([m[1;33mtag: 3.6.101100[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Tue Oct 9 10:31:16 2018 +0200
+
+    adapt dns changer version
+
+[33mcommit aa3b27bb9994dfc1148a3fa3f253792004921ef0[m
+Author: kar <hi@kar.gs>
+Date:   Sun Oct 7 20:40:01 2018 +0200
+
+    sync translations
+
+[33mcommit 217f7cc94d1881c5e389228007982431f0c63cc7[m
+Author: kar <hi@kar.gs>
+Date:   Sun Oct 7 20:38:51 2018 +0200
+
+    reorganize settings
+
+[33mcommit d8831e41995b7ea569f06e02d063122bd8f6584a[m
+Author: kar <hi@kar.gs>
+Date:   Fri Oct 5 16:08:13 2018 +0200
+
+    fix for closing sockets in tunnel
+
+[33mcommit 6e688c7686f8602cd05ec5a5813f895615f0664a[m[33m ([m[1;33mtag: 3.6.100200[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Tue Oct 2 08:52:08 2018 +0200
+
+    sync translations
+
+[33mcommit ba654429e6fe4f776699a81d541a7c56a7752e65[m
+Author: kar <hi@kar.gs>
+Date:   Tue Oct 2 08:49:32 2018 +0200
+
+    more fixes from beta stage 2
+
+[33mcommit 2b39784cae06940db4f1266ba6f873adcce2aaa1[m[33m ([m[1;33mtag: 3.6.92701[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 27 13:40:33 2018 +0200
+
+    small improvements to start on boot
+
+[33mcommit 1db5df923ac92fe8bd1fe38053e2c69dbd9135b9[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 27 11:38:46 2018 +0200
+
+    invalidate translations on refresh; fix threading
+
+[33mcommit b591d4c96df6c9b428834135f91a5b9588846c85[m[33m ([m[1;33mtag: 3.6.92700[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 27 10:22:49 2018 +0200
+
+    sync translations
+
+[33mcommit b24309840a3cc4f10f2023382194ad6a5c52c81a[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 27 10:18:51 2018 +0200
+
+    use gzip for translations download if possible
+
+[33mcommit 04763826ff1b7ee524c6c6dccf41ae65ed7f81e3[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 27 09:39:06 2018 +0200
+
+    download english version as fallback
+
+[33mcommit 6625ed90496d906e713d75a4f4a0b00694f8d91f[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 27 09:21:55 2018 +0200
+
+    sync translations
+
+[33mcommit 78f3c0166d0cf7cb1808a6f68b5b96abe5b076e2[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 27 07:07:46 2018 +0200
+
+    try following redirects when downloading lists
+
+[33mcommit 4365500c629217866e82aaf762b3284be87d0884[m
+Author: kar <hi@kar.gs>
+Date:   Wed Sep 26 09:50:14 2018 +0200
+
+    mix refactor mistake
+
+[33mcommit 0018caa6d67ae1b57c8789d3b4da09776dd8775a[m
+Author: kar <hi@kar.gs>
+Date:   Wed Sep 26 09:50:04 2018 +0200
+
+    fix vpn not brought up on same dns
+
+[33mcommit 19676490d9494760f1c235fba67fba5186658434[m[33m ([m[1;33mtag: 3.6.92600[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Wed Sep 26 07:07:05 2018 +0200
+
+    convert the most important logs
+
+[33mcommit 6b753bf626ccd17860ddd2bc04bed4240f307f05[m
+Author: kar <hi@kar.gs>
+Date:   Wed Sep 26 06:38:03 2018 +0200
+
+    sync translations
+
+[33mcommit fdd898d2dfe09cad0361842634d0ebb4b4a00d53[m
+Author: kar <hi@kar.gs>
+Date:   Wed Sep 26 06:34:58 2018 +0200
+
+    add memory capacity strings
+
+[33mcommit febaa75087ea96af6895eb386c6ac0f353b96619[m[33m ([m[1;33mtag: 3.6.92501[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Tue Sep 25 13:36:50 2018 +0200
+
+    clear dns on stop
+
+[33mcommit b09c1e4d1fc0004692b7d58cee58fcf6469e380d[m[33m ([m[1;33mtag: 3.6.92500[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Tue Sep 25 13:00:00 2018 +0200
+
+    sync translations
+
+[33mcommit 12d8ed83887cb33f6c7cf4f22b1b047d48145d5c[m
+Author: kar <hi@kar.gs>
+Date:   Tue Sep 25 10:30:50 2018 +0200
+
+    fix dns servers
+
+[33mcommit abb749c56a3b52d3e54291c697e16c1e1f11f238[m[33m ([m[1;33mtag: 3.6.92401[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Mon Sep 24 10:25:47 2018 +0200
+
+    sync translations
+
+[33mcommit 6fe76bfc4b21dc6d81998a1c86c959cbdf86569b[m[33m ([m[1;33mtag: 3.6.92400[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Mon Sep 24 10:23:03 2018 +0200
+
+    fix local file problems
+
+[33mcommit 6481621529c3b7ac42fa140bfd11da24be2b91ce[m
+Author: kar <hi@kar.gs>
+Date:   Mon Sep 24 09:45:43 2018 +0200
+
+    fixes to empty lists, export
+
+[33mcommit f1250574c67ffebe4b4785956f460211415bb764[m[33m ([m[1;33mtag: 3.6.92000[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 20 13:32:05 2018 +0200
+
+    more fixes
+
+[33mcommit cdeb5b48dc7bb07cb2dea532bae5ded3e8fdf5f7[m[33m ([m[1;33mtag: 3.6.91900[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Wed Sep 19 15:54:18 2018 +0200
+
+    sync translations
+
+[33mcommit 1b8a62d9a2ca8885fde7ac7d69aceba53087beec[m
+Author: kar <hi@kar.gs>
+Date:   Wed Sep 19 15:07:15 2018 +0200
+
+    fix tunnel config button adjusting
+
+[33mcommit 2aa93f4d9ef0e27ec49f23f22a473863beffbc97[m
+Author: kar <hi@kar.gs>
+Date:   Wed Sep 19 14:58:06 2018 +0200
+
+    fix problems found in beta1
+
+[33mcommit a21586e1da1c24d0b8f88e489e6bed1499818ab2[m[33m ([m[1;33mtag: 3.6.91801[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Tue Sep 18 22:33:54 2018 +0200
+
+    add a prototype memory available check
+
+[33mcommit c3d5a1c9dbb7ded039fcd67e57ccba1388dfe642[m[33m ([m[1;33mtag: 3.6.91800[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Tue Sep 18 12:57:31 2018 +0200
+
+    sync translations
+
+[33mcommit 4be792f057e88f9b9652f193f447c6da4bec6cd5[m
+Author: kar <hi@kar.gs>
+Date:   Thu Sep 6 09:41:13 2018 +0200
+
+    Rewrite tunnel, proxy, filters
+    
+    A big rewrite. The goal is to improve tunnel stability and memory management.
+    
+    All tunnel related state is now managed on one thread without a need for synchronization.
+
+[33mcommit ab561f2c77d0f1d812b63afc029aaf02da84f132[m[33m ([m[1;33mtag: 3.5.62004[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Wed Jun 20 19:57:11 2018 +0200
+
+    remove async from downloading filters
+    
+    Seems like the producer pattern clogs the threads on a dual core device, where I assume there is just one worker thread. This needs to be investigated further.
+
+[33mcommit 94756eb4eab0a216bc2ca4a59d97c0077a18f71c[m[33m ([m[1;33mtag: 3.5.62003[m[33m)[m
+Author: kar <hi@kar.gs>
+Date:   Wed Jun 20 19:
