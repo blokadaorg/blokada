@@ -163,7 +163,7 @@ internal class FilterManager(
                         }
 
                         store = store.copy(cache = doProcessFetchedFilters(new).prioritised(),
-                                lastFetch = doGetNow())f
+                                lastFetch = doGetNow())
                         ktx.v("synced", store.cache.size)
                         ktx.emit(Events.FILTERS_CHANGED, store.cache)
                     },

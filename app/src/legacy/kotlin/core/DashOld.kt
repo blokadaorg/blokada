@@ -17,6 +17,7 @@ open class Dash (
         var description: String? = null,
         active: Boolean = true,
         text: String? = null,
+        text2: String? = null,
         val isSwitch: Boolean = false,
         checked: Boolean = false,
         val hasView: Boolean = false,
@@ -59,6 +60,11 @@ open class Dash (
         }
 
     var text = text
+        set(value) {
+            field = value
+            onUpdate.forEach { it() }
+        }
+    var text2 = text2
         set(value) {
             field = value
             onUpdate.forEach { it() }
@@ -130,10 +136,10 @@ class ADashActor(
         update()
         v.onChecked = { checked -> dash.checked = checked }
         v.onClick = {
-            if (dash.onClick?.invoke(v) ?: true) defaultClick()
+            if (dash.onClick?.invoke(v) != false) defaultClick()
         }
         v.onLongClick = {
-            if (dash.onLongClick?.invoke(v) ?: true) {
+            if (dash.onLongClick?.invoke(v) != false) {
                 ui.infoQueue %= ui.infoQueue() + Info(InfoType.CUSTOM, dash.description)
             }
         }
@@ -214,9 +220,9 @@ class ADashView(
 
     var showClickAnim = true
 
-    private val iconView by lazy { findViewById(R.id.dash_icon) as android.widget.ImageView }
-    private val switchView by lazy { findViewById(R.id.dash_switch) as android.support.v7.widget.SwitchCompat }
-    private val textView by lazy { findViewById(R.id.dash_text) as android.widget.TextView }
+    private val iconView by lazy { findViewById<android.widget.ImageView>(R.id.dash_icon) }
+    private val switchView by lazy { findViewById<android.support.v7.widget.SwitchCompat>(R.id.dash_switch) }
+    private val textView by lazy { findViewById<android.widget.TextView>(R.id.dash_text) }
     private val inter = android.view.animation.AccelerateDecelerateInterpolator()
     private val dur = 80L
 
