@@ -21,6 +21,10 @@ class FilterSourceSingle(
         return if (hostnameRegex.containsMatchIn(host))
             LinkedHashSet<String>().apply { add(host) } else LinkedHashSet()
     }
+    override fun fetchwildcard(): LinkedHashSet<String> {
+        return if (hostnameRegex.containsMatchIn(host))
+            LinkedHashSet<String>().apply { add(host) } else LinkedHashSet()
+    }
 
     override fun fromUserInput(vararg string: String): Boolean {
         return if (hostnameRegex.containsMatchIn(string[0])) {

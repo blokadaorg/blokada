@@ -157,16 +157,16 @@ class AFilterView(
             }
         }
 
-    private val iconView by lazy { findViewById(R.id.filter_icon) as ImageView }
-    private val nameView by lazy { findViewById(R.id.filter_name) as TextView }
-    private val hostView by lazy { findViewById(R.id.filter_host) as TextView }
-    private val descView by lazy { findViewById(R.id.filter_desc) as TextView }
-    private val counterView by lazy { findViewById(R.id.filter_counter) as TextView }
-    private val counterIcon by lazy { findViewById(R.id.filter_counter_icon) as View }
-    private val sourceIcon by lazy { findViewById(R.id.filter_source) as View }
-    private val deleteIcon by lazy { findViewById(R.id.filter_delete) as View }
-    private val deleteSmallIcon by lazy { findViewById(R.id.filter_delete_small) as View }
-    private val activeSwitch by lazy { findViewById(R.id.filter_active) as SwitchCompat }
+    private val iconView by lazy { findViewById<ImageView>(R.id.filter_icon) }
+    private val nameView by lazy { findViewById<TextView>(R.id.filter_name) }
+    private val hostView by lazy { findViewById<TextView>(R.id.filter_host) }
+    private val descView by lazy { findViewById<TextView>(R.id.filter_desc) }
+    private val counterView by lazy { findViewById<TextView>(R.id.filter_counter) }
+    private val counterIcon by lazy { findViewById<View>(R.id.filter_counter_icon) }
+    private val sourceIcon by lazy { findViewById<View>(R.id.filter_source) }
+    private val deleteIcon by lazy { findViewById<View>(R.id.filter_delete) }
+    private val deleteSmallIcon by lazy { findViewById<View>(R.id.filter_delete_small) }
+    private val activeSwitch by lazy { findViewById<SwitchCompat>(R.id.filter_active) }
 
     private val inter = AccelerateDecelerateInterpolator()
     private val dur = 80L

@@ -5,6 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject
 import org.blokada.R
+import tunnel.Blockade
 import kotlin.math.max
 
 val DASH_ID_HOSTS_COUNT = "tunnel_hosts"
@@ -15,7 +16,7 @@ class TunnelDashCountDropped(
 ) : Dash("tunnel_drop",
         R.drawable.ic_block,
         ctx.getString(R.string.tunnel_dropped_count_desc),
-        onLongClick = { t.tunnelDropCount %= 0; t.tunnelDropStart %= System.currentTimeMillis(); true }
+        onLongClick = { t.tunnelDropCount %= 0; true }
 ) {
 
     private val listener: Any
@@ -42,11 +43,30 @@ class TunnelDashHostsCount(
 
     init {
         text = ctx.resources.getString(R.string.tunnel_hosts_count2, 0.toString())
+        text2 = ctx.resources.getString(R.string.tunnel_hosts_count3, 0.toString())
 
         ctx.ktx().on(tunnel.Events.RULESET_BUILT, { event ->
-            val (deny, allow) = event
-            text = ctx.resources.getString(R.string.tunnel_hosts_count2,
-                    Format.counter(max(deny - allow, 0)))
+            val (wildcard, blacklist, whitelist) = event
+            android.util.Log.d("tunnelDashes.kt", "event is " + event + " wildcard is "+ wildcard + " deny is " + blacklist + " allow is " + whitelist)
+            //text = ctx.resources.getString(R.string.tunnel_hosts_count2,
+            //        Format.counter(max(wildcard+blacklist, 0)))
+            text = "%s\n%s\n%s\n%s".format(
+                    //ctx.resources.getString(R.string.tunnel_hosts_count2,
+                    //        Format.counter(max(wildcard, 0)));
+            // context.resources.getString(R.string.tunnel_config_memory_capacity2, // works just need to add more space for it to show up
+            //         Format.counter(capacity + deny, round = true)),
+            ctx.resources.getString(R.string.tunnel_hosts_count2,
+                    Format.counter(max(blacklist, 0))),
+                    ctx.resources.getString(R.string.tunnel_hosts_count3,
+                            Format.counter(max(wildcard, 0))),
+                    ctx.resources.getString(R.string.tunnel_hosts_count4,
+                            Format.counter(max(whitelist, 0))),
+                    ctx.resources.getString(R.string.tunnel_hosts_count5,
+                            Format.counter(max(blacklist+wildcard+whitelist, 0))))
+            text2 = ctx.resources.getString(R.string.tunnel_hosts_count3,
+                    Format.counter(max(wildcard+blacklist, 0)))
+            //TODO change to deny then create wildcard counter then create whitelist counter
+            android.util.Log.d("tunnelDashes.kt", "text is " + text + " " + "total deny+wildcard+allow is "+  (wildcard+whitelist+blacklist))
         })
 
         ctx.ktx().on(tunnel.Events.RULESET_BUILDING, {

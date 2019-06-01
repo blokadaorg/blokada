@@ -119,11 +119,42 @@ class AddWhitelist(
         }
 )
 
+class AddWildcard(
+        val ctx: Context,
+        val s: Filters = ctx.inject().instance(),
+        val t: tunnel.Main = ctx.inject().instance()
+) : Dash(
+        "filter_wildcard_add",
+        R.drawable.ic_filter_add,
+        onClick = {
+            val dialogProvider: () -> AFilterAddDialog = ctx.inject().provider()
+            val dialog: AFilterAddDialog = dialogProvider()
+            dialog.onSave = { newFilter ->
+                t.putFilter(ctx.ktx("addWildcard"), newFilter)
+            }
+            dialog.show(null, whitelist = true)
+            false
+        }
+)
+
 class GenerateWhitelist(
         val ctx: Context,
         val s: Filters = ctx.inject().instance()
 ) : Dash(
         "filter_whitelist_generate",
+        R.drawable.ic_tune,
+        onClick = {
+            val dialogProvider: () -> AFilterGenerateDialog = ctx.inject().provider(true)
+            val dialog: AFilterGenerateDialog = dialogProvider()
+            dialog.show()
+            false
+        }
+)
+class GenerateWildcard(
+        val ctx: Context,
+        val s: Filters = ctx.inject().instance()
+) : Dash(
+        "filter_wildcard_generate",
         R.drawable.ic_tune,
         onClick = {
             val dialogProvider: () -> AFilterGenerateDialog = ctx.inject().provider(true)

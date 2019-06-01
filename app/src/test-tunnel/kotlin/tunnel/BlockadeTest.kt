@@ -41,20 +41,20 @@ class BlockadeTest {
         val blockade = fixture()
         val ktx = Kontext.forTest("blockade.build()")
 
-        blockade.build(ktx, deny = listOf("deny1", "deny2"), allow = listOf("allow1", "allow2"))
+        blockade.build(ktx, blacklist = listOf("deny1", "deny2"), whitelist = listOf("allow1", "allow2"), wildcard = "tom")
 
-        Assert.assertTrue(blockade.denied("a"))
-        Assert.assertTrue(blockade.denied("b"))
-        Assert.assertTrue(blockade.denied("c"))
-        Assert.assertTrue(blockade.denied("d"))
+        Assert.assertTrue(blockade.inblacklist("a"))
+        Assert.assertTrue(blockade.inblacklist("b"))
+        Assert.assertTrue(blockade.inblacklist("c"))
+        Assert.assertTrue(blockade.inblacklist("d"))
 
-        Assert.assertTrue(blockade.allowed("b"))
-        Assert.assertTrue(blockade.allowed("d"))
-        Assert.assertTrue(blockade.allowed("e"))
-        Assert.assertTrue(blockade.allowed("f"))
+        Assert.assertTrue(blockade.inwhitelist("b"))
+        Assert.assertTrue(blockade.inwhitelist("d"))
+        Assert.assertTrue(blockade.inwhitelist("e"))
+        Assert.assertTrue(blockade.inwhitelist("f"))
 
-        Assert.assertFalse(blockade.denied("f"))
-        Assert.assertFalse(blockade.allowed("a"))
+        Assert.assertFalse(blockade.inblacklist("f"))
+        Assert.assertFalse(blockade.inwhitelist("a"))
     }
 
     @Test fun blockade_memory() {
@@ -66,9 +66,9 @@ class BlockadeTest {
         })
         val ktx = Kontext.forTest("blockade.build()")
 
-        blockade.build(ktx, deny = listOf("deny1", "deny2"), allow = listOf("allow1", "allow2"))
+        blockade.build(ktx, blacklist = listOf("deny1", "deny2"), whitelist = listOf("allow1", "allow2"))
 
-        Assert.assertTrue(blockade.allowed("e"))
-        Assert.assertFalse(blockade.allowed("f"))
+        Assert.assertTrue(blockade.inwhitelist("e"))
+        Assert.assertFalse(blockade.inblacklist("f"))
     }
 }

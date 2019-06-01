@@ -144,10 +144,11 @@ class AFilterGenerateDialog(
                 val new = s.apps().filter { which in listOf(5, 6) || it.system }
                         .map { it.appId }.map { app ->
                             Filter(
-                                    id = id(app, whitelist = true),
+                                    id = id(app, whitelist = true, wildcard = false),
                                     source = FilterSourceDescriptor("app", app),
                                     active = which in listOf(3, 5),
-                                    whitelist = true
+                                    whitelist = true,
+                                    wildcard = false
                             )
                         }
                 tunnel.putFilters(ktx, new)

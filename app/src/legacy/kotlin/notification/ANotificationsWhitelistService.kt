@@ -19,10 +19,11 @@ class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
         val host = intent.getStringExtra("host") ?: return
 
         val f = Filter(
-                id(host, whitelist = true),
+                id(host, whitelist = true, wildcard = false),
                 source = FilterSourceDescriptor("single", host),
                 active = true,
-                whitelist = true
+                whitelist = true,
+                wildcard = false
         )
 
         tunnel.putFilter(ktx("whitelistFromNotification"), f)

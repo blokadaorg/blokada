@@ -2,7 +2,9 @@ package tunnel
 
 import android.system.ErrnoException
 import android.system.OsConstants
+import android.util.Log
 import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.toResultOr
 import core.Kontext
 import core.Result
 import org.pcap4j.packet.*
@@ -14,7 +16,7 @@ import org.pcap4j.packet.namednumber.UdpPort
 
 internal class Proxy(
         private val dnsServers: List<InetSocketAddress>,
-        private val blockade: Blockade,
+        val blockade: Blockade,
         private val forwarder: Forwarder,
         private val loopback: Queue<ByteArray>,
         private val denyResponse: SOARecord = SOARecord(Name("org.blokada.invalid."), DClass.IN,
@@ -38,7 +40,7 @@ internal class Proxy(
 
         if (udp.payload == null) {
             // Some apps use empty UDP packets for something good
-            val proxiedUdp = DatagramPacket(ByteArray(0), 0, 0, destination.getAddress(),
+            val proxiedUdp = DatagramPacket(ByteArray(0), 0, 0, destination.address,
                     udp.header.dstPort.valueAsInt())
             forward(ktx, proxiedUdp)
             return
@@ -54,16 +56,25 @@ internal class Proxy(
         if (dnsMessage.question == null) return
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
-        if (blockade.allowed(host) || !blockade.denied(host)) {
-            val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
-                    destination.getPort())
-            forward(ktx, proxiedDns, originEnvelope)
+        // This is where code decides to allow or block a URL.
+        // IF EITHER OF THE FOLLOWING BELOW ARE TRUE THEN ALLOW URL TO PASS. If neither are true block the URL
+        // URL in whitelist 'blokada.allowed(host)'
+        // or '||'
+        // not '!' in blokada.denied(host)
+        if (blockade.inwhitelist(host) || (!blockade.inblacklist(host) && !blockade.inwildcardlist(host))) {
+            // ALLOW url to pass
+            val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.address,
+                    destination.port)
+                    forward(ktx, proxiedDns, originEnvelope)
+            ktx.emit(Events.Allowed, host)
         } else {
+            // block the URL
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
             toDevice(ktx, dnsMessage.toWire(), originEnvelope)
             ktx.emit(Events.BLOCKED, host)
+
         }
     }
 
@@ -122,7 +133,7 @@ internal class Proxy(
             servers.isEmpty() -> current
             else -> try {
                 // Last octet of DNS server IP corresponds to its index
-                val index = current.getAddress().address.last() - 2
+                val index = current.address.address.last() - 2
                 servers[index]
             } catch (e: Exception) {
                 current

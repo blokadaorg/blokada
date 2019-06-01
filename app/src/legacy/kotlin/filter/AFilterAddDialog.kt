@@ -37,6 +37,7 @@ class AFilterAddDialog(
             .inflate(R.layout.view_filtersadd, null, false) as AFiltersAddView
     private val dialog: AlertDialog
     private var whitelist: Boolean = false
+    private var wildcard: Boolean = false
 
     init {
         val d = AlertDialog.Builder(activity)
@@ -48,6 +49,7 @@ class AFilterAddDialog(
 
     fun show(filter: Filter?, whitelist: Boolean = false) {
         this.whitelist = whitelist
+        //this.wildcard = wildcard
 
         view.showApp = whitelist
         view.forceType = when {
@@ -101,10 +103,11 @@ class AFilterAddDialog(
                 else {
                     dialog.dismiss()
                     onSave(Filter(
-                            id = filter?.id ?: id(view.singleView.text, whitelist),
+                            id = filter?.id ?: id(view.singleView.text, whitelist, wildcard),
                             source = FilterSourceDescriptor("single", view.singleView.text),
                             active = true,
                             whitelist = filter?.whitelist ?: whitelist,
+                            wildcard = filter?.wildcard ?: wildcard,
                             customName = filter?.customName,
                             customComment = view.singleView.comment.nullIfEmpty()
                     ))
@@ -123,10 +126,11 @@ class AFilterAddDialog(
                     } successUi {
                         dialog.dismiss()
                         onSave(Filter(
-                                id = filter?.id ?: id(it.first.serialize(), whitelist),
+                                id = filter?.id ?: id(it.first.serialize(), whitelist, wildcard),
                                 source = FilterSourceDescriptor("link", view.linkView.text),
                                 active = true,
                                 whitelist = filter?.whitelist ?: whitelist,
+                                wildcard = filter?.wildcard ?: wildcard,
                                 customName = filter?.customName,
                                 customComment = view.linkView.comment.nullIfEmpty()
                         ))
@@ -150,10 +154,11 @@ class AFilterAddDialog(
                     } successUi {
                         dialog.dismiss()
                         onSave(Filter(
-                                id = filter?.id ?: id(it.first.serialize(), whitelist),
+                                id = filter?.id ?: id(it.first.serialize(), whitelist, wildcard),
                                 source = FilterSourceDescriptor("file", view.fileView.text),
                                 active = true,
                                 whitelist = filter?.whitelist ?: whitelist,
+                                wildcard = filter?.wildcard ?: wildcard,
                                 customName = filter?.customName,
                                 customComment = view.fileView.comment.nullIfEmpty()
                         ))
@@ -175,9 +180,10 @@ class AFilterAddDialog(
                     } successUi {
                         dialog.dismiss()
                         onSave(Filter(
-                                id = filter?.id ?: id(it.serialize(), whitelist),
+                                id = filter?.id ?: id(it.serialize(), whitelist, wildcard),
                                 source = FilterSourceDescriptor("app", view.appView.text),
                                 active = true,
+                                wildcard = true,
                                 whitelist = true,
                                 customName = filter?.customName,
                                 customComment = view.appView.comment.nullIfEmpty()
@@ -194,8 +200,10 @@ class AFilterAddDialog(
 
 }
 
-internal fun id(name: String, whitelist: Boolean): String {
-    return if(whitelist) "${name}_wl" else name
+internal fun id(name: String, wildcard: Boolean, whitelist: Boolean): String {
+    if(whitelist) return "${name}_wl"
+    if(wildcard) return "${name}_wc"
+    else return name
 }
 
 internal fun sourceToName(ctx: android.content.Context, source: FilterSourceDescriptor): String {

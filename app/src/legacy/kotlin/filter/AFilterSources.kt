@@ -4,13 +4,11 @@ import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance
-import core.Filters
-import core.load
-import core.loadGzip
-import core.openUrl
+import core.*
 import gs.environment.Journal
 import gs.environment.inject
 import gs.property.Repo
+import tunnel.Events
 import tunnel.FilterId
 import tunnel.IFilterSource
 import java.io.InputStreamReader
@@ -36,13 +34,37 @@ class FilterSourceLink(
         return "link"
     }
 
+    //override fun inwildcard(): Boolean {
+    //    return true
+    //    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    //}
     override fun fetch(): LinkedHashSet<String> {
+        //android.util.Log.d("fecthed90","fetched90")
         val list = try {
-            loadGzip(openUrl(source!!, timeoutMillis), { processor.process(it) })
-        } catch (e: Exception) { try {
-            loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(it) })
+            //android.util.Log.d("fecthed909","fet0"+source!!)
+            // source is URL i.e. https://gist.githubusercontent.com/Thomas499/266be112dd2661d602e26c6a0b01b983/raw
+                loadGzip(openUrl(source!!, timeoutMillis), { //android.util.Log.d("fecthed90","fetched999 "+ it)
+                    processor.process(true, it) })//listtype
+            //android.util.Log.d("fecthed910","f")
+        } catch (e: Exception) { try {android.util.Log.d("fecthed9dddd0","fetched90")
+            loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(true, it) })// listtype
+          //  android.util.Log.d("fecthedddddd90","fetched90")
         } catch (e: Exception) { emptyList<String>() }}
         return LinkedHashSet<String>().apply { addAll(list) }
+    }
+
+    override fun fetchwildcard(): LinkedHashSet<String> {
+        android.util.Log.d("fecthed91","fetched91")
+        val list2 = try {
+            android.util.Log.d("fecthed919","fet1"+source!!)
+            //loadGzipwildcard(openUrlwildcard(source!!, timeoutMillis), { processor.process(it) })
+            loadGzip(openUrl(source!!, timeoutMillis), { processor.process(false,it) })
+            //android.util.Log.d("fecthed910","f")
+        } catch (e: Exception) { try {android.util.Log.d("fecthed9dddd0","fetched90")
+            loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(false,it) })
+            //  android.util.Log.d("fecthedddddd90","fetched90")
+        } catch (e: Exception) { emptyList<String>() }}
+        return LinkedHashSet<String>().apply { addAll(list2) }
     }
 
     override fun fromUserInput(vararg string: String): Boolean {
@@ -91,7 +113,7 @@ class FilterSourceUri(
             ctx.contentResolver.takePersistableUriPermission(source!!, flags)
             lineReader = LineNumberReader(InputStreamReader(openFile(ctx, source!!)))
             lineReader.skip(java.lang.Long.MAX_VALUE)
-            lineReader.getLineNumber() + 1
+            lineReader.lineNumber + 1
         } catch (e: Exception) { 0 }
         finally {
             try { lineReader?.close() } catch (e: Exception) {}
@@ -103,17 +125,33 @@ class FilterSourceUri(
     }
 
     override fun fetch(): LinkedHashSet<String> {
+        android.util.Log.d("fetch()","fetched")
         val list = try {
             load({
                 ctx.contentResolver.takePersistableUriPermission(source!!, flags)
                 openFile(ctx, source!!)
-            }, { processor.process(it) })
+            }, { processor.process(true, it) }) // listtype
         } catch (e: Exception) {
             ctx.inject().instance<Journal>().log(Exception("source file load failed", e))
             emptyList<String>()
         }
         return LinkedHashSet<String>().apply { addAll(list) }
     }
+
+    override fun fetchwildcard(): LinkedHashSet<String> {
+        android.util.Log.d("fetch()","fetched")
+        val list = try {
+            load({
+                ctx.contentResolver.takePersistableUriPermission(source!!, flags)
+                openFile(ctx, source!!)
+            }, { processor.process(false, it) }) // listtype
+        } catch (e: Exception) {
+            ctx.inject().instance<Journal>().log(Exception("source file load failed", e))
+            emptyList<String>()
+        }
+        return LinkedHashSet<String>().apply { addAll(list) }
+    }
+
 
     override fun fromUserInput(vararg string: String): Boolean {
         return try {
@@ -180,6 +218,11 @@ class FilterSourceApp(
         // This is a special type that doesn't have hosts domains
         return LinkedHashSet()
     }
+    override fun fetchwildcard(): LinkedHashSet<String> {
+        // This is a special type that doesn't have hosts domains
+        return LinkedHashSet()
+    }
+
 
     override fun fromUserInput(vararg string: String): Boolean {
         return try {

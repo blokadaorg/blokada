@@ -91,8 +91,8 @@ class SwitchDashView(
 
     var onChecked = { active: Boolean -> }
 
-    private val switchView by lazy { findViewById(R.id.dash_switch) as SwitchCompat }
-    private val textView by lazy { findViewById(R.id.dash_text) as TextView }
+    private val switchView by lazy { findViewById<SwitchCompat>(R.id.dash_switch) }
+    private val textView by lazy { findViewById<TextView>(R.id.dash_text) }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -178,8 +178,8 @@ class IconDashView(
 
     var showClickAnim = true
 
-    private val iconView by lazy { findViewById(R.id.dash_icon) as ImageView }
-    private val textView by lazy { findViewById(R.id.dash_text) as TextView }
+    private val iconView by lazy { findViewById<ImageView>(R.id.dash_icon) }
+    private val textView by lazy { findViewById<TextView>(R.id.dash_text) }
     private val inter = AccelerateDecelerateInterpolator()
     private val dur = 80L
 

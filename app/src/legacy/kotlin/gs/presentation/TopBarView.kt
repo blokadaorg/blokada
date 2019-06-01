@@ -44,16 +44,16 @@ class TopBarView(
     var onBackClick = {}
     var onModeSwitched = {}
 
-    val action1 by lazy { findViewById(R.id.topbar_action1) as IconDashView }
-    val action2 by lazy { findViewById(R.id.topbar_action2) as IconDashView }
-    val action3 by lazy { findViewById(R.id.topbar_action3) as IconDashView }
-    val action4 by lazy { findViewById(R.id.topbar_action4) as IconDashView }
+    val action1 by lazy { findViewById<IconDashView>(R.id.topbar_action1) }
+    val action2 by lazy { findViewById<IconDashView>(R.id.topbar_action2) }
+    val action3 by lazy { findViewById<IconDashView>(R.id.topbar_action3) }
+    val action4 by lazy { findViewById<IconDashView>(R.id.topbar_action4) }
 
     private val actions by lazy { listOf(action1, action2, action3, action4) }
-    val logo by lazy { findViewById(R.id.topbar_logo) as android.widget.ImageView }
-    private val back by lazy { findViewById(R.id.topbar_back) as View }
+    val logo by lazy { findViewById<android.widget.ImageView>(R.id.topbar_logo) }
+    private val back by lazy { findViewById<View>(R.id.topbar_back) }
 
-    private val header by lazy { findViewById(R.id.topbar_header) as View }
+    private val header by lazy { findViewById<View>(R.id.topbar_header) }
 
     private val dur = 200L
 

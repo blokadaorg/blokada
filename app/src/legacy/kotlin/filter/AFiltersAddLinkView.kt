@@ -79,13 +79,13 @@ class AFiltersAddLinkView(
         commentView.visibility = View.GONE
         commentReadView.visibility = View.VISIBLE
     }
-    private val editView by lazy { findViewById(R.id.filter_edit) as AutoCompleteTextView }
-    private val errorView by lazy { findViewById(R.id.filter_error) as ViewGroup }
-    private val commentView by lazy { findViewById(R.id.filter_comment) as EditText }
-    private val commentReadView by lazy { findViewById(R.id.filter_comment_read) as TextView }
-    private val filtersGroup by lazy { findViewById(R.id.filter_link_loaded_group) as View }
-    private val filtersView by lazy { findViewById(R.id.filter_link_loaded) as TextView }
-    private val filtersCountView by lazy { findViewById(R.id.filter_link_loaded_count) as TextView }
+    private val editView by lazy { findViewById<AutoCompleteTextView>(R.id.filter_edit) }
+    private val errorView by lazy { findViewById<ViewGroup>(R.id.filter_error) }
+    private val commentView by lazy { findViewById<EditText>(R.id.filter_comment) }
+    private val commentReadView by lazy { findViewById<TextView>(R.id.filter_comment_read) }
+    private val filtersGroup by lazy { findViewById<View>(R.id.filter_link_loaded_group) }
+    private val filtersView by lazy { findViewById<TextView>(R.id.filter_link_loaded) }
+    private val filtersCountView by lazy { findViewById<TextView>(R.id.filter_link_loaded_count) }
 
     override fun onFinishInflate() {
         super.onFinishInflate()

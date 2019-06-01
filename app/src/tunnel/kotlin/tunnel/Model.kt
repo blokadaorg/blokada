@@ -2,6 +2,7 @@ package tunnel
 
 import core.Time
 import core.Url
+import java.lang.reflect.TypeVariable
 
 typealias MemoryLimit = Int
 typealias FilterId = String
@@ -11,6 +12,7 @@ data class Filter(
         val id: FilterId,
         val source: FilterSourceDescriptor,
         val whitelist: Boolean = false,
+        val wildcard: Boolean = false,
         val active: Boolean = false,
         val hidden: Boolean = false,
         val priority: Int = 0,
@@ -61,6 +63,8 @@ class Memory {
 interface IFilterSource {
     fun size(): Int
     fun fetch(): LinkedHashSet<String>
+    fun fetchwildcard(): LinkedHashSet<String>
+    //fun inwildcard() : Boolean
     fun fromUserInput(vararg string: String): Boolean
     fun toUserInput(): String
     fun serialize(): String

@@ -43,6 +43,11 @@ class AFilterListView(
             field = value
             refreshFilters()
         }
+    var wildcard: Boolean = false
+        set(value) {
+            field = value
+            refreshFilters()
+        }
 
     private var switchEnabled = true
     private val switchHandler = Handler {
@@ -66,7 +71,7 @@ class AFilterListView(
             Unit
         }
 
-        val switchActive = { _: Pair<Int, Int> ->
+        val switchActive = { _: Triple <Int, Int, Int> ->
             switchHandler.removeMessages(0)
             switchEnabled = true
             adapter.notifyDataSetChanged()

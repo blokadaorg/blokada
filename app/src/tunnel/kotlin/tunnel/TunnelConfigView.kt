@@ -80,13 +80,16 @@ class TunnelConfigView(
         var capacity = 0
         context.ktx().on(tunnel.Events.MEMORY_CAPACITY) {
             capacity = it
+            android.util.Log.d("tunnel23",""+capacity)
         }
-
+// shows up in advanced settings screen
         context.ktx().on(tunnel.Events.RULESET_BUILT, { event ->
             val (deny, allow) = event
             status.text = "%s\n%s".format(
                     context.resources.getString(R.string.tunnel_hosts_count2,
                             Format.counter(max(deny - allow, 0))),
+                   // context.resources.getString(R.string.tunnel_config_memory_capacity2, // works just need to add more space for it to show up
+                   //         Format.counter(capacity + deny, round = true)),
                     context.resources.getString(R.string.tunnel_config_memory_capacity,
                             Format.counter(capacity + deny, round = true))
             )

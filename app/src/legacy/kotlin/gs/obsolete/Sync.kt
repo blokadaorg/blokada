@@ -8,7 +8,7 @@ class Sync<T>(private var value: T) {
     }
 
     @Synchronized fun set(newValue: T) {
-        value = newValue;
+        value = newValue
     }
 }
 

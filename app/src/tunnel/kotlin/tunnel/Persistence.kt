@@ -21,12 +21,19 @@ class RulesPersistence {
     }
     val save = { id: FilterId, ruleset: Ruleset ->
         Result.of { core.Persistence.paper().write("rules:set:$id", ruleset) }
-        Result.of { core.Persistence.paper().write("rules:size:$id", ruleset.size) }
+        Result.of { core.Persistence.paper().write("rules:size:$id", ruleset.size)
+        }
     }
     val size = { id: FilterId ->
         Result.of { core.Persistence.paper().read("rules:size:$id", 0) }
     }
 }
+//fun WildCardIt(args: Array<String>) {
+//    val str = "Kotlination.com = Be Kotlineer - Be Simple - Be Connective"
+//
+//    val separate1 = str.split("=|-".toRegex())
+//    Log.d("Test123", ""+ seperate1)
+//}
 
 class FiltersPersistence {
     val load = { ktx: AndroidKontext ->
@@ -34,19 +41,22 @@ class FiltersPersistence {
                 .or { loadLegacy35(ktx) }
                 .or {
                     ktx.v("loading from the persistence", core.Persistence.paper().path)
-                    Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
+                    //Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
+                    Result.of { core.Persistence.paper().read("filters", FilterStore()) }
                             .orElse { ex ->
                                 if (core.Persistence.global.loadPath() != core.Persistence.DEFAULT_PATH) {
                                     ktx.w("failed loading from a custom path, resetting")
                                     core.Persistence.global.savePath(core.Persistence.DEFAULT_PATH)
-                                    Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
+                                    //Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
+                                    Result.of { core.Persistence.paper().read("filters", FilterStore()) }
                                 } else Err(Exception("failed loading from default path", ex))
                             }
                 }
     }
 
     val save = { filterStore: FilterStore ->
-        Result.of { core.Persistence.paper().write("filters2", filterStore) }
+        //Result.of { core.Persistence.paper().write("filters2", filterStore) }
+        Result.of { core.Persistence.paper().write("filters", filterStore) }
     }
 
     private fun loadLegacy34(ktx: AndroidKontext) = {
@@ -65,7 +75,8 @@ class FiltersPersistence {
     }()
 
     private fun loadLegacy35(ktx: AndroidKontext) = {
-        Result.of { core.Persistence.paper().read("filters2", FiltersCache()) }
+        //Result.of { core.Persistence.paper().read("filters2", FiltersCache()) }
+        Result.of { core.Persistence.paper().read("filters", FiltersCache()) }
                 .andThen {
                     if (it.cache.isEmpty()) Err(Exception("no 3.5 legacy persistence found"))
                     else {

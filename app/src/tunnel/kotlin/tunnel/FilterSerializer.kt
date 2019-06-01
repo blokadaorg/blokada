@@ -1,6 +1,9 @@
 package tunnel
 
+import filter.id
 import gs.environment.batch
+import org.acra.ACRA.log
+import tunnel.Persistence.Companion.filters
 
 class FilterSerializer {
     fun deserialise(repo: List<String>): Set<Filter> {
@@ -9,6 +12,7 @@ class FilterSerializer {
         val filters = repo.asSequence().batch(9).map { entry ->
             entry[0].toInt() to try {
                 val id = entry[1]
+                val wildcard = entry[2] == "wildcard"
                 val whitelist = entry[2] == "whitelist"
                 val active = entry[3] == "active"
                 val credit = entry[4]
@@ -16,9 +20,9 @@ class FilterSerializer {
                 val url = entry[6]
                 val name = if (entry[7].isNotBlank()) entry[7] else null
                 val comment = if (entry[8].isNotBlank()) entry[8].replace("\\n", "\n") else null
-
-                Filter(id, FilterSourceDescriptor(sourceId, url), whitelist, active, false,
+                Filter(id, FilterSourceDescriptor(sourceId, url), whitelist, wildcard, active, false,
                         priority = priority++, credit = credit, customName = name, customComment = comment)
+
             } catch (e: Exception) {
                 null
             }

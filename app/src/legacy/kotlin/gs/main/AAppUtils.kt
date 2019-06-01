@@ -47,7 +47,7 @@ class RestartService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val j: Journal = inject().instance()
         j.log("RestartService start command")
-        return Service.START_STICKY;
+        return Service.START_STICKY
     }
 
 }

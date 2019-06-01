@@ -14,10 +14,12 @@ import java.util.*
 
 object Events {
     val RULESET_BUILDING = "RULESET_BUILDING".newEventOf<Unit>()
-    val RULESET_BUILT = "RULESET_BUILT".newEventOf<Pair<Int, Int>>()
+            //TODO change  RULESET_BUILT to <String, String> and pass list through. then go to TunnelDashes.kt and change the subtraction of numbers to look for if whitelist included in blacklist
+    val RULESET_BUILT = "RULESET_BUILT".newEventOf <Triple<Int, Int, Int>>()
     val FILTERS_CHANGING = "FILTERS_CHANGING".newEvent()
     val FILTERS_CHANGED = "FILTERS_CHANGED".newEventOf<Collection<Filter>>()
     val BLOCKED = "BLOCKED".newEventOf<String>()
+    val Allowed = "ALLOWED".newEventOf<String>()
     val TUNNEL_POWER_SAVING = "TUNNEL_POWER_SAVING".newEvent()
     val MEMORY_CAPACITY = "MEMORY_CAPACITY".newEventOf<Int>()
 }
@@ -121,7 +123,7 @@ class Main(
             createComponents(ktx, onWifi)
             filters.setUrl(ktx, url)
             if (filters.sync(ktx)) {
-                ktx.v("first fetch successful, unsetting firstLoad flag")
+                ktx.v("first fetch successful, unsetting firstLoad flag") //TODO appears to come after val RULESET_BUILT = "RULESET_BUILT".newEventOf<Pair<Int, Int>>() // saves description of default whitelist/blacklist
                 Persistence.config.save(cfg.copy(firstLoad = false))
             }
             filters.save(ktx)

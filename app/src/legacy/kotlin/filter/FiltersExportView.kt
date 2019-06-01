@@ -46,11 +46,11 @@ class FiltersExportView(
         import.isEnabled = true
     }
 
-    private val buttonView by lazy { findViewById(R.id.button1) as Button }
-    private val button2View by lazy { findViewById(R.id.button2) as Button }
-    private val errorView by lazy { findViewById(R.id.filter_error) as ViewGroup }
-    private val import by lazy { findViewById(R.id.filter_import_checkbox) as Button }
-    private val importGroup by lazy { findViewById(R.id.filter_comment_group) as ViewGroup }
+    private val buttonView by lazy { findViewById<Button>(R.id.button1) }
+    private val button2View by lazy { findViewById<Button>(R.id.button2) }
+    private val errorView by lazy { findViewById<ViewGroup>(R.id.filter_error) }
+    private val import by lazy { findViewById<Button>(R.id.filter_import_checkbox) }
+    private val importGroup by lazy { findViewById<ViewGroup>(R.id.filter_comment_group) }
 
     private val activity by lazy { ctx.inject().instance<ComponentProvider<MainActivity>>() }
     private val t by lazy { ctx.inject().instance<tunnel.Main>() }

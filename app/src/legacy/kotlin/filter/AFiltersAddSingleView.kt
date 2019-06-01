@@ -66,11 +66,11 @@ class AFiltersAddSingleView(
         commentReadView.visibility = View.VISIBLE
     }
 
-    private val editView by lazy { findViewById(R.id.filter_edit) as AutoCompleteTextView }
-    private val errorView by lazy { findViewById(R.id.filter_error) as ViewGroup }
-    private val commentView by lazy { findViewById(R.id.filter_comment) as EditText }
-    private val commentReadView by lazy { findViewById(R.id.filter_comment_read) as TextView }
-    private val commentGroupView by lazy { findViewById(R.id.filter_comment_group) as ViewGroup }
+    private val editView by lazy { findViewById<AutoCompleteTextView>(R.id.filter_edit) }
+    private val errorView by lazy { findViewById<ViewGroup>(R.id.filter_error) }
+    private val commentView by lazy { findViewById<EditText>(R.id.filter_comment) }
+    private val commentReadView by lazy { findViewById<TextView>(R.id.filter_comment_read) }
+    private val commentGroupView by lazy { findViewById<ViewGroup>(R.id.filter_comment_group) }
 
     override fun onFinishInflate() {
         super.onFinishInflate()

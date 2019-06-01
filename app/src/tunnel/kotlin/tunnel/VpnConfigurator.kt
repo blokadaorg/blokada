@@ -40,7 +40,7 @@ internal class VpnConfigurator(
         var ipv6Template: ByteArray? = byteArrayOf(32, 1, 13, (184 and 0xFF).toByte(),
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-        if (dnsServers.any { it.getAddress() is Inet6Address }) {
+        if (dnsServers.any { it.address is Inet6Address }) {
             try {
                 val address = Inet6Address.getByAddress(ipv6Template)
                 builder.addAddress(address, 120)
@@ -73,12 +73,12 @@ internal class VpnConfigurator(
 
     private fun VpnService.Builder.addDnsServer(format: String?, ipv6Template: ByteArray?,
                                                             address: InetSocketAddress) = when {
-        address.getAddress() is Inet6Address && ipv6Template != null -> {
+        address.address is Inet6Address && ipv6Template != null -> {
             ipv6Template[ipv6Template.size - 1] = (++dnsIndex).toByte()
             val ipv6Address = Inet6Address.getByAddress(ipv6Template)
             this.addDnsServer(ipv6Address)
         }
-        address.getAddress() is Inet4Address && format != null -> {
+        address.address is Inet4Address && format != null -> {
             val alias = String.format(Locale.ENGLISH, format, ++dnsIndex)
             this.addDnsServer(alias)
             this.addRoute(alias, 32)
@@ -95,7 +95,7 @@ internal class PausedVpnConfigurator(
     override fun configure(ktx: Kontext, builder: VpnService.Builder) {
         for (address in dnsServers) {
             try {
-                builder.addDnsServer(address.getAddress())
+                builder.addDnsServer(address.address)
             } catch (e: Exception) {
                 ktx.e("failed adding dns server", e)
             }

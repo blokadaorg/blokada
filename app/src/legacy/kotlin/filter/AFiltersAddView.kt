@@ -56,7 +56,7 @@ class AFiltersAddView(
 
     private var ready = false
 
-    private val pager by lazy { findViewById(R.id.filters_pager) as android.support.v4.view.ViewPager }
+    private val pager by lazy { findViewById<android.support.v4.view.ViewPager>(R.id.filters_pager) }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
