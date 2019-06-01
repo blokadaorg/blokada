@@ -39,16 +39,13 @@ class FilterSourceLink(
     //    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     //}
     override fun fetch(): LinkedHashSet<String> {
-        //android.util.Log.d("fecthed90","fetched90")
         val list = try {
             //android.util.Log.d("fecthed909","fet0"+source!!)
             // source is URL i.e. https://gist.githubusercontent.com/Thomas499/266be112dd2661d602e26c6a0b01b983/raw
                 loadGzip(openUrl(source!!, timeoutMillis), { //android.util.Log.d("fecthed90","fetched999 "+ it)
                     processor.process(true, it) })//listtype
-            //android.util.Log.d("fecthed910","f")
         } catch (e: Exception) { try {android.util.Log.d("fecthed9dddd0","fetched90")
             loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(true, it) })// listtype
-          //  android.util.Log.d("fecthedddddd90","fetched90")
         } catch (e: Exception) { emptyList<String>() }}
         return LinkedHashSet<String>().apply { addAll(list) }
     }
@@ -57,12 +54,9 @@ class FilterSourceLink(
         android.util.Log.d("fecthed91","fetched91")
         val list2 = try {
             android.util.Log.d("fecthed919","fet1"+source!!)
-            //loadGzipwildcard(openUrlwildcard(source!!, timeoutMillis), { processor.process(it) })
             loadGzip(openUrl(source!!, timeoutMillis), { processor.process(false,it) })
-            //android.util.Log.d("fecthed910","f")
         } catch (e: Exception) { try {android.util.Log.d("fecthed9dddd0","fetched90")
             loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(false,it) })
-            //  android.util.Log.d("fecthedddddd90","fetched90")
         } catch (e: Exception) { emptyList<String>() }}
         return LinkedHashSet<String>().apply { addAll(list2) }
     }
@@ -125,7 +119,6 @@ class FilterSourceUri(
     }
 
     override fun fetch(): LinkedHashSet<String> {
-        android.util.Log.d("fetch()","fetched")
         val list = try {
             load({
                 ctx.contentResolver.takePersistableUriPermission(source!!, flags)
