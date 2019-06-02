@@ -17,7 +17,6 @@ open class Dash (
         var description: String? = null,
         active: Boolean = true,
         text: String? = null,
-        text2: String? = null,
         val isSwitch: Boolean = false,
         checked: Boolean = false,
         val hasView: Boolean = false,
@@ -60,11 +59,6 @@ open class Dash (
         }
 
     var text = text
-        set(value) {
-            field = value
-            onUpdate.forEach { it() }
-        }
-    var text2 = text2
         set(value) {
             field = value
             onUpdate.forEach { it() }
