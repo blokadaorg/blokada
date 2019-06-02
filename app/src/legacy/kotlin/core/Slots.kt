@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import android.support.v4.content.FileProvider
 import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
 import filter.hostnameRegex
@@ -18,6 +19,7 @@ import tunnel.*
 import tunnel.Filter
 import update.UpdateCoordinator
 import update.isUpdate
+import java.io.File
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
@@ -1411,4 +1413,29 @@ class GatewayVB(
 private val prettyFormat = SimpleDateFormat("MMMM dd, HH:mm")
 fun Date.pretty(ktx: Kontext): String {
     return prettyFormat.format(this)
+}
+
+class ShareLogVB(
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                label = "Share log",
+                action1 = Slot.Action("Share", {
+                    val uri = getExternalPath() + "/blokada.log"
+                    val openFileIntent = Intent(Intent.ACTION_SEND)
+                    openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    openFileIntent.type = "plain/*"
+                    openFileIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(ktx.ctx, "${ktx.ctx.packageName}.files",
+                            File(uri)))
+                    ktx.ctx.startActivity(openFileIntent)
+                })
+        )
+    }
+
 }
