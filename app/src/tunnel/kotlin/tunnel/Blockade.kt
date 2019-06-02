@@ -15,10 +15,10 @@ internal class Blockade(
 
     fun build(ktx: Kontext, deny: List<FilterId>, allow: List<FilterId>) {
         ktx.emit(Events.RULESET_BUILDING)
-//        denyRuleset.clear()
-//        denyRuleset = buildRuleset(ktx, deny)
-//        allowRuleset.clear()
-//        allowRuleset = buildRuleset(ktx, allow)
+        denyRuleset.clear()
+        denyRuleset = buildRuleset(ktx, deny)
+        allowRuleset.clear()
+        allowRuleset = buildRuleset(ktx, allow)
         ktx.emit(Events.RULESET_BUILT, denyRuleset.size to allowRuleset.size)
     }
 
