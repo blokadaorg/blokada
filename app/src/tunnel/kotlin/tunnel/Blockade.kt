@@ -72,16 +72,12 @@ internal class Blockade(
             val arraylist = ruleset.toString().split(",")//", ", "[", "]")
             ruleset.removeAll(whitelistRuleset)
             ruleset.removeAll(wildcardRuleset)
-            var kkk = 0
             if (octomize == true) {
                 for (item in arraylist) {
                     var iit = item
                     iit = iit.removePrefix("[")
-                    iit = iit.removePrefix(",")
-                    iit = iit.removePrefix(" ")
-                    iit = iit.removeSuffix(",")
-                    iit = iit.removeSuffix(" ")
                     iit = iit.removeSuffix("]")
+                    iit = iit.trim()
                     counter++
                     if (inwildcardlist(iit)) {
                         ruleset.remove(iit)
@@ -99,14 +95,11 @@ internal class Blockade(
                         // easy view Log.d version
                          android.util.Log.d("allowed", ""+ (orignalrulesize-counter)+ " " + orignalrulesize + " " + ruleset.size + "  percent finished is " +((counter*100)/orignalrulesize) +  "% percent saved is " + (((orignalrulesize - ruleset.size)*100)/counter)+ "% " + orignalrulesize +" " + ruleset.size + " " + counter + " " + iit + " memory is " + Runtime.getRuntime().freeMemory() + " "  )
                     }
-                    if (orignalrulesize - counter == 0) {
-                        Log.d("octomization", "finshed " + "memory saved " + (((orignalrulesize - ruleset.size) * 100) / counter) + "%")
-                        // debug for test use very small host list i.e.     https://gist.githubusercontent.com/Thomas499/266be112dd2661d602e26c6a0b01b983/raw
-                        //    Log.d("octomization","ruleset is " + ruleset)
-                        return ruleset
-                    }
-
                 }
+                Log.d("octomization", "finshed " + "memory saved " + (((orignalrulesize - ruleset.size) * 100) / counter) + "%")
+                // debug for test use very small host list i.e.     https://gist.githubusercontent.com/Thomas499/266be112dd2661d602e26c6a0b01b983/raw
+                //    Log.d("octomization","ruleset is " + ruleset)
+                return ruleset
             }
         }
         var tempname = ""
