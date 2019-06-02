@@ -27,7 +27,7 @@ class FilterSourceLink(
 ) : IFilterSource {
 
     override fun size(): Int {
-        return 100000
+        return  100000
     }
 
     override fun id(): String {
@@ -36,32 +36,28 @@ class FilterSourceLink(
 
     //override fun inwildcard(): Boolean {
     //    return true
+    //    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     //}
     override fun fetch(): LinkedHashSet<String> {
         val list = try {
-            loadGzip(openUrl(source!!, timeoutMillis), {
-                processor.process(true, it)
-            })//listtype
-        } catch (e: Exception) {
-            try {
-                loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(true, it) })// listtype
-            } catch (e: Exception) {
-                emptyList<String>()
-            }
-        }
+            //android.util.Log.d("fecthed909","fet0"+source!!)
+            // source is URL i.e. https://gist.githubusercontent.com/Thomas499/266be112dd2661d602e26c6a0b01b983/raw
+                loadGzip(openUrl(source!!, timeoutMillis), { //android.util.Log.d("fecthed90","fetched999 "+ it)
+                    processor.process(true, it) })//listtype
+        } catch (e: Exception) { try {android.util.Log.d("fecthed9dddd0","fetched90")
+            loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(true, it) })// listtype
+        } catch (e: Exception) { emptyList<String>() }}
         return LinkedHashSet<String>().apply { addAll(list) }
     }
 
     override fun fetchwildcard(): LinkedHashSet<String> {
+        android.util.Log.d("fecthed91","fetched91")
         val list2 = try {
-            loadGzip(openUrl(source!!, timeoutMillis), { processor.process(false, it) })
-        } catch (e: Exception) {
-            try {
-                loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(false, it) })
-            } catch (e: Exception) {
-                emptyList<String>()
-            }
-        }
+            android.util.Log.d("fecthed919","fet1"+source!!)
+            loadGzip(openUrl(source!!, timeoutMillis), { processor.process(false,it) })
+        } catch (e: Exception) { try {android.util.Log.d("fecthed9dddd0","fetched90")
+            loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(false,it) })
+        } catch (e: Exception) { emptyList<String>() }}
         return LinkedHashSet<String>().apply { addAll(list2) }
     }
 
@@ -69,13 +65,8 @@ class FilterSourceLink(
         val ret = try {
             source = URL(string[0])
             true
-        } catch (e: Exception) {
-            false
-        }
-        try {
-            backupSource = URL(string[1])
-        } catch (e: Exception) {
-        }
+        } catch (e: Exception) { false }
+        try { backupSource = URL(string[1]) } catch (e: Exception) {}
         return ret
     }
 
@@ -117,13 +108,9 @@ class FilterSourceUri(
             lineReader = LineNumberReader(InputStreamReader(openFile(ctx, source!!)))
             lineReader.skip(java.lang.Long.MAX_VALUE)
             lineReader.lineNumber + 1
-        } catch (e: Exception) {
-            0
-        } finally {
-            try {
-                lineReader?.close()
-            } catch (e: Exception) {
-            }
+        } catch (e: Exception) { 0 }
+        finally {
+            try { lineReader?.close() } catch (e: Exception) {}
         }
     }
 
@@ -145,6 +132,7 @@ class FilterSourceUri(
     }
 
     override fun fetchwildcard(): LinkedHashSet<String> {
+        android.util.Log.d("fetch()","fetched")
         val list = try {
             load({
                 ctx.contentResolver.takePersistableUriPermission(source!!, flags)
@@ -162,9 +150,7 @@ class FilterSourceUri(
         return try {
             source = Uri.parse(string[0])
             true
-        } catch (e: Exception) {
-            false
-        }
+        } catch (e: Exception) { false }
     }
 
     override fun toUserInput(): String {
@@ -182,8 +168,7 @@ class FilterSourceUri(
             val bytes = Base64.decode(string, Base64.NO_WRAP)
             try {
                 source = Uri.parse(String(bytes))
-            } catch (e: Exception) {
-            }
+            } catch (e: Exception) { }
         }
         return this
     }
@@ -214,10 +199,8 @@ class FilterSourceApp(
     private val s by lazy { ctx.inject().instance<Filters>() }
 
     private val apps by lazy {
-        s.apps().flatMap {
-            listOf(it.appId to it.appId, it.appId.toLowerCase() to it.appId,
-                    it.label to it.appId, it.label.toLowerCase() to it.label)
-        }.toMap()
+        s.apps().flatMap { listOf(it.appId to it.appId, it.appId.toLowerCase() to it.appId,
+                it.label to it.appId, it.label.toLowerCase() to it.label) }.toMap()
     }
 
     override fun id(): String {
@@ -228,7 +211,6 @@ class FilterSourceApp(
         // This is a special type that doesn't have hosts domains
         return LinkedHashSet()
     }
-
     override fun fetchwildcard(): LinkedHashSet<String> {
         // This is a special type that doesn't have hosts domains
         return LinkedHashSet()
