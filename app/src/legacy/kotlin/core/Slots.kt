@@ -151,7 +151,7 @@ class VpnStatusVB(
                     }),
                     action2 = Slot.Action(i18n.getString(R.string.slot_status_vpn_lease), {
                         async {
-                            checkGateways(ktx, config, null)
+                            checkLease(ktx, config)
                         }
                     })
             )

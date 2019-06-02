@@ -1,8 +1,14 @@
 package tunnel
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.salomonbrys.kodein.instance
 import core.*
+import kotlinx.coroutines.experimental.async
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
@@ -105,6 +111,7 @@ data class BlockaConfig(
         val blockaVpn: Boolean = false,
         val accountId: String = "",
         val activeUntil: Date = Date(0),
+        val leaseActiveUntil: Date = Date(0),
         val privateKey: String = "",
         val publicKey: String = "",
         val gatewayId: String = "",
@@ -149,7 +156,6 @@ fun newAccount(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
                 val public = BoringTunJNI.x25519_public_key(secret)
                 val newCfg = config.copy(
                         accountId = account.accountId,
-                        activeUntil = account.activeUntil,
                         privateKey = BoringTunJNI.x25519_key_to_base64(secret),
                         publicKey = BoringTunJNI.x25519_key_to_base64(public)
                 )
@@ -217,7 +223,7 @@ fun checkGateways(ktx: AndroidKontext, config: BlockaConfig, gatewayId: String?,
                                 ktx.emit(BLOCKA_CONFIG, newCfg)
                             } else {
                                 ktx.v("found no matching gateway")
-                                redoLease(ktx, config, gateways.first())
+                                newLease(ktx, config, gateways.first())
                             }
                         }
                     }
@@ -245,8 +251,12 @@ fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
                 when (code()) {
                     200 -> {
                         body()?.run {
-                            val lease = leases.firstOrNull()
-                            if (lease != null && lease.expires.after(Date())) {
+                            // User might have a lease for old private key (if restoring account)
+                            val obsoleteLeases = leases.filter { it.publicKey != config.publicKey }
+                            obsoleteLeases.forEach { deleteLease(ktx, config, it.publicKey, it.gatewayId) }
+
+                            val lease = leases.firstOrNull { it.publicKey == config.publicKey }
+                            if (lease != null && lease.expires.after(Date(Date().time + 3600 * 1000))) {
                                 val newCfg = config.copy(
                                         vip4 = lease.vip4,
                                         vip6 = lease.vip6
@@ -254,6 +264,7 @@ fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
                                 ktx.v("found active lease until: ${lease.expires}")
                                 ktx.emit(BLOCKA_CONFIG, newCfg)
                                 checkGateways(ktx, config, lease.gatewayId)
+                                scheduleLeaseRenew(ktx, config)
                             } else {
                                 ktx.v("no active lease")
                                 checkGateways(ktx, config, null)
@@ -268,6 +279,24 @@ fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
                 }
             }
         }
+    })
+}
+
+fun deleteLease(ktx: AndroidKontext, config: BlockaConfig, publicKey: String, gatewayId: String, retry: Int = 0) {
+    val api: RestApi = ktx.di().instance()
+
+    // TODO: rewrite it to sync version, or use callback on finish
+    api.deleteLease(RestModel.LeaseRequest(config.accountId, publicKey, gatewayId)).enqueue(object: retrofit2.Callback<Void> {
+
+        override fun onFailure(call: Call<Void>?, t: Throwable?) {
+            ktx.e("delete lease api call error", t ?: "null")
+            if (retry < MAX_RETRIES) deleteLease(ktx, config, publicKey, gatewayId, retry + 1)
+        }
+
+        override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+            ktx.e("obsolete lease deleted", publicKey, gatewayId)
+        }
+
     })
 }
 
@@ -309,10 +338,12 @@ fun newLease(ktx: AndroidKontext, config: BlockaConfig, gateway: RestModel.Gatew
                                     gatewayPort = gateway.port,
                                     gatewayNiceName = gateway.niceName(),
                                     vip4 = lease.vip4,
-                                    vip6 = lease.vip6
+                                    vip6 = lease.vip6,
+                                    leaseActiveUntil = lease.expires
                             )
                             ktx.v("new active lease, until: ${lease.expires}")
                             ktx.emit(BLOCKA_CONFIG, newCfg)
+                            scheduleLeaseRenew(ktx, config)
                         }
                     }
                     else -> {
@@ -324,6 +355,29 @@ fun newLease(ktx: AndroidKontext, config: BlockaConfig, gateway: RestModel.Gatew
             }
         }
     })
+}
+
+fun scheduleLeaseRenew(ktx: AndroidKontext, config: BlockaConfig) {
+    val alarm: AlarmManager = ktx.ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+    val operation = Intent(ktx.ctx, RenewLicenseReceiver::class.java).let { intent ->
+        PendingIntent.getBroadcast(ktx.ctx, 0, intent, 0)
+    }
+
+    val time = config.leaseActiveUntil.time - 3600 * 1000 // An hour before lease ends
+    alarm.set(AlarmManager.RTC, time, operation)
+    ktx.v("scheduled lease for an hour before ${config.leaseActiveUntil}")
+}
+
+class RenewLicenseReceiver : BroadcastReceiver() {
+    override fun onReceive(ctx: Context, p1: Intent) {
+        async {
+            val ktx = ctx.ktx("renew-lease")
+            ktx.v("renew lease task executing")
+            val config = ktx.getMostRecent(BLOCKA_CONFIG)!!
+            checkLease(ktx, config)
+        }
+    }
 }
 
 data class Request(
