@@ -148,7 +148,6 @@ class AFilterAddDialog(
                         val source = sourceProvider.from("file") as FilterSourceUri
                         source.source = view.fileView.uri
                         source.flags = view.fileView.flags
-                        android.util.Log.d("ada","hhhhh")
                         val hosts = source.fetch()
                         if (hosts.isEmpty()) throw Exception("source with no hosts")
                         source to hosts
