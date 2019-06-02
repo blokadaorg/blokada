@@ -94,7 +94,9 @@ fun newRestApiModule(ctx: Context): Kodein.Module {
     return Kodein.Module(init = {
         bind<RestApi>() with singleton {
             val tun: tunnel.Main = instance()
+//            val cp = ConnectionPool(1, 1, TimeUnit.MILLISECONDS)
             val client = OkHttpClient.Builder()
+//                    .connectionPool(cp)
                     .addNetworkInterceptor { chain ->
                         val request = chain.request()
                         chain.connection()?.socket()?.let {

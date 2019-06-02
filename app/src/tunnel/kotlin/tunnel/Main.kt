@@ -91,6 +91,7 @@ class Main(
                 ktx.v("no changes in configuration, ignoring")
             }
             else -> {
+                currentServers = servers
                 config?.run { blockaConfig = this }
                 socketCreator = {
                     val socket = DatagramSocket()
@@ -107,7 +108,6 @@ class Main(
                     onVpnConfigure(ktx, vpn)
                     5000L
                 })
-                currentServers = servers
 
                 ktx.v("will sync filters")
                 if (filters.sync(ktx)) {

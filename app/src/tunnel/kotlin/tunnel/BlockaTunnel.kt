@@ -118,6 +118,8 @@ internal class BlockaTunnel(
     private var lastTickMs = 0L
     private val tickIntervalMs = 100
 
+    private var deviceOut: OutputStream? = null
+
     fun openGatewaySocket(ktx: Kontext) {
         gatewayParcelFileDescriptor?.close()
         gatewaySocket?.close()
@@ -139,11 +141,14 @@ internal class BlockaTunnel(
         }
 
         proxy.loopback = { ktx, bufferId ->
-            loopbackQueued = true
-            loopbackBuffers[currentLoopbackBuffer] = buffers[bufferId]
-            loopbackBuffersReverse[currentLoopbackBuffer] = bufferId
-            lastLoopbackBuffer = currentLoopbackBuffer++
+//            loopbackQueued = true
+//            loopbackBuffers[currentLoopbackBuffer] = buffers[bufferId]
+//            loopbackBuffersReverse[currentLoopbackBuffer] = bufferId
+//            lastLoopbackBuffer = currentLoopbackBuffer++
 //            ktx.w("queued loopbacks: ${currentLoopbackBuffer}")
+            val b = buffers[bufferId]
+            buffers.returnBuffer(bufferId)
+            deviceOut?.write(b.array(), b.arrayOffset() + b.position(), b.limit()) ?: ktx.e("loopback not available")
         }
     }
 
@@ -152,6 +157,7 @@ internal class BlockaTunnel(
 
         val input = FileInputStream(tunnel)
         val output = FileOutputStream(tunnel)
+        deviceOut = output
 
         try {
             val errors = setupErrorsPipe()
@@ -165,16 +171,14 @@ internal class BlockaTunnel(
             while (true) {
                 if (threadInterrupted()) throw InterruptedException()
 
-                if (loopbackQueued) {
-                    device.listenFor(OsConstants.POLLIN or OsConstants.POLLOUT)
-                } else device.listenFor(OsConstants.POLLIN)
+                device.listenFor(OsConstants.POLLIN)
 
                 val gateway = polls[2]
                 gateway.listenFor(OsConstants.POLLIN)
 
                 poll(ktx, polls)
                 tick(ktx)
-                fromLoopbackToDevice(ktx, device, output)
+//                fromLoopbackToDevice(ktx, device, output)
                 fromDeviceToProxy(ktx, device, input)
                 fromGatewayToProxy(ktx, gateway)
                 cleanup()
@@ -230,6 +234,7 @@ internal class BlockaTunnel(
         }
         gatewayParcelFileDescriptor = null
         gatewaySocket = null
+        deviceOut = null
         error = null
     }
 
@@ -294,7 +299,7 @@ internal class BlockaTunnel(
                 gatewaySocket?.receive(packet1) ?: ktx.e("no socket")
                 proxy.toDevice(ktx, memory, packet1.length)
             }.mapError { ex ->
-                ktx.w("failed receiving from gateway", ex.message ?: "")
+                ktx.w("failed receiving from gateway", ex.message ?: "", ex)
                 val cause = ex.cause
                 if (cause is ErrnoException && cause.errno == OsConstants.EBADF) throw ex
                 else if (cause is ErrnoException && cause.errno == OsConstants.EPERM) throw ex

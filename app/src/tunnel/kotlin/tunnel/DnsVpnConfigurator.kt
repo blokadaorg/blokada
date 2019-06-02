@@ -120,6 +120,14 @@ internal class PausedVpnConfigurator(
 
 }
 
+// A TEST-NET IP range from RFC5735
+private const val dnsProxyDst4String = "203.0.113.0"
+val dnsProxyDst4 = Inet4Address.getByName(dnsProxyDst4String).address!!
+
+// A special test subnet from RFC3849
+private const val dnsProxyDst6String = "2001:DB8::"
+val dnsProxyDst6 = Inet6Address.getByName(dnsProxyDst6String).address!!
+
 /**
  * A VPN configuration for the true VPN functionality (towards blocka.net).
  */
@@ -129,25 +137,29 @@ internal class BlockaVpnConfigurator(
         private val blockaConfig: BlockaConfig
 ): Configurator {
 
+    private var dnsIndex = 1
+
     override fun configure(ktx: Kontext, builder: VpnService.Builder) {
+        // Set local IP addresses for the DNS proxy so we can easily catch them for inspection
+        dnsIndex = 0
         for (address in dnsServers) {
             try {
-                builder.addDnsServer(address.getAddress())
+                ktx.v("adding dns server $address")
+                if (blockaConfig.adblocking) builder.addMappedDnsServer(address)
+                else builder.addDnsServer(address.address)
             } catch (e: Exception) {
-                ktx.e("failed adding dns server", e)
+                ktx.e("failed adding dns server $address", e)
             }
         }
+
+        if (dnsServers.isEmpty()) ktx.w("not adding dns servers, empty")
 
         filterManager.getWhitelistedApps(ktx).forEach {
             builder.addDisallowedApplication(it)
         }
 
-        dnsServers.forEach {
-            builder.addDnsServer(it.address)
-        }
-
         // TODO: support configurable ipv6 servers - this one is cloudflare
-        builder.addDnsServer("2606:4700:4700::1111")
+//        builder.addDnsServer("2606:4700:4700::1111")
 
         builder.addAddress(blockaConfig.vip4, 32)
         builder.addAddress(blockaConfig.vip6, 128)
@@ -159,6 +171,21 @@ internal class BlockaVpnConfigurator(
         builder.setMtu(1420)
     }
 
+    private fun VpnService.Builder.addMappedDnsServer(address: InetSocketAddress) {
+        when {
+            address.address is Inet6Address -> {
+                val template = dnsProxyDst6.copyOf()
+                template[template.size - 1] = (++dnsIndex).toByte()
+                this.addDnsServer(Inet6Address.getByAddress(template))
+            }
+            address.address is Inet4Address -> {
+                val template = dnsProxyDst4.copyOf()
+                template[template.size - 1] = (++dnsIndex).toByte()
+                this.addDnsServer(Inet4Address.getByAddress(template))
+            }
+            else -> Unit
+        }
+    }
 }
 
 interface Configurator {
