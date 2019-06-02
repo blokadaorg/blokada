@@ -48,8 +48,6 @@ class TunnelDashHostsCount(
         ctx.ktx().on(tunnel.Events.RULESET_BUILT, { event ->
             val (wildcard, blacklist, whitelist) = event
             android.util.Log.d("tunnelDashes.kt", "event is " + event + " wildcard is "+ wildcard + " deny is " + blacklist + " allow is " + whitelist)
-            //text = ctx.resources.getString(R.string.tunnel_hosts_count2,
-            //        Format.counter(max(wildcard+blacklist, 0)))
             text = "%s\n%s\n%s\n%s".format(
                     //ctx.resources.getString(R.string.tunnel_hosts_count2,
                     //        Format.counter(max(wildcard, 0)));
@@ -65,7 +63,6 @@ class TunnelDashHostsCount(
                             Format.counter(max(blacklist+wildcard+whitelist, 0))))
             text2 = ctx.resources.getString(R.string.tunnel_hosts_count3,
                     Format.counter(max(wildcard+blacklist, 0)))
-            //TODO change to deny then create wildcard counter then create whitelist counter
             android.util.Log.d("tunnelDashes.kt", "text is " + text + " " + "total deny+wildcard+allow is "+  (wildcard+whitelist+blacklist))
         })
 
