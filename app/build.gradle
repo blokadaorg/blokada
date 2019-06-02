@@ -119,13 +119,15 @@ android {
     signingConfigs {
         release {
             keyAlias 'blokada'
-            //TODO change back before uploading. Made this change so blokada would compile on everyone elses computer that doesn't have the offical signing credentials required to publish an offical update
-//            keyPassword BLOKADA_KEY_PASSWORD
-//            storeFile file(BLOKADA_KEY_PATH)
-//            storePassword BLOKADA_STORE_PASSWORD
-            keyPassword 'default'
-            storeFile file('default')
-            storePassword 'default'
+            // comment below out to get to compile if you are not kar
+            keyPassword BLOKADA_KEY_PASSWORD
+            storeFile file(BLOKADA_KEY_PATH)
+            storePassword BLOKADA_STORE_PASSWORD
+            //Made this change so blokada would compile on everyone elses computer that doesn't have the offical signing credentials required to publish an offical update
+//      use on home builds to make app compile without offical signing credentials
+//            keyPassword 'default'
+//            storeFile file('default')
+//            storePassword 'default'
         }
     }
     buildTypes {
@@ -165,6 +167,7 @@ android {
 }
 
 dependencies {
+
     // Android support libraries
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
