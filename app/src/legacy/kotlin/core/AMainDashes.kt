@@ -306,7 +306,7 @@ class OpenInBrowserDash(
         onClick = { dashRef ->
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.setData(Uri.parse(url().toString()))
+            intent.data = Uri.parse(url().toString())
             ctx.startActivity(intent)
             true
         }
@@ -321,7 +321,7 @@ class ChatDash(
         onClick = { dashRef ->
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.setData(Uri.parse(url().toString()))
+            intent.data = Uri.parse(url().toString())
             ctx.startActivity(intent)
             true
         }

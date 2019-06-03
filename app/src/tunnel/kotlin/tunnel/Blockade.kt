@@ -61,18 +61,18 @@ internal class Blockade(
         )
         if (order == 3) {
             var orignalrulesize = ruleset.size
-            //TODO add button that says "Octomize" in advanced settings. have that button switch the below var octomize on/off.
-            // Having octomize = true reduces list by about 20% and thus saves memory but takes a little longer to update.
+            //TODO add button that says "optimize" in advanced settings. have that button switch the below var octomize on/off.
+            // Having optimize = true reduces list by about 20% and thus saves memory but takes a little longer to update.
             // update time is an issue due to the fact that blokada seems to completely re-download each list and do the update process four times.
             // faedrak said he thinks the issue is: the function gets called asynchron based on changes of a variable but has no check for other already running instances."
-            var octomize = true
+            var optimize = true
             if ( wildcardRuleset.size==0)
-                octomize = false
-            var counter = orignalrulesize - ruleset.size // because some were removed from whitelist
-            val arraylist = ruleset.toString().split(",")//", ", "[", "]")
+                optimize = false
             ruleset.removeAll(whitelistRuleset)
             ruleset.removeAll(wildcardRuleset)
-            if (octomize == true) {
+            var counter = orignalrulesize - ruleset.size // because some were removed from whitelist
+            val arraylist = ruleset.toString().split(",")//", ", "[", "]")
+            if (optimize == true) {
                 for (item in arraylist) {
                     var iit = item
                     iit = iit.removePrefix("[")
@@ -87,14 +87,7 @@ internal class Blockade(
                         // android.util.Log.d("skipped", "number of host left to evaluate: " + (orignalrulesize-counter)+ " orignal number of host: " + orignalrulesize + " octomized number of host in list: " + ruleset.size + "  percent finished is: " +((counter*100)/orignalrulesize) +  "% percent saved is: " + (((orignalrulesize - ruleset.size)*100)/counter)+ "% " + orignalrulesize +" " + ruleset.size + " " + counter + " host name: " + iit + " memory is " + Runtime.getRuntime().freeMemory() + " "  )
                         // easy view Log.d version
                          android.util.Log.d("skipped", ""+ (orignalrulesize-counter)+ " " + orignalrulesize + " " + ruleset.size + "  percent finished is " +((counter*100)/orignalrulesize) +  "% percent saved is " + (((orignalrulesize - ruleset.size)*100)/counter)+ "% " + orignalrulesize +" " + ruleset.size + " " + counter + " " + iit + " memory is " + Runtime.getRuntime().freeMemory() + " "  )
-                    } else {
-                        // makes process much faster when using Log.d on large list to only see one out of 2500 host
-                        if (counter%1000==2500)
-                        // detailed Log.d version
-                        // android.util.Log.d("allowed", "number of host left to evaluate: " + (orignalrulesize-counter)+ " orignal number of host: " + orignalrulesize + " octomized number of host in list: " + ruleset.size + "  percent finished is: " +((counter*100)/orignalrulesize) +  "% percent saved is: " + (((orignalrulesize - ruleset.size)*100)/counter)+ "% " + orignalrulesize +" " + ruleset.size + " " + counter + " host name: " + iit + " memory is " + Runtime.getRuntime().freeMemory() + " "  )
-                        // easy view Log.d version
-                         android.util.Log.d("allowed", ""+ (orignalrulesize-counter)+ " " + orignalrulesize + " " + ruleset.size + "  percent finished is " +((counter*100)/orignalrulesize) +  "% percent saved is " + (((orignalrulesize - ruleset.size)*100)/counter)+ "% " + orignalrulesize +" " + ruleset.size + " " + counter + " " + iit + " memory is " + Runtime.getRuntime().freeMemory() + " "  )
-                    }
+                    } 
                 }
                 Log.d("octomization", "finshed " + "memory saved " + (((orignalrulesize - ruleset.size) * 100) / counter) + "%")
                 // debug for test use very small host list i.e.     https://gist.githubusercontent.com/Thomas499/266be112dd2661d602e26c6a0b01b983/raw

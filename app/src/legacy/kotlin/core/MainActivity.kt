@@ -76,10 +76,10 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
         setContentView(R.layout.activity_main)
 
-        infoView = findViewById(R.id.info) as AInfoView
+        infoView = findViewById<AInfoView>(R.id.info)
         enabledStateActor.listeners.add(enabledStateListener)
 
-        topBar = findViewById(R.id.topbar) as ATopBarView
+        topBar = findViewById<ATopBarView>(R.id.topbar)
 
         val getRadiusSize = {
             val size = android.graphics.Point()
@@ -90,13 +90,13 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
         contentActor = ContentActor(
                 ui = ui,
-                reveal = findViewById(R.id.reveal) as RevealFrameLayout,
-                revealContainer = findViewById(R.id.reveal_container) as FrameLayout,
+                reveal = findViewById<RevealFrameLayout>(R.id.reveal),
+                revealContainer = findViewById<FrameLayout>(R.id.reveal_container),
                 topBar = topBar!!,
                 radiusSize = getRadiusSize()
         )
 
-        val shadow = findViewById(R.id.info_shadow) as View
+        val shadow = findViewById<View>(R.id.info_shadow)
         shadow.visibility = if(landscape) View.INVISIBLE else View.VISIBLE
 
         ATopBarActor(
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
                 pages = pages
         )
 
-        grid = findViewById(R.id.grid) as AGridView
+        grid = findViewById<AGridView>(R.id.grid)
         grid?.ui = ui
         grid?.contentActor = contentActor
 
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             if (!isTop && !landscape) topBar?.mode = ATopBarView.Mode.BAR
         }
 
-        val fab = findViewById(R.id.fab) as AFloaterView
+        val fab = findViewById<AFloaterView>(R.id.fab)
         AFabActor(fab, t, enabledStateActor, contentActor!!)
 
         if (landscape) {
@@ -211,10 +211,6 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         infoQueueHandler(ui.infoQueue())
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     override fun onDestroy() {
 //        staticContext.set(WeakReference(null as Activity?))
         super.onDestroy()
@@ -224,7 +220,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
     }
 
     override fun onBackPressed() {
-        if (!(contentActor?.back() ?: false)) super.onBackPressed()
+        if (contentActor?.back() != true) super.onBackPressed()
     }
 
     private val display = { i: Info ->

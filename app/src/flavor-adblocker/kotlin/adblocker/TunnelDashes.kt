@@ -54,11 +54,11 @@ class TunnelDashHostsCount(
             //         Format.counter(capacity + deny, round = true)),
             ctx.resources.getString(R.string.tunnel_hosts_count2,
                     Format.counter(max(blacklist, 0))),
-                    ctx.resources.getString(R.string.tunnel_hosts_count3,
+                    ctx.resources.getString(R.string.tunnel_wcard_count,
                             Format.counter(max(wildcard, 0))),
-                    ctx.resources.getString(R.string.tunnel_hosts_count4,
+                    ctx.resources.getString(R.string.tunnel_wlist_count,
                             Format.counter(max(whitelist, 0))),
-                    ctx.resources.getString(R.string.tunnel_hosts_count5,
+                    ctx.resources.getString(R.string.tunnel_total_count,
                             Format.counter(max(blacklist+wildcard+whitelist, 0))))
         })
 
