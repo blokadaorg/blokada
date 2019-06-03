@@ -82,17 +82,16 @@ internal class Blockade(
                     if (inwildcardlist(iit)) {
                         ruleset.remove(iit)
                         // makes process much faster when using Log.d on large list to only see one out of 2500 host
-                        if (counter%1000==1)
+                        //if (counter%1000==1)
                         // detailed Log.d version
                         // android.util.Log.d("skipped", "number of host left to evaluate: " + (orignalrulesize-counter)+ " orignal number of host: " + orignalrulesize + " octomized number of host in list: " + ruleset.size + "  percent finished is: " +((counter*100)/orignalrulesize) +  "% percent saved is: " + (((orignalrulesize - ruleset.size)*100)/counter)+ "% " + orignalrulesize +" " + ruleset.size + " " + counter + " host name: " + iit + " memory is " + Runtime.getRuntime().freeMemory() + " "  )
                         // easy view Log.d version
-                         android.util.Log.d("skipped", ""+ (orignalrulesize-counter)+ " " + orignalrulesize + " " + ruleset.size + "  percent finished is " +((counter*100)/orignalrulesize) +  "% percent saved is " + (((orignalrulesize - ruleset.size)*100)/counter)+ "% " + orignalrulesize +" " + ruleset.size + " " + counter + " " + iit + " memory is " + Runtime.getRuntime().freeMemory() + " "  )
-                    } 
+                        // android.util.Log.d("skipped", ""+ (orignalrulesize-counter)+ " " + orignalrulesize + " " + ruleset.size + "  percent finished is " +((counter*100)/orignalrulesize) +  "% percent saved is " + (((orignalrulesize - ruleset.size)*100)/counter)+ "% " + orignalrulesize +" " + ruleset.size + " " + counter + " " + iit + " memory is " + Runtime.getRuntime().freeMemory() + " "  )
+                    }
                 }
                 Log.d("octomization", "finshed " + "memory saved " + (((orignalrulesize - ruleset.size) * 100) / counter) + "%")
                 // debug for test use very small host list i.e.     https://gist.githubusercontent.com/Thomas499/266be112dd2661d602e26c6a0b01b983/raw
                 //    Log.d("octomization","ruleset is " + ruleset)
-                return ruleset
             }
         }
         var tempname = ""

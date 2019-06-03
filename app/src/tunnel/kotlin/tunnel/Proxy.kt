@@ -16,7 +16,7 @@ import org.pcap4j.packet.namednumber.UdpPort
 
 internal class Proxy(
         private val dnsServers: List<InetSocketAddress>,
-        val blockade: Blockade,
+        private val blockade: Blockade,
         private val forwarder: Forwarder,
         private val loopback: Queue<ByteArray>,
         private val denyResponse: SOARecord = SOARecord(Name("org.blokada.invalid."), DClass.IN,
@@ -57,16 +57,12 @@ internal class Proxy(
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
         // This is where code decides to allow or block a URL.
-        // IF EITHER OF THE FOLLOWING BELOW ARE TRUE THEN ALLOW URL TO PASS. If neither are true block the URL
-        // URL in whitelist 'blokada.allowed(host)'
-        // or '||'
-        // not '!' in blokada.denied(host)
         if (blockade.inwhitelist(host) || (!blockade.inblacklist(host) && !blockade.inwildcardlist(host))) {
             // ALLOW url to pass
             val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.address,
                     destination.port)
                     forward(ktx, proxiedDns, originEnvelope)
-            ktx.emit(Events.Allowed, host)
+            ktx.emit(Events.ALLOWED, host)
         } else {
             // block the URL
             dnsMessage.header.setFlag(Flags.QR.toInt())
@@ -74,7 +70,6 @@ internal class Proxy(
             dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
             toDevice(ktx, dnsMessage.toWire(), originEnvelope)
             ktx.emit(Events.BLOCKED, host)
-
         }
     }
 
