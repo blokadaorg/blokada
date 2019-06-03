@@ -31,8 +31,6 @@ internal class FilterManager(
         private val doFetchFiltersFromRepo: (Url) -> Result<Set<Filter>> = {
             val serializer = FilterSerializer()
             Result.of { serializer.deserialise(loadGzip(openUrl(URL(it), 10 * 1000)))
-
-
             }
         },
         private val doProcessFetchedFilters: (Set<Filter>) -> Set<Filter> = { it },
@@ -65,7 +63,7 @@ internal class FilterManager(
     // it example is io.paperdb.Book@2e2510e3
     fun save(ktx: Kontext) {
         doSaveFilterStore(store).mapBoth( // after host are loaded
-                success = { ktx.v("saved FilterStore to persistence", store.cache.size, store.url) },
+                success = { ktx.v("saved FilterStore to persistence", store.cache.size, store.url)},
                 failure = { ktx.e("failed saving FilterStore to persistence", it) }
         )
     }
@@ -119,7 +117,6 @@ internal class FilterManager(
         store.cache.filter {
             it.whitelist && it.active && it.source.id == "app" }.map {
             it.source.source
-
         }
     }()
 
@@ -128,9 +125,8 @@ internal class FilterManager(
             val success = syncRules(ktx)
             ktx.emit(Events.MEMORY_CAPACITY, Memory.linesAvailable())
             success
-            true
-        } else {
-            false }
+        } else
+            false
     }()
     private fun syncFiltersWithRepo(ktx: Kontext): Boolean {
         if (store.url.isEmpty()) {
@@ -181,7 +177,6 @@ internal class FilterManager(
         //TODO maybe clear clear() or remove() or onDestroy() !it.active here?
         val downloaded = mutableSetOf<Filter>()
         val wildcard = store.cache.filter{it.wildcard}
-        wildcard.forEach {}
         active.forEach { filter ->
             if (!doValidateRulesetCache(filter)) {
                 ktx.v("fetching ruleset", filter.id)
@@ -218,7 +213,6 @@ internal class FilterManager(
         val wildcardblock = store.cache.filter{ it.wildcard && it.active}.map{ it.id }
         ktx.v("attempting to build rules, wildcardblock/denied/allowed", denied.size, allowed.size)
         blockade.build(ktx, denied, wildcardblock, allowed)
-
         allowed.size > 0 || denied.size > 0
     }()
 
