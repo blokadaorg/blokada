@@ -113,7 +113,7 @@
     <string name="slot_status_vpn_connecting">Enabling Blokada VPN...</string>
     <string name="slot_status_vpn_turned_off">Blokada VPN is not enabled</string>
     <string name="slot_status_vpn_desc_on">Blokada VPN is currently &lt;b&gt;enabled&lt;/b&gt;.&lt;br /&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Your device and data is secure now. Tap the question mark for details.</string>
-    <string name="slot_status_vpn_desc_off">Blokada VPN is currently &lt;b&gt;disabled&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;When the VPN is connected, your protection is even higher. Your device is connected through our secure servers and your traffic is encrypted, so no one can see your data. Your real IP is hidden, and you can access blocked content. In some cases, you can experience faster Internet connection as well.</string>
+    <string name="slot_status_vpn_desc_off">Blokada VPN is currently &lt;b&gt;disabled&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;When the VPN is connected, your protection is even better. Your device is connected through our secure servers and your traffic is encrypted, so no one can see your data. Your real IP is hidden, and you can access blocked content. In some cases, you can experience faster Internet connection as well.</string>
     <string name="slot_status_vpn_info">When the VPN is connected, your protection is even higher. Your device is connected through our secure servers and your traffic is encrypted, so no one can see your data. Your real IP is hidden, and you can access blocked content. In some cases, you can experience faster Internet connection as well.</string>
     <string name="slot_status_vpn_lease">Refresh</string>
 
@@ -142,17 +142,15 @@
     <string name="slot_inactive">Inactive</string>
     <string name="slot_adblocking_label">Block ads &amp; trackers</string>
     <string name="slot_adblocking_text">When enabled, Blokada will block ads, trackers, and other unwanted content. This helps to protect your privacy, speed up your device and save your data.</string>
-    <string name="slot_blocka_label">Blokada VPN</string>
-    <string name="slot_blocka_text">Blokada VPN is here! When enabled, it will help you protect your privacy, hide your real IP, unblock content, speed up your Internet connection, and more.</string>
-    <string name="slot_account_label">Account</string>
+    <string name="slot_blocka_label">Connect to Blokada VPN</string>
+    <string name="slot_blocka_text">Our VPN helps you protect your privacy, hide your real IP, unblock content, and more.&lt;br/&gt;&lt;br/&gt;%s&lt;br/&gt;&lt;br/&gt;%s</string>
     <string name="slot_account_label_active">Account valid until %s</string>
-    <string name="slot_account_text">%s&lt;br/&gt;&lt;br/&gt;%s</string>
     <string name="slot_account_text_account">Your account ID is &lt;b&gt;%s&lt;/b&gt;.</string>
     <string name="slot_account_text_inactive">Your subscription is &lt;b&gt;inactive&lt;/b&gt;. You need an active account in order to use Blokada VPN. Please tap the button below to in order to activate it.</string>
     <string name="slot_account_text_active">Your subscription is &lt;b&gt;active&lt;/b&gt; until &lt;b&gt;%s&lt;/b&gt;. Please tap the button below in order to manage your subscription.</string>
     <string name="slot_account_info">You should keep your account ID secret - it is required in order to recover your account in case you uninstall the app. Your subscription will be automatically extended unless you cancel it.</string>
-    <string name="slot_account_action_manage">Manage</string>
-    <string name="slot_account_action_manage_inactive">Activate</string>
+    <string name="slot_account_action_manage">Account</string>
+    <string name="slot_account_action_manage_inactive">Account</string>
     <string name="slot_account_action_change_id">Restore</string>
 
     <string name="slot_gateway_label">Blokada VPN - %s</string>
@@ -162,4 +160,22 @@
     <string name="slot_gateway_load_high">low</string>
     <string name="panel_section_home_gateways">VPN Gateways</string>
     <string name="subscription_success">Your account is being activated. This may take a few seconds. Thank you!</string>
+
+    <string name="slot_protection_header">Configuration advice</string>
+    <string name="slot_protection_off">Blokada is inactive</string>
+    <string name="slot_protection_activating">Blokada is activating</string>
+    <string name="slot_protection_active_warning">Blokada is active, but configuration could be improved. Tap for details.</string>
+    <string name="slot_protection_active">Blokada is active</string>
+    <string name="slot_protection_action">Settings</string>
+    <string name="slot_protection_ok">Your configuration seems optimal, and your device is fully protected!</string>
+    <string name="slot_protection_no_adblocking">Blocking ads &amp; trackers is currently disabled. You should enable it in order to protect your privacy and data.</string>
+    <string name="slot_protection_no_vpn">You are not connected to Blokada VPN. You should consider it for better protection of your privacy and security.</string>
+    <string name="slot_protection_no_start_on_boot">Blokada is not configured to start on boot. You should keep Blokada always on for better protection.</string>
+    <string name="slot_protection_no_dns">Your network\'s default DNS servers are currently used. Switching to privacy-conscious DNS servers is recommended.</string>
+    <string name="slot_protection_no_battery_whitelist">Blokada is not exempt from your device\'s battery optimisation, so it can be killed by the system. You should use your system preferences to whitelist Blokada so it can stay on and protect your device.</string>
+    <string name="slot_protection_description">%s&lt;br/&gt;&lt;br/&gt;To configure settings, open the bottom menu.</string>
+
+    <string name="slot_start_on_boot_description">Enabling start on boot allows Blokada to be active at all times and protect your device.</string>
+    <string name="slot_recommended_dns_label">Use recommended DNS servers</string>
+    <string name="slot_recommended_dns_description">When enabled, Blokada will automatically choose recommended DNS servers to help speed up your Internet and protect your privacy. Otherwise, default DNS servers of your network are used. If you manually choose DNS servers in the Advanced section, this setting is ignored.</string>
 </resources>

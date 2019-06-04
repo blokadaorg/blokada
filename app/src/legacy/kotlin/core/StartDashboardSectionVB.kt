@@ -13,10 +13,10 @@ class StartDashboardSectionVB(
     private val slotMutex = SlotMutex()
 
     private var items = listOf<ViewBinder>(
-//            WebDash(LazyKodein(ktx.di), pages.intro, reloadOnError = true, javascript = true, small = true),
             AdblockingVB(ktx, onTap = slotMutex.openOneAtATime),
             BlockaVB(ktx, onTap = slotMutex.openOneAtATime),
-            AccountVB(ktx, onTap = slotMutex.openOneAtATime),
+            StartOnBootVB(ktx, onTap = slotMutex.openOneAtATime),
+            RecommendedDnsVB(ktx, onTap = slotMutex.openOneAtATime),
             StartViewBinder(ktx, currentAppVersion = BuildConfig.VERSION_CODE, afterWelcome = {})
     )
 

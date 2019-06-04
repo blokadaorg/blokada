@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
-import gs.presentation.LayoutViewBinder
 import gs.presentation.WebDash
 import org.blokada.R
 
@@ -98,7 +97,7 @@ fun createDashboardSections(ktx: AndroidKontext): List<DashboardSection> {
 
     sections += DashboardSection(
             nameResId = R.string.panel_section_advanced,
-            dash = AdvancedDashboardSectionVB(ktx.ctx),
+            dash = AdvancedDashboardSectionVB(ktx),
             subsections = listOf(
                     DashboardNavItem(R.drawable.ic_server, R.string.panel_section_advanced_dns, DnsDashboardSection(ktx.ctx)),
                     DashboardNavItem(R.drawable.ic_tune, R.string.panel_section_ads_settings, StaticItemsListVB(listOf(
@@ -118,11 +117,6 @@ fun createDashboardSections(ktx: AndroidKontext): List<DashboardSection> {
                             nameResId = R.string.main_blog_text,
                             dash = WebDash(LazyKodein(ktx.di), pages.news,
                                     forceEmbedded = true, reloadOnError = true, javascript = true)
-                    ),
-                    DashboardNavItem(
-                            iconResId = R.drawable.ic_feedback,
-                            nameResId = R.string.main_feedback_text,
-                            dash = LayoutViewBinder(R.layout.dash_placeholder)
                     ),
                     DashboardNavItem(
                             iconResId = R.drawable.ic_code_tags,

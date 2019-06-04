@@ -35,6 +35,10 @@
     <color name="colorThumbEnd">#f5f5f5</color>
     <color name="colorAccentTrans">#CCff5f00</color>
 
+    <color name="colorProtectionLow">#ff4400</color>
+    <color name="colorProtectionMedium">#ffe600</color>
+    <color name="colorProtectionHigh">#00d131</color>
+
     <color name="switch_on">#04fc5c</color>
     <color name="switch_off">@color/colorTextUnimportant</color>
 

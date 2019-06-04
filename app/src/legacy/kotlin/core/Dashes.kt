@@ -293,6 +293,7 @@ class StartViewBinder(
             url = url,
             reloadOnError = true,
             javascript = true,
+            forceEmbedded = false,
             small = true
     )
 

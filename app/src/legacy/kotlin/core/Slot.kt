@@ -21,7 +21,7 @@ import java.util.*
 
 class Slot {
     enum class Type {
-        INFO, FORWARD, BLOCK, COUNTER, STATUS, NEW, EDIT, APP
+        INFO, FORWARD, BLOCK, COUNTER, STATUS, NEW, EDIT, APP, PROTECTION
     }
 
     data class Action(val name: String, val callback: () -> Unit)
@@ -39,7 +39,8 @@ class Slot {
             val switched: Boolean? = null,
             val values: List<String> = emptyList(),
             val selected: String? = null,
-            val unread: Boolean = false
+            val unread: Boolean = false,
+            val color: Int? = null
     )
 }
 
@@ -356,6 +357,12 @@ class SlotView(
             Slot.Type.APP -> {
                 iconView.setColorFilter(resources.getColor(android.R.color.transparent))
                 iconView.setImageResource(R.drawable.ic_hexagon)
+            }
+            Slot.Type.PROTECTION -> {
+                val color = content!!.color!!
+                iconView.setColorFilter(color)
+                textView.setTextColor(color)
+                switchViews.forEach { it.setTextColor(resources.getColor(R.color.switch_off)) }
             }
         }
     }
