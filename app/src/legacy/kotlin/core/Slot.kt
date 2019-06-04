@@ -134,6 +134,7 @@ class SlotView(
     private val action1View = findViewById<Button>(R.id.unfolded_action1)
     private val action2View = findViewById<Button>(R.id.unfolded_action2)
     private val action3View = findViewById<Button>(R.id.unfolded_action3)
+    private val buttonSeparatorView = findViewById<View>(R.id.folded_button_separator)
     private val switchViews = listOf(switchFoldedView, switchUnfoldedView)
 
     init {
@@ -263,6 +264,7 @@ class SlotView(
 
     private fun bind(content: Slot.Content) {
         textView.text = Html.fromHtml(content.label)
+        buttonSeparatorView.visibility = View.GONE
         when {
             date != null -> switchViews.forEach { it.visibility = View.GONE }
             content.values.isNotEmpty() && content.selected in content.values -> switchViews.forEach {
@@ -297,6 +299,7 @@ class SlotView(
                 switchFoldedView.visibility = View.VISIBLE
                 switchFoldedView.text = actionNameToIcon(content.action1.name)
                 switchFoldedView.setTextColor(resources.getColor(R.color.colorAccent))
+                buttonSeparatorView.visibility = View.VISIBLE
             }
             content.switched == null -> switchViews.forEach { it.visibility = View.GONE }
         }

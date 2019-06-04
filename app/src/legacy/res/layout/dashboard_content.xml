@@ -142,7 +142,7 @@
                 android:alpha="0"
                 android:clickable="false"
                 android:focusable="false"
-                android:src="@drawable/blokada"
+                android:src="@drawable/ic_menu"
                 android:tint="@color/colorText" />
 
         </FrameLayout>

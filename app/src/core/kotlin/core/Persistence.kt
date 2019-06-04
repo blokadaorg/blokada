@@ -9,6 +9,7 @@ class Persistence {
     companion object {
         const val DEFAULT_PATH = ""
         val global = GlobalPersistence()
+        val slots = SlotStatusPersistence()
 
         fun paper() = {
             with(Persistence.global.loadPath()) {
@@ -31,3 +32,4 @@ class GlobalPersistence {
 
 
 }
+

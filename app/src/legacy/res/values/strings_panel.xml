@@ -7,15 +7,14 @@
     <string name="panel_section_home_start">Start</string>
     <string name="panel_section_home_help">Help</string>
     <string name="panel_section_home_community">Community</string>
-    <string name="panel_section_ads_lists">Lists</string>
-    <string name="panel_section_ads_log">Log</string>
-    <string name="panel_section_ads_blacklist">Blocked</string>
-    <string name="panel_section_ads_whitelist">Allowed</string>
-    <string name="panel_section_ads_settings">Settings</string>
-    <string name="panel_section_advanced_dns">DNS</string>
-    <string name="panel_section_apps_all">Installed</string>
-    <string name="panel_section_apps_system">System</string>
-    <string name="panel_section_advanced_settings">Settings</string>
+    <string name="panel_section_ads_lists">Host Lists</string>
+    <string name="panel_section_ads_log">Host Log</string>
+    <string name="panel_section_ads_blacklist">Blocked Hosts</string>
+    <string name="panel_section_ads_whitelist">Allowed Hosts</string>
+    <string name="panel_section_advanced_dns">DNS Servers</string>
+    <string name="panel_section_apps_all">Installed Apps</string>
+    <string name="panel_section_apps_system">System Apps</string>
+    <string name="panel_section_advanced_settings">Advanced Settings</string>
 
     <string name="panel_domain_forwarded">Allowed &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">This domain has been allowed. To block it, use the button below.</string>
@@ -28,8 +27,6 @@
     <string name="panel_ruleset_title">Filters now have %s rules.</string>
     <string name="panel_ruleset_updating">Updating filters...</string>
     <string name="panel_ruleset_built">Filters are now configured with &lt;b&gt;%s&lt;/b&gt; rules. Up to &lt;b&gt;%s&lt;/b&gt; rules can fit into your device memory overall. Remember, this is just an estimate and subject to change depending on other apps on your device, so you should stay well below this limit to be safe.</string>
-
-    <string name="panel_nav_header">%1$s :: %2$s</string>
 
     <string name="slot_action_allow">Allow</string>
     <string name="slot_action_block">Block</string>
@@ -142,18 +139,18 @@
     <string name="slot_inactive">Inactive</string>
     <string name="slot_adblocking_label">Block ads &amp; trackers</string>
     <string name="slot_adblocking_text">When enabled, Blokada will block ads, trackers, and other unwanted content. This helps to protect your privacy, speed up your device and save your data.</string>
-    <string name="slot_blocka_label">Connect to Blokada VPN</string>
-    <string name="slot_blocka_text">Our VPN helps you protect your privacy, hide your real IP, unblock content, and more.&lt;br/&gt;&lt;br/&gt;%s&lt;br/&gt;&lt;br/&gt;%s</string>
+    <string name="slot_blocka_label">Blokada VPN Account</string>
+    <string name="slot_blocka_text">%s&lt;br/&gt;&lt;br/&gt;%s</string>
     <string name="slot_account_label_active">Account valid until %s</string>
     <string name="slot_account_text_account">Your account ID is &lt;b&gt;%s&lt;/b&gt;.</string>
     <string name="slot_account_text_inactive">Your subscription is &lt;b&gt;inactive&lt;/b&gt;. You need an active account in order to use Blokada VPN. Please tap the button below to in order to activate it.</string>
     <string name="slot_account_text_active">Your subscription is &lt;b&gt;active&lt;/b&gt; until &lt;b&gt;%s&lt;/b&gt;. Please tap the button below in order to manage your subscription.</string>
     <string name="slot_account_info">You should keep your account ID secret - it is required in order to recover your account in case you uninstall the app. Your subscription will be automatically extended unless you cancel it.</string>
-    <string name="slot_account_action_manage">Account</string>
-    <string name="slot_account_action_manage_inactive">Account</string>
+    <string name="slot_account_action_manage">Manage</string>
+    <string name="slot_account_action_manage_inactive">Activate</string>
     <string name="slot_account_action_change_id">Restore</string>
 
-    <string name="slot_gateway_label">Blokada VPN - %s</string>
+    <string name="slot_gateway_label">Connect to %s</string>
     <string name="slot_gateway_description">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your currently selected gateway.</string>
     <string name="slot_gateway_load_low">high</string>
@@ -178,4 +175,29 @@
     <string name="slot_start_on_boot_description">Enabling start on boot allows Blokada to be active at all times and protect your device.</string>
     <string name="slot_recommended_dns_label">Use recommended DNS servers</string>
     <string name="slot_recommended_dns_description">When enabled, Blokada will automatically choose recommended DNS servers to help speed up your Internet and protect your privacy. Otherwise, default DNS servers of your network are used. If you manually choose DNS servers in the Advanced section, this setting is ignored.</string>
+
+    <string name="slot_update_no_updates">Blokada is up to date</string>
+    <string name="slot_about">About Blokada</string>
+    <string name="slot_about_share_log">Log</string>
+
+    <string name="slot_help_label">Need help?</string>
+    <string name="slot_help_action">Help</string>
+
+    <string name="slot_donate_label">Enjoying Blokada? Consider helping us.</string>
+    <string name="slot_donate_action">Donate</string>
+
+    <string name="slot_cta_label">Psst! We would like to know your opinion.</string>
+    <string name="slot_cta_action">Open</string>
+
+    <string name="slot_blog_label">Check out our development Blog!</string>
+    <string name="slot_blog_action">Open</string>
+
+    <string name="slot_updated_label">Blokada has been updated!</string>
+    <string name="slot_updated_action">More</string>
+
+    <string name="slot_obsolete_label">Action required: this version is obsolete!</string>
+    <string name="slot_obsolete_action">Update</string>
+
+    <string name="slot_cleanup_label">Multiple versions of Blokada detected</string>
+    <string name="slot_cleanup_action">Clean up</string>
 </resources>

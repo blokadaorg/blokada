@@ -5,85 +5,29 @@ import android.system.ErrnoException
 import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
+import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.michaelbull.result.mapError
 import core.Kontext
 import core.Result
+import org.pcap4j.packet.*
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
 import org.pcap4j.util.PropertiesLoader
+import org.xbill.DNS.*
 import java.io.*
-import java.net.DatagramPacket
-import java.net.DatagramSocket
-import java.net.InetAddress
+import java.net.*
 import java.nio.ByteBuffer
+import java.util.*
+import kotlin.experimental.and
 import kotlin.math.min
 
-class Buffers {
-    companion object {
-        val MTU = 1600
-        val BUFFERS = 5
-    }
-
-    private val FREE = 0
-    private val TAKEN = 1
-
-    private val buffers = arrayOfNulls<ByteBuffer>(BUFFERS)
-    private val bufferStatus = arrayOfNulls<Int>(BUFFERS)
-
-    private var currentBuffer = 0
-
-    init {
-        for (i in 0 until BUFFERS) {
-            buffers[i] = ByteBuffer.allocateDirect(MTU)
-            bufferStatus[i] = FREE
-        }
-    }
-
-    fun getFreeBuffer(): Int {
-        if (bufferStatus[currentBuffer] == FREE) {
-//            "buffer".ktx().e("XXX getting buffer $currentBuffer")
-            bufferStatus[currentBuffer] = TAKEN
-            val b = buffers[currentBuffer]!!
-            b.limit(b.capacity())
-            b.rewind()
-            return currentBuffer
-        }
-        else {
-            var takenBuffers = 1
-            do {
-                currentBuffer = (currentBuffer + 1) % BUFFERS
-                if (bufferStatus[currentBuffer] == FREE) {
-//                    "buffer".ktx().e("XXX getting buffer $currentBuffer")
-                    bufferStatus[currentBuffer] = TAKEN
-                    val b = buffers[currentBuffer]!!
-                    b.rewind()
-                    b.limit(b.capacity())
-                    return currentBuffer
-                }
-                else if (takenBuffers++ == BUFFERS) throw Exception("no free buffers left")
-            } while (true)
-        }
-    }
-
-    operator fun get(index: Int): ByteBuffer {
-        return buffers[index]!!
-    }
-
-    fun returnBuffer(bufferId: Int) {
-//        "buffer".ktx().e("XXX returning buffer $bufferId", Exception())
-        bufferStatus[bufferId] = FREE
-    }
-
-    fun returnAllBuffers() {
-        bufferStatus.map { FREE }
-    }
-}
-
 internal class BlockaTunnel(
-        private var proxy: BlockaProxy,
+        private val dnsServers: List<InetSocketAddress>,
         private val config: TunnelConfig,
         private val blockaConfig: BlockaConfig,
-        private val buffers: Buffers,
-        private val doCreateSocket: () -> DatagramSocket
+        private val doCreateSocket: () -> DatagramSocket,
+        private val blockade: Blockade,
+        private val denyResponse: SOARecord = SOARecord(Name("org.blokada.invalid."), DClass.IN,
+                5L, Name("org.blokada.invalid."), Name("org.blokada.invalid."), 0, 0, 0, 0, 5)
 ): Tunnel {
 
     private var device: FileDescriptor? = null
@@ -97,20 +41,9 @@ internal class BlockaTunnel(
     private var cooldownCounter = 0
     private var epermCounter = 0
 
-    private val loopbackBuffers = arrayOfNulls<ByteBuffer>(Buffers.BUFFERS)
-    private val forwardBuffers = arrayOfNulls<ByteBuffer>(Buffers.BUFFERS)
-    private val loopbackBuffersReverse = arrayOfNulls<Int>(Buffers.BUFFERS)
-    private val forwardBuffersReverse = arrayOfNulls<Int>(Buffers.BUFFERS)
-
-    private var currentLoopbackBuffer = 0
-    private var currentForwardBuffer = 0
-    private var lastLoopbackBuffer = 0
-    private var lastForwardBuffer = 0
-
-    private var loopbackQueued = false
-    private var forwardQueued = false
-
-    private val memory = ByteArray(Buffers.MTU)
+    private val MTU = 1600
+    private val buffer = ByteBuffer.allocateDirect(MTU)
+    private val memory = ByteArray(MTU)
 
     private val packet1 = DatagramPacket(memory, 0, 1)
     private val packet2 = DatagramPacket(memory, 0, 1)
@@ -120,36 +53,332 @@ internal class BlockaTunnel(
 
     private var deviceOut: OutputStream? = null
 
+    private var tunnel: Long? = null
+    private val op = ByteBuffer.allocateDirect(8)
+    private val empty = ByteArray(1)
+
+    fun fromDevice(ktx: Kontext, fromDevice: ByteArray, length: Int) {
+        if (blockaConfig.adblocking && interceptDns(ktx, fromDevice, length)) return
+
+        var i = 0
+        do {
+            op.rewind()
+            val destination = buffer
+            destination.rewind()
+            destination.limit(destination.capacity())
+            val source = if (i++ == 0) fromDevice else empty
+            val response = BoringTunJNI.wireguard_write(tunnel!!, source, length, destination,
+                    destination.capacity(), op)
+            destination.limit(response)
+            when (op[0].toInt()) {
+                BoringTunJNI.WRITE_TO_NETWORK -> {
+//                    ktx.v("will write to network: $response, buffer: ${destinationId}")
+                    forward(ktx, 0)
+                }
+                BoringTunJNI.WIREGUARD_ERROR -> {
+                    ktx.e("wireguard error: ${BoringTunJNI.errors[response]}")
+//                    buffers.returnBuffer(destinationId)
+                }
+                BoringTunJNI.WIREGUARD_DONE -> {
+                    if (i == 1) ktx.e("did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
+//                    buffers.returnBuffer(destinationId)
+                }
+                else -> {
+                    ktx.w("wireguard write unknown response: ${op[0].toInt()}")
+//                    buffers.returnBuffer(destinationId)
+                }
+            }
+        } while (response == BoringTunJNI.WRITE_TO_NETWORK)
+    }
+
+    fun toDevice(ktx: Kontext, source: ByteArray, length: Int) {
+        var i = 0
+        do {
+            op.rewind()
+//            ktx.v("read: received length: $length")
+//            val destinationBufferId = buffers.getFreeBuffer()
+//            val destination = buffers[destinationBufferId]
+            val destination = buffer
+            destination.rewind()
+            destination.limit(destination.capacity())
+            val source = if (i++ == 0) source else empty
+            val response = BoringTunJNI.wireguard_read(tunnel!!, source, length, destination,
+                    destination.capacity(), op)
+            destination.limit(response) // TODO: what if -1
+            when (op[0].toInt()) {
+                BoringTunJNI.WRITE_TO_NETWORK -> {
+//                    ktx.v("read: will write: $response, length: $length")
+                    forward(ktx, 0)
+                }
+                BoringTunJNI.WIREGUARD_ERROR -> {
+                    ktx.e("read: wireguard error: ${BoringTunJNI.errors[response]}")
+//                    buffers.returnBuffer(destinationBufferId)
+                }
+                BoringTunJNI.WIREGUARD_DONE -> {
+                    if (i == 1) ktx.e("read: did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
+//                    buffers.returnBuffer(destinationBufferId)
+                }
+                BoringTunJNI.WRITE_TO_TUNNEL_IPV4 -> {
+                    if (blockaConfig.adblocking && (
+                                    srcAddress4(ktx, destination, dnsServers[0].address.address) ||
+                                            (dnsServers.size > 1 && srcAddress4(ktx, destination, dnsServers[1].address.address))
+                                    )
+                    ) {
+//                        ktx.v("detected dns coming back")
+                        rewriteSrcDns4(ktx, destination, length)
+                    }
+                    loopback(ktx, 0)
+                }
+                BoringTunJNI.WRITE_TO_TUNNEL_IPV6 -> loopback(ktx, 0)
+                else -> {
+                    ktx.w("read: wireguard unknown response: ${op[0].toInt()}")
+//                    buffers.returnBuffer(destinationBufferId)
+                }
+            }
+        } while (response == BoringTunJNI.WRITE_TO_NETWORK)
+    }
+
+
+    fun tick2(ktx: Kontext) {
+        if (tunnel == null) return
+
+        op.rewind()
+//        val destinationBufferId = buffers.getFreeBuffer()
+//        val destination = buffers[destinationBufferId]
+        val destination = buffer
+        destination.rewind()
+        destination.limit(destination.capacity())
+        val response = BoringTunJNI.wireguard_tick(tunnel!!, destination, destination.capacity(), op)
+        destination.limit(response)
+        when (op[0].toInt()) {
+            BoringTunJNI.WRITE_TO_NETWORK -> {
+//                ktx.v("tick: write: $response")
+                forward(ktx, 0)
+            }
+            BoringTunJNI.WIREGUARD_ERROR -> {
+//                buffers.returnBuffer(destinationBufferId)
+                ktx.e("tick: wireguard error: ${BoringTunJNI.errors[response]}")
+            }
+            BoringTunJNI.WIREGUARD_DONE -> {
+//                buffers.returnBuffer(destinationBufferId)
+            }
+            else -> {
+//                buffers.returnBuffer(destinationBufferId)
+                ktx.w("tick: wireguard timer unknown response: ${op[0].toInt()}")
+            }
+        }
+    }
+
+    private val ipv4Version = (1 shl 6).toByte()
+    private val ipv6Version = (3 shl 5).toByte()
+
+    private fun interceptDns(ktx: Kontext, packetBytes: ByteArray, length: Int): Boolean {
+        return if ((packetBytes[0] and ipv4Version) == ipv4Version) {
+            if (dstAddress4(ktx, packetBytes, length, dnsProxyDst4)) parseDns(ktx, packetBytes, length)
+            else false
+        } else if ((packetBytes[0] and ipv6Version) == ipv6Version) {
+            ktx.w("ipv6 ad blocking not supported")
+            false
+        } else false
+    }
+
+    private fun parseDns(ktx: Kontext, packetBytes: ByteArray, length: Int): Boolean {
+//        ktx.v("detected dns request")
+        val originEnvelope = try {
+            IpSelector.newPacket(packetBytes, 0, length) as IpPacket
+        } catch (e: Exception) {
+            return false
+        }
+
+        if (originEnvelope.payload !is UdpPacket) return false
+
+        val udp = originEnvelope.payload as UdpPacket
+        if (udp.payload == null) {
+            // Some apps use empty UDP packets for something good
+            return false
+        }
+
+        val udpRaw = udp.payload.rawData
+        val dnsMessage = try {
+            Message(udpRaw)
+        } catch (e: IOException) {
+            return false
+        }
+        if (dnsMessage.question == null) return false
+
+        val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
+        return if (blockade.allowed(host) || !blockade.denied(host)) {
+            val dnsIndex = packetBytes[19].toInt()
+            val dnsAddress = dnsServers[dnsIndex - 1].address
+
+            val udpForward = UdpPacket.Builder(udp)
+                    .srcAddr(originEnvelope.header.srcAddr)
+                    .dstAddr(dnsAddress)
+                    .srcPort(udp.header.srcPort)
+                    .dstPort(udp.header.dstPort)
+                    .correctChecksumAtBuild(true)
+                    .correctLengthAtBuild(true)
+                    .payloadBuilder(UnknownPacket.Builder().rawData(udpRaw))
+
+            val envelope = IpV4Packet.Builder(originEnvelope as IpV4Packet)
+                    .srcAddr(originEnvelope.header.srcAddr as Inet4Address)
+                    .dstAddr(dnsAddress as Inet4Address)
+                    .correctChecksumAtBuild(true)
+                    .correctLengthAtBuild(true)
+                    .payloadBuilder(udpForward)
+                    .build()
+
+            envelope.rawData.copyInto(packetBytes)
+
+//            ktx.v("rewriting dns request")
+            ktx.emit(Events.REQUEST, Request(host))
+            false
+        } else {
+            dnsMessage.header.setFlag(Flags.QR.toInt())
+            dnsMessage.header.rcode = Rcode.NOERROR
+            dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
+            toDeviceFakeDnsResponse(ktx, dnsMessage.toWire(), originEnvelope)
+            ktx.emit(Events.REQUEST, Request(host, blocked = true))
+            true
+        }
+    }
+
+    private fun dstAddress4(ktx: Kontext, packet: ByteArray, length: Int, ip: ByteArray): Boolean {
+        return (
+                (packet[16] and ip[0]) == ip[0] &&
+                        (packet[17] and ip[1]) == ip[1] &&
+                        (packet[18] and ip[2]) == ip[2]
+                )
+    }
+
+    private fun srcAddress4(ktx: Kontext, packet: ByteBuffer, ip: ByteArray): Boolean {
+        return (
+                (packet[12] and ip[0]) == ip[0] &&
+                        (packet[13] and ip[1]) == ip[1] &&
+                        (packet[14] and ip[2]) == ip[2] &&
+                        (packet[15] and ip[3]) == ip[3]
+                )
+    }
+
+    private fun rewriteSrcDns4(ktx: Kontext, packet: ByteBuffer, length: Int) {
+        val originEnvelope = try {
+            IpSelector.newPacket(packet.array(), packet.arrayOffset(), length) as IpPacket
+        } catch (e: Exception) {
+            return
+        }
+
+        originEnvelope as IpV4Packet
+
+        if (originEnvelope.payload !is UdpPacket) {
+            ktx.w("TCP packet received towards DNS IP")
+            return
+        }
+
+        val udp = originEnvelope.payload as UdpPacket
+        val udpRaw = udp.payload.rawData
+
+        val dst = dnsServers.firstOrNull { it.address == originEnvelope.header.srcAddr }
+        val dnsIndex = dnsServers.indexOf(dst)
+        if (dnsIndex == -1) ktx.e("unknown dns server $dst")
+        else {
+            val src = dnsProxyDst4.copyOf()
+            src[3] = (dnsIndex + 1).toByte()
+            val addr = Inet4Address.getByAddress(src) as Inet4Address
+            val udpForward = UdpPacket.Builder(udp)
+                    .srcAddr(addr)
+                    .dstAddr(originEnvelope.header.dstAddr)
+                    .srcPort(udp.header.srcPort)
+                    .dstPort(udp.header.dstPort)
+                    .correctChecksumAtBuild(true)
+                    .correctLengthAtBuild(true)
+                    .payloadBuilder(UnknownPacket.Builder().rawData(udpRaw))
+
+            val envelope = IpV4Packet.Builder(originEnvelope as IpV4Packet)
+                    .srcAddr(addr)
+                    .dstAddr(originEnvelope.header.dstAddr)
+                    .correctChecksumAtBuild(true)
+                    .correctLengthAtBuild(true)
+                    .payloadBuilder(udpForward)
+                    .build()
+
+            packet.put(envelope.rawData)
+            packet.position(0)
+            packet.limit(envelope.rawData.size)
+//            ktx.v("rewritten back dns response")
+        }
+    }
+
+    private fun toDeviceFakeDnsResponse(ktx: Kontext, response: ByteArray, originEnvelope: Packet?) {
+        originEnvelope as IpPacket
+        val udp = originEnvelope.payload as UdpPacket
+        val udpResponse = UdpPacket.Builder(udp)
+                .srcAddr(originEnvelope.header.dstAddr)
+                .dstAddr(originEnvelope.header.srcAddr)
+                .srcPort(udp.header.dstPort)
+                .dstPort(udp.header.srcPort)
+                .correctChecksumAtBuild(true)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(UnknownPacket.Builder().rawData(response))
+
+        val envelope: IpPacket
+        if (originEnvelope is IpV4Packet) {
+            envelope = IpV4Packet.Builder(originEnvelope)
+                    .srcAddr(originEnvelope.header.dstAddr as Inet4Address)
+                    .dstAddr(originEnvelope.header.srcAddr as Inet4Address)
+                    .correctChecksumAtBuild(true)
+                    .correctLengthAtBuild(true)
+                    .payloadBuilder(udpResponse)
+                    .build()
+        } else {
+            envelope = IpV6Packet.Builder(originEnvelope as IpV6Packet)
+                    .srcAddr(originEnvelope.header.dstAddr as Inet6Address)
+                    .dstAddr(originEnvelope.header.srcAddr as Inet6Address)
+                    .correctLengthAtBuild(true)
+                    .payloadBuilder(udpResponse)
+                    .build()
+        }
+
+//        val destinationBufferId = buffers.getFreeBuffer()
+//        val destination = buffers[destinationBufferId]
+        val destination = buffer
+        destination.rewind()
+        destination.limit(destination.capacity())
+        destination.put(envelope.rawData)
+        destination.position(0)
+        destination.limit(envelope.rawData.size)
+        loopback(ktx, 0)
+    }
+
+    fun createTunnel(ktx: Kontext) {
+        ktx.v("creating boringtun tunnel", blockaConfig.gatewayId)
+        tunnel = BoringTunJNI.new_tunnel(blockaConfig.privateKey, blockaConfig.gatewayId)
+    }
+
+    fun forward(ktx: Kontext, nvm: Int) {
+//        val b = buffers[bufferId]
+        val b = buffer
+        packet1.setData(b.array(), b.arrayOffset() + b.position(), b.limit())
+
+        Result.of {
+//            buffers.returnBuffer(bufferId)
+            gatewaySocket!!.send(packet1)
+        }.mapError { ex ->
+            ktx.e("failed sending to gateway", ex.message ?: "", ex)
+            throw ex
+        }
+    }
+
+    fun loopback(ktx: Kontext, nvm: Int) {
+        val b = buffer
+        deviceOut?.write(b.array(), b.arrayOffset() + b.position(), b.limit()) ?: ktx.e("loopback not available")
+    }
+
     fun openGatewaySocket(ktx: Kontext) {
         gatewayParcelFileDescriptor?.close()
         gatewaySocket?.close()
         gatewaySocket = doCreateSocket()
         gatewaySocket?.connect(InetAddress.getByName(blockaConfig.gatewayIp), blockaConfig.gatewayPort)
         ktx.v("connect to gateway ip: ${blockaConfig.gatewayIp}")
-
-        proxy.forward = { ktx, bufferId ->
-            val b = buffers[bufferId]
-            packet1.setData(b.array(), b.arrayOffset() + b.position(), b.limit())
-
-            Result.of {
-                buffers.returnBuffer(bufferId)
-                gatewaySocket!!.send(packet1)
-            }.mapError { ex ->
-                ktx.e("failed sending to gateway", ex.message ?: "", ex)
-                throw ex
-            }
-        }
-
-        proxy.loopback = { ktx, bufferId ->
-//            loopbackQueued = true
-//            loopbackBuffers[currentLoopbackBuffer] = buffers[bufferId]
-//            loopbackBuffersReverse[currentLoopbackBuffer] = bufferId
-//            lastLoopbackBuffer = currentLoopbackBuffer++
-//            ktx.w("queued loopbacks: ${currentLoopbackBuffer}")
-            val b = buffers[bufferId]
-            buffers.returnBuffer(bufferId)
-            deviceOut?.write(b.array(), b.arrayOffset() + b.position(), b.limit()) ?: ktx.e("loopback not available")
-        }
     }
 
     override fun run(ktx: Kontext, tunnel: FileDescriptor) {
@@ -163,25 +392,23 @@ internal class BlockaTunnel(
             val errors = setupErrorsPipe()
             val device = setupDevicePipe(input)
 
-            proxy.createTunnel(ktx)
+            createTunnel(ktx)
             openGatewaySocket(ktx)
-
             val polls = setupPolls(ktx, errors, device)
+            val gateway = polls[2]
 
             while (true) {
                 if (threadInterrupted()) throw InterruptedException()
 
                 device.listenFor(OsConstants.POLLIN)
-
-                val gateway = polls[2]
                 gateway.listenFor(OsConstants.POLLIN)
 
                 poll(ktx, polls)
-                tick(ktx)
+//                tick(ktx)
 //                fromLoopbackToDevice(ktx, device, output)
                 fromDeviceToProxy(ktx, device, input)
                 fromGatewayToProxy(ktx, gateway)
-                cleanup()
+                //cleanup()
             }
         } catch (ex: InterruptedException) {
             ktx.v("tunnel thread interrupted", this, ex.toString())
@@ -201,7 +428,7 @@ internal class BlockaTunnel(
             throw ex
         } finally {
             ktx.v("cleaning up resources", this)
-            buffers.returnAllBuffers()
+//            buffers.returnAllBuffers()
             Result.of { Os.close(error) }
             Result.of { input.close() }
             Result.of { output.close() }
@@ -284,9 +511,9 @@ internal class BlockaTunnel(
 
     private fun fromDeviceToProxy(ktx: Kontext, device: StructPollfd, input: InputStream) {
         if (device.isEvent(OsConstants.POLLIN)) {
-            val length = input.read(memory, 0, Buffers.MTU)
+            val length = input.read(memory, 0, MTU)
             if (length > 0) {
-                proxy.fromDevice(ktx, memory, length)
+                fromDevice(ktx, memory, length)
             }
         }
     }
@@ -297,7 +524,7 @@ internal class BlockaTunnel(
             Result.of {
                 packet1.setData(memory)
                 gatewaySocket?.receive(packet1) ?: ktx.e("no socket")
-                proxy.toDevice(ktx, memory, packet1.length)
+                toDevice(ktx, memory, packet1.length)
             }.mapError { ex ->
                 ktx.w("failed receiving from gateway", ex.message ?: "", ex)
                 val cause = ex.cause
@@ -307,29 +534,13 @@ internal class BlockaTunnel(
         }
     }
 
-    private fun fromLoopbackToDevice(ktx: Kontext, device: StructPollfd, output: OutputStream) {
-        if (device.isEvent(OsConstants.POLLOUT)) {
-//            ktx.v("from loopback to device")
-            repeat(lastLoopbackBuffer + 1) {
-                val b = loopbackBuffers[it]!!
-                val id = loopbackBuffersReverse[it]!!
-                buffers.returnBuffer(id)
-                output.write(b.array(), b.arrayOffset() + b.position(), b.limit())
-            }
-            loopbackQueued = false
-            currentLoopbackBuffer = 0
-            lastLoopbackBuffer = 0
-//            ktx.v("queued loopbacks: 0")
-        }
-    }
-
 
     private fun tick(ktx: Kontext) {
         // TODO: system current time called to often?
         val now = System.currentTimeMillis()
         if (now > (lastTickMs + tickIntervalMs)) {
             lastTickMs = now
-            proxy.tick(ktx)
+            tick(ktx)
         }
     }
 

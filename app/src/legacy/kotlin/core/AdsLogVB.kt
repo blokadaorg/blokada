@@ -61,9 +61,9 @@ class AdsLogVB(
         if (nextBatch < 3) addBatch(loadBatch(nextBatch++))
     }
 
-    private fun loadBatch(batch: Int) = Persistence.request.load(batch).getOr { emptyList() }
+    private fun loadBatch(batch: Int) = Persistence.request.load(batch).getOr { emptyList() }.distinct()
     private fun addBatch(batch: List<Request>) {
-        items.addAll(batch.map {
+        items.addAll(batch.distinct().map {
             val dash = requestToVB(it)
             view?.add(dash)
             dash

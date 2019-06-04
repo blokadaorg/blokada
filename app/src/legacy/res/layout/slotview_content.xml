@@ -214,6 +214,16 @@
                 android:textSize="@dimen/slot_secondary_text_size"
                 tools:text="Forwarded google.com" />
 
+            <View
+                android:id="@+id/folded_button_separator"
+                android:layout_width="1dp"
+                android:layout_marginTop="@dimen/slot_padding"
+                android:layout_marginBottom="@dimen/slot_padding"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:background="@color/colorButtonSeparator"
+                />
+
             <TextView
                 android:id="@+id/folded_switch"
                 android:layout_width="wrap_content"

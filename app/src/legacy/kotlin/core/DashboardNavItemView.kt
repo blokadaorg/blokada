@@ -8,9 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
-import gs.presentation.WebDash
 import org.blokada.R
 
 data class DashboardSection(
@@ -29,78 +27,43 @@ fun createDashboardSections(ktx: AndroidKontext): List<DashboardSection> {
     val di = ktx.di()
     val pages: Pages = di.instance()
 
-    var sections = emptyList<DashboardSection>()
-
-    sections += DashboardSection(
-            nameResId = R.string.panel_section_apps,
-            dash = AppsDashboardSectionVB(ktx.ctx),
-            subsections = listOf(
-                    DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_apps_all, AllAppsDashboardSectionVB(ktx.ctx, system = false)),
-                    DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_apps_system, AllAppsDashboardSectionVB(ktx.ctx, system = true))
-            )
-    )
-
-    sections += DashboardSection(
-            nameResId = R.string.panel_section_home,
-            dash = HomeDashboardSectionVB(ktx),
-            subsections = listOf(
-                    DashboardNavItem(
-                            iconResId = R.drawable.ic_help_outline,
-                            nameResId = R.string.panel_section_home_start,
+    var commonSubsections = listOf(
+            DashboardNavItem(
+                    iconResId = R.drawable.ic_help_outline,
+                    nameResId = R.string.panel_section_home_start,
 //                            dash = StartViewBinder(ktx,
 //                                    currentAppVersion = BuildConfig.VERSION_CODE,
 //                                    afterWelcome = {}
 //                            )
-                            dash = StartDashboardSectionVB(ktx)
-                    ),
-                    DashboardNavItem(
-                            iconResId = R.drawable.ic_server,
-                            nameResId = R.string.panel_section_home_gateways,
-                            dash = GatewaysDashboardSectionVB(ktx.ctx.ktx("gateways"))
-                    ),
-                    DashboardNavItem(
-                            iconResId = R.drawable.ic_help_outline,
-                            nameResId = R.string.panel_section_home_help,
-                            dash = WebDash(LazyKodein(ktx.di), pages.help,
-                                    reloadOnError = true, javascript = true)
-                    ),
-                    DashboardNavItem(
-                            iconResId = R.drawable.ic_heart_box,
-                            nameResId = R.string.main_donate_text,
-                            dash = WebDash(LazyKodein(ktx.di), pages.donate,
-                            reloadOnError = true, javascript = true)
-                    ),
-                    DashboardNavItem(
-                            iconResId = R.drawable.ic_info,
-                            nameResId = R.string.main_credits,
-                            dash = WebDash(LazyKodein(ktx.di), pages.credits,
-                            reloadOnError = true, javascript = true))
-            )
+                    dash = GatewaysDashboardSectionVB(ktx)
+            ),
+            DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_ads_log, AdsLogVB(ktx)),
+            DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_apps_all, AllAppsDashboardSectionVB(ktx.ctx, system = false)),
+            DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_apps_system, AllAppsDashboardSectionVB(ktx.ctx, system = true))
     )
 
+    var sections = emptyList<DashboardSection>()
+
     sections += DashboardSection(
-            nameResId = R.string.panel_section_ads,
-            dash = AdsDashboardSectionVB(ktx),
-            subsections = listOf(
-                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_blacklist, BlacklistDashboardSection(ktx)),
-                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_whitelist, WhitelistDashboardSectionVB(ktx)),
-                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_lists, FiltersSectionVB(ktx)),
-                    DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_ads_log, AdsLogVB(ktx)),
-                    DashboardNavItem(R.drawable.ic_tune, R.string.panel_section_ads_settings, StaticItemsListVB(listOf(
-                            FiltersListControlVB(ktx, onTap = defaultOnTap),
-                            DownloadListsVB(ktx, onTap = defaultOnTap),
-                            ListDownloadFrequencyVB(ktx, onTap = defaultOnTap),
-                            DownloadOnWifiVB(ktx, onTap = defaultOnTap)
-                    )))
-            )
+            nameResId = R.string.panel_section_home,
+            dash = HomeDashboardSectionVB(ktx),
+            subsections = commonSubsections
     )
 
     sections += DashboardSection(
             nameResId = R.string.panel_section_advanced,
             dash = AdvancedDashboardSectionVB(ktx),
             subsections = listOf(
+                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_lists, FiltersSectionVB(ktx)),
+                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_blacklist, BlacklistDashboardSection(ktx)),
+                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_whitelist, WhitelistDashboardSectionVB(ktx)),
                     DashboardNavItem(R.drawable.ic_server, R.string.panel_section_advanced_dns, DnsDashboardSection(ktx.ctx)),
-                    DashboardNavItem(R.drawable.ic_tune, R.string.panel_section_ads_settings, StaticItemsListVB(listOf(
+                    DashboardNavItem(R.drawable.ic_tune, R.string.panel_section_advanced_settings, StaticItemsListVB(listOf(
+                            AdblockingVB(ktx, onTap = defaultOnTap),
+                            FiltersListControlVB(ktx, onTap = defaultOnTap),
+                            DownloadListsVB(ktx, onTap = defaultOnTap),
+                            ListDownloadFrequencyVB(ktx, onTap = defaultOnTap),
+                            DownloadOnWifiVB(ktx, onTap = defaultOnTap),
                             LoggerVB(ktx, onTap = defaultOnTap),
                             DnsListControlVB(ktx, onTap = defaultOnTap),
                             StorageLocationVB(ktx, onTap = defaultOnTap),
@@ -111,18 +74,7 @@ fun createDashboardSections(ktx: AndroidKontext): List<DashboardSection> {
                             PowersaveVB(ktx, onTap = defaultOnTap),
                             DnsFallbackVB(ktx, onTap = defaultOnTap),
                             ReportVB(ktx, onTap = defaultOnTap)
-                    ))),
-                    DashboardNavItem(
-                            iconResId = R.drawable.ic_earth,
-                            nameResId = R.string.main_blog_text,
-                            dash = WebDash(LazyKodein(ktx.di), pages.news,
-                                    forceEmbedded = true, reloadOnError = true, javascript = true)
-                    ),
-                    DashboardNavItem(
-                            iconResId = R.drawable.ic_code_tags,
-                            nameResId = R.string.main_changelog,
-                            dash = WebDash(LazyKodein(ktx.di), pages.changelog,
-                                    reloadOnError = true, javascript = true))
+                    )))
             )
     )
 

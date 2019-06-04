@@ -3,7 +3,6 @@ package core
 import com.github.salomonbrys.kodein.instance
 import gs.presentation.ListViewBinder
 import gs.presentation.ViewBinder
-import org.blokada.BuildConfig
 
 class StartDashboardSectionVB(
         val ktx: AndroidKontext,
@@ -13,11 +12,10 @@ class StartDashboardSectionVB(
     private val slotMutex = SlotMutex()
 
     private var items = listOf<ViewBinder>(
-            AdblockingVB(ktx, onTap = slotMutex.openOneAtATime),
-            BlockaVB(ktx, onTap = slotMutex.openOneAtATime),
-            StartOnBootVB(ktx, onTap = slotMutex.openOneAtATime),
-            RecommendedDnsVB(ktx, onTap = slotMutex.openOneAtATime),
-            StartViewBinder(ktx, currentAppVersion = BuildConfig.VERSION_CODE, afterWelcome = {})
+            AdblockingVB(ktx, onTap = slotMutex.openOneAtATime)
+//            StartOnBootVB(ktx, onTap = slotMutex.openOneAtATime),
+//            RecommendedDnsVB(ktx, onTap = slotMutex.openOneAtATime)
+            //StartViewBinder(ktx, currentAppVersion = BuildConfig.VERSION_CODE, afterWelcome = {})
     )
 
     override fun attach(view: VBListView) {

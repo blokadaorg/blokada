@@ -339,7 +339,8 @@ fun newLease(ktx: AndroidKontext, config: BlockaConfig, gateway: RestModel.Gatew
                                     gatewayNiceName = gateway.niceName(),
                                     vip4 = lease.vip4,
                                     vip6 = lease.vip6,
-                                    leaseActiveUntil = lease.expires
+                                    leaseActiveUntil = lease.expires,
+                                    blockaVpn = true
                             )
                             ktx.v("new active lease, until: ${lease.expires}")
                             ktx.emit(BLOCKA_CONFIG, newCfg)
@@ -384,4 +385,12 @@ data class Request(
         val domain: String,
         val blocked: Boolean = false,
         val time: Date = Date()
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return domain.equals(other)
+    }
+
+    override fun hashCode(): Int {
+        return domain.hashCode()
+    }
+}

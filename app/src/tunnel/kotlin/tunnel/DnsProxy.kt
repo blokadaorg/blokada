@@ -12,6 +12,11 @@ import java.io.IOException
 import java.net.*
 import java.util.*
 
+interface Proxy {
+    fun fromDevice(ktx: Kontext, packetBytes: ByteArray, length: Int)
+    fun toDevice(ktx: Kontext, response: ByteArray, length: Int, originEnvelope: Packet?)
+}
+
 internal class DnsProxy(
         private val dnsServers: List<InetSocketAddress>,
         private val blockade: Blockade,

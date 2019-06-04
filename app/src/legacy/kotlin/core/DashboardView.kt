@@ -1,7 +1,9 @@
 package core
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.os.Handler
+import android.support.v4.content.ContextCompat.getColorStateList
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -25,6 +27,8 @@ import kotlin.math.max
 import kotlin.math.min
 
 typealias PanelState = SlidingUpPanelLayout.PanelState
+
+val OPEN_MENU = "DASHBOARD_OPEN_MENU".newEvent()
 
 class DashboardView(
         ctx: Context,
@@ -65,15 +69,14 @@ class DashboardView(
     private val model by lazy {
         DashboardNavigationModel(
                 createDashboardSections(ktx),
-                onTurnedOn = { sectionIndex ->
-                    ktx.v("onTurnedOn")
+                on = tun.enabled(),
+                onAnchored = { sectionIndex ->
+                    ktx.v("onAnchored")
                     setOn(sectionIndex + 1)
-                    tun.enabled %= true
                 },
-                onTurnedOff = { sectionIndex ->
-                    ktx.v("onTurnedOff")
+                onCollapsed = { sectionIndex ->
+                    ktx.v("onCollapsed")
                     setOff(sectionIndex + 1)
-                    tun.enabled %= false
                 },
                 onMenuOpened = { section, sectionIndex, menu, menuIndex ->
                     ktx.v("onMenuOpened")
@@ -115,6 +118,14 @@ class DashboardView(
         setupExternalEventListeners()
         setupMenu()
         adjustMargins()
+        listenToEvents()
+    }
+
+    private fun listenToEvents() {
+        ktx.on(OPEN_MENU, {
+            sliding.panelState = PanelState.EXPANDED
+//            model.menuViewPagerSwiped(0)
+        })
     }
 
     private fun setOff(fromColorIndex: Int) {
@@ -145,7 +156,7 @@ class DashboardView(
         bg_nav.alpha = 1f
         fg_logo_icon.alpha = 0.7f
         bg_start.alpha = 0f
-        bg_logo.alpha = 0f
+        bg_logo.alpha = 0.6f
         bg_off_logo.alpha = 0f
         bg_packets.alpha = 1f
         fg_pager.alpha = 0f
@@ -180,18 +191,31 @@ class DashboardView(
         fg_pager.alpha = 0f
     }
 
+    private var wasAdvanced = false
+    private val advanced by lazy { getColorStateList(ctx, R.color.dashboard_menu_advanced) }
+    private val tintAdvanced = resources.getColor(R.color.colorAccent)
+    private val tintNormal = resources.getColor(R.color.colorText)
     private fun setMainSectionLabelAndMenuIcon(section: DashboardSection) {
         bg_nav.section = makeSectionName(section)
+        fg_nav_panel.backgroundTintMode = PorterDuff.Mode.MULTIPLY
         section.run {
-            val icon = when (nameResId) {
-                R.string.panel_section_ads -> R.drawable.ic_blocked
-                R.string.panel_section_apps -> R.drawable.ic_apps
-                R.string.panel_section_advanced -> R.drawable.ic_tune
-                else -> R.drawable.blokada
+            val (icon, isAdvanced) = when (nameResId) {
+                R.string.panel_section_advanced -> R.drawable.ic_tune to true
+                else -> R.drawable.ic_menu to false
             }
-            fg_logo_icon.animate().setDuration(200).alpha(0f).doAfter {
-                fg_logo_icon.setImageResource(icon)
-                fg_logo_icon.animate().setDuration(200).alpha(0.7f)
+            if (isAdvanced != wasAdvanced) {
+                wasAdvanced = isAdvanced
+                fg_logo_icon.animate().setDuration(200).alpha(0f).doAfter {
+                    fg_logo_icon.setImageResource(icon)
+                    if (isAdvanced) {
+                        fg_nav_panel.backgroundTintList = advanced
+                        fg_logo_icon.setColorFilter(tintAdvanced)
+                    } else {
+                        fg_nav_panel.backgroundTintList = null
+                        fg_logo_icon.setColorFilter(tintNormal)
+                    }
+                    fg_logo_icon.animate().setDuration(200).alpha(0.7f)
+                }
             }
         }
 
@@ -257,16 +281,29 @@ class DashboardView(
                         fg_nav_panel.alpha = max(0.7f, slideOffset)
                         bg_pager.alpha = 1 - min(1f, (slideOffset - anchorPoint) * 3)
                         fg_logo_icon.alpha = 0.7f - min(1f, (slideOffset - anchorPoint) * 0.5f)
-                        bg_logo.alpha = (slideOffset - anchorPoint) / (1 - anchorPoint)
+                        bg_logo.alpha = 0.6f + (slideOffset - anchorPoint) / (0.4f - anchorPoint)
                     }
                 }
 
+                private var previousMeaningfulState = PanelState.ANCHORED
                 override fun onPanelStateChanged(panel: View, previousState: PanelState, newState: PanelState) {
                     when (newState) {
                         PanelState.DRAGGING -> setDragging()
-                        PanelState.ANCHORED -> model.panelAnchored()
-                        PanelState.COLLAPSED -> model.panelCollapsed()
-                        PanelState.EXPANDED -> model.panelExpanded()
+                        PanelState.ANCHORED -> {
+                            model.panelAnchored()
+                            if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) tun.enabled %= true
+                            previousMeaningfulState = PanelState.ANCHORED
+                        }
+                        PanelState.COLLAPSED -> {
+                            model.panelCollapsed()
+                            if (tun.enabled()) tun.enabled %= false
+                            previousMeaningfulState = PanelState.COLLAPSED
+                        }
+                        PanelState.EXPANDED -> {
+                            model.panelExpanded()
+                            if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) tun.enabled %= true
+                            previousMeaningfulState = PanelState.EXPANDED
+                        }
                     }
                 }
             })
@@ -434,10 +471,7 @@ class DashboardView(
     private fun makeSectionName(section: DashboardSection, subsection: DashboardNavItem? = null): String {
         return if (subsection == null) context.getString(section.nameResId)
         else {
-            context.getString(R.string.panel_nav_header).format(
-                    context.getString(section.nameResId),
-                    context.getString(subsection.nameResId)
-            )
+            context.getString(subsection.nameResId)
         }
     }
 

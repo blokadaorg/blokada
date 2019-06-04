@@ -4,6 +4,7 @@
     <!--<color name="colorBackground">#383838</color>-->
     <color name="colorBackgroundLight">#2e2e2e</color>
     <color name="colorBackgroundThird">#262626</color>
+    <color name="colorBackgroundSlot">#7b0e0e0e</color>
     <color name="colorBackgroundTrans">#590e0e0e</color>
     <color name="colorBackgroundTransCenter">#DD0e0e0e</color>
     <color name="colorBackgroundTransWidget">#AA0e0e0e</color>
@@ -34,6 +35,7 @@
     <color name="colorThumbStart">#fdfdfd</color>
     <color name="colorThumbEnd">#f5f5f5</color>
     <color name="colorAccentTrans">#CCff5f00</color>
+    <color name="colorButtonSeparator">#7b606060</color>
 
     <color name="colorProtectionLow">#ff4400</color>
     <color name="colorProtectionMedium">#ffe600</color>

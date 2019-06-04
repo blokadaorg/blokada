@@ -5,8 +5,9 @@ import gs.presentation.ViewBinder
 
 internal class DashboardNavigationModel(
         val sections: List<DashboardSection>,
-        val onTurnedOn: (Int) -> Unit = {},
-        val onTurnedOff: (Int) -> Unit = {},
+        var on: Boolean,
+        val onAnchored: (Int) -> Unit = {},
+        val onCollapsed: (Int) -> Unit = {},
         val onSectionChanged: (DashboardSection, sectionIndex: Int) -> Unit = { _, _ -> },
         val onMenuOpened: (DashboardSection, sectionIndex: Int, ViewBinder, menuIndex: Int) -> Unit = { _, _, _, _ -> },
         val onMenuClosed: (Int) -> Unit = {},
@@ -16,10 +17,9 @@ internal class DashboardNavigationModel(
         val onCloseMenu: () -> Unit = {}
 ) {
 
-    private var on = false
     private var firstEventSent = false
 
-    private var sectionIndex = 1
+    private var sectionIndex = 0
     private var section = sections[sectionIndex]
 
     private var menuIndex = 0
@@ -38,20 +38,20 @@ internal class DashboardNavigationModel(
     }
 
     fun inflateFinished() {
-        if (on) {
+//        if (!on) {
+//            onTurnOff()
+//            onCollapsed(sectionIndex)
+//        } else {
             onTurnOn()
-            onTurnedOn(sectionIndex)
-        } else {
-            onTurnOff()
-            onTurnedOff(sectionIndex)
-        }
+            onAnchored(sectionIndex)
+//        }
     }
 
     fun panelAnchored() {
         when {
             !on -> {
                 on = true
-                onTurnedOn(sectionIndex)
+                onAnchored(sectionIndex)
             }
             else -> {
                 setNewMenu(null)
@@ -60,10 +60,7 @@ internal class DashboardNavigationModel(
     }
 
     fun panelCollapsed() {
-        if (on) {
-            on = false
-            onTurnedOff(sectionIndex)
-        }
+        onCollapsed(sectionIndex)
     }
 
     fun panelExpanded() {
@@ -92,7 +89,7 @@ internal class DashboardNavigationModel(
         if (!on) {
             on = true
             firstEventSent = true
-            onTurnedOn(sectionIndex)
+            onAnchored(sectionIndex)
         }
     }
 
@@ -100,7 +97,6 @@ internal class DashboardNavigationModel(
         if (on || !firstEventSent) {
             on = false
             firstEventSent = true
-            onTurnOff()
         }
     }
 

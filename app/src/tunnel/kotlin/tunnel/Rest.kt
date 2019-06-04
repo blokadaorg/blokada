@@ -90,6 +90,16 @@ object RestModel {
     )
 }
 
+fun blokadaUserAgent() = "blokada/%s (android-%s %s %s %s %s-%s)".format(
+            BuildConfig.VERSION_NAME,
+            Build.VERSION.SDK_INT,
+            BuildConfig.FLAVOR,
+            BuildConfig.BUILD_TYPE,
+            Build.SUPPORTED_ABIS[0],
+            Build.MANUFACTURER,
+            Build.DEVICE
+    )
+
 fun newRestApiModule(ctx: Context): Kodein.Module {
     return Kodein.Module(init = {
         bind<RestApi>() with singleton {
@@ -106,16 +116,7 @@ fun newRestApiModule(ctx: Context): Kodein.Module {
                         chain.proceed(request)
                     }
                     .addInterceptor { chain ->
-                        val request = chain.request().newBuilder().header("User-Agent",
-                                "blokada/%s (android-%s %s %s %s %s-%s)".format(
-                                        BuildConfig.VERSION_NAME,
-                                        Build.VERSION.SDK_INT,
-                                        BuildConfig.FLAVOR,
-                                        BuildConfig.BUILD_TYPE,
-                                        Build.SUPPORTED_ABIS[0],
-                                        Build.MANUFACTURER,
-                                        Build.DEVICE
-                                )).build()
+                        val request = chain.request().newBuilder().header("User-Agent", blokadaUserAgent()).build()
                         chain.proceed(request)
                     }
                     .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
