@@ -87,7 +87,7 @@ class TunnelConfigView(
             val (deny, allow) = event
             status.text = "%s\n%s".format(
                     context.resources.getString(R.string.tunnel_hosts_count2,
-                            Format.counter(max(deny - allow, 0))),
+                            Format.counter(max(deny, 0))),
                    // context.resources.getString(R.string.tunnel_config_memory_capacity2, // works just need to add more space for it to show up
                    //         Format.counter(capacity + deny, round = true)),
                     context.resources.getString(R.string.tunnel_config_memory_capacity,

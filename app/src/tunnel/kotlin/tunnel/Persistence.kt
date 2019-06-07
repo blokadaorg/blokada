@@ -41,22 +41,19 @@ class FiltersPersistence {
                 .or { loadLegacy35(ktx) }
                 .or {
                     ktx.v("loading from the persistence", core.Persistence.paper().path)
-                    //Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
-                    Result.of { core.Persistence.paper().read("filters", FilterStore()) }
+                    Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
                             .orElse { ex ->
                                 if (core.Persistence.global.loadPath() != core.Persistence.DEFAULT_PATH) {
                                     ktx.w("failed loading from a custom path, resetting")
                                     core.Persistence.global.savePath(core.Persistence.DEFAULT_PATH)
-                                    //Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
-                                    Result.of { core.Persistence.paper().read("filters", FilterStore()) }
+                                    Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
                                 } else Err(Exception("failed loading from default path", ex))
                             }
                 }
     }
 
     val save = { filterStore: FilterStore ->
-        //Result.of { core.Persistence.paper().write("filters2", filterStore) }
-        Result.of { core.Persistence.paper().write("filters", filterStore) }
+        Result.of { core.Persistence.paper().write("filters2", filterStore) }
     }
 
     private fun loadLegacy34(ktx: AndroidKontext) = {
@@ -64,8 +61,8 @@ class FiltersPersistence {
             Err(Exception("custom persistence path detected, skipping legacy import"))
         else {
             val prefs = ktx.ctx.getSharedPreferences("filters", Context.MODE_PRIVATE)
-            val legacy = prefs.getString("filters", "").split("^")
-            prefs.edit().putString("filters", "").apply()
+            val legacy = prefs.getString("filters2", "").split("^")
+            prefs.edit().putString("filters2", "").apply()
             val old = FilterSerializer().deserialise(legacy)
             if (old.isNotEmpty()) {
                 ktx.v("loaded from legacy 3.4 persistence", old.size)
@@ -75,8 +72,7 @@ class FiltersPersistence {
     }()
 
     private fun loadLegacy35(ktx: AndroidKontext) = {
-        //Result.of { core.Persistence.paper().read("filters2", FiltersCache()) }
-        Result.of { core.Persistence.paper().read("filters", FiltersCache()) }
+        Result.of { core.Persistence.paper().read("filters2", FiltersCache()) }
                 .andThen {
                     if (it.cache.isEmpty()) Err(Exception("no 3.5 legacy persistence found"))
                     else {
