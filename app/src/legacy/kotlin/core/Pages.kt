@@ -54,8 +54,11 @@ class PagesImpl (
                 help %= URL("$c/help.html")
                 changelog %= URL("$c/changelog.html")
                 credits %= URL("$c/credits.html")
-                filters %= URL("https://gist.githubusercontent.com/Thomas499/1b572662dd62f6397ec643e1cf8ed010/raw")
-                filtersStrings %= URL("https://gist.githubusercontent.com/Thomas499/c466cfca88f66bcee3725b72c7a00088/raw")
+                filters %= URL("$c/filters.txt")
+                filtersStrings %= URL("$c/filters.properties")
+                // test to show wildcard works
+                //filters %= URL("https://gist.githubusercontent.com/Thomas499/1b572662dd62f6397ec643e1cf8ed010/raw")
+                //filtersStrings %= URL("https://gist.githubusercontent.com/Thomas499/c466cfca88f66bcee3725b72c7a00088/raw")
                 filtersStringsFallback %= URL("${i18n.fallbackContentUrl()}/filters.properties")
                 dns %= URL("$c/dns.txt")
                 dnsStrings %= URL("$c/dns.properties")
@@ -103,7 +106,7 @@ fun newPagesModule(ctx: Context): Kodein.Module {
 private fun resolveRedirect(url: URL): URL {
     return try {
         val ucon = url.openConnection() as HttpURLConnection
-        ucon.setInstanceFollowRedirects(false)
+        ucon.instanceFollowRedirects = false
         URL(ucon.getHeaderField("Location"))
     } catch (e: Exception) {
         url
