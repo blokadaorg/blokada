@@ -310,7 +310,7 @@ class VpnStatusVB(
                     }),
                     action2 = Slot.Action(i18n.getString(R.string.slot_status_vpn_lease), {
                         async {
-                            checkLease(ktx, config)
+                            checkAccountInfo(ktx, config)
                         }
                     })
             )
@@ -1522,12 +1522,12 @@ class GatewayVB(
         onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
 
-    private fun update(cfg: BlockaConfig? = null) {
+    private fun update(cfg: BlockaConfig) {
         view?.apply {
             content = Slot.Content(
                     label = i18n.getString(R.string.slot_gateway_label, gateway.niceName()),
                     icon = ktx.ctx.getDrawable(R.drawable.ic_server),
-                    description = if (gateway.publicKey == cfg?.gatewayId) {
+                    description = if (gateway.publicKey == cfg.gatewayId) {
                         i18n.getString(R.string.slot_gateway_description_current,
                                 getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region,
                                 cfg.activeUntil)
@@ -1535,26 +1535,25 @@ class GatewayVB(
                         i18n.getString(R.string.slot_gateway_description,
                                 getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region)
                     },
-                    switched = gateway.publicKey == cfg?.gatewayId
+                    switched = gateway.publicKey == cfg.gatewayId
             )
 
             onSwitch = {
-                if (gateway.publicKey == cfg?.gatewayId) {
+                if (gateway.publicKey == cfg.gatewayId) {
                     // Turn off VPN feature
-                    ktx.emit(BLOCKA_CONFIG, cfg.copy(
-                            blockaVpn = false,
-                            gatewayId = "",
-                            gatewayIp = "",
-                            gatewayPort = 0,
-                            gatewayNiceName = ""
-                    ))
+                    clearConnectedGateway(ktx, cfg)
                 } else {
-                    if (cfg?.activeUntil?.before(Date()) == true) {
+                    if (cfg.activeUntil.before(Date()) == true) {
                         modal.openModal()
                         ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
                     } else {
-                        cfg?.run {
-                            redoLease(ktx, this, gateway)
+                        cfg.run {
+                            newLease(ktx, cfg.copy(
+                                    gatewayId = gateway.publicKey,
+                                    gatewayIp = gateway.ipv4,
+                                    gatewayPort = gateway.port,
+                                    gatewayNiceName = gateway.niceName()
+                            ))
                         }
                     }
                 }

@@ -404,7 +404,7 @@ internal class BlockaTunnel(
                 gateway.listenFor(OsConstants.POLLIN)
 
                 poll(ktx, polls)
-//                tick(ktx)
+                tick(ktx)
 //                fromLoopbackToDevice(ktx, device, output)
                 fromDeviceToProxy(ktx, device, input)
                 fromGatewayToProxy(ktx, gateway)
