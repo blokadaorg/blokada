@@ -26,11 +26,25 @@ use crate::ffi::x25519_secret_key;
 
 use crate::noise::Tunn;
 
+use std::fs::OpenOptions;
+use std::io::prelude::*;
+
+use std::ffi::CStr;
+
 pub extern "C" fn log_print(_log_string: *const c_char) {
-    /*
-    XXX:
-    Define callback function in app.
-    */
+    let mut file = OpenOptions::new()
+       .write(true)
+       .append(true)
+       .create(true)
+       .open("/storage/emulated/0/Android/data/org.blokada.origin.alarm/files/boringtun.log")
+       .unwrap();
+
+    let c_str: &CStr = unsafe { CStr::from_ptr(_log_string) };
+    let str_slice: &str = c_str.to_str().unwrap();
+
+    if let Err(e) = writeln!(file, "{}", str_slice) {
+        eprintln!("Couldn't write to file: {}", e);
+    }
 }
 
 /// Generates new x25519 secret key and converts into java byte array.

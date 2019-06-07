@@ -24,7 +24,7 @@ daemonize = "0.4.1"
 clap = { version = "2.32.0", default-features=false, features = ["suggestions"] }
 
 [target.'cfg(target_os="android")'.dependencies]
-jni = "0.10.2"
+jni = { version = "0.10.2", default-features = false }
 
 [lib]
 crate-type = ["lib", "staticlib", "dylib"]

@@ -6,3 +6,16 @@ rustflags = [
 
 [target.'cfg(unix)']
 runner = 'sudo -E'
+
+[target.aarch64-linux-android]
+ar = "/Users/kar/.NDK/arm64/bin/aarch64-linux-android-ar"
+linker = "/Users/kar/.NDK/arm64/bin/aarch64-linux-android-clang"
+
+[target.armv7-linux-androideabi]
+ar = "/Users/kar/.NDK/arm/bin/arm-linux-androideabi-ar"
+linker = "/Users/kar/.NDK/arm/bin/arm-linux-androideabi-clang"
+
+[target.i686-linux-android]
+ar = "/Users/kar/.NDK/x86/bin/i686-linux-android-ar"
+linker = "/Users/kar/.NDK/x86/bin/i686-linux-android-clang"
+
