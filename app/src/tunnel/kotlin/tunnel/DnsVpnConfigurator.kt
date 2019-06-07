@@ -134,7 +134,8 @@ val dnsProxyDst6 = Inet6Address.getByName(dnsProxyDst6String).address!!
 internal class BlockaVpnConfigurator(
         private val dnsServers: List<InetSocketAddress>,
         private val filterManager: FilterManager,
-        private val blockaConfig: BlockaConfig
+        private val blockaConfig: BlockaConfig,
+        private val packageName: String
 ): Configurator {
 
     private var dnsIndex = 1
@@ -154,6 +155,7 @@ internal class BlockaVpnConfigurator(
 
         if (dnsServers.isEmpty()) ktx.w("not adding dns servers, empty")
 
+        builder.addDisallowedApplication(packageName)
         filterManager.getWhitelistedApps(ktx).forEach {
             builder.addDisallowedApplication(it)
         }

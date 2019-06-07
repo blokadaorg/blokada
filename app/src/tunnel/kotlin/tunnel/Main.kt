@@ -1,5 +1,6 @@
 package tunnel
 
+import android.content.Context
 import android.net.VpnService
 import com.github.michaelbull.result.onFailure
 import core.*
@@ -66,9 +67,9 @@ class Main(
             blockaConfig, socketCreator, blockade)
             else DnsTunnel(proxy!!, config, forwarder, loopback)
 
-    private fun createConfigurator() = when {
+    private fun createConfigurator(ctx: Context) = when {
         usePausedConfigurator -> PausedVpnConfigurator(currentServers, filters)
-        blockaConfig.blockaVpn -> BlockaVpnConfigurator(currentServers, filters, blockaConfig)
+        blockaConfig.blockaVpn -> BlockaVpnConfigurator(currentServers, filters, blockaConfig, ctx.packageName)
         else -> DnsVpnConfigurator(currentServers, filters)
     }
 
@@ -100,7 +101,7 @@ class Main(
                 }
                 proxy = createProxy()
                 tunnel = createTunnel()
-                val configurator = createConfigurator()
+                val configurator = createConfigurator(ktx.ctx)
 
                 connector = ServiceConnector(onVpnClose, onConfigure = { ktx, vpn ->
                     configurator.configure(ktx, vpn)
