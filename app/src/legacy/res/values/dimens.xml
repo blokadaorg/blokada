@@ -49,7 +49,7 @@
     <dimen name="dashboard_nav_align_end_width">400dp</dimen>
 
     <dimen name="dots_padding">8dp</dimen>
-    <dimen name="dots_padding_sides">0dp</dimen>
+    <dimen name="dots_padding_sides">2dp</dimen>
     <dimen name="dots_margin_top">10dp</dimen>
     <dimen name="dots_text_size">@dimen/secondary_text_size</dimen>
     <dimen name="dots_size">16dp</dimen>

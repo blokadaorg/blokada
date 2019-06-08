@@ -14,7 +14,7 @@
     <dimen name="dashboard_fg_logo_margin_top">90dp</dimen>
     <dimen name="dashboard_nav_align_end_width">820dp</dimen>
 
-    <dimen name="dots_padding_sides">2dp</dimen>
+    <dimen name="dots_padding_sides">4dp</dimen>
     <dimen name="dots_text_size">@dimen/default_text_size</dimen>
     <dimen name="dots_margin_top">8dp</dimen>
     <dimen name="dots_size">14dp</dimen>

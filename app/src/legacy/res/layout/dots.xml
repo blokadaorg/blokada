@@ -31,17 +31,14 @@
             android:textColor="@color/colorText"
             android:textSize="@dimen/dots_text_size" />
 
-        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+        <com.rd.PageIndicatorView
             android:id="@+id/worm_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/dots_margin_top"
-            app:dotsColor="@color/colorActive"
-            app:dotsCornerRadius="@dimen/dots_corner_radius"
-            app:dotsSize="@dimen/dots_size"
-            app:dotsSpacing="@dimen/dots_spacing"
-            app:dotsWidthFactor="2.5" />
+            app:piv_padding="8dp"
+            app:piv_radius="8dp" />
 
     </LinearLayout>
 

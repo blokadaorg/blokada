@@ -2,14 +2,15 @@ package core
 
 import android.content.Context
 import android.os.Handler
-import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+import androidx.viewpager.widget.ViewPager
+import com.rd.PageIndicatorView
+import com.rd.animation.type.AnimationType
 import org.blokada.R
 
 class DotsView(
@@ -23,7 +24,7 @@ class DotsView(
 
     private val contentView = findViewById<LinearLayout>(R.id.content)
     private val sectionView = findViewById<TextView>(R.id.section)
-    private val dotsView = findViewById<WormDotsIndicator>(R.id.worm_dots)
+    private val dotsView = findViewById<PageIndicatorView>(R.id.worm_dots)
     private val backgroundView = findViewById<View>(R.id.background)
 
     var section: CharSequence = ""
@@ -37,6 +38,7 @@ class DotsView(
             field = value
             value?.apply {
                 dotsView.setViewPager(this)
+                dotsView.setAnimationType(AnimationType.WORM);
             }
         }
 
