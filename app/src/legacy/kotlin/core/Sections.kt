@@ -1,6 +1,7 @@
 package core
 
 import gs.presentation.ListViewBinder
+import org.blokada.R
 import tunnel.Events
 import tunnel.Filter
 
@@ -36,7 +37,7 @@ class FiltersSectionVB(val ktx: AndroidKontext) : ListViewBinder() {
         val items = filters.filter {
             !it.whitelist && !it.hidden && it.source.id != "single"
         }.sortedBy { it.priority }.map { FilterVB(it, ktx, onTap = slotMutex.openOneAtATime) }
-        view?.set(listOf(NewFilterVB(ktx)) + items)
+        view?.set(listOf(NewFilterVB(ktx, nameResId = R.string.slot_new_filter_list)) + items)
         onSelectedListener(null)
         Unit
     }

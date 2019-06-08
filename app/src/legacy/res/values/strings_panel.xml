@@ -44,7 +44,9 @@
     <string name="slot_intro_desc">You can tap on any item, like this one, to open it up and perform actions on it. For example, this item can be removed once you are done with it. &lt;br/&gt;&lt;br/&gt;You are currently in the Home section. Swipe left or right for additional sections. Each of them has its own bottom menu - open it by swiping up. &lt;br/&gt;&lt;br/&gt;Go ahead and explore the app now!</string>
     <string name="slot_intro_info">Psst... Some items have the question mark icon on them. Tapping it will display a short help message, like this one!</string>
 
-    <string name="slot_new_filter">Add new</string>
+    <string name="slot_new_filter">Block new host</string>
+    <string name="slot_new_filter_list">Add new list</string>
+    <string name="slot_new_filter_whitelist">Whitelist new host</string>
     <string name="slot_unset">unset</string>
     <string name="slot_set">set</string>
     <string name="slot_invalid">invalid</string>
@@ -73,7 +75,7 @@
     <string name="slot_action_none">This action is not available yet.</string>
     <string name="slot_action_facts">Facts</string>
     <string name="slot_action_unwhitelist">Cancel</string>
-    <string name="slot_action_author">Author</string>
+    <string name="slot_action_author">About</string>
     <string name="slot_action_share">Share</string>
     <string name="slot_input_suggestion">An entry</string>
     <string name="slot_input_suggestion_for">An entry for %s</string>
@@ -101,7 +103,8 @@
     <string name="slot_list_no_desc">This entry does not have any description.</string>
 
     <string name="slot_status_title">Blocking</string>
-    <string name="slot_status_description_active">Blokada is currently &lt;b&gt;active&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Ads, trackers and other unwanted content is being blocked. Tap the question mark for details.</string>
+    <string name="slot_status_description_active">Adblocking is currently &lt;b&gt;enabled&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;You will see the background animate as ads, trackers and other unwanted content is being blocked.</string>
+    <string name="slot_status_description_inactive">Adblocking is currently &lt;b&gt;disabled&lt;/b&gt;.</string>
     <string name="slot_status_info">When the app is Active, you will see the key icon in the notification bar at the top of the screen, which means your device is protected. You can turn the app off using the button below, or by swiping down the bottom menu.</string>
 
     <string name="slot_status_vpn_turn_off">Disable VPN</string>
@@ -110,8 +113,7 @@
     <string name="slot_status_vpn_connecting">Enabling Blokada VPN...</string>
     <string name="slot_status_vpn_turned_off">Blokada VPN is not enabled</string>
     <string name="slot_status_vpn_desc_on">Blokada VPN is currently &lt;b&gt;enabled&lt;/b&gt;.&lt;br /&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Your device and data is secure now. Tap the question mark for details.</string>
-    <string name="slot_status_vpn_desc_off">Blokada VPN is currently &lt;b&gt;disabled&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;When the VPN is connected, your protection is even better. Your device is connected through our secure servers and your traffic is encrypted, so no one can see your data. Your real IP is hidden, and you can access blocked content. In some cases, you can experience faster Internet connection as well.</string>
-    <string name="slot_status_vpn_info">When the VPN is connected, your protection is even higher. Your device is connected through our secure servers and your traffic is encrypted, so no one can see your data. Your real IP is hidden, and you can access blocked content. In some cases, you can experience faster Internet connection as well.</string>
+    <string name="slot_status_vpn_desc_off">Blokada VPN is currently &lt;b&gt;disabled&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;When the VPN is connected, your device communicates through our secure servers, and your traffic is encrypted, so no one can see your data. Your real IP is hidden, and you can access blocked content. In some cases, you can experience faster Internet connection as well.</string>
     <string name="slot_status_vpn_lease">Refresh</string>
 
     <string name="slot_action_deactivate">Turn off</string>
@@ -119,7 +121,7 @@
 
     <string name="slot_dropped_counter">Blocked domains counter</string>
     <string name="slot_dropped_counter_info">This counter displays the number of domains that has been blocked since the installation of the app.</string>
-    <string name="slot_dropped_action_clear">Reset</string>
+    <string name="slot_dropped_action_clear">Reset counter</string>
 
     <string name="slot_notifications_title">Notifications are %s.</string>
     <string name="slot_notifications_desc">You can turn notifications on or off here. Remember that on some devices, Android will display a separate VPN notification that cannot be turned off.</string>
@@ -181,24 +183,31 @@
     <string name="slot_about_share_log">Log</string>
 
     <string name="slot_help_label">Need help?</string>
+    <string name="slot_help_desc">Tap the button below to open our help page. You can also use our social media to get help - we are on Telegram, Facebook, Reddit and Twitter.</string>
     <string name="slot_help_action">Help</string>
 
-    <string name="slot_donate_label">Enjoying Blokada? Consider helping us.</string>
+    <string name="slot_donate_label">Enjoying Blokada? Consider supporting us, so we can keep improving the app.</string>
+    <string name="slot_donate_desc">Blokada adblocker is free and open source, and we want it to keep this way. Your donations help us continue developing the app and introduce new features that you want to see the most. Thank you!</string>
     <string name="slot_donate_action">Donate</string>
 
     <string name="slot_cta_label">Psst! We would like to know your opinion.</string>
+    <string name="slot_cta_desc">Show your support by participating in our surveys and other events. We regularly reach out to our community for feedback about ideas and new development, in order to make sure we are working on what you want to see.</string>
     <string name="slot_cta_action">Open</string>
 
     <string name="slot_blog_label">Check out our development Blog!</string>
+    <string name="slot_blog_desc">The Block is where we write about the development of the project, future plans, and discuss ideas.</string>
     <string name="slot_blog_action">Open</string>
 
     <string name="slot_updated_label">Blokada has been updated!</string>
+    <string name="slot_updated_desc">Your version of Blokada is now up to date. Tap the button below for additional information about this update. Also, please consider donating to support this project!</string>
     <string name="slot_updated_action">More</string>
 
     <string name="slot_obsolete_label">Action required: this version is obsolete!</string>
+    <string name="slot_obsolete_desc">Your version of Blokada is obsolete and may not work correctly. Please download the newest version to keep receiving updates.</string>
     <string name="slot_obsolete_action">Update</string>
 
     <string name="slot_cleanup_label">Multiple versions of Blokada detected</string>
+    <string name="slot_cleanup_desc">There seems to be many versions of Blokada installed on your device. Would you like to remove the other versions and keep just one?</string>
     <string name="slot_cleanup_action">Clean up</string>
 
     <string name="account_inactive">Your Blokada VPN expired. You are not connected to the VPN.</string>
