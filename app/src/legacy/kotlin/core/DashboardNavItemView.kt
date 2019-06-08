@@ -1,5 +1,6 @@
 package core
 
+import adblocker.LoggerVB
 import android.content.Context
 import androidx.core.content.ContextCompat
 import android.util.AttributeSet
@@ -63,7 +64,7 @@ fun createDashboardSections(ktx: AndroidKontext): List<DashboardSection> {
                             DownloadListsVB(ktx, onTap = defaultOnTap),
                             ListDownloadFrequencyVB(ktx, onTap = defaultOnTap),
                             DownloadOnWifiVB(ktx, onTap = defaultOnTap),
-                            //LoggerVB(ktx, onTap = defaultOnTap),
+                            LoggerVB(ktx, onTap = defaultOnTap),
                             DnsListControlVB(ktx, onTap = defaultOnTap),
                             StorageLocationVB(ktx, onTap = defaultOnTap),
                             NotificationsVB(ktx, onTap = defaultOnTap),

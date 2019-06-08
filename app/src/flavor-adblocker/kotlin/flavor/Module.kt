@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.github.salomonbrys.kodein.*
 import core.*
 import filter.DashFilterBlacklist
@@ -12,6 +13,7 @@ import filter.DashFilterWhitelist
 import notification.NotificationDashOn
 import notification.displayNotification
 import notification.hideNotification
+import tunnel.Persistence.Companion.config
 import update.AboutDash
 import update.UpdateDash
 
@@ -72,18 +74,20 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             ui.notifications.doOnUiWhenSet().then {
                 hideNotification(ctx)
             }
+
+            val persistenceConfig = LoggerConfigPersistence()
+            val config = persistenceConfig.load(ctx.ktx())
             val wm: AppWidgetManager = AppWidgetManager.getInstance(ctx)
             val ids = wm.getAppWidgetIds(ComponentName(ctx, ActiveWidgetProvider::class.java))
-            if((ids != null) and (ids.isNotEmpty())){
+            if(((ids != null) and (ids.isNotEmpty())) or config.active) {
                 val serviceIntent = Intent(ctx.applicationContext,
-                        UpdateWidgetService::class.java)
-                ctx.startService(serviceIntent)
+                        ForegroundStartService::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    ctx.startForegroundService(serviceIntent)
+                } else {
+                    ctx.startService(serviceIntent)
+                }
             }
-
-//            val serviceIntent = Intent(ctx.applicationContext,
-//                    RequestLogger::class.java)
-//            serviceIntent.putExtra("load_on_start", true)
-//            ctx.startService(serviceIntent)
 
             // Initialize default values for properties that need it (async)
             s.tunnelDropCount {}

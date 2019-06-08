@@ -176,6 +176,8 @@
         </receiver>
 
         <service android:name="adblocker.RequestLogger" />
+
+        <service android:name="adblocker.ForegroundStartService" />
     </application>
 
 </manifest>

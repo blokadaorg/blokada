@@ -187,6 +187,7 @@ class RequestLogger : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        this.ktx().v("logger service started")
         if (intent != null) {
             val newConfig: BooleanArray? = intent.getBooleanArrayExtra("config")
 
@@ -201,7 +202,7 @@ class RequestLogger : Service() {
                 }
             }
         }
-        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
     override fun onDestroy() {
