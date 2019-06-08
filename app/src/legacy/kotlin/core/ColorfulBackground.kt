@@ -6,7 +6,7 @@ import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Shader
-import android.support.annotation.ArrayRes
+import androidx.annotation.ArrayRes
 import android.util.AttributeSet
 import android.view.View
 import org.blokada.R

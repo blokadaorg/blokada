@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -16,6 +16,8 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.github.salomonbrys.kodein.*
 import filter.AFilterView
 import filter.AFilterViewHolder
@@ -771,14 +773,14 @@ class DnsAddTabView(
 
     private var ready = false
 
-    private val pager by lazy { findViewById(R.id.filters_pager) as android.support.v4.view.ViewPager }
+    private val pager by lazy { findViewById(R.id.filters_pager) as ViewPager }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
 
         ready = true
         pager.offscreenPageLimit = 3
-        pager.adapter = object : android.support.v4.view.PagerAdapter() {
+        pager.adapter = object : PagerAdapter() {
 
             override fun instantiateItem(container: android.view.ViewGroup, position: Int): Any {
                 container.addView(appView)

@@ -1,7 +1,7 @@
 package gs.presentation
 
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 
 /**
@@ -45,7 +45,7 @@ fun android.content.res.Resources.toPx(dp: Int): Int {
 class Spacing(val ctx: android.content.Context,
               val top: Int = 8, val bottom: Int = 0,
               val left: Int = 4, val right: Int = 4
-) : android.support.v7.widget.RecyclerView.ItemDecoration() {
+) : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.top = ctx.resources.toPx(top)

@@ -1,6 +1,6 @@
 package core
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * An invisible activity to get the app out of powersave limitations.

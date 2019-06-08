@@ -2,6 +2,8 @@ package filter
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import org.blokada.R
 
 class AFiltersAddView(
@@ -56,14 +58,14 @@ class AFiltersAddView(
 
     private var ready = false
 
-    private val pager by lazy { findViewById(R.id.filters_pager) as android.support.v4.view.ViewPager }
+    private val pager by lazy { findViewById(R.id.filters_pager) as ViewPager }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
 
         ready = true
         pager.offscreenPageLimit = 3
-        pager.adapter = object : android.support.v4.view.PagerAdapter() {
+        pager.adapter = object : PagerAdapter() {
 
             override fun instantiateItem(container: android.view.ViewGroup, position: Int): Any {
                 val view = displayedPages!![position].second.second
@@ -86,7 +88,7 @@ class AFiltersAddView(
             override fun getCount(): Int { return displayedPages?.size ?: 0 }
             override fun isViewFromObject(view: android.view.View, obj: Any): Boolean { return view == obj }
         }
-        pager.setOnPageChangeListener(object : android.support.v4.view.ViewPager.OnPageChangeListener {
+        pager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 currentTab = displayedPages!![position].first
             }

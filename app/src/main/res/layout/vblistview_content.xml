@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +14,7 @@
         android:layout_marginEnd="@dimen/vblist_margin"
         android:maxWidth="@dimen/vblist_max_width">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
@@ -24,5 +24,5 @@
             android:paddingTop="@dimen/vblist_padding"
             android:paddingBottom="@dimen/vblist_padding"
             android:scrollbars="none" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

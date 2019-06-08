@@ -1,7 +1,7 @@
 package core
 
 import android.content.Context
-import android.support.v7.content.res.AppCompatResources.getColorStateList
+import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import android.util.AttributeSet
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator

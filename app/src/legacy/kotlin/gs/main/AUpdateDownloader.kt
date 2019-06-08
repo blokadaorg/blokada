@@ -62,7 +62,7 @@ class AUpdateDownloader(
             val openFileIntent = android.content.Intent(android.content.Intent.ACTION_VIEW)
             openFileIntent.addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
             openFileIntent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            openFileIntent.data = android.support.v4.content.FileProvider.getUriForFile(ctx, "${ctx.packageName}.update",
+            openFileIntent.data = androidx.core.content.FileProvider.getUriForFile(ctx, "${ctx.packageName}.update",
                     java.io.File(uri.path))
             ctx.startActivity(openFileIntent)
         } else {

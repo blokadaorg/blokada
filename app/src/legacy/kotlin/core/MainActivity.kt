@@ -5,8 +5,8 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.FrameLayout
 import com.github.salomonbrys.kodein.LazyKodein

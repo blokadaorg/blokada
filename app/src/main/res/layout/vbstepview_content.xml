@@ -7,7 +7,7 @@
     android:padding="@dimen/vbstep_padding"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,5 +26,5 @@
             app:layout_constraintEnd_toEndOf="@id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

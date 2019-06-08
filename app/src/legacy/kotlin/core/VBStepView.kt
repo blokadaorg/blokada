@@ -2,8 +2,8 @@ package core
 
 import android.content.Context
 import android.os.Handler
-import android.support.constraint.ConstraintLayout
-import android.support.v4.view.ViewPager
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import gs.presentation.ViewBinder

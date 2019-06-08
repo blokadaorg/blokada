@@ -3,7 +3,7 @@ package gs.presentation
 class SwitchCompatView(
         private val ctx: android.content.Context,
         attributeSet: android.util.AttributeSet?
-) : android.support.v7.widget.SwitchCompat(ctx, attributeSet) {
+) : androidx.appcompat.widget.SwitchCompat(ctx, attributeSet) {
 
     private var isInSetChecked = false
 

@@ -3,9 +3,9 @@ package core
 import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Handler
-import android.support.v4.content.ContextCompat.getColorStateList
-import android.support.v4.view.ViewPager
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat.getColorStateList
+import androidx.viewpager.widget.ViewPager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.View
