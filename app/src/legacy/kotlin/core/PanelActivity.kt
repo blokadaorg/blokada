@@ -2,24 +2,25 @@ package core
 
 import android.app.Activity
 import android.app.UiModeManager
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
-import com.github.michaelbull.result.onFailure
 import com.github.salomonbrys.kodein.instance
 import gs.environment.ComponentProvider
 import gs.obsolete.Sync
 import kotlinx.coroutines.experimental.runBlocking
-import nl.komponents.kovenant.task
 import org.blokada.R
-import tunnel.RestApi
-import tunnel.RestModel
 import tunnel.askTunnelPermission
 import tunnel.tunnelPermissionResult
 import java.lang.ref.WeakReference
+
+
 
 
 class PanelActivity : Activity() {
@@ -39,7 +40,9 @@ class PanelActivity : Activity() {
             filters.changed %= true
         }
         activityContext.set(this)
-        getNotch()
+//        getNotch()
+//        if (hasSoftKeys(getSystemService(Context.WINDOW_SERVICE) as WindowManager))
+//            dashboardView.navigationBarPx = resources.getDimensionPixelSize(R.dimen.dashboard_navigation_inset)
     }
 
     override fun onResume() {
@@ -80,6 +83,29 @@ class PanelActivity : Activity() {
     private fun isAndroidTV(): Boolean {
         val uiModeManager = getSystemService(UI_MODE_SERVICE) as UiModeManager
         return uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION
+    }
+
+    fun hasNavBar(resources: Resources): Boolean {
+        val id = resources.getIdentifier("config_showNavigationBar", "bool", "android")
+        return id > 0 && resources.getBoolean(id)
+    }
+
+    fun hasSoftKeys(windowManager: WindowManager): Boolean {
+        val d = windowManager.defaultDisplay
+
+        val realDisplayMetrics = DisplayMetrics()
+        d.getRealMetrics(realDisplayMetrics)
+
+        val realHeight = realDisplayMetrics.heightPixels
+        val realWidth = realDisplayMetrics.widthPixels
+
+        val displayMetrics = DisplayMetrics()
+        d.getMetrics(displayMetrics)
+
+        val displayHeight = displayMetrics.heightPixels
+        val displayWidth = displayMetrics.widthPixels
+
+        return realWidth - displayWidth > 0 || realHeight - displayHeight > 0
     }
 }
 

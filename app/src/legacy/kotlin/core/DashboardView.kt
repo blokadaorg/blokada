@@ -54,6 +54,7 @@ class DashboardView(
     private val fg_nav_panel = findViewById<View>(R.id.fg_nav_panel)
 
     var notchPx: Int = 0
+    var navigationBarPx: Int = 0
     var onSectionClosed = {}
 
     private val ktx = ctx.ktx("dashboard")
@@ -357,7 +358,10 @@ class DashboardView(
         if (adjusted) return
         adjusted = true
         ktx.v("resize")
-        val percentHeight = (resources.getDimensionPixelSize(R.dimen.dashboard_panel_anchor_size)).toFloat() / height
+        val percentHeight = (
+                resources.getDimensionPixelSize(R.dimen.dashboard_panel_anchor_size)
+                    +  navigationBarPx
+                ).toFloat() / height
         sliding.anchorPoint = percentHeight
 
         bg_logo.addToTopMargin(notchPx)
@@ -365,6 +369,10 @@ class DashboardView(
         bg_nav.addToTopMargin(notchPx)
         fg_pager.addToTopMargin(notchPx)
         fg_logo_icon.addToTopMargin(notchPx)
+
+        bg_pager.addToBottomMargin(navigationBarPx)
+        fg_pager.addToBottomMargin(navigationBarPx)
+
         setNavPanelMargins()
 
         if (width >= resources.getDimensionPixelSize(R.dimen.dashboard_nav_align_end_width)) {
@@ -380,6 +388,16 @@ class DashboardView(
         }.onFailure {
             val lp = layoutParams as FrameLayout.LayoutParams
             lp.topMargin += size
+        }
+    }
+
+    private fun View.addToBottomMargin(size: Int) {
+        Result.of {
+            val lp = layoutParams as RelativeLayout.LayoutParams
+            lp.bottomMargin += size
+        }.onFailure {
+            val lp = layoutParams as FrameLayout.LayoutParams
+            lp.bottomMargin += size
         }
     }
 
