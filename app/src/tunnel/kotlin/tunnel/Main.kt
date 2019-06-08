@@ -70,7 +70,7 @@ class Main(
     private fun createConfigurator(ctx: Context) = when {
         usePausedConfigurator -> PausedVpnConfigurator(currentServers, filters)
         blockaConfig.blockaVpn -> BlockaVpnConfigurator(currentServers, filters, blockaConfig, ctx.packageName)
-        else -> DnsVpnConfigurator(currentServers, filters)
+        else -> DnsVpnConfigurator(currentServers, filters, ctx.packageName)
     }
 
     fun setup(ktx: AndroidKontext, servers: List<InetSocketAddress>, config: BlockaConfig? = null, start: Boolean = false) = async(CTRL) {
@@ -99,8 +99,6 @@ class Main(
                     if (!protected) "socketCreator".ktx().e("could not protect")
                     socket
                 }
-                proxy = createProxy()
-                tunnel = createTunnel()
                 val configurator = createConfigurator(ktx.ctx)
 
                 connector = ServiceConnector(onVpnClose, onConfigure = { ktx, vpn ->
@@ -228,8 +226,6 @@ class Main(
         config = Persistence.config.load(ktx)
         blockaConfig = Persistence.blocka.load(ktx)
         ktx.v("create components, onWifi: $onWifi, firstLoad: ${config.firstLoad}", config)
-        proxy = createProxy()
-        tunnel = createTunnel()
         filters = FilterManager(
                 blockade = blockade,
                 doResolveFilterSource = doResolveFilterSource,

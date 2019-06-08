@@ -208,8 +208,8 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) 
     })
 }
 
-fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig) {
-    if (config.blockaVpn) Toast.makeText(ktx.ctx, R.string.lease_cant_connect, Toast.LENGTH_LONG).show()
+fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: Boolean = true) {
+    if (config.blockaVpn && showError) Toast.makeText(ktx.ctx, R.string.lease_cant_connect, Toast.LENGTH_LONG).show()
     ktx.emit(BLOCKA_CONFIG, config.copy(
             blockaVpn = false,
             gatewayId = "",

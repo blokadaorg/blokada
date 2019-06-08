@@ -36,8 +36,8 @@ internal class BlockaTunnel(
     private var gatewaySocket: DatagramSocket? = null
     private var gatewayParcelFileDescriptor: ParcelFileDescriptor? = null
 
-    private val cooldownTtl = 300L
-    private val cooldownMax = 3000L
+    private val cooldownTtl = 100L
+    private val cooldownMax = 1000L
     private var cooldownCounter = 0
     private var epermCounter = 0
 
@@ -540,7 +540,7 @@ internal class BlockaTunnel(
         val now = System.currentTimeMillis()
         if (now > (lastTickMs + tickIntervalMs)) {
             lastTickMs = now
-            tick(ktx)
+            tick2(ktx)
         }
     }
 

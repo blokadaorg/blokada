@@ -305,7 +305,11 @@ class VpnStatusVB(
                                     else R.string.slot_status_vpn_connecting
                             ), Toast.LENGTH_LONG).show()
 
-                            ktx.emit(BLOCKA_CONFIG, config.copy(blockaVpn = !config.blockaVpn))
+                            if (config.blockaVpn) clearConnectedGateway(ktx, config, showError = false)
+                            else {
+                                val newCfg = config.copy(blockaVpn = !config.blockaVpn)
+                                checkAccountInfo(ktx, newCfg)
+                            }
                         }
                     }),
                     action2 = Slot.Action(i18n.getString(R.string.slot_status_vpn_lease), {
@@ -1541,7 +1545,7 @@ class GatewayVB(
             onSwitch = {
                 if (gateway.publicKey == cfg.gatewayId) {
                     // Turn off VPN feature
-                    clearConnectedGateway(ktx, cfg)
+                    clearConnectedGateway(ktx, cfg, showError = false)
                 } else {
                     if (cfg.activeUntil.before(Date()) == true) {
                         modal.openModal()

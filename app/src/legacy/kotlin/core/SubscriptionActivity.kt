@@ -8,6 +8,7 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import gs.environment.Worker
 import gs.presentation.WebDash
+import gs.property.IWhen
 import gs.property.newProperty
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
@@ -23,7 +24,7 @@ class SubscriptionActivity : Activity() {
     private val ktx = ktx("SubscriptionActivity")
     private val w: Worker by lazy { ktx.di().with("gscore").instance<Worker>() }
 
-    private val subscriptionUrl by lazy { newProperty(w, { URL("http://localhost") }) }
+    private val subscriptionUrl by lazy { newProperty(w, { URL("https://localhost") }) }
     private val updateUrl = { cfg: BlockaConfig ->
         subscriptionUrl %= URL("https://vpn.blocka.net/#/activate/${cfg.accountId}")
     }
@@ -39,13 +40,16 @@ class SubscriptionActivity : Activity() {
     }
 
     private var view: android.view.View? = null
+    private var listener: IWhen? = null
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.subscription_container)
 
         view = dash.createView(this, container)
-        view?.run { dash.attach(this) }
+        listener = subscriptionUrl.doOnUiWhenChanged().then {
+            view?.run { dash.attach(this) }
+        }
         container.addView(view)
     }
 
@@ -53,6 +57,7 @@ class SubscriptionActivity : Activity() {
         super.onDestroy()
         view?.run { dash.detach(this) }
         container.removeAllViews()
+        subscriptionUrl.cancel(listener)
     }
 
     override fun onStart() {

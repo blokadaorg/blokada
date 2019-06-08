@@ -9,7 +9,6 @@ import com.github.salomonbrys.kodein.*
 import core.*
 import filter.DashFilterBlacklist
 import filter.DashFilterWhitelist
-import gs.environment.inject
 import notification.NotificationDashOn
 import notification.displayNotification
 import notification.hideNotification
@@ -81,10 +80,10 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                 ctx.startService(serviceIntent)
             }
 
-            val serviceIntent = Intent(ctx.applicationContext,
-                    RequestLogger::class.java)
-            serviceIntent.putExtra("load_on_start", true)
-            ctx.startService(serviceIntent)
+//            val serviceIntent = Intent(ctx.applicationContext,
+//                    RequestLogger::class.java)
+//            serviceIntent.putExtra("load_on_start", true)
+//            ctx.startService(serviceIntent)
 
             // Initialize default values for properties that need it (async)
             s.tunnelDropCount {}
