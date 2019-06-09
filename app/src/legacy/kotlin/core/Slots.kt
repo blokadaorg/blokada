@@ -1484,13 +1484,14 @@ class BlockaVB(
                     description = i18n.getString(R.string.slot_blocka_text, accountId, accountLabel),
                     action1 = Slot.Action(
                             if (isActive) i18n.getString(R.string.slot_account_action_manage)
-                            else i18n.getString(R.string.slot_account_action_manage_inactive), {
+                            else i18n.getString(R.string.slot_account_action_manage_inactive)) {
                         modal.openModal()
                         ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
-                    }),
-                    action2 = Slot.Action(i18n.getString(R.string.slot_account_action_change_id), {
-
-                    })
+                    },
+                    action2 = Slot.Action(i18n.getString(R.string.slot_account_action_change_id)) {
+                        modal.openModal()
+                        ktx.ctx.startActivity(Intent(ktx.ctx, RestoreAccountActivity::class.java))
+                    }
             )
 
         }

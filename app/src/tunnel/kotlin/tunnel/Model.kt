@@ -169,12 +169,13 @@ private fun newAccount(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
     })
 }
 
-fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
+fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, showError: Boolean = false) {
     val api: RestApi = ktx.di().instance()
     api.getAccountInfo(config.accountId).enqueue(object: retrofit2.Callback<RestModel.Account> {
         override fun onFailure(call: Call<RestModel.Account>?, t: Throwable?) {
-            ktx.e("new account api call error", t ?: "null")
-            if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1)
+            ktx.e("check account api call error", t ?: "null")
+            if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1, showError)
+            else if (showError) Toast.makeText(ktx.ctx, R.string.slot_account_name_api_error, Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<RestModel.Account>?, response: Response<RestModel.Account>?) {
@@ -198,8 +199,9 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) 
                         }
                     }
                     else -> {
-                        ktx.e("new account api call response ${code()}")
-                        if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1)
+                        ktx.e("check account api call response ${code()}")
+                        if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1, showError)
+                        else if (showError) Toast.makeText(ktx.ctx, R.string.slot_account_name_api_error, Toast.LENGTH_LONG).show()
                         Unit
                     }
                 }
