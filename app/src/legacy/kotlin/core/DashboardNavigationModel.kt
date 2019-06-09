@@ -64,10 +64,10 @@ internal class DashboardNavigationModel(
     }
 
     fun panelExpanded() {
-        if (menuOpened == null) {
+//        if (menuOpened == null) {
             val menu = section.subsections[menuIndex].dash
             setNewMenu(menu)
-        }
+//        }
     }
 
     fun mainViewPagerSwiped(position: Int) {

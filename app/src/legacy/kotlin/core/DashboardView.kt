@@ -3,9 +3,6 @@ package core
 import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Handler
-import androidx.core.content.ContextCompat.getColorStateList
-import androidx.viewpager.widget.ViewPager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.View
@@ -14,6 +11,9 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
 import android.widget.*
+import androidx.core.content.ContextCompat.getColorStateList
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.github.salomonbrys.kodein.instance
@@ -289,18 +289,24 @@ class DashboardView(
                 private var previousMeaningfulState = PanelState.ANCHORED
                 override fun onPanelStateChanged(panel: View, previousState: PanelState, newState: PanelState) {
                     when (newState) {
-                        PanelState.DRAGGING -> setDragging()
+                        PanelState.DRAGGING -> {
+                            ktx.v("panel dragging")
+                            setDragging()
+                        }
                         PanelState.ANCHORED -> {
+                            ktx.v("panel anchored")
                             model.panelAnchored()
                             if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) tun.enabled %= true
                             previousMeaningfulState = PanelState.ANCHORED
                         }
                         PanelState.COLLAPSED -> {
+                            ktx.v("panel collapsed")
                             model.panelCollapsed()
                             if (tun.enabled()) tun.enabled %= false
                             previousMeaningfulState = PanelState.COLLAPSED
                         }
                         PanelState.EXPANDED -> {
+                            ktx.v("panel expanded")
                             model.panelExpanded()
                             if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) tun.enabled %= true
                             previousMeaningfulState = PanelState.EXPANDED
