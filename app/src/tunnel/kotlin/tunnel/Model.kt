@@ -267,6 +267,14 @@ private fun checkGateways(ktx: AndroidKontext, config: BlockaConfig, retry: Int 
     })
 }
 
+fun checkLeaseIfNeeded(ktx: AndroidKontext) {
+    async {
+        ktx.getMostRecent(BLOCKA_CONFIG)?.run {
+            if (leaseActiveUntil.before(Date())) checkLease(ktx, this)
+        }
+    }
+}
+
 private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
     val api: RestApi = ktx.di().instance()
     api.getLeases(config.accountId).enqueue(object: retrofit2.Callback<RestModel.Leases> {
@@ -383,7 +391,7 @@ private fun scheduleRecheck(ktx: AndroidKontext, config: BlockaConfig) {
     }
 
     val accountTime = config.activeUntil
-    val leaseTime = Date(config.leaseActiveUntil.time - 3600 * 1000) // An hour before lease ends
+    val leaseTime = Date(config.leaseActiveUntil.time - 1800 * 1000) // Half an hour before lease ends
     val sooner = if (accountTime.before(leaseTime)) accountTime else leaseTime
     if (sooner.before(Date())) {
         ktx.emit(BLOCKA_CONFIG, config.copy(blockaVpn = false))

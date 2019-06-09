@@ -7,6 +7,7 @@ import android.system.OsConstants
 import android.system.StructPollfd
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
+import core.AndroidKontext
 import core.Kontext
 import core.Result
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
@@ -18,8 +19,8 @@ import kotlin.math.min
 
 
 interface Tunnel {
-    fun run(ktx: Kontext, tunnel: FileDescriptor)
-    fun runWithRetry(ktx: Kontext, tunnel: FileDescriptor)
+    fun run(ktx: AndroidKontext, tunnel: FileDescriptor)
+    fun runWithRetry(ktx: AndroidKontext, tunnel: FileDescriptor)
     fun stop(ktx: Kontext)
 }
 
@@ -41,7 +42,7 @@ internal class DnsTunnel(
     private var packetBuffer = ByteArray(32767)
     private var datagramBuffer = ByteArray(1024)
 
-    override fun run(ktx: Kontext, tunnel: FileDescriptor) {
+    override fun run(ktx: AndroidKontext, tunnel: FileDescriptor) {
         ktx.v("running tunnel thread", this)
 
         val input = FileInputStream(tunnel)
@@ -89,7 +90,7 @@ internal class DnsTunnel(
         }
     }
 
-    override fun runWithRetry(ktx: Kontext, tunnel: FileDescriptor) {
+    override fun runWithRetry(ktx: AndroidKontext, tunnel: FileDescriptor) {
         var interrupted = false
         do {
             Result.of { run(ktx, tunnel) }.mapError {

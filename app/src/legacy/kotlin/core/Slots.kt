@@ -106,7 +106,7 @@ class ProtectionVB(
 
         val max = 5
         val score = when {
-            vpn == 1 && startOnBoot == 1 && battery == 1 && dns == 1 -> {
+            vpn == 1 && startOnBoot == 1 && battery == 1 /*&& dns == 1*/ -> {
                 // Show full score so users with VPN or but no adblocking are happy
                 max
             }
