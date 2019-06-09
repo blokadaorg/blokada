@@ -1,5 +1,7 @@
 package core
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -1491,6 +1493,12 @@ class BlockaVB(
                     action2 = Slot.Action(i18n.getString(R.string.slot_account_action_change_id)) {
                         modal.openModal()
                         ktx.ctx.startActivity(Intent(ktx.ctx, RestoreAccountActivity::class.java))
+                    },
+                    action3 = Slot.Action(i18n.getString(R.string.slot_account_action_copy)) {
+                        val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clipData = ClipData.newPlainText("account-id", cfg.accountId)
+                        clipboardManager.primaryClip = clipData
+                        Toast.makeText(ktx.ctx, R.string.slot_account_action_copied, Toast.LENGTH_SHORT).show()
                     }
             )
 

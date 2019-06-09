@@ -151,6 +151,8 @@
     <string name="slot_account_action_manage">Manage</string>
     <string name="slot_account_action_manage_inactive">Activate</string>
     <string name="slot_account_action_change_id">Restore</string>
+    <string name="slot_account_action_copy">Copy</string>
+    <string name="slot_account_action_copied">Account ID copied to the clipboard</string>
 
     <string name="slot_gateway_label">Connect to %s</string>
     <string name="slot_gateway_description">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
