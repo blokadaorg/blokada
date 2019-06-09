@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -16,6 +14,8 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.github.salomonbrys.kodein.*
@@ -79,6 +79,7 @@ abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
     abstract val dnsServers: IProperty<List<InetSocketAddress>>
     abstract val fallback: IProperty<Boolean>
+    abstract fun hasCustomDnsSelected(): Boolean
 }
 
 class DnsImpl(
@@ -90,6 +91,10 @@ class DnsImpl(
         d: Device = xx().instance(),
         ctx: Context = xx().instance()
 ) : Dns() {
+
+    override fun hasCustomDnsSelected(): Boolean {
+        return choices().firstOrNull { it.id != "default" && it.active } != null
+    }
 
     private val refresh = { it: List<DnsChoice> ->
         val ktx = "dns:refresh".ktx()

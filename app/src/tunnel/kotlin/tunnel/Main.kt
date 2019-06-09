@@ -1,8 +1,8 @@
 package tunnel
 
-import android.content.Context
 import android.net.VpnService
 import com.github.michaelbull.result.onFailure
+import com.github.salomonbrys.kodein.instance
 import core.*
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
@@ -67,10 +67,10 @@ class Main(
             blockaConfig, socketCreator, blockade)
             else DnsTunnel(proxy!!, config, forwarder, loopback)
 
-    private fun createConfigurator(ctx: Context) = when {
+    private fun createConfigurator(ktx: AndroidKontext) = when {
         usePausedConfigurator -> PausedVpnConfigurator(currentServers, filters)
-        blockaConfig.blockaVpn -> BlockaVpnConfigurator(currentServers, filters, blockaConfig, ctx.packageName)
-        else -> DnsVpnConfigurator(currentServers, filters, ctx.packageName)
+        blockaConfig.blockaVpn -> BlockaVpnConfigurator(currentServers, ktx.di().instance(), filters, blockaConfig, ktx.ctx.packageName)
+        else -> DnsVpnConfigurator(currentServers, filters, ktx.ctx.packageName)
     }
 
     fun setup(ktx: AndroidKontext, servers: List<InetSocketAddress>, config: BlockaConfig? = null, start: Boolean = false) = async(CTRL) {
@@ -99,7 +99,7 @@ class Main(
                     if (!protected) "socketCreator".ktx().e("could not protect")
                     socket
                 }
-                val configurator = createConfigurator(ktx.ctx)
+                val configurator = createConfigurator(ktx)
 
                 connector = ServiceConnector(onVpnClose, onConfigure = { ktx, vpn ->
                     configurator.configure(ktx, vpn)
