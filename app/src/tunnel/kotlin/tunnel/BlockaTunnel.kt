@@ -331,13 +331,7 @@ internal class BlockaTunnel(
     fun forward(ktx: Kontext) {
         val b = buffer
         packet.setData(b.array(), b.arrayOffset() + b.position(), b.limit())
-
-        Result.of {
-            gatewaySocket!!.send(packet)
-        }.mapError { ex ->
-            ktx.e("failed sending to gateway", ex.message ?: "", ex)
-            throw ex
-        }
+        gatewaySocket!!.send(packet)
     }
 
     fun loopback(ktx: Kontext, nvm: Int) {
@@ -494,17 +488,9 @@ internal class BlockaTunnel(
 
     private fun fromGatewayToProxy(ktx: Kontext, gateway: StructPollfd) {
         if (gateway.isEvent(OsConstants.POLLIN)) {
-//            ktx.v("from gateway to proxy")
-            Result.of {
-                packet.setData(memory)
-                gatewaySocket?.receive(packet) ?: ktx.e("no socket")
-                toDevice(ktx, memory, packet.length)
-            }.mapError { ex ->
-                ktx.w("failed receiving from gateway", ex.message ?: "", ex)
-                val cause = ex.cause
-                if (cause is ErrnoException && cause.errno == OsConstants.EBADF) throw ex
-                else if (cause is ErrnoException && cause.errno == OsConstants.EPERM) throw ex
-            }
+            packet.setData(memory)
+            gatewaySocket?.receive(packet) ?: ktx.e("no socket")
+            toDevice(ktx, memory, packet.length)
         }
     }
 
