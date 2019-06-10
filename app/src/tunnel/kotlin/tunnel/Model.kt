@@ -11,8 +11,7 @@ typealias Ruleset = LinkedHashSet<String>
 data class Filter(
         val id: FilterId,
         val source: FilterSourceDescriptor,
-        val whitelist: Boolean = false,
-        val wildcard: Boolean = false,
+        var listtype: Int = 0,
         val active: Boolean = false,
         val hidden: Boolean = false,
         val priority: Int = 0,

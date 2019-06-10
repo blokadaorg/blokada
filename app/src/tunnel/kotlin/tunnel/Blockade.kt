@@ -24,20 +24,20 @@ internal class Blockade(
 
     fun build(ktx: Kontext, blacklist: List<FilterId>, wildcard: List<FilterId>, whitelist: List<FilterId>) {
         ktx.emit(Events.RULESET_BUILDING)
-        var order = 1 // 1 for whitelist, 2 for wildcard_block, 3 for block
+        var listtype = 1 // 1 for whitelist, 2 for wildcard_block, 3 for block
         whitelistRuleset.clear()
-        whitelistRuleset = buildRuleset(ktx, order, whitelist)
-        order = 2
+        whitelistRuleset = buildRuleset(ktx, listtype, whitelist)
+        listtype = 2
         wildcardRuleset.clear()
-        wildcardRuleset = buildRuleset(ktx, order, wildcard)
-        order = 3
+        wildcardRuleset = buildRuleset(ktx, listtype, wildcard)
+        listtype = 3
         blacklistRuleset.clear()
-        blacklistRuleset = buildRuleset(ktx, order, blacklist)
+        blacklistRuleset = buildRuleset(ktx, listtype, blacklist)
         Log.d("Events.Ru", "blacklistRuleset size is " + blacklistRuleset.size + " wildcard size is " + wildcardRuleset.size + " whitelistRuleset size is " + whitelistRuleset.size)
         ktx.emit(Events.RULESET_BUILT, Triple(wildcardRuleset.size, blacklistRuleset.size, whitelistRuleset.size))
     }
 
-    private fun buildRuleset(ktx: Kontext, order: Int, filters: List<FilterId>): Ruleset {
+    private fun buildRuleset(ktx: Kontext, listtype: Int, filters: List<FilterId>): Ruleset {
         var ruleset = Ruleset()
         if (filters.isEmpty()) return ruleset
         doLoadRuleset(filters.first()).mapBoth(
@@ -59,7 +59,7 @@ internal class Blockade(
                     ktx.e("could not load first ruleset", filters.first(), it)
                 }
         )
-        if (order == 3) {
+        if (listtype == 3) {
             var orignalrulesize = ruleset.size
             //TODO add button that says "optimize" in advanced settings. have that button switch the below var octomize on/off.
             // Having optimize = true reduces list by about 20% and thus saves memory but takes a little longer to update.
@@ -70,7 +70,7 @@ internal class Blockade(
                 optimize = false
             ruleset.removeAll(whitelistRuleset)
             ruleset.removeAll(wildcardRuleset)
-            var counter = orignalrulesize - ruleset.size // because some were removed from whitelist
+            var counter = 0 // orignalrulesize - ruleset.size // because some were removed from whitelist
             val arraylist = ruleset.toString().split(",")//", ", "[", "]")
             if (optimize == true) {
                 for (item in arraylist) {
@@ -95,11 +95,11 @@ internal class Blockade(
             }
         }
         var tempname = ""
-        if (order == 1)
+        if (listtype == 1)
             tempname = "whitelist"
-        if (order == 2)
+        else if (listtype == 2)
             tempname = "Wildcard"
-        if (order == 3)
+        else if (listtype == 3)
             tempname = "blacklist"
         log.d("ruleset", "ruleset for " + tempname + " is " + ruleset)
         return ruleset

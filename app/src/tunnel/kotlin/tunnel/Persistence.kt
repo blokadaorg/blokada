@@ -82,7 +82,7 @@ class FiltersPersistence {
                                     Filter(
                                             id = it.id,
                                             source = FilterSourceDescriptor(it.source.id, it.source.source),
-                                            whitelist = it.whitelist,
+                                            listtype = it.listtype,
                                             active = it.active,
                                             hidden = it.hidden,
                                             priority = it.priority,

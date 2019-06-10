@@ -105,12 +105,12 @@ class AFilterListView(
         filters = if (whitelist) {
             Log.v("blokada", "systemapps: ${ui.showSystemApps()}")
             allFilters.filter {
-                it.whitelist == true && it.hidden == false
+                it.listtype == 1 && it.hidden == false
                         && (ui.showSystemApps()
                         || !(f.apps().firstOrNull { app -> app.appId == it.source.source }?.system ?: false))
             }
         } else {
-            allFilters.filter { !it.whitelist && !it.hidden }
+            allFilters.filter { it.listtype !=1 && !it.hidden }
         }.toList().prioritised()
         adapter.notifyDataSetChanged()
     }

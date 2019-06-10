@@ -84,8 +84,7 @@ internal class FilterManager(
         } else {
             ktx.v("updating filter", new.id)
             val newWithPreservedFields = new.copy(
-                    whitelist = old.whitelist,
-                    wildcard = old.wildcard,
+                    listtype = old.listtype,
                     priority = old.priority,
                     lastFetch = old.lastFetch
             )
@@ -115,7 +114,7 @@ internal class FilterManager(
 
     fun getWhitelistedApps(ktx: Kontext) = {
         store.cache.filter {
-            it.whitelist && it.active && it.source.id == "app" }.map {
+            it.listtype==1 && it.active && it.source.id == "app" }.map {
             it.source.source
         }
     }()
@@ -176,7 +175,7 @@ internal class FilterManager(
         val active = store.cache.filter { it.active }
         //TODO maybe clear clear() or remove() or onDestroy() !it.active here?
         val downloaded = mutableSetOf<Filter>()
-        val wildcard = store.cache.filter{it.wildcard}
+        val wildcard = store.cache.filter{it.listtype==2}
         active.forEach { filter ->
             if (!doValidateRulesetCache(filter)) {
                 ktx.v("fetching ruleset", filter.id)
@@ -208,9 +207,9 @@ internal class FilterManager(
         }
 
         //store = store.copy(cache = store.cache)
-        val allowed = store.cache.filter { it.whitelist && it.active }.map { it.id }
-        val denied = store.cache.filter { !it.whitelist && !it.wildcard && it.active }.map { it.id }
-        val wildcardblock = store.cache.filter{ it.wildcard && it.active}.map{ it.id }
+        val allowed = store.cache.filter { it.listtype==1 && it.active }.map { it.id }
+        val denied = store.cache.filter { it.listtype!=1 && it.listtype!=2 && it.active }.map { it.id }
+        val wildcardblock = store.cache.filter{ it.listtype==2 && it.active}.map{ it.id }
         ktx.v("attempting to build rules, wildcardblock/denied/allowed", denied.size, allowed.size)
         blockade.build(ktx, denied, wildcardblock, allowed)
         allowed.size > 0 || denied.size > 0

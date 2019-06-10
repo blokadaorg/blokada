@@ -27,7 +27,7 @@ class DashFilterBlacklist(
 ) {
     init {
         ctx.ktx().on(Events.FILTERS_CHANGED, {
-            update(it.filter { it.active && !it.whitelist })
+            update(it.filter { it.active && it.listtype != 1 })
         })
     }
 
@@ -63,7 +63,7 @@ class DashFilterWhitelist(
 
     init {
         ctx.ktx().on(tunnel.Events.FILTERS_CHANGED) {
-            update(it.filter { it.active && it.whitelist })
+            update(it.filter { it.active && it.listtype==1 })
         }
     }
 

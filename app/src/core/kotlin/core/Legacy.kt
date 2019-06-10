@@ -16,7 +16,7 @@ typealias FilterId = String
 data class Filter(
         val id: FilterId,
         val source: filter.FilterSourceDescriptor,
-        val whitelist: Boolean = false,
+        val listtype: Int = 0,
         val active: Boolean = false,
         val hidden: Boolean = false,
         val priority: Int = 0,
