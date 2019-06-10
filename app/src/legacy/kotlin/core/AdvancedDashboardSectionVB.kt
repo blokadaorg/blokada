@@ -16,8 +16,8 @@ class AdvancedDashboardSectionVB(
             UpdateVB(ctx.ktx("updateVB"), onTap = slotMutex.openOneAtATime),
             FiltersStatusVB(ctx.ktx("FiltersStatusSlotVB"), onTap = slotMutex.openOneAtATime),
             ActiveDnsVB(ctx.ktx("currentDns"), onTap = slotMutex.openOneAtATime),
-            AboutVB(ctx.ktx("aboutVB"), onTap = slotMutex.openOneAtATime),
-            VpnStatusVB(ctx.ktx("VpnStatusVB"), onTap = slotMutex.openOneAtATime)
+            VpnStatusVB(ctx.ktx("VpnStatusVB"), onTap = slotMutex.openOneAtATime),
+            AboutVB(ctx.ktx("aboutVB"), onTap = slotMutex.openOneAtATime)
     )
 
     private val batteryVB: BatteryVB = BatteryVB(ctx.ktx("BatteryVB"), onTap = slotMutex.openOneAtATime, onRemove = {

@@ -48,8 +48,8 @@ class HomeDashboardSectionVB(
     private var items = listOf<ViewBinder>(
             AppStatusVB(ctx.ktx("AppStatusSlotVB"), onTap = slotMutex.openOneAtATime),
             HomeNotificationsVB(ctx.ktx("NotificationsVB"), onTap = slotMutex.openOneAtATime),
-            HelpVB(ctx.ktx("HelpVB"), onTap = slotMutex.openOneAtATime),
-            ProtectionVB(ctx.ktx("ProtectionVB"), onTap = slotMutex.openOneAtATime)
+            ProtectionVB(ctx.ktx("ProtectionVB"), onTap = slotMutex.openOneAtATime),
+            HelpVB(ctx.ktx("HelpVB"), onTap = slotMutex.openOneAtATime)
     )
 
     override fun attach(view: VBListView) {
