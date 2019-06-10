@@ -84,11 +84,13 @@ class DashboardView(
                     setMenu(sectionIndex + 1)
                     setMenuNav(section, section.subsections[menuIndex])
                     fg_pager.currentItem = menuIndex
+                    bg_pager.lock = true
                     onOpenSection {  }
                 },
                 onMenuClosed = { sectionIndex ->
                     ktx.v("onMenuClosed")
                     setOn(sectionIndex + 1)
+                    bg_pager.lock = false
                     onCloseSection()
                 },
                 onSectionChanged = { section, sectionIndex ->

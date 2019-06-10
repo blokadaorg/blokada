@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import gs.presentation.ViewBinder
+import android.view.MotionEvent
 
 class VBPagesView(
         ctx: Context,
         attributeSet: AttributeSet
 ) : ViewPager(ctx, attributeSet) {
+    var lock = false
 
     private val dashAdapter = object : PagerAdapter() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -32,6 +34,14 @@ class VBPagesView(
 
         override fun isViewFromObject(view: View, obj: Any) = view == obj
         override fun getCount() = pages.size
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return if (lock)
+            true
+        else {
+            super.dispatchTouchEvent(ev)
+        }
     }
 
     var useSpacer = false
