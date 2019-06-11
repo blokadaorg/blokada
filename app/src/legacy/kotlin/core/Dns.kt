@@ -82,6 +82,11 @@ abstract class Dns {
     abstract fun hasCustomDnsSelected(): Boolean
 }
 
+val FALLBACK_DNS = listOf(
+        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 1, 1, 1)), 53),
+        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 0, 0, 1)), 53)
+)
+
 class DnsImpl(
         w: Worker,
         xx: Environment,
@@ -167,10 +172,7 @@ class DnsImpl(
         dnsServers.doWhenChanged(withInit = true).then {
             val current = dnsServers()
             if (fallback() && isLocalServers(current)) {
-                dnsServers %= listOf(
-                        InetSocketAddress("1.1.1.1", 53),
-                        InetSocketAddress("1.0.0.1", 53)
-                )
+                dnsServers %= FALLBACK_DNS
                 "dns".ktx().w("local DNS detected, setting CloudFlare as workaround")
             }
         }

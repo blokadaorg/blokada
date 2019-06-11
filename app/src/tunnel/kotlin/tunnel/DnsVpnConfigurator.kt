@@ -1,12 +1,10 @@
 package tunnel
 
 import android.net.VpnService
-import core.Dns
 import core.Kontext
 import core.Result
 import java.net.Inet4Address
 import java.net.Inet6Address
-import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.util.*
 
@@ -137,7 +135,6 @@ val dnsProxyDst6 = Inet6Address.getByName(dnsProxyDst6String).address!!
  */
 internal class BlockaVpnConfigurator(
         private val dnsServers: List<InetSocketAddress>,
-        private val dns: Dns,
         private val filterManager: FilterManager,
         private val blockaConfig: BlockaConfig,
         private val packageName: String
@@ -146,19 +143,9 @@ internal class BlockaVpnConfigurator(
     private var dnsIndex = 1
 
     override fun configure(ktx: Kontext, builder: VpnService.Builder) {
-        val servers = if (dns.hasCustomDnsSelected() && dnsServers.isNotEmpty()) {
-            dnsServers
-        } else {
-            ktx.w("no dns set, fallback to cloudflare")
-            listOf(
-                    InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 1, 1, 1)), 53),
-                    InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 0, 0, 1)), 53)
-            )
-        }
-
         // Set local IP addresses for the DNS proxy so we can easily catch them for inspection
         dnsIndex = 0
-        for (address in servers) {
+        for (address in dnsServers) {
             try {
                 ktx.v("adding dns server $address")
                 if (blockaConfig.adblocking) builder.addMappedDnsServer(address)

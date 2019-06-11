@@ -69,29 +69,30 @@ class Main(
 
     private fun createConfigurator(ktx: AndroidKontext) = when {
         usePausedConfigurator -> PausedVpnConfigurator(currentServers, filters)
-        blockaConfig.blockaVpn -> BlockaVpnConfigurator(currentServers, ktx.di().instance(), filters, blockaConfig, ktx.ctx.packageName)
+        blockaConfig.blockaVpn -> BlockaVpnConfigurator(currentServers, filters, blockaConfig, ktx.ctx.packageName)
         else -> DnsVpnConfigurator(currentServers, filters, ktx.ctx.packageName)
     }
 
     fun setup(ktx: AndroidKontext, servers: List<InetSocketAddress>, config: BlockaConfig? = null, start: Boolean = false) = async(CTRL) {
-        ktx.v("setup tunnel, start = $start, enabled = $enabled", servers, config ?: "null")
+        val processedServers = processServers(ktx, servers, config, ktx.di().instance() )
+        ktx.v("setup tunnel, start = $start, enabled = $enabled", processedServers, config ?: "null")
         enabled = start or enabled
         when {
-            servers.isEmpty() -> {
+            processedServers.isEmpty() -> {
                 ktx.v("empty dns servers, will disable tunnel")
                 currentServers = emptyList()
                 maybeStopVpn(ktx)
                 maybeStopTunnelThread(ktx)
                 if (start) enabled = true
             }
-            isVpnOn() && currentServers == servers && (config == null ||
+            isVpnOn() && currentServers == processedServers && (config == null ||
                     blockaConfig.blockaVpn == config.blockaVpn
                     && blockaConfig.gatewayId == config.gatewayId
                     && blockaConfig.adblocking == config.adblocking) -> {
                 ktx.v("no changes in configuration, ignoring")
             }
             else -> {
-                currentServers = servers
+                currentServers = processedServers
                 config?.run { blockaConfig = this }
                 socketCreator = {
                     val socket = DatagramSocket()
@@ -125,6 +126,16 @@ class Main(
             }
         }
         Unit
+    }
+
+    private fun processServers(ktx: Kontext, servers: List<InetSocketAddress>, config: BlockaConfig?, dns: Dns) = when {
+        // Dont do anything other than it used to be, in non-vpn mode
+        config?.blockaVpn != true -> servers
+        servers.isEmpty() || !dns.hasCustomDnsSelected() -> {
+            ktx.w("no dns set, using fallback")
+            FALLBACK_DNS
+        }
+        else -> servers
     }
 
     fun reloadConfig(ktx: AndroidKontext, onWifi: Boolean) = async(CTRL) {
