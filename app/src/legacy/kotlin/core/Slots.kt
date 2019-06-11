@@ -332,7 +332,7 @@ class VpnStatusVB(
     }
 
     private fun activateVpnAutomatically(cfg: BlockaConfig) {
-        if (!cfg.blockaVpn && !wasActive && cfg.activeUntil.after(Date())) {
+        if (!cfg.blockaVpn && !wasActive && cfg.activeUntil.after(Date()) && cfg.hasGateway()) {
             ktx.v("automatically enabling vpn on new subscription")
             ktx.emit(BLOCKA_CONFIG, cfg.copy(blockaVpn = true))
         }
@@ -1551,7 +1551,7 @@ class GatewayVB(
                         ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
                     } else {
                         cfg.run {
-                            newLease(ktx, cfg.copy(
+                            checkGateways(ktx, cfg.copy(
                                     gatewayId = gateway.publicKey,
                                     gatewayIp = gateway.ipv4,
                                     gatewayPort = gateway.port,

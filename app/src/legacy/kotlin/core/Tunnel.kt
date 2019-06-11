@@ -146,9 +146,14 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             async {
-                ktx.on(BLOCKA_CONFIG, { cfg ->
+                ktx.on(BLOCKA_CONFIG) { cfg ->
                     engine.setup(ctx.ktx("blocka:vpn:switched"), dns.dnsServers(), cfg)
-                })
+
+                    if (cfg.blockaVpn && !s.enabled()) {
+                        ktx.v("auto activating on vpn gateway selected")
+                        s.enabled %= true
+                    }
+                }
             }
 
             var oldUrl = "localhost"

@@ -124,6 +124,11 @@ data class BlockaConfig(
         val vip4: String = "",
         val vip6: String = ""
 ) {
+
+    fun hasGateway(): Boolean {
+        return gatewayId.isNotBlank() && gatewayIp.isNotBlank() && gatewayPort != 0
+    }
+
     override fun toString(): String {
         return "BlockaConfig(adblocking=$adblocking, blockaVpn=$blockaVpn, accountId='$accountId', activeUntil=$activeUntil, leaseActiveUntil=$leaseActiveUntil, publicKey='$publicKey', gatewayId='$gatewayId', gatewayIp='$gatewayIp', gatewayPort=$gatewayPort, vip4='$vip4', vip6='$vip6')"
     }
@@ -225,7 +230,7 @@ fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: 
     ))
 }
 
-private fun checkGateways(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
+fun checkGateways(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
     val api: RestApi = ktx.di().instance()
     api.getGateways().enqueue(object: retrofit2.Callback<RestModel.Gateways> {
         override fun onFailure(call: Call<RestModel.Gateways>?, t: Throwable?) {
@@ -248,12 +253,12 @@ private fun checkGateways(ktx: AndroidKontext, config: BlockaConfig, retry: Int 
                                         gatewayNiceName = gateway.niceName()
                                 )
                                 ktx.v("found gateway, chosen: ${newCfg.gatewayId}")
-                                if (newCfg.leaseActiveUntil.before(Date())) {
-                                    ktx.v("old lease, refresh")
-                                    newLease(ktx, newCfg)
-                                } else {
+//                                if (newCfg.leaseActiveUntil.before(Date())) {
+//                                    ktx.v("old lease, refresh")
+//                                    newLease(ktx, newCfg)
+//                                } else {
                                     checkLease(ktx, newCfg)
-                                }
+//                                }
                                 Unit
                             } else {
                                 ktx.v("found no matching gateway")
@@ -351,7 +356,7 @@ private fun deleteLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 
     })
 }
 
-fun newLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
+private fun newLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
     val api: RestApi = ktx.di().instance()
 
     api.newLease(RestModel.LeaseRequest(config.accountId, config.publicKey, config.gatewayId)).enqueue(object: retrofit2.Callback<RestModel.Lease> {
