@@ -21,6 +21,7 @@ import gs.environment.LazyProvider
 import gs.property.IProperty
 import gs.property.IWhen
 import org.blokada.R
+import tunnel.blokadaUserAgent
 import java.net.URL
 
 class WebDash(
@@ -113,6 +114,7 @@ class WebDash(
         if (javascript) web.settings.javaScriptEnabled = true
         if (big) web.minimumHeight = ctx.resources.toPx(480)
         web.settings.domStorageEnabled = true
+        web.settings.userAgentString = blokadaUserAgent()
         val cookie = CookieManager.getInstance()
         cookie.setAcceptCookie(true)
         if (Build.VERSION.SDK_INT >= 21) cookie.setAcceptThirdPartyCookies(web, true)

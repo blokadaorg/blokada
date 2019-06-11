@@ -177,6 +177,7 @@ internal class BlockaVpnConfigurator(
             builder.addDisallowedApplication(it)
         }
 
+        ktx.v("vpn addresses: ${blockaConfig.vip4}, ${blockaConfig.vip6}")
         builder.addAddress(blockaConfig.vip4, 32)
         builder.addAddress(blockaConfig.vip6, 128)
 
