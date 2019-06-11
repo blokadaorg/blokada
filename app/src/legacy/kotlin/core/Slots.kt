@@ -532,6 +532,7 @@ class DownloadListsVB(
                 description = i18n.getString(R.string.tunnel_config_refetch_now_description),
                 icon = ctx.getDrawable(R.drawable.ic_download),
                 action1 = Slot.Action(i18n.getString(R.string.tunnel_config_refetch_now), {
+                    Toast.makeText(ctx, R.string.tunnel_config_refetch_toast, Toast.LENGTH_SHORT).show()
                     filters.invalidateFilters(ktx)
                 })
         )
@@ -1175,6 +1176,7 @@ class DnsListControlVB(
                 description = i18n.getString(R.string.slot_dns_control_description),
                 icon = ctx.getDrawable(R.drawable.ic_reload),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh), {
+                    Toast.makeText(ctx, R.string.slot_action_refresh_toast, Toast.LENGTH_SHORT).show()
                     dns.choices.refresh(force = true)
                 }),
                 action2 = Slot.Action(i18n.getString(R.string.slot_action_restore), {
@@ -1204,6 +1206,7 @@ class FiltersListControlVB(
                 description = i18n.getString(R.string.slot_filters_description),
                 icon = ctx.getDrawable(R.drawable.ic_reload),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh), {
+                    Toast.makeText(ctx, R.string.slot_action_refresh_toast , Toast.LENGTH_SHORT).show()
                     val ktx = ctx.ktx("quickActions:refresh")
                     filters.apps.refresh(force = true)
                     tunnel.invalidateFilters(ktx)

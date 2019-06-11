@@ -83,6 +83,7 @@
     <string name="slot_dns_control_title">DNS servers list</string>
     <string name="slot_dns_control_description">You can sync the DNS servers list with our servers without losing your custom entries. &lt;br/&gt;&lt;br/&gt;Alternatively, you can drop all entries (including yours), and download them again.</string>
     <string name="slot_action_refresh">Sync</string>
+    <string name="slot_action_refresh_toast">Sync started</string>
     <string name="slot_action_restore">Drop</string>
 
 

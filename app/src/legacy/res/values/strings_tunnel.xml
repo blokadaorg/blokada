@@ -15,6 +15,7 @@
 
     <string name="tunnel_config_refetch_now_title">Download lists</string>
     <string name="tunnel_config_refetch_now">Download lists now</string>
+    <string name="tunnel_config_refetch_toast">Download of lists started</string>
     <string name="tunnel_config_refetch_now_description">Use the button below to remove cache and download your lists again. This may help if you experience any problems with your filtering.</string>
     <string name="tunnel_config_refetch_frequency_title">Lists download frequency</string>
     <string name="tunnel_config_refetch_frequency_description">Select one of the options to configure how often should the app download your lists.</string>
