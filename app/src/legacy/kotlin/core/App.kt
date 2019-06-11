@@ -8,6 +8,7 @@ import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Worker
 import gs.environment.inject
+import gs.presentation.ViewBinderHolder
 import gs.property.*
 import kotlinx.coroutines.experimental.launch
 import org.blokada.BuildConfig
@@ -71,6 +72,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
                         core.Result.of { i18n.set(key, value); true }
                     }
             )
+        }
+        bind<ViewBinderHolder>() with singleton {
+            ViewBinderHolder()
         }
 
         onReady {

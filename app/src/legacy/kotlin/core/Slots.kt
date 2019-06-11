@@ -198,7 +198,7 @@ class AppStatusVB(
 ) : SlotVB(onTap) {
 
     private var dropped: Int = 0
-    private lateinit var config: BlockaConfig
+    private var config: BlockaConfig = BlockaConfig()
 
     private val actionTurnOn = Slot.Action(i18n.getString(R.string.slot_action_activate)) {
         ktx.emit(BLOCKA_CONFIG, config.copy(adblocking = true))

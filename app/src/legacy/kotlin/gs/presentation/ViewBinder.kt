@@ -9,6 +9,7 @@ import core.Scrollable
 import core.SlotVB
 import core.VBListView
 import org.blokada.R
+import java.lang.ref.WeakReference
 
 /**
  * Represents basic view binding structure that can be embedded in lists or displayed independently,
@@ -28,6 +29,39 @@ interface CallbackViewBinder : ViewBinder {
 }
 
 typealias On = Boolean
+
+class ViewBinderHolder {
+    private val binders = mutableListOf<Pair<ViewBinder, WeakReference<View>>>()
+
+    fun add(binder: ViewBinder, view: View) {
+        if (binders.firstOrNull { it.first == binder } == null) {
+            binders.add(binder to WeakReference(view))
+        }
+    }
+
+    fun remove(binder: ViewBinder) {
+        binders.firstOrNull { it.first == binder }?.run {
+            binders.remove(this)
+        }
+    }
+
+    fun attach() {
+        binders.forEach {
+            it.second.get()?.run {
+                it.first.attach(this)
+            }
+        }
+    }
+
+    fun detach() {
+        binders.forEach {
+            it.second.get()?.run {
+                it.first.detach(this)
+            }
+        }
+    }
+
+}
 
 open class LayoutViewBinder(
         private val resId: Int

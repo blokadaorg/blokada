@@ -4,17 +4,19 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Handler
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.ItemTouchHelper
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnKeyListener
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.github.salomonbrys.kodein.instance
 import gs.presentation.ViewBinder
+import gs.presentation.ViewBinderHolder
 import org.blokada.R
 
 
@@ -41,6 +43,9 @@ class VBListView(
     private val containerView = findViewById<ConstraintLayout>(R.id.container)
     private var layoutManager = LinearLayoutManager(context)
     private var alternativeMode = false
+
+    val ktx = ctx.ktx("VBListView")
+    val viewBinderHolder: ViewBinderHolder = ktx.di().instance()
 
     init {
         listView.addItemDecoration(VerticalSpace(context.dpToPx(6)))
@@ -111,8 +116,10 @@ class VBListView(
         override fun onBindViewHolder(holder: ListerViewHolder, position: Int) {
             val oldDash = items[holder.adapterPosition]
             oldDash.detach(holder.view)
+            viewBinderHolder.remove(oldDash)
             val dash = items[position]
             dash.attach(holder.view)
+            viewBinderHolder.add(dash, holder.view)
             if (position == selectedItem) {
                 holder.view.setBackgroundResource(R.drawable.bg_focused)
                 onItemSelect(dash as SlotVB)

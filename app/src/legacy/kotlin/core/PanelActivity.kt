@@ -2,18 +2,18 @@ package core
 
 import android.app.Activity
 import android.app.UiModeManager
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
-import androidx.annotation.RequiresApi
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import com.github.salomonbrys.kodein.instance
 import gs.environment.ComponentProvider
 import gs.obsolete.Sync
+import gs.presentation.ViewBinderHolder
 import kotlinx.coroutines.experimental.runBlocking
 import org.blokada.R
 import tunnel.askTunnelPermission
@@ -30,6 +30,7 @@ class PanelActivity : Activity() {
     private val tunnelManager by lazy { ktx.di().instance<tunnel.Main>() }
     private val filters by lazy { ktx.di().instance<Filters>() }
     private val activityContext by lazy { ktx.di().instance<ComponentProvider<Activity>>() }
+    private val viewBinderHolder by lazy { ktx.di().instance<ViewBinderHolder>() }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +53,16 @@ class PanelActivity : Activity() {
 
     override fun onBackPressed() {
         if (!dashboardView.handleBackPressed()) super.onBackPressed()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewBinderHolder.attach()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewBinderHolder.detach()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
