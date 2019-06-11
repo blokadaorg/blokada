@@ -4,7 +4,7 @@
     <string name="panel_section_apps">Apps</string>
     <string name="panel_section_advanced">Advanced</string>
 
-    <string name="panel_section_home_start">Start</string>
+    <string name="panel_section_home_start">Blokada VPN</string>
     <string name="panel_section_home_help">Help</string>
     <string name="panel_section_home_community">Community</string>
     <string name="panel_section_ads_lists">Host Lists</string>
@@ -14,7 +14,7 @@
     <string name="panel_section_advanced_dns">DNS Servers</string>
     <string name="panel_section_apps_all">Installed Apps</string>
     <string name="panel_section_apps_system">System Apps</string>
-    <string name="panel_section_advanced_settings">Advanced Settings</string>
+    <string name="panel_section_advanced_settings"></string>
 
     <string name="panel_domain_forwarded">Allowed &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">This domain has been allowed. To block it, use the button below.</string>
@@ -220,4 +220,9 @@
     <string name="slot_account_name_error">Account ID can only contain letters and numbers.</string>
     <string name="slot_account_name_api_error">This account ID does not seem to be correct.</string>
     <string name="slot_account_name_restore">Restore</string>
+
+    <string name="label_basic">Primary settings</string>
+    <string name="label_filters">Ad blocking &amp; lists</string>
+    <string name="label_dns">DNS settings</string>
+    <string name="label_advanced">Advanced settings</string>
 </resources>

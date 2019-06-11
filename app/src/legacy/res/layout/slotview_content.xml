@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/unfolded_line_bottom"
                 android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/unfolded_action3"
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableStart="@drawable/ic_chevron_left"
+                    android:drawableEnd="@drawable/ic_chevron_left"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableStart="@drawable/ic_chevron_down"
+                    android:drawableEnd="@drawable/ic_chevron_down"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableStart="@drawable/ic_chevron_right"
+                    android:drawableEnd="@drawable/ic_chevron_right"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableStart="@drawable/ic_chevron_up"
+                    android:drawableEnd="@drawable/ic_chevron_up"
                     android:padding="@dimen/slot_padding"
                     android:text="@string/slot_action_close"
                     android:tint="@color/colorAccent" />

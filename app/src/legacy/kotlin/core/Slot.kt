@@ -277,6 +277,7 @@ class SlotView(
                             else -> R.color.colorAccent
                         }
                 ))
+                buttonSeparatorView.visibility = View.VISIBLE
             }
             type == Slot.Type.EDIT && content.switched == null -> switchViews.forEach {
                 it.visibility = View.VISIBLE
@@ -287,11 +288,13 @@ class SlotView(
                 it.visibility = View.VISIBLE
                 it.setText(R.string.slot_switch_on)
                 it.setTextColor(resources.getColor(R.color.switch_on))
+                buttonSeparatorView.visibility = View.VISIBLE
             }
             content.switched == false -> switchViews.forEach {
                 it.visibility = View.VISIBLE
                 it.setText(R.string.slot_switch_off)
                 it.setTextColor(resources.getColor(R.color.switch_off))
+                buttonSeparatorView.visibility = View.VISIBLE
             }
             content.action1 != null -> {
                 // Show the first action's name (or unicode icon) in top right
@@ -365,7 +368,7 @@ class SlotView(
                 val color = content!!.color!!
                 iconView.setColorFilter(color)
                 textView.setTextColor(color)
-                switchViews.forEach { it.setTextColor(resources.getColor(R.color.switch_off)) }
+                switchViews.forEach { it.setTextColor(resources.getColor(R.color.colorProtectionHigh)) }
             }
         }
     }
@@ -458,3 +461,41 @@ class SlotView(
     }
 }
 
+class LabelView(
+        ctx: Context,
+        attributeSet: AttributeSet
+) : FrameLayout(ctx, attributeSet) {
+
+    init {
+        inflate(context, R.layout.labelview_content, this)
+    }
+
+    private val i18n by lazy { context.ktx("LabelView").di().instance<I18n>() }
+
+    private val labelView = findViewById<TextView>(R.id.label)
+
+    var label: String = ""
+        set(value) {
+            field = value
+            labelView.text = label
+        }
+
+    var labelResId: Int = 0
+        set(value) {
+            field = value
+            labelView.text = i18n.getString(value)
+        }
+}
+
+class LabelVB(
+        val label: String? = null,
+        val labelResId: Int? = null
+) : LayoutViewBinder(R.layout.labelview) {
+
+    override fun attach(view: View) {
+        view as LabelView
+        if (label != null) view.label = label
+        else if (labelResId != null) view.labelResId = labelResId
+    }
+
+}

@@ -2,12 +2,12 @@ package core
 
 import adblocker.LoggerVB
 import android.content.Context
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.github.salomonbrys.kodein.instance
 import org.blokada.R
 
@@ -37,9 +37,7 @@ fun createDashboardSections(ktx: AndroidKontext): List<DashboardSection> {
 //                            )
                     dash = GatewaysDashboardSectionVB(ktx)
             ),
-            DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_ads_log, AdsLogVB(ktx)),
-            DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_apps_all, AllAppsDashboardSectionVB(ktx.ctx, system = false)),
-            DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_apps_system, AllAppsDashboardSectionVB(ktx.ctx, system = true))
+            DashboardNavItem(R.drawable.ic_server, R.string.panel_section_advanced_dns, DnsDashboardSection(ktx.ctx))
     )
 
     var sections = emptyList<DashboardSection>()
@@ -51,28 +49,41 @@ fun createDashboardSections(ktx: AndroidKontext): List<DashboardSection> {
     )
 
     sections += DashboardSection(
+            nameResId = R.string.panel_section_ads,
+            dash = AdsDashboardSectionVB(ktx),
+            subsections = listOf(
+                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_log, AdsLogVB(ktx)),
+                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_blacklist, BlacklistDashboardSection(ktx)),
+                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_whitelist, WhitelistDashboardSectionVB(ktx)),
+                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_lists, FiltersSectionVB(ktx)),
+                    DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_apps_all, AllAppsDashboardSectionVB(ktx.ctx, system = false)),
+                    DashboardNavItem(R.drawable.ic_apps, R.string.panel_section_apps_system, AllAppsDashboardSectionVB(ktx.ctx, system = true))
+            )
+    )
+
+    sections += DashboardSection(
             nameResId = R.string.panel_section_advanced,
             dash = AdvancedDashboardSectionVB(ktx),
             subsections = listOf(
-                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_lists, FiltersSectionVB(ktx)),
-                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_blacklist, BlacklistDashboardSection(ktx)),
-                    DashboardNavItem(R.drawable.ic_block, R.string.panel_section_ads_whitelist, WhitelistDashboardSectionVB(ktx)),
-                    DashboardNavItem(R.drawable.ic_server, R.string.panel_section_advanced_dns, DnsDashboardSection(ktx.ctx)),
                     DashboardNavItem(R.drawable.ic_tune, R.string.panel_section_advanced_settings, StaticItemsListVB(listOf(
+                            LabelVB(labelResId = R.string.label_basic),
+                            StartOnBootVB(ktx, onTap = defaultOnTap),
+                            StorageLocationVB(ktx, onTap = defaultOnTap),
+                            NotificationsVB(ktx, onTap = defaultOnTap),
+                            LabelVB(labelResId = R.string.label_filters),
                             AdblockingVB(ktx, onTap = defaultOnTap),
                             FiltersListControlVB(ktx, onTap = defaultOnTap),
                             DownloadListsVB(ktx, onTap = defaultOnTap),
                             ListDownloadFrequencyVB(ktx, onTap = defaultOnTap),
                             DownloadOnWifiVB(ktx, onTap = defaultOnTap),
-                            LoggerVB(ktx, onTap = defaultOnTap),
+                            LabelVB(labelResId = R.string.label_dns),
                             DnsListControlVB(ktx, onTap = defaultOnTap),
-                            StorageLocationVB(ktx, onTap = defaultOnTap),
-                            NotificationsVB(ktx, onTap = defaultOnTap),
-                            StartOnBootVB(ktx, onTap = defaultOnTap),
+                            DnsFallbackVB(ktx, onTap = defaultOnTap),
+                            LabelVB(labelResId = R.string.label_advanced),
+                            LoggerVB(ktx, onTap = defaultOnTap),
                             KeepAliveVB(ktx, onTap = defaultOnTap),
                             WatchdogVB(ktx, onTap = defaultOnTap),
                             PowersaveVB(ktx, onTap = defaultOnTap),
-                            DnsFallbackVB(ktx, onTap = defaultOnTap),
                             ReportVB(ktx, onTap = defaultOnTap)
                     )))
             )

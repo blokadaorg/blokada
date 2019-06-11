@@ -434,7 +434,8 @@ data class Request(
         val time: Date = Date()
 ) {
     override fun equals(other: Any?): Boolean {
-        return domain.equals(other)
+        return if (other !is Request) false
+        else domain.equals(other.domain)
     }
 
     override fun hashCode(): Int {

@@ -21,12 +21,14 @@
         android:icon="@mipmap/ic_launcher"
         android:installLocation="internalOnly"
         android:label="@string/branding_app_name"
+        android:networkSecurityConfig="@xml/whitelist_blokada"
         android:supportsRtl="true"
         android:theme="@style/BlokadaColors.Main.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning"
-        android:networkSecurityConfig="@xml/whitelist_blokada"
         tools:replace="android:label">
-        <meta-data android:name="android.notch_support" android:value="true"/>
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
 
         <receiver
             android:name="core.BootReceiver"
@@ -60,43 +62,55 @@
         </activity>
         <activity
             android:name="core.PanelActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
             android:label="Blokada Panel"
             android:launchMode="singleTask"
-            android:configChanges="keyboard|keyboardHidden|navigation"
             android:theme="@style/BlokadaColors.Main.NoActionBar">
-            <meta-data android:name="android.notch_support" android:value="true"/>
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="core.StepActivity"
-            android:label="Blokada Steps"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
+            android:label="Blokada Steps"
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow">
-            <meta-data android:name="android.notch_support" android:value="true"/>
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
         </activity>
         <activity
             android:name="core.SubscriptionActivity"
-            android:label="Blokada Subscription"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
+            android:label="Blokada Subscription"
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow">
-            <meta-data android:name="android.notch_support" android:value="true"/>
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
         </activity>
         <activity
             android:name="core.RestoreAccountActivity"
-            android:label="Blokada Restore Account"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
+            android:label="Blokada Restore Account"
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow">
-            <meta-data android:name="android.notch_support" android:value="true"/>
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
         </activity>
         <activity
             android:name="core.PowersaveActivity"
@@ -154,6 +168,7 @@
             </intent-filter>
         </activity>
         <service android:name="adblocker.UpdateWidgetService" />
+
         <receiver
             android:name="adblocker.ActiveWidgetProvider"
             android:exported="true">

@@ -788,6 +788,7 @@ class HomeAppVB(
 
 class AppVB(
         private val app: App,
+        private val whitelisted: Boolean,
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,
         private val i18n: I18n = ktx.di().instance(),
@@ -805,24 +806,17 @@ class AppVB(
         filters.putFilter(ktx, filter)
     }
 
-    private var filter: Filter? = null
-
     private val actionCancel = Slot.Action(i18n.getString(R.string.slot_action_unwhitelist)) {
-        filter?.apply { filters.removeFilter(ktx, this) }
-    }
-
-    private val onFilters = { filters: Collection<Filter> ->
-        filter = filters.firstOrNull { it.source.id == "app" && it.source.source == app.appId
-            && it.active
-        }
-        refresh()
-        Unit
+        val filter = Filter(
+                id = id(app.appId, whitelist = true),
+                source = FilterSourceDescriptor("app", app.appId)
+        )
+        filters.removeFilter(ktx, filter)
     }
 
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
         view.type = Slot.Type.APP
-        ktx.on(Events.FILTERS_CHANGED, onFilters)
         refresh()
     }
 
@@ -837,8 +831,8 @@ class AppVB(
                             i18n.getString(R.string.slot_allapp_whitelisted),
                             i18n.getString(R.string.slot_allapp_normal)
                     ),
-                    selected = i18n.getString(if (filter != null) R.string.slot_allapp_whitelisted else R.string.slot_allapp_normal),
-                    action1 = if (filter != null) actionCancel else actionWhitelist
+                    selected = i18n.getString(if (whitelisted) R.string.slot_allapp_whitelisted else R.string.slot_allapp_normal),
+                    action1 = if (whitelisted) actionCancel else actionWhitelist
                     //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), ACTION_NONE)
             )
             content = c
@@ -851,10 +845,6 @@ class AppVB(
         val obj = handler.obtainMessage()
         obj.obj = request
         handler.sendMessageDelayed(obj, 200)
-    }
-
-    override fun detach(view: SlotView) {
-        ktx.cancel(Events.FILTERS_CHANGED, onFilters)
     }
 
     companion object {

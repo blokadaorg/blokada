@@ -194,9 +194,11 @@ class DashboardView(
         fg_pager.alpha = 0f
     }
 
-    private var wasAdvanced = false
+//    private var wasAdvanced = false
     private val advanced by lazy { getColorStateList(ctx, R.color.dashboard_menu_advanced) }
-    private val tintAdvanced = resources.getColor(R.color.colorAccent)
+    private val tintAdvanced = resources.getColor(R.color.gradient4_c3)
+    private val adblocking by lazy { getColorStateList(ctx, R.color.dashboard_menu_adblocking) }
+    private val tintAdblocking = resources.getColor(R.color.gradient3_c3)
     private val tintNormal = resources.getColor(R.color.colorText)
     private fun setMainSectionLabelAndMenuIcon(section: DashboardSection) {
         bg_nav.section = makeSectionName(section)
@@ -206,20 +208,21 @@ class DashboardView(
                 R.string.panel_section_advanced -> R.drawable.ic_tune to true
                 else -> R.drawable.ic_menu to false
             }
-            if (isAdvanced != wasAdvanced) {
-                wasAdvanced = isAdvanced
-                fg_logo_icon.animate().setDuration(200).alpha(0f).doAfter {
-                    fg_logo_icon.setImageResource(icon)
-                    if (isAdvanced) {
-                        fg_nav_panel.backgroundTintList = advanced
-                        fg_logo_icon.setColorFilter(tintAdvanced)
-                    } else {
-                        fg_nav_panel.backgroundTintList = null
-                        fg_logo_icon.setColorFilter(tintNormal)
-                    }
-                    fg_logo_icon.animate().setDuration(200).alpha(0.7f)
+//            if (isAdvanced != wasAdvanced) {
+//                wasAdvanced = isAdvanced
+            fg_logo_icon.animate().setDuration(200).alpha(0f).doAfter {
+                fg_logo_icon.setImageResource(icon)
+                val (color1, color2) = when (nameResId) {
+                    R.string.panel_section_advanced -> advanced to tintAdvanced
+                    R.string.panel_section_ads -> adblocking to tintAdblocking
+                    else -> null to tintNormal
                 }
+
+                fg_nav_panel.backgroundTintList = color1
+                fg_logo_icon.setColorFilter(color2)
+                fg_logo_icon.animate().setDuration(200).alpha(0.7f)
             }
+//            }
         }
 
     }

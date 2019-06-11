@@ -30,6 +30,8 @@ class DotsView(
     var section: CharSequence = ""
         set(value) {
             field = value
+            if (value.isBlank()) sectionView.visibility = View.INVISIBLE
+            else sectionView.visibility = View.VISIBLE
             sectionView.text = value.toString().capitalize()
         }
 

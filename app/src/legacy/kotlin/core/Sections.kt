@@ -1,6 +1,7 @@
 package core
 
 import gs.presentation.ListViewBinder
+import gs.presentation.ViewBinder
 import org.blokada.R
 import tunnel.Events
 import tunnel.Filter
@@ -55,13 +56,15 @@ class FiltersSectionVB(val ktx: AndroidKontext) : ListViewBinder() {
 }
 
 class StaticItemsListVB(
-        private val items: List<SlotVB>
+        private val items: List<ViewBinder>
 ) : ListViewBinder() {
 
     private val slotMutex = SlotMutex()
 
     init {
-        items.forEach { it.onTap = slotMutex.openOneAtATime }
+        items.filter { it is SlotVB }.forEach {
+            (it as SlotVB).onTap = slotMutex.openOneAtATime
+        }
     }
 
     override fun attach(view: VBListView) {
