@@ -123,7 +123,11 @@ data class BlockaConfig(
         val gatewayNiceName: String = "",
         val vip4: String = "",
         val vip6: String = ""
-)
+) {
+    override fun toString(): String {
+        return "BlockaConfig(adblocking=$adblocking, blockaVpn=$blockaVpn, accountId='$accountId', activeUntil=$activeUntil, leaseActiveUntil=$leaseActiveUntil, publicKey='$publicKey', gatewayId='$gatewayId', gatewayIp='$gatewayIp', gatewayPort=$gatewayPort, vip4='$vip4', vip6='$vip6')"
+    }
+}
 
 val BLOCKA_CONFIG = "BLOCKA_CONFIG".newEventOf<BlockaConfig>()
 
