@@ -126,56 +126,58 @@ class UpdateWidgetService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        val pref = this.getSharedPreferences("widgets", Context.MODE_PRIVATE)
+        if(widgetList.isEmpty()) {
+            val pref = this.getSharedPreferences("widgets", Context.MODE_PRIVATE)
 
-        val appWidgetManager = AppWidgetManager.getInstance(this)
-        val thisWidget = ComponentName(this, ActiveWidgetProvider::class.java)
-        val widgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
-        widgetIds.forEach {
-            if (pref.contains("widget-$it")) {
-                val widgetConf = pref.getInt("widget-$it", 0)
-                val data = WidgetData()
-                data.id = it
-                data.alpha = widgetConf and 0xff
-                data.counter = (widgetConf and 0x100) > 0
-                data.host = (widgetConf and 0x200) > 0
-                data.dns = (widgetConf and 0x400) > 0
-                widgetList.add(data)
-                setWidget(data)
-            } else {
-                this.ktx().v("widget not found!")
-                val remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
-                remoteViews.setTextViewText(R.id.widget_counter, "ERROR")
-                remoteViews.setTextViewText(R.id.widget_host, "ERROR")
-                remoteViews.setTextViewText(R.id.widget_dns, "ERROR")
-                appWidgetManager.partiallyUpdateAppWidget(it, remoteViews)
+            val appWidgetManager = AppWidgetManager.getInstance(this)
+            val thisWidget = ComponentName(this, ActiveWidgetProvider::class.java)
+            val widgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
+            widgetIds.forEach {
+                if (pref.contains("widget-$it")) {
+                    val widgetConf = pref.getInt("widget-$it", 0)
+                    val data = WidgetData()
+                    data.id = it
+                    data.alpha = widgetConf and 0xff
+                    data.counter = (widgetConf and 0x100) > 0
+                    data.host = (widgetConf and 0x200) > 0
+                    data.dns = (widgetConf and 0x400) > 0
+                    widgetList.add(data)
+                    setWidget(data)
+                } else {
+                    this.ktx().v("widget not found!")
+                    val remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
+                    remoteViews.setTextViewText(R.id.widget_counter, "ERROR")
+                    remoteViews.setTextViewText(R.id.widget_host, "ERROR")
+                    remoteViews.setTextViewText(R.id.widget_dns, "ERROR")
+                    appWidgetManager.partiallyUpdateAppWidget(it, remoteViews)
+                }
             }
-        }
 
-        this.ktx().on(NEW_WIDGET, onNewWidgetEvent)
+            this.ktx().on(NEW_WIDGET, onNewWidgetEvent)
 
-        this.ktx().on(RESTORE_WIDGET, onRestoreEvent)
+            this.ktx().on(RESTORE_WIDGET, onRestoreEvent)
 
-        this.ktx().on(DELETE_WIDGET, onDeleteEvent)
+            this.ktx().on(DELETE_WIDGET, onDeleteEvent)
 
-        val t: Tunnel = this.inject().instance()
-        val droppedlist = t.tunnelRecentDropped()
-        if (droppedlist.isEmpty()) {
-            onBlocked("")
-        } else {
-            onBlocked(droppedlist.last())
-        }
-        this.ktx().on(Events.REQUEST, onBlockedEvent)
+            val t: Tunnel = this.inject().instance()
+            val droppedlist = t.tunnelRecentDropped()
+            if (droppedlist.isEmpty()) {
+                onBlocked("")
+            } else {
+                onBlocked(droppedlist.last())
+            }
+            this.ktx().on(Events.REQUEST, onBlockedEvent)
 
-        onTunnelStateChanged()
-        onTunnelStateEvent = t.tunnelState.doOnUiWhenChanged(withInit = true).then {
             onTunnelStateChanged()
-        }
+            onTunnelStateEvent = t.tunnelState.doOnUiWhenChanged(withInit = true).then {
+                onTunnelStateChanged()
+            }
 
-        onDnsChanged()
-        val d: Dns = this.inject().instance()
-        onDNSEvent = d.dnsServers.doOnUiWhenChanged(withInit = true).then {
             onDnsChanged()
+            val d: Dns = this.inject().instance()
+            onDNSEvent = d.dnsServers.doOnUiWhenChanged(withInit = true).then {
+                onDnsChanged()
+            }
         }
         return START_STICKY
     }
