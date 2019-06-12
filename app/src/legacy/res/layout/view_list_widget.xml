@@ -37,12 +37,14 @@
         <TextView
             android:id="@+id/widget_list_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText" />
 
         <TextView
             android:id="@+id/widget_list_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText" />
 
     </LinearLayout>
 
@@ -56,16 +58,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="0dp"
         android:ellipsize="end"
-        android:maxLines="8" />
-
-    <TextView
-        android:id="@+id/widget_list_timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:paddingTop="8dp"
-        android:paddingRight="4dp" />
+        android:maxLines="8"
+        android:textColor="@color/colorText" />
 
     <Button
         android:id="@+id/widget_list_button"
@@ -73,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/colorText" />
 
 </RelativeLayout>
