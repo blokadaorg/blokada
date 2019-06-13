@@ -301,7 +301,10 @@ class DashboardView(
                         PanelState.ANCHORED -> {
                             ktx.v("panel anchored")
                             model.panelAnchored()
-                            if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) tun.enabled %= true
+                            if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) {
+                                ktx.v("enabling app as panel got anchored from collapsed state")
+                                tun.enabled %= true
+                            }
                             previousMeaningfulState = PanelState.ANCHORED
                         }
                         PanelState.COLLAPSED -> {
@@ -313,7 +316,10 @@ class DashboardView(
                         PanelState.EXPANDED -> {
                             ktx.v("panel expanded")
                             model.panelExpanded()
-                            if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) tun.enabled %= true
+                            if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) {
+                                ktx.v("enabling app as panel got expanded from collapsed state")
+                                tun.enabled %= true
+                            }
                             previousMeaningfulState = PanelState.EXPANDED
                         }
                     }

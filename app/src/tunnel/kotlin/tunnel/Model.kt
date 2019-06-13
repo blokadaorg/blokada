@@ -310,7 +310,7 @@ private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
                             val lease = leases.firstOrNull {
                                 it.publicKey == config.publicKey && it.gatewayId == config.gatewayId
                             }
-                            if (lease != null) {
+                            if (lease != null && lease.expires.after(Date(Date().time + 1800 * 1000))) {
                                 val newCfg = config.copy(
                                         vip4 = lease.vip4,
                                         vip6 = lease.vip6,

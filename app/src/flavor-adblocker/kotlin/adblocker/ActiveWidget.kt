@@ -81,6 +81,7 @@ class ActiveWidgetProvider : AppWidgetProvider() {
                     }
                     if (extras.containsKey("changeBlokadaState")) {
                         val t: Tunnel = context!!.inject().instance()
+                        context.ktx("activewidget").v("toggling enabled")
                         t.enabled %= !t.enabled()
                     }
                 }

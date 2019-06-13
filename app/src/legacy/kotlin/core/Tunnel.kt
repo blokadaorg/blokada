@@ -149,10 +149,10 @@ fun newTunnelModule(ctx: Context): Module {
                 ktx.on(BLOCKA_CONFIG) { cfg ->
                     engine.setup(ctx.ktx("blocka:vpn:switched"), dns.dnsServers(), cfg)
 
-                    if (cfg.blockaVpn && !s.enabled()) {
-                        ktx.v("auto activating on vpn gateway selected")
-                        s.enabled %= true
-                    }
+//                    if (cfg.blockaVpn && !s.enabled()) {
+//                        ktx.v("auto activating on vpn gateway selected")
+//                        s.enabled %= true
+//                    }
                 }
             }
 
@@ -181,7 +181,8 @@ fun newTunnelModule(ctx: Context): Module {
 
             // The tunnel setup routine (with permissions request)
             s.active.doWhenSet().then {
-                if (s.active() && s.tunnelState(TunnelState.INACTIVE)) {
+                ktx.e("enabled: ${s.enabled()}")
+                if (s.enabled() && s.active() && s.tunnelState(TunnelState.INACTIVE)) {
                     s.retries %= s.retries() - 1
                     s.tunnelState %= TunnelState.ACTIVATING
                     s.tunnelPermission.refresh(blocking = true)

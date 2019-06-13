@@ -272,14 +272,17 @@ class VpnStatusVB(
         onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
 
-    private val update = { config: BlockaConfig ->
+    private var config: BlockaConfig = BlockaConfig()
+
+    private val update = { ->
         view?.apply {
+            val connected = s.enabled() && config.blockaVpn
             content = Slot.Content(
                     icon = ktx.ctx.getDrawable(R.drawable.ic_shield_key_outline),
-                    label = if (config.blockaVpn)
+                    label = if (connected)
                         i18n.getString(R.string.slot_status_vpn_turned_on, config.gatewayNiceName)
                         else i18n.getString(R.string.slot_status_vpn_turned_off),
-                    description = if (config.blockaVpn) {
+                    description = if (connected) {
                         i18n.getString(R.string.slot_status_vpn_desc_on, config.gatewayIp)
                     } else i18n.getString(R.string.slot_status_vpn_desc_off),
                     detail = Format.date(Date()),
@@ -305,7 +308,7 @@ class VpnStatusVB(
 //                    },
                     action1 = Slot.Action(i18n.getString(R.string.slot_status_vpn_lease)) {
                         async {
-                            checkAccountInfo(ktx, config)
+                            checkAccountInfo(ktx, config!!)
                         }
                     }
             )
@@ -316,19 +319,26 @@ class VpnStatusVB(
 
     private var wasActive = false
     private val configListener = { cfg: BlockaConfig ->
-        update(cfg)
+        config = cfg
+        update()
         activateVpnAutomatically(cfg)
         wasActive = cfg.activeUntil.after(Date())
         Unit
     }
 
+    private var stateListener: IWhen? = null
+
     override fun attach(view: SlotView) {
         view.type = Slot.Type.INFO
         ktx.on(BLOCKA_CONFIG, configListener)
+        stateListener = s.enabled.doOnUiWhenChanged().then {
+            update()
+        }
     }
 
     override fun detach(view: SlotView) {
         ktx.cancel(BLOCKA_CONFIG, configListener)
+        s.enabled.cancel(stateListener)
     }
 
     private fun activateVpnAutomatically(cfg: BlockaConfig) {
