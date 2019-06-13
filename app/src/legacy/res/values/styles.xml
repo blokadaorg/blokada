@@ -8,6 +8,7 @@
         <item name="android:textColorPrimary">@color/colorText</item>
         <item name="android:textColorLink">@color/colorAccent</item>
         <item name="android:colorForeground">@color/colorActive</item>
+        <item name="android:windowBackground">@drawable/bg_window_nontransparent</item>
     </style>
 
     <style name="BlokadaColors.Main">
