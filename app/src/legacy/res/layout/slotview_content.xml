@@ -125,13 +125,25 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/unfolded_action3"
+                    android:id="@+id/unfolded_action0"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_chevron_left"
+                    android:drawableEnd="@drawable/ic_chevron_up"
+                    android:padding="@dimen/slot_padding"
+                    android:text="@string/slot_action_close"
+                    android:tint="@color/colorAccent" />
+
+                <Button
+                    android:id="@+id/unfolded_action1"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/slot_action_margin"
+                    android:drawablePadding="@dimen/slot_action_margin"
+                    android:drawableEnd="@drawable/ic_chevron_right"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
@@ -147,27 +159,16 @@
                     android:tint="@color/colorAccent" />
 
                 <Button
-                    android:id="@+id/unfolded_action1"
+                    android:id="@+id/unfolded_action3"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_chevron_right"
+                    android:drawableEnd="@drawable/ic_chevron_left"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
-                <Button
-                    android:id="@+id/unfolded_action0"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/slot_action_margin"
-                    android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_chevron_up"
-                    android:padding="@dimen/slot_padding"
-                    android:text="@string/slot_action_close"
-                    android:tint="@color/colorAccent" />
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>

@@ -120,6 +120,9 @@
     <string name="slot_action_deactivate">Turn off</string>
     <string name="slot_action_activate">Turn on</string>
 
+    <string name="slot_action_deactivate_adblocking">Turn off adblocking</string>
+    <string name="slot_action_activate_adblocking">Turn on adblocking</string>
+
     <string name="slot_dropped_counter">Blocked domains counter</string>
     <string name="slot_dropped_counter_info">This counter displays the number of domains that has been blocked since the installation of the app.</string>
     <string name="slot_dropped_action_clear">Reset counter</string>
@@ -149,10 +152,10 @@
     <string name="slot_account_text_inactive">Your subscription is &lt;b&gt;inactive&lt;/b&gt;. You need an active account in order to use Blokada VPN. Please tap the button below to in order to activate it.</string>
     <string name="slot_account_text_active">Your subscription is &lt;b&gt;active&lt;/b&gt; until &lt;b&gt;%s&lt;/b&gt;. Please tap the button below in order to manage your subscription.</string>
     <string name="slot_account_info">You should keep your account ID secret - it is required in order to recover your account in case you uninstall the app. Your subscription will be automatically extended unless you cancel it.</string>
-    <string name="slot_account_action_manage">Manage</string>
-    <string name="slot_account_action_manage_inactive">Activate</string>
-    <string name="slot_account_action_change_id">Restore</string>
-    <string name="slot_account_action_copy">Copy</string>
+    <string name="slot_account_action_manage">Manage account</string>
+    <string name="slot_account_action_manage_inactive">Activate account</string>
+    <string name="slot_account_action_change_id">Restore account</string>
+    <string name="slot_account_action_copy">Copy account ID</string>
     <string name="slot_account_action_copied">Account ID copied to the clipboard</string>
 
     <string name="slot_gateway_label">Connect to %s</string>
@@ -163,13 +166,13 @@
     <string name="panel_section_home_gateways">VPN Gateways</string>
     <string name="subscription_success">Your account is being activated. This may take a few seconds. Thank you!</string>
 
-    <string name="slot_protection_header">Configuration advice</string>
+    <string name="slot_protection_header">Blokada status</string>
     <string name="slot_protection_off">Blokada is inactive</string>
     <string name="slot_protection_activating">Blokada is activating</string>
     <string name="slot_protection_active_warning">Blokada is active, but configuration could be improved. Tap for details.</string>
     <string name="slot_protection_active">Blokada is active</string>
     <string name="slot_protection_action">Settings</string>
-    <string name="slot_protection_ok">Your configuration seems optimal, and your device is fully protected!</string>
+    <string name="slot_protection_ok">Your device is fully protected! Both VPN and adblocking are active.</string>
     <string name="slot_protection_no_adblocking">Blocking ads &amp; trackers is currently disabled. You should enable it in order to protect your privacy and data.</string>
     <string name="slot_protection_no_vpn">You are not connected to Blokada VPN. You should consider it for better protection of your privacy and security.</string>
     <string name="slot_protection_no_start_on_boot">Blokada is not configured to start on boot. You should keep Blokada always on for better protection.</string>

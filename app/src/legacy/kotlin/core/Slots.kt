@@ -200,11 +200,11 @@ class AppStatusVB(
     private var dropped: Int = 0
     private var config: BlockaConfig = BlockaConfig()
 
-    private val actionTurnOn = Slot.Action(i18n.getString(R.string.slot_action_activate)) {
+    private val actionTurnOn = Slot.Action(i18n.getString(R.string.slot_action_activate_adblocking)) {
         ktx.emit(BLOCKA_CONFIG, config.copy(adblocking = true))
     }
 
-    private val actionTurnOff = Slot.Action(i18n.getString(R.string.slot_action_deactivate)) {
+    private val actionTurnOff = Slot.Action(i18n.getString(R.string.slot_action_deactivate_adblocking)) {
         ktx.emit(BLOCKA_CONFIG, config.copy(adblocking = false))
     }
 
