@@ -1,5 +1,6 @@
 package core
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -1367,12 +1368,13 @@ class AboutVB(
         private val i18n: I18n = ktx.di().instance(),
         private val ver: Version = ktx.di().instance(),
         private val pages: Pages = ktx.di().instance(),
+        private val activity: ComponentProvider<Activity> = ktx.di().instance(),
         onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
 
-    private val creditsAction = Slot.Action(i18n.getString(R.string.main_credits), {
+    private val creditsAction = Slot.Action(i18n.getString(R.string.main_credits)) {
         openInBrowser(ctx, pages.credits())
-    })
+    }
 
     override fun attach(view: SlotView) {
         view.type = Slot.Type.INFO
@@ -1382,19 +1384,21 @@ class AboutVB(
                 description = "${ver.appName} ${ver.name}",
                 detail = blokadaUserAgent(),
                 action2 = creditsAction,
-                action3 = Slot.Action(i18n.getString(R.string.update_button_appinfo), {
+                action3 = Slot.Action(i18n.getString(R.string.update_button_appinfo)) {
                     try { ctx.startActivity(newAppDetailsIntent(ctx.packageName)) } catch (e: Exception) {}
-                }),
-                action1 = Slot.Action(i18n.getString(R.string.slot_about_share_log), {
-                    val uri = getExternalPath() + "/blokada.log"
-                    val openFileIntent = Intent(Intent.ACTION_SEND)
-                    openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    openFileIntent.type = "plain/*"
-                    openFileIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(ktx.ctx, "${ktx.ctx.packageName}.files",
-                            File(uri)))
-                    ktx.ctx.startActivity(openFileIntent)
-                })
+                },
+                action1 = Slot.Action(i18n.getString(R.string.slot_about_share_log)) {
+                    if (askForExternalStoragePermissionsIfNeeded(activity)) {
+                        val uri = getExternalPath() + "/blokada.log"
+                        val openFileIntent = Intent(Intent.ACTION_SEND)
+                        openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        openFileIntent.type = "plain/*"
+                        openFileIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(ktx.ctx, "${ktx.ctx.packageName}.files",
+                                File(uri)))
+                        ktx.ctx.startActivity(openFileIntent)
+                    }
+                }
         )
     }
 
@@ -1403,6 +1407,15 @@ class AboutVB(
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.data = Uri.parse("package:" + packageName)
         return intent
+    }
+
+    private fun askForExternalStoragePermissionsIfNeeded(activity: ComponentProvider<Activity>): Boolean {
+        return if (!checkStoragePermissions(ktx)) {
+            activity.get()?.apply {
+                askStoragePermission(ktx, this)
+            }
+            false
+        } else true
     }
 }
 

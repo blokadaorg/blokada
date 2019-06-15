@@ -139,7 +139,7 @@ val BLOCKA_CONFIG = "BLOCKA_CONFIG".newEventOf<BlockaConfig>()
 fun registerBlockaConfigEvent(ktx: AndroidKontext) {
     val config = Persistence.blocka.load(ktx)
 
-    ktx.v("loading boringtun and generating keys")
+    ktx.v("loading boringtun")
     System.loadLibrary("boringtun")
 
     // First time set values
