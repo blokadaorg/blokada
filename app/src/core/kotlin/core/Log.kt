@@ -58,7 +58,7 @@ class FileLogWriter {
     private var file: PrintWriter? = try {
         val path = File(getExternalPath(), "blokada.log")
         val writer = PrintWriter(FileOutputStream(path, true), true)
-        if (path.length() > 10 * 1024 * 1024) path.delete()
+        if (path.length() > 4 * 1024 * 1024) path.delete()
         logcatWriter(LOG_VERBOSE, LOG_DEFAULT_TAG, "writing logs to file: ${path.canonicalPath}")
         writer
     } catch (ex: Exception) {
