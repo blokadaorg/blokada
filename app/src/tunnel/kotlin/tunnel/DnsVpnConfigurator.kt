@@ -157,7 +157,7 @@ internal class BlockaVpnConfigurator(
 
         // TODO: support configurable ipv6 servers - this one is cloudflare
         // This means ad blocking does not work for ipv6 currently
-        builder.addDnsServer("2606:4700:4700::1111")
+        //builder.addDnsServer("2606:4700:4700::1111")
 
         builder.addDisallowedApplication(packageName)
         filterManager.getWhitelistedApps(ktx).forEach {
