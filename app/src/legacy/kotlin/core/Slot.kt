@@ -257,7 +257,7 @@ class SlotView(
     fun isUnfolded() = foldingView.isUnfolded
 
     fun enableAlternativeBackground() {
-        foldingView.initialize(1000, resources.getColor(R.color.colorBackgroundLight), 0)
+        foldingView.initialize(700, resources.getColor(R.color.colorBackgroundLight), 0)
         foldedContainerView.setBackgroundResource(R.drawable.bg_dashboard_item_alternative)
         unfoldedContainerView.setBackgroundResource(R.drawable.bg_dashboard_item_unfolded_alternative)
     }
