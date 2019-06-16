@@ -44,6 +44,7 @@ class DashboardView(
     private val bg_nav = findViewById<DotsView>(R.id.bg_nav)
     private val bg_start = findViewById<LinearLayout>(R.id.bg_start)
     private val bg_logo = findViewById<LinearLayout>(R.id.bg_logo)
+    private val bg_logo_icon = findViewById<ImageView>(R.id.bg_logo_icon)
     private val bg_off_logo = findViewById<ImageView>(R.id.bg_off_logo)
     private val bg_pager = findViewById<VBPagesView>(R.id.bg_pager)
     private val bg_packets = findViewById<PacketsView>(R.id.bg_packets)
@@ -236,11 +237,13 @@ class DashboardView(
         tunnelEvents.listeners.add(object : IEnabledStateActorListener {
             override fun startActivating() {
                 bg_packets.setTunnelState(TunnelState.ACTIVATING)
+                bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoWaiting))
                 model.tunnelActivating()
             }
 
             override fun finishActivating() {
                 bg_packets.setTunnelState(TunnelState.ACTIVE)
+                bg_logo_icon.setColorFilter(resources.getColor(android.R.color.transparent))
                 Persistence.request.load(0).onSuccess {
                     bg_packets.setRecentHistory(it)
                 }
@@ -248,10 +251,12 @@ class DashboardView(
 
             override fun startDeactivating() {
                 bg_packets.setTunnelState(TunnelState.DEACTIVATING)
+                bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoWaiting))
             }
 
             override fun finishDeactivating() {
                 bg_packets.setTunnelState(TunnelState.INACTIVE)
+                bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoInactive))
                 model.tunnelDeactivated()
             }
         })
@@ -364,6 +369,11 @@ class DashboardView(
 
         bg_start.setOnClickListener {
             sliding.panelState = PanelState.ANCHORED
+        }
+
+        bg_logo_icon.setOnClickListener {
+            tun.error %= false
+            tun.enabled %= !tun.enabled()
         }
     }
 

@@ -29,22 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <LinearLayout
-                android:id="@+id/bg_logo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/bg_logo_icon"
-                    android:layout_width="@dimen/dashboard_logo_size"
-                    android:layout_height="@dimen/dashboard_logo_size"
-                    android:layout_marginStart="@dimen/dashboard_logo_margin_start"
-                    android:layout_marginTop="@dimen/dashboard_logo_margin_top"
-                    android:src="@drawable/blokada" />
-            </LinearLayout>
-
             <ImageView
                 android:id="@+id/bg_off_logo"
                 android:layout_width="@dimen/dashboard_off_size"
@@ -95,6 +79,22 @@
                 android:layout_marginTop="@dimen/dashboard_nav_margin_top"
                 android:clickable="false"
                 android:focusable="false" />
+
+            <LinearLayout
+                android:id="@+id/bg_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/bg_logo_icon"
+                    android:layout_width="@dimen/dashboard_logo_size"
+                    android:layout_height="@dimen/dashboard_logo_size"
+                    android:layout_marginStart="@dimen/dashboard_logo_margin_start"
+                    android:layout_marginTop="@dimen/dashboard_logo_margin_top"
+                    android:src="@drawable/blokada" />
+            </LinearLayout>
 
         </RelativeLayout>
 
