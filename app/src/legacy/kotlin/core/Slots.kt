@@ -154,7 +154,7 @@ class ProtectionVB(
                 }),
                 action2 = settingsAction
         )
-        view?.type = Slot.Type.PROTECTION
+        view?.type = Slot.Type.PROTECTION_OFF
     }
 
     private fun error() {
@@ -170,7 +170,7 @@ class ProtectionVB(
                 }),
                 action2 = settingsAction
         )
-        view?.type = Slot.Type.PROTECTION
+        view?.type = Slot.Type.PROTECTION_OFF
     }
 
     private fun activating() {

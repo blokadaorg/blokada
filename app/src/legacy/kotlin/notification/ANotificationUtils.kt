@@ -8,17 +8,15 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.core.app.NotificationCompat
+import android.text.format.DateUtils
+import android.widget.RemoteViews
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject
 import gs.property.I18n
 import org.blokada.R
-import android.text.format.DateUtils
-import android.widget.RemoteViews
-import android.appwidget.AppWidgetManager
-import android.content.ComponentName
 
 
 
@@ -36,7 +34,7 @@ fun displayNotification(ctx: Context, reason: String) {
     b.setPriority(NotificationCompat.PRIORITY_MAX)
     b.setVibrate(LongArray(0))
 
-    val intentActivity = Intent(ctx, MainActivity::class.java)
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
     intentActivity.putExtra("notification", true)
     val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
     b.setContentIntent(piActivity)
@@ -119,7 +117,7 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
     b.setPriority(NotificationCompat.PRIORITY_MIN)
     b.setOngoing(true)
 
-    val intentActivity = Intent(ctx, MainActivity::class.java)
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
     intentActivity.putExtra("notification", true)
     val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
     b.setContentIntent(piActivity)
@@ -154,7 +152,7 @@ fun displayNotificationForUpdate(ctx: Context, versionName: String) {
     b.setPriority(NotificationCompat.PRIORITY_LOW)
     b.setVibrate(LongArray(0))
 
-    val intentActivity = Intent(ctx, MainActivity::class.java)
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
     intentActivity.putExtra("notification", true)
     val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
     b.setContentIntent(piActivity)

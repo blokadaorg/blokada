@@ -172,7 +172,7 @@
     <string name="slot_protection_error_desc">Blokada seems to have trouble running reliably on your device. This may be caused by temporary problems, device or software issues. Please try restarting your phone and turning the app on again. If the problem persists, please contact us on Telegram for help.</string>
     <string name="slot_protection_activating">Blokada is activating</string>
     <string name="slot_protection_active_warning">Blokada is active, but configuration could be improved. Tap for details.</string>
-    <string name="slot_protection_active">Blokada is active</string>
+    <string name="slot_protection_active">Blokada and VPN are active</string>
     <string name="slot_protection_action">Settings</string>
     <string name="slot_protection_ok">Your device is fully protected! Both VPN and adblocking are active.</string>
     <string name="slot_protection_no_adblocking">Blocking ads &amp; trackers is currently disabled. You should enable it in order to protect your privacy and data.</string>

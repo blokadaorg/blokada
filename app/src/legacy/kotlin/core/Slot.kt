@@ -21,7 +21,7 @@ import java.util.*
 
 class Slot {
     enum class Type {
-        INFO, FORWARD, BLOCK, COUNTER, STATUS, NEW, EDIT, APP, PROTECTION
+        INFO, FORWARD, BLOCK, COUNTER, STATUS, NEW, EDIT, APP, PROTECTION, PROTECTION_OFF
     }
 
     data class Action(val name: String, val callback: () -> Unit)
@@ -365,6 +365,12 @@ class SlotView(
                 iconView.setImageResource(R.drawable.ic_hexagon)
             }
             Slot.Type.PROTECTION -> {
+                val color = content!!.color!!
+                iconView.setColorFilter(color)
+                textView.setTextColor(color)
+                switchViews.forEach { it.setTextColor(resources.getColor(R.color.colorProtectionLow)) }
+            }
+            Slot.Type.PROTECTION_OFF -> {
                 val color = content!!.color!!
                 iconView.setColorFilter(color)
                 textView.setTextColor(color)
