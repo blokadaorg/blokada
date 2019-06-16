@@ -21,6 +21,7 @@ import tunnel.Persistence
 
 abstract class Tunnel {
     abstract val enabled: IProperty<Boolean>
+    abstract val error: IProperty<Boolean>
     abstract val retries: IProperty<Int>
     abstract val active: IProperty<Boolean>
     abstract val restart: IProperty<Boolean>
@@ -43,6 +44,8 @@ class TunnelImpl(
     override val enabled = newPersistedProperty(kctx, APrefsPersistence(ctx, "enabled"),
             { false }
     )
+
+    override val error = newProperty(kctx, { false })
 
     override val active = newPersistedProperty(kctx, APrefsPersistence(ctx, "active"),
             { false }
@@ -140,6 +143,8 @@ fun newTunnelModule(ctx: Context): Module {
             val watchdog: IWatchdog = instance()
             val retryKctx: Worker = with("retry").instance()
             val ktx = "tunnel:legacy".ktx()
+            var restarts = 0
+            var lastRestartMillis = 0L
 
             dns.dnsServers.doWhenChanged(withInit = true).then {
                 engine.setup(ctx.ktx("dns:changed"), dns.dnsServers())
@@ -153,6 +158,19 @@ fun newTunnelModule(ctx: Context): Module {
 //                        ktx.v("auto activating on vpn gateway selected")
 //                        s.enabled %= true
 //                    }
+                }
+
+                ktx.on(Events.TUNNEL_RESTART) {
+                    val restartedRecently = (System.currentTimeMillis() - lastRestartMillis) < 15 * 1000
+                    lastRestartMillis = System.currentTimeMillis()
+                    if (!restartedRecently) restarts = 0
+                    if (restarts++ > 6) {
+                        restarts = 0
+                        ktx.e("Too many tunnel restarts. Stopping...")
+                        s.error %= true
+                        s.restart %= false
+                        s.enabled %= false
+                    } else ktx.w("tunnel restarted for $restarts time in a row")
                 }
             }
 

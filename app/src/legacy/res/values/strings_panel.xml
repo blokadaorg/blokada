@@ -168,6 +168,8 @@
 
     <string name="slot_protection_header">Blokada status</string>
     <string name="slot_protection_off">Blokada is inactive</string>
+    <string name="slot_protection_error">Blokada is experiencing problems</string>
+    <string name="slot_protection_error_desc">Blokada seems to have trouble running reliably on your device. This may be caused by temporary problems, device or software issues. Please try restarting your phone and turning the app on again. If the problem persists, please contact us on Telegram for help.</string>
     <string name="slot_protection_activating">Blokada is activating</string>
     <string name="slot_protection_active_warning">Blokada is active, but configuration could be improved. Tap for details.</string>
     <string name="slot_protection_active">Blokada is active</string>

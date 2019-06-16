@@ -38,6 +38,7 @@ class ProtectionVB(
 
     private var active = false
     private var activating = false
+    private var error = false
     private var vpn = 0
     private var adblocking = 0
     private var startOnBoot = 0
@@ -68,6 +69,7 @@ class ProtectionVB(
     }
 
     private var onStartOnBoot: IWhen? = null
+    private var onError: IWhen? = null
     private var onDns: IWhen? = null
 
     override fun attach(view: SlotView) {
@@ -82,6 +84,10 @@ class ProtectionVB(
             dns = if(hasGoodDnsServers(d)) 1 else 0
             update()
         }
+        onError = s.error.doOnUiWhenSet().then {
+            error = s.error()
+            update()
+        }
     }
 
     override fun detach(view: SlotView) {
@@ -89,6 +95,7 @@ class ProtectionVB(
         ktx.cancel(BLOCKA_CONFIG, configListener)
         s.startOnBoot.cancel(onStartOnBoot)
         d.dnsServers.cancel(onDns)
+        s.error.cancel(onError)
     }
 
     private val configListener = { cfg: BlockaConfig ->
@@ -101,6 +108,9 @@ class ProtectionVB(
     private fun update() {
         if (activating) {
             activating()
+            return
+        } else if (error) {
+            error()
             return
         } else if (!active) {
             off()
@@ -140,6 +150,22 @@ class ProtectionVB(
                 color = ktx.ctx.resources.getColor(R.color.colorProtectionLow),
                 info = i18n.getString(R.string.slot_status_info),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_activate), {
+                    s.enabled %= true
+                }),
+                action2 = settingsAction
+        )
+        view?.type = Slot.Type.PROTECTION
+    }
+
+    private fun error() {
+        view?.content = Slot.Content(
+                label = i18n.getString(R.string.slot_protection_error),
+                description = i18n.getString(R.string.slot_protection_error_desc),
+                icon = ktx.ctx.getDrawable(R.drawable.ic_shield_outline),
+                color = ktx.ctx.resources.getColor(R.color.colorProtectionLow),
+                info = i18n.getString(R.string.slot_status_info),
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_activate), {
+                    s.error %= false
                     s.enabled %= true
                 }),
                 action2 = settingsAction

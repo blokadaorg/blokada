@@ -21,6 +21,7 @@ object Events {
     val REQUEST = "REQUEST".newEventOf<Request>()
     val TUNNEL_POWER_SAVING = "TUNNEL_POWER_SAVING".newEvent()
     val MEMORY_CAPACITY = "MEMORY_CAPACITY".newEventOf<Int>()
+    val TUNNEL_RESTART = "TUNNEL_RESTART".newEvent()
 }
 
 class Main(
@@ -74,8 +75,9 @@ class Main(
     }
 
     fun setup(ktx: AndroidKontext, servers: List<InetSocketAddress>, config: BlockaConfig? = null, start: Boolean = false) = async(CTRL) {
-        val processedServers = processServers(ktx, servers, config, ktx.di().instance() )
-        ktx.v("setup tunnel, start = $start, enabled = $enabled", processedServers, config ?: "null")
+        val cfg = config ?: blockaConfig
+        val processedServers = processServers(ktx, servers, cfg, ktx.di().instance() )
+        ktx.v("setup tunnel, start = $start, enabled = $enabled", processedServers, config ?: "no blocka config")
         enabled = start or enabled
         when {
             processedServers.isEmpty() -> {

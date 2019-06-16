@@ -21,6 +21,7 @@ import java.util.*
 import kotlin.experimental.and
 import kotlin.math.min
 
+
 internal class BlockaTunnel(
         private val dnsServers: List<InetSocketAddress>,
         private val config: TunnelConfig,
@@ -48,9 +49,6 @@ internal class BlockaTunnel(
 
     private val packet = DatagramPacket(memory, 0, 1)
 
-    private var lastTickMs = 0L
-    private val tickIntervalMs = 100
-
     private var deviceOut: OutputStream? = null
 
     private var tunnel: Long? = null
@@ -59,6 +57,22 @@ internal class BlockaTunnel(
 
     private val MAX_ONE_WAY_DNS_REQUESTS = 10
     private var oneWayDnsCounter = 0
+
+    private val MAX_ERRORS = 50
+    private val ERRORS_RESET_AFTER_TICKS = 60 /* 60 * 500 = 30 seconds */
+    private var errorsRecently = 0
+
+    private var lastTickMs = 0L
+    private var ticks = 0
+    private val tickIntervalMs = 500
+
+    private fun errorOccurred(ktx: Kontext, error: String) {
+        ktx.e(error, errorsRecently)
+        if (++errorsRecently > MAX_ERRORS) {
+            errorsRecently = 0
+            throw Exception("Too many errors recently", Exception(error))
+        }
+    }
 
     fun fromDevice(ktx: Kontext, fromDevice: ByteArray, length: Int) {
         if (blockaConfig.adblocking && interceptDns(ktx, fromDevice, length)) return
@@ -75,17 +89,16 @@ internal class BlockaTunnel(
             destination.limit(response)
             when (op[0].toInt()) {
                 BoringTunJNI.WRITE_TO_NETWORK -> {
-//                    ktx.v("will write to network: $response, buffer: ${destinationId}")
                     forward(ktx)
                 }
                 BoringTunJNI.WIREGUARD_ERROR -> {
-                    ktx.e("wireguard error: ${BoringTunJNI.errors[response]}")
+                    errorOccurred(ktx, "wireguard error: ${BoringTunJNI.errors[response]}")
                 }
                 BoringTunJNI.WIREGUARD_DONE -> {
                     if (i == 1) ktx.e("did not do anything with packet, length: $length")
                 }
                 else -> {
-                    ktx.w("wireguard write unknown response: ${op[0].toInt()}")
+                    errorOccurred(ktx, "wireguard write unknown response: ${op[0].toInt()}")
                 }
             }
         } while (response == BoringTunJNI.WRITE_TO_NETWORK)
@@ -95,9 +108,6 @@ internal class BlockaTunnel(
         var i = 0
         do {
             op.rewind()
-//            ktx.v("read: received length: $length")
-//            val destinationBufferId = buffers.getFreeBuffer()
-//            val destination = buffers[destinationBufferId]
             val destination = buffer
             destination.rewind()
             destination.limit(destination.capacity())
@@ -107,16 +117,13 @@ internal class BlockaTunnel(
             destination.limit(response) // TODO: what if -1
             when (op[0].toInt()) {
                 BoringTunJNI.WRITE_TO_NETWORK -> {
-//                    ktx.v("read: will write: $response, length: $length")
                     forward(ktx)
                 }
                 BoringTunJNI.WIREGUARD_ERROR -> {
-                    ktx.e("read: wireguard error: ${BoringTunJNI.errors[response]}")
-//                    buffers.returnBuffer(destinationBufferId)
+                    errorOccurred(ktx, "read: wireguard error: ${BoringTunJNI.errors[response]}")
                 }
                 BoringTunJNI.WIREGUARD_DONE -> {
                     if (i == 1) ktx.e("read: did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
-//                    buffers.returnBuffer(destinationBufferId)
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV4 -> {
                     if (blockaConfig.adblocking && (
@@ -124,7 +131,6 @@ internal class BlockaTunnel(
                                             (dnsServers.size > 1 && srcAddress4(ktx, destination, dnsServers[1].address.address))
                                     )
                     ) {
-//                        ktx.v("detected dns coming back")
                         oneWayDnsCounter = 0
                         rewriteSrcDns4(ktx, destination, length)
                     }
@@ -132,13 +138,11 @@ internal class BlockaTunnel(
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV6 -> loopback(ktx, 0)
                 else -> {
-                    ktx.w("read: wireguard unknown response: ${op[0].toInt()}")
-//                    buffers.returnBuffer(destinationBufferId)
+                    errorOccurred(ktx, "read: wireguard unknown response: ${op[0].toInt()}")
                 }
             }
         } while (response == BoringTunJNI.WRITE_TO_NETWORK)
     }
-
 
     private val ipv4Version = (1 shl 6).toByte()
     private val ipv6Version = (3 shl 5).toByte()
@@ -154,7 +158,6 @@ internal class BlockaTunnel(
     }
 
     private fun parseDns(ktx: Kontext, packetBytes: ByteArray, length: Int): Boolean {
-//        ktx.v("detected dns request")
         val originEnvelope = try {
             IpSelector.newPacket(packetBytes, 0, length) as IpPacket
         } catch (e: Exception) {
@@ -201,7 +204,6 @@ internal class BlockaTunnel(
 
             envelope.rawData.copyInto(packetBytes)
 
-//            ktx.v("rewriting dns request")
             ktx.emit(Events.REQUEST, Request(host))
             if (++oneWayDnsCounter > MAX_ONE_WAY_DNS_REQUESTS) {
                 throw Exception("Too many DNS requests without response")
@@ -244,7 +246,7 @@ internal class BlockaTunnel(
         originEnvelope as IpV4Packet
 
         if (originEnvelope.payload !is UdpPacket) {
-            ktx.w("TCP packet received towards DNS IP")
+            ktx.w("TCP packet received towards DNS IP, dropping")
             return
         }
 
@@ -253,7 +255,8 @@ internal class BlockaTunnel(
 
         val dst = dnsServers.firstOrNull { it.address == originEnvelope.header.srcAddr }
         val dnsIndex = dnsServers.indexOf(dst)
-        if (dnsIndex == -1) ktx.e("unknown dns server $dst")
+        if (dnsIndex == -1) errorOccurred(ktx, "cannot rewrite DNS response, unknown dns server: $dst. dropping")
+//            ktx.v("rewritten back dns response")
         else {
             val src = dnsProxyDst4.copyOf()
             src[3] = (dnsIndex + 1).toByte()
@@ -278,7 +281,6 @@ internal class BlockaTunnel(
             packet.put(envelope.rawData)
             packet.position(0)
             packet.limit(envelope.rawData.size)
-//            ktx.v("rewritten back dns response")
         }
     }
 
@@ -312,8 +314,6 @@ internal class BlockaTunnel(
                     .build()
         }
 
-//        val destinationBufferId = buffers.getFreeBuffer()
-//        val destination = buffers[destinationBufferId]
         val destination = buffer
         destination.rewind()
         destination.limit(destination.capacity())
@@ -396,7 +396,6 @@ internal class BlockaTunnel(
             throw ex
         } finally {
             ktx.v("cleaning up resources", this)
-//            buffers.returnAllBuffers()
             Result.of { Os.close(error) }
             Result.of { input.close() }
             Result.of { output.close() }
@@ -409,6 +408,7 @@ internal class BlockaTunnel(
             Result.of { run(ktx, tunnel) }.mapError {
                 if (it is InterruptedException || threadInterrupted()) interrupted = true
                 else {
+                    ktx.emit(Events.TUNNEL_RESTART)
                     val cooldown = min(cooldownTtl * cooldownCounter++, cooldownMax)
                     ktx.e("tunnel thread error, will restart after $cooldown ms", this, it.toString())
                     Result.of { Thread.sleep(cooldown) }.mapError {
@@ -501,6 +501,9 @@ internal class BlockaTunnel(
         if (now > (lastTickMs + tickIntervalMs)) {
             lastTickMs = now
             tickWireguard(ktx)
+            ticks++
+
+            if (ticks % ERRORS_RESET_AFTER_TICKS == 0) errorsRecently = 0
         }
     }
 
@@ -518,12 +521,12 @@ internal class BlockaTunnel(
                 forward(ktx)
             }
             BoringTunJNI.WIREGUARD_ERROR -> {
-                ktx.e("tick: wireguard error: ${BoringTunJNI.errors[response]}")
+                errorOccurred(ktx, "tick: wireguard error: ${BoringTunJNI.errors[response]}")
             }
             BoringTunJNI.WIREGUARD_DONE -> {
             }
             else -> {
-                ktx.w("tick: wireguard timer unknown response: ${op[0].toInt()}")
+                errorOccurred(ktx, "tick: wireguard timer unknown response: ${op[0].toInt()}")
             }
         }
     }
