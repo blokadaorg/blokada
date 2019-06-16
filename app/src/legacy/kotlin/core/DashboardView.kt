@@ -74,6 +74,7 @@ class DashboardView(
                 onAnchored = { sectionIndex ->
                     ktx.v("onAnchored")
                     setOn(sectionIndex + 1)
+                    if (sliding.panelState != PanelState.ANCHORED) sliding.panelState = PanelState.ANCHORED
                 },
                 onCollapsed = { sectionIndex ->
                     ktx.v("onCollapsed")
@@ -110,7 +111,7 @@ class DashboardView(
                 onCloseMenu = {
                     sliding.panelState = PanelState.ANCHORED
                 }
-            )
+        )
     }
 
     override fun onFinishInflate() {
@@ -194,7 +195,7 @@ class DashboardView(
         fg_pager.alpha = 0f
     }
 
-//    private var wasAdvanced = false
+    //    private var wasAdvanced = false
     private val advanced by lazy { getColorStateList(ctx, R.color.dashboard_menu_advanced) }
     private val tintAdvanced = resources.getColor(R.color.gradient4_c3)
     private val adblocking by lazy { getColorStateList(ctx, R.color.dashboard_menu_adblocking) }
@@ -377,7 +378,7 @@ class DashboardView(
         ktx.v("resize")
         val percentHeight = (
                 resources.getDimensionPixelSize(R.dimen.dashboard_panel_anchor_size)
-                    +  navigationBarPx
+                        +  navigationBarPx
                 ).toFloat() / height
         sliding.anchorPoint = percentHeight
 
