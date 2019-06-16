@@ -52,9 +52,14 @@ class HomeDashboardSectionVB(
             HelpVB(ctx.ktx("HelpVB"), onTap = slotMutex.openOneAtATime)
     )
 
+    private var added = false
+
     override fun attach(view: VBListView) {
         val slot = decideOnSlot()
-        if (slot != null) items = listOf(slot) + items
+        if (slot != null && !added) {
+            items = listOf(slot) + items
+            added = true
+        }
         view.set(items)
     }
 
