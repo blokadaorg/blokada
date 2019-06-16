@@ -152,7 +152,7 @@
     <string name="slot_account_text_inactive">Your subscription is &lt;b&gt;inactive&lt;/b&gt;. You need an active account in order to use Blokada VPN. Please tap the button below to in order to activate it.</string>
     <string name="slot_account_text_active">Your subscription is &lt;b&gt;active&lt;/b&gt; until &lt;b&gt;%s&lt;/b&gt;. Please tap the button below in order to manage your subscription.</string>
     <string name="slot_account_info">You should keep your account ID secret - it is required in order to recover your account in case you uninstall the app. Your subscription will be automatically extended unless you cancel it.</string>
-    <string name="slot_account_action_manage">Manage account</string>
+    <string name="slot_account_action_manage">Manage</string>
     <string name="slot_account_action_manage_inactive">Activate account</string>
     <string name="slot_account_action_change_id">Restore account</string>
     <string name="slot_account_action_copy">Copy account ID</string>
