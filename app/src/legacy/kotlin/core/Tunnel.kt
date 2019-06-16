@@ -305,6 +305,12 @@ fun newTunnelModule(ctx: Context): Module {
                     d.connected() && s.restart() && !s.updating() && s.enabled() -> {
                         ktx.v("connectivity back, activating")
                         s.restart %= false
+                        s.error %= false
+                        s.active %= true
+                    }
+                    d.connected() && s.error() && !s.updating() && s.enabled() -> {
+                        ktx.v("connectivity back, auto recover from error")
+                        s.error %= false
                         s.active %= true
                     }
                 }

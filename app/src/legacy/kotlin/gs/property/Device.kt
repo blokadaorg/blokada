@@ -168,7 +168,7 @@ class AWatchdog(
     private val ktx by lazy { "device:watchdog".ktx() }
 
     override fun test(): Boolean {
-        if (!d.watchdogOn()) return true
+        if (!d.watchdogOn()) return false
         ktx.v("watchdog ping")
         val socket = Socket()
         socket.soTimeout = 3000

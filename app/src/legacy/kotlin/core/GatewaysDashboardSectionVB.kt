@@ -1,5 +1,6 @@
 package core
 
+import android.os.Handler
 import com.github.salomonbrys.kodein.instance
 import gs.presentation.ListViewBinder
 import gs.presentation.ViewBinder
@@ -21,14 +22,20 @@ class GatewaysDashboardSectionVB(
             BlockaVB(ktx, onTap = slotMutex.openOneAtATime)
     )
 
+    private val gatewaysRequest = Handler {
+        async { populateGateways() }
+        true
+    }
+
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
-        if (items.size == 1) async { populateGateways() }
-        else view.set(items)
+        view.set(items)
+        if (items.size == 1) gatewaysRequest.sendEmptyMessage(0)
     }
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
+        gatewaysRequest.removeMessages(0)
     }
 
     private fun populateGateways(retry: Int = 0) {
@@ -36,6 +43,7 @@ class GatewaysDashboardSectionVB(
             override fun onFailure(call: Call<RestModel.Gateways>?, t: Throwable?) {
                 ktx.e("gateways api call error", t ?: "null")
                 if (retry < MAX_RETRIES) populateGateways(retry + 1)
+                else gatewaysRequest.sendEmptyMessageDelayed(0, 5 * 1000)
             }
 
             override fun onResponse(call: Call<RestModel.Gateways>?, response: Response<RestModel.Gateways>?) {
@@ -43,15 +51,17 @@ class GatewaysDashboardSectionVB(
                     when (code()) {
                         200 -> {
                             body()?.run {
-                                gateways.forEach {
-                                    items += GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime)
+                                val g = gateways.map {
+                                    GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime)
                                 }
+                                items = listOf(items[0]) + g
                                 view?.set(items)
                             }
                         }
                         else -> {
                             ktx.e("gateways api call response ${code()}")
                             if (retry < MAX_RETRIES) populateGateways(retry + 1)
+                            else gatewaysRequest.sendEmptyMessageDelayed(0, 30 * 1000)
                             Unit
                         }
                     }

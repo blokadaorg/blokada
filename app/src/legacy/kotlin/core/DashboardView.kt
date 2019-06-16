@@ -324,6 +324,7 @@ class DashboardView(
                             model.panelExpanded()
                             if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) {
                                 ktx.v("enabling app as panel got expanded from collapsed state")
+                                tun.error %= false
                                 tun.enabled %= true
                             }
                             previousMeaningfulState = PanelState.EXPANDED

@@ -178,7 +178,7 @@ class WebDash(
             j.log("WebDash: load failed: $url", reason)
             clean = false
             if (!reloadOnError) return
-            if (reloadCounter++ <= 10) loader.sendEmptyMessageDelayed(0, RELOAD_ERROR_MILLIS)
+            if (url?.contains(url().host) == true && reloadCounter++ <= 10) loader.sendEmptyMessageDelayed(0, RELOAD_ERROR_MILLIS)
         } catch (e: Exception) {}
     }
 

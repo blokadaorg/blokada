@@ -33,12 +33,14 @@ class ProtectionVB(
         private val tunnelEvents: EnabledStateActor = ktx.di().instance(),
         private val s: Tunnel = ktx.di().instance(),
         private val d: Dns = ktx.di().instance(),
+        private val device: Device = ktx.di().instance(),
         onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
 
     private var active = false
     private var activating = false
     private var error = false
+    private var connected = true
     private var vpn = 0
     private var adblocking = 0
     private var startOnBoot = 0
@@ -71,6 +73,7 @@ class ProtectionVB(
     private var onStartOnBoot: IWhen? = null
     private var onError: IWhen? = null
     private var onDns: IWhen? = null
+    private var onConnected: IWhen? = null
 
     override fun attach(view: SlotView) {
         tunnelEvents.listeners.add(tunnelListener)
@@ -88,6 +91,10 @@ class ProtectionVB(
             error = s.error()
             update()
         }
+        onConnected = device.connected.doOnUiWhenSet().then {
+            connected = device.connected()
+            update()
+        }
     }
 
     override fun detach(view: SlotView) {
@@ -96,6 +103,7 @@ class ProtectionVB(
         s.startOnBoot.cancel(onStartOnBoot)
         d.dnsServers.cancel(onDns)
         s.error.cancel(onError)
+        device.connected.cancel(onConnected)
     }
 
     private val configListener = { cfg: BlockaConfig ->
@@ -108,6 +116,9 @@ class ProtectionVB(
     private fun update() {
         if (activating) {
             activating()
+            return
+        } else if (!connected) {
+            disconnected()
             return
         } else if (error) {
             error()
@@ -151,6 +162,7 @@ class ProtectionVB(
                 info = i18n.getString(R.string.slot_status_info),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_activate), {
                     s.enabled %= true
+                    s.error %= false
                 }),
                 action2 = settingsAction
         )
@@ -172,6 +184,18 @@ class ProtectionVB(
         )
         view?.type = Slot.Type.PROTECTION_OFF
     }
+
+    private fun disconnected() {
+        view?.content = Slot.Content(
+                label = i18n.getString(R.string.slot_protection_disconnected),
+                description = i18n.getString(R.string.slot_protection_disconnected_desc),
+                icon = ktx.ctx.getDrawable(R.drawable.ic_shield_outline),
+                color = ktx.ctx.resources.getColor(R.color.colorProtectionMedium),
+                info = i18n.getString(R.string.slot_status_info)
+        )
+        view?.type = Slot.Type.PROTECTION
+    }
+
 
     private fun activating() {
         view?.content = Slot.Content(

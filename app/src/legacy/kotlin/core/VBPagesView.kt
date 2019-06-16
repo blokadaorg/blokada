@@ -1,14 +1,16 @@
 package core
 
 import android.content.Context
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.github.salomonbrys.kodein.instance
 import gs.presentation.ViewBinder
-import android.view.MotionEvent
+import gs.presentation.ViewBinderHolder
 
 class VBPagesView(
         ctx: Context,
@@ -16,12 +18,16 @@ class VBPagesView(
 ) : ViewPager(ctx, attributeSet) {
     var lock = false
 
+    val ktx = ctx.ktx("VBPagesView")
+    val viewBinderHolder: ViewBinderHolder = ktx.di().instance()
+
     private val dashAdapter = object : PagerAdapter() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val dash = pages[position]
             val view = dash.createView(context, container)
             view.tag = dash
             dash.attach(view)
+            viewBinderHolder.add(dash, view)
             container.addView(view)
             return view
         }
@@ -29,7 +35,10 @@ class VBPagesView(
         override fun destroyItem(container: ViewGroup, position: Int, view: Any) {
             container.removeView(view as View)
             val dash = view.tag
-            if (dash is ViewBinder) dash.detach(view)
+            if (dash is ViewBinder) {
+                dash.detach(view)
+                viewBinderHolder.remove(dash)
+            }
         }
 
         override fun isViewFromObject(view: View, obj: Any) = view == obj

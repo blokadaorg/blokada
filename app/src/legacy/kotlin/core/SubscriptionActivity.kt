@@ -30,7 +30,7 @@ class SubscriptionActivity : Activity() {
     }
 
     private val dash by lazy {
-        WebDash(LazyKodein(ktx.di), subscriptionUrl, reloadOnError = false,
+        WebDash(LazyKodein(ktx.di), subscriptionUrl, reloadOnError = true,
                 javascript = true, forceEmbedded = true, big = true,
                 onLoadSpecificUrl = "vpn.blocka.net/#/success" to {
                     this@SubscriptionActivity.finish()
