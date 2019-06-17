@@ -158,6 +158,7 @@ class ProtectionVB(
         view?.content = Slot.Content(
                 label = i18n.getString(R.string.slot_protection_off),
                 icon = ktx.ctx.getDrawable(R.drawable.ic_shield_outline),
+                description = i18n.getString(R.string.slot_protection_off_desc),
                 color = ktx.ctx.resources.getColor(R.color.colorProtectionLow),
                 info = i18n.getString(R.string.slot_status_info),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_activate), {
@@ -202,7 +203,10 @@ class ProtectionVB(
                 label = i18n.getString(R.string.slot_protection_activating),
                 icon = ktx.ctx.getDrawable(R.drawable.ic_shield_outline),
                 info = i18n.getString(R.string.slot_status_info),
-                color = ktx.ctx.resources.getColor(R.color.colorProtectionMedium)
+                color = ktx.ctx.resources.getColor(R.color.colorProtectionMedium),
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_deactivate), {
+                    s.enabled %= false
+                })
         )
         view?.type = Slot.Type.PROTECTION
     }

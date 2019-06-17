@@ -168,8 +168,9 @@
 
     <string name="slot_protection_header">Blokada status</string>
     <string name="slot_protection_off">Blokada is inactive</string>
-    <string name="slot_protection_error">Blokada is experiencing problems</string>
-    <string name="slot_protection_error_desc">This may be caused by temporary network problems, device or software issues. Please try turning the app on again or restarting your phone. If the problem persists, please contact us on Telegram for help.</string>
+    <string name="slot_protection_off_desc">Your device is not protected.</string>
+    <string name="slot_protection_error">Blokada is temporarily inactive</string>
+    <string name="slot_protection_error_desc">This may be caused by temporary network problems, device or software issues. Blokada will automatically reactivate soon, but you could also try to turn the app on again or restart your phone. If you keep having problems, please contact us on Telegram for help.</string>
     <string name="slot_protection_disconnected">Your device is offline</string>
     <string name="slot_protection_disconnected_desc">Blokada is paused because your device lost Internet connection. Blokada will automatically reactivate once you are back online.</string>
     <string name="slot_protection_activating">Blokada is activating</string>

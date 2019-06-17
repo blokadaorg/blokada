@@ -43,6 +43,8 @@ class DeviceImpl (
     override val appInForeground = newProperty(kctx, { false })
     override val screenOn = newProperty(kctx, { pm.isInteractive })
     override val connected = newProperty(kctx, zeroValue = { true }, refresh = {
+        // With watchdog off always returning true, we basically disable detection.
+        // Because isConnected sometimes returns false when we are actually online.
         val c = isConnected(ctx) or watchdog.test()
         "device".ktx().v("connected", c)
         c
@@ -168,7 +170,7 @@ class AWatchdog(
     private val ktx by lazy { "device:watchdog".ktx() }
 
     override fun test(): Boolean {
-        if (!d.watchdogOn()) return false
+        if (!d.watchdogOn()) return true
         ktx.v("watchdog ping")
         val socket = Socket()
         socket.soTimeout = 3000

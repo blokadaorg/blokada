@@ -138,6 +138,7 @@ fun newTunnelModule(ctx: Context): Module {
             val d: Device = instance()
             val dns: Dns = instance()
             val pages: Pages = instance()
+            val device: Device = instance()
             val engine: tunnel.Main = instance()
             val perms: IPermissionsAsker = instance()
             val watchdog: IWatchdog = instance()
@@ -164,11 +165,10 @@ fun newTunnelModule(ctx: Context): Module {
                     val restartedRecently = (System.currentTimeMillis() - lastRestartMillis) < 15 * 1000
                     lastRestartMillis = System.currentTimeMillis()
                     if (!restartedRecently) restarts = 0
-                    if (restarts++ > 6) {
+                    if (restarts++ > 9 && device.watchdogOn()) {
                         restarts = 0
                         ktx.e("Too many tunnel restarts. Stopping...")
                         s.error %= true
-                        s.restart %= false
                         s.enabled %= false
                     } else ktx.w("tunnel restarted for $restarts time in a row")
                 }
@@ -308,10 +308,10 @@ fun newTunnelModule(ctx: Context): Module {
                         s.error %= false
                         s.active %= true
                     }
-                    d.connected() && s.error() && !s.updating() && s.enabled() -> {
+                    d.connected() && s.error() && !s.updating() && !s.enabled() -> {
                         ktx.v("connectivity back, auto recover from error")
                         s.error %= false
-                        s.active %= true
+                        s.enabled %= true
                     }
                 }
             }
