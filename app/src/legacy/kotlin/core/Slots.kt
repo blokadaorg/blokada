@@ -271,6 +271,7 @@ class AppStatusVB(
         view?.apply {
             val droppedString = i18n.getString(R.string.tunnel_dropped_count2,
                     Format.counter(tunnelEvents2.tunnelDropCount()))
+            val t: Tunnel = ktx.di().instance()
             content = Slot.Content(
                     icon = ktx.ctx.getDrawable(R.drawable.ic_block),
                     label = droppedString,
@@ -282,10 +283,8 @@ class AppStatusVB(
                     action1 = Slot.Action(i18n.getString(R.string.slot_action_share)) {
                         val shareIntent: Intent = Intent().apply {
                             action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT, ktx.ctx.getString(R.string.slot_dropped_share,
-                                    Format.counter(tunnelEvents2.tunnelDropCount()),
-                                    ktx.ctx.getString(R.string.branding_app_name_short)))
-                            type = "image/jpeg"
+                            putExtra(Intent.EXTRA_TEXT, getMessage(ktx.ctx, t.tunnelDropStart(), t.tunnelDropCount()))
+                            type = "text/plain"
                         }
                         ktx.ctx.startActivity(Intent.createChooser(shareIntent,
                                 ktx.ctx.getText(R.string.slot_dropped_share_title)))
@@ -303,6 +302,24 @@ class AppStatusVB(
         config = cfg
         update()
         Unit
+    }
+
+    fun getMessage(ctx: Context, timeStamp: Long, dropCount: Int): String {
+        var elapsed: Long = System.currentTimeMillis() - timeStamp
+        elapsed /= 60000
+        if(elapsed < 120) {
+            return ctx.resources.getString(R.string.social_share_bodym, dropCount, elapsed)
+        }
+        elapsed /= 60
+        if(elapsed < 48) {
+            return ctx.resources.getString(R.string.social_share_bodyh, dropCount, elapsed)
+        }
+        elapsed /= 24
+        if(elapsed < 28) {
+            return ctx.resources.getString(R.string.social_share_bodyd, dropCount, elapsed)
+        }
+        elapsed /= 7
+        return ctx.resources.getString(R.string.social_share_bodyw, dropCount, elapsed)
     }
 
     private var droppedCountListener: IWhen? = null
