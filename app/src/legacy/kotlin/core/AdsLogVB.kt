@@ -25,7 +25,7 @@ class AdsLogVB(
 
     private val request = { it: Request ->
         if (it != firstItem) {
-            if(searchString.isEmpty() || it.domain.contains(searchString)) {
+            if(searchString.isEmpty() || it.domain.contains(searchString.toLowerCase())) {
                 val dash = requestToVB(it)
                 items.add(0, dash)
                 view?.add(dash, 1)
@@ -78,7 +78,7 @@ class AdsLogVB(
             if (searchString.isEmpty()) {
                 true
             } else {
-                r.domain.contains(searchString)
+                r.domain.contains(searchString.toLowerCase())
             }
         }.map {
             val dash = requestToVB(it)

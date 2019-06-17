@@ -11,12 +11,9 @@ class SearchActivity : Activity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_search)
-        val searchRoot = findViewById<FrameLayout>(R.id.search_root)
         val searchVB = EnterSearchVB(this) { s -> callback(s); finish()}
-        val v = searchVB.createView(this, searchRoot)
-        searchRoot.addView(v)
+        val v = findViewById<SlotView>(R.id.search_slot)
         searchVB.attach(v)
-        v.requestLayout()
         Handler().postDelayed({ (v as SlotView).unfold() }, 150)
     }
 
