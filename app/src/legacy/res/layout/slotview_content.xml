@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:backSideColor="@color/colorBackground"
+    app:animationDuration="500"
     app:cameraHeight="15">
 
     <FrameLayout
