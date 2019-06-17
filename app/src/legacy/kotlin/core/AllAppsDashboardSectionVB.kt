@@ -38,9 +38,9 @@ class AllAppsDashboardSectionVB(val ctx: Context, val system: Boolean) : ListVie
                 LabelVB(labelResId = R.string.slot_allapp_normal) +
                 notWhitelisted.map { AppVB(it, false, ktx, onTap = slotMutex.openOneAtATime) }
         view?.set(listing)
-        view?.add(SearchBarVB(ctx, { s ->
+        view?.add(SearchBarVB(ktx, onSearch = { s ->
             updateListing(s)
-        }),0)
+        }), 0)
     }
 
     override fun attach(view: VBListView) {

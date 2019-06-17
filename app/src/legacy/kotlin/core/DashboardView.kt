@@ -376,6 +376,8 @@ class DashboardView(
             tun.error %= false
             tun.enabled %= !tun.enabled()
         }
+
+        fg_pager.offscreenPageLimit = 5
     }
 
     private var adjusted = false

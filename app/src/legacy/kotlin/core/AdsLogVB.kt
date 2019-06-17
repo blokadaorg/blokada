@@ -5,7 +5,6 @@ import com.github.michaelbull.result.getOr
 import com.github.salomonbrys.kodein.instance
 import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
-import gs.presentation.ViewBinder
 import tunnel.Events
 import tunnel.Persistence
 import tunnel.Request
@@ -38,13 +37,14 @@ class AdsLogVB(
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
-        view.add(SearchBarVB(ktx.ctx, {s ->
+        view.add(SearchBarVB(ktx, onSearch = { s ->
             searchString = s
             nextBatch = 0
             items.clear()
             view.set(emptyList())
             attach(view)
         }))
+
         if (items.isEmpty()) {
             var items = loadBatch(0)
             items += loadBatch(1)
@@ -65,6 +65,8 @@ class AdsLogVB(
     override fun detach(view: VBListView) {
         slotMutex.detach()
         view.onEndReached = {}
+        searchString = ""
+        items.clear()
         ktx.cancel(Events.REQUEST, request)
     }
 
@@ -72,19 +74,18 @@ class AdsLogVB(
         if (nextBatch < 3) addBatch(loadBatch(nextBatch++))
     }
 
-    private fun loadBatch(batch: Int) = Persistence.request.load(batch).getOr { emptyList() }
+    private fun loadBatch(batch: Int) = Persistence.request.load(batch).getOr { emptyList() }.filter { r ->
+        if (searchString.isEmpty()) true
+        else r.domain.contains(searchString.toLowerCase())
+    }
+
     private fun addBatch(batch: List<Request>) {
-        items.addAll(batch.distinct().filter { r ->
-            if (searchString.isEmpty()) {
-                true
-            } else {
-                r.domain.contains(searchString.toLowerCase())
-            }
-        }.map {
+        items.addAll(batch.distinct().map {
             val dash = requestToVB(it)
             view?.add(dash)
             dash
         })
+        if (items.size < 20) loadMore()
     }
 
     private fun requestToVB(it: Request): SlotVB {

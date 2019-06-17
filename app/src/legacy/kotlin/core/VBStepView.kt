@@ -2,10 +2,11 @@ package core
 
 import android.content.Context
 import android.os.Handler
+import android.util.AttributeSet
+import android.view.View
+import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.ViewPager
-import android.util.AttributeSet
-import android.widget.FrameLayout
 import gs.presentation.ViewBinder
 import org.blokada.R
 
@@ -45,6 +46,7 @@ class VBStepView(
             field = value
             pagesView.pages = pages
             dotsView.viewPager = pagesView
+            dotsView.visibility = if (value.size == 1) View.GONE else View.VISIBLE
             pagesView.currentItem = 0
             value.firstOrNull()?.apply {
                 if (this is Stepable) {

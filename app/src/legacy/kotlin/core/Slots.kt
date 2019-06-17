@@ -55,16 +55,19 @@ class ProtectionVB(
             active = false
             update()
         }
+
         override fun finishActivating() {
             activating = false
             active = true
             update()
         }
+
         override fun startDeactivating() {
             activating = true
             active = false
             update()
         }
+
         override fun finishDeactivating() {
             activating = false
             active = false
@@ -86,7 +89,7 @@ class ProtectionVB(
             update()
         }
         onDns = d.dnsServers.doOnUiWhenSet().then {
-            dns = if(hasGoodDnsServers(d)) 1 else 0
+            dns = if (hasGoodDnsServers(d)) 1 else 0
             update()
         }
         onError = s.error.doOnUiWhenSet().then {
@@ -215,7 +218,7 @@ class ProtectionVB(
 
     private fun score(score: Int, max: Int, description: Int) {
         val color = if (score < max / 2) R.color.colorProtectionMedium
-            else R.color.colorProtectionHigh
+        else R.color.colorProtectionHigh
 
         val icon = when (score) {
             max -> R.drawable.ic_verified
@@ -274,7 +277,7 @@ class AppStatusVB(
                     header = droppedString,
                     description = if (config.adblocking)
                         i18n.getString(R.string.slot_status_description_active)
-                        else i18n.getString(R.string.slot_status_description_inactive),
+                    else i18n.getString(R.string.slot_status_description_inactive),
                     detail = Format.date(Date()),
                     action1 = Slot.Action(i18n.getString(R.string.slot_action_share)) {
                         val shareIntent: Intent = Intent().apply {
@@ -337,7 +340,7 @@ class VpnStatusVB(
                     icon = ktx.ctx.getDrawable(R.drawable.ic_shield_key_outline),
                     label = if (connected)
                         i18n.getString(R.string.slot_status_vpn_turned_on, config.gatewayNiceName)
-                        else i18n.getString(R.string.slot_status_vpn_turned_off),
+                    else i18n.getString(R.string.slot_status_vpn_turned_off),
                     description = if (connected) {
                         i18n.getString(R.string.slot_status_vpn_desc_on, config.gatewayIp)
                     } else i18n.getString(R.string.slot_status_vpn_desc_off),
@@ -481,23 +484,23 @@ class DomainForwarderVB(
         view.type = Slot.Type.FORWARD
         view.date = date
         view.content = Slot.Content(
-            label = i18n.getString(R.string.panel_domain_forwarded, domain),
-            header = i18n.getString(R.string.slot_forwarded_title),
-            description = domain,
-            detail = Format.date(date),
-            info = i18n.getString(R.string.panel_domain_forwarded_desc),
-            action1 = Slot.Action(i18n.getString(R.string.slot_action_block), {
-                val f = Filter(
-                        id(domain, whitelist = false),
-                        source = tunnel.FilterSourceDescriptor("single", domain),
-                        active = true,
-                        whitelist = false
-                )
-                tunnelManager.putFilter(ktx, f)
-                view.fold()
-                Toast.makeText(ktx.ctx, i18n.getString(R.string.panel_domain_blocked_toast), Toast.LENGTH_SHORT).show()
-            })
-            //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
+                label = i18n.getString(R.string.panel_domain_forwarded, domain),
+                header = i18n.getString(R.string.slot_forwarded_title),
+                description = domain,
+                detail = Format.date(date),
+                info = i18n.getString(R.string.panel_domain_forwarded_desc),
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_block), {
+                    val f = Filter(
+                            id(domain, whitelist = false),
+                            source = tunnel.FilterSourceDescriptor("single", domain),
+                            active = true,
+                            whitelist = false
+                    )
+                    tunnelManager.putFilter(ktx, f)
+                    view.fold()
+                    Toast.makeText(ktx.ctx, i18n.getString(R.string.panel_domain_blocked_toast), Toast.LENGTH_SHORT).show()
+                })
+                //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
         if (alternative) view.enableAlternativeBackground()
     }
@@ -518,23 +521,23 @@ class DomainBlockedVB(
         view.type = Slot.Type.BLOCK
         view.date = date
         view.content = Slot.Content(
-            label = i18n.getString(R.string.panel_domain_blocked, domain),
-            header = i18n.getString(R.string.slot_blocked_title),
-            description = domain,
-            detail = Format.date(date),
-            info = i18n.getString(R.string.panel_domain_blocked_desc),
-            action1 = Slot.Action(i18n.getString(R.string.slot_action_allow), {
-                val f = Filter(
-                        id(domain, whitelist = true),
-                        source = tunnel.FilterSourceDescriptor("single", domain),
-                        active = true,
-                        whitelist = true
-                )
-                tunnelManager.putFilter(ktx, f)
-                view.fold()
-                Toast.makeText(ktx.ctx, i18n.getString(R.string.panel_domain_forwarded_toast), Toast.LENGTH_SHORT).show()
-            })
-            //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
+                label = i18n.getString(R.string.panel_domain_blocked, domain),
+                header = i18n.getString(R.string.slot_blocked_title),
+                description = domain,
+                detail = Format.date(date),
+                info = i18n.getString(R.string.panel_domain_blocked_desc),
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_allow), {
+                    val f = Filter(
+                            id(domain, whitelist = true),
+                            source = tunnel.FilterSourceDescriptor("single", domain),
+                            active = true,
+                            whitelist = true
+                    )
+                    tunnelManager.putFilter(ktx, f)
+                    view.fold()
+                    Toast.makeText(ktx.ctx, i18n.getString(R.string.panel_domain_forwarded_toast), Toast.LENGTH_SHORT).show()
+                })
+                //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
         if (alternative) view.enableAlternativeBackground()
     }
@@ -551,7 +554,8 @@ class FilterVB(
 ) : SlotVB(onTap) {
 
     override fun attach(view: SlotView) {
-        val name = filter.customName ?: i18n.localisedOrNull("filters_${filter.id}_name") ?: sourceToName(ctx, filter.source)
+        val name = filter.customName ?: i18n.localisedOrNull("filters_${filter.id}_name")
+        ?: sourceToName(ctx, filter.source)
         val comment = filter.customComment ?: i18n.localisedOrNull("filters_${filter.id}_comment")
 
         view.enableAlternativeBackground()
@@ -568,7 +572,9 @@ class FilterVB(
                 action3 = Slot.Action(i18n.getString(R.string.slot_action_author), {
                     try {
                         Intent(Intent.ACTION_VIEW, Uri.parse(filter.credit))
-                    } catch (e: Exception) { null }?.apply {
+                    } catch (e: Exception) {
+                        null
+                    }?.apply {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         ctx.startActivity(this)
                     }
@@ -608,21 +614,21 @@ class DownloadListsVB(
 
 class ConfigHelper {
     companion object {
-        private fun ttlToId(ttl: Long) = when(ttl) {
+        private fun ttlToId(ttl: Long) = when (ttl) {
             259200L -> R.string.tunnel_config_refetch_frequency_2
             604800L -> R.string.tunnel_config_refetch_frequency_3
             2419200L -> R.string.tunnel_config_refetch_frequency_4
             else -> R.string.tunnel_config_refetch_frequency_1
         }
 
-        private fun idToTtl(id: Int) = when(id) {
+        private fun idToTtl(id: Int) = when (id) {
             R.id.frequency_2 -> 259200L
             R.id.frequency_3 -> 604800L
             R.id.frequency_4 -> 2419200L
             else -> 86400L
         }
 
-        private fun stringToId(string: String, i18n: I18n) = when(string) {
+        private fun stringToId(string: String, i18n: I18n) = when (string) {
             i18n.getString(R.id.frequency_2) -> R.id.frequency_2
             i18n.getString(R.id.frequency_3) -> R.id.frequency_3
             i18n.getString(R.id.frequency_4) -> R.id.frequency_4
@@ -714,7 +720,6 @@ class NewFilterVB(
 ) : SlotVB() {
 
     override fun attach(view: SlotView) {
-        view.enableAlternativeBackground()
         view.type = Slot.Type.NEW
         view.content = Slot.Content(i18n.getString(nameResId))
         view.onTap = {
@@ -745,7 +750,11 @@ class EnterDomainVB(
 
     private fun validateHostname(it: String) = hostnameRegex.containsMatchIn(it.trim())
     private fun validateSeveralHostnames(it: String) = it.split(",").map { validateHostname(it) }.all { it }
-    private fun validateURL(it: String) = try { URL(it); true } catch (e: Exception) { false }
+    private fun validateURL(it: String) = try {
+        URL(it); true
+    } catch (e: Exception) {
+        false
+    }
 
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
@@ -853,42 +862,63 @@ class HomeAppVB(
 
 }
 
-class SearchBarVB(val ctx: Context, private val onSearch: (String) -> Unit, private val modal: ModalManager = modalManager) : SlotVB(onTap = {
+class SearchBarVB(
+        private val ktx: AndroidKontext,
+        private val ctx: Context = ktx.ctx,
+        private val i18n: I18n = ktx.di().instance(),
+        val onSearch: (String) -> Unit,
+        private val modal: ModalManager = modalManager
+) : SlotVB(onTap = {
     modal.openModal()
     ctx.startActivity(Intent(ctx, SearchActivity::class.java))
-    SearchActivity.setCallback {
-        s -> onSearch(s)
-        val label =
-                if (s.isEmpty()){
-                    ctx.getString(R.string.search_search)
-                }else{
-                    ctx.getString(R.string.search_search) + ":$s"
-                }
-        it.content = Slot.Content(label) }
-}){
+    SearchActivity.setCallback { s ->
+        onSearch(s)
+        val label = if (s.isEmpty()) i18n.getString(R.string.search_header)
+        else i18n.getString(R.string.search_entered, s)
 
+        it.type = Slot.Type.INFO
+        it.content = Slot.Content(
+                label = label,
+                icon = ctx.getDrawable(R.drawable.ic_search)
+        )
+    }
+}) {
 
     override fun attach(view: SlotView) {
         view.type = Slot.Type.INFO
-        if(view.content == null) {
-            view.content = Slot.Content(ctx.getString(R.string.search_search))
+        if (view.content == null) {
+            view.content = Slot.Content(
+                    label = i18n.getString(R.string.search_header),
+                    icon = ctx.getDrawable(R.drawable.ic_search)
+            )
+        } else {
+            view.content = Slot.Content(
+                    label = view.content!!.label,
+                    icon = ctx.getDrawable(R.drawable.ic_search)
+            )
         }
     }
 }
 
-class EnterSearchVB(val ctx: Context, private val onSearch: (String) -> Unit) : SlotVB(onTap = {}){
+class EnterSearchVB(
+        private val ktx: AndroidKontext,
+        private val ctx: Context = ktx.ctx,
+        private val i18n: I18n = ktx.di().instance(),
+        private val onSearch: (String) -> Unit
+) : SlotVB(onTap = {}) {
     override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
         view.type = Slot.Type.EDIT
         view.content = Slot.Content(
-                label = ctx.getString(R.string.search_search),
-                header = "Search",
-                description = "desc",
-                action1 = Slot.Action(ctx.getString(R.string.search_search), {
+                label = i18n.getString(R.string.search_title),
+                icon = ctx.getDrawable(R.drawable.ic_search),
+                description = i18n.getString(R.string.search_description),
+                action1 = Slot.Action(i18n.getString(R.string.search_action_confirm)) {
                     onSearch((view.unfolded_edit as EditText).text.toString())
-                }),
-                action2 = Slot.Action(ctx.getString(R.string.filter_edit_cancel), {
+                },
+                action2 = Slot.Action(ctx.getString(R.string.search_action_clear)) {
                     onSearch("")
-                }))
+                })
     }
 }
 
@@ -928,7 +958,7 @@ class AppVB(
 
     private fun refresh() {
         view?.apply {
-             val c = Slot.Content(
+            val c = Slot.Content(
                     label = app.label,
                     header = app.label,
                     info = i18n.getString(R.string.slot_allapp_desc),
@@ -995,7 +1025,9 @@ class DnsChoiceVB(
                 action2 = Slot.Action(i18n.getString(R.string.slot_action_author), {
                     try {
                         Intent(Intent.ACTION_VIEW, Uri.parse(item.credit))
-                    } catch (e: Exception) { null }?.apply {
+                    } catch (e: Exception) {
+                        null
+                    }?.apply {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         ctx.startActivity(this)
                     }
@@ -1044,7 +1076,9 @@ class ActiveDnsVB(
                     action1 = Slot.Action(i18n.getString(R.string.slot_action_author), {
                         try {
                             Intent(Intent.ACTION_VIEW, Uri.parse(item.credit))
-                        } catch (e: Exception) { null }?.apply {
+                        } catch (e: Exception) {
+                            null
+                        }?.apply {
                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             ctx.startActivity(this)
                         }
@@ -1230,7 +1264,7 @@ class HomeNotificationsVB(
     override fun attach(view: SlotView) {
         listener = ui.notifications.doOnUiWhenSet().then {
             val current = i18n.getString(if (ui.notifications()) R.string.slot_notifications_enabled
-                else R.string.slot_notifications_disabled)
+            else R.string.slot_notifications_disabled)
             view.type = Slot.Type.INFO
             view.content = Slot.Content(
                     label = i18n.getString(R.string.slot_notifications_title, current),
@@ -1311,7 +1345,7 @@ class FiltersListControlVB(
                 description = i18n.getString(R.string.slot_filters_description),
                 icon = ctx.getDrawable(R.drawable.ic_reload),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh), {
-                    Toast.makeText(ctx, R.string.slot_action_refresh_toast , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(ctx, R.string.slot_action_refresh_toast, Toast.LENGTH_SHORT).show()
                     val ktx = ctx.ktx("quickActions:refresh")
                     filters.apps.refresh(force = true)
                     tunnel.invalidateFilters(ktx)
@@ -1376,7 +1410,7 @@ class StorageLocationVB(
                         i18n.getString(R.string.slot_action_external)
                 ),
                 selected = i18n.getString(if (isExternal()) R.string.slot_action_external
-                    else R.string.slot_action_internal),
+                else R.string.slot_action_internal),
                 action1 = if (isExternal()) actionInternal else actionExternal,
                 action2 = actionImport
         )
@@ -1479,7 +1513,10 @@ class AboutVB(
                 detail = blokadaUserAgent(),
                 action2 = creditsAction,
                 action3 = Slot.Action(i18n.getString(R.string.update_button_appinfo)) {
-                    try { ctx.startActivity(newAppDetailsIntent(ctx.packageName)) } catch (e: Exception) {}
+                    try {
+                        ctx.startActivity(newAppDetailsIntent(ctx.packageName))
+                    } catch (e: Exception) {
+                    }
                 },
                 action1 = Slot.Action(i18n.getString(R.string.slot_about_share_log)) {
                     if (askForExternalStoragePermissionsIfNeeded(activity)) {
@@ -1534,7 +1571,8 @@ class TelegramVB(
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         intent.data = Uri.parse(pages.chat().toString())
                         ctx.startActivity(intent)
-                    } catch (e: Exception) {}
+                    } catch (e: Exception) {
+                    }
                 }),
                 action2 = view.ACTION_REMOVE
         )
@@ -1588,7 +1626,7 @@ class BlockaVB(
             val accountId = i18n.getString(R.string.slot_account_text_account, cfg?.accountId ?: "")
             val accountLabel = if (isActive)
                 i18n.getString(R.string.slot_account_text_active, cfg!!.activeUntil.pretty(ktx))
-                else i18n.getString(R.string.slot_account_text_inactive)
+            else i18n.getString(R.string.slot_account_text_inactive)
 
             if (cfg != null) {
                 content = Slot.Content(
@@ -1684,7 +1722,7 @@ class GatewayVB(
     }
 
     private fun getLoad(usage: Int): String {
-        return i18n.getString(when(usage) {
+        return i18n.getString(when (usage) {
             in 0..50 -> R.string.slot_gateway_load_low
             else -> R.string.slot_gateway_load_high
         })
