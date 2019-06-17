@@ -230,8 +230,7 @@ class ProtectionVB(
                 label = i18n.getString(label),
                 header = i18n.getString(R.string.slot_protection_header),
                 info = i18n.getString(R.string.slot_status_info),
-                description = i18n.getString(R.string.slot_protection_description,
-                        i18n.getString(description)),
+                description = "%s<br/><br/>%s".format(i18n.getString(description), i18n.getString(R.string.slot_protection_description)),
                 icon = ktx.ctx.getDrawable(icon),
                 color = ktx.ctx.resources.getColor(color),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_deactivate), {
@@ -1542,35 +1541,43 @@ class BlockaVB(
         private val modal: ModalManager = modalManager
 ) : SlotVB(onTap) {
 
-    private val update = { cfg: BlockaConfig ->
+    private val update = { cfg: BlockaConfig? ->
         view?.apply {
-            val isActive = cfg.activeUntil.after(Date())
-            val accountId = i18n.getString(R.string.slot_account_text_account, cfg.accountId)
+            val isActive = cfg?.activeUntil?.after(Date()) ?: false
+            val accountId = i18n.getString(R.string.slot_account_text_account, cfg?.accountId ?: "")
             val accountLabel = if (isActive)
-                i18n.getString(R.string.slot_account_text_active, cfg.activeUntil.pretty(ktx))
+                i18n.getString(R.string.slot_account_text_active, cfg!!.activeUntil.pretty(ktx))
                 else i18n.getString(R.string.slot_account_text_inactive)
 
-            content = Slot.Content(
-                    label = i18n.getString(R.string.slot_blocka_label),
-                    icon = ktx.ctx.getDrawable(R.drawable.ic_verified),
-                    description = i18n.getString(R.string.slot_blocka_text, accountId, accountLabel),
-                    action1 = Slot.Action(
-                            if (isActive) i18n.getString(R.string.slot_account_action_manage)
-                            else i18n.getString(R.string.slot_account_action_manage_inactive)) {
-                        modal.openModal()
-                        ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
-                    },
-                    action2 = Slot.Action(i18n.getString(R.string.slot_account_action_change_id)) {
-                        modal.openModal()
-                        ktx.ctx.startActivity(Intent(ktx.ctx, RestoreAccountActivity::class.java))
-                    },
-                    action3 = Slot.Action(i18n.getString(R.string.slot_account_action_copy)) {
-                        val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clipData = ClipData.newPlainText("account-id", cfg.accountId)
-                        clipboardManager.primaryClip = clipData
-                        Toast.makeText(ktx.ctx, R.string.slot_account_action_copied, Toast.LENGTH_SHORT).show()
-                    }
-            )
+            if (cfg != null) {
+                content = Slot.Content(
+                        label = i18n.getString(R.string.slot_blocka_label),
+                        icon = ktx.ctx.getDrawable(R.drawable.ic_verified),
+                        description = "%s<br/><br/>%s".format(accountId, accountLabel),
+                        action1 = Slot.Action(
+                                if (isActive) i18n.getString(R.string.slot_account_action_manage)
+                                else i18n.getString(R.string.slot_account_action_manage_inactive)) {
+                            modal.openModal()
+                            ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
+                        },
+                        action2 = Slot.Action(i18n.getString(R.string.slot_account_action_change_id)) {
+                            modal.openModal()
+                            ktx.ctx.startActivity(Intent(ktx.ctx, RestoreAccountActivity::class.java))
+                        },
+                        action3 = Slot.Action(i18n.getString(R.string.slot_account_action_copy)) {
+                            val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            val clipData = ClipData.newPlainText("account-id", cfg!!.accountId)
+                            clipboardManager.primaryClip = clipData
+                            Toast.makeText(ktx.ctx, R.string.slot_account_action_copied, Toast.LENGTH_SHORT).show()
+                        }
+                )
+            } else {
+                content = Slot.Content(
+                        label = i18n.getString(R.string.slot_blocka_label),
+                        icon = ktx.ctx.getDrawable(R.drawable.ic_verified),
+                        description = "%s<br/><br/>%s".format(accountId, accountLabel)
+                )
+            }
 
         }
         Unit
@@ -1579,6 +1586,7 @@ class BlockaVB(
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
         view.type = Slot.Type.INFO
+        update(null)
         ktx.on(BLOCKA_CONFIG, update)
     }
 
