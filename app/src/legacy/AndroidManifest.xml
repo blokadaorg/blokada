@@ -197,6 +197,13 @@
         <service android:name="adblocker.RequestLogger" />
 
         <service android:name="adblocker.ForegroundStartService" />
+        <activity android:name="core.SearchActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/TransparentWindow">
+        </activity>
+
     </application>
 
 </manifest>

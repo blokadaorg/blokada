@@ -216,10 +216,12 @@ class VBListView(
             items.add(item)
             adapter.notifyItemInserted(items.size - 1)
         } else {
-            val firstWasVisible = layoutManager.findFirstCompletelyVisibleItemPosition() == 0
-            items.add(position, item)
-            adapter.notifyItemInserted(position)
-            if (firstWasVisible) listView.smoothScrollToPosition(0)
+            if(position < items.size){
+                val firstWasVisible = layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                items.add(position, item)
+                adapter.notifyItemInserted(position)
+                if (firstWasVisible) listView.smoothScrollToPosition(0)
+            }
         }
 //        listView.smoothScrollToPosition(items.size - 1)
     }

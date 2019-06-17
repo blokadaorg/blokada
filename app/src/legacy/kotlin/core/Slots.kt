@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.github.salomonbrys.kodein.instance
@@ -16,6 +17,7 @@ import filter.sourceToIcon
 import filter.sourceToName
 import gs.environment.ComponentProvider
 import gs.property.*
+import kotlinx.android.synthetic.adblockerHome.slotview_content.view.*
 import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import tunnel.*
@@ -849,6 +851,45 @@ class HomeAppVB(
         )
     }
 
+}
+
+class SearchBarVB(val ctx: Context, private val onSearch: (String) -> Unit, private val modal: ModalManager = modalManager) : SlotVB(onTap = {
+    modal.openModal()
+    ctx.startActivity(Intent(ctx, SearchActivity::class.java))
+    SearchActivity.setCallback {
+        s -> onSearch(s)
+        val label =
+                if (s.isEmpty()){
+                    ctx.getString(R.string.search_search)
+                }else{
+                    ctx.getString(R.string.search_search) + ":$s"
+                }
+        it.content = Slot.Content(label) }
+}){
+
+
+    override fun attach(view: SlotView) {
+        view.type = Slot.Type.INFO
+        if(view.content == null) {
+            view.content = Slot.Content(ctx.getString(R.string.search_search))
+        }
+    }
+}
+
+class EnterSearchVB(val ctx: Context, private val onSearch: (String) -> Unit) : SlotVB(onTap = {}){
+    override fun attach(view: SlotView) {
+        view.type = Slot.Type.EDIT
+        view.content = Slot.Content(
+                label = ctx.getString(R.string.search_search),
+                header = "Search",
+                description = "desc",
+                action1 = Slot.Action(ctx.getString(R.string.search_search), {
+                    onSearch((view.unfolded_edit as EditText).text.toString())
+                }),
+                action2 = Slot.Action(ctx.getString(R.string.filter_edit_cancel), {
+                    onSearch("")
+                }))
+    }
 }
 
 class AppVB(

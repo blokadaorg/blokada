@@ -27,17 +27,20 @@ class AllAppsDashboardSectionVB(val ctx: Context, val system: Boolean) : ListVie
 
     private var getApps: IWhen? = null
 
-    private fun updateListing() {
+    private fun updateListing(keyword: String = "") {
         if (apps.isEmpty() || fil.isEmpty()) return
 
-        val whitelisted = apps.filter { it.appId in fil }
-        val notWhitelisted = apps.filter { it.appId !in fil }
+        val whitelisted = apps.filter { (it.appId in fil) && (keyword.isEmpty() || it.label.contains(keyword)) }
+        val notWhitelisted = apps.filter { (it.appId !in fil) && (keyword.isEmpty() || it.label.contains(keyword)) }
 
         val listing = listOf(LabelVB(labelResId = R.string.slot_allapp_whitelisted)) +
                 whitelisted.map { AppVB(it, true, ktx, onTap = slotMutex.openOneAtATime) } +
                 LabelVB(labelResId = R.string.slot_allapp_normal) +
                 notWhitelisted.map { AppVB(it, false, ktx, onTap = slotMutex.openOneAtATime) }
         view?.set(listing)
+        view?.add(SearchBarVB(ctx, { s ->
+            updateListing(s)
+        }),0)
     }
 
     override fun attach(view: VBListView) {
