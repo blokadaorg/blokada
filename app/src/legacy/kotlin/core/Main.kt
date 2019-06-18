@@ -33,6 +33,7 @@ import org.acra.data.StringFormat
 import org.acra.sender.HttpSender
 import org.blokada.BuildConfig
 import org.blokada.R
+import tunnel.blokadaUserAgent
 import tunnel.newRestApiModule
 
 
@@ -75,6 +76,7 @@ class MainApplication: Application(), KodeinAware {
         Paper.init(this)
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
+        ktx.v(blokadaUserAgent())
         setRestartAppOnCrash()
     }
 

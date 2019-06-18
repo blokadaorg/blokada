@@ -11,6 +11,7 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
+import notification.displayAccountExpiredNotification
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
@@ -201,6 +202,7 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
                             } else {
                                 ktx.v("current account inactive")
                                 if (newCfg.blockaVpn) {
+                                    displayAccountExpiredNotification(ktx.ctx)
                                     Toast.makeText(ktx.ctx, R.string.account_inactive, Toast.LENGTH_LONG).show()
                                     ktx.emit(BLOCKA_CONFIG, newCfg.copy(blockaVpn = false))
                                 }
