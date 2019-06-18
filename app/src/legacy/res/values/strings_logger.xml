@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="logger_permission">Please grand storage permission first.</string>
+    <string name="logger_permission">Please grant storage permission first.</string>
     <string name="logger_active">Logger active</string>
     <string name="logger_allowed">Log allowed requests</string>
     <string name="logger_denied">Log denied requests</string>
