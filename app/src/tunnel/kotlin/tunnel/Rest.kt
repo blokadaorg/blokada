@@ -51,9 +51,7 @@ object RestModel {
             @SerializedName("id")
             val accountId: String,
             @SerializedName("active_until")
-            val activeUntil: Date,
-            @SerializedName("active_leases")
-            val activeLeases: Int
+            val activeUntil: Date = Date(0)
     )
     data class GatewayInfo(
             @SerializedName("public_key")
