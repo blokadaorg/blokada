@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s aktif.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s şimdi cihazınızı reklamlardan koruyor. Aşağıdan %1$s \'ya  ince ayar yapabilir veya cihazınızı kullanmaya başlayabilirsiniz!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s aktif değil.</string>

@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Descarcă filtrele numai pe conexiune WiFi</string>
     <string name="tunnel_dropped_count_desc">Afișează numărul total de gazde blocate până acum.</string>
     <string name="tunnel_dropped_count">%d blocat</string>
-    <string name="tunnel_dropped_count2">%s blocat</string>
     <string name="tunnel_config_refetch_now_title">Descarcă listele</string>
     <string name="tunnel_config_refetch_now">Descarcă listele acum</string>
     <string name="tunnel_config_refetch_now_description">Folosește butonul de mai jos pentru a șterge cache-ul și descarcă listele din nou. Acest lucru poate ajuta în cazul în care întâmpini probleme de filtrare.</string>

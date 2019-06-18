@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Baixa els filtres només quan estigueu connectat a Wi-Fi</string>
     <string name="tunnel_dropped_count_desc">Mostra el nombre total de servidors bloquejats fins ara.</string>
     <string name="tunnel_dropped_count">%d bloquejat(s)</string>
-    <string name="tunnel_dropped_count2">%s bloquejat(s)</string>
     <string name="tunnel_config_refetch_now_title">Baixa les llistes</string>
     <string name="tunnel_config_refetch_now">Baixa les llistes ara</string>
     <string name="tunnel_config_refetch_now_description">Utilitzeu el botó següent per eliminar la memòria cau i torneu a baixar les vostres llistes. Això pot ajudar si experimenteu algun problema amb el filtratge.</string>

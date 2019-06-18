@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s estas aktiva.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s nun protektas vian aparaton. Vi povas fajne agordi %1$s sube aŭ simple antaŭeniru kaj uzu vian aparaton!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s estas senaga</string>

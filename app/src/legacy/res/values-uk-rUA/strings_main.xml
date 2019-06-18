@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s працює.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s вже захищає Ваш пристрій. Ви можете доналаштувати %1$s нижче або просто користуватися своїм пристроєм!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s не працює.</string>

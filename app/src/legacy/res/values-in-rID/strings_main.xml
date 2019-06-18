@@ -10,6 +10,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s aktif.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s aktif. VPN telah terkoneksi.</string>
+    <string name="main_active_novpn">%s aktif. VPN tidak terkoneksi.</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s sekarang melindungi perangkat Anda. Anda dapat mengatur %1$s lebih lanjut di bawah, atau langsung saja gunakan perangkat Anda!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s tidak aktif.</string>

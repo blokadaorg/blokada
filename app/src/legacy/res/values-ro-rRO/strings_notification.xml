@@ -27,4 +27,8 @@
     <string name="notification_keepalive_content">Ultimul: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">Se monitorizează</string>
+    <string name="notification_keepalive_activate">Activează</string>
+    <string name="notification_keepalive_activating">Blokada se pornește. Durează câteva momente.</string>
+    <string name="notification_keepalive_deactivate">Dezactivează</string>
+    <string name="notification_keepalive_deactivating">Blokada a fost dezactivat!</string>
 </resources>

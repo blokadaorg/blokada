@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Lejupielādēt filtrus tikai ar WiFi</string>
     <string name="tunnel_dropped_count_desc">Parāda kopējo līdz šim bloķēto adrešu skaitu.</string>
     <string name="tunnel_dropped_count">%d bloķēts</string>
-    <string name="tunnel_dropped_count2">%s bloķēts</string>
     <string name="tunnel_config_refetch_now_title">Lejupielādēt sarakstus</string>
     <string name="tunnel_config_refetch_now">Lejupielādēt sarakstus tūlīt</string>
     <string name="tunnel_config_refetch_now_description">Izmatojiet zemāk esošo pogu, lai izdzēstu kešatmiņu un lejupielādētu jūsu sarakstus vēlreiz. Šis var palīdzēt, ja sastopaties ar jebkādām sarakstu filtrēšanas problēmām.</string>

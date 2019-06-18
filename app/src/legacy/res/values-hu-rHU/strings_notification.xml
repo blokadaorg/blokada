@@ -28,4 +28,8 @@
     <string name="notification_keepalive_content">Utolsó: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">figyelés</string>
+    <string name="notification_keepalive_activate">Aktiválás</string>
+    <string name="notification_keepalive_activating">A Blokada elindításra került. Néhány pillanatig eltarthat.</string>
+    <string name="notification_keepalive_deactivate">Deaktiválás</string>
+    <string name="notification_keepalive_deactivating">Blokada deaktiválásra került!</string>
 </resources>

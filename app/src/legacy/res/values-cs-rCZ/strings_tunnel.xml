@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Stáhnout filtry pouze při zapnuté WiFi</string>
     <string name="tunnel_dropped_count_desc">Zobrazuje celkový počet zablokovaných reklam.</string>
     <string name="tunnel_dropped_count">%d zablokováno reklam</string>
-    <string name="tunnel_dropped_count2">%s zablokováno</string>
     <string name="tunnel_config_refetch_now_title">Stáhnout seznamy</string>
     <string name="tunnel_config_refetch_now">Stáhnout seznamy nyní</string>
     <string name="tunnel_config_refetch_now_description">Pomocí tlačítka níže odstraňte mezipaměť a znovu stáhněte seznamy. To může pomoci, pokud se vyskytnou problémy s filtrováním.</string>

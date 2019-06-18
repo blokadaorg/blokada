@@ -16,6 +16,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_enabled">%s 는 무언가가 차단 될 때마다 알림을 표시합니다.</string>
     <string name="notification_keepalive_text">활동 유지</string>
+    <string name="notification_keepalive_description">앱이 활성화 상태를 유지하지 못할 시 이 스위치를 활성화합니다. 지속 알림을 띄워 시스템이 종료시키지 못하도록 합니다.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_disabled">%s 는 더 이상 배터리나 메모리 저장으로부터 보호되지 않습니다.</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -26,4 +27,8 @@
     <string name="notification_keepalive_content">마지막: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">감시</string>
+    <string name="notification_keepalive_activate">활성화</string>
+    <string name="notification_keepalive_activating">Blokada를 시작하고 있습니다. 잠시만 기다려주세요.</string>
+    <string name="notification_keepalive_deactivate">비활성화</string>
+    <string name="notification_keepalive_deactivating">Blokada 비활성화됨!</string>
 </resources>

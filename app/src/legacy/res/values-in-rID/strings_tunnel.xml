@@ -4,6 +4,7 @@
     <string name="tunnel_hosts_desc">Menampilkan jumlah host yang dikonfigurasi untuk diblokir oleh %s.</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <string name="tunnel_hosts_count2">%s host</string>
+    <string name="tunnel_hosts_count">%d host</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <string name="tunnel_hosts_updating">Memperbarui...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -11,9 +12,10 @@
     <string name="tunnel_config_wifi">Download filter hanya pada saat tersambung ke WiFi</string>
     <string name="tunnel_dropped_count_desc">Menampilkan jumlah total host yang sudah diblokir sejauh ini.</string>
     <string name="tunnel_dropped_count">%d diblokir</string>
-    <string name="tunnel_dropped_count2">%s diblokir</string>
+    <string name="tunnel_dropped_count2">%s domain diblokir</string>
     <string name="tunnel_config_refetch_now_title">Unduh daftar hosts</string>
     <string name="tunnel_config_refetch_now">Unduh daftar sekarang</string>
+    <string name="tunnel_config_refetch_toast">Pengunduhan list dimulai</string>
     <string name="tunnel_config_refetch_now_description">Gunakan tombol di bawah ini untuk menghapus cache dan mengunduh daftar Anda lagi. Ini dapat membantu jika Anda mengalami masalah dengan filter yang Anda gunakan.</string>
     <string name="tunnel_config_refetch_frequency_title">Frekuensi pengunduhan daftar</string>
     <string name="tunnel_config_refetch_frequency_description">Pilih salah satu opsi untuk mengkonfigurasi seberapa sering Blokada harus mengunduh daftar Anda.</string>

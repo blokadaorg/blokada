@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s ทำงานอยู่</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s กำลังปกป้องอุปกรณ์ของคุณอยู่ คุณสามารถปรับแต่ง %1$s ได้ข้างล่างนี้หรือปล่อยเลยตามเลยแล้วใช้งานเหมือนเดิมก็ได้!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s ไม่ได้ทำงาน</string>
@@ -52,8 +53,8 @@
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">แชร์บันทึก</string>
     <string name="main_report_title">รายงาน Blokada</string>
-    <string name="main_report_text">"Blokada พึ่งประสบปัญหาบางอย่าง (หรือคุณพึ่งได้ขอส่งรีพอร์ต) ข้อมูลการใช้งานจะถูกส่งไปเพื่อวิเคราะห์ปัญหา ซึ่งอาจมีข้อมูลส่วนตัวรวมอยู่ด้วย
-อย่างไรก็ดีมีเฉพาะบุคคลที่ไว้ใจได้ที่จะสามารถอ่านข้อมูลของคุณได้ และข้อมูลจะถูกลบเมื่อไม่มีความจำเป็นต้องใช้อีกต่อไป"</string>
+    <string name="main_report_text">Blokada พึ่งประสบปัญหาบางอย่าง (หรือคุณพึ่งได้ขอส่งรีพอร์ต) ข้อมูลการใช้งานจะถูกส่งไปเพื่อวิเคราะห์ปัญหา ซึ่งอาจมีข้อมูลส่วนตัวรวมอยู่ด้วย
+อย่างไรก็ดีมีเฉพาะบุคคลที่ไว้ใจได้ที่จะสามารถอ่านข้อมูลของคุณได้ และข้อมูลจะถูกลบเมื่อไม่มีความจำเป็นต้องใช้อีกต่อไป</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
     <!-- To display a big number in short way, eg. 420 thousand -->
 </resources>

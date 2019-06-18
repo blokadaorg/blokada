@@ -7,7 +7,6 @@
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
     <string name="tunnel_dropped_count_desc">hostsによってブロックされた総数が表示されます。</string>
     <string name="tunnel_dropped_count">%d をブロック</string>
-    <string name="tunnel_dropped_count2">%s 個ブロック済</string>
     <string name="tunnel_config_refetch_now_title">リストを更新</string>
     <string name="tunnel_config_refetch_frequency_title">リストの更新頻度</string>
     <string name="tunnel_config_refetch_frequency_1">毎日</string>

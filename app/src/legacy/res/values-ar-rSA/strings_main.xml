@@ -10,6 +10,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s نَشِط.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s مُفَعَّل. VPN مُتَّصِل.</string>
+    <string name="main_active_novpn">%s مُفَعَّل. VPN غير مُتَّصِل.</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s يقوم الآن بحماية جهازك. يُمكنك تعديل %1$s بالأسفل، أو يُمكنك إستخدام جهازك الآن!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s غير نَشِط.</string>

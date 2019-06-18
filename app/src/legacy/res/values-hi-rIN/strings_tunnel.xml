@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">केवल वाईफ़ाई पर फिल्टर डाउनलोड करें</string>
     <string name="tunnel_dropped_count_desc">अब तक कुल अवरोधित होस्ट्स की संख्या प्रदर्शित करता है ।</string>
     <string name="tunnel_dropped_count">%d अवरोधित किया गया</string>
-    <string name="tunnel_dropped_count2">%s अवरोधित किया गया</string>
     <string name="tunnel_config_refetch_now_title">डाउनलोड सूची</string>
     <string name="tunnel_config_refetch_now">सूची अभी डाउनलोड करें</string>
     <string name="tunnel_config_refetch_now_description">कैश निकालने और अपनी सूचियों को फिर से डाउनलोड करने के लिए नीचे दिए गए बटन का उपयोग करें। यदि आपको अपने फ़िल्टरिंग में कोई समस्या आती है तो यह मदद कर सकता है।</string>

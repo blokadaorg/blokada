@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s is actief</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s beschermd je apparaat nu tegen advertenties. Je kan %1$s hieronder verder instellen of maak gewoon gebruik van je apparaat!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s is inactief</string>

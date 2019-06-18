@@ -10,9 +10,9 @@
     <string name="update_header">Ny uppdatering!</string>
     <string name="update_header_noupdate">Inga nya uppdateringar</string>
     <string name="update_notification_channel">Uppdateringsnotifikationer</string>
-    <string name="update_info">"Om Blokada laddades ned från Play Store, F-Droid, eller någon annan \"app store\", så kommer du bli informerad om tillgängliga uppdateringar via dessa. 
+    <string name="update_info">Om Blokada laddades ned från Play Store, F-Droid, eller någon annan \"app store\", så kommer du bli informerad om tillgängliga uppdateringar via dessa. 
 
-Innan du uppdaterar, se till att inaktivera Blokada. Om fel skulle uppstå under uppdateringen, gå till blokada.org för att hämta den senaste versionen. Du behöver inte avinstallera den du har sedan tidigare."</string>
+Innan du uppdaterar, se till att inaktivera Blokada. Om fel skulle uppstå under uppdateringen, gå till blokada.org för att hämta den senaste versionen. Du behöver inte avinstallera den du har sedan tidigare.</string>
     <string name="update_credits_header">Den här appen är ett open source-projekt som gjorts möjligt tack vare alla medverkare till Blokada.</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
     <string name="update_dash_available">&lt;b&gt;Uppdatering finns!&lt;/b&gt;</string>

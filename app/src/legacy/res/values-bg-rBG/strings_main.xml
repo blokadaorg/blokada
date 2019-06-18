@@ -10,6 +10,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s е активна.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s е активна. VPN е свързан.</string>
+    <string name="main_active_novpn">%s е активна. VPN не е свързан.</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s сега защитава вашето устройство. Можете да настроите по-прецизно %1$s по-долу или просто да продължите да използвате устройството си!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s е неактивна.</string>

@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">להוריד מסננים רק כאשר קיים חיבור לרשת wifi</string>
     <string name="tunnel_dropped_count_desc">מציג את מספרם הכולל של השרתים שנחסמו עד כה.</string>
     <string name="tunnel_dropped_count">%d נחסמו</string>
-    <string name="tunnel_dropped_count2">%s נחסמו</string>
     <string name="tunnel_config_refetch_now_title">הורדת רשימות</string>
     <string name="tunnel_config_refetch_now">הורד רשימות כעת</string>
     <string name="tunnel_config_refetch_now_description">השתמש בלחצן שלהלן כדי למחוק את קובצי המטמון ולהוריד את הרשימות שלך שוב. הליך זה עשוי לעזור אם יש תקלות בבעיות עם הגדרות הסינון.</string>

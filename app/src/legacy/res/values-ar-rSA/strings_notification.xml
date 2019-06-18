@@ -8,7 +8,7 @@
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">لا تَعرِض</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
-    <string name="notification_blocked_whitelist">إضافة إلى القائمة البيضاء</string>
+    <string name="notification_blocked_whitelist">أضِف إلى القائمة البيضاء</string>
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
     <string name="notification_blocked_whitelist_applied">تَمّ ! التّغييرات سَتَظهر خلال ثواني.</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -27,4 +27,8 @@
     <string name="notification_keepalive_content">الأخير: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">المُراقَبة</string>
+    <string name="notification_keepalive_activate">التّفعيل</string>
+    <string name="notification_keepalive_activating">جارِ تَشغيل بلوكادا. قد يَستَغرِق ذلك لحظات.</string>
+    <string name="notification_keepalive_deactivate">إلغاء التَّفعيل</string>
+    <string name="notification_keepalive_deactivating">تَمَّ إلغاء تَفعيل بلوكادا !</string>
 </resources>

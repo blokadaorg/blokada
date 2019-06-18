@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s iyasebenza.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s manje ivikela idivayisi yakho. Ungahle uhlele %1$s ngezansi, noma qhubeka nje bese usebenzisa idivayisi yakho!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s ayisebenzi.</string>

@@ -5,6 +5,7 @@
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Bloquejat</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">No ho mostris</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
@@ -27,4 +28,8 @@
     <string name="notification_keepalive_content">Darrer: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">encara cap</string>
+    <string name="notification_keepalive_activate">Activa</string>
+    <string name="notification_keepalive_activating">El Blokada s\'està iniciant. Això pot trigar una estona.</string>
+    <string name="notification_keepalive_deactivate">Desactiva</string>
+    <string name="notification_keepalive_deactivating">El Blokada s\'ha desactivat!</string>
 </resources>

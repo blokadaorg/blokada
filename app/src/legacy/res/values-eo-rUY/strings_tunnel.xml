@@ -9,7 +9,6 @@
     <string name="tunnel_hosts_downloading">Elŝutado...</string>
     <string name="tunnel_config_wifi">Elŝuti filtriloj nur kiam sur WiFi</string>
     <string name="tunnel_dropped_count">%d blokita</string>
-    <string name="tunnel_dropped_count2">%s blokita</string>
     <string name="tunnel_config_refetch_now_title">Elŝuti listoj</string>
     <string name="tunnel_config_refetch_now">Nun elŝuti listoj</string>
     <string name="tunnel_config_refetch_frequency_1">Iam tagon</string>

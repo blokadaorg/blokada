@@ -28,4 +28,8 @@
     <string name="notification_keepalive_content">En son: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">Takip Ediliyor</string>
+    <string name="notification_keepalive_activate">Etkinleştir</string>
+    <string name="notification_keepalive_activating">Blokada başlıyor. Bu biraz zaman alabilir.</string>
+    <string name="notification_keepalive_deactivate">Devre dışı bırak</string>
+    <string name="notification_keepalive_deactivating">Blokada devre dışı bırakıldı!</string>
 </resources>

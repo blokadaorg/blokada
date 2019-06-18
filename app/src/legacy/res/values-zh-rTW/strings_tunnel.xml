@@ -4,6 +4,7 @@
     <string name="tunnel_hosts_desc">顯示由 %s 設定為封鎖狀態的主機數量。</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <string name="tunnel_hosts_count2">%s 個主機項目</string>
+    <string name="tunnel_hosts_count">%d 個主機</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <string name="tunnel_hosts_updating">正在更新...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -11,9 +12,10 @@
     <string name="tunnel_config_wifi">只在 Wi-Fi 環境下下載過濾器</string>
     <string name="tunnel_dropped_count_desc">顯示迄今阻擋的主機總數。</string>
     <string name="tunnel_dropped_count">已阻擋 %d 個項目</string>
-    <string name="tunnel_dropped_count2">已阻擋 %s</string>
+    <string name="tunnel_dropped_count2">已封鎖 %s 個網域</string>
     <string name="tunnel_config_refetch_now_title">下載列表</string>
     <string name="tunnel_config_refetch_now">立即下載列表</string>
+    <string name="tunnel_config_refetch_toast">已開始下載列表</string>
     <string name="tunnel_config_refetch_now_description">使用底下按鈕來移除快取並重新下載您的列表。如果您在過濾時發生任何問題，這可能可以協助您解決。</string>
     <string name="tunnel_config_refetch_frequency_title">列表下載頻率</string>
     <string name="tunnel_config_refetch_frequency_description">選擇其中一個選項來設定下載列表的頻率。</string>

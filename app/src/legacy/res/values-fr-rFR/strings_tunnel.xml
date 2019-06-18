@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Télécharger les filtres uniquement en wifi</string>
     <string name="tunnel_dropped_count_desc">Affiche le nombre total d\'hôtes bloqués jusqu\'à présent.</string>
     <string name="tunnel_dropped_count">%d éléments bloqués</string>
-    <string name="tunnel_dropped_count2">%s bloqués</string>
     <string name="tunnel_config_refetch_now_title">Télécharger les listes</string>
     <string name="tunnel_config_refetch_now">Télécharger les listes maintenant</string>
     <string name="tunnel_config_refetch_now_description">Utilisez le bouton ci-dessous pour supprimer le cache et télécharger à nouveau vos listes. Ceci peut vous aider si vous rencontrez des problèmes avec votre filtrage.</string>

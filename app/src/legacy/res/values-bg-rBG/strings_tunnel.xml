@@ -11,8 +11,7 @@
     <string name="tunnel_config_wifi">Изтегляне на филтри само при наличен WiFi</string>
     <string name="tunnel_dropped_count_desc">Показва общия брой блокирани досега хостове.</string>
     <string name="tunnel_dropped_count">%d блокирани</string>
-    <string name="tunnel_dropped_count2">%s блокирани</string>
-    <string name="tunnel_config_refetch_now_title">Изтегляне на списък</string>
+    <string name="tunnel_config_refetch_now_title">Изтегляне на списъци</string>
     <string name="tunnel_config_refetch_now">Изтеглете списъците сега</string>
     <string name="tunnel_config_refetch_now_description">Използвайте бутона по-долу за да премахнете кеша и да изтеглите списъците отново. Това може да помогне ако имате някакви проблеми с филтрирането.</string>
     <string name="tunnel_config_refetch_frequency_title">Показва честотата на изтегляне</string>

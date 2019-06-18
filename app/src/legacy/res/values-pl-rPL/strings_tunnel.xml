@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Pobieraj filtry tylko na wifi</string>
     <string name="tunnel_dropped_count_desc">Wyświetla całkowitą liczbę hostów zablokowaną do tej pory.</string>
     <string name="tunnel_dropped_count">%d zablokowano</string>
-    <string name="tunnel_dropped_count2">%s zablokowano</string>
     <string name="tunnel_config_refetch_now_title">Pobierz listy</string>
     <string name="tunnel_config_refetch_now">Pobierz listy teraz</string>
     <string name="tunnel_config_refetch_now_description">Użyj poniższego przycisku aby usunąć cache i pobrać listy ponownie. To może pomóc jeśli doświadczasz problemów z filtrowaniem.</string>

@@ -10,6 +10,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">A %s aktív.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s aktív. VPN csatlakoztatva.</string>
+    <string name="main_active_novpn">%s aktív. Nincs VPN csatlakoztatva.</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">A %1$s mostantól megvédi az eszközt a reklámoktól. Finomhangolhatod a %1$s beállításait alább, vagy csak használd tovább az eszközöd ahogy van.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">A %s inaktív.</string>

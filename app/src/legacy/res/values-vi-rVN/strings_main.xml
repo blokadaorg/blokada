@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s đang hoạt động.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s đang bảo vệ thiết bị của bạn khỏi quảng cáo. Bạn có thể tùy chỉnh các cài đặt của %1$s ở bên dưới hoặc chỉ cần tiếp tục và sử dụng thiết bị của bạn!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s đang không hoạt động.</string>

@@ -28,4 +28,10 @@
     <string name="notification_keepalive_content">Последний: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">мониторинг</string>
+    <string name="notification_keepalive_activate">Активировать</string>
+    <string name="notification_keepalive_activating">Blokada запускается. Это может занять некоторое время.</string>
+    <string name="notification_keepalive_deactivate">Деактивировать</string>
+    <string name="notification_keepalive_deactivating">Blokada деактивирована!</string>
+    <string name="notification_expired_title">Срок действия аккаунта Blokada VPN истек</string>
+    <string name="notification_expired_description">Срок действия вашей учетной записи только что истек, и вы больше не подключены к Blokada VPN. Пожалуйста, рассмотрите возможность активации своей учетной записи снова для лучшей защиты.</string>
 </resources>

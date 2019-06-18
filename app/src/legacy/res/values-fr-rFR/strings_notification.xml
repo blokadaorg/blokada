@@ -28,4 +28,8 @@
     <string name="notification_keepalive_content">Dernier: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">surveillance</string>
+    <string name="notification_keepalive_activate">Activée</string>
+    <string name="notification_keepalive_activating">Blokada commence. Cela peut prendre un moment.</string>
+    <string name="notification_keepalive_deactivate">Désactivée</string>
+    <string name="notification_keepalive_deactivating">Blokada a été désactivé !</string>
 </resources>

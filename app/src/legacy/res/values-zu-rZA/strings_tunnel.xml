@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Landa izihlungi kuphela uma ku-wifi</string>
     <string name="tunnel_dropped_count_desc">Ibonisa inani eliphelele labasikazi elivalwe kuze kube manje.</string>
     <string name="tunnel_dropped_count">%d avinjilwe</string>
-    <string name="tunnel_dropped_count2">%s ivinjilwe</string>
     <string name="tunnel_config_refetch_now_title">Landa uhlu</string>
     <string name="tunnel_config_refetch_now">Landa uhlu manje</string>
     <string name="tunnel_config_refetch_now_description">Sebenzisa inkinobho ngezansi ukuze ususe isilondolozi bese ulanda uhlu lwakho. Lokhu kungasiza uma uhlangabezana nezinkinga ngesilonda sakho.</string>

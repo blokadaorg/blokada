@@ -5,6 +5,7 @@
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">广告已拦截</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">以后不通知该域名的拦截</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
@@ -27,4 +28,8 @@
     <string name="notification_keepalive_content">最后拦截：%s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">广告监测中🙂</string>
+    <string name="notification_keepalive_activate">启用</string>
+    <string name="notification_keepalive_activating">Blokada 正在启动。这可能需要一段时间。</string>
+    <string name="notification_keepalive_deactivate">停用</string>
+    <string name="notification_keepalive_deactivating">Blokada 已停用！</string>
 </resources>

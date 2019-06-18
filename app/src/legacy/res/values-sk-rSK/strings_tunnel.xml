@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Stiahnuť filtre len cez wifi</string>
     <string name="tunnel_dropped_count_desc">Zobrazuje celkový počet zablokovaných hostov.</string>
     <string name="tunnel_dropped_count">%d zablokovaných</string>
-    <string name="tunnel_dropped_count2">%s zablokovaných</string>
     <string name="tunnel_config_refetch_now_title">Stiahnuť zoznamy</string>
     <string name="tunnel_config_refetch_now">Stiahnuť zoznamy teraz</string>
     <string name="tunnel_config_refetch_now_description">Pre odstránenie vyrovnávacej pamäte a opätovné prevzatie zoznamov použite tlačidlo nižšie. Môže to pomôcť, ak sa vyskytnú nejaké problémy s filtrovaním.</string>

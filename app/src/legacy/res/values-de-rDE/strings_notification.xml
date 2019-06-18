@@ -11,13 +11,13 @@
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
     <string name="notification_blocked_whitelist">Whitelist</string>
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
-    <string name="notification_blocked_whitelist_applied">Fertig! Die Änderungen werden in wenigen Sekunden aktiv.</string>
+    <string name="notification_blocked_whitelist_applied">Erledigt! Die Änderungen werden in wenigen Sekunden aktiv.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_disabled">%s wird keine Benachrichtigungen anzeigen.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_enabled">%s zeigt eine Benachrichtigung für jede blockierte Anzeige.</string>
     <string name="notification_keepalive_text">Aktiv halten</string>
-    <string name="notification_keepalive_description">Aktiviere diesen Schalter, wenn es Probleme mit dem Hintergunddienst und somit dem aktiv halten der App gibt. Diese Einstellung verhindert das das System die App beenden kann.</string>
+    <string name="notification_keepalive_description">Aktiviere diesen Schalter, wenn es Probleme mit dem Hintergrunddienst und somit dem Aktivhalten der App gibt. Diese Einstellung verhindert, dass das System die App beenden kann.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_disabled">%s ist nicht mehr vor Akku- oder Speicheroptimierungen geschützt.</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -28,4 +28,8 @@
     <string name="notification_keepalive_content">Zuletzt: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">Überwachung</string>
+    <string name="notification_keepalive_activate">Aktivieren</string>
+    <string name="notification_keepalive_activating">Blokada wird aktiviert. Das kann einen Moment dauern.</string>
+    <string name="notification_keepalive_deactivate">Deaktivieren</string>
+    <string name="notification_keepalive_deactivating">Blokada wurde deaktiviert!</string>
 </resources>

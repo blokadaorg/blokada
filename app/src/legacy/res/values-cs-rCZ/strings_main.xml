@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s je aktivní.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s nyní chrání vaše zařízení od reklam. Můžete doladit %1$s dole, nebo jen pokračujte a používejte své zařízení!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s je neaktivní.</string>

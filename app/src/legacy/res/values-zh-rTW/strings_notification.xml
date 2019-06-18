@@ -27,4 +27,8 @@
     <string name="notification_keepalive_content">上次：%s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">監控中</string>
+    <string name="notification_keepalive_activate">啟用</string>
+    <string name="notification_keepalive_activating">Blokada 正在啟動。可能需要一點時間。</string>
+    <string name="notification_keepalive_deactivate">停用</string>
+    <string name="notification_keepalive_deactivating">Blokada 已停用！</string>
 </resources>

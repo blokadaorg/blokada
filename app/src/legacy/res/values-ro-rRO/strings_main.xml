@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s este activ.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">Acum %1$s îți protejează dispozitivul. Poți ajusta în detaliu %1$s sau poți continua să folosești dispozitivul!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s este inactiv.</string>

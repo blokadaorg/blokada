@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Hämta filter endast när du är på Wi-Fi</string>
     <string name="tunnel_dropped_count_desc">Visar det totala antalet värdar som hittills blockerats.</string>
     <string name="tunnel_dropped_count">%d blockerad</string>
-    <string name="tunnel_dropped_count2">%s blockerad</string>
     <string name="tunnel_config_refetch_now_title">Hämta listor</string>
     <string name="tunnel_config_refetch_now">Hämta listor nu</string>
     <string name="tunnel_config_refetch_now_description">Använd knappen nedan för att rensa cachen och ladda ner listorna igen. Detta kan hjälpa om du upplever problem med filtren.</string>

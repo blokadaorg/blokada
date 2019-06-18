@@ -27,4 +27,8 @@
     <string name="notification_keepalive_content">Naposledy: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">monitorovanie</string>
+    <string name="notification_keepalive_activate">Aktivovať</string>
+    <string name="notification_keepalive_activating">Blokada sa spúšťa. Môže to chvíľu trvať.</string>
+    <string name="notification_keepalive_deactivate">Deaktivovať</string>
+    <string name="notification_keepalive_deactivating">Blokada bola deaktivovaná!</string>
 </resources>
