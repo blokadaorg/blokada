@@ -126,7 +126,7 @@ internal class BlockaTunnel(
                     if (i == 1) ktx.e("read: did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV4 -> {
-                    if (blockaConfig.adblocking && (
+                    if (blockaConfig.adblocking && isUdp (ktx, destination) && (
                                     srcAddress4(ktx, destination, dnsServers[0].address.address) ||
                                             (dnsServers.size > 1 && srcAddress4(ktx, destination, dnsServers[1].address.address))
                                     )
@@ -149,7 +149,8 @@ internal class BlockaTunnel(
 
     private fun interceptDns(ktx: Kontext, packetBytes: ByteArray, length: Int): Boolean {
         return if ((packetBytes[0] and ipv4Version) == ipv4Version) {
-            if (dstAddress4(ktx, packetBytes, length, dnsProxyDst4)) parseDns(ktx, packetBytes, length)
+            if (isUdp(ktx, packetBytes) && dstAddress4(ktx, packetBytes, length, dnsProxyDst4))
+                parseDns(ktx, packetBytes, length)
             else false
         } else if ((packetBytes[0] and ipv6Version) == ipv6Version) {
             ktx.w("ipv6 ad blocking not supported")
@@ -236,6 +237,14 @@ internal class BlockaTunnel(
                 )
     }
 
+    private fun isUdp(ktx: Kontext, packet: ByteBuffer): Boolean {
+        return packet[9] == 17.toByte()
+    }
+
+    private fun isUdp(ktx: Kontext, packet: ByteArray): Boolean {
+        return packet[9] == 17.toByte()
+    }
+
     private fun rewriteSrcDns4(ktx: Kontext, packet: ByteBuffer, length: Int) {
         val originEnvelope = try {
             IpSelector.newPacket(packet.array(), packet.arrayOffset(), length) as IpPacket
@@ -246,7 +255,7 @@ internal class BlockaTunnel(
         originEnvelope as IpV4Packet
 
         if (originEnvelope.payload !is UdpPacket) {
-            ktx.w("TCP packet received towards DNS IP, dropping")
+            ktx.w("Non-UDP packet received from the DNS server, dropping")
             return
         }
 
