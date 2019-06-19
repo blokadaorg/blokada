@@ -246,6 +246,8 @@ class VBListView(
 //        listView.smoothScrollToPosition(items.size - 1)
     }
 
+    fun getItemCount() = items.size
+
     fun enableAlternativeMode() {
         alternativeMode = true
         layoutManager = LinearLayoutManager(context)

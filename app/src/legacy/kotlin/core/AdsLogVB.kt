@@ -37,15 +37,16 @@ class AdsLogVB(
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
-        view.add(SearchBarVB(ktx, onSearch = { s ->
-            searchString = s
-            nextBatch = 0
-            items.clear()
-            view.set(emptyList())
-            attach(view)
-        }))
-
         if (items.isEmpty()) {
+            if(view.getItemCount() == 0) {
+                view.add(SearchBarVB(ktx, onSearch = { s ->
+                    searchString = s
+                    nextBatch = 0
+                    this.items.clear()
+                    view.set(emptyList())
+                    attach(view)
+                }))
+            }
             var items = loadBatch(0)
             items += loadBatch(1)
             nextBatch = 2
@@ -58,6 +59,7 @@ class AdsLogVB(
         } else {
             items.forEach { view.add(it) }
         }
+
         ktx.on(Events.REQUEST, request)
         view.onEndReached = loadMore
     }
