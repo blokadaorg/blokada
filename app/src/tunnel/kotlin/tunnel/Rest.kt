@@ -52,7 +52,9 @@ object RestModel {
             val accountId: String,
             @SerializedName("active_until")
             val activeUntil: Date = Date(0)
-    )
+    ) {
+        fun expiresSoon() = activeUntil.before(Date(Date().time + EXPIRATION_OFFSET))
+    }
     data class GatewayInfo(
             @SerializedName("public_key")
             val publicKey: String,
@@ -77,7 +79,9 @@ object RestModel {
             val expires: Date,
             val vip4: String,
             val vip6: String
-    )
+    ) {
+        fun expiresSoon() = expires.before(Date(Date().time + EXPIRATION_OFFSET))
+    }
     data class LeaseRequest(
             @SerializedName("account_id")
             val accountId: String,
