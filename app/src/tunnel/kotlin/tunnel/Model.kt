@@ -109,6 +109,8 @@ fun registerTunnelConfigEvent(ktx: Kontext) {
     ktx.on(TUNNEL_CONFIG, { Persistence.config.save(it) })
 }
 
+val EXPIRATION_OFFSET = 60 * 1000
+
 // TODO: can be null?
 data class BlockaConfig(
         val adblocking: Boolean = true,
@@ -125,6 +127,9 @@ data class BlockaConfig(
         val vip4: String = "",
         val vip6: String = ""
 ) {
+
+    fun getAccountExpiration() = Date(activeUntil.time - EXPIRATION_OFFSET)
+    fun getLeaseExpiration() = Date(leaseActiveUntil.time - EXPIRATION_OFFSET)
 
     fun hasGateway(): Boolean {
         return gatewayId.isNotBlank() && gatewayIp.isNotBlank() && gatewayPort != 0
@@ -196,7 +201,7 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
                             val newCfg = config.copy(
                                     activeUntil = account.activeUntil
                             )
-                            if (account.activeUntil.after(Date())) {
+                            if (!account.expiresSoon()) {
                                 ktx.v("current account active until: ${newCfg.activeUntil}")
                                 checkGateways(ktx, newCfg)
                             } else {
@@ -256,13 +261,7 @@ fun checkGateways(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
                                         gatewayNiceName = gateway.niceName()
                                 )
                                 ktx.v("found gateway, chosen: ${newCfg.gatewayId}")
-//                                if (newCfg.leaseActiveUntil.before(Date())) {
-//                                    ktx.v("old lease, refresh")
-//                                    newLease(ktx, newCfg)
-//                                } else {
-                                    checkLease(ktx, newCfg)
-//                                }
-                                Unit
+                                checkLease(ktx, newCfg)
                             } else {
                                 ktx.v("found no matching gateway")
                                 clearConnectedGateway(ktx, config)
@@ -313,7 +312,7 @@ private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
                             val lease = leases.firstOrNull {
                                 it.publicKey == config.publicKey && it.gatewayId == config.gatewayId
                             }
-                            if (lease != null && lease.expires.after(Date(Date().time + 1800 * 1000))) {
+                            if (lease != null && !lease.expiresSoon()) {
                                 val newCfg = config.copy(
                                         vip4 = lease.vip4,
                                         vip6 = lease.vip6,
@@ -324,7 +323,7 @@ private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
                                 ktx.emit(BLOCKA_CONFIG, newCfg)
                                 scheduleRecheck(ktx, newCfg)
                             } else {
-                                ktx.v("no active lease")
+                                ktx.v("no active lease, or expires soon")
                                 newLease(ktx, config)
                             }
                         }
@@ -404,8 +403,8 @@ private fun scheduleRecheck(ktx: AndroidKontext, config: BlockaConfig) {
         PendingIntent.getBroadcast(ktx.ctx, 0, intent, 0)
     }
 
-    val accountTime = config.activeUntil
-    val leaseTime = Date(config.leaseActiveUntil.time - 1800 * 1000) // Half an hour before lease ends
+    val accountTime = config.getAccountExpiration()
+    val leaseTime = config.getLeaseExpiration()
     val sooner = if (accountTime.before(leaseTime)) accountTime else leaseTime
     if (sooner.before(Date())) {
         ktx.emit(BLOCKA_CONFIG, config.copy(blockaVpn = false))
