@@ -55,6 +55,7 @@ android {
     }
     sourceSets {
         // Modules do NOT make a runnable app separately
+        // But you can actually choose a module-only build variant to work on it
         moduleCore.java.srcDirs += 'src/core/kotlin'
         testModuleCore.java.srcDirs += 'src/test-core/kotlin'
 
@@ -67,6 +68,12 @@ android {
         moduleG11n.java.srcDirs += 'src/g11n/kotlin'
         testModuleG11n.java.srcDirs += 'src/test-core/kotlin'
         testModuleG11n.java.srcDirs += 'src/test-g11n/kotlin'
+
+        moduleVpn.java.srcDirs += 'src/core/kotlin'
+        moduleVpn.java.srcDirs += 'src/vpn/kotlin'
+        moduleVpn.jniLibs.srcDirs += 'src/vpn/jniLibs'
+        testModuleVpn.java.srcDirs += 'src/test-core/kotlin'
+        testModuleVpn.java.srcDirs += 'src/test-vpn/kotlin'
 
         moduleLegacy.java.srcDirs += 'src/core/kotlin'
         moduleLegacy.java.srcDirs += 'src/tunnel/kotlin'
@@ -81,13 +88,16 @@ android {
         adblockerHome.java.srcDirs += 'src/core/kotlin'
         adblockerHome.java.srcDirs += 'src/tunnel/kotlin'
         adblockerHome.java.srcDirs += 'src/g11n/kotlin'
+        adblockerHome.java.srcDirs += 'src/vpn/kotlin'
         adblockerHome.java.srcDirs += 'src/legacy/kotlin'
         adblockerHome.java.srcDirs += 'src/flavor-adblocker/kotlin'
+        adblockerHome.jniLibs.srcDirs += 'src/vpn/jniLibs'
         adblockerHome.res.srcDirs += 'src/legacy/res'
         adblockerHome.res.srcDirs += 'src/flavor-adblocker/res'
         testAdblockerHome.java.srcDirs += 'src/test-core/kotlin'
         testAdblockerHome.java.srcDirs += 'src/test-tunnel/kotlin'
         testAdblockerHome.java.srcDirs += 'src/test-g11n/kotlin'
+        testAdblockerHome.java.srcDirs += 'src/test-vpn/kotlin'
 
         adblockerFdroid.manifest.srcFile 'src/legacy/AndroidManifest.xml'
         adblockerFdroid.java.srcDirs += 'src/core/kotlin'
@@ -159,6 +169,7 @@ android {
         moduleCore {}
         moduleTunnel {}
         moduleG11n {}
+        moduleVpn {}
         moduleLegacy {}
     }
 }

@@ -1,5 +1,5 @@
 #!/bin/sh
-JNI_LIBS=../app/src/main/jniLibs
+JNI_LIBS=../app/src/vpn/jniLibs
 
 export PATH=$PATH:$NDK_STANDALONE/arm64/bin
 
