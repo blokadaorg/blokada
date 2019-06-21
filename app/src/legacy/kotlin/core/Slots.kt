@@ -1536,16 +1536,16 @@ class AboutVB(
                     }
                 },
                 action1 = Slot.Action(i18n.getString(R.string.slot_about_share_log)) {
-                    if (askForExternalStoragePermissionsIfNeeded(activity)) {
-                        val uri = getExternalPath() + "/blokada.log"
+//                    if (askForExternalStoragePermissionsIfNeeded(activity)) {
+                        val uri = File(ctx.filesDir, "/blokada.log")
                         val openFileIntent = Intent(Intent.ACTION_SEND)
                         openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                         openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         openFileIntent.type = "plain/*"
                         openFileIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(ktx.ctx, "${ktx.ctx.packageName}.files",
-                                File(uri)))
+                                uri))
                         ktx.ctx.startActivity(openFileIntent)
-                    }
+//                    }
                 }
         )
     }
