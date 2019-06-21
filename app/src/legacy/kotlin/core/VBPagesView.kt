@@ -45,6 +45,12 @@ class VBPagesView(
         override fun getCount() = pages.size
     }
 
+    // Used to make ViewPager clear views when its not used
+    private val emptyAdapter = object : PagerAdapter() {
+        override fun isViewFromObject(view: View, `object`: Any) = true
+        override fun getCount() = 0
+    }
+
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         return if (lock)
             true
@@ -58,7 +64,7 @@ class VBPagesView(
     var pages: List<ViewBinder> = emptyList()
         set(value) {
             field = if (useSpacer) value.map { PageSpacerVB(it) } else value
-            adapter = dashAdapter
+            adapter = if (value.isEmpty()) emptyAdapter else dashAdapter
         }
 
 }

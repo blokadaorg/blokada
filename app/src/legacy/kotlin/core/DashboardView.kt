@@ -471,6 +471,7 @@ class DashboardView(
         }
 
         fg_pager.visibility = View.GONE
+        fg_pager.pages = emptyList()
     }
 
     private var showTime = 3000L
