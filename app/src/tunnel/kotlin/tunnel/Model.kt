@@ -9,6 +9,7 @@ import android.text.format.DateUtils
 import android.widget.Toast
 import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.salomonbrys.kodein.instance
+import com.google.android.material.snackbar.Snackbar
 import core.*
 import gs.property.Device
 import kotlinx.coroutines.experimental.async
@@ -200,7 +201,24 @@ private fun newAccount(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
     })
 }
 
+// To prevent request loop
+private var requestsSince = 0L
+private var requests = 0
+
 fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, showError: Boolean = false) {
+    if (requestsSince + 10 * 1000 < System.currentTimeMillis()) {
+        // 10 seconds passed, its ok to make requests
+        requestsSince = System.currentTimeMillis()
+        requests = 0
+    }
+
+    if (++requests > 10) {
+        ktx.e("too many check account requests recently, disabling vpn")
+        clearConnectedGateway(ktx, config)
+        requests = 0
+        return
+    }
+
     val api: RestApi = ktx.di().instance()
     api.getAccountInfo(config.accountId).enqueue(object: retrofit2.Callback<RestModel.Account> {
         override fun onFailure(call: Call<RestModel.Account>?, t: Throwable?) {
@@ -225,7 +243,7 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
                                 if (newCfg.blockaVpn) {
                                     displayAccountExpiredNotification(ktx.ctx)
                                     Toast.makeText(ktx.ctx, R.string.account_inactive, Toast.LENGTH_LONG).show()
-                                    ktx.emit(BLOCKA_CONFIG, newCfg.copy(blockaVpn = false))
+                                    clearConnectedGateway(ktx, newCfg, showError = false)
                                 }
                             }
                         }
@@ -242,11 +260,18 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
     })
 }
 
+fun showSnack(msgResId: Int) {
+    activityRegister.getParentView()?.run {
+        Snackbar.make(this, msgResId, Snackbar.LENGTH_LONG).show()
+    }
+}
+
 fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: Boolean = true) {
     if (config.blockaVpn && showError) {
-        Toast.makeText(ktx.ctx, R.string.lease_cant_connect, Toast.LENGTH_LONG).show()
         displayLeaseExpiredNotification(ktx.ctx)
+        showSnack(R.string.slot_lease_cant_connect)
     }
+
     deleteLease(ktx, config)
     ktx.emit(BLOCKA_CONFIG, config.copy(
             blockaVpn = false,

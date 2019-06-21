@@ -1726,9 +1726,7 @@ class GatewayVB(
                         ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
                     }
                     gateway.resourceUsagePercent >= 100 -> {
-                        activityRegister.get()?.run {
-                            Toast.makeText(this, R.string.slot_gateway_overloaded, Toast.LENGTH_LONG).show()
-                        }
+                        showSnack(R.string.slot_gateway_overloaded)
                         clearConnectedGateway(ktx, cfg, showError = false)
                     }
                     else -> {
