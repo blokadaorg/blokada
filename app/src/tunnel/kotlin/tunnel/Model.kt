@@ -5,10 +5,12 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.text.format.DateUtils
 import android.widget.Toast
 import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.salomonbrys.kodein.instance
 import core.*
+import gs.property.Device
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
 import notification.displayAccountExpiredNotification
@@ -126,7 +128,8 @@ data class BlockaConfig(
         val gatewayPort: Int = 0,
         val gatewayNiceName: String = "",
         val vip4: String = "",
-        val vip6: String = ""
+        val vip6: String = "",
+        val lastDaily: Long = 0L
 ) {
 
     fun getAccountExpiration() = Date(activeUntil.time - EXPIRATION_OFFSET)
@@ -158,6 +161,18 @@ fun registerBlockaConfigEvent(ktx: AndroidKontext) {
 
     ktx.emit(BLOCKA_CONFIG, config)
     ktx.on(BLOCKA_CONFIG, { Persistence.blocka.save(it) })
+
+    val d: Device = ktx.di().instance()
+    d.screenOn.doOnUiWhenChanged().then {
+        if (d.screenOn()) async {
+            ktx.getMostRecent(BLOCKA_CONFIG)?.run {
+                if (!DateUtils.isToday(lastDaily)) {
+                    ktx.v("daily check account")
+                    checkAccountInfo(ktx, copy(lastDaily = System.currentTimeMillis()))
+                }
+            }
+        }
+    }
 }
 
 val MAX_RETRIES = 3
