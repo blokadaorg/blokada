@@ -297,7 +297,7 @@ class DashboardView(
                     }
                 }
 
-                private var previousMeaningfulState = PanelState.ANCHORED
+                private var previousMeaningfulState = PanelState.COLLAPSED
                 override fun onPanelStateChanged(panel: View, previousState: PanelState, newState: PanelState) {
                     when (newState) {
                         PanelState.DRAGGING -> {
@@ -571,5 +571,6 @@ class DashboardView(
 
 val buttonsEnter = listOf(KeyEvent.KEYCODE_BUTTON_SELECT, KeyEvent.KEYCODE_DPAD_CENTER,
         KeyEvent.KEYCODE_BUTTON_A, KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER)
-val buttonsBack = listOf(KeyEvent.KEYCODE_BUTTON_B, KeyEvent.KEYCODE_BACK)
+val buttonsBack = listOf(KeyEvent.KEYCODE_BUTTON_B, KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_DEL,
+        KeyEvent.KEYCODE_FORWARD_DEL)
 

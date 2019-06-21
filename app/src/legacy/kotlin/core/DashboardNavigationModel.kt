@@ -103,9 +103,6 @@ internal class DashboardNavigationModel(
     fun selectKey() {
         val item = slotSelected
         when {
-            !on -> {
-                onTurnOn()
-            }
             item is Navigable && !slotOpened -> {
                 setSlotOpened(true)
             }

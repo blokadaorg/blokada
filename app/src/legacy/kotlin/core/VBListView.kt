@@ -165,11 +165,16 @@ class VBListView(
             val nextSelectItem = selectedItem + direction
 
             if (nextSelectItem in 0..(itemCount - 1)) {
-                notifyItemChanged(selectedItem)
-                selectedItem = nextSelectItem
-                notifyItemChanged(selectedItem)
-                listView.scrollToPosition(selectedItem)
-                return true
+                if (items[nextSelectItem] is Navigable) {
+                    notifyItemChanged(selectedItem)
+                    selectedItem = nextSelectItem
+                    notifyItemChanged(selectedItem)
+                    listView.scrollToPosition(selectedItem)
+                    return true
+                } else {
+                    val next = if(direction < 1) direction - 1 else direction + 1
+                    return tryMoveSelection(next)
+                }
             }
 
             return false
