@@ -195,6 +195,7 @@
     <string name="slot_gateway_label">Connect to %s</string>
     <string name="slot_gateway_description">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your currently selected gateway.</string>
+    <string name="slot_gateway_overloaded">This gateway is busy and does not accept new connections.</string>
 
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">high</string>
@@ -294,4 +295,5 @@
 
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Advanced settings</string>
+
 </resources>

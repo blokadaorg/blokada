@@ -30,7 +30,7 @@ class GatewaysDashboardSectionVB(
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
         view.set(items)
-        if (items.size == 1) gatewaysRequest.sendEmptyMessage(0)
+        gatewaysRequest.sendEmptyMessage(0)
     }
 
     override fun detach(view: VBListView) {

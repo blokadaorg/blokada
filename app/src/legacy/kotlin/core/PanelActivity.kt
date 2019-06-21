@@ -131,6 +131,8 @@ class ActiveActivityRegister {
         this.activity = Sync(WeakReference(activity))
     }
 
+    fun get() = activity.get().get()
+
     fun askPermissions() {
         val act = activity.get().get() ?: throw Exception("starting MainActivity")
         val deferred = askTunnelPermission(Kontext.new("static perm ask"), act)

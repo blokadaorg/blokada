@@ -1716,22 +1716,28 @@ class GatewayVB(
             )
 
             onSwitch = {
-                if (gateway.publicKey == cfg.gatewayId) {
-                    // Turn off VPN feature
-                    clearConnectedGateway(ktx, cfg, showError = false)
-                } else {
-                    if (cfg.activeUntil.before(Date()) == true) {
+                when {
+                    gateway.publicKey == cfg.gatewayId -> {
+                        // Turn off VPN feature
+                        clearConnectedGateway(ktx, cfg, showError = false)
+                    }
+                    cfg.activeUntil.before(Date()) -> {
                         modal.openModal()
                         ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
-                    } else {
-                        cfg.run {
-                            checkGateways(ktx, cfg.copy(
-                                    gatewayId = gateway.publicKey,
-                                    gatewayIp = gateway.ipv4,
-                                    gatewayPort = gateway.port,
-                                    gatewayNiceName = gateway.niceName()
-                            ))
+                    }
+                    gateway.resourceUsagePercent >= 100 -> {
+                        activityRegister.get()?.run {
+                            Toast.makeText(this, R.string.slot_gateway_overloaded, Toast.LENGTH_LONG).show()
                         }
+                        clearConnectedGateway(ktx, cfg, showError = false)
+                    }
+                    else -> {
+                        checkGateways(ktx, cfg.copy(
+                                gatewayId = gateway.publicKey,
+                                gatewayIp = gateway.ipv4,
+                                gatewayPort = gateway.port,
+                                gatewayNiceName = gateway.niceName()
+                        ))
                     }
                 }
             }
