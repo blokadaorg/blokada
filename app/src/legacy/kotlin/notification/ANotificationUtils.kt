@@ -193,3 +193,24 @@ fun displayAccountExpiredNotification(ctx: Context) {
     val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     notif.notify(3, b.build())
 }
+
+fun displayLeaseExpiredNotification(ctx: Context) {
+    val b = NotificationCompat.Builder(ctx)
+    b.setContentTitle(ctx.getString(R.string.notification_lease_expired_title))
+    b.setContentText(ctx.getString(R.string.notification_lease_expired_description))
+    b.setSmallIcon(R.drawable.ic_stat_blokada)
+    b.setPriority(NotificationCompat.PRIORITY_MAX)
+    b.setVibrate(LongArray(0))
+
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
+    val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+    b.setContentIntent(piActivity)
+
+    if (Build.VERSION.SDK_INT >= 26) {
+        createNotificationChannel(ctx)
+        b.setChannelId(default_id)
+    }
+
+    val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    notif.notify(4, b.build())
+}

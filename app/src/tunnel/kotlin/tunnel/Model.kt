@@ -12,6 +12,7 @@ import core.*
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
 import notification.displayAccountExpiredNotification
+import notification.displayLeaseExpiredNotification
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
@@ -227,7 +228,10 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
 }
 
 fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: Boolean = true) {
-    if (config.blockaVpn && showError) Toast.makeText(ktx.ctx, R.string.lease_cant_connect, Toast.LENGTH_LONG).show()
+    if (config.blockaVpn && showError) {
+        Toast.makeText(ktx.ctx, R.string.lease_cant_connect, Toast.LENGTH_LONG).show()
+        displayLeaseExpiredNotification(ktx.ctx)
+    }
     deleteLease(ktx, config)
     ktx.emit(BLOCKA_CONFIG, config.copy(
             blockaVpn = false,
