@@ -20,6 +20,7 @@ import gs.property.*
 import org.blokada.R
 import tunnel.Filter
 import tunnel.TunnelConfigView
+import tunnel.showSnack
 import update.AUpdateView
 import update.UpdateCoordinator
 import update.isUpdate
@@ -246,7 +247,7 @@ class UpdatesDash(private val ktx: AndroidKontext): LayoutViewBinder(R.layout.vi
         else null
 
         view.onClick = {
-            Toast.makeText(ktx.ctx, R.string.update_starting, Toast.LENGTH_SHORT).show()
+            showSnack(R.string.update_starting)
             updater.start(u.downloadLinks)
         }
 
@@ -321,7 +322,7 @@ class StartViewBinder(
             version.previousCode %= currentAppVersion
         }
         Steps.MULTIPLE_APPS -> {
-            Toast.makeText(ctx, R.string.welcome_cleanup_done, Toast.LENGTH_SHORT).show()
+            showSnack(R.string.welcome_cleanup_done)
             val builds = getInstalledBuilds()
             for (b in builds.subList(1, builds.size).reversed()) {
                 uninstallPackage(b)

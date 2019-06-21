@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.text.format.DateUtils
-import android.widget.Toast
 import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.salomonbrys.kodein.instance
 import com.google.android.material.snackbar.Snackbar
@@ -224,7 +223,7 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
         override fun onFailure(call: Call<RestModel.Account>?, t: Throwable?) {
             ktx.e("check account api call error", t ?: "null")
             if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1, showError)
-            else if (showError) Toast.makeText(ktx.ctx, R.string.slot_account_name_api_error, Toast.LENGTH_LONG).show()
+            else if (showError) showSnack(R.string.slot_account_name_api_error)
         }
 
         override fun onResponse(call: Call<RestModel.Account>?, response: Response<RestModel.Account>?) {
@@ -242,7 +241,7 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
                                 ktx.v("current account inactive")
                                 if (newCfg.blockaVpn) {
                                     displayAccountExpiredNotification(ktx.ctx)
-                                    Toast.makeText(ktx.ctx, R.string.account_inactive, Toast.LENGTH_LONG).show()
+                                    showSnack(R.string.account_inactive)
                                     clearConnectedGateway(ktx, newCfg, showError = false)
                                 }
                             }
@@ -251,7 +250,7 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
                     else -> {
                         ktx.e("check account api call response ${code()}")
                         if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1, showError)
-                        else if (showError) Toast.makeText(ktx.ctx, R.string.slot_account_name_api_error, Toast.LENGTH_LONG).show()
+                        else if (showError) showSnack(R.string.slot_account_name_api_error)
                         Unit
                     }
                 }

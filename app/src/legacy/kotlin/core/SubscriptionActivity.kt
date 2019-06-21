@@ -2,7 +2,6 @@ package core
 
 import android.app.Activity
 import android.widget.FrameLayout
-import android.widget.Toast
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
@@ -15,6 +14,7 @@ import kotlinx.coroutines.experimental.delay
 import org.blokada.R
 import tunnel.BLOCKA_CONFIG
 import tunnel.BlockaConfig
+import tunnel.showSnack
 import java.net.URL
 
 
@@ -34,8 +34,7 @@ class SubscriptionActivity : Activity() {
                 javascript = true, forceEmbedded = true, big = true,
                 onLoadSpecificUrl = "vpn.blocka.net/#/success" to {
                     this@SubscriptionActivity.finish()
-                    Toast.makeText(this@SubscriptionActivity, R.string.subscription_success,
-                            Toast.LENGTH_LONG).show()
+                    showSnack(R.string.subscription_success)
                 })
     }
 

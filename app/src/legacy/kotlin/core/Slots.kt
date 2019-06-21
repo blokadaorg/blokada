@@ -8,7 +8,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Handler
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.github.salomonbrys.kodein.instance
 import filter.hostnameRegex
@@ -506,7 +505,7 @@ class DomainForwarderVB(
                 description = domain,
                 detail = Format.date(date),
                 info = i18n.getString(R.string.panel_domain_forwarded_desc),
-                action1 = Slot.Action(i18n.getString(R.string.slot_action_block), {
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_block)) {
                     val f = Filter(
                             id(domain, whitelist = false),
                             source = tunnel.FilterSourceDescriptor("single", domain),
@@ -515,8 +514,8 @@ class DomainForwarderVB(
                     )
                     tunnelManager.putFilter(ktx, f)
                     view.fold()
-                    Toast.makeText(ktx.ctx, i18n.getString(R.string.panel_domain_blocked_toast), Toast.LENGTH_SHORT).show()
-                })
+                    showSnack(R.string.panel_domain_blocked_toast)
+                }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
         if (alternative) view.enableAlternativeBackground()
@@ -543,7 +542,7 @@ class DomainBlockedVB(
                 description = domain,
                 detail = Format.date(date),
                 info = i18n.getString(R.string.panel_domain_blocked_desc),
-                action1 = Slot.Action(i18n.getString(R.string.slot_action_allow), {
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_allow)) {
                     val f = Filter(
                             id(domain, whitelist = true),
                             source = tunnel.FilterSourceDescriptor("single", domain),
@@ -552,8 +551,8 @@ class DomainBlockedVB(
                     )
                     tunnelManager.putFilter(ktx, f)
                     view.fold()
-                    Toast.makeText(ktx.ctx, i18n.getString(R.string.panel_domain_forwarded_toast), Toast.LENGTH_SHORT).show()
-                })
+                    showSnack(R.string.panel_domain_forwarded_toast)
+                }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
         if (alternative) view.enableAlternativeBackground()
@@ -621,7 +620,7 @@ class DownloadListsVB(
                 description = i18n.getString(R.string.tunnel_config_refetch_now_description),
                 icon = ctx.getDrawable(R.drawable.ic_download),
                 action1 = Slot.Action(i18n.getString(R.string.tunnel_config_refetch_now), {
-                    Toast.makeText(ctx, R.string.tunnel_config_refetch_toast, Toast.LENGTH_SHORT).show()
+                    showSnack(R.string.tunnel_config_refetch_toast)
                     filters.invalidateFilters(ktx)
                 })
         )
@@ -1332,7 +1331,7 @@ class DnsListControlVB(
                 description = i18n.getString(R.string.slot_dns_control_description),
                 icon = ctx.getDrawable(R.drawable.ic_reload),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh), {
-                    Toast.makeText(ctx, R.string.slot_action_refresh_toast, Toast.LENGTH_SHORT).show()
+                    showSnack(R.string.slot_action_refresh_toast)
                     dns.choices.refresh(force = true)
                 }),
                 action2 = Slot.Action(i18n.getString(R.string.slot_action_restore), {
@@ -1361,21 +1360,21 @@ class FiltersListControlVB(
                 label = i18n.getString(R.string.slot_filters_title),
                 description = i18n.getString(R.string.slot_filters_description),
                 icon = ctx.getDrawable(R.drawable.ic_reload),
-                action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh), {
-                    Toast.makeText(ctx, R.string.slot_action_refresh_toast, Toast.LENGTH_SHORT).show()
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh)) {
+                    showSnack(R.string.slot_action_refresh_toast)
                     val ktx = ctx.ktx("quickActions:refresh")
                     filters.apps.refresh(force = true)
                     tunnel.invalidateFilters(ktx)
                     translations.invalidateCache(ktx)
                     translations.sync(ktx)
-                }),
-                action2 = Slot.Action(i18n.getString(R.string.slot_action_restore), {
+                },
+                action2 = Slot.Action(i18n.getString(R.string.slot_action_restore)) {
                     val ktx = ctx.ktx("quickActions:restore")
                     filters.apps.refresh(force = true)
                     tunnel.deleteAllFilters(ktx)
                     translations.invalidateCache(ktx)
                     translations.sync(ktx)
-                })
+                }
         )
     }
 
@@ -1457,9 +1456,9 @@ class UpdateVB(
     private var clickCounter = 0
     private var next: Int = 0
 
-    private val changelogAction = Slot.Action(i18n.getString(R.string.main_changelog), {
+    private val changelogAction = Slot.Action(i18n.getString(R.string.main_changelog)) {
         openInBrowser(ctx, pages.changelog())
-    })
+    }
 
     override fun attach(view: SlotView) {
         listener = repo.lastRefreshMillis.doOnUiWhenSet().then {
@@ -1470,9 +1469,9 @@ class UpdateVB(
                 view.content = Slot.Content(
                         label = i18n.getString(R.string.update_dash_available),
                         description = i18n.getString(R.string.update_notification_text, current.newestVersionName),
-                        action1 = Slot.Action(i18n.getString(R.string.update_button), {
+                        action1 = Slot.Action(i18n.getString(R.string.update_button)) {
                             if (clickCounter++ % 2 == 0) {
-                                Toast.makeText(ctx, R.string.update_starting, Toast.LENGTH_SHORT).show()
+                                showSnack(R.string.update_starting)
                                 updater.start(repo.content().downloadLinks)
                             } else {
                                 val intent = Intent(Intent.ACTION_VIEW)
@@ -1482,7 +1481,7 @@ class UpdateVB(
 
                                 next = next++ % repo.content().downloadLinks.size
                             }
-                        }),
+                        },
                         icon = ctx.getDrawable(R.drawable.ic_new_releases),
                         action2 = changelogAction
                 )
@@ -1648,7 +1647,7 @@ class BlockaVB(
             if (cfg != null) {
                 content = Slot.Content(
                         label = i18n.getString(R.string.slot_blocka_label),
-                        icon = ktx.ctx.getDrawable(R.drawable.ic_verified),
+                        icon = ktx.ctx.getDrawable(R.drawable.ic_account_circle_black_24dp),
                         description = "%s<br/><br/>%s".format(accountId, accountLabel),
                         action1 = Slot.Action(
                                 if (isActive) i18n.getString(R.string.slot_account_action_manage)
@@ -1662,15 +1661,15 @@ class BlockaVB(
                         },
                         action3 = Slot.Action(i18n.getString(R.string.slot_account_action_copy)) {
                             val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            val clipData = ClipData.newPlainText("account-id", cfg!!.accountId)
+                            val clipData = ClipData.newPlainText("account-id", cfg.accountId)
                             clipboardManager.primaryClip = clipData
-                            Toast.makeText(ktx.ctx, R.string.slot_account_action_copied, Toast.LENGTH_SHORT).show()
+                            showSnack(R.string.slot_account_action_copied)
                         }
                 )
             } else {
                 content = Slot.Content(
                         label = i18n.getString(R.string.slot_blocka_label),
-                        icon = ktx.ctx.getDrawable(R.drawable.ic_verified),
+                        icon = ktx.ctx.getDrawable(R.drawable.ic_account_circle_black_24dp),
                         description = "%s<br/><br/>%s".format(accountId, accountLabel)
                 )
             }
@@ -1702,8 +1701,14 @@ class GatewayVB(
     private fun update(cfg: BlockaConfig) {
         view?.apply {
             content = Slot.Content(
-                    label = i18n.getString(R.string.slot_gateway_label, gateway.niceName()),
-                    icon = ktx.ctx.getDrawable(R.drawable.ic_server),
+                    label = i18n.getString(
+                            (if (gateway.overloaded()) R.string.slot_gateway_label_overloaded
+                            else R.string.slot_gateway_label),
+                            gateway.niceName()),
+                    icon = ktx.ctx.getDrawable(
+                            if (gateway.overloaded()) R.drawable.ic_shield_outline
+                            else R.drawable.ic_verified
+                    ),
                     description = if (gateway.publicKey == cfg.gatewayId) {
                         i18n.getString(R.string.slot_gateway_description_current,
                                 getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region,
@@ -1725,7 +1730,7 @@ class GatewayVB(
                         modal.openModal()
                         ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
                     }
-                    gateway.resourceUsagePercent >= 100 -> {
+                    gateway.overloaded() -> {
                         showSnack(R.string.slot_gateway_overloaded)
                         clearConnectedGateway(ktx, cfg, showError = false)
                     }
@@ -1981,13 +1986,13 @@ class CleanupVB(
                 label = i18n.getString(R.string.slot_cleanup_label),
                 description = i18n.getString(R.string.slot_cleanup_desc),
                 icon = ctx.getDrawable(R.drawable.ic_delete),
-                action1 = Slot.Action(i18n.getString(R.string.slot_cleanup_action), {
-                    Toast.makeText(ctx, R.string.welcome_cleanup_done, Toast.LENGTH_SHORT).show()
+                action1 = Slot.Action(i18n.getString(R.string.slot_cleanup_action)) {
+                    showSnack(R.string.welcome_cleanup_done)
                     val builds = getInstalledBuilds()
                     for (b in builds.subList(1, builds.size).reversed()) {
                         uninstallPackage(b)
                     }
-                })
+                }
         )
     }
 

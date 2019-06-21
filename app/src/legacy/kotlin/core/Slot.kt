@@ -17,6 +17,7 @@ import gs.presentation.LayoutViewBinder
 import gs.presentation.doAfter
 import gs.property.I18n
 import org.blokada.R
+import tunnel.showSnack
 import java.util.*
 
 class Slot {
@@ -193,7 +194,7 @@ class SlotView(
     }
 
     val ACTION_NONE = {
-        Toast.makeText(context, i18n.getString(R.string.slot_action_none), Toast.LENGTH_LONG).show()
+        showSnack(R.string.slot_action_none)
     }
 
     val ACTION_CLOSE = Slot.Action(i18n.getString(R.string.slot_action_close), {

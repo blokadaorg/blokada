@@ -7,13 +7,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.IBinder
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ScrollView
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.github.michaelbull.result.mapBoth
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -23,6 +22,7 @@ import gs.property.I18n
 import org.blokada.R
 import tunnel.Events
 import tunnel.Request
+import tunnel.showSnack
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintWriter
@@ -134,7 +134,7 @@ class LoggerConfigView(
         super.onFinishInflate()
         activeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(ctx, ctx.resources.getString(R.string.logger_permission), Toast.LENGTH_SHORT).show()
+                showSnack(R.string.logger_permission)
                 buttonView.isChecked = false
             } else {
                 config = config.copy(active = isChecked)

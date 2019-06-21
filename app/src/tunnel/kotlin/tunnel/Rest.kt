@@ -68,6 +68,7 @@ object RestModel {
             val expires: Date
     ) {
         fun niceName() = location.split('-').map { it.capitalize() }.joinToString(" ")
+        fun overloaded() = resourceUsagePercent >= 100
     }
     data class LeaseInfo(
             @SerializedName("account_id")
