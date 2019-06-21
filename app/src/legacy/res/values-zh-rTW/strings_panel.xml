@@ -137,6 +137,7 @@
     <string name="slot_blocka_label">Blokada的VPN帳號</string>
     <string name="slot_account_label_active">帳號直到 %s 之前有效</string>
     <string name="slot_account_text_account">您的帳號ID為 &lt;b&gt;%s&lt;/b&gt;.</string>
+    <string name="slot_account_text_inactive">您的訂閱&lt;b&gt;不活躍&lt;/b&gt;。您需要活躍的帳號以使用 Blokada VPN。請輕點下方的按鈕以啟用它。</string>
     <string name="slot_account_text_active">您的訂閱目前是&lt;b&gt;啟用狀態&lt;/b&gt;，有效期限至 &lt;b&gt;%s&lt;/b&gt;。請輕點下方的按鈕以管理您的訂閱。</string>
     <string name="slot_account_info">您不應讓您的帳號 ID 外洩，它在您解除安裝後想要復原帳號時是必要的。除非您手動取消，否則您的訂閱將會自動延長。</string>
     <!-- Action to manage active subscription. Keep it short -->

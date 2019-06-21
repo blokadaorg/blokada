@@ -32,4 +32,6 @@
     <string name="notification_keepalive_activating">Blokada стартира. Това може да отнеме известно време.</string>
     <string name="notification_keepalive_deactivate">Деактивиране</string>
     <string name="notification_keepalive_deactivating">Blokada се деактивира!</string>
+    <string name="notification_expired_title">Профилът на Blokada VPN изтече</string>
+    <string name="notification_expired_description">Профилът ви току-що изтече и от този момент не сте свързани с Blokada VPN. Моля, помислете отново за активиране на профила си за по-добра защита.</string>
 </resources>

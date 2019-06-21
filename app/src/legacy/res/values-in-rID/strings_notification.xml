@@ -32,4 +32,6 @@
     <string name="notification_keepalive_activating">Blokada mulai diaktifkan. Mungkin akan memakan waktu.</string>
     <string name="notification_keepalive_deactivate">Nonaktifkan</string>
     <string name="notification_keepalive_deactivating">Blakada telah dinonaktifkan!</string>
+    <string name="notification_expired_title">Akun Blokada VPN telah kedaluwarsa</string>
+    <string name="notification_expired_description">Akun Anda sudah kedaluwarsa dan saat ini Anda tidak tersambung dengan Blokada VPN. Jika Anda ingin perangkat Anda terlindungi, silahkan perbarui/aktifkan kembali akun Anda.</string>
 </resources>

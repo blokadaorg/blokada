@@ -8,15 +8,15 @@
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">Nu afişa</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
-    <string name="notification_blocked_whitelist">Lista albă</string>
+    <string name="notification_blocked_whitelist">Whitelist</string>
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
-    <string name="notification_blocked_whitelist_applied">Realizat! Modificările durează câteva secunde.</string>
+    <string name="notification_blocked_whitelist_applied">Gata! Modificările durează câteva secunde.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_disabled">%s nu va afişa notificări.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_enabled">Acum %s va afișa notificări de fiecare dată când ceva a fost blocat.</string>
     <string name="notification_keepalive_text">Păstrează activ</string>
-    <string name="notification_keepalive_description">Activează acest buton dacă întâmpini probleme ca aplicația să rămână activă. Aplicația va afișa o notificare permanentă pentru a împiedica sistemul de a opri aplicația.</string>
+    <string name="notification_keepalive_description">Apasa acest buton dacă întâmpinati probleme cu aplicația să rămână activă. Aplicația va afișa o notificare permanentă pentru a împiedica sistemul de a opri aplicația.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_disabled">%s nu este protejat la optimizarea bateriei sau a memoriei.</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -31,4 +31,5 @@
     <string name="notification_keepalive_activating">Blokada se pornește. Durează câteva momente.</string>
     <string name="notification_keepalive_deactivate">Dezactivează</string>
     <string name="notification_keepalive_deactivating">Blokada a fost dezactivat!</string>
+    <string name="notification_expired_title">Contul Blokada VPN a exirat</string>
 </resources>

@@ -32,4 +32,6 @@
     <string name="notification_keepalive_activating">Blokada se zapíná. To může chvíli trvat.</string>
     <string name="notification_keepalive_deactivate">Zakázat</string>
     <string name="notification_keepalive_deactivating">Blokada byla deaktivována!</string>
+    <string name="notification_expired_title">Platnost účtu Blokada VPN vypršela</string>
+    <string name="notification_expired_description">Platnost vašeho účtu právě vypršela a v tuto chvíli nejste připojeni k Blokada VPN. Chcete-li zlepšit ochranu, zvažte opětovnou aktivaci účtu.</string>
 </resources>

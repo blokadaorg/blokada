@@ -32,4 +32,6 @@
     <string name="notification_keepalive_activating">A Blokada elindításra került. Néhány pillanatig eltarthat.</string>
     <string name="notification_keepalive_deactivate">Deaktiválás</string>
     <string name="notification_keepalive_deactivating">Blokada deaktiválásra került!</string>
+    <string name="notification_expired_title">Blokada VPN fiók lejárt</string>
+    <string name="notification_expired_description">A fiókod épp lejárt, így jelenleg nem csatlakozol a Blokada VPN-hez. Kérjük, fontold meg újra a fiók aktiválását a jobb védelem érdekében.</string>
 </resources>

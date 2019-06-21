@@ -4,20 +4,20 @@
     <string name="main_loading">Aktiviere Blokada, bitte warten ...</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_intro">Willkommen bei %s! Klicke auf das Schild, um die App zu aktivieren. Erteile auf Nachfrage Berechtigungen.</string>
-    <string name="main_error">Es ist ein Fehler aufgetreten. Bitte prüfe Deine Internetverbindung und versuche es noch einmal.</string>
+    <string name="main_error">Es ist ein Fehler aufgetreten. Bitte prüfe deine Internetverbindung und versuche es noch einmal.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_deactivating_new">%s wird deaktiviert. Bitte warten …</string>
+    <string name="main_deactivating_new">%s wird deaktiviert. Bitte warten…</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s ist aktiv.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_vpn">%s ist aktiv. VPN ist verbunden.</string>
     <string name="main_active_novpn">%s ist aktiv. Kein VPN verbunden.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_active_new">%1$s schützt nun Dein Gerät. Du kannst %1$s unten genauer einstellen oder Du legst einfach los und benutzt Dein Gerät!</string>
+    <string name="main_active_new">%1$s schützt nun dein Gerät. Du kannst %1$s unten genauer einstellen oder du legst einfach los und benutzt dein Gerät!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s ist inaktiv.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_paused_autoenable">%1$s wurde angehalten, weil Dein Gerät nicht verbunden ist. %1$s wird automatisch aktiv, sobald eine Internetverbindung zur Verfügung steht.</string>
+    <string name="main_paused_autoenable">%1$s wurde angehalten, weil dein Gerät nicht verbunden ist. %1$s wird automatisch aktiv, sobald eine Internetverbindung zur Verfügung steht.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable_tethering">%1$s ist pausiert, weil ein WLAN-Hotspot aktiv ist. %1$s wird automatisch fortgesetzt, wenn der Hotspot deaktiviert wird.</string>
     <!-- Label for the Quick Settings toggle -->
@@ -57,9 +57,9 @@
     <string name="main_patron_overlay">Als Blokada Community finden wir vielversprechende neue Projekte und helfen ihnen zu wachsen. Bitte teilen!</string>
     <string name="main_log">Protokoll teilen</string>
     <string name="main_report_title">Blokada-Bericht</string>
-    <string name="main_report_text">Bei Blokada ist ein Problem aufgetreten (oder Du hast darum gebeten, einen Bericht zu senden). Es wird ein Protokoll angehängt, das private Informationen enthalten kann. Nur vertrauenswürdige Mitarbeiter werden Deinen Bericht lesen können und er wird gelöscht, sobald er nicht mehr benötigt wird.</string>
-    <string name="main_report_comment">Berichte mit Kommentaren werden bevorzugt. Was hast Du gemacht, bevor das Problem auftrat?</string>
-    <string name="main_report_limit">Die maximale Anzahl an Berichten ist erreicht. Bitte habe Geduld bis zum nächsten Update. Vielen Dank für Dein Feedback!</string>
+    <string name="main_report_text">Bei Blokada ist ein Problem aufgetreten (oder du hast darum gebeten, einen Bericht zu senden). Es wird ein Protokoll angehängt, das private Informationen enthalten kann. Nur vertrauenswürdige Mitarbeiter werden deinen Bericht lesen können und er wird gelöscht, sobald er nicht mehr benötigt wird.</string>
+    <string name="main_report_comment">Berichte mit Kommentaren werden bevorzugt. Was hast du gemacht, bevor das Problem auftrat?</string>
+    <string name="main_report_limit">Die maximale Anzahl an Berichten ist erreicht. Bitte habe Geduld bis zum nächsten Update. Vielen Dank für dein Feedback!</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
     <string name="core_format_million">%s Millionen</string>
     <!-- To display a big number in short way, eg. 420 thousand -->

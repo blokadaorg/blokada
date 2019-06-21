@@ -31,4 +31,6 @@
     <string name="notification_keepalive_activating">Blokada 正在啟動。可能需要一點時間。</string>
     <string name="notification_keepalive_deactivate">停用</string>
     <string name="notification_keepalive_deactivating">Blokada 已停用！</string>
+    <string name="notification_expired_title">Blokada VPN帳號已逾期</string>
+    <string name="notification_expired_description">您的帳號已經逾期, 並且無法在此時連接至Blokada VPN. 請考慮再度啟用您的帳號以獲得更佳的保護.</string>
 </resources>

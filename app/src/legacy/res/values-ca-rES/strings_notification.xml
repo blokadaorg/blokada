@@ -32,4 +32,6 @@
     <string name="notification_keepalive_activating">El Blokada s\'està iniciant. Això pot trigar una estona.</string>
     <string name="notification_keepalive_deactivate">Desactiva</string>
     <string name="notification_keepalive_deactivating">El Blokada s\'ha desactivat!</string>
+    <string name="notification_expired_title">El compte VPN del Blokada ha caducat</string>
+    <string name="notification_expired_description">El vostre compte acaba de caducar i no esteu connectats a la VPN del Blokada en aquest moment. Penseu en tornar a activar el vostre compte per obtenir una millor protecció.</string>
 </resources>

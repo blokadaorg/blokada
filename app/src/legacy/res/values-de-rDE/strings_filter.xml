@@ -32,7 +32,9 @@
     <string name="filter_edit_app">App</string>
     <string name="filter_edit_app_enter">App- oder Paketnamen eingeben</string>
     <!-- An example package name of app to whitelist. -->
+    <string name="filter_edit_app_placeholder">Google Play Store</string>
     <string name="filter_edit_app_error">Diese App existiert nicht oder kann nicht auf die Whitelist gesetzt werden.</string>
+    <string name="filter_edit_app_unsupported">(nicht durch Standard-Blockierung unterstützt)</string>
     <string name="filter_edit_save">Speichern</string>
     <string name="filter_edit_cancel">Abbrechen</string>
     <string name="filter_edit_do">Fortsetzen</string>
@@ -61,7 +63,7 @@
     <!-- Forcefully refetch filters ignoring cache. -->
     <string name="filter_generate_refetch">Filter aktualisieren</string>
     <!-- Select save location for filters  -->
-    <string name="filter_generate_export">Importieren / Exportieren</string>
+    <string name="filter_generate_export">Importieren/Exportieren</string>
     <!-- A button to open directory chooser to export settings to. -->
     <string name="filter_export_select">Wähle aus, wo die Einstellungen gespeichert werden sollen</string>
     <string name="filter_export_error">Ausgewähltes Verzeichnis nicht verwendbar. Bitte Schreibberechtigung überprüfen.</string>
@@ -69,5 +71,5 @@
     <string name="filter_export_import2">Jetzt importieren</string>
     <string name="filter_export_internal">Interner Speicher (Standard)</string>
     <string name="filter_export_external">Externer Speicher</string>
-    <string name="filter_export_external_info">Hinweis: Deine Auswahl betrifft sowohl die Black- als auch die Whitelist. Sorge dafür, dass Blokada (in den Systemeinstellungen) der Zugriff auf den externen Speicher gewährt wurde. Ansonsten wird entgegen Deiner Auswahl der interne Speicher genutzt werden. Wenn Du bereits existierende Einstellungen importieren willst, tippe vor dem Schließen dieses Fensters auf \"Jetzt importieren\", sonst werden diese überschrieben.</string>
+    <string name="filter_export_external_info">Hinweis: deine Auswahl betrifft sowohl die Black- als auch die Whitelist. Sorge dafür, dass Blokada (in den Systemeinstellungen) der Zugriff auf den externen Speicher gewährt wurde. Ansonsten wird entgegen deiner Auswahl der interne Speicher genutzt werden. Wenn du bereits existierende Einstellungen importieren willst, tippe vor dem Schließen dieses Fensters auf \"Jetzt importieren\", sonst werden diese überschrieben.</string>
 </resources>

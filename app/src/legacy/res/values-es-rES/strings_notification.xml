@@ -32,4 +32,6 @@
     <string name="notification_keepalive_activating">Blokada está iniciando. Esto puede tardar un momento.</string>
     <string name="notification_keepalive_deactivate">Desactivar</string>
     <string name="notification_keepalive_deactivating">¡Blokada se ha desactivado!</string>
+    <string name="notification_expired_title">Cuenta del VPN de Blokada ha expirado</string>
+    <string name="notification_expired_description">Tu cuenta acaba de expirar y no estás conectado al VPN de Blokada en este momento. Por favor, considera activar tu cuenta de nuevo para una mejor protección.</string>
 </resources>

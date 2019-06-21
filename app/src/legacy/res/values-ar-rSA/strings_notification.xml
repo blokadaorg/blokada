@@ -31,4 +31,6 @@
     <string name="notification_keepalive_activating">جارِ تَشغيل بلوكادا. قد يَستَغرِق ذلك لحظات.</string>
     <string name="notification_keepalive_deactivate">إلغاء التَّفعيل</string>
     <string name="notification_keepalive_deactivating">تَمَّ إلغاء تَفعيل بلوكادا !</string>
+    <string name="notification_expired_title">انتهت صلاحيَّة حساب Blokada VPN</string>
+    <string name="notification_expired_description">انتهت صلاحيَّة حسابك للتو و لست متصلاً بـ Blokada VPN حاليّاً. يُرجَى النظر في تفعيل حسابك مرّة أُخرى لتوفير حماية أفضل.</string>
 </resources>
