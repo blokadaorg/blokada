@@ -102,6 +102,6 @@ fun updateListWidget(ctx: Context){
     updateIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
     val widgetManager = AppWidgetManager.getInstance(ctx)
     val ids = widgetManager.getAppWidgetIds(ComponentName(ctx, ListWidgetProvider::class.java))
-    updateIntent .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+    updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
     ctx.sendBroadcast(updateIntent)
 }

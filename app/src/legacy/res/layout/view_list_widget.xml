@@ -20,7 +20,7 @@
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:paddingBottom="2dp"
-            android:src="@drawable/ic_stat_blokada" />
+            android:src="@drawable/ic_blokada" />
 
     </RelativeLayout>
 

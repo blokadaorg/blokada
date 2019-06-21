@@ -39,10 +39,20 @@ class ListWidgetProvider : AppWidgetProvider() {
         intent.putExtra("new_state", !t.enabled())
         remoteViews.setOnClickPendingIntent(R.id.widget_list_button, PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
         if (t.enabled()) {
+            remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = true, waiting = false))
             remoteViews.setTextViewText(R.id.widget_list_button, "Deactivate")
         } else {
+            remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = false, waiting = false))
             remoteViews.setTextViewText(R.id.widget_list_button, "Activate")
         }
         appWidgetManager?.updateAppWidget(appWidgetIds, remoteViews)
+    }
+
+    private fun color(ctx: Context, active: Boolean, waiting: Boolean): Int {
+        return when {
+            waiting -> ctx.resources.getColor(R.color.colorLogoWaiting)
+            active -> ctx.resources.getColor(android.R.color.transparent)
+            else -> ctx.resources.getColor(R.color.colorLogoInactive)
+        }
     }
 }
