@@ -638,17 +638,17 @@ class ConfigHelper {
         }
 
         private fun idToTtl(id: Int) = when (id) {
-            R.id.frequency_2 -> 259200L
-            R.id.frequency_3 -> 604800L
-            R.id.frequency_4 -> 2419200L
+            R.string.tunnel_config_refetch_frequency_2 -> 259200L
+            R.string.tunnel_config_refetch_frequency_3 -> 604800L
+            R.string.tunnel_config_refetch_frequency_4 -> 2419200L
             else -> 86400L
         }
 
         private fun stringToId(string: String, i18n: I18n) = when (string) {
-            i18n.getString(R.id.frequency_2) -> R.id.frequency_2
-            i18n.getString(R.id.frequency_3) -> R.id.frequency_3
-            i18n.getString(R.id.frequency_4) -> R.id.frequency_4
-            else -> R.id.frequency_1
+            i18n.getString(R.string.tunnel_config_refetch_frequency_2) -> R.string.tunnel_config_refetch_frequency_2
+            i18n.getString(R.string.tunnel_config_refetch_frequency_3) -> R.string.tunnel_config_refetch_frequency_3
+            i18n.getString(R.string.tunnel_config_refetch_frequency_4) -> R.string.tunnel_config_refetch_frequency_4
+            else -> R.string.tunnel_config_refetch_frequency_1
         }
 
         private fun idToString(id: Int, i18n: I18n) = i18n.getString(id)
