@@ -121,11 +121,11 @@ class UpdateWidgetService : Service() {
     private var onDNSEvent: IWhen? = null
     private var widgetList: LinkedHashSet<WidgetData> = LinkedHashSet(5)
 
-    override fun onBind(intent: Intent): IBinder? {
+    override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if(widgetList.isEmpty()) {
             val pref = this.getSharedPreferences("widgets", Context.MODE_PRIVATE)
 
