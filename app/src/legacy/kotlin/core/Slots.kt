@@ -1732,7 +1732,8 @@ class GatewayVB(
                     }
                     gateway.overloaded() -> {
                         showSnack(R.string.slot_gateway_overloaded)
-                        clearConnectedGateway(ktx, cfg, showError = false)
+                        // Resend event to re-select same gateway
+                        ktx.emit(BLOCKA_CONFIG, cfg)
                     }
                     else -> {
                         checkGateways(ktx, cfg.copy(
