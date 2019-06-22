@@ -384,6 +384,7 @@ private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
 }
 
 private fun deleteLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
+    if (config.gatewayId.isBlank()) return
     val api: RestApi = ktx.di().instance()
 
     // TODO: rewrite it to sync version, or use callback on finish
