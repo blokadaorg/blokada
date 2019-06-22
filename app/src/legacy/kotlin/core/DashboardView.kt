@@ -26,6 +26,7 @@ import tunnel.Persistence
 import kotlin.math.max
 import kotlin.math.min
 
+
 typealias PanelState = SlidingUpPanelLayout.PanelState
 
 val OPEN_MENU = "DASHBOARD_OPEN_MENU".newEvent()
@@ -556,14 +557,26 @@ class DashboardView(
         flashPlaceholder()
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return when(keyCode) {
+            KeyEvent.KEYCODE_DPAD_UP -> {
+                model.upKey()
+                true
+            }
+            KeyEvent.KEYCODE_DPAD_DOWN -> {
+                model.downKey()
+                true
+            }
+            else -> false
+        }
+    }
+
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
         when(keyCode) {
             in buttonsEnter -> model.selectKey()
             in buttonsBack -> model.backPressed()
             KeyEvent.KEYCODE_DPAD_LEFT -> model.leftKey()
             KeyEvent.KEYCODE_DPAD_RIGHT -> model.rightKey()
-            KeyEvent.KEYCODE_DPAD_UP -> model.upKey()
-            KeyEvent.KEYCODE_DPAD_DOWN -> model.downKey()
         }
         return true
     }
@@ -572,5 +585,5 @@ class DashboardView(
 val buttonsEnter = listOf(KeyEvent.KEYCODE_BUTTON_SELECT, KeyEvent.KEYCODE_DPAD_CENTER,
         KeyEvent.KEYCODE_BUTTON_A, KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER)
 val buttonsBack = listOf(KeyEvent.KEYCODE_BUTTON_B, KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_DEL,
-        KeyEvent.KEYCODE_FORWARD_DEL)
+        KeyEvent.KEYCODE_FORWARD_DEL, KeyEvent.KEYCODE_ESCAPE)
 
