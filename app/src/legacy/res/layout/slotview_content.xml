@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_chevron_up"
+                    android:drawableEnd="@drawable/ic_arrow_up_drop_circle_outline"
                     android:padding="@dimen/slot_padding"
                     android:text="@string/slot_action_close"
                     android:tint="@color/colorAccent" />
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_chevron_right"
+                    android:drawableEnd="@drawable/ic_arrow_right_drop_circle_outline"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
@@ -155,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_chevron_down"
+                    android:drawableEnd="@drawable/ic_arrow_down_drop_circle_outline"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_chevron_left"
+                    android:drawableEnd="@drawable/ic_arrow_left_drop_circle_outline"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
