@@ -90,6 +90,8 @@ class EnterAccountVB(
             inputValid = error == null
             error
         }
+
+        view.requestFocusOnEdit()
     }
 
 }

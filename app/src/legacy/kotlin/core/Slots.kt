@@ -801,6 +801,8 @@ class EnterDomainVB(
             inputValid = error == null
             error
         }
+
+        view.requestFocusOnEdit()
     }
 
 }
@@ -847,6 +849,8 @@ class EnterNameVB(
             inputValid = error == null
             error
         }
+
+        view.requestFocusOnEdit()
     }
 
 }
@@ -935,6 +939,8 @@ class EnterSearchVB(
                 action2 = Slot.Action(ctx.getString(R.string.search_action_clear)) {
                     onSearch("")
                 })
+
+        view.requestFocusOnEdit()
     }
 }
 

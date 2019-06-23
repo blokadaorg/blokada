@@ -72,7 +72,10 @@ abstract class SlotVB(internal var onTap: (SlotView) -> Unit = defaultOnTap)
         detach(view)
     }
 
-    override fun focus() = view?.unfold() ?: Unit
+    override fun focus() {
+        view?.unfold()
+        view?.requestFocusOnEdit()
+    }
 
     override fun enter() {
         view?.onTap?.invoke()
@@ -261,6 +264,10 @@ class SlotView(
         foldingView.initialize(500, resources.getColor(R.color.colorBackgroundLight), 0)
         foldedContainerView.setBackgroundResource(R.drawable.bg_dashboard_item_alternative)
         unfoldedContainerView.setBackgroundResource(R.drawable.bg_dashboard_item_unfolded_alternative)
+    }
+
+    fun requestFocusOnEdit() {
+        editView.requestFocus()
     }
 
     private fun bind(content: Slot.Content) {
