@@ -2,7 +2,7 @@
     <dimen name="default_text_size">16sp</dimen>
     <dimen name="secondary_text_size">14sp</dimen>
 
-    <dimen name="dashboard_panel_width">3000dp</dimen>
+    <dimen name="dashboard_panel_width">2000dp</dimen>
     <dimen name="dashboard_notch_inset">30dp</dimen>
     <dimen name="dashboard_logo_size">48dp</dimen>
     <dimen name="dashboard_logo_margin_top">12dp</dimen>
