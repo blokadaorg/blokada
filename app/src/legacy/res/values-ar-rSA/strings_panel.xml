@@ -46,9 +46,9 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">المفتاح</string>
     <string name="slot_start">اسحب للأعلى للبدأ</string>
-    <string name="slot_intro_new">مرحباً بك في %s! اضغط هنا لعرض المقدمة.</string>
+    <string name="slot_intro_new">كيفَ تَستخدِم الواجهة الجديدة؟ إضغط هنا للتوضيح.</string>
     <string name="slot_intro_new_header">كيف تستخدام واجهة المُستخدِم الجديدة؟</string>
-    <string name="slot_intro_desc">يمكنك النقر فوق أي عنصر ، مثل هذا العنصر ، لفتحه لأداء إجراءات عليه. على سبيل المثال ، يمكن إزالة هذا العنصر بمجرّد الإنتهاء منه. &lt;br/&gt;&lt;br/&gt;أنت حاليّاً في القسم الرئيسي. اسحب لليسار أو لليمين لعرض أقسام إضافيّة. كل واحد منهم له قائمة سفليّة خاصة - يتمّ فتحها عن طريق السحب للأعلى. &lt;br/&gt;&lt;br/&gt;انطلق و استكشف التطبيق الآن!</string>
+    <string name="slot_intro_desc">أنت حاليّاً في قسم \"الصفحة الرئيسية\" ، سوف تَجِد المزيد إذا قمت بالسحب لليسار. كلّ واحد منهم له قائمة سُفليّة خاصّة - يَتِم فتحه عن طريق السحب للأعلى. &lt;br/&gt;&lt;br/&gt;على Android TV ، يُمكِنُك الإنتقال إلى واجهة المُستخدِم باستخدام دي باد. إستَخدِم المفتاح الأوسط لفتح القائمة السُفليِّة ، أو أي عنصر تَختاره. تتميّز الأزرار بالسهم لأعلى أو لأسفل أو لليسار أو لليمين - إستخدِم مفاتيح الإتجاه للنقر عليها.</string>
     <string name="slot_intro_info">معلومة... تحتوي بعض العناصر على رمز علامة الإستفهام عليها. النقر فوقها سيعرض رسالة مساعدة قصيرة ، مثل هذه الرسالة!</string>
     <string name="slot_new_filter">حظْر مُستَضيف جديد</string>
     <string name="slot_new_filter_list">إضافة قائمة جديدة</string>
@@ -148,8 +148,10 @@
     <string name="slot_account_action_copied">تمَّ نسخ مُعرِّف الحساب إلى الحافظة</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">متَّصل إلى %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] إتصل بـ %s</string>
     <string name="slot_gateway_description">الأداء: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;الإقليم: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">الأداء: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;الإقليم: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; هذه هي البوابة المحددة حاليّاً.</string>
+    <string name="slot_gateway_overloaded">هذه البوّابة مشغولة و لا تَقبَل الإتصالات الجديدة.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">مرتفع</string>
     <!-- Gateway load -->
@@ -209,7 +211,7 @@
     <string name="slot_cleanup_desc">يبدو أنّ هناك العديد من إصدارات بلوكادا مثبتة على جهازك. هل ترغب في إزالة الإصدارات الأخرى و الاحتفاظ بنسخة واحدة فقط؟</string>
     <string name="slot_cleanup_action">تنظيف</string>
     <string name="account_inactive">انتهت صلاحيّة Blokada VPN الخاصّة بك. أنت غير متصل بشبكة VPN.</string>
-    <string name="lease_cant_connect">غير قادر على الإتصال ب Blokada VPN. حاول إختيار بوابّة أُخرى.</string>
+    <string name="slot_lease_cant_connect">غير قادر على الإتصال بـ Blokada VPN. حاول إختيار بوابّة أُخرى.</string>
     <string name="slot_account_name_title">معرّف الحساب</string>
     <string name="slot_account_name_desc">أدخِل مُعَرِّف حسابك القديم لاستعادة اشتراكك السابق. قبل القيام بذلك قدّ ترغب في كتابة مُعَرِّف حسابك الحالي ، في حالة إرتكاب خطأ.</string>
     <string name="slot_account_name_error">يمكن أن يحتوي مُعَرِّف الحساب على أحرف و أرقام فقط.</string>

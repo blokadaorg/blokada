@@ -46,9 +46,7 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Váltás</string>
     <string name="slot_start">a kezdéshez csúsztass felfelé</string>
-    <string name="slot_intro_new">Üdvözöl a %s! Érintsd meg itt a bevezető megtekintéséhez.</string>
     <string name="slot_intro_new_header">Hogyan működik az új felhasználói felület?</string>
-    <string name="slot_intro_desc">Bármely olyan elemet megérinthetsz, mint ez, hogy megnyisd és műveleteket hajts rajta végre. Például, ez az elem eltávolítható, ha végeztél vele. &lt;br/&gt;&lt;br/&gt;Jelenleg a Kezdőlapon vagy. A további lehetőségekért csúsztass balra vagy jobbra. Minden szakasznak saját menüje van a képernyő alján - ez felfelé csúsztatással nyitható meg. &lt;br/&gt;&lt;br/&gt;Gyerünk, fedezd fel az alkalmazást most!</string>
     <string name="slot_intro_info">Psszt... Néhány elemhez kérdőjel ikon kapcsolódik. Megérintve, egy rövid súgóüzenet jelenik meg, mint ez!</string>
     <string name="slot_new_filter">Új hoszt blokkolása</string>
     <string name="slot_new_filter_list">Új lista hozzáadása</string>
@@ -148,8 +146,10 @@
     <string name="slot_account_action_copied">Fiókazonosító a vágólapra másolva</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Csatlakozás ehhez: %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Csatlakozás ehhez: %s</string>
     <string name="slot_gateway_description">Teljesítmény: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Régió: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Teljesítmény: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Régió: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Ez a jelenleg kiválasztott átjáró.</string>
+    <string name="slot_gateway_overloaded">Ez az átjáró foglalt, és nem fogad új csatlakozásokat.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">magas</string>
     <!-- Gateway load -->
@@ -209,7 +209,7 @@
     <string name="slot_cleanup_desc">Úgy tűnik, hogy a Blokada számos verziója telepítve van a készülékeden. Szeretnéd eltávolítani a többi verziót és csak egyet megtartani?</string>
     <string name="slot_cleanup_action">Tisztítás</string>
     <string name="account_inactive">A Blokada VPN lejárt. Nem kapcsolódsz a VPN-hez.</string>
-    <string name="lease_cant_connect">Nem sikerült csatlakozni a Blokada VPN-hez. Próbálj másik átjárót kiválasztani.</string>
+    <string name="slot_lease_cant_connect">Nem sikerült csatlakozni a Blokada VPN-hez. Próbálj másik átjárót kiválasztani.</string>
     <string name="slot_account_name_title">Fiókazonosító</string>
     <string name="slot_account_name_desc">Add meg régi fiókazonosítódat az előző előfizetés visszaállításához. Írd le az aktuális fiókazonosítódat mielőtt ezt megtennéd, hogy elkerüld a félregépelést.</string>
     <string name="slot_account_name_error">A Fiókazonosító csak betűket (ékezet nélküli) és számokat tartalmazhat.</string>

@@ -46,9 +46,7 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Inverti</string>
     <string name="slot_start">scorri su per iniziare</string>
-    <string name="slot_intro_new">Benvenuto su %s! Tocca qui per cominciare.</string>
     <string name="slot_intro_new_header">Come si utilizza la nuova interfaccia?</string>
-    <string name="slot_intro_desc">Puoi cliccare su qualsiasi elemento, come questo, per aprirlo ed eseguire alcune azioni. Per esempio, puoi rimuovere questo elemento una volta che hai finito. &lt;br/&gt;&lt;br/&gt;Attualmente sei nella sezione Home. Scorri a sinistra oppure a destra per le altre sezioni. Ognuna ha il proprio menù in basso - aprilo scorrendo verso l\'alto. &lt;br/&gt;&lt;br/&gt;Forza, adesso va\' ed esplora l\'app!</string>
     <string name="slot_intro_info">Psst... Alcuni elementi hanno l\'icona del punto interrogativo di sopra. Toccarla farà aprire un breve messaggio d\'aiuto, come questo!</string>
     <string name="slot_new_filter">Blocca un nuovo host</string>
     <string name="slot_new_filter_list">Aggiungi una nuova lista</string>
@@ -103,13 +101,65 @@
     <string name="slot_whitelist_title">App in whitelist</string>
     <string name="slot_list_no_desc">Questa voce non ha alcuna descrizione.</string>
     <string name="slot_status_description_active">Il blocco pubblicità è attualmente &lt;b&gt;attivo&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Vedrai un\'animazione in background quando pubblicità, tracker o altri contenuti indesiderati verranno bloccati.</string>
-    <string name="slot_status_description_inactive">Il blocco pubblicità è attualmente &lt;b&gt;disattivato&lt;/b&gt;.</string>
+    <string name="slot_status_description_inactive">Il blocco pubblicità è attualmente &lt;b&gt;disabilitato&lt;/b&gt;.</string>
+    <string name="slot_status_info">Quando l\'app è attiva, vedrai l\'icona di una chiave nella barra delle notifiche nella parte superiore dello schermo, ciò significa che il tuo dispositivo è protetto. Puoi disattivare l\'app tramite il pulsante qui in basso, oppure scorrendo in basso il menù inferiore.</string>
+    <string name="slot_status_vpn_turn_off">Disabilita VPN</string>
+    <string name="slot_status_vpn_turn_on">Attiva VPN</string>
+    <string name="slot_status_vpn_turned_on">VPN connessa a %s</string>
+    <string name="slot_status_vpn_connecting">Attivazione Blokada VPN...</string>
+    <string name="slot_status_vpn_turned_off">Blokada VPN non è attiva</string>
+    <string name="slot_status_vpn_desc_on">Blokada VPN è attualmente &lt;b&gt;attivo&lt;/b&gt;.&lt;br /&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Il tuo dispositivo e i tuoi dati sono adesso al sicuro. Clicca il punto interrogativo per i dettagli.</string>
     <string name="slot_status_vpn_desc_off">Blokada VPN è attualmente &lt;b&gt;disabilitato&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Quando la VPN è connessa, il tuo dispositivo comunica attraverso i nostri server sicuri e il tuo traffico è criptato, così che nessuno possa vedere i tuoi dati. Il tuo reale IP è nascosto e puoi accedere ai contenuti oscurati. In alcuni casi, potresti anche notare una connessione ad Internet più veloce.</string>
+    <string name="slot_status_vpn_lease">Aggiorna</string>
+    <string name="slot_action_deactivate">Disabilita</string>
+    <string name="slot_action_activate">Attiva</string>
+    <string name="slot_action_deactivate_adblocking">Disabilita blocco pubblicità</string>
+    <string name="slot_action_activate_adblocking">Attiva blocco pubblicità</string>
+    <string name="slot_dropped_counter">Contatore domini bloccati</string>
+    <string name="slot_dropped_counter_info">Questo contatore mostra il numero di domini che sono stati bloccati sin dall\'installazione dell\'app.</string>
+    <string name="slot_dropped_action_clear">Azzera contatore</string>
+    <string name="slot_notifications_title">Le notifiche sono %s.</string>
+    <string name="slot_notifications_desc">Puoi attivare o disabilitare le notifiche da qui. Ricorda che su alcuni dispositivi, Android mostrerà una notifica VPN separata che non può essere disattivata.</string>
+    <string name="slot_notifications_enabled">attive</string>
+    <string name="slot_notifications_disabled">disabilitate</string>
+    <string name="slot_update_action_refresh">Controlla di nuovo</string>
+    <string name="slot_telegram_title">Unisciti a noi su Telegram!</string>
+    <string name="slot_telegram_desc">Visita il nostro canale Telegram per aiuto o soltanto per far parte della nostra comunità.</string>
+    <string name="slot_telegram_action">Apri</string>
+    <string name="slot_dropped_share_title">Condividi</string>
+    <string name="slot_dropped_share">Ho bloccato %s pubblicità grazie a %s! www.blokada.org</string>
+    <string name="slot_active">Attivo</string>
+    <string name="slot_inactive">Inattivo</string>
+    <string name="slot_adblocking_label">Blocca pubblicità &amp; tracker</string>
+    <string name="slot_adblocking_text">Quando abilitato, Blokada bloccherà pubblicità, tracker e altri contenuti indesiderati. Ciò aiuta a proteggere la tua privacy, velocizzare il tuo dispositivo e risparmiare i tuoi giga.</string>
+    <string name="slot_blocka_label">Account Blokada VPN</string>
+    <string name="slot_account_label_active">Account valido fino al %s</string>
+    <string name="slot_account_text_account">Il tuo ID account è &lt;b&gt;%s&lt;/b&gt;.</string>
+    <string name="slot_account_text_inactive">Il tuo abbonamento è &lt;b&gt;inattivo&lt;/b&gt;. Hai bisogno di un account attivo per poter utilizzare Blokada VPN. Per favore clicca sul pulsante qui sotto per attivarlo.</string>
+    <string name="slot_account_text_active">Il tuo abbonamento è &lt;b&gt;attivo&lt;/b&gt; fino al &lt;b&gt;%s&lt;/b&gt;. Per favore clicca il pulsante qui sotto per gestire il tuo abbonamento.</string>
+    <string name="slot_account_info">Dovresti mantenere segreto il tuo ID account - è necessario per poter recuperare il tuo account in caso dovessi disinstallare l\'app. Il tuo abbonamento verrà rinnovato automaticamente a meno che tu non lo annulli.</string>
     <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">Gestisci</string>
+    <string name="slot_account_action_manage_inactive">Attiva account</string>
+    <string name="slot_account_action_change_id">Recupera account</string>
+    <string name="slot_account_action_copy">Copia ID account</string>
+    <string name="slot_account_action_copied">ID account copiato negli appunti</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
+    <string name="slot_gateway_label">Connetti a %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Connetti a %s</string>
+    <string name="slot_gateway_description">Prestazioni: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Regione: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_description_current">Prestazioni: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Regione: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Questo è il tuo gateway attualmente selezionato.</string>
+    <string name="slot_gateway_overloaded">Questo gateway è pieno e non accetta nuove connessioni.</string>
     <!-- Gateway load -->
+    <string name="slot_gateway_load_low">alto</string>
     <!-- Gateway load -->
-    <string name="slot_protection_error">Blokada è temporaneamente disabilitato</string>
+    <string name="slot_gateway_load_high">basso</string>
+    <string name="panel_section_home_gateways">Gateway VPN</string>
+    <string name="subscription_success">Il tuo account è in fase di attivazione. Questo potrebbe richiedere alcuni secondi. Grazie!</string>
+    <string name="slot_protection_header">Stato Blokada</string>
+    <string name="slot_protection_off">Blokada è inattiva</string>
+    <string name="slot_protection_off_desc">Il tuo dispositivo non è protetto.</string>
+    <string name="slot_protection_error">Blokada è temporaneamente disabilitata</string>
     <string name="slot_protection_error_desc">Ciò potrebbe essere causato da problemi di rete temporanei, da problemi con il tuo dispositivo o con il software. Blokada si riattiverà in automatico a breve, ma potresti provare a riattivare l\'app manualmente o riavviare il telefono. Se continui ad avere problemi, per favore contattaci su Telegram.</string>
     <string name="slot_protection_disconnected">Il tuo dispositivo è offline</string>
     <string name="slot_protection_disconnected_desc">Blokada è in pausa perché il tuo dispositivo ha perso la connessione ad Internet. Blokada si riattiverà automaticamente non appena tornerai online.</string>
@@ -159,7 +209,7 @@
     <string name="slot_cleanup_desc">Sembra che sul tuo dispositivo siano installate più versioni di Blokada. Vuoi rimuovere le altre versioni e tenerne solo una?</string>
     <string name="slot_cleanup_action">Pulisci</string>
     <string name="account_inactive">Il tuo abbonamento a Blokada VPN è scaduto. Non sei connesso alla VPN.</string>
-    <string name="lease_cant_connect">Impossibile connettersi a Blokada VPN. Prova a selezionare un altro gateway.</string>
+    <string name="slot_lease_cant_connect">Impossibile connettersi a Blokada VPN. Prova a selezionare un altro gateway.</string>
     <string name="slot_account_name_title">ID account</string>
     <string name="slot_account_name_desc">Inserisci il tuo vecchio ID account per ripristinare il tuo abbonamento precedente. Potresti volerti segnare il tuo ID account corrente prima di farlo, nel caso tu commetta qualche errore.</string>
     <string name="slot_account_name_error">L\'ID account può contenere solo lettere e numeri.</string>
@@ -168,6 +218,9 @@
     <!-- A section in advanced settings. -->
     <string name="label_basic">Impostazioni principali</string>
     <!-- A section in advanced settings. -->
+    <string name="label_filters">Blocco pubblicità &amp; liste</string>
     <!-- A section in advanced settings. -->
+    <string name="label_dns">Impostazioni DNS</string>
     <!-- A section in advanced settings. -->
+    <string name="label_advanced">Impostazioni avanzate</string>
 </resources>

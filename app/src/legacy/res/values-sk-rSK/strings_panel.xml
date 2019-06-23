@@ -46,9 +46,7 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Prepnúť</string>
     <string name="slot_start">začnite potiahnutím nahor</string>
-    <string name="slot_intro_new">Vitajte v %s! Začnite dotykom sem.</string>
     <string name="slot_intro_new_header">Ako používať nové UI?</string>
-    <string name="slot_intro_desc">Môžete sa dotknúť akejkoľvek položky, napríklad tejto, pre jej otvorenie a vykonávanie akcií. Napríklad táto položka môže byť odstránená, keď ju už nebudete chcieť používať. &lt;br/&gt;&lt;br/&gt;Momentálne ste v sekcii Domov. Potiahnite doľava alebo doprava pre prístup k ďalším sekciám. Každá z nich má svoje vlastné spodné menu - otvorte ho potiahnutím hore. &lt;br/&gt;&lt;br/&gt; Teraz choďte preskúmať zvyšok aplikácie!</string>
     <string name="slot_intro_info">Psst... Niektoré položky majú na sebe ikonu otáznika. Dotykom sa zobrazí krátka nápoveda podobná tejto!</string>
     <string name="slot_new_filter">Zablokovať nového hosta</string>
     <string name="slot_new_filter_list">Pridať nový zoznam</string>
@@ -209,7 +207,6 @@
     <string name="slot_cleanup_desc">Vyzerá to tak, že na vašom zariadení je nainštalovaných veľa verzii Blokady. Chcete odstrániť ostatné verzie a zachovať iba jednu?</string>
     <string name="slot_cleanup_action">Vyčistiť</string>
     <string name="account_inactive">Platnosť vášho Blokada VPN vypršala. Nie ste pripojení k VPN.</string>
-    <string name="lease_cant_connect">Nepodarilo sa pripojiť k Blokada VPN. Skúste vybrať inú sieťovú bránu.</string>
     <string name="slot_account_name_title">ID účtu</string>
     <string name="slot_account_name_desc">Zadajte ID vášho starého účtu pre obnovu predchádzajúceho predplatného. Predtým si môžete zapísať vaše aktuálne ID účtu v prípade omylu.</string>
     <string name="slot_account_name_error">ID účtu môže obsahovať iba písmená a čísla.</string>

@@ -34,4 +34,6 @@
     <string name="notification_keepalive_deactivating">Blokada byla deaktivována!</string>
     <string name="notification_expired_title">Platnost účtu Blokada VPN vypršela</string>
     <string name="notification_expired_description">Platnost vašeho účtu právě vypršela a v tuto chvíli nejste připojeni k Blokada VPN. Chcete-li zlepšit ochranu, zvažte opětovnou aktivaci účtu.</string>
+    <string name="notification_lease_expired_title">Blokada VPN vypnuta</string>
+    <string name="notification_lease_expired_description">Vyskytl se problém s připojením k Blokada VPN. Zkuste se připojit k jiné bráně. Pokud problém přetrvává, kontaktujte nás prosím přes Telegram.</string>
 </resources>

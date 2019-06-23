@@ -6,7 +6,7 @@
     <!-- Main screen section -->
     <string name="panel_section_ads">Bloqueo de anuncios</string>
     <!-- Main screen section -->
-    <string name="panel_section_apps">Aplicaciones</string>
+    <string name="panel_section_apps">Apps</string>
     <!-- Main screen section -->
     <string name="panel_section_advanced">Avanzado</string>
     <string name="panel_section_home_start">VPN de Blokada</string>
@@ -46,13 +46,13 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Cambiar</string>
     <string name="slot_start">desliza hacia arriba para empezar</string>
-    <string name="slot_intro_new">¡Bienvenido a %s! Toca aquí para la introducción.</string>
+    <string name="slot_intro_new">¿Cómo utilizar la nueva interfaz? Toca aquí para la introducción.</string>
     <string name="slot_intro_new_header">¿Cómo utilizar la nueva interfaz?</string>
-    <string name="slot_intro_desc">Puedes tocar en cualquier ítem, como este, para abrirlo y realizar acciones en él. Por ejemplo, este ítem puede ser eliminado una vez hayas terminado con él. &lt;br/&gt;&lt;br/&gt;Actualmente estás en la sección de Inicio. Desliza hacia la izquierda o derecha para ver secciones adicionales. Cada una tiene su propio menú inferior - ábrelo deslizando hacia arriba. &lt;br/&gt;&lt;br/&gt;¡Continúa y explora la aplicación ahora!</string>
+    <string name="slot_intro_desc">Actualmente estás en la sección de Inicio, hay más si deslizas hacia a la derecha. Cada sección tiene su propio menú inferior - ábrelo deslizando hacia arriba. &lt;br/&gt;&lt;br/&gt;En Android TV, navega por la interfaz con el D-pad. Utiliza la tecla central para abrir el menú inferior o cualquier ítem que selecciones. Los botones están marcados con la flecha hacia arriba, abajo, izquierda o derecha - utiliza las teclas de dirección para hacer clic en ellos.</string>
     <string name="slot_intro_info">Psst... Algunos ítems tienen el icono de signo de interrogación en ellos. ¡Tocándolo mostrará un mensaje de ayuda corto, como este!</string>
     <string name="slot_new_filter">Bloquear nuevo host</string>
     <string name="slot_new_filter_list">Añadir nueva lista</string>
-    <string name="slot_new_filter_whitelist">Añadir nuevo host en la lista blanca</string>
+    <string name="slot_new_filter_whitelist">Añadir nuevo host a la lista blanca</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">sin definir</string>
     <!-- A state of input form when correct input is entered  -->
@@ -77,7 +77,7 @@
     <string name="slot_dns_name">Servidor(es) DNS ahora: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_dns_dns">Puedes cambiar los servidores actuales usando el menú inferior.</string>
     <string name="slot_action_none">Esta acción no está disponible aún.</string>
-    <string name="slot_action_facts">Información</string>
+    <string name="slot_action_facts">Datos</string>
     <string name="slot_action_unwhitelist">Cancelar</string>
     <string name="slot_action_author">Acerca de</string>
     <string name="slot_action_share">Compartir</string>
@@ -148,8 +148,10 @@
     <string name="slot_account_action_copied">ID de cuenta copiado al portapapeles</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Conectarse a %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Conectarse a %s</string>
     <string name="slot_gateway_description">Rendimiento: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Región: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Rendimiento: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Región: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Esta es tu puerta de enlace actualmente seleccionada.</string>
+    <string name="slot_gateway_overloaded">Esta puerta de enlace está ocupada y no acepta nuevas conexiones.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">alto</string>
     <!-- Gateway load -->
@@ -209,7 +211,7 @@
     <string name="slot_cleanup_desc">Parece que hay muchas versiones de Blokada instaladas en tu dispositivo. ¿Quieres eliminar las otras versiones y mantener una sola?</string>
     <string name="slot_cleanup_action">Limpiar</string>
     <string name="account_inactive">Tu VPN de Blokada ha expirado. No estás conectado a el VPN.</string>
-    <string name="lease_cant_connect">No se pudo conectar al VPN de Blokada. Intenta seleccionando otra puerta de enlace.</string>
+    <string name="slot_lease_cant_connect">No se pudo conectar al VPN de Blokada. Intenta seleccionando otra puerta de enlace.</string>
     <string name="slot_account_name_title">ID de cuenta</string>
     <string name="slot_account_name_desc">Introduce tu ID de cuenta antiguo para restaurar tu suscripción anterior. Puede que quieras escribir tu ID de cuenta actual antes de hacerlo, en caso de que cometas un error.</string>
     <string name="slot_account_name_error">El ID de cuenta solo puede contener letras y números.</string>

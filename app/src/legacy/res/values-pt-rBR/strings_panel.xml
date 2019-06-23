@@ -46,9 +46,7 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Alternar</string>
     <string name="slot_start">deslize para cima para iniciar</string>
-    <string name="slot_intro_new">Bem-vindo a %s! Toque aqui para uma introdução.</string>
     <string name="slot_intro_new_header">Como usar a nova interface?</string>
-    <string name="slot_intro_desc">Você pode tocar em qualquer item, como este aqui, para abri-lo e executar ações nele. Por exemplo, esse item pode ser removido assim que você terminar. &lt;br/&gt;&lt;br/&gt;No momento, você está na seção inicial. Deslize para a esquerda ou para a direita para ver seções adicionais. Cada um deles tem seu próprio menu inferior - abra-o deslizando para cima. &lt;br/&gt;&lt;br/&gt;Vá em frente e explore o aplicativo agora!</string>
     <string name="slot_intro_info">Psiu... Alguns itens têm o ícone de interrogação neles. Tocar nele irá exibir uma pequena mensagem de ajuda, como esta!</string>
     <string name="slot_new_filter">Bloquear novo endereço</string>
     <string name="slot_new_filter_list">Adicionar lista nova</string>
@@ -209,7 +207,6 @@
     <string name="slot_cleanup_desc">Parece que há muitas versões do Blokada instaladas no seu dispositivo. Gostaria de remover as outras versões e manter apenas uma?</string>
     <string name="slot_cleanup_action">Limpar</string>
     <string name="account_inactive">Sua VPN do Blokada expirou. Você não está conectado à VPN.</string>
-    <string name="lease_cant_connect">Não foi possível conectar-se à VPN do Blokada. Tente selecionar outro gateway.</string>
     <string name="slot_account_name_title">ID da conta</string>
     <string name="slot_account_name_desc">Insira seu ID de conta antigo para restaurar sua assinatura anterior. Você pode querer anotar o ID de sua conta atual antes de fazer isso, caso você cometa um erro.</string>
     <string name="slot_account_name_error">O ID da conta pode conter apenas letras e números.</string>

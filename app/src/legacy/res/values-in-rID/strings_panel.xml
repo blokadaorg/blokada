@@ -27,6 +27,7 @@
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; diblokir</string>
     <string name="panel_domain_blocked_desc">Domain ini telah diblokir. Gunakan tombol di bawah ini jika Anda mengizinkan domain tersebut untuk diakses.</string>
     <string name="panel_domain_blocked_toast">Ditambahkan ke blacklist.</string>
+    <string name="panel_ruleset">Penghitung pemblokiran</string>
     <string name="panel_ruleset_title">Filter sekarang memiliki %s aturan.</string>
     <string name="panel_ruleset_updating">Memperbaharui filter...</string>
     <string name="panel_ruleset_built">Filter telah dikonfigurasi dengan &lt;b&gt;%s&lt;/b&gt; aturan. Secara keseluruhan, memori perangkat Anda dapat memuat &lt;b&gt;%s&lt;/b&gt; aturan. Namun harap diingat bahwa angka tersebut hanya berupa perkiraan dan bisa saja berubah tergantung kepada jumalh aplikasi yang terinstal di perangkat Anda, sehingga sebaiknya Anda menjaga agar angka tersebut tetap berada di bawah ambang batas.</string>
@@ -45,14 +46,15 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Ubah</string>
     <string name="slot_start">geser ke atas untuk memulai</string>
-    <string name="slot_intro_new">Selamat datang di %s! Ketuk di sini untuk informasi lebih lanjut.</string>
     <string name="slot_intro_new_header">Bagaimana cara menggunakan antarmuka pengguna (UI) yang baru?</string>
     <string name="slot_intro_info">Ssst... Beberapa bagian memiliki ikon tanda tanya. Mengetuk ikon tersebut akan menampilkan pesan pendek berisi panduan penggunaan, seperti yang ini!</string>
     <string name="slot_new_filter">Blokir host baru</string>
     <string name="slot_new_filter_list">Tambah daftar baru</string>
     <string name="slot_new_filter_whitelist">Masukkan host baru ke dalam whitelist</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
+    <string name="slot_unset">tak disetel</string>
     <!-- A state of input form when correct input is entered  -->
+    <string name="slot_set">telah disetel</string>
     <!-- A state of input form when incorrect input is entered  -->
     <string name="slot_invalid">tidak valid</string>
     <string name="slot_continue">Lanjutkan</string>
@@ -78,7 +80,9 @@
     <string name="slot_action_author">Info Aplikasi</string>
     <string name="slot_action_share">Bagikan</string>
     <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">Masukan</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">Masukan untuk %s</string>
     <string name="slot_dns_control_title">Daftar server DNS</string>
     <string name="slot_dns_control_description">Anda bisa mensinkronkan daftar server DNS dengan server kami tanpa kehilangan daftar server DNS yang telah Anda buat sendiri. &lt;br/&gt;&lt;br/&gt;Atau, Anda bisa juga membuang daftar server DNS yang ada sekarang (termasuk server DNS yang Anda masukkan secara manual) dan mengunduhnya kembali dari server kami.</string>
     <!-- A button to synchronize (fetch) lists  -->
@@ -111,6 +115,9 @@
     <string name="slot_action_activate">Aktifkan</string>
     <string name="slot_action_deactivate_adblocking">Nonaktifkan pemblokiran iklan</string>
     <string name="slot_action_activate_adblocking">Aktifkan pemblokiran iklan</string>
+    <string name="slot_dropped_counter">Penghitung domain terblokir</string>
+    <string name="slot_dropped_counter_info">Penghitung ini menampilkan jumlah domain yang terblokir semenjak pemasangan aplikasi ini.</string>
+    <string name="slot_dropped_action_clear">Atur ulang penghitung</string>
     <string name="slot_notifications_title">Notifikasi %s.</string>
     <string name="slot_notifications_desc">Anda bisa mengatur status notifikasi di sini (aktif atau nonaktif). Harap diingat bahwa pada beberapa perangkat, Android akan menampilkan notifikasi VPN terpisah yang tidak bisa dinonaktifkan.</string>
     <string name="slot_notifications_enabled">diaktifkan</string>
@@ -139,8 +146,10 @@
     <string name="slot_account_action_copied">ID akun telah disalin ke clipboard</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Sambungkan ke %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Koneksi ke %s</string>
     <string name="slot_gateway_description">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Ini adalah gateway pilihan Anda sekarang.</string>
+    <string name="slot_gateway_overloaded">Gateway ini sibuk dan tidak menerima koneksi baru.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">tinggi</string>
     <!-- Gateway load -->
@@ -200,7 +209,7 @@
     <string name="slot_cleanup_desc">Sepertinya ada beberapa versi Blokada tersimpan di perangkat Anda. Apakah Anda ingin menghapus versi-versi lainnya dan menyimpan salah satu saja?</string>
     <string name="slot_cleanup_action">Bersihkan</string>
     <string name="account_inactive">Akun Blokada VPN Anda telah kedaluwarsa. Perangkat Anda tidak terhubung ke VPN.</string>
-    <string name="lease_cant_connect">Tidak dapat tersambung ke Blokada VPN. Silakan pilih gateway lain.</string>
+    <string name="slot_lease_cant_connect">Tidak dapat tersambung ke Blokada VPN. Silakan pilih gateway lain.</string>
     <string name="slot_account_name_title">ID Akun</string>
     <string name="slot_account_name_desc">Masukkan ID akun lama Anda untuk mengembalikan data langganan sebelumnya. Disarankan untuk mencatat ID akun baru sebelum Anda memasukkan ID akun lama, untuk berjaga-jaga jika ID akun yang Anda masukkan salah.</string>
     <string name="slot_account_name_error">ID akun hanya bisa terdiri dari huruf dan angka.</string>

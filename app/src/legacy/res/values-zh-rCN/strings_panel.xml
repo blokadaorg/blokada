@@ -46,9 +46,7 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">切换</string>
     <string name="slot_start">向上滑动启动</string>
-    <string name="slot_intro_new">欢迎来到 %s！点击此处进行介绍。</string>
     <string name="slot_intro_new_header">如何使用新界面？</string>
-    <string name="slot_intro_desc">您可以点击任何项目，如此项目，打开并操作它。例如，一旦您完成，这个项目就可以删除。 &lt;br/&gt;&lt;br/&gt;您目前正在主页。向左或右滑动其他章节。每个项目都有自己的底部菜单 - 通过滑动打开它。 &lt;br/&gt;&lt;br/&gt;现在可以探索应用！</string>
     <string name="slot_intro_info">Pst... 一些项目在其上面有问题标记。点击将会显示一个短帮助信息，就像这个消息！</string>
     <string name="slot_new_filter">屏蔽新主机</string>
     <string name="slot_new_filter_list">添加新列表</string>
@@ -209,7 +207,6 @@
     <string name="slot_cleanup_desc">您的设备似乎有许多版本的 Blokada。您想删除其他版本，只保留一个版本吗？</string>
     <string name="slot_cleanup_action">清理</string>
     <string name="account_inactive">您的 Blokada VPN 已过期。您没有连接到 VPN。</string>
-    <string name="lease_cant_connect">无法连接到Blokada VPN。请尝试选择另一个网关。</string>
     <string name="slot_account_name_title">账户 ID</string>
     <string name="slot_account_name_desc">输入您的旧帐户ID，以恢复您以前的订阅。如果您犯错误，您可能想要在写下您的经常账户ID。</string>
     <string name="slot_account_name_error">帐户ID只能包含字母和数字。</string>

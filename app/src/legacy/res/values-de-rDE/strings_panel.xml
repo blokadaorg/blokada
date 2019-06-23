@@ -46,9 +46,7 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Umschalten</string>
     <string name="slot_start">zum Starten nach oben wischen</string>
-    <string name="slot_intro_new">Willkommen bei %s! Tippe hier für eine Einführung.</string>
     <string name="slot_intro_new_header">Wie benutzt man die neue Benutzeroberfläche?</string>
-    <string name="slot_intro_desc">Du kannst auf jedes Objekt, wie dieses hier, tippen, um es zu öffnen und Aktionen durchzuführen. Zum Beispiel kann dieses Objekt entfernt werden, sobald du mit ihm fertig bist. &lt;br/&gt;&lt;br/&gt;Du bist momentan auf der Startseite. Wische nach links oder rechts, um weitere Bereiche anzusehen. Jeder von ihnen hat sein eigenes Menü am unteren Bildschirmrand - öffne es, indem du nach oben wischst. &lt;br/&gt;&lt;br/&gt;Los gehts, erkunde jetzt die App!</string>
     <string name="slot_intro_info">Psst... Einige Objekte tragen ein Fragezeichen. Beim Daraufdrücken wird eine kurze Hilfe angezeigt, ähnlich wie diese!</string>
     <string name="slot_new_filter">Neuen Host blockieren</string>
     <string name="slot_new_filter_list">Neue Liste hinzufügen</string>
@@ -148,8 +146,10 @@
     <string name="slot_account_action_copied">Kontokennung in die Zwischenablage kopiert</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Verbinde mit %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Verbinde mit %s</string>
     <string name="slot_gateway_description">Leistung: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Leistung: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Dies ist das aktuell ausgewählte Gateway.</string>
+    <string name="slot_gateway_overloaded">Dieses Gateway ist beschäftigt und akzeptiert keine neuen Verbindungen.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">hoch</string>
     <!-- Gateway load -->
@@ -209,7 +209,7 @@
     <string name="slot_cleanup_desc">Es scheint, dass viele Versionen von Blokada auf dem Gerät installiert sind. Sollen die anderen Versionen entfernt werden und nur eine bleiben?</string>
     <string name="slot_cleanup_action">Aufräumen</string>
     <string name="account_inactive">Dein Blokada-VPN ist abgelaufen. Du bist nicht mit dem VPN verbunden.</string>
-    <string name="lease_cant_connect">Die Verbindung zu Blokada VPN konnte nicht hergestellt werden. Versuche ein anderes Gateway auszuwählen.</string>
+    <string name="slot_lease_cant_connect">Die Verbindung zu Blokada VPN konnte nicht hergestellt werden. Versuche ein anderes Gateway auszuwählen.</string>
     <string name="slot_account_name_title">Kontokennung</string>
     <string name="slot_account_name_desc">Gib deine alte Kontokennung ein, um dein früheres Abonnement wiederherzustellen. Schreib dir deine jetzige Kontokennung zur Sicherheit auf, falls ein Fehler auftreten sollte.</string>
     <string name="slot_account_name_error">Die Kontokennung kann nur Buchstaben und Nummern enthalten.</string>

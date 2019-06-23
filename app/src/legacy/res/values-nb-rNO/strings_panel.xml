@@ -5,17 +5,27 @@
     <!-- Main screen section -->
     <!-- Main screen section -->
     <!-- Main screen section -->
+    <string name="panel_section_advanced">Avansert</string>
+    <string name="panel_section_home_start">Blokada VPN</string>
     <!-- When a domain is allowed (not blocked) -->
     <!-- When a domain is blocked -->
     <!-- Button to allow blocked domain -->
     <!-- Button to block allowed domain -->
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">På</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Av</string>
     <!-- An action to toggle a switch -->
     <!-- A state of input form when no input is entered (think: empty)  -->
     <!-- A state of input form when correct input is entered  -->
     <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_enter_domain_file">Fil</string>
+    <string name="slot_enter_name_title">Navn</string>
+    <string name="slot_dns_name">Gjeldende DNS-server(e): &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_action_unwhitelist">Avbryt</string>
+    <string name="slot_action_author">Om</string>
+    <string name="slot_action_share">Del</string>
     <!-- A prefix for generated name for manually entered domain.  -->
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
     <!-- A button to synchronize (fetch) lists  -->

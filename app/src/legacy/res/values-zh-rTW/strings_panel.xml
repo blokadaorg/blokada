@@ -46,9 +46,7 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">切換</string>
     <string name="slot_start">向上滑以啟動</string>
-    <string name="slot_intro_new">歡迎來到 %s! 點擊這裡來獲得它的介紹.</string>
     <string name="slot_intro_new_header">如何使用新的介面?</string>
-    <string name="slot_intro_desc">您可以輕點任何項目（如這個）以將其開啟並進行操作。舉例來說，此項目會在完成時被移除。&lt;br/&gt;&lt;br/&gt;您目前在首頁。向左或向右滑可以看到更多東西。它們都有各自的下層選單（往上滑以開啟）。&lt;br/&gt;&lt;br/&gt;現在就來探索應用程式吧！</string>
     <string name="slot_intro_info">嘿！有些項目上會有問號圖示。輕點它會顯示簡短的說明訊息，就像這個一樣！</string>
     <string name="slot_new_filter">封鎖新的主機</string>
     <string name="slot_new_filter_list">增加新的列表</string>
@@ -148,8 +146,10 @@
     <string name="slot_account_action_copied">帳號ID已複製至剪貼簿上</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">連接至 %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] 連線至 %s</string>
     <string name="slot_gateway_description">性能: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP位置: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;區域: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">性能: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP位置: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;區域: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;這是目前您所選擇的閘道</string>
+    <string name="slot_gateway_overloaded">這個閘道忙碌中，不接受任何新連線。</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">高</string>
     <!-- Gateway load -->
@@ -209,7 +209,7 @@
     <string name="slot_cleanup_desc">您的裝置上似乎安裝了多個版本的 Blokada。您想要移除其他版本並只保留這個嗎？</string>
     <string name="slot_cleanup_action">清除</string>
     <string name="account_inactive">您的 Blokada VPN 已過期。您不能連線到 VPN 了。</string>
-    <string name="lease_cant_connect">無法連線至 Blokada VPN。嘗試選取其他閘道。</string>
+    <string name="slot_lease_cant_connect">無法連線至 Blokada VPN。請嘗試選取其他閘道。</string>
     <string name="slot_account_name_title">帳號ID</string>
     <string name="slot_account_name_desc">輸入您舊的帳號 ID 以復原您先前的訂閱。您可能會想要在做這件事之前先寫下您目前的帳號 ID，以免犯錯。</string>
     <string name="slot_account_name_error">帳號 ID 僅能包含字母與數字。</string>

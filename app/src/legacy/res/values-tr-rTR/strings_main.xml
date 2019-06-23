@@ -3,13 +3,15 @@
 <resources>
     <string name="main_loading">Yükleniyor, lütfen bekleyin…</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_intro">%s\' ya hoş geldiniz! Uygulamayı aktif etmek için kalkana basın. İstenildiğinde izin veriniz.</string>
+    <string name="main_intro">%s\' ya hoş geldiniz! Uygulamayı aktif etmek için kalkana dokunun. İstenildiğinde izin veriniz.</string>
     <string name="main_error">Bir şeyler ters gitti. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_deactivating_new">%s kapatılıyor. Lütfen bekleyiniz…</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s aktif.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s aktif. VPN bağlantısı kuruldu.</string>
+    <string name="main_active_novpn">%s aktif. VPN bağlantısı bulunmamaktadır.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s şimdi cihazınızı reklamlardan koruyor. Aşağıdan %1$s \'ya  ince ayar yapabilir veya cihazınızı kullanmaya başlayabilirsiniz!</string>
     <!-- Parameter: branded app name (Blokada). -->

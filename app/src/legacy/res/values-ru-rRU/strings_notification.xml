@@ -34,4 +34,6 @@
     <string name="notification_keepalive_deactivating">Blokada деактивирована!</string>
     <string name="notification_expired_title">Срок действия аккаунта Blokada VPN истек</string>
     <string name="notification_expired_description">Срок действия вашей учетной записи только что истек, и вы больше не подключены к Blokada VPN. Пожалуйста, рассмотрите возможность активации своей учетной записи снова для лучшей защиты.</string>
+    <string name="notification_lease_expired_title">Blokada VPN выключен</string>
+    <string name="notification_lease_expired_description">Возникла проблема с вашим подключением к Blockada VPN. Пожалуйста, попробуйте подключиться к другому шлюзу. Если проблема не сохраняется, пожалуйста, свяжитесь с нами в Telegram.</string>
 </resources>

@@ -34,4 +34,6 @@
     <string name="notification_keepalive_deactivating">Blokada deaktiválásra került!</string>
     <string name="notification_expired_title">Blokada VPN fiók lejárt</string>
     <string name="notification_expired_description">A fiókod épp lejárt, így jelenleg nem csatlakozol a Blokada VPN-hez. Kérjük, fontold meg újra a fiók aktiválását a jobb védelem érdekében.</string>
+    <string name="notification_lease_expired_title">Blokada VPN kikapcsolva</string>
+    <string name="notification_lease_expired_description">Probléma lépett fel a Blokada VPN-hez csatlakozáskor. Próbálj meg másik átjáróhoz csatlakozni. Ha a probléma továbbra is fennáll, kérjük, lépj velünk kapcsolatba a Telegramon.</string>
 </resources>

@@ -34,4 +34,6 @@
     <string name="notification_keepalive_deactivating">Blokada wurde deaktiviert!</string>
     <string name="notification_expired_title">Blokada VPN-Konto abgelaufen</string>
     <string name="notification_expired_description">Dein Konto ist gerade abgelaufen und du bist momentan nicht mit Blokada VPN verbunden. Bitte überlege, dein Konto erneut zu aktivieren, um einen besseren Schutz zu erhalten.</string>
+    <string name="notification_lease_expired_title">Blokada VPN ausgeschaltet</string>
+    <string name="notification_lease_expired_description">Es gab ein Problem mit der Verbindung zu Blokada VPN. Bitte versuche eine Verbindung mit einem anderen Gateway. Wenn das Problem weiterhin besteht, kontaktiere uns bitte bei Telegram.</string>
 </resources>

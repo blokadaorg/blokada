@@ -28,4 +28,8 @@
     <string name="notification_keepalive_content">Siste: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">overvåker</string>
+    <string name="notification_keepalive_activate">Aktiver</string>
+    <string name="notification_keepalive_activating">Blokada starter. Dette kan ta et øyeblikk.</string>
+    <string name="notification_keepalive_deactivate">Deaktiver</string>
+    <string name="notification_keepalive_deactivating">Blokada ble deaktivert!</string>
 </resources>

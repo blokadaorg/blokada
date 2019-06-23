@@ -10,6 +10,8 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s er aktiv.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s er aktiv. VPN er tilkoblet.</string>
+    <string name="main_active_novpn">%s er aktiv. Ingen VPN er tilkoblet.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s beskytter nå enheten din. Du kan finjustere %1$s nedenfor, eller bare gå videre for og bruke enheten!</string>
     <!-- Parameter: branded app name (Blokada). -->

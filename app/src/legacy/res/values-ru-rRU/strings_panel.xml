@@ -46,9 +46,9 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Переключить</string>
     <string name="slot_start">смахните вверх, чтобы начать</string>
-    <string name="slot_intro_new">Добро пожаловать в %s! Нажмите здесь для просмотра введения.</string>
+    <string name="slot_intro_new">Как использовать новый интерфейс? Нажмите здесь для ознакомления.</string>
     <string name="slot_intro_new_header">Как использовать новый интерфейс?</string>
-    <string name="slot_intro_desc">Вы можете нажать на любой элемент, например, на этот, чтобы открыть его и выполнить над ним действия. Например, этот элемент может быть удален после того, как вы закончите с ним. &lt;br/&gt;&lt;br/&gt;Вы находитесь в основном разделе. Проведите влево или вправо для просмотра дополнительных разделов. У каждого из них есть свое собственное нижнее меню - откройте его, проводя вверх. &lt;br/&gt;&lt;br/&gt;Изучите приложение прямо сейчас!</string>
+    <string name="slot_intro_desc">Вы находитесь в домашнем разделе. Можно провести пальцем вправо, но это еще не все. Каждый раздел имеет свое нижнее меню - откройте его, проведя вверх. &lt;br/&gt;&lt;br/&gt;На Android TV перемещайтесь по интерфейсу с помощью клавиш навигации. Используйте центральную клавишу, чтобы открыть нижнее меню, или любой другой элемент, который вы выберете. Кнопки отмечены стрелками вверх, вниз, влево или вправо - используйте клавиши со стрелками для их нажатия.</string>
     <string name="slot_intro_info">Опа... Некоторые элементы могут иметь значок с вопросительным знаком. Нажав на него, вы увидите короткое справочное сообщение, подобное этому!</string>
     <string name="slot_new_filter">Блокировать новый хост</string>
     <string name="slot_new_filter_list">Добавить новый список</string>
@@ -148,8 +148,10 @@
     <string name="slot_account_action_copied">ID аккаунта скопирован в буфер обмена</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Подключиться к %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Подключиться к %s</string>
     <string name="slot_gateway_description">Производительность: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Регион: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Производительность: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Регион: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Это ваш выбранный шлюз.</string>
+    <string name="slot_gateway_overloaded">Этот шлюз занят и не принимает новые подключения.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">высокая</string>
     <!-- Gateway load -->
@@ -186,7 +188,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Помощь</string>
     <string name="slot_donate_label">Наслаждаетесь Blokada? Подумайте о том, чтобы поддержать нас, чтобы мы могли продолжать улучшать приложение.</string>
-    <string name="slot_donate_desc">Блокировщик рекламы Blokada - бесплатный и с открытым исходным кодом, и мы хотим, чтобы он оставался таким же. Ваши пожертвования помогают нам продолжать разработку приложения и внедрять новые функции, которые вы хотите видеть больше всего. Спасибо!</string>
+    <string name="slot_donate_desc">Блокировщик рекламы Blokada - бесплатный и с открытым исходным кодом, и мы хотим, чтобы он оставался таким всегда. Ваши пожертвования помогают нам продолжать разработку приложения и внедрять новые функции, которые вы хотите видеть больше всего. Спасибо!</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Пожертвовать</string>
     <string name="slot_cta_label">Мы хотели бы узнать ваше мнение.</string>
@@ -209,7 +211,7 @@
     <string name="slot_cleanup_desc">Кажется, на вашем устройстве установлено много версий Blokada. Вы хотите удалить другие версии и оставить только одну?</string>
     <string name="slot_cleanup_action">Удалить</string>
     <string name="account_inactive">Срок действия Blokada VPN истек. Вы не подключены к VPN.</string>
-    <string name="lease_cant_connect">Не удалось подключиться к Blokada VPN. Попробуйте выбрать другой шлюз.</string>
+    <string name="slot_lease_cant_connect">Не удалось подключиться к Blokada VPN. Попробуйте выбрать другой шлюз.</string>
     <string name="slot_account_name_title">ID аккаунта</string>
     <string name="slot_account_name_desc">Введите старый ID учетной записи, чтобы восстановить предыдущую подписку. Вы можете записать свой текущий ID аккаунта на случай ошибки.</string>
     <string name="slot_account_name_error">ID аккаунта может содержать только буквы и цифры.</string>

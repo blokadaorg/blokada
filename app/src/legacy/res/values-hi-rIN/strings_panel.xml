@@ -34,7 +34,6 @@
     <string name="slot_switch_off">बंद</string>
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">स्विच</string>
-    <string name="slot_intro_new">%s में आपका स्वागत है। परिचय के लिए दबाएं।</string>
     <string name="slot_intro_new_header">नए संस्करण का उपयोग कैसे करें?</string>
     <string name="slot_new_filter">नये मेजबान को अवरूद्ध करें</string>
     <string name="slot_new_filter_list">नयी सुचि बनाएं</string>

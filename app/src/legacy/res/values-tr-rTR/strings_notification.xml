@@ -3,7 +3,7 @@
 <resources>
     <string name="notification_on_text">Bildirimler</string>
     <!-- Title of the notification that shows up every time something is blocked. -->
-    <string name="notification_blocked_title">Reklam engellendi</string>
+    <string name="notification_blocked_title">Engellendi</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
     <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
@@ -32,4 +32,8 @@
     <string name="notification_keepalive_activating">Blokada başlıyor. Bu biraz zaman alabilir.</string>
     <string name="notification_keepalive_deactivate">Devre dışı bırak</string>
     <string name="notification_keepalive_deactivating">Blokada devre dışı bırakıldı!</string>
+    <string name="notification_expired_title">Blokada VPN hesabınızın süresi doldu.</string>
+    <string name="notification_expired_description">Hesabınızın kullanım süresi doldu ve şu anda Blokada VPN bağlantısı sağlanamadı. Daha iyi koruma için lütfen hesabınızı etkinleştirmeyi gözden geçirin.</string>
+    <string name="notification_lease_expired_title">Blokada VPN kapatıldı</string>
+    <string name="notification_lease_expired_description">Blokada VPN bağlantınızda bir problem oluştu. Lütfen başka bir gateway ile bağlanmayı deneyin. Hata devam ederse lütfen Telegram aracılığıyla bize ulaşın.</string>
 </resources>

@@ -44,9 +44,17 @@
     <string name="slot_switch_off">Desactivat</string>
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Canvia</string>
+    <string name="slot_start">llisqueu cap amunt per començar</string>
+    <string name="slot_intro_new_header">Com s\'utilitza la nova interfície?</string>
+    <string name="slot_intro_info">Psst... Alguns elements tenen la icona del signe d\'interrogació sobre ells. Si el toqueu, es mostrarà un missatge d\'ajuda curt, com aquest!</string>
+    <string name="slot_new_filter">Bloqueja un nou servidor</string>
+    <string name="slot_new_filter_list">Afegeix una nova llista</string>
+    <string name="slot_new_filter_whitelist">Afegeix un nou servidor en la llista blanca</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <!-- A state of input form when correct input is entered  -->
     <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_continue">Continua</string>
+    <string name="slot_enter_domain_title">Domini(s)</string>
     <string name="slot_enter_domain_file">Fitxer</string>
     <string name="slot_enter_name_title">Nom</string>
     <string name="slot_enter_name_desc">Introduïu el nom de la nova entrada. També podeu generar un nom suggerit.</string>
@@ -56,7 +64,10 @@
     <string name="slot_action_author">Quant a</string>
     <string name="slot_action_share">Comparteix</string>
     <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">Una entrada</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">Una entrada per a %s</string>
+    <string name="slot_dns_control_title">Llista de servidors DNS</string>
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">Sincronitza</string>
     <string name="slot_action_restore">Esborra</string>
