@@ -60,9 +60,10 @@
     <string name="slot_switch_switch_bitch">Switch</string>
 
     <string name="slot_start">swipe up to start</string>
-    <string name="slot_intro_new">Welcome to %s! Tap here for intro.</string>
+    <string name="slot_intro_new">How to use the new UI? Tap here for intro.</string>
     <string name="slot_intro_new_header">How to use the new UI?</string>
-    <string name="slot_intro_desc">You can tap on any item, like this one, to open it up and perform actions on it. For example, this item can be removed once you are done with it. &lt;br/&gt;&lt;br/&gt;You are currently in the Home section. Swipe left or right for additional sections. Each of them has its own bottom menu - open it by swiping up. &lt;br/&gt;&lt;br/&gt;Go ahead and explore the app now!</string>
+    <string name="slot_intro_desc">You are currently in the Home section, there is more if you swipe right. Each of them has its own bottom menu - open it by swiping up. &lt;br/&gt;&lt;br/&gt;On Android TV, navigate the UI with the dpad. Use the center key to open the bottom menu, or any item you select. Buttons are marked with the up, down, left or right arrow - use the direction keys to click them.</string>
+
     <string name="slot_intro_info">Psst... Some items have the question mark icon on them. Tapping it will display a short help message, like this one!</string>
 
     <string name="slot_new_filter">Block new host</string>
