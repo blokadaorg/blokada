@@ -103,8 +103,10 @@ android {
         adblockerFdroid.java.srcDirs += 'src/core/kotlin'
         adblockerFdroid.java.srcDirs += 'src/tunnel/kotlin'
         adblockerFdroid.java.srcDirs += 'src/g11n/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/vpn/kotlin'
         adblockerFdroid.java.srcDirs += 'src/legacy/kotlin'
         adblockerFdroid.java.srcDirs += 'src/flavor-adblocker/kotlin'
+        adblockerFdroid.jniLibs.srcDirs += 'src/vpn/jniLibs'
         adblockerFdroid.res.srcDirs += 'src/legacy/res'
         adblockerFdroid.res.srcDirs += 'src/flavor-adblocker/res'
 
