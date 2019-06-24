@@ -255,8 +255,8 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
                                 if (newCfg.blockaVpn) {
                                     displayAccountExpiredNotification(ktx.ctx)
                                     showSnack(R.string.account_inactive)
-                                    clearConnectedGateway(ktx, newCfg, showError = false)
                                 }
+                                clearConnectedGateway(ktx, newCfg, showError = false)
                             }
                         }
                     }
