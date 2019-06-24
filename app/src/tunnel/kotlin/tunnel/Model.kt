@@ -153,7 +153,7 @@ fun registerBlockaConfigEvent(ktx: AndroidKontext) {
     System.loadLibrary("boringtun")
 
     // First time set values
-    if (config.accountId.isEmpty()) {
+    if (config.accountId.isBlank()) {
         newAccount(ktx, config)
     } else {
         checkAccountInfo(ktx, config)
