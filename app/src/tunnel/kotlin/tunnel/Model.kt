@@ -152,14 +152,8 @@ fun registerBlockaConfigEvent(ktx: AndroidKontext) {
     ktx.v("loading boringtun")
     System.loadLibrary("boringtun")
 
-    // First time set values
-    if (config.accountId.isBlank()) {
-        newAccount(ktx, config)
-    } else {
-        checkAccountInfo(ktx, config)
-    }
+    checkAccountInfo(ktx, config)
 
-    ktx.emit(BLOCKA_CONFIG, config)
     ktx.on(BLOCKA_CONFIG, { Persistence.blocka.save(it) })
 
     val d: Device = ktx.di().instance()
@@ -178,24 +172,37 @@ fun registerBlockaConfigEvent(ktx: AndroidKontext) {
 val MAX_RETRIES = 3
 private fun newAccount(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
     val api: RestApi = ktx.di().instance()
+
     api.newAccount().enqueue(object: retrofit2.Callback<RestModel.Account> {
         override fun onFailure(call: Call<RestModel.Account>?, t: Throwable?) {
             ktx.e("new account api call error", t ?: "null")
             if (retry < MAX_RETRIES) newAccount(ktx, config, retry + 1)
+            else clearConnectedGateway(ktx, config)
         }
 
         override fun onResponse(call: Call<RestModel.Account>?, response: Response<RestModel.Account>?) {
-            response?.run { body()?.run {
-                val secret = BoringTunJNI.x25519_secret_key()
-                val public = BoringTunJNI.x25519_public_key(secret)
-                val newCfg = config.copy(
-                        accountId = account.accountId,
-                        privateKey = BoringTunJNI.x25519_key_to_base64(secret),
-                        publicKey = BoringTunJNI.x25519_key_to_base64(public)
-                )
-                ktx.emit(BLOCKA_CONFIG, newCfg)
-                ktx.v("new user. account id: ${newCfg.accountId}, public key: ${newCfg.publicKey}")
-            } }
+            response?.run {
+                when (code()) {
+                    200 -> {
+                        body()?.run {
+                            val secret = BoringTunJNI.x25519_secret_key()
+                            val public = BoringTunJNI.x25519_public_key(secret)
+                            val newCfg = config.copy(
+                                    accountId = account.accountId,
+                                    privateKey = BoringTunJNI.x25519_key_to_base64(secret),
+                                    publicKey = BoringTunJNI.x25519_key_to_base64(public)
+                            )
+                            ktx.emit(BLOCKA_CONFIG, newCfg)
+                            ktx.v("new user. account id: ${newCfg.accountId}, public key: ${newCfg.publicKey}")
+                        }
+                    }
+                    else -> {
+                        ktx.e("new account api call response ${code()}")
+                        if (retry < MAX_RETRIES) newAccount(ktx, config, retry + 1)
+                        else clearConnectedGateway(ktx, config)
+                    }
+                }
+            }
         }
     })
 }
@@ -215,6 +222,12 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
         ktx.e("too many check account requests recently, disabling vpn")
         clearConnectedGateway(ktx, config)
         requests = 0
+        return
+    }
+
+    if (config.accountId.isBlank()) {
+        ktx.v("accountId not set, creating new account")
+        newAccount(ktx, config)
         return
     }
 
@@ -269,6 +282,8 @@ fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: 
     if (config.blockaVpn && showError) {
         displayLeaseExpiredNotification(ktx.ctx)
         showSnack(R.string.slot_lease_cant_connect)
+    } else if (config.accountId.isBlank() && showError) {
+        showSnack(R.string.slot_account_cant_create)
     }
 
     deleteLease(ktx, config)

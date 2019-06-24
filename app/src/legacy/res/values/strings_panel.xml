@@ -279,6 +279,7 @@
 
     <string name="account_inactive">Your Blokada VPN expired. You are not connected to the VPN.</string>
     <string name="slot_lease_cant_connect">Could not connect to Blokada VPN. Try selecting another gateway.</string>
+    <string name="slot_account_cant_create">Could not create your Blokada VPN account. Please try again later or contact us on Telegram.</string>
 
     <string name="slot_account_name_title">Account ID</string>
     <string name="slot_account_name_desc">Enter your old account ID in order to restore your previous subscription. You may want to write down your current account ID before doing it, in case you make a mistake.</string>
