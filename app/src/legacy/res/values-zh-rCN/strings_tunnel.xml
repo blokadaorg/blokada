@@ -15,7 +15,7 @@
     <string name="tunnel_dropped_count2">%s 的域名被屏蔽</string>
     <string name="tunnel_config_refetch_now_title">下载列表</string>
     <string name="tunnel_config_refetch_now">立即下载列表</string>
-    <string name="tunnel_config_refetch_toast">下载列表已开始</string>
+    <string name="tunnel_config_refetch_toast">已开始下载列表</string>
     <string name="tunnel_config_refetch_now_description">删除缓存并重新下载列表。如果广告过滤遇到任何问题, 这可能会有所帮助。</string>
     <string name="tunnel_config_refetch_frequency_title">列表下载频率</string>
     <string name="tunnel_config_refetch_frequency_description">选择下载列表的频率。</string>

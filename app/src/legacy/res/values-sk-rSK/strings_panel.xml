@@ -46,7 +46,9 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Prepnúť</string>
     <string name="slot_start">začnite potiahnutím nahor</string>
+    <string name="slot_intro_new">Ako používať nové používateľské rozhranie? Dotknite sa pre rýchly návod.</string>
     <string name="slot_intro_new_header">Ako používať nové UI?</string>
+    <string name="slot_intro_desc">Momentálne ste v sekcii Domov, potiahnutím doprava zobrazíte ďalšie sekcie. Každá z nich má svoje vlastné spodné menu - otvoríte ho potiahnutím nahor. &lt;br/&gt;&lt;br/&gt;Na Android TV pre navigáciu v prostredí použite dpad. Stredným tlačidlom otvoríte spodné menu, prípadne akúkoľvek vybranú položku. Tlačidlá sú označené šípkami nahor, nadol, doľava alebo doprava.</string>
     <string name="slot_intro_info">Psst... Niektoré položky majú na sebe ikonu otáznika. Dotykom sa zobrazí krátka nápoveda podobná tejto!</string>
     <string name="slot_new_filter">Zablokovať nového hosta</string>
     <string name="slot_new_filter_list">Pridať nový zoznam</string>
@@ -146,8 +148,10 @@
     <string name="slot_account_action_copied">ID účtu bolo skopírované do schránky</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Pripojiť k %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Pripojiť k %s</string>
     <string name="slot_gateway_description">Výkon: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Región: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Výkon: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Región: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Toto je vaša aktuálna sieťová brána.</string>
+    <string name="slot_gateway_overloaded">Táto sieťová brána je zaneprázdnená a nepríjma nové pripojenia.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">vysoká</string>
     <!-- Gateway load -->
@@ -207,6 +211,7 @@
     <string name="slot_cleanup_desc">Vyzerá to tak, že na vašom zariadení je nainštalovaných veľa verzii Blokady. Chcete odstrániť ostatné verzie a zachovať iba jednu?</string>
     <string name="slot_cleanup_action">Vyčistiť</string>
     <string name="account_inactive">Platnosť vášho Blokada VPN vypršala. Nie ste pripojení k VPN.</string>
+    <string name="slot_lease_cant_connect">Nepodarilo sa pripojiť k Blokada VPN. Skúste vybrať inú sieťovú bránu.</string>
     <string name="slot_account_name_title">ID účtu</string>
     <string name="slot_account_name_desc">Zadajte ID vášho starého účtu pre obnovu predchádzajúceho predplatného. Predtým si môžete zapísať vaše aktuálne ID účtu v prípade omylu.</string>
     <string name="slot_account_name_error">ID účtu môže obsahovať iba písmená a čísla.</string>

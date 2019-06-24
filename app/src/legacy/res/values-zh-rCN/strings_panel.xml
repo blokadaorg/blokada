@@ -22,11 +22,11 @@
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">允许 &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">此域名已被允许。要屏蔽它，请使用下面的按钮。</string>
-    <string name="panel_domain_forwarded_toast">已将 %1$s 加入白名单</string>
+    <string name="panel_domain_forwarded_toast">已添加到白名单。</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">已屏蔽 &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="panel_domain_blocked_desc">此域名已被屏蔽。如果允许它今后使用下面的按钮。</string>
-    <string name="panel_domain_blocked_toast">添加到黑名单。</string>
+    <string name="panel_domain_blocked_desc">此域名已被屏蔽。要允许此域名，使用下面的按钮。</string>
+    <string name="panel_domain_blocked_toast">已添加到黑名单。</string>
     <string name="panel_ruleset">过滤器计数器</string>
     <string name="panel_ruleset_title">筛选器现在有 %s 规则。</string>
     <string name="panel_ruleset_updating">正在更新过滤器...</string>
@@ -46,7 +46,9 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">切换</string>
     <string name="slot_start">向上滑动启动</string>
+    <string name="slot_intro_new">如何使用新的界面？点击这里展开介绍。</string>
     <string name="slot_intro_new_header">如何使用新界面？</string>
+    <string name="slot_intro_desc">您目前位于主页部分，如果你滑到右侧，还有更多。每部分都有相应的底部菜单 - 上滑打开。 &lt;br/&gt;&lt;br/&gt; 在 Android TV 上，使用十字键（上下左右）操作。使用确定键（OK 键）打开底部菜单，或者打开您选中的任何一项。各按钮都被标有上、下、左、右箭头 - 使用方向键去点击它们。</string>
     <string name="slot_intro_info">Pst... 一些项目在其上面有问题标记。点击将会显示一个短帮助信息，就像这个消息！</string>
     <string name="slot_new_filter">屏蔽新主机</string>
     <string name="slot_new_filter_list">添加新列表</string>
@@ -58,9 +60,9 @@
     <!-- A state of input form when incorrect input is entered  -->
     <string name="slot_invalid">无效</string>
     <string name="slot_continue">继续</string>
-    <string name="slot_enter_domain_title">域(s)</string>
-    <string name="slot_enter_domain_desc">输入以逗号分隔的域名。您也可以粘贴链接到主机列表，或者导入本地主机列表文件。</string>
-    <string name="slot_enter_domain_error">我看上去没有任何东西。</string>
+    <string name="slot_enter_domain_title">域名</string>
+    <string name="slot_enter_domain_desc">输入域名，以逗号分隔。您也可以粘贴主机列表的链接，或者导入本地主机列表文件。</string>
+    <string name="slot_enter_domain_error">我不知道这是什么玩意儿。</string>
     <string name="slot_enter_domain_file">文件</string>
     <string name="slot_enter_name_title">名称</string>
     <string name="slot_enter_name_desc">输入新条目的名称。您也可以生成一个建议的名称。</string>
@@ -95,12 +97,12 @@
     <string name="slot_action_internal">内部存储</string>
     <string name="slot_action_external">外部存储</string>
     <string name="slot_filters_title">过滤器列表</string>
-    <string name="slot_filters_description">您可以在我们的服务器同步过滤器列表，同时不丢失自定义条目。 &lt;br/&gt;&lt;br/&gt;或者，您可以丢弃所有条目(包括您的)，并再次下载。</string>
-    <string name="slot_blocked_title">域已屏蔽</string>
+    <string name="slot_filters_description">您可以在我们的服务器同步过滤器列表，同时不丢失自定义条目。 &lt;br/&gt;&lt;br/&gt; 或者，您可以丢弃所有条目(包括您的)，并再次下载。</string>
+    <string name="slot_blocked_title">域名已屏蔽</string>
     <string name="slot_forwarded_title">域名转发</string>
     <string name="slot_whitelist_title">白名单应用</string>
     <string name="slot_list_no_desc">此条目没有任何描述。</string>
-    <string name="slot_status_description_active">Adblock目前正在启用 &lt;b&gt;&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;您将看到背景动画，因为广告、跟踪器和其他不想要的内容被屏蔽。</string>
+    <string name="slot_status_description_active">广告屏蔽目前已启用 &lt;b&gt;&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt; 当广告、跟踪器和其他不需要的内容被屏蔽时，您将看到背景动画。</string>
     <string name="slot_status_description_inactive">广告屏蔽目前已禁用 &lt;b&gt;&lt;/b&gt;。</string>
     <string name="slot_status_info">当应用程序激活时，您将看到通知栏上的关键图标在屏幕顶部，这意味着您的设备受到保护。您可以使用下面的按钮关闭应用程序，或者通过下游菜单滑动。</string>
     <string name="slot_status_vpn_turn_off">禁用 VPN</string>
@@ -146,8 +148,10 @@
     <string name="slot_account_action_copied">帐户ID已复制到剪贴板</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">连接到 %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] 连接 %s</string>
     <string name="slot_gateway_description">性能: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;区域: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">性能: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;区域: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;这是您当前选择的网关。</string>
+    <string name="slot_gateway_overloaded">此网关忙，不接受新的连接。</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">高</string>
     <!-- Gateway load -->
@@ -207,6 +211,7 @@
     <string name="slot_cleanup_desc">您的设备似乎有许多版本的 Blokada。您想删除其他版本，只保留一个版本吗？</string>
     <string name="slot_cleanup_action">清理</string>
     <string name="account_inactive">您的 Blokada VPN 已过期。您没有连接到 VPN。</string>
+    <string name="slot_lease_cant_connect">无法连接到 Blokada VPN。请尝试选择另一个网关。</string>
     <string name="slot_account_name_title">账户 ID</string>
     <string name="slot_account_name_desc">输入您的旧帐户ID，以恢复您以前的订阅。如果您犯错误，您可能想要在写下您的经常账户ID。</string>
     <string name="slot_account_name_error">帐户ID只能包含字母和数字。</string>
