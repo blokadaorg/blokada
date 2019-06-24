@@ -5,9 +5,9 @@
     <string name="logger_active">已啟用記錄程式</string>
     <string name="logger_allowed">記錄允許的請求</string>
     <string name="logger_denied">記錄已拒絕的請求</string>
-    <string name="logger_dash_title">記錄程式設定</string>
-    <string name="logger_slot_title">請求紀錄程式</string>
-    <string name="logger_slot_desc">當啟用後, Blokada將會建立一個CSV檔案以及日誌紀錄要求,他們已經被允許並且/或是被應用程式阻擋. 請在外部儲存空間中尋找稱為\"blokada\"的資料夾.</string>
+    <string name="logger_dash_title">記錄器設定</string>
+    <string name="logger_slot_title">請求記錄器</string>
+    <string name="logger_slot_desc">啟用之後，Blokada 會建立 CSV 檔案並記錄被 App 允許和（或）封鎖的請求。請在外部儲存空間找找「blokada」資料夾。</string>
     <string name="logger_slot_mode_off">已停用</string>
     <string name="logger_slot_mode_allowed">記錄已允許的請求</string>
     <string name="logger_slot_mode_denied">記錄已封鎖的請求</string>

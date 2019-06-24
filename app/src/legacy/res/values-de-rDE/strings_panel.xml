@@ -46,7 +46,9 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Umschalten</string>
     <string name="slot_start">zum Starten nach oben wischen</string>
+    <string name="slot_intro_new">Wie verwendet man die neue Benutzeroberfläche? Zur Einführung hier antippen.</string>
     <string name="slot_intro_new_header">Wie benutzt man die neue Benutzeroberfläche?</string>
+    <string name="slot_intro_desc">Du befindest dich derzeit auf der Startseite, du findest weitere, wenn du nach rechts wischst. Jede von ihnen besitzt ihr eigenes Menü am unteren Bildschirmrand - öffne es, indem du nach oben streichst. &lt;br/&gt;&lt;br/&gt;Navigiere auf einem Android-TV mit dem Dpad durch die Benutzeroberfläche. Verwende die zentrale Taste, um das untere Menü oder das des jeweiligen ausgewählten Objekts zu öffnen. Die Schaltflächen sind mit einem Pfeil nach oben, unten, links oder rechts gekennzeichnet - verwende die Richtungstasten, um sie anzuklicken.</string>
     <string name="slot_intro_info">Psst... Einige Objekte tragen ein Fragezeichen. Beim Daraufdrücken wird eine kurze Hilfe angezeigt, ähnlich wie diese!</string>
     <string name="slot_new_filter">Neuen Host blockieren</string>
     <string name="slot_new_filter_list">Neue Liste hinzufügen</string>

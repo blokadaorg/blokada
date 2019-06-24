@@ -31,4 +31,8 @@
     <string name="notification_keepalive_activating">I-Blokada iyavulwa. Kuzothatha isikhashana.</string>
     <string name="notification_keepalive_deactivate">Cisha</string>
     <string name="notification_keepalive_deactivating">I-Blokada icishiwe!</string>
+    <string name="notification_expired_title">I-account ye-Blokada VPN isiphelile</string>
+    <string name="notification_expired_description">I-account yakho ivaliwe futhi awusaxhumene ne-Blokada VPN okwamanje. Zivikele kangcono ngokuvuselela i-account yakho.</string>
+    <string name="notification_lease_expired_title">Icishiwe i-Blokada VPN</string>
+    <string name="notification_lease_expired_description">Kube nenkinga nokuxhumana ne-Blokada VPN. Zama ukusebenzisa enye indlela. Uma inkinga iqhubeka, sithinte nge-Telegram.</string>
 </resources>

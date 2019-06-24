@@ -46,7 +46,9 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Váltás</string>
     <string name="slot_start">a kezdéshez csúsztass felfelé</string>
+    <string name="slot_intro_new">Hogyan kell az új felhasználói felületet használni? Érintsd meg itt a bemutatóhoz.</string>
     <string name="slot_intro_new_header">Hogyan működik az új felhasználói felület?</string>
+    <string name="slot_intro_desc">Jelenleg a Kezdőlap szakaszban vagy, a további oldalak jobbra csúsztatással érhetők el. Mindegyik oldal alsó menüvel rendelkezik - ez a felfelé csúsztatással érhető el. &lt;br/&gt;&lt;br/&gt;Android TV-n, a felhasználói felületen a dpad segítségével navigálhatsz. A középső gombbal nyithatod meg az alsó menüt vagy bármely kiválasztott elemet. A gombok a felfelé, lefelé, balra vagy jobbra nyíllal vannak jelölve - az iránygombok megnyomásával kattinthatsz rájuk.</string>
     <string name="slot_intro_info">Psszt... Néhány elemhez kérdőjel ikon kapcsolódik. Megérintve, egy rövid súgóüzenet jelenik meg, mint ez!</string>
     <string name="slot_new_filter">Új hoszt blokkolása</string>
     <string name="slot_new_filter_list">Új lista hozzáadása</string>

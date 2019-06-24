@@ -46,7 +46,9 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Inverti</string>
     <string name="slot_start">scorri su per iniziare</string>
+    <string name="slot_intro_new">Come si usa la nuova interfaccia? Tocca qui per cominciare.</string>
     <string name="slot_intro_new_header">Come si utilizza la nuova interfaccia?</string>
+    <string name="slot_intro_desc">Attualmente sei nella sezione Home, se fai uno swipe verso destra troverai le altre sezioni. Ognuna di queste ha il suo sottomenù - aprilo scorrendo verso l\'alto. &lt;br/&gt;&lt;br/&gt;Su Android TV, naviga l\'interfaccia con il dpad. Usa il tasto centrale per aprire il sottomenù, o qualunque altra cosa selezionata. I pulsanti sono contrassegnati dalle frecce su, giù, sinistra o destra - usa i tasti direzionali per cliccarli.</string>
     <string name="slot_intro_info">Psst... Alcuni elementi hanno l\'icona del punto interrogativo di sopra. Toccarla farà aprire un breve messaggio d\'aiuto, come questo!</string>
     <string name="slot_new_filter">Blocca un nuovo host</string>
     <string name="slot_new_filter_list">Aggiungi una nuova lista</string>
@@ -64,7 +66,7 @@
     <string name="slot_enter_domain_file">File</string>
     <string name="slot_enter_name_title">Nome</string>
     <string name="slot_enter_name_desc">Inserisci il nome per la nuova voce. Puoi anche generare un nome suggerito.</string>
-    <string name="slot_enter_name_error">Tu vuoi che io muoro?</string>
+    <string name="slot_enter_name_error">Sembra esserci un errore.</string>
     <string name="slot_enter_name_generate">Genera</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; è ora nella whitelist</string>
     <string name="slot_app_desc">Quest\'app è nella whitelist, ciò significa che su di essa non agisce alcun blocco o filtro.</string>
@@ -77,7 +79,7 @@
     <string name="slot_action_none">Questa azione non è ancora possibile.</string>
     <string name="slot_action_facts">Eventi</string>
     <string name="slot_action_unwhitelist">Cancella</string>
-    <string name="slot_action_author">L\'autore</string>
+    <string name="slot_action_author">Info</string>
     <string name="slot_action_share">Condividi</string>
     <!-- A prefix for generated name for manually entered domain.  -->
     <string name="slot_input_suggestion">Una voce</string>
@@ -108,8 +110,8 @@
     <string name="slot_status_vpn_turned_on">VPN connessa a %s</string>
     <string name="slot_status_vpn_connecting">Attivazione Blokada VPN...</string>
     <string name="slot_status_vpn_turned_off">Blokada VPN non è attiva</string>
-    <string name="slot_status_vpn_desc_on">Blokada VPN è attualmente &lt;b&gt;attivo&lt;/b&gt;.&lt;br /&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Il tuo dispositivo e i tuoi dati sono adesso al sicuro. Clicca il punto interrogativo per i dettagli.</string>
-    <string name="slot_status_vpn_desc_off">Blokada VPN è attualmente &lt;b&gt;disabilitato&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Quando la VPN è connessa, il tuo dispositivo comunica attraverso i nostri server sicuri e il tuo traffico è criptato, così che nessuno possa vedere i tuoi dati. Il tuo reale IP è nascosto e puoi accedere ai contenuti oscurati. In alcuni casi, potresti anche notare una connessione ad Internet più veloce.</string>
+    <string name="slot_status_vpn_desc_on">Blokada VPN è attualmente &lt;b&gt;attiva&lt;/b&gt;.&lt;br /&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Il tuo dispositivo e i tuoi dati sono adesso al sicuro. Clicca il punto interrogativo per i dettagli.</string>
+    <string name="slot_status_vpn_desc_off">Blokada VPN è attualmente &lt;b&gt;disabilitata&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Quando la VPN è connessa, il tuo dispositivo comunica attraverso i nostri server sicuri e il tuo traffico è criptato, così che nessuno possa vedere i tuoi dati. Il tuo reale IP è nascosto e puoi accedere ai contenuti oscurati. In alcuni casi, potresti anche notare una connessione ad Internet più veloce.</string>
     <string name="slot_status_vpn_lease">Aggiorna</string>
     <string name="slot_action_deactivate">Disabilita</string>
     <string name="slot_action_activate">Attiva</string>

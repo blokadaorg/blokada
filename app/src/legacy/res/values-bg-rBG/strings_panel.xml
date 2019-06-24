@@ -20,11 +20,11 @@
     <string name="panel_section_apps_all">Инсталирани приложения</string>
     <string name="panel_section_apps_system">Системни приложения</string>
     <!-- When a domain is allowed (not blocked) -->
-    <string name="panel_domain_forwarded">Позволени &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_forwarded">Позволен &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Този домейн е разрешен. За да го блокирате използвайте бутона по-долу.</string>
     <string name="panel_domain_forwarded_toast">Добавен е към белия списък.</string>
     <!-- When a domain is blocked -->
-    <string name="panel_domain_blocked">Блокирани &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked">Блокиран &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_desc">Този домейн беше блокиран. За да го разрешите за в бъдеще използвайте бутона по-долу.</string>
     <string name="panel_domain_blocked_toast">Добавен е в черния списък.</string>
     <string name="panel_ruleset">Брояч на филтри</string>
@@ -46,7 +46,9 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Превключване</string>
     <string name="slot_start">плъзнете нагоре за да започнете</string>
+    <string name="slot_intro_new">Как да използваме новия UI? Докоснете тук за инфо.</string>
     <string name="slot_intro_new_header">Как да използваме новия потребителски интерфейс (UI)?</string>
+    <string name="slot_intro_desc">В момента сте в секцията Начало и ако плъзнете на дясно ще видите още. Всяка от тях има свое собствено долно меню - отворете го с плъзгане нагоре. &lt;br/&gt;&lt;br/&gt;На телевизори с Android можете да се движите в потребителския интерфейс с помощта на dpad. Използвайте централния бутон, за да отворите долното меню или всеки елемент, който изберете. Бутоните са маркирани със стрелка нагоре, надолу, наляво или надясно - използвате бутоните за посока, за да кликнете върху тях.</string>
     <string name="slot_intro_info">Хей... Някои точки имат икона с въпросителен знак върху тях. Докосването му ще покаже кратко съобщение за помощ, също като това!</string>
     <string name="slot_new_filter">Блокирайте нов хост</string>
     <string name="slot_new_filter_list">Добавяне на нов списък</string>
@@ -120,8 +122,8 @@
     <string name="slot_dropped_action_clear">Нулиране на брояча</string>
     <string name="slot_notifications_title">Известията са %s.</string>
     <string name="slot_notifications_desc">Можете да включите или изключите известията от тук. Не забравяйте, че на някои устройства с Android ще покаже отделно известие за VPN, което не може да бъде изключено.</string>
-    <string name="slot_notifications_enabled">включено</string>
-    <string name="slot_notifications_disabled">изключено</string>
+    <string name="slot_notifications_enabled">включване</string>
+    <string name="slot_notifications_disabled">изключване</string>
     <string name="slot_update_action_refresh">Провери отново</string>
     <string name="slot_telegram_title">Присъединете се към нас в Telegram!</string>
     <string name="slot_telegram_desc">Посетете нашия канал за помощ в Telegram, или просто станете част от нашата общност.</string>
@@ -146,7 +148,7 @@
     <string name="slot_account_action_copy">Копирай профилен ID</string>
     <string name="slot_account_action_copied">Профилен ID е копиран в клипборда</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
-    <string name="slot_gateway_label">Свързани сте с %s</string>
+    <string name="slot_gateway_label">Свързване с %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Свържете се с %s</string>
     <string name="slot_gateway_description">Производителност: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Регион: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_description_current">Производителност: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Регион: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Това понастоящем е избраният от вас шлюз.</string>

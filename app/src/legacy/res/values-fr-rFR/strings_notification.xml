@@ -28,12 +28,12 @@
     <string name="notification_keepalive_content">Dernier: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">surveillance</string>
-    <string name="notification_keepalive_activate">Activée</string>
-    <string name="notification_keepalive_activating">Blokada commence. Cela peut prendre un moment.</string>
-    <string name="notification_keepalive_deactivate">Désactivée</string>
+    <string name="notification_keepalive_activate">Activer</string>
+    <string name="notification_keepalive_activating">Blokada démarre. Cela peut prendre un moment.</string>
+    <string name="notification_keepalive_deactivate">Désactiver</string>
     <string name="notification_keepalive_deactivating">Blokada a été désactivé !</string>
-    <string name="notification_expired_title">Le compte Blokada VPN a expiré</string>
-    <string name="notification_expired_description">Votre compte vient juste d\'arriver à expiration et vous n\'êtes pas connecté à Blokada VPN pour le moment. Veuillez envisager d\'activer votre compte à nouveau pour une meilleure protection.</string>
-    <string name="notification_lease_expired_title">Blokada VPN est désactivé</string>
-    <string name="notification_lease_expired_description">Il y a eu un problème avec votre connexion avec Blocka VPN. Veuillez essayer de vous connecter à une autre passerelle. Si le problème persiste, veuillez nous contacter sur Telegram.</string>
+    <string name="notification_expired_title">Le compte a expiré</string>
+    <string name="notification_expired_description">Votre abonnement vient juste d\'arriver à expiration et vous n\'êtes pas connecté au VPN Blokada pour le moment. Veuillez envisager de renouveler votre abonnement pour une meilleure protection.</string>
+    <string name="notification_lease_expired_title">Le VPN Blokada est désactivé</string>
+    <string name="notification_lease_expired_description">Il y a eu un problème avec votre connexion à Blocka VPN. Veuillez essayer de vous connecter à une autre passerelle. Si le problème persiste, veuillez nous contacter sur Telegram.</string>
 </resources>

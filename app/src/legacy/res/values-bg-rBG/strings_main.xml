@@ -4,7 +4,7 @@
     <string name="main_loading">Зареждане, моля изчакайте…</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_intro">Добре дошли в %s! Докоснете екана за да активирате това приложение. Дайте разрешение при поискване.</string>
-    <string name="main_error">Нещо се обърка. Проверете вързката си с интернет и опитайте пак.</string>
+    <string name="main_error">Нещо се обърка. Проверете връзката си с интернет и опитайте пак.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_deactivating_new">Изключва %s. Моля почакайте…</string>
     <!-- Parameter: branded app name (Blokada). -->

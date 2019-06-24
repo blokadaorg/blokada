@@ -34,4 +34,6 @@
     <string name="notification_keepalive_deactivating">Blokada è stata disattivata!</string>
     <string name="notification_expired_title">Account Blokada VPN scaduto</string>
     <string name="notification_expired_description">Il tuo account è scaduto e non sei connesso a Blokada VPN in questo momento. Per favore, considera di riattivare il tuo account per una migliore protezione.</string>
+    <string name="notification_lease_expired_title">Blokada VPN disabilitata</string>
+    <string name="notification_lease_expired_description">C\'è stato un problema con la tua connessione a Blokada VPN. Per favore, prova a connetterti ad un altro gateway. Se il problema persiste, contattaci via Telegram.</string>
 </resources>
