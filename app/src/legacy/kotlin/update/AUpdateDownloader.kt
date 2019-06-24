@@ -69,6 +69,7 @@ class AUpdateDownloader(
             val openFileIntent = Intent(Intent.ACTION_VIEW)
             openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             openFileIntent.data = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files",
                     File(uri.path))
             ctx.startActivity(openFileIntent)
