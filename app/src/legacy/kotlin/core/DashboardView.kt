@@ -79,8 +79,8 @@ class DashboardView(
                     if (sliding.panelState != PanelState.ANCHORED) sliding.panelState = PanelState.ANCHORED
                 },
                 onCollapsed = { sectionIndex ->
-                    ktx.v("onCollapsed")
-                    setOff(sectionIndex + 1)
+//                    ktx.v("onCollapsed")
+//                    setOff(sectionIndex + 1)
                 },
                 onMenuOpened = { section, sectionIndex, menu, menuIndex ->
                     ktx.v("onMenuOpened")
@@ -105,7 +105,7 @@ class DashboardView(
                     sliding.panelState = PanelState.ANCHORED
                 },
                 onTurnOff = {
-                    sliding.panelState = PanelState.COLLAPSED
+//                    sliding.panelState = PanelState.COLLAPSED
                 },
                 onOpenMenu = {
                     sliding.panelState = PanelState.EXPANDED
@@ -286,7 +286,7 @@ class DashboardView(
                     if (slideOffset < anchorPoint) {
                         val ratio = slideOffset / anchorPoint
                         bg_colors.onScroll(1 - ratio, model.getOpenedSectionIndex() + 1, 0)
-                        bg_start.alpha = 1 - min(1f, ratio)
+                        // bg_start.alpha = 1 - min(1f, ratio)
                         bg_packets.alpha = min(1f, ratio)
                         bg_pager.alpha = min(1f, ratio)
                         fg_logo_icon.alpha = min(0.7f, ratio)
@@ -316,9 +316,10 @@ class DashboardView(
                         }
                         PanelState.COLLAPSED -> {
                             ktx.v("panel collapsed")
-                            model.panelCollapsed()
-                            if (tun.enabled()) tun.enabled %= false
-                            previousMeaningfulState = PanelState.COLLAPSED
+//                            model.panelCollapsed()
+//                            if (tun.enabled()) tun.enabled %= false
+//                            previousMeaningfulState = PanelState.COLLAPSED
+                            sliding.panelState = PanelState.ANCHORED
                         }
                         PanelState.EXPANDED -> {
                             ktx.v("panel expanded")
