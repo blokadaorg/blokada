@@ -20,7 +20,7 @@ class AllAppsDashboardSectionVB(val ctx: Context, val system: Boolean) : ListVie
     private var fil: Collection<String> = emptyList()
 
     private var updateApps = { filters: Collection<Filter> ->
-        fil = filters.filter { it.source.id == "app" }.map { it.source.source }
+        fil = filters.filter { it.source.id == "app" && it.active }.map { it.source.source }
         updateListing()
         Unit
     }
