@@ -8,8 +8,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.text.format.DateUtils
-import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.github.salomonbrys.kodein.instance
@@ -31,7 +29,7 @@ fun displayNotification(ctx: Context, reason: String) {
     b.setContentTitle(ctx.getString(R.string.notification_blocked_title))
     b.setContentText(ctx.getString(R.string.notification_blocked_text, reason))
     b.setSmallIcon(R.drawable.ic_stat_blokada)
-    b.setPriority(NotificationCompat.PRIORITY_MAX)
+    b.priority = NotificationCompat.PRIORITY_MAX
     b.setVibrate(LongArray(0))
 
     val intentActivity = Intent(ctx, PanelActivity::class.java)
@@ -81,40 +79,30 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
         b.setContentTitle(provider)
         b.setContentText(ctx.getString(R.string.dns_keepalive_content, servers))
     } else {
-        val expandedView = RemoteViews(ctx.packageName, R.layout.view_keepalive_expanded)
-        expandedView.setTextViewText(R.id.keep_alive_title, ctx.resources.getString(R.string.notification_keepalive_title, count))
-        expandedView.setTextViewText(R.id.keep_alive_text, ctx.getString(R.string.notification_keepalive_content, last))
-        expandedView.setTextViewText(R.id.keep_alive_timestamp, DateUtils.formatDateTime(ctx, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME))
-
         val t: Tunnel = ctx.inject().instance()
-        var domainList = ""
+        val domainList = NotificationCompat.InboxStyle()
         val duplicates =ArrayList<String>(0)
         t.tunnelRecentDropped().asReversed().forEach { s ->
             if(!duplicates.contains(s)){
                 duplicates.add(s)
-                domainList += s + '\n'
+                domainList.addLine(s)
             }
         }
-        expandedView.setTextViewText(R.id.keep_alive_message, domainList)
 
-        val intent = Intent(ctx, ANotificationsToggleService::class.java)
-        intent.putExtra("new_state",!t.enabled())
-        expandedView.setOnClickPendingIntent(R.id.keep_alive_button, PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
+        val intent = Intent(ctx, ANotificationsToggleService::class.java).putExtra("new_state",!t.enabled())
+        val statePendingIntent = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         if(t.enabled()) {
-            expandedView.setTextViewText(R.id.keep_alive_button, "Deactivate")
+            b.addAction(R.drawable.ic_stat_blokada, ctx.resources.getString(R.string.notification_keepalive_deactivate), statePendingIntent)
         }else{
-            expandedView.setTextViewText(R.id.keep_alive_button, "Activate")
+            b.addAction(R.drawable.ic_stat_blokada, ctx.resources.getString(R.string.notification_keepalive_activate), statePendingIntent)
         }
 
-        val collapsedView = RemoteViews(ctx.packageName, R.layout.view_keepalive_collapsed)
-        collapsedView.setTextViewText(R.id.keep_alive_title, ctx.resources.getString(R.string.notification_keepalive_title, count))
-        collapsedView.setTextViewText(R.id.keep_alive_text, ctx.getString(R.string.notification_keepalive_content, last))
-        collapsedView.setTextViewText(R.id.keep_alive_timestamp, DateUtils.formatDateTime(ctx, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME))
-        b.setCustomContentView(collapsedView)
-        b.setCustomBigContentView(expandedView)
+        b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, count))
+        b.setContentText(ctx.getString(R.string.notification_keepalive_content, last))
+        b.setStyle(domainList)
     }
     b.setSmallIcon(R.drawable.ic_stat_blokada)
-    b.setPriority(NotificationCompat.PRIORITY_MIN)
+    b.priority = NotificationCompat.PRIORITY_MIN
     b.setOngoing(true)
 
     val intentActivity = Intent(ctx, PanelActivity::class.java)

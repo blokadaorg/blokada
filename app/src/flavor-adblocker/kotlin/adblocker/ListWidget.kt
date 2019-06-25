@@ -40,10 +40,10 @@ class ListWidgetProvider : AppWidgetProvider() {
         remoteViews.setOnClickPendingIntent(R.id.widget_list_button, PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
         if (t.enabled()) {
             remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = true, waiting = false))
-            remoteViews.setTextViewText(R.id.widget_list_button, "Deactivate")
+            remoteViews.setTextViewText(R.id.widget_list_button, context.resources.getString(R.string.notification_keepalive_activate))
         } else {
             remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = false, waiting = false))
-            remoteViews.setTextViewText(R.id.widget_list_button, "Activate")
+            remoteViews.setTextViewText(R.id.widget_list_button, context.resources.getString(R.string.notification_keepalive_deactivate))
         }
         appWidgetManager?.updateAppWidget(appWidgetIds, remoteViews)
     }
