@@ -956,7 +956,7 @@ class AppVB(
 
     private val actionWhitelist = Slot.Action(i18n.getString(R.string.slot_allapp_whitelist)) {
         val filter = Filter(
-                id = id(app.appId, whitelist = true),
+                id = filters.findFilterBySource(app.appId)?.id ?: id(app.appId, whitelist = true),
                 source = FilterSourceDescriptor("app", app.appId),
                 active = true,
                 whitelist = true
@@ -966,10 +966,13 @@ class AppVB(
 
     private val actionCancel = Slot.Action(i18n.getString(R.string.slot_action_unwhitelist)) {
         val filter = Filter(
-                id = id(app.appId, whitelist = true),
-                source = FilterSourceDescriptor("app", app.appId)
+            id = filters.findFilterBySource(app.appId)?.id ?: id(app.appId, whitelist = true),
+            source = FilterSourceDescriptor("app", app.appId),
+            active = false,
+            whitelist = true
         )
-        filters.removeFilter(ktx, filter)
+        filters.putFilter(ktx, filter)
+
     }
 
     override fun attach(view: SlotView) {

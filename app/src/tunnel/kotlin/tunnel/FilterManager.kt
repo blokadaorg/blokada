@@ -64,6 +64,10 @@ internal class FilterManager(
         }
     }
 
+    fun findBySource(source: String) : Filter?{
+        return store.cache.find { it.source.id == "app" && it.source.source == source }
+    }
+
     fun put(ktx: Kontext, new: Filter) {
         val old = store.cache.firstOrNull { it == new }
         store = if (old == null) {
