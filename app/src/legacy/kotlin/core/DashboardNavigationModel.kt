@@ -85,6 +85,14 @@ internal class DashboardNavigationModel(
         }
     }
 
+    fun mainViewPagerSwipedRight() {
+        if (sectionIndex < sections.size - 2) mainViewPagerSwiped(sectionIndex + 1)
+    }
+
+    fun mainViewPagerSwipedLeft() {
+        if (sectionIndex > 0) mainViewPagerSwiped(sectionIndex - 1)
+    }
+
     fun tunnelActivating() {
         if (!on) {
             on = true

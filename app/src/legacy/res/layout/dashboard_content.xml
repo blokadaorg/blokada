@@ -56,20 +56,41 @@
                     android:id="@+id/bg_start_icon"
                     android:layout_width="@dimen/dashboard_start_icon_size"
                     android:layout_height="@dimen/dashboard_start_icon_size"
-                    android:layout_marginBottom="@dimen/dashboard_start_icon_margin_bottom"
                     android:layout_marginTop="@dimen/dashboard_start_icon_margin_top"
+                    android:layout_marginBottom="@dimen/dashboard_start_icon_margin_bottom"
                     android:rotation="-90"
                     android:src="@drawable/ic_chevron_right"
                     android:tint="@color/colorActive" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/bg_chevron_left"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="50dp"
+                android:alpha="0.8"
+                android:src="@drawable/ic_chevron_left"
+                android:tint="@color/colorActive"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/bg_chevron_right"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="50dp"
+                android:alpha="0.8"
+                android:src="@drawable/ic_chevron_right"
+                android:tint="@color/colorActive" />
 
             <core.VBPagesView
                 android:id="@+id/bg_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0"
-                android:paddingBottom="@dimen/dashboard_pager_margin_bottom"
-                android:paddingTop="@dimen/dashboard_pager_margin_top" />
+                android:paddingTop="@dimen/dashboard_pager_margin_top"
+                android:paddingBottom="@dimen/dashboard_pager_margin_bottom" />
 
             <core.DotsView
                 android:id="@+id/bg_nav"
@@ -116,8 +137,8 @@
                 android:layout_width="@dimen/dashboard_panel_width"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="@dimen/dashboard_panel_margin_bottom"
                 android:layout_marginTop="@dimen/dashboard_panel_margin_top"
+                android:layout_marginBottom="@dimen/dashboard_panel_margin_bottom"
                 android:alpha="0.7"
                 android:background="@drawable/circle"
                 android:clickable="false"
@@ -127,10 +148,10 @@
                 android:id="@+id/fg_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dashboard_fg_pager_margin"
-                android:layout_marginEnd="@dimen/dashboard_fg_pager_margin"
                 android:layout_marginStart="@dimen/dashboard_fg_pager_margin"
                 android:layout_marginTop="@dimen/dashboard_fg_pager_margin_top"
+                android:layout_marginEnd="@dimen/dashboard_fg_pager_margin"
+                android:layout_marginBottom="@dimen/dashboard_fg_pager_margin"
                 android:visibility="gone" />
 
             <ImageView

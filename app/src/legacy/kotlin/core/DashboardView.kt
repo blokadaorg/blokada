@@ -50,6 +50,8 @@ class DashboardView(
     private val bg_pager = findViewById<VBPagesView>(R.id.bg_pager)
     private val bg_packets = findViewById<PacketsView>(R.id.bg_packets)
     private val bg_start_text = findViewById<TextView>(R.id.bg_start_text)
+    private val bg_chevron_left = findViewById<View>(R.id.bg_chevron_left)
+    private val bg_chevron_right = findViewById<View>(R.id.bg_chevron_right)
     private val fg_logo_icon = findViewById<ImageView>(R.id.fg_logo_icon)
     private val fg_pager = findViewById<VBPagesView>(R.id.fg_pager)
     private val fg_drag = findViewById<View>(R.id.fg_drag)
@@ -360,8 +362,18 @@ class DashboardView(
             override fun onPageSelected(position: Int) {
                 model.mainViewPagerSwiped(position)
                 lastSubsectionTab = 0
+                bg_chevron_left.visibility = if (position == 0) View.GONE else View.VISIBLE
+                bg_chevron_right.visibility = if (position == bg_pager.pages.count() - 1) View.GONE else View.VISIBLE
             }
         })
+
+        bg_chevron_left.setOnClickListener {
+            model.mainViewPagerSwipedLeft()
+        }
+
+        bg_chevron_right.setOnClickListener {
+            model.mainViewPagerSwipedRight()
+        }
 
         model.getOpenedSection().run {
             bg_nav.section = context.getText(nameResId)
