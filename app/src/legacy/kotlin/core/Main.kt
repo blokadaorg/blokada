@@ -77,7 +77,7 @@ class MainApplication: Application(), KodeinAware {
         defaultWriter.ctx = this
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
-        ktx.v(blokadaUserAgent())
+        ktx.v(blokadaUserAgent(this))
         setRestartAppOnCrash()
     }
 

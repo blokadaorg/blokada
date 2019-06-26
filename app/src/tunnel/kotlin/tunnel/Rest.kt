@@ -93,15 +93,16 @@ object RestModel {
     )
 }
 
-fun blokadaUserAgent() = "blokada/%s (android-%s %s %s %s %s-%s)".format(
-            BuildConfig.VERSION_NAME,
-            Build.VERSION.SDK_INT,
-            BuildConfig.FLAVOR,
-            BuildConfig.BUILD_TYPE,
-            Build.SUPPORTED_ABIS[0],
-            Build.MANUFACTURER,
-            Build.DEVICE
-    )
+fun blokadaUserAgent(ctx: Context) = "blokada/%s (android-%s %s %s %s %s-%s %s)".format(
+        BuildConfig.VERSION_NAME,
+        Build.VERSION.SDK_INT,
+        BuildConfig.FLAVOR,
+        BuildConfig.BUILD_TYPE,
+        Build.SUPPORTED_ABIS[0],
+        Build.MANUFACTURER,
+        Build.DEVICE,
+        if (ctx.packageManager.hasSystemFeature("android.hardware.touchscreen")) "touch" else "donttouch"
+)
 
 fun newRestApiModule(ctx: Context): Kodein.Module {
     return Kodein.Module(init = {
@@ -119,7 +120,7 @@ fun newRestApiModule(ctx: Context): Kodein.Module {
                         chain.proceed(request)
                     }
                     .addInterceptor { chain ->
-                        val request = chain.request().newBuilder().header("User-Agent", blokadaUserAgent()).build()
+                        val request = chain.request().newBuilder().header("User-Agent", blokadaUserAgent(ctx)).build()
                         chain.proceed(request)
                     }
                     .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })

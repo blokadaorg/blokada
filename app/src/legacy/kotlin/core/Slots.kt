@@ -1540,7 +1540,7 @@ class AboutVB(
         view.content = Slot.Content(
                 label = i18n.getString(R.string.slot_about),
                 description = "${ver.appName} ${ver.name}",
-                detail = blokadaUserAgent(),
+                detail = blokadaUserAgent(ctx),
                 action2 = creditsAction,
                 action3 = Slot.Action(i18n.getString(R.string.update_button_appinfo)) {
                     try {

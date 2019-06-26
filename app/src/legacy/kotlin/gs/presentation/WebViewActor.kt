@@ -114,7 +114,7 @@ class WebDash(
         if (javascript) web.settings.javaScriptEnabled = true
         if (big) web.minimumHeight = ctx.resources.toPx(480)
         web.settings.domStorageEnabled = true
-        web.settings.userAgentString = blokadaUserAgent()
+        web.settings.userAgentString = blokadaUserAgent(ctx)
         val cookie = CookieManager.getInstance()
         cookie.setAcceptCookie(true)
         if (Build.VERSION.SDK_INT >= 21) cookie.setAcceptThirdPartyCookies(web, true)
