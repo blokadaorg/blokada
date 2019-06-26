@@ -343,7 +343,7 @@ class DashboardView(
         bg_pager.pages = model.sections.map { it.dash }
 
         bg_nav.viewPager = bg_pager
-        bg_nav.sleeping = true
+        bg_nav.sleeping = false
 
         lastSubsectionTab = 0
         bg_pager.currentItem = 0
@@ -469,7 +469,7 @@ class DashboardView(
         model.getOpenedSection().run {
             bg_nav.section = context.getText(nameResId)
             bg_nav.viewPager = bg_pager
-            bg_nav.sleeping = true
+            bg_nav.sleeping = false
         }
 
         fg_pager.visibility = View.GONE
