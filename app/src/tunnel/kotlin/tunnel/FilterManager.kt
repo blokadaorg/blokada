@@ -16,8 +16,8 @@ internal class FilterManager(
             else Err(Exception("failed fetching rules, memory limit reached: $limit"))
         },
         private val doValidateRulesetCache: (Filter) -> Boolean = {
-            it.source.id in listOf("app") ||
-            it.lastFetch + 86400 * 1000 > System.currentTimeMillis()
+            it.source.id in listOf("app") /*||
+            it.lastFetch + 86400 * 1000 > System.currentTimeMillis()*/
         },
         private val doFetchFiltersFromRepo: (Url) -> Result<Set<Filter>> = {
             val serializer = FilterSerializer()

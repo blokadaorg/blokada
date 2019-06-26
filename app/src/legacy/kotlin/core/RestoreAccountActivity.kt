@@ -6,7 +6,6 @@ import gs.property.I18n
 import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import tunnel.BLOCKA_CONFIG
-import tunnel.FilterSourceDescriptor
 import tunnel.checkAccountInfo
 
 
@@ -48,10 +47,6 @@ class RestoreAccountActivity : Activity() {
             }
             Unit
         }
-    }
-
-    private fun sourceToId(source: FilterSourceDescriptor): String {
-        return "lol id " + source.source
     }
 
 }

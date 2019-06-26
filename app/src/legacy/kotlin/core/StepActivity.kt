@@ -1,6 +1,7 @@
 package core
 
 import android.app.Activity
+import android.util.Base64
 import com.github.salomonbrys.kodein.instance
 import org.blokada.R
 import tunnel.Filter
@@ -69,7 +70,7 @@ class StepActivity : Activity() {
     }
 
     private fun sourceToId(source: FilterSourceDescriptor): String {
-        return "lol id " + source.source
+        return "custom-filter:" + Base64.encodeToString(source.source.toByteArray(), Base64.NO_WRAP)
     }
 
 }
