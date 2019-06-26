@@ -236,7 +236,10 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
         override fun onFailure(call: Call<RestModel.Account>?, t: Throwable?) {
             ktx.e("check account api call error", t ?: "null")
             if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1, showError)
-            else if (showError) showSnack(R.string.slot_account_name_api_error)
+            else {
+                if (showError) showSnack(R.string.slot_account_name_api_error)
+                clearConnectedGateway(ktx, config, showError = false)
+            }
         }
 
         override fun onResponse(call: Call<RestModel.Account>?, response: Response<RestModel.Account>?) {
@@ -263,7 +266,10 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
                     else -> {
                         ktx.e("check account api call response ${code()}")
                         if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1, showError)
-                        else if (showError) showSnack(R.string.slot_account_name_api_error)
+                        else {
+                            if (showError) showSnack(R.string.slot_account_name_api_error)
+                            clearConnectedGateway(ktx, config, showError = false)
+                        }
                         Unit
                     }
                 }
