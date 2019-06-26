@@ -190,8 +190,8 @@ class Main(
         }
     }
 
-    fun findFilterBySource(source: String) : Filter?{
-        return filters.findBySource(source)
+    fun findFilterBySource(source: String) = async(CTRL) {
+        filters.findBySource(source)
     }
 
     fun putFilter(ktx: AndroidKontext, filter: Filter, sync: Boolean = true) = async(CTRL) {

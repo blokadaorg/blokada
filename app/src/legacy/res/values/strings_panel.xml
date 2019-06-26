@@ -299,4 +299,6 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Advanced settings</string>
 
+    <string name="slot_whitelist_updating">Updating configuration, please wait...</string>
+
 </resources>
