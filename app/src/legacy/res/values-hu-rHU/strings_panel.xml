@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">Tisztítás</string>
     <string name="account_inactive">A Blokada VPN lejárt. Nem kapcsolódsz a VPN-hez.</string>
     <string name="slot_lease_cant_connect">Nem sikerült csatlakozni a Blokada VPN-hez. Próbálj másik átjárót kiválasztani.</string>
+    <string name="slot_account_cant_create">Nem sikerült létrehozni a Blokada VPN fiókodat. Kérjük, próbálkozz később, vagy lépj velünk kapcsolatba a Telegram csatornánkon.</string>
     <string name="slot_account_name_title">Fiókazonosító</string>
     <string name="slot_account_name_desc">Add meg régi fiókazonosítódat az előző előfizetés visszaállításához. Írd le az aktuális fiókazonosítódat mielőtt ezt megtennéd, hogy elkerüld a félregépelést.</string>
     <string name="slot_account_name_error">A Fiókazonosító csak betűket (ékezet nélküli) és számokat tartalmazhat.</string>
@@ -225,4 +226,8 @@
     <string name="label_dns">DNS beállítások</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Haladó beállítások</string>
+    <string name="slot_whitelist_updating">Konfiguráció frissítése, kérjük várj...</string>
+    <string name="slot_lease_deleted_information">Ne feled, hogy jelenleg a Blokada VPN csak egy eszközön használható.</string>
+    <string name="slot_background_animation">Háttér animáció</string>
+    <string name="slot_background_animation_description">Amikor be van kapcsolva, a hullámok minden alkalommal, amikor letiltásra vagy engedélyezésre kerül egy DNS kérelem, animálódik. Kapcsold ki, ha lassulást tapasztalsz.</string>
 </resources>

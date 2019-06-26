@@ -28,9 +28,9 @@
     <string name="panel_domain_blocked_desc">Diese Domain wurde blockiert. Um sie in Zukunft zu erlauben, benutze den Button unten.</string>
     <string name="panel_domain_blocked_toast">Zur Blacklist hinzugefügt.</string>
     <string name="panel_ruleset">Filterzähler</string>
-    <string name="panel_ruleset_title">Filter haben jetzt %s Regeln.</string>
+    <string name="panel_ruleset_title">Filter enthalten jetzt %s Regeln.</string>
     <string name="panel_ruleset_updating">Filter aktualisieren...</string>
-    <string name="panel_ruleset_built">Filter sind jetzt mit &lt;b&gt;%s&lt;/b&gt; Regeln konfiguriert. Bis zu &lt;b&gt;%s&lt;/b&gt; können Regeln in den Gerätespeicher insgesamt passen. Denke daran, dass dies nur eine Schätzung ist und abhängig von anderen Apps auf deinem Gerät geändert wird, daher solltest du zur Sicherheit, weit unter diesem Limit bleiben.</string>
+    <string name="panel_ruleset_built">Die Filterkonfiguration umfasst nun &lt;b&gt;%s&lt;/b&gt; Regeln. Bis zu &lt;b&gt;%s&lt;/b&gt; Regeln passen insgesamt in den Gerätespeicher. Bedenke, dass dies nur eine Schätzung ist und, abhängig von anderen Apps auf deinem Gerät, Änderungen unterworfen ist, daher solltest du zur Sicherheit, weit unter diesem Limit bleiben.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Erlauben</string>
     <!-- Button to block allowed domain -->
@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">Aufräumen</string>
     <string name="account_inactive">Dein Blokada-VPN ist abgelaufen. Du bist nicht mit dem VPN verbunden.</string>
     <string name="slot_lease_cant_connect">Die Verbindung zu Blokada VPN konnte nicht hergestellt werden. Versuche ein anderes Gateway auszuwählen.</string>
+    <string name="slot_account_cant_create">Dein \"Blokada VPN\"-Konto konnte nicht erstellt werden. Bitte versuche es später erneut oder kontaktiere uns auf Telegram.</string>
     <string name="slot_account_name_title">Kontokennung</string>
     <string name="slot_account_name_desc">Gib deine alte Kontokennung ein, um dein früheres Abonnement wiederherzustellen. Schreib dir deine jetzige Kontokennung zur Sicherheit auf, falls ein Fehler auftreten sollte.</string>
     <string name="slot_account_name_error">Die Kontokennung kann nur Buchstaben und Nummern enthalten.</string>

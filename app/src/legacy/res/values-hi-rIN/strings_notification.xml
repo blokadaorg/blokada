@@ -32,4 +32,8 @@
     <string name="notification_keepalive_activating">ब्लोकअडा शुरू हो रहा है। यह कुछ क्षण ले सकता है।</string>
     <string name="notification_keepalive_deactivate">निष्क्रिय करें</string>
     <string name="notification_keepalive_deactivating">ब्लोकअडा निष्क्रिय हो गया।</string>
+    <string name="notification_expired_title">ब्लोकडा वीपीएन खाता समाप्त हो गया</string>
+    <string name="notification_expired_description">आपका खाता अभी समाप्त हो चुका है और आप इस समय ब्लोकडा वीपीएन से नहीं जुड़े हैं। बेहतर सुरक्षा के लिए कृपया अपने खाते को फिर से सक्रिय करने पर विचार करें।</string>
+    <string name="notification_lease_expired_title">ब्लोकडा वीपीएन बंद हो गया</string>
+    <string name="notification_lease_expired_description">आपके कनेक्शन को ब्लॉक वीपीएन के साथ समस्या थी। कृपया दूसरे गेटवे से कनेक्ट करने का प्रयास करें। यदि समस्या बनी रहती है, तो कृपया टेलीग्राम पर हमसे संपर्क करें।</string>
 </resources>

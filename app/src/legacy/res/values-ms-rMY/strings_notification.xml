@@ -33,4 +33,5 @@
     <string name="notification_keepalive_deactivating">Blokada telah dinyahaktifkan!</string>
     <string name="notification_expired_title">Akaun VPN Blokada telah tamat tempoh</string>
     <string name="notification_expired_description">Akaun anda baru sahaja tamat tempoh dan anda tidak lagi bersambung kepada VPN Blokada buat masa ini. Sila pertimbangkan untuk mengaktifkan semula akaun ini untuk lebih perlindungan.</string>
+    <string name="notification_lease_expired_title">VPN Blokada telah dimatikan</string>
 </resources>

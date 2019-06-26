@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">Limpiar</string>
     <string name="account_inactive">Tu VPN de Blokada ha expirado. No estás conectado a el VPN.</string>
     <string name="slot_lease_cant_connect">No se pudo conectar al VPN de Blokada. Intenta seleccionando otra puerta de enlace.</string>
+    <string name="slot_account_cant_create">No se pudo crear tu cuenta del VPN de Blokada. Por favor, inténtalo de nuevo más tarde o contáctanos en Telegram.</string>
     <string name="slot_account_name_title">ID de cuenta</string>
     <string name="slot_account_name_desc">Introduce tu ID de cuenta antiguo para restaurar tu suscripción anterior. Puede que quieras escribir tu ID de cuenta actual antes de hacerlo, en caso de que cometas un error.</string>
     <string name="slot_account_name_error">El ID de cuenta solo puede contener letras y números.</string>
@@ -225,4 +226,8 @@
     <string name="label_dns">Configuraciones DNS</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Configuración avanzada</string>
+    <string name="slot_whitelist_updating">Actualizando configuración, por favor espera...</string>
+    <string name="slot_lease_deleted_information">Ten en cuenta que actualmente el VPN de Blokada sólo puede ser usado en un dispositivo.</string>
+    <string name="slot_background_animation">Animación de fondo</string>
+    <string name="slot_background_animation_description">Cuando está activado, ondas se animarán cada vez que una solicitud DNS es bloqueada o permitida. Desactiva esta opción si experimentas ralentización.</string>
 </resources>

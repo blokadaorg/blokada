@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">Pulisci</string>
     <string name="account_inactive">Il tuo abbonamento a Blokada VPN è scaduto. Non sei connesso alla VPN.</string>
     <string name="slot_lease_cant_connect">Impossibile connettersi a Blokada VPN. Prova a selezionare un altro gateway.</string>
+    <string name="slot_account_cant_create">Impossibile creare il tuo account Blokada VPN. Riprova più tardi o contattaci su Telegram.</string>
     <string name="slot_account_name_title">ID account</string>
     <string name="slot_account_name_desc">Inserisci il tuo vecchio ID account per ripristinare il tuo abbonamento precedente. Potresti volerti segnare il tuo ID account corrente prima di farlo, nel caso tu commetta qualche errore.</string>
     <string name="slot_account_name_error">L\'ID account può contenere solo lettere e numeri.</string>

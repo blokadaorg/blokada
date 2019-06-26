@@ -122,8 +122,8 @@
     <string name="slot_dropped_action_clear">Нулиране на брояча</string>
     <string name="slot_notifications_title">Известията са %s.</string>
     <string name="slot_notifications_desc">Можете да включите или изключите известията от тук. Не забравяйте, че на някои устройства с Android ще покаже отделно известие за VPN, което не може да бъде изключено.</string>
-    <string name="slot_notifications_enabled">включване</string>
-    <string name="slot_notifications_disabled">изключване</string>
+    <string name="slot_notifications_enabled">включени</string>
+    <string name="slot_notifications_disabled">изключени</string>
     <string name="slot_update_action_refresh">Провери отново</string>
     <string name="slot_telegram_title">Присъединете се към нас в Telegram!</string>
     <string name="slot_telegram_desc">Посетете нашия канал за помощ в Telegram, или просто станете част от нашата общност.</string>
@@ -132,7 +132,7 @@
     <string name="slot_dropped_share">Аз блокирах %s реклами благодарение на %s! www.blokada.org</string>
     <string name="slot_active">Е активна</string>
     <string name="slot_inactive">Е неактивна</string>
-    <string name="slot_adblocking_label">Блокирани реклами &amp; тракери</string>
+    <string name="slot_adblocking_label">Блокиране на реклами &amp; тракери</string>
     <string name="slot_adblocking_text">Когато е активирана Blokada ще блокира реклами, тракери и друго нежелано съдържание. Това помага да защитите личните си данни, да ускорите устройството си и да запазите данните си.</string>
     <string name="slot_blocka_label">Blokada VPN Профил</string>
     <string name="slot_account_label_active">Профилът е валиден до %s</string>
@@ -154,9 +154,9 @@
     <string name="slot_gateway_description_current">Производителност: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Регион: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Това понастоящем е избраният от вас шлюз.</string>
     <string name="slot_gateway_overloaded">Този шлюз е зает и не приема нови връзки.</string>
     <!-- Gateway load -->
-    <string name="slot_gateway_load_low">високо</string>
+    <string name="slot_gateway_load_low">висока</string>
     <!-- Gateway load -->
-    <string name="slot_gateway_load_high">ниско</string>
+    <string name="slot_gateway_load_high">ниска</string>
     <string name="panel_section_home_gateways">VPN шлюзове</string>
     <string name="subscription_success">Профилът ви е активиран. Това може да отнеме няколко секунди. Благодаря ти!</string>
     <string name="slot_protection_header">Статус на Blokada</string>
@@ -214,6 +214,7 @@
     <string name="slot_cleanup_action">Почисти</string>
     <string name="account_inactive">Вашият VPN Blokada, изтече. Не сте свързани с VPN.</string>
     <string name="slot_lease_cant_connect">Не можа да се свърже с Blokada VPN. Опитайте да изберете друг шлюз.</string>
+    <string name="slot_account_cant_create">Не можахте да създадете профила си в Blokada VPN. Моля, опитайте отново по-късно, или се свържете с нас в Telegram.</string>
     <string name="slot_account_name_title">Профил ID</string>
     <string name="slot_account_name_desc">Въведете стария си идентификационен номер (ID) за да възстановите предишния си абонамент. Може да искате да запишете идентификационния номер на текущия си акаунт преди да възстановите стария, в случай че направите грешка.</string>
     <string name="slot_account_name_error">ID на профила може да съдържа само букви и цифри.</string>

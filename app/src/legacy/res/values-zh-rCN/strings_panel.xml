@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">清理</string>
     <string name="account_inactive">您的 Blokada VPN 已过期。您没有连接到 VPN。</string>
     <string name="slot_lease_cant_connect">无法连接到 Blokada VPN。请尝试选择另一个网关。</string>
+    <string name="slot_account_cant_create">无法创建您的 Blokada VPN 帐户。请稍后再试，或在 Telegram 上联系我们。</string>
     <string name="slot_account_name_title">账户 ID</string>
     <string name="slot_account_name_desc">输入您的旧帐户ID，以恢复您以前的订阅。如果您犯错误，您可能想要在写下您的经常账户ID。</string>
     <string name="slot_account_name_error">帐户ID只能包含字母和数字。</string>

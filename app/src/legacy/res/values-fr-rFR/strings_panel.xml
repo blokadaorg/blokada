@@ -4,12 +4,12 @@
     <!-- Main screen section -->
     <string name="panel_section_home">Accueil</string>
     <!-- Main screen section -->
-    <string name="panel_section_ads">Blocage de publicités</string>
+    <string name="panel_section_ads">Blocage des publicités</string>
     <!-- Main screen section -->
     <string name="panel_section_apps">Applications</string>
     <!-- Main screen section -->
     <string name="panel_section_advanced">Paramètres Avancés</string>
-    <string name="panel_section_home_start">VPN Blokada</string>
+    <string name="panel_section_home_start">Blokada VPN</string>
     <string name="panel_section_home_help">Aide</string>
     <string name="panel_section_home_community">Communauté</string>
     <string name="panel_section_ads_lists">Listes noires</string>
@@ -27,10 +27,10 @@
     <string name="panel_domain_blocked">Bloqué &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_desc">Ce domaine a été bloqué. Pour l\'autoriser, utilisez le bouton ci-dessous.</string>
     <string name="panel_domain_blocked_toast">Ajouté à la liste noire.</string>
-    <string name="panel_ruleset">Nombre de domaines sur liste noire</string>
-    <string name="panel_ruleset_title">%s domaines sont sur liste noire.</string>
+    <string name="panel_ruleset">Nombre de règles</string>
+    <string name="panel_ruleset_title">Vos listes contiennent %s règles.</string>
     <string name="panel_ruleset_updating">Mise à jour des listes...</string>
-    <string name="panel_ruleset_built">&lt;b&gt;%s&lt;/b&gt; sont sur liste noire. La mémoire de votre appareil peut contenir de manière optimale jusqu\'à &lt;b&gt;%s&lt;/b&gt; .Il ne s\'agit que d\'une estimation, vous devriez donc rester dessous de cette limite par sécurité.</string>
+    <string name="panel_ruleset_built">Vos listes contiennent &lt;b&gt;%s&lt;/b&gt; règles. La mémoire de votre appareil peut en contenir de manière optimale jusqu\'à &lt;b&gt;%s&lt;/b&gt; règles. Il ne s\'agit que d\'une estimation, vous devriez donc rester dessous de cette limite par sécurité.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Autoriser</string>
     <!-- Button to block allowed domain -->
@@ -66,16 +66,16 @@
     <string name="slot_enter_domain_file">Fichier</string>
     <string name="slot_enter_name_title">Nom</string>
     <string name="slot_enter_name_desc">Entrez le nom de la nouvelle entrée. Vous pouvez également générer un nom suggéré.</string>
-    <string name="slot_enter_name_error">Cela ne me ressemble pas à quoi que ce soit d\'après moi.</string>
+    <string name="slot_enter_name_error">Cela ne ressemble à rien.</string>
     <string name="slot_enter_name_generate">Générer</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; est en liste blanche</string>
     <string name="slot_app_desc">Cette application est en liste blanche, ce qui signifie qu\'aucun blocage ou filtrage n\'est effectué sur elle.</string>
-    <string name="slot_allapp_desc">Vous pouvez ajouter cette application en liste blanche afin d\'arrêter de bloquer tout trafic pour elle.</string>
-    <string name="slot_allapp_whitelisted">Inscrit en liste blanche</string>
-    <string name="slot_allapp_normal">Pas inscrit dans la liste blanche</string>
+    <string name="slot_allapp_desc">Vous pouvez ajouter cette application en liste blanche afin de ne plus bloquer aucun trafic pour elle.</string>
+    <string name="slot_allapp_whitelisted">Sur liste blanche</string>
+    <string name="slot_allapp_normal">Pas sur liste blanche</string>
     <string name="slot_allapp_whitelist">Liste blanche</string>
     <string name="slot_dns_name">Serveur(s) DNS actuel : &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="slot_dns_dns">Vous pouvez changer les serveurs actuels en utilisant le menu en dessous.</string>
+    <string name="slot_dns_dns">Vous pouvez changer les serveurs actuels en utilisant le menu du bas.</string>
     <string name="slot_action_none">Cette action n\'est pas encore disponible.</string>
     <string name="slot_action_facts">Infos</string>
     <string name="slot_action_unwhitelist">Annuler</string>
@@ -84,73 +84,73 @@
     <!-- A prefix for generated name for manually entered domain.  -->
     <string name="slot_input_suggestion">Une entrée</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
-    <string name="slot_input_suggestion_for">Une entrée pour %s</string>
+    <string name="slot_input_suggestion_for">%s</string>
     <string name="slot_dns_control_title">Liste des serveurs DNS</string>
-    <string name="slot_dns_control_description">Vous pouvez synchroniser la liste des serveurs DNS avec nos serveurs sans perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Alternativement, vous pouvez abandonner toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
+    <string name="slot_dns_control_description">Vous pouvez synchroniser la liste des serveurs DNS avec nos serveurs poyr ne pas perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Vous pouvez également supprimer toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">Synchroniser</string>
-    <string name="slot_action_refresh_toast">Synchronisation lancée</string>
-    <string name="slot_action_restore">Abandonner</string>
+    <string name="slot_action_refresh_toast">Synchronisation démarrée</string>
+    <string name="slot_action_restore">Supprimer</string>
     <string name="slot_export_title">Emplacement des paramètres</string>
-    <string name="slot_export_description">Vous pouvez changer où la configuration est enregistrée (et chargée). Si vous importez des paramètres existants, veuillez d\'abord sélectionner Importer, sinon ils seront écrasés.</string>
+    <string name="slot_export_description">Vous pouvez choisir où vos paramètres sont enregistrés (et d\'où ils sont chargés). Si vous importez des paramètres existants, veuillez d\'abord sélectionner importer, sinon ils seront écrasés.</string>
     <string name="slot_action_import">Importer</string>
     <string name="slot_action_internal">Stockage interne</string>
     <string name="slot_action_external">Stockage Externe</string>
-    <string name="slot_filters_title">Liste des filtres</string>
-    <string name="slot_filters_description">Vous pouvez synchroniser la liste des filtres avec nos serveurs sans perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Alternativement, vous pouvez abandonner toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
+    <string name="slot_filters_title">Listes</string>
+    <string name="slot_filters_description">Vous pouvez synchroniser vos listes sur nos serveurs pour ne pas perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Vous pouvez également supprimer toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
     <string name="slot_blocked_title">Domaine bloqué</string>
     <string name="slot_forwarded_title">Domaine transféré</string>
     <string name="slot_whitelist_title">Application en liste blanche</string>
     <string name="slot_list_no_desc">Cette entrée n\'a aucune description.</string>
-    <string name="slot_status_description_active">Le bloqueur d\'annonces est actuellement activé &lt;b&gt;&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Vous verrez l\'image de fond s\'animer à mesurue que les publicités, les trackers et d\'autres contenus non désirés seront bloqués.</string>
-    <string name="slot_status_description_inactive">Le bloqueur d\'annonces est actuellement &lt;b&gt;désactivé&lt;/b&gt;.</string>
-    <string name="slot_status_info">Lorsque l\'application est active, vous verrez une icône de clé dans la barre de notification en haut de l\'écran, ce qui signifie que votre appareil est protégé. Vous pouvez désactiver l\'application en utilisant le bouton ci-dessous, ou en glissant vers le bas le menu en dessous.</string>
+    <string name="slot_status_description_active">Le bloqueur de pubs est actuellement &lt;b&gt;activé&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Vous verrez l\'image de fond s\'animer à mesurue que les publicités, les trackers et d\'autres contenus non désirés seront bloqués.</string>
+    <string name="slot_status_description_inactive">Le bloqueur de pubs est actuellement &lt;b&gt;désactivé&lt;/b&gt;.</string>
+    <string name="slot_status_info">Lorsque l\'application est active, vous verrez une icône de clé dans la barre de notification en haut de l\'écran, ce qui signifie que votre appareil est protégé. Vous pouvez désactiver l\'application en utilisant le bouton ci-dessous, ou en glissant vers le bas.</string>
     <string name="slot_status_vpn_turn_off">Désactiver le VPN</string>
     <string name="slot_status_vpn_turn_on">Activer le VPN</string>
     <string name="slot_status_vpn_turned_on">VPN connecté à %s</string>
     <string name="slot_status_vpn_connecting">Activer le VPN Blokada...</string>
     <string name="slot_status_vpn_turned_off">Le VPN Blokada n\'est pas activé</string>
-    <string name="slot_status_vpn_desc_on">Blokada VPN est actuellement &lt;b&gt;activé&lt;/b&gt;.&lt;br /&gt;IP : &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Votre appareil et vos données sont sécurisés maintenant. Appuyez sur le point d\'interrogation pour plus de détails.</string>
-    <string name="slot_status_vpn_desc_off">Blokada VPN est actuellement &lt;b&gt;désactivé&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Lorsque le VPN est connecté, votre appareil communique à travers nos serveurs sécurisés, et votre trafic est chiffré, donc personne ne peut voir vos données. Votre IP réelle est cachée, et vous pouvez accéder au contenu bloqué. Dans certains cas, vous pouvez également remarquer une connexion Internet plus rapide.</string>
+    <string name="slot_status_vpn_desc_on">Le VPN Blokada est actuellement &lt;b&gt;activé&lt;/b&gt;.&lt;br /&gt;IP : &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Votre appareil et vos données sont sécurisés. Appuyez sur le point d\'interrogation pour plus de détails.</string>
+    <string name="slot_status_vpn_desc_off">Le VPN Blokada est actuellement &lt;b&gt;désactivé&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Lorsque le VPN est connecté, votre appareil communique à travers nos serveurs sécurisés, et votre trafic est chiffré, donc personne ne peut voir vos données. Votre IP réelle est cachée, et vous pouvez accéder au contenu bloqué. Dans certains cas, vous pouvez également remarquer une connexion Internet plus rapide.</string>
     <string name="slot_status_vpn_lease">Actualiser</string>
     <string name="slot_action_deactivate">Désactiver</string>
     <string name="slot_action_activate">Activer</string>
-    <string name="slot_action_deactivate_adblocking">Désactiver le bloqueur d\'annonces</string>
-    <string name="slot_action_activate_adblocking">Activer le bloqueur d\'annonces</string>
+    <string name="slot_action_deactivate_adblocking">Désactiver le blocage des publicités</string>
+    <string name="slot_action_activate_adblocking">Activer le blocage des publicités</string>
     <string name="slot_dropped_counter">Compteur de domaines bloqués</string>
     <string name="slot_dropped_counter_info">Ce compteur affiche le nombre de domaines bloqués depuis l\'installation de l\'application.</string>
     <string name="slot_dropped_action_clear">Réinitialiser le compteur</string>
     <string name="slot_notifications_title">Les notifications sont %s.</string>
-    <string name="slot_notifications_desc">Vous pouvez activer ou désactiver les notifications ici. N\'oubliez pas que sur certains appareils, Android affichera une notification VPN séparée qui ne peut pas être désactivée.</string>
-    <string name="slot_notifications_enabled">activé</string>
-    <string name="slot_notifications_disabled">désactivé</string>
+    <string name="slot_notifications_desc">Vous pouvez activer ou désactiver les notifications. N\'oubliez pas que sur certains appareils, Android affichera une notification VPN séparée qui ne peut pas être désactivée.</string>
+    <string name="slot_notifications_enabled">activées</string>
+    <string name="slot_notifications_disabled">désactivées</string>
     <string name="slot_update_action_refresh">Vérifier à nouveau</string>
     <string name="slot_telegram_title">Rejoignez-nous sur Telegram !</string>
-    <string name="slot_telegram_desc">Visitez notre canal Telegram pour obtenir de l\'aide ou simplement pour faire partie de notre communauté.</string>
+    <string name="slot_telegram_desc">Visitez notre groupe Telegram pour obtenir de l\'aide ou simplement pour faire partie de notre communauté.</string>
     <string name="slot_telegram_action">Ouvrir</string>
     <string name="slot_dropped_share_title">Partager via</string>
-    <string name="slot_dropped_share">J\'ai bloqué %s annonces grâce à %s! www.blokada.org</string>
+    <string name="slot_dropped_share">J\'ai bloqué %s pubs grâce à %s! www.blokada.org</string>
     <string name="slot_active">Actif</string>
     <string name="slot_inactive">Inactif</string>
-    <string name="slot_adblocking_label">Bloquer les annonces &amp; les traceurs</string>
-    <string name="slot_adblocking_text">Lorsque activé, Blokada bloquera les annonces, les traceurs et d\'autres contenus non désirés. Cela permet de protéger votre vie privée, d\'accélérer votre appareil et d\'économiser vos données.</string>
+    <string name="slot_adblocking_label">Bloquer les publicités &amp; les pisteurs</string>
+    <string name="slot_adblocking_text">Lorsque cette option est activée, Blokada bloquera les publicités, les pisteurs et d\'autres contenus non désirés. Cela permet de protéger votre vie privée, d\'accélérer votre appareil et d\'économiser vos données.</string>
     <string name="slot_blocka_label">Compte VPN Blokada</string>
-    <string name="slot_account_label_active">Compte valide jusqu\'à %s</string>
-    <string name="slot_account_text_account">Votre ID de compte est &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">Votre souscription est &lt;b&gt;inactive&lt;/b&gt;. Vous avez besoin d\'un compte actif pour utiliser le VPN Blokada. Veuillez appuyer sur le bouton ci-dessous pour l\'activer.</string>
-    <string name="slot_account_text_active">Votre souscription est &lt;b&gt;active&lt;/b&gt; jusqu\'à &lt;b&gt;%s&lt;/b&gt;. Veuillez appuyer sur le bouton ci-dessous pour gérer votre souscription.</string>
+    <string name="slot_account_label_active">Compte valide jusqu\'au %s</string>
+    <string name="slot_account_text_account">L\'identifiant de votre compte est &lt;b&gt;%s&lt;/b&gt;.</string>
+    <string name="slot_account_text_inactive">Votre abonnement est &lt;b&gt;inactif&lt;/b&gt;. Vous avez besoin d\'un compte actif pour utiliser le VPN de Blokada. Veuillez appuyer sur le bouton ci-dessous pour l\'activer.</string>
+    <string name="slot_account_text_active">Votre abonnement est &lt;b&gt;actif&lt;/b&gt; jusqu\'au &lt;b&gt;%s&lt;/b&gt;. Veuillez appuyer sur le bouton ci-dessous pour le gérer.</string>
     <string name="slot_account_info">Vous devez garder votre identifiant secret ; vous en aurez besoin pour récupérer votre compte si vous désinstallez l\'application. Votre abonnement sera automatiquement renouvelé, sauf si vous l\'annulez.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Gérer</string>
     <string name="slot_account_action_manage_inactive">Activer votre compte</string>
     <string name="slot_account_action_change_id">Restaurer votre compte</string>
     <string name="slot_account_action_copy">Copier l\'identifiant</string>
-    <string name="slot_account_action_copied">ID du compte copié dans le presse-papiers</string>
+    <string name="slot_account_action_copied">Identifiant copié dans le presse-papiers</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Se connecter à %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Se connecter à %s</string>
     <string name="slot_gateway_description">Performance : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Région : &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="slot_gateway_description_current">Performance : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Région : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Ceci est la passerelle actuellement sélectionnée pour vous.</string>
+    <string name="slot_gateway_description_current">Performance : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Région : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Ceci est la passerelle actuellement sélectionnée.</string>
     <string name="slot_gateway_overloaded">Cette passerelle est occupée et n\'accepte pas de nouvelles connexions.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">haut</string>
@@ -162,40 +162,40 @@
     <string name="slot_protection_off">Blokada est inactif</string>
     <string name="slot_protection_off_desc">Votre appareil n\'est pas protégé.</string>
     <string name="slot_protection_error">Blokada est temporairement inactif</string>
-    <string name="slot_protection_error_desc">Ceci peut être causé par des problèmes temporaires de réseau, des problèmes de périphérique ou de logiciel. Blokada va automatiquement se réactiver bientôt, mais vous pouvez également essayer d\'activer l\'application à nouveau ou de redémarrer votre téléphone. Si vous avez des problèmes, veuillez nous contacter sur Telegram pour obtenir de l\'aide.</string>
+    <string name="slot_protection_error_desc">Ceci peut être causé par des problèmes temporaires de réseau, des problèmes venant de votre appareil ou des problèmes logiciels. Blokada va automatiquement se réactiver bientôt, mais vous pouvez également essayer d\'activer l\'application à nouveau ou de redémarrer votre téléphone. Si vous avez des problèmes, veuillez nous contacter sur Telegram pour obtenir de l\'aide.</string>
     <string name="slot_protection_disconnected">Votre appareil est hors ligne</string>
     <string name="slot_protection_disconnected_desc">Blokada est en pause car votre appareil a perdu sa connexion à Internet. Blokada se réactivera automatiquement une fois que vous serez de retour en ligne.</string>
     <string name="slot_protection_activating">Blokada s\'active</string>
     <string name="slot_protection_active_warning">Blokada est actif, mais la configuration pourrait être améliorée. Appuyez pour plus de détails.</string>
-    <string name="slot_protection_active">Blokada et VPN sont actifs</string>
+    <string name="slot_protection_active">Blokada et le VPN sont actifs</string>
     <string name="slot_protection_action">Paramètres</string>
-    <string name="slot_protection_ok">Votre appareil est entièrement protégé ! Le VPN et le bloqueur d\'annonces sont actifs.</string>
-    <string name="slot_protection_no_adblocking">Le blocage des annonces &amp; traceurs est actuellement désactivé. Vous devriez l\'activer pour protéger votre vie privée et vos données.</string>
-    <string name="slot_protection_no_vpn">Vous n\'êtes pas connecté au VPN Blokada. Vous devriez considérer de le faire pour une meilleure protection de votre vie privée et de votre sécurité.</string>
+    <string name="slot_protection_ok">Votre appareil est entièrement protégé ! Le VPN et le bloqueur de publicités sont actifs.</string>
+    <string name="slot_protection_no_adblocking">Le blocage des pubs &amp; pisteurs est actuellement désactivé. Vous devriez l\'activer pour protéger votre vie privée et vos données.</string>
+    <string name="slot_protection_no_vpn">Vous n\'êtes pas connecté au VPN Blokada. Vous devriez considérer de le faire pour une meilleure protection de votre vie privée et pour votre sécurité.</string>
     <string name="slot_protection_no_start_on_boot">Blokada n\'est pas configuré pour démarrer au démarrage de l\'appareil. Vous devriez toujours garder Blokada activé pour une meilleure protection.</string>
     <string name="slot_protection_no_dns">Les serveurs DNS par défaut de votre réseau sont actuellement utilisés. Le passage à des serveurs DNS respectueux de la vie privée est recommandé.</string>
     <string name="slot_protection_no_battery_whitelist">Blokada n\'est pas ignoré par l\'optimisation de la batterie de votre appareil, il peut être arrêté par le système. Vous devriez modifier vos préférences système et ajouter Blokada à la liste blanche afin qu\'il puisse rester allumé et protéger votre appareil.</string>
-    <string name="slot_protection_description">Pour configurer les paramètres, ouvrez le menu en bas.</string>
+    <string name="slot_protection_description">Pour configurer les paramètres, ouvrez le menu du bas.</string>
     <string name="slot_start_on_boot_description">Activer le démarrage de Blokada au démarrage de l\'appareil permet d\'être actif en tout temps et de protéger votre appareil.</string>
     <string name="slot_recommended_dns_label">Utiliser les serveurs DNS recommandés</string>
-    <string name="slot_recommended_dns_description">Lorsque activé, Blokada choisira automatiquement les serveurs DNS recommandés pour accélérer votre connexion Internet et protéger votre vie privée. Sinon, les serveurs DNS par défaut de votre réseau sont utilisés. Si vous choisissez manuellement les serveurs DNS dans la section Avancé, ce paramètre est ignoré.</string>
+    <string name="slot_recommended_dns_description">Lorsque cette option est activée, Blokada choisira automatiquement les serveurs DNS recommandés pour accélérer votre connexion Internet et protéger votre vie privée. Sinon, les serveurs DNS par défaut de votre réseau sont utilisés. Si vous choisissez manuellement les serveurs DNS, ce paramètre est ignoré.</string>
     <string name="slot_update_no_updates">Blokada est à jour</string>
     <string name="slot_about">À propos de Blokada</string>
     <!-- A button to share debug log. Keep it short. -->
-    <string name="slot_about_share_log">Historique</string>
+    <string name="slot_about_share_log">Journal</string>
     <string name="slot_help_label">Besoin d’aide ?</string>
-    <string name="slot_help_desc">Appuyez sur le bouton ci-dessous pour ouvrir notre page d\'aide. Vous pouvez également utiliser nos médias sociaux pour obtenir de l\'aide - nous sommes sur Telegram, Facebook, Reddit et Twitter.</string>
+    <string name="slot_help_desc">Appuyez sur le bouton ci-dessous pour ouvrir notre page d\'aide. Vous pouvez également utiliser nos médias sociaux pour obtenir de l\'aide, nous sommes sur Telegram, Facebook, Reddit et Twitter.</string>
     <!-- A button to open help -->
     <string name="slot_help_action">Aide</string>
     <string name="slot_donate_label">Vous aimez Blokada ? Pensez à nous soutenir, pour que nous puissions continuer à améliorer l\'application.</string>
-    <string name="slot_donate_desc">Blokada bloqueur d\'annonces est gratuit et open source, et nous voulons qu\'il le reste. Vos dons nous aident à continuer à développer l\'application et à introduire les nouvelles fonctionnalités que vous voulez le plus. Merci !</string>
+    <string name="slot_donate_desc">Blokada est libre et open source, et nous voulons qu\'il le reste. Vos dons nous aident à continuer à développer l\'application et à introduire les nouvelles fonctionnalités que vous voulez. Merci !</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Faire un don</string>
     <string name="slot_cta_label">Psst ! Nous aimerions connaître votre opinion.</string>
-    <string name="slot_cta_desc">Montrez votre soutien en participant à nos sondages et à d\'autres événements. Nous vous invitons régulièrement à nous faire part de vos commentaires sur les idées et le développement, afin de vous assurer que nous travaillons sur ce que vous voulez voir.</string>
+    <string name="slot_cta_desc">Montrez votre soutien en participant à nos sondages et à d\'autres événements. Nous vous invitons régulièrement à nous faire part de vos remarques sur le développement, afin de vous assurer que nous travaillons sur ce que vous voulez avoir.</string>
     <!-- A button to open something (a website) -->
     <string name="slot_cta_action">Ouvrir</string>
-    <string name="slot_blog_label">Découvrez notre blog de développement !</string>
+    <string name="slot_blog_label">Découvrez notre blog !</string>
     <string name="slot_blog_desc">Block est l\'endroit où nous écrivons sur le développement du projet, les plans futurs et discuterons des idées.</string>
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Ouvrir</string>
@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">Nettoyer</string>
     <string name="account_inactive">Votre abonnement au VPN de Blokada a expiré. Vous n\'êtes pas connecté au VPN.</string>
     <string name="slot_lease_cant_connect">Impossible de se connecter au VPN de Blokada. Essayez de sélectionner une autre passerelle.</string>
+    <string name="slot_account_cant_create">La création de votre compte a échouée. Veuillez réessayer plus tard ou nous contacter via Telegram.</string>
     <string name="slot_account_name_title">Identifiant du compte</string>
     <string name="slot_account_name_desc">Entrez votre ancien identifiant de compte pour restaurer votre abonnement précédent. Vous pouvez écrire votre identifiant actuel avant de le faire, au cas où vous commettriez une erreur.</string>
     <string name="slot_account_name_error">L\'identifiant du compte ne peut contenir que des lettres et des chiffres.</string>
@@ -225,4 +226,8 @@
     <string name="label_dns">Paramètres DNS</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Paramètres avancés</string>
+    <string name="slot_whitelist_updating">Mise à jour de la configuration, veuillez patienter...</string>
+    <string name="slot_lease_deleted_information">Notez qu\'actuellement Blokada VPN ne peut être utilisé que sur un seul appareil.</string>
+    <string name="slot_background_animation">Animation de fond</string>
+    <string name="slot_background_animation_description">Lorsque cette option est activée, des vagues s\'animeront chaque fois qu\'une requête DNS est bloquée ou autorisée. Désactivez cette fonction en cas de ralentissement.</string>
 </resources>

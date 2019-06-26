@@ -90,6 +90,33 @@
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">Vumelanisa</string>
     <string name="slot_action_refresh_toast">Ukuvumelanisa kuqalile</string>
+    <string name="slot_action_restore">Yeka</string>
+    <string name="slot_export_title">Indawo yezilunigiselelo</string>
+    <string name="slot_export_description">Ungashintsha lapho okugcinwa khona izilungiselelo (futhi kulayishiwe kusuka). Uma ufaka izilungiselelo zivele zikhona, sicela ukhethe ukungenisa kuqala, kungenjalo kuzobhalwa kabusha.</string>
+    <string name="slot_action_import">Faka</string>
+    <string name="slot_action_internal">Isitoreji sangaphakathi</string>
+    <string name="slot_action_external">Isitoreji sangaphandle</string>
+    <string name="slot_filters_title">Uhla lwezihlungi</string>
+    <string name="slot_filters_description">Ungavumelanisa uhla lwezihlungi namaseva ethu ngaphandle kokulahlekelwa imibhalo yakho. &lt;br/&gt;&lt;br/&gt;Ngaphandle kwalokho, ungasusa yonke imininingwane (yonke nemibhalo yakho), uphinde ulayishe kabusha.</string>
+    <string name="slot_blocked_title">Isizinda sivaliwe</string>
+    <string name="slot_forwarded_title">Isizinda sidlulisiwe</string>
+    <string name="slot_whitelist_title">Uhlelo luvunyelwe</string>
+    <string name="slot_list_no_desc">Lokhu akuna ncazelo.</string>
+    <string name="slot_status_description_active">Izikhangiso &lt;b&gt;zivinjiwe&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Uzobona i-background inyakaza njengezikhangiso, abatrekhi kanye nezinye izinto ezingadingeki zivinjwe uhlelo.</string>
+    <string name="slot_status_description_inactive">Izikhangiso &lt;b&gt;azivinjiwe&lt;/b&gt;.</string>
+    <string name="slot_status_info">Uma uhlelo lusebenza, uzobona isithonjana esokhiye kwibha yezaziso phezulu kwesikrini, okusho ukuthi idivayisi yakho ivikelwe. Ungavala uhlelo ngokusebenzisa inkinobho engezansi, noma ngokuswayipha imenyu engezansi.</string>
+    <string name="slot_status_vpn_turn_off">Cima i-VPN</string>
+    <string name="slot_status_vpn_turn_on">Sebenzisa i-VPN</string>
+    <string name="slot_status_vpn_turned_on">I-VPN ixhumene ne-%s</string>
+    <string name="slot_status_vpn_connecting">Kuvulwa i-Blokada VPN...</string>
+    <string name="slot_status_vpn_turned_off">I-Blokada VPN ivaliwe</string>
+    <string name="slot_status_vpn_desc_on">I-Blokada VPN &lt;b&gt;ivuliwe&lt;/b&gt;.&lt;br /&gt;I-IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Idivayisi yakho nezinto zakho kuyona ziphephile. Thinta uphawu lombuzo ukuze uthole imininingwane.</string>
+    <string name="slot_status_vpn_desc_off">I-Blokada VPN &lt;b&gt;ivaliwe&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Uma i-VPN ixhunyiwe, idivayisi yakho isebenzisa amaseva ethu aphephile, nokuhebelwana kubetheliwe, ukuze idatha yakho ingabonakali. I-IP yakho yangempela ayivezwa, futhi ukwazi ukufunda izinto ezivinjiwe. Kwezinye izindawo, i-inthanethi yakho ingasebenza ngokushesha.</string>
+    <string name="slot_status_vpn_lease">Vuselela</string>
+    <string name="slot_action_deactivate">Vala</string>
+    <string name="slot_action_activate">Vula</string>
+    <string name="slot_action_deactivate_adblocking">Yamukela izikhangiso</string>
+    <string name="slot_action_activate_adblocking">Vimba izikhangiso</string>
     <string name="slot_dropped_counter">Isibalo sezizinda ezivinjiwe</string>
     <string name="slot_dropped_counter_info">Lesi sibalo siveza izizinda ezivinjwe kusukela uqala ukusebenzisa loluhlelo.</string>
     <string name="slot_dropped_action_clear">Qal isibalo phansi</string>
@@ -112,10 +139,29 @@
     <string name="slot_account_text_account">I-ID ye-Akhawunti yakho &lt;b&gt;%s&lt;/b&gt;.</string>
     <string name="slot_account_text_inactive">Okubhalisela kwakho &lt;b&gt;akusebenzi&lt;/b&gt;. Udinga i-akhawunti esebenzayo ukuze usebenzise i-Blokada VPN. Sicela uthephe inkinobho ngezansi ukuze kusebenze.</string>
     <string name="slot_account_text_active">Okubhaliselwe kwakho &lt;b&gt;kusebenza&lt;/b&gt; kuze kufike ku-&lt;b&gt;%s&lt;/b&gt;. Sicela uthephe inkinobho engezansi ukuze ushintshe ukubhalisa kwakho.</string>
+    <string name="slot_account_info">Kufanele ugcine imfihlo ye-akhawunti yakho iyimfihlo - kuyadingeka ukuze ubuyisele i-akhawunti yakho uma ususa uhlelo. Ukubhalisela kwakho kuzokwenziwa ngokuzenzakalelayo ngaphandle kokuthi ukhansele.</string>
     <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">Lawula</string>
+    <string name="slot_account_action_manage_inactive">Yenza i-akhawunti isebenze</string>
+    <string name="slot_account_action_change_id">Buyisela i-akhawunti</string>
+    <string name="slot_account_action_copy">Kopisha i-ID ye-akhawunti</string>
+    <string name="slot_account_action_copied">I-ID ye-akhawunti ikopishwe ebhodini lokunamathisela</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
+    <string name="slot_gateway_label">Xhumana ne-%s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Xhumana ne-%s</string>
+    <string name="slot_gateway_description">Ukusebenza: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;I-IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Isifunda: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_description_current">Ukusebenza: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;I-IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Isifunda: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Leli isango lakho elikhethiwe.</string>
+    <string name="slot_gateway_overloaded">Lelisango lisabhizi futhi alikwazi ukwamukela ukuxhumana okusha.</string>
     <!-- Gateway load -->
+    <string name="slot_gateway_load_low">phezulu</string>
     <!-- Gateway load -->
+    <string name="slot_gateway_load_high">phansi</string>
+    <string name="panel_section_home_gateways">Amasango we-VPN</string>
+    <string name="subscription_success">I-Akhawunti yakho iyavulwa. Kuzothatha imizuzwana. Siyabonga!</string>
+    <string name="slot_protection_header">Isimo se-Blokada</string>
+    <string name="slot_protection_off">I-Blokada ivaliwe</string>
+    <string name="slot_protection_off_desc">Idivayisi yakho ayivikelwe.</string>
+    <string name="slot_protection_error">I-Blokada ivaliwe okwesikhashana</string>
     <!-- A button to share debug log. Keep it short. -->
     <!-- A button to open help -->
     <!-- A button to donate -->

@@ -28,7 +28,7 @@
     <string name="tunnel_config_memory_capacity">%s bisa tersimpan ke dalam memori</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
     <string name="tunnel_config_watchdog_description">Aktifkan switch ini jika Anda ingin Blokada untuk mengaktifkan VPN hanya jika ada koneksi Internet, dan me-restart jalur koneksi apabila ada masalah pada jaringan. Ini dapat membantu untuk beberapa jenis perangkat. Catatan: pada versi sebelumnya opsi ini disebut \"Hanya Online\".</string>
-    <string name="tunnel_config_powersave_title">Aggressive wakeup</string>
+    <string name="tunnel_config_powersave_title">Penggugah agresif</string>
     <string name="tunnel_config_powersave_description">Aktifkan switch ini jika Anda mengalami masalah yang disebabkan oleh fitur penghemat daya di perangkat Anda. Ketika Blokada mendeteksi jaringan Anda bermasalah, maka Blokada akan berusaha menaikkan prioritasnya sehingga tidak lagi dimasukkan ke dalam modus penghemat daya.</string>
     <string name="tunnel_config_reports_title">Laporan</string>
     <string name="tunnel_config_reports_description">Aktifkan switch ini agar Blokada bisa mengirimkan laporan yang bisa membantu kami memperbaiki masalah dan bugs yang Anda temui. Laporan hanya akan dikirimkan satu kali dalam sehari, atau saat Blokada mengalami crash. Menonaktifkan switch ini akan menyulitkan kami untuk menganalisa dan menyelesaikan masalah yang Anda hadapi. Anda mungkin perlu me-restart Blokada agar pengaturan ini bisa diterapkan.</string>

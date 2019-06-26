@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">Vyčistiť</string>
     <string name="account_inactive">Platnosť vášho Blokada VPN vypršala. Nie ste pripojení k VPN.</string>
     <string name="slot_lease_cant_connect">Nepodarilo sa pripojiť k Blokada VPN. Skúste vybrať inú sieťovú bránu.</string>
+    <string name="slot_account_cant_create">Nepodarilo sa vytvoriť váš Blokada VPN účet. Skúste prosím znova neskôr alebo nás kontaktujte na Telegrame.</string>
     <string name="slot_account_name_title">ID účtu</string>
     <string name="slot_account_name_desc">Zadajte ID vášho starého účtu pre obnovu predchádzajúceho predplatného. Predtým si môžete zapísať vaše aktuálne ID účtu v prípade omylu.</string>
     <string name="slot_account_name_error">ID účtu môže obsahovať iba písmená a čísla.</string>

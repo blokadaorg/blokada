@@ -4,7 +4,7 @@
     <!-- A recommended option, for example: Optimised blocking (recommended). Parameter: name of the option. -->
     <string name="filter_recommended">%s (recommandé)</string>
     <!-- Parameter: host name of the link. For example: A link from example.com -->
-    <string name="filter_name_link">Un lien provenant de %s</string>
+    <string name="filter_name_link">Un lien de %s</string>
     <!-- As in, "A link from the Internet". -->
     <string name="filter_name_link_unknown">Internet</string>
     <!-- Parameter: directory of the file. For example: A file from Downloads -->

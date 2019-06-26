@@ -34,6 +34,6 @@
     <string name="notification_keepalive_deactivating">Blakada telah dinonaktifkan!</string>
     <string name="notification_expired_title">Akun Blokada VPN telah kedaluwarsa</string>
     <string name="notification_expired_description">Akun Anda sudah kedaluwarsa dan saat ini Anda tidak tersambung dengan Blokada VPN. Jika Anda ingin perangkat Anda terlindungi, silahkan perbarui/aktifkan kembali akun Anda.</string>
-    <string name="notification_lease_expired_title">Blokada VPN dimatikan</string>
-    <string name="notification_lease_expired_description">Telah terjadi masalah dengan koneksi anda ke Blokada VPN. Tolong coba koneksikan ke gateway lain. Jika masalah tetap berlanjut, hubungi kami melalui group Telegram.</string>
+    <string name="notification_lease_expired_title">Blokada VPN dinonaktifkan</string>
+    <string name="notification_lease_expired_description">Telah terjadi masalah dengan koneksi Anda ke Blokada VPN. Harap mencoba gateway lain. Jika masalah tetap berlanjut, hubungi kami melalui group Telegram.</string>
 </resources>

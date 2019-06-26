@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">Удалить</string>
     <string name="account_inactive">Срок действия Blokada VPN истек. Вы не подключены к VPN.</string>
     <string name="slot_lease_cant_connect">Не удалось подключиться к Blokada VPN. Попробуйте выбрать другой шлюз.</string>
+    <string name="slot_account_cant_create">Не удалось создать аккаунт Blokada VPN. Пожалуйста, попробуйте позже или свяжитесь с нами в Telegram.</string>
     <string name="slot_account_name_title">ID аккаунта</string>
     <string name="slot_account_name_desc">Введите старый ID учетной записи, чтобы восстановить предыдущую подписку. Вы можете записать свой текущий ID аккаунта на случай ошибки.</string>
     <string name="slot_account_name_error">ID аккаунта может содержать только буквы и цифры.</string>
@@ -225,4 +226,8 @@
     <string name="label_dns">Настройки DNS</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Расширенные настройки</string>
+    <string name="slot_whitelist_updating">Обновление конфигурации, пожалуйста, подождите...</string>
+    <string name="slot_lease_deleted_information">Обратите внимание, что в настоящее время Blokada VPN может использоваться только на одном устройстве.</string>
+    <string name="slot_background_animation">Фоновая анимация</string>
+    <string name="slot_background_animation_description">При включении волны будут анимированы в случае блокировки или принятия DNS-запросов. Выключите, если у вас упала производительность.</string>
 </resources>

@@ -212,6 +212,7 @@
     <string name="slot_cleanup_action">تنظيف</string>
     <string name="account_inactive">انتهت صلاحيّة Blokada VPN الخاصّة بك. أنت غير متصل بشبكة VPN.</string>
     <string name="slot_lease_cant_connect">غير قادر على الإتصال بـ Blokada VPN. حاول إختيار بوابّة أُخرى.</string>
+    <string name="slot_account_cant_create">تَعذَّر إنشاء حساب Blokada VPN الخاص بك. الرجاء المحاولة مرة أُخرى لاحقاً أو التواصل معنا على Telegram.</string>
     <string name="slot_account_name_title">معرّف الحساب</string>
     <string name="slot_account_name_desc">أدخِل مُعَرِّف حسابك القديم لاستعادة اشتراكك السابق. قبل القيام بذلك قدّ ترغب في كتابة مُعَرِّف حسابك الحالي ، في حالة إرتكاب خطأ.</string>
     <string name="slot_account_name_error">يمكن أن يحتوي مُعَرِّف الحساب على أحرف و أرقام فقط.</string>
@@ -225,4 +226,8 @@
     <string name="label_dns">إعدادات DNS</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">الإعدادات المتقدِّمة</string>
+    <string name="slot_whitelist_updating">جارِ تحديث التكوين ، الرجاء الإنتظار...</string>
+    <string name="slot_lease_deleted_information">لاحظ أنَّه لا يمكن إستخدام Blokada VPN حاليّاً إلّا على جهاز واحد.</string>
+    <string name="slot_background_animation">خلفيات مُتحرِّكة</string>
+    <string name="slot_background_animation_description">عِنْد التشغيل ، ستتحرّك الموجات في كلّ مرّة يَتِمّ فيها حظر طلب DNS أو السماح به. قُمْ بإلغائه إذا واجَهت بُطأً.</string>
 </resources>

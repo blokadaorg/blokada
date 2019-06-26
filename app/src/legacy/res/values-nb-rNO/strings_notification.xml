@@ -32,4 +32,7 @@
     <string name="notification_keepalive_activating">Blokada starter. Dette kan ta et øyeblikk.</string>
     <string name="notification_keepalive_deactivate">Deaktiver</string>
     <string name="notification_keepalive_deactivating">Blokada ble deaktivert!</string>
+    <string name="notification_expired_title">Blokada VPN-konto utløpt</string>
+    <string name="notification_lease_expired_title">Blokada VPN slått av</string>
+    <string name="notification_lease_expired_description">Det oppstod et problem med tilkoblingen din til Blocka VPN. Prøv å koble til en annen gateway. Hvis problemet vedvarer, vennligst kontakt oss på Telegram.</string>
 </resources>
