@@ -300,5 +300,6 @@
     <string name="label_advanced">Advanced settings</string>
 
     <string name="slot_whitelist_updating">Updating configuration, please wait...</string>
+    <string name="slot_lease_deleted_information">Note that currently Blokada VPN can only be used on one device.</string>
 
 </resources>

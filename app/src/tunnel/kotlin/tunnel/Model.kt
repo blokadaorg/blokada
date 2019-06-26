@@ -366,6 +366,7 @@ private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
                                     publicKey = it.publicKey,
                                     gatewayId = it.gatewayId
                             )) }
+                            if (obsoleteLeases.isNotEmpty()) showSnack(R.string.slot_lease_deleted_information)
 
                             val lease = leases.firstOrNull {
                                 it.publicKey == config.publicKey && it.gatewayId == config.gatewayId
