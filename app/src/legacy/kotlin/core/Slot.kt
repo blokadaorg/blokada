@@ -22,7 +22,7 @@ import java.util.*
 
 class Slot {
     enum class Type {
-        INFO, FORWARD, BLOCK, COUNTER, STATUS, NEW, EDIT, APP, PROTECTION, PROTECTION_OFF
+        INFO, FORWARD, BLOCK, COUNTER, STATUS, NEW, EDIT, APP, PROTECTION, PROTECTION_OFF, ACCOUNT
     }
 
     data class Action(val name: String, val callback: () -> Unit)
@@ -383,6 +383,13 @@ class SlotView(
                 iconView.setColorFilter(color)
                 textView.setTextColor(color)
                 switchViews.forEach { it.setTextColor(resources.getColor(R.color.colorProtectionHigh)) }
+            }
+            Slot.Type.ACCOUNT -> {
+                content?.color?.run {
+                    iconView.setColorFilter(this)
+                    textView.setTextColor(this)
+                }
+                iconView.setImageResource(R.drawable.ic_account_circle_black_24dp)
             }
         }
     }

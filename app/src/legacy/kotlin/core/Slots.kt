@@ -1684,6 +1684,7 @@ class BlockaVB(
                         label = i18n.getString(R.string.slot_blocka_label),
                         icon = ktx.ctx.getDrawable(R.drawable.ic_account_circle_black_24dp),
                         description = "%s<br/><br/>%s".format(accountId, accountLabel),
+                        color = if (isActive) ktx.ctx.resources.getColor(R.color.colorProtectionHigh) else null,
                         action1 = Slot.Action(
                                 if (isActive) i18n.getString(R.string.slot_account_action_manage)
                                 else i18n.getString(R.string.slot_account_action_manage_inactive)) {
@@ -1710,12 +1711,13 @@ class BlockaVB(
             }
 
         }
+        view?.type = Slot.Type.ACCOUNT
         Unit
     }
 
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
-        view.type = Slot.Type.INFO
+        view?.type = Slot.Type.ACCOUNT
         update(null)
         ktx.on(BLOCKA_CONFIG, update)
     }
