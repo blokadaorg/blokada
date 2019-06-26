@@ -80,6 +80,7 @@ fun createDashboardSections(ktx: AndroidKontext): List<DashboardSection> {
                             DnsListControlVB(ktx, onTap = defaultOnTap),
                             DnsFallbackVB(ktx, onTap = defaultOnTap),
                             LabelVB(labelResId = R.string.label_advanced),
+                            BackgroundAnimationVB(ktx, onTap = defaultOnTap),
                             LoggerVB(ktx, onTap = defaultOnTap),
                             KeepAliveVB(ktx, onTap = defaultOnTap),
                             WatchdogVB(ktx, onTap = defaultOnTap),

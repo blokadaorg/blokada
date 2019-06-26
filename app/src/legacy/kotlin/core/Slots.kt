@@ -1329,6 +1329,27 @@ class NotificationsVB(
 
 }
 
+class BackgroundAnimationVB(
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        private val ui: UiState = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                icon = ktx.ctx.getDrawable(R.drawable.ic_wifi),
+                label = i18n.getString(R.string.slot_background_animation),
+                description = i18n.getString(R.string.slot_background_animation_description),
+                switched = ui.showBgAnim()
+        )
+        view.onSwitch = { ui.showBgAnim %= it }
+    }
+
+}
+
 class DnsListControlVB(
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,

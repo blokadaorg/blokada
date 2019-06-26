@@ -6,9 +6,9 @@ import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Shader
-import androidx.annotation.ArrayRes
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.ArrayRes
 import org.blokada.R
 import tunnel.Request
 

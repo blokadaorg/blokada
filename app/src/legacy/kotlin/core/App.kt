@@ -21,6 +21,7 @@ abstract class UiState {
     abstract val dashes: IProperty<List<Dash>>
     abstract val infoQueue: IProperty<List<Info>>
     abstract val showSystemApps: IProperty<Boolean>
+    abstract val showBgAnim: IProperty<Boolean>
 }
 
 class AUiState(
@@ -46,6 +47,9 @@ class AUiState(
             { true }
     )
 
+    override val showBgAnim = newPersistedProperty(kctx, APrefsPersistence(ctx, "backgroundAnimation"),
+            { true }
+    )
 }
 
 fun newAppModule(ctx: Context): Kodein.Module {

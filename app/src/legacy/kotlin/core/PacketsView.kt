@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.os.SystemClock
 import android.util.AttributeSet
 import android.view.View
+import com.github.salomonbrys.kodein.instance
 import org.blokada.R
 import tunnel.Request
 import java.util.*
@@ -30,7 +31,14 @@ class PacketsView(
     val color = resources.getColor(R.color.colorActive)
     val color3 = resources.getColor(R.color.colorAccent)
 
+    private var showAnim = false
+    private var tunnelOn = false
+
     private var on = false
+
+    private val ktx = ctx.ktx("colorfulBackground")
+    private val uiState by lazy { ktx.di().instance<UiState>() }
+
 
     init {
         pulsePaint = Paint(Paint.ANTI_ALIAS_FLAG);
@@ -44,6 +52,12 @@ class PacketsView(
         barrierPaint.setStyle(Paint.Style.STROKE)
         barrierPaint.setColor(color)
 //        barrierPaint.setShader(LinearGradient(0f, 0f, 0f, height.toFloat(), Color.BLACK, Color.WHITE, Shader.TileMode.MIRROR))
+
+        uiState.showBgAnim.doOnUiWhenSet().then {
+            showAnim = uiState.showBgAnim()
+            on = tunnelOn && showAnim
+            if (!on) items.clear()
+        }
     }
 
     override fun onScroll(fraction: Float, oldPosition: Int, newPosition: Int) {
@@ -53,7 +67,8 @@ class PacketsView(
     }
 
     override fun setTunnelState(state: TunnelState) {
-        on = state == TunnelState.ACTIVE
+        tunnelOn = state == TunnelState.ACTIVE
+        on = tunnelOn && showAnim
         if (!on) items.clear()
     }
 
@@ -74,6 +89,10 @@ class PacketsView(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        if (!on) {
+            postInvalidateOnAnimation()
+            return
+        }
 
         val padding = context.dpToPx(210)
         val WINDOW_MS = 60 * 1000
@@ -87,12 +106,6 @@ class PacketsView(
         val yoffset = context.dpToPx(40)
         val xoffset = 0
         val maxRadius = if (height > width) height else width
-
-        if (on) {
-            //barrierPaint.alpha = 255
-            //barrierPaint.color = color
-            //canvas.drawCircle(xoffset.toFloat(), yoffset.toFloat(), maxRadius * SCAN_SIZE, barrierPaint)
-        }
 
         for (item in items) {
             val age = now - item.time.time
