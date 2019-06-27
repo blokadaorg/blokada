@@ -70,6 +70,7 @@ class DashboardView(
     private var scrolledView: View? = null
 
     private var lastSubsectionTab = 0
+    private var arrowsSwipes = 0
 
     private val model by lazy {
         DashboardNavigationModel(
@@ -362,8 +363,9 @@ class DashboardView(
             override fun onPageSelected(position: Int) {
                 model.mainViewPagerSwiped(position)
                 lastSubsectionTab = 0
-                bg_chevron_left.visibility = if (position == 0) View.GONE else View.VISIBLE
-                bg_chevron_right.visibility = if (position == bg_pager.pages.count() - 1) View.GONE else View.VISIBLE
+                val shouldShow = arrowsSwipes++ < 2
+                bg_chevron_left.visibility = if (position == 0 || !shouldShow) View.GONE else View.VISIBLE
+                bg_chevron_right.visibility = if (position == bg_pager.pages.count() - 1 || !shouldShow) View.GONE else View.VISIBLE
             }
         })
 
