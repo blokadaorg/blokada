@@ -21,7 +21,7 @@ class DnsDashboardSection(val ctx: Context) : ListViewBinder() {
         get = dns.choices.doOnUiWhenSet().then {
             dns.choices().map {
                 DnsChoiceVB(it, ktx, onTap = slotMutex.openOneAtATime)
-            }.apply { view.set(this) }
+            }.apply { view.set(this); view.add(AddDnsVB(ktx), 0) }
         }
     }
 

@@ -1025,6 +1025,16 @@ class AppVB(
     }
 }
 
+class AddDnsVB(private val ktx: AndroidKontext,
+               private val modal: ModalManager = modalManager): SlotVB({
+    modal.openModal()
+    ktx.ctx.startActivity(Intent(ktx.ctx, AddDnsActivity::class.java))}){
+    override fun attach(view: SlotView) {
+        view.content = Slot.Content(ktx.ctx.resources.getString(R.string.dns_custom_add_slot))
+    }
+
+}
+
 class DnsChoiceVB(
         private val item: DnsChoice,
         private val ktx: AndroidKontext,
