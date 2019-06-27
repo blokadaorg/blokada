@@ -209,6 +209,13 @@
 
         <service android:name="adblocker.ForegroundStartService" />
 
+        <activity android:name="core.AddDnsActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:label="Add DNS"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentWindow"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
     </application>
 
 </manifest>
