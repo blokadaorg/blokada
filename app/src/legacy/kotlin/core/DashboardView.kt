@@ -165,7 +165,7 @@ class DashboardView(
         bg_nav.alpha = 1f
         fg_logo_icon.alpha = 0.7f
         bg_start.alpha = 0f
-        bg_logo.alpha = 0.6f
+        bg_logo.alpha = 1.0f
         bg_off_logo.alpha = 0f
         bg_packets.alpha = 1f
         fg_pager.alpha = 0f
@@ -297,7 +297,7 @@ class DashboardView(
                         fg_nav_panel.alpha = max(0.7f, slideOffset)
                         bg_pager.alpha = 1 - min(1f, (slideOffset - anchorPoint) * 3)
                         fg_logo_icon.alpha = 0.7f - min(1f, (slideOffset - anchorPoint) * 0.5f)
-                        bg_logo.alpha = 0.6f + (slideOffset - anchorPoint) / (0.4f - anchorPoint)
+                        //bg_logo.alpha = 0.6f + (slideOffset - anchorPoint) / (0.4f - anchorPoint)
                     }
                 }
 
@@ -363,7 +363,7 @@ class DashboardView(
             override fun onPageSelected(position: Int) {
                 model.mainViewPagerSwiped(position)
                 lastSubsectionTab = 0
-                val shouldShow = arrowsSwipes++ < 2
+                val shouldShow = arrowsSwipes++ < 1
                 bg_chevron_left.visibility = if (position == 0 || !shouldShow) View.GONE else View.VISIBLE
                 bg_chevron_right.visibility = if (position == bg_pager.pages.count() - 1 || !shouldShow) View.GONE else View.VISIBLE
             }
@@ -388,10 +388,10 @@ class DashboardView(
             sliding.panelState = PanelState.ANCHORED
         }
 
-        bg_logo_icon.setOnClickListener {
-            tun.error %= false
-            tun.enabled %= !tun.enabled()
-        }
+//        bg_logo_icon.setOnClickListener {
+//            tun.error %= false
+//            tun.enabled %= !tun.enabled()
+//        }
 
         fg_pager.offscreenPageLimit = 5
     }
