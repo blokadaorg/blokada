@@ -172,7 +172,7 @@ internal class BlockaVpnConfigurator(
         builder.addRoute("::", 0)
 
         builder.setBlocking(true)
-        builder.setMtu(1420)
+        builder.setMtu(1280)
     }
 
     private fun VpnService.Builder.addMappedDnsServer(address: InetSocketAddress) {
