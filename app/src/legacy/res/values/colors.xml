@@ -5,13 +5,13 @@
     <color name="colorBackgroundLight">#2e2e2e</color>
     <color name="colorBackgroundThird">#262626</color>
     <color name="colorBackgroundSlot">#7b0e0e0e</color>
-    <color name="colorBackgroundTrans">#590e0e0e</color>
+    <color name="colorBackgroundTrans">#340E0E0E</color>
     <color name="colorBackgroundTransCenter">#DD0e0e0e</color>
     <color name="colorBackgroundTransWidget">#AA0e0e0e</color>
     <color name="colorBackgroundAbout">#000</color>
     <color name="colorBackgroundAboutLight">#101010</color>
     <color name="colorText">#eaeaea</color>
-    <color name="colorTextUnimportant">#6c6c6c</color>
+    <color name="colorTextUnimportant">#999999</color>
     <color name="colorSlotLine">#313131</color>
     <color name="colorActive">#ffffff</color>
     <color name="colorShadow">#181818</color>

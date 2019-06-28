@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search_header">Tap to search...</string>
+    <string name="search_header">Touch to search...</string>
     <string name="search_title">Search</string>
     <string name="search_entered">Results for: %s</string>
     <string name="search_description">Type your search query above and tap Confirm to filter the list.</string>

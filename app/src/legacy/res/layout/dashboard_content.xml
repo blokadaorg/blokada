@@ -30,59 +30,14 @@
                 android:layout_height="match_parent" />
 
             <ImageView
-                android:id="@+id/bg_off_logo"
-                android:layout_width="@dimen/dashboard_off_size"
-                android:layout_height="@dimen/dashboard_off_size"
-                android:layout_centerInParent="true"
-                android:src="@drawable/bg_window" />
-
-            <LinearLayout
-                android:id="@+id/bg_start"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom|center_horizontal"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/bg_start_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/slot_start"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/dashboard_start_text_size" />
-
-                <ImageView
-                    android:id="@+id/bg_start_icon"
-                    android:layout_width="@dimen/dashboard_start_icon_size"
-                    android:layout_height="@dimen/dashboard_start_icon_size"
-                    android:layout_marginTop="@dimen/dashboard_start_icon_margin_top"
-                    android:layout_marginBottom="@dimen/dashboard_start_icon_margin_bottom"
-                    android:rotation="-90"
-                    android:src="@drawable/ic_chevron_right"
-                    android:tint="@color/colorActive" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/bg_chevron_left"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="250dp"
-                android:alpha="0.8"
-                android:src="@drawable/ic_chevron_left"
-                android:tint="@color/colorActive"
-                android:visibility="gone" />
-
-            <ImageView
                 android:id="@+id/bg_chevron_right"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/dashboard_fg_logo_size"
+                android:layout_height="@dimen/dashboard_fg_logo_size"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="250dp"
-                android:alpha="0.8"
                 android:src="@drawable/ic_chevron_right"
-                android:tint="@color/colorActive" />
+                android:tint="@color/colorActive"
+                android:visibility="gone" />
 
             <core.VBPagesView
                 android:id="@+id/bg_pager"
@@ -99,13 +54,13 @@
                 android:layout_gravity="top"
                 android:layout_marginTop="@dimen/dashboard_nav_margin_top"
                 android:clickable="false"
-                android:focusable="false" />
+                android:focusable="false"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/bg_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -155,16 +110,42 @@
                 android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/fg_logo_icon"
-                android:layout_width="@dimen/dashboard_fg_logo_size"
-                android:layout_height="@dimen/dashboard_fg_logo_size"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dashboard_fg_logo_margin_top"
-                android:alpha="0"
-                android:clickable="false"
-                android:focusable="false"
-                android:src="@drawable/ic_menu"
-                android:tint="@color/colorText" />
+                android:id="@+id/fg_chevron_back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="8dp"
+                android:layout_marginTop="62dp"
+                android:layout_gravity="center_horizontal|top"
+                android:src="@drawable/ic_chevron_left"
+                android:visibility="invisible"
+                android:tint="@color/colorActive" />
+
+            <FrameLayout
+                android:id="@+id/fg_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/fg_logo_icon"
+                    android:layout_width="@dimen/dashboard_fg_logo_size"
+                    android:layout_height="@dimen/dashboard_fg_logo_size"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dashboard_fg_logo_margin_top"
+                    android:tint="@color/colorActive"
+                    android:src="@drawable/ic_menu" />
+
+                <TextView
+                    android:id="@+id/fg_label_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/colorActive"
+                    android:layout_marginTop="@dimen/dashboard_fg_label_margin_top"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+            </FrameLayout>
 
         </FrameLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>

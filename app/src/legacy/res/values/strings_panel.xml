@@ -1,6 +1,7 @@
 <resources>
     <!-- Main screen section -->
     <string name="panel_section_home">Home</string>
+    <string name="panel_section_menu">Menu</string>
 
     <!-- Main screen section -->
     <string name="panel_section_ads">Ad blocking</string>
@@ -18,10 +19,10 @@
     <string name="panel_section_ads_log">Host Log</string>
     <string name="panel_section_ads_blacklist">Blocked Hosts</string>
     <string name="panel_section_ads_whitelist">Allowed Hosts</string>
-    <string name="panel_section_advanced_dns">DNS Servers</string>
+    <string name="panel_section_advanced_dns">DNS</string>
     <string name="panel_section_apps_all">Installed Apps</string>
     <string name="panel_section_apps_system">System Apps</string>
-    <string name="panel_section_advanced_settings"></string>
+    <string name="panel_section_advanced_settings">Settings</string>
 
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Allowed &lt;b&gt;%s&lt;/b&gt;</string>
@@ -66,9 +67,9 @@
 
     <string name="slot_intro_info">Psst... Some items have the question mark icon on them. Tapping it will display a short help message, like this one!</string>
 
-    <string name="slot_new_filter">Block new host</string>
-    <string name="slot_new_filter_list">Add new list</string>
-    <string name="slot_new_filter_whitelist">Whitelist new host</string>
+    <string name="slot_new_filter">Add a new host to the blocked list</string>
+    <string name="slot_new_filter_list">Add a new host list</string>
+    <string name="slot_new_filter_whitelist">Add a new host to the allowed list</string>
 
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">unset</string>
@@ -94,12 +95,13 @@
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; is whitelisted</string>
     <string name="slot_app_desc">This app is whitelisted, which means no blocking or filtering is performed on it.</string>
 
-    <string name="slot_allapp_desc">You can whitelist this app in order to stop blocking any traffic for it.</string>
-    <string name="slot_allapp_whitelisted">Whitelisted</string>
-    <string name="slot_allapp_normal">Not whitelisted</string>
-    <string name="slot_allapp_whitelist">Whitelist</string>
+    <string name="slot_allapp_desc">You can make this app bypass Blokada in order to stop blocking any traffic for it. Remember, bypassed apps communicate outside of the VPN.</string>
+    <string name="slot_allapp_whitelisted">Bypassed</string>
+    <string name="slot_allapp_normal">Not bypassed</string>
+    <string name="slot_allapp_whitelist">Bypass</string>
 
-    <string name="slot_dns_name">Current DNS server(s): &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_dns_name">Custom DNS is active</string>
+    <string name="slot_dns_name_disabled">Custom DNS is deactivated</string>
     <string name="slot_dns_dns">You can change the current servers using the bottom menu.</string>
     <string name="slot_action_none">This action is not available yet.</string>
     <string name="slot_action_facts">Facts</string>
@@ -160,10 +162,10 @@
     <string name="slot_dropped_counter_info">This counter displays the number of domains that has been blocked since the installation of the app.</string>
     <string name="slot_dropped_action_clear">Reset counter</string>
 
-    <string name="slot_notifications_title">Notifications are %s.</string>
+    <string name="slot_notifications_title">Notifications are %s</string>
     <string name="slot_notifications_desc">You can turn notifications on or off here. Remember that on some devices, Android will display a separate VPN notification that cannot be turned off.</string>
-    <string name="slot_notifications_enabled">enabled</string>
-    <string name="slot_notifications_disabled">disabled</string>
+    <string name="slot_notifications_enabled">Notifications are enabled</string>
+    <string name="slot_notifications_disabled">Notifications are disabled</string>
 
     <string name="slot_update_action_refresh">Check again</string>
 
@@ -179,16 +181,16 @@
     <string name="slot_adblocking_label">Block ads &amp; trackers</string>
     <string name="slot_adblocking_text">When enabled, Blokada will block ads, trackers, and other unwanted content. This helps to protect your privacy, speed up your device and save your data.</string>
     <string name="slot_blocka_label">Blokada VPN Account</string>
-    <string name="slot_account_label_active">Account valid until %s</string>
+    <string name="slot_account_label_active">Account active until %s</string>
+    <string name="slot_account_label_inactive">Account inactive</string>
     <string name="slot_account_text_account">Your account ID is &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">Your subscription is &lt;b&gt;inactive&lt;/b&gt;. You need an active account in order to use Blokada VPN. Please tap the button below in order to activate it.</string>
-    <string name="slot_account_text_active">Your subscription is &lt;b&gt;active&lt;/b&gt; until &lt;b&gt;%s&lt;/b&gt;. Please tap the button below in order to manage your subscription.</string>
     <string name="slot_account_info">You should keep your account ID secret - it is required in order to recover your account in case you uninstall the app. Your subscription will be automatically extended unless you cancel it.</string>
 
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Manage</string>
     <string name="slot_account_action_manage_inactive">Activate account</string>
     <string name="slot_account_action_change_id">Restore account</string>
+    <string name="slot_account_show">Account ID</string>
     <string name="slot_account_action_copy">Copy account ID</string>
     <string name="slot_account_action_copied">Account ID copied to the clipboard</string>
 
@@ -244,7 +246,7 @@
     <string name="slot_help_action">Help</string>
 
     <string name="slot_donate_label">Enjoying Blokada? Consider supporting us, so we can keep improving the app.</string>
-    <string name="slot_donate_desc">Blokada adblocker is free and open source, and we want it to keep this way. Your donations help us continue developing the app and introduce new features that you want to see the most. Thank you!</string>
+    <string name="slot_donate_desc">Help us introduce new features! Touch here for more.</string>
 
     <!-- A button to donate -->
     <string name="slot_donate_action">Donate</string>
@@ -262,7 +264,7 @@
     <string name="slot_blog_action">Open</string>
 
     <string name="slot_updated_label">Blokada has been updated!</string>
-    <string name="slot_updated_desc">Your version of Blokada is now up to date. Tap the button below for additional information about this update. Also, please consider donating to support this project!</string>
+    <string name="slot_updated_desc">Touch here for intro to this release.</string>
 
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">More</string>

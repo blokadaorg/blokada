@@ -1,9 +1,9 @@
 <resources>
     <string name="social_share_count">Share</string>
-    <string name="social_share_bodym">Blokada blocked %d ads and trackers in the last %d minutes! If you want to get rid of ads too, go to blokada.org and get the app now!</string>
-    <string name="social_share_bodyh">Blokada blocked %d ads and trackers in the last %d hours! If you want to get rid of ads too, go to blokada.org and get the app now!</string>
-    <string name="social_share_bodyd">Blokada blocked %d ads and trackers in the last %d days! If you want to get rid of ads too, go to blokada.org and get the app now!</string>
-    <string name="social_share_bodyw">Blokada blocked %d ads and trackers in the last %d weeks! If you want to get rid of ads too, go to blokada.org and get the app now!</string>
+    <string name="social_share_body_minute">Blokada helped me block %s ads and trackers in the last %d minutes! Get it at blokada.org.</string>
+    <string name="social_share_body_hour">Blokada helped me block %s ads and trackers in the last %d hours! Get it at blokada.org.</string>
+    <string name="social_share_body_day">Blokada helped me block %s ads and trackers in the last %d days! Get it at blokada.org.</string>
+    <string name="social_share_body_week">Blokada helped me block %s ads and trackers in the last %d weeks! Get it at blokada.org.</string>
     <string name="social_share_sub">Blokada</string>
     <string name="social_share_with">Share with</string>
 </resources>

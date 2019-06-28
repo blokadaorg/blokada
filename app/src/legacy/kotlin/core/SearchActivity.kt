@@ -2,6 +2,7 @@ package core
 
 import android.app.Activity
 import android.os.Bundle
+import core.bits.EnterSearchVB
 import org.blokada.R
 
 

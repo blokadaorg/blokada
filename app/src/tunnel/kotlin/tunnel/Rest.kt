@@ -9,6 +9,7 @@ import com.github.salomonbrys.kodein.singleton
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
+import core.ProductType
 import core.ktx
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -109,7 +110,7 @@ fun newRestApiModule(ctx: Context): Kodein.Module {
         bind<RestApi>() with singleton {
             val tun: tunnel.Main = instance()
 //            val cp = ConnectionPool(1, 1, TimeUnit.MILLISECONDS)
-            val client = OkHttpClient.Builder()
+            val clientBuilder = OkHttpClient.Builder()
 //                    .connectionPool(cp)
                     .addNetworkInterceptor { chain ->
                         val request = chain.request()
@@ -123,8 +124,8 @@ fun newRestApiModule(ctx: Context): Kodein.Module {
                         val request = chain.request().newBuilder().header("User-Agent", blokadaUserAgent(ctx)).build()
                         chain.proceed(request)
                     }
-                    .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
-                    .build()
+            if (!ProductType.isPublic()) clientBuilder.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+            val client = clientBuilder.build()
             val gson = GsonBuilder()
                     .setDateFormat(DateFormat.FULL)
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)

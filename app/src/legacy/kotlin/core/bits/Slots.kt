@@ -1,15 +1,14 @@
-package core
+package core.bits
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
 import android.widget.EditText
-import androidx.core.content.FileProvider
 import com.github.salomonbrys.kodein.instance
+import core.*
+import core.Tunnel
 import filter.hostnameRegex
 import filter.id
 import filter.sourceToIcon
@@ -21,9 +20,9 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import tunnel.*
 import tunnel.Filter
+import tunnel.Persistence
 import update.UpdateCoordinator
 import update.isUpdate
-import java.io.File
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
@@ -246,184 +245,6 @@ class ProtectionVB(
     }
 }
 
-class AppStatusVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val tunnelEvents: EnabledStateActor = ktx.di().instance(),
-        private val tunnelEvents2: Tunnel = ktx.di().instance(),
-        private val s: Tunnel = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    private var dropped: Int = 0
-    private var config: BlockaConfig = BlockaConfig()
-
-    private val actionTurnOn = Slot.Action(i18n.getString(R.string.slot_action_activate_adblocking)) {
-        ktx.emit(BLOCKA_CONFIG, config.copy(adblocking = true))
-    }
-
-    private val actionTurnOff = Slot.Action(i18n.getString(R.string.slot_action_deactivate_adblocking)) {
-        ktx.emit(BLOCKA_CONFIG, config.copy(adblocking = false))
-    }
-
-    private val update = {
-        view?.apply {
-            val droppedString = i18n.getString(R.string.tunnel_dropped_count2,
-                    Format.counter(tunnelEvents2.tunnelDropCount()))
-            val t: Tunnel = ktx.di().instance()
-            content = Slot.Content(
-                    icon = ktx.ctx.getDrawable(R.drawable.ic_block),
-                    label = droppedString,
-                    header = droppedString,
-                    description = if (config.adblocking)
-                        i18n.getString(R.string.slot_status_description_active)
-                    else i18n.getString(R.string.slot_status_description_inactive),
-                    detail = Format.date(Date()),
-                    action1 = Slot.Action(i18n.getString(R.string.slot_action_share)) {
-                        val shareIntent: Intent = Intent().apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT, getMessage(ktx.ctx, t.tunnelDropStart(), t.tunnelDropCount()))
-                            type = "text/plain"
-                        }
-                        ktx.ctx.startActivity(Intent.createChooser(shareIntent,
-                                ktx.ctx.getText(R.string.slot_dropped_share_title)))
-                    },
-                    action2 = if (config.adblocking) actionTurnOff else actionTurnOn,
-                    action3 = Slot.Action(i18n.getString(R.string.slot_dropped_action_clear)) {
-                        tunnelEvents2.tunnelDropCount %= 0
-                    }
-            )
-        }
-        Unit
-    }
-
-    private val configListener = { cfg: BlockaConfig ->
-        config = cfg
-        update()
-        Unit
-    }
-
-    fun getMessage(ctx: Context, timeStamp: Long, dropCount: Int): String {
-        var elapsed: Long = System.currentTimeMillis() - timeStamp
-        elapsed /= 60000
-        if(elapsed < 120) {
-            return ctx.resources.getString(R.string.social_share_bodym, dropCount, elapsed)
-        }
-        elapsed /= 60
-        if(elapsed < 48) {
-            return ctx.resources.getString(R.string.social_share_bodyh, dropCount, elapsed)
-        }
-        elapsed /= 24
-        if(elapsed < 28) {
-            return ctx.resources.getString(R.string.social_share_bodyd, dropCount, elapsed)
-        }
-        elapsed /= 7
-        return ctx.resources.getString(R.string.social_share_bodyw, dropCount, elapsed)
-    }
-
-    private var droppedCountListener: IWhen? = null
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        droppedCountListener = tunnelEvents2.tunnelDropCount.doOnUiWhenSet().then {
-            dropped = tunnelEvents2.tunnelDropCount()
-            update()
-        }
-        ktx.on(BLOCKA_CONFIG, configListener)
-    }
-
-    override fun detach(view: SlotView) {
-        tunnelEvents2.tunnelDropCount.cancel(droppedCountListener)
-        ktx.cancel(BLOCKA_CONFIG, configListener)
-    }
-
-}
-
-class VpnStatusVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val s: Tunnel = ktx.di().instance(),
-        private val modal: ModalManager = modalManager,
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    private var config: BlockaConfig = BlockaConfig()
-
-    private val update = { ->
-        view?.apply {
-            val connected = s.enabled() && config.blockaVpn
-            content = Slot.Content(
-                    icon = ktx.ctx.getDrawable(R.drawable.ic_shield_key_outline),
-                    label = if (connected)
-                        i18n.getString(R.string.slot_status_vpn_turned_on, config.gatewayNiceName)
-                    else i18n.getString(R.string.slot_status_vpn_turned_off),
-                    description = if (connected) {
-                        i18n.getString(R.string.slot_status_vpn_desc_on, config.gatewayIp)
-                    } else i18n.getString(R.string.slot_status_vpn_desc_off),
-                    detail = Format.date(Date()),
-//                    action1 = Slot.Action(i18n.getString(
-//                            if (config.blockaVpn) R.string.slot_status_vpn_turn_off
-//                            else R.string.slot_status_vpn_turn_on
-//                    )) {
-//                        if (config.activeUntil.before(Date())) {
-//                            modal.openModal()
-//                            ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
-//                        } else {
-//                            Toast.makeText(ktx.ctx, i18n.getString(
-//                                    if (config.blockaVpn) R.string.slot_status_vpn_turned_off
-//                                    else R.string.slot_status_vpn_connecting
-//                            ), Toast.LENGTH_LONG).show()
-//
-//                            if (config.blockaVpn) clearConnectedGateway(ktx, config, showError = false)
-//                            else {
-//                                val newCfg = config.copy(blockaVpn = !config.blockaVpn)
-//                                checkAccountInfo(ktx, newCfg)
-//                            }
-//                        }
-//                    },
-                    action1 = Slot.Action(i18n.getString(R.string.slot_status_vpn_lease)) {
-                        async {
-                            checkAccountInfo(ktx, config!!)
-                        }
-                    }
-            )
-            date = Date()
-        }
-        Unit
-    }
-
-    private var wasActive = false
-    private val configListener = { cfg: BlockaConfig ->
-        config = cfg
-        update()
-        activateVpnAutomatically(cfg)
-        wasActive = cfg.activeUntil.after(Date())
-        Unit
-    }
-
-    private var stateListener: IWhen? = null
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        ktx.on(BLOCKA_CONFIG, configListener)
-        stateListener = s.enabled.doOnUiWhenChanged().then {
-            update()
-        }
-    }
-
-    override fun detach(view: SlotView) {
-        ktx.cancel(BLOCKA_CONFIG, configListener)
-        s.enabled.cancel(stateListener)
-    }
-
-    private fun activateVpnAutomatically(cfg: BlockaConfig) {
-        if (!cfg.blockaVpn && !wasActive && cfg.activeUntil.after(Date()) && cfg.hasGateway()) {
-            ktx.v("automatically enabling vpn on new subscription")
-            ktx.emit(BLOCKA_CONFIG, cfg.copy(blockaVpn = true))
-        }
-    }
-}
-
 class FiltersStatusVB(
         private val ktx: AndroidKontext,
         private val i18n: I18n = ktx.di().instance(),
@@ -473,6 +294,7 @@ class FiltersStatusVB(
     }
 
     override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
         ktx.on(Events.RULESET_BUILT, refreshRuleset)
         ktx.on(Events.FILTERS_CHANGING, updatingFilters)
         ktx.on(Events.MEMORY_CAPACITY, refreshMemory)
@@ -508,7 +330,7 @@ class DomainForwarderVB(
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_block)) {
                     val f = Filter(
                             id(domain, whitelist = false),
-                            source = tunnel.FilterSourceDescriptor("single", domain),
+                            source = FilterSourceDescriptor("single", domain),
                             active = true,
                             whitelist = false
                     )
@@ -545,7 +367,7 @@ class DomainBlockedVB(
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_allow)) {
                     val f = Filter(
                             id(domain, whitelist = true),
-                            source = tunnel.FilterSourceDescriptor("single", domain),
+                            source = FilterSourceDescriptor("single", domain),
                             active = true,
                             whitelist = true
                     )
@@ -715,7 +537,7 @@ class DownloadOnWifiVB(
                 label = i18n.getString(R.string.tunnel_config_wifi_only_title),
                 description = i18n.getString(R.string.tunnel_config_wifi_only_description),
                 icon = ctx.getDrawable(R.drawable.ic_wifi),
-                switched = tunnel.Persistence.config.load(ktx).wifiOnly
+                switched = Persistence.config.load(ktx).wifiOnly
         )
         view.onSwitch = { switched ->
             val new = tunnel.Persistence.config.load(ktx).copy(wifiOnly = switched)
@@ -958,7 +780,8 @@ class AppVB(
         showSnack(R.string.slot_whitelist_updating)
         async {
             val filter = Filter(
-                    id = filters.findFilterBySource(app.appId).await()?.id ?: id(app.appId, whitelist = true),
+                    id = filters.findFilterBySource(app.appId).await()?.id
+                            ?: id(app.appId, whitelist = true),
                     source = FilterSourceDescriptor("app", app.appId),
                     active = true,
                     whitelist = true
@@ -971,7 +794,8 @@ class AppVB(
         showSnack(R.string.slot_whitelist_updating)
         async {
             val filter = Filter(
-                    id = filters.findFilterBySource(app.appId).await()?.id ?: id(app.appId, whitelist = true),
+                    id = filters.findFilterBySource(app.appId).await()?.id
+                            ?: id(app.appId, whitelist = true),
                     source = FilterSourceDescriptor("app", app.appId),
                     active = false,
                     whitelist = true
@@ -1030,8 +854,8 @@ class AddDnsVB(private val ktx: AndroidKontext,
     modal.openModal()
     ktx.ctx.startActivity(Intent(ktx.ctx, AddDnsActivity::class.java))}){
     override fun attach(view: SlotView) {
-        view.content = Slot.Content(ktx.ctx.resources.getString(R.string.dns_custom_add_slot)
-        ,icon = ktx.ctx.getDrawable(R.drawable.ic_filter_add))
+        view.content = Slot.Content(ktx.ctx.resources.getString(R.string.dns_custom_add_slot))
+        view.type = Slot.Type.NEW
     }
 }
 
@@ -1077,61 +901,19 @@ class DnsChoiceVB(
         view.onSwitch = { switched ->
             if (!switched) {
                 dns.choices().first().active = true
+                dns.enabled %= false
             } else {
                 dns.choices().filter { it.active }.forEach { it.active = false }
             }
             item.active = switched
             dns.choices %= dns.choices()
+            if (item.id == "default") dns.enabled %= false
+            else dns.enabled %= true
         }
     }
 
 }
 
-class ActiveDnsVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val i18n: I18n = ktx.di().instance(),
-        private val dns: Dns = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    private var dnsServersChanged: IWhen? = null
-
-    override fun attach(view: SlotView) {
-        dnsServersChanged = dns.dnsServers.doOnUiWhenSet().then {
-            val item = dns.choices().first { it.active }
-            val id = if (item.id.startsWith("custom")) "custom" else item.id
-            val name = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
-            val description = item.comment ?: i18n.localisedOrNull("dns_${id}_comment")
-
-            view.type = Slot.Type.INFO
-            view.content = Slot.Content(
-                    label = i18n.getString(R.string.slot_dns_name, name),
-                    header = name,
-                    description = description,
-                    detail = printServers(dns.dnsServers()),
-                    info = i18n.getString(R.string.slot_dns_dns),
-                    icon = ctx.getDrawable(R.drawable.ic_server),
-//                    action1 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE),
-                    action1 = Slot.Action(i18n.getString(R.string.slot_action_author), {
-                        try {
-                            Intent(Intent.ACTION_VIEW, Uri.parse(item.credit))
-                        } catch (e: Exception) {
-                            null
-                        }?.apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            ctx.startActivity(this)
-                        }
-                    })
-            )
-        }
-    }
-
-    override fun detach(view: SlotView) {
-        dns.dnsServers.cancel(dnsServersChanged)
-    }
-
-}
 
 class IntroVB(
         private val ktx: AndroidKontext,
@@ -1234,7 +1016,7 @@ class PowersaveVB(
                 label = i18n.getString(R.string.tunnel_config_powersave_title),
                 icon = ctx.getDrawable(R.drawable.ic_power),
                 description = i18n.getString(R.string.tunnel_config_powersave_description),
-                switched = tunnel.Persistence.config.load(ktx).powersave
+                switched = Persistence.config.load(ktx).powersave
         )
         view.onSwitch = {
             val new = tunnel.Persistence.config.load(ktx).copy(powersave = it)
@@ -1258,7 +1040,7 @@ class DnsFallbackVB(
                 label = i18n.getString(R.string.tunnel_config_fallback_title),
                 icon = ctx.getDrawable(R.drawable.ic_server),
                 description = i18n.getString(R.string.tunnel_config_fallback_description),
-                switched = tunnel.Persistence.config.load(ktx).dnsFallback
+                switched = Persistence.config.load(ktx).dnsFallback
         )
         view.onSwitch = {
             val new = tunnel.Persistence.config.load(ktx).copy(dnsFallback = it)
@@ -1282,7 +1064,7 @@ class ReportVB(
                 label = i18n.getString(R.string.tunnel_config_reports_title),
                 icon = ctx.getDrawable(R.drawable.ic_heart_box),
                 description = i18n.getString(R.string.tunnel_config_reports_description),
-                switched = tunnel.Persistence.config.load(ktx).report
+                switched = Persistence.config.load(ktx).report
         )
         view.onSwitch = {
             val new = tunnel.Persistence.config.load(ktx).copy(report = it)
@@ -1290,34 +1072,6 @@ class ReportVB(
         }
     }
 
-}
-
-class HomeNotificationsVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val ui: UiState = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    private var listener: IWhen? = null
-
-    override fun attach(view: SlotView) {
-        listener = ui.notifications.doOnUiWhenSet().then {
-            val current = i18n.getString(if (ui.notifications()) R.string.slot_notifications_enabled
-            else R.string.slot_notifications_disabled)
-            view.type = Slot.Type.INFO
-            view.content = Slot.Content(
-                    label = i18n.getString(R.string.slot_notifications_title, current),
-                    description = i18n.getString(R.string.slot_notifications_desc),
-                    switched = ui.notifications()
-            )
-            view.onSwitch = { ui.notifications %= it }
-        }
-    }
-
-    override fun detach(view: SlotView) {
-        ui.notifications.cancel(listener)
-    }
 }
 
 class NotificationsVB(
@@ -1437,7 +1191,7 @@ class StorageLocationVB(
 
     private val actionExternal = Slot.Action(i18n.getString(R.string.slot_action_external), {
         ktx.v("set persistence path", getExternalPath())
-        Persistence.global.savePath(getExternalPath())
+        core.Persistence.global.savePath(getExternalPath())
 
         if (!checkStoragePermissions(ktx)) {
             activity.get()?.apply {
@@ -1449,7 +1203,7 @@ class StorageLocationVB(
 
     private val actionInternal = Slot.Action(i18n.getString(R.string.slot_action_internal), {
         ktx.v("resetting persistence path")
-        Persistence.global.savePath(Persistence.DEFAULT_PATH)
+        core.Persistence.global.savePath(core.Persistence.DEFAULT_PATH)
         view?.apply { attach(this) }
     })
 
@@ -1457,7 +1211,7 @@ class StorageLocationVB(
         filters.reloadConfig(ktx, device.onWifi())
     })
 
-    private fun isExternal() = Persistence.global.loadPath() != Persistence.DEFAULT_PATH
+    private fun isExternal() = core.Persistence.global.loadPath() != core.Persistence.DEFAULT_PATH
 
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
@@ -1501,11 +1255,8 @@ class UpdateVB(
     private var clickCounter = 0
     private var next: Int = 0
 
-    private val changelogAction = Slot.Action(i18n.getString(R.string.main_changelog)) {
-        openInBrowser(ctx, pages.changelog())
-    }
-
     override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
         listener = repo.lastRefreshMillis.doOnUiWhenSet().then {
             val current = repo.content()
             view.type = Slot.Type.INFO
@@ -1527,8 +1278,7 @@ class UpdateVB(
                                 next = next++ % repo.content().downloadLinks.size
                             }
                         },
-                        icon = ctx.getDrawable(R.drawable.ic_new_releases),
-                        action2 = changelogAction
+                        icon = ctx.getDrawable(R.drawable.ic_new_releases)
                 )
                 view.date = Date()
             } else {
@@ -1538,8 +1288,7 @@ class UpdateVB(
                         action1 = Slot.Action(i18n.getString(R.string.slot_update_action_refresh), {
                             repo.content.refresh(force = true)
                         }),
-                        icon = ctx.getDrawable(R.drawable.ic_reload),
-                        action2 = changelogAction
+                        icon = ctx.getDrawable(R.drawable.ic_reload)
                 )
                 view.date = Date(repo.lastRefreshMillis())
             }
@@ -1566,6 +1315,7 @@ class AboutVB(
     }
 
     override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
         view.type = Slot.Type.INFO
 
         view.content = Slot.Content(
@@ -1574,24 +1324,15 @@ class AboutVB(
                 detail = blokadaUserAgent(ctx),
                 action2 = creditsAction,
                 action3 = Slot.Action(i18n.getString(R.string.update_button_appinfo)) {
-                    try {
-                        ctx.startActivity(newAppDetailsIntent(ctx.packageName))
-                    } catch (e: Exception) {
-                    }
                 },
                 action1 = Slot.Action(i18n.getString(R.string.slot_about_share_log)) {
-//                    if (askForExternalStoragePermissionsIfNeeded(activity)) {
-                        val uri = File(ctx.filesDir, "/blokada.log")
-                        val openFileIntent = Intent(Intent.ACTION_SEND)
-                        openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        openFileIntent.type = "plain/*"
-                        openFileIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(ktx.ctx, "${ktx.ctx.packageName}.files",
-                                uri))
-                        ktx.ctx.startActivity(openFileIntent)
-//                    }
                 }
         )
+
+        Handler {
+            view.unfold()
+            true
+        }.sendEmptyMessageDelayed(0, 100)
     }
 
     private fun newAppDetailsIntent(packageName: String): Intent {
@@ -1674,150 +1415,6 @@ class AdblockingVB(
     }
 }
 
-class BlockaVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        onTap: (SlotView) -> Unit,
-        private val modal: ModalManager = modalManager
-) : SlotVB(onTap) {
-
-    private val update = { cfg: BlockaConfig? ->
-        view?.apply {
-            val isActive = cfg?.activeUntil?.after(Date()) ?: false
-            val accountId = i18n.getString(R.string.slot_account_text_account, cfg?.accountId ?: "")
-            val accountLabel = if (isActive)
-                i18n.getString(R.string.slot_account_text_active, cfg!!.activeUntil.pretty(ktx))
-            else i18n.getString(R.string.slot_account_text_inactive)
-
-            if (cfg != null) {
-                content = Slot.Content(
-                        label = i18n.getString(R.string.slot_blocka_label),
-                        icon = ktx.ctx.getDrawable(R.drawable.ic_account_circle_black_24dp),
-                        description = "%s<br/><br/>%s".format(accountId, accountLabel),
-                        color = if (isActive) ktx.ctx.resources.getColor(R.color.colorProtectionHigh) else null,
-                        action1 = Slot.Action(
-                                if (isActive) i18n.getString(R.string.slot_account_action_manage)
-                                else i18n.getString(R.string.slot_account_action_manage_inactive)) {
-                            modal.openModal()
-                            ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
-                        },
-                        action2 = Slot.Action(i18n.getString(R.string.slot_account_action_change_id)) {
-                            modal.openModal()
-                            ktx.ctx.startActivity(Intent(ktx.ctx, RestoreAccountActivity::class.java))
-                        },
-                        action3 = Slot.Action(i18n.getString(R.string.slot_account_action_copy)) {
-                            val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            val clipData = ClipData.newPlainText("account-id", cfg.accountId)
-                            clipboardManager.primaryClip = clipData
-                            showSnack(R.string.slot_account_action_copied)
-                        }
-                )
-            } else {
-                content = Slot.Content(
-                        label = i18n.getString(R.string.slot_blocka_label),
-                        icon = ktx.ctx.getDrawable(R.drawable.ic_account_circle_black_24dp),
-                        description = "%s<br/><br/>%s".format(accountId, accountLabel)
-                )
-            }
-
-        }
-        view?.type = Slot.Type.ACCOUNT
-        Unit
-    }
-
-    override fun attach(view: SlotView) {
-        view.enableAlternativeBackground()
-        view?.type = Slot.Type.ACCOUNT
-        update(null)
-        ktx.on(BLOCKA_CONFIG, update)
-    }
-
-    override fun detach(view: SlotView) {
-        ktx.cancel(BLOCKA_CONFIG, update)
-    }
-}
-
-class GatewayVB(
-        private val ktx: AndroidKontext,
-        private val gateway: RestModel.GatewayInfo,
-        private val i18n: I18n = ktx.di().instance(),
-        private val modal: ModalManager = modalManager,
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    private fun update(cfg: BlockaConfig) {
-        view?.apply {
-            content = Slot.Content(
-                    label = i18n.getString(
-                            (if (gateway.overloaded()) R.string.slot_gateway_label_overloaded
-                            else R.string.slot_gateway_label),
-                            gateway.niceName()),
-                    icon = ktx.ctx.getDrawable(
-                            if (gateway.overloaded()) R.drawable.ic_shield_outline
-                            else R.drawable.ic_verified
-                    ),
-                    description = if (gateway.publicKey == cfg.gatewayId) {
-                        i18n.getString(R.string.slot_gateway_description_current,
-                                getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region,
-                                cfg.activeUntil)
-                    } else {
-                        i18n.getString(R.string.slot_gateway_description,
-                                getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region)
-                    },
-                    switched = gateway.publicKey == cfg.gatewayId
-            )
-
-            onSwitch = {
-                when {
-                    gateway.publicKey == cfg.gatewayId -> {
-                        // Turn off VPN feature
-                        clearConnectedGateway(ktx, cfg, showError = false)
-                    }
-                    cfg.activeUntil.before(Date()) -> {
-                        modal.openModal()
-                        ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
-                    }
-                    gateway.overloaded() -> {
-                        showSnack(R.string.slot_gateway_overloaded)
-                        // Resend event to re-select same gateway
-                        ktx.emit(BLOCKA_CONFIG, cfg)
-                    }
-                    else -> {
-                        checkGateways(ktx, cfg.copy(
-                                gatewayId = gateway.publicKey,
-                                gatewayIp = gateway.ipv4,
-                                gatewayPort = gateway.port,
-                                gatewayNiceName = gateway.niceName()
-                        ))
-                    }
-                }
-            }
-        }
-    }
-
-    private fun getLoad(usage: Int): String {
-        return i18n.getString(when (usage) {
-            in 0..50 -> R.string.slot_gateway_load_low
-            else -> R.string.slot_gateway_load_high
-        })
-    }
-
-    private val onConfig = { cfg: BlockaConfig ->
-        update(cfg)
-        Unit
-    }
-
-    override fun attach(view: SlotView) {
-        view.enableAlternativeBackground()
-        view.type = Slot.Type.INFO
-        ktx.on(BLOCKA_CONFIG, onConfig)
-    }
-
-    override fun detach(view: SlotView) {
-        ktx.cancel(BLOCKA_CONFIG, onConfig)
-    }
-}
-
 private val prettyFormat = SimpleDateFormat("MMMM dd, HH:mm")
 fun Date.pretty(ktx: Kontext): String {
     return prettyFormat.format(this)
@@ -1873,7 +1470,7 @@ class RecommendedDnsVB(
 
 }
 
-private fun hasGoodDnsServers(dns: Dns): Boolean {
+fun hasGoodDnsServers(dns: Dns): Boolean {
     val active = dns.choices().firstOrNull { it.active }
     return active != null && active.id != "default"
 }
@@ -1971,77 +1568,23 @@ class CtaVB(
     }
 }
 
-class ObsoleteVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val pages: Pages = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                label = i18n.getString(R.string.slot_obsolete_label),
-                description = i18n.getString(R.string.slot_obsolete_desc),
-                icon = ctx.getDrawable(R.drawable.ic_new_releases),
-                action1 = Slot.Action(i18n.getString(R.string.slot_obsolete_action), {
-                    openInBrowser(ctx, pages.download())
-                })
-        )
-    }
-}
-
-class UpdatedVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val pages: Pages = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance(),
-        private val onRemove: () -> Unit,
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                label = i18n.getString(R.string.slot_updated_label),
-                description = i18n.getString(R.string.slot_updated_desc),
-                icon = ctx.getDrawable(R.drawable.ic_reload),
-                action1 = Slot.Action(i18n.getString(R.string.slot_updated_action), {
-                    openInBrowser(ctx, pages.updated())
-                }),
-                action2 = Slot.Action(i18n.getString(R.string.slot_donate_action), {
-                    openInBrowser(ctx, pages.donate())
-                }),
-                action3 = view.ACTION_REMOVE
-        )
-        view.onRemove = onRemove
-    }
-}
-
 class CleanupVB(
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,
-        private val pages: Pages = ktx.di().instance(),
-        private val welcome: Welcome = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
+        private val welcome: Welcome = ktx.di().instance()
+) : ByteVB() {
 
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                label = i18n.getString(R.string.slot_cleanup_label),
-                description = i18n.getString(R.string.slot_cleanup_desc),
-                icon = ctx.getDrawable(R.drawable.ic_delete),
-                action1 = Slot.Action(i18n.getString(R.string.slot_cleanup_action)) {
-                    showSnack(R.string.welcome_cleanup_done)
-                    val builds = getInstalledBuilds()
-                    for (b in builds.subList(1, builds.size).reversed()) {
-                        uninstallPackage(b)
-                    }
-                }
-        )
+    override fun attach(view: ByteView) {
+        view.icon(null)
+        view.label(R.string.home_cleanup.res())
+        view.state(R.string.slot_cleanup_desc.res(), smallcap = false)
+        view.onTap {
+            showSnack(R.string.welcome_cleanup_done)
+            val builds = getInstalledBuilds()
+            for (b in builds.subList(1, builds.size).reversed()) {
+                uninstallPackage(b)
+            }
+        }
     }
 
     private fun getInstalledBuilds(): List<String> {

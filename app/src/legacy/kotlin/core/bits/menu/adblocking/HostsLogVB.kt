@@ -1,18 +1,26 @@
-package core
+package core.bits.menu.adblocking
 
 import android.app.Activity
 import com.github.michaelbull.result.getOr
 import com.github.salomonbrys.kodein.instance
+import core.*
+import core.bits.DomainBlockedVB
+import core.bits.DomainForwarderVB
+import core.bits.SearchBarVB
+import core.bits.menu.MenuItemVB
 import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
+import gs.presentation.NamedViewBinder
+import org.blokada.R
 import tunnel.Events
 import tunnel.Persistence
 import tunnel.Request
 
-class AdsLogVB(
+class HostsLogVB(
         val ktx: AndroidKontext,
-        val activity: ComponentProvider<Activity> = ktx.di().instance()
-) : ListViewBinder() {
+        val activity: ComponentProvider<Activity> = ktx.di().instance(),
+        override val name: Resource = R.string.panel_section_ads_log.res()
+) : ListViewBinder(), NamedViewBinder {
 
     private val slotMutex = SlotMutex()
 
@@ -27,7 +35,7 @@ class AdsLogVB(
             if(searchString.isEmpty() || it.domain.contains(searchString.toLowerCase())) {
                 val dash = requestToVB(it)
                 items.add(0, dash)
-                view?.add(dash, 1)
+                view?.add(dash, 2)
                 firstItem = it
                 onSelectedListener(null)
             }
@@ -46,6 +54,7 @@ class AdsLogVB(
                     view.set(emptyList())
                     attach(view)
                 }))
+                view.add(LabelVB(ktx, label = R.string.menu_ads_live_label.res()))
             }
             var items = loadBatch(0)
             items += loadBatch(1)
@@ -95,4 +104,12 @@ class AdsLogVB(
             DomainBlockedVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime) else
             DomainForwarderVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
     }
+}
+
+fun createHostsLogMenuItem(ktx: AndroidKontext): NamedViewBinder {
+    return MenuItemVB(ktx,
+            label = R.string.panel_section_ads_log.res(),
+            icon = R.drawable.ic_menu.res(),
+            opens = HostsLogVB(ktx)
+    )
 }

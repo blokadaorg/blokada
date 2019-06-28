@@ -80,6 +80,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
         bind<ViewBinderHolder>() with singleton {
             ViewBinderHolder()
         }
+        bind<TunnelStateManager>() with singleton {
+            TunnelStateManager(ctx.ktx("tunnelStateManager"))
+        }
 
         onReady {
             val d: Device = instance()

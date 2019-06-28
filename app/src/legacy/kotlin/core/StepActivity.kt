@@ -3,6 +3,8 @@ package core
 import android.app.Activity
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance
+import core.bits.EnterDomainVB
+import core.bits.EnterNameVB
 import org.blokada.R
 import tunnel.Filter
 import tunnel.FilterSourceDescriptor

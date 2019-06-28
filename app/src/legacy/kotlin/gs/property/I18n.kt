@@ -5,6 +5,7 @@ import android.content.res.Resources
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import core.Format
+import core.Resource
 import core.ktx
 import gs.environment.Environment
 import gs.environment.Worker
@@ -20,6 +21,7 @@ abstract class I18n {
     abstract fun getString(resId: Int): String
     abstract fun getString(resId: Int, vararg arguments: Any): String
     abstract fun getQuantityString(resId: Int, quantity: Int, vararg arguments: Any): String
+    abstract fun getString(resource: Resource): String
     abstract fun contentUrl(): String
     abstract fun fallbackContentUrl(): String
 }
@@ -119,6 +121,13 @@ class I18nImpl (
     override fun getQuantityString(resId: Int, quantity: Int, vararg arguments: Any): String {
         // Intentionally no support for quantity strings for now
         return localised(resId).format(*arguments)
+    }
+
+    override fun getString(resource: Resource): String {
+        return when {
+            resource.hasResId() -> localised(resource.getResId())
+            else -> resource.getString()
+        }
     }
 
     init {

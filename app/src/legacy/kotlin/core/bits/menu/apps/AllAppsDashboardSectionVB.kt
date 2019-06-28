@@ -1,14 +1,23 @@
-package core
+package core.bits.menu.apps
 
 import android.content.Context
 import com.github.salomonbrys.kodein.instance
+import core.*
+import core.bits.AppVB
+import core.bits.SearchBarVB
+import core.bits.menu.adblocking.SlotMutex
 import gs.presentation.ListViewBinder
+import gs.presentation.NamedViewBinder
 import gs.property.IWhen
 import org.blokada.R
 import tunnel.Events
 import tunnel.Filter
 
-class AllAppsDashboardSectionVB(val ctx: Context, val system: Boolean) : ListViewBinder() {
+class AllAppsDashboardSectionVB(
+        val ctx: Context,
+        val system: Boolean,
+        override val name: Resource = if (system) R.string.panel_section_apps_system.res() else R.string.panel_section_apps_all.res()
+) : ListViewBinder(), NamedViewBinder {
 
     private val ktx = ctx.ktx("AllAppsDashboard")
     private val filters by lazy { ktx.di().instance<Filters>() }
@@ -35,9 +44,9 @@ class AllAppsDashboardSectionVB(val ctx: Context, val system: Boolean) : ListVie
         val whitelisted = apps.filter { (it.appId in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }
         val notWhitelisted = apps.filter { (it.appId !in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }
 
-        val listing = listOf(LabelVB(labelResId = R.string.slot_allapp_whitelisted)) +
+        val listing = listOf(LabelVB(ktx, label = R.string.slot_allapp_whitelisted.res())) +
                 whitelisted.map { AppVB(it, true, ktx, onTap = slotMutex.openOneAtATime) } +
-                LabelVB(labelResId = R.string.slot_allapp_normal) +
+                LabelVB(ktx, label = R.string.slot_allapp_normal.res()) +
                 notWhitelisted.map { AppVB(it, false, ktx, onTap = slotMutex.openOneAtATime) }
         view?.set(listing)
         view?.add(SearchBarVB(ktx, onSearch = { s ->

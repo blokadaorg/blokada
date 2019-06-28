@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_touch_to_turn_on">Touch to turn on</string>
+    <string name="home_setup_vpn">Touch to setup VPN</string>
+    <string name="home_blokada_disabled">Blokada is deactivated</string>
+    <string name="home_activating">Activating</string>
+    <string name="home_please_wait">please wait...</string>
+    <string name="home_vpn_only">VPN only mode</string>
+    <string name="home_dns_touch">Touch to setup DNS</string>
+
+    <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked">%s blocked</string>
+
+    <!-- A button to share the ads counter on social media -->
+    <string name="home_share">Tell your friends</string>
+    <string name="home_share_state">share your Blokada score</string>
+    <string name="home_adblocking_enabled">Ad blocking is active</string>
+    <string name="home_adblocking_disabled">Ad blocking is deactivated</string>
+
+    <!-- A short text for the item that displays update information -->
+    <string name="home_whats_new">What\'s new?</string>
+
+    <string name="home_update_required">Update required</string>
+
+    <!-- A short text for the item that displays donate link -->
+    <string name="home_donate">Donate</string>
+
+    <string name="home_vpn_enabled">VPN is active</string>
+    <string name="home_vpn_disabled">VPN is deactivated</string>
+    <string name="home_account_active">your account is still active</string>
+    <string name="home_connecting_vpn">Connecting to VPN</string>
+    <string name="home_cleanup">Cleanup recommended</string>
+
+    <!-- A short text for the button to change VPN settings -->
+    <string name="home_change_vpn">Change</string>
+
+    <string name="home_connected_vpn">connected to VPN</string>
+
+    <!-- Ads section header in menu (for configuring ad blocking) -->
+    <string name="menu_ads">Ads</string>
+
+    <string name="menu_ads_live_label">Live history of allowed and blocked requests</string>
+    <string name="menu_ads_turn_on">Turn the ad blocking on or off.</string>
+    <string name="menu_ads_lists_label">Select lists to use for blocking. Defaults are fine for most people.</string>
+    <string name="menu_ads_rules_label">Add your own rules to fine tune blocking.</string>
+    <string name="menu_ads_log_label">See what have been blocked or allowed recently.</string>
+
+    <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">VPN</string>
+
+    <string name="menu_vpn_activate_account">Please activate your account first.</string>
+    <string name="menu_vpn_select_gateway">Please select a gateway.</string>
+    <string name="menu_vpn_intro_button">Why VPN?</string>
+
+    <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account">Account</string>
+
+    <!-- A button opening VPN gateways settings -->
+    <string name="menu_vpn_gateways">Gateways</string>
+
+    <string name="menu_vpn_manage_subscription">Manage your account subscription</string>
+    <string name="menu_vpn_account_secret">Your account ID is secret and you should keep it to yourself. Write it down in case you uninstall the app.</string>
+    <string name="menu_vpn_restore_label">Here you can restore your existing account if, for example, you re-installed the app.</string>
+    <string name="menu_vpn_intro">With VPN your data in encrypted, your IP address is hidden, and your location is changed.</string>
+    <string name="menu_vpn_account_label">In order to use the VPN, you need active account. Check or restore your account here.</string>
+    <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
+    <string name="menu_dns_recommended">Recommended DNS servers</string>
+    <string name="menu_dns_intro">DNS is responsible for translating IP addresses of websites and apps you use. Choosing a good DNS may speed up your device and will help protect your privacy.</string>
+    <string name="menu_dns_select">Select one of the DNS servers.</string>
+    <string name="menu_apps_intro">Some apps may not work properly with Blokada. For example, they may have trouble connecting.\n\nActivating VPN often helps in those cases.\n\nOtherwise, you can make those apps bypass Blokada inspection altogether. Remember, bypassed apps communicate outside of the VPN.</string>
+    <string name="menu_apps_system_label">System apps are the ones coming preinstalled with your device. Some of them are hidden. Modify those only if you know what you are doing.</string>
+    <string name="menu_host_list_intro">Host lists contain rules for blocking ads and trackers. Try to keep the number of active lists low.</string>
+    <string name="menu_host_list_settings">List settings</string>
+    <string name="menu_host_list_status">List status</string>
+    <string name="menu_host_list_download">List download settings</string>
+    <string name="menu_host_whitelist">Hosts you add here will never be blocked. Use this list when, for example, a website you visit is mistakenly blocked.</string>
+    <string name="menu_host_blacklist">Hosts you add here will always be blocked. For example, you may add websites that are not blocked by the standard lists, but should be.</string>
+
+    <!-- A section of other settings in menu -->
+    <string name="menu_other">Other</string>
+
+    <string name="menu_share_log_label">Sharing log allows us to discover the reason of your problem. Make sure you send it privately to one of Blokada core team members.</string>
+
+    <!-- A section of help, telegram, and other buttons in menu -->
+    <string name="menu_learn_more">Learn more</string>
+
+    <!-- A section informational content in menu -->
+    <string name="menu_knowledge">Knowledge</string>
+
+    <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">Get involved</string>
+    <string name="menu_telegram">Telegram chat</string>
+    <string name="menu_configure">Configure Blokada features</string>
+    <string name="menu_exclude">Exclude apps that do not work correctly</string>
+
+    <!-- A section in menu for additional buttons  -->
+    <string name="menu_dive_in">Dive in deeper</string>
+
+    <!-- A section to manage some settings (generic)  -->
+    <string name="menu_manage">Manage</string>
+    <string name="menu_ok">OK</string>
+</resources>

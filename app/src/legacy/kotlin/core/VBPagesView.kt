@@ -64,7 +64,12 @@ class VBPagesView(
     var pages: List<ViewBinder> = emptyList()
         set(value) {
             field = if (useSpacer) value.map { PageSpacerVB(it) } else value
-            adapter = if (value.isEmpty()) emptyAdapter else dashAdapter
+//            if (value.isEmpty()) adapter = emptyAdapter
+//            else if (adapter == emptyAdapter) adapter = dashAdapter
+//            else {
+//                adapter?.notifyDataSetChanged()
+//            }
+            adapter = if(value.isEmpty()) emptyAdapter else dashAdapter
         }
 
 }

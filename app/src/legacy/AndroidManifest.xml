@@ -105,6 +105,18 @@
                 android:value="true" />
         </activity>
         <activity
+            android:name="core.WebViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:label="Blokada"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentWindow"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
+        <activity
             android:name="core.RestoreAccountActivity"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"

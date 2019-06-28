@@ -1,11 +1,13 @@
 package adblocker
 
 import android.content.Context
+import android.content.Intent
 import com.github.salomonbrys.kodein.instance
-import core.*
+import core.Dash
+import core.Format
+import core.Tunnel
 import gs.environment.inject
 import org.blokada.R
-import android.content.Intent
 
 val DASH_ID_SHARE_COUNT = "social_share"
 
@@ -34,16 +36,16 @@ fun getMessage(ctx: Context, timeStamp: Long, dropCount: Int): String {
     var elapsed: Long = System.currentTimeMillis() - timeStamp
     elapsed /= 60000
     if(elapsed < 120) {
-        return ctx.resources.getString(R.string.social_share_bodym, dropCount, elapsed)
+        return ctx.resources.getString(R.string.social_share_body_minute, Format.counter(dropCount), elapsed)
     }
     elapsed /= 60
     if(elapsed < 48) {
-        return ctx.resources.getString(R.string.social_share_bodyh, dropCount, elapsed)
+        return ctx.resources.getString(R.string.social_share_body_hour, Format.counter(dropCount), elapsed)
     }
     elapsed /= 24
     if(elapsed < 28) {
-        return ctx.resources.getString(R.string.social_share_bodyd, dropCount, elapsed)
+        return ctx.resources.getString(R.string.social_share_body_day, Format.counter(dropCount), elapsed)
     }
     elapsed /= 7
-    return ctx.resources.getString(R.string.social_share_bodyw, dropCount, elapsed)
+    return ctx.resources.getString(R.string.social_share_body_week, Format.counter(dropCount), elapsed)
 }

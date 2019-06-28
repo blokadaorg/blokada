@@ -1,10 +1,14 @@
-package core
+package core.bits.menu.vpn
 
 import android.os.Handler
 import com.github.salomonbrys.kodein.instance
+import core.*
+import core.bits.menu.adblocking.SlotMutex
 import gs.presentation.ListViewBinder
+import gs.presentation.NamedViewBinder
 import gs.presentation.ViewBinder
 import kotlinx.coroutines.experimental.async
+import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
 import tunnel.MAX_RETRIES
@@ -13,13 +17,14 @@ import tunnel.RestModel
 
 class GatewaysDashboardSectionVB(
         val ktx: AndroidKontext,
-        val api: RestApi = ktx.di().instance()
-) : ListViewBinder() {
+        val api: RestApi = ktx.di().instance(),
+        override val name: Resource = R.string.menu_vpn_gateways.res()
+) : ListViewBinder(), NamedViewBinder {
 
     private val slotMutex = SlotMutex()
 
     private var items = listOf<ViewBinder>(
-            BlockaVB(ktx, onTap = slotMutex.openOneAtATime)
+            LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res())
     )
 
     private val gatewaysRequest = Handler {
@@ -54,7 +59,9 @@ class GatewaysDashboardSectionVB(
                                 val g = gateways.map {
                                     GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime)
                                 }
-                                items = listOf(items[0]) + g
+                                items = listOf(
+                                    LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res())
+                                ) + g
                                 view?.set(items)
                             }
                         }

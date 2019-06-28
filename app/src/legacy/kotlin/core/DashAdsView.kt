@@ -1,11 +1,11 @@
 package core
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import android.widget.AbsListView
 import android.widget.FrameLayout
+import androidx.recyclerview.widget.RecyclerView
 import filter.AFilterListView
 import io.codetail.widget.RevealFrameLayout
 import org.blokada.R
@@ -102,7 +102,7 @@ interface Backable {
 }
 
 interface ListSection {
-    fun setOnSelected(listener: (item: SlotVB?) -> Unit)
+    fun setOnSelected(listener: (item: Navigable?) -> Unit)
     fun scrollToSelected()
     fun selectNext() {}
     fun selectPrevious() {}

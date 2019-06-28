@@ -123,28 +123,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/unfolded_line_bottom"
                 android:gravity="end"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/unfolded_action0"
+                    android:id="@+id/unfolded_action3"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_arrow_up_drop_circle_outline"
-                    android:padding="@dimen/slot_padding"
-                    android:text="@string/slot_action_close"
-                    android:tint="@color/colorAccent" />
-
-                <Button
-                    android:id="@+id/unfolded_action1"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/slot_action_margin"
-                    android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_arrow_right_drop_circle_outline"
+                    android:drawableEnd="@drawable/ic_arrow_left_drop_circle_outline"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
@@ -160,16 +148,27 @@
                     android:tint="@color/colorAccent" />
 
                 <Button
-                    android:id="@+id/unfolded_action3"
+                    android:id="@+id/unfolded_action1"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/slot_action_margin"
                     android:drawablePadding="@dimen/slot_action_margin"
-                    android:drawableEnd="@drawable/ic_arrow_left_drop_circle_outline"
+                    android:drawableEnd="@drawable/ic_arrow_right_drop_circle_outline"
                     android:padding="@dimen/slot_padding"
                     android:tint="@color/colorAccent" />
 
+                <Button
+                    android:id="@+id/unfolded_action0"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/slot_action_margin"
+                    android:drawablePadding="@dimen/slot_action_margin"
+                    android:drawableEnd="@drawable/ic_arrow_up_drop_circle_outline"
+                    android:padding="@dimen/slot_padding"
+                    android:text="@string/slot_action_close"
+                    android:tint="@color/colorAccent" />
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>

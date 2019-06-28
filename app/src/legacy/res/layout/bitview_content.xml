@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bit_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/bit_unread"
+        android:layout_width="@dimen/slot_unread_size"
+        android:layout_height="@dimen/slot_unread_size"
+        android:layout_gravity="top|start"
+        android:layout_margin="@dimen/slot_unread_size"
+        android:visibility="gone"
+        android:src="@drawable/circle"
+        android:tint="@color/colorAccent" />
+
+    <LinearLayout
+        android:id="@+id/bit_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dashboard_item"
+        android:orientation="horizontal"
+        android:padding="@dimen/slot_content_padding">
+
+        <ImageView
+            android:id="@+id/bit_icon"
+            android:layout_width="@dimen/slot_icon_size"
+            android:layout_height="@dimen/slot_icon_size"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/slot_icon_margin"
+            android:src="@drawable/ic_info"
+            android:tint="@color/colorText" />
+
+        <TextView
+            android:id="@+id/bit_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/slot_secondary_padding"
+            android:layout_marginEnd="@dimen/slot_secondary_padding"
+            android:layout_weight="1"
+            android:maxLines="3"
+            android:textSize="@dimen/slot_secondary_text_size"
+            tools:text="Forwarded google.com" />
+
+        <ImageView
+            android:id="@+id/bit_arrow"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_chevron_right"
+            android:tint="@color/colorActive"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/bit_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            app:theme="@style/Switch2" />
+
+        <TextView
+            android:id="@+id/bit_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/slot_secondary_padding"
+            android:layout_marginEnd="@dimen/slot_secondary_padding"
+            android:textColor="@color/colorInactive"
+            android:textSize="@dimen/slot_secondary_text_size"
+            android:visibility="gone"
+            tools:text="just now" />
+    </LinearLayout>
+</FrameLayout>

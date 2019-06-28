@@ -4,10 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import core.ListSection
-import core.Scrollable
-import core.SlotVB
-import core.VBListView
+import core.*
 import org.blokada.R
 import java.lang.ref.WeakReference
 
@@ -26,6 +23,10 @@ interface ViewBinder {
 interface CallbackViewBinder : ViewBinder {
     fun onAttached(attached: () -> Unit)
     fun onDetached(detached: () -> Unit)
+}
+
+interface NamedViewBinder : ViewBinder {
+    val name: Resource
 }
 
 typealias On = Boolean
@@ -96,9 +97,9 @@ abstract class ListViewBinder : LayoutViewBinder(R.layout.vblistview), ListSecti
     }
 
     protected var view: VBListView? = null
-    protected var onSelectedListener: (SlotVB?) -> Unit = {}
+    protected var onSelectedListener: (Navigable?) -> Unit = {}
 
-    override fun setOnSelected(listener: (item: SlotVB?) -> Unit) {
+    override fun setOnSelected(listener: (item: Navigable?) -> Unit) {
         this.onSelectedListener = listener
         view?.setOnSelected(listener)
     }

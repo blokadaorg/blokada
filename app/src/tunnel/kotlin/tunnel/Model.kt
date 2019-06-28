@@ -140,7 +140,7 @@ data class BlockaConfig(
     }
 
     override fun toString(): String {
-        return "BlockaConfig(adblocking=$adblocking, blockaVpn=$blockaVpn, accountId='$accountId', activeUntil=$activeUntil, leaseActiveUntil=$leaseActiveUntil, publicKey='$publicKey', gatewayId='$gatewayId', gatewayIp='$gatewayIp', gatewayPort=$gatewayPort, vip4='$vip4', vip6='$vip6')"
+        return "BlockaConfig(adblocking=$adblocking, blockaVpn=$blockaVpn, activeUntil=$activeUntil, leaseActiveUntil=$leaseActiveUntil, publicKey='$publicKey', gatewayId='$gatewayId', gatewayIp='$gatewayIp', gatewayPort=$gatewayPort, vip4='$vip4', vip6='$vip6')"
     }
 }
 
@@ -193,7 +193,7 @@ private fun newAccount(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
                                     publicKey = BoringTunJNI.x25519_key_to_base64(public)
                             )
                             ktx.emit(BLOCKA_CONFIG, newCfg)
-                            ktx.v("new user. account id: ${newCfg.accountId}, public key: ${newCfg.publicKey}")
+                            ktx.v("new user. public key: ${newCfg.publicKey}")
                         }
                     }
                     else -> {
@@ -280,7 +280,24 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
 
 fun showSnack(msgResId: Int) {
     activityRegister.getParentView()?.run {
-        Snackbar.make(this, msgResId, Snackbar.LENGTH_LONG).show()
+        val snack = Snackbar.make(this, msgResId, 5000)
+        snack.view.setBackgroundResource(R.drawable.snackbar)
+        snack.view.setPadding(32, 32, 32, 32)
+        snack.setAction(R.string.menu_ok, { snack.dismiss() })
+        snack.show()
+    }
+}
+
+fun showSnack(resource: Resource) {
+    activityRegister.getParentView()?.run {
+        if (resource.hasResId()) showSnack(resource.getResId())
+        else {
+            val snack = Snackbar.make(this, resource.getString(), 5000)
+            snack.view.setBackgroundResource(R.drawable.snackbar)
+            snack.view.setPadding(32, 32, 32, 32)
+            snack.setAction(R.string.menu_ok, { snack.dismiss() })
+            snack.show()
+        }
     }
 }
 

@@ -13,8 +13,8 @@ import android.webkit.*
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import core.ListSection
+import core.Navigable
 import core.Scrollable
-import core.SlotVB
 import gs.environment.Environment
 import gs.environment.Journal
 import gs.environment.LazyProvider
@@ -44,7 +44,7 @@ class WebDash(
     override fun setOnScroll(onScrollDown: () -> Unit, onScrollUp: () -> Unit, onScrollStopped: () -> Unit) {
     }
 
-    override fun setOnSelected(listener: (item: SlotVB?) -> Unit) = Unit
+    override fun setOnSelected(listener: (item: Navigable?) -> Unit) = Unit
 
     override fun scrollToSelected() = Unit
 

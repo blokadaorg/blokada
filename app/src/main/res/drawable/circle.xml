@@ -9,11 +9,18 @@
     <item
         android:bottom="2dp"
         android:top="2dp">
-        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        <shape
             android:shape="oval">
             <stroke
                 android:width="3dp"
                 android:color="@color/colorActive" />
+            <solid android:color="@color/colorBackground" />
+        </shape>
+    </item>
+    <item
+        android:top="300dp">
+        <shape
+            android:shape="rectangle">
             <solid android:color="@color/colorBackground" />
         </shape>
     </item>

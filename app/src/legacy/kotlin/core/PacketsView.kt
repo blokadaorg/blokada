@@ -82,7 +82,7 @@ class PacketsView(
 
     override fun addToHistory(item: Request) {
         this.items.add(item)
-        if (items.size > 1000) items.removeAt(0)
+        if (items.size > 100) items.removeAt(0)
     }
 
     private val base by lazy { Date().time - SystemClock.elapsedRealtime() }
@@ -103,7 +103,8 @@ class PacketsView(
 
 //        val yoffset = height - padding - dpToPx(96)
 //        val xoffset = width - padding
-        val yoffset = context.dpToPx(40)
+        //val yoffset = context.dpToPx(40)
+        val yoffset = 0
         val xoffset = 0
         val maxRadius = if (height > width) height else width
 

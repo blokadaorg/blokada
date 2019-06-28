@@ -3,6 +3,7 @@ package core
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.or
+import core.bits.SlotStatusPersistence
 import io.paperdb.Paper
 
 class Persistence {

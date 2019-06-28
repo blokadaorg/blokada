@@ -1,19 +1,25 @@
-package core
+package core.bits
 
 import android.app.Activity
 import android.graphics.Point
 import com.github.michaelbull.result.onSuccess
 import com.github.salomonbrys.kodein.instance
+import core.*
+import core.bits.menu.adblocking.SlotMutex
+import core.bits.menu.isLandscape
 import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
+import gs.presentation.NamedViewBinder
+import org.blokada.R
 import tunnel.Events
 import tunnel.Request
 import kotlin.math.max
 
 class AdsDashboardSectionVB(
         val ktx: AndroidKontext,
-        val activity: ComponentProvider<Activity> = ktx.di().instance()
-) : ListViewBinder() {
+        val activity: ComponentProvider<Activity> = ktx.di().instance(),
+        override val name: Resource = R.string.menu_ads.res()
+) : ListViewBinder(), NamedViewBinder {
 
     private val screenHeight: Int by lazy {
         val point = Point()
@@ -55,6 +61,10 @@ class AdsDashboardSectionVB(
     }
 
     override fun attach(view: VBListView) {
+        if (isLandscape(ktx.ctx)) {
+            view.enableLandscapeMode(reversed = false)
+        }
+
         tunnel.Persistence.request.load(0).onSuccess {
             it.forEach(request)
         }

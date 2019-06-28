@@ -19,23 +19,26 @@
     <!-- New dimens for the new UI -->
     <dimen name="default_text_size">14sp</dimen>
     <dimen name="secondary_text_size">12sp</dimen>
+    <dimen name="header_text_size">22sp</dimen>
 
     <dimen name="dashboard_navigation_inset">48dp</dimen>
     <dimen name="dashboard_notch_inset">22dp</dimen>
     <dimen name="dashboard_panel_width">1988dp</dimen>
     <dimen name="dashboard_panel_height">128dp</dimen>
     <dimen name="dashboard_panel_anchor_size">24dp</dimen>
-    <dimen name="dashboard_panel_margin_top">54dp</dimen>
-    <dimen name="dashboard_panel_margin_bottom">-58dp</dimen>
-    <dimen name="dashboard_fg_logo_size">42dp</dimen>
-    <dimen name="dashboard_logo_margin_top">10dp</dimen>
+    <dimen name="dashboard_panel_margin_top">56dp</dimen>
+    <dimen name="dashboard_panel_margin_bottom">-56dp</dimen>
+    <dimen name="dashboard_fg_logo_size">32dp</dimen>
+    <dimen name="dashboard_fg_logo_margin_top">80dp</dimen>
+    <dimen name="dashboard_fg_label_margin_top">24dp</dimen>
     <dimen name="dashboard_fg_pager_margin_top">68dp</dimen>
-    <dimen name="dashboard_fg_logo_margin_top">78dp</dimen>
+    <dimen name="dashboard_fg_pager_margin">8dp</dimen>
     <dimen name="dashboard_fg_drag_height">110dp</dimen>
-    <dimen name="dashboard_fg_drag_margin_top">90dp</dimen>
-    <dimen name="dashboard_pager_margin_bottom">80dp</dimen>
+    <dimen name="dashboard_fg_drag_margin_top">52dp</dimen>
+    <dimen name="dashboard_fg_nav_margin_top">@dimen/dashboard_nav_margin_top</dimen>
 
     <dimen name="dashboard_logo_size">48dp</dimen>
+    <dimen name="dashboard_logo_margin_top">10dp</dimen>
     <dimen name="dashboard_logo_margin_start">8dp</dimen>
     <dimen name="dashboard_off_size">256dp</dimen>
     <dimen name="dashboard_start_text_size">@dimen/default_text_size</dimen>
@@ -43,9 +46,8 @@
     <dimen name="dashboard_start_icon_margin_top">12dp</dimen>
     <dimen name="dashboard_start_icon_margin_bottom">64dp</dimen>
     <dimen name="dashboard_pager_margin_top">0dp</dimen>
+    <dimen name="dashboard_pager_margin_bottom">80dp</dimen>
     <dimen name="dashboard_nav_margin_top">0dp</dimen>
-    <dimen name="dashboard_fg_pager_margin">8dp</dimen>
-    <dimen name="dashboard_fg_nav_margin_top">@dimen/dashboard_nav_margin_top</dimen>
     <dimen name="dashboard_nav_align_end_width">400dp</dimen>
 
     <dimen name="dots_padding">8dp</dimen>
@@ -59,6 +61,7 @@
     <dimen name="vblist_margin">16dp</dimen>
     <dimen name="vblist_padding">16dp</dimen>
     <dimen name="vblist_max_width">360dp</dimen>
+    <dimen name="vblist_max_width_menu">@dimen/vblist_max_width</dimen>
 
     <dimen name="vbstep_max_width">@dimen/vblist_max_width</dimen>
     <dimen name="vbstep_height">340dp</dimen>

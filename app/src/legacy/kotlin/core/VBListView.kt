@@ -11,6 +11,7 @@ import android.view.View.OnKeyListener
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,14 +27,14 @@ class VBListView(
         attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet), Scrollable, ListSection {
 
-    override fun setOnSelected(listener: (item: SlotVB?) -> Unit) {
+    override fun setOnSelected(listener: (item: Navigable?) -> Unit) {
         onItemSelect = listener
-        if (adapter.selectedItem != -1) listener(items[adapter.selectedItem] as SlotVB)
+        if (adapter.selectedItem != -1) listener(items[adapter.selectedItem] as Navigable)
     }
 
     var onItemRemove = { item: ViewBinder -> }
     var onEndReached = { }
-    private var onItemSelect = { item: SlotVB? -> }
+    private var onItemSelect = { item: Navigable? -> }
 
     init {
         inflate(context, R.layout.vblistview_content, this)
@@ -41,8 +42,9 @@ class VBListView(
 
     private val listView = findViewById<RecyclerView>(R.id.list)
     private val containerView = findViewById<ConstraintLayout>(R.id.container)
-    private var layoutManager = LinearLayoutManager(context)
+    private var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
     private var alternativeMode = false
+    private var landscapeMode = false
 
     val ktx = ctx.ktx("VBListView")
     val viewBinderHolder: ViewBinderHolder = ktx.di().instance()
@@ -83,16 +85,19 @@ class VBListView(
     }
 
     override fun scrollToSelected() {
-        if (alternativeMode) {
-            val lastVisible = layoutManager.findLastCompletelyVisibleItemPosition()
-            if (adapter.selectedItem >= lastVisible - 1)
-                listView.smoothScrollBy(0, 200)
-        } else {
-            val firstVisible = layoutManager.findFirstCompletelyVisibleItemPosition()
-            if (adapter.selectedItem <= firstVisible + 1)
-                listView.smoothScrollBy(0, -200)
+        val lm = layoutManager
+        if (lm is LinearLayoutManager) {
+            if (alternativeMode) {
+                val lastVisible = lm.findLastCompletelyVisibleItemPosition()
+                if (adapter.selectedItem >= lastVisible - 1)
+                    listView.smoothScrollBy(0, 200)
+            } else {
+                val firstVisible = lm.findFirstCompletelyVisibleItemPosition()
+                if (adapter.selectedItem <= firstVisible + 1)
+                    listView.smoothScrollBy(0, -200)
+            }
+            handlerek.sendEmptyMessageDelayed(0, 800)
         }
-        handlerek.sendEmptyMessageDelayed(0, 800)
     }
 
     val handlerek = Handler {
@@ -122,7 +127,7 @@ class VBListView(
             viewBinderHolder.add(dash, holder.view)
             if (position == selectedItem) {
                 holder.view.setBackgroundResource(R.drawable.bg_focused)
-                onItemSelect(dash as SlotVB)
+                onItemSelect(dash as Navigable)
             } else {
                 holder.view.background = null
             }
@@ -201,7 +206,7 @@ class VBListView(
     }
 
     init {
-        layoutManager.stackFromEnd = true
+        (layoutManager as? LinearLayoutManager)?.stackFromEnd = true
         listView.layoutManager = layoutManager
         listView.adapter = adapter
 //        ItemTouchHelper(touchHelper).attachToRecyclerView(listView)
@@ -222,7 +227,8 @@ class VBListView(
             adapter.notifyItemInserted(items.size - 1)
         } else {
             if(position < items.size){
-                val firstWasVisible = layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                val lm = layoutManager
+                val firstWasVisible = if (lm is LinearLayoutManager) lm.findFirstCompletelyVisibleItemPosition() == 0 else false
                 items.add(position, item)
                 adapter.notifyItemInserted(position)
                 if (firstWasVisible) listView.smoothScrollToPosition(0)
@@ -248,15 +254,26 @@ class VBListView(
 
     fun getItemCount() = items.size
 
+    fun orderFromTop() {
+        layoutManager = LinearLayoutManager(context)
+        listView.layoutManager = layoutManager
+    }
+
     fun enableAlternativeMode() {
         alternativeMode = true
         layoutManager = LinearLayoutManager(context)
         listView.layoutManager = layoutManager
+        containerView.maxWidth = context.resources.getDimensionPixelSize(R.dimen.vblist_max_width_menu)
 
 //        val lp = containerView.layoutParams as FrameLayout.LayoutParams
 //        lp.marginEnd = 0
 //        lp.marginStart = 0
 //        containerView.layoutParams = lp
+    }
+
+    fun enableLandscapeMode(reversed: Boolean = false) {
+        layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, reversed)
+        listView.layoutManager = layoutManager
     }
 
     override fun getScrollableView() = listView

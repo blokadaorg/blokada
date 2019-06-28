@@ -6,7 +6,6 @@ import android.net.Uri
 import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
@@ -369,7 +368,7 @@ class StartViewBinder(
 
     override fun getScrollableView() = view!!
 
-    override fun setOnSelected(listener: (item: SlotVB?) -> Unit) = web.setOnSelected(listener)
+    override fun setOnSelected(listener: (item: Navigable?) -> Unit) = web.setOnSelected(listener)
 
     override fun scrollToSelected() = web.scrollToSelected()
 

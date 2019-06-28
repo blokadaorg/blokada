@@ -509,14 +509,14 @@ class LabelView(
 }
 
 class LabelVB(
-        val label: String? = null,
-        val labelResId: Int? = null
+        val ktx: AndroidKontext,
+        val i18n: I18n = ktx.di().instance(),
+        val label: Resource
 ) : LayoutViewBinder(R.layout.labelview) {
 
     override fun attach(view: View) {
         view as LabelView
-        if (label != null) view.label = label
-        else if (labelResId != null) view.labelResId = labelResId
+        view.label = i18n.getString(label)
     }
 
 }

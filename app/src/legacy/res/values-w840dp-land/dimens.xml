@@ -1,23 +1,5 @@
 <resources>
     <dimen name="default_text_size">16sp</dimen>
     <dimen name="secondary_text_size">14sp</dimen>
-
-    <dimen name="dashboard_panel_width">2000dp</dimen>
-    <dimen name="dashboard_notch_inset">30dp</dimen>
-    <dimen name="dashboard_logo_size">48dp</dimen>
-    <dimen name="dashboard_logo_margin_top">12dp</dimen>
-    <dimen name="dashboard_pager_margin_bottom">110dp</dimen>
-    <dimen name="dashboard_panel_anchor_size">48dp</dimen>
-    <dimen name="dashboard_panel_margin_top">62dp</dimen>
-    <dimen name="dashboard_panel_margin_bottom">-62dp</dimen>
-    <dimen name="dashboard_fg_pager_margin_top">76dp</dimen>
-    <dimen name="dashboard_fg_logo_margin_top">90dp</dimen>
-    <dimen name="dashboard_nav_align_end_width">820dp</dimen>
-
-    <dimen name="dots_padding_sides">4dp</dimen>
-    <dimen name="dots_text_size">@dimen/default_text_size</dimen>
-    <dimen name="dots_margin_top">8dp</dimen>
-    <dimen name="dots_size">14dp</dimen>
-
-    <dimen name="vblist_max_width">600dp</dimen>
+    <dimen name="header_text_size">22sp</dimen>
 </resources>

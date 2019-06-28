@@ -2,6 +2,7 @@ package core
 
 import android.app.Activity
 import android.widget.FrameLayout
+import android.widget.ImageView
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
@@ -21,6 +22,7 @@ import java.net.URL
 class SubscriptionActivity : Activity() {
 
     private val container by lazy { findViewById<FrameLayout>(R.id.view) }
+    private val close by lazy { findViewById<ImageView>(R.id.close) }
     private val ktx = ktx("SubscriptionActivity")
     private val w: Worker by lazy { ktx.di().with("gscore").instance<Worker>() }
 
@@ -50,6 +52,7 @@ class SubscriptionActivity : Activity() {
             view?.run { dash.attach(this) }
         }
         container.addView(view)
+        close.setOnClickListener { finish() }
     }
 
     override fun onDestroy() {
@@ -57,6 +60,7 @@ class SubscriptionActivity : Activity() {
         view?.run { dash.detach(this) }
         container.removeAllViews()
         subscriptionUrl.cancel(listener)
+        modalManager.closeModal()
     }
 
     override fun onStart() {

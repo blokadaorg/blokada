@@ -39,7 +39,7 @@ class DotsView(
         set(value) {
             field = value
             value?.apply {
-                dotsView.setViewPager(this)
+//                dotsView.setViewPager(this)
                 dotsView.setAnimationType(AnimationType.WORM);
             }
         }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/byte_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dashboard_item"
+    android:padding="@dimen/slot_content_padding">
+
+    <ImageView
+        android:id="@+id/byte_arrow"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|center_vertical"
+        android:gravity="center_vertical"
+        android:padding="@dimen/slot_icon_margin"
+        android:tint="@color/colorAccent" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/byte_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|center_vertical"
+        android:padding="@dimen/slot_icon_margin"
+        android:visibility="gone"
+        app:theme="@style/Switch2" />
+
+    <ImageView
+        android:id="@+id/byte_icon"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|center_vertical"
+        android:padding="@dimen/slot_icon_margin"
+        android:src="@drawable/ic_block"
+        android:tint="@color/colorActive" />
+
+    <LinearLayout
+        android:id="@+id/byte_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/byte_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/slot_secondary_padding"
+            android:layout_marginEnd="@dimen/slot_secondary_padding"
+            android:maxLines="1"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/header_text_size"
+            tools:text="39,894" />
+
+        <TextView
+            android:id="@+id/byte_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/slot_secondary_padding"
+            android:layout_marginEnd="@dimen/slot_secondary_padding"
+            android:gravity="center"
+            android:textColor="@color/colorInactive"
+            android:textSize="@dimen/slot_secondary_text_size"
+            tools:text="blocked" />
+    </LinearLayout>
+
+</FrameLayout>

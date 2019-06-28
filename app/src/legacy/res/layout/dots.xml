@@ -32,6 +32,7 @@
             android:textSize="@dimen/dots_text_size" />
 
         <com.rd.PageIndicatorView
+            android:visibility="gone"
             android:id="@+id/worm_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

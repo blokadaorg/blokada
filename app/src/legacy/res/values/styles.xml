@@ -3,7 +3,7 @@
     <style name="BlokadaColors" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorBackground</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/switch_on</item>
         <item name="colorControlNormal">@color/colorActive</item>
         <item name="android:textColorPrimary">@color/colorText</item>
         <item name="android:textColorLink">@color/colorAccent</item>
@@ -36,6 +36,12 @@
 
     <style name="Switch" parent="BlokadaColors">
         <item name="colorSwitchThumbNormal">@color/colorActive</item>
+    </style>
+
+    <style name="Switch2" parent="BlokadaColors">
+        <item name="colorSwitchThumbNormal">@color/colorActive</item>
+        <item name="colorAccent">@color/switch_on</item>
+        <item name="android:textColorLink">@color/switch_on</item>
     </style>
 
     <style name="GsTheme" parent="Theme.AppCompat.NoActionBar">
