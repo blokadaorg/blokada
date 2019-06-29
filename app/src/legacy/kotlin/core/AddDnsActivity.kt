@@ -77,7 +77,7 @@ class EnterIpVB(
     private val inputRegex = Regex("^(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]))(?::\\d{1,5})?$")
 
     private fun validate(input: String) = when {
-        !input.matches(inputRegex) -> ktx.ctx.resources.getString(R.string.dns_edit_name_error)
+        !input.matches(inputRegex) -> ktx.ctx.resources.getString(R.string.slot_enter_dns_error)
         else -> null
     }
 

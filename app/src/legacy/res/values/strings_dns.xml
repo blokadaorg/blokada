@@ -7,7 +7,8 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Custom</string>
     <string name="dns_custom_comment">Custom DNS</string>
-    <string name="dns_custom_add_slot">Add new DNS</string>
+    <string name="dns_custom_add_slot">Add new DNS…</string>
+    <string name="slot_enter_dns_error">This does not look like an IPv4 to me.</string>
 
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_name_placeholder">8.8.8.8</string>
