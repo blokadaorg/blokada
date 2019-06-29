@@ -122,7 +122,7 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"></activity>
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
 
         <activity
             android:name="core.PowersaveActivity"
