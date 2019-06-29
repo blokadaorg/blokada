@@ -18,9 +18,11 @@ class AllAppsDashboardSectionVB(val ctx: Context, val system: Boolean) : ListVie
 
     private var apps: List<App> = emptyList()
     private var fil: Collection<String> = emptyList()
+    private var filLoaded = false
 
     private var updateApps = { filters: Collection<Filter> ->
         fil = filters.filter { it.source.id == "app" && it.active }.map { it.source.source }
+        filLoaded = true
         updateListing()
         Unit
     }
@@ -28,7 +30,7 @@ class AllAppsDashboardSectionVB(val ctx: Context, val system: Boolean) : ListVie
     private var getApps: IWhen? = null
 
     private fun updateListing(keyword: String = "") {
-        if (apps.isEmpty() || fil.isEmpty()) return
+        if (apps.isEmpty() || !filLoaded) return
 
         val whitelisted = apps.filter { (it.appId in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }
         val notWhitelisted = apps.filter { (it.appId !in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }
