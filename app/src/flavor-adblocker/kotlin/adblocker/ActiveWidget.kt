@@ -62,9 +62,6 @@ class WidgetData {
 class ActiveWidgetProvider : AppWidgetProvider() {
     override fun onEnabled(context: Context?) {
         super.onEnabled(context)
-        val serviceIntent = Intent(context?.applicationContext,
-                UpdateWidgetService::class.java)
-        context?.startService(serviceIntent)
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -269,7 +266,19 @@ class UpdateWidgetService : Service() {
             TunnelState.DEACTIVATED, TunnelState.INACTIVE ->
                 remoteViews.setInt(R.id.widget_active, "setColorFilter", color(active = false, waiting = false))
         }
+
         appWidgetManager.partiallyUpdateAppWidget(appWidgetManager.getAppWidgetIds(thisWidget), remoteViews)
+
+        appWidgetManager.getAppWidgetIds(thisWidget).forEach {
+            val intent = Intent(this, ActiveWidgetProvider::class.java)
+            intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, it)
+            intent.putExtra("changeBlokadaState", true)
+            val pendingIntent = PendingIntent.getBroadcast(this.applicationContext,
+                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            remoteViews.setOnClickPendingIntent(R.id.widget_active, pendingIntent)
+            appWidgetManager.partiallyUpdateAppWidget(it, remoteViews)
+        }
     }
 
     private fun onDnsChanged() {
@@ -436,6 +445,10 @@ class ConfigWidgetActivity : Activity() {
             data.id = appWidgetId
 
             ktx().emit(NEW_WIDGET, data)
+
+            val serviceIntent = Intent(this.applicationContext,
+                    UpdateWidgetService::class.java)
+            this.startService(serviceIntent)
 
             val resultValue = Intent()
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)

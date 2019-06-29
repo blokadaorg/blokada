@@ -21,10 +21,6 @@ class ListWidgetProvider : AppWidgetProvider() {
                 R.layout.view_list_widget)
         val t: Tunnel = context.inject().instance()
 
-        remoteViews.setTextViewText(R.id.widget_list_title, context.resources.getString(R.string.notification_keepalive_title, t.tunnelDropCount()))
-        remoteViews.setTextViewText(R.id.widget_list_text, context.getString(R.string.notification_keepalive_content, t.tunnelRecentDropped().lastOrNull()
-                ?: ""))
-
         var domainList = ""
         val duplicates = ArrayList<String>(0)
         t.tunnelRecentDropped().asReversed().forEach { s ->
@@ -40,10 +36,10 @@ class ListWidgetProvider : AppWidgetProvider() {
         remoteViews.setOnClickPendingIntent(R.id.widget_list_button, PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
         if (t.enabled()) {
             remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = true, waiting = false))
-            remoteViews.setTextViewText(R.id.widget_list_button, context.resources.getString(R.string.notification_keepalive_activate))
+            remoteViews.setTextViewText(R.id.widget_list_button, context.resources.getString(R.string.notification_keepalive_deactivate))
         } else {
             remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = false, waiting = false))
-            remoteViews.setTextViewText(R.id.widget_list_button, context.resources.getString(R.string.notification_keepalive_deactivate))
+            remoteViews.setTextViewText(R.id.widget_list_button, context.resources.getString(R.string.notification_keepalive_activate))
         }
         appWidgetManager?.updateAppWidget(appWidgetIds, remoteViews)
     }
