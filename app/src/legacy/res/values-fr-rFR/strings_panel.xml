@@ -49,7 +49,7 @@
     <string name="slot_intro_new">Comment utiliser la nouvelle interface graphique ? Appuyez ici pour en savoir plus.</string>
     <string name="slot_intro_new_header">Comment utiliser la nouvelle interface graphique ?</string>
     <string name="slot_intro_desc">Vous êtes actuellement dans la section Accueil, glisser vers de la droite vers la gauche pour en voir plus. Chaque section possède un menu en bas de l\'écran, ouvrez-le en le faisant glisser vers le haut. &lt;br/&gt;&lt;br/&gt;Sur Android TV vous pouvez naviguer dans l\'interface avec le dpad. Utilisez la touche centrale pour ouvrir le menu du bas, ou tout élément que vous sélectionnez. Les boutons sont marqués par la flèche haut, bas, gauche ou droite ; utilisez les touches de direction pour les cliquer.</string>
-    <string name="slot_intro_info">Psst... Certains éléments ont affichent un point d\'interrogation. Appuyez dessus pour afficher un message d\'aide court, comme celui-ci !</string>
+    <string name="slot_intro_info">Psst... Certains éléments affichent un point d\'interrogation. Appuyez dessus pour afficher un message d\'aide court, comme celui-ci !</string>
     <string name="slot_new_filter">Ajouter un domaine à la liste noire</string>
     <string name="slot_new_filter_list">Ajouter une nouvelle liste</string>
     <string name="slot_new_filter_whitelist">Ajouter un domaine à la liste blanche</string>
@@ -102,7 +102,7 @@
     <string name="slot_forwarded_title">Domaine transféré</string>
     <string name="slot_whitelist_title">Application en liste blanche</string>
     <string name="slot_list_no_desc">Cette entrée n\'a aucune description.</string>
-    <string name="slot_status_description_active">Le bloqueur de pubs est actuellement &lt;b&gt;activé&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Vous verrez l\'image de fond s\'animer à mesurue que les publicités, les trackers et d\'autres contenus non désirés seront bloqués.</string>
+    <string name="slot_status_description_active">Le bloqueur de pubs est actuellement &lt;b&gt;activé&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;Vous verrez l\'image de fond s\'animer à mesure que les publicités, les trackers et d\'autres contenus non désirés seront bloqués.</string>
     <string name="slot_status_description_inactive">Le bloqueur de pubs est actuellement &lt;b&gt;désactivé&lt;/b&gt;.</string>
     <string name="slot_status_info">Lorsque l\'application est active, vous verrez une icône de clé dans la barre de notification en haut de l\'écran, ce qui signifie que votre appareil est protégé. Vous pouvez désactiver l\'application en utilisant le bouton ci-dessous, ou en glissant vers le bas.</string>
     <string name="slot_status_vpn_turn_off">Désactiver le VPN</string>
@@ -184,7 +184,7 @@
     <!-- A button to share debug log. Keep it short. -->
     <string name="slot_about_share_log">Journal</string>
     <string name="slot_help_label">Besoin d’aide ?</string>
-    <string name="slot_help_desc">Appuyez sur le bouton ci-dessous pour ouvrir notre page d\'aide. Vous pouvez également utiliser nos médias sociaux pour obtenir de l\'aide, nous sommes sur Telegram, Facebook, Reddit et Twitter.</string>
+    <string name="slot_help_desc">Appuyez sur le bouton ci-dessous pour ouvrir notre page d\'aide. Vous pouvez également utiliser nos réseaux sociaux pour obtenir de l\'aide, nous sommes sur Telegram, Facebook, Reddit et Twitter.</string>
     <!-- A button to open help -->
     <string name="slot_help_action">Aide</string>
     <string name="slot_donate_label">Vous aimez Blokada ? Pensez à nous soutenir, pour que nous puissions continuer à améliorer l\'application.</string>
