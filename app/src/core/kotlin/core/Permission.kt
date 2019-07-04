@@ -4,7 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
-import android.support.v4.content.ContextCompat.checkSelfPermission
+import androidx.core.content.ContextCompat.checkSelfPermission
 import kotlinx.coroutines.experimental.CompletableDeferred
 
 private var deferred = CompletableDeferred<Boolean>()

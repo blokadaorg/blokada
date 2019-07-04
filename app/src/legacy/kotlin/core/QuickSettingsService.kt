@@ -33,6 +33,7 @@ class QuickSettingsService : TileService(), IEnabledStateActorListener {
 
     override fun onClick() {
         if (waiting.get()) return
+        s.error %= false
         s.enabled %= !s.enabled()
         updateTile()
     }

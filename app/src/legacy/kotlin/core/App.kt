@@ -8,6 +8,7 @@ import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Worker
 import gs.environment.inject
+import gs.presentation.ViewBinderHolder
 import gs.property.*
 import kotlinx.coroutines.experimental.launch
 import org.blokada.BuildConfig
@@ -20,6 +21,7 @@ abstract class UiState {
     abstract val dashes: IProperty<List<Dash>>
     abstract val infoQueue: IProperty<List<Info>>
     abstract val showSystemApps: IProperty<Boolean>
+    abstract val showBgAnim: IProperty<Boolean>
 }
 
 class AUiState(
@@ -34,7 +36,7 @@ class AUiState(
     )
 
     override val notifications = newPersistedProperty(kctx, APrefsPersistence(ctx, "notifications"),
-            { true }
+            { false } // By default, have notifications off. 
     )
 
     override val dashes = newPersistedProperty(kctx, ADashesPersistence(ctx), { ctx.inject().instance() })
@@ -42,8 +44,12 @@ class AUiState(
     override val infoQueue = newProperty(kctx, { listOf<Info>() })
 
     override val showSystemApps = newPersistedProperty(kctx, APrefsPersistence(ctx, "showSystemApps"),
-            { true })
+            { true }
+    )
 
+    override val showBgAnim = newPersistedProperty(kctx, APrefsPersistence(ctx, "backgroundAnimation"),
+            { true }
+    )
 }
 
 fun newAppModule(ctx: Context): Kodein.Module {
@@ -70,6 +76,9 @@ fun newAppModule(ctx: Context): Kodein.Module {
                         core.Result.of { i18n.set(key, value); true }
                     }
             )
+        }
+        bind<ViewBinderHolder>() with singleton {
+            ViewBinderHolder()
         }
 
         onReady {

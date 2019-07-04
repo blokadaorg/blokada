@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">O %s está ativo.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">O %1$s está agora a proteger o seu dispositivo. Pode ajustar o %1$s em baixo ou deixar as definições como estão!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">O %s está inativo.</string>

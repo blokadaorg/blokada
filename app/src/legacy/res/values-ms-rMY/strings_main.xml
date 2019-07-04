@@ -10,6 +10,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s sedang aktif.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s sedang aktif. Bersambung kepada VPN.</string>
+    <string name="main_active_novpn">%s sedang aktif. Tiada sambungan kepada VPN.</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s sedang melindungi peranti anda dari iklan. Anda boleh menala %1$s di bawah, atau terus menggunakan peranti anda sekarang!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s tidak aktif.</string>
@@ -18,7 +21,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable_tethering">%1$s terhenti kerana peranti anda sedang menggunakan aplikasi WiFi Hotspot. %1$s akan kembali aktif apabila aplikasi WiFi Hotspot ini dimatikan.</string>
     <!-- Label for the Quick Settings toggle -->
-    <string name="main_quicksettings_toggle">Aktivkan</string>
+    <string name="main_quicksettings_toggle">Aktifkan</string>
     <!-- Active status for the Quick Settings toggle -->
     <string name="main_quicksettings_on">Aktif</string>
     <!-- Disabled status for the Quick Settings toggle -->

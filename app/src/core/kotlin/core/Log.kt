@@ -1,5 +1,6 @@
 package core
 
+import android.content.Context
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintWriter
@@ -12,7 +13,7 @@ interface Log {
     fun v(vararg msgs: Any)
 }
 
-private const val LOG_DEFAULT_TAG = "b3"
+private const val LOG_DEFAULT_TAG = "b4"
 private const val LOG_ERROR = 6
 private const val LOG_WARNING = 5
 private const val LOG_VERBOSE = 2
@@ -55,15 +56,19 @@ val defaultWriter by lazy { FileLogWriter() }
 
 class FileLogWriter {
 
-    private var file: PrintWriter? = try {
-        val path = File(getExternalPath(), "blokada.log")
-        val writer = PrintWriter(FileOutputStream(path, true), true)
-        if (path.length() > 10 * 1024 * 1024) path.delete()
-        logcatWriter(LOG_VERBOSE, LOG_DEFAULT_TAG, "writing logs to file: ${path.canonicalPath}")
-        writer
-    } catch (ex: Exception) {
-        logcatWriter(LOG_WARNING, LOG_DEFAULT_TAG, "fail opening log file: ${ex.message}")
-        null
+    lateinit var ctx: Context
+
+    private val file by lazy {
+        try {
+            val path = File(ctx.filesDir, "blokada.log")
+            val writer = PrintWriter(FileOutputStream(path, true), true)
+            if (path.length() > 4 * 1024 * 1024) path.delete()
+            logcatWriter(LOG_VERBOSE, LOG_DEFAULT_TAG, "writing logs to file: ${path.canonicalPath}")
+            writer
+        } catch (ex: Exception) {
+            logcatWriter(LOG_WARNING, LOG_DEFAULT_TAG, "fail opening log file: ${ex.message}")
+            null
+        }
     }
 
     @Synchronized internal fun writer(priority: Int, tag: String, line: String) {

@@ -1,6 +1,8 @@
 buildscript {
-    ext.kotlin_version = '1.2.41'
+    ext.kotlin_version = '1.3.30'
     ext.acraVersion = '5.1.3'
+    ext.retrofitVersion = '2.5.0'
+    ext.okhttpVersion = '3.14.0'
     repositories {
         mavenCentral()
         google()
@@ -11,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.gladed.androidgitversion' version '0.4.3'
+    id 'com.gladed.androidgitversion' version '0.4.7'
 }
 
 repositories {
@@ -29,9 +31,10 @@ androidGitVersion {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -42,16 +45,17 @@ android {
     defaultConfig {
         applicationId "org.blokada"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionName androidGitVersion.name()
         versionCode androidGitVersion.code()
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         abortOnError false
     }
     sourceSets {
         // Modules do NOT make a runnable app separately
+        // But you can actually choose a module-only build variant to work on it
         moduleCore.java.srcDirs += 'src/core/kotlin'
         testModuleCore.java.srcDirs += 'src/test-core/kotlin'
 
@@ -64,6 +68,12 @@ android {
         moduleG11n.java.srcDirs += 'src/g11n/kotlin'
         testModuleG11n.java.srcDirs += 'src/test-core/kotlin'
         testModuleG11n.java.srcDirs += 'src/test-g11n/kotlin'
+
+        moduleVpn.java.srcDirs += 'src/core/kotlin'
+        moduleVpn.java.srcDirs += 'src/vpn/kotlin'
+        moduleVpn.jniLibs.srcDirs += 'src/vpn/jniLibs'
+        testModuleVpn.java.srcDirs += 'src/test-core/kotlin'
+        testModuleVpn.java.srcDirs += 'src/test-vpn/kotlin'
 
         moduleLegacy.java.srcDirs += 'src/core/kotlin'
         moduleLegacy.java.srcDirs += 'src/tunnel/kotlin'
@@ -78,20 +88,25 @@ android {
         adblockerHome.java.srcDirs += 'src/core/kotlin'
         adblockerHome.java.srcDirs += 'src/tunnel/kotlin'
         adblockerHome.java.srcDirs += 'src/g11n/kotlin'
+        adblockerHome.java.srcDirs += 'src/vpn/kotlin'
         adblockerHome.java.srcDirs += 'src/legacy/kotlin'
         adblockerHome.java.srcDirs += 'src/flavor-adblocker/kotlin'
+        adblockerHome.jniLibs.srcDirs += 'src/vpn/jniLibs'
         adblockerHome.res.srcDirs += 'src/legacy/res'
         adblockerHome.res.srcDirs += 'src/flavor-adblocker/res'
         testAdblockerHome.java.srcDirs += 'src/test-core/kotlin'
         testAdblockerHome.java.srcDirs += 'src/test-tunnel/kotlin'
         testAdblockerHome.java.srcDirs += 'src/test-g11n/kotlin'
+        testAdblockerHome.java.srcDirs += 'src/test-vpn/kotlin'
 
         adblockerFdroid.manifest.srcFile 'src/legacy/AndroidManifest.xml'
         adblockerFdroid.java.srcDirs += 'src/core/kotlin'
         adblockerFdroid.java.srcDirs += 'src/tunnel/kotlin'
         adblockerFdroid.java.srcDirs += 'src/g11n/kotlin'
+        adblockerFdroid.java.srcDirs += 'src/vpn/kotlin'
         adblockerFdroid.java.srcDirs += 'src/legacy/kotlin'
         adblockerFdroid.java.srcDirs += 'src/flavor-adblocker/kotlin'
+        adblockerFdroid.jniLibs.srcDirs += 'src/vpn/jniLibs'
         adblockerFdroid.res.srcDirs += 'src/legacy/res'
         adblockerFdroid.res.srcDirs += 'src/flavor-adblocker/res'
 
@@ -156,15 +171,16 @@ android {
         moduleCore {}
         moduleTunnel {}
         moduleG11n {}
+        moduleVpn {}
         moduleLegacy {}
     }
 }
 
 dependencies {
     // Android support libraries
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
     // Kotlin and its dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -172,6 +188,7 @@ dependencies {
     implementation 'nl.komponents.kovenant:kovenant-core:3.3.0'
     implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.1"
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M1'
     implementation 'io.paperdb:paperdb:2.6'
     implementation 'com.github.michaelbull:kotlin-result:1.0.8'
 
@@ -179,11 +196,30 @@ dependencies {
     implementation 'org.pcap4j:pcap4j-core:1.7.0'
     implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.0'
     implementation 'dnsjava:dnsjava:2.1.8'
+    implementation 'org.slf4j:slf4j-nop:1.6.1'
 
     // UI libraries
-    implementation ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
+    implementation('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
         transitive = true
     }
+    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
+    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'com.ramotion.foldingcell:folding-cell:1.2.2'
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:2.1.2'
+    implementation 'jp.wasabeef:blurry:3.0.0'
+    implementation 'com.github.ps100000:PageIndicatorView:v1.0.4'
+
+    // REST api
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion"){
+        exclude module: 'okhttp'
+    }
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // Testing and debugging
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
@@ -191,7 +227,7 @@ dependencies {
     implementation "ch.acra:acra-limiter:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }

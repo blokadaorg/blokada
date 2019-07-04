@@ -215,7 +215,7 @@ class ADashView(
     var showClickAnim = true
 
     private val iconView by lazy { findViewById(R.id.dash_icon) as android.widget.ImageView }
-    private val switchView by lazy { findViewById(R.id.dash_switch) as android.support.v7.widget.SwitchCompat }
+    private val switchView by lazy { findViewById(R.id.dash_switch) as androidx.appcompat.widget.SwitchCompat }
     private val textView by lazy { findViewById(R.id.dash_text) as android.widget.TextView }
     private val inter = android.view.animation.AccelerateDecelerateInterpolator()
     private val dur = 80L

@@ -31,7 +31,11 @@ internal class ServiceConnector(
 
     private val serviceConnection = object: ServiceConnection {
         @Synchronized override fun onServiceConnected(name: ComponentName, binder: IBinder) {
-            val b = binder as ServiceBinder
+            if (binder !is ServiceBinder) {
+                "tunnel".ktx().e("service binder of wrong type", binder::class.java)
+                return
+            }
+            val b = binder
             b.onClose = onClose
             b.onConfigure = onConfigure
             deferred.complete(b)

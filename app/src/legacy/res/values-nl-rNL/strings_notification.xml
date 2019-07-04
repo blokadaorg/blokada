@@ -5,6 +5,7 @@
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Adv. geblokkeerd</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">Verbergen</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->

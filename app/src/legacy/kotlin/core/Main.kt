@@ -33,6 +33,8 @@ import org.acra.data.StringFormat
 import org.acra.sender.HttpSender
 import org.blokada.BuildConfig
 import org.blokada.R
+import tunnel.blokadaUserAgent
+import tunnel.newRestApiModule
 
 
 /**
@@ -62,6 +64,8 @@ class MainApplication: Application(), KodeinAware {
         import(newPagesModule(this@MainApplication))
         import(newUpdateModule(this@MainApplication))
         import(newKeepAliveModule(this@MainApplication))
+        import(newBatteryModule(this@MainApplication))
+        import(newRestApiModule(this@MainApplication))
         import(newAppModule(this@MainApplication), allowOverride = true)
         import(newFlavorModule(this@MainApplication), allowOverride = true)
         import(newBuildTypeModule(this@MainApplication), allowOverride = true)
@@ -70,8 +74,10 @@ class MainApplication: Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         Paper.init(this)
+        defaultWriter.ctx = this
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
+        ktx.v(blokadaUserAgent(this))
         setRestartAppOnCrash()
     }
 

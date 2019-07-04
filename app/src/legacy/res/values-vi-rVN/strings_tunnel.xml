@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Tải về các bộ lọc chỉ khi đang kết nối với wifi</string>
     <string name="tunnel_dropped_count_desc">Hiển thị tổng số máy chủ bị chặn cho đến nay.</string>
     <string name="tunnel_dropped_count">đã chặn %d quảng cáo</string>
-    <string name="tunnel_dropped_count2">đã chặn %s quảng cáo</string>
     <string name="tunnel_config_refetch_now_title">Tải xuống các danh sách</string>
     <string name="tunnel_config_refetch_now">Tải xuống các danh sách bây giờ</string>
     <string name="tunnel_config_refetch_now_description">Sử dụng nút dưới để xoá bộ nhớ cache và tải lại các danh sách. Điều này có thể giúp nếu bạn đang gặp vấn đề với việc chặn quảng cáo.</string>

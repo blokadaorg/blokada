@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">go.blokada.org</domain>
+        <domain includeSubdomains="false">block.blokada.org</domain>
+    </domain-config>
+</network-security-config>

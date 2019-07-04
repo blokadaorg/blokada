@@ -2,12 +2,15 @@ package core
 
 import android.content.Context
 import org.blokada.R
+import java.text.DateFormat
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 object Format {
 
     private var format: NumberFormat = NumberFormat.getInstance(Locale.getDefault())
+    private var dateFormat: DateFormat = SimpleDateFormat.getDateTimeInstance()
     private var thousand: String = "%s"
     private var million: String = "%s"
 
@@ -25,4 +28,6 @@ object Format {
             else thousand.format(format.format(value / 1_000))
         }
     }
+
+    fun date(date: Date) = dateFormat.format(date)
 }

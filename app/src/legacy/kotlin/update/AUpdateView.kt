@@ -11,11 +11,8 @@ import android.widget.ScrollView
 import android.widget.TextView
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
-import core.OpenInBrowserDash
 import core.Pages
 import gs.environment.inject
-import gs.presentation.SimpleDialog
-import gs.presentation.WebDash
 import gs.property.Version
 import org.blokada.R
 
@@ -32,7 +29,6 @@ class AUpdateView(
             field = value
             if (value == null) {
                 download.visibility = View.GONE
-                creditsView.visibility = View.VISIBLE
                 appInfo.visibility = View.VISIBLE
                 headerView.text = context.getString(R.string.update_header_noupdate)
                 headerView.setTextColor(context.resources.getColor(R.color.colorActive))
@@ -40,7 +36,6 @@ class AUpdateView(
                 iconView.setImageResource(R.drawable.ic_info)
             } else {
                 download.visibility = View.VISIBLE
-                creditsView.visibility = View.GONE
                 appInfo.visibility = View.GONE
                 headerView.text = "${context.getString(R.string.update_header)} ${context.getString(R.string.branding_app_name)} ${value}"
                 headerView.setTextColor(context.resources.getColor(R.color.colorAccent))
@@ -53,11 +48,9 @@ class AUpdateView(
     var onClickBackup = {}
 
     private val currentView by lazy { findViewById(R.id.update_current) as TextView }
-    private val creditsView by lazy { findViewById(R.id.update_credits) as View }
     private val download by lazy { findViewById(R.id.update_download) as TextView }
     private val headerView by lazy { findViewById(R.id.update_header) as TextView }
     private val iconView by lazy { findViewById(R.id.update_icon) as ImageView }
-    private val changelogView by lazy { findViewById(R.id.update_changelog) as View }
     private val makerView by lazy { findViewById(R.id.update_maker) as View }
     private val appInfo by lazy { findViewById(R.id.update_appinfo) as TextView }
 
@@ -65,21 +58,6 @@ class AUpdateView(
     private val pages by lazy { ctx.inject().instance<Pages>() }
 
     private val xx = LazyKodein(ctx.inject)
-    private val dialogChangelog by lazy {
-        val dash = WebDash(xx, pages.changelog, reloadOnError = true)
-        val d = SimpleDialog(xx, dash, additionalButton = R.string.welcome_open)
-        d.onClosed = { accept ->
-            if (accept == 2) {
-                OpenInBrowserDash(ctx, pages.changelog).onClick?.invoke(0)
-            }
-        }
-        d
-    }
-
-    private val dialogCredits by lazy {
-        val dash = WebDash(xx, pages.credits, reloadOnError = true)
-        SimpleDialog(xx, dash)
-    }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -92,14 +70,6 @@ class AUpdateView(
             canClick = true
             onClickBackup()
         }}
-
-        changelogView.setOnClickListener {
-            dialogChangelog.show()
-        }
-
-        creditsView.setOnClickListener {
-            dialogCredits.show()
-        }
 
         makerView.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)

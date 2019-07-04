@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -16,6 +14,10 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.github.salomonbrys.kodein.*
 import filter.AFilterView
 import filter.AFilterViewHolder
@@ -77,7 +79,13 @@ abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
     abstract val dnsServers: IProperty<List<InetSocketAddress>>
     abstract val fallback: IProperty<Boolean>
+    abstract fun hasCustomDnsSelected(): Boolean
 }
+
+val FALLBACK_DNS = listOf(
+        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 1, 1, 1)), 53),
+        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 0, 0, 1)), 53)
+)
 
 class DnsImpl(
         w: Worker,
@@ -88,6 +96,10 @@ class DnsImpl(
         d: Device = xx().instance(),
         ctx: Context = xx().instance()
 ) : Dns() {
+
+    override fun hasCustomDnsSelected(): Boolean {
+        return choices().firstOrNull { it.id != "default" && it.active } != null
+    }
 
     private val refresh = { it: List<DnsChoice> ->
         val ktx = "dns:refresh".ktx()
@@ -160,10 +172,7 @@ class DnsImpl(
         dnsServers.doWhenChanged(withInit = true).then {
             val current = dnsServers()
             if (fallback() && isLocalServers(current)) {
-                dnsServers %= listOf(
-                        InetSocketAddress("1.1.1.1", 53),
-                        InetSocketAddress("1.0.0.1", 53)
-                )
+                dnsServers %= FALLBACK_DNS
                 "dns".ktx().w("local DNS detected, setting CloudFlare as workaround")
             }
         }
@@ -771,14 +780,14 @@ class DnsAddTabView(
 
     private var ready = false
 
-    private val pager by lazy { findViewById(R.id.filters_pager) as android.support.v4.view.ViewPager }
+    private val pager by lazy { findViewById(R.id.filters_pager) as ViewPager }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
 
         ready = true
         pager.offscreenPageLimit = 3
-        pager.adapter = object : android.support.v4.view.PagerAdapter() {
+        pager.adapter = object : PagerAdapter() {
 
             override fun instantiateItem(container: android.view.ViewGroup, position: Int): Any {
                 container.addView(appView)

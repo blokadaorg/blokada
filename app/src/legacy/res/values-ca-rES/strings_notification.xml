@@ -5,6 +5,7 @@
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Bloquejat</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">No ho mostris</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
@@ -27,4 +28,12 @@
     <string name="notification_keepalive_content">Darrer: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">encara cap</string>
+    <string name="notification_keepalive_activate">Activa</string>
+    <string name="notification_keepalive_activating">El Blokada s\'està iniciant. Això pot trigar una estona.</string>
+    <string name="notification_keepalive_deactivate">Desactiva</string>
+    <string name="notification_keepalive_deactivating">El Blokada s\'ha desactivat!</string>
+    <string name="notification_expired_title">El compte VPN del Blokada ha caducat</string>
+    <string name="notification_expired_description">El vostre compte acaba de caducar i no esteu connectats a la VPN del Blokada en aquest moment. Penseu en tornar a activar el vostre compte per obtenir una millor protecció.</string>
+    <string name="notification_lease_expired_title">S\'ha desactivat la VPN del Blokada</string>
+    <string name="notification_lease_expired_description">Hi ha hagut un problema amb la connexió a la VPN del Blockada. Proveu de connectar-vos a una altra passarel·la. Si el problema continua, contacteu amb nosaltres al Telegram.</string>
 </resources>

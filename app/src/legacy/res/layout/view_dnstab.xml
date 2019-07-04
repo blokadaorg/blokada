@@ -4,18 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/filters_pager"
         android:layout_width="match_parent"
         android:layout_height="280dp">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/filters_tabs"
             app:tabMode="scrollable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 </core.DnsAddTabView>

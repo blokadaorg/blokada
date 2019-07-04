@@ -27,4 +27,11 @@
     <string name="notification_keepalive_content">Terakhir: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">pemantauan</string>
+    <string name="notification_keepalive_activate">Aktifkan</string>
+    <string name="notification_keepalive_activating">Blokada sedang diaktifkan. Ini mungkin akan mengambil sedikit masa.</string>
+    <string name="notification_keepalive_deactivate">Nyahaktifkan</string>
+    <string name="notification_keepalive_deactivating">Blokada telah dinyahaktifkan!</string>
+    <string name="notification_expired_title">Akaun VPN Blokada telah tamat tempoh</string>
+    <string name="notification_expired_description">Akaun anda baru sahaja tamat tempoh dan anda tidak lagi bersambung kepada VPN Blokada buat masa ini. Sila pertimbangkan untuk mengaktifkan semula akaun ini untuk lebih perlindungan.</string>
+    <string name="notification_lease_expired_title">VPN Blokada telah dimatikan</string>
 </resources>

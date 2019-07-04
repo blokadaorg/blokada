@@ -5,14 +5,14 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
+import core.Dash
+import core.UiState
 import gs.environment.inject
 import gs.property.Repo
 import org.blokada.BuildConfig
 import org.blokada.R
-import core.Dash
-import core.UiState
+import tunnel.showSnack
 
 val DASH_ID_ABOUT = "update_about"
 
@@ -87,7 +87,7 @@ private fun createUpdateView(parent: ViewGroup, s: Repo): AUpdateView {
         else null
 
         view.onClick = {
-            Toast.makeText(ctx, R.string.update_starting, Toast.LENGTH_SHORT).show()
+            showSnack(R.string.update_starting)
             updater.start(u.downloadLinks)
         }
 

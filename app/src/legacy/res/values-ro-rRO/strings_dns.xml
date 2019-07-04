@@ -7,7 +7,7 @@
     <string name="dns_custom_name">Personalizat</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_name_enter">Introduceți o adresă de server DNS</string>
-    <string name="dns_edit_name_error">Acest lucru nu pare corect. Asigurați-vă că introduceți o adresă IP a serverului, cum ar fi 8.8.8.8.</string>
+    <string name="dns_edit_name_error">A intervenit o eroare. Asigurați-vă că introduceți o adresă IP a serverului validă, precum 8.8.8.8.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS prestabilit</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

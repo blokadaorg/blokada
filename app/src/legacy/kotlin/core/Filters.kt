@@ -37,6 +37,7 @@ class FiltersImpl(
         ktx.v("apps refresh start")
 
         val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+                .filter { it.packageName != ctx.packageName }
         val a = installed.map {
             App(
                     appId = it.packageName,
