@@ -5,9 +5,15 @@
     <string name="dns_default_comment">عند التفعيل ، لن يتم تغيير خوادم نظام الـ DNS وسيتم إستخدام الخوادم الإفتراضيّة لهذا الجهاز ، إعتماداً على شبكة الجوال و WiFi.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">مُخَصَّص</string>
+    <string name="dns_custom_comment">DNS مُخَصّص</string>
+    <string name="dns_custom_add_slot">إضافة DNS جديد…</string>
+    <string name="slot_enter_dns_error">هذا لا يبدو لي أنّه IPv4.</string>
     <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_name_label">عنوان الـ IP</string>
     <string name="dns_edit_name_enter">أدخل عنوان خادم ال DNS</string>
     <string name="dns_edit_name_error">هذا لا يبدو صحيحاً. تأكّد من إدخال عنوان IP للخادم ، مثل 8.8.8.8.</string>
+    <string name="dns_edit_name_next">التالي</string>
+    <string name="dns_edit_name_last">أضِف</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS الإفتراضي</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

@@ -7,10 +7,16 @@
     <string name="dns_default_comment">Cuando está activado, los servidores DNS no se modificarán y se utilizarán los servidores predeterminados del dispositivo, dependiendo de tu red móvil y WiFi.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Personalizado</string>
+    <string name="dns_custom_comment">DNS personalizado</string>
+    <string name="dns_custom_add_slot">Añadir nuevo DNS…</string>
+    <string name="slot_enter_dns_error">Esto no me parece una dirección IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_name_placeholder">8.8.8.8</string>
+    <string name="dns_edit_name_label">Dirección IP</string>
     <string name="dns_edit_name_enter">Introduce una dirección DNS</string>
     <string name="dns_edit_name_error">Parece que no funciona. Asegúrate de que has escrito una dirección IP, como 8.8.8.8.</string>
+    <string name="dns_edit_name_next">Siguiente</string>
+    <string name="dns_edit_name_last">Añadir</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS por defecto</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

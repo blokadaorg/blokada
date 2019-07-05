@@ -3,6 +3,7 @@
 <resources>
     <!-- Main screen section -->
     <string name="panel_section_home">Home</string>
+    <string name="panel_section_menu">Menù</string>
     <!-- Main screen section -->
     <string name="panel_section_ads">Blocco pubblicità</string>
     <!-- Main screen section -->
@@ -16,9 +17,10 @@
     <string name="panel_section_ads_log">Log Host</string>
     <string name="panel_section_ads_blacklist">Host bloccati</string>
     <string name="panel_section_ads_whitelist">Host consentiti</string>
-    <string name="panel_section_advanced_dns">Server DNS</string>
+    <string name="panel_section_advanced_dns">DNS</string>
     <string name="panel_section_apps_all">App installate</string>
     <string name="panel_section_apps_system">App di sistema</string>
+    <string name="panel_section_advanced_settings">Impostazioni</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Consentito &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Questo dominio è stato autorizzato. Per bloccarlo, usa il pulsante sotto.</string>
@@ -50,9 +52,9 @@
     <string name="slot_intro_new_header">Come si utilizza la nuova interfaccia?</string>
     <string name="slot_intro_desc">Attualmente sei nella sezione Home, se fai uno swipe verso destra troverai le altre sezioni. Ognuna di queste ha il suo sottomenù - aprilo scorrendo verso l\'alto. &lt;br/&gt;&lt;br/&gt;Su Android TV, naviga l\'interfaccia con il dpad. Usa il tasto centrale per aprire il sottomenù, o qualunque altra cosa selezionata. I pulsanti sono contrassegnati dalle frecce su, giù, sinistra o destra - usa i tasti direzionali per cliccarli.</string>
     <string name="slot_intro_info">Psst... Alcuni elementi hanno l\'icona del punto interrogativo di sopra. Toccarla farà aprire un breve messaggio d\'aiuto, come questo!</string>
-    <string name="slot_new_filter">Blocca un nuovo host</string>
-    <string name="slot_new_filter_list">Aggiungi una nuova lista</string>
-    <string name="slot_new_filter_whitelist">Aggiungi un host alla whitelist</string>
+    <string name="slot_new_filter">Aggiungi un nuovo host agli indirizzi bloccati</string>
+    <string name="slot_new_filter_list">Aggiungi un nuovo elenco host</string>
+    <string name="slot_new_filter_whitelist">Aggiungi un nuovo host agli indirizzi consentiti</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">non impostato</string>
     <!-- A state of input form when correct input is entered  -->
@@ -70,11 +72,12 @@
     <string name="slot_enter_name_generate">Genera</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; è ora nella whitelist</string>
     <string name="slot_app_desc">Quest\'app è nella whitelist, ciò significa che su di essa non agisce alcun blocco o filtro.</string>
-    <string name="slot_allapp_desc">Puoi inserire quest\'app nella whitelist, così da permettere tutto il traffico.</string>
-    <string name="slot_allapp_whitelisted">In whitelist</string>
-    <string name="slot_allapp_normal">Non in whitelist</string>
-    <string name="slot_allapp_whitelist">Whitelist</string>
-    <string name="slot_dns_name">Server DNS corrente(i): &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_allapp_desc">Puoi fare in modo che questa app eluda Blokada per consentirle qualsiasi traffico. Ricorda, le app che eludono il controllo di Blokada comunicano al di fuori della VPN.</string>
+    <string name="slot_allapp_whitelisted">Eludono</string>
+    <string name="slot_allapp_normal">Non eludono</string>
+    <string name="slot_allapp_whitelist">Eludi</string>
+    <string name="slot_dns_name">DNS personalizzati attivi</string>
+    <string name="slot_dns_name_disabled">DNS personalizzati disattivati</string>
     <string name="slot_dns_dns">Puoi cambiare i server correnti usando il menù in basso.</string>
     <string name="slot_action_none">Questa azione non è ancora possibile.</string>
     <string name="slot_action_facts">Eventi</string>
@@ -120,10 +123,10 @@
     <string name="slot_dropped_counter">Contatore domini bloccati</string>
     <string name="slot_dropped_counter_info">Questo contatore mostra il numero di domini che sono stati bloccati sin dall\'installazione dell\'app.</string>
     <string name="slot_dropped_action_clear">Azzera contatore</string>
-    <string name="slot_notifications_title">Le notifiche sono %s.</string>
+    <string name="slot_notifications_title">Le notifiche sono %s</string>
     <string name="slot_notifications_desc">Puoi attivare o disabilitare le notifiche da qui. Ricorda che su alcuni dispositivi, Android mostrerà una notifica VPN separata che non può essere disattivata.</string>
-    <string name="slot_notifications_enabled">attive</string>
-    <string name="slot_notifications_disabled">disabilitate</string>
+    <string name="slot_notifications_enabled">Le notifiche non sono abilitate</string>
+    <string name="slot_notifications_disabled">Le notifiche sono disabilitate</string>
     <string name="slot_update_action_refresh">Controlla di nuovo</string>
     <string name="slot_telegram_title">Unisciti a noi su Telegram!</string>
     <string name="slot_telegram_desc">Visita il nostro canale Telegram per aiuto o soltanto per far parte della nostra comunità.</string>
@@ -135,15 +138,15 @@
     <string name="slot_adblocking_label">Blocca pubblicità &amp; tracker</string>
     <string name="slot_adblocking_text">Quando abilitato, Blokada bloccherà pubblicità, tracker e altri contenuti indesiderati. Ciò aiuta a proteggere la tua privacy, velocizzare il tuo dispositivo e risparmiare i tuoi giga.</string>
     <string name="slot_blocka_label">Account Blokada VPN</string>
-    <string name="slot_account_label_active">Account valido fino al %s</string>
+    <string name="slot_account_label_active">Account attivo fino al %s</string>
+    <string name="slot_account_label_inactive">Account inattivo</string>
     <string name="slot_account_text_account">Il tuo ID account è &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">Il tuo abbonamento è &lt;b&gt;inattivo&lt;/b&gt;. Hai bisogno di un account attivo per poter utilizzare Blokada VPN. Per favore clicca sul pulsante qui sotto per attivarlo.</string>
-    <string name="slot_account_text_active">Il tuo abbonamento è &lt;b&gt;attivo&lt;/b&gt; fino al &lt;b&gt;%s&lt;/b&gt;. Per favore clicca il pulsante qui sotto per gestire il tuo abbonamento.</string>
     <string name="slot_account_info">Dovresti mantenere segreto il tuo ID account - è necessario per poter recuperare il tuo account in caso dovessi disinstallare l\'app. Il tuo abbonamento verrà rinnovato automaticamente a meno che tu non lo annulli.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Gestisci</string>
     <string name="slot_account_action_manage_inactive">Attiva account</string>
     <string name="slot_account_action_change_id">Recupera account</string>
+    <string name="slot_account_show">ID account</string>
     <string name="slot_account_action_copy">Copia ID account</string>
     <string name="slot_account_action_copied">ID account copiato negli appunti</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
@@ -188,7 +191,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Aiuto</string>
     <string name="slot_donate_label">Blokada ti piace? Se ti va, supporta il nostro lavoro, così potremo continuare a migliorare l\'app.</string>
-    <string name="slot_donate_desc">Blokada è gratuita e open source, e vogliamo che continui ad essere così. Le tue donazioni ci aiutano a sviluppare l\'app ed introdurre le nuove funzionalità che più vorresti. Grazie!</string>
+    <string name="slot_donate_desc">Aiutaci a introdurre nuove funzionalità! Tocca qui per saperne di più.</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Dona</string>
     <string name="slot_cta_label">Psst! Vorremmo sapere la tua opinione.</string>
@@ -200,7 +203,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Apri</string>
     <string name="slot_updated_label">Blokada è stata aggiornata!</string>
-    <string name="slot_updated_desc">La tua versione di Blokada è ora aggiornata. Clicca il pulsante sotto per ulteriori informazioni circa questo aggiornamento. Inoltre, considera l\'idea di donare per supportare questo progetto!</string>
+    <string name="slot_updated_desc">Tocca qui per una breve guida di questa versione.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Più info</string>
     <string name="slot_obsolete_label">Azione richiesta: questa versione è obsoleta!</string>
@@ -226,4 +229,8 @@
     <string name="label_dns">Impostazioni DNS</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Impostazioni avanzate</string>
+    <string name="slot_whitelist_updating">Aggiornamento della configurazione, attendere...</string>
+    <string name="slot_lease_deleted_information">Si prega di notare che, attualmente, Blokada VPN può essere utilizzata su un solo dispositivo.</string>
+    <string name="slot_background_animation">Animazione sfondo</string>
+    <string name="slot_background_animation_description">Quando attiva, delle onde si animeranno ogni volta che una richiesta DNS verrà bloccata o consentita. Disattivala in caso di rallentamenti.</string>
 </resources>

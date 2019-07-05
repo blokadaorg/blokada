@@ -16,7 +16,6 @@
     <string name="panel_section_ads_log">主机日志</string>
     <string name="panel_section_ads_blacklist">已屏蔽的主机</string>
     <string name="panel_section_ads_whitelist">允许的主机</string>
-    <string name="panel_section_advanced_dns">DNS 服务器</string>
     <string name="panel_section_apps_all">已安装应用</string>
     <string name="panel_section_apps_system">系统应用</string>
     <!-- When a domain is allowed (not blocked) -->
@@ -50,9 +49,6 @@
     <string name="slot_intro_new_header">如何使用新界面？</string>
     <string name="slot_intro_desc">您目前位于主页部分，如果你滑到右侧，还有更多。每部分都有相应的底部菜单 - 上滑打开。 &lt;br/&gt;&lt;br/&gt; 在 Android TV 上，使用十字键（上下左右）操作。使用确定键（OK 键）打开底部菜单，或者打开您选中的任何一项。各按钮都被标有上、下、左、右箭头 - 使用方向键去点击它们。</string>
     <string name="slot_intro_info">Pst... 一些项目在其上面有问题标记。点击将会显示一个短帮助信息，就像这个消息！</string>
-    <string name="slot_new_filter">屏蔽新主机</string>
-    <string name="slot_new_filter_list">添加新列表</string>
-    <string name="slot_new_filter_whitelist">白名单新主机</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">未设置</string>
     <!-- A state of input form when correct input is entered  -->
@@ -70,11 +66,6 @@
     <string name="slot_enter_name_generate">生成</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; 白名单</string>
     <string name="slot_app_desc">此应用程序被列入白名单，这意味着没有屏蔽或过滤。</string>
-    <string name="slot_allapp_desc">您可以白名单此应用，以便停止屏蔽任何流量。</string>
-    <string name="slot_allapp_whitelisted">白名单</string>
-    <string name="slot_allapp_normal">未列出白名单</string>
-    <string name="slot_allapp_whitelist">白名单</string>
-    <string name="slot_dns_name">当前DNS服务器(s)： &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_dns_dns">您可以使用底部菜单更改当前服务器。</string>
     <string name="slot_action_none">此操作尚未可用。</string>
     <string name="slot_action_facts">事实</string>
@@ -120,10 +111,7 @@
     <string name="slot_dropped_counter">已屏蔽的域名计数</string>
     <string name="slot_dropped_counter_info">此计数器显示应用安装以来已屏蔽的域名数量。</string>
     <string name="slot_dropped_action_clear">重置计数器</string>
-    <string name="slot_notifications_title">通知是 %s。</string>
     <string name="slot_notifications_desc">您可以在此打开或关闭通知。记住，在某些设备上，Android将显示一个无法关闭的 VPN 通知。</string>
-    <string name="slot_notifications_enabled">启用</string>
-    <string name="slot_notifications_disabled">禁用</string>
     <string name="slot_update_action_refresh">再次检查</string>
     <string name="slot_telegram_title">在 Telegram 上加入我们！</string>
     <string name="slot_telegram_desc">访问我们的 Telegram 频道，帮助或只是我们社区的一部分。</string>
@@ -135,10 +123,7 @@
     <string name="slot_adblocking_label">屏蔽广告 &amp; 跟踪器</string>
     <string name="slot_adblocking_text">启用时，Blokada将屏蔽广告、跟踪器和其他不想要的内容。这有助于保护您的隐私，加速您的设备并保存您的数据。</string>
     <string name="slot_blocka_label">Blokada VPN 帐户</string>
-    <string name="slot_account_label_active">帐户有效期至 %s</string>
     <string name="slot_account_text_account">您的帐户ID是 &lt;b&gt;%s&lt;/b&gt;。</string>
-    <string name="slot_account_text_inactive">您的订阅是 &lt;b&gt;非活动&lt;/b&gt;。 您需要一个激活账户才能使用 Blokada VPN。请点击下面的按钮来激活它。</string>
-    <string name="slot_account_text_active">您的订阅 &lt;b&gt;活跃&lt;/b&gt; ，直到 &lt;b&gt;%s&lt;/b&gt;. 请点击下面的按钮来管理您的订阅。</string>
     <string name="slot_account_info">您应保持您的帐户 ID 密钥 - 如果您卸载应用程序，需要恢复您的帐户。您的订阅将自动延长，除非您取消它。</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">管理</string>
@@ -188,7 +173,6 @@
     <!-- A button to open help -->
     <string name="slot_help_action">帮助</string>
     <string name="slot_donate_label">喜欢 Blokada？想支持我们，所以我们可以继续改进应用。</string>
-    <string name="slot_donate_desc">Blokada广告屏蔽器是自由和开放源码的，我们希望它保持这样的方式。您的捐赠帮助我们继续开发应用，引入您最希望看到的新功能。谢谢！</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">捐赠</string>
     <string name="slot_cta_label">最灵魂！我们想知道你的意见。</string>
@@ -200,7 +184,6 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">打开</string>
     <string name="slot_updated_label">Blokada 已更新！</string>
-    <string name="slot_updated_desc">您的 Blokada 版本已经更新。点击下面的按钮提供有关此更新的更多信息。请考虑捐赠支持这个项目！</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">更多</string>
     <string name="slot_obsolete_label">需要操作：此版本已经过时！</string>

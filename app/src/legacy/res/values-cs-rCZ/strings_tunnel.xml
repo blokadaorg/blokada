@@ -16,7 +16,7 @@
     <string name="tunnel_config_refetch_now_title">Stáhnout seznamy</string>
     <string name="tunnel_config_refetch_now">Stáhnout seznamy nyní</string>
     <string name="tunnel_config_refetch_toast">Stahování seznamů bylo zahájeno</string>
-    <string name="tunnel_config_refetch_now_description">Pomocí tlačítka níže odstraňte mezipaměť a znovu stáhněte seznamy. To může pomoci, pokud se vyskytnou problémy s filtrováním.</string>
+    <string name="tunnel_config_refetch_now_description">Pomocí tlačítka níže vymažte mezipaměť a znovu stáhněte seznamy. To může pomoci, pokud se vyskytnou problémy s filtrováním.</string>
     <string name="tunnel_config_refetch_frequency_title">Frekvence stahování seznamů</string>
     <string name="tunnel_config_refetch_frequency_description">Vyberte jednu z možností konfigurace, jak často by měla aplikace seznamy stahovat.</string>
     <string name="tunnel_config_refetch_frequency_1">Jednou denně</string>

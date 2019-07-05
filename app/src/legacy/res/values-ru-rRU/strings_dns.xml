@@ -7,10 +7,16 @@
     <string name="dns_default_comment">Если опция активна, будут использоваться стандартные DNS-серверы этого устройства, в зависимости от вашей мобильной сети и WiFi.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Пользовательские</string>
+    <string name="dns_custom_comment">Пользовательский DNS</string>
+    <string name="dns_custom_add_slot">Добавить новый DNS…</string>
+    <string name="slot_enter_dns_error">На мой взгляд, это не похоже на IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_name_placeholder">8.8.8.8</string>
+    <string name="dns_edit_name_label">IP-адрес</string>
     <string name="dns_edit_name_enter">Введите адрес DNS-сервера</string>
     <string name="dns_edit_name_error">Это выглядит неправильно. Убедитесь, что вы ввели IP-адрес сервера, например 8.8.8.8.</string>
+    <string name="dns_edit_name_next">Далее</string>
+    <string name="dns_edit_name_last">Добавить</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS по умолчанию</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

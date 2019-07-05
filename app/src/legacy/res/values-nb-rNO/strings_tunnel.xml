@@ -12,8 +12,10 @@
     <string name="tunnel_config_wifi">Last ned filtre bare når du er på wifi</string>
     <string name="tunnel_dropped_count_desc">Viser totalt antall verter blokkert så langt.</string>
     <string name="tunnel_dropped_count">%d blokkert</string>
+    <string name="tunnel_dropped_count2">%s domener blokkert</string>
     <string name="tunnel_config_refetch_now_title">Last ned lister</string>
     <string name="tunnel_config_refetch_now">Last ned lister nå</string>
+    <string name="tunnel_config_refetch_toast">Nedlasting av lister startet</string>
     <string name="tunnel_config_refetch_now_description">Bruk knappen nedenfor for å fjerne cache og last ned lister på nytt. Dette kan hjelpe hvis du opplever problemer med filtreringene dine.</string>
     <string name="tunnel_config_refetch_frequency_title">Nedlastingshyppighet for lister</string>
     <string name="tunnel_config_refetch_frequency_description">Velg ett av alternativene for å konfigurere hvor ofte appen skal nedlaste listene.</string>

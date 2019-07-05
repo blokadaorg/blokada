@@ -3,6 +3,7 @@
 <resources>
     <!-- Main screen section -->
     <string name="panel_section_home">Beranda</string>
+    <string name="panel_section_menu">Menu</string>
     <!-- Main screen section -->
     <string name="panel_section_ads">Pemblokiran iklan</string>
     <!-- Main screen section -->
@@ -16,9 +17,10 @@
     <string name="panel_section_ads_log">Host Log</string>
     <string name="panel_section_ads_blacklist">Host yang Diblokir</string>
     <string name="panel_section_ads_whitelist">Host yang Diizinkan</string>
-    <string name="panel_section_advanced_dns">Server DNS</string>
+    <string name="panel_section_advanced_dns">DNS</string>
     <string name="panel_section_apps_all">Aplikasi Terpasang</string>
     <string name="panel_section_apps_system">Aplikasi Sistem</string>
+    <string name="panel_section_advanced_settings">Pengaturan</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">&lt;b&gt;%s&lt;/b&gt; diizinkan</string>
     <string name="panel_domain_forwarded_desc">Domain ini telah diperbolehkan. Gunakan tombol di bawah ini untuk memblokir domain tersebut.</string>
@@ -50,9 +52,9 @@
     <string name="slot_intro_new_header">Bagaimana cara menggunakan antarmuka pengguna (UI) yang baru?</string>
     <string name="slot_intro_desc">Saat ini Anda berada di Beranda, ada bagian lain jika Anda menggeser layar ke sebelah kanan. Setiap bagian/halaman memiliki menu di bagian bawah - buka menu tersebut dengan mengusap layar ke atas. &lt;br/&gt;&lt;br/&gt;Pada Android TV, Anda bisa menavigasi antarmuka pengguna dengan menggunakan D-pad. Gunakan tombol tengah untuk membuka menu bawah, atau item apapun yang telah Anda pilih. Tombol-tombol ditandai dengan tanda panah atas, bawah, kiri atau kanan - gunakan tombol arah pada d-pad untuk menggunakannya.</string>
     <string name="slot_intro_info">Ssst... Beberapa bagian memiliki ikon tanda tanya. Mengetuk ikon tersebut akan menampilkan pesan pendek berisi panduan penggunaan, seperti yang ini!</string>
-    <string name="slot_new_filter">Blokir host baru</string>
-    <string name="slot_new_filter_list">Tambah daftar baru</string>
-    <string name="slot_new_filter_whitelist">Masukkan host baru ke dalam whitelist</string>
+    <string name="slot_new_filter">Tambahkan host baru ke dalam daftar host yang tidak diizinkan</string>
+    <string name="slot_new_filter_list">Tambahkan daftar host baru</string>
+    <string name="slot_new_filter_whitelist">Tambahkan host baru ke daftar host yang diizinkan</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">hapus</string>
     <!-- A state of input form when correct input is entered  -->
@@ -70,11 +72,12 @@
     <string name="slot_enter_name_generate">Beri nama otomatis</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; sudah dimasukkan ke whitelist</string>
     <string name="slot_app_desc">Aplikasi ini sudah dimasukkan ke dalam whitelist, sehingga dikecualikan dari pemblokiran atau penyaringan.</string>
-    <string name="slot_allapp_desc">Anda bisa memasukkan aplikasi ini ke dalam whitelist agar lalu lintas data aplikasi ini sama sekali tidak diblokir.</string>
-    <string name="slot_allapp_whitelisted">Masuk whitelist</string>
-    <string name="slot_allapp_normal">Tidak masuk whitelist</string>
-    <string name="slot_allapp_whitelist">Whitelist</string>
-    <string name="slot_dns_name">DNS server yang sedang digunakan: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_allapp_desc">Anda bisa mengatur agar aplikasi ini agar tidak mengindahkan Blokada sehingga arus datanya tidak diblokir. Harap diingat bahwa arus data aplikasi yang diatur seperti itu terjadi di luar VPN.</string>
+    <string name="slot_allapp_whitelisted">Di bypass</string>
+    <string name="slot_allapp_normal">Tidak di bypass</string>
+    <string name="slot_allapp_whitelist">Bypass</string>
+    <string name="slot_dns_name">Custom DNS sedang aktif</string>
+    <string name="slot_dns_name_disabled">Custom DNS telah dinonaktifkan</string>
     <string name="slot_dns_dns">Anda bisa mengganti server DNS yang sedang dipakai di menu bawah.</string>
     <string name="slot_action_none">Tindakan ini belum bisa dilakukan.</string>
     <string name="slot_action_facts">Fakta</string>
@@ -120,10 +123,10 @@
     <string name="slot_dropped_counter">Penghitung domain terblokir</string>
     <string name="slot_dropped_counter_info">Penghitung ini menampilkan jumlah domain yang terblokir sejak aplikasi ini diinstal.</string>
     <string name="slot_dropped_action_clear">Atur ulang penghitung</string>
-    <string name="slot_notifications_title">Notifikasi %s.</string>
+    <string name="slot_notifications_title">Notifikasi %s</string>
     <string name="slot_notifications_desc">Anda bisa mengatur status notifikasi di sini (aktif atau nonaktif). Harap diingat bahwa pada beberapa perangkat, Android akan menampilkan notifikasi VPN terpisah yang tidak bisa dinonaktifkan.</string>
-    <string name="slot_notifications_enabled">diaktifkan</string>
-    <string name="slot_notifications_disabled">dinonaktifkan</string>
+    <string name="slot_notifications_enabled">Notifikasi diaktifkan</string>
+    <string name="slot_notifications_disabled">Notifikasi dinonaktifkan</string>
     <string name="slot_update_action_refresh">Periksa kembali</string>
     <string name="slot_telegram_title">Bergabung bersama kami di Telegram!</string>
     <string name="slot_telegram_desc">Kunjungi channel Telegram kami untuk meminta bantuan atau bergabung dengan komunitas.</string>
@@ -135,15 +138,15 @@
     <string name="slot_adblocking_label">Memblokir iklan &amp; tracker</string>
     <string name="slot_adblocking_text">Ketika diaktifkan, Blokada akan memblokir iklan, tracker, dan konten lain yang tidak diinginkan. Hal ini membantu melindungi privasi Anda, mempercepat kinerja perangkat Anda, dan menghemat data Anda.</string>
     <string name="slot_blocka_label">Akun Blokada VPN</string>
-    <string name="slot_account_label_active">Akun valid sampai %s</string>
+    <string name="slot_account_label_active">Akun aktif sampai %s</string>
+    <string name="slot_account_label_inactive">Akun tidak aktif</string>
     <string name="slot_account_text_account">ID akun Anda adalah &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">Status akun Anda adalah &lt;b&gt;tidak aktif&lt;/b&gt;. Anda perlu akun berstatus aktif untuk dapat menggunakan Blokada VPN. Silahkan ketuk tombol di bawah untuk mengaktifkan akun Anda.</string>
-    <string name="slot_account_text_active">Status akun Anda adalah &lt;b&gt;aktif&lt;/b&gt; until &lt;b&gt;%s&lt;/b&gt;. Silahkan ketuk tombol di bawah untuk mengelola akun Anda.</string>
     <string name="slot_account_info">Rahasiakan ID akun Anda - ID tersebut akan diperlukan untuk mengembalikan akun Anda jika sewaktu-waktu Anda menguninstal Blokada. Status berlangganan Anda akan diperpanjang secara otomatis kecuali Anda batalkan.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Kelola</string>
     <string name="slot_account_action_manage_inactive">Aktifkan Akun Anda</string>
     <string name="slot_account_action_change_id">Pulihkan Akun</string>
+    <string name="slot_account_show">ID Akun</string>
     <string name="slot_account_action_copy">Salin ID akun</string>
     <string name="slot_account_action_copied">ID akun telah disalin ke clipboard</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
@@ -188,7 +191,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Bantuan</string>
     <string name="slot_donate_label">Puas menggunakan Blokada? Anda bisa mendukung kami sehingga kami bisa terus membuat Blokada lebih baik lagi.</string>
-    <string name="slot_donate_desc">Blokada adalah aplikasi gratis dan open-source, dan kami ingin mempertahankan hal tersebut. Donasi Anda akan sangat membantu kami dalam mengembangkan Blokada dan menambahkan fitur-fitur baru yang Anda inginkan. Terima kasih!</string>
+    <string name="slot_donate_desc">Bantu kami memperkenalkan fitur-fitur baru! Tekan di sini untuk informasi lebih lanjut.</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Donasi</string>
     <string name="slot_cta_label">Ssst! Kami ingin tau apa pendapat Anda.</string>
@@ -200,7 +203,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Buka</string>
     <string name="slot_updated_label">Blokada telah diperbarui!</string>
-    <string name="slot_updated_desc">Anda sedang menggunakan Blokada versi terbaru. Ketuk tombol di bawah untuk informasi lebih lanjut mengenai pembaruan ini. Kami harap Anda juga mempertimbangkan donasi untuk menyokong proyek ini!</string>
+    <string name="slot_updated_desc">Tekan di sini untuk melihat intro dari versi ini.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Lainnya</string>
     <string name="slot_obsolete_label">Diperlukan tindakan: versi Blokada yang Anda pakai sudah kedaluwarsa!</string>
@@ -226,4 +229,8 @@
     <string name="label_dns">Pengaturan DNS</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Pengaturan lanjutan</string>
+    <string name="slot_whitelist_updating">Memperbarui konfigurasi, harap tunggu...</string>
+    <string name="slot_lease_deleted_information">Harap diingat bahwa untuk saat ini akun Blokada VPN hanya bisa digunakan di satu perangkat saja.</string>
+    <string name="slot_background_animation">Animasi di latar belakang</string>
+    <string name="slot_background_animation_description">Ketika Blokada aktif, animasi gelombang akan muncul di latar belakang setiap kali ada permintaan DNS yang diblokir (gelombang berwarna merah) atau diizinkan (warna putih). Animasi tersebut bisa dinonaktifkan jika perangkat Anda mengalami masalah.</string>
 </resources>

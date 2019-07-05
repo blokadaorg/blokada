@@ -16,7 +16,6 @@
     <string name="panel_section_ads_log">I-log yabavakashelwa</string>
     <string name="panel_section_ads_blacklist">Abavakashelwa abavinjiwe</string>
     <string name="panel_section_ads_whitelist">Abavakashelwa abavunyelwe</string>
-    <string name="panel_section_advanced_dns">Ama-DNS Server</string>
     <string name="panel_section_apps_all">Izinhlelo Ezifakiwe</string>
     <string name="panel_section_apps_system">Izinhlelo ze-System</string>
     <!-- When a domain is allowed (not blocked) -->
@@ -50,9 +49,6 @@
     <string name="slot_intro_new_header">Isebenza kanjani?</string>
     <string name="slot_intro_desc">Okwamanje usesigabeni saseKhaya, kuningi uma uswayipha ngakwesokudla. Ngamunye wabo unemenyu yakhe ephansi - yivule ngokuswayipha. &lt;br/&gt;&lt;br/&gt; Kwi-Android TV, sebenzisa i-UI nge-dpad. Sebenzisa ukhiye ophakathi nendawo ukuvula imenyu engezansi, noma noma iyiphi into oyikhethayo. Izinkinobho ziphawulwe ngomcibisholo obheke phezulu, phansi, ngakwesobunxele noma kwesokudla - sebenzisa lezizinkinobho ukuze uzichofoze.</string>
     <string name="slot_intro_info">Bheka... Ezinye izinto zinesithonjana sombuzo kuzo. Ukuthinta kuyobonisa umyalezo omfushane wosizo, njengalo!</string>
-    <string name="slot_new_filter">Vimba isivakashi esisha</string>
-    <string name="slot_new_filter_list">Faka uhla olusha</string>
-    <string name="slot_new_filter_whitelist">Nika umvakashelwa omusha imvume</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">susa</string>
     <!-- A state of input form when correct input is entered  -->
@@ -70,11 +66,6 @@
     <string name="slot_enter_name_generate">Enza</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; ibekwe kuhla oluvunyelwe</string>
     <string name="slot_app_desc">Loluhlelo luvunyelwe, okusho ukuthi akukho okuvimbile noma ukuhlunga okwenziwe kulo.</string>
-    <string name="slot_allapp_desc">Ungakwazi ukuvumela loluhlelo ukuze lamukele noma iyiphi ithrafikhi.</string>
-    <string name="slot_allapp_whitelisted">Uhla lwezinhlelo ezivunyelwe</string>
-    <string name="slot_allapp_normal">Ezingavunyelwe</string>
-    <string name="slot_allapp_whitelist">Vumela</string>
-    <string name="slot_dns_name">(I-/Ama-)DNS server asebenzayo: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_dns_dns">Ungashintsha amaseva asetshenziswayo ngokuvula imenyu engezansi.</string>
     <string name="slot_action_none">Lesi senzo asitholakali okwamanje.</string>
     <string name="slot_action_facts">Amaqiniso</string>
@@ -120,10 +111,7 @@
     <string name="slot_dropped_counter">Isibalo sezizinda ezivinjiwe</string>
     <string name="slot_dropped_counter_info">Lesi sibalo siveza izizinda ezivinjwe kusukela uqala ukusebenzisa loluhlelo.</string>
     <string name="slot_dropped_action_clear">Qal isibalo phansi</string>
-    <string name="slot_notifications_title">Izaziso zingu-%s.</string>
     <string name="slot_notifications_desc">Ungakwazi ukuvula noma ukuvala izaziso lapha. Khumbula ukuthi kwamanye amadivaysi, i-Android izobonisa isaziso esihlukile se-VPN esingenakuvalwa.</string>
-    <string name="slot_notifications_enabled">inikwe amandla</string>
-    <string name="slot_notifications_disabled">ivaliwe</string>
     <string name="slot_update_action_refresh">Hlola futhi</string>
     <string name="slot_telegram_title">Joyina thina kwi-Telegram!</string>
     <string name="slot_telegram_desc">Vakashela isiteshi sethu kwi-Telegram ukuze uthole usizo noma nje ukuba yingxenye yomphakathi wethu.</string>
@@ -135,10 +123,7 @@
     <string name="slot_adblocking_label">Vimbela izikhangiso nabathrekhi</string>
     <string name="slot_adblocking_text">Uma inikwe amandla, i-Blokada izovimba izikhangiso, abathrekhi, nezinye izinto ezingadingeki. Lokhu kusiza ukuvikela ubumfihlo bakho, enza idivayisi yakho isheshe bese ulondoloza idatha yakho.</string>
     <string name="slot_blocka_label">I-Akhawunti ye-Blokada VPN</string>
-    <string name="slot_account_label_active">I-Akhawunti isebenza kuze kube %s</string>
     <string name="slot_account_text_account">I-ID ye-Akhawunti yakho &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">Okubhalisela kwakho &lt;b&gt;akusebenzi&lt;/b&gt;. Udinga i-akhawunti esebenzayo ukuze usebenzise i-Blokada VPN. Sicela uthephe inkinobho ngezansi ukuze kusebenze.</string>
-    <string name="slot_account_text_active">Okubhaliselwe kwakho &lt;b&gt;kusebenza&lt;/b&gt; kuze kufike ku-&lt;b&gt;%s&lt;/b&gt;. Sicela uthephe inkinobho engezansi ukuze ushintshe ukubhalisa kwakho.</string>
     <string name="slot_account_info">Kufanele ugcine imfihlo ye-akhawunti yakho iyimfihlo - kuyadingeka ukuze ubuyisele i-akhawunti yakho uma ususa uhlelo. Ukubhalisela kwakho kuzokwenziwa ngokuzenzakalelayo ngaphandle kokuthi ukhansele.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Lawula</string>

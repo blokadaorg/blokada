@@ -3,6 +3,7 @@
 <resources>
     <!-- Main screen section -->
     <string name="panel_section_home">Kezdőlap</string>
+    <string name="panel_section_menu">Menü</string>
     <!-- Main screen section -->
     <string name="panel_section_ads">Hirdetés blokkolás</string>
     <!-- Main screen section -->
@@ -12,13 +13,14 @@
     <string name="panel_section_home_start">Blokada VPN</string>
     <string name="panel_section_home_help">Súgó</string>
     <string name="panel_section_home_community">Közösség</string>
-    <string name="panel_section_ads_lists">Hoszt listák</string>
+    <string name="panel_section_ads_lists">Hosztlisták</string>
     <string name="panel_section_ads_log">Hoszt napló</string>
     <string name="panel_section_ads_blacklist">Blokkolt hosztok</string>
     <string name="panel_section_ads_whitelist">Engedélyezett hosztok</string>
-    <string name="panel_section_advanced_dns">DNS-kiszolgálók</string>
+    <string name="panel_section_advanced_dns">DNS</string>
     <string name="panel_section_apps_all">Telepített alkalmazások</string>
     <string name="panel_section_apps_system">Rendszer-alkalmazások</string>
+    <string name="panel_section_advanced_settings">Beállítások</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Engedélyezve &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Ez a domain engedélyezésre került. A blokkoláshoz használd a lenti gombot.</string>
@@ -50,9 +52,9 @@
     <string name="slot_intro_new_header">Hogyan működik az új felhasználói felület?</string>
     <string name="slot_intro_desc">Jelenleg a Kezdőlap szakaszban vagy, a további oldalak jobbra csúsztatással érhetők el. Mindegyik oldal alsó menüvel rendelkezik - ez a felfelé csúsztatással érhető el. &lt;br/&gt;&lt;br/&gt;Android TV-n, a felhasználói felületen a dpad segítségével navigálhatsz. A középső gombbal nyithatod meg az alsó menüt vagy bármely kiválasztott elemet. A gombok a felfelé, lefelé, balra vagy jobbra nyíllal vannak jelölve - az iránygombok megnyomásával kattinthatsz rájuk.</string>
     <string name="slot_intro_info">Psszt... Néhány elemhez kérdőjel ikon kapcsolódik. Megérintve, egy rövid súgóüzenet jelenik meg, mint ez!</string>
-    <string name="slot_new_filter">Új hoszt blokkolása</string>
-    <string name="slot_new_filter_list">Új lista hozzáadása</string>
-    <string name="slot_new_filter_whitelist">Új hoszt engedélyező listára vétele</string>
+    <string name="slot_new_filter">Új hoszt hozzáadása a blokkolt listához</string>
+    <string name="slot_new_filter_list">Új hosztlista hozzáadása</string>
+    <string name="slot_new_filter_whitelist">Új hoszt hozzáadása az engedélyezett listához</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">nincs beállítva</string>
     <!-- A state of input form when correct input is entered  -->
@@ -70,11 +72,8 @@
     <string name="slot_enter_name_generate">Generálás</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; engedélyezőlistára téve</string>
     <string name="slot_app_desc">Ez az alkalmazás az engedélyezőlistán van, ami azt jelenti, hogy ezen nem történik blokkolás vagy szűrés.</string>
-    <string name="slot_allapp_desc">Engedélyezőlistára teheted ezt az alkalmazást, hogy megakadályozd az adatforgalmának szűrését.</string>
-    <string name="slot_allapp_whitelisted">Engedélyezőlistán</string>
-    <string name="slot_allapp_normal">Nincs az engedélyezőlistán</string>
-    <string name="slot_allapp_whitelist">Engedélyezőlista</string>
-    <string name="slot_dns_name">Jelenlegi DNS-kiszolgáló(k): &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_dns_name">Egyéni DNS aktív</string>
+    <string name="slot_dns_name_disabled">Egyéni DNS deaktiválva</string>
     <string name="slot_dns_dns">Az aktuális kiszolgálókat az alsó menü segítségével módosíthatod.</string>
     <string name="slot_action_none">Ez a művelet még nem érhető el.</string>
     <string name="slot_action_facts">Tények</string>
@@ -120,10 +119,10 @@
     <string name="slot_dropped_counter">Blokkolt domain számláló</string>
     <string name="slot_dropped_counter_info">Ez a számláló mutatja az alkalmazás telepítése óta blokkolt domainek számát.</string>
     <string name="slot_dropped_action_clear">Számláló visszaállítása</string>
-    <string name="slot_notifications_title">Az értesítések: %s.</string>
+    <string name="slot_notifications_title">Az értesítések: %s</string>
     <string name="slot_notifications_desc">Itt be- vagy kikapcsolhatod az értesítéseket. Ne feledd, hogy egyes eszközökön az Android külön VPN-értesítést jelenít meg, amelyet nem lehet kikapcsolni.</string>
-    <string name="slot_notifications_enabled">engedélyezve</string>
-    <string name="slot_notifications_disabled">letiltva</string>
+    <string name="slot_notifications_enabled">Értesítések engedélyezve vannak</string>
+    <string name="slot_notifications_disabled">Értesítések le vannak tiltva</string>
     <string name="slot_update_action_refresh">Ellenőrizze újra</string>
     <string name="slot_telegram_title">Csatlakozz hozzánk a Telegramban!</string>
     <string name="slot_telegram_desc">Látogass el a Telegram csatornánkba, hogy segítséget kapj, vagy szimplán válj a közösségünk tagjává.</string>
@@ -135,15 +134,15 @@
     <string name="slot_adblocking_label">Hirdetések és nyomkövetők blokkolása</string>
     <string name="slot_adblocking_text">Ha engedélyezve van, a Blokada blokkolja a hirdetéseket, nyomkövetőket és más nem kívánt tartalmat. Ez segít megvédeni a magánéletedet, felgyorsítja a készülékedet és biztosítja az adataid védelmét.</string>
     <string name="slot_blocka_label">Blokada VPN fiók</string>
-    <string name="slot_account_label_active">Fiók érvényes eddig: %s</string>
+    <string name="slot_account_label_active">A fiók eddig aktív: %s</string>
+    <string name="slot_account_label_inactive">Fiók inaktív</string>
     <string name="slot_account_text_account">Fiókazonosítód: &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">Előfizetésed: &lt;b&gt;inaktív&lt;/b&gt;. A Blokada VPN használatához aktív fiókra van szükséged. Az aktiváláshoz érintsd meg az alábbi gombot.</string>
-    <string name="slot_account_text_active">Előfizetésed: &lt;b&gt;aktív&lt;/b&gt; eddig: &lt;b&gt;%s&lt;/b&gt;. Az előfizetés kezeléséhez érintsd meg az alábbi gombot.</string>
     <string name="slot_account_info">A fiókazonosítódat tartsd titokban - ha eltávolítod az alkalmazást, a fiók helyreállításához szükséges. Az előfizetés automatikusan meghosszabbodik, ameddig le nem mondod azt.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Kezelés</string>
     <string name="slot_account_action_manage_inactive">Fiók aktiválása</string>
     <string name="slot_account_action_change_id">Fiók visszaállítása</string>
+    <string name="slot_account_show">Fiókazonosító</string>
     <string name="slot_account_action_copy">Fiókazonosító másolása</string>
     <string name="slot_account_action_copied">Fiókazonosító a vágólapra másolva</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
@@ -188,7 +187,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Segítség</string>
     <string name="slot_donate_label">Tetszik a Blokada? Fontold meg az adományozást, így folyamatosan javíthatjuk az alkalmazást.</string>
-    <string name="slot_donate_desc">A Blokada hirdetés blokkoló ingyenes és nyílt forráskódú, és azt akarjuk, hogy ez így is maradjon. Adományaid segítik az alkalmazás továbbfejlesztését és az olyan új funkciók bevezetését, amelyeket a legjobban látni szeretnél. Köszönjük!</string>
+    <string name="slot_donate_desc">Segíts nekünk az új funkciók bevezetésében! További információért érintsd meg itt.</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Támogatás</string>
     <string name="slot_cta_label">Pszt! A véleményedre lennénk kíváncsiak.</string>
@@ -200,7 +199,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Megnyitás</string>
     <string name="slot_updated_label">A Blokada frissítésre került!</string>
-    <string name="slot_updated_desc">A Blokada verziója naprakész. A frissítéssel kapcsolatos további információkért érintsd meg az alábbi gombot. Kérjük, fontold meg az adományozást, hogy támogasd ezt a projektet!</string>
+    <string name="slot_updated_desc">A verzió használatának bemutatásához érintsd meg itt.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Továbbiak</string>
     <string name="slot_obsolete_label">Beavatkozás szükséges: ez a verzió elavult!</string>

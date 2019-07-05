@@ -3,6 +3,7 @@
 <resources>
     <!-- Main screen section -->
     <string name="panel_section_home">Начало</string>
+    <string name="panel_section_menu">Меню</string>
     <!-- Main screen section -->
     <string name="panel_section_ads">Блокиране на реклами</string>
     <!-- Main screen section -->
@@ -12,13 +13,14 @@
     <string name="panel_section_home_start">Blokada VPN</string>
     <string name="panel_section_home_help">Помощ</string>
     <string name="panel_section_home_community">Общност</string>
-    <string name="panel_section_ads_lists">Списъци на хостове</string>
+    <string name="panel_section_ads_lists">Списъци с хостове</string>
     <string name="panel_section_ads_log">Лог на хостове</string>
     <string name="panel_section_ads_blacklist">Блокирани хостове</string>
     <string name="panel_section_ads_whitelist">Позволени хостове</string>
-    <string name="panel_section_advanced_dns">DNS сървъри</string>
+    <string name="panel_section_advanced_dns">DNS</string>
     <string name="panel_section_apps_all">Инсталирани приложения</string>
     <string name="panel_section_apps_system">Системни приложения</string>
+    <string name="panel_section_advanced_settings">Настройки</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Позволен &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Този домейн е разрешен. За да го блокирате използвайте бутона по-долу.</string>
@@ -50,11 +52,11 @@
     <string name="slot_intro_new_header">Как да използваме новия потребителски интерфейс (UI)?</string>
     <string name="slot_intro_desc">В момента сте в секцията Начало и ако плъзнете на дясно ще видите още. Всяка от тях има свое собствено долно меню - отворете го с плъзгане нагоре. &lt;br/&gt;&lt;br/&gt;На телевизори с Android можете да се движите в потребителския интерфейс с помощта на dpad. Използвайте централния бутон, за да отворите долното меню или всеки елемент, който изберете. Бутоните са маркирани със стрелка нагоре, надолу, наляво или надясно - използвате бутоните за посока, за да кликнете върху тях.</string>
     <string name="slot_intro_info">Хей... Някои точки имат икона с въпросителен знак върху тях. Докосването му ще покаже кратко съобщение за помощ, също като това!</string>
-    <string name="slot_new_filter">Блокирайте нов хост</string>
-    <string name="slot_new_filter_list">Добавяне на нов списък</string>
-    <string name="slot_new_filter_whitelist">Бял списък с нов хост</string>
+    <string name="slot_new_filter">Добавяне на нов хост към списъка с блокирани</string>
+    <string name="slot_new_filter_list">Добавяне на нов списък с хостове</string>
+    <string name="slot_new_filter_whitelist">Добавяне на нов хост в списъка с разрешени</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
-    <string name="slot_unset">незададен</string>
+    <string name="slot_unset">незапазен</string>
     <!-- A state of input form when correct input is entered  -->
     <string name="slot_set">зададен</string>
     <!-- A state of input form when incorrect input is entered  -->
@@ -70,11 +72,12 @@
     <string name="slot_enter_name_generate">Генерирай</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; е в белия списък</string>
     <string name="slot_app_desc">Това приложение е включено в белия списък, което означава, че не се извършва блокиране или филтриране.</string>
-    <string name="slot_allapp_desc">Можете да поставите това приложение в белия списък за да спрете блокирането на трафика към него.</string>
-    <string name="slot_allapp_whitelisted">В белия списък</string>
-    <string name="slot_allapp_normal">Не е в белия списък</string>
-    <string name="slot_allapp_whitelist">Бял списък</string>
-    <string name="slot_dns_name">Актуален DNS сървър(и): &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_allapp_desc">Можете да включите това приложение за да го заобиколи Blokada и да спрете блокирането на трафика към него. Не забравяйте, че заобиколените приложения комуникират извън VPN.</string>
+    <string name="slot_allapp_whitelisted">Заобиколени</string>
+    <string name="slot_allapp_normal">Не е заобиколено</string>
+    <string name="slot_allapp_whitelist">Заобикаляне</string>
+    <string name="slot_dns_name">Персонализираният DNS е активен</string>
+    <string name="slot_dns_name_disabled">Персонализираният DNS е деактивиран</string>
     <string name="slot_dns_dns">Можете да промените текущите сървъри като използвате долното меню.</string>
     <string name="slot_action_none">Това действие все още не е налице.</string>
     <string name="slot_action_facts">Факти</string>
@@ -120,10 +123,10 @@
     <string name="slot_dropped_counter">Брояч на блокирани домейни</string>
     <string name="slot_dropped_counter_info">Този брояч показва броя домейни, които са били блокирани след инсталирането на приложението.</string>
     <string name="slot_dropped_action_clear">Нулиране на брояча</string>
-    <string name="slot_notifications_title">Известията са %s.</string>
+    <string name="slot_notifications_title">Известията са %s</string>
     <string name="slot_notifications_desc">Можете да включите или изключите известията от тук. Не забравяйте, че на някои устройства с Android ще покаже отделно известие за VPN, което не може да бъде изключено.</string>
-    <string name="slot_notifications_enabled">включени</string>
-    <string name="slot_notifications_disabled">изключени</string>
+    <string name="slot_notifications_enabled">Известията са активирани</string>
+    <string name="slot_notifications_disabled">Известията са деактивирани</string>
     <string name="slot_update_action_refresh">Провери отново</string>
     <string name="slot_telegram_title">Присъединете се към нас в Telegram!</string>
     <string name="slot_telegram_desc">Посетете нашия канал за помощ в Telegram, или просто станете част от нашата общност.</string>
@@ -136,15 +139,14 @@
     <string name="slot_adblocking_text">Когато е активирана Blokada ще блокира реклами, тракери и друго нежелано съдържание. Това помага да защитите личните си данни, да ускорите устройството си и да запазите данните си.</string>
     <string name="slot_blocka_label">Blokada VPN Профил</string>
     <string name="slot_account_label_active">Профилът е валиден до %s</string>
+    <string name="slot_account_label_inactive">Профилът е неактивен</string>
     <string name="slot_account_text_account">Вашият профилен ID e &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">Вашият абонамент е &lt;b&gt;неактивен&lt;/b&gt;.
-Нуждаете се от активен акаунт за да използвате Blokada VPN. Моля, натиснете бутона по-долу за да го активирате.</string>
-    <string name="slot_account_text_active">Вашият абонамент е &lt;b&gt;активен&lt;/b&gt; до &lt;b&gt;%s&lt;/b&gt;. Моля, натиснете бутона по-долу за управление на абонамента.</string>
     <string name="slot_account_info">Трябва да пазите профилния си идентификационен номер (ID) - това е необходимо за да възстановите профила си, в случай че деинсталирате приложението. Вашият абонамент ще бъде автоматично удължен, освен ако не го анулирате.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Управление</string>
     <string name="slot_account_action_manage_inactive">Активиране на профил</string>
     <string name="slot_account_action_change_id">Възстановяване на профил</string>
+    <string name="slot_account_show">Профилно ID</string>
     <string name="slot_account_action_copy">Копирай профилен ID</string>
     <string name="slot_account_action_copied">Профилен ID е копиран в клипборда</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
@@ -190,7 +192,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Помощ</string>
     <string name="slot_donate_label">Наслаждавате се на Блокада? Помислете да ни подкрепите за да можем да продължим с подобряването на приложението.</string>
-    <string name="slot_donate_desc">Blokada adblocker е свободен и отворен код, и ние искаме той да продължи по този начин. Вашите дарения ни помагат да продължим да разработваме приложението и да въвеждаме нови функции, които искате да видите най-много. Благодарим Ви!</string>
+    <string name="slot_donate_desc">Помогнете ни да въведем нови функции! Докоснете тук за повече.</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Дарете</string>
     <string name="slot_cta_label">Хей! Бихме искали да знаем вашето мнение.</string>
@@ -202,7 +204,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Отвори</string>
     <string name="slot_updated_label">Blokada е актуализирана!</string>
-    <string name="slot_updated_desc">Вашата версия на Blokada е актуална. Докоснете бутона по-долу за допълнителна информация за тази актуализация. Също така, моля, помислете за дарение в подкрепа на този проект!</string>
+    <string name="slot_updated_desc">Докоснете тук за въведение в тази версия.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Още</string>
     <string name="slot_obsolete_label">Задължително е действие: тази версия е остаряла!</string>
@@ -228,4 +230,8 @@
     <string name="label_dns">DNS настройки</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Разширени настройки</string>
+    <string name="slot_whitelist_updating">Конфигурацията се актуализира, моля изчакайте...</string>
+    <string name="slot_lease_deleted_information">Обърнете внимание, че понастоящем Blokada VPN може да се използва само на едно устройство.</string>
+    <string name="slot_background_animation">Фонова анимация</string>
+    <string name="slot_background_animation_description">Когато са включени, вълните ще анимират всеки път при блокирана или позволена заявка за DNS. Изключете, ако има забавяне в призводителността.</string>
 </resources>

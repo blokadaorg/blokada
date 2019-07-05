@@ -7,10 +7,16 @@
     <string name="dns_default_comment">當啟用時，將不變更 DNS 伺服器，並使用裝置的預設伺服器，這取決於你的行動數據與 Wi-Fi 連線。</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">自訂</string>
+    <string name="dns_custom_comment">自訂 DNS</string>
+    <string name="dns_custom_add_slot">新增 DNS…</string>
+    <string name="slot_enter_dns_error">這看起來不像 IPv4。</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_name_placeholder">8.8.8.8</string>
+    <string name="dns_edit_name_label">IP 位址</string>
     <string name="dns_edit_name_enter">輸入 DNS 伺服器位址</string>
     <string name="dns_edit_name_error">格式看起來並不正確。 請確保您輸入的伺服器 IP 位址格式是正確的，例如 8.8.8.8。</string>
+    <string name="dns_edit_name_next">下一步</string>
+    <string name="dns_edit_name_last">新增</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">預設 DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

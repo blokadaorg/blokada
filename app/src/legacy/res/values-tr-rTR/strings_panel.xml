@@ -16,7 +16,6 @@
     <string name="panel_section_ads_log">Host Kaydı</string>
     <string name="panel_section_ads_blacklist">Engellenmiş Host Listesi</string>
     <string name="panel_section_ads_whitelist">İzin Verilen Host Listesi</string>
-    <string name="panel_section_advanced_dns">DNS Sunucuları</string>
     <string name="panel_section_apps_all">Yüklü Uygulamalar</string>
     <string name="panel_section_apps_system">Sistem Uygulamaları</string>
     <!-- When a domain is allowed (not blocked) -->
@@ -50,9 +49,6 @@
     <string name="slot_intro_new_header">Yeni Arayüz nasıl kullanılır?</string>
     <string name="slot_intro_desc">Şu anda Giriş bölümünde bulunuyorsunuz, sağa kaydırırsanız daha fazlası var. Her birinin kendi alt menüsü vardır - yukarı kaydırarak açın. &lt;br/&gt;&lt;br/&gt;Android TV\'de, Arayüz’de dpad ile gezinin. Alt menüyü veya seçtiğiniz herhangi bir öğeyi açmak için ortadaki tuşu kullanın. Düğmeler yukarı, aşağı, sol veya sağ oklarla işaretlenmiştir - tıklamak için yön tuşlarını kullanın.</string>
     <string name="slot_intro_info">Hatırlatma... Bazı öğelerin üzerinde soru işareti simgesi bulunur. Dokunulduğunda, bunun gibi kısa bir yardım mesajı görüntülenir!</string>
-    <string name="slot_new_filter">Yeni host\'u engelle</string>
-    <string name="slot_new_filter_list">Yeni liste ekle</string>
-    <string name="slot_new_filter_whitelist">Yeni beyaz liste host\'u</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">ayarlanmadı</string>
     <!-- A state of input form when correct input is entered  -->
@@ -70,11 +66,6 @@
     <string name="slot_enter_name_generate">Oluştur</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; beyaz listeye alındı</string>
     <string name="slot_app_desc">Bu uygulama beyaz listeye eklenmiştir, yani üzerinde herhangi bir engelleme veya filtreleme yapılmaz.</string>
-    <string name="slot_allapp_desc">Herhangi bir trafiği engellemeyi durdurmak için bu uygulamayı beyaz listeye ekleyebilirsiniz.</string>
-    <string name="slot_allapp_whitelisted">Beyaz listede</string>
-    <string name="slot_allapp_normal">Beyaz listeye alınmadı</string>
-    <string name="slot_allapp_whitelist">Beyaz liste</string>
-    <string name="slot_dns_name">Mevcut DNS sunucu(ları): &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_dns_dns">Alttaki menüyü kullanarak mevcut sunucuları değiştirebilirsiniz.</string>
     <string name="slot_action_none">Bu işlem henüz mevcut değil.</string>
     <string name="slot_action_facts">Gerçekler</string>
@@ -120,10 +111,7 @@
     <string name="slot_dropped_counter">Engellenen alanlar sayacı</string>
     <string name="slot_dropped_counter_info">Bu sayaç, uygulamanın yüklenmesinden bu yana engellenen alan adedini gösterir.</string>
     <string name="slot_dropped_action_clear">Sayacı sıfırla</string>
-    <string name="slot_notifications_title">Bildirimler %s.</string>
     <string name="slot_notifications_desc">Bildirimleri buradan açabilir veya kapatabilirsiniz. Bazı cihazlarda, Android\'in kapatılamayan ayrı bir VPN bildirimi göstereceğini unutmayın.</string>
-    <string name="slot_notifications_enabled">etkin</string>
-    <string name="slot_notifications_disabled">devre dışı</string>
     <string name="slot_update_action_refresh">Tekrar kontrol et</string>
     <string name="slot_telegram_title">Telegram\'da bize katılın!</string>
     <string name="slot_telegram_desc">Yardım için veya sadece topluluğumuzun bir parçası olmak için Telegram kanalımızı ziyaret edin.</string>
@@ -135,10 +123,7 @@
     <string name="slot_adblocking_label">Reklamları engelle &amp; izleyiciler</string>
     <string name="slot_adblocking_text">Etkinleştirildiğinde, Blokada reklamları, izleyicileri ve diğer istenmeyen içerikleri engeller. Bu gizliliğinizi korumanıza, cihazınızı hızlandırmanıza ve verilerinizi kaydetmenize yardımcı olur.</string>
     <string name="slot_blocka_label">Blokada VPN Hesabı</string>
-    <string name="slot_account_label_active">%s\'ye kadar geçerli hesap</string>
     <string name="slot_account_text_account">Hesap kimliğiniz &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">Aboneliğiniz  &lt;b&gt;etkin değil&lt;/b&gt;. Blokada VPN\'i kullanabilmek için aktif bir hesaba ihtiyacınız var. Etkinleştirmek için lütfen aşağıdaki düğmeye dokunun.</string>
-    <string name="slot_account_text_active">Aboneliğiniz &lt;b&gt;%s&lt;/b&gt;\'e kadar &lt;b&gt;aktif&lt;/b&gt; dir. Aboneliğinizi yönetmek için lütfen aşağıdaki butona dokunun.</string>
     <string name="slot_account_info">Hesap kimliğinizi gizli tutmalısınız - uygulamayı kaldırmanız durumunda hesabınızı kurtarmanız gerekir. Siz iptal etmediğiniz sürece aboneliğiniz otomatik olarak uzatılır.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Yönet</string>
@@ -188,7 +173,6 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Yardım</string>
     <string name="slot_donate_label">Blokada’dan zevk alıyor musunuz? Bizi desteklemeyi düşünün, böylece uygulamayı geliştirmeye devam edebiliriz.</string>
-    <string name="slot_donate_desc">Blokada reklam engelleyici ücretsiz ve açık kaynak kodlu ve biz de bunun böyle olmasını istiyoruz. Bağışlarınız, uygulamayı geliştirmeye devam etmemize ve en çok görmek istediğiniz yeni özellikleri sunmamıza yardımcı oluyor. Teşekkür ederim!</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Bağış</string>
     <string name="slot_cta_label">Hatırlatma! Fikrinizi bilmek istiyoruz.</string>
@@ -200,7 +184,6 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Aç</string>
     <string name="slot_updated_label">Blokada güncellendi!</string>
-    <string name="slot_updated_desc">Blokada sürümünüz şimdi güncel. Bu güncelleme hakkında ek bilgi için aşağıdaki butona dokunun. Ayrıca, lütfen bu projeyi desteklemek için bağış yapmayı düşünün!</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Daha</string>
     <string name="slot_obsolete_label">Gerekli eylem: bu sürüm eski!</string>
@@ -226,4 +209,8 @@
     <string name="label_dns">DNS ayarları</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Gelişmiş ayarlar</string>
+    <string name="slot_whitelist_updating">Yapılandırma güncelleniyor, lütfen bekleyin...</string>
+    <string name="slot_lease_deleted_information">Şu anda Blokada VPN\'in yalnızca bir cihazda kullanılabileceğini unutmayın.</string>
+    <string name="slot_background_animation">Arkaplan animasyonu</string>
+    <string name="slot_background_animation_description">Açık olduğunda, bir DNS isteği engellendiğinde veya izin verildiğinde dalgalar canlanacaktır. Yavaşlamalar yaşıyorsanız kapatın.</string>
 </resources>

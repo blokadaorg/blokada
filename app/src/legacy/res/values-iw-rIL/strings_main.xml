@@ -10,6 +10,8 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s פעיל.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s פעילה. VPN מחובר.</string>
+    <string name="main_active_novpn">%s פעילה. VPN אינו מחובר.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s מגן כעת על מכשירך. ניתן להגדיר את %1$s להלן, או פשוט להמשיך להשתמש במכשירך!</string>
     <!-- Parameter: branded app name (Blokada). -->

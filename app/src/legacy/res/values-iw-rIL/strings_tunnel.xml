@@ -4,6 +4,7 @@
     <string name="tunnel_hosts_desc">מציג את מספר השרתים אשר מוגדרים להיחסם על ידי %s.</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <string name="tunnel_hosts_count2">%s שרתים</string>
+    <string name="tunnel_hosts_count">%d שרתים</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <string name="tunnel_hosts_updating">מעדכן...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -11,8 +12,10 @@
     <string name="tunnel_config_wifi">להוריד מסננים רק כאשר קיים חיבור לרשת wifi</string>
     <string name="tunnel_dropped_count_desc">מציג את מספרם הכולל של השרתים שנחסמו עד כה.</string>
     <string name="tunnel_dropped_count">%d נחסמו</string>
+    <string name="tunnel_dropped_count2">%s שמות דומיין נחסמו</string>
     <string name="tunnel_config_refetch_now_title">הורדת רשימות</string>
     <string name="tunnel_config_refetch_now">הורד רשימות כעת</string>
+    <string name="tunnel_config_refetch_toast">הורדת הרשימות החלה</string>
     <string name="tunnel_config_refetch_now_description">השתמש בלחצן שלהלן כדי למחוק את קובצי המטמון ולהוריד את הרשימות שלך שוב. הליך זה עשוי לעזור אם יש תקלות בבעיות עם הגדרות הסינון.</string>
     <string name="tunnel_config_refetch_frequency_title">תדירות הורדת רשימות</string>
     <string name="tunnel_config_refetch_frequency_description">בחר באחת האפשרויות כדי לקבוע באיזו תדירות היישום אמור להוריד את הרשימות.</string>
@@ -27,4 +30,8 @@
     <string name="tunnel_config_watchdog_description">הפעל מתג זה אם ברצונך שהיישום יפעיל את ה-VPN רק אם יש חיבור אינטרנט פעיל, ויפעיל מחדש את את ה-VPN במקרה שיש בעיות קישוריות. תהליך זה עשוי לעזור למכשירים מסוימים. הערה: בגרסאות קודמות אפשרות זו נקראה \"חיבור בלבד\".</string>
     <string name="tunnel_config_powersave_title">הפעלה אגרסיבית</string>
     <string name="tunnel_config_powersave_description">הפעל מתג זה אם הינך נתקל בבעיות הנגרמות על ידי תכונת \'חיסכון בסוללה\' של מכשירך. כאשר היישום מזהה בעיות קישוריות, הוא ינסה להעלות את העדיפות שלו בכדי להוציא את עצמו ממצב החיסכון בסוללה.</string>
+    <string name="tunnel_config_reports_title">דוחו\"ת</string>
+    <string name="tunnel_config_reports_description">הפעל מפסק זה כדי לאפשר ליישום לשלוח דוחות שיעזרו לנו לתקן בעיות ובאגים. זה יבוצע רק פעם ביום, או כאשר היישום קורס. השבתת אופציה זו עלולה להקשות עלינו לפתור בעיות שבהן אתה נתקל. ייתכן שתצטרך להפעיל מחדש את היישום לשינוי הגדרה זו.</string>
+    <string name="tunnel_config_fallback_title">השבת DNS</string>
+    <string name="tunnel_config_fallback_description">הפעל מפקס זה אם אתה מאבד גישה לאינטרנט במצבים מסוימים, כגון רשת WiFi. פעולה זו תגרום ליישום לעבור באופן זמני ל- DNS של Cloudflare כדי להחזיק את הקישוריות שלך. ייתכן שתצטרך לבחור מחדש את השרתים שלך בהגדרות ה- DNS כדי שהגדרה זו תיכנס לתוקף.</string>
 </resources>

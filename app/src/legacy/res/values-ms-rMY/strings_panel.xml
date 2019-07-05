@@ -16,7 +16,6 @@
     <string name="panel_section_ads_log">Log Hos</string>
     <string name="panel_section_ads_blacklist">Hos Disekat</string>
     <string name="panel_section_ads_whitelist">Hos Dibenarkan</string>
-    <string name="panel_section_advanced_dns">Server DNS</string>
     <string name="panel_section_apps_all">Aplikasi dipasang</string>
     <string name="panel_section_apps_system">Aplikasi sistem</string>
     <!-- When a domain is allowed (not blocked) -->
@@ -46,9 +45,6 @@
     <string name="slot_switch_switch_bitch">Suis</string>
     <string name="slot_start">sentuh ke atas untuk mula</string>
     <string name="slot_intro_new_header">Bagaimana untuk menggunakan UI baru?</string>
-    <string name="slot_new_filter">Sekat hos baru</string>
-    <string name="slot_new_filter_list">Letak senarai baru</string>
-    <string name="slot_new_filter_whitelist">Senarai putihkan hos baru</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">nyahsetkan</string>
     <!-- A state of input form when correct input is entered  -->
@@ -62,10 +58,6 @@
     <string name="slot_enter_name_title">Nama</string>
     <string name="slot_enter_name_desc">Masukkan nama untuk kemasukkan baru. Anda juga boleh menjana nama cadangan.</string>
     <string name="slot_enter_name_generate">Menjana</string>
-    <string name="slot_allapp_whitelisted">Disenarai putihkan</string>
-    <string name="slot_allapp_normal">Tidak disenarai putihkan</string>
-    <string name="slot_allapp_whitelist">Senarai putih</string>
-    <string name="slot_dns_name">Pelayan(s) DNS semasa: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_dns_dns">Anda boleh menukar pelayan semasa menggunakan menu di bawah.</string>
     <string name="slot_action_none">Tindakan ini tidak tersedia.</string>
     <string name="slot_action_unwhitelist">Batal</string>
@@ -97,9 +89,6 @@
     <string name="slot_dropped_counter">Bilangan domain disekat</string>
     <string name="slot_dropped_counter_info">Bilangan ini menunjukkan jumlah domain yang telah disekat semenjak aplikasi ini dipasang.</string>
     <string name="slot_dropped_action_clear">Tetapan semula bilangan</string>
-    <string name="slot_notifications_title">Pemberitahuan adalah %s.</string>
-    <string name="slot_notifications_enabled">aktifkan</string>
-    <string name="slot_notifications_disabled">dimatikan</string>
     <string name="slot_update_action_refresh">Semak lagi</string>
     <string name="slot_telegram_title">Sertai kami di Telegram!</string>
     <string name="slot_telegram_desc">Kunjungi saluran Telegram kami untuk dapatakan bantuan atau menjadi sebahagian kominiti kami.</string>
@@ -110,7 +99,6 @@
     <string name="slot_inactive">Tidak aktif</string>
     <string name="slot_adblocking_label">Sekat iklan &amp; penjejak</string>
     <string name="slot_blocka_label">Akaun VPN Blokada</string>
-    <string name="slot_account_label_active">Akaun sah sehingga %s</string>
     <string name="slot_account_text_account">ID anda ialah &lt;b&gt;%s&lt;/b&gt;.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Urus</string>

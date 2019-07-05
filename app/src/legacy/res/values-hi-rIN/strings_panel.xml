@@ -14,7 +14,6 @@
     <string name="panel_section_home_community">समुदाय</string>
     <string name="panel_section_ads_lists">मेजबान सूचि</string>
     <string name="panel_section_ads_blacklist">अवरोधित मेजबान</string>
-    <string name="panel_section_advanced_dns">डीएनएस सर्वर</string>
     <string name="panel_section_apps_all">स्थापित किए गए ऐप्प</string>
     <string name="panel_section_apps_system">सिस्टम ऐप्स</string>
     <!-- When a domain is allowed (not blocked) -->
@@ -35,8 +34,6 @@
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">स्विच</string>
     <string name="slot_intro_new_header">नए संस्करण का उपयोग कैसे करें?</string>
-    <string name="slot_new_filter">नये मेजबान को अवरूद्ध करें</string>
-    <string name="slot_new_filter_list">नयी सुचि बनाएं</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <!-- A state of input form when correct input is entered  -->
     <!-- A state of input form when incorrect input is entered  -->
@@ -45,9 +42,6 @@
     <string name="slot_enter_domain_file">फ़ाइल</string>
     <string name="slot_enter_name_title">शीर्षक</string>
     <string name="slot_enter_name_generate">उत्पन्न</string>
-    <string name="slot_allapp_whitelisted">श्वेत सूची</string>
-    <string name="slot_allapp_whitelist">श्वेत सूची</string>
-    <string name="slot_dns_name">वर्तमान डीएनएस सर्वर: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_action_none">यह कार्रवाई अभी उपलब्ध नहीं है।</string>
     <string name="slot_action_facts">तथ्यों</string>
     <string name="slot_action_unwhitelist">रद्द करें</string>

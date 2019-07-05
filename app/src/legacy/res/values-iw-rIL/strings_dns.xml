@@ -5,9 +5,15 @@
     <string name="dns_default_comment">כאשר מופעל, שרתי ה-DNS לא ישתנו ויופעלו שרתי ברירת המחדל של המכשיר, תלוי ברשת הסלולאר וה-WiFi.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">מותאם אישית</string>
+    <string name="dns_custom_comment">DNS מותאם אישית</string>
+    <string name="dns_custom_add_slot">הוסף DNS חדש…</string>
+    <string name="slot_enter_dns_error">זה לא נראה כמו IPv4.</string>
     <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_name_label">כתובת IP</string>
     <string name="dns_edit_name_enter">הזן כתובת שרת ה-DNS</string>
     <string name="dns_edit_name_error">זה לא נראה תקין. וודא כי הזנת כתובת IP של השרת, כגון 8.8.8.8.</string>
+    <string name="dns_edit_name_next">הבא</string>
+    <string name="dns_edit_name_last">הוסף</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS ברירת מחדל</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

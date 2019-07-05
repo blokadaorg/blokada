@@ -15,16 +15,16 @@
     <string name="filter_edit_name">Hôte</string>
     <!-- An example format of a hostname. -->
     <string name="filter_edit_name_placeholder">exemple.com</string>
-    <string name="filter_edit_name_enter">Entrer un nom d\'hôte</string>
+    <string name="filter_edit_name_enter">Entrez un nom d\'hôte</string>
     <string name="filter_edit_name_error">Cela ne semble pas correct. Assurez-vous d\'avoir entré un nom de domaine, comme exemple.com.</string>
     <!-- Name of a tab that allows to add a file with hosts. -->
     <string name="filter_edit_file">Fichier</string>
-    <string name="filter_edit_file_choose">Sélectionner un fichier hosts</string>
-    <string name="filter_edit_file_none">Aucun fichier hosts sélectionné</string>
+    <string name="filter_edit_file_choose">Sélectionner un fichier d\'hôtes</string>
+    <string name="filter_edit_file_none">Aucun fichier d\'hôtes sélectionné</string>
     <string name="filter_edit_file_error">Le fichier sélectionné ne semble pas contenir d\'hôtes.</string>
     <!-- Name of a tab that allows to add a link to hosts. -->
     <string name="filter_edit_link">Lien</string>
-    <string name="filter_edit_link_enter">Entrer un lien vers un fichier hosts</string>
+    <string name="filter_edit_link_enter">Entrez un lien vers un fichier d\'hôtes</string>
     <!-- An example format of a link to hosts file. -->
     <string name="filter_edit_link_placeholder">http://exemple.com/hôtes.txt</string>
     <string name="filter_edit_link_error">Ce lien ne peut être téléchargé ou ne semble pas contenir d\'hôtes.</string>
@@ -41,7 +41,7 @@
     <string name="filter_edit_comments">Commentaires</string>
     <string name="filter_edit_comments_none">Aucun commentaire</string>
     <!-- Parameter: number of hosts. -->
-    <string name="filter_edit_count">Contient %d hôtes</string>
+    <string name="filter_edit_count">Contient %d hôte(s)</string>
     <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
     <string name="filter_blacklist_text">%d en liste noire</string>
     <string name="filter_blacklist_text_none">Liste noire inactive</string>
@@ -51,7 +51,7 @@
     <!-- Title of menu with quick actions for whitelist / blacklist -->
     <string name="filter_generate_title">Actions rapides</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
-    <string name="filter_generate_whitelist_system">Ajoute toutes les applications système (activé)</string>
+    <string name="filter_generate_whitelist_system">Ajouter toutes les applications système (activé)</string>
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
     <string name="filter_generate_whitelist_system_disabled">Ajouter toutes les applications système (désactivé)</string>
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->
@@ -59,7 +59,7 @@
     <!-- Adds all installed apps to the whitelist and/or sets them to disabled -->
     <string name="filter_generate_whitelist_all_disabled">Ajouter toutes les applications (désactivé)</string>
     <!-- Deletes all filters and fetches default ones. -->
-    <string name="filter_generate_defaults">Restaurer les valeurs par défaut  (listes blanches et noires)</string>
+    <string name="filter_generate_defaults">Restaurer les valeurs par défaut (listes blanche et noire)</string>
     <!-- Forcefully refetch filters ignoring cache. -->
     <string name="filter_generate_refetch">Actualiser les filtres</string>
     <!-- Select save location for filters  -->

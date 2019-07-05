@@ -7,10 +7,16 @@
     <string name="dns_default_comment">При стартиране ще се използват DNS сървърите по подразбиране в зависимост от вашата мобилна мрежа и WIFI.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Персонализирани</string>
+    <string name="dns_custom_comment">Персонализиран DNS</string>
+    <string name="dns_custom_add_slot">Добавяне на нов DNS…</string>
+    <string name="slot_enter_dns_error">Това не ми прилича на IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_name_placeholder">8.8.8.8</string>
+    <string name="dns_edit_name_label">IP адрес</string>
     <string name="dns_edit_name_enter">Въведете адрес на DNS сървъра</string>
     <string name="dns_edit_name_error">Това изглежда неправилно. Убедете се, че въвеждате IP адрес на сървъра, например 8.8.8.8.</string>
+    <string name="dns_edit_name_next">Напред</string>
+    <string name="dns_edit_name_last">Добавяне</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS по подразбиране</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

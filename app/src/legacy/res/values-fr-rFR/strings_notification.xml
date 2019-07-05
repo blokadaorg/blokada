@@ -11,7 +11,7 @@
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
     <string name="notification_blocked_whitelist">Liste blanche</string>
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
-    <string name="notification_blocked_whitelist_applied">Fait! Les changements peuvent prendre quelques secondes.</string>
+    <string name="notification_blocked_whitelist_applied">Terminé! Les changements peuvent prendre quelques secondes.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_disabled">%s n\'affichera pas de notifications.</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -33,7 +33,7 @@
     <string name="notification_keepalive_deactivate">Désactiver</string>
     <string name="notification_keepalive_deactivating">Blokada a été désactivé !</string>
     <string name="notification_expired_title">Le compte a expiré</string>
-    <string name="notification_expired_description">Votre abonnement vient juste d\'arriver à expiration et vous n\'êtes pas connecté au VPN Blokada pour le moment. Veuillez envisager de renouveler votre abonnement pour une meilleure protection.</string>
-    <string name="notification_lease_expired_title">Le VPN Blokada est désactivé</string>
+    <string name="notification_expired_description">Votre abonnement vient juste d\'arriver à expiration et vous n\'êtes pas connecté à Blokada VPN pour le moment. Veuillez envisager de renouveler votre abonnement pour une meilleure protection.</string>
+    <string name="notification_lease_expired_title">Blokada VPN est désactivé</string>
     <string name="notification_lease_expired_description">Il y a eu un problème avec votre connexion à Blocka VPN. Veuillez essayer de vous connecter à une autre passerelle. Si le problème persiste, veuillez nous contacter sur Telegram.</string>
 </resources>

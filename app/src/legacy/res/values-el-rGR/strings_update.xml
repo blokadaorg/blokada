@@ -10,6 +10,8 @@
     <string name="update_dash_uptodate">Ενημερωμένο</string>
     <!-- Displayed in menu to open the About/Update screen. -->
     <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">Λεπτομέρειες εφαρμογής</string>
     <!-- A button that opens the changelog. -->
+    <string name="update_button_changelog">Αρχείο καταγραφής αλλαγών</string>
     <!-- A toast message displayed when the update process is starting. -->
 </resources>

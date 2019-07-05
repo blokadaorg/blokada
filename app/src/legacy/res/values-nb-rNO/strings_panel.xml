@@ -4,15 +4,22 @@
     <!-- Main screen section -->
     <string name="panel_section_home">Hjem</string>
     <!-- Main screen section -->
+    <string name="panel_section_ads">Annonseblokkering</string>
     <!-- Main screen section -->
+    <string name="panel_section_apps">Apper</string>
     <!-- Main screen section -->
     <string name="panel_section_advanced">Avansert</string>
     <string name="panel_section_home_start">Blokada VPN</string>
     <string name="panel_section_home_help">Hjelp</string>
+    <string name="panel_section_home_community">Nettsamfunn</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Tillatt &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Dette domenet har blitt tillatt. For å blokkere det, bruk knappen nedenfor.</string>
     <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked_toast">Lagt til i svartelisten.</string>
+    <string name="panel_ruleset">Filter teller</string>
+    <string name="panel_ruleset_title">Filtre har nå %s regler.</string>
+    <string name="panel_ruleset_updating">Oppdaterer filtre...</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Tillat</string>
     <!-- Button to block allowed domain -->
@@ -20,18 +27,26 @@
     <string name="slot_action_close">Lukk</string>
     <string name="slot_action_remove">Fjern</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
+    <string name="slot_action_credits">Nettsted</string>
     <!-- A state for switches (like notifications: on) -->
     <string name="slot_switch_on">På</string>
     <!-- A state for switches (like notifications: off) -->
     <string name="slot_switch_off">Av</string>
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Bytt</string>
+    <string name="slot_start">sveip opp for å starte</string>
+    <string name="slot_intro_new_header">Hvordan bruke den nye brukergrensesnittet?</string>
+    <string name="slot_intro_info">Psst... Noen elementer har spørsmålstegnikonet på dem. Hvis du trykker på den, vises en kort hjelpemelding, som denne!</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
+    <string name="slot_unset">annuler</string>
     <!-- A state of input form when correct input is entered  -->
+    <string name="slot_set">sett</string>
     <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_continue">Gå videre</string>
+    <string name="slot_enter_domain_title">Domene(r)</string>
     <string name="slot_enter_domain_file">Fil</string>
     <string name="slot_enter_name_title">Navn</string>
-    <string name="slot_dns_name">Gjeldende DNS-server(e): &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_action_none">Denne handlingen er ikke tilgjengelig ennå.</string>
     <string name="slot_action_unwhitelist">Avbryt</string>
     <string name="slot_action_author">Om</string>
     <string name="slot_action_share">Del</string>
@@ -41,16 +56,31 @@
     <string name="slot_status_vpn_turn_off">Deaktiver VPN</string>
     <string name="slot_status_vpn_turn_on">Aktiver VPN</string>
     <string name="slot_status_vpn_turned_on">VPN koblet til %s</string>
-    <string name="slot_notifications_enabled">aktivert</string>
-    <string name="slot_notifications_disabled">deaktivert</string>
+    <string name="slot_action_deactivate">Slå av</string>
+    <string name="slot_action_activate">Slå på</string>
+    <string name="slot_dropped_action_clear">Tilbakestill teller</string>
+    <string name="slot_update_action_refresh">Sjekk igjen</string>
     <string name="slot_telegram_title">Bli med på Telegram!</string>
+    <string name="slot_telegram_desc">Besøk vår Telegram kanal for hjelp eller bare for å være en del av samfunnet vårt.</string>
+    <string name="slot_telegram_action">Åpne</string>
     <string name="slot_dropped_share_title">Del til</string>
-    <string name="slot_account_label_active">Konto gyldig til %s</string>
+    <string name="slot_dropped_share">Jeg blokkerte %s annonser takket være %s! www.blokada.org</string>
     <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">Administrer</string>
+    <string name="slot_account_action_manage_inactive">Aktiver konto</string>
+    <string name="slot_account_action_change_id">Gjenopprett konto</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <!-- Gateway load -->
     <!-- Gateway load -->
+    <string name="slot_protection_header">Blokada status</string>
+    <string name="slot_protection_off">Blokada er inaktiv</string>
+    <string name="slot_protection_off_desc">Enheten din er ikke beskyttet.</string>
+    <string name="slot_protection_disconnected">Enheten din er frakoblet</string>
+    <string name="slot_protection_active">Blokada og VPN er aktiv</string>
     <string name="slot_protection_action">Innstillinger</string>
+    <string name="slot_recommended_dns_label">Bruk anbefalte DNS servere</string>
+    <string name="slot_update_no_updates">Blokada er oppdatert</string>
+    <string name="slot_about">Om Blokada</string>
     <!-- A button to share debug log. Keep it short. -->
     <string name="slot_about_share_log">Logg</string>
     <string name="slot_help_label">Trenger du hjelp?</string>
@@ -59,16 +89,26 @@
     <!-- A button to donate -->
     <string name="slot_donate_action">Donér</string>
     <!-- A button to open something (a website) -->
+    <string name="slot_blog_label">Sjekk ut vår utviklingsblogg!</string>
     <!-- A button to open a blog -->
     <string name="slot_updated_label">Blokada har blitt oppdatert!</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Mer</string>
+    <string name="slot_obsolete_label">Handling kreves: denne versjonen er foreldet!</string>
+    <string name="slot_obsolete_desc">Din versjon av Blokada er foreldet og kan ikke fungere riktig. Vennligst last ned den nyeste versjonen for å fortsette å motta oppdateringer.</string>
     <!-- A button to update the app. -->
     <string name="slot_obsolete_action">Oppdater</string>
+    <string name="slot_cleanup_label">Flere versjoner av Blokada oppdaget</string>
+    <string name="slot_cleanup_desc">Det ser ut til at mange versjoner av Blokada er installert på enheten din. Vil du fjerne de andre versjonene og bare beholde en?</string>
+    <string name="slot_cleanup_action">Rydd opp</string>
     <string name="slot_account_name_restore">Gjenopprett</string>
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Avanserte innstillinger</string>
+    <string name="slot_whitelist_updating">Oppdaterer konfigurasjon, vennligst vent...</string>
+    <string name="slot_lease_deleted_information">Merk at Blokada VPN for øyeblikket kun kan brukes på en enhet.</string>
+    <string name="slot_background_animation">Bakgrunns animasjon</string>
+    <string name="slot_background_animation_description">Når på, vil bølger animere hver gang en DNS-forespørsel er blokkert eller tillatt. Slå av hvis du opplever nedbremsing.</string>
 </resources>

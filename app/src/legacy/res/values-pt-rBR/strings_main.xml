@@ -54,6 +54,7 @@
     <!-- A menu option to open credits screen -->
     <string name="main_credits">Créditos</string>
     <!-- An overlay header on top of Patron page -->
+    <string name="main_patron_overlay">Como Comunidade Blokada, encontramos novos projetos promissores e os ajudamos a crescer. Por favor, compartilhe!</string>
     <string name="main_log">Compartilhar log</string>
     <string name="main_report_title">Relatório Blokada</string>
     <string name="main_report_text">Ocorreu um erro com o Blokada (ou você pediu para enviar um relatório). Será anexado um registo que pode conter informações privadas. Apenas os programadores terão acesso ao relatório e, assim que já não for necessário, será apagado.</string>

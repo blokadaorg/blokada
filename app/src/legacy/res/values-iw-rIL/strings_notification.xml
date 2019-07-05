@@ -27,4 +27,12 @@
     <string name="notification_keepalive_content">אחרון: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">מנטר</string>
+    <string name="notification_keepalive_activate">הפעל</string>
+    <string name="notification_keepalive_activating">Blokada מתחילה. זה עלול לקחת כמה רגעים.</string>
+    <string name="notification_keepalive_deactivate">השבת</string>
+    <string name="notification_keepalive_deactivating">Blokada הושבתה!</string>
+    <string name="notification_expired_title">חשבון Blokada VPN פג</string>
+    <string name="notification_expired_description">חשבונך פג תוקף ואינך מחובר ל- Blokada VPN ברגע זה. שקול לחדש שוב את חשבונך לקבלת הגנה טובה יותר.</string>
+    <string name="notification_lease_expired_title">Blokada VPN כבה</string>
+    <string name="notification_lease_expired_description">אירעה בעיה בחיבור שלך ל- Blokada VPN. נסה להתחבר אל שער אחר. אם הבעיה נמשכת, אנא פנה אלינו ב Telegram.</string>
 </resources>

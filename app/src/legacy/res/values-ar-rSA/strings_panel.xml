@@ -3,6 +3,7 @@
 <resources>
     <!-- Main screen section -->
     <string name="panel_section_home">الرئيسيَّة</string>
+    <string name="panel_section_menu">القائمة</string>
     <!-- Main screen section -->
     <string name="panel_section_ads">حَظْر الإعلانات</string>
     <!-- Main screen section -->
@@ -16,9 +17,10 @@
     <string name="panel_section_ads_log">تسجيل المُستَضيف</string>
     <string name="panel_section_ads_blacklist">المُستَضيفين المحظورين</string>
     <string name="panel_section_ads_whitelist">المُستَضيفين المسموحين</string>
-    <string name="panel_section_advanced_dns">خَوادِم DNS</string>
+    <string name="panel_section_advanced_dns">نظام أسماء النطاقات (DNS)</string>
     <string name="panel_section_apps_all">التطبيقات المُثبَّتة</string>
     <string name="panel_section_apps_system">تطبيقات النظام</string>
+    <string name="panel_section_advanced_settings">الإعدادات</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">&lt;b&gt;%s&lt;/b&gt; مسموح</string>
     <string name="panel_domain_forwarded_desc">تم السماح لهذا الموقع.  لحَظٰرِه ، استخدم الزرّ أدناه.</string>
@@ -50,9 +52,9 @@
     <string name="slot_intro_new_header">كيف تستخدام واجهة المُستخدِم الجديدة؟</string>
     <string name="slot_intro_desc">أنت حاليّاً في قسم \"الصفحة الرئيسية\" ، سوف تَجِد المزيد إذا قمت بالسحب لليسار. كلّ واحد منهم له قائمة سُفليّة خاصّة - يَتِم فتحه عن طريق السحب للأعلى. &lt;br/&gt;&lt;br/&gt;على Android TV ، يُمكِنُك الإنتقال إلى واجهة المُستخدِم باستخدام دي باد. إستَخدِم المفتاح الأوسط لفتح القائمة السُفليِّة ، أو أي عنصر تَختاره. تتميّز الأزرار بالسهم لأعلى أو لأسفل أو لليسار أو لليمين - إستخدِم مفاتيح الإتجاه للنقر عليها.</string>
     <string name="slot_intro_info">معلومة... تحتوي بعض العناصر على رمز علامة الإستفهام عليها. النقر فوقها سيعرض رسالة مساعدة قصيرة ، مثل هذه الرسالة!</string>
-    <string name="slot_new_filter">حظْر مُستَضيف جديد</string>
-    <string name="slot_new_filter_list">إضافة قائمة جديدة</string>
-    <string name="slot_new_filter_whitelist">مُستَضيف جديد في القائمة البيضاء</string>
+    <string name="slot_new_filter">إضافة مُستَضيف جديد إلى القائمة المحظورة</string>
+    <string name="slot_new_filter_list">أضافة قائمة مُستَضيفين جديدة</string>
+    <string name="slot_new_filter_whitelist">إضافة مُستَضيف جديد إلى قائمة المسموحين</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">غير مُثَبَّت</string>
     <!-- A state of input form when correct input is entered  -->
@@ -70,11 +72,12 @@
     <string name="slot_enter_name_generate">توليد</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; في القائمة البيضاء</string>
     <string name="slot_app_desc">تم إدراج هذا التطبيق في القائمة البيضاء ، ممّا يعني أنّه لن يتمّ إجراء حظر أو فلترة عليه.</string>
-    <string name="slot_allapp_desc">يمكنك إدراج هذا التطبيق في القائمة البيضاء لإيقاف أيّ حظر على حركة اتصاله بالإنترنت.</string>
-    <string name="slot_allapp_whitelisted">أُضيف إلى القائمة البيضاء</string>
-    <string name="slot_allapp_normal">غير مُضاف إلى القائمة البيضاء</string>
-    <string name="slot_allapp_whitelist">أضِف إلى القائمة البيضاء</string>
-    <string name="slot_dns_name">خَوادِم DNS الحاليّة: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_allapp_desc">يُمكِنك جعل هذا التطبيق يتجاوز بلوكادا من أجل إيقاف حظر أيّ حركة مرور إنترنت له. تذكّر أنّ التطبيقات المتجاوِزة تتواصل خارج VPN.</string>
+    <string name="slot_allapp_whitelisted">مُتجاوِز</string>
+    <string name="slot_allapp_normal">غَير مُتجاوِز</string>
+    <string name="slot_allapp_whitelist">تَجاوز</string>
+    <string name="slot_dns_name">الـ DNS المُخصَّص مُفعَّل</string>
+    <string name="slot_dns_name_disabled">الـ DNS المُخَصَّص مُعَطَّل</string>
     <string name="slot_dns_dns">يُمكِنك تغيير الخَوادِم الحاليّة باستخدام القائمة السفلية.</string>
     <string name="slot_action_none">هذا الإجراء غير مُتاح حتّى الآن.</string>
     <string name="slot_action_facts">حقائق</string>
@@ -120,10 +123,10 @@
     <string name="slot_dropped_counter">عدّاد النطاقات المحظورة</string>
     <string name="slot_dropped_counter_info">يعرض هذا العدّاد عدد النطاقات التي تمَّ حظرها منذ تثبيت التطبيق.</string>
     <string name="slot_dropped_action_clear">إعادة ضبط العدّاد</string>
-    <string name="slot_notifications_title">الإشعارات هي %s.</string>
+    <string name="slot_notifications_title">الإشعارات هي %s</string>
     <string name="slot_notifications_desc">يمكنك تشغيل الإشعارات أو إيقاف تشغيلها هنا. تذكّر أنه في بعض الأجهزة ، سيعرض Android إشعار VPN منفصل لا يمكن إلغاء ظهوره.</string>
-    <string name="slot_notifications_enabled">مُفَعَّل</string>
-    <string name="slot_notifications_disabled">غَير مُفَعَّل</string>
+    <string name="slot_notifications_enabled">الإشعارات مُفَعَّلة</string>
+    <string name="slot_notifications_disabled">الإشعارات مُعَطَّلة</string>
     <string name="slot_update_action_refresh">تحقَّق مرّة أُخرى</string>
     <string name="slot_telegram_title">إنضم إلينا في Telegram!</string>
     <string name="slot_telegram_desc">تفضل بزيارة مجموعتنا على Telegram للحصول على المساعدة أو لمجرّد أن تكون جزء من مجتمعنا.</string>
@@ -136,14 +139,14 @@
     <string name="slot_adblocking_text">عند التمكين ، سيَمنع بلوكادا الإعلانات و التتبُّع و المحتويات الأخرى غير المرغوب فيها. يساعد ذلك في حماية خصوصيّتك و تسريع جهازك و حفظ بياناتك.</string>
     <string name="slot_blocka_label">حساب Blokada VPN</string>
     <string name="slot_account_label_active">الحساب صالح لغاية %s</string>
+    <string name="slot_account_label_inactive">الحساب غير نَشِط</string>
     <string name="slot_account_text_account">مُعرِّف حسابك هو &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_text_inactive">اشتراكك &lt;b&gt;غير نَشِط&lt;/b&gt;. تحتاج إلى حساب نَشِط من أجل إستخدام Blokada VPN. يُرجى الضغط على الزرّ أدناه لتنشيطه.</string>
-    <string name="slot_account_text_active">اشتراكك هو &lt;b&gt;مُتاح&lt;/b&gt; لغاية &lt;b&gt;%s&lt;/b&gt;. يرجى الضغط على الزرّ أدناه لإدارة اشتراكك.</string>
     <string name="slot_account_info">يجب عليك الحفاظ على سرية مُعرِّف حسابك - إنّه مطلوب لإستعادة حسابك في حالة إزالة تثبيت التطبيق. سيتم تمديد اشتراكك تلقائيّاً ما لم تلغيه.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">إدارة الحساب</string>
     <string name="slot_account_action_manage_inactive">تفعيل الحساب</string>
     <string name="slot_account_action_change_id">إستعادة الحساب</string>
+    <string name="slot_account_show">مُعَرِّف الحساب</string>
     <string name="slot_account_action_copy">نسخ مُعرِّف الحساب</string>
     <string name="slot_account_action_copied">تمَّ نسخ مُعرِّف الحساب إلى الحافظة</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
@@ -188,7 +191,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">المساعدة</string>
     <string name="slot_donate_label">مُتستمتِع باستخدام بلوكادا؟ فكِّر في دعمنا ، حتى نتمكّن من الإستمرار في تحسين التطبيق.</string>
-    <string name="slot_donate_desc">مانع الإعلانات بلوكادا هو مجّاني و مفتوح المصدر ، و نحن نريد إبقاءه على هذا النحو. تبرّعاتك تساعدنا على مواصلة تطوير التطبيق و تقديم ميِّزات جديدة ترغب في رؤيتها كثيراً. شكرا لكم!</string>
+    <string name="slot_donate_desc">ساعدنا في تقديم مَيّزات جديدة! إضغط هنا للمزيد.</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">تبرع</string>
     <string name="slot_cta_label">معلومة! نَودّ أن نعرف رأيك.</string>
@@ -200,7 +203,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">افتح</string>
     <string name="slot_updated_label">لقد تم تحديث بلوكادا!</string>
-    <string name="slot_updated_desc">تمّ الآن تحديث إصدار بلوكادا الخاص بك. إضغط على الزرّ أدناه للحصول على معلومات إضافيّة حول هذا التحديث. أيضاً ، يُرجَى النظر في التبرع لدعم هذا المشروع!</string>
+    <string name="slot_updated_desc">إضغط هنا لعرض مقدِّمة لهذا الإصدار.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">المزيد</string>
     <string name="slot_obsolete_label">مطلوب أخذ إجراء: هذا الإصدار قديم!</string>

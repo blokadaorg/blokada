@@ -19,7 +19,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable">%1$s est en pause car votre appareil est déconnecté. %1$s s\'activera automatiquement lorsqu\'une connexion sera disponible.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_paused_autoenable_tethering">%1$s est en pause car le partage de connexion WiFi (Hotspot) est actif sur votre appareil. %1$s s\'activera automatiquement une fois que ce dernier sera stoppé.</string>
+    <string name="main_paused_autoenable_tethering">%1$s est en pause car le partage de connexion - WiFi Hotspot est activé sur votre appareil. %1$s s\'activera automatiquement une fois que ce dernier sera stoppé.</string>
     <!-- Label for the Quick Settings toggle -->
     <string name="main_quicksettings_toggle">Activateur</string>
     <!-- Active status for the Quick Settings toggle -->
@@ -59,9 +59,9 @@
     <string name="main_report_title">Rapport Blokada</string>
     <string name="main_report_text">Blokada a rencontré un problème (ou vous avez choisi d’envoyer un rapport). Un journal sera transmis et celui-ci peut contenir quelques données personnelles. Seules des personnes de confiance seront autorisées à lire votre rapport. Ce dernier sera supprimé une fois qu’il n’est plus nécessaire ou que le problème sera réglé.</string>
     <string name="main_report_comment">Les rapports contenant des commentaires sont prioritaires. Que faisiez vous avant que le problème ne survienne ?</string>
-    <string name="main_report_limit">Limite du nombre de rapports atteinte. Veuillez, s\'il vous plaît, attendre une prochaine mise à jour. Merci pour vos retours!</string>
+    <string name="main_report_limit">Limite du nombre de rapports atteinte. Veuillez, s\'il vous plaît, attendre une prochaine mise à jour. Merci pour vos retours !</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
     <string name="core_format_million">%s million</string>
     <!-- To display a big number in short way, eg. 420 thousand -->
-    <string name="core_format_thousand">%s millier</string>
+    <string name="core_format_thousand">%s 000</string>
 </resources>

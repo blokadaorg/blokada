@@ -4,13 +4,19 @@
     <string name="dns_tab_v4">IPv4</string>
     <string name="dns_tab_v6">IPv6</string>
     <string name="dns_default_name">Serveurs DNS par défaut</string>
-    <string name="dns_default_comment">Si cette option est activée, les serveurs DNS ne seront pas modifiés. Ce seront les DNS par défaut de votre opérateur mobile et de votre fournisseur internet fixe qui seront utilisés.</string>
+    <string name="dns_default_comment">Si cette option est activée, les serveurs DNS ne seront pas modifiés et les serveurs par défaut de cet appareil seront utilisés, en fonction de votre réseau mobile et du WiFi.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Personnalisé</string>
+    <string name="dns_custom_comment">DNS personnalisés</string>
+    <string name="dns_custom_add_slot">Ajouter de nouveaux DNS…</string>
+    <string name="slot_enter_dns_error">Cela ne semble pas être une adresse IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_name_placeholder">8.8.8.8</string>
+    <string name="dns_edit_name_label">Adresse IP</string>
     <string name="dns_edit_name_enter">Entrer l\'adresse d\'un serveur DNS</string>
     <string name="dns_edit_name_error">Cela ne semble pas correct. Vérifiez que vous avez bien introduit une adresse IP de type 8.8.8.8.</string>
+    <string name="dns_edit_name_next">Suivant</string>
+    <string name="dns_edit_name_last">Ajouter</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS par défaut</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

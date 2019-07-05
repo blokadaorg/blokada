@@ -5,9 +5,14 @@
     <string name="dns_default_comment">Οταν ειναι ενεργο, οι διακομιστες DNS δεν αλλαζουν. Θα χρησιμοποιηθουν οι προεπιλεγμενοι διακομιστες, αναλογα με το δικτυο κινητης και το wifi.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Προσαρμογή</string>
+    <string name="dns_custom_add_slot">Προσθήκη νέου DNS…</string>
+    <string name="slot_enter_dns_error">Αυτό δεν μοίαζει με διεύθυνση IPv4.</string>
     <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_name_label">Διεύθυνση IP</string>
     <string name="dns_edit_name_enter">Δώστε τη διεύθυνση του διακομιστή DNS</string>
     <string name="dns_edit_name_error">Ειναι λαθος. Ελεγξε αν εδωσες σωστα μια διευθυνση IP, οπως 8.8.8.8.</string>
+    <string name="dns_edit_name_next">Επόμενο</string>
+    <string name="dns_edit_name_last">Προσθήκη</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Προεπιλεγμενος DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

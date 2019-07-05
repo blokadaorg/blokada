@@ -6,7 +6,7 @@
     <string name="logger_allowed">Enregistrer les requêtes autorisées</string>
     <string name="logger_denied">Enregistrer les requêtes refusées</string>
     <string name="logger_dash_title">Paramètres de l\'historique</string>
-    <string name="logger_slot_title">Enregsitrement des requêtes</string>
+    <string name="logger_slot_title">Enregistrement des requêtes</string>
     <string name="logger_slot_desc">Lorsque cette option est activée, Blokada crée un fichier CSV et enregistre les requêtes autorisées et bloquées par l\'application. Recherchez le dossier \"blokada\" sur votre stockage externe.</string>
     <string name="logger_slot_mode_off">Désactivé</string>
     <string name="logger_slot_mode_allowed">Enregistrer les requêtes autorisées</string>

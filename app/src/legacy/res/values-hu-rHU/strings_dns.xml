@@ -7,10 +7,16 @@
     <string name="dns_default_comment">Ha aktív, a DNS-kiszolgálók nem lesznek megváltoztatva, és az eszköz alapértelmezett kiszolgálói kerülnek használatra, a mobilhálózattól és a WiFi-től függően.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Egyéni</string>
+    <string name="dns_custom_comment">Egyéni DNS</string>
+    <string name="dns_custom_add_slot">Új DNS hozzáadása…</string>
+    <string name="slot_enter_dns_error">Ez nem tűnik IPv4-nek.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_name_placeholder">8.8.8.8</string>
+    <string name="dns_edit_name_label">IP-cím</string>
     <string name="dns_edit_name_enter">Add meg a DNS-kiszolgáló címét</string>
     <string name="dns_edit_name_error">Ez nem tűnik helyesnek. Ellenőrizd, hogy egy kiszolgáló IP-címét adtad meg, például 8.8.8.8.</string>
+    <string name="dns_edit_name_next">Következő</string>
+    <string name="dns_edit_name_last">Hozzáadás</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Alapért. DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->
