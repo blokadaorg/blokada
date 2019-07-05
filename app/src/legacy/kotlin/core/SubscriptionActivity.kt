@@ -28,13 +28,13 @@ class SubscriptionActivity : Activity() {
 
     private val subscriptionUrl by lazy { newProperty(w, { URL("https://localhost") }) }
     private val updateUrl = { cfg: BlockaConfig ->
-        subscriptionUrl %= URL("https://vpn.blocka.net/#/activate/${cfg.accountId}")
+        subscriptionUrl %= URL("https://app.blokada.org/#/activate/${cfg.accountId}")
     }
 
     private val dash by lazy {
         WebDash(LazyKodein(ktx.di), subscriptionUrl, reloadOnError = true,
                 javascript = true, forceEmbedded = true, big = true,
-                onLoadSpecificUrl = "vpn.blocka.net/#/success" to {
+                onLoadSpecificUrl = "app.blokada.org/#/success" to {
                     this@SubscriptionActivity.finish()
                     showSnack(R.string.subscription_success)
                 })
