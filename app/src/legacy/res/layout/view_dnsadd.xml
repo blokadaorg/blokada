@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@string/dns_edit_name_enter"
+            android:text="@string/dns_edit_ip1_enter"
             android:textColor="@color/colorTextUnimportant" />
 
         <AutoCompleteTextView
@@ -23,20 +23,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="0123456789.:"
-            android:hint="@string/dns_edit_name_placeholder" />
+            android:hint="@string/dns_edit_ip_placeholder" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@string/dns_edit_name_enter"
+            android:text="@string/dns_edit_ip2_enter"
             android:textColor="@color/colorTextUnimportant" />
 
         <AutoCompleteTextView
             android:id="@+id/filter_edit2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dns_edit_name_placeholder"
+            android:hint="@string/dns_edit_ip_placeholder"
             android:digits="0123456789."
             android:inputType="numberSigned|numberDecimal" />
 
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/dns_edit_name_error"
+                android:text="@string/dns_edit_ip_error"
                 android:textColor="@color/colorAccentDark" />
         </LinearLayout>
 

@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Base64
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
@@ -23,6 +24,7 @@ import gs.property.IWhen
 import org.blokada.R
 import tunnel.Events
 import tunnel.Request
+import java.nio.charset.Charset
 
 
 val NEW_WIDGET = "NEW_WIDGET".newEventOf<WidgetData>()
@@ -290,7 +292,7 @@ class UpdateWidgetService : Service() {
         val name = when {
             dc == null -> this.getString(R.string.dns_text_none)
             dc.servers.isEmpty() -> this.getString(R.string.dns_text_none)
-            dc.id.startsWith("custom") -> printServers(dc.servers)
+            dc.id.startsWith("custom-dns:") ->  Base64.decode(dc.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset())
             else -> i18n.localisedOrNull("dns_${dc.id}_name") ?: dc.id.capitalize()
         }
 
