@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import android.util.Base64
 import android.widget.EditText
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -24,6 +25,7 @@ import tunnel.Persistence
 import update.UpdateCoordinator
 import update.isUpdate
 import java.net.URL
+import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -871,7 +873,7 @@ class DnsChoiceVB(
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
 
-        val id = if (item.id.startsWith("custom")) "custom" else item.id
+        val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
         val name = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
         val description = item.comment ?: i18n.localisedOrNull("dns_${id}_comment")
 

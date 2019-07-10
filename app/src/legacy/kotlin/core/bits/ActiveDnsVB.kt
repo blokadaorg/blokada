@@ -1,6 +1,7 @@
 package core.bits
 
 import android.content.Context
+import android.util.Base64
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.MENU_CLICK_BY_NAME
@@ -8,6 +9,7 @@ import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
 import tunnel.showSnack
+import java.nio.charset.Charset
 
 class ActiveDnsVB(
         private val ktx: AndroidKontext,
@@ -35,7 +37,7 @@ class ActiveDnsVB(
         view?.run {
             val item = dns.choices().firstOrNull { it.active }
             if (item != null) {
-                val id = if (item.id.startsWith("custom")) "custom" else item.id
+                val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
                 val name = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
 
                 if (dns.enabled() && dns.hasCustomDnsSelected()) {
@@ -126,7 +128,7 @@ class MenuActiveDnsVB(
         view?.run {
             val item = dns.choices().firstOrNull() { it.active }
             if (item != null) {
-                val id = if (item.id.startsWith("custom")) "custom" else item.id
+                val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
                 val name = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
 
                 if (dns.enabled() && dns.hasCustomDnsSelected()) {
