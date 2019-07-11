@@ -43,7 +43,7 @@
             android:layout_weight="1"
             android:maxLines="3"
             android:textSize="@dimen/slot_secondary_text_size"
-            tools:text="Forwarded google.com" />
+            tools:text="This is a very long text that should be displayed just fine, even if it has to break into two lines" />
 
         <ImageView
             android:id="@+id/bit_arrow"

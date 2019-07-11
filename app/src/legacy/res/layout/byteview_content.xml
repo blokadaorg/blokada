@@ -39,6 +39,8 @@
         android:id="@+id/byte_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:gravity="center"
         android:layout_gravity="center"
         android:orientation="vertical">
@@ -49,10 +51,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/slot_secondary_padding"
             android:layout_marginEnd="@dimen/slot_secondary_padding"
-            android:maxLines="1"
+            android:gravity="center"
+            android:maxLines="3"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/header_text_size"
-            tools:text="39,894" />
+            tools:text="This is a very long text that should be displayed just fine" />
 
         <TextView
             android:id="@+id/byte_state"
@@ -61,6 +64,7 @@
             android:layout_marginStart="@dimen/slot_secondary_padding"
             android:layout_marginEnd="@dimen/slot_secondary_padding"
             android:gravity="center"
+            android:maxLines="3"
             android:textColor="@color/colorInactive"
             android:textSize="@dimen/slot_secondary_text_size"
             tools:text="blocked" />

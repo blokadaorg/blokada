@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch_to_turn_on">Touch to turn on</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_setup_vpn">Touch to setup VPN</string>
     <string name="home_blokada_disabled">Blokada is deactivated</string>
     <string name="home_activating">Activating</string>
     <string name="home_please_wait">please wait...</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">VPN only mode</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Touch to setup DNS</string>
 
     <!-- A text on the main ads counter. "490 requests blocked" -->
@@ -99,4 +103,6 @@
     <!-- A section to manage some settings (generic)  -->
     <string name="menu_manage">Manage</string>
     <string name="menu_ok">OK</string>
+
+    <string name="menu_dns_remove_default">Default DNS cannot be removed.</string>
 </resources>
