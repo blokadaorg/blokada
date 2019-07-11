@@ -874,7 +874,7 @@ class DnsChoiceVB(
         view.enableAlternativeBackground()
 
         val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
-        val name = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
+        val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
         val description = item.comment ?: i18n.localisedOrNull("dns_${id}_comment")
 
         val servers = if (item.servers.isNotEmpty()) item.servers else dns.dnsServers()
@@ -888,7 +888,7 @@ class DnsChoiceVB(
                 detail = serversString,
                 icon = ctx.getDrawable(R.drawable.ic_server),
                 switched = item.active,
-                action2 = Slot.Action(i18n.getString(R.string.slot_action_author), {
+                action2 = Slot.Action(i18n.getString(R.string.slot_action_author)) {
                     try {
                         Intent(Intent.ACTION_VIEW, Uri.parse(item.credit))
                     } catch (e: Exception) {
@@ -897,7 +897,22 @@ class DnsChoiceVB(
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         ctx.startActivity(this)
                     }
-                })
+                },
+                action3 = Slot.Action(i18n.getString(R.string.slot_action_remove)) {
+                    onTap(view)
+                    Handler {
+                        if (item.id == "default") {
+                            showSnack(R.string.menu_dns_remove_default)
+                        } else {
+                            if (item.active) {
+                                dns.choices().firstOrNull()?.active = true
+                                dns.enabled %= false
+                            }
+                            dns.choices %= dns.choices() - item
+                        }
+                        true
+                    }.sendEmptyMessageDelayed(0, 1000)
+                }
         )
 
         view.onSwitch = { switched ->

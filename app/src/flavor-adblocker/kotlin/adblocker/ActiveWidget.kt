@@ -293,7 +293,7 @@ class UpdateWidgetService : Service() {
             dc == null -> this.getString(R.string.dns_text_none)
             dc.servers.isEmpty() -> this.getString(R.string.dns_text_none)
             dc.id.startsWith("custom-dns:") ->  Base64.decode(dc.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset())
-            else -> i18n.localisedOrNull("dns_${dc.id}_name") ?: dc.id.capitalize()
+            else -> i18n.localisedOrNull("dns_${dc.id}_name") ?: dc.comment ?: dc.id.capitalize()
         }
 
         remoteViews.setTextViewText(R.id.widget_dns, name)

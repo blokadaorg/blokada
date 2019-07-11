@@ -38,7 +38,7 @@ class ActiveDnsVB(
             val item = dns.choices().firstOrNull { it.active }
             if (item != null) {
                 val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
-                val name = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
+                val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
 
                 if (dns.enabled() && dns.hasCustomDnsSelected()) {
                     setTexts(name)
@@ -129,7 +129,7 @@ class MenuActiveDnsVB(
             val item = dns.choices().firstOrNull() { it.active }
             if (item != null) {
                 val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
-                val name = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
+                val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
 
                 if (dns.enabled() && dns.hasCustomDnsSelected()) {
                     icon(R.drawable.ic_server.res(), color = R.color.switch_on.res())

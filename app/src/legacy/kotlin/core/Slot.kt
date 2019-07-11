@@ -248,7 +248,7 @@ class SlotView(
     var onRead = {}
     var onRemove = {}
 
-    fun fold() = foldingView.fold(false)
+    fun fold(skipAnimation: Boolean = false) = foldingView.fold(skipAnimation)
 
     fun unfold() {
         if (content?.unread ?: false) {
