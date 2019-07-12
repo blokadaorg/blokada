@@ -12,6 +12,7 @@ povezavo in poskusi ponovno.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s je aktiven.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s sedaj varuje vašo napravo pred oglasi.
 Spodaj lahko dodatno nastavite %1$s ali pa nadaljujete z uporabo vaše naprave!</string>
     <!-- Parameter: branded app name (Blokada). -->

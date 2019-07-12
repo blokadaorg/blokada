@@ -65,16 +65,22 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
                 )
                 nm.notify(3, n)
             }
-            var w: IWhen? = null
+            var w1: IWhen? = null
+            var w2: IWhen? = null
             s.keepAlive.doWhenSet().then {
                 if (s.keepAlive()) {
-                    t.tunnelDropCount.cancel(w)
-                    w = t.tunnelDropCount.doOnUiWhenSet().then {
+                    t.tunnelDropCount.cancel(w1)
+                    w1 = t.tunnelDropCount.doOnUiWhenSet().then {
+                        keepAliveNotificationUpdater(t.tunnelDropCount())
+                    }
+                    t.enabled.cancel(w2)
+                    w2 = t.enabled.doOnUiWhenSet().then {
                         keepAliveNotificationUpdater(t.tunnelDropCount())
                     }
                     keepAliveAgent.bind(ctx)
                 } else {
-                    t.tunnelDropCount.cancel(w)
+                    t.tunnelDropCount.cancel(w1)
+                    t.enabled.cancel(w2)
                     keepAliveAgent.unbind(ctx)
                 }
             }
@@ -130,7 +136,7 @@ class KeepAliveService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         j.log("KeepAliveService: start command")
-        return Service.START_STICKY;
+        return Service.START_STICKY
     }
 
     private var binder: KeepAliveBinder? = null

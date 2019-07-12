@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="battery_title">%s is not whitelisted</string>
+    <string name="battery_description">You may be experiencing problems with the stability of %1$s. Please add it to the battery optimisation exception list. %1$s will not drain your battery.</string>
+    <string name="battery_action">Whitelist</string>
+</resources>

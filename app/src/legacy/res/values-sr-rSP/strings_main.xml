@@ -8,6 +8,7 @@
     <string name="main_deactivating_new">Искључујем %s. Молимо сачекајте...</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s штити ваш уређај. За детаљнија подешавања %1$s погледајте испод или наставите да користите уређај!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s није активна.</string>

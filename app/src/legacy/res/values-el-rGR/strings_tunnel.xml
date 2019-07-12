@@ -4,4 +4,10 @@
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+    <string name="tunnel_config_refetch_frequency_1">Μία φορά την ημέρα</string>
+    <string name="tunnel_config_refetch_frequency_2">Δύο φορές την εβδομάδα</string>
+    <string name="tunnel_config_refetch_frequency_3">Μία φορά την εβδομάδα</string>
+    <string name="tunnel_config_refetch_frequency_4">Μία φορά το μήνα</string>
+    <string name="tunnel_config_wifi_only_title">Λήψη μόνο μέσω Wi-Fi</string>
+    <string name="tunnel_config_reports_title">Αναφορές</string>
 </resources>

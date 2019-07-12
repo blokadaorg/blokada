@@ -8,15 +8,16 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.support.v4.app.NotificationCompat
+import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import com.github.salomonbrys.kodein.instance
-import core.Dns
-import core.MainActivity
-import core.Product
-import core.printServers
+import core.*
 import gs.environment.inject
 import gs.property.I18n
 import org.blokada.R
+
+
+
 
 
 /**
@@ -28,10 +29,10 @@ fun displayNotification(ctx: Context, reason: String) {
     b.setContentTitle(ctx.getString(R.string.notification_blocked_title))
     b.setContentText(ctx.getString(R.string.notification_blocked_text, reason))
     b.setSmallIcon(R.drawable.ic_stat_blokada)
-    b.setPriority(NotificationCompat.PRIORITY_MAX)
+    b.priority = NotificationCompat.PRIORITY_MAX
     b.setVibrate(LongArray(0))
 
-    val intentActivity = Intent(ctx, MainActivity::class.java)
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
     intentActivity.putExtra("notification", true)
     val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
     b.setContentIntent(piActivity)
@@ -78,15 +79,33 @@ fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notific
         b.setContentTitle(provider)
         b.setContentText(ctx.getString(R.string.dns_keepalive_content, servers))
     } else {
+        val t: Tunnel = ctx.inject().instance()
+        val domainList = NotificationCompat.InboxStyle()
+        val duplicates =ArrayList<String>(0)
+        t.tunnelRecentDropped().asReversed().forEach { s ->
+            if(!duplicates.contains(s)){
+                duplicates.add(s)
+                domainList.addLine(s)
+            }
+        }
+
+        val intent = Intent(ctx, ANotificationsToggleService::class.java).putExtra("new_state",!t.enabled())
+        val statePendingIntent = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        if(t.enabled()) {
+            b.addAction(R.drawable.ic_stat_blokada, ctx.resources.getString(R.string.notification_keepalive_deactivate), statePendingIntent)
+        }else{
+            b.addAction(R.drawable.ic_stat_blokada, ctx.resources.getString(R.string.notification_keepalive_activate), statePendingIntent)
+        }
+
         b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, count))
         b.setContentText(ctx.getString(R.string.notification_keepalive_content, last))
+        b.setStyle(domainList)
     }
-
     b.setSmallIcon(R.drawable.ic_stat_blokada)
-    b.setPriority(NotificationCompat.PRIORITY_MIN)
+    b.priority = NotificationCompat.PRIORITY_MIN
     b.setOngoing(true)
 
-    val intentActivity = Intent(ctx, MainActivity::class.java)
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
     intentActivity.putExtra("notification", true)
     val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
     b.setContentIntent(piActivity)
@@ -121,7 +140,7 @@ fun displayNotificationForUpdate(ctx: Context, versionName: String) {
     b.setPriority(NotificationCompat.PRIORITY_LOW)
     b.setVibrate(LongArray(0))
 
-    val intentActivity = Intent(ctx, MainActivity::class.java)
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
     intentActivity.putExtra("notification", true)
     val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
     b.setContentIntent(piActivity)
@@ -135,3 +154,51 @@ fun displayNotificationForUpdate(ctx: Context, versionName: String) {
     notif.notify(2, b.build())
 }
 
+
+class DisplayToastRunnable(private val mContext: Context, private var mText: String) : Runnable {
+    override fun run() {
+        Toast.makeText(mContext, mText, Toast.LENGTH_SHORT).show()
+    }
+}
+
+fun displayAccountExpiredNotification(ctx: Context) {
+    val b = NotificationCompat.Builder(ctx)
+    b.setContentTitle(ctx.getString(R.string.notification_expired_title))
+    b.setContentText(ctx.getString(R.string.notification_expired_description))
+    b.setSmallIcon(R.drawable.ic_stat_blokada)
+    b.setPriority(NotificationCompat.PRIORITY_MAX)
+    b.setVibrate(LongArray(0))
+
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
+    val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+    b.setContentIntent(piActivity)
+
+    if (Build.VERSION.SDK_INT >= 26) {
+        createNotificationChannel(ctx)
+        b.setChannelId(default_id)
+    }
+
+    val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    notif.notify(3, b.build())
+}
+
+fun displayLeaseExpiredNotification(ctx: Context) {
+    val b = NotificationCompat.Builder(ctx)
+    b.setContentTitle(ctx.getString(R.string.notification_lease_expired_title))
+    b.setContentText(ctx.getString(R.string.notification_lease_expired_description))
+    b.setSmallIcon(R.drawable.ic_stat_blokada)
+    b.setPriority(NotificationCompat.PRIORITY_MAX)
+    b.setVibrate(LongArray(0))
+
+    val intentActivity = Intent(ctx, PanelActivity::class.java)
+    val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+    b.setContentIntent(piActivity)
+
+    if (Build.VERSION.SDK_INT >= 26) {
+        createNotificationChannel(ctx)
+        b.setChannelId(default_id)
+    }
+
+    val notif = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    notif.notify(4, b.build())
+}

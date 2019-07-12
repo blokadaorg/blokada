@@ -75,6 +75,7 @@ class CommonEmit(
     override suspend fun <T> getMostRecent(event: EventType<T>) = async(ktx().coroutineContext()) {
         emits[event]
     }.await()?.value as T?
+
 }
 
 internal fun newEmitExceptionLogger(ktx: Kontext = "emit:exception".ktx())

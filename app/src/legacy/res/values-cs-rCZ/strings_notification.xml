@@ -28,4 +28,12 @@
     <string name="notification_keepalive_content">Poslední: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">Monitorování</string>
+    <string name="notification_keepalive_activate">Povolit</string>
+    <string name="notification_keepalive_activating">Blokada se zapíná. To může chvíli trvat.</string>
+    <string name="notification_keepalive_deactivate">Zakázat</string>
+    <string name="notification_keepalive_deactivating">Blokada byla deaktivována!</string>
+    <string name="notification_expired_title">Platnost účtu Blokada VPN vypršela</string>
+    <string name="notification_expired_description">Platnost vašeho účtu právě vypršela a v tuto chvíli nejste připojeni k Blokada VPN. Chcete-li zlepšit ochranu, zvažte opětovnou aktivaci účtu.</string>
+    <string name="notification_lease_expired_title">Blokada VPN vypnuta</string>
+    <string name="notification_lease_expired_description">Vyskytl se problém s připojením k Blokada VPN. Zkuste se připojit k jiné bráně. Pokud problém přetrvává, kontaktujte nás prosím přes Telegram.</string>
 </resources>

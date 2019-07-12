@@ -1,13 +1,13 @@
 package gs.presentation
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 class DashGridView(
         ctx: android.content.Context,
         attributeSet: android.util.AttributeSet
-) : android.support.v7.widget.RecyclerView(ctx, attributeSet) {
+) : RecyclerView(ctx, attributeSet) {
 
     val adapter = DashAdapter(context)
 
@@ -17,7 +17,7 @@ class DashGridView(
     var landscape: Boolean = false
         set(value) {
             field = value
-            layoutManager = android.support.v7.widget.StaggeredGridLayoutManager(
+            layoutManager = StaggeredGridLayoutManager(
                     if (value) 3 else 2,
                     StaggeredGridLayoutManager.VERTICAL
             )
@@ -29,8 +29,8 @@ class DashGridView(
         addItemDecoration(Spacing(context, top = 24, left = 2, right = 2))
         setItemViewCacheSize(0)
         landscape = false
-        addOnScrollListener(object : android.support.v7.widget.RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: android.support.v7.widget.RecyclerView, newState: Int) { when {
+        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) { when {
                 scrollState != SCROLL_STATE_IDLE -> Unit
                 !canScrollVertically(-1) && !isTop -> {
                     isTop = true
@@ -49,7 +49,7 @@ class DashGridView(
 
 class DashAdapter(val ctx: Context) : RecyclerView.Adapter<DashViewHolder>() {
 
-    var items = listOf<Dash>()
+    var items = listOf<ViewBinder>()
         set(value) {
             field = value
             viewTypes = value.map { it to it::class.java.hashCode() }.toMap()
@@ -57,8 +57,8 @@ class DashAdapter(val ctx: Context) : RecyclerView.Adapter<DashViewHolder>() {
             notifyDataSetChanged()
         }
 
-    private var viewTypes = mapOf<Dash, Int>()
-    private var dashes = mapOf<Int, Dash>()
+    private var viewTypes = mapOf<ViewBinder, Int>()
+    private var dashes = mapOf<Int, ViewBinder>()
 
     override fun getItemViewType(position: Int): Int {
         val d = items[position]
@@ -82,4 +82,4 @@ class DashAdapter(val ctx: Context) : RecyclerView.Adapter<DashViewHolder>() {
     }
 }
 
-class DashViewHolder(val view: android.view.View) : android.support.v7.widget.RecyclerView.ViewHolder(view)
+class DashViewHolder(val view: android.view.View) : RecyclerView.ViewHolder(view)

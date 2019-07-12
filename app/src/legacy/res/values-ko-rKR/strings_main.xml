@@ -10,6 +10,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s가 활성화됨</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s 활성화. VPN 연결됨.</string>
+    <string name="main_active_novpn">%s 활성화. VPN 연결되지 않음.</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s 이 (가) 이제 기기를 보호합니다. 아래에서 %1$s 을 미세 조정하거나 계속 기기를 사용하기 만하면됩니다!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s가 비활성화됨</string>
@@ -36,6 +39,7 @@
     <string name="main_donate_text">기부하기</string>
     <string name="main_contribute_text">함께하기</string>
     <string name="main_blog_text">소식</string>
+    <string name="main_settings_text">고급 설정</string>
     <string name="main_autostart_text">부팅 시 시작</string>
     <!-- A menu option to send feedback or contact us -->
     <string name="main_feedback_text">피드백</string>
@@ -50,11 +54,13 @@
     <!-- A menu option to open credits screen -->
     <string name="main_credits">개발진</string>
     <!-- An overlay header on top of Patron page -->
-    <string name="main_log">공유 로그</string>
+    <string name="main_log">로그 공유</string>
     <string name="main_report_title">Blokada 보고서</string>
     <string name="main_report_text">Blokada가 문제를 발생했거나 (또는 당신이 보고서를 보내기위해 요청 하면서). 개인 정보가 포함될 수있는 로그가 첨부됩니다. 신뢰할 수있는 내부인 만 보고서를 읽을 수 있으며 더 이상 필요하지 않으면 삭제됩니다.</string>
     <string name="main_report_comment">내용이 있는 보고서가 우선 순위됩니다. 문제가 발생하기 전에 무엇을 했습니까?</string>
     <string name="main_report_limit">보고 한도에 도달했습니다. 업데이트를 기다려주십시오. 귀하의 의견에 감사드립니다!</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
+    <string name="core_format_million">%s백만</string>
     <!-- To display a big number in short way, eg. 420 thousand -->
+    <string name="core_format_thousand">%s천</string>
 </resources>

@@ -15,7 +15,7 @@ import org.blokada.R
 
 class SimpleDialog(
         private val xx: Environment,
-        private val dash: CallbackDash,
+        private val dash: CallbackViewBinder,
         private val continueButton: Int = R.string.welcome_continue,
         private val additionalButton: Int? = null,
         private val loadFirst: Boolean = false,

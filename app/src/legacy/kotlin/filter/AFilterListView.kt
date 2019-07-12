@@ -2,8 +2,8 @@ package filter
 
 import android.content.Context
 import android.os.Handler
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ContextThemeWrapper
@@ -43,6 +43,8 @@ class AFilterListView(
             field = value
             refreshFilters()
         }
+
+    var onItemClick = { x: Int, y: Int, filter: Filter? -> }
 
     private var switchEnabled = true
     private val switchHandler = Handler {
@@ -127,6 +129,10 @@ class AFilterListView(
             } else {
                 (v.tag as AFilterActor).switchEnabled = switchEnabled
                 (v.tag as AFilterActor).filter = i
+            }
+
+            v.setOnClickListener {
+                onItemClick((v.x + v.width / 2).toInt(), (v.y + v.height / 2).toInt(), i)
             }
         }
 

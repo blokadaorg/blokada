@@ -11,6 +11,7 @@
     <string name="main_active">%s er aktiv.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s er ikke aktiveret.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable">%1$s er sat på pause fordi din enhed har ikke forbindelse til internettet. %1$s vil automatisk aktiveres igen når enheden er forbundet til internettet.</string>

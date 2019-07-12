@@ -9,6 +9,7 @@
     <string name="main_deactivating_new">درحال خاموشی %s. لطفاً صبر کنید...</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s از شما در برابر تبلیغات محافظت می‌کند. میتوانید تنظیمات دقیق تر %1$s را در پایین انجام دهید، یا هم اکنون میتوانید از دستگاه خود استفاده کنید!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->

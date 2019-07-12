@@ -11,6 +11,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable">మీ పరికరం డిస్కనెక్ట్ చేయబడినందున %1$s పాజ్ చేయబడింది. ఇంటర్నెట్ కనెక్షన్ అందుబాటులోకి వచ్చిన తర్వాత %1$s స్వయంచాలకంగా చురుకుగా అవుతుంది.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable_tethering">మీ పరికరం WiFi హాట్స్పాట్ ప్రారంభించబడినందున %1$s పాజ్ చేయబడింది. WiFi హాట్స్పాట్ నిలిపివేయబడిన తర్వాత %1$s స్వయంచాలకంగా సక్రియం అవుతుంది.</string>

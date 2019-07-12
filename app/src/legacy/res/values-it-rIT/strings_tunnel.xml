@@ -4,6 +4,7 @@
     <string name="tunnel_hosts_desc">Mostra il numero di host impostati che saranno bloccati da %s.</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <string name="tunnel_hosts_count2">%s host</string>
+    <string name="tunnel_hosts_count">%d host</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <string name="tunnel_hosts_updating">Aggiornamento...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -11,9 +12,10 @@
     <string name="tunnel_config_wifi">Scarica filtri solo tramite WiFi</string>
     <string name="tunnel_dropped_count_desc">Visualizza il numero totale di host bloccati finora.</string>
     <string name="tunnel_dropped_count">%d bloccati</string>
-    <string name="tunnel_dropped_count2">%s bloccati</string>
+    <string name="tunnel_dropped_count2">%s domini bloccati</string>
     <string name="tunnel_config_refetch_now_title">Scarica le liste</string>
     <string name="tunnel_config_refetch_now">Scarica le liste adesso</string>
+    <string name="tunnel_config_refetch_toast">Download delle liste avviato</string>
     <string name="tunnel_config_refetch_now_description">Premi il pulsante sotto per pulire la cache e scaricare nuovamente le liste. Questo potrebbe essere d\'aiuto in caso di problemi con i filtri.</string>
     <string name="tunnel_config_refetch_frequency_title">Frequenza di aggiornamento delle liste</string>
     <string name="tunnel_config_refetch_frequency_description">Seleziona una delle seguenti opzioni per configurare quanto spesso l\'app deve aggiornare le tue liste.</string>

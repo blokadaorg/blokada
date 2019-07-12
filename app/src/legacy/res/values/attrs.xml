@@ -6,4 +6,22 @@
         <attr name="fv_host" format="string" localization="suggested" />
         <attr name="fv_tapped" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="PanelLayout">
+        <attr name="dragEdge">
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+
+        <attr name="mode">
+            <enum name="normal" value="0" />
+            <enum name="same_level"   value="1" />
+        </attr>
+
+        <attr name="flingVelocity" format="integer" />
+
+        <attr name="minDistRequestDisallowParent" format="dimension" />
+    </declare-styleable>
 </resources>

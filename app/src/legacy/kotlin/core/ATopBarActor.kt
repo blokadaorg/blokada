@@ -71,7 +71,7 @@ class ATopBarActor(
             infoViewShadow.animate().alpha(infoAlpha)
 
             if (android.os.Build.VERSION.SDK_INT >= 21) {
-                window.statusBarColor = v.resources.getColor(bg)
+//                window.statusBarColor = v.resources.getColor(bg)
             }
         }
 

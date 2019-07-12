@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_domain">Display name of blocked domain</string>
+
+    <!-- A configuration option of widget -->
+    <string name="widget_show_counter">Display number of blocked requests</string>
+
+    <!-- A configuration option of widget -->
+    <string name="widget_alpha">Transparency of the widget background:</string>
+
+    <!-- A configuration option of widget -->
+    <string name="widget_show_dns">Display DNS</string>
+
+    <string name="widget_okay">Confirm</string>
+</resources>

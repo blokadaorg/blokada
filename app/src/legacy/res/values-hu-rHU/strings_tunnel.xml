@@ -4,6 +4,7 @@
     <string name="tunnel_hosts_desc">Kiírja, hogy a %s mennyi hoszt blokkolására lett konfigurálva.</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <string name="tunnel_hosts_count2">%s hoszt</string>
+    <string name="tunnel_hosts_count">%d hoszt</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <string name="tunnel_hosts_updating">Frissítés...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -11,9 +12,10 @@
     <string name="tunnel_config_wifi">A szűrőket csak Wi-Fi mellett töltse le</string>
     <string name="tunnel_dropped_count_desc">Megjeleníti az eddig blokkolt hosztok számát.</string>
     <string name="tunnel_dropped_count">%d blokkolva</string>
-    <string name="tunnel_dropped_count2">%s blokkolva</string>
+    <string name="tunnel_dropped_count2">%s domain blokkolva</string>
     <string name="tunnel_config_refetch_now_title">Listák letöltése</string>
     <string name="tunnel_config_refetch_now">Listák letöltése most</string>
+    <string name="tunnel_config_refetch_toast">A listák letöltése megkezdődött</string>
     <string name="tunnel_config_refetch_now_description">Az alábbi gombra kattintva törölheted a gyorsítótárat és töltheted le újra a listákat. Ez segíthet, ha bármilyen problémát tapasztalsz a szűrés során.</string>
     <string name="tunnel_config_refetch_frequency_title">Listák letöltési gyakorisága</string>
     <string name="tunnel_config_refetch_frequency_description">Válaszd ki az egyik lehetőséget, hogy az alkalmazás milyen gyakran töltse le a listákat.</string>

@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Filters downloaden alleen op wifi</string>
     <string name="tunnel_dropped_count_desc">Toont het totale aantal geblokkeerde hosts tot nu toe.</string>
     <string name="tunnel_dropped_count">%d blocked</string>
-    <string name="tunnel_dropped_count2">%s geblokkeerd</string>
     <string name="tunnel_config_refetch_now_title">Lijsten downloaden</string>
     <string name="tunnel_config_refetch_now">Download lijsten nu</string>
     <string name="tunnel_config_refetch_now_description">Gebruik de onderstaande knop om de cache te verwijderen en uw lijsten opnieuw te downloaden. Dit kan helpen als u problemen ondervindt met uw filtering.</string>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
@@ -65,7 +65,7 @@
         android:background="@drawable/bg_shadow"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp">
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <core.AFloaterView
         android:id="@+id/fab"
@@ -87,6 +87,8 @@
         android:src="@drawable/ic_power"
         android:tint="@color/colorActive"
         android:contentDescription="main action"
+        android:padding="16dp"
+        android:background="@drawable/circle"
         app:borderWidth="0dp"
         app:elevation="4dp" />
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -27,4 +27,8 @@
     <string name="notification_keepalive_content">Pēdējais: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">tiek uzraudzīts</string>
+    <string name="notification_keepalive_activate">Aktivizēt</string>
+    <string name="notification_keepalive_activating">Blokada startējas. Tas var prasīt brīdi.</string>
+    <string name="notification_keepalive_deactivate">Deaktivizēt</string>
+    <string name="notification_keepalive_deactivating">Blokada deaktivizēta!</string>
 </resources>

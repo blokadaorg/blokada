@@ -10,6 +10,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s 已启用</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <string name="main_active_vpn">%s 已启用。VPN 已连接。</string>
+    <string name="main_active_novpn">%s 已启用。没有连接 VPN。</string>
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s 正在保护您的设备免于广告骚扰。您现在可以在下方配置 %1$s ，或者继续使用您的设备。</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s 已停用</string>

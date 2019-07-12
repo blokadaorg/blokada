@@ -4,6 +4,7 @@
     <string name="tunnel_hosts_desc">Отображает количество хостов, настроенных для блокировки %s.</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <string name="tunnel_hosts_count2">%s хостов</string>
+    <string name="tunnel_hosts_count">%d хостов</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <string name="tunnel_hosts_updating">Обновление...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -11,9 +12,10 @@
     <string name="tunnel_config_wifi">Загрузка фильтров только через соединение Wi-Fi</string>
     <string name="tunnel_dropped_count_desc">Показывает общее количество заблокированных хостов.</string>
     <string name="tunnel_dropped_count">%d заблокировано</string>
-    <string name="tunnel_dropped_count2">%s заблокировано</string>
+    <string name="tunnel_dropped_count2">%s доменов заблокировано</string>
     <string name="tunnel_config_refetch_now_title">Загрузка списков</string>
     <string name="tunnel_config_refetch_now">Загрузить списки сейчас</string>
+    <string name="tunnel_config_refetch_toast">Загрузка списков началась</string>
     <string name="tunnel_config_refetch_now_description">Используйте кнопку ниже для очистки кэша и повторной загрузки списков. Это может помочь, если у вас возникнут проблемы с фильтрацией.</string>
     <string name="tunnel_config_refetch_frequency_title">Периодичность загрузки списков</string>
     <string name="tunnel_config_refetch_frequency_description">Выберите один из параметров для настройки периодичности загрузки списков.</string>

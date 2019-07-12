@@ -263,7 +263,7 @@ class SettingsDash(
         val ctx = parent.context
         configView = LayoutInflater.from(ctx).inflate(R.layout.view_tunnel_config, parent, false) as TunnelConfigView
         configView?.onRefreshClick = {
-            t.invalidateFilters("tunnelDash:config:refresh".ktx())
+            t.invalidateFilters(ctx.ktx("tunnelDash:config:refresh"))
         }
         configView?.onNewConfig = {
             tunnel.Persistence.config.save(it)

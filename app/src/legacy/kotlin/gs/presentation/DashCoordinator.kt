@@ -2,7 +2,7 @@ package gs.presentation
 
 import android.view.View
 
-private data class OpenDash(val d: Dash, val x: Int, val y: Int)
+private data class OpenDash(val d: ViewBinder, val x: Int, val y: Int)
 
 class DashCoordinator(
         private val reveal: io.codetail.widget.RevealFrameLayout,
@@ -11,12 +11,12 @@ class DashCoordinator(
         private val radiusSize: Float
 ) {
 
-    val onDashOpen = mutableListOf<(Dash?) -> Unit>()
+    val onDashOpen = mutableListOf<(ViewBinder?) -> Unit>()
 
-    private val dashesCaches: MutableMap<Dash, View?> = mutableMapOf()
+    private val dashesCaches: MutableMap<ViewBinder, View?> = mutableMapOf()
     private var openDash: gs.presentation.OpenDash? = null
 
-    fun reveal(dash: Dash, x: Int, y: Int, after: () -> Unit = {}) {
+    fun reveal(dash: ViewBinder, x: Int, y: Int, after: () -> Unit = {}) {
         if (openDash?.d == dash) return
         openDash = gs.presentation.OpenDash(dash, x, y)
 

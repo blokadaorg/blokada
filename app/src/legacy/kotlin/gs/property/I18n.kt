@@ -9,6 +9,7 @@ import core.ktx
 import gs.environment.Environment
 import gs.environment.Worker
 import gs.main.getPreferredLocales
+import org.blokada.R
 import java.util.*
 
 abstract class I18n {
@@ -17,6 +18,7 @@ abstract class I18n {
     abstract val localisedOrNull: (key: Any) -> String?
     abstract val set: (key: Any, value: String) -> Unit
     abstract fun getString(resId: Int): String
+    abstract fun getString(resId: Int, vararg arguments: Any): String
     abstract fun getQuantityString(resId: Int, quantity: Int, vararg arguments: Any): String
     abstract fun contentUrl(): String
     abstract fun fallbackContentUrl(): String
@@ -78,14 +80,14 @@ class I18nImpl (
 
     override val localisedOrNull = { key: Any ->
         // Map resId to actual string key defined in xml files since we use them dynamically
-        val realKey = if (key is Int) res.getResourceName(key) else key.toString()
+        val (isResource, realKey) = if (key is Int) true to res.getResourceName(key) else false to key.toString()
 
         // Get all cached translations for current locale
         val strings = localisedMap.getOrPut(locale(), { mutableMapOf<Key, Localised>() })
 
         // If cache miss, try getting it from resources
         var string = strings.get(realKey)
-        if (string == null) {
+        if (string == null || isResource) {
             val id = res.getIdentifier(realKey, "string", ctx.packageName)
             if (id != 0) {
                 string = res.getString(id)
@@ -110,13 +112,18 @@ class I18nImpl (
         return localised(resId)
     }
 
+    override fun getString(resId: Int, vararg arguments: Any): String {
+        return localised(resId).format(*arguments)
+    }
+
     override fun getQuantityString(resId: Int, quantity: Int, vararg arguments: Any): String {
         // Intentionally no support for quantity strings for now
-        return localised(resId).format(arguments)
+        return localised(resId).format(*arguments)
     }
 
     init {
         repo.content.doWhenSet().then {
+            "i18n".ktx().v("refreshing locale")
             locale.refresh(force = true)
         }
         locale.doWhenSet().then {
@@ -155,4 +162,8 @@ class I18nPersistence(
         e.apply()
     }
 
+}
+
+fun I18n.getBrandedString(resId: Int): String {
+    return getString(resId, getString(R.string.branding_app_name_short))
 }

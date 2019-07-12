@@ -16,8 +16,8 @@ internal class FilterManager(
             else Err(Exception("failed fetching rules, memory limit reached: $limit"))
         },
         private val doValidateRulesetCache: (Filter) -> Boolean = {
-            it.source.id in listOf("app") ||
-            it.lastFetch + 86400 * 1000 > System.currentTimeMillis()
+            it.source.id in listOf("app") /*||
+            it.lastFetch + 86400 * 1000 > System.currentTimeMillis()*/
         },
         private val doFetchFiltersFromRepo: (Url) -> Result<Set<Filter>> = {
             val serializer = FilterSerializer()
@@ -62,6 +62,10 @@ internal class FilterManager(
             store = store.copy(lastFetch = 0, url = url)
             ktx.v("changed FilterStore url", url)
         }
+    }
+
+    fun findBySource(source: String) : Filter?{
+        return store.cache.find { it.source.id == "app" && it.source.source == source }
     }
 
     fun put(ktx: Kontext, new: Filter) {

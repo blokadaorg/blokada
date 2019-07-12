@@ -2,6 +2,7 @@
     <string name="tunnel_hosts_desc">Displays the number of hosts configured to be blocked by %s.</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <string name="tunnel_hosts_count2">%s hosts</string>
+    <string name="tunnel_hosts_count">%d hosts</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <string name="tunnel_hosts_updating">Updating...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -10,10 +11,11 @@
 
     <string name="tunnel_dropped_count_desc">Displays the total number of hosts blocked so far.</string>
     <string name="tunnel_dropped_count">%d blocked</string>
-    <string name="tunnel_dropped_count2">%s blocked</string>
+    <string name="tunnel_dropped_count2">%s domains blocked</string>
 
     <string name="tunnel_config_refetch_now_title">Download lists</string>
     <string name="tunnel_config_refetch_now">Download lists now</string>
+    <string name="tunnel_config_refetch_toast">Download of lists started</string>
     <string name="tunnel_config_refetch_now_description">Use the button below to remove cache and download your lists again. This may help if you experience any problems with your filtering.</string>
     <string name="tunnel_config_refetch_frequency_title">Lists download frequency</string>
     <string name="tunnel_config_refetch_frequency_description">Select one of the options to configure how often should the app download your lists.</string>

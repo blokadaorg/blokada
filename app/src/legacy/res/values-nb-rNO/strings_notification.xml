@@ -28,4 +28,11 @@
     <string name="notification_keepalive_content">Siste: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">overvåker</string>
+    <string name="notification_keepalive_activate">Aktiver</string>
+    <string name="notification_keepalive_activating">Blokada starter. Dette kan ta et øyeblikk.</string>
+    <string name="notification_keepalive_deactivate">Deaktiver</string>
+    <string name="notification_keepalive_deactivating">Blokada ble deaktivert!</string>
+    <string name="notification_expired_title">Blokada VPN-konto utløpt</string>
+    <string name="notification_lease_expired_title">Blokada VPN slått av</string>
+    <string name="notification_lease_expired_description">Det oppstod et problem med tilkoblingen din til Blocka VPN. Prøv å koble til en annen gateway. Hvis problemet vedvarer, vennligst kontakt oss på Telegram.</string>
 </resources>

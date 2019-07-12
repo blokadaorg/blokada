@@ -10,6 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active">%s ir aktīva.</string>
     <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
     <string name="main_active_new">%1$s pašlaik aizsargā jūsu ierīci. Varat pieregulēt %1$s zemāk vai vienkārši turpināt izmantot ierīci!</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused">%s nav aktīva.</string>

@@ -12,6 +12,8 @@ class Persistence {
         val rules = RulesPersistence()
         val filters = FiltersPersistence()
         val config = TunnelConfigPersistence()
+        val request = RequestPersistence()
+        val blocka = BlockaConfigPersistence()
     }
 }
 
@@ -104,5 +106,65 @@ class TunnelConfigPersistence {
 
     val save = { config: TunnelConfig ->
         Result.of { core.Persistence.paper().write("tunnel:config", config) }
+    }
+}
+
+class RequestPersistence(
+        val load: (Int) -> Result<List<Request>> = { batch: Int ->
+            Result.of { core.Persistence.paper().read<List<Request>>("requests:$batch", emptyList()) }
+        },
+        val saveBatch: (Int, List<Request>) -> Any = { batch: Int, requests: List<Request> ->
+            Result.of { core.Persistence.paper().write("requests:$batch", requests) }
+        },
+        val batch_sizes: List<Int> = listOf(10, 100, 1000)
+) {
+
+    private val batch0 = mutableListOf<Request>()
+
+    val batches = listOf(
+            { batch0 },
+            { load(1).getOr { emptyList() } },
+            { load(2).getOr { emptyList() } }
+    )
+
+    val save = { request: Request ->
+        batch0.add(0, request)
+        saveBatch(0, batch0)
+        rollIfNeeded()
+    }
+
+    fun rollIfNeeded() {
+        for (i in 0 until batches.size) {
+            val size = batch_sizes[i]
+            val batch = batches[i]()
+
+            if (batch.size > size) {
+                if (i < batches.size - 1) {
+                    val nextBatch = batches[i + 1]()
+                    saveBatch(i + 1, batch + nextBatch)
+                    saveBatch(i, emptyList())
+                    (batch as? MutableList)?.clear()
+                } else {
+                    saveBatch(i, batch.subList(0, size))
+                }
+            } else break
+        }
+    }
+}
+
+class BlockaConfigPersistence {
+    val load = { ktx: Kontext ->
+        Result.of { core.Persistence.paper().read<BlockaConfig>("blocka:config", BlockaConfig()) }
+                .mapBoth(
+                        success = { it },
+                        failure = { ex ->
+                            ktx.w("failed loading BlockaConfig, reverting to empty", ex)
+                            BlockaConfig()
+                        }
+                )
+    }
+
+    val save = { config: BlockaConfig ->
+        Result.of { core.Persistence.paper().write("blocka:config", config) }
     }
 }

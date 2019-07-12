@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<core.PanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/colorBackgroundLight"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Ads"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorActive" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Settings"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorActive" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        android:background="@color/colorBackground">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Privacy"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorActive" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Apps"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorActive" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="match_parent">
+
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/picker"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dsv_orientation="horizontal" />
+
+        <core.PacketsView
+            android:layout_margin="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="96dp"
+            android:background="@color/colorBackgroundLight"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_power"
+            android:tint="@color/fab_accent"
+            android:layout_height="96dp" />
+
+    </RelativeLayout>
+
+</core.PanelLayout>

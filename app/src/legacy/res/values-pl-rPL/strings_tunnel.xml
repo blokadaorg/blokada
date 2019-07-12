@@ -11,7 +11,6 @@
     <string name="tunnel_config_wifi">Pobieraj filtry tylko na wifi</string>
     <string name="tunnel_dropped_count_desc">Wyświetla całkowitą liczbę hostów zablokowaną do tej pory.</string>
     <string name="tunnel_dropped_count">%d zablokowano</string>
-    <string name="tunnel_dropped_count2">%s zablokowano</string>
     <string name="tunnel_config_refetch_now_title">Pobierz listy</string>
     <string name="tunnel_config_refetch_now">Pobierz listy teraz</string>
     <string name="tunnel_config_refetch_now_description">Użyj poniższego przycisku aby usunąć cache i pobrać listy ponownie. To może pomóc jeśli doświadczasz problemów z filtrowaniem.</string>
@@ -28,4 +27,8 @@
     <string name="tunnel_config_watchdog_description">Aktywuj jeśli chcesz aby aplikacja włączała VPN tylko jeśli urządzenie jest połączone z Internetem, i restartowała tunel w przypadku problemów z połączeniem. To może pomóc w przypadku niektórych urządzeń. We wcześniejszych wersjach ta opcja nazywała się \"Tylko Online\".</string>
     <string name="tunnel_config_powersave_title">Agresywny wakeup</string>
     <string name="tunnel_config_powersave_description">Aktywuj jeśli doświadczasz problemów spowodowanych oszczędzaniem baterii. Gdy aplikacja wykryje problemy z połączeniem tunelu, będzie próbować podnieść swój priorytet w systemie aby wyjść z ograniczonego trybu oszczędzania energii.</string>
+    <string name="tunnel_config_reports_title">Raporty</string>
+    <string name="tunnel_config_reports_description">Po włączeniu tej funkcji aplikacja będzie przesyłać raporty do twórców aplikacji, które mogą pozwolić rozwiązać potencjalne błędy podczas użytkowania aplikacji. Raporty zostaną przesłane raz dziennie albo za każdym razem, kiedy aplikacja niespodziewanie się wyłączy. Wyłączenie tej funkcji sprawi, że nie będziemy w stanie efektywnie Tobie pomóc jeśli będziesz doświadczać niedogodności podczas użytkowania aplikacji. Może być konieczne zrestartowanie aplikacji, aby ta funkcja mogła działać poprawnie na Twoim urządzeniu.</string>
+    <string name="tunnel_config_fallback_title">Tryb fallback dla Systemu Nazw Domenowych</string>
+    <string name="tunnel_config_fallback_description">Włącz tę funkcję jeśli doświadczasz utraty połączenia z internetem, na przykład podczas używania sieci WiFi. Ta funkcja tymczasowo przełączy rekordy systemu nazw domenowych na wartości z platformy Cloudflare, aby utrzymać trwałe połączenie z internetem. Może być konieczne ponowne wprowadzenie rekordów systemu nazw domenowych po zastosowaniu tej funkcji.</string>
 </resources>

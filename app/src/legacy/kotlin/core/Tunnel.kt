@@ -16,11 +16,12 @@ import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
 import org.blokada.R
-import tunnel.Main
-import tunnel.checkTunnelPermissions
+import tunnel.*
+import tunnel.Persistence
 
 abstract class Tunnel {
     abstract val enabled: IProperty<Boolean>
+    abstract val error: IProperty<Boolean>
     abstract val retries: IProperty<Int>
     abstract val active: IProperty<Boolean>
     abstract val restart: IProperty<Boolean>
@@ -28,6 +29,7 @@ abstract class Tunnel {
     abstract val tunnelState: IProperty<TunnelState>
     abstract val tunnelPermission: IProperty<Boolean>
     abstract val tunnelDropCount: IProperty<Int>
+    abstract val tunnelDropStart: IProperty<Long>
     abstract val tunnelRecentDropped: IProperty<List<String>>
     abstract val startOnBoot: IProperty<Boolean>
 }
@@ -42,6 +44,8 @@ class TunnelImpl(
     override val enabled = newPersistedProperty(kctx, APrefsPersistence(ctx, "enabled"),
             { false }
     )
+
+    override val error = newProperty(kctx, { false })
 
     override val active = newPersistedProperty(kctx, APrefsPersistence(ctx, "active"),
             { false }
@@ -67,6 +71,10 @@ class TunnelImpl(
             { 0 }
     )
 
+    override val tunnelDropStart = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsStart"),
+            { System.currentTimeMillis() }
+    )
+
     override val tunnelRecentDropped = newProperty<List<String>>(kctx, { listOf() })
 
     override val startOnBoot  = newPersistedProperty(kctx, APrefsPersistence(ctx, "startOnBoot"),
@@ -80,7 +88,7 @@ fun newTunnelModule(ctx: Context): Module {
         bind<IPermissionsAsker>() with singleton {
             object : IPermissionsAsker {
                 override fun askForPermissions() {
-                    MainActivity.askPermissions()
+                    activityRegister.askPermissions()
                 }
             }
         }
@@ -100,10 +108,14 @@ fun newTunnelModule(ctx: Context): Module {
                                 Intent(ctx, MainActivity::class.java),
                                 PendingIntent.FLAG_CANCEL_CURRENT))
                 },
-                onBlocked = { host ->
-                    tunnelState.tunnelDropCount %= tunnelState.tunnelDropCount() + 1
-                    val dropped = tunnelState.tunnelRecentDropped() + host
-                    tunnelState.tunnelRecentDropped %= dropped.takeLast(10)
+                onRequest = { request ->
+                    if (request.blocked) {
+                        tunnelState.tunnelDropCount %= tunnelState.tunnelDropCount() + 1
+                        val dropped = tunnelState.tunnelRecentDropped() + request.domain
+                        tunnelState.tunnelRecentDropped %= dropped.takeLast(10)
+                    }
+
+                    Persistence.request.save(request)
                 },
                 doResolveFilterSource = {
                     res.from(it.source.id, it.source.source)
@@ -126,21 +138,47 @@ fun newTunnelModule(ctx: Context): Module {
             val d: Device = instance()
             val dns: Dns = instance()
             val pages: Pages = instance()
+            val device: Device = instance()
             val engine: tunnel.Main = instance()
             val perms: IPermissionsAsker = instance()
             val watchdog: IWatchdog = instance()
             val retryKctx: Worker = with("retry").instance()
             val ktx = "tunnel:legacy".ktx()
+            var restarts = 0
+            var lastRestartMillis = 0L
 
-            dns.dnsServers.doWhenSet().then {
+            dns.dnsServers.doWhenChanged(withInit = true).then {
                 engine.setup(ctx.ktx("dns:changed"), dns.dnsServers())
+            }
+
+            async {
+                ktx.on(BLOCKA_CONFIG) { cfg ->
+                    engine.setup(ctx.ktx("blocka:vpn:switched"), dns.dnsServers(), cfg)
+
+//                    if (cfg.blockaVpn && !s.enabled()) {
+//                        ktx.v("auto activating on vpn gateway selected")
+//                        s.enabled %= true
+//                    }
+                }
+
+                ktx.on(Events.TUNNEL_RESTART) {
+                    val restartedRecently = (System.currentTimeMillis() - lastRestartMillis) < 15 * 1000
+                    lastRestartMillis = System.currentTimeMillis()
+                    if (!restartedRecently) restarts = 0
+                    if (restarts++ > 9 && device.watchdogOn()) {
+                        restarts = 0
+                        ktx.e("Too many tunnel restarts. Stopping...")
+                        s.error %= true
+                        s.enabled %= false
+                    } else ktx.w("tunnel restarted for $restarts time in a row")
+                }
             }
 
             var oldUrl = "localhost"
             pages.filters.doWhenSet().then {
                 val url = pages.filters().toExternalForm()
                 if (pages.filters().host != "localhost" && url != oldUrl) {
-                    oldUrl = pages.filters().toExternalForm()
+                    oldUrl = url
                     engine.setUrl(ctx.ktx("filtersUrl:changed"), url, d.onWifi())
                 }
             }
@@ -161,7 +199,8 @@ fun newTunnelModule(ctx: Context): Module {
 
             // The tunnel setup routine (with permissions request)
             s.active.doWhenSet().then {
-                if (s.active() && s.tunnelState(TunnelState.INACTIVE)) {
+                ktx.e("enabled: ${s.enabled()}")
+                if (s.enabled() && s.active() && s.tunnelState(TunnelState.INACTIVE)) {
                     s.retries %= s.retries() - 1
                     s.tunnelState %= TunnelState.ACTIVATING
                     s.tunnelPermission.refresh(blocking = true)
@@ -266,7 +305,13 @@ fun newTunnelModule(ctx: Context): Module {
                     d.connected() && s.restart() && !s.updating() && s.enabled() -> {
                         ktx.v("connectivity back, activating")
                         s.restart %= false
+                        s.error %= false
                         s.active %= true
+                    }
+                    d.connected() && s.error() && !s.updating() && !s.enabled() -> {
+                        ktx.v("connectivity back, auto recover from error")
+                        s.error %= false
+                        s.enabled %= true
                     }
                 }
             }
@@ -309,6 +354,9 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             async {
+                registerTunnelConfigEvent(ktx)
+                registerBlockaConfigEvent(ctx.ktx("blockaConfigInit"))
+
                 engine.reloadConfig(ctx.ktx("load:persistence:after:start"), d.onWifi())
             }
         }

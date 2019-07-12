@@ -7,7 +7,7 @@ import org.blokada.R
 
 
 class MenuDash(
-        val menuDashes: Map<Dash, String>,
+        val menuDashes: Map<ViewBinder, String>,
         val dashCoordinator: DashCoordinator
 ) : IconDash() {
 
