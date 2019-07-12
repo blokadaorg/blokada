@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:padding="8dp"
         tools:text="This is label"
+        android:textSize="@dimen/secondary_text_size"
         android:textColor="@color/colorTextUnimportant"
         android:layout_height="wrap_content" />
 

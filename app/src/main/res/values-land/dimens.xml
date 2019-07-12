@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="default_text_size">10sp</dimen>
-    <dimen name="secondary_text_size">8sp</dimen>
+    <dimen name="default_text_size">11sp</dimen>
+    <dimen name="secondary_text_size">10sp</dimen>
     <dimen name="header_text_size">14sp</dimen>
 
     <dimen name="dashboard_navigation_inset">0dp</dimen>
