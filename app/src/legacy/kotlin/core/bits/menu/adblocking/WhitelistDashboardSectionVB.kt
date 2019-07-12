@@ -18,7 +18,11 @@ class WhitelistDashboardSectionVB(
     private val slotMutex = SlotMutex()
 
     private var updateApps = { filters: Collection<Filter> ->
-        filters.filter { it.whitelist && !it.hidden && it.source.id != "app" }.map {
+        val items = filters.filter { it.whitelist && !it.hidden && it.source.id != "app" }
+        val active = items.filter { it.active }
+        val inactive = items.filter { !it.active }
+
+        (active + inactive).map {
             FilterVB(it, ktx, onTap = slotMutex.openOneAtATime)
         }.apply { view?.set(listOf(
                 LabelVB(ktx, label = R.string.menu_host_whitelist.res()),

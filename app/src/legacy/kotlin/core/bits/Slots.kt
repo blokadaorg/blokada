@@ -394,7 +394,7 @@ class FilterVB(
 ) : SlotVB(onTap) {
 
     override fun attach(view: SlotView) {
-        val name = filter.customName ?: i18n.localisedOrNull("filters_${filter.id}_name")
+        val name = filter.customName ?: i18n.localisedOrNull("filters_${filter.id}_name") ?: filter.customComment
         ?: sourceToName(ctx, filter.source)
         val comment = filter.customComment ?: i18n.localisedOrNull("filters_${filter.id}_comment")
 
@@ -406,10 +406,10 @@ class FilterVB(
                 icon = ctx.getDrawable(R.drawable.ic_hexagon_multiple),
                 switched = filter.active,
                 detail = filter.source.source,
-                action2 = Slot.Action(i18n.getString(R.string.slot_action_remove), {
+                action2 = Slot.Action(i18n.getString(R.string.slot_action_remove)) {
                     filters.removeFilter(ktx, filter)
-                }),
-                action3 = Slot.Action(i18n.getString(R.string.slot_action_author), {
+                },
+                action3 = Slot.Action(i18n.getString(R.string.slot_action_author)) {
                     try {
                         Intent(Intent.ACTION_VIEW, Uri.parse(filter.credit))
                     } catch (e: Exception) {
@@ -418,7 +418,7 @@ class FilterVB(
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         ctx.startActivity(this)
                     }
-                })
+                }
         )
 
         view.onSwitch = { on ->

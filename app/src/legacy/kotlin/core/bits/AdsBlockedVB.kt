@@ -2,6 +2,7 @@ package core.bits
 
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.bits.menu.MENU_CLICK_BY_NAME
 import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
@@ -84,7 +85,8 @@ class AdsBlockedVB(
                     arrow(null)
                     state(R.string.home_adblocking_enabled.res())
                     onTap {
-                        ktx.emit(SWIPE_RIGHT)
+//                        ktx.emit(SWIPE_RIGHT)
+                        ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_ads.res())
                     }
                     onSwitch {
                         tunManager.turnAdblocking(it)

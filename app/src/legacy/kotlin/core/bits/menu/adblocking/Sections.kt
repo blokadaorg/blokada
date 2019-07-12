@@ -45,11 +45,14 @@ class FiltersSectionVB(
     private val filtersUpdated = { filters: Collection<Filter> ->
         val items = filters.filter {
             !it.whitelist && !it.hidden && it.source.id != "single"
-        }.sortedBy { it.priority }.map { FilterVB(it, ktx, onTap = slotMutex.openOneAtATime) }
+        }
+        val activeItems = items.filter { it.active }.sortedBy { it.priority }.map { FilterVB(it, ktx, onTap = slotMutex.openOneAtATime) }
+        val inactiveItems = items.filter { !it.active }.sortedBy { it.priority }.map { FilterVB(it, ktx, onTap = slotMutex.openOneAtATime) }
+
         view?.set(listOf(
                 NewFilterVB(ktx, nameResId = R.string.slot_new_filter_list),
                 LabelVB(ktx, label = R.string.menu_host_list_intro.res())
-        ) + items)
+        ) + activeItems + inactiveItems)
         onSelectedListener(null)
         Unit
     }

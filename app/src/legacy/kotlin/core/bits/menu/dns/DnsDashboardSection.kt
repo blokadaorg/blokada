@@ -27,7 +27,13 @@ class DnsDashboardSection(
         view.enableAlternativeMode()
         filters.apps.refresh()
         get = dns.choices.doOnUiWhenSet().then {
-            dns.choices().map {
+            val default = dns.choices().firstOrNull()
+            val active = dns.choices().filter { it.active }
+            val inactive = dns.choices().filter { !it.active }
+
+            val defaultList = if (default != null) listOf(default) else emptyList()
+
+            (defaultList + active + inactive).map {
                 DnsChoiceVB(it, ktx, onTap = slotMutex.openOneAtATime)
             }.apply {
                 view.set(this)

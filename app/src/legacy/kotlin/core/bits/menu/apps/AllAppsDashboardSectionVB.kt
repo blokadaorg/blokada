@@ -41,8 +41,8 @@ class AllAppsDashboardSectionVB(
     private fun updateListing(keyword: String = "") {
         if (apps.isEmpty() || !filLoaded) return
 
-        val whitelisted = apps.filter { (it.appId in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }
-        val notWhitelisted = apps.filter { (it.appId !in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }
+        val whitelisted = apps.filter { (it.appId in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }.sortedBy { it.label.toLowerCase() }
+        val notWhitelisted = apps.filter { (it.appId !in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }.sortedBy { it.label.toLowerCase() }
 
         val listing = listOf(LabelVB(ktx, label = R.string.slot_allapp_whitelisted.res())) +
                 whitelisted.map { AppVB(it, true, ktx, onTap = slotMutex.openOneAtATime) } +
