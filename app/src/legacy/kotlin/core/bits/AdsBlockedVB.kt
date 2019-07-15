@@ -65,9 +65,21 @@ class AdsBlockedVB(
                     onTap { }
                     onSwitch {  }
                 }
-                !config.adblocking -> {
+                !config.adblocking && config.blockaVpn -> {
                     icon(R.drawable.ic_show.res())
                     label(R.string.home_vpn_only.res())
+                    state(R.string.home_adblocking_disabled.res())
+                    switch(false)
+                    arrow(null)
+                    onTap {
+                    }
+                    onSwitch {
+                        tunManager.turnAdblocking(true)
+                    }
+                }
+                !config.adblocking -> {
+                    icon(R.drawable.ic_show.res())
+                    label(R.string.home_dns_only.res())
                     state(R.string.home_adblocking_disabled.res())
                     switch(false)
                     arrow(null)
