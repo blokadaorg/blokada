@@ -33,7 +33,7 @@ class DnsDashboardSection(
 
             val defaultList = if (default != null) listOf(default) else emptyList()
 
-            (defaultList + active + inactive).map {
+            (defaultList + active.minus(defaultList) + inactive.minus(defaultList)).map {
                 DnsChoiceVB(it, ktx, onTap = slotMutex.openOneAtATime)
             }.apply {
                 view.set(this)
