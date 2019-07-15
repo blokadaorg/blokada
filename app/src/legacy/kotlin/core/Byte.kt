@@ -98,7 +98,7 @@ class ByteView(
         }
     }
 
-    fun state(state: Resource?, color: Resource? = null, smallcap: Boolean = true) {
+    fun state(state: Resource?, color: Resource? = null, smallcap: Boolean = false) {
         when {
             state == null -> stateView.visibility = View.GONE
             state.hasResId() -> {

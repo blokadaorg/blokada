@@ -6,7 +6,7 @@
     <string name="home_setup_vpn">Touch to setup VPN</string>
     <string name="home_blokada_disabled">Blokada is deactivated</string>
     <string name="home_activating">Activating</string>
-    <string name="home_please_wait">please wait...</string>
+    <string name="home_please_wait">Please wait...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">VPN only mode</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
@@ -17,7 +17,7 @@
 
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Tell your friends</string>
-    <string name="home_share_state">share your Blokada score</string>
+    <string name="home_share_state">Share your Blokada score</string>
     <string name="home_adblocking_enabled">Ad blocking is active</string>
     <string name="home_adblocking_disabled">Ad blocking is deactivated</string>
 
@@ -31,14 +31,14 @@
 
     <string name="home_vpn_enabled">VPN is active</string>
     <string name="home_vpn_disabled">VPN is deactivated</string>
-    <string name="home_account_active">your account is still active</string>
+    <string name="home_account_active">Your account is still active</string>
     <string name="home_connecting_vpn">Connecting to VPN</string>
     <string name="home_cleanup">Cleanup recommended</string>
 
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">Change</string>
 
-    <string name="home_connected_vpn">connected to VPN</string>
+    <string name="home_connected_vpn">Connected to VPN</string>
 
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Ads</string>
