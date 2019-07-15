@@ -181,11 +181,16 @@ class DashboardView(
                 }.sendEmptyMessageDelayed(0, 1000)
             }
         }, recentValue = false)
+
+        tun.enabled.doOnUiWhenSet().then {
+            if (tun.enabled()) bg_colors.onScroll(1f, 4, model.getOpenedSectionIndex() + 1)
+            else bg_colors.onScroll(1f, model.getOpenedSectionIndex() + 1, 4)
+        }
     }
 
     private fun setOn(toColorIndex: Int) {
         ktx.v("setOn")
-        bg_colors.onScroll(1f, 0, toColorIndex)
+        //bg_colors.onScroll(1f, 0, toColorIndex)
         bg_nav.alpha = 1f
         bg_logo.alpha = 1.0f
         bg_packets.alpha = 1f
@@ -377,7 +382,7 @@ class DashboardView(
                 override fun onPanelSlide(panel: View?, slideOffset: Float) {
                     if (slideOffset < anchorPoint) {
                         val ratio = slideOffset / anchorPoint
-                        bg_colors.onScroll(1 - ratio, model.getOpenedSectionIndex() + 1, 0)
+                        //bg_colors.onScroll(1 - ratio, model.getOpenedSectionIndex() + 1, 0)
                         // bg_start.alpha = 1 - min(1f, ratio)
                         bg_packets.alpha = min(1f, ratio)
                         bg_pager.alpha = min(1f, ratio)
@@ -442,8 +447,10 @@ class DashboardView(
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, posPixels: Int) {
-                val next = position + 1
-                bg_colors.onScroll(positionOffset, next, next + 1)
+                if (tun.enabled()) {
+                    val next = position + 1
+                    bg_colors.onScroll(positionOffset, next, next + 1)
+                }
             }
 
             override fun onPageSelected(position: Int) {
