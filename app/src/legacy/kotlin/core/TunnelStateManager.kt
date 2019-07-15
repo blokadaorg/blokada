@@ -30,7 +30,13 @@ class TunnelStateManager(
         }
 
         s.enabled.doWhenChanged(withInit = true).then {
+            if (s.enabled() && !latest.adblocking && !latest.blockaVpn && !d.enabled()) {
+                // Everything is off, turn on
+                val vpn = latest.hasGateway() && latest.leaseActiveUntil.after(Date())
+                val adblocking = Product.current(ktx.ctx) != Product.DNS
 
+                ktx.emit(BLOCKA_CONFIG, latest.copy(adblocking = adblocking, blockaVpn = vpn))
+            }
         }
     }
 
