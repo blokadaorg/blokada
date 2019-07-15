@@ -19,7 +19,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="main_paused_autoenable">%1$s متوقّف مؤقتاً لعدم وجود إتصال بالشبكة. %1$s سيعمل تلقائياً بمجرد إتصالك بالإنترنت.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="main_paused_autoenable_tethering">%1$s متوقف مؤقتاً لأنك تستخدم هاتفك كموزع شبكة. %1$s سيعمل بشكل تلقائي عند إيقاف خاصيّة توزيع الشبكة.</string>
+    <string name="main_paused_autoenable_tethering">%1$s متوقِّف مؤقَّتاً لأنَّك تستخدم هاتفك كموزّع شبكة. %1$s سيعمل بشكل تلقائي عند إيقاف خاصيّة توزيع الشبكة.</string>
     <!-- Label for the Quick Settings toggle -->
     <string name="main_quicksettings_toggle">تَفعيل</string>
     <!-- Active status for the Quick Settings toggle -->
@@ -34,7 +34,7 @@
     <string name="main_status_activating">التشغيل جارٍ</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
     <string name="main_status_deactivating">جارِ إلغاء التّفعيل</string>
-    <string name="main_status_error">حَصلَت مشكلة</string>
+    <string name="main_status_error">حَصَلَتْ مشكلة</string>
     <string name="main_faq_text">المُساعَدة</string>
     <string name="main_donate_text">التَّبرُّع</string>
     <string name="main_contribute_text">ساهِم</string>
@@ -50,13 +50,13 @@
     <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
     <string name="main_cta">تَصويتُك</string>
     <!-- A menu option to open changelog -->
-    <string name="main_changelog">سِجل التّغييرات</string>
+    <string name="main_changelog">سِجلّ التّغييرات</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">المُساهِمون في المشروع</string>
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">مُشاركة السِجلّ</string>
     <string name="main_report_title">تقرير بلوكادا</string>
-    <string name="main_report_text">واجه Blokada مشكلة (أو طلبتَ إرسال تقرير). سيتم إرفاق سِجِل قد يحتوي على معلومات خاصة. لن يتمكن سوى المُطّلعين الموثوق بهم من قراءة تقريرك ، وسَيتم حذفه بمجرد عدم الحاجة إليه.</string>
+    <string name="main_report_text">واجه بلوكادا مشكلة (أو طلبتَ إرسال تقرير). سيتم إرفاق سِجِلّ قد يحتوي على معلومات خاصّة. لن يتمكن سوى المُطّلعين الموثوق بهم من قراءة تقريرك ، وسَيتمّ حذفه بمجرّد عدم الحاجة إليه.</string>
     <string name="main_report_comment">يتم إعطاء الأولويّة للتقارير مع التعليقات. ماذا فعلتَ قبل حدوث المشكلة؟</string>
     <string name="main_report_limit">وصلت للحدّ الأقصى للتبليغ. يُرجى تَرقُّب التحديث. شكراً لمُلاحظاتك!</string>
     <!-- To display a big number in short way, eg. 1.69 million -->

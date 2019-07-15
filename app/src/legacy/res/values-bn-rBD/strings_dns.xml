@@ -6,8 +6,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">কাস্টম</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">ডিএনএস সার্ভারের ঠিকানা লিখুন</string>
-    <string name="dns_edit_name_error">সঠিক মনে হচ্ছে না ।  অনুগ্রহ পূর্বক সঠিক ডোমেন নাম দিন যেমনঃ ৮.৮.৮.৮ ।</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">ডিফল্ট ডিএনএস</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

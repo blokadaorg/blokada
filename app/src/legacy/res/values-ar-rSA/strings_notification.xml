@@ -14,15 +14,15 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_disabled">%s لن يَعرض إشعارات.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_enabled">%s سَيتم الآن إظهار إشعار كل مرة يتم فيها حَجب لإعلان.</string>
+    <string name="notification_enabled">%s سَيتمّ الآن إظهار إشعار كل مرة يتمّ فيها حَجِبْ لإعلان.</string>
     <string name="notification_keepalive_text">الإبقاء قَيْد التشغيل</string>
     <string name="notification_keepalive_description">قم بتفعيل هذا المفتاح إذا واجهتك مشاكل في إبقاء التطبيق قيد التشغيل. سيتم تفعيل إشعار يَظهر بشكل دائم ليمنع النظام من إيقاف التطبيق.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_disabled">%s غير محمي من حفظ البطارية أو الذاكرة العشوائية بعد الآن.</string>
+    <string name="notification_keepalive_disabled">%s غير محمي من حفظ البطاريّة أو الذاكرة العشوائيّة بعد الآن.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_enabled">%s لن يَحمي نفسه عندما يحاول النظام تعطيله.</string>
+    <string name="notification_keepalive_enabled">%s الآن سوف يَحمي نفسه عندما يحاول النظام تعطيله.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d تَمّ حظر</string>
+    <string name="notification_keepalive_title">%d تَمّ حَظْر</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">الأخير: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
@@ -32,7 +32,7 @@
     <string name="notification_keepalive_deactivate">إلغاء التَّفعيل</string>
     <string name="notification_keepalive_deactivating">تَمَّ إلغاء تَفعيل بلوكادا !</string>
     <string name="notification_expired_title">انتهت صلاحيَّة حساب Blokada VPN</string>
-    <string name="notification_expired_description">انتهت صلاحيَّة حسابك للتو و لست متصلاً بـ Blokada VPN حاليّاً. يُرجَى النظر في تفعيل حسابك مرّة أُخرى لتوفير حماية أفضل.</string>
+    <string name="notification_expired_description">انتهت صلاحيَّة حسابك للتوّ و لست متصلاً بـ Blokada VPN حاليّاً. يُرجَى النظر في تفعيل حسابك مرّة أُخرى لتوفير حماية أفضل.</string>
     <string name="notification_lease_expired_title">تمَّ إيقاف تشغيل Blokada VPN</string>
-    <string name="notification_lease_expired_description">حدثت مشكلة في اتصالك ب Blokada VPN. الرجاء محاولة الإتصال ببوّابة أُخرى. إذا استمرت المشكلة ، فيُرجى التواصل معنا على Telegram.</string>
+    <string name="notification_lease_expired_description">حدثت مشكلة في إتصالك بـ Blokada VPN. الرجاء محاولة الإتصال ببوّابة أُخرى. إذا استمرت المشكلة ، فيُرجى التواصل معنا على Telegram.</string>
 </resources>

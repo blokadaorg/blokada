@@ -6,8 +6,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Tersuai</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">Masukkan alamat pelayan DNS</string>
-    <string name="dns_edit_name_error">Kelihatannya ada yang tidak betul. Pastikan anda memasukkan alamat IP pelayan, seperti 8.8.8.8.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS asal/lalai</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

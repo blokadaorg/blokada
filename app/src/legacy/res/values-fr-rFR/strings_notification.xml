@@ -35,5 +35,5 @@
     <string name="notification_expired_title">Le compte a expiré</string>
     <string name="notification_expired_description">Votre abonnement vient juste d\'arriver à expiration et vous n\'êtes pas connecté à Blokada VPN pour le moment. Veuillez envisager de renouveler votre abonnement pour une meilleure protection.</string>
     <string name="notification_lease_expired_title">Blokada VPN est désactivé</string>
-    <string name="notification_lease_expired_description">Il y a eu un problème avec votre connexion à Blocka VPN. Veuillez essayer de vous connecter à une autre passerelle. Si le problème persiste, veuillez nous contacter sur Telegram.</string>
+    <string name="notification_lease_expired_description">Il y a eu un problème avec votre connexion à Blokada VPN. Veuillez essayer de vous connecter à un autre serveur. Si le problème persiste, veuillez nous contacter sur Telegram.</string>
 </resources>

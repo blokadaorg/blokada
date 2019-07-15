@@ -6,8 +6,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Skräddarsydd</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">Ange en DNS-serveradress</string>
-    <string name="dns_edit_name_error">Det här ser inte korrekt ut. Se till att du angivit en ip-adress till servern, ex. 8.8.8.8.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Standard DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

@@ -129,7 +129,7 @@
     <string name="slot_notifications_disabled">Benachrichtigungen deaktiviert</string>
     <string name="slot_update_action_refresh">Erneut überprüfen</string>
     <string name="slot_telegram_title">Folge uns auf Telegram!</string>
-    <string name="slot_telegram_desc">Besuche unseren Telegram-Kanal für Hilfe oder um sei ein Teil der Community/Gemeinschaft.</string>
+    <string name="slot_telegram_desc">Besuche unseren Telegram-Kanal, um Hilfe zu erhalten oder einfach nur Mitglied unserer Community zu werden.</string>
     <string name="slot_telegram_action">Öffnen</string>
     <string name="slot_dropped_share_title">Teilen mit</string>
     <string name="slot_dropped_share">Ich habe %s Werbung blockiert, dank %s! www.blokada.org</string>

@@ -29,10 +29,10 @@
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">monitorizando</string>
     <string name="notification_keepalive_activate">Activar</string>
-    <string name="notification_keepalive_activating">Blokada está iniciando. Esto puede tardar un momento.</string>
+    <string name="notification_keepalive_activating">Blokada se está iniciando. Esto puede tardar un momento.</string>
     <string name="notification_keepalive_deactivate">Desactivar</string>
     <string name="notification_keepalive_deactivating">¡Blokada se ha desactivado!</string>
-    <string name="notification_expired_title">Cuenta del VPN de Blokada ha expirado</string>
+    <string name="notification_expired_title">Cuenta del VPN de Blokada expirada</string>
     <string name="notification_expired_description">Tu cuenta acaba de expirar y no estás conectado al VPN de Blokada en este momento. Por favor, considera activar tu cuenta de nuevo para una mejor protección.</string>
     <string name="notification_lease_expired_title">El VPN de Blokada se ha desactivado</string>
     <string name="notification_lease_expired_description">Hubo un problema con tu conexión al VPN de Blokada. Por favor, intenta conectarte a otra puerta de enlace. Si el problema persiste, por favor contáctanos en Telegram.</string>

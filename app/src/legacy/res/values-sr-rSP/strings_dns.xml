@@ -7,7 +7,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Персонализован</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">Унесите адресу ДНС сервера</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <!-- Deletes all dns suggestions and fetches default ones. -->
     <!-- Forcefully refetch dns suggestions ignoring cache. -->

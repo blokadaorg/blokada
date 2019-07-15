@@ -18,6 +18,7 @@
     <string name="panel_section_ads_whitelist">允许的主机</string>
     <string name="panel_section_apps_all">已安装应用</string>
     <string name="panel_section_apps_system">系统应用</string>
+    <string name="panel_section_advanced_settings">设置</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">允许 &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">此域名已被允许。要屏蔽它，请使用下面的按钮。</string>

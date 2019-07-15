@@ -6,8 +6,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Ngokwezifiso</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">Faka ikheli le-DNS yeseva</string>
-    <string name="dns_edit_name_error">Lokhu akubukeka kulungile. Qinisekisa ukuthi ufaka ikheli le-IP yeseva, njengo 8.8.8.8.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Okuzenzakalelayo i-DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

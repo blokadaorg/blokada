@@ -6,8 +6,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">사용자 정의</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">DNS 서버 주소 입력</string>
-    <string name="dns_edit_name_error">잘못된 것 같습니다. 8.8.8.8 같은, 서버 IP 주소를 입력 했는지 확인 합니다.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">기본 DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

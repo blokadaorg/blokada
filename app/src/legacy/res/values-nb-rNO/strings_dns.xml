@@ -8,9 +8,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Egendefinert</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_placeholder">8.8.8.8</string>
-    <string name="dns_edit_name_enter">Skriv inn server adressen</string>
-    <string name="dns_edit_name_error">Dette ser ikke riktig ut. Kontroller at du skriver en server IP-adresse slik som 8.8.8.8.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Standard DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

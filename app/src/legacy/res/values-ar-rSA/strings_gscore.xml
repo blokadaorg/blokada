@@ -6,7 +6,7 @@
     <string name="welcome_share">مُشارَكة</string>
     <string name="welcome_cleanup_done">بدء عمليّة إلغاء التثبيت&#8230;</string>
     <string name="welcome_continue">واصِل</string>
-    <string name="welcome_donate">التبرّع</string>
+    <string name="welcome_donate">التّبرُّع</string>
     <string name="welcome_patron">الرّاعي</string>
     <!-- Opens info screen about the Blokada Insiders program, which invites user to be part of the team improving Blokada. -->
     <string name="welcome_insiders">المُطَّلِعون</string>

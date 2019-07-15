@@ -3,6 +3,7 @@
 <resources>
     <!-- Main screen section -->
     <string name="panel_section_home">Domov</string>
+    <string name="panel_section_menu">Menu</string>
     <!-- Main screen section -->
     <string name="panel_section_ads">Blokovanie reklám</string>
     <!-- Main screen section -->
@@ -16,8 +17,10 @@
     <string name="panel_section_ads_log">Záznam hostov</string>
     <string name="panel_section_ads_blacklist">Zablokované hosty</string>
     <string name="panel_section_ads_whitelist">Povolené hosty</string>
+    <string name="panel_section_advanced_dns">DNS</string>
     <string name="panel_section_apps_all">Nainštalované aplikácie</string>
     <string name="panel_section_apps_system">Systémové aplikácie</string>
+    <string name="panel_section_advanced_settings">Nastavenia</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Povolené &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Táto doména bola povolená. Pre zablokovanie použite tlačidlo nižšie.</string>
@@ -49,6 +52,9 @@
     <string name="slot_intro_new_header">Ako používať nové UI?</string>
     <string name="slot_intro_desc">Momentálne ste v sekcii Domov, potiahnutím doprava zobrazíte ďalšie sekcie. Každá z nich má svoje vlastné spodné menu - otvoríte ho potiahnutím nahor. &lt;br/&gt;&lt;br/&gt;Na Android TV pre navigáciu v prostredí použite dpad. Stredným tlačidlom otvoríte spodné menu, prípadne akúkoľvek vybranú položku. Tlačidlá sú označené šípkami nahor, nadol, doľava alebo doprava.</string>
     <string name="slot_intro_info">Psst... Niektoré položky majú na sebe ikonu otáznika. Dotykom sa zobrazí krátka nápoveda podobná tejto!</string>
+    <string name="slot_new_filter">Pridať nového hosta do zoznamu blokovaných</string>
+    <string name="slot_new_filter_list">Pridať nový zoznam hostov</string>
+    <string name="slot_new_filter_whitelist">Pridať nového hosta do zoznamu povolených</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">nevybrané</string>
     <!-- A state of input form when correct input is entered  -->
@@ -66,6 +72,12 @@
     <string name="slot_enter_name_generate">Generovať</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; je na bielej listine</string>
     <string name="slot_app_desc">Táto aplikácia je na bielej listine, čo znamená, že sa v nej nič neblokuje ani nefiltruje.</string>
+    <string name="slot_allapp_desc">Túto aplikáciu môžete v rámci Blokady vynechať, tým dôjde k zastaveniu blokovania sieťovej prevádzky tejto aplikácie. Nezabudnite, že vynechané aplikácie komunikujú mimo VPN.</string>
+    <string name="slot_allapp_whitelisted">Vynechané</string>
+    <string name="slot_allapp_normal">Nevynechané</string>
+    <string name="slot_allapp_whitelist">Vynechať</string>
+    <string name="slot_dns_name">Vlastné DNS je aktívne</string>
+    <string name="slot_dns_name_disabled">Vlastné DNS je deaktivované</string>
     <string name="slot_dns_dns">Aktuálne servery môžete zmeniť použitím dolného menu.</string>
     <string name="slot_action_none">Táto akcia zatiaľ nie je k dispozícii.</string>
     <string name="slot_action_facts">Fakty</string>
@@ -111,7 +123,10 @@
     <string name="slot_dropped_counter">Počet zablokovaných domén</string>
     <string name="slot_dropped_counter_info">Toto počítadlo zobrazuje počet domén, ktoré boli zablokované od momentu inštalácie aplikácie.</string>
     <string name="slot_dropped_action_clear">Obnoviť počítadlo</string>
+    <string name="slot_notifications_title">Upozornenia sú %s</string>
     <string name="slot_notifications_desc">Tu môžete zapnúť alebo vypnúť upozornenia. Pamätajte si, že na niektorých zariadeniach Android zobrazí osobitné VPN upozornenie, ktoré sa nedá vypnúť.</string>
+    <string name="slot_notifications_enabled">Upozornenia sú povolené</string>
+    <string name="slot_notifications_disabled">Upozornenia sú zakázané</string>
     <string name="slot_update_action_refresh">Skontrolovať znova</string>
     <string name="slot_telegram_title">Pridajte sa k nám na Telegrame!</string>
     <string name="slot_telegram_desc">Navštívte náš Telegram kanál pre pomoc, alebo sa iba staňte časťou našej komunity.</string>
@@ -123,12 +138,15 @@
     <string name="slot_adblocking_label">Blokovať reklamy &amp; trackery</string>
     <string name="slot_adblocking_text">Po zapnutí bude Blokada blokovať reklamy, trackery a iný nežiadúci obsah. Pomáha to chrániť vaše súkromie, zrýchliť vaše zariadenie a ušetriť vaše dáta.</string>
     <string name="slot_blocka_label">Účet Blokada VPN</string>
+    <string name="slot_account_label_active">Účet je aktívny do %s</string>
+    <string name="slot_account_label_inactive">Účet nie je aktívny</string>
     <string name="slot_account_text_account">ID vášho účtu je &lt;b&gt;%s&lt;/b&gt;.</string>
     <string name="slot_account_info">ID vášho účtu by ste mali udržať v tajnosti - je potrebné na obnovenie vášho účtu v prípade odinštalovania aplikácie. Vaše predplatné bude automaticky predĺžené, pokiaľ ho nezrušíte.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Spravovať</string>
     <string name="slot_account_action_manage_inactive">Aktivovať účeť</string>
     <string name="slot_account_action_change_id">Obnoviť účet</string>
+    <string name="slot_account_show">ID účtu</string>
     <string name="slot_account_action_copy">Kopírovať ID účtu</string>
     <string name="slot_account_action_copied">ID účtu bolo skopírované do schránky</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
@@ -173,6 +191,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Nápoveda</string>
     <string name="slot_donate_label">Užívate si Blokadu? Zvážte nás podporiť, aby sme mohli túto aplikáciu naďalej vylepšovať.</string>
+    <string name="slot_donate_desc">Pomôžte nám s novými funkciami! Dotknite sa pre viac informácií.</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Prispieť</string>
     <string name="slot_cta_label">Psst! Chceli by sme vedieť váš názor.</string>
@@ -184,6 +203,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Otvoriť</string>
     <string name="slot_updated_label">Blokada bola aktualizovaná!</string>
+    <string name="slot_updated_desc">Dotknite sa pre predstavenie tohto vydania.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Viac</string>
     <string name="slot_obsolete_label">Potrebná akcia: táto verzia je zastaraná!</string>

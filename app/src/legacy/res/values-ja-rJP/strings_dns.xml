@@ -6,8 +6,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">カスタム設定</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">DNSサーバーのアドレスを入力してください</string>
-    <string name="dns_edit_name_error">DNSサーバーが正しくありません。「8.8.8.8」のようにサーバーのIPアドレスを指定してください。</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">既定のDNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

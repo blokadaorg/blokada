@@ -15,7 +15,7 @@
     <string name="tunnel_dropped_count2">%s dominios bloqueados</string>
     <string name="tunnel_config_refetch_now_title">Descargar listas</string>
     <string name="tunnel_config_refetch_now">Descargar listas ahora</string>
-    <string name="tunnel_config_refetch_toast">Descarga de listas ha iniciado</string>
+    <string name="tunnel_config_refetch_toast">Descarga de listas iniciada</string>
     <string name="tunnel_config_refetch_now_description">Usa el botón de debajo para limpiar el caché y descargar las listas de nuevo. Podría ayudar si tienes problemas con los filtros.</string>
     <string name="tunnel_config_refetch_frequency_title">Frecuencia de actualización de listas</string>
     <string name="tunnel_config_refetch_frequency_description">Elige una de las opciones para configurar cada cuánto tiempo la app actualizará tus listas.</string>

@@ -11,12 +11,16 @@
     <string name="dns_custom_add_slot">Ajouter de nouveaux DNS…</string>
     <string name="slot_enter_dns_error">Cela ne semble pas être une adresse IPv4.</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_placeholder">8.8.8.8</string>
-    <string name="dns_edit_name_label">Adresse IP</string>
-    <string name="dns_edit_name_enter">Entrer l\'adresse d\'un serveur DNS</string>
-    <string name="dns_edit_name_error">Cela ne semble pas correct. Vérifiez que vous avez bien introduit une adresse IP de type 8.8.8.8.</string>
-    <string name="dns_edit_name_next">Suivant</string>
-    <string name="dns_edit_name_last">Ajouter</string>
+    <string name="dns_edit_ip_placeholder">8.8.8.8</string>
+    <string name="dns_edit_ip_label">Adresse IP</string>
+    <string name="dns_edit_ip1_enter">Entrez l\'adresse d\'un serveur DNS</string>
+    <string name="dns_edit_ip2_enter">Entrez l\'adresse d\'un serveur DNS secondaire</string>
+    <string name="dns_edit_ip_error">Cela ne semble pas correct. Vérifiez que vous avez bien entré une adresse IP de type 8.8.8.8.</string>
+    <string name="dns_edit_name_error">Ce nom n\'est pas valide</string>
+    <string name="dns_edit_name_label">Nom du serveur</string>
+    <string name="dns_edit_name_default">Nom par défaut</string>
+    <string name="dns_edit_next">Suivant</string>
+    <string name="dns_edit_last">Ajouter</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">DNS par défaut</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

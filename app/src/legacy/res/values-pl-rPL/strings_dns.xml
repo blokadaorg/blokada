@@ -6,8 +6,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Własny</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">Wpisz adres serwera DNS</string>
-    <string name="dns_edit_name_error">To nie wygląda poprawnie. Upewnij się, że wpisujesz poprawny adres IP, jak 8.8.8.8.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Domyślne DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

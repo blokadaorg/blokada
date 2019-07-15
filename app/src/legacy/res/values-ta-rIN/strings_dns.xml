@@ -6,8 +6,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">விருப்பத்திற்கு ஏற்ப</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_enter">DNS வழங்கி முகவரியை உள்ளிடவும்</string>
-    <string name="dns_edit_name_error">இது சரியானது அல்ல. நீங்கள் 8.8.8.8 போன்ற IP முகவரியை உள்ளிடவும்.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">பொதுவான DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

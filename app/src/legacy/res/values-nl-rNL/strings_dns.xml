@@ -8,9 +8,6 @@
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Aangepast</string>
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_name_placeholder">8.8.8.8</string>
-    <string name="dns_edit_name_enter">Een DNS serveradres invoeren</string>
-    <string name="dns_edit_name_error">Dit ziet er niet correct uit. Zorg ervoor dat u een IP-adres gebruikt van een server, zoals 8.8.8.8.</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Standaard DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

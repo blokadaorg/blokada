@@ -89,7 +89,7 @@
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
     <string name="slot_input_suggestion_for">%s</string>
     <string name="slot_dns_control_title">Liste des serveurs DNS</string>
-    <string name="slot_dns_control_description">Vous pouvez synchroniser la liste des serveurs DNS avec nos serveurs poyr ne pas perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Vous pouvez également supprimer toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
+    <string name="slot_dns_control_description">Vous pouvez synchroniser la liste des serveurs DNS avec nos serveurs pour ne pas perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Vous pouvez également supprimer toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">Synchroniser</string>
     <string name="slot_action_refresh_toast">Synchronisation démarrée</string>
@@ -153,13 +153,13 @@
     <string name="slot_gateway_label">Se connecter à %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Se connecter à %s</string>
     <string name="slot_gateway_description">Performance : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Région : &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="slot_gateway_description_current">Performance : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Région : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Ceci est la passerelle actuellement sélectionnée.</string>
-    <string name="slot_gateway_overloaded">Cette passerelle est occupée et n\'accepte pas de nouvelles connexions.</string>
+    <string name="slot_gateway_description_current">Performance : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Région : &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Ceci est le serveur actuellement sélectionné.</string>
+    <string name="slot_gateway_overloaded">Ce serveur est surchargé et n\'accepte pas de nouvelles connexions.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">haut</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">bas</string>
-    <string name="panel_section_home_gateways">Passerelles VPN</string>
+    <string name="panel_section_home_gateways">Serveurs VPN</string>
     <string name="subscription_success">Votre compte est en cours d\'activation. Cela peut prendre quelques secondes. Merci !</string>
     <string name="slot_protection_header">Statut de Blokada</string>
     <string name="slot_protection_off">Blokada est inactif</string>
@@ -214,7 +214,7 @@
     <string name="slot_cleanup_desc">Il semble y avoir plusieurs versions de Blokada installées sur votre appareil. Voulez-vous supprimer les autres versions et n\'en garder qu\'une une seule ?</string>
     <string name="slot_cleanup_action">Nettoyer</string>
     <string name="account_inactive">Votre abonnement à Blokada VPN a expiré. Vous n\'êtes pas connecté au VPN.</string>
-    <string name="slot_lease_cant_connect">Impossible de se connecter à Blokada VPN. Essayez de sélectionner une autre passerelle.</string>
+    <string name="slot_lease_cant_connect">Impossible de se connecter à Blokada VPN. Essayez de sélectionner un autre serveur.</string>
     <string name="slot_account_cant_create">La création de votre compte a échouée. Veuillez réessayer plus tard ou nous contacter via Telegram.</string>
     <string name="slot_account_name_title">Identifiant du compte</string>
     <string name="slot_account_name_desc">Entrez votre ancien identifiant de compte pour restaurer votre abonnement précédent. Vous pouvez écrire votre identifiant actuel avant de le faire, au cas où vous commettriez une erreur.</string>

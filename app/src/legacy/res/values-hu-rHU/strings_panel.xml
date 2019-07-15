@@ -72,6 +72,10 @@
     <string name="slot_enter_name_generate">Generálás</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; engedélyezőlistára téve</string>
     <string name="slot_app_desc">Ez az alkalmazás az engedélyezőlistán van, ami azt jelenti, hogy ezen nem történik blokkolás vagy szűrés.</string>
+    <string name="slot_allapp_desc">Az alkalmazással megkerülheti a Blokada-t annak érdekében, hogy leállítsa abban bármilyen adatforgalom blokkolását. Ne feledd, hogy a megkerülésre beállított alkalmazások a VPN-en kívül kommunikálnak.</string>
+    <string name="slot_allapp_whitelisted">Megkerülve</string>
+    <string name="slot_allapp_normal">Nincs megkerülve</string>
+    <string name="slot_allapp_whitelist">Megkerülés</string>
     <string name="slot_dns_name">Egyéni DNS aktív</string>
     <string name="slot_dns_name_disabled">Egyéni DNS deaktiválva</string>
     <string name="slot_dns_dns">Az aktuális kiszolgálókat az alsó menü segítségével módosíthatod.</string>
