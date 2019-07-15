@@ -18,7 +18,7 @@ class BlacklistDashboardSection(
     private val slotMutex = SlotMutex()
 
     private var updateApps = { filters: Collection<Filter> ->
-        val items = filters.filter { !it.whitelist && !it.hidden && it.source.id != "app" }
+        val items = filters.filter { !it.whitelist && !it.hidden && it.source.id == "single" }
         val active = items.filter { it.active }
         val inactive = items.filter { !it.active }
 
