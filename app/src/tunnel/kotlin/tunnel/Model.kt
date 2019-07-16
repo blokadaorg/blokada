@@ -151,6 +151,7 @@ fun registerBlockaConfigEvent(ktx: AndroidKontext) {
 
     ktx.v("loading boringtun")
     System.loadLibrary("boringtun")
+    ktx.v("boringtun loaded")
 
     checkAccountInfo(ktx, config)
 
@@ -231,6 +232,8 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
         return
     }
 
+    ktx.v("check account api call")
+
     val api: RestApi = ktx.di().instance()
     api.getAccountInfo(config.accountId).enqueue(object: retrofit2.Callback<RestModel.Account> {
         override fun onFailure(call: Call<RestModel.Account>?, t: Throwable?) {
@@ -302,6 +305,7 @@ fun showSnack(resource: Resource) {
 }
 
 fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: Boolean = true) {
+    ktx.v("clearing connected gateway")
     if (config.blockaVpn && showError) {
         displayLeaseExpiredNotification(ktx.ctx)
         showSnack(R.string.slot_lease_cant_connect)
@@ -320,6 +324,7 @@ fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: 
 }
 
 fun checkGateways(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
+    ktx.v("check gateway api call")
     val api: RestApi = ktx.di().instance()
     api.getGateways().enqueue(object: retrofit2.Callback<RestModel.Gateways> {
         override fun onFailure(call: Call<RestModel.Gateways>?, t: Throwable?) {
@@ -370,6 +375,7 @@ fun checkLeaseIfNeeded(ktx: AndroidKontext) {
 }
 
 private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
+    ktx.v("check lease api call")
     val api: RestApi = ktx.di().instance()
     api.getLeases(config.accountId).enqueue(object: retrofit2.Callback<RestModel.Leases> {
         override fun onFailure(call: Call<RestModel.Leases>?, t: Throwable?) {
@@ -442,6 +448,7 @@ private fun deleteLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 
 }
 
 private fun newLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
+    ktx.v("new lease api call")
     val api: RestApi = ktx.di().instance()
 
     api.newLease(RestModel.LeaseRequest(config.accountId, config.publicKey, config.gatewayId)).enqueue(object: retrofit2.Callback<RestModel.Lease> {
