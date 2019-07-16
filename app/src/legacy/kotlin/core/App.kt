@@ -125,7 +125,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
             version.name %= version.name() + " " + BuildConfig.BUILD_TYPE.capitalize()
 
             // This will fetch repo unless already cached
-            repo.url %= "https://blokada.org/api/v3/${BuildConfig.FLAVOR}/${BuildConfig.BUILD_TYPE}/repo.txt"
+            repo.url %= "https://blokada.org/api/v4/${BuildConfig.FLAVOR}/${BuildConfig.BUILD_TYPE}/repo.txt"
         }
     }
 }
