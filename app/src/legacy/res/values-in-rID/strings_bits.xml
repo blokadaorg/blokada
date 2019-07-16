@@ -7,16 +7,15 @@
     <string name="home_setup_vpn">Tekan untuk mengatur VPN</string>
     <string name="home_blokada_disabled">Blokada tidak aktif</string>
     <string name="home_activating">Mengaktifkan</string>
-    <string name="home_please_wait">harap tunggu...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Mode VPN Saja</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Tekan untuk mengatur DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s diblokir</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Beri tahu teman-teman Anda</string>
-    <string name="home_share_state">bagikan skor Blokada Anda</string>
     <string name="home_adblocking_enabled">Mode pemblokiran iklan diaktifkan</string>
     <string name="home_adblocking_disabled">Mode pemblokiran iklan dinonaktifkan</string>
     <!-- A short text for the item that displays update information -->
@@ -26,12 +25,10 @@
     <string name="home_donate">Donasi</string>
     <string name="home_vpn_enabled">VPN telah diaktifkan</string>
     <string name="home_vpn_disabled">VPN telah dinonaktifkan</string>
-    <string name="home_account_active">akun Anda masih aktif</string>
     <string name="home_connecting_vpn">Menghubungkan ke VPN</string>
     <string name="home_cleanup">Harap bersihkan memori Anda</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">Ganti</string>
-    <string name="home_connected_vpn">terhubung ke VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Iklan</string>
     <string name="menu_ads_live_label">Daftar permintaan yang diizinkan dan diblokir</string>

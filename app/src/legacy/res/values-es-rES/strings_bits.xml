@@ -7,16 +7,18 @@
     <string name="home_setup_vpn">Toca para configurar el VPN</string>
     <string name="home_blokada_disabled">Blokada está desactivado</string>
     <string name="home_activating">Activando</string>
-    <string name="home_please_wait">por favor espera...</string>
+    <string name="home_please_wait">Espera por favor...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Modo sólo VPN</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Modo sólo DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Toca para configurar el DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s bloqueados</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Díselo a tus amigos</string>
-    <string name="home_share_state">comparte tu puntuación de Blokada</string>
+    <string name="home_share_state">Comparte tu puntuación de Blokada</string>
     <string name="home_adblocking_enabled">El bloqueo de anuncios está activo</string>
     <string name="home_adblocking_disabled">El bloqueo de anuncios está inactivo</string>
     <!-- A short text for the item that displays update information -->
@@ -26,12 +28,12 @@
     <string name="home_donate">Donar</string>
     <string name="home_vpn_enabled">El VPN está activo</string>
     <string name="home_vpn_disabled">El VPN está inactivo</string>
-    <string name="home_account_active">tu cuenta aun está activa</string>
+    <string name="home_account_active">Tu cuenta aun está activa</string>
     <string name="home_connecting_vpn">Conectando al VPN</string>
     <string name="home_cleanup">Se recomienda una limpieza</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">Cambiar</string>
-    <string name="home_connected_vpn">conectado al VPN</string>
+    <string name="home_connected_vpn">Conectado al VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anuncios</string>
     <string name="menu_ads_live_label">Historial en vivo de peticiones permitidas y bloqueadas</string>

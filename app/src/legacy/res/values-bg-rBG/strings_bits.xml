@@ -7,16 +7,18 @@
     <string name="home_setup_vpn">Докоснете за да настроите VPN</string>
     <string name="home_blokada_disabled">Блокада е деактивирана</string>
     <string name="home_activating">Активиране</string>
-    <string name="home_please_wait">моля изчакайте...</string>
+    <string name="home_please_wait">Моля изчакайте...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Режим само за VPN</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Режим само за VPN</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Докоснете за да настроите VPN</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s блокирани</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Кажи на приятелите си</string>
-    <string name="home_share_state">споделете своя Blokada резултат</string>
+    <string name="home_share_state">Споделете своя резултат в Blokada</string>
     <string name="home_adblocking_enabled">Блокирането на реклами е активно</string>
     <string name="home_adblocking_disabled">Блокирането на реклами е деактивирано</string>
     <!-- A short text for the item that displays update information -->
@@ -26,12 +28,12 @@
     <string name="home_donate">Дарение</string>
     <string name="home_vpn_enabled">VPN е активна</string>
     <string name="home_vpn_disabled">VPN е деактивирана</string>
-    <string name="home_account_active">профилът ви все още е активен</string>
+    <string name="home_account_active">Профилът ви още е активен</string>
     <string name="home_connecting_vpn">Свързване с VPN</string>
     <string name="home_cleanup">Препоръчително е почистване</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">Промяна</string>
-    <string name="home_connected_vpn">свързан с VPN</string>
+    <string name="home_connected_vpn">Свързан с VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Реклами</string>
     <string name="menu_ads_live_label">История на разрешените и блокираните заявки в реално време</string>

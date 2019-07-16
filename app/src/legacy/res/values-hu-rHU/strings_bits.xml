@@ -7,16 +7,18 @@
     <string name="home_setup_vpn">Érintsd meg a VPN beállításához</string>
     <string name="home_blokada_disabled">Blokada deaktiválva</string>
     <string name="home_activating">Aktiválás</string>
-    <string name="home_please_wait">kérlek, várj...</string>
+    <string name="home_please_wait">Kérlek, várj...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Csak VPN mód</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Csak DNS mód</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Érintsd meg a DNS beállításához</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blokkolva</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Mondd el barátaidnak</string>
-    <string name="home_share_state">oszd meg a Blogada pontszámodat</string>
+    <string name="home_share_state">Oszd meg a Blokada pontszámodat</string>
     <string name="home_adblocking_enabled">Hirdetés blokkolás aktív</string>
     <string name="home_adblocking_disabled">Hirdetés blokkolás deaktiválva</string>
     <!-- A short text for the item that displays update information -->
@@ -26,12 +28,12 @@
     <string name="home_donate">Támogatás</string>
     <string name="home_vpn_enabled">A VPN aktív</string>
     <string name="home_vpn_disabled">A VPN deaktiválva</string>
-    <string name="home_account_active">a fiókod még aktív</string>
+    <string name="home_account_active">A fiókod még aktív</string>
     <string name="home_connecting_vpn">Csatlakozás VPN-hez</string>
     <string name="home_cleanup">Tisztítás ajánlott</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">Módosítás</string>
-    <string name="home_connected_vpn">csatlakozva a VPN-hez</string>
+    <string name="home_connected_vpn">Csatlakozva a VPN-hez</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Hirdetések</string>
     <string name="menu_ads_live_label">A megengedett és blokkolt kérelmek élő története</string>

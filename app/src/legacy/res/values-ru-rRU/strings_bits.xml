@@ -7,16 +7,15 @@
     <string name="home_setup_vpn">Нажмите, чтобы настроить VPN</string>
     <string name="home_blokada_disabled">Blokada деактивирована</string>
     <string name="home_activating">Активация</string>
-    <string name="home_please_wait">подождите пожалуйста...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Режим только VPN</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Нажмите, чтобы настроить DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s заблокировано</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Расскажите своим друзьям</string>
-    <string name="home_share_state">поделиться своим счетом Blokada</string>
     <string name="home_adblocking_enabled">Блокировка рекламы активирована</string>
     <string name="home_adblocking_disabled">Блокировка рекламы деактивирована</string>
     <!-- A short text for the item that displays update information -->
@@ -26,12 +25,10 @@
     <string name="home_donate">Пожертвовать</string>
     <string name="home_vpn_enabled">VPN активирован</string>
     <string name="home_vpn_disabled">VPN деактивирован</string>
-    <string name="home_account_active">ваш аккаунт все еще активен</string>
     <string name="home_connecting_vpn">Подключение к VPN</string>
     <string name="home_cleanup">Рекомендуется очистка</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">Изменить</string>
-    <string name="home_connected_vpn">подключено к VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Реклама</string>
     <string name="menu_ads_live_label">Живая история разрешенных и заблокированных запросов</string>

@@ -10,11 +10,11 @@
     <string name="panel_section_apps">التطبيقات</string>
     <!-- Main screen section -->
     <string name="panel_section_advanced">إعدادات مُتقَدِّمة</string>
-    <string name="panel_section_home_start">بلوكادا VPN</string>
+    <string name="panel_section_home_start">Blokada VPN</string>
     <string name="panel_section_home_help">المُساعَدة</string>
     <string name="panel_section_home_community">المُجتمَع</string>
     <string name="panel_section_ads_lists">قوائم المُستَضيفين</string>
-    <string name="panel_section_ads_log">تسجيل المُستَضيف</string>
+    <string name="panel_section_ads_log">سِجِلّ المُستَضيف</string>
     <string name="panel_section_ads_blacklist">المُستَضيفين المحظورين</string>
     <string name="panel_section_ads_whitelist">المُستَضيفين المسموحين</string>
     <string name="panel_section_advanced_dns">نظام أسماء النطاقات (DNS)</string>
@@ -23,12 +23,12 @@
     <string name="panel_section_advanced_settings">الإعدادات</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">&lt;b&gt;%s&lt;/b&gt; مسموح</string>
-    <string name="panel_domain_forwarded_desc">تم السماح لهذا الموقع.  لحَظٰرِه ، استخدم الزرّ أدناه.</string>
-    <string name="panel_domain_forwarded_toast">تَمّت الإضافة إلى القائمة البيضاء.</string>
+    <string name="panel_domain_forwarded_desc">تَمَّ السّماح لهذا الموقع. لحَظْرِه ، استخدم الزرّ أدناه.</string>
+    <string name="panel_domain_forwarded_toast">تَمَّت الإضافة إلى القائمة البيضاء.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; محظور</string>
-    <string name="panel_domain_blocked_desc">تَمّ حظْر هذا الموقع.  للسماح به في المستقبل ، استخدم الزرّ أدناه.</string>
-    <string name="panel_domain_blocked_toast">تَمّت الإضافة إلى القائمة السوداء.</string>
+    <string name="panel_domain_blocked_desc">تَمّ حَظْر هذا الموقع. للسماح به في المستقبل ، استخدم الزرّ أدناه.</string>
+    <string name="panel_domain_blocked_toast">تَمَّت الإضافة إلى القائمة السوداء.</string>
     <string name="panel_ruleset">عدّاد الفلاتر</string>
     <string name="panel_ruleset_title">الفلاتر فيها الآن %s قاعدة.</string>
     <string name="panel_ruleset_updating">جارِ تحديث الفلاتر...</string>
@@ -49,7 +49,7 @@
     <string name="slot_switch_switch_bitch">المفتاح</string>
     <string name="slot_start">اسحب للأعلى للبدأ</string>
     <string name="slot_intro_new">كيفَ تَستخدِم الواجهة الجديدة؟ إضغط هنا للتوضيح.</string>
-    <string name="slot_intro_new_header">كيف تستخدام واجهة المُستخدِم الجديدة؟</string>
+    <string name="slot_intro_new_header">كيفَ تَستخدِم واجهة المُستخدِم الجديدة؟</string>
     <string name="slot_intro_desc">أنت حاليّاً في قسم \"الصفحة الرئيسية\" ، سوف تَجِد المزيد إذا قمت بالسحب لليسار. كلّ واحد منهم له قائمة سُفليّة خاصّة - يَتِم فتحه عن طريق السحب للأعلى. &lt;br/&gt;&lt;br/&gt;على Android TV ، يُمكِنُك الإنتقال إلى واجهة المُستخدِم باستخدام دي باد. إستَخدِم المفتاح الأوسط لفتح القائمة السُفليِّة ، أو أي عنصر تَختاره. تتميّز الأزرار بالسهم لأعلى أو لأسفل أو لليسار أو لليمين - إستخدِم مفاتيح الإتجاه للنقر عليها.</string>
     <string name="slot_intro_info">معلومة... تحتوي بعض العناصر على رمز علامة الإستفهام عليها. النقر فوقها سيعرض رسالة مساعدة قصيرة ، مثل هذه الرسالة!</string>
     <string name="slot_new_filter">إضافة مُستَضيف جديد إلى القائمة المحظورة</string>
@@ -66,7 +66,7 @@
     <string name="slot_enter_domain_desc">أدخل النطاقات مفصولة بفاصلة. يُمكِنك أيضاً لصق رابط إلى أي قائمة مُستَضيف ، أو إستيراد ملف قائمة مُستَضيف محلّي.</string>
     <string name="slot_enter_domain_error">هذا لا يبدو لي كأيّ شيء.</string>
     <string name="slot_enter_domain_file">مَلفّ</string>
-    <string name="slot_enter_name_title">الإسم</string>
+    <string name="slot_enter_name_title">الاسم</string>
     <string name="slot_enter_name_desc">أدخل إسم الإدخال الجديد. يُمكِنك أيضاً إنشاء إسم مقترح.</string>
     <string name="slot_enter_name_error">هذا لا يبدو لي كأيّ شيء.</string>
     <string name="slot_enter_name_generate">توليد</string>
@@ -78,7 +78,7 @@
     <string name="slot_allapp_whitelist">تَجاوز</string>
     <string name="slot_dns_name">الـ DNS المُخصَّص مُفعَّل</string>
     <string name="slot_dns_name_disabled">الـ DNS المُخَصَّص مُعَطَّل</string>
-    <string name="slot_dns_dns">يُمكِنك تغيير الخَوادِم الحاليّة باستخدام القائمة السفلية.</string>
+    <string name="slot_dns_dns">يُمكِنك تغيير الخَوادِم الحاليّة باستخدام القائمة السُفليّة.</string>
     <string name="slot_action_none">هذا الإجراء غير مُتاح حتّى الآن.</string>
     <string name="slot_action_facts">حقائق</string>
     <string name="slot_action_unwhitelist">إلغاء</string>
@@ -87,22 +87,22 @@
     <!-- A prefix for generated name for manually entered domain.  -->
     <string name="slot_input_suggestion">إدخال</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
-    <string name="slot_input_suggestion_for">مدخل ل %s</string>
+    <string name="slot_input_suggestion_for">مدخل لـ %s</string>
     <string name="slot_dns_control_title">قائمة خَوادِم DNS</string>
-    <string name="slot_dns_control_description">يُمكِنك مزامنة قائمة خوادم DNS مع خوادمنا دون فقدان إدخالاتك المُخصَّصة. &lt;br/&gt;&lt;br/&gt;بدلاً من ذلك ، يُمكِنك إسقاط جميع الإدخالات (بما في ذلك إدخالاتك) وتنزيلها مرة أخرى.</string>
+    <string name="slot_dns_control_description">يُمكِنك مزامنة قائمة خوادم DNS مع خوادِمنا دون فقدان إدخالاتك المُخصَّصة. &lt;br/&gt;&lt;br/&gt;بدلاً من ذلك ، يُمكِنك إسقاط جميع الإدخالات (بما في ذلك إدخالاتك) و تنزيلها مرّة أُخرى.</string>
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">مُزامنة</string>
     <string name="slot_action_refresh_toast">بدأت المُزامنة</string>
     <string name="slot_action_restore">إسقاط</string>
     <string name="slot_export_title">موقع الإعدادات</string>
-    <string name="slot_export_description">يمكنك تغيير مكان حفظ التكوين إلى (وتحميله من). إذا كنت تقوم باستيراد إعدادات موجودة ، فالرجاء إختيار إستيراد أولاً ، و إلّا سيتم الكتابة عليها.</string>
+    <string name="slot_export_description">يُمكِنك تغيير مكان حفظ التكوين إلى (وتحميله من). إذا كنت تقوم باستيراد إعدادات موجودة ، فالرجاء إختيار إستيراد أولاً ، و إلّا سيتمّ الكتابة عليها.</string>
     <string name="slot_action_import">إستيراد</string>
     <string name="slot_action_internal">وحدة تخزين داخليّة</string>
     <string name="slot_action_external">وحدة تخزين خارجيّة</string>
     <string name="slot_filters_title">قائمة الفلاتر</string>
     <string name="slot_filters_description">يمكنك مُزامَنة قائمة الفلاتر مع خَوادِمنا دون فقد إدخالاتك المُخصَّصة. &lt;br/&gt;&lt;br/&gt;بدلاً من ذلك ، يُمكِنك إسقاط جميع الإدخالات (بما في ذلك إدخالاتك) و تنزيلها مرّة أُخرى.</string>
-    <string name="slot_blocked_title">نطاق تمَّ حظره</string>
-    <string name="slot_forwarded_title">نطاق تمَّ إرساله</string>
+    <string name="slot_blocked_title">نطاق تمَّ حَظْره</string>
+    <string name="slot_forwarded_title">نطاق تمَّ تحويله</string>
     <string name="slot_whitelist_title">تطبيق في القائمة البيضاء</string>
     <string name="slot_list_no_desc">لا يحتوي هذا الإدخال على أيّ وصف.</string>
     <string name="slot_status_description_active">حظر الإعلانات حاليّاً &lt;b&gt;مُفَعَّل&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;سترى النشاطات التي تتمّ في الخلفيّة مثل الإعلانات و التتبُّع و محتويات أخرى غير مرغوب بها يتمّ حظرها.</string>

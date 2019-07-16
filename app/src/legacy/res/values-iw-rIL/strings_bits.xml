@@ -6,9 +6,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_setup_vpn">לחץ להגדרת VPN</string>
     <string name="home_activating">מפעיל</string>
-    <string name="home_please_wait">אנא המתן...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">מצב VPN בלבד</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <!-- A button to share the ads counter on social media -->
@@ -17,12 +17,10 @@
     <string name="home_update_required">נדרש עדכון</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">תרום</string>
-    <string name="home_account_active">החשבון שלך עדיין פעיל</string>
     <string name="home_connecting_vpn">מתחבר אל VPN</string>
     <string name="home_cleanup">מומלץ לבצע ניקוי</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">שנה</string>
-    <string name="home_connected_vpn">מחובר אל VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">פרסומות</string>
     <string name="menu_ads_live_label">היסטוריה חיה של בקשות מותרות וחסומות</string>

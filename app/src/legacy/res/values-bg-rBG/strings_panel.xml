@@ -73,7 +73,7 @@
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; е в белия списък</string>
     <string name="slot_app_desc">Това приложение е включено в белия списък, което означава, че не се извършва блокиране или филтриране.</string>
     <string name="slot_allapp_desc">Можете да включите това приложение за да го заобиколи Blokada и да спрете блокирането на трафика към него. Не забравяйте, че заобиколените приложения комуникират извън VPN.</string>
-    <string name="slot_allapp_whitelisted">Заобиколени</string>
+    <string name="slot_allapp_whitelisted">Заобиколено</string>
     <string name="slot_allapp_normal">Не е заобиколено</string>
     <string name="slot_allapp_whitelist">Заобикаляне</string>
     <string name="slot_dns_name">Персонализираният DNS е активен</string>

@@ -7,16 +7,15 @@
     <string name="home_setup_vpn">إضغط لتهيئة VPN</string>
     <string name="home_blokada_disabled">بلوكادا مُعَطَّل</string>
     <string name="home_activating">جارِ التفعيل</string>
-    <string name="home_please_wait">الرجاء الإنتظار...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">وضعيّة VPN فقط</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">إضغط لتهيئة DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s تَمَّ حَظْر</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">أخبر أصدقائك</string>
-    <string name="home_share_state">شارك نتيجتك في بلوكادا</string>
     <string name="home_adblocking_enabled">حَظْر الإعلانات مُفَعَّل</string>
     <string name="home_adblocking_disabled">حَظْر الإعلانات مُعَطَّل</string>
     <!-- A short text for the item that displays update information -->
@@ -26,12 +25,10 @@
     <string name="home_donate">التَّبرُّع</string>
     <string name="home_vpn_enabled">الـ VBN نَشِط</string>
     <string name="home_vpn_disabled">الـ VPN غير نَشِط</string>
-    <string name="home_account_active">حسابك لا يزال نَشِطاً</string>
     <string name="home_connecting_vpn">جارِ الإتصال بـ VPN</string>
     <string name="home_cleanup">يُنصَح بالتنظيف</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">تغيير</string>
-    <string name="home_connected_vpn">مُتَّصِل بـ VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">إعلانات</string>
     <string name="menu_ads_live_label">التاريخ المباشر للطلبات المسموح بها و المحظورة</string>

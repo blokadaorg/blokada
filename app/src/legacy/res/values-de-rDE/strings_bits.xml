@@ -7,16 +7,15 @@
     <string name="home_setup_vpn">VPN einrichten</string>
     <string name="home_blokada_disabled">Blokada ist deaktiviert</string>
     <string name="home_activating">Aktivierung</string>
-    <string name="home_please_wait">Bitte warten...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Nur VPN-Modus</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Zum Einrichten von DNS tippen</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blockiert</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Weiterempfehlen</string>
-    <string name="home_share_state">teile deine Blokada-Punktzahl</string>
     <string name="home_adblocking_enabled">Werbesperre ist aktiv</string>
     <string name="home_adblocking_disabled">Werbesperre ist deaktiviert</string>
     <!-- A short text for the item that displays update information -->
@@ -26,12 +25,10 @@
     <string name="home_donate">Spenden</string>
     <string name="home_vpn_enabled">VPN ist aktiv</string>
     <string name="home_vpn_disabled">VPN ist deaktiviert</string>
-    <string name="home_account_active">Dein Konto ist noch aktiv</string>
     <string name="home_connecting_vpn">Verbinde mit VPN</string>
     <string name="home_cleanup">Bereinigung empfohlen</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">Ändern</string>
-    <string name="home_connected_vpn">mit VPN verbunden</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anzeigen</string>
     <string name="menu_ads_live_label">Live-Verlauf von erlaubten und blockierten Anfragen</string>

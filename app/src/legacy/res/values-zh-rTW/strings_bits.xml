@@ -7,16 +7,18 @@
     <string name="home_setup_vpn">觸點以設定 VPN</string>
     <string name="home_blokada_disabled">Blokada 已停用</string>
     <string name="home_activating">啟用中</string>
-    <string name="home_please_wait">請稍候…</string>
+    <string name="home_please_wait">請稍候……</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">僅 VPN 模式</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">僅 DNS 模式</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">觸控以設定 DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s 已阻擋</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">告訴你的朋友</string>
-    <string name="home_share_state">分享你的 Blokada 分數</string>
+    <string name="home_share_state">分享您的 Blokada 分數</string>
     <string name="home_adblocking_enabled">廣告阻擋已啟用</string>
     <string name="home_adblocking_disabled">廣告阻擋已停用</string>
     <!-- A short text for the item that displays update information -->
@@ -82,4 +84,5 @@
     <!-- A section to manage some settings (generic)  -->
     <string name="menu_manage">管理</string>
     <string name="menu_ok">確定</string>
+    <string name="menu_dns_remove_default">預設的 DNS 無法移除。</string>
 </resources>

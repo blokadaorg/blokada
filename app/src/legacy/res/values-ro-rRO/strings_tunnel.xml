@@ -4,6 +4,7 @@
     <string name="tunnel_hosts_desc">Afişează numărul de gazde configurate pentru a fi blocate de %s.</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <string name="tunnel_hosts_count2">%s host-uri</string>
+    <string name="tunnel_hosts_count">%d gazde</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <string name="tunnel_hosts_updating">Se actualizeaza...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
@@ -11,8 +12,10 @@
     <string name="tunnel_config_wifi">Descarcă filtrele numai pe conexiune WiFi</string>
     <string name="tunnel_dropped_count_desc">Afișează numărul total de gazde blocate până acum.</string>
     <string name="tunnel_dropped_count">%d blocat</string>
+    <string name="tunnel_dropped_count2">%s domenii blocate</string>
     <string name="tunnel_config_refetch_now_title">Descarcă listele</string>
     <string name="tunnel_config_refetch_now">Descarcă listele acum</string>
+    <string name="tunnel_config_refetch_toast">Descărcarea de liste a început</string>
     <string name="tunnel_config_refetch_now_description">Folosește butonul de mai jos pentru a șterge cache-ul și descarcă listele din nou. Acest lucru poate ajuta în cazul în care întâmpini probleme de filtrare.</string>
     <string name="tunnel_config_refetch_frequency_title">Frecvența de descărcare a filtrelor</string>
     <string name="tunnel_config_refetch_frequency_description">Selectează una dintre opțiuni pentru a configura cât de des să descarce aplicația listele.</string>

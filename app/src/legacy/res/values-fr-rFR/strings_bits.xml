@@ -11,12 +11,14 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Mode VPN uniquement</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Mode DNS uniquement</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Touchez pour configurer les DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s bloqués</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Partagez à vos amis</string>
-    <string name="home_share_state">partager votre compteur Blokada</string>
+    <string name="home_share_state">Partager votre compteur Blokada</string>
     <string name="home_adblocking_enabled">Le blocage des publicités est actif</string>
     <string name="home_adblocking_disabled">Le blocage des publicités est désactivé</string>
     <!-- A short text for the item that displays update information -->
@@ -26,12 +28,12 @@
     <string name="home_donate">Faire un don</string>
     <string name="home_vpn_enabled">Le VPN est actif</string>
     <string name="home_vpn_disabled">Le VPN est désactivé</string>
-    <string name="home_account_active">votre compte est toujours actif</string>
+    <string name="home_account_active">Votre compte est toujours actif</string>
     <string name="home_connecting_vpn">Connexion au VPN</string>
     <string name="home_cleanup">Nettoyage recommandé</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_change_vpn">Changer</string>
-    <string name="home_connected_vpn">connecté au VPN</string>
+    <string name="home_connected_vpn">Connecté au VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Publicités</string>
     <string name="menu_ads_live_label">Historique en temps réel des requêtes autorisées et bloquées</string>
@@ -53,7 +55,7 @@
     <string name="menu_vpn_restore_label">Ici, vous pouvez restaurer votre compte existant si, par exemple, vous avez réinstallé l\'application.</string>
     <string name="menu_vpn_intro">Avec un VPN vos données sont chiffrées, votre adresse IP est cachée et votre emplacement géographique est changé.</string>
     <string name="menu_vpn_account_label">Pour pouvoir utiliser le VPN, vous avez besoin d\'un compte actif. Vérifiez ou restaurez votre compte ici.</string>
-    <string name="menu_vpn_gateways_label">Sélectionnez le serveur Vpn auquel vous souhaitez vous connecter. Votre appareil enverra vos données chiffrées à travers ce serveur, et vous resterez anonyme.</string>
+    <string name="menu_vpn_gateways_label">Sélectionnez le serveur VPN auquel vous souhaitez vous connecter. Votre appareil enverra vos données chiffrées à travers ce serveur, et vous resterez anonyme.</string>
     <string name="menu_dns_recommended">Serveurs DNS recommandés</string>
     <string name="menu_dns_intro">Les DNS sont responsables de la traduction des noms de domaine Internet en adresse IP pour les sites web et les applications que vous utilisez. Choisir de bons DNS peut accélérer votre appareil et vous aidera à protéger votre vie privée.</string>
     <string name="menu_dns_select">Sélectionnez un des serveurs DNS.</string>
