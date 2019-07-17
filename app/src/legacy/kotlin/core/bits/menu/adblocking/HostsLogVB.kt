@@ -35,7 +35,7 @@ class HostsLogVB(
             if(searchString.isEmpty() || it.domain.contains(searchString.toLowerCase())) {
                 val dash = requestToVB(it)
                 items.add(0, dash)
-                view?.add(dash, 2)
+                view?.add(dash, 3)
                 firstItem = it
                 onSelectedListener(null)
             }
@@ -54,6 +54,13 @@ class HostsLogVB(
                     view.set(emptyList())
                     attach(view)
                 }))
+                view.add(ResetHostLogVB {
+                    nextBatch = 0
+                    Persistence.request.clear()
+                    this.items.clear()
+                    view.set(emptyList())
+                    attach(view)
+                })
                 view.add(LabelVB(ktx, label = R.string.menu_ads_live_label.res()))
             }
             var items = loadBatch(0)
@@ -113,3 +120,17 @@ fun createHostsLogMenuItem(ktx: AndroidKontext): NamedViewBinder {
             opens = HostsLogVB(ktx)
     )
 }
+
+class ResetHostLogVB(
+        private val onReset: () -> Unit
+) : BitVB() {
+
+    override fun attach(view: BitView) {
+        view.alternative(true)
+        view.icon(R.drawable.ic_reload.res())
+        view.label(R.string.menu_ads_clear_log.res())
+        view.onTap(onReset)
+    }
+}
+
+
