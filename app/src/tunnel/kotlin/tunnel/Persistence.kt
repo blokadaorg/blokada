@@ -150,6 +150,12 @@ class RequestPersistence(
             } else break
         }
     }
+
+    fun clear(){
+        for (i in 0 until batches.size) {
+            saveBatch(i, emptyList())
+        }
+    }
 }
 
 class BlockaConfigPersistence {
