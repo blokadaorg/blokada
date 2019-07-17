@@ -20,6 +20,7 @@ private fun createMenuAdvanced(ktx: AndroidKontext): NamedViewBinder {
                     StorageLocationVB(ktx, onTap = defaultOnTap),
                     LabelVB(ktx, label = R.string.label_advanced.res()),
                     BackgroundAnimationVB(ktx, onTap = defaultOnTap),
+                    ResetCounterVB(ktx, onTap = defaultOnTap),
                     LoggerVB(ktx, onTap = defaultOnTap),
                     KeepAliveVB(ktx, onTap = defaultOnTap),
                     WatchdogVB(ktx, onTap = defaultOnTap),

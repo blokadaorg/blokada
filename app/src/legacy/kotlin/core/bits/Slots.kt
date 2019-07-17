@@ -1131,6 +1131,27 @@ class BackgroundAnimationVB(
 
 }
 
+class ResetCounterVB(private val ktx: AndroidKontext,
+         private val i18n: I18n = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                icon = ktx.ctx.getDrawable(R.drawable.ic_delete),
+                label = i18n.getString(R.string.slot_reset_counter_label),
+                description = i18n.getString(R.string.slot_reset_counter_description),
+                action1 = Slot.Action(i18n.getString(R.string.slot_reset_counter_action)) {
+                    val t: Tunnel = ktx.di().instance()
+                    t.tunnelDropCount %= 0
+                    t.tunnelDropStart %= System.currentTimeMillis()
+                }
+        )
+    }
+
+}
+
 class DnsListControlVB(
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,
