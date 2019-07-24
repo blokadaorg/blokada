@@ -75,6 +75,9 @@ class ByteView(
     private val arrowView = findViewById<ImageView>(R.id.byte_arrow)
     private val switchView = findViewById<SwitchCompat>(R.id.byte_switch)
 
+    private var important = false
+    private var switched: Boolean? = null
+
     fun label(label: Resource?, color: Resource? = null, animate: Boolean = true) {
         val label = when {
             label == null -> ""
@@ -163,26 +166,30 @@ class ByteView(
     }
 
     fun switch(switched: Boolean?) {
+        this.switched = switched
+        setBackground()
         when {
             switched == null -> {
                 switchView.visibility = View.GONE
-                rootView.setBackgroundResource(R.drawable.bg_dashboard_item)
             }
             switched -> {
                 switchView.visibility = View.VISIBLE
                 switchView.isChecked = switched
-                rootView.setBackgroundResource(R.drawable.bg_dashboard_item)
             }
             else -> {
                 switchView.visibility = View.VISIBLE
                 switchView.isChecked = switched
-                rootView.setBackgroundResource(R.drawable.bg_dashboard_item_inactive)
             }
         }
     }
 
     fun alternative(alternative: Boolean) {
         rootView.setBackgroundResource(R.drawable.bg_dashboard_item_alternative)
+    }
+
+    fun important(important: Boolean) {
+        this.important = important
+        setBackground()
     }
 
     fun onTap(tap: () -> Unit) {
@@ -205,6 +212,15 @@ class ByteView(
 
     fun isSwitched(): Boolean? {
         return if (switchView.visibility == View.GONE) null else switchView.isChecked
+    }
+
+    private fun setBackground() {
+        val bg = when {
+            important -> R.drawable.bg_dashboard_item_important
+            switched == false -> R.drawable.bg_dashboard_item_inactive
+            else -> R.drawable.bg_dashboard_item
+        }
+        rootView.setBackgroundResource(bg)
     }
 }
 

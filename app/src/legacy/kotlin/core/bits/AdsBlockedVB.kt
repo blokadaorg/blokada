@@ -45,8 +45,8 @@ class AdsBlockedVB(
             when {
                 !tunnelEvents.enabled() -> {
                     icon(R.drawable.ic_show.res())
-                    label(R.string.home_touch_to_turn_on.res())
-                    state(R.string.home_blokada_disabled.res())
+                    label(R.string.home_touch_adblocking.res())
+                    state(R.string.home_adblocking_disabled.res())
                     switch(false)
                     arrow(null)
                     onTap {

@@ -5,6 +5,7 @@
     <color name="colorBackgroundLight">#2e2e2e</color>
     <color name="colorBackgroundThird">#262626</color>
     <color name="colorBackgroundSlot">#7b0e0e0e</color>
+    <color name="colorBackgroundSlotImportant">#CD000000</color>
     <color name="colorBackgroundTrans">#340E0E0E</color>
     <color name="colorBackgroundTransCenter">#DD0e0e0e</color>
     <color name="colorBackgroundTransWidget">#AA0e0e0e</color>

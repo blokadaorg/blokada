@@ -55,7 +55,7 @@ class VpnStatusVB(
                     arrow(null)
                     switch(false)
                     label(R.string.home_setup_vpn.res())
-                    state(R.string.home_blokada_disabled.res())
+                    state(R.string.home_vpn_disabled.res())
                     onTap {
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
                     }

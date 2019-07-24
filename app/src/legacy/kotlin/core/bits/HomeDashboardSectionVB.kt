@@ -78,6 +78,7 @@ class Home2DashboardSectionVB(
     }
 
     private var items = listOf<ViewBinder>(
+            MasterSwitchVB(ktx),
             AdsBlockedVB(ktx),
             VpnStatusVB(ktx),
             ActiveDnsVB(ktx),
