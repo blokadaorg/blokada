@@ -6,5 +6,8 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Vis antall blokkerte forespørsler</string>
     <!-- A configuration option of widget -->
+    <string name="widget_alpha">Åpenhet for widget-bakgrunnen:</string>
     <!-- A configuration option of widget -->
+    <string name="widget_show_dns">Vis DNS</string>
+    <string name="widget_okay">Bekreft</string>
 </resources>

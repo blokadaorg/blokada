@@ -27,7 +27,7 @@
     <string name="panel_domain_forwarded_toast">已加入白名單。</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">已封鎖 &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="panel_domain_blocked_desc">這個網域已被封鎖。若未來要允許該網域，請使用下方按鈕。</string>
+    <string name="panel_domain_blocked_desc">這個網域已被阻擋。若未來要允許該網域，請使用下方按鈕。</string>
     <string name="panel_domain_blocked_toast">已加入黑名單。</string>
     <string name="panel_ruleset">過濾器計數器</string>
     <string name="panel_ruleset_title">過濾器現在有 %s 個規則。</string>
@@ -50,11 +50,11 @@
     <string name="slot_start">向上滑動以啟動</string>
     <string name="slot_intro_new">如何使用新的使用者介面？輕點這裡以取得簡介。</string>
     <string name="slot_intro_new_header">如何使用新的介面?</string>
-    <string name="slot_intro_desc">您目前在首頁區塊，如果您向右滑可以看到更多東西。每個選項都有下層選單，往上滑以開啟。&lt;br/&gt;&lt;br/&gt;在 Android TV 上，使用 dpad 選擇使用者介面。使用中鍵以開啟下層選單，或是任何您選項的項目。按鈕會以上、下、左、右箭頭指示，使用方向鍵來點擊它們。</string>
+    <string name="slot_intro_desc">您目前在首頁區塊，如果您向右滑可以看到更多東西。每個選項都有下層選單，往上滑以開啟。&lt;br/&gt;&lt;br/&gt;在 Android TV 上，使用 dpad 選擇使用者介面。使用中鍵以開啟下層選單，或是任何您選項的項目。按鈕會以上、下、左、右箭頭指示，使用方向鍵來點選它們。</string>
     <string name="slot_intro_info">嘿！有些項目上會有問號圖示。輕點它會顯示簡短的說明訊息，就像這個一樣！</string>
-    <string name="slot_new_filter">將新主機新增至阻擋列表</string>
+    <string name="slot_new_filter">新增主機至阻擋列表</string>
     <string name="slot_new_filter_list">新增主機列表</string>
-    <string name="slot_new_filter_whitelist">將主機新增至允許列表</string>
+    <string name="slot_new_filter_whitelist">新增主機至允許列表</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">取消設定</string>
     <!-- A state of input form when correct input is entered  -->
@@ -72,7 +72,7 @@
     <string name="slot_enter_name_generate">建立</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; 已列入白名單</string>
     <string name="slot_app_desc">此應用程式已在白名單內，這代表了不會對其阻擋或過濾。</string>
-    <string name="slot_allapp_desc">您可以讓這個應用程式繞過 Blokada 以防止阻擋其任何流量。記住，被繞過的應用程式會在 VPN 之外通訊。</string>
+    <string name="slot_allapp_desc">您可以讓這個應用程式繞過 Blokada 以防止阻擋其任何流量。記住，已繞過的應用程式會在 VPN 之外通訊。</string>
     <string name="slot_allapp_whitelisted">已繞過</string>
     <string name="slot_allapp_normal">未繞過</string>
     <string name="slot_allapp_whitelist">繞過</string>
@@ -93,7 +93,7 @@
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">同步</string>
     <string name="slot_action_refresh_toast">已開始同步</string>
-    <string name="slot_action_restore">丟失</string>
+    <string name="slot_action_restore">丟棄</string>
     <string name="slot_export_title">設定位置</string>
     <string name="slot_export_description">您可以變更設定要儲存（以及載入）的位置。如果您正在匯入既有的設定，請先選取匯入，否則它們會被覆蓋。</string>
     <string name="slot_action_import">匯入</string>
@@ -165,11 +165,11 @@
     <string name="slot_protection_off">Blokada 未啟用</string>
     <string name="slot_protection_off_desc">您的裝置未受保護。</string>
     <string name="slot_protection_error">Blokada 暫時未啟用</string>
-    <string name="slot_protection_error_desc">這可能是臨時的網路問題, 裝置或是軟體問題所導致的. Blokada將會在稍後自動重新啟動, 但是您也可以試著再重新開啟程式一次, 或是重新啟動您的手機. 若您持續遇到這個問題, 請透過Telegram來聯繫我們並取得幫助.</string>
+    <string name="slot_protection_error_desc">這可能是因為暫時性的網路、裝置或軟體問題所導致的。Blokada 將在稍候重新啟動，但您也能嘗試重新啟動 App 或是重新啟動手機。如果仍有問題，請在 Telegram 詢問我們取得協助。</string>
     <string name="slot_protection_disconnected">您的裝置已離線</string>
     <string name="slot_protection_disconnected_desc">Blokada已暫停, 因為您的裝置失去了網路連接. 一旦您重新連接上線, Blokada將會自動重新啟動.</string>
     <string name="slot_protection_activating">Blokada 正在啟動中</string>
-    <string name="slot_protection_active_warning">Blokada已啟動, 但是組態有可以改善的地方. 點擊以獲得更多資訊.</string>
+    <string name="slot_protection_active_warning">Blokada已啟動, 但是設定中還有可以改善的地方。點選檢視更多資訊。</string>
     <string name="slot_protection_active">Blokada 以及 VPN 皆已啟用</string>
     <string name="slot_protection_action">設定</string>
     <string name="slot_protection_ok">您的裝置已受到全面性的保護! VPN以及廣告阻擋皆已啟用.</string>
@@ -191,7 +191,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">輔助說明</string>
     <string name="slot_donate_label">享受 Blokada 嗎？請考慮支援我們，這樣我們才能持續改善應用程式。</string>
-    <string name="slot_donate_desc">協助我們引入新功能！點擊這裡已取得更多資訊。</string>
+    <string name="slot_donate_desc">協助我們引入新功能！點選以取得更多資訊。</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">贊助</string>
     <string name="slot_cta_label">嘿！我們想要知道您的想法。</string>
@@ -203,7 +203,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">開啟</string>
     <string name="slot_updated_label">Blokada 已經更新！</string>
-    <string name="slot_updated_desc">點擊這裡以取得此版本的資訊。</string>
+    <string name="slot_updated_desc">點選這裡以取得此版本的資訊。</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">更多</string>
     <string name="slot_obsolete_label">需要行動：這個版本已經過時！</string>
@@ -233,4 +233,7 @@
     <string name="slot_lease_deleted_information">註：目前 Blokada VPN 僅能用於一個裝置。</string>
     <string name="slot_background_animation">背景動畫</string>
     <string name="slot_background_animation_description">開啟時，將會在每次 DNS 請求被阻擋或允許時出現波浪動畫一次。如果你覺得速度變慢，請關閉。</string>
+    <string name="slot_reset_counter_label">重設已阻擋的主機計數器</string>
+    <string name="slot_reset_counter_description">將顯示有多少請求被阻擋的計數器的數字設回 0。</string>
+    <string name="slot_reset_counter_action">重設</string>
 </resources>

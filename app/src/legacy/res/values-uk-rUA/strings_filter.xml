@@ -31,6 +31,7 @@
     <string name="filter_edit_app_enter">Введіть назву програми чи пакета</string>
     <!-- An example package name of app to whitelist. -->
     <string name="filter_edit_app_error">Такої програми не існує або вона не може бути додана.</string>
+    <string name="filter_edit_app_unsupported">(не підтримується звичайним блокуванням)</string>
     <string name="filter_edit_save">Зберегти</string>
     <string name="filter_edit_cancel">Скасувати</string>
     <string name="filter_edit_do">Продовжити</string>

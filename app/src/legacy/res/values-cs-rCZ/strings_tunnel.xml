@@ -11,7 +11,7 @@
     <string name="tunnel_hosts_downloading">Stahování...</string>
     <string name="tunnel_config_wifi">Stáhnout filtry pouze při zapnuté WiFi</string>
     <string name="tunnel_dropped_count_desc">Zobrazuje celkový počet zablokovaných reklam.</string>
-    <string name="tunnel_dropped_count">%d zablokováno reklam</string>
+    <string name="tunnel_dropped_count">%d zablokováno</string>
     <string name="tunnel_dropped_count2">%s domén zablokováno</string>
     <string name="tunnel_config_refetch_now_title">Stáhnout seznamy</string>
     <string name="tunnel_config_refetch_now">Stáhnout seznamy nyní</string>

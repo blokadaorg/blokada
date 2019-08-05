@@ -175,9 +175,9 @@
     <string name="slot_protection_ok">A készüléked teljesen védett! Mind a VPN mind a hirdetés blokkolás aktív.</string>
     <string name="slot_protection_no_adblocking">A hirdetések és a nyomkövetők blokkolása jelenleg le van tiltva. Az adatvédelem és az adatbiztonság érdekében engedélyezned kellene.</string>
     <string name="slot_protection_no_vpn">Nem csatlakozik a Blokada VPN-hez. Fontolóra kéne venned a jobb adatvédelem és biztonság érdekében.</string>
-    <string name="slot_protection_no_start_on_boot">A Blokada nincs beállítva bootoláskor való indulásra. A jobb védelem érdekében mindig tartsd a Blokadát bekapcsolva.</string>
+    <string name="slot_protection_no_start_on_boot">A Blokada nincs beállítva bootoláskor való indulásra. A jobb védelem érdekében mindig tartsd a Blokada-t bekapcsolva.</string>
     <string name="slot_protection_no_dns">Jelenleg az alapértelmezett DNS-kiszolgálókat használod. Javasoljuk, hogy válts át adatvédelmi célú DNS-kiszolgálókra.</string>
-    <string name="slot_protection_no_battery_whitelist">A Blokada nem mentesül a készüléked akkumulátoroptimalizálása alól, így a rendszer kilövi. A rendszerbeállításokban add a Blokadát a kivételekhez, hogy életben maradhasson és védje a készüléked.</string>
+    <string name="slot_protection_no_battery_whitelist">A Blokada nem mentesül a készüléked akkumulátoroptimalizálása alól, így a rendszer kilövi. A rendszerbeállításokban add a Blokada-t a kivételekhez, hogy életben maradhasson és védje a készüléked.</string>
     <string name="slot_protection_description">A beállítások konfigurálásához nyisd meg az alsó menüt.</string>
     <string name="slot_start_on_boot_description">Az bootoláskor indul engedély lehetővé teszi, hogy a Blokada mindig aktív legyen és védje a készüléket.</string>
     <string name="slot_recommended_dns_label">Az ajánlott DNS-kiszolgálók használata</string>
@@ -233,4 +233,7 @@
     <string name="slot_lease_deleted_information">Ne feled, hogy jelenleg a Blokada VPN csak egy eszközön használható.</string>
     <string name="slot_background_animation">Háttér animáció</string>
     <string name="slot_background_animation_description">Amikor be van kapcsolva, a hullámok minden alkalommal, amikor letiltásra vagy engedélyezésre kerül egy DNS kérelem, animálódik. Kapcsold ki, ha lassulást tapasztalsz.</string>
+    <string name="slot_reset_counter_label">Blokkolt hosztszámláló nullázása</string>
+    <string name="slot_reset_counter_description">A számlálót, amely megmutatja, hogy hány kérelem került blokkolásra, visszaállítja 0-ra.</string>
+    <string name="slot_reset_counter_action">Nullázás</string>
 </resources>

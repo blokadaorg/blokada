@@ -5,7 +5,7 @@
     <string name="panel_section_home">Hlavní obrazovka</string>
     <string name="panel_section_menu">Menu</string>
     <!-- Main screen section -->
-    <string name="panel_section_ads">Blokování reklamy</string>
+    <string name="panel_section_ads">Blokování reklam</string>
     <!-- Main screen section -->
     <string name="panel_section_apps">Aplikace</string>
     <!-- Main screen section -->
@@ -42,9 +42,9 @@
     <!-- Button to open homepage of list's author. Keep it short. -->
     <string name="slot_action_credits">Webové stránky</string>
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Zapnuto</string>
+    <string name="slot_switch_on">Zap.</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Vypnuto</string>
+    <string name="slot_switch_off">Vyp.</string>
     <!-- An action to toggle a switch -->
     <string name="slot_switch_switch_bitch">Přepínač</string>
     <string name="slot_start">tahem nahoru zahájit</string>
@@ -72,17 +72,17 @@
     <string name="slot_enter_name_generate">Generovat</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; je v seznamu povolených</string>
     <string name="slot_app_desc">Tato aplikace je v seznamu povolených, což znamená, že na ní není prováděno žádné blokování ani filtrování.</string>
-    <string name="slot_allapp_desc">Tuto aplikaci můžete v rámci Blokady vynechat, tím dojde k zastavení blokování provozu u této aplikace. Nezapomeňte, že vynechané aplikace komunikují mimo VPN.</string>
-    <string name="slot_allapp_whitelisted">Vynechané</string>
-    <string name="slot_allapp_normal">Nevynechané</string>
-    <string name="slot_allapp_whitelist">Vynechat</string>
+    <string name="slot_allapp_desc">Tuto aplikaci můžete v rámci Blokady vyloučit, tím dojde k zastavení blokování provozu u této aplikace. Nezapomeňte, že vyloučené aplikace komunikují mimo VPN.</string>
+    <string name="slot_allapp_whitelisted">Vyloučené</string>
+    <string name="slot_allapp_normal">Nevyloučené</string>
+    <string name="slot_allapp_whitelist">Vyloučit</string>
     <string name="slot_dns_name">Vlastní DNS je aktivní</string>
     <string name="slot_dns_name_disabled">Vlastní DNS je deaktivováno</string>
     <string name="slot_dns_dns">Aktuální servery můžete změnit ve spodní nabídce.</string>
     <string name="slot_action_none">Tato akce nyní není dostupná.</string>
     <string name="slot_action_facts">Fakta</string>
     <string name="slot_action_unwhitelist">Zrušit</string>
-    <string name="slot_action_author">O</string>
+    <string name="slot_action_author">Více info</string>
     <string name="slot_action_share">Sdílet</string>
     <!-- A prefix for generated name for manually entered domain.  -->
     <string name="slot_input_suggestion">Položka</string>
@@ -94,9 +94,9 @@
     <string name="slot_action_refresh">Synchronizovat</string>
     <string name="slot_action_refresh_toast">Synchronizace spuštěna</string>
     <string name="slot_action_restore">Zrušit</string>
-    <string name="slot_export_title">Nastavení místa</string>
-    <string name="slot_export_description">Zde můžete změnit, kam se má konfigurace uložit (a načíst). Pokud importujete stávající nastavení, vyberte nejprve možnost Importovat, jinak bude stávající nastavení přepsáno.</string>
-    <string name="slot_action_import">Import</string>
+    <string name="slot_export_title">Nastavení umístění</string>
+    <string name="slot_export_description">Zde můžete změnit, kam se má konfigurace uložit a odkud načíst. Pokud importujete stávající nastavení, vyberte nejprve možnost Načíst, jinak bude stávající nastavení přepsáno.</string>
+    <string name="slot_action_import">Načíst</string>
     <string name="slot_action_internal">Interní úložiště</string>
     <string name="slot_action_external">Externí úložiště</string>
     <string name="slot_filters_title">Seznam filtrů</string>
@@ -190,10 +190,10 @@
     <string name="slot_help_desc">Klepnutím na tlačítko níže otevřete naši stránku nápovědy. Můžete také využít našich sociálních sítí pro získání pomoci - jsme na Telegramu, Facebooku, Redditu a Twitteru.</string>
     <!-- A button to open help -->
     <string name="slot_help_action">Nápověda</string>
-    <string name="slot_donate_label">Baví vás Blokada? Zvažte naši podporu, abychom mohli nadále aplikaci zlepšovat.</string>
-    <string name="slot_donate_desc">Pomozte nám zavést nové funkce! Více zde.</string>
+    <string name="slot_donate_label">Máte Blokadu rádi? Zvažte naši podporu, abychom mohli aplikaci i nadále zlepšovat.</string>
+    <string name="slot_donate_desc">Pomozte nám zavést nové funkce! Klepněte zde pro více informací.</string>
     <!-- A button to donate -->
-    <string name="slot_donate_action">Darovat</string>
+    <string name="slot_donate_action">Podpořit</string>
     <string name="slot_cta_label">Psst! Rádi bychom znali váš názor.</string>
     <string name="slot_cta_desc">Ukažte svou podporu účastí v našich průzkumech a dalších akcích. Pravidelně se obracíme na naši komunitu, abychom získali zpětnou vazbu o nápadech a novém vývoji, abychom se ujistili, že pracujeme na tom, co chcete v aplikaci vidět.</string>
     <!-- A button to open something (a website) -->
@@ -224,7 +224,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_basic">Primární nastavení</string>
     <!-- A section in advanced settings. -->
-    <string name="label_filters">Seznamy &amp; blokování reklamy</string>
+    <string name="label_filters">Seznamy &amp; blokování reklam</string>
     <!-- A section in advanced settings. -->
     <string name="label_dns">Nastavení DNS</string>
     <!-- A section in advanced settings. -->
@@ -233,4 +233,7 @@
     <string name="slot_lease_deleted_information">Všimněte si, že aktuálně lze Blokadu VPN použít pouze na jednom zařízení.</string>
     <string name="slot_background_animation">Animace pozadí</string>
     <string name="slot_background_animation_description">Když je zapnuta, vlny se budou animovat pokaždé, když je požadavek DNS blokován nebo povolen. Pokud dojde ke zpomalování zařízení, vypněte ji.</string>
+    <string name="slot_reset_counter_label">Obnovit čítač zablokovaných hostitelů</string>
+    <string name="slot_reset_counter_description">Nastaví čítač ukazující, kolik žádostí bylo zablokováno zpět na nulu.</string>
+    <string name="slot_reset_counter_action">Obnovit</string>
 </resources>

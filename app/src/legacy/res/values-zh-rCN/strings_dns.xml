@@ -10,6 +10,7 @@
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_placeholder">8.8.8.8</string>
     <string name="dns_edit_ip_label">IP 地址</string>
+    <string name="dns_edit_ip_error">输入错误。请确认您输入的是DNS服务器 IP 地址，如 8.8.8.8</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">默认DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

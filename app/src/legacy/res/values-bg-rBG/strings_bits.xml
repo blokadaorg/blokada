@@ -3,6 +3,7 @@
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch_to_turn_on">Докоснете за да включите</string>
+    <string name="home_touch_adblocking">Докоснете за да блокирате рекламите</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_setup_vpn">Докоснете за да настроите VPN</string>
     <string name="home_blokada_disabled">Блокада е деактивирана</string>
@@ -11,14 +12,16 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Режим само за VPN</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_only">Режим само за VPN</string>
+    <string name="home_dns_only">Само DNS режим</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Докоснете за да настроите VPN</string>
+    <string name="home_dns_touch">Докоснете за да настроите DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s блокирани</string>
+    <string name="home_masterswitch_enabled">Blokada е активна</string>
+    <string name="home_masterswitch_on">Вкл.</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Кажи на приятелите си</string>
-    <string name="home_share_state">Споделете своя резултат в Blokada</string>
+    <string name="home_share_state">Споделете резултата си от Blokada</string>
     <string name="home_adblocking_enabled">Блокирането на реклами е активно</string>
     <string name="home_adblocking_disabled">Блокирането на реклами е деактивирано</string>
     <!-- A short text for the item that displays update information -->

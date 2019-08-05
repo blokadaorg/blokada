@@ -63,4 +63,9 @@
     <!-- A button to open directory chooser to export settings to. -->
     <string name="filter_export_select">Vælg, hvor indstillinger skal gemmes til</string>
     <string name="filter_export_error">Valgt bibliotek kan ikke bruges. Tjek skrive tilladelser.</string>
+    <string name="filter_export_import">Importer fra ekstern hukommelse</string>
+    <string name="filter_export_import2">Importer nu</string>
+    <string name="filter_export_internal">Intern hukommelse (standard)</string>
+    <string name="filter_export_external">Ekstern hukommelse</string>
+    <string name="filter_export_external_info">Note: Dit valg omhandler både blacklist og whitelist. Vær sikker på du har givet ekstern hukommelse tilladelse til Blokada(i system indstillinger), ellers vil intern hukommelse blive brugt uanset hvad du vælger. Hvis du vil importere indstillinger, tryk på Import Nu før du lukker dette vindue, ellers vil de blive overskrevet.</string>
 </resources>

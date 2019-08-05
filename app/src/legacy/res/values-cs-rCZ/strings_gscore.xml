@@ -6,7 +6,7 @@
     <string name="welcome_share">Sdílet</string>
     <string name="welcome_cleanup_done">Odinstalace začala&#8230;</string>
     <string name="welcome_continue">Pokračovat</string>
-    <string name="welcome_donate">Darovat</string>
+    <string name="welcome_donate">Podpořit</string>
     <string name="welcome_patron">Patron</string>
     <!-- Opens info screen about the Blokada Insiders program, which invites user to be part of the team improving Blokada. -->
     <string name="welcome_insiders">Zasvěcenci</string>

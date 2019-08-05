@@ -233,4 +233,7 @@
     <string name="slot_lease_deleted_information">Harap diingat bahwa untuk saat ini akun Blokada VPN hanya bisa digunakan di satu perangkat saja.</string>
     <string name="slot_background_animation">Animasi di latar belakang</string>
     <string name="slot_background_animation_description">Ketika Blokada aktif, animasi gelombang akan muncul di latar belakang setiap kali ada permintaan DNS yang diblokir (gelombang berwarna merah) atau diizinkan (warna putih). Animasi tersebut bisa dinonaktifkan jika perangkat Anda mengalami masalah.</string>
+    <string name="slot_reset_counter_label">Reset penghitung host</string>
+    <string name="slot_reset_counter_description">Mengembalikan jumlah host yang telah diblokir ke angka 0.</string>
+    <string name="slot_reset_counter_action">Reset</string>
 </resources>

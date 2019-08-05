@@ -119,7 +119,7 @@
     <string name="slot_action_deactivate">Изключване</string>
     <string name="slot_action_activate">Включване</string>
     <string name="slot_action_deactivate_adblocking">Изключване на филтрирането на реклами</string>
-    <string name="slot_action_activate_adblocking">Включване на филтрирането на реклами</string>
+    <string name="slot_action_activate_adblocking">Включване филтрирането на реклами</string>
     <string name="slot_dropped_counter">Брояч на блокирани домейни</string>
     <string name="slot_dropped_counter_info">Този брояч показва броя домейни, които са били блокирани след инсталирането на приложението.</string>
     <string name="slot_dropped_action_clear">Нулиране на брояча</string>
@@ -234,4 +234,7 @@
     <string name="slot_lease_deleted_information">Обърнете внимание, че понастоящем Blokada VPN може да се използва само на едно устройство.</string>
     <string name="slot_background_animation">Фонова анимация</string>
     <string name="slot_background_animation_description">Когато са включени, вълните ще анимират всеки път при блокирана или позволена заявка за DNS. Изключете, ако има забавяне в призводителността.</string>
+    <string name="slot_reset_counter_label">Нулиране брояча на блокирани хостове</string>
+    <string name="slot_reset_counter_description">Задава на брояча, който показва колко заявки са блокирани да бъде 0.</string>
+    <string name="slot_reset_counter_action">Нулиране</string>
 </resources>

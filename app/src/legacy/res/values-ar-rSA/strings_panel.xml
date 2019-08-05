@@ -106,15 +106,15 @@
     <string name="slot_whitelist_title">تطبيق في القائمة البيضاء</string>
     <string name="slot_list_no_desc">لا يحتوي هذا الإدخال على أيّ وصف.</string>
     <string name="slot_status_description_active">حظر الإعلانات حاليّاً &lt;b&gt;مُفَعَّل&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;سترى النشاطات التي تتمّ في الخلفيّة مثل الإعلانات و التتبُّع و محتويات أخرى غير مرغوب بها يتمّ حظرها.</string>
-    <string name="slot_status_description_inactive">حظر الإعلانات حاليّاً &lt;b&gt;disabled&lt;/b&gt;.</string>
-    <string name="slot_status_info">عندما يكون التطبيق نشطاً ، سترى أيقونة المفتاح في شريط الإعلام أعلى الشاشة ، مما يعني أن جهازك محمي. يُمكِنك إيقاف تشغيل التطبيق باستخدام الزرّ أدناه ، أو عن طريق تمرير القائمة السفلية إلى أسفل.</string>
+    <string name="slot_status_description_inactive">حظر الإعلانات حاليّاً &lt;b&gt;مُعَطَّل&lt;/b&gt;.</string>
+    <string name="slot_status_info">عندما يكون التطبيق نشطاً ، سترى أيقونة المفتاح في شريط الإعلام أعلى الشاشة ، ممّا يعني أن جهازك محمي. يُمكِنك إيقاف تشغيل التطبيق باستخدام الزرّ أدناه ، أو عن طريق تمرير القائمة السُفليّة إلى الأسفل.</string>
     <string name="slot_status_vpn_turn_off">تعطيل VPN</string>
     <string name="slot_status_vpn_turn_on">تفعيل VPN</string>
-    <string name="slot_status_vpn_turned_on">VPN متصل إلى %s</string>
+    <string name="slot_status_vpn_turned_on">VPN مُتَّصل إلى %s</string>
     <string name="slot_status_vpn_connecting">جارِ تفعيل VPN بلوكادا...</string>
     <string name="slot_status_vpn_turned_off">VPN بلوكادا غير مُفَعَُل</string>
-    <string name="slot_status_vpn_desc_on">VPN بلوكادا حاليّاً &lt;b&gt;مُفَعَّل&lt;/b&gt;.&lt;br /&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;جهازك وبياناتك آمنة الآن. إضغط على علامة الاستفهام للحصول على التفاصيل.</string>
-    <string name="slot_status_vpn_desc_off">VPN بلوكادا حاليّاً &lt;b&gt;غير مُفَعَّل&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;عند اتصال VPN ، يتصل جهازك من خلال خوادمنا الآمنة ، و يتمّ تشفير حركة المرور الخاصة بك ، لذلك لا يمكن لأحد رؤية بياناتك. عنوان IP الحقيقي الخاص بك مخفي ، و يُمكِنك الوصول إلى المحتوى المحظور. في بعض الحالات ، يصبح اتصال إنترنت أسرع أيضاً.</string>
+    <string name="slot_status_vpn_desc_on">VPN بلوكادا حاليّاً &lt;b&gt;مُفَعَّل&lt;/b&gt;.&lt;br /&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;جهازك و بياناتك آمنة الآن. إضغط على علامة الاستفهام للحصول على التفاصيل.</string>
+    <string name="slot_status_vpn_desc_off">VPN بلوكادا حاليّاً &lt;b&gt;غير مُفَعَّل&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;عند اتصال VPN ، يَتَّصل جهازك من خلال خوادِمنا الآمنة ، و يتمّ تشفير حركة المرور الخاصّة بك ، لذلك لا يمكن لأحّد رؤية بياناتك. عنوان IP الحقيقي الخاصّ بك مخفي ، و يُمكِنك الوصول إلى المحتوى المحظور. في بعض الحالات ، يُصبح اتصال الإنترنت أسرع أيضاً.</string>
     <string name="slot_status_vpn_lease">تحديث</string>
     <string name="slot_action_deactivate">إيقاف التشغيل</string>
     <string name="slot_action_activate">تشغيل</string>
@@ -124,24 +124,24 @@
     <string name="slot_dropped_counter_info">يعرض هذا العدّاد عدد النطاقات التي تمَّ حظرها منذ تثبيت التطبيق.</string>
     <string name="slot_dropped_action_clear">إعادة ضبط العدّاد</string>
     <string name="slot_notifications_title">الإشعارات هي %s</string>
-    <string name="slot_notifications_desc">يمكنك تشغيل الإشعارات أو إيقاف تشغيلها هنا. تذكّر أنه في بعض الأجهزة ، سيعرض Android إشعار VPN منفصل لا يمكن إلغاء ظهوره.</string>
+    <string name="slot_notifications_desc">يُمكِنك تشغيل الإشعارات أو إيقاف تشغيلها هنا. تَذكّر أنّه في بعض الأجهزة ، سَيَعرض Android إشعار VPN منفصل لا يمكن إلغاء ظهوره.</string>
     <string name="slot_notifications_enabled">الإشعارات مُفَعَّلة</string>
     <string name="slot_notifications_disabled">الإشعارات مُعَطَّلة</string>
-    <string name="slot_update_action_refresh">تحقَّق مرّة أُخرى</string>
+    <string name="slot_update_action_refresh">تحقَّق مَرّة أُخرى</string>
     <string name="slot_telegram_title">إنضم إلينا في Telegram!</string>
-    <string name="slot_telegram_desc">تفضل بزيارة مجموعتنا على Telegram للحصول على المساعدة أو لمجرّد أن تكون جزء من مجتمعنا.</string>
+    <string name="slot_telegram_desc">تفضَّل بزيارة مجموعتنا على Telegram للحصول على المساعدة أو لمجرّد أن تكون جزء من مجتمعنا.</string>
     <string name="slot_telegram_action">فتْح</string>
     <string name="slot_dropped_share_title">مشاركة مع</string>
     <string name="slot_dropped_share">قمت بحظر %s إعلان بفضل %s! www.blokada.org</string>
     <string name="slot_active">نَشِط</string>
     <string name="slot_inactive">غير نَشِط</string>
-    <string name="slot_adblocking_label">حظر الإعلانات &amp; المُتَعقِّبين</string>
-    <string name="slot_adblocking_text">عند التمكين ، سيَمنع بلوكادا الإعلانات و التتبُّع و المحتويات الأخرى غير المرغوب فيها. يساعد ذلك في حماية خصوصيّتك و تسريع جهازك و حفظ بياناتك.</string>
+    <string name="slot_adblocking_label">حَظْر الإعلانات &amp; المُتَعقِّبين</string>
+    <string name="slot_adblocking_text">عند التمكين ، سيَمنع بلوكادا الإعلانات و التتبُّع و المحتويات الأُخرى غير المرغوب فيها. يساعد ذلك في حماية خصوصيّتك و تسريع جهازك و حِفْظ بياناتك.</string>
     <string name="slot_blocka_label">حساب Blokada VPN</string>
     <string name="slot_account_label_active">الحساب صالح لغاية %s</string>
     <string name="slot_account_label_inactive">الحساب غير نَشِط</string>
     <string name="slot_account_text_account">مُعرِّف حسابك هو &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_info">يجب عليك الحفاظ على سرية مُعرِّف حسابك - إنّه مطلوب لإستعادة حسابك في حالة إزالة تثبيت التطبيق. سيتم تمديد اشتراكك تلقائيّاً ما لم تلغيه.</string>
+    <string name="slot_account_info">يجب عليك الحفاظ على سريّة مُعرِّف حسابك - إنّه مطلوب لإستعادة حسابك في حالة إزالة تثبيت التطبيق. سيتمّ تمديد اشتراكك تلقائيّاً ما لم تلغيه.</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">إدارة الحساب</string>
     <string name="slot_account_action_manage_inactive">تفعيل الحساب</string>
@@ -153,7 +153,7 @@
     <string name="slot_gateway_label">متَّصل إلى %s</string>
     <string name="slot_gateway_label_overloaded">[Full] إتصل بـ %s</string>
     <string name="slot_gateway_description">الأداء: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;الإقليم: &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="slot_gateway_description_current">الأداء: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;الإقليم: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; هذه هي البوابة المحددة حاليّاً.</string>
+    <string name="slot_gateway_description_current">الأداء: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;الإقليم: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; هذه هي البوّابة المُحَدّدة حاليّاً.</string>
     <string name="slot_gateway_overloaded">هذه البوّابة مشغولة و لا تَقبَل الإتصالات الجديدة.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">مرتفع</string>
@@ -164,59 +164,59 @@
     <string name="slot_protection_header">حالة بلوكادا</string>
     <string name="slot_protection_off">بلوكادا غير نَشِط</string>
     <string name="slot_protection_off_desc">جهازك غير محمي.</string>
-    <string name="slot_protection_error">بلوكادا غير نَشِط مؤقتاً</string>
-    <string name="slot_protection_error_desc">قد يكون السبب في ذلك مشاكل الشبكة المؤقّتة أو مشكلة في الجهاز أو البرامج. سيتم إعادة التنشيط تلقائياً قريباً ، ولكن يمكنك أيضاً محاولة تشغيل التطبيق مرّة أخرى أو إعادة تشغيل هاتفك. إذا كنت لا تزال تواجه مشاكل ، فيرجى التواصل معنا على Telegram للحصول على المساعدة.</string>
+    <string name="slot_protection_error">بلوكادا غير نَشِط مؤقّتاً</string>
+    <string name="slot_protection_error_desc">قد يكون السبب في ذلك مشاكل الشبكة المؤقّتة أو مشكلة في الجهاز أو البرامج. سيتمّ إعادة التنشيط تلقائيّاً قريباً ، و لكن يُمكِنك أيضاً محاولة تشغيل التطبيق مرّة أُخرى أو إعادة تشغيل هاتفك. إذا كنت لا تزال تواجه مشاكل ، فيرجى التواصل معنا على Telegram للحصول على المساعدة.</string>
     <string name="slot_protection_disconnected">جهازك غير متّصل بالإنترنت</string>
-    <string name="slot_protection_disconnected_desc">بلوكادا متوقّف مؤقّتاً لأن جهازك فقد اتصال الإنترنت. سيقوم بلوكادا بإعادة التنشيط تلقائيّاً بمجرّد عودة اتصال الإنترنت.</string>
+    <string name="slot_protection_disconnected_desc">بلوكادا متوقِّف مؤقّتاً لأنّ جهازك فقد اتصال الإنترنت. سيقوم بلوكادا بإعادة التنشيط تلقائيّاً بمجرّد عودة اتصال الإنترنت.</string>
     <string name="slot_protection_activating">يتمّ تفعيل بلوكادا</string>
-    <string name="slot_protection_active_warning">بلوكادا نَشط ، و لكن يمكن تحسين تكوين الإعدادات. انقر للحصول على التفاصيل.</string>
-    <string name="slot_protection_active">بلوكادا والشبكة الافتراضية الخاصة مفعّلين</string>
+    <string name="slot_protection_active_warning">بلوكادا نَشِط ، و لكن يمكن تحسين تكوين الإعدادات. انقر للحصول على التفاصيل.</string>
+    <string name="slot_protection_active">بلوكادا و الشبكة الإفتراضيّة الخاصّة مفعّلين</string>
     <string name="slot_protection_action">الإعدادات</string>
-    <string name="slot_protection_ok">جهازك محمي بالكامل! كل من VPN و حظر الإعلانات نَشِطان.</string>
-    <string name="slot_protection_no_adblocking">حاليّاً حظر الإعلانات &amp; و التعقُّب غير مُفعَّلين. يجب عليك تفعيلهم لحماية خصوصيَّتك و بياناتك.</string>
+    <string name="slot_protection_ok">جهازك محمي بالكامل! كل من VPN و حَظْر الإعلانات نَشِطان.</string>
+    <string name="slot_protection_no_adblocking">حاليّاً حَظْر الإعلانات &amp; و التعقُّب غير مُفعَّلين. يجب عليك تفعيلهم لحماية خصوصيَّتك و بياناتك.</string>
     <string name="slot_protection_no_vpn">أنت غير متّصل بـ Blokada VPN. يجب عليك أن تأخذ ذلك بعين الاعتبار لحماية أفضل لخصوصيّتك و أمانك.</string>
     <string name="slot_protection_no_start_on_boot">لم يتم تهيئة إعدادات بلوكادا للبدء عند إقلاع النظام. يجب عليك إبقاء بلوكادا قيد التشغيل دائماً لتوفير حماية أفضل.</string>
     <string name="slot_protection_no_dns">يتم إستخدام خَوادِم DNS الإفتراضيّة للشبكة حاليّاً. يوصى بالتبديل إلى خَوادِم DNS تحمي الخصوصيّة.</string>
-    <string name="slot_protection_no_battery_whitelist">لم يتم إستثناء بلوكادا من ميّزة تحسين البطّاريّة في جهازك ، لذلك يُمكِن تعطيله من قِبَل النظام. يجب عليك إستخدام إعدادات النظام لإضافة بلوكادا للقائمة البيضاء حتى يَتمكَّن من البقاء قيد التشغيل و حماية جهازك.</string>
-    <string name="slot_protection_description">لتهيئة الإعدادات ، افتح القائمة السفليّة.</string>
-    <string name="slot_start_on_boot_description">يتيح تمكين البدء عند إقلاع النظام لبلوكادا أن يكون نَشِطاً في جميع الأوقات و حماية جهازك.</string>
-    <string name="slot_recommended_dns_label">استخدم خوادم أسماء النطاقات المستحسَنة</string>
-    <string name="slot_recommended_dns_description">عند التمكين ، سيختار بلوكادا تلقائيّاً خَوادِم DNS الموصى بها للمساعدة في تسريع الإنترنت و حماية خصوصيّتك. على خلاف ذلك ، يَتمّ إستخدام خَوادِم DNS الإفتراضيّة لشبكتك. إذا اخترت خَوادِم DNS يدويّاً في الإعدادات المتقدِّمة ، فسيتمّ تجاهل هذا الإعداد.</string>
+    <string name="slot_protection_no_battery_whitelist">لم يتمّ إستثناء بلوكادا من ميّزة تحسين البطّاريّة في جهازك ، لذلك يُمكِن تعطيله من قِبَل النظام. يجب عليك إستخدام إعدادات النظام لإضافة بلوكادا للقائمة البيضاء حتى يَتمكَّن من البقاء قيد التشغيل و حماية جهازك.</string>
+    <string name="slot_protection_description">لتهيئة الإعدادات ، افتح القائمة السُفليّة.</string>
+    <string name="slot_start_on_boot_description">يُتيح تمكين البدء عند إقلاع النظام لبلوكادا أنّ يكون نَشِطاً في جميع الأوقات و حماية جهازك.</string>
+    <string name="slot_recommended_dns_label">استخدم خوادم أسماء النطاقات المُستحسَنة</string>
+    <string name="slot_recommended_dns_description">عند التمكين ، سيختار بلوكادا تلقائيّاً خَوادِم DNS الموصى بها للمساعدة في تسريع الإنترنت و حماية خصوصيّتك. على خلاف ذلك ، يَتمّ إستخدام خَوادِم DNS الإفتراضيّة لشبكتك. إذا اخترت خَوادِم DNS يدويّاً في الإعدادات المتقدِّمة ، فسيتمّ تجاهُل هذا الإعداد.</string>
     <string name="slot_update_no_updates">بلوكادا مُحَدَّث</string>
-    <string name="slot_about">عن بلوكادا</string>
+    <string name="slot_about">حوْلَ بلوكادا</string>
     <!-- A button to share debug log. Keep it short. -->
-    <string name="slot_about_share_log">السجلّ</string>
-    <string name="slot_help_label">هل تحتاج إلى مساعدة؟</string>
-    <string name="slot_help_desc">إضغط على الزرّ أدناه لفتح صفحة المساعدة الخاصة بنا. يُمكِنك أيضاً إستخدام صفحاتنا على وسائل التواصل الإجتماعي للحصول على المساعدة - متواجدون على تيليغرام، فيسبوك، Reddit و تويتر.</string>
+    <string name="slot_about_share_log">السِجِلّ</string>
+    <string name="slot_help_label">هل تحتاج مساعدة؟</string>
+    <string name="slot_help_desc">إضغط على الزرّ أدناه لفتح صفحة المساعدة الخاصّة بنا. يُمكِنك أيضاً إستخدام صفحاتنا على وسائل التواصل الإجتماعي للحصول على المساعدة - متواجدون على Telegram، فيسبوك، Reddit و تويتر.</string>
     <!-- A button to open help -->
-    <string name="slot_help_action">المساعدة</string>
+    <string name="slot_help_action">المُساعَدة</string>
     <string name="slot_donate_label">مُتستمتِع باستخدام بلوكادا؟ فكِّر في دعمنا ، حتى نتمكّن من الإستمرار في تحسين التطبيق.</string>
     <string name="slot_donate_desc">ساعدنا في تقديم مَيّزات جديدة! إضغط هنا للمزيد.</string>
     <!-- A button to donate -->
-    <string name="slot_donate_action">تبرع</string>
+    <string name="slot_donate_action">التَّبرُّع</string>
     <string name="slot_cta_label">معلومة! نَودّ أن نعرف رأيك.</string>
-    <string name="slot_cta_desc">أظهر دعمك من خلال المشاركة في استطلاعاتنا و غيرها من المناسبات. نتواصل بانتظام مع مجتمعنا للحصول على ملاحظات حول الأفكار و التطويرات الجديدة ، من أجل التأكُّد من أننا نعمل على ما تريد رؤيته.</string>
+    <string name="slot_cta_desc">أظهر دعمك من خلال المشاركة في استطلاعاتنا و غيرها من المناسبات. نتواصل بانتظام مع مجتمعنا للحصول على ملاحظات حول الأفكار و التطويرات الجديدة ، من أجل التأكُّد من أنّنا نعمل على ما تريد رؤيته.</string>
     <!-- A button to open something (a website) -->
-    <string name="slot_cta_action">افتح</string>
-    <string name="slot_blog_label">اطّلع على مدونة التطوير الخاصة بنا!</string>
-    <string name="slot_blog_desc">المجموعة هي المكان الذي نكتب فيه عن تطوير المشروع ، و الخطط المستقبليّة ، و مناقشة الأفكار.</string>
+    <string name="slot_cta_action">فتْح</string>
+    <string name="slot_blog_label">اطّلع على مدوَّنة التطوير الخاصّة بنا!</string>
+    <string name="slot_blog_desc">المجموعة هي المكان الذي نكتب فيه عن تطوير المشروع ، و الخُطط المستقبليّة ، و مناقشة الأفكار.</string>
     <!-- A button to open a blog -->
-    <string name="slot_blog_action">افتح</string>
-    <string name="slot_updated_label">لقد تم تحديث بلوكادا!</string>
+    <string name="slot_blog_action">فتْح</string>
+    <string name="slot_updated_label">لقد تَمّ تحديث بلوكادا!</string>
     <string name="slot_updated_desc">إضغط هنا لعرض مقدِّمة لهذا الإصدار.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">المزيد</string>
     <string name="slot_obsolete_label">مطلوب أخذ إجراء: هذا الإصدار قديم!</string>
-    <string name="slot_obsolete_desc">إصدار بلوكادا الخاص بك قديم و قد لا يعمل بشكل صحيح. يُرجَى تنزيل أحدث إصدار للحفاظ على تلقي التحديثات.</string>
+    <string name="slot_obsolete_desc">إصدار بلوكادا الخاص بك قديم و قد لا يعمل بشكل صحيح. يُرجَى تنزيل أحدث إصدار للحفاظ على تلقّي التحديثات.</string>
     <!-- A button to update the app. -->
     <string name="slot_obsolete_action">تحديث</string>
     <string name="slot_cleanup_label">تَمّ الكشف عن وجود إصدارات متعدِّدة من بلوكادا</string>
-    <string name="slot_cleanup_desc">يبدو أنّ هناك العديد من إصدارات بلوكادا مثبتة على جهازك. هل ترغب في إزالة الإصدارات الأخرى و الاحتفاظ بنسخة واحدة فقط؟</string>
+    <string name="slot_cleanup_desc">يبدو أنّ هناك العديد من إصدارات بلوكادا مُثبّتة على جهازك. هل ترغب في إزالة الإصدارات الأُخرى و الاحتفاظ بنسخة واحدة فقط؟</string>
     <string name="slot_cleanup_action">تنظيف</string>
-    <string name="account_inactive">انتهت صلاحيّة Blokada VPN الخاصّة بك. أنت غير متصل بشبكة VPN.</string>
+    <string name="account_inactive">انتهت صلاحيّة Blokada VPN الخاصّة بك. أنت غير مُتّصل بشبكة VPN.</string>
     <string name="slot_lease_cant_connect">غير قادر على الإتصال بـ Blokada VPN. حاول إختيار بوابّة أُخرى.</string>
-    <string name="slot_account_cant_create">تَعذَّر إنشاء حساب Blokada VPN الخاص بك. الرجاء المحاولة مرة أُخرى لاحقاً أو التواصل معنا على Telegram.</string>
-    <string name="slot_account_name_title">معرّف الحساب</string>
+    <string name="slot_account_cant_create">تَعذَّر إنشاء حساب Blokada VPN الخاص بك. الرجاء المحاولة مرّة أُخرى لاحقاً أو التواصل معنا على Telegram.</string>
+    <string name="slot_account_name_title">مُعَرِّف الحساب</string>
     <string name="slot_account_name_desc">أدخِل مُعَرِّف حسابك القديم لاستعادة اشتراكك السابق. قبل القيام بذلك قدّ ترغب في كتابة مُعَرِّف حسابك الحالي ، في حالة إرتكاب خطأ.</string>
     <string name="slot_account_name_error">يمكن أن يحتوي مُعَرِّف الحساب على أحرف و أرقام فقط.</string>
     <string name="slot_account_name_api_error">لا يبدو أن مُعَرِّف الحساب هذا صحيح.</string>
@@ -224,13 +224,16 @@
     <!-- A section in advanced settings. -->
     <string name="label_basic">الإعدادات الرئيسيّة</string>
     <!-- A section in advanced settings. -->
-    <string name="label_filters">حظر الإعلانات &amp; قوائم</string>
+    <string name="label_filters">حَظْر الإعلانات &amp; قوائم</string>
     <!-- A section in advanced settings. -->
     <string name="label_dns">إعدادات DNS</string>
     <!-- A section in advanced settings. -->
     <string name="label_advanced">الإعدادات المتقدِّمة</string>
     <string name="slot_whitelist_updating">جارِ تحديث التكوين ، الرجاء الإنتظار...</string>
-    <string name="slot_lease_deleted_information">لاحظ أنَّه لا يمكن إستخدام Blokada VPN حاليّاً إلّا على جهاز واحد.</string>
-    <string name="slot_background_animation">خلفيات مُتحرِّكة</string>
-    <string name="slot_background_animation_description">عِنْد التشغيل ، ستتحرّك الموجات في كلّ مرّة يَتِمّ فيها حظر طلب DNS أو السماح به. قُمْ بإلغائه إذا واجَهت بُطأً.</string>
+    <string name="slot_lease_deleted_information">لاحِظْ أنَّه لا يمكن إستخدام Blokada VPN حاليّاً إلّا على جهاز واحد.</string>
+    <string name="slot_background_animation">خلفيّات مُتحرِّكة</string>
+    <string name="slot_background_animation_description">عِنْد التشغيل ، ستتحرّك الموجات في كلّ مرّة يَتِمّ فيها حَظْر طَلبْ DNS أو السماح به. قُمْ بإلغائه إذا واجَهت بُطأً.</string>
+    <string name="slot_reset_counter_label">إعادة تعيين عدّاد الحَظْر</string>
+    <string name="slot_reset_counter_description">ضبْطْ العدّاد الذي يوضِح عدد الطلبات التي تمَّ حَظْرها إلى 0.</string>
+    <string name="slot_reset_counter_action">إعادة تعيين</string>
 </resources>

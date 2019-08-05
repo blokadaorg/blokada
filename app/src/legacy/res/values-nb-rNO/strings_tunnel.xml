@@ -31,5 +31,7 @@
     <string name="tunnel_config_powersave_title">Aggressiv oppvåkning</string>
     <string name="tunnel_config_powersave_description">Skru på denne bryteren dersom du opplever problemer som skyldes batterisparingsmodusen til enheten din. Når appen oppdager tunneltilkoblingsproblemer, vil den forsøke å forhøye prioritetsnivået sitt for å få den ut av batterisparingsmodusen.</string>
     <string name="tunnel_config_reports_title">Rapporter</string>
+    <string name="tunnel_config_reports_description">Aktiver denne bryteren for å la appen sende rapporter som hjelper oss med å løse problemer og feil. Dette vil skje bare en gang per dag, eller når appen krasjer. Deaktivering av dette kan gjøre det vanskelig for oss å løse eventuelle problemer du måtte oppleve. Du må kanskje starte appen på nytt for at denne innstillingen skal tre i kraft.</string>
     <string name="tunnel_config_fallback_title">DNS-tilbakefall</string>
+    <string name="tunnel_config_fallback_description">Aktiver denne bryteren hvis du mister Internett-tilgang i noen situasjoner, for eksempel din WiFi. Dette vil gjøre at appen midlertidig går over til Cloudflare DNS for å opprettholde tilkoblingen din. Det kan hende du må velge serverne dine på nytt i DNS-delen for at denne innstillingen skal tre i kraft.</string>
 </resources>

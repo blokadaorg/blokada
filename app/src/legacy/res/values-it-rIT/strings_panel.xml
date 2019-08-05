@@ -72,10 +72,10 @@
     <string name="slot_enter_name_generate">Genera</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; è ora nella whitelist</string>
     <string name="slot_app_desc">Quest\'app è nella whitelist, ciò significa che su di essa non agisce alcun blocco o filtro.</string>
-    <string name="slot_allapp_desc">Puoi fare in modo che questa app eluda Blokada per consentirle qualsiasi traffico. Ricorda, le app che eludono il controllo di Blokada comunicano al di fuori della VPN.</string>
-    <string name="slot_allapp_whitelisted">Eludono</string>
-    <string name="slot_allapp_normal">Non eludono</string>
-    <string name="slot_allapp_whitelist">Eludi</string>
+    <string name="slot_allapp_desc">Puoi fare in modo che questa app eluda Blokada per consentirle qualsiasi traffico. Ricorda, le app che ignorano il controllo di Blokada comunicano al di fuori della VPN.</string>
+    <string name="slot_allapp_whitelisted">Ignorato</string>
+    <string name="slot_allapp_normal">Non ignorato</string>
+    <string name="slot_allapp_whitelist">Ignora</string>
     <string name="slot_dns_name">DNS personalizzati attivi</string>
     <string name="slot_dns_name_disabled">DNS personalizzati disattivati</string>
     <string name="slot_dns_dns">Puoi cambiare i server correnti usando il menù in basso.</string>

@@ -16,6 +16,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_enabled">%s відтепер буде показувати сповіщення щоразу при блокуванні чого-небудь.</string>
     <string name="notification_keepalive_text">Підтримка активності</string>
+    <string name="notification_keepalive_description">Активуйте це, якщо Blokada вимикається через деякий час. Буде додано постійне сповіщення у панель сповіщень системи, яке не дозволить їй закрити додаток.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_disabled">%s більше не захищається від збереження батареї чи пам\'яті.</string>
     <!-- Parameter: branded app name (Blokada). -->
@@ -26,4 +27,12 @@
     <string name="notification_keepalive_content">Останній: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">моніторинг</string>
+    <string name="notification_keepalive_activate">Увімкнути</string>
+    <string name="notification_keepalive_activating">Blokada запуститься незабаром.</string>
+    <string name="notification_keepalive_deactivate">Вимкнути</string>
+    <string name="notification_keepalive_deactivating">Blokada була зупинена!</string>
+    <string name="notification_expired_title">Закінчилася підписка Blokada VPN</string>
+    <string name="notification_expired_description">Ваша підписка закінчилася і Ви зараз без підключення до Blokada VPN. Активуйте підписку для кращого захисту.</string>
+    <string name="notification_lease_expired_title">Blokada VPN вимкнено</string>
+    <string name="notification_lease_expired_description">Сталися складнощі із приєднанням до Blokada VPN. Спробуйте з\'єднатися із іншим шлюзом. Якщо проблема залишиться, напишіть нам у Telegram.</string>
 </resources>

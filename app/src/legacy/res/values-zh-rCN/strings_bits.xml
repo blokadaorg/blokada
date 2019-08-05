@@ -15,6 +15,7 @@
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">广告</string>
     <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">VPN</string>
     <!-- A button opening VPN account settings -->
     <!-- A button opening VPN gateways settings -->
     <!-- A section of other settings in menu -->

@@ -52,7 +52,9 @@
     <string name="slot_intro_new_header">Como usar a nova interface?</string>
     <string name="slot_intro_desc">Você está atualmente na seção Início, há mais conteúdo se você deslizar para a direita. Cada uma delas tem seu próprio menu inferior - abra-o deslizando para cima. &lt;br/&gt;&lt;br/&gt;Na Android TV, navegue pela interface do usuário com o controle direcional. Use a tecla central para abrir o menu inferior, ou qualquer item que você selecionar. Os botões são marcados com as setas para cima, para baixo, esquerda ou direita - use as teclas de direção para clicá-los.</string>
     <string name="slot_intro_info">Psiu... Alguns itens têm o ícone de interrogação neles. Tocar nele irá exibir uma pequena mensagem de ajuda, como esta!</string>
+    <string name="slot_new_filter">Adicionar um novo host à lista bloqueada</string>
     <string name="slot_new_filter_list">Adicionar uma nova lista de endereço</string>
+    <string name="slot_new_filter_whitelist">Adicionar um novo host à lista permitida</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">não definido</string>
     <!-- A state of input form when correct input is entered  -->
@@ -70,6 +72,7 @@
     <string name="slot_enter_name_generate">Gerar</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; está na lista branca</string>
     <string name="slot_app_desc">Este aplicativo está na lista branca, o que significa que nenhum bloqueio ou filtragem é realizado nele.</string>
+    <string name="slot_allapp_desc">Você pode fazer este app ignorar Blokada para parar de bloquear qualquer tráfego para ele. Lembre-se, apps ignorados se comunicam fora da VPN.</string>
     <string name="slot_allapp_whitelisted">Ignorado</string>
     <string name="slot_allapp_normal">Não ignorado</string>
     <string name="slot_allapp_whitelist">Ignorar</string>
@@ -188,6 +191,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Ajuda</string>
     <string name="slot_donate_label">Está gostando do Blokada? Considere nos apoiar, daí poderemos continuar melhorando o aplicativo.</string>
+    <string name="slot_donate_desc">Ajude-nos a introduzir novos recursos! Toque aqui para saber mais.</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Doar</string>
     <string name="slot_cta_label">Psiu! Nós gostaríamos de saber da sua opinião.</string>
@@ -199,6 +203,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Abrir</string>
     <string name="slot_updated_label">O Blokada foi atualizado!</string>
+    <string name="slot_updated_desc">Toque aqui para conhecer esta versão.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Mais</string>
     <string name="slot_obsolete_label">Ação necessária: esta versão está obsoleta!</string>

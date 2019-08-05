@@ -18,7 +18,7 @@
     <string name="dns_edit_ip_error">這看起來不太對。請確定您輸入的是伺服器的 IP 位置，如 8.8.8.8。</string>
     <string name="dns_edit_name_error">不是有效的名稱</string>
     <string name="dns_edit_name_label">伺服器名稱</string>
-    <string name="dns_edit_name_default">預設的名稱</string>
+    <string name="dns_edit_name_default">預設名稱</string>
     <string name="dns_edit_next">下一個</string>
     <string name="dns_edit_last">新增</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->

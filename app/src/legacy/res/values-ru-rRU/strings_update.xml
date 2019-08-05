@@ -19,7 +19,7 @@
     <!-- Displayed in menu to open the About/Update screen. -->
     <string name="update_about">О приложении</string>
     <!-- A button that opens system preferences for this app. -->
-    <string name="update_button_appinfo">О приложении</string>
+    <string name="update_button_appinfo">Информация о приложении</string>
     <!-- A button that opens the changelog. -->
     <string name="update_button_changelog">История изменений</string>
     <!-- A toast message displayed when the update process is starting. -->
