@@ -119,6 +119,7 @@ data class BlockaConfig(
         val adblocking: Boolean = true,
         val blockaVpn: Boolean = false,
         val accountId: String = "",
+        val restoredAccountId: String = "",
         val activeUntil: Date = Date(0),
         val leaseActiveUntil: Date = Date(0),
         val privateKey: String = "",
@@ -235,7 +236,8 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
     ktx.v("check account api call")
 
     val api: RestApi = ktx.di().instance()
-    api.getAccountInfo(config.accountId).enqueue(object: retrofit2.Callback<RestModel.Account> {
+    val accountId = if (config.restoredAccountId.isBlank()) config.accountId else config.restoredAccountId
+    api.getAccountInfo(accountId).enqueue(object: retrofit2.Callback<RestModel.Account> {
         override fun onFailure(call: Call<RestModel.Account>?, t: Throwable?) {
             ktx.e("check account api call error", t ?: "null")
             if (retry < MAX_RETRIES) checkAccountInfo(ktx, config, retry + 1, showError)
@@ -250,9 +252,16 @@ fun checkAccountInfo(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0, 
                 when (code()) {
                     200 -> {
                         body()?.run {
-                            val newCfg = config.copy(
+                            val newCfg = if (config.restoredAccountId.isBlank()) config.copy(
                                     activeUntil = account.activeUntil
-                            )
+                            ) else {
+                                ktx.v("restored account id")
+                                config.copy(
+                                    activeUntil = account.activeUntil,
+                                    accountId = config.restoredAccountId,
+                                    restoredAccountId = ""
+                                )
+                            }
                             if (!account.expiresSoon()) {
                                 ktx.v("current account active until: ${newCfg.activeUntil}")
                                 checkGateways(ktx, newCfg)
