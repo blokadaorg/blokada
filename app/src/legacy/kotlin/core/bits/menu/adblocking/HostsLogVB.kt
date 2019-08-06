@@ -45,24 +45,24 @@ class HostsLogVB(
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
+        if(view.getItemCount() == 0) {
+            view.add(SearchBarVB(ktx, onSearch = { s ->
+                searchString = s
+                nextBatch = 0
+                this.items.clear()
+                view.set(emptyList())
+                attach(view)
+            }))
+            view.add(ResetHostLogVB {
+                nextBatch = 0
+                Persistence.request.clear()
+                this.items.clear()
+                view.set(emptyList())
+                attach(view)
+            })
+            view.add(LabelVB(ktx, label = R.string.menu_ads_live_label.res()))
+        }
         if (items.isEmpty()) {
-            if(view.getItemCount() == 0) {
-                view.add(SearchBarVB(ktx, onSearch = { s ->
-                    searchString = s
-                    nextBatch = 0
-                    this.items.clear()
-                    view.set(emptyList())
-                    attach(view)
-                }))
-                view.add(ResetHostLogVB {
-                    nextBatch = 0
-                    Persistence.request.clear()
-                    this.items.clear()
-                    view.set(emptyList())
-                    attach(view)
-                })
-                view.add(LabelVB(ktx, label = R.string.menu_ads_live_label.res()))
-            }
             var items = loadBatch(0)
             items += loadBatch(1)
             nextBatch = 2
