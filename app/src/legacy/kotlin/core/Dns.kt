@@ -176,7 +176,7 @@ class DnsImpl(
 
         dnsServers.doWhenChanged(withInit = true).then {
             val current = dnsServers()
-            if (fallback() && isLocalServers(current)) {
+            if (tunnel.Persistence.config.load(ctx.ktx()).dnsFallback && isLocalServers(current)) {
                 dnsServers %= FALLBACK_DNS
                 "dns".ktx().w("local DNS detected, setting CloudFlare as workaround")
             }
