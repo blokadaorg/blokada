@@ -11,6 +11,7 @@ class Persistence {
         const val DEFAULT_PATH = ""
         val global = GlobalPersistence()
         val slots = SlotStatusPersistence()
+        val pause = TunnelPausePersistence()
 
         fun paper() = {
             with(Persistence.global.loadPath()) {
@@ -30,7 +31,5 @@ class GlobalPersistence {
     val savePath = { path: String ->
         Result.of { Paper.book().write("persistencePath", path) }
     }
-
-
 }
 

@@ -39,7 +39,7 @@ class Home2DashboardSectionVB(
         val ctx: Context = ktx.ctx,
         val version: Version = ktx.di().instance(),
         val welcome: Welcome = ktx.di().instance(),
-        val manager: TunnelStateManager = TunnelStateManager(ktx),
+        val manager: TunnelStateManager = ktx.di().instance(),
         override val name: Resource = R.string.panel_section_home.res()
 ) : ListViewBinder(), NamedViewBinder {
 

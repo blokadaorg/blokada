@@ -17,7 +17,6 @@ class MasterSwitchVB(
     private var activating = false
 
     override fun attach(view: ByteView) {
-        view.important(true)
         tunnelStatus.listeners.add(tunnelListener)
         tunnelStatus.update(tunnelEvents)
         update()
@@ -31,34 +30,20 @@ class MasterSwitchVB(
         view?.run {
             when {
                 !tunnelEvents.enabled() -> {
-                    icon(R.drawable.ic_power.res())
+                    icon(R.drawable.ic_play_arrow.res())
                     label(R.string.home_touch_to_turn_on.res())
                     state(R.string.home_blokada_disabled.res())
-                    switch(false)
+                    important(true)
                     onTap {
-                        ktx.emit(OPEN_MENU)
-                    }
-                    onSwitch {
                         tunnelEvents.enabled %= true
                     }
                 }
-                activating || !active -> {
-                    icon(R.drawable.ic_power.res())
-                    label(R.string.home_activating.res())
-                    state(R.string.home_please_wait.res())
-                    switch(null)
-                    onTap { }
-                    onSwitch {  }
-                }
                 else -> {
-                    icon(R.drawable.ic_power.res(), color = R.color.switch_on.res())
+                    icon(R.drawable.ic_pause.res())
                     label(R.string.home_masterswitch_on.res())
-                    switch(true)
                     state(R.string.home_masterswitch_enabled.res())
+                    important(false)
                     onTap {
-                        ktx.emit(OPEN_MENU)
-                    }
-                    onSwitch {
                         tunnelEvents.enabled %= false
                     }
                 }

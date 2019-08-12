@@ -77,7 +77,7 @@ class DashboardView(
 
     private var lastSubsectionTab = 0
     private var arrowsSwipes = 0
-    private var previousMeaningfulState = PanelState.COLLAPSED
+    private var previousMeaningfulState = PanelState.DRAGGING
 
     private val mainMenu = createMenu(ktx)
 
@@ -404,6 +404,7 @@ class DashboardView(
                             model.menuClosed()
                             if (previousMeaningfulState == PanelState.COLLAPSED && !tun.enabled()) {
                                 ktx.v("enabling app as panel got anchored from collapsed state")
+                                tun.error %= false
                                 tun.enabled %= true
                             }
                             previousMeaningfulState = PanelState.ANCHORED

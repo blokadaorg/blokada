@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_touch_to_turn_on">Touch to turn on</string>
+    <string name="home_touch_to_turn_on">Touch to resume</string>
     <string name="home_touch_adblocking">Touch to block ads</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_setup_vpn">Touch to setup VPN</string>
-    <string name="home_blokada_disabled">Blokada is deactivated</string>
+    <string name="home_blokada_disabled">Blokada is paused</string>
     <string name="home_activating">Activating</string>
     <string name="home_please_wait">Please wait...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
@@ -18,8 +18,8 @@
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blocked</string>
 
-    <string name="home_masterswitch_enabled">Blokada is active</string>
-    <string name="home_masterswitch_on">On</string>
+    <string name="home_masterswitch_enabled">Blokada is on</string>
+    <string name="home_masterswitch_on">Touch to pause</string>
 
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Tell your friends</string>
