@@ -79,7 +79,6 @@ abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
     abstract val dnsServers: IProperty<List<InetSocketAddress>>
     abstract val enabled: IProperty<Boolean>
-    abstract val fallback: IProperty<Boolean>
     abstract fun hasCustomDnsSelected(checkEnabled: Boolean = true): Boolean
 }
 
@@ -156,7 +155,6 @@ class DnsImpl(
         else d?.servers!!
     })
 
-    override val fallback = newPersistedProperty(w, BasicPersistence(xx, "dnsFallback"), { true })
     override val enabled = newPersistedProperty(w, BasicPersistence(xx, "dnsEnabled"), { false })
 
     init {

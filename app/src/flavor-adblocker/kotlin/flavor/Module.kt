@@ -13,7 +13,6 @@ import filter.DashFilterWhitelist
 import notification.NotificationDashOn
 import notification.displayNotification
 import notification.hideNotification
-import tunnel.Persistence.Companion.config
 import update.AboutDash
 import update.UpdateDash
 
@@ -28,7 +27,6 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                     DashDns(lazy).activate(true),
                     NotificationDashOn(ctx).activate(true),
                     TunnelDashHostsCount(ctx).activate(true),
-                    SettingsDash(ctx).activate(true),
                     SocialShareCount(ctx).activate(true),
                     PatronDash(lazy).activate(false),
                     PatronAboutDash(lazy).activate(false),

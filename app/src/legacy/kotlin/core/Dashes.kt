@@ -18,7 +18,6 @@ import gs.presentation.WebDash
 import gs.property.*
 import org.blokada.R
 import tunnel.Filter
-import tunnel.TunnelConfigView
 import tunnel.showSnack
 import update.AUpdateView
 import update.UpdateCoordinator
@@ -200,31 +199,6 @@ class DnsMainDash(private val ktx: AndroidKontext): LayoutViewBinder(R.layout.vi
 
     override fun detach(view: View) {
 
-    }
-
-}
-
-class SettingsMainDash(private val ktx: AndroidKontext): LayoutViewBinder(R.layout.view_tunnel_config) {
-
-    private val t by lazy { ktx.di().instance<tunnel.Main>() }
-    private val d by lazy { ktx.di().instance<Device>() }
-
-    override fun attach(view: View) {
-        view as TunnelConfigView
-        view.onRefreshClick = {
-            t.invalidateFilters(ktx)
-        }
-        view.onNewConfig = {
-            tunnel.Persistence.config.save(it)
-            t.reloadConfig(ktx, d.onWifi())
-        }
-        view.config = tunnel.Persistence.config.load(ktx)
-    }
-
-    override fun detach(view: View) {
-        view as TunnelConfigView
-        view.onRefreshClick = {}
-        view.onNewConfig = {}
     }
 
 }
