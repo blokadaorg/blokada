@@ -20,7 +20,7 @@
     <string name="dns_edit_next">Nästa</string>
     <string name="dns_edit_last">Lägg till</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
-    <string name="dns_text_none">Standard DNS</string>
+    <string name="dns_text_none">Standard-DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->
     <string name="dns_generate_defaults">Återställ standardvärden</string>
     <!-- Forcefully refetch dns suggestions ignoring cache. -->

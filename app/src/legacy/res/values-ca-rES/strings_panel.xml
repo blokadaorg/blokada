@@ -233,4 +233,7 @@
     <string name="slot_lease_deleted_information">Tingueu en compte que actualment la VPN del Blokada només es pot utilitzar en un dispositiu.</string>
     <string name="slot_background_animation">Animació de fons</string>
     <string name="slot_background_animation_description">En activar-se, les ones s\'animaran cada vegada que es bloquegi o permeti una sol·licitud DNS. Desactiveu aquesta funció quan noteu lentitud.</string>
+    <string name="slot_reset_counter_label">Restableix el comptador de servidors bloquejats</string>
+    <string name="slot_reset_counter_description">Estableix el comptador que mostra quantes sol·licituds s\'han bloquejat de nou a 0.</string>
+    <string name="slot_reset_counter_action">Restableix</string>
 </resources>

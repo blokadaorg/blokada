@@ -73,7 +73,7 @@
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; добавлено в белый список</string>
     <string name="slot_app_desc">Это приложение добавлено в белый список. Теперь для него не будет происходить блокировка или фильтрация.</string>
     <string name="slot_allapp_desc">Вы можете пустить трафик этого приложения в обход Blokada. Помните, что в этом случае трафик приложения пойдет мимо VPN.</string>
-    <string name="slot_allapp_whitelisted">Обход</string>
+    <string name="slot_allapp_whitelisted">В обход</string>
     <string name="slot_allapp_normal">Не в обход</string>
     <string name="slot_allapp_whitelist">Обход</string>
     <string name="slot_dns_name">Пользовательский DNS активирован</string>
@@ -94,7 +94,7 @@
     <string name="slot_action_refresh">Синхронизация</string>
     <string name="slot_action_refresh_toast">Синхронизация началась</string>
     <string name="slot_action_restore">Прервать</string>
-    <string name="slot_export_title">Настроки сохранения</string>
+    <string name="slot_export_title">Расположение настроек</string>
     <string name="slot_export_description">Можно изменить место сохранения конфигурации. Если вы не импортируете существующие настройки, то они будут перезаписаны.</string>
     <string name="slot_action_import">Импорт</string>
     <string name="slot_action_internal">Внутреннее хранилище</string>
@@ -191,7 +191,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">Помощь</string>
     <string name="slot_donate_label">Наслаждаетесь Blokada? Подумайте о том, чтобы поддержать нас, чтобы мы могли продолжать улучшать приложение.</string>
-    <string name="slot_donate_desc">Помогите нам представить новые возможности! Нажмите здесь для получения дополнительной информации.</string>
+    <string name="slot_donate_desc">Помогите нам внедрить новые функции! Нажмите, чтобы узнать больше.</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Пожертвовать</string>
     <string name="slot_cta_label">Мы хотели бы узнать ваше мнение.</string>
