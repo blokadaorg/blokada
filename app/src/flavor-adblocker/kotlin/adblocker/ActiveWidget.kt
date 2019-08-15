@@ -308,7 +308,7 @@ class UpdateWidgetService : Service() {
         when (t.tunnelDropCount()) {
             in 0..9999 -> remoteViews.setTextViewText(R.id.widget_counter, t.tunnelDropCount().toString())
             in 10000..99999 -> remoteViews.setTextViewText(R.id.widget_counter, String.format("%.1fk", t.tunnelDropCount() / 1000.0))
-            in 100000..9999999 -> remoteViews.setTextViewText(R.id.widget_counter, String.format("%.2fm", t.tunnelDropCount() / 1000000.0))
+            in 100000..9999999 -> remoteViews.setTextViewText(R.id.widget_counter, String.format("%.1fm", t.tunnelDropCount() / 1000000.0))
             else -> remoteViews.setTextViewText(R.id.widget_counter, String.format("%dm", t.tunnelDropCount() / 1000000))
         }
 
