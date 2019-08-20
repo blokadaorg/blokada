@@ -7,7 +7,6 @@ import filter.DefaultSourceProvider
 import gs.environment.ComponentProvider
 import gs.environment.Environment
 import gs.environment.Worker
-import gs.environment.inject
 import gs.presentation.ViewBinderHolder
 import gs.property.*
 import kotlinx.coroutines.experimental.launch
@@ -18,8 +17,6 @@ abstract class UiState {
 
     abstract val seenWelcome: IProperty<Boolean>
     abstract val notifications: IProperty<Boolean>
-    abstract val dashes: IProperty<List<Dash>>
-    abstract val infoQueue: IProperty<List<Info>>
     abstract val showSystemApps: IProperty<Boolean>
     abstract val showBgAnim: IProperty<Boolean>
 }
@@ -38,10 +35,6 @@ class AUiState(
     override val notifications = newPersistedProperty(kctx, APrefsPersistence(ctx, "notifications"),
             { false } // By default, have notifications off. 
     )
-
-    override val dashes = newPersistedProperty(kctx, ADashesPersistence(ctx), { ctx.inject().instance() })
-
-    override val infoQueue = newProperty(kctx, { listOf<Info>() })
 
     override val showSystemApps = newPersistedProperty(kctx, APrefsPersistence(ctx, "showSystemApps"),
             { true }

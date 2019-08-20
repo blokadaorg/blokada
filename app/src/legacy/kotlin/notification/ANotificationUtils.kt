@@ -17,9 +17,6 @@ import gs.property.I18n
 import org.blokada.R
 
 
-
-
-
 /**
  * Will display / update a system notification for blocked packet.
  */

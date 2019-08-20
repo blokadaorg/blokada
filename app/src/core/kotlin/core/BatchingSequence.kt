@@ -1,4 +1,4 @@
-package gs.environment
+package core
 
 fun <T> Sequence<T>.batch(n: Int): Sequence<List<T>> {
     return BatchingSequence(this, n)

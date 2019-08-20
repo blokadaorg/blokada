@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
 import android.widget.*
 import androidx.core.content.ContextCompat.getColorStateList
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +15,8 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.github.salomonbrys.kodein.instance
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import core.bits.AdsDashboardSectionVB
+import core.bits.HomeDashboardSectionVB
 import core.bits.menu.MENU_CLICK
 import core.bits.menu.MENU_CLICK_BY_NAME
 import core.bits.menu.MenuItemVB
@@ -72,11 +73,9 @@ class DashboardView(
     private val tun by lazy { ctx.inject().instance<Tunnel>() }
     private val i18n by lazy { ctx.inject().instance<I18n>() }
 
-    private val inter = DecelerateInterpolator(2f)
     private var scrolledView: View? = null
 
     private var lastSubsectionTab = 0
-    private var arrowsSwipes = 0
     private var previousMeaningfulState = PanelState.DRAGGING
 
     private val mainMenu = createMenu(ktx)
@@ -85,29 +84,6 @@ class DashboardView(
         DashboardNavigationModel(
                 createDashboardSections(ktx),
                 mainMenu,
-//                onAnchored = { sectionIndex ->
-//                    ktx.v("onAnchored")
-//                    setOn(sectionIndex + 1)
-//                    if (sliding.panelState != PanelState.ANCHORED) sliding.panelState = PanelState.ANCHORED
-//                },
-//                onCollapsed = { sectionIndex ->
-//                    ktx.v("onCollapsed")
-//                    setOff(sectionIndex + 1)
-//                },
-//                onMenuOpened = { section, sectionIndex, menu, menuIndex ->
-//                    ktx.v("onMenuOpened")
-//                    setMenu(sectionIndex + 1)
-//                    setMenuNav(section, section.subsections[menuIndex])
-//                    fg_pager.currentItem = menuIndex
-//                    bg_pager.lock = true
-//                    onOpenSection {  }
-//                },
-//                onTurnOn = {
-//                    sliding.panelState = PanelState.ANCHORED
-//                },
-//                onTurnOff = {
-//                    sliding.panelState = PanelState.COLLAPSED
-//                },
                 onChangeSection = { section, sectionIndex ->
                     ktx.v("onChangeSection")
                     setMainSectionLabelAndMenuIcon(section)
@@ -118,7 +94,7 @@ class DashboardView(
                     setMenu()
                     setMenuNav(submenu, secondarySubmenu)
                     bg_pager.lock = true
-                    onOpenSection {  }
+                    onOpenSection { }
                 },
                 onMenuClosed = { sectionIndex ->
                     ktx.v("onMenuClosed")
@@ -156,13 +132,23 @@ class DashboardView(
         }.sendEmptyMessage(0)
     }
 
+    fun createDashboardSections(ktx: AndroidKontext): List<NamedViewBinder> {
+        val di = ktx.di()
+        val pages: Pages = di.instance()
+
+        return listOf(
+                HomeDashboardSectionVB(ktx),
+                AdsDashboardSectionVB(ktx)
+        )
+    }
+
     private fun listenToEvents() {
-        ktx.on(OPEN_MENU, callback =  {
+        ktx.on(OPEN_MENU, callback = {
             sliding.panelState = PanelState.EXPANDED
 //            model.menuViewPagerSwiped(0)
         }, recentValue = false)
 
-        ktx.on(SWIPE_RIGHT, callback =  {
+        ktx.on(SWIPE_RIGHT, callback = {
             bg_pager.currentItem = 1
         }, recentValue = false)
 
@@ -170,7 +156,7 @@ class DashboardView(
             model.menuItemClicked(item)
         }, recentValue = false)
 
-        ktx.on(MENU_CLICK_BY_NAME, callback =  { item ->
+        ktx.on(MENU_CLICK_BY_NAME, callback = { item ->
             val found = mainMenu.items.firstOrNull { (it as? NamedViewBinder)?.name == item } as NamedViewBinder?
             found?.run {
                 sliding.panelState = PanelState.EXPANDED
@@ -237,28 +223,6 @@ class DashboardView(
     private fun setMainSectionLabelAndMenuIcon(section: NamedViewBinder) {
         bg_nav.section = i18n.getString(section.name)
         fg_nav_panel.backgroundTintMode = PorterDuff.Mode.MULTIPLY
-//        section.run {
-//            val (icon, isAdvanced) = when (nameResId) {
-//                R.string.panel_section_advanced -> R.drawable.ic_tune to true
-//                else -> R.drawable.ic_menu to false
-//            }
-////            if (isAdvanced != wasAdvanced) {
-////                wasAdvanced = isAdvanced
-//            fg_logo_icon.animate().setDuration(200).alpha(0f).doAfter {
-//                fg_logo_icon.setImageResource(icon)
-//                val (color1, color2) = when (nameResId) {
-//                    R.string.panel_section_advanced -> advanced to tintAdvanced
-//                    R.string.panel_section_ads -> adblocking to tintAdblocking
-//                    else -> null to tintNormal
-//                }
-//
-//                fg_nav_panel.backgroundTintList = color1
-//                fg_logo_icon.setColorFilter(color2)
-//                fg_logo_icon.animate().setDuration(200).alpha(0.7f)
-//            }
-////            }
-//        }
-
     }
 
     private fun setMenuNav(submenu: NamedViewBinder?, secondarySubmenu: NamedViewBinder?) {
@@ -269,7 +233,6 @@ class DashboardView(
         }
 
         val label = if (submenu == null) {
-            //i18n.getString(mainMenu.name)
             null
         } else if (secondarySubmenu == null) {
             i18n.getString(submenu.name)
@@ -293,21 +256,11 @@ class DashboardView(
 
     private fun updateMenuHeader(label: String?, closed: Boolean = false) {
         if (label == null) {
-//            fg_logo_icon.animate().setDuration(200).alpha(0f).doAfter {
-//                fg_logo_icon.setImageResource(R.drawable.blokada)
-//                fg_logo_icon.setColorFilter(resources.getColor(android.R.color.transparent))
-//                fg_logo_icon.animate().setDuration(200).alpha(1f)
-//            }
             fg_label_text.animate().setDuration(200).alpha(0f).doAfter {
                 fg_label_text.visibility = View.GONE
             }
             fg_chevron_back.visibility = View.INVISIBLE
         } else {
-//            fg_logo_icon.animate().setDuration(200).alpha(0f).doAfter {
-//                fg_logo_icon.setImageResource(R.drawable.ic_arrow_back)
-//                fg_logo_icon.setColorFilter(resources.getColor(R.color.colorActive))
-//                fg_logo_icon.animate().setDuration(200).alpha(1f)
-//            }
             fg_label_text.visibility = View.VISIBLE
             fg_label_text.animate().setDuration(200).alpha(0f).doAfter {
                 fg_label_text.text = label
@@ -317,16 +270,9 @@ class DashboardView(
         }
         if (closed) {
             fg_logo_icon.visibility = View.VISIBLE
-
-//            val lp = fg_label.layoutParams as FrameLayout.LayoutParams
-//            lp.topMargin = 0
         } else {
             fg_logo_icon.visibility = View.GONE
-
-//            val lp = fg_label.layoutParams as FrameLayout.LayoutParams
-//            lp.topMargin = 0 - (context.resources.getDimensionPixelSize(R.dimen.dashboard_fg_logo_margin_top) / 1.5f).toInt()
         }
-        //fg_logo_icon.animate().translationX(-100f)
     }
 
     private fun setupExternalEventListeners() {
@@ -358,12 +304,6 @@ class DashboardView(
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoInactive))
             }
         })
-
-//        if (tun.tunnelState() !in listOf(TunnelState.DEACTIVATED, TunnelState.INACTIVE)) {
-//            model.tunnelActivating()
-//        } else {
-//            model.tunnelDeactivated()
-//        }
     }
 
     private fun setupParentContainer() {
@@ -411,9 +351,6 @@ class DashboardView(
                         }
                         PanelState.COLLAPSED -> {
                             ktx.v("panel collapsed")
-//                            model.panelCollapsed()
-//                            if (tun.enabled()) tun.enabled %= false
-//                            previousMeaningfulState = PanelState.COLLAPSED
                             sliding.panelState = PanelState.ANCHORED
                         }
                         PanelState.EXPANDED -> {
@@ -433,8 +370,6 @@ class DashboardView(
     }
 
     private fun setupBg() {
-//        bg_pager.setOnClickListener { openSelectedSection() }
-
         bg_pager.pages = model.sections
 
         bg_nav.viewPager = bg_pager
@@ -457,9 +392,6 @@ class DashboardView(
             override fun onPageSelected(position: Int) {
                 model.mainViewPagerSwiped(position)
                 lastSubsectionTab = 0
-                val shouldShow = arrowsSwipes++ < 1
-//                bg_chevron_left.visibility = if (position == 0 || !shouldShow) View.GONE else View.VISIBLE
-//                bg_chevron_right.visibility = if (position == bg_pager.pages.count() - 1 || !shouldShow) View.GONE else View.VISIBLE
             }
         })
 
@@ -481,7 +413,7 @@ class DashboardView(
         fg_pager.offscreenPageLimit = 5
 
         bg_logo_icon.setOnClickListener {
-            when(sliding.panelState) {
+            when (sliding.panelState) {
                 PanelState.EXPANDED -> sliding.panelState = PanelState.ANCHORED
                 PanelState.ANCHORED -> sliding.panelState = PanelState.EXPANDED
             }
@@ -499,7 +431,7 @@ class DashboardView(
         ktx.v("resize")
         val percentHeight = (
                 resources.getDimensionPixelSize(R.dimen.dashboard_panel_anchor_size)
-                        +  navigationBarPx
+                        + navigationBarPx
                 ).toFloat() / height
         sliding.anchorPoint = percentHeight
 
@@ -546,13 +478,6 @@ class DashboardView(
         lp.topMargin = resources.getDimensionPixelSize(R.dimen.dashboard_panel_margin_top) + notchPx
     }
 
-//    private fun animateStart() {
-//        val anim = AlphaAnimation(0.2f, 1f)
-//        anim.duration = 800
-//        anim.repeatCount = Animation.INFINITE
-//        anim.repeatMode = Animation.REVERSE
-//    }
-
     private fun onOpenSection(after: () -> Unit) {
         ktx.v("onopensection")
         bg_nav.viewPager = fg_pager
@@ -564,9 +489,6 @@ class DashboardView(
     private fun onCloseSection() {
         ktx.v("onclosesection")
 
-        // Workaround for wrong dots
-//        bg_pager.pages = model.sections.map { it.dash }
-
         model.getOpenedSection().run {
             bg_nav.section = i18n.getString(name)
             bg_nav.viewPager = bg_pager
@@ -575,18 +497,6 @@ class DashboardView(
 
         fg_pager.visibility = View.GONE
         fg_pager.pages = emptyList()
-    }
-
-    private var showTime = 3000L
-
-    private fun flashPlaceholder() {
-        hidePlaceholder.removeMessages(0)
-        hidePlaceholder.sendEmptyMessageDelayed(0, showTime)
-        showTime = max(2000L, showTime - 500L)
-    }
-
-    private val hidePlaceholder = Handler {
-        true
     }
 
     private fun setDragView(dragView: View?) {
@@ -643,7 +553,7 @@ class DashboardView(
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        return when(keyCode) {
+        return when (keyCode) {
             KeyEvent.KEYCODE_DPAD_UP -> {
                 model.upKey()
                 true
@@ -657,7 +567,7 @@ class DashboardView(
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        when(keyCode) {
+        when (keyCode) {
             in buttonsEnter -> model.selectKey()
             in buttonsBack -> model.backPressed()
             KeyEvent.KEYCODE_DPAD_LEFT -> model.leftKey()

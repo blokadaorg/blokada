@@ -1,52 +1,27 @@
 package flavor
 
-import adblocker.*
+import adblocker.ActiveWidgetProvider
+import adblocker.ForegroundStartService
+import adblocker.ListWidgetProvider
+import adblocker.LoggerConfigPersistence
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.github.salomonbrys.kodein.*
-import core.*
-import notification.NotificationDashOn
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.instance
+import core.Tunnel
+import core.UiState
+import core.ktx
 import notification.displayNotification
 import notification.hideNotification
-import update.AboutDash
-import update.UpdateDash
 
 fun newFlavorModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
-        bind<List<Dash>>() with singleton {
-            listOf(
-                    UpdateDash(ctx).activate(true),
-                    TunnelDashCountDropped(ctx).activate(true),
-                    NotificationDashOn(ctx).activate(true),
-                    TunnelDashHostsCount(ctx).activate(true),
-                    SocialShareCount(ctx).activate(true),
-                    PatronDash(lazy).activate(false),
-                    PatronAboutDash(lazy).activate(false),
-                    DonateDash(lazy).activate(false),
-                    NewsDash(lazy).activate(false),
-                    FeedbackDash(lazy).activate(false),
-                    FaqDash(lazy).activate(false),
-                    ChangelogDash(lazy).activate(false),
-                    AboutDash(ctx).activate(false),
-                    CreditsDash(lazy).activate(false),
-                    CtaDash(lazy).activate(false),
-                    LoggerDash(ctx).activate(true)
-            )
-        }
         onReady {
             val s: Tunnel = instance()
             val ui: UiState = instance()
-            // Show confirmation message to the user whenever notifications are enabled or disabled
-            ui.notifications.doWhenChanged().then {
-                if (ui.notifications()) {
-                    ui.infoQueue %= ui.infoQueue() + Info(InfoType.NOTIFICATIONS_ENABLED)
-                } else {
-                    ui.infoQueue %= ui.infoQueue() + Info(InfoType.NOTIFICATIONS_DISABLED)
-                }
-            }
 
             // Display notifications for dropped
             s.tunnelRecentDropped.doOnUiWhenSet().then {

@@ -51,7 +51,6 @@ class PacketsView(
         barrierPaint.setPathEffect(DashPathEffect(floatArrayOf(4f, 2f), 0f))
         barrierPaint.setStyle(Paint.Style.STROKE)
         barrierPaint.setColor(color)
-//        barrierPaint.setShader(LinearGradient(0f, 0f, 0f, height.toFloat(), Color.BLACK, Color.WHITE, Shader.TileMode.MIRROR))
 
         uiState.showBgAnim.doOnUiWhenSet().then {
             showAnim = uiState.showBgAnim()
@@ -94,16 +93,12 @@ class PacketsView(
             return
         }
 
-        val padding = context.dpToPx(210)
         val WINDOW_MS = 60 * 1000
         val SCAN_MS = 600
         val FLASH_MS = 600
         val SCAN_SIZE = 0.10f
         val now = base + SystemClock.elapsedRealtime()
 
-//        val yoffset = height - padding - dpToPx(96)
-//        val xoffset = width - padding
-        //val yoffset = context.dpToPx(40)
         val yoffset = 0
         val xoffset = 0
         val maxRadius = if (height > width) height else width

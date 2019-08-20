@@ -51,38 +51,3 @@ fun newConcurrentWorker(j: gs.environment.Journal?, prefix: String, tasks: Int):
     }
 }
 
-//fun newWorkerModule(): Kodein.Module {
-//    return Kodein.Module {
-//        // Kovenant context (one instance per prefix name)
-//        bind<Worker>() with multiton { it: String ->
-//            newSingleThreadedWorker(j = instance(), prefix = it)
-//        }
-//        bind<Worker>(3) with multiton { it: String ->
-//            newConcurrentWorker(j = instance(), prefix = it, tasks = 3)
-//        }
-//        bind<Worker>(10) with multiton { it: String ->
-//            newConcurrentWorker(j = instance(), prefix = it, tasks = 10)
-//        }
-//    }
-//}
-
-//fun newEnvironmentModule(ctx: android.content.Context): Kodein.Module {
-//    return Kodein.Module {
-//        // Various components
-//        bind<Time>() with singleton { SystemTime() }
-//        bind<AConnectivityReceiver>() with singleton { AConnectivityReceiver() }
-//        bind<AScreenOnReceiver>() with singleton { AScreenOnReceiver() }
-//        bind<ALocaleReceiver>() with singleton { ALocaleReceiver() }
-//
-//        onReady {
-//            // Register various Android listeners to receive events
-//            task {
-//                // In a task because we are in DI and using DI can lead to stack overflow
-//                AConnectivityReceiver.register(ctx)
-//                AScreenOnReceiver.register(ctx)
-//                ALocaleReceiver.register(ctx)
-//                registerUncaughtExceptionHandler(ctx)
-//            }
-//        }
-//    }
-//}

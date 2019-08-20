@@ -46,15 +46,6 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
             val s: KeepAlive = instance()
             val t: Tunnel = instance()
 
-            // Show confirmation message whenever keepAlive configuration is changed
-            s.keepAlive.doWhenChanged().then {
-                if (s.keepAlive()) {
-                    ui.infoQueue %= ui.infoQueue() + Info(InfoType.NOTIFICATIONS_KEEPALIVE_ENABLED)
-                } else {
-                    ui.infoQueue %= ui.infoQueue() + Info(InfoType.NOTIFICATIONS_KEEPALIVE_DISABLED)
-                }
-            }
-
             // Start / stop the keep alive service depending on the configuration flag
             val keepAliveNotificationUpdater = { dropped: Int ->
                 val ctx: Context = instance()

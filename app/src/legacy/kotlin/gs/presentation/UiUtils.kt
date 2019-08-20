@@ -1,9 +1,5 @@
 package gs.presentation
 
-import android.graphics.Rect
-import androidx.recyclerview.widget.RecyclerView
-import android.view.View
-
 /**
  * Dev tools and the play store (and others?) launch with a different intent, and so
  * lead to a redundant instance of this activity being spawned. <a
@@ -42,15 +38,3 @@ fun android.content.res.Resources.toPx(dp: Int): Int {
             this.displayMetrics).toInt();
 }
 
-class Spacing(val ctx: android.content.Context,
-              val top: Int = 8, val bottom: Int = 0,
-              val left: Int = 4, val right: Int = 4
-) : RecyclerView.ItemDecoration() {
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        super.getItemOffsets(outRect, view, parent, state)
-        outRect.top = ctx.resources.toPx(top)
-        outRect.bottom = ctx.resources.toPx(bottom)
-        outRect.right = ctx.resources.toPx(right)
-        outRect.left = ctx.resources.toPx(left)
-    }
-}

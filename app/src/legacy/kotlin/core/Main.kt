@@ -20,7 +20,6 @@ import gs.environment.newGscoreModule
 import gs.property.Device
 import gs.property.IWhen
 import gs.property.newDeviceModule
-import gs.property.newUserModule
 import io.paperdb.Paper
 import tunnel.blokadaUserAgent
 import tunnel.newRestApiModule
@@ -45,7 +44,6 @@ class MainApplication: Application(), KodeinAware {
     override val kodein by Kodein.lazy {
         import(newGscoreModule(this@MainApplication))
         import(newDeviceModule(this@MainApplication))
-        import(newUserModule(this@MainApplication))
         import(newTunnelModule(this@MainApplication))
         import(newFiltersModule(this@MainApplication))
         import(newDnsModule(this@MainApplication))

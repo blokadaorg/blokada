@@ -1,6 +1,6 @@
 package tunnel
 
-import gs.environment.batch
+import core.batch
 
 class FilterSerializer {
     fun deserialise(repo: List<String>): Set<Filter> {

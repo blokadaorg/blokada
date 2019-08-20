@@ -10,10 +10,9 @@ import gs.property.IProperty
 import gs.property.Repo
 import gs.property.newPersistedProperty
 import notification.displayNotificationForUpdate
-import org.blokada.R
+import org.blokada.BuildConfig
 import update.AUpdateDownloader
 import update.UpdateCoordinator
-import update.isUpdate
 
 abstract class Update {
     abstract val lastSeenUpdateMillis: IProperty<Long>
@@ -53,7 +52,6 @@ fun newUpdateModule(ctx: Context): Kodein.Module {
             // Display an info message when update is available
             repo.content.doOnUiWhenSet().then {
                 if (isUpdate(ctx, repo.content().newestVersionCode)) {
-                    ui.infoQueue %= ui.infoQueue() + Info(InfoType.CUSTOM, R.string.update_infotext)
                     u.lastSeenUpdateMillis.refresh(force = true)
                 }
             }
@@ -79,4 +77,8 @@ fun newUpdateModule(ctx: Context): Kodein.Module {
 
 internal fun canShowNotification(last: Long, env: Time, cooldownMillis: Long): Boolean {
     return last + cooldownMillis < env.now()
+}
+
+fun isUpdate(ctx: Context, code: Int): Boolean {
+    return code > BuildConfig.VERSION_CODE
 }

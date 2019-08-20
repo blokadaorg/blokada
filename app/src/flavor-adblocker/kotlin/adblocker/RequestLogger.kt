@@ -8,8 +8,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.IBinder
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
@@ -49,42 +47,6 @@ class RequestLogWriter {
     }
 
     private fun time() = Date().time.toString(10)
-}
-
-class LoggerDash(
-        val ctx: Context
-) : Dash(
-        "logger_settings",
-        icon = R.drawable.ic_tune,
-        text = ctx.getString(R.string.logger_dash_title),
-        hasView = true
-) {
-    private val config: LoggerConfigPersistence = LoggerConfigPersistence()
-
-    override fun createView(parent: Any): Any? {
-        return createConfigView(parent as ViewGroup)
-    }
-
-    private var configView: LoggerConfigView? = null
-
-    private fun createConfigView(parent: ViewGroup): LoggerConfigView {
-        val ctx = parent.context
-        configView = LayoutInflater.from(ctx).inflate(R.layout.view_logger_config, parent, false) as LoggerConfigView
-
-        configView?.onNewConfig = {
-            val serviceIntent = Intent(ctx.applicationContext,
-                    RequestLogger::class.java)
-            val newConfigArray = BooleanArray(3)
-            newConfigArray[0] = it.active
-            newConfigArray[1] = it.logAllowed
-            newConfigArray[2] = it.logDenied
-            serviceIntent.putExtra("config", newConfigArray)
-            ctx.startService(serviceIntent)
-            config.save(it)
-        }
-        configView?.config = config.load(ctx.ktx())
-        return configView!!
-    }
 }
 
 class LoggerConfigPersistence {

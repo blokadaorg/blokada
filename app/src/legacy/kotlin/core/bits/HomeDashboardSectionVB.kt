@@ -34,7 +34,7 @@ class SlotStatusPersistence {
     }
 }
 
-class Home2DashboardSectionVB(
+class HomeDashboardSectionVB(
         val ktx: AndroidKontext,
         val ctx: Context = ktx.ctx,
         val version: Version = ktx.di().instance(),

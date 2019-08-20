@@ -20,7 +20,6 @@ import tunnel.*
 import tunnel.Filter
 import tunnel.Persistence
 import update.UpdateCoordinator
-import update.isUpdate
 import java.net.URL
 import java.nio.charset.Charset
 import java.text.SimpleDateFormat

@@ -13,25 +13,6 @@ import update.UpdateDash
 
 fun newFlavorModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
-        bind<List<Dash>>() with singleton { listOf(
-                UpdateDash(ctx).activate(true),
-                DashDns(lazy).activate(true),
-                DashFilterWhitelist(ctx).activate(true),
-                NotificationDashKeepAlive(ctx).activate(true),
-                AutoStartDash(ctx).activate(true),
-                DnsSettingsDash(ctx).activate(true),
-                PatronDash(lazy).activate(false),
-                PatronAboutDash(lazy).activate(false),
-                DonateDash(lazy).activate(false),
-                NewsDash(lazy).activate(false),
-                FeedbackDash(lazy).activate(false),
-                FaqDash(lazy).activate(false),
-                ChangelogDash(lazy).activate(false),
-                AboutDash(ctx).activate(false),
-                CreditsDash(lazy).activate(false),
-                CtaDash(lazy).activate(false),
-                ShareLogDash(lazy).activate(false)
-        ) }
         onReady {
             val s: Tunnel = instance()
             val k: KeepAlive = instance()

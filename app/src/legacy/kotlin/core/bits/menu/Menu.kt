@@ -1,6 +1,7 @@
 package core.bits.menu
 
 import android.content.Intent
+import android.net.Uri
 import androidx.core.content.FileProvider
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -15,7 +16,6 @@ import gs.presentation.NamedViewBinder
 import org.blokada.BuildConfig
 import org.blokada.R
 import tunnel.blokadaUserAgent
-import update.newAppDetailsIntent
 import java.io.File
 
 fun createMenu(ktx: AndroidKontext): MenuItemsVB {
@@ -178,4 +178,11 @@ fun createAppDetailsMenuItem(ktx: AndroidKontext): NamedViewBinder {
                 }
             }
     )
+}
+
+fun newAppDetailsIntent(packageName: String): Intent {
+    val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    intent.data = Uri.parse("package:$packageName")
+    return intent
 }
