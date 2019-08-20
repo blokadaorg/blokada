@@ -8,8 +8,6 @@ import android.content.Intent
 import android.os.Build
 import com.github.salomonbrys.kodein.*
 import core.*
-import filter.DashFilterBlacklist
-import filter.DashFilterWhitelist
 import notification.NotificationDashOn
 import notification.displayNotification
 import notification.hideNotification
@@ -22,9 +20,6 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             listOf(
                     UpdateDash(ctx).activate(true),
                     TunnelDashCountDropped(ctx).activate(true),
-                    DashFilterBlacklist(ctx).activate(true),
-                    DashFilterWhitelist(ctx).activate(true),
-                    DashDns(lazy).activate(true),
                     NotificationDashOn(ctx).activate(true),
                     TunnelDashHostsCount(ctx).activate(true),
                     SocialShareCount(ctx).activate(true),

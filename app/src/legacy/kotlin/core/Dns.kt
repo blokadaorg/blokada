@@ -14,15 +14,11 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.github.salomonbrys.kodein.*
 import filter.AFilterView
-import filter.AFilterViewHolder
 import gs.environment.*
-import gs.presentation.Spacing
 import gs.property.*
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.runBlocking
@@ -301,45 +297,6 @@ class DnsLocalisedFetcher(
 
 val DASH_ID_DNS = "dns"
 
-class DashDns(
-        val xx: Environment,
-        val ctx: Context = xx().instance(),
-        val w: Worker = xx().with("dash_dns").instance(),
-        val dns: Dns = xx().instance(),
-        val act: ComponentProvider<MainActivity> = xx().instance(),
-        val i18n: I18n = xx().instance()
-) : Dash(DASH_ID_DNS,
-        R.drawable.ic_server,
-        text = ctx.getString(R.string.dns_text_none),
-        menuDashes = Triple(Add(ctx), QuickActions(xx), null),
-        hasView = true
-) {
-    private var listener: IWhen? = null
-
-    init {
-        listener = dns.choices.doOnUiWhenSet().then {
-            update(dns.choices().firstOrNull { it.active })
-        }
-    }
-
-    private fun update(dns: DnsChoice?) {
-        text = when {
-            dns == null -> ctx.getString(R.string.dns_text_none)
-            dns.servers.isEmpty() -> ctx.getString(R.string.dns_text_none)
-            dns.id.startsWith("custom") -> printServers(dns.servers)
-            else -> i18n.localisedOrNull("dns_${dns.id}_name") ?: dns.id.capitalize()
-        }
-    }
-
-    override fun createView(parent: Any): Any? {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.view_dnslist, parent as ViewGroup, false)
-        if (view is DnsListView) {
-            view.landscape = act.get()?.landscape ?: false
-        }
-        return view
-    }
-}
-
 class Add(
         val ctx: Context,
         val dns: Dns = ctx.inject().instance(),
@@ -426,67 +383,6 @@ class GenerateDialog(
         dialog.dismiss()
     }
 
-}
-
-class DnsListView(
-        ctx: Context,
-        attributeSet: AttributeSet
-) : RecyclerView(ctx, attributeSet) {
-
-    private val dns by lazy { context.inject().instance<Dns>() }
-    private var choices = listOf<DnsChoice>()
-    private var listener: IWhen? = null
-    private var listener2: IWhen? = null
-
-    var landscape: Boolean = false
-        set(value) {
-            field = value
-            layoutManager = StaggeredGridLayoutManager(
-                    if (value) 2 else 1,
-                    StaggeredGridLayoutManager.VERTICAL
-            )
-        }
-
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-        addItemDecoration(Spacing(context))
-        setAdapter(adapter)
-        landscape = false
-
-        dns.choices.cancel(listener)
-        listener = dns.choices.doOnUiWhenSet().then { refreshFilters() }
-        dns.dnsServers.cancel(listener2)
-        listener2 = dns.dnsServers.doOnUiWhenSet().then { adapter.notifyDataSetChanged() }
-    }
-
-    private fun refreshFilters() {
-        choices = dns.choices()
-        adapter.notifyDataSetChanged()
-    }
-
-    private val themedContext by lazy { ContextThemeWrapper(ctx, R.style.Switch) }
-
-    private val adapter = object : RecyclerView.Adapter<AFilterViewHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AFilterViewHolder {
-            val v = LayoutInflater.from(themedContext).inflate(R.layout.view_filter, parent, false) as AFilterView
-            return AFilterViewHolder(v)
-        }
-
-        override fun onBindViewHolder(holder: AFilterViewHolder, position: Int) {
-            val v = holder.view
-            val i = choices[position]
-            if (v.tag == null) {
-                v.tag = DnsActor(i, v)
-            } else {
-                (v.tag as DnsActor).filter = i
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return choices.size
-        }
-    }
 }
 
 fun printServers(s: List<InetSocketAddress>): String {

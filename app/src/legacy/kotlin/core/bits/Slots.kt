@@ -11,9 +11,6 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import core.Tunnel
 import filter.hostnameRegex
-import filter.id
-import filter.sourceToIcon
-import filter.sourceToName
 import gs.environment.ComponentProvider
 import gs.property.*
 import kotlinx.android.synthetic.adblockerHome.slotview_content.view.*

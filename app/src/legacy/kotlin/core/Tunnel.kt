@@ -105,7 +105,7 @@ fun newTunnelModule(ctx: Context): Module {
                 onVpnConfigure = { ktx, vpn ->
                     vpn.setSession(ctx.getString(R.string.branding_app_name))
                         .setConfigureIntent(PendingIntent.getActivity(ctx, 1,
-                                Intent(ctx, MainActivity::class.java),
+                                Intent(ctx, PanelActivity::class.java),
                                 PendingIntent.FLAG_CANCEL_CURRENT))
                 },
                 onRequest = { request ->

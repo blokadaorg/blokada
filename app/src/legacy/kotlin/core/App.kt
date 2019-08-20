@@ -59,7 +59,6 @@ fun newAppModule(ctx: Context): Kodein.Module {
         }
         bind<UiState>() with singleton { AUiState(kctx = with("gscore").instance(10), xx = lazy) }
         bind<ComponentProvider<Activity>>() with singleton { ComponentProvider<Activity>() }
-        bind<ComponentProvider<MainActivity>>() with singleton { ComponentProvider<MainActivity>() }
         bind<DefaultSourceProvider>() with singleton {
             DefaultSourceProvider(ctx = instance(), j = instance(), processor = instance(),
                     repo = instance(), f = instance())

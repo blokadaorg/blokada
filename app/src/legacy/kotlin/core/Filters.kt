@@ -6,9 +6,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import com.github.salomonbrys.kodein.*
-import filter.AFilterAddDialog
-import filter.AFilterGenerateDialog
 import filter.DefaultHostlineProcessor
 import filter.IHostlineProcessor
 import gs.environment.Environment
@@ -18,6 +18,8 @@ import gs.environment.inject
 import gs.property.IProperty
 import gs.property.newProperty
 import nl.komponents.kovenant.task
+import org.blokada.R
+import tunnel.FilterSourceDescriptor
 
 abstract class Filters {
     abstract val changed: IProperty<Boolean>
@@ -56,22 +58,11 @@ class FiltersImpl(
 
 fun newFiltersModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
-        bind<Filters>() with singleton { FiltersImpl(kctx = with("gscore").instance(10), xx = lazy,
-                ctx = ctx) }
+        bind<Filters>() with singleton {
+            FiltersImpl(kctx = with("gscore").instance(10), xx = lazy,
+                    ctx = ctx)
+        }
         bind<IHostlineProcessor>() with singleton { DefaultHostlineProcessor() }
-        bind<AFilterAddDialog>() with provider {
-            AFilterAddDialog(ctx, sourceProvider = instance())
-        }
-        bind<AFilterGenerateDialog>(true) with provider {
-            AFilterGenerateDialog(lazy,
-                    whitelist = true
-            )
-        }
-        bind<AFilterGenerateDialog>(false) with provider {
-            AFilterGenerateDialog(lazy,
-                    whitelist = false
-            )
-        }
         bind<AppInstallReceiver>() with singleton { AppInstallReceiver() }
         onReady {
             val s: Filters = instance()
@@ -122,4 +113,47 @@ class AppInstallReceiver : BroadcastReceiver() {
 
     }
 
+}
+
+internal fun id(name: String, whitelist: Boolean): String {
+    return if (whitelist) "${name}_wl" else name
+}
+
+internal fun sourceToName(ctx: android.content.Context, source: FilterSourceDescriptor): String {
+    val name = when (source.id) {
+        "link" -> {
+            ctx.getString(R.string.filter_name_link, source.source)
+        }
+        "file" -> {
+            val source = try {
+                Uri.parse(source.source)
+            } catch (e: Exception) {
+                null
+            }
+            ctx.getString(R.string.filter_name_file, source?.lastPathSegment
+                    ?: ctx.getString(R.string.filter_name_file_unknown))
+        }
+        "app" -> {
+            try {
+                ctx.packageManager.getApplicationLabel(
+                        ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
+                ).toString()
+            } catch (e: Exception) {
+                source.source
+            }
+        }
+        else -> null
+    }
+
+    return name ?: source.source
+}
+
+internal fun sourceToIcon(ctx: android.content.Context, source: String): Drawable? {
+    return try {
+        ctx.packageManager.getApplicationIcon(
+                ctx.packageManager.getApplicationInfo(source, PackageManager.GET_META_DATA)
+        )
+    } catch (e: Exception) {
+        null
+    }
 }

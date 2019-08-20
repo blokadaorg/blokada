@@ -48,18 +48,6 @@
             android:name="core.BootJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"></service>
 
-        <!--<activity-->
-        <!--android:name="core.MainActivity"-->
-        <!--android:label="@string/branding_app_name"-->
-        <!--android:launchMode="singleTask"-->
-        <!--android:theme="@style/BlokadaColors.Main.NoActionBar">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
-        <!--<action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />-->
-
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
         <activity
             android:name="core.PanelActivity"
             android:configChanges="keyboard|keyboardHidden|navigation"

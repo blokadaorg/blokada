@@ -1,14 +1,46 @@
 package core
 
-import android.util.Base64
-import java.net.InetSocketAddress
-import java.net.URI
 import android.app.Activity
+import android.util.Base64
+import android.view.View
 import com.github.salomonbrys.kodein.instance
-import gs.property.I18n
 import org.blokada.R
-import java.nio.charset.Charset
+import java.net.InetSocketAddress
 
+interface Stepable {
+    fun focus()
+}
+
+interface Backable {
+    fun handleBackPressed(): Boolean
+}
+
+interface ListSection {
+    fun setOnSelected(listener: (item: Navigable?) -> Unit)
+    fun scrollToSelected()
+    fun selectNext() {}
+    fun selectPrevious() {}
+    fun unselect() {}
+}
+
+interface Scrollable {
+    fun setOnScroll(
+            onScrollDown: () -> Unit = {},
+            onScrollUp: () -> Unit = {},
+            onScrollStopped: () -> Unit = {}
+    )
+
+    fun getScrollableView(): View
+}
+
+interface Navigable {
+    fun up()
+    fun down()
+    fun left()
+    fun right()
+    fun enter()
+    fun exit()
+}
 
 class AddDnsActivity : Activity() {
 
@@ -17,14 +49,14 @@ class AddDnsActivity : Activity() {
 
     private val dns by lazy { ktx.di().instance<Dns>() }
 
-    private var servers = Array<InetSocketAddress?>(2) {null}
+    private var servers = Array<InetSocketAddress?>(2) { null }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.vbstepview)
 
-        val nameVB = EnterDnsNameVB(ktx, accepted = {name ->
-            if(servers[0] != null && servers[1] != null) {
+        val nameVB = EnterDnsNameVB(ktx, accepted = { name ->
+            if (servers[0] != null && servers[1] != null) {
                 val newDnsChoice = DnsChoice("custom-dns:" + Base64.encodeToString(name.toByteArray(), Base64.NO_WRAP), servers.filterNotNull())
                 if (!dns.choices().contains(newDnsChoice)) {
                     dns.choices %= dns.choices() + newDnsChoice
@@ -34,9 +66,9 @@ class AddDnsActivity : Activity() {
         })
 
         val ip1VB = EnterIpVB(ktx, first = true, accepted = {
-            servers[0] = if(it.matches(Regex("^(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])(\\.(?!\$)|\$)){4}\$"))) {
+            servers[0] = if (it.matches(Regex("^(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])(\\.(?!\$)|\$)){4}\$"))) {
                 InetSocketAddress(it, 53)
-            }else{
+            } else {
                 val parts = it.split(":")
                 InetSocketAddress(parts[0], parts[1].toInt())
             }
@@ -44,9 +76,9 @@ class AddDnsActivity : Activity() {
         })
 
         val ip2VB = EnterIpVB(ktx, first = false, accepted = {
-            servers[1] = if(it.matches(Regex("^(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])(\\.(?!\$)|\$)){4}\$"))) {
+            servers[1] = if (it.matches(Regex("^(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])(\\.(?!\$)|\$)){4}\$"))) {
                 InetSocketAddress(it, 53)
-            }else{
+            } else {
                 val parts = it.split(":")
                 InetSocketAddress(parts[0], parts[1].toInt())
             }
@@ -81,7 +113,11 @@ class EnterIpVB(
         view.enableAlternativeBackground()
         view.type = Slot.Type.EDIT
         view.content = Slot.Content(ktx.ctx.resources.getString(R.string.dns_edit_ip_label),
-                description = ktx.ctx.resources.getString(if(first){R.string.dns_edit_ip1_enter}else{R.string.dns_edit_ip2_enter}),
+                description = ktx.ctx.resources.getString(if (first) {
+                    R.string.dns_edit_ip1_enter
+                } else {
+                    R.string.dns_edit_ip2_enter
+                }),
                 action1 = Slot.Action(ktx.ctx.resources.getString(R.string.dns_edit_next)) {
                     if (inputValid) {
                         view.fold()

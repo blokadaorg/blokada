@@ -3,10 +3,9 @@ package notification
 import android.app.IntentService
 import android.content.Intent
 import android.os.Handler
-import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
+import core.id
 import core.ktx
-import filter.id
 import gs.environment.inject
 import org.blokada.R
 import tunnel.Filter
