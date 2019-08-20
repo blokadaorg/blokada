@@ -4,8 +4,6 @@
     <dimen name="secondary_text_size">10sp</dimen>
     <dimen name="header_text_size">14sp</dimen>
 
-    <dimen name="dashboard_navigation_inset">0dp</dimen>
-
     <dimen name="dashboard_fg_label_margin_top">16dp</dimen>
     <dimen name="dashboard_fg_pager_margin_top">72dp</dimen>
     <dimen name="dashboard_logo_margin_top">12dp</dimen>
@@ -20,7 +18,6 @@
     <dimen name="dots_padding_sides">4dp</dimen>
     <dimen name="dots_text_size">@dimen/default_text_size</dimen>
     <dimen name="dots_margin_top">8dp</dimen>
-    <dimen name="dots_size">14dp</dimen>
 
     <dimen name="vblist_max_width">800dp</dimen>
     <dimen name="vblist_max_width_menu">500dp</dimen>

@@ -1,22 +1,14 @@
 <resources>
-    <string name="dns_tab_v4">IPv4</string>
-    <string name="dns_tab_v6">IPv6</string>
 
-    <string name="dns_default_name">Default DNS servers</string>
-    <string name="dns_default_comment">When active, DNS servers won\'t be changed and default servers of this device will be used, depending on your mobile network and WiFi.</string>
     <!-- A name used for DNS servers added by user. -->
-    <string name="dns_custom_name">Custom</string>
-    <string name="dns_custom_comment">Custom DNS</string>
     <string name="dns_custom_add_slot">Add new DNS…</string>
     <string name="slot_enter_dns_error">This does not look like an IPv4 to me.</string>
 
     <!-- An example format of a DNS server address. -->
-    <string name="dns_edit_ip_placeholder">8.8.8.8</string>
     <string name="dns_edit_ip_label">IP address</string>
     <string name="dns_edit_ip1_enter">Enter a DNS server address</string>
     <string name="dns_edit_ip2_enter">Enter a secondary DNS server address</string>
-    <string name="dns_edit_ip_error">This does not look correct. Make sure you enter a server IP address, like 8.8.8.8.</string>
-    
+
     <string name="dns_edit_name_error">Not a valid name</string>
     <string name="dns_edit_name_label">Server name</string>
     <string name="dns_edit_name_default">Default name</string>

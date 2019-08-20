@@ -10,11 +10,8 @@
     <string name="panel_section_apps">Apps</string>
 
     <!-- Main screen section -->
-    <string name="panel_section_advanced">Advanced</string>
 
-    <string name="panel_section_home_start">Blokada VPN</string>
     <string name="panel_section_home_help">Help</string>
-    <string name="panel_section_home_community">Community</string>
     <string name="panel_section_ads_lists">Host Lists</string>
     <string name="panel_section_ads_log">Host Log</string>
     <string name="panel_section_ads_blacklist">Blocked Hosts</string>
@@ -49,7 +46,6 @@
     <string name="slot_action_remove">Remove</string>
 
     <!-- Button to open homepage of list's author. Keep it short. -->
-    <string name="slot_action_credits">Website</string>
 
     <!-- A state for switches (like notifications: on) -->
     <string name="slot_switch_on">On</string>
@@ -58,9 +54,7 @@
     <string name="slot_switch_off">Off</string>
 
     <!-- An action to toggle a switch -->
-    <string name="slot_switch_switch_bitch">Switch</string>
 
-    <string name="slot_start">swipe up to start</string>
     <string name="slot_intro_new">How to use the new UI? Tap here for intro.</string>
     <string name="slot_intro_new_header">How to use the new UI?</string>
     <string name="slot_intro_desc">You are currently in the Home section, there is more if you swipe right. Each of them has its own bottom menu - open it by swiping up. &lt;br/&gt;&lt;br/&gt;On Android TV, navigate the UI with the dpad. Use the center key to open the bottom menu, or any item you select. Buttons are marked with the up, down, left or right arrow - use the direction keys to click them.</string>
@@ -102,12 +96,9 @@
 
     <string name="slot_dns_name">Custom DNS is active</string>
     <string name="slot_dns_name_disabled">Custom DNS is deactivated</string>
-    <string name="slot_dns_dns">You can change the current servers using the bottom menu.</string>
     <string name="slot_action_none">This action is not available yet.</string>
-    <string name="slot_action_facts">Facts</string>
     <string name="slot_action_unwhitelist">Cancel</string>
     <string name="slot_action_author">About</string>
-    <string name="slot_action_share">Share</string>
 
     <!-- A prefix for generated name for manually entered domain.  -->
     <string name="slot_input_suggestion">An entry</string>
@@ -139,33 +130,10 @@
 
     <string name="slot_list_no_desc">This entry does not have any description.</string>
 
-    <string name="slot_status_description_active">Adblocking is currently &lt;b&gt;enabled&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;You will see the background animate as ads, trackers and other unwanted content is being blocked.</string>
-    <string name="slot_status_description_inactive">Adblocking is currently &lt;b&gt;disabled&lt;/b&gt;.</string>
     <string name="slot_status_info">When the app is Active, you will see the key icon in the notification bar at the top of the screen, which means your device is protected. You can turn the app off using the button below, or by swiping down the bottom menu.</string>
-
-    <string name="slot_status_vpn_turn_off">Disable VPN</string>
-    <string name="slot_status_vpn_turn_on">Enable VPN</string>
-    <string name="slot_status_vpn_turned_on">VPN connected to %s</string>
-    <string name="slot_status_vpn_connecting">Enabling Blokada VPN...</string>
-    <string name="slot_status_vpn_turned_off">Blokada VPN is not enabled</string>
-    <string name="slot_status_vpn_desc_on">Blokada VPN is currently &lt;b&gt;enabled&lt;/b&gt;.&lt;br /&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Your device and data is secure now. Tap the question mark for details.</string>
-    <string name="slot_status_vpn_desc_off">Blokada VPN is currently &lt;b&gt;disabled&lt;/b&gt;.&lt;br /&gt;&lt;br /&gt;When the VPN is connected, your device communicates through our secure servers, and your traffic is encrypted, so no one can see your data. Your real IP is hidden, and you can access blocked content. In some cases, you can experience faster Internet connection as well.</string>
-    <string name="slot_status_vpn_lease">Refresh</string>
 
     <string name="slot_action_deactivate">Turn off</string>
     <string name="slot_action_activate">Turn on</string>
-
-    <string name="slot_action_deactivate_adblocking">Turn off adblocking</string>
-    <string name="slot_action_activate_adblocking">Turn on adblocking</string>
-
-    <string name="slot_dropped_counter">Blocked domains counter</string>
-    <string name="slot_dropped_counter_info">This counter displays the number of domains that has been blocked since the installation of the app.</string>
-    <string name="slot_dropped_action_clear">Reset counter</string>
-
-    <string name="slot_notifications_title">Notifications are %s</string>
-    <string name="slot_notifications_desc">You can turn notifications on or off here. Remember that on some devices, Android will display a separate VPN notification that cannot be turned off.</string>
-    <string name="slot_notifications_enabled">Notifications are enabled</string>
-    <string name="slot_notifications_disabled">Notifications are disabled</string>
 
     <string name="slot_update_action_refresh">Check again</string>
 
@@ -174,24 +142,17 @@
     <string name="slot_telegram_action">Open</string>
 
     <string name="slot_dropped_share_title">Share to</string>
-    <string name="slot_dropped_share">I blocked %s ads thanks to %s! www.blokada.org</string>
 
-    <string name="slot_active">Active</string>
-    <string name="slot_inactive">Inactive</string>
     <string name="slot_adblocking_label">Block ads &amp; trackers</string>
     <string name="slot_adblocking_text">When enabled, Blokada will block ads, trackers, and other unwanted content. This helps to protect your privacy, speed up your device and save your data.</string>
-    <string name="slot_blocka_label">Blokada VPN Account</string>
     <string name="slot_account_label_active">Account active until %s</string>
     <string name="slot_account_label_inactive">Account inactive</string>
-    <string name="slot_account_text_account">Your account ID is &lt;b&gt;%s&lt;/b&gt;.</string>
-    <string name="slot_account_info">You should keep your account ID secret - it is required in order to recover your account in case you uninstall the app. Your subscription will be automatically extended unless you cancel it.</string>
 
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Manage</string>
     <string name="slot_account_action_manage_inactive">Activate account</string>
     <string name="slot_account_action_change_id">Restore account</string>
     <string name="slot_account_show">Account ID</string>
-    <string name="slot_account_action_copy">Copy account ID</string>
     <string name="slot_account_action_copied">Account ID copied to the clipboard</string>
 
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
@@ -207,7 +168,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">low</string>
 
-    <string name="panel_section_home_gateways">VPN Gateways</string>
     <string name="subscription_success">Your account is being activated. This may take a few seconds. Thank you!</string>
 
     <string name="slot_protection_header">Blokada status</string>
@@ -225,7 +185,6 @@
     <string name="slot_protection_no_adblocking">Blocking ads &amp; trackers is currently disabled. You should enable it in order to protect your privacy and data.</string>
     <string name="slot_protection_no_vpn">You are not connected to Blokada VPN. You should consider it for better protection of your privacy and security.</string>
     <string name="slot_protection_no_start_on_boot">Blokada is not configured to start on boot. You should keep Blokada always on for better protection.</string>
-    <string name="slot_protection_no_dns">Your network\'s default DNS servers are currently used. Switching to privacy-conscious DNS servers is recommended.</string>
     <string name="slot_protection_no_battery_whitelist">Blokada is not exempt from your device\'s battery optimisation, so it can be killed by the system. You should use your system preferences to whitelist Blokada so it can stay on and protect your device.</string>
     <string name="slot_protection_description">To configure settings, open the bottom menu.</string>
 
@@ -263,21 +222,15 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Open</string>
 
-    <string name="slot_updated_label">Blokada has been updated!</string>
     <string name="slot_updated_desc">Touch here for intro to this release.</string>
 
     <!-- A button to open a description website of current app version after update. -->
-    <string name="slot_updated_action">More</string>
 
-    <string name="slot_obsolete_label">Action required: this version is obsolete!</string>
     <string name="slot_obsolete_desc">Your version of Blokada is obsolete and may not work correctly. Please download the newest version to keep receiving updates.</string>
 
     <!-- A button to update the app. -->
-    <string name="slot_obsolete_action">Update</string>
 
-    <string name="slot_cleanup_label">Multiple versions of Blokada detected</string>
     <string name="slot_cleanup_desc">There seems to be many versions of Blokada installed on your device. Would you like to remove the other versions and keep just one?</string>
-    <string name="slot_cleanup_action">Clean up</string>
 
     <string name="account_inactive">Your Blokada VPN expired. You are not connected to the VPN.</string>
     <string name="slot_lease_cant_connect">Could not connect to Blokada VPN. Try selecting another gateway.</string>
@@ -293,10 +246,8 @@
     <string name="label_basic">Primary settings</string>
 
     <!-- A section in advanced settings. -->
-    <string name="label_filters">Ad blocking &amp; lists</string>
 
     <!-- A section in advanced settings. -->
-    <string name="label_dns">DNS settings</string>
 
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Advanced settings</string>

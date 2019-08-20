@@ -1,17 +1,7 @@
 <resources>
-    <string name="tunnel_hosts_desc">Displays the number of hosts configured to be blocked by %s.</string>
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
-    <string name="tunnel_hosts_count2">%s hosts</string>
-    <string name="tunnel_hosts_count">%d hosts</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
-    <string name="tunnel_hosts_updating">Updating...</string>
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
-    <string name="tunnel_hosts_downloading">Downloading...</string>
-    <string name="tunnel_config_wifi">Download filters only when on wifi</string>
-
-    <string name="tunnel_dropped_count_desc">Displays the total number of hosts blocked so far.</string>
-    <string name="tunnel_dropped_count">%d blocked</string>
-    <string name="tunnel_dropped_count2">%s domains blocked</string>
 
     <string name="tunnel_config_refetch_now_title">Download lists</string>
     <string name="tunnel_config_refetch_now">Download lists now</string>
@@ -25,7 +15,6 @@
     <string name="tunnel_config_refetch_frequency_4">Once a month</string>
     <string name="tunnel_config_wifi_only_title">Download on WiFi only</string>
     <string name="tunnel_config_wifi_only_description">Activate this switch if you wish the app to download lists only when your device is connected to WiFi. Otherwise, the app may also download lists when your device is connected to a mobile network and use your data plan.</string>
-    <string name="tunnel_config_memory_capacity">%s can fit into memory</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
     <string name="tunnel_config_watchdog_description">Activate this switch if you wish the app to activate the VPN only if there is Internet connectivity, and restart the tunnel in case there are connectivity problems. This may help for some devices. Note: in earlier versions this option was called "Online Only".</string>
     <string name="tunnel_config_powersave_title">Aggressive wakeup</string>

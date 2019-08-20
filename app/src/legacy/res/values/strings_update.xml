@@ -1,29 +1,22 @@
 <resources>
-    <string name="update_infotext">An update is available! Tap the update icon below for details.</string>
     <string name="update_button">Download update</string>
     <string name="update_notification_title">Update available</string>
     <!-- Parameter: new app version, for example 2.0.1 -->
     <string name="update_notification_text">Release %1$s is ready to download! Tap to proceed.</string>
     <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
-    <string name="update_header">New update!</string>
-    <string name="update_header_noupdate">No new updates</string>
     <string name="update_notification_channel">Update notifications</string>
 
     <string name="update_info">If you downloaded the app from Play Store, F-Droid, or other app store, you will receive updates from the store as they become available. Make sure Blokada is deactivated during the update. If you experience any problems updating, go to blokada.org and download the app manually. There is no need to uninstall existing version beforehand.</string>
-    <string name="update_credits_header">This app is an open source project made possible thanks to the Blokada Community.</string>
 
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
     <string name="update_dash_available">&lt;b&gt;Update available!&lt;/b&gt;</string>
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
-    <string name="update_dash_uptodate">Up to date</string>
 
     <!-- Displayed in menu to open the About/Update screen. -->
-    <string name="update_about">About</string>
 
     <!-- A button that opens system preferences for this app. -->
     <string name="update_button_appinfo">App Details</string>
     <!-- A button that opens the changelog. -->
-    <string name="update_button_changelog">Changelog</string>
     <!-- A toast message displayed when the update process is starting. -->
     <string name="update_starting">Starting, please wait&#8230;</string>
 </resources>

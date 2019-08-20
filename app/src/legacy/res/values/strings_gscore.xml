@@ -1,13 +1,4 @@
 <resources>
-    <string name="welcome_advanced">I am a power user</string>
-    <string name="welcome_open">Open in browser</string>
-    <string name="welcome_share">Share</string>
     <string name="welcome_cleanup_done">Uninstall started&#8230;</string>
-    <string name="welcome_continue">Continue</string>
-    <string name="welcome_donate">Donate</string>
-    <string name="welcome_patron">Patron</string>
     <!-- Opens info screen about the Blokada Insiders program, which invites user to be part of the team improving Blokada. -->
-    <string name="welcome_insiders">Insiders</string>
-    <string name="welcome_help">Instructions</string>
-    <string name="gscore_loading">Loading&#8230;</string>
 </resources>

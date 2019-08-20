@@ -11,7 +11,6 @@
     <dimen name="dots_padding_sides">4dp</dimen>
     <dimen name="dots_text_size">@dimen/default_text_size</dimen>
     <dimen name="dots_margin_top">8dp</dimen>
-    <dimen name="dots_size">14dp</dimen>
 
     <dimen name="vblist_max_width">600dp</dimen>
 

@@ -1,26 +1,18 @@
 package adblocker
 
-import android.Manifest
 import android.app.Activity
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.IBinder
-import android.util.AttributeSet
-import android.widget.CheckBox
-import android.widget.ScrollView
-import androidx.core.content.ContextCompat
 import com.github.michaelbull.result.mapBoth
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.ComponentProvider
-import gs.presentation.SwitchCompatView
 import gs.property.I18n
 import org.blokada.R
 import tunnel.Events
 import tunnel.Request
-import tunnel.showSnack
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintWriter
@@ -71,46 +63,6 @@ data class LoggerConfig(
         val logAllowed: Boolean = false,
         val logDenied: Boolean = false
 )
-
-class LoggerConfigView(
-        val ctx: Context,
-        attributeSet: AttributeSet
-) : ScrollView(ctx, attributeSet) {
-
-    var config = LoggerConfig()
-        set(value) {
-            field = value
-            activeSwitch.isChecked = value.active
-            allowedCheck.isChecked = value.logAllowed
-            deniedCheck.isChecked = value.logDenied
-            onNewConfig(value)
-        }
-
-    var onNewConfig = { config: LoggerConfig -> }
-
-    private val activeSwitch by lazy { findViewById<SwitchCompatView>(R.id.switch_logger_active) }
-    private val allowedCheck by lazy { findViewById<CheckBox>(R.id.check_logger_allowed) }
-    private val deniedCheck by lazy { findViewById<CheckBox>(R.id.check_logger_denied) }
-
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-        activeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                showSnack(R.string.logger_permission)
-                buttonView.isChecked = false
-            } else {
-                config = config.copy(active = isChecked)
-            }
-        }
-        allowedCheck.setOnCheckedChangeListener { _, isChecked ->
-            config = config.copy(logAllowed = isChecked)
-        }
-        deniedCheck.setOnCheckedChangeListener { _, isChecked ->
-            config = config.copy(logDenied = isChecked)
-        }
-    }
-}
-
 
 class RequestLogger : Service() {
     override fun onBind(intent: Intent?): IBinder? {

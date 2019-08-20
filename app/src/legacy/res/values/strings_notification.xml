@@ -14,17 +14,13 @@
     <string name="notification_blocked_whitelist_applied">Done! Changes may take a few seconds.</string>
 
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_disabled">%s will not display notifications.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_enabled">%s will now display notifications every time something is blocked.</string>
 
     <string name="notification_keepalive_text">Keep alive</string>
     <string name="notification_keepalive_description">Activate this switch if you experience problems with app staying active. The app will enable a permanent notification to prevent system from killing it.</string>
 
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_disabled">%s is not protected from battery or memory saving anymore.</string>
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_enabled">%s will now protect itself from being deactivated by the operating system.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d blocked</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->

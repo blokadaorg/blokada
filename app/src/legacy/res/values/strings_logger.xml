@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="logger_permission">Please grant storage permission first.</string>
-    <string name="logger_active">Logger active</string>
-    <string name="logger_allowed">Log allowed requests</string>
-    <string name="logger_denied">Log denied requests</string>
-    <string name="logger_dash_title">Logger settings</string>
     <string name="logger_slot_title">Request logger</string>
     <string name="logger_slot_desc">When enabled, Blokada will create a CSV file and log requests that have been allowed and / or blocked by the app. Look for "blokada" folder on your external storage.</string>
     <string name="logger_slot_mode_off">Disabled</string>

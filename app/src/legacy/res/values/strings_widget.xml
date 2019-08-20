@@ -7,7 +7,6 @@
     <string name="widget_show_counter">Display number of blocked requests</string>
 
     <!-- A configuration option of widget -->
-    <string name="widget_alpha">Transparency of the widget background:</string>
 
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Display DNS</string>

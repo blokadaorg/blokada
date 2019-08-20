@@ -42,7 +42,6 @@
     <string name="home_cleanup">Cleanup recommended</string>
 
     <!-- A short text for the button to change VPN settings -->
-    <string name="home_change_vpn">Change</string>
 
     <string name="home_connected_vpn">Connected to VPN</string>
 
@@ -51,7 +50,6 @@
 
     <string name="menu_ads_live_label">Host log of allowed and blocked requests</string>
     <string name="menu_ads_clear_log">Clear host log</string>
-    <string name="menu_ads_turn_on">Turn the ad blocking on or off.</string>
     <string name="menu_ads_lists_label">Select lists to use for blocking. Defaults are fine for most people.</string>
     <string name="menu_ads_rules_label">Add your own rules to fine tune blocking.</string>
     <string name="menu_ads_log_label">See what have been blocked or allowed recently.</string>
