@@ -126,13 +126,10 @@ android {
         debug.java.srcDirs += 'src/build-unofficial/kotlin'
         release.java.srcDirs += 'src/build-official/kotlin'
         release.res.srcDirs += 'src/build-official/res'
-        release.java.srcDirs += 'src/build-official-imports/kotlin'
         official.java.srcDirs += 'src/build-official/kotlin'
         official.res.srcDirs += 'src/build-official/res'
-        official.java.srcDirs += 'src/build-official-imports/kotlin'
         beta.java.srcDirs += 'src/build-official/kotlin'
         beta.res.srcDirs += 'src/build-official/res'
-        beta.java.srcDirs += 'src/build-official-imports/kotlin'
     }
     signingConfigs {
         release {
