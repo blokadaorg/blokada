@@ -5,7 +5,7 @@
     <string name="home_touch_to_turn_on">Возобновить</string>
     <string name="home_touch_adblocking">Нажмите, чтобы заблокировать рекламу</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Нажмите, чтобы настроить VPN</string>
+    <string name="home_setup_vpn">Настроить VPN</string>
     <string name="home_blokada_disabled">Blokada приостановлена</string>
     <string name="home_activating">Активация</string>
     <string name="home_please_wait">Пожалуйста, подождите...</string>
@@ -14,7 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Режим только DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Нажмите, чтобы настроить DNS</string>
+    <string name="home_dns_touch">Настроить DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s заблокировано</string>
     <string name="home_masterswitch_enabled">Blokada включена</string>
@@ -39,15 +39,15 @@
     <string name="home_connected_vpn">Подключено к VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Реклама</string>
-    <string name="menu_ads_live_label">Журнал разрешенных и заблокированных запросов</string>
-    <string name="menu_ads_clear_log">Очистить журнал</string>
+    <string name="menu_ads_live_label">Журнал разрешенных и заблокированных запросов хоста</string>
+    <string name="menu_ads_clear_log">Очистить журнал хоста</string>
     <string name="menu_ads_turn_on">Включите или отключите блокировку рекламы.</string>
     <string name="menu_ads_lists_label">Выберите списки для блокировки. Значения по умолчанию подходят для большинства пользователей.</string>
     <string name="menu_ads_rules_label">Добавьте свои собственные правила для тонкой настройки блокировки.</string>
     <string name="menu_ads_log_label">Посмотрите, что недавно было заблокировано или разрешено.</string>
     <!-- VPN section header in menu (for configuring VPN) -->
     <string name="menu_vpn">VPN</string>
-    <string name="menu_vpn_activate_account">Пожалуйста, сначала активируйте свою учетную запись.</string>
+    <string name="menu_vpn_activate_account">Пожалуйста, активируйте сначала свой аккаунт.</string>
     <string name="menu_vpn_select_gateway">Пожалуйста, выберите шлюз.</string>
     <string name="menu_vpn_intro_button">Почему VPN?</string>
     <!-- A button opening VPN account settings -->
@@ -56,7 +56,7 @@
     <string name="menu_vpn_gateways">Шлюзы</string>
     <string name="menu_vpn_manage_subscription">Управляйте подпиской вашего аккаунта</string>
     <string name="menu_vpn_account_secret">ID вашего аккаунта необходимо хранить в тайне. Запишите его на случай переустановки приложения.</string>
-    <string name="menu_vpn_restore_label">Здесь вы можете восстановить существующую учетную запись, если, например, вы переустановили приложение.</string>
+    <string name="menu_vpn_restore_label">Здесь вы можете восстановить существующий аккаунт, если, например, вы переустановили приложение.</string>
     <string name="menu_vpn_intro">Через VPN передаваемые данные зашифрованы, IP-адрес и местоположение изменены.</string>
     <string name="menu_vpn_account_label">Для того, чтобы использовать VPN, вам нужна активная учетная запись. Проверьте или восстановите свой аккаунт здесь.</string>
     <string name="menu_vpn_gateways_label">Выберите один из шлюзов для подключения. Устройство будет осуществлять безопасную передачу зашифрованных данных через этот шлюз, и вы станете анонимным.</string>

@@ -62,8 +62,8 @@
     <string name="menu_host_list_settings">Lijst instellingen</string>
     <string name="menu_host_list_status">Lijst status</string>
     <string name="menu_host_list_download">Lijst download instellingen</string>
-    <string name="menu_host_whitelist">Hosts die u hier toevoegt zullen nooit geblokkeerd worden. Gebruik deze lijst wanneer bijvoorbeeld een website die u bezoekt, verkeerd geblokkeerd is.</string>
-    <string name="menu_host_blacklist">Hosts die u hier toevoegt worden altijd geblokkeerd. Bijvoorbeeld, u kunt websites toevoegen die niet geblokkeerd zijn door de standaard lijsten, maar moeten zijn.</string>
+    <string name="menu_host_whitelist">Hosts die u hier toevoegt zullen nooit geblokkeerd worden. Gebruik deze lijst wanneer, bijvoorbeeld, een website die u bezoekt, verkeerd geblokkeerd is.</string>
+    <string name="menu_host_blacklist">Hosts die u hier toevoegt worden altijd geblokkeerd. Bijvoorbeeld, u kunt websites toevoegen die niet geblokkeerd zijn door de standaard lijsten, maar dat wel moeten zijn.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Andere</string>
     <string name="menu_share_log_label">Met het delen van logboek kunnen we de reden van uw probleem ontdekken. Zorg ervoor dat je het privé naar een van de Blokada core teamleden stuurt.</string>

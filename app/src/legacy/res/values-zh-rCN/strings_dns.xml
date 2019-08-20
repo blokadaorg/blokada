@@ -7,6 +7,8 @@
     <string name="dns_default_comment">启用该选项时, 应用不会更改DNS服务器, 也就是将使用此设备的默认DNS服务器, 这取决于您的移动网络和WiFi。</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">自定义DNS服务器</string>
+    <string name="dns_custom_comment">自定义 DNS</string>
+    <string name="dns_custom_add_slot">添加新的 DNS</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_placeholder">8.8.8.8</string>
     <string name="dns_edit_ip_label">IP 地址</string>

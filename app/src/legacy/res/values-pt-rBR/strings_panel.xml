@@ -233,4 +233,7 @@
     <string name="slot_lease_deleted_information">Note que atualmente a VPN do Blokada pode ser usada apenas em um dispositivo.</string>
     <string name="slot_background_animation">Animação de fundo</string>
     <string name="slot_background_animation_description">Quando ativado, as ondas serão animadas sempre que uma solicitação de DNS for bloqueada ou permitida. Desative se você notar lentidões.</string>
+    <string name="slot_reset_counter_label">Redefinir contador de endereços bloqueados</string>
+    <string name="slot_reset_counter_description">Define o contador mostrando quantos pedidos foram bloqueados de volta para 0.</string>
+    <string name="slot_reset_counter_action">Redefinir</string>
 </resources>

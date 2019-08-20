@@ -73,9 +73,9 @@
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; beyaz listeye alındı</string>
     <string name="slot_app_desc">Bu uygulama beyaz listeye eklenmiştir, yani üzerinde herhangi bir engelleme veya filtreleme yapılmaz.</string>
     <string name="slot_allapp_desc">Bu uygulamayı, herhangi bir trafiği engellemeyi durdurmak için Blokada\'yı atlayarak yapabilirsiniz. Unutmayın, atlanan uygulamalar VPN dışında iletişim kurar.</string>
-    <string name="slot_allapp_whitelisted">Es geçildi</string>
-    <string name="slot_allapp_normal">Es geçilmedi</string>
-    <string name="slot_allapp_whitelist">Es geç</string>
+    <string name="slot_allapp_whitelisted">Atlandı</string>
+    <string name="slot_allapp_normal">Atlanmadı</string>
+    <string name="slot_allapp_whitelist">Atla</string>
     <string name="slot_dns_name">Özel DNS etkin</string>
     <string name="slot_dns_name_disabled">Özel DNS devre dışı bırakıldı</string>
     <string name="slot_dns_dns">Alttaki menüyü kullanarak mevcut sunucuları değiştirebilirsiniz.</string>
@@ -233,4 +233,7 @@
     <string name="slot_lease_deleted_information">Şu anda Blokada VPN\'in yalnızca bir cihazda kullanılabileceğini unutmayın.</string>
     <string name="slot_background_animation">Arkaplan animasyonu</string>
     <string name="slot_background_animation_description">Açık olduğunda, bir DNS isteği engellendiğinde veya izin verildiğinde dalgalar canlanacaktır. Yavaşlamalar yaşıyorsanız kapatın.</string>
+    <string name="slot_reset_counter_label">Engellenen host sayacını sıfırla</string>
+    <string name="slot_reset_counter_description">Engellenen yerde kaç tane istek olduğunu 0 olarak gösteren sayacı ayarlar.</string>
+    <string name="slot_reset_counter_action">Sıfırla</string>
 </resources>

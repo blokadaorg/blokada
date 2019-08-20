@@ -5,7 +5,20 @@
     <string name="dns_default_comment">Kiam aktivaj, DNS-serviloj ne ŝanĝiĝos kaj defaŭltaj serviloj de ĉi tiu aparato estos uzataj, laŭ via poŝtelefono kaj Wi-Fi.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Kutimon</string>
+    <string name="dns_custom_comment">Proprajn DNS</string>
+    <string name="dns_custom_add_slot">Aldoni novan DNS…</string>
+    <string name="slot_enter_dns_error">Tio malsimilas al IPv4 por mi.</string>
     <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_ip_placeholder">8.8.8.8</string>
+    <string name="dns_edit_ip_label">IP adreso</string>
+    <string name="dns_edit_ip1_enter">Entajpu adreso de DNS servilo</string>
+    <string name="dns_edit_ip2_enter">Entajpu adreso de duaranga DNS servilo</string>
+    <string name="dns_edit_ip_error">Ĉi tio ne ŝajnas ĝusta. Certigu ke vi entajpas servilon IP-adreson kiel 8.8.8.8.</string>
+    <string name="dns_edit_name_error">Malĝusta nomo</string>
+    <string name="dns_edit_name_label">Nomo de servilo</string>
+    <string name="dns_edit_name_default">Defaŭlta nomo</string>
+    <string name="dns_edit_next">Sekva</string>
+    <string name="dns_edit_last">Aldoni</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Defaŭlta DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

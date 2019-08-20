@@ -55,7 +55,7 @@
     <string name="main_credits">Crédits</string>
     <!-- An overlay header on top of Patron page -->
     <string name="main_patron_overlay">En tant que communauté Blokada, nous trouvons de nouveaux projets prometteurs et essayons de les aider à grandir. N\'hésitez pas à partager !</string>
-    <string name="main_log">Partager le journal</string>
+    <string name="main_log">Partager l\'historique</string>
     <string name="main_report_title">Rapport Blokada</string>
     <string name="main_report_text">Blokada a rencontré un problème (ou vous avez choisi d’envoyer un rapport). Un journal sera transmis et celui-ci peut contenir quelques données personnelles. Seules des personnes de confiance seront autorisées à lire votre rapport. Ce dernier sera supprimé une fois qu’il n’est plus nécessaire ou que le problème sera réglé.</string>
     <string name="main_report_comment">Les rapports contenant des commentaires sont prioritaires. Que faisiez vous avant que le problème ne survienne ?</string>

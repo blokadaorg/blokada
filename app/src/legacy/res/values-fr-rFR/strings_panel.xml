@@ -14,7 +14,7 @@
     <string name="panel_section_home_help">Aide</string>
     <string name="panel_section_home_community">Communauté</string>
     <string name="panel_section_ads_lists">Listes noires</string>
-    <string name="panel_section_ads_log">Journal</string>
+    <string name="panel_section_ads_log">Historique des requêtes</string>
     <string name="panel_section_ads_blacklist">Domaines bloqués</string>
     <string name="panel_section_ads_whitelist">Domaines autorisés</string>
     <string name="panel_section_advanced_dns">DNS</string>
@@ -185,7 +185,7 @@
     <string name="slot_update_no_updates">Blokada est à jour</string>
     <string name="slot_about">À propos de Blokada</string>
     <!-- A button to share debug log. Keep it short. -->
-    <string name="slot_about_share_log">Journal</string>
+    <string name="slot_about_share_log">Historique</string>
     <string name="slot_help_label">Besoin d’aide ?</string>
     <string name="slot_help_desc">Appuyez sur le bouton ci-dessous pour ouvrir notre page d\'aide. Vous pouvez également utiliser nos réseaux sociaux pour obtenir de l\'aide, nous sommes sur Telegram, Facebook, Reddit et Twitter.</string>
     <!-- A button to open help -->

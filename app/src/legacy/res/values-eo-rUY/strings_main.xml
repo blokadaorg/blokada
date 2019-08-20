@@ -56,6 +56,9 @@
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">Kunhavigi la registro</string>
     <string name="main_report_title">Blokada komunikaĵo</string>
+    <string name="main_report_text">Eraron okasis (aŭ vi demandis sendi raporton). Aneksaĵo kun la protokolo estos sendita, tio povus enhavi privataj informoj. Nur fidindaj Insiders legos vian raporton, kaj ĝi malaperigos kiam ĝi ne plu estos necesa.</string>
+    <string name="main_report_comment">Raportoj kun komentoj prioritatas. Kio vi faris kiam la eraron okazis?</string>
+    <string name="main_report_limit">Raportlimo atingis. Bonvolu atendu ĝisdatigo. Dankon por vian prikomentadon!</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
     <string name="core_format_million">%s miliono(j)</string>
     <!-- To display a big number in short way, eg. 420 thousand -->

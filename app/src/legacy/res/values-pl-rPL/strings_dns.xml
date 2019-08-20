@@ -5,6 +5,8 @@
     <string name="dns_default_comment">Gdy jest ta opcja jest aktywna, będą używane domyślne serwery tego urządzenia, w zależności od sieci komórkowej i WiFi.</string>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_name">Własny</string>
+    <string name="dns_custom_comment">Niestandardowy_komentarz_dns
+ciągi_dns.xml</string>
     <!-- An example format of a DNS server address. -->
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Domyślne DNS</string>

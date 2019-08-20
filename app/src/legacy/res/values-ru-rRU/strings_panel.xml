@@ -13,8 +13,8 @@
     <string name="panel_section_home_start">Blokada VPN</string>
     <string name="panel_section_home_help">Помощь</string>
     <string name="panel_section_home_community">Сообщество</string>
-    <string name="panel_section_ads_lists">Список хостов</string>
-    <string name="panel_section_ads_log">Журнал хоста</string>
+    <string name="panel_section_ads_lists">Списки хостов</string>
+    <string name="panel_section_ads_log">Журнал хостов</string>
     <string name="panel_section_ads_blacklist">Заблокированные хосты</string>
     <string name="panel_section_ads_whitelist">Разрешенные хосты</string>
     <string name="panel_section_advanced_dns">DNS</string>
@@ -203,7 +203,7 @@
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Открыть</string>
     <string name="slot_updated_label">Blokada была обновлена!</string>
-    <string name="slot_updated_desc">Нажмите здесь, чтобы познакомиться с этим релизом.</string>
+    <string name="slot_updated_desc">Нажмите, чтобы ознакомиться с этим релизом.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_updated_action">Подробнее</string>
     <string name="slot_obsolete_label">Требуется действие: эта версия устарела!</string>
