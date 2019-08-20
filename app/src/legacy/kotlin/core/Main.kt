@@ -22,7 +22,6 @@ import gs.property.IWhen
 import gs.property.newDeviceModule
 import gs.property.newUserModule
 import io.paperdb.Paper
-import org.acra.ACRA
 import tunnel.blokadaUserAgent
 import tunnel.newRestApiModule
 
@@ -74,64 +73,11 @@ class MainApplication: Application(), KodeinAware {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         Paper.init(this)
-
-//        val builder = CoreConfigurationBuilder(this)
-//        builder.setBuildConfigClass(BuildConfig::class.java).setReportFormat(StringFormat.JSON)
-//        builder.setLogcatArguments("-t", "600", "-v", "threadtime")
-//        builder.setReportContent(
-//                ReportField.INSTALLATION_ID,
-//                ReportField.USER_COMMENT,
-//                ReportField.BUILD_CONFIG,
-//                ReportField.CUSTOM_DATA,
-//                ReportField.SHARED_PREFERENCES,
-//                ReportField.STACK_TRACE,
-//                ReportField.THREAD_DETAILS,
-//                ReportField.LOGCAT,
-//                ReportField.PACKAGE_NAME,
-//                ReportField.ANDROID_VERSION,
-//                ReportField.APP_VERSION_NAME,
-//                ReportField.TOTAL_MEM_SIZE,
-//                ReportField.AVAILABLE_MEM_SIZE,
-//                ReportField.SETTINGS_SYSTEM,
-//                ReportField.SETTINGS_SECURE
-//        )
-//        builder.setAdditionalSharedPreferences("default", "basic")
-//
-//        val c = builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder::class.java)
-//        c.setEnabled(true)
-//        c.setHttpMethod(HttpSender.Method.POST)
-//        c.setUri(getString(R.string.acra_uri))
-//        c.setBasicAuthLogin(getString(R.string.acra_login))
-//        c.setBasicAuthPassword(getString(R.string.acra_password))
-//        c.setDropReportsOnTimeout(true)
-//
-//        if (ProductType.isPublic()) {
-//            val limiter = builder.getPluginConfigurationBuilder(LimiterConfigurationBuilder::class.java)
-//            limiter.setEnabled(true)
-//            limiter.setOverallLimit(7)
-//            limiter.setStacktraceLimit(2)
-//            limiter.setExceptionClassLimit(3)
-//            limiter.setResIgnoredCrashToast(R.string.main_report_limit)
-//        }
-//
-//        val dialog = builder.getPluginConfigurationBuilder(DialogConfigurationBuilder::class.java)
-//        dialog.setEnabled(true)
-//        dialog.setResTitle(R.string.main_report_title)
-//        dialog.setResText(R.string.main_report_text)
-//        dialog.setResCommentPrompt(R.string.main_report_comment)
-//        dialog.setResTheme(R.style.GsTheme_Dialog)
-//        dialog.setResIcon(R.drawable.ic_blokada)
-//
-//        launch {
-//            val d: Device = kodein.instance()
-//            if (d.reports()) ACRA.init(this@MainApplication, builder)
-//        }
     }
 
     private fun setRestartAppOnCrash() {
         Thread.setDefaultUncaughtExceptionHandler { _, ex ->
             try {
-                ACRA.getErrorReporter().handleException(ex)
                 "fatal".ktx().e(ex)
             } catch (e: Exception) {}
             startThroughJobScheduler(this)

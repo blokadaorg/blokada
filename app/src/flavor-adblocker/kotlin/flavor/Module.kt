@@ -38,7 +38,6 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                     AboutDash(ctx).activate(false),
                     CreditsDash(lazy).activate(false),
                     CtaDash(lazy).activate(false),
-                    ShareLogDash(lazy).activate(false),
                     LoggerDash(ctx).activate(true)
             )
         }

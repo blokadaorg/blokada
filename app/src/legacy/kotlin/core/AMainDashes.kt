@@ -1,22 +1,15 @@
 package core
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.ViewGroup
 import com.github.salomonbrys.kodein.instance
-import gs.environment.ComponentProvider
 import gs.environment.Environment
-import gs.environment.Journal
 import gs.environment.inject
 import gs.presentation.WebDash
-import gs.property.Device
 import gs.property.IProperty
 import gs.property.IWhen
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
-import org.acra.ACRA
 import org.blokada.R
 import java.net.URL
 
@@ -271,40 +264,3 @@ class ChatDash(
 
 val DASH_ID_LOG = "share_log"
 
-class ShareLogDash(
-        val xx: Environment,
-        val ctx: Context = xx().instance(),
-        val activity: ComponentProvider<Activity> = xx().instance(),
-        val j: Journal = xx().instance(),
-        val s: Device = xx().instance(),
-        val k: KeepAlive = xx().instance(),
-        val f: Filters = xx().instance()
-) : Dash(
-        DASH_ID_LOG,
-        R.drawable.ic_comment_multiple_outline,
-        onClick = { dashRef ->
-            launch(UI) {
-                val r = ACRA.getErrorReporter()
-                r.putCustomData("hostsCount", ShareLogDash.getHostsCount().toString())
-                r.putCustomData("filtersActiveCount", ShareLogDash.getActiveFiltersCount().toString())
-                r.handleException(null)
-            }
-            true
-        }
-) {
-
-
-    companion object {
-
-        suspend fun getHostsCount(): Int {
-            val e = "shareLog:getHostsCount".ktx().getMostRecent(tunnel.Events.RULESET_BUILT)
-            return if (e == null) -1 else e.first - e.second
-        }
-
-        suspend fun getActiveFiltersCount(): Int {
-            val e = "shareLog:getActiveFiltersCount".ktx().getMostRecent(tunnel.Events.FILTERS_CHANGED)
-            return e?.filter { it.active }?.size ?: -1
-        }
-
-    }
-}
