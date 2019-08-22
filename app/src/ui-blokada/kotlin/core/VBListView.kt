@@ -226,7 +226,7 @@ class VBListView(
             items.add(item)
             adapter.notifyItemInserted(items.size - 1)
         } else {
-            if(position < items.size){
+            if(position <= items.size){
                 val lm = layoutManager
                 val firstWasVisible = if (lm is LinearLayoutManager) lm.findFirstCompletelyVisibleItemPosition() == 0 else false
                 items.add(position, item)
