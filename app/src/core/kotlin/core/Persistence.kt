@@ -32,4 +32,3 @@ class GlobalPersistence {
         Result.of { Paper.book().write("persistencePath", path) }
     }
 }
-

@@ -67,6 +67,14 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="app.blokada.org"
+                    android:pathPrefix="/success" />
+            </intent-filter>
         </activity>
         <activity
             android:name="core.StepActivity"

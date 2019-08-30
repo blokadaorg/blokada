@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/square"
+    android:padding="3dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_gravity="end"
+        android:src="@drawable/ic_close"
+        android:tint="@color/colorActive"
+        android:padding="4dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp" />
+</FrameLayout>
