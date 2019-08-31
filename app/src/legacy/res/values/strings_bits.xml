@@ -72,7 +72,7 @@
     <string name="menu_vpn_manage_subscription">Manage your account subscription</string>
     <string name="menu_vpn_account_secret">Your account ID is secret and you should keep it to yourself. Write it down in case you uninstall the app.</string>
     <string name="menu_vpn_restore_label">Here you can restore your existing account if, for example, you re-installed the app.</string>
-    <string name="menu_vpn_intro">With VPN your data in encrypted, your IP address is hidden, and your location is changed.</string>
+    <string name="menu_vpn_intro">With VPN your data is encrypted, your IP address is hidden, and your location is changed.</string>
     <string name="menu_vpn_account_label">In order to use the VPN, you need active account. Check or restore your account here.</string>
     <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
     <string name="menu_dns_recommended">Recommended DNS servers</string>
