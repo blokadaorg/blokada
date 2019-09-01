@@ -9,6 +9,7 @@ import core.bits.menu.MenuItemsVB
 import core.bits.menu.SimpleMenuItemVB
 import gs.presentation.NamedViewBinder
 import org.blokada.R
+import ui.bits.menu.vpn.LeasesDashboardSectionVB
 
 private fun createMenuVpn(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemsVB(ktx,
@@ -19,7 +20,9 @@ private fun createMenuVpn(ktx: AndroidKontext): NamedViewBinder {
                 LabelVB(ktx, label = R.string.menu_vpn_account_label.res()),
                 createManageAccountMenuItem(ktx),
                 LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res()),
-                createGatewaysMenuItem(ktx)
+                createGatewaysMenuItem(ktx),
+                LabelVB(ktx, label = R.string.slot_leases_info.res()),
+                createLeasesMenuItem(ktx)
             ),
             name = R.string.menu_vpn.res()
     )
@@ -46,6 +49,14 @@ fun createGatewaysMenuItem(ktx: AndroidKontext): NamedViewBinder {
             label = R.string.menu_vpn_gateways.res(),
             icon = R.drawable.ic_server.res(),
             opens = GatewaysDashboardSectionVB(ktx)
+    )
+}
+
+fun createLeasesMenuItem(ktx: AndroidKontext): NamedViewBinder {
+    return MenuItemVB(ktx,
+       label = R.string.menu_vpn_leases.res(),
+        icon = R.drawable.ic_device.res(),
+        opens = LeasesDashboardSectionVB(ktx)
     )
 }
 

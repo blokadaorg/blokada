@@ -13,14 +13,14 @@ private fun createMenuAdblocking(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemsVB(ktx,
             items = listOf(
                 Adblocking2VB(ktx),
+                LabelVB(ktx, label = R.string.menu_ads_log_label.res()),
+                createHostsLogMenuItem(ktx),
                 LabelVB(ktx, label = R.string.menu_ads_lists_label.res()),
                 createHostsListMenuItem(ktx),
                 createHostsListDownloadMenuItem(ktx),
                 LabelVB(ktx, label = R.string.menu_ads_rules_label.res()),
                 createWhitelistMenuItem(ktx),
-                createBlacklistMenuItem(ktx),
-                LabelVB(ktx, label = R.string.menu_ads_log_label.res()),
-                createHostsLogMenuItem(ktx)
+                createBlacklistMenuItem(ktx)
             ),
             name = R.string.panel_section_ads.res()
     )

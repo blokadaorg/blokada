@@ -19,7 +19,7 @@ class RestoreAccountActivity : Activity() {
         setContentView(R.layout.vbstepview)
 
         val nameVB = EnterAccountVB(ktx, accepted = {
-            name = it
+            name = it.toLowerCase().trim()
             restoreAccountId()
         })
 

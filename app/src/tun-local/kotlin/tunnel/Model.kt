@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.text.format.DateUtils
 import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.salomonbrys.kodein.instance
@@ -313,9 +314,12 @@ fun showSnack(resource: Resource) {
     }
 }
 
-fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: Boolean = true) {
+fun clearConnectedGateway(ktx: AndroidKontext, config: BlockaConfig, showError: Boolean = true,
+                          tooManyDevices: Boolean = false) {
     ktx.v("clearing connected gateway")
-    if (config.blockaVpn && showError) {
+    if (showError && tooManyDevices) {
+        showSnack(R.string.slot_too_many_leases)
+    } else if (config.blockaVpn && showError) {
         displayLeaseExpiredNotification(ktx.ctx)
         showSnack(R.string.slot_lease_cant_connect)
     } else if (config.accountId.isBlank() && showError) {
@@ -400,11 +404,11 @@ private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
                         body()?.run {
                             // User might have a lease for old private key (if restoring account)
                             val obsoleteLeases = leases.filter { it.publicKey != config.publicKey }
-                            obsoleteLeases.forEach { deleteLease(ktx, config.copy(
-                                    publicKey = it.publicKey,
-                                    gatewayId = it.gatewayId
-                            )) }
-                            if (obsoleteLeases.isNotEmpty()) showSnack(R.string.slot_lease_deleted_information)
+//                            obsoleteLeases.forEach { deleteLease(ktx, config.copy(
+//                                    publicKey = it.publicKey,
+//                                    gatewayId = it.gatewayId
+//                            )) }
+//                            if (obsoleteLeases.isNotEmpty()) showSnack(R.string.slot_lease_deleted_information)
 
                             val lease = leases.firstOrNull {
                                 it.publicKey == config.publicKey && it.gatewayId == config.gatewayId
@@ -437,12 +441,12 @@ private fun checkLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0
     })
 }
 
-private fun deleteLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
+fun deleteLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) {
     if (config.gatewayId.isBlank()) return
     val api: RestApi = ktx.di().instance()
 
     // TODO: rewrite it to sync version, or use callback on finish
-    api.deleteLease(RestModel.LeaseRequest(config.accountId, config.publicKey, config.gatewayId)).enqueue(object: retrofit2.Callback<Void> {
+    api.deleteLease(RestModel.LeaseRequest(config.accountId, config.publicKey, config.gatewayId, "")).enqueue(object: retrofit2.Callback<Void> {
 
         override fun onFailure(call: Call<Void>?, t: Throwable?) {
             ktx.e("delete lease api call error", t ?: "null")
@@ -460,7 +464,9 @@ private fun newLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) 
     ktx.v("new lease api call")
     val api: RestApi = ktx.di().instance()
 
-    api.newLease(RestModel.LeaseRequest(config.accountId, config.publicKey, config.gatewayId)).enqueue(object: retrofit2.Callback<RestModel.Lease> {
+    api.newLease(RestModel.LeaseRequest(config.accountId, config.publicKey, config.gatewayId,
+            alias = "%s-%s".format(Build.MANUFACTURER, Build.DEVICE)))
+            .enqueue(object: retrofit2.Callback<RestModel.Lease> {
         override fun onFailure(call: Call<RestModel.Lease>?, t: Throwable?) {
             ktx.e("new lease api call error", t ?: "null")
             if (retry < MAX_RETRIES) newLease(ktx, config, retry + 1)
@@ -482,6 +488,11 @@ private fun newLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) 
                             ktx.emit(BLOCKA_CONFIG, newCfg)
                             scheduleRecheck(ktx, newCfg)
                         }
+                    }
+                    403 -> {
+                        ktx.e("new lease api call response 403 - too many devices")
+                        clearConnectedGateway(ktx, config, tooManyDevices = true, showError = true)
+                        Unit
                     }
                     else -> {
                         ktx.e("new lease api call response ${code()}")

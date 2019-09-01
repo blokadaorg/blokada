@@ -477,7 +477,7 @@ class SlotView(
     }
 
     private fun actionNameToIcon(name: String) = when (name) {
-        i18n.getString(R.string.slot_action_remove) -> "x"
+        //i18n.getString(R.string.slot_action_remove) -> "x"
         else -> name
     }
 }

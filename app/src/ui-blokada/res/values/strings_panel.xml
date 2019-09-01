@@ -162,6 +162,12 @@
     <string name="slot_gateway_description_current">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your currently selected gateway.</string>
     <string name="slot_gateway_overloaded">This gateway is busy and does not accept new connections.</string>
 
+    <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Control which of your devices connect to the VPN.</string>
+    <string name="slot_lease_name_current">%s (this device)</string>
+    <string name="slot_lease_description">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your current device.</string>
+
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">high</string>
 
@@ -253,7 +259,7 @@
     <string name="label_advanced">Advanced settings</string>
 
     <string name="slot_whitelist_updating">Updating configuration, please wait...</string>
-    <string name="slot_lease_deleted_information">Note that currently Blokada VPN can only be used on one device.</string>
+    <string name="slot_too_many_leases">You have reached the limit of active devices. Please go to Devices section to deactivate one of them.</string>
 
     <string name="slot_background_animation">Background animation</string>
     <string name="slot_background_animation_description">When on, waves will animate each time a DNS request is blocked or allowed. Turn off if you experience slowdowns.</string>

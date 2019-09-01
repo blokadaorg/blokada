@@ -6,6 +6,7 @@ import io.paperdb.Book
 import org.blokada.R
 import tunnel.BLOCKA_CONFIG
 import tunnel.BlockaConfig
+import tunnel.checkAccountInfo
 import tunnel.showSnack
 import java.util.*
 
@@ -120,7 +121,9 @@ class TunnelStateManager(
                 false
             }
             else -> {
-                ktx.emit(BLOCKA_CONFIG, latest.copy(blockaVpn = true))
+                val cfg = latest.copy(blockaVpn = true)
+                ktx.emit(BLOCKA_CONFIG, cfg)
+                checkAccountInfo(ktx, cfg)
                 true
             }
         }
