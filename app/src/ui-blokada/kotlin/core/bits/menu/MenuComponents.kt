@@ -76,3 +76,4 @@ class SimpleMenuItemVB(
 
 val MENU_CLICK = "MENU_CLICK".newEventOf<NamedViewBinder>()
 val MENU_CLICK_BY_NAME = "MENU_CLICK_BY_NAME".newEventOf<Resource>()
+val MENU_CLICK_BY_NAME_SUBMENU = "MENU_CLICK_BY_NAME_SUBMENU".newEventOf<Pair<Resource, Resource>>()

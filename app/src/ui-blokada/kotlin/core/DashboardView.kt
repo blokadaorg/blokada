@@ -17,10 +17,7 @@ import com.github.salomonbrys.kodein.instance
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import core.bits.AdsDashboardSectionVB
 import core.bits.HomeDashboardSectionVB
-import core.bits.menu.MENU_CLICK
-import core.bits.menu.MENU_CLICK_BY_NAME
-import core.bits.menu.MenuItemVB
-import core.bits.menu.createMenu
+import core.bits.menu.*
 import gs.environment.inject
 import gs.presentation.NamedViewBinder
 import gs.presentation.doAfter
@@ -164,6 +161,28 @@ class DashboardView(
                     else model.menuItemClicked(this)
                     true
                 }.sendEmptyMessageDelayed(0, 1000)
+            }
+        }, recentValue = false)
+
+        ktx.on(MENU_CLICK_BY_NAME_SUBMENU, callback = { item ->
+            val found = mainMenu.items.firstOrNull { (it as? NamedViewBinder)?.name == item.first }
+                    as NamedViewBinder?
+            found?.run {
+                if (this is MenuItemVB && opens is MenuItemsVB) {
+                    val foundSubmenu = opens.items.firstOrNull {
+                        (it as? NamedViewBinder)?.name == item.second
+                    } as NamedViewBinder?
+                    foundSubmenu?.run {
+                        if (this is MenuItemVB) {
+                            sliding.panelState = PanelState.EXPANDED
+
+                            Handler {
+                                model.menuItemClicked(opens)
+                                true
+                            }.sendEmptyMessageDelayed(0, 1000)
+                        }
+                    }
+                }
             }
         }, recentValue = false)
 
