@@ -25,7 +25,6 @@ import gs.environment.inject
 import gs.presentation.NamedViewBinder
 import gs.presentation.doAfter
 import gs.property.I18n
-import kotlinx.android.synthetic.adblockerHome.dashboard_content.view.*
 import org.blokada.R
 import tunnel.Events
 import tunnel.Persistence

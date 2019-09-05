@@ -13,7 +13,6 @@ import core.Tunnel
 import filter.hostnameRegex
 import gs.environment.ComponentProvider
 import gs.property.*
-import kotlinx.android.synthetic.adblockerHome.slotview_content.view.*
 import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import tunnel.*
@@ -754,7 +753,7 @@ class EnterSearchVB(
                 icon = ctx.getDrawable(R.drawable.ic_search),
                 description = i18n.getString(R.string.search_description),
                 action1 = Slot.Action(i18n.getString(R.string.search_action_confirm)) {
-                    onSearch((view.unfolded_edit as EditText).text.toString())
+                    onSearch((view.findViewById<EditText>(R.id.unfolded_edit)).text.toString())
                 },
                 action2 = Slot.Action(ctx.getString(R.string.search_action_clear)) {
                     onSearch("")
