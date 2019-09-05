@@ -157,6 +157,7 @@ fun createLogMenuItem(ktx: AndroidKontext): NamedViewBinder {
                 val openFileIntent = Intent(Intent.ACTION_SEND)
                 openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 openFileIntent.type = "plain/*"
                 openFileIntent.putExtra(Intent.EXTRA_STREAM,
                         FileProvider.getUriForFile(ktx.ctx, "${ktx.ctx.packageName}.files",
