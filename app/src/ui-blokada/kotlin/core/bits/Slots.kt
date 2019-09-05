@@ -402,6 +402,7 @@ class FilterVB(
                 switched = filter.active,
                 detail = filter.source.source,
                 action2 = Slot.Action(i18n.getString(R.string.slot_action_remove)) {
+                    view.fold(true)
                     filters.removeFilter(ktx, filter)
                 },
                 action3 = Slot.Action(i18n.getString(R.string.slot_action_author)) {
