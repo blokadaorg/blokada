@@ -2,6 +2,7 @@ package core.bits
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import com.github.michaelbull.result.get
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -9,11 +10,15 @@ import core.bits.menu.isLandscape
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import gs.presentation.ViewBinder
+import gs.property.I18n
+import gs.property.Repo
 import gs.property.Version
 import org.blokada.BuildConfig
 import org.blokada.R
 import tunnel.BLOCKA_CONFIG
 import tunnel.BlockaConfig
+import tunnel.showSnack
+import update.UpdateCoordinator
 import java.util.*
 
 data class SlotsSeenStatus(
@@ -39,6 +44,7 @@ class HomeDashboardSectionVB(
         val ctx: Context = ktx.ctx,
         val version: Version = ktx.di().instance(),
         val welcome: Welcome = ktx.di().instance(),
+        val repo: Repo = ktx.di().instance(),
         val manager: TunnelStateManager = ktx.di().instance(),
         override val name: Resource = R.string.panel_section_home.res()
 ) : ListViewBinder(), NamedViewBinder {
@@ -65,8 +71,11 @@ class HomeDashboardSectionVB(
                 if (slot is SimpleByteVB) slot.onTapped = {
                     // Remove this slot
                     markAsSeen()
-                    items = items.subList(1, items.size)
-                    set(items)
+
+                    if (!slot.shouldKeepAfterTap) {
+                        items = items.subList(1, items.size)
+                        set(items)
+                    }
                 }
             }
             set(items)
@@ -109,6 +118,7 @@ class HomeDashboardSectionVB(
         val cfg = Persistence.slots.load().get()
         val name = if (cfg == null) null else when {
             //isLandscape(ktx.ctx) -> null
+            isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
             (BuildConfig.VERSION_CODE > cfg.donate) && noSubscription -> OneTimeByte.DONATE
             version.obsolete() -> OneTimeByte.OBSOLETE
@@ -216,6 +226,7 @@ class SimpleByteVB(
         private val ktx: AndroidKontext,
         private val label: Resource,
         private val description: Resource,
+        val shouldKeepAfterTap: Boolean = false,
         private val onTap: (ktx: AndroidKontext) -> Unit,
         var onTapped: () -> Unit = {}
 ) : ByteVB() {
@@ -231,10 +242,18 @@ class SimpleByteVB(
 }
 
 enum class OneTimeByte {
-    CLEANUP, UPDATED, OBSOLETE, DONATE
+    CLEANUP, UPDATED, OBSOLETE, DONATE, UPDATE_AVAILABLE
 }
 
-fun createOneTimeBytes(ktx: AndroidKontext) = mapOf(
+private var updateClickCounter = 0
+private var updateNextLink = 0
+
+fun createOneTimeBytes(
+        ktx: AndroidKontext,
+        i18n: I18n = ktx.di().instance(),
+        repo: Repo = ktx.di().instance(),
+        updateCoordinator: UpdateCoordinator = ktx.di().instance()
+) = mapOf(
         OneTimeByte.CLEANUP to CleanupVB(ktx),
         OneTimeByte.UPDATED to SimpleByteVB(ktx,
                 label = R.string.home_whats_new.res(),
@@ -261,6 +280,25 @@ fun createOneTimeBytes(ktx: AndroidKontext) = mapOf(
                 onTap = { ktx ->
                     val pages: Pages = ktx.di().instance()
                     openInBrowser(ktx.ctx, pages.donate())
+                }
+        ),
+        OneTimeByte.UPDATE_AVAILABLE to SimpleByteVB(ktx,
+            label = R.string.update_notification_title.res(),
+            description = i18n.getString(R.string.update_notification_text, repo.content().newestVersionName).res(),
+            shouldKeepAfterTap = true,
+            onTap = {
+                    if (updateClickCounter++ % 2 == 0) {
+                            showSnack(R.string.update_starting)
+                            updateCoordinator.start(repo.content().downloadLinks)
+                        } else {
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.data = Uri.parse(repo.content().downloadLinks[updateNextLink].toString())
+
+                            ktx.ctx.startActivity(intent)
+
+                            updateNextLink = updateNextLink++ % repo.content().downloadLinks.size
+                        }
                 }
         )
 )
