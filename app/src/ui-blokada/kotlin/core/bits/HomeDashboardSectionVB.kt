@@ -143,7 +143,7 @@ class HomeDashboardSectionVB(
 
 class VpnVB(
         private val ktx: AndroidKontext,
-        private val s: Tunnel = ktx.di().instance(),
+        private val tunnelState: Tunnel = ktx.di().instance(),
         private val tunManager: TunnelStateManager = ktx.di().instance()
 ) : BitVB() {
 
@@ -165,16 +165,23 @@ class VpnVB(
 
     private val update = {
         view?.apply {
-            if (config.blockaVpn) {
-                label(R.string.home_vpn_enabled.res())
-                icon(R.drawable.ic_verified.res(), color = R.color.switch_on.res())
-            } else {
-                label(R.string.home_vpn_disabled.res())
+            if (!tunnelState.enabled()) {
+                label(R.string.home_blokada_disabled.res())
                 icon(R.drawable.ic_shield_outline.res())
-            }
-            switch(config.blockaVpn)
-            onSwitch { turnOn ->
-                tunManager.turnVpn(turnOn)
+                switch(null)
+                onSwitch {}
+            } else {
+                if (config.blockaVpn) {
+                    label(R.string.home_vpn_enabled.res())
+                    icon(R.drawable.ic_verified.res(), color = R.color.switch_on.res())
+                } else {
+                    label(R.string.home_vpn_disabled.res())
+                    icon(R.drawable.ic_shield_outline.res())
+                }
+                switch(config.blockaVpn)
+                onSwitch { turnOn ->
+                    tunManager.turnVpn(turnOn, openRelevantScreen = true)
+                }
             }
         }
         Unit
@@ -183,7 +190,7 @@ class VpnVB(
 
 class Adblocking2VB(
         private val ktx: AndroidKontext,
-        private val s: Tunnel = ktx.di().instance()
+        private val tunnelState: Tunnel = ktx.di().instance()
 ) : BitVB() {
 
     override fun attach(view: BitView) {
@@ -204,17 +211,24 @@ class Adblocking2VB(
 
     private val update = {
         view?.apply {
-            if (config.adblocking) {
-                label(R.string.home_adblocking_enabled.res())
-                icon(R.drawable.ic_blocked.res(), color = R.color.switch_on.res())
+            if (!tunnelState.enabled()) {
+                label(R.string.home_blokada_disabled.res())
+                icon(R.drawable.ic_blocked.res())
+                switch(null)
+                onSwitch {}
             } else {
-                label(R.string.home_adblocking_disabled.res())
-                icon(R.drawable.ic_show.res())
-            }
-            switch(config.adblocking)
-            onSwitch { adblocking ->
-                if (!adblocking && !config.blockaVpn) s.enabled %= false
-                ktx.emit(BLOCKA_CONFIG, config.copy(adblocking = adblocking))
+                if (config.adblocking) {
+                    label(R.string.home_adblocking_enabled.res())
+                    icon(R.drawable.ic_blocked.res(), color = R.color.switch_on.res())
+                } else {
+                    label(R.string.home_adblocking_disabled.res())
+                    icon(R.drawable.ic_show.res())
+                }
+                switch(config.adblocking)
+                onSwitch { adblocking ->
+                    if (!adblocking && !config.blockaVpn) tunnelState.enabled %= false
+                    ktx.emit(BLOCKA_CONFIG, config.copy(adblocking = adblocking))
+                }
             }
         }
         Unit

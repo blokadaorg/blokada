@@ -259,7 +259,7 @@
     <string name="label_advanced">Advanced settings</string>
 
     <string name="slot_whitelist_updating">Updating configuration, please wait...</string>
-    <string name="slot_too_many_leases">You have reached the limit of active devices. Please go to Devices section to deactivate one of them.</string>
+    <string name="slot_too_many_leases">Please remove old device from your list of devices.</string>
 
     <string name="slot_background_animation">Background animation</string>
     <string name="slot_background_animation_description">When on, waves will animate each time a DNS request is blocked or allowed. Turn off if you experience slowdowns.</string>

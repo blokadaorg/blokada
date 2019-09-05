@@ -106,6 +106,7 @@ class ActiveDnsVB(
 class MenuActiveDnsVB(
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,
+        private val tunnelState: Tunnel = ktx.di().instance(),
         private val i18n: I18n = ktx.di().instance(),
         private val dns: Dns = ktx.di().instance()
 ) : BitVB() {
@@ -126,33 +127,41 @@ class MenuActiveDnsVB(
 
     private val update = {
         view?.run {
-            val item = dns.choices().firstOrNull() { it.active }
-            if (item != null) {
-                val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
-                val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
+            if (!tunnelState.enabled()) {
+                label(R.string.home_blokada_disabled.res())
+                icon(R.drawable.ic_server.res())
+                switch(null)
+                onSwitch {}
+            } else {
+                val item = dns.choices().firstOrNull() { it.active }
+                if (item != null) {
+                    val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
+                    val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment
+                    ?: id.capitalize()
 
-                if (dns.enabled() && dns.hasCustomDnsSelected()) {
-                    icon(R.drawable.ic_server.res(), color = R.color.switch_on.res())
-                    label(i18n.getString(R.string.slot_dns_name, name).res())
+                    if (dns.enabled() && dns.hasCustomDnsSelected()) {
+                        icon(R.drawable.ic_server.res(), color = R.color.switch_on.res())
+                        label(i18n.getString(R.string.slot_dns_name, name).res())
+                    } else {
+                        icon(R.drawable.ic_server.res())
+                        label(R.string.slot_dns_name_disabled.res())
+                    }
                 } else {
                     icon(R.drawable.ic_server.res())
                     label(R.string.slot_dns_name_disabled.res())
                 }
-            } else {
-                icon(R.drawable.ic_server.res())
-                label(R.string.slot_dns_name_disabled.res())
-            }
 
-            switch(dns.enabled())
-            onSwitch { enabled ->
-                when {
-                    enabled && !dns.hasCustomDnsSelected(checkEnabled = false) -> {
-                        showSnack(R.string.menu_dns_select.res())
-                        ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-                        switch(false)
-                    }
-                    else -> {
-                        dns.enabled %= enabled
+                switch(dns.enabled())
+                onSwitch { enabled ->
+                    when {
+                        enabled && !dns.hasCustomDnsSelected(checkEnabled = false) -> {
+                            showSnack(R.string.menu_dns_select.res())
+                            ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                            switch(false)
+                        }
+                        else -> {
+                            dns.enabled %= enabled
+                        }
                     }
                 }
             }

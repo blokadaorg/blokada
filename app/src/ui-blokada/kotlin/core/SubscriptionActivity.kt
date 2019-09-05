@@ -20,7 +20,7 @@ import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
 import org.blokada.R
 import tunnel.BLOCKA_CONFIG
-import tunnel.BlockaConfig
+import tunnel.Persistence
 import tunnel.blokadaUserAgent
 import tunnel.showSnack
 import java.net.URL
@@ -34,9 +34,9 @@ class SubscriptionActivity : Activity() {
     private val ktx = ktx("SubscriptionActivity")
     private val w: Worker by lazy { ktx.di().with("gscore").instance<Worker>() }
 
-    private val subscriptionUrl by lazy { newProperty(w, { URL("https://localhost") }) }
-    private val updateUrl = { cfg: BlockaConfig ->
-        subscriptionUrl %= URL("https://app.blokada.org/#/activate/${cfg.accountId}")
+    private val subscriptionUrl by lazy {
+        val cfg = Persistence.blocka.load(ktx)
+        newProperty(w, { URL("https://app.blokada.org/activate/${cfg.accountId}") })
     }
 
     private val dash by lazy {
@@ -55,6 +55,7 @@ class SubscriptionActivity : Activity() {
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.subscription_container)
+
 
         if (bound || bindChromeTabs()) {
             val url = subscriptionUrl().toExternalForm() + "?user-agent=" + blokadaUserAgent(this, true)
@@ -93,7 +94,6 @@ class SubscriptionActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        ktx.on(BLOCKA_CONFIG, updateUrl)
 
         if (exitedToBrowser) {
             exitedToBrowser = false
@@ -103,7 +103,6 @@ class SubscriptionActivity : Activity() {
 
     override fun onStop() {
         super.onStop()
-        ktx.cancel(BLOCKA_CONFIG, updateUrl)
 
         async {
             ktx.getMostRecent(BLOCKA_CONFIG)?.run {

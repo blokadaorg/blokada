@@ -1,7 +1,10 @@
 package core
 
+import android.content.Context
+import android.content.Intent
 import com.github.michaelbull.result.getOrElse
 import com.github.salomonbrys.kodein.instance
+import core.bits.menu.MENU_CLICK_BY_NAME_SUBMENU
 import io.paperdb.Book
 import org.blokada.R
 import tunnel.BLOCKA_CONFIG
@@ -18,6 +21,7 @@ class TunnelStateManager(
         private val ktx: AndroidKontext,
         private val s: Tunnel = ktx.di().instance(),
         private val d: Dns = ktx.di().instance(),
+        private val ctx: Context = ktx.ctx,
         private val loadPersistence: () -> Result<TunnelPause> = Persistence.pause.load,
         private val savePersistence: (TunnelPause) -> Result<Book> = Persistence.pause.save
 ) {
@@ -104,18 +108,28 @@ class TunnelStateManager(
         return true
     }
 
-    fun turnVpn(on: Boolean): Boolean {
+    fun turnVpn(on: Boolean, openRelevantScreen: Boolean = false): Boolean {
         return when {
             !on -> {
                 ktx.emit(BLOCKA_CONFIG, latest.copy(blockaVpn = false))
                 true
             }
             latest.activeUntil.before(Date()) -> {
-                showSnack(R.string.menu_vpn_activate_account.res())
+                if (openRelevantScreen) {
+                    modalManager.openModal()
+                    ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    })
+                } else {
+                    showSnack(R.string.menu_vpn_activate_account.res())
+                }
                 ktx.emit(BLOCKA_CONFIG, latest.copy(blockaVpn = false))
                 false
             }
             !latest.hasGateway() -> {
+                if (openRelevantScreen) {
+                    ktx.emit(MENU_CLICK_BY_NAME_SUBMENU, R.string.menu_vpn.res() to R.string.menu_vpn_gateways.res())
+                }
                 showSnack(R.string.menu_vpn_select_gateway.res())
                 ktx.emit(BLOCKA_CONFIG, latest.copy(blockaVpn = false))
                 false

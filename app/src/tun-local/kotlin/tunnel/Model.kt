@@ -11,6 +11,7 @@ import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.salomonbrys.kodein.instance
 import com.google.android.material.snackbar.Snackbar
 import core.*
+import core.bits.menu.MENU_CLICK_BY_NAME_SUBMENU
 import gs.property.Device
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
@@ -491,6 +492,7 @@ private fun newLease(ktx: AndroidKontext, config: BlockaConfig, retry: Int = 0) 
                     }
                     403 -> {
                         ktx.e("new lease api call response 403 - too many devices")
+                        ktx.emit(MENU_CLICK_BY_NAME_SUBMENU, R.string.menu_vpn.res() to R.string.menu_vpn_leases.res())
                         clearConnectedGateway(ktx, config, tooManyDevices = true, showError = true)
                         Unit
                     }
