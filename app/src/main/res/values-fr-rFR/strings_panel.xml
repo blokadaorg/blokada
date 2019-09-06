@@ -190,7 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Paramètres avancés</string>
     <string name="slot_whitelist_updating">Mise à jour de la configuration, veuillez patienter...</string>
-    <string name="slot_too_many_leases">Vous avez atteint la limite d\'appareils actifs. Veuillez aller à la section Appareils pour en désactiver un.</string>
+    <string name="slot_too_many_leases">Veuillez supprimer les appareils obsolètes de votre liste d\'appareils.</string>
     <string name="slot_background_animation">Animation de fond</string>
     <string name="slot_background_animation_description">Lorsque cette option est activée, des vagues s\'animeront chaque fois qu\'une requête DNS est bloquée ou autorisée. Désactivez cette fonction en cas de ralentissement.</string>
     <string name="slot_reset_counter_label">Réinitialiser le compteur de domaines bloqués</string>

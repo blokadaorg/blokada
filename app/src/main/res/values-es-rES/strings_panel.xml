@@ -192,7 +192,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Configuración avanzada</string>
     <string name="slot_whitelist_updating">Actualizando configuración, por favor espera...</string>
-    <string name="slot_too_many_leases">Has alcanzado el límite de dispositivos activos. Por favor, ve a la sección Dispositivos para desactivar alguno de ellos.</string>
+    <string name="slot_too_many_leases">Por favor, elimina el dispositivo antiguo de tu lista de dispositivos.</string>
     <string name="slot_background_animation">Animación de fondo</string>
     <string name="slot_background_animation_description">Cuando está activado, las ondas se animarán cada vez que una solicitud DNS sea bloqueada o permitida. Desactiva esta opción si experimentas ralentización.</string>
     <string name="slot_reset_counter_label">Restablecer contador de hosts bloqueados</string>

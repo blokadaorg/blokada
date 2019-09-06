@@ -170,7 +170,7 @@
     <string name="slot_blog_desc">Blog je místo, kde píšeme o vývoji projektu, budoucích plánech a diskutujeme o nápadech.</string>
     <!-- A button to open a blog -->
     <string name="slot_blog_action">Otevřít</string>
-    <string name="slot_updated_desc">Dotkněte se zde pro představení tohoto vydání.</string>
+    <string name="slot_updated_desc">Dotkněte se zde pro představení novinek v tomto vydání.</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_obsolete_desc">Vaše verze Blokady je zastaralá a nemusí fungovat správně. Chcete-li i nadále dostávat aktualizace, stáhněte si nejnovější verzi.</string>
     <!-- A button to update the app. -->
@@ -190,7 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Pokročilá nastavení</string>
     <string name="slot_whitelist_updating">Aktualizace konfigurace, vyčkejte prosím...</string>
-    <string name="slot_too_many_leases">Dosáhli jste limitu aktivních zařízení. Přejděte prosím do sekce Zařízení a minimálně jedno deaktivujte.</string>
+    <string name="slot_too_many_leases">Odstraňte prosím staré zařízení ze seznamu zařízení.</string>
     <string name="slot_background_animation">Animace pozadí</string>
     <string name="slot_background_animation_description">Když je zapnuta, vlny se budou animovat pokaždé, když je požadavek DNS blokován nebo povolen. Pokud dojde ke zpomalování zařízení, vypněte ji.</string>
     <string name="slot_reset_counter_label">Obnovit čítač zablokovaných hostitelů</string>

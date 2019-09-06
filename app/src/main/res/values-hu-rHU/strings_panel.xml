@@ -190,7 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Haladó beállítások</string>
     <string name="slot_whitelist_updating">Konfiguráció frissítése, kérjük várj...</string>
-    <string name="slot_too_many_leases">Elérted az aktív készülékek korlátját. Kérjük, lépj a Készülékek szakaszba, hogy az egyiket kikapcsold.</string>
+    <string name="slot_too_many_leases">Kérjük, távolítsd el a régi készüléket a készülékek listájáról.</string>
     <string name="slot_background_animation">Háttér animáció</string>
     <string name="slot_background_animation_description">Amikor be van kapcsolva, a hullámok minden alkalommal, amikor letiltásra vagy engedélyezésre kerül egy DNS kérelem, animálódik. Kapcsold ki, ha lassulást tapasztalsz.</string>
     <string name="slot_reset_counter_label">Blokkolt hosztszámláló nullázása</string>

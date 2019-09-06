@@ -190,7 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">الإعدادات المتقدِّمة</string>
     <string name="slot_whitelist_updating">جارِ تحديث التكوين ، الرجاء الإنتظار...</string>
-    <string name="slot_too_many_leases">لقد وصلت إلى الحدّ الأقصى للأجهزة النشطة. الرجاء الإنتقال إلى قسم \"الأجهزة\" لإلغاء تنشيط واحد منهم.</string>
+    <string name="slot_too_many_leases">الرجاء إزالة الجهاز القديم من قائمة الأجهزة الخاصّة بك.</string>
     <string name="slot_background_animation">خلفيّات مُتحرِّكة</string>
     <string name="slot_background_animation_description">عِنْد التشغيل ، ستتحرّك الموجات في كلّ مرّة يَتِمّ فيها حَظْر طَلبْ DNS أو السماح به. قُمْ بإلغائه إذا واجَهت بُطأً.</string>
     <string name="slot_reset_counter_label">إعادة تعيين عدّاد الحَظْر</string>

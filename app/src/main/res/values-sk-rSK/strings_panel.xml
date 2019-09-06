@@ -190,7 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Pokročilé nastavenia</string>
     <string name="slot_whitelist_updating">Aktualizácia konfigurácie, počkajte prosím...</string>
-    <string name="slot_too_many_leases">Dosiahli ste limit aktívnych zariadení. Prejdite prosím do sekcie Zariadenia a deaktivujte minimálne jedno.</string>
+    <string name="slot_too_many_leases">Odstráňte prosím staré zariadenie zo zoznamu zariadení.</string>
     <string name="slot_background_animation">Animácia pozadia</string>
     <string name="slot_background_animation_description">Ak je zapnutá, na pozadí sa budú animovať vlny zakaždým, keď bude zakázaná či povolená DNS požiadavka. Ak dôjde k spomaleniu aplikácie, vypnite ju.</string>
     <string name="slot_reset_counter_label">Vynulovať počítadlo zablok. požiadaviek</string>

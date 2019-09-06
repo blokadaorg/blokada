@@ -191,7 +191,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Разширени настройки</string>
     <string name="slot_whitelist_updating">Конфигурацията се актуализира, моля изчакайте...</string>
-    <string name="slot_too_many_leases">Достигнахте лимита на активните устройства. Моля, отидете в раздела Устройства за да деактивирате едно от тях.</string>
+    <string name="slot_too_many_leases">Моля, премахнете старото устройство от списъка с устройства.</string>
     <string name="slot_background_animation">Фонова анимация</string>
     <string name="slot_background_animation_description">Когато са включени, вълните ще анимират всеки път при блокирана или позволена заявка за DNS. Изключете, ако има забавяне в призводителността.</string>
     <string name="slot_reset_counter_label">Нулиране брояча на блокирани хостове</string>

@@ -190,7 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Pengaturan lanjutan</string>
     <string name="slot_whitelist_updating">Memperbarui konfigurasi, harap tunggu...</string>
-    <string name="slot_too_many_leases">Anda telah melampaui kuota perangkat aktif yang bisa terhubung ke VPN. Silakan menuju ke laman Perangkat dan nonaktifkan salah satu perangkat.</string>
+    <string name="slot_too_many_leases">Harap keluarkan perangkat lama dari daftar perangkat Anda.</string>
     <string name="slot_background_animation">Animasi di latar belakang</string>
     <string name="slot_background_animation_description">Ketika Blokada aktif, animasi gelombang akan muncul di latar belakang setiap kali ada permintaan DNS yang diblokir (gelombang berwarna merah) atau diizinkan (warna putih). Animasi tersebut bisa dinonaktifkan jika perangkat Anda mengalami masalah.</string>
     <string name="slot_reset_counter_label">Reset penghitung host</string>
