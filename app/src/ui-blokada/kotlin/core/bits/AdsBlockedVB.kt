@@ -21,7 +21,7 @@ class AdsBlockedVB(
     private var dropped: Int = 0
     private var active = false
     private var activating = false
-    private var config: BlockaConfig = BlockaConfig()
+    private var config: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
 
     override fun attach(view: ByteView) {
         droppedCountListener = tunnelEvents.tunnelDropCount.doOnUiWhenSet().then {

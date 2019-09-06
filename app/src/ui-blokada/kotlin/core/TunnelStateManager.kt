@@ -26,7 +26,7 @@ class TunnelStateManager(
         private val savePersistence: (TunnelPause) -> Result<Book> = Persistence.pause.save
 ) {
 
-    private var latest: BlockaConfig = BlockaConfig()
+    private var latest: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
         @Synchronized get
         @Synchronized set
 

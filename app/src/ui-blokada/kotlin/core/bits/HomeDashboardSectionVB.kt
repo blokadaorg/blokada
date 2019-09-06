@@ -100,7 +100,7 @@ class HomeDashboardSectionVB(
         Unit
     }
 
-    private var cfg: BlockaConfig = BlockaConfig()
+    private var cfg: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
     private var added: OneTimeByte? = null
     private val oneTimeBytes = createOneTimeBytes(ktx)
 
@@ -156,7 +156,7 @@ class VpnVB(
         ktx.cancel(BLOCKA_CONFIG, configListener)
     }
 
-    private var config: BlockaConfig = BlockaConfig()
+    private var config: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
     private val configListener = { cfg: BlockaConfig ->
         config = cfg
         update()
@@ -202,7 +202,7 @@ class Adblocking2VB(
         ktx.cancel(BLOCKA_CONFIG, configListener)
     }
 
-    private var config: BlockaConfig = BlockaConfig()
+    private var config: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
     private val configListener = { cfg: BlockaConfig ->
         config = cfg
         update()

@@ -36,7 +36,7 @@ class VpnStatusVB(
     private var wasActive = false
     private var active = false
     private var activating = false
-    private var config: BlockaConfig = BlockaConfig()
+    private var config: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
     private val configListener = { cfg: BlockaConfig ->
         config = cfg
         update()
