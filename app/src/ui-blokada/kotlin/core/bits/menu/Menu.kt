@@ -1,5 +1,6 @@
 package core.bits.menu
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.content.FileProvider
@@ -151,21 +152,23 @@ fun createLogMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.main_log.res(),
             icon = R.drawable.ic_bug_report_black_24dp.res(),
-            action = {
-                //                    if (askForExternalStoragePermissionsIfNeeded(activity)) {
-                val uri = File(ktx.ctx.filesDir, "/blokada.log")
-                val openFileIntent = Intent(Intent.ACTION_SEND)
-                openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                openFileIntent.type = "plain/*"
-                openFileIntent.putExtra(Intent.EXTRA_STREAM,
-                        FileProvider.getUriForFile(ktx.ctx, "${ktx.ctx.packageName}.files",
-                        uri))
-                ktx.ctx.startActivity(openFileIntent)
-//                    }
-            }
+            action = { shareLog(ktx.ctx) }
     )
+}
+
+fun shareLog(ctx: Context) {
+    //                    if (askForExternalStoragePermissionsIfNeeded(activity)) {
+    val uri = File(ctx.filesDir, "/blokada.log")
+    val openFileIntent = Intent(Intent.ACTION_SEND)
+    openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    openFileIntent.type = "plain/*"
+    openFileIntent.putExtra(Intent.EXTRA_STREAM,
+            FileProvider.getUriForFile(ctx, "${ctx.packageName}.files",
+                    uri))
+    ctx.startActivity(openFileIntent)
+//                    }
 }
 
 fun createAppDetailsMenuItem(ktx: AndroidKontext): NamedViewBinder {

@@ -224,6 +224,20 @@
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+
+        <activity
+            android:name="core.SendLogActivity"
+            android:label="Blokada Share Log"
+            android:launchMode="singleTask"
+            android:theme="@style/BlokadaColors.Main.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="blocka"
+                    android:host="log"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

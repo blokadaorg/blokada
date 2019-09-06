@@ -1,5 +1,6 @@
 package core
 
+import android.app.Activity
 import android.app.Application
 import android.app.job.JobInfo
 import android.app.job.JobParameters
@@ -14,6 +15,7 @@ import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.lazy
+import core.bits.menu.shareLog
 import flavor.newFlavorModule
 import gs.environment.inject
 import gs.environment.newGscoreModule
@@ -21,6 +23,8 @@ import gs.property.Device
 import gs.property.IWhen
 import gs.property.newDeviceModule
 import io.paperdb.Paper
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.delay
 import tunnel.blokadaUserAgent
 import tunnel.newRestApiModule
 
@@ -143,3 +147,16 @@ class BootJobService : JobService() {
 
 }
 
+class SendLogActivity : Activity() {
+
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+        //initGlobal(this, failsafe = true)
+        shareLog(this)
+        async {
+            delay(2000)
+            finish()
+        }
+        //System.exit(0)
+    }
+}
