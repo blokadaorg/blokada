@@ -1,5 +1,5 @@
 #!/bin/sh
-JNI_LIBS=../app/src/vpn/jniLibs
+JNI_LIBS=../app/src/tun-blocka/jniLibs
 
 export PATH=$PATH:$NDK_STANDALONE/arm64/bin
 export PATH=$PATH:$NDK_STANDALONE/x86/bin
