@@ -1,5 +1,5 @@
 #!/bin/sh
-JNI_LIBS=../app/src/vpn/jniLibs
+JNI_LIBS=../app/src/tun-blocka/jniLibs
 
 export PATH=$PATH:$NDK_STANDALONE/arm64/bin
 
@@ -28,4 +28,4 @@ cargo build --lib --release --target i686-linux-android
 cp target/i686-linux-android/release/libboringtun.so $JNI_LIBS/x86/libboringtun.so
 
 cd ../
-./gradlew iAHD
+./gradlew iFD
