@@ -190,6 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Impostazioni avanzate</string>
     <string name="slot_whitelist_updating">Aggiornamento della configurazione, attendere...</string>
+    <string name="slot_too_many_leases">Per favore, rimuovi i vecchi dispositivi dalla tua lista dei dispositivi.</string>
     <string name="slot_background_animation">Animazione sfondo</string>
     <string name="slot_background_animation_description">Quando attiva, delle onde si animeranno ogni volta che una richiesta DNS verrà bloccata o consentita. Disattivala in caso di rallentamenti.</string>
     <string name="slot_reset_counter_label">Azzera contatore host bloccati</string>

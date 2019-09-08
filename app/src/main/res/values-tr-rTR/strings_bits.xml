@@ -53,9 +53,12 @@
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Ağ geçitleri</string>
     <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_leases">Cihazlar</string>
     <string name="menu_vpn_manage_subscription">Hesap aboneliğinizi yönetin</string>
     <string name="menu_vpn_account_secret">Hesap kimliğiniz gizlidir ve kendinize saklamalısınız. Uygulamayı kaldırırsanız yazınız.</string>
     <string name="menu_vpn_restore_label">Burada, örneğin uygulamayı yeniden yüklediyseniz, mevcut hesabınızı geri yükleyebilirsiniz.</string>
+    <string name="menu_vpn_intro">VPN ile verileriniz şifrelenir, IP adresiniz gizlenir ve konumunuz değiştirilir.</string>
+    <string name="menu_vpn_account_label">VPN\'i kullanmak için aktif bir hesaba ihtiyacınız var. Burada hesabınızı kontrol edin veya geri yükleyin.</string>
     <string name="menu_vpn_gateways_label">Bağlanılacak ağ geçitlerinden birini seçin. Cihazınız şifrelenmiş verilerinizi bu ağ geçidi üzerinden güvenli bir şekilde gönderir ve siz de isimsiz kalırsınız.</string>
     <string name="menu_dns_recommended">Önerilen DNS sunucuları</string>
     <string name="menu_dns_intro">DNS, kullandığınız web sitelerinin ve uygulamaların IP adreslerini çevirmekten sorumludur. İyi bir DNS seçmek, cihazınızı hızlandırabilir ve gizliliğinizin korunmasına yardımcı olur.</string>

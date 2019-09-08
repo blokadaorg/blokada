@@ -57,7 +57,7 @@
     <string name="menu_vpn_manage_subscription">Gerenciar assinatura da sua conta</string>
     <string name="menu_vpn_account_secret">O ID da sua conta é secreto e você deve guardá-lo para si mesmo. Anote-o caso você desinstale o aplicativo.</string>
     <string name="menu_vpn_restore_label">Aqui você pode restaurar sua conta existente se, por exemplo, você reinstalar o aplicativo.</string>
-    <string name="menu_vpn_intro">Com VPN seus dados são encriptados, sua direção IP oculta, e sua ubicação alterada.</string>
+    <string name="menu_vpn_intro">Com a VPN, seus dados são criptografados, seu endereço IP fica oculto, e sua localização é alterada.</string>
     <string name="menu_vpn_account_label">Para usar a VPN, você precisa de uma conta ativa. Verifique ou restaure sua conta aqui.</string>
     <string name="menu_vpn_gateways_label">Selecione um dos gateways para se conectar. Seu dispositivo enviará seus dados criptografados de forma segura através desse gateway e você permanecerá anônimo.</string>
     <string name="menu_dns_recommended">Servidores DNS recomendados</string>

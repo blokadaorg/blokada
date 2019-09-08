@@ -24,4 +24,12 @@
     <string name="notification_keepalive_content">Recenste: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">nog niets</string>
+    <string name="notification_keepalive_activate">Activeren</string>
+    <string name="notification_keepalive_activating">Blokada begint. Dit kan even duren.</string>
+    <string name="notification_keepalive_deactivate">Deactiveren</string>
+    <string name="notification_keepalive_deactivating">Blokada werd gedeactiveerd!</string>
+    <string name="notification_expired_title">Blokada VPN-account verlopen</string>
+    <string name="notification_expired_description">Uw account is zojuist verlopen en u bent momenteel niet verbonden met Blokada VPN. Overweeg uw account opnieuw te activeren voor betere bescherming.</string>
+    <string name="notification_lease_expired_title">Blokada VPN uitgeschakeld</string>
+    <string name="notification_lease_expired_description">Er was een verbindingsprobleem met Blokada VPN. Probeer te verbinden met een andere gateway. Als het probleem zich blijft voordoen, neem dan contact met ons op via Telegram.</string>
 </resources>

@@ -121,6 +121,10 @@
     <string name="slot_gateway_description_current">Performans: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Bölge: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Bu, şu anda seçili ağ geçidinizdir.</string>
     <string name="slot_gateway_overloaded">Bu ağ geçidi meşgul ve yeni bağlantılar kabul etmiyor.</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Hangi cihazlarınızın VPN\'e bağlandığını kontrol edin.</string>
+    <string name="slot_lease_name_current">%s (bu cihaz)</string>
+    <string name="slot_lease_description">Cihaz kimliği: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">Cihaz kimliği: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Bu mevcut cihazınız.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">yüksek</string>
     <!-- Gateway load -->
@@ -186,6 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Gelişmiş ayarlar</string>
     <string name="slot_whitelist_updating">Yapılandırma güncelleniyor, lütfen bekleyin...</string>
+    <string name="slot_too_many_leases">Lütfen eski cihazı cihaz listenizden kaldırın.</string>
     <string name="slot_background_animation">Arkaplan animasyonu</string>
     <string name="slot_background_animation_description">Açık olduğunda, bir DNS isteği engellendiğinde veya izin verildiğinde dalgalar canlanacaktır. Yavaşlamalar yaşıyorsanız kapatın.</string>
     <string name="slot_reset_counter_label">Engellenen host sayacını sıfırla</string>

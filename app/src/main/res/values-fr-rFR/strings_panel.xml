@@ -123,8 +123,8 @@
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
     <string name="slot_leases_info">Contrôlez lequel de vos appareils se connecte au VPN.</string>
     <string name="slot_lease_name_current">%s (cet appareil)</string>
-    <string name="slot_lease_description">ID de l\'appareil: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="slot_lease_description_current">ID de l\'appareil: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;C\'est votre appareil actuel.</string>
+    <string name="slot_lease_description">ID de l\'appareil : &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">ID de l\'appareil : &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;C\'est votre appareil actuel.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">haut</string>
     <!-- Gateway load -->
@@ -190,7 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Paramètres avancés</string>
     <string name="slot_whitelist_updating">Mise à jour de la configuration, veuillez patienter...</string>
-    <string name="slot_too_many_leases">Veuillez supprimer les appareils obsolètes de votre liste d\'appareils.</string>
+    <string name="slot_too_many_leases">Veuillez supprimer l\'ancien appareil de votre liste.</string>
     <string name="slot_background_animation">Animation de fond</string>
     <string name="slot_background_animation_description">Lorsque cette option est activée, des vagues s\'animeront chaque fois qu\'une requête DNS est bloquée ou autorisée. Désactivez cette fonction en cas de ralentissement.</string>
     <string name="slot_reset_counter_label">Réinitialiser le compteur de domaines bloqués</string>

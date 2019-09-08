@@ -57,7 +57,7 @@
     <string name="menu_vpn_manage_subscription">Gérer votre abonnement</string>
     <string name="menu_vpn_account_secret">Votre ID de compte est secret et vous devez le garder pour vous. Conservez-le dans le cas où vous désinstalleriez l\'application.</string>
     <string name="menu_vpn_restore_label">Ici, vous pouvez restaurer votre compte existant si, par exemple, vous avez réinstallé l\'application.</string>
-    <string name="menu_vpn_intro">Avec le VPN, vos données sont cryptées, votre adresse IP est masquée et votre emplacement est modifié.</string>
+    <string name="menu_vpn_intro">Avec un VPN vos données sont chiffrées, votre adresse IP est cachée et votre emplacement géographique est changé.</string>
     <string name="menu_vpn_account_label">Pour utiliser le VPN, vous devez avoir un compte actif. Vérifiez ou restaurez votre compte ici.</string>
     <string name="menu_vpn_gateways_label">Sélectionnez le serveur VPN auquel vous souhaitez vous connecter. Votre appareil enverra vos données chiffrées à travers ce serveur, et vous resterez anonyme.</string>
     <string name="menu_dns_recommended">Serveurs DNS recommandés</string>
