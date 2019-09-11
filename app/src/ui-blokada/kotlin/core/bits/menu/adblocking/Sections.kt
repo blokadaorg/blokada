@@ -8,7 +8,7 @@ import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import gs.presentation.ViewBinder
 import org.blokada.R
-import tunnel.Events
+import tunnel.TunnelEvents
 import tunnel.Filter
 
 internal class SlotMutex {
@@ -59,12 +59,12 @@ class FiltersSectionVB(
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
-        ktx.on(Events.FILTERS_CHANGED, filtersUpdated)
+        ktx.on(TunnelEvents.FILTERS_CHANGED, filtersUpdated)
     }
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
-        ktx.cancel(Events.FILTERS_CHANGED, filtersUpdated)
+        ktx.cancel(TunnelEvents.FILTERS_CHANGED, filtersUpdated)
     }
 
 }

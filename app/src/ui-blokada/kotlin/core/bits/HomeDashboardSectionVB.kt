@@ -3,6 +3,8 @@ package core.bits
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import blocka.BlockaVpnState
+import blocka.CurrentAccount
 import com.github.michaelbull.result.get
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -15,8 +17,7 @@ import gs.property.Repo
 import gs.property.Version
 import org.blokada.BuildConfig
 import org.blokada.R
-import tunnel.BLOCKA_CONFIG
-import tunnel.BlockaConfig
+import tunnel.TunnelConfig
 import tunnel.showSnack
 import update.UpdateCoordinator
 import java.util.*
@@ -45,12 +46,12 @@ class HomeDashboardSectionVB(
         val version: Version = ktx.di().instance(),
         val welcome: Welcome = ktx.di().instance(),
         val repo: Repo = ktx.di().instance(),
-        val manager: TunnelStateManager = ktx.di().instance(),
         override val name: Resource = R.string.panel_section_home.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     override fun attach(view: VBListView) {
-        ktx.on(BLOCKA_CONFIG, listener)
+        on(CurrentAccount::class.java, this::update)
+        update()
         if (isLandscape(ktx.ctx)) {
             view.enableLandscapeMode(reversed = false)
             view.set(items)
@@ -58,10 +59,11 @@ class HomeDashboardSectionVB(
     }
 
     override fun detach(view: VBListView) {
-        ktx.cancel(BLOCKA_CONFIG, listener)
+        cancel(CurrentAccount::class.java, this::update)
     }
 
-    private val update = {
+    private fun update() {
+        val cfg = get(CurrentAccount::class.java)
         view?.run {
             val noSubscription = cfg.activeUntil.before(Date())
             val (slot, name) = decideOnSlot(noSubscription)
@@ -94,13 +96,6 @@ class HomeDashboardSectionVB(
             ShareVB(ktx)
     )
 
-    private val listener = { config: BlockaConfig ->
-        cfg = config
-        update()
-        Unit
-    }
-
-    private var cfg: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
     private var added: OneTimeByte? = null
     private val oneTimeBytes = createOneTimeBytes(ktx)
 
@@ -143,27 +138,20 @@ class HomeDashboardSectionVB(
 
 class VpnVB(
         private val ktx: AndroidKontext,
-        private val tunnelState: Tunnel = ktx.di().instance(),
-        private val tunManager: TunnelStateManager = ktx.di().instance()
+        private val tunnelState: Tunnel = ktx.di().instance()
 ) : BitVB() {
 
     override fun attach(view: BitView) {
-        ktx.on(BLOCKA_CONFIG, configListener)
+        on(BlockaVpnState::class.java, this::update)
         update()
     }
 
     override fun detach(view: BitView) {
-        ktx.cancel(BLOCKA_CONFIG, configListener)
+        cancel(BlockaVpnState::class.java, this::update)
     }
 
-    private var config: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
-    private val configListener = { cfg: BlockaConfig ->
-        config = cfg
-        update()
-        Unit
-    }
-
-    private val update = {
+    private fun update() {
+        val config = get(BlockaVpnState::class.java)
         view?.apply {
             if (!tunnelState.enabled()) {
                 label(R.string.home_blokada_disabled.res())
@@ -171,16 +159,16 @@ class VpnVB(
                 switch(null)
                 onSwitch {}
             } else {
-                if (config.blockaVpn) {
+                if (config.enabled) {
                     label(R.string.home_vpn_enabled.res())
                     icon(R.drawable.ic_verified.res(), color = R.color.switch_on.res())
                 } else {
                     label(R.string.home_vpn_disabled.res())
                     icon(R.drawable.ic_shield_outline.res())
                 }
-                switch(config.blockaVpn)
+                switch(config.enabled)
                 onSwitch { turnOn ->
-                    tunManager.turnVpn(turnOn, openRelevantScreen = true)
+                    entrypoint.onVpnSwitched(turnOn)
                 }
             }
         }
@@ -194,22 +182,20 @@ class Adblocking2VB(
 ) : BitVB() {
 
     override fun attach(view: BitView) {
-        ktx.on(BLOCKA_CONFIG, configListener)
+        on(TunnelConfig::class.java, this::update)
+        on(BlockaVpnState::class.java, this::update)
         update()
     }
 
     override fun detach(view: BitView) {
-        ktx.cancel(BLOCKA_CONFIG, configListener)
+        cancel(TunnelConfig::class.java, this::update)
+        cancel(BlockaVpnState::class.java, this::update)
     }
 
-    private var config: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
-    private val configListener = { cfg: BlockaConfig ->
-        config = cfg
-        update()
-        Unit
-    }
+    private fun update() {
+        val config = get(TunnelConfig::class.java)
+        val blockaVpnState = get(BlockaVpnState::class.java)
 
-    private val update = {
         view?.apply {
             if (!tunnelState.enabled()) {
                 label(R.string.home_blokada_disabled.res())
@@ -226,8 +212,7 @@ class Adblocking2VB(
                 }
                 switch(config.adblocking)
                 onSwitch { adblocking ->
-                    if (!adblocking && !config.blockaVpn) tunnelState.enabled %= false
-                    ktx.emit(BLOCKA_CONFIG, config.copy(adblocking = adblocking))
+                    entrypoint.onSwitchAdblocking(adblocking)
                 }
             }
         }

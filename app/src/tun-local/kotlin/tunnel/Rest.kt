@@ -4,13 +4,11 @@ import android.content.Context
 import android.os.Build
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import core.ProductType
-import core.ktx
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.blokada.BuildConfig
@@ -95,6 +93,7 @@ object RestModel {
             val gatewayId: String,
             val alias: String
     )
+    class TooManyDevicesException : Exception()
 }
 
 fun blokadaUserAgent(ctx: Context, viewer: Boolean? = null)
@@ -114,15 +113,14 @@ fun blokadaUserAgent(ctx: Context, viewer: Boolean? = null)
 fun newRestApiModule(ctx: Context): Kodein.Module {
     return Kodein.Module(init = {
         bind<RestApi>() with singleton {
-            val tun: tunnel.Main = instance()
 //            val cp = ConnectionPool(1, 1, TimeUnit.MILLISECONDS)
             val clientBuilder = OkHttpClient.Builder()
 //                    .connectionPool(cp)
                     .addNetworkInterceptor { chain ->
                         val request = chain.request()
                         chain.connection()?.socket()?.let {
-                            ctx.ktx("okhttp").v("protecting okhttp socket")
-                            tun.protect(it)
+                            //ctx.ktx("okhttp").v("protecting okhttp socket")
+                            tunnelMain.protect(it)
                         }
                         chain.proceed(request)
                     }

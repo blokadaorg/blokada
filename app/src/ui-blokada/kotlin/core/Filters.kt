@@ -68,12 +68,11 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
             val s: Filters = instance()
             val t: Tunnel = instance()
             val j: Journal = instance()
-            val m: tunnel.Main = instance()
 
             // Compile filters every time they change
             s.changed.doWhenChanged(withInit = true).then {
                 if (s.changed()) {
-                    m.sync(ctx.ktx("filters:sync:after:change"))
+                    entrypoint.onFiltersChanged()
                     s.changed %= false
                 }
             }

@@ -5,11 +5,12 @@ import android.system.ErrnoException
 import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
+import blocka.CurrentLease
+import blocka.blockaVpnMain
 import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.michaelbull.result.mapError
-import core.AndroidKontext
-import core.Kontext
-import core.Result
+import com.github.salomonbrys.kodein.instance
+import core.*
 import org.pcap4j.packet.*
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
 import org.pcap4j.util.PropertiesLoader
@@ -24,8 +25,10 @@ import kotlin.math.min
 
 internal class BlockaTunnel(
         private val dnsServers: List<InetSocketAddress>,
-        private val config: TunnelConfig,
-        private val blockaConfig: BlockaConfig,
+        private val powersave: Boolean,
+        private val adblocking: Boolean,
+        private val currentLease: CurrentLease,
+        private val userBoringtunPrivateKey: String,
         private val doCreateSocket: () -> DatagramSocket,
         private val blockade: Blockade,
         private val denyResponse: SOARecord = SOARecord(Name("org.blokada.invalid."), DClass.IN,
@@ -38,9 +41,7 @@ internal class BlockaTunnel(
     private var gatewaySocket: DatagramSocket? = null
     private var gatewayParcelFileDescriptor: ParcelFileDescriptor? = null
 
-    private val cooldownTtl = 100L
-    private val cooldownMax = 1000L
-    private var cooldownCounter = 0
+    private var cooldownCounter = 1
     private var epermCounter = 0
 
     private val MTU = 1600
@@ -66,16 +67,23 @@ internal class BlockaTunnel(
     private var ticks = 0
     private val tickIntervalMs = 500
 
-    private fun errorOccurred(ktx: Kontext, error: String) {
-        ktx.e(error, errorsRecently)
+    // TODO: Not the nicest
+    private val tunnelEvents by lazy {
+        val ctx = getActiveContext()!!
+        val di = ctx.ktx("tunnel").di()
+        di.instance<core.Tunnel>()
+    }
+
+    private fun errorOccurred(error: String) {
+        e(error, errorsRecently)
         if (++errorsRecently > MAX_ERRORS) {
             errorsRecently = 0
             throw Exception("Too many errors recently", Exception(error))
         }
     }
 
-    fun fromDevice(ktx: Kontext, fromDevice: ByteArray, length: Int) {
-        if (blockaConfig.adblocking && interceptDns(ktx, fromDevice, length)) return
+    fun fromDevice(fromDevice: ByteArray, length: Int) {
+        if (adblocking && interceptDns(fromDevice, length)) return
 
         var i = 0
         do {
@@ -89,22 +97,22 @@ internal class BlockaTunnel(
             destination.limit(response)
             when (op[0].toInt()) {
                 BoringTunJNI.WRITE_TO_NETWORK -> {
-                    forward(ktx)
+                    forward()
                 }
                 BoringTunJNI.WIREGUARD_ERROR -> {
-                    errorOccurred(ktx, "wireguard error: ${BoringTunJNI.errors[response]}")
+                    errorOccurred("wireguard error: ${BoringTunJNI.errors[response]}")
                 }
                 BoringTunJNI.WIREGUARD_DONE -> {
-                    if (i == 1) ktx.e("did not do anything with packet, length: $length")
+                    if (i == 1) e("did not do anything with packet, length: $length")
                 }
                 else -> {
-                    errorOccurred(ktx, "wireguard write unknown response: ${op[0].toInt()}")
+                    errorOccurred("wireguard write unknown response: ${op[0].toInt()}")
                 }
             }
         } while (response == BoringTunJNI.WRITE_TO_NETWORK)
     }
 
-    fun toDevice(ktx: Kontext, source: ByteArray, length: Int) {
+    fun toDevice(source: ByteArray, length: Int) {
         var i = 0
         do {
             op.rewind()
@@ -117,28 +125,28 @@ internal class BlockaTunnel(
             destination.limit(response) // TODO: what if -1
             when (op[0].toInt()) {
                 BoringTunJNI.WRITE_TO_NETWORK -> {
-                    forward(ktx)
+                    forward()
                 }
                 BoringTunJNI.WIREGUARD_ERROR -> {
-                    errorOccurred(ktx, "read: wireguard error: ${BoringTunJNI.errors[response]}")
+                    errorOccurred("read: wireguard error: ${BoringTunJNI.errors[response]}")
                 }
                 BoringTunJNI.WIREGUARD_DONE -> {
-                    if (i == 1) ktx.e("read: did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
+                    if (i == 1) e("read: did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV4 -> {
-                    if (blockaConfig.adblocking && isUdp (ktx, destination) && (
-                                    srcAddress4(ktx, destination, dnsServers[0].address.address) ||
-                                            (dnsServers.size > 1 && srcAddress4(ktx, destination, dnsServers[1].address.address))
+                    if (adblocking && isUdp (destination) && (
+                                    srcAddress4(destination, dnsServers[0].address.address) ||
+                                            (dnsServers.size > 1 && srcAddress4(destination, dnsServers[1].address.address))
                                     )
                     ) {
                         oneWayDnsCounter = 0
-                        rewriteSrcDns4(ktx, destination, length)
+                        rewriteSrcDns4(destination, length)
                     }
-                    loopback(ktx, 0)
+                    loopback()
                 }
-                BoringTunJNI.WRITE_TO_TUNNEL_IPV6 -> loopback(ktx, 0)
+                BoringTunJNI.WRITE_TO_TUNNEL_IPV6 -> loopback()
                 else -> {
-                    errorOccurred(ktx, "read: wireguard unknown response: ${op[0].toInt()}")
+                    errorOccurred("read: wireguard unknown response: ${op[0].toInt()}")
                 }
             }
         } while (response == BoringTunJNI.WRITE_TO_NETWORK)
@@ -147,18 +155,18 @@ internal class BlockaTunnel(
     private val ipv4Version = (1 shl 6).toByte()
     private val ipv6Version = (3 shl 5).toByte()
 
-    private fun interceptDns(ktx: Kontext, packetBytes: ByteArray, length: Int): Boolean {
+    private fun interceptDns(packetBytes: ByteArray, length: Int): Boolean {
         return if ((packetBytes[0] and ipv4Version) == ipv4Version) {
-            if (isUdp(ktx, packetBytes) && dstAddress4(ktx, packetBytes, length, dnsProxyDst4))
-                parseDns(ktx, packetBytes, length)
+            if (isUdp(packetBytes) && dstAddress4(packetBytes, length, dnsProxyDst4))
+                parseDns(packetBytes, length)
             else false
         } else if ((packetBytes[0] and ipv6Version) == ipv6Version) {
-            ktx.w("ipv6 ad blocking not supported")
+            w("ipv6 ad blocking not supported")
             false
         } else false
     }
 
-    private fun parseDns(ktx: Kontext, packetBytes: ByteArray, length: Int): Boolean {
+    private fun parseDns(packetBytes: ByteArray, length: Int): Boolean {
         val originEnvelope = try {
             IpSelector.newPacket(packetBytes, 0, length) as IpPacket
         } catch (e: Exception) {
@@ -205,7 +213,7 @@ internal class BlockaTunnel(
 
             envelope.rawData.copyInto(packetBytes)
 
-            ktx.emit(Events.REQUEST, Request(host))
+            emit(TunnelEvents.REQUEST, Request(host))
             if (++oneWayDnsCounter > MAX_ONE_WAY_DNS_REQUESTS) {
                 throw Exception("Too many DNS requests without response")
             }
@@ -214,13 +222,13 @@ internal class BlockaTunnel(
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
-            toDeviceFakeDnsResponse(ktx, dnsMessage.toWire(), originEnvelope)
-            ktx.emit(Events.REQUEST, Request(host, blocked = true))
+            toDeviceFakeDnsResponse(dnsMessage.toWire(), originEnvelope)
+            emit(TunnelEvents.REQUEST, Request(host, blocked = true))
             true
         }
     }
 
-    private fun dstAddress4(ktx: Kontext, packet: ByteArray, length: Int, ip: ByteArray): Boolean {
+    private fun dstAddress4(packet: ByteArray, length: Int, ip: ByteArray): Boolean {
         return (
                 (packet[16] and ip[0]) == ip[0] &&
                         (packet[17] and ip[1]) == ip[1] &&
@@ -228,7 +236,7 @@ internal class BlockaTunnel(
                 )
     }
 
-    private fun srcAddress4(ktx: Kontext, packet: ByteBuffer, ip: ByteArray): Boolean {
+    private fun srcAddress4(packet: ByteBuffer, ip: ByteArray): Boolean {
         return (
                 (packet[12] and ip[0]) == ip[0] &&
                         (packet[13] and ip[1]) == ip[1] &&
@@ -237,15 +245,15 @@ internal class BlockaTunnel(
                 )
     }
 
-    private fun isUdp(ktx: Kontext, packet: ByteBuffer): Boolean {
+    private fun isUdp(packet: ByteBuffer): Boolean {
         return packet[9] == 17.toByte()
     }
 
-    private fun isUdp(ktx: Kontext, packet: ByteArray): Boolean {
+    private fun isUdp(packet: ByteArray): Boolean {
         return packet[9] == 17.toByte()
     }
 
-    private fun rewriteSrcDns4(ktx: Kontext, packet: ByteBuffer, length: Int) {
+    private fun rewriteSrcDns4(packet: ByteBuffer, length: Int) {
         val originEnvelope = try {
             IpSelector.newPacket(packet.array(), packet.arrayOffset(), length) as IpPacket
         } catch (e: Exception) {
@@ -255,7 +263,7 @@ internal class BlockaTunnel(
         originEnvelope as IpV4Packet
 
         if (originEnvelope.payload !is UdpPacket) {
-            ktx.w("Non-UDP packet received from the DNS server, dropping")
+            w("Non-UDP packet received from the DNS server, dropping")
             return
         }
 
@@ -264,7 +272,7 @@ internal class BlockaTunnel(
 
         val dst = dnsServers.firstOrNull { it.address == originEnvelope.header.srcAddr }
         val dnsIndex = dnsServers.indexOf(dst)
-        if (dnsIndex == -1) errorOccurred(ktx, "cannot rewrite DNS response, unknown dns server: $dst. dropping")
+        if (dnsIndex == -1) errorOccurred("cannot rewrite DNS response, unknown dns server: $dst. dropping")
 //            ktx.v("rewritten back dns response")
         else {
             val src = dnsProxyDst4.copyOf()
@@ -293,7 +301,7 @@ internal class BlockaTunnel(
         }
     }
 
-    private fun toDeviceFakeDnsResponse(ktx: Kontext, response: ByteArray, originEnvelope: Packet?) {
+    private fun toDeviceFakeDnsResponse(response: ByteArray, originEnvelope: Packet?) {
         originEnvelope as IpPacket
         val udp = originEnvelope.payload as UdpPacket
         val udpResponse = UdpPacket.Builder(udp)
@@ -329,49 +337,49 @@ internal class BlockaTunnel(
         destination.put(envelope.rawData)
         destination.position(0)
         destination.limit(envelope.rawData.size)
-        loopback(ktx, 0)
+        loopback()
     }
 
-    fun createTunnel(ktx: Kontext) {
-        ktx.v("creating boringtun tunnel", blockaConfig.gatewayId)
-        tunnel = BoringTunJNI.new_tunnel(blockaConfig.privateKey, blockaConfig.gatewayId)
+    private fun createTunnel() {
+        v("creating boringtun tunnel", currentLease.gatewayId)
+        tunnel = BoringTunJNI.new_tunnel(userBoringtunPrivateKey, currentLease.gatewayId)
     }
 
-    fun forward(ktx: Kontext) {
+    private fun forward() {
         val b = buffer
         packet.setData(b.array(), b.arrayOffset() + b.position(), b.limit())
         gatewaySocket!!.send(packet)
     }
 
-    fun loopback(ktx: Kontext, nvm: Int) {
+    private fun loopback() {
         val b = buffer
-        deviceOut?.write(b.array(), b.arrayOffset() + b.position(), b.limit()) ?: ktx.e("loopback not available")
+        deviceOut?.write(b.array(), b.arrayOffset() + b.position(), b.limit()) ?: e("loopback not available")
     }
 
-    fun openGatewaySocket(ktx: Kontext) {
+    fun openGatewaySocket() {
         gatewayParcelFileDescriptor?.close()
         gatewaySocket?.close()
         gatewaySocket = doCreateSocket()
-        gatewaySocket?.connect(InetAddress.getByName(blockaConfig.gatewayIp), blockaConfig.gatewayPort)
-        ktx.v("connect to gateway ip: ${blockaConfig.gatewayIp}")
+        gatewaySocket?.connect(InetAddress.getByName(currentLease.gatewayIp), currentLease.gatewayPort)
+        v("connect to gateway ip: ${currentLease.gatewayIp}")
     }
 
-    override fun run(ktx: AndroidKontext, tunnel: FileDescriptor) {
-        ktx.v("running boring tunnel thread", this)
+    override fun run(tunnel: FileDescriptor) {
+        v("running boring tunnel thread", this)
 
         val input = FileInputStream(tunnel)
         val output = FileOutputStream(tunnel)
         deviceOut = output
         oneWayDnsCounter = 0
-        checkLeaseIfNeeded(ktx)
+        blockaVpnMain.syncIfNeeded()
 
         try {
             val errors = setupErrorsPipe()
             val device = setupDevicePipe(input)
 
-            createTunnel(ktx)
-            openGatewaySocket(ktx)
-            val polls = setupPolls(ktx, errors, device)
+            createTunnel()
+            openGatewaySocket()
+            val polls = setupPolls(errors, device)
             val gateway = polls[2]
 
             while (true) {
@@ -380,59 +388,63 @@ internal class BlockaTunnel(
                 device.listenFor(OsConstants.POLLIN)
                 gateway.listenFor(OsConstants.POLLIN)
 
-                poll(ktx, polls)
-                tick(ktx)
+                poll(polls)
+                tick()
 //                fromLoopbackToDevice(ktx, device, output)
-                fromDeviceToProxy(ktx, device, input)
-                fromGatewayToProxy(ktx, gateway)
+                fromDeviceToProxy(device, input)
+                fromGatewayToProxy(gateway)
                 //cleanup()
+                cooldownCounter = 1
             }
         } catch (ex: InterruptedException) {
-            ktx.v("tunnel thread interrupted", this, ex.toString())
+            v("tunnel thread interrupted", this, ex.toString())
             Thread.currentThread().interrupt()
             throw ex
         } catch (ex: Exception) {
             val cause = ex.cause
             if (cause is ErrnoException && cause.errno == OsConstants.EPERM) {
-                if (++epermCounter >= 3 && config.powersave) {
-                    ktx.emit(Events.TUNNEL_POWER_SAVING)
+                if (++epermCounter >= 3 && powersave) {
+                    emit(TunnelEvents.TUNNEL_POWER_SAVING)
                     epermCounter = 0
                 }
             } else {
                 epermCounter = 0
-                ktx.e("failed tunnel thread", this, ex)
+                e("failed tunnel thread", this, ex)
             }
             throw ex
         } finally {
-            ktx.v("cleaning up resources", this)
+            v("cleaning up resources", this)
             Result.of { Os.close(error) }
             Result.of { input.close() }
             Result.of { output.close() }
         }
     }
 
-    override fun runWithRetry(ktx: AndroidKontext, tunnel: FileDescriptor) {
+    override fun runWithRetry(tunnel: FileDescriptor) {
         var interrupted = false
         do {
-            Result.of { run(ktx, tunnel) }.mapError {
+            Result.of { run(tunnel) }.mapError {
                 if (it is InterruptedException || threadInterrupted()) interrupted = true
                 else {
-                    ktx.emit(Events.TUNNEL_RESTART)
-                    val cooldown = min(cooldownTtl * cooldownCounter++, cooldownMax)
-                    ktx.e("tunnel thread error, will restart after $cooldown ms", this, it.toString())
+                    emit(TunnelEvents.TUNNEL_RESTART)
+                    val cooldown = min(cooldownTtl * cooldownCounter, cooldownMax)
+                    cooldownCounter *= 2
+                    e("tunnel thread error, will restart after $cooldown ms", this, it.toString())
+                    tunnelEvents.tunnelState %= TunnelState.ACTIVATING
                     Result.of { Thread.sleep(cooldown) }.mapError {
                         if (it is InterruptedException || threadInterrupted()) interrupted = true
                     }
+                    tunnelEvents.tunnelState %= TunnelState.ACTIVE
                 }
             }
         } while (!interrupted)
-        ktx.v("tunnel thread shutdown", this)
+        v("tunnel thread shutdown", this)
     }
 
-    override fun stop(ktx: Kontext) {
+    override fun stop() {
         Result.of { Os.close(error) }
         Result.of {
-            ktx.v("closing gateway socket on stop")
+            v("closing gateway socket on stop")
             gatewayParcelFileDescriptor?.close()
             gatewaySocket?.close()
         }
@@ -458,7 +470,7 @@ internal class BlockaTunnel(
         device
     }()
 
-    private fun setupPolls(ktx: Kontext, errors: StructPollfd, device: StructPollfd) = {
+    private fun setupPolls(errors: StructPollfd, device: StructPollfd) = {
         val polls = arrayOfNulls<StructPollfd>(3) as Array<StructPollfd>
         polls[0] = errors
         polls[1] = device
@@ -472,7 +484,7 @@ internal class BlockaTunnel(
         polls
     }()
 
-    private fun poll(ktx: Kontext, polls: Array<StructPollfd>) {
+    private fun poll(polls: Array<StructPollfd>) {
         while (true) {
             try {
                 val result = Os.poll(polls, -1)
@@ -486,37 +498,37 @@ internal class BlockaTunnel(
         }
     }
 
-    private fun fromDeviceToProxy(ktx: Kontext, device: StructPollfd, input: InputStream) {
+    private fun fromDeviceToProxy(device: StructPollfd, input: InputStream) {
         if (device.isEvent(OsConstants.POLLIN)) {
             val length = input.read(memory, 0, MTU)
             if (length > 0) {
-                fromDevice(ktx, memory, length)
+                fromDevice(memory, length)
             }
         }
     }
 
-    private fun fromGatewayToProxy(ktx: Kontext, gateway: StructPollfd) {
+    private fun fromGatewayToProxy(gateway: StructPollfd) {
         if (gateway.isEvent(OsConstants.POLLIN)) {
             packet.setData(memory)
-            gatewaySocket?.receive(packet) ?: ktx.e("no socket")
-            toDevice(ktx, memory, packet.length)
+            gatewaySocket?.receive(packet) ?: e("no socket")
+            toDevice(memory, packet.length)
         }
     }
 
 
-    private fun tick(ktx: Kontext) {
+    private fun tick() {
         // TODO: system current time called to often?
         val now = System.currentTimeMillis()
         if (now > (lastTickMs + tickIntervalMs)) {
             lastTickMs = now
-            tickWireguard(ktx)
+            tickWireguard()
             ticks++
 
             if (ticks % ERRORS_RESET_AFTER_TICKS == 0) errorsRecently = 0
         }
     }
 
-    fun tickWireguard(ktx: Kontext) {
+    fun tickWireguard() {
         if (tunnel == null) return
 
         op.rewind()
@@ -527,15 +539,15 @@ internal class BlockaTunnel(
         destination.limit(response)
         when (op[0].toInt()) {
             BoringTunJNI.WRITE_TO_NETWORK -> {
-                forward(ktx)
+                forward()
             }
             BoringTunJNI.WIREGUARD_ERROR -> {
-                errorOccurred(ktx, "tick: wireguard error: ${BoringTunJNI.errors[response]}")
+                errorOccurred("tick: wireguard error: ${BoringTunJNI.errors[response]}")
             }
             BoringTunJNI.WIREGUARD_DONE -> {
             }
             else -> {
-                errorOccurred(ktx, "tick: wireguard timer unknown response: ${op[0].toInt()}")
+                errorOccurred("tick: wireguard timer unknown response: ${op[0].toInt()}")
             }
         }
     }

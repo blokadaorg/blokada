@@ -279,7 +279,6 @@ class VBListView(
     override fun getScrollableView() = listView
 
     override fun setOnScroll(onScrollDown: () -> Unit, onScrollUp: () -> Unit, onScrollStopped: () -> Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     class VerticalSpace(val height: Int): RecyclerView.ItemDecoration() {

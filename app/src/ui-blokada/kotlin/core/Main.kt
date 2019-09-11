@@ -65,6 +65,7 @@ class MainApplication: Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         Paper.init(this)
+        setActiveContext(activity = false)
         defaultWriter.ctx = this
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }

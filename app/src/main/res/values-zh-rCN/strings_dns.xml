@@ -3,8 +3,16 @@
 <resources>
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_add_slot">添加新的 DNS</string>
+    <string name="slot_enter_dns_error">这似乎不是 IPv4。</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP 地址</string>
+    <string name="dns_edit_ip1_enter">输入 DNS 服务器地址</string>
+    <string name="dns_edit_ip2_enter">输入一个备用 DNS 服务器地址</string>
+    <string name="dns_edit_name_error">名称无效</string>
+    <string name="dns_edit_name_label">服务器名称</string>
+    <string name="dns_edit_name_default">默认名称</string>
+    <string name="dns_edit_next">下一个</string>
+    <string name="dns_edit_last">添加</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">默认DNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->

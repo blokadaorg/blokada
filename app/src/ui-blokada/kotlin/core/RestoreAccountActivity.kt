@@ -1,12 +1,10 @@
 package core
 
 import android.app.Activity
+import blocka.blockaVpnMain
 import com.github.salomonbrys.kodein.instance
 import gs.property.I18n
-import kotlinx.coroutines.experimental.async
 import org.blokada.R
-import tunnel.BLOCKA_CONFIG
-import tunnel.checkAccountInfo
 
 
 class RestoreAccountActivity : Activity() {
@@ -39,13 +37,8 @@ class RestoreAccountActivity : Activity() {
     private fun restoreAccountId() = when {
         name.isBlank() -> Unit
         else -> {
-            async {
-                ktx.getMostRecent(BLOCKA_CONFIG)?.run {
-                    checkAccountInfo(ktx, copy(restoredAccountId = name), showError = true)
-                    finish()
-                }
-            }
-            Unit
+            blockaVpnMain.restoreAccount(name)
+            finish()
         }
     }
 

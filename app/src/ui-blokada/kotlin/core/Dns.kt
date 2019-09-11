@@ -1,20 +1,20 @@
 package core
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
-import android.view.WindowManager
+import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.*
-import gs.environment.*
+import gs.environment.Environment
+import gs.environment.Journal
+import gs.environment.Worker
+import gs.environment.getDnsServers
 import gs.property.*
-import org.blokada.R
 import org.pcap4j.packet.namednumber.UdpPort
+import tunnel.TunnelConfig
 import java.io.InputStreamReader
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.nio.charset.Charset
-import java.util.Properties
+import java.util.*
 
 fun newDnsModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
@@ -55,10 +55,10 @@ abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
     abstract val dnsServers: IProperty<List<InetSocketAddress>>
     abstract val enabled: IProperty<Boolean>
-    abstract fun hasCustomDnsSelected(checkEnabled: Boolean = true): Boolean
+    abstract fun hasCustomDnsSelected(): Boolean
 }
 
-val FALLBACK_DNS = listOf(
+private val FALLBACK_DNS = listOf(
         InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 1, 1, 1)), 53),
         InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 0, 0, 1)), 53)
 )
@@ -73,8 +73,8 @@ class DnsImpl(
         ctx: Context = xx().instance()
 ) : Dns() {
 
-    override fun hasCustomDnsSelected(checkEnabled: Boolean): Boolean {
-        return choices().firstOrNull { it.id != "default" && it.active } != null && (!checkEnabled or enabled())
+    override fun hasCustomDnsSelected(): Boolean {
+        return choices().firstOrNull { it.id != "default" && it.active } != null
     }
 
     private val refresh = { it: List<DnsChoice> ->
@@ -126,9 +126,27 @@ class DnsImpl(
             shouldRefresh = { it.size <= 1 })
 
     override val dnsServers = newProperty(w, {
-        val d = if (enabled()) choices().firstOrNull { it.active } else null
-        if (d?.servers?.isEmpty() ?: true) getDnsServers(ctx)
-        else d?.servers!!
+        val blockaVpnState = get(BlockaVpnState::class.java)
+        val useDnsFallback = get(TunnelConfig::class.java).dnsFallback
+        val choice = if(enabled()) choices().firstOrNull { it.active } else null
+        val proposed = choice?.servers ?: getDnsServers(ctx)
+        when {
+            blockaVpnState.enabled && choice == null -> {
+                // We can't tell if default DNS servers will be reachable in the tunnel. Safely default.
+                v("using fallback DNS under Blocka VPN")
+                FALLBACK_DNS
+            }
+            blockaVpnState.enabled && choice != null && isLocalServers(choice.servers) -> {
+                // We assume user knows what they're selecting, but since we can easily check for local..
+                v("using fallback DNS because local DNS selected and under Blocka VPN", choice.servers)
+                FALLBACK_DNS
+            }
+            useDnsFallback && isLocalServers(proposed) -> {
+                v("using fallback DNS because local DNS selected / default", proposed)
+                FALLBACK_DNS
+            }
+            else -> proposed
+        }
     })
 
     override val enabled = newPersistedProperty(w, BasicPersistence(xx, "dnsEnabled"), { false })
@@ -146,14 +164,6 @@ class DnsImpl(
         }
         d.connected.doOnUiWhenSet().then {
             dnsServers.refresh()
-        }
-
-        dnsServers.doWhenChanged(withInit = true).then {
-            val current = dnsServers()
-            if (tunnel.Persistence.config.load(ctx.ktx()).dnsFallback && isLocalServers(current)) {
-                dnsServers %= FALLBACK_DNS
-                "dns".ktx().w("local DNS detected, setting CloudFlare as workaround")
-            }
         }
     }
 
@@ -273,63 +283,6 @@ class DnsLocalisedFetcher(
         }
         j.log("dns: fetch strings: done")
     }
-}
-
-class GenerateDialog(
-        private val xx: Environment,
-        private val ctx: Context = xx().instance(),
-        private val dns: Dns = xx().instance()
-) {
-
-    private val activity by lazy { xx().instance<ComponentProvider<Activity>>().get() }
-    private val j by lazy { ctx.inject().instance<Journal>() }
-    private val dialog: AlertDialog
-    private var which: Int = 0
-
-    init {
-        val d = AlertDialog.Builder(activity)
-        d.setTitle(R.string.filter_generate_title)
-        val options = arrayOf(
-                ctx.getString(R.string.dns_generate_refetch),
-                ctx.getString(R.string.dns_generate_defaults)
-        )
-        d.setSingleChoiceItems(options, which, object : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                this@GenerateDialog.which = which
-            }
-        })
-        d.setPositiveButton(R.string.filter_edit_do, { dia, int -> })
-        d.setNegativeButton(R.string.filter_edit_cancel, { dia, int -> })
-        dialog = d.create()
-    }
-
-    fun show() {
-        if (dialog.isShowing) return
-        try {
-            dialog.show()
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { handleSave() }
-            dialog.window.clearFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
-            )
-        } catch (e: Exception) {
-            j.log(e)
-        }
-    }
-
-    private fun handleSave() {
-        when (which) {
-            0 -> {
-                dns.choices.refresh(force = true)
-            }
-            1 -> {
-                dns.choices %= emptyList()
-                dns.choices.refresh()
-            }
-        }
-        dialog.dismiss()
-    }
-
 }
 
 fun printServers(s: List<InetSocketAddress>): String {

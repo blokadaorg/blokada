@@ -1,13 +1,12 @@
 package core.bits.menu.vpn
 
 import android.content.Intent
+import blocka.CurrentAccount
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.pretty
 import gs.property.I18n
 import org.blokada.R
-import tunnel.BLOCKA_CONFIG
-import tunnel.BlockaConfig
 import java.util.*
 
 class AccountVB(
@@ -23,17 +22,18 @@ class AccountVB(
             modal.openModal()
             ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
         }
-        update(null)
-        ktx.on(BLOCKA_CONFIG, update)
+        on(CurrentAccount::class.java, this::update)
+        update()
     }
 
     override fun detach(view: BitView) {
-        ktx.cancel(BLOCKA_CONFIG, update)
+        cancel(CurrentAccount::class.java, this::update)
     }
 
-    private val update = { cfg: BlockaConfig? ->
+    private fun update() {
+        val cfg = get(CurrentAccount::class.java)
         view?.apply {
-            val isActive = cfg?.activeUntil?.after(Date()) ?: false
+            val isActive = cfg.activeUntil.after(Date()) ?: false
             val accountLabel = if (isActive)
                 i18n.getString(R.string.slot_account_label_active, cfg!!.activeUntil.pretty(ktx))
             else i18n.getString(R.string.slot_account_label_inactive)

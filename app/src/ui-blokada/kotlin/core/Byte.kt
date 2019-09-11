@@ -205,8 +205,9 @@ class ByteView(
     }
 
     fun onSwitch(switch: (Boolean) -> Unit) {
-        switchView.setOnCheckedChangeListener { compoundButton, b ->
-            switch(b)
+        switchView.setOnClickListener {
+            it as SwitchCompat
+            switch(it.isChecked)
         }
     }
 

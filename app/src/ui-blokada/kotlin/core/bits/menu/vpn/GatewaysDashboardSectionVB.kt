@@ -1,6 +1,7 @@
 package core.bits.menu.vpn
 
 import android.os.Handler
+import blocka.MAX_RETRIES
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.adblocking.SlotMutex
@@ -11,7 +12,6 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
-import tunnel.MAX_RETRIES
 import tunnel.RestApi
 import tunnel.RestModel
 
@@ -32,10 +32,15 @@ class GatewaysDashboardSectionVB(
         true
     }
 
+    private fun update() {
+        gatewaysRequest.removeMessages(0)
+        gatewaysRequest.sendEmptyMessage(0)
+    }
+
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
         view.set(items)
-        gatewaysRequest.sendEmptyMessage(0)
+        update()
     }
 
     override fun detach(view: VBListView) {

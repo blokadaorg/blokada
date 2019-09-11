@@ -23,7 +23,7 @@ import gs.presentation.NamedViewBinder
 import gs.presentation.doAfter
 import gs.property.I18n
 import org.blokada.R
-import tunnel.Events
+import tunnel.TunnelEvents
 import tunnel.Persistence
 import kotlin.math.max
 import kotlin.math.min
@@ -294,7 +294,7 @@ class DashboardView(
     }
 
     private fun setupExternalEventListeners() {
-        ktx.on(Events.REQUEST) {
+        ktx.on(TunnelEvents.REQUEST) {
             bg_packets.addToHistory(it)
         }
 

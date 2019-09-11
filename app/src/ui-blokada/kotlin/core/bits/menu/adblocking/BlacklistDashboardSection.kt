@@ -7,7 +7,7 @@ import core.bits.menu.MenuItemVB
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import org.blokada.R
-import tunnel.Events
+import tunnel.TunnelEvents
 import tunnel.Filter
 
 class BlacklistDashboardSection(
@@ -34,12 +34,12 @@ class BlacklistDashboardSection(
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
-        ktx.on(Events.FILTERS_CHANGED, updateApps)
+        ktx.on(TunnelEvents.FILTERS_CHANGED, updateApps)
     }
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
-        ktx.cancel(Events.FILTERS_CHANGED, updateApps)
+        ktx.cancel(TunnelEvents.FILTERS_CHANGED, updateApps)
     }
 
 }

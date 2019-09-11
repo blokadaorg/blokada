@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsServiceConnection
+import blocka.CurrentAccount
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
@@ -16,11 +17,7 @@ import gs.environment.Worker
 import gs.presentation.WebDash
 import gs.property.IWhen
 import gs.property.newProperty
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.delay
 import org.blokada.R
-import tunnel.BLOCKA_CONFIG
-import tunnel.Persistence
 import tunnel.blokadaUserAgent
 import tunnel.showSnack
 import java.net.URL
@@ -35,8 +32,8 @@ class SubscriptionActivity : Activity() {
     private val w: Worker by lazy { ktx.di().with("gscore").instance<Worker>() }
 
     private val subscriptionUrl by lazy {
-        val cfg = Persistence.blocka.load(ktx)
-        newProperty(w, { URL("https://app.blokada.org/activate/${cfg.accountId}") })
+        val cfg = get(CurrentAccount::class.java)
+        newProperty(w, { URL("https://app.blokada.org/activate/${cfg.id}") })
     }
 
     private val dash by lazy {
@@ -45,6 +42,7 @@ class SubscriptionActivity : Activity() {
                 onLoadSpecificUrl = "app.blokada.org/success" to {
                     this@SubscriptionActivity.finish()
                     showSnack(R.string.subscription_success)
+                    Unit
                 })
     }
 
@@ -104,13 +102,8 @@ class SubscriptionActivity : Activity() {
     override fun onStop() {
         super.onStop()
 
-        async {
-            ktx.getMostRecent(BLOCKA_CONFIG)?.run {
-                delay(3000)
-                ktx.v("check account after coming back to SubscriptionActivity")
-                tunnel.checkAccountInfo(ktx, this)
-            }
-        }
+        ktx.v("check account after coming back to SubscriptionActivity")
+        entrypoint.onAccountChanged()
     }
 
     override fun onBackPressed() {

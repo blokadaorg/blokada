@@ -1,17 +1,13 @@
 package ui.bits.menu.vpn
 
 import android.os.Build
+import blocka.CurrentAccount
+import blocka.blockaVpnMain
 import com.github.salomonbrys.kodein.instance
-import core.AndroidKontext
-import core.Slot
-import core.SlotVB
-import core.SlotView
+import core.*
 import gs.property.I18n
 import org.blokada.R
-import tunnel.BLOCKA_CONFIG
-import tunnel.BlockaConfig
 import tunnel.RestModel
-import tunnel.deleteLease
 
 class LeaseVB(
         val ktx: AndroidKontext,
@@ -21,7 +17,8 @@ class LeaseVB(
         onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
 
-    private fun update(cfg: BlockaConfig) {
+    private fun update() {
+        val cfg = get(CurrentAccount::class.java)
         val currentDevice = lease.publicKey == cfg.publicKey
         view?.apply {
             content = Slot.Content(
@@ -40,28 +37,25 @@ class LeaseVB(
             )
 
             onRemove = {
-                deleteLease(ktx, BlockaConfig(
-                        accountId = cfg.accountId,
+                blockaVpnMain.deleteLease(RestModel.LeaseRequest(
+                        accountId = cfg.id,
                         publicKey = lease.publicKey,
-                        gatewayId = lease.gatewayId
+                        gatewayId = lease.gatewayId,
+                        alias = ""
                 ))
                 onRemoved(this@LeaseVB)
             }
         }
     }
 
-    private val onConfig = { cfg: BlockaConfig ->
-        update(cfg)
-        Unit
-    }
-
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
         view.type = Slot.Type.INFO
-        ktx.on(BLOCKA_CONFIG, onConfig)
+        on(CurrentAccount::class.java, this::update)
+        update()
     }
 
     override fun detach(view: SlotView) {
-        ktx.cancel(BLOCKA_CONFIG, onConfig)
+        cancel(CurrentAccount::class.java, this::update)
     }
 }

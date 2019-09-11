@@ -4,10 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance
-import core.Filters
-import core.load
-import core.loadGzip
-import core.openUrl
+import core.*
 import gs.environment.Journal
 import gs.environment.inject
 import gs.property.Repo
@@ -154,7 +151,6 @@ class FilterSourceUri(
 
 class FilterSourceApp(
         private val ctx: Context,
-        private val j: Journal,
         var source: String? = null
 ) : IFilterSource {
 
@@ -186,8 +182,8 @@ class FilterSourceApp(
             source = apps[string[0].toLowerCase()] ?: throw Exception("unknown app: ${string[0]}")
             system = s.apps().first { it.appId == source }.system
             true
-        } catch (e: Exception) {
-            j.log("FilterSourceApp: fromUserInput: fail", e)
+        } catch (ex: Exception) {
+            e("FilterSourceApp: fromUserInput: fail", ex)
             false
         }
     }
@@ -221,7 +217,6 @@ private fun openFile(ctx: Context, uri: Uri): java.io.InputStream {
 
 class DefaultSourceProvider(
         val ctx: Context,
-        val j: Journal,
         val repo: Repo,
         val f: Filters,
         val processor: IHostlineProcessor
@@ -231,7 +226,7 @@ class DefaultSourceProvider(
         return when (id) {
             "app" -> {
                 f.apps.refresh(blocking = true)
-                val f = FilterSourceApp(ctx, j)
+                val f = FilterSourceApp(ctx)
                 if (source != null) f.fromUserInput(source)
                 f
             }

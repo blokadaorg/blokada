@@ -1,6 +1,6 @@
 package gs.obsolete
 
-import core.Kontext
+import core.w
 
 class Sync<T>(private var value: T) {
     @Synchronized fun get(): T {
@@ -12,7 +12,7 @@ class Sync<T>(private var value: T) {
     }
 }
 
-fun hasCompleted(ktx: Kontext, f: () -> Unit): Pair<Boolean, Exception?> {
-    return try { f(); true to null } catch (e: Exception) { ktx.w(e); false to e }
+fun hasCompleted(f: () -> Unit): Pair<Boolean, Exception?> {
+    return try { f(); true to null } catch (e: Exception) { w(e); false to e }
 }
 

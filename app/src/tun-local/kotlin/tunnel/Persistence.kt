@@ -1,6 +1,7 @@
 package tunnel
 
 import android.content.Context
+import android.util.Log
 import com.github.michaelbull.result.*
 import core.AndroidKontext
 import core.FiltersCache
@@ -11,7 +12,6 @@ class Persistence {
     companion object {
         val rules = RulesPersistence()
         val filters = FiltersPersistence()
-        val config = TunnelConfigPersistence()
         val request = RequestPersistence()
         val blocka = BlockaConfigPersistence()
     }
@@ -92,23 +92,6 @@ class FiltersPersistence {
     }()
 }
 
-class TunnelConfigPersistence {
-    val load = { ktx: Kontext ->
-        Result.of { core.Persistence.paper().read<TunnelConfig>("tunnel:config", TunnelConfig()) }
-                .mapBoth(
-                        success = { it },
-                        failure = { ex ->
-                            ktx.w("failed loading TunnelConfig, reverting to defaults", ex)
-                            TunnelConfig()
-                        }
-                )
-    }
-
-    val save = { config: TunnelConfig ->
-        Result.of { core.Persistence.paper().write("tunnel:config", config) }
-    }
-}
-
 class RequestPersistence(
         val load: (Int) -> Result<List<Request>> = { batch: Int ->
             Result.of { core.Persistence.paper().read<List<Request>>("requests:$batch", emptyList()) }
@@ -160,7 +143,11 @@ class RequestPersistence(
 
 class BlockaConfigPersistence {
     val load = { ktx: Kontext ->
-        Result.of { core.Persistence.paper().read<BlockaConfig>("blocka:config", BlockaConfig()) }
+        Result.of {
+            val cfg = core.Persistence.paper().read<BlockaConfig>("blocka:config", BlockaConfig())
+            ktx.v("loaded blocka config from persistence", cfg)
+            cfg
+        }
                 .mapBoth(
                         success = { it },
                         failure = { ex ->
@@ -171,6 +158,7 @@ class BlockaConfigPersistence {
     }
 
     val save = { config: BlockaConfig ->
+        Log.v("b4:${Thread.currentThread().name}", "saving blocka config to persistence")
         Result.of { core.Persistence.paper().write("blocka:config", config) }
     }
 }

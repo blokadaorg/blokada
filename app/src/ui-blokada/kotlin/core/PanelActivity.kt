@@ -27,7 +27,7 @@ class PanelActivity : Activity() {
 
     private val ktx = ktx("PanelActivity")
     private val dashboardView by lazy { findViewById<DashboardView>(R.id.DashboardView) }
-    private val tunnelManager by lazy { ktx.di().instance<tunnel.Main>() }
+    private val tunnelManager by lazy { ktx.di().instance<tunnel.TunnelMain>() }
     private val filters by lazy { ktx.di().instance<Filters>() }
     private val activityContext by lazy { ktx.di().instance<ComponentProvider<Activity>>() }
     private val viewBinderHolder by lazy { ktx.di().instance<ViewBinderHolder>() }
@@ -35,6 +35,7 @@ class PanelActivity : Activity() {
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dashboard)
+        setActiveContext(activity = true)
 //        setFullScreenWindowLayoutInDisplayCutout(window)
         activityRegister.register(this)
         dashboardView.onSectionClosed = {
@@ -63,6 +64,11 @@ class PanelActivity : Activity() {
     override fun onStop() {
         super.onStop()
         viewBinderHolder.detach()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unsetActiveContext()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

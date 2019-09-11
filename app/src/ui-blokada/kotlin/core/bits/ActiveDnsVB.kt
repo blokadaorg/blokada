@@ -16,6 +16,7 @@ class ActiveDnsVB(
         private val simple: Boolean = false,
         private val ctx: Context = ktx.ctx,
         private val i18n: I18n = ktx.di().instance(),
+        private val tunnelEvents: Tunnel = ktx.di().instance(),
         private val dns: Dns = ktx.di().instance()
 ) : ByteVB() {
 
@@ -35,7 +36,7 @@ class ActiveDnsVB(
 
     private val update = {
         view?.run {
-            val item = dns.choices().firstOrNull { it.active }
+            val item = if(tunnelEvents.enabled()) dns.choices().firstOrNull { it.active } else null
             if (item != null) {
                 val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
                 val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
@@ -57,18 +58,25 @@ class ActiveDnsVB(
 //            }
 
             onTap {
-                ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                when {
+                    tunnelEvents.enabled() -> ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                    !dns.hasCustomDnsSelected() -> ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                    else -> {
+                        dns.enabled %= true
+                        tunnelEvents.enabled %= true
+                    }
+                }
             }
-            switch(dns.enabled())
+            switch(if (!tunnelEvents.enabled()) null else dns.enabled())
             onSwitch { enabled ->
                 when {
-                    enabled && !dns.hasCustomDnsSelected(checkEnabled = false) -> {
+                    enabled && !dns.hasCustomDnsSelected() -> {
                         showSnack(R.string.menu_dns_select.res())
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
                         switch(false)
                     }
                     else -> {
-                        dns.enabled %= enabled
+                        entrypoint.onSwitchDnsEnabled(enabled)
                     }
                 }
             }
@@ -154,13 +162,13 @@ class MenuActiveDnsVB(
                 switch(dns.enabled())
                 onSwitch { enabled ->
                     when {
-                        enabled && !dns.hasCustomDnsSelected(checkEnabled = false) -> {
+                        enabled && !dns.hasCustomDnsSelected() -> {
                             showSnack(R.string.menu_dns_select.res())
                             ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
                             switch(false)
                         }
                         else -> {
-                            dns.enabled %= enabled
+                            entrypoint.onSwitchDnsEnabled(enabled)
                         }
                     }
                 }

@@ -27,7 +27,10 @@ internal class FilterManager(
         private val doValidateFilterStoreCache: (FilterStore) -> Boolean = {
             it.cache.isNotEmpty() && it.lastFetch + 86400 * 1000 > System.currentTimeMillis()
         },
-        private val doLoadFilterStore: (AndroidKontext) -> Result<FilterStore> = Persistence.filters.load,
+        private val doLoadFilterStore: () -> Result<FilterStore> = {
+            val ctx = getActiveContext()!!
+            Persistence.filters.load(ctx.ktx("persistence"))
+        },
         private val doSaveFilterStore: (FilterStore) -> Result<Any> = Persistence.filters.save,
         private val doGetNow: () -> Time = { System.currentTimeMillis() },
         private val doGetMemoryLimit: () -> MemoryLimit = Memory.linesAvailable,
@@ -37,45 +40,47 @@ internal class FilterManager(
 
     private var store = FilterStore(lastFetch = 0)
 
-    fun load(ktx: AndroidKontext) {
-        doLoadFilterStore(ktx).mapBoth(
+    fun load() {
+        doLoadFilterStore().mapBoth(
                 success = {
-                    ktx.v("loaded FilterStore from persistence", it.url, it.cache.size)
-                    ktx.emit(Events.FILTERS_CHANGED, it.cache)
+                    v("loaded FilterStore from persistence", it.url, it.cache.size)
+                    emit(TunnelEvents.FILTERS_CHANGED, it.cache)
                     store = it
                 },
                 failure = {
-                    ktx.e("failed loading FilterStore from persistence", it)
+                    e("failed loading FilterStore from persistence", it)
                 }
         )
     }
 
-    fun save(ktx: Kontext) {
+    fun save() {
         doSaveFilterStore(store).mapBoth(
-                success = { ktx.v("saved FilterStore to persistence", store.cache.size, store.url) },
-                failure = { ktx.e("failed saving FilterStore to persistence", it) }
+                success = { v("saved FilterStore to persistence", store.cache.size, store.url) },
+                failure = { e("failed saving FilterStore to persistence", it) }
         )
     }
 
-    fun setUrl(ktx: Kontext, url: String) {
+    fun setUrl(url: String) {
         if (store.url != url) {
             store = store.copy(lastFetch = 0, url = url)
-            ktx.v("changed FilterStore url", url)
+            v("changed FilterStore url", url)
         }
     }
+
+    fun hasUrl() = store.url.isNotBlank()
 
     fun findBySource(source: String) : Filter?{
         return store.cache.find { it.source.id == "app" && it.source.source == source }
     }
 
-    fun put(ktx: Kontext, new: Filter) {
+    fun put(new: Filter) {
         val old = store.cache.firstOrNull { it == new }
         store = if (old == null) {
-            ktx.v("adding filter", new.id)
+            v("adding filter", new.id)
             val lastPriority = store.cache.maxBy { it.priority }?.priority ?: 0
             store.copy(cache = store.cache.plus(new.copy(priority = lastPriority + 1)))
         } else {
-            ktx.v("updating filter", new.id)
+            v("updating filter", new.id)
             val newWithPreservedFields = new.copy(
                     whitelist = old.whitelist,
                     priority = old.priority,
@@ -83,59 +88,59 @@ internal class FilterManager(
             )
             store.copy(cache = store.cache.minus(old).plus(newWithPreservedFields))
         }
-        ktx.emit(Events.FILTERS_CHANGED, store.cache)
+        emit(TunnelEvents.FILTERS_CHANGED, store.cache)
     }
 
-    fun remove(ktx: Kontext, old: Filter) {
-        ktx.v("removing filter", old.id)
+    fun remove(old: Filter) {
+        v("removing filter", old.id)
         store = store.copy(cache = store.cache.minus(old))
-        ktx.emit(Events.FILTERS_CHANGED, store.cache)
+        emit(TunnelEvents.FILTERS_CHANGED, store.cache)
     }
 
-    fun removeAll(ktx: Kontext) {
-        ktx.v("removing all filters")
+    fun removeAll() {
+        v("removing all filters")
         store = store.copy(cache = emptySet())
-        ktx.emit(Events.FILTERS_CHANGED, store.cache)
+        emit(TunnelEvents.FILTERS_CHANGED, store.cache)
     }
 
-    fun invalidateCache(ktx: Kontext) {
-        ktx.v("invalidating filters cache")
+    fun invalidateCache() {
+        v("invalidating filters cache")
         val invalidatedFilters = store.cache.map { it.copy(lastFetch = 0) }.toSet()
         store = store.copy(cache = invalidatedFilters, lastFetch = 0)
     }
 
-    fun getWhitelistedApps(ktx: Kontext) = {
+    fun getWhitelistedApps() = {
         store.cache.filter { it.whitelist && it.active && it.source.id == "app" }.map {
             it.source.source
         }
     }()
 
-    fun sync(ktx: Kontext) = {
-        if (syncFiltersWithRepo(ktx)) {
-            val success = syncRules(ktx)
-            ktx.emit(Events.MEMORY_CAPACITY, Memory.linesAvailable())
+    fun sync() = {
+        if (syncFiltersWithRepo()) {
+            val success = syncRules()
+            emit(TunnelEvents.MEMORY_CAPACITY, Memory.linesAvailable())
             success
         } else false
     }()
 
-    private fun syncFiltersWithRepo(ktx: Kontext): Boolean {
+    private fun syncFiltersWithRepo(): Boolean {
         if (store.url.isEmpty()) {
-            ktx.w("trying to sync without url set, ignoring")
+            w("trying to sync without url set, ignoring")
             return false
         }
 
         if (!doValidateFilterStoreCache(store)) {
-            ktx.v("syncing filters", store.url)
-            ktx.emit(Events.FILTERS_CHANGING)
+            v("syncing filters", store.url)
+            emit(TunnelEvents.FILTERS_CHANGING)
             doFetchFiltersFromRepo(store.url).mapBoth(
                     success = { builtinFilters ->
-                        ktx.v("fetched. size:", builtinFilters.size)
+                        v("fetched. size:", builtinFilters.size)
 
                         val new = if (store.cache.isEmpty()) {
-                            ktx.v("no local filters found, setting default configuration")
+                            v("no local filters found, setting default configuration")
                             builtinFilters
                         } else {
-                            ktx.v("combining with existing filters")
+                            v("combining with existing filters")
                             store.cache.map { existing ->
                                 val f = builtinFilters.find { it == existing }
                                 f?.copy(
@@ -150,11 +155,11 @@ internal class FilterManager(
 
                         store = store.copy(cache = doProcessFetchedFilters(new).prioritised(),
                                 lastFetch = doGetNow())
-                        ktx.v("synced", store.cache.size)
-                        ktx.emit(Events.FILTERS_CHANGED, store.cache)
+                        v("synced", store.cache.size)
+                        emit(TunnelEvents.FILTERS_CHANGED, store.cache)
                     },
                     failure = {
-                        ktx.e("failed syncing filters", it)
+                        e("failed syncing filters", it)
                     }
             )
         }
@@ -162,21 +167,21 @@ internal class FilterManager(
         return true
     }
 
-    private fun syncRules(ktx: Kontext) = {
+    private fun syncRules() = {
         val active = store.cache.filter { it.active }
         val downloaded = mutableSetOf<Filter>()
         active.forEach { filter ->
             if (!doValidateRulesetCache(filter)) {
-                ktx.v("fetching ruleset", filter.id)
-                ktx.emit(Events.FILTERS_CHANGING)
+                v("fetching ruleset", filter.id)
+                emit(TunnelEvents.FILTERS_CHANGING)
                 doFetchRuleset(doResolveFilterSource(filter), doGetMemoryLimit()).mapBoth(
                         success = {
-                            blockade.set(ktx, filter.id, it)
+                            blockade.set(filter.id, it)
                             downloaded.add(filter.copy(lastFetch = System.currentTimeMillis()))
-                            ktx.v("saved", filter.id, it.size)
+                            v("saved", filter.id, it.size)
                         },
                         failure = {
-                            ktx.e("failed fetching ruleset", filter.id, it)
+                            e("failed fetching ruleset", filter.id, it)
                         }
                 )
             }
@@ -187,8 +192,8 @@ internal class FilterManager(
         val allowed = store.cache.filter { it.whitelist && it.active }.map { it.id }
         val denied = store.cache.filter { !it.whitelist && it.active }.map { it.id }
 
-        ktx.v("attempting to build rules, denied/allowed", denied.size, allowed.size)
-        blockade.build(ktx, denied, allowed)
+        v("attempting to build rules, denied/allowed", denied.size, allowed.size)
+        blockade.build(denied, allowed)
         allowed.size > 0 || denied.size > 0
     }()
 

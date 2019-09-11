@@ -11,7 +11,7 @@ import core.*
 import gs.environment.ComponentProvider
 import gs.property.I18n
 import org.blokada.R
-import tunnel.Events
+import tunnel.TunnelEvents
 import tunnel.Request
 import java.io.File
 import java.io.FileOutputStream
@@ -75,15 +75,15 @@ class RequestLogger : Service() {
     var config = LoggerConfig()
         set(value) {
             if (field != value) {
-                this.ktx().cancel(Events.REQUEST, onAllowed)
-                this.ktx().cancel(Events.REQUEST, onBlocked)
+                this.ktx().cancel(TunnelEvents.REQUEST, onAllowed)
+                this.ktx().cancel(TunnelEvents.REQUEST, onBlocked)
                 if (value.active) {
                     logger = RequestLogWriter()
                     if (value.logAllowed) {
-                        this.ktx().on(Events.REQUEST, onAllowed)
+                        this.ktx().on(TunnelEvents.REQUEST, onAllowed)
                     }
                     if (value.logDenied) {
-                        this.ktx().on(Events.REQUEST, onBlocked)
+                        this.ktx().on(TunnelEvents.REQUEST, onBlocked)
                     }
                 } else {
                     stopSelf()
@@ -120,8 +120,8 @@ class RequestLogger : Service() {
     }
 
     override fun onDestroy() {
-        this.ktx().cancel(Events.REQUEST, onAllowed)
-        this.ktx().cancel(Events.REQUEST, onBlocked)
+        this.ktx().cancel(TunnelEvents.REQUEST, onAllowed)
+        this.ktx().cancel(TunnelEvents.REQUEST, onBlocked)
         super.onDestroy()
     }
 }

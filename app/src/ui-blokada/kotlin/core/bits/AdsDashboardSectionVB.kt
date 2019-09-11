@@ -11,7 +11,7 @@ import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import org.blokada.R
-import tunnel.Events
+import tunnel.TunnelEvents
 import tunnel.Request
 import kotlin.math.max
 
@@ -68,12 +68,12 @@ class AdsDashboardSectionVB(
         tunnel.Persistence.request.load(0).onSuccess {
             it.forEach(request)
         }
-        ktx.on(Events.REQUEST, request)
+        ktx.on(TunnelEvents.REQUEST, request)
     }
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
         displayingEntries.clear()
-        ktx.cancel(Events.REQUEST, request)
+        ktx.cancel(TunnelEvents.REQUEST, request)
     }
 }

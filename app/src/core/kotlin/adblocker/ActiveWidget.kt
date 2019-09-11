@@ -22,7 +22,7 @@ import gs.environment.inject
 import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.Events
+import tunnel.TunnelEvents
 import tunnel.Request
 import java.nio.charset.Charset
 
@@ -165,7 +165,7 @@ class UpdateWidgetService : Service() {
             } else {
                 onBlocked(droppedlist.last())
             }
-            this.ktx().on(Events.REQUEST, onBlockedEvent)
+            this.ktx().on(TunnelEvents.REQUEST, onBlockedEvent)
 
             onTunnelStateChanged()
             onTunnelStateEvent = t.tunnelState.doOnUiWhenChanged(withInit = true).then {
@@ -182,7 +182,7 @@ class UpdateWidgetService : Service() {
     }
 
     override fun onDestroy() {
-        this.ktx().cancel(Events.REQUEST, onBlockedEvent)
+        this.ktx().cancel(TunnelEvents.REQUEST, onBlockedEvent)
         this.ktx().cancel(NEW_WIDGET, onNewWidgetEvent)
         this.ktx().cancel(RESTORE_WIDGET, onRestoreEvent)
         this.ktx().cancel(DELETE_WIDGET, onDeleteEvent)

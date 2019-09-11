@@ -198,6 +198,7 @@ class SlotView(
 
     val ACTION_NONE = {
         showSnack(R.string.slot_action_none)
+        Unit
     }
 
     val ACTION_CLOSE = Slot.Action(i18n.getString(R.string.slot_action_close), {

@@ -10,7 +10,7 @@ import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.Events
+import tunnel.TunnelEvents
 import tunnel.Filter
 
 class AllAppsDashboardSectionVB(
@@ -21,7 +21,7 @@ class AllAppsDashboardSectionVB(
 
     private val ktx = ctx.ktx("AllAppsDashboard")
     private val filters by lazy { ktx.di().instance<Filters>() }
-    private val filterManager by lazy { ktx.di().instance<tunnel.Main>() }
+    private val filterManager by lazy { ktx.di().instance<tunnel.TunnelMain>() }
 
     private val slotMutex = SlotMutex()
 
@@ -56,7 +56,7 @@ class AllAppsDashboardSectionVB(
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
-        ktx.on(Events.FILTERS_CHANGED, updateApps)
+        ktx.on(TunnelEvents.FILTERS_CHANGED, updateApps)
         filters.apps.refresh()
         getApps = filters.apps.doOnUiWhenSet().then {
             apps = filters.apps().filter { it.system == system }
@@ -66,7 +66,7 @@ class AllAppsDashboardSectionVB(
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
-        ktx.cancel(Events.FILTERS_CHANGED, updateApps)
+        ktx.cancel(TunnelEvents.FILTERS_CHANGED, updateApps)
         filters.apps.cancel(getApps)
     }
 

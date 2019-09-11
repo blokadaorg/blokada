@@ -1,25 +1,25 @@
 package core.bits
 
+import blocka.BlockaVpnState
+import blocka.CurrentAccount
+import blocka.CurrentLease
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.MENU_CLICK_BY_NAME
 import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.BLOCKA_CONFIG
-import tunnel.BlockaConfig
 import java.util.*
 
 class VpnStatusVB(
         private val ktx: AndroidKontext,
         private val i18n: I18n = ktx.di().instance(),
         private val s: Tunnel = ktx.di().instance(),
-        private val tunnelStatus: EnabledStateActor = ktx.di().instance(),
-        private val tunManager: TunnelStateManager = ktx.di().instance()
+        private val tunnelStatus: EnabledStateActor = ktx.di().instance()
 ) : ByteVB() {
 
     override fun attach(view: ByteView) {
-        ktx.on(BLOCKA_CONFIG, configListener)
+        on(BlockaVpnState::class.java, this::update)
         stateListener = s.enabled.doOnUiWhenChanged().then {
             update()
         }
@@ -28,44 +28,35 @@ class VpnStatusVB(
     }
 
     override fun detach(view: ByteView) {
-        ktx.cancel(BLOCKA_CONFIG, configListener)
+        cancel(BlockaVpnState::class.java, this::update)
         tunnelStatus.listeners.remove(tunnelListener)
         s.enabled.cancel(stateListener)
     }
 
-    private var wasActive = false
     private var active = false
     private var activating = false
-    private var config: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
-    private val configListener = { cfg: BlockaConfig ->
-        config = cfg
-        update()
-        activateVpnAutomatically(cfg)
-        wasActive = cfg.activeUntil.after(Date())
-        Unit
-    }
 
     private var stateListener: IWhen? = null
 
-    private val update = { ->
+    private fun update() {
         view?.run {
+            val account = get(CurrentAccount::class.java)
+            val blockaVpnEnabled = get(BlockaVpnState::class.java).enabled
+            val lease = get(CurrentLease::class.java)
             when {
                 !s.enabled() -> {
                     icon(R.drawable.ic_shield_outline.res())
                     arrow(null)
-                    switch(false)
+                    switch(null)
                     label(R.string.home_setup_vpn.res())
                     state(R.string.home_vpn_disabled.res())
                     onTap {
-                        ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                    }
-                    onSwitch {
-                        if (!tunManager.turnVpn(it)) {
-                            ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                        }
+                        //ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
+                        s.enabled %= true
+                        entrypoint.onVpnSwitched(true)
                     }
                 }
-                config.blockaVpn && (activating || !active) -> {
+                blockaVpnEnabled && (activating || !active || !lease.leaseOk) -> {
                     icon(R.drawable.ic_shield_outline.res())
                     arrow(null)
                     switch(null)
@@ -74,7 +65,7 @@ class VpnStatusVB(
                     onTap {}
                     onSwitch {}
                 }
-                !config.blockaVpn && config.activeUntil.after(Date()) -> {
+                !blockaVpnEnabled && account.activeUntil.after(Date()) -> {
                     icon(R.drawable.ic_shield_outline.res())
                     arrow(null)
                     switch(false)
@@ -84,12 +75,10 @@ class VpnStatusVB(
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
                     }
                     onSwitch {
-                        if (!tunManager.turnVpn(it)) {
-                            ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                        }
+                        entrypoint.onVpnSwitched(it)
                     }
                 }
-                !config.blockaVpn -> {
+                !blockaVpnEnabled -> {
                     icon(R.drawable.ic_shield_outline.res())
                     arrow(null)
                     switch(false)
@@ -99,24 +88,20 @@ class VpnStatusVB(
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
                     }
                     onSwitch {
-                        if (!tunManager.turnVpn(it)) {
-                            ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                        }
+                        entrypoint.onVpnSwitched(it)
                     }
                 }
                 else -> {
                     icon(R.drawable.ic_verified.res(), color = R.color.switch_on.res())
                     arrow(null)
                     switch(true)
-                    label(config.gatewayNiceName.res())
+                    label(lease.gatewayNiceName.res())
                     state(R.string.home_connected_vpn.res())
                     onTap {
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
                     }
                     onSwitch {
-                        if (!tunManager.turnVpn(it)) {
-                            ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                        }
+                        entrypoint.onVpnSwitched(it)
                     }
                 }
             }
@@ -147,13 +132,6 @@ class VpnStatusVB(
             activating = false
             active = false
             update()
-        }
-    }
-
-    private fun activateVpnAutomatically(cfg: BlockaConfig) {
-        if (!cfg.blockaVpn && !wasActive && cfg.activeUntil.after(Date()) && cfg.hasGateway()) {
-            ktx.v("automatically enabling vpn on new subscription")
-            ktx.emit(BLOCKA_CONFIG, cfg.copy(blockaVpn = true))
         }
     }
 

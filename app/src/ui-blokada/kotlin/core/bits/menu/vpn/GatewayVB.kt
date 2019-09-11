@@ -1,11 +1,14 @@
 package core.bits.menu.vpn
 
 import android.content.Intent
+import blocka.CurrentAccount
+import blocka.CurrentLease
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.property.I18n
 import org.blokada.R
-import tunnel.*
+import tunnel.RestModel
+import tunnel.showSnack
 import java.util.*
 
 class GatewayVB(
@@ -16,7 +19,10 @@ class GatewayVB(
         onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
 
-    private fun update(cfg: BlockaConfig) {
+    private fun update() {
+        val cfg = get(CurrentLease::class.java)
+        val account = get(CurrentAccount::class.java)
+
         view?.apply {
             content = Slot.Content(
                     label = i18n.getString(
@@ -30,7 +36,7 @@ class GatewayVB(
                     description = if (gateway.publicKey == cfg.gatewayId) {
                         i18n.getString(R.string.slot_gateway_description_current,
                                 getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region,
-                                cfg.activeUntil)
+                                account.activeUntil)
                     } else {
                         i18n.getString(R.string.slot_gateway_description,
                                 getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region)
@@ -41,25 +47,18 @@ class GatewayVB(
             onSwitch = {
                 when {
                     gateway.publicKey == cfg.gatewayId -> {
-                        // Turn off VPN feature
-                        clearConnectedGateway(ktx, cfg, showError = false)
+                        entrypoint.onGatewayDeselected()
                     }
-                    cfg.activeUntil.before(Date()) -> {
+                    account.activeUntil.before(Date()) -> {
                         modal.openModal()
                         ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
                     }
                     gateway.overloaded() -> {
                         showSnack(R.string.slot_gateway_overloaded)
-                        // Resend event to re-select same gateway
-                        ktx.emit(BLOCKA_CONFIG, cfg)
+                        update()
                     }
                     else -> {
-                        checkGateways(ktx, cfg.copy(
-                                gatewayId = gateway.publicKey,
-                                gatewayIp = gateway.ipv4,
-                                gatewayPort = gateway.port,
-                                gatewayNiceName = gateway.niceName()
-                        ))
+                        entrypoint.onGatewaySelected(gateway.publicKey)
                     }
                 }
             }
@@ -73,18 +72,14 @@ class GatewayVB(
         })
     }
 
-    private val onConfig = { cfg: BlockaConfig ->
-        update(cfg)
-        Unit
-    }
-
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
         view.type = Slot.Type.INFO
-        ktx.on(BLOCKA_CONFIG, onConfig)
+        on(CurrentLease::class.java, this::update)
+        update()
     }
 
     override fun detach(view: SlotView) {
-        ktx.cancel(BLOCKA_CONFIG, onConfig)
+        cancel(CurrentLease::class.java, this::update)
     }
 }

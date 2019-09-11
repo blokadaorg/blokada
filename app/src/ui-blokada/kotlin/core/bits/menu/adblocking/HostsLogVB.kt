@@ -12,7 +12,7 @@ import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import org.blokada.R
-import tunnel.Events
+import tunnel.TunnelEvents
 import tunnel.Persistence
 import tunnel.Request
 
@@ -76,7 +76,7 @@ class HostsLogVB(
             items.forEach { view.add(it) }
         }
 
-        ktx.on(Events.REQUEST, request)
+        ktx.on(TunnelEvents.REQUEST, request)
         view.onEndReached = loadMore
     }
 
@@ -85,7 +85,7 @@ class HostsLogVB(
         view.onEndReached = {}
         searchString = ""
         items.clear()
-        ktx.cancel(Events.REQUEST, request)
+        ktx.cancel(TunnelEvents.REQUEST, request)
     }
 
     private val loadMore = {

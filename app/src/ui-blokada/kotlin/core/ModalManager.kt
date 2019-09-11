@@ -12,6 +12,7 @@ class ModalManager {
             if (this is ViewGroup) {
                 Blurry.with(context).animate(500).onto(this)
                 blurOpen = true
+                v("opened modal blur")
             }
         }
     }
@@ -23,6 +24,7 @@ class ModalManager {
                     val last = childCount - 1
                     removeViewAt(last)
                     blurOpen = false
+                    v("closed modal blur")
                 }
             }
     }

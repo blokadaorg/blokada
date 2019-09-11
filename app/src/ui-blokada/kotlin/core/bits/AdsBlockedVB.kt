@@ -1,27 +1,25 @@
 package core.bits
 
+import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.MENU_CLICK_BY_NAME
 import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.BLOCKA_CONFIG
-import tunnel.BlockaConfig
+import tunnel.TunnelConfig
 
 class AdsBlockedVB(
         private val ktx: AndroidKontext,
         private val i18n: I18n = ktx.di().instance(),
         private val tunnelEvents: Tunnel = ktx.di().instance(),
-        private val tunnelStatus: EnabledStateActor = ktx.di().instance(),
-        private val tunManager: TunnelStateManager = ktx.di().instance()
+        private val tunnelStatus: EnabledStateActor = ktx.di().instance()
 ) : ByteVB() {
 
     private var droppedCountListener: IWhen? = null
     private var dropped: Int = 0
     private var active = false
     private var activating = false
-    private var config: BlockaConfig = tunnel.Persistence.blocka.load(ktx)
 
     override fun attach(view: ByteView) {
         droppedCountListener = tunnelEvents.tunnelDropCount.doOnUiWhenSet().then {
@@ -30,30 +28,33 @@ class AdsBlockedVB(
         }
         tunnelStatus.listeners.add(tunnelListener)
         tunnelStatus.update(tunnelEvents)
-        ktx.on(BLOCKA_CONFIG, configListener)
+        on(TunnelConfig::class.java, this::update)
+        on(BlockaVpnState::class.java, this::update)
         update()
     }
 
     override fun detach(view: ByteView) {
         tunnelEvents.tunnelDropCount.cancel(droppedCountListener)
         tunnelStatus.listeners.remove(tunnelListener)
-        ktx.cancel(BLOCKA_CONFIG, configListener)
+        cancel(TunnelConfig::class.java, this::update)
+        cancel(BlockaVpnState::class.java, this::update)
     }
 
-    private val update = {
+    private fun update() {
+        val config = get(TunnelConfig::class.java)
+        val blockaVpnState = get(BlockaVpnState::class.java)
+
         view?.run {
             when {
                 !tunnelEvents.enabled() -> {
                     icon(R.drawable.ic_show.res())
                     label(R.string.home_touch_adblocking.res())
                     state(R.string.home_adblocking_disabled.res())
-                    switch(false)
+                    switch(null)
                     arrow(null)
                     onTap {
-                        tunManager.turnAdblocking(true)
-                    }
-                    onSwitch {
-                        tunManager.turnAdblocking(it)
+                        tunnelEvents.enabled %= true
+                        entrypoint.onSwitchAdblocking(true)
                     }
                 }
                 activating || !active -> {
@@ -65,7 +66,7 @@ class AdsBlockedVB(
                     onTap { }
                     onSwitch {  }
                 }
-                !config.adblocking && config.blockaVpn -> {
+                !config.adblocking && blockaVpnState.enabled -> {
                     icon(R.drawable.ic_show.res())
                     label(R.string.home_vpn_only.res())
                     state(R.string.home_adblocking_disabled.res())
@@ -74,7 +75,7 @@ class AdsBlockedVB(
                     onTap {
                     }
                     onSwitch {
-                        tunManager.turnAdblocking(true)
+                        entrypoint.onSwitchAdblocking(true)
                     }
                 }
                 !config.adblocking -> {
@@ -86,7 +87,7 @@ class AdsBlockedVB(
                     onTap {
                     }
                     onSwitch {
-                        tunManager.turnAdblocking(true)
+                        entrypoint.onSwitchAdblocking(true)
                     }
                 }
                 else -> {
@@ -101,18 +102,11 @@ class AdsBlockedVB(
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_ads.res())
                     }
                     onSwitch {
-                        tunManager.turnAdblocking(it)
+                        entrypoint.onSwitchAdblocking(it)
                     }
                 }
            }
         }
-        Unit
-    }
-
-    private val configListener = { cfg: BlockaConfig ->
-        config = cfg
-        update()
-        Unit
     }
 
     private val tunnelListener = object : IEnabledStateActorListener {

@@ -170,7 +170,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name="gs.property.ScreenOnReceiver"></receiver>
-        <receiver android:name="tunnel.RenewLicenseReceiver"></receiver>
+        <receiver android:name="RenewLicenseReceiver"></receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"

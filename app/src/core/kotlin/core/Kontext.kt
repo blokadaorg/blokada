@@ -6,6 +6,7 @@ import kotlinx.coroutines.experimental.Unconfined
 import java.util.*
 import kotlin.coroutines.experimental.CoroutineContext
 
+@Deprecated("will go")
 open class Kontext internal constructor(
         private val id: Any,
         private val log: Log = DefaultLog(id.toString()),
@@ -38,6 +39,7 @@ open class Kontext internal constructor(
 
 private val kontexts = WeakHashMap<Any, AndroidKontext>()
 
+@Deprecated("will go")
 class AndroidKontext(
         id: Any,
         val ctx: Context,
@@ -48,7 +50,9 @@ class AndroidKontext(
         }
 ): Kontext(id)
 
+@Deprecated("will go")
 fun Context.ktx(id: String = "ctx") = kontexts.getOrPut(id, {
     AndroidKontext(id, this) } ) as AndroidKontext
 
+@Deprecated("will go")
 fun String.ktx() = Kontext.new(this)

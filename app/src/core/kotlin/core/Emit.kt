@@ -95,12 +95,12 @@ class DefaultEmit(id: String, val common: Emit = commonEmit, val log: Log = Defa
     override fun <T> on(event: EventType<T>, callback: Callback<T>) = on(event, callback, true)
 
     override fun <T> on(event: EventType<T>, callback: Callback<T>, recentValue: Boolean): Job {
-        log.v("event:subscriber:on", event, callback)
+        //log.v("event:subscriber:on", event, callback)
         return common.on(event, callback, recentValue)
     }
 
     override fun <T> cancel(event: EventType<T>, callback: Callback<T>): Job {
-        log.v("event:subscriber:cancel", event, callback)
+        //log.v("event:subscriber:cancel", event, callback)
         return common.cancel(event, callback)
     }
 
@@ -112,12 +112,21 @@ class DefaultEmit(id: String, val common: Emit = commonEmit, val log: Log = Defa
     }
 
     override fun on(event: SimpleEvent, callback: () -> Unit, recentValue: Boolean): Job {
-        log.v("event:subscriber:on", event, callback)
+        //log.v("event:subscriber:on", event, callback)
         return common.on(event, callback)
     }
 
     override fun cancel(event: SimpleEvent, callback: () -> Unit): Job {
-        log.v("event:subscriber:cancel", event, callback)
+        //log.v("event:subscriber:cancel", event, callback)
         return common.cancel(event, callback)
     }
 }
+
+fun <T> emit(event: EventType<T>, value: T) = commonEmit.emit(event, value)
+fun <T> on(event: EventType<T>, callback: Callback<T>) = on(event, callback, true)
+fun <T> on(event: EventType<T>, callback: Callback<T>, recentValue: Boolean) = commonEmit.on(event, callback, recentValue)
+fun <T> cancel(event: EventType<T>, callback: Callback<T>) = commonEmit.cancel(event, callback)
+suspend fun <T> getMostRecent(event: EventType<T>) = commonEmit.getMostRecent(event)
+fun emit(event: SimpleEvent) = commonEmit.emit(event)
+fun on(event: SimpleEvent, callback: () -> Unit, recentValue: Boolean) = commonEmit.on(event, callback, recentValue)
+fun cancel(event: SimpleEvent, callback: () -> Unit) = commonEmit.cancel(event, callback)

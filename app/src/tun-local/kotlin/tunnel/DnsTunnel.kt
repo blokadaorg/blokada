@@ -7,9 +7,7 @@ import android.system.OsConstants
 import android.system.StructPollfd
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
-import core.AndroidKontext
-import core.Kontext
-import core.Result
+import core.*
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
 import org.pcap4j.util.PropertiesLoader
 import java.io.*
@@ -19,14 +17,17 @@ import kotlin.math.min
 
 
 interface Tunnel {
-    fun run(ktx: AndroidKontext, tunnel: FileDescriptor)
-    fun runWithRetry(ktx: AndroidKontext, tunnel: FileDescriptor)
-    fun stop(ktx: Kontext)
+    fun run(tunnel: FileDescriptor)
+    fun runWithRetry(tunnel: FileDescriptor)
+    fun stop()
 }
+
+val cooldownTtl = 100L
+val cooldownMax = 5000L
 
 internal class DnsTunnel(
         private var proxy: Proxy,
-        private val config: TunnelConfig,
+        private val powersave: Boolean,
         private val forwarder: Forwarder = Forwarder(),
         private val loopback: Queue<Triple<ByteArray, Int, Int>> = LinkedList()
 ) : Tunnel {
@@ -34,16 +35,14 @@ internal class DnsTunnel(
     private var device: FileDescriptor? = null
     private var error: FileDescriptor? = null
 
-    private val cooldownTtl = 300L
-    private val cooldownMax = 3000L
-    private var cooldownCounter = 0
+    private var cooldownCounter = 1
     private var epermCounter = 0
 
     private var packetBuffer = ByteArray(32767)
     private var datagramBuffer = ByteArray(1024)
 
-    override fun run(ktx: AndroidKontext, tunnel: FileDescriptor) {
-        ktx.v("running tunnel thread", this)
+    override fun run(tunnel: FileDescriptor) {
+        v("running tunnel thread", this)
 
         val input = FileInputStream(tunnel)
         val output = FileOutputStream(tunnel)
@@ -59,56 +58,58 @@ internal class DnsTunnel(
                     device.listenFor(OsConstants.POLLIN or OsConstants.POLLOUT)
                 } else device.listenFor(OsConstants.POLLIN)
 
-                val polls = setupPolls(ktx, errors, device)
-                poll(ktx, polls)
-                fromOpenSocketsToProxy(ktx, polls)
-                fromLoopbackToDevice(ktx, device, output)
-                fromDeviceToProxy(ktx, device, input, packetBuffer)
+                val polls = setupPolls(errors, device)
+                poll(polls)
+                fromOpenSocketsToProxy(polls)
+                fromLoopbackToDevice(device, output)
+                fromDeviceToProxy(device, input, packetBuffer)
                 cleanup()
+                cooldownCounter = 1
             }
         } catch (ex: InterruptedException) {
-            ktx.v("tunnel thread interrupted", this, ex.toString())
+            v("tunnel thread interrupted", this, ex.toString())
             Thread.currentThread().interrupt()
             throw ex
         } catch (ex: Exception) {
             val cause = ex.cause
             if (cause is ErrnoException && cause.errno == OsConstants.EPERM) {
-                if (++epermCounter >= 3 && config.powersave) {
-                    ktx.emit(Events.TUNNEL_POWER_SAVING)
+                if (++epermCounter >= 3 && powersave) {
+                    emit(TunnelEvents.TUNNEL_POWER_SAVING)
                     epermCounter = 0
                 }
             } else {
                 epermCounter = 0
-                ktx.e("failed tunnel thread", this, ex)
+                e("failed tunnel thread", this, ex)
             }
             throw ex
         } finally {
-            ktx.v("cleaning up resources", this)
+            v("cleaning up resources", this)
             Result.of { Os.close(error) }
             Result.of { input.close() }
             Result.of { output.close() }
         }
     }
 
-    override fun runWithRetry(ktx: AndroidKontext, tunnel: FileDescriptor) {
+    override fun runWithRetry(tunnel: FileDescriptor) {
         var interrupted = false
         do {
-            Result.of { run(ktx, tunnel) }.mapError {
+            Result.of { run(tunnel) }.mapError {
                 if (it is InterruptedException || threadInterrupted()) interrupted = true
                 else {
-                    val cooldown = min(cooldownTtl * cooldownCounter++, cooldownMax)
-                    ktx.e("tunnel thread error, will restart after $cooldown ms", this, it.toString())
+                    val cooldown = min(cooldownTtl * cooldownCounter, cooldownMax)
+                    cooldownCounter *= 2
+                    e("tunnel thread error, will restart after $cooldown ms", this, it.toString())
                     Result.of { Thread.sleep(cooldown) }.mapError {
                         if (it is InterruptedException || threadInterrupted()) interrupted = true
                     }
                 }
             }
         } while (!interrupted)
-        ktx.v("tunnel thread shutdown", this)
+        v("tunnel thread shutdown", this)
     }
 
-    override fun stop(ktx: Kontext) {
-        ktx.v("stopping poll, if any")
+    override fun stop() {
+        v("stopping poll, if any")
         Result.of { Os.close(error) }
         error = null
     }
@@ -129,7 +130,7 @@ internal class DnsTunnel(
         device
     }()
 
-    private fun setupPolls(ktx: Kontext, errors: StructPollfd, device: StructPollfd) = {
+    private fun setupPolls(errors: StructPollfd, device: StructPollfd) = {
         val polls = arrayOfNulls<StructPollfd>(2 + forwarder.size()) as Array<StructPollfd>
         polls[0] = errors
         polls[1] = device
@@ -143,7 +144,7 @@ internal class DnsTunnel(
         polls
     }()
 
-    private fun poll(ktx: Kontext, polls: Array<StructPollfd>) {
+    private fun poll(polls: Array<StructPollfd>) {
         while (true) {
             try {
                 val result = Os.poll(polls, -1)
@@ -157,7 +158,7 @@ internal class DnsTunnel(
         }
     }
 
-    private fun fromOpenSocketsToProxy(ktx: Kontext, polls: Array<StructPollfd>) {
+    private fun fromOpenSocketsToProxy(polls: Array<StructPollfd>) {
         var index = 0
         val iterator = forwarder.iterator()
         while (iterator.hasNext()) {
@@ -167,28 +168,28 @@ internal class DnsTunnel(
                 val responsePacket = DatagramPacket(datagramBuffer, datagramBuffer.size)
                 Result.of {
                     rule.socket.receive(responsePacket)
-                    proxy.toDevice(ktx, datagramBuffer, responsePacket.length, rule.originEnvelope)
-                }.onFailure { ktx.w("failed receiving socket", it) }
-                Result.of { rule.socket.close() }.onFailure { ktx.w("failed closing socket") }
+                    proxy.toDevice( datagramBuffer, responsePacket.length, rule.originEnvelope)
+                }.onFailure { w("failed receiving socket", it) }
+                Result.of { rule.socket.close() }.onFailure { w("failed closing socket") }
             }
         }
     }
 
-    private fun fromLoopbackToDevice(ktx: Kontext, device: StructPollfd, output: OutputStream) {
+    private fun fromLoopbackToDevice(device: StructPollfd, output: OutputStream) {
         if (device.isEvent(OsConstants.POLLOUT)) {
             val (buffer, offset, length) = loopback.poll()
             output.write(buffer, offset, length)
         }
     }
 
-    private fun fromDeviceToProxy(ktx: Kontext, device: StructPollfd, input: InputStream,
+    private fun fromDeviceToProxy(device: StructPollfd, input: InputStream,
                                   buffer: ByteArray) {
         if (device.isEvent(OsConstants.POLLIN)) {
             val length = input.read(buffer)
             if (length > 0) {
                 // TODO: nocopy
                 val readPacket = Arrays.copyOfRange(buffer, 0, length)
-                proxy.fromDevice(ktx, readPacket, length)
+                proxy.fromDevice(readPacket, length)
             }
         }
     }

@@ -1,8 +1,10 @@
 package tunnel
 
 import android.net.VpnService
-import core.Kontext
+import blocka.CurrentLease
 import core.Result
+import core.e
+import core.v
 import java.net.Inet4Address
 import java.net.Inet6Address
 import java.net.InetSocketAddress
@@ -19,7 +21,7 @@ internal class DnsVpnConfigurator(
 
     private var dnsIndex = 1
 
-    override fun configure(ktx: Kontext, builder: VpnService.Builder) {
+    override fun configure(builder: VpnService.Builder) {
         var format: String? = null
 
         // Those are TEST-NET IP ranges from RFC5735, so that we don't collide.
@@ -47,8 +49,8 @@ internal class DnsVpnConfigurator(
             try {
                 val address = Inet6Address.getByAddress(ipv6Template)
                 builder.addAddress(address, 120)
-            } catch (e: Exception) {
-                ktx.e("failed adding ipv6 address", e)
+            } catch (ex: Exception) {
+                e("failed adding ipv6 address", ex)
                 ipv6Template = null
             }
         } else {
@@ -59,13 +61,13 @@ internal class DnsVpnConfigurator(
         for (address in dnsServers) {
             try {
                 builder.addDnsServer(format, ipv6Template, address)
-            } catch (e: Exception) {
-                ktx.e("failed adding dns server", e)
+            } catch (ex: Exception) {
+                e("failed adding dns server", ex)
             }
         }
 
         builder.addDisallowedApplication(packageName)
-        filterManager.getWhitelistedApps(ktx).forEach {
+        filterManager.getWhitelistedApps().forEach {
             builder.addDisallowedApplication(it)
         }
 
@@ -92,24 +94,24 @@ internal class DnsVpnConfigurator(
 }
 
 /**
- * A VPN tunnel configuration that forwards nothing to the tunnel.
- * Used when functionality should be disabled, but the tunnel should be on.
+ * A VPN tunnel configuration that routes nothing to the tunnel, only changing DNS servers config.
+ * Used for the DNS-only mode (and in GPlay flavor).
  */
-internal class PausedVpnConfigurator(
+internal class SimpleVpnConfigurator(
         private val dnsServers: List<InetSocketAddress>,
         private val filterManager: FilterManager
 ): Configurator {
 
-    override fun configure(ktx: Kontext, builder: VpnService.Builder) {
+    override fun configure(builder: VpnService.Builder) {
         for (address in dnsServers) {
             try {
                 builder.addDnsServer(address.getAddress())
-            } catch (e: Exception) {
-                ktx.e("failed adding dns server", e)
+            } catch (ex: Exception) {
+                e("failed adding dns server", ex)
             }
         }
 
-        filterManager.getWhitelistedApps(ktx).forEach {
+        filterManager.getWhitelistedApps().forEach {
             builder.addDisallowedApplication(it)
         }
 
@@ -136,22 +138,23 @@ val dnsProxyDst6 = Inet6Address.getByName(dnsProxyDst6String).address!!
 internal class BlockaVpnConfigurator(
         private val dnsServers: List<InetSocketAddress>,
         private val filterManager: FilterManager,
-        private val blockaConfig: BlockaConfig,
+        private val adblocking: Boolean,
+        private val currentLease: CurrentLease,
         private val packageName: String
 ): Configurator {
 
     private var dnsIndex = 1
 
-    override fun configure(ktx: Kontext, builder: VpnService.Builder) {
+    override fun configure(builder: VpnService.Builder) {
         // Set local IP addresses for the DNS proxy so we can easily catch them for inspection
         dnsIndex = 0
         for (address in dnsServers) {
             try {
-                ktx.v("adding dns server $address")
-                if (blockaConfig.adblocking) builder.addMappedDnsServer(address)
+                v("adding dns server $address")
+                if (adblocking) builder.addMappedDnsServer(address)
                 else builder.addDnsServer(address.address)
-            } catch (e: Exception) {
-                ktx.e("failed adding dns server $address", e)
+            } catch (ex: Exception) {
+                e("failed adding dns server $address", ex)
             }
         }
 
@@ -160,13 +163,13 @@ internal class BlockaVpnConfigurator(
         //builder.addDnsServer("2606:4700:4700::1111")
 
         builder.addDisallowedApplication(packageName)
-        filterManager.getWhitelistedApps(ktx).forEach {
+        filterManager.getWhitelistedApps().forEach {
             builder.addDisallowedApplication(it)
         }
 
-        ktx.v("vpn addresses: ${blockaConfig.vip4}, ${blockaConfig.vip6}")
-        builder.addAddress(blockaConfig.vip4, 32)
-        builder.addAddress(blockaConfig.vip6, 128)
+        v("vpn addresses: ${currentLease.vip4}, ${currentLease.vip6}")
+        builder.addAddress(currentLease.vip4, 32)
+        builder.addAddress(currentLease.vip6, 128)
 
         IPV4_PUBLIC_NETWORKS.forEach {
             val (ip, mask) = it.split("/")
@@ -197,7 +200,7 @@ internal class BlockaVpnConfigurator(
 }
 
 interface Configurator {
-    fun configure(ktx: Kontext, builder: VpnService.Builder)
+    fun configure(builder: VpnService.Builder)
 }
 
 private val IPV4_PUBLIC_NETWORKS = listOf(

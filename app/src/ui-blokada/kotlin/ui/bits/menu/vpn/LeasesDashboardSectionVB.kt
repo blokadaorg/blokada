@@ -1,6 +1,8 @@
 package ui.bits.menu.vpn
 
 import android.os.Handler
+import blocka.CurrentAccount
+import blocka.MAX_RETRIES
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.adblocking.SlotMutex
@@ -11,8 +13,6 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
-import tunnel.MAX_RETRIES
-import tunnel.Persistence
 import tunnel.RestApi
 import tunnel.RestModel
 
@@ -45,8 +45,8 @@ class LeasesDashboardSectionVB(
     }
 
     private fun populate(retry: Int = 0) {
-        val cfg = Persistence.blocka.load(ktx)
-        api.getLeases(cfg.accountId).enqueue(object : retrofit2.Callback<RestModel.Leases> {
+        val currentAccount = get(CurrentAccount::class.java)
+        api.getLeases(currentAccount.id).enqueue(object : retrofit2.Callback<RestModel.Leases> {
             override fun onFailure(call: Call<RestModel.Leases>?, t: Throwable?) {
                 ktx.e("leases api call error", t ?: "null")
                 if (retry < MAX_RETRIES) populate(retry + 1)

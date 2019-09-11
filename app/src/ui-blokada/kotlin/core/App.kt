@@ -53,7 +53,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
         bind<UiState>() with singleton { AUiState(kctx = with("gscore").instance(10), xx = lazy) }
         bind<ComponentProvider<Activity>>() with singleton { ComponentProvider<Activity>() }
         bind<DefaultSourceProvider>() with singleton {
-            DefaultSourceProvider(ctx = instance(), j = instance(), processor = instance(),
+            DefaultSourceProvider(ctx = instance(), processor = instance(),
                     repo = instance(), f = instance())
         }
         bind<g11n.Main>() with singleton {
@@ -72,21 +72,17 @@ fun newAppModule(ctx: Context): Kodein.Module {
         bind<ViewBinderHolder>() with singleton {
             ViewBinderHolder()
         }
-        bind<TunnelStateManager>() with singleton {
-            TunnelStateManager(ctx.ktx("tunnelStateManager"))
-        }
 
         onReady {
             val d: Device = instance()
             val repo: Repo = instance()
-            val t: tunnel.Main = instance()
             val g11: g11n.Main = instance()
 
             launch {
                 g11.load("translations:firstLoad".ktx())
 
                 val ktx = ctx.ktx("translations:sync:filters")
-                ktx.on(tunnel.Events.FILTERS_CHANGED) {
+                ktx.on(tunnel.TunnelEvents.FILTERS_CHANGED) {
                     g11.sync(ktx)
                 }
             }
@@ -101,8 +97,7 @@ fun newAppModule(ctx: Context): Kodein.Module {
             var wasConnected = false
             d.connected.doWhenChanged().then {
                 if (d.connected() && !wasConnected) {
-                    repo.content.refresh()
-                    t.sync(ctx.ktx("connected:sync"))
+                    entrypoint.onWentOnline()
                 }
                 wasConnected = d.connected()
             }

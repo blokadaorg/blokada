@@ -48,10 +48,10 @@
     <!-- Button to open homepage of list's author. Keep it short. -->
 
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">On</string>
+    <string name="slot_switch_on">Yes</string>
 
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Off</string>
+    <string name="slot_switch_off">No</string>
 
     <!-- An action to toggle a switch -->
 
@@ -154,6 +154,7 @@
     <string name="slot_account_action_change_id">Restore account</string>
     <string name="slot_account_show">Account ID</string>
     <string name="slot_account_action_copied">Account ID copied to the clipboard</string>
+    <string name="slot_account_action_unavailable">[not set]</string>
 
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Connect to %s</string>
