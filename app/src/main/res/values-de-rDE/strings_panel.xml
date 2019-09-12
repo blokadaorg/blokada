@@ -190,7 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Erweiterte Einstellungen</string>
     <string name="slot_whitelist_updating">Aktualisierung der Konfiguration, bitte warten ...</string>
-    <string name="slot_too_many_leases">Bitte entferne das alte Gerät aus deiner Liste der Geräte.</string>
+    <string name="slot_too_many_leases">Bitte entferne das alte Gerät aus deiner Geräteliste.</string>
     <string name="slot_background_animation">Hintergrundanimation</string>
     <string name="slot_background_animation_description">Wenn aktiviert, wird jede blockierte oder erlaubte DNS-Anfrage durch eine Wellenanimation dargestellt. Schalte es aus, wenn du den Eindruck hast, das Gerät wird langsamer.</string>
     <string name="slot_reset_counter_label">Zähler der blockierten Hosts zurücksetzen</string>

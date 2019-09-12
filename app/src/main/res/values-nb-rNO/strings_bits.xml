@@ -10,11 +10,15 @@
     <string name="home_activating">Aktiverer</string>
     <string name="home_please_wait">Vennligst vent...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_vpn_only">Bare VPN-modus</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Bare DNS-modus</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">Trykk for å sette opp DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blokkert</string>
     <string name="home_masterswitch_enabled">Blokada er på</string>
+    <string name="home_masterswitch_on">Trykk for pause</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Fortell vennene dine</string>
     <string name="home_share_state">Del din Blokada-poengsum</string>
@@ -25,9 +29,20 @@
     <string name="home_update_required">Oppdatering påkrevd</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Donér</string>
+    <string name="home_vpn_enabled">VPN er aktiv</string>
+    <string name="home_vpn_disabled">VPN er deaktivert</string>
+    <string name="home_account_active">Kontoen din er fortsatt aktiv</string>
+    <string name="home_connecting_vpn">Kobler til VPN</string>
+    <string name="home_cleanup">Opprydding anbefales</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">Koblet til VPN</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Reklame</string>
+    <string name="menu_ads_live_label">Vertslogg over tillatte og blokkerte forespørsler</string>
+    <string name="menu_ads_clear_log">Tøm vertslogg</string>
+    <string name="menu_ads_lists_label">Velg lister du vil bruke for blokkering. Standard er bra for de fleste.</string>
+    <string name="menu_ads_rules_label">Legg til dine egne regler for å finjustere blokkering.</string>
+    <string name="menu_ads_log_label">Se hva som har blitt blokkert eller tillatt nylig.</string>
     <!-- VPN section header in menu (for configuring VPN) -->
     <string name="menu_vpn">VPN</string>
     <string name="menu_vpn_activate_account">Vennligst aktiver kontoen din først.</string>
@@ -36,16 +51,33 @@
     <string name="menu_vpn_account">Konto</string>
     <!-- A button opening VPN gateways settings -->
     <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_leases">Enheter</string>
+    <string name="menu_vpn_account_secret">Konto-IDen din er hemmelig, og du bør oppbevare den for deg selv. Skriv det ned i tilfelle du avinstallerer appen.</string>
+    <string name="menu_vpn_restore_label">Her kan du gjenopprette den eksisterende kontoen din hvis du for eksempel har installert appen på nytt.</string>
+    <string name="menu_vpn_intro">Med VPN blir dataene dine kryptert, IP-adressen din er skjult, og plasseringen din blir endret.</string>
+    <string name="menu_vpn_account_label">For å bruke VPN, trenger du en aktiv konto. Sjekk eller gjenopprett kontoen din her.</string>
     <string name="menu_dns_recommended">Anbefalte DNS-servere</string>
     <string name="menu_dns_intro">DNS er ansvarlig for å oversette IP-adresser til nettsteder og apper du bruker. Hvis du velger en god DNS, kan det øke hastigheten på enheten din og vil beskytte personvernet ditt.</string>
     <string name="menu_dns_select">Velg en av DNS-serverne.</string>
+    <string name="menu_host_list_status">Liste status</string>
+    <string name="menu_host_whitelist">Verter du legger til her, vil aldri bli blokkert. Bruk denne listen når for eksempel et nettsted du besøker er feilaktig blokkert.</string>
+    <string name="menu_host_blacklist">Verter du legger til her, vil alltid blokkeres. For eksempel kan du legge til nettsteder som ikke er blokkert av standardlistene, men bør være det.</string>
     <!-- A section of other settings in menu -->
+    <string name="menu_other">Annet</string>
+    <string name="menu_share_log_label">Deling logg lar oss finne årsaken til problemet ditt. Forsikre deg om at du sender det privat til et av Blokada kjerneteammedlemmer.</string>
     <!-- A section of help, telegram, and other buttons in menu -->
     <string name="menu_learn_more">Lær mer</string>
     <!-- A section informational content in menu -->
+    <string name="menu_knowledge">Kunnskap</string>
     <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">Bli involvert</string>
+    <string name="menu_telegram">Telegram chat</string>
+    <string name="menu_configure">Konfigurer Blokada-funksjoner</string>
+    <string name="menu_exclude">Ekskluder apper som ikke fungerer riktig</string>
     <!-- A section in menu for additional buttons  -->
+    <string name="menu_dive_in">Dykk dypere</string>
     <!-- A section to manage some settings (generic)  -->
     <string name="menu_manage">Administrer</string>
     <string name="menu_ok">Ok</string>
+    <string name="menu_dns_remove_default">Standard DNS kan ikke fjernes.</string>
 </resources>

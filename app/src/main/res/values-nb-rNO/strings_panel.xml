@@ -23,6 +23,8 @@
     <string name="panel_domain_forwarded_desc">Dette domenet har blitt tillatt. For å blokkere det, bruk knappen nedenfor.</string>
     <string name="panel_domain_forwarded_toast">Lagt til i hvitelisten.</string>
     <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked">Blokkert &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_desc">Dette domenet er blokkert. For å tillate det i fremtiden, bruk knappen nedenfor.</string>
     <string name="panel_domain_blocked_toast">Lagt til i svartelisten.</string>
     <string name="panel_ruleset">Filter teller</string>
     <string name="panel_ruleset_title">Filtre har nå %s regler.</string>
@@ -71,7 +73,10 @@
     <string name="slot_telegram_desc">Besøk vår Telegram kanal for hjelp eller bare for å være en del av samfunnet vårt.</string>
     <string name="slot_telegram_action">Åpne</string>
     <string name="slot_dropped_share_title">Del til</string>
+    <string name="slot_adblocking_label">Blokker annonser &amp; sporere</string>
+    <string name="slot_adblocking_text">Når dette er aktivert, vil Blokada sperre annonser, sporere og annet uønsket innhold. Dette hjelper deg med å beskytte personvernet ditt, øke hastigheten på enheten din og lagre dataene dine.</string>
     <string name="slot_account_label_active">Konto er aktiv til %s</string>
+    <string name="slot_account_label_inactive">Konto inaktiv</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Administrer</string>
     <string name="slot_account_action_manage_inactive">Aktiver konto</string>
@@ -80,7 +85,9 @@
     <string name="slot_account_action_copied">Konto-ID kopiert til utklippstavlen</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Koble til %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Koble til %s</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_lease_name_current">%s (denne enheten)</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">høy</string>
     <!-- Gateway load -->
@@ -88,6 +95,7 @@
     <string name="slot_protection_header">Blokada status</string>
     <string name="slot_protection_off">Blokada er inaktiv</string>
     <string name="slot_protection_off_desc">Enheten din er ikke beskyttet.</string>
+    <string name="slot_protection_error">Blokada er midlertidig inaktiv</string>
     <string name="slot_protection_disconnected">Enheten din er frakoblet</string>
     <string name="slot_protection_activating">Blokada aktiverer</string>
     <string name="slot_protection_active_warning">Blokada er aktiv, men konfigurasjonen kan forbedres. Trykk for detaljer.</string>

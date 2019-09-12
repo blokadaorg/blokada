@@ -190,6 +190,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">進階設定</string>
     <string name="slot_whitelist_updating">正在更新組態設定，請稍候…</string>
+    <string name="slot_too_many_leases">請從您的裝置清單裝移除舊的裝置。</string>
     <string name="slot_background_animation">背景動畫</string>
     <string name="slot_background_animation_description">開啟時，將會在每次 DNS 請求被阻擋或允許時出現波浪動畫一次。如果你覺得速度變慢，請關閉。</string>
     <string name="slot_reset_counter_label">重設已阻擋的主機計數器</string>

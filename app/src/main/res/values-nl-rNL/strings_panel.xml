@@ -46,7 +46,7 @@
     <string name="slot_intro_new_header">Hoe gebruik je de nieuwe UI?</string>
     <string name="slot_intro_desc">U bevindt zich momenteel in de Home sectie, er is meer als u naar rechts veegt. Elk van hen heeft zijn eigen onderste menu - open het door naar boven te vegen. &lt;br/&gt;&lt;br/&gt; Op Android TV, navigeer door de UI met het dpad. Gebruik de middelste toets om het onderste menu te openen, of een ander item dat u selecteert. De knoppen zijn gemarkeerd met de pijl omhoog, omlaag, links of rechts - gebruik de richtingstoetsen om ze aan te klikken.</string>
     <string name="slot_intro_info">Psst.... Op sommige items staat het vraagtekenpictogram. Als u erop tikt, verschijnt er een korte hulpboodschap, zoals deze!</string>
-    <string name="slot_new_filter">Voeg een nieuwe host toe aan de geblokkeerde lijst</string>
+    <string name="slot_new_filter">Voeg een nieuwe host toe aan de blokkeer lijst</string>
     <string name="slot_new_filter_list">Voeg een nieuwe host-lijst toe</string>
     <string name="slot_new_filter_whitelist">Voeg een nieuwe host toe aan de toegestane lijst</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
@@ -57,35 +57,56 @@
     <string name="slot_invalid">ongeldig</string>
     <string name="slot_continue">Doorgaan</string>
     <string name="slot_enter_domain_title">Domein(en)</string>
-    <string name="slot_enter_domain_desc">Voer domeinen in die door een komma gescheiden zijn. U kunt ook een link plakken naar een willekeurige hostlijst, of een lokaal hostlijst bestand importeren.</string>
-    <string name="slot_enter_domain_error">Dat lijkt me niet op iets.</string>
+    <string name="slot_enter_domain_desc">Voer domeinen in gescheiden door een komma. U kunt ook een link plakken naar een willekeurige hostlijst, of een lokaal hostlijst bestand importeren.</string>
+    <string name="slot_enter_domain_error">Dit lijkt me niets.</string>
     <string name="slot_enter_domain_file">Bestand</string>
     <string name="slot_enter_name_title">Naam</string>
-    <string name="slot_enter_name_desc">Voer een naam in voor de nieuwe invoer. U kunt ook een voorgestelde naam genereren.</string>
-    <string name="slot_enter_name_error">Dat lijkt me niet op iets.</string>
+    <string name="slot_enter_name_desc">Voer een naam in voor de nieuwe entry. Je kan ook een voorgestelde naam genereren.</string>
+    <string name="slot_enter_name_error">Dit lijkt me niets.</string>
     <string name="slot_enter_name_generate">Genereren</string>
     <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; is op de toegestane lijst</string>
     <string name="slot_app_desc">Deze app is op de toegestane lijst gezet, wat betekent dat er geen blokkering of filtering wordt uitgevoerd op deze app.</string>
+    <string name="slot_allapp_desc">Je kunt deze app Blokada omzeilen om te stoppen met het blokkeren van elk verkeer. Let op, gepasseerde apps communiceren buiten de VPN.</string>
+    <string name="slot_allapp_whitelisted">Omzeild</string>
+    <string name="slot_allapp_normal">Niet omzeild</string>
+    <string name="slot_allapp_whitelist">Omzeild</string>
+    <string name="slot_dns_name">Aangepaste DNS is actief</string>
+    <string name="slot_dns_name_disabled">Aangepaste DNS is gedeactiveerd</string>
+    <string name="slot_action_none">Deze actie is nog niet beschikbaar.</string>
+    <string name="slot_action_unwhitelist">Annuleren</string>
+    <string name="slot_action_author">Over</string>
     <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">Een item</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">Een item voor %s</string>
+    <string name="slot_dns_control_title">DNS-servers lijst</string>
+    <string name="slot_dns_control_description">Je kunt de DNS-servers lijst synchroniseren met onze servers zonder je eigen domeinen te verliezen. &lt;br/&gt;&lt;br/&gt;Als alternatief kun je alle items (inclusief de jouwe) laten vervallen en ze opnieuw downloaden.</string>
     <!-- A button to synchronize (fetch) lists  -->
-    <string name="slot_action_refresh_toast">De synchronisatie is succesvol gestart</string>
-    <string name="slot_action_restore">Laten vervallen</string>
-    <string name="slot_export_title">Locatie instellen</string>
+    <string name="slot_action_refresh">Synchroniseren</string>
+    <string name="slot_action_refresh_toast">De synchronisatie is gestart</string>
+    <string name="slot_action_restore">Drop</string>
+    <string name="slot_export_title">Locatie instellingen</string>
+    <string name="slot_export_description">Je kunt de plaats waar de configuratie wordt opgeslagen (en geladen) wijzigen. Als je bestaande instellingen importeert, selecteer dan eerst Importeren, anders worden deze overschreven.</string>
+    <string name="slot_action_import">Importeren</string>
+    <string name="slot_action_internal">Interne opslag</string>
+    <string name="slot_action_external">Externe opslag</string>
+    <string name="slot_filters_title">Filterlijst</string>
+    <string name="slot_filters_description">Je kunt de filterlijst synchroniseren met onze servers zonder je eigen domeinen te verliezen. &lt;br/&gt;&lt;br/&gt;Als alternatief kun je alle items (inclusief de jouwe) laten vervallen en ze opnieuw downloaden.</string>
     <string name="slot_blocked_title">Domein geblokkeerd</string>
     <string name="slot_forwarded_title">Domein doorgestuurd</string>
-    <string name="slot_whitelist_title">Vertrouwde app</string>
+    <string name="slot_whitelist_title">Toegestane app</string>
     <string name="slot_list_no_desc">Deze vermelding heeft geen beschrijving.</string>
+    <string name="slot_status_info">Wanneer de app actief is, zie je het sleutelpictogram in de notificatiebalk boven aan het scherm, wat betekent dat uw apparaat beschermd is. Je kunt de app uitschakelen met de onderstaande knop of door het onderste menu naar beneden te vegen.</string>
     <string name="slot_action_deactivate">Uitschakelen</string>
     <string name="slot_action_activate">Inschakelen</string>
     <string name="slot_update_action_refresh">Controleer opnieuw</string>
-    <string name="slot_telegram_title">Kom bij Telegram!</string>
-    <string name="slot_telegram_desc">Bezoek ons Telegram kanaal voor hulp of alleen voor onze gemeenschap.</string>
+    <string name="slot_telegram_title">Doe mee op Telegram!</string>
+    <string name="slot_telegram_desc">Bezoek ons Telegram kanaal voor hulp of om gewoon deel uit te maken van onze community.</string>
     <string name="slot_telegram_action">Openen</string>
     <string name="slot_dropped_share_title">Delen met</string>
-    <string name="slot_adblocking_label">Blokkeer advertenties; trackers</string>
-    <string name="slot_adblocking_text">Indien ingeschakeld, Blokada zal advertenties, trackers en andere ongewenste inhoud blokkeren. Dit helpt om uw privacy te beschermen, uw apparaat te versnellen en uw data besparen.</string>
-    <string name="slot_account_label_active">Account actief tot</string>
+    <string name="slot_adblocking_label">Blokkeer advertenties &amp; trackers</string>
+    <string name="slot_adblocking_text">Indien ingeschakeld, zal Blokada advertenties, trackers en andere ongewenste inhoud blokkeren. Dit helpt om uw privacy te beschermen, uw apparaat te versnellen en uw data besparen.</string>
+    <string name="slot_account_label_active">Account actief tot %s</string>
     <string name="slot_account_label_inactive">Account inactief</string>
     <!-- Action to manage active subscription. Keep it short -->
     <string name="slot_account_action_manage">Beheer</string>
@@ -95,18 +116,84 @@
     <string name="slot_account_action_copied">Account ID is naar het klembord gekopieerd</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Verbinden met %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Verbind met %s</string>
+    <string name="slot_gateway_description">Prestatie: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Regio: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_description_current">Prestatie: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Regio: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Dit is jouw huidige geselecteerde gateway.</string>
+    <string name="slot_gateway_overloaded">Deze gateway is bezet en accepteert geen nieuwe verbindingen.</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Bepaal welke van je apparaten verbinding wil maken met het VPN.</string>
+    <string name="slot_lease_name_current">%s (dit apparaat)</string>
+    <string name="slot_lease_description">Apparaat ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">Apparaat ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Dit is jouw huidige apparaat.</string>
     <!-- Gateway load -->
+    <string name="slot_gateway_load_low">hoog</string>
     <!-- Gateway load -->
+    <string name="slot_gateway_load_high">laag</string>
+    <string name="subscription_success">Je account wordt geactiveerd. Dit kan een paar seconden duren. Bedankt!</string>
+    <string name="slot_protection_header">Blokada status</string>
+    <string name="slot_protection_off">Blokada is gedeactiveerd</string>
+    <string name="slot_protection_off_desc">Uw apparaat is niet beschermd.</string>
+    <string name="slot_protection_error">Blokada is tijdelijk inactief</string>
+    <string name="slot_protection_error_desc">Dit kan worden veroorzaakt door tijdelijke netwerkproblemen, apparaat of software problemen. Blokada zal automatisch snel opnieuw activeren, maar je kunt ook proberen de app opnieuw aan te zetten of uw telefoon opnieuw opstarten. Als je problemen blijft hebben, neem dan contact met ons op Telegram voor hulp.</string>
+    <string name="slot_protection_disconnected">Jouw apparaat is offline</string>
+    <string name="slot_protection_disconnected_desc">Blokada is gepauzeerd omdat je apparaat de internetverbinding heeft verloren. Blokada zal automatisch opnieuw activeren zodra je weer online bent.</string>
+    <string name="slot_protection_activating">Blokada is aan het activeren</string>
+    <string name="slot_protection_active_warning">Blokada is actief, maar configuratie kan worden verbeterd. Tik voor details.</string>
+    <string name="slot_protection_active">Blokada en VPN zijn actief</string>
+    <string name="slot_protection_action">Instellingen</string>
+    <string name="slot_protection_ok">Uw apparaat is volledig beschermd! Zowel VPN als adblokkering zijn actief.</string>
+    <string name="slot_protection_no_adblocking">Het blokkeren van advertenties &amp; trackers zijn momenteel uitgeschakeld. Je moet deze inschakelen om jouw privacy en gegevens te beschermen.</string>
+    <string name="slot_protection_no_vpn">Je bent niet verbonden met Blokada VPN. Je moet het overwegen voor een betere bescherming van jouw privacy en veiligheid.</string>
+    <string name="slot_protection_no_start_on_boot">Blokada is niet geconfigureerd om te starten bij het opstarten. Je moet Blokada altijd aan blijven zetten voor betere bescherming.</string>
+    <string name="slot_protection_no_battery_whitelist">Blokada is niet uitgesloten van de accuoptimalisering van uw apparaat, dus het kan worden gestopt door het systeem. U moet uw systeemvoorkeuren gebruiken om de Blokada te whitelisten zodat het actief kan blijven en uw apparaat blijft beschermen.</string>
+    <string name="slot_protection_description">Open het onderste menu om instellingen te configureren.</string>
+    <string name="slot_start_on_boot_description">Het inschakelen van start bij opstarten laat Blokada altijd actief zijn en je apparaat beschermen.</string>
+    <string name="slot_recommended_dns_label">Gebruik aanbevolen DNS-servers</string>
+    <string name="slot_recommended_dns_description">Wanneer ingeschakeld, zal Blokada automatisch aanbevolen DNS-servers kiezen om je internet te versnellen en je privacy te beschermen. Anders worden standaard DNS-servers van je netwerk gebruikt. Als je handmatig DNS-servers kiest in de Geavanceerd sectie, wordt deze instelling genegeerd.</string>
+    <string name="slot_update_no_updates">Blokada is up-to-date</string>
+    <string name="slot_about">Over Blokada</string>
     <!-- A button to share debug log. Keep it short. -->
+    <string name="slot_about_share_log">Log</string>
+    <string name="slot_help_label">Hulp nodig?</string>
+    <string name="slot_help_desc">Tik op de knop hieronder om onze help pagina te openen. Je kunt ook onze social media gebruiken om hulp te krijgen - we zijn op Telegram, Facebook, Reddit en Twitter.</string>
     <!-- A button to open help -->
+    <string name="slot_help_action">Help</string>
+    <string name="slot_donate_label">Blij met Blokada? Overweeg ons te steunen, zodat we de app kunnen blijven verbeteren.</string>
+    <string name="slot_donate_desc">Help ons nieuwe functies te introduceren! Tik hier voor meer.</string>
     <!-- A button to donate -->
+    <string name="slot_donate_action">Doneren</string>
+    <string name="slot_cta_label">Psst! We willen graag uw mening weten.</string>
+    <string name="slot_cta_desc">Toon uw steun door deel te nemen aan onze enquêtes en andere gebeurtenissen. We reiken regelmatig uit naar onze gemeenschap om feedback te krijgen over ideeën en nieuwe ontwikkelingen, om ervoor te zorgen dat we werken aan wat je graag wilt zien.</string>
     <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">Openen</string>
+    <string name="slot_blog_label">Bekijk onze ontwikkelingsblog!</string>
+    <string name="slot_blog_desc">The Block is waar we schrijven over de ontwikkeling van het project, toekomstige plannen en ideeën bespreken.</string>
     <!-- A button to open a blog -->
+    <string name="slot_blog_action">Openen</string>
+    <string name="slot_updated_desc">Tik hier voor intro op deze release.</string>
     <!-- A button to open a description website of current app version after update. -->
+    <string name="slot_obsolete_desc">Je versie van Blokada is verouderd en werkt mogelijk niet correct. Download de nieuwste versie om updates te blijven ontvangen.</string>
     <!-- A button to update the app. -->
+    <string name="slot_cleanup_desc">Er lijken veel versies van Blokada geïnstalleerd te zijn op je apparaat. Wilt u de andere versies verwijderen en er één houden?</string>
+    <string name="account_inactive">Je Blokada VPN is verlopen. Je bent niet verbonden met de VPN.</string>
+    <string name="slot_lease_cant_connect">Kan geen verbinding maken met Blokada VPN. Probeer een andere gateway te selecteren.</string>
+    <string name="slot_account_cant_create">Kan je Blokada VPN-account niet aanmaken. Probeer het later opnieuw of neem contact op met ons op Telegram.</string>
+    <string name="slot_account_name_title">Account ID</string>
+    <string name="slot_account_name_desc">Voer je oude account ID in om je vorige abonnement te herstellen. Je kunt uw huidige account ID beter opschrijven voordat je datt doet, in het geval je een fout maakt.</string>
+    <string name="slot_account_name_error">Account-ID kan alleen letters en cijfers bevatten.</string>
+    <string name="slot_account_name_api_error">Deze account ID lijkt niet correct.</string>
+    <string name="slot_account_name_restore">Herstellen</string>
+    <!-- A section in advanced settings. -->
+    <string name="label_basic">Primaire instellingen</string>
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
-    <!-- A section in advanced settings. -->
+    <string name="label_advanced">Geavanceerde instellingen</string>
+    <string name="slot_whitelist_updating">Configuratie bijwerken, even geduld...</string>
+    <string name="slot_too_many_leases">Verwijder het oude apparaat uit uw lijst met apparaten.</string>
+    <string name="slot_background_animation">Achtergrond animatie</string>
+    <string name="slot_background_animation_description">Wanneer actief, zullen golven animeren elke keer als een DNS-verzoek geblokkeerd of toegestaan is. Schakel uit als je vertraging ervaart.</string>
+    <string name="slot_reset_counter_label">Blokkeerde host teller resetten</string>
+    <string name="slot_reset_counter_description">Zet de teller die laat zien hoeveel verzoeken geblokkeerd zijn op 0.</string>
+    <string name="slot_reset_counter_action">Resetten</string>
 </resources>

@@ -22,15 +22,15 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Poleć znajomym</string>
     <string name="home_share_state">Podziel się Twoim wynikiem Blokady</string>
-    <string name="home_adblocking_enabled">Blokowanie reklam domowych włączone</string>
-    <string name="home_adblocking_disabled">Blokowanie reklam domowych włączone</string>
+    <string name="home_adblocking_enabled">Blokowanie reklam jest włączone</string>
+    <string name="home_adblocking_disabled">Blokowanie reklam jest wyłączone</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Co nowego?</string>
     <string name="home_update_required">Wymagana aktualizacja</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Dotacja</string>
-    <string name="home_vpn_enabled">Strona główna VPN włączona</string>
-    <string name="home_vpn_disabled">Strona główna VPN włączona</string>
+    <string name="home_vpn_enabled">VPN włączony</string>
+    <string name="home_vpn_disabled">VPN jest wyłączony</string>
     <string name="home_account_active">Twoje konto jest nadal aktywne</string>
     <string name="home_connecting_vpn">Łączenie do VPN</string>
     <string name="home_cleanup">Oczyszczanie zalecane</string>
@@ -56,7 +56,7 @@
     <string name="menu_vpn_manage_subscription">Zarządzaj subskrypcją tutaj</string>
     <string name="menu_vpn_account_secret">Twoje ID konta jest tajne i powinieneś je zachować dla siebie. Zapisz je sobie na wypadek odinstalowania aplikacji.</string>
     <string name="menu_vpn_restore_label">Tutaj możesz odzyskać swoje istniejące konto jeśli, na przykład, przeinstalowałeś aplikację.</string>
-    <string name="menu_vpn_gateways_label">Menu etykieta vpn_gateway.</string>
+    <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
     <string name="menu_dns_recommended">Zalecane serwery DNS</string>
     <string name="menu_host_list_settings">Ustawienia list</string>
     <string name="menu_host_list_status">Status list</string>
