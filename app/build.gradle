@@ -166,6 +166,7 @@ android {
         def srcTunBlockaJni = 'src/tun-blocka/jniLibs'
 
         def srcTunLocalKotlin = 'src/tun-local/kotlin'
+        def srcTunLocalTest = 'src/tun-local/test'
 
         def srcUiCoreKotlin = 'src/ui-core/kotlin'
         def srcUiCoreRes = 'src/ui-core/res'
@@ -177,6 +178,13 @@ android {
 
         modCore.java.srcDirs += srcCoreKotlin
         testModCore.java.srcDirs += srcCoreTest
+
+        modTunnel.java.srcDirs += srcCoreKotlin
+        modTunnel.java.srcDirs += srcTunBlockaKotlin
+        modTunnel.java.srcDirs += srcTunLocalKotlin
+
+        testModTunnel.java.srcDirs += srcCoreTest
+        testModTunnel.java.srcDirs += srcTunLocalTest
 
         full.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
         full.java.srcDirs += srcCoreKotlin
@@ -193,7 +201,7 @@ android {
         full.res.srcDirs += srcUiBlokadaRes
         full.res.srcDirs += 'src/full/res'
         testFull.java.srcDirs += srcCoreTest
-//        testfull.java.srcDirs += testModTunnel.java.srcDirs
+        testFull.java.srcDirs += srcTunLocalTest
 //        testfull.java.srcDirs += testModG11n.java.srcDirs
 //        testfull.java.srcDirs += testModWireguard.java.srcDirs
 
