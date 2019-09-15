@@ -1,6 +1,7 @@
 package filter
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance
@@ -10,6 +11,7 @@ import gs.environment.inject
 import gs.property.Repo
 import tunnel.FilterId
 import tunnel.IFilterSource
+import java.io.File
 import java.io.InputStreamReader
 import java.io.LineNumberReader
 import java.net.URL
@@ -85,10 +87,14 @@ class FilterSourceUri(
     override fun size(): Int {
         var lineReader: LineNumberReader? = null
         return try {
-            ctx.contentResolver.takePersistableUriPermission(source!!, flags)
-            lineReader = LineNumberReader(InputStreamReader(openFile(ctx, source!!)))
+            lineReader = LineNumberReader(try {
+                ctx.contentResolver.takePersistableUriPermission(source!!, flags)
+                InputStreamReader(openFile(ctx, source!!))
+            } catch (e: java.lang.Exception) {
+                InputStreamReader(File(source!!.path).inputStream())
+            })
             lineReader.skip(java.lang.Long.MAX_VALUE)
-            lineReader.getLineNumber() + 1
+            lineReader.lineNumber + 1
         } catch (e: Exception) { 0 }
         finally {
             try { lineReader?.close() } catch (e: Exception) {}
@@ -102,8 +108,12 @@ class FilterSourceUri(
     override fun fetch(): LinkedHashSet<String> {
         val list = try {
             load({
-                ctx.contentResolver.takePersistableUriPermission(source!!, flags)
-                openFile(ctx, source!!)
+                try {
+                    ctx.contentResolver.takePersistableUriPermission(source!!, flags)
+                    openFile(ctx, source!!)
+                } catch (e: Exception) {
+                    File(source!!.path).inputStream()
+                }
             }, { processor.process(it) })
         } catch (e: Exception) {
             ctx.inject().instance<Journal>().log(Exception("source file load failed", e))

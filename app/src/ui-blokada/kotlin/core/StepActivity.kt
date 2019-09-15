@@ -3,10 +3,14 @@ package core
 import android.app.Activity
 import android.util.Base64
 import core.bits.EnterDomainVB
+import core.bits.EnterFileNameVB
 import core.bits.EnterNameVB
 import org.blokada.R
 import tunnel.Filter
 import tunnel.FilterSourceDescriptor
+import tunnel.showSnack
+import java.io.File
+import java.lang.Exception
 
 
 class StepActivity : Activity() {
@@ -31,10 +35,30 @@ class StepActivity : Activity() {
         })
 
         stepView.pages = listOf(
-                EnterDomainVB(ktx, accepted = { it ->
+                EnterDomainVB(ktx, accepted = {
                     nameVB.inputForGeneratingName = if (it.size == 1) it.first().source else ""
                     sources = it
                     stepView.next()
+                },
+                fileImport = {
+                    val path = File(getExternalPath(), "/filters/")
+                    val files = path.listFiles()
+                    if(files == null || files.isEmpty()){
+                        showSnack(R.string.slot_enter_domain_no_file)
+                    }else{
+                        stepView.pages = listOf(
+                        EnterFileNameVB(ktx, files) { file ->
+                            val f = Filter(
+                                    id(file.replace('/', '.'), whitelist = false),
+                                    source = FilterSourceDescriptor("file", file),
+                                    active = true,
+                                    whitelist = false
+                            )
+                            tunnelManager.putFilter(ktx, f)
+                            finish()
+                        },
+                        nameVB)
+                    }
                 }),
                 nameVB
         )

@@ -80,6 +80,13 @@
     <string name="slot_enter_domain_desc">Enter domains separated by a comma. You can also paste a link to any host list, or import a local host list file.</string>
     <string name="slot_enter_domain_error">This does not look like anything to me.</string>
     <string name="slot_enter_domain_file">File</string>
+    <string name="slot_enter_domain_no_file">No files found in /Download/blokada/filters</string>
+
+    <string name="slot_enter_file_titel">Filename</string>
+    <string name="slot_enter_file_import">Import</string>
+    <string name="slot_enter_file_desc">Input partial filename</string>
+    <string name="slot_enter_file_not_found">No filename containing your input</string>
+    <string name="slot_enter_file_multi">Multiple files match your input</string>
 
     <string name="slot_enter_name_title">Name</string>
     <string name="slot_enter_name_desc">Enter name for the new entry. You can also generate a suggested name.</string>
