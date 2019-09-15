@@ -19,6 +19,7 @@ import tunnel.*
 import tunnel.Filter
 import tunnel.Persistence
 import update.UpdateCoordinator
+import java.io.File
 import java.net.URL
 import java.nio.charset.Charset
 import java.text.SimpleDateFormat
@@ -571,7 +572,8 @@ class NewFilterVB(
 class EnterDomainVB(
         private val ktx: AndroidKontext,
         private val i18n: I18n = ktx.di().instance(),
-        private val accepted: (List<FilterSourceDescriptor>) -> Unit = {}
+        private val accepted: (List<FilterSourceDescriptor>) -> Unit = {},
+        private val fileImport: () -> Unit
 ) : SlotVB() {
 
     private var input = ""
@@ -597,7 +599,7 @@ class EnterDomainVB(
         view.type = Slot.Type.EDIT
         view.content = Slot.Content(i18n.getString(R.string.slot_enter_domain_title),
                 description = i18n.getString(R.string.slot_enter_domain_desc),
-                action1 = Slot.Action(i18n.getString(R.string.slot_continue), {
+                action1 = Slot.Action(i18n.getString(R.string.slot_continue)) {
                     if (inputValid) {
                         view.fold()
                         val sources = when {
@@ -611,8 +613,18 @@ class EnterDomainVB(
                         }
                         accepted(sources)
                     }
-                }),
-                action2 = Slot.Action(i18n.getString(R.string.slot_enter_domain_file), view.ACTION_NONE)
+                },
+                action2 = Slot.Action(i18n.getString(R.string.slot_enter_domain_file)) {
+                    if (!checkStoragePermissions(ktx)) {
+                        val activity: ComponentProvider<Activity> = ktx.di().instance()
+                        activity.get()?.apply {
+                            askStoragePermission(ktx,this)
+                        }
+                    }
+                    if (checkStoragePermissions(ktx)) {
+                        fileImport()
+                    }
+                }
         )
 
         view.onInput = { it ->
@@ -626,6 +638,47 @@ class EnterDomainVB(
     }
 
 }
+
+
+class EnterFileNameVB(
+        private val ktx: AndroidKontext,
+        private val files: Array<File>,
+        private val accepted: (String) -> Unit = {}
+) : SlotVB(), Stepable {
+    private var input = ""
+    private var inputValid = false
+
+    private fun validate(input: String) = when {
+        !files.any { it.name.contains(input) } -> ktx.ctx.resources.getString(R.string.slot_enter_file_not_found)
+        (files.filter { it.name.contains(input) }).size != 1 -> ktx.ctx.resources.getString(R.string.slot_enter_file_multi)
+        else -> null
+    }
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.EDIT
+        view.content = Slot.Content(ktx.ctx.resources.getString(R.string.slot_enter_file_titel),
+                description = ktx.ctx.resources.getString(R.string.slot_enter_file_desc),
+                action1 = Slot.Action(ktx.ctx.resources.getString(R.string.slot_enter_file_import)) {
+                    if (inputValid) {
+                        view.fold()
+                        accepted(files.find { it.name.contains(input) }!!.canonicalPath)
+                    }
+                }
+        )
+
+        view.onInput = { it ->
+            input = it
+            val error = validate(it)
+            inputValid = error == null
+            error
+        }
+
+        view.requestFocusOnEdit()
+    }
+
+}
+
 
 class EnterNameVB(
         private val ktx: AndroidKontext,
