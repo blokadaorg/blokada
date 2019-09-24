@@ -22,8 +22,8 @@ import gs.environment.inject
 import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.TunnelEvents
 import tunnel.Request
+import tunnel.TunnelEvents
 import java.nio.charset.Charset
 
 
@@ -290,6 +290,7 @@ class UpdateWidgetService : Service() {
         val i18n: I18n = this.inject().instance()
         val dc = d.choices().find { it.active }
         val name = when {
+            !d.enabled() -> this.getString(R.string.dns_text_none)
             dc == null -> this.getString(R.string.dns_text_none)
             dc.servers.isEmpty() -> this.getString(R.string.dns_text_none)
             dc.id.startsWith("custom-dns:") ->  Base64.decode(dc.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset())
