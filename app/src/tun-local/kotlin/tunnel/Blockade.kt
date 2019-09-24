@@ -5,6 +5,7 @@ import core.Result
 import core.e
 import core.emit
 import core.v
+import org.blokada.R
 
 internal class Blockade(
         private val doLoadRuleset: (FilterId) -> Result<Ruleset> = Persistence.rules.load,
@@ -39,6 +40,8 @@ internal class Blockade(
                         } else {
                             e("memory limit reached, skipping ruleset", nextFilter,
                                     doGetMemoryLimit(), ruleset.size)
+                            // TODO: somewhere else..
+                            showSnack(R.string.home_filters_memory_error)
                         }
                     }
                 },

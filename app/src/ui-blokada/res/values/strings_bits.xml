@@ -49,6 +49,7 @@
     <string name="home_account_error">Could not verify account. Are you online?</string>
     <string name="home_permission_error">Please grant VPN permissions.</string>
     <string name="home_zero_filters_error">You have no filters configured. Check your adblocking settings.</string>
+    <string name="home_filters_memory_error">Could not load all filters to memory. Check your adblocking settings.</string>
 
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Ads</string>
