@@ -16,8 +16,7 @@
     <color name="colorSlotLine">#313131</color>
     <color name="colorActive">#ffffff</color>
     <color name="colorShadow">#181818</color>
-    <color name="colorLogoWaiting">#99ffffff</color>
-    <color name="colorLogoWaitingFab">#EDB899</color>
+    <color name="colorLogoWaiting">#04fc5c</color>
     <color name="colorLogoInactive">#fff</color>
 
     <color name="colorPrimaryTrans">#DD1D1D1D</color>

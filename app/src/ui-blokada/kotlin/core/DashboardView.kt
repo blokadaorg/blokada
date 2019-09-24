@@ -1,5 +1,7 @@
 package core
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Handler
@@ -23,8 +25,8 @@ import gs.presentation.NamedViewBinder
 import gs.presentation.doAfter
 import gs.property.I18n
 import org.blokada.R
-import tunnel.TunnelEvents
 import tunnel.Persistence
+import tunnel.TunnelEvents
 import kotlin.math.max
 import kotlin.math.min
 
@@ -293,6 +295,27 @@ class DashboardView(
         }
     }
 
+    private var logoAnimator: ObjectAnimator? = null
+
+    private fun animateLogo() {
+        if (logoAnimator == null) {
+            bg_logo_icon.alpha = 1f
+            val animator = ObjectAnimator.ofPropertyValuesHolder(bg_logo_icon,
+                    PropertyValuesHolder.ofFloat("alpha", 0.3f))
+            animator.setDuration(300)
+            animator.setRepeatCount(ObjectAnimator.INFINITE)
+            animator.setRepeatMode(ObjectAnimator.REVERSE)
+            animator.start()
+            logoAnimator = animator
+        }
+    }
+
+    private fun stopAnimatingLogo() {
+        logoAnimator?.run { cancel() }
+        logoAnimator = null
+        bg_logo_icon.alpha = 1f
+    }
+
     private fun setupExternalEventListeners() {
         ktx.on(TunnelEvents.REQUEST) {
             bg_packets.addToHistory(it)
@@ -302,6 +325,7 @@ class DashboardView(
             override fun startActivating() {
                 bg_packets.setTunnelState(TunnelState.ACTIVATING)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoWaiting))
+                animateLogo()
             }
 
             override fun finishActivating() {
@@ -310,16 +334,19 @@ class DashboardView(
                 Persistence.request.load(0).onSuccess {
                     bg_packets.setRecentHistory(it)
                 }
+                stopAnimatingLogo()
             }
 
             override fun startDeactivating() {
                 bg_packets.setTunnelState(TunnelState.DEACTIVATING)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoWaiting))
+                animateLogo()
             }
 
             override fun finishDeactivating() {
                 bg_packets.setTunnelState(TunnelState.INACTIVE)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoInactive))
+                stopAnimatingLogo()
             }
         })
     }
