@@ -13,12 +13,12 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
-import tunnel.RestApi
-import tunnel.RestModel
+import blocka.BlockaRestApi
+import blocka.BlockaRestModel
 
 class LeasesDashboardSectionVB(
         val ktx: AndroidKontext,
-        val api: RestApi = ktx.di().instance(),
+        val api: BlockaRestApi = ktx.di().instance(),
         override val name: Resource = R.string.menu_vpn_leases.res()
 ) : ListViewBinder(), NamedViewBinder {
 
@@ -46,14 +46,14 @@ class LeasesDashboardSectionVB(
 
     private fun populate(retry: Int = 0) {
         val currentAccount = get(CurrentAccount::class.java)
-        api.getLeases(currentAccount.id).enqueue(object : retrofit2.Callback<RestModel.Leases> {
-            override fun onFailure(call: Call<RestModel.Leases>?, t: Throwable?) {
+        api.getLeases(currentAccount.id).enqueue(object : retrofit2.Callback<BlockaRestModel.Leases> {
+            override fun onFailure(call: Call<BlockaRestModel.Leases>?, t: Throwable?) {
                 ktx.e("leases api call error", t ?: "null")
                 if (retry < MAX_RETRIES) populate(retry + 1)
                 else request.sendEmptyMessageDelayed(0, 5 * 1000)
             }
 
-            override fun onResponse(call: Call<RestModel.Leases>?, response: Response<RestModel.Leases>?) {
+            override fun onResponse(call: Call<BlockaRestModel.Leases>?, response: Response<BlockaRestModel.Leases>?) {
                 response?.run {
                     when (code()) {
                         200 -> {

@@ -1,6 +1,5 @@
 package blocka
 
-import tunnel.RestModel
 import java.util.*
 
 internal class BlockaVpnManager(
@@ -28,7 +27,7 @@ internal class BlockaVpnManager(
             when {
                 ex is BoringTunLoadException -> throw ex
                 accountManager.state.activeUntil.expired() -> throw BlockaAccountExpired()
-                ex is RestModel.TooManyDevicesException -> throw BlockaTooManyDevices()
+                ex is BlockaRestModel.TooManyDevicesException -> throw BlockaTooManyDevices()
                 ex is BlockaGatewayNotSelected -> throw ex
                 accountManager.state.id.isBlank() -> throw BlockaAccountEmpty()
                 !accountManager.state.accountOk -> throw BlockaAccountNotOk()

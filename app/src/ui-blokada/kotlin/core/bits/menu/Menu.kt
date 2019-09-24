@@ -16,7 +16,7 @@ import core.bits.openInBrowser
 import gs.presentation.NamedViewBinder
 import org.blokada.BuildConfig
 import org.blokada.R
-import tunnel.blokadaUserAgent
+import blocka.blokadaUserAgent
 import java.io.File
 
 fun createMenu(ktx: AndroidKontext): MenuItemsVB {

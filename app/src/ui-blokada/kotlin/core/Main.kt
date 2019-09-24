@@ -25,8 +25,8 @@ import gs.property.newDeviceModule
 import io.paperdb.Paper
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
-import tunnel.blokadaUserAgent
-import tunnel.newRestApiModule
+import blocka.blokadaUserAgent
+import blocka.newRestApiModule
 
 
 /**

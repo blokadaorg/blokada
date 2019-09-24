@@ -12,12 +12,12 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
-import tunnel.RestApi
-import tunnel.RestModel
+import blocka.BlockaRestApi
+import blocka.BlockaRestModel
 
 class GatewaysDashboardSectionVB(
         val ktx: AndroidKontext,
-        val api: RestApi = ktx.di().instance(),
+        val api: BlockaRestApi = ktx.di().instance(),
         override val name: Resource = R.string.menu_vpn_gateways.res()
 ) : ListViewBinder(), NamedViewBinder {
 
@@ -49,14 +49,14 @@ class GatewaysDashboardSectionVB(
     }
 
     private fun populateGateways(retry: Int = 0) {
-        api.getGateways().enqueue(object : retrofit2.Callback<RestModel.Gateways> {
-            override fun onFailure(call: Call<RestModel.Gateways>?, t: Throwable?) {
+        api.getGateways().enqueue(object : retrofit2.Callback<BlockaRestModel.Gateways> {
+            override fun onFailure(call: Call<BlockaRestModel.Gateways>?, t: Throwable?) {
                 ktx.e("gateways api call error", t ?: "null")
                 if (retry < MAX_RETRIES) populateGateways(retry + 1)
                 else gatewaysRequest.sendEmptyMessageDelayed(0, 5 * 1000)
             }
 
-            override fun onResponse(call: Call<RestModel.Gateways>?, response: Response<RestModel.Gateways>?) {
+            override fun onResponse(call: Call<BlockaRestModel.Gateways>?, response: Response<BlockaRestModel.Gateways>?) {
                 response?.run {
                     when (code()) {
                         200 -> {

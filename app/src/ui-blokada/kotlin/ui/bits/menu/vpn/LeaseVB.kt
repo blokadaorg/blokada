@@ -7,11 +7,11 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.property.I18n
 import org.blokada.R
-import tunnel.RestModel
+import blocka.BlockaRestModel
 
 class LeaseVB(
         val ktx: AndroidKontext,
-        private val lease: RestModel.LeaseInfo,
+        private val lease: BlockaRestModel.LeaseInfo,
         val i18n: I18n = ktx.di().instance(),
         val onRemoved: (LeaseVB) -> Unit = {},
         onTap: (SlotView) -> Unit
@@ -37,7 +37,7 @@ class LeaseVB(
             )
 
             onRemove = {
-                blockaVpnMain.deleteLease(RestModel.LeaseRequest(
+                blockaVpnMain.deleteLease(BlockaRestModel.LeaseRequest(
                         accountId = cfg.id,
                         publicKey = lease.publicKey,
                         gatewayId = lease.gatewayId,

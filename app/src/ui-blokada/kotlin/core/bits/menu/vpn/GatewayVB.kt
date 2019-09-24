@@ -7,13 +7,13 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.property.I18n
 import org.blokada.R
-import tunnel.RestModel
+import blocka.BlockaRestModel
 import tunnel.showSnack
 import java.util.*
 
 class GatewayVB(
         private val ktx: AndroidKontext,
-        private val gateway: RestModel.GatewayInfo,
+        private val gateway: BlockaRestModel.GatewayInfo,
         private val i18n: I18n = ktx.di().instance(),
         private val modal: ModalManager = modalManager,
         onTap: (SlotView) -> Unit

@@ -21,7 +21,7 @@ import gs.environment.LazyProvider
 import gs.property.IProperty
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.blokadaUserAgent
+import blocka.blokadaUserAgent
 import java.net.URL
 
 class WebDash(

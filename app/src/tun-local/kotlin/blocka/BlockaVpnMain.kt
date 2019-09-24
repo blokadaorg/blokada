@@ -13,8 +13,6 @@ import kotlinx.coroutines.experimental.runBlocking
 import notification.displayAccountExpiredNotification
 import notification.displayLeaseExpiredNotification
 import org.blokada.R
-import tunnel.RestApi
-import tunnel.RestModel
 import tunnel.showSnack
 
 private val context = newSingleThreadContext("blocka-vpn-main") + logCoroutineExceptions()
@@ -31,7 +29,7 @@ class BlockaVpnMain {
     private val di by lazy { ktx.di() }
 
     init {
-        val restApi: RestApi = di.instance()
+        val restApi: BlockaRestApi = di.instance()
 
         registerPersistenceForAccount()
 
@@ -69,7 +67,7 @@ var i = 0
                     try {
                         RetryingRetrofitHandler(restApi.newLease(leaseRequest)).execute().lease
                     } catch(ex: ResponseCodeException) {
-                        if (ex.code == 403) throw RestModel.TooManyDevicesException()
+                        if (ex.code == 403) throw BlockaRestModel.TooManyDevicesException()
                         else throw ex
                     }
                 },
@@ -151,7 +149,7 @@ var i = 0
         }
     }
 
-    fun deleteLease(lease: RestModel.LeaseRequest) = async(context) {
+    fun deleteLease(lease: BlockaRestModel.LeaseRequest) = async(context) {
         v("deleting lease")
         leaseManager.deleteLease(accountManager.state, lease.publicKey, lease.gatewayId)
         v("done deleting lease")
@@ -192,7 +190,7 @@ var i = 0
             }
             blockaVpnManager.enabled = false
         }
-        ex is BlockaTooManyDevices || ex is RestModel.TooManyDevicesException -> {
+        ex is BlockaTooManyDevices || ex is BlockaRestModel.TooManyDevicesException -> {
             emit(MENU_CLICK_BY_NAME_SUBMENU, R.string.menu_vpn.res() to R.string.menu_vpn_leases.res())
             showSnack(R.string.slot_too_many_leases.res())
             blockaVpnManager.enabled = false

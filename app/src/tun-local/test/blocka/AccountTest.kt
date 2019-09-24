@@ -3,7 +3,6 @@ package blocka
 import core.LOGGER_TEST
 import org.junit.Assert
 import org.junit.Test
-import tunnel.*
 import java.util.*
 
 fun tomorrow() = Date(Date().time + 86400)
@@ -97,8 +96,8 @@ class AccountTest {
     }
 
     private val gatewaysRequest = { listOf(
-            RestModel.GatewayInfo("key1", "EU", "PL", 0, "gw1", "gw1-6", 69, Date(0)),
-            RestModel.GatewayInfo("key2", "Asia", "SG", 0, "gw2", "gw2-6", 69, Date(0))
+            BlockaRestModel.GatewayInfo("key1", "EU", "PL", 0, "gw1", "gw1-6", 69, Date(0)),
+            BlockaRestModel.GatewayInfo("key2", "Asia", "SG", 0, "gw2", "gw2-6", 69, Date(0))
     )}
 
     private val user = CurrentAccount("new-id", Date(0), "prv", "user-public-key", 0L, true)
@@ -125,7 +124,7 @@ class AccountTest {
                 getLeasesRequest = { id ->
                     Assert.assertEquals("new-id", id)
                     listOf(
-                            RestModel.LeaseInfo(
+                            BlockaRestModel.LeaseInfo(
                                     accountId = "new-id",
                                     publicKey = "user-public-key",
                                     gatewayId = "key1",
@@ -161,7 +160,7 @@ class AccountTest {
                     Assert.assertEquals("new-id", request.accountId)
                     Assert.assertEquals("user-public-key", request.publicKey)
                     Assert.assertEquals("key1", request.gatewayId)
-                    RestModel.LeaseInfo(
+                    BlockaRestModel.LeaseInfo(
                             accountId = "new-id",
                             publicKey = "user-public-key",
                             gatewayId = "key1",
@@ -240,12 +239,12 @@ class AccountTest {
         }
     }
 
-    @Test(expected = RestModel.TooManyDevicesException::class) fun leaseManager_tooManyDevices() {
+    @Test(expected = BlockaRestModel.TooManyDevicesException::class) fun leaseManager_tooManyDevices() {
         val mgr = LeaseManager(
                 state = CurrentLease(gatewayId = "key1"),
                 getGatewaysRequest = gatewaysRequest,
                 getLeasesRequest = { id -> emptyList() },
-                newLeaseRequest = { request -> throw RestModel.TooManyDevicesException() }
+                newLeaseRequest = { request -> throw BlockaRestModel.TooManyDevicesException() }
         )
 
         mgr.sync(user)

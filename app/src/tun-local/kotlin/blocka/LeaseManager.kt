@@ -1,14 +1,13 @@
 package blocka
 
 import core.v
-import tunnel.RestModel
 
 internal class LeaseManager(
         internal var state: CurrentLease,
-        val getGatewaysRequest: () -> List<RestModel.GatewayInfo> = { throw Exception("not implemented") },
-        val getLeasesRequest: (AccountId) -> List<RestModel.LeaseInfo> = { throw Exception("not implemented") },
-        val newLeaseRequest: (RestModel.LeaseRequest) -> RestModel.LeaseInfo = { throw Exception("not implemented") },
-        val deleteLeaseRequest: (RestModel.LeaseRequest) -> Any = { throw Exception("not implemented") },
+        val getGatewaysRequest: () -> List<BlockaRestModel.GatewayInfo> = { throw Exception("not implemented") },
+        val getLeasesRequest: (AccountId) -> List<BlockaRestModel.LeaseInfo> = { throw Exception("not implemented") },
+        val newLeaseRequest: (BlockaRestModel.LeaseRequest) -> BlockaRestModel.LeaseInfo = { throw Exception("not implemented") },
+        val deleteLeaseRequest: (BlockaRestModel.LeaseRequest) -> Any = { throw Exception("not implemented") },
         val deviceAlias: String = "unknown device"
 ) {
     fun sync(account: CurrentAccount) {
@@ -38,7 +37,7 @@ internal class LeaseManager(
             } else {
                 v("no active lease, trying to create a new one")
                 try {
-                    val lease = newLeaseRequest(RestModel.LeaseRequest(
+                    val lease = newLeaseRequest(BlockaRestModel.LeaseRequest(
                             accountId = account.id,
                             publicKey = account.publicKey,
                             gatewayId = state.gatewayId,
@@ -71,7 +70,7 @@ internal class LeaseManager(
     }
 
     fun deleteLease(account: CurrentAccount, publicKey: String, gatewayId: String) {
-        deleteLeaseRequest(RestModel.LeaseRequest(
+        deleteLeaseRequest(BlockaRestModel.LeaseRequest(
                 accountId = account.id,
                 publicKey = publicKey,
                 gatewayId = gatewayId,

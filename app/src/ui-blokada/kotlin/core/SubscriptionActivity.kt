@@ -18,7 +18,7 @@ import gs.presentation.WebDash
 import gs.property.IWhen
 import gs.property.newProperty
 import org.blokada.R
-import tunnel.blokadaUserAgent
+import blocka.blokadaUserAgent
 import tunnel.showSnack
 import java.net.URL
 

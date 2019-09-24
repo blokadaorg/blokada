@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Handler
 import android.util.Base64
 import android.widget.EditText
+import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.Tunnel

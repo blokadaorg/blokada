@@ -1,4 +1,4 @@
-package tunnel
+package blocka
 
 import android.content.Context
 import android.os.Build
@@ -16,32 +16,34 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import tunnel.EXPIRATION_OFFSET
+import tunnel.tunnelMain
 import java.text.DateFormat
 import java.util.*
 
-interface RestApi {
+interface BlockaRestApi {
 
     @GET("/v1/account")
-    fun getAccountInfo(@Query("account_id") accountId: String): Call<RestModel.Account>
+    fun getAccountInfo(@Query("account_id") accountId: String): Call<BlockaRestModel.Account>
 
     @POST("/v1/account")
-    fun newAccount(): Call<RestModel.Account>
+    fun newAccount(): Call<BlockaRestModel.Account>
 
     @GET("/v1/gateway")
-    fun getGateways(): Call<RestModel.Gateways>
+    fun getGateways(): Call<BlockaRestModel.Gateways>
 
     @GET("/v1/lease")
-    fun getLeases(@Query("account_id") accountId: String): Call<RestModel.Leases>
+    fun getLeases(@Query("account_id") accountId: String): Call<BlockaRestModel.Leases>
 
     @POST("/v1/lease")
-    fun newLease(@Body request: RestModel.LeaseRequest): Call<RestModel.Lease>
+    fun newLease(@Body request: BlockaRestModel.LeaseRequest): Call<BlockaRestModel.Lease>
 
     @HTTP(method = "DELETE", path = "v1/lease", hasBody = true)
-    fun deleteLease(@Body request: RestModel.LeaseRequest): Call<Void>
+    fun deleteLease(@Body request: BlockaRestModel.LeaseRequest): Call<Void>
 
 }
 
-object RestModel {
+object BlockaRestModel {
     data class Account(val account: AccountInfo)
     data class Lease(val lease: LeaseInfo)
     data class Gateways(val gateways: List<GatewayInfo>)
@@ -51,9 +53,7 @@ object RestModel {
             val accountId: String,
             @SerializedName("active_until")
             val activeUntil: Date = Date(0)
-    ) {
-        fun expiresSoon() = activeUntil.before(Date(Date().time + EXPIRATION_OFFSET))
-    }
+    )
     data class GatewayInfo(
             @SerializedName("public_key")
             val publicKey: String,
@@ -112,7 +112,7 @@ fun blokadaUserAgent(ctx: Context, viewer: Boolean? = null)
 
 fun newRestApiModule(ctx: Context): Kodein.Module {
     return Kodein.Module(init = {
-        bind<RestApi>() with singleton {
+        bind<BlockaRestApi>() with singleton {
 //            val cp = ConnectionPool(1, 1, TimeUnit.MILLISECONDS)
             val clientBuilder = OkHttpClient.Builder()
 //                    .connectionPool(cp)
@@ -139,7 +139,7 @@ fun newRestApiModule(ctx: Context): Kodein.Module {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build()
-            retrofit.create(RestApi::class.java)
+            retrofit.create(BlockaRestApi::class.java)
         }
     })
 }
