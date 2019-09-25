@@ -20,6 +20,7 @@ import org.blokada.R
 import tunnel.TunnelConfig
 import tunnel.showSnack
 import update.UpdateCoordinator
+import java.net.URL
 import java.util.*
 
 data class SlotsSeenStatus(
@@ -100,13 +101,17 @@ class HomeDashboardSectionVB(
     private val oneTimeBytes = createOneTimeBytes(ktx)
 
     private fun markAsSeen() {
-        val cfg = Persistence.slots.load().get()!!
-        val newCfg = when (added) {
-            OneTimeByte.UPDATED -> cfg.copy(updated = BuildConfig.VERSION_CODE)
-            OneTimeByte.DONATE -> cfg.copy(donate = BuildConfig.VERSION_CODE)
-            else -> cfg
+        if (added == OneTimeByte.ANNOUNCEMENT) {
+            markAnnouncementAsSeen()
+        } else {
+            val cfg = Persistence.slots.load().get()!!
+            val newCfg = when (added) {
+                OneTimeByte.UPDATED -> cfg.copy(updated = BuildConfig.VERSION_CODE)
+                OneTimeByte.DONATE -> cfg.copy(donate = BuildConfig.VERSION_CODE)
+                else -> cfg
+            }
+            Persistence.slots.save(newCfg)
         }
-        Persistence.slots.save(newCfg)
     }
 
     private fun decideOnSlot(noSubscription: Boolean): Pair<ViewBinder?, OneTimeByte?> {
@@ -115,12 +120,13 @@ class HomeDashboardSectionVB(
             //isLandscape(ktx.ctx) -> null
             isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
+            hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             (BuildConfig.VERSION_CODE > cfg.donate) && noSubscription -> OneTimeByte.DONATE
             version.obsolete() -> OneTimeByte.OBSOLETE
             getInstalledBuilds().size > 1 -> OneTimeByte.CLEANUP
             else -> null
         }
-        return oneTimeBytes[name] to name
+        return oneTimeBytes[name]?.invoke() to name
     }
 
     private fun getInstalledBuilds(): List<String> {
@@ -225,12 +231,14 @@ class SimpleByteVB(
         private val ktx: AndroidKontext,
         private val label: Resource,
         private val description: Resource,
+        private val icon: Resource? = null,
         val shouldKeepAfterTap: Boolean = false,
         private val onTap: (ktx: AndroidKontext) -> Unit,
         var onTapped: () -> Unit = {}
 ) : ByteVB() {
     override fun attach(view: ByteView) {
         view.icon(null)
+        view.arrow(icon)
         view.label(label)
         view.state(description, smallcap = false)
         view.onTap {
@@ -241,7 +249,7 @@ class SimpleByteVB(
 }
 
 enum class OneTimeByte {
-    CLEANUP, UPDATED, OBSOLETE, DONATE, UPDATE_AVAILABLE
+    CLEANUP, UPDATED, OBSOLETE, DONATE, UPDATE_AVAILABLE, ANNOUNCEMENT
 }
 
 private var updateClickCounter = 0
@@ -253,8 +261,8 @@ fun createOneTimeBytes(
         repo: Repo = ktx.di().instance(),
         updateCoordinator: UpdateCoordinator = ktx.di().instance()
 ) = mapOf(
-        OneTimeByte.CLEANUP to CleanupVB(ktx),
-        OneTimeByte.UPDATED to SimpleByteVB(ktx,
+        OneTimeByte.CLEANUP to { CleanupVB(ktx) },
+        OneTimeByte.UPDATED to { SimpleByteVB(ktx,
                 label = R.string.home_whats_new.res(),
                 description = R.string.slot_updated_desc.res(),
                 onTap = { ktx ->
@@ -264,24 +272,24 @@ fun createOneTimeBytes(
                         putExtra(WebViewActivity.EXTRA_URL, pages.updated().toExternalForm())
                     })
                 }
-        ),
-        OneTimeByte.OBSOLETE to SimpleByteVB(ktx,
+        )},
+        OneTimeByte.OBSOLETE to { SimpleByteVB(ktx,
                 label = R.string.home_update_required.res(),
                 description = R.string.slot_obsolete_desc.res(),
                 onTap = { ktx ->
                     val pages: Pages = ktx.di().instance()
                     openInBrowser(ktx.ctx, pages.download())
                 }
-        ),
-        OneTimeByte.DONATE to SimpleByteVB(ktx,
+        )},
+        OneTimeByte.DONATE to { SimpleByteVB(ktx,
                 label = R.string.home_donate.res(),
                 description = R.string.slot_donate_desc.res(),
                 onTap = { ktx ->
                     val pages: Pages = ktx.di().instance()
                     openInBrowser(ktx.ctx, pages.donate())
                 }
-        ),
-        OneTimeByte.UPDATE_AVAILABLE to SimpleByteVB(ktx,
+        )},
+        OneTimeByte.UPDATE_AVAILABLE to { SimpleByteVB(ktx,
             label = R.string.update_notification_title.res(),
             description = i18n.getString(R.string.update_notification_text, repo.content().newestVersionName).res(),
             shouldKeepAfterTap = true,
@@ -299,7 +307,15 @@ fun createOneTimeBytes(
                             updateNextLink = updateNextLink++ % repo.content().downloadLinks.size
                         }
                 }
-        )
+        )},
+        OneTimeByte.ANNOUNCEMENT to { SimpleByteVB(ktx,
+                label = getAnnouncementContent().first.res(),
+                description = getAnnouncementContent().second.res(),
+                icon = R.drawable.ic_info.res(),
+                onTap = { ktx ->
+                    openInBrowser(ktx.ctx, URL(getAnnouncementUrl()))
+                }
+        ) }
 )
 
 

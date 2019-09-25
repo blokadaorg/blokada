@@ -48,7 +48,7 @@ class RepoImpl(
         val ktx = "repo:refresh".ktx()
         ktx.v("repo refresh start")
         val repoURL = java.net.URL(url())
-        val fetchTimeout = 10 * 10000
+        val fetchTimeout = 10 * 1000
 
         try {
             val repo = loadGzip(openUrl(repoURL, fetchTimeout))
