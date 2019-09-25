@@ -19,7 +19,8 @@ internal class AccountManager(
                 if (id?.isBlank() != false) throw Exception("failed to request new account")
                 state = state.copy(
                         id = id,
-                        accountOk = false
+                        accountOk = false,
+                        lastAccountCheck = System.currentTimeMillis()
                 )
             }
             lastAccountRequest + 3600 * 1000 > System.currentTimeMillis() -> {
@@ -30,7 +31,8 @@ internal class AccountManager(
                     val activeUntil = getAccountRequest(state.id)
                     state = state.copy(
                             activeUntil = activeUntil,
-                            accountOk = !activeUntil.expired()
+                            accountOk = !activeUntil.expired(),
+                            lastAccountCheck = System.currentTimeMillis()
                     )
                     lastAccountRequest = System.currentTimeMillis()
                 } catch (ex: Exception) {
