@@ -9,6 +9,7 @@ import core.bits.menu.MenuItemsVB
 import core.bits.menu.SimpleMenuItemVB
 import gs.presentation.NamedViewBinder
 import org.blokada.R
+import ui.StaticUrlWebActivity
 import ui.bits.menu.vpn.LeasesDashboardSectionVB
 
 private fun createMenuVpn(ktx: AndroidKontext): NamedViewBinder {
@@ -67,7 +68,7 @@ fun createWhyVpnMenuItem(ktx: AndroidKontext): NamedViewBinder {
             icon = R.drawable.ic_help_outline.res(),
             action = {
                 modalManager.openModal()
-                ktx.ctx.startActivity(Intent(ktx.ctx, WebViewActivity::class.java).apply {
+                ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
                     putExtra(WebViewActivity.EXTRA_URL, whyPage().toExternalForm())
                 })
             }

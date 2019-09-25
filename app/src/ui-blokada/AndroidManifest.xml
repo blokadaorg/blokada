@@ -138,6 +138,19 @@
             android:launchMode="singleInstance"
             android:theme="@style/TransparentWindow" />
 
+        <activity
+            android:name="ui.StaticUrlWebActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:label="Blokada"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentWindow"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
+
         <!-- External actions support (like Tasker or trigger urls) -->
         <activity
             android:name="ui.TaskerActivity"

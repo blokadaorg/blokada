@@ -18,6 +18,7 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import tunnel.*
 import tunnel.Filter
+import ui.StaticUrlWebActivity
 import update.UpdateCoordinator
 import java.net.URL
 import java.nio.charset.Charset
@@ -1023,10 +1024,14 @@ class StorageLocationVB(
 }
 
 fun openInBrowser(ctx: Context, url: URL) {
-    val intent = Intent(Intent.ACTION_VIEW)
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    intent.setData(Uri.parse(url.toString()))
-    ctx.startActivity(intent)
+//    val intent = Intent(Intent.ACTION_VIEW)
+//    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//    intent.setData(Uri.parse(url.toString()))
+//    ctx.startActivity(intent)
+
+    ctx.startActivity(Intent(ctx, StaticUrlWebActivity::class.java).apply {
+        putExtra(WebViewActivity.EXTRA_URL, url.toExternalForm())
+    })
 }
 
 class UpdateVB(

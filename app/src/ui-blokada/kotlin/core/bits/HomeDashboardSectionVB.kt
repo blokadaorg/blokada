@@ -19,6 +19,7 @@ import org.blokada.BuildConfig
 import org.blokada.R
 import tunnel.TunnelConfig
 import tunnel.showSnack
+import ui.StaticUrlWebActivity
 import update.UpdateCoordinator
 import java.net.URL
 import java.util.*
@@ -268,7 +269,7 @@ fun createOneTimeBytes(
                 onTap = { ktx ->
                     val pages: Pages = ktx.di().instance()
                     modalManager.openModal()
-                    ktx.ctx.startActivity(Intent(ktx.ctx, WebViewActivity::class.java).apply {
+                    ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
                         putExtra(WebViewActivity.EXTRA_URL, pages.updated().toExternalForm())
                     })
                 }
