@@ -431,7 +431,7 @@ class EnterFileNameVB(
 
     private fun validate(input: String) = when {
         !files.any { it.name.contains(input) } -> ktx.ctx.resources.getString(R.string.slot_enter_file_not_found)
-        (files.filter { it.name.contains(input) }).size != 1 -> ktx.ctx.resources.getString(R.string.slot_enter_file_multi)
+        (((files.filter { it.name.contains(input) }).size != 1) && ((files.filter { it.name == input }).size != 1)) -> ktx.ctx.resources.getString(R.string.slot_enter_file_multi)
         else -> null
     }
 
@@ -443,7 +443,11 @@ class EnterFileNameVB(
                 action1 = Slot.Action(ktx.ctx.resources.getString(R.string.slot_enter_file_import)) {
                     if (inputValid) {
                         view.fold()
-                        accepted(files.find { it.name.contains(input) }!!.canonicalPath)
+                        var selected = files.find { it.name == input }
+                        if(selected == null){
+                            selected = files.find { it.name.contains(input) }
+                        }
+                        accepted(selected!!.canonicalPath)
                     }
                 }
         )
