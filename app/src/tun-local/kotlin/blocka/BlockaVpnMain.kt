@@ -163,13 +163,15 @@ var i = 0
             leaseManager.sync(accountManager.state)
             v("done setting gateway")
         } catch (ex: Exception) {
-            e("failed setting gateway, reverting", gatewayId, ex)
             handleException(ex)
-            try {
-                leaseManager.setGateway(oldGateway)
-                leaseManager.sync(accountManager.state)
-            } catch (ex: Exception) {
-                e("failed reverting gateway", ex)
+            if (oldGateway.isNotBlank()) {
+                e("failed setting gateway, reverting", gatewayId, ex)
+                try {
+                    leaseManager.setGateway(oldGateway)
+                    leaseManager.sync(accountManager.state)
+                } catch (ex: Exception) {
+                    e("failed reverting gateway", ex)
+                }
             }
         }
 

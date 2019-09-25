@@ -8,11 +8,13 @@ class ModalManager {
     private var blurOpen = false
 
     fun openModal() {
-        activityRegister.getParentView()?.apply {
-            if (this is ViewGroup) {
-                Blurry.with(context).animate(500).onto(this)
-                blurOpen = true
-                v("opened modal blur")
+        if (!blurOpen) {
+            activityRegister.getParentView()?.apply {
+                if (this is ViewGroup) {
+                    Blurry.with(context).animate(500).onto(this)
+                    blurOpen = true
+                    v("opened modal blur")
+                }
             }
         }
     }
