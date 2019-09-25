@@ -277,6 +277,9 @@ dependencies {
     implementation 'com.github.ps100000:PageIndicatorView:v1.0.4'
     implementation 'com.android.support:customtabs:28.0.0'
 
+    // External integration (Tasker)
+    implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
+
     // REST api
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"

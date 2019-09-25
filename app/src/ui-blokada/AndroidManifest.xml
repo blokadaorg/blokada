@@ -138,6 +138,53 @@
             android:launchMode="singleInstance"
             android:theme="@style/TransparentWindow" />
 
+        <!-- External actions support (like Tasker or trigger urls) -->
+        <activity
+            android:name="ui.TaskerActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentWindow"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+
+        <activity-alias
+            android:name="ui.PluginActivity"
+            android:exported="true"
+            android:icon="@drawable/ic_blokada"
+            android:label="@string/branding_app_name"
+            android:targetActivity="ui.TaskerActivity"
+            tools:ignore="ExportedActivity">
+            <!-- this Intent filter allows the plug-in to be discovered by the host. -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+            </intent-filter>
+        </activity-alias>
+
+        <receiver
+            android:name="ui.SwitchAppReceiver"
+            android:exported="true"
+            tools:ignore="ExportedReceiver">
+
+            <!-- this Intent filter allows the plug-in to discovered by the host. -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="ui.SendLogActivity"
+            android:label="Blokada Share Log"
+            android:launchMode="singleTask"
+            android:theme="@style/BlokadaColors.Main.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="blocka"
+                    android:host="log"/>
+            </intent-filter>
+        </activity>
+
         <service android:name="notification.ANotificationsOffService"></service>
         <service android:name="notification.ANotificationsWhitelistService"></service>
         <service android:name="notification.ANotificationsToggleService"></service>
@@ -224,20 +271,6 @@
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
-
-        <activity
-            android:name="core.SendLogActivity"
-            android:label="Blokada Share Log"
-            android:launchMode="singleTask"
-            android:theme="@style/BlokadaColors.Main.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="blocka"
-                    android:host="log"/>
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
