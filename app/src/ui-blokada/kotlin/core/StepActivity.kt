@@ -10,7 +10,6 @@ import tunnel.Filter
 import tunnel.FilterSourceDescriptor
 import tunnel.showSnack
 import java.io.File
-import java.lang.Exception
 
 
 class StepActivity : Activity() {
@@ -35,31 +34,32 @@ class StepActivity : Activity() {
         })
 
         stepView.pages = listOf(
-                EnterDomainVB(ktx, accepted = {
-                    nameVB.inputForGeneratingName = if (it.size == 1) it.first().source else ""
-                    sources = it
-                    stepView.next()
-                },
-                fileImport = {
-                    val path = File(getExternalPath(), "/filters/")
-                    val files = path.listFiles()
-                    if(files == null || files.isEmpty()){
-                        showSnack(R.string.slot_enter_domain_no_file)
-                    }else{
-                        stepView.pages = listOf(
-                        EnterFileNameVB(ktx, files) { file ->
-                            val f = Filter(
-                                    id(file.replace('/', '.'), whitelist = false),
-                                    source = FilterSourceDescriptor("file", file),
-                                    active = true,
-                                    whitelist = false
-                            )
-                            tunnelManager.putFilter(ktx, f)
-                            finish()
+                EnterDomainVB(ktx,
+                        accepted = {
+                            nameVB.inputForGeneratingName = if (it.size == 1) it.first().source else ""
+                            sources = it
+                            stepView.next()
                         },
-                        nameVB)
-                    }
-                }),
+                        fileImport = {
+                            val path = File(getExternalPath(), "/filters/")
+                            val files = path.listFiles()
+                            if (files == null || files.isEmpty()) {
+                                showSnack(R.string.slot_enter_domain_no_file)
+                            } else {
+                                stepView.pages = listOf(
+                                        EnterFileNameVB(ktx, files) { file ->
+                                            val f = Filter(
+                                                    id(file.replace('/', '.'), whitelist = false),
+                                                    source = FilterSourceDescriptor("file", file),
+                                                    active = true,
+                                                    whitelist = false
+                                            )
+                                            entrypoint.onSaveFilter(f)
+                                            finish()
+                                        },
+                                        nameVB)
+                            }
+                        }),
                 nameVB
         )
     }
