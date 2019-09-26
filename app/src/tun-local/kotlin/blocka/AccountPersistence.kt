@@ -19,6 +19,7 @@ fun registerPersistenceForAccount() {
                             v("migrating BlockaConfig to CurrentAccount")
                             CurrentAccount(
                                     id = legacy.accountId,
+                                    privateKey = legacy.privateKey,
                                     publicKey = legacy.publicKey,
                                     activeUntil = legacy.activeUntil,
                                     lastAccountCheck = legacy.lastDaily,
@@ -41,6 +42,14 @@ fun registerPersistenceForAccount() {
                         val legacy = Persistence.blocka.load("legacy".ktx())
                         if (legacy.gatewayId.isNotBlank()) {
                             v("migrating BlockaConfig to CurrentLease")
+
+                            // Activate VPN if it was active in older version
+                            // This is a bit hacky...
+                            if (!legacy.leaseActiveUntil.expired()) {
+                                v("setting blocka VPN state to enabled from migration")
+                                Register.set(BlockaVpnState::class.java, BlockaVpnState(true))
+                            }
+
                             CurrentLease(
                                     gatewayId = legacy.gatewayId,
                                     gatewayIp = legacy.gatewayIp,
