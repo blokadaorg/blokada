@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.content.FileProvider
+import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.UpdateVB
@@ -12,11 +13,11 @@ import core.bits.menu.advanced.createAdvancedMenuItem
 import core.bits.menu.apps.createAppsMenuItem
 import core.bits.menu.dns.createDnsMenuItem
 import core.bits.menu.vpn.createVpnMenuItem
-import core.bits.openInBrowser
+import core.bits.openInExternalBrowser
+import core.bits.openWebContent
 import gs.presentation.NamedViewBinder
 import org.blokada.BuildConfig
 import org.blokada.R
-import blocka.blokadaUserAgent
 import java.io.File
 
 fun createMenu(ktx: AndroidKontext): MenuItemsVB {
@@ -65,7 +66,7 @@ fun createHelpMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.panel_section_home_help.res(),
             icon = R.drawable.ic_help_outline.res(),
-            action = { openInBrowser(ktx.ctx, helpPage()) }
+            action = { openWebContent(ktx.ctx, helpPage()) }
     )
 }
 
@@ -74,7 +75,7 @@ fun createCtaMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.main_cta.res(),
             icon = R.drawable.ic_feedback.res(),
-            action = { openInBrowser(ktx.ctx, page()) }
+            action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
@@ -83,7 +84,7 @@ fun createDonateMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.slot_donate_action.res(),
             icon = R.drawable.ic_heart_box.res(),
-            action = { openInBrowser(ktx.ctx, page()) }
+            action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
@@ -92,7 +93,7 @@ fun createTelegramMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.menu_telegram.res(),
             icon = R.drawable.ic_comment_multiple_outline.res(),
-            action = { openInBrowser(ktx.ctx, page()) }
+            action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
@@ -101,7 +102,7 @@ fun createBlogMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.main_blog_text.res(),
             icon = R.drawable.ic_earth.res(),
-            action = { openInBrowser(ktx.ctx, page()) }
+            action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
@@ -135,7 +136,7 @@ fun createCreditsMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.main_credits.res(),
             icon = R.drawable.ic_earth.res(),
-            action = { openInBrowser(ktx.ctx, page()) }
+            action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
@@ -144,7 +145,7 @@ fun createChangelogMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.main_changelog.res(),
             icon = R.drawable.ic_code_tags.res(),
-            action = { openInBrowser(ktx.ctx, page()) }
+            action = { openWebContent(ktx.ctx, page()) }
     )
 }
 

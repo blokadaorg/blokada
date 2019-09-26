@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
+import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.with
 import core.ListSection
@@ -21,7 +22,6 @@ import gs.environment.LazyProvider
 import gs.property.IProperty
 import gs.property.IWhen
 import org.blokada.R
-import blocka.blokadaUserAgent
 import java.net.URL
 
 class WebDash(
@@ -124,7 +124,7 @@ class WebDash(
                 if (onLoadSpecificUrl != null && url.contains(onLoadSpecificUrl.first)) {
                     onLoadSpecificUrl.second()
                     return true
-                } else if (forceEmbedded || url.contains(url().host)) {
+                } else if ((forceEmbedded || url.contains(url().host)) && url.startsWith("http")) {
                     view.loadUrl(url)
                     return false
                 } else {

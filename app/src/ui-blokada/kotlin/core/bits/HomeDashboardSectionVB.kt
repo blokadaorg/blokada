@@ -279,7 +279,7 @@ fun createOneTimeBytes(
                 description = R.string.slot_obsolete_desc.res(),
                 onTap = { ktx ->
                     val pages: Pages = ktx.di().instance()
-                    openInBrowser(ktx.ctx, pages.download())
+                    openWebContent(ktx.ctx, pages.download())
                 }
         )},
         OneTimeByte.DONATE to { SimpleByteVB(ktx,
@@ -287,7 +287,7 @@ fun createOneTimeBytes(
                 description = R.string.slot_donate_desc.res(),
                 onTap = { ktx ->
                     val pages: Pages = ktx.di().instance()
-                    openInBrowser(ktx.ctx, pages.donate())
+                    openWebContent(ktx.ctx, pages.donate())
                 }
         )},
         OneTimeByte.UPDATE_AVAILABLE to { SimpleByteVB(ktx,
@@ -314,7 +314,7 @@ fun createOneTimeBytes(
                 description = getAnnouncementContent().second.res(),
                 icon = R.drawable.ic_info.res(),
                 onTap = { ktx ->
-                    openInBrowser(ktx.ctx, URL(getAnnouncementUrl()))
+                    openWebContent(ktx.ctx, URL(getAnnouncementUrl()))
                 }
         ) }
 )

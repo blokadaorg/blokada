@@ -1076,15 +1076,17 @@ class StorageLocationVB(
 
 }
 
-fun openInBrowser(ctx: Context, url: URL) {
-//    val intent = Intent(Intent.ACTION_VIEW)
-//    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//    intent.setData(Uri.parse(url.toString()))
-//    ctx.startActivity(intent)
-
+fun openWebContent(ctx: Context, url: URL) {
     ctx.startActivity(Intent(ctx, StaticUrlWebActivity::class.java).apply {
         putExtra(WebViewActivity.EXTRA_URL, url.toExternalForm())
     })
+}
+
+fun openInExternalBrowser(ctx: Context, url: URL) {
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    intent.setData(Uri.parse(url.toString()))
+    ctx.startActivity(intent)
 }
 
 class UpdateVB(
@@ -1158,7 +1160,7 @@ class AboutVB(
 ) : SlotVB(onTap) {
 
     private val creditsAction = Slot.Action(i18n.getString(R.string.main_credits)) {
-        openInBrowser(ctx, pages.credits())
+        openWebContent(ctx, pages.credits())
     }
 
     override fun attach(view: SlotView) {
@@ -1199,188 +1201,9 @@ class AboutVB(
     }
 }
 
-class TelegramVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val i18n: I18n = ktx.di().instance(),
-        private val pages: Pages = ktx.di().instance(),
-        private val onRemove: () -> Unit,
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                label = i18n.getString(R.string.slot_telegram_title),
-                description = i18n.getString(R.string.slot_telegram_desc),
-                icon = ctx.getDrawable(R.drawable.ic_comment_multiple_outline),
-                action1 = Slot.Action(i18n.getString(R.string.slot_telegram_action), {
-                    try {
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        intent.data = Uri.parse(pages.chat().toString())
-                        ctx.startActivity(intent)
-                    } catch (e: Exception) {
-                    }
-                }),
-                action2 = view.ACTION_REMOVE
-        )
-        view.onRemove = onRemove
-    }
-
-}
-
 private val prettyFormat = SimpleDateFormat("MMMM dd, HH:mm")
 fun Date.pretty(ktx: Kontext): String {
     return prettyFormat.format(this)
-}
-
-class RecommendedDnsVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val dns: Dns = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    private fun update() {
-        view?.enableAlternativeBackground()
-        view?.type = Slot.Type.INFO
-        view?.content = Slot.Content(
-                label = i18n.getString(R.string.slot_recommended_dns_label),
-                description = i18n.getString(R.string.slot_recommended_dns_description),
-                icon = ktx.ctx.getDrawable(R.drawable.ic_server),
-                switched = hasGoodDnsServers(dns)
-        )
-        view?.onSwitch = { useRecommended ->
-            // Clear currently active dns
-            val active = dns.choices().firstOrNull { it.active }
-            active?.active = false
-
-            if (useRecommended) {
-                var recommended = dns.choices().firstOrNull { it.id.contains("cloudflare") }
-                if (recommended == null) {
-                    recommended = dns.choices().firstOrNull { it.id != "default" }
-                }
-                if (recommended != null) {
-                    recommended.active = true
-                    dns.choices %= dns.choices()
-                }
-            } else {
-                val default = dns.choices().firstOrNull { it.id == "default" }
-                default?.active = true
-                dns.choices %= dns.choices()
-            }
-        }
-    }
-
-    override fun attach(view: SlotView) {
-        onDnsChoiceChanged = dns.choices.doOnUiWhenSet().then { update() }
-    }
-
-    override fun detach(view: SlotView) {
-        dns.choices.cancel(onDnsChoiceChanged)
-    }
-
-    private var onDnsChoiceChanged: IWhen? = null
-
-}
-
-fun hasGoodDnsServers(dns: Dns): Boolean {
-    val active = dns.choices().firstOrNull { it.active }
-    return active != null && active.id != "default"
-}
-
-class DonateVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val pages: Pages = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance(),
-        private val onRemove: () -> Unit,
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                label = i18n.getString(R.string.slot_donate_label),
-                description = i18n.getString(R.string.slot_donate_desc),
-                icon = ctx.getDrawable(R.drawable.ic_heart_box),
-                action1 = Slot.Action(i18n.getString(R.string.slot_donate_action), {
-                    openInBrowser(ctx, pages.donate())
-                }),
-                action2 = view.ACTION_REMOVE
-        )
-        view.onRemove = onRemove
-    }
-}
-
-class BlogVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val pages: Pages = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance(),
-        private val onRemove: () -> Unit,
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                label = i18n.getString(R.string.slot_blog_label),
-                description = i18n.getString(R.string.slot_blog_desc),
-                icon = ctx.getDrawable(R.drawable.ic_earth),
-                action1 = Slot.Action(i18n.getString(R.string.slot_blog_action), {
-                    openInBrowser(ctx, pages.news())
-                }),
-                action2 = view.ACTION_REMOVE
-        )
-        view.onRemove = onRemove
-    }
-}
-
-class HelpVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val pages: Pages = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                label = i18n.getString(R.string.slot_help_label),
-                description = i18n.getString(R.string.slot_help_desc),
-                icon = ctx.getDrawable(R.drawable.ic_help_outline),
-                action1 = Slot.Action(i18n.getString(R.string.slot_help_action), {
-                    openInBrowser(ctx, pages.help())
-                })
-        )
-    }
-}
-
-class CtaVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val pages: Pages = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance(),
-        private val onRemove: () -> Unit,
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    override fun attach(view: SlotView) {
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                label = i18n.getString(R.string.slot_cta_label),
-                description = i18n.getString(R.string.slot_cta_desc),
-                icon = ctx.getDrawable(R.drawable.ic_comment_multiple_outline),
-                action1 = Slot.Action(i18n.getString(R.string.slot_cta_action), {
-                    openInBrowser(ctx, pages.cta())
-                }),
-                action2 = view.ACTION_REMOVE
-        )
-        view.onRemove = onRemove
-    }
 }
 
 class CleanupVB(
