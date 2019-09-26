@@ -60,6 +60,12 @@
     <string name="slot_enter_domain_desc">Entrez les domaines séparés par une virgule. Vous pouvez aussi coller un lien vers une liste noires ou importer un fichier local.</string>
     <string name="slot_enter_domain_error">Cela ne ressemble à rien.</string>
     <string name="slot_enter_domain_file">Fichier</string>
+    <string name="slot_enter_domain_no_file">Aucun fichier trouvé dans /Download/blokada/filters</string>
+    <string name="slot_enter_file_titel">Nom du fichier</string>
+    <string name="slot_enter_file_import">Importer</string>
+    <string name="slot_enter_file_desc">Saisir un nom de fichier partiel</string>
+    <string name="slot_enter_file_not_found">Aucun nom de fichier contenant votre entrée</string>
+    <string name="slot_enter_file_multi">Plusieurs fichiers correspondent à votre entrée</string>
     <string name="slot_enter_name_title">Nom</string>
     <string name="slot_enter_name_desc">Entrez le nom de la nouvelle entrée. Vous pouvez également générer un nom suggéré.</string>
     <string name="slot_enter_name_error">Cela ne ressemble à rien.</string>

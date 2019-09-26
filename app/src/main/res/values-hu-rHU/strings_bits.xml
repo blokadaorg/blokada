@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">Érintsd meg a folytatáshoz</string>
     <string name="home_touch_adblocking">Érintsd meg a hirdetések blokkolásához</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">Érintsd meg a VPN beállításához</string>
     <string name="home_blokada_disabled">Blokada szüneteltetve</string>
     <string name="home_activating">Aktiválás</string>
     <string name="home_please_wait">Kérlek, várj...</string>
@@ -13,6 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Csak DNS mód</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">Érintsd meg a DNS beállításához</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blokkolva</string>
     <string name="home_masterswitch_enabled">Blokada bekapcsolva</string>

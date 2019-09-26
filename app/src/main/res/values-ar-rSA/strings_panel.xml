@@ -38,7 +38,9 @@
     <string name="slot_action_remove">حَذفْ</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">نعم</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">لا</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">كيفَ تَستخدِم الواجهة الجديدة؟ إضغط هنا للتوضيح.</string>
     <string name="slot_intro_new_header">كيفَ تَستخدِم واجهة المُستخدِم الجديدة؟</string>
@@ -58,6 +60,8 @@
     <string name="slot_enter_domain_desc">أدخل النطاقات مفصولة بفاصلة. يُمكِنك أيضاً لصق رابط إلى أي قائمة مُستَضيف ، أو إستيراد ملف قائمة مُستَضيف محلّي.</string>
     <string name="slot_enter_domain_error">هذا لا يبدو لي كأيّ شيء.</string>
     <string name="slot_enter_domain_file">مَلفّ</string>
+    <string name="slot_enter_file_titel">اسم الملف</string>
+    <string name="slot_enter_file_import">استيراد</string>
     <string name="slot_enter_name_title">الاسم</string>
     <string name="slot_enter_name_desc">أدخل إسم الإدخال الجديد. يُمكِنك أيضاً إنشاء إسم مقترح.</string>
     <string name="slot_enter_name_error">هذا لا يبدو لي كأيّ شيء.</string>
@@ -112,6 +116,7 @@
     <string name="slot_account_action_change_id">إستعادة الحساب</string>
     <string name="slot_account_show">مُعَرِّف الحساب</string>
     <string name="slot_account_action_copied">تمَّ نسخ مُعرِّف الحساب إلى الحافظة</string>
+    <string name="slot_account_action_unavailable">[لم يُعيَّن]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">متَّصل إلى %s</string>
     <string name="slot_gateway_label_overloaded">[Full] إتصل بـ %s</string>

@@ -60,6 +60,12 @@
     <string name="slot_enter_domain_desc">Vesszővel elválasztott domainokat adj meg. Beilleszthetsz egy linket bármely hoszt listához, vagy importálhatsz is egy helyi hoszt lista fájlt.</string>
     <string name="slot_enter_domain_error">Ez nem úgy néz ki, mintha jó lenne.</string>
     <string name="slot_enter_domain_file">Fájl</string>
+    <string name="slot_enter_domain_no_file">Nem található fájl a /Download/blokada/filters mappában</string>
+    <string name="slot_enter_file_titel">Fájlnév</string>
+    <string name="slot_enter_file_import">Importálás</string>
+    <string name="slot_enter_file_desc">Adj meg egy részleges fájlnevet</string>
+    <string name="slot_enter_file_not_found">Nincs fájlnév, amely tartalmazná a beírt töredéket</string>
+    <string name="slot_enter_file_multi">Több fájl tartalmazza a beírt töredéket</string>
     <string name="slot_enter_name_title">Név</string>
     <string name="slot_enter_name_desc">Írd be az új bejegyzés nevét. A név automatikusan is generálható.</string>
     <string name="slot_enter_name_error">Ez nem úgy néz ki, mintha jó lenne.</string>

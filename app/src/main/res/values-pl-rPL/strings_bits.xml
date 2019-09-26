@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">Dotknij aby wznowić</string>
     <string name="home_touch_adblocking">Dotknij aby blokować reklamy</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">Dotknij aby ustawić VPN</string>
     <string name="home_blokada_disabled">Blokada jest zatrzymana</string>
     <string name="home_activating">Aktywuję</string>
     <string name="home_please_wait">Proszę czekać...</string>
@@ -13,6 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Tryb DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">Dotknij aby ustawić DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s zablokowano</string>
     <string name="home_masterswitch_enabled">Blokada jest włączona</string>
@@ -34,6 +36,13 @@
     <string name="home_cleanup">Oczyszczanie zalecane</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Podłączony do VPN</string>
+    <string name="home_boringtun_not_loaded">Przepraszamy! Twoje urządzenie nie jest aktualnie obsługiwane</string>
+    <string name="home_blocka_vpn_error">Nie można połączyć się z VPN. Jesteś online?</string>
+    <string name="home_account_error">Nie można zweryfikować Twojego konta. Jesteś online?</string>
+    <string name="home_permission_error">Proszę przyznać uprawnienia VPN.</string>
+    <string name="home_zero_filters_error">Nie masz żadnych filtrów. Sprawdź ustawienia blokowania.</string>
+    <string name="home_filters_memory_error">Nie udało się załadować wszystkich filtrów. Sprawdź ustawienia list.</string>
+    <string name="tasker_switch_label">Dotknij jedną z opcji aby skonfigurować jej włączanie (lub wyłączanie).</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Reklamy</string>
     <string name="menu_ads_live_label">Historia zezwolonych i zablokowanych żądań</string>
@@ -59,11 +68,19 @@
     <string name="menu_vpn_account_label">Aby używać VPN, potrzebujesz aktywne konto. Sprawdź lub odzyskaj twoje konto tu.</string>
     <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
     <string name="menu_dns_recommended">Zalecane serwery DNS</string>
+    <string name="menu_dns_intro">DNS odpowiada za tłumaczenie adresów IP stron i aplikacji które używasz. Wybranie dobrego DNSa może przyśpieszyć Twoje urządzenie i pomóc chronić Twoją prywatność.</string>
+    <string name="menu_dns_select">Wybierz jeden z serwerów DNS.</string>
+    <string name="menu_apps_intro">Niektóre aplikacje mogą nie funkcjonować poprawnie z Blokadą. Na przykład, mogą mieć problem z połączeniem.\n\nAktywowanie VPN często pomaga w takich przypadkach.\n\nMożesz także wykluczyć te aplikacje spod inspekcji Blokady. Pamiętaj że wykluczone aplikacje komunikują się poza VPNem.</string>
+    <string name="menu_apps_system_label">Aplikacje systemowe to te preinstalowane na Twoim urządzeniu. Niektóre z nich są ukryte. Modyfikując te ustawienia upewnij się że wiesz, co robisz.</string>
+    <string name="menu_host_list_intro">Listy hostów zawierają reguły do blokowania reklam i trakerów. Postaraj się utrzymać ilość aktywnych list na niskim poziomie.</string>
     <string name="menu_host_list_settings">Ustawienia list</string>
     <string name="menu_host_list_status">Status list</string>
     <string name="menu_host_list_download">Ustawienia pobierania list</string>
+    <string name="menu_host_whitelist">Hosty, które tutaj dodasz, nigdy nie będą blokowane. Użyj tej listy kiedy stroną, którą odwiedzasz, jest omyłkowo blokowana.</string>
+    <string name="menu_host_blacklist">Hosty, które tutaj dodasz, będą zawsze blokowane. Na przykład, możesz tu dodać stront które nie są blokowane przez standardowe filtry, a powinny być.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Inne</string>
+    <string name="menu_share_log_label">Udostępnienie logów pomoże nam ustalić przyczynę Twojego problemu. Upewnij się, że wysyłasz je tylko do jednego z głównych członków zespołu Blokada.</string>
     <!-- A section of help, telegram, and other buttons in menu -->
     <string name="menu_learn_more">Dowiedz się więcej</string>
     <!-- A section informational content in menu -->
@@ -72,8 +89,11 @@
     <string name="menu_get_involved">Zaangażuj się</string>
     <string name="menu_telegram">Telegram</string>
     <string name="menu_configure">Konfiguruj funkcje Blokady</string>
+    <string name="menu_exclude">Wyklucz aplikacje które nie działają prawidłowo</string>
     <!-- A section in menu for additional buttons  -->
     <string name="menu_dive_in">Wejdź głębiej</string>
     <!-- A section to manage some settings (generic)  -->
     <string name="menu_manage">Zarządzaj</string>
+    <string name="menu_ok">OK</string>
+    <string name="menu_dns_remove_default">Domyślne DNS nie mogą zostać usunięte.</string>
 </resources>
