@@ -219,6 +219,15 @@ class BitView(
         this.alternative = alternative
     }
 
+    fun inactive(inactive: Boolean) {
+        val bg = when {
+            inactive == true -> R.drawable.bg_dashboard_item_inactive
+            alternative -> R.drawable.bg_dashboard_item_alternative
+            else -> R.drawable.bg_dashboard_item
+        }
+        containerView.setBackgroundResource(bg)
+    }
+
     fun onTap(tap: () -> Unit) {
         setOnClickListener {
             containerView.setBackgroundResource(R.drawable.bg_dashboard_item_inactive)

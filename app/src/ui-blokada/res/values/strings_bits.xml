@@ -51,7 +51,7 @@
     <string name="home_zero_filters_error">You have no filters configured. Check your adblocking settings.</string>
     <string name="home_filters_memory_error">Could not load all filters to memory. Check your adblocking settings.</string>
 
-    <string name="tasker_switch_label">You can configure Blokada to either turn on or off whenever your event triggers.</string>
+    <string name="tasker_switch_label">Tap on one of the options to configure to turn it on (or off) for your trigger.</string>
 
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Ads</string>
