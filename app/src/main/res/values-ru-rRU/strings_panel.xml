@@ -38,9 +38,9 @@
     <string name="slot_action_remove">Удалить</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Вкл.</string>
+    <string name="slot_switch_on">Да</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Выкл.</string>
+    <string name="slot_switch_off">Нет</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Как использовать новый интерфейс? Нажмите здесь для ознакомления.</string>
     <string name="slot_intro_new_header">Как использовать новый интерфейс?</string>
@@ -114,6 +114,7 @@
     <string name="slot_account_action_change_id">Восстановить аккаунт</string>
     <string name="slot_account_show">ID аккаунта</string>
     <string name="slot_account_action_copied">ID аккаунта скопирован в буфер обмена</string>
+    <string name="slot_account_action_unavailable">[не установлено]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Подключиться к %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Подключиться к %s</string>

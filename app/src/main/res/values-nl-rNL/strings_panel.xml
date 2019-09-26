@@ -38,9 +38,7 @@
     <string name="slot_action_remove">Verwijderen</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Aan</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Uit</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Hoe gebruik je de nieuwe UI? Tik hier voor intro.</string>
     <string name="slot_intro_new_header">Hoe gebruik je de nieuwe UI?</string>

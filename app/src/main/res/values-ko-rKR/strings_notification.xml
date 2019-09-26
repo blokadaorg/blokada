@@ -14,7 +14,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">활동 유지</string>
-    <string name="notification_keepalive_description">앱이 활성화 상태를 유지하지 못할 시 이 스위치를 활성화합니다. 지속 알림을 띄워 시스템이 종료시키지 못하도록 합니다.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->

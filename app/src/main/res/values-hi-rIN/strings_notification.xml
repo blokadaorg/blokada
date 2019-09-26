@@ -15,7 +15,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">जिंदा रखें</string>
-    <string name="notification_keepalive_description">यदि आप सक्रिय रहने वाले एप्लिकेशन के साथ समस्याओं का अनुभव करते हैं, तो इस स्विच को सक्रिय करें । एप्लिकेशन को यह बंद करने से प्रणाली को रोकने के लिए एक स्थायी अधिसूचना सक्षम हो जाएगा</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -29,7 +28,6 @@
     <string name="notification_keepalive_deactivate">निष्क्रिय करें</string>
     <string name="notification_keepalive_deactivating">ब्लोकअडा निष्क्रिय हो गया।</string>
     <string name="notification_expired_title">ब्लोकडा वीपीएन खाता समाप्त हो गया</string>
-    <string name="notification_expired_description">आपका खाता अभी समाप्त हो चुका है और आप इस समय ब्लोकडा वीपीएन से नहीं जुड़े हैं। बेहतर सुरक्षा के लिए कृपया अपने खाते को फिर से सक्रिय करने पर विचार करें।</string>
     <string name="notification_lease_expired_title">ब्लोकडा वीपीएन बंद हो गया</string>
     <string name="notification_lease_expired_description">आपके कनेक्शन को ब्लॉक वीपीएन के साथ समस्या थी। कृपया दूसरे गेटवे से कनेक्ट करने का प्रयास करें। यदि समस्या बनी रहती है, तो कृपया टेलीग्राम पर हमसे संपर्क करें।</string>
 </resources>

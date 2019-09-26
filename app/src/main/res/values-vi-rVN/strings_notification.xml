@@ -14,7 +14,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Giữ kích hoạt</string>
-    <string name="notification_keepalive_description">Kích hoạt công tắc này nếu bạn đang muốn giữ ứng dụng hoạt động. Blokada sẽ kích hoạt một thông báo để ngăn hệ điều hành khỏi việc tắt nó.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->

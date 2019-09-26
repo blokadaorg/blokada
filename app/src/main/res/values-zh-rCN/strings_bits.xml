@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">点击以重试</string>
     <string name="home_touch_adblocking">点击以屏蔽广告</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">点击以设置 VPN</string>
     <string name="home_blokada_disabled">Blokada 已暂停使用</string>
     <string name="home_activating">正在启用</string>
     <string name="home_please_wait">请稍候...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">仅 DNS 模式</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">点击以设置 DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">已拦截 %s 个请求</string>
     <string name="home_masterswitch_enabled">Blokada 已打开</string>

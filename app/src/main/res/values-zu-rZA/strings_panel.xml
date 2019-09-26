@@ -38,9 +38,7 @@
     <string name="slot_action_remove">Susa</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Kuvuliwe</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Kuvaliwe</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Isebenza kanjani? Thinta la ukuze ufunde.</string>
     <string name="slot_intro_new_header">Isebenza kanjani?</string>

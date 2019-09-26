@@ -37,9 +37,7 @@
     <string name="slot_action_remove">Fjern</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">På</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Av</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new_header">Hvordan bruke den nye brukergrensesnittet?</string>
     <string name="slot_intro_info">Psst... Noen elementer har spørsmålstegnikonet på dem. Hvis du trykker på den, vises en kort hjelpemelding, som denne!</string>

@@ -15,7 +15,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Aktiv halten</string>
-    <string name="notification_keepalive_description">Aktiviere diesen Schalter, wenn es Probleme mit dem Hintergrunddienst und somit dem Aktivhalten der App gibt. Diese Einstellung verhindert, dass das System die App beenden kann.</string>
+    <string name="notification_keepalive_description">Aktiviere diese Einstellung, wenn du Probleme hast, dass Blokada nicht aktiv bleibt. Die App aktiviert eine dauerhafte Benachrichtigung, um zu verhindern, dass Blokada vom Betriebssystem gestoppt wird.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -29,7 +29,7 @@
     <string name="notification_keepalive_deactivate">Deaktivieren</string>
     <string name="notification_keepalive_deactivating">Blokada wurde deaktiviert!</string>
     <string name="notification_expired_title">Blokada VPN-Konto abgelaufen</string>
-    <string name="notification_expired_description">Dein Konto ist gerade abgelaufen und du bist momentan nicht mit Blokada VPN verbunden. Bitte überlege, dein Konto erneut zu aktivieren, um einen besseren Schutz zu erhalten.</string>
+    <string name="notification_expired_description">Dein Konto ist abgelaufen und du bist derzeit nicht mit Blokada VPN verbunden. Bitte überlege dir, dein Konto wieder zu aktivieren, um dich besser zu schützen.</string>
     <string name="notification_lease_expired_title">Blokada VPN ausgeschaltet</string>
     <string name="notification_lease_expired_description">Es gab ein Problem mit der Verbindung zu Blokada VPN. Bitte versuche eine Verbindung mit einem anderen Gateway. Wenn das Problem weiterhin besteht, kontaktiere uns bitte bei Telegram.</string>
 </resources>

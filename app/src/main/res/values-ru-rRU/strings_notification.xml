@@ -15,7 +15,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Активный режим</string>
-    <string name="notification_keepalive_description">Включите этот параметр, если приложение не работает в фоновом режиме. При этом будет активировано постоянное уведомление, что позволит защитить приложение от выгрузки его из памяти.</string>
+    <string name="notification_keepalive_description">Активируйте этот переключатель, если приложение перестает работать. Будет включено постоянное уведомление приложения, чтобы система не убила его.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -29,7 +29,7 @@
     <string name="notification_keepalive_deactivate">Деактивировать</string>
     <string name="notification_keepalive_deactivating">Blokada деактивирована!</string>
     <string name="notification_expired_title">Срок действия аккаунта Blokada VPN истек</string>
-    <string name="notification_expired_description">Срок действия вашей учетной записи только что истек, и вы больше не подключены к Blokada VPN. Пожалуйста, рассмотрите возможность активации своей учетной записи снова для лучшей защиты.</string>
+    <string name="notification_expired_description">Срок действия вашей учетной записи истек, и на данный момент вы не подключены к Blokada VPN. Пожалуйста, рассмотрите возможность активации своей учетной записи снова.</string>
     <string name="notification_lease_expired_title">Blokada VPN выключен</string>
     <string name="notification_lease_expired_description">Возникла проблема с вашим подключением к Blockada VPN. Пожалуйста, попробуйте подключиться к другому шлюзу. Если проблема не сохраняется, пожалуйста, свяжитесь с нами в Telegram.</string>
 </resources>

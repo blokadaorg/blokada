@@ -15,7 +15,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Actief blijven</string>
-    <string name="notification_keepalive_description">Activeer deze schakelaar indien de app niet actief blijft. De app zal dan een permanente melding weergeven die het systeem verhinderd de app uit te schakelen.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -29,7 +28,6 @@
     <string name="notification_keepalive_deactivate">Deactiveren</string>
     <string name="notification_keepalive_deactivating">Blokada werd gedeactiveerd!</string>
     <string name="notification_expired_title">Blokada VPN-account verlopen</string>
-    <string name="notification_expired_description">Uw account is zojuist verlopen en u bent momenteel niet verbonden met Blokada VPN. Overweeg uw account opnieuw te activeren voor betere bescherming.</string>
     <string name="notification_lease_expired_title">Blokada VPN uitgeschakeld</string>
     <string name="notification_lease_expired_description">Er was een verbindingsprobleem met Blokada VPN. Probeer te verbinden met een andere gateway. Als het probleem zich blijft voordoen, neem dan contact met ons op via Telegram.</string>
 </resources>

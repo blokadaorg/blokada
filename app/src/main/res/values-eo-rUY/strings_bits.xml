@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Tuŝu por daŭrigi</string>
     <string name="home_touch_adblocking">Tuŝu por bloki reklamoj</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Agordu la VPN</string>
     <string name="home_blokada_disabled">Blokada paŭzigas</string>
     <string name="home_activating">Aktiviganta</string>
     <string name="home_please_wait">Bonvolu atendu...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">DNS reĝimo nur</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Agordu la DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blokitaj</string>
     <string name="home_masterswitch_enabled">Blokada estas ŝaltita</string>

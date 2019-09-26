@@ -14,7 +14,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Hold i live</string>
-    <string name="notification_keepalive_description">Aktiver denne funktion hvis du oplever problemer med at appen lukker ned. Appen vil vise en permanent notifikation for at forhindre systemet i at stoppe den.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -28,7 +27,6 @@
     <string name="notification_keepalive_deactivate">Deaktiver</string>
     <string name="notification_keepalive_deactivating">Blokada er deaktiveret!</string>
     <string name="notification_expired_title">Blokada VPN konto udløbbet</string>
-    <string name="notification_expired_description">Din konto er lige udløbbet og du er ikke forbundet til Blokada VPN i øjeblikket. Overvej venligst at aktivere din konto igen for bedre beskyttelse.</string>
     <string name="notification_lease_expired_title">Blokada VPN slået fra</string>
     <string name="notification_lease_expired_description">Der opstod et problem med din forbindelse til Blokada VPN. Prøv venligst at forbinde til en anden gateway. Hvis problemet forsætter, kontakt os venligst på Telegram.</string>
 </resources>

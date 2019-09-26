@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">إضغط للإستئناف</string>
     <string name="home_touch_adblocking">اظغط لحَظْر الإعلانات</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">إضغط لتهيئة VPN</string>
     <string name="home_blokada_disabled">بلوكادا متوقِّف</string>
     <string name="home_activating">جارِ التفعيل</string>
     <string name="home_please_wait">الرجاء الإنتظار...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">وضعيّة DNS فقط</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">إضغط لتهيئة DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s تَمَّ حَظْر</string>
     <string name="home_masterswitch_enabled">بلوكادا قيد التشغيل</string>

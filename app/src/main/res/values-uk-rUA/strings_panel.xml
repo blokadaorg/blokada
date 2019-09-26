@@ -38,9 +38,7 @@
     <string name="slot_action_remove">Вилучити</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Так</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Ні</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Як користуватися новим інтерфейсом? Натисніть тут для демонстрації.</string>
     <string name="slot_intro_new_header">Новий інтерфейс?</string>

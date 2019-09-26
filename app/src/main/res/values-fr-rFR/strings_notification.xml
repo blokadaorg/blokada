@@ -15,7 +15,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Garder en vie</string>
-    <string name="notification_keepalive_description">Activez cette option si vous rencontrez des problèmes pour que l\'application reste active. L\'application activera une notification permanente pour empêcher le système de la fermer.</string>
+    <string name="notification_keepalive_description">Activez cette option si vous rencontrez des problèmes lorsque l\'appli reste active. L\'application activera une notification permanente qui ne pourra pas être supprimée par le système.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -29,7 +29,7 @@
     <string name="notification_keepalive_deactivate">Désactiver</string>
     <string name="notification_keepalive_deactivating">Blokada a été désactivé !</string>
     <string name="notification_expired_title">Le compte a expiré</string>
-    <string name="notification_expired_description">Votre abonnement vient juste d\'arriver à expiration et vous n\'êtes pas connecté à Blokada VPN pour le moment. Veuillez envisager de renouveler votre abonnement pour une meilleure protection.</string>
+    <string name="notification_expired_description">Votre compte a expiré, et vous n\'êtes actuellement pas connecté à Blokada VPN. Veuillez envisager de réactiver votre compte pour recevoir une meilleure protection.</string>
     <string name="notification_lease_expired_title">Blokada VPN est désactivé</string>
     <string name="notification_lease_expired_description">Il y a eu un problème avec votre connexion à Blokada VPN. Veuillez essayer de vous connecter à un autre serveur. Si le problème persiste, veuillez nous contacter sur Telegram.</string>
 </resources>

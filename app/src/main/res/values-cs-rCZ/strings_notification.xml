@@ -15,7 +15,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Udržet naživu</string>
-    <string name="notification_keepalive_description">Aktivujte tento přepínač, pokud má aplikace problém zůstat aktivní. Tato volba zapne trvalé oznámení v notifikační liště, což zabrání systému Blokadu ukončit.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -29,7 +28,6 @@
     <string name="notification_keepalive_deactivate">Zakázat</string>
     <string name="notification_keepalive_deactivating">Blokada byla deaktivována!</string>
     <string name="notification_expired_title">Platnost účtu Blokada VPN vypršela</string>
-    <string name="notification_expired_description">Platnost vašeho účtu právě vypršela a v tuto chvíli nejste připojeni k Blokada VPN. Chcete-li zlepšit ochranu, zvažte opětovnou aktivaci účtu.</string>
     <string name="notification_lease_expired_title">Blokada VPN vypnuta</string>
     <string name="notification_lease_expired_description">Vyskytl se problém s připojením k Blokada VPN. Zkuste se připojit k jiné bráně. Pokud problém přetrvává, kontaktujte nás prosím přes Telegram.</string>
 </resources>

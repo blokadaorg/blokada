@@ -14,7 +14,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Uzturēt dzīvu</string>
-    <string name="notification_keepalive_description">Aktivizējiet šo slēdzi, ja rodas problēmas ar to, ka lietotne paliek neaktīva. Šajā gadījumā lietotne izveidos paliekošu paziņojumu, lai novērstu to, ka sistēma to aizver.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->

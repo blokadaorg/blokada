@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Fortsetzen</string>
     <string name="home_touch_adblocking">Werbung blockieren</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">VPN einrichten</string>
     <string name="home_blokada_disabled">Blokada pausiert</string>
     <string name="home_activating">Aktivierung</string>
     <string name="home_please_wait">Bitte warten ...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Nur DNS-Modus</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Zum Einrichten von DNS tippen</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blockiert</string>
     <string name="home_masterswitch_enabled">Blokada ist an</string>
@@ -36,6 +34,12 @@
     <string name="home_cleanup">Bereinigung empfohlen</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Mit VPN verbunden</string>
+    <string name="home_boringtun_not_loaded">Tut uns Leid, dein Gerät wird derzeit von Blokada VPN leider nicht unterstützt</string>
+    <string name="home_blocka_vpn_error">Verbingung zum Gateway fehlgeschlagen. Bist du mit dem Internet verbunden?</string>
+    <string name="home_account_error">Das Konto konnte nicht bestätigt werden. Bist du mit dem Internet verbunden?</string>
+    <string name="home_permission_error">Bitte gewähren sie dem VPN die Berechtigung.</string>
+    <string name="home_zero_filters_error">Du hast keine Filter eingestellt. Überprüfe deine Adblocking-Einstellungen.</string>
+    <string name="home_filters_memory_error">Es konnten nicht alle Filter geladen werden. Überprüfe deine Adblocking-Einstellungen.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anzeigen</string>
     <string name="menu_ads_live_label">Protokoll der zugelassenen und blockierten Host-Anfragen</string>

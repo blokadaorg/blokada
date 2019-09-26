@@ -15,7 +15,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Винаги в активност</string>
-    <string name="notification_keepalive_description">Активирайте тази опция ако изпитвате проблем приложението да е винаги активно. Приложението ще разреши постоянно съобщение, което ще предотврати спирането му от системата.</string>
+    <string name="notification_keepalive_description">Активирайте този превключвател ако имате проблем с това, че приложението не е винаги активно. Приложението ще включи постоянно уведомяване, което да предотврати убийството му от системата.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->

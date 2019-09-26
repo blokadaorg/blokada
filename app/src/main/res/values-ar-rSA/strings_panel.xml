@@ -38,9 +38,7 @@
     <string name="slot_action_remove">حَذفْ</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">تشغيل</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">إيقاف</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">كيفَ تَستخدِم الواجهة الجديدة؟ إضغط هنا للتوضيح.</string>
     <string name="slot_intro_new_header">كيفَ تَستخدِم واجهة المُستخدِم الجديدة؟</string>

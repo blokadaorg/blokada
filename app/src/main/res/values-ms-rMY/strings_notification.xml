@@ -14,7 +14,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Biarkan hidup</string>
-    <string name="notification_keepalive_description">Aktifkan suis ini jika anda mengalami masalah untuk mengekalkan aplikasi supaya kekal aktif sepanjang masa. Aplikasi ini akan membolehkan pemberitahuan kekal untuk mengelakkan sistem daripada menghentikan nya.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -28,7 +27,6 @@
     <string name="notification_keepalive_deactivate">Nyahaktifkan</string>
     <string name="notification_keepalive_deactivating">Blokada telah dinyahaktifkan!</string>
     <string name="notification_expired_title">Akaun VPN Blokada telah tamat tempoh</string>
-    <string name="notification_expired_description">Akaun anda baru sahaja tamat tempoh dan anda tidak lagi bersambung kepada VPN Blokada buat masa ini. Sila pertimbangkan untuk mengaktifkan semula akaun ini untuk lebih perlindungan.</string>
     <string name="notification_lease_expired_title">VPN Blokada telah dimatikan</string>
     <string name="notification_lease_expired_description">Ada masalah dengan sembungan anda kepada VPN Blockada. Sila cuba sambungkan kepada Gateway yang lain. Jika masih ada masalah, sila hubungi kami di telegram.</string>
 </resources>

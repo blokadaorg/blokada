@@ -38,9 +38,7 @@
     <string name="slot_action_remove">Odstranit</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Zap.</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Vyp.</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Jak používat nové uživatelské rozhraní? Klikněte zde pro rychlého průvodce.</string>
     <string name="slot_intro_new_header">Jak používat nové uživatelské rozhraní?</string>

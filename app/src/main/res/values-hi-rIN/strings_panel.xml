@@ -24,9 +24,7 @@
     <string name="slot_action_remove">हटाएं</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">चालू</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">बंद</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new_header">नए संस्करण का उपयोग कैसे करें?</string>
     <!-- A state of input form when no input is entered (think: empty)  -->

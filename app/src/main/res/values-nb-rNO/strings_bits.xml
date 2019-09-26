@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Trykk for å fortsette</string>
     <string name="home_touch_adblocking">Trykk for å blokkere annonser</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Trykk for å sette opp VPN</string>
     <string name="home_blokada_disabled">Blokada er satt på pause</string>
     <string name="home_activating">Aktiverer</string>
     <string name="home_please_wait">Vennligst vent...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Bare DNS-modus</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Trykk for å sette opp DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blokkert</string>
     <string name="home_masterswitch_enabled">Blokada er på</string>

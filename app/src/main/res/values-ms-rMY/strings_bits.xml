@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Sentuh untuk teruskan</string>
     <string name="home_touch_adblocking">Sentuh untuk sekat iklan</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Sentuh untuk pemasangan VPN</string>
     <string name="home_blokada_disabled">Blokada sedang ditangguhkan</string>
     <string name="home_activating">Sedang Diaktifkan</string>
     <string name="home_please_wait">Sila tunggu...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Mod DNS sahaja</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Sentuh untuk pemasangan DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s telah disekat</string>
     <string name="home_masterswitch_enabled">Blokada sedang berjalan</string>

@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Dotknij aby wznowić</string>
     <string name="home_touch_adblocking">Dotknij aby blokować reklamy</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Dotknij aby włączyć VPN</string>
     <string name="home_blokada_disabled">Blokada jest zatrzymana</string>
     <string name="home_activating">Aktywuję</string>
     <string name="home_please_wait">Proszę czekać...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Tryb DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Dotknij aby ustawić DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s zablokowano</string>
     <string name="home_masterswitch_enabled">Blokada jest włączona</string>
@@ -53,9 +51,12 @@
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Bramy</string>
     <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_leases">Urządzenia</string>
     <string name="menu_vpn_manage_subscription">Zarządzaj subskrypcją tutaj</string>
     <string name="menu_vpn_account_secret">Twoje ID konta jest tajne i powinieneś je zachować dla siebie. Zapisz je sobie na wypadek odinstalowania aplikacji.</string>
     <string name="menu_vpn_restore_label">Tutaj możesz odzyskać swoje istniejące konto jeśli, na przykład, przeinstalowałeś aplikację.</string>
+    <string name="menu_vpn_intro">VPN szyfruje Twoje dane, ukrywa Twój adres IP, i zmienia Twoją lokalizację.</string>
+    <string name="menu_vpn_account_label">Aby używać VPN, potrzebujesz aktywne konto. Sprawdź lub odzyskaj twoje konto tu.</string>
     <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
     <string name="menu_dns_recommended">Zalecane serwery DNS</string>
     <string name="menu_host_list_settings">Ustawienia list</string>

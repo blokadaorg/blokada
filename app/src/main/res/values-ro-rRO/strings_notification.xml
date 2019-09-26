@@ -14,7 +14,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Păstrează activ</string>
-    <string name="notification_keepalive_description">Apasa acest buton dacă întâmpinati probleme cu aplicația să rămână activă. Aplicația va afișa o notificare permanentă pentru a împiedica sistemul de a opri aplicația.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -28,7 +27,6 @@
     <string name="notification_keepalive_deactivate">Dezactivează</string>
     <string name="notification_keepalive_deactivating">Blokada a fost dezactivat!</string>
     <string name="notification_expired_title">Contul Blokada VPN a exirat</string>
-    <string name="notification_expired_description">Contul dvs. tocmai a expirat și nu sunteți conectat(ă) la Blokada VPN în acest moment. Vă recomandăm să vă activați din nou contul pentru o mai bună protecție.</string>
     <string name="notification_lease_expired_title">Blokada VPN oprit</string>
     <string name="notification_lease_expired_description">A apărut o problemă legată de conexiunea la Blockada VPN. Încercați să vă conectați la alt portal. Dacă problema persistă, vă rugăm să ne contactați pe Telegram.</string>
 </resources>

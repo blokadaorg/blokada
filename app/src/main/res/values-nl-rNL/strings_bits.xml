@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Tik om te hervatten</string>
     <string name="home_touch_adblocking">Tik om advertenties te blokkeren</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">VPN instellen</string>
     <string name="home_blokada_disabled">Blokada is gepauzeerd</string>
     <string name="home_activating">Activeren</string>
     <string name="home_please_wait">Even geduld...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Enkel DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">DNS instellen</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s geblokkeerd</string>
     <string name="home_masterswitch_enabled">Blokada is aan</string>

@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Riattiva</string>
     <string name="home_touch_adblocking">Tocca per bloccare le pubblicità</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Tocca per configurare la VPN</string>
     <string name="home_blokada_disabled">Blokada è in pausa</string>
     <string name="home_activating">Attivazione</string>
     <string name="home_please_wait">Attendere prego...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Modalità solo DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Tocca per impostare i DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s bloccate</string>
     <string name="home_masterswitch_enabled">Blokada è attiva</string>
@@ -36,6 +34,12 @@
     <string name="home_cleanup">È raccomandata una pulizia</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Connesso alla VPN</string>
+    <string name="home_boringtun_not_loaded">Spiacenti, attualmente il tuo dispositivo non è supportato da Blokada VPN</string>
+    <string name="home_blocka_vpn_error">Impossibile connettersi al gateway. Sei connesso ad una rete?</string>
+    <string name="home_account_error">Non è stato possibile verificare l\'account. Sei connesso ad una rete?</string>
+    <string name="home_permission_error">Si prega di concedere i permessi per la VPN.</string>
+    <string name="home_zero_filters_error">Non hai filtri configurati. Controlla le tue impostazioni di blocco.</string>
+    <string name="home_filters_memory_error">Impossibile caricare tutti i filtri in memoria. Controlla le tue impostazioni di blocco.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Pubblicità</string>
     <string name="menu_ads_live_label">Cronologia host delle richieste consentite e bloccate</string>

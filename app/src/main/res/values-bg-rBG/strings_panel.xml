@@ -38,9 +38,9 @@
     <string name="slot_action_remove">Премахни</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Включено</string>
+    <string name="slot_switch_on">Да</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Изключено</string>
+    <string name="slot_switch_off">Не</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Как да използваме новия UI? Докоснете тук за инфо.</string>
     <string name="slot_intro_new_header">Как да използваме новия потребителски интерфейс (UI)?</string>
@@ -114,6 +114,7 @@
     <string name="slot_account_action_change_id">Възстановяване на профил</string>
     <string name="slot_account_show">Профилно ID</string>
     <string name="slot_account_action_copied">Профилен ID е копиран в клипборда</string>
+    <string name="slot_account_action_unavailable">[не е зададено]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Свързване с %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Свържете се с %s</string>

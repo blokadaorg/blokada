@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Devam etmek için dokunun</string>
     <string name="home_touch_adblocking">Reklamları engellemek için dokunun</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">VPN kurulumu için dokunun</string>
     <string name="home_blokada_disabled">Blokada duraklatıldı</string>
     <string name="home_activating">Etkinleştiriliyor</string>
     <string name="home_please_wait">Lütfen bekleyin...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Yalnızca DNS modu</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">DNS kurulumu için dokunun</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s reklam engellendi</string>
     <string name="home_masterswitch_enabled">Blokada açık</string>

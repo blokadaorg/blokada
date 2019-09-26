@@ -15,7 +15,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">常驻通知栏</string>
-    <string name="notification_keepalive_description">如果您在应用保持活动状态时遇到问题，请启用此项。为防止系统结束应用进程，我们会启用一条常驻通知。</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -29,7 +28,6 @@
     <string name="notification_keepalive_deactivate">停用</string>
     <string name="notification_keepalive_deactivating">Blokada 已停用！</string>
     <string name="notification_expired_title">Blokada VPN 账户过期</string>
-    <string name="notification_expired_description">您的帐户刚刚过期，您目前没有连接到Blokada VPN。为了更好的保护作用，请考虑再次激活您的帐户。</string>
     <string name="notification_lease_expired_title">Blokada VPN 已关闭</string>
     <string name="notification_lease_expired_description">您连接到 Blocka VPN 时出现问题。请尝试连接到另一个网关。如果问题仍然存在，请在 Telegram 联系我们。</string>
 </resources>

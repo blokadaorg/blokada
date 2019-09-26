@@ -38,9 +38,7 @@
     <string name="slot_action_remove">Remover</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Ativado</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Desativado</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Como usar a nova interface? Toque aqui para uma introdução.</string>
     <string name="slot_intro_new_header">Como usar a nova interface?</string>

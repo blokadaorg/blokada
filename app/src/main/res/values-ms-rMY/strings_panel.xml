@@ -38,9 +38,7 @@
     <string name="slot_action_remove">Keluarkan</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Hidupkan</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Matikan</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Bagaimana untuk menggunakan UI baharu? Sentuh di sini untuk pengenalan.</string>
     <string name="slot_intro_new_header">Bagaimana untuk menggunakan UI baru?</string>

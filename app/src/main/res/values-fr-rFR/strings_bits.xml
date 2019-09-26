@@ -5,7 +5,6 @@
     <string name="home_touch_to_turn_on">Activer</string>
     <string name="home_touch_adblocking">Appuyez ici pour bloquer les publicités</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Appuyez pour configurer le VPN</string>
     <string name="home_blokada_disabled">Blokada est désactivé</string>
     <string name="home_activating">En cours d\'activation</string>
     <string name="home_please_wait">Veuillez patienter...</string>
@@ -14,7 +13,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Mode DNS uniquement</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Appuyez ici pour configurer les DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s bloqués</string>
     <string name="home_masterswitch_enabled">Blokada est activé</string>
@@ -36,6 +34,12 @@
     <string name="home_cleanup">Nettoyage recommandé</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Connecté au VPN</string>
+    <string name="home_boringtun_not_loaded">Désolé, votre appareil n\'est pas pris en charge par Blokada VPN</string>
+    <string name="home_blocka_vpn_error">Impossible de se connecter à la passerelle. Êtes-vous en ligne ?</string>
+    <string name="home_account_error">Impossible de vérifier le compte. Êtes-vous en ligne ?</string>
+    <string name="home_permission_error">Veuillez accorder les permissions VPN.</string>
+    <string name="home_zero_filters_error">Vous n\'avez pas de filtres configurés. Vérifiez vos paramètres de blocage de publicités.</string>
+    <string name="home_filters_memory_error">Impossible de charger tous les filtres en mémoire. Vérifiez vos paramètres de blocage de publicité.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Publicités</string>
     <string name="menu_ads_live_label">Historique, en temps réel, des domaines autorisés et bloqués</string>

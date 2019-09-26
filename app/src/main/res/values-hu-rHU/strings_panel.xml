@@ -38,9 +38,9 @@
     <string name="slot_action_remove">Eltávolítás</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Be</string>
+    <string name="slot_switch_on">Igen</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Ki</string>
+    <string name="slot_switch_off">Nem</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Hogyan kell az új felhasználói felületet használni? Érintsd meg itt a bemutatóhoz.</string>
     <string name="slot_intro_new_header">Hogyan működik az új felhasználói felület?</string>
@@ -114,6 +114,7 @@
     <string name="slot_account_action_change_id">Fiók visszaállítása</string>
     <string name="slot_account_show">Fiókazonosító</string>
     <string name="slot_account_action_copied">Fiókazonosító a vágólapra másolva</string>
+    <string name="slot_account_action_unavailable">[nincs beállítva]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Csatlakozás ehhez: %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Csatlakozás ehhez: %s</string>

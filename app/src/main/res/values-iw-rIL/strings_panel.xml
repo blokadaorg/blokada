@@ -38,9 +38,7 @@
     <string name="slot_action_remove">הסר</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">פעיל</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">כבוי</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">כיצד להשתמש בממשק המשתמש החדש? לחץ כאן להקדמה.</string>
     <string name="slot_intro_new_header">כיצד להשתמש בממשק המשתמש החדש?</string>

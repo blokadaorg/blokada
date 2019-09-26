@@ -15,7 +15,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Sürekli Çalış</string>
-    <string name="notification_keepalive_description">Etkin kalmasıyla ilgili sorun yaşarsanız bu anahtarı etkinleştirin. Uygulama, sistemin durdurulmasını önlemek için kalıcı bir bildirim sağlayacaktır.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
@@ -29,7 +28,6 @@
     <string name="notification_keepalive_deactivate">Devre dışı bırak</string>
     <string name="notification_keepalive_deactivating">Blokada devre dışı bırakıldı!</string>
     <string name="notification_expired_title">Blokada VPN hesabınızın süresi doldu.</string>
-    <string name="notification_expired_description">Hesabınızın kullanım süresi doldu ve şu anda Blokada VPN bağlantısı sağlanamadı. Daha iyi koruma için lütfen hesabınızı etkinleştirmeyi gözden geçirin.</string>
     <string name="notification_lease_expired_title">Blokada VPN kapatıldı</string>
     <string name="notification_lease_expired_description">Blokada VPN bağlantınızda bir problem oluştu. Lütfen başka bir gateway ile bağlanmayı deneyin. Hata devam ederse lütfen Telegram aracılığıyla bize ulaşın.</string>
 </resources>

@@ -3,4 +3,9 @@
 <resources>
     <string name="logger_permission">Geef toestemming om gegevens op te slaan.</string>
     <string name="logger_slot_title">Logger aanvragen</string>
+    <string name="logger_slot_desc">Indien ingeschakeld, zal Blokada een CSV-bestand maken en verzoeken loggen die zijn toegestaan en / of geblokkeerd door de app. Zoek naar \"blokada\" map op je externe opslag.</string>
+    <string name="logger_slot_mode_off">Uitgeschakeld</string>
+    <string name="logger_slot_mode_allowed">Log toegestane verzoeken</string>
+    <string name="logger_slot_mode_denied">Log geblokkeerde verzoeken</string>
+    <string name="logger_slot_mode_all">Log alle verzoeken</string>
 </resources>

@@ -38,9 +38,9 @@
     <string name="slot_action_remove">Eliminar</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Activado</string>
+    <string name="slot_switch_on">Sí</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Desactivado</string>
+    <string name="slot_switch_off">No</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">¿Cómo utilizar la nueva interfaz? Toca aquí para la introducción.</string>
     <string name="slot_intro_new_header">¿Cómo utilizar la nueva interfaz?</string>
@@ -116,6 +116,7 @@
     <string name="slot_account_action_change_id">Restaurar cuenta</string>
     <string name="slot_account_show">ID de Cuenta</string>
     <string name="slot_account_action_copied">ID de cuenta copiado al portapapeles</string>
+    <string name="slot_account_action_unavailable">[sin definir]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Conectarse a %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Conectarse a %s</string>
