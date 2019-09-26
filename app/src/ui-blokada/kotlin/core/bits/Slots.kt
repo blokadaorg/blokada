@@ -909,6 +909,7 @@ class NotificationsVB(
         view.type = Slot.Type.INFO
         view.content = Slot.Content(
                 label = i18n.getString(R.string.notification_on_text),
+                description = i18n.getString(R.string.notification_on_description),
                 switched = ui.notifications()
         )
         view.onSwitch = { ui.notifications %= it }

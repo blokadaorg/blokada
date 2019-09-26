@@ -13,7 +13,6 @@ import core.bits.menu.advanced.createAdvancedMenuItem
 import core.bits.menu.apps.createAppsMenuItem
 import core.bits.menu.dns.createDnsMenuItem
 import core.bits.menu.vpn.createVpnMenuItem
-import core.bits.openInExternalBrowser
 import core.bits.openWebContent
 import gs.presentation.NamedViewBinder
 import org.blokada.BuildConfig

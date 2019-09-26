@@ -1,5 +1,6 @@
 <resources>
     <string name="notification_on_text">Notifications</string>
+    <string name="notification_on_description">When on, Blokada will display a notification every time something is blocked. Please note this is no the same as the VPN notification some devices show, and which cannot be turned off.</string>
 
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Blocked</string>
