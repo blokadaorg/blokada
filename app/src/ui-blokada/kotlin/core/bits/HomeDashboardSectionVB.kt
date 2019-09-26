@@ -238,7 +238,8 @@ class SimpleByteVB(
         var onTapped: () -> Unit = {}
 ) : ByteVB() {
     override fun attach(view: ByteView) {
-        view.icon(null)
+        view.icon(icon, color = Resource.ofResId(R.color.colorAccent))
+//        view.icon(null)
         view.arrow(icon)
         view.label(label)
         view.state(description, smallcap = false)
@@ -312,7 +313,7 @@ fun createOneTimeBytes(
         OneTimeByte.ANNOUNCEMENT to { SimpleByteVB(ktx,
                 label = getAnnouncementContent().first.res(),
                 description = getAnnouncementContent().second.res(),
-                icon = R.drawable.ic_info.res(),
+                icon = R.drawable.ic_bell_ring_outline.res(),
                 onTap = { ktx ->
                     openWebContent(ktx.ctx, URL(getAnnouncementUrl()))
                 }
