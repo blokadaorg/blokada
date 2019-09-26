@@ -33,7 +33,6 @@ class Entrypoint {
 
     private fun requestSync(blocka: Boolean = false, force: Boolean = false) {
         syncRequests++
-        v("sync request: " + syncRequests)
         syncBlocka = syncBlocka || blocka
         forceSyncBlocka = forceSyncBlocka || force
         async(context) {
@@ -118,10 +117,14 @@ class Entrypoint {
 
     fun onSwitchDnsEnabled(enabled: Boolean) = async(context) {
         v("onSwitchDnsEnabled")
-        dns.enabled %= enabled
-        tunnelMain.setNetworkConfiguration(dns.dnsServers(), device.onWifi())
-        if (shouldPause(dnsEnabled = enabled)) tunnelState.enabled %= false
-        else requestSync()
+        if (enabled && !dns.hasCustomDnsSelected()) {
+            w("tried to enable DNS while no custom DNS is selected, ignoring")
+        } else {
+            dns.enabled %= enabled
+            tunnelMain.setNetworkConfiguration(dns.dnsServers(), device.onWifi())
+            if (shouldPause(dnsEnabled = enabled)) tunnelState.enabled %= false
+            else requestSync()
+        }
     }
 
     fun onDnsServersChanged(dnsServers: List<InetSocketAddress>) = async(context) {
