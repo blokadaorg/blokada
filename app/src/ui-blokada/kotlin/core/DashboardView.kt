@@ -324,7 +324,7 @@ class DashboardView(
         tunnelEvents.listeners.add(object : IEnabledStateActorListener {
             override fun startActivating() {
                 bg_packets.setTunnelState(TunnelState.ACTIVATING)
-                bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoWaiting))
+                bg_logo_icon.setColorFilter(resources.getColor(R.color.colorAccent))
                 animateLogo()
             }
 
@@ -339,7 +339,7 @@ class DashboardView(
 
             override fun startDeactivating() {
                 bg_packets.setTunnelState(TunnelState.DEACTIVATING)
-                bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoWaiting))
+                bg_logo_icon.setColorFilter(resources.getColor(R.color.colorActive))
                 animateLogo()
             }
 
