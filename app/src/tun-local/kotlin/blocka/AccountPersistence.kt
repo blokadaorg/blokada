@@ -8,7 +8,7 @@ import tunnel.Persistence
 
 fun registerPersistenceForAccount() {
     // Reads legacy BlockaConfig and migrates account info if needed
-    Register.sourceFor(CurrentAccount::class.java, default = CurrentAccount(),
+    Register.sourceFor(CurrentAccount::class.java, default = CurrentAccount(migration = 1),
             source = object : PaperSource<CurrentAccount>("current-account") {
                 override fun <T> get(classOfT: Class<T>, id: String?): T? {
                     val new = super.get(classOfT, id)
@@ -27,13 +27,13 @@ fun registerPersistenceForAccount() {
                                     migration = 1
                             ) as T?
                         } else new?.copy(migration = 1) as T?
-                    } else new
+                    } else new?.copy(migration = 1) as T?
                 }
             }
     )
 
     // Reads legacy BlockaConfig and migrates lease info if needed
-    Register.sourceFor(CurrentLease::class.java, default = CurrentLease(),
+    Register.sourceFor(CurrentLease::class.java, default = CurrentLease(migration = 1),
             source = object : PaperSource<CurrentLease>("current-lease") {
                 override fun <T> get(classOfT: Class<T>, id: String?): T? {
                     val new = super.get(classOfT, id)
@@ -62,7 +62,7 @@ fun registerPersistenceForAccount() {
                                     migration = 1
                             ) as T?
                         } else new?.copy(migration = 1) as T?
-                    } else new
+                    } else new?.copy(migration = 1) as T?
                 }
             }
     )
