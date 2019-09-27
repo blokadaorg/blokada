@@ -4,12 +4,8 @@ import android.app.NotificationManager
 import android.content.Context
 import com.github.salomonbrys.kodein.*
 import core.*
-import filter.DashFilterWhitelist
 import gs.property.IWhen
-import notification.NotificationDashKeepAlive
 import notification.createNotificationKeepAlive
-import update.AboutDash
-import update.UpdateDash
 
 fun newFlavorModule(ctx: Context): Kodein.Module {
     return Kodein.Module {

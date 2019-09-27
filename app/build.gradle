@@ -186,7 +186,7 @@ android {
         testModTunnel.java.srcDirs += srcCoreTest
         testModTunnel.java.srcDirs += srcTunLocalTest
 
-        full.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
+        full.manifest.srcFile 'src/full/AndroidManifest.xml'
         full.java.srcDirs += srcCoreKotlin
         full.java.srcDirs += srcTunLocalKotlin
         full.java.srcDirs += srcTunBlockaKotlin
@@ -205,7 +205,7 @@ android {
 //        testfull.java.srcDirs += testModG11n.java.srcDirs
 //        testfull.java.srcDirs += testModWireguard.java.srcDirs
 
-        community.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
+        community.manifest.srcFile 'src/full/AndroidManifest.xml'
         community.java.srcDirs += srcCoreKotlin
         community.java.srcDirs += srcTunLocalKotlin
         community.java.srcDirs += srcTunBlockaKotlin
@@ -231,17 +231,36 @@ android {
 //        google.res.srcDirs += srcUiRes
 //        google.res.srcDirs += 'src/google/res'
 
+        google.manifest.srcFile 'src/google/AndroidManifest.xml'
+        google.java.srcDirs += srcCoreKotlin
+        google.java.srcDirs += srcTunLocalKotlin
+        google.java.srcDirs += srcTunBlockaKotlin
+        google.java.srcDirs += srcFilterKotlin
+        google.java.srcDirs += srcUiCoreKotlin
+        google.java.srcDirs += srcUiBlokadaKotlin
+        google.java.srcDirs += srcLegacyKotlin
+        google.java.srcDirs += 'src/google/kotlin'
+        google.jniLibs.srcDirs += srcTunBlockaJni
+        google.res.srcDirs += srcCoreRes
+        google.res.srcDirs += srcUiCoreRes
+        google.res.srcDirs += srcUiBlokadaRes
+        google.res.srcDirs += 'src/google/res'
+
         /**
          * Build types are cross combined with flavors to make a final release
           */
 
         debug.java.srcDirs += 'src/unofficial/kotlin'
+        debug.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
         release.java.srcDirs += 'src/official/kotlin'
         release.res.srcDirs += 'src/official/res'
+        release.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
         official.java.srcDirs += 'src/official/kotlin'
         official.res.srcDirs += 'src/official/res'
+        official.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
         beta.java.srcDirs += 'src/official/kotlin'
         beta.res.srcDirs += 'src/official/res'
+        beta.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
     }
 }
 

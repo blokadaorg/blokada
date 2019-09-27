@@ -134,10 +134,10 @@ class DashboardView(
         val di = ktx.di()
         val pages: Pages = di.instance()
 
-        return listOf(
+        return listOf<NamedViewBinder?>(
                 HomeDashboardSectionVB(ktx),
-                AdsDashboardSectionVB(ktx)
-        )
+                if (Product.current(context) == Product.FULL) AdsDashboardSectionVB(ktx) else null
+        ).filterNotNull()
     }
 
     private fun listenToEvents() {

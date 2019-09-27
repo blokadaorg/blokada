@@ -27,6 +27,9 @@
     <string name="home_adblocking_enabled">Ad blocking is active</string>
     <string name="home_adblocking_disabled">Ad blocking is deactivated</string>
 
+    <string name="home_blokadaorg">You are using Blokada Slim</string>
+    <string name="home_blokadaorg_state">Tap to get the open source edition</string>
+
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">What\'s new?</string>
 

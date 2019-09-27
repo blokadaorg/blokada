@@ -1211,6 +1211,27 @@ fun Date.pretty(ktx: Kontext): String {
     return prettyFormat.format(this)
 }
 
+private val conflictingBuilds = listOf(
+        "org.blokada.origin.alarm",
+        "org.blokada.alarm",
+        "org.blokada",
+        "org.blokada.dev"
+)
+
+fun getInstalledBuilds(): List<String> {
+    return conflictingBuilds.map {
+        if (isPackageInstalled(it)) it else null
+    }.filterNotNull()
+}
+
+private fun isPackageInstalled(appId: String): Boolean {
+    val ctx = getActiveContext()!!
+    val intent = ctx.packageManager.getLaunchIntentForPackage(appId) as Intent? ?: return false
+    val activities = ctx.packageManager.queryIntentActivities(intent, 0)
+    return activities.size > 0
+}
+
+
 class CleanupVB(
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,
@@ -1228,18 +1249,6 @@ class CleanupVB(
                 uninstallPackage(b)
             }
         }
-    }
-
-    private fun getInstalledBuilds(): List<String> {
-        return welcome.conflictingBuilds().map {
-            if (isPackageInstalled(it)) it else null
-        }.filterNotNull()
-    }
-
-    private fun isPackageInstalled(appId: String): Boolean {
-        val intent = ctx.packageManager.getLaunchIntentForPackage(appId) as Intent? ?: return false
-        val activities = ctx.packageManager.queryIntentActivities(intent, 0)
-        return activities.size > 0
     }
 
     private fun uninstallPackage(appId: String) {

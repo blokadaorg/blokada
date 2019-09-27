@@ -19,25 +19,6 @@ import org.blokada.BuildConfig
 import org.blokada.R
 import java.io.File
 
-fun createMenu(ktx: AndroidKontext): MenuItemsVB {
-    return MenuItemsVB(ktx,
-            items = listOf(
-                    LabelVB(ktx, label = R.string.menu_configure.res()),
-                    createAdblockingMenuItem(ktx),
-                    createVpnMenuItem(ktx),
-                    createDnsMenuItem(ktx),
-                    LabelVB(ktx, label = R.string.menu_exclude.res()),
-                    createAppsMenuItem(ktx),
-                    LabelVB(ktx, label = R.string.menu_dive_in.res()),
-                    createDonateMenuItem(ktx),
-                    createAdvancedMenuItem(ktx),
-                    createLearnMoreMenuItem(ktx),
-                    createAboutMenuItem(ktx)
-            ),
-            name = R.string.panel_section_menu.res()
-    )
-}
-
 fun createLearnMoreMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemVB(ktx,
             label = R.string.menu_learn_more.res(),

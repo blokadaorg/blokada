@@ -13,7 +13,6 @@ abstract class Welcome {
     abstract val patronSeen: IProperty<Boolean>
     abstract val ctaSeenCounter: IProperty<Int>
     abstract val advanced: IProperty<Boolean>
-    abstract val conflictingBuilds: IProperty<List<String>>
 }
 
 class WelcomeImpl (
@@ -27,14 +26,12 @@ class WelcomeImpl (
     override val patronSeen = newPersistedProperty(w, BasicPersistence(xx, "optional_seen"), { false })
     override val ctaSeenCounter = newPersistedProperty(w, BasicPersistence(xx, "cta_seen"), { 3 })
     override val advanced = newPersistedProperty(w, BasicPersistence(xx, "advanced"), { false })
-    override val conflictingBuilds = newProperty(w, { listOf<String>() })
 
     init {
         i18n.locale.doWhenSet().then {
             patronShow %= true
         }
 
-        conflictingBuilds %= listOf("org.blokada.origin.alarm", "org.blokada.alarm", "org.blokada", "org.blokada.dev")
     }
 }
 

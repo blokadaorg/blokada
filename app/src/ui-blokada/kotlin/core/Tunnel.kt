@@ -297,8 +297,7 @@ fun newTunnelModule(ctx: Context): Module {
                 if (d.screenOn()) maybeCheckForAnnouncement()
             }
 
-            Register.sourceFor(TunnelConfig::class.java, default = TunnelConfig(),
-                    source = PaperSource("tunnel:config"))
+            setTunnelPersistenceSource()
             Register.sourceFor(BlockaVpnState::class.java, default = BlockaVpnState(false),
                     source = PaperSource("blockaVpnState"))
 

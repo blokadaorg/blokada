@@ -4,16 +4,16 @@ import android.content.Context
 import org.blokada.BuildConfig
 
 enum class Product {
-    A, DNS;
+    FULL, GOOGLE;
 
     companion object {
         fun current(ctx: Context): Product {
             return when(ctx.packageName) {
                 "org.blokada",
                 "org.blokada.origin.alarm",
-                "org.blokada.alarm" -> Product.A
-                "org.blokada.alarm.dnschanger" -> Product.DNS
-                else -> Product.A
+                "org.blokada.alarm" -> Product.FULL
+                "org.blokada.alarm.dnschanger" -> Product.GOOGLE
+                else -> Product.FULL
             }
         }
     }

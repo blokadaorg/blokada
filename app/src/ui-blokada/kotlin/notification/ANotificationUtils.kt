@@ -66,7 +66,7 @@ fun hideNotification(ctx: Context) {
  */
 fun createNotificationKeepAlive(ctx: Context, count: Int, last: String): Notification {
     val b = NotificationCompat.Builder(ctx)
-    if (Product.current(ctx) == Product.DNS) {
+    if (Product.current(ctx) == Product.GOOGLE) {
         val i18n = ctx.inject().instance<I18n>()
         val choice = ctx.inject().instance<Dns>().choices().first { it.active }
         val id = if (choice.id.startsWith("custom")) "custom" else choice.id

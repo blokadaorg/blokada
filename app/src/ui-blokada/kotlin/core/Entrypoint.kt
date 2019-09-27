@@ -11,6 +11,7 @@ import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlinx.coroutines.experimental.runBlocking
 import org.blokada.R
 import tunnel.TunnelConfig
+import tunnel.showSnack
 import tunnel.tunnelMain
 import java.net.InetSocketAddress
 
@@ -67,11 +68,26 @@ class Entrypoint {
         var isAdblocking = config.adblocking
         val isDns = dns.enabled()
         val isBlockaVpn = get(BlockaVpnState::class.java).enabled
-        if (!isAdblocking && !isDns && !isBlockaVpn) isAdblocking = true
-
-        tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
-
-        requestSync(blocka = true)
+        if (!isAdblocking && !isDns && !isBlockaVpn) {
+            if (Product.current(ctx) == Product.FULL) {
+                isAdblocking = true
+                tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
+                requestSync(blocka = true)
+            } else {
+                if (dns.hasCustomDnsSelected()) {
+                    dns.enabled %= true
+                    tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
+                    requestSync(blocka = true)
+                } else {
+                    showSnack(R.string.menu_dns_select.res())
+                    emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                    tunnelState.enabled %= false
+                }
+            }
+        } else {
+            tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
+            requestSync(blocka = true)
+        }
     }
 
     fun onDisableTun() = async(context) {

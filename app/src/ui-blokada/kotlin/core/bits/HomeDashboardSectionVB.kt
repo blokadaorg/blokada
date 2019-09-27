@@ -30,7 +30,8 @@ data class SlotsSeenStatus(
         val blog: Boolean = false,
         val updated: Int = 0,
         val cta: Int = 0,
-        val donate: Int = 0
+        val donate: Int = 0,
+        val blokadaOrg: Boolean = false
 )
 
 class SlotStatusPersistence {
@@ -90,13 +91,12 @@ class HomeDashboardSectionVB(
         }
     }
 
-    private var items = listOf<ViewBinder>(
+    private var items = listOf<ViewBinder?>(
             MasterSwitchVB(ktx),
-            AdsBlockedVB(ktx),
+            if (Product.current(ktx.ctx) == Product.GOOGLE) null else AdsBlockedVB(ktx),
             VpnStatusVB(ktx),
-            ActiveDnsVB(ktx),
-            ShareVB(ktx)
-    )
+            ActiveDnsVB(ktx)
+    ).filterNotNull()
 
     private var added: OneTimeByte? = null
     private val oneTimeBytes = createOneTimeBytes(ktx)
@@ -123,23 +123,12 @@ class HomeDashboardSectionVB(
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
             hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             (BuildConfig.VERSION_CODE > cfg.donate) && noSubscription -> OneTimeByte.DONATE
+            !cfg.blokadaOrg && Product.current(ctx) == Product.GOOGLE -> OneTimeByte.BLOKADAORG
             version.obsolete() -> OneTimeByte.OBSOLETE
             getInstalledBuilds().size > 1 -> OneTimeByte.CLEANUP
             else -> null
         }
         return oneTimeBytes[name]?.invoke() to name
-    }
-
-    private fun getInstalledBuilds(): List<String> {
-        return welcome.conflictingBuilds().map {
-            if (isPackageInstalled(it)) it else null
-        }.filterNotNull()
-    }
-
-    private fun isPackageInstalled(appId: String): Boolean {
-        val intent = ctx.packageManager.getLaunchIntentForPackage(appId) as Intent? ?: return false
-        val activities = ctx.packageManager.queryIntentActivities(intent, 0)
-        return activities.size > 0
     }
 }
 
@@ -251,7 +240,7 @@ class SimpleByteVB(
 }
 
 enum class OneTimeByte {
-    CLEANUP, UPDATED, OBSOLETE, DONATE, UPDATE_AVAILABLE, ANNOUNCEMENT
+    CLEANUP, UPDATED, OBSOLETE, DONATE, UPDATE_AVAILABLE, ANNOUNCEMENT, BLOKADAORG
 }
 
 private var updateClickCounter = 0
@@ -317,7 +306,15 @@ fun createOneTimeBytes(
                 onTap = { ktx ->
                     openWebContent(ktx.ctx, URL(getAnnouncementUrl()))
                 }
-        ) }
+        ) },
+        OneTimeByte.BLOKADAORG to { SimpleByteVB(ktx,
+                icon = R.drawable.ic_baby_face_outline.res(),
+                label = R.string.home_blokadaorg.res(),
+                description = R.string.home_blokadaorg_state.res(),
+                onTap  = { ktx ->
+                    openInExternalBrowser(ktx.ctx, URL("https://blokada.org/#download"))
+                }
+        )}
 )
 
 
