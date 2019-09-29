@@ -10,6 +10,7 @@ import gs.environment.Worker
 import gs.obsolete.hasCompleted
 import gs.property.*
 import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.delay
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
@@ -108,18 +109,26 @@ fun newTunnelModule(ctx: Context): Module {
                 entrypoint.onDnsServersChanged(dns.dnsServers())
             }
 
-            async {
-                ktx.on(TunnelEvents.TUNNEL_RESTART) {
-                    val restartedRecently = (System.currentTimeMillis() - lastRestartMillis) < 15 * 1000
-                    lastRestartMillis = System.currentTimeMillis()
-                    if (!restartedRecently) restarts = 0
-                    if (restarts++ > 9 && device.watchdogOn()) {
+            on(TunnelEvents.TUNNEL_RESTART) {
+                val restartedRecently = (System.currentTimeMillis() - lastRestartMillis) < 30 * 1000
+                lastRestartMillis = System.currentTimeMillis()
+                if (!restartedRecently) restarts = 0
+                if (restarts++ > 9) {
+                    if (device.watchdogOn()) {
                         restarts = 0
-                        ktx.e("Too many tunnel restarts. Stopping...")
+                        e("Too many tunnel restarts. Stopping...")
                         s.error %= true
                         s.enabled %= false
-                    } else ktx.w("tunnel restarted for $restarts time in a row")
-                }
+                    } else {
+                        e("Too many tunnel restarts, re-sync")
+                        restarts = 0
+                        entrypoint.onVpnSwitched(false)
+                        async {
+                            delay(2000)
+                            entrypoint.onVpnSwitched(true)
+                        }
+                    }
+                } else w("tunnel restarted for $restarts time in a row")
             }
 
             var oldUrl = "localhost"

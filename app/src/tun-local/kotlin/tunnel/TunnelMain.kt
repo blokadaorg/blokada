@@ -21,7 +21,7 @@ object TunnelEvents {
     val REQUEST = "REQUEST".newEventOf<Request>()
     val TUNNEL_POWER_SAVING = "TUNNEL_POWER_SAVING".newEvent()
     val MEMORY_CAPACITY = "MEMORY_CAPACITY".newEventOf<Int>()
-    val TUNNEL_RESTART = "TUNNEL_RESTART".newEvent()
+    val TUNNEL_RESTART = "TUNNEL_RESTART".newEventOf<Int>()
 }
 
 private val context = newSingleThreadContext("tunnel-main") + logCoroutineExceptions()

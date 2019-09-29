@@ -11,8 +11,6 @@ import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.michaelbull.result.mapError
 import com.github.salomonbrys.kodein.instance
 import core.*
-import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
-import org.pcap4j.util.PropertiesLoader
 import java.io.*
 import java.net.DatagramPacket
 import java.net.DatagramSocket
@@ -228,7 +226,7 @@ internal class BlockaTunnel(
             Result.of { run(tunnel) }.mapError {
                 if (it is InterruptedException || threadInterrupted()) interrupted = true
                 else {
-                    emit(TunnelEvents.TUNNEL_RESTART)
+                    emit(TunnelEvents.TUNNEL_RESTART, cooldownCounter)
                     val cooldown = min(cooldownTtl * cooldownCounter, cooldownMax)
                     cooldownCounter *= 2
                     e("tunnel thread error, will restart after $cooldown ms", this, it.toString())
@@ -355,20 +353,6 @@ internal class BlockaTunnel(
     }
 
     private fun threadInterrupted() = (Thread.interrupted() || this.error == null)
-
-    private var count = 0
-    private fun cleanup() {
-        if (++count % 1024 == 0) {
-            try {
-                val l = PacketFactoryPropertiesLoader.getInstance()
-                val field = l.javaClass.getDeclaredField("loader")
-                field.isAccessible = true
-                val loader = field.get(l) as PropertiesLoader
-                loader.clearCache()
-            } catch (e: Exception) {
-            }
-        }
-    }
 
 }
 
