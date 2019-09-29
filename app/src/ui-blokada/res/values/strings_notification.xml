@@ -20,14 +20,10 @@
     <string name="notification_keepalive_text">Keep alive</string>
     <string name="notification_keepalive_description">Activate this switch if you experience problems with app staying active. The app will enable a permanent notification to prevent the system from killing it.</string>
 
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d blocked</string>
-    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
-    <string name="notification_keepalive_content">Last: %s</string>
-    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
-    <string name="notification_keepalive_none">monitoring</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Keep Alive (tap to hide)</string>
+    <string name="notification_keepalive_text_new">Android requires to display a notification to keep the app running, but you are free to disable it in system settings.</string>
+
     <string name="notification_keepalive_activate">Activate</string>
     <string name="notification_keepalive_activating">Blokada is starting. This may take a moment.</string>
     <string name="notification_keepalive_deactivate">Deactivate</string>

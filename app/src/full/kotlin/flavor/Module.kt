@@ -14,8 +14,8 @@ import com.github.salomonbrys.kodein.instance
 import core.Tunnel
 import core.UiState
 import core.ktx
-import notification.displayNotification
-import notification.hideNotification
+import notification.FilteredNotification
+import notification.notificationMain
 
 fun newFlavorModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
@@ -25,8 +25,8 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
 
             // Display notifications for dropped
             s.tunnelRecentDropped.doOnUiWhenSet().then {
-                if (s.tunnelRecentDropped().isEmpty()) hideNotification(ctx)
-                else if (ui.notifications()) displayNotification(ctx, s.tunnelRecentDropped().last())
+                if (s.tunnelRecentDropped().isEmpty()) notificationMain.cancel(FilteredNotification(""))
+                else if (ui.notifications()) notificationMain.show(FilteredNotification(s.tunnelRecentDropped().last()))
             }
 
             s.tunnelRecentDropped.doWhenChanged().then{
@@ -39,7 +39,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
 
             // Hide notification when disabled
             ui.notifications.doOnUiWhenSet().then {
-                hideNotification(ctx)
+                notificationMain.cancel(FilteredNotification(""))
             }
 
             val persistenceConfig = LoggerConfigPersistence()

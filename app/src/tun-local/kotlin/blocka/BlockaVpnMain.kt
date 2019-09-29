@@ -10,8 +10,9 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlinx.coroutines.experimental.runBlocking
-import notification.displayAccountExpiredNotification
-import notification.displayLeaseExpiredNotification
+import notification.AccountExpiredNotification
+import notification.LeaseExpiredNotification
+import notification.notificationMain
 import org.blokada.R
 import tunnel.showSnack
 
@@ -182,8 +183,8 @@ var i = 0
     private fun handleException(ex: Exception) = when {
         ex is BlockaAccountExpired -> {
             async(UI) {
+                notificationMain.show(AccountExpiredNotification())
                 val ctx = getActiveContext()!!
-                displayAccountExpiredNotification(ctx)
                 modalManager.openModal()
                 ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -214,8 +215,7 @@ var i = 0
             showSnack(R.string.home_account_error.res())
         }
         ex is BlockaLeaseNotOk -> {
-            val ctx = getActiveContext()!!
-            displayLeaseExpiredNotification(ctx)
+            notificationMain.show(LeaseExpiredNotification())
             showSnack(R.string.slot_lease_cant_connect.res())
         }
         else -> {

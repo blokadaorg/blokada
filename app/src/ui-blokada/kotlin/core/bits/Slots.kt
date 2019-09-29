@@ -15,6 +15,7 @@ import filter.hostnameRegex
 import gs.environment.ComponentProvider
 import gs.property.*
 import kotlinx.coroutines.experimental.async
+import notification.getIntentForNotificationChannelsSettings
 import org.blokada.R
 import tunnel.*
 import tunnel.Filter
@@ -914,7 +915,10 @@ class NotificationsVB(
         view.content = Slot.Content(
                 label = i18n.getString(R.string.notification_on_text),
                 description = i18n.getString(R.string.notification_on_description),
-                switched = ui.notifications()
+                switched = ui.notifications(),
+                action2 = Slot.Action(i18n.getString(R.string.panel_section_advanced_settings)) {
+                    view.context.startActivity(getIntentForNotificationChannelsSettings(view.context))
+                }
         )
         view.onSwitch = { ui.notifications %= it }
     }

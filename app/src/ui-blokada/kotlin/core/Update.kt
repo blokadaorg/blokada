@@ -9,7 +9,8 @@ import gs.environment.Worker
 import gs.property.IProperty
 import gs.property.Repo
 import gs.property.newPersistedProperty
-import notification.displayNotificationForUpdate
+import notification.UpdateNotification
+import notification.notificationMain
 import org.blokada.BuildConfig
 import update.AUpdateDownloader
 import update.UpdateCoordinator
@@ -65,7 +66,7 @@ fun newUpdateModule(ctx: Context): Kodein.Module {
                 val j: Journal = instance()
 
                 if (isUpdate(ctx, content.newestVersionCode) && canShowNotification(last, env, cooldown)) {
-                    displayNotificationForUpdate(ctx, content.newestVersionName)
+                    notificationMain.show(UpdateNotification(content.newestVersionName))
                     u.lastSeenUpdateMillis %= env.now()
                 }
             }

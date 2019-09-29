@@ -1,8 +1,10 @@
 package notification
 
 import android.app.IntentService
+import android.content.Context
 import android.content.Intent
 import android.os.Handler
+import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
 import core.Tunnel
 import gs.environment.inject
@@ -22,4 +24,10 @@ class ANotificationsToggleService : IntentService("notificationsToggle") {
         }
     }
 
+}
+
+class DisplayToastRunnable(private val mContext: Context, private var mText: String) : Runnable {
+    override fun run() {
+        Toast.makeText(mContext, mText, Toast.LENGTH_SHORT).show()
+    }
 }

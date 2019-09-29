@@ -1,15 +1,14 @@
 package adblocker
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.Service
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import org.blokada.R
+import kotlinx.coroutines.experimental.runBlocking
+import notification.KeepAliveNotification
+import notification.notificationMain
 
 
 class ForegroundStartService: Service(){
@@ -20,13 +19,9 @@ class ForegroundStartService: Service(){
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val mChannel = NotificationChannel("foregroundservice", "startup_helper", NotificationManager.IMPORTANCE_NONE)
-            mChannel.description = " "
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
-            startForeground(1, Notification.Builder(this, "foregroundservice").setContentTitle("Blokada")
-                    .setContentText(" ")
-                    .setSmallIcon(R.drawable.ic_blokada).build())
+            val notification = KeepAliveNotification()
+            val n = runBlocking { notificationMain.getNotification(notification).await() }
+            startForeground(notification.id, n)
         }
 
         var serviceIntent = Intent(this.applicationContext,

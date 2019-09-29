@@ -260,6 +260,8 @@
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+
+        <service android:name="notification.AnnouncementNotificationTappedService"/>
     </application>
 
 </manifest>

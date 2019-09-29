@@ -1,12 +1,18 @@
 package core
 
+import blocka.CurrentAccount
 import com.github.salomonbrys.kodein.instance
 import com.google.gson.Gson
 import core.Register.set
 import gs.property.I18n
+import notification.AnnouncementNotification
+import notification.notificationMain
+import java.util.*
 
 data class Announcement(
         val shouldAnnounce: Boolean = false,
+        val showForSubscribers: Boolean = false,
+        val showNotification: Boolean = false,
         val index: Int = 0,
         val id: String = "",
         val contentUrl: String = "",
@@ -26,6 +32,7 @@ fun maybeCheckForAnnouncement() {
     if (ann.lastCheck + validity  < System.currentTimeMillis()) {
         v("checking for announcement")
         requestAnnouncement()
+        maybeShowNotification()
     }
 }
 
@@ -37,7 +44,10 @@ fun hasNewAnnouncement(): Boolean {
         ann.displayedIndex >= ann.index -> false
         ann.contentUrl.isBlank() -> false
         ann.title.isBlank() -> false
-        else -> return true
+        else -> {
+            val isSubscriber = get(CurrentAccount::class.java).activeUntil.after(Date())
+            ann.showForSubscribers || !isSubscriber
+        }
     }
 }
 
@@ -77,5 +87,18 @@ private fun requestAnnouncement() {
         set(Announcement::class.java, announcement)
     } catch (ex: Exception) {
         e("failed fetching announcement", ex)
+    }
+}
+
+private fun maybeShowNotification() {
+    try {
+        if (!hasNewAnnouncement()) return
+        val ann = get(Announcement::class.java)
+        if (ann.showNotification) {
+            v("showing notification for announcement", ann)
+            notificationMain.show(AnnouncementNotification(ann))
+        }
+    } catch (ex: Exception) {
+        e("failed showing announcement notification", ex)
     }
 }

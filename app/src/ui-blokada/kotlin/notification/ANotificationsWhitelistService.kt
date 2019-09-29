@@ -26,7 +26,7 @@ class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
         entrypoint.onSaveFilter(f)
 
         mHandler.post(DisplayToastRunnable(this, getString(R.string.notification_blocked_whitelist_applied)))
-        hideNotification(this)
+        notificationMain.cancel(FilteredNotification(""))
     }
 
 }
