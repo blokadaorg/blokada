@@ -24,6 +24,8 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Tell your friends</string>
     <string name="home_share_state">Share your Blokada score</string>
+    <string name="home_share_state_google">Help others to learn about Blokada</string>
+    <string name="home_share_msg_google">Try Blokada Slim and keep your privacy protected! Get it at Google Play.</string>
     <string name="home_adblocking_enabled">Ad blocking is active</string>
     <string name="home_adblocking_disabled">Ad blocking is deactivated</string>
 

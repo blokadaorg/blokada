@@ -95,7 +95,9 @@ class HomeDashboardSectionVB(
             MasterSwitchVB(ktx),
             if (Product.current(ktx.ctx) == Product.GOOGLE) null else AdsBlockedVB(ktx),
             VpnStatusVB(ktx),
-            ActiveDnsVB(ktx)
+            ActiveDnsVB(ktx),
+            if (Product.current(ktx.ctx) == Product.GOOGLE) ShareInGoogleFlavorVB(ktx) else ShareVB(ktx),
+            if (Product.current(ktx.ctx) == Product.GOOGLE) BlokadaSlimVB() else null
     ).filterNotNull()
 
     private var added: OneTimeByte? = null
@@ -119,11 +121,11 @@ class HomeDashboardSectionVB(
         val cfg = Persistence.slots.load().get()
         val name = if (cfg == null) null else when {
             //isLandscape(ktx.ctx) -> null
+            hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
-            hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             (BuildConfig.VERSION_CODE > cfg.donate) && noSubscription -> OneTimeByte.DONATE
-            !cfg.blokadaOrg && Product.current(ctx) == Product.GOOGLE -> OneTimeByte.BLOKADAORG
+            //!cfg.blokadaOrg && Product.current(ctx) == Product.GOOGLE -> OneTimeByte.BLOKADAORG
             version.obsolete() -> OneTimeByte.OBSOLETE
             getInstalledBuilds().size > 1 -> OneTimeByte.CLEANUP
             else -> null
@@ -364,4 +366,49 @@ class ShareVB(
         return ctx.resources.getString(R.string.social_share_body_week, dropCount, elapsed)
     }
 
+}
+
+class ShareInGoogleFlavorVB(
+        val ktx: AndroidKontext,
+        private val dns: Dns = ktx.di().instance(),
+        private val i18n: I18n = ktx.di().instance()
+) : ByteVB() {
+    override fun attach(view: ByteView) {
+        view.run {
+            icon(null)
+            arrow(R.drawable.ic_share.res())
+            label(R.string.home_share.res())
+            state(R.string.home_share_state_google.res())
+            onArrowTap { share() }
+            onTap { share() }
+        }
+    }
+
+    private fun share() {
+        try {
+            val msg = i18n.getString(R.string.home_share_msg_google)
+            val shareIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, msg)
+                type = "text/plain"
+            }
+            ktx.ctx.startActivity(Intent.createChooser(shareIntent,
+                    ktx.ctx.getText(R.string.slot_dropped_share_title)))
+        } catch (e: Exception) {}
+    }
+
+}
+
+class BlokadaSlimVB: ByteVB() {
+    override fun attach(view: ByteView) {
+        view.run {
+            icon(null)
+            arrow(R.drawable.ic_download.res())
+            label(R.string.home_blokadaorg.res())
+            state(R.string.home_blokadaorg_state.res())
+            onTap {
+                openInExternalBrowser(context, URL("https://blokada.org/#download"))
+            }
+        }
+    }
 }
