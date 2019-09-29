@@ -53,7 +53,11 @@ object BlockaRestModel {
             val accountId: String,
             @SerializedName("active_until")
             val activeUntil: Date = Date(0)
-    )
+    ) {
+        override fun toString(): String {
+            return "AccountInfo(activeUntil=$activeUntil)"
+        }
+    }
     data class GatewayInfo(
             @SerializedName("public_key")
             val publicKey: String,
@@ -83,6 +87,11 @@ object BlockaRestModel {
     ) {
         fun expiresSoon() = expires.before(Date(Date().time + EXPIRATION_OFFSET))
         fun niceName() = if (alias?.isNotBlank() == true) alias else publicKey.take(5)
+
+        override fun toString(): String {
+            // No account ID
+            return "LeaseInfo(publicKey='$publicKey', gatewayId='$gatewayId', expires=$expires, alias=$alias, vip4='$vip4', vip6='$vip6')"
+        }
     }
     data class LeaseRequest(
             @SerializedName("account_id")
@@ -92,7 +101,12 @@ object BlockaRestModel {
             @SerializedName("gateway_id")
             val gatewayId: String,
             val alias: String
-    )
+    ) {
+        override fun toString(): String {
+            // No account ID
+            return "LeaseRequest(publicKey='$publicKey', gatewayId='$gatewayId', alias='$alias')"
+        }
+    }
     class TooManyDevicesException : Exception()
 }
 

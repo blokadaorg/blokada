@@ -15,7 +15,8 @@ data class CurrentAccount(
         val unsupportedForVersionCode: Int = 0
 ) {
     override fun toString(): String {
-        return "CurrentAccount(id='$id', activeUntil=$activeUntil, publicKey='$publicKey', lastAccountCheck=$lastAccountCheck, accountOk=$accountOk, migration=$migration)"
+        // No account ID and private key
+        return "CurrentAccount(activeUntil=$activeUntil, publicKey='$publicKey', lastAccountCheck=$lastAccountCheck, accountOk=$accountOk, migration=$migration)"
     }
 }
 
