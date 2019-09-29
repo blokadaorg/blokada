@@ -16,15 +16,6 @@ import java.util.*
 import kotlin.math.min
 
 
-interface Tunnel {
-    fun run(tunnel: FileDescriptor)
-    fun runWithRetry(tunnel: FileDescriptor)
-    fun stop()
-}
-
-val cooldownTtl = 100L
-val cooldownMax = 5000L
-
 internal class DnsTunnel(
         private var proxy: Proxy,
         private val powersave: Boolean,

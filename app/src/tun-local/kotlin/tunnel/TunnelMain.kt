@@ -1,7 +1,5 @@
 package tunnel
 
-import android.app.PendingIntent
-import android.content.Intent
 import blocka.BlockaVpnState
 import blocka.CurrentAccount
 import blocka.CurrentLease
@@ -12,11 +10,8 @@ import filter.DefaultSourceProvider
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlinx.coroutines.experimental.runBlocking
-import org.blokada.R
-import java.net.DatagramSocket
 import java.net.InetSocketAddress
 import java.net.Socket
-import java.util.*
 
 object TunnelEvents {
     val RULESET_BUILDING = "RULESET_BUILDING".newEventOf<Unit>()
@@ -35,69 +30,24 @@ val tunnelMain = runBlocking { async(context) { TunnelMain() }.await() }
 
 class TunnelMain {
 
-    private val forwarder = Forwarder()
-    private val loopback = LinkedList<Triple<ByteArray, Int, Int>>()
     private val blockade = Blockade()
 
     private val ctx by lazy { getActiveContext()!! }
     private val di by lazy { ctx.ktx("tunnel-main").di() }
     private val filtersState by lazy { di.instance<Filters>() }
-    private val tunnelState by lazy { di.instance<core.Tunnel>() }
 
     private val sourceProvider by lazy {
         DefaultSourceProvider(ctx, di.instance(), filtersState, di.instance())
     }
 
-    private val tunnelManager = TunnelManager(
-            onVpnClose = { rejected ->
-                tunnelState.tunnelPermission.refresh(blocking = true)
-                if (rejected) {
-                    tunnelState.enabled %= false
-                    tunnelState.active %= false
-                }
-                else {
-                    tunnelState.restart %= true
-                    tunnelState.active %= false
-                }
-            },
-            onVpnConfigure = { vpn ->
-                vpn.setSession(ctx.getString(R.string.branding_app_name))
-                        .setConfigureIntent(PendingIntent.getActivity(ctx, 1,
-                                Intent(ctx, PanelActivity::class.java),
-                                PendingIntent.FLAG_CANCEL_CURRENT))
-            },
-            createTunnel = this::createTunnel,
-            createConfigurator = this::createConfigurator
-    )
+    private val tunnelManager by lazy { TunnelManagerFactory(ctx,
+            tunnelState = di.instance(),
+            blockade = blockade,
+            filterManager = { filterManager },
+            tunnelConfig = { tunnelConfig }
+    ).create() }
 
     private lateinit var filterManager: FilterManager
-
-    private fun createConfigurator(state: CurrentTunnel, binder: ServiceBinder) = when {
-        //usePausedConfigurator -> PausedVpnConfigurator(currentServers, filters)
-        state.blockaVpn -> {
-            BlockaVpnConfigurator(state.dnsServers, filterManager, state.adblocking, state.lease!!,
-                    ctx.packageName)
-        }
-        !state.adblocking -> SimpleVpnConfigurator(state.dnsServers, filterManager)
-        else -> DnsVpnConfigurator(state.dnsServers, filterManager, ctx.packageName)
-    }
-
-    private fun createTunnel(state: CurrentTunnel, socketCreator: () -> DatagramSocket) = when {
-        state.blockaVpn -> {
-            BlockaTunnel(state.dnsServers, tunnelConfig.powersave, state.adblocking, state.lease!!,
-                    state.userBoringtunPrivateKey!!, socketCreator, blockade)
-        }
-        !state.adblocking -> null
-        else -> {
-            val proxy = createProxy(state, socketCreator)
-            DnsTunnel(proxy!!, tunnelConfig.powersave, forwarder, loopback)
-        }
-    }
-
-    private fun createProxy(state: CurrentTunnel, socketCreator: () -> DatagramSocket) = when {
-        state.blockaVpn -> null // in VPN mode we don't use proxy class
-        else -> DnsProxy(state.dnsServers, blockade, forwarder, loopback, doCreateSocket = socketCreator)
-    }
 
     private fun createFilterManager(config: TunnelConfig, onWifi: Boolean) = FilterManager(
             blockade = blockade,
