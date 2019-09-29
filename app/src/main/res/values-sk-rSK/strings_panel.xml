@@ -38,7 +38,9 @@
     <string name="slot_action_remove">Odstrániť</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Áno</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Nie</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Ako používať nové používateľské rozhranie? Dotknite sa pre rýchly návod.</string>
     <string name="slot_intro_new_header">Ako používať nové UI?</string>
@@ -58,6 +60,12 @@
     <string name="slot_enter_domain_desc">Zadajte domény oddelené čiarkou. Môžete zadať aj odkaz na akýkoľvek zoznam hostov, alebo importovať lokálny súbor zoznamu hostov.</string>
     <string name="slot_enter_domain_error">Toto mi nič nepripomína.</string>
     <string name="slot_enter_domain_file">Súbor</string>
+    <string name="slot_enter_domain_no_file">V priečinku /Download/blokada/filters neboli nájdené žiadne súbory</string>
+    <string name="slot_enter_file_titel">Názov súboru</string>
+    <string name="slot_enter_file_import">Importovať</string>
+    <string name="slot_enter_file_desc">Zadajte časť názvu súboru</string>
+    <string name="slot_enter_file_not_found">Zadaný názov súboru nenájdený</string>
+    <string name="slot_enter_file_multi">Vášmu zadaniu vyhovuje viacero súborov</string>
     <string name="slot_enter_name_title">Názov</string>
     <string name="slot_enter_name_desc">Zadajte názov novej položky. Prípadne môžete vygenerovať navrhovaný názov.</string>
     <string name="slot_enter_name_error">Toto mi nič nepripomína.</string>
@@ -112,6 +120,7 @@
     <string name="slot_account_action_change_id">Obnoviť účet</string>
     <string name="slot_account_show">ID účtu</string>
     <string name="slot_account_action_copied">ID účtu bolo skopírované do schránky</string>
+    <string name="slot_account_action_unavailable">[nenastavené]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Pripojiť k %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Pripojiť k %s</string>

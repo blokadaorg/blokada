@@ -14,12 +14,5 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Manter ativo</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d bloqueados</string>
-    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
-    <string name="notification_keepalive_content">Último: %s</string>
-    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
-    <string name="notification_keepalive_none">a monitorizar</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
 </resources>

@@ -60,6 +60,12 @@
     <string name="slot_enter_domain_desc">Введите домены, разделенные запятой. Вы также можете вставить ссылку на любой список хостов или импортировать локальный файл со списком.</string>
     <string name="slot_enter_domain_error">На мой взгляд, это не похоже ни на что.</string>
     <string name="slot_enter_domain_file">Файл</string>
+    <string name="slot_enter_domain_no_file">Файлов в расположении /Download/blokada/filters не найдено</string>
+    <string name="slot_enter_file_titel">Имя файла</string>
+    <string name="slot_enter_file_import">Импорт</string>
+    <string name="slot_enter_file_desc">Введите часть имени файла</string>
+    <string name="slot_enter_file_not_found">Нет имен файлов, содержащих введенные символы</string>
+    <string name="slot_enter_file_multi">Несколько файлов соответствуют введенным вами символам</string>
     <string name="slot_enter_name_title">Имя</string>
     <string name="slot_enter_name_desc">Введите, либо сгенерируйте имя для новой записи.</string>
     <string name="slot_enter_name_error">На мой взгляд, это не похоже ни на что.</string>

@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">Pokračovať</string>
     <string name="home_touch_adblocking">Dotykom zablokujete reklamy</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">Dotykom nastavíte VPN</string>
     <string name="home_blokada_disabled">Blokada je pozastavená</string>
     <string name="home_activating">Aktivácia</string>
     <string name="home_please_wait">Čakajte prosím...</string>
@@ -13,6 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Režim iba DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">Dotykom nastavíte DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s zablokovaných</string>
     <string name="home_masterswitch_enabled">Blokada je aktívna</string>
@@ -22,6 +24,8 @@
     <string name="home_share_state">Zdieľať vaše Blokada skóre</string>
     <string name="home_adblocking_enabled">Blokovanie reklám je aktívne</string>
     <string name="home_adblocking_disabled">Blokovanie reklám je deaktivované</string>
+    <string name="home_blokadaorg">Používate Blokadu Slim</string>
+    <string name="home_blokadaorg_state">Dotykom získate open source vydanie</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Čo je nové?</string>
     <string name="home_update_required">Vyžadovaná aktualizácia</string>
@@ -34,6 +38,13 @@
     <string name="home_cleanup">Odporúča sa vyčistenie</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Pripojené k VPN</string>
+    <string name="home_boringtun_not_loaded">Ospravedlňujeme sa, ale vaše zariadenie zatiaľ nepodporuje Blokada VPN</string>
+    <string name="home_blocka_vpn_error">Nepodarilo sa pripojiť k sieťovej bráne. Ste online?</string>
+    <string name="home_account_error">Nepodarilo sa overiť účet. Ste online?</string>
+    <string name="home_permission_error">Udeľte, prosím, VPN povolenia.</string>
+    <string name="home_zero_filters_error">Nemáte nastavené žiadne filtre. Skontrolujte nastavenia blokovania reklám.</string>
+    <string name="home_filters_memory_error">Do pamäte sa nepodarilo načítať všetky filtre. Skontrolujte nastavenia blokovania reklám.</string>
+    <string name="tasker_switch_label">Kliknutím na jeden z parametrov ho nakonfigurujete tak, aby sa po spúšti aktivoval (alebo deaktivoval).</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Reklamy</string>
     <string name="menu_ads_live_label">Záznam povolených a blokovaných požiadaviek</string>

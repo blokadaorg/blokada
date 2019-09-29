@@ -24,6 +24,8 @@
     <string name="home_share_state">شارك نتيجتك في بلوكادا</string>
     <string name="home_adblocking_enabled">حَظْر الإعلانات مُفَعَّل</string>
     <string name="home_adblocking_disabled">حَظْر الإعلانات مُعَطَّل</string>
+    <string name="home_blokadaorg">أنت تستخدم Blokada Slim</string>
+    <string name="home_blokadaorg_state">اضغط للحصول على النّسخة المفتوحة المصدر</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">ما الجديد؟</string>
     <string name="home_update_required">التحديث مطلوب</string>
@@ -36,8 +38,13 @@
     <string name="home_cleanup">يُنصَح بالتنظيف</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">مُتَّصِل بـ VPN</string>
+    <string name="home_boringtun_not_loaded">عُذراً ، جهازك غير مُعتمد حاليّاً من Blokada VPN</string>
+    <string name="home_blocka_vpn_error">لا يمكن الاتصال بالبوابة. هل أنت متّصل؟</string>
     <string name="home_account_error">فشل التأكد مِن حسابك. هل أنت متصل؟</string>
     <string name="home_permission_error">يرجى منح التصريحات للـ VPN.</string>
+    <string name="home_zero_filters_error">لا يوجد لديك فلاتر مُهيَّأة. تحقّق من إعدادات حَظْر الإعلانات.</string>
+    <string name="home_filters_memory_error">لا يمكن تحميل جميع الفلاتر على الذاكرة. تحقّق من إعدادات حَظْر الإعلانات الخاصّة بك.</string>
+    <string name="tasker_switch_label">انقر فوق أحد الخيارات لتهيئته لتشغيله (أو إيقاف تشغيله) للمُشغّل الخاصّ بك.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">إعلانات</string>
     <string name="menu_ads_live_label">سِجِلّ المستضيف للطلبات المسموح بها و المحظورة</string>

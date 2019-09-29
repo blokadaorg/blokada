@@ -17,14 +17,8 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Zawsze w tle</string>
     <string name="notification_keepalive_description">Aktywuj jeśli doświadczasz problemów z żywotnością aplikacji. Włączy to stałe powiadomienie, które powstrzyma system przed zatrzymywaniem tej aplikacji.</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d zablokowanych</string>
-    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
-    <string name="notification_keepalive_content">Ostatnio: %s</string>
-    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
-    <string name="notification_keepalive_none">monitoruję</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_text_new">Android wymaga wyświetlić powiadomienie aby aplikacja dalej działała w tle, ale możesz to wyłączyć w ustawieniach.</string>
     <string name="notification_keepalive_activate">Uruchom</string>
     <string name="notification_keepalive_activating">Blokada jest uruchamiana. To może zająć chwilę.</string>
     <string name="notification_keepalive_deactivate">Wyłącz</string>

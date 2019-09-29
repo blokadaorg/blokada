@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">Toca para reanudar</string>
     <string name="home_touch_adblocking">Toca para bloquear anuncios</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">Toca para configurar el VPN</string>
     <string name="home_blokada_disabled">Blokada está pausado</string>
     <string name="home_activating">Activando</string>
     <string name="home_please_wait">Espera, por favor...</string>
@@ -13,6 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Modo sólo DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">Toca para configurar el DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s bloqueados</string>
     <string name="home_masterswitch_enabled">Blokada está activado</string>
@@ -22,6 +24,8 @@
     <string name="home_share_state">Comparte tu puntuación de Blokada</string>
     <string name="home_adblocking_enabled">El bloqueo de anuncios está activo</string>
     <string name="home_adblocking_disabled">El bloqueo de anuncios está desactivado</string>
+    <string name="home_blokadaorg">Estás usando Blokada Slim</string>
+    <string name="home_blokadaorg_state">Toca para obtener la versión de código abierto</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Novedades</string>
     <string name="home_update_required">Actualización necesaria</string>
@@ -40,6 +44,7 @@
     <string name="home_permission_error">Por favor, concede el permiso de conexión VPN.</string>
     <string name="home_zero_filters_error">No tienes filtros configurados. Comprueba tu configuración de bloqueo de anuncios.</string>
     <string name="home_filters_memory_error">No se pudo cargar todos los filtros a la memoria. Comprueba tu configuración de bloqueo de anuncios.</string>
+    <string name="tasker_switch_label">Pulsa sobre una de las opciones para activarlo o desactivarlo.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anuncios</string>
     <string name="menu_ads_live_label">Registro de hosts de peticiones permitidas y bloqueadas</string>

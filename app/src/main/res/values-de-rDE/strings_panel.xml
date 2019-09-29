@@ -60,6 +60,12 @@
     <string name="slot_enter_domain_desc">Gib Domains ein, die durch Komma getrennt sind. Du kannst auch einen Link in jede Hostliste einfügen oder eine lokale Host-Liste-Datei importieren.</string>
     <string name="slot_enter_domain_error">Das sieht mir nicht so aus.</string>
     <string name="slot_enter_domain_file">Datei</string>
+    <string name="slot_enter_domain_no_file">/Download/blokada/filters enthält keine Dateien</string>
+    <string name="slot_enter_file_titel">Dateiname</string>
+    <string name="slot_enter_file_import">Importieren</string>
+    <string name="slot_enter_file_desc">Dateiname teilweise eingeben</string>
+    <string name="slot_enter_file_not_found">Kein Dateiname enthält deine Eingabe</string>
+    <string name="slot_enter_file_multi">Mehrere Dateien passen zu deiner Eingabe</string>
     <string name="slot_enter_name_title">Name</string>
     <string name="slot_enter_name_desc">Gib einen Namen für den neuen Eintrag ein. Du kannst auch einen Namen automatisch generieren lassen.</string>
     <string name="slot_enter_name_error">Das sieht mir nicht so aus.</string>

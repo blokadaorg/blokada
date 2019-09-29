@@ -60,6 +60,12 @@
     <string name="slot_enter_domain_desc">Introduce dominios separados por una coma. También puedes pegar un enlace a cualquier lista de hosts, o importar un archivo de lista de hosts local.</string>
     <string name="slot_enter_domain_error">Esto no me parece nada.</string>
     <string name="slot_enter_domain_file">Archivo</string>
+    <string name="slot_enter_domain_no_file">No se han encontrado archivos en /Download/blokada/filters</string>
+    <string name="slot_enter_file_titel">Nombre de archivo</string>
+    <string name="slot_enter_file_import">Importar</string>
+    <string name="slot_enter_file_desc">Introduce parte del nombre del archivo</string>
+    <string name="slot_enter_file_not_found">Ningún archivo que contenga tu entrada</string>
+    <string name="slot_enter_file_multi">Varios archivos coinciden con tu entrada</string>
     <string name="slot_enter_name_title">Nombre</string>
     <string name="slot_enter_name_desc">Introduce el nombre para la nueva entrada. También puedes generar un nombre sugerido.</string>
     <string name="slot_enter_name_error">Esto no me parece nada.</string>

@@ -14,12 +14,5 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Giữ kích hoạt</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d bị chặn</string>
-    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
-    <string name="notification_keepalive_content">Lần cuối: %s</string>
-    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
-    <string name="notification_keepalive_none">đang giám sát</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
 </resources>

@@ -22,6 +22,8 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Poleć znajomym</string>
     <string name="home_share_state">Podziel się Twoim wynikiem Blokady</string>
+    <string name="home_share_state_google">Pomóż innym dowiedzieć się o Blokada</string>
+    <string name="home_share_msg_google">Spróbuj Blokada Slim i zachowaj swoją prywatność zabezpieczenoną! Pobierz na Google Play.</string>
     <string name="home_adblocking_enabled">Blokowanie reklam jest włączone</string>
     <string name="home_adblocking_disabled">Blokowanie reklam jest wyłączone</string>
     <!-- A short text for the item that displays update information -->

@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">點一下復原</string>
     <string name="home_touch_adblocking">點一下阻擋廣告</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">點擊以設定 VPN</string>
     <string name="home_blokada_disabled">已停用 Blokada</string>
     <string name="home_activating">啟用中</string>
     <string name="home_please_wait">請稍候……</string>
@@ -13,6 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">僅 DNS 模式</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">點擊以設定 DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s 已阻擋</string>
     <string name="home_masterswitch_enabled">已啟動 Blokada</string>
@@ -22,6 +24,8 @@
     <string name="home_share_state">分享您的 Blokada 分數</string>
     <string name="home_adblocking_enabled">廣告阻擋已啟用</string>
     <string name="home_adblocking_disabled">廣告阻擋已停用</string>
+    <string name="home_blokadaorg">您正在使用 Blokada Slim</string>
+    <string name="home_blokadaorg_state">輕點以取得開放原始碼版本</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">更新內容</string>
     <string name="home_update_required">需要更新</string>
@@ -40,6 +44,7 @@
     <string name="home_permission_error">請授予 VPN 權限。</string>
     <string name="home_zero_filters_error">您未設定過濾條件。請檢查您的廣告封鎖設定。</string>
     <string name="home_filters_memory_error">無法將所有過濾條件載入到記憶體中。請檢查您的廣告封鎖設定。</string>
+    <string name="tasker_switch_label">點擊其中一個選項以設定觸發條件來開啟（或關閉）特定功能。</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">廣告</string>
     <string name="menu_ads_live_label">允許與封鎖請求的主機日誌</string>

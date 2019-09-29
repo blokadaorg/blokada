@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">Fortsetzen</string>
     <string name="home_touch_adblocking">Werbung blockieren</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">VPN einrichten</string>
     <string name="home_blokada_disabled">Blokada pausiert</string>
     <string name="home_activating">Aktivierung</string>
     <string name="home_please_wait">Bitte warten ...</string>
@@ -13,6 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Nur DNS-Modus</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">DNS einrichten</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blockiert</string>
     <string name="home_masterswitch_enabled">Blokada ist an</string>
@@ -20,8 +22,12 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Weiterempfehlen</string>
     <string name="home_share_state">Teile deinen Blokada-Score</string>
+    <string name="home_share_state_google">Hilf anderen, mehr über Blokada zu erfahren</string>
+    <string name="home_share_msg_google">Probier Blokada Slim aus und schütze deine Privatsphäre! Hol es dir im Google Playstore.</string>
     <string name="home_adblocking_enabled">Werbesperre ist aktiv</string>
     <string name="home_adblocking_disabled">Werbesperre ist deaktiviert</string>
+    <string name="home_blokadaorg">Du verwendest Blokada Slim</string>
+    <string name="home_blokadaorg_state">Hier tippen, um die Open-Source Version zu erhalten</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Was gibt es Neues?</string>
     <string name="home_update_required">Aktualisierung erforderlich</string>
@@ -34,12 +40,13 @@
     <string name="home_cleanup">Bereinigung empfohlen</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Mit VPN verbunden</string>
-    <string name="home_boringtun_not_loaded">Tut uns Leid, dein Gerät wird derzeit von Blokada VPN leider nicht unterstützt</string>
-    <string name="home_blocka_vpn_error">Verbingung zum Gateway fehlgeschlagen. Bist du mit dem Internet verbunden?</string>
+    <string name="home_boringtun_not_loaded">Leider wird dein Gerät derzeit nicht von Blokada-VPN unterstützt</string>
+    <string name="home_blocka_vpn_error">Verbindung zum Gateway fehlgeschlagen. Bist du mit dem Internet verbunden?</string>
     <string name="home_account_error">Das Konto konnte nicht bestätigt werden. Bist du mit dem Internet verbunden?</string>
-    <string name="home_permission_error">Bitte gewähren sie dem VPN die Berechtigung.</string>
+    <string name="home_permission_error">Bitte gewähre dem VPN die Berechtigung.</string>
     <string name="home_zero_filters_error">Du hast keine Filter eingestellt. Überprüfe deine Adblocking-Einstellungen.</string>
     <string name="home_filters_memory_error">Es konnten nicht alle Filter geladen werden. Überprüfe deine Adblocking-Einstellungen.</string>
+    <string name="tasker_switch_label">Wähle eine der Optionen, um sie so zu konfigurieren, dass Blokada für Ihren Trigger ein- oder ausgeschaltet wird.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anzeigen</string>
     <string name="menu_ads_live_label">Protokoll der zugelassenen und blockierten Host-Anfragen</string>

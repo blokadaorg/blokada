@@ -61,9 +61,9 @@
     <string name="slot_enter_domain_error">Това не ми прилича на нищо.</string>
     <string name="slot_enter_domain_file">Файл</string>
     <string name="slot_enter_domain_no_file">Не са намерени файлове в /Download/blokada/filters</string>
-    <string name="slot_enter_file_titel">Име на файл</string>
+    <string name="slot_enter_file_titel">Име на файла</string>
     <string name="slot_enter_file_import">Импортиране</string>
-    <string name="slot_enter_file_desc">Въведете частичното име на файл</string>
+    <string name="slot_enter_file_desc">Въведете част от името на файла</string>
     <string name="slot_enter_file_not_found">Няма файл с име, съдържащ въведеното</string>
     <string name="slot_enter_file_multi">Няколко файла съвпадат с въведенето</string>
     <string name="slot_enter_name_title">Име</string>

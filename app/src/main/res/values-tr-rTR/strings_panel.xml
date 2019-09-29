@@ -38,7 +38,9 @@
     <string name="slot_action_remove">Kaldır</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Evet</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Hayır</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Yeni Arayüz nasıl kullanılır? Giriş için buraya dokunun.</string>
     <string name="slot_intro_new_header">Yeni Arayüz nasıl kullanılır?</string>

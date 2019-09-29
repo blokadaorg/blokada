@@ -60,8 +60,12 @@
     <string name="slot_enter_domain_desc">أدخل النطاقات مفصولة بفاصلة. يُمكِنك أيضاً لصق رابط إلى أي قائمة مُستَضيف ، أو إستيراد ملف قائمة مُستَضيف محلّي.</string>
     <string name="slot_enter_domain_error">هذا لا يبدو لي كأيّ شيء.</string>
     <string name="slot_enter_domain_file">مَلفّ</string>
+    <string name="slot_enter_domain_no_file">لا توجد ملفات في /Download/blokada/filters</string>
     <string name="slot_enter_file_titel">اسم الملف</string>
     <string name="slot_enter_file_import">استيراد</string>
+    <string name="slot_enter_file_desc">إدخال جزء من اسم الملف</string>
+    <string name="slot_enter_file_not_found">لا يوجد اسم ملف يحتوي على المدخلات الخاصّة بك</string>
+    <string name="slot_enter_file_multi">عدّة ملفات تتطابق مع المدخلات الخاصّة بك</string>
     <string name="slot_enter_name_title">الاسم</string>
     <string name="slot_enter_name_desc">أدخل إسم الإدخال الجديد. يُمكِنك أيضاً إنشاء إسم مقترح.</string>
     <string name="slot_enter_name_error">هذا لا يبدو لي كأيّ شيء.</string>

@@ -46,9 +46,12 @@
     <string name="slot_enter_domain_no_file">Nie znaleziono plików w /Download/blokada/filters</string>
     <string name="slot_enter_file_titel">Nazwa pliku</string>
     <string name="slot_enter_file_import">Importuj</string>
+    <string name="slot_enter_name_title">Nazwa</string>
+    <string name="slot_action_unwhitelist">Anuluj</string>
     <!-- A prefix for generated name for manually entered domain.  -->
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
     <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_import">Importuj</string>
     <!-- Action to manage active subscription. Keep it short -->
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->

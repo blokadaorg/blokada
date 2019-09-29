@@ -14,14 +14,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">활동 유지</string>
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- Parameter: branded app name (Blokada). -->
-    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d 차단됨</string>
-    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
-    <string name="notification_keepalive_content">마지막: %s</string>
-    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
-    <string name="notification_keepalive_none">감시</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_activate">활성화</string>
     <string name="notification_keepalive_activating">Blokada를 시작하고 있습니다. 잠시만 기다려주세요.</string>
     <string name="notification_keepalive_deactivate">비활성화</string>

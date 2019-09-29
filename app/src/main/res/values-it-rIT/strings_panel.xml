@@ -64,8 +64,8 @@
     <string name="slot_enter_file_titel">Nome file</string>
     <string name="slot_enter_file_import">Importa</string>
     <string name="slot_enter_file_desc">Inserisci parte del nome del file</string>
-    <string name="slot_enter_file_not_found">Nessun nome file contenente il tuo input</string>
-    <string name="slot_enter_file_multi">Più file corrispondono al tuo input</string>
+    <string name="slot_enter_file_not_found">Nessun file corrisponde a questa ricerca</string>
+    <string name="slot_enter_file_multi">Più file corrispondono alla tua ricerca</string>
     <string name="slot_enter_name_title">Nome</string>
     <string name="slot_enter_name_desc">Inserisci il nome per la nuova voce. Puoi anche generare un nome suggerito.</string>
     <string name="slot_enter_name_error">Sembra esserci un errore.</string>

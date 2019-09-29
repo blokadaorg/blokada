@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">Tekan untuk lanjut</string>
     <string name="home_touch_adblocking">Tekan untuk memblokir iklan</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">Tekan untuk mengatur VPN</string>
     <string name="home_blokada_disabled">Blokada dihentikan sementara</string>
     <string name="home_activating">Mengaktifkan</string>
     <string name="home_please_wait">Harap tunggu...</string>
@@ -13,6 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Mode DNS Saja</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">Tekan untuk mengatur DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s diblokir</string>
     <string name="home_masterswitch_enabled">Blokada aktif</string>
@@ -20,8 +22,12 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Beri tahu teman-teman Anda</string>
     <string name="home_share_state">Bagikan skor Blokada Anda</string>
+    <string name="home_share_state_google">Bantu orang lain untuk lebih mengenal Blokada</string>
+    <string name="home_share_msg_google">Cobalah Blokada Slim dan lindungi privasi Anda! Unduh di Play Store.</string>
     <string name="home_adblocking_enabled">Mode pemblokiran iklan diaktifkan</string>
     <string name="home_adblocking_disabled">Mode pemblokiran iklan dinonaktifkan</string>
+    <string name="home_blokadaorg">Anda sedang menggunakan Blokada Slim</string>
+    <string name="home_blokadaorg_state">Tekan untuk mendapatkan edisi open source</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Apa yang baru?</string>
     <string name="home_update_required">Silakan perbarui</string>
@@ -40,6 +46,7 @@
     <string name="home_permission_error">Harap berikan izin sambungan VPN.</string>
     <string name="home_zero_filters_error">Anda tidak/belum mengkonfigurasi filter. Silakan periksa kembali pengaturan pemblokiran iklan Anda.</string>
     <string name="home_filters_memory_error">Tidak dapat memuat semua filter ke dalam memori. Silakan periksa kembali pengaturan pemblokiran iklan Anda.</string>
+    <string name="tasker_switch_label">Tekan salah satu opsi untuk mengkonfigurasi opsi tersebut apakah akan dinyalakan (atau dimatikan) ketika kondisi terpenuhi.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Iklan</string>
     <string name="menu_ads_live_label">Daftar permintaan yang diizinkan dan diblokir</string>

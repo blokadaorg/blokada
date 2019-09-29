@@ -22,8 +22,12 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Partagez avec vos amis</string>
     <string name="home_share_state">Partager votre compteur Blokada</string>
+    <string name="home_share_state_google">Aidez les autres à découvrir Blokada</string>
+    <string name="home_share_msg_google">Essayez Blokada Slim et protégez votre vie privée ! Installez l\'application depuis Google Play.</string>
     <string name="home_adblocking_enabled">Le blocage est actif</string>
     <string name="home_adblocking_disabled">Le blocage des publicités est désactivé</string>
+    <string name="home_blokadaorg">Vous utilisez Blokada Slim</string>
+    <string name="home_blokadaorg_state">Appuyez pour obtenir l\'édition open source</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Quoi de neuf ?</string>
     <string name="home_update_required">Mise à jour requise</string>

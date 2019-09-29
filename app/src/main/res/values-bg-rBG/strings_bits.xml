@@ -24,6 +24,8 @@
     <string name="home_share_state">Споделете резултата си от Blokada</string>
     <string name="home_adblocking_enabled">Блокирането на реклами е активно</string>
     <string name="home_adblocking_disabled">Блокирането на реклами е деактивирано</string>
+    <string name="home_blokadaorg">Използвате Blokada Slim</string>
+    <string name="home_blokadaorg_state">Докоснете за да получите изданието с отворен код</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Какво ново?</string>
     <string name="home_update_required">Изисква се актуализация</string>
