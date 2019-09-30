@@ -77,7 +77,6 @@
     <string name="menu_apps_intro">Sommige apps werken misschien niet goed met Blokada. Bijvoorbeeld, ze kunnen problemen hebben met het verbinden.\n\nActiveren van VPN helpt vaak in die gevallen.\n\nAnders kun je deze apps blokada laten omzeilen. Onthoud, apps die omzeilen communiceren buiten de VPN.</string>
     <string name="menu_apps_system_label">Systeem apps zijn de apps die voor geïnstalleerd zijn. Sommige ervan zijn verborgen. Pas deze alleen aan als je weet wat je doet.</string>
     <string name="menu_host_list_intro">Hostlijsten bevatten regels voor het blokkeren van advertenties en trackers. Probeer het aantal actieve lijsten laag te houden.</string>
-    <string name="menu_host_list_settings">Lijst instellingen</string>
     <string name="menu_host_list_status">Lijst status</string>
     <string name="menu_host_list_download">Lijst download instellingen</string>
     <string name="menu_host_whitelist">Hosts die u hier toevoegt zullen nooit geblokkeerd worden. Gebruik deze lijst wanneer, bijvoorbeeld, een website die u bezoekt, verkeerd geblokkeerd is.</string>

@@ -75,7 +75,6 @@
     <string name="menu_apps_intro">Alcune applicazioni potrebbero non funzionare correttamente con Blokada. Ad esempio, potrebbero avere problemi di connessione.\n\nL\'attivazione della VPN è spesso d\'aiuto in questi casi.\n\nAltrimenti, è possibile far eludere a queste app il controllo di Blokada. Ricorda, le app che eludono il controllo di Blokada comunicano al di fuori della VPN.</string>
     <string name="menu_apps_system_label">Le app di sistema sono quelle preinstallate con il tuo dispositivo. Alcune di esse sono nascoste. Modificale solo se sai cosa stai facendo.</string>
     <string name="menu_host_list_intro">Le liste degli host contengono regole per bloccare annunci e tracker. Cerca di mantenere basso il numero di liste attive.</string>
-    <string name="menu_host_list_settings">Impostazioni lista</string>
     <string name="menu_host_list_status">Stato lista</string>
     <string name="menu_host_list_download">Impostazioni download lista</string>
     <string name="menu_host_whitelist">Gli host che aggiungi qui non saranno mai bloccati. Usa questa lista quando, ad esempio, un sito che visiti viene erroneamente bloccato.</string>

@@ -18,6 +18,8 @@
     <string name="notification_keepalive_text">Életben tart</string>
     <string name="notification_keepalive_description">Akkor kapcsold be ezt a kapcsolót, ha problémákat tapasztaltál az alkalmazás folyamatos aktív állapotával kapcsolatban. Az alkalmazás egy állandó értesítést engedélyez, mely megakadályozza, hogy a rendszer kilője.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Életben tart (koppints az elrejtéshez)</string>
+    <string name="notification_keepalive_text_new">Az Androidnak az értesítés megjelenítéséhez az alkalmazás folyamatos futtatása szükséges, de szabadon letilthatod ezt a rendszerbeállításokban.</string>
     <string name="notification_keepalive_activate">Aktiválás</string>
     <string name="notification_keepalive_activating">A Blokada elindításra került. Néhány pillanatig eltarthat.</string>
     <string name="notification_keepalive_deactivate">Deaktiválás</string>

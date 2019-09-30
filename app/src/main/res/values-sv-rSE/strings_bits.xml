@@ -61,7 +61,6 @@
     <string name="menu_apps_intro">Vissa appar kan stöta på problem med Blokada. De kan till exempel ha problem med att ansluta.\n\nAtt aktivera VPN kan hjälpa i dessa fall.\n\nAnnars kan du helt enkelt exkludera dessa appar från Blokadas filter. Kom ihåg att exkluderade appar kommunicerar utanför Blokadas VPN.</string>
     <string name="menu_apps_system_label">Systemappar är de appar som kom förinstallerade på din enhet. Vissa är helt gömda. Ändra endast i dessa inställningar om du har koll på vad du gör.</string>
     <string name="menu_host_list_intro">Filterlistor innehåller regler för att filtrera reklam och statistikinsamlingar. Försök att inte aktivera för många listor samtidigt.</string>
-    <string name="menu_host_list_settings">Hantera lista</string>
     <string name="menu_host_list_status">Listans status</string>
     <string name="menu_host_list_download">Hämtningsinställningar</string>
     <string name="menu_host_whitelist">Sajter du lägger till här kommer aldrig att filtreras. Använd denna lista när till exempel en sajt du vill besöka har blockerats av misstag.</string>

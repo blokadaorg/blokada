@@ -77,7 +77,7 @@
     <string name="menu_apps_intro">Beberapa aplikasi mungkin tidak berfungsi sebagaimana mestinya ketika Blokada aktif. Misalnya, aplikasi tidak bisa terhubung dengan internet\n\nMengaktifkan VPN bisa jadi solusi dalam beberapa kasus.\n\nAtau, Anda bisa mengatur agar aplikasi tersebut membypass Blokada. Harap diingat, aplikasi yang diatur sedemikian rupa berkomunikasi di luar VPN.</string>
     <string name="menu_apps_system_label">Aplikasi sistem adalah aplikasi yang telah diinstal di perangkat Anda, baik oleh produsen perangkat maupun provider telekomunikasi. Sebagian aplikasi tersebut tersembunyi. Anda bisa memodifikasi aplikasi tersebut HANYA jika Anda tahu apa yang Anda lakukan.</string>
     <string name="menu_host_list_intro">Daftar host berisi aturan untuk memblokir iklan dan pelacak (trackers). Kami menyarankan Anda untuk tidak memilih terlalu banyak daftar host.</string>
-    <string name="menu_host_list_settings">Pengaturan daftar host</string>
+    <string name="menu_host_adblocking_settings">Pengaturan pemblokiran iklan</string>
     <string name="menu_host_list_status">Status daftar host</string>
     <string name="menu_host_list_download">Pengaturan pengunduhan daftar host</string>
     <string name="menu_host_whitelist">Host yang Anda masukkan di whitelist tidak akan diblokir. Gunakan fitur ini ketika misalnya situs yang Anda kunjungi terblokir secara tidak sengaja.</string>

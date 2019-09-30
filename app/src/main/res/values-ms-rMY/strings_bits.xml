@@ -61,7 +61,6 @@
     <string name="menu_apps_intro">Beberapa aplikasi mungkin tidak bekerja dengan betul dengan Blokada. Misalnya, ia mungkin mengalami masalah ketika penyambungan.\n\nMengaktifkan VPN serselalunya membantu dalam masalah tersebut.\n\nJika tidak, anda boleh membuat aplikasi itu memintas pemerikasaan Blokada samasekali. Ingat, aplikasi yang memintas pemerikasaan berkomunikasi di luar VPN.</string>
     <string name="menu_apps_system_label">Sistem aplikasi yang datang bersama dengan peranti anda. Ada antaranya tersembunyi. Anda boleh mengubah aplikasi ini jika anda tahu apa yang anda lakukan.</string>
     <string name="menu_host_list_intro">Senarai hos mengandungi aturan untuk menyekat iklan dan penjejak. Cubalah untuk mengurangakan bilangan senarai kepada paling rendah.</string>
-    <string name="menu_host_list_settings">Senarai tetapan</string>
     <string name="menu_host_list_status">Senarai status</string>
     <string name="menu_host_list_download">Senarai tetapan muaturun</string>
     <string name="menu_host_whitelist">Hos yang anda tambahkan di sini tidak akan pernah disekat. Gunakan daftar ini ketika, contohnya, sesawang yang anda kunjungi tersalah disekat.</string>

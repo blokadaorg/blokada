@@ -22,6 +22,7 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">告訴你的朋友</string>
     <string name="home_share_state">分享您的 Blokada 分數</string>
+    <string name="home_share_msg_google">試試 Blokada Slim 並保護你的隱私！在Google play上取得</string>
     <string name="home_adblocking_enabled">廣告阻擋已啟用</string>
     <string name="home_adblocking_disabled">廣告阻擋已停用</string>
     <string name="home_blokadaorg">您正在使用 Blokada Slim</string>
@@ -75,7 +76,7 @@
     <string name="menu_apps_intro">某些應用程式可能沒辦法與 Blokada 一同正常運作。舉例來說，它們可能會沒辦法正常連線。\n\n啟用 VPN 通常在這些例子中會有用。\n\n否則您可以讓這些應用程式繞過 Blokada 的檢查。請記住，繞過的應用程式會在 VPN 的管轄之外通訊。</string>
     <string name="menu_apps_system_label">系統應用程式是預先安裝在您的裝置上的應用程式。有些是隱藏的。僅當您知道你在幹嘛的時候才改這邊的東西。</string>
     <string name="menu_host_list_intro">主機清單包含了阻擋廣告與追蹤器的規則。請試著把啟用的清單數保持在較低的數量。</string>
-    <string name="menu_host_list_settings">列表設定</string>
+    <string name="menu_host_adblocking_settings">廣告阻擋設定</string>
     <string name="menu_host_list_status">列表狀態</string>
     <string name="menu_host_list_download">列表下載設定</string>
     <string name="menu_host_whitelist">您在此新增的主機將永遠不會被阻擋。舉例來說，您可以將您造訪過被意外阻擋的網頁新增到此清單。</string>

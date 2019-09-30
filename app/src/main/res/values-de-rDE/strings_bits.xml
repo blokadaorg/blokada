@@ -77,7 +77,7 @@
     <string name="menu_apps_intro">Manche Apps funktionieren mit Blokada unter Umständen nicht richtig. Sie haben eventuell Schwierigkeiten mit der Verbindung.\n\nHäufig hilft in diesen Fällen die Aktivierung des VPN.\n\nAnsonsten kannst du diese Apps insgesamt an der Überwachung durch Blokada vorbeileiten. Denke daran, dass umgeleitete Apps außerhalb des VPN kommunizieren.</string>
     <string name="menu_apps_system_label">System-Apps sind diejenigen, die auf deinem Gerät vorinstalliert sind. Einige von ihnen sind nicht sichtbar. Verändere diese nur, wenn du weißt, was du damit tust.</string>
     <string name="menu_host_list_intro">Host-Listen enthalten Regeln, um Werbung und Tracker zu blockieren. Versuche, die Zahl der aktiven Listen klein zu halten.</string>
-    <string name="menu_host_list_settings">Listeneinstellungen</string>
+    <string name="menu_host_adblocking_settings">Adblocking-Einstellungen</string>
     <string name="menu_host_list_status">Listenstatus</string>
     <string name="menu_host_list_download">Download-Einstellungen auflisten</string>
     <string name="menu_host_whitelist">Hosts, die du hier hinzufügst, werden nie blockiert. Verwende diese Liste, wenn zum Beispiel eine Webseite, die du besuchst, fälschlicherweise blockiert wird.</string>

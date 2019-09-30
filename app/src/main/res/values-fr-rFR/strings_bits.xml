@@ -77,7 +77,7 @@
     <string name="menu_apps_intro">Certaines applications peuvent ne pas fonctionner correctement avec Blokada. Par exemple, elles peuvent avoir des difficultés à se connecter.\n\nActiver le VPN peut résoudre ces problèmes.\n\nDans le cas contraire, vous pouvez autoriser les applications à contourner le filtrage effectué par Blokada. Rappelez-vous que les applications qui contournent Blokada communiquent en dehors du VPN.</string>
     <string name="menu_apps_system_label">Les applications système sont celles qui sont pré-installées sur votre appareil. Certaines d\'entre-elles sont cachées. Modifiez uniquement celles-ci si vous savez ce que vous êtes en train de faire.</string>
     <string name="menu_host_list_intro">Les listes d\'hôtes contiennent des règles pour bloquer les publicités et les trackers. Essayez de maintenir un nombre de listes actives assez bas.</string>
-    <string name="menu_host_list_settings">Paramètres des listes</string>
+    <string name="menu_host_adblocking_settings">Paramètres de bloqueur de publicité</string>
     <string name="menu_host_list_status">Statut de la liste</string>
     <string name="menu_host_list_download">Paramètres de téléchargement des listes</string>
     <string name="menu_host_whitelist">Les hôtes que vous ajoutez ici ne seront jamais bloqués. Utilisez cette liste lorsque, par exemple, un site Web que vous visitez est bloqué par erreur.</string>

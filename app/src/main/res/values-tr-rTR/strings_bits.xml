@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">Devam etmek için dokunun</string>
     <string name="home_touch_adblocking">Reklamları engellemek için dokunun</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">VPN kurulumu için dokunun</string>
     <string name="home_blokada_disabled">Blokada duraklatıldı</string>
     <string name="home_activating">Etkinleştiriliyor</string>
     <string name="home_please_wait">Lütfen bekleyin...</string>
@@ -13,6 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Yalnızca DNS modu</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">DNS kurulumu için dokunun</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s reklam engellendi</string>
     <string name="home_masterswitch_enabled">Blokada açık</string>
@@ -20,8 +22,12 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Arkadaşlarına söyle</string>
     <string name="home_share_state">Blokada puanınızı paylaşın</string>
+    <string name="home_share_state_google">Blokada hakkında başkalarının da bilgi edinmesine yardımcı olun</string>
+    <string name="home_share_msg_google">Blokada Slim\'i deneyin ve gizliliğinizi koruyun! Google Play\'de alın.</string>
     <string name="home_adblocking_enabled">Reklam engelleme etkin</string>
     <string name="home_adblocking_disabled">Reklam engelleme devre dışı bırakıldı</string>
+    <string name="home_blokadaorg">Blokada Slim kullanıyorsunuz</string>
+    <string name="home_blokadaorg_state">Açık kaynak sürümünü edinmek için dokunun</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Neler Değişti?</string>
     <string name="home_update_required">Güncelleştirme gerekli</string>
@@ -34,6 +40,11 @@
     <string name="home_cleanup">Temizleme önerilir</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">VPN\'e bağlı</string>
+    <string name="home_boringtun_not_loaded">Üzgünüz, cihazınız şu anda Blokada VPN tarafından desteklenmiyor</string>
+    <string name="home_blocka_vpn_error">Ağ geçidine bağlanılamadı. Çevrimiçi misin?</string>
+    <string name="home_account_error">Hesap doğrulanamadı. Çevrimiçi misin?</string>
+    <string name="home_permission_error">Lütfen VPN izinleri verin.</string>
+    <string name="home_zero_filters_error">Yapılandırılmış filtreniz yok. Reklam engelleme ayarlarınızı kontrol edin.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Reklamlar</string>
     <string name="menu_ads_live_label">İzin verilen ve engellenen isteklerin host günlüğü</string>
@@ -64,7 +75,6 @@
     <string name="menu_apps_intro">Bazı uygulamalar Blokada ile düzgün çalışmayabilir. Örneğin, bağlantı kurmakta zorlanabilirler. \n\nVPN\'i etkinleştirmek bu durumlarda genellikle yardımcı olur. \n\nAksi takdirde, bu uygulamaları Blokada denetimini tamamen atlayarak yapabilirsiniz. Unutmayın, atlanan uygulamalar VPN dışında iletişim kurar.</string>
     <string name="menu_apps_system_label">Sistem uygulamaları cihazınızla önceden yüklenmiş olarak gelenlerdir. Bazıları gizlendi. Bunları yalnızca ne yaptığınızı biliyorsanız değiştirin.</string>
     <string name="menu_host_list_intro">Host listeleri, reklamları ve izleyicileri engellemek için kurallar içerir. Aktif listelerin sayısını düşük tutmaya çalışın.</string>
-    <string name="menu_host_list_settings">Liste ayarları</string>
     <string name="menu_host_list_status">Liste durumu</string>
     <string name="menu_host_list_download">İndirme ayarlarını listele</string>
     <string name="menu_host_whitelist">Buraya eklediğiniz hostlar hiçbir zaman engellenmeyecek. Örneğin, ziyaret ettiğiniz bir web sitesi yanlışlıkla engellendiğinde bu listeyi kullanın.</string>

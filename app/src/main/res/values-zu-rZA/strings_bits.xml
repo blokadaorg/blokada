@@ -55,7 +55,6 @@
     <string name="menu_apps_intro">Ezinye izinhlelo azisebenzi kahle neBlokada. Ngokwesibonelo, zingahluleka ngokhuxhumana ne-inthanethi.\n\nUkuvula i-VPN kuvamile ukusiza.\n\nNgaphandle kwalokho, lezo zinhlelo zingangasebenzisa i-Blokada. Khumbula, lokhu kusho ukuthi ukuxhumana akufihliwe.</string>
     <string name="menu_apps_system_label">Ezinya izinhlelo zifika nedhivayisi. Ezinye zalezi zifihliwe. Shintsha lezi umawazi ukuthi wenzani.</string>
     <string name="menu_host_list_intro">Izinhlu zokusingatha ziqukethe imithetho yokuvimbela izikhangiso nama-tracker. Zama ukugcina inombolo yezinhla iphansi.</string>
-    <string name="menu_host_list_settings">Bhala uhlu lwezilungiselelo</string>
     <string name="menu_host_list_status">Isimo sohlu</string>
     <string name="menu_host_list_download">Bhala uhlu lwezilungiselelo zokulanda</string>
     <string name="menu_host_whitelist">Amawebhusayithi owengeza lapha awasoze avinjwe. Sebenzisa lolu hlu uma, ngokwesibonelo, iwebhusayithi oyivakashelayo ivinjiwe ngephutha.</string>

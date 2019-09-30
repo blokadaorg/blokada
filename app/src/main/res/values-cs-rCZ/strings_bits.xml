@@ -64,7 +64,6 @@
     <string name="menu_apps_intro">Některé aplikace nemusí s Blokadou správně fungovat. Mohou mít například potíže s připojením.\n\nV těchto případech často pomáhá aktivace VPN.\n\nV opačném případě můžete tyto aplikace zcela vyloučit. Nezapomeňte, že vyloučené aplikace komunikují mimo VPN.</string>
     <string name="menu_apps_system_label">Systémové aplikace jsou ty, které jsou předinstalovány ve vašem zařízení. Některé z nich jsou skryté. Zasahujte do nich pouze v případě, že víte, co děláte.</string>
     <string name="menu_host_list_intro">Seznamy hostitelů obsahují pravidla pro blokování reklam a sledovačů. Snažte se udržet počet aktivních seznamů nízký.</string>
-    <string name="menu_host_list_settings">Nastavení seznamu</string>
     <string name="menu_host_list_status">Stav seznamu</string>
     <string name="menu_host_list_download">Nastavení stahování seznamu</string>
     <string name="menu_host_whitelist">Hostitelé, které sem přidáte, nebudou nikdy blokováni. Tento seznam použijte, když je například webová stránka, kterou navštívíte, omylem zablokována.</string>

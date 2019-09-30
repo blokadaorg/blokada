@@ -64,7 +64,6 @@
     <string name="menu_apps_intro">一些应用可能无法正常与 Blokada 一同工作。例如，它们可能有网络连接问题。\n\n在这些情况下，启用 VPN 通常会有所帮助。\n\n否则，您可以让这些应用程序完全绕过 Blokada 检查。请记住，绕过检查的应用程序在 VPN 之外通信。</string>
     <string name="menu_apps_system_label">系统应用是预装在您的设备上的。有些系统应用是隐藏的。只有当您知道您正在做什么时，才能修改这些应用。</string>
     <string name="menu_host_list_intro">主机列表包含了屏蔽广告和跟踪器的规则。尽量减少启用列表的数量。</string>
-    <string name="menu_host_list_settings">列表设置</string>
     <string name="menu_host_list_status">列表状态</string>
     <string name="menu_host_list_download">列表下载设置</string>
     <string name="menu_host_whitelist">您在这里添加的主机将永远不会被屏蔽。例如，当您访问的网站被误屏蔽时，请使用此列表。</string>

@@ -70,7 +70,6 @@
     <string name="menu_apps_intro">Alguns aplicativos podem não funcionar corretamente com o Blokada. Por exemplo, eles podem ter problemas para se conectar.\n\nA ativação de uma VPN geralmente ajuda nesses casos.\n\nCaso contrário, você pode fazer com que esses aplicativos ignorem totalmente a inspeção do Blokada. Lembre-se, os aplicativos ignorados se comunicam fora da VPN.</string>
     <string name="menu_apps_system_label">Os aplicativos do sistema são os que vêm pré-instalados com o seu dispositivo. Alguns deles estão escondidos. Modifique-os somente se você souber o que está fazendo.</string>
     <string name="menu_host_list_intro">As listas de endereços contêm regras para bloquear anúncios e rastreadores. Tente manter o número de listas ativas baixo.</string>
-    <string name="menu_host_list_settings">Configurações da lista</string>
     <string name="menu_host_list_status">Status da lista</string>
     <string name="menu_host_list_download">Configurações de download da lista</string>
     <string name="menu_host_whitelist">Os endereços adicionados aqui nunca serão bloqueados. Use esta lista quando, por exemplo, um site que você visita for bloqueado por engano.</string>

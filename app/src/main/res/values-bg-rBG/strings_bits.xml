@@ -22,6 +22,8 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Кажи на приятелите си</string>
     <string name="home_share_state">Споделете резултата си от Blokada</string>
+    <string name="home_share_state_google">Помогнете на другите да научат за Blokada</string>
+    <string name="home_share_msg_google">Опитайте Blokada Slim и запазете своята поверителност! Вземете я от Google Play.</string>
     <string name="home_adblocking_enabled">Блокирането на реклами е активно</string>
     <string name="home_adblocking_disabled">Блокирането на реклами е деактивирано</string>
     <string name="home_blokadaorg">Използвате Blokada Slim</string>
@@ -75,7 +77,7 @@
     <string name="menu_apps_intro">Някои приложения може да не работят правилно с Blokada. Например, може да има проблеми при свързването.\n\nАктивирането на VPN често помага в тези случаи.\n\nВ противен случай можете да накарате тези приложения изцяло да бъдат заобиколени от проверката на Blokada. Не забравяйте, че прескочените приложения ще комуникират извън VPN.</string>
     <string name="menu_apps_system_label">Системните приложения са тези, които са предварително инсталирани на устройство ви. Някои от тях са скрити. Променете тези, за които знаете какво правите.</string>
     <string name="menu_host_list_intro">Хост списъците съдържат правила за блокиране на реклами и тракери. Опитайте се да запазите нисък броя на активните списъци.</string>
-    <string name="menu_host_list_settings">Настройки за списък</string>
+    <string name="menu_host_adblocking_settings">Настройки за блокиране на реклами</string>
     <string name="menu_host_list_status">Състояние на списъка</string>
     <string name="menu_host_list_download">Настройки за изтегляне на списък</string>
     <string name="menu_host_whitelist">Хостовете, които добавяте тук никога няма да бъдат блокирани. Използвайте този списък ако например уеб сайт, който посещавате е погрешно блокиран.</string>

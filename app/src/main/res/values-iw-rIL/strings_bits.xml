@@ -54,7 +54,6 @@
     <string name="menu_apps_intro">יישומים מסוימים עשויים שלא לפעול כראוי עם Blokada. לדוגמה, ייתכן שהם יתקשו להתחבר.\n\nהפעלת VPN לרוב מסייעת במקרים אלה.\n\nאחרת, ניתן לגרום ליישומים אלה לעקוף בדיקה של Blokada לחלוטין. זכור, יישומים שעוקפים מתקשרים מחוץ ל- VPN.</string>
     <string name="menu_apps_system_label">יישומי מערכת הם אלה שהותקנו מראש על המכשיר. כמה מהם מוסתרים. שנה אותם רק אם אתה יודע מה אתה עושה.</string>
     <string name="menu_host_list_intro">רשימות שרתים מכילות כללים לחסימת מודעות ועוקבים. נסה לשמור את מספר הרשימות הפעילות נמוך.</string>
-    <string name="menu_host_list_settings">הגדרות רשימה</string>
     <string name="menu_host_list_status">סטטוס רשימה</string>
     <string name="menu_host_list_download">הגדרות הורדת רשימה</string>
     <string name="menu_host_whitelist">השרתים שתוסיף כאן לעולם לא ייחסמו. השתמש ברשימה זו כאשר, לדוגמה, אתר שבו אתה מבקר נחסם בטעות.</string>

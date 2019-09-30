@@ -18,6 +18,7 @@
     <string name="panel_section_apps_all">Aplikasi Terpasang</string>
     <string name="panel_section_apps_system">Aplikasi Sistem</string>
     <string name="panel_section_advanced_settings">Pengaturan</string>
+    <string name="panel_section_app_settings">Pengaturan Aplikasi</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">&lt;b&gt;%s&lt;/b&gt; diizinkan</string>
     <string name="panel_domain_forwarded_desc">Domain ini telah diperbolehkan. Gunakan tombol di bawah ini untuk memblokir domain tersebut.</string>
