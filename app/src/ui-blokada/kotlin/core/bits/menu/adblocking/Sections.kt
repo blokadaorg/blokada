@@ -1,5 +1,6 @@
 package core.bits.menu.adblocking
 
+import adblocker.LoggerVB
 import core.*
 import core.bits.*
 import core.bits.menu.MenuItemVB
@@ -8,8 +9,8 @@ import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import gs.presentation.ViewBinder
 import org.blokada.R
-import tunnel.TunnelEvents
 import tunnel.Filter
+import tunnel.TunnelEvents
 
 internal class SlotMutex {
 
@@ -77,26 +78,29 @@ fun createHostsListMenuItem(ktx: AndroidKontext): NamedViewBinder {
     )
 }
 
-fun createHostsListDownloadMenuItem(ktx: AndroidKontext): NamedViewBinder {
+fun createAdblockingSettingsMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemVB(ktx,
-            label = R.string.menu_host_list_settings.res(),
+            label = R.string.menu_host_adblocking_settings.res(),
             icon = R.drawable.ic_tune.res(),
-            opens = createMenuHostsDownload(ktx)
+            opens = createAdblockingSettings(ktx)
     )
 }
 
-private fun createMenuHostsDownload(ktx: AndroidKontext): NamedViewBinder {
+private fun createAdblockingSettings(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemsVB(ktx,
             items = listOf(
                     LabelVB(ktx, label = R.string.menu_host_list_status.res()),
                     FiltersStatusVB(ktx, onTap = defaultOnTap),
+                    LabelVB(ktx, label = R.string.menu_host_adblocking_settings.res()),
+                    LoggerVB(ktx, onTap = defaultOnTap),
+                    ResetCounterVB(ktx, onTap = defaultOnTap),
                     LabelVB(ktx, label = R.string.menu_host_list_download.res()),
                     FiltersListControlVB(ktx, onTap = defaultOnTap),
                     ListDownloadFrequencyVB(ktx, onTap = defaultOnTap),
                     DownloadOnWifiVB(ktx, onTap = defaultOnTap),
                     DownloadListsVB(ktx, onTap = defaultOnTap)
             ),
-            name = R.string.menu_host_list_settings.res()
+            name = R.string.menu_host_adblocking_settings.res()
     )
 }
 

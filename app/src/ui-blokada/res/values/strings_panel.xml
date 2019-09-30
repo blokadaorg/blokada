@@ -20,6 +20,7 @@
     <string name="panel_section_apps_all">Installed Apps</string>
     <string name="panel_section_apps_system">System Apps</string>
     <string name="panel_section_advanced_settings">Settings</string>
+    <string name="panel_section_app_settings">App Settings</string>
 
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Allowed &lt;b&gt;%s&lt;/b&gt;</string>

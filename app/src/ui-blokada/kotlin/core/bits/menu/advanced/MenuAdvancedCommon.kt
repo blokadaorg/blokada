@@ -8,7 +8,7 @@ import org.blokada.R
 
 fun createAdvancedMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemVB(ktx,
-            label = R.string.panel_section_advanced_settings.res(),
+            label = R.string.panel_section_app_settings.res(),
             icon = R.drawable.ic_tune.res(),
             opens = createMenuAdvanced(ktx)
     )
