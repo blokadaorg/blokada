@@ -19,3 +19,7 @@ linker = "/Users/kar/.NDK/arm/bin/arm-linux-androideabi-clang"
 ar = "/Users/kar/.NDK/x86/bin/i686-linux-android-ar"
 linker = "/Users/kar/.NDK/x86/bin/i686-linux-android-clang"
 
+[target.x86_64-linux-android]
+ar = "/Users/kar/.NDK/x86_64/bin/x86_64-linux-android-ar"
+linker = "/Users/kar/.NDK/x86_64/bin/x86_64-linux-android-clang"
+
