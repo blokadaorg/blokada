@@ -18,6 +18,7 @@
     <string name="panel_section_apps_all">Yüklü Uygulamalar</string>
     <string name="panel_section_apps_system">Sistem Uygulamaları</string>
     <string name="panel_section_advanced_settings">Ayarlar</string>
+    <string name="panel_section_app_settings">Uygulama Ayarları</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">İzin verilen &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Bu domain\'e izin verilmiştir. Engellemek için aşağıdaki butonu kullanın.</string>
@@ -60,6 +61,12 @@
     <string name="slot_enter_domain_desc">Virgülle ayrılmış alanları girin. Bir bağlantıyı herhangi bir host listesine yapıştırabilir veya yerel bir host listesi dosyasını içe aktarabilirsiniz.</string>
     <string name="slot_enter_domain_error">Bu bana bir şey gibi görünmüyor.</string>
     <string name="slot_enter_domain_file">Dosya</string>
+    <string name="slot_enter_domain_no_file">/Download/blokada/filters içinde dosya bulunamadı</string>
+    <string name="slot_enter_file_titel">Dosya adı</string>
+    <string name="slot_enter_file_import">İçe aktar</string>
+    <string name="slot_enter_file_desc">Giriş kısmi dosya adı</string>
+    <string name="slot_enter_file_not_found">Girişinizi içeren dosya adı yok</string>
+    <string name="slot_enter_file_multi">Birden fazla dosya girişinize uygun</string>
     <string name="slot_enter_name_title">Ad</string>
     <string name="slot_enter_name_desc">Yeni giriş için ad girin. Ayrıca önerilen bir isim de oluşturabilirsiniz.</string>
     <string name="slot_enter_name_error">Bu bana bir şey gibi görünmüyor.</string>
@@ -114,6 +121,7 @@
     <string name="slot_account_action_change_id">Hesabı geri yükle</string>
     <string name="slot_account_show">Hesap kimliği</string>
     <string name="slot_account_action_copied">Hesap kimliği panoya kopyalandı</string>
+    <string name="slot_account_action_unavailable">[ayarlanmadı]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">%s’e bağlan</string>
     <string name="slot_gateway_label_overloaded">[Dolu] %s’e bağlan</string>

@@ -18,7 +18,7 @@
     <string name="notification_keepalive_text">Винаги в активност</string>
     <string name="notification_keepalive_description">Активирайте този превключвател ако имате проблем с това, че приложението не е винаги активно. Приложението ще включи постоянно уведомяване, което да предотврати убийството му от системата.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
-    <string name="notification_keepalive_title_new">Поддържайте жив (докоснете, за да се скрие)</string>
+    <string name="notification_keepalive_title_new">Поддържай жив (докоснете за да се скрие)</string>
     <string name="notification_keepalive_text_new">Android изисква да се показва известие за да поддържа приложението работещо, но вие сте свободни да го деактивирате в системните настройки.</string>
     <string name="notification_keepalive_activate">Активиране</string>
     <string name="notification_keepalive_activating">Blokada стартира. Това може да отнеме известно време.</string>

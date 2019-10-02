@@ -17,6 +17,8 @@
     <string name="notification_keepalive_text">Udržať aktívne</string>
     <string name="notification_keepalive_description">Aktivujte tento prepínač, pokiaľ má aplikácia problém zostať aktívna. Aplikácia zobrazí trvalé oznámenie v notifikačnej lište, čo zabráni systému Blokadu ukončiť.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Udržať aktívne (dotykom skryjete)</string>
+    <string name="notification_keepalive_text_new">Aby mohla aplikácia zostať aktívna, Android musí zobrazovať upozornenie, môžete ho však vypnúť v systémových nastaveniach.</string>
     <string name="notification_keepalive_activate">Aktivovať</string>
     <string name="notification_keepalive_activating">Blokada sa spúšťa. Môže to chvíľu trvať.</string>
     <string name="notification_keepalive_deactivate">Deaktivovať</string>

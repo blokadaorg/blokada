@@ -22,6 +22,8 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Dillo ai tuoi amici</string>
     <string name="home_share_state">Condividi il tuo punteggio Blokada</string>
+    <string name="home_share_state_google">Aiuta altri a conoscere Blokada</string>
+    <string name="home_share_msg_google">Prova Blokada Slim e mantieni protetta la tua privacy! Scaricala su Google Play.</string>
     <string name="home_adblocking_enabled">Blocco pubblicità attivo</string>
     <string name="home_adblocking_disabled">Blocco pubblicità disattivato</string>
     <string name="home_blokadaorg">Stai usando Blokada Slim</string>
@@ -75,6 +77,7 @@
     <string name="menu_apps_intro">Alcune applicazioni potrebbero non funzionare correttamente con Blokada. Ad esempio, potrebbero avere problemi di connessione.\n\nL\'attivazione della VPN è spesso d\'aiuto in questi casi.\n\nAltrimenti, è possibile far eludere a queste app il controllo di Blokada. Ricorda, le app che eludono il controllo di Blokada comunicano al di fuori della VPN.</string>
     <string name="menu_apps_system_label">Le app di sistema sono quelle preinstallate con il tuo dispositivo. Alcune di esse sono nascoste. Modificale solo se sai cosa stai facendo.</string>
     <string name="menu_host_list_intro">Le liste degli host contengono regole per bloccare annunci e tracker. Cerca di mantenere basso il numero di liste attive.</string>
+    <string name="menu_host_adblocking_settings">Impostazioni blocco pubblicità</string>
     <string name="menu_host_list_status">Stato lista</string>
     <string name="menu_host_list_download">Impostazioni download lista</string>
     <string name="menu_host_whitelist">Gli host che aggiungi qui non saranno mai bloccati. Usa questa lista quando, ad esempio, un sito che visiti viene erroneamente bloccato.</string>

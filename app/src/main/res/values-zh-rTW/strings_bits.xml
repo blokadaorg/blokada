@@ -22,6 +22,7 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">告訴你的朋友</string>
     <string name="home_share_state">分享您的 Blokada 分數</string>
+    <string name="home_share_state_google">協助其它人學習更多關於 Blokada 的知識</string>
     <string name="home_share_msg_google">試試 Blokada Slim 並保護你的隱私！在Google play上取得</string>
     <string name="home_adblocking_enabled">廣告阻擋已啟用</string>
     <string name="home_adblocking_disabled">廣告阻擋已停用</string>

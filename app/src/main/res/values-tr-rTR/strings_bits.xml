@@ -45,6 +45,8 @@
     <string name="home_account_error">Hesap doğrulanamadı. Çevrimiçi misin?</string>
     <string name="home_permission_error">Lütfen VPN izinleri verin.</string>
     <string name="home_zero_filters_error">Yapılandırılmış filtreniz yok. Reklam engelleme ayarlarınızı kontrol edin.</string>
+    <string name="home_filters_memory_error">Tüm filtreler belleğe yüklenemedi. Reklam engelleme ayarlarınızı kontrol edin.</string>
+    <string name="tasker_switch_label">Tetiğiniz için açmak (veya kapatmak) üzere yapılandırmak için seçeneklerden birine dokunun.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Reklamlar</string>
     <string name="menu_ads_live_label">İzin verilen ve engellenen isteklerin host günlüğü</string>
@@ -75,6 +77,7 @@
     <string name="menu_apps_intro">Bazı uygulamalar Blokada ile düzgün çalışmayabilir. Örneğin, bağlantı kurmakta zorlanabilirler. \n\nVPN\'i etkinleştirmek bu durumlarda genellikle yardımcı olur. \n\nAksi takdirde, bu uygulamaları Blokada denetimini tamamen atlayarak yapabilirsiniz. Unutmayın, atlanan uygulamalar VPN dışında iletişim kurar.</string>
     <string name="menu_apps_system_label">Sistem uygulamaları cihazınızla önceden yüklenmiş olarak gelenlerdir. Bazıları gizlendi. Bunları yalnızca ne yaptığınızı biliyorsanız değiştirin.</string>
     <string name="menu_host_list_intro">Host listeleri, reklamları ve izleyicileri engellemek için kurallar içerir. Aktif listelerin sayısını düşük tutmaya çalışın.</string>
+    <string name="menu_host_adblocking_settings">Reklam engelleme ayarları</string>
     <string name="menu_host_list_status">Liste durumu</string>
     <string name="menu_host_list_download">İndirme ayarlarını listele</string>
     <string name="menu_host_whitelist">Buraya eklediğiniz hostlar hiçbir zaman engellenmeyecek. Örneğin, ziyaret ettiğiniz bir web sitesi yanlışlıkla engellendiğinde bu listeyi kullanın.</string>

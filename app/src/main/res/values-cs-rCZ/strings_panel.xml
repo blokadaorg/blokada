@@ -18,6 +18,7 @@
     <string name="panel_section_apps_all">Nainstalované aplikace</string>
     <string name="panel_section_apps_system">Systémové aplikace</string>
     <string name="panel_section_advanced_settings">Nastavení</string>
+    <string name="panel_section_app_settings">Nastavení aplikace</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Povoleno &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Tato doména byla povolena. Chcete-li jí zablokovat, použijte tlačítko níže.</string>
@@ -38,7 +39,9 @@
     <string name="slot_action_remove">Odstranit</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Ano</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Ne</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Jak používat nové uživatelské rozhraní? Klikněte zde pro rychlého průvodce.</string>
     <string name="slot_intro_new_header">Jak používat nové uživatelské rozhraní?</string>
@@ -58,6 +61,12 @@
     <string name="slot_enter_domain_desc">Zadejte domény oddělené čárkou. Můžete také vložit odkaz na libovolný seznam hostitelů nebo importovat soubor lokálního hostitele.</string>
     <string name="slot_enter_domain_error">To pro mě moc nevypadá.</string>
     <string name="slot_enter_domain_file">Soubor</string>
+    <string name="slot_enter_domain_no_file">V adresáři /Download/blokada/filters nebyly nalezeny žádné soubory</string>
+    <string name="slot_enter_file_titel">Název souboru</string>
+    <string name="slot_enter_file_import">Importovat</string>
+    <string name="slot_enter_file_desc">Zadejte část názvu souboru</string>
+    <string name="slot_enter_file_not_found">Zadaný název souboru nebyl nalezen</string>
+    <string name="slot_enter_file_multi">Vašemu zadání vyhovuje více souborů</string>
     <string name="slot_enter_name_title">Název</string>
     <string name="slot_enter_name_desc">Zadejte název nové položky. Můžete také vygenerovat navrhovaný název.</string>
     <string name="slot_enter_name_error">To pro mě moc nevypadá.</string>
@@ -112,6 +121,7 @@
     <string name="slot_account_action_change_id">Obnovit účet</string>
     <string name="slot_account_show">ID účtu</string>
     <string name="slot_account_action_copied">ID účtu bylo zkopírováno do schránky</string>
+    <string name="slot_account_action_unavailable">[nenastaveno]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Připojeno k %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Připojeno k %s</string>

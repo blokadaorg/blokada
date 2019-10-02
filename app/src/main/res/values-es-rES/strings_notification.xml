@@ -18,6 +18,8 @@
     <string name="notification_keepalive_text">Mantener activo</string>
     <string name="notification_keepalive_description">Activa este interruptor si tienes problemas para que la aplicación se mantenga activa. Se creará una notificación permanente para evitar que el sistema la cierre.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Mantener Activo (toca para ocultar)</string>
+    <string name="notification_keepalive_text_new">En Android se necesita mostrar una notificación para mantener la aplicación en funcionamiento, pero puedes desactivarla en la configuración del sistema.</string>
     <string name="notification_keepalive_activate">Activar</string>
     <string name="notification_keepalive_activating">Blokada se está iniciando. Esto puede tardar un momento.</string>
     <string name="notification_keepalive_deactivate">Desactivar</string>

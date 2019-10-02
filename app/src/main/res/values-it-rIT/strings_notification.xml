@@ -18,6 +18,8 @@
     <string name="notification_keepalive_text">Mantieni attivo</string>
     <string name="notification_keepalive_description">Attiva questa opzione se riscontri problemi nel mantenere attiva l\'app. Verrà abilitata una notifica permanente per cercare di prevenire la chiusura dell\'app da parte del sistema.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Mantieni Attivo (tocca per nascondere)</string>
+    <string name="notification_keepalive_text_new">Android richiede una notifica per mantenere l\'app in esecuzione, è possibile disabilitarla dalle impostazioni di sistema.</string>
     <string name="notification_keepalive_activate">Attiva</string>
     <string name="notification_keepalive_activating">Blokada si sta avviando. Ciò potrebbe richiedere qualche momento.</string>
     <string name="notification_keepalive_deactivate">Disattiva</string>

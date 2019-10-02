@@ -46,6 +46,7 @@
     <string name="home_permission_error">Kérjük, add meg a VPN engedélyeket.</string>
     <string name="home_zero_filters_error">Nincs szűrő konfigurálva. Ellenőrizd a hirdetés blokkolás beállításait.</string>
     <string name="home_filters_memory_error">Az összes szűrő nem tölthető a memóriába. Ellenőrizd a hirdetés blokkolás beállításait.</string>
+    <string name="tasker_switch_label">Érintsd meg az egyik lehetőséget az aktiválás (vagy deaktiválás) konfigurálásához.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Hirdetések</string>
     <string name="menu_ads_live_label">Hoszt napló az engedélyezett és blokkolt kérelmekről</string>
@@ -76,6 +77,7 @@
     <string name="menu_apps_intro">Egyes alkalmazások nem működhetnek megfelelően a Blokada-val. Például, nehézséget okoz a kapcsolódás.\n\nAz ilyen esetekben a VPN aktiválása gyakran segít.\n\nUgyanakkor ezekhez az alkalmazásokhoz beállíthatod a Blokada felügyeletének megkerülését. Ne feledd, hogy a megkerülésre beállított alkalmazások a VPN-en kívül kommunikálnak.</string>
     <string name="menu_apps_system_label">A rendszeralkalmazások azok, amelyek előre telepítve vannak a készülékeden. Némelyike rejtett. Csak akkor módosíts rajtuk, ha tudod, mit csinálsz.</string>
     <string name="menu_host_list_intro">A hosztlisták tartalmazzák a hirdetések és a nyomkövetők blokkolására vonatkozó szabályokat. Próbáld meg alacsonyan tartani az aktív listák számát.</string>
+    <string name="menu_host_adblocking_settings">Hirdetés blokkolás beállításai</string>
     <string name="menu_host_list_status">Lista állapota</string>
     <string name="menu_host_list_download">Lista letöltési beállítások</string>
     <string name="menu_host_whitelist">Az itt hozzáadott hosztok soha nem lesznek blokkolva. Ezt a listát akkor használd, ha például egy meglátogatott weboldal tévesen blokkolásra került.</string>

@@ -5,6 +5,7 @@
     <string name="home_touch_to_turn_on">Pokračovat v blokování reklam</string>
     <string name="home_touch_adblocking">Klepnutím zablokujete reklamy</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_setup_vpn">Klepněte pro nastavení VPN</string>
     <string name="home_blokada_disabled">Blokada je pozastavena</string>
     <string name="home_activating">Aktivace</string>
     <string name="home_please_wait">Počkejte prosím...</string>
@@ -13,15 +14,20 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Režim pouze DNS</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_touch">Klepněte pro nastavení DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s zablokováno</string>
     <string name="home_masterswitch_enabled">Blokada je zapnutá</string>
-    <string name="home_masterswitch_on">Postavit blokování reklam</string>
+    <string name="home_masterswitch_on">Pozastavit blokování reklam</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Řekněte o tom svým přátelům</string>
     <string name="home_share_state">Sdílejte své Blokada skóre</string>
+    <string name="home_share_state_google">Pomozte ostatním poznat Blokadu</string>
+    <string name="home_share_msg_google">Vyzkoušejte Blokadu Slim a ochraňte si vaše soukromí. K dispozici na Google Play.</string>
     <string name="home_adblocking_enabled">Blokování reklam je aktivní</string>
     <string name="home_adblocking_disabled">Blokování reklam je deaktivováno</string>
+    <string name="home_blokadaorg">Používáte Blokadu Slim</string>
+    <string name="home_blokadaorg_state">Klepnutím získáte verzi s otevřeným zdrojem</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Co je nového?</string>
     <string name="home_update_required">Je vyžadována aktualizace</string>
@@ -34,6 +40,13 @@
     <string name="home_cleanup">Doporučuje se vyčištění</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Připojeno k VPN</string>
+    <string name="home_boringtun_not_loaded">Omlouváme se, ale vaše zařízení zatím nepodporuje službu Blakada VPN</string>
+    <string name="home_blocka_vpn_error">Nepodařilo se připojit k síťové bráně. Jste online?</string>
+    <string name="home_account_error">Nepodařilo se ověřit účet. Jste online?</string>
+    <string name="home_permission_error">Udělte, prosím, povolení k VPN.</string>
+    <string name="home_zero_filters_error">Nemáte nastavené žádné filtry. Zkontrolujte nastavení blokování reklam.</string>
+    <string name="home_filters_memory_error">Do paměti se nepodařilo načíst všechny filtry. Zkontrolujte nastavení blokování reklam.</string>
+    <string name="tasker_switch_label">Kliknutím na jeden z parametrů ho nakonfigurujete tak, aby se po spuštění aktivoval (nebo deaktivoval).</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Reklamy</string>
     <string name="menu_ads_live_label">Protokol povolených a blokovaných požadavků</string>
@@ -64,6 +77,7 @@
     <string name="menu_apps_intro">Některé aplikace nemusí s Blokadou správně fungovat. Mohou mít například potíže s připojením.\n\nV těchto případech často pomáhá aktivace VPN.\n\nV opačném případě můžete tyto aplikace zcela vyloučit. Nezapomeňte, že vyloučené aplikace komunikují mimo VPN.</string>
     <string name="menu_apps_system_label">Systémové aplikace jsou ty, které jsou předinstalovány ve vašem zařízení. Některé z nich jsou skryté. Zasahujte do nich pouze v případě, že víte, co děláte.</string>
     <string name="menu_host_list_intro">Seznamy hostitelů obsahují pravidla pro blokování reklam a sledovačů. Snažte se udržet počet aktivních seznamů nízký.</string>
+    <string name="menu_host_adblocking_settings">Nastavení blokování reklam</string>
     <string name="menu_host_list_status">Stav seznamu</string>
     <string name="menu_host_list_download">Nastavení stahování seznamu</string>
     <string name="menu_host_whitelist">Hostitelé, které sem přidáte, nebudou nikdy blokováni. Tento seznam použijte, když je například webová stránka, kterou navštívíte, omylem zablokována.</string>

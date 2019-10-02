@@ -81,7 +81,7 @@
     <string name="menu_host_list_status">Listenstatus</string>
     <string name="menu_host_list_download">Download-Einstellungen auflisten</string>
     <string name="menu_host_whitelist">Hosts, die du hier hinzufügst, werden nie blockiert. Verwende diese Liste, wenn zum Beispiel eine Webseite, die du besuchst, fälschlicherweise blockiert wird.</string>
-    <string name="menu_host_blacklist">Hosts, die du hier hinzufügst, werden immer blockiert. Zum Beispiel kannst du Webseiten hinzufügen, die durch die Standardlisten nicht blockiert werden aber blockiert werden sollen.</string>
+    <string name="menu_host_blacklist">Hosts, die du hier hinzufügst, werden immer blockiert. Zum Beispiel kannst du Webseiten hinzufügen, die durch die Standardlisten nicht blockiert werden, aber blockiert werden sollen.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Andere</string>
     <string name="menu_share_log_label">Das Teilen von Protokolldaten ermöglicht es uns, den Grund für dein Problem zu ermitteln. Achte darauf, sie privat an eines der Mitglieder des Blokada-Kernteams zu senden.</string>
