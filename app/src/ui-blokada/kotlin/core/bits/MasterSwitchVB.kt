@@ -37,6 +37,15 @@ class MasterSwitchVB(
                         tunnelEvents.enabled %= true
                     }
                 }
+                tunnelEvents.enabled() && !tunnelEvents.active() -> {
+                    icon(R.drawable.ic_nosignal.res())
+                    label(R.string.home_masterswitch_waiting.res())
+                    state(R.string.home_masterswitch_on.res())
+                    important(false)
+                    onTap {
+                        tunnelEvents.enabled %= false
+                    }
+                }
                 else -> {
                     icon(R.drawable.ic_pause.res())
                     label(R.string.home_masterswitch_on.res())

@@ -20,6 +20,7 @@
 
     <string name="home_masterswitch_enabled">Blokada is on</string>
     <string name="home_masterswitch_on">Touch to pause</string>
+    <string name="home_masterswitch_waiting">Waiting for network...</string>
 
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Tell your friends</string>

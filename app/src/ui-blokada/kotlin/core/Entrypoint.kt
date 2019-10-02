@@ -86,6 +86,7 @@ class Entrypoint {
             }
         } else {
             tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
+            tunnelState.active %= true
             requestSync(blocka = true)
         }
     }

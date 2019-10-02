@@ -8,14 +8,8 @@ import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.UpdateVB
-import core.bits.menu.adblocking.createAdblockingMenuItem
-import core.bits.menu.advanced.createAdvancedMenuItem
-import core.bits.menu.apps.createAppsMenuItem
-import core.bits.menu.dns.createDnsMenuItem
-import core.bits.menu.vpn.createVpnMenuItem
 import core.bits.openWebContent
 import gs.presentation.NamedViewBinder
-import org.blokada.BuildConfig
 import org.blokada.R
 import java.io.File
 
@@ -97,15 +91,14 @@ fun createAboutMenuItem(ktx: AndroidKontext): NamedViewBinder {
 fun createAboutMenu(ktx: AndroidKontext): MenuItemsVB {
     return MenuItemsVB(ktx,
             items = listOf(
-                    LabelVB(ktx, label = BuildConfig.VERSION_NAME.toString().res()),
+                    LabelVB(ktx, label = blokadaUserAgent(ktx.ctx).res()),
                     UpdateVB(ktx, onTap = defaultOnTap),
                     LabelVB(ktx, label = R.string.menu_share_log_label.res()),
                     createLogMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_other.res()),
                     createAppDetailsMenuItem(ktx),
                     createChangelogMenuItem(ktx),
-                    createCreditsMenuItem(ktx),
-                    LabelVB(ktx, label = blokadaUserAgent(ktx.ctx).res())
+                    createCreditsMenuItem(ktx)
             ),
             name = R.string.slot_about.res()
     )

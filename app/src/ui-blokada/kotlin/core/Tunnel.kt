@@ -167,7 +167,8 @@ fun newTunnelModule(ctx: Context): Module {
                     }
 
                     if (s.tunnelPermission(true)) {
-                        entrypoint.onEnableTun()
+                        if (d.connected() || !d.watchdogOn())
+                            entrypoint.onEnableTun()
                     } else {
                         s.enabled %= false
                         showSnack(R.string.home_permission_error)
@@ -232,12 +233,14 @@ fun newTunnelModule(ctx: Context): Module {
                         ktx.v("no connectivity, deactivating")
                         s.restart %= true
                         s.active %= false
+                        entrypoint.onDisableTun()
                     }
                     d.connected() && s.restart() && !s.updating() && s.enabled() -> {
                         ktx.v("connectivity back, activating")
                         s.restart %= false
                         s.error %= false
                         s.active %= true
+                        entrypoint.onEnableTun()
                     }
                     d.connected() && s.error() && !s.updating() && !s.enabled() -> {
                         ktx.v("connectivity back, auto recover from error")
