@@ -11,7 +11,7 @@ internal class AccountManager(
 
     private var lastAccountRequest = 0L
 
-    fun sync() {
+    fun sync(force: Boolean) {
         when {
             state.id.isBlank() -> {
                 // New account
@@ -23,7 +23,7 @@ internal class AccountManager(
                         lastAccountCheck = System.currentTimeMillis()
                 )
             }
-            lastAccountRequest + 3600 * 1000 > System.currentTimeMillis() -> {
+            !force && lastAccountRequest + 3600 * 1000 > System.currentTimeMillis() -> {
                 v("skipping account request, done one recently")
             }
             else -> {

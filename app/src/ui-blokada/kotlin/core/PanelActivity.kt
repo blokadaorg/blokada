@@ -50,6 +50,11 @@ class PanelActivity : Activity() {
     override fun onResume() {
         super.onResume()
         modalManager.closeModal()
+        if (shouldRefreshAccount) {
+            shouldRefreshAccount = false
+            v("check account after coming back to SubscriptionActivity")
+            entrypoint.onAccountChanged()
+        }
     }
 
     override fun onBackPressed() {

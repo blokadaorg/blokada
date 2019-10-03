@@ -116,7 +116,7 @@ var i = 0
             blockaVpnManager.enabled = get(BlockaVpnState::class.java).enabled
             if (blockaVpnManager.enabled) {
                 boringtunLoader.loadBoringtunOnce()
-                blockaVpnManager.sync()
+                blockaVpnManager.sync(force = true)
             }
         } catch (ex: Exception) {
             e("failed syncing", ex)

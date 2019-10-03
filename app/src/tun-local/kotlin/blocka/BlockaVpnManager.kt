@@ -13,11 +13,11 @@ internal class BlockaVpnManager(
         accountManager.restoreAccount(newId)
     }
 
-    fun sync() {
+    fun sync(force: Boolean = false) {
         try {
             if (!enabled) return
             accountManager.ensureKeypair()
-            accountManager.sync()
+            accountManager.sync(force)
             leaseManager.sync(accountManager.state)
             //enabled = enabled && (accountManager.state.accountOk && leaseManager.state.leaseOk)
             val isOk = accountManager.state.accountOk && leaseManager.state.leaseOk
