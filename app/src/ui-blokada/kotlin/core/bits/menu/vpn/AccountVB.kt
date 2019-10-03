@@ -8,6 +8,7 @@ import core.bits.openInExternalBrowser
 import core.bits.pretty
 import gs.property.I18n
 import org.blokada.R
+import java.net.URL
 import java.util.*
 
 class AccountVB(
@@ -23,7 +24,7 @@ class AccountVB(
             if (Product.current(view.context) == Product.FULL) {
                 modal.openModal()
                 ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
-            } else openInExternalBrowser(view.context, getActivateUrl())
+            } else openInExternalBrowser(view.context, URL("https://blokada.org"))
         }
         on(CurrentAccount::class.java, this::update)
         update()
@@ -43,9 +44,11 @@ class AccountVB(
 
             label(accountLabel.res())
 
-            val stateLabel = if (isActive) R.string.slot_account_action_manage.res()
+            if (Product.current(context) == Product.FULL) {
+                val stateLabel = if (isActive) R.string.slot_account_action_manage.res()
                 else R.string.slot_account_action_manage_inactive.res()
-            state(stateLabel)
+                state(stateLabel)
+            }
         }
         Unit
     }

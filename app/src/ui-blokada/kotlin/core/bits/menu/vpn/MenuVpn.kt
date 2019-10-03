@@ -78,7 +78,10 @@ fun createWhyVpnMenuItem(ktx: AndroidKontext): NamedViewBinder {
 private fun createAccountMenu(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemsVB(ktx,
             items = listOf(
-                    LabelVB(ktx, label = R.string.menu_vpn_manage_subscription.res()),
+                    (if (Product.current(ktx.ctx) == Product.FULL)
+                        LabelVB(ktx, label = R.string.menu_vpn_manage_subscription.res())
+                    else
+                        LabelVB(ktx, label = R.string.menu_vpn_manage_subscription_unavailable.res())),
                     AccountVB(ktx),
                     LabelVB(ktx, label = R.string.menu_vpn_account_secret.res()),
                     CopyAccountVB(ktx),
