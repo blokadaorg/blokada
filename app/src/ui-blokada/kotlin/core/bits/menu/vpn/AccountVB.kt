@@ -4,6 +4,7 @@ import android.content.Intent
 import blocka.CurrentAccount
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.bits.openInExternalBrowser
 import core.bits.pretty
 import gs.property.I18n
 import org.blokada.R
@@ -19,8 +20,10 @@ class AccountVB(
         view.alternative(true)
         view.icon(R.drawable.ic_account_circle_black_24dp.res())
         view.onTap {
-            modal.openModal()
-            ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
+            if (Product.current(view.context) == Product.FULL) {
+                modal.openModal()
+                ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
+            } else openInExternalBrowser(view.context, getActivateUrl())
         }
         on(CurrentAccount::class.java, this::update)
         update()
