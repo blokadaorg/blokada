@@ -1,5 +1,6 @@
 package core
 
+import android.app.NotificationManager
 import android.app.Service
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
@@ -15,10 +16,12 @@ import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.inject
 import gs.property.IProperty
+import gs.property.IWhen
 import gs.property.newPersistedProperty
 import kotlinx.coroutines.experimental.runBlocking
-import notification.KeepAliveNotification
+import notification.UsefulKeepAliveNotification
 import notification.notificationMain
+import org.blokada.R
 
 abstract class KeepAlive {
     abstract val keepAlive: IProperty<Boolean>
@@ -40,13 +43,40 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
         bind<KeepAlive>() with singleton {
             KeepAliveImpl(kctx = with("gscore").instance(), xx = lazy)
         }
-        onReady {
-            val s: KeepAlive = instance()
 
+        onReady {
+            val ui: UiState = instance()
+            val s: KeepAlive = instance()
+            val t: Tunnel = instance()
+
+            // Start / stop the keep alive service depending on the configuration flag
+            val keepAliveNotificationUpdater = { dropped: Int ->
+                val ctx: Context = instance()
+                val nm: NotificationManager = instance()
+                val notification = UsefulKeepAliveNotification(
+                        count = dropped,
+                        last = t.tunnelRecentDropped().lastOrNull() ?:
+                                ctx.getString(R.string.notification_keepalive_none)
+                )
+                val n = runBlocking { notificationMain.getNotification(notification).await() }
+                nm.notify(notification.id, n)
+            }
+            var w1: IWhen? = null
+            var w2: IWhen? = null
             s.keepAlive.doWhenSet().then {
                 if (s.keepAlive()) {
+                    t.tunnelDropCount.cancel(w1)
+                    w1 = t.tunnelDropCount.doOnUiWhenSet().then {
+                        keepAliveNotificationUpdater(t.tunnelDropCount())
+                    }
+                    t.enabled.cancel(w2)
+                    w2 = t.enabled.doOnUiWhenSet().then {
+                        keepAliveNotificationUpdater(t.tunnelDropCount())
+                    }
                     keepAliveAgent.bind(ctx)
                 } else {
+                    t.tunnelDropCount.cancel(w1)
+                    t.enabled.cancel(w2)
                     keepAliveAgent.unbind(ctx)
                 }
             }
@@ -109,9 +139,14 @@ class KeepAliveService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         if (BINDER_ACTION.equals(intent?.action)) {
             binder = KeepAliveBinder()
-            val notification = KeepAliveNotification()
+
+            val s: Tunnel = inject().instance()
+            val count = s.tunnelDropCount()
+            val last = s.tunnelRecentDropped().lastOrNull() ?: getString(R.string.notification_keepalive_none)
+            val notification = UsefulKeepAliveNotification(count, last)
             val n = runBlocking { notificationMain.getNotification(notification).await() }
             startForeground(notification.id, n)
+
             j.log("KeepAliveService: bound")
             return binder
         }

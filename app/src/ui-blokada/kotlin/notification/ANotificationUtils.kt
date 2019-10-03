@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.openInExternalBrowser
+import gs.environment.inject
 import gs.property.I18n
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
@@ -149,6 +150,54 @@ class KeepAliveNotification: BlokadaNotification(2, NotificationChannels.KEEP_AL
             b.priority = NotificationCompat.PRIORITY_MIN
 
             val intentActivity = getIntentForNotificationChannelsSettings(ctx)
+            val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+            b.setContentIntent(piActivity)
+        }
+)
+
+class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNotification(2,
+        NotificationChannels.KEEP_ALIVE,
+        create = { ctx ->
+            val i18n = ctx.inject().instance<I18n>()
+            val choice = ctx.inject().instance<Dns>().choices().first { it.active }
+            val servers = printServers(ctx.inject().instance<Dns>().dnsServers())
+            val t: Tunnel = ctx.inject().instance()
+
+            val b = NotificationCompat.Builder(ctx)
+            if (Product.current(ctx) == Product.GOOGLE) {
+                val id = if (choice.id.startsWith("custom")) "custom" else choice.id
+                val provider = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
+
+                b.setContentTitle(provider)
+                b.setContentText(ctx.getString(R.string.dns_keepalive_content, servers))
+            } else {
+                val domainList = NotificationCompat.InboxStyle()
+                val duplicates =ArrayList<String>(0)
+                t.tunnelRecentDropped().asReversed().forEach { s ->
+                    if(!duplicates.contains(s)){
+                        duplicates.add(s)
+                        domainList.addLine(s)
+                    }
+                }
+
+                val intent = Intent(ctx, ANotificationsToggleService::class.java).putExtra("new_state",!t.enabled())
+                val statePendingIntent = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                if(t.enabled()) {
+                    b.addAction(R.drawable.ic_stat_blokada, ctx.resources.getString(R.string.notification_keepalive_deactivate), statePendingIntent)
+                }else{
+                    b.addAction(R.drawable.ic_stat_blokada, ctx.resources.getString(R.string.notification_keepalive_activate), statePendingIntent)
+                }
+
+                b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, count))
+                b.setContentText(ctx.getString(R.string.notification_keepalive_content, last))
+                b.setStyle(domainList)
+            }
+            b.setSmallIcon(R.drawable.ic_stat_blokada)
+            b.priority = NotificationCompat.PRIORITY_MIN
+            b.setOngoing(true)
+
+            val intentActivity = Intent(ctx, PanelActivity::class.java)
+            intentActivity.putExtra("notification", true)
             val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
             b.setContentIntent(piActivity)
         }
