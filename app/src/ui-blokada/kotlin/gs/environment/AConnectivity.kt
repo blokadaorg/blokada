@@ -11,7 +11,7 @@ import org.pcap4j.packet.namednumber.UdpPort
 fun isConnected(ctx: android.content.Context): Boolean {
     val cm = ctx.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeInfo = cm.activeNetworkInfo ?: return false
-    return activeInfo.isConnectedOrConnecting
+    return activeInfo.isConnected
 }
 
 fun isTethering(ctx: android.content.Context, intent: android.content.Intent? = null): Boolean {

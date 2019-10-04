@@ -114,19 +114,12 @@ fun newTunnelModule(ctx: Context): Module {
                 lastRestartMillis = System.currentTimeMillis()
                 if (!restartedRecently) restarts = 0
                 if (restarts++ > 9) {
-                    if (device.watchdogOn()) {
-                        restarts = 0
-                        e("Too many tunnel restarts. Stopping...")
-                        s.error %= true
-                        s.enabled %= false
-                    } else {
-                        e("Too many tunnel restarts, re-sync")
-                        restarts = 0
-                        entrypoint.onVpnSwitched(false)
-                        async {
-                            delay(2000)
-                            entrypoint.onVpnSwitched(true)
-                        }
+                    e("Too many tunnel restarts, re-sync")
+                    restarts = 0
+                    entrypoint.onVpnSwitched(false)
+                    async {
+                        delay(2000)
+                        entrypoint.onVpnSwitched(true)
                     }
                 } else w("tunnel restarted for $restarts time in a row")
             }

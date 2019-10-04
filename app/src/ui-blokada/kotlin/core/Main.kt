@@ -77,7 +77,7 @@ class MainApplication: Application(), KodeinAware {
     private fun setRestartAppOnCrash() {
         Thread.setDefaultUncaughtExceptionHandler { _, ex ->
             try {
-                "fatal".ktx().e(ex)
+                e(ex)
             } catch (e: Exception) {}
             startThroughJobScheduler(this)
             System.exit(2)
