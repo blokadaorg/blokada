@@ -41,7 +41,8 @@ fun createManageAccountMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemVB(ktx,
             label = R.string.menu_vpn_account.res(),
             icon = R.drawable.ic_account_circle_black_24dp.res(),
-            opens = createAccountMenu(ktx)
+            opens = if (Product.current(ktx.ctx) == Product.FULL) createAccountMenu(ktx)
+                    else createAccountMenuGoogle(ktx)
     )
 }
 
@@ -78,15 +79,31 @@ fun createWhyVpnMenuItem(ktx: AndroidKontext): NamedViewBinder {
 private fun createAccountMenu(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemsVB(ktx,
             items = listOf(
-                    (if (Product.current(ktx.ctx) == Product.FULL)
-                        LabelVB(ktx, label = R.string.menu_vpn_manage_subscription.res())
-                    else
-                        LabelVB(ktx, label = R.string.menu_vpn_manage_subscription_unavailable.res())),
+                    LabelVB(ktx, label = R.string.menu_vpn_manage_subscription.res()),
                     AccountVB(ktx),
                     LabelVB(ktx, label = R.string.menu_vpn_account_secret.res()),
                     CopyAccountVB(ktx),
                     LabelVB(ktx, label = R.string.menu_vpn_restore_label.res()),
-                    RestoreAccountVB(ktx)
+                    RestoreAccountVB(ktx),
+                    LabelVB(ktx, label = R.string.menu_vpn_restore_label.res()),
+                    LabelVB(ktx, label = R.string.menu_vpn_support_label.res()),
+                    SupportVB(ktx)
+            ),
+            name = R.string.menu_vpn_account.res()
+    )
+}
+
+private fun createAccountMenuGoogle(ktx: AndroidKontext): NamedViewBinder {
+    return MenuItemsVB(ktx,
+            items = listOf(
+                    LabelVB(ktx, label = R.string.menu_vpn_manage_subscription_unavailable.res()),
+                    AccountGoogleVB(ktx),
+                    LabelVB(ktx, label = R.string.menu_vpn_account_secret.res()),
+                    CopyAccountVB(ktx),
+                    LabelVB(ktx, label = R.string.menu_vpn_restore_label.res()),
+                    RestoreAccountVB(ktx),
+                    LabelVB(ktx, label = R.string.menu_vpn_support_label.res()),
+                    SupportVB(ktx)
             ),
             name = R.string.menu_vpn_account.res()
     )

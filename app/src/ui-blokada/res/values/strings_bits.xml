@@ -91,6 +91,8 @@
     <string name="menu_vpn_intro">With VPN your data is encrypted, your IP address is hidden, and your location is changed.</string>
     <string name="menu_vpn_account_label">In order to use the VPN, you need an active account. Check or restore your account here.</string>
     <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
+    <string name="menu_vpn_support_label">If you experience any problems, do not hesitate to contact us.</string>
+    <string name="menu_vpn_support_button">Support</string>
     <string name="menu_dns_recommended">Recommended DNS servers</string>
     <string name="menu_dns_intro">DNS is responsible for translating IP addresses of websites and apps you use. Choosing a good DNS may speed up your device and will help protect your privacy.</string>
     <string name="menu_dns_select">Select one of the DNS servers.</string>
