@@ -1,6 +1,8 @@
 // Copyright (c) 2019 Cloudflare, Inc. All rights reserved.
 // SPDX-License-Identifier: BSD-3-Clause
 
+#[macro_use] extern crate log;
+
 pub mod crypto;
 mod device;
 pub mod ffi;
