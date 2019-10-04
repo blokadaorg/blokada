@@ -19,6 +19,12 @@
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">保持喚醒（點擊以隱藏）</string>
     <string name="notification_keepalive_text_new">Android系統需要顯示一個通知來讓app持續運作，但你也可以在系統設定中關閉通知</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">已阻擋 %d 個</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">上次：%s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">監控中</string>
     <string name="notification_keepalive_activate">啟用</string>
     <string name="notification_keepalive_activating">Blokada 正在啟動。可能需要一點時間。</string>
     <string name="notification_keepalive_deactivate">停用</string>

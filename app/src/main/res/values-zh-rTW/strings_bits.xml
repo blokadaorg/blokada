@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s 已阻擋</string>
     <string name="home_masterswitch_enabled">已啟動 Blokada</string>
     <string name="home_masterswitch_on">點一下暫停</string>
+    <string name="home_masterswitch_waiting">正在等待網路……</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">告訴你的朋友</string>
     <string name="home_share_state">分享您的 Blokada 分數</string>
@@ -66,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">裝置</string>
     <string name="menu_vpn_manage_subscription">管理您的帳號訂閱</string>
+    <string name="menu_vpn_manage_subscription_unavailable">如果您的帳號是新的，請造訪我們的網頁。您不能在 Blokada Slim 中購買訂閱。</string>
     <string name="menu_vpn_account_secret">您的帳號 ID 是您應該自行守好的祕密。如果您要解除安裝應用程式，請先記下來。</string>
     <string name="menu_vpn_restore_label">舉例來說，如果您重新安裝應用程式，就可以在此將您既有的帳號復原。</string>
     <string name="menu_vpn_intro">您的資料在使用 VPN 時是加密的，您的 IP 位置會被隱藏，您的位置同樣也會被變更。</string>

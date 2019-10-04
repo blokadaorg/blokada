@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s заблокировано</string>
     <string name="home_masterswitch_enabled">Blokada включена</string>
     <string name="home_masterswitch_on">Приостановить</string>
+    <string name="home_masterswitch_waiting">Ожидание сети...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Расскажите своим друзьям</string>
     <string name="home_share_state">Поделитесь количеством заблокированной рекламы</string>
@@ -66,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Устройства</string>
     <string name="menu_vpn_manage_subscription">Управляйте подпиской вашего аккаунта</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Если ваш аккаунт новый, посетите наш веб-сайт. Вы не можете приобрести подписку в Blokada Slim.</string>
     <string name="menu_vpn_account_secret">ID вашего аккаунта необходимо хранить в тайне. Запишите его на случай переустановки приложения.</string>
     <string name="menu_vpn_restore_label">Здесь вы можете восстановить существующий аккаунт, если, например, вы переустановили приложение.</string>
     <string name="menu_vpn_intro">При использовании VPN передаваемые данные зашифрованы, реальный IP-адрес скрыт, местоположение изменено.</string>

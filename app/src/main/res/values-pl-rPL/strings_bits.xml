@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s zablokowano</string>
     <string name="home_masterswitch_enabled">Blokada jest włączona</string>
     <string name="home_masterswitch_on">Dotknij aby zatrzymać</string>
+    <string name="home_masterswitch_waiting">Oczekiwanie na połączenie...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Poleć znajomym</string>
     <string name="home_share_state">Podziel się Twoim wynikiem Blokady</string>
@@ -26,6 +27,8 @@
     <string name="home_share_msg_google">Spróbuj Blokada Slim i zachowaj swoją prywatność zabezpieczenoną! Pobierz na Google Play.</string>
     <string name="home_adblocking_enabled">Blokowanie reklam jest włączone</string>
     <string name="home_adblocking_disabled">Blokowanie reklam jest wyłączone</string>
+    <string name="home_blokadaorg">Używasz Blokada Slim</string>
+    <string name="home_blokadaorg_state">Kliknij aby uzyskać edycję open source</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Co nowego?</string>
     <string name="home_update_required">Wymagana aktualizacja</string>
@@ -64,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Urządzenia</string>
     <string name="menu_vpn_manage_subscription">Zarządzaj subskrypcją tutaj</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Jeśli twoje konto jest nowe, odwiedź naszą stronę. Nie możesz kupić subskrybcji w Blokada Slim.</string>
     <string name="menu_vpn_account_secret">Twoje ID konta jest tajne i powinieneś je zachować dla siebie. Zapisz je sobie na wypadek odinstalowania aplikacji.</string>
     <string name="menu_vpn_restore_label">Tutaj możesz odzyskać swoje istniejące konto jeśli, na przykład, przeinstalowałeś aplikację.</string>
     <string name="menu_vpn_intro">VPN szyfruje Twoje dane, ukrywa Twój adres IP, i zmienia Twoją lokalizację.</string>
@@ -75,6 +79,7 @@
     <string name="menu_apps_intro">Niektóre aplikacje mogą nie funkcjonować poprawnie z Blokadą. Na przykład, mogą mieć problem z połączeniem.\n\nAktywowanie VPN często pomaga w takich przypadkach.\n\nMożesz także wykluczyć te aplikacje spod inspekcji Blokady. Pamiętaj że wykluczone aplikacje komunikują się poza VPNem.</string>
     <string name="menu_apps_system_label">Aplikacje systemowe to te preinstalowane na Twoim urządzeniu. Niektóre z nich są ukryte. Modyfikując te ustawienia upewnij się że wiesz, co robisz.</string>
     <string name="menu_host_list_intro">Listy hostów zawierają reguły do blokowania reklam i trakerów. Postaraj się utrzymać ilość aktywnych list na niskim poziomie.</string>
+    <string name="menu_host_adblocking_settings">Ustawienia adblocka</string>
     <string name="menu_host_list_status">Status list</string>
     <string name="menu_host_list_download">Ustawienia pobierania list</string>
     <string name="menu_host_whitelist">Hosty, które tutaj dodasz, nigdy nie będą blokowane. Użyj tej listy kiedy stroną, którą odwiedzasz, jest omyłkowo blokowana.</string>

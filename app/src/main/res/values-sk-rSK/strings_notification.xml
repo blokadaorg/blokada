@@ -19,6 +19,12 @@
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Udržať aktívne (dotykom skryjete)</string>
     <string name="notification_keepalive_text_new">Aby mohla aplikácia zostať aktívna, Android musí zobrazovať upozornenie, môžete ho však vypnúť v systémových nastaveniach.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d zablokovaných</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Naposledy: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">monitorovanie</string>
     <string name="notification_keepalive_activate">Aktivovať</string>
     <string name="notification_keepalive_activating">Blokada sa spúšťa. Môže to chvíľu trvať.</string>
     <string name="notification_keepalive_deactivate">Deaktivovať</string>

@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s reklam engellendi</string>
     <string name="home_masterswitch_enabled">Blokada açık</string>
     <string name="home_masterswitch_on">Duraklatmak için dokunun</string>
+    <string name="home_masterswitch_waiting">Ağ bekleniyor...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Arkadaşlarına söyle</string>
     <string name="home_share_state">Blokada puanınızı paylaşın</string>
@@ -66,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Cihazlar</string>
     <string name="menu_vpn_manage_subscription">Hesap aboneliğinizi yönetin</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Hesabınız yeniyse, web sitemizi ziyaret edin. Blokada Slim\'e abonelik satın alamazsınız.</string>
     <string name="menu_vpn_account_secret">Hesap kimliğiniz gizlidir ve kendinize saklamalısınız. Uygulamayı kaldırırsanız yazınız.</string>
     <string name="menu_vpn_restore_label">Burada, örneğin uygulamayı yeniden yüklediyseniz, mevcut hesabınızı geri yükleyebilirsiniz.</string>
     <string name="menu_vpn_intro">VPN ile verileriniz şifrelenir, IP adresiniz gizlenir ve konumunuz değiştirilir.</string>

@@ -20,6 +20,12 @@
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Сохранять включенным (нажмите, чтобы скрыть)</string>
     <string name="notification_keepalive_text_new">Android требует отображения уведомления, чтобы приложение продолжало работать, но вы можете отключить это в настройках системы.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d заблокировано</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Последний: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">мониторинг</string>
     <string name="notification_keepalive_activate">Активировать</string>
     <string name="notification_keepalive_activating">Blokada запускается. Это может занять некоторое время.</string>
     <string name="notification_keepalive_deactivate">Деактивировать</string>

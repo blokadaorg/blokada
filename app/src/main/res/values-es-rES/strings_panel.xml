@@ -18,6 +18,7 @@
     <string name="panel_section_apps_all">Aplicaciones Instaladas</string>
     <string name="panel_section_apps_system">Aplicaciones del Sistema</string>
     <string name="panel_section_advanced_settings">Configuración</string>
+    <string name="panel_section_app_settings">Ajustes de la Aplicación</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">&lt;b&gt;%s&lt;/b&gt; permitido</string>
     <string name="panel_domain_forwarded_desc">Este dominio ha sido permitido. Para bloquearlo, utiliza el botón de abajo.</string>

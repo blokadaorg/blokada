@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s bloqueados</string>
     <string name="home_masterswitch_enabled">Blokada está activado</string>
     <string name="home_masterswitch_on">Toca para pausar</string>
+    <string name="home_masterswitch_waiting">Esperando red...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Cuéntale a tus amigos</string>
     <string name="home_share_state">Comparte tu puntuación de Blokada</string>
@@ -42,7 +43,7 @@
     <string name="home_connected_vpn">Conectado al VPN</string>
     <string name="home_boringtun_not_loaded">Lo sentimos, tu dispositivo no está soportado por el VPN de Blokada</string>
     <string name="home_blocka_vpn_error">No se pudo conectar a la puerta de enlace. ¿Estás online?</string>
-    <string name="home_account_error">No se pudo verificar la cuenta. ¿Estás online?</string>
+    <string name="home_account_error">No se pudo verificar la cuenta. ¿Tienes conexión?</string>
     <string name="home_permission_error">Por favor, concede el permiso de conexión VPN.</string>
     <string name="home_zero_filters_error">No tienes filtros configurados. Comprueba tu configuración de bloqueo de anuncios.</string>
     <string name="home_filters_memory_error">No se pudo cargar todos los filtros a la memoria. Comprueba tu configuración de bloqueo de anuncios.</string>
@@ -66,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Dispositivos</string>
     <string name="menu_vpn_manage_subscription">Gestiona la suscripción de tu cuenta</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Si tu cuenta es nueva, visita nuestra página web. No puedes comprar suscripción en Blokada Slim.</string>
     <string name="menu_vpn_account_secret">Tu ID de cuenta es secreto y deberías mantenerlo para ti mismo. Anótalo en caso de que desinstales la aplicación.</string>
     <string name="menu_vpn_restore_label">Aquí puedes restaurar tu cuenta existente si, por ejemplo, reinstalaste la aplicación.</string>
     <string name="menu_vpn_intro">Con un VPN tus datos son encriptados, tu dirección IP se oculta y tu ubicación se cambia.</string>

@@ -6,6 +6,7 @@
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
     <string name="tunnel_config_refetch_now_title">Pobierz listy</string>
     <string name="tunnel_config_refetch_now">Pobierz listy teraz</string>
+    <string name="tunnel_config_refetch_toast">Rozpoczęto pobieranie list</string>
     <string name="tunnel_config_refetch_now_description">Użyj poniższego przycisku aby usunąć cache i pobrać listy ponownie. To może pomóc jeśli doświadczasz problemów z filtrowaniem.</string>
     <string name="tunnel_config_refetch_frequency_title">Częstotliwość pobierania list</string>
     <string name="tunnel_config_refetch_frequency_description">Wybierz jedną z opcji aby skonfigurować jak często aplikacja powinna pobierać Twoje listy.</string>

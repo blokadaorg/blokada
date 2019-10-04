@@ -18,8 +18,14 @@
     <string name="notification_keepalive_text">Aktiv halten</string>
     <string name="notification_keepalive_description">Aktiviere diese Einstellung, wenn du Probleme hast, dass Blokada nicht aktiv bleibt. Die App aktiviert eine dauerhafte Benachrichtigung, um zu verhindern, dass Blokada vom Betriebssystem gestoppt wird.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
-    <string name="notification_keepalive_title_new">Aktiv halten (zum Verstecken tippen)</string>
+    <string name="notification_keepalive_title_new">Aktiv halten (zum Verstecken deaktivieren)</string>
     <string name="notification_keepalive_text_new">Damit die App aktiv bleiben kann, muss Android eine Benachrichtigung anzeigen. Du kannst diese aber in den Systemeinstellungen deaktivieren.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d blockiert</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Zuletzt: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">Überwachung</string>
     <string name="notification_keepalive_activate">Aktivieren</string>
     <string name="notification_keepalive_activating">Blokada wird aktiviert. Das kann einen Moment dauern.</string>
     <string name="notification_keepalive_deactivate">Deaktivieren</string>

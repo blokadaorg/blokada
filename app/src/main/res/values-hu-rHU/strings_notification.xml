@@ -20,6 +20,12 @@
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Életben tart (koppints az elrejtéshez)</string>
     <string name="notification_keepalive_text_new">Az Androidnak az értesítés megjelenítéséhez az alkalmazás folyamatos futtatása szükséges, de szabadon letilthatod ezt a rendszerbeállításokban.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d blokkolva</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Utolsó: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">figyelés</string>
     <string name="notification_keepalive_activate">Aktiválás</string>
     <string name="notification_keepalive_activating">A Blokada elindításra került. Néhány pillanatig eltarthat.</string>
     <string name="notification_keepalive_deactivate">Deaktiválás</string>

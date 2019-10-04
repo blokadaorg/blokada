@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s zablokováno</string>
     <string name="home_masterswitch_enabled">Blokada je zapnutá</string>
     <string name="home_masterswitch_on">Pozastavit blokování reklam</string>
+    <string name="home_masterswitch_waiting">Čekání na síť...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Řekněte o tom svým přátelům</string>
     <string name="home_share_state">Sdílejte své Blokada skóre</string>
@@ -66,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Zařízení</string>
     <string name="menu_vpn_manage_subscription">Správa předplatného vašeho účtu</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Pokud je váš účet nový, navštivte naše webové stránky. V Blokada Slim nelze předplatné zakoupit.</string>
     <string name="menu_vpn_account_secret">Vaše ID účtu je tajné a měli byste si ho nechat pouze pro sebe. Zapište si ho v případě, že chcete aplikaci odinstalovat.</string>
     <string name="menu_vpn_restore_label">Zde můžete obnovit váš existující účet, například, pokud jste aplikaci znovu nainstalovali.</string>
     <string name="menu_vpn_intro">S pomocí VPN jsou vaše data šifrována, vaše IP adresa bude skryta a vaše poloha se změní.</string>

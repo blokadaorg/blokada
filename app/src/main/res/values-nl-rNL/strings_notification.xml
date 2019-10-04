@@ -20,6 +20,9 @@
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Actief houden (tik om te verbergen)</string>
     <string name="notification_keepalive_text_new">Android moet een melding tonen om de app actief te houden, maar je kan deze uitschakelen in systeeminstellingen.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_activate">Activeren</string>
     <string name="notification_keepalive_activating">Blokada begint. Dit kan even duren.</string>
     <string name="notification_keepalive_deactivate">Deactiveren</string>

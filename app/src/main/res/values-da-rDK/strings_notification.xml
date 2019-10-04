@@ -15,6 +15,9 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Hold i live</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_activate">Aktiver</string>
     <string name="notification_keepalive_activating">Blokada starter. Dette kan tage et øjeblik.</string>
     <string name="notification_keepalive_deactivate">Deaktiver</string>

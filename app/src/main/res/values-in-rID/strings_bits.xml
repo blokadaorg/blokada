@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s diblokir</string>
     <string name="home_masterswitch_enabled">Blokada aktif</string>
     <string name="home_masterswitch_on">Tekan untuk menghentikan sementara</string>
+    <string name="home_masterswitch_waiting">Menunggu jaringan...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Beri tahu teman-teman Anda</string>
     <string name="home_share_state">Bagikan skor Blokada Anda</string>
@@ -66,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Perangkat</string>
     <string name="menu_vpn_manage_subscription">Kelola akun berlangganan Anda di sini</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Jika akun Anda baru, silakan kunjungi situs kami. Anda tidak bisa berlangganan melalui Blokada Slim.</string>
     <string name="menu_vpn_account_secret">ID akun Anda bersifat rahasia dan Anda harus menjaganya. Catat detail akun agar memudahkan Anda ketika Anda menguninstal Blokada di kemudian hari.</string>
     <string name="menu_vpn_restore_label">Di sini Anda bisa memulihkan akun lama Anda, jika misalnya Anda menginstal Blokada kembali.</string>
     <string name="menu_vpn_intro">Ketika Anda menggunakan VPN, data Anda dienkripsi, alamat IP Anda disembunyikan, dan lokasi Anda dirubah.</string>

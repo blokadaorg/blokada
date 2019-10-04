@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s blockiert</string>
     <string name="home_masterswitch_enabled">Blokada ist an</string>
     <string name="home_masterswitch_on">Pausieren</string>
+    <string name="home_masterswitch_waiting">Warte auf Netzwerk...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Weiterempfehlen</string>
     <string name="home_share_state">Teile deinen Blokada-Score</string>
@@ -66,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Geräte</string>
     <string name="menu_vpn_manage_subscription">Abonnement für dein Konto verwalten</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Wenn dein Konto neu ist, besuche unsere Webseite. Du kannst kein Abonnement in Blokada Slim erwerben.</string>
     <string name="menu_vpn_account_secret">Deine Kontokennung ist geheim und du solltest sie für dich behalten. Schreib sie dir auf für den Fall, dass du die App deinstallierst.</string>
     <string name="menu_vpn_restore_label">Hier kannst du dein bestehendes Konto wiederherstellen, wenn du beispielsweise die App erneut installierst.</string>
     <string name="menu_vpn_intro">Mit VPN werden deine Daten verschlüsselt, deine IP-Adresse verborgen und dein Standort verändert.</string>

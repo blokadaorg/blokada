@@ -19,12 +19,15 @@
     <string name="home_requests_blocked">%s تَمَّ حَظْر</string>
     <string name="home_masterswitch_enabled">بلوكادا قيد التشغيل</string>
     <string name="home_masterswitch_on">إضغط للإيقاف المؤقَّت</string>
+    <string name="home_masterswitch_waiting">في انتظار الشبكة...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">أخبر أصدقائك</string>
     <string name="home_share_state">شارك نتيجتك في بلوكادا</string>
+    <string name="home_share_state_google">ساعد الآخرين في التعرُّف على بلوكادا</string>
+    <string name="home_share_msg_google">جرِّب Blokada Slim و حافظ على حماية خصوصيّتك ! احصل عليه من Google Play.</string>
     <string name="home_adblocking_enabled">حَظْر الإعلانات مُفَعَّل</string>
     <string name="home_adblocking_disabled">حَظْر الإعلانات مُعَطَّل</string>
-    <string name="home_blokadaorg">أنت تستخدم Blokada Slim</string>
+    <string name="home_blokadaorg">أنت تَستخدم Blokada Slim</string>
     <string name="home_blokadaorg_state">اضغط للحصول على النّسخة المفتوحة المصدر</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">ما الجديد؟</string>
@@ -40,8 +43,8 @@
     <string name="home_connected_vpn">مُتَّصِل بـ VPN</string>
     <string name="home_boringtun_not_loaded">عُذراً ، جهازك غير مُعتمد حاليّاً من Blokada VPN</string>
     <string name="home_blocka_vpn_error">لا يمكن الاتصال بالبوابة. هل أنت متّصل؟</string>
-    <string name="home_account_error">فشل التأكد مِن حسابك. هل أنت متصل؟</string>
-    <string name="home_permission_error">يرجى منح التصريحات للـ VPN.</string>
+    <string name="home_account_error">فشل التأكّد مِن حسابك. هل أنت متصل؟</string>
+    <string name="home_permission_error">يُرجى منْح التصريحات للـ VPN.</string>
     <string name="home_zero_filters_error">لا يوجد لديك فلاتر مُهيَّأة. تحقّق من إعدادات حَظْر الإعلانات.</string>
     <string name="home_filters_memory_error">لا يمكن تحميل جميع الفلاتر على الذاكرة. تحقّق من إعدادات حَظْر الإعلانات الخاصّة بك.</string>
     <string name="tasker_switch_label">انقر فوق أحد الخيارات لتهيئته لتشغيله (أو إيقاف تشغيله) للمُشغّل الخاصّ بك.</string>
@@ -64,6 +67,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">الأجهزة</string>
     <string name="menu_vpn_manage_subscription">إدارة اشتراك حسابك</string>
+    <string name="menu_vpn_manage_subscription_unavailable">إذا كان حسابك جديداً ، فتفضل بزيارة موقعنا. لا يُمكِنك شراء اشتراك في Blokada Slim.</string>
     <string name="menu_vpn_account_secret">مُعرِّف حسابك سرّي و يجب عليك الإحتفاظ به لنفسك. قُم بكتابته في حال قمت بإلغاء تثبيت التطبيق.</string>
     <string name="menu_vpn_restore_label">هنا يمكنك إستعادة حسابك الحالي ، على سبيل المثال ، إذا قمت بإعادة تثبيت التطبيق.</string>
     <string name="menu_vpn_intro">مع VPN تكون بياناتك مشفَّرة ، يَتمّ إخفاء عنوان الـ IP الخاصّ بك ، و يَتمّ تغيير موقعك.</string>
@@ -75,6 +79,7 @@
     <string name="menu_apps_intro">بعض التطبيقات قد لا تعمل بشكل صحيح مع بلوكادا. على سبيل المثال ، قد يكون لديهم مشكلة في الإتصال.\n\nتنشيط VPN غالباً ما يساعد في تلك الحالات.\n\nخلاف ذلك ، يُمكِنك جعل هذه التطبيقات تتجاوز مراقبة بلوكادا تماماً. تَذكَّر أنّ التطبيقات التي تمّ تجاوزها تتواصل خارج VPN.</string>
     <string name="menu_apps_system_label">تطبيقات النظام هي التطبيقات التي تأتي مثبّتة مُسبقاً على جهازك. بعضها مخفي. قُم بتعديلها فقط إذا كنت على علمٍ بما تفعله.</string>
     <string name="menu_host_list_intro">تحتوي قوائم المُستضيفين على قواعد لحظر الإعلانات و التعقُّب. حاول إبقاء عدد القوائم النَشِطة منخفض.</string>
+    <string name="menu_host_adblocking_settings">إعدادات مانِع الاعلانات</string>
     <string name="menu_host_list_status">حالة القائمة</string>
     <string name="menu_host_list_download">إعدادات تحميل القائمة</string>
     <string name="menu_host_whitelist">لن يَتمّ حظر المُستضيفين الذين تضيفهم هنا. إستخدِم هذه القائمة عندما ، على سبيل المثال ، قد يَتمّ حَظْر موقع الويب الذي تزوره عن طريق الخطأ.</string>

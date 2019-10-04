@@ -18,10 +18,19 @@
     <string name="panel_section_apps_all">Zainstalowane aplikacje</string>
     <string name="panel_section_apps_system">Aplikacje systemowe</string>
     <string name="panel_section_advanced_settings">Ustawienia</string>
+    <string name="panel_section_app_settings">Ustawienia aplikacji</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Zezwolono &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_forwarded_desc">Ta domena została zaakceptowana. Aby ją zablokować, użyj przycisku poniżej.</string>
+    <string name="panel_domain_forwarded_toast">Dodano do whitelisty.</string>
     <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked">Zablokowano &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_desc">Ta domena została zablokowana. Aby ją zaakceptować w przyszłości, kliknij przycisk poniżej.</string>
+    <string name="panel_domain_blocked_toast">Dodano do czarnej listy.</string>
+    <string name="panel_ruleset">Filter liczników</string>
+    <string name="panel_ruleset_title">Filtry mają teraz zasady %s.</string>
     <string name="panel_ruleset_updating">Aktualizuję filtry...</string>
+    <string name="panel_ruleset_built">Filtry zostały teraz skonfigurowane z zasadami &lt;b&gt;%s&lt;/b&gt;. Aż zasady do &lt;b&gt;%s&lt;/b&gt; może zmieścić się w ogólnej pamięci urządzenia. Pamiętaj, że jest to tylko szacunek i może ulec zmianie w zależności od innych aplikacji na twoim urządzeniu, więc powinieneś być znacznie poniżej tego limitu, aby być bezpiecznym.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Zezwól</string>
     <!-- Button to block allowed domain -->
@@ -34,6 +43,13 @@
     <!-- A state for switches (like notifications: off) -->
     <string name="slot_switch_off">Nie</string>
     <!-- An action to toggle a switch -->
+    <string name="slot_intro_new">Jak używać nowego interfejsu? Kliknij tutaj dla intra.</string>
+    <string name="slot_intro_new_header">Jak używać nowego interfejsu?</string>
+    <string name="slot_intro_desc">Aktualnie znajdujesz się w sekcji Strona główna, a więcej, jeśli przeciągniesz w prawo. Każdy z nich ma własne dolne menu - otwórz je, przesuwając palcem w górę.&lt;br/&gt;&lt;br/&gt; Na Android TV nawiguj po interfejsie użytkownika za pomocą panelu dotykowego. Użyj środkowego klawisza, aby otworzyć dolne menu lub dowolny wybrany element. Przyciski są oznaczone strzałkami w górę, w dół, w lewo lub w prawo - użyj klawiszy kierunkowych, aby je kliknąć.</string>
+    <string name="slot_intro_info">Psst... Kilka przedmiotów ma znak zapytania na ikonie. Klikając w nie zostanie wyświetlona krótka pomoc, jak ta!</string>
+    <string name="slot_new_filter">Dodano nowego hosta do listy zablokowanej</string>
+    <string name="slot_new_filter_list">Dodano nowego hosta do listy</string>
+    <string name="slot_new_filter_whitelist">Dodano nowego hosta do dozwolonej listy</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">nie ustawiono</string>
     <!-- A state of input form when correct input is entered  -->
@@ -42,30 +58,150 @@
     <string name="slot_invalid">niepoprawne</string>
     <string name="slot_continue">Kontynuuj</string>
     <string name="slot_enter_domain_title">Domena/y</string>
+    <string name="slot_enter_domain_desc">Wprowadź domeny oddzielając je przecinkiem. Możesz też wkleić link do dowolnej listy hosta, lub importować plik lokalnej listy hosta.</string>
+    <string name="slot_enter_domain_error">To mi nie wygląda dobrze.</string>
     <string name="slot_enter_domain_file">Plik</string>
     <string name="slot_enter_domain_no_file">Nie znaleziono plików w /Download/blokada/filters</string>
     <string name="slot_enter_file_titel">Nazwa pliku</string>
     <string name="slot_enter_file_import">Importuj</string>
+    <string name="slot_enter_file_desc">Importuj częściową nazwę pliku</string>
+    <string name="slot_enter_file_not_found">Brak nazwy pliku zawierającej dane wejściowe</string>
+    <string name="slot_enter_file_multi">Kilka plików mają takie dane</string>
     <string name="slot_enter_name_title">Nazwa</string>
+    <string name="slot_enter_name_desc">Wpisz nazwę dla nowego wejścia. Możesz również wygenerować sugerowaną nazwę.</string>
+    <string name="slot_enter_name_error">To mi nie wygląda dobrze.</string>
+    <string name="slot_enter_name_generate">Generuj</string>
+    <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; jest na białej liście</string>
+    <string name="slot_app_desc">Ta aplikacja znajduje się na białej liście, co oznacza, że nie jest w niej blokowane ani filtrowane.</string>
+    <string name="slot_allapp_desc">Możesz sprawić, by ta aplikacja omijała Blokada, aby przestać blokować dla niej ruch. Pamiętaj, że pominięte aplikacje komunikują się poza VPN.</string>
+    <string name="slot_allapp_whitelisted">Pominięte</string>
+    <string name="slot_allapp_normal">Nie pominięte</string>
+    <string name="slot_allapp_whitelist">Pomiń</string>
+    <string name="slot_dns_name">Niestandardowy DNS jest aktywny</string>
+    <string name="slot_dns_name_disabled">Niestandardowy DNS jest nieaktywny</string>
+    <string name="slot_action_none">Ta akcja nie jest jeszcze dostępna.</string>
     <string name="slot_action_unwhitelist">Anuluj</string>
+    <string name="slot_action_author">Więcej</string>
     <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">Wejscie</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">Wejście dla %s</string>
+    <string name="slot_dns_control_title">Lista serwerów DNS</string>
+    <string name="slot_dns_control_description">Możesz zsynchronizować listę serwerów DNS z naszymi serwerami bez utraty własnych wpisów.&lt;br/&gt;&lt;br/&gt; Możesz też usunąć wszystkie wpisy (w tym swoje) i pobrać je ponownie.</string>
     <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_refresh">Synchronizacja</string>
+    <string name="slot_action_refresh_toast">Synchronizacja rozpoczęta</string>
+    <string name="slot_action_restore">Upuść</string>
+    <string name="slot_export_title">Ustawienia lokalizacji</string>
+    <string name="slot_export_description">Możesz zmienić miejsce, w którym konfiguracja jest zapisywana (i ładowana). Jeśli importujesz istniejące ustawienia, najpierw wybierz opcję Importuj, w przeciwnym razie zostaną one zastąpione.</string>
     <string name="slot_action_import">Importuj</string>
+    <string name="slot_action_internal">Pamięć wewnętrzna</string>
+    <string name="slot_action_external">Pamięć zewnętrzna</string>
+    <string name="slot_filters_title">Lista filtrów</string>
+    <string name="slot_filters_description">Możesz zsynchronizować listę filtrów z naszymi serwerami bez utraty własnych wpisów. &lt;br/&gt;&lt;br/&gt; Możesz też usunąć wszystkie wpisy (w tym swoje) i pobrać je ponownie.</string>
+    <string name="slot_blocked_title">Domena zablokowana</string>
+    <string name="slot_forwarded_title">Domena przekazana</string>
+    <string name="slot_whitelist_title">Aplikacja na białej liście</string>
+    <string name="slot_list_no_desc">Ten wpis nie ma żadnego opisu.</string>
+    <string name="slot_status_info">Gdy aplikacja jest aktywna, zobaczysz ikonę klucza na pasku powiadomień u góry ekranu, co oznacza, że Twoje urządzenie jest chronione. Możesz wyłączyć aplikację za pomocą przycisku poniżej lub przesuwając w dół dolne menu.</string>
+    <string name="slot_action_deactivate">Wyłącz</string>
+    <string name="slot_action_activate">Włącz</string>
+    <string name="slot_update_action_refresh">Sprawdź ponownie</string>
+    <string name="slot_telegram_title">Dołącz do nas na Telegramie!</string>
+    <string name="slot_telegram_desc">Odwiedź nasz kanał Telegram, aby uzyskać pomoc lub po prostu być częścią naszej społeczności.</string>
+    <string name="slot_telegram_action">Otwórz</string>
+    <string name="slot_dropped_share_title">Udostępnij</string>
+    <string name="slot_adblocking_label">Blokowanie reklam &amp; trackerów</string>
+    <string name="slot_adblocking_text">Po włączeniu Blokada będzie blokować reklamy, moduły śledzące i inne niechciane treści. Pomaga to chronić Twoją prywatność, przyspieszyć urządzenie i zaoszczędzić dane.</string>
+    <string name="slot_account_label_active">Konto ważne do %s</string>
+    <string name="slot_account_label_inactive">Konto nieaktywne</string>
     <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">Zarządzaj</string>
+    <string name="slot_account_action_manage_inactive">Aktywuj konto</string>
+    <string name="slot_account_action_change_id">Przywróć konto</string>
+    <string name="slot_account_show">ID konta</string>
+    <string name="slot_account_action_copied">Skopiowano URL do schowka</string>
+    <string name="slot_account_action_unavailable">[nieustawione]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
+    <string name="slot_gateway_label">Połącz z %s</string>
+    <string name="slot_gateway_label_overloaded">[Full] Połącz z %s</string>
+    <string name="slot_gateway_description">Wydajność: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_description_current">Wydajność: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;To jest twoja aktualnie wybrana brama.</string>
+    <string name="slot_gateway_overloaded">Ta brama jest zajęta i nie przyjmuje nowych połączeń.</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Kontroluj, które urządzenia łączą się z VPN.</string>
+    <string name="slot_lease_name_current">%s (to urządzenie)</string>
+    <string name="slot_lease_description">ID urządzenia: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">ID urządzenia: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;To jest twoje aktualne urządzenie.</string>
     <!-- Gateway load -->
+    <string name="slot_gateway_load_low">wysokie</string>
     <!-- Gateway load -->
+    <string name="slot_gateway_load_high">niska</string>
+    <string name="subscription_success">Twoje konto jest aktywowane. Może to potrwać kilka sekund. Dziękuję!</string>
+    <string name="slot_protection_header">Status Blokady</string>
+    <string name="slot_protection_off">Blokada jest nieaktywna</string>
+    <string name="slot_protection_off_desc">Twoje urządzenie nie jest chronione.</string>
+    <string name="slot_protection_error">Blokada jest tymczasowo nieaktywna</string>
+    <string name="slot_protection_error_desc">Może to być spowodowane tymczasowymi problemami z siecią, urządzeniami lub oprogramowaniem. Blokada wkrótce włączy się automatycznie, ale możesz też spróbować włączyć aplikację ponownie lub ponownie uruchomić telefon. Jeśli nadal masz problemy, skontaktuj się z nami przez Telegram w celu uzyskania pomocy.</string>
+    <string name="slot_protection_disconnected">Twoje urządzenie jest offline</string>
+    <string name="slot_protection_disconnected_desc">Blokada została spauzowana ponieważ twoje urządzenie straciło łącze internetowe. Blokada automatycznie włączy się ponownie po połączeniu z siecią.</string>
+    <string name="slot_protection_activating">Blokada jest uruchamiana</string>
+    <string name="slot_protection_active_warning">Blokada jest aktywna, ale konfiguracja nie może zostać poprawiona. Kliknij po więcej.</string>
+    <string name="slot_protection_active">Blokada i VPN są aktywne</string>
+    <string name="slot_protection_action">Ustawienia</string>
+    <string name="slot_protection_ok">Twoje urządzenie jest w pełni chronione! VPN oraz adblock jest aktywny.</string>
+    <string name="slot_protection_no_adblocking">Blokowqanie reklam &amp; trsckerów jest obecnie wyłączone. Włącz tę funkcję, aby chronić swoją prywatność i dane.</string>
+    <string name="slot_protection_no_vpn">Nie masz połączenia z Blokada VPN. Powinieneś to rozważyć, aby lepiej chronić swoją prywatność i bezpieczeństwo.</string>
+    <string name="slot_protection_no_start_on_boot">Blokada nie jest skonfigurowana do uruchamiania podczas rozruchu. Blokada powinna być zawsze włączona dla lepszej ochrony.</string>
+    <string name="slot_protection_no_battery_whitelist">Blokada nie jest zwolniona z optymalizacji baterii twojego urządzenia, więc może zostać zabita przez system. Powinieneś użyć swoich preferencji systemowych do białej listy Blokada, aby mogła pozostać włączona i chronić twoje urządzenie.</string>
+    <string name="slot_protection_description">Aby skonfigurować ustawienia, otwórz dolne menu.</string>
+    <string name="slot_start_on_boot_description">Włączenie startu przy rozruchu pozwala Blokadzie być aktywnym przez cały czas i chronić twoje urządzenie.</string>
+    <string name="slot_recommended_dns_label">Użyj zalecanych serwerów DNS</string>
+    <string name="slot_recommended_dns_description">Po włączeniu, Blokada automatycznie wybierze zalecane serwery DNS, aby przyspieszyć Internet i chronić prywatność. W przeciwnym razie używane są domyślne serwery DNS twojej sieci. Jeśli ręcznie wybierzesz serwery DNS w sekcji Zaawansowane, to ustawienie zostanie zignorowane.</string>
+    <string name="slot_update_no_updates">Blokada jest zaktualizowana</string>
+    <string name="slot_about">O aplikacji</string>
     <!-- A button to share debug log. Keep it short. -->
+    <string name="slot_about_share_log">Log</string>
+    <string name="slot_help_label">Potrzebujesz pomocy?</string>
+    <string name="slot_help_desc">Naciśnij przycisk poniżej, aby otworzyć naszą stronę pomocy. Możesz również skorzystać z naszych mediów społecznościowych, aby uzyskać pomoc - jesteśmy na Telegram, Facebook, Reddit i Twitterze.</string>
     <!-- A button to open help -->
+    <string name="slot_help_action">Pomoc</string>
+    <string name="slot_donate_label">Podoba ci się Blokada? Zastanów się, czy nas wesprzeć, abyśmy mogli ulepszać aplikację.</string>
+    <string name="slot_donate_desc">Pomóż nam wprowadzić nowe funkcje! Dotknij tutaj, aby uzyskać więcej.</string>
     <!-- A button to donate -->
+    <string name="slot_donate_action">Zasponsoruj</string>
+    <string name="slot_cta_label">Psst! Chcielibyśmy poznać Twoją opinię.</string>
+    <string name="slot_cta_desc">Pokaż swoje wsparcie, biorąc udział w naszych ankietach i innych wydarzeniach. Regularnie zwracamy się do naszej społeczności o opinie na temat pomysłów i nowych rozwiązań, aby upewnić się, że pracujemy nad tym, co chcesz zobaczyć.</string>
     <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">Otwórz</string>
+    <string name="slot_blog_label">Sprawdź nasz blog!</string>
+    <string name="slot_blog_desc">Blok to miejsce, w którym piszemy o rozwoju projektu, planach na przyszłość i omawiamy pomysły.</string>
     <!-- A button to open a blog -->
+    <string name="slot_blog_action">Otwórz</string>
+    <string name="slot_updated_desc">Kliknij tutaj, aby uzyskać wprowadzenie do tego wydania.</string>
     <!-- A button to open a description website of current app version after update. -->
+    <string name="slot_obsolete_desc">Twoja wersja Blokady jest przestarzała i może nie działać poprawnie. Pobierz najnowszą wersję, aby nadal otrzymywać aktualizacje.</string>
     <!-- A button to update the app. -->
+    <string name="slot_cleanup_desc">Wygląda na to, że na twoim urządzeniu zainstalowanych jest wiele wersji Blokady. Czy chcesz usunąć pozostałe wersje i zachować tylko jedną?</string>
+    <string name="account_inactive">Twoja Blokada VPN wygasła. Nie masz połączenia z VPN.</string>
+    <string name="slot_lease_cant_connect">Nie można połączyć się z Blokada VPN. Spróbuj wybrać inną bramę.</string>
+    <string name="slot_account_cant_create">Nie można utworzyć konta Blokada VPN. Spróbuj ponownie później lub skontaktuj się z nami przez Telegram.</string>
+    <string name="slot_account_name_title">ID konta</string>
+    <string name="slot_account_name_desc">Wprowadź stary identyfikator konta, aby przywrócić poprzednią subskrypcję. Przed zrobieniem tego możesz zapisać swój bieżący identyfikator konta, na wypadek pomyłki.</string>
+    <string name="slot_account_name_error">Identyfikator konta może zawierać tylko litery i cyfry.</string>
+    <string name="slot_account_name_api_error">Ten identyfikator konta wydaje się nieprawidłowy.</string>
+    <string name="slot_account_name_restore">Odzyskaj</string>
+    <!-- A section in advanced settings. -->
+    <string name="label_basic">Ustawienia podstawowe</string>
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
-    <!-- A section in advanced settings. -->
+    <string name="label_advanced">Ustawienia zaawansowane</string>
+    <string name="slot_whitelist_updating">Aktualizowanie konfiguracji, proszę czekać...</string>
+    <string name="slot_too_many_leases">Proszę usunąć stare urządzenie z twojej listy urządzeń.</string>
+    <string name="slot_background_animation">Animacja tła</string>
+    <string name="slot_background_animation_description">Po włączeniu fale będą animować za każdym razem, gdy żądanie DNS zostanie zablokowane lub dozwolone. Wyłącz, jeśli wystąpią spowolnienia.</string>
+    <string name="slot_reset_counter_label">Zresetuj licznik zablokowanych hostów</string>
+    <string name="slot_reset_counter_description">Ustawia licznik pokazując, ile żądań zostało zablokowanych z powrotem na 0.</string>
+    <string name="slot_reset_counter_action">Przywróć domyślne</string>
 </resources>

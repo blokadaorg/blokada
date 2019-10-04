@@ -18,6 +18,7 @@
     <string name="panel_section_apps_all">已安裝的應用程式</string>
     <string name="panel_section_apps_system">系統應用程式</string>
     <string name="panel_section_advanced_settings">設定</string>
+    <string name="panel_section_app_settings">應用程式設定</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">已允許 &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">已允許此網域。若要封鎖，請使用下方的按鈕。</string>
