@@ -40,7 +40,7 @@ internal class TunnelManager(
 
         when {
             proposed == state -> {
-                v("tunnel already in proposed state, doing nothing")
+                v("tunnel already in proposed state, doing nothing", proposed)
             }
             proposed.dnsServers.isEmpty() -> {
                 v("no DNS servers set, turning off VPN tunnel (if it was on)")

@@ -49,7 +49,6 @@ internal class BlockaTunnel(
 
     private var tunnel: Long? = null
     private val op = ByteBuffer.allocateDirect(8)
-    private val empty = ByteArray(1)
 
     private val MAX_ERRORS = 50
     private val ERRORS_RESET_AFTER_TICKS = 60 /* 60 * 500 = 30 seconds */
@@ -80,31 +79,28 @@ internal class BlockaTunnel(
     fun fromDevice(fromDevice: ByteArray, length: Int) {
         if (adblocking && tunnelFiltering.handleFromDevice(fromDevice, length)) return
 
-        var i = 0
-        do {
-            op.rewind()
-            val destination = buffer
-            destination.rewind()
-            destination.limit(destination.capacity())
-            val source = if (i++ == 0) fromDevice else empty
-            val response = BoringTunJNI.wireguard_write(tunnel!!, source, length, destination,
-                    destination.capacity(), op)
-            destination.limit(response)
-            when (op[0].toInt()) {
-                BoringTunJNI.WRITE_TO_NETWORK -> {
-                    forward()
-                }
-                BoringTunJNI.WIREGUARD_ERROR -> {
-                    errorOccurred("wireguard error: ${BoringTunJNI.errors[response]}")
-                }
-                BoringTunJNI.WIREGUARD_DONE -> {
-                    if (i == 1) e("packet dropped, length: $length")
-                }
-                else -> {
-                    errorOccurred("wireguard write unknown response: ${op[0].toInt()}")
-                }
+        op.rewind()
+        val destination = buffer
+        destination.rewind()
+        destination.limit(destination.capacity())
+        val response = BoringTunJNI.wireguard_write(tunnel!!, fromDevice, length, destination,
+                destination.capacity(), op)
+        destination.limit(response)
+        val opCode = op[0].toInt()
+        when (opCode) {
+            BoringTunJNI.WRITE_TO_NETWORK -> {
+                forward()
             }
-        } while (response == BoringTunJNI.WRITE_TO_NETWORK)
+            BoringTunJNI.WIREGUARD_ERROR -> {
+                errorOccurred("wireguard error: ${BoringTunJNI.errors[response]}")
+            }
+            BoringTunJNI.WIREGUARD_DONE -> {
+                e("packet dropped, length: $length")
+            }
+            else -> {
+                errorOccurred("wireguard write unknown response: $opCode")
+            }
+        }
     }
 
     fun toDevice(source: ByteArray, length: Int) {
@@ -114,11 +110,11 @@ internal class BlockaTunnel(
             val destination = buffer
             destination.rewind()
             destination.limit(destination.capacity())
-            val source = if (i++ == 0) source else empty
-            val response = BoringTunJNI.wireguard_read(tunnel!!, source, length, destination,
-                    destination.capacity(), op)
+            val response = BoringTunJNI.wireguard_read(tunnel!!, source, if (i++ == 0) length else 0,
+                    destination, destination.capacity(), op)
             destination.limit(response) // TODO: what if -1
-            when (op[0].toInt()) {
+            val opCode = op[0].toInt()
+            when (opCode) {
                 BoringTunJNI.WRITE_TO_NETWORK -> {
                     forward()
                 }
@@ -129,15 +125,15 @@ internal class BlockaTunnel(
                     if (i == 1) e("read: packet dropped, length: $length")
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV4 -> {
-                    if (adblocking && tunnelFiltering.handleToDevice(destination, length)) {}
+                    if (adblocking) tunnelFiltering.handleToDevice(destination, length)
                     loopback()
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV6 -> loopback()
                 else -> {
-                    errorOccurred("read: wireguard unknown response: ${op[0].toInt()}")
+                    errorOccurred("read: wireguard unknown response: $opCode")
                 }
             }
-        } while (response == BoringTunJNI.WRITE_TO_NETWORK)
+        } while (opCode == BoringTunJNI.WRITE_TO_NETWORK)
     }
 
     private fun createTunnel() {
@@ -337,7 +333,8 @@ internal class BlockaTunnel(
         destination.limit(destination.capacity())
         val response = BoringTunJNI.wireguard_tick(tunnel!!, destination, destination.capacity(), op)
         destination.limit(response)
-        when (op[0].toInt()) {
+        val opCode = op[0].toInt()
+        when (opCode) {
             BoringTunJNI.WRITE_TO_NETWORK -> {
                 forward()
             }
@@ -347,7 +344,7 @@ internal class BlockaTunnel(
             BoringTunJNI.WIREGUARD_DONE -> {
             }
             else -> {
-                errorOccurred("tick: wireguard timer unknown response: ${op[0].toInt()}")
+                errorOccurred("tick: wireguard timer unknown response: $opCode")
             }
         }
     }
