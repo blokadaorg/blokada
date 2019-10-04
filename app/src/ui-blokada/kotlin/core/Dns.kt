@@ -24,30 +24,6 @@ fun newDnsModule(ctx: Context): Kodein.Module {
         bind<DnsLocalisedFetcher>() with singleton {
             DnsLocalisedFetcher(xx = lazy)
         }
-        onReady {
-            val s: Tunnel = instance()
-
-            // Reload engine in case dns selection changes
-            val dns: Dns = instance()
-            var currentDns: DnsChoice? = null
-            dns.choices.doWhenSet().then {
-                val newChoice = dns.choices().firstOrNull { it.active }
-                if (newChoice != null && newChoice != currentDns) {
-                    currentDns = newChoice
-
-                    if (!s.enabled()) {
-                    } else if (s.active()) {
-                        s.restart %= true
-                        s.active %= false
-                    } else {
-                        s.retries.refresh()
-                        s.restart %= false
-                        s.active %= true
-                    }
-                }
-            }
-
-        }
     }
 }
 

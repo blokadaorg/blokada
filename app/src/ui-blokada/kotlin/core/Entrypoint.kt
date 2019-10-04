@@ -48,6 +48,7 @@ class Entrypoint {
                     e("failed syncing after recent changes", ex)
                 }
                 tunnelState.tunnelState %= if (tunnelState.enabled()) TunnelState.ACTIVE else TunnelState.DEACTIVATED
+                tunnelState.active %= device.connected()
                 syncBlocka = false
                 forceSyncBlocka = false
             }
@@ -86,7 +87,6 @@ class Entrypoint {
             }
         } else {
             tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
-            tunnelState.active %= true
             requestSync(blocka = true)
         }
     }
