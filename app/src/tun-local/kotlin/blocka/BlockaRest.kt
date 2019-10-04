@@ -9,6 +9,7 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import core.ProductType
+import core.getActiveContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.blokada.BuildConfig
@@ -110,8 +111,8 @@ object BlockaRestModel {
     class TooManyDevicesException : Exception()
 }
 
-fun blokadaUserAgent(ctx: Context, viewer: Boolean? = null)
-    = "blokada/%s (android-%s %s %s %s %s-%s %s %s)".format(
+fun blokadaUserAgent(ctx: Context = getActiveContext()!!, viewer: Boolean? = null)
+    = "blokada/%s (android-%s %s %s %s %s-%s %s %s %s)".format(
         BuildConfig.VERSION_NAME,
         Build.VERSION.SDK_INT,
         BuildConfig.FLAVOR,
@@ -121,7 +122,8 @@ fun blokadaUserAgent(ctx: Context, viewer: Boolean? = null)
         Build.DEVICE,
         if (ctx.packageManager.hasSystemFeature("android.hardware.touchscreen"))
             "touch" else "donttouch",
-        if (viewer == true) "chrometab" else if (viewer == false) "webview" else "api"
+        if (viewer == true) "chrometab" else if (viewer == false) "webview" else "api",
+        if (BoringtunLoader.supported) "compatible" else "incompatible"
 )
 
 fun newRestApiModule(ctx: Context): Kodein.Module {

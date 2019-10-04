@@ -12,17 +12,9 @@ internal class AccountManager(
     private var lastAccountRequest = 0L
 
     fun sync(force: Boolean) {
+        ensureAccount()
+        ensureKeypair()
         when {
-            state.id.isBlank() -> {
-                // New account
-                val id = newAccountRequest()
-                if (id?.isBlank() != false) throw Exception("failed to request new account")
-                state = state.copy(
-                        id = id,
-                        accountOk = false,
-                        lastAccountCheck = System.currentTimeMillis()
-                )
-            }
             !force && lastAccountRequest + 3600 * 1000 > System.currentTimeMillis() -> {
                 v("skipping account request, done one recently")
             }
@@ -52,7 +44,20 @@ internal class AccountManager(
         )
     }
 
-    fun ensureKeypair() {
+    private fun ensureAccount() {
+        if (state.id.isBlank()) {
+            // New account
+            val id = newAccountRequest()
+            if (id?.isBlank() != false) throw Exception("failed to request new account")
+            state = state.copy(
+                    id = id,
+                    accountOk = false,
+                    lastAccountCheck = System.currentTimeMillis()
+            )
+        }
+    }
+
+    private fun ensureKeypair() {
         if (state.publicKey.isNotBlank() and state.privateKey.isNotBlank()) return
         val (private, public) = generateKeypair()
         state = state.copy(

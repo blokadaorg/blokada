@@ -9,7 +9,6 @@ import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import blocka.blokadaUserAgent
 import blocka.newRestApiModule
 import buildtype.newBuildTypeModule
 import com.github.salomonbrys.kodein.Kodein
@@ -65,7 +64,6 @@ class MainApplication: Application(), KodeinAware {
         defaultWriter.ctx = this
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
-        ktx.v(blokadaUserAgent(this))
         setRestartAppOnCrash()
     }
 

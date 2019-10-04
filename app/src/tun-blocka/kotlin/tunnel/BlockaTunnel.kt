@@ -98,7 +98,7 @@ internal class BlockaTunnel(
                     errorOccurred("wireguard error: ${BoringTunJNI.errors[response]}")
                 }
                 BoringTunJNI.WIREGUARD_DONE -> {
-                    if (i == 1) e("did not do anything with packet, length: $length")
+                    if (i == 1) e("packet dropped, length: $length")
                 }
                 else -> {
                     errorOccurred("wireguard write unknown response: ${op[0].toInt()}")
@@ -126,7 +126,7 @@ internal class BlockaTunnel(
                     errorOccurred("read: wireguard error: ${BoringTunJNI.errors[response]}")
                 }
                 BoringTunJNI.WIREGUARD_DONE -> {
-                    if (i == 1) e("read: did not do anything with packet: ${length} ${destination.limit()} ${destination.position()}")
+                    if (i == 1) e("read: packet dropped, length: $length")
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV4 -> {
                     if (adblocking && tunnelFiltering.handleToDevice(destination, length)) {}

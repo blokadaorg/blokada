@@ -1,7 +1,6 @@
 package blocka
 
 import android.content.Intent
-import com.cloudflare.app.boringtun.BoringTunJNI
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.Register.set
@@ -42,20 +41,8 @@ class BlockaVpnMain {
                 getAccountRequest = { accountId ->
                     RetryingRetrofitHandler(restApi.getAccountInfo(accountId)).execute().account.activeUntil
                 },
-                generateKeypair = {
-                    boringtunLoader.loadBoringtunOnce()
-                    try {
-                        val secret = BoringTunJNI.x25519_secret_key()
-                        val public = BoringTunJNI.x25519_public_key(secret)
-                        val secretString = BoringTunJNI.x25519_key_to_base64(secret)
-                        val publicString = BoringTunJNI.x25519_key_to_base64(public)
-                        secretString to publicString
-                    } catch (ex: Exception) {
-                        throw BoringTunLoadException("failed generating user keys", ex)
-                    }
-                }
+                generateKeypair = boringtunLoader::generateKeypair
         )
-var i = 0
         leaseManager = LeaseManager(
                 state = get(CurrentLease::class.java),
                 getGatewaysRequest = {
@@ -112,16 +99,7 @@ var i = 0
 
     fun sync(showErrorToUser: Boolean = true) = async(context) {
         v(">> syncing")
-        try {
-            blockaVpnManager.enabled = get(BlockaVpnState::class.java).enabled
-            if (blockaVpnManager.enabled) {
-                boringtunLoader.loadBoringtunOnce()
-                blockaVpnManager.sync(force = true)
-            }
-        } catch (ex: Exception) {
-            e("failed syncing", ex)
-            if (showErrorToUser) handleException(ex)
-        }
+        syncAndHandleErrors(showErrorToUser)
         v("done syncing")
 
         set(CurrentAccount::class.java, accountManager.state)
@@ -132,21 +110,26 @@ var i = 0
     fun syncIfNeeded() = async(context) {
         v(">> syncing if needed")
         val needed = blockaVpnManager.shouldSync()
-        if (needed) {
-            try {
-                boringtunLoader.loadBoringtunOnce()
-                blockaVpnManager.sync()
-            } catch (ex: Exception) {
-                e("failed syncing", ex)
-                handleException(ex)
-            }
-        }
+        if (needed) syncAndHandleErrors(showErrorToUser = true)
         v("done syncing if needed")
 
         if (needed) {
             set(CurrentAccount::class.java, accountManager.state)
             set(CurrentLease::class.java, leaseManager.state)
             set(BlockaVpnState::class.java, BlockaVpnState(blockaVpnManager.enabled))
+        }
+    }
+
+    private fun syncAndHandleErrors(showErrorToUser: Boolean) {
+        try {
+            blockaVpnManager.enabled = get(BlockaVpnState::class.java).enabled
+            boringtunLoader.loadBoringtunOnce()
+            blockaVpnManager.sync(force = true)
+            boringtunLoader.throwIfBoringtunUnavailable()
+        } catch (ex: Exception) {
+            e("failed syncing", ex)
+            if (ex is BoringTunLoadException) blockaVpnManager.enabled = false
+            if (showErrorToUser) handleException(ex)
         }
     }
 
