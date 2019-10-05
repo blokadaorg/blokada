@@ -25,7 +25,7 @@ internal class BlockaVpnManager(
             //enabled = false
             when {
                 ex is BoringTunLoadException -> throw ex
-                accountManager.state.activeUntil.expired() -> throw BlockaAccountExpired()
+                accountManager.state.activeUntil.expired() && enabled -> throw BlockaAccountExpired()
                 ex is BlockaRestModel.TooManyDevicesException -> throw BlockaTooManyDevices()
                 ex is BlockaGatewayNotSelected -> throw ex
                 accountManager.state.id.isBlank() -> throw BlockaAccountEmpty()
