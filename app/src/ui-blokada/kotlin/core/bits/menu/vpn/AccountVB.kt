@@ -8,7 +8,6 @@ import core.bits.openWebContent
 import core.bits.pretty
 import gs.property.I18n
 import org.blokada.R
-import java.net.URL
 import java.util.*
 
 class AccountVB(
@@ -91,7 +90,7 @@ class SupportVB(
         view.label(R.string.menu_vpn_support_button.res())
         view.onTap {
             modal.openModal()
-            openWebContent(ktx.ctx, URL("https://app.blokada.org/support"))
+            openWebContent(ktx.ctx, getSupportUrl())
         }
     }
 }

@@ -15,6 +15,11 @@ fun getActivateUrl(): URL {
     return URL("https://app.blokada.org/activate/${cfg.id}")
 }
 
+fun getSupportUrl(): URL {
+    val cfg = get(CurrentAccount::class.java)
+    return URL("https://app.blokada.org/support?account-id=${cfg.id}")
+}
+
 class SubscriptionActivity : AbstractWebActivity() {
 
     private val ktx = ktx("SubsbcriptionActivity")
