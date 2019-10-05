@@ -99,12 +99,14 @@ class Service : VpnService() {
     }
 
     override fun onDestroy() {
+        v("VpnService destroyed")
         turnOff()
         binder?.onClose?.invoke(false)
         super.onDestroy()
     }
 
     override fun onRevoke() {
+        v("VpnService revoked")
         turnOff()
         binder?.onClose?.invoke(true)
         super.onRevoke()

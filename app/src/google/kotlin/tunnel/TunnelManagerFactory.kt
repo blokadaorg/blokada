@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import core.PanelActivity
+import core.v
 import org.blokada.R
 import java.net.DatagramSocket
 import java.util.*
@@ -20,6 +21,7 @@ internal class TunnelManagerFactory(
 
     fun create() = TunnelManager(
             onVpnClose = { rejected ->
+                v("received VpnService onClose", rejected)
                 tunnelState.tunnelPermission.refresh(blocking = true)
                 if (rejected) {
                     tunnelState.enabled %= false
