@@ -17,70 +17,97 @@ class ActiveDnsVB(
         private val ctx: Context = ktx.ctx,
         private val i18n: I18n = ktx.di().instance(),
         private val tunnelEvents: Tunnel = ktx.di().instance(),
+        private val tunnelStatus: EnabledStateActor = ktx.di().instance(),
         private val dns: Dns = ktx.di().instance()
 ) : ByteVB() {
 
     private var dnsServersChanged: IWhen? = null
     private var dnsEnabledChanged: IWhen? = null
+    private var active = false
+    private var activating = false
 
     override fun attach(view: ByteView) {
         dnsServersChanged = dns.dnsServers.doOnUiWhenSet().then(update)
         dnsEnabledChanged = dns.enabled.doOnUiWhenSet().then(update)
+        tunnelStatus.listeners.add(tunnelListener)
+        tunnelStatus.update(tunnelEvents)
         update()
     }
 
     override fun detach(view: ByteView) {
         dns.dnsServers.cancel(dnsServersChanged)
         dns.enabled.cancel(dnsEnabledChanged)
+        tunnelStatus.listeners.remove(tunnelListener)
     }
 
     private val update = {
         view?.run {
-            val item = if(tunnelEvents.enabled()) dns.choices().firstOrNull { it.active } else null
-            if (item != null) {
-                val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
-                val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
-
-                if (dns.enabled() && dns.hasCustomDnsSelected()) {
-                    setTexts(name)
-                } else {
+            when {
+                !tunnelEvents.enabled() -> {
                     setTexts(null)
-                }
-            } else {
-                setTexts(null)
-            }
-
-//            if (dns.enabled() && !dns.hasCustomDnsSelected()) {
-//                Handler {
-//                    ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-//                    true
-//                }.sendEmptyMessageDelayed(0, 300)
-//            }
-
-            onTap {
-                when {
-                    tunnelEvents.enabled() -> ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-                    !dns.hasCustomDnsSelected() -> ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-                    else -> {
-                        dns.enabled %= true
+                    switch(null)
+                    arrow(null)
+                    onTap {
                         tunnelEvents.enabled %= true
+                        onSwitch { enabled ->
+                            when {
+                                !dns.hasCustomDnsSelected() -> {
+                                    showSnack(R.string.menu_dns_select.res())
+                                    ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                                    switch(false)
+                                }
+                                else -> {
+                                    entrypoint.onSwitchDnsEnabled(enabled)
+                                }
+                            }
+                        }
                     }
                 }
-            }
-            switch(if (!tunnelEvents.enabled()) null else dns.enabled())
-            onSwitch { enabled ->
-                when {
-                    enabled && !dns.hasCustomDnsSelected() -> {
-                        showSnack(R.string.menu_dns_select.res())
+                activating || !active -> {
+                    icon(R.drawable.ic_show.res())
+                    label(R.string.home_activating.res())
+                    state(R.string.home_please_wait.res())
+                    switch(null)
+                    arrow(null)
+                    onTap { }
+                    onSwitch { }
+                }
+                !dns.enabled() || !dns.hasCustomDnsSelected() -> {
+                    setTexts(null)
+                    switch(false)
+                    arrow(null)
+                    onTap {
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-                        switch(false)
                     }
-                    else -> {
-                        entrypoint.onSwitchDnsEnabled(enabled)
+                    onSwitch { enabled ->
+                        when {
+                            !dns.hasCustomDnsSelected() -> {
+                                showSnack(R.string.menu_dns_select.res())
+                                ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                                switch(false)
+                            }
+                            else -> {
+                                entrypoint.onSwitchDnsEnabled(enabled)
+                            }
+                        }
+                    }
+                }
+                else -> {
+                    val item = dns.choices().first { it.active }
+                    val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
+                    val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
+
+                    setTexts(name)
+                    switch(true)
+                    arrow(null)
+                    onTap {
+                        ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                    }
+                    onSwitch {
+                        entrypoint.onSwitchAdblocking(it)
                     }
                 }
             }
-
         }
         Unit
     }
@@ -109,6 +136,33 @@ class ActiveDnsVB(
             }
         }
     }
+
+    private val tunnelListener = object : IEnabledStateActorListener {
+        override fun startActivating() {
+            activating = true
+            active = false
+            update()
+        }
+
+        override fun finishActivating() {
+            activating = false
+            active = true
+            update()
+        }
+
+        override fun startDeactivating() {
+            activating = true
+            active = false
+            update()
+        }
+
+        override fun finishDeactivating() {
+            activating = false
+            active = false
+            update()
+        }
+    }
+
 }
 
 class MenuActiveDnsVB(
