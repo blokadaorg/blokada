@@ -85,7 +85,6 @@ private fun createAccountMenu(ktx: AndroidKontext): NamedViewBinder {
                     CopyAccountVB(ktx),
                     LabelVB(ktx, label = R.string.menu_vpn_restore_label.res()),
                     RestoreAccountVB(ktx),
-                    LabelVB(ktx, label = R.string.menu_vpn_restore_label.res()),
                     LabelVB(ktx, label = R.string.menu_vpn_support_label.res()),
                     SupportVB(ktx)
             ),

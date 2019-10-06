@@ -1,6 +1,7 @@
 package core.bits.menu.vpn
 
 import android.content.Intent
+import blocka.BoringtunLoader
 import blocka.CurrentAccount
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -8,6 +9,7 @@ import core.bits.openWebContent
 import core.bits.pretty
 import gs.property.I18n
 import org.blokada.R
+import tunnel.showSnack
 import java.util.*
 
 class AccountVB(
@@ -20,8 +22,10 @@ class AccountVB(
         view.alternative(true)
         view.icon(R.drawable.ic_account_circle_black_24dp.res())
         view.onTap {
-            modal.openModal()
-            ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
+            if (BoringtunLoader.supported) {
+                modal.openModal()
+                ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
+            } else showSnack(R.string.home_boringtun_not_loaded)
         }
         on(CurrentAccount::class.java, this::update)
         update()

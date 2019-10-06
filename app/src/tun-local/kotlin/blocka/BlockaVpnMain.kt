@@ -128,8 +128,8 @@ class BlockaVpnMain {
             boringtunLoader.throwIfBoringtunUnavailable()
         } catch (ex: Exception) {
             e("failed syncing", ex)
-            if (ex is BoringTunLoadException) blockaVpnManager.enabled = false
             if (showErrorToUser) handleException(ex)
+            if (ex is BoringTunLoadException) blockaVpnManager.enabled = false
         }
     }
 
@@ -187,8 +187,8 @@ class BlockaVpnMain {
             blockaVpnManager.enabled = false
         }
         ex is BoringTunLoadException -> {
-            showSnack(R.string.home_boringtun_not_loaded.res())
-            blockaVpnManager.enabled = false
+            if (blockaVpnManager.enabled) showSnack(R.string.home_boringtun_not_loaded.res())
+            else Unit
         }
         ex is BlockaAccountEmpty -> {
             showSnack(R.string.slot_account_cant_create.res())

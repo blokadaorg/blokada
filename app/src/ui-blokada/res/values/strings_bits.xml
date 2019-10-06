@@ -50,7 +50,7 @@
     <!-- A short text for the button to change VPN settings -->
 
     <string name="home_connected_vpn">Connected to VPN</string>
-    <string name="home_boringtun_not_loaded">Sorry, your device is currently not supported by Blokada VPN</string>
+    <string name="home_boringtun_not_loaded">Sorry, your device is not supported by Blokada VPN. You can still use other features.</string>
     <string name="home_blocka_vpn_error">Could not connect to gateway. Are you online?</string>
     <string name="home_account_error">Could not verify account. Are you online?</string>
     <string name="home_permission_error">Please grant VPN permissions.</string>

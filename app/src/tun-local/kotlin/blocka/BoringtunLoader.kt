@@ -46,6 +46,7 @@ internal class BoringtunLoader {
             val publicString = BoringTunJNI.x25519_key_to_base64(public)
             secretString to publicString
         } catch (ex: Exception) {
+            supported = false
             throw BoringTunLoadException("failed generating user keys", ex)
         }
     }()
