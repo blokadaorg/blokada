@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">VPN ile verileriniz şifrelenir, IP adresiniz gizlenir ve konumunuz değiştirilir.</string>
     <string name="menu_vpn_account_label">VPN\'i kullanmak için aktif bir hesaba ihtiyacınız var. Burada hesabınızı kontrol edin veya geri yükleyin.</string>
     <string name="menu_vpn_gateways_label">Bağlanılacak ağ geçitlerinden birini seçin. Cihazınız şifrelenmiş verilerinizi bu ağ geçidi üzerinden güvenli bir şekilde gönderir ve siz de isimsiz kalırsınız.</string>
+    <string name="menu_vpn_support_label">Herhangi bir sorun yaşarsanız, bizimle iletişime geçmekten çekinmeyin.</string>
+    <string name="menu_vpn_support_button">Destek</string>
     <string name="menu_dns_recommended">Önerilen DNS sunucuları</string>
     <string name="menu_dns_intro">DNS, kullandığınız web sitelerinin ve uygulamaların IP adreslerini çevirmekten sorumludur. İyi bir DNS seçmek, cihazınızı hızlandırabilir ve gizliliğinizin korunmasına yardımcı olur.</string>
     <string name="menu_dns_select">DNS sunucularından birini seçin.</string>

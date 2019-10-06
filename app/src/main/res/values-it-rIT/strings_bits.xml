@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">Con una VPN i tuoi dati sono crittografati, il tuo indirizzo IP è nascosto e la tua geolocalizzazione è modificata.</string>
     <string name="menu_vpn_account_label">Per poter utilizzare la VPN, è necessario un account attivo. Controlla o ripristina il tuo account qui.</string>
     <string name="menu_vpn_gateways_label">Seleziona uno dei gateway a cui connetterti. Il dispositivo invierà i tuoi dati crittografati in modo sicuro attraverso quel gateway, garantendo l\'anonimato.</string>
+    <string name="menu_vpn_support_label">Per qualsiasi problema, non esitare a contattarci.</string>
+    <string name="menu_vpn_support_button">Supporto</string>
     <string name="menu_dns_recommended">Server DNS consigliati</string>
     <string name="menu_dns_intro">I DNS sono responsabili della connessione del tuo dispositivo ai siti web e alle applicazioni che usi. Scegliere dei buoni DNS può velocizzare il tuo dispositivo e aiuterà a proteggere la tua privacy.</string>
     <string name="menu_dns_select">Seleziona uno dei server DNS.</string>

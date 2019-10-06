@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">A VPN használatával az adataid titkosításra, az IP-címed elrejtésre, valamint a tartózkodási helyed is módosításra kerül.</string>
     <string name="menu_vpn_account_label">A VPN használatához egy aktív fiókra van szükséged. Itt ellenőrizheted vagy visszaállíthatod a fiókodat.</string>
     <string name="menu_vpn_gateways_label">Válaszd ki az egyik átjárót. A készüléked a titkosított adatokat ezen az átjárón keresztül küldi biztonságosan, és így névtelen maradsz.</string>
+    <string name="menu_vpn_support_label">Ha bármilyen problémát tapasztalsz, ne habozz kapcsolatba lépni velünk.</string>
+    <string name="menu_vpn_support_button">Támogatás</string>
     <string name="menu_dns_recommended">Ajánlott DNS-kiszolgálók</string>
     <string name="menu_dns_intro">A DNS felelős a használt weboldalak és alkalmazások IP-címeinek fordításáért. A jó DNS kiválasztása felgyorsíthatja a készüléket, és segít megvédeni az adataidat.</string>
     <string name="menu_dns_select">Válaszd ki az egyik DNS-kiszolgálót.</string>

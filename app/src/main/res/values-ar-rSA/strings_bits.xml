@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">مع VPN تكون بياناتك مشفَّرة ، يَتمّ إخفاء عنوان الـ IP الخاصّ بك ، و يَتمّ تغيير موقعك.</string>
     <string name="menu_vpn_account_label">من أجل إستخدام الـ VPN ، تحتاج إلى حساب نَشِط. تَحقَّق أو استعد حِسابك هنا.</string>
     <string name="menu_vpn_gateways_label">حدِّد إحدى البوّابات للاتصال بها. سَيُرسِل جهازك بياناتك المشفَّرة بأمان عبر هذه البوابة ، و ستظل مجهول الهويّة.</string>
+    <string name="menu_vpn_support_label">إذا واجهت أي مشاكل ، فلا تتردّد في الاتصال بنا.</string>
+    <string name="menu_vpn_support_button">الدعم</string>
     <string name="menu_dns_recommended">خوادِم DNS الموصى بها</string>
     <string name="menu_dns_intro">الـ DNS مسؤول عن ترجمة عناوين IP المواقع و التطبيقات التي تستخدمها. قد يؤدي إختيار DNS جيّد إلى تسريع جهازك و سيساعد في حماية خصوصيّتك.</string>
     <string name="menu_dns_select">حدِّد أحّد خوادِم DNS.</string>

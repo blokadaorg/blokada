@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">S pomocí VPN jsou vaše data šifrována, vaše IP adresa bude skryta a vaše poloha se změní.</string>
     <string name="menu_vpn_account_label">Abyste mohli používat VPN, potřebujete aktivní účet. Zde můžete zkontrolovat stav vašeho účtu nebo jej obnovit.</string>
     <string name="menu_vpn_gateways_label">Vyberte jednu z bran, ke které se chcete připojit. Vaše zařízení odešle vaše šifrovaná data bezpečně přes tuto bránu a vy zůstanete anonymní.</string>
+    <string name="menu_vpn_support_label">Pokud máte nějaké problémy, neváhejte nás kontaktovat.</string>
+    <string name="menu_vpn_support_button">Podpora</string>
     <string name="menu_dns_recommended">Doporučené DNS servery</string>
     <string name="menu_dns_intro">DNS odpovídá za překlad IP adres webových stránek a aplikací, které používáte. Výběr správného DNS může urychlit vaše zařízení a pomoci chránit vaše soukromí.</string>
     <string name="menu_dns_select">Vyberte jeden z DNS serverů.</string>

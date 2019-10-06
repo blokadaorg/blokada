@@ -19,6 +19,7 @@
     <string name="home_requests_blocked">%s geblokkeerd</string>
     <string name="home_masterswitch_enabled">Blokada is aan</string>
     <string name="home_masterswitch_on">Tik om te pauzeren</string>
+    <string name="home_masterswitch_waiting">Wachten op netwerk...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Deel met vrienden</string>
     <string name="home_share_state">Deel je Blokada score</string>
@@ -66,17 +67,21 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Apparaten</string>
     <string name="menu_vpn_manage_subscription">Beheer je abonnement</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Als uw account nieuw is, bezoek dan onze website. U kunt geen abonnement nemen in Blokada Slim.</string>
     <string name="menu_vpn_account_secret">Uw account ID is geheim en u moet deze voor jezelf houden. Schrijf het op voor in het geval dat u de app verwijdert.</string>
     <string name="menu_vpn_restore_label">Hier kunt u uw bestaande account herstellen als u bijvoorbeeld de app opnieuw geïnstalleerd hebt.</string>
     <string name="menu_vpn_intro">Met VPN is je data versleuteld, je IP-adres verborgen en je locatie gewijzigd.</string>
     <string name="menu_vpn_account_label">Om de VPN te gebruiken, heeft u een actieve account nodig. Controleer of herstel uw account hier.</string>
     <string name="menu_vpn_gateways_label">Selecteer een van de gateways om te verbinden. Uw apparaat stuurt uw versleutelde gegevens veilig via die gateway, en u blijft anoniem.</string>
+    <string name="menu_vpn_support_label">Als je problemen ervaart, aarzel dan niet om contact met ons op te nemen.</string>
+    <string name="menu_vpn_support_button">Ondersteuning</string>
     <string name="menu_dns_recommended">Aanbevolen DNS-servers</string>
     <string name="menu_dns_intro">DNS is verantwoordelijk voor het vertalen van IP-adressen van websites en apps die u gebruikt. Het kiezen van een goede DNS kan uw apparaat versnellen en zal helpen uw privacy te beschermen.</string>
     <string name="menu_dns_select">Selecteer een van de DNS-servers.</string>
     <string name="menu_apps_intro">Sommige apps werken misschien niet goed met Blokada. Bijvoorbeeld, ze kunnen problemen hebben met het verbinden.\n\nActiveren van VPN helpt vaak in die gevallen.\n\nAnders kun je deze apps blokada laten omzeilen. Onthoud, apps die omzeilen communiceren buiten de VPN.</string>
     <string name="menu_apps_system_label">Systeem apps zijn de apps die voor geïnstalleerd zijn. Sommige ervan zijn verborgen. Pas deze alleen aan als je weet wat je doet.</string>
     <string name="menu_host_list_intro">Hostlijsten bevatten regels voor het blokkeren van advertenties en trackers. Probeer het aantal actieve lijsten laag te houden.</string>
+    <string name="menu_host_adblocking_settings">Adblock instellingen</string>
     <string name="menu_host_list_status">Lijst status</string>
     <string name="menu_host_list_download">Lijst download instellingen</string>
     <string name="menu_host_whitelist">Hosts die u hier toevoegt zullen nooit geblokkeerd worden. Gebruik deze lijst wanneer, bijvoorbeeld, een website die u bezoekt, verkeerd geblokkeerd is.</string>

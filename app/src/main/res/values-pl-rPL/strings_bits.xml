@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">VPN szyfruje Twoje dane, ukrywa Twój adres IP, i zmienia Twoją lokalizację.</string>
     <string name="menu_vpn_account_label">Aby używać VPN, potrzebujesz aktywne konto. Sprawdź lub odzyskaj twoje konto tu.</string>
     <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
+    <string name="menu_vpn_support_label">Jeśli wystąpią jakiekolwiek problemy, nie wahaj się skontaktować z nami.</string>
+    <string name="menu_vpn_support_button">Wsparcie</string>
     <string name="menu_dns_recommended">Zalecane serwery DNS</string>
     <string name="menu_dns_intro">DNS odpowiada za tłumaczenie adresów IP stron i aplikacji które używasz. Wybranie dobrego DNSa może przyśpieszyć Twoje urządzenie i pomóc chronić Twoją prywatność.</string>
     <string name="menu_dns_select">Wybierz jeden z serwerów DNS.</string>

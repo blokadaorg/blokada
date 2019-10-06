@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">Ketika Anda menggunakan VPN, data Anda dienkripsi, alamat IP Anda disembunyikan, dan lokasi Anda dirubah.</string>
     <string name="menu_vpn_account_label">Supaya bisa menggunakan VPN, Anda memerlukan akun aktif. Periksa apakah Anda sudah memiliki akun atau pulihkan akun Anda di sini.</string>
     <string name="menu_vpn_gateways_label">Pilih gateway yang Anda inginkan. Perangkat Anda akan mengirimkan data Anda yang telah dienkripsi secara aman melalui gateway tersebut, dan identitas Anda akan tetap tersembunyi.</string>
+    <string name="menu_vpn_support_label">Jika Anda mengalami masalah, jangan ragu untuk menghubungi kami.</string>
+    <string name="menu_vpn_support_button">Dukungan</string>
     <string name="menu_dns_recommended">Server DNS yang disarankan</string>
     <string name="menu_dns_intro">DNS berfungsi untuk menghubungkan perangkat Anda ke situs web dan aplikasi yang Anda gunakan. Memilih server DNS yang bagus bisa membantu mempercepat koneksi data perangkat Anda dan melindungi privasi Anda.</string>
     <string name="menu_dns_select">Pilih salah satu server DNS.</string>

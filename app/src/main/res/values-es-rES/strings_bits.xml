@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">Con un VPN tus datos son encriptados, tu dirección IP se oculta y tu ubicación se cambia.</string>
     <string name="menu_vpn_account_label">Para usar el VPN, necesitas una cuenta activa. Revisa o restaura tu cuenta aquí.</string>
     <string name="menu_vpn_gateways_label">Selecciona una de las puertas de enlace para conectarte. Tu dispositivo enviará tus datos cifrados de forma segura a través de esa puerta de enlace, y tu permanecerás anónimo.</string>
+    <string name="menu_vpn_support_label">Si tienes problemas, no dudes en contactarnos.</string>
+    <string name="menu_vpn_support_button">Soporte</string>
     <string name="menu_dns_recommended">Servidores DNS recomendados</string>
     <string name="menu_dns_intro">El DNS es responsable de traducir las direcciones IP de los sitios web y aplicaciones que usas. Elegir un buen servidor DNS puede acelerar tu dispositivo y ayudará a proteger tu privacidad.</string>
     <string name="menu_dns_select">Selecciona uno de los servidores DNS.</string>

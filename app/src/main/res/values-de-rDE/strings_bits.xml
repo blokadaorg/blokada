@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">Mit VPN werden deine Daten verschlüsselt, deine IP-Adresse verborgen und dein Standort verändert.</string>
     <string name="menu_vpn_account_label">Um das VPN zu nutzen, brauchst du ein aktives Konto. Überprüfe hier dein Konto oder stelle es wieder her.</string>
     <string name="menu_vpn_gateways_label">Wähle eines der Gateways, um dich mit ihm zu verbinden. Dein Gerät wird deine verschlüsselten Daten sicher durch dieses Gateway leiten und du bleibst anonym.</string>
+    <string name="menu_vpn_support_label">Wenn du auf Probleme stößt, kontaktiere uns umgehend.</string>
+    <string name="menu_vpn_support_button">Support</string>
     <string name="menu_dns_recommended">Empfohlene DNS-Server</string>
     <string name="menu_dns_intro">DNS ist für die Übersetzung von IP-Adressen der von dir genutzten Webseiten und Apps zuständig. Die Auswahl eines guten DNS-Servers kann dein Gerät schneller machen und hilft dabei, deine privaten Daten zu schützen.</string>
     <string name="menu_dns_select">Wähle einen der DNS-Server.</string>

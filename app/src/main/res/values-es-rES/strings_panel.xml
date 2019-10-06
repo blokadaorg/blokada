@@ -65,7 +65,7 @@
     <string name="slot_enter_file_titel">Nombre de archivo</string>
     <string name="slot_enter_file_import">Importar</string>
     <string name="slot_enter_file_desc">Introduce parte del nombre del archivo</string>
-    <string name="slot_enter_file_not_found">Ningún archivo que contenga tu entrada</string>
+    <string name="slot_enter_file_not_found">Ningún archivo contiene tu entrada</string>
     <string name="slot_enter_file_multi">Varios archivos coinciden con tu entrada</string>
     <string name="slot_enter_name_title">Nombre</string>
     <string name="slot_enter_name_desc">Introduce el nombre para la nueva entrada. También puedes generar un nombre sugerido.</string>

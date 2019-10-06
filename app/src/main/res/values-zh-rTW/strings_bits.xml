@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">您的資料在使用 VPN 時是加密的，您的 IP 位置會被隱藏，您的位置同樣也會被變更。</string>
     <string name="menu_vpn_account_label">你需要啟用帳號才能使用 VPN。請在這裡檢視並復原您的帳號。</string>
     <string name="menu_vpn_gateways_label">選取其中一個要連線的閘道。您的裝置將會透過該閘道安全地傳送您已加密的資料，您也將會保持匿名。</string>
+    <string name="menu_vpn_support_label">如果您遇到任何問題，請隨時與我們聯絡。</string>
+    <string name="menu_vpn_support_button">支援</string>
     <string name="menu_dns_recommended">建議 DNS 伺服器</string>
     <string name="menu_dns_intro">DNS 負責翻譯網頁與您所使用應用程式的 IP 位置。選擇好的 DNS 可以讓您的裝置加速並協助保護您的隱私。</string>
     <string name="menu_dns_select">選取其中一個 DNS 伺服器。</string>

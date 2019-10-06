@@ -73,6 +73,8 @@
     <string name="menu_vpn_intro">Avec un VPN vos données sont chiffrées, votre adresse IP est cachée et votre emplacement géographique est changé.</string>
     <string name="menu_vpn_account_label">Pour utiliser le VPN, vous devez avoir un compte actif. Vérifiez ou restaurez votre compte ici.</string>
     <string name="menu_vpn_gateways_label">Sélectionnez le serveur VPN auquel vous souhaitez vous connecter. Votre appareil enverra vos données chiffrées à travers ce serveur, et vous resterez anonyme.</string>
+    <string name="menu_vpn_support_label">Si vous rencontrez le moindre problème, n\'hésitez pas à nous contacter.</string>
+    <string name="menu_vpn_support_button">Assistance</string>
     <string name="menu_dns_recommended">Serveurs DNS recommandés</string>
     <string name="menu_dns_intro">Les DNS sont responsables de la traduction des noms de domaine Internet en adresse IP pour les sites web et les applications que vous utilisez. Choisir de bons DNS peut accélérer votre appareil et vous aidera à protéger votre vie privée.</string>
     <string name="menu_dns_select">Sélectionnez un des serveurs DNS.</string>
