@@ -23,9 +23,10 @@ internal class TunnelManagerFactory(
             onVpnClose = { rejected ->
                 v("received VpnService onClose", rejected)
                 tunnelState.tunnelPermission.refresh(blocking = true)
-                if (rejected) {
+                if (rejected || !tunnelState.tunnelPermission()) {
                     tunnelState.enabled %= false
                     tunnelState.active %= false
+                    showSnack(R.string.home_permission_error)
                 }
                 else {
                     tunnelState.restart %= true
