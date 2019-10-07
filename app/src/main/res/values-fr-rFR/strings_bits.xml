@@ -41,7 +41,7 @@
     <string name="home_cleanup">Nettoyage recommandé</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Connecté au VPN</string>
-    <string name="home_boringtun_not_loaded">Désolé, votre appareil n\'est pas pris en charge par Blokada VPN</string>
+    <string name="home_boringtun_not_loaded">Désolé, votre appareil n\'est pas compatible avec Blokada VPN. Vous pouvez néanmoins utiliser les autres fonctionnalités.</string>
     <string name="home_blocka_vpn_error">Impossible de se connecter à la passerelle. Êtes-vous en ligne ?</string>
     <string name="home_account_error">Impossible de vérifier le compte. Êtes-vous en ligne ?</string>
     <string name="home_permission_error">Veuillez accorder les permissions VPN.</string>

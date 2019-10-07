@@ -41,7 +41,7 @@
     <string name="home_cleanup">Doporučuje se vyčištění</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Připojeno k VPN</string>
-    <string name="home_boringtun_not_loaded">Omlouváme se, ale vaše zařízení zatím nepodporuje službu Blakada VPN</string>
+    <string name="home_boringtun_not_loaded">Litujeme, vaše zařízení není podporováno Blokadou VPN. Stále ale můžete využívat další funkce.</string>
     <string name="home_blocka_vpn_error">Nepodařilo se připojit k síťové bráně. Jste online?</string>
     <string name="home_account_error">Nepodařilo se ověřit účet. Jste online?</string>
     <string name="home_permission_error">Udělte, prosím, povolení k VPN.</string>

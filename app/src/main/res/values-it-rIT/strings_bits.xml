@@ -41,7 +41,7 @@
     <string name="home_cleanup">È raccomandata una pulizia</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Connesso alla VPN</string>
-    <string name="home_boringtun_not_loaded">Spiacenti, attualmente il tuo dispositivo non è supportato da Blokada VPN</string>
+    <string name="home_boringtun_not_loaded">Spiacenti, il tuo dispositivo non è supportato da Blokada VPN. Puoi comunque utilizzare le altre funzionalità.</string>
     <string name="home_blocka_vpn_error">Impossibile connettersi al gateway. Sei connesso ad una rete?</string>
     <string name="home_account_error">Non è stato possibile verificare l\'account. Sei connesso ad una rete?</string>
     <string name="home_permission_error">Si prega di concedere i permessi per la VPN.</string>

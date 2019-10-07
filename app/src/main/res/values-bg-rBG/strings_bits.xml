@@ -41,7 +41,6 @@
     <string name="home_cleanup">Препоръчително е почистване</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Свързан с VPN</string>
-    <string name="home_boringtun_not_loaded">За съжаление вашето устройство понастоящем не се поддържа от Blokada VPN</string>
     <string name="home_blocka_vpn_error">Не можа да се свърже с шлюза. Online ли сте?</string>
     <string name="home_account_error">Профилът не може да бъде потвърден. Online ли сте?</string>
     <string name="home_permission_error">Моля, дайте разрешения за VPN.</string>

@@ -41,7 +41,7 @@
     <string name="home_cleanup">يُنصَح بالتنظيف</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">مُتَّصِل بـ VPN</string>
-    <string name="home_boringtun_not_loaded">عُذراً ، جهازك غير مُعتمد حاليّاً من Blokada VPN</string>
+    <string name="home_boringtun_not_loaded">عذرًا ، جهازك غير مدعوم من Blokada VPN. لا يزال بإمكانك استخدام ميّزات أُخرى.</string>
     <string name="home_blocka_vpn_error">لا يمكن الاتصال بالبوابة. هل أنت متّصل؟</string>
     <string name="home_account_error">فشل التأكّد مِن حسابك. هل أنت متصل؟</string>
     <string name="home_permission_error">يُرجى منْح التصريحات للـ VPN.</string>

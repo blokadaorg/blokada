@@ -41,7 +41,7 @@
     <string name="home_cleanup">Cleanup aanbevolen</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Verbonden met VPN</string>
-    <string name="home_boringtun_not_loaded">Sorry, uw apparaat wordt momenteel niet ondersteund door Blokada VPN</string>
+    <string name="home_boringtun_not_loaded">Sorry, je apparaat wordt niet ondersteund door Blokada VPN. Je kunt wel andere functies gebruiken.</string>
     <string name="home_blocka_vpn_error">Kan geen verbinding maken met de gateway. Bent je online?</string>
     <string name="home_account_error">Account kan niet worden geverifieerd. Ben je online?</string>
     <string name="home_permission_error">Verleen VPN-machtigingen.</string>

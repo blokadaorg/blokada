@@ -41,7 +41,6 @@
     <string name="home_cleanup">建議清理</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">已連線至 VPN</string>
-    <string name="home_boringtun_not_loaded">抱歉，您的裝置尚未被 Blokada VPN 支援</string>
     <string name="home_blocka_vpn_error">無法連線到閘道。您連線到網際網路了嗎？</string>
     <string name="home_account_error">無法驗證帳號。您連線到網際網路了嗎？</string>
     <string name="home_permission_error">請授予 VPN 權限。</string>

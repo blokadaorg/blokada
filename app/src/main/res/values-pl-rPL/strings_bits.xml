@@ -41,7 +41,7 @@
     <string name="home_cleanup">Oczyszczanie zalecane</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Podłączony do VPN</string>
-    <string name="home_boringtun_not_loaded">Przepraszamy! Twoje urządzenie nie jest aktualnie obsługiwane</string>
+    <string name="home_boringtun_not_loaded">Przepraszamy, twoje urządzenie nie jest obsługiwane przez Blokada VPN. Nadal możesz korzystać z innych funkcji.</string>
     <string name="home_blocka_vpn_error">Nie można połączyć się z VPN. Jesteś online?</string>
     <string name="home_account_error">Nie można zweryfikować Twojego konta. Jesteś online?</string>
     <string name="home_permission_error">Proszę przyznać uprawnienia VPN.</string>

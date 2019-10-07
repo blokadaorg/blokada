@@ -6,6 +6,7 @@
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
     <string name="tunnel_config_refetch_now_title">Lijsten downloaden</string>
     <string name="tunnel_config_refetch_now">Download lijsten nu</string>
+    <string name="tunnel_config_refetch_toast">Download van lijsten gestart</string>
     <string name="tunnel_config_refetch_now_description">Gebruik de onderstaande knop om de cache te verwijderen en uw lijsten opnieuw te downloaden. Dit kan helpen als u problemen ondervindt met uw filtering.</string>
     <string name="tunnel_config_refetch_frequency_title">Geeft de downloadfrequentie weer</string>
     <string name="tunnel_config_refetch_frequency_description">Selecteer een van de opties om in te stellen hoe vaak de app uw lijsten moet downloaden.</string>

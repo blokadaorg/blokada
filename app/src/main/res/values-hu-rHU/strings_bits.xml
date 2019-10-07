@@ -41,7 +41,7 @@
     <string name="home_cleanup">Tisztítás ajánlott</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Csatlakozva a VPN-hez</string>
-    <string name="home_boringtun_not_loaded">Sajnáljuk, a készüléked jelenleg nem támogatott a Blokada VPN által</string>
+    <string name="home_boringtun_not_loaded">Sajnáljuk, a készüléked nem támogatott a Blokada VPN által. A többi funkciót továbbra is használhatod.</string>
     <string name="home_blocka_vpn_error">Nem sikerült csatlakozni az átjáróhoz. Online vagy?</string>
     <string name="home_account_error">Fiók hitelesítése sikertelen. Online vagy?</string>
     <string name="home_permission_error">Kérjük, add meg a VPN engedélyeket.</string>

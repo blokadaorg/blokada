@@ -41,7 +41,7 @@
     <string name="home_cleanup">Temizleme önerilir</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">VPN\'e bağlı</string>
-    <string name="home_boringtun_not_loaded">Üzgünüz, cihazınız şu anda Blokada VPN tarafından desteklenmiyor</string>
+    <string name="home_boringtun_not_loaded">Üzgünüz, cihazınız Blokada VPN tarafından desteklenmemektedir. Yine de diğer özellikleri kullanabilirsiniz.</string>
     <string name="home_blocka_vpn_error">Ağ geçidine bağlanılamadı. Çevrimiçi misin?</string>
     <string name="home_account_error">Hesap doğrulanamadı. Çevrimiçi misin?</string>
     <string name="home_permission_error">Lütfen VPN izinleri verin.</string>

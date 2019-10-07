@@ -41,7 +41,7 @@
     <string name="home_cleanup">Harap bersihkan memori Anda</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Terhubung ke VPN</string>
-    <string name="home_boringtun_not_loaded">Maaf, untuk saat ini perangkat Anda tidak didukung oleh Blokada VPN</string>
+    <string name="home_boringtun_not_loaded">Maaf, saat ini perangkat Anda tidak didukung oleh Blokada VPN. Anda masih bisa menggunakan fitur lain yang ada di Blokada.</string>
     <string name="home_blocka_vpn_error">Tidak bisa tersambung ke gateway. Apakah Anda online?</string>
     <string name="home_account_error">Tidak dapat memverifikasi akun. Apakah Anda online?</string>
     <string name="home_permission_error">Harap berikan izin sambungan VPN.</string>
