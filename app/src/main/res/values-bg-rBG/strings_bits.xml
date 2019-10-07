@@ -41,6 +41,7 @@
     <string name="home_cleanup">Препоръчително е почистване</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Свързан с VPN</string>
+    <string name="home_boringtun_not_loaded">За съжаление вашето устройство не се поддържа от Blokada VPN. Но все още можете да използвате други функции.</string>
     <string name="home_blocka_vpn_error">Не можа да се свърже с шлюза. Online ли сте?</string>
     <string name="home_account_error">Профилът не може да бъде потвърден. Online ли сте?</string>
     <string name="home_permission_error">Моля, дайте разрешения за VPN.</string>
@@ -72,6 +73,8 @@
     <string name="menu_vpn_intro">С VPN данните ви са в криптиран вид, вашият IP адрес е скрит и местоположението ви е променено.</string>
     <string name="menu_vpn_account_label">За да използвате VPN трябва да имате активен акаунт. Проверете или възстановете профила си тук.</string>
     <string name="menu_vpn_gateways_label">Изберете един от шлюзовете, към който да се свържете. Устройството ви ще изпраща криптирани данни сигурно чрез този шлюз и ще останете анонимни.</string>
+    <string name="menu_vpn_support_label">Ако имате някакви проблеми, не се колебайте да се свържете с нас.</string>
+    <string name="menu_vpn_support_button">Поддръжка</string>
     <string name="menu_dns_recommended">Препоръчителни DNS сървъри</string>
     <string name="menu_dns_intro">DNS отговаря за свързването на устройството ви с уеб сайтове и приложения, които използвате. Изборът на добър DNS може да ускори устройството и ще спомогне за защитата на вашата поверителност.</string>
     <string name="menu_dns_select">Изберете един от DNS сървърите.</string>
