@@ -99,7 +99,7 @@ class BlockaVpnMain {
 
     fun sync(showErrorToUser: Boolean = true) = async(context) {
         v(">> syncing")
-        syncAndHandleErrors(showErrorToUser)
+        syncAndHandleErrors(showErrorToUser, force = true)
         v("done syncing")
 
         set(CurrentAccount::class.java, accountManager.state)
@@ -110,7 +110,7 @@ class BlockaVpnMain {
     fun syncIfNeeded() = async(context) {
         v(">> syncing if needed")
         val needed = blockaVpnManager.shouldSync()
-        if (needed) syncAndHandleErrors(showErrorToUser = true)
+        if (needed) syncAndHandleErrors(showErrorToUser = true, force = false)
         v("done syncing if needed")
 
         if (needed) {
@@ -120,11 +120,11 @@ class BlockaVpnMain {
         }
     }
 
-    private fun syncAndHandleErrors(showErrorToUser: Boolean) {
+    private fun syncAndHandleErrors(showErrorToUser: Boolean, force: Boolean) {
         try {
             blockaVpnManager.enabled = get(BlockaVpnState::class.java).enabled
             boringtunLoader.loadBoringtunOnce()
-            blockaVpnManager.sync(force = true)
+            blockaVpnManager.sync(force)
             boringtunLoader.throwIfBoringtunUnavailable()
         } catch (ex: Exception) {
             e("failed syncing", ex)
