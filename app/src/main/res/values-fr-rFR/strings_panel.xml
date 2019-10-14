@@ -202,6 +202,6 @@
     <string name="slot_background_animation">Animation de fond</string>
     <string name="slot_background_animation_description">Lorsque cette option est activée, des vagues s\'animeront chaque fois qu\'une requête DNS est bloquée ou autorisée. Désactivez cette fonction en cas de ralentissement.</string>
     <string name="slot_reset_counter_label">Réinitialiser le compteur de domaines bloqués</string>
-    <string name="slot_reset_counter_description">Remet à 0 le compteur montrant le nombre de requêtes ayant été bloquées.</string>
+    <string name="slot_reset_counter_description">Remet à zéro le compteur affichant le nombre de requêtes ayant été bloquées.</string>
     <string name="slot_reset_counter_action">Réinitialiser</string>
 </resources>

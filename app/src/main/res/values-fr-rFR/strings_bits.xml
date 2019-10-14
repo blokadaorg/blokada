@@ -17,7 +17,7 @@
     <string name="home_dns_touch">Cliquez pour paramétrer le DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s bloqués</string>
-    <string name="home_masterswitch_enabled">Blokada est activé</string>
+    <string name="home_masterswitch_enabled">Blokada est actif</string>
     <string name="home_masterswitch_on">Désactiver</string>
     <string name="home_masterswitch_waiting">En attente de réseau...</string>
     <!-- A button to share the ads counter on social media -->

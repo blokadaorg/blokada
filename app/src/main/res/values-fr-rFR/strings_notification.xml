@@ -21,7 +21,7 @@
     <string name="notification_keepalive_title_new">Garder actif (appuyer pour masquer)</string>
     <string name="notification_keepalive_text_new">Android nécessite d\'afficher une notification pour maintenir l\'application en cours d\'exécution, mais vous êtes libre de la désactiver dans les paramètres du système.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d bloqués</string>
+    <string name="notification_keepalive_title">%d domaines bloqués</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">Dernier : %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->

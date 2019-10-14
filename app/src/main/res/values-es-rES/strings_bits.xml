@@ -41,6 +41,7 @@
     <string name="home_cleanup">Se recomienda una limpieza</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Conectado al VPN</string>
+    <string name="home_boringtun_not_loaded">Lo sentimos, tu dispositivo no es compatible con el VPN de Blokada. Aún puedes usar las otras funciones.</string>
     <string name="home_blocka_vpn_error">No se pudo conectar a la puerta de enlace. ¿Estás online?</string>
     <string name="home_account_error">No se pudo verificar la cuenta. ¿Tienes conexión?</string>
     <string name="home_permission_error">Por favor, concede el permiso de conexión VPN.</string>
