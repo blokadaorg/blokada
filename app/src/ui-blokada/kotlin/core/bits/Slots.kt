@@ -1098,6 +1098,17 @@ fun openInExternalBrowser(ctx: Context, url: URL) {
     ctx.startActivity(intent)
 }
 
+fun accountInactive(ctx: Context) {
+    if (Product.current(ctx) == Product.FULL) {
+        modalManager.openModal()
+        ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        })
+    } else {
+        showSnack(R.string.account_inactive)
+    }
+}
+
 class UpdateVB(
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,

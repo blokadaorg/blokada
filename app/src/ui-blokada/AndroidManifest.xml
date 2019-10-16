@@ -96,6 +96,13 @@
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow"
             android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="blocka"
+                    android:host="acc"/>
+            </intent-filter>
             <meta-data
                 android:name="android.notch_support"
                 android:value="true" />

@@ -1,13 +1,13 @@
 package core.bits.menu.vpn
 
-import android.content.Intent
+import blocka.BlockaRestModel
 import blocka.CurrentAccount
 import blocka.CurrentLease
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.bits.accountInactive
 import gs.property.I18n
 import org.blokada.R
-import blocka.BlockaRestModel
 import tunnel.showSnack
 import java.util.*
 
@@ -50,8 +50,8 @@ class GatewayVB(
                         entrypoint.onGatewayDeselected()
                     }
                     account.activeUntil.before(Date()) -> {
-                        modal.openModal()
-                        ktx.ctx.startActivity(Intent(ktx.ctx, SubscriptionActivity::class.java))
+                        accountInactive(ktx.ctx)
+                        update()
                     }
                     gateway.overloaded() -> {
                         showSnack(R.string.slot_gateway_overloaded)

@@ -1,9 +1,9 @@
 package blocka
 
-import android.content.Intent
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.Register.set
+import core.bits.accountInactive
 import core.bits.menu.MENU_CLICK_BY_NAME_SUBMENU
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -168,10 +168,7 @@ class BlockaVpnMain {
             async(UI) {
                 notificationMain.show(AccountExpiredNotification())
                 val ctx = getActiveContext()!!
-                modalManager.openModal()
-                ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                })
+                accountInactive(ctx)
                 showSnack(R.string.account_inactive.res())
             }
             blockaVpnManager.enabled = false
