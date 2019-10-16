@@ -124,7 +124,8 @@ class HomeDashboardSectionVB(
             hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
-            (BuildConfig.VERSION_CODE > cfg.donate) && noSubscription -> OneTimeByte.DONATE
+            Product.current(ktx.ctx) == Product.GOOGLE
+                    && (BuildConfig.VERSION_CODE > cfg.donate) && noSubscription -> OneTimeByte.DONATE
             //!cfg.blokadaOrg && Product.current(ctx) == Product.GOOGLE -> OneTimeByte.BLOKADAORG
             version.obsolete() -> OneTimeByte.OBSOLETE
             getInstalledBuilds().size > 1 -> OneTimeByte.CLEANUP

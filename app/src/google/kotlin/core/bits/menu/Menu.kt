@@ -18,7 +18,6 @@ fun createMenu(ktx: AndroidKontext): MenuItemsVB {
                     LabelVB(ktx, label = R.string.menu_exclude.res()),
                     createAppsMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_dive_in.res()),
-                    createDonateMenuItem(ktx),
                     createAdvancedMenuItem(ktx),
                     createLearnMoreMenuItem(ktx),
                     createAboutMenuItem(ktx)
