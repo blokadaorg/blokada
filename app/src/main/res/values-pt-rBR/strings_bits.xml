@@ -45,8 +45,8 @@
     <string name="home_blocka_vpn_error">Não foi possível conetar ao gateway. Você está online?</string>
     <string name="home_account_error">Não foi possível verificar a conta. Você está online?</string>
     <string name="home_permission_error">Por favor conceda permissões de VPN.</string>
-    <string name="home_zero_filters_error">Você não tem filtros configurados. Por favor, verifique as configurações de bloqueio de anúncios.</string>
-    <string name="home_filters_memory_error">Não foi possível carregar todos os filtros para a memória. Por favor, verifique suas configurações de bloqueio de anúncios.</string>
+    <string name="home_zero_filters_error">Você não tem filtros configurados. Verifique as configurações do bloqueio de anúncios.</string>
+    <string name="home_filters_memory_error">Não foi possível carregar todos os filtros à memoria. Verifique as configurações do bloqueio de anúncios.</string>
     <string name="tasker_switch_label">Toque em uma das opções para configurar a ativá-lo (ou desativá-lo) para o seu gatilho.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anúncios</string>
@@ -73,7 +73,7 @@
     <string name="menu_vpn_intro">Com a VPN, seus dados são criptografados, seu endereço IP fica oculto, e sua localização é alterada.</string>
     <string name="menu_vpn_account_label">Para usar a VPN, você precisa de uma conta ativa. Verifique ou restaure sua conta aqui.</string>
     <string name="menu_vpn_gateways_label">Selecione um dos gateways para se conectar. Seu dispositivo enviará seus dados criptografados de forma segura através desse gateway e você permanecerá anônimo.</string>
-    <string name="menu_vpn_support_label">Se você tiver quaisquer problemas, não hesite em contatar-nos.</string>
+    <string name="menu_vpn_support_label">Se você não puder resolver o problema, não hesite em contatar o suporte</string>
     <string name="menu_vpn_support_button">Suporte</string>
     <string name="menu_dns_recommended">Servidores DNS recomendados</string>
     <string name="menu_dns_intro">O DNS é responsável por traduzir endereços IP de sites e aplicativos que você usa. A escolha de um bom DNS pode acelerar o seu dispositivo e ajudará a proteger sua privacidade.</string>

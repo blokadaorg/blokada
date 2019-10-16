@@ -30,8 +30,8 @@
     <string name="notification_keepalive_activating">Blokada стартира. Това може да отнеме известно време.</string>
     <string name="notification_keepalive_deactivate">Деактивиране</string>
     <string name="notification_keepalive_deactivating">Blokada се деактивира!</string>
-    <string name="notification_expired_title">Профилът на Blokada VPN изтече</string>
-    <string name="notification_expired_description">Профилът ви току-що изтече и от този момент не сте свързани с Blokada VPN. Моля, помислете отново за активиране на профила си за по-добра защита.</string>
+    <string name="notification_expired_title">Профилът на Blokada VPN е изтекъл</string>
+    <string name="notification_expired_description">Профилът ви е изтекъл и в този момент не сте свързани с Blokada VPN. Моля, помислете отново за активиране на профила си за по-добра защита.</string>
     <string name="notification_lease_expired_title">Blokada VPN е изключен</string>
     <string name="notification_lease_expired_description">Възникна проблем при свързването ви с Blockada VPN. Моля, опитайте да се свържете с друг шлюз. Ако проблемът продължава, моля свържете се с нас в Telegram.</string>
 </resources>

@@ -18,6 +18,7 @@
     <string name="panel_section_apps_all">Встановлені додатки</string>
     <string name="panel_section_apps_system">Системні додатки</string>
     <string name="panel_section_advanced_settings">Налаштування</string>
+    <string name="panel_section_app_settings">Налаштування додатку</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Дозволено &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Цей домен був дозволений. Для блокування натисніть кнопку нижче.</string>
@@ -38,7 +39,9 @@
     <string name="slot_action_remove">Вилучити</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Так</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Ні</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Як користуватися новим інтерфейсом? Натисніть тут для демонстрації.</string>
     <string name="slot_intro_new_header">Новий інтерфейс?</string>
@@ -58,6 +61,12 @@
     <string name="slot_enter_domain_desc">Введіть домени через кому. Також можна вставити посилання на будь-який список хостів чи імпортувати локальний файл.</string>
     <string name="slot_enter_domain_error">Це не схоже на адресу домену.</string>
     <string name="slot_enter_domain_file">Файл</string>
+    <string name="slot_enter_domain_no_file">Не знайдено жодного файлу в теці /Download/blokada/filters</string>
+    <string name="slot_enter_file_titel">Ім’я файла</string>
+    <string name="slot_enter_file_import">Імпорт</string>
+    <string name="slot_enter_file_desc">Введіть частину імені файла</string>
+    <string name="slot_enter_file_not_found">Немає файлів з іменем, що містить введені символи</string>
+    <string name="slot_enter_file_multi">Декілька файлів мають ім\'я, що містить введені символи</string>
     <string name="slot_enter_name_title">Назва</string>
     <string name="slot_enter_name_desc">Введіть назву для нового пункту. Також можна згенерувати пропоновану назву.</string>
     <string name="slot_enter_name_error">Це не схоже на те, що потрібно.</string>
@@ -112,6 +121,7 @@
     <string name="slot_account_action_change_id">Відновити підписку</string>
     <string name="slot_account_show">Ідентифікатор</string>
     <string name="slot_account_action_copied">Ідентифікатор скопійовано</string>
+    <string name="slot_account_action_unavailable">[не встановлено]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Приєднатися до %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Приєднатися до %s</string>
@@ -119,6 +129,10 @@
     <string name="slot_gateway_description_current">Швидкість: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Регіон: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Це ваш поточний шлюз.</string>
     <string name="slot_gateway_overloaded">Цей шлюз надто навантажений і не приймає нові з\'єднання.</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Керуйте пристроями, що підключаються до VPN.</string>
+    <string name="slot_lease_name_current">%s (цей пристрій)</string>
+    <string name="slot_lease_description">ID пристрою: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">ID пристрою: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Це ваш поточний пристрій.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">висока</string>
     <!-- Gateway load -->
@@ -184,6 +198,10 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">Додаткові налаштування</string>
     <string name="slot_whitelist_updating">Оновлення конфігурації, зачекайте...</string>
+    <string name="slot_too_many_leases">Будь ласка, видаліть старий пристрій зі списку пристроїв.</string>
     <string name="slot_background_animation">Анімований фон</string>
     <string name="slot_background_animation_description">Якщо увімкнено, будуть з\'являтися хвилі кожного разу під час DNS запитів. Вимкніть це, якщо це впливає на швидкість роботи.</string>
+    <string name="slot_reset_counter_label">Скинути лічильник заблокованих хостів</string>
+    <string name="slot_reset_counter_description">Скидає лічильник заблокованих запитів на 0.</string>
+    <string name="slot_reset_counter_action">Скинути</string>
 </resources>

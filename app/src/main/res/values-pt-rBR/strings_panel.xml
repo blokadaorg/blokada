@@ -18,6 +18,7 @@
     <string name="panel_section_apps_all">Aplicativos Instalados</string>
     <string name="panel_section_apps_system">Apps do Sistema</string>
     <string name="panel_section_advanced_settings">Configurações</string>
+    <string name="panel_section_app_settings">Configurações do Aplicativo</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Permitido &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Este domínio foi permitido. Para bloqueá-lo, use o botão abaixo.</string>
@@ -38,7 +39,9 @@
     <string name="slot_action_remove">Remover</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Sim</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Não</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Como usar a nova interface? Toque aqui para uma introdução.</string>
     <string name="slot_intro_new_header">Como usar a nova interface?</string>
@@ -58,6 +61,12 @@
     <string name="slot_enter_domain_desc">Insira os domínios separados por uma vírgula. Você também pode colar um link em qualquer lista de endereço, ou importar um arquivo de lista de endereço local.</string>
     <string name="slot_enter_domain_error">Isso não me parece alguma coisa.</string>
     <string name="slot_enter_domain_file">Arquivo</string>
+    <string name="slot_enter_domain_no_file">Nenhum arquivo encontrado em /Download/blokada/filtros</string>
+    <string name="slot_enter_file_titel">Nome do arquivo</string>
+    <string name="slot_enter_file_import">Importar</string>
+    <string name="slot_enter_file_desc">Digite o nome parcial do arquivo</string>
+    <string name="slot_enter_file_not_found">Nenhum nome de arquivo contendo a sua entrada</string>
+    <string name="slot_enter_file_multi">Vários arquivos correspondem a sua entrada</string>
     <string name="slot_enter_name_title">Nome</string>
     <string name="slot_enter_name_desc">Digite o nome para a nova entrada. Você também pode gerar um nome sugerido.</string>
     <string name="slot_enter_name_error">Isso não me parece alguma coisa.</string>
@@ -112,6 +121,7 @@
     <string name="slot_account_action_change_id">Restaurar conta</string>
     <string name="slot_account_show">ID da conta</string>
     <string name="slot_account_action_copied">O ID da conta foi copiado para a área de transferência</string>
+    <string name="slot_account_action_unavailable">[não definido]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Conectar-se a %s</string>
     <string name="slot_gateway_label_overloaded">[Full] Conectar-se a %s</string>
