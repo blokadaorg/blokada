@@ -25,12 +25,12 @@ fun createLearnMoreMenu(ktx: AndroidKontext): MenuItemsVB {
     return MenuItemsVB(ktx,
             items = listOf(
                     LabelVB(ktx, label = R.string.menu_knowledge.res()),
-                    createBlogMenuItem(ktx),
+                    if (Product.current(ktx.ctx) == Product.FULL) createBlogMenuItem(ktx) else null,
                     createHelpMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_get_involved.res()),
                     createCtaMenuItem(ktx),
                     createTelegramMenuItem(ktx)
-            ),
+            ).filterNotNull(),
             name = R.string.menu_learn_more.res()
     )
 }
@@ -97,9 +97,9 @@ fun createAboutMenu(ktx: AndroidKontext): MenuItemsVB {
                     createLogMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_other.res()),
                     createAppDetailsMenuItem(ktx),
-                    createChangelogMenuItem(ktx),
-                    createCreditsMenuItem(ktx)
-            ),
+                    if (Product.current(ktx.ctx) == Product.FULL) createChangelogMenuItem(ktx) else null,
+                    if (Product.current(ktx.ctx) == Product.FULL) createCreditsMenuItem(ktx) else null
+            ).filterNotNull(),
             name = R.string.slot_about.res()
     )
 }
