@@ -4,7 +4,7 @@
     <string name="logger_permission">Nejprve prosím udělte oprávnění pro přístup k úložišti.</string>
     <string name="logger_slot_title">Protokolování požadavků</string>
     <string name="logger_slot_desc">Pokud je tato možnost povolena, Blokada vytvoří soubor CSV s požadavky protokolu, které byly aplikací povoleny a / nebo blokovány. Vyhledejte složku „blokada“ na externím úložišti.</string>
-    <string name="logger_slot_mode_off">Zakázáno</string>
+    <string name="logger_slot_mode_off">Vypnuto</string>
     <string name="logger_slot_mode_allowed">Protokol povolil požadavky</string>
     <string name="logger_slot_mode_denied">Protokolovat blokované požadavky</string>
     <string name="logger_slot_mode_all">Zaznamenat všechny požadavky</string>

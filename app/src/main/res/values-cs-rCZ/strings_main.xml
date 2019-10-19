@@ -17,7 +17,7 @@
     <!-- App status, as in: Blokada is Active -->
     <string name="main_status_active_recent">Aktivní</string>
     <!-- App status, as in: Blokada is Disabled -->
-    <string name="main_status_disabled">Neaktivní</string>
+    <string name="main_status_disabled">Vypnuto</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
     <string name="main_status_activating">Aktivace</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
