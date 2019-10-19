@@ -184,7 +184,7 @@ class ByteView(
     }
 
     fun alternative(alternative: Boolean) {
-        rootView.setBackgroundResource(R.drawable.bg_dashboard_item_alternative)
+        rootView.setBackgroundResource(android.R.color.transparent)
     }
 
     fun important(important: Boolean) {

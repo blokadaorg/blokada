@@ -9,6 +9,7 @@ import com.github.michaelbull.result.get
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.isLandscape
+import gs.environment.inject
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import gs.presentation.ViewBinder
@@ -408,7 +409,8 @@ class BlokadaSlimVB: ByteVB() {
             label(R.string.home_blokadaorg.res())
             state(R.string.home_blokadaorg_state.res())
             onTap {
-                openInExternalBrowser(context, URL("https://blokada.org/#download"))
+                val pages: Pages = view.context.inject().instance()
+                openInExternalBrowser(context, pages.chat())
             }
         }
     }
