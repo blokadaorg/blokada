@@ -1099,13 +1099,12 @@ fun openInExternalBrowser(ctx: Context, url: URL) {
 }
 
 fun accountInactive(ctx: Context) {
+    showSnack(R.string.account_inactive)
     if (Product.current(ctx) == Product.FULL) {
         modalManager.openModal()
         ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         })
-    } else {
-        showSnack(R.string.account_inactive)
     }
 }
 

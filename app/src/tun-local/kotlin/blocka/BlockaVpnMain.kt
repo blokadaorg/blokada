@@ -9,7 +9,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlinx.coroutines.experimental.runBlocking
-import notification.AccountExpiredNotification
+import notification.AccountInactiveNotification
 import notification.LeaseExpiredNotification
 import notification.notificationMain
 import org.blokada.R
@@ -166,10 +166,9 @@ class BlockaVpnMain {
     private fun handleException(ex: Exception) = when {
         ex is BlockaAccountExpired -> {
             async(UI) {
-                notificationMain.show(AccountExpiredNotification())
+                notificationMain.show(AccountInactiveNotification())
                 val ctx = getActiveContext()!!
                 accountInactive(ctx)
-                showSnack(R.string.account_inactive.res())
             }
             blockaVpnManager.enabled = false
         }

@@ -4,16 +4,16 @@
     <string name="home_touch_to_turn_on">Touch to resume</string>
     <string name="home_touch_adblocking">Touch to block ads</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Touch to set up VPN</string>
+    <string name="home_setup_vpn">Touch to upgrade your protection</string>
     <string name="home_blokada_disabled">Blokada is paused</string>
     <string name="home_activating">Activating</string>
     <string name="home_please_wait">Please wait...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_vpn_only">VPN only mode</string>
+    <string name="home_vpn_only">BLOKADA+ is active without adblocking.</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">DNS only mode</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Touch to set up DNS</string>
+    <string name="home_dns_touch">Touch to choose DNS</string>
 
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blocked</string>
@@ -41,10 +41,10 @@
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Donate</string>
 
-    <string name="home_vpn_enabled">VPN is active</string>
-    <string name="home_vpn_disabled">VPN is deactivated</string>
+    <string name="home_vpn_enabled">BLOKADA+ is active</string>
+    <string name="home_vpn_disabled">BLOKADA+ is deactivated</string>
     <string name="home_account_active">Your account is still active</string>
-    <string name="home_connecting_vpn">Connecting to VPN</string>
+    <string name="home_connecting_vpn">Connecting to BLOKADA+</string>
     <string name="home_cleanup">Cleanup recommended</string>
 
     <!-- A short text for the button to change VPN settings -->

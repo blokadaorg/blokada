@@ -5,6 +5,7 @@
     android:id="@+id/byte_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="50dp"
     android:background="@drawable/bg_dashboard_item"
     android:padding="@dimen/slot_content_padding">
 
@@ -14,17 +15,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="end|center_vertical"
         android:gravity="center_vertical"
-        android:padding="@dimen/slot_icon_margin"
-        android:tint="@color/colorAccent" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/byte_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="end|center_vertical"
-        android:padding="@dimen/slot_icon_margin"
-        android:visibility="gone"
-        app:theme="@style/Switch2" />
+        android:padding="12dp"
+        android:src="@drawable/ic_dots_horizontal"
+        android:tint="@color/colorActive" />
 
     <ImageView
         android:id="@+id/byte_icon"
@@ -38,9 +31,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="48dp"
         android:layout_marginEnd="40dp"
-        android:gravity="center"
+        android:gravity="start"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -50,10 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/slot_secondary_padding"
             android:layout_marginEnd="@dimen/slot_secondary_padding"
-            android:gravity="center"
+            android:gravity="start"
             android:maxLines="3"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/colorActive"
+            android:textSize="@dimen/slot_text_size"
             tools:text="This is a very long text that should be displayed just fine" />
 
         <TextView
@@ -62,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/slot_secondary_padding"
             android:layout_marginEnd="@dimen/slot_secondary_padding"
-            android:gravity="center"
+            android:gravity="start"
             android:maxLines="3"
             android:textColor="@color/colorInactive"
             android:textSize="@dimen/slot_secondary_text_size"

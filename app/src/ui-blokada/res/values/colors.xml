@@ -37,9 +37,10 @@
     <color name="colorAccentTrans">#CCff5f00</color>
     <color name="colorButtonSeparator">#7b606060</color>
 
-    <color name="colorProtectionLow">#ff4400</color>
-    <color name="colorProtectionMedium">#ffe600</color>
-    <color name="colorProtectionHigh">#00d131</color>
+    <color name="colorProtectionLow">#B64401</color>
+    <color name="colorProtectionMedium">#34576e</color>
+    <color name="colorProtectionHigh">#00771B</color>
+    <color name="colorProtectionVeryHigh">#00DF30</color>
 
     <color name="switch_on">#04fc5c</color>
     <color name="switch_off">@color/colorTextUnimportant</color>

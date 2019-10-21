@@ -52,6 +52,8 @@ class DashboardView(
     private val bg_logo_icon = findViewById<ImageView>(R.id.bg_logo_icon)
     private val bg_pager = findViewById<VBPagesView>(R.id.bg_pager)
     private val bg_packets = findViewById<PacketsView>(R.id.bg_packets)
+    private val bg_action_help = findViewById<ImageView>(R.id.bg_action_help)
+    private val bg_action_cta = findViewById<ImageView>(R.id.bg_action_cta)
     private val fg_chevron_back = findViewById<View>(R.id.fg_chevron_back)
     private val bg_chevron_right = findViewById<View>(R.id.bg_chevron_right)
     private val fg_label = findViewById<FrameLayout>(R.id.fg_label)
@@ -462,6 +464,14 @@ class DashboardView(
                 PanelState.EXPANDED -> sliding.panelState = PanelState.ANCHORED
                 PanelState.ANCHORED -> sliding.panelState = PanelState.EXPANDED
             }
+        }
+
+        bg_action_help.setOnClickListener {
+            ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_learn_more.res())
+        }
+
+        bg_action_cta.setOnClickListener {
+            bg_action_cta.setColorFilter(resources.getColor(R.color.switch_on))
         }
     }
 

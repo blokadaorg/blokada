@@ -95,9 +95,9 @@ class HomeDashboardSectionVB(
     private var items = listOf<ViewBinder?>(
             MasterSwitchVB(ktx),
             if (Product.current(ktx.ctx) == Product.GOOGLE) null else AdsBlockedVB(ktx),
-            VpnStatusVB(ktx),
             ActiveDnsVB(ktx),
-            if (Product.current(ktx.ctx) == Product.GOOGLE) ShareInGoogleFlavorVB(ktx) else ShareVB(ktx),
+            VpnStatusVB(ktx),
+            //if (Product.current(ktx.ctx) == Product.GOOGLE) ShareInGoogleFlavorVB(ktx) else ShareVB(ktx),
             if (Product.current(ktx.ctx) == Product.GOOGLE) BlokadaSlimVB() else null
     ).filterNotNull()
 
@@ -332,7 +332,7 @@ class ShareVB(
             arrow(R.drawable.ic_share.res())
             label(R.string.home_share.res())
             state(R.string.home_share_state.res())
-            onArrowTap { share() }
+//            onArrowTap { share() }
             onTap { share() }
         }
     }
@@ -381,7 +381,7 @@ class ShareInGoogleFlavorVB(
             arrow(R.drawable.ic_share.res())
             label(R.string.home_share.res())
             state(R.string.home_share_state_google.res())
-            onArrowTap { share() }
+//            onArrowTap { share() }
             onTap { share() }
         }
     }

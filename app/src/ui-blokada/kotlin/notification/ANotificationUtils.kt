@@ -226,7 +226,7 @@ class UpdateNotification(versionName: String): BlokadaNotification(3, Notificati
         }
 )
 
-class AccountExpiredNotification: BlokadaNotification(4, NotificationChannels.BLOCKA_VPN,
+class AccountInactiveNotification: BlokadaNotification(4, NotificationChannels.BLOCKA_VPN,
         create = { ctx ->
             val b = NotificationCompat.Builder(ctx)
             b.setContentTitle(ctx.getString(R.string.notification_expired_title))

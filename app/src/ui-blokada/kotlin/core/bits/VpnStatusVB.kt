@@ -43,68 +43,35 @@ class VpnStatusVB(
             val account = get(CurrentAccount::class.java)
             val blockaVpnEnabled = get(BlockaVpnState::class.java).enabled
             val lease = get(CurrentLease::class.java)
+
+            onTap {
+                ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
+            }
+            onSwitch { enable ->
+                if (enable && !s.enabled()) s.enabled %= true
+                entrypoint.onVpnSwitched(enable)
+            }
+
             when {
-                !s.enabled() -> {
-                    icon(R.drawable.ic_shield_outline.res())
-                    arrow(null)
-                    switch(null)
-                    label(R.string.home_setup_vpn.res())
-                    state(R.string.home_vpn_disabled.res())
-                    onTap {
-                        //ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                        s.enabled %= true
-                        entrypoint.onVpnSwitched(true)
-                    }
-                }
-                blockaVpnEnabled && (activating || !active || !lease.leaseOk) -> {
-                    icon(R.drawable.ic_shield_outline.res())
-                    arrow(null)
-                    switch(null)
-                    label(R.string.home_connecting_vpn.res())
-                    state(R.string.home_please_wait.res())
-                    onTap {}
-                    onSwitch {}
-                }
-                !blockaVpnEnabled && account.activeUntil.after(Date()) -> {
-                    icon(R.drawable.ic_shield_outline.res())
-                    arrow(null)
+                !blockaVpnEnabled || !s.enabled() -> {
+                    icon(R.drawable.ic_shield_plus_outline.res())
                     switch(false)
-                    label(R.string.home_setup_vpn.res())
-                    state(R.string.home_account_active.res())
-                    onTap {
-                        ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                    }
-                    onSwitch {
-                        entrypoint.onVpnSwitched(it)
-                    }
-                }
-                !blockaVpnEnabled -> {
-                    icon(R.drawable.ic_shield_outline.res())
-                    arrow(null)
-                    switch(false)
-                    label(R.string.home_setup_vpn.res())
-                    state(R.string.home_vpn_disabled.res())
-                    onTap {
-                        ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                    }
-                    onSwitch {
-                        entrypoint.onVpnSwitched(it)
-                    }
+                    if (account.activeUntil.after(Date())) label(R.string.home_account_active.res())
+                    else label(R.string.home_vpn_disabled.res())
+                    state(R.string.home_setup_vpn.res())
                 }
                 else -> {
-                    icon(R.drawable.ic_verified.res(), color = R.color.switch_on.res())
-                    arrow(null)
+                    icon(R.drawable.ic_shield_plus.res(), color = R.color.switch_on.res())
                     switch(true)
                     label(lease.gatewayNiceName.res())
-                    state(R.string.home_connected_vpn.res())
-                    onTap {
-                        ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
-                    }
-                    onSwitch {
-                        entrypoint.onVpnSwitched(it)
+                    when {
+                        activating -> state(R.string.home_connecting_vpn.res())
+                        !lease.leaseOk -> state(R.string.home_vpn_disabled.res())
+                        else -> state("BLOKADA+ is active".res())
                     }
                 }
             }
+
         }
         Unit
     }
