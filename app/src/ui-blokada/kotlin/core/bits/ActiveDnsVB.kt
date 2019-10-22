@@ -41,7 +41,7 @@ class ActiveDnsVB(
 
     private val update = {
         view?.run {
-            onTap {
+            onArrowTap {
                 ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
             }
             onSwitch { enable ->
@@ -58,10 +58,13 @@ class ActiveDnsVB(
                 }
             }
 
-            val item = dns.choices().first { it.active }
-            val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
-            var name: String? = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
-            name = if (dns.enabled() && dns.hasCustomDnsSelected() && tunnelEvents.enabled()) name else null
+            var name: String? = null
+            try {
+                val item = dns.choices().first { it.active }
+                val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
+                name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
+                name = if (dns.enabled() && dns.hasCustomDnsSelected() && tunnelEvents.enabled()) name else null
+            } catch (e: Exception) {}
 
             setTexts(name)
             switch(name != null)

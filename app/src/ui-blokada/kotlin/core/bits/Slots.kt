@@ -1253,9 +1253,10 @@ class CleanupVB(
 ) : ByteVB() {
 
     override fun attach(view: ByteView) {
-        view.icon(null)
+        view.icon(R.drawable.ic_info.res())
         view.label(R.string.home_cleanup.res())
         view.state(R.string.slot_cleanup_desc.res(), smallcap = false)
+        view.arrow(null)
         view.onTap {
             showSnack(R.string.welcome_cleanup_done)
             val builds = getInstalledBuilds()

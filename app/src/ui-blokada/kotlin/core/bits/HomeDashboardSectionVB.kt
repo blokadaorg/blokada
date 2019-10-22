@@ -16,6 +16,9 @@ import gs.presentation.ViewBinder
 import gs.property.I18n
 import gs.property.Repo
 import gs.property.Version
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.delay
 import org.blokada.BuildConfig
 import org.blokada.R
 import tunnel.TunnelConfig
@@ -24,6 +27,9 @@ import ui.StaticUrlWebActivity
 import update.UpdateCoordinator
 import java.net.URL
 import java.util.*
+
+
+val REFRESH_HOME = "REFRESH_HOME".newEvent()
 
 data class SlotsSeenStatus(
         val intro: Boolean = false,
@@ -55,6 +61,7 @@ class HomeDashboardSectionVB(
 
     override fun attach(view: VBListView) {
         on(CurrentAccount::class.java, this::update)
+        on(REFRESH_HOME, this::forceUpdate, recentValue = false)
         update()
         if (isLandscape(ktx.ctx)) {
             view.enableLandscapeMode(reversed = false)
@@ -64,6 +71,14 @@ class HomeDashboardSectionVB(
 
     override fun detach(view: VBListView) {
         cancel(CurrentAccount::class.java, this::update)
+        cancel(REFRESH_HOME, this::forceUpdate)
+    }
+
+    private fun forceUpdate() {
+        if (seen) {
+            added = null
+            update()
+        }
     }
 
     private fun update() {
@@ -72,22 +87,27 @@ class HomeDashboardSectionVB(
             val noSubscription = cfg.activeUntil.before(Date())
             val (slot, name) = decideOnSlot(noSubscription)
             if (slot != null && added == null) {
-                items = listOf(slot) + items
+                items = items + listOf(slot)
+                add(slot)
                 added = name
+                seen = false
                 if (slot is SimpleByteVB) slot.onTapped = {
                     // Remove this slot
                     markAsSeen()
+                    seen = true
 
                     if (!slot.shouldKeepAfterTap) {
-                        items = items.subList(1, items.size)
-                        set(items)
+                        items = items.dropLast(1)
+                        remove(slot)
                     }
                 }
-            }
-            set(items)
-            if (isLandscape(ktx.ctx)) {
-                enableLandscapeMode(reversed = false)
-                set(items)
+            } else {
+                if (isLandscape(ktx.ctx)) {
+                    enableLandscapeMode(reversed = false)
+                    set(items)
+                } else {
+                    set(items)
+                }
             }
         }
     }
@@ -102,6 +122,7 @@ class HomeDashboardSectionVB(
     ).filterNotNull()
 
     private var added: OneTimeByte? = null
+    private var seen = false
     private val oneTimeBytes = createOneTimeBytes(ktx)
 
     private fun markAsSeen() {
@@ -125,12 +146,13 @@ class HomeDashboardSectionVB(
             hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
-            Product.current(ktx.ctx) == Product.GOOGLE
+            Product.current(ktx.ctx) == Product.FULL
                     && (BuildConfig.VERSION_CODE > cfg.donate) && noSubscription -> OneTimeByte.DONATE
             //!cfg.blokadaOrg && Product.current(ctx) == Product.GOOGLE -> OneTimeByte.BLOKADAORG
             version.obsolete() -> OneTimeByte.OBSOLETE
             getInstalledBuilds().size > 1 -> OneTimeByte.CLEANUP
-            else -> null
+//            else -> null
+            else -> OneTimeByte.BLOKADAPLUS
         }
         return oneTimeBytes[name]?.invoke() to name
     }
@@ -225,26 +247,30 @@ class SimpleByteVB(
         private val ktx: AndroidKontext,
         private val label: Resource,
         private val description: Resource,
-        private val icon: Resource? = null,
+        private val icon: Resource? = R.drawable.ic_info.res(),
         val shouldKeepAfterTap: Boolean = false,
         private val onTap: (ktx: AndroidKontext) -> Unit,
         var onTapped: () -> Unit = {}
 ) : ByteVB() {
     override fun attach(view: ByteView) {
-        view.icon(icon, color = Resource.ofResId(R.color.colorAccent))
-//        view.icon(null)
-        view.arrow(icon)
+        view.icon(icon)
         view.label(label)
+        view.arrow(null)
         view.state(description, smallcap = false)
         view.onTap {
-            onTap(ktx)
             onTapped()
+            async {
+                delay(1000)
+                async(UI) {
+                    onTap(ktx)
+                }
+            }
         }
     }
 }
 
 enum class OneTimeByte {
-    CLEANUP, UPDATED, OBSOLETE, DONATE, UPDATE_AVAILABLE, ANNOUNCEMENT, BLOKADAORG
+    CLEANUP, UPDATED, OBSOLETE, DONATE, UPDATE_AVAILABLE, ANNOUNCEMENT, BLOKADAORG, BLOKADAPLUS
 }
 
 private var updateClickCounter = 0
@@ -279,6 +305,7 @@ fun createOneTimeBytes(
         OneTimeByte.DONATE to { SimpleByteVB(ktx,
                 label = R.string.home_donate.res(),
                 description = R.string.slot_donate_desc.res(),
+                icon = R.drawable.ic_heart_box.res(),
                 onTap = { ktx ->
                     val pages: Pages = ktx.di().instance()
                     openWebContent(ktx.ctx, pages.donate())
@@ -287,6 +314,7 @@ fun createOneTimeBytes(
         OneTimeByte.UPDATE_AVAILABLE to { SimpleByteVB(ktx,
             label = R.string.update_notification_title.res(),
             description = i18n.getString(R.string.update_notification_text, repo.content().newestVersionName).res(),
+            icon = R.drawable.ic_new_releases.res(),
             shouldKeepAfterTap = true,
             onTap = {
                     if (updateClickCounter++ % 2 == 0) {
@@ -318,6 +346,13 @@ fun createOneTimeBytes(
                 onTap  = { ktx ->
                     openInExternalBrowser(ktx.ctx, URL("https://blokada.org/#download"))
                 }
+        )},
+        OneTimeByte.BLOKADAPLUS to { SimpleByteVB(ktx,
+                icon = R.drawable.ic_filter_add.res(),
+                label = "Plus $1 for you".res(),
+                description = "Refer a friend to BLOKADA+".res(),
+                onTap  = { ktx ->
+                }
         )}
 )
 
@@ -333,7 +368,7 @@ class ShareVB(
             label(R.string.home_share.res())
             state(R.string.home_share_state.res())
 //            onArrowTap { share() }
-            onTap { share() }
+            onArrowTap { share() }
         }
     }
 
@@ -382,7 +417,7 @@ class ShareInGoogleFlavorVB(
             label(R.string.home_share.res())
             state(R.string.home_share_state_google.res())
 //            onArrowTap { share() }
-            onTap { share() }
+            onArrowTap { share() }
         }
     }
 
@@ -408,7 +443,7 @@ class BlokadaSlimVB: ByteVB() {
             arrow(R.drawable.ic_download.res())
             label(R.string.home_blokadaorg.res())
             state(R.string.home_blokadaorg_state.res())
-            onTap {
+            onArrowTap {
                 val pages: Pages = view.context.inject().instance()
                 openInExternalBrowser(context, pages.chat())
             }

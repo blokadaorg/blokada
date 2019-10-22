@@ -5,7 +5,7 @@
     android:id="@+id/byte_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="50dp"
+    android:minHeight="56dp"
     android:background="@drawable/bg_dashboard_item"
     android:padding="@dimen/slot_content_padding">
 

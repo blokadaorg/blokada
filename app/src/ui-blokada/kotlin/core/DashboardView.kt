@@ -19,6 +19,7 @@ import com.github.salomonbrys.kodein.instance
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import core.bits.AdsDashboardSectionVB
 import core.bits.HomeDashboardSectionVB
+import core.bits.REFRESH_HOME
 import core.bits.menu.*
 import gs.environment.inject
 import gs.presentation.NamedViewBinder
@@ -472,6 +473,13 @@ class DashboardView(
 
         bg_action_cta.setOnClickListener {
             bg_action_cta.setColorFilter(resources.getColor(R.color.switch_on))
+            bg_action_cta.animate().setDuration(200).scaleX(1.2f).scaleY(1.2f).alpha(0.5f).doAfter {
+                bg_action_cta.scaleX = 1.0f
+                bg_action_cta.scaleY = 1.0f
+                bg_action_cta.alpha = 1.0f
+                ktx.emit(REFRESH_HOME)
+                bg_action_cta.setColorFilter(null)
+            }
         }
     }
 

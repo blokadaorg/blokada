@@ -44,7 +44,7 @@ class AdsBlockedVB(
         val config = get(TunnelConfig::class.java)
 
         view?.run {
-            onTap {
+            onArrowTap {
                 ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_ads.res())
             }
             onSwitch { enable ->

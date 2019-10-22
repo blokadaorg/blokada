@@ -173,8 +173,12 @@ class ByteView(
         setBackground()
     }
 
-    fun onTap(tap: () -> Unit) {
+    fun onArrowTap(tap: () -> Unit) {
         arrowView.setOnClickListener { tap() }
+    }
+
+    fun onTap(tap: () -> Unit) {
+        setOnClickListener { tap() }
     }
 
     fun onSwitch(onSwitchCallback: (Boolean) -> Unit) {

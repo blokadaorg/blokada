@@ -44,7 +44,7 @@ class VpnStatusVB(
             val blockaVpnEnabled = get(BlockaVpnState::class.java).enabled
             val lease = get(CurrentLease::class.java)
 
-            onTap {
+            onArrowTap {
                 ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
             }
             onSwitch { enable ->
