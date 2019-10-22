@@ -5,7 +5,7 @@
     <string name="home_touch_to_turn_on">點一下復原</string>
     <string name="home_touch_adblocking">點一下阻擋廣告</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">點擊以設定 VPN</string>
+    <string name="home_setup_vpn">點擊來設定 VPN</string>
     <string name="home_blokada_disabled">已停用 Blokada</string>
     <string name="home_activating">啟用中</string>
     <string name="home_please_wait">請稍候……</string>
@@ -14,7 +14,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">僅 DNS 模式</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">點擊以設定 DNS</string>
+    <string name="home_dns_touch">點擊來設定 DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s 已阻擋</string>
     <string name="home_masterswitch_enabled">已啟動 Blokada</string>
@@ -23,12 +23,12 @@
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">告訴你的朋友</string>
     <string name="home_share_state">分享您的 Blokada 分數</string>
-    <string name="home_share_state_google">協助其它人學習更多關於 Blokada 的知識</string>
-    <string name="home_share_msg_google">試試 Blokada Slim 並保護你的隱私！在Google play上取得</string>
+    <string name="home_share_state_google">讓大家更了解 Blokada </string>
+    <string name="home_share_msg_google">用 Blokada Slim 來保護你的隱私！前往 Google play 下載 </string>
     <string name="home_adblocking_enabled">廣告阻擋已啟用</string>
     <string name="home_adblocking_disabled">廣告阻擋已停用</string>
     <string name="home_blokadaorg">您正在使用 Blokada Slim</string>
-    <string name="home_blokadaorg_state">輕點以取得開放原始碼版本</string>
+    <string name="home_blokadaorg_state">點擊來取得開源版</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">更新內容</string>
     <string name="home_update_required">需要更新</string>
@@ -42,8 +42,8 @@
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">已連線至 VPN</string>
     <string name="home_boringtun_not_loaded">抱歉，您的裝置未被 Blokada VPN 支援。您仍然可以使用其他功能。</string>
-    <string name="home_blocka_vpn_error">無法連線到閘道。您連線到網際網路了嗎？</string>
-    <string name="home_account_error">無法驗證帳號。您連線到網際網路了嗎？</string>
+    <string name="home_blocka_vpn_error">無法連線到閘道。您連上網了嗎？</string>
+    <string name="home_account_error">無法驗證帳號。您連上網了嗎？</string>
     <string name="home_permission_error">請授予 VPN 權限。</string>
     <string name="home_zero_filters_error">您未設定過濾條件。請檢查您的廣告封鎖設定。</string>
     <string name="home_filters_memory_error">無法將所有過濾條件載入到記憶體中。請檢查您的廣告封鎖設定。</string>
@@ -66,16 +66,16 @@
     <string name="menu_vpn_gateways">閘道</string>
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">裝置</string>
-    <string name="menu_vpn_manage_subscription">管理您的帳號訂閱</string>
+    <string name="menu_vpn_manage_subscription">管理您的訂閱帳號</string>
     <string name="menu_vpn_manage_subscription_unavailable">如果您的帳號是新的，請造訪我們的網頁。您不能在 Blokada Slim 中購買訂閱。</string>
-    <string name="menu_vpn_account_secret">您的帳號 ID 是您應該自行守好的祕密。如果您要解除安裝應用程式，請先記下來。</string>
+    <string name="menu_vpn_account_secret">您的帳號 ID 是不能說的祕密。如果您要解除安裝，請先把他記起來。</string>
     <string name="menu_vpn_restore_label">舉例來說，如果您重新安裝應用程式，就可以在此將您既有的帳號復原。</string>
-    <string name="menu_vpn_intro">您的資料在使用 VPN 時是加密的，您的 IP 位置會被隱藏，您的位置同樣也會被變更。</string>
+    <string name="menu_vpn_intro">使用 VPN 將會加密您的資料，隱藏您的 IP 位置，並變更您的位置。</string>
     <string name="menu_vpn_account_label">你需要啟用帳號才能使用 VPN。請在這裡檢視並復原您的帳號。</string>
     <string name="menu_vpn_gateways_label">選取其中一個要連線的閘道。您的裝置將會透過該閘道安全地傳送您已加密的資料，您也將會保持匿名。</string>
     <string name="menu_vpn_support_label">如果您遇到任何問題，請隨時與我們聯絡。</string>
     <string name="menu_vpn_support_button">支援</string>
-    <string name="menu_dns_recommended">建議 DNS 伺服器</string>
+    <string name="menu_dns_recommended">推薦的 DNS 伺服器</string>
     <string name="menu_dns_intro">DNS 負責翻譯網頁與您所使用應用程式的 IP 位置。選擇好的 DNS 可以讓您的裝置加速並協助保護您的隱私。</string>
     <string name="menu_dns_select">選取其中一個 DNS 伺服器。</string>
     <string name="menu_apps_intro">某些應用程式可能沒辦法與 Blokada 一同正常運作。舉例來說，它們可能會沒辦法正常連線。\n\n啟用 VPN 通常在這些例子中會有用。\n\n否則您可以讓這些應用程式繞過 Blokada 的檢查。請記住，繞過的應用程式會在 VPN 的管轄之外通訊。</string>
