@@ -41,6 +41,10 @@
     <string name="main_changelog">Changelog</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">Credits</string>
+    <string name="main_legal">Legal information</string>
+    <string name="main_licenses">Third party licenses</string>
+    <string name="main_terms">Terms of service</string>
+    <string name="main_privacy">Privacy policy</string>
 
     <!-- An overlay header on top of Patron page -->
 

@@ -30,6 +30,9 @@ abstract class Pages {
     abstract val dnsStrings: IProperty<URL>
     abstract val vpn: IProperty<URL>
     abstract val announcement: IProperty<URL>
+    abstract val licenses: IProperty<URL>
+    abstract val tos: IProperty<URL>
+    abstract val privacy: IProperty<URL>
 }
 class PagesImpl (
         w: Worker,
@@ -60,6 +63,9 @@ class PagesImpl (
                 } else URL("http://go.blokada.org/chat")
                 vpn %= URL("$c/vpn.html")
                 announcement %= URL("$c/announcement.json")
+                tos %= URL("https://app.blokada.org/tos.html")
+                privacy %= URL("https://app.blokada.org/privacy.html")
+                licenses %= URL("$c/copyright.libraries.txt")
 
                 loaded %= true
             }
@@ -82,6 +88,9 @@ class PagesImpl (
     override val chat = newProperty(w, { URL("http://go.blokada.org/chat") })
     override val vpn = newProperty(w, { URL("http://localhost") })
     override val announcement = newProperty(w, { URL("http://localhost") })
+    override val tos = newProperty(w, { URL("http://localhost") })
+    override val privacy = newProperty(w, { URL("http://localhost") })
+    override val licenses = newProperty(w, { URL("http://localhost") })
 
     override val news = newProperty(w, { URL("http://go.blokada.org/news") })
     override val obsolete = newProperty(w, { URL("https://blokada.org/api/legacy/content/en/obsolete.html") })
