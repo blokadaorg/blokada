@@ -15,8 +15,8 @@ fun createMenu(ktx: AndroidKontext): MenuItemsVB {
             items = listOf(
                     LabelVB(ktx, label = R.string.menu_configure.res()),
                     createAdblockingMenuItem(ktx),
-                    createVpnMenuItem(ktx),
                     createDnsMenuItem(ktx),
+                    createVpnMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_exclude.res()),
                     createAppsMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_dive_in.res()),

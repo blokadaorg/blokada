@@ -177,16 +177,16 @@ class VpnVB(
         view?.apply {
             if (!tunnelState.enabled()) {
                 label(R.string.home_blokada_disabled.res())
-                icon(R.drawable.ic_shield_outline.res())
+                icon(R.drawable.ic_shield_plus_outline.res())
                 switch(null)
                 onSwitch {}
             } else {
                 if (config.enabled) {
                     label(R.string.home_vpn_enabled.res())
-                    icon(R.drawable.ic_verified.res(), color = R.color.switch_on.res())
+                    icon(R.drawable.ic_shield_plus.res(), color = R.color.switch_on.res())
                 } else {
                     label(R.string.home_vpn_disabled.res())
-                    icon(R.drawable.ic_shield_outline.res())
+                    icon(R.drawable.ic_shield_plus_outline.res())
                 }
                 switch(config.enabled)
                 onSwitch { turnOn ->
@@ -247,7 +247,7 @@ class SimpleByteVB(
         private val ktx: AndroidKontext,
         private val label: Resource,
         private val description: Resource,
-        private val icon: Resource? = R.drawable.ic_info.res(),
+        private val icon: Resource? = R.drawable.ic_bell_ring_outline.res(),
         val shouldKeepAfterTap: Boolean = false,
         private val onTap: (ktx: AndroidKontext) -> Unit,
         var onTapped: () -> Unit = {}
@@ -348,9 +348,8 @@ fun createOneTimeBytes(
                 }
         )},
         OneTimeByte.BLOKADAPLUS to { SimpleByteVB(ktx,
-                icon = R.drawable.ic_filter_add.res(),
-                label = "Plus $1 for you".res(),
-                description = "Refer a friend to BLOKADA+".res(),
+                label = "Get $1 for yourself".res(),
+                description = "Refer a friend to Blokada Tunnel".res(),
                 onTap  = { ktx ->
                 }
         )}

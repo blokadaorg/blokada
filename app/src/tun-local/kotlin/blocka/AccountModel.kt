@@ -1,7 +1,6 @@
 package blocka
 
 import android.os.Build
-import tunnel.EXPIRATION_OFFSET
 import java.util.*
 
 data class CurrentAccount(
@@ -40,7 +39,6 @@ data class BlockaVpnState(
 typealias AccountId = String
 typealias ActiveUntil = Date
 
-fun ActiveUntil.expiresSoon() = this.before(Date(Date().time + EXPIRATION_OFFSET))
 fun ActiveUntil.expired() = this.before(Date())
 
 internal val defaultDeviceAlias = "%s-%s".format(Build.MANUFACTURER, Build.DEVICE)

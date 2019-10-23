@@ -67,7 +67,7 @@ class VpnStatusVB(
                     when {
                         activating -> state(R.string.home_connecting_vpn.res())
                         !lease.leaseOk -> state(R.string.home_vpn_disabled.res())
-                        else -> state("BLOKADA+ is active".res())
+                        else -> state("Blokada Tunnel is active".res())
                     }
                 }
             }

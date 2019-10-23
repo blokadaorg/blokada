@@ -43,7 +43,7 @@ class MasterSwitchVB(
 
             when {
                 !tunnelEvents.enabled() -> {
-                    state("Blokada is deactivated, and your Internet is not protected.".res())
+                    state("Blokada is deactivated.".res())
                     line(0)
                 }
                 activating -> {
@@ -67,7 +67,7 @@ class MasterSwitchVB(
                     line(2)
                 }
                 else -> {
-                    state("BLOKADA+ is active, and your Internet is protected.".res())
+                    state("Blokada Tunnel is active, and your Internet is protected.".res())
                     line(3)
                 }
            }

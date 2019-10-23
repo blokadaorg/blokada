@@ -1,6 +1,7 @@
 package blocka
 
 import com.github.salomonbrys.kodein.instance
+import com.github.thibseisel.kdenticon.Identicon
 import core.*
 import core.Register.set
 import core.bits.accountInactive
@@ -14,10 +15,14 @@ import notification.LeaseExpiredNotification
 import notification.notificationMain
 import org.blokada.R
 import tunnel.showSnack
+import java.io.File
+import java.io.FileOutputStream
 
 private val context = newSingleThreadContext("blocka-vpn-main") + logCoroutineExceptions()
 
 val blockaVpnMain = runBlocking { async(context) { BlockaVpnMain() }.await() }
+
+fun getAvatarFilePath() = File(getActiveContext()!!.filesDir, "avatar.png")
 
 class BlockaVpnMain {
     private val accountManager: AccountManager
@@ -41,7 +46,17 @@ class BlockaVpnMain {
                 getAccountRequest = { accountId ->
                     RetryingRetrofitHandler(restApi.getAccountInfo(accountId)).execute().account.activeUntil
                 },
-                generateKeypair = boringtunLoader::generateKeypair
+                generateKeypair = boringtunLoader::generateKeypair,
+                generateAvatar = { accountId ->
+                    try {
+                        val avatar = Identicon.fromValue(accountId, 300)
+                        val stream = FileOutputStream(getAvatarFilePath())
+                        avatar.saveAsSvg(stream)
+                        stream.close()
+                    } catch (ex: Throwable) {
+                        e("failed generating avatar", ex)
+                    }
+                }
         )
         leaseManager = LeaseManager(
                 state = get(CurrentLease::class.java),

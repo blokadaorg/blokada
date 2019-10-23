@@ -6,7 +6,8 @@ internal class AccountManager(
         internal var state: CurrentAccount,
         val newAccountRequest: () -> AccountId? = { throw Exception("not implemented") },
         val getAccountRequest: (AccountId) -> ActiveUntil = { throw Exception("not implemented") },
-        val generateKeypair: () -> Pair<String, String> = { throw Exception("not implemented") }
+        val generateKeypair: () -> Pair<String, String> = { throw Exception("not implemented") },
+        val generateAvatar: (AccountId) -> Unit = {}
 ) {
 
     private var lastAccountRequest = 0L
@@ -42,6 +43,7 @@ internal class AccountManager(
                 activeUntil = activeUntil,
                 accountOk = true
         )
+        generateAvatar(newId)
     }
 
     private fun ensureAccount() {
@@ -54,6 +56,7 @@ internal class AccountManager(
                     accountOk = false,
                     lastAccountCheck = System.currentTimeMillis()
             )
+            generateAvatar(id)
         }
     }
 

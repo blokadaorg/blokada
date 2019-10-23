@@ -36,9 +36,9 @@
     <string name="notification_keepalive_deactivate">Deactivate</string>
     <string name="notification_keepalive_deactivating">Blokada got deactivated!</string>
 
-    <string name="notification_expired_title">Blokada VPN account expired</string>
-    <string name="notification_expired_description">Your account has expired and you are not connected to Blokada VPN at this moment. Please consider activating your account again for better protection.</string>
+    <string name="notification_expired_title">Blokada Tunnel is deactivated</string>
+    <string name="notification_expired_description">Your account is not active, and Blokada Tunnel is off. Standard Blokada features work fine without the Tunnel. However please consider activating your account for better protection and for supporting the project.</string>
 
-    <string name="notification_lease_expired_title">Blokada VPN turned off</string>
-    <string name="notification_lease_expired_description">There was a problem with your connection to Blocka VPN. Please try connecting to another gateway. If the problem persists, please contact us at Telegram.</string>
+    <string name="notification_lease_expired_title">Blokada Tunnel is deactivated</string>
+    <string name="notification_lease_expired_description">There was a problem with your connection to Blokada Tunnel. Please try choosing another gateway. If the problem persists, please contact us.</string>
 </resources>

@@ -56,13 +56,14 @@ class SimpleMenuItemVB(
         val label: Resource,
         val icon: Resource,
         val action: (ktx: AndroidKontext) -> Unit,
+        val arrow: Boolean = true,
         override val name: Resource = label
 ): BitVB(), NamedViewBinder {
 
     override fun attach(view: BitView) {
         view.label(label, R.color.colorActive.res())
         view.icon(icon, R.color.colorActive.res())
-        view.arrow(true)
+        view.arrow(arrow)
         view.alternative(true)
         view.onTap {
             action(ktx)

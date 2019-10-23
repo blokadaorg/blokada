@@ -231,6 +231,7 @@ class AccountInactiveNotification: BlokadaNotification(4, NotificationChannels.B
             val b = NotificationCompat.Builder(ctx)
             b.setContentTitle(ctx.getString(R.string.notification_expired_title))
             b.setContentText(ctx.getString(R.string.notification_expired_description))
+            b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.notification_expired_description)))
             b.setSmallIcon(R.drawable.ic_stat_blokada)
             b.setPriority(NotificationCompat.PRIORITY_MAX)
             b.setVibrate(LongArray(0))

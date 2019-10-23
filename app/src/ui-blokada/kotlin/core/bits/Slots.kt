@@ -11,6 +11,7 @@ import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.Tunnel
+import core.bits.menu.MENU_CLICK_BY_NAME_SUBMENU
 import filter.hostnameRegex
 import gs.environment.ComponentProvider
 import gs.property.*
@@ -1100,12 +1101,13 @@ fun openInExternalBrowser(ctx: Context, url: URL) {
 
 fun accountInactive(ctx: Context) {
     showSnack(R.string.account_inactive)
-    if (Product.current(ctx) == Product.FULL) {
-        modalManager.openModal()
-        ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        })
-    }
+    emit(MENU_CLICK_BY_NAME_SUBMENU, R.string.menu_vpn.res() to R.string.menu_vpn_account.res())
+//    if (Product.current(ctx) == Product.FULL) {
+//        modalManager.openModal()
+//        ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
+//            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        })
+//    }
 }
 
 class UpdateVB(

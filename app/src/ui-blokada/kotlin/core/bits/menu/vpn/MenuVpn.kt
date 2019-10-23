@@ -17,13 +17,13 @@ private fun createMenuVpn(ktx: AndroidKontext): NamedViewBinder {
             items = listOf(
                 LabelVB(ktx, label = R.string.menu_vpn_intro.res()),
                 VpnVB(ktx),
-                createWhyVpnMenuItem(ktx),
-                LabelVB(ktx, label = R.string.menu_vpn_account_label.res()),
                 createManageAccountMenuItem(ktx),
-                LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res()),
+                LabelVB(ktx, label = "Blokada Tunnel settings".res()),
                 createGatewaysMenuItem(ktx),
-                LabelVB(ktx, label = R.string.slot_leases_info.res()),
-                createLeasesMenuItem(ktx)
+                createLeasesMenuItem(ktx),
+                LabelVB(ktx, label = "Learn more about Blokada Tunnel".res()),
+                createWhyVpnMenuItem(ktx),
+                SupportVB(ktx)
             ),
             name = R.string.menu_vpn.res()
     )
@@ -32,7 +32,7 @@ private fun createMenuVpn(ktx: AndroidKontext): NamedViewBinder {
 fun createVpnMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemVB(ktx,
             label = R.string.menu_vpn.res(),
-            icon = R.drawable.ic_shield_key_outline.res(),
+            icon = R.drawable.ic_shield_plus_outline.res(),
             opens = createMenuVpn(ktx)
     )
 }
@@ -66,7 +66,8 @@ fun createWhyVpnMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val whyPage = ktx.di().instance<Pages>().vpn
     return SimpleMenuItemVB(ktx,
             label = R.string.menu_vpn_intro_button.res(),
-            icon = R.drawable.ic_help_outline.res(),
+            icon = R.drawable.ic_shield_plus.res(),
+            arrow = false,
             action = {
                 modalManager.openModal()
                 ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
@@ -79,14 +80,15 @@ fun createWhyVpnMenuItem(ktx: AndroidKontext): NamedViewBinder {
 private fun createAccountMenu(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemsVB(ktx,
             items = listOf(
-                    LabelVB(ktx, label = R.string.menu_vpn_manage_subscription.res()),
                     AccountVB(ktx),
-                    LabelVB(ktx, label = R.string.menu_vpn_account_secret.res()),
-                    CopyAccountVB(ktx),
-                    LabelVB(ktx, label = R.string.menu_vpn_restore_label.res()),
+                    ManageAccountVB(ktx),
                     RestoreAccountVB(ktx),
-                    LabelVB(ktx, label = R.string.menu_vpn_support_label.res()),
-                    SupportVB(ktx)
+                    createWhyVpnMenuItem(ktx),
+                    LabelVB(ktx, label = "Do I have an account?".res()),
+                    TextPointVB(ktx, label = "Yes! Your account is automatically created on first run. You don't need to register.".res()),
+                    TextPointVB(ktx, label = "Tap your avatar above to see your account ID.".res()),
+                    TextPointVB(ktx, label = "Your account ID is secret and you should not show it to anyone.".res()),
+                    TextPointVB(ktx, label = "Write down your account ID in case you need to reinstall the app.".res())
             ),
             name = R.string.menu_vpn_account.res()
     )
@@ -98,7 +100,7 @@ private fun createAccountMenuGoogle(ktx: AndroidKontext): NamedViewBinder {
                     LabelVB(ktx, label = R.string.menu_vpn_manage_subscription_unavailable.res()),
                     AccountGoogleVB(ktx),
                     LabelVB(ktx, label = R.string.menu_vpn_account_secret.res()),
-                    CopyAccountVB(ktx),
+                    ManageAccountVB(ktx),
                     LabelVB(ktx, label = R.string.menu_vpn_restore_label.res()),
                     RestoreAccountVB(ktx),
                     LabelVB(ktx, label = R.string.menu_vpn_support_label.res()),
