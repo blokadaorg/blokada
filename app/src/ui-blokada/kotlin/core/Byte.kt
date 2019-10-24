@@ -181,6 +181,10 @@ class ByteView(
         setOnClickListener { tap() }
     }
 
+    fun onLongTap(tap: () -> Unit) {
+        setOnLongClickListener { tap(); true }
+    }
+
     fun onSwitch(onSwitchCallback: (Boolean) -> Unit) {
         setOnClickListener {
             switched = !switched

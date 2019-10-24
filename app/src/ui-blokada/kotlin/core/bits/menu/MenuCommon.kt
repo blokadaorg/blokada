@@ -25,11 +25,11 @@ fun createLearnMoreMenu(ktx: AndroidKontext): MenuItemsVB {
     return MenuItemsVB(ktx,
             items = listOf(
                     LabelVB(ktx, label = R.string.menu_knowledge.res()),
-                    if (Product.current(ktx.ctx) == Product.FULL) createBlogMenuItem(ktx) else null,
                     createHelpMenuItem(ktx),
+                    createTelegramMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_get_involved.res()),
-                    createCtaMenuItem(ktx),
-                    createTelegramMenuItem(ktx)
+                    if (Product.current(ktx.ctx) == Product.FULL) createBlogMenuItem(ktx) else null,
+                    createCtaMenuItem(ktx)
             ).filterNotNull(),
             name = R.string.menu_learn_more.res()
     )

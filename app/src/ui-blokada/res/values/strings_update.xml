@@ -19,4 +19,10 @@
     <!-- A button that opens the changelog. -->
     <!-- A toast message displayed when the update process is starting. -->
     <string name="update_starting">Starting, please wait&#8230;</string>
+
+    <string name="update_progress">Downloading: %s%%</string>
+    <string name="update_complete">Dowload complete</string>
+    <string name="update_failed">Dowload failed</string>
+    <string name="update_instruction">When finished, you will be asked to allow Blokada to install the update.</string>
+    <string name="update_instruction_failed">Tap here to try again, or long tap to download with your browser instead.</string>
 </resources>

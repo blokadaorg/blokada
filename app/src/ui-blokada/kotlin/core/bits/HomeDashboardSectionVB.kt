@@ -24,6 +24,8 @@ import org.blokada.R
 import tunnel.TunnelConfig
 import tunnel.showSnack
 import ui.StaticUrlWebActivity
+import update.DOWNLOAD_COMPLETE
+import update.DOWNLOAD_FAIL
 import update.UpdateCoordinator
 import java.net.URL
 import java.util.*
@@ -243,13 +245,14 @@ class Adblocking2VB(
 
 }
 
-class SimpleByteVB(
+open class SimpleByteVB(
         private val ktx: AndroidKontext,
         private val label: Resource,
         private val description: Resource,
         private val icon: Resource? = R.drawable.ic_bell_ring_outline.res(),
         val shouldKeepAfterTap: Boolean = false,
         private val onTap: (ktx: AndroidKontext) -> Unit,
+        private val onLongTap: ((ktx: AndroidKontext) -> Unit)? = null,
         var onTapped: () -> Unit = {}
 ) : ByteVB() {
     override fun attach(view: ByteView) {
@@ -266,6 +269,11 @@ class SimpleByteVB(
                 }
             }
         }
+        if (onLongTap != null) {
+            view.onLongTap {
+                onLongTap.invoke(ktx)
+            }
+        }
     }
 }
 
@@ -273,14 +281,8 @@ enum class OneTimeByte {
     CLEANUP, UPDATED, OBSOLETE, DONATE, UPDATE_AVAILABLE, ANNOUNCEMENT, BLOKADAORG, BLOKADAPLUS
 }
 
-private var updateClickCounter = 0
-private var updateNextLink = 0
-
 fun createOneTimeBytes(
-        ktx: AndroidKontext,
-        i18n: I18n = ktx.di().instance(),
-        repo: Repo = ktx.di().instance(),
-        updateCoordinator: UpdateCoordinator = ktx.di().instance()
+        ktx: AndroidKontext
 ) = mapOf(
         OneTimeByte.CLEANUP to { CleanupVB(ktx) },
         OneTimeByte.UPDATED to { SimpleByteVB(ktx,
@@ -311,26 +313,7 @@ fun createOneTimeBytes(
                     openWebContent(ktx.ctx, pages.donate())
                 }
         )},
-        OneTimeByte.UPDATE_AVAILABLE to { SimpleByteVB(ktx,
-            label = R.string.update_notification_title.res(),
-            description = i18n.getString(R.string.update_notification_text, repo.content().newestVersionName).res(),
-            icon = R.drawable.ic_new_releases.res(),
-            shouldKeepAfterTap = true,
-            onTap = {
-                    if (updateClickCounter++ % 2 == 0) {
-                            showSnack(R.string.update_starting)
-                            updateCoordinator.start(repo.content().downloadLinks)
-                        } else {
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            intent.data = Uri.parse(repo.content().downloadLinks[updateNextLink].toString())
-
-                            ktx.ctx.startActivity(intent)
-
-                            updateNextLink = updateNextLink++ % repo.content().downloadLinks.size
-                        }
-                }
-        )},
+        OneTimeByte.UPDATE_AVAILABLE to { UpdateAvailableVB(ktx) },
         OneTimeByte.ANNOUNCEMENT to { SimpleByteVB(ktx,
                 label = getAnnouncementContent().first.res(),
                 description = getAnnouncementContent().second.res(),
@@ -354,6 +337,58 @@ fun createOneTimeBytes(
                 }
         )}
 )
+
+private var updateNextLink = 0
+
+class UpdateAvailableVB(
+        val ktx: AndroidKontext,
+        val i18n: I18n = ktx.di().instance(),
+        repo: Repo = ktx.di().instance(),
+        updateCoordinator: UpdateCoordinator = ktx.di().instance()
+): SimpleByteVB(ktx,
+        label = R.string.update_notification_title.res(),
+        description = i18n.getString(R.string.update_notification_text, repo.content().newestVersionName).res(),
+        icon = R.drawable.ic_new_releases.res(),
+        shouldKeepAfterTap = true,
+        onTap = {
+            showSnack(R.string.update_starting)
+            updateCoordinator.start(repo.content().downloadLinks)
+        },
+        onLongTap = {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.data = Uri.parse(repo.content().downloadLinks[updateNextLink].toString())
+
+            ktx.ctx.startActivity(intent)
+
+            updateNextLink = updateNextLink++ % repo.content().downloadLinks.size
+        }
+) {
+    private fun refresh(progress: Int) {
+        val label = when (progress) {
+            DOWNLOAD_COMPLETE -> i18n.getString(R.string.update_complete)
+            DOWNLOAD_FAIL -> i18n.getString(R.string.update_failed)
+            else -> i18n.getString(R.string.update_progress, progress)
+        }
+        val info = when (progress) {
+            DOWNLOAD_COMPLETE -> i18n.getString(R.string.update_instruction_failed)
+            DOWNLOAD_FAIL -> i18n.getString(R.string.update_instruction_failed)
+            else -> i18n.getString(R.string.update_instruction)
+        }
+        view?.label(label.res())
+        view?.state(info.res())
+    }
+
+    override fun attach(view: ByteView) {
+        super.attach(view)
+        on(update.EVENT_UPDATE_PROGRESS, this::refresh)
+    }
+
+    override fun detach(view: ByteView) {
+        super.detach(view)
+        cancel(update.EVENT_UPDATE_PROGRESS, this::refresh)
+    }
+}
 
 
 class ShareVB(

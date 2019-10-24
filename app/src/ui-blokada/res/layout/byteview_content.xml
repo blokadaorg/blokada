@@ -56,7 +56,7 @@
             android:layout_marginStart="@dimen/slot_secondary_padding"
             android:layout_marginEnd="@dimen/slot_secondary_padding"
             android:gravity="start"
-            android:maxLines="3"
+            android:maxLines="5"
             android:textColor="@color/colorInactive"
             android:textSize="@dimen/slot_secondary_text_size"
             tools:text="blocked" />
