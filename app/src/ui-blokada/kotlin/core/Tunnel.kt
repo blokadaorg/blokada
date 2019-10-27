@@ -1,7 +1,11 @@
 package core
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
+import androidx.core.content.ContextCompat
 import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.Kodein.Module
@@ -15,10 +19,7 @@ import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
 import org.blokada.R
-import tunnel.TunnelConfig
-import tunnel.TunnelEvents
-import tunnel.checkTunnelPermissions
-import tunnel.showSnack
+import tunnel.*
 
 abstract class Tunnel {
     abstract val enabled: IProperty<Boolean>
@@ -294,6 +295,7 @@ fun newTunnelModule(ctx: Context): Module {
                     s.tunnelRecentDropped %= dropped.takeLast(10)
                 }
 
+                SmartListLogger.log(request)
                 tunnel.Persistence.request.save(request)
             }
 
