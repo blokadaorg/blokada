@@ -19,7 +19,7 @@ import java.io.PrintWriter
 import java.util.*
 
 
-class RequestLogWriter {
+class CsvLogWriter {
 
     private var file: PrintWriter? = try {
         val path = File(getExternalPath(), "requests.csv")
@@ -69,7 +69,7 @@ class RequestLogger : Service() {
         return null
     }
 
-    private var logger: RequestLogWriter? = null
+    private var logger: CsvLogWriter? = null
     private var onAllowed = { r: Request -> if (!r.blocked) log(r.domain, false) }
     private var onBlocked = { r: Request -> if (r.blocked) log(r.domain, true) }
     var config = LoggerConfig()
@@ -78,7 +78,7 @@ class RequestLogger : Service() {
                 this.ktx().cancel(TunnelEvents.REQUEST, onAllowed)
                 this.ktx().cancel(TunnelEvents.REQUEST, onBlocked)
                 if (value.active) {
-                    logger = RequestLogWriter()
+                    logger = CsvLogWriter()
                     if (value.logAllowed) {
                         this.ktx().on(TunnelEvents.REQUEST, onAllowed)
                     }

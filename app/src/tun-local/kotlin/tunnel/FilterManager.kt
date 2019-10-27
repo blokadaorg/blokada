@@ -115,9 +115,9 @@ internal class FilterManager(
         }
     }()
 
-    fun sync() = {
+    fun sync(ignoreSmartList: Boolean = false) = {
         if (syncFiltersWithRepo()) {
-            val success = syncRules()
+            val success = syncRules(ignoreSmartList)
             emit(TunnelEvents.MEMORY_CAPACITY, Memory.linesAvailable())
             success
         } else false
@@ -167,8 +167,13 @@ internal class FilterManager(
         return true
     }
 
-    private fun syncRules() = {
-        val active = store.cache.filter { it.active }
+    private fun syncRules(ignoreSmartList: Boolean) = {
+        val smartlist = Filter("smart", FilterSourceDescriptor("file", core.Persistence.global.loadPath() + "/smartlist.txt"))
+        val tunnelConfig = get(TunnelConfig::class.java)
+        val active = store.cache.filter { it.active }.toMutableList()
+        if(tunnelConfig.smartList){
+            active.add(smartlist)
+        }
         val downloaded = mutableSetOf<Filter>()
         active.forEach { filter ->
             if (!doValidateRulesetCache(filter)) {
@@ -188,13 +193,20 @@ internal class FilterManager(
         }
 
         store = store.copy(cache = store.cache - downloaded + downloaded)
+        val allowed = store.cache.filter { it.whitelist && it.active }.map { it.id }.toMutableList()
+        if(tunnelConfig.smartList){
+            allowed.add(smartlist.id) // keep existing entries from being added again.
+        }
 
-        val allowed = store.cache.filter { it.whitelist && it.active }.map { it.id }
-        val denied = store.cache.filter { !it.whitelist && it.active }.map { it.id }
+        val denied = if(ignoreSmartList || !tunnelConfig.smartList) {
+            store.cache.filter { !it.whitelist && it.active }.map { it.id }
+        }else{
+            listOf(smartlist.id)
+        }
 
         v("attempting to build rules, denied/allowed", denied.size, allowed.size)
         blockade.build(denied, allowed)
-        allowed.size > 0 || denied.size > 0
+        allowed.isNotEmpty() || denied.isNotEmpty()
     }()
 
 }
