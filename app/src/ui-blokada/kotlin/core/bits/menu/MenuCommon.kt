@@ -29,7 +29,8 @@ fun createLearnMoreMenu(ktx: AndroidKontext): MenuItemsVB {
                     createTelegramMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_get_involved.res()),
                     if (Product.current(ktx.ctx) == Product.FULL) createBlogMenuItem(ktx) else null,
-                    createCtaMenuItem(ktx)
+                    createCtaMenuItem(ktx),
+                    createLogMenuItem(ktx)
             ).filterNotNull(),
             name = R.string.menu_learn_more.res()
     )

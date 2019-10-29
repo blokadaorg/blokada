@@ -33,6 +33,8 @@
     <string name="panel_domain_blocked_toast">Added to the blacklist.</string>
 
     <string name="panel_ruleset">Filters counter</string>
+
+    <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Filters now have %s rules.</string>
     <string name="panel_ruleset_updating">Updating filters...</string>
     <string name="panel_ruleset_built">Filters are now configured with &lt;b&gt;%s&lt;/b&gt; rules. Up to &lt;b&gt;%s&lt;/b&gt; rules can fit into your device memory overall. Remember, this is just an estimate and subject to change depending on other apps on your device, so you should stay well below this limit to be safe.</string>

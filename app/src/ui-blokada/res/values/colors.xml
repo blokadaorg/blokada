@@ -45,9 +45,6 @@
     <color name="switch_on">#04fc5c</color>
     <color name="switch_off">@color/colorTextUnimportant</color>
 
-    <color name="gradient0_c1">#2c2e2b</color>
-    <color name="gradient0_c2">#6e716b</color>
-
     <color name="gradient1_c1">#242523</color>
     <color name="gradient1_c2">#6e716b</color>
 
@@ -60,7 +57,7 @@
     <color name="gradient3_c4">#59ACB8</color>
 
     <color name="gradient4_c1">#152826</color>
-    <color name="gradient4_c2">#456b65</color>
+    <color name="gradient4_c2">#468A7F</color>
     <color name="gradient4_c3">#00FFD8</color>
 
     <array name="gradient0">

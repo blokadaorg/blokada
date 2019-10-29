@@ -13,6 +13,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat.getColorStateList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import blocka.BlockaVpnState
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.github.salomonbrys.kodein.instance
@@ -27,6 +28,7 @@ import gs.presentation.doAfter
 import gs.property.I18n
 import org.blokada.R
 import tunnel.Persistence
+import tunnel.TunnelConfig
 import tunnel.TunnelEvents
 import kotlin.math.max
 import kotlin.math.min
@@ -192,9 +194,30 @@ class DashboardView(
         }, recentValue = false)
 
         tun.enabled.doOnUiWhenSet().then {
-            if (tun.enabled()) bg_colors.onScroll(1f, 4, model.getOpenedSectionIndex() + 1)
-            else bg_colors.onScroll(1f, model.getOpenedSectionIndex() + 1, 4)
+            updateBackground()
         }
+    }
+
+    private var active = false
+    private var activating = false
+    private var nowBackground = 0
+
+    private val updateBackground = {
+        val config = get(TunnelConfig::class.java)
+        val blockaVpnEnabled = get(BlockaVpnState::class.java).enabled
+
+        val newBg = when {
+            !tun.enabled() -> 0
+            activating -> 1
+            !tun.active() -> 1
+            !config.adblocking && !blockaVpnEnabled -> 2
+            !config.adblocking -> 4
+            !blockaVpnEnabled -> 2
+            else -> 4
+        }
+        bg_colors.onScroll(1f, nowBackground, newBg)
+        nowBackground = newBg
+        Unit
     }
 
     private fun setOn(toColorIndex: Int) {
@@ -329,6 +352,10 @@ class DashboardView(
                 bg_packets.setTunnelState(TunnelState.ACTIVATING)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorAccent))
                 animateLogo()
+
+                activating = true
+                active = false
+                updateBackground()
             }
 
             override fun finishActivating() {
@@ -338,18 +365,30 @@ class DashboardView(
                     bg_packets.setRecentHistory(it)
                 }
                 stopAnimatingLogo()
+
+                activating = false
+                active = true
+                updateBackground()
             }
 
             override fun startDeactivating() {
                 bg_packets.setTunnelState(TunnelState.DEACTIVATING)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorActive))
                 animateLogo()
+
+                activating = true
+                active = false
+                updateBackground()
             }
 
             override fun finishDeactivating() {
                 bg_packets.setTunnelState(TunnelState.INACTIVE)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoInactive))
                 stopAnimatingLogo()
+
+                activating = false
+                active = false
+                updateBackground()
             }
         })
     }
@@ -431,10 +470,6 @@ class DashboardView(
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, posPixels: Int) {
-                if (tun.enabled()) {
-                    val next = position + 1
-                    bg_colors.onScroll(positionOffset, next, next + 1)
-                }
             }
 
             override fun onPageSelected(position: Int) {

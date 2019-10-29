@@ -63,11 +63,19 @@ class VpnStatusVB(
                 else -> {
                     icon(R.drawable.ic_shield_plus.res(), color = R.color.switch_on.res())
                     switch(true)
-                    label(lease.gatewayNiceName.res())
                     when {
-                        activating -> state(R.string.home_connecting_vpn.res())
-                        !lease.leaseOk -> state(R.string.home_vpn_disabled.res())
-                        else -> state("Blokada Tunnel is active".res())
+                        activating -> {
+                            label(R.string.home_please_wait.res())
+                            state(R.string.home_connecting_vpn.res())
+                        }
+                        !lease.leaseOk -> {
+                            label(R.string.home_account_active.res())
+                            state(R.string.home_vpn_disabled.res())
+                        }
+                        else -> {
+                            label(lease.gatewayNiceName.res())
+                            state("Blokada Tunnel is active".res())
+                        }
                     }
                 }
             }

@@ -44,31 +44,24 @@ class MasterSwitchVB(
             when {
                 !tunnelEvents.enabled() -> {
                     state("Blokada is deactivated.".res())
-                    line(0)
                 }
                 activating -> {
                     state(R.string.home_please_wait.res())
-                    line(1)
                 }
                 !tunnelEvents.active() -> {
                     state(R.string.home_masterswitch_waiting.res())
-                    line(1)
                 }
                 !config.adblocking && !blockaVpnEnabled -> {
                     state(R.string.home_dns_only.res())
-                    line(2)
                 }
                 !config.adblocking -> {
                     state(R.string.home_vpn_only.res())
-                    line(3)
                 }
                 !blockaVpnEnabled -> {
                     state("Blokada is active.".res())
-                    line(2)
                 }
                 else -> {
                     state("Blokada Tunnel is active, and your Internet is protected.".res())
-                    line(3)
                 }
            }
         }

@@ -37,6 +37,7 @@
             android:padding="1dp"
             android:background="@drawable/bg_dashboard_item_inactive"
             android:src="@color/colorActive"
+            android:visibility="invisible"
             />
 
         <TextView
