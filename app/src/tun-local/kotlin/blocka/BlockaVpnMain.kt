@@ -1,7 +1,6 @@
 package blocka
 
 import com.github.salomonbrys.kodein.instance
-import com.github.thibseisel.kdenticon.Identicon
 import core.*
 import core.Register.set
 import core.bits.accountInactive
@@ -16,7 +15,6 @@ import notification.notificationMain
 import org.blokada.R
 import tunnel.showSnack
 import java.io.File
-import java.io.FileOutputStream
 
 private val context = newSingleThreadContext("blocka-vpn-main") + logCoroutineExceptions()
 
@@ -47,15 +45,8 @@ class BlockaVpnMain {
                     RetryingRetrofitHandler(restApi.getAccountInfo(accountId)).execute().account.activeUntil
                 },
                 generateKeypair = boringtunLoader::generateKeypair,
-                generateAvatar = { accountId ->
-                    try {
-                        val avatar = Identicon.fromValue(accountId, 300)
-                        val stream = FileOutputStream(getAvatarFilePath())
-                        avatar.saveAsSvg(stream)
-                        stream.close()
-                    } catch (ex: Throwable) {
-                        e("failed generating avatar", ex)
-                    }
+                accountValid = {
+                    notificationMain.cancel(AccountInactiveNotification())
                 }
         )
         leaseManager = LeaseManager(

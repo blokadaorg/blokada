@@ -7,7 +7,7 @@ internal class AccountManager(
         val newAccountRequest: () -> AccountId? = { throw Exception("not implemented") },
         val getAccountRequest: (AccountId) -> ActiveUntil = { throw Exception("not implemented") },
         val generateKeypair: () -> Pair<String, String> = { throw Exception("not implemented") },
-        val generateAvatar: (AccountId) -> Unit = {}
+        val accountValid: () -> Unit = {}
 ) {
 
     private var lastAccountRequest = 0L
@@ -28,6 +28,7 @@ internal class AccountManager(
                             lastAccountCheck = System.currentTimeMillis()
                     )
                     lastAccountRequest = System.currentTimeMillis()
+                    if (!activeUntil.expired()) accountValid()
                 } catch (ex: Exception) {
                     state = state.copy(accountOk = false)
                     throw Exception("failed to get account request", ex)
@@ -43,7 +44,7 @@ internal class AccountManager(
                 activeUntil = activeUntil,
                 accountOk = true
         )
-        generateAvatar(newId)
+        if (!activeUntil.expired()) accountValid()
     }
 
     private fun ensureAccount() {
@@ -56,7 +57,6 @@ internal class AccountManager(
                     accountOk = false,
                     lastAccountCheck = System.currentTimeMillis()
             )
-            generateAvatar(id)
         }
     }
 
