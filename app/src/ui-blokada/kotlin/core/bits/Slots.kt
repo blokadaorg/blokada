@@ -330,6 +330,30 @@ class DownloadOnWifiVB(
 
 }
 
+class WildcardVB(
+        private val ktx: AndroidKontext,
+        private val ctx: Context = ktx.ctx,
+        private val i18n: I18n = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                label = i18n.getString(R.string.tunnel_config_wildcard_title),
+                description = i18n.getString(R.string.tunnel_config_wildcard_description),
+                icon = ctx.getDrawable(R.drawable.ic_multiplication),
+                switched = get(TunnelConfig::class.java).wildcards
+        )
+        view.onSwitch = { switched ->
+            val new = get(TunnelConfig::class.java).copy(wildcards = switched)
+            entrypoint.onChangeTunnelConfig(new)
+        }
+    }
+
+}
+
 class NewFilterVB(
         private val ktx: AndroidKontext,
         private val whitelist: Boolean = false,

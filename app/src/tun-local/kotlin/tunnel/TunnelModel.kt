@@ -13,6 +13,7 @@ data class TunnelConfig(
         val powersave: Boolean = false,
         val dnsFallback: Boolean = true,
         val report: Boolean = false, // TODO: gone from here
+        val wildcards: Boolean = false,
         var filtersUrl: String? = null,
         val cacheTTL: Long = 86400
 )

@@ -7,7 +7,7 @@ import core.emit
 import core.v
 import org.blokada.R
 
-internal class Blockade(
+internal abstract class Blockade(
         private val doLoadRuleset: (FilterId) -> Result<Ruleset> = Persistence.rules.load,
         private val doSaveRuleset: (FilterId, Ruleset) -> Result<Any> = Persistence.rules.save,
         private val doGetRulesetSize: (FilterId) -> Result<Int> = Persistence.rules.size,
@@ -16,12 +16,15 @@ internal class Blockade(
         private var allowRuleset: Ruleset = Ruleset()
 ) {
 
+    open fun afterRulesetsBuilt(denyRuleset: Ruleset, allowRuleset: Ruleset) {}
+
     fun build(deny: List<FilterId>, allow: List<FilterId>) {
         emit(TunnelEvents.RULESET_BUILDING)
         denyRuleset.clear()
         denyRuleset = buildRuleset(deny)
         allowRuleset.clear()
         allowRuleset = buildRuleset(allow)
+        afterRulesetsBuilt(denyRuleset, allowRuleset)
         emit(TunnelEvents.RULESET_BUILT, denyRuleset.size to allowRuleset.size)
     }
 
@@ -59,13 +62,74 @@ internal class Blockade(
         )
     }
 
-    fun denied(host: String): Boolean {
-        return denyRuleset.contains(host)
-    }
+    abstract fun denied(host: String): Boolean
 
-    fun allowed(host: String): Boolean {
-        return allowRuleset.contains(host)
-    }
+    abstract fun allowed(host: String): Boolean
 
 }
 
+internal class BasicBlockade(
+        private val doLoadRuleset: (FilterId) -> Result<Ruleset> = Persistence.rules.load,
+        private val doSaveRuleset: (FilterId, Ruleset) -> Result<Any> = Persistence.rules.save,
+        private val doGetRulesetSize: (FilterId) -> Result<Int> = Persistence.rules.size,
+        private val doGetMemoryLimit: () -> MemoryLimit = Memory.linesAvailable,
+        private var denyRuleset: Ruleset = Ruleset(),
+        private var allowRuleset: Ruleset = Ruleset()
+): Blockade(
+        doLoadRuleset = doLoadRuleset,
+        doSaveRuleset = doSaveRuleset,
+        doGetRulesetSize = doGetRulesetSize,
+        doGetMemoryLimit = doGetMemoryLimit,
+        denyRuleset = denyRuleset,
+        allowRuleset = allowRuleset
+) {
+
+    override fun denied(host: String): Boolean {
+        return denyRuleset.contains(host)
+    }
+
+    override fun allowed(host: String): Boolean {
+        return allowRuleset.contains(host)
+    }
+}
+
+internal class WildcardBlockade(
+        private val doLoadRuleset: (FilterId) -> Result<Ruleset> = Persistence.rules.load,
+        private val doSaveRuleset: (FilterId, Ruleset) -> Result<Any> = Persistence.rules.save,
+        private val doGetRulesetSize: (FilterId) -> Result<Int> = Persistence.rules.size,
+        private val doGetMemoryLimit: () -> MemoryLimit = Memory.linesAvailable,
+        private var denyRuleset: Ruleset = Ruleset(),
+        private var allowRuleset: Ruleset = Ruleset(),
+        private var wildcardDenyRuleset: Ruleset = Ruleset(),
+        private var wildcardAllowRuleset: Ruleset = Ruleset()
+): Blockade(
+        doLoadRuleset = doLoadRuleset,
+        doSaveRuleset = doSaveRuleset,
+        doGetRulesetSize = doGetRulesetSize,
+        doGetMemoryLimit = doGetMemoryLimit,
+        denyRuleset = denyRuleset,
+        allowRuleset = allowRuleset
+) {
+
+    override fun afterRulesetsBuilt(denyRuleset: Ruleset, allowRuleset: Ruleset) {
+        wildcardDenyRuleset = Ruleset().apply { addAll(denyRuleset.filter { it.startsWith("*.") }) }
+        wildcardAllowRuleset = Ruleset().apply { addAll(allowRuleset.filter { it.startsWith("*.") }) }
+        wildcardDenyRuleset = Ruleset().apply { addAll(wildcardDenyRuleset.map { it.removePrefix("*.") }) }
+        wildcardAllowRuleset = Ruleset().apply { addAll(wildcardAllowRuleset.map { it.removePrefix("*.") }) }
+
+        v("WildcardBlockade configured, deny/allow:", wildcardDenyRuleset.size,
+                wildcardAllowRuleset.size)
+    }
+
+    override fun denied(host: String): Boolean {
+        return denyRuleset.contains(host) || wildcardDenyRuleset.firstOrNull {
+            host.endsWith(it)
+        } != null
+    }
+
+    override fun allowed(host: String): Boolean {
+        return allowRuleset.contains(host) || wildcardAllowRuleset.firstOrNull {
+            host.endsWith(it)
+        } != null
+    }
+}

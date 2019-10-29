@@ -35,7 +35,7 @@ internal class FilterManager(
         private val doGetNow: () -> Time = { System.currentTimeMillis() },
         private val doGetMemoryLimit: () -> MemoryLimit = Memory.linesAvailable,
         private val doResolveFilterSource: (Filter) -> IFilterSource,
-        internal val blockade: Blockade = Blockade()
+        internal val blockade: Blockade
 ) {
 
     private var store = FilterStore(lastFetch = 0)
