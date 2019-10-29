@@ -112,10 +112,10 @@ sealed class BlokadaNotification(val id: Int, val channel: NotificationChannels,
 
 private var requestCode = 0
 
-class FilteredNotification(reason: String): BlokadaNotification(1, NotificationChannels.FILTERED,
+class FilteredNotification(reason: String, counter: Int = 0): BlokadaNotification(1, NotificationChannels.FILTERED,
         create = { ctx ->
             val b = NotificationCompat.Builder(ctx)
-            b.setContentTitle(ctx.getString(R.string.notification_blocked_title))
+            b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, counter))
             b.setContentText(ctx.getString(R.string.notification_blocked_text, reason))
             b.setSmallIcon(R.drawable.ic_stat_blokada)
             b.priority = NotificationCompat.PRIORITY_MAX

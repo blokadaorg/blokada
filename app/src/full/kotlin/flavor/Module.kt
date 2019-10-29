@@ -26,7 +26,8 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             // Display notifications for dropped
             s.tunnelRecentDropped.doOnUiWhenSet().then {
                 if (s.tunnelRecentDropped().isEmpty()) notificationMain.cancel(FilteredNotification(""))
-                else if (ui.notifications()) notificationMain.show(FilteredNotification(s.tunnelRecentDropped().last()))
+                else if (ui.notifications()) notificationMain.show(FilteredNotification(s.tunnelRecentDropped().last(),
+                        counter = s.tunnelDropCount()))
             }
 
             s.tunnelRecentDropped.doWhenChanged().then{
