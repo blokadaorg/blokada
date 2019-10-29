@@ -155,7 +155,7 @@ class TunnelMain {
         }
 
         v("syncing filters")
-        setSmartlistAlarmActive(ctx, get(TunnelConfig::class.java).smartList)
+        setSmartlistAlarmActive(ctx, get(TunnelConfig::class.java).smartList != SmartListState.DEACTIVATED)
         val url = tunnelConfig.filtersUrl
         if (url != null) filterManager.setUrl(url)
         if (filterManager.hasUrl()) {
