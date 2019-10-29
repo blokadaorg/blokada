@@ -168,10 +168,10 @@ internal class FilterManager(
     }
 
     private fun syncRules(ignoreSmartList: Boolean) = {
-        val smartlist = Filter("smart", FilterSourceDescriptor("file", core.Persistence.global.loadPath() + "/smartlist.txt"))
+        val smartlist = Filter("smart", FilterSourceDescriptor("file", smartlistListfile.absolutePath))
         val tunnelConfig = get(TunnelConfig::class.java)
         val active = store.cache.filter { it.active }.toMutableList()
-        if(tunnelConfig.smartList){
+        if(tunnelConfig.smartList == SmartListState.ACTIVE_PHASE2){
             active.add(smartlist)
         }
         val downloaded = mutableSetOf<Filter>()
@@ -194,11 +194,11 @@ internal class FilterManager(
 
         store = store.copy(cache = store.cache - downloaded + downloaded)
         val allowed = store.cache.filter { it.whitelist && it.active }.map { it.id }.toMutableList()
-        if(tunnelConfig.smartList){
+        if(tunnelConfig.smartList == SmartListState.ACTIVE_PHASE2 && ignoreSmartList){
             allowed.add(smartlist.id) // keep existing entries from being added again.
         }
 
-        val denied = if(ignoreSmartList || !tunnelConfig.smartList) {
+        val denied = if(tunnelConfig.smartList != SmartListState.ACTIVE_PHASE2 || ignoreSmartList ) {
             store.cache.filter { !it.whitelist && it.active }.map { it.id }
         }else{
             listOf(smartlist.id)
