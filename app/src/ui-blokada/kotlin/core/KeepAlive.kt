@@ -87,7 +87,7 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
 }
 
 // So that it's never GC'd, not sure if it actually does anything
-private val keepAliveAgent by lazy { KeepAliveAgent() }
+val keepAliveAgent by lazy { KeepAliveAgent() }
 
 class KeepAliveAgent {
     private val serviceConnection = object: ServiceConnection {
@@ -111,6 +111,15 @@ class KeepAliveAgent {
         val serviceComponent = ComponentName(ctx, BootJobService::class.java)
         val builder = JobInfo.Builder(1, serviceComponent)
         builder.setPeriodic(60 * 1000L)
+        val jobScheduler = ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobScheduler.schedule(builder.build())
+    }
+
+    fun fireJob(ctx: Context) {
+        val serviceComponent = ComponentName(ctx, BootJobService::class.java)
+        val builder = JobInfo.Builder(1, serviceComponent)
+        builder.setMinimumLatency(2 * 1000L)
+        builder.setOverrideDeadline(4 * 1000L)
         val jobScheduler = ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
         jobScheduler.schedule(builder.build())
     }

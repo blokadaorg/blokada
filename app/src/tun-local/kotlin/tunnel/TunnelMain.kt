@@ -140,6 +140,7 @@ class TunnelMain {
         if (needRecreateManagers) {
             if (::tunnelManager.isInitialized) {
                 v("recreating FilterManager (stopping tunnel first)")
+                keepAliveAgent.fireJob(ctx) // To prevent death in the meantime
                 tunnelManager.stop()
             }
             blockade = createBlockade(tunnelConfig)
