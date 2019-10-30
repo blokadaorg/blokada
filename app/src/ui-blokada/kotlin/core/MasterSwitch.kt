@@ -7,11 +7,11 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
 import com.github.salomonbrys.kodein.instance
 import gs.presentation.LayoutViewBinder
 import gs.presentation.doAfter
 import gs.property.I18n
+import io.ghyeok.stickyswitch.widget.StickySwitch
 import org.blokada.R
 
 
@@ -69,7 +69,7 @@ class MasterSwitchView(
     private val i18n by lazy { context.ktx("MasterSwitchView").di().instance<I18n>() }
 
     private val stateView = findViewById<TextView>(R.id.byte_state)
-    private val switchView = findViewById<SwitchCompat>(R.id.byte_switch)
+    private val switchView = findViewById<StickySwitch>(R.id.sticky_switch)
     private val lineView = findViewById<ImageView>(R.id.line)
 
     private var switched: Boolean? = null
@@ -115,11 +115,13 @@ class MasterSwitchView(
             }
             switched -> {
                 switchView.visibility = View.VISIBLE
-                switchView.isChecked = switched
+                switchView.setDirection(StickySwitch.Direction.RIGHT)
+//                switchView.isChecked = switched
             }
             else -> {
                 switchView.visibility = View.VISIBLE
-                switchView.isChecked = switched
+                switchView.setDirection(StickySwitch.Direction.LEFT)
+//                switchView.isChecked = switched
             }
         }
     }
@@ -141,13 +143,13 @@ class MasterSwitchView(
 
     fun onSwitch(switch: (Boolean) -> Unit) {
         switchView.setOnClickListener {
-            it as SwitchCompat
-            switch(it.isChecked)
+            it as StickySwitch
+            switch(it.getDirection() == StickySwitch.Direction.RIGHT)
         }
     }
 
     fun isSwitched(): Boolean? {
-        return if (switchView.visibility == View.GONE) null else switchView.isChecked
+        return if (switchView.visibility == View.GONE) null else switchView.getDirection() == StickySwitch.Direction.RIGHT
     }
 
 }

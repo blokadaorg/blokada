@@ -29,6 +29,7 @@
     <color name="colorSecondary">#3e3e3e</color>
     <color name="colorAccent">#ff5f00</color>
     <color name="colorAccentDark">#B64401</color>
+    <color name="colorAccentVeryDark">#7C2E00</color>
     <color name="colorAccentLight">#ff690e</color>
     <color name="colorTextDark">#1D1D1D</color>
     <color name="colorInactive">#b1b1b1</color>
@@ -61,8 +62,8 @@
     <color name="gradient4_c3">#00FFD8</color>
 
     <array name="gradient0">
-        <item>@color/colorBackground</item>
-        <item>@color/colorBackgroundLight</item>
+        <item>#1F1F1F</item>
+        <item>#414141</item>
     </array>
 
 

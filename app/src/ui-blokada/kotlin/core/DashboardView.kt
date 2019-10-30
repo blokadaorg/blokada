@@ -516,6 +516,11 @@ class DashboardView(
                 bg_action_cta.setColorFilter(null)
             }
         }
+
+        if (isLandscape(context)) {
+            bg_action_help.visibility = View.GONE
+            bg_action_cta.visibility = View.GONE
+        }
     }
 
     private var adjusted = false

@@ -9,9 +9,9 @@
     <string name="home_activating">Activating</string>
     <string name="home_please_wait">Please wait...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_vpn_only">Blokada Tunnel is active without adblocking.</string>
+    <string name="home_vpn_only">Blokada Tunnel is active without adblocking</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_only">Blokada is active in DNS mode.</string>
+    <string name="home_dns_only">Blokada is active in DNS mode</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_touch">Touch to choose DNS</string>
 

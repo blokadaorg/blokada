@@ -20,12 +20,16 @@
     <dimen name="dashboard_fg_pager_margin">8dp</dimen>
     <dimen name="dashboard_fg_drag_height">110dp</dimen>
     <dimen name="dashboard_fg_drag_margin_top">52dp</dimen>
+    <dimen name="dashboard_bg_icon_size">38dp</dimen>
+    <dimen name="dashboard_bg_icon_margin_top">16dp</dimen>
+    <dimen name="dashboard_bg_icon_margin_end">8dp</dimen>
+    <dimen name="dashboard_bg_icon_padding">8dp</dimen>
 
     <dimen name="dashboard_logo_size">48dp</dimen>
     <dimen name="dashboard_logo_margin_top">10dp</dimen>
     <dimen name="dashboard_logo_margin_start">8dp</dimen>
     <dimen name="dashboard_pager_margin_top">0dp</dimen>
-    <dimen name="dashboard_pager_margin_bottom">80dp</dimen>
+    <dimen name="dashboard_pager_margin_bottom">90dp</dimen>
     <dimen name="dashboard_nav_margin_top">0dp</dimen>
     <dimen name="dashboard_nav_align_end_width">400dp</dimen>
 
@@ -55,4 +59,6 @@
     <dimen name="slot_icon_margin">@dimen/slot_content_padding</dimen>
     <dimen name="slot_focus_border_size">2dp</dimen>
 
+    <dimen name="master_switch_size">24dp</dimen>
+    <dimen name="master_switch_padding">22dp</dimen>
 </resources>

@@ -41,8 +41,7 @@ fun createManageAccountMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemVB(ktx,
             label = R.string.menu_vpn_account.res(),
             icon = R.drawable.ic_account_circle_black_24dp.res(),
-            opens = if (Product.current(ktx.ctx) == Product.FULL) createAccountMenu(ktx)
-                    else createAccountMenuGoogle(ktx)
+            opens = createAccountMenu(ktx)
     )
 }
 
@@ -81,7 +80,7 @@ private fun createAccountMenu(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemsVB(ktx,
             items = listOf(
                     AccountVB(ktx),
-                    ManageAccountVB(ktx),
+                    if (Product.current(ktx.ctx) == Product.FULL) ManageAccountVB(ktx) else null,
                     RestoreAccountVB(ktx),
                     createWhyVpnMenuItem(ktx),
                     LabelVB(ktx, label = "Do I have an account?".res()),
@@ -89,23 +88,8 @@ private fun createAccountMenu(ktx: AndroidKontext): NamedViewBinder {
                     TextPointVB(ktx, label = "Tap your avatar above to see your account ID.".res()),
                     TextPointVB(ktx, label = "Your account ID is secret and you should not show it to anyone.".res()),
                     TextPointVB(ktx, label = "Write down your account ID in case you need to reinstall the app.".res())
-            ),
+            ).filterNotNull(),
             name = R.string.menu_vpn_account.res()
     )
 }
 
-private fun createAccountMenuGoogle(ktx: AndroidKontext): NamedViewBinder {
-    return MenuItemsVB(ktx,
-            items = listOf(
-                    LabelVB(ktx, label = R.string.menu_vpn_manage_subscription_unavailable.res()),
-                    AccountGoogleVB(ktx),
-                    LabelVB(ktx, label = R.string.menu_vpn_account_secret.res()),
-                    ManageAccountVB(ktx),
-                    LabelVB(ktx, label = R.string.menu_vpn_restore_label.res()),
-                    RestoreAccountVB(ktx),
-                    LabelVB(ktx, label = R.string.menu_vpn_support_label.res()),
-                    SupportVB(ktx)
-            ),
-            name = R.string.menu_vpn_account.res()
-    )
-}

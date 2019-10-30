@@ -66,7 +66,7 @@ class HomeDashboardSectionVB(
         on(REFRESH_HOME, this::forceUpdate, recentValue = false)
         update()
         if (isLandscape(ktx.ctx)) {
-            view.enableLandscapeMode(reversed = false)
+            view.enableLandscapeMode(staggered = true)
             view.set(items)
         } else view.set(items)
     }
@@ -77,20 +77,26 @@ class HomeDashboardSectionVB(
     }
 
     private fun forceUpdate() {
-        if (seen) {
-            added = null
-            update()
-        }
+        if (seen) update()
     }
+
+    private val slotPosition = 1
 
     private fun update() {
         val cfg = get(CurrentAccount::class.java)
         view?.run {
+            if (added != null) {
+                val slot = items[slotPosition]
+                items = items - slot
+                remove(slot)
+                added = null
+            }
+
             val noSubscription = cfg.activeUntil.before(Date())
             val (slot, name) = decideOnSlot(noSubscription)
             if (slot != null && added == null) {
-                items = items + listOf(slot)
-                add(slot)
+                items = items.subList(0, slotPosition) + listOf(slot) + items.subList(slotPosition, items.size)
+                add(slot, slotPosition)
                 added = name
                 seen = false
                 if (slot is SimpleByteVB) slot.onTapped = {
@@ -99,13 +105,14 @@ class HomeDashboardSectionVB(
                     seen = true
 
                     if (!slot.shouldKeepAfterTap) {
-                        items = items.dropLast(1)
+                        items = items - slot
                         remove(slot)
+                        added = null
                     }
                 }
             } else {
                 if (isLandscape(ktx.ctx)) {
-                    enableLandscapeMode(reversed = false)
+                    enableLandscapeMode(staggered = true)
                     set(items)
                 } else {
                     set(items)
@@ -144,7 +151,7 @@ class HomeDashboardSectionVB(
     private fun decideOnSlot(noSubscription: Boolean): Pair<ViewBinder?, OneTimeByte?> {
         val cfg = Persistence.slots.load().get()
         val name = if (cfg == null) null else when {
-            //isLandscape(ktx.ctx) -> null
+            isLandscape(ktx.ctx) -> null
             hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
