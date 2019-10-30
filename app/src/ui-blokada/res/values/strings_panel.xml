@@ -104,8 +104,9 @@
     <string name="slot_allapp_normal">Not bypassed</string>
     <string name="slot_allapp_whitelist">Bypass</string>
 
-    <string name="slot_dns_name">Custom DNS is active</string>
-    <string name="slot_dns_name_disabled">Custom DNS is deactivated</string>
+    <string name="slot_dns_name">DNS is active</string>
+    <string name="slot_dns_name_private">Private DNS is active</string>
+    <string name="slot_dns_name_disabled">DNS is deactivated</string>
     <string name="slot_action_none">This action is not available yet.</string>
     <string name="slot_action_unwhitelist">Cancel</string>
     <string name="slot_action_author">About</string>

@@ -2,6 +2,7 @@ package core.bits
 
 import android.content.Context
 import android.util.Base64
+import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.MENU_CLICK_BY_NAME
@@ -82,7 +83,8 @@ class ActiveDnsVB(
             else -> {
                 icon(R.drawable.ic_server.res(), color = R.color.switch_on.res())
                 label(name.res())
-                state(null)
+                val vpn = get(BlockaVpnState::class.java).enabled
+                if (vpn) state(R.string.slot_dns_name_private.res()) else state(null)
             }
         }
     }
