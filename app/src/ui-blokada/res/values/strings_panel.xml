@@ -168,9 +168,9 @@
 
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Connect to %s</string>
-    <string name="slot_gateway_label_overloaded">[Full] Connect to %s</string>
+    <string name="slot_gateway_section_partner">Partner gateways provide additional locations. They are not fully managed by Blokada, but they do not have access to your encrypted traffic.</string>
+    <string name="slot_gateway_section_overloaded">Those gateways are overloaded and temporarily unavailable.</string>
     <string name="slot_gateway_description">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="slot_gateway_description_current">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your currently selected gateway.</string>
     <string name="slot_gateway_overloaded">This gateway is busy and does not accept new connections.</string>
 
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->

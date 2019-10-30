@@ -1,6 +1,8 @@
 package core.bits.menu.vpn
 
 import android.os.Handler
+import blocka.BlockaRestApi
+import blocka.BlockaRestModel
 import blocka.MAX_RETRIES
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -12,8 +14,6 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
-import blocka.BlockaRestApi
-import blocka.BlockaRestModel
 
 class GatewaysDashboardSectionVB(
         val ktx: AndroidKontext,
@@ -61,12 +61,30 @@ class GatewaysDashboardSectionVB(
                     when (code()) {
                         200 -> {
                             body()?.run {
-                                val g = gateways.map {
-                                    GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime)
-                                }
+                                val overloaded = gateways.filter { it.overloaded() }
+                                val partner = gateways.filter { it.partner() }
+                                val rest = gateways - partner - overloaded
+
+                                val o = overloaded.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) }
+                                val p = partner.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) } - o
+                                val r = rest.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) }
+
                                 items = listOf(
                                     LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res())
-                                ) + g
+                                ) + r
+
+                                if (partner.isNotEmpty()) {
+                                    items += listOf(
+                                            LabelVB(ktx, label = R.string.slot_gateway_section_partner.res())
+                                    ) + p
+                                }
+
+                                if (overloaded.isNotEmpty()) {
+                                    items += listOf(
+                                            LabelVB(ktx, label = R.string.slot_gateway_section_overloaded.res())
+                                    ) + o
+                                }
+
                                 view?.set(items)
                             }
                         }
