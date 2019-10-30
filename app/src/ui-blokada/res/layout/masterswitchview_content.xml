@@ -31,7 +31,7 @@
         app:ss_iconSize="@dimen/master_switch_size"
         app:ss_leftIcon="@drawable/ic_power"
         app:ss_leftText=""
-        app:ss_rightIcon="@drawable/blokada"
+        app:ss_rightIcon="@drawable/ic_blokada_off"
         app:ss_rightText=""
         app:ss_selectedTextSize="0sp"
         app:ss_sliderBackgroundColor="@color/colorBackgroundTrans"

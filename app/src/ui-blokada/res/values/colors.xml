@@ -43,6 +43,8 @@
     <color name="colorProtectionHigh">#00771B</color>
     <color name="colorProtectionVeryHigh">#00DF30</color>
 
+
+    <color name="switch_on_master">#B700C945</color>
     <color name="switch_on">#04fc5c</color>
     <color name="switch_off">@color/colorTextUnimportant</color>
 

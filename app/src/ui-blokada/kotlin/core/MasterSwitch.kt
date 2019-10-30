@@ -116,11 +116,13 @@ class MasterSwitchView(
             switched -> {
                 switchView.visibility = View.VISIBLE
                 switchView.setDirection(StickySwitch.Direction.RIGHT)
+                switchView.setRightIcon(R.drawable.ic_blokada_on)
 //                switchView.isChecked = switched
             }
             else -> {
                 switchView.visibility = View.VISIBLE
                 switchView.setDirection(StickySwitch.Direction.LEFT)
+                switchView.setRightIcon(R.drawable.ic_blokada_off)
 //                switchView.isChecked = switched
             }
         }
