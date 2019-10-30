@@ -21,14 +21,41 @@ import java.util.*
 import kotlin.collections.HashSet
 
 
-private val asyncContext = newSingleThreadContext("blocka-vpn-main") + logCoroutineExceptions()
+private val asyncContext = newSingleThreadContext("smartlist-main") + logCoroutineExceptions()
 const val SMARTLIST_REQUEST_CODE = 1105321546 // random 32 bit value
-val smartlistLogfile = File(core.Persistence.global.loadPath(), "learning.log")
-val smartlistListfile = File(core.Persistence.global.loadPath() + "/smartlist.txt")
+val smartlistLogfile = File(core.Persistence.global.loadPath(), "smartlist.log")
+val smartlistListfile = File(core.Persistence.global.loadPath() + "/smartlist.hosts")
+
+/*
+       DEACTIVATED
+++---does smart list exist ? PHASE2 : PHASE1
+||     ||
+||     \/
+||   PHASE1
+||     log blocked request
+||     wait for 4 AM
+||     copy log into new smart list
+||     delete old log
+||     switch to PHASE2
+||     ||
+||     \/
+++-->PHASE2
+       delete old log
+       load smart list
+       log allowed request
+       wait for 4 AM
+       load all selected lists
+       check all logged requests
+       add new entries
+       load new smart list
+       repeat PHASE2
+*/
+
 enum class SmartListState {
     DEACTIVATED, ACTIVE_PHASE1, ACTIVE_PHASE2
 }
 
+//Triggered every night at 4AM
 class OnGenerateSmartListReceiver : BroadcastReceiver() {
 
     private val blockade = Blockade()
