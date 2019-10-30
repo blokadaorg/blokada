@@ -76,11 +76,15 @@ class HomeDashboardSectionVB(
         cancel(REFRESH_HOME, this::forceUpdate)
     }
 
-    private fun forceUpdate() {
-        if (seen) update()
-    }
-
     private val slotPosition = 1
+
+    private fun forceUpdate() {
+        async {
+            markAnnouncementAsUnseen()
+            requestAnnouncement()
+            async(UI) { update() }
+        }
+    }
 
     private fun update() {
         val cfg = get(CurrentAccount::class.java)
@@ -98,11 +102,10 @@ class HomeDashboardSectionVB(
                 items = items.subList(0, slotPosition) + listOf(slot) + items.subList(slotPosition, items.size)
                 add(slot, slotPosition)
                 added = name
-                seen = false
+
                 if (slot is SimpleByteVB) slot.onTapped = {
                     // Remove this slot
                     markAsSeen()
-                    seen = true
 
                     if (!slot.shouldKeepAfterTap) {
                         items = items - slot
@@ -131,7 +134,6 @@ class HomeDashboardSectionVB(
     ).filterNotNull()
 
     private var added: OneTimeByte? = null
-    private var seen = false
     private val oneTimeBytes = createOneTimeBytes(ktx)
 
     private fun markAsSeen() {
@@ -155,13 +157,11 @@ class HomeDashboardSectionVB(
             hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
-            Product.current(ktx.ctx) == Product.FULL
-                    && (BuildConfig.VERSION_CODE > cfg.donate) && noSubscription -> OneTimeByte.DONATE
-            //!cfg.blokadaOrg && Product.current(ctx) == Product.GOOGLE -> OneTimeByte.BLOKADAORG
+            Product.current(ktx.ctx) == Product.FULL && (BuildConfig.VERSION_CODE > cfg.donate)
+                    && noSubscription -> OneTimeByte.DONATE
             version.obsolete() -> OneTimeByte.OBSOLETE
             getInstalledBuilds().size > 1 -> OneTimeByte.CLEANUP
-//            else -> null
-            else -> OneTimeByte.BLOKADAPLUS
+            else -> null
         }
         return oneTimeBytes[name]?.invoke() to name
     }
