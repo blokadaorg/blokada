@@ -12,8 +12,8 @@ internal abstract class Blockade(
         private val doSaveRuleset: (FilterId, Ruleset) -> Result<Any> = Persistence.rules.save,
         private val doGetRulesetSize: (FilterId) -> Result<Int> = Persistence.rules.size,
         private val doGetMemoryLimit: () -> MemoryLimit = Memory.linesAvailable,
-        private var denyRuleset: Ruleset = Ruleset(),
-        private var allowRuleset: Ruleset = Ruleset()
+        protected var denyRuleset: Ruleset = Ruleset(),
+        protected var allowRuleset: Ruleset = Ruleset()
 ) {
 
     open fun afterRulesetsBuilt(denyRuleset: Ruleset, allowRuleset: Ruleset) {}
@@ -72,16 +72,12 @@ internal class BasicBlockade(
         private val doLoadRuleset: (FilterId) -> Result<Ruleset> = Persistence.rules.load,
         private val doSaveRuleset: (FilterId, Ruleset) -> Result<Any> = Persistence.rules.save,
         private val doGetRulesetSize: (FilterId) -> Result<Int> = Persistence.rules.size,
-        private val doGetMemoryLimit: () -> MemoryLimit = Memory.linesAvailable,
-        private var denyRuleset: Ruleset = Ruleset(),
-        private var allowRuleset: Ruleset = Ruleset()
+        private val doGetMemoryLimit: () -> MemoryLimit = Memory.linesAvailable
 ): Blockade(
         doLoadRuleset = doLoadRuleset,
         doSaveRuleset = doSaveRuleset,
         doGetRulesetSize = doGetRulesetSize,
-        doGetMemoryLimit = doGetMemoryLimit,
-        denyRuleset = denyRuleset,
-        allowRuleset = allowRuleset
+        doGetMemoryLimit = doGetMemoryLimit
 ) {
 
     override fun denied(host: String): Boolean {
@@ -98,17 +94,13 @@ internal class WildcardBlockade(
         private val doSaveRuleset: (FilterId, Ruleset) -> Result<Any> = Persistence.rules.save,
         private val doGetRulesetSize: (FilterId) -> Result<Int> = Persistence.rules.size,
         private val doGetMemoryLimit: () -> MemoryLimit = Memory.linesAvailable,
-        private var denyRuleset: Ruleset = Ruleset(),
-        private var allowRuleset: Ruleset = Ruleset(),
         private var wildcardDenyRuleset: Ruleset = Ruleset(),
         private var wildcardAllowRuleset: Ruleset = Ruleset()
 ): Blockade(
         doLoadRuleset = doLoadRuleset,
         doSaveRuleset = doSaveRuleset,
         doGetRulesetSize = doGetRulesetSize,
-        doGetMemoryLimit = doGetMemoryLimit,
-        denyRuleset = denyRuleset,
-        allowRuleset = allowRuleset
+        doGetMemoryLimit = doGetMemoryLimit
 ) {
 
     override fun afterRulesetsBuilt(denyRuleset: Ruleset, allowRuleset: Ruleset) {
