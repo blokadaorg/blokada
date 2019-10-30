@@ -92,9 +92,9 @@ private fun createAdblockingSettings(ktx: AndroidKontext): NamedViewBinder {
             items = listOf(
                     LabelVB(ktx, label = R.string.menu_host_list_status.res()),
                     FiltersStatusVB(ktx, onTap = defaultOnTap),
-                    SmartListVB(ktx, onTap = defaultOnTap),
                     LabelVB(ktx, label = R.string.menu_host_adblocking_settings.res()),
                     WildcardVB(ktx, onTap = defaultOnTap),
+                    SmartListVB(ktx, onTap = defaultOnTap),
                     LoggerVB(ktx, onTap = defaultOnTap),
                     ResetCounterVB(ktx, onTap = defaultOnTap),
                     LabelVB(ktx, label = R.string.menu_host_list_download.res()),
