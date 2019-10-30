@@ -41,4 +41,9 @@
 
     <string name="notification_lease_expired_title">Blokada Tunnel is deactivated</string>
     <string name="notification_lease_expired_description">There was a problem with your connection to Blokada Tunnel. Please try choosing another gateway. If the problem persists, please contact us.</string>
+
+    <string name="notification_channel_filtered">Ad blocking</string>
+    <string name="notification_channel_announcements">Announcements</string>
+    <string name="notification_channel_vpn">Blokada Tunnel</string>
+    <string name="notification_channel_other">Other</string>
 </resources>

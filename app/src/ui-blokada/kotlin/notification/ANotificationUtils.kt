@@ -99,11 +99,11 @@ private val IMPORTANCE_HIGH = 4
 
 enum class NotificationChannels(val nameResource: Resource, val importance: Int) {
     KEEP_ALIVE(R.string.notification_keepalive_text.res(), IMPORTANCE_NONE),
-    FILTERED("Ad blocking".res(), IMPORTANCE_NONE),
-    ANNOUNCEMENT("Announcements".res(), IMPORTANCE_HIGH),
+    FILTERED(R.string.notification_channel_filtered.res(), IMPORTANCE_NONE),
+    ANNOUNCEMENT(R.string.notification_channel_announcements.res(), IMPORTANCE_HIGH),
     UPDATE(R.string.update_notification_channel.res(), IMPORTANCE_HIGH),
-    BLOCKA_VPN("Blokada VPN".res(), IMPORTANCE_HIGH),
-    COMMON("Other".res(), IMPORTANCE_DEFAULT);
+    BLOCKA_VPN(R.string.notification_channel_vpn.res(), IMPORTANCE_HIGH),
+    COMMON(R.string.notification_channel_other.res(), IMPORTANCE_DEFAULT);
 }
 
 sealed class BlokadaNotification(val id: Int, val channel: NotificationChannels,
