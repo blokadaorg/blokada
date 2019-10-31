@@ -30,6 +30,7 @@ fun newDnsModule(ctx: Context): Kodein.Module {
 abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
     abstract val dnsServers: IProperty<List<InetSocketAddress>>
+    abstract val dotServer: IProperty<InetSocketAddress?>
     abstract val enabled: IProperty<Boolean>
     abstract fun hasCustomDnsSelected(): Boolean
 }
@@ -56,7 +57,7 @@ class DnsImpl(
     private val refresh = { it: List<DnsChoice> ->
         val ktx = "dns:refresh".ktx()
         ktx.v("refresh start", pages.dns())
-        var builtInDns = listOf(DnsChoice("default", emptyList(), active = false))
+        var builtInDns = listOf(DnsChoice("default", emptyList(), null, active = false))
         builtInDns += try {
             serialiser.deserialise(loadGzip(openUrl(pages.dns(), 10000)))
         } catch (e: Exception) {
@@ -125,6 +126,13 @@ class DnsImpl(
         }
     })
 
+    override val dotServer = newProperty(w, {
+        val blockaVpnState = get(BlockaVpnState::class.java)
+        val useDnsFallback = get(TunnelConfig::class.java).dnsFallback
+        val choice = if(enabled()) choices().firstOrNull { it.active } else null
+        choice?.dotServer
+    })
+
     override val enabled = newPersistedProperty(w, BasicPersistence(xx, "dnsEnabled"), { false })
 
     init {
@@ -157,6 +165,7 @@ class DnsImpl(
 data class DnsChoice(
         val id: String,
         var servers: List<InetSocketAddress>,
+        var dotServer: InetSocketAddress?,
         var active: Boolean = false,
         var ipv6: Boolean = false,
         val credit: String? = null,
@@ -194,10 +203,20 @@ class DnsChoicePersistence(xx: Environment) : PersistenceWithSerialiser<List<Dns
 private fun addressToIpString(it: InetSocketAddress) =
         it.hostString + ( if (it.port != 53) ":" + it.port.toString() else "" )
 
+private fun addressToHostnameString(it: InetSocketAddress?) =
+        (if (it != null) it.hostName + ( if (it.port != 853) ":" + it.port.toString() else "" ) else "")
+
 private fun ipStringToAddress(it: String) = {
     val hostport = it.split(':', limit = 2)
     val host = hostport[0]
     val port = ( if (hostport.size == 2) hostport[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
+    InetSocketAddress(InetAddress.getByName(host), port)
+}()
+
+private fun hostnameStringToAddress(it: String) = {
+    val hostport = it.split(':', limit = 2)
+    val host = hostport[0]
+    val port = ( if (hostport.size == 2) hostport[1] else "853").toInt()
     InetSocketAddress(InetAddress.getByName(host), port)
 }()
 
@@ -208,10 +227,11 @@ class DnsSerialiser {
             val active = if (it.active) "active" else "inactive"
             val ipv6 = if (it.ipv6) "ipv6" else "ipv4"
             val servers = it.servers.map { addressToIpString(it) }.joinToString(";")
+            val dotServer = addressToHostnameString(it.dotServer)
             val credit = it.credit ?: ""
             val comment = it.comment ?: ""
 
-            "${i++}\n${it.id}\n${active}\n${ipv6}\n${servers}\n${credit}\n${comment}"
+            "${i++}\n${it.id}\n${active}\n${ipv6}\n${servers}\n${dotServer}\n${credit}\n${comment}"
         }.flatMap { it.split("\n") }
     }
 
@@ -223,10 +243,11 @@ class DnsSerialiser {
                 val active = entry[2] == "active"
                 val ipv6 = entry[3] == "ipv6"
                 val servers = entry[4].split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
-                val credit = if (entry[5].isNotBlank()) entry[5] else null
-                val comment = if (entry[6].isNotBlank()) entry[6] else null
+                val dotServer = if (entry[5].isNotBlank()) hostnameStringToAddress(entry[5]) else null
+                val credit = if (entry[6].isNotBlank()) entry[6] else null
+                val comment = if (entry[7].isNotBlank()) entry[7] else null
 
-                DnsChoice(id, servers, active, ipv6, credit, comment)
+                DnsChoice(id, servers, dotServer, active, ipv6, credit, comment)
             } catch (e: Exception) {
                 null
             }

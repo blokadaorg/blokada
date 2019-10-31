@@ -112,14 +112,12 @@ internal class DnsProxy(
                 it.writeShort(rawData.size)
                 it.write(rawData)
                 it.flush()
-                w("=======TCP request", Arrays.toString(rawData))
             }
             DataInputStream(it.getInputStream()).use {
                 //read TCP response
                 val responseByteBuffer = ByteBuffer.allocate(it.readUnsignedShort())
                 val response = responseByteBuffer.array()
                 it.readFully(response)
-                w("=======TCP response", Arrays.toString(response))
                 toDevice(response, response.size, originEnvelope)
             }
         }

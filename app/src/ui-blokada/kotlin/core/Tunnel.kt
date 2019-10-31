@@ -106,7 +106,11 @@ fun newTunnelModule(ctx: Context): Module {
             var lastRestartMillis = 0L
 
             dns.dnsServers.doWhenChanged(withInit = true).then {
-                entrypoint.onDnsServersChanged(dns.dnsServers())
+                entrypoint.onDnsServersChanged(dns)
+            }
+
+            dns.dotServer.doWhenChanged(withInit = true).then {
+                entrypoint.onDnsServersChanged(dns)
             }
 
             on(TunnelEvents.TUNNEL_RESTART) {

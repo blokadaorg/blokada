@@ -5,6 +5,7 @@ import android.util.Base64
 import android.view.View
 import com.github.salomonbrys.kodein.instance
 import org.blokada.R
+import java.net.InetAddress
 import java.net.InetSocketAddress
 
 interface Stepable {
@@ -50,6 +51,7 @@ class AddDnsActivity : Activity() {
     private val dns by lazy { ktx.di().instance<Dns>() }
 
     private var servers = Array<InetSocketAddress?>(2) { null }
+    private var dotServer : InetSocketAddress? = null
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +59,7 @@ class AddDnsActivity : Activity() {
 
         val nameVB = EnterDnsNameVB(ktx, accepted = { name ->
             if (servers[0] != null && servers[1] != null) {
-                val newDnsChoice = DnsChoice("custom-dns:" + Base64.encodeToString(name.toByteArray(), Base64.NO_WRAP), servers.filterNotNull())
+                val newDnsChoice = DnsChoice("custom-dns:" + Base64.encodeToString(name.toByteArray(), Base64.NO_WRAP), servers.filterNotNull(), dotServer)
                 if (!dns.choices().contains(newDnsChoice)) {
                     dns.choices %= dns.choices() + newDnsChoice
                 }
@@ -86,9 +88,22 @@ class AddDnsActivity : Activity() {
             stepView.next()
         })
 
+        val dotHostVB = EnterDotHostVB(ktx, accepted = {
+            dotServer = if (it.isEmpty()) {
+                null
+            } else if (it.matches(Regex("^((?!:).)*\$"))) {
+                InetSocketAddress(InetAddress.getByName(it), 853)
+            } else {
+                val parts = it.split(":")
+                InetSocketAddress(InetAddress.getByName(parts[0]), parts[1].toInt())
+            }
+            stepView.next()
+        })
+
         stepView.pages = listOf(
                 ip1VB,
                 ip2VB,
+                dotHostVB,
                 nameVB
         )
     }
@@ -138,6 +153,27 @@ class EnterIpVB(
 
 }
 
+class EnterDotHostVB(
+        private val ktx: AndroidKontext,
+        private val accepted: (String) -> Unit = {}
+) : SlotVB(), Stepable {
+
+    private var input = ""
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.EDIT
+        view.content = Slot.Content(ktx.ctx.resources.getString(R.string.dns_edit_dot_label),
+                description = ktx.ctx.resources.getString(R.string.dns_edit_dot_enter),
+                action1 = Slot.Action(ktx.ctx.resources.getString(R.string.dns_edit_next)) {
+                    accepted(input)
+                }
+        )
+
+        view.requestFocusOnEdit()
+    }
+
+}
 
 class EnterDnsNameVB(
         private val ktx: AndroidKontext,

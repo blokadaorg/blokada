@@ -13,6 +13,7 @@ import org.blokada.R
 import tunnel.TunnelConfig
 import tunnel.showSnack
 import tunnel.tunnelMain
+import java.net.InetAddress
 import java.net.InetSocketAddress
 
 private val context = newSingleThreadContext("entrypoint") + logCoroutineExceptions()
@@ -138,24 +139,21 @@ class Entrypoint {
             w("tried to enable DNS while no custom DNS is selected, ignoring")
         } else {
             dns.enabled %= enabled
-            //TODO: set DoT server
-            tunnelMain.setNetworkConfiguration(dns.dnsServers(), null, device.onWifi())
+            tunnelMain.setNetworkConfiguration(dns.dnsServers(), dns.dotServer(), device.onWifi())
             if (shouldPause(dnsEnabled = enabled)) tunnelState.enabled %= false
             else requestSync()
         }
     }
 
-    fun onDnsServersChanged(dnsServers: List<InetSocketAddress>) = async(context) {
+    fun onDnsServersChanged(updatedDns: Dns) = async(context) {
         v("onDnsServersChanged")
-        //TODO: set DoT server
-        tunnelMain.setNetworkConfiguration(dnsServers, null, device.onWifi())
+        tunnelMain.setNetworkConfiguration(updatedDns.dnsServers(), updatedDns.dotServer(), device.onWifi())
         requestSync()
     }
 
     fun onSwitchedWifi(onWifi: Boolean) = async(context) {
         v("onSwitchedWifi")
-        //TODO: set DoT server
-        tunnelMain.setNetworkConfiguration(dns.dnsServers(), null, onWifi)
+        tunnelMain.setNetworkConfiguration(dns.dnsServers(), dns.dotServer(), onWifi)
         requestSync()
     }
 
