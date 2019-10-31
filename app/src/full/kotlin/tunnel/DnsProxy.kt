@@ -14,11 +14,8 @@ import java.net.*
 import java.util.*
 import java.io.*
 import java.nio.ByteBuffer
-import java.security.KeyStore
-import java.security.SecureRandom
-import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocket
 import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.TrustManagerFactory
 
 
 interface Proxy {
@@ -91,18 +88,17 @@ internal class DnsProxy(
 
     private fun dnsOverTls(destination: InetSocketAddress, rawData : ByteArray, originEnvelope: Packet?) {
 
-        var s: Socket? = null
+        var s: SSLSocket? = null
         try {
-            val trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
-            trustManagerFactory.init(null as KeyStore?)
-            val sslContext = SSLContext.getInstance("TLS")
-            sslContext.init(null, trustManagerFactory.trustManagers, SecureRandom())
-            s = sslContext.socketFactory.createSocket()
-            //s = SSLSocketFactory.getDefault().createSocket()
             //TODO: get hostname from application state, instead of hardcoding
             //TODO: get port from application state, instead of hardcoding
-            s!!.connect(InetSocketAddress(InetAddress.getByAddress("1dot1dot1dot1.asdf-dns.com", destination.address.address), 853), 20000)
-            //s!!.connect(InetSocketAddress(InetAddress.getByAddress(destination.address.address), 53), 1000)
+            s = SSLSocketFactory.getDefault()
+                    .createSocket(
+                            InetAddress.getByAddress(
+                                    "1dot1dot1dot1.cloudflare-dns.com",
+                                    destination.address.address),
+                            853) as SSLSocket
+            s.startHandshake()
         } catch (e: Throwable) {
             try {
                 s!!.close()
@@ -111,34 +107,22 @@ internal class DnsProxy(
             }
             throw e
         }
-        w("=======DNS inetaddress", Arrays.toString(s.inetAddress.address))
-        w("=======DNS port", s.port)
 
         s.use {
-            try {
-                DataOutputStream(it.getOutputStream()).use {
-                    //send TCP request
-                    w("=======sending TCP request")
-                    it.writeShort(rawData.size)
-                    it.write(rawData)
-                    it.flush()
-                    w("=======TCP request", Arrays.toString(rawData))
-                }
-            } catch (e: Throwable) {
-                e.printStackTrace()
+            DataOutputStream(it.getOutputStream()).use {
+                //send TCP request
+                it.writeShort(rawData.size)
+                it.write(rawData)
+                it.flush()
+                w("=======TCP request", Arrays.toString(rawData))
             }
-            try {
-                DataInputStream(it.getInputStream()).use {
-                    //read TCP response
-                    w("=======reading TCP response")
-                    val responseByteBuffer = ByteBuffer.allocate(it.readUnsignedShort())
-                    val response = responseByteBuffer.array()
-                    it.readFully(response)
-                    w("=======TCP response", Arrays.toString(response))
-                    toDevice(response, response.size, originEnvelope)
-                }
-            } catch (e: Throwable) {
-                e.printStackTrace()
+            DataInputStream(it.getInputStream()).use {
+                //read TCP response
+                val responseByteBuffer = ByteBuffer.allocate(it.readUnsignedShort())
+                val response = responseByteBuffer.array()
+                it.readFully(response)
+                w("=======TCP response", Arrays.toString(response))
+                toDevice(response, response.size, originEnvelope)
             }
         }
     }
@@ -154,9 +138,6 @@ internal class DnsProxy(
                 .correctChecksumAtBuild(true)
                 .correctLengthAtBuild(true)
                 .payloadBuilder(UnknownPacket.Builder().rawData(response))
-
-        w("=======DNS response: ", Arrays.toString(response))
-        w("=======DNS response length: ", length)
 
         val envelope: IpPacket
         if (originEnvelope is IpV4Packet) {
