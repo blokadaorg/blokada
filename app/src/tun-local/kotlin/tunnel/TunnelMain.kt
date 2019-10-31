@@ -94,11 +94,13 @@ class TunnelMain {
         }
     }
 
-    fun setNetworkConfiguration(dnsServers: List<InetSocketAddress>, onWifi: Boolean) = async(context) {
+    fun setNetworkConfiguration(dnsServers: List<InetSocketAddress>, dotServer: InetSocketAddress?, onWifi: Boolean) = async(context) {
         // TODO: potentially it would be better to fetch network config on sync instead of being fed
         v(">> setting network configuration. onWifi: $onWifi", dnsServers)
 
-        if (dnsServers == currentTunnel.dnsServers && this@TunnelMain.onWifi == onWifi) {
+        if (dnsServers == currentTunnel.dnsServers
+                && dotServer == currentTunnel.dotServer
+                && this@TunnelMain.onWifi == onWifi) {
             w("no change in network configuration, ignoring")
         } else {
             if (this@TunnelMain.onWifi != onWifi) {
@@ -108,6 +110,8 @@ class TunnelMain {
             }
 
             currentTunnel = currentTunnel.copy(dnsServers = dnsServers)
+
+            currentTunnel = currentTunnel.copy(dotServer = dotServer)
         }
     }
 

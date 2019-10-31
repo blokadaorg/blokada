@@ -138,7 +138,8 @@ class Entrypoint {
             w("tried to enable DNS while no custom DNS is selected, ignoring")
         } else {
             dns.enabled %= enabled
-            tunnelMain.setNetworkConfiguration(dns.dnsServers(), device.onWifi())
+            //TODO: set DoT server
+            tunnelMain.setNetworkConfiguration(dns.dnsServers(), null, device.onWifi())
             if (shouldPause(dnsEnabled = enabled)) tunnelState.enabled %= false
             else requestSync()
         }
@@ -146,13 +147,15 @@ class Entrypoint {
 
     fun onDnsServersChanged(dnsServers: List<InetSocketAddress>) = async(context) {
         v("onDnsServersChanged")
-        tunnelMain.setNetworkConfiguration(dnsServers, device.onWifi())
+        //TODO: set DoT server
+        tunnelMain.setNetworkConfiguration(dnsServers, null, device.onWifi())
         requestSync()
     }
 
     fun onSwitchedWifi(onWifi: Boolean) = async(context) {
         v("onSwitchedWifi")
-        tunnelMain.setNetworkConfiguration(dns.dnsServers(), onWifi)
+        //TODO: set DoT server
+        tunnelMain.setNetworkConfiguration(dns.dnsServers(), null, onWifi)
         requestSync()
     }
 

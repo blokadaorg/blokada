@@ -25,6 +25,7 @@ interface Proxy {
 
 internal class DnsProxy(
         private val dnsServers: List<InetSocketAddress>,
+        private val dotServer: InetSocketAddress?,
         private val blockade: Blockade,
         private val forwarder: Forwarder,
         private val loopback: Queue<Triple<ByteArray, Int, Int>>,
@@ -66,8 +67,7 @@ internal class DnsProxy(
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
         if (blockade.allowed(host) || !blockade.denied(host)) {
-            //TODO: check if NOT TLS
-            if (false) {
+            if (dotServer == null) {
                 //conventional DNS
                 val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                         destination.getPort())
@@ -90,14 +90,12 @@ internal class DnsProxy(
 
         var s: SSLSocket? = null
         try {
-            //TODO: get hostname from application state, instead of hardcoding
-            //TODO: get port from application state, instead of hardcoding
             s = SSLSocketFactory.getDefault()
                     .createSocket(
                             InetAddress.getByAddress(
-                                    "1dot1dot1dot1.cloudflare-dns.com",
+                                    dotServer!!.hostName,
                                     destination.address.address),
-                            853) as SSLSocket
+                            dotServer!!.port) as SSLSocket
             s.startHandshake()
         } catch (e: Throwable) {
             try {

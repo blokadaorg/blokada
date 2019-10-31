@@ -64,7 +64,7 @@ internal class TunnelManagerFactory(
 
     private fun createProxy(state: CurrentTunnel, socketCreator: () -> DatagramSocket) = when {
         state.blockaVpn -> null // in VPN mode we don't use proxy class
-        else -> DnsProxy(state.dnsServers, blockade, forwarder, loopback, doCreateSocket = socketCreator)
+        else -> DnsProxy(state.dnsServers, state.dotServer, blockade, forwarder, loopback, doCreateSocket = socketCreator)
     }
 }
 
