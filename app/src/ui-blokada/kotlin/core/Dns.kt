@@ -30,7 +30,7 @@ fun newDnsModule(ctx: Context): Kodein.Module {
 abstract class Dns {
     abstract val choices: IProperty<List<DnsChoice>>
     abstract val dnsServers: IProperty<List<InetSocketAddress>>
-    abstract val dotServer: IProperty<InetSocketAddress?>
+    abstract val dotEnabled: IProperty<Boolean>
     abstract val enabled: IProperty<Boolean>
     abstract fun hasCustomDnsSelected(): Boolean
 }
@@ -57,7 +57,7 @@ class DnsImpl(
     private val refresh = { it: List<DnsChoice> ->
         val ktx = "dns:refresh".ktx()
         ktx.v("refresh start", pages.dns())
-        var builtInDns = listOf(DnsChoice("default", emptyList(), null, active = false))
+        var builtInDns = listOf(DnsChoice("default", emptyList(), false, active = false))
         builtInDns += try {
             serialiser.deserialise(loadGzip(openUrl(pages.dns(), 10000)))
         } catch (e: Exception) {
@@ -126,11 +126,9 @@ class DnsImpl(
         }
     })
 
-    override val dotServer = newProperty(w, {
-        val blockaVpnState = get(BlockaVpnState::class.java)
-        val useDnsFallback = get(TunnelConfig::class.java).dnsFallback
+    override val dotEnabled = newProperty(w, {
         val choice = if(enabled()) choices().firstOrNull { it.active } else null
-        choice?.dotServer
+        choice?.dotEnabled ?: false
     })
 
     override val enabled = newPersistedProperty(w, BasicPersistence(xx, "dnsEnabled"), { false })
@@ -165,7 +163,7 @@ class DnsImpl(
 data class DnsChoice(
         val id: String,
         var servers: List<InetSocketAddress>,
-        var dotServer: InetSocketAddress?,
+        var dotEnabled: Boolean,
         var active: Boolean = false,
         var ipv6: Boolean = false,
         val credit: String? = null,
@@ -200,25 +198,27 @@ class DnsChoicePersistence(xx: Environment) : PersistenceWithSerialiser<List<Dns
 
 }
 
-private fun addressToIpString(it: InetSocketAddress) =
-        it.hostString + ( if (it.port != 53) ":" + it.port.toString() else "" )
-
-private fun addressToHostnameString(it: InetSocketAddress?) =
-        (if (it != null) it.hostName +  ":" + it.port.toString() else "")
+private fun addressToIpString(it: InetSocketAddress, dotEnabled: Boolean) =
+        it.address.hostAddress + ( if (it.port != 53) ":" + it.port.toString() else "" ) + ( if (dotEnabled) "#" + it.hostName else "" )
 
 private fun ipStringToAddress(it: String) = {
-    val hostport = it.split(':', limit = 2)
-    val host = hostport[0]
-    val port = ( if (hostport.size == 2) hostport[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
-    InetSocketAddress(InetAddress.getByName(host), port)
+    val hostIpPort = it.split("#", limit = 2)
+    val host = (if (hostIpPort.size > 1) hostIpPort[1] else "")
+    val ipPort = hostIpPort[0].split(':', limit = 2)
+    val ip = ipPort[0]
+    val port = ( if (ipPort.size == 2) ipPort[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
+    if (host.isNotEmpty()) {
+        InetSocketAddress(InetAddress.getByAddress(hostIpPort[1], InetAddress.getByName(ip).address), port)
+    } else {
+        InetSocketAddress(InetAddress.getByName(ip), port)
+    }
 }()
 
-private fun hostnameStringToAddress(it: String) = {
-    val hostport = it.split(':', limit = 2)
-    val host = hostport[0]
-    val port = ( if (hostport.size == 2) hostport[1] else "853").toInt()
-    InetSocketAddress(InetAddress.getByName(host), port)
-}()
+private fun ipStringToDotEnabled(it: String): Boolean {
+    val hostIpPort = it.split("#", limit = 2)
+    val host = (if (hostIpPort.size > 1) hostIpPort[1] else "")
+    return host.isNotEmpty()
+}
 
 class DnsSerialiser {
     fun serialise(dns: List<DnsChoice>): List<String> {
@@ -226,8 +226,8 @@ class DnsSerialiser {
         return dns.map {
             val active = if (it.active) "active" else "inactive"
             val ipv6 = if (it.ipv6) "ipv6" else "ipv4"
-            //serialises the DoT server by concatenating it dnsServers using "#" as delimiter
-            val servers = it.servers.map { addressToIpString(it) }.joinToString(";") + "#" + addressToHostnameString(it.dotServer)
+            val dotEnabled = it.dotEnabled
+            val servers = it.servers.map { addressToIpString(it, dotEnabled) }.joinToString(";")
             val credit = it.credit ?: ""
             val comment = it.comment ?: ""
 
@@ -242,14 +242,12 @@ class DnsSerialiser {
                 val id = entry[1]
                 val active = entry[2] == "active"
                 val ipv6 = entry[3] == "ipv6"
-                val serversString = if (entry[4].contains("#")) entry[4].split("#")[0] else entry[4]
-                val servers = serversString.split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
-                val dotServerString = if (entry[4].contains("#")) entry[4].split("#")[1] else ""
-                val dotServer = if (dotServerString.isNotBlank()) hostnameStringToAddress(entry[5]) else null
+                val servers = entry[4].split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
+                val dotEnabled = ipStringToDotEnabled(entry[4])
                 val credit = if (entry[5].isNotBlank()) entry[5] else null
                 val comment = if (entry[6].isNotBlank()) entry[6] else null
 
-                DnsChoice(id, servers, dotServer, active, ipv6, credit, comment)
+                DnsChoice(id, servers, dotEnabled, active, ipv6, credit, comment)
             } catch (e: Exception) {
                 null
             }
@@ -285,6 +283,6 @@ class DnsLocalisedFetcher(
 }
 
 fun printServers(s: List<InetSocketAddress>): String {
-    return s.map { addressToIpString(it) }.joinToString (", ")
+    return s.map { addressToIpString(it, false) }.joinToString (", ")
 }
 

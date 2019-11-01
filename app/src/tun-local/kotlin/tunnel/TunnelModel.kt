@@ -19,7 +19,7 @@ data class TunnelConfig(
 
 data class CurrentTunnel(
         val dnsServers: List<InetSocketAddress> = emptyList(),
-        val dotServer: InetSocketAddress? = null,
+        val dotEnabled: Boolean = false,
         val adblocking: Boolean = false,
         val blockaVpn: Boolean = false,
         val lease: CurrentLease? = null,

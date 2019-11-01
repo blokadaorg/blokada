@@ -26,7 +26,7 @@ interface Proxy {
 
 internal class DnsProxy(
         private val dnsServers: List<InetSocketAddress>,
-        private val dotServer: InetSocketAddress?,
+        private val dotEnabled: Boolean,
         private val blockade: Blockade,
         private val forwarder: Forwarder,
         private val loopback: Queue<Triple<ByteArray, Int, Int>>,
@@ -68,15 +68,15 @@ internal class DnsProxy(
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
         if (blockade.allowed(host) || !blockade.denied(host)) {
-            if (dotServer == null) {
+            if (dotEnabled) {
+                //DNS over TLS
+                async(COMMON) { dnsOverTls(destination, udpRaw, originEnvelope) }
+            } else {
                 //conventional DNS
                 val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                         destination.getPort())
                 forward(proxiedDns, originEnvelope)
                 emit(TunnelEvents.REQUEST, Request(host))
-            } else {
-                //DNS over TLS
-                async(COMMON) {dnsOverTls(destination, udpRaw, originEnvelope)}
             }
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
@@ -91,12 +91,8 @@ internal class DnsProxy(
 
         var s: SSLSocket? = null
         try {
-            s = SSLSocketFactory.getDefault()
-                    .createSocket(
-                            InetAddress.getByAddress(
-                                    dotServer!!.hostName,
-                                    destination.address.address),
-                            dotServer!!.port) as SSLSocket
+            s = SSLSocketFactory.getDefault().createSocket() as SSLSocket
+            s.connect(destination)
         } catch (e: Throwable) {
             try {
                 s!!.close()

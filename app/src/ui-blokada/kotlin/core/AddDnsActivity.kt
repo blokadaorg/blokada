@@ -51,7 +51,7 @@ class AddDnsActivity : Activity() {
     private val dns by lazy { ktx.di().instance<Dns>() }
 
     private var servers = Array<InetSocketAddress?>(2) { null }
-    private var dotServer : InetSocketAddress? = null
+    private var dotEnabled : Boolean = false
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +59,7 @@ class AddDnsActivity : Activity() {
 
         val nameVB = EnterDnsNameVB(ktx, accepted = { name ->
             if (servers[0] != null && servers[1] != null) {
-                val newDnsChoice = DnsChoice("custom-dns:" + Base64.encodeToString(name.toByteArray(), Base64.NO_WRAP), servers.filterNotNull(), dotServer)
+                val newDnsChoice = DnsChoice("custom-dns:" + Base64.encodeToString(name.toByteArray(), Base64.NO_WRAP), servers.filterNotNull(), dotEnabled)
                 if (!dns.choices().contains(newDnsChoice)) {
                     dns.choices %= dns.choices() + newDnsChoice
                 }
@@ -89,15 +89,23 @@ class AddDnsActivity : Activity() {
         })
 
         val dotHostVB = EnterDotHostVB(ktx, accepted = {
-            dotServer = if (it.isEmpty()) {
-                null
-            } else if (it.matches(Regex("^((?!:).)*\$"))) {
-                //servers[0].address is unused, in DnsProxy we use the current or fallback DNS IP
-                InetSocketAddress(InetAddress.getByAddress(it, servers[0]!!.address.address), 853)
+            if (it.isEmpty()) {
+                dotEnabled = false
             } else {
-                val parts = it.split(":")
-                //servers[0].address is unused, in DnsProxy we use the current or fallback DNS IP
-                InetSocketAddress(InetAddress.getByAddress(parts[0], servers[0]!!.address.address), parts[1].toInt())
+                dotEnabled = true
+                var host = it
+                var portString = "853"
+                if (it.contains(":")) {
+                    val parts = it.split(":")
+                    host = parts[0]
+                    portString = parts[1]
+                }
+                var port = portString.toInt()
+                for (i in servers.indices) {
+                    if (servers[i] != null) {
+                        servers[i] = InetSocketAddress(InetAddress.getByAddress(host, servers[i]!!.address.address), port)
+                    }
+                }
             }
             stepView.next()
         })

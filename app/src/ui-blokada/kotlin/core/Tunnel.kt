@@ -109,7 +109,7 @@ fun newTunnelModule(ctx: Context): Module {
                 entrypoint.onDnsServersChanged(dns)
             }
 
-            dns.dotServer.doWhenChanged(withInit = true).then {
+            dns.dotEnabled.doWhenChanged(withInit = true).then {
                 entrypoint.onDnsServersChanged(dns)
             }
 
