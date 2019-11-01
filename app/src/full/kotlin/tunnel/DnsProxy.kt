@@ -3,6 +3,7 @@ package tunnel
 import android.system.ErrnoException
 import android.system.OsConstants
 import com.github.michaelbull.result.mapError
+import core.COMMON
 import core.Result
 import core.emit
 import core.w
@@ -75,7 +76,7 @@ internal class DnsProxy(
                 emit(TunnelEvents.REQUEST, Request(host))
             } else {
                 //DNS over TLS
-                async {dnsOverTls(destination, udpRaw, originEnvelope)}
+                async(COMMON) {dnsOverTls(destination, udpRaw, originEnvelope)}
             }
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())

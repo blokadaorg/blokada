@@ -92,10 +92,12 @@ class AddDnsActivity : Activity() {
             dotServer = if (it.isEmpty()) {
                 null
             } else if (it.matches(Regex("^((?!:).)*\$"))) {
-                InetSocketAddress(InetAddress.getByName(it), 853)
+                //servers[0].address is unused, in DnsProxy we use the current or fallback DNS IP
+                InetSocketAddress(InetAddress.getByAddress(it, servers[0]!!.address.address), 853)
             } else {
                 val parts = it.split(":")
-                InetSocketAddress(InetAddress.getByName(parts[0]), parts[1].toInt())
+                //servers[0].address is unused, in DnsProxy we use the current or fallback DNS IP
+                InetSocketAddress(InetAddress.getByAddress(parts[0], servers[0]!!.address.address), parts[1].toInt())
             }
             stepView.next()
         })
@@ -169,6 +171,11 @@ class EnterDotHostVB(
                     accepted(input)
                 }
         )
+
+        view.onInput = { it ->
+            input = it
+            null
+        }
 
         view.requestFocusOnEdit()
     }

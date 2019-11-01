@@ -204,7 +204,7 @@ private fun addressToIpString(it: InetSocketAddress) =
         it.hostString + ( if (it.port != 53) ":" + it.port.toString() else "" )
 
 private fun addressToHostnameString(it: InetSocketAddress?) =
-        (if (it != null) it.hostName + ( if (it.port != 853) ":" + it.port.toString() else "" ) else "")
+        (if (it != null) it.hostName +  ":" + it.port.toString() else "")
 
 private fun ipStringToAddress(it: String) = {
     val hostport = it.split(':', limit = 2)
@@ -226,12 +226,12 @@ class DnsSerialiser {
         return dns.map {
             val active = if (it.active) "active" else "inactive"
             val ipv6 = if (it.ipv6) "ipv6" else "ipv4"
-            val servers = it.servers.map { addressToIpString(it) }.joinToString(";")
-            val dotServer = addressToHostnameString(it.dotServer)
+            //serialises the DoT server by concatenating it dnsServers using "#" as delimiter
+            val servers = it.servers.map { addressToIpString(it) }.joinToString(";") + "#" + addressToHostnameString(it.dotServer)
             val credit = it.credit ?: ""
             val comment = it.comment ?: ""
 
-            "${i++}\n${it.id}\n${active}\n${ipv6}\n${servers}\n${dotServer}\n${credit}\n${comment}"
+            "${i++}\n${it.id}\n${active}\n${ipv6}\n${servers}\n${credit}\n${comment}"
         }.flatMap { it.split("\n") }
     }
 
@@ -242,10 +242,12 @@ class DnsSerialiser {
                 val id = entry[1]
                 val active = entry[2] == "active"
                 val ipv6 = entry[3] == "ipv6"
-                val servers = entry[4].split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
-                val dotServer = if (entry[5].isNotBlank()) hostnameStringToAddress(entry[5]) else null
-                val credit = if (entry[6].isNotBlank()) entry[6] else null
-                val comment = if (entry[7].isNotBlank()) entry[7] else null
+                val serversString = if (entry[4].contains("#")) entry[4].split("#")[0] else entry[4]
+                val servers = serversString.split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
+                val dotServerString = if (entry[4].contains("#")) entry[4].split("#")[1] else ""
+                val dotServer = if (dotServerString.isNotBlank()) hostnameStringToAddress(entry[5]) else null
+                val credit = if (entry[5].isNotBlank()) entry[5] else null
+                val comment = if (entry[6].isNotBlank()) entry[6] else null
 
                 DnsChoice(id, servers, dotServer, active, ipv6, credit, comment)
             } catch (e: Exception) {
