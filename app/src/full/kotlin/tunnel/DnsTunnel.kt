@@ -168,8 +168,11 @@ internal class DnsTunnel(
 
     private fun fromLoopbackToDevice(device: StructPollfd, output: OutputStream) {
         if (device.isEvent(OsConstants.POLLOUT)) {
-            val (buffer, offset, length) = loopback.poll()
-            output.write(buffer, offset, length)
+            val result = loopback.poll()
+            if (result != null) {
+                val (buffer, offset, length) = result
+                output.write(buffer, offset, length)
+            }
         }
     }
 

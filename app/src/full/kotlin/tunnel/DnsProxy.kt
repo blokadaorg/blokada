@@ -97,7 +97,6 @@ internal class DnsProxy(
                                     dotServer!!.hostName,
                                     destination.address.address),
                             dotServer!!.port) as SSLSocket
-            s.startHandshake()
         } catch (e: Throwable) {
             try {
                 s!!.close()
@@ -114,6 +113,7 @@ internal class DnsProxy(
                 it.write(rawData)
                 it.flush()
             }
+
             DataInputStream(it.getInputStream()).use {
                 //read TCP response
                 val responseByteBuffer = ByteBuffer.allocate(it.readUnsignedShort())
