@@ -1,6 +1,5 @@
 package tunnel
 
-import android.os.ParcelFileDescriptor
 import android.system.ErrnoException
 import android.system.Os
 import android.system.OsConstants
@@ -43,19 +42,30 @@ internal class DnsTunnel(
             val device = setupDevicePipe(input)
 
             while (true) {
+                w("========1")
                 if (threadInterrupted()) throw InterruptedException()
+                w("========2")
 
                 if (loopback.isNotEmpty()) {
                     device.listenFor(OsConstants.POLLIN or OsConstants.POLLOUT)
                 } else device.listenFor(OsConstants.POLLIN)
+                w("========3")
 
                 val polls = setupPolls(errors, device)
+                w("========4")
                 poll(polls)
+                w("========5")
                 fromOpenSocketsToProxy(polls)
+                w("========6")
                 fromLoopbackToDevice(device, output)
+                w("========7")
                 fromDeviceToProxy(device, input, packetBuffer)
+                w("========8")
                 cleanup()
+                w("========9")
                 cooldownCounter = 1
+
+                w("========10")
             }
         } catch (ex: InterruptedException) {
             v("tunnel thread interrupted", this, ex.toString())
@@ -128,7 +138,7 @@ internal class DnsTunnel(
 
         for ((i, rule) in forwarder.withIndex()) {
             val p = StructPollfd()
-            p.fd = ParcelFileDescriptor.fromDatagramSocket(rule.socket).fileDescriptor
+            p.fd = rule.getFd()
             p.listenFor(OsConstants.POLLIN)
             polls[2 + i] = p
         }
@@ -138,9 +148,12 @@ internal class DnsTunnel(
     private fun poll(polls: Array<StructPollfd>) {
         while (true) {
             try {
+                val start = System.currentTimeMillis()
+                w("========poll!")
                 val result = Os.poll(polls, -1)
                 if (result == 0) return
                 if (polls[0].revents.toInt() != 0) throw InterruptedException("poll interrupted")
+                w("========poll done!", System.currentTimeMillis() - start)
                 break
             } catch (e: ErrnoException) {
                 if (e.errno == OsConstants.EINTR) continue
@@ -158,10 +171,10 @@ internal class DnsTunnel(
                 iterator.remove()
                 val responsePacket = DatagramPacket(datagramBuffer, datagramBuffer.size)
                 Result.of {
-                    rule.socket.receive(responsePacket)
-                    proxy.toDevice( datagramBuffer, responsePacket.length, rule.originEnvelope)
+                    rule.receive(responsePacket)
+                    proxy.toDevice( datagramBuffer, responsePacket.length, rule.originEnvelope())
                 }.onFailure { w("failed receiving socket", it) }
-                Result.of { rule.socket.close() }.onFailure { w("failed closing socket") }
+                Result.of { rule.getCloseable().close() }.onFailure { w("failed closing socket") }
             }
         }
     }
@@ -169,8 +182,10 @@ internal class DnsTunnel(
     private fun fromLoopbackToDevice(device: StructPollfd, output: OutputStream) {
         if (device.isEvent(OsConstants.POLLOUT)) {
             val result = loopback.poll()
+            w("==========Consuming loopback message", loopback.size)
             if (result != null) {
                 val (buffer, offset, length) = result
+                w("==========Byte array", Arrays.toString(buffer))
                 output.write(buffer, offset, length)
             }
         }

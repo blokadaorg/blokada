@@ -3,18 +3,15 @@ package tunnel
 import android.system.ErrnoException
 import android.system.OsConstants
 import com.github.michaelbull.result.mapError
-import core.COMMON
 import core.Result
 import core.emit
 import core.w
-import kotlinx.coroutines.experimental.async
 import org.pcap4j.packet.*
 import org.pcap4j.packet.namednumber.UdpPort
 import org.xbill.DNS.*
 import java.net.*
 import java.util.*
 import java.io.*
-import java.nio.ByteBuffer
 import javax.net.ssl.SSLSocket
 import javax.net.ssl.SSLSocketFactory
 
@@ -67,17 +64,18 @@ internal class DnsProxy(
         if (dnsMessage.question == null) return
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
+        w("=========DNS Lookup Host", host)
         if (blockade.allowed(host) || !blockade.denied(host)) {
             if (dotEnabled) {
                 //DNS over TLS
-                async(COMMON) { dnsOverTls(destination, udpRaw, originEnvelope) }
+                dnsOverTls(destination, udpRaw, originEnvelope)
             } else {
                 //conventional DNS
                 val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                         destination.getPort())
                 forward(proxiedDns, originEnvelope)
-                emit(TunnelEvents.REQUEST, Request(host))
             }
+            emit(TunnelEvents.REQUEST, Request(host))
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
@@ -87,8 +85,9 @@ internal class DnsProxy(
         }
     }
 
+    //TODO: cleanup this method?
     private fun dnsOverTls(destination: InetSocketAddress, rawData : ByteArray, originEnvelope: Packet?) {
-
+        w("===========Starting async process")
         var s: SSLSocket? = null
         try {
             s = SSLSocketFactory.getDefault().createSocket() as SSLSocket
@@ -102,22 +101,16 @@ internal class DnsProxy(
             throw e
         }
 
-        s.use {
-            DataOutputStream(it.getOutputStream()).use {
-                //send TCP request
-                it.writeShort(rawData.size)
-                it.write(rawData)
-                it.flush()
-            }
+        DataOutputStream(s.outputStream).use {
+            //send TCP request
+            it.writeShort(rawData.size)
+            it.write(rawData)
+            it.flush()
 
-            DataInputStream(it.getInputStream()).use {
-                //read TCP response
-                val responseByteBuffer = ByteBuffer.allocate(it.readUnsignedShort())
-                val response = responseByteBuffer.array()
-                it.readFully(response)
-                toDevice(response, response.size, originEnvelope)
-            }
+            if (originEnvelope != null) forwarder.add(s, originEnvelope)
+            else Result.of { s.close() }
         }
+        w("===========Ending async process")
     }
 
     override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?) {
@@ -149,6 +142,7 @@ internal class DnsProxy(
                     .payloadBuilder(udpResponse)
                     .build()
         }
+        w("========placing loopback message")
         loopback(envelope.rawData)
     }
 
