@@ -93,7 +93,6 @@ internal class ForwardRuleTcp(
         private val ttl: Time
 ): ForwardRule() {
     override fun getFd(): FileDescriptor {
-        w("=============Getting tcp fd")
         return ParcelFileDescriptor.fromSocket(socket).fileDescriptor
     }
     override fun ttl(): Time {
@@ -108,7 +107,6 @@ internal class ForwardRuleTcp(
     override fun receive(packet: DatagramPacket) {
 
         DataInputStream(socket.inputStream).use {
-            w("==============Reading TCP response")
             //read TCP response
             val length = it.readUnsignedShort()
             it.read(packet.data)

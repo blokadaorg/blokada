@@ -80,6 +80,7 @@ class DnsImpl(
                 if (new != null) {
                     new.active = dns.active
                     new.servers = dns.servers
+                    new.dotEnabled = dns.dotEnabled
                     new
                 } else dns
             }.plus(builtInDns.minus(it))
@@ -140,12 +141,15 @@ class DnsImpl(
 
         choices.doOnUiWhenSet().then {
             dnsServers.refresh()
+            dotEnabled.refresh()
         }
         enabled.doOnUiWhenChanged(withInit = true).then {
             dnsServers.refresh()
+            dotEnabled.refresh()
         }
         d.connected.doOnUiWhenSet().then {
             dnsServers.refresh()
+            dotEnabled.refresh()
         }
     }
 

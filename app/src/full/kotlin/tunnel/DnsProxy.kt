@@ -64,11 +64,10 @@ internal class DnsProxy(
         if (dnsMessage.question == null) return
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
-        w("=========DNS Lookup Host", host)
         if (blockade.allowed(host) || !blockade.denied(host)) {
             if (dotEnabled) {
                 //DNS over TLS
-                dnsOverTls(destination, udpRaw, originEnvelope)
+                forwardTls(destination, udpRaw, originEnvelope)
             } else {
                 //conventional DNS
                 val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
@@ -83,34 +82,6 @@ internal class DnsProxy(
             toDevice(dnsMessage.toWire(), -1, originEnvelope)
             emit(TunnelEvents.REQUEST, Request(host, blocked = true))
         }
-    }
-
-    //TODO: cleanup this method?
-    private fun dnsOverTls(destination: InetSocketAddress, rawData : ByteArray, originEnvelope: Packet?) {
-        w("===========Starting async process")
-        var s: SSLSocket? = null
-        try {
-            s = SSLSocketFactory.getDefault().createSocket() as SSLSocket
-            s.connect(destination)
-        } catch (e: Throwable) {
-            try {
-                s!!.close()
-            } catch (e2: Throwable) {
-                //ignore
-            }
-            throw e
-        }
-
-        DataOutputStream(s.outputStream).use {
-            //send TCP request
-            it.writeShort(rawData.size)
-            it.write(rawData)
-            it.flush()
-
-            if (originEnvelope != null) forwarder.add(s, originEnvelope)
-            else Result.of { s.close() }
-        }
-        w("===========Ending async process")
     }
 
     override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?) {
@@ -142,7 +113,6 @@ internal class DnsProxy(
                     .payloadBuilder(udpResponse)
                     .build()
         }
-        w("========placing loopback message")
         loopback(envelope.rawData)
     }
 
@@ -155,6 +125,30 @@ internal class DnsProxy(
         }.mapError { ex ->
             w("failed sending forwarded udp", ex.message ?: "")
             Result.of { socket.close() }
+            val cause = ex.cause
+            if (cause is ErrnoException && cause.errno == OsConstants.EPERM) throw ex
+        }
+    }
+
+    private fun forwardTls(destination: InetSocketAddress, rawData : ByteArray, originEnvelope: Packet?) {
+
+        var s : SSLSocket? = null
+        Result.of {
+            val s = SSLSocketFactory.getDefault().createSocket() as SSLSocket
+            s.connect(destination)
+
+            DataOutputStream(s.outputStream).use {
+                //send TCP request
+                it.writeShort(rawData.size)
+                it.write(rawData)
+                it.flush()
+            }
+
+            if (originEnvelope != null) forwarder.add(s, originEnvelope)
+            else Result.of { s.close() }
+        }.mapError { ex ->
+            w("failed sending forwarded tcp", ex.message ?: "")
+            Result.of { s!!.close() }
             val cause = ex.cause
             if (cause is ErrnoException && cause.errno == OsConstants.EPERM) throw ex
         }
