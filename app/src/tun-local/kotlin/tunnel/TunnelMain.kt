@@ -109,9 +109,7 @@ class TunnelMain {
                 needRecreateFilterManager = true
             }
 
-            currentTunnel = currentTunnel.copy(dnsServers = dnsServers)
-
-            currentTunnel = currentTunnel.copy(dotEnabled = dotEnabled)
+            currentTunnel = currentTunnel.copy(dnsServers = dnsServers, dotEnabled = dotEnabled)
         }
     }
 

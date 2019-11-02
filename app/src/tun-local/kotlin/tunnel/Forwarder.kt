@@ -32,11 +32,11 @@ internal class Forwarder(val ttl: Time = 10 * 1000) : Iterable<ForwardRule> {
     private fun cleanupStore() {
         if (store.size >= 1024) {
             w("forwarder reached 1024 open sockets")
-            Result.of { store.element().getCloseable().close() }
+            Result.of { store.element().socket().close() }
             store.remove()
         }
         while (store.isNotEmpty() && store.element().isOld()) {
-            Result.of { store.element().getCloseable().close() }
+            Result.of { store.element().socket().close() }
             store.remove()
         }
     }
@@ -46,41 +46,34 @@ internal class Forwarder(val ttl: Time = 10 * 1000) : Iterable<ForwardRule> {
     fun size() = store.size
 }
 
-//TODO: cleanup class inheritance
-internal abstract class ForwardRule {
+internal abstract class ForwardRule(
+        private val socket: Closeable,
+        private val originEnvelope: Packet,
+        private val ttl: Time
+) {
     val added = System.currentTimeMillis()
 
+    fun socket(): Closeable { return socket }
+
+    fun originEnvelope(): Packet { return originEnvelope }
+
     fun isOld(): Boolean {
-        return (System.currentTimeMillis() - added) > ttl()
+        return (System.currentTimeMillis() - added) > ttl
     }
 
     abstract fun getFd(): FileDescriptor
-
-    abstract fun ttl(): Time
-
-    abstract fun originEnvelope(): Packet
-
-    abstract fun getCloseable(): Closeable
 
     abstract fun receive(packet: DatagramPacket)
 }
 
 internal class ForwardRuleDatagram(
         private val socket: DatagramSocket,
-        private val originEnvelope: Packet,
-        private val ttl: Time
-): ForwardRule() {
+        originEnvelope: Packet,
+        ttl: Time
+): ForwardRule(socket, originEnvelope, ttl) {
+
     override fun getFd(): FileDescriptor {
         return ParcelFileDescriptor.fromDatagramSocket(socket).fileDescriptor
-    }
-    override fun ttl(): Time {
-        return ttl
-    }
-    override fun originEnvelope(): Packet {
-        return originEnvelope
-    }
-    override fun getCloseable(): Closeable {
-        return socket
     }
     override fun receive(packet: DatagramPacket) {
         socket.receive(packet)
@@ -89,20 +82,12 @@ internal class ForwardRuleDatagram(
 
 internal class ForwardRuleTcp(
         private val socket: Socket,
-        private val originEnvelope: Packet,
-        private val ttl: Time
-): ForwardRule() {
+        originEnvelope: Packet,
+        ttl: Time
+): ForwardRule(socket, originEnvelope, ttl) {
+
     override fun getFd(): FileDescriptor {
         return ParcelFileDescriptor.fromSocket(socket).fileDescriptor
-    }
-    override fun ttl(): Time {
-        return ttl
-    }
-    override fun originEnvelope(): Packet {
-        return originEnvelope
-    }
-    override fun getCloseable(): Closeable {
-        return socket
     }
     override fun receive(packet: DatagramPacket) {
 

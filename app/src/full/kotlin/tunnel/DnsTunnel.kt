@@ -137,7 +137,6 @@ internal class DnsTunnel(
     private fun poll(polls: Array<StructPollfd>) {
         while (true) {
             try {
-                val start = System.currentTimeMillis()
                 val result = Os.poll(polls, -1)
                 if (result == 0) return
                 if (polls[0].revents.toInt() != 0) throw InterruptedException("poll interrupted")
@@ -161,18 +160,15 @@ internal class DnsTunnel(
                     rule.receive(responsePacket)
                     proxy.toDevice( datagramBuffer, responsePacket.length, rule.originEnvelope())
                 }.onFailure { w("failed receiving socket", it) }
-                Result.of { rule.getCloseable().close() }.onFailure { w("failed closing socket") }
+                Result.of { rule.socket().close() }.onFailure { w("failed closing socket") }
             }
         }
     }
 
     private fun fromLoopbackToDevice(device: StructPollfd, output: OutputStream) {
         if (device.isEvent(OsConstants.POLLOUT)) {
-            val result = loopback.poll()
-            if (result != null) {
-                val (buffer, offset, length) = result
-                output.write(buffer, offset, length)
-            }
+            val (buffer, offset, length) = loopback.poll()
+            output.write(buffer, offset, length)
         }
     }
 

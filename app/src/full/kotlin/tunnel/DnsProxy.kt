@@ -12,8 +12,7 @@ import org.xbill.DNS.*
 import java.net.*
 import java.util.*
 import java.io.*
-import javax.net.ssl.SSLSocket
-import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.*
 
 
 interface Proxy {
@@ -136,6 +135,10 @@ internal class DnsProxy(
         Result.of {
             val s = SSLSocketFactory.getDefault().createSocket() as SSLSocket
             s.connect(destination)
+            if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(destination.hostName, s.session)) {
+                w("Hostname mismatch on DNS SSL connection")
+                throw SSLHandshakeException("Expected ${destination.hostName}, found ${s.session.peerPrincipal} ")
+            }
 
             DataOutputStream(s.outputStream).use {
                 //send TCP request
