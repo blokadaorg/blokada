@@ -1,12 +1,19 @@
 package core
 
 import android.app.Activity
+import android.os.AsyncTask
 import android.util.Base64
 import android.view.View
 import com.github.salomonbrys.kodein.instance
+import gs.environment.getDnsServers
+import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import java.net.InetAddress
 import java.net.InetSocketAddress
+import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.SSLHandshakeException
+import javax.net.ssl.SSLSocket
+import javax.net.ssl.SSLSocketFactory
 
 interface Stepable {
     fun focus()
@@ -50,7 +57,7 @@ class AddDnsActivity : Activity() {
 
     private val dns by lazy { ktx.di().instance<Dns>() }
 
-    private var servers = Array<InetSocketAddress?>(2) { null }
+    private val servers = Array<InetSocketAddress?>(2) { null }
     private var dotEnabled : Boolean = false
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
@@ -88,7 +95,7 @@ class AddDnsActivity : Activity() {
             stepView.next()
         })
 
-        val dotHostVB = EnterDotHostVB(ktx, accepted = {
+        val dotHostVB = EnterDotHostVB(ktx, servers, accepted = {
             if (it.isEmpty()) {
                 dotEnabled = false
             } else {
@@ -165,10 +172,13 @@ class EnterIpVB(
 
 class EnterDotHostVB(
         private val ktx: AndroidKontext,
+        private var servers: Array<InetSocketAddress?>,
         private val accepted: (String) -> Unit = {}
 ) : SlotVB(), Stepable {
 
     private var input = ""
+    private var inputValid = false
+    private var asyncCheck: HostnameCheck? = null
 
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
@@ -176,16 +186,62 @@ class EnterDotHostVB(
         view.content = Slot.Content(ktx.ctx.resources.getString(R.string.dns_edit_dot_label),
                 description = ktx.ctx.resources.getString(R.string.dns_edit_dot_enter),
                 action1 = Slot.Action(ktx.ctx.resources.getString(R.string.dns_edit_next)) {
-                    accepted(input)
+                    if (inputValid) {
+                        view.fold()
+                        accepted(input)
+                    }
                 }
         )
 
         view.onInput = { it ->
             input = it
-            null
+            val error = initialValidate(it, view)
+            inputValid = error == null
+            error
         }
 
         view.requestFocusOnEdit()
+    }
+
+    private fun initialValidate(input: String, view: SlotView): String? {
+        asyncCheck?.cancel(true)
+        if (input.isEmpty()) {
+            return null
+        }
+        asyncCheck = HostnameCheck(input, ktx, complete = {
+            inputValid = it == null
+            view.setValidationError(if (inputValid) null else ktx.ctx.resources.getString(R.string.dns_edit_dot_error))
+        })
+        asyncCheck?.execute(servers)
+        return ktx.ctx.resources.getString(R.string.dns_edit_dot_wait)
+    }
+
+    class HostnameCheck(val input : String, val ktx: AndroidKontext,
+                        val complete: (Throwable?) -> Unit) : AsyncTask<Array<InetSocketAddress?>, Void, Throwable?>() {
+        override fun doInBackground(vararg params: Array<InetSocketAddress?>?): Throwable? {
+            val servers = params[0]!!
+
+            try {
+                for (server in servers) {
+                    val hostname = (if (input.contains(":")) input.split(":")[0] else input)
+                    val port = (if (input.contains(":")) input.split(":")[1].toInt() else 853)
+                    val socket = SSLSocketFactory.getDefault().createSocket() as SSLSocket
+                    socket.connect(InetSocketAddress(InetAddress.getByAddress(hostname, server!!.address.address), port), 1000)
+                    if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(hostname, socket.session)) {
+                        throw SSLHandshakeException("Expected ${hostname}, found ${socket.session.peerPrincipal} ")
+                    }
+                    socket.close()
+                }
+            } catch (e : Exception) {
+                return e
+            }
+            return null
+        }
+
+        override fun onPostExecute(result: Throwable?) {
+            super.onPostExecute(result)
+            complete(result)
+        }
     }
 
 }

@@ -168,27 +168,7 @@ class SlotView(
         editView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 val error = onInput(s.toString())
-                if (error != null) {
-                    descriptionView.apply {
-                        visibility = View.VISIBLE
-                        text = error
-                        setTextColor(resources.getColor(R.color.colorAccentDark))
-                    }
-                    switchViews.forEach {
-                        it.visibility = View.VISIBLE
-                        it.setText(R.string.slot_invalid)
-                        it.setTextColor(resources.getColor(R.color.colorAccentDark))
-                    }
-                } else {
-                    descriptionView.apply {
-                        visibility = View.GONE
-                    }
-                    switchViews.forEach {
-                        it.visibility = View.VISIBLE
-                        it.setText(R.string.slot_set)
-                        it.setTextColor(resources.getColor(R.color.switch_on))
-                    }
-                }
+                setValidationError(error)
             }
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
@@ -269,6 +249,31 @@ class SlotView(
 
     fun requestFocusOnEdit() {
         editView.requestFocus()
+    }
+
+    fun setValidationError(error: String?) {
+
+        if (error != null) {
+            descriptionView.apply {
+                visibility = View.VISIBLE
+                text = error
+                setTextColor(resources.getColor(R.color.colorAccentDark))
+            }
+            switchViews.forEach {
+                it.visibility = View.VISIBLE
+                it.setText(R.string.slot_invalid)
+                it.setTextColor(resources.getColor(R.color.colorAccentDark))
+            }
+        } else {
+            descriptionView.apply {
+                visibility = View.GONE
+            }
+            switchViews.forEach {
+                it.visibility = View.VISIBLE
+                it.setText(R.string.slot_set)
+                it.setTextColor(resources.getColor(R.color.switch_on))
+            }
+        }
     }
 
     private fun bind(content: Slot.Content) {

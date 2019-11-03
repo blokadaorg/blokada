@@ -10,6 +10,8 @@
     <string name="dns_edit_ip2_enter">Enter a secondary DNS server address</string>
     <string name="dns_edit_dot_label">DoT Hostname</string>
     <string name="dns_edit_dot_enter">Enter a DNS-over-TLS hostname (or leave empty for standard DNS)</string>
+    <string name="dns_edit_dot_wait">Checking DoT hostname...</string>
+    <string name="dns_edit_dot_error">Invalid DoT hostname</string>
 
     <string name="dns_edit_name_error">Not a valid name</string>
     <string name="dns_edit_name_label">Server name</string>

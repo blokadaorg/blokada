@@ -131,27 +131,26 @@ internal class DnsProxy(
 
     private fun forwardTls(destination: InetSocketAddress, rawData : ByteArray, originEnvelope: Packet?) {
 
-        var s : SSLSocket? = null
+        val socket = SSLSocketFactory.getDefault().createSocket() as SSLSocket
         Result.of {
-            val s = SSLSocketFactory.getDefault().createSocket() as SSLSocket
-            s.connect(destination)
-            if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(destination.hostName, s.session)) {
+            socket.connect(destination, 1000)
+            if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(destination.hostName, socket.session)) {
                 w("Hostname mismatch on DNS SSL connection")
-                throw SSLHandshakeException("Expected ${destination.hostName}, found ${s.session.peerPrincipal} ")
+                throw SSLHandshakeException("Expected ${destination.hostName}, found ${socket.session.peerPrincipal} ")
             }
 
-            DataOutputStream(s.outputStream).use {
+            DataOutputStream(socket.outputStream).use {
                 //send TCP request
                 it.writeShort(rawData.size)
                 it.write(rawData)
                 it.flush()
             }
 
-            if (originEnvelope != null) forwarder.add(s, originEnvelope)
-            else Result.of { s.close() }
+            if (originEnvelope != null) forwarder.add(socket, originEnvelope)
+            else Result.of { socket.close() }
         }.mapError { ex ->
             w("failed sending forwarded tcp", ex.message ?: "")
-            Result.of { s!!.close() }
+            Result.of { socket.close() }
             val cause = ex.cause
             if (cause is ErrnoException && cause.errno == OsConstants.EPERM) throw ex
         }
