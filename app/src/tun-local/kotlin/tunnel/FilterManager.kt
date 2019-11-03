@@ -20,7 +20,7 @@ internal class FilterManager(
             it.lastFetch + 86400 * 1000 > System.currentTimeMillis()*/
         },
         private val doFetchFiltersFromRepo: (Url) -> Result<Set<Filter>> = {
-            val serializer = FilterSerializer()
+            val serializer = JsonFilterSerialiser()
             Result.of { serializer.deserialise(loadGzip(openUrl(URL(it), 10 * 1000))) }
         },
         private val doProcessFetchedFilters: (Set<Filter>) -> Set<Filter> = { it },

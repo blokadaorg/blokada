@@ -50,6 +50,20 @@ fun loadGzip(opener: () -> URLConnection, lineProcessor: (String) -> String? = {
     return response
 }
 
+
+fun loadGzip(opener: () -> URLConnection): String {
+    val input = createStream(opener())
+    val response: String
+
+    try {
+        response = input.readText()
+    } finally {
+        input.close()
+    }
+
+    return response
+}
+
 fun loadAsString(opener: () -> URLConnection): String {
     val input = createStream(opener())
 

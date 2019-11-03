@@ -58,7 +58,7 @@ class FiltersPersistence {
             val prefs = ktx.ctx.getSharedPreferences("filters", Context.MODE_PRIVATE)
             val legacy = prefs.getString("filters", "").split("^")
             prefs.edit().putString("filters", "").apply()
-            val old = FilterSerializer().deserialise(legacy)
+            val old = LegacyFilterSerialiser().deserialise(legacy)
             if (old.isNotEmpty()) {
                 ktx.v("loaded from legacy 3.4 persistence", old.size)
                 Result.of { FilterStore(old, lastFetch = 0) }
