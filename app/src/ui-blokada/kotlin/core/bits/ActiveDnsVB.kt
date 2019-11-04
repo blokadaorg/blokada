@@ -104,7 +104,7 @@ class ActiveDnsVB(
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
                     }
                     onSwitch {
-                        entrypoint.onSwitchAdblocking(it)
+                        entrypoint.onSwitchDnsEnabled(it)
                     }
                 }
             }
