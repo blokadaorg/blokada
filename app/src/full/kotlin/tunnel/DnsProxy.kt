@@ -47,9 +47,9 @@ internal class DnsProxy(
 
         if (udp.payload == null) {
             // Some apps use empty UDP packets for something good
-            val proxiedUdp = DatagramPacket(ByteArray(0), 0, 0, destination.getAddress(),
+            val proxiedUdp = DatagramPacket(ByteArray(0), 0, 0, destination.address,
                     udp.header.dstPort.valueAsInt())
-            forward(proxiedUdp)
+            forwardUdp(proxiedUdp)
             return
         }
 
@@ -64,14 +64,14 @@ internal class DnsProxy(
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
         if (blockade.allowed(host) || !blockade.denied(host)) {
+            val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.address,
+                    destination.port)
             if (dotEnabled) {
                 //DNS over TLS
-                forwardTls(destination, udpRaw, originEnvelope)
+                forwardTls(proxiedDns, originEnvelope)
             } else {
                 //conventional DNS
-                val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
-                        destination.getPort())
-                forward(proxiedDns, originEnvelope)
+                forwardUdp(proxiedDns, originEnvelope)
             }
             emit(TunnelEvents.REQUEST, Request(host))
         } else {
@@ -115,7 +115,7 @@ internal class DnsProxy(
         loopback(envelope.rawData)
     }
 
-    private fun forward(udp: DatagramPacket, originEnvelope: IpPacket? = null) {
+    private fun forwardUdp(udp: DatagramPacket, originEnvelope: IpPacket? = null) {
         val socket = doCreateSocket()
         Result.of {
             socket.send(udp)
@@ -129,25 +129,24 @@ internal class DnsProxy(
         }
     }
 
-    private fun forwardTls(destination: InetSocketAddress, rawData : ByteArray, originEnvelope: Packet?) {
+    private fun forwardTls(udp: DatagramPacket, originEnvelope: Packet) {
 
         val socket = SSLSocketFactory.getDefault().createSocket() as SSLSocket
         Result.of {
-            socket.connect(destination, 1000)
-            if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(destination.hostName, socket.session)) {
+            socket.connect(udp.socketAddress, 1000)
+            if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(udp.address.hostName, socket.session)) {
                 w("Hostname mismatch on DNS SSL connection")
-                throw SSLHandshakeException("Expected ${destination.hostName}, found ${socket.session.peerPrincipal} ")
+                throw SSLHandshakeException("Expected ${udp.address.hostName}, found ${socket.session.peerPrincipal} ")
             }
 
             DataOutputStream(socket.outputStream).use {
                 //send TCP request
-                it.writeShort(rawData.size)
-                it.write(rawData)
+                it.writeShort(udp.data.size)
+                it.write(udp.data)
                 it.flush()
             }
 
-            if (originEnvelope != null) forwarder.add(socket, originEnvelope)
-            else Result.of { socket.close() }
+            forwarder.add(socket, originEnvelope)
         }.mapError { ex ->
             w("failed sending forwarded tcp", ex.message ?: "")
             Result.of { socket.close() }
@@ -160,12 +159,12 @@ internal class DnsProxy(
 
     private fun resolveActualDestination(packet: IpPacket): InetSocketAddress {
         val servers = dnsServers
-        val current = InetSocketAddress(packet.header.dstAddr, UdpPort.DOMAIN.valueAsInt())
+        val current = InetSocketAddress(packet.header.dstAddr, (packet.payload as UdpPacket).header.dstPort.valueAsInt())
         return when {
             servers.isEmpty() -> current
             else -> try {
                 // Last octet of DNS server IP corresponds to its index
-                val index = current.getAddress().address.last() - 2
+                val index = current.address.address.last() - 2
                 servers[index]
             } catch (e: Exception) {
                 current

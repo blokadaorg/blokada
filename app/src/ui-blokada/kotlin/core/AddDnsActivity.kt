@@ -152,7 +152,7 @@ class EnterDotHostVB(
 ) : SlotVB(), Stepable {
 
     private var input = ""
-    private var inputValid = false
+    private var inputValid = true
     private var asyncCheck: HostnameCheck? = null
 
     override fun attach(view: SlotView) {
