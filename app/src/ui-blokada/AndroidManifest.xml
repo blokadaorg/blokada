@@ -268,6 +268,14 @@
             android:theme="@style/TransparentWindow"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
 
+        <activity android:name="core.AddDnsOverTlsActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:label="Add DNS over TLS"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentWindow"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+
         <service android:name="notification.AnnouncementNotificationTappedService"/>
     </application>
 

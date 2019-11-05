@@ -6,8 +6,10 @@ import android.util.Base64
 import android.view.View
 import com.github.salomonbrys.kodein.instance
 import org.blokada.R
+import java.net.Inet4Address
 import java.net.InetAddress
 import java.net.InetSocketAddress
+import java.net.UnknownHostException
 import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.SSLHandshakeException
 import javax.net.ssl.SSLSocket
@@ -48,16 +50,18 @@ interface Navigable {
     fun exit()
 }
 
-class AddDnsActivity : Activity() {
+class AddDnsActivity : AbstractAddDnsActivity(false)
+
+class AddDnsOverTlsActivity : AbstractAddDnsActivity(true)
+
+abstract class AbstractAddDnsActivity(private val dotEnabled: Boolean) : Activity() {
 
     private val stepView by lazy { findViewById<VBStepView>(R.id.view) }
     private val ktx = ktx("AddDnsActivity")
 
     private val dns by lazy { ktx.di().instance<Dns>() }
 
-    private val servers = Array<String?>(2) { null }
-    private var dotEnabled : Boolean = false
-    private var dotHost : String? = null
+    private val servers = Array<InetSocketAddress?>(2) { null }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,8 +69,8 @@ class AddDnsActivity : Activity() {
 
         val nameVB = EnterDnsNameVB(ktx, accepted = { name ->
             if (servers.all { it != null }) {
-                val serverAddresses = servers.filterNotNull().mapNotNull { if (dotEnabled) getSslSocketAddress(it, dotHost) else getSocketAddress(it) }
-                val newDnsChoice = DnsChoice("custom-dns:" + Base64.encodeToString(name.toByteArray(), Base64.NO_WRAP), serverAddresses, dotEnabled)
+                val newDnsChoice = DnsChoice("custom-dns:" + Base64.encodeToString(name.toByteArray(), Base64.NO_WRAP),
+                        servers.filterNotNull(), dotEnabled)
                 if (!dns.choices().contains(newDnsChoice)) {
                     dns.choices %= dns.choices() + newDnsChoice
                 }
@@ -75,29 +79,34 @@ class AddDnsActivity : Activity() {
         })
 
         val ip1VB = EnterIpVB(ktx, first = true, accepted = {
-            servers[0] = it
+            servers[0] = getSocketAddress(it)
             stepView.next()
         })
 
         val ip2VB = EnterIpVB(ktx, first = false, accepted = {
-            servers[1] = it
-            val serverAddresses = servers.filterNotNull().mapNotNull{ getSocketAddress(it) }
-            nameVB.defaultName = printServers(serverAddresses)
+            servers[1] = getSocketAddress(it)
+            nameVB.defaultName = printServers(servers.filterNotNull())
             stepView.next()
         })
 
-        val dotHostVB = EnterDotHostVB(ktx, servers, accepted = {
-            dotHost = it
-            dotEnabled = it.isNotEmpty()
+        val dotHostVB = EnterDotHostVB(ktx, accepted = { input, validServers ->
+            validServers.forEachIndexed{ index, server ->  servers[index] = server}
+            nameVB.defaultName = input
             stepView.next()
         })
 
-        stepView.pages = listOf(
-                ip1VB,
-                ip2VB,
-                dotHostVB,
-                nameVB
-        )
+        stepView.pages = if (dotEnabled) {
+            listOf(
+                    dotHostVB,
+                    nameVB
+            )
+        } else {
+            listOf(
+                    ip1VB,
+                    ip2VB,
+                    nameVB
+            )
+        }
     }
 }
 
@@ -147,12 +156,11 @@ class EnterIpVB(
 
 class EnterDotHostVB(
         private val ktx: AndroidKontext,
-        private var servers: Array<String?>,
-        private val accepted: (String) -> Unit = {}
+        private val accepted: (String, List<InetSocketAddress>) -> Unit
 ) : SlotVB(), Stepable {
 
     private var input = ""
-    private var inputValid = true
+    private var inputValid = false
     private var asyncCheck: HostnameCheck? = null
 
     override fun attach(view: SlotView) {
@@ -163,49 +171,48 @@ class EnterDotHostVB(
                 action1 = Slot.Action(ktx.ctx.resources.getString(R.string.dns_edit_next)) {
                     if (inputValid) {
                         view.fold()
-                        accepted(input)
+                        accepted(input, asyncCheck!!.validServers!!)
                     }
                 }
         )
 
         view.onInput = { it ->
             input = it
-            val error = initialValidate(it, view)
-            inputValid = error == null
-            error
+            inputValid = false
+
+            asyncCheck?.cancel(true)
+            asyncCheck = HostnameCheck(input, ktx, complete = {
+                inputValid = it == null
+                view.setValidationError(if (inputValid) null else ktx.ctx.resources.getString(R.string.dns_edit_dot_error))
+            })
+            asyncCheck?.execute()
+
+            ktx.ctx.resources.getString(R.string.dns_edit_dot_wait)
         }
 
         view.requestFocusOnEdit()
     }
 
-    private fun initialValidate(input: String, view: SlotView): String? {
-        asyncCheck?.cancel(true)
-        if (input.isEmpty()) {
-            return null
-        }
-        asyncCheck = HostnameCheck(input, ktx, complete = {
-            inputValid = it == null
-            view.setValidationError(if (inputValid) null else ktx.ctx.resources.getString(R.string.dns_edit_dot_error))
-        })
-        asyncCheck?.execute(servers)
-        return ktx.ctx.resources.getString(R.string.dns_edit_dot_wait)
-    }
-
     class HostnameCheck(val input : String, val ktx: AndroidKontext,
-                        val complete: (Throwable?) -> Unit) : AsyncTask<Array<String?>, Void, Throwable?>() {
-        override fun doInBackground(vararg params: Array<String?>?): Throwable? {
-            val servers = params[0]!!
+                        val complete: (Throwable?) -> Unit) : AsyncTask<Void, Void, Throwable?>() {
+        var validServers: List<InetSocketAddress>? = null
+
+        override fun doInBackground(vararg params: Void?): Throwable? {
 
             try {
-                for (server in servers.filterNotNull()) {
-                    val socketAddress = getSslSocketAddress(server, input)
+                val servers = getSslSocketAddresses(input)
+                if (servers.size != 2) {
+                    throw UnknownHostException("Could not find address and fallback IP for hostname")
+                }
+                for (socketAddress in servers) {
                     val socket = SSLSocketFactory.getDefault().createSocket() as SSLSocket
                     socket.connect(socketAddress, 1000)
-                    if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(input, socket.session)) {
-                        throw SSLHandshakeException("Expected ${input}, found ${socket.session.peerPrincipal} ")
+                    if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(socketAddress.hostName, socket.session)) {
+                        throw SSLHandshakeException("Expected ${socketAddress.hostName}, found ${socket.session.peerPrincipal} ")
                     }
                     socket.close()
                 }
+                this.validServers = servers
             } catch (e : Exception) {
                 return e
             }
@@ -263,23 +270,21 @@ class EnterDnsNameVB(
 }
 
 fun getSocketAddress(addressAndPort : String) : InetSocketAddress? {
-    val (address, port) = getAddressAndPort(addressAndPort, 53)
+    val (address, port) = splitDelimited(addressAndPort, 53)
     return InetSocketAddress(address, port)
 }
 
-fun getSslSocketAddress(addressAndPort : String, hostnameInput : String?) : InetSocketAddress? {
-    val (address, port) = getAddressAndPort(addressAndPort, 853)
-    val hostname = hostnameInput ?: address
-    return InetSocketAddress(InetAddress.getByAddress(hostname, InetAddress.getByName(address).address), port)
+fun getSslSocketAddresses(hostnameAndPort : String) : List<InetSocketAddress> {
+    val (hostname, port) = splitDelimited(hostnameAndPort, 853)
+    return InetAddress.getAllByName(hostname)
+            .filterIsInstance<Inet4Address>()
+            .map { InetSocketAddress(it, port) }
 }
 
-fun getAddressAndPort(addressAndPort: String, defaultPort: Int) : Pair<String, Int> {
-    var address = addressAndPort
-    var port = defaultPort
-    if (!addressAndPort.matches(Regex("^(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])(\\.(?!\$)|\$)){4}\$"))) {
-        val parts = addressAndPort.split(":")
-        address = parts[0]
-        port = parts[1].toInt()
+fun splitDelimited(input: String, defaultPort: Int): Pair<String, Int> {
+    return if (input.contains(":")) {
+        Pair(input.split(":")[0], input.split(":")[1].toInt())
+    } else {
+        Pair(input, defaultPort)
     }
-    return Pair(address, port)
 }

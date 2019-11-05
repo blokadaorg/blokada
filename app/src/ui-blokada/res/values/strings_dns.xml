@@ -2,6 +2,7 @@
 
     <!-- A name used for DNS servers added by user. -->
     <string name="dns_custom_add_slot">Add new DNS…</string>
+    <string name="dns_custom_dot_add_slot">Add new DNS over TLS…</string>
     <string name="slot_enter_dns_error">This does not look like an IPv4 to me.</string>
 
     <!-- An example format of a DNS server address. -->
@@ -9,7 +10,7 @@
     <string name="dns_edit_ip1_enter">Enter a DNS server address</string>
     <string name="dns_edit_ip2_enter">Enter a secondary DNS server address</string>
     <string name="dns_edit_dot_label">DoT Hostname</string>
-    <string name="dns_edit_dot_enter">Enter a DNS-over-TLS hostname (or leave empty for standard DNS)</string>
+    <string name="dns_edit_dot_enter">Enter a DNS-over-TLS hostname</string>
     <string name="dns_edit_dot_wait">Checking DoT hostname...</string>
     <string name="dns_edit_dot_error">Invalid DoT hostname</string>
 
