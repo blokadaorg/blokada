@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_touch_to_turn_on">Touch to resume</string>
-    <string name="home_touch_adblocking">Touch to block ads</string>
-    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_setup_vpn">Touch to upgrade your protection</string>
+    <string name="home_touch">Tap or hold to configure</string>
     <string name="home_blokada_disabled">Blokada is paused</string>
     <string name="home_activating">Activating</string>
     <string name="home_please_wait">Please wait...</string>
@@ -12,14 +9,11 @@
     <string name="home_vpn_only">Blokada Tunnel is active without adblocking</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada is active in DNS mode</string>
-    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_dns_touch">Touch to choose DNS</string>
 
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s blocked</string>
 
     <string name="home_masterswitch_enabled">Blokada is on</string>
-    <string name="home_masterswitch_on">Touch to pause</string>
     <string name="home_masterswitch_waiting">Waiting for network...</string>
 
     <!-- A button to share the ads counter on social media -->
@@ -54,7 +48,7 @@
     <string name="home_blocka_vpn_error">Could not connect to gateway. Are you online?</string>
     <string name="home_account_error">Could not verify account. Are you online?</string>
     <string name="home_permission_error">Please grant VPN permissions.</string>
-    <string name="home_zero_filters_error">You have no filters configured. Check your adblocking settings.</string>
+    <string name="home_zero_filters_error">You have no filters configured. Check your adblocking and wifi settings.</string>
     <string name="home_filters_memory_error">Could not load all filters to memory. Check your adblocking settings.</string>
 
     <string name="tasker_switch_label">Tap on one of the options to configure to turn it on (or off) for your trigger.</string>
@@ -66,7 +60,7 @@
     <string name="menu_ads_clear_log">Clear host log</string>
     <string name="menu_ads_lists_label">Select lists to use for blocking. Defaults are fine for most people.</string>
     <string name="menu_ads_rules_label">Add your own rules to fine tune blocking.</string>
-    <string name="menu_ads_log_label">See what have been blocked or allowed recently.</string>
+    <string name="menu_ads_log_label">See what has been blocked or allowed recently.</string>
 
     <!-- VPN section header in menu (for configuring VPN) -->
     <string name="menu_vpn">Blokada Tunnel</string>
@@ -77,6 +71,7 @@
 
     <!-- A button opening VPN account settings -->
     <string name="menu_vpn_account">My Blokada Tunnel</string>
+    <string name="menu_vpn_account_id">ID: %s</string>
 
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Gateways</string>

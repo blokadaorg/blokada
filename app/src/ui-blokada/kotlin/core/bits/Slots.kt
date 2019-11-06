@@ -1146,8 +1146,6 @@ class UpdateVB(
 ) : SlotVB(onTap) {
 
     private var listener: IWhen? = null
-    private var clickCounter = 0
-    private var next: Int = 0
 
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
@@ -1160,17 +1158,8 @@ class UpdateVB(
                         label = i18n.getString(R.string.update_dash_available),
                         description = i18n.getString(R.string.update_notification_text, current.newestVersionName),
                         action1 = Slot.Action(i18n.getString(R.string.update_button)) {
-                            if (clickCounter++ % 2 == 0) {
-                                showSnack(R.string.update_starting)
-                                updater.start(repo.content().downloadLinks)
-                            } else {
-                                val intent = Intent(Intent.ACTION_VIEW)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                intent.setData(Uri.parse(repo.content().downloadLinks[next].toString()))
-                                ctx.startActivity(intent)
-
-                                next = next++ % repo.content().downloadLinks.size
-                            }
+                            showSnack(R.string.update_starting)
+                            updater.start(repo.content().downloadLinks)
                         },
                         icon = ctx.getDrawable(R.drawable.ic_new_releases)
                 )
@@ -1179,9 +1168,9 @@ class UpdateVB(
                 view.content = Slot.Content(
                         label = i18n.getString(R.string.slot_update_no_updates),
                         description = i18n.getString(R.string.update_info),
-                        action1 = Slot.Action(i18n.getString(R.string.slot_update_action_refresh), {
+                        action1 = Slot.Action(i18n.getString(R.string.slot_update_action_refresh)) {
                             repo.content.refresh(force = true)
-                        }),
+                        },
                         icon = ctx.getDrawable(R.drawable.ic_reload)
                 )
                 view.date = Date(repo.lastRefreshMillis())

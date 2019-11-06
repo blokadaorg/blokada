@@ -29,7 +29,7 @@ class AccountVB(
             val cfg = get(CurrentAccount::class.java)
             if (cfg.id.isNotBlank()) {
                 // Show
-                view.id(cfg.id.res())
+                view.id(i18n.getString(R.string.menu_vpn_account_id, cfg.id).res())
 
                 // Copy
                 val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -52,11 +52,12 @@ class AccountVB(
         val cfg = get(CurrentAccount::class.java)
         view?.apply {
             val isActive = cfg.activeUntil.after(Date())
-            val accountLabel = if (isActive)
-                i18n.getString(R.string.slot_account_label_active, cfg.activeUntil.pretty(ktx))
-            else i18n.getString(R.string.slot_account_label_inactive)
+            val (accountLabel, color) = if (isActive)
+                i18n.getString(R.string.slot_account_label_active, cfg.activeUntil.pretty(ktx)) to R.color.switch_on.res()
+            else i18n.getString(R.string.slot_account_label_inactive) to R.color.switch_off.res()
 
-            expired(accountLabel.res())
+            id(i18n.getString(R.string.menu_vpn_account_id, "******").res())
+            expired(accountLabel.res(), color)
 
 //            val stateLabel = if (isActive) R.string.slot_account_action_manage.res()
 //            else R.string.slot_account_action_manage_inactive.res()

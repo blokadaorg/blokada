@@ -22,7 +22,6 @@ import kotlinx.coroutines.experimental.delay
 import org.blokada.BuildConfig
 import org.blokada.R
 import tunnel.TunnelConfig
-import tunnel.showSnack
 import ui.StaticUrlWebActivity
 import update.DOWNLOAD_COMPLETE
 import update.DOWNLOAD_FAIL
@@ -184,10 +183,15 @@ class VpnVB(
     private fun update() {
         val config = get(BlockaVpnState::class.java)
         view?.apply {
+            onSwitch { enable ->
+                if (enable && !tunnelState.enabled()) tunnelState.enabled %= true
+                entrypoint.onVpnSwitched(enable)
+            }
+
             if (!tunnelState.enabled()) {
                 label(R.string.home_blokada_disabled.res())
                 icon(R.drawable.ic_shield_plus_outline.res())
-                switch(null)
+                switch(false)
                 onSwitch {}
             } else {
                 if (config.enabled) {
@@ -198,9 +202,6 @@ class VpnVB(
                     icon(R.drawable.ic_shield_plus_outline.res())
                 }
                 switch(config.enabled)
-                onSwitch { turnOn ->
-                    entrypoint.onVpnSwitched(turnOn)
-                }
             }
         }
         Unit
@@ -228,11 +229,15 @@ class Adblocking2VB(
         val blockaVpnState = get(BlockaVpnState::class.java)
 
         view?.apply {
+            onSwitch { enable ->
+                if (enable && !tunnelState.enabled()) tunnelState.enabled %= true
+                entrypoint.onSwitchAdblocking(enable)
+            }
+
             if (!tunnelState.enabled()) {
                 label(R.string.home_blokada_disabled.res())
                 icon(R.drawable.ic_blocked.res())
-                switch(null)
-                onSwitch {}
+                switch(false)
             } else {
                 if (config.adblocking) {
                     label(R.string.home_adblocking_enabled.res())
@@ -242,9 +247,6 @@ class Adblocking2VB(
                     icon(R.drawable.ic_show.res())
                 }
                 switch(config.adblocking)
-                onSwitch { adblocking ->
-                    entrypoint.onSwitchAdblocking(adblocking)
-                }
             }
         }
         Unit
@@ -258,9 +260,10 @@ open class SimpleByteVB(
         private val description: Resource,
         private val icon: Resource? = R.drawable.ic_bell_ring_outline.res(),
         val shouldKeepAfterTap: Boolean = false,
-        private val onTap: (ktx: AndroidKontext) -> Unit,
+        private val onTap: (ktx: AndroidKontext, view: ByteView) -> Unit,
         private val onLongTap: ((ktx: AndroidKontext) -> Unit)? = null,
-        var onTapped: () -> Unit = {}
+        private val beforeTap: (view: ByteView) -> Unit = {},
+        var onTapped: (view: ByteView) -> Unit = {}
 ) : ByteVB() {
     override fun attach(view: ByteView) {
         view.icon(icon)
@@ -268,11 +271,12 @@ open class SimpleByteVB(
         view.arrow(null)
         view.state(description, smallcap = false)
         view.onTap {
-            onTapped()
+            beforeTap(view)
+            onTapped(view)
             async {
                 delay(1000)
                 async(UI) {
-                    onTap(ktx)
+                    onTap(ktx, view)
                 }
             }
         }
@@ -295,7 +299,7 @@ fun createOneTimeBytes(
         OneTimeByte.UPDATED to { SimpleByteVB(ktx,
                 label = R.string.home_whats_new.res(),
                 description = R.string.slot_updated_desc.res(),
-                onTap = { ktx ->
+                onTap = { ktx, _ ->
                     val pages: Pages = ktx.di().instance()
                     modalManager.openModal()
                     ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
@@ -306,7 +310,7 @@ fun createOneTimeBytes(
         OneTimeByte.OBSOLETE to { SimpleByteVB(ktx,
                 label = R.string.home_update_required.res(),
                 description = R.string.slot_obsolete_desc.res(),
-                onTap = { ktx ->
+                onTap = { ktx, _ ->
                     val pages: Pages = ktx.di().instance()
                     openWebContent(ktx.ctx, pages.download())
                 }
@@ -315,7 +319,7 @@ fun createOneTimeBytes(
                 label = R.string.home_donate.res(),
                 description = R.string.slot_donate_desc.res(),
                 icon = R.drawable.ic_heart_box.res(),
-                onTap = { ktx ->
+                onTap = { ktx, _ ->
                     val pages: Pages = ktx.di().instance()
                     openWebContent(ktx.ctx, pages.donate())
                 }
@@ -325,7 +329,7 @@ fun createOneTimeBytes(
                 label = getAnnouncementContent().first.res(),
                 description = getAnnouncementContent().second.res(),
                 icon = R.drawable.ic_bell_ring_outline.res(),
-                onTap = { ktx ->
+                onTap = { ktx, _ ->
                     openWebContent(ktx.ctx, URL(getAnnouncementUrl()))
                 }
         ) },
@@ -333,14 +337,14 @@ fun createOneTimeBytes(
                 icon = R.drawable.ic_baby_face_outline.res(),
                 label = R.string.home_blokadaorg.res(),
                 description = R.string.home_blokadaorg_state.res(),
-                onTap  = { ktx ->
+                onTap  = { ktx, _ ->
                     openInExternalBrowser(ktx.ctx, URL("https://blokada.org/#download"))
                 }
         )},
         OneTimeByte.BLOKADAPLUS to { SimpleByteVB(ktx,
                 label = "Get $1 for yourself".res(),
                 description = "Refer a friend to Blokada Tunnel".res(),
-                onTap  = { ktx ->
+                onTap  = { ktx, _ ->
                 }
         )}
 )
@@ -357,8 +361,10 @@ class UpdateAvailableVB(
         description = i18n.getString(R.string.update_notification_text, repo.content().newestVersionName).res(),
         icon = R.drawable.ic_new_releases.res(),
         shouldKeepAfterTap = true,
-        onTap = {
-            showSnack(R.string.update_starting)
+        beforeTap = { view ->
+            view.label(R.string.update_starting.res())
+        },
+        onTap = { ktx, view ->
             updateCoordinator.start(repo.content().downloadLinks)
         },
         onLongTap = {
@@ -413,7 +419,7 @@ class ShareVB(
         }
     }
 
-    private fun share() {
+    fun share() {
         try {
             val shareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND

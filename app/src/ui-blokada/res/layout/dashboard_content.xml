@@ -98,7 +98,7 @@
                     android:padding="@dimen/dashboard_bg_icon_padding"
                     android:background="@drawable/bg_dashboard_item"
                     android:tint="@color/colorActive"
-                    android:src="@drawable/ic_bell_ring_outline" />
+                    android:src="@drawable/ic_share" />
             </LinearLayout>
 
         </RelativeLayout>

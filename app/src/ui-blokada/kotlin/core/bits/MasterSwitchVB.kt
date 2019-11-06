@@ -18,6 +18,7 @@ class MasterSwitchVB(
     private var activating = false
 
     override fun attach(view: MasterSwitchView) {
+        view.switch(tunnelEvents.enabled(), animation = false)
         tunnelStatus.listeners.add(tunnelListener)
         tunnelStatus.update(tunnelEvents)
         update()
@@ -37,9 +38,9 @@ class MasterSwitchVB(
             }
 
             switch(tunnelEvents.enabled())
-            onTap {
-                tunnelEvents.enabled %= !tunnelEvents.enabled()
-            }
+//            onTap {
+//                tunnelEvents.enabled %= !tunnelEvents.enabled()
+//            }
 
             when {
                 !tunnelEvents.enabled() -> {

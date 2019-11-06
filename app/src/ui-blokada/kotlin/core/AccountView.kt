@@ -51,7 +51,7 @@ class AccountView(
         }
     }
 
-    fun expired(label: Resource) {
+    fun expired(label: Resource, color: Resource = Resource.ofResId(R.color.switch_on)) {
         when {
             label.hasResId() -> {
                 expiredView.text = i18n.getString(label.getResId())
@@ -59,6 +59,11 @@ class AccountView(
             else -> {
                 expiredView.text = label.getString()
             }
+        }
+
+        when {
+            color.hasResId() -> expiredView.setTextColor(resources.getColor(color.getResId()))
+            else -> expiredView.setTextColor(color.getColor())
         }
     }
 

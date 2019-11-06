@@ -172,12 +172,15 @@ class TunnelMain {
                 adblocking = tunnelConfig.adblocking
         )
 
-        tunnelManager.setState(currentTunnel)
-        if (tunnelConfig.tunnelEnabled) {
-            tunnelManager.sync()
-        } else {
-            v("tunnel not enabled, stopping")
-            tunnelManager.stop()
+
+        if (::tunnelManager.isInitialized) {
+            tunnelManager.setState(currentTunnel)
+            if (tunnelConfig.tunnelEnabled) {
+                tunnelManager.sync()
+            } else {
+                v("tunnel not enabled, stopping")
+                tunnelManager.stop()
+            }
         }
         v("done syncing")
     }
@@ -209,5 +212,5 @@ class TunnelMain {
         filterManager.removeAll()
     }
 
-    fun protect(socket: Socket) = tunnelManager.protect(socket)
+    fun protect(socket: Socket) = if (::tunnelManager.isInitialized) tunnelManager.protect(socket) else Unit
 }

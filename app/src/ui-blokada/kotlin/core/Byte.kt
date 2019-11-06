@@ -186,9 +186,10 @@ class ByteView(
     }
 
     fun onSwitch(onSwitchCallback: (Boolean) -> Unit) {
-        setOnClickListener {
+        setOnLongClickListener {
             switched = !switched
             onSwitchCallback(switched)
+            true
         }
     }
 

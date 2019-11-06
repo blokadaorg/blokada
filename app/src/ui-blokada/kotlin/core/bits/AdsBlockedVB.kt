@@ -44,7 +44,8 @@ class AdsBlockedVB(
         val config = get(TunnelConfig::class.java)
 
         view?.run {
-            onArrowTap {
+            arrow(null)
+            onTap {
                 ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_ads.res())
             }
             onSwitch { enable ->
@@ -58,14 +59,14 @@ class AdsBlockedVB(
                 !config.adblocking || !tunnelEvents.enabled() -> {
                     icon(R.drawable.ic_show.res())
                     label(R.string.home_adblocking_disabled.res())
-                    state(R.string.home_touch_adblocking.res())
+                    state(R.string.home_touch.res())
                     switch(false)
                 }
                 else -> {
                     icon(R.drawable.ic_blocked.res(), color = R.color.switch_on.res())
                     label(droppedString.res())
+                    state(R.string.home_adblocking_enabled.res())
                     switch(true)
-                    state(null)
                 }
             }
         }

@@ -172,7 +172,7 @@ class Entrypoint {
     fun onGatewaySelected(gatewayId: String) = async(context) {
         v("onGatewaySelected")
         blockaVpnMain.setGatewayIfOk(gatewayId).await()
-        requestSync()
+        onVpnSwitched(true)
     }
 
     private fun shouldPause(

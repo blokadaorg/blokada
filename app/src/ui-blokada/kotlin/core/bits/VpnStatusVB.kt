@@ -44,7 +44,8 @@ class VpnStatusVB(
             val blockaVpnEnabled = get(BlockaVpnState::class.java).enabled
             val lease = get(CurrentLease::class.java)
 
-            onArrowTap {
+            arrow(null)
+            onTap {
                 ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_vpn.res())
             }
             onSwitch { enable ->
@@ -58,7 +59,7 @@ class VpnStatusVB(
                     switch(false)
                     if (account.activeUntil.after(Date())) label(R.string.home_account_active.res())
                     else label(R.string.home_vpn_disabled.res())
-                    state(R.string.home_setup_vpn.res())
+                    state(R.string.home_touch.res())
                 }
                 else -> {
                     icon(R.drawable.ic_shield_plus.res(), color = R.color.switch_on.res())
@@ -74,7 +75,7 @@ class VpnStatusVB(
                         }
                         else -> {
                             label(lease.gatewayNiceName.res())
-                            state("Blokada Tunnel is active".res())
+                            state(R.string.home_vpn_enabled.res())
                         }
                     }
                 }

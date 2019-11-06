@@ -175,7 +175,7 @@
     <string name="slot_gateway_overloaded">This gateway is busy and does not accept new connections.</string>
 
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
-    <string name="slot_leases_info">Control which of your devices connect to the VPN.</string>
+    <string name="slot_leases_info">Control which of your devices connect to the Blokada Tunnel.</string>
     <string name="slot_lease_name_current">%s (this device)</string>
     <string name="slot_lease_description">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your current device.</string>
@@ -187,19 +187,6 @@
     <string name="slot_gateway_load_high">low</string>
 
     <string name="subscription_success">Your account is being activated. This may take a few seconds. Thank you!</string>
-
-    <string name="slot_protection_header">Blokada status</string>
-    <string name="slot_protection_off">Blokada is inactive</string>
-    <string name="slot_protection_off_desc">Your device is not protected.</string>
-    <string name="slot_protection_error">Blokada is temporarily inactive</string>
-    <string name="slot_protection_error_desc">This may be caused by temporary network problems, device or software issues. Blokada will automatically reactivate soon, but you could also try to turn the app on again or restart your phone. If you keep having problems, please contact us on Telegram for help.</string>
-    <string name="slot_protection_disconnected">Your device is offline</string>
-    <string name="slot_protection_disconnected_desc">Blokada is paused because your device lost Internet connection. Blokada will automatically reactivate once you are back online.</string>
-    <string name="slot_protection_activating">Blokada is activating</string>
-    <string name="slot_protection_active_warning">Blokada is active, but configuration could be improved. Tap for details.</string>
-    <string name="slot_protection_action">Settings</string>
-    <string name="slot_protection_no_battery_whitelist">Blokada is not exempt from your device\'s battery optimisation, so it can be killed by the system. You should use your system preferences to whitelist Blokada so it can stay on and protect your device.</string>
-    <string name="slot_protection_description">To configure settings, open the bottom menu.</string>
 
     <string name="slot_start_on_boot_description">Enabling start on boot allows Blokada to be active at all times and protect your device.</string>
     <string name="slot_recommended_dns_label">Use recommended DNS servers</string>

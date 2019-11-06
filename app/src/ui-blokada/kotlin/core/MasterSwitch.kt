@@ -107,7 +107,7 @@ class MasterSwitchView(
     }
 
 
-    fun switch(switched: Boolean?) {
+    fun switch(switched: Boolean?, animation: Boolean = true) {
         this.switched = switched
         when {
             switched == null -> {
@@ -115,13 +115,13 @@ class MasterSwitchView(
             }
             switched -> {
                 switchView.visibility = View.VISIBLE
-                switchView.setDirection(StickySwitch.Direction.RIGHT)
+                switchView.setDirection(StickySwitch.Direction.RIGHT, animation)
                 switchView.setRightIcon(R.drawable.ic_blokada_on)
 //                switchView.isChecked = switched
             }
             else -> {
                 switchView.visibility = View.VISIBLE
-                switchView.setDirection(StickySwitch.Direction.LEFT)
+                switchView.setDirection(StickySwitch.Direction.LEFT, animation)
                 switchView.setRightIcon(R.drawable.ic_blokada_off)
 //                switchView.isChecked = switched
             }
