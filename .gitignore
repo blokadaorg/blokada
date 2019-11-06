@@ -11,3 +11,4 @@ vendor
 /captures
 firebase.xml
 google-services.json
+/app/src/main/res/values-*
