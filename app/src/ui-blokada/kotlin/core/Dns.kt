@@ -8,6 +8,7 @@ import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.getDnsServers
 import gs.property.*
+import org.blokada.R
 import org.pcap4j.packet.namednumber.UdpPort
 import tunnel.TunnelConfig
 import java.io.InputStreamReader
@@ -33,6 +34,10 @@ abstract class Dns {
     abstract val dotEnabled: IProperty<Boolean>
     abstract val enabled: IProperty<Boolean>
     abstract fun hasCustomDnsSelected(): Boolean
+
+    fun getIcon(): Int {
+        return getIcon(dotEnabled.invoke())
+    }
 }
 
 private val FALLBACK_DNS = listOf(
@@ -181,6 +186,10 @@ data class DnsChoice(
         if (other !is DnsChoice) return false
         return id.equals(other.id)
     }
+
+    fun getIcon(): Int {
+        return getIcon(dotEnabled)
+    }
 }
 
 class DnsChoicePersistence(xx: Environment) : PersistenceWithSerialiser<List<DnsChoice>>(xx) {
@@ -288,5 +297,14 @@ class DnsLocalisedFetcher(
 
 fun printServers(s: List<InetSocketAddress>): String {
     return s.map { addressToIpString(it, false) }.joinToString (", ")
+}
+
+private fun getIcon(dotEnabled: Boolean) : Int {
+    return if (dotEnabled) {
+        // TODO: new icon for DNS over TLS?
+        R.drawable.ic_shield_key_outline
+    } else {
+        R.drawable.ic_server
+    }
 }
 

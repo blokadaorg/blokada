@@ -120,7 +120,7 @@ class ActiveDnsVB(
                 state(null)
             }
             simple && name != null -> {
-                icon(R.drawable.ic_server.res(), color = R.color.switch_on.res())
+                icon(dns.getIcon().res(), color = R.color.switch_on.res())
                 label(i18n.getString(R.string.slot_dns_name).res())
                 state(null)
             }
@@ -130,7 +130,7 @@ class ActiveDnsVB(
                 state(R.string.slot_dns_name_disabled.res())
             }
             else -> {
-                icon(R.drawable.ic_server.res(), color = R.color.switch_on.res())
+                icon(dns.getIcon().res(), color = R.color.switch_on.res())
                 label(name.res())
                 state(i18n.getString(R.string.slot_dns_name).res())
             }
@@ -202,7 +202,7 @@ class MenuActiveDnsVB(
                     ?: id.capitalize()
 
                     if (dns.enabled() && dns.hasCustomDnsSelected()) {
-                        icon(R.drawable.ic_server.res(), color = R.color.switch_on.res())
+                        icon(dns.getIcon().res(), color = R.color.switch_on.res())
                         label(i18n.getString(R.string.slot_dns_name, name).res())
                     } else {
                         icon(R.drawable.ic_server.res())

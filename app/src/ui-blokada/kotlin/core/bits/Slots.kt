@@ -729,7 +729,7 @@ class DnsChoiceVB(
                 header = name,
                 description = description,
                 detail = serversString,
-                icon = ctx.getDrawable(R.drawable.ic_server),
+                icon = ctx.getDrawable(item.getIcon()),
                 switched = item.active,
                 action2 = Slot.Action(i18n.getString(R.string.slot_action_author)) {
                     try {
