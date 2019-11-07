@@ -5,12 +5,12 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import kotlinx.coroutines.experimental.async
 import com.github.salomonbrys.kodein.instance
 import core.*
 import filter.DefaultSourceProvider
 import gs.property.Device
 import gs.property.I18n
+import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import org.blokada.R
 import java.io.File
@@ -58,7 +58,7 @@ enum class SmartListState {
 //Triggered every night at 4AM
 class OnGenerateSmartListReceiver : BroadcastReceiver() {
 
-    private val blockade = Blockade()
+    private val blockade = BasicBlockade()
 
     private val ctx by lazy { getActiveContext()!! }
     private val di by lazy { ctx.ktx("tunnel-main").di() }
@@ -218,23 +218,29 @@ class SmartListVB(
         view.type = Slot.Type.INFO
         view.content = Slot.Content(
                 label = i18n.getString(R.string.tunnel_config_smartlist_title),
-                icon = ctx.getDrawable(R.drawable.ic_server),
+                icon = ctx.getDrawable(R.drawable.ic_playlist_minus),
                 description = i18n.getString(R.string.tunnel_config_smartlist_description),
                 switched = get(TunnelConfig::class.java).smartList != SmartListState.DEACTIVATED
         )
         view.onSwitch = {
-            setSmartlistAlarmActive(ctx, it)
-            val newState= if (it){
-                if(smartlistListfile.exists() && smartlistListfile.length() > 0){
-                    SmartListState.ACTIVE_PHASE2
-                }else{
-                    SmartListState.ACTIVE_PHASE1
+            val cfg = get(TunnelConfig::class.java)
+            if (it && cfg.wildcards) {
+                view.content = view.content!!.copy(switched = false)
+                showSnack(R.string.tunnel_config_disable_wildcard)
+            } else {
+                setSmartlistAlarmActive(ctx, it)
+                val newState = if (it) {
+                    if (smartlistListfile.exists() && smartlistListfile.length() > 0) {
+                        SmartListState.ACTIVE_PHASE2
+                    } else {
+                        SmartListState.ACTIVE_PHASE1
+                    }
+                } else {
+                    SmartListState.DEACTIVATED
                 }
-            }else{
-                SmartListState.DEACTIVATED
+                val new = cfg.copy(smartList = newState)
+                entrypoint.onChangeTunnelConfig(new)
             }
-            val new = get(TunnelConfig::class.java).copy(smartList= newState)
-            entrypoint.onChangeTunnelConfig(new)
         }
     }
 
