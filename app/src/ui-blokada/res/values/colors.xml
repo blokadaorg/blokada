@@ -12,7 +12,7 @@
     <color name="colorBackgroundAbout">#000</color>
     <color name="colorBackgroundAboutLight">#101010</color>
     <color name="colorText">#eaeaea</color>
-    <color name="colorTextUnimportant">#999999</color>
+    <color name="colorTextUnimportant">#C0C0C0</color>
     <color name="colorSlotLine">#313131</color>
     <color name="colorActive">#ffffff</color>
     <color name="colorShadow">#181818</color>

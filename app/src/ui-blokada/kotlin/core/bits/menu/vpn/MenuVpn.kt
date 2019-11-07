@@ -18,10 +18,10 @@ private fun createMenuVpn(ktx: AndroidKontext): NamedViewBinder {
                 LabelVB(ktx, label = R.string.menu_vpn_intro.res()),
                 VpnVB(ktx),
                 createManageAccountMenuItem(ktx),
-                LabelVB(ktx, label = "Blokada Tunnel settings".res()),
+                LabelVB(ktx, label = R.string.menu_vpn_tunnel_settings.res()),
                 createGatewaysMenuItem(ktx),
                 createLeasesMenuItem(ktx),
-                LabelVB(ktx, label = "Learn more about Blokada Tunnel".res()),
+                LabelVB(ktx, label = R.string.menu_vpn_tunnel_learn_more.res()),
                 createWhyVpnMenuItem(ktx),
                 SupportVB(ktx)
             ),
@@ -65,7 +65,7 @@ fun createWhyVpnMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val whyPage = ktx.di().instance<Pages>().vpn
     return SimpleMenuItemVB(ktx,
             label = R.string.menu_vpn_intro_button.res(),
-            icon = R.drawable.ic_shield_plus.res(),
+            icon = R.drawable.ic_info.res(),
             arrow = false,
             action = {
                 modalManager.openModal()
@@ -83,11 +83,11 @@ private fun createAccountMenu(ktx: AndroidKontext): NamedViewBinder {
                     if (Product.current(ktx.ctx) == Product.FULL) ManageAccountVB(ktx) else null,
                     RestoreAccountVB(ktx),
                     createWhyVpnMenuItem(ktx),
-                    LabelVB(ktx, label = "Do I have an account?".res()),
-                    TextPointVB(ktx, label = "Yes! Your account is automatically created on first run. You don't need to register.".res()),
-                    TextPointVB(ktx, label = "Tap your avatar above to see your account ID.".res()),
-                    TextPointVB(ktx, label = "Your account ID is secret and you should not show it to anyone.".res()),
-                    TextPointVB(ktx, label = "Write down your account ID in case you need to reinstall the app.".res())
+                    LabelVB(ktx, label = R.string.menu_vpn_info_account_label.res()),
+                    TextPointVB(ktx, label = R.string.menu_vpn_info_account_line1.res()),
+                    TextPointVB(ktx, label = R.string.menu_vpn_info_account_line2.res()),
+                    TextPointVB(ktx, label = R.string.menu_vpn_info_account_line3.res()),
+                    TextPointVB(ktx, label = R.string.menu_vpn_info_account_line4.res())
             ).filterNotNull(),
             name = R.string.menu_vpn_account.res()
     )

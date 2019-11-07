@@ -49,9 +49,9 @@ class ActiveDnsVB(
             onSwitch { enable ->
                 when {
                     !dns.hasCustomDnsSelected() -> {
-                        showSnack(R.string.menu_dns_select.res())
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
                         switch(false)
+                        showSnack(R.string.menu_dns_select.res())
                     }
                     else -> {
                         if (enable && !tunnelEvents.enabled()) tunnelEvents.enabled %= true

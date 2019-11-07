@@ -88,6 +88,13 @@
     <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
     <string name="menu_vpn_support_label">If you experience any problems, do not hesitate to contact us.</string>
     <string name="menu_vpn_support_button">Support</string>
+    <string name="menu_vpn_tunnel_settings">Blokada Tunnel settings</string>
+    <string name="menu_vpn_tunnel_learn_more">Learn mone about Blokada Tunnel</string>
+    <string name="menu_vpn_info_account_label">Do I have an account?</string>
+    <string name="menu_vpn_info_account_line1">Yes! Your account is automatically created on first run. You do not need to register.</string>
+    <string name="menu_vpn_info_account_line2">Tap your avatar above to see your account ID.</string>
+    <string name="menu_vpn_info_account_line3">Your account ID is secret and you should not show it to anyone.</string>
+    <string name="menu_vpn_info_account_line4">Write down your account ID in case you need to reinstall the app.</string>
     <string name="menu_dns_recommended">Recommended DNS servers</string>
     <string name="menu_dns_intro">DNS is responsible for translating IP addresses of websites and apps you use. Choosing a good DNS may speed up your device and will help protect your privacy.</string>
     <string name="menu_dns_select">Select one of the DNS servers.</string>

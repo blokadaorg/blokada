@@ -160,7 +160,7 @@
     <string name="slot_account_label_inactive">Account inactive</string>
 
     <!-- Action to manage active subscription. Keep it short -->
-    <string name="slot_account_action_manage">Manage</string>
+    <string name="slot_account_action_manage">Manage subscription</string>
     <string name="slot_account_action_manage_inactive">Activate account</string>
     <string name="slot_account_action_change_id">Restore account</string>
     <string name="slot_account_show">Account ID</string>
@@ -173,6 +173,8 @@
     <string name="slot_gateway_section_overloaded">Those gateways are overloaded and temporarily unavailable.</string>
     <string name="slot_gateway_description">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_overloaded">This gateway is busy and does not accept new connections.</string>
+    <string name="slot_gateway_learn_more">Learn more about gateways</string>
+    <string name="slot_gateway_info_partner">What are partner gateways?</string>
 
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
     <string name="slot_leases_info">Control which of your devices connect to the Blokada Tunnel.</string>
