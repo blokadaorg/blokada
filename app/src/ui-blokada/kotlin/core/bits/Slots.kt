@@ -347,8 +347,14 @@ class WildcardVB(
                 switched = get(TunnelConfig::class.java).wildcards
         )
         view.onSwitch = { switched ->
-            val new = get(TunnelConfig::class.java).copy(wildcards = switched)
-            entrypoint.onChangeTunnelConfig(new)
+            val cfg = get(TunnelConfig::class.java)
+            if (switched && cfg.smartList != SmartListState.DEACTIVATED) {
+                view.content = view.content!!.copy(switched = false)
+                showSnack(R.string.tunnel_config_disable_smartlist)
+            } else {
+                val new = cfg.copy(wildcards = switched)
+                entrypoint.onChangeTunnelConfig(new)
+            }
         }
     }
 
