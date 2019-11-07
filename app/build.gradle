@@ -290,7 +290,7 @@ dependencies {
 
     // UI libraries
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.github.hannesa2:AndroidSlidingUpPanel:4.0.0'
+    implementation 'com.github.kar:AndroidSlidingUpPanel:4.1.0'
     //implementation 'com.sothree.slidinguppanel:library:3.4.0'
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.2'
     implementation 'jp.wasabeef:blurry:3.0.0'
