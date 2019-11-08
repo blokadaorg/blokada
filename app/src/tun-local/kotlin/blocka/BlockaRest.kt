@@ -30,7 +30,7 @@ interface BlockaRestApi {
     @POST("/v1/account")
     fun newAccount(): Call<BlockaRestModel.Account>
 
-    @GET("/v1/gateway")
+    @GET("/v2/gateway")
     fun getGateways(): Call<BlockaRestModel.Gateways>
 
     @GET("/v1/lease")
@@ -69,10 +69,13 @@ object BlockaRestModel {
             val ipv4: String,
             val ipv6: String,
             val port: Int,
-            val expires: Date
+            val expires: Date,
+            val tags: List<String>?
     ) {
         fun niceName() = location.split('-').map { it.capitalize() }.joinToString(" ")
         fun overloaded() = resourceUsagePercent >= 100
+//        fun partner() = location == "stockholm"
+        fun partner() = tags?.contains("partner") ?: false
     }
     data class LeaseInfo(
             @SerializedName("account_id")

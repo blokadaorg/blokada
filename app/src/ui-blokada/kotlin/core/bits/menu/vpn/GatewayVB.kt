@@ -25,22 +25,16 @@ class GatewayVB(
 
         view?.apply {
             content = Slot.Content(
-                    label = i18n.getString(
-                            (if (gateway.overloaded()) R.string.slot_gateway_label_overloaded
-                            else R.string.slot_gateway_label),
-                            gateway.niceName()),
+                    label = "%s (%s)".format(gateway.niceName(), gateway.region),
                     icon = ktx.ctx.getDrawable(
-                            if (gateway.overloaded()) R.drawable.ic_shield_outline
-                            else R.drawable.ic_verified
+                            when {
+                                gateway.overloaded() -> R.drawable.ic_shield_outline
+                                gateway.partner() -> R.drawable.ic_shield_plus
+                                else -> R.drawable.ic_verified
+                            }
                     ),
-                    description = if (gateway.publicKey == cfg.gatewayId) {
-                        i18n.getString(R.string.slot_gateway_description_current,
-                                getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region,
-                                account.activeUntil)
-                    } else {
-                        i18n.getString(R.string.slot_gateway_description,
-                                getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region)
-                    },
+                    description = i18n.getString(R.string.slot_gateway_description,
+                                getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region),
                     switched = gateway.publicKey == cfg.gatewayId
             )
 

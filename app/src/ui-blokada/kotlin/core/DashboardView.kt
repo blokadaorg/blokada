@@ -10,15 +10,16 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat.getColorStateList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import blocka.BlockaVpnState
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.github.salomonbrys.kodein.instance
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import core.bits.AdsDashboardSectionVB
 import core.bits.HomeDashboardSectionVB
+import core.bits.ShareVB
 import core.bits.menu.*
 import gs.environment.inject
 import gs.presentation.NamedViewBinder
@@ -26,6 +27,7 @@ import gs.presentation.doAfter
 import gs.property.I18n
 import org.blokada.R
 import tunnel.Persistence
+import tunnel.TunnelConfig
 import tunnel.TunnelEvents
 import kotlin.math.max
 import kotlin.math.min
@@ -52,6 +54,8 @@ class DashboardView(
     private val bg_logo_icon = findViewById<ImageView>(R.id.bg_logo_icon)
     private val bg_pager = findViewById<VBPagesView>(R.id.bg_pager)
     private val bg_packets = findViewById<PacketsView>(R.id.bg_packets)
+    private val bg_action_help = findViewById<ImageView>(R.id.bg_action_help)
+    private val bg_action_cta = findViewById<ImageView>(R.id.bg_action_cta)
     private val fg_chevron_back = findViewById<View>(R.id.fg_chevron_back)
     private val bg_chevron_right = findViewById<View>(R.id.bg_chevron_right)
     private val fg_label = findViewById<FrameLayout>(R.id.fg_label)
@@ -132,7 +136,6 @@ class DashboardView(
 
     fun createDashboardSections(ktx: AndroidKontext): List<NamedViewBinder> {
         val di = ktx.di()
-        val pages: Pages = di.instance()
 
         return listOf<NamedViewBinder?>(
                 HomeDashboardSectionVB(ktx),
@@ -189,9 +192,30 @@ class DashboardView(
         }, recentValue = false)
 
         tun.enabled.doOnUiWhenSet().then {
-            if (tun.enabled()) bg_colors.onScroll(1f, 4, model.getOpenedSectionIndex() + 1)
-            else bg_colors.onScroll(1f, model.getOpenedSectionIndex() + 1, 4)
+            updateBackground()
         }
+    }
+
+    private var active = false
+    private var activating = false
+    private var nowBackground = 0
+
+    private val updateBackground = {
+        val config = get(TunnelConfig::class.java)
+        val blockaVpnEnabled = get(BlockaVpnState::class.java).enabled
+
+        val newBg = when {
+            !tun.enabled() -> 0
+            activating -> 1
+            !tun.active() -> 1
+            !config.adblocking && !blockaVpnEnabled -> 2
+            !config.adblocking -> 4
+            !blockaVpnEnabled -> 2
+            else -> 4
+        }
+        bg_colors.onScroll(1f, nowBackground, newBg)
+        nowBackground = newBg
+        Unit
     }
 
     private fun setOn(toColorIndex: Int) {
@@ -203,6 +227,8 @@ class DashboardView(
         fg_pager.alpha = 0f
         bg_pager.visibility = View.VISIBLE
         bg_pager.alpha = 1f
+        bg_action_help.alpha = 1f
+        bg_action_cta.alpha = 1f
 
         val lp = fg_drag.layoutParams as FrameLayout.LayoutParams
         lp.height = resources.getDimensionPixelSize(R.dimen.dashboard_fg_drag_height)
@@ -218,6 +244,8 @@ class DashboardView(
         fg_pager.alpha = 1f
         fg_chevron_back.alpha = 1f
         bg_pager.alpha = 0f
+        bg_action_help.alpha = 0f
+        bg_action_cta.alpha = 0f
 
         val lp = fg_drag.layoutParams as FrameLayout.LayoutParams
         lp.height = resources.getDimensionPixelSize(R.dimen.dashboard_fg_drag_height)
@@ -233,12 +261,6 @@ class DashboardView(
         lp.topMargin = 0
         fg_label.requestLayout()
     }
-
-    private val advanced by lazy { getColorStateList(ctx, R.color.dashboard_menu_advanced) }
-    private val tintAdvanced = resources.getColor(R.color.gradient4_c3)
-    private val adblocking by lazy { getColorStateList(ctx, R.color.dashboard_menu_adblocking) }
-    private val tintAdblocking = resources.getColor(R.color.gradient3_c3)
-    private val tintNormal = resources.getColor(R.color.colorText)
 
     private fun setMainSectionLabelAndMenuIcon(section: NamedViewBinder) {
         bg_nav.section = i18n.getString(section.name)
@@ -326,6 +348,10 @@ class DashboardView(
                 bg_packets.setTunnelState(TunnelState.ACTIVATING)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorAccent))
                 animateLogo()
+
+                activating = true
+                active = false
+                updateBackground()
             }
 
             override fun finishActivating() {
@@ -335,18 +361,30 @@ class DashboardView(
                     bg_packets.setRecentHistory(it)
                 }
                 stopAnimatingLogo()
+
+                activating = false
+                active = true
+                updateBackground()
             }
 
             override fun startDeactivating() {
                 bg_packets.setTunnelState(TunnelState.DEACTIVATING)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorActive))
                 animateLogo()
+
+                activating = true
+                active = false
+                updateBackground()
             }
 
             override fun finishDeactivating() {
                 bg_packets.setTunnelState(TunnelState.INACTIVE)
                 bg_logo_icon.setColorFilter(resources.getColor(R.color.colorLogoInactive))
                 stopAnimatingLogo()
+
+                activating = false
+                active = false
+                updateBackground()
             }
         })
     }
@@ -373,7 +411,10 @@ class DashboardView(
                         bg_pager.alpha = min(1f, ratio)
                     } else {
                         fg_nav_panel.alpha = max(0.7f, slideOffset)
-                        bg_pager.alpha = 1 - min(1f, (slideOffset - anchorPoint) * 3)
+                        val disappearing = 1 - min(1f, (slideOffset - anchorPoint) * 3)
+                        bg_pager.alpha = disappearing
+                        bg_action_help.alpha = disappearing
+                        bg_action_cta.alpha = disappearing
                         //bg_logo.alpha = 0.6f + (slideOffset - anchorPoint) / (0.4f - anchorPoint)
                     }
                 }
@@ -428,10 +469,6 @@ class DashboardView(
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, posPixels: Int) {
-                if (tun.enabled()) {
-                    val next = position + 1
-                    bg_colors.onScroll(positionOffset, next, next + 1)
-                }
             }
 
             override fun onPageSelected(position: Int) {
@@ -462,6 +499,34 @@ class DashboardView(
                 PanelState.EXPANDED -> sliding.panelState = PanelState.ANCHORED
                 PanelState.ANCHORED -> sliding.panelState = PanelState.EXPANDED
             }
+        }
+
+        bg_action_help.setOnClickListener {
+            bg_action_help.setColorFilter(resources.getColor(R.color.switch_on))
+            bg_action_help.animate().setDuration(200).scaleX(1.2f).scaleY(1.2f).alpha(0.5f).doAfter {
+                bg_action_help.scaleX = 1.0f
+                bg_action_help.scaleY = 1.0f
+                bg_action_help.alpha = 1.0f
+                ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_learn_more.res())
+                bg_action_help.setColorFilter(null)
+            }
+        }
+
+        bg_action_cta.setOnClickListener {
+            bg_action_cta.setColorFilter(resources.getColor(R.color.switch_on))
+            bg_action_cta.animate().setDuration(200).scaleX(1.2f).scaleY(1.2f).alpha(0.5f).doAfter {
+                bg_action_cta.scaleX = 1.0f
+                bg_action_cta.scaleY = 1.0f
+                bg_action_cta.alpha = 1.0f
+                ShareVB(ktx).share()
+//                ktx.emit(REFRESH_HOME)
+                bg_action_cta.setColorFilter(null)
+            }
+        }
+
+        if (isLandscape(context)) {
+            bg_action_help.visibility = View.GONE
+            bg_action_cta.visibility = View.GONE
         }
     }
 

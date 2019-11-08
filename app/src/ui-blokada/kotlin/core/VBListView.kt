@@ -11,10 +11,7 @@ import android.view.View.OnKeyListener
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.github.salomonbrys.kodein.instance
 import gs.presentation.ViewBinder
 import gs.presentation.ViewBinderHolder
@@ -271,8 +268,9 @@ class VBListView(
 //        containerView.layoutParams = lp
     }
 
-    fun enableLandscapeMode(reversed: Boolean = false) {
-        layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, reversed)
+    fun enableLandscapeMode(reversed: Boolean = false, staggered: Boolean = false) {
+        if (staggered) layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        else layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, reversed)
         listView.layoutManager = layoutManager
     }
 

@@ -7,9 +7,9 @@ import core.bits.menu.MenuItemVB
 import core.bits.menu.MenuItemsVB
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
-import gs.presentation.ViewBinder
 import org.blokada.R
 import tunnel.Filter
+import tunnel.SmartListVB
 import tunnel.TunnelEvents
 
 internal class SlotMutex {
@@ -91,6 +91,9 @@ private fun createAdblockingSettings(ktx: AndroidKontext): NamedViewBinder {
             items = listOf(
                     LabelVB(ktx, label = R.string.menu_host_list_status.res()),
                     FiltersStatusVB(ktx, onTap = defaultOnTap),
+                    LabelVB(ktx, label = R.string.menu_host_adblocking_features.res()),
+                    WildcardVB(ktx, onTap = defaultOnTap),
+                    SmartListVB(ktx, onTap = defaultOnTap),
                     LabelVB(ktx, label = R.string.menu_host_adblocking_settings.res()),
                     LoggerVB(ktx, onTap = defaultOnTap),
                     ResetCounterVB(ktx, onTap = defaultOnTap),
@@ -105,24 +108,3 @@ private fun createAdblockingSettings(ktx: AndroidKontext): NamedViewBinder {
 }
 
 
-class StaticItemsListVB(
-        private val items: List<ViewBinder>
-) : ListViewBinder() {
-
-    private val slotMutex = SlotMutex()
-
-    init {
-        items.filter { it is SlotVB }.forEach {
-            (it as SlotVB).onTap = slotMutex.openOneAtATime
-        }
-    }
-
-    override fun attach(view: VBListView) {
-        view.enableAlternativeMode()
-        view.set(items)
-    }
-
-    override fun detach(view: VBListView) {
-        slotMutex.detach()
-    }
-}

@@ -1,9 +1,13 @@
 package core.bits.menu.vpn
 
+import android.content.Intent
 import android.os.Handler
+import blocka.BlockaRestApi
+import blocka.BlockaRestModel
 import blocka.MAX_RETRIES
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.bits.menu.SimpleMenuItemVB
 import core.bits.menu.adblocking.SlotMutex
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
@@ -12,8 +16,7 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
-import blocka.BlockaRestApi
-import blocka.BlockaRestModel
+import ui.StaticUrlWebActivity
 
 class GatewaysDashboardSectionVB(
         val ktx: AndroidKontext,
@@ -61,12 +64,33 @@ class GatewaysDashboardSectionVB(
                     when (code()) {
                         200 -> {
                             body()?.run {
-                                val g = gateways.map {
-                                    GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime)
-                                }
+                                val overloaded = gateways.filter { it.overloaded() }
+                                val partner = gateways.filter { it.partner() }
+                                val rest = gateways - partner - overloaded
+
+                                val o = overloaded.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) }
+                                val p = partner.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) } - o
+                                val r = rest.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) }
+
                                 items = listOf(
                                     LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res())
-                                ) + g
+                                ) + r
+
+                                if (partner.isNotEmpty()) {
+                                    items += listOf(
+                                            LabelVB(ktx, label = R.string.slot_gateway_section_partner.res())
+                                    ) + p + listOf (
+                                            LabelVB(ktx, label = R.string.slot_gateway_learn_more.res()),
+                                            createPartnerGatewaysMenuItem(ktx)
+                                    )
+                                }
+
+                                if (overloaded.isNotEmpty()) {
+                                    items += listOf(
+                                            LabelVB(ktx, label = R.string.slot_gateway_section_overloaded.res())
+                                    ) + o
+                                }
+
                                 view?.set(items)
                             }
                         }
@@ -81,4 +105,19 @@ class GatewaysDashboardSectionVB(
             }
         })
     }
+}
+
+fun createPartnerGatewaysMenuItem(ktx: AndroidKontext): NamedViewBinder {
+    val page = ktx.di().instance<Pages>().vpn_partner
+    return SimpleMenuItemVB(ktx,
+            label = R.string.slot_gateway_info_partner.res(),
+            icon = R.drawable.ic_info.res(),
+            arrow = false,
+            action = {
+                modalManager.openModal()
+                ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
+                    putExtra(WebViewActivity.EXTRA_URL, page().toExternalForm())
+                })
+            }
+    )
 }

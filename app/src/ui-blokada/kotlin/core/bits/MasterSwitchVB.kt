@@ -1,59 +1,68 @@
 package core.bits
 
+import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.property.I18n
 import org.blokada.R
+import tunnel.TunnelConfig
 
 class MasterSwitchVB(
         private val ktx: AndroidKontext,
         private val i18n: I18n = ktx.di().instance(),
         private val tunnelEvents: Tunnel = ktx.di().instance(),
         private val tunnelStatus: EnabledStateActor = ktx.di().instance()
-) : ByteVB() {
+) : core.MasterSwitchVB() {
 
     private var active = false
     private var activating = false
 
-    override fun attach(view: ByteView) {
+    override fun attach(view: MasterSwitchView) {
+        view.switch(tunnelEvents.enabled(), animation = false)
         tunnelStatus.listeners.add(tunnelListener)
         tunnelStatus.update(tunnelEvents)
         update()
     }
 
-    override fun detach(view: ByteView) {
+    override fun detach(view: MasterSwitchView) {
         tunnelStatus.listeners.remove(tunnelListener)
     }
 
     private val update = {
+        val config = get(TunnelConfig::class.java)
+        val blockaVpnEnabled = get(BlockaVpnState::class.java).enabled
+
         view?.run {
+            onSwitch { enable ->
+                tunnelEvents.enabled %= enable
+            }
+
+            switch(tunnelEvents.enabled())
+//            onTap {
+//                tunnelEvents.enabled %= !tunnelEvents.enabled()
+//            }
+
             when {
                 !tunnelEvents.enabled() -> {
-                    icon(R.drawable.ic_play_arrow.res())
-                    label(R.string.home_touch_to_turn_on.res())
-                    state(R.string.home_blokada_disabled.res())
-                    important(true)
-                    onTap {
-                        tunnelEvents.enabled %= true
-                    }
+                    state("Blokada is deactivated".res())
                 }
-                tunnelEvents.enabled() && !tunnelEvents.active() -> {
-                    icon(R.drawable.ic_nosignal.res())
-                    label(R.string.home_masterswitch_waiting.res())
-                    state(R.string.home_masterswitch_on.res())
-                    important(false)
-                    onTap {
-                        tunnelEvents.enabled %= false
-                    }
+                activating -> {
+                    state(R.string.home_please_wait.res())
+                }
+                !tunnelEvents.active() -> {
+                    state(R.string.home_masterswitch_waiting.res())
+                }
+                !config.adblocking && !blockaVpnEnabled -> {
+                    state(R.string.home_dns_only.res())
+                }
+                !config.adblocking -> {
+                    state(R.string.home_vpn_only.res())
+                }
+                !blockaVpnEnabled -> {
+                    state("Blokada is active".res())
                 }
                 else -> {
-                    icon(R.drawable.ic_pause.res())
-                    label(R.string.home_masterswitch_on.res())
-                    state(R.string.home_masterswitch_enabled.res())
-                    important(false)
-                    onTap {
-                        tunnelEvents.enabled %= false
-                    }
+                    state("Blokada Tunnel is active, and your Internet is protected".res())
                 }
            }
         }

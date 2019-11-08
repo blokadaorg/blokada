@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/byte_root"
+    android:padding="16dp"
+    android:layout_marginBottom="80dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--<androidx.appcompat.widget.SwitchCompat-->
+        <!--android:id="@+id/byte_switch"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginTop="32dp"-->
+        <!--android:layout_marginBottom="32dp"-->
+        <!--android:scaleX="2.5"-->
+        <!--android:scaleY="2.5"-->
+        <!--app:theme="@style/Switch2" />-->
+
+    <io.ghyeok.stickyswitch.widget.StickySwitch
+        android:id="@+id/sticky_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        app:ss_animationDuration="600"
+        app:ss_iconPadding="@dimen/master_switch_padding"
+        app:ss_iconSize="@dimen/master_switch_size"
+        app:ss_leftIcon="@drawable/ic_power"
+        app:ss_leftText=""
+        app:ss_rightIcon="@drawable/ic_blokada_off"
+        app:ss_rightText=""
+        app:ss_selectedTextSize="0sp"
+        app:ss_sliderBackgroundColor="@color/colorBackgroundTrans"
+        app:ss_switchColor="@color/colorBackgroundSlot"
+        app:ss_textColor="@color/colorActive"
+        app:ss_textSize="0sp"
+        app:ss_animationType="curved"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/byte_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/slot_secondary_padding"
+            android:layout_marginEnd="@dimen/slot_secondary_padding"
+            android:gravity="center"
+            android:minLines="3"
+            android:maxLines="3"
+            android:padding="8dp"
+            android:textColor="@color/colorInactive"
+            android:textSize="@dimen/slot_secondary_text_size"
+            tools:text="blocked" />
+    </LinearLayout>
+</LinearLayout>

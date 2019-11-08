@@ -2,6 +2,7 @@ package core.bits
 
 import android.content.Context
 import android.util.Base64
+import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.MENU_CLICK_BY_NAME
@@ -13,7 +14,6 @@ import java.nio.charset.Charset
 
 class ActiveDnsVB(
         private val ktx: AndroidKontext,
-        private val simple: Boolean = false,
         private val ctx: Context = ktx.ctx,
         private val i18n: I18n = ktx.di().instance(),
         private val tunnelEvents: Tunnel = ktx.di().instance(),
@@ -42,97 +42,50 @@ class ActiveDnsVB(
 
     private val update = {
         view?.run {
-            when {
-                !tunnelEvents.enabled() -> {
-                    setTexts(null)
-                    switch(null)
-                    arrow(null)
-                    onTap {
-                        tunnelEvents.enabled %= true
-                        onSwitch { enabled ->
-                            when {
-                                !dns.hasCustomDnsSelected() -> {
-                                    showSnack(R.string.menu_dns_select.res())
-                                    ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-                                    switch(false)
-                                }
-                                else -> {
-                                    entrypoint.onSwitchDnsEnabled(enabled)
-                                }
-                            }
-                        }
-                    }
-                }
-                activating || !active -> {
-                    icon(R.drawable.ic_show.res())
-                    label(R.string.home_activating.res())
-                    state(R.string.home_please_wait.res())
-                    switch(null)
-                    arrow(null)
-                    onTap { }
-                    onSwitch { }
-                }
-                !dns.enabled() || !dns.hasCustomDnsSelected() -> {
-                    setTexts(null)
-                    switch(false)
-                    arrow(null)
-                    onTap {
+            arrow(null)
+            onTap {
+                ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+            }
+            onSwitch { enable ->
+                when {
+                    !dns.hasCustomDnsSelected() -> {
                         ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                        switch(false)
+                        showSnack(R.string.menu_dns_select.res())
                     }
-                    onSwitch { enabled ->
-                        when {
-                            !dns.hasCustomDnsSelected() -> {
-                                showSnack(R.string.menu_dns_select.res())
-                                ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-                                switch(false)
-                            }
-                            else -> {
-                                entrypoint.onSwitchDnsEnabled(enabled)
-                            }
-                        }
-                    }
-                }
-                else -> {
-                    val item = dns.choices().first { it.active }
-                    val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
-                    val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
-
-                    setTexts(name)
-                    switch(true)
-                    arrow(null)
-                    onTap {
-                        ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-                    }
-                    onSwitch {
-                        entrypoint.onSwitchDnsEnabled(it)
+                    else -> {
+                        if (enable && !tunnelEvents.enabled()) tunnelEvents.enabled %= true
+                        entrypoint.onSwitchDnsEnabled(enable)
                     }
                 }
             }
+
+            var name: String? = null
+            try {
+                val item = dns.choices().first { it.active }
+                val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
+                name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
+                name = if (dns.enabled() && dns.hasCustomDnsSelected() && tunnelEvents.enabled()) name else null
+            } catch (e: Exception) {}
+
+            setTexts(name)
+            switch(name != null)
         }
         Unit
     }
 
     private fun ByteView.setTexts(name: String?) {
         when {
-            simple && name == null -> {
-                icon(R.drawable.ic_server.res(), color = R.color.switch_on.res())
-                label(i18n.getString(R.string.slot_dns_name_disabled).res())
-                state(null)
-            }
-            simple && name != null -> {
-                icon(dns.getIcon().res(), color = R.color.switch_on.res())
-                label(i18n.getString(R.string.slot_dns_name).res())
-                state(null)
-            }
             name == null -> {
                 icon(R.drawable.ic_server.res())
-                label(R.string.home_dns_touch.res())
-                state(R.string.slot_dns_name_disabled.res())
+                label(R.string.slot_dns_name_disabled.res())
+                state(R.string.home_touch.res())
             }
             else -> {
                 icon(dns.getIcon().res(), color = R.color.switch_on.res())
                 label(name.res())
-                state(i18n.getString(R.string.slot_dns_name).res())
+                val vpn = get(BlockaVpnState::class.java).enabled
+                if (vpn) state(R.string.slot_dns_name_private.res()) else state(null)
             }
         }
     }
@@ -189,10 +142,24 @@ class MenuActiveDnsVB(
 
     private val update = {
         view?.run {
+            onSwitch { enabled ->
+                when {
+                    enabled && !dns.hasCustomDnsSelected() -> {
+                        showSnack(R.string.menu_dns_select.res())
+                        ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
+                        switch(false)
+                    }
+                    else -> {
+                        if (enabled && !tunnelState.enabled()) tunnelState.enabled %= true
+                        entrypoint.onSwitchDnsEnabled(enabled)
+                    }
+                }
+            }
+
             if (!tunnelState.enabled()) {
                 label(R.string.home_blokada_disabled.res())
                 icon(R.drawable.ic_server.res())
-                switch(null)
+                switch(false)
                 onSwitch {}
             } else {
                 val item = dns.choices().firstOrNull() { it.active }
@@ -214,18 +181,6 @@ class MenuActiveDnsVB(
                 }
 
                 switch(dns.enabled())
-                onSwitch { enabled ->
-                    when {
-                        enabled && !dns.hasCustomDnsSelected() -> {
-                            showSnack(R.string.menu_dns_select.res())
-                            ktx.emit(MENU_CLICK_BY_NAME, R.string.panel_section_advanced_dns.res())
-                            switch(false)
-                        }
-                        else -> {
-                            entrypoint.onSwitchDnsEnabled(enabled)
-                        }
-                    }
-                }
             }
 
         }

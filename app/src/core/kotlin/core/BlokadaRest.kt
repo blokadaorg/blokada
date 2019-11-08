@@ -58,6 +58,13 @@ fun markAnnouncementAsSeen() {
     v("marked announcement as seen", ann.id)
 }
 
+fun markAnnouncementAsUnseen() {
+    val ann = get(Announcement::class.java)
+    ann.displayedIndex = 0
+    set(Announcement::class.java, ann)
+    v("marked announcement as unseen", ann.id)
+}
+
 fun getAnnouncementUrl(): String {
     val ann = get(Announcement::class.java)
     return if (ann.contentUrl.startsWith("http")) ann.contentUrl
@@ -74,7 +81,7 @@ fun getAnnouncementContent(): Pair<String, String> {
     return ann.title to ann.tagline
 }
 
-private fun requestAnnouncement() {
+fun requestAnnouncement() {
     return try {
         val ctx = getActiveContext()!!
         val di = ctx.ktx("announcement").di()
@@ -82,7 +89,9 @@ private fun requestAnnouncement() {
         val fetchTimeout = 10 * 1000
         val data = loadAsString(openUrl(url(), fetchTimeout))
         val announcement = Gson().fromJson(data, Announcement::class.java)
+        val previous = get(Announcement::class.java)
         announcement.lastCheck = System.currentTimeMillis()
+        announcement.displayedIndex = previous.displayedIndex
         v("announcement info refreshed")
         set(Announcement::class.java, announcement)
     } catch (ex: Exception) {

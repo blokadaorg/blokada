@@ -99,11 +99,11 @@ private val IMPORTANCE_HIGH = 4
 
 enum class NotificationChannels(val nameResource: Resource, val importance: Int) {
     KEEP_ALIVE(R.string.notification_keepalive_text.res(), IMPORTANCE_NONE),
-    FILTERED("Ad blocking".res(), IMPORTANCE_NONE),
-    ANNOUNCEMENT("Announcements".res(), IMPORTANCE_HIGH),
+    FILTERED(R.string.notification_channel_filtered.res(), IMPORTANCE_NONE),
+    ANNOUNCEMENT(R.string.notification_channel_announcements.res(), IMPORTANCE_HIGH),
     UPDATE(R.string.update_notification_channel.res(), IMPORTANCE_HIGH),
-    BLOCKA_VPN("Blokada VPN".res(), IMPORTANCE_HIGH),
-    COMMON("Other".res(), IMPORTANCE_DEFAULT);
+    BLOCKA_VPN(R.string.notification_channel_vpn.res(), IMPORTANCE_HIGH),
+    COMMON(R.string.notification_channel_other.res(), IMPORTANCE_DEFAULT);
 }
 
 sealed class BlokadaNotification(val id: Int, val channel: NotificationChannels,
@@ -112,10 +112,10 @@ sealed class BlokadaNotification(val id: Int, val channel: NotificationChannels,
 
 private var requestCode = 0
 
-class FilteredNotification(reason: String): BlokadaNotification(1, NotificationChannels.FILTERED,
+class FilteredNotification(reason: String, counter: Int = 0): BlokadaNotification(1, NotificationChannels.FILTERED,
         create = { ctx ->
             val b = NotificationCompat.Builder(ctx)
-            b.setContentTitle(ctx.getString(R.string.notification_blocked_title))
+            b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, counter))
             b.setContentText(ctx.getString(R.string.notification_blocked_text, reason))
             b.setSmallIcon(R.drawable.ic_stat_blokada)
             b.priority = NotificationCompat.PRIORITY_MAX
@@ -226,11 +226,12 @@ class UpdateNotification(versionName: String): BlokadaNotification(3, Notificati
         }
 )
 
-class AccountExpiredNotification: BlokadaNotification(4, NotificationChannels.BLOCKA_VPN,
+class AccountInactiveNotification: BlokadaNotification(4, NotificationChannels.BLOCKA_VPN,
         create = { ctx ->
             val b = NotificationCompat.Builder(ctx)
             b.setContentTitle(ctx.getString(R.string.notification_expired_title))
             b.setContentText(ctx.getString(R.string.notification_expired_description))
+            b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.notification_expired_description)))
             b.setSmallIcon(R.drawable.ic_stat_blokada)
             b.setPriority(NotificationCompat.PRIORITY_MAX)
             b.setVibrate(LongArray(0))

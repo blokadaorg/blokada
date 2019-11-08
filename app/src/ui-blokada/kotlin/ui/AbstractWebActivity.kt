@@ -42,7 +42,12 @@ abstract class AbstractWebActivity : Activity() {
         setContentView(R.layout.subscription_container)
 
         if (bound || bindChromeTabs()) {
-            val url = targetUrl().toExternalForm() + "?user-agent=" + blokadaUserAgent(this, true)
+            val target = targetUrl().toExternalForm()
+            val url = if (target.contains("?")) {
+                target + "&user-agent=" + blokadaUserAgent(this, true)
+            } else {
+                target + "?user-agent=" + blokadaUserAgent(this, true)
+            }
             val builder = CustomTabsIntent.Builder()
             val customTabsIntent = builder.build()
 

@@ -27,22 +27,22 @@ class UpdateCoordinator(
             download(urls)
         }
         else {
-            j.log("UpdateCoordinator: deactivate tunnel: ${s.tunnelState()}")
-            s.tunnelState.cancel(w)
-            w = s.tunnelState.doOnUiWhenChanged().then {
-                if (s.tunnelState(TunnelState.INACTIVE)) {
-                    if (!downloading) {
-                        j.log("UpdateCoordinator: tunnel deactivated")
-                        s.tunnelState.cancel(w)
-                        w = null
+//            j.log("UpdateCoordinator: deactivate tunnel: ${s.tunnelState()}")
+//            s.tunnelState.cancel(w)
+//            w = s.tunnelState.doOnUiWhenChanged().then {
+//                if (s.tunnelState(TunnelState.INACTIVE)) {
+//                    if (!downloading) {
+//                        j.log("UpdateCoordinator: tunnel deactivated")
+//                        s.tunnelState.cancel(w)
+//                        w = null
                         download(urls)
-                    }
-                }
-            }
-
-            s.updating %= true
-            s.restart %= true
-            s.active %= false
+//                    }
+//                }
+//            }
+//
+//            s.updating %= true
+//            s.restart %= true
+//            s.active %= false
         }
     }
 

@@ -526,3 +526,42 @@ class LabelVB(
     }
 
 }
+
+class TextPointView(
+        ctx: Context,
+        attributeSet: AttributeSet
+) : FrameLayout(ctx, attributeSet) {
+
+    init {
+        inflate(context, R.layout.textpointview_content, this)
+    }
+
+    private val i18n by lazy { context.ktx("LabelView").di().instance<I18n>() }
+
+    private val labelView = findViewById<TextView>(R.id.label)
+
+    var label: String = ""
+        set(value) {
+            field = value
+            labelView.text = label
+        }
+
+    var labelResId: Int = 0
+        set(value) {
+            field = value
+            labelView.text = i18n.getString(value)
+        }
+}
+
+class TextPointVB(
+        val ktx: AndroidKontext,
+        val i18n: I18n = ktx.di().instance(),
+        val label: Resource
+) : LayoutViewBinder(R.layout.textpointview) {
+
+    override fun attach(view: View) {
+        view as TextPointView
+        view.label = i18n.getString(label)
+    }
+
+}

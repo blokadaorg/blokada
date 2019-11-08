@@ -151,7 +151,7 @@ class BitView(
         }
 
         when {
-            color == null -> labelView.setTextColor(resources.getColor(R.color.colorText))
+            color == null -> labelView.setTextColor(resources.getColor(R.color.colorActive))
             color.hasResId() -> labelView.setTextColor(resources.getColor(color.getResId()))
             else -> labelView.setTextColor(color.getColor())
         }
@@ -177,7 +177,7 @@ class BitView(
         }
     }
 
-    fun icon(icon: Resource?, color: Resource? = Resource.ofResId(R.color.colorText)) {
+    fun icon(icon: Resource?, color: Resource? = Resource.ofResId(R.color.colorActive)) {
         when {
             icon == null -> iconView.setImageResource(R.drawable.ic_info)
             icon.hasResId() -> iconView.setImageResource(icon.getResId())

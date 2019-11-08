@@ -72,6 +72,35 @@
                     android:src="@drawable/blokada" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/bg_action_help"
+                    android:layout_width="@dimen/dashboard_bg_icon_size"
+                    android:layout_height="@dimen/dashboard_bg_icon_size"
+                    android:layout_marginEnd="@dimen/dashboard_bg_icon_margin_end"
+                    android:layout_marginTop="@dimen/dashboard_bg_icon_margin_top"
+                    android:padding="@dimen/dashboard_bg_icon_padding"
+                    android:background="@drawable/bg_dashboard_item"
+                    android:tint="@color/colorActive"
+                    android:src="@drawable/ic_help_outline" />
+
+                <ImageView
+                    android:id="@+id/bg_action_cta"
+                    android:layout_width="@dimen/dashboard_bg_icon_size"
+                    android:layout_height="@dimen/dashboard_bg_icon_size"
+                    android:layout_marginEnd="@dimen/dashboard_bg_icon_margin_end"
+                    android:layout_marginTop="@dimen/dashboard_bg_icon_margin_top"
+                    android:padding="@dimen/dashboard_bg_icon_padding"
+                    android:background="@drawable/bg_dashboard_item"
+                    android:tint="@color/colorActive"
+                    android:src="@drawable/ic_share" />
+            </LinearLayout>
+
         </RelativeLayout>
 
         <!-- SLIDING LAYOUT -->

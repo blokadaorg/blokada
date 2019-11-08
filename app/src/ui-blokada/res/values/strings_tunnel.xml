@@ -21,7 +21,16 @@
     <string name="tunnel_config_powersave_description">Activate this switch if you experience problems caused by your device powersave feature. When the app detects tunnel connectivity problems, it will attempt raise its priority to bring it out of the powersaving mode.</string>
     <string name="tunnel_config_reports_title">Reports</string>
     <string name="tunnel_config_reports_description">Activate this switch to allow the app to send reports helping us fix problems and bugs. This will happen only once per day, or when the app crashes. Disabling this may make it hard for us to solve any problems you may be experiencing. You may need to restart the app for this setting to take effect.</string>
+    <string name="tunnel_config_wildcard_title">[BETA] Advanced adblocking rules</string>
+    <string name="tunnel_config_wildcard_description">Activate this switch if you wish to use wildcards in your filtering rules. For example, adding a rule for *.google.com would block all domains from Google. This may have a negative impact on battery life. Please note that this is an experimental feature, and may not work properly.</string>
 
     <string name="tunnel_config_fallback_title">DNS fallback</string>
     <string name="tunnel_config_fallback_description">Activate this switch if you are losing Internet access in some situations, like your WiFi. This will make the app temporarily switch to Cloudflare DNS to sustain your connectivity. You may need to re-select your servers in the DNS section for this setting to take effect.</string>
+
+    <string name="tunnel_config_smartlist_title">[BETA] Smart List</string>
+    <string name="tunnel_config_smartlist_description">Activate this switch to enable Smart List feature, which dramatically decreases the number of rules in your filters, potentially improving battery life and lowering RAM usage. When enabled, Blokada will look at your request log, and dynamically generate a list that only contains rules that actually blocked at least one request. The Smart List is updated daily at night. Please note that you may experience a higher number of unwanted requests being allowed during the learning period (a few days). Please note that this is an experimental feature, and may not work properly.</string>
+
+    <string name="tunnel_config_disable_wildcard">Disable Advanced adblocking rules first.</string>
+    <string name="tunnel_config_disable_smartlist">Disable Smart List first.</string>
+
 </resources>

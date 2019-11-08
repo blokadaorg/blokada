@@ -9,15 +9,18 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlinx.coroutines.experimental.runBlocking
-import notification.AccountExpiredNotification
+import notification.AccountInactiveNotification
 import notification.LeaseExpiredNotification
 import notification.notificationMain
 import org.blokada.R
 import tunnel.showSnack
+import java.io.File
 
 private val context = newSingleThreadContext("blocka-vpn-main") + logCoroutineExceptions()
 
 val blockaVpnMain = runBlocking { async(context) { BlockaVpnMain() }.await() }
+
+fun getAvatarFilePath() = File(getActiveContext()!!.filesDir, "avatar.png")
 
 class BlockaVpnMain {
     private val accountManager: AccountManager
@@ -41,7 +44,10 @@ class BlockaVpnMain {
                 getAccountRequest = { accountId ->
                     RetryingRetrofitHandler(restApi.getAccountInfo(accountId)).execute().account.activeUntil
                 },
-                generateKeypair = boringtunLoader::generateKeypair
+                generateKeypair = boringtunLoader::generateKeypair,
+                accountValid = {
+                    notificationMain.cancel(AccountInactiveNotification())
+                }
         )
         leaseManager = LeaseManager(
                 state = get(CurrentLease::class.java),
@@ -166,10 +172,9 @@ class BlockaVpnMain {
     private fun handleException(ex: Exception) = when {
         ex is BlockaAccountExpired -> {
             async(UI) {
-                notificationMain.show(AccountExpiredNotification())
+                notificationMain.show(AccountInactiveNotification())
                 val ctx = getActiveContext()!!
                 accountInactive(ctx)
-                showSnack(R.string.account_inactive.res())
             }
             blockaVpnManager.enabled = false
         }

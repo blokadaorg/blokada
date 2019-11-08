@@ -9,9 +9,19 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.content.FileProvider
 import com.github.salomonbrys.kodein.instance
+import core.emit
+import core.newEventOf
 import gs.environment.inject
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.delay
 import java.io.File
 import java.net.URL
+
+
+val EVENT_UPDATE_PROGRESS = "EVENT_UPDATE_PROGRESS".newEventOf<Int>()
+val DOWNLOAD_COMPLETE = 100
+val DOWNLOAD_FAIL = -1
 
 /**
  *
@@ -32,7 +42,6 @@ class AUpdateDownloader(
             if (enqueue == null) return
             val action = intent.action
             if (DownloadManager.ACTION_DOWNLOAD_COMPLETE == action) {
-                val downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0)
                 val query = DownloadManager.Query()
                 query.setFilterById(enqueue!!)
                 enqueue = null
@@ -62,6 +71,7 @@ class AUpdateDownloader(
         val request = DownloadManager.Request(Uri.parse(links[0].toExternalForm()))
         request.setDestinationInExternalFilesDir(ctx, null, "blokada-update.apk")
         enqueue = dm.enqueue(request)
+        monitorDownloadProgress()
     }
 
     fun openInstall(uri: Uri) {
@@ -88,6 +98,31 @@ class AUpdateDownloader(
 
     private fun unregister() {
         ctx.unregisterReceiver(receiver)
+    }
+
+    private fun getDownloadPercentage(): Int {
+        if (enqueue == null) return DOWNLOAD_COMPLETE
+
+        val query = DownloadManager.Query()
+        query.setFilterById(enqueue!!)
+        val c = dm.query(query)
+        if (c.moveToFirst()) {
+            val bytes_downloaded = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+            val bytes_total = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+            return ((bytes_downloaded / bytes_total.toFloat()) * 100).toInt()
+        } else return DOWNLOAD_FAIL
+    }
+
+    private fun monitorDownloadProgress() = async {
+        var downloading = true
+        while (downloading) {
+            delay(2000)
+            async(UI) {
+                val progress = getDownloadPercentage()
+                emit(EVENT_UPDATE_PROGRESS, progress)
+                if (progress in listOf(DOWNLOAD_FAIL, DOWNLOAD_COMPLETE)) downloading = false
+            }
+        }
     }
 }
 

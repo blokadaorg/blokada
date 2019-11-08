@@ -20,7 +20,7 @@
     <string name="panel_section_apps_all">Installed Apps</string>
     <string name="panel_section_apps_system">System Apps</string>
     <string name="panel_section_advanced_settings">Settings</string>
-    <string name="panel_section_app_settings">App Settings</string>
+    <string name="panel_section_app_settings">App settings</string>
 
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Allowed &lt;b&gt;%s&lt;/b&gt;</string>
@@ -33,6 +33,8 @@
     <string name="panel_domain_blocked_toast">Added to the blacklist.</string>
 
     <string name="panel_ruleset">Filters counter</string>
+
+    <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Filters now have %s rules.</string>
     <string name="panel_ruleset_updating">Updating filters...</string>
     <string name="panel_ruleset_built">Filters are now configured with &lt;b&gt;%s&lt;/b&gt; rules. Up to &lt;b&gt;%s&lt;/b&gt; rules can fit into your device memory overall. Remember, this is just an estimate and subject to change depending on other apps on your device, so you should stay well below this limit to be safe.</string>
@@ -102,8 +104,9 @@
     <string name="slot_allapp_normal">Not bypassed</string>
     <string name="slot_allapp_whitelist">Bypass</string>
 
-    <string name="slot_dns_name">Custom DNS is active</string>
-    <string name="slot_dns_name_disabled">Custom DNS is deactivated</string>
+    <string name="slot_dns_name">DNS is active</string>
+    <string name="slot_dns_name_private">Private DNS is active</string>
+    <string name="slot_dns_name_disabled">DNS is deactivated</string>
     <string name="slot_action_none">This action is not available yet.</string>
     <string name="slot_action_unwhitelist">Cancel</string>
     <string name="slot_action_author">About</string>
@@ -157,7 +160,7 @@
     <string name="slot_account_label_inactive">Account inactive</string>
 
     <!-- Action to manage active subscription. Keep it short -->
-    <string name="slot_account_action_manage">Manage</string>
+    <string name="slot_account_action_manage">Manage subscription</string>
     <string name="slot_account_action_manage_inactive">Activate account</string>
     <string name="slot_account_action_change_id">Restore account</string>
     <string name="slot_account_show">Account ID</string>
@@ -166,13 +169,15 @@
 
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Connect to %s</string>
-    <string name="slot_gateway_label_overloaded">[Full] Connect to %s</string>
+    <string name="slot_gateway_section_partner">Partner gateways provide additional locations. They are not fully managed by Blokada, but they do not have access to your encrypted traffic.</string>
+    <string name="slot_gateway_section_overloaded">Those gateways are overloaded and temporarily unavailable.</string>
     <string name="slot_gateway_description">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="slot_gateway_description_current">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your currently selected gateway.</string>
     <string name="slot_gateway_overloaded">This gateway is busy and does not accept new connections.</string>
+    <string name="slot_gateway_learn_more">Learn more about gateways</string>
+    <string name="slot_gateway_info_partner">What are partner gateways?</string>
 
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
-    <string name="slot_leases_info">Control which of your devices connect to the VPN.</string>
+    <string name="slot_leases_info">Control which of your devices connect to the Blokada Tunnel.</string>
     <string name="slot_lease_name_current">%s (this device)</string>
     <string name="slot_lease_description">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your current device.</string>
@@ -184,24 +189,6 @@
     <string name="slot_gateway_load_high">low</string>
 
     <string name="subscription_success">Your account is being activated. This may take a few seconds. Thank you!</string>
-
-    <string name="slot_protection_header">Blokada status</string>
-    <string name="slot_protection_off">Blokada is inactive</string>
-    <string name="slot_protection_off_desc">Your device is not protected.</string>
-    <string name="slot_protection_error">Blokada is temporarily inactive</string>
-    <string name="slot_protection_error_desc">This may be caused by temporary network problems, device or software issues. Blokada will automatically reactivate soon, but you could also try to turn the app on again or restart your phone. If you keep having problems, please contact us on Telegram for help.</string>
-    <string name="slot_protection_disconnected">Your device is offline</string>
-    <string name="slot_protection_disconnected_desc">Blokada is paused because your device lost Internet connection. Blokada will automatically reactivate once you are back online.</string>
-    <string name="slot_protection_activating">Blokada is activating</string>
-    <string name="slot_protection_active_warning">Blokada is active, but configuration could be improved. Tap for details.</string>
-    <string name="slot_protection_active">Blokada and VPN are active</string>
-    <string name="slot_protection_action">Settings</string>
-    <string name="slot_protection_ok">Your device is fully protected! Both VPN and adblocking are active.</string>
-    <string name="slot_protection_no_adblocking">Blocking ads &amp; trackers is currently disabled. You should enable it in order to protect your privacy and data.</string>
-    <string name="slot_protection_no_vpn">You are not connected to Blokada VPN. You should consider it for better protection of your privacy and security.</string>
-    <string name="slot_protection_no_start_on_boot">Blokada is not configured to start on boot. You should keep Blokada always on for better protection.</string>
-    <string name="slot_protection_no_battery_whitelist">Blokada is not exempt from your device\'s battery optimisation, so it can be killed by the system. You should use your system preferences to whitelist Blokada so it can stay on and protect your device.</string>
-    <string name="slot_protection_description">To configure settings, open the bottom menu.</string>
 
     <string name="slot_start_on_boot_description">Enabling start on boot allows Blokada to be active at all times and protect your device.</string>
     <string name="slot_recommended_dns_label">Use recommended DNS servers</string>
@@ -247,9 +234,9 @@
 
     <string name="slot_cleanup_desc">There seems to be many versions of Blokada installed on your device. Would you like to remove the other versions and keep just one?</string>
 
-    <string name="account_inactive">Your Blokada VPN expired. You are not connected to the VPN.</string>
-    <string name="slot_lease_cant_connect">Could not connect to Blokada VPN. Try selecting another gateway.</string>
-    <string name="slot_account_cant_create">Could not create your Blokada VPN account. Please try again later or contact us on Telegram.</string>
+    <string name="account_inactive">Please activate or restore your account to continue.</string>
+    <string name="slot_lease_cant_connect">Could not connect to Blokada Tunnel. Try selecting another gateway.</string>
+    <string name="slot_account_cant_create">Could not create your Blokada Tunnel account. Please try again later or contact us on Telegram.</string>
 
     <string name="slot_account_name_title">Account ID</string>
     <string name="slot_account_name_desc">Enter your old account ID in order to restore your previous subscription. You may want to write down your current account ID before doing it, in case you make a mistake.</string>

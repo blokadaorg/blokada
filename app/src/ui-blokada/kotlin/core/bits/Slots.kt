@@ -11,6 +11,7 @@ import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.Tunnel
+import core.bits.menu.MENU_CLICK_BY_NAME_SUBMENU
 import filter.hostnameRegex
 import gs.environment.ComponentProvider
 import gs.property.*
@@ -324,6 +325,36 @@ class DownloadOnWifiVB(
         view.onSwitch = { switched ->
             val new = get(TunnelConfig::class.java).copy(wifiOnly = switched)
             entrypoint.onChangeTunnelConfig(new)
+        }
+    }
+
+}
+
+class WildcardVB(
+        private val ktx: AndroidKontext,
+        private val ctx: Context = ktx.ctx,
+        private val i18n: I18n = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                label = i18n.getString(R.string.tunnel_config_wildcard_title),
+                description = i18n.getString(R.string.tunnel_config_wildcard_description),
+                icon = ctx.getDrawable(R.drawable.ic_multiplication),
+                switched = get(TunnelConfig::class.java).wildcards
+        )
+        view.onSwitch = { switched ->
+            val cfg = get(TunnelConfig::class.java)
+            if (switched && cfg.smartList != SmartListState.DEACTIVATED) {
+                view.content = view.content!!.copy(switched = false)
+                showSnack(R.string.tunnel_config_disable_smartlist)
+            } else {
+                val new = cfg.copy(wildcards = switched)
+                entrypoint.onChangeTunnelConfig(new)
+            }
         }
     }
 
@@ -1109,14 +1140,14 @@ fun openInExternalBrowser(ctx: Context, url: URL) {
 }
 
 fun accountInactive(ctx: Context) {
-    if (Product.current(ctx) == Product.FULL) {
-        modalManager.openModal()
-        ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        })
-    } else {
-        showSnack(R.string.account_inactive)
-    }
+    showSnack(R.string.account_inactive)
+    emit(MENU_CLICK_BY_NAME_SUBMENU, R.string.menu_vpn.res() to R.string.menu_vpn_account.res())
+//    if (Product.current(ctx) == Product.FULL) {
+//        modalManager.openModal()
+//        ctx.startActivity(Intent(ctx, SubscriptionActivity::class.java).run {
+//            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        })
+//    }
 }
 
 class UpdateVB(
@@ -1131,8 +1162,6 @@ class UpdateVB(
 ) : SlotVB(onTap) {
 
     private var listener: IWhen? = null
-    private var clickCounter = 0
-    private var next: Int = 0
 
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
@@ -1145,17 +1174,8 @@ class UpdateVB(
                         label = i18n.getString(R.string.update_dash_available),
                         description = i18n.getString(R.string.update_notification_text, current.newestVersionName),
                         action1 = Slot.Action(i18n.getString(R.string.update_button)) {
-                            if (clickCounter++ % 2 == 0) {
-                                showSnack(R.string.update_starting)
-                                updater.start(repo.content().downloadLinks)
-                            } else {
-                                val intent = Intent(Intent.ACTION_VIEW)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                intent.setData(Uri.parse(repo.content().downloadLinks[next].toString()))
-                                ctx.startActivity(intent)
-
-                                next = next++ % repo.content().downloadLinks.size
-                            }
+                            showSnack(R.string.update_starting)
+                            updater.start(repo.content().downloadLinks)
                         },
                         icon = ctx.getDrawable(R.drawable.ic_new_releases)
                 )
@@ -1164,9 +1184,9 @@ class UpdateVB(
                 view.content = Slot.Content(
                         label = i18n.getString(R.string.slot_update_no_updates),
                         description = i18n.getString(R.string.update_info),
-                        action1 = Slot.Action(i18n.getString(R.string.slot_update_action_refresh), {
+                        action1 = Slot.Action(i18n.getString(R.string.slot_update_action_refresh)) {
                             repo.content.refresh(force = true)
-                        }),
+                        },
                         icon = ctx.getDrawable(R.drawable.ic_reload)
                 )
                 view.date = Date(repo.lastRefreshMillis())
@@ -1264,9 +1284,10 @@ class CleanupVB(
 ) : ByteVB() {
 
     override fun attach(view: ByteView) {
-        view.icon(null)
+        view.icon(R.drawable.ic_info.res())
         view.label(R.string.home_cleanup.res())
         view.state(R.string.slot_cleanup_desc.res(), smallcap = false)
+        view.arrow(null)
         view.onTap {
             showSnack(R.string.welcome_cleanup_done)
             val builds = getInstalledBuilds()

@@ -25,11 +25,12 @@ fun createLearnMoreMenu(ktx: AndroidKontext): MenuItemsVB {
     return MenuItemsVB(ktx,
             items = listOf(
                     LabelVB(ktx, label = R.string.menu_knowledge.res()),
-                    if (Product.current(ktx.ctx) == Product.FULL) createBlogMenuItem(ktx) else null,
                     createHelpMenuItem(ktx),
+                    createTelegramMenuItem(ktx),
                     LabelVB(ktx, label = R.string.menu_get_involved.res()),
+                    if (Product.current(ktx.ctx) == Product.FULL) createBlogMenuItem(ktx) else null,
                     createCtaMenuItem(ktx),
-                    createTelegramMenuItem(ktx)
+                    createLogMenuItem(ktx)
             ).filterNotNull(),
             name = R.string.menu_learn_more.res()
     )
@@ -98,7 +99,8 @@ fun createAboutMenu(ktx: AndroidKontext): MenuItemsVB {
                     LabelVB(ktx, label = R.string.menu_other.res()),
                     createAppDetailsMenuItem(ktx),
                     if (Product.current(ktx.ctx) == Product.FULL) createChangelogMenuItem(ktx) else null,
-                    if (Product.current(ktx.ctx) == Product.FULL) createCreditsMenuItem(ktx) else null
+                    if (Product.current(ktx.ctx) == Product.FULL) createCreditsMenuItem(ktx) else null,
+                    createLegalMenuItem(ktx)
             ).filterNotNull(),
             name = R.string.slot_about.res()
     )
@@ -127,6 +129,52 @@ fun createLogMenuItem(ktx: AndroidKontext): NamedViewBinder {
             label = R.string.main_log.res(),
             icon = R.drawable.ic_bug_report_black_24dp.res(),
             action = { shareLog(ktx.ctx) }
+    )
+}
+
+fun createLegalMenuItem(ktx: AndroidKontext): NamedViewBinder {
+    return MenuItemVB(ktx,
+            label = R.string.main_legal.res(),
+            icon = R.drawable.ic_scale_balance.res(),
+            opens = createLegalMenu(ktx)
+    )
+}
+fun createLegalMenu(ktx: AndroidKontext): MenuItemsVB {
+    return MenuItemsVB(ktx,
+            items = listOf(
+                    LabelVB(ktx, label = R.string.main_legal.res()),
+                    createPrivacyMenuItem(ktx),
+                    createTermsMenuItem(ktx),
+                    createLicensesMenuItem(ktx)
+            ),
+            name = R.string.main_legal.res()
+    )
+}
+
+fun createLicensesMenuItem(ktx: AndroidKontext): NamedViewBinder {
+    val page = ktx.di().instance<Pages>().licenses
+    return SimpleMenuItemVB(ktx,
+            label = R.string.main_licenses.res(),
+            icon = R.drawable.ic_book_open_page_variant.res(),
+            action = { openWebContent(ktx.ctx, page()) }
+    )
+}
+
+fun createTermsMenuItem(ktx: AndroidKontext): NamedViewBinder {
+    val page = ktx.di().instance<Pages>().tos
+    return SimpleMenuItemVB(ktx,
+            label = R.string.main_terms.res(),
+            icon = R.drawable.ic_book_open_page_variant.res(),
+            action = { openWebContent(ktx.ctx, page()) }
+    )
+}
+
+fun createPrivacyMenuItem(ktx: AndroidKontext): NamedViewBinder {
+    val page = ktx.di().instance<Pages>().privacy
+    return SimpleMenuItemVB(ktx,
+            label = R.string.main_privacy.res(),
+            icon = R.drawable.ic_book_open_page_variant.res(),
+            action = { openWebContent(ktx.ctx, page()) }
     )
 }
 

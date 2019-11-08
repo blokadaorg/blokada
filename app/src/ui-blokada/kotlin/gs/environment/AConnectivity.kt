@@ -1,8 +1,12 @@
 package gs.environment
 
+import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
 import org.pcap4j.packet.namednumber.UdpPort
+
+
 
 /**
  * Contains various utility functions related to connectivity on Android.
@@ -35,6 +39,19 @@ fun isWifi(ctx: android.content.Context): Boolean {
         wm.connectionInfo?.networkId ?: -1 != -1 -> true
         else -> false
     }
+}
+
+fun isWifi2(ctx: android.content.Context): Boolean {
+    val connectivityManager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+    if (connectivityManager != null) {
+        for (net in connectivityManager.allNetworks) {
+            val nc = connectivityManager.getNetworkCapabilities(net)
+            if (nc != null && nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                    && nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET))
+                return true
+        }
+    }
+    return false
 }
 
 fun hasIpV6Servers(dnsServers: Collection<java.net.InetAddress>): Boolean {

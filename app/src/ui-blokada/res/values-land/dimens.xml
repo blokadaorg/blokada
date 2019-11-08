@@ -7,18 +7,19 @@
     <dimen name="dashboard_fg_label_margin_top">16dp</dimen>
     <dimen name="dashboard_fg_pager_margin_top">72dp</dimen>
     <dimen name="dashboard_logo_margin_top">12dp</dimen>
+    <dimen name="dashboard_pager_margin_top">12dp</dimen>
     <dimen name="dashboard_pager_margin_bottom">100dp</dimen>
     <dimen name="dashboard_panel_margin_top">46dp</dimen>
     <dimen name="dashboard_panel_margin_bottom">-46dp</dimen>
     <dimen name="dashboard_nav_align_end_width">820dp</dimen>
     <dimen name="dashboard_fg_drag_height">110dp</dimen>
     <dimen name="dashboard_fg_drag_margin_top">32dp</dimen>
-    <dimen name="dashboard_pager_margin_top">60dp</dimen>
 
     <dimen name="dots_padding_sides">4dp</dimen>
     <dimen name="dots_text_size">@dimen/default_text_size</dimen>
     <dimen name="dots_margin_top">8dp</dimen>
 
+    <dimen name="vblist_margin">52dp</dimen>
     <dimen name="vblist_max_width">800dp</dimen>
     <dimen name="vblist_max_width_menu">500dp</dimen>
 </resources>

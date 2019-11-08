@@ -54,7 +54,7 @@ class DeviceImpl (
     override val watchdogOn = newPersistedProperty(kctx, BasicPersistence(xx, "watchdogOn"),
             { false })
 
-    override val onWifi = newProperty(kctx, { isWifi(ctx) } )
+    override val onWifi = newProperty(kctx, { isWifi2(ctx) } )
 
     override val reports = newPersistedProperty(kctx, BasicPersistence(xx, "reports"),
             { true }

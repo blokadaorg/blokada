@@ -1,5 +1,9 @@
 package tunnel
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import blocka.BlockaVpnState
 import blocka.CurrentAccount
 import blocka.CurrentLease
@@ -30,7 +34,6 @@ val tunnelMain = runBlocking { async(context) { TunnelMain() }.await() }
 
 class TunnelMain {
 
-    private val blockade = Blockade()
 
     private val ctx by lazy { getActiveContext()!! }
     private val di by lazy { ctx.ktx("tunnel-main").di() }
@@ -40,14 +43,21 @@ class TunnelMain {
         DefaultSourceProvider(ctx, di.instance(), filtersState, di.instance())
     }
 
-    private val tunnelManager by lazy { TunnelManagerFactory(ctx,
+    private lateinit var blockade: Blockade
+    private lateinit var tunnelManager: TunnelManager
+    private lateinit var filterManager: FilterManager
+
+    private fun createBlockade(config: TunnelConfig) = when {
+        config.wildcards -> WildcardBlockade()
+        else -> BasicBlockade()
+    }
+
+    private fun createTunnelManager() = TunnelManagerFactory(ctx,
             tunnelState = di.instance(),
             blockade = blockade,
             filterManager = { filterManager },
             tunnelConfig = { tunnelConfig }
-    ).create() }
-
-    private lateinit var filterManager: FilterManager
+    ).create()
 
     private fun createFilterManager(config: TunnelConfig, onWifi: Boolean) = FilterManager(
             blockade = blockade,
@@ -81,7 +91,7 @@ class TunnelMain {
     private var tunnelConfig = get(TunnelConfig::class.java)
     private var currentTunnel = CurrentTunnel()
     private var onWifi = false
-    private var needRecreateFilterManager = true
+    private var needRecreateManagers = true
 
     fun setFiltersUrl(url: String) = async(context) {
         v(">> setting filters url", url)
@@ -89,7 +99,7 @@ class TunnelMain {
             url == tunnelConfig.filtersUrl -> w("same url already set, ignoring")
             else -> {
                 tunnelConfig = tunnelConfig.copy(filtersUrl = url)
-                needRecreateFilterManager = true
+                needRecreateManagers = true
             }
         }
     }
@@ -106,7 +116,7 @@ class TunnelMain {
             if (this@TunnelMain.onWifi != onWifi) {
                 v("onWifi changed", onWifi)
                 this@TunnelMain.onWifi = onWifi
-                needRecreateFilterManager = true
+                needRecreateManagers = true
             }
 
             currentTunnel = currentTunnel.copy(dnsServers = dnsServers, dotEnabled = dotEnabled)
@@ -127,21 +137,27 @@ class TunnelMain {
             // TODO: set network configuration if fallback was switched around. any more?
             this@TunnelMain.tunnelConfig = tunnelConfig
             set(TunnelConfig::class.java, tunnelConfig)
-            needRecreateFilterManager = true
+            needRecreateManagers = true
         }
     }
 
     fun sync() = async(context) {
         v(">> syncing tunnel overall state")
-        if (needRecreateFilterManager) {
-            v("recreating FilterManager (stopping tunnel first)")
-            tunnelManager.stop()
+        if (needRecreateManagers) {
+            if (::tunnelManager.isInitialized) {
+                v("recreating FilterManager (stopping tunnel first)")
+                keepAliveAgent.fireJob(ctx) // To prevent death in the meantime
+                tunnelManager.stop()
+            }
+            blockade = createBlockade(tunnelConfig)
+            tunnelManager = createTunnelManager()
             filterManager = createFilterManager(tunnelConfig, onWifi)
             filterManager.load()
-            needRecreateFilterManager = false
+            needRecreateManagers = false
         }
 
         v("syncing filters")
+        setSmartlistAlarmActive(ctx, get(TunnelConfig::class.java).smartList != SmartListState.DEACTIVATED)
         val url = tunnelConfig.filtersUrl
         if (url != null) filterManager.setUrl(url)
         if (filterManager.hasUrl()) {
@@ -163,12 +179,15 @@ class TunnelMain {
                 adblocking = tunnelConfig.adblocking
         )
 
-        tunnelManager.setState(currentTunnel)
-        if (tunnelConfig.tunnelEnabled) {
-            tunnelManager.sync()
-        } else {
-            v("tunnel not enabled, stopping")
-            tunnelManager.stop()
+
+        if (::tunnelManager.isInitialized) {
+            tunnelManager.setState(currentTunnel)
+            if (tunnelConfig.tunnelEnabled) {
+                tunnelManager.sync()
+            } else {
+                v("tunnel not enabled, stopping")
+                tunnelManager.stop()
+            }
         }
         v("done syncing")
     }
@@ -200,5 +219,5 @@ class TunnelMain {
         filterManager.removeAll()
     }
 
-    fun protect(socket: Socket) = tunnelManager.protect(socket)
+    fun protect(socket: Socket) = if (::tunnelManager.isInitialized) tunnelManager.protect(socket) else Unit
 }

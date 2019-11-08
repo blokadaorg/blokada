@@ -41,6 +41,7 @@
             android:layout_marginEnd="@dimen/slot_secondary_padding"
             android:layout_weight="1"
             android:maxLines="3"
+            android:textColor="@color/colorActive"
             android:textSize="@dimen/slot_secondary_text_size"
             tools:text="This is a very long text that should be displayed just fine, even if it has to break into two lines" />
 

@@ -50,7 +50,7 @@ private fun scheduleAlarmRecheck() {
 
     val account = get(CurrentAccount::class.java)
     val lease = get(CurrentLease::class.java)
-    val accountTime = account.activeUntil.minus(30)
+    val accountTime = account.activeUntil
     val leaseTime = lease.leaseActiveUntil.minus(60)
     val sooner = if (accountTime.before(leaseTime)) accountTime else leaseTime
     if (sooner.before(Date())) {
