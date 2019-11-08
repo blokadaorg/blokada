@@ -89,7 +89,7 @@
     <string name="menu_vpn_support_label">If you experience any problems, do not hesitate to contact us.</string>
     <string name="menu_vpn_support_button">Support</string>
     <string name="menu_vpn_tunnel_settings">Blokada Tunnel settings</string>
-    <string name="menu_vpn_tunnel_learn_more">Learn mone about Blokada Tunnel</string>
+    <string name="menu_vpn_tunnel_learn_more">Learn more about Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">Do I have an account?</string>
     <string name="menu_vpn_info_account_line1">Yes! Your account is automatically created on first run. You do not need to register.</string>
     <string name="menu_vpn_info_account_line2">Tap your avatar above to see your account ID.</string>
