@@ -1,11 +1,7 @@
 package core
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.SystemClock
-import androidx.core.content.ContextCompat
 import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.Kodein.Module
@@ -18,6 +14,8 @@ import kotlinx.coroutines.experimental.delay
 import nl.komponents.kovenant.Kovenant
 import nl.komponents.kovenant.Promise
 import nl.komponents.kovenant.task
+import notification.LeaseExpiredNotification
+import notification.notificationMain
 import org.blokada.R
 import tunnel.*
 
@@ -104,6 +102,7 @@ fun newTunnelModule(ctx: Context): Module {
             val retryKctx: Worker = with("retry").instance()
             val ktx = "tunnel:legacy".ktx()
             var restarts = 0
+            var bigRestarts = 0
             var lastRestartMillis = 0L
 
             dns.dnsServers.doWhenChanged(withInit = true).then {
@@ -113,14 +112,25 @@ fun newTunnelModule(ctx: Context): Module {
             on(TunnelEvents.TUNNEL_RESTART) {
                 val restartedRecently = (System.currentTimeMillis() - lastRestartMillis) < 30 * 1000
                 lastRestartMillis = System.currentTimeMillis()
-                if (!restartedRecently) restarts = 0
-                if (restarts++ > 9) {
-                    e("Too many tunnel restarts, re-sync")
+                if (!restartedRecently) {
                     restarts = 0
-                    entrypoint.onVpnSwitched(false)
-                    async {
-                        delay(2000)
-                        entrypoint.onVpnSwitched(true)
+                    bigRestarts = 0
+                }
+                if (restarts++ > 9) {
+                    if (bigRestarts++ < 10) {
+                        e("Too many tunnel restarts, re-sync attempt $bigRestarts")
+                        restarts = 0
+                        entrypoint.onVpnSwitched(false)
+                        async {
+                            delay(2000)
+                            entrypoint.onVpnSwitched(true)
+                        }
+                    } else {
+                        e("Too many re-sync attempts, disabling Blocka VPN")
+                        bigRestarts = 0
+                        entrypoint.onVpnSwitched(false)
+                        showSnack(R.string.slot_lease_cant_connect)
+                        notificationMain.show(LeaseExpiredNotification())
                     }
                 } else w("tunnel restarted for $restarts time in a row")
             }

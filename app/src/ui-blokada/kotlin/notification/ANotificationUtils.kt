@@ -247,6 +247,7 @@ class LeaseExpiredNotification: BlokadaNotification(5, NotificationChannels.BLOC
             val b = NotificationCompat.Builder(ctx)
             b.setContentTitle(ctx.getString(R.string.notification_lease_expired_title))
             b.setContentText(ctx.getString(R.string.notification_lease_expired_description))
+            b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.notification_lease_expired_description)))
             b.setSmallIcon(R.drawable.ic_stat_blokada)
             b.priority = NotificationCompat.PRIORITY_MAX
             b.setVibrate(LongArray(0))
@@ -263,6 +264,7 @@ class AnnouncementNotification(announcement: Announcement): BlokadaNotification(
             val b = NotificationCompat.Builder(ctx)
             b.setContentTitle(announcement.title)
             b.setContentText(announcement.tagline)
+            b.setStyle(NotificationCompat.BigTextStyle().bigText(announcement.tagline))
             b.setSmallIcon(R.drawable.ic_stat_blokada)
             b.priority = NotificationCompat.PRIORITY_MAX
             b.setVibrate(LongArray(0))

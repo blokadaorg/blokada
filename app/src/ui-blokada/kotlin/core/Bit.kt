@@ -243,8 +243,9 @@ class BitView(
     }
 
     fun onSwitch(switch: (Boolean) -> Unit) {
-        switchView.setOnCheckedChangeListener { compoundButton, b ->
-            switch(b)
+        switchView.setOnClickListener {
+            val checked = switchView.isChecked()
+            switch(checked)
         }
     }
 
