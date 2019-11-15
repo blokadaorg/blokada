@@ -37,9 +37,9 @@ class FilterSourceLink(
 
     override fun fetch(): LinkedHashSet<String> {
         val list = try {
-            loadGzip(openUrl(source!!, timeoutMillis), { processor.process(it) })
+            loadGzipLinewise(openUrl(source!!, timeoutMillis), { processor.process(it) })
         } catch (e: Exception) { try {
-            loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(it) })
+            loadGzipLinewise(openUrl(backupSource!!, timeoutMillis), { processor.process(it) })
         } catch (e: Exception) { emptyList<String>() }}
         return LinkedHashSet<String>().apply { addAll(list) }
     }

@@ -30,7 +30,7 @@ fun load(opener: () -> InputStream, lineProcessor: (String) -> String? = { it })
     return response
 }
 
-fun loadGzip(opener: () -> URLConnection, lineProcessor: (String) -> String? = { it }): List<String> {
+fun loadGzipLinewise(opener: () -> URLConnection, lineProcessor: (String) -> String? = { it }): List<String> {
     val input = createStream(opener())
 
     val response = mutableListOf<String>()

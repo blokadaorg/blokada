@@ -8,6 +8,9 @@ import gs.environment.Journal
 import gs.environment.Worker
 import gs.environment.getDnsServers
 import gs.property.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import org.pcap4j.packet.namednumber.UdpPort
 import tunnel.TunnelConfig
 import java.io.InputStreamReader
@@ -43,7 +46,7 @@ class DnsImpl(
         w: Worker,
         xx: Environment,
         pages: Pages = xx().instance(),
-        serialiser: DnsSerialiser = DnsSerialiser(),
+        serialiser: JsonDnsSerialiser = JsonDnsSerialiser(),
         fetcher: DnsLocalisedFetcher = xx().instance(),
         d: Device = xx().instance(),
         ctx: Context = xx().instance()
@@ -213,6 +216,66 @@ class DnsSerialiser {
 
             "${i++}\n${it.id}\n${active}\n${ipv6}\n${servers}\n${credit}\n${comment}"
         }.flatMap { it.split("\n") }
+    }
+
+    fun deserialise(source: List<String>): List<DnsChoice> {
+        if (source.size <= 1) return emptyList()
+        val dns = source.asSequence().batch(7).map { entry ->
+            entry[0].toInt() to try {
+                val id = entry[1]
+                val active = entry[2] == "active"
+                val ipv6 = entry[3] == "ipv6"
+                val servers = entry[4].split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
+                val credit = if (entry[5].isNotBlank()) entry[5] else null
+                val comment = if (entry[6].isNotBlank()) entry[6] else null
+
+                DnsChoice(id, servers, active, ipv6, credit, comment)
+            } catch (e: Exception) {
+                null
+            }
+        }.toList().sortedBy { it.first }.map { it.second }.filterNotNull()
+        return dns
+    }
+}
+
+class JsonDnsSerialiser {
+    fun deserialise(repo: String): List<DnsChoice> {
+        val dnsChoices = emptySet<Pair<Int, DnsChoice>>().toMutableSet()
+        try {
+            //REMOVE!!!!!!!!!!!!!!!!
+            val temp_repo = "[{\"index\":\"0\",\"id\":\"adguard\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"176.103.130.130\",\"dot\":null},{\"ip\":\"176.103.130.131\",\"dot\":null}],\"credit\":\"https://adguard.com/en/adguard-dns/overview.html\",\"comment\":null},{\"index\":\"5\",\"id\":\"adguard_family\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"176.103.130.132\",\"dot\":null},{\"ip\":\"176.103.130.134\",\"dot\":null}],\"credit\":\"https://adguard.com/en/adguard-dns/overview.html\",\"comment\":null},{\"index\":\"10\",\"id\":\"alternate\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"23.253.163.53\",\"dot\":null},{\"ip\":\"198.101.242.72\",\"dot\":null}],\"credit\":\"https://alternate-dns.com/\",\"comment\":null},{\"index\":\"15\",\"id\":\"cloudflare\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"1.1.1.1\",\"dot\":null},{\"ip\":\"1.0.0.1\",\"dot\":null}],\"credit\":\"https://1.1.1.1/\",\"comment\":null},{\"index\":\"20\",\"id\":\"tenta\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"99.192.182.100\",\"dot\":null},{\"ip\":\"99.192.182.101\",\"dot\":null}],\"credit\":\"https://tenta.com/\",\"comment\":null},{\"index\":\"25\",\"id\":\"dnswatch\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"84.200.69.80\",\"dot\":null},{\"ip\":\"84.200.70.40\",\"dot\":null}],\"credit\":\"https://dns.watch/\",\"comment\":null},{\"index\":\"30\",\"id\":\"freenom\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"80.80.80.80\",\"dot\":null},{\"ip\":\"80.80.81.81\",\"dot\":null}],\"credit\":\"https://www.freenom.world\",\"comment\":null},{\"index\":\"40\",\"id\":\"fdn\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"80.67.169.12\",\"dot\":null},{\"ip\":\"80.67.169.40\",\"dot\":null}],\"credit\":\"https://www.fdn.fr/\",\"comment\":null},{\"index\":\"45\",\"id\":\"google\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"8.8.8.8\",\"dot\":null},{\"ip\":\"8.8.4.4\",\"dot\":null}],\"credit\":\"https://developers.google.com/speed/public-dns/\",\"comment\":null},{\"index\":\"50\",\"id\":\"keweon\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"176.9.62.58\",\"dot\":null},{\"ip\":\"176.9.62.62\",\"dot\":null}],\"credit\":\"https://github.com/Magisk-Modules-Repo/Systemless-keweon-DNS-Manager\",\"comment\":null},{\"index\":\"55\",\"id\":\"digitalcourage\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"46.182.19.48\",\"dot\":null},{\"ip\":\"46.182.19.48\",\"dot\":null}],\"credit\":\"https://digitalcourage.de/support/zensurfreier-dns-server\",\"comment\":null},{\"index\":\"60\",\"id\":\"quad101\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"101.101.101.101\",\"dot\":null},{\"ip\":\"101.102.103.104\",\"dot\":null}],\"credit\":\"https://101.101.101.101/index_en.html\",\"comment\":null},{\"index\":\"65\",\"id\":\"opendns\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"208.67.222.222\",\"dot\":null},{\"ip\":\"208.67.220.220\",\"dot\":null}],\"credit\":\"https://www.opendns.com/\",\"comment\":null},{\"index\":\"70\",\"id\":\"opennicusa\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"63.231.92.27\",\"dot\":null},{\"ip\":\"66.187.76.16\",\"dot\":null}],\"credit\":\"https://www.opennic.org/\",\"comment\":null},{\"index\":\"75\",\"id\":\"openniceu\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"82.141.39.32\",\"dot\":null},{\"ip\":\"50.3.82.162\",\"dot\":null}],\"credit\":\"https://www.opennic.org/\",\"comment\":null},{\"index\":\"80\",\"id\":\"quad9\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"9.9.9.9\",\"dot\":null},{\"ip\":\"149.112.112.112\",\"dot\":null}],\"credit\":\"https://www.quad9.net/\",\"comment\":null},{\"index\":\"85\",\"id\":\"uncensored\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"91.239.100.100\",\"dot\":null},{\"ip\":\"89.233.43.71\",\"dot\":null}],\"credit\":\"https://blog.uncensoreddns.org/\",\"comment\":null},{\"index\":\"90\",\"id\":\"verisign\",\"active\":false,\"usesIpv6\":false,\"servers\":[{\"ip\":\"64.6.64.6\",\"dot\":null},{\"ip\":\"64.6.65.6\",\"dot\":null}],\"credit\":\"https://www.verisign.com/en_US/security-services/public-dns/index.xhtml\",\"comment\":null}]"
+            val jsonChoices = JSONArray(temp_repo)
+            for (i in 0 until jsonChoices.length()) {
+                val jsonDnsChoice = jsonChoices.getJSONObject(i)
+                val jsonServers = jsonDnsChoice.getJSONArray("servers")
+                val comment = jsonDnsChoice.getString("comment")
+                val credit = jsonDnsChoice.getString("credit")
+                dnsChoices.add(jsonDnsChoice.getInt("index") to DnsChoice(
+                        jsonDnsChoice.getString("id"),
+                        List(jsonServers.length()) {
+                            val jsonServer = jsonServers.getJSONObject(it)
+                            val server = ipStringToAddress(jsonServer.getString("ip"))
+                            val dotHostname = jsonServer.getString("dot")
+                            val dotEnabled = dotHostname == null
+                            if (dotEnabled) {
+
+                            }
+                            server
+                        },
+                        jsonDnsChoice.getBoolean("active"),
+                        jsonDnsChoice.getBoolean("usesIpv6"),
+                        if(jsonDnsChoice.isNull("credit") || credit.isEmpty()) null else credit,
+                        if(jsonDnsChoice.isNull("comment") || comment.isEmpty()) null else comment
+                ))
+            }
+
+        } catch (e: JSONException) {
+            v("Json parsing error: " + e.message)
+            v("JSON-data was:$repo")
+            e(e)
+        }
+
+        return dnsChoices.toList().sortedBy { it.first }.map { it.second }
     }
 
     fun deserialise(source: List<String>): List<DnsChoice> {
