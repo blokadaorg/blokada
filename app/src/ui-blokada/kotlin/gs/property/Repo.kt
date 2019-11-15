@@ -55,9 +55,7 @@ class RepoImpl(
             val repoData = loadGzip(openUrl(repoURL, fetchTimeout))
             try {
 
-                //val jsonRepo = JSONObject(repoData)
-                //REMOVE!!!!!!!!!!!!!!!!
-                val jsonRepo = JSONObject("{\"contentPath\":\"https://blokada.org/api/v4/content\",\"locales\":[\"en\",\"pl_PL\",\"hu_HU\",\"ru_RU\",\"es_ES\",\"hi_IN\",\"tr_TR\",\"fr_FR\",\"ms_MY\",\"uk_UA\",\"de_DE\",\"cs_CZ\",\"it_IT\",\"pt_BR\",\"nb_NO\",\"zh_TW\",\"id_ID\",\"zh_CN\",\"bg_BG\",\"lv_LV\",\"ca_ES\",\"pt_PT\",\"ar_SA\",\"sk_SK\",\"iw_IL\",\"zu_Z\"],\"newestVersionCode\":404000002,\"newestVersionName\":\"4.4.2\",\"downloadLinks\":[\"https://github.com/blokadaorg/blokada/releases/download/4.4.2/blokada-v4.4.2.apk\",\"https://bitbucket.org/blokada/blokada/downloads/blokada-v4.4.2.apk\"]}")
+                val jsonRepo = JSONObject(repoData)
 
                 lastRefreshMillis %= time.now()
 
