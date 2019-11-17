@@ -8,7 +8,12 @@ import io.paperdb.Paper
 
 class Persistence {
     companion object {
-        const val DEFAULT_PATH = ""
+        val DEFAULT_PATH = if ((getActiveContext()?.filesDir != null)) {
+            getActiveContext()?.filesDir?.absolutePath + "/"
+        }else{
+            e("could not get filesDir!")
+            ""
+        }
         val global = GlobalPersistence()
         val slots = SlotStatusPersistence()
         val pause = TunnelPausePersistence()
