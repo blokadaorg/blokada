@@ -32,8 +32,8 @@ data class CurrentTunnel(
 }
 
 data class TunnelDescriptor(
-        val tunnel: Tunnel,
-        val thread: Thread,
+        val tunnel: Tunnel?,
+        val thread: Thread?,
         val fd: FileDescriptor,
         val binder: ServiceBinder
 )
