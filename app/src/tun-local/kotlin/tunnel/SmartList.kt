@@ -220,7 +220,17 @@ class SmartListVB(
                 label = i18n.getString(R.string.tunnel_config_smartlist_title),
                 icon = ctx.getDrawable(R.drawable.ic_playlist_minus),
                 description = i18n.getString(R.string.tunnel_config_smartlist_description),
-                switched = get(TunnelConfig::class.java).smartList != SmartListState.DEACTIVATED
+                switched = get(TunnelConfig::class.java).smartList != SmartListState.DEACTIVATED,
+                action2 = Slot.Action(i18n.getString(R.string.tunnel_config_smartlist_reset_btn)) {
+                    val cfg = get(TunnelConfig::class.java)
+                    if (cfg.smartList != SmartListState.DEACTIVATED) {
+                        smartlistListfile.delete()
+                        smartlistLogfile.delete()
+                        val new = cfg.copy(smartList = SmartListState.ACTIVE_PHASE1)
+                        showSnack(R.string.tunnel_config_smartlist_reset_done)
+                        entrypoint.onChangeTunnelConfig(new)
+                    }
+                }
         )
         view.onSwitch = {
             val cfg = get(TunnelConfig::class.java)
