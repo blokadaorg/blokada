@@ -11,7 +11,6 @@ class Persistence {
         const val DEFAULT_PATH = ""
         val global = GlobalPersistence()
         val slots = SlotStatusPersistence()
-        val pause = TunnelPausePersistence()
 
         fun paper() = {
             with(Persistence.global.loadPath()) {
@@ -23,7 +22,7 @@ class Persistence {
 }
 
 class GlobalPersistence {
-    val loadPath = {
+    internal val loadPath = {
         Result.of { Paper.book().read<String>("persistencePath", Persistence.DEFAULT_PATH) }
                 .or { Ok(Persistence.DEFAULT_PATH) }.get()
     }
@@ -31,4 +30,18 @@ class GlobalPersistence {
     val savePath = { path: String ->
         Result.of { Paper.book().write("persistencePath", path) }
     }
+
+    fun getPathForSmartList() = {
+        val path = loadPath()
+        if (path.isNullOrBlank()) {
+            val newPath = getActiveContext()?.filesDir?.absolutePath
+            if (newPath != null) "$newPath/"
+            else {
+                e("could not load path for SmartList")
+                ""
+            }
+        } else path
+    }()
+
+    fun isDefaultLoadPath() = loadPath() == Persistence.DEFAULT_PATH
 }
