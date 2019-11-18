@@ -1094,7 +1094,7 @@ class StorageLocationVB(
         //tunnelMain.reloadConfig(ktx, device.onWifi())
     })
 
-    private fun isExternal() = core.Persistence.global.loadPath() != core.Persistence.DEFAULT_PATH
+    private fun isExternal() = !core.Persistence.global.isDefaultLoadPath()
 
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()

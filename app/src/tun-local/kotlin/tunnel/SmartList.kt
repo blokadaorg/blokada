@@ -23,8 +23,8 @@ import kotlin.collections.HashSet
 
 private val asyncContext = newSingleThreadContext("smartlist-main") + logCoroutineExceptions()
 const val SMARTLIST_REQUEST_CODE = 1105321546 // random 32 bit value
-val smartlistLogfile = File(core.Persistence.global.loadPath(), "smartlist.log")
-val smartlistListfile = File(core.Persistence.global.loadPath(), "smartlist.hosts")
+val smartlistLogfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.log")
+val smartlistListfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.hosts")
 
 /*
        DEACTIVATED
