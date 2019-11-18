@@ -102,7 +102,7 @@
     <string name="menu_apps_system_label">System apps are the ones coming preinstalled with your device. Some of them are hidden. Modify those only if you know what you are doing.</string>
     <string name="menu_host_list_intro">Host lists contain rules for blocking ads and trackers. Try to keep the number of active lists low.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
-    <string name="menu_host_adblocking_settings">Adblocking settings</string>
+    <string name="menu_host_adblocking_settings">Ad blocking Settings</string>
     <string name="menu_host_list_status">List status</string>
     <string name="menu_host_list_download">List download settings</string>
     <string name="menu_host_whitelist">Hosts you add here will never be blocked. Use this list when, for example, a website you visit is mistakenly blocked.</string>
