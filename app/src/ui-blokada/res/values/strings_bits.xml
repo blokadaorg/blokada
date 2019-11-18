@@ -98,7 +98,7 @@
     <string name="menu_dns_recommended">Recommended DNS servers</string>
     <string name="menu_dns_intro">DNS is responsible for translating IP addresses of websites and apps you use. Choosing a good DNS may speed up your device and will help protect your privacy.</string>
     <string name="menu_dns_select">Select one of the DNS servers.</string>
-    <string name="menu_apps_intro">Some apps may not work properly with Blokada. For example, they may have trouble connecting.\n\nActivating VPN often helps in those cases.\n\nOtherwise, you can make those apps bypass Blokada inspection altogether. Remember, bypassed apps communicate outside of the VPN.</string>
+    <string name="menu_apps_intro">Some apps may not work properly with Blokada. For example, they may have trouble connecting.\n\nActivating VPN often helps in those cases.\n\nOtherwise, you can make those apps bypass Blokada inspection altogether. Remember, bypassed apps communicate outside of Blokada Tunnel.</string>
     <string name="menu_apps_system_label">System apps are the ones coming preinstalled with your device. Some of them are hidden. Modify those only if you know what you are doing.</string>
     <string name="menu_host_list_intro">Host lists contain rules for blocking ads and trackers. Try to keep the number of active lists low.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
