@@ -13,6 +13,7 @@
     <string name="tunnel_config_refetch_frequency_2">Twice a week</string>
     <string name="tunnel_config_refetch_frequency_3">Once a week</string>
     <string name="tunnel_config_refetch_frequency_4">Once a month</string>
+    <string name="tunnel_config_refetch_frequency_5">Never</string>
     <string name="tunnel_config_wifi_only_title">Download on WiFi only</string>
     <string name="tunnel_config_wifi_only_description">Activate this switch if you wish the app to download lists only when your device is connected to WiFi. Otherwise, the app may also download lists when your device is connected to a mobile network and use your data plan.</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
