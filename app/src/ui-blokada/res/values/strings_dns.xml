@@ -6,8 +6,8 @@
 
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP address</string>
-    <string name="dns_edit_ip1_enter">Enter DNS server's primary address</string>
-    <string name="dns_edit_ip2_enter">Enter DNS server's secondary address</string>
+    <string name="dns_edit_ip1_enter">Enter primary address</string>
+    <string name="dns_edit_ip2_enter">Enter secondary address</string>
 
     <string name="dns_edit_name_error">Not a valid name</string>
     <string name="dns_edit_name_label">Server name</string>
