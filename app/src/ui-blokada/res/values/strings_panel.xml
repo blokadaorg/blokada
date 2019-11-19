@@ -190,7 +190,7 @@
 
     <string name="subscription_success">Your account is being activated. This may take a few seconds. Thank you!</string>
 
-    <string name="slot_start_on_boot_description">Enabling start on boot allows Blokada to be active at all times and protect your device. Please note the system always has higher priority and can overwrite this option, thus, if Blokada doesn't start up, take a look in your system's settings.</string>
+    <string name="slot_start_on_boot_description">Enabling start on boot allows Blokada to be active at all times and protect your device. Please note the system always has higher priority and can overwrite this option, thus, if Blokada doesn\'t start up, take a look in your system\'s settings.</string>
     <string name="slot_recommended_dns_label">Use recommended DNS servers</string>
     <string name="slot_recommended_dns_description">When enabled, Blokada will automatically choose recommended DNS servers to help speed up your Internet and protect your privacy. Otherwise, default DNS servers of your network are used. If you manually choose DNS servers in the Advanced section, this setting is ignored.</string>
 
