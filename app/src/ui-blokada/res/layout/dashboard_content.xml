@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        app:umanoFadeColor="@android:color/transparent">
+
+        <!-- MAIN CONTENT -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <core.ColorfulBackground
+                android:id="@+id/bg_colors"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <core.PacketsView
+                android:id="@+id/bg_packets"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/bg_chevron_right"
+                android:layout_width="@dimen/dashboard_fg_logo_size"
+                android:layout_height="@dimen/dashboard_fg_logo_size"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="250dp"
+                android:src="@drawable/ic_chevron_right"
+                android:tint="@color/colorActive"
+                android:visibility="gone" />
+
+            <core.VBPagesView
+                android:id="@+id/bg_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:paddingTop="@dimen/dashboard_pager_margin_top"
+                android:paddingBottom="@dimen/dashboard_pager_margin_bottom" />
+
+            <core.DotsView
+                android:id="@+id/bg_nav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="@dimen/dashboard_nav_margin_top"
+                android:clickable="false"
+                android:focusable="false"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/bg_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/bg_logo_icon"
+                    android:layout_width="@dimen/dashboard_logo_size"
+                    android:layout_height="@dimen/dashboard_logo_size"
+                    android:layout_marginStart="@dimen/dashboard_logo_margin_start"
+                    android:layout_marginTop="@dimen/dashboard_logo_margin_top"
+                    android:src="@drawable/blokada" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/bg_action_help"
+                    android:layout_width="@dimen/dashboard_bg_icon_size"
+                    android:layout_height="@dimen/dashboard_bg_icon_size"
+                    android:layout_marginEnd="@dimen/dashboard_bg_icon_margin_end"
+                    android:layout_marginTop="@dimen/dashboard_bg_icon_margin_top"
+                    android:padding="@dimen/dashboard_bg_icon_padding"
+                    android:background="@drawable/bg_dashboard_item"
+                    android:tint="@color/colorActive"
+                    android:src="@drawable/ic_help_outline" />
+
+                <ImageView
+                    android:id="@+id/bg_action_cta"
+                    android:layout_width="@dimen/dashboard_bg_icon_size"
+                    android:layout_height="@dimen/dashboard_bg_icon_size"
+                    android:layout_marginEnd="@dimen/dashboard_bg_icon_margin_end"
+                    android:layout_marginTop="@dimen/dashboard_bg_icon_margin_top"
+                    android:padding="@dimen/dashboard_bg_icon_padding"
+                    android:background="@drawable/bg_dashboard_item"
+                    android:tint="@color/colorActive"
+                    android:src="@drawable/ic_share" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- SLIDING LAYOUT -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:focusable="false">
+
+            <View
+                android:id="@+id/fg_drag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top" />
+
+            <View
+                android:id="@+id/fg_nav_panel"
+                android:layout_width="@dimen/dashboard_panel_width"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="@dimen/dashboard_panel_margin_top"
+                android:layout_marginBottom="@dimen/dashboard_panel_margin_bottom"
+                android:alpha="0.7"
+                android:background="@drawable/circle"
+                android:clickable="false"
+                android:focusable="false" />
+
+            <core.VBPagesView
+                android:id="@+id/fg_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dashboard_fg_pager_margin"
+                android:layout_marginTop="@dimen/dashboard_fg_pager_margin_top"
+                android:layout_marginEnd="@dimen/dashboard_fg_pager_margin"
+                android:layout_marginBottom="@dimen/dashboard_fg_pager_margin"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/fg_chevron_back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="8dp"
+                android:layout_marginTop="62dp"
+                android:layout_gravity="center_horizontal|top"
+                android:src="@drawable/ic_chevron_left"
+                android:visibility="invisible"
+                android:tint="@color/colorActive" />
+
+            <FrameLayout
+                android:id="@+id/fg_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/fg_logo_icon"
+                    android:layout_width="@dimen/dashboard_fg_logo_size"
+                    android:layout_height="@dimen/dashboard_fg_logo_size"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dashboard_fg_logo_margin_top"
+                    android:tint="@color/colorActive"
+                    android:src="@drawable/ic_menu" />
+
+                <TextView
+                    android:id="@+id/fg_label_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/colorActive"
+                    android:layout_marginTop="@dimen/dashboard_fg_label_margin_top"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+        </FrameLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+</FrameLayout>

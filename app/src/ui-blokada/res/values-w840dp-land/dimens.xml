@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="default_text_size">15sp</dimen>
+    <dimen name="secondary_text_size">14sp</dimen>
+    <dimen name="header_text_size">18sp</dimen>
+</resources>

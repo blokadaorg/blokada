@@ -26,25 +26,16 @@ use crate::ffi::x25519_secret_key;
 
 use crate::noise::Tunn;
 
-use std::fs::OpenOptions;
-use std::io::prelude::*;
+extern crate android_logger;
 
+use log::error;
+use log::Level;
+use android_logger::Config;
 use std::ffi::CStr;
 
 pub extern "C" fn log_print(_log_string: *const c_char) {
-    let mut file = OpenOptions::new()
-       .write(true)
-       .append(true)
-       .create(true)
-       .open("/storage/emulated/0/Android/data/org.blokada.origin.alarm/files/boringtun.log")
-       .unwrap();
-
-    let c_str: &CStr = unsafe { CStr::from_ptr(_log_string) };
-    let str_slice: &str = c_str.to_str().unwrap();
-
-    if let Err(e) = writeln!(file, "{}", str_slice) {
-        eprintln!("Couldn't write to file: {}", e);
-    }
+    let converted = unsafe { CStr::from_ptr(_log_string).to_str().unwrap() };
+    error!("{}", converted);
 }
 
 /// Generates new x25519 secret key and converts into java byte array.
@@ -147,6 +138,8 @@ pub unsafe extern "C" fn create_new_tunnel(
     arg_secret_key: JString,
     arg_public_key: JString,
 ) -> jlong {
+    android_logger::init_once(Config::default().with_min_level(Level::Debug));
+
     let secret_key = match env.get_string_utf_chars(arg_secret_key) {
         Ok(v) => v,
         Err(_) => return 0,

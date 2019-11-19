@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_account"
+    android:layout_marginTop="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/account_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/slot_icon_margin"
+        android:src="@drawable/ic_account_circle_black_24dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/account_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dashboard_item"
+        android:orientation="vertical"
+        android:padding="@dimen/slot_content_padding">
+
+        <TextView
+            android:id="@+id/account_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/slot_secondary_padding"
+            android:layout_marginEnd="@dimen/slot_secondary_padding"
+            android:maxLines="1"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/colorActive"
+            android:text="My account" />
+
+        <TextView
+            android:id="@+id/account_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/slot_secondary_padding"
+            android:layout_marginEnd="@dimen/slot_secondary_padding"
+            android:maxLines="1"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/slot_secondary_text_size"
+            android:text="******" />
+
+        <TextView
+            android:id="@+id/account_active"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/slot_secondary_padding"
+            android:layout_marginEnd="@dimen/slot_secondary_padding"
+            android:maxLines="2"
+            android:textSize="@dimen/slot_secondary_text_size"
+            tools:text="Active until September 28" />
+
+    </LinearLayout>
+</LinearLayout>

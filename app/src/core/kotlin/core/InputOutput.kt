@@ -50,6 +50,19 @@ fun loadGzip(opener: () -> URLConnection, lineProcessor: (String) -> String? = {
     return response
 }
 
+fun loadAsString(opener: () -> URLConnection): String {
+    val input = createStream(opener())
+
+    return try {
+        input.readText()
+    } catch (ex: Exception) {
+        e("failed loading stream as string", ex)
+        ""
+    } finally {
+        input.close()
+    }
+}
+
 fun createStream(con: URLConnection) = {
     val charset = "UTF-8"
     if (con.contentEncoding == "gzip" || con.url.file.endsWith(".gz")) {

@@ -14,6 +14,7 @@ hex = "0.3.2"
 untrusted = "0.6.2"
 spin = { version = "0.5", default-features=false }
 libc = "0.2"
+log = "0.4.6"
 
 [target.'cfg(not(target_arch="arm"))'.dependencies]
 ring = "0.14"
@@ -25,6 +26,7 @@ clap = { version = "2.32.0", default-features=false, features = ["suggestions"] 
 
 [target.'cfg(target_os="android")'.dependencies]
 jni = { version = "0.10.2", default-features = false }
+android_logger = "0.8"
 
 [lib]
 crate-type = ["lib", "staticlib", "dylib"]

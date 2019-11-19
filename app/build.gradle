@@ -3,10 +3,12 @@ buildscript {
     ext.acraVersion = '5.1.3'
     ext.retrofitVersion = '2.5.0'
     ext.okhttpVersion = '3.14.0'
+
     repositories {
         mavenCentral()
         google()
     }
+
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -35,13 +37,20 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     packagingOptions {
         exclude 'META-INF/main.kotlin_module'
     }
+
+    kotlinOptions {
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+    }
+
     defaultConfig {
         applicationId "org.blokada"
         minSdkVersion 21
@@ -49,89 +58,17 @@ android {
         versionName androidGitVersion.name()
         versionCode androidGitVersion.code()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
+        }
     }
+
     lintOptions {
         abortOnError false
     }
-    sourceSets {
-        // Modules do NOT make a runnable app separately
-        // But you can actually choose a module-only build variant to work on it
-        moduleCore.java.srcDirs += 'src/core/kotlin'
-        testModuleCore.java.srcDirs += 'src/test-core/kotlin'
 
-        moduleTunnel.java.srcDirs += 'src/core/kotlin'
-        moduleTunnel.java.srcDirs += 'src/tunnel/kotlin'
-        testModuleTunnel.java.srcDirs += 'src/test-core/kotlin'
-        testModuleTunnel.java.srcDirs += 'src/test-tunnel/kotlin'
-
-        moduleG11n.java.srcDirs += 'src/core/kotlin'
-        moduleG11n.java.srcDirs += 'src/g11n/kotlin'
-        testModuleG11n.java.srcDirs += 'src/test-core/kotlin'
-        testModuleG11n.java.srcDirs += 'src/test-g11n/kotlin'
-
-        moduleVpn.java.srcDirs += 'src/core/kotlin'
-        moduleVpn.java.srcDirs += 'src/vpn/kotlin'
-        moduleVpn.jniLibs.srcDirs += 'src/vpn/jniLibs'
-        testModuleVpn.java.srcDirs += 'src/test-core/kotlin'
-        testModuleVpn.java.srcDirs += 'src/test-vpn/kotlin'
-
-        moduleLegacy.java.srcDirs += 'src/core/kotlin'
-        moduleLegacy.java.srcDirs += 'src/tunnel/kotlin'
-        moduleLegacy.java.srcDirs += 'src/legacy/kotlin'
-        moduleLegacy.res.srcDirs += 'src/legacy/res'
-        testModuleLegacy.java.srcDirs += 'src/test-core/kotlin'
-        testModuleLegacy.java.srcDirs += 'src/test-tunnel/kotlin'
-        testModuleLegacy.java.srcDirs += 'src/test-legacy/kotlin'
-
-        // Flavors put together modules and flavor config
-        adblockerHome.manifest.srcFile 'src/legacy/AndroidManifest.xml'
-        adblockerHome.java.srcDirs += 'src/core/kotlin'
-        adblockerHome.java.srcDirs += 'src/tunnel/kotlin'
-        adblockerHome.java.srcDirs += 'src/g11n/kotlin'
-        adblockerHome.java.srcDirs += 'src/vpn/kotlin'
-        adblockerHome.java.srcDirs += 'src/legacy/kotlin'
-        adblockerHome.java.srcDirs += 'src/flavor-adblocker/kotlin'
-        adblockerHome.jniLibs.srcDirs += 'src/vpn/jniLibs'
-        adblockerHome.res.srcDirs += 'src/legacy/res'
-        adblockerHome.res.srcDirs += 'src/flavor-adblocker/res'
-        testAdblockerHome.java.srcDirs += 'src/test-core/kotlin'
-        testAdblockerHome.java.srcDirs += 'src/test-tunnel/kotlin'
-        testAdblockerHome.java.srcDirs += 'src/test-g11n/kotlin'
-        testAdblockerHome.java.srcDirs += 'src/test-vpn/kotlin'
-
-        adblockerFdroid.manifest.srcFile 'src/legacy/AndroidManifest.xml'
-        adblockerFdroid.java.srcDirs += 'src/core/kotlin'
-        adblockerFdroid.java.srcDirs += 'src/tunnel/kotlin'
-        adblockerFdroid.java.srcDirs += 'src/g11n/kotlin'
-        adblockerFdroid.java.srcDirs += 'src/vpn/kotlin'
-        adblockerFdroid.java.srcDirs += 'src/legacy/kotlin'
-        adblockerFdroid.java.srcDirs += 'src/flavor-adblocker/kotlin'
-        adblockerFdroid.jniLibs.srcDirs += 'src/vpn/jniLibs'
-        adblockerFdroid.res.srcDirs += 'src/legacy/res'
-        adblockerFdroid.res.srcDirs += 'src/flavor-adblocker/res'
-
-        dnsHome.manifest.srcFile 'src/legacy/AndroidManifest.xml'
-        dnsHome.java.srcDirs += 'src/core/kotlin'
-        dnsHome.java.srcDirs += 'src/tunnel/kotlin'
-        dnsHome.java.srcDirs += 'src/g11n/kotlin'
-        dnsHome.java.srcDirs += 'src/legacy/kotlin'
-        dnsHome.java.srcDirs += 'src/flavor-dns/kotlin'
-        dnsHome.res.srcDirs += 'src/legacy/res'
-        dnsHome.res.srcDirs += 'src/flavor-dns/res'
-
-        // Build types are cross combined with flavors to make a final release
-        debug.java.srcDirs += 'src/build-unofficial/kotlin'
-        release.java.srcDirs += 'src/build-official/kotlin'
-        release.res.srcDirs += 'src/build-official/res'
-        release.java.srcDirs += 'src/build-official-imports/kotlin'
-        official.java.srcDirs += 'src/build-official/kotlin'
-        official.res.srcDirs += 'src/build-official/res'
-        official.java.srcDirs += 'src/build-official-imports/kotlin'
-        beta.java.srcDirs += 'src/build-official/kotlin'
-        beta.res.srcDirs += 'src/build-official/res'
-        beta.java.srcDirs += 'src/build-official-imports/kotlin'
-    }
     signingConfigs {
+        // Set the BLOKADA_* constants in your ~/.gradle/gradle.properties to point to your keystore.
         release {
             keyAlias 'blokada'
             keyPassword BLOKADA_KEY_PASSWORD
@@ -139,46 +76,197 @@ android {
             storePassword BLOKADA_STORE_PASSWORD
         }
     }
+
     buildTypes {
         debug {
+            // By default it is a 'debuggable' build, signed with a debug key.
         }
+
         release {
+            /**
+             * Release builds are published on F-Droid and XDA Labs. They adhere to F-Droid
+             * inclusion standards, which means they cannot contain any non-free software or
+             * tracking, hence we can provide only limited support for them.
+              */
             minifyEnabled false
-            useProguard false
+            useProguard false // We don't use Proguard for now.
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
+
         official {
+            /**
+             * Official builds are published on blokada.org and Google Play. They contain optional
+             * reporting so we can provide better support and troubleshooting.
+             */
             initWith(release)
             matchingFallbacks = ['release']
         }
+
         beta {
+            // 'Beta' are builds used for internal and external beta testing.
             initWith(release)
             matchingFallbacks = ['release']
         }
     }
+
+    // It needs to be defined in order for the flavor setup to work.
     flavorDimensions("model")
+
     productFlavors {
-        adblockerHome {
+        full {
+            // full lands on blokada.org.
             applicationId "org.blokada.origin.alarm"
         }
-        adblockerFdroid {
+
+        community {
+            // community lands on F-Droid and XDA Labs.
             applicationId "org.blokada.alarm"
         }
-        dnsHome {
+
+        google {
+            // google build lands on Google Play.
             applicationId "org.blokada.alarm.dnschanger"
         }
-        moduleCore {}
-        moduleTunnel {}
-        moduleG11n {}
-        moduleVpn {}
-        moduleLegacy {}
+
+        /**
+         * You can choose any of those modules in 'Build Variants' in Android Studio to work only on
+         * selected modules or run only relevant test suites. You cannot actually run those modules
+         * as apps. It is meant to help improve code separation as well as speed up development.
+         */
+
+        modCore {
+            // modCore is included by all other Kotlin modules.
+        }
+
+        modG11n {
+            /**
+             * modG11n (Globalization) provides all i18n (internationalization) and l10n
+             * (localization) functionality on top of what Android SDK provides.
+              */
+        }
+
+        modTunnel {
+            /**
+             * Tunnel mod implements TUN/TAP tunneling (either with Wireguard or fake VPN) in
+             * Kotlin. It also provides hosts lists filtering and has too much responsibility.
+              */
+        }
+    }
+
+    sourceSets {
+        def srcCoreKotlin = 'src/core/kotlin'
+        def srcCoreRes = 'src/core/res'
+        def srcCoreMock = 'src/core/mock'
+        def srcCoreTest = 'src/core/test'
+
+        def srcFilterKotlin = 'src/filter/kotlin'
+
+        def srcTunBlockaKotlin = 'src/tun-blocka/kotlin'
+        def srcTunBlockaJni = 'src/tun-blocka/jniLibs'
+
+        def srcTunLocalKotlin = 'src/tun-local/kotlin'
+        def srcTunLocalTest = 'src/tun-local/test'
+
+        def srcUiCoreKotlin = 'src/ui-core/kotlin'
+        def srcUiCoreRes = 'src/ui-core/res'
+
+        def srcUiBlokadaKotlin = 'src/ui-blokada/kotlin'
+        def srcUiBlokadaRes = 'src/ui-blokada/res'
+
+        def srcLegacyKotlin = 'src/legacy/kotlin'
+
+        modCore.java.srcDirs += srcCoreKotlin
+        testModCore.java.srcDirs += srcCoreTest
+
+        modTunnel.java.srcDirs += srcCoreKotlin
+        modTunnel.java.srcDirs += srcTunBlockaKotlin
+        modTunnel.java.srcDirs += srcTunLocalKotlin
+
+        testModTunnel.java.srcDirs += srcCoreTest
+        testModTunnel.java.srcDirs += srcTunLocalTest
+
+        full.manifest.srcFile 'src/full/AndroidManifest.xml'
+        full.java.srcDirs += srcCoreKotlin
+        full.java.srcDirs += srcTunLocalKotlin
+        full.java.srcDirs += srcTunBlockaKotlin
+        full.java.srcDirs += srcFilterKotlin
+        full.java.srcDirs += srcUiCoreKotlin
+        full.java.srcDirs += srcUiBlokadaKotlin
+        full.java.srcDirs += srcLegacyKotlin
+        full.java.srcDirs += 'src/full/kotlin'
+        full.jniLibs.srcDirs += srcTunBlockaJni
+        full.res.srcDirs += srcCoreRes
+        full.res.srcDirs += srcUiCoreRes
+        full.res.srcDirs += srcUiBlokadaRes
+        full.res.srcDirs += 'src/full/res'
+        testFull.java.srcDirs += srcCoreTest
+        testFull.java.srcDirs += srcTunLocalTest
+//        testfull.java.srcDirs += testModG11n.java.srcDirs
+//        testfull.java.srcDirs += testModWireguard.java.srcDirs
+
+        community.manifest.srcFile 'src/full/AndroidManifest.xml'
+        community.java.srcDirs += srcCoreKotlin
+        community.java.srcDirs += srcTunLocalKotlin
+        community.java.srcDirs += srcTunBlockaKotlin
+        community.java.srcDirs += srcFilterKotlin
+        community.java.srcDirs += srcUiCoreKotlin
+        community.java.srcDirs += srcUiBlokadaKotlin
+        community.java.srcDirs += srcLegacyKotlin
+        community.java.srcDirs += 'src/full/kotlin'
+        community.jniLibs.srcDirs += srcTunBlockaJni
+        community.res.srcDirs += srcCoreRes
+        community.res.srcDirs += srcUiCoreRes
+        community.res.srcDirs += srcUiBlokadaRes
+        community.res.srcDirs += 'src/full/res'
+//
+//        google.manifest.srcFile 'src/ui/AndroidManifest.xml'
+//        google.java.srcDirs += srcCoreKotlin
+//        google.java.srcDirs += srcTunnelKotlin
+//        google.java.srcDirs += srcG11nKotlin
+//        google.java.srcDirs += srcWireguardKotlin
+//        google.java.srcDirs += srcUiKotlin
+//        google.java.srcDirs += 'src/google/kotlin'
+//        google.jniLibs.srcDirs += srcWireguardJni
+//        google.res.srcDirs += srcUiRes
+//        google.res.srcDirs += 'src/google/res'
+
+        google.manifest.srcFile 'src/google/AndroidManifest.xml'
+        google.java.srcDirs += srcCoreKotlin
+        google.java.srcDirs += srcTunLocalKotlin
+        google.java.srcDirs += srcTunBlockaKotlin
+        google.java.srcDirs += srcFilterKotlin
+        google.java.srcDirs += srcUiCoreKotlin
+        google.java.srcDirs += srcUiBlokadaKotlin
+        google.java.srcDirs += srcLegacyKotlin
+        google.java.srcDirs += 'src/google/kotlin'
+        google.jniLibs.srcDirs += srcTunBlockaJni
+        google.res.srcDirs += srcCoreRes
+        google.res.srcDirs += srcUiCoreRes
+        google.res.srcDirs += srcUiBlokadaRes
+        google.res.srcDirs += 'src/google/res'
+
+        /**
+         * Build types are cross combined with flavors to make a final release
+          */
+
+        debug.java.srcDirs += 'src/unofficial/kotlin'
+        debug.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
+        release.java.srcDirs += 'src/official/kotlin'
+        release.res.srcDirs += 'src/official/res'
+        release.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
+        official.java.srcDirs += 'src/official/kotlin'
+        official.res.srcDirs += 'src/official/res'
+        official.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
+        beta.java.srcDirs += 'src/official/kotlin'
+        beta.res.srcDirs += 'src/official/res'
+        beta.manifest.srcFile 'src/ui-blokada/AndroidManifest.xml'
     }
 }
 
 dependencies {
     // Android support libraries
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
 
@@ -189,6 +277,8 @@ dependencies {
     implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.1"
 //    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M1'
+
+
     implementation 'io.paperdb:paperdb:2.6'
     implementation 'com.github.michaelbull:kotlin-result:1.0.8'
 
@@ -199,19 +289,18 @@ dependencies {
     implementation 'org.slf4j:slf4j-nop:1.6.1'
 
     // UI libraries
-    implementation('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
-        transitive = true
-    }
-    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
-    implementation 'com.airbnb.android:lottie:2.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
-    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
-    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'com.github.kar:AndroidSlidingUpPanel:4.1.0'
+    //implementation 'com.sothree.slidinguppanel:library:3.4.0'
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.2'
-    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:2.1.2'
     implementation 'jp.wasabeef:blurry:3.0.0'
     implementation 'com.github.ps100000:PageIndicatorView:v1.0.4'
+    implementation 'com.android.support:customtabs:28.0.0'
+    implementation 'com.github.thibseisel:kdenticon-android:1.0.0-alpha5'
+    implementation 'com.github.GwonHyeok:StickySwitch:0.0.15'
+
+    // External integration (Tasker)
+    implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
 
     // REST api
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
@@ -222,10 +311,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // Testing and debugging
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation "ch.acra:acra-http:$acraVersion"
-    implementation "ch.acra:acra-limiter:$acraVersion"
-    implementation "ch.acra:acra-dialog:$acraVersion"
+    implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'

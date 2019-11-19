@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:backSideColor="@color/colorBackground"
+    app:animationDuration="500"
+    app:cameraHeight="15">
+
+    <FrameLayout
+        android:id="@+id/unfolded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dashboard_item_active"
+        android:padding="@dimen/slot_content_padding"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/unfolded_info_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="@dimen/slot_padding"
+            android:paddingEnd="@dimen/slot_padding_sides"
+            android:paddingStart="@dimen/slot_padding_sides"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/slot_text_size"
+            android:textStyle="italic"
+            tools:text="This is an exemplary info text" />
+
+        <RelativeLayout
+            android:id="@+id/unfolded_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/unfolded_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/slot_padding"
+                android:textColor="@color/switch_on"
+                android:textSize="@dimen/slot_text_size" />
+
+            <TextView
+                android:id="@+id/unfolded_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/slot_padding"
+                android:textColor="@color/colorActive"
+                android:textSize="@dimen/slot_text_size"
+                android:textStyle="bold"
+                tools:text="google.com" />
+
+            <View
+                android:id="@+id/unfolded_line_top"
+                android:background="@color/colorSlotLine"
+                android:layout_below="@id/unfolded_header"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/slot_padding"
+                android:layout_marginEnd="@dimen/slot_padding"
+                android:layout_marginTop="@dimen/slot_content_padding"
+                android:layout_marginBottom="@dimen/slot_content_padding"
+                />
+
+            <EditText
+                android:id="@+id/unfolded_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/unfolded_line_top"
+                android:inputType="textUri"
+                android:padding="@dimen/slot_padding"
+                android:textSize="@dimen/slot_text_size"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/unfolded_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/unfolded_edit"
+                android:padding="@dimen/slot_padding"
+                android:textColor="@color/colorActive"
+                android:textSize="@dimen/slot_text_size"
+                tools:text="google.com" />
+
+            <TextView
+                android:id="@+id/unfolded_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/unfolded_description"
+                android:padding="@dimen/slot_padding"
+                android:textColor="@color/colorTextUnimportant"
+                android:textSize="@dimen/slot_text_size"
+                tools:text="additional information" />
+
+            <View
+                android:id="@+id/unfolded_line_bottom"
+                android:background="@color/colorSlotLine"
+                android:layout_below="@id/unfolded_detail"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/slot_padding"
+                android:layout_marginEnd="@dimen/slot_padding"
+                android:layout_marginTop="@dimen/slot_content_padding"
+                android:layout_marginBottom="@dimen/slot_content_padding"
+                />
+
+            <ImageView
+                android:id="@+id/unfolded_info_icon"
+                android:layout_width="@dimen/slot_info_icon_size"
+                android:layout_height="@dimen/slot_info_icon_size"
+                android:layout_below="@id/unfolded_line_bottom"
+                android:layout_gravity="start"
+                android:layout_margin="@dimen/slot_padding"
+                android:src="@drawable/ic_help_outline"
+                android:tint="@color/colorAccent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/unfolded_line_bottom"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/unfolded_action3"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/slot_action_margin"
+                    android:drawablePadding="@dimen/slot_action_margin"
+                    android:drawableEnd="@drawable/ic_arrow_left_drop_circle_outline"
+                    android:padding="@dimen/slot_padding"
+                    android:tint="@color/colorAccent" />
+
+                <Button
+                    android:id="@+id/unfolded_action2"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/slot_action_margin"
+                    android:drawablePadding="@dimen/slot_action_margin"
+                    android:drawableEnd="@drawable/ic_arrow_down_drop_circle_outline"
+                    android:padding="@dimen/slot_padding"
+                    android:tint="@color/colorAccent" />
+
+                <Button
+                    android:id="@+id/unfolded_action1"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/slot_action_margin"
+                    android:drawablePadding="@dimen/slot_action_margin"
+                    android:drawableEnd="@drawable/ic_arrow_right_drop_circle_outline"
+                    android:padding="@dimen/slot_padding"
+                    android:tint="@color/colorAccent" />
+
+                <Button
+                    android:id="@+id/unfolded_action0"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/slot_action_margin"
+                    android:drawablePadding="@dimen/slot_action_margin"
+                    android:drawableEnd="@drawable/ic_arrow_up_drop_circle_outline"
+                    android:padding="@dimen/slot_padding"
+                    android:text="@string/slot_action_close"
+                    android:tint="@color/colorAccent" />
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/folded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/folded_unread"
+            android:layout_width="@dimen/slot_unread_size"
+            android:layout_height="@dimen/slot_unread_size"
+            android:layout_gravity="top|start"
+            android:layout_margin="@dimen/slot_unread_size"
+            android:src="@drawable/circle"
+            android:tint="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dashboard_item"
+            android:orientation="horizontal"
+            android:padding="@dimen/slot_content_padding">
+
+            <ImageView
+                android:id="@+id/folded_icon"
+                android:layout_width="@dimen/slot_icon_size"
+                android:layout_height="@dimen/slot_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/slot_icon_margin"
+                android:src="@drawable/ic_info"
+                android:tint="@color/colorText" />
+
+            <TextView
+                android:id="@+id/folded_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/slot_secondary_padding"
+                android:layout_marginStart="@dimen/slot_secondary_padding"
+                android:layout_weight="1"
+                android:maxLines="3"
+                android:textSize="@dimen/slot_secondary_text_size"
+                tools:text="Forwarded google.com" />
+
+            <View
+                android:id="@+id/folded_button_separator"
+                android:layout_width="1dp"
+                android:layout_marginTop="@dimen/slot_padding"
+                android:layout_marginBottom="@dimen/slot_padding"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:background="@color/colorButtonSeparator"
+                />
+
+            <TextView
+                android:id="@+id/folded_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/slot_padding"
+                android:textColor="@color/switch_on"
+                android:textSize="@dimen/slot_text_size" />
+
+            <TextView
+                android:id="@+id/folded_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/slot_secondary_padding"
+                android:layout_marginStart="@dimen/slot_secondary_padding"
+                android:textColor="@color/colorInactive"
+                android:textSize="@dimen/slot_secondary_text_size"
+                tools:text="just now" />
+        </LinearLayout>
+    </FrameLayout>
+
+</com.ramotion.foldingcell.FoldingCell>

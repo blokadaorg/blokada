@@ -29,5 +29,12 @@ object Format {
         }
     }
 
+    fun counterShort(value: Int) = when (value) {
+        in 0..9999 -> value.toString()
+        in 10000..99999 -> String.format("%.1fk", value / 1000.0)
+        in 100000..9999999 -> String.format("%.1fm", value / 1000000.0)
+        else -> String.format("%dm", value / 1000000)
+    }
+
     fun date(date: Date) = dateFormat.format(date)
 }
