@@ -31,7 +31,7 @@
     <string name="notification_keepalive_deactivate">Desactivar</string>
     <string name="notification_keepalive_deactivating">¡Blokada se ha desactivado!</string>
     <string name="notification_expired_title">El Túnel de Blokada está desactivado</string>
-    <string name="notification_expired_description">Tu cuenta no está activa y el túnel de Blokada está apagado. Las funciones estándar de Blokada funcionan bien sin el Túnel. Sin embargo, considera activar tu cuenta para una mejor protección y para apoyar el proyecto.</string>
+    <string name="notification_expired_description">Tu cuenta no está activa y el túnel de Blokada está desactivado. Las funciones estándar de Blokada funcionan bien sin el Túnel. Sin embargo, considera activar tu cuenta para una mejor protección y para apoyar el proyecto.</string>
     <string name="notification_lease_expired_title">El Túnel de Blokada está desactivado</string>
     <string name="notification_lease_expired_description">Hubo un problema con tu conexión al Túnel de Blokada. Por favor, intenta conectarte a otra puerta de enlace. Si el problema persiste, por favor contáctanos en Telegram.</string>
     <string name="notification_channel_filtered">Bloqueo de anuncios</string>

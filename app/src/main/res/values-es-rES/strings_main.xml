@@ -35,7 +35,7 @@
     <string name="main_credits">Créditos</string>
     <string name="main_legal">Información legal</string>
     <string name="main_licenses">Licencias de terceros</string>
-    <string name="main_terms">Condiciones de servicio</string>
+    <string name="main_terms">Condiciones de Servicio</string>
     <string name="main_privacy">Política de Privacidad</string>
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">Enviar registro</string>

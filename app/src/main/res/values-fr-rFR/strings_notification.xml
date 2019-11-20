@@ -30,12 +30,12 @@
     <string name="notification_keepalive_activating">Blokada démarre. Cela peut prendre un moment.</string>
     <string name="notification_keepalive_deactivate">Désactiver</string>
     <string name="notification_keepalive_deactivating">Blokada a été désactivé !</string>
-    <string name="notification_expired_title">Le tunnel de Blokada est désactivé</string>
-    <string name="notification_expired_description">Votre compte n\'est pas actif et le tunnel de Blokada est désactivé. Les fonctionnalités standard de Blokada fonctionnent très bien sans le Tunnel. Cependant, nous vous prions d\'activer votre compte pour une meilleure protection et pour soutenir le projet.</string>
-    <string name="notification_lease_expired_title">Le tunnel de Blokada est désactivé</string>
-    <string name="notification_lease_expired_description">Il y a eu un problème avec votre connexion au tunnel de Blokada. Veuillez essayer de choisir une autre passerelle. Si le problème persiste, veuillez nous contacter.</string>
+    <string name="notification_expired_title">Blokada Tunnel est désactivé</string>
+    <string name="notification_expired_description">Votre compte n\'est pas actif et Blokada Tunnel est désactivé. Les fonctionnalités standards de Blokada fonctionneront sans. Cependant souscrire à ce service finance le développement de Blokada et vous permet d\'être mieux protéger.</string>
+    <string name="notification_lease_expired_title">Blokada Tunnel est désactivé</string>
+    <string name="notification_lease_expired_description">Il y a eu un problème avec votre connexion à Blokada Tunnel. Veuillez essayer de choisir un autre serveur. Si le problème persiste, veuillez nous contacter.</string>
     <string name="notification_channel_filtered">Blocage des publicités</string>
     <string name="notification_channel_announcements">Annonces</string>
-    <string name="notification_channel_vpn">Tunnel Blokada</string>
+    <string name="notification_channel_vpn">Blokada Tunnel</string>
     <string name="notification_channel_other">Autre</string>
 </resources>
