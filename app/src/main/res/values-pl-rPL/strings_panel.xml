@@ -133,7 +133,7 @@
     <string name="slot_gateway_learn_more">Dowiedz się więcej o bramach</string>
     <string name="slot_gateway_info_partner">Czym są bramy partnerskie?</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
-    <string name="slot_leases_info">Kontroluj, które urządzenia łączą się z Blokada Tunnel.</string>
+    <string name="slot_leases_info">Kontroluj, które urządzenia łączą się z Tunelem Blokada.</string>
     <string name="slot_lease_name_current">%s (to urządzenie)</string>
     <string name="slot_lease_description">ID urządzenia: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">ID urządzenia: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;To jest twoje aktualne urządzenie.</string>
@@ -142,7 +142,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">niska</string>
     <string name="subscription_success">Twoje konto jest aktywowane. Może to potrwać kilka sekund. Dziękuję!</string>
-    <string name="slot_start_on_boot_description">Włączenie startu przy rozruchu pozwala Blokadzie być aktywnym przez cały czas i chronić twoje urządzenie.</string>
+    <string name="slot_start_on_boot_description">Włączenie startu przy rozruchu pozwala Blokadzie być aktywej przez cały czas i chronić twoje urządzenie. Zauważ, że system zawsze ma wyższy priorytet i może zastąpić tę opcję, dlatego jeśli Blokada się nie uruchomi, sprawdź ustawienia swojego systemu.</string>
     <string name="slot_recommended_dns_label">Użyj zalecanych serwerów DNS</string>
     <string name="slot_recommended_dns_description">Po włączeniu, Blokada automatycznie wybierze zalecane serwery DNS, aby przyspieszyć Internet i chronić prywatność. W przeciwnym razie używane są domyślne serwery DNS twojej sieci. Jeśli ręcznie wybierzesz serwery DNS w sekcji Zaawansowane, to ustawienie zostanie zignorowane.</string>
     <string name="slot_update_no_updates">Blokada jest zaktualizowana</string>
@@ -171,8 +171,8 @@
     <!-- A button to update the app. -->
     <string name="slot_cleanup_desc">Wygląda na to, że na twoim urządzeniu zainstalowanych jest wiele wersji Blokady. Czy chcesz usunąć pozostałe wersje i zachować tylko jedną?</string>
     <string name="account_inactive">Proszę aktywować lub przywrócić swoje konto, aby kontynuować.</string>
-    <string name="slot_lease_cant_connect">Nie można połączyć się z Blokada Tunnel. Spróbuj wybrać inną bramę.</string>
-    <string name="slot_account_cant_create">Nie można utworzyć konta Blokada Tunnel. Spróbuj ponownie później lub skontaktuj się z nami przez Telegram.</string>
+    <string name="slot_lease_cant_connect">Nie można połączyć się z Tunelem Blokada. Spróbuj wybrać inną bramę.</string>
+    <string name="slot_account_cant_create">Nie można utworzyć konta Tunelu Blokada. Spróbuj ponownie później lub skontaktuj się z nami przez Telegram.</string>
     <string name="slot_account_name_title">ID konta</string>
     <string name="slot_account_name_desc">Wprowadź stary identyfikator konta, aby przywrócić poprzednią subskrypcję. Przed zrobieniem tego możesz zapisać swój bieżący identyfikator konta, na wypadek pomyłki.</string>
     <string name="slot_account_name_error">Identyfikator konta może zawierać tylko litery i cyfry.</string>

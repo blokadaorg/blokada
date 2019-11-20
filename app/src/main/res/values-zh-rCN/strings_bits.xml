@@ -44,7 +44,6 @@
     <string name="menu_dns_recommended">推荐的 DNS 服务器</string>
     <string name="menu_dns_intro">DNS 负责解析您使用的网站和应用的 IP 地址。选择一个好的 DNS 可以加速您的设备，并有助于保护您的隐私。</string>
     <string name="menu_dns_select">选择一个 DNS 服务器。</string>
-    <string name="menu_apps_intro">一些应用可能无法正常与 Blokada 一同工作。例如，它们可能有网络连接问题。\n\n在这些情况下，启用 VPN 通常会有所帮助。\n\n否则，您可以让这些应用程序完全绕过 Blokada 检查。请记住，绕过检查的应用程序在 VPN 之外通信。</string>
     <string name="menu_apps_system_label">系统应用是预装在您的设备上的。有些系统应用是隐藏的。只有当您知道您正在做什么时，才能修改这些应用。</string>
     <string name="menu_host_list_intro">主机列表包含了屏蔽广告和跟踪器的规则。尽量减少启用列表的数量。</string>
     <string name="menu_host_list_status">列表状态</string>

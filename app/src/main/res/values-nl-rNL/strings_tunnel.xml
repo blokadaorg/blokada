@@ -14,10 +14,11 @@
     <string name="tunnel_config_refetch_frequency_2">Twee keer per week</string>
     <string name="tunnel_config_refetch_frequency_3">Eenmaal per week</string>
     <string name="tunnel_config_refetch_frequency_4">Eenmaal per maand</string>
+    <string name="tunnel_config_refetch_frequency_5">Nooit</string>
     <string name="tunnel_config_wifi_only_title">Alleen via Wi-Fi downloaden</string>
     <string name="tunnel_config_wifi_only_description">Activeer deze schakelaar als u wilt dat de app alleen lijsten downloadt wanneer uw apparaat is verbonden met WiFi. Anders kan de app ook lijsten downloaden wanneer uw apparaat is verbonden met een mobiel netwerk en uw gegevensabonnement gebruiken.</string>
     <string name="tunnel_config_watchdog_title">Monitor</string>
-    <string name="tunnel_config_watchdog_description">Activeer deze schakelaar als je wil dat de app enkel een VPN opzet bij internet verkeer, en om te herstarten indien er verbindingsproblemen zijn. Dit kan nuttig zijn voor sommige aparaten. Nota: in oudere versies gekend als \"Enkel Online\".</string>
+    <string name="tunnel_config_watchdog_description">Activeer deze schakelaar als je wilt dat de app de VPN alleen activeert als er een internetverbinding is en de tunnel opnieuw start als er verbindingsproblemen zijn. Dit kan voor sommige apparaten helpen.</string>
     <string name="tunnel_config_powersave_title">Agressief activeren</string>
     <string name="tunnel_config_powersave_description">Activeer deze schakelaar indien u problemen ondervindt door het accubesparings feature van uw aparaat. Als de app tunnel verbindingsproblemen dedecteert wordt er geprobeerd de prioriteit te verhogen om hem uit accubesparing te brengen.</string>
     <string name="tunnel_config_reports_title">Rapporten</string>

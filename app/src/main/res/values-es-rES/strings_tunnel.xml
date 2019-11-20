@@ -14,10 +14,11 @@
     <string name="tunnel_config_refetch_frequency_2">Dos veces a la semana</string>
     <string name="tunnel_config_refetch_frequency_3">Una vez a la semana</string>
     <string name="tunnel_config_refetch_frequency_4">Una vez al mes</string>
+    <string name="tunnel_config_refetch_frequency_5">Nunca</string>
     <string name="tunnel_config_wifi_only_title">Descargar solo por WiFi</string>
     <string name="tunnel_config_wifi_only_description">Activa este interruptor si quieres que la aplicación descargue las listas solo cuando tu dispositivo esté conectado a una WiFi. De lo contrario, la app también podrá descargar listas cuando tu dispositivo esté conectado a una red móvil usando tu plan de datos.</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
-    <string name="tunnel_config_watchdog_description">Activa este interruptor si quieres que la aplicación active la VPN solo si hay conexión con Internet, y reinicia el túnel en caso de que haya problemas de conexión. Esto puede ayudar en algunos dispositivos. Nota: en versiones anteriores esta opción se llamaba \"Solo conectado\".</string>
+    <string name="tunnel_config_watchdog_description">Activa si quieres que la aplicación active la VPN solo si hay conexión con Internet, y reinicia el túnel en caso de que haya problemas de conexión. Esto puede ayudar en algunos dispositivos. Nota: en versiones anteriores esta opción se llamaba \"Solo conectado.</string>
     <string name="tunnel_config_powersave_title">Inicio agresivo</string>
     <string name="tunnel_config_powersave_description">Activa este interruptor si tienes problemas causados con la función de ahorro de energía de tu dispositivo. Cuando la aplicación detecte problemas de conectividad en el túnel, intentará aumentar su prioridad para sacarlo del modo de ahorro de energía.</string>
     <string name="tunnel_config_reports_title">Informes</string>

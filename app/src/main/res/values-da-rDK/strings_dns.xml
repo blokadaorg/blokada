@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">Dette ligner ikke en IPv4 for mig.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP addresse</string>
-    <string name="dns_edit_ip1_enter">Indtast en DNS server addresse</string>
-    <string name="dns_edit_ip2_enter">Indtast en sekundær DNS server addresse</string>
     <string name="dns_edit_name_error">Ikke et gyldigt navn</string>
     <string name="dns_edit_name_label">Server navn</string>
     <string name="dns_edit_name_default">Standard navn</string>

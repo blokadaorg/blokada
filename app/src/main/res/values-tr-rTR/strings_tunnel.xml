@@ -17,7 +17,6 @@
     <string name="tunnel_config_wifi_only_title">Sadece kablosuz bağlantı ile indir</string>
     <string name="tunnel_config_wifi_only_description">Uygulamanın yalnızca cihazınız WiFi\'ye bağlı olduğunda listeleri indirmesini isterseniz, bu anahtarı etkinleştirin. Aksi takdirde, uygulama, cihazınız bir mobil ağa bağlı olduğunda ve veri planınızı kullanırken de listeleri indirebilir.</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
-    <string name="tunnel_config_watchdog_description">Uygulamanın VPN\'i yalnızca İnternet bağlantısı varsa etkinleştirmesini ve bağlantı sorunlarının olması durumunda tüneli yeniden başlatmasını isterseniz, bu anahtarı etkinleştirin. Bu bazı cihazlar için yardımcı olabilir. Not: Önceki sürümlerde bu seçenek \"Sadece Çevrimiçi\" olarak adlandırılmıştır.</string>
     <string name="tunnel_config_powersave_title">Agresif uyandırma</string>
     <string name="tunnel_config_powersave_description">Cihazınızın güç tasarrufu özelliğinden kaynaklanan sorunla karşılaşırsanız bu anahtarı etkinleştirin. Uygulama tünel bağlantı sorunlarını tespit ettiğinde, güç tasarrufu modundan çıkarmak için önceliğini yükseltmeye çalışacaktır.</string>
     <string name="tunnel_config_reports_title">Raporlar</string>

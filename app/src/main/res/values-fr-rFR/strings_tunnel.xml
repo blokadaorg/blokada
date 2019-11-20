@@ -14,10 +14,11 @@
     <string name="tunnel_config_refetch_frequency_2">Deux fois par semaine</string>
     <string name="tunnel_config_refetch_frequency_3">Une fois par semaine</string>
     <string name="tunnel_config_refetch_frequency_4">Une fois par mois</string>
+    <string name="tunnel_config_refetch_frequency_5">Jamais</string>
     <string name="tunnel_config_wifi_only_title">Télécharger en WiFi uniquement</string>
     <string name="tunnel_config_wifi_only_description">Activez cette option si vous souhaitez que l\'application télécharge des listes uniquement lorsque votre appareil est connecté au WiFi. Sinon, l\'application peut également télécharger des listes lorsque votre appareil est connecté à un réseau mobile et utiliser vos données mobiles.</string>
     <string name="tunnel_config_watchdog_title">Chien de garde</string>
-    <string name="tunnel_config_watchdog_description">Activez cette option si vous souhaitez que l\'application n\'active le VPN que s\'il y a une connexion Internet, et redémarre le tunnel en cas de problème de connexion. Cela peut être utile pour certains appareils. Remarque : dans les versions antérieures, cette option s\'appelait \"En ligne seulement\".</string>
+    <string name="tunnel_config_watchdog_description">Activez cette option si vous souhaitez que l\'application ne lance le VPN que s\'il y a une connexion Internet, et redémarre le tunnel en cas de problème de connexion. Cela peut être utile pour certains appareils.</string>
     <string name="tunnel_config_powersave_title">Réveil agressif</string>
     <string name="tunnel_config_powersave_description">Activez cette option si vous rencontrez des problèmes causés par la fonction d\'économie d\'énergie de votre appareil. Lorsque l\'application détectera des problèmes de connectivité, elle tentera d\'augmenter sa priorité pour sortir du mode économie d\'énergie.</string>
     <string name="tunnel_config_reports_title">Rapports</string>

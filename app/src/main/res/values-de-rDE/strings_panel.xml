@@ -142,7 +142,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">niedrig</string>
     <string name="subscription_success">Dein Konto wird aktiviert. Dies kann einen Augenblick dauern. Vielen Dank!</string>
-    <string name="slot_start_on_boot_description">Die Aktivierung des Autostarts ermöglicht Blokada, jederzeit aktiv zu sein und dein Gerät zu schützen.</string>
+    <string name="slot_start_on_boot_description">Aktivierter Autostart erlaubt Blokada, zu jeder Zeit aktiv zu sein und dein Gerät zu schützen. Bitte beachte, dass das System immer eine höhere Priorität hat und wir dies nicht ändern können, daher, sollte Blokada trotzdem nicht richtig starten, wirf bitte einen Blick in deine Systemeinstellungen.</string>
     <string name="slot_recommended_dns_label">Verwende die empfohlenen DNS-Server</string>
     <string name="slot_recommended_dns_description">Wenn aktiviert, wird Blokada automatisch die empfohlenen DNS-Server auswählen, um dein Internet zu beschleunigen und deine Privatsphäre zu schützen. Andernfalls werden die Standard-DNS-Server des Netzwerks verwendet. Wenn du manuell die DNS-Server im Erweiterten Abschnitt auswählst, wird diese Einstellung ignoriert.</string>
     <string name="slot_update_no_updates">Blokada ist aktuell</string>

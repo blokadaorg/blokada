@@ -13,7 +13,6 @@
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
     <!-- Displayed in menu to open the About/Update screen. -->
     <!-- A button that opens system preferences for this app. -->
-    <string name="update_button_appinfo">एप्लिकेशन विवरण</string>
     <!-- A button that opens the changelog. -->
     <!-- A toast message displayed when the update process is starting. -->
     <string name="update_starting">शुरू हो रहा है कृपया प्रतीक्षा करें&#8230;</string>

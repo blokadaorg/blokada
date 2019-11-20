@@ -142,7 +142,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">nízka</string>
     <string name="subscription_success">Prebieha aktivácia vášho účtu. Môže to trvať niekoľko sekúnd. Ďakujeme!</string>
-    <string name="slot_start_on_boot_description">Povolenie spustenia pri štarte dovolí Blokade byť vždy aktívnou a chrániť vaše zariadenie.</string>
     <string name="slot_recommended_dns_label">Použiť odporúčané DNS servery</string>
     <string name="slot_recommended_dns_description">Ak je zapnuté, Blokada automaticky vyberie odporúčané DNS servery, aby pomohla zrýchliť váš internet a chrániť vaše súkromie. Inak budú využívané predvolené DNS servery vašej siete. Ak si manuálne vyberiete DNS servery v sekcii Rozšírené, toto nastavenie bude ignorované.</string>
     <string name="slot_update_no_updates">Blokada je aktuálna</string>

@@ -142,7 +142,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">منخفِض</string>
     <string name="subscription_success">حسابك يتمّ تفعيله. و هذا قد يستغرق بضع ثوان. شكراً لكم !</string>
-    <string name="slot_start_on_boot_description">يُتيح تمكين البدء عند إقلاع النظام لبلوكادا أنّ يكون نَشِطاً في جميع الأوقات و حماية جهازك.</string>
     <string name="slot_recommended_dns_label">استخدم خوادم أسماء النطاقات المُستحسَنة</string>
     <string name="slot_recommended_dns_description">عند التمكين ، سيختار بلوكادا تلقائيّاً خَوادِم DNS الموصى بها للمساعدة في تسريع الإنترنت و حماية خصوصيّتك. على خلاف ذلك ، يَتمّ إستخدام خَوادِم DNS الإفتراضيّة لشبكتك. إذا اخترت خَوادِم DNS يدويّاً في الإعدادات المتقدِّمة ، فسيتمّ تجاهُل هذا الإعداد.</string>
     <string name="slot_update_no_updates">بلوكادا مُحَدَّث</string>

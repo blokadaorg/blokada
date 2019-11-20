@@ -93,14 +93,14 @@
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">Синхронизация</string>
     <string name="slot_action_refresh_toast">Синхронизация началась</string>
-    <string name="slot_action_restore">Прервать</string>
+    <string name="slot_action_restore">Удалить</string>
     <string name="slot_export_title">Расположение настроек</string>
     <string name="slot_export_description">Можно изменить место сохранения конфигурации. Если вы не импортируете существующие настройки, то они будут перезаписаны.</string>
     <string name="slot_action_import">Импорт</string>
     <string name="slot_action_internal">Внутреннее хранилище</string>
     <string name="slot_action_external">Внешнее хранилище</string>
     <string name="slot_filters_title">Список фильтров</string>
-    <string name="slot_filters_description">Вы можете синхронизировать список фильтров с нашими серверами без потери ваших записей. &lt;br/&gt;&lt;br/&gt;Кроме того, вы можете удалить все записи (включая вашу) и загрузить их снова.</string>
+    <string name="slot_filters_description">Вы можете синхронизировать список фильтров с нашими серверами без потери ваших записей. &lt;br/&gt;&lt;br/&gt;Кроме того, вы можете удалить все записи (включая ваши) и загрузить их снова.</string>
     <string name="slot_blocked_title">Домен заблокирован</string>
     <string name="slot_forwarded_title">Домен переадресован</string>
     <string name="slot_whitelist_title">Белый список приложений</string>
@@ -142,7 +142,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">низкая</string>
     <string name="subscription_success">Ваш аккаунт активируется. Это может занять несколько секунд. Спасибо!</string>
-    <string name="slot_start_on_boot_description">Включение функции запуска при загрузке позволяет Blokada быть активной в любое время и защищать ваше устройство.</string>
+    <string name="slot_start_on_boot_description">Включение запуска при загрузке позволяет Blokada быть активной в любое время и защищать ваше устройство. Обратите внимание, что система всегда имеет более высокий приоритет и может изменить эту опцию, поэтому, если Blokada не запускается, проверьте настройки вашей системы.</string>
     <string name="slot_recommended_dns_label">Использовать рекомендуемые DNS-серверы</string>
     <string name="slot_recommended_dns_description">Если эта функция включена, Blokada автоматически выберет рекомендуемые DNS-серверы, чтобы ускорить интернет и защитить вашу конфиденциальность. В противном случае используются DNS-серверы вашей сети по умолчанию. Если вы вручную выбираете DNS-серверы в разделе Дополнительно, эта настройка игнорируется.</string>
     <string name="slot_update_no_updates">Версия Blokada актуальна</string>

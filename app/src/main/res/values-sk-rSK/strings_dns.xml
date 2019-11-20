@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">Toto nevyzerá ako IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP adresa</string>
-    <string name="dns_edit_ip1_enter">Zadajte adresu DNS servera</string>
-    <string name="dns_edit_ip2_enter">Zadajte sekundárnu adresu DNS servera</string>
     <string name="dns_edit_name_error">Neplatný názov</string>
     <string name="dns_edit_name_label">Názov servera</string>
     <string name="dns_edit_name_default">Predvolený názov</string>

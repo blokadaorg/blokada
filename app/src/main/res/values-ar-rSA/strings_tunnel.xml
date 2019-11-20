@@ -18,8 +18,6 @@
     <string name="tunnel_config_wifi_only_description">قم بتفعيل هذا المفتاح إذا كنت ترغب بأن يقوم التطبيق بتحميل القوائم فقط في حالة الإتصال بشبكة WiFi.
 و إلّا قد يقوم التطبيق بتحميل القوائم أثناء الإتصال بإنترنت شبكة الخليوي.</string>
     <string name="tunnel_config_watchdog_title">رَصْد</string>
-    <string name="tunnel_config_watchdog_description">قم بتفعيل هذا المفتاح إذا كنت ترغب أن يقوم التطبيق بتفعيل ال VPN فقط في حالة الإتصال بالإنترنت. و إعادة تشغيله عند حدوث مشكلة إتصال بالإنترنت. قد يكون مُفيد لبعض الأجهزة.
-ملاحظة: هذه الميّزة في الإصدارات السابقة كان إسمها \"حالة الإتصال\".</string>
     <string name="tunnel_config_powersave_title">تشغيل إجباري</string>
     <string name="tunnel_config_powersave_description">قم بتفعيل هذا المفتاح إذا كنت تواجه مشاكل بسبب خاصِيّة توفير الطاقة للجهاز. عندما تواجه التطبيق مشاكل في التشغيل فإنّه سيحاول رفع أولويّة البقاء خارج خاصيّة توفير الطاقة للجهاز.</string>
     <string name="tunnel_config_reports_title">التقارير</string>

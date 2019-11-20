@@ -11,7 +11,6 @@
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
     <!-- Displayed in menu to open the About/Update screen. -->
     <!-- A button that opens system preferences for this app. -->
-    <string name="update_button_appinfo">செயலி விவரங்கள்</string>
     <!-- A button that opens the changelog. -->
     <!-- A toast message displayed when the update process is starting. -->
     <string name="update_starting">ஆரம்பிக்கிறது. காத்திருக்கவும்&#8230;</string>

@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">هذا لا يبدو أنّه IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">عنوان الـ IP</string>
-    <string name="dns_edit_ip1_enter">أدخِل عنوان خادِم الـ DNS</string>
-    <string name="dns_edit_ip2_enter">أدخِل عنوان خادِم الـ DNS الثاني</string>
     <string name="dns_edit_name_error">ليس اسماً صحيحاً</string>
     <string name="dns_edit_name_label">اسم الخادِم</string>
     <string name="dns_edit_name_default">الاسم الافتراضي</string>

@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">Ez nem tűnik IPv4-nek.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP-cím</string>
-    <string name="dns_edit_ip1_enter">Add meg a DNS-kiszolgáló címét</string>
-    <string name="dns_edit_ip2_enter">Add meg a másodlagos DNS-kiszolgáló címét</string>
     <string name="dns_edit_name_error">Nem érvényes név</string>
     <string name="dns_edit_name_label">Szerver neve</string>
     <string name="dns_edit_name_default">Alapértelmezett név</string>

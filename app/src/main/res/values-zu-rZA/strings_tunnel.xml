@@ -17,7 +17,6 @@
     <string name="tunnel_config_wifi_only_title">Landa uma kusebenza i-WiFi kuphela</string>
     <string name="tunnel_config_wifi_only_description">Yenza lokhu kusebenze uma ufisa uhlelo ukulanda izinhla kuphela uma idivayisi yakho ixhunyiwe kwi-WiFi. Uma kungenjalo, uhlelo lungalanda futhi izinhla lapho idivayisi yakho ixhumeke kwinethiwekhi yeselula bese isebenzisa idatha.</string>
     <string name="tunnel_config_watchdog_title">i-Watchdog</string>
-    <string name="tunnel_config_watchdog_description">Yenza lokhu kusebenze uma ufuna uhlelo ukuthi lusebenzise i-VPN kuphela uma kusebenza i-intanethi, bese uqala kabusha umhubhe uma kunenkinga yokuxhumana. Lokhu kungasiza kwamanye amadivayisi. Qaphela: kuzihumusho zangaphambili le nketho ibibizwa ngokuthi \"kwi-inthanethi kuphela\".</string>
     <string name="tunnel_config_powersave_title">Ukuvuswa ngolaka</string>
     <string name="tunnel_config_powersave_description">Yenza lokhu kusebenze uma ubhekana nezinkinga ezibangelwa isici sakho sokonga ugesi wedivayisi. Uma uhlelo lubona izinkinga zokuxhumeka, luzama ukuphakamisa okubaluleke kakhulu ukukhipha kwisimo sokonga ugesi wedivayisi.</string>
     <string name="tunnel_config_reports_title">Imibiko</string>

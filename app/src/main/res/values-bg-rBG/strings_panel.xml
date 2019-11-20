@@ -142,7 +142,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">ниска</string>
     <string name="subscription_success">Профилът ви е активиран. Това може да отнеме няколко секунди. Благодаря ти!</string>
-    <string name="slot_start_on_boot_description">Разрешаването на старт със системата позволява на Blokada да бъде активна по всяко време и да предпазва устройството ви.</string>
     <string name="slot_recommended_dns_label">Използвайте препоръчаните DNS сървъри</string>
     <string name="slot_recommended_dns_description">Когато е активирана, Blokada автоматично ще избере препоръчаните DNS сървъри за да спомогне за ускоряването на интернет и защитата на поверителността ви. В противен случай се използват стандартните DNS сървъри на вашата мрежа. Ако ръчно изберете DNS сървъри в раздела Разширени, тази настройка се игнорира.</string>
     <string name="slot_update_no_updates">Blokada е актуална</string>

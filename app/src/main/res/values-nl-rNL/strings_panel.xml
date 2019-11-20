@@ -142,7 +142,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">laag</string>
     <string name="subscription_success">Je account wordt geactiveerd. Dit kan een paar seconden duren. Bedankt!</string>
-    <string name="slot_start_on_boot_description">Het inschakelen van start bij opstarten laat Blokada altijd actief zijn en je apparaat beschermen.</string>
+    <string name="slot_start_on_boot_description">Door starten bij opstarten in te schakelen, kan Blokada te allen tijde actief zijn en je apparaat beschermen. Let op: het systeem heeft altijd een hogere prioriteit en kan deze optie overschrijven. Dus als Blokada niet opstart, kijk dan in de instellingen van je systeem.</string>
     <string name="slot_recommended_dns_label">Gebruik aanbevolen DNS-servers</string>
     <string name="slot_recommended_dns_description">Wanneer ingeschakeld, zal Blokada automatisch aanbevolen DNS-servers kiezen om je internet te versnellen en je privacy te beschermen. Anders worden standaard DNS-servers van je netwerk gebruikt. Als je handmatig DNS-servers kiest in de Geavanceerd sectie, wordt deze instelling genegeerd.</string>
     <string name="slot_update_no_updates">Blokada is up-to-date</string>

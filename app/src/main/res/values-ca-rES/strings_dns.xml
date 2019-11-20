@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">Això no sembla una IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">Adreça IP</string>
-    <string name="dns_edit_ip1_enter">Introduïu una adreça del servidor DNS</string>
-    <string name="dns_edit_ip2_enter">Introduïu una adreça secundària del servidor DNS</string>
     <string name="dns_edit_name_error">No és un nom vàlid</string>
     <string name="dns_edit_name_label">Nom del servidor</string>
     <string name="dns_edit_name_default">Nom per defecte</string>
