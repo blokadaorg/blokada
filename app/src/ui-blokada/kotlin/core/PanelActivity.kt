@@ -11,6 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import com.github.salomonbrys.kodein.instance
+import core.bits.REFRESH_HOME
 import gs.environment.ComponentProvider
 import gs.obsolete.Sync
 import gs.presentation.ViewBinderHolder
@@ -55,6 +56,11 @@ class PanelActivity : Activity() {
             v("check account after coming back to SubscriptionActivity")
             entrypoint.onAccountChanged()
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        emit(REFRESH_HOME)
     }
 
     override fun onBackPressed() {

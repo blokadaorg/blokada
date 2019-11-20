@@ -153,8 +153,8 @@ class HomeDashboardSectionVB(
         val cfg = Persistence.slots.load().get()
         val name = if (cfg == null) null else when {
             isLandscape(ktx.ctx) -> null
-            hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
+            hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
             Product.current(ktx.ctx) == Product.FULL && (BuildConfig.VERSION_CODE > cfg.donate)
                     && noSubscription -> OneTimeByte.DONATE
