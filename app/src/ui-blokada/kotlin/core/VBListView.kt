@@ -168,7 +168,7 @@ class VBListView(
 
             if (nextSelectItem in 0..(itemCount - 1)) {
                 if (items[nextSelectItem] is Navigable) {
-                    notifyItemChanged(selectedItem)
+                    if (selectedItem != -1) notifyItemChanged(selectedItem)
                     selectedItem = nextSelectItem
                     notifyItemChanged(selectedItem)
                     listView.scrollToPosition(selectedItem)

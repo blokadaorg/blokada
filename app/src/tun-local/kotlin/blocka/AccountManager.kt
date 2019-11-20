@@ -30,7 +30,7 @@ internal class AccountManager(
                     lastAccountRequest = System.currentTimeMillis()
                     if (!activeUntil.expired()) accountValid()
                 } catch (ex: Exception) {
-                    state = state.copy(accountOk = false)
+                    state = state.copy(accountOk = state.accountOk)
                     throw Exception("failed to get account request", ex)
                 }
             }

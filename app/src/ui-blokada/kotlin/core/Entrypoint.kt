@@ -105,7 +105,6 @@ class Entrypoint {
             if (on) {
                 blockaVpnMain.enable().await()
                 requestSync(blocka = true, force = true)
-                //blockaVpnMain.sync().await()
             }
             else if (shouldPause(blockaEnabled = on)) {
                 blockaVpnMain.disable().await()
