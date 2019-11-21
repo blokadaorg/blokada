@@ -1,12 +1,14 @@
 package tunnel
 
 import core.emit
+import core.get
 import core.w
 import org.pcap4j.packet.*
 import org.xbill.DNS.*
 import java.io.IOException
 import java.net.Inet4Address
 import java.net.Inet6Address
+import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
 import java.util.*
@@ -115,7 +117,17 @@ internal class BlockaTunnelFiltering(
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
-            dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
+            if(get(DnsAnswerState::class.java).hostNotFoundAnswer){
+                dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
+            }else{
+                dnsMessage.addRecord(
+                    ARecord(Name(dnsMessage.question.name.toString(false)),
+                    DClass.IN,
+                    60 * 3,
+                    InetAddress.getByAddress(byteArrayOf(127, 1, 1, 1))),
+                    Section.ANSWER
+                )
+            }
             toDeviceFakeDnsResponse(dnsMessage.toWire(), originEnvelope)
             emit(TunnelEvents.REQUEST, Request(host, blocked = true))
             true
