@@ -10,6 +10,7 @@ import android.widget.EditText
 import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.Register.set
 import core.Tunnel
 import core.bits.menu.MENU_CLICK_BY_NAME_SUBMENU
 import filter.hostnameRegex
@@ -1002,6 +1003,26 @@ class ResetCounterVB(private val ktx: AndroidKontext,
 
 }
 
+class DnsAnswerTypeVB(
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                icon = ktx.ctx.getDrawable(R.drawable.ic_feedback),
+                label = i18n.getString(R.string.slot_dns_answer_label),
+                description = i18n.getString(R.string.slot_dns_answer_description),
+                switched = !get(DnsAnswerState::class.java).hostNotFoundAnswer
+        )
+        view.onSwitch = { set(DnsAnswerState::class.java, DnsAnswerState(!it)) }
+    }
+
+}
+
 class DnsListControlVB(
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,
@@ -1301,4 +1322,6 @@ class CleanupVB(
         }
     }
 }
+
+
 
