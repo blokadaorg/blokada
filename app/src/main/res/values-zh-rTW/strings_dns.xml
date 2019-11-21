@@ -6,6 +6,8 @@
     <string name="slot_enter_dns_error">這看起來不像 IPv4。</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP 位置</string>
+    <string name="dns_edit_ip1_enter">輸入主要位置</string>
+    <string name="dns_edit_ip2_enter">輸入次要位置</string>
     <string name="dns_edit_name_error">不是有效的名稱</string>
     <string name="dns_edit_name_label">伺服器名稱</string>
     <string name="dns_edit_name_default">預設名稱</string>

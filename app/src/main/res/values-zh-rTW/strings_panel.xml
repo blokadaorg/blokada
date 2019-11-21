@@ -142,6 +142,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">低</string>
     <string name="subscription_success">正在啟用您的帳號。這可能需要幾秒鐘的時間。謝謝您！</string>
+    <string name="slot_start_on_boot_description">啟用「開機時啟動」讓 Blokada 可以一直保持啟用並保護您的裝置。請注意，系統會有較高的優先權，並可能會覆寫此選項，因此，如果 Blokada 無法啟動，請檢查您的系統設定。</string>
     <string name="slot_recommended_dns_label">使用建議的 DNS 伺服器</string>
     <string name="slot_recommended_dns_description">當啟用時，Blokada 將會自動選擇建議的 DNS 伺服器以協助提升您的網路速度並保護您的隱私。否則將會使用您網路的預設 DNS 伺服器。如果您在進階設定區塊中手動選擇了 DNS 伺服器，這個設定就會被忽略。</string>
     <string name="slot_update_no_updates">Blokada 已為最新版本</string>

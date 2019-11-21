@@ -14,10 +14,12 @@
     <string name="tunnel_config_refetch_frequency_2">مَرّتين في الأسبوع</string>
     <string name="tunnel_config_refetch_frequency_3">مَرّة في الأسبوع</string>
     <string name="tunnel_config_refetch_frequency_4">مَرّة في الشهر</string>
+    <string name="tunnel_config_refetch_frequency_5">أبداً</string>
     <string name="tunnel_config_wifi_only_title">تحميل عبر Wi-Fi فقط</string>
     <string name="tunnel_config_wifi_only_description">قم بتفعيل هذا المفتاح إذا كنت ترغب بأن يقوم التطبيق بتحميل القوائم فقط في حالة الإتصال بشبكة WiFi.
 و إلّا قد يقوم التطبيق بتحميل القوائم أثناء الإتصال بإنترنت شبكة الخليوي.</string>
     <string name="tunnel_config_watchdog_title">رَصْد</string>
+    <string name="tunnel_config_watchdog_description">قم بتفعيل هذا المفتاح إذا كنت ترغب أن يقوم التطبيق بتفعيل الـ VPN فقط في حالة الإتصال بالإنترنت. و إعادة تشغيله عند حدوث مشكلة إتصال بالإنترنت. قد يكون ذلك مُفيد لبعض الأجهزة.</string>
     <string name="tunnel_config_powersave_title">تشغيل إجباري</string>
     <string name="tunnel_config_powersave_description">قم بتفعيل هذا المفتاح إذا كنت تواجه مشاكل بسبب خاصِيّة توفير الطاقة للجهاز. عندما تواجه التطبيق مشاكل في التشغيل فإنّه سيحاول رفع أولويّة البقاء خارج خاصيّة توفير الطاقة للجهاز.</string>
     <string name="tunnel_config_reports_title">التقارير</string>

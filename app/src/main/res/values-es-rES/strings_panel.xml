@@ -144,6 +144,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">bajo</string>
     <string name="subscription_success">Tu cuenta está siendo activada. Esto puede tardar unos segundos. ¡Gracias!</string>
+    <string name="slot_start_on_boot_description">Habilitar el inicio en el arranque permite que Blokada esté activo en todo momento y proteja tu dispositivo. Ten en cuenta que el sistema siempre tiene mayor prioridad y puede sobrescribir esta opción, por lo tanto, si Blokada no inicia, echa un vistazo a la configuración de tu dispositivo.</string>
     <string name="slot_recommended_dns_label">Usar servidores DNS recomendados</string>
     <string name="slot_recommended_dns_description">Cuando está activado, Blokada elegirá automáticamente servidores DNS recomendados para ayudar a acelerar tu Internet y proteger tu privacidad. De lo contrario, se utilizan los servidores DNS por defecto de tu red. Si eliges manualmente servidores DNS en la sección Avanzada, esta configuración se ignorará.</string>
     <string name="slot_update_no_updates">Blokada está actualizado</string>
