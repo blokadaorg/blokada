@@ -315,6 +315,7 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             setTunnelPersistenceSource()
+            setSmartListPersistenceSource()
             Register.sourceFor(BlockaVpnState::class.java, default = BlockaVpnState(false),
                     source = PaperSource("blockaVpnState"))
 
