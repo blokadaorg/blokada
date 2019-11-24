@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.github.michaelbull.result.mapBoth
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -78,6 +79,10 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
         val config = get(TunnelConfig::class.java)
         when(config.smartList) {
             SmartListState.ACTIVE_PHASE1 -> {
+                if (intent.getBooleanExtra("cleanup", false)){
+                    showSnack(R.string.tunnel_config_smartlist_clean_none)
+                    return
+                }
                 val data = Scanner(FileInputStream(smartlistLogfile))
                 val newHosts = HashSet<String>()
                 while (data.hasNextLine()) {
@@ -97,7 +102,6 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
 
             }
             SmartListState.ACTIVE_PHASE2 -> {
-                val data = Scanner(FileInputStream(smartlistLogfile))
                 val filterManager = FilterManager(
                         blockade = blockade,
                         doResolveFilterSource = {
@@ -141,39 +145,81 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
                 val url = config.filtersUrl
                 if (url != null) filterManager.setUrl(url)
                 async(asyncContext) {
-                    val newHosts = HashSet<String>()
-                    val loggedHosts = HashSet<String>()
-                    while (data.hasNextLine()) {
-                        loggedHosts.add(data.nextLine())
-                    }
-
                     val whitelists = store.cache.filter { it.active && it.whitelist }
-                    store.cache.filter { it.active && !it.whitelist }.forEach {
-                        v(it.id)
-                        val activeFilters = whitelists.toMutableSet()
-                        activeFilters.add(it)
-                        activeFilters.add(smartlistFilter.copy(whitelist = true)) // keep existing entries from being added again.
-                        if (filterManager.sync(activeFilters)) {
-                            loggedHosts.forEach { host ->
-                                if (filterManager.blockade.denied(host) && (!filterManager.blockade.allowed(host))) {
-                                    newHosts.add(host)
+                    if(intent.getBooleanExtra("cleanup", false)) {
+                        val currentList = Scanner(FileInputStream(smartlistListfile))
+                        val currentHosts = HashSet<String>()
+                        val cleanedHosts = HashSet<String>()
+                        while (currentList.hasNextLine()) {
+                            currentHosts.add(currentList.nextLine())
+                        }
+                        currentList.close()
+                        if (filterManager.sync(whitelists.toSet())) {
+                            currentHosts.forEach { host ->
+                                if (filterManager.blockade.allowed(host)) {
+                                    currentHosts.remove(host)
                                 }
                             }
                         }
-                    }
 
-                    val smartlistFile = FileOutputStream(smartlistListfile, true).writer()
-                    newHosts.forEach { host ->
-                        v(host)
-                        smartlistFile.write(host + '\n')
+                        store.cache.filter { it.active && !it.whitelist }.forEach {
+                            if (filterManager.sync(setOf(it))) {
+                                currentHosts.forEach { host ->
+                                    if (filterManager.blockade.denied(host)) {
+                                        cleanedHosts.add(host)
+                                    }
+                                }
+                            }
+                        }
+
+
+                        val smartlistFile = FileOutputStream(smartlistListfile, false).writer()
+                        cleanedHosts.forEach { host ->
+                            v(host)
+                            smartlistFile.write(host + '\n')
+                        }
+                        smartlistFile.close()
+                        showSnack(R.string.tunnel_config_smartlist_clean_done)
+                    }else{
+                        val data = Scanner(FileInputStream(smartlistLogfile))
+                        val newHosts = HashSet<String>()
+                        val loggedHosts = HashSet<String>()
+                        while (data.hasNextLine()) {
+                            loggedHosts.add(data.nextLine())
+                        }
+                        data.close()
+
+                        store.cache.filter { it.active && !it.whitelist }.forEach {
+                            val activeFilters = whitelists.toMutableSet()
+                            activeFilters.add(it)
+                            activeFilters.add(smartlistFilter.copy(whitelist = true)) // keep existing entries from being added again.
+                            if (filterManager.sync(activeFilters)) {
+                                loggedHosts.forEach { host ->
+                                    if (filterManager.blockade.denied(host) && (!filterManager.blockade.allowed(host))) {
+                                        newHosts.add(host)
+                                    }
+                                }
+                            }
+                        }
+
+                        val smartlistFile = FileOutputStream(smartlistListfile, true).writer()
+                        newHosts.forEach { host ->
+                            v(host)
+                            smartlistFile.write(host + '\n')
+                        }
+                        smartlistFile.close()
+                        SmartListLogger.clear()
                     }
-                    smartlistFile.close()
-                    data.close()
-                    SmartListLogger.clear()
                     entrypoint.onFiltersChanged()
                 }
             }
-            else -> v("Smartlist alarm active while Smartlist is deactivated!")
+            else -> {
+                if (intent.getBooleanExtra("cleanup", false)) {
+                    showSnack(R.string.tunnel_config_smartlist_clean_inactive)
+                    return
+                }
+                w("Smartlist alarm active while Smartlist is deactivated!")
+            }
         }
 
     }
@@ -256,6 +302,11 @@ class SmartListVB(
                         showSnack(R.string.tunnel_config_smartlist_reset_done)
                         entrypoint.onChangeTunnelConfig(new)
                     }
+                },
+                action3 = Slot.Action(i18n.getString(R.string.tunnel_config_smartlist_clean_btn)) {
+                    val intent = Intent(ctx, OnGenerateSmartListReceiver::class.java)
+                    intent.putExtra("cleanup", true)
+                    ctx.sendBroadcast(intent)
                 }
         )
         view.onSwitch = {

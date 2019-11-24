@@ -29,7 +29,11 @@
     <string name="tunnel_config_fallback_description">Activate this switch if you are losing Internet access in some situations, like your WiFi. This will make the app temporarily switch to Cloudflare DNS to sustain your connectivity. You may need to re-select your servers in the DNS section for this setting to take effect.</string>
 
     <string name="tunnel_config_smartlist_title">[BETA] Smart List</string>
-    <string name="tunnel_config_smartlist_reset_btn">Reset list</string>
+    <string name="tunnel_config_smartlist_reset_btn">Reset</string>
+    <string name="tunnel_config_smartlist_clean_btn">Clean</string>
+    <string name="tunnel_config_smartlist_clean_none">Nothing to clean</string>
+    <string name="tunnel_config_smartlist_clean_inactive">Smart List inactive</string>
+    <string name="tunnel_config_smartlist_clean_done">Smart List got cleaned of old rules</string>
     <string name="tunnel_config_smartlist_reset_done">Smart List got reset</string>
     <string name="tunnel_config_smartlist_description">Activate this switch to enable Smart List feature, which dramatically decreases the number of rules in your filters, potentially improving battery life and lowering RAM usage. When enabled, Blokada will look at your request log, and dynamically generate a list that only contains rules that actually blocked at least one request. The Smart List is updated daily at night. Please note that you may experience a higher number of unwanted requests being allowed during the learning period (a few days). Please note that this is an experimental feature, and may not work properly.</string>
 
