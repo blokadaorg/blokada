@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.github.michaelbull.result.mapBoth
 import com.github.salomonbrys.kodein.instance
 import core.*
 import filter.DefaultSourceProvider
@@ -25,6 +26,7 @@ private val asyncContext = newSingleThreadContext("smartlist-main") + logCorouti
 const val SMARTLIST_REQUEST_CODE = 1105321546 // random 32 bit value
 val smartlistLogfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.log")
 val smartlistListfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.hosts")
+val smartlistFilter = Filter("smart", FilterSourceDescriptor("file", smartlistListfile.absolutePath))
 
 /*
        DEACTIVATED
@@ -69,6 +71,7 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
     }
     private val device by lazy { di.instance<Device>() }
     private val onWifi = device.onWifi()
+    private var store = FilterStore(lastFetch = 0)
 
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -124,18 +127,41 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
                         }
                 )
                 filterManager.load()
+                val ctx = getActiveContext()!!
+                Persistence.filters.load(ctx.ktx("persistence")).mapBoth(
+                success = {
+                    v("loaded FilterStore from persistence", it.url, it.cache.size)
+                    emit(TunnelEvents.FILTERS_CHANGED, it.cache)
+                    store = it
+                },
+                failure = {
+                    e("failed loading FilterStore from persistence", it)
+                })
+
                 val url = config.filtersUrl
                 if (url != null) filterManager.setUrl(url)
                 async(asyncContext) {
                     val newHosts = HashSet<String>()
-                    if (filterManager.sync(true)) {
-                        while (data.hasNextLine()) {
-                            val host = data.nextLine()
-                            if (filterManager.blockade.denied(host) && (!filterManager.blockade.allowed(host))) {
-                                newHosts.add(host)
+                    val loggedHosts = HashSet<String>()
+                    while (data.hasNextLine()) {
+                        loggedHosts.add(data.nextLine())
+                    }
+
+                    val whitelists = store.cache.filter { it.active && it.whitelist }
+                    store.cache.filter { it.active && !it.whitelist }.forEach {
+                        v(it.id)
+                        val activeFilters = whitelists.toMutableSet()
+                        activeFilters.add(it)
+                        activeFilters.add(smartlistFilter.copy(whitelist = true)) // keep existing entries from being added again.
+                        if (filterManager.sync(activeFilters)) {
+                            loggedHosts.forEach { host ->
+                                if (filterManager.blockade.denied(host) && (!filterManager.blockade.allowed(host))) {
+                                    newHosts.add(host)
+                                }
                             }
                         }
                     }
+
                     val smartlistFile = FileOutputStream(smartlistListfile, true).writer()
                     newHosts.forEach { host ->
                         v(host)
