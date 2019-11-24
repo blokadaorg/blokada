@@ -169,11 +169,12 @@ internal class FilterManager(
 
     private fun syncRules(activeFilters: Set<Filter>?) = {
         val tunnelConfig = get(TunnelConfig::class.java)
+        val smartConfig = get(SmartListConfig::class.java)
         val active = if(activeFilters != null){
             activeFilters
         }else{
             val cache = store.cache.filter { it.active }.toMutableList()
-            if(tunnelConfig.smartList == SmartListState.ACTIVE_PHASE2){
+            if(smartConfig.state == SmartListState.ACTIVE_PHASE2){
                 cache.add(smartlistFilter)
             }
             cache.toSet()
@@ -200,7 +201,7 @@ internal class FilterManager(
         store = store.copy(cache = store.cache - downloaded + downloaded)
         val allowed = active.filter { it.whitelist }.map { it.id }
 
-        val denied = if(tunnelConfig.smartList != SmartListState.ACTIVE_PHASE2 || activeFilters != null ) {
+        val denied = if(smartConfig.state != SmartListState.ACTIVE_PHASE2 || activeFilters != null ) {
             active.filter { !it.whitelist }.map { it.id }
         }else{
             listOf(smartlistFilter.id)

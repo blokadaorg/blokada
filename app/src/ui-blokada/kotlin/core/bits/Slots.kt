@@ -360,7 +360,8 @@ class WildcardVB(
         )
         view.onSwitch = { switched ->
             val cfg = get(TunnelConfig::class.java)
-            if (switched && cfg.smartList != SmartListState.DEACTIVATED) {
+            val smartConfig = get(SmartListConfig::class.java)
+            if (switched && smartConfig.state != SmartListState.DEACTIVATED) {
                 view.content = view.content!!.copy(switched = false)
                 showSnack(R.string.tunnel_config_disable_smartlist)
             } else {
