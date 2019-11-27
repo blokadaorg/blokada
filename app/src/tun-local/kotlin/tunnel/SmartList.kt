@@ -348,12 +348,11 @@ fun setSmartlistAlarmActive(ctx: Context, active: Boolean){
         PendingIntent.getBroadcast(ctx, SMARTLIST_REQUEST_CODE, intent, 0)
     }
     if(active) {
-        val calendar = Calendar.getInstance()/*
+        val calendar = Calendar.getInstance()
         calendar.add(Calendar.HOUR, 20)
         calendar.set(Calendar.HOUR, 4)
         calendar.set(Calendar.AM_PM, Calendar.AM)
-        calendar.set(Calendar.MINUTE, 0)*/
-        calendar.add(Calendar.SECOND, 20)
+        calendar.set(Calendar.MINUTE, 0)
 
         alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis,24 * 60 * 60 * 1000, intent)
     }else{
