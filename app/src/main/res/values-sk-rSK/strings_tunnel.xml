@@ -14,9 +14,11 @@
     <string name="tunnel_config_refetch_frequency_2">Dvakrát do týždňa</string>
     <string name="tunnel_config_refetch_frequency_3">Raz týždenne</string>
     <string name="tunnel_config_refetch_frequency_4">Raz za mesiac</string>
+    <string name="tunnel_config_refetch_frequency_5">Nikdy</string>
     <string name="tunnel_config_wifi_only_title">Preberať iba cez Wi-Fi</string>
     <string name="tunnel_config_wifi_only_description">Aktivujte tento prepínač, ak chcete aby aplikácia stiahla zoznamy iba v prípade, že zariadenie je pripojené k Wi-Fi. Inak môže aplikácia prevziať zoznamy aj vtedy, keď je zariadenie pripojené do mobilnej siete a využívať váš dátový balík.</string>
     <string name="tunnel_config_watchdog_title">Strážny pes</string>
+    <string name="tunnel_config_watchdog_description">Aktivujte tento prepínač, ak chcete, aby aplikácia aktivovala VPN, iba ak existuje pripojenie na Internet a reštartovala tunel v prípade, že nastanú problémy s pripojením. Môže to pomôcť niektorým zariadeniam.</string>
     <string name="tunnel_config_powersave_title">Agresívne prebudenie</string>
     <string name="tunnel_config_powersave_description">Aktivujte tento prepínač, ak sa vyskytnú problémy spôsobené úspornou funkciou vášho zariadenia. Keď aplikácia zistí problémy s pripojením do tunela, pokúsi sa zvýšiť svoju prioritu v úspornom režime.</string>
     <string name="tunnel_config_reports_title">Záznamy</string>

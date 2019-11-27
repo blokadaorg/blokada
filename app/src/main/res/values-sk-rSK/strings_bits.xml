@@ -80,9 +80,11 @@
     <string name="menu_dns_recommended">Odporúčané DNS servery</string>
     <string name="menu_dns_intro">DNS je zodpovedné za preklad IP adries webstránok a aplikácií, ktoré používate. Výber dobrého DNS môže zrýchliť vaše zariadenie a pomôže ochrániť vaše súkromie.</string>
     <string name="menu_dns_select">Vyberte jeden z DNS serverov.</string>
+    <string name="menu_apps_intro">Niektoré aplikácie nemusia s Blokadou správne fungovať. Môžu mať napríklad problémy s pripojením.\n\nV takýchto prípadoch často pomáha aktivácia VPN.\n\nPrípadne môžete tieto aplikácie úplne vynechať. Nezabudnite, že vynechané aplikácie komunikujú mimo Blokada Tunnel.</string>
     <string name="menu_apps_system_label">Systémové aplikácie sú tie, ktoré sú predinštalované na vašom zariadení. Niektoré z nich sú skryté. Upravujte ich iba v prípade, že viete, čo robíte.</string>
     <string name="menu_host_list_intro">Zoznamy hostov obsahujú pravidlá pre blokovanie reklám a trackerov. Snažte sa udržať počet aktívnych zoznamov nízky.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
+    <string name="menu_host_adblocking_settings">Možnosti blokovania reklám</string>
     <string name="menu_host_list_status">Stav zoznamu</string>
     <string name="menu_host_list_download">Nastavenia sťahovania zoznamu</string>
     <string name="menu_host_whitelist">Hosty, ktoré sem pridáte, nebudú nikdy blokované. Tento zoznam použite napríklad v prípade, keď je stránka, ktorú chcete navštíviť, zablokovaná.</string>

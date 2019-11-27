@@ -21,9 +21,16 @@
     <string name="panel_section_app_settings">செயலி அமைப்புகள்</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">அனுமதிக்கப்பட்டவை &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_forwarded_desc">இந்த Domain அனுமதிக்கப்பட்டது. இதை முடக்க கீழே உள்ள Button-ஐ தட்டவும்.</string>
+    <string name="panel_domain_forwarded_toast">அனுமதிக்கப்பட்டது.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">முடக்கப்பட்டது&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_desc">இந்த Domain முடக்கப்பட்டது. இதை அனுமதிக்க கீழே உள்ள Button-ஐ தட்டவும்.</string>
+    <string name="panel_domain_blocked_toast">முடக்கப்பட்டது.</string>
+    <string name="panel_ruleset">Filters counter</string>
     <!-- How many rules are configured. Parameters is number of rules. -->
+    <string name="panel_ruleset_title">Filterகளுக்கு %s விதிகள் உள்ளன.</string>
+    <string name="panel_ruleset_updating">Updating filters...</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">அனுமதி</string>
     <!-- Button to block allowed domain -->
@@ -36,22 +43,60 @@
     <!-- A state for switches (like notifications: off) -->
     <string name="slot_switch_off">இல்லை</string>
     <!-- An action to toggle a switch -->
+    <string name="slot_intro_new">புதிய UI எப்படி உள்ளது? அறிமுகத்துக்கு இங்கே தட்டவும்.</string>
+    <string name="slot_intro_new_header">புதிய UI எப்படி உள்ளது?</string>
+    <string name="slot_new_filter">புதிய Hostஐ முடக்குதல் பட்டியலுக்குள் சேர்</string>
+    <string name="slot_new_filter_list">புதிய Host பட்டியலை சேர்</string>
+    <string name="slot_new_filter_whitelist">புதிய Hostஐ அனுமதி பட்டியலுக்குள் சேர்</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
+    <string name="slot_unset">நீக்கு</string>
     <!-- A state of input form when correct input is entered  -->
+    <string name="slot_set">வை</string>
     <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_invalid">அர்த்தமற்றது</string>
     <string name="slot_continue">அடுத்து</string>
+    <string name="slot_enter_domain_title">Domain(s)</string>
+    <string name="slot_enter_domain_error">இது எதுபோன்றும் தெரியவில்லை.</string>
     <string name="slot_enter_domain_file">கோப்பு</string>
     <string name="slot_enter_domain_no_file">/Download/blokada/filters எந்த கோப்புகளும் காணவில்லை</string>
     <string name="slot_enter_file_titel">கோப்பின்பெயர்</string>
     <string name="slot_enter_file_import">இறக்கு</string>
     <string name="slot_enter_file_desc">பாதி கோப்புபெயரை உள்ளிடு</string>
+    <string name="slot_enter_file_not_found">உங்கள் உள்ளீடுக்கு ஏற்ப கோப்புகள் இல்லை</string>
+    <string name="slot_enter_file_multi">உங்கள் உள்ளீடுக்கு ஏற்ப பல கோப்புகள் உள்ளன</string>
+    <string name="slot_enter_name_title">பெயர்</string>
+    <string name="slot_enter_name_desc">புதிய பெயரை உள்ளீடுக.</string>
+    <string name="slot_enter_name_error">இது எதுபோன்றும் தெரியவில்லை.</string>
+    <string name="slot_enter_name_generate">உருவாக்கு</string>
+    <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; அனுமதிக்கப்பட்டது</string>
+    <string name="slot_app_desc">இந்த செயலி அனுமதிக்கப்பட்டது.</string>
+    <string name="slot_allapp_whitelisted">அனுமதிக்கப்பட்டது</string>
+    <string name="slot_allapp_normal">அனுமதிக்கப்படவில்லை</string>
+    <string name="slot_allapp_whitelist">அனுமதி</string>
+    <string name="slot_dns_name">DNS இயங்குகிறது</string>
+    <string name="slot_dns_name_private">Private DNS இயங்குகிறது</string>
+    <string name="slot_dns_name_disabled">DNS இயங்கவில்லை</string>
+    <string name="slot_action_none">இந்த செயல்பாடு இன்னும் இல்லை.</string>
+    <string name="slot_action_unwhitelist">ரத்து செய்</string>
+    <string name="slot_action_author">எங்களைப் பற்றி</string>
     <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">உள்ளிடு</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">%s க்கான உள்ளீடு</string>
+    <string name="slot_dns_control_title">DNS Servers பட்டியல்</string>
     <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_refresh">Sync</string>
+    <string name="slot_action_refresh_toast">Sync துவங்கியது</string>
+    <string name="slot_action_restore">இறக்கு</string>
+    <string name="slot_export_title">அமைப்புகள் இடம்</string>
+    <string name="slot_action_import">இறக்கு</string>
+    <string name="slot_action_internal">உள் சேமிப்பு</string>
     <string name="slot_action_external">வெளி சேமிப்பு</string>
     <string name="slot_filters_title">வடிகட்டி பட்டியல்கள்</string>
     <string name="slot_blocked_title">தளம் முடக்கப்பட்டது</string>
     <string name="slot_forwarded_title">தளம் மாற்றிவிடப்பட்டது</string>
+    <string name="slot_whitelist_title">அனுமதிக்கப்பட்ட செயலி</string>
+    <string name="slot_list_no_desc">இந்த உள்ளீடுக்கு விவரங்கள் இல்லை.</string>
     <string name="slot_action_deactivate">நிறுத்து</string>
     <string name="slot_action_activate">தொடங்கு</string>
     <string name="slot_update_action_refresh">மீண்டும் சரிபார்</string>
@@ -59,30 +104,71 @@
     <string name="slot_telegram_desc">எங்களுடன் இணைந்து பங்களிக்க எங்கள் Telegram சேனலில் வந்து பார்க்கவும்.</string>
     <string name="slot_telegram_action">திற</string>
     <string name="slot_dropped_share_title">பகிர்</string>
+    <string name="slot_adblocking_label">விளம்பரங்களை முடக்கு</string>
+    <string name="slot_account_label_active">%sலிருந்து செயல்படுகிறது</string>
     <string name="slot_account_label_inactive">கணக்கு செயல்பாட்டிலில்லை</string>
     <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">சந்தாக்களை நிர்வகிக்க</string>
     <string name="slot_account_action_manage_inactive">கணக்கைச் செயல்படுத்தவும்</string>
+    <string name="slot_account_action_change_id">Restore account</string>
     <string name="slot_account_show">கணக்கு எண்</string>
+    <string name="slot_account_action_copied">Account ID copied to the clipboard</string>
+    <string name="slot_account_action_unavailable">[not set]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">%s உடன் இணையவும்</string>
+    <string name="slot_gateway_section_overloaded">Those gateways are overloaded and temporarily unavailable.</string>
+    <string name="slot_gateway_description">Performance: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Region: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_overloaded">This gateway is busy and does not accept new connections.</string>
+    <string name="slot_gateway_learn_more">Gateway பற்றி மேலும் அறிக</string>
+    <string name="slot_gateway_info_partner">Partner Gateways என்றால் என்ன?</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Control which of your devices connect to the Blokada Tunnel.</string>
     <string name="slot_lease_name_current">%s (இந்தச் சாதனம்)</string>
+    <string name="slot_lease_description">சாதன எண்: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your current device.</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_low">அதிகம்</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">குறைவு</string>
+    <string name="subscription_success">உங்கள் கணக்கு துவக்கப்படுகிறது. இது சில நேரங்கள் எடுக்கும். நன்றி!</string>
+    <string name="slot_recommended_dns_label">பரிந்துரைக்கப்பட்ட DNS Serverகளை பயன்படுத்து</string>
+    <string name="slot_update_no_updates">Blokada is up to date</string>
+    <string name="slot_about">Blokadaவைப் பற்றி</string>
     <!-- A button to share debug log. Keep it short. -->
+    <string name="slot_about_share_log">பதிவு</string>
+    <string name="slot_help_label">உதவி தேவையா?</string>
     <!-- A button to open help -->
+    <string name="slot_help_action">உதவி</string>
+    <string name="slot_donate_label">நன்றாக உள்ளதா? நாங்கள் மேலும் தொடர எங்களுக்கு ஆதரவு அளியுங்கள்.</string>
+    <string name="slot_donate_desc">எங்களுக்கு புதிய பயன்பாடுகளைக் கண்டுபுடிக்க உதவுங்கள். இங்கே தொடவும்.</string>
     <!-- A button to donate -->
+    <string name="slot_donate_action">நன்கொடை அளி</string>
+    <string name="slot_cta_label">உங்கள் கருத்தினை நாங்கள் கேட்க ஆசைப்படுகிறோம்.</string>
     <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">திற</string>
+    <string name="slot_blog_label">எங்கள் பதிவுகளைப் படிக்கவும்!</string>
     <!-- A button to open a blog -->
+    <string name="slot_blog_action">திற</string>
+    <string name="slot_updated_desc">மேலும் அறிமுகங்களுக்கு இங்கு தொடவும்.</string>
     <!-- A button to open a description website of current app version after update. -->
     <!-- A button to update the app. -->
+    <string name="account_inactive">மேலும் தொடர உங்கள் கணக்கை துவக்குங்கள்.</string>
+    <string name="slot_lease_cant_connect">Blokada Tunnelஉடன் இணைய முடியவில்லை.</string>
+    <string name="slot_account_cant_create">உங்கள் Blokada Tunnel கணக்கை உருவாக்க முடியவில்லை.</string>
+    <string name="slot_account_name_title">கணக்கு எண்</string>
+    <string name="slot_account_name_error">கணக்கு எண்ணில் எண்கள் மற்றும் எழுத்துக்கள் மட்டுமே உள்ளிட வேண்டும்.</string>
     <string name="slot_account_name_api_error">இந்த கணக்கு எண் சரியாக இருக்கவில்லை.</string>
+    <string name="slot_account_name_restore">Restore</string>
     <!-- A section in advanced settings. -->
     <string name="label_basic">முதன்மை அமைப்புகள்</string>
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <string name="label_advanced">மேம்பட்ட அமைப்புகள்</string>
+    <string name="slot_whitelist_updating">அமைப்புகளை மேம்படுத்துகிறது. காத்திருக்கவும்...</string>
+    <string name="slot_too_many_leases">உங்கள் பழைய சாதனங்களை நீக்கவும்.</string>
+    <string name="slot_background_animation">Background animation</string>
+    <string name="slot_reset_counter_label">Reset blocked host counter</string>
+    <string name="slot_reset_counter_description">Sets the counter showing how many requests where blocked back to 0.</string>
+    <string name="slot_reset_counter_action">Reset</string>
 </resources>
