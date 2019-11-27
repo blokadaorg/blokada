@@ -70,17 +70,7 @@ internal class DnsProxy(
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
-            if(get(DnsAnswerState::class.java).hostNotFoundAnswer){
-                dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
-                }else{
-                dnsMessage.addRecord(
-                    ARecord(Name(dnsMessage.question.name.toString(false)),
-                    DClass.IN,
-                    60 * 3,
-                    InetAddress.getByAddress(byteArrayOf(127, 1, 1, 1))),
-                    Section.ANSWER
-                )
-            }
+            generateDnsAnswer(dnsMessage, denyResponse)
             toDevice(dnsMessage.toWire(), -1, originEnvelope)
             emit(TunnelEvents.REQUEST, Request(host, blocked = true))
         }
