@@ -84,10 +84,6 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
         val smartConfig = get(SmartListConfig::class.java)
         when(smartConfig.state) {
             SmartListState.ACTIVE_PHASE1 -> {
-                if (intent.getBooleanExtra("cleanup", false)){
-                    showSnack(R.string.tunnel_config_smartlist_clean_none)
-                    return
-                }
                 val data = Scanner(FileInputStream(smartlistLogfile))
                 val newHosts = HashSet<String>()
                 while (data.hasNextLine()) {
@@ -219,10 +215,7 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
                 }
             }
             else -> {
-                if (intent.getBooleanExtra("cleanup", false)) {
-                    showSnack(R.string.tunnel_config_smartlist_clean_inactive)
-                    return
-                }
+                showSnack(R.string.tunnel_config_smartlist_clean_inactive)
                 w("Smartlist alarm active while Smartlist is deactivated!")
             }
         }
@@ -309,9 +302,13 @@ class SmartListVB(
                     }
                 },
                 action3 = Slot.Action(i18n.getString(R.string.tunnel_config_smartlist_clean_btn)) {
-                    val intent = Intent(ctx, OnGenerateSmartListReceiver::class.java)
-                    intent.putExtra("cleanup", true)
-                    ctx.sendBroadcast(intent)
+                    if(get(SmartListConfig::class.java).state != SmartListState.ACTIVE_PHASE2){
+                        showSnack(R.string.tunnel_config_smartlist_clean_none)
+                    }else {
+                        val intent = Intent(ctx, OnGenerateSmartListReceiver::class.java)
+                        intent.putExtra("cleanup", true)
+                        ctx.sendBroadcast(intent)
+                    }
                 }
         )
         view.onSwitch = {
