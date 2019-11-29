@@ -38,6 +38,7 @@ class FiltersStatusVB(
 
     private var rules: Int = 0
     private var memory: Int = 0
+    private var maxMemory = getMaxMemory()
 
     private val updatingFilters = {
         view?.apply {
@@ -68,6 +69,13 @@ class FiltersStatusVB(
         Unit
     }
 
+    fun getMaxMemory(): Int {
+        val runtime = Runtime.getRuntime()
+        val totalmem = runtime.maxMemory()
+        val mb = totalmem.div(1048576)
+        return mb.toInt()
+    }
+
     private fun refresh() {
         view?.apply {
             type = Slot.Type.COUNTER
@@ -75,7 +83,7 @@ class FiltersStatusVB(
                     label = i18n.getString(R.string.panel_ruleset_title, Format.counter(rules)),
                     header = i18n.getString(R.string.panel_ruleset),
                     description = i18n.getString(R.string.panel_ruleset_built,
-                            Format.counter(rules), Format.counter(memory, round = true))
+                            Format.counter(rules), Format.counter(maxMemory), Format.counter(memory, round = true))
             )
             date = refreshDate
         }
