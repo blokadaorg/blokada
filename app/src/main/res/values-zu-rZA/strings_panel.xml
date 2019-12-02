@@ -138,7 +138,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">phansi</string>
     <string name="subscription_success">I-Akhawunti yakho iyavulwa. Kuzothatha imizuzwana. Siyabonga!</string>
-    <string name="slot_start_on_boot_description">Ukunika amandla okuqala kanye nedivayisi kuvumela iBlokada ukuthi isebenze ngaso sonke isikhathi futhi ivikele nedivayisi yakho.</string>
     <string name="slot_recommended_dns_label">Sebenzisa amaseva eDNS aphakamisiwe</string>
     <string name="slot_recommended_dns_description">Uma inikwe amandla, iBlokada izokhetha ngokuzenzakalelayo amaseva aphakamisiwe we-DNS ukusiza ukusheshisa i-Intanethi yakho nokuvikela ubumfihlo bakho. Ngaphandle kwalokho, kusetshenziswa iziphakeli ze-DNS zenethiwekhi yakho ezenzakalelayo. Uma ukhetha amaseva we-DNS esigabeni Esithuthukisiwe, lokhu kulungiselelwa akunakwa.</string>
     <string name="slot_update_no_updates">I-Blokada isesikhathini</string>

@@ -6,8 +6,8 @@
     <string name="slot_enter_dns_error">Това не ми прилича на IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP адрес</string>
-    <string name="dns_edit_ip1_enter">Въведете адрес на DNS сървър</string>
-    <string name="dns_edit_ip2_enter">Въведете адрес на втори DNS сървър</string>
+    <string name="dns_edit_ip1_enter">Въведете основен адрес</string>
+    <string name="dns_edit_ip2_enter">Въведете втори адрес</string>
     <string name="dns_edit_name_error">Не е валидно име</string>
     <string name="dns_edit_name_label">Име на сървъра</string>
     <string name="dns_edit_name_default">Име по подразбиране</string>

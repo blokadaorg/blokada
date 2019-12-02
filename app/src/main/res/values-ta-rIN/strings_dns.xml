@@ -6,8 +6,8 @@
     <string name="slot_enter_dns_error">இது IPv4 போன்று தெரியவில்லை.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP address</string>
-    <string name="dns_edit_ip1_enter">DNS Server Addressஐ உள்ளிடவும்</string>
-    <string name="dns_edit_ip2_enter">இரண்டாம் கட்ட DNS Server Addressஐ உள்ளிடவும்</string>
+    <string name="dns_edit_ip1_enter">முதன்மை மின்னஞ்சல் முகவரியை உள்ளிடவும்</string>
+    <string name="dns_edit_ip2_enter">இரண்டாம் மின்னஞ்சல் முகவரியை உள்ளிடவும்</string>
     <string name="dns_edit_name_error">சரியான பெயர் அல்ல</string>
     <string name="dns_edit_name_label">Server பெயர்</string>
     <string name="dns_edit_name_default">பொதுவான பெயர்</string>

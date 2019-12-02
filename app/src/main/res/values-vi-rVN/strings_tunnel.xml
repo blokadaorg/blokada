@@ -16,7 +16,6 @@
     <string name="tunnel_config_wifi_only_title">Chỉ tải xuống qua Wi-Fi</string>
     <string name="tunnel_config_wifi_only_description">Kích hoạt công tắc này nếu bạn muốn ứng dụng cập nhật các danh sách chỉ khi thiết bị của bạn được kết nối với WiFi. Nếu không, ứng dụng có thể cập nhật các danh sách khi đang kết nối qua mạng di động.</string>
     <string name="tunnel_config_watchdog_title">Cơ quan giám sát</string>
-    <string name="tunnel_config_watchdog_description">Kích hoạt công tắc này nếu bạn muốn ứng dụng bắt đầu kết nối VPN chỉ khi có mạng Internet, và khởi động lại kết nối khi có vấn đề mạng. Cách này có thể giúp một số thiết bị. Lưu ý: ở những phiên bản trước tùy chọn này được gọi là \"Chỉ khi có mạng\".</string>
     <string name="tunnel_config_powersave_title">Chặn quyết liệt</string>
     <string name="tunnel_config_powersave_description">Kích hoạt công tắc này nếu bạn đang gặp vấn đề với trình tiết kiệm pin trên thiết bị. Khi ứng dụng phát hiện vấn đề kết nối, nó sẽ cố gắng tăng mức ưu tiên để ra khỏi chế độ tiết kiệm pin.</string>
     <string name="tunnel_config_reports_title">Báo cáo</string>

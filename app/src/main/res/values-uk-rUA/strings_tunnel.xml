@@ -17,7 +17,6 @@
     <string name="tunnel_config_wifi_only_title">Отримувати лише з Wi-Fi</string>
     <string name="tunnel_config_wifi_only_description">Увімкніть це, якщо хочете, щоб додаток завантажував списки тільки коли підключений до Wi-Fi. У іншому випадку додаток буде завантажувати списки через мобільну мережу, використовуючи трафік за тарифом.</string>
     <string name="tunnel_config_watchdog_title">Сторож</string>
-    <string name="tunnel_config_watchdog_description">Увімкніть це, якщо бажаєте, щоб додаток активував VPN тільки коли є підключення до мережі, та перезапускав його у випадку проблем зі з\'єднанням. Це може допомогти на деяких пристроях. Раніше ця опція називалася \"Тільки онлайн\".</string>
     <string name="tunnel_config_powersave_title">Нагле пробудження</string>
     <string name="tunnel_config_powersave_description">Активуйте цей пункт, якщо стаються проблеми, пов\'язані із функціями економії заряду акумулятора пристрою. Коли додаток побачить проблеми із приєднанням до тунелю, він спробує підвищити свій пріоритет для виходу з-під обмежень.</string>
     <string name="tunnel_config_reports_title">Звіти</string>

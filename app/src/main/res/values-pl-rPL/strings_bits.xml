@@ -80,11 +80,11 @@
     <string name="menu_dns_recommended">Zalecane serwery DNS</string>
     <string name="menu_dns_intro">DNS odpowiada za tłumaczenie adresów IP stron i aplikacji które używasz. Wybranie dobrego DNSa może przyśpieszyć Twoje urządzenie i pomóc chronić Twoją prywatność.</string>
     <string name="menu_dns_select">Wybierz jeden z serwerów DNS.</string>
-    <string name="menu_apps_intro">Niektóre aplikacje mogą nie funkcjonować poprawnie z Blokadą. Na przykład, mogą mieć problem z połączeniem.\n\nAktywowanie VPN często pomaga w takich przypadkach.\n\nMożesz także wykluczyć te aplikacje spod inspekcji Blokady. Pamiętaj że wykluczone aplikacje komunikują się poza VPNem.</string>
+    <string name="menu_apps_intro">Niektóre aplikacje mogą funkcjonować niepoprawnie z Blokadą. Na przykład mogą mieć problem z połączeniem.\n\nAktywowanie VPN często pomaga w takich przypadkach.\n\nMożesz także wykluczyć te aplikacje spod inspekcji Blokady. Pamiętaj, że wykluczone aplikacje komunikują się poza Tunelem Blokada.</string>
     <string name="menu_apps_system_label">Aplikacje systemowe to te preinstalowane na Twoim urządzeniu. Niektóre z nich są ukryte. Modyfikując te ustawienia upewnij się że wiesz, co robisz.</string>
     <string name="menu_host_list_intro">Listy hostów zawierają reguły do blokowania reklam i trakerów. Postaraj się utrzymać ilość aktywnych list na niskim poziomie.</string>
     <string name="menu_host_adblocking_features">Laboratoria Blokada</string>
-    <string name="menu_host_adblocking_settings">Ustawienia adblocka</string>
+    <string name="menu_host_adblocking_settings">Ustawienia blokowania reklam</string>
     <string name="menu_host_list_status">Status list</string>
     <string name="menu_host_list_download">Ustawienia pobierania list</string>
     <string name="menu_host_whitelist">Hosty, które tutaj dodasz, nigdy nie będą blokowane. Użyj tej listy kiedy stroną, którą odwiedzasz, jest omyłkowo blokowana.</string>

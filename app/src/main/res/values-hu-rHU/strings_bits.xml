@@ -80,7 +80,7 @@
     <string name="menu_dns_recommended">Ajánlott DNS-kiszolgálók</string>
     <string name="menu_dns_intro">A DNS felelős a használt weboldalak és alkalmazások IP-címeinek fordításáért. A jó DNS kiválasztása felgyorsíthatja a készüléket, és segít megvédeni az adataidat.</string>
     <string name="menu_dns_select">Válaszd ki az egyik DNS-kiszolgálót.</string>
-    <string name="menu_apps_intro">Egyes alkalmazások nem működhetnek megfelelően a Blokada-val. Például, nehézséget okoz a kapcsolódás.\n\nAz ilyen esetekben a VPN aktiválása gyakran segít.\n\nUgyanakkor ezekhez az alkalmazásokhoz beállíthatod a Blokada felügyeletének megkerülését. Ne feledd, hogy a megkerülésre beállított alkalmazások a VPN-en kívül kommunikálnak.</string>
+    <string name="menu_apps_intro">Egyes alkalmazások nem működhetnek megfelelően a Blokada-val. Például, nehézséget okoz a kapcsolódás.\n\nAz ilyen esetekben a VPN aktiválása gyakran segít.\n\nUgyanakkor ezekhez az alkalmazásokhoz beállíthatod a Blokada felügyeletének megkerülését. Ne feledd, hogy a megkerülésre beállított alkalmazások a Blokada Tunnel-en kívül kommunikálnak.</string>
     <string name="menu_apps_system_label">A rendszeralkalmazások azok, amelyek előre telepítve vannak a készülékeden. Némelyike rejtett. Csak akkor módosíts rajtuk, ha tudod, mit csinálsz.</string>
     <string name="menu_host_list_intro">A hosztlisták tartalmazzák a hirdetések és a nyomkövetők blokkolására vonatkozó szabályokat. Próbáld meg alacsonyan tartani az aktív listák számát.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>

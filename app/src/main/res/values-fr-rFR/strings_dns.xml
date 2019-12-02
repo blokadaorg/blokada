@@ -6,8 +6,8 @@
     <string name="slot_enter_dns_error">Cela ne semble pas être une adresse IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">Adresse IP</string>
-    <string name="dns_edit_ip1_enter">Entrez l\'adresse d\'un serveur DNS</string>
-    <string name="dns_edit_ip2_enter">Entrez l\'adresse d\'un serveur DNS secondaire</string>
+    <string name="dns_edit_ip1_enter">Entrez l\'adresse principale</string>
+    <string name="dns_edit_ip2_enter">Entrez l\'adresse secondaire</string>
     <string name="dns_edit_name_error">Ce nom n\'est pas valide</string>
     <string name="dns_edit_name_label">Nom du serveur</string>
     <string name="dns_edit_name_default">Nom par défaut</string>

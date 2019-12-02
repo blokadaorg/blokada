@@ -38,7 +38,6 @@
     <string name="menu_dns_recommended">Anbefalet DNS servere</string>
     <string name="menu_dns_intro">DNS er ansvarlig for at oversætte IP addressen for hjemmesider og de apps du bruger. Valg af en god DNS kan øge hastigheden på din enhed og vil hjælpe med at beskytte dit privatliv.</string>
     <string name="menu_dns_select">Vælg en af de følgende DNS servere.</string>
-    <string name="menu_apps_intro">Nogle apps vil måske ikke virke som de skal med Blokada. Eksempelvis, kan du have problemer med at forbinde.\n\n Aktivering af VPN hjælper ofte i de tilfælde.\n\nEllers, kan du få de apps til at gå udenom Blokada filtrering. Husk at apps der går udenom kommunikere udenom VPN.</string>
     <string name="menu_apps_system_label">System apps er dem der kommer preinstalleret på din enhed. Nogle af dem er skjulte. Lav ændringer kun hvis du ved hvad du laver.</string>
     <string name="menu_host_list_intro">Host lister indeholder regler for at blokere reklamer og trackere. Prøv at holde mængden af aktive liste lav.</string>
     <string name="menu_host_list_status">Liste status</string>

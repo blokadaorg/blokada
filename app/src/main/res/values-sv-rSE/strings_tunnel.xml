@@ -17,7 +17,6 @@
     <string name="tunnel_config_wifi_only_title">Hämta endast på WiFi</string>
     <string name="tunnel_config_wifi_only_description">Aktivera denna funktion om du vill att appen enbart laddar ner listor när din enhet är ansluten till Wi-Fi. Annars kan appen också hämta listor när din enhet är ansluten till ett mobilt nätverk.</string>
     <string name="tunnel_config_watchdog_title">Övervakaren</string>
-    <string name="tunnel_config_watchdog_description">Aktivera denna omkopplare om du vill att appen ska aktivera VPN endast om det finns internetanslutning och starta om tunneln om det finns anslutningsproblem. Detta kan hjälpa för vissa enheter. Obs: i tidigare versioner kallades det här alternativet \"Endast online\".</string>
     <string name="tunnel_config_powersave_title">Aggressiv väckning</string>
     <string name="tunnel_config_powersave_description">Aktivera denna omkopplare om du upplever problem som orsakas av enhetens energispararfunktion. När appen upptäcker problem med tunnelanslutning, kommer den att försöka höja sin prioritet för att få den ur energispararläget.</string>
     <string name="tunnel_config_reports_title">Rapporter</string>

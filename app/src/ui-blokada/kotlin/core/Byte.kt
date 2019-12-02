@@ -36,11 +36,7 @@ abstract class ByteVB()
 
     override fun enter() {
         view?.run {
-            when (isSwitched()) {
-                true -> switch(false)
-                false -> switch(true)
-                else -> performClick()
-            }
+            performClick()
         }
     }
 
@@ -203,5 +199,6 @@ class ByteView(
         }
         rootView.setBackgroundResource(bg)
     }
+
 }
 

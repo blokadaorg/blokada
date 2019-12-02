@@ -31,12 +31,12 @@
     <string name="home_vpn_enabled">El Túnel de Blokada está activo</string>
     <string name="home_vpn_disabled">El Túnel de Blokada está desactivado</string>
     <string name="home_account_active">Tu cuenta aún está activa</string>
-    <string name="home_connecting_vpn">Conectando con el Túnel de Blokada</string>
+    <string name="home_connecting_vpn">Conectándose al Túnel de Blokada</string>
     <string name="home_cleanup">Se recomienda una limpieza</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Conectado al Túnel de Blokada</string>
     <string name="home_boringtun_not_loaded">Lo sentimos, tu dispositivo no es compatible con el Túnel de Blokada. Aún puedes usar las otras funciones.</string>
-    <string name="home_blocka_vpn_error">No se pudo conectar a la puerta de enlace. ¿Estás online?</string>
+    <string name="home_blocka_vpn_error">No se pudo conectar a la puerta de enlace. ¿Estás en línea?</string>
     <string name="home_account_error">No se pudo verificar la cuenta. ¿Tienes conexión?</string>
     <string name="home_permission_error">Por favor, concede el permiso de conexión VPN.</string>
     <string name="home_zero_filters_error">No tienes filtros configurados. Comprueba tu configuración de bloqueo de anuncios y WiFi.</string>
@@ -65,13 +65,13 @@
     <string name="menu_vpn_manage_subscription_unavailable">Si tu cuenta es nueva, visita nuestra página web. No puedes comprar suscripción en Blokada Slim.</string>
     <string name="menu_vpn_account_secret">Toca tu avatar arriba para ver tu ID de cuenta. Recuerda, tu ID es secreto y deberías guardarlo para ti mismo. Anótalo en caso de que desinstales la aplicación.</string>
     <string name="menu_vpn_restore_label">Aquí puedes restaurar tu cuenta existente si, por ejemplo, reinstalaste la aplicación.</string>
-    <string name="menu_vpn_intro">Con el Túnel de Blokada tus datos son cifrados, tu dirección IP se oculta y tu ubicación se cambia.</string>
+    <string name="menu_vpn_intro">Con Blokada Tunnel tus datos son cifrados, tu dirección IP se oculta y tu ubicación se cambia.</string>
     <string name="menu_vpn_account_label">Para usar el VPN, necesitas una cuenta activa. Revisa o restaura tu cuenta aquí.</string>
     <string name="menu_vpn_gateways_label">Selecciona una de las puertas de enlace para conectarte. Tu dispositivo enviará tus datos cifrados de forma segura a través de esa puerta de enlace, y tu permanecerás anónimo.</string>
     <string name="menu_vpn_support_label">Si tienes problemas, no dudes en contactarnos.</string>
     <string name="menu_vpn_support_button">Soporte</string>
-    <string name="menu_vpn_tunnel_settings">Configuración del Túnel de Blokada</string>
-    <string name="menu_vpn_tunnel_learn_more">Aprende más sobre el Túnel de Blokada</string>
+    <string name="menu_vpn_tunnel_settings">Configuración de Blokada Tunnel</string>
+    <string name="menu_vpn_tunnel_learn_more">Aprende más sobre Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">¿Tengo una cuenta?</string>
     <string name="menu_vpn_info_account_line1">¡Sí! Tu cuenta se crea automáticamente en la primera ejecución. No necesitas registrarte.</string>
     <string name="menu_vpn_info_account_line2">Toca tu avatar arriba para ver el ID de tu cuenta.</string>

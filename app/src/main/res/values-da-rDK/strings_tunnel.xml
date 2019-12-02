@@ -17,7 +17,6 @@
     <string name="tunnel_config_wifi_only_title">Download kun på WiFi</string>
     <string name="tunnel_config_wifi_only_description">Aktiver denne knap hvis du vil have appen til at hente lister kun når din enhed er forbundet til WiFi. Ellers, kan appen også hente lister når din enhed er forbundet til det mobile netværk og bruge din mobile data.</string>
     <string name="tunnel_config_watchdog_title">Vagthund</string>
-    <string name="tunnel_config_watchdog_description">Aktiver denne knap hvis du vil have appen til at aktivere VPN kun når din enhed er forbundet til internettet, og genstarter tunnelen i tilfælde af der problemer med forbindelsen. Dette kan hjælpe nogle enheder. Note: i tidligere versioner hed det \"Kun Online\".</string>
     <string name="tunnel_config_powersave_title">Aggressiv wakeup</string>
     <string name="tunnel_config_powersave_description">Aktiver denne knap hvis du oplever problemer forårsaget af enhedens strøm besparelses funktioner. Når appen opdager tunnel forbindelses problemer, vil den forsøge at hæve sin prioritet for at bringe den ud af strømbesparelses mode.</string>
     <string name="tunnel_config_reports_title">Rapporter</string>

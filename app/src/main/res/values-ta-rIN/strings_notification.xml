@@ -15,6 +15,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">உயிரோடு வைத்திரு</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">செயல்பாட்டில் வைத்திரு</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d முடக்கப்பட்டுள்ளது</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
@@ -22,4 +23,13 @@
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">கண்காணிப்பு</string>
     <string name="notification_keepalive_activate">செயல்படுத்து</string>
+    <string name="notification_keepalive_activating">Blokada துவக்கப்படுகிறது. இது சிறிது நேரம் எடுக்கும்.</string>
+    <string name="notification_keepalive_deactivate">நிறுத்து</string>
+    <string name="notification_keepalive_deactivating">Blokada நிறுத்தப்பட்டுவிட்டது!</string>
+    <string name="notification_expired_title">Blokada Tunnel நிறுத்தப்பட்டுவிட்டது</string>
+    <string name="notification_lease_expired_title">Blokada Tunnel நிறுத்தப்பட்டுவிட்டது</string>
+    <string name="notification_channel_filtered">விளம்பரங்களை முடக்குதல்</string>
+    <string name="notification_channel_announcements">அறிவிப்புகள்</string>
+    <string name="notification_channel_vpn">Blokada Tunnel</string>
+    <string name="notification_channel_other">மற்றவை</string>
 </resources>

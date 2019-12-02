@@ -37,11 +37,7 @@ abstract class MasterSwitchVB
 
     override fun enter() {
         view?.run {
-            when (isSwitched()) {
-                true -> switch(false)
-                false -> switch(true)
-                else -> performClick()
-            }
+            performSwitch()
         }
     }
 
@@ -150,8 +146,11 @@ class MasterSwitchView(
         }
     }
 
-    fun isSwitched(): Boolean? {
-        return if (switchView.visibility == View.GONE) null else switchView.getDirection() == StickySwitch.Direction.RIGHT
+    fun performSwitch() {
+        switched?.run {
+            switch(!this)
+            switchView.performClick()
+        }
     }
 
 }

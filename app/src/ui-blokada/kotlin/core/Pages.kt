@@ -51,7 +51,7 @@ class PagesImpl (
                 cleanup %= URL("$c/cleanup.html")
                 cta %= URL("$c/cta.html")
                 donate %= URL("$c/donate.html")
-                help %= URL("https://blokada.zendesk.com/hc/")
+                help %= URL("https://support.blokada.org/")
                 changelog %= URL("$c/changelog.html")
                 credits %= URL("$c/credits.html")
                 filters %= URL("$c/filters.txt")

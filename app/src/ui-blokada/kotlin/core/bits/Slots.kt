@@ -242,6 +242,7 @@ class ConfigHelper {
             259200L -> R.string.tunnel_config_refetch_frequency_2
             604800L -> R.string.tunnel_config_refetch_frequency_3
             2419200L -> R.string.tunnel_config_refetch_frequency_4
+            31557600L -> R.string.tunnel_config_refetch_frequency_5
             else -> R.string.tunnel_config_refetch_frequency_1
         }
 
@@ -249,6 +250,7 @@ class ConfigHelper {
             R.string.tunnel_config_refetch_frequency_2 -> 259200L
             R.string.tunnel_config_refetch_frequency_3 -> 604800L
             R.string.tunnel_config_refetch_frequency_4 -> 2419200L
+            R.string.tunnel_config_refetch_frequency_5 -> 31557600L
             else -> 86400L
         }
 
@@ -256,6 +258,7 @@ class ConfigHelper {
             i18n.getString(R.string.tunnel_config_refetch_frequency_2) -> R.string.tunnel_config_refetch_frequency_2
             i18n.getString(R.string.tunnel_config_refetch_frequency_3) -> R.string.tunnel_config_refetch_frequency_3
             i18n.getString(R.string.tunnel_config_refetch_frequency_4) -> R.string.tunnel_config_refetch_frequency_4
+            i18n.getString(R.string.tunnel_config_refetch_frequency_5) -> R.string.tunnel_config_refetch_frequency_5
             else -> R.string.tunnel_config_refetch_frequency_1
         }
 
@@ -293,7 +296,8 @@ class ListDownloadFrequencyVB(
                         i18n.getString(R.string.tunnel_config_refetch_frequency_1),
                         i18n.getString(R.string.tunnel_config_refetch_frequency_2),
                         i18n.getString(R.string.tunnel_config_refetch_frequency_3),
-                        i18n.getString(R.string.tunnel_config_refetch_frequency_4)
+                        i18n.getString(R.string.tunnel_config_refetch_frequency_4),
+                        i18n.getString(R.string.tunnel_config_refetch_frequency_5)
                 ),
                 selected = ConfigHelper.getFrequencyString(ktx, i18n)
         )

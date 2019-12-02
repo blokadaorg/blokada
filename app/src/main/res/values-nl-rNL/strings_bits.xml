@@ -80,7 +80,7 @@
     <string name="menu_dns_recommended">Aanbevolen DNS-servers</string>
     <string name="menu_dns_intro">DNS is verantwoordelijk voor het vertalen van IP-adressen van websites en apps die u gebruikt. Het kiezen van een goede DNS kan uw apparaat versnellen en zal helpen uw privacy te beschermen.</string>
     <string name="menu_dns_select">Selecteer een van de DNS-servers.</string>
-    <string name="menu_apps_intro">Sommige apps werken misschien niet goed met Blokada. Bijvoorbeeld, ze kunnen problemen hebben met het verbinden.\n\nActiveren van VPN helpt vaak in die gevallen.\n\nAnders kun je deze apps blokada laten omzeilen. Onthoud, apps die omzeilen communiceren buiten de VPN.</string>
+    <string name="menu_apps_intro">Sommige apps werken mogelijk niet goed met Blokada. Ze kunnen bijvoorbeeld problemen hebben om verbinding te maken.\n\nHet activeren van VPN helpt vaak in die gevallen.\n\nAnders kun je deze apps de Blokada-inspectie helemaal laten omzeilen. Bedenk dat omzeilde apps buiten de Blokada-tunnel communiceren.</string>
     <string name="menu_apps_system_label">Systeem apps zijn de apps die voor geïnstalleerd zijn. Sommige ervan zijn verborgen. Pas deze alleen aan als je weet wat je doet.</string>
     <string name="menu_host_list_intro">Hostlijsten bevatten regels voor het blokkeren van advertenties en trackers. Probeer het aantal actieve lijsten laag te houden.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>

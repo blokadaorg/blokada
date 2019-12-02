@@ -135,7 +135,7 @@
     <string name="slot_gateway_learn_more">Más información sobre puertas de enlace</string>
     <string name="slot_gateway_info_partner">¿Qué son las puertas de enlace de socios?</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
-    <string name="slot_leases_info">Controla cuál de tus dispositivos se conectan al Túnel de Blokada.</string>
+    <string name="slot_leases_info">Controla cuál de tus dispositivos se conectan a Blokada Tunnel.</string>
     <string name="slot_lease_name_current">%s (este dispositivo)</string>
     <string name="slot_lease_description">ID del dispositivo: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">ID del dispositivo: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Este es tu dispositivo actual.</string>
@@ -144,7 +144,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">bajo</string>
     <string name="subscription_success">Tu cuenta está siendo activada. Esto puede tardar unos segundos. ¡Gracias!</string>
-    <string name="slot_start_on_boot_description">Habilitar el inicio en el arranque permite que Blokada esté activo en todo momento y proteja tu dispositivo.</string>
+    <string name="slot_start_on_boot_description">Habilitar el inicio en el arranque permite que Blokada esté activo en todo momento y proteja tu dispositivo. Ten en cuenta que el sistema siempre tiene mayor prioridad y puede sobrescribir esta opción, por lo tanto, si Blokada no inicia, echa un vistazo a la configuración de tu dispositivo.</string>
     <string name="slot_recommended_dns_label">Usar servidores DNS recomendados</string>
     <string name="slot_recommended_dns_description">Cuando está activado, Blokada elegirá automáticamente servidores DNS recomendados para ayudar a acelerar tu Internet y proteger tu privacidad. De lo contrario, se utilizan los servidores DNS por defecto de tu red. Si eliges manualmente servidores DNS en la sección Avanzada, esta configuración se ignorará.</string>
     <string name="slot_update_no_updates">Blokada está actualizado</string>
@@ -173,8 +173,8 @@
     <!-- A button to update the app. -->
     <string name="slot_cleanup_desc">Parece que hay varias versiones de Blokada instaladas en tu dispositivo. ¿Quieres eliminar las otras versiones y mantener una sola?</string>
     <string name="account_inactive">Por favor, activa o restaura tu cuenta para continuar.</string>
-    <string name="slot_lease_cant_connect">No se pudo conectar al Túnel de Blokada. Intenta seleccionando otra puerta de enlace.</string>
-    <string name="slot_account_cant_create">No se ha podido crear tu cuenta del Túnel de Blokada. Por favor, inténtalo de nuevo más tarde o contáctanos en Telegram.</string>
+    <string name="slot_lease_cant_connect">No se pudo conectar a Blokada Tunnel. Intenta seleccionando otra puerta de enlace.</string>
+    <string name="slot_account_cant_create">No se ha podido crear tu cuenta de Blokada Tunnel. Por favor, inténtalo de nuevo más tarde o contáctanos en Telegram.</string>
     <string name="slot_account_name_title">ID de cuenta</string>
     <string name="slot_account_name_desc">Introduce el ID de tu cuenta anterior para restaurar tu suscripción. Puede que quieras escribir el ID de tu cuenta actual antes de hacerlo, en caso de que cometas un error.</string>
     <string name="slot_account_name_error">El ID de cuenta solo puede contener letras y números.</string>

@@ -142,7 +142,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">низька</string>
     <string name="subscription_success">Ваша підписка активується. Це може тривати кілька секунд. Дякуємо!</string>
-    <string name="slot_start_on_boot_description">Увімкнення запуску при завантаженні пристрою дозволить Blokada захищати Вас постійно.</string>
     <string name="slot_recommended_dns_label">Використовувати бажані DNS</string>
     <string name="slot_recommended_dns_description">Коли увімкнено, Blokada буде автоматично обирати бажані DNS сервери, щоб покращити приватність та прискорити доступ до ресурсів. Інакше будуть використовуватися типові DNS вашої мережі. Якщо Ви самостійно оберете сервери у розширених налаштуваннях, це налаштування не буде застосовуватися.</string>
     <string name="slot_update_no_updates">Blokada найновішої версії</string>

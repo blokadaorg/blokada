@@ -108,7 +108,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">低</string>
     <string name="subscription_success">您的帐户正在激活。这可能需要几秒钟。谢谢！</string>
-    <string name="slot_start_on_boot_description">启动时启用启动，允许 Blokada 随时激活并保护您的设备。</string>
     <string name="slot_recommended_dns_label">使用推荐的 DNS 服务器</string>
     <string name="slot_recommended_dns_description">启用时，Blokada将自动选择推荐的 DNS 服务器来帮助加速您的互联网和保护您的隐私。否则，使用了您的网络的默认DNS服务器。如果您手动选择高级部分的DNS服务器，此设置被忽略。</string>
     <string name="slot_update_no_updates">Blokada 已更新</string>

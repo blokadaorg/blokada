@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">Acest lucru nu arată ca un IPv4 pentru mine.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">Adresă IP</string>
-    <string name="dns_edit_ip1_enter">Introduceți o adresă de server DNS</string>
-    <string name="dns_edit_ip2_enter">Introduceți o adresă de server DNS</string>
     <string name="dns_edit_name_error">Nu este un nume valabil</string>
     <string name="dns_edit_name_label">Nume server</string>
     <string name="dns_edit_name_default">Nume implicit</string>

@@ -142,7 +142,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">rendah</string>
     <string name="subscription_success">Akun Anda sedang diaktifkan. Mungkin akan memakan sedikit waktu. Terima kasih!</string>
-    <string name="slot_start_on_boot_description">Mengaktifkan Start on Boot memungkinkan Blokada untuk tetap aktif sepanjang waktu dan melindungi perangkat Anda.</string>
+    <string name="slot_start_on_boot_description">Mengaktifkan Start On Boot memungkinkan Blokada untuk tetap aktif menjaga perangkat Anda. Harap diperhatikan bahwa sistem akan selalu memiliki prioritas lebih tinggi dan akan mengacuhkan pilihan ini, maka jika Blokada tidak menyala ketia perangkat Anda dihidupkan, periksa pengaturan sistem Anda.</string>
     <string name="slot_recommended_dns_label">Gunakan server DNS yang disarankan</string>
     <string name="slot_recommended_dns_description">Jika diaktifkan, Blokada akan secara otomatis memilih server DNS terbaik yang bisa membantu mempercepat akses internet dan melindungi privasi Anda. Jika tidak diaktifkan, server DNS bawaan dari provider Anda yang akan digunakan. Jika Anda secara memilih server DNS secara manual, maka setting di atas akan diabaikan.</string>
     <string name="slot_update_no_updates">Blokada sudah up to date</string>

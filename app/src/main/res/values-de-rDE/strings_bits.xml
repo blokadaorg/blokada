@@ -80,11 +80,11 @@
     <string name="menu_dns_recommended">Empfohlene DNS-Server</string>
     <string name="menu_dns_intro">DNS ist für die Übersetzung von IP-Adressen der von dir genutzten Webseiten und Apps zuständig. Die Auswahl eines guten DNS-Servers kann dein Gerät schneller machen und hilft dabei, deine privaten Daten zu schützen.</string>
     <string name="menu_dns_select">Wähle einen der DNS-Server.</string>
-    <string name="menu_apps_intro">Manche Apps funktionieren mit Blokada unter Umständen nicht richtig. Sie haben eventuell Schwierigkeiten mit der Verbindung.\n\nHäufig hilft in diesen Fällen die Aktivierung des VPN.\n\nAnsonsten kannst du diese Apps insgesamt an der Überwachung durch Blokada vorbeileiten. Denke daran, dass umgeleitete Apps außerhalb des VPN kommunizieren.</string>
+    <string name="menu_apps_intro">Einige Apps funktionieren möglicherweise wegen Blokada nicht richtig. Als Beispiel wären hier Verbindungsprobleme zu nennen.\n\nDie Akivierung des VPNs hilft meistens bei diesen Fällen.\n\nZudem kannst du die Apps an Blokada vorbeileiten. Bedenke, dass diese Apps außerhalb des Blokada-Tunnels mit dem Internet verbunden sind.</string>
     <string name="menu_apps_system_label">System-Apps sind diejenigen, die auf deinem Gerät vorinstalliert sind. Einige von ihnen sind nicht sichtbar. Verändere diese nur, wenn du weißt, was du damit tust.</string>
     <string name="menu_host_list_intro">Host-Listen enthalten Regeln, um Werbung und Tracker zu blockieren. Versuche, die Zahl der aktiven Listen klein zu halten.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
-    <string name="menu_host_adblocking_settings">Werbeblocker-Einstellungen</string>
+    <string name="menu_host_adblocking_settings">Werbeblockereinstellungen</string>
     <string name="menu_host_list_status">Listenstatus</string>
     <string name="menu_host_list_download">Download-Einstellungen auflisten</string>
     <string name="menu_host_whitelist">Hosts, die du hier hinzufügst, werden nie blockiert. Verwende diese Liste, wenn zum Beispiel eine Webseite, die du besuchst, fälschlicherweise blockiert wird.</string>

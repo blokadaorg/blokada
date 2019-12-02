@@ -42,7 +42,6 @@
     <string name="menu_dns_recommended">Cadangan pelayan DNS</string>
     <string name="menu_dns_intro">DNS bertanggung jawab untuk menterjemahkan alamat IP sesawang dan aplikasi yang anda gunakan. Memilih DNS yang baik dapat mempercepat peranti anda dan akan membantu melindungi privasi anda.</string>
     <string name="menu_dns_select">Pilih satu daripada pelayan DNS.</string>
-    <string name="menu_apps_intro">Beberapa aplikasi mungkin tidak bekerja dengan betul dengan Blokada. Misalnya, ia mungkin mengalami masalah ketika penyambungan.\n\nMengaktifkan VPN serselalunya membantu dalam masalah tersebut.\n\nJika tidak, anda boleh membuat aplikasi itu memintas pemerikasaan Blokada samasekali. Ingat, aplikasi yang memintas pemerikasaan berkomunikasi di luar VPN.</string>
     <string name="menu_apps_system_label">Sistem aplikasi yang datang bersama dengan peranti anda. Ada antaranya tersembunyi. Anda boleh mengubah aplikasi ini jika anda tahu apa yang anda lakukan.</string>
     <string name="menu_host_list_intro">Senarai hos mengandungi aturan untuk menyekat iklan dan penjejak. Cubalah untuk mengurangakan bilangan senarai kepada paling rendah.</string>
     <string name="menu_host_list_status">Senarai status</string>

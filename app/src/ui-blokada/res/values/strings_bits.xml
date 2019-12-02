@@ -89,7 +89,7 @@
     <string name="menu_vpn_support_label">If you experience any problems, do not hesitate to contact us.</string>
     <string name="menu_vpn_support_button">Support</string>
     <string name="menu_vpn_tunnel_settings">Blokada Tunnel settings</string>
-    <string name="menu_vpn_tunnel_learn_more">Learn more about Blokada Tunnel</string>
+    <string name="menu_vpn_tunnel_learn_more">Learn mone about Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">Do I have an account?</string>
     <string name="menu_vpn_info_account_line1">Yes! Your account is automatically created on first run. You do not need to register.</string>
     <string name="menu_vpn_info_account_line2">Tap your avatar above to see your account ID.</string>
@@ -98,11 +98,11 @@
     <string name="menu_dns_recommended">Recommended DNS servers</string>
     <string name="menu_dns_intro">DNS is responsible for translating IP addresses of websites and apps you use. Choosing a good DNS may speed up your device and will help protect your privacy.</string>
     <string name="menu_dns_select">Select one of the DNS servers.</string>
-    <string name="menu_apps_intro">Some apps may not work properly with Blokada. For example, they may have trouble connecting.\n\nActivating VPN often helps in those cases.\n\nOtherwise, you can make those apps bypass Blokada inspection altogether. Remember, bypassed apps communicate outside of the VPN.</string>
+    <string name="menu_apps_intro">Some apps may not work properly with Blokada. For example, they may have trouble connecting.\n\nActivating VPN often helps in those cases.\n\nOtherwise, you can make those apps bypass Blokada inspection altogether. Remember, bypassed apps communicate outside of Blokada Tunnel.</string>
     <string name="menu_apps_system_label">System apps are the ones coming preinstalled with your device. Some of them are hidden. Modify those only if you know what you are doing.</string>
     <string name="menu_host_list_intro">Host lists contain rules for blocking ads and trackers. Try to keep the number of active lists low.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
-    <string name="menu_host_adblocking_settings">Adblocking settings</string>
+    <string name="menu_host_adblocking_settings">Ad blocking Settings</string>
     <string name="menu_host_list_status">List status</string>
     <string name="menu_host_list_download">List download settings</string>
     <string name="menu_host_whitelist">Hosts you add here will never be blocked. Use this list when, for example, a website you visit is mistakenly blocked.</string>
