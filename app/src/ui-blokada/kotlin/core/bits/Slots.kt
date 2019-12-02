@@ -39,7 +39,6 @@ class FiltersStatusVB(
 
     private var rules: Int = 0
     private var memory: Int = 0
-    private var maxMemory = getMaxMemory()
 
     private val updatingFilters = {
         view?.apply {
@@ -84,7 +83,7 @@ class FiltersStatusVB(
                     label = i18n.getString(R.string.panel_ruleset_title, Format.counter(rules)),
                     header = i18n.getString(R.string.panel_ruleset),
                     description = i18n.getString(R.string.panel_ruleset_built,
-                            Format.counter(rules), Format.counter(maxMemory), Format.counter(memory, round = true))
+                            Format.counter(rules), Format.counter(getMaxMemory()), Format.counter(memory, round = true))
             )
             date = refreshDate
         }
