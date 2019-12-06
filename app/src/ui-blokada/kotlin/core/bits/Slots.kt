@@ -81,7 +81,7 @@ class FiltersStatusVB(
             content = Slot.Content(
                     label = i18n.getString(R.string.panel_ruleset_title, Format.counter(rules)),
                     header = i18n.getString(R.string.panel_ruleset),
-                    description = i18n.getString(R.string.panel_ruleset_built,
+                    description = i18n.getString(R.string.panel_ruleset_canfit,
                             Format.counter(rules), Format.counter(getMaxMemory()), Format.counter(memory, round = true))
             )
             date = refreshDate
