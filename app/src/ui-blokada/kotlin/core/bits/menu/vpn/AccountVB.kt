@@ -120,6 +120,7 @@ class SupportVB(
         view.icon(R.drawable.ic_help_outline.res())
         view.label(R.string.menu_vpn_support_button.res())
         view.onTap {
+            shouldRefreshAccount = true
             modal.openModal()
             openWebContent(ktx.ctx, getSupportUrl())
         }
