@@ -49,7 +49,7 @@
     <string name="home_account_error">Could not verify account. Are you online?</string>
     <string name="home_permission_error">Please grant VPN permissions.</string>
     <string name="home_zero_filters_error">You have no filters configured. Check your adblocking and wifi settings.</string>
-    <string name="home_filters_memory_error">Could not load all filters to memory. Check your adblocking settings.</string>
+    <string name="home_filters_memory_error">Some lists could not be loaded; select fewer lists in Ad blocking settings.</string>
 
     <string name="tasker_switch_label">Tap on one of the options to configure to turn it on (or off) for your trigger.</string>
 
