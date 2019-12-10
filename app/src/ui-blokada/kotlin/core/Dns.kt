@@ -216,14 +216,19 @@ class DnsChoicePersistence(xx: Environment) : PersistenceWithSerialiser<List<Dns
 private fun addressToIpString(it: InetSocketAddress, dotEnabled: Boolean) =
         it.address.hostAddress + ( if (it.port != 53) ":" + it.port.toString() else "" ) + ( if (dotEnabled) "#" + it.hostName else "" )
 
-private fun ipStringToAddress(it: String) = {
-    val hostIpPort = it.split("#", limit = 2)
-    val host = (if (hostIpPort.size > 1) hostIpPort[1] else "")
-    val ipPort = hostIpPort[0].split(':', limit = 2)
+
+private fun ipStringToAddress(ipString: String) = {
+    val ipPortHost = ipString.split('#', limit = 2)
+    val host = (if (ipPortHost.size > 1) ipPortHost[1] else "")
+    ipStringToAddress(ipPortHost[0], host)
+}()
+
+private fun ipStringToAddress(ipString: String, host: String) = {
+    val ipPort = ipString.split(':', limit = 2)
     val ip = ipPort[0]
     val port = ( if (ipPort.size == 2) ipPort[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
     if (host.isNotEmpty()) {
-        InetSocketAddress(InetAddress.getByAddress(hostIpPort[1], InetAddress.getByName(ip).address), port)
+        InetSocketAddress(InetAddress.getByAddress(host, InetAddress.getByName(ip).address), port)
     } else {
         InetSocketAddress(InetAddress.getByName(ip), port)
     }
@@ -278,21 +283,21 @@ class JsonDnsSerialiser {
             val jsonChoices = JSONArray(repo)
             for (i in 0 until jsonChoices.length()) {
                 val jsonDnsChoice = jsonChoices.getJSONObject(i)
+                var dotEnabled = false
                 val jsonServers = jsonDnsChoice.getJSONArray("servers")
+                val servers = List(jsonServers.length()) {
+                    val jsonServer = jsonServers.getJSONObject(it)
+                    val dotHostname = jsonServer.optString("dot")
+                    val ipAndPort = jsonServer.getString("ip")
+                    dotEnabled = dotEnabled || dotHostname.isNotEmpty()
+                    ipStringToAddress(ipAndPort, dotHostname)
+                }
                 val comment = jsonDnsChoice.getString("comment")
                 val credit = jsonDnsChoice.getString("credit")
                 dnsChoices.add(jsonDnsChoice.getInt("index") to DnsChoice(
                         jsonDnsChoice.getString("id"),
-                        List(jsonServers.length()) {
-                            val jsonServer = jsonServers.getJSONObject(it)
-                            val server = ipStringToAddress(jsonServer.getString("ip"))
-                            val dotHostname = jsonServer.getString("dot")
-                            val dotEnabled = dotHostname == null
-                            if (dotEnabled) {
-
-                            }
-                            server
-                        },
+                        servers,
+                        dotEnabled,
                         jsonDnsChoice.getBoolean("active"),
                         jsonDnsChoice.getBoolean("usesIpv6"),
                         if(jsonDnsChoice.isNull("credit") || credit.isEmpty()) null else credit,
@@ -307,25 +312,6 @@ class JsonDnsSerialiser {
         }
 
         return dnsChoices.toList().sortedBy { it.first }.map { it.second }
-    }
-
-    fun deserialise(source: List<String>): List<DnsChoice> {
-        if (source.size <= 1) return emptyList()
-        val dns = source.asSequence().batch(7).map { entry ->
-            entry[0].toInt() to try {
-                val id = entry[1]
-                val active = entry[2] == "active"
-                val ipv6 = entry[3] == "ipv6"
-                val servers = entry[4].split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
-                val credit = if (entry[5].isNotBlank()) entry[5] else null
-                val comment = if (entry[6].isNotBlank()) entry[6] else null
-
-                DnsChoice(id, servers, active, ipv6, credit, comment)
-            } catch (e: Exception) {
-                null
-            }
-        }.toList().sortedBy { it.first }.map { it.second }.filterNotNull()
-        return dns
     }
 }
 
