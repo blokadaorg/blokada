@@ -38,7 +38,7 @@ class FiltersPersistence {
                     ktx.v("loading from the persistence", core.Persistence.paper().path)
                     Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
                             .orElse { ex ->
-                                if (core.Persistence.global.loadPath() != core.Persistence.DEFAULT_PATH) {
+                                if (!core.Persistence.global.isDefaultLoadPath()) {
                                     ktx.w("failed loading from a custom path, resetting")
                                     core.Persistence.global.savePath(core.Persistence.DEFAULT_PATH)
                                     Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
@@ -52,7 +52,7 @@ class FiltersPersistence {
     }
 
     private fun loadLegacy34(ktx: AndroidKontext) = {
-        if (core.Persistence.global.loadPath() != core.Persistence.DEFAULT_PATH)
+        if (!core.Persistence.global.isDefaultLoadPath())
             Err(Exception("custom persistence path detected, skipping legacy import"))
         else {
             val prefs = ktx.ctx.getSharedPreferences("filters", Context.MODE_PRIVATE)

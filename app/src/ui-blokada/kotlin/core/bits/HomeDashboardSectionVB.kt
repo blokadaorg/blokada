@@ -153,8 +153,8 @@ class HomeDashboardSectionVB(
         val cfg = Persistence.slots.load().get()
         val name = if (cfg == null) null else when {
             isLandscape(ktx.ctx) -> null
-            hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             isUpdate(ctx, repo.content().newestVersionCode) -> OneTimeByte.UPDATE_AVAILABLE
+            hasNewAnnouncement() -> OneTimeByte.ANNOUNCEMENT
             BuildConfig.VERSION_CODE > cfg.updated -> OneTimeByte.UPDATED
             Product.current(ktx.ctx) == Product.FULL && (BuildConfig.VERSION_CODE > cfg.donate)
                     && noSubscription -> OneTimeByte.DONATE
@@ -192,7 +192,6 @@ class VpnVB(
                 label(R.string.home_blokada_disabled.res())
                 icon(R.drawable.ic_shield_plus_outline.res())
                 switch(false)
-                onSwitch {}
             } else {
                 if (config.enabled) {
                     label(R.string.home_vpn_enabled.res())
@@ -490,7 +489,7 @@ class BlokadaSlimVB: ByteVB() {
             arrow(R.drawable.ic_download.res())
             label(R.string.home_blokadaorg.res())
             state(R.string.home_blokadaorg_state.res())
-            onArrowTap {
+            onTap {
                 val pages: Pages = view.context.inject().instance()
                 openInExternalBrowser(context, pages.chat())
             }

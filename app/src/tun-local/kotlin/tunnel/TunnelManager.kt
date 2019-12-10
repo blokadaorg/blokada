@@ -70,7 +70,7 @@ internal class TunnelManager(
             if (tunnelThread != null) {
                 val (tunnel, thread) = tunnelThread
                 tun = TunnelDescriptor(tunnel, thread, fd, binder)
-            } else tun = null
+            } else tun = TunnelDescriptor(null, null, fd, binder)
             v("started vpn service")
         } catch (ex: Exception) {
             e("failed starting vpn service", ex)
@@ -107,9 +107,13 @@ internal class TunnelManager(
 
     fun stop() {
         state = CurrentTunnel()
-        val descriptor = tun ?: return
-        stopTunnelThread(descriptor.tunnel, descriptor.thread)
-        descriptor.binder.service.turnOff()
+        val desc = tun
+        if (desc == null) {
+            w("no tunnel to stop, descriptor is null")
+            return
+        }
+        if (desc.tunnel != null && desc.thread != null) stopTunnelThread(desc.tunnel, desc.thread)
+        desc.binder.service.turnOff()
         connector.unbind()//.mapError { ex -> ktx.w("failed unbinding connector", ex) }
         tun = null
         v("vpn stopped")

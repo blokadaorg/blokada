@@ -160,7 +160,6 @@ class MenuActiveDnsVB(
                 label(R.string.home_blokada_disabled.res())
                 icon(R.drawable.ic_server.res())
                 switch(false)
-                onSwitch {}
             } else {
                 val item = dns.choices().firstOrNull() { it.active }
                 if (item != null) {

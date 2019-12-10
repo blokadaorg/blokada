@@ -82,9 +82,8 @@ abstract class BitVB(internal var onTap: (BitView) -> Unit = {})
     override fun enter() {
         view?.run {
             when (isSwitched()) {
-                true -> switch(false)
-                false -> switch(true)
-                else -> performClick()
+                null -> performClick()
+                else -> performSwitch()
             }
         }
     }
@@ -136,6 +135,7 @@ class BitView(
     })
 
     private var alternative = false
+    private var switched: Boolean? = null
 
 //    fun enableAlternativeBackground() {
 //        foldingView.initialize(500, resources.getColor(R.color.colorBackgroundLight), 0)
@@ -242,10 +242,10 @@ class BitView(
         }
     }
 
-    fun onSwitch(switch: (Boolean) -> Unit) {
+    fun onSwitch(switchListener: (Boolean) -> Unit) {
         switchView.setOnClickListener {
             val checked = switchView.isChecked()
-            switch(checked)
+            switchListener(checked)
         }
     }
 
@@ -256,6 +256,10 @@ class BitView(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return if (detector.onTouchEvent(event)) true
         else super.onTouchEvent(event)
+    }
+
+    fun performSwitch() {
+        switchView.performClick()
     }
 }
 
