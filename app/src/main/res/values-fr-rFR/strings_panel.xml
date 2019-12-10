@@ -142,7 +142,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">bas</string>
     <string name="subscription_success">Votre compte est en cours d\'activation. Cela peut prendre quelques secondes. Merci !</string>
-    <string name="slot_start_on_boot_description">Activer le démarrage de Blokada au démarrage de l\'appareil permet d\'être actif en tout temps et de protéger votre appareil.</string>
+    <string name="slot_start_on_boot_description">La validation de l\'activation au démarrage permet à Blokada d\'être actif à tout moment et de protéger votre appareil. Veuillez noter que le système a toujours une priorité plus élevée et peut écraser cette option, donc, si Blokada ne démarre pas, jetez un coup d\'œil dans les paramètres de votre système.</string>
     <string name="slot_recommended_dns_label">Utiliser les serveurs DNS recommandés</string>
     <string name="slot_recommended_dns_description">Lorsque cette option est activée, Blokada choisira automatiquement les serveurs DNS recommandés pour accélérer votre connexion Internet et protéger votre vie privée. Sinon, les serveurs DNS par défaut de votre réseau sont utilisés. Si vous choisissez manuellement les serveurs DNS, ce paramètre est ignoré.</string>
     <string name="slot_update_no_updates">Blokada est à jour</string>

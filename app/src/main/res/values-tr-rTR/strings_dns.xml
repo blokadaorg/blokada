@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">Bu bana bir IPv4 gibi görünmüyor.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">IP adresi</string>
-    <string name="dns_edit_ip1_enter">Bir DNS sunucusu adresi girin</string>
-    <string name="dns_edit_ip2_enter">İkinci bir DNS sunucusu adresi girin</string>
     <string name="dns_edit_name_error">Geçerli bir isim değil</string>
     <string name="dns_edit_name_label">Sunucu adı</string>
     <string name="dns_edit_name_default">Varsayılan ad</string>

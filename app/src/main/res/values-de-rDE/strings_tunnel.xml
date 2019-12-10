@@ -14,10 +14,11 @@
     <string name="tunnel_config_refetch_frequency_2">Zweimal pro Woche</string>
     <string name="tunnel_config_refetch_frequency_3">Einmal pro Woche</string>
     <string name="tunnel_config_refetch_frequency_4">Einmal im Monat</string>
+    <string name="tunnel_config_refetch_frequency_5">Nie</string>
     <string name="tunnel_config_wifi_only_title">Nur über WLAN herunterladen</string>
     <string name="tunnel_config_wifi_only_description">Aktiviere die Einstellung, wenn die Listen nur über Wlan heruntergeladen werden sollen. Andernfalls kann die App auch Listen herunterladen, wenn dein Gerät mit einem Mobilfunknetz verbunden ist und deinen Datentarif verwendet.</string>
     <string name="tunnel_config_watchdog_title">Wachhund</string>
-    <string name="tunnel_config_watchdog_description">Aktiviere diese Einstellung, wenn die App das VPN nur aktivieren soll, wenn eine aktive Internetverbindung besteht. Die Einstellung startet das VPN neu, falls Verbindungsprobleme auftreten. Dies kann für einige Geräte hilfreich sein. Hinweis: In früheren Versionen wurde diese Option \"Nur online\" genannt.</string>
+    <string name="tunnel_config_watchdog_description">Aktiviere diese Einstellung wenn du möchtest, dass die App das VPN nur aktiviert, wenn eine aktive Internetverbindung besteht. Der Tunnel wird neugestartet sollte es Verbindungsprobleme geben. Möglicherweise hilft dies bei einigen Geräten.</string>
     <string name="tunnel_config_powersave_title">Aggressives Aufwecken</string>
     <string name="tunnel_config_powersave_description">Aktiviere diesen Schalter, wenn Probleme auftreten, die durch die Stromsparfunktion des Geräts verursacht werden. Wenn die App Probleme mit dem VPN feststellt, versucht sie die Priorität zu erhöhen, um den Energiesparmodus zu deaktivieren.</string>
     <string name="tunnel_config_reports_title">Berichte</string>

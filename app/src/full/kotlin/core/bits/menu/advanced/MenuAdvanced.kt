@@ -21,7 +21,9 @@ fun createMenuAdvanced(ktx: AndroidKontext): NamedViewBinder {
                     KeepAliveVB(ktx, onTap = defaultOnTap),
                     WatchdogVB(ktx, onTap = defaultOnTap),
                     PowersaveVB(ktx, onTap = defaultOnTap),
-                    ReportVB(ktx, onTap = defaultOnTap)
+                    ReportVB(ktx, onTap = defaultOnTap),
+                    LabelVB(ktx, label = R.string.label_workarounds.res()),
+                    DnsAnswerTypeVB(ktx, onTap = defaultOnTap)
             ),
             name = R.string.panel_section_app_settings.res()
     )

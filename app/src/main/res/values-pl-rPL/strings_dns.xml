@@ -6,8 +6,8 @@
     <string name="slot_enter_dns_error">To nie wygląda jak IP.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">Adres IP</string>
-    <string name="dns_edit_ip1_enter">Wpisz adres serwera DNS</string>
-    <string name="dns_edit_ip2_enter">Wpisz drugi adres serwera DNS</string>
+    <string name="dns_edit_ip1_enter">Wpisz adres podstawowy</string>
+    <string name="dns_edit_ip2_enter">Wpisz adres pomocniczy</string>
     <string name="dns_edit_name_error">Nieprawidłowa nazwa</string>
     <string name="dns_edit_name_label">Nazwa serwera</string>
     <string name="dns_edit_name_default">Domyślna nazwa</string>

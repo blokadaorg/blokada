@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">Lokhu akubukeki sengathi i-IPv4 kimi.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">Ikheli le-Inthanethi</string>
-    <string name="dns_edit_ip1_enter">Faka ikheli leseva ye-DNS</string>
-    <string name="dns_edit_ip2_enter">Faka ikheli leseva ephakeme ye-DNS</string>
     <string name="dns_edit_name_error">Akulona igama elungile</string>
     <string name="dns_edit_name_label">Igama leseva</string>
     <string name="dns_edit_name_default">Igama elizenzakalelayo</string>

@@ -17,7 +17,6 @@
     <string name="tunnel_config_wifi_only_title">Last ned kun med Wi-Fi</string>
     <string name="tunnel_config_wifi_only_description">Aktiver denne bryteren hvis du vil at appen bare skal laste ned lister når enheten er koblet til WiFi. Ellers kan appen også laste ned lister når enheten din er koblet til et mobilnettverk, og bruke dataplanen din.</string>
     <string name="tunnel_config_watchdog_title">Vakthund</string>
-    <string name="tunnel_config_watchdog_description">Aktiver denne bryteren dersom du vil at appen bare skal skru på VPN når det er internettilgang, og å restarte tunnelen dersom det er tilkoblingsproblemer. Dette kan hjelpe for noen enheter. Bemerk at i tidligere versjoner, ble denne innstillingen kalt «Kun online».</string>
     <string name="tunnel_config_powersave_title">Aggressiv oppvåkning</string>
     <string name="tunnel_config_powersave_description">Skru på denne bryteren dersom du opplever problemer som skyldes batterisparingsmodusen til enheten din. Når appen oppdager tunneltilkoblingsproblemer, vil den forsøke å forhøye prioritetsnivået sitt for å få den ut av batterisparingsmodusen.</string>
     <string name="tunnel_config_reports_title">Rapporter</string>

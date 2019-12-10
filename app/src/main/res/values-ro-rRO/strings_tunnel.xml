@@ -17,7 +17,6 @@
     <string name="tunnel_config_wifi_only_title">Descărcați doar prin Wi-Fi</string>
     <string name="tunnel_config_wifi_only_description">Activează acest buton dacă vrei ca listele să fie descărcate numai când dispozitivul este conectat la WiFi. Altfel, aplicația va descărca listele și când dispozitivul este conectat la rețeau mobilă și va folosi planul de date.</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
-    <string name="tunnel_config_watchdog_description">Apasă acest buton dacă vrei ca aplicația sa activeze VPN-ul doar în cazul în care există conexiune de internet și repornește tunelul în cazul în care sunt probleme de conectivitate. Aceasta poate fi de ajutor pe unele dispozitive. Notă: în versiunile anterioare, această opțiune se numea ”Numai Online”.</string>
     <string name="tunnel_config_powersave_title">Trezire agresivă</string>
     <string name="tunnel_config_powersave_description">Activează acest buton în cazul în care întâmpini probleme cauzate de opțiunea de economisire a energiei a dispozitivului. Când aplicația detectează probleme la conectivitatea tunelului, va încerca să prioritizeze aplicația pentru a o scoate din modul de economisire a energiei.</string>
     <string name="tunnel_config_reports_title">Rapoarte</string>

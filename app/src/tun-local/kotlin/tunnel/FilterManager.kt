@@ -115,9 +115,9 @@ internal class FilterManager(
         }
     }()
 
-    fun sync(ignoreSmartList: Boolean = false) = {
+    fun sync(activeFilters: Set<Filter>? = null) = {
         if (syncFiltersWithRepo()) {
-            val success = syncRules(ignoreSmartList)
+            val success = syncRules(activeFilters)
             emit(TunnelEvents.MEMORY_CAPACITY, Memory.linesAvailable())
             success
         } else false
@@ -167,17 +167,23 @@ internal class FilterManager(
         return true
     }
 
-    private fun syncRules(ignoreSmartList: Boolean) = {
-        val smartlist = Filter("smart", FilterSourceDescriptor("file", smartlistListfile.absolutePath))
+    private fun syncRules(activeFilters: Set<Filter>?) = {
         val tunnelConfig = get(TunnelConfig::class.java)
-        val active = store.cache.filter { it.active }.toMutableList()
-        if(tunnelConfig.smartList == SmartListState.ACTIVE_PHASE2){
-            active.add(smartlist)
+        val smartConfig = get(SmartListConfig::class.java)
+        val active = if(activeFilters != null){
+            activeFilters
+        }else{
+            val cache = store.cache.filter { it.active }.toMutableList()
+            if(smartConfig.state == SmartListState.ACTIVE_PHASE2){
+                cache.add(smartlistFilter)
+            }
+            cache.toSet()
         }
         val downloaded = mutableSetOf<Filter>()
         active.forEach { filter ->
             if (!doValidateRulesetCache(filter)) {
                 v("fetching ruleset", filter.id)
+
                 emit(TunnelEvents.FILTERS_CHANGING)
                 doFetchRuleset(doResolveFilterSource(filter), doGetMemoryLimit()).mapBoth(
                         success = {
@@ -191,17 +197,14 @@ internal class FilterManager(
                 )
             }
         }
-
+        downloaded.remove(smartlistFilter)
         store = store.copy(cache = store.cache - downloaded + downloaded)
-        val allowed = store.cache.filter { it.whitelist && it.active }.map { it.id }.toMutableList()
-        if(tunnelConfig.smartList == SmartListState.ACTIVE_PHASE2 && ignoreSmartList){
-            allowed.add(smartlist.id) // keep existing entries from being added again.
-        }
+        val allowed = active.filter { it.whitelist }.map { it.id }
 
-        val denied = if(tunnelConfig.smartList != SmartListState.ACTIVE_PHASE2 || ignoreSmartList ) {
-            store.cache.filter { !it.whitelist && it.active }.map { it.id }
+        val denied = if(smartConfig.state != SmartListState.ACTIVE_PHASE2 || activeFilters != null ) {
+            active.filter { !it.whitelist }.map { it.id }
         }else{
-            listOf(smartlist.id)
+            listOf(smartlistFilter.id)
         }
 
         v("attempting to build rules, denied/allowed", denied.size, allowed.size)

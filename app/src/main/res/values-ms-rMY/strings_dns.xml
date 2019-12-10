@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">Ini tidak kelihatan seperti IPv4 kepada saya.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">Alamat IP</string>
-    <string name="dns_edit_ip1_enter">Masukkan alamat pelayan DNS</string>
-    <string name="dns_edit_ip2_enter">Masukkan alamat pelayan DNS kedua</string>
     <string name="dns_edit_name_error">Bukan nama yang sah</string>
     <string name="dns_edit_name_label">Nama pelayan</string>
     <string name="dns_edit_name_default">Nama lalai</string>

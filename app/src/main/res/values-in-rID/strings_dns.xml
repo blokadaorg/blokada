@@ -6,8 +6,8 @@
     <string name="slot_enter_dns_error">Sepertinya ini bukan IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">Alamat IP</string>
-    <string name="dns_edit_ip1_enter">Masukkan alamat server DNS</string>
-    <string name="dns_edit_ip2_enter">Masukkan alamat server DNS sekunder</string>
+    <string name="dns_edit_ip1_enter">Masukkan IP address utama</string>
+    <string name="dns_edit_ip2_enter">Masukkan IP address kedua</string>
     <string name="dns_edit_name_error">Bukan nama DNS yang valid</string>
     <string name="dns_edit_name_label">Nama server</string>
     <string name="dns_edit_name_default">Nama bawaan</string>

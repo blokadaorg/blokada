@@ -138,7 +138,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">düşük</string>
     <string name="subscription_success">Hesabınız aktif hale getirildi. Bu bir kaç saniye alabilir. Teşekkür ederim!</string>
-    <string name="slot_start_on_boot_description">Açılışta başlatmayı etkinleştirmek Blokada\'nın her zaman etkin olmasını ve cihazınızı korumasını sağlar.</string>
     <string name="slot_recommended_dns_label">Önerilen DNS sunucularını kullanın</string>
     <string name="slot_recommended_dns_description">Etkinleştirildiğinde, Blokada, İnternet\'inizi hızlandırmak ve gizliliğinizi korumak için otomatik olarak önerilen DNS sunucularını seçer. Aksi takdirde, ağınızın varsayılan DNS sunucuları kullanılır. Gelişmiş bölümünde DNS sunucularını el ile seçerseniz, bu ayar yoksayılır.</string>
     <string name="slot_update_no_updates">Blokada güncel</string>

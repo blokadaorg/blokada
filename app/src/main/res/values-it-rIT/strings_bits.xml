@@ -80,7 +80,7 @@
     <string name="menu_dns_recommended">Server DNS consigliati</string>
     <string name="menu_dns_intro">I DNS sono responsabili della connessione del tuo dispositivo ai siti web e alle applicazioni che usi. Scegliere dei buoni DNS può velocizzare il tuo dispositivo e aiuterà a proteggere la tua privacy.</string>
     <string name="menu_dns_select">Seleziona uno dei server DNS.</string>
-    <string name="menu_apps_intro">Alcune applicazioni potrebbero non funzionare correttamente con Blokada. Ad esempio, potrebbero avere problemi di connessione.\n\nL\'attivazione della VPN è spesso d\'aiuto in questi casi.\n\nAltrimenti, è possibile far eludere a queste app il controllo di Blokada. Ricorda, le app che eludono il controllo di Blokada comunicano al di fuori della VPN.</string>
+    <string name="menu_apps_intro">Alcune applicazioni potrebbero non funzionare correttamente con Blokada. Ad esempio, potrebbero avere problemi di connessione.\n\nL\'attivazione della VPN è spesso d\'aiuto in questi casi.\n\nAltrimenti, è possibile far escludere queste app dal controllo di Blokada. Ricorda, le app escluse dal controllo di Blokada comunicano al di fuori di Blokada Tunnel.</string>
     <string name="menu_apps_system_label">Le app di sistema sono quelle preinstallate con il tuo dispositivo. Alcune di esse sono nascoste. Modificale solo se sai cosa stai facendo.</string>
     <string name="menu_host_list_intro">Le liste degli host contengono regole per bloccare annunci e tracker. Cerca di mantenere basso il numero di liste attive.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>

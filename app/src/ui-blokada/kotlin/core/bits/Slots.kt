@@ -10,6 +10,7 @@ import android.widget.EditText
 import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.Register.set
 import core.Tunnel
 import core.bits.menu.MENU_CLICK_BY_NAME_SUBMENU
 import filter.hostnameRegex
@@ -68,14 +69,21 @@ class FiltersStatusVB(
         Unit
     }
 
+    fun getMaxMemory(): Int {
+        val runtime = Runtime.getRuntime()
+        val totalmem = runtime.maxMemory()
+        val mb = totalmem.div(1048576)
+        return mb.toInt()
+    }
+
     private fun refresh() {
         view?.apply {
             type = Slot.Type.COUNTER
             content = Slot.Content(
                     label = i18n.getString(R.string.panel_ruleset_title, Format.counter(rules)),
                     header = i18n.getString(R.string.panel_ruleset),
-                    description = i18n.getString(R.string.panel_ruleset_built,
-                            Format.counter(rules), Format.counter(memory, round = true))
+                    description = i18n.getString(R.string.panel_ruleset_canfit,
+                            Format.counter(rules), Format.counter(getMaxMemory()), Format.counter(memory, round = true))
             )
             date = refreshDate
         }
@@ -352,7 +360,8 @@ class WildcardVB(
         )
         view.onSwitch = { switched ->
             val cfg = get(TunnelConfig::class.java)
-            if (switched && cfg.smartList != SmartListState.DEACTIVATED) {
+            val smartConfig = get(SmartListConfig::class.java)
+            if (switched && smartConfig.state != SmartListState.DEACTIVATED) {
                 view.content = view.content!!.copy(switched = false)
                 showSnack(R.string.tunnel_config_disable_smartlist)
             } else {
@@ -1012,6 +1021,26 @@ class ResetCounterVB(private val ktx: AndroidKontext,
 
 }
 
+class DnsAnswerTypeVB(
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                icon = ktx.ctx.getDrawable(R.drawable.ic_feedback),
+                label = i18n.getString(R.string.slot_dns_answer_label),
+                description = i18n.getString(R.string.slot_dns_answer_description),
+                switched = !get(DnsAnswerState::class.java).hostNotFoundAnswer
+        )
+        view.onSwitch = { set(DnsAnswerState::class.java, DnsAnswerState(!it)) }
+    }
+
+}
+
 class DnsListControlVB(
         private val ktx: AndroidKontext,
         private val ctx: Context = ktx.ctx,
@@ -1311,4 +1340,3 @@ class CleanupVB(
         }
     }
 }
-

@@ -69,10 +69,8 @@
     <string name="menu_dns_recommended">Önerilen DNS sunucuları</string>
     <string name="menu_dns_intro">DNS, kullandığınız web sitelerinin ve uygulamaların IP adreslerini çevirmekten sorumludur. İyi bir DNS seçmek, cihazınızı hızlandırabilir ve gizliliğinizin korunmasına yardımcı olur.</string>
     <string name="menu_dns_select">DNS sunucularından birini seçin.</string>
-    <string name="menu_apps_intro">Bazı uygulamalar Blokada ile düzgün çalışmayabilir. Örneğin, bağlantı kurmakta zorlanabilirler. \n\nVPN\'i etkinleştirmek bu durumlarda genellikle yardımcı olur. \n\nAksi takdirde, bu uygulamaları Blokada denetimini tamamen atlayarak yapabilirsiniz. Unutmayın, atlanan uygulamalar VPN dışında iletişim kurar.</string>
     <string name="menu_apps_system_label">Sistem uygulamaları cihazınızla önceden yüklenmiş olarak gelenlerdir. Bazıları gizlendi. Bunları yalnızca ne yaptığınızı biliyorsanız değiştirin.</string>
     <string name="menu_host_list_intro">Host listeleri, reklamları ve izleyicileri engellemek için kurallar içerir. Aktif listelerin sayısını düşük tutmaya çalışın.</string>
-    <string name="menu_host_adblocking_settings">Reklam engelleme ayarları</string>
     <string name="menu_host_list_status">Liste durumu</string>
     <string name="menu_host_list_download">İndirme ayarlarını listele</string>
     <string name="menu_host_whitelist">Buraya eklediğiniz hostlar hiçbir zaman engellenmeyecek. Örneğin, ziyaret ettiğiniz bir web sitesi yanlışlıkla engellendiğinde bu listeyi kullanın.</string>

@@ -5,6 +5,7 @@ import android.system.OsConstants
 import com.github.michaelbull.result.mapError
 import core.Result
 import core.emit
+import core.get
 import core.w
 import org.pcap4j.packet.*
 import org.pcap4j.packet.namednumber.UdpPort
@@ -28,6 +29,7 @@ internal class DnsProxy(
         private val loopback: Queue<Triple<ByteArray, Int, Int>>,
         private val denyResponse: SOARecord = SOARecord(Name("org.blokada.invalid."), DClass.IN,
                 5L, Name("org.blokada.invalid."), Name("org.blokada.invalid."), 0, 0, 0, 0, 5),
+
         private val doCreateSocket: () -> DatagramSocket = { DatagramSocket() }
 ) : Proxy {
 
@@ -77,7 +79,7 @@ internal class DnsProxy(
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
-            dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
+            generateDnsAnswer(dnsMessage, denyResponse)
             toDevice(dnsMessage.toWire(), -1, originEnvelope)
             emit(TunnelEvents.REQUEST, Request(host, blocked = true))
         }

@@ -6,8 +6,6 @@
     <string name="slot_enter_dns_error">זה לא נראה כמו IPv4.</string>
     <!-- An example format of a DNS server address. -->
     <string name="dns_edit_ip_label">כתובת IP</string>
-    <string name="dns_edit_ip1_enter">הזן כתובת שרת ה-DNS</string>
-    <string name="dns_edit_ip2_enter">הזן כתובת משנית של שרת ה-DNS</string>
     <string name="dns_edit_name_error">שם לא חוקי</string>
     <string name="dns_edit_name_label">שם השרת</string>
     <string name="dns_edit_name_default">שם ברירת המחדל</string>

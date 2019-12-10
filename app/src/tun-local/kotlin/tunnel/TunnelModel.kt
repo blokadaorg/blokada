@@ -8,7 +8,6 @@ import java.net.InetSocketAddress
 data class TunnelConfig(
         val tunnelEnabled: Boolean = false,
         val adblocking: Boolean = true,
-        val smartList: SmartListState = SmartListState.DEACTIVATED,
         val wifiOnly: Boolean = true,
         val firstLoad: Boolean = true,
         val powersave: Boolean = false,

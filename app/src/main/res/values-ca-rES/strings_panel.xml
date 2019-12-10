@@ -120,7 +120,6 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">baix</string>
     <string name="subscription_success">El vostre compte s\'està activant. Això pot trigar uns segons. Gràcies!</string>
-    <string name="slot_start_on_boot_description">En activar executar-se a l\'inici permet al Blokada estar sempre actiu i protegir el vostre dispositiu.</string>
     <string name="slot_recommended_dns_label">Utilitzeu els servidors DNS recomanats</string>
     <string name="slot_recommended_dns_description">En activar-se, el Blokada triarà automàticament els servidors DNS recomanats per ajudar a accelerar la vostra connexió i protegir la vostra privadesa. En cas contrari, s\'utilitzaran els servidors DNS per defecte de la vostra xarxa. Si trieu manualment els servidors DNS a la secció Avançada, aquesta configuració s\'ignorarà.</string>
     <string name="slot_update_no_updates">El Blokada està actualitzat</string>
