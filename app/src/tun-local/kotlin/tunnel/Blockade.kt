@@ -104,10 +104,10 @@ internal class WildcardBlockade(
 ) {
 
     override fun afterRulesetsBuilt(denyRuleset: Ruleset, allowRuleset: Ruleset) {
-        wildcardDenyRuleset = Ruleset().apply { addAll(denyRuleset.filter { it.startsWith("*.") }) }
-        wildcardAllowRuleset = Ruleset().apply { addAll(allowRuleset.filter { it.startsWith("*.") }) }
-        wildcardDenyRuleset = Ruleset().apply { addAll(wildcardDenyRuleset.map { it.removePrefix("*.") }) }
-        wildcardAllowRuleset = Ruleset().apply { addAll(wildcardAllowRuleset.map { it.removePrefix("*.") }) }
+        wildcardDenyRuleset = Ruleset().apply { addAll(denyRuleset.filter { it.startsWith("*") }) }
+        wildcardAllowRuleset = Ruleset().apply { addAll(allowRuleset.filter { it.startsWith("*") }) }
+        wildcardDenyRuleset = Ruleset().apply { addAll(wildcardDenyRuleset.map { it.removePrefix("*") }) }
+        wildcardAllowRuleset = Ruleset().apply { addAll(wildcardAllowRuleset.map { it.removePrefix("*") }) }
 
         v("WildcardBlockade configured, deny/allow:", wildcardDenyRuleset.size,
                 wildcardAllowRuleset.size)

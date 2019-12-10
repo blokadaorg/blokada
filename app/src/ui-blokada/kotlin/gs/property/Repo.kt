@@ -1,12 +1,12 @@
 package gs.property
 
 import com.github.salomonbrys.kodein.instance
-import core.ktx
-import core.loadGzip
-import core.openUrl
+import core.*
 import gs.environment.Environment
 import gs.environment.Time
 import gs.environment.Worker
+import org.json.JSONException
+import org.json.JSONObject
 import java.net.URL
 import java.util.*
 
@@ -51,27 +51,45 @@ class RepoImpl(
         val fetchTimeout = 10 * 1000
 
         try {
-            val repo = loadGzip(openUrl(repoURL, fetchTimeout))
-            val locales = repo[1].split(" ").map {
-                // Because Java APIs suck
-                val parts = it.split("_")
-                when(parts.size) {
-                    3 -> Locale(parts[0], parts[1], parts[2])
-                    2 -> Locale(parts[0], parts[1])
-                    else -> Locale(parts[0])
-                }
-            }
             ktx.v("repo downloaded")
+            val repoData = loadGzip(openUrl(repoURL, fetchTimeout))
+            try {
 
-            lastRefreshMillis %= time.now()
-            RepoContent(
-                    contentPath = URL(repo[0]),
-                    locales = locales,
-                    newestVersionCode = repo[2].toInt(),
-                    newestVersionName = repo[3],
-                    downloadLinks = repo.subList(4, repo.size).map { URL(it) },
-                    fetchedUrl = url()
-            )
+                val jsonRepo = JSONObject(repoData)
+
+                lastRefreshMillis %= time.now()
+
+                val jsonLocales = jsonRepo.getJSONArray("locales")
+                val locales = emptyList<Locale>().toMutableList()
+                for (i in 0 until jsonLocales.length()){
+                    val parts = jsonLocales.getString(i).split("_")
+                    locales.add(
+                        when(parts.size) {
+                            3 -> Locale(parts[0], parts[1], parts[2])
+                            2 -> Locale(parts[0], parts[1])
+                            else -> Locale(parts[0])
+                        }
+                    )
+                }
+                val jsonDownloadLinks = jsonRepo.getJSONArray("downloadLinks")
+                val downloadLinks = emptyList<URL>().toMutableList()
+                for (i in 0 until jsonDownloadLinks.length()){
+                    downloadLinks.add(URL(jsonDownloadLinks.getString(i)))
+                }
+
+                RepoContent(
+                        contentPath = URL(jsonRepo.getString("contentPath")),
+                        locales = locales,
+                        newestVersionCode = jsonRepo.getLong("newestVersionCode").toInt(),
+                        newestVersionName = jsonRepo.getString("newestVersionName"),
+                        downloadLinks = downloadLinks,
+                        fetchedUrl = url()
+                )
+            } catch (e: JSONException) {
+                v("Json parsing error: " + e.message)
+                v("JSON-data was:$repoData")
+                throw e
+            }
         } catch (e: Exception) {
             ktx.e("repo refresh fail", e)
             if (e is java.io.FileNotFoundException) {

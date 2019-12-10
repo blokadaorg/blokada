@@ -9,6 +9,8 @@ import gs.environment.Worker
 import gs.environment.getDnsServers
 import gs.property.*
 import org.blokada.R
+import org.json.JSONArray
+import org.json.JSONException
 import org.pcap4j.packet.namednumber.UdpPort
 import tunnel.TunnelConfig
 import java.io.InputStreamReader
@@ -49,7 +51,7 @@ class DnsImpl(
         w: Worker,
         xx: Environment,
         pages: Pages = xx().instance(),
-        serialiser: DnsSerialiser = DnsSerialiser(),
+        serialiser: JsonDnsSerialiser = JsonDnsSerialiser(),
         fetcher: DnsLocalisedFetcher = xx().instance(),
         d: Device = xx().instance(),
         ctx: Context = xx().instance()
@@ -261,6 +263,64 @@ class DnsSerialiser {
                 val comment = if (entry[6].isNotBlank()) entry[6] else null
 
                 DnsChoice(id, servers, dotEnabled, active, ipv6, credit, comment)
+            } catch (e: Exception) {
+                null
+            }
+        }.toList().sortedBy { it.first }.map { it.second }.filterNotNull()
+        return dns
+    }
+}
+
+class JsonDnsSerialiser {
+    fun deserialise(repo: String): List<DnsChoice> {
+        val dnsChoices = emptySet<Pair<Int, DnsChoice>>().toMutableSet()
+        try {
+            val jsonChoices = JSONArray(repo)
+            for (i in 0 until jsonChoices.length()) {
+                val jsonDnsChoice = jsonChoices.getJSONObject(i)
+                val jsonServers = jsonDnsChoice.getJSONArray("servers")
+                val comment = jsonDnsChoice.getString("comment")
+                val credit = jsonDnsChoice.getString("credit")
+                dnsChoices.add(jsonDnsChoice.getInt("index") to DnsChoice(
+                        jsonDnsChoice.getString("id"),
+                        List(jsonServers.length()) {
+                            val jsonServer = jsonServers.getJSONObject(it)
+                            val server = ipStringToAddress(jsonServer.getString("ip"))
+                            val dotHostname = jsonServer.getString("dot")
+                            val dotEnabled = dotHostname == null
+                            if (dotEnabled) {
+
+                            }
+                            server
+                        },
+                        jsonDnsChoice.getBoolean("active"),
+                        jsonDnsChoice.getBoolean("usesIpv6"),
+                        if(jsonDnsChoice.isNull("credit") || credit.isEmpty()) null else credit,
+                        if(jsonDnsChoice.isNull("comment") || comment.isEmpty()) null else comment
+                ))
+            }
+
+        } catch (e: JSONException) {
+            v("Json parsing error: " + e.message)
+            v("JSON-data was:$repo")
+            e(e)
+        }
+
+        return dnsChoices.toList().sortedBy { it.first }.map { it.second }
+    }
+
+    fun deserialise(source: List<String>): List<DnsChoice> {
+        if (source.size <= 1) return emptyList()
+        val dns = source.asSequence().batch(7).map { entry ->
+            entry[0].toInt() to try {
+                val id = entry[1]
+                val active = entry[2] == "active"
+                val ipv6 = entry[3] == "ipv6"
+                val servers = entry[4].split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
+                val credit = if (entry[5].isNotBlank()) entry[5] else null
+                val comment = if (entry[6].isNotBlank()) entry[6] else null
+
+                DnsChoice(id, servers, active, ipv6, credit, comment)
             } catch (e: Exception) {
                 null
             }

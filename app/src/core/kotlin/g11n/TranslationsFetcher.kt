@@ -4,6 +4,9 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
 import core.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.net.URL
 import java.util.*
 
@@ -16,9 +19,21 @@ internal class TranslationsFetcher(
         },
         val doFetchTranslations: (Url, Prefix) -> Result<Translations> = { url, prefix ->
             Result.of {
-                val prop = Properties()
-                prop.load(createStream(openUrl(URL(url), 10 * 1000)()))
-                prop.stringPropertyNames().map { key -> "${prefix}_$key" to prop.getProperty(key)}
+                val translationData = loadGzip(openUrl(URL(url), 10 * 1000))
+                val translations = emptyTranslations().toMutableList()
+                try {
+                    val jsonTranslations = JSONArray(translationData)
+                    for (i in 0 until jsonTranslations.length()){
+                        val jsonTranslation = jsonTranslations.getJSONObject(i)
+                        translations.add("${prefix}_${jsonTranslation.getString("key")}" to jsonTranslation.getString("translation"))
+                    }
+
+                } catch (e: JSONException) {
+                    v("Json parsing error: " + e.message)
+                    v("JSON-data was:$translationData")
+                    e(e)
+                }
+                translations
             }
         },
         val doPutTranslation: (Key, Translation) -> Result<Boolean> = { key, translation ->
