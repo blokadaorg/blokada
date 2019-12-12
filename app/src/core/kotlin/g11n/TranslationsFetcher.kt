@@ -3,12 +3,17 @@ package g11n
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
-import core.*
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
-import java.net.URL
-import java.util.*
+import com.google.gson.Gson
+import core.Kontext
+import core.Result
+import core.Url
+
+
+data class JsonTranslation(
+    val key: String,
+    val translation: String
+)
+
 
 internal class TranslationsFetcher(
         val urls: () -> Map<Url, Prefix>,
@@ -26,20 +31,11 @@ internal class TranslationsFetcher(
                 }else{
                     "[{\"key\":\"opendns_name\",\"translation\":\"OpenDNS\"},{\"key\":\"opendns_comment\",\"translation\":\"Extends the Domain Name System by adding features such as phishing protection and optional content filtering.\"},{\"key\":\"google_name\",\"translation\":\"Google Public DNS\"},{\"key\":\"google_comment\",\"translation\":\"A free, global DNS resolution service that you can use as an alternative to your current DNS provider.\"},{\"key\":\"quad9_name\",\"translation\":\"Quad9\"},{\"key\":\"quad9_comment\",\"translation\":\"Quad9 uses threat intelligence from more than a dozen of the industry’s leading cyber security companies to give a real-time perspective on what websites are safe and what sites are known to include malware or other threats. \"},{\"key\":\"verisign_name\",\"translation\":\"VeriSign Public DNS\"},{\"key\":\"verisign_comment\",\"translation\":\"Verisign Public DNS is a free DNS service that offers improved DNS stability and security over other alternatives. And, unlike many of the other DNS services out there, Verisign respects your privacy.\"},{\"key\":\"dnswatch_name\",\"translation\":\"DNS.WATCH\"},{\"key\":\"dnswatch_comment\",\"translation\":\"No Censorship. No Bullshit. Just DNS.\"},{\"key\":\"adguard_name\",\"translation\":\"AdGuard DNS\"},{\"key\":\"adguard_comment\",\"translation\":\"AdGuard DNS is an alternative solution for ad blocking, privacy protection, and parental control.\"},{\"key\":\"adguard_family_name\",\"translation\":\"AdGuard DNS (Family)\"},{\"key\":\"adguard_family_comment\",\"translation\":\"Use the Family protection mode of AdGuard DNS to block access to all websites with adult content and enforce safe search in the browser, in addition to the regular perks of ad blocking and browsing security.\"},{\"key\":\"cloudflare_name\",\"translation\":\"Cloudflare 1.1.1.1\"},{\"key\":\"cloudflare_comment\",\"translation\":\"The new, fast DNS servers from Cloudflare with privacy guarantee.\"},{\"key\":\"keweon_name\",\"translation\":\"Keweon\"},{\"key\":\"keweon_comment\",\"translation\":\"Keweon Adblock and Online Security is a network of DNS servers around the world that provide advanced features, like adblocking and privacy protection, while protecting from spyware, malware, phishing, fake software and more.\"},{\"key\":\"alternate_name\",\"translation\":\"Alternate DNS\"},{\"key\":\"alternate_comment\",\"translation\":\"Alternate DNS is an affordable, global Domain Name System resolution service that blocks unwanted ads.\"},{\"key\":\"fdn_name\",\"translation\":\"French Data Network\"},{\"key\":\"fdn_comment\",\"translation\":\"The French Data Network is a fast, reliable DNS service, recommended for French users.\"},{\"key\":\"opennicusa_name\",\"translation\":\"OpenNIC - USA\"},{\"key\":\"opennicusa_comment\",\"translation\":\"The OpenNIC project is a global service that ensures neutrality and reliability. This option is optimal for users in the USA.\"},{\"key\":\"openniceu_name\",\"translation\":\"OpenNIC - Europe\"},{\"key\":\"openniceu_comment\",\"translation\":\"The OpenNIC project is a global service that ensures neutrality and reliability. This option is optimal for users in the EU.\"},{\"key\":\"uncensored_name\",\"translation\":\"Uncensored DNS\"},{\"key\":\"uncensored_comment\",\"translation\":\"Uncensored, just as the name implies, aims to provide uncensored, unfiltered internet.\"},{\"key\":\"tenta_name\",\"translation\":\"Tenta DNS\"},{\"key\":\"tenta_comment\",\"translation\":\"Tenta DNS is your open source, privacy-first DNS solution. With their service, you can ensure your browsing will stay private.\"},{\"key\":\"freenom_name\",\"translation\":\"Freenom World\"},{\"key\":\"freenom_comment\",\"translation\":\"A fast and anonymous public DNS resolver with servers around the globe. Their service doesn't store your IP while it gives you the result you are expecting, nothing additional.\"},{\"key\":\"digitalcourage_name\",\"translation\":\"Digitalcourage\"},{\"key\":\"digitalcourage_comment\",\"translation\":\"The organisation is well known about their privacy and security focused work, Digitalcourage campaigns for civil and human rights, consumer protection, freedom of information and related issues. \"},{\"key\":\"quad101_name\",\"translation\":\"Quad101\"},{\"key\":\"quad101_comment\",\"translation\":\"Quad101 is the Taiwan Network Information Center's experimental public DNS project, running one of the world's fastest DNS infrastructure.\"}]"
                 }
-                val translations = emptyTranslations().toMutableList()
-                try {
-                    val jsonTranslations = JSONArray(translationData)
-                    for (i in 0 until jsonTranslations.length()){
-                        val jsonTranslation = jsonTranslations.getJSONObject(i)
-                        translations.add("${prefix}_${jsonTranslation.getString("key")}" to jsonTranslation.getString("translation"))
-                    }
 
-                } catch (e: JSONException) {
-                    v("Json parsing error: " + e.message)
-                    v("JSON-data was:$translationData")
-                    e(e)
+                val gson = Gson()
+                gson.fromJson(translationData, Array<JsonTranslation>::class.java).map { transl ->
+                    "${prefix}_${transl.key}" to transl.translation
                 }
-                translations
             }
         },
         val doPutTranslation: (Key, Translation) -> Result<Boolean> = { key, translation ->

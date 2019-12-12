@@ -1,6 +1,7 @@
 package gs.property
 
 import com.github.salomonbrys.kodein.instance
+import com.google.gson.Gson
 import core.*
 import gs.environment.Environment
 import gs.environment.Time
@@ -9,6 +10,14 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.net.URL
 import java.util.*
+
+data class JsonRepoContent(
+        val contentPath: String,
+        val locales: List<String>,
+        val newestVersionCode: Int,
+        val newestVersionName: String,
+        val downloadLinks: List<String>
+)
 
 data class RepoContent(
         val contentPath: URL?,
@@ -53,45 +62,28 @@ class RepoImpl(
         try {
             ktx.v("repo downloaded")
             val repoData = loadGzip(openUrl(repoURL, fetchTimeout))
-            try {
+            //val jsonRepo = JSONObject(repoData)
+            //REMOVE!!!!!!!!!!!!!!!!
+            val jsonRepo = "{\"contentPath\":\"https://blokada.org/api/v4/content\",\"locales\":[\"en\",\"pl_PL\",\"hu_HU\",\"ru_RU\",\"es_ES\",\"hi_IN\",\"tr_TR\",\"fr_FR\",\"ms_MY\",\"uk_UA\",\"de_DE\",\"cs_CZ\",\"it_IT\",\"pt_BR\",\"nb_NO\",\"zh_TW\",\"id_ID\",\"zh_CN\",\"bg_BG\",\"lv_LV\",\"ca_ES\",\"pt_PT\",\"ar_SA\",\"sk_SK\",\"iw_IL\",\"zu_Z\"],\"newestVersionCode\":404000002,\"newestVersionName\":\"4.4.2\",\"downloadLinks\":[\"https://github.com/blokadaorg/blokada/releases/download/4.4.2/blokada-v4.4.2.apk\",\"https://bitbucket.org/blokada/blokada/downloads/blokada-v4.4.2.apk\"]}"
+            lastRefreshMillis %= time.now()
 
-                //val jsonRepo = JSONObject(repoData)
-                //REMOVE!!!!!!!!!!!!!!!!
-                val jsonRepo = JSONObject("{\"contentPath\":\"https://blokada.org/api/v4/content\",\"locales\":[\"en\",\"pl_PL\",\"hu_HU\",\"ru_RU\",\"es_ES\",\"hi_IN\",\"tr_TR\",\"fr_FR\",\"ms_MY\",\"uk_UA\",\"de_DE\",\"cs_CZ\",\"it_IT\",\"pt_BR\",\"nb_NO\",\"zh_TW\",\"id_ID\",\"zh_CN\",\"bg_BG\",\"lv_LV\",\"ca_ES\",\"pt_PT\",\"ar_SA\",\"sk_SK\",\"iw_IL\",\"zu_Z\"],\"newestVersionCode\":404000002,\"newestVersionName\":\"4.4.2\",\"downloadLinks\":[\"https://github.com/blokadaorg/blokada/releases/download/4.4.2/blokada-v4.4.2.apk\",\"https://bitbucket.org/blokada/blokada/downloads/blokada-v4.4.2.apk\"]}")
-
-                lastRefreshMillis %= time.now()
-
-                val jsonLocales = jsonRepo.getJSONArray("locales")
-                val locales = emptyList<Locale>().toMutableList()
-                for (i in 0 until jsonLocales.length()){
-                    val parts = jsonLocales.getString(i).split("_")
-                    locales.add(
+            val gson = Gson()
+            val jsonRepoContent = gson.fromJson(jsonRepo, JsonRepoContent::class.java)
+            RepoContent(
+                    contentPath = URL(jsonRepoContent.contentPath),
+                    locales = jsonRepoContent.locales.map {
+                        val parts = it.split("_")
                         when(parts.size) {
                             3 -> Locale(parts[0], parts[1], parts[2])
                             2 -> Locale(parts[0], parts[1])
                             else -> Locale(parts[0])
                         }
-                    )
-                }
-                val jsonDownloadLinks = jsonRepo.getJSONArray("downloadLinks")
-                val downloadLinks = emptyList<URL>().toMutableList()
-                for (i in 0 until jsonDownloadLinks.length()){
-                    downloadLinks.add(URL(jsonDownloadLinks.getString(i)))
-                }
-
-                RepoContent(
-                        contentPath = URL(jsonRepo.getString("contentPath")),
-                        locales = locales,
-                        newestVersionCode = jsonRepo.getLong("newestVersionCode").toInt(),
-                        newestVersionName = jsonRepo.getString("newestVersionName"),
-                        downloadLinks = downloadLinks,
-                        fetchedUrl = url()
-                )
-            } catch (e: JSONException) {
-                v("Json parsing error: " + e.message)
-                v("JSON-data was:$repoData")
-                throw e
-            }
+                    },
+                    newestVersionCode = jsonRepoContent.newestVersionCode,
+                    newestVersionName = jsonRepoContent.newestVersionName,
+                    downloadLinks = jsonRepoContent.downloadLinks.map { URL(it) },
+                    fetchedUrl = url()
+            )
         } catch (e: Exception) {
             ktx.e("repo refresh fail", e)
             if (e is java.io.FileNotFoundException) {
