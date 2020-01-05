@@ -298,7 +298,7 @@ fun newTunnelModule(ctx: Context): Module {
                 }
             }
 
-            ktx.on(TunnelEvents.REQUEST) { request ->
+            ktx.on(TunnelEvents.REQUEST_SAVED) { request ->
                 if (request.blocked) {
                     s.tunnelDropCount %= s.tunnelDropCount() + 1
                     val dropped = s.tunnelRecentDropped() + request.domain

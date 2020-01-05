@@ -19,6 +19,7 @@ object TunnelEvents {
     val FILTERS_CHANGING = "FILTERS_CHANGING".newEvent()
     val FILTERS_CHANGED = "FILTERS_CHANGED".newEventOf<Collection<Filter>>()
     val REQUEST = "REQUEST".newEventOf<Request>()
+    val REQUEST_SAVED = "REQUEST_SAVED".newEventOf<Request>()
     val TUNNEL_POWER_SAVING = "TUNNEL_POWER_SAVING".newEvent()
     val MEMORY_CAPACITY = "MEMORY_CAPACITY".newEventOf<Int>()
     val TUNNEL_RESTART = "TUNNEL_RESTART".newEventOf<Int>()

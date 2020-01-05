@@ -68,12 +68,12 @@ class AdsDashboardSectionVB(
         tunnel.Persistence.request.load(0).onSuccess {
             it.forEach(request)
         }
-        ktx.on(TunnelEvents.REQUEST, request)
+        ktx.on(TunnelEvents.REQUEST_SAVED, request)
     }
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
         displayingEntries.clear()
-        ktx.cancel(TunnelEvents.REQUEST, request)
+        ktx.cancel(TunnelEvents.REQUEST_SAVED, request)
     }
 }
