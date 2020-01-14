@@ -24,6 +24,7 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
+    maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
 }
 
 androidGitVersion {
@@ -299,8 +300,9 @@ dependencies {
     implementation 'com.github.thibseisel:kdenticon-android:1.0.0-alpha5'
     implementation 'com.github.GwonHyeok:StickySwitch:0.0.15'
 
-    // External integration (Tasker)
+    // External integrations (Tasker, Zendesk)
     implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
+    implementation group: 'com.zendesk', name: 'support', version: '3.0.2'
 
     // REST api
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"

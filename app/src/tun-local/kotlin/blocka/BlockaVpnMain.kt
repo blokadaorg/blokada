@@ -34,8 +34,6 @@ class BlockaVpnMain {
     init {
         val restApi: BlockaRestApi = di.instance()
 
-        registerPersistenceForAccount()
-
         accountManager = AccountManager(
                 state = get(CurrentAccount::class.java),
                 newAccountRequest = {

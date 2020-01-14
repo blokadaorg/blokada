@@ -84,4 +84,14 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="BlokadaZendesk" parent="ZendeskSdkTheme.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorBackground</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorActive</item>
+        <item name="android:textColorPrimary">@color/colorBackground</item>
+        <item name="android:textColorLink">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/bg_window_nontransparent</item>
+    </style>
+
 </resources>

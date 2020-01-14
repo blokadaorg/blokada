@@ -215,7 +215,10 @@ class BitView(
     }
 
     fun alternative(alternative: Boolean) {
-        containerView.setBackgroundResource(R.drawable.bg_dashboard_item_alternative)
+        if (alternative)
+            containerView.setBackgroundResource(R.drawable.bg_dashboard_item_alternative)
+        else
+            containerView.setBackgroundResource(R.drawable.bg_dashboard_item)
         this.alternative = alternative
     }
 

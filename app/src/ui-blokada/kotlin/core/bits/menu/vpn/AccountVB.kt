@@ -3,8 +3,10 @@ package core.bits.menu.vpn
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import blocka.CurrentAccount
 import com.github.salomonbrys.kodein.instance
 import com.github.thibseisel.kdenticon.Identicon
@@ -15,6 +17,8 @@ import core.bits.pretty
 import gs.property.I18n
 import org.blokada.R
 import tunnel.showSnack
+import ui.SupportRequestActivity
+import ui.SupportUserInfo
 import java.util.*
 
 class AccountVB(
@@ -117,12 +121,41 @@ class SupportVB(
 
     override fun attach(view: BitView) {
         view.alternative(true)
-        view.icon(R.drawable.ic_help_outline.res())
-        view.label(R.string.menu_vpn_support_button.res())
+        view.icon(R.drawable.ic_message_plus_outline.res())
+        view.label(R.string.menu_vpn_support_messages_new.res())
         view.onTap {
             shouldRefreshAccount = true
             modal.openModal()
             openWebContent(ktx.ctx, getSupportUrl())
         }
+    }
+}
+
+class SupportTicketsVB(
+        private val ktx: AndroidKontext
+) : BitVB() {
+
+    override fun attach(view: BitView) {
+        view.icon(R.drawable.ic_comment_multiple_outline.res())
+        view.alternative(false)
+
+        if (get(SupportUserInfo::class.java).hasTickets) {
+            view.label(R.string.menu_vpn_support_messages_all.res())
+            view.onTap {
+                shouldRefreshAccount = true
+                openSupportTickets()
+            }
+            view.alternative(true)
+        } else {
+            view.label(R.string.menu_vpn_support_messages_nothing.res())
+            view.onTap {  }
+        }
+    }
+
+    private fun openSupportTickets() {
+        val intent = Intent(ktx.ctx, SupportRequestActivity::class.java)
+        intent.data = Uri.parse("blocka://support/list")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        ktx.ctx.startActivity(intent)
     }
 }

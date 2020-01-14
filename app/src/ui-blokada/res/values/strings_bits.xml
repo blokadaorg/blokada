@@ -88,6 +88,14 @@
     <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
     <string name="menu_vpn_support_label">If you experience any problems, do not hesitate to contact us.</string>
     <string name="menu_vpn_support_button">Support</string>
+    <string name="menu_vpn_support_email">Enter email</string>
+    <string name="menu_vpn_support_email_desc">If you need assistance, please enter your email here. We will use it to get back to you.</string>
+    <string name="menu_vpn_support_name">Enter name (optional)</string>
+    <string name="menu_vpn_support_name_desc">Let us know how should we address you.</string>
+    <string name="menu_vpn_support_messages_label">Support Inbox</string>
+    <string name="menu_vpn_support_messages_new">Ask for support</string>
+    <string name="menu_vpn_support_messages_all">My chats</string>
+    <string name="menu_vpn_support_messages_nothing">You have not contacted support yet.</string>
     <string name="menu_vpn_tunnel_settings">Blokada Tunnel settings</string>
     <string name="menu_vpn_tunnel_learn_more">Learn more about Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">Do I have an account?</string>
