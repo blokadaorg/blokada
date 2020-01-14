@@ -16,6 +16,7 @@ import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.lazy
+import core.bits.menu.advanced.registerPersistenceForAdvancedSettings
 import flavor.newFlavorModule
 import gs.environment.inject
 import gs.environment.newGscoreModule
@@ -69,6 +70,7 @@ class MainApplication: Application(), KodeinAware {
         setRestartAppOnCrash()
         registerPersistenceForSupportUserInfo()
         registerPersistenceForAccount()
+        registerPersistenceForAdvancedSettings()
     }
 
     override fun attachBaseContext(base: Context) {
