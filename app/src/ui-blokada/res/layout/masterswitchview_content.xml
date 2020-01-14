@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/byte_root"
     android:padding="16dp"
-    android:layout_marginBottom="80dp"
+    android:layout_marginBottom="@dimen/master_switch_margin_bottom"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
