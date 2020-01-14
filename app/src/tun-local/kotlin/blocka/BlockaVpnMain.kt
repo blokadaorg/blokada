@@ -135,6 +135,7 @@ class BlockaVpnMain {
             if (showErrorToUser) handleException(ex)
             if (ex is BoringTunLoadException) blockaVpnManager.enabled = false
         }
+        hideTunnelNotificationsIfOk()
     }
 
     fun deleteLease(lease: BlockaRestModel.LeaseRequest) = async(context) {
@@ -203,6 +204,13 @@ class BlockaVpnMain {
         }
         else -> {
             showSnack(R.string.home_blocka_vpn_error.res())
+        }
+    }
+
+    private fun hideTunnelNotificationsIfOk() {
+        if (blockaVpnManager.enabled) {
+            notificationMain.cancel(LeaseExpiredNotification())
+            notificationMain.cancel(AccountInactiveNotification())
         }
     }
 }
