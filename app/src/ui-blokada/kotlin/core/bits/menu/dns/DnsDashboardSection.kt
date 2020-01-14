@@ -44,6 +44,7 @@ class DnsDashboardSection(
                 view.add(LabelVB(ktx, label = R.string.menu_manage.res()))
                 view.add(DnsListControlVB(ktx, onTap = defaultOnTap))
                 view.add(DnsFallbackVB(ktx, onTap = defaultOnTap))
+                view.add(DnsAnswerTypeVB(ktx, onTap = defaultOnTap))
             }
         }
     }
