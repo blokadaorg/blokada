@@ -220,7 +220,7 @@ class UpdateNotification(versionName: String): BlokadaNotification(3, Notificati
             b.setVibrate(LongArray(0))
 
             val intentActivity = Intent(ctx, PanelActivity::class.java)
-            intentActivity.putExtra("notification", true)
+            intentActivity.putExtra("update", true)
             val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
             b.setContentIntent(piActivity)
         }

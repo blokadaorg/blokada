@@ -9,16 +9,19 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.github.salomonbrys.kodein.instance
 import core.bits.REFRESH_HOME
 import gs.environment.ComponentProvider
 import gs.obsolete.Sync
 import gs.presentation.ViewBinderHolder
+import gs.property.Repo
 import kotlinx.coroutines.experimental.runBlocking
 import org.blokada.R
 import tunnel.askTunnelPermission
 import tunnel.tunnelPermissionResult
+import update.UpdateCoordinator
 import java.lang.ref.WeakReference
 
 
@@ -46,6 +49,7 @@ class PanelActivity : Activity() {
 //        getNotch()
 //        if (hasSoftKeys(getSystemService(Context.WINDOW_SERVICE) as WindowManager))
 //            dashboardView.navigationBarPx = resources.getDimensionPixelSize(R.dimen.dashboard_navigation_inset)
+        handleUpdate()
     }
 
     override fun onResume() {
@@ -61,6 +65,7 @@ class PanelActivity : Activity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         emit(REFRESH_HOME)
+        handleUpdate()
     }
 
     override fun onBackPressed() {
@@ -85,6 +90,15 @@ class PanelActivity : Activity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         tunnelPermissionResult(Kontext.new("permission:vpn:result"), resultCode)
+    }
+
+    private fun handleUpdate() {
+        if (intent.getBooleanExtra("update", false)) {
+            Toast.makeText(this, R.string.update_starting, Toast.LENGTH_LONG).show()
+            val repo: Repo = ktx.di().instance()
+            val updateCoordinator: UpdateCoordinator = ktx.di().instance()
+            updateCoordinator.start(repo.content().downloadLinks)
+        }
     }
 
     fun trai() {
