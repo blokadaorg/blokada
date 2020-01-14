@@ -33,6 +33,9 @@
     <string name="main_changelog">Endringslogg</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">Takk til</string>
+    <string name="main_legal">Juridisk informasjon</string>
+    <string name="main_licenses">Tredjepartslisenser</string>
+    <string name="main_terms">Vilkår for bruk</string>
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">Del loggen</string>
     <!-- To display a big number in short way, eg. 1.69 million -->

@@ -142,6 +142,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">alacsony</string>
     <string name="subscription_success">Fiókod aktiválva van. Ez eltarthat néhány másodpercig. Köszönjük!</string>
+    <string name="slot_start_on_boot_description">A bootoláskor indul engedélyezése lehetővé teszi a Blokada mindenkori aktív működését és a készülék folyamatos védelmét. Felhívjuk figyelmedet, hogy a rendszernek mindig nagyobb prioritása van, és felülírhatja ezt az opciót, így ha a Blokada nem indul el, nézd meg a rendszered beállításait.</string>
     <string name="slot_recommended_dns_label">Az ajánlott DNS-kiszolgálók használata</string>
     <string name="slot_recommended_dns_description">Ha ez a funkció engedélyezve van, a Blokada automatikusan kiválasztja az ajánlott DNS-kiszolgálókat, hogy felgyorsítsa az internetet és védje az adatait. Ellenkező esetben a hálózat alapértelmezett DNS-kiszolgálóit használja. Ha a Haladó részben manuálisan választod ki a DNS-kiszolgálókat, ez a beállítás figyelmen kívül marad.</string>
     <string name="slot_update_no_updates">A Blokada naprakész</string>
