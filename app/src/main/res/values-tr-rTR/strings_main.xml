@@ -23,7 +23,7 @@
     <!-- App status, always displayed without the "Blokada is" part. -->
     <string name="main_status_deactivating">Devre dışı bırakılıyor</string>
     <string name="main_blog_text">Haberler</string>
-    <string name="main_autostart_text">Açılışta Çalıştır</string>
+    <string name="main_autostart_text">Önyüklemede başla</string>
     <!-- A menu option to send feedback or contact us -->
     <!-- A menu option to open Patron of the month -->
     <!-- A menu option to open Patron voting screen -->
@@ -32,7 +32,7 @@
     <!-- A menu option to open changelog -->
     <string name="main_changelog">Değişiklikler</string>
     <!-- A menu option to open credits screen -->
-    <string name="main_credits">Emeği Geçenler</string>
+    <string name="main_credits">Katkıda bulunanlar</string>
     <string name="main_legal">Yasal bilgiler</string>
     <string name="main_licenses">Üçüncü parti lisanslar</string>
     <string name="main_terms">Hizmet koşulları</string>

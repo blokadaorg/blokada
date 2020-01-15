@@ -16,6 +16,7 @@
     <string name="notification_keepalive_text">உயிரோடு வைத்திரு</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">செயல்பாட்டில் வைத்திரு</string>
+    <string name="notification_keepalive_text_new">செயலி தொடர்ந்து இயங்க ஆண்ட்ராய்டு ஒரு அறிவிப்பை காண்பிக்க வேண்டும், ஆனால் நீங்கள் இதை இயக்க அமைவுகளில் முடக்கிக்கொள்ளலாம்.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d முடக்கப்பட்டுள்ளது</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
@@ -27,7 +28,9 @@
     <string name="notification_keepalive_deactivate">நிறுத்து</string>
     <string name="notification_keepalive_deactivating">Blokada நிறுத்தப்பட்டுவிட்டது!</string>
     <string name="notification_expired_title">Blokada Tunnel நிறுத்தப்பட்டுவிட்டது</string>
+    <string name="notification_expired_description">உங்கள் கணக்கு செயல்பாட்டில் இல்லை, மற்றும் Blokada சுரங்கம் அணைத்து வைக்கப்பட்டுள்ளது. வழக்கமான Blokada வின் அம்சங்கள் சுரங்கம் இல்லாமலும் நன்கு இயங்கும். இருப்பினும் மேம்பட்ட பாதுகாப்பிற்காகவும் மற்றும் இந்த செயலியை ஆதரிக்கவும் உங்கள் கணக்கை செயல்படுத்த பரிசீலிக்கவும்.</string>
     <string name="notification_lease_expired_title">Blokada Tunnel நிறுத்தப்பட்டுவிட்டது</string>
+    <string name="notification_lease_expired_description">Blokada சுரங்கத்துடன் உங்கள் இணைப்பில் ஒரு பழுது ஏற்பட்டுள்ளது. தயவு செய்து இன்னொரு இணைய நுழைவயிலை தேர்வு செய்யவும். இந்த பழுது தொடர்ந்தால் தயவு செய்து எங்களை தொடர்பு கொள்ளவும்.</string>
     <string name="notification_channel_filtered">விளம்பரங்களை முடக்குதல்</string>
     <string name="notification_channel_announcements">அறிவிப்புகள்</string>
     <string name="notification_channel_vpn">Blokada Tunnel</string>

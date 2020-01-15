@@ -30,7 +30,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Ara els filtres tenen %s regles.</string>
     <string name="panel_ruleset_updating">S\'estan actualitzant els filtres...</string>
-    <string name="panel_ruleset_built">Els filtres ara estan configurats amb &lt;b&gt;%s&lt;/b&gt; regles. Fins a &lt;b&gt;%s&lt;/b&gt; regles poden cabre en la memòria del vostre dispositiu en general. Recordeu, això és només una estimació i està subjecte a canvis depenent d\'altres aplicacions al dispositiu, pel que ha de mantenir-se per sota d\'aquest límit per estar segur.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Permet</string>
     <!-- Button to block allowed domain -->

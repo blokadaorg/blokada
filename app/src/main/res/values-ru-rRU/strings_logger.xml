@@ -3,8 +3,9 @@
 <resources>
     <string name="logger_permission">Пожалуйста, предоставьте разрешение на доступ к хранилищу.</string>
     <string name="logger_slot_title">Запрос журналирования</string>
-    <string name="logger_slot_desc">При включении Blokada будет создавать файл CSV и журналировать запросы, которые были разрешены и/или заблокированы. Найдите папку \'blokada\' в вашем хранилище.</string>
+    <string name="logger_slot_desc">По умолчанию запросы хранятся только внутри Blokada. Если эта функция включена, Blokada создаст файл CSV и запишет запросы журнала, которые были разрешены и / или заблокированы приложением. Ищите папку \"blokada\" на внешнем хранилище. Кроме того, ведение журнала запросов можно полностью отключить, сохранив только количество заблокированных доменов.</string>
     <string name="logger_slot_mode_off">Отключено</string>
+    <string name="logger_slot_mode_internal">Записывать только во внутреннее хранилище</string>
     <string name="logger_slot_mode_allowed">Журнал разрешенных запросов</string>
     <string name="logger_slot_mode_denied">Журнал разрешенных запросов</string>
     <string name="logger_slot_mode_all">Журналировать все запросы</string>

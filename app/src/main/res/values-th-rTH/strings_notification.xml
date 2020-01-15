@@ -15,7 +15,24 @@
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">เปิดใช้งานตลอด</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">อยู่ต่อไป (แตะเพื่อซ่อน)</string>
+    <string name="notification_keepalive_text_new">Android ต้องการแสดงการแจ้งเตือนเพื่อให้แอพทำงานต่อไป แต่คุณสามารถปิดการใช้งานได้ในการตั้งค่าระบบ</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d ถูกบล็อก</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">ล่าสุด: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">กำลังตรวจสอบ</string>
+    <string name="notification_keepalive_activate">ทำงาน</string>
+    <string name="notification_keepalive_activating">อีกสักครู่ Blokada จะเริ่มทำงาน</string>
+    <string name="notification_keepalive_deactivate">ปิดใช้งาน</string>
+    <string name="notification_keepalive_deactivating">Blokada ได้ปิดใช้งาน</string>
+    <string name="notification_expired_title">Blokada Tunnel ปิดใช้งาน</string>
+    <string name="notification_expired_description">บัญชีของคุณไม่ทำงานและ Blokada Tunnel ปิดอยู่  คุณลักษณะของ Blokada มาตรฐานทำงานได้ดีโดยไม่ต้องใช้สิ่งนี้ อย่างไรก็ตามโปรดพิจารณาการเปิดใช้งานบัญชีของคุณเพื่อการป้องกันที่ดีขึ้นและเพื่อสนับสนุนโครงการ</string>
+    <string name="notification_lease_expired_title">Blokada Tunnel ปิดใช้งาน</string>
+    <string name="notification_lease_expired_description">เกิดปัญหากับการเชื่อมต่อกับ Blokada Tunnel ของคุณ  โปรดลองเลือกเกตเวย์อื่น  หากปัญหายังคงมีอยู่โปรดติดต่อเรา</string>
+    <string name="notification_channel_filtered">กำลังปิดกั้นโฆษณา</string>
+    <string name="notification_channel_announcements">ประกาศ</string>
+    <string name="notification_channel_vpn">Blokada Tunnel</string>
+    <string name="notification_channel_other">อื่นๆ</string>
 </resources>

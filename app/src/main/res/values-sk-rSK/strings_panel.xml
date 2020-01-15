@@ -31,7 +31,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Filtre teraz majú %s pravidlá/pravidiel.</string>
     <string name="panel_ruleset_updating">Aktualizácia filtrov...</string>
-    <string name="panel_ruleset_built">Filtre sú teraz nakonfigurované s &lt;b&gt;%s&lt;/b&gt; pravidlami. Celkovo sa do pamäte vášho zariadenia zmestí &lt;b&gt;%s&lt;/b&gt; pravidiel. Táto hodnota je približná a závisí od počtu ostatných aplikácii na vašom zariadení, takže by ste pre istotu mali ostať pod týmto limitom.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Povoliť</string>
     <!-- Button to block allowed domain -->

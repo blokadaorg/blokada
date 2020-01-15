@@ -40,7 +40,7 @@
     <string name="home_account_error">Fiók hitelesítése sikertelen. Online vagy?</string>
     <string name="home_permission_error">Kérjük, add meg a VPN engedélyeket.</string>
     <string name="home_zero_filters_error">Nincs szűrő konfigurálva. Ellenőrizd a hirdetés blokkolás és a Wi-Fi beállításait.</string>
-    <string name="home_filters_memory_error">Az összes szűrő nem tölthető a memóriába. Ellenőrizd a hirdetés blokkolás beállításait.</string>
+    <string name="home_filters_memory_error">Néhány listát nem lehetett betölteni; kevesebb listát válassz a Hirdetés blokkolás beállításai között.</string>
     <string name="tasker_switch_label">Érintsd meg az egyik lehetőséget az aktiválás (vagy deaktiválás) konfigurálásához.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Hirdetések</string>
@@ -70,6 +70,14 @@
     <string name="menu_vpn_gateways_label">Válaszd ki az egyik átjárót. A készüléked a titkosított adatokat ezen az átjárón keresztül küldi biztonságosan, és így névtelen maradsz.</string>
     <string name="menu_vpn_support_label">Ha bármilyen problémát tapasztalsz, ne habozz kapcsolatba lépni velünk.</string>
     <string name="menu_vpn_support_button">Támogatás</string>
+    <string name="menu_vpn_support_email">E-mail cím megadása</string>
+    <string name="menu_vpn_support_email_desc">Ha segítségre van szükséged, kérjük, írd ide az e-mail címed. Ezen keresztül tudunk kapcsolatba lépni veled.</string>
+    <string name="menu_vpn_support_name">Név megadása (opcionális)</string>
+    <string name="menu_vpn_support_name_desc">Kérjük add meg, hogyan szólíthatunk.</string>
+    <string name="menu_vpn_support_messages_label">Ügyfélszolgálat bejövő</string>
+    <string name="menu_vpn_support_messages_new">Segítség kérése</string>
+    <string name="menu_vpn_support_messages_all">Csevegéseim</string>
+    <string name="menu_vpn_support_messages_nothing">Még nem vetted fel a kapcsolatot az ügyfélszolgálattal.</string>
     <string name="menu_vpn_tunnel_settings">Blokada Tunnel beállításai</string>
     <string name="menu_vpn_tunnel_learn_more">Tudj meg többet a Blokada Tunnel-ról</string>
     <string name="menu_vpn_info_account_label">Van már fiókom?</string>

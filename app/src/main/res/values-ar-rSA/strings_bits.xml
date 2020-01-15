@@ -40,7 +40,7 @@
     <string name="home_account_error">فشل التأكّد مِن حسابك. هل أنت متصل؟</string>
     <string name="home_permission_error">يُرجى منْح التصريحات للـ VPN.</string>
     <string name="home_zero_filters_error">لا يوجد لديك فلاتر مُهيَّأة. تحقّق من إعدادات حَظْر الإعلانات و wifi.</string>
-    <string name="home_filters_memory_error">لا يمكن تحميل جميع الفلاتر على الذاكرة. تحقّق من إعدادات حَظْر الإعلانات الخاصّة بك.</string>
+    <string name="home_filters_memory_error">لا يُمكِن تحميل بعض القوائم ؛ حَدِّد قوائم أقل في إعدادات حظر الإعلانات.</string>
     <string name="tasker_switch_label">انقر فوق أحد الخيارات لتهيئته لتشغيله (أو إيقاف تشغيله) للمُشغّل الخاصّ بك.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">إعلانات</string>
@@ -70,6 +70,14 @@
     <string name="menu_vpn_gateways_label">حدِّد إحدى البوّابات للاتصال بها. سَيُرسِل جهازك بياناتك المشفَّرة بأمان عبر هذه البوابة ، و ستظل مجهول الهويّة.</string>
     <string name="menu_vpn_support_label">إذا واجهت أي مشاكل ، فلا تتردّد في الاتصال بنا.</string>
     <string name="menu_vpn_support_button">الدعم</string>
+    <string name="menu_vpn_support_email">أدخل البريد الإلكتروني</string>
+    <string name="menu_vpn_support_email_desc">إذا كنت بحاجة لمساعدة ، يُرجى إدخال بريدك الإلكتروني هنا. سوف نستخدمه للردّ عليك.</string>
+    <string name="menu_vpn_support_name">أدخل الاسم (اختياري)</string>
+    <string name="menu_vpn_support_name_desc">اسمح لنا أن نعرف كيف ينبغي لنا مخاطبتكم.</string>
+    <string name="menu_vpn_support_messages_label">دعم البريد الوارد</string>
+    <string name="menu_vpn_support_messages_new">اطلب الدعم</string>
+    <string name="menu_vpn_support_messages_all">محادثاتي</string>
+    <string name="menu_vpn_support_messages_nothing">لم تتّصل بالدعم بعد.</string>
     <string name="menu_vpn_tunnel_settings">إعدادات Blokada Tunnel</string>
     <string name="menu_vpn_tunnel_learn_more">إعرف المزيد حول Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">هل لديك حساب ؟</string>

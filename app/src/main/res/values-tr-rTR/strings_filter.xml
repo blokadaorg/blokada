@@ -22,7 +22,7 @@
     <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->
     <!-- Displayed in the home screen, keep it short. Parameter: number of whitelisted entries. -->
     <!-- Title of menu with quick actions for whitelist / blacklist -->
-    <string name="filter_generate_title">Hızlı eylemler</string>
+    <string name="filter_generate_title">Hızlı işlemler</string>
     <!-- Adds all system apps to the whitelist and/or sets them to enabled -->
     <!-- Adds all system apps to the whitelist and/or sets them to disabled -->
     <!-- Adds all installed apps to the whitelist and/or sets them to enabled -->

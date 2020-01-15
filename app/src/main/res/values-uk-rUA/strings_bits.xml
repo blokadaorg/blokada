@@ -40,7 +40,6 @@
     <string name="home_account_error">Неможливо підтвердити обліковий запис. Ви онлайн?</string>
     <string name="home_permission_error">Будь ласка, надайте дозволи VPN.</string>
     <string name="home_zero_filters_error">У вас немає налаштованих фільтрів. Перевірте налаштування блокування реклами та Wi-Fi.</string>
-    <string name="home_filters_memory_error">Неможливо завантажити всі фільтри до пам\'яті. Перевірте налаштування блокування реклами.</string>
     <string name="tasker_switch_label">Натисніть одну з опцій щоб налашувати її для увімкнення (чи вимкнення) тригера.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Реклама</string>
@@ -71,18 +70,19 @@
     <string name="menu_vpn_support_label">У разі виникнення будь-яких проблем без вагань звертайтеся до нас.</string>
     <string name="menu_vpn_support_button">Підтримка</string>
     <string name="menu_vpn_tunnel_settings">Налаштування тунелю Blokada</string>
-    <string name="menu_vpn_tunnel_learn_more">Дізнатися більше про тунель Blokada</string>
     <string name="menu_vpn_info_account_label">Чи є у мене обліковий запис?</string>
-    <string name="menu_vpn_info_account_line1">Так! Ваш обліковий запис створено автоматично під час першого запуску. Вам не потрібно реєструватися.</string>
+    <string name="menu_vpn_info_account_line1">Так! Ваш обліковий запис створюється автоматично під час першого запуску. Вам не потрібно реєструватися.</string>
     <string name="menu_vpn_info_account_line2">Натисніть на аватар вище, щоб побачити ID вашого облікового запису.</string>
     <string name="menu_vpn_info_account_line3">ID вашого облікового запису є секретним, тому не показуйте його нікому.</string>
     <string name="menu_vpn_info_account_line4">Запишіть ID вашого облікового запису на випадок, якщо вам доведеться перевстановити додаток.</string>
     <string name="menu_dns_recommended">Рекомендовані DNS сервери</string>
     <string name="menu_dns_intro">DNS відповідає за визначення адрес IP для сайтів та додатків, які Ви використовуєте. Хороший DNS може пришвидшити пристрій та допоможе захистити приватність.</string>
     <string name="menu_dns_select">Оберіть один з DNS серверів.</string>
+    <string name="menu_apps_intro">Деякі додатки можуть працювати неправильно із Blokada. Наприклад, вони можуть мати проблеми зі з\'єднанням.\n\nАктивація VPN часто допомагає у таких ситуаціях.\n\nАбо ж Ви можете пропустити блокування для них повністю. Але пам\'ятайте, що тоді ці додатки працюють поза VPN.</string>
     <string name="menu_apps_system_label">Системні додатки – це ті додатки, що були попередньо встановлені на пристрої виробником. Деякі з них приховані. Змінюйте це тільки якщо точно розумієте свої дії.</string>
     <string name="menu_host_list_intro">Списки хостів містять правила для блокування реклами та стеження. Слідкуйте, щоб їх було не надто багато.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
+    <string name="menu_host_adblocking_settings">Налаштування блокування реклами</string>
     <string name="menu_host_list_status">Стан списку</string>
     <string name="menu_host_list_download">Налаштування завантажень</string>
     <string name="menu_host_whitelist">Додані тут хости ніколи не будуть блокуватися. Використовуйте цей список, якщо потрібний сайт був випадково заблокований.</string>

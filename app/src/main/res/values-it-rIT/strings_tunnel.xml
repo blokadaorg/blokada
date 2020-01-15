@@ -28,6 +28,12 @@
     <string name="tunnel_config_fallback_title">DNS di riserva</string>
     <string name="tunnel_config_fallback_description">Attiva questa opzione se, in certe situazioni, come con il tuo WiFi, perdi l\'accesso ad Internet. Ciò farà passare temporaneamente l\'applicazione ai DNS di Cloudflare in modo da sostenere la connettività. Per rendere effettiva questa impostazione, potresti dover selezionare nuovamente i tuoi DNS nella sezione dedicata.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Lista Intelligente</string>
+    <string name="tunnel_config_smartlist_reset_btn">Ripristina</string>
+    <string name="tunnel_config_smartlist_clean_btn">Pulisci</string>
+    <string name="tunnel_config_smartlist_clean_none">Nulla da pulire</string>
+    <string name="tunnel_config_smartlist_clean_inactive">Lista Intelligente disattivata</string>
+    <string name="tunnel_config_smartlist_clean_done">La pulizia delle vecchie regole è stata completata</string>
+    <string name="tunnel_config_smartlist_reset_done">Ripristino effettuato</string>
     <string name="tunnel_config_smartlist_description">Attiva questa opzione per abilitare la Lista Intelligente, che andrà a diminuire sensibilmente il numero di regole dei tuoi filtri, migliorando potenzialmente la durata della batteria e abbassando l\'utilizzo della RAM. Quando è abilitata, Blokada darà un\'occhiata al tuo registro richieste e genererà dinamicamente una lista che contiene solo regole che effettivamente bloccano almeno una richiesta. La Lista Intelligente viene aggiornata ogni notte. Si prega di notare che potresti riscontrare un numero maggiore di richieste indesiderate consentite durante il periodo di apprendimento (alcuni giorni). Si prega di notare che questa è una funzione sperimentale e potrebbe non funzionare correttamente.</string>
     <string name="tunnel_config_disable_wildcard">Anzitutto, disattiva le regole avanzate di blocco.</string>
     <string name="tunnel_config_disable_smartlist">Anzitutto, disattiva la Lista Intelligente.</string>

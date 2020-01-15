@@ -40,7 +40,7 @@
     <string name="home_account_error">Impossible de vérifier le compte. Êtes-vous en ligne ?</string>
     <string name="home_permission_error">Veuillez accorder les autorisations VPN.</string>
     <string name="home_zero_filters_error">Vous n\'avez aucun filtre configuré. Vérifiez vos paramètres de blocage de publicités et votre connexion wifi.</string>
-    <string name="home_filters_memory_error">Impossible de charger tous les filtres en mémoire. Vérifiez vos paramètres de blocage de publicités.</string>
+    <string name="home_filters_memory_error">Certaines listes n\'ont pas pu être chargées ; sélectionnez moins de listes dans les paramètres de blocage des publicités.</string>
     <string name="tasker_switch_label">Cliquez sur une des options à configurer pour activer (ou désactiver) votre déclencheur.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Publicités</string>
@@ -70,8 +70,16 @@
     <string name="menu_vpn_gateways_label">Sélectionnez le serveur VPN auquel vous souhaitez vous connecter. Votre appareil enverra vos données chiffrées à travers ce serveur, et vous resterez anonyme.</string>
     <string name="menu_vpn_support_label">Si vous rencontrez le moindre problème, n\'hésitez pas à nous contacter.</string>
     <string name="menu_vpn_support_button">Assistance</string>
+    <string name="menu_vpn_support_email">Saisissez votre adresse email</string>
+    <string name="menu_vpn_support_email_desc">Si vous avez besoin d\'aide, veuillez saisir votre adresse email ici. Nous l\'utiliserons pour vous répondre.</string>
+    <string name="menu_vpn_support_name">Saisissez votre nom (facultatif)</string>
+    <string name="menu_vpn_support_name_desc">Faites-nous savoir comment nous devons vous contacter.</string>
+    <string name="menu_vpn_support_messages_label">Boîte de réception d\'aide</string>
+    <string name="menu_vpn_support_messages_new">Demandez de l\'aide</string>
+    <string name="menu_vpn_support_messages_all">Mes conversations</string>
+    <string name="menu_vpn_support_messages_nothing">Vous n\'avez pas encore contacté le support.</string>
     <string name="menu_vpn_tunnel_settings">Paramètres de Blokada Tunnel</string>
-    <string name="menu_vpn_tunnel_learn_more">En savoir plus sur le tunnel Blokada</string>
+    <string name="menu_vpn_tunnel_learn_more">En savoir plus sur le tunnel de Blokada</string>
     <string name="menu_vpn_info_account_label">Avez-vous un compte ?</string>
     <string name="menu_vpn_info_account_line1">Oui ! Votre compte est automatiquement créé au premier démarrage. Vous n\'avez pas besoin de vous inscrire.</string>
     <string name="menu_vpn_info_account_line2">Touchez votre avatar ci-dessus pour voir l\'identifiant de votre compte.</string>
@@ -80,7 +88,7 @@
     <string name="menu_dns_recommended">Serveurs DNS recommandés</string>
     <string name="menu_dns_intro">Les DNS sont responsables de la traduction des noms de domaine Internet en adresse IP pour les sites web et les applications que vous utilisez. Choisir de bons DNS peut accélérer votre appareil et vous aidera à protéger votre vie privée.</string>
     <string name="menu_dns_select">Sélectionnez un des serveurs DNS.</string>
-    <string name="menu_apps_intro">Certaines applications peuvent ne pas fonctionner correctement avec Blokada. Par exemple, elles peuvent avoir des difficultés à se connecter.\n\nActiver le VPN peut résoudre ces problèmes.\n\nDans le cas contraire, vous pouvez autoriser les applications à contourner le filtrage effectué par Blokada. Rappelez-vous que les applications qui contournent Blokada communiquent en dehors de Blokada Tunnel.</string>
+    <string name="menu_apps_intro">Certaines applications peuvent ne pas fonctionner correctement avec Blokada. Par exemple, elles peuvent avoir des difficultés à se connecter.\n\nActiver le VPN peut résoudre ces problèmes.\n\nDans le cas contraire, vous pouvez autoriser les applications à contourner le filtrage effectué par Blokada. Rappelez-vous qu\'elles peuvent communiquer en dehors de Blokada Tunnel.</string>
     <string name="menu_apps_system_label">Les applications système sont celles qui sont pré-installées sur votre appareil. Certaines d\'entre-elles sont cachées. Modifiez uniquement celles-ci si vous savez ce que vous êtes en train de faire.</string>
     <string name="menu_host_list_intro">Les listes d\'hôtes contiennent des règles pour bloquer les publicités et les trackers. Essayez de maintenir un nombre de listes actives assez bas.</string>
     <string name="menu_host_adblocking_features">Laboratoires Blokada</string>

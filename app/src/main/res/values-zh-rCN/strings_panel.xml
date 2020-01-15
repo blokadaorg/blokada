@@ -28,7 +28,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">筛选器现在有 %s 规则。</string>
     <string name="panel_ruleset_updating">正在更新过滤器...</string>
-    <string name="panel_ruleset_built">过滤器现在配置为 &lt;b&gt;%s&lt;/b&gt; 规则。 &lt;b&gt;%s&lt;/b&gt; 规则可以全面地适应您的设备内存。记住，这只是一个估计，并且根据您的设备上的其他应用需要更改，所以你应该保持在这一限制之下，安全。</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">允许</string>
     <!-- Button to block allowed domain -->

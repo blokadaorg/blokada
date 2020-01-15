@@ -40,7 +40,6 @@
     <string name="home_account_error">Account kan niet worden geverifieerd. Ben je online?</string>
     <string name="home_permission_error">Verleen VPN-machtigingen.</string>
     <string name="home_zero_filters_error">Je hebt geen filters geconfigureerd. Controleer je adblocking en wifi-instellingen.</string>
-    <string name="home_filters_memory_error">Kon niet alle filters naar het geheugen laden. Controleer je adblokkeer instellingen.</string>
     <string name="tasker_switch_label">Tik op een van de opties voor je trigger om het in te stellen om het aan te zetten (of uit).</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Advertenties</string>
@@ -71,7 +70,6 @@
     <string name="menu_vpn_support_label">Als je problemen ervaart, aarzel dan niet om contact met ons op te nemen.</string>
     <string name="menu_vpn_support_button">Ondersteuning</string>
     <string name="menu_vpn_tunnel_settings">Blokada Tunnel instellingen</string>
-    <string name="menu_vpn_tunnel_learn_more">Meer info over Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">Heb ik een account?</string>
     <string name="menu_vpn_info_account_line1">Ja! Je account wordt automatisch aangemaakt bij de eerste opstart. Je hoeft je niet te registreren.</string>
     <string name="menu_vpn_info_account_line2">Tik op je avatar hierboven om je account-ID te zien.</string>

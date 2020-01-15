@@ -40,7 +40,6 @@
     <string name="home_account_error">No se pudo verificar la cuenta. ¿Tienes conexión?</string>
     <string name="home_permission_error">Por favor, concede el permiso de conexión VPN.</string>
     <string name="home_zero_filters_error">No tienes filtros configurados. Comprueba tu configuración de bloqueo de anuncios y WiFi.</string>
-    <string name="home_filters_memory_error">No se pudo cargar todos los filtros a la memoria. Comprueba tu configuración de bloqueo de anuncios.</string>
     <string name="tasker_switch_label">Pulsa sobre una de las opciones para activarlo o desactivarlo.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anuncios</string>
@@ -71,7 +70,6 @@
     <string name="menu_vpn_support_label">Si tienes problemas, no dudes en contactarnos.</string>
     <string name="menu_vpn_support_button">Soporte</string>
     <string name="menu_vpn_tunnel_settings">Configuración de Blokada Tunnel</string>
-    <string name="menu_vpn_tunnel_learn_more">Aprende más sobre Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">¿Tengo una cuenta?</string>
     <string name="menu_vpn_info_account_line1">¡Sí! Tu cuenta se crea automáticamente en la primera ejecución. No necesitas registrarte.</string>
     <string name="menu_vpn_info_account_line2">Toca tu avatar arriba para ver el ID de tu cuenta.</string>

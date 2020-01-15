@@ -3,7 +3,6 @@
 <resources>
     <string name="logger_permission">Будь ласка, надайте дозволи на зберігання.</string>
     <string name="logger_slot_title">Журнал запитів</string>
-    <string name="logger_slot_desc">Коли увімкнено, Blokada створить CSV файл, куди записуватиме дозволені або й заблоковані запити. Знайдіть каталог \"blokada\" у зовнішньому сховищі.</string>
     <string name="logger_slot_mode_off">Вимкнено</string>
     <string name="logger_slot_mode_allowed">Записувати дозволені</string>
     <string name="logger_slot_mode_denied">Записувати заблоковані</string>

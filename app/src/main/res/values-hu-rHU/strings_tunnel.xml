@@ -28,6 +28,7 @@
     <string name="tunnel_config_fallback_title">DNS megkerülés</string>
     <string name="tunnel_config_fallback_description">Ezt a kapcsolót akkor aktiváld, ha bizonyos helyzetekben elveszíted az internet-hozzáférést, például a Wi-Fi-t. Ezzel az alkalmazás ideiglenesen átkapcsol a Cloudflare DNS-re a kapcsolat fenntartásához. Előfordulhat, hogy a beállítás aktiválásához a DNS szakaszban újra ki kell választanod a kiszolgálókat.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Intelligens lista</string>
+    <string name="tunnel_config_smartlist_reset_btn">Nullázás</string>
     <string name="tunnel_config_smartlist_description">Az Intelligens lista funkció engedélyezéséhez váltsd át a kapcsolót, amely drasztikusan csökkenti a szűrőkben lévő szabályok számát, potenciálisan javítva az akkumulátor élettartamát és csökkentve a memóriahasználatot. Ha engedélyezed, a Blokada megvizsgálja a kérelem naplót, és dinamikusan létrehoz egy listát, amely csak azokat a szabályokat tartalmazza, amelyek ténylegesen blokkoltak legalább egy kérelmet. Az Intelligens lista naponta frissül, éjjel. Felhívjuk a figyelmedet, hogy a nemkívánatos kérelmek nagyobb számát engedheti át a tanulási időszak alatt (néhány nap). Kérjük vedd figyelembe, hogy ez egy kísérleti szolgáltatás, és előfordulhat, hogy nem megfelelően működik.</string>
     <string name="tunnel_config_disable_wildcard">Először kapcsold ki a Speciális hirdetésblokkolási szabályokat.</string>
     <string name="tunnel_config_disable_smartlist">Először kapcsold ki az Intelligens listát.</string>

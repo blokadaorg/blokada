@@ -18,7 +18,7 @@
     <string name="tunnel_config_wifi_only_title">Nur über WLAN herunterladen</string>
     <string name="tunnel_config_wifi_only_description">Aktiviere die Einstellung, wenn die Listen nur über Wlan heruntergeladen werden sollen. Andernfalls kann die App auch Listen herunterladen, wenn dein Gerät mit einem Mobilfunknetz verbunden ist und deinen Datentarif verwendet.</string>
     <string name="tunnel_config_watchdog_title">Wachhund</string>
-    <string name="tunnel_config_watchdog_description">Aktiviere diese Einstellung wenn du möchtest, dass die App das VPN nur aktiviert, wenn eine aktive Internetverbindung besteht. Der Tunnel wird neugestartet sollte es Verbindungsprobleme geben. Möglicherweise hilft dies bei einigen Geräten.</string>
+    <string name="tunnel_config_watchdog_description">Aktiviere diese Einstellung, wenn die App das VPN nur aktivieren soll, wenn eine Internetverbindung besteht. Starte den Tunnel neu, falls Verbindungsprobleme auftreten. Dies hilft möglicherweise bei einigen Geräten.</string>
     <string name="tunnel_config_powersave_title">Aggressives Aufwecken</string>
     <string name="tunnel_config_powersave_description">Aktiviere diesen Schalter, wenn Probleme auftreten, die durch die Stromsparfunktion des Geräts verursacht werden. Wenn die App Probleme mit dem VPN feststellt, versucht sie die Priorität zu erhöhen, um den Energiesparmodus zu deaktivieren.</string>
     <string name="tunnel_config_reports_title">Berichte</string>
@@ -28,6 +28,12 @@
     <string name="tunnel_config_fallback_title">DNS-Fallback</string>
     <string name="tunnel_config_fallback_description">Aktiviere diesen Schalter, wenn in bestimmten Situationen der Internetzugang, z. B. über WLAN, verloren geht. Die App wird dann vorübergehend zu Cloudflare DNS wechseln, um die Verbindung aufrecht zu erhalten. Du musst möglicherweise deine Server im DNS-Bereich neu auswählen, damit diese Einstellung wirksam wird.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Intelligente Liste</string>
+    <string name="tunnel_config_smartlist_reset_btn">Zurücksetzen</string>
+    <string name="tunnel_config_smartlist_clean_btn">Bereinigen</string>
+    <string name="tunnel_config_smartlist_clean_none">Nichts zu löschen</string>
+    <string name="tunnel_config_smartlist_clean_inactive">Intelligente Liste inaktiv</string>
+    <string name="tunnel_config_smartlist_clean_done">Die intelligente Liste wurde von alten Regeln bereinigt</string>
+    <string name="tunnel_config_smartlist_reset_done">Intelligente Liste wurde zurückgesetzt</string>
     <string name="tunnel_config_smartlist_description">Betätige diesen Schalter, um das Feature \"Intelligente Liste\" zu aktivieren, das die Anzahl der Regeln deutlich reduziert, was unter Umständen die Akkulaufzeit verbessert und die RAM-Auslastung senkt. Ist die Einstellung aktiviert, wird Blokada dein Anfrageprotokoll durchsuchen und dynamisch eine Liste erstellen, die nur Regeln enthält, die tatsächlich mindestens eine Anfrage blockiert haben. Die Intelligente Liste wird jede Nacht aktualisiert. Bitte beachte, dass in der Lernphase (einige Tage) möglicherweise mehr unerwünschte Anfragen zugelassen werden. Beachte, dass es sich um eine experimentelle Funktion handelt, die möglicherweise nicht korrekt funktioniert.</string>
     <string name="tunnel_config_disable_wildcard">Deaktiviere zuerst die erweiterten Werbeblocker-Regeln.</string>
     <string name="tunnel_config_disable_smartlist">Deaktiviere zuerst die Intelligente Liste.</string>

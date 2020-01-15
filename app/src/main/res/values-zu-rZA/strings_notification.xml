@@ -14,7 +14,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Gcina</string>
-    <string name="notification_keepalive_description">Yenza lokhu kusebenze uma uhlangabezana nezinkinga zokusebenza kohlelo luhlale luvuliwe. Ukusebenza kohlelo kuzoveza isaziso sokuvimba ukufa kohlelo.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Gcina Kuvuliwe (thinta ukufihle)</string>
     <string name="notification_keepalive_text_new">I-Android idinga ukubonisa isaziso ukuze igcine uhlelo lusebenza, kepha ukhululekile ukukukhubaza lezilungiselelo zesistimu.</string>
