@@ -267,5 +267,5 @@
 
     <string name="label_workarounds">Device-specific workarounds</string>
     <string name="slot_dns_answer_label">Alternative DNS answer</string>
-    <string name="slot_dns_answer_description">Changes the answer Blokada sends for blocked requests from "host not found" to an invalid ip. This can help on some ROMs which query other DNS servers if they get a "host not found" answer. please note that this might slow down some apps which try to connect to the invalid address.</string>
+    <string name="slot_dns_answer_description">Changes the answer Blokada sends for blocked requests from "host not found" to an invalid ip. This can help on some ROMs which query other DNS servers if they get a "host not found" answer. Please note that this might slow down some apps which try to connect to the invalid address.</string>
     </resources>
