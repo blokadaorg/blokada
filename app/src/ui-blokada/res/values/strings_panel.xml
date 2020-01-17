@@ -32,6 +32,10 @@
     <string name="panel_domain_blocked_desc">This domain has been blocked. To allow it in the future, use the button below.</string>
     <string name="panel_domain_blocked_toast">Added to the blacklist.</string>
 
+    <!-- Action to copy domain name to clipboard -->
+    <string name="panel_domain_copy">Copy</string>
+    <string name="panel_domain_copied">Copied to clipboard</string>
+
     <string name="panel_ruleset">Filters counter</string>
 
     <!-- How many rules are configured. Parameters is number of rules. -->

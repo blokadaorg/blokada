@@ -1,6 +1,8 @@
 package core.bits
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -133,6 +135,13 @@ class DomainForwarderVB(
                     entrypoint.onSaveFilter(f)
                     view.fold()
                     showSnack(R.string.panel_domain_blocked_toast)
+                },
+                action2 = Slot.Action(i18n.getString(R.string.panel_domain_copy)) {
+                    // Copy
+                    val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("domain", domain)
+                    clipboardManager.primaryClip = clipData
+                    showSnack(R.string.panel_domain_copied)
                 }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
@@ -169,6 +178,13 @@ class DomainBlockedVB(
                     entrypoint.onSaveFilter(f)
                     view.fold()
                     showSnack(R.string.panel_domain_forwarded_toast)
+                },
+                action2 = Slot.Action(i18n.getString(R.string.panel_domain_copy)) {
+                    // Copy
+                    val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("domain", domain)
+                    clipboardManager.primaryClip = clipData
+                    showSnack(R.string.panel_domain_copied)
                 }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
