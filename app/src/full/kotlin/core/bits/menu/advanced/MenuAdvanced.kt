@@ -13,7 +13,6 @@ fun createMenuAdvanced(ktx: AndroidKontext): NamedViewBinder {
             LabelVB(ktx, label = R.string.label_basic.res()),
             NotificationsVB(ktx, onTap = defaultOnTap),
             StartOnBootVB(ktx, onTap = defaultOnTap),
-            StorageLocationVB(ktx, onTap = defaultOnTap),
             LabelVB(ktx, label = R.string.label_advanced.res(), hiddenAction = {
                 set(AdvancedSettings::class.java, AdvancedSettings(true))
                 Toast.makeText(ktx.ctx, "( ͡° ͜ʖ ͡°)", Toast.LENGTH_LONG).show()
@@ -26,7 +25,8 @@ fun createMenuAdvanced(ktx: AndroidKontext): NamedViewBinder {
     if (get(AdvancedSettings::class.java).enabled) {
         items += listOf(
             WatchdogVB(ktx, onTap = defaultOnTap),
-            PowersaveVB(ktx, onTap = defaultOnTap)
+            PowersaveVB(ktx, onTap = defaultOnTap),
+            StorageLocationVB(ktx, onTap = defaultOnTap)
         )
     }
 
