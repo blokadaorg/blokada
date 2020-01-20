@@ -9,6 +9,7 @@ import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import gs.property.IWhen
 import org.blokada.R
+import tunnel.DnsAnswerTypeVB
 
 class DnsDashboardSection(
         val ctx: Context,

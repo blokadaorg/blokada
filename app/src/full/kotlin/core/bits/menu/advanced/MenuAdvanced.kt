@@ -35,10 +35,3 @@ fun createMenuAdvanced(ktx: AndroidKontext): NamedViewBinder {
             name = R.string.panel_section_app_settings.res()
     )
 }
-
-data class AdvancedSettings(val enabled: Boolean = false)
-
-fun registerPersistenceForAdvancedSettings() {
-    Register.sourceFor(AdvancedSettings::class.java, PaperSource("advanced-settings"),
-            default = AdvancedSettings(false))
-}
