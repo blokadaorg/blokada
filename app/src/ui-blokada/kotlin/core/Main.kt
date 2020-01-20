@@ -71,6 +71,7 @@ class MainApplication: Application(), KodeinAware {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         Paper.init(this)
+        registerPersistenceForAdvancedSettings()
     }
 
     private fun setRestartAppOnCrash() {
