@@ -181,14 +181,6 @@
             </intent-filter>
         </activity-alias>
 
-        <activity
-            android:name="zendesk.support.request.RequestActivity"
-            android:theme="@style/BlokadaZendesk" />
-
-        <activity
-            android:name="zendesk.support.requestlist.RequestListActivity"
-            android:theme="@style/BlokadaZendesk" />
-
         <receiver
             android:name="ui.SwitchAppReceiver"
             android:exported="true"
@@ -211,25 +203,6 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="blocka"
                     android:host="log"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="ui.SupportRequestActivity"
-            android:label="Blokada Support"
-            android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask"
-            android:theme="@style/TransparentWindow"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
-            <meta-data
-                android:name="android.notch_support"
-                android:value="true" />
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="blocka"
-                    android:host="support"/>
             </intent-filter>
         </activity>
 

@@ -12,10 +12,6 @@ import core.bits.openWebContent
 import gs.presentation.NamedViewBinder
 import org.blokada.R
 import java.io.File
-import androidx.core.app.ShareCompat
-import android.app.Activity
-import gs.environment.ComponentProvider
-
 
 fun createLearnMoreMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return MenuItemVB(ktx,
@@ -185,30 +181,15 @@ fun createPrivacyMenuItem(ktx: AndroidKontext): NamedViewBinder {
 fun shareLog(ctx: Context) {
     //                    if (askForExternalStoragePermissionsIfNeeded(activity)) {
     val uri = File(ctx.filesDir, "/blokada.log")
-    val actualUri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", uri)
-
-    val provider = ctx.ktx("share").di().instance<ComponentProvider<Activity>>()
-    val activity = provider.get()
-
-    if (activity != null) {
-        val intent = ShareCompat.IntentBuilder.from(activity)
-                .setStream(actualUri)
-                .setType("text/*")
-                .intent
-                .setAction(Intent.ACTION_SEND)
-                .setDataAndType(actualUri, "text/*")
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        ctx.startActivity(intent)
-    } else {
-        val openFileIntent = Intent(Intent.ACTION_SEND)
-        openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        openFileIntent.type = "plain/*"
-        openFileIntent.putExtra(Intent.EXTRA_STREAM, actualUri)
-        ctx.startActivity(openFileIntent)
-    }
+    val openFileIntent = Intent(Intent.ACTION_SEND)
+    openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    openFileIntent.type = "plain/*"
+    openFileIntent.putExtra(Intent.EXTRA_STREAM,
+            FileProvider.getUriForFile(ctx, "${ctx.packageName}.files",
+                    uri))
+    ctx.startActivity(openFileIntent)
 //                    }
 }
 

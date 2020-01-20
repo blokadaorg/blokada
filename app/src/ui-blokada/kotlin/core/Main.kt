@@ -10,7 +10,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import blocka.newRestApiModule
-import blocka.registerPersistenceForAccount
 import buildtype.newBuildTypeModule
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
@@ -24,7 +23,6 @@ import gs.property.Device
 import gs.property.IWhen
 import gs.property.newDeviceModule
 import io.paperdb.Paper
-import ui.registerPersistenceForSupportUserInfo
 
 
 /**
@@ -68,9 +66,6 @@ class MainApplication: Application(), KodeinAware {
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
         setRestartAppOnCrash()
-        registerPersistenceForSupportUserInfo()
-        registerPersistenceForAccount()
-        registerPersistenceForAdvancedSettings()
     }
 
     override fun attachBaseContext(base: Context) {

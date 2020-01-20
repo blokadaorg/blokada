@@ -23,9 +23,7 @@ private fun createMenuVpn(ktx: AndroidKontext): NamedViewBinder {
                 createLeasesMenuItem(ktx),
                 LabelVB(ktx, label = R.string.menu_vpn_tunnel_learn_more.res()),
                 createWhyVpnMenuItem(ktx),
-                LabelVB(ktx, label = R.string.menu_vpn_support_button.res()),
-                SupportVB(ktx),
-                SupportTicketsVB(ktx)
+                SupportVB(ktx)
             ),
             name = R.string.menu_vpn.res()
     )
