@@ -17,7 +17,7 @@ Blokada community welcomes everyone, but before you ask a question, please get y
 
 We invite you to join any of our networks and stay up to date with the newest developments.
 
-[Telegram](http://go.blokada.org/chat) | [Discord](https://www.discord.gg/xwVBpgQ) | [Forums](http://go.blokada.org/forum) | [Twitter](http://go.blokada.org/social_twitter) | [Facebook](http://go.blokada.org/social_facebook) 
+[Telegram](http://go.blokada.org/chat) | [Keybase](https://keybase.io/blocka) | [Discord](https://www.discord.gg/xwVBpgQ) | [Forums](http://go.blokada.org/forum) | [Twitter](http://go.blokada.org/social_twitter) | [Facebook](http://go.blokada.org/social_facebook) 
 
 ## Issues and feature requests
 
