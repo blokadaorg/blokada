@@ -34,7 +34,6 @@ Only the https://blokada.org is our official and trustworthy website, every othe
 
 The trustworthy sources to download:
 - [https://blokada.org](https://labs.xda-developers.com/store/app/org.blokada.alarm)
-- [https://www.heise.de](https://www.heise.de/download/product/blokada)
 - [https://f-droid.org/](https://f-droid.org/packages/org.blokada.alarm/)
 - [https://labs.xda-developers.com](https://labs.xda-developers.com/store/app/org.blokada.alarm)
 
