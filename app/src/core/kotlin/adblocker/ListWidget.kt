@@ -11,6 +11,7 @@ import gs.environment.inject
 import notification.ANotificationsToggleService
 import org.blokada.R
 import android.widget.RemoteViews
+import notification.NotificationsToggleSeviceSettings
 
 
 class ListWidgetProvider : AppWidgetProvider() {
@@ -33,6 +34,7 @@ class ListWidgetProvider : AppWidgetProvider() {
 
         val intent = Intent(context, ANotificationsToggleService::class.java)
         intent.putExtra("new_state", !t.enabled())
+        intent.putExtra("setting", NotificationsToggleSeviceSettings.TUNNEL)
         remoteViews.setOnClickPendingIntent(R.id.widget_list_button, PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
         if (t.enabled()) {
             remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = true, waiting = false))

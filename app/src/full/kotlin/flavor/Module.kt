@@ -14,6 +14,7 @@ import com.github.salomonbrys.kodein.instance
 import core.Tunnel
 import core.UiState
 import core.ktx
+import core.updateControllswitchWidgets
 import notification.FilteredNotification
 import notification.notificationMain
 
@@ -33,10 +34,12 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             s.tunnelRecentDropped.doWhenChanged().then{
                 updateListWidget(ctx)
             }
-            s.enabled.doWhenChanged().then{
+            s.tunnelState.doWhenChanged().then{
                 updateListWidget(ctx)
+                updateControllswitchWidgets(ctx)
             }
             updateListWidget(ctx)
+            updateControllswitchWidgets(ctx)
 
             // Hide notification when disabled
             ui.notifications.doOnUiWhenSet().then {

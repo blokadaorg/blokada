@@ -45,6 +45,38 @@
         </receiver>
 
 
+        <receiver
+            android:name="core.TunnelSwitchWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/controlswitch_widget_info" />
+        </receiver>
+        <receiver
+            android:name="core.DnsSwitchWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/controlswitch_widget_info" />
+        </receiver>
+        <receiver
+            android:name="core.VpnSwitchWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/controlswitch_widget_info" />
+        </receiver>
+
+
         <service
             android:name="core.BootJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"></service>
