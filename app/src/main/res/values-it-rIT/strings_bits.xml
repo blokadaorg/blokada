@@ -40,7 +40,7 @@
     <string name="home_account_error">Non è stato possibile verificare l\'account. Sei connesso ad una rete?</string>
     <string name="home_permission_error">Si prega di concedere i permessi per la VPN.</string>
     <string name="home_zero_filters_error">Non hai filtri configurati. Controlla il wifi e le tue impostazioni di blocco.</string>
-    <string name="home_filters_memory_error">Impossibile caricare tutti i filtri in memoria. Controlla le tue impostazioni di blocco.</string>
+    <string name="home_filters_memory_error">Alcune liste non possono essere caricate; seleziona meno liste dalle impostazioni del Blocco pubblicità.</string>
     <string name="tasker_switch_label">Tocca una delle opzioni per configurare l\'attivazione (o disattivazione) del tuo trigger.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Pubblicità</string>
@@ -70,6 +70,14 @@
     <string name="menu_vpn_gateways_label">Seleziona uno dei gateway a cui connetterti. Il dispositivo invierà i tuoi dati crittografati in modo sicuro attraverso quel gateway, garantendo l\'anonimato.</string>
     <string name="menu_vpn_support_label">Per qualsiasi problema, non esitare a contattarci.</string>
     <string name="menu_vpn_support_button">Supporto</string>
+    <string name="menu_vpn_support_email">Inserisci email</string>
+    <string name="menu_vpn_support_email_desc">Se hai bisogno di assistenza, per favore inserisci qui la tua email. La useremo per ricontattarti.</string>
+    <string name="menu_vpn_support_name">Inserisci nome (opzionale)</string>
+    <string name="menu_vpn_support_name_desc">Facci sapere come dovremmo chiamarti.</string>
+    <string name="menu_vpn_support_messages_label">Casella Supporto</string>
+    <string name="menu_vpn_support_messages_new">Chiedi supporto</string>
+    <string name="menu_vpn_support_messages_all">Le mie chat</string>
+    <string name="menu_vpn_support_messages_nothing">Non hai ancora contattato il supporto.</string>
     <string name="menu_vpn_tunnel_settings">Impostazioni Blokada Tunnel</string>
     <string name="menu_vpn_tunnel_learn_more">Ulteriori informazioni su Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">Ho un account?</string>

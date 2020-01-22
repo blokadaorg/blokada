@@ -40,7 +40,7 @@
     <string name="home_account_error">Tidak dapat memverifikasi akun. Apakah Anda online?</string>
     <string name="home_permission_error">Harap berikan izin sambungan VPN.</string>
     <string name="home_zero_filters_error">Anda tidak/belum mengkonfigurasi filter. Silakan periksa kembali pengaturan pemblokiran iklan dan Wi-Fi Anda.</string>
-    <string name="home_filters_memory_error">Tidak dapat memuat semua filter ke dalam memori. Silakan periksa kembali pengaturan pemblokiran iklan Anda.</string>
+    <string name="home_filters_memory_error">Beberapa list tidak dapat dimuat; coba aktifkan lebih sedikit list di bagian pengaturan pemblokiran iklan.</string>
     <string name="tasker_switch_label">Tekan salah satu opsi untuk mengkonfigurasi opsi tersebut apakah akan dinyalakan (atau dimatikan) ketika kondisi terpenuhi.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Iklan</string>
@@ -70,6 +70,14 @@
     <string name="menu_vpn_gateways_label">Pilih gateway yang Anda inginkan. Perangkat Anda akan mengirimkan data Anda yang telah dienkripsi secara aman melalui gateway tersebut, dan identitas Anda akan tetap tersembunyi.</string>
     <string name="menu_vpn_support_label">Jika Anda mengalami masalah, jangan ragu untuk menghubungi kami.</string>
     <string name="menu_vpn_support_button">Dukungan</string>
+    <string name="menu_vpn_support_email">Masukan alamat email</string>
+    <string name="menu_vpn_support_email_desc">Jika Anda membutuhkan bantuan, harap masukkan alamat email Anda di sini. Kami akan menghubungi Anda kembali di alamat email tersebut.</string>
+    <string name="menu_vpn_support_name">Masukkan nama (opsional)</string>
+    <string name="menu_vpn_support_name_desc">Apakah sebutan yang Anda inginkan.</string>
+    <string name="menu_vpn_support_messages_label">Support Inbox</string>
+    <string name="menu_vpn_support_messages_new">Minta bantuan</string>
+    <string name="menu_vpn_support_messages_all">Percakapan saya</string>
+    <string name="menu_vpn_support_messages_nothing">Anda belum menghubungi tim support kami.</string>
     <string name="menu_vpn_tunnel_settings">Pengaturan Blokada Tunnel</string>
     <string name="menu_vpn_tunnel_learn_more">Pelajari lebih lanjut tentang Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">Apakah saya memiliki akun?</string>

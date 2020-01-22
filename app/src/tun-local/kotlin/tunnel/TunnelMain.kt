@@ -1,9 +1,5 @@
 package tunnel
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import blocka.BlockaVpnState
 import blocka.CurrentAccount
 import blocka.CurrentLease
@@ -23,6 +19,7 @@ object TunnelEvents {
     val FILTERS_CHANGING = "FILTERS_CHANGING".newEvent()
     val FILTERS_CHANGED = "FILTERS_CHANGED".newEventOf<Collection<Filter>>()
     val REQUEST = "REQUEST".newEventOf<Request>()
+    val REQUEST_SAVED = "REQUEST_SAVED".newEventOf<Request>()
     val TUNNEL_POWER_SAVING = "TUNNEL_POWER_SAVING".newEvent()
     val MEMORY_CAPACITY = "MEMORY_CAPACITY".newEventOf<Int>()
     val TUNNEL_RESTART = "TUNNEL_RESTART".newEventOf<Int>()
@@ -155,7 +152,7 @@ class TunnelMain {
         }
 
         v("syncing filters")
-        setSmartlistAlarmActive(ctx, get(TunnelConfig::class.java).smartList != SmartListState.DEACTIVATED)
+        setSmartlistAlarmActive(ctx, get(SmartListConfig::class.java).state != SmartListState.DEACTIVATED)
         val url = tunnelConfig.filtersUrl
         if (url != null) filterManager.setUrl(url)
         if (filterManager.hasUrl()) {

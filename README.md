@@ -17,7 +17,7 @@ Blokada community welcomes everyone, but before you ask a question, please get y
 
 We invite you to join any of our networks and stay up to date with the newest developments.
 
-[Chat](http://go.blokada.org/chat) | [Forums](http://go.blokada.org/forum) | [Google+](http://go.blokada.org/social_gplus) | [Twitter](http://go.blokada.org/social_twitter) | [Facebook](http://go.blokada.org/social_facebook) 
+[Telegram](http://go.blokada.org/chat) | [Keybase](https://keybase.io/blocka) | [Discord](https://www.discord.gg/xwVBpgQ) | [Forums](http://go.blokada.org/forum) | [Twitter](http://go.blokada.org/social_twitter) | [Facebook](http://go.blokada.org/social_facebook) 
 
 ## Issues and feature requests
 
@@ -33,10 +33,9 @@ From time to time, some of the malware sites copy our product and try to act as 
 Only the https://blokada.org is our official and trustworthy website, every other copy or mirror isn't in relation with us, with the Blokada team or our official application.
 
 The trustworthy sources to download:
-- https://blokada.org
-- https://www.heise.de
-- https://f-droid.org/
-- https://labs.xda-developers.com
+- [https://blokada.org](https://labs.xda-developers.com/store/app/org.blokada.alarm)
+- [https://f-droid.org/](https://f-droid.org/packages/org.blokada.alarm/)
+- [https://labs.xda-developers.com](https://labs.xda-developers.com/store/app/org.blokada.alarm)
 
 If you find a website that looks like ours, but the URL differs from that, please report it on [Google SafeBrowsing](https://safebrowsing.google.com/safebrowsing/report_phish/?hl=en).
 

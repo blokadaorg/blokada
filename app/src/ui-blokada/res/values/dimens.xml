@@ -3,9 +3,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
 
     <!-- New dimens for the new UI -->
-    <dimen name="default_text_size">14sp</dimen>
-    <dimen name="secondary_text_size">13sp</dimen>
-    <dimen name="header_text_size">17sp</dimen>
+    <dimen name="default_text_size">12sp</dimen>
+    <dimen name="secondary_text_size">12sp</dimen>
+    <dimen name="header_text_size">15sp</dimen>
 
     <dimen name="dashboard_notch_inset">22dp</dimen>
     <dimen name="dashboard_panel_width">1988dp</dimen>
@@ -61,4 +61,5 @@
 
     <dimen name="master_switch_size">24dp</dimen>
     <dimen name="master_switch_padding">22dp</dimen>
+    <dimen name="master_switch_margin_bottom">0dp</dimen>
 </resources>

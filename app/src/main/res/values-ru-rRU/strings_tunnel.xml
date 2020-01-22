@@ -28,6 +28,12 @@
     <string name="tunnel_config_fallback_title">Резервный DNS</string>
     <string name="tunnel_config_fallback_description">Активируйте этот переключатель, если вы теряете доступ к интернету в некоторых ситуациях, например, в сети WiFi. Это заставит приложение временно переключиться на DNS Cloudflare для поддержания вашего подключения. Может потребоваться повторный выбор серверов в разделе DNS, чтобы этот параметр вступил в силу.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Умный список</string>
+    <string name="tunnel_config_smartlist_reset_btn">Сброс</string>
+    <string name="tunnel_config_smartlist_clean_btn">Чисто</string>
+    <string name="tunnel_config_smartlist_clean_none">Нечего чистить</string>
+    <string name="tunnel_config_smartlist_clean_inactive">Умный список неактивен</string>
+    <string name="tunnel_config_smartlist_clean_done">Умный список очищен от старых правил</string>
+    <string name="tunnel_config_smartlist_reset_done">Умный список был сброшен</string>
     <string name="tunnel_config_smartlist_description">Активируйте этот переключатель, чтобы включить функцию Умный список, которая значительно сокращает количество правил в ваших фильтрах, что потенциально увеличивает время работы от батареи и снижает потребление оперативной памяти. Когда эта функция включена, Blokada будет просматривать журнал ваших запросов и динамически генерировать список, который будет содержать только те правила, которые фактически блокировали хотя бы один запрос. Умный список обновляется ежедневно ночью. Пожалуйста, учтите, что в течение периода обучения (несколько дней) вы можете столкнуться с большим количеством нежелательных запросов. Обратите внимание, что это экспериментальная функция, которая может работать некорректно.</string>
     <string name="tunnel_config_disable_wildcard">Сначала отключите расширенные правила блокировки рекламы.</string>
     <string name="tunnel_config_disable_smartlist">Сначала отключите умный список.</string>

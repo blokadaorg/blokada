@@ -1,6 +1,8 @@
 package core.bits
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -68,14 +70,21 @@ class FiltersStatusVB(
         Unit
     }
 
+    fun getMaxMemory(): Int {
+        val runtime = Runtime.getRuntime()
+        val totalmem = runtime.maxMemory()
+        val mb = totalmem.div(1048576)
+        return mb.toInt()
+    }
+
     private fun refresh() {
         view?.apply {
             type = Slot.Type.COUNTER
             content = Slot.Content(
                     label = i18n.getString(R.string.panel_ruleset_title, Format.counter(rules)),
                     header = i18n.getString(R.string.panel_ruleset),
-                    description = i18n.getString(R.string.panel_ruleset_built,
-                            Format.counter(rules), Format.counter(memory, round = true))
+                    description = i18n.getString(R.string.panel_ruleset_canfit,
+                            Format.counter(rules), Format.counter(getMaxMemory()), Format.counter(memory, round = true))
             )
             date = refreshDate
         }
@@ -125,6 +134,13 @@ class DomainForwarderVB(
                     entrypoint.onSaveFilter(f)
                     view.fold()
                     showSnack(R.string.panel_domain_blocked_toast)
+                },
+                action2 = Slot.Action(i18n.getString(R.string.panel_domain_copy)) {
+                    // Copy
+                    val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("domain", domain)
+                    clipboardManager.primaryClip = clipData
+                    showSnack(R.string.panel_domain_copied)
                 }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
@@ -161,6 +177,13 @@ class DomainBlockedVB(
                     entrypoint.onSaveFilter(f)
                     view.fold()
                     showSnack(R.string.panel_domain_forwarded_toast)
+                },
+                action2 = Slot.Action(i18n.getString(R.string.panel_domain_copy)) {
+                    // Copy
+                    val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("domain", domain)
+                    clipboardManager.primaryClip = clipData
+                    showSnack(R.string.panel_domain_copied)
                 }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
@@ -352,7 +375,8 @@ class WildcardVB(
         )
         view.onSwitch = { switched ->
             val cfg = get(TunnelConfig::class.java)
-            if (switched && cfg.smartList != SmartListState.DEACTIVATED) {
+            val smartConfig = get(SmartListConfig::class.java)
+            if (switched && smartConfig.state != SmartListState.DEACTIVATED) {
                 view.content = view.content!!.copy(switched = false)
                 showSnack(R.string.tunnel_config_disable_smartlist)
             } else {
@@ -1301,4 +1325,3 @@ class CleanupVB(
         }
     }
 }
-

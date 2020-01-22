@@ -28,6 +28,12 @@
     <string name="tunnel_config_fallback_title">Záložní DNS</string>
     <string name="tunnel_config_fallback_description">Aktivujte tento přepínač, pokud v některých situacích ztrácíte přístup k internetu, jako je například WiFi. Díky tomuto aplikace dočasně přepne na službu Cloudflare DNS, aby byla zajištěna vaše konektivita. Možná budete muset opět vybrat své servery v sekci DNS, aby se toto nastavení projevilo.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Inteligentní seznam</string>
+    <string name="tunnel_config_smartlist_reset_btn">Resetovat</string>
+    <string name="tunnel_config_smartlist_clean_btn">Vyčistit</string>
+    <string name="tunnel_config_smartlist_clean_none">Nic ke smazání</string>
+    <string name="tunnel_config_smartlist_clean_inactive">Inteligentní seznam není aktivní</string>
+    <string name="tunnel_config_smartlist_clean_done">Inteligentní seznam byl vyčištěn ze starých pravidel</string>
+    <string name="tunnel_config_smartlist_reset_done">Inteligentní seznam byl resetován</string>
     <string name="tunnel_config_smartlist_description">Aktivujte tento přepínač pro povolení funkce Inteligentní seznam, která dramaticky snižuje počet pravidel ve vašich filtrech, což potenciálně zlepšuje životnost baterie a snižuje využití RAM. Pokud je funkce povolena, Blokada prozkoumá váš protokol požadavků a dynamicky vygeneruje seznam, který obsahuje pouze pravidla, která skutečně blokovala alespoň jeden požadavek. Inteligentní seznam je aktualizován každý den během noci. Vezměte prosím na vědomí, že během období učení (několik dní) můžete zaznamenat vyšší počet nechtěných žádostí. Upozorňujeme, že se jedná o experimentální funkci která nemusí fungovat správně.</string>
     <string name="tunnel_config_disable_wildcard">Nejprve deaktivujte Pokročilá pravidla pro blokování reklam.</string>
     <string name="tunnel_config_disable_smartlist">Nejprve deaktivujte Inteligentní seznam.</string>

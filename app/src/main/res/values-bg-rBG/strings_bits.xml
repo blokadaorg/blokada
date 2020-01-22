@@ -40,7 +40,7 @@
     <string name="home_account_error">Профилът не може да бъде потвърден. Online ли сте?</string>
     <string name="home_permission_error">Моля, дайте разрешения за VPN.</string>
     <string name="home_zero_filters_error">Нямате конфигурирани филтри. Проверете настройките за блокиране на рекламите и wifi.</string>
-    <string name="home_filters_memory_error">Не може да се заредят всички филтри в паметта. Проверете настройките си за блокиране.</string>
+    <string name="home_filters_memory_error">Някои списъци не можаха да бъдат заредени; изберете по-малко списъци от настройките за блокиране на реклами.</string>
     <string name="tasker_switch_label">Докоснете една от опциите за да го конфигурирате и да включите (или изключите) процеса.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Реклами</string>
@@ -70,6 +70,14 @@
     <string name="menu_vpn_gateways_label">Изберете един от шлюзовете, към който да се свържете. Устройството ви ще изпраща криптирани данни сигурно чрез този шлюз и ще останете анонимни.</string>
     <string name="menu_vpn_support_label">Ако имате някакви проблеми, не се колебайте да се свържете с нас.</string>
     <string name="menu_vpn_support_button">Поддръжка</string>
+    <string name="menu_vpn_support_email">Въведете e-mail</string>
+    <string name="menu_vpn_support_email_desc">Ако имате нужда от помощ, моля въведете имейла си тук. Той ще бъде използван за връзка с вас.</string>
+    <string name="menu_vpn_support_name">Въведете име (незадължително)</string>
+    <string name="menu_vpn_support_name_desc">Кажете ни как да се обръщаме към вас.</string>
+    <string name="menu_vpn_support_messages_label">Входяща поща поддръжка</string>
+    <string name="menu_vpn_support_messages_new">Поискайте поддръжка</string>
+    <string name="menu_vpn_support_messages_all">Моите чатове</string>
+    <string name="menu_vpn_support_messages_nothing">Все още не сте се свързали с поддръжката.</string>
     <string name="menu_vpn_tunnel_settings">Настройки на Blokada Tunnel</string>
     <string name="menu_vpn_tunnel_learn_more">Научете повече за Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">Имам ли профил?</string>

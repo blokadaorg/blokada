@@ -31,7 +31,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Izihlungo zinemithetho engu-%s.</string>
     <string name="panel_ruleset_updating">Kuvuselelwa izihlungo...</string>
-    <string name="panel_ruleset_built">Izihlungo sezinemithetho engu-&lt;b&gt;%s&lt;/b&gt;. Imithetho engadluli &lt;b&gt;%s&lt;/b&gt; ekwazi ukungena kwimemori isiphelele. Khumbula ukuthi lesi isilunganiso futhi singashintshwa izinga lezinye izinhlelo ezifakiwe, kepha ukuze uphephe hlala ngaphantsi kwalesi silinganiso.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Vumela</string>
     <!-- Button to block allowed domain -->

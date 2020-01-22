@@ -301,6 +301,11 @@ fun newTunnelModule(ctx: Context): Module {
             ktx.on(TunnelEvents.REQUEST) { request ->
                 if (request.blocked) {
                     s.tunnelDropCount %= s.tunnelDropCount() + 1
+                }
+            }
+
+            ktx.on(TunnelEvents.REQUEST_SAVED) { request ->
+                if (request.blocked) {
                     val dropped = s.tunnelRecentDropped() + request.domain
                     s.tunnelRecentDropped %= dropped.takeLast(10)
                 }
@@ -315,8 +320,11 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             setTunnelPersistenceSource()
+            setSmartListPersistenceSource()
             Register.sourceFor(BlockaVpnState::class.java, default = BlockaVpnState(false),
                     source = PaperSource("blockaVpnState"))
+            Register.sourceFor(DnsAnswerState::class.java, default = DnsAnswerState(true),
+                    source = PaperSource("DnsAnswerState"))
 
             entrypoint.onAppStarted()
         }

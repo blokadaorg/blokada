@@ -31,7 +31,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">У фільтрах зараз %s правил.</string>
     <string name="panel_ruleset_updating">Оновлення фільтрів...</string>
-    <string name="panel_ruleset_built">Фільтри зараз працюють із &lt;b&gt;%s&lt;/b&gt; правил. Приблизно &lt;b&gt;%s&lt;/b&gt; правил може поміститися у пам\'ять Вашого пристрою. Намагайтеся, щоб кількість правил була меншою за цю цифру, щоб додаток працював добре.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Дозволити</string>
     <!-- Button to block allowed domain -->

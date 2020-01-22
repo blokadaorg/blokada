@@ -23,4 +23,8 @@
     <string name="notification_keepalive_activating">Blokada starter. Dette kan ta et øyeblikk.</string>
     <string name="notification_keepalive_deactivate">Deaktiver</string>
     <string name="notification_keepalive_deactivating">Blokada ble deaktivert!</string>
+    <string name="notification_channel_filtered">Annonseblokkering</string>
+    <string name="notification_channel_announcements">Kunngjøringer</string>
+    <string name="notification_channel_vpn">Blokada Tunnel</string>
+    <string name="notification_channel_other">Annet</string>
 </resources>

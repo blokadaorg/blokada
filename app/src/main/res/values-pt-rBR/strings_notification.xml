@@ -15,7 +15,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Manter ativo</string>
-    <string name="notification_keepalive_description">Ative essa opção se tiver problemas com o aplicativo permanecendo ativo. O aplicativo irá ativar uma notificação permanente para impedir que o sistema interrompa-o.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Manter Ativo (toque para esconder)</string>
     <string name="notification_keepalive_text_new">O Android precisa exibir uma notificação para manter o aplicativo em execução, mas você é livre para desativá-la nas configurações do sistema.</string>
@@ -29,12 +28,10 @@
     <string name="notification_keepalive_activating">Blokada está inicializando. Isso pode demorar um pouco.</string>
     <string name="notification_keepalive_deactivate">Desativar</string>
     <string name="notification_keepalive_deactivating">Blokada foi desativado!</string>
-    <string name="notification_expired_title">O Túnel do Blokada está desativado</string>
-    <string name="notification_expired_description">Sua conta não está ativa e o Túnel do Blokada está desativado. Os recursos padrão do Blokada funcionam normalmente sem o Túnel. No entanto, considere ativar sua conta para melhorar a proteção e apoiar o projeto.</string>
-    <string name="notification_lease_expired_title">O Túnel do Blokada está desativado</string>
-    <string name="notification_lease_expired_description">Houve um problema com sua conexão ao Túnel do Blokada. Por favor, tente escolher outro gateway. Se o problema persistir, entre em contato conosco.</string>
+    <string name="notification_expired_description">Sua conta não está ativa e o Blokada Tunnel está desativado. Os recursos padrão do Blokada funcionam normalmente sem o Túnel. No entanto, considere ativar sua conta para melhorar a proteção e apoiar o projeto.</string>
+    <string name="notification_lease_expired_description">Houve um problema com sua conexão ao Blokada Tunnel. Por favor, tente escolher outro gateway. Se o problema persistir, entre em contato conosco.</string>
     <string name="notification_channel_filtered">Bloqueio de anúncios</string>
     <string name="notification_channel_announcements">Avisos</string>
-    <string name="notification_channel_vpn">Túnel do Blokada</string>
+    <string name="notification_channel_vpn">Blokada Tunnel</string>
     <string name="notification_channel_other">Outros</string>
 </resources>

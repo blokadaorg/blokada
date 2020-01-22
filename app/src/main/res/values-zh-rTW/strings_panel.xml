@@ -31,7 +31,7 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">過濾器現在有 %s 個規則。</string>
     <string name="panel_ruleset_updating">正在更新過濾器…</string>
-    <string name="panel_ruleset_built">過濾器現在已設定 &lt;b&gt;%s&lt;/b&gt; 規則。依您的裝置記憶體，最多可以啟用 &lt;b&gt;%s&lt;/b&gt; 條規則。請記住，這只是估計值，可能會因為裝置上的應用程式而有所變化，因此您應維持遠低於此限制以保證安全。</string>
+    <string name="panel_ruleset_canfit">過濾條件現在已設定 &lt;b&gt;%s&lt;/b&gt; 條規則。您的裝置最多可以讓每個應用程式使用 &lt;b&gt;%s&lt;/b&gt; MB 的記憶體，最多可以使用 &lt;b&gt;%s&lt;/b&gt; 條規則。&lt;br&gt;請記住，這只是估計值，Blokada 在合併清單時會使用最多的記憶體。如果您最近啟用了其中的某些功能，請等待數分鐘以讓系統釋放記憶體。</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">允許</string>
     <!-- Button to block allowed domain -->
@@ -191,4 +191,7 @@
     <string name="slot_reset_counter_label">重設已阻擋的主機計數器</string>
     <string name="slot_reset_counter_description">將用來顯示有多少請求被阻擋之計數器的數字設回 0。</string>
     <string name="slot_reset_counter_action">重設</string>
+    <string name="label_workarounds">特定裝置的暫時解決方案</string>
+    <string name="slot_dns_answer_label">備用 DNS 回應</string>
+    <string name="slot_dns_answer_description">將 Blokada 發送被封鎖請求的回應從「找不到主機」更改為無效的 IP。這可能會對某些在 DNS 伺服器回應「找不到主機」時會再查詢其他 DNS 的 ROM 有所幫助。請注意，這可能會拖慢某些試圖連線到無效位置的應用程式。</string>
 </resources>

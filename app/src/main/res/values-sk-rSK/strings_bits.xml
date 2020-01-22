@@ -40,7 +40,6 @@
     <string name="home_account_error">Nepodarilo sa overiť účet. Ste online?</string>
     <string name="home_permission_error">Udeľte, prosím, VPN povolenia.</string>
     <string name="home_zero_filters_error">Nemáte nastavené žiadne filtre. Skontrolujte nastavenia blokovania reklám a Wi-Fi.</string>
-    <string name="home_filters_memory_error">Do pamäte sa nepodarilo načítať všetky filtre. Skontrolujte nastavenia blokovania reklám.</string>
     <string name="tasker_switch_label">Kliknutím na jeden z parametrov ho nakonfigurujete tak, aby sa po spúšti aktivoval (alebo deaktivoval).</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Reklamy</string>
@@ -71,7 +70,6 @@
     <string name="menu_vpn_support_label">Ak sa vyskytnú akékoľvek problémy, neváhajte nás kontaktovať.</string>
     <string name="menu_vpn_support_button">Podpora</string>
     <string name="menu_vpn_tunnel_settings">Nastavenia Blokada Tunnel</string>
-    <string name="menu_vpn_tunnel_learn_more">Zistiť viac o službe Blokada Tunnel</string>
     <string name="menu_vpn_info_account_label">Mám účet?</string>
     <string name="menu_vpn_info_account_line1">Áno! Váš účet je automaticky vytvorený po prvom spustení. Nemusíte sa registrovať.</string>
     <string name="menu_vpn_info_account_line2">Dotykom na váš avatar vyššie zobrazíte ID svojho účtu.</string>

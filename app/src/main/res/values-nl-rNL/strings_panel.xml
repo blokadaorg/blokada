@@ -31,7 +31,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Filters hebben nu %s regels.</string>
     <string name="panel_ruleset_updating">Filters bijwerken...</string>
-    <string name="panel_ruleset_built">Filters zijn nu geconfigureerd met &lt;b&gt;%s&lt;/b&gt; regels. Tot &lt;b&gt;%s&lt;/b&gt; regels passen in uw algehele systeemgeheugen. Onthoud, dit is slechts een schatting en kan veranderen afhankelijk van andere apps op uw apparaat, dus blijf ver onder deze limiet om veilig te zijn.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Toestaan</string>
     <!-- Button to block allowed domain -->

@@ -38,7 +38,6 @@
     <string name="home_blocka_vpn_error">Ayikwazi ukuxhumana nesango lenethiwekhi. Ingabe isasebenza i-inthanethi?</string>
     <string name="home_account_error">Ayikwazanga ukuqinisekisa i-akhawunti. Ingabe isasebenza i-inthanethi?</string>
     <string name="home_permission_error">Sicela unikeze izimvume ze-VPN.</string>
-    <string name="home_filters_memory_error">Ayikwazanga ukulayisha konke ukuhlunga kwememori. Hlola izilungiselelo zakho zezikhangiso.</string>
     <string name="tasker_switch_label">Thepha kwenye yezinketho ongazilungiselela ukuyikhanyisa (noma ukucisha) i-trigger yakho.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Izikhangiso</string>

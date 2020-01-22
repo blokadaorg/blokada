@@ -5,8 +5,10 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.github.michaelbull.result.mapBoth
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.Register.set
 import filter.DefaultSourceProvider
 import gs.property.Device
 import gs.property.I18n
@@ -25,6 +27,7 @@ private val asyncContext = newSingleThreadContext("smartlist-main") + logCorouti
 const val SMARTLIST_REQUEST_CODE = 1105321546 // random 32 bit value
 val smartlistLogfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.log")
 val smartlistListfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.hosts")
+val smartlistFilter = Filter("smart", FilterSourceDescriptor("file", smartlistListfile.absolutePath))
 
 /*
        DEACTIVATED
@@ -55,6 +58,10 @@ enum class SmartListState {
     DEACTIVATED, ACTIVE_PHASE1, ACTIVE_PHASE2
 }
 
+data class SmartListConfig (
+        val state: SmartListState
+)
+
 //Triggered every night at 4AM
 class OnGenerateSmartListReceiver : BroadcastReceiver() {
 
@@ -69,11 +76,13 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
     }
     private val device by lazy { di.instance<Device>() }
     private val onWifi = device.onWifi()
+    private var store = FilterStore(lastFetch = 0)
 
 
     override fun onReceive(context: Context, intent: Intent) {
-        val config = get(TunnelConfig::class.java)
-        when(config.smartList) {
+        val tunnelConfig = get(TunnelConfig::class.java)
+        val smartConfig = get(SmartListConfig::class.java)
+        when(smartConfig.state) {
             SmartListState.ACTIVE_PHASE1 -> {
                 val data = Scanner(FileInputStream(smartlistLogfile))
                 val newHosts = HashSet<String>()
@@ -89,12 +98,11 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
                 smartlistFile.close()
                 data.close()
                 SmartListLogger.clear()
-                val new = get(TunnelConfig::class.java).copy(smartList= SmartListState.ACTIVE_PHASE2)
-                entrypoint.onChangeTunnelConfig(new)
+                set(SmartListConfig::class.java,SmartListConfig(state = SmartListState.ACTIVE_PHASE2))
+                entrypoint.onFiltersChanged()
 
             }
             SmartListState.ACTIVE_PHASE2 -> {
-                val data = Scanner(FileInputStream(smartlistLogfile))
                 val filterManager = FilterManager(
                         blockade = blockade,
                         doResolveFilterSource = {
@@ -114,40 +122,102 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
                         },
                         doValidateRulesetCache = {
                             it.source.id in listOf("app")
-                                    || it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
-                                    || config.wifiOnly && !onWifi && !config.firstLoad && it.source.id == "link"
+                                    || it.lastFetch + tunnelConfig.cacheTTL * 1000 > System.currentTimeMillis()
+                                    || tunnelConfig.wifiOnly && !onWifi && !tunnelConfig.firstLoad && it.source.id == "link"
                         },
                         doValidateFilterStoreCache = {
                             it.cache.isNotEmpty()
-                                    && (it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
-                                    || config.wifiOnly && !onWifi)
+                                    && (it.lastFetch + tunnelConfig.cacheTTL * 1000 > System.currentTimeMillis()
+                                    || tunnelConfig.wifiOnly && !onWifi)
                         }
                 )
                 filterManager.load()
-                val url = config.filtersUrl
+                val ctx = getActiveContext()!!
+                Persistence.filters.load(ctx.ktx("persistence")).mapBoth(
+                success = {
+                    v("loaded FilterStore from persistence", it.url, it.cache.size)
+                    emit(TunnelEvents.FILTERS_CHANGED, it.cache)
+                    store = it
+                },
+                failure = {
+                    e("failed loading FilterStore from persistence", it)
+                })
+
+                val url = tunnelConfig.filtersUrl
                 if (url != null) filterManager.setUrl(url)
                 async(asyncContext) {
-                    val newHosts = HashSet<String>()
-                    if (filterManager.sync(true)) {
-                        while (data.hasNextLine()) {
-                            val host = data.nextLine()
-                            if (filterManager.blockade.denied(host) && (!filterManager.blockade.allowed(host))) {
-                                newHosts.add(host)
+                    val whitelists = store.cache.filter { it.active && it.whitelist }
+                    if(intent.getBooleanExtra("cleanup", false)) {
+                        val currentList = Scanner(FileInputStream(smartlistListfile))
+                        val currentHosts = HashSet<String>()
+                        val cleanedHosts = HashSet<String>()
+                        while (currentList.hasNextLine()) {
+                            currentHosts.add(currentList.nextLine())
+                        }
+                        currentList.close()
+                        if (filterManager.sync(whitelists.toSet())) {
+                            currentHosts.forEach { host ->
+                                if (filterManager.blockade.allowed(host)) {
+                                    currentHosts.remove(host)
+                                }
                             }
                         }
+
+                        store.cache.filter { it.active && !it.whitelist }.forEach {
+                            if (filterManager.sync(setOf(it))) {
+                                currentHosts.forEach { host ->
+                                    if (filterManager.blockade.denied(host)) {
+                                        cleanedHosts.add(host)
+                                    }
+                                }
+                            }
+                        }
+
+
+                        val smartlistFile = FileOutputStream(smartlistListfile, false).writer()
+                        cleanedHosts.forEach { host ->
+                            v(host)
+                            smartlistFile.write(host + '\n')
+                        }
+                        smartlistFile.close()
+                        showSnack(R.string.tunnel_config_smartlist_clean_done)
+                    }else{
+                        val data = Scanner(FileInputStream(smartlistLogfile))
+                        val newHosts = HashSet<String>()
+                        val loggedHosts = HashSet<String>()
+                        while (data.hasNextLine()) {
+                            loggedHosts.add(data.nextLine())
+                        }
+                        data.close()
+
+                        store.cache.filter { it.active && !it.whitelist }.forEach {
+                            val activeFilters = whitelists.toMutableSet()
+                            activeFilters.add(it)
+                            activeFilters.add(smartlistFilter.copy(whitelist = true)) // keep existing entries from being added again.
+                            if (filterManager.sync(activeFilters)) {
+                                loggedHosts.forEach { host ->
+                                    if (filterManager.blockade.denied(host) && (!filterManager.blockade.allowed(host))) {
+                                        newHosts.add(host)
+                                    }
+                                }
+                            }
+                        }
+
+                        val smartlistFile = FileOutputStream(smartlistListfile, true).writer()
+                        newHosts.forEach { host ->
+                            v(host)
+                            smartlistFile.write(host + '\n')
+                        }
+                        smartlistFile.close()
+                        SmartListLogger.clear()
                     }
-                    val smartlistFile = FileOutputStream(smartlistListfile, true).writer()
-                    newHosts.forEach { host ->
-                        v(host)
-                        smartlistFile.write(host + '\n')
-                    }
-                    smartlistFile.close()
-                    data.close()
-                    SmartListLogger.clear()
                     entrypoint.onFiltersChanged()
                 }
             }
-            else -> v("Smartlist alarm active while Smartlist is deactivated!")
+            else -> {
+                showSnack(R.string.tunnel_config_smartlist_clean_inactive)
+                w("Smartlist alarm active while Smartlist is deactivated!")
+            }
         }
 
     }
@@ -189,7 +259,7 @@ class SmartListLogger{
 
         @Synchronized
         fun log(request: Request){
-            val state = get(TunnelConfig::class.java).smartList
+            val state = get(SmartListConfig::class.java).state
             if (!request.blocked && state == SmartListState.ACTIVE_PHASE2) {
                 smartListLogWriter.writer(request.domain)
             }
@@ -220,7 +290,26 @@ class SmartListVB(
                 label = i18n.getString(R.string.tunnel_config_smartlist_title),
                 icon = ctx.getDrawable(R.drawable.ic_playlist_minus),
                 description = i18n.getString(R.string.tunnel_config_smartlist_description),
-                switched = get(TunnelConfig::class.java).smartList != SmartListState.DEACTIVATED
+                switched = get(SmartListConfig::class.java).state != SmartListState.DEACTIVATED,
+                action2 = Slot.Action(i18n.getString(R.string.tunnel_config_smartlist_reset_btn)) {
+                    val cfg = get(SmartListConfig::class.java)
+                    if (cfg.state != SmartListState.DEACTIVATED) {
+                        smartlistListfile.delete()
+                        smartlistLogfile.delete()
+                        set(SmartListConfig::class.java, SmartListConfig(state = SmartListState.ACTIVE_PHASE1))
+                        showSnack(R.string.tunnel_config_smartlist_reset_done)
+                        entrypoint.onFiltersChanged()
+                    }
+                },
+                action3 = Slot.Action(i18n.getString(R.string.tunnel_config_smartlist_clean_btn)) {
+                    if(get(SmartListConfig::class.java).state != SmartListState.ACTIVE_PHASE2){
+                        showSnack(R.string.tunnel_config_smartlist_clean_none)
+                    }else {
+                        val intent = Intent(ctx, OnGenerateSmartListReceiver::class.java)
+                        intent.putExtra("cleanup", true)
+                        ctx.sendBroadcast(intent)
+                    }
+                }
         )
         view.onSwitch = {
             val cfg = get(TunnelConfig::class.java)
@@ -238,12 +327,16 @@ class SmartListVB(
                 } else {
                     SmartListState.DEACTIVATED
                 }
-                val new = cfg.copy(smartList = newState)
-                entrypoint.onChangeTunnelConfig(new)
+                set(SmartListConfig::class.java, SmartListConfig(state = newState))
+                entrypoint.onFiltersChanged()
             }
         }
     }
 
+}
+fun setSmartListPersistenceSource() {
+    Register.sourceFor(SmartListConfig::class.java, default = SmartListConfig(SmartListState.DEACTIVATED),
+            source = PaperSource("smartListConfig"))
 }
 
 fun setSmartlistAlarmActive(ctx: Context, active: Boolean){
@@ -257,6 +350,7 @@ fun setSmartlistAlarmActive(ctx: Context, active: Boolean){
         calendar.set(Calendar.HOUR, 4)
         calendar.set(Calendar.AM_PM, Calendar.AM)
         calendar.set(Calendar.MINUTE, 0)
+
         alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis,24 * 60 * 60 * 1000, intent)
     }else{
         alarmManager!!.cancel(intent)

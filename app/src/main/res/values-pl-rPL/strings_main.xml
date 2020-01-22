@@ -33,10 +33,10 @@
     <string name="main_changelog">Historia zmian</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">Autorzy</string>
-    <string name="main_legal">Główny_legalny</string>
-    <string name="main_licenses">Główne_licencje</string>
-    <string name="main_terms">Główne_warunki</string>
-    <string name="main_privacy">Główna_prywatność</string>
+    <string name="main_legal">Informacje prawne</string>
+    <string name="main_licenses">Licencje stron trzecich</string>
+    <string name="main_terms">Warunki usługi</string>
+    <string name="main_privacy">Polityka prywatności</string>
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">Wyślij Log</string>
     <!-- To display a big number in short way, eg. 1.69 million -->

@@ -15,6 +15,7 @@ import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.lazy
+import core.bits.menu.advanced.registerPersistenceForAdvancedSettings
 import flavor.newFlavorModule
 import gs.environment.inject
 import gs.environment.newGscoreModule
@@ -70,6 +71,7 @@ class MainApplication: Application(), KodeinAware {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         Paper.init(this)
+        registerPersistenceForAdvancedSettings()
     }
 
     private fun setRestartAppOnCrash() {

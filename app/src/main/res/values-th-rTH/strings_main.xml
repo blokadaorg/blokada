@@ -33,8 +33,14 @@
     <string name="main_changelog">ประวัติอัพเดต</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">เครดิต</string>
+    <string name="main_legal">ข้อมูลทางกฎหมาย</string>
+    <string name="main_licenses">การรับรองแอพอื่น</string>
+    <string name="main_terms">ข้อตกลงใช้บริการ</string>
+    <string name="main_privacy">นโยบายส่วนตัว</string>
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">แชร์บันทึก</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
+    <string name="core_format_million">%s ล้าน</string>
     <!-- To display a big number in short way, eg. 420 thousand -->
+    <string name="core_format_thousand">%s พัน</string>
 </resources>

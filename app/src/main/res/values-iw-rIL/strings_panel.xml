@@ -30,7 +30,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">למסננים יש כעת %s כללים.</string>
     <string name="panel_ruleset_updating">מעדכן מסננים...</string>
-    <string name="panel_ruleset_built">המסננים מוגדרים כעת עם &lt;b&gt;%s&lt;/b&gt; כללים. עד &lt;b&gt;%s&lt;/b&gt; כללים יכולים להיכנס לזיכרון המכשיר שלך באופן כללי. זכור, זהו רק אומדן וכפוף לשינוי בהתאם ליישומים אחרים במכשירך, לכן עליך להישאר הרבה מתחת למגבלה זו ליתר בטחון.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">אפשר</string>
     <!-- Button to block allowed domain -->

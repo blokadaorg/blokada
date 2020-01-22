@@ -31,7 +31,7 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">I filtri ora hanno %s regole.</string>
     <string name="panel_ruleset_updating">Aggiornamento filtri...</string>
-    <string name="panel_ruleset_built">I filtri sono ora configurati con &lt;b&gt;%s&lt;/b&gt; regole. La memoria del tuo dispositivo può ancora ospitare &lt;b&gt;%s&lt;/b&gt; regole. Ricorda, questa è solo una stima e pertanto è soggetta a cambiamenti a seconda delle altre applicazioni sul tuo dispositivo. Per essere sicuro dovresti rimanere al di sotto di questo limite.</string>
+    <string name="panel_ruleset_canfit">I filtri sono ora configurati con &lt;b&gt;%s&lt;/b&gt; regole. Il tuo dispositivo consente al massimo &lt;b&gt;%s&lt;/b&gt; MB di memoria per ogni applicazione, e possono entrarvi fino a &lt;b&gt;%s&lt;/b&gt; regole.&lt;br&gt;Ricorda, questa è solo una stima e Blokada utilizza la maggior parte della memoria durante l\'unione delle liste. Se di recente ne hai abilitate alcune, aspetta qualche minuto così che il sistema liberi la memoria.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Consenti</string>
     <!-- Button to block allowed domain -->
@@ -191,4 +191,7 @@
     <string name="slot_reset_counter_label">Azzera contatore host bloccati</string>
     <string name="slot_reset_counter_description">Reimposta a 0 il contatore che mostra quante richieste sono state bloccate.</string>
     <string name="slot_reset_counter_action">Azzera</string>
+    <string name="label_workarounds">Soluzioni specifiche per dispositivo</string>
+    <string name="slot_dns_answer_label">Risposta DNS alternativa</string>
+    <string name="slot_dns_answer_description">Cambia la risposta che Blokada invia per le richieste bloccate, da \"host non trovato\" ad un indirizzo IP non valido. Questo può essere d\'aiuto su alcune ROM che, in caso di risposta \"host non trovato\", interrogano altri DNS. Si prega di notare che questa impostazione potrebbe rallentare quelle app che provano a collegarsi all\'indirizzo non valido.</string>
 </resources>

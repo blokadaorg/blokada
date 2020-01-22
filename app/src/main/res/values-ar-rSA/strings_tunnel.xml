@@ -29,6 +29,12 @@
     <string name="tunnel_config_fallback_title">الـ DNS البديل</string>
     <string name="tunnel_config_fallback_description">قم بتفعيل هذا المفتاح إذا كان هناك فشل في الإتصال بالإنترنت في بعض الحالات، مثل ال WiFi. هذا الإختيار سيجعل التطبيق يستخدم Cloudflare DNS بشكل مؤقّت للحفاظ على إتصالك. قد تحتاج لإعادة إختيار الـ DNS المناسب لك من القائمة حتى يتمّ تفعيل هذا الإختيار.</string>
     <string name="tunnel_config_smartlist_title">[BETA] القائمة الذكيّة</string>
+    <string name="tunnel_config_smartlist_reset_btn">إعادة تعيين</string>
+    <string name="tunnel_config_smartlist_clean_btn">تنظيف</string>
+    <string name="tunnel_config_smartlist_clean_none">لا شيء ليَتمّ تنظيفه</string>
+    <string name="tunnel_config_smartlist_clean_inactive">القائمة الذكيّة غير نَشِطة</string>
+    <string name="tunnel_config_smartlist_clean_done">تمّ تنظيف القائمة الذكيّة من القواعد القديمة</string>
+    <string name="tunnel_config_smartlist_reset_done">تمّ إعادة تعيين القائمة الذكيّة</string>
     <string name="tunnel_config_smartlist_description">قُم بتنشيط رمز التبديل هذا لتمكين ميِّزة \"القائمة الذكيَّة\" ، ممّا يُقلِّل بشكلٍ كبير من عدد القواعد الموجودة في الفلاتر ، ذلك يُمكِن أن يُحسِّن عمْر البطّاريّة و يُقلِّل من إستخدام ذاكرة الوصول العشوائي. عند التمكين ، سيَنظر بلوكادا في سِجِلِّ الطلب الخاصّ بك ، و يقوم بإنشاء قائمة تحتوي على قواعد تَمنَع طلباً واحداً على الأقل بشكلٍ حَيويّ. يَتمّ تحديث القائمة الذكيّة يوميّاً أثناء اللّيل. يُرجى ملاحظة أنّه قد تواجه عدداً أكبر من الطلبات غير المرغوب فيها المسموح بها خلال فترة التعلم (بضعة أيّام). يُرجى ملاحظة أنّ هذه ميِّزة تجريبيّة ، و قد لا تعمل بشكلٍ صحيح.</string>
     <string name="tunnel_config_disable_wildcard">تعطيل قواعد حَظْر الإعلانات المتقدِّمة أوّلاً.</string>
     <string name="tunnel_config_disable_smartlist">تعطيل القائمة الذكيّة أوّلاً.</string>

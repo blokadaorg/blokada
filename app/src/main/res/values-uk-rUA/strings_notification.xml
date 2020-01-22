@@ -14,7 +14,6 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Підтримка активності</string>
-    <string name="notification_keepalive_description">Активуйте цей перемикач якщо додаток перестає працювати в фоні. Додаток увімкне постійне сповіщення для того, щоб система не \"вбивала\" його.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Підтримувати увімкненим (натисніть щоб сховати)</string>
     <string name="notification_keepalive_text_new">Для роботи програми в фоні Android необхідно показувати сповіщення, але ви можете вимкнути його в системних налаштуваннях.</string>

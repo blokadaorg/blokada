@@ -30,7 +30,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Sekarang penapis memiliki %s peraturan.</string>
     <string name="panel_ruleset_updating">Mengemaskini penapis...</string>
-    <string name="panel_ruleset_built">Sekarang filter ditetapkan dengan &lt;b&gt;%s&lt;/b&gt;aturan. Aturan hinga &lt;b&gt;%s&lt;/b&gt; dapat masuk kedalam memori peranti anda secara keseluruhan. Ingat, ini hanyalah anggaran dan boleh berubah bergantung pada aplikasi lain pada peranti anda, jadi anda hendaklan sentiasa berada di bawah batas ini untuk selamat.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Benarkan</string>
     <!-- Button to block allowed domain -->

@@ -2,8 +2,9 @@
 <resources>
     <string name="logger_permission">Please grant storage permission first.</string>
     <string name="logger_slot_title">Request logger</string>
-    <string name="logger_slot_desc">When enabled, Blokada will create a CSV file and log requests that have been allowed and / or blocked by the app. Look for "blokada" folder on your external storage.</string>
+    <string name="logger_slot_desc">By default, requests are only stored internally in Blokada. If this feature is enabled, Blokada will create a CSV file and log requests that have been allowed and / or blocked by the app. Look for "blokada" folder on your external storage. Alternatively, request logging can be disabled entirely, with just the number of blocked domains being stored.</string>
     <string name="logger_slot_mode_off">Disabled</string>
+    <string name="logger_slot_mode_internal">Log to internal storage only</string>
     <string name="logger_slot_mode_allowed">Log allowed requests</string>
     <string name="logger_slot_mode_denied">Log blocked requests</string>
     <string name="logger_slot_mode_all">Log all requests</string>

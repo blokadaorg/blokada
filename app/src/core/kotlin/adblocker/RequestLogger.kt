@@ -59,7 +59,7 @@ class LoggerConfigPersistence {
 }
 
 data class LoggerConfig(
-        val active: Boolean = false,
+        val active: Boolean = true,
         val logAllowed: Boolean = false,
         val logDenied: Boolean = false
 )
@@ -72,19 +72,23 @@ class RequestLogger : Service() {
     private var logger: CsvLogWriter? = null
     private var onAllowed = { r: Request -> if (!r.blocked) log(r.domain, false) }
     private var onBlocked = { r: Request -> if (r.blocked) log(r.domain, true) }
-    var config = LoggerConfig()
+    private var onRequest = { r: Request -> emit(TunnelEvents.REQUEST_SAVED, r); Unit }
+    var config = LoggerConfig(active = false)
         set(value) {
+
             if (field != value) {
-                this.ktx().cancel(TunnelEvents.REQUEST, onAllowed)
-                this.ktx().cancel(TunnelEvents.REQUEST, onBlocked)
+                this.ktx().cancel(TunnelEvents.REQUEST_SAVED, onAllowed)
+                this.ktx().cancel(TunnelEvents.REQUEST_SAVED, onBlocked)
+                this.ktx().cancel(TunnelEvents.REQUEST, onRequest)
                 if (value.active) {
                     logger = CsvLogWriter()
                     if (value.logAllowed) {
-                        this.ktx().on(TunnelEvents.REQUEST, onAllowed)
+                        this.ktx().on(TunnelEvents.REQUEST_SAVED, onAllowed)
                     }
                     if (value.logDenied) {
-                        this.ktx().on(TunnelEvents.REQUEST, onBlocked)
+                        this.ktx().on(TunnelEvents.REQUEST_SAVED, onBlocked)
                     }
+                    this.ktx().on(TunnelEvents.REQUEST, onRequest)
                 } else {
                     stopSelf()
                 }
@@ -120,8 +124,9 @@ class RequestLogger : Service() {
     }
 
     override fun onDestroy() {
-        this.ktx().cancel(TunnelEvents.REQUEST, onAllowed)
-        this.ktx().cancel(TunnelEvents.REQUEST, onBlocked)
+        this.ktx().cancel(TunnelEvents.REQUEST_SAVED, onAllowed)
+        this.ktx().cancel(TunnelEvents.REQUEST_SAVED, onBlocked)
+        this.ktx().cancel(TunnelEvents.REQUEST, onRequest)
         super.onDestroy()
     }
 }
@@ -145,6 +150,7 @@ class LoggerVB (
                     description = i18n.getString(R.string.logger_slot_desc),
                     values = listOf(
                             i18n.getString(R.string.logger_slot_mode_off),
+                            i18n.getString(R.string.logger_slot_mode_internal),
                             i18n.getString(R.string.logger_slot_mode_denied),
                             i18n.getString(R.string.logger_slot_mode_allowed),
                             i18n.getString(R.string.logger_slot_mode_all)
@@ -153,8 +159,10 @@ class LoggerVB (
             )
         }
         view.onSelect = {
-            askForExternalStoragePermissionsIfNeeded(activity)
             val newConfig = modeToConfig(it)
+            if (newConfig.logAllowed || newConfig.logDenied) {
+                askForExternalStoragePermissionsIfNeeded(activity)
+            }
             persistence.save(newConfig)
             sendConfigToService(ktx.ctx, newConfig)
         }
@@ -165,14 +173,16 @@ class LoggerVB (
                 !config.active -> R.string.logger_slot_mode_off
                 config.logAllowed && config.logDenied -> R.string.logger_slot_mode_all
                 config.logDenied -> R.string.logger_slot_mode_denied
-                else -> R.string.logger_slot_mode_allowed
+                config.logAllowed -> R.string.logger_slot_mode_allowed
+                else -> R.string.logger_slot_mode_internal
     })
 
     private fun modeToConfig(mode: String) = when (mode) {
         i18n.getString(R.string.logger_slot_mode_off) -> LoggerConfig(active = false)
         i18n.getString(R.string.logger_slot_mode_allowed) -> LoggerConfig(active = true, logAllowed = true)
         i18n.getString(R.string.logger_slot_mode_denied) -> LoggerConfig(active = true, logDenied = true)
-        else -> LoggerConfig(active = true, logAllowed = true, logDenied = true)
+        i18n.getString(R.string.logger_slot_mode_all) -> LoggerConfig(active = true, logAllowed = true, logDenied = true)
+        else -> LoggerConfig()
     }
 
     private fun sendConfigToService(ctx: Context, config: LoggerConfig) {

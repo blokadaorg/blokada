@@ -40,7 +40,7 @@
     <string name="home_account_error">Das Konto konnte nicht bestätigt werden. Bist du mit dem Internet verbunden?</string>
     <string name="home_permission_error">Bitte gewähre dem VPN die Berechtigung.</string>
     <string name="home_zero_filters_error">Du hast keine Filter konfiguriert. Überprüfe deine Werbeblocker- und WLAN-Einstellungen.</string>
-    <string name="home_filters_memory_error">Es konnten nicht alle Filter geladen werden. Überprüfe deine Adblocking-Einstellungen.</string>
+    <string name="home_filters_memory_error">Einige Listen konnten nicht geladen werden; wähle weniger Listen in den Einstellungen des Werbeblockers.</string>
     <string name="tasker_switch_label">Wähle eine der Optionen, um sie so zu konfigurieren, dass Blokada für Ihren Trigger ein- oder ausgeschaltet wird.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anzeigen</string>
@@ -70,6 +70,14 @@
     <string name="menu_vpn_gateways_label">Wähle eines der Gateways, um dich mit ihm zu verbinden. Dein Gerät wird deine verschlüsselten Daten sicher durch dieses Gateway leiten und du bleibst anonym.</string>
     <string name="menu_vpn_support_label">Wenn du auf Probleme stößt, kontaktiere uns umgehend.</string>
     <string name="menu_vpn_support_button">Support</string>
+    <string name="menu_vpn_support_email">E-Mail-Adresse eingeben</string>
+    <string name="menu_vpn_support_email_desc">Falls du Unterstützung brauchst, gib bitte hier deine E-Mail-Adresse ein. Wir werden diese zur Kontaktaufnahme verwenden.</string>
+    <string name="menu_vpn_support_name">Namen eingeben (optional)</string>
+    <string name="menu_vpn_support_name_desc">Lass uns wissen, wie wir dich ansprechen sollen.</string>
+    <string name="menu_vpn_support_messages_label">Support Posteingang</string>
+    <string name="menu_vpn_support_messages_new">Frage nach Hilfe</string>
+    <string name="menu_vpn_support_messages_all">Meine Chats</string>
+    <string name="menu_vpn_support_messages_nothing">Du hast den Support bisher nicht kontaktiert.</string>
     <string name="menu_vpn_tunnel_settings">Blokada-Tunnel-Einstellungen</string>
     <string name="menu_vpn_tunnel_learn_more">Mehr über Blokada-Tunnel erfahren</string>
     <string name="menu_vpn_info_account_label">Habe ich ein Konto?</string>
@@ -80,7 +88,7 @@
     <string name="menu_dns_recommended">Empfohlene DNS-Server</string>
     <string name="menu_dns_intro">DNS ist für die Übersetzung von IP-Adressen der von dir genutzten Webseiten und Apps zuständig. Die Auswahl eines guten DNS-Servers kann dein Gerät schneller machen und hilft dabei, deine privaten Daten zu schützen.</string>
     <string name="menu_dns_select">Wähle einen der DNS-Server.</string>
-    <string name="menu_apps_intro">Einige Apps funktionieren möglicherweise wegen Blokada nicht richtig. Als Beispiel wären hier Verbindungsprobleme zu nennen.\n\nDie Akivierung des VPNs hilft meistens bei diesen Fällen.\n\nZudem kannst du die Apps an Blokada vorbeileiten. Bedenke, dass diese Apps außerhalb des Blokada-Tunnels mit dem Internet verbunden sind.</string>
+    <string name="menu_apps_intro">Einige Apps funktionieren möglicherweise mit Blokada nicht richtig. Beispielsweise können Verbindungsprobleme auftreten.\n\nMeistens hilft in diesen Fällen die Aktivierung des VPNs.\n\nReicht dies nicht, kannst du diese Apps insgesamt an der Überwachung durch Blokada vorbeileiten. Bedenke, dass umgeleitete Apps außerhalb des Blokada-Tunnels Informationen austauschen.</string>
     <string name="menu_apps_system_label">System-Apps sind diejenigen, die auf deinem Gerät vorinstalliert sind. Einige von ihnen sind nicht sichtbar. Verändere diese nur, wenn du weißt, was du damit tust.</string>
     <string name="menu_host_list_intro">Host-Listen enthalten Regeln, um Werbung und Tracker zu blockieren. Versuche, die Zahl der aktiven Listen klein zu halten.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>

@@ -31,7 +31,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">الفلاتر فيها الآن %s قاعدة.</string>
     <string name="panel_ruleset_updating">جارِ تحديث الفلاتر...</string>
-    <string name="panel_ruleset_built">الآن تَمَّ تهيئة الفلاتر باستخدام &lt;b&gt;%s&lt;/b&gt; قاعدة. &lt;b&gt;%s&lt;/b&gt; يمكن أن تنسجم مع ذاكرة جهازك بشكل عام. تَذكّر أنّ هذا مُجرَّد تقدير و يخضع للتغيير اعتماداً على التطبيقات الأخرى على جهازك ، لذلك يجب أن تظلّ أقلّ من هذا الحد لتكون آمناً.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">سماح</string>
     <!-- Button to block allowed domain -->
@@ -191,4 +190,6 @@
     <string name="slot_reset_counter_label">إعادة تعيين عدّاد الحَظْر</string>
     <string name="slot_reset_counter_description">ضبْطْ العدّاد الذي يوضِح عدد الطلبات التي تمَّ حَظْرها إلى 0.</string>
     <string name="slot_reset_counter_action">إعادة تعيين</string>
+    <string name="label_workarounds">حلول خاصّة بالجهاز</string>
+    <string name="slot_dns_answer_label">إجابة DNS بديلة</string>
 </resources>

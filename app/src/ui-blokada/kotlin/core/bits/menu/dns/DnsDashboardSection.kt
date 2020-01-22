@@ -9,6 +9,7 @@ import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import gs.property.IWhen
 import org.blokada.R
+import tunnel.DnsAnswerTypeVB
 
 class DnsDashboardSection(
         val ctx: Context,
@@ -44,6 +45,7 @@ class DnsDashboardSection(
                 view.add(LabelVB(ktx, label = R.string.menu_manage.res()))
                 view.add(DnsListControlVB(ktx, onTap = defaultOnTap))
                 view.add(DnsFallbackVB(ktx, onTap = defaultOnTap))
+                view.add(DnsAnswerTypeVB(ktx, onTap = defaultOnTap))
             }
         }
     }

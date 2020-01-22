@@ -30,7 +30,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Filtre har nu %s regler.</string>
     <string name="panel_ruleset_updating">Opdatere filtre...</string>
-    <string name="panel_ruleset_built">Filtre er nu konfigureret med &lt;b&gt;%s&lt;/b&gt; regler. Op til &lt;b&gt;%s&lt;/b&gt; regler kan være i din telefons hukkommelse. Husk, dette er kun et gæt og kan ændres afhængig af andre apps på din enhed, så hold dig helst under denne grænse for at være sikker.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Tillad</string>
     <!-- Button to block allowed domain -->

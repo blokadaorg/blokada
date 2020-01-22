@@ -1,6 +1,6 @@
 <resources>
     <string name="notification_on_text">Notifications</string>
-    <string name="notification_on_description">When on, Blokada will display a notification every time something is blocked. Please note this is not the same as the VPN notification some devices show, and which cannot be turned off.</string>
+    <string name="notification_on_description">When on, Blokada will display a notification every time something is blocked. Please note this is not the same as the VPN notification some devices show, and which cannot be turned off.&lt;br/&gt;You can configure which notifications should be displayed with the Settings below.</string>
 
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Blocked</string>
@@ -18,7 +18,7 @@
     <!-- Parameter: branded app name (Blokada). -->
 
     <string name="notification_keepalive_text">Keep alive</string>
-    <string name="notification_keepalive_description">Activate this switch if you experience problems with app staying active. The app will enable a permanent notification to prevent the system from killing it.</string>
+    <string name="notification_keepalive_description">Activate this switch if you experience problems with the app staying active in the background. Blokada will enable a permanent notification to prevent the system from killing it; you can hide it by choosing Notifications above and there Settings.</string>
 
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Keep Alive (tap to hide)</string>

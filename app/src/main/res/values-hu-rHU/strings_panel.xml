@@ -31,7 +31,6 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">A szűrők most %s szabályt tartalmaznak.</string>
     <string name="panel_ruleset_updating">Szűrők frissítése...</string>
-    <string name="panel_ruleset_built">A szúréshez &lt;b&gt;%s&lt;/b&gt; szabály van jelenleg beállítva. Legfeljebb &lt;b&gt;%s&lt;/b&gt; szabály fér a készüléked memóriájába. Ne feledd, hogy ez csak egy becslés, és a készüléked egyéb alkalmazásaitól függően változhat, így megfelelő biztonsággal maradj a határérték alatt.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Engedélyez</string>
     <!-- Button to block allowed domain -->
@@ -142,6 +141,7 @@
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">alacsony</string>
     <string name="subscription_success">Fiókod aktiválva van. Ez eltarthat néhány másodpercig. Köszönjük!</string>
+    <string name="slot_start_on_boot_description">A bootoláskor indul engedélyezése lehetővé teszi a Blokada mindenkori aktív működését és a készülék folyamatos védelmét. Felhívjuk figyelmedet, hogy a rendszernek mindig nagyobb prioritása van, és felülírhatja ezt az opciót, így ha a Blokada nem indul el, nézd meg a rendszered beállításait.</string>
     <string name="slot_recommended_dns_label">Az ajánlott DNS-kiszolgálók használata</string>
     <string name="slot_recommended_dns_description">Ha ez a funkció engedélyezve van, a Blokada automatikusan kiválasztja az ajánlott DNS-kiszolgálókat, hogy felgyorsítsa az internetet és védje az adatait. Ellenkező esetben a hálózat alapértelmezett DNS-kiszolgálóit használja. Ha a Haladó részben manuálisan választod ki a DNS-kiszolgálókat, ez a beállítás figyelmen kívül marad.</string>
     <string name="slot_update_no_updates">A Blokada naprakész</string>
