@@ -10,6 +10,10 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
         onReady {
             val s: Tunnel = instance()
 
+            s.tunnelState.doWhenChanged().then{
+                updateControllswitchWidgets(ctx)
+            }
+            updateControllswitchWidgets(ctx)
             // Initialize default values for properties that need it (async)
             s.tunnelDropCount {}
         }
