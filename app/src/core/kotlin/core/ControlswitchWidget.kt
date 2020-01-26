@@ -82,7 +82,7 @@ class DnsSwitchWidgetProvider : ControlswitchWidgetProvider() {
 }
 
 class VpnSwitchWidgetProvider : ControlswitchWidgetProvider() {
-    override val icon = R.drawable.ic_share
+    override val icon = R.drawable.ic_shield_plus_outline
     override val changedSetting = NotificationsToggleSeviceSettings.VPN
     override val requestCode: Int = -1541302845
     override fun checkState(ctx: Context): Boolean {
