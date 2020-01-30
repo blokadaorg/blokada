@@ -56,6 +56,7 @@ class SimpleMenuItemVB(
         val label: Resource,
         val icon: Resource,
         val action: (ktx: AndroidKontext) -> Unit,
+        val longAction: ((ktx: AndroidKontext) -> Unit)? = null,
         val arrow: Boolean = true,
         override val name: Resource = label
 ): BitVB(), NamedViewBinder {
@@ -67,6 +68,12 @@ class SimpleMenuItemVB(
         view.alternative(true)
         view.onTap {
             action(ktx)
+        }
+        if (longAction != null) {
+            view.setOnLongClickListener {
+                longAction.invoke(ktx)
+                true
+            }
         }
     }
 
