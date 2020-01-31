@@ -18,6 +18,7 @@
     <string name="panel_section_apps_all">Aplikasi dipasang</string>
     <string name="panel_section_apps_system">Aplikasi sistem</string>
     <string name="panel_section_advanced_settings">Tetapan</string>
+    <string name="panel_section_app_settings">Tetapan aplikasi</string>
     <!-- When a domain is allowed (not blocked) -->
     <string name="panel_domain_forwarded">Dibenarkan &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_forwarded_desc">Domain ini telah dibenarkan. Untuk menyekatnya, sila gunakan butang di bawah.</string>
@@ -38,7 +39,9 @@
     <string name="slot_action_remove">Keluarkan</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Ya</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Tidak</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Bagaimana untuk menggunakan UI baharu? Sentuh di sini untuk pengenalan.</string>
     <string name="slot_intro_new_header">Bagaimana untuk menggunakan UI baru?</string>
@@ -58,6 +61,8 @@
     <string name="slot_enter_domain_desc">Masukkan domain diselangi dengan koma. Anda juga boleh tampal sebarang link kepada mana-mana senarai hos, atau import fail senarai hos dalaman.</string>
     <string name="slot_enter_domain_error">Ini tidak ketihatan seperti apa-apa saya.</string>
     <string name="slot_enter_domain_file">Fail</string>
+    <string name="slot_enter_file_titel">Nama fail</string>
+    <string name="slot_enter_file_import">Import</string>
     <string name="slot_enter_name_title">Nama</string>
     <string name="slot_enter_name_desc">Masukkan nama untuk kemasukkan baru. Anda juga boleh menjana nama cadangan.</string>
     <string name="slot_enter_name_error">Ini tidak ketihatan seperti apa-apa saya.</string>

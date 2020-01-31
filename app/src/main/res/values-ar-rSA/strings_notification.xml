@@ -14,6 +14,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">الإبقاء قَيْد التشغيل</string>
+    <string name="notification_keepalive_description">قم بتنشيط رمز التبديل هذا إذا واجهت مشاكل في إبقاء التطبيق نشطاً في الخلفية. سوف يقوم بلوكادا بتمكين إشعار دائم لمنع النظام من إيقافه. يُمكِنك إخفاءه عن طريق اختيار الإشعارات أعلاه و هناك الإعدادات.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">الإبقاء نَشِطاً (اضغط لإخفائه)</string>
     <string name="notification_keepalive_text_new">يَتطلَّب أندرويد عرض إشعار للحفاظ على تشغيل التطبيق ، ولكن يمكنك تعطيله في إعدادات النظام.</string>

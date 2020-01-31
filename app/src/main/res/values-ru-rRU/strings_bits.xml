@@ -40,12 +40,12 @@
     <string name="home_account_error">Не удалось верифицировать аккаунт. Вы онлайн?</string>
     <string name="home_permission_error">Пожалуйста, предоставьте разрешения VPN.</string>
     <string name="home_zero_filters_error">У вас нет настроенных фильтров. Проверьте настройки блокировки рекламы и Wi-Fi.</string>
-    <string name="home_filters_memory_error">Некоторые списки не могут быть загружены; выберите меньше списков в настройках блокировки рекламы.</string>
+    <string name="home_filters_memory_error">Некоторые списки не могут быть загружены; выберите меньшее количество списков в настройках блокировки рекламы.</string>
     <string name="tasker_switch_label">Нажмите на один из параметров, чтобы настроить его для включения (или выключения) триггера.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Реклама</string>
-    <string name="menu_ads_live_label">Логи разрешенных и заблокированных запросов</string>
-    <string name="menu_ads_clear_log">Очистить журнал логов</string>
+    <string name="menu_ads_live_label">Журнал разрешенных и заблокированных запросов</string>
+    <string name="menu_ads_clear_log">Очистить журнал</string>
     <string name="menu_ads_lists_label">Выберите списки для блокировки. Значения по умолчанию подходят для большинства пользователей.</string>
     <string name="menu_ads_rules_label">Добавьте свои собственные правила для тонкой настройки блокировки.</string>
     <string name="menu_ads_log_label">Посмотрите, что недавно было заблокировано или разрешено.</string>
@@ -71,11 +71,11 @@
     <string name="menu_vpn_support_label">Если у вас возникли проблемы, не стесняйтесь обращаться к нам.</string>
     <string name="menu_vpn_support_button">Поддержка</string>
     <string name="menu_vpn_support_email">Введите email</string>
-    <string name="menu_vpn_support_email_desc">Если вам нужна помощь, пожалуйста, введите ваш адрес электронной почты здесь. Мы будем использовать его, чтобы связаться с вами.</string>
+    <string name="menu_vpn_support_email_desc">Если вам нужна помощь, пожалуйста, введите ваш адрес электронной почты здесь. Мы свяжемся с вами по этому адресу.</string>
     <string name="menu_vpn_support_name">Введите имя (необязательно)</string>
-    <string name="menu_vpn_support_name_desc">Дайте нам знать, как мы должны вам помочь.</string>
-    <string name="menu_vpn_support_messages_label">Сообщения Поддержки</string>
-    <string name="menu_vpn_support_messages_new">Спросить службу поддержки</string>
+    <string name="menu_vpn_support_name_desc">Дайте нам знать, как мы должны обращаться к вам.</string>
+    <string name="menu_vpn_support_messages_label">Входящие поддержки</string>
+    <string name="menu_vpn_support_messages_new">Попросить о поддержке</string>
     <string name="menu_vpn_support_messages_all">Мои чаты</string>
     <string name="menu_vpn_support_messages_nothing">Вы еще не обращались в службу поддержки.</string>
     <string name="menu_vpn_tunnel_settings">Настройки Blokada Tunnel</string>
@@ -110,7 +110,7 @@
     <string name="menu_configure">Настройка параметров Blokada</string>
     <string name="menu_exclude">Исключить приложения, которые работают неправильно</string>
     <!-- A section in menu for additional buttons  -->
-    <string name="menu_dive_in">Погружайся глубже</string>
+    <string name="menu_dive_in">Погрузиться глубже</string>
     <!-- A section to manage some settings (generic)  -->
     <string name="menu_manage">Управление</string>
     <string name="menu_ok">OK</string>
