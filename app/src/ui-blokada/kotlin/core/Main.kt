@@ -66,12 +66,13 @@ class MainApplication: Application(), KodeinAware {
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
         setRestartAppOnCrash()
+        registerPersistenceForAdvancedSettings()
     }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         Paper.init(this)
-        registerPersistenceForAdvancedSettings()
+        // Please do not add anything more here, may cause tricky crashes
     }
 
     private fun setRestartAppOnCrash() {

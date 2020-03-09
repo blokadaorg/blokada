@@ -5,4 +5,6 @@
     <!-- A configuration option of widget -->
     <!-- A configuration option of widget -->
     <!-- A configuration option of widget -->
+    <string name="widget_show_dns">Прикажи DNS</string>
+    <string name="widget_okay">Потврди</string>
 </resources>

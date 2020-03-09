@@ -1,14 +1,17 @@
 package core.bits.menu
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.UpdateVB
 import core.bits.openWebContent
+import gs.environment.ComponentProvider
 import gs.presentation.NamedViewBinder
 import org.blokada.R
 import java.io.File
@@ -128,7 +131,8 @@ fun createLogMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
             label = R.string.main_log.res(),
             icon = R.drawable.ic_bug_report_black_24dp.res(),
-            action = { shareLog(ktx.ctx) }
+            action = { shareLog(ktx.ctx) },
+            longAction = { shareLogAlternative(ktx.ctx) }
     )
 }
 
@@ -178,7 +182,7 @@ fun createPrivacyMenuItem(ktx: AndroidKontext): NamedViewBinder {
     )
 }
 
-fun shareLog(ctx: Context) {
+fun shareLogAlternative(ctx: Context) {
     //                    if (askForExternalStoragePermissionsIfNeeded(activity)) {
     val uri = File(ctx.filesDir, "/blokada.log")
     val openFileIntent = Intent(Intent.ACTION_SEND)
@@ -191,6 +195,34 @@ fun shareLog(ctx: Context) {
                     uri))
     ctx.startActivity(openFileIntent)
 //                    }
+}
+
+fun shareLog(ctx: Context) {
+    val uri = File(ctx.filesDir, "/blokada.log")
+    val actualUri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", uri)
+
+    val provider = ctx.ktx("share").di().instance<ComponentProvider<Activity>>()
+    val activity = provider.get()
+
+    if (activity != null) {
+        val intent = ShareCompat.IntentBuilder.from(activity)
+                .setStream(actualUri)
+                .setType("text/*")
+                .intent
+                .setAction(Intent.ACTION_SEND)
+                .setDataAndType(actualUri, "text/*")
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        ctx.startActivity(intent)
+    } else {
+        val openFileIntent = Intent(Intent.ACTION_SEND)
+        openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        openFileIntent.type = "plain/*"
+        openFileIntent.putExtra(Intent.EXTRA_STREAM, actualUri)
+        ctx.startActivity(openFileIntent)
+    }
 }
 
 fun createAppDetailsMenuItem(ktx: AndroidKontext): NamedViewBinder {

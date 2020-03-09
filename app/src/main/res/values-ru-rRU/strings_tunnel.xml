@@ -28,9 +28,9 @@
     <string name="tunnel_config_fallback_title">Резервный DNS</string>
     <string name="tunnel_config_fallback_description">Активируйте этот переключатель, если вы теряете доступ к интернету в некоторых ситуациях, например, в сети WiFi. Это заставит приложение временно переключиться на DNS Cloudflare для поддержания вашего подключения. Может потребоваться повторный выбор серверов в разделе DNS, чтобы этот параметр вступил в силу.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Умный список</string>
-    <string name="tunnel_config_smartlist_reset_btn">Сброс</string>
-    <string name="tunnel_config_smartlist_clean_btn">Чисто</string>
-    <string name="tunnel_config_smartlist_clean_none">Нечего чистить</string>
+    <string name="tunnel_config_smartlist_reset_btn">Сбросить</string>
+    <string name="tunnel_config_smartlist_clean_btn">Очистить</string>
+    <string name="tunnel_config_smartlist_clean_none">Нечего очищать</string>
     <string name="tunnel_config_smartlist_clean_inactive">Умный список неактивен</string>
     <string name="tunnel_config_smartlist_clean_done">Умный список очищен от старых правил</string>
     <string name="tunnel_config_smartlist_reset_done">Умный список был сброшен</string>

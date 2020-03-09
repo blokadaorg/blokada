@@ -31,7 +31,7 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">Фильтры теперь имеют %s правил.</string>
     <string name="panel_ruleset_updating">Обновление фильтров...</string>
-    <string name="panel_ruleset_canfit">Фильтры теперь настроены с &lt;b&gt;%s&lt;/b&gt; правилами. Ваше устройство позволяет максимум &lt;b&gt;%s&lt;/b&gt; МБ памяти для каждого приложения, и до &lt;b&gt;%s&lt;/b&gt; правила могут вписываться в него.&lt;br&gt;Помните, это всего лишь приблизительная оценка, и Blokada использует больше памяти, когда объединяет списки. Если вы недавно включили несколько из них, подождите несколько минут, пока система освободит память.</string>
+    <string name="panel_ruleset_canfit">Фильтры теперь настроены с &lt;b&gt;%s&lt;/b&gt; правилами. Ваше устройство позволяет максимум &lt;b&gt;%s&lt;/b&gt; МБ памяти для каждого приложения, и до &lt;b&gt;%s&lt;/b&gt; правил могут вписываться в него.&lt;br&gt;Помните, что это всего лишь оценка, и Blokada использует большую часть памяти при объединении списков. Если вы недавно включили несколько из них, подождите несколько минут, пока система не освободит память.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Разрешить</string>
     <!-- Button to block allowed domain -->
@@ -191,7 +191,7 @@
     <string name="slot_reset_counter_label">Сброс счетчика заблокированных хостов</string>
     <string name="slot_reset_counter_description">Устанавливает счетчик, показывающий, сколько запросов было заблокировано на 0.</string>
     <string name="slot_reset_counter_action">Сброс</string>
-    <string name="label_workarounds">Специфичные для устройства методы работы</string>
-    <string name="slot_dns_answer_label">Альтернативный ответ DNS</string>
+    <string name="label_workarounds">Обходные пути для конкретных устройств</string>
+    <string name="slot_dns_answer_label">Альтернативный DNS-ответ</string>
     <string name="slot_dns_answer_description">Изменяет ответ, который Blokada отправляет для заблокированных запросов с «host не найден» на недействительный IP. Это может помочь на некоторых прошивках, которые запрашивают другие DNS сервера, если они получают ответ «host не найден». Обратите внимание, что это может замедлить работу некоторых приложений, которые пытаются подключиться к неверному адресу.</string>
 </resources>

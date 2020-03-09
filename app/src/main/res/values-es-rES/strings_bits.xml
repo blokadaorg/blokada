@@ -31,7 +31,7 @@
     <string name="home_vpn_enabled">El Túnel de Blokada está activo</string>
     <string name="home_vpn_disabled">El Túnel de Blokada está desactivado</string>
     <string name="home_account_active">Tu cuenta aún está activa</string>
-    <string name="home_connecting_vpn">Conectándose al Túnel de Blokada</string>
+    <string name="home_connecting_vpn">Conectándose a Blokada Tunnel</string>
     <string name="home_cleanup">Se recomienda una limpieza</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Conectado al Túnel de Blokada</string>
