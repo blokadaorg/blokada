@@ -45,7 +45,7 @@ class AdsDashboardSectionVB(
         if (!displayingEntries.contains(request.domain)) {
             displayingEntries.add(request.domain)
             val dash = if (request.blocked)
-                DomainBlockedVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime) else
+                DomainBlockedNormalVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime) else
                 DomainForwarderVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime)
             items.add(dash)
             view?.add(dash)

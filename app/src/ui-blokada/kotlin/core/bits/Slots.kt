@@ -149,7 +149,7 @@ class DomainForwarderVB(
 
 }
 
-class DomainBlockedVB(
+class DomainBlockedNormalVB(
         private val domain: String,
         private val date: Date,
         private val ktx: AndroidKontext,
@@ -163,10 +163,10 @@ class DomainBlockedVB(
         view.date = date
         view.content = Slot.Content(
                 label = i18n.getString(R.string.panel_domain_blocked, domain),
-                header = i18n.getString(R.string.slot_blocked_title),
+                header = i18n.getString(R.string.slot_blocked_normal_title),
                 description = domain,
                 detail = Format.date(date),
-                info = i18n.getString(R.string.panel_domain_blocked_desc),
+                info = i18n.getString(R.string.panel_domain_blocked_normal_desc),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_allow)) {
                     val f = Filter(
                             id(domain, whitelist = true),
@@ -186,6 +186,32 @@ class DomainBlockedVB(
                     showSnack(R.string.panel_domain_copied)
                 }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
+        )
+        if (alternative) view.enableAlternativeBackground()
+    }
+
+}
+
+
+class DomainBlockedAnswerVB(
+        private val domain: String,
+        private val date: Date,
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        private val alternative: Boolean = false,
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.type = Slot.Type.BLOCK
+        view.date = date
+        view.content = Slot.Content(
+                label = i18n.getString(R.string.panel_domain_blocked, domain),
+                header = i18n.getString(R.string.slot_blocked_answer_title),
+                description = domain,
+                detail = Format.date(date),
+                info = i18n.getString(R.string.panel_domain_blocked_answer_desc),
+                icon = ktx.ctx.getDrawable(R.drawable.ic_server)
         )
         if (alternative) view.enableAlternativeBackground()
     }
