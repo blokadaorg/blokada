@@ -1,10 +1,10 @@
 package core.bits.menu.adblocking
 
 import android.app.Activity
-import com.github.michaelbull.result.getOr
 import com.github.salomonbrys.kodein.instance
 import core.*
-import core.bits.DomainBlockedVB
+import core.bits.DomainBlockedAnswerVB
+import core.bits.DomainBlockedNormalVB
 import core.bits.DomainForwarderVB
 import core.bits.SearchBarVB
 import core.bits.menu.MenuItemVB
@@ -14,7 +14,6 @@ import gs.presentation.NamedViewBinder
 import gs.presentation.ViewBinder
 import org.blokada.R
 import tunnel.*
-import tunnel.Persistence
 import java.lang.IndexOutOfBoundsException
 
 class HostsLogVB(
@@ -29,17 +28,13 @@ class HostsLogVB(
     private var log: ExtendedRequestLog? = null
     private var searchString: String = ""
 
-    var debuggingVar = emptySet<String>().toHashSet()
     private val requestUpdate = { update: RequestUpdate ->
                                     if (searchString.isEmpty() || update.newState.domain.contains(searchString.toLowerCase())) {
                                         val dash = requestToVB(update.newState)
                                         if (update.oldState == null) {
-                                            debuggingVar.add(update.newState.domain)
                                             items.add(3, dash)
                                             view?.add(dash, 3)
                                         } else {
-                                            if (!debuggingVar.contains(update.newState.domain))
-                                                e("X_X")
                                             try {
                                                 items[update.index + 3] = dash
                                                 view?.set(items)
@@ -102,9 +97,11 @@ class HostsLogVB(
 
 
     private fun requestToVB(it: ExtendedRequest): SlotVB {
-        return if (it.blocked)
-            DomainBlockedVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime) else
-            DomainForwarderVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+        return when (it.state){
+            RequestState.BLOCKED_NORMAL, RequestState.BLOCKED_CNAME -> DomainBlockedNormalVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            RequestState.BLOCKED_ANSWER -> DomainBlockedAnswerVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            RequestState.ALLOWED_APP_UNKNOWN, RequestState.ALLOWED_APP_KNOWN -> DomainForwarderVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+        }
     }
 }
 

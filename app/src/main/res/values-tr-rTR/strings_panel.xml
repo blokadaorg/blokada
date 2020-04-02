@@ -25,7 +25,7 @@
     <string name="panel_domain_forwarded_toast">Beyaz listeye eklendi.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; engellendi</string>
-    <string name="panel_domain_blocked_desc">Bu alan adı engellenmiştir. İzin vermek için aşağıdaki düğmeyi kullanın.</string>
+    <string name="panel_domain_blocked_normal_desc">Bu alan adı engellenmiştir. İzin vermek için aşağıdaki düğmeyi kullanın.</string>
     <string name="panel_domain_blocked_toast">Kara listeye eklendi.</string>
     <string name="panel_ruleset">Filtre sayacı</string>
     <!-- How many rules are configured. Parameters is number of rules. -->
@@ -101,7 +101,7 @@
     <string name="slot_action_external">Harici Depolama</string>
     <string name="slot_filters_title">Filtreler listesi</string>
     <string name="slot_filters_description">Özel girişlerinizi kaybetmeden filtre listesini sunucularımızla senkronize edebilirsiniz. &lt;br/&gt;&lt;br/&gt;Alternatif olarak, tüm girişleri (sizinkiler dahil) bırakıp tekrar indirebilirsiniz.</string>
-    <string name="slot_blocked_title">Alan adı engellendi</string>
+    <string name="slot_blocked_normal_title">Alan adı engellendi</string>
     <string name="slot_forwarded_title">Alan adı yönlendirildi</string>
     <string name="slot_whitelist_title">Beyaz listedeki uygulama</string>
     <string name="slot_list_no_desc">Bu girişin herhangi bir açıklaması yok.</string>

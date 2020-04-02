@@ -29,7 +29,8 @@
 
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Blocked &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="panel_domain_blocked_desc">This domain has been blocked. To allow it in the future, use the button below.</string>
+    <string name="panel_domain_blocked_normal_desc">This domain has been blocked. To allow it in the future, use the button below.</string>
+    <string name="panel_domain_blocked_answer_desc">This domain was not correctly resolved by the DNS server. Either the server blocked the domain or it doesn\'t exist.</string>
     <string name="panel_domain_blocked_toast">Added to the blacklist.</string>
 
     <!-- Action to copy domain name to clipboard -->
@@ -142,7 +143,8 @@
     <string name="slot_filters_title">Filters list</string>
     <string name="slot_filters_description">You can sync the filters list with our servers without losing your custom entries. &lt;br/&gt;&lt;br/&gt;Alternatively, you can drop all entries (including yours), and download them again.</string>
 
-    <string name="slot_blocked_title">Domain blocked</string>
+    <string name="slot_blocked_normal_title">Domain blocked</string>
+    <string name="slot_blocked_answer_title">Domain not resolved</string>
     <string name="slot_forwarded_title">Domain forwarded</string>
 
     <string name="slot_whitelist_title">Whitelisted app</string>

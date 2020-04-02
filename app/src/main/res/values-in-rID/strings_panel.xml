@@ -25,7 +25,7 @@
     <string name="panel_domain_forwarded_toast">Ditambahkan ke whitelist.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; diblokir</string>
-    <string name="panel_domain_blocked_desc">Domain ini telah diblokir. Gunakan tombol di bawah ini jika Anda mengizinkan domain tersebut untuk diakses.</string>
+    <string name="panel_domain_blocked_normal_desc">Domain ini telah diblokir. Gunakan tombol di bawah ini jika Anda mengizinkan domain tersebut untuk diakses.</string>
     <string name="panel_domain_blocked_toast">Ditambahkan ke blacklist.</string>
     <string name="panel_ruleset">Penghitung filter</string>
     <!-- How many rules are configured. Parameters is number of rules. -->
@@ -101,7 +101,7 @@
     <string name="slot_action_external">Penyimpanan Eksternal</string>
     <string name="slot_filters_title">Daftar filter</string>
     <string name="slot_filters_description">Anda bisa mensinkronkan daftar server DNS dengan server kami tanpa kehilangan daftar server DNS yang telah Anda buat sendiri. &lt;br/&gt;&lt;br/&gt;Atau, Anda bisa juga membuang daftar server DNS yang ada sekarang (termasuk server DNS yang Anda masukkan secara manual) dan mengunduhnya kembali dari server kami.</string>
-    <string name="slot_blocked_title">Domain yang diblokir</string>
+    <string name="slot_blocked_normal_title">Domain yang diblokir</string>
     <string name="slot_forwarded_title">Domain yang diizinkan</string>
     <string name="slot_whitelist_title">Aplikasi tidak terblokir</string>
     <string name="slot_list_no_desc">Bagian ini tidak memiliki keterangan/catatan.</string>
