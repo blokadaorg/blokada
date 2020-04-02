@@ -11,10 +11,11 @@ import core.bits.menu.MenuItemVB
 import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
+import gs.presentation.ViewBinder
 import org.blokada.R
-import tunnel.TunnelEvents
+import tunnel.*
 import tunnel.Persistence
-import tunnel.Request
+import java.lang.IndexOutOfBoundsException
 
 class HostsLogVB(
         val ktx: AndroidKontext,
@@ -24,59 +25,62 @@ class HostsLogVB(
 
     private val slotMutex = SlotMutex()
 
-    private val items = mutableListOf<SlotVB>()
-    private var nextBatch = 0
-    private var firstItem: Request? = null
-    private var listener: (SlotVB?) -> Unit = {}
+    private val items = mutableListOf<ViewBinder>()
+    private var log: ExtendedRequestLog? = null
     private var searchString: String = ""
 
-    private val request = { it: Request ->
-        if (it != firstItem) {
-            if(searchString.isEmpty() || it.domain.contains(searchString.toLowerCase())) {
-                val dash = requestToVB(it)
-                items.add(0, dash)
-                view?.add(dash, 3)
-                firstItem = it
-                onSelectedListener(null)
-            }
-        }
-        Unit
-    }
+    var debuggingVar = emptySet<String>().toHashSet()
+    private val requestUpdate = { update: RequestUpdate ->
+                                    if (searchString.isEmpty() || update.newState.domain.contains(searchString.toLowerCase())) {
+                                        val dash = requestToVB(update.newState)
+                                        if (update.oldState == null) {
+                                            debuggingVar.add(update.newState.domain)
+                                            items.add(3, dash)
+                                            view?.add(dash, 3)
+                                        } else {
+                                            if (!debuggingVar.contains(update.newState.domain))
+                                                e("X_X")
+                                            try {
+                                                items[update.index + 3] = dash
+                                                view?.set(items)
+                                            } catch (e: IndexOutOfBoundsException){
+
+                                            }
+                                        }
+                                    }
+                                }
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
+        if (log == null){
+            log = ExtendedRequestLog()
+            ktx.on(TunnelEvents.REQUEST_UPDATE, requestUpdate)
+        }
         if(view.getItemCount() == 0) {
-            view.add(SearchBarVB(ktx, onSearch = { s ->
+            items.clear()
+            items.add(SearchBarVB(ktx, onSearch = { s ->
                 searchString = s
-                nextBatch = 0
                 this.items.clear()
                 view.set(emptyList())
                 attach(view)
             }))
-            view.add(ResetHostLogVB {
-                nextBatch = 0
-                Persistence.request.clear()
+            items.add(ResetHostLogVB {
+                ExtendedRequestLog.deleteAll()
                 this.items.clear()
                 view.set(emptyList())
                 attach(view)
             })
-            view.add(LabelVB(ktx, label = R.string.menu_ads_live_label.res()))
-        }
-        if (items.isEmpty()) {
-            var items = loadBatch(0)
-            items += loadBatch(1)
-            nextBatch = 2
-            if (items.isEmpty()) {
-                items += loadBatch(2)
-                nextBatch = 3
+            items.add(LabelVB(ktx, label = R.string.menu_ads_live_label.res()))
+            if(log?.size == 0){
+                log?.expandHistory()
             }
-            firstItem = items.getOrNull(0)
-            addBatch(items)
-        } else {
-            items.forEach { view.add(it) }
+            log?.forEach {
+                val dash = requestToVB(it)
+                items.add(dash)
+            }
         }
 
-        ktx.on(TunnelEvents.REQUEST_SAVED, request)
+        view.set(items)
         view.onEndReached = loadMore
     }
 
@@ -85,28 +89,19 @@ class HostsLogVB(
         view.onEndReached = {}
         searchString = ""
         items.clear()
-        ktx.cancel(TunnelEvents.REQUEST_SAVED, request)
+        view.set(emptyList())
+        ktx.cancel(TunnelEvents.REQUEST_UPDATE, requestUpdate)
+        log?.close()
+        log = null
     }
 
     private val loadMore = {
-        if (nextBatch < 3) addBatch(loadBatch(nextBatch++))
+        log?.expandHistory()
+        Unit
     }
 
-    private fun loadBatch(batch: Int) = Persistence.request.load(batch).getOr { emptyList() }.filter { r ->
-        if (searchString.isEmpty()) true
-        else r.domain.contains(searchString.toLowerCase())
-    }
 
-    private fun addBatch(batch: List<Request>) {
-        items.addAll(batch.distinct().map {
-            val dash = requestToVB(it)
-            view?.add(dash)
-            dash
-        })
-        if (items.size < 20) loadMore()
-    }
-
-    private fun requestToVB(it: Request): SlotVB {
+    private fun requestToVB(it: ExtendedRequest): SlotVB {
         return if (it.blocked)
             DomainBlockedVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime) else
             DomainForwarderVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)

@@ -22,7 +22,9 @@ import gs.environment.inject
 import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.Request
+import tunnel.ExtendedRequestLog
+import tunnel.RequestUpdate
+import tunnel.SimpleRequest
 import tunnel.TunnelEvents
 import java.nio.charset.Charset
 
@@ -112,7 +114,7 @@ class ActiveWidgetProvider : AppWidgetProvider() {
 
 class UpdateWidgetService : Service() {
 
-    private val onBlockedEvent = { request: Request -> if (request.blocked) onBlocked(request.domain) }
+    private val onBlockedEvent = { request: RequestUpdate -> if (request.oldState == null) onBlocked(request.newState.domain) }
     private val onNewWidgetEvent = { data: WidgetData -> onNewWidget(data) }
     private val onRestoreEvent = { restoreData: WidgetRestoreData -> onRestoreWidget(restoreData) }
     private val onDeleteEvent = { appWidgetIds: IntArray -> onDeleteWidget(appWidgetIds) }
@@ -159,13 +161,8 @@ class UpdateWidgetService : Service() {
             this.ktx().on(DELETE_WIDGET, onDeleteEvent)
 
             val t: Tunnel = this.inject().instance()
-            val droppedlist = t.tunnelRecentDropped()
-            if (droppedlist.isEmpty()) {
-                onBlocked("")
-            } else {
-                onBlocked(droppedlist.last())
-            }
-            this.ktx().on(TunnelEvents.REQUEST, onBlockedEvent)
+            onBlocked(ExtendedRequestLog.lastBlockedDomain)
+            this.ktx().on(TunnelEvents.REQUEST_UPDATE, onBlockedEvent)
 
             onTunnelStateChanged()
             onTunnelStateEvent = t.tunnelState.doOnUiWhenChanged(withInit = true).then {
@@ -182,7 +179,7 @@ class UpdateWidgetService : Service() {
     }
 
     override fun onDestroy() {
-        this.ktx().cancel(TunnelEvents.REQUEST, onBlockedEvent)
+        this.ktx().cancel(TunnelEvents.REQUEST_UPDATE, onBlockedEvent)
         this.ktx().cancel(NEW_WIDGET, onNewWidgetEvent)
         this.ktx().cancel(RESTORE_WIDGET, onRestoreEvent)
         this.ktx().cancel(DELETE_WIDGET, onDeleteEvent)
@@ -209,13 +206,7 @@ class UpdateWidgetService : Service() {
         pref.edit().putInt("widget-${data.id}", widgetConf).apply()
         setWidget(data)
         if (data.host or data.counter) {
-            val t: Tunnel = this.inject().instance()
-            val droppedlist = t.tunnelRecentDropped.invoke()
-            if (droppedlist.isEmpty()) {
-                onBlocked("")
-            } else {
-                onBlocked(droppedlist.last())
-            }
+            onBlocked(ExtendedRequestLog.lastBlockedDomain)
         }
         if (data.dns) {
             onDnsChanged()
@@ -306,7 +297,7 @@ class UpdateWidgetService : Service() {
         var remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
 
         val t: Tunnel = this.inject().instance()
-        remoteViews.setTextViewText(R.id.widget_counter, Format.counterShort(t.tunnelDropCount()))
+        remoteViews.setTextViewText(R.id.widget_counter, Format.counterShort(ExtendedRequestLog.dropCount))
 
         appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.counter) e.id else null }.toIntArray(), remoteViews)
 

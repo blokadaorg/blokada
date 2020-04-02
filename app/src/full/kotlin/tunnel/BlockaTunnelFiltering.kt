@@ -1,14 +1,11 @@
 package tunnel
 
-import core.emit
-import core.get
 import core.w
 import org.pcap4j.packet.*
 import org.xbill.DNS.*
 import java.io.IOException
 import java.net.Inet4Address
 import java.net.Inet6Address
-import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
 import java.util.*
@@ -109,7 +106,7 @@ internal class BlockaTunnelFiltering(
 
             envelope.rawData.copyInto(packetBytes)
 
-            emit(TunnelEvents.REQUEST, Request(host))
+            ExtendedRequestLog.add(ExtendedRequest(host))
             if (++oneWayDnsCounter > MAX_ONE_WAY_DNS_REQUESTS) {
                 throw Exception("Too many DNS requests without response")
             }
@@ -119,7 +116,7 @@ internal class BlockaTunnelFiltering(
             dnsMessage.header.rcode = Rcode.NOERROR
             generateDnsAnswer(dnsMessage, denyResponse)
             toDeviceFakeDnsResponse(dnsMessage.toWire(), originEnvelope)
-            emit(TunnelEvents.REQUEST, Request(host, blocked = true))
+            ExtendedRequestLog.add(ExtendedRequest(host, blocked = true))
             true
         }
     }

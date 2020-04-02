@@ -2,7 +2,6 @@ package core.bits
 
 import android.app.Activity
 import android.graphics.Point
-import com.github.michaelbull.result.onSuccess
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.adblocking.SlotMutex
@@ -11,8 +10,7 @@ import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import org.blokada.R
-import tunnel.TunnelEvents
-import tunnel.Request
+import tunnel.*
 import kotlin.math.max
 
 class AdsDashboardSectionVB(
@@ -37,12 +35,18 @@ class AdsDashboardSectionVB(
 
     private val items = mutableListOf<SlotVB>()
 
-    private val request = { it: Request ->
-        if (!displayingEntries.contains(it.domain)) {
-            displayingEntries.add(it.domain)
-            val dash = if (it.blocked)
-                DomainBlockedVB(it.domain, it.time, ktx, onTap = slotMutex.openOneAtATime) else
-                DomainForwarderVB(it.domain, it.time, ktx, onTap = slotMutex.openOneAtATime)
+    private val requestUpdate = { it: RequestUpdate ->
+        if (it.oldState == null) {
+            request(it.newState)
+        }
+    }
+
+    private val request = { request: Request ->
+        if (!displayingEntries.contains(request.domain)) {
+            displayingEntries.add(request.domain)
+            val dash = if (request.blocked)
+                DomainBlockedVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime) else
+                DomainForwarderVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime)
             items.add(dash)
             view?.add(dash)
             trimListIfNecessary()
@@ -65,15 +69,13 @@ class AdsDashboardSectionVB(
             view.enableLandscapeMode(reversed = false)
         }
 
-        tunnel.Persistence.request.load(0).onSuccess {
-            it.forEach(request)
-        }
-        ktx.on(TunnelEvents.REQUEST_SAVED, request)
+        ExtendedRequestLog.getRecentHistory().forEach(request)
+        ktx.on(TunnelEvents.REQUEST_UPDATE, requestUpdate)
     }
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
         displayingEntries.clear()
-        ktx.cancel(TunnelEvents.REQUEST_SAVED, request)
+        ktx.cancel(TunnelEvents.REQUEST_UPDATE, requestUpdate)
     }
 }

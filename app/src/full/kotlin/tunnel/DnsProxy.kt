@@ -3,16 +3,14 @@ package tunnel
 import android.system.ErrnoException
 import android.system.OsConstants
 import com.github.michaelbull.result.mapError
-import core.Result
-import core.emit
-import core.get
-import core.w
+import core.*
 import org.pcap4j.packet.*
 import org.pcap4j.packet.namednumber.UdpPort
 import org.xbill.DNS.*
 import java.io.IOException
 import java.net.*
 import java.util.*
+import kotlin.experimental.and
 
 interface Proxy {
     fun fromDevice(packetBytes: ByteArray, length: Int)
@@ -29,6 +27,10 @@ internal class DnsProxy(
 
         private val doCreateSocket: () -> DatagramSocket = { DatagramSocket() }
 ) : Proxy {
+
+    private fun isAnswerValid(dnsAnswer: ByteArray): Boolean {
+        return (dnsAnswer[3] and  0x0f.toByte()) == 0.toByte()
+    }
 
     override fun fromDevice(packetBytes: ByteArray, length: Int) {
         val originEnvelope = try {
@@ -59,6 +61,7 @@ internal class DnsProxy(
             w("failed reading DNS message", e)
             return
         }
+        dnsMessage.question.name
         if (dnsMessage.question == null) return
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
@@ -66,18 +69,29 @@ internal class DnsProxy(
             val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                     destination.getPort())
             forward(proxiedDns, originEnvelope)
-            emit(TunnelEvents.REQUEST, Request(host))
+            ExtendedRequestLog.add(ExtendedRequest(host))
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             generateDnsAnswer(dnsMessage, denyResponse)
             toDevice(dnsMessage.toWire(), -1, originEnvelope)
-            emit(TunnelEvents.REQUEST, Request(host, blocked = true))
+            ExtendedRequestLog.add(ExtendedRequest(host, blocked = true))
         }
     }
 
     override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?) {
         originEnvelope as IpPacket
+
+        if (isAnswerValid(response)){
+            v("easytosearchstring1 valid Answer")
+        }else{
+            val responseName = Name(response.sliceArray(12 until response.size)).canonicalize().toString(true)
+
+            v("easytosearchstring1 INVALID ANSWER!\nUpdated entry:",
+                ExtendedRequestLog.update({it.domain.toLowerCase() == responseName && !it.blocked}, RequestState.BLOCKED_ANSWER)
+            )
+        }
+
         val udp = originEnvelope.payload as UdpPacket
         val udpResponse = UdpPacket.Builder(udp)
                 .srcAddr(originEnvelope.header.dstAddr)

@@ -26,6 +26,7 @@ import gs.presentation.NamedViewBinder
 import gs.presentation.doAfter
 import gs.property.I18n
 import org.blokada.R
+import tunnel.ExtendedRequestLog
 import tunnel.Persistence
 import tunnel.TunnelConfig
 import tunnel.TunnelEvents
@@ -339,8 +340,10 @@ class DashboardView(
     }
 
     private fun setupExternalEventListeners() {
-        ktx.on(TunnelEvents.REQUEST) {
-            bg_packets.addToHistory(it)
+        ktx.on(TunnelEvents.REQUEST_UPDATE) {
+            if(it.oldState == null) {
+                bg_packets.addToHistory(it.newState)
+            }
         }
 
         tunnelEvents.listeners.add(object : IEnabledStateActorListener {
@@ -357,9 +360,7 @@ class DashboardView(
             override fun finishActivating() {
                 bg_packets.setTunnelState(TunnelState.ACTIVE)
                 bg_logo_icon.setColorFilter(resources.getColor(android.R.color.transparent))
-                Persistence.request.load(0).onSuccess {
-                    bg_packets.setRecentHistory(it)
-                }
+                bg_packets.setRecentHistory(ExtendedRequestLog.getRecentHistory())
                 stopAnimatingLogo()
 
                 activating = false

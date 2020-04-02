@@ -22,6 +22,9 @@ import kotlinx.coroutines.experimental.runBlocking
 import notification.UsefulKeepAliveNotification
 import notification.notificationMain
 import org.blokada.R
+import tunnel.ExtendedRequestLog
+import tunnel.RequestUpdate
+import tunnel.TunnelEvents
 
 abstract class KeepAlive {
     abstract val keepAlive: IProperty<Boolean>
@@ -53,29 +56,31 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
             val keepAliveNotificationUpdater = { dropped: Int ->
                 val ctx: Context = instance()
                 val nm: NotificationManager = instance()
+                val lastDomain = ExtendedRequestLog.lastBlockedDomain
                 val notification = UsefulKeepAliveNotification(
                         count = dropped,
-                        last = t.tunnelRecentDropped().lastOrNull() ?:
-                                ctx.getString(R.string.notification_keepalive_none)
+                        last = if (lastDomain != "") { lastDomain } else { ctx.getString(R.string.notification_keepalive_none) }
                 )
                 val n = runBlocking { notificationMain.getNotification(notification).await() }
                 nm.notify(notification.id, n)
             }
-            var w1: IWhen? = null
             var w2: IWhen? = null
+            val callNotificationUpdater = { update: RequestUpdate ->
+                        if (update.oldState == null) {
+                            keepAliveNotificationUpdater(ExtendedRequestLog.dropCount)
+                        }
+                    }
             s.keepAlive.doWhenSet().then {
                 if (s.keepAlive()) {
-                    t.tunnelDropCount.cancel(w1)
-                    w1 = t.tunnelDropCount.doOnUiWhenSet().then {
-                        keepAliveNotificationUpdater(t.tunnelDropCount())
-                    }
+
+                    on(TunnelEvents.REQUEST_UPDATE, callNotificationUpdater)
                     t.enabled.cancel(w2)
                     w2 = t.enabled.doOnUiWhenSet().then {
-                        keepAliveNotificationUpdater(t.tunnelDropCount())
+                        keepAliveNotificationUpdater(ExtendedRequestLog.dropCount)
                     }
                     keepAliveAgent.bind(ctx)
                 } else {
-                    t.tunnelDropCount.cancel(w1)
+                    cancel(TunnelEvents.REQUEST_UPDATE, callNotificationUpdater)
                     t.enabled.cancel(w2)
                     keepAliveAgent.unbind(ctx)
                 }
@@ -149,10 +154,9 @@ class KeepAliveService : Service() {
         if (BINDER_ACTION.equals(intent?.action)) {
             binder = KeepAliveBinder()
 
-            val s: Tunnel = inject().instance()
-            val count = s.tunnelDropCount()
-            val last = s.tunnelRecentDropped().lastOrNull() ?: getString(R.string.notification_keepalive_none)
-            val notification = UsefulKeepAliveNotification(count, last)
+            val count = ExtendedRequestLog.dropCount
+            val lastDomain = ExtendedRequestLog.lastBlockedDomain
+            val notification = UsefulKeepAliveNotification(count, if (lastDomain != "") { lastDomain } else { getString(R.string.notification_keepalive_none) } )
             val n = runBlocking { notificationMain.getNotification(notification).await() }
             startForeground(notification.id, n)
 

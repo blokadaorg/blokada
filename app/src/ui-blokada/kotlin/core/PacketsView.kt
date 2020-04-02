@@ -10,6 +10,7 @@ import android.view.View
 import com.github.salomonbrys.kodein.instance
 import org.blokada.R
 import tunnel.Request
+import tunnel.SimpleRequest
 import java.util.*
 
 

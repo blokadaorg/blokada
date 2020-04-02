@@ -14,6 +14,7 @@ import gs.property.I18n
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import org.blokada.R
+import tunnel.ExtendedRequestLog
 import java.net.URL
 
 
@@ -172,12 +173,15 @@ class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNoti
                 b.setContentText(ctx.getString(R.string.dns_keepalive_content, servers))
             } else {
                 val domainList = NotificationCompat.InboxStyle()
-                val duplicates =ArrayList<String>(0)
-                t.tunnelRecentDropped().asReversed().forEach { s ->
-                    if(!duplicates.contains(s)){
-                        duplicates.add(s)
-                        domainList.addLine(s)
-                    }
+
+                var logSublistEnd = ExtendedRequestLog.getRecentHistory().size
+                if(logSublistEnd > 15) {
+                    logSublistEnd = 15
+                } else if (logSublistEnd > 0) {
+                    logSublistEnd--
+                }
+                ExtendedRequestLog.getRecentHistory().subList(0,logSublistEnd).asReversed().distinct().forEach { request ->
+                    domainList.addLine(request.domain)
                 }
 
                 val intent = Intent(ctx, ANotificationsToggleService::class.java).putExtra("new_state",!t.enabled())
