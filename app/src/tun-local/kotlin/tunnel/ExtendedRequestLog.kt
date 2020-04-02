@@ -143,7 +143,7 @@ class ExtendedRequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
         }
 
         fun add(element: ExtendedRequest) {
-            if(element.domain != lastDomain || true) { //TODO
+            if(element.domain != lastDomain) {
                 batch0.add(0, element)
                 lastDomain = element.domain
                 if (element.blocked) {
