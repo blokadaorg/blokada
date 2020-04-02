@@ -24,15 +24,10 @@ class ForegroundStartService: Service(){
             startForeground(notification.id, n)
         }
 
-        var serviceIntent = Intent(this.applicationContext,
-                RequestLogger::class.java)
-        serviceIntent.putExtra("load_on_start", true)
-        this.startService(serviceIntent)
-
         val wm: AppWidgetManager = AppWidgetManager.getInstance(this)
         val ids = wm.getAppWidgetIds(ComponentName(this, ActiveWidgetProvider::class.java))
         if((ids != null) and (ids.isNotEmpty())){
-            serviceIntent = Intent(this.applicationContext,
+            val serviceIntent = Intent(this.applicationContext,
                     UpdateWidgetService::class.java)
             this.startService(serviceIntent)
         }

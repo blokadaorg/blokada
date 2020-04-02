@@ -2,6 +2,7 @@ package tunnel
 
 import core.Time
 import core.Url
+import java.net.InetAddress
 import java.util.*
 
 typealias MemoryLimit = Int
@@ -110,17 +111,60 @@ data class BlockaConfig(
     }
 }
 
-data class Request(
-        val domain: String,
-        val blocked: Boolean = false,
-        val time: Date = Date()
-) {
+interface Request{
+        val domain: String
+        val blocked: Boolean
+        val time: Date
+}
+
+data class SimpleRequest(
+        override val domain: String,
+        override val blocked: Boolean = false,
+        override val time: Date = Date()
+) : Request {
     override fun equals(other: Any?): Boolean {
         return if (other !is Request) false
-        else domain.equals(other.domain)
+        else domain == other.domain
     }
 
     override fun hashCode(): Int {
         return domain.hashCode()
     }
 }
+
+enum class RequestState {
+    BLOCKED_NORMAL,      // blocked by blacklist
+    BLOCKED_CNAME,       // blocked by cname-check
+    BLOCKED_ANSWER,      // blocked by DNS-server
+    ALLOWED_APP_UNKNOWN, // allowed app unknown
+    ALLOWED_APP_KNOWN    // allowed app known ( future use in firewall )
+}
+
+
+data class ExtendedRequest( // TODO make Request to SimpleRequest and add interface Request
+        override val domain: String,
+        override val time: Date = Date(),
+        var state: RequestState = RequestState.ALLOWED_APP_UNKNOWN,
+        var ip: InetAddress? = null, // for future use in firewall
+        var appId: String? = null    // for future use in firewall
+) : Request {
+    override val blocked: Boolean
+        get() = (state != RequestState.ALLOWED_APP_UNKNOWN && state != RequestState.ALLOWED_APP_KNOWN)
+
+    constructor(r: Request) : this(r.domain, r.time, if(r.blocked) { RequestState.BLOCKED_NORMAL } else { RequestState.ALLOWED_APP_UNKNOWN })
+    constructor(domain: String, blocked: Boolean) : this( domain, state = if(blocked) { RequestState.BLOCKED_NORMAL } else { RequestState.ALLOWED_APP_UNKNOWN })
+
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Request) {
+            return domain == other.domain
+        }
+        return false
+    }
+}
+
+data class RequestUpdate(
+        val oldState: ExtendedRequest?,
+        val newState: ExtendedRequest,
+        val index: Int
+)

@@ -7,7 +7,10 @@ import core.bits.menu.MENU_CLICK_BY_NAME
 import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
+import tunnel.ExtendedRequestLog
+import tunnel.RequestUpdate
 import tunnel.TunnelConfig
+import tunnel.TunnelEvents
 
 class AdsBlockedVB(
         private val ktx: AndroidKontext,
@@ -16,16 +19,18 @@ class AdsBlockedVB(
         private val tunnelStatus: EnabledStateActor = ktx.di().instance()
 ) : ByteVB() {
 
-    private var droppedCountListener: IWhen? = null
+    private var onDropped = { update: RequestUpdate ->
+            if (update.oldState == null) {
+                dropped = ExtendedRequestLog.dropCount
+                update()
+            }
+        }
     private var dropped: Int = 0
     private var active = false
     private var activating = false
 
     override fun attach(view: ByteView) {
-        droppedCountListener = tunnelEvents.tunnelDropCount.doOnUiWhenSet().then {
-            dropped = tunnelEvents.tunnelDropCount()
-            update()
-        }
+        ktx.on(TunnelEvents.REQUEST_UPDATE, onDropped)
         tunnelStatus.listeners.add(tunnelListener)
         tunnelStatus.update(tunnelEvents)
         on(TunnelConfig::class.java, this::update)
@@ -34,7 +39,7 @@ class AdsBlockedVB(
     }
 
     override fun detach(view: ByteView) {
-        tunnelEvents.tunnelDropCount.cancel(droppedCountListener)
+        ktx.cancel(TunnelEvents.REQUEST_UPDATE, onDropped)
         tunnelStatus.listeners.remove(tunnelListener)
         cancel(TunnelConfig::class.java, this::update)
         cancel(BlockaVpnState::class.java, this::update)

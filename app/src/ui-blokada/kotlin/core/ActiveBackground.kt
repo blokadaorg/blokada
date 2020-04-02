@@ -1,6 +1,7 @@
 package core
 
 import tunnel.Request
+import tunnel.SimpleRequest
 
 interface ActiveBackground {
     fun setRecentHistory(items: List<Request>)

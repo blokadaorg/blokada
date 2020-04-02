@@ -12,6 +12,8 @@ import notification.ANotificationsToggleService
 import org.blokada.R
 import android.widget.RemoteViews
 import notification.NotificationsToggleSeviceSettings
+import tunnel.ExtendedRequestLog
+import tunnel.RequestState
 
 
 class ListWidgetProvider : AppWidgetProvider() {
@@ -23,13 +25,21 @@ class ListWidgetProvider : AppWidgetProvider() {
         val t: Tunnel = context.inject().instance()
 
         var domainList = ""
-        val duplicates = ArrayList<String>(0)
-        t.tunnelRecentDropped().asReversed().forEach { s ->
-            if (!duplicates.contains(s)) {
-                duplicates.add(s)
-                domainList += s + '\n'
-            }
+        var logSublistEnd = ExtendedRequestLog.getRecentHistory().size
+        if(logSublistEnd > 50) {
+            logSublistEnd = 50
+        } else if (logSublistEnd > 0) {
+            logSublistEnd--
         }
+        ExtendedRequestLog
+                .getRecentHistory()
+                .subList(0, logSublistEnd)
+                .filter { it.state == RequestState.BLOCKED_NORMAL }
+                .asReversed()
+                .distinct()
+                .forEach { request ->
+                    domainList += request.domain + '\n'
+                }
         remoteViews.setTextViewText(R.id.widget_list_message, domainList)
 
         val intent = Intent(context, ANotificationsToggleService::class.java)
