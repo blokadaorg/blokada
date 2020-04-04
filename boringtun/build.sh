@@ -1,7 +1,13 @@
 #!/bin/sh
 JNI_LIBS=../app/src/tun-blocka/jniLibs
 
-export PATH=$PATH:$NDK_STANDALONE/toolchains/llvm/prebuilt/linux-x86_64/bin
+# Change the next export as needed. It should point to your android ndk bundle
+export NDK=$HOME/Android/android-ndk-r21
+export PATH=$PATH:$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin
+
+# The next two sed commands change some paths...
+sed -i -e "s|/Users/kar/Library/Android/sdk/ndk-bundle|$NDK|" .cargo/config
+sed -i -e "s|darwin|linux|" .cargo/config
 
 rm -rf $JNI_LIBS
 mkdir $JNI_LIBS
@@ -28,6 +34,7 @@ export CXX=i686-linux-android21-clang++
 cargo build --lib --release --target i686-linux-android
 cp target/i686-linux-android/release/libboringtun.so $JNI_LIBS/x86/libboringtun.so
 
+# Comment this out to save some time
 echo "Building for v86_64..."
 export CC=x86_64-linux-android21-clang
 export CXX=x86_64-linux-android21-clang++
