@@ -1084,7 +1084,7 @@ class ResetCounterVB(private val ktx: AndroidKontext,
                 label = i18n.getString(R.string.slot_reset_counter_label),
                 description = i18n.getString(R.string.slot_reset_counter_description),
                 action1 = Slot.Action(i18n.getString(R.string.slot_reset_counter_action)) {
-                    ExtendedRequestLog.resetDropCount()
+                    RequestLog.resetDropCount()
                 }
         )
     }

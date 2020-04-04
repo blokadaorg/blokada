@@ -25,7 +25,7 @@ class HostsLogVB(
     private val slotMutex = SlotMutex()
 
     private val items = mutableListOf<ViewBinder>()
-    private var log: ExtendedRequestLog? = null
+    private var log: RequestLog? = null
     private var searchString: String = ""
 
     private val requestUpdate = { update: RequestUpdate ->
@@ -48,7 +48,7 @@ class HostsLogVB(
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
         if (log == null){
-            log = ExtendedRequestLog()
+            log = RequestLog()
             ktx.on(TunnelEvents.REQUEST_UPDATE, requestUpdate)
         }
         if(view.getItemCount() == 0) {
@@ -60,7 +60,7 @@ class HostsLogVB(
                 attach(view)
             }))
             items.add(ResetHostLogVB {
-                ExtendedRequestLog.deleteAll()
+                RequestLog.deleteAll()
                 this.items.clear()
                 view.set(emptyList())
                 attach(view)

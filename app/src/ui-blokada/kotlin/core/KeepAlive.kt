@@ -22,7 +22,7 @@ import kotlinx.coroutines.experimental.runBlocking
 import notification.UsefulKeepAliveNotification
 import notification.notificationMain
 import org.blokada.R
-import tunnel.ExtendedRequestLog
+import tunnel.RequestLog
 import tunnel.RequestUpdate
 import tunnel.TunnelEvents
 
@@ -56,7 +56,7 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
             val keepAliveNotificationUpdater = { dropped: Int ->
                 val ctx: Context = instance()
                 val nm: NotificationManager = instance()
-                val lastDomain = ExtendedRequestLog.lastBlockedDomain
+                val lastDomain = RequestLog.lastBlockedDomain
                 val notification = UsefulKeepAliveNotification(
                         count = dropped,
                         last = if (lastDomain != "") { lastDomain } else { ctx.getString(R.string.notification_keepalive_none) }
@@ -67,7 +67,7 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
             var w2: IWhen? = null
             val callNotificationUpdater = { update: RequestUpdate ->
                         if (update.oldState == null) {
-                            keepAliveNotificationUpdater(ExtendedRequestLog.dropCount)
+                            keepAliveNotificationUpdater(RequestLog.dropCount)
                         }
                     }
             s.keepAlive.doWhenSet().then {
@@ -76,7 +76,7 @@ fun newKeepAliveModule(ctx: Context): Kodein.Module {
                     on(TunnelEvents.REQUEST_UPDATE, callNotificationUpdater)
                     t.enabled.cancel(w2)
                     w2 = t.enabled.doOnUiWhenSet().then {
-                        keepAliveNotificationUpdater(ExtendedRequestLog.dropCount)
+                        keepAliveNotificationUpdater(RequestLog.dropCount)
                     }
                     keepAliveAgent.bind(ctx)
                 } else {
@@ -154,8 +154,8 @@ class KeepAliveService : Service() {
         if (BINDER_ACTION.equals(intent?.action)) {
             binder = KeepAliveBinder()
 
-            val count = ExtendedRequestLog.dropCount
-            val lastDomain = ExtendedRequestLog.lastBlockedDomain
+            val count = RequestLog.dropCount
+            val lastDomain = RequestLog.lastBlockedDomain
             val notification = UsefulKeepAliveNotification(count, if (lastDomain != "") { lastDomain } else { getString(R.string.notification_keepalive_none) } )
             val n = runBlocking { notificationMain.getNotification(notification).await() }
             startForeground(notification.id, n)

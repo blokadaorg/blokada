@@ -21,7 +21,7 @@ data class LogConfig(
         val dropStart: Long = System.currentTimeMillis()
 )
 
-class ExtendedRequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
+class RequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
 
     private data class RequestLogBatch(
             var list: List<ExtendedRequest>,
@@ -290,7 +290,7 @@ class ExtendedRequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
     }
 
     fun add(element: ExtendedRequest) {
-        ExtendedRequestLog.add(element)
+        RequestLog.add(element)
         return
     }
 

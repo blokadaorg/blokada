@@ -106,7 +106,7 @@ internal class BlockaTunnelFiltering(
 
             envelope.rawData.copyInto(packetBytes)
 
-            ExtendedRequestLog.add(ExtendedRequest(host))
+            RequestLog.add(ExtendedRequest(host))
             if (++oneWayDnsCounter > MAX_ONE_WAY_DNS_REQUESTS) {
                 throw Exception("Too many DNS requests without response")
             }
@@ -116,7 +116,7 @@ internal class BlockaTunnelFiltering(
             dnsMessage.header.rcode = Rcode.NOERROR
             generateDnsAnswer(dnsMessage, denyResponse)
             toDeviceFakeDnsResponse(dnsMessage.toWire(), originEnvelope)
-            ExtendedRequestLog.add(ExtendedRequest(host, blocked = true))
+            RequestLog.add(ExtendedRequest(host, blocked = true))
             true
         }
     }

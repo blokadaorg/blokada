@@ -21,7 +21,7 @@ import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
 import org.blokada.BuildConfig
 import org.blokada.R
-import tunnel.ExtendedRequestLog
+import tunnel.RequestLog
 import tunnel.TunnelConfig
 import ui.StaticUrlWebActivity
 import update.DOWNLOAD_COMPLETE
@@ -424,7 +424,7 @@ class ShareVB(
             val shareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, getMessage(ktx.ctx,
-                        ExtendedRequestLog.dropStart, Format.counter(ExtendedRequestLog.dropCount)))
+                        RequestLog.dropStart, Format.counter(RequestLog.dropCount)))
                 type = "text/plain"
             }
             ktx.ctx.startActivity(Intent.createChooser(shareIntent,

@@ -5,9 +5,8 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.MENU_CLICK_BY_NAME
 import gs.property.I18n
-import gs.property.IWhen
 import org.blokada.R
-import tunnel.ExtendedRequestLog
+import tunnel.RequestLog
 import tunnel.RequestUpdate
 import tunnel.TunnelConfig
 import tunnel.TunnelEvents
@@ -21,7 +20,7 @@ class AdsBlockedVB(
 
     private var onDropped = { update: RequestUpdate ->
             if (update.oldState == null) {
-                dropped = ExtendedRequestLog.dropCount
+                dropped = RequestLog.dropCount
                 update()
             }
         }
