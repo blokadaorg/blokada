@@ -64,7 +64,7 @@ impl FromStr for Verbosity {
     }
 }
 
-type LogFunction = Box<Fn(&str) + Send>;
+type LogFunction = Box< dyn Fn(&str) + Send>;
 
 /// Tunnel represents a point-to-point WireGuard connection
 pub struct Tunn {
