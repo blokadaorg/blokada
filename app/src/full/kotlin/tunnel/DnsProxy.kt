@@ -69,13 +69,13 @@ internal class DnsProxy(
             val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                     destination.getPort())
             forward(proxiedDns, originEnvelope)
-            ExtendedRequestLog.add(ExtendedRequest(host))
+            RequestLog.add(ExtendedRequest(host))
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             generateDnsAnswer(dnsMessage, denyResponse)
             toDevice(dnsMessage.toWire(), -1, originEnvelope)
-            ExtendedRequestLog.add(ExtendedRequest(host, blocked = true))
+            RequestLog.add(ExtendedRequest(host, blocked = true))
         }
     }
 
@@ -88,7 +88,7 @@ internal class DnsProxy(
             val responseName = Name(response.sliceArray(12 until response.size)).canonicalize().toString(true)
 
             v("easytosearchstring1 INVALID ANSWER!\nUpdated entry:",
-                ExtendedRequestLog.update({it.domain.toLowerCase() == responseName && !it.blocked}, RequestState.BLOCKED_ANSWER)
+                RequestLog.update({it.domain.toLowerCase() == responseName && !it.blocked}, RequestState.BLOCKED_ANSWER)
             )
         }
 

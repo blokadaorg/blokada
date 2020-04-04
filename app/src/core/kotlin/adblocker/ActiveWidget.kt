@@ -22,9 +22,8 @@ import gs.environment.inject
 import gs.property.I18n
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.ExtendedRequestLog
+import tunnel.RequestLog
 import tunnel.RequestUpdate
-import tunnel.SimpleRequest
 import tunnel.TunnelEvents
 import java.nio.charset.Charset
 
@@ -161,7 +160,7 @@ class UpdateWidgetService : Service() {
             this.ktx().on(DELETE_WIDGET, onDeleteEvent)
 
             val t: Tunnel = this.inject().instance()
-            onBlocked(ExtendedRequestLog.lastBlockedDomain)
+            onBlocked(RequestLog.lastBlockedDomain)
             this.ktx().on(TunnelEvents.REQUEST_UPDATE, onBlockedEvent)
 
             onTunnelStateChanged()
@@ -206,7 +205,7 @@ class UpdateWidgetService : Service() {
         pref.edit().putInt("widget-${data.id}", widgetConf).apply()
         setWidget(data)
         if (data.host or data.counter) {
-            onBlocked(ExtendedRequestLog.lastBlockedDomain)
+            onBlocked(RequestLog.lastBlockedDomain)
         }
         if (data.dns) {
             onDnsChanged()
@@ -297,7 +296,7 @@ class UpdateWidgetService : Service() {
         var remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
 
         val t: Tunnel = this.inject().instance()
-        remoteViews.setTextViewText(R.id.widget_counter, Format.counterShort(ExtendedRequestLog.dropCount))
+        remoteViews.setTextViewText(R.id.widget_counter, Format.counterShort(RequestLog.dropCount))
 
         appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.counter) e.id else null }.toIntArray(), remoteViews)
 

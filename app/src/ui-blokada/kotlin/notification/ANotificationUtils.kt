@@ -14,7 +14,7 @@ import gs.property.I18n
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import org.blokada.R
-import tunnel.ExtendedRequestLog
+import tunnel.RequestLog
 import java.net.URL
 
 
@@ -174,13 +174,13 @@ class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNoti
             } else {
                 val domainList = NotificationCompat.InboxStyle()
 
-                var logSublistEnd = ExtendedRequestLog.getRecentHistory().size
+                var logSublistEnd = RequestLog.getRecentHistory().size
                 if(logSublistEnd > 15) {
                     logSublistEnd = 15
                 } else if (logSublistEnd > 0) {
                     logSublistEnd--
                 }
-                ExtendedRequestLog.getRecentHistory().subList(0,logSublistEnd).asReversed().distinct().forEach { request ->
+                RequestLog.getRecentHistory().subList(0,logSublistEnd).asReversed().distinct().forEach { request ->
                     domainList.addLine(request.domain)
                 }
 

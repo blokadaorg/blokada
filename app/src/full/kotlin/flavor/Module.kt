@@ -16,7 +16,7 @@ import core.ktx
 import core.updateControllswitchWidgets
 import notification.FilteredNotification
 import notification.notificationMain
-import tunnel.ExtendedRequestLog
+import tunnel.RequestLog
 import tunnel.LogConfig
 import tunnel.RequestUpdate
 import tunnel.TunnelEvents.REQUEST_UPDATE
@@ -30,11 +30,11 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             // Display notifications for dropped
             val updateNotification = { ru: RequestUpdate? ->
                 if (ru?.oldState == null) { //TODO ru == null || ru.oldState == null
-                    if (ExtendedRequestLog.lastBlockedDomain == "") {
+                    if (RequestLog.lastBlockedDomain == "") {
                         notificationMain.cancel(FilteredNotification(""))
                     } else if (ui.notifications()) {
-                        notificationMain.show(FilteredNotification(ExtendedRequestLog.lastBlockedDomain,
-                                counter = ExtendedRequestLog.dropCount))
+                        notificationMain.show(FilteredNotification(RequestLog.lastBlockedDomain,
+                                counter = RequestLog.dropCount))
                     }
                     updateListWidget(ctx)
                 }

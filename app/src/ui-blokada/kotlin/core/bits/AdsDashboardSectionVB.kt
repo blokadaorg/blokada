@@ -69,7 +69,7 @@ class AdsDashboardSectionVB(
             view.enableLandscapeMode(reversed = false)
         }
 
-        ExtendedRequestLog.getRecentHistory().forEach(request)
+        RequestLog.getRecentHistory().forEach(request)
         ktx.on(TunnelEvents.REQUEST_UPDATE, requestUpdate)
     }
 

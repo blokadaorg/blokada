@@ -13,6 +13,7 @@ import org.blokada.R
 import android.widget.RemoteViews
 import notification.NotificationsToggleSeviceSettings
 import tunnel.ExtendedRequestLog
+import tunnel.RequestLog
 import tunnel.RequestState
 
 
@@ -25,13 +26,13 @@ class ListWidgetProvider : AppWidgetProvider() {
         val t: Tunnel = context.inject().instance()
 
         var domainList = ""
-        var logSublistEnd = ExtendedRequestLog.getRecentHistory().size
+        var logSublistEnd = RequestLog.getRecentHistory().size
         if(logSublistEnd > 50) {
             logSublistEnd = 50
         } else if (logSublistEnd > 0) {
             logSublistEnd--
         }
-        ExtendedRequestLog
+        RequestLog
                 .getRecentHistory()
                 .subList(0, logSublistEnd)
                 .filter { it.state == RequestState.BLOCKED_NORMAL }
