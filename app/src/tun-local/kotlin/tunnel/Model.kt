@@ -141,7 +141,7 @@ enum class RequestState {
 }
 
 
-data class ExtendedRequest( // TODO make Request to SimpleRequest and add interface Request
+data class ExtendedRequest(
         override val domain: String,
         override val time: Date = Date(),
         var state: RequestState = RequestState.ALLOWED_APP_UNKNOWN,

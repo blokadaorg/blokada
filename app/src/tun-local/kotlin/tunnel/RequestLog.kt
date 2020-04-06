@@ -29,14 +29,6 @@ class RequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
             var loaded: Boolean
     )
 
-    init {
-        Timer().scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                Log.i("tag", "A Kiss every 5 seconds")
-            }
-        }, 0, 5000)
-    }
-
     val size
         get() = totalSize
 
