@@ -52,7 +52,7 @@ class StepActivity : Activity() {
                                                     id(file.replace('/', '.'), whitelist = false),
                                                     source = FilterSourceDescriptor("file", file),
                                                     active = true,
-                                                    whitelist = false
+                                                    whitelist = whitelist
                                             )
                                             entrypoint.onSaveFilter(f)
                                             finish()
