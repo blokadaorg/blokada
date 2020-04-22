@@ -133,14 +133,8 @@ internal class DnsProxy(
 
     private fun forwardTls(udp: DatagramPacket, originEnvelope: Packet) {
 
-        val socket = SSLSocketFactory.getDefault().createSocket() as SSLSocket
+        val socket = forwarder.getAvailableConnection() as SSLSocket? ?: createSslSocket(udp)
         Result.of {
-            socket.connect(udp.socketAddress, 1000)
-            if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(udp.address.hostName, socket.session)) {
-                w("Hostname mismatch on DNS SSL connection")
-                throw SSLHandshakeException("Expected ${udp.address.hostName}, found ${socket.session.peerPrincipal} ")
-            }
-
             DataOutputStream(socket.outputStream).use {
                 //send TCP request
                 it.writeShort(udp.data.size)
@@ -155,6 +149,23 @@ internal class DnsProxy(
             val cause = ex.cause
             if (cause is ErrnoException && cause.errno == OsConstants.EPERM) throw ex
         }
+    }
+
+    private fun createSslSocket(udp: DatagramPacket): SSLSocket {
+        val socket = SSLSocketFactory.getDefault().createSocket() as SSLSocket
+        Result.of {
+            socket.connect(udp.socketAddress, 1000)
+            if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(udp.address.hostName, socket.session)) {
+                w("Hostname mismatch on DNS SSL connection")
+                throw SSLHandshakeException("Expected ${udp.address.hostName}, found ${socket.session.peerPrincipal} ")
+            }
+        }.mapError { ex ->
+            w("failed opening SSL socket", ex.message ?: "")
+            Result.of { socket.close() }
+            val cause = ex.cause
+            if (cause is ErrnoException && cause.errno == OsConstants.EPERM) throw ex
+        }
+        return socket
     }
 
     private fun loopback(response: ByteArray) = loopback.add(Triple(response, 0, response.size))

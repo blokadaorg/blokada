@@ -17,33 +17,48 @@ import javax.net.ssl.SSLSocket
 
 internal class Forwarder(val ttl: Time = 10 * 1000) : Iterable<ForwardRule> {
 
-    private val store = LinkedList<ForwardRule>()
+    private val inUseConnections = LinkedList<ForwardRule>()
+    private val availableConnections = LinkedList<ForwardRule>()
 
     fun add(socket: DatagramSocket, originEnvelope: Packet) {
-        cleanupStore()
-        store.add(ForwardRuleDatagram(socket, originEnvelope, ttl))
+        cleanupConnectionLists()
+        inUseConnections.add(ForwardRuleDatagram(socket, originEnvelope, ttl))
     }
 
     fun add(socket: SSLSocket, originEnvelope: Packet) {
-        cleanupStore()
-        store.add(ForwardRuleTcp(socket, originEnvelope, ttl))
+        cleanupConnectionLists()
+        inUseConnections.add(ForwardRuleTcp(socket, originEnvelope, ttl))
     }
 
-    private fun cleanupStore() {
-        if (store.size >= 1024) {
+    fun addAvailableConnection(rule: ForwardRule) {
+        availableConnections.add(rule)
+    }
+
+    fun getAvailableConnection() : Closeable? {
+        cleanupConnectionLists()
+        return if (availableConnections.isNotEmpty()) availableConnections.remove().socket() else null
+    }
+
+    private fun cleanupConnectionLists() {
+        cleanupConnectionList(inUseConnections)
+        cleanupConnectionList(availableConnections)
+    }
+
+    private fun cleanupConnectionList(list: LinkedList<ForwardRule>) {
+        if (list.size >= 1024) {
             w("forwarder reached 1024 open sockets")
-            Result.of { store.element().socket().close() }
-            store.remove()
+            Result.of { list.element().socket().close() }
+            list.remove()
         }
-        while (store.isNotEmpty() && store.element().isOld()) {
-            Result.of { store.element().socket().close() }
-            store.remove()
+        while (list.isNotEmpty() && list.element().isOld()) {
+            Result.of { list.element().socket().close() }
+            list.remove()
         }
     }
 
-    override fun iterator() = store.iterator()
+    override fun iterator() = inUseConnections.iterator()
 
-    fun size() = store.size
+    fun size() = inUseConnections.size
 }
 
 internal abstract class ForwardRule(
@@ -52,6 +67,7 @@ internal abstract class ForwardRule(
         private val ttl: Time
 ) {
     val added = System.currentTimeMillis()
+    var fileDescriptor : FileDescriptor? = null
 
     fun socket(): Closeable { return socket }
 
@@ -61,7 +77,12 @@ internal abstract class ForwardRule(
         return (System.currentTimeMillis() - added) > ttl
     }
 
-    abstract fun getFd(): FileDescriptor
+    fun getFd(): FileDescriptor {
+        fileDescriptor = fileDescriptor ?: getFdFromSocket()
+        return fileDescriptor!!
+    }
+
+    abstract fun getFdFromSocket() : FileDescriptor
 
     abstract fun receive(packet: DatagramPacket)
 }
@@ -72,7 +93,7 @@ internal class ForwardRuleDatagram(
         ttl: Time
 ): ForwardRule(socket, originEnvelope, ttl) {
 
-    override fun getFd(): FileDescriptor {
+    override fun getFdFromSocket(): FileDescriptor {
         return ParcelFileDescriptor.fromDatagramSocket(socket).fileDescriptor
     }
     override fun receive(packet: DatagramPacket) {
@@ -86,7 +107,7 @@ internal class ForwardRuleTcp(
         ttl: Time
 ): ForwardRule(socket, originEnvelope, ttl) {
 
-    override fun getFd(): FileDescriptor {
+    override fun getFdFromSocket(): FileDescriptor {
         return ParcelFileDescriptor.fromSocket(socket).fileDescriptor
     }
     override fun receive(packet: DatagramPacket) {

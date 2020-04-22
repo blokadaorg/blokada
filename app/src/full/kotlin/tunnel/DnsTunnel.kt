@@ -160,7 +160,7 @@ internal class DnsTunnel(
                     rule.receive(responsePacket)
                     proxy.toDevice( datagramBuffer, responsePacket.length, rule.originEnvelope())
                 }.onFailure { w("failed receiving socket", it) }
-                Result.of { rule.socket().close() }.onFailure { w("failed closing socket") }
+                forwarder.addAvailableConnection(rule)
             }
         }
     }
