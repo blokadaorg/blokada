@@ -11,7 +11,6 @@ import java.io.FileDescriptor
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.Socket
-import java.nio.ByteBuffer
 import java.util.*
 import javax.net.ssl.SSLSocket
 
@@ -21,12 +20,12 @@ internal class Forwarder(val ttl: Time = 10 * 1000) : Iterable<ForwardRule> {
     private val availableConnections = LinkedList<ForwardRule>()
 
     fun add(socket: DatagramSocket, originEnvelope: Packet) {
-        cleanupConnectionLists()
+        cleanupConnectionList(inUseConnections)
         inUseConnections.add(ForwardRuleDatagram(socket, originEnvelope, ttl))
     }
 
     fun add(socket: SSLSocket, originEnvelope: Packet) {
-        cleanupConnectionLists()
+        cleanupConnectionList(inUseConnections)
         inUseConnections.add(ForwardRuleTcp(socket, originEnvelope, ttl))
     }
 
@@ -35,13 +34,8 @@ internal class Forwarder(val ttl: Time = 10 * 1000) : Iterable<ForwardRule> {
     }
 
     fun getAvailableConnection() : Closeable? {
-        cleanupConnectionLists()
-        return if (availableConnections.isNotEmpty()) availableConnections.remove().socket() else null
-    }
-
-    private fun cleanupConnectionLists() {
-        cleanupConnectionList(inUseConnections)
         cleanupConnectionList(availableConnections)
+        return if (availableConnections.isNotEmpty()) availableConnections.remove().socket() else null
     }
 
     private fun cleanupConnectionList(list: LinkedList<ForwardRule>) {
@@ -67,7 +61,7 @@ internal abstract class ForwardRule(
         private val ttl: Time
 ) {
     val added = System.currentTimeMillis()
-    var fileDescriptor : FileDescriptor? = null
+    private var fileDescriptor : FileDescriptor? = null
 
     fun socket(): Closeable { return socket }
 
