@@ -1,13 +1,13 @@
 package ui.bits.menu.vpn
 
 import android.os.Build
+import blocka.BlockaRestModel
 import blocka.CurrentAccount
 import blocka.blockaVpnMain
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.property.I18n
 import org.blokada.R
-import blocka.BlockaRestModel
 
 class LeaseVB(
     val ktx: AndroidKontext,

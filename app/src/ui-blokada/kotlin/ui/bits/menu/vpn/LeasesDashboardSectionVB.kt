@@ -1,6 +1,8 @@
 package ui.bits.menu.vpn
 
 import android.os.Handler
+import blocka.BlockaRestApi
+import blocka.BlockaRestModel
 import blocka.CurrentAccount
 import blocka.MAX_RETRIES
 import com.github.salomonbrys.kodein.instance
@@ -13,8 +15,6 @@ import kotlinx.coroutines.experimental.async
 import org.blokada.R
 import retrofit2.Call
 import retrofit2.Response
-import blocka.BlockaRestApi
-import blocka.BlockaRestModel
 
 class LeasesDashboardSectionVB(
     val ktx: AndroidKontext,

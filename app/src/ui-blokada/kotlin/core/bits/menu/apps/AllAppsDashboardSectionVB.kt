@@ -10,8 +10,8 @@ import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import gs.property.IWhen
 import org.blokada.R
-import tunnel.TunnelEvents
 import tunnel.Filter
+import tunnel.TunnelEvents
 
 class AllAppsDashboardSectionVB(
     val ctx: Context,

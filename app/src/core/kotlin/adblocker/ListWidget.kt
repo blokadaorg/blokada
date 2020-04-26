@@ -5,12 +5,12 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.widget.RemoteViews
 import com.github.salomonbrys.kodein.instance
 import core.Tunnel
 import gs.environment.inject
 import notification.ANotificationsToggleService
 import org.blokada.R
-import android.widget.RemoteViews
 
 
 class ListWidgetProvider : AppWidgetProvider() {

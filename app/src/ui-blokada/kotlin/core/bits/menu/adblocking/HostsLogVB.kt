@@ -12,9 +12,9 @@ import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import org.blokada.R
-import tunnel.TunnelEvents
 import tunnel.Persistence
 import tunnel.Request
+import tunnel.TunnelEvents
 
 class HostsLogVB(
     val ktx: AndroidKontext,

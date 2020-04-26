@@ -1,7 +1,6 @@
 package filter
 
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.util.Base64
 import com.github.salomonbrys.kodein.instance

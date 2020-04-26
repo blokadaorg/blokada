@@ -7,8 +7,8 @@ import core.bits.menu.MenuItemVB
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import org.blokada.R
-import tunnel.TunnelEvents
 import tunnel.Filter
+import tunnel.TunnelEvents
 
 class BlacklistDashboardSection(
     val ktx: AndroidKontext,

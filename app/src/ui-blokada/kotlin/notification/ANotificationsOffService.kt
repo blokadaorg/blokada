@@ -3,8 +3,8 @@ package notification
 import android.app.IntentService
 import android.content.Intent
 import com.github.salomonbrys.kodein.instance
-import gs.environment.inject
 import core.UiState
+import gs.environment.inject
 
 
 /**
