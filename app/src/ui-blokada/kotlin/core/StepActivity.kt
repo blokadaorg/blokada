@@ -34,33 +34,34 @@ class StepActivity : Activity() {
         })
 
         stepView.pages = listOf(
-                EnterDomainVB(ktx,
-                        accepted = {
-                            nameVB.inputForGeneratingName = if (it.size == 1) it.first().source else ""
-                            sources = it
-                            stepView.next()
-                        },
-                        fileImport = {
-                            val path = File(getExternalPath(), "/filters/")
-                            val files = path.listFiles()
-                            if (files == null || files.isEmpty()) {
-                                showSnack(R.string.slot_enter_domain_no_file)
-                            } else {
-                                stepView.pages = listOf(
-                                        EnterFileNameVB(ktx, files) { file ->
-                                            val f = Filter(
-                                                    id(file.replace('/', '.'), whitelist = false),
-                                                    source = FilterSourceDescriptor("file", file),
-                                                    active = true,
-                                                    whitelist = whitelist
-                                            )
-                                            entrypoint.onSaveFilter(f)
-                                            finish()
-                                        },
-                                        nameVB)
-                            }
-                        }),
-                nameVB
+            EnterDomainVB(ktx,
+                accepted = {
+                    nameVB.inputForGeneratingName = if (it.size == 1) it.first().source else ""
+                    sources = it
+                    stepView.next()
+                },
+                fileImport = {
+                    val path = File(getExternalPath(), "/filters/")
+                    val files = path.listFiles()
+                    if (files == null || files.isEmpty()) {
+                        showSnack(R.string.slot_enter_domain_no_file)
+                    } else {
+                        stepView.pages = listOf(
+                            EnterFileNameVB(ktx, files) { file ->
+                                val f = Filter(
+                                    id(file.replace('/', '.'), whitelist = false),
+                                    source = FilterSourceDescriptor("file", file),
+                                    active = true,
+                                    whitelist = whitelist
+                                )
+                                entrypoint.onSaveFilter(f)
+                                finish()
+                            },
+                            nameVB
+                        )
+                    }
+                }),
+            nameVB
         )
     }
 
@@ -79,11 +80,11 @@ class StepActivity : Activity() {
             sources.map {
                 val name = if (sources.size == 1) this.name else this.name + " (${it.source})"
                 Filter(
-                        id = sourceToId(it),
-                        source = it,
-                        active = true,
-                        whitelist = whitelist,
-                        customName = name
+                    id = sourceToId(it),
+                    source = it,
+                    active = true,
+                    whitelist = whitelist,
+                    customName = name
                 )
             }.apply {
                 entrypoint.onSaveFilter(this)

@@ -35,18 +35,18 @@ abstract class Dns {
 }
 
 private val FALLBACK_DNS = listOf(
-        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 1, 1, 1)), 53),
-        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 0, 0, 1)), 53)
+    InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 1, 1, 1)), 53),
+    InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 0, 0, 1)), 53)
 )
 
 class DnsImpl(
-        w: Worker,
-        xx: Environment,
-        pages: Pages = xx().instance(),
-        serialiser: DnsSerialiser = DnsSerialiser(),
-        fetcher: DnsLocalisedFetcher = xx().instance(),
-        d: Device = xx().instance(),
-        ctx: Context = xx().instance()
+    w: Worker,
+    xx: Environment,
+    pages: Pages = xx().instance(),
+    serialiser: DnsSerialiser = DnsSerialiser(),
+    fetcher: DnsLocalisedFetcher = xx().instance(),
+    d: Device = xx().instance(),
+    ctx: Context = xx().instance()
 ) : Dns() {
 
     override fun hasCustomDnsSelected(): Boolean {
@@ -97,14 +97,14 @@ class DnsImpl(
     }
 
     override val choices = newPersistedProperty(w, DnsChoicePersistence(xx),
-            zeroValue = { listOf() },
-            refresh = refresh,
-            shouldRefresh = { it.size <= 1 })
+        zeroValue = { listOf() },
+        refresh = refresh,
+        shouldRefresh = { it.size <= 1 })
 
     override val dnsServers = newProperty(w, {
         val blockaVpnState = get(BlockaVpnState::class.java)
         val useDnsFallback = get(TunnelConfig::class.java).dnsFallback
-        val choice = if(enabled()) choices().firstOrNull { it.active } else null
+        val choice = if (enabled()) choices().firstOrNull { it.active } else null
         val proposed = choice?.servers ?: getDnsServers(ctx)
         when {
             blockaVpnState.enabled && choice == null -> {
@@ -114,7 +114,10 @@ class DnsImpl(
             }
             blockaVpnState.enabled && choice != null && isLocalServers(choice.servers) -> {
                 // We assume user knows what they're selecting, but since we can easily check for local..
-                v("using fallback DNS because local DNS selected and under Blocka VPN", choice.servers)
+                v(
+                    "using fallback DNS because local DNS selected and under Blocka VPN",
+                    choice.servers
+                )
                 FALLBACK_DNS
             }
             useDnsFallback && isLocalServers(proposed) -> {
@@ -155,12 +158,12 @@ class DnsImpl(
 }
 
 data class DnsChoice(
-        val id: String,
-        var servers: List<InetSocketAddress>,
-        var active: Boolean = false,
-        var ipv6: Boolean = false,
-        val credit: String? = null,
-        val comment: String? = null
+    val id: String,
+    var servers: List<InetSocketAddress>,
+    var active: Boolean = false,
+    var ipv6: Boolean = false,
+    val credit: String? = null,
+    val comment: String? = null
 ) {
     override fun hashCode(): Int {
         return id.hashCode()
@@ -192,12 +195,13 @@ class DnsChoicePersistence(xx: Environment) : PersistenceWithSerialiser<List<Dns
 }
 
 private fun addressToIpString(it: InetSocketAddress) =
-        it.hostString + ( if (it.port != 53) ":" + it.port.toString() else "" )
+    it.hostString + (if (it.port != 53) ":" + it.port.toString() else "")
 
 private fun ipStringToAddress(it: String) = {
     val hostport = it.split(':', limit = 2)
     val host = hostport[0]
-    val port = ( if (hostport.size == 2) hostport[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
+    val port =
+        (if (hostport.size == 2) hostport[1] else "").toIntOrNull() ?: UdpPort.DOMAIN.valueAsInt()
     InetSocketAddress(InetAddress.getByName(host), port)
 }()
 
@@ -222,7 +226,8 @@ class DnsSerialiser {
                 val id = entry[1]
                 val active = entry[2] == "active"
                 val ipv6 = entry[3] == "ipv6"
-                val servers = entry[4].split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
+                val servers =
+                    entry[4].split(";").filter { it.isNotBlank() }.map { ipStringToAddress(it) }
                 val credit = if (entry[5].isNotBlank()) entry[5] else null
                 val comment = if (entry[6].isNotBlank()) entry[6] else null
 
@@ -236,10 +241,10 @@ class DnsSerialiser {
 }
 
 class DnsLocalisedFetcher(
-        private val xx: Environment,
-        private val i18n: I18n = xx().instance(),
-        private val pages: Pages = xx().instance(),
-        private val j: Journal = xx().instance()
+    private val xx: Environment,
+    private val i18n: I18n = xx().instance(),
+    private val pages: Pages = xx().instance(),
+    private val j: Journal = xx().instance()
 ) {
     init {
         i18n.locale.doWhenChanged().then { fetch() }
@@ -249,8 +254,12 @@ class DnsLocalisedFetcher(
         j.log("dns: fetch strings: start ${pages.dnsStrings()}")
         val prop = Properties()
         try {
-            prop.load(InputStreamReader(openUrl(pages.dnsStrings(), 10000)().getInputStream(),
-                    Charset.forName("UTF-8")))
+            prop.load(
+                InputStreamReader(
+                    openUrl(pages.dnsStrings(), 10000)().getInputStream(),
+                    Charset.forName("UTF-8")
+                )
+            )
             prop.stringPropertyNames().iterator().forEach {
                 i18n.set("dns_$it", prop.getProperty(it))
             }
@@ -262,6 +271,6 @@ class DnsLocalisedFetcher(
 }
 
 fun printServers(s: List<InetSocketAddress>): String {
-    return s.map { addressToIpString(it) }.joinToString (", ")
+    return s.map { addressToIpString(it) }.joinToString(", ")
 }
 

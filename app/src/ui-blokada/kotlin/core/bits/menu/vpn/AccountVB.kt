@@ -18,8 +18,8 @@ import tunnel.showSnack
 import java.util.*
 
 class AccountVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance()
+    private val ktx: AndroidKontext,
+    private val i18n: I18n = ktx.di().instance()
 ) : core.AccountVB() {
 
     override fun attach(view: AccountView) {
@@ -32,7 +32,8 @@ class AccountVB(
                 view.id(i18n.getString(R.string.menu_vpn_account_id, cfg.id).res())
 
                 // Copy
-                val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboardManager =
+                    ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clipData = ClipData.newPlainText("account-id", cfg.id)
                 clipboardManager.primaryClip = clipData
                 showSnack(R.string.slot_account_action_copied)
@@ -53,7 +54,10 @@ class AccountVB(
         view?.apply {
             val isActive = cfg.activeUntil.after(Date())
             val (accountLabel, color) = if (isActive)
-                i18n.getString(R.string.slot_account_label_active, cfg.activeUntil.pretty(ktx)) to R.color.switch_on.res()
+                i18n.getString(
+                    R.string.slot_account_label_active,
+                    cfg.activeUntil.pretty(ktx)
+                ) to R.color.switch_on.res()
             else i18n.getString(R.string.slot_account_label_inactive) to R.color.switch_off.res()
 
             id(i18n.getString(R.string.menu_vpn_account_id, "******").res())
@@ -81,9 +85,9 @@ class AccountVB(
 }
 
 class AccountGoogleVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val modal: ModalManager = modalManager
+    private val ktx: AndroidKontext,
+    private val i18n: I18n = ktx.di().instance(),
+    private val modal: ModalManager = modalManager
 ) : BitVB() {
 
     override fun attach(view: BitView) {
@@ -109,10 +113,11 @@ class AccountGoogleVB(
         Unit
     }
 }
+
 class SupportVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val modal: ModalManager = modalManager
+    private val ktx: AndroidKontext,
+    private val i18n: I18n = ktx.di().instance(),
+    private val modal: ModalManager = modalManager
 ) : BitVB() {
 
     override fun attach(view: BitView) {

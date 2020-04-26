@@ -17,8 +17,17 @@ class FilterSerializer {
                 val name = if (entry[7].isNotBlank()) entry[7] else null
                 val comment = if (entry[8].isNotBlank()) entry[8].replace("\\n", "\n") else null
 
-                Filter(id, FilterSourceDescriptor(sourceId, url), whitelist, active, false,
-                        priority = priority++, credit = credit, customName = name, customComment = comment)
+                Filter(
+                    id,
+                    FilterSourceDescriptor(sourceId, url),
+                    whitelist,
+                    active,
+                    false,
+                    priority = priority++,
+                    credit = credit,
+                    customName = name,
+                    customComment = comment
+                )
             } catch (e: Exception) {
                 null
             }

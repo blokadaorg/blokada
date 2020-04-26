@@ -25,20 +25,23 @@ val Context.inject: () -> Kodein get() = { (applicationContext as KodeinAware).k
  * ComponentProvider wraps activity context in a weak reference in order to deliver it to interested
  * parties while not leaking it.
  */
-class ComponentProvider<T: Context> : LazyProvider<T>()
+class ComponentProvider<T : Context> : LazyProvider<T>()
 
 open class LazyProvider<T> {
     private var value: WeakReference<T>? = null
 
-    @Synchronized fun get(): T? {
+    @Synchronized
+    fun get(): T? {
         return value?.get()
     }
 
-    @Synchronized fun set(v: T) {
+    @Synchronized
+    fun set(v: T) {
         value = WeakReference(v)
     }
 
-    @Synchronized fun unset() {
+    @Synchronized
+    fun unset() {
         value = null
     }
 }

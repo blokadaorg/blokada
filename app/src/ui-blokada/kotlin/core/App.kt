@@ -22,27 +22,29 @@ abstract class UiState {
 }
 
 class AUiState(
-        private val kctx: Worker,
-        private val xx: Environment
+    private val kctx: Worker,
+    private val xx: Environment
 ) : UiState() {
 
     private val ctx: Context by xx.instance()
 
     override val seenWelcome = newPersistedProperty(kctx, APrefsPersistence(ctx, "seenWelcome"),
-            { false }
+        { false }
     )
 
     override val notifications = newPersistedProperty(kctx, APrefsPersistence(ctx, "notifications"),
-            { false } // By default, have notifications off. 
+        { false } // By default, have notifications off.
     )
 
-    override val showSystemApps = newPersistedProperty(kctx, APrefsPersistence(ctx, "showSystemApps"),
+    override val showSystemApps =
+        newPersistedProperty(kctx, APrefsPersistence(ctx, "showSystemApps"),
             { true }
-    )
+        )
 
-    override val showBgAnim = newPersistedProperty(kctx, APrefsPersistence(ctx, "backgroundAnimation"),
+    override val showBgAnim =
+        newPersistedProperty(kctx, APrefsPersistence(ctx, "backgroundAnimation"),
             { true }
-    )
+        )
 }
 
 fun newAppModule(ctx: Context): Kodein.Module {
@@ -53,20 +55,24 @@ fun newAppModule(ctx: Context): Kodein.Module {
         bind<UiState>() with singleton { AUiState(kctx = with("gscore").instance(10), xx = lazy) }
         bind<ComponentProvider<Activity>>() with singleton { ComponentProvider<Activity>() }
         bind<DefaultSourceProvider>() with singleton {
-            DefaultSourceProvider(ctx = instance(), processor = instance(),
-                    repo = instance(), f = instance())
+            DefaultSourceProvider(
+                ctx = instance(), processor = instance(),
+                repo = instance(), f = instance()
+            )
         }
         bind<g11n.Main>() with singleton {
             val pages: Pages = instance()
             val i18n: I18n = instance()
             g11n.Main(
-                    urls = { mapOf(
-                            pages.filtersStringsFallback().toExternalForm() to "filters",
-                            pages.filtersStrings().toExternalForm() to "filters"
-                    ) },
-                    doPutTranslation = { key, value ->
-                        core.Result.of { i18n.set(key, value); true }
-                    }
+                urls = {
+                    mapOf(
+                        pages.filtersStringsFallback().toExternalForm() to "filters",
+                        pages.filtersStrings().toExternalForm() to "filters"
+                    )
+                },
+                doPutTranslation = { key, value ->
+                    core.Result.of { i18n.set(key, value); true }
+                }
             )
         }
         bind<ViewBinderHolder>() with singleton {
@@ -118,8 +124,8 @@ fun newAppModule(ctx: Context): Kodein.Module {
 }
 
 class APrefsPersistence<T>(
-        val ctx: Context,
-        val key: String
+    val ctx: Context,
+    val key: String
 ) : gs.property.Persistence<T> {
 
     val p by lazy { ctx.getSharedPreferences("default", Context.MODE_PRIVATE) }
@@ -136,7 +142,7 @@ class APrefsPersistence<T>(
 
     override fun write(source: T) {
         val e = p.edit()
-        when(source) {
+        when (source) {
             is Boolean -> e.putBoolean(key, source)
             is Int -> e.putInt(key, source)
             is Long -> e.putLong(key, source)

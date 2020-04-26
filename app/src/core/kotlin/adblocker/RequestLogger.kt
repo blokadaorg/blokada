@@ -44,13 +44,13 @@ class CsvLogWriter {
 class LoggerConfigPersistence {
     val load = { ktx: Kontext ->
         Result.of { core.Persistence.paper().read<LoggerConfig>("logger:config", LoggerConfig()) }
-                .mapBoth(
-                        success = { it },
-                        failure = { ex ->
-                            ktx.w("failed loading LoggerConfig, reverting to defaults", ex)
-                            LoggerConfig()
-                        }
-                )
+            .mapBoth(
+                success = { it },
+                failure = { ex ->
+                    ktx.w("failed loading LoggerConfig, reverting to defaults", ex)
+                    LoggerConfig()
+                }
+            )
     }
 
     val save = { config: LoggerConfig ->
@@ -59,9 +59,9 @@ class LoggerConfigPersistence {
 }
 
 data class LoggerConfig(
-        val active: Boolean = true,
-        val logAllowed: Boolean = false,
-        val logDenied: Boolean = false
+    val active: Boolean = true,
+    val logAllowed: Boolean = false,
+    val logDenied: Boolean = false
 )
 
 class RequestLogger : Service() {
@@ -97,11 +97,13 @@ class RequestLogger : Service() {
         }
 
     fun log(host: String, blocked: Boolean) {
-        logger?.writer(if (blocked) {
-            'b'
-        } else {
-            'a'
-        } + "," + host)
+        logger?.writer(
+            if (blocked) {
+                'b'
+            } else {
+                'a'
+            } + "," + host
+        )
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -111,7 +113,11 @@ class RequestLogger : Service() {
 
             if (newConfig != null) {
                 if (newConfig.size == 3) {
-                    config = LoggerConfig(active = newConfig[0], logAllowed = newConfig[1], logDenied = newConfig[2])
+                    config = LoggerConfig(
+                        active = newConfig[0],
+                        logAllowed = newConfig[1],
+                        logDenied = newConfig[2]
+                    )
                 }
             } else {
                 if (intent.getBooleanExtra("load_on_start", false)) {
@@ -131,12 +137,12 @@ class RequestLogger : Service() {
     }
 }
 
-class LoggerVB (
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val activity: ComponentProvider<Activity> = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-): SlotVB(onTap) {
+class LoggerVB(
+    private val ktx: AndroidKontext,
+    private val i18n: I18n = ktx.di().instance(),
+    private val activity: ComponentProvider<Activity> = ktx.di().instance(),
+    onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
 
     val persistence = LoggerConfigPersistence()
 
@@ -146,16 +152,16 @@ class LoggerVB (
         val config = persistence.load(ktx)
         view.apply {
             content = Slot.Content(
-                    label = i18n.getString(R.string.logger_slot_title),
-                    description = i18n.getString(R.string.logger_slot_desc),
-                    values = listOf(
-                            i18n.getString(R.string.logger_slot_mode_off),
-                            i18n.getString(R.string.logger_slot_mode_internal),
-                            i18n.getString(R.string.logger_slot_mode_denied),
-                            i18n.getString(R.string.logger_slot_mode_allowed),
-                            i18n.getString(R.string.logger_slot_mode_all)
-                    ),
-                    selected = configToMode(config)
+                label = i18n.getString(R.string.logger_slot_title),
+                description = i18n.getString(R.string.logger_slot_desc),
+                values = listOf(
+                    i18n.getString(R.string.logger_slot_mode_off),
+                    i18n.getString(R.string.logger_slot_mode_internal),
+                    i18n.getString(R.string.logger_slot_mode_denied),
+                    i18n.getString(R.string.logger_slot_mode_allowed),
+                    i18n.getString(R.string.logger_slot_mode_all)
+                ),
+                selected = configToMode(config)
             )
         }
         view.onSelect = {
@@ -169,19 +175,30 @@ class LoggerVB (
     }
 
     private fun configToMode(config: LoggerConfig) = i18n.getString(
-            when {
-                !config.active -> R.string.logger_slot_mode_off
-                config.logAllowed && config.logDenied -> R.string.logger_slot_mode_all
-                config.logDenied -> R.string.logger_slot_mode_denied
-                config.logAllowed -> R.string.logger_slot_mode_allowed
-                else -> R.string.logger_slot_mode_internal
-    })
+        when {
+            !config.active -> R.string.logger_slot_mode_off
+            config.logAllowed && config.logDenied -> R.string.logger_slot_mode_all
+            config.logDenied -> R.string.logger_slot_mode_denied
+            config.logAllowed -> R.string.logger_slot_mode_allowed
+            else -> R.string.logger_slot_mode_internal
+        }
+    )
 
     private fun modeToConfig(mode: String) = when (mode) {
         i18n.getString(R.string.logger_slot_mode_off) -> LoggerConfig(active = false)
-        i18n.getString(R.string.logger_slot_mode_allowed) -> LoggerConfig(active = true, logAllowed = true)
-        i18n.getString(R.string.logger_slot_mode_denied) -> LoggerConfig(active = true, logDenied = true)
-        i18n.getString(R.string.logger_slot_mode_all) -> LoggerConfig(active = true, logAllowed = true, logDenied = true)
+        i18n.getString(R.string.logger_slot_mode_allowed) -> LoggerConfig(
+            active = true,
+            logAllowed = true
+        )
+        i18n.getString(R.string.logger_slot_mode_denied) -> LoggerConfig(
+            active = true,
+            logDenied = true
+        )
+        i18n.getString(R.string.logger_slot_mode_all) -> LoggerConfig(
+            active = true,
+            logAllowed = true,
+            logDenied = true
+        )
         else -> LoggerConfig()
     }
 

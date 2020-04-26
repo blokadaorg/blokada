@@ -13,8 +13,8 @@ import gs.property.I18n
 import org.blokada.R
 
 class AccountView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     init {

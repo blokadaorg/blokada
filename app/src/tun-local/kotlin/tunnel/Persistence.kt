@@ -33,18 +33,18 @@ class RulesPersistence {
 class FiltersPersistence {
     val load = { ktx: AndroidKontext ->
         loadLegacy34(ktx)
-                .or { loadLegacy35(ktx) }
-                .or {
-                    ktx.v("loading from the persistence", core.Persistence.paper().path)
-                    Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
-                            .orElse { ex ->
-                                if (!core.Persistence.global.isDefaultLoadPath()) {
-                                    ktx.w("failed loading from a custom path, resetting")
-                                    core.Persistence.global.savePath(core.Persistence.DEFAULT_PATH)
-                                    Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
-                                } else Err(Exception("failed loading from default path", ex))
-                            }
-                }
+            .or { loadLegacy35(ktx) }
+            .or {
+                ktx.v("loading from the persistence", core.Persistence.paper().path)
+                Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
+                    .orElse { ex ->
+                        if (!core.Persistence.global.isDefaultLoadPath()) {
+                            ktx.w("failed loading from a custom path, resetting")
+                            core.Persistence.global.savePath(core.Persistence.DEFAULT_PATH)
+                            Result.of { core.Persistence.paper().read("filters2", FilterStore()) }
+                        } else Err(Exception("failed loading from default path", ex))
+                    }
+            }
     }
 
     val save = { filterStore: FilterStore ->
@@ -68,46 +68,48 @@ class FiltersPersistence {
 
     private fun loadLegacy35(ktx: AndroidKontext) = {
         Result.of { core.Persistence.paper().read("filters2", FiltersCache()) }
-                .andThen {
-                    if (it.cache.isEmpty()) Err(Exception("no 3.5 legacy persistence found"))
-                    else {
-                        ktx.v("loaded from legacy 3.5 persistence")
-                        Ok(FilterStore(
-                                cache = it.cache.map {
-                                    Filter(
-                                            id = it.id,
-                                            source = FilterSourceDescriptor(it.source.id, it.source.source),
-                                            whitelist = it.whitelist,
-                                            active = it.active,
-                                            hidden = it.hidden,
-                                            priority = it.priority,
-                                            credit = it.credit,
-                                            customName = it.customName,
-                                            customComment = it.customComment
-                                    )
-                                }.toSet()
-                        ))
-                    }
+            .andThen {
+                if (it.cache.isEmpty()) Err(Exception("no 3.5 legacy persistence found"))
+                else {
+                    ktx.v("loaded from legacy 3.5 persistence")
+                    Ok(
+                        FilterStore(
+                            cache = it.cache.map {
+                                Filter(
+                                    id = it.id,
+                                    source = FilterSourceDescriptor(it.source.id, it.source.source),
+                                    whitelist = it.whitelist,
+                                    active = it.active,
+                                    hidden = it.hidden,
+                                    priority = it.priority,
+                                    credit = it.credit,
+                                    customName = it.customName,
+                                    customComment = it.customComment
+                                )
+                            }.toSet()
+                        )
+                    )
                 }
+            }
     }()
 }
 
 class RequestPersistence(
-        val load: (Int) -> Result<List<Request>> = { batch: Int ->
-            Result.of { core.Persistence.paper().read<List<Request>>("requests:$batch", emptyList()) }
-        },
-        val saveBatch: (Int, List<Request>) -> Any = { batch: Int, requests: List<Request> ->
-            Result.of { core.Persistence.paper().write("requests:$batch", requests) }
-        },
-        val batch_sizes: List<Int> = listOf(10, 100, 1000)
+    val load: (Int) -> Result<List<Request>> = { batch: Int ->
+        Result.of { core.Persistence.paper().read<List<Request>>("requests:$batch", emptyList()) }
+    },
+    val saveBatch: (Int, List<Request>) -> Any = { batch: Int, requests: List<Request> ->
+        Result.of { core.Persistence.paper().write("requests:$batch", requests) }
+    },
+    val batch_sizes: List<Int> = listOf(10, 100, 1000)
 ) {
 
     private val batch0 = mutableListOf<Request>()
 
     val batches = listOf(
-            { batch0 },
-            { load(1).getOr { emptyList() } },
-            { load(2).getOr { emptyList() } }
+        { batch0 },
+        { load(1).getOr { emptyList() } },
+        { load(2).getOr { emptyList() } }
     )
 
     val save = { request: Request ->
@@ -134,7 +136,7 @@ class RequestPersistence(
         }
     }
 
-    fun clear(){
+    fun clear() {
         for (i in 0 until batches.size) {
             saveBatch(i, emptyList())
         }
@@ -148,13 +150,13 @@ class BlockaConfigPersistence {
             ktx.v("loaded blocka config from persistence", cfg)
             cfg
         }
-                .mapBoth(
-                        success = { it },
-                        failure = { ex ->
-                            ktx.w("failed loading BlockaConfig, reverting to empty", ex)
-                            BlockaConfig()
-                        }
-                )
+            .mapBoth(
+                success = { it },
+                failure = { ex ->
+                    ktx.w("failed loading BlockaConfig, reverting to empty", ex)
+                    BlockaConfig()
+                }
+            )
     }
 
     val save = { config: BlockaConfig ->

@@ -14,9 +14,9 @@ import tunnel.TunnelEvents
 import tunnel.Filter
 
 class AllAppsDashboardSectionVB(
-        val ctx: Context,
-        val system: Boolean,
-        override val name: Resource = if (system) R.string.panel_section_apps_system.res() else R.string.panel_section_apps_all.res()
+    val ctx: Context,
+    val system: Boolean,
+    override val name: Resource = if (system) R.string.panel_section_apps_system.res() else R.string.panel_section_apps_all.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     private val ktx = ctx.ktx("AllAppsDashboard")
@@ -41,8 +41,14 @@ class AllAppsDashboardSectionVB(
     private fun updateListing(keyword: String = "") {
         if (apps.isEmpty() || !filLoaded) return
 
-        val whitelisted = apps.filter { (it.appId in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }.sortedBy { it.label.toLowerCase() }
-        val notWhitelisted = apps.filter { (it.appId !in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }.sortedBy { it.label.toLowerCase() }
+        val whitelisted = apps.filter {
+            (it.appId in fil) && (keyword.isEmpty() || it.label.toLowerCase()
+                .contains(keyword.toLowerCase()))
+        }.sortedBy { it.label.toLowerCase() }
+        val notWhitelisted = apps.filter {
+            (it.appId !in fil) && (keyword.isEmpty() || it.label.toLowerCase()
+                .contains(keyword.toLowerCase()))
+        }.sortedBy { it.label.toLowerCase() }
 
         val listing = listOf(LabelVB(ktx, label = R.string.slot_allapp_whitelisted.res())) +
                 whitelisted.map { AppVB(it, true, ktx, onTap = slotMutex.openOneAtATime) } +

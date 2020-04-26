@@ -21,14 +21,14 @@ import java.net.URL
  *
  */
 class FilterSourceLink(
-        private val timeoutMillis: Int,
-        private val processor: IHostlineProcessor,
-        var source: URL? = null,
-        var backupSource: URL? = null
+    private val timeoutMillis: Int,
+    private val processor: IHostlineProcessor,
+    var source: URL? = null,
+    var backupSource: URL? = null
 ) : IFilterSource {
 
     override fun size(): Int {
-        return  100000
+        return 100000
     }
 
     override fun id(): String {
@@ -38,9 +38,13 @@ class FilterSourceLink(
     override fun fetch(): LinkedHashSet<String> {
         val list = try {
             loadGzip(openUrl(source!!, timeoutMillis), { processor.process(it) })
-        } catch (e: Exception) { try {
-            loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(it) })
-        } catch (e: Exception) { emptyList<String>() }}
+        } catch (e: Exception) {
+            try {
+                loadGzip(openUrl(backupSource!!, timeoutMillis), { processor.process(it) })
+            } catch (e: Exception) {
+                emptyList<String>()
+            }
+        }
         return LinkedHashSet<String>().apply { addAll(list) }
     }
 
@@ -48,8 +52,13 @@ class FilterSourceLink(
         val ret = try {
             source = URL(string[0])
             true
-        } catch (e: Exception) { false }
-        try { backupSource = URL(string[1]) } catch (e: Exception) {}
+        } catch (e: Exception) {
+            false
+        }
+        try {
+            backupSource = URL(string[1])
+        } catch (e: Exception) {
+        }
         return ret
     }
 
@@ -78,26 +87,32 @@ class FilterSourceLink(
 }
 
 class FilterSourceUri(
-        private val ctx: Context,
-        private val processor: IHostlineProcessor,
-        var source: Uri? = null,
-        var flags: Int = 0
+    private val ctx: Context,
+    private val processor: IHostlineProcessor,
+    var source: Uri? = null,
+    var flags: Int = 0
 ) : IFilterSource {
 
     override fun size(): Int {
         var lineReader: LineNumberReader? = null
         return try {
-            lineReader = LineNumberReader(try {
-                ctx.contentResolver.takePersistableUriPermission(source!!, flags)
-                InputStreamReader(openFile(ctx, source!!))
-            } catch (e: java.lang.Exception) {
-                InputStreamReader(File(source!!.path).inputStream())
-            })
+            lineReader = LineNumberReader(
+                try {
+                    ctx.contentResolver.takePersistableUriPermission(source!!, flags)
+                    InputStreamReader(openFile(ctx, source!!))
+                } catch (e: java.lang.Exception) {
+                    InputStreamReader(File(source!!.path).inputStream())
+                }
+            )
             lineReader.skip(java.lang.Long.MAX_VALUE)
             lineReader.lineNumber + 1
-        } catch (e: Exception) { 0 }
-        finally {
-            try { lineReader?.close() } catch (e: Exception) {}
+        } catch (e: Exception) {
+            0
+        } finally {
+            try {
+                lineReader?.close()
+            } catch (e: Exception) {
+            }
         }
     }
 
@@ -126,7 +141,9 @@ class FilterSourceUri(
         return try {
             source = Uri.parse(string[0])
             true
-        } catch (e: Exception) { false }
+        } catch (e: Exception) {
+            false
+        }
     }
 
     override fun toUserInput(): String {
@@ -144,7 +161,8 @@ class FilterSourceUri(
             val bytes = Base64.decode(string, Base64.NO_WRAP)
             try {
                 source = Uri.parse(String(bytes))
-            } catch (e: Exception) { }
+            } catch (e: Exception) {
+            }
         }
         return this
     }
@@ -160,8 +178,8 @@ class FilterSourceUri(
 }
 
 class FilterSourceApp(
-        private val ctx: Context,
-        var source: String? = null
+    private val ctx: Context,
+    var source: String? = null
 ) : IFilterSource {
 
     override fun size(): Int {
@@ -174,8 +192,12 @@ class FilterSourceApp(
     private val s by lazy { ctx.inject().instance<Filters>() }
 
     private val apps by lazy {
-        s.apps().flatMap { listOf(it.appId to it.appId, it.appId.toLowerCase() to it.appId,
-                it.label to it.appId, it.label.toLowerCase() to it.label) }.toMap()
+        s.apps().flatMap {
+            listOf(
+                it.appId to it.appId, it.appId.toLowerCase() to it.appId,
+                it.label to it.appId, it.label.toLowerCase() to it.label
+            )
+        }.toMap()
     }
 
     override fun id(): String {
@@ -226,10 +248,10 @@ private fun openFile(ctx: Context, uri: Uri): java.io.InputStream {
 }
 
 class DefaultSourceProvider(
-        val ctx: Context,
-        val repo: Repo,
-        val f: Filters,
-        val processor: IHostlineProcessor
+    val ctx: Context,
+    val repo: Repo,
+    val f: Filters,
+    val processor: IHostlineProcessor
 ) {
 
     fun from(id: String, source: String? = null, filterId: FilterId? = null): IFilterSource {

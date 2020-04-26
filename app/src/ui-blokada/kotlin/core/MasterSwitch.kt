@@ -54,8 +54,8 @@ abstract class MasterSwitchVB
 }
 
 class MasterSwitchView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     init {
@@ -125,7 +125,7 @@ class MasterSwitchView(
     }
 
     fun line(variant: Int) {
-        val color = when(variant) {
+        val color = when (variant) {
             0 -> R.color.colorProtectionLow
             1 -> R.color.colorProtectionMedium
             2 -> R.color.colorProtectionHigh

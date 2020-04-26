@@ -14,8 +14,8 @@ import java.util.*
 
 
 class PacketsView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : View(ctx, attributeSet), ActiveBackground {
 
     override fun onOpenSection(after: () -> Unit) {
@@ -128,7 +128,12 @@ class PacketsView(
 
                 barrierPaint.color = color3
                 barrierPaint.alpha = alpha
-                canvas.drawCircle(xoffset.toFloat(), yoffset.toFloat(), maxRadius * SCAN_SIZE, barrierPaint)
+                canvas.drawCircle(
+                    xoffset.toFloat(),
+                    yoffset.toFloat(),
+                    maxRadius * SCAN_SIZE,
+                    barrierPaint
+                )
             }
         }
 

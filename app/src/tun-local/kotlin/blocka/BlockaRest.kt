@@ -50,44 +50,47 @@ object BlockaRestModel {
     data class Gateways(val gateways: List<GatewayInfo>)
     data class Leases(val leases: List<LeaseInfo>)
     data class AccountInfo(
-            @SerializedName("id")
-            val accountId: String,
-            @SerializedName("active_until")
-            val activeUntil: Date = Date(0)
+        @SerializedName("id")
+        val accountId: String,
+        @SerializedName("active_until")
+        val activeUntil: Date = Date(0)
     ) {
         override fun toString(): String {
             return "AccountInfo(activeUntil=$activeUntil)"
         }
     }
+
     data class GatewayInfo(
-            @SerializedName("public_key")
-            val publicKey: String,
-            val region: String,
-            val location: String,
-            @SerializedName("resource_usage_percent")
-            val resourceUsagePercent: Int,
-            val ipv4: String,
-            val ipv6: String,
-            val port: Int,
-            val expires: Date,
-            val tags: List<String>?
+        @SerializedName("public_key")
+        val publicKey: String,
+        val region: String,
+        val location: String,
+        @SerializedName("resource_usage_percent")
+        val resourceUsagePercent: Int,
+        val ipv4: String,
+        val ipv6: String,
+        val port: Int,
+        val expires: Date,
+        val tags: List<String>?
     ) {
         fun niceName() = location.split('-').map { it.capitalize() }.joinToString(" ")
         fun overloaded() = resourceUsagePercent >= 100
-//        fun partner() = location == "stockholm"
+
+        //        fun partner() = location == "stockholm"
         fun partner() = tags?.contains("partner") ?: false
     }
+
     data class LeaseInfo(
-            @SerializedName("account_id")
-            val accountId: String,
-            @SerializedName("public_key")
-            val publicKey: String,
-            @SerializedName("gateway_id")
-            val gatewayId: String,
-            val expires: Date,
-            val alias: String?,
-            val vip4: String,
-            val vip6: String
+        @SerializedName("account_id")
+        val accountId: String,
+        @SerializedName("public_key")
+        val publicKey: String,
+        @SerializedName("gateway_id")
+        val gatewayId: String,
+        val expires: Date,
+        val alias: String?,
+        val vip4: String,
+        val vip6: String
     ) {
         fun expiresSoon() = expires.before(Date(Date().time + EXPIRATION_OFFSET))
         fun niceName() = if (alias?.isNotBlank() == true) alias else publicKey.take(5)
@@ -97,25 +100,27 @@ object BlockaRestModel {
             return "LeaseInfo(publicKey='$publicKey', gatewayId='$gatewayId', expires=$expires, alias=$alias, vip4='$vip4', vip6='$vip6')"
         }
     }
+
     data class LeaseRequest(
-            @SerializedName("account_id")
-            val accountId: String,
-            @SerializedName("public_key")
-            val publicKey: String,
-            @SerializedName("gateway_id")
-            val gatewayId: String,
-            val alias: String
+        @SerializedName("account_id")
+        val accountId: String,
+        @SerializedName("public_key")
+        val publicKey: String,
+        @SerializedName("gateway_id")
+        val gatewayId: String,
+        val alias: String
     ) {
         override fun toString(): String {
             // No account ID
             return "LeaseRequest(publicKey='$publicKey', gatewayId='$gatewayId', alias='$alias')"
         }
     }
+
     class TooManyDevicesException : Exception()
 }
 
-fun blokadaUserAgent(ctx: Context = getActiveContext()!!, viewer: Boolean? = null)
-    = "blokada/%s (android-%s %s %s %s %s-%s %s %s %s)".format(
+fun blokadaUserAgent(ctx: Context = getActiveContext()!!, viewer: Boolean? = null) =
+    "blokada/%s (android-%s %s %s %s %s-%s %s %s %s)".format(
         BuildConfig.VERSION_NAME,
         Build.VERSION.SDK_INT,
         BuildConfig.FLAVOR,
@@ -127,7 +132,7 @@ fun blokadaUserAgent(ctx: Context = getActiveContext()!!, viewer: Boolean? = nul
             "touch" else "donttouch",
         if (viewer == true) "chrometab" else if (viewer == false) "webview" else "api",
         if (BoringtunLoader.supported) "compatible" else "incompatible"
-)
+    )
 
 fun newRestApiModule(ctx: Context): Kodein.Module {
     return Kodein.Module(init = {
@@ -135,29 +140,33 @@ fun newRestApiModule(ctx: Context): Kodein.Module {
 //            val cp = ConnectionPool(1, 1, TimeUnit.MILLISECONDS)
             val clientBuilder = OkHttpClient.Builder()
 //                    .connectionPool(cp)
-                    .addNetworkInterceptor { chain ->
-                        val request = chain.request()
-                        chain.connection()?.socket()?.let {
-                            //ctx.ktx("okhttp").v("protecting okhttp socket")
-                            tunnelMain.protect(it)
-                        }
-                        chain.proceed(request)
+                .addNetworkInterceptor { chain ->
+                    val request = chain.request()
+                    chain.connection()?.socket()?.let {
+                        //ctx.ktx("okhttp").v("protecting okhttp socket")
+                        tunnelMain.protect(it)
                     }
-                    .addInterceptor { chain ->
-                        val request = chain.request().newBuilder().header("User-Agent", blokadaUserAgent(ctx)).build()
-                        chain.proceed(request)
-                    }
-            if (!ProductType.isPublic()) clientBuilder.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+                    chain.proceed(request)
+                }
+                .addInterceptor { chain ->
+                    val request =
+                        chain.request().newBuilder().header("User-Agent", blokadaUserAgent(ctx))
+                            .build()
+                    chain.proceed(request)
+                }
+            if (!ProductType.isPublic()) clientBuilder.addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
             val client = clientBuilder.build()
             val gson = GsonBuilder()
-                    .setDateFormat(DateFormat.FULL)
-                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
-                    .create()
+                .setDateFormat(DateFormat.FULL)
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
+                .create()
             val retrofit = Retrofit.Builder()
-                    .baseUrl("https://api.blocka.net")
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(client)
-                    .build()
+                .baseUrl("https://api.blocka.net")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(client)
+                .build()
             retrofit.create(BlockaRestApi::class.java)
         }
     })

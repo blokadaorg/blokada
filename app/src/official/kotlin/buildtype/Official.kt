@@ -51,20 +51,21 @@ abstract class Events {
 }
 
 class EventsImpl(
-        private val kctx: Worker,
-        private val xx: Environment,
-        private val time: Time = xx().instance(),
-        private val j: Journal = xx().instance(),
-        private val t: Tunnel = xx().instance()
+    private val kctx: Worker,
+    private val xx: Environment,
+    private val time: Time = xx().instance(),
+    private val j: Journal = xx().instance(),
+    private val t: Tunnel = xx().instance()
 ) : Events() {
     override val lastDailyMillis = newPersistedProperty(kctx, BasicPersistence(xx, "daily"), { 0L },
-            refresh = {
-                j.event("daily")
-                time.now()
-            },
-            shouldRefresh = { !DateUtils.isToday(it) })
+        refresh = {
+            j.event("daily")
+            time.now()
+        },
+        shouldRefresh = { !DateUtils.isToday(it) })
 
-    override val lastActiveMillis = newPersistedProperty(kctx, BasicPersistence(xx, "daily-active"), { 0L },
+    override val lastActiveMillis =
+        newPersistedProperty(kctx, BasicPersistence(xx, "daily-active"), { 0L },
             refresh = {
                 if (t.active()) {
                     j.event("daily-active")
@@ -75,7 +76,7 @@ class EventsImpl(
 }
 
 class OfficialJournal(
-        private val ctx: Context
+    private val ctx: Context
 ) : Journal {
 
     private val amp by lazy {
@@ -109,10 +110,12 @@ class OfficialJournal(
     }
 
     override fun log(vararg errors: Any) {
-        errors.forEach { when(it) {
-            is Throwable -> Log.e("blokada", "------", it)
-            else -> Log.e("blokada", it.toString())
-        }}
+        errors.forEach {
+            when (it) {
+                is Throwable -> Log.e("blokada", "------", it)
+                else -> Log.e("blokada", it.toString())
+            }
+        }
     }
 
 }

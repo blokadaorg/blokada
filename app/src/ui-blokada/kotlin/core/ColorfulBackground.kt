@@ -14,15 +14,17 @@ import tunnel.Request
 
 
 class ColorfulBackground(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : View(ctx, attributeSet), ActiveBackground {
 
     private val gradientPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val evaluator: ArgbEvaluator = ArgbEvaluator()
-    private var currentGradient: IntArray = mix(1f,
-                positionToGradient(0),
-                positionToGradient(0))
+    private var currentGradient: IntArray = mix(
+        1f,
+        positionToGradient(0),
+        positionToGradient(0)
+    )
 
     private var on = false
 
@@ -39,9 +41,10 @@ class ColorfulBackground(
     private fun initGradient() {
         val centerX = width * 0.5f
         val gradient = LinearGradient(
-                centerX, 0f, centerX, height.toFloat(),
-                currentGradient, null,
-                Shader.TileMode.MIRROR)
+            centerX, 0f, centerX, height.toFloat(),
+            currentGradient, null,
+            Shader.TileMode.MIRROR
+        )
         gradientPaint.shader = gradient
     }
 
@@ -57,9 +60,11 @@ class ColorfulBackground(
     }
 
     override fun onScroll(fraction: Float, oldPosition: Int, newPosition: Int) {
-        currentGradient = mix(fraction,
-                positionToGradient(oldPosition),
-                positionToGradient(newPosition))
+        currentGradient = mix(
+            fraction,
+            positionToGradient(oldPosition),
+            positionToGradient(newPosition)
+        )
         initGradient()
         invalidate()
     }
@@ -81,7 +86,10 @@ class ColorfulBackground(
     }
 
     private fun mix(fraction: Float, c1: IntArray, c2: IntArray): IntArray {
-        return intArrayOf(evaluator.evaluate(fraction, c1[0], c2[0]) as Int, evaluator.evaluate(fraction, c1[1], c2[1]) as Int)
+        return intArrayOf(
+            evaluator.evaluate(fraction, c1[0], c2[0]) as Int,
+            evaluator.evaluate(fraction, c1[1], c2[1]) as Int
+        )
     }
 
     private fun positionToGradient(position: Int): IntArray {

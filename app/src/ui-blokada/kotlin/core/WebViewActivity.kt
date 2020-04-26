@@ -29,8 +29,10 @@ class WebViewActivity : Activity() {
     private lateinit var url: IProperty<URL>
 
     private val dash by lazy {
-        WebDash(LazyKodein(ktx.di), url, reloadOnError = true,
-                javascript = true, forceEmbedded = true, big = true)
+        WebDash(
+            LazyKodein(ktx.di), url, reloadOnError = true,
+            javascript = true, forceEmbedded = true, big = true
+        )
     }
 
     private var view: android.view.View? = null

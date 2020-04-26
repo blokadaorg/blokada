@@ -112,11 +112,11 @@ interface IWhen {
  *      Called on every read.
  */
 fun <T> newProperty(
-        kctx: Worker,
-        zeroValue: () -> T,
-        init: () -> T = zeroValue,
-        refresh: (value: T) -> T = { init() },
-        shouldRefresh: (value: T) -> Boolean = { true }
+    kctx: Worker,
+    zeroValue: () -> T,
+    init: () -> T = zeroValue,
+    refresh: (value: T) -> T = { init() },
+    shouldRefresh: (value: T) -> Boolean = { true }
 ): IProperty<T> {
     return BaseProperty(kctx, zeroValue, init, refresh, shouldRefresh)
 }
@@ -126,12 +126,12 @@ fun <T> newProperty(
  * persistence, and every write also writes to the persistence.
  */
 fun <T> newPersistedProperty(
-        kctx: Worker,
-        persistence: Persistence<T>,
-        zeroValue: () -> T,
-        refresh: ((value: T) -> T)? = null,
-        shouldRefresh: (value: T) -> Boolean = { true }
- ) : IProperty<T> {
+    kctx: Worker,
+    persistence: Persistence<T>,
+    zeroValue: () -> T,
+    refresh: ((value: T) -> T)? = null,
+    shouldRefresh: (value: T) -> Boolean = { true }
+): IProperty<T> {
     return PersistedProperty(kctx, persistence, zeroValue, refresh, shouldRefresh)
 }
 
@@ -144,11 +144,11 @@ private interface IWhenExecute : IWhen {
  * it catches any exceptions and reports them using journal.
  */
 private class When(
-        private val kctx: Worker?,
-        private val condition: () -> Boolean,
-        private val immediate: Boolean = true,
-        private var action: () -> Unit = {}
-): IWhenExecute {
+    private val kctx: Worker?,
+    private val condition: () -> Boolean,
+    private val immediate: Boolean = true,
+    private var action: () -> Unit = {}
+) : IWhenExecute {
 
     override fun then(action: () -> Unit): IWhen {
         this.action = action
@@ -180,10 +180,10 @@ private class When(
  * hence not a "change".
  */
 private class WhenChanged<T>(
-        private var property: BaseProperty<T>,
-        private val withInit: Boolean,
-        private val w: IWhenExecute
-): IWhenExecute {
+    private var property: BaseProperty<T>,
+    private val withInit: Boolean,
+    private val w: IWhenExecute
+) : IWhenExecute {
 
     private var lastValue: T? = property.value
 
@@ -210,12 +210,12 @@ private class WhenChanged<T>(
  * exceptions and reports them using journal. For the synchronous getter, it does not.
  */
 private open class BaseProperty<T>(
-        private val kctx: Worker,
-        private val zeroValue: () -> T,
-        private val init: () -> T = zeroValue,
-        private val refresh: (value: T) -> T = { init() },
-        private val shouldRefresh: (value: T) -> Boolean = { true }
-): IProperty<T> {
+    private val kctx: Worker,
+    private val zeroValue: () -> T,
+    private val init: () -> T = zeroValue,
+    private val refresh: (value: T) -> T = { init() },
+    private val shouldRefresh: (value: T) -> Boolean = { true }
+) : IProperty<T> {
 
     private val listeners: MutableList<IWhenExecute> = mutableListOf()
 
@@ -356,16 +356,16 @@ private open class BaseProperty<T>(
 }
 
 private class PersistedProperty<T>(
-        private val kctx: Worker,
-        private val persistence: Persistence<T>,
-        private val zeroValue: () -> T,
-        private val refresh: ((value: T) -> T)? = null,
-        private val shouldRefresh: (value: T) -> Boolean = { false }
-): BaseProperty<T>(
-        kctx = kctx,
-        zeroValue = { persistence.read(zeroValue()) },
-        refresh = refresh ?: { persistence.read(it) },
-        shouldRefresh = shouldRefresh
+    private val kctx: Worker,
+    private val persistence: Persistence<T>,
+    private val zeroValue: () -> T,
+    private val refresh: ((value: T) -> T)? = null,
+    private val shouldRefresh: (value: T) -> Boolean = { false }
+) : BaseProperty<T>(
+    kctx = kctx,
+    zeroValue = { persistence.read(zeroValue()) },
+    refresh = refresh ?: { persistence.read(it) },
+    shouldRefresh = shouldRefresh
 ) {
 
     init {

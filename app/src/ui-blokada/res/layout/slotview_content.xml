@@ -63,8 +63,7 @@
                 android:layout_marginStart="@dimen/slot_padding"
                 android:layout_marginEnd="@dimen/slot_padding"
                 android:layout_marginTop="@dimen/slot_content_padding"
-                android:layout_marginBottom="@dimen/slot_content_padding"
-                />
+                android:layout_marginBottom="@dimen/slot_content_padding" />
 
             <EditText
                 android:id="@+id/unfolded_edit"
@@ -105,8 +104,7 @@
                 android:layout_marginStart="@dimen/slot_padding"
                 android:layout_marginEnd="@dimen/slot_padding"
                 android:layout_marginTop="@dimen/slot_content_padding"
-                android:layout_marginBottom="@dimen/slot_content_padding"
-                />
+                android:layout_marginBottom="@dimen/slot_content_padding" />
 
             <ImageView
                 android:id="@+id/unfolded_info_icon"
@@ -222,8 +220,7 @@
                 android:layout_marginBottom="@dimen/slot_padding"
                 android:layout_height="match_parent"
                 android:visibility="gone"
-                android:background="@color/colorButtonSeparator"
-                />
+                android:background="@color/colorButtonSeparator" />
 
             <TextView
                 android:id="@+id/folded_switch"

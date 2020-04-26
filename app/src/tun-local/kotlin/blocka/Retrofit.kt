@@ -6,10 +6,10 @@ import core.w
 import retrofit2.Call
 import retrofit2.Response
 
-class ResponseCodeException(val code: Int): Exception()
+class ResponseCodeException(val code: Int) : Exception()
 
 fun <T> simpleRetrofitHandler(
-        call: Call<T>
+    call: Call<T>
 ): T {
     val response = call.execute()
     return when {
@@ -18,8 +18,10 @@ fun <T> simpleRetrofitHandler(
             throw ResponseCodeException(response.code())
         }
         response.body() == null && call.request().method() != "DELETE" -> {
-            e("request failed", call.request().url(), response.errorBody()?.string()
-                    ?: "null")
+            e(
+                "request failed", call.request().url(), response.errorBody()?.string()
+                    ?: "null"
+            )
             throw Exception("failed request: empty body")
         }
         else -> {
@@ -33,7 +35,7 @@ fun <T> simpleRetrofitHandler(
 val MAX_RETRIES = 3
 
 class RetryingRetrofitHandler<T>(
-        private val call: Call<T>
+    private val call: Call<T>
 ) {
 
     private var retries = 0
@@ -54,8 +56,8 @@ class RetryingRetrofitHandler<T>(
 }
 
 class SimpleRetrofitCallback<T>(
-        val ok: (T) -> Any,
-        val fail: (Int) -> Any
+    val ok: (T) -> Any,
+    val fail: (Int) -> Any
 ) : retrofit2.Callback<T> {
 
     override fun onResponse(call: Call<T>, response: Response<T>) {
@@ -65,8 +67,10 @@ class SimpleRetrofitCallback<T>(
                 fail(response.code())
             }
             response.body() == null && call.request().method() != "DELETE" -> {
-                e("request failed", call.request().url(), response.errorBody()?.string()
-                        ?: "null")
+                e(
+                    "request failed", call.request().url(), response.errorBody()?.string()
+                        ?: "null"
+                )
                 fail(0)
             }
             else -> {
@@ -84,8 +88,8 @@ class SimpleRetrofitCallback<T>(
 }
 
 class RetryingRetrofitCallback<T>(
-        val ok: (T) -> Any,
-        val fail: (Int) -> Any
+    val ok: (T) -> Any,
+    val fail: (Int) -> Any
 ) : retrofit2.Callback<T> {
 
     val MAX_RETRIES = 3

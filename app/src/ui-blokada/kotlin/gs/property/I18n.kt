@@ -30,9 +30,9 @@ typealias LanguageTag = String
 typealias Key = String
 typealias Localised = String
 
-class I18nImpl (
-        private val kctx: Worker,
-        private val xx: Environment
+class I18nImpl(
+    private val kctx: Worker,
+    private val xx: Environment
 ) : I18n() {
 
     private val ctx: Context by xx.instance()
@@ -48,31 +48,31 @@ class I18nImpl (
     }
 
     override val locale = newPersistedProperty(kctx, BasicPersistence(xx, "locale"), { "en" },
-            refresh = {
-                val ktx = "i18n:locale:refresh".ktx()
-                val preferred = getPreferredLocales()
-                val available = repo.content().locales
-                ktx.v("locale preferred/available", preferred, available)
+        refresh = {
+            val ktx = "i18n:locale:refresh".ktx()
+            val preferred = getPreferredLocales()
+            val available = repo.content().locales
+            ktx.v("locale preferred/available", preferred, available)
 
-                /**
-                 * Try matching exactly, if not, try matching by language tag. Use order of preferred
-                 * locales defined by user.
-                 */
-                val availableLanguageTags = available.map { Locale(it.language) to it }.toMap()
-                val matches = preferred.asSequence().map {
-                    val justLanguageTag = Locale(it.language)
-                    val tagAndCountry = Locale(it.language, it.country)
-                    when {
-                        available.contains(it) -> it
-                        available.contains(tagAndCountry) -> tagAndCountry
-                        available.contains(justLanguageTag) -> justLanguageTag
-                        availableLanguageTags.containsKey(justLanguageTag) -> availableLanguageTags[justLanguageTag]
-                        else -> null
-                    }
-                }.filterNotNull()
-                ktx.v("locale matches", matches)
-                (matches.firstOrNull() ?: Locale("en")).toString()
-            })
+            /**
+             * Try matching exactly, if not, try matching by language tag. Use order of preferred
+             * locales defined by user.
+             */
+            val availableLanguageTags = available.map { Locale(it.language) to it }.toMap()
+            val matches = preferred.asSequence().map {
+                val justLanguageTag = Locale(it.language)
+                val tagAndCountry = Locale(it.language, it.country)
+                when {
+                    available.contains(it) -> it
+                    available.contains(tagAndCountry) -> tagAndCountry
+                    available.contains(justLanguageTag) -> justLanguageTag
+                    availableLanguageTags.containsKey(justLanguageTag) -> availableLanguageTags[justLanguageTag]
+                    else -> null
+                }
+            }.filterNotNull()
+            ktx.v("locale matches", matches)
+            (matches.firstOrNull() ?: Locale("en")).toString()
+        })
 
     private val localisedMap: MutableMap<LanguageTag, MutableMap<Key, Localised>> = mutableMapOf()
 
@@ -145,8 +145,8 @@ class I18nImpl (
 }
 
 class I18nPersistence(
-        xx: Environment,
-        private val locale: LanguageTag
+    xx: Environment,
+    private val locale: LanguageTag
 ) : PersistenceWithSerialiser<Map<Key, Localised>>(xx) {
 
     val p by lazy { serialiser("i18n_$locale") }

@@ -20,14 +20,16 @@ interface Proxy {
 }
 
 internal class DnsProxy(
-        private val dnsServers: List<InetSocketAddress>,
-        private val blockade: Blockade,
-        private val forwarder: Forwarder,
-        private val loopback: Queue<Triple<ByteArray, Int, Int>>,
-        private val denyResponse: SOARecord = SOARecord(Name("org.blokada.invalid."), DClass.IN,
-                5L, Name("org.blokada.invalid."), Name("org.blokada.invalid."), 0, 0, 0, 0, 5),
+    private val dnsServers: List<InetSocketAddress>,
+    private val blockade: Blockade,
+    private val forwarder: Forwarder,
+    private val loopback: Queue<Triple<ByteArray, Int, Int>>,
+    private val denyResponse: SOARecord = SOARecord(
+        Name("org.blokada.invalid."), DClass.IN,
+        5L, Name("org.blokada.invalid."), Name("org.blokada.invalid."), 0, 0, 0, 0, 5
+    ),
 
-        private val doCreateSocket: () -> DatagramSocket = { DatagramSocket() }
+    private val doCreateSocket: () -> DatagramSocket = { DatagramSocket() }
 ) : Proxy {
 
     override fun fromDevice(packetBytes: ByteArray, length: Int) {
@@ -46,8 +48,10 @@ internal class DnsProxy(
 
         if (udp.payload == null) {
             // Some apps use empty UDP packets for something good
-            val proxiedUdp = DatagramPacket(ByteArray(0), 0, 0, destination.getAddress(),
-                    udp.header.dstPort.valueAsInt())
+            val proxiedUdp = DatagramPacket(
+                ByteArray(0), 0, 0, destination.getAddress(),
+                udp.header.dstPort.valueAsInt()
+            )
             forward(proxiedUdp)
             return
         }
@@ -63,8 +67,10 @@ internal class DnsProxy(
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
         if (blockade.allowed(host) || !blockade.denied(host)) {
-            val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
-                    destination.getPort())
+            val proxiedDns = DatagramPacket(
+                udpRaw, 0, udpRaw.size, destination.getAddress(),
+                destination.getPort()
+            )
             forward(proxiedDns, originEnvelope)
             emit(TunnelEvents.REQUEST, Request(host))
         } else {
@@ -80,30 +86,30 @@ internal class DnsProxy(
         originEnvelope as IpPacket
         val udp = originEnvelope.payload as UdpPacket
         val udpResponse = UdpPacket.Builder(udp)
-                .srcAddr(originEnvelope.header.dstAddr)
-                .dstAddr(originEnvelope.header.srcAddr)
-                .srcPort(udp.header.dstPort)
-                .dstPort(udp.header.srcPort)
-                .correctChecksumAtBuild(true)
-                .correctLengthAtBuild(true)
-                .payloadBuilder(UnknownPacket.Builder().rawData(response))
+            .srcAddr(originEnvelope.header.dstAddr)
+            .dstAddr(originEnvelope.header.srcAddr)
+            .srcPort(udp.header.dstPort)
+            .dstPort(udp.header.srcPort)
+            .correctChecksumAtBuild(true)
+            .correctLengthAtBuild(true)
+            .payloadBuilder(UnknownPacket.Builder().rawData(response))
 
         val envelope: IpPacket
         if (originEnvelope is IpV4Packet) {
             envelope = IpV4Packet.Builder(originEnvelope)
-                    .srcAddr(originEnvelope.header.dstAddr as Inet4Address)
-                    .dstAddr(originEnvelope.header.srcAddr as Inet4Address)
-                    .correctChecksumAtBuild(true)
-                    .correctLengthAtBuild(true)
-                    .payloadBuilder(udpResponse)
-                    .build()
+                .srcAddr(originEnvelope.header.dstAddr as Inet4Address)
+                .dstAddr(originEnvelope.header.srcAddr as Inet4Address)
+                .correctChecksumAtBuild(true)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(udpResponse)
+                .build()
         } else {
             envelope = IpV6Packet.Builder(originEnvelope as IpV6Packet)
-                    .srcAddr(originEnvelope.header.dstAddr as Inet6Address)
-                    .dstAddr(originEnvelope.header.srcAddr as Inet6Address)
-                    .correctLengthAtBuild(true)
-                    .payloadBuilder(udpResponse)
-                    .build()
+                .srcAddr(originEnvelope.header.dstAddr as Inet6Address)
+                .dstAddr(originEnvelope.header.srcAddr as Inet6Address)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(udpResponse)
+                .build()
         }
         loopback(envelope.rawData)
     }

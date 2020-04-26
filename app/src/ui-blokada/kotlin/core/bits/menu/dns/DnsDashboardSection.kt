@@ -12,8 +12,8 @@ import org.blokada.R
 import tunnel.DnsAnswerTypeVB
 
 class DnsDashboardSection(
-        val ctx: Context,
-        override val name: Resource = R.string.panel_section_advanced_dns.res()
+    val ctx: Context,
+    override val name: Resource = R.string.panel_section_advanced_dns.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     private val ktx = ctx.ktx("DnsDashboard")

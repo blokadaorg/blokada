@@ -82,9 +82,9 @@ class FileLogWriter {
 }
 
 class DefaultLog(
-        private val tag: String,
-        private val writer: (Int, String, String) -> Any = defaultWriter::writer,
-        private val exceptionWriter: (Int, String, Throwable) -> Any = defaultWriter::exceptionWriter
+    private val tag: String,
+    private val writer: (Int, String, String) -> Any = defaultWriter::writer,
+    private val exceptionWriter: (Int, String, Throwable) -> Any = defaultWriter::exceptionWriter
 ) : Log {
 
     override fun e(vararg msgs: Any) {
@@ -136,9 +136,9 @@ private fun tag() = TAG_TEMPLATE.format(Thread.currentThread().name)
 private fun line(msg: Any, params: String) = LINE_TEMPLATE.format(msg, params)
 
 private fun params(vararg msgs: Any) = msgs
-        .drop(1)
-        .map { it.toString() }
-        .joinToString(", ")
+    .drop(1)
+    .map { it.toString() }
+    .joinToString(", ")
 
 var LOGGER_TEST = false
 
@@ -146,9 +146,11 @@ private fun write(priority: Int, tag: String, line: String) {
     if (!LOGGER_TEST) {
         android.util.Log.println(priority, tag, line)
         try {
-            logFile?.println(FILE_LINE_TEMPLATE.format(
+            logFile?.println(
+                FILE_LINE_TEMPLATE.format(
                     time(), priorityToLetter(priority), tag, line
-            ))
+                )
+            )
         } catch (ex: Exception) {
         }
     } else systemWriter(priority, tag, line)
@@ -170,13 +172,16 @@ private val logFile by lazy {
         val path = File(getActiveContext()!!.filesDir, "blokada.log")
         val writer = PrintWriter(FileOutputStream(path, true), true)
         if (path.length() > 4 * 1024 * 1024) path.delete()
-        android.util.Log.println(android.util.Log.VERBOSE, tag(),
-                "writing logs to file: ${path.canonicalPath}")
+        android.util.Log.println(
+            android.util.Log.VERBOSE, tag(),
+            "writing logs to file: ${path.canonicalPath}"
+        )
         writer
     } catch (ex: Exception) {
         android.util.Log.println(android.util.Log.WARN, tag(), "failed to open log file")
-        android.util.Log.println(android.util.Log.WARN, tag(),
-                android.util.Log.getStackTraceString(ex)
+        android.util.Log.println(
+            android.util.Log.WARN, tag(),
+            android.util.Log.getStackTraceString(ex)
         )
         null
     }

@@ -12,10 +12,10 @@ import org.blokada.R
 import java.util.*
 
 class VpnStatusVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val s: Tunnel = ktx.di().instance(),
-        private val tunnelStatus: EnabledStateActor = ktx.di().instance()
+    private val ktx: AndroidKontext,
+    private val i18n: I18n = ktx.di().instance(),
+    private val s: Tunnel = ktx.di().instance(),
+    private val tunnelStatus: EnabledStateActor = ktx.di().instance()
 ) : ByteVB() {
 
     override fun attach(view: ByteView) {

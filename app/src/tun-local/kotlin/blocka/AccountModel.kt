@@ -4,14 +4,14 @@ import android.os.Build
 import java.util.*
 
 data class CurrentAccount(
-        val id: String = "",
-        val activeUntil: Date = Date(0),
-        val privateKey: String = "",
-        val publicKey: String = "",
-        val lastAccountCheck: Long = 0,
-        val accountOk: Boolean = false,
-        val migration: Int = 0,
-        val unsupportedForVersionCode: Int = 0
+    val id: String = "",
+    val activeUntil: Date = Date(0),
+    val privateKey: String = "",
+    val publicKey: String = "",
+    val lastAccountCheck: Long = 0,
+    val accountOk: Boolean = false,
+    val migration: Int = 0,
+    val unsupportedForVersionCode: Int = 0
 ) {
     override fun toString(): String {
         // No account ID and private key
@@ -20,19 +20,19 @@ data class CurrentAccount(
 }
 
 data class CurrentLease(
-        val gatewayId: String = "",
-        val gatewayIp: String = "",
-        val gatewayPort: Int = 0,
-        val gatewayNiceName: String = "",
-        val vip4: String = "",
-        val vip6: String = "",
-        val leaseActiveUntil: Date = Date(0),
-        val leaseOk: Boolean = false,
-        val migration: Int = 0
+    val gatewayId: String = "",
+    val gatewayIp: String = "",
+    val gatewayPort: Int = 0,
+    val gatewayNiceName: String = "",
+    val vip4: String = "",
+    val vip6: String = "",
+    val leaseActiveUntil: Date = Date(0),
+    val leaseOk: Boolean = false,
+    val migration: Int = 0
 )
 
 data class BlockaVpnState(
-        val enabled: Boolean
+    val enabled: Boolean
 )
 
 

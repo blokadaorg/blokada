@@ -13,12 +13,12 @@ import tunnel.showSnack
 import java.nio.charset.Charset
 
 class ActiveDnsVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val i18n: I18n = ktx.di().instance(),
-        private val tunnelEvents: Tunnel = ktx.di().instance(),
-        private val tunnelStatus: EnabledStateActor = ktx.di().instance(),
-        private val dns: Dns = ktx.di().instance()
+    private val ktx: AndroidKontext,
+    private val ctx: Context = ktx.ctx,
+    private val i18n: I18n = ktx.di().instance(),
+    private val tunnelEvents: Tunnel = ktx.di().instance(),
+    private val tunnelStatus: EnabledStateActor = ktx.di().instance(),
+    private val dns: Dns = ktx.di().instance()
 ) : ByteVB() {
 
     private var dnsServersChanged: IWhen? = null
@@ -63,10 +63,15 @@ class ActiveDnsVB(
             var name: String? = null
             try {
                 val item = dns.choices().first { it.active }
-                val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
+                val id = if (item.id.startsWith("custom-dns:")) Base64.decode(
+                    item.id.removePrefix("custom-dns:"),
+                    Base64.NO_WRAP
+                ).toString(Charset.defaultCharset()) else item.id
                 name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment ?: id.capitalize()
-                name = if (dns.enabled() && dns.hasCustomDnsSelected() && tunnelEvents.enabled()) name else null
-            } catch (e: Exception) {}
+                name =
+                    if (dns.enabled() && dns.hasCustomDnsSelected() && tunnelEvents.enabled()) name else null
+            } catch (e: Exception) {
+            }
 
             setTexts(name)
             switch(name != null)
@@ -119,11 +124,11 @@ class ActiveDnsVB(
 }
 
 class MenuActiveDnsVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val tunnelState: Tunnel = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance(),
-        private val dns: Dns = ktx.di().instance()
+    private val ktx: AndroidKontext,
+    private val ctx: Context = ktx.ctx,
+    private val tunnelState: Tunnel = ktx.di().instance(),
+    private val i18n: I18n = ktx.di().instance(),
+    private val dns: Dns = ktx.di().instance()
 ) : BitVB() {
 
     private var dnsServersChanged: IWhen? = null
@@ -163,7 +168,10 @@ class MenuActiveDnsVB(
             } else {
                 val item = dns.choices().firstOrNull() { it.active }
                 if (item != null) {
-                    val id = if (item.id.startsWith("custom-dns:")) Base64.decode(item.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset()) else item.id
+                    val id = if (item.id.startsWith("custom-dns:")) Base64.decode(
+                        item.id.removePrefix("custom-dns:"),
+                        Base64.NO_WRAP
+                    ).toString(Charset.defaultCharset()) else item.id
                     val name = i18n.localisedOrNull("dns_${id}_name") ?: item.comment
                     ?: id.capitalize()
 

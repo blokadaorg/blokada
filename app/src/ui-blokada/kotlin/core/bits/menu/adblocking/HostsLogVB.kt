@@ -17,9 +17,9 @@ import tunnel.Persistence
 import tunnel.Request
 
 class HostsLogVB(
-        val ktx: AndroidKontext,
-        val activity: ComponentProvider<Activity> = ktx.di().instance(),
-        override val name: Resource = R.string.panel_section_ads_log.res()
+    val ktx: AndroidKontext,
+    val activity: ComponentProvider<Activity> = ktx.di().instance(),
+    override val name: Resource = R.string.panel_section_ads_log.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     private val slotMutex = SlotMutex()
@@ -32,7 +32,7 @@ class HostsLogVB(
 
     private val request = { it: Request ->
         if (it != firstItem) {
-            if(searchString.isEmpty() || it.domain.contains(searchString.toLowerCase())) {
+            if (searchString.isEmpty() || it.domain.contains(searchString.toLowerCase())) {
                 val dash = requestToVB(it)
                 items.add(0, dash)
                 view?.add(dash, 3)
@@ -45,7 +45,7 @@ class HostsLogVB(
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
-        if(view.getItemCount() == 0) {
+        if (view.getItemCount() == 0) {
             view.add(SearchBarVB(ktx, onSearch = { s ->
                 searchString = s
                 nextBatch = 0
@@ -92,10 +92,11 @@ class HostsLogVB(
         if (nextBatch < 3) addBatch(loadBatch(nextBatch++))
     }
 
-    private fun loadBatch(batch: Int) = Persistence.request.load(batch).getOr { emptyList() }.filter { r ->
-        if (searchString.isEmpty()) true
-        else r.domain.contains(searchString.toLowerCase())
-    }
+    private fun loadBatch(batch: Int) =
+        Persistence.request.load(batch).getOr { emptyList() }.filter { r ->
+            if (searchString.isEmpty()) true
+            else r.domain.contains(searchString.toLowerCase())
+        }
 
     private fun addBatch(batch: List<Request>) {
         items.addAll(batch.distinct().map {
@@ -108,21 +109,34 @@ class HostsLogVB(
 
     private fun requestToVB(it: Request): SlotVB {
         return if (it.blocked)
-            DomainBlockedVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime) else
-            DomainForwarderVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            DomainBlockedVB(
+                it.domain,
+                it.time,
+                ktx,
+                alternative = true,
+                onTap = slotMutex.openOneAtATime
+            ) else
+            DomainForwarderVB(
+                it.domain,
+                it.time,
+                ktx,
+                alternative = true,
+                onTap = slotMutex.openOneAtATime
+            )
     }
 }
 
 fun createHostsLogMenuItem(ktx: AndroidKontext): NamedViewBinder {
-    return MenuItemVB(ktx,
-            label = R.string.panel_section_ads_log.res(),
-            icon = R.drawable.ic_menu.res(),
-            opens = HostsLogVB(ktx)
+    return MenuItemVB(
+        ktx,
+        label = R.string.panel_section_ads_log.res(),
+        icon = R.drawable.ic_menu.res(),
+        opens = HostsLogVB(ktx)
     )
 }
 
 class ResetHostLogVB(
-        private val onReset: () -> Unit
+    private val onReset: () -> Unit
 ) : BitVB() {
 
     override fun attach(view: BitView) {

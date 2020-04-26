@@ -8,10 +8,10 @@ import org.blokada.R
 import tunnel.TunnelConfig
 
 class MasterSwitchVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val tunnelEvents: Tunnel = ktx.di().instance(),
-        private val tunnelStatus: EnabledStateActor = ktx.di().instance()
+    private val ktx: AndroidKontext,
+    private val i18n: I18n = ktx.di().instance(),
+    private val tunnelEvents: Tunnel = ktx.di().instance(),
+    private val tunnelStatus: EnabledStateActor = ktx.di().instance()
 ) : core.MasterSwitchVB() {
 
     private var active = false
@@ -64,7 +64,7 @@ class MasterSwitchVB(
                 else -> {
                     state("Blokada Tunnel is active, and your Internet is protected".res())
                 }
-           }
+            }
         }
         Unit
     }

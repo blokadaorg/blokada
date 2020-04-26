@@ -17,10 +17,20 @@ class ANotificationsToggleService : IntentService("notificationsToggle") {
     override fun onHandleIntent(intent: Intent) {
         val t: Tunnel = this.inject().instance()
         t.enabled %= intent.getBooleanExtra("new_state", true)
-        if(intent.getBooleanExtra("new_state", true)){
-            mHandler.post(DisplayToastRunnable(this, this.resources.getString(R.string.notification_keepalive_activating)))
-        }else{
-            mHandler.post(DisplayToastRunnable(this, this.resources.getString(R.string.notification_keepalive_deactivating)))
+        if (intent.getBooleanExtra("new_state", true)) {
+            mHandler.post(
+                DisplayToastRunnable(
+                    this,
+                    this.resources.getString(R.string.notification_keepalive_activating)
+                )
+            )
+        } else {
+            mHandler.post(
+                DisplayToastRunnable(
+                    this,
+                    this.resources.getString(R.string.notification_keepalive_deactivating)
+                )
+            )
         }
     }
 

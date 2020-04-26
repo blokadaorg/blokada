@@ -13,8 +13,8 @@ import android.view.ViewGroup
 import org.blokada.R
 
 class PanelLayout(
-        ctx: Context,
-        val attributeSet: AttributeSet
+    ctx: Context,
+    val attributeSet: AttributeSet
 ) : ViewGroup(ctx, attributeSet) {
 
     interface SwipeListener {
@@ -65,19 +65,20 @@ class PanelLayout(
     private lateinit var dragHelper: ViewDragHelper
     private lateinit var gestureDetector: GestureDetectorCompat
 
-    private var dragStateChangeListener: DragStateChangeListener? = null // only used for ViewBindHelper
+    private var dragStateChangeListener: DragStateChangeListener? =
+        null // only used for ViewBindHelper
     private var swipeListener: SwipeListener? = null
 
     private var onLayoutCount = 0
 
     private val dragHelperCallback = object : ViewDragHelper.Callback() {
 
-        private fun halfwayPivotHorizontal() = when(dragging) {
+        private fun halfwayPivotHorizontal() = when (dragging) {
             Dragging.LEFT -> main.closed.left + viewWidth / 2
             else -> main.closed.right - viewWidth / 2
         }
 
-        private fun halfwayPivotVertical() = when(dragging) {
+        private fun halfwayPivotVertical() = when (dragging) {
             Dragging.TOP -> main.closed.top + viewHeight / 2
             else -> main.closed.bottom - viewHeight / 2
         }
@@ -99,12 +100,12 @@ class PanelLayout(
 
             return when (dragging) {
                 Dragging.TOP -> Math.max(
-                        Math.min(top, main.closed.top + viewHeight),
-                        main.closed.top
+                    Math.min(top, main.closed.top + viewHeight),
+                    main.closed.top
                 )
                 Dragging.BOTTOM -> Math.max(
-                        Math.min(top, main.closed.top),
-                        main.closed.top - viewHeight
+                    Math.min(top, main.closed.top),
+                    main.closed.top - viewHeight
                 )
                 else -> child.top
             }
@@ -120,12 +121,12 @@ class PanelLayout(
 
             return when (dragging) {
                 Dragging.RIGHT -> Math.max(
-                        Math.min(left, main.closed.left),
-                        main.closed.left - viewWidth
+                    Math.min(left, main.closed.left),
+                    main.closed.left - viewWidth
                 )
                 Dragging.LEFT -> return Math.max(
-                        Math.min(left, main.closed.left + viewWidth),
-                        main.closed.left
+                    Math.min(left, main.closed.left + viewWidth),
+                    main.closed.left
                 )
                 else -> child.left
             }
@@ -168,16 +169,24 @@ class PanelLayout(
             if (isDragLocked) return
 
             val edgeStartLeft = dragging == Dragging.LEFT && edgeFlags == ViewDragHelper.EDGE_LEFT
-            val edgeStartRight = dragging == Dragging.RIGHT && edgeFlags == ViewDragHelper.EDGE_RIGHT
+            val edgeStartRight =
+                dragging == Dragging.RIGHT && edgeFlags == ViewDragHelper.EDGE_RIGHT
             val edgeStartTop = dragging == Dragging.TOP && edgeFlags == ViewDragHelper.EDGE_TOP
-            val edgeStartBottom = dragging == Dragging.BOTTOM && edgeFlags == ViewDragHelper.EDGE_BOTTOM
+            val edgeStartBottom =
+                dragging == Dragging.BOTTOM && edgeFlags == ViewDragHelper.EDGE_BOTTOM
 
             if (edgeStartLeft || edgeStartRight || edgeStartTop || edgeStartBottom) {
                 dragHelper.captureChildView(mainView, pointerId)
             }
         }
 
-        override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
+        override fun onViewPositionChanged(
+            changedView: View,
+            left: Int,
+            top: Int,
+            dx: Int,
+            dy: Int
+        ) {
             super.onViewPositionChanged(changedView, left, top, dx, dy)
             when (dragging) {
                 Dragging.LEFT -> leftView.offsetLeftAndRight(dx)
@@ -209,19 +218,18 @@ class PanelLayout(
             when (state) {
                 ViewDragHelper.STATE_DRAGGING -> this@PanelLayout.state = STATE_DRAGGING
                 ViewDragHelper.STATE_IDLE ->
-                    this@PanelLayout.state = if (dragging in listOf(Dragging.LEFT, Dragging.RIGHT)) {
-                        if (mainView.left == main.closed.left) {
-                            dragging = Dragging.NONE
-                            STATE_CLOSE
+                    this@PanelLayout.state =
+                        if (dragging in listOf(Dragging.LEFT, Dragging.RIGHT)) {
+                            if (mainView.left == main.closed.left) {
+                                dragging = Dragging.NONE
+                                STATE_CLOSE
+                            } else STATE_OPEN
+                        } else {
+                            if (mainView.top == main.closed.top) {
+                                dragging = Dragging.NONE
+                                STATE_CLOSE
+                            } else STATE_OPEN
                         }
-                        else STATE_OPEN
-                    } else {
-                        if (mainView.top == main.closed.top) {
-                            dragging = Dragging.NONE
-                            STATE_CLOSE
-                        }
-                        else STATE_OPEN
-                    }
             }
 
             if (dragStateChangeListener != null && !aborted && prevState != this@PanelLayout.state) {
@@ -239,12 +247,22 @@ class PanelLayout(
             return true
         }
 
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+        override fun onFling(
+            e1: MotionEvent,
+            e2: MotionEvent,
+            velocityX: Float,
+            velocityY: Float
+        ): Boolean {
             isScrolling = true
             return false
         }
 
-        override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
+        override fun onScroll(
+            e1: MotionEvent,
+            e2: MotionEvent,
+            distanceX: Float,
+            distanceY: Float
+        ): Boolean {
             isScrolling = true
 
             if (parent != null) {
@@ -271,16 +289,17 @@ class PanelLayout(
 
     init {
         val a = context.theme.obtainStyledAttributes(
-                attributeSet,
-                R.styleable.PanelLayout,
-                0, 0
+            attributeSet,
+            R.styleable.PanelLayout,
+            0, 0
         )
 
-        minFlingVelocity = a.getInteger(R.styleable.PanelLayout_flingVelocity, DEFAULT_MIN_FLING_VELOCITY)
+        minFlingVelocity =
+            a.getInteger(R.styleable.PanelLayout_flingVelocity, DEFAULT_MIN_FLING_VELOCITY)
 
         minDistRequestDisallowParent = a.getDimensionPixelSize(
-                R.styleable.PanelLayout_minDistRequestDisallowParent,
-                context.dpToPx(DEFAULT_MIN_DIST_REQUEST_DISALLOW_PARENT)
+            R.styleable.PanelLayout_minDistRequestDisallowParent,
+            context.dpToPx(DEFAULT_MIN_DIST_REQUEST_DISALLOW_PARENT)
         )
 
         dragHelper = ViewDragHelper.create(this, 1.0f, dragHelperCallback)
@@ -324,8 +343,10 @@ class PanelLayout(
             var matchParentWidth = false
 
             if (childParams != null) {
-                matchParentHeight = childParams.height == ViewGroup.LayoutParams.MATCH_PARENT || childParams.height == ViewGroup.LayoutParams.FILL_PARENT
-                matchParentWidth = childParams.width == ViewGroup.LayoutParams.MATCH_PARENT || childParams.width == ViewGroup.LayoutParams.FILL_PARENT
+                matchParentHeight =
+                    childParams.height == ViewGroup.LayoutParams.MATCH_PARENT || childParams.height == ViewGroup.LayoutParams.FILL_PARENT
+                matchParentWidth =
+                    childParams.width == ViewGroup.LayoutParams.MATCH_PARENT || childParams.width == ViewGroup.LayoutParams.FILL_PARENT
             }
 
             if (matchParentHeight) {
@@ -469,7 +490,8 @@ class PanelLayout(
             }
 
             if (heightMode == View.MeasureSpec.AT_MOST) {
-                desiredHeight = if (desiredHeight > measuredHeight) measuredHeight else desiredHeight
+                desiredHeight =
+                    if (desiredHeight > measuredHeight) measuredHeight else desiredHeight
             }
         }
 
@@ -483,7 +505,7 @@ class PanelLayout(
             else -> main.closed.left
         }
 
-        val t= when (dragging) {
+        val t = when (dragging) {
             Dragging.TOP -> main.closed.top + viewHeight
             Dragging.BOTTOM -> main.closed.top - viewHeight
             else -> main.closed.top
@@ -624,28 +646,28 @@ class PanelLayout(
             dragHelper.abort()
 
             mainView.layout(
-                    main.opened.left, main.opened.top,
-                    main.opened.right, main.opened.bottom
+                main.opened.left, main.opened.top,
+                main.opened.right, main.opened.bottom
             )
 
             leftView.layout(
-                    left.opened.left, left.opened.top,
-                    left.opened.right, left.opened.bottom
+                left.opened.left, left.opened.top,
+                left.opened.right, left.opened.bottom
             )
 
             rightView.layout(
-                    right.opened.left, right.opened.top,
-                    right.opened.right, right.opened.bottom
+                right.opened.left, right.opened.top,
+                right.opened.right, right.opened.bottom
             )
 
             topView.layout(
-                    top.closed.left, top.closed.top,
-                    top.closed.right, top.closed.bottom
+                top.closed.left, top.closed.top,
+                top.closed.right, top.closed.bottom
             )
 
             bottomView.layout(
-                    bottom.closed.left, bottom.closed.top,
-                    bottom.closed.right, bottom.closed.bottom
+                bottom.closed.left, bottom.closed.top,
+                bottom.closed.right, bottom.closed.bottom
             )
         }
 
@@ -666,28 +688,28 @@ class PanelLayout(
             dragging = Dragging.NONE
 
             mainView.layout(
-                    main.closed.left, main.closed.top,
-                    main.closed.right, main.closed.bottom
+                main.closed.left, main.closed.top,
+                main.closed.right, main.closed.bottom
             )
 
             leftView.layout(
-                    left.closed.left, left.closed.top,
-                    left.closed.right, left.closed.bottom
+                left.closed.left, left.closed.top,
+                left.closed.right, left.closed.bottom
             )
 
             rightView.layout(
-                    right.closed.left, right.closed.top,
-                    right.closed.right, right.closed.bottom
+                right.closed.left, right.closed.top,
+                right.closed.right, right.closed.bottom
             )
 
             topView.layout(
-                    top.closed.left, top.closed.top,
-                    top.closed.right, top.closed.bottom
+                top.closed.left, top.closed.top,
+                top.closed.right, top.closed.bottom
             )
 
             bottomView.layout(
-                    bottom.closed.left, bottom.closed.top,
-                    bottom.closed.right, bottom.closed.bottom
+                bottom.closed.left, bottom.closed.top,
+                bottom.closed.right, bottom.closed.bottom
             )
         }
 
@@ -723,28 +745,28 @@ class PanelLayout(
 
     private fun initRects() {
         main.closed.set(
-                mainView.left, mainView.top,
-                mainView.right, mainView.bottom
+            mainView.left, mainView.top,
+            mainView.right, mainView.bottom
         )
 
         left.closed.set(
-                leftView.left, leftView.top,
-                leftView.right, leftView.bottom
+            leftView.left, leftView.top,
+            leftView.right, leftView.bottom
         )
 
         right.closed.set(
-                rightView.left, rightView.top,
-                rightView.right, rightView.bottom
+            rightView.left, rightView.top,
+            rightView.right, rightView.bottom
         )
 
         top.closed.set(
-                topView.left, topView.top,
-                topView.right, topView.bottom
+            topView.left, topView.top,
+            topView.right, topView.bottom
         )
 
         bottom.closed.set(
-                bottomView.left, bottomView.top,
-                bottomView.right, bottomView.bottom
+            bottomView.left, bottomView.top,
+            bottomView.right, bottomView.bottom
         )
     }
 

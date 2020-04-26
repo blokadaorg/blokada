@@ -3,10 +3,10 @@ package blocka
 import java.util.*
 
 internal class BlockaVpnManager(
-        internal var enabled: Boolean,
-        private val accountManager: AccountManager,
-        private val leaseManager: LeaseManager,
-        private val scheduleAccountCheck: () -> Any
+    internal var enabled: Boolean,
+    private val accountManager: AccountManager,
+    private val leaseManager: LeaseManager,
+    private val scheduleAccountCheck: () -> Any
 ) {
 
     fun restoreAccount(newId: AccountId) {
@@ -37,12 +37,13 @@ internal class BlockaVpnManager(
         }
     }
 
-    fun shouldSync() = accountManager.state.id.isEmpty() || leaseManager.state.leaseActiveUntil.before(Date())
+    fun shouldSync() =
+        accountManager.state.id.isEmpty() || leaseManager.state.leaseActiveUntil.before(Date())
 }
 
-class BlockaAccountExpired: Exception()
-class BlockaAccountEmpty: Exception()
-class BlockaAccountNotOk: Exception()
-class BlockaLeaseNotOk: Exception()
-class BlockaGatewayNotSelected: Exception()
-class BlockaTooManyDevices: Exception()
+class BlockaAccountExpired : Exception()
+class BlockaAccountEmpty : Exception()
+class BlockaAccountNotOk : Exception()
+class BlockaLeaseNotOk : Exception()
+class BlockaGatewayNotSelected : Exception()
+class BlockaTooManyDevices : Exception()

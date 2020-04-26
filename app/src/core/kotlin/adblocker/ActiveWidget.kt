@@ -73,8 +73,9 @@ class ActiveWidgetProvider : AppWidgetProvider() {
                 val extras = intent.extras
                 if (extras != null) {
                     val appWidgetId = extras.getInt(
-                            AppWidgetManager.EXTRA_APPWIDGET_ID,
-                            AppWidgetManager.INVALID_APPWIDGET_ID)
+                        AppWidgetManager.EXTRA_APPWIDGET_ID,
+                        AppWidgetManager.INVALID_APPWIDGET_ID
+                    )
                     if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
                         return
                     }
@@ -104,15 +105,18 @@ class ActiveWidgetProvider : AppWidgetProvider() {
 
     override fun onDisabled(context: Context?) {
         super.onDisabled(context)
-        val serviceIntent = Intent(context?.applicationContext,
-                UpdateWidgetService::class.java)
+        val serviceIntent = Intent(
+            context?.applicationContext,
+            UpdateWidgetService::class.java
+        )
         context?.stopService(serviceIntent)
     }
 }
 
 class UpdateWidgetService : Service() {
 
-    private val onBlockedEvent = { request: Request -> if (request.blocked) onBlocked(request.domain) }
+    private val onBlockedEvent =
+        { request: Request -> if (request.blocked) onBlocked(request.domain) }
     private val onNewWidgetEvent = { data: WidgetData -> onNewWidget(data) }
     private val onRestoreEvent = { restoreData: WidgetRestoreData -> onRestoreWidget(restoreData) }
     private val onDeleteEvent = { appWidgetIds: IntArray -> onDeleteWidget(appWidgetIds) }
@@ -125,7 +129,7 @@ class UpdateWidgetService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if(widgetList.isEmpty()) {
+        if (widgetList.isEmpty()) {
             val pref = this.getSharedPreferences("widgets", Context.MODE_PRIVATE)
 
             val appWidgetManager = AppWidgetManager.getInstance(this)
@@ -260,24 +264,45 @@ class UpdateWidgetService : Service() {
         val t: Tunnel = this.inject().instance()
         when (t.tunnelState()) {
             TunnelState.ACTIVE ->
-                remoteViews.setInt(R.id.widget_active, "setColorFilter", color(active = true, waiting = false))
+                remoteViews.setInt(
+                    R.id.widget_active,
+                    "setColorFilter",
+                    color(active = true, waiting = false)
+                )
             TunnelState.ACTIVATING ->
-                remoteViews.setInt(R.id.widget_active, "setColorFilter", color(active = true, waiting = true))
+                remoteViews.setInt(
+                    R.id.widget_active,
+                    "setColorFilter",
+                    color(active = true, waiting = true)
+                )
             TunnelState.DEACTIVATING ->
-                remoteViews.setInt(R.id.widget_active, "setColorFilter", color(active = false, waiting = true))
+                remoteViews.setInt(
+                    R.id.widget_active,
+                    "setColorFilter",
+                    color(active = false, waiting = true)
+                )
             TunnelState.DEACTIVATED, TunnelState.INACTIVE ->
-                remoteViews.setInt(R.id.widget_active, "setColorFilter", color(active = false, waiting = false))
+                remoteViews.setInt(
+                    R.id.widget_active,
+                    "setColorFilter",
+                    color(active = false, waiting = false)
+                )
         }
 
-        appWidgetManager.partiallyUpdateAppWidget(appWidgetManager.getAppWidgetIds(thisWidget), remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(
+            appWidgetManager.getAppWidgetIds(thisWidget),
+            remoteViews
+        )
 
         appWidgetManager.getAppWidgetIds(thisWidget).forEach {
             val intent = Intent(this, ActiveWidgetProvider::class.java)
             intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, it)
             intent.putExtra("changeBlokadaState", true)
-            val pendingIntent = PendingIntent.getBroadcast(this.applicationContext,
-                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val pendingIntent = PendingIntent.getBroadcast(
+                this.applicationContext,
+                0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+            )
             remoteViews.setOnClickPendingIntent(R.id.widget_active, pendingIntent)
             appWidgetManager.partiallyUpdateAppWidget(it, remoteViews)
         }
@@ -293,12 +318,16 @@ class UpdateWidgetService : Service() {
             !d.enabled() -> this.getString(R.string.dns_text_none)
             dc == null -> this.getString(R.string.dns_text_none)
             dc.servers.isEmpty() -> this.getString(R.string.dns_text_none)
-            dc.id.startsWith("custom-dns:") ->  Base64.decode(dc.id.removePrefix("custom-dns:"), Base64.NO_WRAP).toString(Charset.defaultCharset())
+            dc.id.startsWith("custom-dns:") -> Base64.decode(
+                dc.id.removePrefix("custom-dns:"),
+                Base64.NO_WRAP
+            ).toString(Charset.defaultCharset())
             else -> i18n.localisedOrNull("dns_${dc.id}_name") ?: dc.comment ?: dc.id.capitalize()
         }
 
         remoteViews.setTextViewText(R.id.widget_dns, name)
-        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.dns) e.id else null }.toIntArray(), remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.dns) e.id else null }
+            .toIntArray(), remoteViews)
     }
 
     private fun onBlocked(host: String) {
@@ -308,19 +337,23 @@ class UpdateWidgetService : Service() {
         val t: Tunnel = this.inject().instance()
         remoteViews.setTextViewText(R.id.widget_counter, Format.counterShort(t.tunnelDropCount()))
 
-        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.counter) e.id else null }.toIntArray(), remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.counter) e.id else null }
+            .toIntArray(), remoteViews)
 
         remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
         remoteViews.setTextViewText(R.id.widget_host, host)
 
-        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.host) e.id else null }.toIntArray(), remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.host) e.id else null }
+            .toIntArray(), remoteViews)
     }
 
     private fun setWidget(data: WidgetData) {
 
         val appWidgetManager = AppWidgetManager.getInstance(this)
-        val views = RemoteViews(this.packageName,
-                R.layout.widget_active)
+        val views = RemoteViews(
+            this.packageName,
+            R.layout.widget_active
+        )
         if (data.counter) {
             views.setViewVisibility(R.id.widget_counter, View.VISIBLE)
         } else {
@@ -345,8 +378,10 @@ class UpdateWidgetService : Service() {
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, data.id)
         intent.putExtra("changeBlokadaState", true)
-        val pendingIntent = PendingIntent.getBroadcast(this.applicationContext,
-                0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this.applicationContext,
+            0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
         views.setOnClickPendingIntent(R.id.widget_active, pendingIntent)
 
         appWidgetManager.updateAppWidget(data.id, views)
@@ -370,8 +405,9 @@ class ConfigWidgetActivity : Activity() {
         val extras = intent.extras
         if (extras != null) {
             appWidgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID)
+                AppWidgetManager.EXTRA_APPWIDGET_ID,
+                AppWidgetManager.INVALID_APPWIDGET_ID
+            )
         }
         if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish()
@@ -444,8 +480,10 @@ class ConfigWidgetActivity : Activity() {
 
             ktx().emit(NEW_WIDGET, data)
 
-            val serviceIntent = Intent(this.applicationContext,
-                    UpdateWidgetService::class.java)
+            val serviceIntent = Intent(
+                this.applicationContext,
+                UpdateWidgetService::class.java
+            )
             this.startService(serviceIntent)
 
             val resultValue = Intent()

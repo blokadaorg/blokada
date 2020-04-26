@@ -17,15 +17,20 @@ class ANotificationsWhitelistService : IntentService("notificationsWhitelist") {
         val host = intent.getStringExtra("host") ?: return
 
         val f = Filter(
-                id(host, whitelist = true),
-                source = FilterSourceDescriptor("single", host),
-                active = true,
-                whitelist = true
+            id(host, whitelist = true),
+            source = FilterSourceDescriptor("single", host),
+            active = true,
+            whitelist = true
         )
 
         entrypoint.onSaveFilter(f)
 
-        mHandler.post(DisplayToastRunnable(this, getString(R.string.notification_blocked_whitelist_applied)))
+        mHandler.post(
+            DisplayToastRunnable(
+                this,
+                getString(R.string.notification_blocked_whitelist_applied)
+            )
+        )
         notificationMain.cancel(FilteredNotification(""))
     }
 

@@ -10,26 +10,30 @@ import notification.notificationMain
 import java.util.*
 
 data class Announcement(
-        val shouldAnnounce: Boolean = false,
-        val showForSubscribers: Boolean = false,
-        val showNotification: Boolean = false,
-        val index: Int = 0,
-        val id: String = "",
-        val contentUrl: String = "",
-        val title: String = "",
-        val tagline: String = "",
-        var lastCheck: Long = 0L,
-        var displayedIndex: Int = -1
+    val shouldAnnounce: Boolean = false,
+    val showForSubscribers: Boolean = false,
+    val showNotification: Boolean = false,
+    val index: Int = 0,
+    val id: String = "",
+    val contentUrl: String = "",
+    val title: String = "",
+    val tagline: String = "",
+    var lastCheck: Long = 0L,
+    var displayedIndex: Int = -1
 )
 
 fun initAnnouncement() {
-    Register.sourceFor(Announcement::class.java, PaperSource("announcement"), default = Announcement())
+    Register.sourceFor(
+        Announcement::class.java,
+        PaperSource("announcement"),
+        default = Announcement()
+    )
 }
 
 fun maybeCheckForAnnouncement() {
     val ann = get(Announcement::class.java)
     val validity = (86400 * 1000) / 2 // twice a day
-    if (ann.lastCheck + validity  < System.currentTimeMillis()) {
+    if (ann.lastCheck + validity < System.currentTimeMillis()) {
         v("checking for announcement")
         requestAnnouncement()
         maybeShowNotification()

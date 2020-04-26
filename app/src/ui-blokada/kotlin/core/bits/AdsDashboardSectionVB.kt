@@ -16,9 +16,9 @@ import tunnel.Request
 import kotlin.math.max
 
 class AdsDashboardSectionVB(
-        val ktx: AndroidKontext,
-        val activity: ComponentProvider<Activity> = ktx.di().instance(),
-        override val name: Resource = R.string.menu_ads.res()
+    val ktx: AndroidKontext,
+    val activity: ComponentProvider<Activity> = ktx.di().instance(),
+    override val name: Resource = R.string.menu_ads.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     private val screenHeight: Int by lazy {

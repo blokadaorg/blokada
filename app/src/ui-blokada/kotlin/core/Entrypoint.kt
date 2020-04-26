@@ -57,7 +57,7 @@ class Entrypoint {
 
     fun onAppStarted() = async(context) {
         v("onAppStarted")
-        if(tunnelState.enabled()) onEnableTun()
+        if (tunnelState.enabled()) onEnableTun()
         blockaVpnMain.sync(showErrorToUser = false).await()
         tunnelMain.sync()
     }
@@ -72,12 +72,22 @@ class Entrypoint {
         if (!isAdblocking && !isDns && !isBlockaVpn) {
             if (Product.current(ctx) == Product.FULL) {
                 isAdblocking = true
-                tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
+                tunnelMain.setTunnelConfiguration(
+                    config.copy(
+                        tunnelEnabled = true,
+                        adblocking = isAdblocking
+                    )
+                )
                 requestSync(blocka = true)
             } else {
                 if (dns.hasCustomDnsSelected()) {
                     dns.enabled %= true
-                    tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
+                    tunnelMain.setTunnelConfiguration(
+                        config.copy(
+                            tunnelEnabled = true,
+                            adblocking = isAdblocking
+                        )
+                    )
                     requestSync(blocka = true)
                 } else {
                     showSnack(R.string.menu_dns_select.res())
@@ -86,7 +96,12 @@ class Entrypoint {
                 }
             }
         } else {
-            tunnelMain.setTunnelConfiguration(config.copy(tunnelEnabled = true, adblocking = isAdblocking))
+            tunnelMain.setTunnelConfiguration(
+                config.copy(
+                    tunnelEnabled = true,
+                    adblocking = isAdblocking
+                )
+            )
             requestSync(blocka = true)
         }
     }
@@ -104,12 +119,10 @@ class Entrypoint {
             if (on) {
                 blockaVpnMain.enable().await()
                 requestSync(blocka = true, force = true)
-            }
-            else if (shouldPause(blockaEnabled = on)) {
+            } else if (shouldPause(blockaEnabled = on)) {
                 blockaVpnMain.disable().await()
                 tunnelState.enabled %= false
-            }
-            else {
+            } else {
                 blockaVpnMain.disable().await()
                 requestSync()
             }
@@ -175,9 +188,9 @@ class Entrypoint {
     }
 
     private fun shouldPause(
-            adblocking: Boolean = get(TunnelConfig::class.java).adblocking,
-            blockaEnabled: Boolean = get(BlockaVpnState::class.java).enabled,
-            dnsEnabled: Boolean = dns.enabled()
+        adblocking: Boolean = get(TunnelConfig::class.java).adblocking,
+        blockaEnabled: Boolean = get(BlockaVpnState::class.java).enabled,
+        dnsEnabled: Boolean = dns.enabled()
     ) = !dnsEnabled && !blockaEnabled && !adblocking
 
     fun onWentOnline() = async(context) {

@@ -14,8 +14,7 @@ import gs.property.I18n
 import org.blokada.R
 
 
-abstract class ByteVB()
-    : LayoutViewBinder(R.layout.byteview), Stepable, Navigable {
+abstract class ByteVB() : LayoutViewBinder(R.layout.byteview), Stepable, Navigable {
 
     abstract fun attach(view: ByteView)
     open fun detach(view: ByteView) = Unit
@@ -53,8 +52,8 @@ abstract class ByteVB()
 }
 
 class ByteView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     init {

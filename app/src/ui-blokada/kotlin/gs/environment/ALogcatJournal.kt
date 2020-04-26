@@ -9,10 +9,12 @@ class ALogcatJournal(private val tag: String) : Journal {
     }
 
     override fun log(vararg errors: Any) {
-        errors.forEach { when(it) {
-            is Throwable -> Log.e(tag, "------", it)
-            else -> Log.v(tag, it.toString())
-        }}
+        errors.forEach {
+            when (it) {
+                is Throwable -> Log.e(tag, "------", it)
+                else -> Log.v(tag, it.toString())
+            }
+        }
     }
 
     override fun setUserId(id: String) {

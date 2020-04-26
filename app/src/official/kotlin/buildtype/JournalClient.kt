@@ -100,7 +100,12 @@ class JournalClient(instance: String) {
     }
 
     @Synchronized
-    fun initialize(context: Context, apiKey: String, userId: String?, platform: String?): JournalClient {
+    fun initialize(
+        context: Context,
+        apiKey: String,
+        userId: String?,
+        platform: String?
+    ): JournalClient {
         this.context = context.applicationContext
         this.apiKey = apiKey
         this.dbHelper = DatabaseHelper.getDatabaseHelper(context, this.instanceName)
@@ -143,9 +148,11 @@ class JournalClient(instance: String) {
                     initialized = true
 
                 } catch (e: CursorWindowAllocationException) {
-                    logger.e(TAG, String.format(
+                    logger.e(
+                        TAG, String.format(
                             "Failed to initialize Journal SDK due to: %s", e.message
-                    ))
+                        )
+                    )
                     client.apiKey = null
                 }
 
@@ -242,19 +249,34 @@ class JournalClient(instance: String) {
     }
 
     @JvmOverloads
-    fun logEvent(eventType: String, eventProperties: JSONObject? = null, outOfSession: Boolean = false) {
+    fun logEvent(
+        eventType: String,
+        eventProperties: JSONObject? = null,
+        outOfSession: Boolean = false
+    ) {
         logEvent(eventType, eventProperties, null, outOfSession)
     }
 
     @JvmOverloads
-    fun logEvent(eventType: String, eventProperties: JSONObject?, groups: JSONObject?, outOfSession: Boolean = false) {
+    fun logEvent(
+        eventType: String,
+        eventProperties: JSONObject?,
+        groups: JSONObject?,
+        outOfSession: Boolean = false
+    ) {
         logEvent(eventType, eventProperties, groups, currentTimeMillis, outOfSession)
     }
 
-    fun logEvent(eventType: String, eventProperties: JSONObject?, groups: JSONObject?, timestamp: Long, outOfSession: Boolean) {
+    fun logEvent(
+        eventType: String,
+        eventProperties: JSONObject?,
+        groups: JSONObject?,
+        timestamp: Long,
+        outOfSession: Boolean
+    ) {
         if (validateLogEvent(eventType)) {
             logEventAsync(
-                    eventType, eventProperties, null, null, groups, timestamp, outOfSession
+                eventType, eventProperties, null, null, groups, timestamp, outOfSession
             )
         }
     }
@@ -268,9 +290,11 @@ class JournalClient(instance: String) {
         return contextAndApiKeySet("logEvent()")
     }
 
-    protected fun logEventAsync(eventType: String, eventProperties: JSONObject?,
-                                apiProperties: JSONObject?, userProperties: JSONObject?,
-                                groups: JSONObject?, timestamp: Long, outOfSession: Boolean) {
+    protected fun logEventAsync(
+        eventType: String, eventProperties: JSONObject?,
+        apiProperties: JSONObject?, userProperties: JSONObject?,
+        groups: JSONObject?, timestamp: Long, outOfSession: Boolean
+    ) {
         var eventProperties = eventProperties
         var userProperties = userProperties
         var groups = groups
@@ -299,14 +323,16 @@ class JournalClient(instance: String) {
                 return@Runnable
             }
             logEvent(
-                    eventType, copyEventProperties, apiProperties,
-                    copyUserProperties, copyGroups, timestamp, outOfSession
+                eventType, copyEventProperties, apiProperties,
+                copyUserProperties, copyGroups, timestamp, outOfSession
             )
         })
     }
 
-    protected fun logEvent(eventType: String, eventProperties: JSONObject?, apiProperties: JSONObject?,
-                           userProperties: JSONObject?, groups: JSONObject?, timestamp: Long, outOfSession: Boolean): Long {
+    protected fun logEvent(
+        eventType: String, eventProperties: JSONObject?, apiProperties: JSONObject?,
+        userProperties: JSONObject?, groups: JSONObject?, timestamp: Long, outOfSession: Boolean
+    ): Long {
         var apiProperties = apiProperties
         logger.d(TAG, "Logged event to Journal: $eventType")
 
@@ -315,7 +341,8 @@ class JournalClient(instance: String) {
         }
 
 
-        val loggingSessionEvent = trackingSessionEvents && (eventType == START_SESSION_EVENT || eventType == END_SESSION_EVENT)
+        val loggingSessionEvent =
+            trackingSessionEvents && (eventType == START_SESSION_EVENT || eventType == END_SESSION_EVENT)
 
         if (!loggingSessionEvent && !outOfSession) {
 
@@ -356,21 +383,29 @@ class JournalClient(instance: String) {
             apiProperties.put("gps_enabled", false)
 
             event.put("api_properties", apiProperties)
-            event.put("event_properties", if (eventProperties == null)
-                JSONObject()
-            else
-                truncate(eventProperties))
-            event.put("user_properties", if (userProperties == null)
-                JSONObject()
-            else
-                truncate(userProperties))
+            event.put(
+                "event_properties", if (eventProperties == null)
+                    JSONObject()
+                else
+                    truncate(eventProperties)
+            )
+            event.put(
+                "user_properties", if (userProperties == null)
+                    JSONObject()
+                else
+                    truncate(userProperties)
+            )
             event.put("groups", if (groups == null) JSONObject() else truncate(groups))
 
             result = saveEvent(eventType, event)
         } catch (e: JSONException) {
-            logger.e(TAG, String.format(
-                    "JSON Serialization of event type %s failed, skipping: %s", eventType, e.toString()
-            ))
+            logger.e(
+                TAG, String.format(
+                    "JSON Serialization of event type %s failed, skipping: %s",
+                    eventType,
+                    e.toString()
+                )
+            )
         }
 
         return result
@@ -379,9 +414,11 @@ class JournalClient(instance: String) {
     protected fun saveEvent(eventType: String, event: JSONObject): Long {
         val eventString = event.toString()
         if (Utils.isEmptyString(eventString)) {
-            logger.e(TAG, String.format(
+            logger.e(
+                TAG, String.format(
                     "Detected empty event string for event type %s, skipping", eventType
-            ))
+                )
+            )
             return -1
         }
 
@@ -394,8 +431,8 @@ class JournalClient(instance: String) {
         }
 
         val numEventsToRemove = Math.min(
-                Math.max(1, eventMaxCount / 10),
-                Constants.EVENT_REMOVE_BATCH_SIZE
+            Math.max(1, eventMaxCount / 10),
+            Constants.EVENT_REMOVE_BATCH_SIZE
         )
         if (dbHelper?.eventCount ?: 0 > eventMaxCount) {
             dbHelper?.removeEvents(dbHelper?.getNthEventId(numEventsToRemove.toLong()) ?: -1)
@@ -560,10 +597,17 @@ class JournalClient(instance: String) {
     @JvmOverloads
     fun identify(identify: Identify?, outOfSession: Boolean = false) {
         if (identify == null || identify.getUserPropertiesOperations().length() == 0 ||
-                !contextAndApiKeySet("identify()"))
+            !contextAndApiKeySet("identify()")
+        )
             return
         logEventAsync(
-                Constants.IDENTIFY_EVENT, null, null, identify.getUserPropertiesOperations(), null, currentTimeMillis, outOfSession
+            Constants.IDENTIFY_EVENT,
+            null,
+            null,
+            identify.getUserPropertiesOperations(),
+            null,
+            currentTimeMillis,
+            outOfSession
         )
     }
 
@@ -579,8 +623,10 @@ class JournalClient(instance: String) {
         }
 
         val identify = Identify().setUserProperty(groupType, groupName)
-        logEventAsync(Constants.IDENTIFY_EVENT, null, null, identify.getUserPropertiesOperations(),
-                group, currentTimeMillis, false)
+        logEventAsync(
+            Constants.IDENTIFY_EVENT, null, null, identify.getUserPropertiesOperations(),
+            group, currentTimeMillis, false
+        )
     }
 
     fun truncate(`object`: JSONObject?): JSONObject {
@@ -664,7 +710,8 @@ class JournalClient(instance: String) {
     fun setDeviceId(deviceId: String): JournalClient {
         val invalidDeviceIds = invalidDeviceIds
         if (!contextAndApiKeySet("setDeviceId()") || Utils.isEmptyString(deviceId) ||
-                invalidDeviceIds.contains(deviceId)) {
+            invalidDeviceIds.contains(deviceId)
+        ) {
             return this
         }
 
@@ -730,8 +777,8 @@ class JournalClient(instance: String) {
         if (!uploadingCurrently.getAndSet(true)) {
             val totalEventCount = dbHelper?.totalEventCount ?: 0
             val batchSize = Math.min(
-                    (if (limit) backoffUploadBatchSize else eventUploadMaxBatchSize).toLong(),
-                    totalEventCount
+                (if (limit) backoffUploadBatchSize else eventUploadMaxBatchSize).toLong(),
+                totalEventCount
             )
 
             if (batchSize <= 0) {
@@ -744,7 +791,8 @@ class JournalClient(instance: String) {
                 val identifys = dbHelper!!.getIdentifys(lastIdentifyIdInternal, batchSize)
 
                 val merged = mergeEventsAndIdentifys(
-                        events, identifys, batchSize)
+                    events, identifys, batchSize
+                )
                 val mergedEvents = merged.second
                 if (mergedEvents.length() == 0) {
                     uploadingCurrently.set(false)
@@ -754,7 +802,14 @@ class JournalClient(instance: String) {
                 val maxIdentifyId = merged.first.second
                 val mergedEventsString = merged.second.toString()
 
-                httpThread.post(Runnable { makeEventUploadPostRequest(httpClient!!, mergedEventsString, maxEventId, maxIdentifyId) })
+                httpThread.post(Runnable {
+                    makeEventUploadPostRequest(
+                        httpClient!!,
+                        mergedEventsString,
+                        maxEventId,
+                        maxIdentifyId
+                    )
+                })
             } catch (e: JSONException) {
                 uploadingCurrently.set(false)
                 logger.e(TAG, e.toString())
@@ -762,18 +817,22 @@ class JournalClient(instance: String) {
 
             } catch (e: CursorWindowAllocationException) {
                 uploadingCurrently.set(false)
-                logger.e(TAG, String.format(
+                logger.e(
+                    TAG, String.format(
                         "Caught Cursor window exception during event upload, deferring upload: %s",
                         e.message
-                ))
+                    )
+                )
             }
 
         }
     }
 
     @Throws(JSONException::class)
-    protected fun mergeEventsAndIdentifys(events: MutableList<JSONObject>,
-                                          identifys: MutableList<JSONObject>, numEvents: Long): Pair<Pair<Long, Long>, JSONArray> {
+    protected fun mergeEventsAndIdentifys(
+        events: MutableList<JSONObject>,
+        identifys: MutableList<JSONObject>, numEvents: Long
+    ): Pair<Pair<Long, Long>, JSONArray> {
         val merged = JSONArray()
         var maxEventId: Long = -1
         var maxIdentifyId: Long = -1
@@ -783,8 +842,11 @@ class JournalClient(instance: String) {
             val noIdentifys = identifys.isEmpty()
 
             if (noEvents && noIdentifys) {
-                logger.w(TAG, String.format(
-                        "mergeEventsAndIdentifys: number of events and identifys " + "less than expected by %d", numEvents - merged.length())
+                logger.w(
+                    TAG, String.format(
+                        "mergeEventsAndIdentifys: number of events and identifys " + "less than expected by %d",
+                        numEvents - merged.length()
+                    )
                 )
                 break
 
@@ -799,7 +861,10 @@ class JournalClient(instance: String) {
                 merged.put(identify)
 
             } else {
-                if (!events[0].has("sequence_number") || events[0].getLong("sequence_number") < identifys[0].getLong("sequence_number")) {
+                if (!events[0].has("sequence_number") || events[0].getLong("sequence_number") < identifys[0].getLong(
+                        "sequence_number"
+                    )
+                ) {
                     val event = events.removeAt(0)
                     maxEventId = event.getLong("event_id")
                     merged.put(event)
@@ -815,7 +880,12 @@ class JournalClient(instance: String) {
     }
 
 
-    protected fun makeEventUploadPostRequest(client: OkHttpClient, events: String, maxEventId: Long, maxIdentifyId: Long) {
+    protected fun makeEventUploadPostRequest(
+        client: OkHttpClient,
+        events: String,
+        maxEventId: Long,
+        maxIdentifyId: Long
+    ) {
         val apiVersionString = "" + Constants.API_VERSION
         val timestampString = "" + currentTimeMillis
 
@@ -824,25 +894,26 @@ class JournalClient(instance: String) {
             val preimage = apiVersionString + apiKey + events + timestampString
 
             val messageDigest = buildtype.MD5()
-            checksumString = bytesToHexString(messageDigest.digest(preimage.toByteArray(charset("UTF-8"))))
+            checksumString =
+                bytesToHexString(messageDigest.digest(preimage.toByteArray(charset("UTF-8"))))
         } catch (e: UnsupportedEncodingException) {
             logger.e(TAG, e.toString())
         }
 
         val body = FormBody.Builder()
-                .add("v", apiVersionString)
-                .add("client", apiKey!!)
-                .add("e", events)
-                .add("upload_time", timestampString)
-                .add("checksum", checksumString)
-                .build()
+            .add("v", apiVersionString)
+            .add("client", apiKey!!)
+            .add("e", events)
+            .add("upload_time", timestampString)
+            .add("checksum", checksumString)
+            .build()
 
         val request: Request
         try {
             request = Request.Builder()
-                    .url(url)
-                    .post(body)
-                    .build()
+                .url(url)
+                .post(body)
+                .build()
         } catch (e: IllegalArgumentException) {
             logger.e(TAG, e.toString())
             uploadingCurrently.set(false)
@@ -870,11 +941,15 @@ class JournalClient(instance: String) {
             } else if (stringResponse == "invalid_api_key") {
                 logger.e(TAG, "Invalid API key, make sure your API key is correct in initialize()")
             } else if (stringResponse == "bad_checksum") {
-                logger.w(TAG,
-                        "Bad checksum, post request was mangled in transit, will attempt to reupload later")
+                logger.w(
+                    TAG,
+                    "Bad checksum, post request was mangled in transit, will attempt to reupload later"
+                )
             } else if (stringResponse == "request_db_write_failed") {
-                logger.w(TAG,
-                        "Couldn't write to request database on server, will attempt to reupload later")
+                logger.w(
+                    TAG,
+                    "Couldn't write to request database on server, will attempt to reupload later"
+                )
             } else if (response.code() == 413) {
 
                 if (backoffUpload && backoffUploadBatchSize == 1) {
@@ -891,8 +966,10 @@ class JournalClient(instance: String) {
                     updateServer(true)
                 })
             } else {
-                logger.w(TAG, "Upload failed, " + stringResponse
-                        + ", will attempt to reupload later")
+                logger.w(
+                    TAG, "Upload failed, " + stringResponse
+                            + ", will attempt to reupload later"
+                )
             }
         } catch (e: java.net.ConnectException) {
             lastError = e
@@ -947,12 +1024,17 @@ class JournalClient(instance: String) {
     @Synchronized
     protected fun contextAndApiKeySet(methodName: String): Boolean {
         if (context == null) {
-            logger.e(TAG, "context cannot be null, set context with initialize() before calling $methodName")
+            logger.e(
+                TAG,
+                "context cannot be null, set context with initialize() before calling $methodName"
+            )
             return false
         }
         if (Utils.isEmptyString(apiKey)) {
-            logger.e(TAG,
-                    "apiKey cannot be null or empty, set apiKey with initialize() before calling $methodName")
+            logger.e(
+                TAG,
+                "apiKey cannot be null or empty, set apiKey with initialize() before calling $methodName"
+            )
             return false
         }
         return true
@@ -991,7 +1073,11 @@ class JournalClient(instance: String) {
         val PREVIOUS_SESSION_ID_KEY = "previous_session_id"
 
         @JvmOverloads
-        internal fun upgradePrefs(context: Context, sourcePkgName: String? = null, targetPkgName: String? = null): Boolean {
+        internal fun upgradePrefs(
+            context: Context,
+            sourcePkgName: String? = null,
+            targetPkgName: String? = null
+        ): Boolean {
             var sourcePkgName = sourcePkgName
             var targetPkgName = targetPkgName
             try {
@@ -1024,20 +1110,28 @@ class JournalClient(instance: String) {
                 val target = targetPrefs.edit()
 
                 if (source.contains(sourcePkgName!! + ".previousSessionId")) {
-                    target.putLong(Constants.PREFKEY_PREVIOUS_SESSION_ID,
-                            source.getLong("$sourcePkgName.previousSessionId", -1))
+                    target.putLong(
+                        Constants.PREFKEY_PREVIOUS_SESSION_ID,
+                        source.getLong("$sourcePkgName.previousSessionId", -1)
+                    )
                 }
                 if (source.contains("$sourcePkgName.deviceId")) {
-                    target.putString(Constants.PREFKEY_DEVICE_ID,
-                            source.getString("$sourcePkgName.deviceId", null))
+                    target.putString(
+                        Constants.PREFKEY_DEVICE_ID,
+                        source.getString("$sourcePkgName.deviceId", null)
+                    )
                 }
                 if (source.contains("$sourcePkgName.userId")) {
-                    target.putString(Constants.PREFKEY_USER_ID,
-                            source.getString("$sourcePkgName.userId", null))
+                    target.putString(
+                        Constants.PREFKEY_USER_ID,
+                        source.getString("$sourcePkgName.userId", null)
+                    )
                 }
                 if (source.contains("$sourcePkgName.optOut")) {
-                    target.putBoolean(Constants.PREFKEY_OPT_OUT,
-                            source.getBoolean("$sourcePkgName.optOut", false))
+                    target.putBoolean(
+                        Constants.PREFKEY_OPT_OUT,
+                        source.getBoolean("$sourcePkgName.optOut", false)
+                    )
                 }
 
                 target.apply()
@@ -1054,7 +1148,10 @@ class JournalClient(instance: String) {
         }
 
         @JvmOverloads
-        internal fun upgradeSharedPrefsToDB(context: Context, sourcePkgName: String? = null): Boolean {
+        internal fun upgradeSharedPrefsToDB(
+            context: Context,
+            sourcePkgName: String? = null
+        ): Boolean {
             var sourcePkgName = sourcePkgName
             if (sourcePkgName == null) {
                 sourcePkgName = Constants.PACKAGE_NAME
@@ -1072,38 +1169,44 @@ class JournalClient(instance: String) {
             val preferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
 
             migrateStringValue(
-                    preferences, Constants.PREFKEY_DEVICE_ID, null, dbHelper, DEVICE_ID_KEY
+                preferences, Constants.PREFKEY_DEVICE_ID, null, dbHelper, DEVICE_ID_KEY
             )
 
             migrateLongValue(
-                    preferences, Constants.PREFKEY_LAST_EVENT_TIME, -1, dbHelper, LAST_EVENT_TIME_KEY
+                preferences, Constants.PREFKEY_LAST_EVENT_TIME, -1, dbHelper, LAST_EVENT_TIME_KEY
             )
 
             migrateLongValue(
-                    preferences, Constants.PREFKEY_LAST_EVENT_ID, -1, dbHelper, LAST_EVENT_ID_KEY
+                preferences, Constants.PREFKEY_LAST_EVENT_ID, -1, dbHelper, LAST_EVENT_ID_KEY
             )
 
             migrateLongValue(
-                    preferences, Constants.PREFKEY_LAST_IDENTIFY_ID, -1, dbHelper, LAST_IDENTIFY_ID_KEY
+                preferences, Constants.PREFKEY_LAST_IDENTIFY_ID, -1, dbHelper, LAST_IDENTIFY_ID_KEY
             )
 
             migrateLongValue(
-                    preferences, Constants.PREFKEY_PREVIOUS_SESSION_ID, -1,
-                    dbHelper, PREVIOUS_SESSION_ID_KEY
+                preferences, Constants.PREFKEY_PREVIOUS_SESSION_ID, -1,
+                dbHelper, PREVIOUS_SESSION_ID_KEY
             )
 
             migrateStringValue(
-                    preferences, Constants.PREFKEY_USER_ID, null, dbHelper, USER_ID_KEY
+                preferences, Constants.PREFKEY_USER_ID, null, dbHelper, USER_ID_KEY
             )
 
             migrateBooleanValue(
-                    preferences, Constants.PREFKEY_OPT_OUT, false, dbHelper, OPT_OUT_KEY
+                preferences, Constants.PREFKEY_OPT_OUT, false, dbHelper, OPT_OUT_KEY
             )
 
             return true
         }
 
-        private fun migrateLongValue(prefs: SharedPreferences, prefKey: String, defValue: Long, dbHelper: DatabaseHelper, dbKey: String) {
+        private fun migrateLongValue(
+            prefs: SharedPreferences,
+            prefKey: String,
+            defValue: Long,
+            dbHelper: DatabaseHelper,
+            dbKey: String
+        ) {
             val value = dbHelper.getLongValue(dbKey)
             if (value != null) {
                 return
@@ -1113,7 +1216,13 @@ class JournalClient(instance: String) {
             prefs.edit().remove(prefKey).apply()
         }
 
-        private fun migrateStringValue(prefs: SharedPreferences, prefKey: String, defValue: String?, dbHelper: DatabaseHelper, dbKey: String) {
+        private fun migrateStringValue(
+            prefs: SharedPreferences,
+            prefKey: String,
+            defValue: String?,
+            dbHelper: DatabaseHelper,
+            dbKey: String
+        ) {
             val value = dbHelper.getValue(dbKey)
             if (!Utils.isEmptyString(value)) {
                 return
@@ -1125,7 +1234,13 @@ class JournalClient(instance: String) {
             }
         }
 
-        private fun migrateBooleanValue(prefs: SharedPreferences, prefKey: String, defValue: Boolean, dbHelper: DatabaseHelper, dbKey: String) {
+        private fun migrateBooleanValue(
+            prefs: SharedPreferences,
+            prefKey: String,
+            defValue: Boolean,
+            dbHelper: DatabaseHelper,
+            dbKey: String
+        ) {
             val value = dbHelper.getLongValue(dbKey)
             if (value != null) {
                 return

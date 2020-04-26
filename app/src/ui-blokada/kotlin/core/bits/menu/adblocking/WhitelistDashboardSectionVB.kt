@@ -11,8 +11,8 @@ import tunnel.TunnelEvents
 import tunnel.Filter
 
 class WhitelistDashboardSectionVB(
-        val ktx: AndroidKontext,
-        override val name: Resource = R.string.panel_section_ads_whitelist.res()
+    val ktx: AndroidKontext,
+    override val name: Resource = R.string.panel_section_ads_whitelist.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     private val slotMutex = SlotMutex()
@@ -24,11 +24,19 @@ class WhitelistDashboardSectionVB(
 
         (active + inactive).map {
             FilterVB(it, ktx, onTap = slotMutex.openOneAtATime)
-        }.apply { view?.set(listOf(
-                LabelVB(ktx, label = R.string.menu_host_whitelist.res()),
-                NewFilterVB(ktx, whitelist = true, nameResId = R.string.slot_new_filter_whitelist),
-                LabelVB(ktx, label = R.string.panel_section_ads_whitelist.res())
-        ) + this) }
+        }.apply {
+            view?.set(
+                listOf(
+                    LabelVB(ktx, label = R.string.menu_host_whitelist.res()),
+                    NewFilterVB(
+                        ktx,
+                        whitelist = true,
+                        nameResId = R.string.slot_new_filter_whitelist
+                    ),
+                    LabelVB(ktx, label = R.string.panel_section_ads_whitelist.res())
+                ) + this
+            )
+        }
         Unit
     }
 
@@ -39,9 +47,10 @@ class WhitelistDashboardSectionVB(
 }
 
 fun createWhitelistMenuItem(ktx: AndroidKontext): NamedViewBinder {
-    return MenuItemVB(ktx,
-            label = R.string.panel_section_ads_whitelist.res(),
-            icon = R.drawable.ic_verified.res(),
-            opens = WhitelistDashboardSectionVB(ktx)
+    return MenuItemVB(
+        ktx,
+        label = R.string.panel_section_ads_whitelist.res(),
+        icon = R.drawable.ic_verified.res(),
+        opens = WhitelistDashboardSectionVB(ktx)
     )
 }

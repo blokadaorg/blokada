@@ -28,20 +28,20 @@ class Slot {
     data class Action(val name: String, val callback: () -> Unit)
 
     data class Content(
-            val label: String,
-            val header: String = label,
-            val description: String? = null,
-            val info: String? = null,
-            val detail: String? = null,
-            val icon: Drawable? = null,
-            val action1: Action? = null,
-            val action2: Action? = null,
-            val action3: Action? = null,
-            val switched: Boolean? = null,
-            val values: List<String> = emptyList(),
-            val selected: String? = null,
-            val unread: Boolean = false,
-            val color: Int? = null
+        val label: String,
+        val header: String = label,
+        val description: String? = null,
+        val info: String? = null,
+        val detail: String? = null,
+        val icon: Drawable? = null,
+        val action1: Action? = null,
+        val action2: Action? = null,
+        val action3: Action? = null,
+        val switched: Boolean? = null,
+        val values: List<String> = emptyList(),
+        val selected: String? = null,
+        val unread: Boolean = false,
+        val color: Int? = null
     )
 }
 
@@ -50,8 +50,8 @@ internal val defaultOnTap = { view: SlotView ->
     else view.unfold()
 }
 
-abstract class SlotVB(internal var onTap: (SlotView) -> Unit = defaultOnTap)
-    : LayoutViewBinder(R.layout.slotview), Stepable, Navigable {
+abstract class SlotVB(internal var onTap: (SlotView) -> Unit = defaultOnTap) :
+    LayoutViewBinder(R.layout.slotview), Stepable, Navigable {
 
     abstract fun attach(view: SlotView)
     open fun detach(view: SlotView) = Unit
@@ -108,8 +108,8 @@ abstract class SlotVB(internal var onTap: (SlotView) -> Unit = defaultOnTap)
 }
 
 class SlotView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     init {
@@ -191,7 +191,9 @@ class SlotView(
                 }
             }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) =
+                Unit
+
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
         })
     }
@@ -279,13 +281,15 @@ class SlotView(
             content.values.isNotEmpty() && content.selected in content.values -> switchViews.forEach {
                 it.visibility = View.VISIBLE
                 it.text = content.selected
-                it.setTextColor(resources.getColor(
+                it.setTextColor(
+                    resources.getColor(
                         when (content.selected) {
                             i18n.getString(R.string.slot_allapp_whitelisted) -> R.color.switch_on
                             i18n.getString(R.string.slot_allapp_normal) -> R.color.switch_off
                             else -> R.color.colorAccent
                         }
-                ))
+                    )
+                )
                 buttonSeparatorView.visibility = View.VISIBLE
             }
             type == Slot.Type.EDIT && content.switched == null -> switchViews.forEach {
@@ -417,8 +421,10 @@ class SlotView(
                 // Set action that switches between two boolean values
                 val c = content!!
                 val nextValue = !(c.switched!!)
-                val nextValueName = i18n.getString(if (nextValue) R.string.slot_switch_on
-                        else R.string.slot_switch_off)
+                val nextValueName = i18n.getString(
+                    if (nextValue) R.string.slot_switch_on
+                    else R.string.slot_switch_off
+                )
                 bind(Slot.Action(nextValueName, {
                     content = c.copy(switched = nextValue)
                     onSwitch(nextValue)
@@ -432,9 +438,9 @@ class SlotView(
             }
             else -> {
                 listOf(
-                        action1 to action1View,
-                        action2 to action2View,
-                        action3 to action3View
+                    action1 to action1View,
+                    action2 to action2View,
+                    action3 to action3View
                 ).forEach { bind(it.first, it.second) }
             }
         }
@@ -465,8 +471,10 @@ class SlotView(
     private val timeRefreshHandler = Handler {
         if (date != null) {
             timeView.visibility = View.VISIBLE
-            timeView.text = DateUtils.getRelativeTimeSpanString(date?.time!!, Date().time,
-                    DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE)
+            timeView.text = DateUtils.getRelativeTimeSpanString(
+                date?.time!!, Date().time,
+                DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE
+            )
             scheduleTimeRefresh()
         } else
             timeView.visibility = View.GONE
@@ -484,8 +492,8 @@ class SlotView(
 }
 
 class LabelView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     init {
@@ -517,10 +525,10 @@ class LabelView(
 }
 
 class LabelVB(
-        val ktx: AndroidKontext,
-        val i18n: I18n = ktx.di().instance(),
-        val label: Resource,
-        val hiddenAction: (() -> Unit)? = null
+    val ktx: AndroidKontext,
+    val i18n: I18n = ktx.di().instance(),
+    val label: Resource,
+    val hiddenAction: (() -> Unit)? = null
 ) : LayoutViewBinder(R.layout.labelview) {
 
     override fun attach(view: View) {
@@ -532,8 +540,8 @@ class LabelVB(
 }
 
 class TextPointView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     init {
@@ -558,9 +566,9 @@ class TextPointView(
 }
 
 class TextPointVB(
-        val ktx: AndroidKontext,
-        val i18n: I18n = ktx.di().instance(),
-        val label: Resource
+    val ktx: AndroidKontext,
+    val i18n: I18n = ktx.di().instance(),
+    val label: Resource
 ) : LayoutViewBinder(R.layout.textpointview) {
 
     override fun attach(view: View) {

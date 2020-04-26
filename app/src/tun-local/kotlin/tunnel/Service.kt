@@ -17,20 +17,21 @@ import kotlinx.coroutines.experimental.launch
 import java.io.FileDescriptor
 
 class ServiceBinder(
-        val service: Service,
-        var onClose: (rejected: Boolean) -> Unit = {},
-        var onConfigure: (vpn: VpnService.Builder) -> Time = { 0L }
+    val service: Service,
+    var onClose: (rejected: Boolean) -> Unit = {},
+    var onConfigure: (vpn: VpnService.Builder) -> Time = { 0L }
 ) : Binder()
 
 internal class ServiceConnector(
-        var onClose: (rejected: Boolean) -> Unit = {},
-        var onConfigure: (vpn: VpnService.Builder) -> Time = { 0L }
+    var onClose: (rejected: Boolean) -> Unit = {},
+    var onConfigure: (vpn: VpnService.Builder) -> Time = { 0L }
 ) {
 
     private var deferred = CompletableDeferred<ServiceBinder>()
 
-    private val serviceConnection = object: ServiceConnection {
-        @Synchronized override fun onServiceConnected(name: ComponentName, binder: IBinder) {
+    private val serviceConnection = object : ServiceConnection {
+        @Synchronized
+        override fun onServiceConnected(name: ComponentName, binder: IBinder) {
             if (binder !is ServiceBinder) {
                 "tunnel".ktx().e("service binder of wrong type", binder::class.java)
                 return
@@ -41,7 +42,8 @@ internal class ServiceConnector(
             deferred.complete(b)
         }
 
-        @Synchronized override fun onServiceDisconnected(name: ComponentName?) {
+        @Synchronized
+        override fun onServiceDisconnected(name: ComponentName?) {
             deferred.completeExceptionally(Exception("service bind disconnected"))
         }
     }
@@ -51,13 +53,17 @@ internal class ServiceConnector(
         this.deferred = CompletableDeferred()
         val intent = Intent(ctx, Service::class.java)
         intent.action = Service.BINDER_ACTION
-        if (!ctx.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE
-                or Context.BIND_ABOVE_CLIENT or Context.BIND_IMPORTANT)) {
+        if (!ctx.bindService(
+                intent, serviceConnection, Context.BIND_AUTO_CREATE
+                        or Context.BIND_ABOVE_CLIENT or Context.BIND_IMPORTANT
+            )
+        ) {
             deferred.completeExceptionally(Exception("could not bind to service"))
         } else launch {
             delay(3000)
             if (!deferred.isCompleted) deferred.completeExceptionally(
-                    Exception("timeout waiting for binding to service"))
+                Exception("timeout waiting for binding to service")
+            )
         }
         deferred
     }()
@@ -79,7 +85,7 @@ class Service : VpnService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int =
-            android.app.Service.START_STICKY
+        android.app.Service.START_STICKY
 
     private var binder: ServiceBinder? = null
     override fun onBind(intent: Intent?): IBinder? {
@@ -141,10 +147,10 @@ class Service : VpnService() {
     fun turnOff() {
         if (tunDescriptor != null) {
             Result.of { tunDescriptor?.close() ?: Unit }
-                    .mapError {
-                        // I can't remember why we try it twice, but it probably matters
-                        Result.of { tunDescriptor?.close() ?: Unit }
-                    }
+                .mapError {
+                    // I can't remember why we try it twice, but it probably matters
+                    Result.of { tunDescriptor?.close() ?: Unit }
+                }
             lastReleasedMillis = SystemClock.uptimeMillis()
             tunDescriptor = null
             tunFd = -1

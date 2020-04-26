@@ -31,10 +31,10 @@ abstract class Device {
 
 }
 
-class DeviceImpl (
-        kctx: Worker,
-        xx: Environment,
-        ctx: Context = xx().instance()
+class DeviceImpl(
+    kctx: Worker,
+    xx: Environment,
+    ctx: Context = xx().instance()
 ) : Device() {
 
     private val pm: PowerManager by xx.instance()
@@ -48,16 +48,16 @@ class DeviceImpl (
         val c = isConnected(ctx) or watchdog.test()
         "device".ktx().v("connected", c)
         c
-    } )
-    override val tethering = newProperty(kctx, { isTethering(ctx)} )
+    })
+    override val tethering = newProperty(kctx, { isTethering(ctx) })
 
     override val watchdogOn = newPersistedProperty(kctx, BasicPersistence(xx, "watchdogOn"),
-            { false })
+        { false })
 
-    override val onWifi = newProperty(kctx, { isWifi2(ctx) } )
+    override val onWifi = newProperty(kctx, { isWifi2(ctx) })
 
     override val reports = newPersistedProperty(kctx, BasicPersistence(xx, "reports"),
-            { true }
+        { true }
     )
 
 }
@@ -162,7 +162,7 @@ interface IWatchdog {
  * trusted. It's also used to test if Blokada is working properly once activated (and periodically).
  */
 class AWatchdog(
-        private val ctx: Context
+    private val ctx: Context
 ) : IWatchdog {
 
     private val d by lazy { ctx.inject().instance<Device>() }
@@ -178,12 +178,14 @@ class AWatchdog(
             socket.connect(InetSocketAddress("cloudflare.com", 80), 3000);
             ktx.v("watchdog ping ok")
             true
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             ktx.v("watchdog ping fail")
             false
         } finally {
-            try { socket.close() } catch (e: Exception) {}
+            try {
+                socket.close()
+            } catch (e: Exception) {
+            }
         }
     }
 
@@ -192,16 +194,20 @@ class AWatchdog(
     private var wait = 1
     private var nextTask: Promise<*, *>? = null
 
-    @Synchronized override fun start() {
+    @Synchronized
+    override fun start() {
         if (started) return
-        if (!d.watchdogOn()) { return }
+        if (!d.watchdogOn()) {
+            return
+        }
         started = true
         wait = 1
         if (nextTask != null) Kovenant.cancel(nextTask!!, Exception("cancelled"))
         nextTask = tick()
     }
 
-    @Synchronized override fun stop() {
+    @Synchronized
+    override fun stop() {
         started = false
         if (nextTask != null) Kovenant.cancel(nextTask!!, Exception("cancelled"))
         nextTask = null

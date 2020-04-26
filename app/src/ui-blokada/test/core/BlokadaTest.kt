@@ -75,16 +75,20 @@ class BlokadaTest {
         LOG_TEST = true
 
         val stuckActor = object : CommandsActor() {
-            override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> { return mapOf(
-                MonitorHostsCount::class to ::getStuck
-            )}
+            override fun mapping(): Map<KClass<out Cmd>, (Cmd) -> Unit> {
+                return mapOf(
+                    MonitorHostsCount::class to ::getStuck
+                )
+            }
 
             private fun getStuck(cmd: Cmd) = runBlocking {
                 var bomb = emptyList<Job>()
-                repeat(6) { bomb += launch {
-                    Thread.sleep(10000)
+                repeat(6) {
+                    bomb += launch {
+                        Thread.sleep(10000)
 //                    delay(10000)
-                }}
+                    }
+                }
                 bomb.forEach { it.join() }
             }
         }
@@ -102,7 +106,9 @@ class BlokadaTest {
 
         val broadcast = BroadcastChannel<Int>(Channel.CONFLATED)
         val notifyingActor = object : CommandsActor() {
-            override suspend fun handle(cmd: Cmd) { update(cmd) }
+            override suspend fun handle(cmd: Cmd) {
+                update(cmd)
+            }
 
             private suspend fun update(cmd: Cmd) {
                 // ... updating
@@ -114,7 +120,8 @@ class BlokadaTest {
             launch(CONTEXT_BLOKADA) {
                 broadcast.openSubscription().consumeEach {
                     // Stuck consumer should not deadlock the whole thing
-                    while(true) {}
+                    while (true) {
+                    }
                 }
             }
         }
@@ -164,43 +171,43 @@ class BlokadaTest {
         LOG_TEST = true
 
         val blacklisted1 = Filter(
-                id = "b1",
-                source = FilterSourceDescriptor("fake", "host1.com;host2.com"),
-                active = true,
-                priority = 0
+            id = "b1",
+            source = FilterSourceDescriptor("fake", "host1.com;host2.com"),
+            active = true,
+            priority = 0
         )
 
         val blacklisted2 = Filter(
-                id = "b2",
-                source = FilterSourceDescriptor("fake", "host2.com;host3.com"),
-                active = true,
-                priority = 1
+            id = "b2",
+            source = FilterSourceDescriptor("fake", "host2.com;host3.com"),
+            active = true,
+            priority = 1
         )
 
         val blacklisted_inactive = Filter(
-                id = "b3",
-                source = FilterSourceDescriptor("fake", "host4.com"),
-                active = false
+            id = "b3",
+            source = FilterSourceDescriptor("fake", "host4.com"),
+            active = false
         )
 
         val whitelisted1 = Filter(
-                id = "w1",
-                source = FilterSourceDescriptor("fake", "host2.com;host4.com"),
-                whitelist = true,
-                active = false,
-                priority = 2
+            id = "w1",
+            source = FilterSourceDescriptor("fake", "host2.com;host4.com"),
+            whitelist = true,
+            active = false,
+            priority = 2
         )
 
         val savedHosts = {
             setOf(
-                    HostsCache(
-                            id = "b1",
-                            cache = setOf("host1-old.com", "host2.com", "host3-old.com")
-                    ),
-                    HostsCache(
-                            id = "b2",
-                            cache = setOf("host2.com", "host3.com")
-                    )
+                HostsCache(
+                    id = "b1",
+                    cache = setOf("host1-old.com", "host2.com", "host3-old.com")
+                ),
+                HostsCache(
+                    id = "b2",
+                    cache = setOf("host2.com", "host3.com")
+                )
             )
         }
 
@@ -211,19 +218,19 @@ class BlokadaTest {
         val cacheMonitor = BroadcastChannel<Set<String>>(Channel.CONFLATED)
 
         val cmd = FiltersActor(
-                url = { URL("http://localhost") },
-                loadFilters = { FiltersCache(setOf(blacklisted1, blacklisted2, whitelisted1)) },
-                saveFilters = {_, _ -> },
-                loadFiltersPath = { null },
-                saveFiltersPath = {},
-                loadHosts = { savedHosts() },
-                saveHosts = {},
-                downloadFilters = { emptySet() },
-                getSource = { descriptor, id -> FakeFilterSource(descriptor.source.split(";")) },
-                isCacheValid = { isCacheValid },
-                hostsCountSync = hostsCountMonitor,
-                filtersSync = filtersMonitor,
-                cacheSync = cacheMonitor
+            url = { URL("http://localhost") },
+            loadFilters = { FiltersCache(setOf(blacklisted1, blacklisted2, whitelisted1)) },
+            saveFilters = { _, _ -> },
+            loadFiltersPath = { null },
+            saveFiltersPath = {},
+            loadHosts = { savedHosts() },
+            saveHosts = {},
+            downloadFilters = { emptySet() },
+            getSource = { descriptor, id -> FakeFilterSource(descriptor.source.split(";")) },
+            isCacheValid = { isCacheValid },
+            hostsCountSync = hostsCountMonitor,
+            filtersSync = filtersMonitor,
+            cacheSync = cacheMonitor
         ).create()
 
         runBlocking {
@@ -291,7 +298,7 @@ class BlokadaTest {
         }
     }
 
-    class FailingSource: IFilterSource {
+    class FailingSource : IFilterSource {
         override fun fetch(): List<String> {
             throw Exception("failed downloading")
         }
@@ -322,32 +329,32 @@ class BlokadaTest {
         LOG_TEST = true
 
         val blacklisted1 = Filter(
-                id = "b1",
-                source = FilterSourceDescriptor("failing", ""),
-                active = true,
-                priority = 0
+            id = "b1",
+            source = FilterSourceDescriptor("failing", ""),
+            active = true,
+            priority = 0
         )
 
         val blacklisted2 = Filter(
-                id = "b2",
-                source = FilterSourceDescriptor("failing", ""),
-                active = true,
-                priority = 1
+            id = "b2",
+            source = FilterSourceDescriptor("failing", ""),
+            active = true,
+            priority = 1
         )
 
         val filtersMonitor = BroadcastChannel<Set<Filter>>(Channel.CONFLATED)
         val cmd = FiltersActor(
-                url = { URL("http://localhost") },
-                loadFilters = { FiltersCache() },
-                saveFilters = { _, _ -> },
-                loadFiltersPath = { null },
-                saveFiltersPath = {},
-                loadHosts = { emptySet() },
-                saveHosts = {},
-                downloadFilters = { setOf(blacklisted1, blacklisted2) },
-                getSource = { descriptor, id -> FailingSource() },
-                isCacheValid = { false },
-                filtersSync = filtersMonitor
+            url = { URL("http://localhost") },
+            loadFilters = { FiltersCache() },
+            saveFilters = { _, _ -> },
+            loadFiltersPath = { null },
+            saveFiltersPath = {},
+            loadHosts = { emptySet() },
+            saveHosts = {},
+            downloadFilters = { setOf(blacklisted1, blacklisted2) },
+            getSource = { descriptor, id -> FailingSource() },
+            isCacheValid = { false },
+            filtersSync = filtersMonitor
         ).create()
 
         // Trying to sync empty filters should not stuck the actor
@@ -364,16 +371,16 @@ class BlokadaTest {
     fun localisations_basics() {
         LOG_TEST = true
         val actor = LocalisationActor(
-                urls = { mapOf(URL("http://localhost") to "fixture") },
-                load = { v("loaded"); TranslationsCacheInfo() },
-                save = {},
-                downloadTranslations = { urls ->
-                    listOf(URL("http://localhost") to listOf("fixture_test1" to "value1"))
-                },
-                setI18n = { key, value ->
-                    if (key != "fixture_test1") fail("unexpected key")
-                    if (value != "value1") fail("unexpected value")
-                }
+            urls = { mapOf(URL("http://localhost") to "fixture") },
+            load = { v("loaded"); TranslationsCacheInfo() },
+            save = {},
+            downloadTranslations = { urls ->
+                listOf(URL("http://localhost") to listOf("fixture_test1" to "value1"))
+            },
+            setI18n = { key, value ->
+                if (key != "fixture_test1") fail("unexpected key")
+                if (value != "value1") fail("unexpected value")
+            }
         )
         val cmd = actor.create()
         runBlocking {

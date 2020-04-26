@@ -13,13 +13,14 @@ abstract class Version {
 }
 
 class VersionImpl(
-        kctx: Worker,
-        xx: Environment
+    kctx: Worker,
+    xx: Environment
 ) : Version() {
 
     override val appName = newProperty(kctx, { "gs" })
     override val name = newProperty(kctx, { "0.0" })
-    override val previousCode = newPersistedProperty(kctx, BasicPersistence(xx, "previous_code"), { 0 })
+    override val previousCode =
+        newPersistedProperty(kctx, BasicPersistence(xx, "previous_code"), { 0 })
     override val nameCore = newProperty(kctx, { BuildConfig.VERSION_NAME })
     override val obsolete = newProperty(kctx, { false })
 }

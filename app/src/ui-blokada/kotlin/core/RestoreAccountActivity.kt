@@ -22,7 +22,7 @@ class RestoreAccountActivity : Activity() {
         })
 
         stepView.pages = listOf(
-                nameVB
+            nameVB
         )
     }
 
@@ -45,9 +45,9 @@ class RestoreAccountActivity : Activity() {
 }
 
 class EnterAccountVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val accepted: (String) -> Unit = {}
+    private val ktx: AndroidKontext,
+    private val i18n: I18n = ktx.di().instance(),
+    private val accepted: (String) -> Unit = {}
 ) : SlotVB(), Stepable {
 
     private var input = ""
@@ -63,13 +63,13 @@ class EnterAccountVB(
         view.enableAlternativeBackground()
         view.type = Slot.Type.EDIT
         view.content = Slot.Content(i18n.getString(R.string.slot_account_name_title),
-                description = i18n.getString(R.string.slot_account_name_desc),
-                action1 = Slot.Action(i18n.getString(R.string.slot_account_name_restore)) {
-                    if (inputValid) {
-                        view.fold()
-                        accepted(input)
-                    }
+            description = i18n.getString(R.string.slot_account_name_desc),
+            action1 = Slot.Action(i18n.getString(R.string.slot_account_name_restore)) {
+                if (inputValid) {
+                    view.fold()
+                    accepted(input)
                 }
+            }
         )
 
         view.onInput = { it ->

@@ -9,16 +9,16 @@ typealias FilterId = String
 typealias Ruleset = LinkedHashSet<String>
 
 data class Filter(
-        val id: FilterId,
-        val source: FilterSourceDescriptor,
-        val whitelist: Boolean = false,
-        val active: Boolean = false,
-        val hidden: Boolean = false,
-        val priority: Int = 0,
-        val lastFetch: Time = 0,
-        val credit: String? = null,
-        val customName: String? = null,
-        val customComment: String? = null
+    val id: FilterId,
+    val source: FilterSourceDescriptor,
+    val whitelist: Boolean = false,
+    val active: Boolean = false,
+    val hidden: Boolean = false,
+    val priority: Int = 0,
+    val lastFetch: Time = 0,
+    val credit: String? = null,
+    val customName: String? = null,
+    val customComment: String? = null
 ) {
     override fun hashCode(): Int {
         return id.hashCode()
@@ -35,9 +35,9 @@ data class Filter(
 }
 
 data class FilterStore(
-        val cache: Set<Filter> = emptySet(),
-        val lastFetch: Time = 0,
-        val url: Url = ""
+    val cache: Set<Filter> = emptySet(),
+    val lastFetch: Time = 0,
+    val url: Url = ""
 )
 
 fun Set<Filter>.prioritised(): Set<Filter> {
@@ -70,8 +70,8 @@ interface IFilterSource {
 }
 
 class FilterSourceDescriptor(
-        val id: String,
-        val source: String
+    val id: String,
+    val source: String
 ) {
     override fun toString(): String {
         return "$id:$source"
@@ -81,21 +81,21 @@ class FilterSourceDescriptor(
 val EXPIRATION_OFFSET = 60 * 1000
 
 data class BlockaConfig(
-        val adblocking: Boolean = true,
-        val blockaVpn: Boolean = false,
-        val accountId: String = "",
-        val restoredAccountId: String = "",
-        val activeUntil: Date = Date(0),
-        val leaseActiveUntil: Date = Date(0),
-        val privateKey: String = "",
-        val publicKey: String = "",
-        val gatewayId: String = "",
-        val gatewayIp: String = "",
-        val gatewayPort: Int = 0,
-        val gatewayNiceName: String = "",
-        val vip4: String = "",
-        val vip6: String = "",
-        val lastDaily: Long = 0L
+    val adblocking: Boolean = true,
+    val blockaVpn: Boolean = false,
+    val accountId: String = "",
+    val restoredAccountId: String = "",
+    val activeUntil: Date = Date(0),
+    val leaseActiveUntil: Date = Date(0),
+    val privateKey: String = "",
+    val publicKey: String = "",
+    val gatewayId: String = "",
+    val gatewayIp: String = "",
+    val gatewayPort: Int = 0,
+    val gatewayNiceName: String = "",
+    val vip4: String = "",
+    val vip6: String = "",
+    val lastDaily: Long = 0L
 ) {
 
     fun getAccountExpiration() = Date(activeUntil.time - EXPIRATION_OFFSET)
@@ -111,9 +111,9 @@ data class BlockaConfig(
 }
 
 data class Request(
-        val domain: String,
-        val blocked: Boolean = false,
-        val time: Date = Date()
+    val domain: String,
+    val blocked: Boolean = false,
+    val time: Date = Date()
 ) {
     override fun equals(other: Any?): Boolean {
         return if (other !is Request) false

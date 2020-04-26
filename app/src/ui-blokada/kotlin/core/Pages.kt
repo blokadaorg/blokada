@@ -35,9 +35,10 @@ abstract class Pages {
     abstract val tos: IProperty<URL>
     abstract val privacy: IProperty<URL>
 }
-class PagesImpl (
-        w: Worker,
-        xx: Environment
+
+class PagesImpl(
+    w: Worker,
+    xx: Environment
 ) : Pages() {
 
     val i18n: I18n by xx.instance()
@@ -96,7 +97,8 @@ class PagesImpl (
     override val licenses = newProperty(w, { URL("http://localhost") })
 
     override val news = newProperty(w, { URL("http://go.blokada.org/news") })
-    override val obsolete = newProperty(w, { URL("https://blokada.org/api/legacy/content/en/obsolete.html") })
+    override val obsolete =
+        newProperty(w, { URL("https://blokada.org/api/legacy/content/en/obsolete.html") })
     override val download = newProperty(w, { URL("https://blokada.org/#download") })
 
 }
@@ -108,6 +110,7 @@ fun newPagesModule(ctx: Context): Kodein.Module {
         }
     }
 }
+
 private fun resolveRedirect(url: URL): URL {
     return try {
         val ucon = url.openConnection() as HttpURLConnection

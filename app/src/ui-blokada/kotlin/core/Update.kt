@@ -19,13 +19,14 @@ abstract class Update {
     abstract val lastSeenUpdateMillis: IProperty<Long>
 }
 
-class UpdateImpl (
-        w: Worker,
-        xx: Environment,
-        val ctx: Context = xx().instance()
+class UpdateImpl(
+    w: Worker,
+    xx: Environment,
+    val ctx: Context = xx().instance()
 ) : Update() {
 
-    override val lastSeenUpdateMillis = newPersistedProperty(w, APrefsPersistence(ctx, "lastSeenUpdate"),
+    override val lastSeenUpdateMillis =
+        newPersistedProperty(w, APrefsPersistence(ctx, "lastSeenUpdate"),
             { 0L })
 }
 
@@ -65,7 +66,12 @@ fun newUpdateModule(ctx: Context): Kodein.Module {
                 val env: Time = instance()
                 val j: Journal = instance()
 
-                if (isUpdate(ctx, content.newestVersionCode) && canShowNotification(last, env, cooldown)) {
+                if (isUpdate(ctx, content.newestVersionCode) && canShowNotification(
+                        last,
+                        env,
+                        cooldown
+                    )
+                ) {
                     notificationMain.show(UpdateNotification(content.newestVersionName))
                     u.lastSeenUpdateMillis %= env.now()
                 }

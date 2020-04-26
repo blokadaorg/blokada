@@ -10,16 +10,16 @@ import org.blokada.R
 
 fun createMenuAdvanced(ktx: AndroidKontext): NamedViewBinder {
     var items = listOf(
-            LabelVB(ktx, label = R.string.label_basic.res()),
-            NotificationsVB(ktx, onTap = defaultOnTap),
-            StartOnBootVB(ktx, onTap = defaultOnTap),
-            LabelVB(ktx, label = R.string.label_advanced.res(), hiddenAction = {
-                set(AdvancedSettings::class.java, AdvancedSettings(true))
-                Toast.makeText(ktx.ctx, "( ͡° ͜ʖ ͡°)", Toast.LENGTH_LONG).show()
-            }),
-            ReportVB(ktx, onTap = defaultOnTap),
-            BackgroundAnimationVB(ktx, onTap = defaultOnTap),
-            KeepAliveVB(ktx, onTap = defaultOnTap)
+        LabelVB(ktx, label = R.string.label_basic.res()),
+        NotificationsVB(ktx, onTap = defaultOnTap),
+        StartOnBootVB(ktx, onTap = defaultOnTap),
+        LabelVB(ktx, label = R.string.label_advanced.res(), hiddenAction = {
+            set(AdvancedSettings::class.java, AdvancedSettings(true))
+            Toast.makeText(ktx.ctx, "( ͡° ͜ʖ ͡°)", Toast.LENGTH_LONG).show()
+        }),
+        ReportVB(ktx, onTap = defaultOnTap),
+        BackgroundAnimationVB(ktx, onTap = defaultOnTap),
+        KeepAliveVB(ktx, onTap = defaultOnTap)
     )
 
     if (get(AdvancedSettings::class.java).enabled) {
@@ -30,8 +30,9 @@ fun createMenuAdvanced(ktx: AndroidKontext): NamedViewBinder {
         )
     }
 
-    return MenuItemsVB(ktx,
-            items = items,
-            name = R.string.panel_section_app_settings.res()
+    return MenuItemsVB(
+        ktx,
+        items = items,
+        name = R.string.panel_section_app_settings.res()
     )
 }

@@ -29,8 +29,10 @@ abstract class AbstractWebActivity : Activity() {
     lateinit var targetUrl: IProperty<URL>
 
     private val dash by lazy {
-        WebDash(LazyKodein(ktx.di), targetUrl, reloadOnError = true,
-                javascript = true, forceEmbedded = true, big = true)
+        WebDash(
+            LazyKodein(ktx.di), targetUrl, reloadOnError = true,
+            javascript = true, forceEmbedded = true, big = true
+        )
     }
 
     private var view: android.view.View? = null
@@ -68,7 +70,8 @@ abstract class AbstractWebActivity : Activity() {
                     intent.data = Uri.parse(targetUrl().toString())
                     startActivity(intent)
                     exitedToBrowser = true
-                } catch (e: Exception) {}
+                } catch (e: Exception) {
+                }
             }
         }
     }
@@ -103,5 +106,6 @@ abstract class AbstractWebActivity : Activity() {
         }
     }
 
-    fun bindChromeTabs() = CustomTabsClient.bindCustomTabsService(this, CUSTOM_TAB_PACKAGE_NAME, connection)
+    fun bindChromeTabs() =
+        CustomTabsClient.bindCustomTabsService(this, CUSTOM_TAB_PACKAGE_NAME, connection)
 }

@@ -12,11 +12,11 @@ import tunnel.showSnack
 import java.util.*
 
 class GatewayVB(
-        private val ktx: AndroidKontext,
-        private val gateway: BlockaRestModel.GatewayInfo,
-        private val i18n: I18n = ktx.di().instance(),
-        private val modal: ModalManager = modalManager,
-        onTap: (SlotView) -> Unit
+    private val ktx: AndroidKontext,
+    private val gateway: BlockaRestModel.GatewayInfo,
+    private val i18n: I18n = ktx.di().instance(),
+    private val modal: ModalManager = modalManager,
+    onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
 
     private fun update() {
@@ -25,17 +25,19 @@ class GatewayVB(
 
         view?.apply {
             content = Slot.Content(
-                    label = "%s (%s)".format(gateway.niceName(), gateway.region),
-                    icon = ktx.ctx.getDrawable(
-                            when {
-                                gateway.overloaded() -> R.drawable.ic_shield_outline
-                                gateway.partner() -> R.drawable.ic_shield_plus
-                                else -> R.drawable.ic_verified
-                            }
-                    ),
-                    description = i18n.getString(R.string.slot_gateway_description,
-                                getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region),
-                    switched = gateway.publicKey == cfg.gatewayId
+                label = "%s (%s)".format(gateway.niceName(), gateway.region),
+                icon = ktx.ctx.getDrawable(
+                    when {
+                        gateway.overloaded() -> R.drawable.ic_shield_outline
+                        gateway.partner() -> R.drawable.ic_shield_plus
+                        else -> R.drawable.ic_verified
+                    }
+                ),
+                description = i18n.getString(
+                    R.string.slot_gateway_description,
+                    getLoad(gateway.resourceUsagePercent), gateway.ipv4, gateway.region
+                ),
+                switched = gateway.publicKey == cfg.gatewayId
             )
 
             onSwitch = {
@@ -60,10 +62,12 @@ class GatewayVB(
     }
 
     private fun getLoad(usage: Int): String {
-        return i18n.getString(when (usage) {
-            in 0..50 -> R.string.slot_gateway_load_low
-            else -> R.string.slot_gateway_load_high
-        })
+        return i18n.getString(
+            when (usage) {
+                in 0..50 -> R.string.slot_gateway_load_low
+                else -> R.string.slot_gateway_load_high
+            }
+        )
     }
 
     override fun attach(view: SlotView) {

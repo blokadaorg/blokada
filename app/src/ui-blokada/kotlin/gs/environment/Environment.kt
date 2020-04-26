@@ -34,7 +34,11 @@ fun newSingleThreadedWorker(j: gs.environment.Journal, prefix: String): gs.envir
     }
 }
 
-fun newConcurrentWorker(j: gs.environment.Journal?, prefix: String, tasks: Int): gs.environment.Worker {
+fun newConcurrentWorker(
+    j: gs.environment.Journal?,
+    prefix: String,
+    tasks: Int
+): gs.environment.Worker {
     return nl.komponents.kovenant.Kovenant.createContext {
         callbackContext.dispatcher = buildDispatcher {
             name = "$prefix-callbackX"

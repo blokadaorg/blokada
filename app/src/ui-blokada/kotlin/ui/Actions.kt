@@ -39,9 +39,18 @@ class SwitchAppReceiver : AbstractPluginSettingReceiver() {
 
     override fun firePluginSetting(ctx: Context, bundle: Bundle) {
         when {
-            bundle.containsKey(EVENT_KEY_SWITCH) -> switchApp(ctx, bundle.getBoolean(EVENT_KEY_SWITCH))
-            bundle.containsKey(EVENT_KEY_SWITCH_BLOCKA_VPN) -> switchBlockaVpn(ctx, bundle.getBoolean(EVENT_KEY_SWITCH_BLOCKA_VPN))
-            bundle.containsKey(EVENT_KEY_SWITCH_DNS) -> switchDns(ctx, bundle.getBoolean(EVENT_KEY_SWITCH_DNS))
+            bundle.containsKey(EVENT_KEY_SWITCH) -> switchApp(
+                ctx,
+                bundle.getBoolean(EVENT_KEY_SWITCH)
+            )
+            bundle.containsKey(EVENT_KEY_SWITCH_BLOCKA_VPN) -> switchBlockaVpn(
+                ctx,
+                bundle.getBoolean(EVENT_KEY_SWITCH_BLOCKA_VPN)
+            )
+            bundle.containsKey(EVENT_KEY_SWITCH_DNS) -> switchDns(
+                ctx,
+                bundle.getBoolean(EVENT_KEY_SWITCH_DNS)
+            )
             else -> e("unknown app intent")
         }
     }
@@ -101,8 +110,7 @@ class SwitchAppReceiver : AbstractPluginSettingReceiver() {
         }
     }
 
-    override fun isBundleValid(bundle: Bundle)
-            = bundle.containsKey(EVENT_KEY_SWITCH)
+    override fun isBundleValid(bundle: Bundle) = bundle.containsKey(EVENT_KEY_SWITCH)
             || bundle.containsKey(EVENT_KEY_SWITCH_DNS)
             || bundle.containsKey(EVENT_KEY_SWITCH_BLOCKA_VPN)
 

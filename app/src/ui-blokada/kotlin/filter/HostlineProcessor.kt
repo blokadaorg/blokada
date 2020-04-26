@@ -4,7 +4,7 @@ interface IHostlineProcessor {
     fun process(line: String): String?
 }
 
-class DefaultHostlineProcessor: IHostlineProcessor {
+class DefaultHostlineProcessor : IHostlineProcessor {
     override fun process(line: String): String? {
         var l = line
         if (l.startsWith("#")) return null

@@ -15,15 +15,16 @@ abstract class Welcome {
     abstract val advanced: IProperty<Boolean>
 }
 
-class WelcomeImpl (
-        w: Worker,
-        xx: Environment,
-        val i18n: I18n = xx().instance()
+class WelcomeImpl(
+    w: Worker,
+    xx: Environment,
+    val i18n: I18n = xx().instance()
 ) : Welcome() {
     override val introSeen = newPersistedProperty(w, BasicPersistence(xx, "intro_seen"), { false })
     override val guideSeen = newPersistedProperty(w, BasicPersistence(xx, "guide_seen"), { false })
     override val patronShow = newProperty(w, { false })
-    override val patronSeen = newPersistedProperty(w, BasicPersistence(xx, "optional_seen"), { false })
+    override val patronSeen =
+        newPersistedProperty(w, BasicPersistence(xx, "optional_seen"), { false })
     override val ctaSeenCounter = newPersistedProperty(w, BasicPersistence(xx, "cta_seen"), { 3 })
     override val advanced = newPersistedProperty(w, BasicPersistence(xx, "advanced"), { false })
 

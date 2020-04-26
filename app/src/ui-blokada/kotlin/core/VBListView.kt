@@ -18,10 +18,9 @@ import gs.presentation.ViewBinderHolder
 import org.blokada.R
 
 
-
 class VBListView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet), Scrollable, ListSection {
 
     override fun setOnSelected(listener: (item: Navigable?) -> Unit) {
@@ -130,7 +129,7 @@ class VBListView(
             }
         }
 
-//        override fun onViewRecycled(holder: ListerViewHolder) = holder.creator.detach(holder.view)
+        //        override fun onViewRecycled(holder: ListerViewHolder) = holder.creator.detach(holder.view)
         override fun getItemCount() = items.size
         override fun getItemViewType(position: Int) = items[position].viewType
 
@@ -152,7 +151,8 @@ class VBListView(
                         }
                     }
                 } else if (event.action == KeyEvent.ACTION_UP && isConfirmButton(event)
-                        && event.flags and KeyEvent.FLAG_LONG_PRESS != KeyEvent.FLAG_LONG_PRESS) {
+                    && event.flags and KeyEvent.FLAG_LONG_PRESS != KeyEvent.FLAG_LONG_PRESS
+                ) {
                     recyclerView.getViewHolder(selectedItem)?.itemView?.performClick()
                     return@OnKeyListener true
                 }
@@ -161,7 +161,7 @@ class VBListView(
         }
 
         private fun RecyclerView.getViewHolder(position: Int) = if (position == -1) null
-            else findViewHolderForAdapterPosition(position)
+        else findViewHolderForAdapterPosition(position)
 
         fun tryMoveSelection(direction: Int): Boolean {
             val nextSelectItem = selectedItem + direction
@@ -174,7 +174,7 @@ class VBListView(
                     listView.scrollToPosition(selectedItem)
                     return true
                 } else {
-                    val next = if(direction < 1) direction - 1 else direction + 1
+                    val next = if (direction < 1) direction - 1 else direction + 1
                     return tryMoveSelection(next)
                 }
             }
@@ -187,7 +187,11 @@ class VBListView(
     }
 
     private val touchHelper = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
-        override fun onMove(p0: RecyclerView, p1: RecyclerView.ViewHolder, p2: RecyclerView.ViewHolder) = false
+        override fun onMove(
+            p0: RecyclerView,
+            p1: RecyclerView.ViewHolder,
+            p2: RecyclerView.ViewHolder
+        ) = false
 
         override fun onSwiped(holder: RecyclerView.ViewHolder, direction: Int) {
             onItemRemove(items[holder.adapterPosition])
@@ -195,8 +199,10 @@ class VBListView(
             adapter.notifyItemRemoved(holder.adapterPosition)
         }
 
-        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-                                 dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+        override fun onChildDraw(
+            c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+            dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
+        ) {
             viewHolder.itemView.alpha = 1f - (dX / viewHolder.itemView.width) * 2
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
@@ -213,9 +219,9 @@ class VBListView(
     private val items = mutableListOf<ViewBinder>()
 
     private data class ListerViewHolder(
-            val view: View,
-            val creator: ViewBinder
-    ): RecyclerView.ViewHolder(view)
+        val view: View,
+        val creator: ViewBinder
+    ) : RecyclerView.ViewHolder(view)
 
     fun add(item: ViewBinder, position: Int = -1) {
         viewCreators[item.viewType] = item
@@ -223,9 +229,10 @@ class VBListView(
             items.add(item)
             adapter.notifyItemInserted(items.size - 1)
         } else {
-            if(position <= items.size){
+            if (position <= items.size) {
                 val lm = layoutManager
-                val firstWasVisible = if (lm is LinearLayoutManager) lm.findFirstCompletelyVisibleItemPosition() == 0 else false
+                val firstWasVisible =
+                    if (lm is LinearLayoutManager) lm.findFirstCompletelyVisibleItemPosition() == 0 else false
                 items.add(position, item)
                 adapter.notifyItemInserted(position)
                 if (firstWasVisible) listView.smoothScrollToPosition(0)
@@ -260,7 +267,8 @@ class VBListView(
         alternativeMode = true
         layoutManager = LinearLayoutManager(context)
         listView.layoutManager = layoutManager
-        containerView.maxWidth = context.resources.getDimensionPixelSize(R.dimen.vblist_max_width_menu)
+        containerView.maxWidth =
+            context.resources.getDimensionPixelSize(R.dimen.vblist_max_width_menu)
 
 //        val lp = containerView.layoutParams as FrameLayout.LayoutParams
 //        lp.marginEnd = 0
@@ -276,11 +284,20 @@ class VBListView(
 
     override fun getScrollableView() = listView
 
-    override fun setOnScroll(onScrollDown: () -> Unit, onScrollUp: () -> Unit, onScrollStopped: () -> Unit) {
+    override fun setOnScroll(
+        onScrollDown: () -> Unit,
+        onScrollUp: () -> Unit,
+        onScrollStopped: () -> Unit
+    ) {
     }
 
-    class VerticalSpace(val height: Int): RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    class VerticalSpace(val height: Int) : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
             outRect.top = height
         }
     }

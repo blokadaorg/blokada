@@ -37,45 +37,45 @@ class BlockaVpnMain {
         registerPersistenceForAccount()
 
         accountManager = AccountManager(
-                state = get(CurrentAccount::class.java),
-                newAccountRequest = {
-                    RetryingRetrofitHandler(restApi.newAccount()).execute().account.accountId
-                },
-                getAccountRequest = { accountId ->
-                    RetryingRetrofitHandler(restApi.getAccountInfo(accountId)).execute().account.activeUntil
-                },
-                generateKeypair = boringtunLoader::generateKeypair,
-                accountValid = {
-                    notificationMain.cancel(AccountInactiveNotification())
-                }
+            state = get(CurrentAccount::class.java),
+            newAccountRequest = {
+                RetryingRetrofitHandler(restApi.newAccount()).execute().account.accountId
+            },
+            getAccountRequest = { accountId ->
+                RetryingRetrofitHandler(restApi.getAccountInfo(accountId)).execute().account.activeUntil
+            },
+            generateKeypair = boringtunLoader::generateKeypair,
+            accountValid = {
+                notificationMain.cancel(AccountInactiveNotification())
+            }
         )
         leaseManager = LeaseManager(
-                state = get(CurrentLease::class.java),
-                getGatewaysRequest = {
-                    RetryingRetrofitHandler(restApi.getGateways()).execute().gateways
-                },
-                getLeasesRequest = { accountId ->
-                    RetryingRetrofitHandler(restApi.getLeases(accountId)).execute().leases
-                },
-                newLeaseRequest = { leaseRequest ->
-                    try {
-                        RetryingRetrofitHandler(restApi.newLease(leaseRequest)).execute().lease
-                    } catch(ex: ResponseCodeException) {
-                        if (ex.code == 403) throw BlockaRestModel.TooManyDevicesException()
-                        else throw ex
-                    }
-                },
-                deleteLeaseRequest = { leaseRequest ->
-                    RetryingRetrofitHandler(restApi.deleteLease(leaseRequest)).execute()
-                },
-                deviceAlias = defaultDeviceAlias
+            state = get(CurrentLease::class.java),
+            getGatewaysRequest = {
+                RetryingRetrofitHandler(restApi.getGateways()).execute().gateways
+            },
+            getLeasesRequest = { accountId ->
+                RetryingRetrofitHandler(restApi.getLeases(accountId)).execute().leases
+            },
+            newLeaseRequest = { leaseRequest ->
+                try {
+                    RetryingRetrofitHandler(restApi.newLease(leaseRequest)).execute().lease
+                } catch (ex: ResponseCodeException) {
+                    if (ex.code == 403) throw BlockaRestModel.TooManyDevicesException()
+                    else throw ex
+                }
+            },
+            deleteLeaseRequest = { leaseRequest ->
+                RetryingRetrofitHandler(restApi.deleteLease(leaseRequest)).execute()
+            },
+            deviceAlias = defaultDeviceAlias
         )
 
         blockaVpnManager = BlockaVpnManager(
-                enabled = get(BlockaVpnState::class.java).enabled,
-                accountManager = accountManager,
-                leaseManager = leaseManager,
-                scheduleAccountCheck = ::scheduleAccountChecks
+            enabled = get(BlockaVpnState::class.java).enabled,
+            accountManager = accountManager,
+            leaseManager = leaseManager,
+            scheduleAccountCheck = ::scheduleAccountChecks
         )
     }
 
@@ -180,12 +180,18 @@ class BlockaVpnMain {
             blockaVpnManager.enabled = false
         }
         ex is BlockaTooManyDevices || ex is BlockaRestModel.TooManyDevicesException -> {
-            emit(MENU_CLICK_BY_NAME_SUBMENU, R.string.menu_vpn.res() to R.string.menu_vpn_leases.res())
+            emit(
+                MENU_CLICK_BY_NAME_SUBMENU,
+                R.string.menu_vpn.res() to R.string.menu_vpn_leases.res()
+            )
             showSnack(R.string.slot_too_many_leases.res())
             blockaVpnManager.enabled = false
         }
         ex is BlockaGatewayNotSelected -> {
-            emit(MENU_CLICK_BY_NAME_SUBMENU, R.string.menu_vpn.res() to R.string.menu_vpn_gateways.res())
+            emit(
+                MENU_CLICK_BY_NAME_SUBMENU,
+                R.string.menu_vpn.res() to R.string.menu_vpn_gateways.res()
+            )
             showSnack(R.string.menu_vpn_select_gateway.res())
             blockaVpnManager.enabled = false
         }

@@ -11,8 +11,8 @@ import gs.presentation.ViewBinder
 import org.blokada.R
 
 class VBStepView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     var onItemRemove = { item: ViewBinder -> }

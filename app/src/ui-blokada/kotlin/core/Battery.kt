@@ -15,9 +15,9 @@ import org.blokada.R
 
 
 class Battery(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.di().instance(),
-        private val powerManager: PowerManager = ctx.getSystemService(Context.POWER_SERVICE) as PowerManager
+    private val ktx: AndroidKontext,
+    private val ctx: Context = ktx.di().instance(),
+    private val powerManager: PowerManager = ctx.getSystemService(Context.POWER_SERVICE) as PowerManager
 ) {
     fun isWhitelisted(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -44,24 +44,24 @@ fun newBatteryModule(ctx: Context) = Kodein.Module {
 }
 
 class BatteryVB(
-        private val ktx: AndroidKontext,
-        private val ctx: Context = ktx.ctx,
-        private val i18n: I18n = ktx.di().instance(),
-        private val battery: Battery = ktx.di().instance(),
-        private val onRemove: () -> Unit = {},
-        onTap: (SlotView) -> Unit
+    private val ktx: AndroidKontext,
+    private val ctx: Context = ktx.ctx,
+    private val i18n: I18n = ktx.di().instance(),
+    private val battery: Battery = ktx.di().instance(),
+    private val onRemove: () -> Unit = {},
+    onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
 
     override fun attach(view: SlotView) {
         view.type = Slot.Type.INFO
         view.content = Slot.Content(
-                label = i18n.getBrandedString(R.string.battery_title),
-                description = i18n.getBrandedString(R.string.battery_description),
-                icon = ctx.getDrawable(R.drawable.ic_battery),
-                action1 = Slot.Action(i18n.getString(R.string.battery_action), {
-                    battery.openWhitelistingScreen()
-                    onRemove()
-                })
+            label = i18n.getBrandedString(R.string.battery_title),
+            description = i18n.getBrandedString(R.string.battery_description),
+            icon = ctx.getDrawable(R.drawable.ic_battery),
+            action1 = Slot.Action(i18n.getString(R.string.battery_action), {
+                battery.openWhitelistingScreen()
+                onRemove()
+            })
         )
     }
 

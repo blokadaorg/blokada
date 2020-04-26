@@ -8,8 +8,8 @@ import org.junit.Test
 class FakeFiltersource(val id: String) : IFilterSource {
     override fun size() = 3
 
-    override fun fetch(): LinkedHashSet<String>
-            = LinkedHashSet<String>().apply { for (i in 0..3) add(id) }
+    override fun fetch(): LinkedHashSet<String> =
+        LinkedHashSet<String>().apply { for (i in 0..3) add(id) }
 
     override fun fromUserInput(vararg string: String) = false
 
@@ -44,25 +44,30 @@ class FakeDownloadingFilterSource(val id: String, var downloadCount: Int = 0) : 
 }
 
 class FilterManagerTest {
-    @Test fun manager_basics() {
+    @Test
+    fun manager_basics() {
         val inMemoryPersistance = mutableMapOf<FilterId, Ruleset>()
         val filters = setOf(
-                Filter("id1", FilterSourceDescriptor("fake", "a"), active = true),
-                Filter("id2", FilterSourceDescriptor("fake", "b"), active = true),
-                Filter("id3", FilterSourceDescriptor("fake", "c"), active = true, whitelist = true)
+            Filter("id1", FilterSourceDescriptor("fake", "a"), active = true),
+            Filter("id2", FilterSourceDescriptor("fake", "b"), active = true),
+            Filter("id3", FilterSourceDescriptor("fake", "c"), active = true, whitelist = true)
         )
         val manager = FilterManager(
-                doFetchFiltersFromRepo = { url -> Result.of { filters } },
-                doGetMemoryLimit = { 999 },
-                doResolveFilterSource = { FakeFiltersource(it.source.source) },
-                blockade = Blockade(
-                        doLoadRuleset = { id ->
-                            Result.of { inMemoryPersistance.getOrElse(id, {throw Exception("cache miss")}) }
-                        },
-                        doSaveRuleset = { id, ruleset ->
-                            Result.of { inMemoryPersistance[id] = ruleset }
-                        }
-                )
+            doFetchFiltersFromRepo = { url -> Result.of { filters } },
+            doGetMemoryLimit = { 999 },
+            doResolveFilterSource = { FakeFiltersource(it.source.source) },
+            blockade = Blockade(
+                doLoadRuleset = { id ->
+                    Result.of {
+                        inMemoryPersistance.getOrElse(
+                            id,
+                            { throw Exception("cache miss") })
+                    }
+                },
+                doSaveRuleset = { id, ruleset ->
+                    Result.of { inMemoryPersistance[id] = ruleset }
+                }
+            )
         )
 
         manager.sync(Kontext.forTest("sync"))
@@ -72,24 +77,29 @@ class FilterManagerTest {
         Assert.assertTrue(manager.blockade.allowed("c"))
     }
 
-    @Test fun manager_persists() {
+    @Test
+    fun manager_persists() {
         val inMemoryPersistance = mutableMapOf<FilterId, Ruleset>()
         val filters = setOf(
-                Filter("id1", FilterSourceDescriptor("fake", "a"), active = true)
+            Filter("id1", FilterSourceDescriptor("fake", "a"), active = true)
         )
         val source = FakeDownloadingFilterSource("id1")
         val manager = FilterManager(
-                doFetchFiltersFromRepo = { url -> Result.of { filters } },
-                doGetMemoryLimit = { 999 },
-                doResolveFilterSource = { source },
-                blockade = Blockade(
-                        doLoadRuleset = { id ->
-                            Result.of { inMemoryPersistance.getOrElse(id, {throw Exception("cache miss")}) }
-                        },
-                        doSaveRuleset = { id, ruleset ->
-                            Result.of { inMemoryPersistance[id] = ruleset }
-                        }
-                )
+            doFetchFiltersFromRepo = { url -> Result.of { filters } },
+            doGetMemoryLimit = { 999 },
+            doResolveFilterSource = { source },
+            blockade = Blockade(
+                doLoadRuleset = { id ->
+                    Result.of {
+                        inMemoryPersistance.getOrElse(
+                            id,
+                            { throw Exception("cache miss") })
+                    }
+                },
+                doSaveRuleset = { id, ruleset ->
+                    Result.of { inMemoryPersistance[id] = ruleset }
+                }
+            )
         )
 
         Assert.assertEquals(0, source.downloadCount)
@@ -99,14 +109,21 @@ class FilterManagerTest {
         Assert.assertEquals(1, source.downloadCount)
     }
 
-    @Test fun manager_priority() {
+    @Test
+    fun manager_priority() {
         val f1 = Filter("1", FilterSourceDescriptor("fake", "1"))
         val f2 = Filter("2", FilterSourceDescriptor("fake", "2"))
         val f3 = Filter("3", FilterSourceDescriptor("fake", "3"))
         val manager = FilterManager(
-                doLoadFilterStore = { _ -> Result.of { FilterStore(setOf(f1, f2, f3),
-                        lastFetch = System.currentTimeMillis()) }},
-                doResolveFilterSource = { FakeDownloadingFilterSource(it.id) }
+            doLoadFilterStore = { _ ->
+                Result.of {
+                    FilterStore(
+                        setOf(f1, f2, f3),
+                        lastFetch = System.currentTimeMillis()
+                    )
+                }
+            },
+            doResolveFilterSource = { FakeDownloadingFilterSource(it.id) }
         )
 
         var step = 0

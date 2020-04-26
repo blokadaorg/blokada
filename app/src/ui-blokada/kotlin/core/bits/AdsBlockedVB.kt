@@ -10,10 +10,10 @@ import org.blokada.R
 import tunnel.TunnelConfig
 
 class AdsBlockedVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        private val tunnelEvents: Tunnel = ktx.di().instance(),
-        private val tunnelStatus: EnabledStateActor = ktx.di().instance()
+    private val ktx: AndroidKontext,
+    private val i18n: I18n = ktx.di().instance(),
+    private val tunnelEvents: Tunnel = ktx.di().instance(),
+    private val tunnelStatus: EnabledStateActor = ktx.di().instance()
 ) : ByteVB() {
 
     private var droppedCountListener: IWhen? = null
@@ -53,7 +53,8 @@ class AdsBlockedVB(
                 entrypoint.onSwitchAdblocking(enable)
             }
 
-            val droppedString = i18n.getString(R.string.home_requests_blocked, Format.counter(dropped))
+            val droppedString =
+                i18n.getString(R.string.home_requests_blocked, Format.counter(dropped))
 
             when {
                 !config.adblocking || !tunnelEvents.enabled() -> {

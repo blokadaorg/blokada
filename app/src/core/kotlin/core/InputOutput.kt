@@ -30,7 +30,10 @@ fun load(opener: () -> InputStream, lineProcessor: (String) -> String? = { it })
     return response
 }
 
-fun loadGzip(opener: () -> URLConnection, lineProcessor: (String) -> String? = { it }): List<String> {
+fun loadGzip(
+    opener: () -> URLConnection,
+    lineProcessor: (String) -> String? = { it }
+): List<String> {
     val input = createStream(opener())
 
     val response = mutableListOf<String>()
@@ -75,7 +78,10 @@ fun createStream(con: URLConnection) = {
 
 fun openUrl(url: URL, timeoutMillis: Int) = {
     val c = url.openConnection() as HttpURLConnection
-    c.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36");
+    c.setRequestProperty(
+        "User-Agent",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36"
+    );
     c.setRequestProperty("Accept-Encoding", "gzip")
     c.connectTimeout = timeoutMillis
     c.readTimeout = timeoutMillis

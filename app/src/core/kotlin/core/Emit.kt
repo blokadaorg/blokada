@@ -14,6 +14,7 @@ class EventType<T>(val name: String) {
 
 typealias SimpleEvent = EventType<Unit>
 typealias Callback<T> = (T) -> Unit
+
 private data class TypedEvent<T>(val type: EventType<T>, val value: T)
 
 fun String.newEvent() = SimpleEvent(this)
@@ -32,7 +33,7 @@ interface Emit {
 
 
 class CommonEmit(
-        private val ktx: () -> Kontext = { Kontext.forCoroutine(UI + newEmitExceptionLogger(), "emit") }
+    private val ktx: () -> Kontext = { Kontext.forCoroutine(UI + newEmitExceptionLogger(), "emit") }
 ) : Emit {
 
     private val emits = mutableMapOf<EventType<*>, TypedEvent<*>>()
@@ -48,16 +49,19 @@ class CommonEmit(
             (callback as Callback<T>)(e.value)
     }
 
-    override fun <T> on(event: EventType<T>, callback: Callback<T>) = on(event, callback, recentValue = true)
+    override fun <T> on(event: EventType<T>, callback: Callback<T>) =
+        on(event, callback, recentValue = true)
 
-    override fun <T> on(event: EventType<T>, callback: Callback<T>, recentValue: Boolean) = launch(ktx().coroutineContext()) {
-        callbacks.getOrPut(event, { mutableListOf() }).add(callback as Callback<*>)
-        if (recentValue) emits[event]?.apply { callback(this.value as T) }
-    }
+    override fun <T> on(event: EventType<T>, callback: Callback<T>, recentValue: Boolean) =
+        launch(ktx().coroutineContext()) {
+            callbacks.getOrPut(event, { mutableListOf() }).add(callback as Callback<*>)
+            if (recentValue) emits[event]?.apply { callback(this.value as T) }
+        }
 
-    override fun <T> cancel(event: EventType<T>, callback: Callback<T>) = launch(ktx().coroutineContext()) {
-        callbacks[event]?.remove(callback)
-    }
+    override fun <T> cancel(event: EventType<T>, callback: Callback<T>) =
+        launch(ktx().coroutineContext()) {
+            callbacks[event]?.remove(callback)
+        }
 
     override fun emit(event: SimpleEvent) = launch(ktx().coroutineContext()) {
         simpleEmits.add(event)
@@ -66,14 +70,16 @@ class CommonEmit(
             callback()
     }
 
-    override fun on(event: SimpleEvent, callback: () -> Unit, recentValue: Boolean) = launch(ktx().coroutineContext()) {
-        simpleCallbacks.getOrPut(event, { mutableListOf() }).add(callback)
-        if (recentValue) emits[event]?.apply { callback() }
-    }
+    override fun on(event: SimpleEvent, callback: () -> Unit, recentValue: Boolean) =
+        launch(ktx().coroutineContext()) {
+            simpleCallbacks.getOrPut(event, { mutableListOf() }).add(callback)
+            if (recentValue) emits[event]?.apply { callback() }
+        }
 
-    override fun cancel(event: SimpleEvent, callback: () -> Unit) = launch(ktx().coroutineContext()) {
-        simpleCallbacks[event]?.remove(callback)
-    }
+    override fun cancel(event: SimpleEvent, callback: () -> Unit) =
+        launch(ktx().coroutineContext()) {
+            simpleCallbacks[event]?.remove(callback)
+        }
 
     override suspend fun <T> getMostRecent(event: EventType<T>) = async(ktx().coroutineContext()) {
         emits[event]
@@ -81,9 +87,10 @@ class CommonEmit(
 
 }
 
-internal fun newEmitExceptionLogger(ktx: Kontext = "emit:exception".ktx())
-        = CoroutineExceptionHandler { _, throwable -> ktx.e(throwable)
-}
+internal fun newEmitExceptionLogger(ktx: Kontext = "emit:exception".ktx()) =
+    CoroutineExceptionHandler { _, throwable ->
+        ktx.e(throwable)
+    }
 
 class DefaultEmit(id: String, val common: Emit = commonEmit, val log: Log = DefaultLog(id)) : Emit {
 
@@ -124,9 +131,13 @@ class DefaultEmit(id: String, val common: Emit = commonEmit, val log: Log = Defa
 
 fun <T> emit(event: EventType<T>, value: T) = commonEmit.emit(event, value)
 fun <T> on(event: EventType<T>, callback: Callback<T>) = on(event, callback, true)
-fun <T> on(event: EventType<T>, callback: Callback<T>, recentValue: Boolean) = commonEmit.on(event, callback, recentValue)
+fun <T> on(event: EventType<T>, callback: Callback<T>, recentValue: Boolean) =
+    commonEmit.on(event, callback, recentValue)
+
 fun <T> cancel(event: EventType<T>, callback: Callback<T>) = commonEmit.cancel(event, callback)
 suspend fun <T> getMostRecent(event: EventType<T>) = commonEmit.getMostRecent(event)
 fun emit(event: SimpleEvent) = commonEmit.emit(event)
-fun on(event: SimpleEvent, callback: () -> Unit, recentValue: Boolean) = commonEmit.on(event, callback, recentValue)
+fun on(event: SimpleEvent, callback: () -> Unit, recentValue: Boolean) =
+    commonEmit.on(event, callback, recentValue)
+
 fun cancel(event: SimpleEvent, callback: () -> Unit) = commonEmit.cancel(event, callback)

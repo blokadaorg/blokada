@@ -63,7 +63,7 @@ class ViewBinderHolder {
 }
 
 open class LayoutViewBinder(
-        private val resId: Int
+    private val resId: Int
 ) : ViewBinder {
 
     override fun createView(ctx: Context, parent: ViewGroup): View {
@@ -106,13 +106,25 @@ abstract class ListViewBinder : LayoutViewBinder(R.layout.vblistview), ListSecti
         view?.scrollToSelected()
     }
 
-    override fun setOnScroll(onScrollDown: () -> Unit, onScrollUp: () -> Unit, onScrollStopped: () -> Unit) = Unit
+    override fun setOnScroll(
+        onScrollDown: () -> Unit,
+        onScrollUp: () -> Unit,
+        onScrollStopped: () -> Unit
+    ) = Unit
 
     override fun getScrollableView() = view!!
 
-    override fun selectNext() { view?.selectNext() }
-    override fun selectPrevious() { view?.selectPrevious() }
-    override fun unselect() { view?.unselect() }
+    override fun selectNext() {
+        view?.selectNext()
+    }
+
+    override fun selectPrevious() {
+        view?.selectPrevious()
+    }
+
+    override fun unselect() {
+        view?.unselect()
+    }
 
 }
 

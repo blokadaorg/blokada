@@ -33,13 +33,13 @@ import java.util.*
 val REFRESH_HOME = "REFRESH_HOME".newEvent()
 
 data class SlotsSeenStatus(
-        val intro: Boolean = false,
-        val telegram: Boolean = false,
-        val blog: Boolean = false,
-        val updated: Int = 0,
-        val cta: Int = 0,
-        val donate: Int = 0,
-        val blokadaOrg: Boolean = false
+    val intro: Boolean = false,
+    val telegram: Boolean = false,
+    val blog: Boolean = false,
+    val updated: Int = 0,
+    val cta: Int = 0,
+    val donate: Int = 0,
+    val blokadaOrg: Boolean = false
 )
 
 class SlotStatusPersistence {
@@ -52,12 +52,12 @@ class SlotStatusPersistence {
 }
 
 class HomeDashboardSectionVB(
-        val ktx: AndroidKontext,
-        val ctx: Context = ktx.ctx,
-        val version: Version = ktx.di().instance(),
-        val welcome: Welcome = ktx.di().instance(),
-        val repo: Repo = ktx.di().instance(),
-        override val name: Resource = R.string.panel_section_home.res()
+    val ktx: AndroidKontext,
+    val ctx: Context = ktx.ctx,
+    val version: Version = ktx.di().instance(),
+    val welcome: Welcome = ktx.di().instance(),
+    val repo: Repo = ktx.di().instance(),
+    override val name: Resource = R.string.panel_section_home.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     override fun attach(view: VBListView) {
@@ -98,7 +98,10 @@ class HomeDashboardSectionVB(
             val noSubscription = cfg.activeUntil.before(Date())
             val (slot, name) = decideOnSlot(noSubscription)
             if (slot != null && added == null) {
-                items = items.subList(0, slotPosition) + listOf(slot) + items.subList(slotPosition, items.size)
+                items = items.subList(0, slotPosition) + listOf(slot) + items.subList(
+                    slotPosition,
+                    items.size
+                )
                 add(slot, slotPosition)
                 added = name
 
@@ -124,12 +127,12 @@ class HomeDashboardSectionVB(
     }
 
     private var items = listOf<ViewBinder?>(
-            MasterSwitchVB(ktx),
-            if (Product.current(ktx.ctx) == Product.GOOGLE) null else AdsBlockedVB(ktx),
-            ActiveDnsVB(ktx),
-            VpnStatusVB(ktx),
-            //if (Product.current(ktx.ctx) == Product.GOOGLE) ShareInGoogleFlavorVB(ktx) else ShareVB(ktx),
-            if (Product.current(ktx.ctx) == Product.GOOGLE) BlokadaSlimVB() else null
+        MasterSwitchVB(ktx),
+        if (Product.current(ktx.ctx) == Product.GOOGLE) null else AdsBlockedVB(ktx),
+        ActiveDnsVB(ktx),
+        VpnStatusVB(ktx),
+        //if (Product.current(ktx.ctx) == Product.GOOGLE) ShareInGoogleFlavorVB(ktx) else ShareVB(ktx),
+        if (Product.current(ktx.ctx) == Product.GOOGLE) BlokadaSlimVB() else null
     ).filterNotNull()
 
     private var added: OneTimeByte? = null
@@ -167,8 +170,8 @@ class HomeDashboardSectionVB(
 }
 
 class VpnVB(
-        private val ktx: AndroidKontext,
-        private val tunnelState: Tunnel = ktx.di().instance()
+    private val ktx: AndroidKontext,
+    private val tunnelState: Tunnel = ktx.di().instance()
 ) : BitVB() {
 
     override fun attach(view: BitView) {
@@ -208,8 +211,8 @@ class VpnVB(
 }
 
 class Adblocking2VB(
-        private val ktx: AndroidKontext,
-        private val tunnelState: Tunnel = ktx.di().instance()
+    private val ktx: AndroidKontext,
+    private val tunnelState: Tunnel = ktx.di().instance()
 ) : BitVB() {
 
     override fun attach(view: BitView) {
@@ -254,15 +257,15 @@ class Adblocking2VB(
 }
 
 open class SimpleByteVB(
-        private val ktx: AndroidKontext,
-        private val label: Resource,
-        private val description: Resource,
-        private val icon: Resource? = R.drawable.ic_bell_ring_outline.res(),
-        val shouldKeepAfterTap: Boolean = false,
-        private val onTap: (ktx: AndroidKontext, view: ByteView) -> Unit,
-        private val onLongTap: ((ktx: AndroidKontext) -> Unit)? = null,
-        private val beforeTap: (view: ByteView) -> Unit = {},
-        var onTapped: (view: ByteView) -> Unit = {}
+    private val ktx: AndroidKontext,
+    private val label: Resource,
+    private val description: Resource,
+    private val icon: Resource? = R.drawable.ic_bell_ring_outline.res(),
+    val shouldKeepAfterTap: Boolean = false,
+    private val onTap: (ktx: AndroidKontext, view: ByteView) -> Unit,
+    private val onLongTap: ((ktx: AndroidKontext) -> Unit)? = null,
+    private val beforeTap: (view: ByteView) -> Unit = {},
+    var onTapped: (view: ByteView) -> Unit = {}
 ) : ByteVB() {
     override fun attach(view: ByteView) {
         view.icon(icon)
@@ -292,89 +295,104 @@ enum class OneTimeByte {
 }
 
 fun createOneTimeBytes(
-        ktx: AndroidKontext
+    ktx: AndroidKontext
 ) = mapOf(
-        OneTimeByte.CLEANUP to { CleanupVB(ktx) },
-        OneTimeByte.UPDATED to { SimpleByteVB(ktx,
-                label = R.string.home_whats_new.res(),
-                description = R.string.slot_updated_desc.res(),
-                onTap = { ktx, _ ->
-                    val pages: Pages = ktx.di().instance()
-                    modalManager.openModal()
-                    ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
-                        putExtra(WebViewActivity.EXTRA_URL, pages.updated().toExternalForm())
-                    })
-                }
-        )},
-        OneTimeByte.OBSOLETE to { SimpleByteVB(ktx,
-                label = R.string.home_update_required.res(),
-                description = R.string.slot_obsolete_desc.res(),
-                onTap = { ktx, _ ->
-                    val pages: Pages = ktx.di().instance()
-                    openWebContent(ktx.ctx, pages.download())
-                }
-        )},
-        OneTimeByte.DONATE to { SimpleByteVB(ktx,
-                label = R.string.home_donate.res(),
-                description = R.string.slot_donate_desc.res(),
-                icon = R.drawable.ic_heart_box.res(),
-                onTap = { ktx, _ ->
-                    val pages: Pages = ktx.di().instance()
-                    openWebContent(ktx.ctx, pages.donate())
-                }
-        )},
-        OneTimeByte.UPDATE_AVAILABLE to { UpdateAvailableVB(ktx) },
-        OneTimeByte.ANNOUNCEMENT to { SimpleByteVB(ktx,
-                label = getAnnouncementContent().first.res(),
-                description = getAnnouncementContent().second.res(),
-                icon = R.drawable.ic_bell_ring_outline.res(),
-                onTap = { ktx, _ ->
-                    openWebContent(ktx.ctx, URL(getAnnouncementUrl()))
-                }
-        ) },
-        OneTimeByte.BLOKADAORG to { SimpleByteVB(ktx,
-                icon = R.drawable.ic_baby_face_outline.res(),
-                label = R.string.home_blokadaorg.res(),
-                description = R.string.home_blokadaorg_state.res(),
-                onTap  = { ktx, _ ->
-                    openInExternalBrowser(ktx.ctx, URL("https://blokada.org/#download"))
-                }
-        )},
-        OneTimeByte.BLOKADAPLUS to { SimpleByteVB(ktx,
-                label = "Get $1 for yourself".res(),
-                description = "Refer a friend to Blokada Tunnel".res(),
-                onTap  = { ktx, _ ->
-                }
-        )}
+    OneTimeByte.CLEANUP to { CleanupVB(ktx) },
+    OneTimeByte.UPDATED to {
+        SimpleByteVB(ktx,
+            label = R.string.home_whats_new.res(),
+            description = R.string.slot_updated_desc.res(),
+            onTap = { ktx, _ ->
+                val pages: Pages = ktx.di().instance()
+                modalManager.openModal()
+                ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
+                    putExtra(WebViewActivity.EXTRA_URL, pages.updated().toExternalForm())
+                })
+            }
+        )
+    },
+    OneTimeByte.OBSOLETE to {
+        SimpleByteVB(ktx,
+            label = R.string.home_update_required.res(),
+            description = R.string.slot_obsolete_desc.res(),
+            onTap = { ktx, _ ->
+                val pages: Pages = ktx.di().instance()
+                openWebContent(ktx.ctx, pages.download())
+            }
+        )
+    },
+    OneTimeByte.DONATE to {
+        SimpleByteVB(ktx,
+            label = R.string.home_donate.res(),
+            description = R.string.slot_donate_desc.res(),
+            icon = R.drawable.ic_heart_box.res(),
+            onTap = { ktx, _ ->
+                val pages: Pages = ktx.di().instance()
+                openWebContent(ktx.ctx, pages.donate())
+            }
+        )
+    },
+    OneTimeByte.UPDATE_AVAILABLE to { UpdateAvailableVB(ktx) },
+    OneTimeByte.ANNOUNCEMENT to {
+        SimpleByteVB(ktx,
+            label = getAnnouncementContent().first.res(),
+            description = getAnnouncementContent().second.res(),
+            icon = R.drawable.ic_bell_ring_outline.res(),
+            onTap = { ktx, _ ->
+                openWebContent(ktx.ctx, URL(getAnnouncementUrl()))
+            }
+        )
+    },
+    OneTimeByte.BLOKADAORG to {
+        SimpleByteVB(ktx,
+            icon = R.drawable.ic_baby_face_outline.res(),
+            label = R.string.home_blokadaorg.res(),
+            description = R.string.home_blokadaorg_state.res(),
+            onTap = { ktx, _ ->
+                openInExternalBrowser(ktx.ctx, URL("https://blokada.org/#download"))
+            }
+        )
+    },
+    OneTimeByte.BLOKADAPLUS to {
+        SimpleByteVB(ktx,
+            label = "Get $1 for yourself".res(),
+            description = "Refer a friend to Blokada Tunnel".res(),
+            onTap = { ktx, _ ->
+            }
+        )
+    }
 )
 
 private var updateNextLink = 0
 
 class UpdateAvailableVB(
-        val ktx: AndroidKontext,
-        val i18n: I18n = ktx.di().instance(),
-        repo: Repo = ktx.di().instance(),
-        updateCoordinator: UpdateCoordinator = ktx.di().instance()
-): SimpleByteVB(ktx,
-        label = R.string.update_notification_title.res(),
-        description = i18n.getString(R.string.update_notification_text, repo.content().newestVersionName).res(),
-        icon = R.drawable.ic_new_releases.res(),
-        shouldKeepAfterTap = true,
-        beforeTap = { view ->
-            view.label(R.string.update_starting.res())
-        },
-        onTap = { ktx, view ->
-            updateCoordinator.start(repo.content().downloadLinks)
-        },
-        onLongTap = {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.data = Uri.parse(repo.content().downloadLinks[updateNextLink].toString())
+    val ktx: AndroidKontext,
+    val i18n: I18n = ktx.di().instance(),
+    repo: Repo = ktx.di().instance(),
+    updateCoordinator: UpdateCoordinator = ktx.di().instance()
+) : SimpleByteVB(ktx,
+    label = R.string.update_notification_title.res(),
+    description = i18n.getString(
+        R.string.update_notification_text,
+        repo.content().newestVersionName
+    ).res(),
+    icon = R.drawable.ic_new_releases.res(),
+    shouldKeepAfterTap = true,
+    beforeTap = { view ->
+        view.label(R.string.update_starting.res())
+    },
+    onTap = { ktx, view ->
+        updateCoordinator.start(repo.content().downloadLinks)
+    },
+    onLongTap = {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.data = Uri.parse(repo.content().downloadLinks[updateNextLink].toString())
 
-            ktx.ctx.startActivity(intent)
+        ktx.ctx.startActivity(intent)
 
-            updateNextLink = updateNextLink++ % repo.content().downloadLinks.size
-        }
+        updateNextLink = updateNextLink++ % repo.content().downloadLinks.size
+    }
 ) {
     private fun refresh(progress: Int) {
         val label = when (progress) {
@@ -404,8 +422,8 @@ class UpdateAvailableVB(
 
 
 class ShareVB(
-        val ktx: AndroidKontext,
-        private val tunnelEvents: Tunnel = ktx.di().instance()
+    val ktx: AndroidKontext,
+    private val tunnelEvents: Tunnel = ktx.di().instance()
 ) : ByteVB() {
     override fun attach(view: ByteView) {
         view.run {
@@ -422,13 +440,23 @@ class ShareVB(
         try {
             val shareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, getMessage(ktx.ctx,
-                        tunnelEvents.tunnelDropStart(), Format.counter(tunnelEvents.tunnelDropCount())))
+                putExtra(
+                    Intent.EXTRA_TEXT, getMessage(
+                        ktx.ctx,
+                        tunnelEvents.tunnelDropStart(),
+                        Format.counter(tunnelEvents.tunnelDropCount())
+                    )
+                )
                 type = "text/plain"
             }
-            ktx.ctx.startActivity(Intent.createChooser(shareIntent,
-                    ktx.ctx.getText(R.string.slot_dropped_share_title)))
-        } catch (e: Exception) {}
+            ktx.ctx.startActivity(
+                Intent.createChooser(
+                    shareIntent,
+                    ktx.ctx.getText(R.string.slot_dropped_share_title)
+                )
+            )
+        } catch (e: Exception) {
+        }
     }
 
     private fun getMessage(ctx: Context, timeStamp: Long, dropCount: String): String {
@@ -452,9 +480,9 @@ class ShareVB(
 }
 
 class ShareInGoogleFlavorVB(
-        val ktx: AndroidKontext,
-        private val dns: Dns = ktx.di().instance(),
-        private val i18n: I18n = ktx.di().instance()
+    val ktx: AndroidKontext,
+    private val dns: Dns = ktx.di().instance(),
+    private val i18n: I18n = ktx.di().instance()
 ) : ByteVB() {
     override fun attach(view: ByteView) {
         view.run {
@@ -475,14 +503,19 @@ class ShareInGoogleFlavorVB(
                 putExtra(Intent.EXTRA_TEXT, msg)
                 type = "text/plain"
             }
-            ktx.ctx.startActivity(Intent.createChooser(shareIntent,
-                    ktx.ctx.getText(R.string.slot_dropped_share_title)))
-        } catch (e: Exception) {}
+            ktx.ctx.startActivity(
+                Intent.createChooser(
+                    shareIntent,
+                    ktx.ctx.getText(R.string.slot_dropped_share_title)
+                )
+            )
+        } catch (e: Exception) {
+        }
     }
 
 }
 
-class BlokadaSlimVB: ByteVB() {
+class BlokadaSlimVB : ByteVB() {
     override fun attach(view: ByteView) {
         view.run {
             icon(null)

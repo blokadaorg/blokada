@@ -20,8 +20,8 @@ import org.blokada.R
 
 
 class Resource private constructor(
-        private val value: Any? = null,
-        private val resId: Int? = null
+    private val value: Any? = null,
+    private val resId: Int? = null
 ) {
     companion object {
         fun of(string: String) = Resource(value = string)
@@ -59,8 +59,8 @@ class Resource private constructor(
 fun Int.res() = Resource.ofResId(this)
 fun String.res() = Resource.of(this)
 
-abstract class BitVB(internal var onTap: (BitView) -> Unit = {})
-    : LayoutViewBinder(R.layout.bitview), Stepable, Navigable {
+abstract class BitVB(internal var onTap: (BitView) -> Unit = {}) :
+    LayoutViewBinder(R.layout.bitview), Stepable, Navigable {
 
     abstract fun attach(view: BitView)
     open fun detach(view: BitView) = Unit
@@ -100,8 +100,8 @@ abstract class BitVB(internal var onTap: (BitView) -> Unit = {})
 }
 
 class BitView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     init {
@@ -118,21 +118,32 @@ class BitView(
     private val stateView = findViewById<TextView>(R.id.bit_state)
     private val arrowView = findViewById<ImageView>(R.id.bit_arrow)
 
-    private val detector = GestureDetectorCompat(context, object : GestureDetector.SimpleOnGestureListener() {
-        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-            return if (velocityX > 0) {
-                performClick()
-                true
-            } else false
-        }
+    private val detector =
+        GestureDetectorCompat(context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent?,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                return if (velocityX > 0) {
+                    performClick()
+                    true
+                } else false
+            }
 
-        override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-            return if (distanceX > 0) {
-                performClick()
-                true
-            } else false
-        }
-    })
+            override fun onScroll(
+                e1: MotionEvent?,
+                e2: MotionEvent?,
+                distanceX: Float,
+                distanceY: Float
+            ): Boolean {
+                return if (distanceX > 0) {
+                    performClick()
+                    true
+                } else false
+            }
+        })
 
     private var alternative = false
     private var switched: Boolean? = null

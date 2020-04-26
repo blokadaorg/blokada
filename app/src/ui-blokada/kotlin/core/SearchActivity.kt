@@ -6,7 +6,7 @@ import core.bits.EnterSearchVB
 import org.blokada.R
 
 
-class SearchActivity : Activity(){
+class SearchActivity : Activity() {
 
     private val stepView by lazy { findViewById<VBStepView>(R.id.view) }
     private val ktx = ktx("SearchActivity")
@@ -18,14 +18,14 @@ class SearchActivity : Activity(){
         val searchVB = EnterSearchVB(ktx) { s -> callback(s); finish() }
 
         stepView.pages = listOf(
-                searchVB
+            searchVB
         )
     }
 
-    companion object{
-        private var callback : (String) -> Unit = {}
+    companion object {
+        private var callback: (String) -> Unit = {}
 
-        fun setCallback(c:(String) -> Unit){
+        fun setCallback(c: (String) -> Unit) {
             callback = c
         }
     }

@@ -10,8 +10,12 @@ class Persistence {
 
 class TranslationPersistence {
     val load = {
-        Result.of { core.Persistence.paper().read<TranslationStore>("g11n:translation:store",
-                TranslationStore()) }
+        Result.of {
+            core.Persistence.paper().read<TranslationStore>(
+                "g11n:translation:store",
+                TranslationStore()
+            )
+        }
     }
     val save = { store: TranslationStore ->
         Result.of { core.Persistence.paper().write("g11n:translation:store", store) }

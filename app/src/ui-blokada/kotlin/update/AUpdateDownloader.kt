@@ -27,7 +27,7 @@ val DOWNLOAD_FAIL = -1
  *
  */
 class AUpdateDownloader(
-        private val ctx: Context
+    private val ctx: Context
 ) {
 
     private val dm by lazy { ctx.inject().instance<DownloadManager>() }
@@ -49,7 +49,8 @@ class AUpdateDownloader(
                 if (c.moveToFirst()) {
                     val columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS)
                     if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-                        val uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
+                        val uriString =
+                            c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
                         links = emptyList()
                         listener(Uri.parse(uriString))
                     } else if (links.size > 1) {
@@ -64,7 +65,10 @@ class AUpdateDownloader(
     }
 
     fun downloadUpdate(links: List<URL>, listener: (Uri?) -> Unit) {
-        try { unregister() } catch (e: Exception) {}
+        try {
+            unregister()
+        } catch (e: Exception) {
+        }
         register()
         this.listener = listener
         this.links = links
@@ -80,8 +84,10 @@ class AUpdateDownloader(
             openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            openFileIntent.data = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files",
-                    File(uri.path))
+            openFileIntent.data = FileProvider.getUriForFile(
+                ctx, "${ctx.packageName}.files",
+                File(uri.path)
+            )
             ctx.startActivity(openFileIntent)
         } else {
             val fileUri = Uri.fromFile(File(uri.path)) // Because Android
@@ -107,7 +113,8 @@ class AUpdateDownloader(
         query.setFilterById(enqueue!!)
         val c = dm.query(query)
         if (c.moveToFirst()) {
-            val bytes_downloaded = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+            val bytes_downloaded =
+                c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
             val bytes_total = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
             return ((bytes_downloaded / bytes_total.toFloat()) * 100).toInt()
         } else return DOWNLOAD_FAIL

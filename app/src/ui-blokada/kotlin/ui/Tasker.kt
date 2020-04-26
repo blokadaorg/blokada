@@ -11,29 +11,31 @@ class TaskerActivity : AbstractPluginActivity() {
     private val stepView by lazy { findViewById<VBStepView>(R.id.view) }
 
     private val switch: TaskerSwitchVB = TaskerSwitchVB(true,
-            label = "Blokada".res(),
-            icon = R.drawable.ic_power.res(),
-            onSelected = { updateSwitches(0) })
+        label = "Blokada".res(),
+        icon = R.drawable.ic_power.res(),
+        onSelected = { updateSwitches(0) })
 
     private val switchBlockaVpn: TaskerSwitchVB = TaskerSwitchVB(true,
-            label = "Blokada Tunnel".res(),
-            icon = R.drawable.ic_verified.res(),
-            onSelected = { updateSwitches(1) })
+        label = "Blokada Tunnel".res(),
+        icon = R.drawable.ic_verified.res(),
+        onSelected = { updateSwitches(1) })
 
     private val switchDns: TaskerSwitchVB = TaskerSwitchVB(true,
-            label = "Blokada DNS".res(),
-            icon = R.drawable.ic_server.res(),
-            onSelected = { updateSwitches(2) })
+        label = "Blokada DNS".res(),
+        icon = R.drawable.ic_server.res(),
+        onSelected = { updateSwitches(2) })
 
     private val list = object : ListViewBinder() {
         override fun attach(view: VBListView) {
             view.orderFromTop()
-            view.set(listOf(
+            view.set(
+                listOf(
                     LabelVB(ktx("label"), label = R.string.tasker_switch_label.res()),
                     switch,
                     switchDns,
                     switchBlockaVpn
-            ))
+                )
+            )
         }
     }
 
@@ -88,8 +90,7 @@ class TaskerActivity : AbstractPluginActivity() {
         }
     }
 
-    override fun isBundleValid(bundle: Bundle)
-            = bundle.containsKey(EVENT_KEY_SWITCH)
+    override fun isBundleValid(bundle: Bundle) = bundle.containsKey(EVENT_KEY_SWITCH)
             || bundle.containsKey(EVENT_KEY_SWITCH_DNS)
             || bundle.containsKey(EVENT_KEY_SWITCH_BLOCKA_VPN)
 

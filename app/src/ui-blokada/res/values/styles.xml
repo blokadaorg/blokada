@@ -11,8 +11,7 @@
         <item name="android:windowBackground">@drawable/bg_window_nontransparent</item>
     </style>
 
-    <style name="BlokadaColors.Main">
-    </style>
+    <style name="BlokadaColors.Main"></style>
 
     <style name="BlokadaColors.Main.NoActionBar">
         <item name="windowActionBar">false</item>

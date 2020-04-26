@@ -4,10 +4,8 @@
         android:top="12dp"
         android:bottom="12dp"
         android:left="12dp"
-        android:right="12dp"
-        >
-        <shape
-            android:shape="oval">
+        android:right="12dp">
+        <shape android:shape="oval">
             <solid android:color="@color/colorActive" />
         </shape>
     </item>

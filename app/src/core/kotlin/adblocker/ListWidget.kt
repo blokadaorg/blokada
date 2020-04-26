@@ -15,10 +15,16 @@ import android.widget.RemoteViews
 
 class ListWidgetProvider : AppWidgetProvider() {
 
-    override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
+    override fun onUpdate(
+        context: Context?,
+        appWidgetManager: AppWidgetManager?,
+        appWidgetIds: IntArray?
+    ) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
-        val remoteViews = RemoteViews(context!!.packageName,
-                R.layout.view_list_widget)
+        val remoteViews = RemoteViews(
+            context!!.packageName,
+            R.layout.view_list_widget
+        )
         val t: Tunnel = context.inject().instance()
 
         var domainList = ""
@@ -33,13 +39,30 @@ class ListWidgetProvider : AppWidgetProvider() {
 
         val intent = Intent(context, ANotificationsToggleService::class.java)
         intent.putExtra("new_state", !t.enabled())
-        remoteViews.setOnClickPendingIntent(R.id.widget_list_button, PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
+        remoteViews.setOnClickPendingIntent(
+            R.id.widget_list_button,
+            PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        )
         if (t.enabled()) {
-            remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = true, waiting = false))
-            remoteViews.setTextViewText(R.id.widget_list_button, context.resources.getString(R.string.notification_keepalive_deactivate))
+            remoteViews.setInt(
+                R.id.widget_list_icon,
+                "setColorFilter",
+                color(context, active = true, waiting = false)
+            )
+            remoteViews.setTextViewText(
+                R.id.widget_list_button,
+                context.resources.getString(R.string.notification_keepalive_deactivate)
+            )
         } else {
-            remoteViews.setInt(R.id.widget_list_icon, "setColorFilter", color(context, active = false, waiting = false))
-            remoteViews.setTextViewText(R.id.widget_list_button, context.resources.getString(R.string.notification_keepalive_activate))
+            remoteViews.setInt(
+                R.id.widget_list_icon,
+                "setColorFilter",
+                color(context, active = false, waiting = false)
+            )
+            remoteViews.setTextViewText(
+                R.id.widget_list_button,
+                context.resources.getString(R.string.notification_keepalive_activate)
+            )
         }
         appWidgetManager?.updateAppWidget(appWidgetIds, remoteViews)
     }

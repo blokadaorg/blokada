@@ -7,13 +7,13 @@ import android.net.wifi.WifiManager
 import org.pcap4j.packet.namednumber.UdpPort
 
 
-
 /**
  * Contains various utility functions related to connectivity on Android.
  */
 
 fun isConnected(ctx: android.content.Context): Boolean {
-    val cm = ctx.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val cm =
+        ctx.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeInfo = cm.activeNetworkInfo ?: return false
     return activeInfo.isConnected
 }
@@ -27,13 +27,15 @@ fun isTethering(ctx: android.content.Context, intent: android.content.Intent? = 
 }
 
 fun getDnsServers(ctx: android.content.Context): List<java.net.InetSocketAddress> {
-    var servers = if (android.os.Build.VERSION.SDK_INT >= 21) gs.environment.getDnsServersMethod1(ctx) else emptyList()
+    var servers =
+        if (android.os.Build.VERSION.SDK_INT >= 21) gs.environment.getDnsServersMethod1(ctx) else emptyList()
     if (servers.isEmpty()) servers = gs.environment.getDnsServersMethod2()
     return servers.map { java.net.InetSocketAddress(it, UdpPort.DOMAIN.valueAsInt()) }
 }
 
 fun isWifi(ctx: android.content.Context): Boolean {
-    val wm = ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
+    val wm =
+        ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
     return when {
         !wm.isWifiEnabled -> false
         wm.connectionInfo?.networkId ?: -1 != -1 -> true
@@ -42,12 +44,14 @@ fun isWifi(ctx: android.content.Context): Boolean {
 }
 
 fun isWifi2(ctx: android.content.Context): Boolean {
-    val connectivityManager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+    val connectivityManager =
+        ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
     if (connectivityManager != null) {
         for (net in connectivityManager.allNetworks) {
             val nc = connectivityManager.getNetworkCapabilities(net)
             if (nc != null && nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                    && nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET))
+                && nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            )
                 return true
         }
     }
@@ -59,7 +63,8 @@ fun hasIpV6Servers(dnsServers: Collection<java.net.InetAddress>): Boolean {
 }
 
 private fun isTetheringMethod1(ctx: android.content.Context): Boolean {
-    val wm = ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
+    val wm =
+        ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
     return try {
         val m = wm.javaClass.getMethod("isWifiApEnabled")
         m.isAccessible = true
@@ -71,7 +76,8 @@ private fun isTetheringMethod1(ctx: android.content.Context): Boolean {
 }
 
 private fun isTetheringMethod2(ctx: android.content.Context): Boolean {
-    val wm = ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
+    val wm =
+        ctx.applicationContext.getSystemService(android.content.Context.WIFI_SERVICE) as WifiManager
     return try {
         val m = wm.javaClass.getMethod("getWifiApState")
         m.isAccessible = true
@@ -96,7 +102,8 @@ private fun isTetheringMethod3(bundle: android.os.Bundle): Boolean {
 
 @android.annotation.TargetApi(21)
 private fun getDnsServersMethod1(ctx: android.content.Context): List<java.net.InetAddress> {
-    val cm = ctx.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val cm =
+        ctx.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val servers = mutableListOf<java.net.InetAddress>()
 
     val activeInfo = cm.activeNetworkInfo ?: return servers
@@ -120,6 +127,7 @@ private fun getDnsServersMethod2(): List<java.net.InetAddress> {
             val value = method.invoke(null, name) as String? ?: continue
             if (value.isNotBlank()) servers.add(java.net.InetAddress.getByName(value))
         }
-    } catch (e: Exception) {}
+    } catch (e: Exception) {
+    }
     return servers
 }

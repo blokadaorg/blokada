@@ -27,9 +27,9 @@ abstract class Filters {
 }
 
 class FiltersImpl(
-        private val kctx: Worker,
-        private val xx: Environment,
-        private val ctx: Context = xx().instance()
+    private val kctx: Worker,
+    private val xx: Environment,
+    private val ctx: Context = xx().instance()
 ) : Filters() {
 
     override val changed = newProperty(kctx, { false })
@@ -39,19 +39,20 @@ class FiltersImpl(
         ktx.v("apps refresh start")
 
         val installed = ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-                .filter { it.packageName != ctx.packageName }
+            .filter { it.packageName != ctx.packageName }
         val a = installed.map {
             App(
-                    appId = it.packageName,
-                    label = ctx.packageManager.getApplicationLabel(it).toString(),
-                    system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+                appId = it.packageName,
+                label = ctx.packageManager.getApplicationLabel(it).toString(),
+                system = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0
             )
         }.sortedBy { it.label }
         ktx.v("found ${a.size} apps")
         a
     }
 
-    override val apps = newProperty(kctx, zeroValue = { emptyList<App>() }, refresh = { appsRefresh() },
+    override val apps =
+        newProperty(kctx, zeroValue = { emptyList<App>() }, refresh = { appsRefresh() },
             shouldRefresh = { it.isEmpty() })
 
 }
@@ -59,8 +60,10 @@ class FiltersImpl(
 fun newFiltersModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
         bind<Filters>() with singleton {
-            FiltersImpl(kctx = with("gscore").instance(10), xx = lazy,
-                    ctx = ctx)
+            FiltersImpl(
+                kctx = with("gscore").instance(10), xx = lazy,
+                ctx = ctx
+            )
         }
         bind<IHostlineProcessor>() with singleton { DefaultHostlineProcessor() }
         bind<AppInstallReceiver>() with singleton { AppInstallReceiver() }
@@ -86,9 +89,9 @@ fun newFiltersModule(ctx: Context): Kodein.Module {
 }
 
 data class App(
-        val appId: String,
-        val label: String,
-        val system: Boolean
+    val appId: String,
+    val label: String,
+    val system: Boolean
 )
 
 class AppInstallReceiver : BroadcastReceiver() {
@@ -129,13 +132,18 @@ internal fun sourceToName(ctx: android.content.Context, source: FilterSourceDesc
             } catch (e: Exception) {
                 null
             }
-            ctx.getString(R.string.filter_name_file, source?.lastPathSegment
-                    ?: ctx.getString(R.string.filter_name_file_unknown))
+            ctx.getString(
+                R.string.filter_name_file, source?.lastPathSegment
+                    ?: ctx.getString(R.string.filter_name_file_unknown)
+            )
         }
         "app" -> {
             try {
                 ctx.packageManager.getApplicationLabel(
-                        ctx.packageManager.getApplicationInfo(source.source, PackageManager.GET_META_DATA)
+                    ctx.packageManager.getApplicationInfo(
+                        source.source,
+                        PackageManager.GET_META_DATA
+                    )
                 ).toString()
             } catch (e: Exception) {
                 source.source
@@ -150,7 +158,7 @@ internal fun sourceToName(ctx: android.content.Context, source: FilterSourceDesc
 internal fun sourceToIcon(ctx: android.content.Context, source: String): Drawable? {
     return try {
         ctx.packageManager.getApplicationIcon(
-                ctx.packageManager.getApplicationInfo(source, PackageManager.GET_META_DATA)
+            ctx.packageManager.getApplicationInfo(source, PackageManager.GET_META_DATA)
         )
     } catch (e: Exception) {
         null

@@ -15,15 +15,17 @@ import java.util.*
 import kotlin.experimental.and
 
 internal class BlockaTunnelFiltering(
-        private val dnsServers: List<InetSocketAddress>,
-        private val blockade: Blockade,
-        private val loopback: () -> Any,
-        private val errorOccurred: (String) -> Any,
-        private val buffer: ByteBuffer
+    private val dnsServers: List<InetSocketAddress>,
+    private val blockade: Blockade,
+    private val loopback: () -> Any,
+    private val errorOccurred: (String) -> Any,
+    private val buffer: ByteBuffer
 ) {
 
-    private val denyResponse: SOARecord = SOARecord(Name("org.blokada.invalid."), DClass.IN,
-            5L, Name("org.blokada.invalid."), Name("org.blokada.invalid."), 0, 0, 0, 0, 5)
+    private val denyResponse: SOARecord = SOARecord(
+        Name("org.blokada.invalid."), DClass.IN,
+        5L, Name("org.blokada.invalid."), Name("org.blokada.invalid."), 0, 0, 0, 0, 5
+    )
 
     private val MAX_ONE_WAY_DNS_REQUESTS = 10
     private var oneWayDnsCounter = 0
@@ -33,10 +35,13 @@ internal class BlockaTunnelFiltering(
     }
 
     fun handleToDevice(destination: ByteBuffer, length: Int): Boolean {
-        if (isUdp (destination) && (
-                        srcAddress4(destination, dnsServers[0].address.address) ||
-                                (dnsServers.size > 1 && srcAddress4(destination, dnsServers[1].address.address))
-                        )
+        if (isUdp(destination) && (
+                    srcAddress4(destination, dnsServers[0].address.address) ||
+                            (dnsServers.size > 1 && srcAddress4(
+                                destination,
+                                dnsServers[1].address.address
+                            ))
+                    )
         ) {
             rewriteSrcDns4(destination, length)
             oneWayDnsCounter = 0
@@ -91,21 +96,21 @@ internal class BlockaTunnelFiltering(
             val dnsAddress = dnsServers[dnsIndex - 1].address
 
             val udpForward = UdpPacket.Builder(udp)
-                    .srcAddr(originEnvelope.header.srcAddr)
-                    .dstAddr(dnsAddress)
-                    .srcPort(udp.header.srcPort)
-                    .dstPort(udp.header.dstPort)
-                    .correctChecksumAtBuild(true)
-                    .correctLengthAtBuild(true)
-                    .payloadBuilder(UnknownPacket.Builder().rawData(udpRaw))
+                .srcAddr(originEnvelope.header.srcAddr)
+                .dstAddr(dnsAddress)
+                .srcPort(udp.header.srcPort)
+                .dstPort(udp.header.dstPort)
+                .correctChecksumAtBuild(true)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(UnknownPacket.Builder().rawData(udpRaw))
 
             val envelope = IpV4Packet.Builder(originEnvelope as IpV4Packet)
-                    .srcAddr(originEnvelope.header.srcAddr as Inet4Address)
-                    .dstAddr(dnsAddress as Inet4Address)
-                    .correctChecksumAtBuild(true)
-                    .correctLengthAtBuild(true)
-                    .payloadBuilder(udpForward)
-                    .build()
+                .srcAddr(originEnvelope.header.srcAddr as Inet4Address)
+                .dstAddr(dnsAddress as Inet4Address)
+                .correctChecksumAtBuild(true)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(udpForward)
+                .build()
 
             envelope.rawData.copyInto(packetBytes)
 
@@ -175,21 +180,21 @@ internal class BlockaTunnelFiltering(
             src[3] = (dnsIndex + 1).toByte()
             val addr = Inet4Address.getByAddress(src) as Inet4Address
             val udpForward = UdpPacket.Builder(udp)
-                    .srcAddr(addr)
-                    .dstAddr(originEnvelope.header.dstAddr)
-                    .srcPort(udp.header.srcPort)
-                    .dstPort(udp.header.dstPort)
-                    .correctChecksumAtBuild(true)
-                    .correctLengthAtBuild(true)
-                    .payloadBuilder(UnknownPacket.Builder().rawData(udpRaw))
+                .srcAddr(addr)
+                .dstAddr(originEnvelope.header.dstAddr)
+                .srcPort(udp.header.srcPort)
+                .dstPort(udp.header.dstPort)
+                .correctChecksumAtBuild(true)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(UnknownPacket.Builder().rawData(udpRaw))
 
             val envelope = IpV4Packet.Builder(originEnvelope as IpV4Packet)
-                    .srcAddr(addr)
-                    .dstAddr(originEnvelope.header.dstAddr)
-                    .correctChecksumAtBuild(true)
-                    .correctLengthAtBuild(true)
-                    .payloadBuilder(udpForward)
-                    .build()
+                .srcAddr(addr)
+                .dstAddr(originEnvelope.header.dstAddr)
+                .correctChecksumAtBuild(true)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(udpForward)
+                .build()
 
             packet.put(envelope.rawData)
             packet.position(0)
@@ -201,30 +206,30 @@ internal class BlockaTunnelFiltering(
         originEnvelope as IpPacket
         val udp = originEnvelope.payload as UdpPacket
         val udpResponse = UdpPacket.Builder(udp)
-                .srcAddr(originEnvelope.header.dstAddr)
-                .dstAddr(originEnvelope.header.srcAddr)
-                .srcPort(udp.header.dstPort)
-                .dstPort(udp.header.srcPort)
-                .correctChecksumAtBuild(true)
-                .correctLengthAtBuild(true)
-                .payloadBuilder(UnknownPacket.Builder().rawData(response))
+            .srcAddr(originEnvelope.header.dstAddr)
+            .dstAddr(originEnvelope.header.srcAddr)
+            .srcPort(udp.header.dstPort)
+            .dstPort(udp.header.srcPort)
+            .correctChecksumAtBuild(true)
+            .correctLengthAtBuild(true)
+            .payloadBuilder(UnknownPacket.Builder().rawData(response))
 
         val envelope: IpPacket
         if (originEnvelope is IpV4Packet) {
             envelope = IpV4Packet.Builder(originEnvelope)
-                    .srcAddr(originEnvelope.header.dstAddr as Inet4Address)
-                    .dstAddr(originEnvelope.header.srcAddr as Inet4Address)
-                    .correctChecksumAtBuild(true)
-                    .correctLengthAtBuild(true)
-                    .payloadBuilder(udpResponse)
-                    .build()
+                .srcAddr(originEnvelope.header.dstAddr as Inet4Address)
+                .dstAddr(originEnvelope.header.srcAddr as Inet4Address)
+                .correctChecksumAtBuild(true)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(udpResponse)
+                .build()
         } else {
             envelope = IpV6Packet.Builder(originEnvelope as IpV6Packet)
-                    .srcAddr(originEnvelope.header.dstAddr as Inet6Address)
-                    .dstAddr(originEnvelope.header.srcAddr as Inet6Address)
-                    .correctLengthAtBuild(true)
-                    .payloadBuilder(udpResponse)
-                    .build()
+                .srcAddr(originEnvelope.header.dstAddr as Inet6Address)
+                .dstAddr(originEnvelope.header.srcAddr as Inet6Address)
+                .correctLengthAtBuild(true)
+                .payloadBuilder(udpResponse)
+                .build()
         }
 
         val destination = buffer

@@ -4,7 +4,8 @@ import gs.presentation.ViewTypeGenerator
 import org.junit.Test
 
 class ViewBinderTest {
-    @Test fun viewTypeGenerator_basics() {
+    @Test
+    fun viewTypeGenerator_basics() {
         val viewBinder1 = "vb1"
         val viewBinder2 = "vb2"
         val payload1 = "1"

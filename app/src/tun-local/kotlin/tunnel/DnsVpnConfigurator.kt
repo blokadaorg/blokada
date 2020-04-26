@@ -14,10 +14,10 @@ import java.util.*
  * A VPN tunnel configuration that only redirects DNS requests.
  */
 internal class DnsVpnConfigurator(
-        private val dnsServers: List<InetSocketAddress>,
-        private val filterManager: FilterManager,
-        private val packageName: String
-): Configurator {
+    private val dnsServers: List<InetSocketAddress>,
+    private val filterManager: FilterManager,
+    private val packageName: String
+) : Configurator {
 
     private var dnsIndex = 1
 
@@ -42,8 +42,10 @@ internal class DnsVpnConfigurator(
         }
 
         // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
-        var ipv6Template: ByteArray? = byteArrayOf(32, 1, 13, (184 and 0xFF).toByte(),
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        var ipv6Template: ByteArray? = byteArrayOf(
+            32, 1, 13, (184 and 0xFF).toByte(),
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        )
 
         if (dnsServers.any { it.getAddress() is Inet6Address }) {
             try {
@@ -77,8 +79,10 @@ internal class DnsVpnConfigurator(
         builder.setBlocking(true)
     }
 
-    private fun VpnService.Builder.addDnsServer(format: String?, ipv6Template: ByteArray?,
-                                                            address: InetSocketAddress) = when {
+    private fun VpnService.Builder.addDnsServer(
+        format: String?, ipv6Template: ByteArray?,
+        address: InetSocketAddress
+    ) = when {
         address.getAddress() is Inet6Address && ipv6Template != null -> {
             ipv6Template[ipv6Template.size - 1] = (++dnsIndex).toByte()
             val ipv6Address = Inet6Address.getByAddress(ipv6Template)
@@ -98,9 +102,9 @@ internal class DnsVpnConfigurator(
  * Used for the DNS-only mode (and in GPlay flavor).
  */
 internal class SimpleVpnConfigurator(
-        private val dnsServers: List<InetSocketAddress>,
-        private val filterManager: FilterManager
-): Configurator {
+    private val dnsServers: List<InetSocketAddress>,
+    private val filterManager: FilterManager
+) : Configurator {
 
     override fun configure(builder: VpnService.Builder) {
         for (address in dnsServers) {
@@ -136,12 +140,12 @@ val dnsProxyDst6 = Inet6Address.getByName(dnsProxyDst6String).address!!
  * A VPN configuration for the true VPN functionality (towards blocka.net).
  */
 internal class BlockaVpnConfigurator(
-        private val dnsServers: List<InetSocketAddress>,
-        private val filterManager: FilterManager,
-        private val adblocking: Boolean,
-        private val currentLease: CurrentLease,
-        private val packageName: String
-): Configurator {
+    private val dnsServers: List<InetSocketAddress>,
+    private val filterManager: FilterManager,
+    private val adblocking: Boolean,
+    private val currentLease: CurrentLease,
+    private val packageName: String
+) : Configurator {
 
     private var dnsIndex = 1
 
@@ -204,10 +208,10 @@ interface Configurator {
 }
 
 private val IPV4_PUBLIC_NETWORKS = listOf(
-        "0.0.0.0/5", "8.0.0.0/7", "11.0.0.0/8", "12.0.0.0/6", "16.0.0.0/4", "32.0.0.0/3",
-        "64.0.0.0/2", "128.0.0.0/3", "160.0.0.0/5", "168.0.0.0/6", "172.0.0.0/12",
-        "172.32.0.0/11", "172.64.0.0/10", "172.128.0.0/9", "173.0.0.0/8", "174.0.0.0/7",
-        "176.0.0.0/4", "192.0.0.0/9", "192.128.0.0/11", "192.160.0.0/13", "192.169.0.0/16",
-        "192.170.0.0/15", "192.172.0.0/14", "192.176.0.0/12", "192.192.0.0/10",
-        "193.0.0.0/8", "194.0.0.0/7", "196.0.0.0/6", "200.0.0.0/5", "208.0.0.0/4"
+    "0.0.0.0/5", "8.0.0.0/7", "11.0.0.0/8", "12.0.0.0/6", "16.0.0.0/4", "32.0.0.0/3",
+    "64.0.0.0/2", "128.0.0.0/3", "160.0.0.0/5", "168.0.0.0/6", "172.0.0.0/12",
+    "172.32.0.0/11", "172.64.0.0/10", "172.128.0.0/9", "173.0.0.0/8", "174.0.0.0/7",
+    "176.0.0.0/4", "192.0.0.0/9", "192.128.0.0/11", "192.160.0.0/13", "192.169.0.0/16",
+    "192.170.0.0/15", "192.172.0.0/14", "192.176.0.0/12", "192.192.0.0/10",
+    "193.0.0.0/8", "194.0.0.0/7", "196.0.0.0/6", "200.0.0.0/5", "208.0.0.0/4"
 )

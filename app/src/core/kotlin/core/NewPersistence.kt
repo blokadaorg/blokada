@@ -53,7 +53,7 @@ class SharedPreferencesSource<T>(val key: String, val default: T) : Source<T> {
 
     override fun set(value: T, id: String?) {
         val e = p.edit()
-        when(value) {
+        when (value) {
             is Boolean -> e.putBoolean(key, value)
             is Int -> e.putInt(key, value)
             is Long -> e.putLong(key, value)
@@ -72,31 +72,38 @@ object Register {
     private val sources = mutableMapOf<Pair<*, String?>, Source<*>>()
     private val pings = mutableMapOf<Pair<*, String?>, MutableList<() -> Any>>()
 
-    @Synchronized fun <T> sourceFor(key: String, source: Source<T>, default: T? = null) {
+    @Synchronized
+    fun <T> sourceFor(key: String, source: Source<T>, default: T? = null) {
         sources.put(null to key, source)
         defaults.put(null to key, default as Any?)
         v("set source in register", key, source, default ?: "null")
     }
 
-    @Synchronized fun <T> sourceFor(classOfT: Class<T>, source: Source<T>, key: String? = null,
-                                        default: T? = null) {
+    @Synchronized
+    fun <T> sourceFor(
+        classOfT: Class<T>, source: Source<T>, key: String? = null,
+        default: T? = null
+    ) {
         sources.put(classOfT to key, source)
         defaults.put(classOfT to key, default as Any?)
         v("set source in register", classOfT, source, default ?: "null")
     }
 
-    @Synchronized fun <T> get(key: String, id: String? = null) = {
+    @Synchronized
+    fun <T> get(key: String, id: String? = null) = {
         val current = currents.get(null to key) as T?
         current ?: {
             val source = sources.get(null to key) as Source<T>?
             if (source == null) throw Exception("No source in register for: $key")
             source.get(id) as T? ?: {
-                defaults.get(null to key) as T? ?: throw Exception("No default value in register for: $key")
+                defaults.get(null to key) as T?
+                    ?: throw Exception("No default value in register for: $key")
             }()
         }()
     }()
 
-    @Synchronized fun <T> get(classOfT: Class<T>, key: String? = null, id: String? = null) = {
+    @Synchronized
+    fun <T> get(classOfT: Class<T>, key: String? = null, id: String? = null) = {
         val current = currents.get(classOfT to key) as T?
         current ?: {
             val source = sources.get(classOfT to key) as Source<T>?
@@ -105,8 +112,11 @@ object Register {
         }()
     }()
 
-    @Synchronized fun <T> set(value: T, key: String, id: String? = null,
-                                  skipMemory: Boolean = false) = {
+    @Synchronized
+    fun <T> set(
+        value: T, key: String, id: String? = null,
+        skipMemory: Boolean = false
+    ) = {
         val source = sources.get(null to key) as Source<T>?
         if (source == null) throw Exception("No source in register for: $key")
         source.set(value, id)
@@ -114,8 +124,11 @@ object Register {
         if (!skipMemory) currents.put(null to key, value as Any)
     }()
 
-    @Synchronized fun <T> set(classOfT: Class<T>, value: T, key: String? = null, id: String? = null,
-                                  skipMemory: Boolean = false) = {
+    @Synchronized
+    fun <T> set(
+        classOfT: Class<T>, value: T, key: String? = null, id: String? = null,
+        skipMemory: Boolean = false
+    ) = {
         val source = sources.get(classOfT to key) as Source<T>?
         if (source == null) throw Exception("No source in register for: $classOfT, (key: $key)")
         source.set(value, id)
@@ -126,11 +139,13 @@ object Register {
         }
     }()
 
-    @Synchronized fun <T> on(classOfT: Class<T>, key: String? = null, callback: () -> Any) = {
+    @Synchronized
+    fun <T> on(classOfT: Class<T>, key: String? = null, callback: () -> Any) = {
         pings.getOrPut(classOfT to key, { mutableListOf() }).add(callback)
     }()
 
-    @Synchronized fun <T> cancel(classOfT: Class<T>, key: String? = null, callback: () -> Any) = {
+    @Synchronized
+    fun <T> cancel(classOfT: Class<T>, key: String? = null, callback: () -> Any) = {
         pings[classOfT to key]?.remove(callback)
     }()
 }
@@ -144,7 +159,8 @@ object Register {
 fun <T> get(classOfT: Class<T>): T = Register.get(classOfT)!!
 fun <T> T.update(classOfT: Class<T>) = Register.set(classOfT, this@update)
 fun <T> on(classOfT: Class<T>, callback: () -> Any) = Register.on(classOfT, callback = callback)
-fun <T> cancel(classOfT: Class<T>, callback: () -> Any) = Register.cancel(classOfT, callback = callback)
+fun <T> cancel(classOfT: Class<T>, callback: () -> Any) =
+    Register.cancel(classOfT, callback = callback)
 
 fun setPersistencePath(path: String) = runCatching {
     Paper.book().write("persistencePath", path)

@@ -13,12 +13,11 @@
     <string name="dns_edit_name_label">Server name</string>
     <string name="dns_edit_name_default">Default name</string>
 
-    
+
     <string name="dns_edit_next">Next</string>
     <string name="dns_edit_last">Add</string>
 
-    
-    
+
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
     <string name="dns_text_none">Default DNS</string>
 

@@ -6,9 +6,9 @@
         </shape>
     </item>
     <item>
-        <bitmap android:src="@drawable/bg_window"
-                android:tileMode="disabled"
-                android:gravity="center"
-            />
+        <bitmap
+            android:src="@drawable/bg_window"
+            android:tileMode="disabled"
+            android:gravity="center" />
     </item>
 </layer-list>

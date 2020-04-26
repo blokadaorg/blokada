@@ -28,7 +28,10 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/list_widget_info" />
         </receiver>
-        <receiver android:name="tunnel.OnGenerateSmartListReceiver" android:exported="true" android:enabled="true"></receiver>
+        <receiver
+            android:name="tunnel.OnGenerateSmartListReceiver"
+            android:exported="true"
+            android:enabled="true"></receiver>
 
     </application>
 

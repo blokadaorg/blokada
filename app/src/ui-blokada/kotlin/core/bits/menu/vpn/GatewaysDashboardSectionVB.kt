@@ -19,15 +19,15 @@ import retrofit2.Response
 import ui.StaticUrlWebActivity
 
 class GatewaysDashboardSectionVB(
-        val ktx: AndroidKontext,
-        val api: BlockaRestApi = ktx.di().instance(),
-        override val name: Resource = R.string.menu_vpn_gateways.res()
+    val ktx: AndroidKontext,
+    val api: BlockaRestApi = ktx.di().instance(),
+    override val name: Resource = R.string.menu_vpn_gateways.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     private val slotMutex = SlotMutex()
 
     private var items = listOf<ViewBinder>(
-            LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res())
+        LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res())
     )
 
     private val gatewaysRequest = Handler {
@@ -59,7 +59,10 @@ class GatewaysDashboardSectionVB(
                 else gatewaysRequest.sendEmptyMessageDelayed(0, 5 * 1000)
             }
 
-            override fun onResponse(call: Call<BlockaRestModel.Gateways>?, response: Response<BlockaRestModel.Gateways>?) {
+            override fun onResponse(
+                call: Call<BlockaRestModel.Gateways>?,
+                response: Response<BlockaRestModel.Gateways>?
+            ) {
                 response?.run {
                     when (code()) {
                         200 -> {
@@ -68,9 +71,27 @@ class GatewaysDashboardSectionVB(
                                 val partner = gateways.filter { it.partner() }
                                 val rest = gateways - partner - overloaded
 
-                                val o = overloaded.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) }
-                                val p = partner.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) } - o
-                                val r = rest.map { GatewayVB(ktx, it, onTap = slotMutex.openOneAtATime) }
+                                val o = overloaded.map {
+                                    GatewayVB(
+                                        ktx,
+                                        it,
+                                        onTap = slotMutex.openOneAtATime
+                                    )
+                                }
+                                val p = partner.map {
+                                    GatewayVB(
+                                        ktx,
+                                        it,
+                                        onTap = slotMutex.openOneAtATime
+                                    )
+                                } - o
+                                val r = rest.map {
+                                    GatewayVB(
+                                        ktx,
+                                        it,
+                                        onTap = slotMutex.openOneAtATime
+                                    )
+                                }
 
                                 items = listOf(
                                     LabelVB(ktx, label = R.string.menu_vpn_gateways_label.res())
@@ -78,16 +99,25 @@ class GatewaysDashboardSectionVB(
 
                                 if (partner.isNotEmpty()) {
                                     items += listOf(
-                                            LabelVB(ktx, label = R.string.slot_gateway_section_partner.res())
-                                    ) + p + listOf (
-                                            LabelVB(ktx, label = R.string.slot_gateway_learn_more.res()),
-                                            createPartnerGatewaysMenuItem(ktx)
+                                        LabelVB(
+                                            ktx,
+                                            label = R.string.slot_gateway_section_partner.res()
+                                        )
+                                    ) + p + listOf(
+                                        LabelVB(
+                                            ktx,
+                                            label = R.string.slot_gateway_learn_more.res()
+                                        ),
+                                        createPartnerGatewaysMenuItem(ktx)
                                     )
                                 }
 
                                 if (overloaded.isNotEmpty()) {
                                     items += listOf(
-                                            LabelVB(ktx, label = R.string.slot_gateway_section_overloaded.res())
+                                        LabelVB(
+                                            ktx,
+                                            label = R.string.slot_gateway_section_overloaded.res()
+                                        )
                                     ) + o
                                 }
 
@@ -110,14 +140,14 @@ class GatewaysDashboardSectionVB(
 fun createPartnerGatewaysMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().vpn_partner
     return SimpleMenuItemVB(ktx,
-            label = R.string.slot_gateway_info_partner.res(),
-            icon = R.drawable.ic_info.res(),
-            arrow = false,
-            action = {
-                modalManager.openModal()
-                ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
-                    putExtra(WebViewActivity.EXTRA_URL, page().toExternalForm())
-                })
-            }
+        label = R.string.slot_gateway_info_partner.res(),
+        icon = R.drawable.ic_info.res(),
+        arrow = false,
+        action = {
+            modalManager.openModal()
+            ktx.ctx.startActivity(Intent(ktx.ctx, StaticUrlWebActivity::class.java).apply {
+                putExtra(WebViewActivity.EXTRA_URL, page().toExternalForm())
+            })
+        }
     )
 }

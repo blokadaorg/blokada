@@ -24,7 +24,7 @@ class Persistence {
 class GlobalPersistence {
     internal val loadPath = {
         Result.of { Paper.book().read<String>("persistencePath", Persistence.DEFAULT_PATH) }
-                .or { Ok(Persistence.DEFAULT_PATH) }.get()
+            .or { Ok(Persistence.DEFAULT_PATH) }.get()
     }
 
     val savePath = { path: String ->

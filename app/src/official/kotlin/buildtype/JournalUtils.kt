@@ -149,6 +149,7 @@ class JournalLog private constructor() {
 
     @Volatile
     private var enableLogging = true
+
     @Volatile
     private var logLevel = Log.INFO
 
@@ -239,7 +240,8 @@ class JournalLog private constructor() {
     }
 }
 
-internal class JournalCallbacks(val clientInstance: JournalClient?) : Application.ActivityLifecycleCallbacks {
+internal class JournalCallbacks(val clientInstance: JournalClient?) :
+    Application.ActivityLifecycleCallbacks {
 
     protected val currentTimeMillis: Long
         get() = System.currentTimeMillis()
@@ -333,7 +335,7 @@ class DeviceInfo(private val context: Context) {
             get() {
                 try {
                     val manager = context
-                            .getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                        .getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                     if (manager.phoneType != TelephonyManager.PHONE_TYPE_CDMA) {
                         val country = manager.networkCountryIso
                         if (country != null) {
@@ -395,7 +397,7 @@ class DeviceInfo(private val context: Context) {
         private fun getCarrierInternal(): String? {
             try {
                 val manager = context
-                        .getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                    .getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 return manager.networkOperatorName
             } catch (e: Exception) {
                 // Failed to get network operator name from network
@@ -481,9 +483,11 @@ class Identify {
     fun clearAll(): Identify {
         if (userPropertiesOperationsInternal.length() > 0) {
             if (!userProperties.contains(Constants.AMP_OP_CLEAR_ALL)) {
-                JournalLog.getLogger().w(TAG, String.format(
+                JournalLog.getLogger().w(
+                    TAG, String.format(
                         "Need to send \$clearAll on its own Identify object without any other operations, ignoring \$clearAll"
-                ))
+                    )
+                )
             }
             return this
         }
@@ -500,31 +504,35 @@ class Identify {
 
     private fun addToUserProperties(operation: String, property: String, value: Any?) {
         if (Utils.isEmptyString(property)) {
-            JournalLog.getLogger().w(TAG,
-                    "Attempting to perform operation $operation with a null or empty string property, ignoring"
+            JournalLog.getLogger().w(
+                TAG,
+                "Attempting to perform operation $operation with a null or empty string property, ignoring"
             )
             return
         }
 
         if (value == null) {
-            JournalLog.getLogger().w(TAG,
-                    "Attempting to perform operation $operation with null value for property $property, ignoring"
+            JournalLog.getLogger().w(
+                TAG,
+                "Attempting to perform operation $operation with null value for property $property, ignoring"
             )
             return
         }
 
         // check that clearAll wasn't already used in this Identify
         if (userPropertiesOperationsInternal.has(Constants.AMP_OP_CLEAR_ALL)) {
-            JournalLog.getLogger().w(TAG,
-                    "This Identify already contains a \$clearAll operation, ignoring operation $operation"
+            JournalLog.getLogger().w(
+                TAG,
+                "This Identify already contains a \$clearAll operation, ignoring operation $operation"
             )
             return
         }
 
         // check if property already used in previous operation
         if (userProperties.contains(property)) {
-            JournalLog.getLogger().w(TAG,
-                    "Already used property $property in previous operation, ignoring operation $operation"
+            JournalLog.getLogger().w(
+                TAG,
+                "Already used property $property in previous operation, ignoring operation $operation"
             )
             return
         }
@@ -561,7 +569,8 @@ class Identify {
     }
 }
 
-internal class DatabaseHelper protected constructor(context: Context, instance: String) : SQLiteOpenHelper(context, getDatabaseName(instance), null, Constants.DATABASE_VERSION) {
+internal class DatabaseHelper protected constructor(context: Context, instance: String) :
+    SQLiteOpenHelper(context, getDatabaseName(instance), null, Constants.DATABASE_VERSION) {
 
     private val file: File
     private val instanceName: String
@@ -657,9 +666,9 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
                 contentValues.put(VALUE_FIELD, value as String)
             }
             result = db.insertWithOnConflict(
-                    table, null,
-                    contentValues,
-                    SQLiteDatabase.CONFLICT_REPLACE
+                table, null,
+                contentValues,
+                SQLiteDatabase.CONFLICT_REPLACE
             )
             if (result == -1L) {
                 logger.w(TAG, "Insert failed")
@@ -750,8 +759,8 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
         try {
             val db = readableDatabase
             cursor = queryDb(
-                    db, table, arrayOf(KEY_FIELD, VALUE_FIELD), "$KEY_FIELD = ?",
-                    arrayOf(key), null, null, null, null
+                db, table, arrayOf(KEY_FIELD, VALUE_FIELD), "$KEY_FIELD = ?",
+                arrayOf(key), null, null, null, null
             )
             if (cursor.moveToFirst()) {
                 value = if (table == STORE_TABLE_NAME) cursor.getString(1) else cursor.getLong(1)
@@ -778,29 +787,32 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
     @Synchronized
     @Throws(JSONException::class)
     fun getEvents(
-            upToId: Long, limit: Long): MutableList<JSONObject> {
+        upToId: Long, limit: Long
+    ): MutableList<JSONObject> {
         return getEventsFromTable(EVENT_TABLE_NAME, upToId, limit).toMutableList()
     }
 
     @Synchronized
     @Throws(JSONException::class)
     fun getIdentifys(
-            upToId: Long, limit: Long): MutableList<JSONObject> {
+        upToId: Long, limit: Long
+    ): MutableList<JSONObject> {
         return getEventsFromTable(IDENTIFY_TABLE_NAME, upToId, limit).toMutableList()
     }
 
     @Synchronized
     @Throws(JSONException::class)
     protected fun getEventsFromTable(
-            table: String, upToId: Long, limit: Long): List<JSONObject> {
+        table: String, upToId: Long, limit: Long
+    ): List<JSONObject> {
         val events = LinkedList<JSONObject>()
         var cursor: Cursor? = null
         try {
             val db = readableDatabase
             cursor = queryDb(
-                    db, table, arrayOf(ID_FIELD, EVENT_FIELD),
-                    if (upToId >= 0) "$ID_FIELD <= $upToId" else null, null, null, null,
-                    "$ID_FIELD ASC", if (limit >= 0) "" + limit else null
+                db, table, arrayOf(ID_FIELD, EVENT_FIELD),
+                if (upToId >= 0) "$ID_FIELD <= $upToId" else null, null, null, null,
+                "$ID_FIELD ASC", if (limit >= 0) "" + limit else null
             )
 
             while (cursor.moveToNext()) {
@@ -974,8 +986,15 @@ internal class DatabaseHelper protected constructor(context: Context, instance: 
 
 
     fun queryDb(
-            db: SQLiteDatabase, table: String, columns: Array<String>, selection: String?,
-            selectionArgs: Array<String>?, groupBy: String?, having: String?, orderBy: String?, limit: String?
+        db: SQLiteDatabase,
+        table: String,
+        columns: Array<String>,
+        selection: String?,
+        selectionArgs: Array<String>?,
+        groupBy: String?,
+        having: String?,
+        orderBy: String?,
+        limit: String?
     ): Cursor {
         return db.query(table, columns, selection, selectionArgs, groupBy, having, orderBy, limit)
     }

@@ -3,11 +3,11 @@ package blocka
 import core.v
 
 internal class AccountManager(
-        internal var state: CurrentAccount,
-        val newAccountRequest: () -> AccountId? = { throw Exception("not implemented") },
-        val getAccountRequest: (AccountId) -> ActiveUntil = { throw Exception("not implemented") },
-        val generateKeypair: () -> Pair<String, String> = { throw Exception("not implemented") },
-        val accountValid: () -> Unit = {}
+    internal var state: CurrentAccount,
+    val newAccountRequest: () -> AccountId? = { throw Exception("not implemented") },
+    val getAccountRequest: (AccountId) -> ActiveUntil = { throw Exception("not implemented") },
+    val generateKeypair: () -> Pair<String, String> = { throw Exception("not implemented") },
+    val accountValid: () -> Unit = {}
 ) {
 
     private var lastAccountRequest = 0L
@@ -23,9 +23,9 @@ internal class AccountManager(
                 try {
                     val activeUntil = getAccountRequest(state.id)
                     state = state.copy(
-                            activeUntil = activeUntil,
-                            accountOk = !activeUntil.expired(),
-                            lastAccountCheck = System.currentTimeMillis()
+                        activeUntil = activeUntil,
+                        accountOk = !activeUntil.expired(),
+                        lastAccountCheck = System.currentTimeMillis()
                     )
                     lastAccountRequest = System.currentTimeMillis()
                     if (!activeUntil.expired()) accountValid()
@@ -40,9 +40,9 @@ internal class AccountManager(
     fun restoreAccount(newId: AccountId) {
         val activeUntil = getAccountRequest(newId)
         state = state.copy(
-                id = newId,
-                activeUntil = activeUntil,
-                accountOk = true
+            id = newId,
+            activeUntil = activeUntil,
+            accountOk = true
         )
         if (!activeUntil.expired()) accountValid()
     }
@@ -53,9 +53,9 @@ internal class AccountManager(
             val id = newAccountRequest()
             if (id?.isBlank() != false) throw Exception("failed to request new account")
             state = state.copy(
-                    id = id,
-                    accountOk = false,
-                    lastAccountCheck = System.currentTimeMillis()
+                id = id,
+                accountOk = false,
+                lastAccountCheck = System.currentTimeMillis()
             )
         }
     }
@@ -64,8 +64,8 @@ internal class AccountManager(
         if (state.publicKey.isNotBlank() and state.privateKey.isNotBlank()) return
         val (private, public) = generateKeypair()
         state = state.copy(
-                privateKey = private,
-                publicKey = public
+            privateKey = private,
+            publicKey = public
         )
     }
 }

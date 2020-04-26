@@ -6,6 +6,6 @@ package filter
 
 @Deprecated("Legacy import only")
 class FilterSourceDescriptor(
-        val id: String,
-        val source: String
+    val id: String,
+    val source: String
 )

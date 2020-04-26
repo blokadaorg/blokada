@@ -14,8 +14,8 @@ import com.rd.animation.type.AnimationType
 import org.blokada.R
 
 class DotsView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet) {
 
     init {
@@ -62,8 +62,9 @@ class DotsView(
 
     fun alignEnd() {
         val lp = RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT)
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT
+        )
         lp.addRule(RelativeLayout.ALIGN_PARENT_END)
         contentView.layoutParams = lp
     }
@@ -78,6 +79,7 @@ class DotsView(
                 }
                 else -> Unit
             }
+
             override fun onPageSelected(position: Int) {
                 sleepingAnimationHandler.removeMessages(WAKE)
                 sleepingAnimationHandler.sendEmptyMessage(WAKE)
@@ -101,7 +103,7 @@ class DotsView(
 
     private var sleepingAnimationHandler = Handler {
         when (it.what) {
-            WAKE ->  {
+            WAKE -> {
                 sectionView.animate().setDuration(200).alpha(1f)
                 dotsView.animate().setDuration(200).alpha(1f)
                 if (background) backgroundView.animate().setDuration(200).alpha(1f)

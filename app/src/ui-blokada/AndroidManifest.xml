@@ -70,9 +70,12 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https"
+
+                <data
+                    android:scheme="https"
                     android:host="app.blokada.org"
                     android:pathPrefix="/success" />
             </intent-filter>
@@ -99,10 +102,13 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="blocka"
-                    android:host="acc"/>
+
+                <data
+                    android:scheme="blocka"
+                    android:host="acc" />
             </intent-filter>
             <meta-data
                 android:name="android.notch_support"
@@ -177,7 +183,7 @@
             tools:ignore="ExportedActivity">
             <!-- this Intent filter allows the plug-in to be discovered by the host. -->
             <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity-alias>
 
@@ -188,7 +194,7 @@
 
             <!-- this Intent filter allows the plug-in to discovered by the host. -->
             <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
             </intent-filter>
         </receiver>
 
@@ -199,10 +205,13 @@
             android:theme="@style/BlokadaColors.Main.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="blocka"
-                    android:host="log"/>
+
+                <data
+                    android:scheme="blocka"
+                    android:host="log" />
             </intent-filter>
         </activity>
 
@@ -255,21 +264,23 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
         <service android:name="adblocker.UpdateWidgetService" />
 
         <service android:name="adblocker.RequestLogger" />
 
         <service android:name="adblocker.ForegroundStartService" />
 
-        <activity android:name="core.AddDnsActivity"
+        <activity
+            android:name="core.AddDnsActivity"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:label="Add DNS"
             android:launchMode="singleTop"
             android:theme="@style/TransparentWindow"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
 
-        <service android:name="notification.AnnouncementNotificationTappedService"/>
+        <service android:name="notification.AnnouncementNotificationTappedService" />
     </application>
 
 </manifest>

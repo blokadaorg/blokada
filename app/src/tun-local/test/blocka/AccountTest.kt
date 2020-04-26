@@ -12,11 +12,12 @@ class AccountTest {
         LOGGER_TEST = true
     }
 
-    @Test fun accountManager_firstSyncWillRequestNewAccount() {
+    @Test
+    fun accountManager_firstSyncWillRequestNewAccount() {
         val mgr = AccountManager(
-                state = CurrentAccount(),
-                newAccountRequest = { "generated-id" },
-                generateKeypair = { "private-key" to "public-key" }
+            state = CurrentAccount(),
+            newAccountRequest = { "generated-id" },
+            generateKeypair = { "private-key" to "public-key" }
         )
 
         mgr.sync()
@@ -29,14 +30,15 @@ class AccountTest {
 
     }
 
-    @Test fun accountManager_secondSyncWillCheckAccountExpiration() {
+    @Test
+    fun accountManager_secondSyncWillCheckAccountExpiration() {
         val mgr = AccountManager(
-                state = CurrentAccount(accountOk = true, id = "generated-id"),
-                getAccountRequest = { id ->
-                    Assert.assertEquals("generated-id", id)
-                    tomorrow()
-                },
-                generateKeypair = { "private-key" to "public-key" }
+            state = CurrentAccount(accountOk = true, id = "generated-id"),
+            getAccountRequest = { id ->
+                Assert.assertEquals("generated-id", id)
+                tomorrow()
+            },
+            generateKeypair = { "private-key" to "public-key" }
         )
 
         mgr.sync()
@@ -46,32 +48,34 @@ class AccountTest {
     }
 
 
-    @Test fun accountManager_getAccountRequestFails() {
+    @Test
+    fun accountManager_getAccountRequestFails() {
         val mgr = AccountManager(
-                state = CurrentAccount(id = "id", accountOk = true),
-                getAccountRequest = { id ->
-                    throw Exception("get account request failed")
-                }
+            state = CurrentAccount(id = "id", accountOk = true),
+            getAccountRequest = { id ->
+                throw Exception("get account request failed")
+            }
         )
 
         runCatching { mgr.sync() }
         Assert.assertEquals(false, mgr.state.accountOk)
     }
 
-    @Test fun accountManager_restoreAccount() {
+    @Test
+    fun accountManager_restoreAccount() {
         val mgr = AccountManager(
-                state = CurrentAccount(
-                        id = "old-id",
-                        activeUntil = Date(0),
-                        privateKey = "private-key",
-                        publicKey = "public-key",
-                        lastAccountCheck = 0,
-                        accountOk = true
-                ),
-                getAccountRequest = { id ->
-                    Assert.assertEquals("new-id", id)
-                    tomorrow()
-                }
+            state = CurrentAccount(
+                id = "old-id",
+                activeUntil = Date(0),
+                privateKey = "private-key",
+                publicKey = "public-key",
+                lastAccountCheck = 0,
+                accountOk = true
+            ),
+            getAccountRequest = { id ->
+                Assert.assertEquals("new-id", id)
+                tomorrow()
+            }
         )
 
         mgr.restoreAccount("new-id")
@@ -80,32 +84,39 @@ class AccountTest {
         Assert.assertEquals(true, mgr.state.accountOk)
     }
 
-    @Test fun accountManager_restoreAccountRequestFails() {
+    @Test
+    fun accountManager_restoreAccountRequestFails() {
         // Scenario: restore account goes bad
         val mgr = AccountManager(
-                state = CurrentAccount(id = "old-id", accountOk = true),
-                getAccountRequest = { id ->
-                    throw Exception("unacceptable account id")
-                }
+            state = CurrentAccount(id = "old-id", accountOk = true),
+            getAccountRequest = { id ->
+                throw Exception("unacceptable account id")
+            }
         )
 
-        try { mgr.restoreAccount("bad-id") } catch (ex: Exception) {}
+        try {
+            mgr.restoreAccount("bad-id")
+        } catch (ex: Exception) {
+        }
 
         Assert.assertEquals("old-id", mgr.state.id)
         Assert.assertEquals(true, mgr.state.accountOk)
     }
 
-    private val gatewaysRequest = { listOf(
+    private val gatewaysRequest = {
+        listOf(
             BlockaRestModel.GatewayInfo("key1", "EU", "PL", 0, "gw1", "gw1-6", 69, Date(0)),
             BlockaRestModel.GatewayInfo("key2", "Asia", "SG", 0, "gw2", "gw2-6", 69, Date(0))
-    )}
+        )
+    }
 
     private val user = CurrentAccount("new-id", Date(0), "prv", "user-public-key", 0L, true)
 
-    @Test fun leaseManager_noGatewaySelected() {
+    @Test
+    fun leaseManager_noGatewaySelected() {
         val mgr = LeaseManager(
-                state = CurrentLease(),
-                getGatewaysRequest = gatewaysRequest
+            state = CurrentLease(),
+            getGatewaysRequest = gatewaysRequest
         )
 
         mgr.sync(user)
@@ -113,28 +124,29 @@ class AccountTest {
         Assert.assertEquals(false, mgr.state.leaseOk)
     }
 
-    @Test fun leaseManager_checkValidLease() {
+    @Test
+    fun leaseManager_checkValidLease() {
         // Scenario: user selected gateway before, requests confirm it
         val mgr = LeaseManager(
-                state = CurrentLease(
+            state = CurrentLease(
+                gatewayId = "key1",
+                leaseOk = false
+            ),
+            getGatewaysRequest = gatewaysRequest,
+            getLeasesRequest = { id ->
+                Assert.assertEquals("new-id", id)
+                listOf(
+                    BlockaRestModel.LeaseInfo(
+                        accountId = "new-id",
+                        publicKey = "user-public-key",
                         gatewayId = "key1",
-                        leaseOk = false
-                ),
-                getGatewaysRequest = gatewaysRequest,
-                getLeasesRequest = { id ->
-                    Assert.assertEquals("new-id", id)
-                    listOf(
-                            BlockaRestModel.LeaseInfo(
-                                    accountId = "new-id",
-                                    publicKey = "user-public-key",
-                                    gatewayId = "key1",
-                                    expires = tomorrow(),
-                                    alias = "funny-phone",
-                                    vip4 = "vip4-gw1",
-                                    vip6 = "ipv6"
-                            )
+                        expires = tomorrow(),
+                        alias = "funny-phone",
+                        vip4 = "vip4-gw1",
+                        vip6 = "ipv6"
                     )
-                }
+                )
+            }
         )
 
         mgr.sync(user)
@@ -146,30 +158,31 @@ class AccountTest {
 
     }
 
-    @Test fun leaseManager_renewExpiredLease() {
+    @Test
+    fun leaseManager_renewExpiredLease() {
         // Scenario: lease expired, should renew automatically
         val mgr = LeaseManager(
-                state = CurrentLease(
-                        gatewayId = "key1",
-                        leaseActiveUntil = Date(),
-                        leaseOk = true
-                ),
-                getGatewaysRequest = gatewaysRequest,
-                getLeasesRequest = { id -> emptyList() },
-                newLeaseRequest = { request ->
-                    Assert.assertEquals("new-id", request.accountId)
-                    Assert.assertEquals("user-public-key", request.publicKey)
-                    Assert.assertEquals("key1", request.gatewayId)
-                    BlockaRestModel.LeaseInfo(
-                            accountId = "new-id",
-                            publicKey = "user-public-key",
-                            gatewayId = "key1",
-                            expires = tomorrow(),
-                            alias = null,
-                            vip4 = "vip4-gw1-2",
-                            vip6 = "vip6-gw"
-                    )
-                }
+            state = CurrentLease(
+                gatewayId = "key1",
+                leaseActiveUntil = Date(),
+                leaseOk = true
+            ),
+            getGatewaysRequest = gatewaysRequest,
+            getLeasesRequest = { id -> emptyList() },
+            newLeaseRequest = { request ->
+                Assert.assertEquals("new-id", request.accountId)
+                Assert.assertEquals("user-public-key", request.publicKey)
+                Assert.assertEquals("key1", request.gatewayId)
+                BlockaRestModel.LeaseInfo(
+                    accountId = "new-id",
+                    publicKey = "user-public-key",
+                    gatewayId = "key1",
+                    expires = tomorrow(),
+                    alias = null,
+                    vip4 = "vip4-gw1-2",
+                    vip6 = "vip6-gw"
+                )
+            }
         )
 
         mgr.sync(user)
@@ -180,10 +193,11 @@ class AccountTest {
 
     }
 
-    @Test(expected = Exception::class) fun leaseManager_gatewaysRequestFails() {
+    @Test(expected = Exception::class)
+    fun leaseManager_gatewaysRequestFails() {
         val mgr = LeaseManager(
-                state = CurrentLease(leaseOk = true),
-                getGatewaysRequest = { throw Exception("failed gateways request") }
+            state = CurrentLease(leaseOk = true),
+            getGatewaysRequest = { throw Exception("failed gateways request") }
         )
 
         try {
@@ -195,11 +209,12 @@ class AccountTest {
         }
     }
 
-    @Test(expected = Exception::class) fun leaseManager_leaseRequestFails() {
+    @Test(expected = Exception::class)
+    fun leaseManager_leaseRequestFails() {
         val mgr = LeaseManager(
-                state = CurrentLease(gatewayId = "key1", leaseOk = true, leaseActiveUntil = Date(0)),
-                getGatewaysRequest = gatewaysRequest,
-                getLeasesRequest = { throw Exception("failed lease request") }
+            state = CurrentLease(gatewayId = "key1", leaseOk = true, leaseActiveUntil = Date(0)),
+            getGatewaysRequest = gatewaysRequest,
+            getLeasesRequest = { throw Exception("failed lease request") }
         )
 
         try {
@@ -211,11 +226,12 @@ class AccountTest {
         }
     }
 
-    @Test fun leaseManager_leaseRequestFailsButExistingLeaseIsValid() {
+    @Test
+    fun leaseManager_leaseRequestFailsButExistingLeaseIsValid() {
         val mgr = LeaseManager(
-                state = CurrentLease(gatewayId = "key1", leaseOk = true, leaseActiveUntil = tomorrow()),
-                getGatewaysRequest = gatewaysRequest,
-                getLeasesRequest = { throw Exception("failed lease request") }
+            state = CurrentLease(gatewayId = "key1", leaseOk = true, leaseActiveUntil = tomorrow()),
+            getGatewaysRequest = gatewaysRequest,
+            getLeasesRequest = { throw Exception("failed lease request") }
         )
 
         runCatching { mgr.sync(user) }
@@ -223,12 +239,13 @@ class AccountTest {
         Assert.assertEquals(true, mgr.state.leaseOk)
     }
 
-    @Test(expected = Exception::class) fun leaseManager_newLeaseRequestFails() {
+    @Test(expected = Exception::class)
+    fun leaseManager_newLeaseRequestFails() {
         val mgr = LeaseManager(
-                state = CurrentLease(gatewayId = "key1", leaseOk = true, leaseActiveUntil = Date(0)),
-                getGatewaysRequest = gatewaysRequest,
-                getLeasesRequest = { id -> emptyList() },
-                newLeaseRequest = { request -> throw Exception("failed new lease request") }
+            state = CurrentLease(gatewayId = "key1", leaseOk = true, leaseActiveUntil = Date(0)),
+            getGatewaysRequest = gatewaysRequest,
+            getLeasesRequest = { id -> emptyList() },
+            newLeaseRequest = { request -> throw Exception("failed new lease request") }
         )
 
         try {
@@ -239,12 +256,13 @@ class AccountTest {
         }
     }
 
-    @Test(expected = BlockaRestModel.TooManyDevicesException::class) fun leaseManager_tooManyDevices() {
+    @Test(expected = BlockaRestModel.TooManyDevicesException::class)
+    fun leaseManager_tooManyDevices() {
         val mgr = LeaseManager(
-                state = CurrentLease(gatewayId = "key1"),
-                getGatewaysRequest = gatewaysRequest,
-                getLeasesRequest = { id -> emptyList() },
-                newLeaseRequest = { request -> throw BlockaRestModel.TooManyDevicesException() }
+            state = CurrentLease(gatewayId = "key1"),
+            getGatewaysRequest = gatewaysRequest,
+            getLeasesRequest = { id -> emptyList() },
+            newLeaseRequest = { request -> throw BlockaRestModel.TooManyDevicesException() }
         )
 
         mgr.sync(user)

@@ -9,7 +9,8 @@ package gs.presentation
 fun isWrongInstance(a: android.app.Activity): Boolean {
     if (!a.isTaskRoot) {
         val intent = a.intent;
-        val isMainAction = intent.action != null && intent.action.equals(android.content.Intent.ACTION_MAIN);
+        val isMainAction =
+            intent.action != null && intent.action.equals(android.content.Intent.ACTION_MAIN);
         return intent.hasCategory(android.content.Intent.CATEGORY_LAUNCHER) && isMainAction;
     }
     return false;
@@ -34,7 +35,9 @@ fun android.view.ViewPropertyAnimator.doAfter(f: () -> Unit) {
 }
 
 fun android.content.res.Resources.toPx(dp: Int): Int {
-    return android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(),
-            this.displayMetrics).toInt();
+    return android.util.TypedValue.applyDimension(
+        android.util.TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(),
+        this.displayMetrics
+    ).toInt();
 }
 

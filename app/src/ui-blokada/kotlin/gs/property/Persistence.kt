@@ -34,7 +34,7 @@ interface Serialiser {
     fun edit(): gs.property.Serialiser.Editor
 }
 
-abstract class PersistenceWithSerialiser<T>(val xx: Environment): gs.property.Persistence<T> {
+abstract class PersistenceWithSerialiser<T>(val xx: Environment) : gs.property.Persistence<T> {
     protected fun serialiser(key: String): gs.property.Serialiser {
         return xx().with(key).instance<Serialiser>()
     }
@@ -45,8 +45,8 @@ interface HasKey {
 }
 
 class BasicPersistence<T>(
-        xx: Environment,
-        val key: String
+    xx: Environment,
+    val key: String
 ) : PersistenceWithSerialiser<T>(xx) {
 
     val p by lazy { serialiser("basic") }
@@ -64,7 +64,7 @@ class BasicPersistence<T>(
 
     override fun write(source: T) {
         val e = p.edit()
-        when(source) {
+        when (source) {
             is Boolean -> e.putBoolean(key, source)
             is Int -> e.putInt(key, source)
             is Long -> e.putLong(key, source)
@@ -77,7 +77,7 @@ class BasicPersistence<T>(
 
 }
 
-class SharedPreferencesWrapper(val p: SharedPreferences): Serialiser {
+class SharedPreferencesWrapper(val p: SharedPreferences) : Serialiser {
 
     override val all: Map<String, *> by p.all
     override fun getString(key: String, defValue: String): String {
@@ -112,7 +112,7 @@ class SharedPreferencesWrapper(val p: SharedPreferences): Serialiser {
         return EditorWrapper(p.edit())
     }
 
-    class EditorWrapper(val e: SharedPreferences.Editor): Serialiser.Editor {
+    class EditorWrapper(val e: SharedPreferences.Editor) : Serialiser.Editor {
 
         override fun putString(key: String, value: String): Serialiser.Editor {
             e.putString(key, value)

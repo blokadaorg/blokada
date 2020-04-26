@@ -12,10 +12,10 @@ import java.net.URL
  * It makes sure Blokada is inactive during update download.
  */
 class UpdateCoordinator(
-        private val xx: Environment,
-        private val downloader: AUpdateDownloader,
-        private val s: Tunnel = xx().instance(),
-        private val j: Journal = xx().instance()
+    private val xx: Environment,
+    private val downloader: AUpdateDownloader,
+    private val s: Tunnel = xx().instance(),
+    private val j: Journal = xx().instance()
 ) {
 
     private var w: IWhen? = null
@@ -25,8 +25,7 @@ class UpdateCoordinator(
         if (downloading) return
         if (s.tunnelState(TunnelState.INACTIVE)) {
             download(urls)
-        }
-        else {
+        } else {
 //            j.log("UpdateCoordinator: deactivate tunnel: ${s.tunnelState()}")
 //            s.tunnelState.cancel(w)
 //            w = s.tunnelState.doOnUiWhenChanged().then {
@@ -35,7 +34,7 @@ class UpdateCoordinator(
 //                        j.log("UpdateCoordinator: tunnel deactivated")
 //                        s.tunnelState.cancel(w)
 //                        w = null
-                        download(urls)
+            download(urls)
 //                    }
 //                }
 //            }

@@ -14,7 +14,8 @@ class BlockadeTest {
         val allow2 = Ruleset().apply { addAll(listOf("f")) }
 
         Blockade(
-                doLoadRuleset = { it -> Result.of {
+            doLoadRuleset = { it ->
+                Result.of {
                     when (it) {
                         "deny1" -> deny1
                         "deny2" -> deny2
@@ -22,9 +23,11 @@ class BlockadeTest {
                         "allow2" -> allow2
                         else -> throw Exception("unknown ruleset")
                     }
-                }},
-                doSaveRuleset = { _, _ -> Result.of { true } },
-                doGetRulesetSize = { it -> Result.of {
+                }
+            },
+            doSaveRuleset = { _, _ -> Result.of { true } },
+            doGetRulesetSize = { it ->
+                Result.of {
                     when (it) {
                         "deny1" -> deny1.size
                         "deny2" -> deny2.size
@@ -32,12 +35,14 @@ class BlockadeTest {
                         "allow2" -> allow2.size
                         else -> throw Exception("unknown ruleset")
                     }
-                }},
-                doGetMemoryLimit = memoryLimit
+                }
+            },
+            doGetMemoryLimit = memoryLimit
         )
     }()
 
-    @Test fun blockade_build() {
+    @Test
+    fun blockade_build() {
         val blockade = fixture()
         val ktx = Kontext.forTest("blockade.build()")
 
@@ -57,7 +62,8 @@ class BlockadeTest {
         Assert.assertFalse(blockade.allowed("a"))
     }
 
-    @Test fun blockade_memory() {
+    @Test
+    fun blockade_memory() {
         // Simulate memory decreasing after each list being loaded
         val memory = listOf(6, 3, 0) // Number of rules that can still fit
         var mIndex = 0

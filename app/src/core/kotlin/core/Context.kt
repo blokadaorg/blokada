@@ -6,7 +6,8 @@ import java.lang.ref.WeakReference
 private var appContext: WeakReference<Context?> = WeakReference(null)
 private var activityContext: WeakReference<Context?> = WeakReference(null)
 
-@Synchronized fun getActiveContext(activity: Boolean = false): Context? {
+@Synchronized
+fun getActiveContext(activity: Boolean = false): Context? {
     return when {
         activityContext.get() != null -> activityContext.get()
         !activity && appContext.get() != null -> appContext.get()
@@ -16,11 +17,13 @@ private var activityContext: WeakReference<Context?> = WeakReference(null)
     }
 }
 
-@Synchronized fun Context.setActiveContext(activity: Boolean = false) {
+@Synchronized
+fun Context.setActiveContext(activity: Boolean = false) {
     if (activity) activityContext = WeakReference(this@setActiveContext)
     else appContext = WeakReference(this@setActiveContext)
 }
 
-@Synchronized fun unsetActiveContext() {
+@Synchronized
+fun unsetActiveContext() {
     activityContext = WeakReference(null)
 }

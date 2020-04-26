@@ -25,23 +25,27 @@ import org.blokada.R
 import java.net.URL
 
 class WebDash(
-        private val xx: Environment,
-        private val url: IProperty<URL>,
-        private val forceEmbedded: Boolean = false,
-        private var reloadOnError: Boolean = false,
-        private val javascript: Boolean = false,
-        private val big: Boolean = false,
-        private val j: Journal = xx().instance(),
-        private val provider: LazyProvider<View> = xx().with("webview").instance(),
-        private val small: Boolean = false,
-        private val onLoadSpecificUrl: Pair<String, () -> Unit>? = null
-): CallbackViewBinder, Scrollable, ListSection {
+    private val xx: Environment,
+    private val url: IProperty<URL>,
+    private val forceEmbedded: Boolean = false,
+    private var reloadOnError: Boolean = false,
+    private val javascript: Boolean = false,
+    private val big: Boolean = false,
+    private val j: Journal = xx().instance(),
+    private val provider: LazyProvider<View> = xx().with("webview").instance(),
+    private val small: Boolean = false,
+    private val onLoadSpecificUrl: Pair<String, () -> Unit>? = null
+) : CallbackViewBinder, Scrollable, ListSection {
 
     override val viewType = 43
 
     override fun getScrollableView() = webView!!
 
-    override fun setOnScroll(onScrollDown: () -> Unit, onScrollUp: () -> Unit, onScrollStopped: () -> Unit) {
+    override fun setOnScroll(
+        onScrollDown: () -> Unit,
+        onScrollUp: () -> Unit,
+        onScrollStopped: () -> Unit
+    ) {
     }
 
     override fun setOnSelected(listener: (item: Navigable?) -> Unit) = Unit
@@ -65,10 +69,11 @@ class WebDash(
             val themedContext = ContextThemeWrapper(ctx, R.style.GsTheme_Dialog)
             // TODO: one instance for all
             v = LayoutInflater.from(themedContext).inflate(
-                    if (small) R.layout.webview_small
-                    else if (big) R.layout.webview_big
-                    else R.layout.webview
-                    , parent, false)
+                if (small) R.layout.webview_small
+                else if (big) R.layout.webview_big
+                else R.layout.webview
+                , parent, false
+            )
 //            provider.set(v)
         }
         return v!!
@@ -140,15 +145,22 @@ class WebDash(
                 }
             }
 
-            override fun onReceivedError(view: WebView?, request: WebResourceRequest?,
-                                         error: WebResourceError?) {
+            override fun onReceivedError(
+                view: WebView?, request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
                 val url = if (Build.VERSION.SDK_INT >= 21) request?.url?.toString() else null
-                if (Build.VERSION.SDK_INT >= 23) handleError(url, Exception("onReceivedError: ${error?.errorCode} ${error?.description}"))
+                if (Build.VERSION.SDK_INT >= 23) handleError(
+                    url,
+                    Exception("onReceivedError: ${error?.errorCode} ${error?.description}")
+                )
                 else handleError(url, Exception("onReceivedError: $error"))
             }
 
-            override fun onReceivedError(view: WebView?, errorCode: Int,
-                                         description: String?, failingUrl: String?) {
+            override fun onReceivedError(
+                view: WebView?, errorCode: Int,
+                description: String?, failingUrl: String?
+            ) {
                 handleError(failingUrl, Exception("onReceivedError2 $errorCode $description"))
             }
 
@@ -165,7 +177,11 @@ class WebDash(
     }
 
     private fun load() {
-        try { loader.sendEmptyMessage(0) } catch (e: Exception) { handleError(null, e) }
+        try {
+            loader.sendEmptyMessage(0)
+        } catch (e: Exception) {
+            handleError(null, e)
+        }
     }
 
     fun reload() {
@@ -178,8 +194,12 @@ class WebDash(
             j.log("WebDash: load failed: $url", reason)
             clean = false
             if (!reloadOnError) return
-            if (url?.contains(url().host) == true && reloadCounter++ <= 10) loader.sendEmptyMessageDelayed(0, RELOAD_ERROR_MILLIS)
-        } catch (e: Exception) {}
+            if (url?.contains(url().host) == true && reloadCounter++ <= 10) loader.sendEmptyMessageDelayed(
+                0,
+                RELOAD_ERROR_MILLIS
+            )
+        } catch (e: Exception) {
+        }
     }
 
     override fun detach(view: View) {

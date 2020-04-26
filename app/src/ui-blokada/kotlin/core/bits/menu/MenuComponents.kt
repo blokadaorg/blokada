@@ -13,9 +13,9 @@ fun isLandscape(ctx: Context): Boolean {
 }
 
 class MenuItemsVB(
-        val ktx: AndroidKontext,
-        val items: List<ViewBinder>,
-        override val name: Resource = R.string.panel_section_menu.res()
+    val ktx: AndroidKontext,
+    val items: List<ViewBinder>,
+    override val name: Resource = R.string.panel_section_menu.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     override fun attach(view: VBListView) {
@@ -29,12 +29,12 @@ class MenuItemsVB(
 }
 
 class MenuItemVB(
-        val ktx: Kontext,
-        val label: Resource,
-        val icon: Resource,
-        val opens: NamedViewBinder,
-        override val name: Resource = label
-): BitVB(), NamedViewBinder {
+    val ktx: Kontext,
+    val label: Resource,
+    val icon: Resource,
+    val opens: NamedViewBinder,
+    override val name: Resource = label
+) : BitVB(), NamedViewBinder {
 
     override fun attach(view: BitView) {
         view.label(label, R.color.colorActive.res())
@@ -52,14 +52,14 @@ class MenuItemVB(
 }
 
 class SimpleMenuItemVB(
-        val ktx: AndroidKontext,
-        val label: Resource,
-        val icon: Resource,
-        val action: (ktx: AndroidKontext) -> Unit,
-        val longAction: ((ktx: AndroidKontext) -> Unit)? = null,
-        val arrow: Boolean = true,
-        override val name: Resource = label
-): BitVB(), NamedViewBinder {
+    val ktx: AndroidKontext,
+    val label: Resource,
+    val icon: Resource,
+    val action: (ktx: AndroidKontext) -> Unit,
+    val longAction: ((ktx: AndroidKontext) -> Unit)? = null,
+    val arrow: Boolean = true,
+    override val name: Resource = label
+) : BitVB(), NamedViewBinder {
 
     override fun attach(view: BitView) {
         view.label(label, R.color.colorActive.res())

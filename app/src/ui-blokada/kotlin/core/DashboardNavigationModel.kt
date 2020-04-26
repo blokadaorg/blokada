@@ -4,14 +4,14 @@ import gs.presentation.NamedViewBinder
 
 
 internal class DashboardNavigationModel(
-        val sections: List<NamedViewBinder>,
-        val menu: NamedViewBinder,
-        val onChangeSection: (NamedViewBinder, sectionIndex: Int) -> Unit = { _, _ -> },
-        val onChangeMenu: (NamedViewBinder?, NamedViewBinder?) -> Unit = { _, _ -> },
-        val onBackSubmenu: () -> Unit = {},
-        val onMenuClosed: (Int) -> Unit = {},
-        val onOpenMenu: () -> Unit = {},
-        val onCloseMenu: () -> Unit = {}
+    val sections: List<NamedViewBinder>,
+    val menu: NamedViewBinder,
+    val onChangeSection: (NamedViewBinder, sectionIndex: Int) -> Unit = { _, _ -> },
+    val onChangeMenu: (NamedViewBinder?, NamedViewBinder?) -> Unit = { _, _ -> },
+    val onBackSubmenu: () -> Unit = {},
+    val onMenuClosed: (Int) -> Unit = {},
+    val onOpenMenu: () -> Unit = {},
+    val onCloseMenu: () -> Unit = {}
 ) {
 
     private var sectionIndex = 0

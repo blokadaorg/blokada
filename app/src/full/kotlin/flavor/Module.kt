@@ -25,15 +25,23 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
 
             // Display notifications for dropped
             s.tunnelRecentDropped.doOnUiWhenSet().then {
-                if (s.tunnelRecentDropped().isEmpty()) notificationMain.cancel(FilteredNotification(""))
-                else if (ui.notifications()) notificationMain.show(FilteredNotification(s.tunnelRecentDropped().last(),
-                        counter = s.tunnelDropCount()))
+                if (s.tunnelRecentDropped().isEmpty()) notificationMain.cancel(
+                    FilteredNotification(
+                        ""
+                    )
+                )
+                else if (ui.notifications()) notificationMain.show(
+                    FilteredNotification(
+                        s.tunnelRecentDropped().last(),
+                        counter = s.tunnelDropCount()
+                    )
+                )
             }
 
-            s.tunnelRecentDropped.doWhenChanged().then{
+            s.tunnelRecentDropped.doWhenChanged().then {
                 updateListWidget(ctx)
             }
-            s.enabled.doWhenChanged().then{
+            s.enabled.doWhenChanged().then {
                 updateListWidget(ctx)
             }
             updateListWidget(ctx)
@@ -47,9 +55,11 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             val config = persistenceConfig.load(ctx.ktx())
             val wm: AppWidgetManager = AppWidgetManager.getInstance(ctx)
             val ids = wm.getAppWidgetIds(ComponentName(ctx, ActiveWidgetProvider::class.java))
-            if(((ids != null) and (ids.isNotEmpty())) or config.active) {
-                val serviceIntent = Intent(ctx.applicationContext,
-                        ForegroundStartService::class.java)
+            if (((ids != null) and (ids.isNotEmpty())) or config.active) {
+                val serviceIntent = Intent(
+                    ctx.applicationContext,
+                    ForegroundStartService::class.java
+                )
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     ctx.startForegroundService(serviceIntent)
                 } else {
@@ -65,7 +75,7 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
     }
 }
 
-fun updateListWidget(ctx: Context){
+fun updateListWidget(ctx: Context) {
     val updateIntent = Intent(ctx.applicationContext, ListWidgetProvider::class.java)
     updateIntent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
     val widgetManager = AppWidgetManager.getInstance(ctx)

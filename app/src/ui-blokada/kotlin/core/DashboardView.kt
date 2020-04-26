@@ -39,8 +39,8 @@ val OPEN_MENU = "DASHBOARD_OPEN_MENU".newEvent()
 val SWIPE_RIGHT = "DASHBOARD_SWIPE_RIGHT".newEvent()
 
 class DashboardView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : FrameLayout(ctx, attributeSet), Backable {
 
     init {
@@ -84,36 +84,36 @@ class DashboardView(
 
     private val model by lazy {
         DashboardNavigationModel(
-                createDashboardSections(ktx),
-                mainMenu,
-                onChangeSection = { section, sectionIndex ->
-                    ktx.v("onChangeSection")
-                    setMainSectionLabelAndMenuIcon(section)
-                    bg_pager.currentItem = sectionIndex
-                },
-                onChangeMenu = { submenu, secondarySubmenu ->
-                    ktx.v("onChangeMenu")
-                    setMenu()
-                    setMenuNav(submenu, secondarySubmenu)
-                    bg_pager.lock = true
-                    onOpenSection { }
-                },
-                onMenuClosed = { sectionIndex ->
-                    ktx.v("onMenuClosed")
-                    setOn(sectionIndex + 1)
-                    bg_pager.lock = false
-                    updateMenuHeader(null, closed = true)
-                    onCloseSection()
-                },
-                onOpenMenu = {
-                    sliding.panelState = PanelState.EXPANDED
-                },
-                onCloseMenu = {
-                    sliding.panelState = PanelState.ANCHORED
-                },
-                onBackSubmenu = {
-                    fg_pager.currentItem = fg_pager.currentItem - 1
-                }
+            createDashboardSections(ktx),
+            mainMenu,
+            onChangeSection = { section, sectionIndex ->
+                ktx.v("onChangeSection")
+                setMainSectionLabelAndMenuIcon(section)
+                bg_pager.currentItem = sectionIndex
+            },
+            onChangeMenu = { submenu, secondarySubmenu ->
+                ktx.v("onChangeMenu")
+                setMenu()
+                setMenuNav(submenu, secondarySubmenu)
+                bg_pager.lock = true
+                onOpenSection { }
+            },
+            onMenuClosed = { sectionIndex ->
+                ktx.v("onMenuClosed")
+                setOn(sectionIndex + 1)
+                bg_pager.lock = false
+                updateMenuHeader(null, closed = true)
+                onCloseSection()
+            },
+            onOpenMenu = {
+                sliding.panelState = PanelState.EXPANDED
+            },
+            onCloseMenu = {
+                sliding.panelState = PanelState.ANCHORED
+            },
+            onBackSubmenu = {
+                fg_pager.currentItem = fg_pager.currentItem - 1
+            }
         )
     }
 
@@ -138,8 +138,8 @@ class DashboardView(
         val di = ktx.di()
 
         return listOf<NamedViewBinder?>(
-                HomeDashboardSectionVB(ktx),
-                if (Product.current(context) == Product.FULL) AdsDashboardSectionVB(ktx) else null
+            HomeDashboardSectionVB(ktx),
+            if (Product.current(context) == Product.FULL) AdsDashboardSectionVB(ktx) else null
         ).filterNotNull()
     }
 
@@ -158,7 +158,8 @@ class DashboardView(
         }, recentValue = false)
 
         ktx.on(MENU_CLICK_BY_NAME, callback = { item ->
-            val found = mainMenu.items.firstOrNull { (it as? NamedViewBinder)?.name == item } as NamedViewBinder?
+            val found =
+                mainMenu.items.firstOrNull { (it as? NamedViewBinder)?.name == item } as NamedViewBinder?
             found?.run {
                 sliding.panelState = PanelState.EXPANDED
                 Handler {
@@ -269,7 +270,11 @@ class DashboardView(
 
     private fun setMenuNav(submenu: NamedViewBinder?, secondarySubmenu: NamedViewBinder?) {
         val (pages, current) = when {
-            secondarySubmenu != null && submenu != null -> listOf(mainMenu, submenu, secondarySubmenu) to 2
+            secondarySubmenu != null && submenu != null -> listOf(
+                mainMenu,
+                submenu,
+                secondarySubmenu
+            ) to 2
             submenu != null -> listOf(mainMenu, submenu) to 1
             else -> listOf(mainMenu) to 0
         }
@@ -322,8 +327,10 @@ class DashboardView(
     private fun animateLogo() {
         if (logoAnimator == null) {
             bg_logo_icon.alpha = 1f
-            val animator = ObjectAnimator.ofPropertyValuesHolder(bg_logo_icon,
-                    PropertyValuesHolder.ofFloat("alpha", 0.3f))
+            val animator = ObjectAnimator.ofPropertyValuesHolder(
+                bg_logo_icon,
+                PropertyValuesHolder.ofFloat("alpha", 0.3f)
+            )
             animator.setDuration(300)
             animator.setRepeatCount(ObjectAnimator.INFINITE)
             animator.setRepeatMode(ObjectAnimator.REVERSE)
@@ -419,7 +426,11 @@ class DashboardView(
                     }
                 }
 
-                override fun onPanelStateChanged(panel: View, previousState: PanelState, newState: PanelState) {
+                override fun onPanelStateChanged(
+                    panel: View,
+                    previousState: PanelState,
+                    newState: PanelState
+                ) {
                     when (newState) {
                         PanelState.DRAGGING -> {
                             ktx.v("panel dragging")
@@ -503,13 +514,14 @@ class DashboardView(
 
         bg_action_help.setOnClickListener {
             bg_action_help.setColorFilter(resources.getColor(R.color.switch_on))
-            bg_action_help.animate().setDuration(200).scaleX(1.2f).scaleY(1.2f).alpha(0.5f).doAfter {
-                bg_action_help.scaleX = 1.0f
-                bg_action_help.scaleY = 1.0f
-                bg_action_help.alpha = 1.0f
-                ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_learn_more.res())
-                bg_action_help.setColorFilter(null)
-            }
+            bg_action_help.animate().setDuration(200).scaleX(1.2f).scaleY(1.2f).alpha(0.5f)
+                .doAfter {
+                    bg_action_help.scaleX = 1.0f
+                    bg_action_help.scaleY = 1.0f
+                    bg_action_help.alpha = 1.0f
+                    ktx.emit(MENU_CLICK_BY_NAME, R.string.menu_learn_more.res())
+                    bg_action_help.setColorFilter(null)
+                }
         }
 
         bg_action_cta.setOnClickListener {
@@ -584,7 +596,8 @@ class DashboardView(
 
     private fun setNavPanelMargins() {
         val lp = fg_nav_panel.layoutParams as FrameLayout.LayoutParams
-        lp.bottomMargin = resources.getDimensionPixelSize(R.dimen.dashboard_panel_margin_bottom) - notchPx
+        lp.bottomMargin =
+            resources.getDimensionPixelSize(R.dimen.dashboard_panel_margin_bottom) - notchPx
         lp.topMargin = resources.getDimensionPixelSize(R.dimen.dashboard_panel_margin_top) + notchPx
     }
 
@@ -615,7 +628,8 @@ class DashboardView(
             setOnClickListener {
                 when {
                     !isEnabled || !sliding.isTouchEnabled -> Unit
-                    sliding.panelState == PanelState.EXPANDED -> sliding.panelState = PanelState.ANCHORED
+                    sliding.panelState == PanelState.EXPANDED -> sliding.panelState =
+                        PanelState.ANCHORED
                     else -> sliding.panelState = PanelState.EXPANDED
                 }
             }
@@ -687,8 +701,12 @@ class DashboardView(
     }
 }
 
-val buttonsEnter = listOf(KeyEvent.KEYCODE_BUTTON_SELECT, KeyEvent.KEYCODE_DPAD_CENTER,
-        KeyEvent.KEYCODE_BUTTON_A, KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER)
-val buttonsBack = listOf(KeyEvent.KEYCODE_BUTTON_B, KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_DEL,
-        KeyEvent.KEYCODE_FORWARD_DEL, KeyEvent.KEYCODE_ESCAPE)
+val buttonsEnter = listOf(
+    KeyEvent.KEYCODE_BUTTON_SELECT, KeyEvent.KEYCODE_DPAD_CENTER,
+    KeyEvent.KEYCODE_BUTTON_A, KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER
+)
+val buttonsBack = listOf(
+    KeyEvent.KEYCODE_BUTTON_B, KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_DEL,
+    KeyEvent.KEYCODE_FORWARD_DEL, KeyEvent.KEYCODE_ESCAPE
+)
 

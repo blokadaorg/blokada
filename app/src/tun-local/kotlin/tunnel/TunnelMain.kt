@@ -50,39 +50,40 @@ class TunnelMain {
     }
 
     private fun createTunnelManager() = TunnelManagerFactory(ctx,
-            tunnelState = di.instance(),
-            blockade = blockade,
-            filterManager = { filterManager },
-            tunnelConfig = { tunnelConfig }
+        tunnelState = di.instance(),
+        blockade = blockade,
+        filterManager = { filterManager },
+        tunnelConfig = { tunnelConfig }
     ).create()
 
     private fun createFilterManager(config: TunnelConfig, onWifi: Boolean) = FilterManager(
-            blockade = blockade,
-            doResolveFilterSource = {
-                sourceProvider.from(it.source.id, it.source.source)
-            },
-            doProcessFetchedFilters = {
-                filtersState.apps.refresh(blocking = true)
-                it.map {
-                    when {
-                        it.source.id != "app" -> it
-                        filtersState.apps().firstOrNull { a -> a.appId == it.source.source } == null -> {
-                            it.copy(hidden = true, active = false)
-                        }
-                        else -> it
+        blockade = blockade,
+        doResolveFilterSource = {
+            sourceProvider.from(it.source.id, it.source.source)
+        },
+        doProcessFetchedFilters = {
+            filtersState.apps.refresh(blocking = true)
+            it.map {
+                when {
+                    it.source.id != "app" -> it
+                    filtersState.apps()
+                        .firstOrNull { a -> a.appId == it.source.source } == null -> {
+                        it.copy(hidden = true, active = false)
                     }
-                }.toSet()
-            },
-            doValidateRulesetCache = {
-                it.source.id in listOf("app")
-                        || it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
-                        || config.wifiOnly && !onWifi && !config.firstLoad && it.source.id == "link"
-            },
-            doValidateFilterStoreCache = {
-                it.cache.isNotEmpty()
-                        && (it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
-                        || config.wifiOnly && !onWifi)
-            }
+                    else -> it
+                }
+            }.toSet()
+        },
+        doValidateRulesetCache = {
+            it.source.id in listOf("app")
+                    || it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
+                    || config.wifiOnly && !onWifi && !config.firstLoad && it.source.id == "link"
+        },
+        doValidateFilterStoreCache = {
+            it.cache.isNotEmpty()
+                    && (it.lastFetch + config.cacheTTL * 1000 > System.currentTimeMillis()
+                    || config.wifiOnly && !onWifi)
+        }
     )
 
     private var tunnelConfig = get(TunnelConfig::class.java)
@@ -101,22 +102,23 @@ class TunnelMain {
         }
     }
 
-    fun setNetworkConfiguration(dnsServers: List<InetSocketAddress>, onWifi: Boolean) = async(context) {
-        // TODO: potentially it would be better to fetch network config on sync instead of being fed
-        v(">> setting network configuration. onWifi: $onWifi", dnsServers)
+    fun setNetworkConfiguration(dnsServers: List<InetSocketAddress>, onWifi: Boolean) =
+        async(context) {
+            // TODO: potentially it would be better to fetch network config on sync instead of being fed
+            v(">> setting network configuration. onWifi: $onWifi", dnsServers)
 
-        if (dnsServers == currentTunnel.dnsServers && this@TunnelMain.onWifi == onWifi) {
-            w("no change in network configuration, ignoring")
-        } else {
-            if (this@TunnelMain.onWifi != onWifi) {
-                v("onWifi changed", onWifi)
-                this@TunnelMain.onWifi = onWifi
-                needRecreateManagers = true
+            if (dnsServers == currentTunnel.dnsServers && this@TunnelMain.onWifi == onWifi) {
+                w("no change in network configuration, ignoring")
+            } else {
+                if (this@TunnelMain.onWifi != onWifi) {
+                    v("onWifi changed", onWifi)
+                    this@TunnelMain.onWifi = onWifi
+                    needRecreateManagers = true
+                }
+
+                currentTunnel = currentTunnel.copy(dnsServers = dnsServers)
             }
-
-            currentTunnel = currentTunnel.copy(dnsServers = dnsServers)
         }
-    }
 
     fun setAdblocking(adblocking: Boolean) = async(context) {
         v(">> setting adblocking", adblocking)
@@ -152,7 +154,10 @@ class TunnelMain {
         }
 
         v("syncing filters")
-        setSmartlistAlarmActive(ctx, get(SmartListConfig::class.java).state != SmartListState.DEACTIVATED)
+        setSmartlistAlarmActive(
+            ctx,
+            get(SmartListConfig::class.java).state != SmartListState.DEACTIVATED
+        )
         val url = tunnelConfig.filtersUrl
         if (url != null) filterManager.setUrl(url)
         if (filterManager.hasUrl()) {
@@ -168,10 +173,10 @@ class TunnelMain {
 
         v("actually setting vpn tunnel")
         currentTunnel = currentTunnel.copy(
-                blockaVpn = get(BlockaVpnState::class.java).enabled,
-                userBoringtunPrivateKey = get(CurrentAccount::class.java).privateKey,
-                lease = get(CurrentLease::class.java),
-                adblocking = tunnelConfig.adblocking
+            blockaVpn = get(BlockaVpnState::class.java).enabled,
+            userBoringtunPrivateKey = get(CurrentAccount::class.java).privateKey,
+            lease = get(CurrentLease::class.java),
+            adblocking = tunnelConfig.adblocking
         )
 
 
@@ -214,5 +219,6 @@ class TunnelMain {
         filterManager.removeAll()
     }
 
-    fun protect(socket: Socket) = if (::tunnelManager.isInitialized) tunnelManager.protect(socket) else Unit
+    fun protect(socket: Socket) =
+        if (::tunnelManager.isInitialized) tunnelManager.protect(socket) else Unit
 }

@@ -21,7 +21,8 @@ internal fun registerUncaughtExceptionHandler(ctx: android.content.Context) {
 }
 
 private fun restartApplicationThroughService(ctx: android.content.Context, delayMillis: Int) {
-    val alarm: android.app.AlarmManager = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    val alarm: android.app.AlarmManager =
+        ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     val restartIntent = android.content.Intent(ctx, RestartService::class.java)
     val intent = android.app.PendingIntent.getService(ctx, 0, restartIntent, 0)
@@ -35,7 +36,9 @@ internal fun getPreferredLocales(): List<java.util.Locale> {
         // Android, a custom list type that is not an iterable. Just wow.
         val locales = cfg.locales
         (0..locales.size() - 1).map { locales.get(it) }
-    } catch (t: Throwable) { listOf(cfg.locale) }
+    } catch (t: Throwable) {
+        listOf(cfg.locale)
+    }
 }
 
 class RestartService : Service() {

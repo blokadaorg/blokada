@@ -21,14 +21,14 @@ import kotlin.math.min
 
 
 internal class BlockaTunnel(
-        dnsServers: List<InetSocketAddress>,
-        blockade: Blockade,
-        private val powersave: Boolean,
-        private val adblocking: Boolean,
-        private val currentLease: CurrentLease,
-        private val userBoringtunPrivateKey: String,
-        private val doCreateSocket: () -> DatagramSocket
-): Tunnel {
+    dnsServers: List<InetSocketAddress>,
+    blockade: Blockade,
+    private val powersave: Boolean,
+    private val adblocking: Boolean,
+    private val currentLease: CurrentLease,
+    private val userBoringtunPrivateKey: String,
+    private val doCreateSocket: () -> DatagramSocket
+) : Tunnel {
 
     private var device: FileDescriptor? = null
     private var error: FileDescriptor? = null
@@ -65,8 +65,10 @@ internal class BlockaTunnel(
         di.instance<core.Tunnel>()
     }
 
-    private val tunnelFiltering = BlockaTunnelFiltering(dnsServers, blockade, this::loopback,
-            this::errorOccurred, buffer)
+    private val tunnelFiltering = BlockaTunnelFiltering(
+        dnsServers, blockade, this::loopback,
+        this::errorOccurred, buffer
+    )
 
     private fun errorOccurred(error: String) {
         e(error, errorsRecently)
@@ -83,8 +85,10 @@ internal class BlockaTunnel(
         val destination = buffer
         destination.rewind()
         destination.limit(destination.capacity())
-        val response = BoringTunJNI.wireguard_write(tunnel!!, fromDevice, length, destination,
-                destination.capacity(), op)
+        val response = BoringTunJNI.wireguard_write(
+            tunnel!!, fromDevice, length, destination,
+            destination.capacity(), op
+        )
         destination.limit(response)
         val opCode = op[0].toInt()
         when (opCode) {
@@ -110,8 +114,10 @@ internal class BlockaTunnel(
             val destination = buffer
             destination.rewind()
             destination.limit(destination.capacity())
-            val response = BoringTunJNI.wireguard_read(tunnel!!, source, if (i++ == 0) length else 0,
-                    destination, destination.capacity(), op)
+            val response = BoringTunJNI.wireguard_read(
+                tunnel!!, source, if (i++ == 0) length else 0,
+                destination, destination.capacity(), op
+            )
             destination.limit(response) // TODO: what if -1
             val opCode = op[0].toInt()
             when (opCode) {
@@ -149,14 +155,18 @@ internal class BlockaTunnel(
 
     private fun loopback() {
         val b = buffer
-        deviceOut?.write(b.array(), b.arrayOffset() + b.position(), b.limit()) ?: e("loopback not available")
+        deviceOut?.write(b.array(), b.arrayOffset() + b.position(), b.limit())
+            ?: e("loopback not available")
     }
 
     fun openGatewaySocket() {
         gatewayParcelFileDescriptor?.close()
         gatewaySocket?.close()
         gatewaySocket = doCreateSocket()
-        gatewaySocket?.connect(InetAddress.getByName(currentLease.gatewayIp), currentLease.gatewayPort)
+        gatewaySocket?.connect(
+            InetAddress.getByName(currentLease.gatewayIp),
+            currentLease.gatewayPort
+        )
         v("connect to gateway ip: ${currentLease.gatewayIp}")
     }
 
@@ -331,7 +341,8 @@ internal class BlockaTunnel(
         val destination = buffer
         destination.rewind()
         destination.limit(destination.capacity())
-        val response = BoringTunJNI.wireguard_tick(tunnel!!, destination, destination.capacity(), op)
+        val response =
+            BoringTunJNI.wireguard_tick(tunnel!!, destination, destination.capacity(), op)
         destination.limit(response)
         val opCode = op[0].toInt()
         when (opCode) {

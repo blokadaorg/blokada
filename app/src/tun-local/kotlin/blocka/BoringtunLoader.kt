@@ -10,7 +10,9 @@ internal class BoringtunLoader {
         private var loaded = false
 
         var supported = true
-            @Synchronized get() { return field }
+            @Synchronized get() {
+                return field
+            }
             @Synchronized private set(value) {
                 field = value
             }
@@ -52,5 +54,6 @@ internal class BoringtunLoader {
     }()
 }
 
-class BoringTunLoadException internal constructor(msg: String, cause: Throwable? = null): Exception(msg, cause)
+class BoringTunLoadException internal constructor(msg: String, cause: Throwable? = null) :
+    Exception(msg, cause)
 

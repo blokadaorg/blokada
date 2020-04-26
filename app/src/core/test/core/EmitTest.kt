@@ -5,7 +5,8 @@ import org.junit.Assert
 import org.junit.Test
 
 class EmitTest {
-    @Test fun emit_basics() {
+    @Test
+    fun emit_basics() {
         val hello = "hello".newEvent()
         val anotherHello = "hello".newEvent()
 
@@ -31,7 +32,8 @@ class EmitTest {
         Assert.assertEquals(2, count)
     }
 
-    @Test fun emit_noDeepCopy() {
+    @Test
+    fun emit_noDeepCopy() {
         val data = mutableListOf("a", "b")
 
         val emit = CommonEmit({ Kontext.forTest() })
@@ -48,7 +50,8 @@ class EmitTest {
         Assert.assertEquals("c", received[2])
     }
 
-    @Test fun emit_sendsMostRecentEventOnSubscribe() {
+    @Test
+    fun emit_sendsMostRecentEventOnSubscribe() {
         val emit = CommonEmit({ Kontext.forTest() })
 
         var received = 0
@@ -62,16 +65,24 @@ class EmitTest {
         Assert.assertEquals(1, received)
     }
 
-    @Test fun emit_logsException() {
+    @Test
+    fun emit_logsException() {
         var logged = 0
-        val emit = CommonEmit({ Kontext.forTest(coroutineContext = Unconfined + newEmitExceptionLogger(
-                Kontext.forTest("emit:exception",
+        val emit = CommonEmit({
+            Kontext.forTest(
+                coroutineContext = Unconfined + newEmitExceptionLogger(
+                    Kontext.forTest("emit:exception",
                         log = object : Log {
-                            override fun e(vararg msgs: Any) { logged++ }
+                            override fun e(vararg msgs: Any) {
+                                logged++
+                            }
+
                             override fun w(vararg msgs: Any) {}
                             override fun v(vararg msgs: Any) {}
                         })
-        )) })
+                )
+            )
+        })
 
         val callback = { throw Exception("crash") }
 

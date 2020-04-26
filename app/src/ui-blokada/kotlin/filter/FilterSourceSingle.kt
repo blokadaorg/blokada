@@ -6,7 +6,7 @@ import tunnel.IFilterSource
 val hostnameRegex = Regex("^(\\*(\\.)?)?((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,24}$")
 
 class FilterSourceSingle(
-        private var host: String = ""
+    private var host: String = ""
 ) : IFilterSource {
 
     override fun size(): Int {

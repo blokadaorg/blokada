@@ -10,10 +10,10 @@ import java.net.DatagramSocket
 import java.net.Socket
 
 internal class TunnelManager(
-        private val onVpnClose: (rejected: Boolean) -> Unit,
-        private val onVpnConfigure: (VpnService.Builder) -> Unit,
-        private val createTunnel: (CurrentTunnel, () -> DatagramSocket) -> Tunnel?,
-        private val createConfigurator: (CurrentTunnel, ServiceBinder) -> Configurator
+    private val onVpnClose: (rejected: Boolean) -> Unit,
+    private val onVpnConfigure: (VpnService.Builder) -> Unit,
+    private val createTunnel: (CurrentTunnel, () -> DatagramSocket) -> Tunnel?,
+    private val createConfigurator: (CurrentTunnel, ServiceBinder) -> Configurator
 ) {
 
     private var state: CurrentTunnel = CurrentTunnel()
@@ -24,11 +24,11 @@ internal class TunnelManager(
 
     private lateinit var configurator: Configurator
     private var connector = ServiceConnector(
-            onClose = onVpnClose,
-            onConfigure = {
-                w("using unconfigured connector")
-                0L
-            }
+        onClose = onVpnClose,
+        onConfigure = {
+            w("using unconfigured connector")
+            0L
+        }
     )
 
     fun setState(currentTunnel: CurrentTunnel) {
@@ -66,7 +66,8 @@ internal class TunnelManager(
             configurator = createConfigurator(state, binder)
             v("turning on vpn service")
             val fd = binder.service.turnOn()
-            val tunnelThread = startTunnelThread(state, fd, threadIndex++, createSocketFactory(binder))
+            val tunnelThread =
+                startTunnelThread(state, fd, threadIndex++, createSocketFactory(binder))
             if (tunnelThread != null) {
                 val (tunnel, thread) = tunnelThread
                 tun = TunnelDescriptor(tunnel, thread, fd, binder)
@@ -79,8 +80,10 @@ internal class TunnelManager(
         }
     }
 
-    private fun startTunnelThread(state: CurrentTunnel, fd: FileDescriptor, index: Int,
-                                  socketFactory: () -> DatagramSocket): Pair<Tunnel, Thread>? {
+    private fun startTunnelThread(
+        state: CurrentTunnel, fd: FileDescriptor, index: Int,
+        socketFactory: () -> DatagramSocket
+    ): Pair<Tunnel, Thread>? {
         val tunnel = createTunnel(state, socketFactory)
         if (tunnel != null) {
             val tunnelThread = Thread({ tunnel.runWithRetry(fd) }, "tunnel-$index")
@@ -96,10 +99,14 @@ internal class TunnelManager(
     private fun stopTunnelThread(tunnel: Tunnel, thread: Thread) {
         v("stopping tunnel thread", thread.name)
         tunnel.stop()
-        try { thread.interrupt() } catch (ex: Exception) {
+        try {
+            thread.interrupt()
+        } catch (ex: Exception) {
             w("failed to interrupt tunnel thread", ex)
         }
-        try { thread.join(5000) } catch (ex: Exception) {
+        try {
+            thread.join(5000)
+        } catch (ex: Exception) {
             w("failed to join tunnel thread", ex)
         }
         v("tunnel thread stopped")

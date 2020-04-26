@@ -30,8 +30,8 @@ import io.paperdb.Paper
  */
 
 private fun startThroughJobScheduler(
-        ctx: Context,
-        scheduler: JobScheduler = ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+    ctx: Context,
+    scheduler: JobScheduler = ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
 ) {
     val serviceComponent = ComponentName(ctx, BootJobService::class.java)
     val builder = JobInfo.Builder(0, serviceComponent)
@@ -39,7 +39,7 @@ private fun startThroughJobScheduler(
     scheduler.schedule(builder.build())
 }
 
-class MainApplication: Application(), KodeinAware {
+class MainApplication : Application(), KodeinAware {
 
     override val kodein by Kodein.lazy {
         import(newGscoreModule(this@MainApplication))
@@ -79,7 +79,8 @@ class MainApplication: Application(), KodeinAware {
         Thread.setDefaultUncaughtExceptionHandler { _, ex ->
             try {
                 e(ex)
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+            }
             startThroughJobScheduler(this)
             System.exit(2)
         }

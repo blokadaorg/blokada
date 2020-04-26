@@ -5,14 +5,15 @@ import org.junit.Assert
 import org.junit.Test
 
 class PersistenceRollTest {
-    @Test fun roll_works() {
+    @Test
+    fun roll_works() {
         val inMemoryPersistence = mutableListOf<List<Request>>(
-                emptyList(), emptyList(), emptyList()
+            emptyList(), emptyList(), emptyList()
         )
 
         val p = RequestPersistence(
-                load = { batch -> Result.of { inMemoryPersistence[batch] } },
-                saveBatch = { batch, list -> Result.of { inMemoryPersistence[batch] = list } }
+            load = { batch -> Result.of { inMemoryPersistence[batch] } },
+            saveBatch = { batch, list -> Result.of { inMemoryPersistence[batch] = list } }
         )
 
         repeat(p.batch_sizes[0]) {

@@ -29,14 +29,14 @@ class ForwarderTest {
     }
 
     private fun mockPacket() = UdpPacket.Builder()
-            .srcPort(UdpPort.HTTP)
-            .dstPort(UdpPort.HTTP)
-            .srcAddr(InetAddress.getByAddress(byteArrayOf(8, 8, 4, 4)))
-            .dstAddr(InetAddress.getByAddress(byteArrayOf(8, 8, 8, 8)))
-            .correctChecksumAtBuild(true)
-            .correctLengthAtBuild(true)
-            .payloadBuilder(
-                    UnknownPacket.Builder()
-                            .rawData(byteArrayOf(1, 2, 3, 4, 5))
-            ).build()
+        .srcPort(UdpPort.HTTP)
+        .dstPort(UdpPort.HTTP)
+        .srcAddr(InetAddress.getByAddress(byteArrayOf(8, 8, 4, 4)))
+        .dstAddr(InetAddress.getByAddress(byteArrayOf(8, 8, 8, 8)))
+        .correctChecksumAtBuild(true)
+        .correctLengthAtBuild(true)
+        .payloadBuilder(
+            UnknownPacket.Builder()
+                .rawData(byteArrayOf(1, 2, 3, 4, 5))
+        ).build()
 }

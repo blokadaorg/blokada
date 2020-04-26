@@ -11,8 +11,8 @@ import tunnel.TunnelEvents
 import tunnel.Filter
 
 class BlacklistDashboardSection(
-        val ktx: AndroidKontext,
-        override val name: Resource = R.string.panel_section_ads_blacklist.res()
+    val ktx: AndroidKontext,
+    override val name: Resource = R.string.panel_section_ads_blacklist.res()
 ) : ListViewBinder(), NamedViewBinder {
 
     private val slotMutex = SlotMutex()
@@ -24,11 +24,15 @@ class BlacklistDashboardSection(
 
         (active + inactive).map {
             FilterVB(it, ktx, onTap = slotMutex.openOneAtATime)
-        }.apply { view?.set(listOf(
-                LabelVB(ktx, label = R.string.menu_host_blacklist.res()),
-                NewFilterVB(ktx),
-                LabelVB(ktx, label = R.string.panel_section_ads_blacklist.res())
-        ) + this) }
+        }.apply {
+            view?.set(
+                listOf(
+                    LabelVB(ktx, label = R.string.menu_host_blacklist.res()),
+                    NewFilterVB(ktx),
+                    LabelVB(ktx, label = R.string.panel_section_ads_blacklist.res())
+                ) + this
+            )
+        }
         Unit
     }
 
@@ -45,9 +49,10 @@ class BlacklistDashboardSection(
 }
 
 fun createBlacklistMenuItem(ktx: AndroidKontext): NamedViewBinder {
-    return MenuItemVB(ktx,
-            label = R.string.panel_section_ads_blacklist.res(),
-            icon = R.drawable.ic_shield_outline.res(),
-            opens = BlacklistDashboardSection(ktx)
+    return MenuItemVB(
+        ktx,
+        label = R.string.panel_section_ads_blacklist.res(),
+        icon = R.drawable.ic_shield_outline.res(),
+        opens = BlacklistDashboardSection(ktx)
     )
 }

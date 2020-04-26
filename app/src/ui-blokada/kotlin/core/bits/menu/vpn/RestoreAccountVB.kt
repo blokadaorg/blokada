@@ -5,8 +5,8 @@ import core.*
 import org.blokada.R
 
 class RestoreAccountVB(
-        private val ktx: AndroidKontext,
-        private val modal: ModalManager = modalManager
+    private val ktx: AndroidKontext,
+    private val modal: ModalManager = modalManager
 ) : BitVB() {
 
     override fun attach(view: BitView) {

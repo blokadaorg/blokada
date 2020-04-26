@@ -17,168 +17,175 @@ import org.blokada.R
 import java.io.File
 
 fun createLearnMoreMenuItem(ktx: AndroidKontext): NamedViewBinder {
-    return MenuItemVB(ktx,
-            label = R.string.menu_learn_more.res(),
-            icon = R.drawable.ic_help_outline.res(),
-            opens = createLearnMoreMenu(ktx)
+    return MenuItemVB(
+        ktx,
+        label = R.string.menu_learn_more.res(),
+        icon = R.drawable.ic_help_outline.res(),
+        opens = createLearnMoreMenu(ktx)
     )
 }
 
 fun createLearnMoreMenu(ktx: AndroidKontext): MenuItemsVB {
-    return MenuItemsVB(ktx,
-            items = listOf(
-                    LabelVB(ktx, label = R.string.menu_knowledge.res()),
-                    createHelpMenuItem(ktx),
-                    createTelegramMenuItem(ktx),
-                    LabelVB(ktx, label = R.string.menu_get_involved.res()),
-                    if (Product.current(ktx.ctx) == Product.FULL) createBlogMenuItem(ktx) else null,
-                    createCtaMenuItem(ktx),
-                    createLogMenuItem(ktx)
-            ).filterNotNull(),
-            name = R.string.menu_learn_more.res()
+    return MenuItemsVB(
+        ktx,
+        items = listOf(
+            LabelVB(ktx, label = R.string.menu_knowledge.res()),
+            createHelpMenuItem(ktx),
+            createTelegramMenuItem(ktx),
+            LabelVB(ktx, label = R.string.menu_get_involved.res()),
+            if (Product.current(ktx.ctx) == Product.FULL) createBlogMenuItem(ktx) else null,
+            createCtaMenuItem(ktx),
+            createLogMenuItem(ktx)
+        ).filterNotNull(),
+        name = R.string.menu_learn_more.res()
     )
 }
 
 fun createHelpMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val helpPage = ktx.di().instance<Pages>().help
     return SimpleMenuItemVB(ktx,
-            label = R.string.panel_section_home_help.res(),
-            icon = R.drawable.ic_help_outline.res(),
-            action = { openWebContent(ktx.ctx, helpPage()) }
+        label = R.string.panel_section_home_help.res(),
+        icon = R.drawable.ic_help_outline.res(),
+        action = { openWebContent(ktx.ctx, helpPage()) }
     )
 }
 
 fun createCtaMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().cta
     return SimpleMenuItemVB(ktx,
-            label = R.string.main_cta.res(),
-            icon = R.drawable.ic_feedback.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.main_cta.res(),
+        icon = R.drawable.ic_feedback.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
 fun createDonateMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().donate
     return SimpleMenuItemVB(ktx,
-            label = R.string.slot_donate_action.res(),
-            icon = R.drawable.ic_heart_box.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.slot_donate_action.res(),
+        icon = R.drawable.ic_heart_box.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
 fun createTelegramMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().chat
     return SimpleMenuItemVB(ktx,
-            label = R.string.menu_telegram.res(),
-            icon = R.drawable.ic_comment_multiple_outline.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.menu_telegram.res(),
+        icon = R.drawable.ic_comment_multiple_outline.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
 fun createBlogMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().news
     return SimpleMenuItemVB(ktx,
-            label = R.string.main_blog_text.res(),
-            icon = R.drawable.ic_earth.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.main_blog_text.res(),
+        icon = R.drawable.ic_earth.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
 fun createAboutMenuItem(ktx: AndroidKontext): NamedViewBinder {
-    return MenuItemVB(ktx,
-            label = R.string.slot_about.res(),
-            icon = R.drawable.ic_info.res(),
-            opens = createAboutMenu(ktx)
+    return MenuItemVB(
+        ktx,
+        label = R.string.slot_about.res(),
+        icon = R.drawable.ic_info.res(),
+        opens = createAboutMenu(ktx)
     )
 }
 
 fun createAboutMenu(ktx: AndroidKontext): MenuItemsVB {
-    return MenuItemsVB(ktx,
-            items = listOf(
-                    LabelVB(ktx, label = blokadaUserAgent(ktx.ctx).res()),
-                    UpdateVB(ktx, onTap = defaultOnTap),
-                    LabelVB(ktx, label = R.string.menu_share_log_label.res()),
-                    createLogMenuItem(ktx),
-                    LabelVB(ktx, label = R.string.menu_other.res()),
-                    createAppDetailsMenuItem(ktx),
-                    if (Product.current(ktx.ctx) == Product.FULL) createChangelogMenuItem(ktx) else null,
-                    if (Product.current(ktx.ctx) == Product.FULL) createCreditsMenuItem(ktx) else null,
-                    createLegalMenuItem(ktx)
-            ).filterNotNull(),
-            name = R.string.slot_about.res()
+    return MenuItemsVB(
+        ktx,
+        items = listOf(
+            LabelVB(ktx, label = blokadaUserAgent(ktx.ctx).res()),
+            UpdateVB(ktx, onTap = defaultOnTap),
+            LabelVB(ktx, label = R.string.menu_share_log_label.res()),
+            createLogMenuItem(ktx),
+            LabelVB(ktx, label = R.string.menu_other.res()),
+            createAppDetailsMenuItem(ktx),
+            if (Product.current(ktx.ctx) == Product.FULL) createChangelogMenuItem(ktx) else null,
+            if (Product.current(ktx.ctx) == Product.FULL) createCreditsMenuItem(ktx) else null,
+            createLegalMenuItem(ktx)
+        ).filterNotNull(),
+        name = R.string.slot_about.res()
     )
 }
 
 fun createCreditsMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().credits
     return SimpleMenuItemVB(ktx,
-            label = R.string.main_credits.res(),
-            icon = R.drawable.ic_earth.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.main_credits.res(),
+        icon = R.drawable.ic_earth.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
 fun createChangelogMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().changelog
     return SimpleMenuItemVB(ktx,
-            label = R.string.main_changelog.res(),
-            icon = R.drawable.ic_code_tags.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.main_changelog.res(),
+        icon = R.drawable.ic_code_tags.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
 fun createLogMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
-            label = R.string.main_log.res(),
-            icon = R.drawable.ic_bug_report_black_24dp.res(),
-            action = { shareLog(ktx.ctx) },
-            longAction = { shareLogAlternative(ktx.ctx) }
+        label = R.string.main_log.res(),
+        icon = R.drawable.ic_bug_report_black_24dp.res(),
+        action = { shareLog(ktx.ctx) },
+        longAction = { shareLogAlternative(ktx.ctx) }
     )
 }
 
 fun createLegalMenuItem(ktx: AndroidKontext): NamedViewBinder {
-    return MenuItemVB(ktx,
-            label = R.string.main_legal.res(),
-            icon = R.drawable.ic_scale_balance.res(),
-            opens = createLegalMenu(ktx)
+    return MenuItemVB(
+        ktx,
+        label = R.string.main_legal.res(),
+        icon = R.drawable.ic_scale_balance.res(),
+        opens = createLegalMenu(ktx)
     )
 }
+
 fun createLegalMenu(ktx: AndroidKontext): MenuItemsVB {
-    return MenuItemsVB(ktx,
-            items = listOf(
-                    LabelVB(ktx, label = R.string.main_legal.res()),
-                    createPrivacyMenuItem(ktx),
-                    createTermsMenuItem(ktx),
-                    createLicensesMenuItem(ktx)
-            ),
-            name = R.string.main_legal.res()
+    return MenuItemsVB(
+        ktx,
+        items = listOf(
+            LabelVB(ktx, label = R.string.main_legal.res()),
+            createPrivacyMenuItem(ktx),
+            createTermsMenuItem(ktx),
+            createLicensesMenuItem(ktx)
+        ),
+        name = R.string.main_legal.res()
     )
 }
 
 fun createLicensesMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().licenses
     return SimpleMenuItemVB(ktx,
-            label = R.string.main_licenses.res(),
-            icon = R.drawable.ic_book_open_page_variant.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.main_licenses.res(),
+        icon = R.drawable.ic_book_open_page_variant.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
 fun createTermsMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().tos
     return SimpleMenuItemVB(ktx,
-            label = R.string.main_terms.res(),
-            icon = R.drawable.ic_book_open_page_variant.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.main_terms.res(),
+        icon = R.drawable.ic_book_open_page_variant.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
 fun createPrivacyMenuItem(ktx: AndroidKontext): NamedViewBinder {
     val page = ktx.di().instance<Pages>().privacy
     return SimpleMenuItemVB(ktx,
-            label = R.string.main_privacy.res(),
-            icon = R.drawable.ic_book_open_page_variant.res(),
-            action = { openWebContent(ktx.ctx, page()) }
+        label = R.string.main_privacy.res(),
+        icon = R.drawable.ic_book_open_page_variant.res(),
+        action = { openWebContent(ktx.ctx, page()) }
     )
 }
 
@@ -190,9 +197,13 @@ fun shareLogAlternative(ctx: Context) {
     openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     openFileIntent.type = "plain/*"
-    openFileIntent.putExtra(Intent.EXTRA_STREAM,
-            FileProvider.getUriForFile(ctx, "${ctx.packageName}.files",
-                    uri))
+    openFileIntent.putExtra(
+        Intent.EXTRA_STREAM,
+        FileProvider.getUriForFile(
+            ctx, "${ctx.packageName}.files",
+            uri
+        )
+    )
     ctx.startActivity(openFileIntent)
 //                    }
 }
@@ -206,13 +217,13 @@ fun shareLog(ctx: Context) {
 
     if (activity != null) {
         val intent = ShareCompat.IntentBuilder.from(activity)
-                .setStream(actualUri)
-                .setType("text/*")
-                .intent
-                .setAction(Intent.ACTION_SEND)
-                .setDataAndType(actualUri, "text/*")
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            .setStream(actualUri)
+            .setType("text/*")
+            .intent
+            .setAction(Intent.ACTION_SEND)
+            .setDataAndType(actualUri, "text/*")
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         ctx.startActivity(intent)
     } else {
         val openFileIntent = Intent(Intent.ACTION_SEND)
@@ -227,14 +238,14 @@ fun shareLog(ctx: Context) {
 
 fun createAppDetailsMenuItem(ktx: AndroidKontext): NamedViewBinder {
     return SimpleMenuItemVB(ktx,
-            label = R.string.update_button_appinfo.res(),
-            icon = R.drawable.ic_info.res(),
-            action = {
-                try {
-                    ktx.ctx.startActivity(newAppDetailsIntent(ktx.ctx.packageName))
-                } catch (e: Exception) {
-                }
+        label = R.string.update_button_appinfo.res(),
+        icon = R.drawable.ic_info.res(),
+        action = {
+            try {
+                ktx.ctx.startActivity(newAppDetailsIntent(ktx.ctx.packageName))
+            } catch (e: Exception) {
             }
+        }
     )
 }
 

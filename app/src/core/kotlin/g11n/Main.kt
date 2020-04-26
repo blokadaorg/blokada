@@ -11,8 +11,8 @@ object Events {
 }
 
 class Main(
-        urls: () -> Map<Url, Prefix>,
-        doPutTranslation: (Key, Translation) -> Result<Boolean>
+    urls: () -> Map<Url, Prefix>,
+    doPutTranslation: (Key, Translation) -> Result<Boolean>
 ) {
 
     private val fetcher = TranslationsFetcher(urls, doPutTranslation = doPutTranslation)

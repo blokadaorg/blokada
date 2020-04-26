@@ -17,10 +17,10 @@ import kotlin.math.min
 
 
 internal class DnsTunnel(
-        private var proxy: Proxy,
-        private val powersave: Boolean,
-        private val forwarder: Forwarder = Forwarder(),
-        private val loopback: Queue<Triple<ByteArray, Int, Int>> = LinkedList()
+    private var proxy: Proxy,
+    private val powersave: Boolean,
+    private val forwarder: Forwarder = Forwarder(),
+    private val loopback: Queue<Triple<ByteArray, Int, Int>> = LinkedList()
 ) : Tunnel {
 
     private var device: FileDescriptor? = null
@@ -159,7 +159,7 @@ internal class DnsTunnel(
                 val responsePacket = DatagramPacket(datagramBuffer, datagramBuffer.size)
                 Result.of {
                     rule.socket.receive(responsePacket)
-                    proxy.toDevice( datagramBuffer, responsePacket.length, rule.originEnvelope)
+                    proxy.toDevice(datagramBuffer, responsePacket.length, rule.originEnvelope)
                 }.onFailure { w("failed receiving socket", it) }
                 Result.of { rule.socket.close() }.onFailure { w("failed closing socket") }
             }
@@ -173,8 +173,10 @@ internal class DnsTunnel(
         }
     }
 
-    private fun fromDeviceToProxy(device: StructPollfd, input: InputStream,
-                                  buffer: ByteArray) {
+    private fun fromDeviceToProxy(
+        device: StructPollfd, input: InputStream,
+        buffer: ByteArray
+    ) {
         if (device.isEvent(OsConstants.POLLIN)) {
             val length = input.read(buffer)
             if (length > 0) {

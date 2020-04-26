@@ -13,8 +13,8 @@ import gs.presentation.ViewBinder
 import gs.presentation.ViewBinderHolder
 
 class VBPagesView(
-        ctx: Context,
-        attributeSet: AttributeSet
+    ctx: Context,
+    attributeSet: AttributeSet
 ) : ViewPager(ctx, attributeSet) {
     var lock = false
 
@@ -69,7 +69,7 @@ class VBPagesView(
 //            else {
 //                adapter?.notifyDataSetChanged()
 //            }
-            adapter = if(value.isEmpty()) emptyAdapter else dashAdapter
+            adapter = if (value.isEmpty()) emptyAdapter else dashAdapter
         }
 
 }

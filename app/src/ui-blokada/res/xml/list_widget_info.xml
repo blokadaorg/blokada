@@ -8,5 +8,4 @@
     android:initialLayout="@layout/view_list_widget"
     android:previewImage="@drawable/list_widget_preview"
     android:resizeMode="horizontal|vertical"
-    android:widgetCategory="home_screen">
-</appwidget-provider>
+    android:widgetCategory="home_screen"></appwidget-provider>

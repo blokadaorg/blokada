@@ -30,9 +30,9 @@ internal class Forwarder(val ttl: Time = 10 * 1000) : Iterable<ForwardRule> {
 }
 
 internal data class ForwardRule(
-        val socket: DatagramSocket,
-        val originEnvelope: Packet,
-        val ttl: Time
+    val socket: DatagramSocket,
+    val originEnvelope: Packet,
+    val ttl: Time
 ) {
     val added = System.currentTimeMillis()
 

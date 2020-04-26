@@ -35,24 +35,24 @@ abstract class Tunnel {
 }
 
 class TunnelImpl(
-        kctx: Worker,
-        private val xx: Environment,
-        private val ctx: Context = xx().instance()
+    kctx: Worker,
+    private val xx: Environment,
+    private val ctx: Context = xx().instance()
 ) : Tunnel() {
 
 
     override val enabled = newPersistedProperty(kctx, APrefsPersistence(ctx, "enabled"),
-            { false }
+        { false }
     )
 
     override val error = newProperty(kctx, { false })
 
     override val active = newPersistedProperty(kctx, APrefsPersistence(ctx, "active"),
-            { false }
+        { false }
     )
 
     override val restart = newPersistedProperty(kctx, APrefsPersistence(ctx, "restart"),
-            { false }
+        { false }
     )
 
     override val retries = newProperty(kctx, { 3 })
@@ -66,18 +66,20 @@ class TunnelImpl(
         completed
     })
 
-    override val tunnelDropCount = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsCount"),
+    override val tunnelDropCount =
+        newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsCount"),
             { 0 }
-    )
+        )
 
-    override val tunnelDropStart = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsStart"),
+    override val tunnelDropStart =
+        newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsStart"),
             { System.currentTimeMillis() }
-    )
+        )
 
     override val tunnelRecentDropped = newProperty<List<String>>(kctx, { listOf() })
 
-    override val startOnBoot  = newPersistedProperty(kctx, APrefsPersistence(ctx, "startOnBoot"),
-            { true }
+    override val startOnBoot = newPersistedProperty(kctx, APrefsPersistence(ctx, "startOnBoot"),
+        { true }
     )
 }
 
@@ -256,7 +258,9 @@ fun newTunnelModule(ctx: Context): Module {
 
             // Auto restart (eg. when reconfiguring the engine, or retrying)
             s.tunnelState.doWhen {
-                s.tunnelState(TunnelState.INACTIVE) && s.enabled() && s.restart() && s.updating(false)
+                s.tunnelState(TunnelState.INACTIVE) && s.enabled() && s.restart() && s.updating(
+                    false
+                )
                         && !d.isWaiting() && s.retries() > 0
             }.then {
                 ktx.v("tunnel auto restart")
@@ -265,25 +269,32 @@ fun newTunnelModule(ctx: Context): Module {
             }
 
             // Make sure watchdog is started and stopped as user wishes
-            d.watchdogOn.doWhenChanged().then { when {
-                d.watchdogOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> {
-                    // Flip the connected flag so we detect the change if now we're actually connected
-                    d.connected %= false
-                    watchdog.start()
+            d.watchdogOn.doWhenChanged().then {
+                when {
+                    d.watchdogOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> {
+                        // Flip the connected flag so we detect the change if now we're actually connected
+                        d.connected %= false
+                        watchdog.start()
+                    }
+                    d.watchdogOn(false) -> {
+                        watchdog.stop()
+                        d.connected.refresh()
+                        d.onWifi.refresh()
+                    }
                 }
-                d.watchdogOn(false) -> {
-                    watchdog.stop()
-                    d.connected.refresh()
-                    d.onWifi.refresh()
-                }
-            }}
+            }
 
             // Monitor connectivity only when user is interacting with device
-            d.screenOn.doWhenChanged().then { when {
-                s.enabled(false) -> Unit
-                d.screenOn() && s.tunnelState(TunnelState.ACTIVE, TunnelState.INACTIVE) -> watchdog.start()
-                d.screenOn(false) -> watchdog.stop()
-            }}
+            d.screenOn.doWhenChanged().then {
+                when {
+                    s.enabled(false) -> Unit
+                    d.screenOn() && s.tunnelState(
+                        TunnelState.ACTIVE,
+                        TunnelState.INACTIVE
+                    ) -> watchdog.start()
+                    d.screenOn(false) -> watchdog.stop()
+                }
+            }
 
             s.startOnBoot {}
 
@@ -321,10 +332,14 @@ fun newTunnelModule(ctx: Context): Module {
 
             setTunnelPersistenceSource()
             setSmartListPersistenceSource()
-            Register.sourceFor(BlockaVpnState::class.java, default = BlockaVpnState(false),
-                    source = PaperSource("blockaVpnState"))
-            Register.sourceFor(DnsAnswerState::class.java, default = DnsAnswerState(true),
-                    source = PaperSource("DnsAnswerState"))
+            Register.sourceFor(
+                BlockaVpnState::class.java, default = BlockaVpnState(false),
+                source = PaperSource("blockaVpnState")
+            )
+            Register.sourceFor(
+                DnsAnswerState::class.java, default = DnsAnswerState(true),
+                source = PaperSource("DnsAnswerState")
+            )
 
             entrypoint.onAppStarted()
         }

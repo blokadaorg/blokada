@@ -8,5 +8,4 @@
     android:resizeMode="horizontal"
     android:widgetCategory="home_screen"
     android:previewImage="@drawable/active_widget_preview"
-    android:configure="adblocker.ConfigWidgetActivity">
-</appwidget-provider>
+    android:configure="adblocker.ConfigWidgetActivity"></appwidget-provider>

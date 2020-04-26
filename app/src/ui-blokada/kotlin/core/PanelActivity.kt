@@ -25,8 +25,6 @@ import update.UpdateCoordinator
 import java.lang.ref.WeakReference
 
 
-
-
 class PanelActivity : Activity() {
 
     private val ktx = ktx("PanelActivity")
@@ -106,7 +104,8 @@ class PanelActivity : Activity() {
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN // Set layout full screen
         if (Build.VERSION.SDK_INT >= 28) {
             val lp = window.attributes
-            lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            lp.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
             window.attributes = lp
         }
     }
@@ -118,7 +117,8 @@ class PanelActivity : Activity() {
             dashboardView.notchPx = displayCutout.safeInsetTop
         } catch (e: Throwable) {
             if (!isAndroidTV())
-                dashboardView.notchPx = resources.getDimensionPixelSize(R.dimen.dashboard_notch_inset)
+                dashboardView.notchPx =
+                    resources.getDimensionPixelSize(R.dimen.dashboard_notch_inset)
         }
     }
 
@@ -169,7 +169,9 @@ class ActiveActivityRegister {
         val deferred = askTunnelPermission(Kontext.new("static perm ask"), act)
         runBlocking {
             val response = deferred.await()
-            if (!response) { throw Exception("could not get tunnel permissions") }
+            if (!response) {
+                throw Exception("could not get tunnel permissions")
+            }
         }
     }
 
