@@ -743,6 +743,47 @@ class AppVB(
     }
 }
 
+class SetAllAppRulesVB(
+        private val apps: List<App>,
+        private val whitelist: Boolean,
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance()
+) : SlotVB({}){
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        refresh()
+    }
+
+    private fun refresh() {
+        val currentOption = i18n.getString(if (whitelist) R.string.slot_whitelist_all else R.string.slot_blacklist_all)
+        view?.apply {
+            val c = Slot.Content(
+                    label = currentOption,
+                    header = currentOption,
+                    description = currentOption,
+                    action1 = Slot.Action(i18n.getString(R.string.slot_action_set)) {
+                            showSnack(R.string.slot_whitelist_updating)
+                            apps.forEach { app ->
+                                async {
+                                    val filter = Filter(
+                                            id = tunnelMain.findFilterBySource(app.appId).await()?.id
+                                                    ?: id(app.appId, whitelist = true),
+                                            source = FilterSourceDescriptor("app", app.appId),
+                                            active = whitelist,
+                                            whitelist = true
+                                    )
+                                    entrypoint.onSaveFilter(filter)
+                                }
+                            }
+                        }
+            )
+            content = c
+        }
+    }
+}
+
 class AddDnsVB(private val ktx: AndroidKontext,
                private val modal: ModalManager = modalManager): SlotVB({
     modal.openModal()

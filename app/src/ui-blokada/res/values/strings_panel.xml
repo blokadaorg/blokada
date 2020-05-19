@@ -108,6 +108,10 @@
     <string name="slot_allapp_normal">Not bypassed</string>
     <string name="slot_allapp_whitelist">Bypass</string>
 
+    <string name="slot_action_set">Set</string>
+    <string name="slot_whitelist_all">Whitelist all apps</string>
+    <string name="slot_blacklist_all">Blacklist all apps</string>
+
     <string name="slot_dns_name">DNS is active</string>
     <string name="slot_dns_name_private">Custom DNS is active</string>
     <string name="slot_dns_name_disabled">DNS is deactivated</string>
