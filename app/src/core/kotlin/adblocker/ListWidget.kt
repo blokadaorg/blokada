@@ -12,7 +12,6 @@ import notification.ANotificationsToggleService
 import org.blokada.R
 import android.widget.RemoteViews
 import notification.NotificationsToggleSeviceSettings
-import tunnel.ExtendedRequestLog
 import tunnel.RequestLog
 import tunnel.RequestState
 
