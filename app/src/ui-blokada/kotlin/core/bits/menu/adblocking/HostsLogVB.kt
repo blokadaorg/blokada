@@ -29,21 +29,21 @@ class HostsLogVB(
     private var searchString: String = ""
 
     private val requestUpdate = { update: RequestUpdate ->
-                                    if (searchString.isEmpty() || update.newState.domain.contains(searchString.toLowerCase())) {
-                                        val dash = requestToVB(update.newState)
-                                        if (update.oldState == null) {
-                                            items.add(3, dash)
-                                            view?.add(dash, 3)
-                                        } else {
-                                            try {
-                                                items[update.index + 3] = dash
-                                                view?.set(items)
-                                            } catch (e: IndexOutOfBoundsException){
+            if (searchString.isEmpty() || update.newState.domain.contains(searchString.toLowerCase())) {
+                val dash = requestToVB(update.newState)
+                if (update.oldState == null) {
+                    items.add(3, dash)
+                    view?.add(dash, 3)
+                } else {
+                    try {
+                        items[update.index + 3] = dash
+                        view?.set(items)
+                    } catch (e: IndexOutOfBoundsException){
 
-                                            }
-                                        }
-                                    }
-                                }
+                    }
+                }
+            }
+        }
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
