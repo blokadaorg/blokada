@@ -29,7 +29,7 @@ internal class DnsProxy(
 ) : Proxy {
 
     private fun isAnswerValid(dnsAnswer: ByteArray): Boolean {
-        return (dnsAnswer[3] and  0x0f.toByte()) == 0.toByte()
+        return (dnsAnswer[3] and  0x0f.toByte()) == 0.toByte() // checks the RCODE of the DNS-msg. 0 -> no error
     }
 
     override fun fromDevice(packetBytes: ByteArray, length: Int) {
@@ -61,7 +61,7 @@ internal class DnsProxy(
             w("failed reading DNS message", e)
             return
         }
-        dnsMessage.question.name
+
         if (dnsMessage.question == null) return
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
@@ -82,14 +82,11 @@ internal class DnsProxy(
     override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?) {
         originEnvelope as IpPacket
 
-        if (isAnswerValid(response)){
-            v("easytosearchstring1 valid Answer")
-        }else{
+        if (!isAnswerValid(response)){
+            // the first 12 bytes of response contain the DNS-header and are cut of. The header
+            // should be followed by a resource record which starts with the name that was requested.
             val responseName = Name(response.sliceArray(12 until response.size)).canonicalize().toString(true)
-
-            v("easytosearchstring1 INVALID ANSWER!\nUpdated entry:",
-                RequestLog.update({it.domain.toLowerCase() == responseName && !it.blocked}, RequestState.BLOCKED_ANSWER)
-            )
+            RequestLog.update({it.domain.toLowerCase() == responseName && !it.blocked}, RequestState.BLOCKED_ANSWER)
         }
 
         val udp = originEnvelope.payload as UdpPacket
