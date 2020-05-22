@@ -30,10 +30,9 @@ class AdsDashboardSectionVB(
         max(5, limit)
     }
 
-    private val displayingEntries = mutableListOf<String>()
     private val slotMutex = SlotMutex()
 
-    private val items = mutableListOf<SlotVB>()
+    private val items = mutableListOf<Pair<String, SlotVB>>()
 
     private val requestUpdate = { it: RequestUpdate ->
         if (it.oldState == null) {
@@ -42,12 +41,11 @@ class AdsDashboardSectionVB(
     }
 
     private val request = { request: Request ->
-        if (!displayingEntries.contains(request.domain)) {
-            displayingEntries.add(request.domain)
+        if (!items.any { it.first == request.domain }) {
             val dash = if (request.blocked)
                 DomainBlockedNormalVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime) else
                 DomainForwarderVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime)
-            items.add(dash)
+            items.add(request.domain to dash)
             view?.add(dash)
             trimListIfNecessary()
             onSelectedListener(null)
@@ -58,8 +56,8 @@ class AdsDashboardSectionVB(
     private fun trimListIfNecessary() {
         if (items.size > countLimit) {
             items.firstOrNull()?.apply {
+                view?.remove(this.second)
                 items.remove(this)
-                view?.remove(this)
             }
         }
     }
@@ -75,7 +73,8 @@ class AdsDashboardSectionVB(
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
-        displayingEntries.clear()
+        items.clear()
+        view.set(emptyList())
         ktx.cancel(TunnelEvents.REQUEST_UPDATE, requestUpdate)
     }
 }
