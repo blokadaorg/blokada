@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">Добавлен в белый список.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Заблокирован &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">Этот домен был заблокирован. Чтобы разрешить это в будущем, используйте кнопку ниже.</string>
+    <string name="panel_domain_blocked_answer_desc">Этот домен не был правильно разрешен DNS-сервером. Либо сервер заблокировал домен, либо он не существует.</string>
     <string name="panel_domain_blocked_toast">Добавлен в черный список.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Копировать</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">В обход</string>
     <string name="slot_allapp_normal">Не в обход</string>
     <string name="slot_allapp_whitelist">Обход</string>
+    <string name="slot_action_set">Задать</string>
+    <string name="slot_whitelist_all">Белый список всех приложений</string>
+    <string name="slot_blacklist_all">Черный список всех приложений</string>
     <string name="slot_dns_name">DNS активирован</string>
     <string name="slot_dns_name_private">Пользовательский DNS активен</string>
     <string name="slot_dns_name_disabled">DNS деактивирован</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">Внешнее хранилище</string>
     <string name="slot_filters_title">Список фильтров</string>
     <string name="slot_filters_description">Вы можете синхронизировать список фильтров с нашими серверами без потери ваших записей. &lt;br/&gt;&lt;br/&gt;Кроме того, вы можете удалить все записи (включая ваши) и загрузить их снова.</string>
+    <string name="slot_blocked_normal_title">Домен заблокирован</string>
+    <string name="slot_blocked_answer_title">Домен не разрешен</string>
     <string name="slot_forwarded_title">Домен переадресован</string>
     <string name="slot_whitelist_title">Белый список приложений</string>
     <string name="slot_list_no_desc">Эта запись не имеет никакого описания.</string>

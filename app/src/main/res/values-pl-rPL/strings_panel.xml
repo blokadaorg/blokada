@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">Dodano do whitelisty.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Zablokowano &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">Ta domena została zablokowana. Aby ją zaakceptować w przyszłości, kliknij przycisk poniżej.</string>
+    <string name="panel_domain_blocked_answer_desc">Domena nie została poprawnie rozwiązana przez serwer DNS. Serwer zablokował domenę lub nie istnieje.</string>
     <string name="panel_domain_blocked_toast">Dodano do czarnej listy.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Skopiuj</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">Pominięte</string>
     <string name="slot_allapp_normal">Nie pominięte</string>
     <string name="slot_allapp_whitelist">Pomiń</string>
+    <string name="slot_action_set">Ustaw</string>
+    <string name="slot_whitelist_all">Biała lista wszystkich aplikacji</string>
+    <string name="slot_blacklist_all">Czarna lista wszystkich aplikacji</string>
     <string name="slot_dns_name">DNS jest włączony</string>
     <string name="slot_dns_name_private">Niestandardowy DNS jest aktywny</string>
     <string name="slot_dns_name_disabled">DNS jest wyłączony</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">Pamięć zewnętrzna</string>
     <string name="slot_filters_title">Lista filtrów</string>
     <string name="slot_filters_description">Możesz zsynchronizować listę filtrów z naszymi serwerami bez utraty własnych wpisów. &lt;br/&gt;&lt;br/&gt; Możesz też usunąć wszystkie wpisy (w tym swoje) i pobrać je ponownie.</string>
+    <string name="slot_blocked_normal_title">Domena zablokowana</string>
+    <string name="slot_blocked_answer_title">Domena nie rozwiązana</string>
     <string name="slot_forwarded_title">Domena przekazana</string>
     <string name="slot_whitelist_title">Aplikacja na białej liście</string>
     <string name="slot_list_no_desc">Ten wpis nie ma żadnego opisu.</string>

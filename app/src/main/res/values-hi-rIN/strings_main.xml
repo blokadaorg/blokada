@@ -32,7 +32,7 @@
     <string name="main_changelog">परिवर्तन</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">आभार</string>
-    <string name="main_legal">சட்டரீதியான தகவல்</string>
+    <string name="main_legal">कानूनी जानकारी</string>
     <string name="main_licenses">மூன்றாம் தரப்பு உரிமங்கள்</string>
     <string name="main_terms">சேவை விதிமுறைகள்</string>
     <string name="main_privacy">தனியுரிமை கொள்கை</string>

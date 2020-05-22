@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">已添加到白名单。</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">已屏蔽 &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">此域名已被屏蔽。要允许此域名，使用下面的按钮。</string>
+    <string name="panel_domain_blocked_answer_desc">DNS 服务器未正确解析此域名。可能是服务器拦截了域名，或是它不存在。</string>
     <string name="panel_domain_blocked_toast">已添加到黑名单。</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">复制</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">绕过</string>
     <string name="slot_allapp_normal">未跳过</string>
     <string name="slot_allapp_whitelist">旁路</string>
+    <string name="slot_action_set">设定</string>
+    <string name="slot_whitelist_all">将所有应用加入白名单</string>
+    <string name="slot_blacklist_all">将所有应用加入黑名单</string>
     <string name="slot_dns_name">DNS 已激活</string>
     <string name="slot_dns_name_private">自定义DNS已激活</string>
     <string name="slot_dns_name_disabled">DNS 已停用</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">外部存储</string>
     <string name="slot_filters_title">过滤器列表</string>
     <string name="slot_filters_description">您可以在我们的服务器同步过滤器列表，同时不丢失自定义条目。 &lt;br/&gt;&lt;br/&gt; 或者，您可以丢弃所有条目(包括您的)，并再次下载。</string>
+    <string name="slot_blocked_normal_title">域名已拦截</string>
+    <string name="slot_blocked_answer_title">域名未解析</string>
     <string name="slot_forwarded_title">域名转发</string>
     <string name="slot_whitelist_title">白名单应用</string>
     <string name="slot_list_no_desc">此条目没有任何描述。</string>

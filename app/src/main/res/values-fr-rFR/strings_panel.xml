@@ -102,6 +102,7 @@
     <string name="slot_action_external">Stockage Externe</string>
     <string name="slot_filters_title">Listes</string>
     <string name="slot_filters_description">Vous pouvez synchroniser vos listes sur nos serveurs pour ne pas perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Vous pouvez également supprimer toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
+    <string name="slot_blocked_answer_title">Domaine non résolu</string>
     <string name="slot_forwarded_title">Domaine transféré</string>
     <string name="slot_whitelist_title">Application en liste blanche</string>
     <string name="slot_list_no_desc">Cette entrée n\'a aucune description.</string>

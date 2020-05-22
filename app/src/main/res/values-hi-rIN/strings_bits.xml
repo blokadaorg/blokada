@@ -1,45 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_touch">कॉन्फ़िगर करने के लिए दबाएं</string>
+    <string name="home_blokada_disabled">ब्लोकाडा रुका हुआ है</string>
     <string name="home_activating">सक्रिय किया जा रहा है</string>
     <string name="home_please_wait">कृपया प्रतीक्षा करें...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_vpn_only">ब्लोकडा सुरंग विज्ञापन अवस्र्द्ध किए बिना भी सक्रिय है</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">ब्लोकाडा डीएनएस मोड में चालू हैं</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked">%s अवरोधित किया गया</string>
     <string name="home_masterswitch_enabled">Blokada चल रहा है</string>
     <string name="home_masterswitch_waiting">नेटवर्क की प्रतीक्षा की जा रही है...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">अपने मित्रों से सांझें</string>
+    <string name="home_share_state">अपने ब्लोकाडा के अंक शेयर करें</string>
+    <string name="home_share_state_google">ब्लोकाडा के बारे में जानने में दूसरों की मदद करें</string>
+    <string name="home_share_msg_google">आजमाइए ब्लोकाडा स्लिम और अपनी गोपनीयता को सुरक्षित रखें! इसे गूगल प्ले स्टोर से प्राप्त करें।</string>
     <string name="home_adblocking_enabled">विज्ञापन अवरोधन सक्रिय है</string>
     <string name="home_adblocking_disabled">विज्ञापन अवरोधन निष्क्रिय है</string>
+    <string name="home_blokadaorg">आप ब्लोकाडा स्लिम का इस्तमाल कर रहे हैं</string>
+    <string name="home_blokadaorg_state">खुला स्त्रोत संस्करण पाने के लिए छूएं</string>
     <!-- A short text for the item that displays update information -->
+    <string name="home_whats_new">नया क्या है?</string>
     <string name="home_update_required">अद्यतन आवश्यक</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">दान करें</string>
     <string name="home_vpn_enabled">Blokada Tunnel सक्रिय है</string>
     <string name="home_vpn_disabled">Blokada Tunnel निष्क्रिय है</string>
     <string name="home_account_active">आपका खाता अभी भी सक्रिय है</string>
+    <string name="home_connecting_vpn">ब्लोकाडा सुरंग से जुड़ रहे हैं</string>
+    <string name="home_cleanup">सफाई की सलाह दी जाती है</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">ब्लोकाडा सुरंग से जुड़े हुए हैं</string>
+    <string name="home_boringtun_not_loaded">क्षमा करें, आपका उपकरण ब्लोकडा सुरंग द्वारा समर्थित नहीं है। आप अभी भी अन्य सुविधाओं का उपयोग कर सकते हैं।</string>
+    <string name="home_blocka_vpn_error">गेटवे से कनेक्ट नहीं हो पाय। क्या आप ऑनलाइन हैं?</string>
+    <string name="home_account_error">खाता सत्यापित नहीं किया जा सका। क्या आप ऑनलाइन हैं?</string>
     <string name="home_permission_error">कृपया VPN की अनुमति दें।</string>
+    <string name="home_zero_filters_error">आपके पास कोई फ़िल्टर कॉन्फ़िगर नहीं हुआ हैं। अपने विज्ञापन अवरोधन और वाईफाई सेटिंग की जांच करें।</string>
+    <string name="home_filters_memory_error">कुछ सूचियाँ लोड नहीं की जा सकीं; विज्ञापन अवरोधन सेटिंग में कम सूचियों का चयन करें।</string>
+    <string name="tasker_switch_label">अपने ट्रिगर के लिए इसे चालू (या बंद) करने के लिए कॉन्फ़िगर करने के विकल्पों में से एक पर टैप करें।</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">विज्ञापन</string>
+    <string name="menu_ads_live_label">अनुमत और अवरुद्ध अनुरोधों के मेजबान लॉग</string>
+    <string name="menu_ads_clear_log">होस्ट लॉग साफ़ करें</string>
+    <string name="menu_ads_lists_label">अवरुद्ध करने के लिए उपयोग होने वाली सूचियों का चयन करें। अधिकांश लोगों के लिए डिफॉल्ट ठीक हैं।</string>
+    <string name="menu_ads_rules_label">अपने अनुसार अवरुद्ध करने के लिए अपने खुद के नियम जोड़ें</string>
+    <string name="menu_ads_log_label">देखें कि हाल ही में क्या अवरुद्ध या अनुमति किया गया है।</string>
     <!-- VPN section header in menu (for configuring VPN) -->
     <string name="menu_vpn">Blokada Tunnel</string>
     <string name="menu_vpn_activate_account">कृपया पहले अपने खाते को सक्रिय करें।</string>
+    <string name="menu_vpn_select_gateway">कृपया एक प्रवेशद्वार चुनें।</string>
+    <string name="menu_vpn_intro_button">मुझे ब्लोकाडा सुरंग की आवश्यकता क्यों है?</string>
     <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account">मेरी ब्लोकाडा सुरंग</string>
+    <string name="menu_vpn_account_id">आईडी: %s</string>
     <!-- A button opening VPN gateways settings -->
+    <string name="menu_vpn_gateways">गेटवे</string>
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">उपकरण</string>
     <string name="menu_vpn_manage_subscription">अपनी सदस्यता का प्रबंधन करें</string>
     <string name="menu_vpn_manage_subscription_unavailable">अगर आपका खाता नया है तो हमारी वेबसाईट पर जाए। आप Blokada Slim में से सदस्यता नहीं खरीद सकते हैं।</string>
+    <string name="menu_vpn_account_secret">अपना खाता आईडी देखने के लिए ऊपर अपना अवतार को छुएं। याद रखें, आपकी आईडी गुप्त है और आपको इसे अपने पास ही रखना चाहिए। यदि आप ऐप को अनइंस्टॉल करते हैं तो इसे कहीं लिख लें।</string>
+    <string name="menu_vpn_restore_label">यहां आप अपने मौजूदा खाते को पुनर्स्थापित कर सकते हैं यदि, उदाहरण के लिए, आपने ऐप को फिर से स्थापित किया है।</string>
+    <string name="menu_vpn_intro">ब्लोकाडा सुरंग के साथ आपका डेटा एन्क्रिप्ट किया जाता हैं, आपका आईपी पता छिप जाता है, और आपका स्थान बदल गया है।</string>
+    <string name="menu_vpn_account_label">वीपीएन का उपयोग करने के लिए, आपको एक सक्रिय खाते की आवश्यकता है। यहां अपना खाता जांचें या पुनर्स्थापित करें।</string>
+    <string name="menu_vpn_gateways_label">कनेक्ट करने के लिए इन गेटवे में से एक का चयन करें। आपका डिवाइस आपके प्रवेशित डेटा को सुरक्षित रूप से उस गेटवे के माध्यम से भेज देगा, और आप गुमनाम रहेंगे</string>
+    <string name="menu_vpn_support_label">यदि आप किसी भी समस्या का सामना करते हैं, तो हमसे संपर्क करने में संकोच न करें।</string>
+    <string name="menu_vpn_support_button">सहायता</string>
+    <string name="menu_vpn_tunnel_settings">ब्लोकाडा सुरंग समायोजन</string>
+    <string name="menu_vpn_tunnel_learn_more">ब्लोकाडा सुरंग के बारे में अधिक जानें</string>
+    <string name="menu_vpn_info_account_label">क्या मेरा खाता है?</string>
+    <string name="menu_vpn_info_account_line1">हाँ! आपका खाता स्वचालित रूप से पहले बारी में बन जाता है। आपको दर्ज करने की जरूरत नहीं है।</string>
+    <string name="menu_vpn_info_account_line2">अपना खाता आईडी देखने के लिए ऊपर अपना अवतार टैप करें।</string>
+    <string name="menu_vpn_info_account_line3">आपकी खाता आईडी गुप्त है और आपको इसे किसी को भी नहीं दिखाना चाहिए</string>
+    <string name="menu_vpn_info_account_line4">यदि आपको ऐप को फिर से स्थापित करने की आवश्यकता है तो अपनी खाता आईडी लिखें।</string>
+    <string name="menu_dns_recommended">अनुशंसित डीएनएस सर्वर</string>
+    <string name="menu_dns_intro">डीएनएस आपके द्वारा उपयोग की जाने वाली वेबसाइटों और एप्लिकेशन के आईपी पते का अनुवाद करने के लिए जिम्मेदार है। एक अच्छा डीएनएस चुनना आपके डिवाइस को गति दे सकता है और आपकी गोपनीयता की रक्षा करने में मदद करेगा।</string>
+    <string name="menu_dns_select">डीएनएस सर्वरों में से एक का चयन करें।</string>
+    <string name="menu_apps_intro">कुछ ऐप ब्लोकाडा के साथ ठीक से काम नहीं कर सकते हैं। उदाहरण के लिए, उन्हें कनेक्ट करने में समस्या हो सकती है।\n\nवीपीएन को सक्रिय करना अक्सर उन मामलों में मदद करता है\n\nअन्यथा, आप उन ऐप्स को पूरी तरह से ब्लोकाडा निरीक्षण को बायपास कर सकते हैं। याद रखें, ब्लोकाडा सुरंग के बाहर बायपास किए गए एप्लिकेशन बाहर संवाद करते हैं।</string>
+    <string name="menu_apps_system_label">सिस्टम एप्लिकेशन आपके डिवाइस के साथ प्रीइंस्टॉल्ड आने वाले हैं। उनमें से कुछ छिपे हुए हैं। यदि आप जानते हैं कि आप क्या कर रहे हैं, तो उन्हें संशोधित करें</string>
+    <string name="menu_host_list_intro">होस्ट सूची में विज्ञापन और ट्रैकर्स को अवरुद्ध करने के नियम हैं। सक्रिय सूचियों की संख्या को कम रखने का प्रयास करें।</string>
+    <string name="menu_host_adblocking_features">ब्लोकाडा प्रयोगशाला</string>
+    <string name="menu_host_adblocking_settings">विज्ञापन अवरोधक समायोजन</string>
+    <string name="menu_host_list_status">सूची की स्थिति</string>
+    <string name="menu_host_list_download">सूची डाउनलोड समायोजन</string>
+    <string name="menu_host_whitelist">आपके द्वारा यहां जोड़े जाने वाले होस्ट कभी भी अवरुद्ध नहीं होंगे। इस सूची का उपयोग तब करें, उदाहरण के लिए, आपके द्वारा देखी जाने वाली वेबसाइट गलती से अवरुद्ध हो गई है।</string>
+    <string name="menu_host_blacklist">आपके द्वारा यहां जोड़े जाने वाले होस्ट हमेशा अवरुद्ध रहेंगे। उदाहरण के लिए, आप उन वेबसाइटों को जोड़ सकते हैं जो मानक सूचियों द्वारा अवरुद्ध नहीं हैं, लेकिन होनी चाहिए।</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">अन्य</string>
+    <string name="menu_share_log_label">साझाकरण लॉग हमें आपकी समस्या का कारण खोजने की अनुमति देता है। सुनिश्चित करें कि आप इसे ब्लोकाडा कोर टीम के सदस्यों में से एक को निजी तौर पर भेजते हैं।</string>
     <!-- A section of help, telegram, and other buttons in menu -->
     <string name="menu_learn_more">और जानें</string>
     <!-- A section informational content in menu -->
     <string name="menu_knowledge">सहायता लें</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">शामिल होँ</string>
+    <string name="menu_telegram">टेलीग्राम चैट</string>
+    <string name="menu_configure">बलोकाडा कि सुविधाओं को कॉन्फ़िगर करें</string>
     <!-- A section in menu for additional buttons  -->
     <!-- A section to manage some settings (generic)  -->
     <string name="menu_manage">प्रबंधित करें</string>

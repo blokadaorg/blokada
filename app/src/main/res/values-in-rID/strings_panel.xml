@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">Ditambahkan ke whitelist.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; diblokir</string>
+    <string name="panel_domain_blocked_normal_desc">Domain ini telah diblokir. Untuk mengijinkan domain tersebut di kemudian hari, gunakan tombol di bawah ini.</string>
+    <string name="panel_domain_blocked_answer_desc">Domain ini tidak diselesaikan dengan benar oleh server DNS. Hal ini bisa dikarenakan oleh domain yang diblokir atau domain tersebut tidak ada.</string>
     <string name="panel_domain_blocked_toast">Ditambahkan ke blacklist.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Salin</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">Di bypass</string>
     <string name="slot_allapp_normal">Tidak di bypass</string>
     <string name="slot_allapp_whitelist">Bypass</string>
+    <string name="slot_action_set">Atur</string>
+    <string name="slot_whitelist_all">Whitelist semua aplikasi</string>
+    <string name="slot_blacklist_all">Blacklist semua aplikasi</string>
     <string name="slot_dns_name">DNS aktif</string>
     <string name="slot_dns_name_private">Custom DNS sedang aktif</string>
     <string name="slot_dns_name_disabled">DNS dinonaktifkan</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">Penyimpanan Eksternal</string>
     <string name="slot_filters_title">Daftar filter</string>
     <string name="slot_filters_description">Anda bisa mensinkronkan daftar server DNS dengan server kami tanpa kehilangan daftar server DNS yang telah Anda buat sendiri. &lt;br/&gt;&lt;br/&gt;Atau, Anda bisa juga membuang daftar server DNS yang ada sekarang (termasuk server DNS yang Anda masukkan secara manual) dan mengunduhnya kembali dari server kami.</string>
+    <string name="slot_blocked_normal_title">Domain diblokir</string>
+    <string name="slot_blocked_answer_title">Domain tidak bisa diselesaikan</string>
     <string name="slot_forwarded_title">Domain yang diizinkan</string>
     <string name="slot_whitelist_title">Aplikasi tidak terblokir</string>
     <string name="slot_list_no_desc">Bagian ini tidak memiliki keterangan/catatan.</string>

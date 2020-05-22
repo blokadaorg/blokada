@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">Aggiunto alla whitelist.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Bloccato &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">Questo dominio è stato bloccato. Per consentirlo in futuro, usa il pulsante sotto.</string>
+    <string name="panel_domain_blocked_answer_desc">Questo dominio non è stato risolto correttamente dal server DNS. Altrimenti, o il server ha bloccato il dominio o questo non esiste.</string>
     <string name="panel_domain_blocked_toast">Aggiunto alla blacklist.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copia</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">Ignora</string>
     <string name="slot_allapp_normal">Non ignorare</string>
     <string name="slot_allapp_whitelist">Ignora</string>
+    <string name="slot_action_set">Imposta</string>
+    <string name="slot_whitelist_all">Tutte le app in whitelist</string>
+    <string name="slot_blacklist_all">Tutte le app in blacklist</string>
     <string name="slot_dns_name">DNS attivi</string>
     <string name="slot_dns_name_private">DNS personalizzati attivi</string>
     <string name="slot_dns_name_disabled">DNS disattivati</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">Memoria Esterna</string>
     <string name="slot_filters_title">Lista filtri</string>
     <string name="slot_filters_description">Puoi sincronizzare la lista dei filtri con i nostri server, senza perdere le tue voci personalizzate. &lt;br/&gt;&lt;br/&gt;Alternativamente, puoi eliminare tutte le voci (incluse le tue), e scaricarle di nuovo.</string>
+    <string name="slot_blocked_normal_title">Dominio bloccato</string>
+    <string name="slot_blocked_answer_title">Dominio non risolto</string>
     <string name="slot_forwarded_title">Dominio inoltrato</string>
     <string name="slot_whitelist_title">App in whitelist</string>
     <string name="slot_list_no_desc">Questa voce non ha alcuna descrizione.</string>
