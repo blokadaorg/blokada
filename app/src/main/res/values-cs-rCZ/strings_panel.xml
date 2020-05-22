@@ -24,7 +24,7 @@
     <string name="panel_domain_forwarded_toast">Přidáno do seznamu povolených.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Blokováno &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="panel_domain_blocked_normal_desc">Tato doména byla zablokována. Chcete-li ji pro příště povolit, použijte tlačítko níže.</string>
+    <string name="panel_domain_blocked_desc">Tato doména byla zablokována. Chcete-li ji pro příště povolit, použijte tlačítko níže.</string>
     <string name="panel_domain_blocked_toast">Přidáno do černé listiny.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopírovat</string>
@@ -103,7 +103,7 @@
     <string name="slot_action_external">Externí úložiště</string>
     <string name="slot_filters_title">Seznam filtrů</string>
     <string name="slot_filters_description">Seznam filtrů můžete synchronizovat s našimi servery bez ztráty vlastních položek.&lt;br/&gt;&lt;br/&gt;Případně můžete všechny položky (včetně vašich) zrušit a znovu stáhnout.</string>
-    <string name="slot_blocked_normal_title">Doména zablokována</string>
+    <string name="slot_blocked_title">Doména zablokována</string>
     <string name="slot_forwarded_title">Doména povolena</string>
     <string name="slot_whitelist_title">Povolené aplikace</string>
     <string name="slot_list_no_desc">Tato položka nemá žádný popis.</string>

@@ -24,7 +24,7 @@
     <string name="panel_domain_forwarded_toast">Adicionado à lista branca.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Bloqueado &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="panel_domain_blocked_normal_desc">Este domínio foi bloqueado. Para permiti-lo no futuro, use o botão abaixo.</string>
+    <string name="panel_domain_blocked_desc">Este domínio foi bloqueado. Para permiti-lo no futuro, use o botão abaixo.</string>
     <string name="panel_domain_blocked_toast">Adicionado à lista negra.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copiar</string>
@@ -103,7 +103,7 @@
     <string name="slot_action_external">Armazenamento Externo</string>
     <string name="slot_filters_title">Lista de filtros</string>
     <string name="slot_filters_description">Você pode sincronizar a lista de filtros com os nossos servidores sem perder suas entradas personalizadas. &lt;br/&gt;&lt;br/&gt;Como alternativa, você pode eliminar todas as entradas (inclusive as suas) e baixá-las novamente.</string>
-    <string name="slot_blocked_normal_title">Domínio bloqueado</string>
+    <string name="slot_blocked_title">Domínio bloqueado</string>
     <string name="slot_forwarded_title">Domínio encaminhado</string>
     <string name="slot_whitelist_title">App na lista branca</string>
     <string name="slot_list_no_desc">Esta entrada não tem alguma descrição.</string>

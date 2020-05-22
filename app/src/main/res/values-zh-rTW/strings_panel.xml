@@ -24,7 +24,7 @@
     <string name="panel_domain_forwarded_toast">已加入白名單。</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">已封鎖 &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="panel_domain_blocked_normal_desc">這個網域已被阻擋。若未來要允許該網域，請使用下方按鈕。</string>
+    <string name="panel_domain_blocked_desc">這個網域已被阻擋。若未來要允許該網域，請使用下方按鈕。</string>
     <string name="panel_domain_blocked_toast">已加入黑名單。</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">複製</string>
@@ -103,7 +103,7 @@
     <string name="slot_action_external">外部儲存空間</string>
     <string name="slot_filters_title">過濾器列表</string>
     <string name="slot_filters_description">您不必失去任何您的自訂項目也可以從我們的伺服器同步過濾規則清單。&lt;br/&gt;&lt;br/&gt;或者您也可以刪除所有的項目（包含您自己的），然後重新下載。</string>
-    <string name="slot_blocked_normal_title">已阻擋網域</string>
+    <string name="slot_blocked_title">已阻擋網域</string>
     <string name="slot_forwarded_title">已轉發網域</string>
     <string name="slot_whitelist_title">已加入白名單的應用程式</string>
     <string name="slot_list_no_desc">這個項目沒有任何描述。</string>

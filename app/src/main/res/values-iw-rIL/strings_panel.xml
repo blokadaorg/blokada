@@ -23,7 +23,7 @@
     <string name="panel_domain_forwarded_toast">נוסף לרשימת ההיתרים.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; חסום</string>
-    <string name="panel_domain_blocked_normal_desc">דומיין זה חסום. כדי לאשר אותו בעתיד, השתמש בלחצן למטה.</string>
+    <string name="panel_domain_blocked_desc">דומיין זה חסום. כדי לאשר אותו בעתיד, השתמש בלחצן למטה.</string>
     <string name="panel_domain_blocked_toast">נוסף לרשימת החסימה.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_ruleset">מונה מסננים</string>
@@ -88,7 +88,7 @@
     <string name="slot_action_external">אחסון חיצוני</string>
     <string name="slot_filters_title">רשימת מסננים</string>
     <string name="slot_filters_description">תוכל לסנכרן את רשימת המסננים עם השרתים שלנו מבלי לאבד את הערכים המותאמים אישית שהוספת.&lt;br/&gt;&lt;br/&gt;לחלופין, תוכל לאפס את כל הערכים (כולל מותאמים אישית) ולהוריד אותם מחדש.</string>
-    <string name="slot_blocked_normal_title">דומיין חסום</string>
+    <string name="slot_blocked_title">דומיין חסום</string>
     <string name="slot_forwarded_title">הדומיין הועבר</string>
     <string name="slot_whitelist_title">יישום מאושר</string>
     <string name="slot_list_no_desc">רשומה זו אינה מכילה תיאור.</string>
