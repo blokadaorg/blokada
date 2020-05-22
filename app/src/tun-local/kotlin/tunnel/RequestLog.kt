@@ -1,17 +1,14 @@
 package tunnel
 
 import adblocker.CsvLogWriter
-import android.util.Log
+import android.content.Context
 import com.github.michaelbull.result.getOr
-import core.PaperSource
-import core.Register
+import core.*
 import core.Register.set
-import core.emit
-import core.get
 import java.io.Closeable
 import java.lang.IndexOutOfBoundsException
 import java.net.InetAddress
-import java.util.*
+import kotlin.math.max
 
 data class LogConfig(
         val logActive: Boolean = true,
@@ -21,7 +18,7 @@ data class LogConfig(
         val dropStart: Long = System.currentTimeMillis()
 )
 
-class RequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
+class RequestLog : Closeable {
 
     private data class RequestLogBatch(
             var list: List<ExtendedRequest>,
@@ -39,8 +36,11 @@ class RequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
             private set
         var lastBlockedDomain = batch0.find { it.blocked }?.domain ?: ""
             private set
-        var dropCount: Int = get(LogConfig::class.java).dropCount
-            private set
+        var dropCount: Int = legacyLoadDropCounter()
+            private set(value){
+                field = value
+                set(LogConfig::class.java, get(LogConfig::class.java).copy(dropCount = value))
+            }
         var dropStart: Long = get(LogConfig::class.java).dropStart
             private set
         private val batches: MutableList<RequestLogBatch> = mutableListOf(
@@ -49,6 +49,11 @@ class RequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
                 RequestLogBatch(emptyList(), 500, false))
         private val csvLogWriter = CsvLogWriter()
         private var totalSize: Int = 0
+
+        private fun legacyLoadDropCounter(): Int{
+            val p by lazy { getActiveContext()!!.getSharedPreferences("default", Context.MODE_PRIVATE) }
+            return max(get(LogConfig::class.java).dropCount, p.getInt("tunnelAdsCount", 0))
+        }
 
         private fun getBatch(index: Int): List<ExtendedRequest> {
             if (index >= batches.size) {
@@ -140,7 +145,6 @@ class RequestLog() : /*MutableList<ExtendedRequest>,*/ Closeable {
                 lastDomain = element.domain
                 if (element.blocked) {
                     dropCount++
-                    set(LogConfig::class.java, get(LogConfig::class.java).copy(dropCount = dropCount))
                     lastBlockedDomain = element.domain
                 }
                 rollIfNeeded()
