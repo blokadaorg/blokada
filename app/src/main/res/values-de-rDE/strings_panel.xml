@@ -24,7 +24,6 @@
     <string name="panel_domain_forwarded_toast">Zur Whitelist hinzugefügt.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; blockiert</string>
-    <string name="panel_domain_blocked_desc">Diese Domain wurde blockiert. Um sie in Zukunft zu erlauben, benutze den Button unten.</string>
     <string name="panel_domain_blocked_toast">Zur Blacklist hinzugefügt.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopieren</string>
@@ -103,7 +102,6 @@
     <string name="slot_action_external">Externer Speicher</string>
     <string name="slot_filters_title">Filterlisten</string>
     <string name="slot_filters_description">Du kannst die Filterliste mit unseren Servern synchronisieren, ohne eigene Einträge zu verlieren. &lt;br/&gt;&lt;br/&gt;Alternativ kannst du alle Einträge (einschließlich der eigenen) abwählen und sie neu herunterladen.</string>
-    <string name="slot_blocked_title">Domain blockiert</string>
     <string name="slot_forwarded_title">Domain weitergeleitet</string>
     <string name="slot_whitelist_title">App aus der Whitelist</string>
     <string name="slot_list_no_desc">Dieser Eintrag hat keine Beschreibung.</string>

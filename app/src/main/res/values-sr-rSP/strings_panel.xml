@@ -24,7 +24,6 @@
     <string name="panel_domain_forwarded_toast">Додато на белу листу.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Блокирано &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="panel_domain_blocked_desc">Тај домен је блокиран. Да бисте га одблокирали користите дугме испод.</string>
     <string name="panel_domain_blocked_toast">Додато на црну листу.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Копирај</string>

@@ -21,7 +21,6 @@
     <string name="panel_domain_forwarded_desc">इस डोमेन को अनुमति दी गई है। इसे रोकने के लिए नीचे दिया गया बटन इस्तेमाल करें।</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; अवरोधित</string>
-    <string name="panel_domain_blocked_desc">यह डोमेन रोक दी गई है। भविष्य में इसे अनुमति देने के लिए नीचे दिया गया बटन इस्तेमाल करें।</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">कॉपी करें</string>
     <string name="panel_domain_copied">क्लिपबोर्ड पर कॉपी हो गया</string>

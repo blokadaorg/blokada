@@ -19,6 +19,6 @@
     <string name="update_progress">Descargando: %s%%</string>
     <string name="update_complete">Descarga completada</string>
     <string name="update_failed">Descarga fallida</string>
-    <string name="update_instruction">Cuando hayas terminado, se te pedirá que permitas a Blokada instalar la actualización.</string>
+    <string name="update_instruction">Cuando hayas terminado se te pedirá que permitas a Blokada instalar la actualización.</string>
     <string name="update_instruction_failed">Toca aquí para intentarlo de nuevo, o mantén presionado para descargar con tu navegador.</string>
 </resources>

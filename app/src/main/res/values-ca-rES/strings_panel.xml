@@ -23,7 +23,6 @@
     <string name="panel_domain_forwarded_toast">S\'ha afegit a la llista blanca.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; bloquejat</string>
-    <string name="panel_domain_blocked_desc">Aquest domini s\'ha bloquejat. Per permetre\'l en el futur, utilitzeu el botó de sota.</string>
     <string name="panel_domain_blocked_toast">S\'ha afegit a la llista negra.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_ruleset">Comptador de filtres</string>
@@ -88,7 +87,6 @@
     <string name="slot_action_external">Emmagatzematge extern</string>
     <string name="slot_filters_title">Llista de filtres</string>
     <string name="slot_filters_description">Podeu sincronitzar la llista de filtres amb els nostres servidors sense perdre les entrades personalitzades. &lt;br/&gt;&lt;br/&gt;Alternativament, podeu eliminar totes les entrades (incloses les vostres) i tornar-les a baixar.</string>
-    <string name="slot_blocked_title">Domini bloquejat</string>
     <string name="slot_forwarded_title">Domini reenviat</string>
     <string name="slot_whitelist_title">Aplicació en la llista blanca</string>
     <string name="slot_list_no_desc">Aquesta entrada no té cap descripció.</string>

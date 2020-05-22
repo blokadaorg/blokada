@@ -24,7 +24,6 @@
     <string name="panel_domain_forwarded_toast">تَمَّت الإضافة إلى القائمة البيضاء.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; محظور</string>
-    <string name="panel_domain_blocked_desc">تَمّ حَظْر هذا الموقع. للسماح به في المستقبل ، استخدم الزرّ أدناه.</string>
     <string name="panel_domain_blocked_toast">تَمَّت الإضافة إلى القائمة السوداء.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">نسخ</string>
@@ -103,7 +102,6 @@
     <string name="slot_action_external">وحدة تخزين خارجيّة</string>
     <string name="slot_filters_title">قائمة الفلاتر</string>
     <string name="slot_filters_description">يمكنك مُزامَنة قائمة الفلاتر مع خَوادِمنا دون فقد إدخالاتك المُخصَّصة. &lt;br/&gt;&lt;br/&gt;بدلاً من ذلك ، يُمكِنك إسقاط جميع الإدخالات (بما في ذلك إدخالاتك) و تنزيلها مرّة أُخرى.</string>
-    <string name="slot_blocked_title">نطاق تمَّ حَظْره</string>
     <string name="slot_forwarded_title">نطاق تمَّ تحويله</string>
     <string name="slot_whitelist_title">تطبيق في القائمة البيضاء</string>
     <string name="slot_list_no_desc">لا يحتوي هذا الإدخال على أيّ وصف.</string>

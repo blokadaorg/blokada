@@ -24,7 +24,6 @@
     <string name="panel_domain_forwarded_toast">Добавен е към белия списък.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Блокиран &lt;b&gt;%s&lt;/b&gt;</string>
-    <string name="panel_domain_blocked_desc">Този домейн беше блокиран. За да го разрешите за в бъдеще използвайте бутона по-долу.</string>
     <string name="panel_domain_blocked_toast">Добавен е в черния списък.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Копирай</string>
@@ -103,7 +102,6 @@
     <string name="slot_action_external">Външно хранилище</string>
     <string name="slot_filters_title">Списък с филтри</string>
     <string name="slot_filters_description">Можете да синхронизирате списъка с филтри с нашите сървъри без да губите персонализираните си записи. &lt;br/&gt;&lt;br/&gt;Освен това можете да изтриете всички записи (включително и вашите) и да ги изтеглите отново.</string>
-    <string name="slot_blocked_title">Блокиран домейн</string>
     <string name="slot_forwarded_title">Препратен домейн</string>
     <string name="slot_whitelist_title">Бял списък с приложения</string>
     <string name="slot_list_no_desc">Този запис няма описание.</string>
@@ -195,5 +193,5 @@
     <string name="slot_reset_counter_action">Нулиране</string>
     <string name="label_workarounds">Устройство-специфични решения</string>
     <string name="slot_dns_answer_label">Алтернативно DNS решение</string>
-    <string name="slot_dns_answer_description">Променя отговора, който Blokada изпраща за блокирани заявки от „хоста не е намерен“ на невалиден ip. Това може да помогне на някои ROM, които питат други DNS сървъри ако получат отговор \"хост не е намерен\". Моля, обърнете внимание, че това може да забави някои приложения, които се опитват да се свържат с невалиден адрес.</string>
+    <string name="slot_dns_answer_description">Променя отговора, който Blokada изпраща за блокирани заявки от „хоста не е намерен“ на невалиден ip. Това може да помогне на някои ROM, които питат други DNS сървъри ако получат отговор \"хост не е намерен\". Моля, обърнете внимание, че това може да забави някои приложения, които ще се опитат да се свържат с невалиден адрес.</string>
 </resources>

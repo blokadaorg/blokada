@@ -24,7 +24,6 @@
     <string name="panel_domain_forwarded_toast">Toegevoegd aan de whitelist.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; geblokkeerd</string>
-    <string name="panel_domain_blocked_desc">Dit domein is geblokkeerd. Gebruik de knop hieronder om het in de toekomst toe te staan.</string>
     <string name="panel_domain_blocked_toast">Toegevoegd aan de blacklist.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopiëren</string>
@@ -103,7 +102,6 @@
     <string name="slot_action_external">Externe opslag</string>
     <string name="slot_filters_title">Filterlijst</string>
     <string name="slot_filters_description">Je kunt de filterlijst synchroniseren met onze servers zonder je eigen domeinen te verliezen. &lt;br/&gt;&lt;br/&gt;Als alternatief kun je alle items (inclusief de jouwe) laten vervallen en ze opnieuw downloaden.</string>
-    <string name="slot_blocked_title">Domein geblokkeerd</string>
     <string name="slot_forwarded_title">Domein doorgestuurd</string>
     <string name="slot_whitelist_title">Toegestane app</string>
     <string name="slot_list_no_desc">Deze vermelding heeft geen beschrijving.</string>
