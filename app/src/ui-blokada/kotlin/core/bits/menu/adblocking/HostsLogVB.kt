@@ -29,7 +29,7 @@ class HostsLogVB(
     private var searchString: String = ""
 
     private val requestUpdate = { update: RequestUpdate ->
-            if (searchString.isEmpty() || update.newState.domain.contains(searchString.toLowerCase())) {
+            if (update.newState.domain.contains(searchString.toLowerCase())) {
                 val dash = requestToVB(update.newState)
                 if (update.oldState == null) {
                     items.add(3, dash)
@@ -70,8 +70,10 @@ class HostsLogVB(
                 log?.expandHistory()
             }
             log?.forEach {
-                val dash = requestToVB(it)
-                items.add(dash)
+                if(it.domain.contains(searchString.toLowerCase())) {
+                    val dash = requestToVB(it)
+                    items.add(dash)
+                }
             }
         }
 
