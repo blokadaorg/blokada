@@ -3,16 +3,9 @@ package g11n
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
-import com.google.gson.Gson
 import core.*
 import java.net.URL
-
-
-data class JsonTranslation(
-    val key: String,
-    val translation: String
-)
-
+import java.util.*
 
 internal class TranslationsFetcher(
         val urls: () -> Map<Url, Prefix>,
@@ -23,12 +16,9 @@ internal class TranslationsFetcher(
         },
         val doFetchTranslations: (Url, Prefix) -> Result<Translations> = { url, prefix ->
             Result.of {
-                val translationData = loadGzip(openUrl(URL(url), 10 * 1000))
-
-                val gson = Gson()
-                gson.fromJson(translationData, Array<JsonTranslation>::class.java).map { transl ->
-                    "${prefix}_${transl.key}" to transl.translation
-                }
+                val prop = Properties()
+                prop.load(createStream(openUrl(URL(url), 10 * 1000)()))
+                prop.stringPropertyNames().map { key -> "${prefix}_$key" to prop.getProperty(key)}
             }
         },
         val doPutTranslation: (Key, Translation) -> Result<Boolean> = { key, translation ->
