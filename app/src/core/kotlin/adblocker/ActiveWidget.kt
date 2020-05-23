@@ -113,7 +113,10 @@ class ActiveWidgetProvider : AppWidgetProvider() {
 
 class UpdateWidgetService : Service() {
 
-    private val onBlockedEvent = { request: RequestUpdate -> if (request.oldState == null) onBlocked(request.newState.domain) }
+    private val onBlockedEvent = { request: RequestUpdate ->
+            if (request.oldState == null && request.newState.blocked)
+                onBlocked(request.newState.domain)
+        }
     private val onNewWidgetEvent = { data: WidgetData -> onNewWidget(data) }
     private val onRestoreEvent = { restoreData: WidgetRestoreData -> onRestoreWidget(restoreData) }
     private val onDeleteEvent = { appWidgetIds: IntArray -> onDeleteWidget(appWidgetIds) }
