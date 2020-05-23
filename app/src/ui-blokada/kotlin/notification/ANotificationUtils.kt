@@ -15,6 +15,7 @@ import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import org.blokada.R
 import tunnel.RequestLog
+import tunnel.RequestState
 import java.net.URL
 
 
@@ -180,7 +181,7 @@ class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNoti
                 } else if (logSublistEnd > 0) {
                     logSublistEnd--
                 }
-                RequestLog.getRecentHistory().subList(0,logSublistEnd).asReversed().distinct().forEach { request ->
+                RequestLog.getRecentHistory().filter { it.state == RequestState.BLOCKED_NORMAL }.subList(0,logSublistEnd).asReversed().distinct().forEach { request ->
                     domainList.addLine(request.domain)
                 }
 
