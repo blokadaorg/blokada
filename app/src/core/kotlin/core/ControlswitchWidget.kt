@@ -53,7 +53,7 @@ abstract class ControlswitchWidgetProvider : AppWidgetProvider() {
 
 class TunnelSwitchWidgetProvider : ControlswitchWidgetProvider() {
     override val icon = R.drawable.ic_blokada
-    override val changedSetting = NotificationsToggleSeviceSettings.TUNNEL
+    override val changedSetting = NotificationsToggleSeviceSettings.GENERAL
     override val requestCode: Int = 1727314487
     override fun checkState(ctx: Context): Boolean {
         val t: Tunnel = ctx.inject().instance()
