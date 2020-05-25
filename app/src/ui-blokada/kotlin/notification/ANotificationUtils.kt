@@ -186,7 +186,7 @@ class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNoti
                 }
 
                 val intent = Intent(ctx, ANotificationsToggleService::class.java).putExtra("new_state",!t.enabled())
-                intent.putExtra("setting", NotificationsToggleSeviceSettings.TUNNEL)
+                intent.putExtra("setting", NotificationsToggleSeviceSettings.GENERAL)
                 val statePendingIntent = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 if(t.enabled()) {
                     b.addAction(R.drawable.ic_stat_blokada, ctx.resources.getString(R.string.notification_keepalive_deactivate), statePendingIntent)

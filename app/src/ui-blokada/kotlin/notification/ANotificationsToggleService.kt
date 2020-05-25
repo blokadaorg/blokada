@@ -9,7 +9,6 @@ import com.github.salomonbrys.kodein.instance
 import core.Tunnel
 import core.entrypoint
 import gs.environment.inject
-import nl.komponents.kovenant.DirectDispatcher.Companion.instance
 import org.blokada.R
 
 
@@ -19,7 +18,7 @@ class ANotificationsToggleService : IntentService("notificationsToggle") {
     override fun onHandleIntent(intent: Intent) {
          val newState: Boolean = intent.getBooleanExtra("new_state", true)
         when (intent.getSerializableExtra("setting") as NotificationsToggleSeviceSettings) {
-            NotificationsToggleSeviceSettings.TUNNEL -> {
+            NotificationsToggleSeviceSettings.GENERAL -> {
                 val t: Tunnel = this.inject().instance()
                 t.enabled %= newState
                 if(newState){
@@ -51,5 +50,5 @@ class DisplayToastRunnable(private val mContext: Context, private var mText: Str
 }
 
 enum class NotificationsToggleSeviceSettings {
-    TUNNEL, ADBLOCKING, DNS, VPN
+    GENERAL, ADBLOCKING, DNS, VPN
 }
