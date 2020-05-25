@@ -3,6 +3,7 @@
     android:maxWidth="40dp"
     android:maxHeight="40dp"
     android:initialLayout="@layout/widget_controlswitch"
+    android:previewImage="@drawable/controlswitch_dns_preview"
     android:resizeMode="none"
     android:widgetCategory="home_screen">
 </appwidget-provider>

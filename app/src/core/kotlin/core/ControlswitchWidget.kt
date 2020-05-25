@@ -51,7 +51,7 @@ abstract class ControlswitchWidgetProvider : AppWidgetProvider() {
     abstract fun checkState(ctx: Context): Boolean
 }
 
-class TunnelSwitchWidgetProvider : ControlswitchWidgetProvider() {
+class GeneralSwitchWidgetProvider : ControlswitchWidgetProvider() {
     override val icon = R.drawable.ic_blokada
     override val changedSetting = NotificationsToggleSeviceSettings.GENERAL
     override val requestCode: Int = 1727314487
@@ -93,7 +93,7 @@ class VpnSwitchWidgetProvider : ControlswitchWidgetProvider() {
 
 fun updateControllswitchWidgets(ctx: Context){
     arrayOf(
-        TunnelSwitchWidgetProvider::class.java,
+        GeneralSwitchWidgetProvider::class.java,
         AdblockingSwitchWidgetProvider::class.java,
         DnsSwitchWidgetProvider::class.java,
         VpnSwitchWidgetProvider::class.java
