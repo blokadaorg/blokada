@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:maxWidth="40dp"
+    android:maxHeight="40dp"
+    android:initialLayout="@layout/widget_controlswitch"
+    android:previewImage="@drawable/controlswitch_general_preview"
+    android:resizeMode="none"
+    android:widgetCategory="home_screen">
+</appwidget-provider>

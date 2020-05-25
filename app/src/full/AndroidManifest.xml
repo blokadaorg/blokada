@@ -38,7 +38,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/controlswitch_widget_info" />
+                android:resource="@xml/controlswitch_adbl_widget_info" />
         </receiver>
 
     </application>

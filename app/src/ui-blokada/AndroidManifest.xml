@@ -46,14 +46,14 @@
 
 
         <receiver
-            android:name="core.TunnelSwitchWidgetProvider"
+            android:name="core.GeneralSwitchWidgetProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/controlswitch_widget_info" />
+                android:resource="@xml/controlswitch_general_widget_info" />
         </receiver>
         <receiver
             android:name="core.DnsSwitchWidgetProvider"
@@ -63,7 +63,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/controlswitch_widget_info" />
+                android:resource="@xml/controlswitch_dns_widget_info" />
         </receiver>
         <receiver
             android:name="core.VpnSwitchWidgetProvider"
@@ -73,7 +73,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/controlswitch_widget_info" />
+                android:resource="@xml/controlswitch_vpn_widget_info" />
         </receiver>
 
 
