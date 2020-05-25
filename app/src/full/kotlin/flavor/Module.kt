@@ -48,6 +48,11 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                 updateControllswitchWidgets(ctx)
             }
 
+            s.tunnelState.doWhenChanged().then{
+                updateListWidget(ctx)
+                updateControllswitchWidgets(ctx)
+            }
+
             updateListWidget(ctx)
             updateControllswitchWidgets(ctx)
 
