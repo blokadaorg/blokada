@@ -49,7 +49,7 @@ class HostsLogVB(
         view.enableAlternativeMode()
         if (log == null){
             log = RequestLog()
-            ktx.on(TunnelEvents.REQUEST_UPDATE, requestUpdate)
+            ktx.on(TunnelEvents.REQUEST_UPDATE, requestUpdate, recentValue = false)
         }
         if(view.getItemCount() == 0) {
             items.clear()
