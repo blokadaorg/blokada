@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">点击或按住以配置</string>
     <string name="home_blokada_disabled">Blokada 已暂停使用</string>
+    <string name="home_blokada_active">Blokada 已激活</string>
+    <string name="home_blokada_active_protected">Blokada 隧道已激活，且您的互联网受到保护</string>
+    <string name="home_blokada_inactive">Blokada 已停用</string>
     <string name="home_activating">正在启用</string>
     <string name="home_please_wait">请稍候...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

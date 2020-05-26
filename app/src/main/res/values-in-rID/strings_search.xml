@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_header">Tekan untuk mencari...</string>
+    <string name="search_title">Cari</string>
+    <string name="search_entered">Hasil pencarian untuk: %s</string>
+    <string name="search_description">Masukkan kriteria pencarian Anda dan tekan Ya untuk memfilter daftar.</string>
+    <string name="search_action_confirm">Ya</string>
+    <string name="search_action_clear">Hapus</string>
+</resources>

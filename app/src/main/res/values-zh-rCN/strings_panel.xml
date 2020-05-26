@@ -79,9 +79,11 @@
     <string name="slot_app_desc">此应用程序被列入白名单，这意味着没有屏蔽或过滤。</string>
     <string name="slot_allapp_desc">您可以使该应用绕过Blokada，以停止阻止它的任何流量。 请记住，绕过的应用程序在VPN外部进行通信。</string>
     <string name="slot_allapp_whitelisted">绕过</string>
-    <string name="slot_allapp_normal">未跳过</string>
-    <string name="slot_allapp_whitelist">旁路</string>
+    <string name="slot_allapp_normal">未绕过</string>
+    <string name="slot_allapp_whitelist">绕过</string>
     <string name="slot_action_set">设定</string>
+    <string name="slot_whitelist_all">绕过所有应用</string>
+    <string name="slot_blacklist_all">不要绕过任何应用</string>
     <string name="slot_dns_name">DNS 已激活</string>
     <string name="slot_dns_name_private">自定义DNS已激活</string>
     <string name="slot_dns_name_disabled">DNS 已停用</string>

@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Tik of houd vast om te configureren</string>
     <string name="home_blokada_disabled">Blokada is gepauzeerd</string>
+    <string name="home_blokada_active">Blokada is actief</string>
+    <string name="home_blokada_active_protected">Blokada Tunnel is actief en je internet is beschermd</string>
+    <string name="home_blokada_inactive">Blokada is gedeactiveerd</string>
     <string name="home_activating">Activeren</string>
     <string name="home_please_wait">Even geduld...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_header">Нажмите для поиска...</string>
+    <string name="search_title">Поиск</string>
+    <string name="search_entered">Результаты для: %s</string>
+    <string name="search_description">Введите ваш поисковый запрос выше и нажмите Подтвердить, чтобы отфильтровать список.</string>
+    <string name="search_action_confirm">Подтвердить</string>
+    <string name="search_action_clear">Очистить</string>
+</resources>
