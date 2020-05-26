@@ -4,4 +4,6 @@
     <!-- A configuration option of widget -->
     <!-- A configuration option of widget -->
     <!-- A configuration option of widget -->
+    <string name="widget_show_dns">Afișează DNS</string>
+    <string name="widget_okay">Confirmați</string>
 </resources>

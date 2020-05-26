@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">Dodano na seznam dovoljenih.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; blokirano</string>
+    <string name="panel_domain_blocked_normal_desc">Ta domena je blokirana. Če želite dostopati do nje, uporabite spodnji gumb.</string>
+    <string name="panel_domain_blocked_answer_desc">DNS strežnik ni pravilno obdelal te domene. Ali je blokirana na strežniku ali pa ne obstaja.</string>
     <string name="panel_domain_blocked_toast">Dodano na seznam prepovedanih.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopiraj</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">Izvzeto</string>
     <string name="slot_allapp_normal">Nadzorovano</string>
     <string name="slot_allapp_whitelist">Brez blokiranja</string>
+    <string name="slot_action_set">Nastavi</string>
+    <string name="slot_whitelist_all">Izvzemi vse aplikacije</string>
+    <string name="slot_blacklist_all">Nadzoruj vse aplikacije</string>
     <string name="slot_dns_name">DNS je aktiven</string>
     <string name="slot_dns_name_private">Uporabnikov DNS je aktiven</string>
     <string name="slot_dns_name_disabled">DNS ni aktiven</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">Zunanja shramba</string>
     <string name="slot_filters_title">Seznam filtrov</string>
     <string name="slot_filters_description">Seznam filtrov lahko uskladite z našim brez izgube dodatno vnešenih.&lt;br/&gt;&lt;br/&gt;Druga možnost je, da počitite seznam (vključno z dodatnimi) in ponovno prenesete.</string>
+    <string name="slot_blocked_normal_title">Blokirana domena</string>
+    <string name="slot_blocked_answer_title">Domena ni najdena</string>
     <string name="slot_forwarded_title">Preusmerjena domena</string>
     <string name="slot_whitelist_title">Dovoljena aplikacija</string>
     <string name="slot_list_no_desc">Ta vnos nima opisa.</string>

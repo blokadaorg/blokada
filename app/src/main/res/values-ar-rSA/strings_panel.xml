@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">تَمَّت الإضافة إلى القائمة البيضاء.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; محظور</string>
+    <string name="panel_domain_blocked_normal_desc">تَمّ حَظْر هذا الموقع. للسماح به في المستقبل ، إستخدم الزرّ أدناه.</string>
+    <string name="panel_domain_blocked_answer_desc">لم يتم معالجو هذا المجال بشكل صحيح من قِبَل خادِم DNS. إمّا أنّ الخادِم حَظرَ المجال أو أنّه غير موجود.</string>
     <string name="panel_domain_blocked_toast">تَمَّت الإضافة إلى القائمة السوداء.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">نسخ</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">مُتجاوِز</string>
     <string name="slot_allapp_normal">غَير مُتجاوِز</string>
     <string name="slot_allapp_whitelist">تَجاوز</string>
+    <string name="slot_action_set">تَعيين</string>
+    <string name="slot_whitelist_all">تجاوز كل التطبيقات</string>
+    <string name="slot_blacklist_all">عدم تجاوز أي تطبيق</string>
     <string name="slot_dns_name">الـ DNS نَشِط</string>
     <string name="slot_dns_name_private">الـ DNS المُخصَّص مُفعَّل</string>
     <string name="slot_dns_name_disabled">الـ DNS غير نَشِط</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">وحدة تخزين خارجيّة</string>
     <string name="slot_filters_title">قائمة الفلاتر</string>
     <string name="slot_filters_description">يمكنك مُزامَنة قائمة الفلاتر مع خَوادِمنا دون فقد إدخالاتك المُخصَّصة. &lt;br/&gt;&lt;br/&gt;بدلاً من ذلك ، يُمكِنك إسقاط جميع الإدخالات (بما في ذلك إدخالاتك) و تنزيلها مرّة أُخرى.</string>
+    <string name="slot_blocked_normal_title">نِطاق تمَّ حَظْره</string>
+    <string name="slot_blocked_answer_title">نِطاق لم يَتِمّ معالجته</string>
     <string name="slot_forwarded_title">نطاق تمَّ تحويله</string>
     <string name="slot_whitelist_title">تطبيق في القائمة البيضاء</string>
     <string name="slot_list_no_desc">لا يحتوي هذا الإدخال على أيّ وصف.</string>

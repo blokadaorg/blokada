@@ -82,8 +82,8 @@
     <string name="slot_allapp_normal">Nie pominięte</string>
     <string name="slot_allapp_whitelist">Pomiń</string>
     <string name="slot_action_set">Ustaw</string>
-    <string name="slot_whitelist_all">Biała lista wszystkich aplikacji</string>
-    <string name="slot_blacklist_all">Czarna lista wszystkich aplikacji</string>
+    <string name="slot_whitelist_all">Pomiń wszystkie aplikacje</string>
+    <string name="slot_blacklist_all">Nie pomijaj żadnych aplikacji</string>
     <string name="slot_dns_name">DNS jest włączony</string>
     <string name="slot_dns_name_private">Niestandardowy DNS jest aktywny</string>
     <string name="slot_dns_name_disabled">DNS jest wyłączony</string>

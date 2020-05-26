@@ -82,8 +82,6 @@
     <string name="slot_allapp_normal">未跳过</string>
     <string name="slot_allapp_whitelist">旁路</string>
     <string name="slot_action_set">设定</string>
-    <string name="slot_whitelist_all">将所有应用加入白名单</string>
-    <string name="slot_blacklist_all">将所有应用加入黑名单</string>
     <string name="slot_dns_name">DNS 已激活</string>
     <string name="slot_dns_name_private">自定义DNS已激活</string>
     <string name="slot_dns_name_disabled">DNS 已停用</string>

@@ -19,5 +19,5 @@
     <!-- Forcefully refetch dns suggestions ignoring cache. -->
     <string name="dns_generate_refetch">DNS listesini yenile</string>
     <!-- Keep Alive notification for DNS. Parameter: addresses of active dns servers. -->
-    <string name="dns_keepalive_content">Aktif: %s</string>
+    <string name="dns_keepalive_content">Etkin: %s</string>
 </resources>

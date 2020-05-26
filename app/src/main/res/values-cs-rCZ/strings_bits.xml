@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Klepněte nebo přidržte pro konfiguraci</string>
     <string name="home_blokada_disabled">Blokada je pozastavena</string>
+    <string name="home_blokada_active">Blokada je aktivní</string>
+    <string name="home_blokada_active_protected">Blokada Tunnel je aktivní a Vaše internetové připojení je chráněno</string>
+    <string name="home_blokada_inactive">Blokada je deaktivovaná</string>
     <string name="home_activating">Aktivace</string>
     <string name="home_please_wait">Počkejte prosím...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

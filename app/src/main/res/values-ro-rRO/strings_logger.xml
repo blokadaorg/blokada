@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="logger_permission">Te rugăm să acorzi permisiunea stocării.</string>
+    <string name="logger_slot_title">Jurnalul cererilor</string>
+    <string name="logger_slot_mode_off">Dezactivat</string>
+</resources>

@@ -24,13 +24,15 @@
     <string name="panel_domain_forwarded_toast">Beyaz listeye eklendi.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; engellendi</string>
+    <string name="panel_domain_blocked_normal_desc">Bu alan adı engellenmiştir. İzin vermek için aşağıdaki düğmeyi kullanın.</string>
+    <string name="panel_domain_blocked_answer_desc">Bu alan adı, DNS sunucusu tarafından doğru şekilde çözümlenemedi. Sunucu alan adı engellenmiş veya mevcut değil.</string>
     <string name="panel_domain_blocked_toast">Kara listeye eklendi.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopyala</string>
     <string name="panel_domain_copied">Panoya kopyalandı</string>
     <string name="panel_ruleset">Filtre sayacı</string>
     <!-- How many rules are configured. Parameters is number of rules. -->
-    <string name="panel_ruleset_title">Filtrelerin artık %s kuralları var.</string>
+    <string name="panel_ruleset_title">Filtrelerin artık %s kuralı var.</string>
     <string name="panel_ruleset_updating">Filtreler güncelleniyor...</string>
     <string name="panel_ruleset_canfit">Filtreler artık &lt;b&gt;%s&lt;/b&gt; kuralla yapılandırılmıştır. Cihazınız her uygulama için maksimum &lt;b&gt;%s&lt;/b&gt; MB belleğe izin verir ve en fazla &lt;b&gt;%s&lt;/b&gt; kural sığabilir.&lt;br&gt;Unutmayın, bu sadece bir tahmindir ve Blokada en fazla belleği listeleri birleştirirken kullanır. Son zamanlarda birkaçını etkinleştirdiyseniz, sistemin belleği boşaltması için birkaç dakika bekleyin.</string>
     <!-- Button to allow blocked domain -->
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">Atlandı</string>
     <string name="slot_allapp_normal">Atlanmadı</string>
     <string name="slot_allapp_whitelist">Atla</string>
+    <string name="slot_action_set">Ayarla</string>
+    <string name="slot_whitelist_all">Tüm uygulamaları atla</string>
+    <string name="slot_blacklist_all">Hiçbir uygulamayı atlama</string>
     <string name="slot_dns_name">DNS etkin</string>
     <string name="slot_dns_name_private">Özel DNS etkin</string>
     <string name="slot_dns_name_disabled">DNS devre dışı bırakıldı</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">Harici Depolama</string>
     <string name="slot_filters_title">Filtreler listesi</string>
     <string name="slot_filters_description">Özel girişlerinizi kaybetmeden filtre listesini sunucularımızla senkronize edebilirsiniz. &lt;br/&gt;&lt;br/&gt;Alternatif olarak, tüm girişleri (sizinkiler dahil) bırakıp tekrar indirebilirsiniz.</string>
+    <string name="slot_blocked_normal_title">Alan adı engellendi</string>
+    <string name="slot_blocked_answer_title">Alan adı çözülemedi</string>
     <string name="slot_forwarded_title">Alan adı yönlendirildi</string>
     <string name="slot_whitelist_title">Beyaz listedeki uygulama</string>
     <string name="slot_list_no_desc">Bu girişin herhangi bir açıklaması yok.</string>
@@ -141,7 +148,7 @@
     <string name="slot_gateway_load_low">yüksek</string>
     <!-- Gateway load -->
     <string name="slot_gateway_load_high">düşük</string>
-    <string name="subscription_success">Hesabınız etkinleştiriliyor. Bu bir kaç saniye alabilir. Teşekkür ederiz!</string>
+    <string name="subscription_success">Hesabınız etkinleştiriliyor. Bu, bir kaç saniye alabilir. Teşekkür ederiz!</string>
     <string name="slot_start_on_boot_description">Önyüklemede başlatmayı etkinleştirmek, Blokada\'nın her zaman etkin olmasını ve cihazınızı korumasını sağlar. Lütfen sistemin her zaman daha yüksek önceliğe sahip olduğunu ve bu seçeneğin üzerine yazabileceğini unutmayın. Bu nedenle Blokada başlamazsa sistem ayarlarınıza bakın.</string>
     <string name="slot_recommended_dns_label">Önerilen DNS sunucularını kullanın</string>
     <string name="slot_recommended_dns_description">Etkinleştirildiğinde, Blokada internetinizi hızlandırmanıza ve gizliliğinizi korumanıza yardımcı olmak için önerilen DNS sunucularını otomatik olarak seçecektir. Aksi takdirde, ağınızın varsayılan DNS sunucuları kullanılır. Gelişmiş bölümünden elle DNS sunucularını seçerseniz, bu ayar yok sayılır.</string>

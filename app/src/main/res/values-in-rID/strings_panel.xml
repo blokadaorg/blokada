@@ -82,8 +82,8 @@
     <string name="slot_allapp_normal">Tidak di bypass</string>
     <string name="slot_allapp_whitelist">Bypass</string>
     <string name="slot_action_set">Atur</string>
-    <string name="slot_whitelist_all">Whitelist semua aplikasi</string>
-    <string name="slot_blacklist_all">Blacklist semua aplikasi</string>
+    <string name="slot_whitelist_all">Bypass semua aplikasi</string>
+    <string name="slot_blacklist_all">Jangan bypass semua aplikasi</string>
     <string name="slot_dns_name">DNS aktif</string>
     <string name="slot_dns_name_private">Custom DNS sedang aktif</string>
     <string name="slot_dns_name_disabled">DNS dinonaktifkan</string>

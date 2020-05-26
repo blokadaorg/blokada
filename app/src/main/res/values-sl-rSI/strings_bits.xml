@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Tapnite ali držite za nastavitve</string>
     <string name="home_blokada_disabled">Blokada ni aktivna</string>
+    <string name="home_blokada_active">Blokada je aktivna</string>
+    <string name="home_blokada_active_protected">Blokadin Tunel je aktiven, vaša povezava je zaščitena</string>
+    <string name="home_blokada_inactive">Blokada ni aktivna</string>
     <string name="home_activating">Aktiviranje</string>
     <string name="home_please_wait">Prosimo počakajte...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Нажмите или удерживайте, чтобы настроить</string>
     <string name="home_blokada_disabled">Blokada приостановлена</string>
+    <string name="home_blokada_active">Blokada активна</string>
+    <string name="home_blokada_active_protected">Blokada Tunnel активен, ваш интернет защищен</string>
+    <string name="home_blokada_inactive">Blokada деактивирована</string>
     <string name="home_activating">Активация</string>
     <string name="home_please_wait">Пожалуйста, подождите...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

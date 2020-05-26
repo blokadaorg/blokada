@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Yapılandırmak için dokunun veya basılı tutun</string>
     <string name="home_blokada_disabled">Blokada duraklatıldı</string>
+    <string name="home_blokada_active">Blokada etkin</string>
+    <string name="home_blokada_active_protected">Blokada Tüneli etkin ve internetiniz korunuyor</string>
+    <string name="home_blokada_inactive">Blokada devre dışı bırakıldı</string>
     <string name="home_activating">Etkinleştiriliyor</string>
     <string name="home_please_wait">Lütfen bekleyin...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

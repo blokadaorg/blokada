@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">Adicionado à lista de permissões</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Bloqueado &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">Este domínio foi bloqueado. Para o permitir no futuro, use o botão abaixo.</string>
+    <string name="panel_domain_blocked_answer_desc">Este domínio não foi resolvido corretamente pelo servidor de DNS. Ou o servidor bloqueou o domínio ou este não existe.</string>
     <string name="panel_domain_blocked_toast">Adicionado à lista negra</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copiar</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">Ignorado</string>
     <string name="slot_allapp_normal">Não ignorado</string>
     <string name="slot_allapp_whitelist">Ignorar</string>
+    <string name="slot_action_set">Definir</string>
+    <string name="slot_whitelist_all">Ignorar todas as apps</string>
+    <string name="slot_blacklist_all">Não ignorar nenhuma app</string>
     <string name="slot_dns_name">DNS está ativo</string>
     <string name="slot_dns_name_private">DNS personalizado está ativo</string>
     <string name="slot_dns_name_disabled">DNS está desativado</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">Armazenamento Externo</string>
     <string name="slot_filters_title">Lista de Filtros</string>
     <string name="slot_filters_description">Pode sincronizar a lista de filtros com os nossos servidores, sem perder as suas entradas personalizadas. &lt;br/&gt;&lt;br/&gt;Como alternativa, pode apagar todas as entradas (incluindo as suas) e transferi-las novamente.</string>
+    <string name="slot_blocked_normal_title">Domínio bloqueado</string>
+    <string name="slot_blocked_answer_title">Domínio não resolvido</string>
     <string name="slot_forwarded_title">Domínio reencaminhado</string>
     <string name="slot_whitelist_title">Aplicações permitidas</string>
     <string name="slot_list_no_desc">Esta entrada não tem nenhuma descrição.</string>

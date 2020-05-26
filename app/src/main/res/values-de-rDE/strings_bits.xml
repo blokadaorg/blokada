@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Zum Konfigurieren tippen oder halten</string>
     <string name="home_blokada_disabled">Blokada pausiert</string>
+    <string name="home_blokada_active">Blokada ist aktiv</string>
+    <string name="home_blokada_active_protected">Blokada Tunnel ist aktiv und dein Internet ist beschützt</string>
+    <string name="home_blokada_inactive">Blokada ist deaktiviert</string>
     <string name="home_activating">Aktivierung</string>
     <string name="home_please_wait">Bitte warten ...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Ketuk atau tekan untuk mengkonfigurasi</string>
     <string name="home_blokada_disabled">Blokada dihentikan sementara</string>
+    <string name="home_blokada_active">Blokada aktif</string>
+    <string name="home_blokada_active_protected">Blokada Tunnel aktif, dan koneksi Anda terlindungi</string>
+    <string name="home_blokada_inactive">Blokada dinonaktifkan</string>
     <string name="home_activating">Mengaktifkan</string>
     <string name="home_please_wait">Harap tunggu...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

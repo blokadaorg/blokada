@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">已加入白名單。</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">已封鎖 &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">此網域已被阻擋。若要未來允許此網域，請使用下方按鈕。</string>
+    <string name="panel_domain_blocked_answer_desc">此網域未被 DNS 伺服器正確解析。不是伺服器阻擋了該網域就是其根本就不存在。</string>
     <string name="panel_domain_blocked_toast">已加入黑名單。</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">複製</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">已繞過</string>
     <string name="slot_allapp_normal">未繞過</string>
     <string name="slot_allapp_whitelist">繞過</string>
+    <string name="slot_action_set">設定</string>
+    <string name="slot_whitelist_all">略過所有 App</string>
+    <string name="slot_blacklist_all">不略過所有 App</string>
     <string name="slot_dns_name">DNS 已啟用</string>
     <string name="slot_dns_name_private">自訂DNS已啟用</string>
     <string name="slot_dns_name_disabled">DNS 已停用</string>
@@ -102,6 +107,8 @@
     <string name="slot_action_external">外部儲存空間</string>
     <string name="slot_filters_title">過濾器列表</string>
     <string name="slot_filters_description">您不必失去任何您的自訂項目也可以從我們的伺服器同步過濾規則清單。&lt;br/&gt;&lt;br/&gt;或者您也可以刪除所有的項目（包含您自己的），然後重新下載。</string>
+    <string name="slot_blocked_normal_title">已阻擋網域</string>
+    <string name="slot_blocked_answer_title">域名未解析</string>
     <string name="slot_forwarded_title">已轉發網域</string>
     <string name="slot_whitelist_title">已加入白名單的應用程式</string>
     <string name="slot_list_no_desc">這個項目沒有任何描述。</string>

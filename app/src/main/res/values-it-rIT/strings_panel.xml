@@ -82,8 +82,8 @@
     <string name="slot_allapp_normal">Non ignorare</string>
     <string name="slot_allapp_whitelist">Ignora</string>
     <string name="slot_action_set">Imposta</string>
-    <string name="slot_whitelist_all">Tutte le app in whitelist</string>
-    <string name="slot_blacklist_all">Tutte le app in blacklist</string>
+    <string name="slot_whitelist_all">Ignora tutte le app</string>
+    <string name="slot_blacklist_all">Non ignorare alcuna app</string>
     <string name="slot_dns_name">DNS attivi</string>
     <string name="slot_dns_name_private">DNS personalizzati attivi</string>
     <string name="slot_dns_name_disabled">DNS disattivati</string>

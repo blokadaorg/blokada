@@ -3,7 +3,10 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">कॉन्फ़िगर करने के लिए दबाएं</string>
     <string name="home_blokada_disabled">ब्लोकाडा रुका हुआ है</string>
-    <string name="home_activating">सक्रिय किया जा रहा है</string>
+    <string name="home_blokada_active">ब्लोकाडा चल रहा है</string>
+    <string name="home_blokada_active_protected">ब्लोकाडा सुरंग सक्रिय है, और आपका इंटरनेट सुरक्षित है</string>
+    <string name="home_blokada_inactive">ब्लोकडा निष्क्रिय कर दिया गया है</string>
+    <string name="home_activating">एक्टिवेट हो रहा हैं...</string>
     <string name="home_please_wait">कृपया प्रतीक्षा करें...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">ब्लोकडा सुरंग विज्ञापन अवस्र्द्ध किए बिना भी सक्रिय है</string>
@@ -11,11 +14,11 @@
     <string name="home_dns_only">ब्लोकाडा डीएनएस मोड में चालू हैं</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <string name="home_requests_blocked">%s अवरोधित किया गया</string>
-    <string name="home_masterswitch_enabled">Blokada चल रहा है</string>
+    <string name="home_masterswitch_enabled">ब्लोकाडा चल रहा है</string>
     <string name="home_masterswitch_waiting">नेटवर्क की प्रतीक्षा की जा रही है...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">अपने मित्रों से सांझें</string>
-    <string name="home_share_state">अपने ब्लोकाडा के अंक शेयर करें</string>
+    <string name="home_share_state">अपने ब्लोकाडा के अंक सांझा करें</string>
     <string name="home_share_state_google">ब्लोकाडा के बारे में जानने में दूसरों की मदद करें</string>
     <string name="home_share_msg_google">आजमाइए ब्लोकाडा स्लिम और अपनी गोपनीयता को सुरक्षित रखें! इसे गूगल प्ले स्टोर से प्राप्त करें।</string>
     <string name="home_adblocking_enabled">विज्ञापन अवरोधन सक्रिय है</string>
@@ -24,7 +27,7 @@
     <string name="home_blokadaorg_state">खुला स्त्रोत संस्करण पाने के लिए छूएं</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">नया क्या है?</string>
-    <string name="home_update_required">अद्यतन आवश्यक</string>
+    <string name="home_update_required">अपडेट आवश्यक</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">दान करें</string>
     <string name="home_vpn_enabled">Blokada Tunnel सक्रिय है</string>
@@ -35,9 +38,9 @@
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">ब्लोकाडा सुरंग से जुड़े हुए हैं</string>
     <string name="home_boringtun_not_loaded">क्षमा करें, आपका उपकरण ब्लोकडा सुरंग द्वारा समर्थित नहीं है। आप अभी भी अन्य सुविधाओं का उपयोग कर सकते हैं।</string>
-    <string name="home_blocka_vpn_error">गेटवे से कनेक्ट नहीं हो पाय। क्या आप ऑनलाइन हैं?</string>
+    <string name="home_blocka_vpn_error">गेटवे से कनेक्ट नहीं हो सका। क्या आप ऑनलाइन हैं?</string>
     <string name="home_account_error">खाता सत्यापित नहीं किया जा सका। क्या आप ऑनलाइन हैं?</string>
-    <string name="home_permission_error">कृपया VPN की अनुमति दें।</string>
+    <string name="home_permission_error">कृपया वीपीन की अनुमति दें।</string>
     <string name="home_zero_filters_error">आपके पास कोई फ़िल्टर कॉन्फ़िगर नहीं हुआ हैं। अपने विज्ञापन अवरोधन और वाईफाई सेटिंग की जांच करें।</string>
     <string name="home_filters_memory_error">कुछ सूचियाँ लोड नहीं की जा सकीं; विज्ञापन अवरोधन सेटिंग में कम सूचियों का चयन करें।</string>
     <string name="tasker_switch_label">अपने ट्रिगर के लिए इसे चालू (या बंद) करने के लिए कॉन्फ़िगर करने के विकल्पों में से एक पर टैप करें।</string>
@@ -61,7 +64,7 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">उपकरण</string>
     <string name="menu_vpn_manage_subscription">अपनी सदस्यता का प्रबंधन करें</string>
-    <string name="menu_vpn_manage_subscription_unavailable">अगर आपका खाता नया है तो हमारी वेबसाईट पर जाए। आप Blokada Slim में से सदस्यता नहीं खरीद सकते हैं।</string>
+    <string name="menu_vpn_manage_subscription_unavailable">अगर आपका खाता नया है तो हमारी वेबसाईट पर जाए। ब्लोकाडा स्लिम में से सदस्यता नहीं खरीद सकते हैं।</string>
     <string name="menu_vpn_account_secret">अपना खाता आईडी देखने के लिए ऊपर अपना अवतार को छुएं। याद रखें, आपकी आईडी गुप्त है और आपको इसे अपने पास ही रखना चाहिए। यदि आप ऐप को अनइंस्टॉल करते हैं तो इसे कहीं लिख लें।</string>
     <string name="menu_vpn_restore_label">यहां आप अपने मौजूदा खाते को पुनर्स्थापित कर सकते हैं यदि, उदाहरण के लिए, आपने ऐप को फिर से स्थापित किया है।</string>
     <string name="menu_vpn_intro">ब्लोकाडा सुरंग के साथ आपका डेटा एन्क्रिप्ट किया जाता हैं, आपका आईपी पता छिप जाता है, और आपका स्थान बदल गया है।</string>
@@ -99,7 +102,11 @@
     <string name="menu_get_involved">शामिल होँ</string>
     <string name="menu_telegram">टेलीग्राम चैट</string>
     <string name="menu_configure">बलोकाडा कि सुविधाओं को कॉन्फ़िगर करें</string>
+    <string name="menu_exclude">उन ऐप्स को छोड़ दें जो सही तरीके से काम नहीं करते हैं</string>
     <!-- A section in menu for additional buttons  -->
+    <string name="menu_dive_in">भीतर जाओ</string>
     <!-- A section to manage some settings (generic)  -->
     <string name="menu_manage">प्रबंधित करें</string>
+    <string name="menu_ok">ठीक है</string>
+    <string name="menu_dns_remove_default">डिफ़ॉल्ट DNS को हटाया नहीं जा सकता।</string>
 </resources>

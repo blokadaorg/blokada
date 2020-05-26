@@ -24,6 +24,8 @@
     <string name="panel_domain_forwarded_toast">Ajouté à la liste blanche.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Bloqué &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">Ce domaine a été bloqué. Pour l\'autoriser, utilisez le bouton ci-dessous.</string>
+    <string name="panel_domain_blocked_answer_desc">Ce domaine a mené à une résolution incorrecte par le serveur DNS. Soit le serveur a bloqué ce domaine, soit il n\'existe pas.</string>
     <string name="panel_domain_blocked_toast">Ajouté à la liste noire.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copier</string>
@@ -79,6 +81,9 @@
     <string name="slot_allapp_whitelisted">Autorisée à contourner</string>
     <string name="slot_allapp_normal">Non autorisée à contourner</string>
     <string name="slot_allapp_whitelist">Autoriser à contourner</string>
+    <string name="slot_action_set">Appliquer</string>
+    <string name="slot_whitelist_all">Autoriser toutes les applications</string>
+    <string name="slot_blacklist_all">N\'autoriser aucune application</string>
     <string name="slot_dns_name">DNS actif</string>
     <string name="slot_dns_name_private">Un DNS personnalisé est actif</string>
     <string name="slot_dns_name_disabled">DNS désactivé</string>
@@ -102,6 +107,7 @@
     <string name="slot_action_external">Stockage Externe</string>
     <string name="slot_filters_title">Listes</string>
     <string name="slot_filters_description">Vous pouvez synchroniser vos listes sur nos serveurs pour ne pas perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Vous pouvez également supprimer toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
+    <string name="slot_blocked_normal_title">Domaine bloqué</string>
     <string name="slot_blocked_answer_title">Domaine non résolu</string>
     <string name="slot_forwarded_title">Domaine transféré</string>
     <string name="slot_whitelist_title">Application en liste blanche</string>
