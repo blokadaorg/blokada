@@ -175,13 +175,7 @@ class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNoti
             } else {
                 val domainList = NotificationCompat.InboxStyle()
 
-                var logSublistEnd = RequestLog.getRecentHistory().size
-                if(logSublistEnd > 15) {
-                    logSublistEnd = 15
-                } else if (logSublistEnd > 0) {
-                    logSublistEnd--
-                }
-                RequestLog.getRecentHistory().filter { it.state == RequestState.BLOCKED_NORMAL }.subList(0,logSublistEnd).asReversed().distinct().forEach { request ->
+                RequestLog.getRecentHistory().filter { it.state == RequestState.BLOCKED_NORMAL }.take(15).asReversed().distinct().forEach { request ->
                     domainList.addLine(request.domain)
                 }
 
