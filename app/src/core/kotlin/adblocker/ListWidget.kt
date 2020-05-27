@@ -25,16 +25,10 @@ class ListWidgetProvider : AppWidgetProvider() {
         val t: Tunnel = context.inject().instance()
 
         var domainList = ""
-        var logSublistEnd = RequestLog.getRecentHistory().size
-        if(logSublistEnd > 50) {
-            logSublistEnd = 50
-        } else if (logSublistEnd > 0) {
-            logSublistEnd--
-        }
         RequestLog
                 .getRecentHistory()
-                .subList(0, logSublistEnd)
                 .filter { it.state == RequestState.BLOCKED_NORMAL }
+                .take(50)
                 .asReversed()
                 .distinct()
                 .forEach { request ->
