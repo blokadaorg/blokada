@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="search_header">Toca para buscar...</string>
+    <string name="search_title">Buscar</string>
+    <string name="search_entered">Resultados para: %s</string>
+    <string name="search_description">Escribe tu criterio de búsqueda arriba y toca Confirmar para filtrar la lista.</string>
+    <string name="search_action_confirm">Confirmar</string>
+    <string name="search_action_clear">Limpiar</string>
+</resources>

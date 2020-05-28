@@ -28,7 +28,7 @@
     <string name="notification_keepalive_deactivating">Blokada a fost dezactivat!</string>
     <string name="notification_expired_title">Tunelul Blokada este dezactivat</string>
     <string name="notification_lease_expired_title">Tunelul Blokada este dezactivat</string>
-    <string name="notification_lease_expired_description">A apărut o problemă cu conexiunea dvs la Tunelul Blokada. Vă rugăm să alegiți un alt gateway. Dacă problema persistă, vă rugăm să ne contactați.</string>
+    <string name="notification_lease_expired_description">A apărut o problemă cu conexiunea dvs la Tunelul Blokada. Vă rugăm să încercați sa alegeți un alt gateway. Dacă problema persistă, vă rugăm să ne contactați.</string>
     <string name="notification_channel_filtered">Blocare reclame</string>
     <string name="notification_channel_announcements">Anunțuri</string>
     <string name="notification_channel_vpn">Tunel Blokaka</string>

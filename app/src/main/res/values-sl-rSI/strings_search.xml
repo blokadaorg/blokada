@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="search_header">Tapnite sem za iskanje...</string>
+    <string name="search_title">Iskanje</string>
+    <string name="search_entered">Rezultati za: %s</string>
+    <string name="search_description">Vnesite izraz za filter in pritisnite Potrdi.</string>
+    <string name="search_action_confirm">Potrdi</string>
+    <string name="search_action_clear">Počisti</string>
+</resources>

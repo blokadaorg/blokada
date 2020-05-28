@@ -29,7 +29,7 @@
     <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
     <string name="main_cta">Vocea ta</string>
     <!-- A menu option to open changelog -->
-    <string name="main_changelog">Istoric schimbări</string>
+    <string name="main_changelog">Istoric modificări</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">Autori</string>
     <string name="main_legal">Informații de ordin juridic</string>

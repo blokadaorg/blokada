@@ -15,7 +15,7 @@
     <!-- An example format of a link to hosts file. -->
     <!-- Name of a tab that allows to whitelist app. -->
     <!-- An example package name of app to whitelist. -->
-    <string name="filter_edit_cancel">Revocare</string>
+    <string name="filter_edit_cancel">Anulează</string>
     <string name="filter_edit_do">Continuă</string>
     <!-- Parameter: number of hosts. -->
     <!-- Displayed in the home screen, keep it short. Parameter: number of blacklisted entries. -->

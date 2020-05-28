@@ -8,7 +8,7 @@
     <!-- Main screen section -->
     <string name="panel_section_apps">Aplicații</string>
     <!-- Main screen section -->
-    <string name="panel_section_home_help">Asistență</string>
+    <string name="panel_section_home_help">Ajutor</string>
     <string name="panel_section_advanced_dns">DNS</string>
     <string name="panel_section_apps_all">Aplicații instalate</string>
     <string name="panel_section_apps_system">Aplicații de sistem</string>
@@ -94,7 +94,7 @@
     <!-- A button to share debug log. Keep it short. -->
     <string name="slot_help_label">Aveţi nevoie de ajutor?</string>
     <!-- A button to open help -->
-    <string name="slot_help_action">Asistență</string>
+    <string name="slot_help_action">Ajutor</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">Donează</string>
     <!-- A button to open something (a website) -->

@@ -82,6 +82,8 @@
     <string name="slot_allapp_normal">No omitida</string>
     <string name="slot_allapp_whitelist">Omitir</string>
     <string name="slot_action_set">Aplicar</string>
+    <string name="slot_whitelist_all">Omitir todas las aplicaciones</string>
+    <string name="slot_blacklist_all">No omitir ninguna aplicación</string>
     <string name="slot_dns_name">DNS activo</string>
     <string name="slot_dns_name_private">DNS personalizado activo</string>
     <string name="slot_dns_name_disabled">DNS desactivado</string>

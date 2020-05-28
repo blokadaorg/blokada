@@ -5,7 +5,7 @@
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
     <string name="tunnel_config_refetch_now_title">Descărcare liste</string>
     <string name="tunnel_config_refetch_now">Descarcă listele acum</string>
-    <string name="tunnel_config_refetch_toast">Descărcarea de liste a început</string>
+    <string name="tunnel_config_refetch_toast">Descărcarea listelor a început</string>
     <string name="tunnel_config_refetch_now_description">Folosește butonul de mai jos pentru a șterge cache-ul și descarcă listele din nou. Acest lucru poate ajuta în cazul în care întâmpini probleme de filtrare.</string>
     <string name="tunnel_config_refetch_frequency_title">Frecvența de descărcare a filtrelor</string>
     <string name="tunnel_config_refetch_frequency_description">Selectează una dintre opțiuni pentru a configura cât de des să descarce aplicația listele.</string>

@@ -85,7 +85,7 @@
     <string name="slot_whitelist_all">Pomiń wszystkie aplikacje</string>
     <string name="slot_blacklist_all">Nie pomijaj żadnych aplikacji</string>
     <string name="slot_dns_name">DNS jest włączony</string>
-    <string name="slot_dns_name_private">Niestandardowy DNS jest aktywny</string>
+    <string name="slot_dns_name_private">Własny DNS jest aktywny</string>
     <string name="slot_dns_name_disabled">DNS jest wyłączony</string>
     <string name="slot_action_none">Ta akcja nie jest jeszcze dostępna.</string>
     <string name="slot_action_unwhitelist">Anuluj</string>
@@ -108,7 +108,7 @@
     <string name="slot_filters_title">Lista filtrów</string>
     <string name="slot_filters_description">Możesz zsynchronizować listę filtrów z naszymi serwerami bez utraty własnych wpisów. &lt;br/&gt;&lt;br/&gt; Możesz też usunąć wszystkie wpisy (w tym swoje) i pobrać je ponownie.</string>
     <string name="slot_blocked_normal_title">Domena zablokowana</string>
-    <string name="slot_blocked_answer_title">Domena nie rozwiązana</string>
+    <string name="slot_blocked_answer_title">Domena nie znaleziona</string>
     <string name="slot_forwarded_title">Domena przekazana</string>
     <string name="slot_whitelist_title">Aplikacja na białej liście</string>
     <string name="slot_list_no_desc">Ten wpis nie ma żadnego opisu.</string>

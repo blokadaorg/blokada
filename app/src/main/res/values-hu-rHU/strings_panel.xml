@@ -25,6 +25,7 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Blokkolva &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">Ez a domain blokkolásra került. Az engedélyezéshez használd a lenti gombot.</string>
+    <string name="panel_domain_blocked_answer_desc">Ezt a domain-t a DNS-kiszolgáló helytelenül fejtette meg. Vagy a szerver blokkolta a tartományt, vagy az nem létezik.</string>
     <string name="panel_domain_blocked_toast">Hozzáadva a tiltólistához.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Másolás</string>
@@ -81,6 +82,8 @@
     <string name="slot_allapp_normal">Nincs megkerülve</string>
     <string name="slot_allapp_whitelist">Megkerülés</string>
     <string name="slot_action_set">Beállít</string>
+    <string name="slot_whitelist_all">Összes alkalmazás megkerülése</string>
+    <string name="slot_blacklist_all">Egyetlen alkalmazást se kerüljön meg</string>
     <string name="slot_dns_name">DNS aktív</string>
     <string name="slot_dns_name_private">Egyéni DNS aktív</string>
     <string name="slot_dns_name_disabled">DNS deaktiválva</string>
@@ -105,6 +108,7 @@
     <string name="slot_filters_title">Szűrőlista</string>
     <string name="slot_filters_description">Szinkronizálhatod a szűrők listáját a szervereinkkel anélkül, hogy elveszítenéd az egyéni bejegyzéseket. &lt;br/&gt;&lt;br/&gt;Alternatívaként az összes bejegyzés (beleértve a sajátodat is) törölhető, és újra letölthető.</string>
     <string name="slot_blocked_normal_title">Domain blokkolva</string>
+    <string name="slot_blocked_answer_title">Domain nincs megfejtve</string>
     <string name="slot_forwarded_title">Domain átirányítva</string>
     <string name="slot_whitelist_title">Engedélyezett alkalmazások</string>
     <string name="slot_list_no_desc">Ez a bejegyzés nem tartalmaz leírást.</string>

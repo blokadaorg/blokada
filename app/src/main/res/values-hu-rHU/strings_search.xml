@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="search_header">Kereséshez érintsd meg...</string>
+    <string name="search_title">Keresés</string>
+    <string name="search_entered">Eredmények: %s</string>
+    <string name="search_description">Írd be fent a keresési lekérdezést, és a lista szűréséhez érintsd meg a Megerősítés elemet.</string>
+    <string name="search_action_confirm">Megerősítés</string>
+    <string name="search_action_clear">Törlés</string>
+</resources>

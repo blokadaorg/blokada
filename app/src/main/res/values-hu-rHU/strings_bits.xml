@@ -3,6 +3,9 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">A konfiguráláshoz érintsd meg</string>
     <string name="home_blokada_disabled">Blokada szüneteltetve</string>
+    <string name="home_blokada_active">Blokada aktív</string>
+    <string name="home_blokada_active_protected">A Blokada Tunnel aktív, és az Interneted védett</string>
+    <string name="home_blokada_inactive">Blokada deaktiválva</string>
     <string name="home_activating">Aktiválás</string>
     <string name="home_please_wait">Kérlek, várj...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

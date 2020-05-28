@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="search_header">Aramak için dokunun...</string>
+    <string name="search_title">Ara</string>
+    <string name="search_entered">%s için sonuçlar:</string>
+    <string name="search_description">Yukarıya arama sorgunuzu yazın ve listeye filtre uygulamak için Onayla\'ya dokunun.</string>
+    <string name="search_action_confirm">Onayla</string>
+    <string name="search_action_clear">Sil</string>
+</resources>

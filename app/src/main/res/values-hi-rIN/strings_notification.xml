@@ -28,7 +28,7 @@
     <string name="notification_keepalive_activate">सक्रिय करें</string>
     <string name="notification_keepalive_activating">ब्लोकाडा शुरू हो रहा है। यह कुछ क्षण ले सकता है।</string>
     <string name="notification_keepalive_deactivate">निष्क्रिय करें</string>
-    <string name="notification_keepalive_deactivating">ब्लोकअडा निष्क्रिय हो गया।</string>
+    <string name="notification_keepalive_deactivating">ब्लोकअडा निष्क्रिय हो गया!</string>
     <string name="notification_expired_title">ब्लोकाडा सुरंग निष्क्रिय है</string>
     <string name="notification_expired_description">आपका खाता चालू नहीं है और ब्लोकाडा सुरंग बन्द है। सामान्य ब्लोकाडा सुविधाएं ब्लोकाडा सुरंग के बिना भी चलती रहेंगी। परन्तु हम सलाह देगे की बेहतर सुरक्षा और प्रोजेक्ट को सहयोग देने के लिए अपना खाता चालू करे।</string>
     <string name="notification_lease_expired_title">ब्लोकाडा सुरंग निष्क्रिय है</string>

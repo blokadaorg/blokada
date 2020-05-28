@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="search_header">खोज करने के लिए, टैप करें...</string>
+    <string name="search_title">खोजें</string>
+    <string name="search_entered">%s के लिए परिणाम</string>
+    <string name="search_description">अपनी खोज को ऊपर लिखें और सूची को फ़िल्टर करने की पुष्टि करें टैप कऱके।</string>
+    <string name="search_action_confirm">पुष्टि करें</string>
+    <string name="search_action_clear">साफ़</string>
+</resources>
