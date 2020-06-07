@@ -224,17 +224,17 @@ class RequestLog : Closeable {
 
     }
 
-    fun expandHistory(): Boolean{
+    fun expandHistory(): List<ExtendedRequest> {
         for (i in batches.indices){
             if (!batches[i].loaded){
                 batches[i].list = Persistence.request.load(REQUEST_LOG_CATEGORY, i).getOr {
-                    return false
+                    return emptyList()
                 }
                 batches[i].loaded = batches[i].list.isNotEmpty()
-                return true
+                return  batches[i].list
             }
         }
-            return false
+            return emptyList()
     }
 
 
