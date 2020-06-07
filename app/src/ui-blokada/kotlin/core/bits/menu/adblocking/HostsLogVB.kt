@@ -93,7 +93,13 @@ class HostsLogVB(
     }
 
     private val loadMore = {
-        log?.expandHistory()
+        log?.expandHistory()?.forEach {
+            if(it.domain.contains(searchString.toLowerCase())) {
+                val dash = requestToVB(it)
+                items.add(items.size, dash)
+            }
+        }
+        view?.set(items)
         Unit
     }
 
