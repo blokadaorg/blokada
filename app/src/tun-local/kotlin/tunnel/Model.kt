@@ -144,6 +144,7 @@ enum class RequestState {
 data class ExtendedRequest(
         override val domain: String,
         override val time: Date = Date(),
+        var requestId: Int? = null,
         var state: RequestState = RequestState.ALLOWED_APP_UNKNOWN,
         var ip: InetAddress? = null, // for future use in firewall
         var appId: String? = null    // for future use in firewall
@@ -151,12 +152,15 @@ data class ExtendedRequest(
     override val blocked: Boolean
         get() = (state != RequestState.ALLOWED_APP_UNKNOWN && state != RequestState.ALLOWED_APP_KNOWN)
 
-    constructor(r: Request) : this(r.domain, r.time, if(r.blocked) { RequestState.BLOCKED_NORMAL } else { RequestState.ALLOWED_APP_UNKNOWN })
+    constructor(r: Request) : this(r.domain, r.time, state = if(r.blocked) { RequestState.BLOCKED_NORMAL } else { RequestState.ALLOWED_APP_UNKNOWN })
     constructor(domain: String, blocked: Boolean) : this( domain, state = if(blocked) { RequestState.BLOCKED_NORMAL } else { RequestState.ALLOWED_APP_UNKNOWN })
 
 
     override fun equals(other: Any?): Boolean {
         if (other is Request) {
+            if ((requestId != null) && other is ExtendedRequest && (other.requestId != null) ) {
+                return requestId == other.requestId
+            }
             return domain == other.domain
         }
         return false
