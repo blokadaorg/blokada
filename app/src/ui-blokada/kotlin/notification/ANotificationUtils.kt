@@ -161,12 +161,12 @@ class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNoti
         NotificationChannels.KEEP_ALIVE,
         create = { ctx ->
             val i18n = ctx.inject().instance<I18n>()
-            val choice = ctx.inject().instance<Dns>().choices().first { it.active }
             val servers = printServers(ctx.inject().instance<Dns>().dnsServers())
             val t: Tunnel = ctx.inject().instance()
 
             val b = NotificationCompat.Builder(ctx)
             if (Product.current(ctx) == Product.GOOGLE) {
+                val choice = ctx.inject().instance<Dns>().choices().first { it.active }
                 val id = if (choice.id.startsWith("custom")) "custom" else choice.id
                 val provider = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
 
