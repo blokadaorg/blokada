@@ -172,6 +172,9 @@ class RequestLog : Closeable {
 
         fun update(lambda: (request: ExtendedRequest) -> Boolean, state: RequestState): Boolean {
             val index = batch0.indexOfFirst(lambda)
+            if (index < 0) {
+                return false;
+            }
             val current = batch0[index]
             if ((state == RequestState.BLOCKED_ANSWER || state == RequestState.BLOCKED_CNAME) && current.state == RequestState.ALLOWED_APP_UNKNOWN){
                 val newState = current.copy(state = state)
@@ -184,6 +187,9 @@ class RequestLog : Closeable {
 
         fun update(lambda: (request: ExtendedRequest) -> Boolean, ip: InetAddress): Boolean {
             val index = batch0.indexOfFirst(lambda)
+            if (index < 0) {
+                return false;
+            }
             val current = batch0[index]
             if(current.ip == null && !current.blocked) {
                 val newState = current.copy(ip = ip)
@@ -196,6 +202,9 @@ class RequestLog : Closeable {
 
         fun update(lambda: (request: ExtendedRequest) -> Boolean, appId: String): Boolean {
             val index = batch0.indexOfFirst(lambda)
+            if (index < 0) {
+                return false;
+            }
             val current = batch0[index]
             if(current.appId == null && !current.blocked) {
                 val newState = current.copy(appId = appId, state = RequestState.ALLOWED_APP_KNOWN)

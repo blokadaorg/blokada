@@ -3,14 +3,17 @@ package tunnel
 import android.system.ErrnoException
 import android.system.OsConstants
 import com.github.michaelbull.result.mapError
-import core.*
+import core.Result
+import core.w
 import org.pcap4j.packet.*
 import org.pcap4j.packet.namednumber.UdpPort
 import org.xbill.DNS.*
 import java.io.IOException
 import java.net.*
+import java.nio.ByteBuffer
 import java.util.*
 import kotlin.experimental.and
+
 
 interface Proxy {
     fun fromDevice(packetBytes: ByteArray, length: Int)
@@ -30,6 +33,11 @@ internal class DnsProxy(
 
     private fun isAnswerValid(dnsAnswer: ByteArray): Boolean {
         return (dnsAnswer[3] and  0x0f.toByte()) == 0.toByte() // checks the RCODE of the DNS-msg. 0 -> no error
+    }
+
+    private fun requestIdFromDnsMsg(msg: ByteArray): Int{
+        val buffer: ByteBuffer = ByteBuffer.wrap(msg)
+        return buffer.short.toInt()
     }
 
     override fun fromDevice(packetBytes: ByteArray, length: Int) {
@@ -69,7 +77,7 @@ internal class DnsProxy(
             val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
                     destination.getPort())
             forward(proxiedDns, originEnvelope)
-            RequestLog.add(ExtendedRequest(host))
+            RequestLog.add(ExtendedRequest(host, requestId = dnsMessage.header.id))
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
@@ -82,11 +90,12 @@ internal class DnsProxy(
     override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?) {
         originEnvelope as IpPacket
 
-        if (!isAnswerValid(response)){
+        if (response.size >= 4 && !isAnswerValid(response)){
             // the first 12 bytes of response contain the DNS-header and are cut of. The header
             // should be followed by a resource record which starts with the name that was requested.
-            val responseName = Name(response.sliceArray(12 until response.size)).canonicalize().toString(true)
-            RequestLog.update({it.domain.toLowerCase() == responseName && !it.blocked}, RequestState.BLOCKED_ANSWER)
+            //val responseName = Name(response.sliceArray(12 until response.size)).canonicalize().toString(true)
+            val requestId = requestIdFromDnsMsg(response);
+            RequestLog.update({it.requestId == requestId}, RequestState.BLOCKED_ANSWER)
         }
 
         val udp = originEnvelope.payload as UdpPacket

@@ -106,7 +106,7 @@ internal class BlockaTunnelFiltering(
 
             envelope.rawData.copyInto(packetBytes)
 
-            RequestLog.add(ExtendedRequest(host))
+            RequestLog.add(ExtendedRequest(host, requestId = dnsMessage.header.id))
             if (++oneWayDnsCounter > MAX_ONE_WAY_DNS_REQUESTS) {
                 throw Exception("Too many DNS requests without response")
             }
