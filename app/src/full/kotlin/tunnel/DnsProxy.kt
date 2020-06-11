@@ -135,12 +135,11 @@ internal class DnsProxy(
 
         val socket = forwarder.getAvailableConnection() as SSLSocket? ?: createSslSocket(udp)
         Result.of {
-            DataOutputStream(socket.outputStream).use {
-                //send TCP request
-                it.writeShort(udp.data.size)
-                it.write(udp.data)
-                it.flush()
-            }
+            val outputStream = DataOutputStream(socket.outputStream)
+            //send TCP request
+            outputStream.writeShort(udp.data.size)
+            outputStream.write(udp.data)
+            outputStream.flush()
 
             forwarder.add(socket, originEnvelope)
         }.mapError { ex ->

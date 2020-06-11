@@ -106,11 +106,10 @@ internal class ForwardRuleTcp(
     }
     override fun receive(packet: DatagramPacket) {
 
-        DataInputStream(socket.inputStream).use {
-            //read TCP response
-            val length = it.readUnsignedShort()
-            it.read(packet.data)
-            packet.setData(packet.data, 0, length)
-        }
+        val inputStream = DataInputStream(socket.inputStream)
+        //read TCP response
+        val length = inputStream.readUnsignedShort()
+        inputStream.read(packet.data)
+        packet.setData(packet.data, 0, length)
     }
 }
