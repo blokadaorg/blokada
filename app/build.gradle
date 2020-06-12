@@ -41,6 +41,7 @@ android {
     }
 
     kotlinOptions {
+        jvmTarget = "1.8"
         freeCompilerArgs = ["-Xallow-result-return-type"]
     }
 
@@ -258,43 +259,40 @@ android {
 
 dependencies {
     // Android support libraries
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.browser:browser:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.android.support:customtabs:28.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
 
     // Kotlin and its dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'com.github.salomonbrys.kodein:kodein:4.1.0'
     implementation 'nl.komponents.kovenant:kovenant-core:3.3.0'
     implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.4'
 //    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:x.y.z'
     implementation 'com.github.michaelbull:kotlin-result:1.0.8'
-    implementation 'io.paperdb:paperdb:2.6'
+    implementation 'io.paperdb:paperdb:2.7.1'
 
     // Proxy
-    implementation 'org.pcap4j:pcap4j-core:1.7.0'
-    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.0'
-    implementation 'dnsjava:dnsjava:2.1.8'
-    implementation 'org.slf4j:slf4j-nop:1.6.1'
+    implementation 'org.pcap4j:pcap4j-core:1.7.7'
+    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.7'
+    implementation 'dnsjava:dnsjava:3.1.0'
 
     // UI libraries
     implementation 'com.github.kar:AndroidSlidingUpPanel:4.1.0'
-    //implementation 'com.sothree.slidinguppanel:library:3.4.0'
-    implementation 'com.ramotion.foldingcell:folding-cell:1.2.2'
+    implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
     implementation 'jp.wasabeef:blurry:3.0.0'
     implementation 'com.github.ps100000:PageIndicatorView:v1.0.4'
     implementation 'com.github.thibseisel:kdenticon-android:1.0.0-alpha5'
-    implementation 'com.github.GwonHyeok:StickySwitch:0.0.15'
+    implementation 'com.github.GwonHyeok:StickySwitch:0.0.16'
 
     // External integration (Tasker)
     implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
 
     // REST api
-    def okhttpVersion = '3.14.0'
-    def retrofitVersion = '2.5.0'
+    def okhttpVersion = '4.7.2'
+    def retrofitVersion = '2.9.0'
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion") {
@@ -304,8 +302,8 @@ dependencies {
 
     // Testing and debugging
     //def acraVersion = 'x.y.z'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
