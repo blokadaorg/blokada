@@ -83,7 +83,7 @@
     <string name="menu_vpn_leases">Devices</string>
 
     <string name="menu_vpn_manage_subscription">Manage your account subscription</string>
-    <string name="menu_vpn_manage_subscription_unavailable">If your account is new, visit our website. You cannot purchase subscription in Blokada Slim.</string>
+    <string name="menu_vpn_manage_subscription_unavailable">If your account is new, visit our website. You cannot purchase a subscription in Blokada Slim.</string>
     <string name="menu_vpn_account_secret">Tap your avatar above to see your account ID. Remember, your ID is secret and you should keep it to yourself. Write it down in case you uninstall the app.</string>
     <string name="menu_vpn_restore_label">Here you can restore your existing account if, for example, you re-installed the app.</string>
     <string name="menu_vpn_intro">With Blokada Tunnel your data is encrypted, your IP address is hidden, and your location is changed.</string>
