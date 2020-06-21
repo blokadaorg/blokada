@@ -291,7 +291,7 @@ dependencies {
     implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
 
     // REST api
-    def okhttpVersion = '4.7.2'
+    def okhttpVersion = '3.14.9'
     def retrofitVersion = '2.9.0'
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
