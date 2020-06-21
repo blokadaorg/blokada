@@ -33,7 +33,7 @@ From time to time, some of the malware sites copy our product and try to act as 
 Only the https://blokada.org is our official and trustworthy website, every other copy or mirror isn't in relation with us, with the Blokada team or our official application.
 
 The trustworthy sources to download:
-- [https://blokada.org](https://labs.xda-developers.com/store/app/org.blokada.alarm)
+- [https://blokada.org](https://blokada.org)
 - [https://f-droid.org/](https://f-droid.org/packages/org.blokada.alarm/)
 - [https://labs.xda-developers.com](https://labs.xda-developers.com/store/app/org.blokada.alarm)
 
