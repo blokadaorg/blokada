@@ -3,6 +3,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">കോൺഫിഗർ ചെയ്യുന്നതിന് ടാപ്പുചെയ്യുക</string>
     <string name="home_blokada_disabled">ബ്ലോക്കഡ പോസ് ചെയ്തിരിക്കുന്നു</string>
+    <string name="home_blokada_active">ബ്ലോക്കഡ സജീവമാണ്</string>
     <string name="home_activating">സജീവമാക്കുന്നു</string>
     <string name="home_please_wait">കാത്തിരിക്കൂ...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

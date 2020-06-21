@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="main_loading">Γίνεται φόρτωση, παρακαλώ περιμένετε…</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
@@ -26,10 +27,19 @@
     <!-- A menu option to open Patron of the month -->
     <!-- A menu option to open Patron voting screen -->
     <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+    <string name="main_cta">Η φωνή σου</string>
     <!-- A menu option to open changelog -->
     <string name="main_changelog">Αρχείο καταγραφής αλλαγών</string>
     <!-- A menu option to open credits screen -->
+    <string name="main_credits">Ευχαριστίες</string>
+    <string name="main_legal">Πιστωποιημένες πληροφορίες</string>
+    <string name="main_licenses">Άδειες τρίτων</string>
+    <string name="main_terms">Όροι Χρήσης</string>
+    <string name="main_privacy">Πολιτική Απορρήτου</string>
     <!-- An overlay header on top of Patron page -->
+    <string name="main_log">Διαμοιρασμός αρχείων καταγραφής</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
+    <string name="core_format_million">%s εκατομμύρια</string>
     <!-- To display a big number in short way, eg. 420 thousand -->
+    <string name="core_format_thousand">%s χίλια/δες</string>
 </resources>

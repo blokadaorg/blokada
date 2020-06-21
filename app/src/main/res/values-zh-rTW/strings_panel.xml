@@ -43,9 +43,9 @@
     <string name="slot_action_remove">移除</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">確定</string>
+    <string name="slot_switch_on">是</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">取消</string>
+    <string name="slot_switch_off">否</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">如何使用新的使用者介面？輕點這裡以取得簡介。</string>
     <string name="slot_intro_new_header">如何使用新的介面?</string>

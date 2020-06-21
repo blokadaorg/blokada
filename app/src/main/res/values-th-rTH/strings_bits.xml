@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_touch">แตะหรือกดเพื่อเปลี่ยนการตั้งค่า</string>
+    <string name="home_blokada_disabled">Blokada กำลังหยุดชั่วคราว</string>
+    <string name="home_blokada_active">Blokada กำลังทำงาน</string>
     <string name="home_activating">กำลังเปิดใช้งาน</string>
+    <string name="home_please_wait">กรุณารอสักครู่...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_vpn_only">Blokada Tunnel ทำงานโดยไม่ปิดกั้นโฆษณา</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
@@ -14,15 +18,22 @@
     <string name="home_blokadaorg">คุณกำลังใช้ Blokada Slim</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">มีอะไรใหม่</string>
+    <string name="home_update_required">ต้องการอัพเดต</string>
     <!-- A short text for the item that displays donate link -->
+    <string name="home_donate">บริจาค</string>
     <string name="home_vpn_enabled">Blokada Tunnel กำลังทำงาน</string>
     <string name="home_vpn_disabled">Blokada Tunnel ปิดใช้งาน</string>
     <string name="home_account_active">บัญชีของคุณใช้งานได้อยู้</string>
+    <string name="home_connecting_vpn">กำลังเชื่อมต่อถึง Blokada Tunnel</string>
+    <string name="home_cleanup">เราแนะนำให้ทำความสะอาด</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">กำลังเชื่อมต่อถึง Blokada Tunnel</string>
+    <string name="home_blocka_vpn_error">ไม่สามารถต่อเกตเวย์ได้ คุณต่อออนไลน์หรือเปล่า</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <!-- VPN section header in menu (for configuring VPN) -->
     <!-- A button opening VPN account settings -->
     <!-- A button opening VPN gateways settings -->
+    <string name="menu_vpn_gateways">เกตเวย์</string>
     <!-- A button opening VPN leases (devices) settings -->
     <!-- A section of other settings in menu -->
     <!-- A section of help, telegram, and other buttons in menu -->

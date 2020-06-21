@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="update_button">Lataa päivitys</string>
+    <string name="update_notification_title">Päivitys saatavilla</string>
     <!-- Parameter: new app version, for example 2.0.1 -->
+    <string name="update_notification_text">Julkaisu %1$s on valmiina ladattavaksi. Napauta jatkaaksesi.</string>
     <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
+    <string name="update_notification_channel">Päivitä ilmoitukset</string>
+    <string name="update_info">Jos latasit sovelluksen Play Kaupasta, F-Droidista tai muusta sovelluskaupasta, saat päivityksiä kaupasta heti, kun ne ovat saatavilla. Varmista, että Blokada on kytketty pois päältä päivityksen ajaksi. Jos päivityksessä ilmaantuu ongelmia, siirry blokada.org-sivulle ja lataa sovellus manuaalisesti. Olemassa olevaa versiota ei tarvitse poistaa etukäteen.</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
+    <string name="update_dash_available">&lt;b&gt;Päivitys saatavilla!&lt;/b&gt;</string>
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
     <!-- Displayed in menu to open the About/Update screen. -->
     <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">Sovelluksen tiedot</string>
     <!-- A button that opens the changelog. -->
     <!-- A toast message displayed when the update process is starting. -->
+    <string name="update_starting">Aloitetaan, odota hetki&#8230;</string>
+    <string name="update_progress">Ladataan: %s%%</string>
+    <string name="update_complete">Lataus on valmis</string>
+    <string name="update_failed">Lataus epäonnistui</string>
+    <string name="update_instruction">Lopussa sinua pyydetään sallimaan Blokadan asentamaan päivityksen.</string>
+    <string name="update_instruction_failed">Napauta tätä yrittääksesi uudelleen tai napauta pitkään käyttääksesi selainta lataamiseen.</string>
 </resources>

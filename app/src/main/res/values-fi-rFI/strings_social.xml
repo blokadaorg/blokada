@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="social_share_body_minute">Blokada auttoi minua estämään %s: mainosta ja jäljittäjää viimeisen %d minuutin aikana! Hanki se osoitteesta blokada.org.</string>
+    <string name="social_share_body_hour">Blokada auttoi minua estämään %s: mainosta ja jäljittäjää viimeisen %d tunnin aikana! Hanki se osoitteesta blokada.org.</string>
+    <string name="social_share_body_day">Blokada auttoi minua estämään %s: mainosta ja jäljittäjää viimeisen %d päivän aikana! Hanki se osoitteesta blokada.org.</string>
+    <string name="social_share_body_week">Blokada auttoi minua estämään %s: mainosta ja jäljittäjää viimeisen %d viikon aikana! Hanki se osoitteesta blokada.org.</string>
+</resources>

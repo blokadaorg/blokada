@@ -6,7 +6,7 @@
     <string name="tunnel_config_refetch_now_title">Descărcare liste</string>
     <string name="tunnel_config_refetch_now">Descarcă listele acum</string>
     <string name="tunnel_config_refetch_toast">Descărcarea listelor a început</string>
-    <string name="tunnel_config_refetch_now_description">Folosește butonul de mai jos pentru a șterge cache-ul și descarcă listele din nou. Acest lucru poate ajuta în cazul în care întâmpini probleme de filtrare.</string>
+    <string name="tunnel_config_refetch_now_description">Folosește butonul de mai jos pentru a șterge cache-ul și a descarca listele din nou. Acest lucru poate ajuta în cazul în care întâmpini probleme de filtrare.</string>
     <string name="tunnel_config_refetch_frequency_title">Frecvența de descărcare a filtrelor</string>
     <string name="tunnel_config_refetch_frequency_description">Selectează una dintre opțiuni pentru a configura cât de des să descarce aplicația listele.</string>
     <string name="tunnel_config_refetch_frequency_1">Odată pe zi</string>
@@ -14,17 +14,18 @@
     <string name="tunnel_config_refetch_frequency_3">Odată pe săptămână</string>
     <string name="tunnel_config_refetch_frequency_4">Odată pe lună</string>
     <string name="tunnel_config_refetch_frequency_5">Niciodată</string>
-    <string name="tunnel_config_wifi_only_title">Descărcați doar prin Wi-Fi</string>
-    <string name="tunnel_config_wifi_only_description">Activează acest buton dacă vrei ca listele să fie descărcate numai când dispozitivul este conectat la WiFi. Altfel, aplicația va descărca listele și când dispozitivul este conectat la rețeau mobilă și va folosi planul de date.</string>
+    <string name="tunnel_config_wifi_only_title">Descarcă doar prin Wi-Fi</string>
+    <string name="tunnel_config_wifi_only_description">Activați acest buton dacă vreți ca listele să fie descărcată doar când dispozitivul este conectat la WiFi. În caz contrar, aplicația poate descărca liste și atunci când dispozitivul este conectat la o rețea mobilă și folosește planul de date.</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
-    <string name="tunnel_config_watchdog_description">Apasă acest buton dacă vrei ca aplicația sa activeze VPN-ul doar în cazul în care există conexiune de internet și repornește tunelul în cazul în care sunt probleme de conectivitate. Aceasta poate fi de ajutor pe unele dispozitive.</string>
+    <string name="tunnel_config_watchdog_description">Activează acest buton dacă doriți ca aplicația să activeze VPN-ul doar dacă există conexiune la internet, și reporniți tunelul în cazul în care există probleme de conectivitate. Acest lucru poate fi de ajutor pentru unele dispozitive.</string>
     <string name="tunnel_config_powersave_title">Trezire agresivă</string>
-    <string name="tunnel_config_powersave_description">Activează acest buton în cazul în care întâmpini probleme cauzate de opțiunea de economisire a energiei a dispozitivului. Când aplicația detectează probleme la conectivitatea tunelului, va încerca să prioritizeze aplicația pentru a o scoate din modul de economisire a energiei.</string>
+    <string name="tunnel_config_powersave_description">Activați acest buton dacă întâmpinați probleme cauzate de funcția de economisire a bateriei dispozitivului. Când aplicația detectează probleme de conectivitate cu tunelul, va încerca să își ridice prioritatea sa pentru a o scoate din modul de economisire a energiei.</string>
     <string name="tunnel_config_reports_title">Rapoarte</string>
-    <string name="tunnel_config_reports_description">Activează acest buton pentru a permite aplicației să trimită rapoarte care ne ajută să remediem probleme și bug-uri. Acest lucru se va întâmpla o dată pe zi sau când aplicația se blochează. Dezactivarea opțiunii ne poate îngreuna în rezolvarea problemelor pe care le poți întâmpina. Trebuie să repornești aplicația, ca setarea să aibă efect.</string>
-    <string name="tunnel_config_wildcard_title">{BETA] Reguli avansate de blocare</string>
+    <string name="tunnel_config_reports_description">Activați acest buton pentru a permite aplicației să ne trimită rapoarte care ne ajută să rezolvăm probleme și erori. Acest lucru se va întâmpla doar o dată pe zi sau atunci când aplicația se blochează. Dezactivarea acestei opțiuni ne va ingreuna sarcina de a rezolva orice problemă cu care vă puteţi confrunta. Este posibil să fie nevoie să reporniți aplicația pentru ca această setare să aibă efect.</string>
+    <string name="tunnel_config_wildcard_title">[BETA] Reguli avansate de blocare</string>
+    <string name="tunnel_config_wildcard_description">Activați acest comutator dacă doriți să folosiți wildcards în regulile dvs. de filtrare. De exemplu, adăugarea unei reguli pentru *.google.com ar bloca toate domeniile de pe Google. Acest lucru poate avea un impact negativ asupra duratei de viață a bateriei. Vă rugăm să rețineți că aceasta este o funcție experimentală și s-ar putea sa nu funcționeze corect.</string>
     <string name="tunnel_config_fallback_title">DNS de rezervă</string>
-    <string name="tunnel_config_fallback_description">Activează acest buton în cazul în care pierzi conexiunea la internet în unele situații, cum ar fi pe WiFi. Aceasta va face aplicația să comute temporar pe DNS-ul Cloudflare pentru a menține conectivitatea. Trebuie să alegi din nou serverele din secțiunea DNS, ca setarea să aibă efect.</string>
+    <string name="tunnel_config_fallback_description">Activați acest buton în cazul în care pierdeți conexiunea la internet în unele situații, cum ar fi pe WiFi. Aceasta va face aplicația să comute temporar pe DNS-ul Cloudflare pentru a menține conectivitatea. S-ar putea să trebuiască să alegeți din nou serverele din secțiunea DNS, ca setarea să aibă efect.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Listă inteligentă</string>
     <string name="tunnel_config_smartlist_reset_btn">Resetare</string>
     <string name="tunnel_config_smartlist_clean_btn">Curăță</string>
@@ -32,4 +33,7 @@
     <string name="tunnel_config_smartlist_clean_inactive">Listă inteligentă inactivă</string>
     <string name="tunnel_config_smartlist_clean_done">Lista inteligentă a fost curățată de regulile vechi</string>
     <string name="tunnel_config_smartlist_reset_done">Lista Inteligentă a fost resetată</string>
+    <string name="tunnel_config_smartlist_description">Activați acest comutator pentru a activa funcția „Listă inteligentă”, care scade dramatic numărul de reguli din filtre, ar putea îmbunătăți durata de viață a bateriei și reduce din utilizarea memoriei RAM. Când este activat, Blokada se va uita la jurnalul solicitărilor dvs și va genera dinamic o listă care conține doar reguli care efectiv au blocat cel puțin o solicitare. Lista inteligentă este actualizată zilnic noaptea. Vă rugăm să reţineţi că este posibil să vă confruntaţi cu un număr mai mare de solicitări nedorite în timpul perioadei de învăţare (câteva zile). Vă rugăm să reţineţi că aceasta este o caracteristică experimentală şi s-ar putea să nu funcţioneze corect.</string>
+    <string name="tunnel_config_disable_wildcard">Dezactivați mai întâi regulile de blocare avansată.</string>
+    <string name="tunnel_config_disable_smartlist">Dezactivați mai întâi lista inteligenta.</string>
 </resources>

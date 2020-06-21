@@ -153,7 +153,7 @@
     <string name="slot_recommended_dns_label">Az ajánlott DNS-kiszolgálók használata</string>
     <string name="slot_recommended_dns_description">Ha ez a funkció engedélyezve van, a Blokada automatikusan kiválasztja az ajánlott DNS-kiszolgálókat, hogy felgyorsítsa az internetet és védje az adatait. Ellenkező esetben a hálózat alapértelmezett DNS-kiszolgálóit használja. Ha a Haladó részben manuálisan választod ki a DNS-kiszolgálókat, ez a beállítás figyelmen kívül marad.</string>
     <string name="slot_update_no_updates">A Blokada naprakész</string>
-    <string name="slot_about">A Bloakadaról</string>
+    <string name="slot_about">A Blokadaról</string>
     <!-- A button to share debug log. Keep it short. -->
     <string name="slot_about_share_log">Napló</string>
     <string name="slot_help_label">Segíthetünk?</string>
