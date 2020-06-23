@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="search_header">点击以搜索...</string>
-    <string name="search_title">搜索​​​​</string>
-    <string name="search_entered">%s 的搜索结果</string>
-    <string name="search_description">在上面输入您的搜索查询并点击确认以过滤列表。</string>
-    <string name="search_action_confirm">确认</string>
-    <string name="search_action_clear">清除</string>
-</resources>

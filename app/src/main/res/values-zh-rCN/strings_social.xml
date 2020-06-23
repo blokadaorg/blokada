@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="social_share_body_minute">Blokada帮助我在最近的 %d 分钟内屏蔽了 %s 个广告和追踪器！请在blokada.org下载。</string>
-    <string name="social_share_body_hour">Blokada帮助我在最近的 %d 小时内屏蔽了 %s 个广告和追踪器！请在blokada.org下载。</string>
-    <string name="social_share_body_day">Blokada帮助我在最近的 %d 天内屏蔽了 %s 个广告和追踪器！请在blokada.org下载。</string>
-    <string name="social_share_body_week">Blokada帮助我在最近的 %d 周内屏蔽了 %s 个广告和追踪器！请在blokada.org下载。</string>
-</resources>

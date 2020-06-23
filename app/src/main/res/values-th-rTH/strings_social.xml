@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="social_share_body_minute">Blokada ช่วยฉันบล็อก %s โฆษณาและการติดตามใน %d นาทีล่าสุด!  รับได้ที่ blokada.org</string>
-    <string name="social_share_body_hour">Blokada ช่วยฉันบล็อก %s โฆษณาและการติดตามใน %d ชั่วโมงล่าสุด!  รับได้ที่ blokada.org</string>
-    <string name="social_share_body_day">Blokada ช่วยฉันบล็อก %s โฆษณาและการติดตามใน %d วันล่าสุด!  รับได้ที่ blokada.org</string>
-    <string name="social_share_body_week">Blokada ช่วยฉันบล็อก %s โฆษณาและการติดตามใน %d สัปดาห์ล่าสุด!  รับได้ที่ blokada.org</string>
-</resources>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="social_share_body_minute">بلوكادا ساعدني في حَظْر %s إعلان و متتبِّع في آخر %d دقيقة ! احصل عليه من blokada.org.</string>
-    <string name="social_share_body_hour">بلوكادا ساعدني في حَظْر %s إعلان و متتبِّع في آخر %d ساعة ! احصل عليه من blokada.org.</string>
-    <string name="social_share_body_day">بلوكادا ساعدني في حَظْر %s إعلان و متتبِّع في آخر %d أيام ! احصل عليه من blokada.org.</string>
-    <string name="social_share_body_week">بلوكادا ساعدني في حَظْر %s إعلان و متتبِّع في آخر %d أسابيع ! احصل عليه من blokada.org.</string>
-</resources>

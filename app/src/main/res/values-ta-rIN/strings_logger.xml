@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="logger_permission">சேமிப்பு அனுமதியை முதலில் வழங்கவும்.</string>
-    <string name="logger_slot_title">கோரிக்கை பதிவேடுப்பான்</string>
-    <string name="logger_slot_mode_off">செயலிழந்துவிட்டது</string>
-    <string name="logger_slot_mode_allowed">அனுமதிக்கப்பட்ட கோரிக்கைகளை பதிவு செய்</string>
-    <string name="logger_slot_mode_denied">முடக்கபட்ட கோரிக்கைகளை பதிவு செய்</string>
-    <string name="logger_slot_mode_all">அனைத்து கோரிக்கைகளையும் பதிவு செய்</string>
-</resources>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="social_share_body_minute">Blokada எனக்கு கடந்த %d நிமிடங்களில் %s விளம்பரங்களை முடக்கியுள்ளது. Blokada-வை blokada.org ல் பெறவும்.</string>
-    <string name="social_share_body_hour">Blokada எனக்கு கடந்த %d மணிநேரங்களில் %s விளம்பரங்களை முடக்கியுள்ளது. Blokada-வை blokada.org ல் பெறவும்.</string>
-    <string name="social_share_body_day">Blokada எனக்கு கடந்த %d நாட்களில் %s விளம்பரங்களை முடக்கியுள்ளது. Blokada-வை blokada.org ல் பெறவும்.</string>
-    <string name="social_share_body_week">Blokada எனக்கு கடந்த %d வாரங்களில் %s விளம்பரங்களை முடக்கியுள்ளது. Blokada-வை blokada.org ல் பெறவும்.</string>
-</resources>

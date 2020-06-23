@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="social_share_body_minute">Blokada заблокувала у мене %s рекламних оголошень і трекерів за останні %d хвилин! Завантажте її на blokada.org.</string>
-    <string name="social_share_body_hour">Blokada заблокувала у мене %s рекламних оголошень і трекерів за останні %d годин! Завантажте її на blokada.org.</string>
-    <string name="social_share_body_day">Blokada заблокувала у мене %s рекламних оголошень і трекерів за останні %d днів! Завантажте її на blokada.org.</string>
-    <string name="social_share_body_week">Blokada заблокувала у мене %s рекламних оголошень і трекерів за останні %d тижнів! Завантажте її на blokada.org.</string>
-</resources>

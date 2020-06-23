@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="logger_permission">Vennligst gi lagringstillatelse først.</string>
-    <string name="logger_slot_title">Be om logger</string>
-    <string name="logger_slot_mode_off">Deaktivert</string>
-    <string name="logger_slot_mode_allowed">Logg tillatte forespørsler</string>
-    <string name="logger_slot_mode_denied">Logg blokkerte forespørsler</string>
-    <string name="logger_slot_mode_all">Logg alle forespørsler</string>
-</resources>

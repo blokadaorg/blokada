@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="social_share_body_minute">Blokada mi pomohla so zablokovaním %s reklám a trackerov za posledných %d minút! Získajte ju na blokada.org.</string>
-    <string name="social_share_body_hour">Blokada mi pomohla so zablokovaním %s reklám a trackerov za posledných %d hodín! Získajte ju na blokada.org.</string>
-    <string name="social_share_body_day">Blokada mi pomohla so zablokovaním %s reklám a trackerov za posledných %d dní! Získajte ju na blokada.org.</string>
-    <string name="social_share_body_week">Blokada mi pomohla so zablokovaním %s reklám a trackerov za posledných %d týždňov! Získajte ju na blokada.org.</string>
-</resources>

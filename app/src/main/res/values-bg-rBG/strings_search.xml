@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="search_header">Докоснете за търсене...</string>
-    <string name="search_title">Търсене</string>
-    <string name="search_entered">Резултати за: %s</string>
-    <string name="search_description">Въведете по-горе заявката за търсене и докоснете Потвърди за филтриране на списъка.</string>
-    <string name="search_action_confirm">Потвърди</string>
-    <string name="search_action_clear">Изчисти</string>
-</resources>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="logger_permission">Concediu el permís d\'emmagatzematge primer.</string>
-    <string name="logger_slot_title">Enregistrador de peticions</string>
-    <string name="logger_slot_mode_off">Desactivat</string>
-    <string name="logger_slot_mode_allowed">Enregistra les peticiones permeses</string>
-    <string name="logger_slot_mode_denied">Enregistra les peticiones denegades</string>
-    <string name="logger_slot_mode_all">Enregistra totes les peticions</string>
-</resources>

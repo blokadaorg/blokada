@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="search_header">Tik om te zoeken...</string>
-    <string name="search_title">Zoeken</string>
-    <string name="search_entered">Resultaten voor: %s</string>
-    <string name="search_description">Typ hierboven je zoekopdracht en klik op Bevestigen om de lijst te filteren.</string>
-    <string name="search_action_confirm">Bevestigen</string>
-    <string name="search_action_clear">Wissen</string>
-</resources>

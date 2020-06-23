@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="social_share_body_minute">पिछले %d मिनटों में, Blokada ने मुझे %s विज्ञापन और ट्रैकर से बचाया। आप भी अभी इसे blokada.org से प्राप्त करें।</string>
-    <string name="social_share_body_hour">पिछले %d घंटों में, Blokada ने मुझे %s विज्ञापन और ट्रैकर से बचाया। आप भी अभी इसे blokada.org से प्राप्त करें।</string>
-    <string name="social_share_body_day">पिछले %d दिनों में, Blokada ने मुझे %s विज्ञापन और ट्रैकर से बचाया। आप भी अभी इसे blokada.org से प्राप्त करें।</string>
-    <string name="social_share_body_week">पिछले %d हफ्तों में, Blokada ने मुझे %s विज्ञापन और ट्रैकर से बचाया। आप भी अभी इसे blokada.org से प्राप्त करें।</string>
-</resources>

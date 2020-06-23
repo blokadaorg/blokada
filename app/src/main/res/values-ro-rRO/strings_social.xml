@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="social_share_body_minute">Blokada m-a ajutat să blochez %s reclame și trackere în ultimele %d minute! Ia-l de pe blokada.org.</string>
-    <string name="social_share_body_hour">Blokada m-a ajutat să blochez %s reclame și trackere în ultimele %d ore! Ia-l de pe blokada.org.</string>
-    <string name="social_share_body_day">Blokada m-a ajutat să blochez %s reclame și trackere în ultimele %d zile! Ia-l de pe blokada.org.</string>
-    <string name="social_share_body_week">Blokada m-a ajutat să blochez %s reclame și trackere în ultimele %d săptămâni! Ia-l de pe blokada.org.</string>
-</resources>

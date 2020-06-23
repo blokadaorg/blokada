@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="logger_permission">กรุณาอนุญาตให้เข้าถึงที่เก็บข้อมูล</string>
-    <string name="logger_slot_title">ขอรายงาน</string>
-    <string name="logger_slot_mode_off">ปิดการใช้งาน</string>
-    <string name="logger_slot_mode_allowed">ขอข้อมูลที่ได้อนุญาต</string>
-    <string name="logger_slot_mode_denied">ขอข้อมูลที่ทำการบล๊อก</string>
-    <string name="logger_slot_mode_all">ขอรายงานทั้งหมด</string>
-</resources>
