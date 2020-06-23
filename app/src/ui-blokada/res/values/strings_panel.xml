@@ -158,8 +158,8 @@
 
     <string name="slot_update_action_refresh">Check again</string>
 
-    <string name="slot_telegram_title">Join us at Telegram!</string>
-    <string name="slot_telegram_desc">Visit our Telegram channel for help or just to be part of our community.</string>
+    <string name="slot_telegram_title">Join us!</string>
+    <string name="slot_telegram_desc">Visit our community for help or just to be part of it.</string>
     <string name="slot_telegram_action">Open</string>
 
     <string name="slot_dropped_share_title">Share to</string>
@@ -187,7 +187,7 @@
     <string name="slot_gateway_info_partner">What are partner gateways?</string>
 
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
-    <string name="slot_leases_info">Control which of your devices connect to the Blokada Tunnel.</string>
+    <string name="slot_leases_info">Control which of your devices connect to Blokada Plus.</string>
     <string name="slot_lease_name_current">%s (this device)</string>
     <string name="slot_lease_description">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">Device ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This is your current device.</string>
@@ -245,8 +245,8 @@
     <string name="slot_cleanup_desc">There seems to be many versions of Blokada installed on your device. Would you like to remove the other versions and keep just one?</string>
 
     <string name="account_inactive">Please activate or restore your account to continue.</string>
-    <string name="slot_lease_cant_connect">Could not connect to Blokada Tunnel. Try selecting another gateway.</string>
-    <string name="slot_account_cant_create">Could not create your Blokada Tunnel account. Please try again later or contact us on Telegram.</string>
+    <string name="slot_lease_cant_connect">Could not connect to Blokada Plus. Try selecting another gateway.</string>
+    <string name="slot_account_cant_create">Could not create your Blokada Plus account. Please try again later or contact us.</string>
 
     <string name="slot_account_name_title">Account ID</string>
     <string name="slot_account_name_desc">Enter your old account ID in order to restore your previous subscription. You may want to write down your current account ID before doing it, in case you make a mistake.</string>

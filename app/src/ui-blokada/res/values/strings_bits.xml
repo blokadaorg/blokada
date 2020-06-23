@@ -4,12 +4,12 @@
     <string name="home_touch">Tap or hold to configure</string>
     <string name="home_blokada_disabled">Blokada is paused</string>
     <string name="home_blokada_active">Blokada is active</string>
-    <string name="home_blokada_active_protected">Blokada Tunnel is active, and your Internet is protected</string>
+    <string name="home_blokada_active_protected">Blokada Plus is active, and your Internet is protected</string>
     <string name="home_blokada_inactive">Blokada is deactivated</string>
     <string name="home_activating">Activating</string>
     <string name="home_please_wait">Please wait...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_vpn_only">Blokada Tunnel is active without adblocking</string>
+    <string name="home_vpn_only">Blokada Plus is active without adblocking</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada is active in DNS mode</string>
 
@@ -38,16 +38,16 @@
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Donate</string>
 
-    <string name="home_vpn_enabled">Blokada Tunnel is active</string>
-    <string name="home_vpn_disabled">Blokada Tunnel is deactivated</string>
+    <string name="home_vpn_enabled">Blokada Plus is active</string>
+    <string name="home_vpn_disabled">Blokada Plus is deactivated</string>
     <string name="home_account_active">Your account is still active</string>
-    <string name="home_connecting_vpn">Connecting to Blokada Tunnel</string>
+    <string name="home_connecting_vpn">Connecting to Blokada Plus</string>
     <string name="home_cleanup">Cleanup recommended</string>
 
     <!-- A short text for the button to change VPN settings -->
 
-    <string name="home_connected_vpn">Connected to Blokada Tunnel</string>
-    <string name="home_boringtun_not_loaded">Sorry, your device is not supported by Blokada Tunnel. You can still use other features.</string>
+    <string name="home_connected_vpn">Connected to Blokada Plus</string>
+    <string name="home_boringtun_not_loaded">Sorry, your device is not supported by Blokada Plus. You can still use other features.</string>
     <string name="home_blocka_vpn_error">Could not connect to gateway. Are you online?</string>
     <string name="home_account_error">Could not verify account. Are you online?</string>
     <string name="home_permission_error">Please grant VPN permissions.</string>
@@ -66,14 +66,14 @@
     <string name="menu_ads_log_label">See what has been blocked or allowed recently.</string>
 
     <!-- VPN section header in menu (for configuring VPN) -->
-    <string name="menu_vpn">Blokada Tunnel</string>
+    <string name="menu_vpn">Blokada Plus</string>
 
     <string name="menu_vpn_activate_account">Please activate your account first.</string>
     <string name="menu_vpn_select_gateway">Please select a gateway.</string>
-    <string name="menu_vpn_intro_button">Why do I need Blokada Tunnel?</string>
+    <string name="menu_vpn_intro_button">Why do I need Blokada Plus?</string>
 
     <!-- A button opening VPN account settings -->
-    <string name="menu_vpn_account">My Blokada Tunnel</string>
+    <string name="menu_vpn_account">My Blokada Plus</string>
     <string name="menu_vpn_account_id">ID: %s</string>
 
     <!-- A button opening VPN gateways settings -->
@@ -86,13 +86,13 @@
     <string name="menu_vpn_manage_subscription_unavailable">If your account is new, visit our website. You cannot purchase a subscription in Blokada Slim.</string>
     <string name="menu_vpn_account_secret">Tap your avatar above to see your account ID. Remember, your ID is secret and you should keep it to yourself. Write it down in case you uninstall the app.</string>
     <string name="menu_vpn_restore_label">Here you can restore your existing account if, for example, you re-installed the app.</string>
-    <string name="menu_vpn_intro">With Blokada Tunnel your data is encrypted, your IP address is hidden, and your location is changed.</string>
+    <string name="menu_vpn_intro">With Blokada Plus your data is encrypted, your IP address is hidden, and your location is changed.</string>
     <string name="menu_vpn_account_label">In order to use the VPN, you need an active account. Check or restore your account here.</string>
     <string name="menu_vpn_gateways_label">Select one of the gateways to connect to. Your device will send your encrypted data securely through that gateway, and you will stay anonymous.</string>
     <string name="menu_vpn_support_label">If you experience any problems, do not hesitate to contact us.</string>
     <string name="menu_vpn_support_button">Support</string>
-    <string name="menu_vpn_tunnel_settings">Blokada Tunnel settings</string>
-    <string name="menu_vpn_tunnel_learn_more">Learn more about Blokada Tunnel</string>
+    <string name="menu_vpn_tunnel_settings">Blokada Plus settings</string>
+    <string name="menu_vpn_tunnel_learn_more">Learn more about Blokada Plus</string>
     <string name="menu_vpn_info_account_label">Do I have an account?</string>
     <string name="menu_vpn_info_account_line1">Yes! Your account is automatically created on first run. You do not need to register.</string>
     <string name="menu_vpn_info_account_line2">Tap your avatar above to see your account ID.</string>
@@ -101,7 +101,7 @@
     <string name="menu_dns_recommended">Recommended DNS servers</string>
     <string name="menu_dns_intro">DNS is responsible for translating IP addresses of websites and apps you use. Choosing a good DNS may speed up your device and will help protect your privacy.</string>
     <string name="menu_dns_select">Select one of the DNS servers.</string>
-    <string name="menu_apps_intro">Some apps may not work properly with Blokada. For example, they may have trouble connecting.\n\nActivating VPN often helps in those cases.\n\nOtherwise, you can make those apps bypass Blokada inspection altogether. Remember, bypassed apps communicate outside of Blokada Tunnel.</string>
+    <string name="menu_apps_intro">Some apps may not work properly with Blokada. For example, they may have trouble connecting.\n\nActivating VPN often helps in those cases.\n\nOtherwise, you can make those apps bypass Blokada inspection altogether. Remember, bypassed apps communicate outside of Blokada Plus.</string>
     <string name="menu_apps_system_label">System apps are the ones coming preinstalled with your device. Some of them are hidden. Modify those only if you know what you are doing.</string>
     <string name="menu_host_list_intro">Host lists contain rules for blocking ads and trackers. Try to keep the number of active lists low.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
@@ -124,7 +124,7 @@
 
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Get involved</string>
-    <string name="menu_telegram">Telegram chat</string>
+    <string name="menu_telegram">Community</string>
     <string name="menu_configure">Configure Blokada features</string>
     <string name="menu_exclude">Exclude apps that do not work correctly</string>
 

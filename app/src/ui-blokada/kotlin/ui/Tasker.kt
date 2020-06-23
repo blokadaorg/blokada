@@ -16,7 +16,7 @@ class TaskerActivity : AbstractPluginActivity() {
             onSelected = { updateSwitches(0) })
 
     private val switchBlockaVpn: TaskerSwitchVB = TaskerSwitchVB(true,
-            label = "Blokada Tunnel".res(),
+            label = "Blokada Plus".res(),
             icon = R.drawable.ic_verified.res(),
             onSelected = { updateSwitches(1) })
 
@@ -96,7 +96,7 @@ class TaskerActivity : AbstractPluginActivity() {
     override fun getResultBlurb(bundle: Bundle): String {
         val (what, isTrue) = when {
             bundle.containsKey(EVENT_KEY_SWITCH_BLOCKA_VPN) -> {
-                "Blokada Tunnel" to bundle.getBoolean(EVENT_KEY_SWITCH_BLOCKA_VPN)
+                "Blokada Plus" to bundle.getBoolean(EVENT_KEY_SWITCH_BLOCKA_VPN)
             }
             bundle.containsKey(EVENT_KEY_SWITCH_DNS) -> {
                 "DNS" to bundle.getBoolean(EVENT_KEY_SWITCH_DNS)

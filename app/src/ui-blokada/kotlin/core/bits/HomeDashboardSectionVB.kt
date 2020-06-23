@@ -343,7 +343,7 @@ fun createOneTimeBytes(
         )},
         OneTimeByte.BLOKADAPLUS to { SimpleByteVB(ktx,
                 label = "Get $1 for yourself".res(),
-                description = "Refer a friend to Blokada Tunnel".res(),
+                description = "Refer a friend to Blokada Plus".res(),
                 onTap  = { ktx, _ ->
                 }
         )}
