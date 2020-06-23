@@ -47,27 +47,28 @@ class PagesImpl (
             val c = i18n.contentUrl()
             if (!c.startsWith("http://localhost")) {
                 "pages:onLocaleSet".ktx().v("setting content url", c)
-                updated %= URL("$c/updated.html")
                 cleanup %= URL("$c/cleanup.html")
-                cta %= URL("$c/cta.html")
-                donate %= URL("$c/donate.html")
-                help %= URL("https://support.blokada.org/")
-                changelog %= URL("$c/changelog.html")
-                credits %= URL("$c/credits.html")
                 filters %= URL("$c/filters.txt")
                 filtersStrings %= URL("$c/filters.properties")
                 filtersStringsFallback %= URL("${i18n.fallbackContentUrl()}/filters.properties")
                 dns %= URL("$c/dns.txt")
                 dnsStrings %= URL("$c/dns.properties")
-                chat %= if (i18n.locale().startsWith("es")) {
-                    URL("http://go.blokada.org/es_chat")
-                } else URL("http://go.blokada.org/chat")
-                vpn %= URL("$c/vpn.html")
-                vpn_partner %= URL("$c/vpn-partner-gateways.html")
                 announcement %= URL("$c/announcement.json")
-                tos %= URL("https://app.blokada.org/tos.html")
-                privacy %= URL("https://app.blokada.org/privacy.html")
                 licenses %= URL("$c/copyright.libraries.txt")
+
+                updated %= URL("https://go.blokada.org/updated_android")
+                cta %= URL("https://go.blokada.org/cta")
+                donate %= URL("https://go.blokada.org/donate")
+                changelog %= URL("https://go.blokada.org/changelog")
+                credits %= URL("https://go.blokada.org/credits")
+                vpn %= URL("https://go.blokada.org/vpn")
+                vpn_partner %= URL("https://go.blokada.org/vpn-partner-gateways")
+                help %= URL("https://go.blokada.org/kb_android")
+                chat %= if (i18n.locale().startsWith("es")) {
+                    URL("https://go.blokada.org/es_chat")
+                } else URL("https://go.blokada.org/chat")
+                tos %= URL("https://go.blokada.org/terms")
+                privacy %= URL("https://go.blokada.org/privacy")
 
                 loaded %= true
             }
