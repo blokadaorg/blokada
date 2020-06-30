@@ -11,7 +11,7 @@ Want to try out this app? Click here to **[download Blokada](http://go.blokada.o
 
 Blokada community welcomes everyone, but before you ask a question, please get yourself familiar with the help content.
 
-[Frequently Asked Questions](http://go.blokada.org/faq) | [News and Articles](http://go.blokada.org/blog)
+[Frequently Asked Questions](https://go.blokada.org/faq) | [News and Articles](https://go.blokada.org/blog)
 
 ## Community
 
@@ -23,7 +23,7 @@ We invite you to join any of our networks and stay up to date with the newest de
 
 If you found a bug, or have an idea for new functionality, feel free to report it on the issue tracker - just use search beforehand. Also, check the device and app databases to see if your problem is device or app specific.
 
-[Issue tracker](http://go.blokada.org/issue) | [Devices Database](http://go.blokada.org/issue_device) | [Apps Database](http://go.blokada.org/issue_app)
+[Issue tracker](https://go.blokada.org/issue) | [Devices Database](https://go.blokada.org/issue_device) | [Apps Database](https://go.blokada.org/issue_app)
 
 
 ## Warning about fake websites
