@@ -36,7 +36,7 @@ abstract class Dns {
 
 private val FALLBACK_DNS = listOf(
         InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 1, 1, 1)), 53),
-        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 0, 0, 1)), 53)
+        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(8, 8, 8, 8)), 53)
 )
 
 class DnsImpl(
