@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A name used for DNS servers added by user. -->
+    <string name="dns_custom_add_slot">புதிய DNSஐ சேர்க்கவும்…</string>
+    <string name="slot_enter_dns_error">இது IPv4 போன்று தெரியவில்லை.</string>
+    <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_ip_label">IP address</string>
+    <string name="dns_edit_ip1_enter">முதன்மை மின்னஞ்சல் முகவரியை உள்ளிடவும்</string>
+    <string name="dns_edit_ip2_enter">இரண்டாம் மின்னஞ்சல் முகவரியை உள்ளிடவும்</string>
+    <string name="dns_edit_name_error">சரியான பெயர் அல்ல</string>
+    <string name="dns_edit_name_label">Server பெயர்</string>
+    <string name="dns_edit_name_default">பொதுவான பெயர்</string>
+    <string name="dns_edit_next">அடுத்து</string>
+    <string name="dns_edit_last">சேர்</string>
+    <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
+    <string name="dns_text_none">பொதுவான DNS</string>
+    <!-- Deletes all dns suggestions and fetches default ones. -->
+    <string name="dns_generate_defaults">முதலில் இருந்தவற்றை திருப்பியமைக்கவும்</string>
+    <!-- Forcefully refetch dns suggestions ignoring cache. -->
+    <string name="dns_generate_refetch">DNS பட்டியலை புதுப்பி</string>
+    <!-- Keep Alive notification for DNS. Parameter: addresses of active dns servers. -->
+    <string name="dns_keepalive_content">இயங்குபவை: %s</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">Blokada pomogła mi zablokować %s reklam i modułów śledzących w ciągu ostatnich %d minut! Pobierz na blokada.org.</string>
+    <string name="social_share_body_hour">Blokada pomogła mi zablokować %s reklam i modułów śledzących w ciągu ostatnich %d godzin! Pobierz na blokada.org.</string>
+    <string name="social_share_body_day">Blokada pomogła mi zablokować %s reklam i modułów śledzących w ciągu ostatnich %d dni! Pobierz na blokada.org.</string>
+    <string name="social_share_body_week">Blokada pomogła mi zablokować %s reklam i modułów śledzących w ciągu ostatnich %d tygodni! Pobierz na blokada.org.</string>
+</resources>

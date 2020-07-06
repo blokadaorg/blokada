@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">Sicela unikeze imvume yokubeka kuqala.</string>
+    <string name="logger_slot_title">Cela umbhali</string>
+    <string name="logger_slot_mode_off">Ivaliwe</string>
+    <string name="logger_slot_mode_allowed">Bhala izicelo ezivunyelwe</string>
+    <string name="logger_slot_mode_denied">Bhala izicelo ezivinjelwe</string>
+    <string name="logger_slot_mode_all">Bhala zonke izicelo</string>
+</resources>

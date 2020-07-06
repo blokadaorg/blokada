@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main screen section -->
+    <string name="panel_section_home">Hjem</string>
+    <string name="panel_section_menu">Meny</string>
+    <!-- Main screen section -->
+    <string name="panel_section_ads">Annonseblokkering</string>
+    <!-- Main screen section -->
+    <string name="panel_section_apps">Apper</string>
+    <!-- Main screen section -->
+    <string name="panel_section_home_help">Hjelp</string>
+    <string name="panel_section_ads_lists">Vertslister</string>
+    <string name="panel_section_ads_log">Vertslogg</string>
+    <string name="panel_section_ads_blacklist">Blokkerte verter</string>
+    <string name="panel_section_ads_whitelist">Tillatte verter</string>
+    <string name="panel_section_advanced_dns">DNS</string>
+    <string name="panel_section_apps_all">Installerte apper</string>
+    <string name="panel_section_apps_system">System apper</string>
+    <string name="panel_section_advanced_settings">Innstillinger</string>
+    <string name="panel_section_app_settings">App-innstillinger</string>
+    <!-- When a domain is allowed (not blocked) -->
+    <string name="panel_domain_forwarded">Tillatt &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_forwarded_desc">Dette domenet har blitt tillatt. For å blokkere det, bruk knappen nedenfor.</string>
+    <string name="panel_domain_forwarded_toast">Lagt til i hvitelisten.</string>
+    <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked">Blokkert &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_toast">Lagt til i svartelisten.</string>
+    <!-- Action to copy domain name to clipboard -->
+    <string name="panel_domain_copy">Kopier</string>
+    <string name="panel_domain_copied">Kopiert til utklippstavle</string>
+    <string name="panel_ruleset">Filter teller</string>
+    <!-- How many rules are configured. Parameters is number of rules. -->
+    <string name="panel_ruleset_title">Filtrene har nå %s regler.</string>
+    <string name="panel_ruleset_updating">Oppdaterer filtre...</string>
+    <!-- Button to allow blocked domain -->
+    <string name="slot_action_allow">Tillat</string>
+    <!-- Button to block allowed domain -->
+    <string name="slot_action_block">Blokker</string>
+    <string name="slot_action_close">Lukk</string>
+    <string name="slot_action_remove">Fjern</string>
+    <!-- Button to open homepage of list's author. Keep it short. -->
+    <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Ja</string>
+    <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Nei</string>
+    <!-- An action to toggle a switch -->
+    <string name="slot_intro_new_header">Hvordan bruke den nye brukergrensesnittet?</string>
+    <string name="slot_intro_info">Psst... Noen elementer har spørsmålstegnikonet på dem. Hvis du trykker på den, vises en kort hjelpemelding, som denne!</string>
+    <string name="slot_new_filter">Legg til en ny vert i blokkeringslisten</string>
+    <string name="slot_new_filter_list">Legg til en ny vertsliste</string>
+    <string name="slot_new_filter_whitelist">Legg til en ny vert i hvitelisten</string>
+    <!-- A state of input form when no input is entered (think: empty)  -->
+    <string name="slot_unset">annuler</string>
+    <!-- A state of input form when correct input is entered  -->
+    <string name="slot_set">sett</string>
+    <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_invalid">ugyldig</string>
+    <string name="slot_continue">Gå videre</string>
+    <string name="slot_enter_domain_title">Domene(r)</string>
+    <string name="slot_enter_domain_desc">Angi domener atskilt med komma. Du kan også lime inn en kobling til hvilken som helst vertsliste, eller importere en lokal vertslistefil.</string>
+    <string name="slot_enter_domain_error">Dette ser ikke ut som noe for meg.</string>
+    <string name="slot_enter_domain_file">Fil</string>
+    <string name="slot_enter_file_titel">Filnavn</string>
+    <string name="slot_enter_file_import">Importer</string>
+    <string name="slot_enter_name_title">Navn</string>
+    <string name="slot_enter_name_desc">Angi navn for den nye oppføringen. Du kan også generere et foreslått navn.</string>
+    <string name="slot_enter_name_error">Dette ser ikke ut som noe for meg.</string>
+    <string name="slot_enter_name_generate">Generer</string>
+    <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; er hvitelistet</string>
+    <string name="slot_app_desc">Denne appen er hvitelistet, noe som betyr at det ikke utføres noen blokkering eller filtrering på den.</string>
+    <string name="slot_allapp_whitelisted">Forbipassert</string>
+    <string name="slot_allapp_normal">Ikke forbipassert</string>
+    <string name="slot_allapp_whitelist">Forbipasser</string>
+    <string name="slot_dns_name">DNS er aktiv</string>
+    <string name="slot_dns_name_disabled">DNS er deaktivert</string>
+    <string name="slot_action_none">Denne handlingen er ikke tilgjengelig ennå.</string>
+    <string name="slot_action_unwhitelist">Avbryt</string>
+    <string name="slot_action_author">Om</string>
+    <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">En oppføring</string>
+    <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">En oppføring for %s</string>
+    <string name="slot_dns_control_title">DNS-tjenerliste</string>
+    <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_refresh">Synkroniser</string>
+    <string name="slot_export_title">Innstillingsplassering</string>
+    <string name="slot_action_import">Importer</string>
+    <string name="slot_action_internal">Intern lagring</string>
+    <string name="slot_action_external">Ekstern lagring</string>
+    <string name="slot_filters_title">Filterlistesynk</string>
+    <string name="slot_action_deactivate">Slå av</string>
+    <string name="slot_action_activate">Slå på</string>
+    <string name="slot_update_action_refresh">Sjekk igjen</string>
+    <string name="slot_telegram_action">Åpne</string>
+    <string name="slot_dropped_share_title">Del til</string>
+    <string name="slot_adblocking_label">Blokker annonser &amp; sporere</string>
+    <string name="slot_adblocking_text">Når dette er aktivert, vil Blokada sperre annonser, sporere og annet uønsket innhold. Dette hjelper deg med å beskytte personvernet ditt, øke hastigheten på enheten din og lagre dataene dine.</string>
+    <string name="slot_account_label_active">Konto er aktiv til %s</string>
+    <string name="slot_account_label_inactive">Konto inaktiv</string>
+    <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage_inactive">Aktiver konto</string>
+    <string name="slot_account_action_change_id">Gjenopprett konto</string>
+    <string name="slot_account_show">Konto-ID</string>
+    <string name="slot_account_action_copied">Konto-ID kopiert til utklippstavlen</string>
+    <string name="slot_account_action_unavailable">[ikke valgt]</string>
+    <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
+    <string name="slot_gateway_label">Koble til %s</string>
+    <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_lease_name_current">%s (denne enheten)</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_low">høy</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_high">lav</string>
+    <string name="slot_recommended_dns_label">Bruk anbefalte DNS servere</string>
+    <string name="slot_update_no_updates">Blokada er oppdatert</string>
+    <string name="slot_about">Om Blokada</string>
+    <!-- A button to share debug log. Keep it short. -->
+    <string name="slot_about_share_log">Logg</string>
+    <string name="slot_help_label">Trenger du hjelp?</string>
+    <!-- A button to open help -->
+    <string name="slot_help_action">Hjelp</string>
+    <!-- A button to donate -->
+    <string name="slot_donate_action">Donér</string>
+    <string name="slot_cta_label">Psst! Vi vil gjerne vite din mening.</string>
+    <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">Åpne</string>
+    <string name="slot_blog_label">Sjekk ut vår utviklingsblogg!</string>
+    <!-- A button to open a blog -->
+    <string name="slot_blog_action">Åpne</string>
+    <string name="slot_updated_desc">Trykk her for introduksjonen til denne utgivelsen.</string>
+    <!-- A button to open a description website of current app version after update. -->
+    <string name="slot_obsolete_desc">Din versjon av Blokada er foreldet og kan ikke fungere riktig. Vennligst last ned den nyeste versjonen for å fortsette å motta oppdateringer.</string>
+    <!-- A button to update the app. -->
+    <string name="slot_cleanup_desc">Det ser ut til at mange versjoner av Blokada er installert på enheten din. Vil du fjerne de andre versjonene og bare beholde en?</string>
+    <string name="slot_account_name_title">Konto-ID</string>
+    <string name="slot_account_name_restore">Gjenopprett</string>
+    <!-- A section in advanced settings. -->
+    <string name="label_basic">Hovedinnstillinger</string>
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <string name="label_advanced">Avanserte innstillinger</string>
+    <string name="slot_whitelist_updating">Oppdaterer konfigurasjon, vennligst vent...</string>
+    <string name="slot_background_animation">Bakgrunnsanimasjon</string>
+    <string name="slot_background_animation_description">Når på, vil bølger animere hver gang en DNS-forespørsel er blokkert eller tillatt. Slå av hvis du opplever nedbremsing.</string>
+    <string name="slot_reset_counter_label">Nullstill tellingen for blokkerte verter</string>
+    <string name="slot_reset_counter_action">Tilbakestill</string>
+</resources>

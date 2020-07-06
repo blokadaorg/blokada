@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_blokada_disabled">Blokada sedang ditangguhkan</string>
+    <string name="home_activating">Sedang Diaktifkan</string>
+    <string name="home_please_wait">Sila tunggu...</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked">%s telah disekat</string>
+    <string name="home_masterswitch_enabled">Blokada sedang berjalan</string>
+    <!-- A button to share the ads counter on social media -->
+    <string name="home_share">Beritahu rakan anda</string>
+    <string name="home_share_state">Kongsi markah Blokada anda</string>
+    <string name="home_adblocking_enabled">Penyekat iklan sedang aktif</string>
+    <string name="home_adblocking_disabled">Penyekat iklan tidak diaktifkan</string>
+    <!-- A short text for the item that displays update information -->
+    <string name="home_whats_new">Apa yang baharu?</string>
+    <string name="home_update_required">Kemaskini diperlukan</string>
+    <!-- A short text for the item that displays donate link -->
+    <string name="home_donate">Derma</string>
+    <string name="home_account_active">Akaun anda masih aktif</string>
+    <string name="home_cleanup">Pembersihan disarankan</string>
+    <!-- A short text for the button to change VPN settings -->
+    <!-- Ads section header in menu (for configuring ad blocking) -->
+    <string name="menu_ads">Iklan</string>
+    <string name="menu_ads_live_label">Log permintaan hos yang benarkan dan yang disekat</string>
+    <string name="menu_ads_clear_log">Padamkan log hos</string>
+    <string name="menu_ads_lists_label">Pilih daftar yang akan digunakan untuk penyekatan. Senarai lalai adalah baik untuk kebanyakan orang.</string>
+    <string name="menu_ads_rules_label">Tambah aturan anda sendiri untuk melaraskan penyekatan.</string>
+    <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn_activate_account">Sila aktifkan akaun anda terlebih dahulu.</string>
+    <string name="menu_vpn_select_gateway">Sila pilih satu gateway.</string>
+    <!-- A button opening VPN account settings -->
+    <!-- A button opening VPN gateways settings -->
+    <string name="menu_vpn_gateways">Gateways</string>
+    <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_manage_subscription">Uruskan akaun langganan anda</string>
+    <string name="menu_vpn_restore_label">Di sini anda boleh mengembalikan akaun anda yang tersedia, contohnya anda memasang kembali aplikasi ini.</string>
+    <string name="menu_vpn_gateways_label">Pilih salah satu Gateway yang akan disambungkan. Peranti anda akan mengahntar data yang telah disulitkan dengan selamat melalui Gateway tersebut, dan anda akan tetap berada dalam keadaan tanpa nama.</string>
+    <string name="menu_dns_recommended">Cadangan pelayan DNS</string>
+    <string name="menu_dns_intro">DNS bertanggung jawab untuk menterjemahkan alamat IP sesawang dan aplikasi yang anda gunakan. Memilih DNS yang baik dapat mempercepat peranti anda dan akan membantu melindungi privasi anda.</string>
+    <string name="menu_dns_select">Pilih satu daripada pelayan DNS.</string>
+    <string name="menu_apps_system_label">Sistem aplikasi yang datang bersama dengan peranti anda. Ada antaranya tersembunyi. Anda boleh mengubah aplikasi ini jika anda tahu apa yang anda lakukan.</string>
+    <string name="menu_host_list_intro">Senarai hos mengandungi aturan untuk menyekat iklan dan penjejak. Cubalah untuk mengurangakan bilangan senarai kepada paling rendah.</string>
+    <string name="menu_host_list_status">Senarai status</string>
+    <string name="menu_host_list_download">Senarai tetapan muaturun</string>
+    <string name="menu_host_whitelist">Hos yang anda tambahkan di sini tidak akan pernah disekat. Gunakan daftar ini ketika, contohnya, sesawang yang anda kunjungi tersalah disekat.</string>
+    <string name="menu_host_blacklist">Hos yang anda tambahkan di sini akan sentisa disekat. Contohnya, anda dapat menambah sesawang yang tidak disekat oleh daftar lalai, tetapi sepatutnya.</string>
+    <!-- A section of other settings in menu -->
+    <string name="menu_other">Lain-lain</string>
+    <string name="menu_share_log_label">Berkongsi log membolehkan kami untuk mengetahui sebab masalah anda. Pastikan anda menghantarnya secara pribadi ke salah seorang anggota teras kumpulan Blokada.</string>
+    <!-- A section of help, telegram, and other buttons in menu -->
+    <string name="menu_learn_more">Ketahui lebih lanjut</string>
+    <!-- A section informational content in menu -->
+    <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">Libatkan diri</string>
+    <string name="menu_configure">Tetapan sifat Blokada</string>
+    <string name="menu_exclude">Kecualikan aplikasi yang tidak berfingsi dengan betul</string>
+    <!-- A section in menu for additional buttons  -->
+    <string name="menu_dive_in">Menyelam lebih dalam</string>
+    <!-- A section to manage some settings (generic)  -->
+    <string name="menu_manage">Urus</string>
+    <string name="menu_ok">OK</string>
+    <string name="menu_dns_remove_default">DNS lalai tidak boleh dibuang.</string>
+</resources>

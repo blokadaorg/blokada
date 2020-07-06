@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Notificaties</string>
+    <string name="notification_on_description">Wanneer actief, zal Blokada een melding weergeven elke keer als er iets wordt geblokkeerd. Houd er rekening mee dat dit niet hetzelfde is als de VPN-melding die sommige apparaten tonen, en die niet kunnen worden uitgeschakeld.&lt;br/&gt;Je kunt configureren welke meldingen moeten worden weergegeven bij de instellingen hieronder.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Adv. geblokkeerd</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Verbergen</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Witte lijst</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Gereed! Wijzigingen kunnen enkele seconden duren.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Actief blijven</string>
+    <string name="notification_keepalive_description">Activeer deze knop als je problemen ondervindt met het actief blijven van de app op de achtergrond. Blokada zal een permanente melding inschakelen om te voorkomen dat het systeem het sluit; je kunt het verbergen door Notificaties bovenin te selecteren en daar instellingen te kiezen.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Actief houden (tik om te verbergen)</string>
+    <string name="notification_keepalive_text_new">Android moet een melding tonen om de app actief te houden, maar je kan deze uitschakelen in systeeminstellingen.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d geblokkeerd</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Laatste: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">monitoren</string>
+    <string name="notification_keepalive_activate">Activeren</string>
+    <string name="notification_keepalive_activating">Blokada begint. Dit kan even duren.</string>
+    <string name="notification_keepalive_deactivate">Deactiveren</string>
+    <string name="notification_keepalive_deactivating">Blokada werd gedeactiveerd!</string>
+    <string name="notification_expired_title">Blokada Plus is gedeactiveerd</string>
+    <string name="notification_expired_description">Je account is niet actief en Blokada Plus is uitgeschakeld. Standaard Blokada-functies werken prima zonder de Blokada Plus VPN. Overweeg echter om je account te activeren voor een betere bescherming en om het project te ondersteunen.</string>
+    <string name="notification_lease_expired_title">Blokada Plus is gedeactiveerd</string>
+    <string name="notification_lease_expired_description">Er is een probleem opgetreden met je verbinding met Blokada Plus. Kies een andere gateway. Neem contact met ons op als het probleem zich blijft voordoen.</string>
+    <string name="notification_channel_filtered">Advertentie blokkering</string>
+    <string name="notification_channel_announcements">Aankondigingen</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">Overige</string>
+</resources>

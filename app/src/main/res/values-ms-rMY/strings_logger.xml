@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">Pertamanaya, sila berikan kebenaran penyimpanan.</string>
+    <string name="logger_slot_title">Permintaan log</string>
+    <string name="logger_slot_mode_off">Dimatikan</string>
+    <string name="logger_slot_mode_allowed">Permintaan log dibenarkan</string>
+    <string name="logger_slot_mode_denied">Permintaan log disekat</string>
+    <string name="logger_slot_mode_all">Permintaan semua log</string>
+</resources>

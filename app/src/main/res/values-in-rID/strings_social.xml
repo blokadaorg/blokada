@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">Blokada telah membantu saya memblokir %s iklan dan pelacak dalam %d menit terakhir! Dapatkan aplikasinya di blokada.org.</string>
+    <string name="social_share_body_hour">Blokada telah membantu saya memblokir %s iklan dan pelacak dalam %d jam terakhir! Dapatkan aplikasinya di blokada.org.</string>
+    <string name="social_share_body_day">Blokada telah membantu saya memblokir %s iklan dan pelacak dalam %d hari terakhir! Dapatkan aplikasinya di blokada.org.</string>
+    <string name="social_share_body_week">Blokada telah membantu saya memblokir %s iklan dan pelacak dalam %d minggu terakhir! Dapatkan aplikasinya di blokada.org.</string>
+</resources>

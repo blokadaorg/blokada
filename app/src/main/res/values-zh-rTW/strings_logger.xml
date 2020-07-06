@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">請先授予儲存空間權限。</string>
+    <string name="logger_slot_title">請求記錄器</string>
+    <string name="logger_slot_desc">預設情況下，請求僅會儲存在 Blokada 內部。如果啟用了此功能，Blokada 將會建立被應用程式允許及／或封鎖的請求紀錄與 CSV 檔案。請在您的外部儲存空間尋找 \"blokada\"。或者也可以完全停用請求紀錄，並只儲存被封鎖的網域數量。</string>
+    <string name="logger_slot_mode_off">已停用</string>
+    <string name="logger_slot_mode_internal">僅記錄到內部儲存空間</string>
+    <string name="logger_slot_mode_allowed">記錄已允許的請求</string>
+    <string name="logger_slot_mode_denied">記錄已封鎖的請求</string>
+    <string name="logger_slot_mode_all">記錄所有請求</string>
+</resources>

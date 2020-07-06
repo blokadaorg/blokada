@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">Blokada a bloquée %s annonces et pisteurs ces %d dernières minutes ! Téléchargez l\'application sur blokada.org.</string>
+    <string name="social_share_body_hour">Blokada a bloquée %s annonces et pisteurs ces %d dernières heures ! Téléchargez l\'application sur blokada.org.</string>
+    <string name="social_share_body_day">Blokada a bloquée %s annonces et pisteurs ces %d derniers jours ! Téléchargez l\'application sur blokada.org.</string>
+    <string name="social_share_body_week">Blokada a bloquée %s annonces et pisteurs ces %d dernières semaines ! Téléchargez l\'application sur blokada.org.</string>
+</resources>

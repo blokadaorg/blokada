@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">Si prega di concedere i permessi di archiviazione.</string>
+    <string name="logger_slot_title">Richiesta Logger</string>
+    <string name="logger_slot_desc">Per impostazione predefinita, le richieste sono conservate solo dentro l\'app. Se questa funzione è attiva, Blokada creerà un file CSV con le richieste di log che sono state permesse e/o bloccate dall\'applicazione. Cerca la cartella \"blokada\" nella memoria esterna del tuo dispositivo. In alternativa, le richieste di log possono essere interamente disabilitate, verranno memorizzati solo il numero dei domini bloccati.</string>
+    <string name="logger_slot_mode_off">Disabilitato</string>
+    <string name="logger_slot_mode_internal">Solo memoria interna</string>
+    <string name="logger_slot_mode_allowed">Richieste di log consentite</string>
+    <string name="logger_slot_mode_denied">Richieste di log bloccate</string>
+    <string name="logger_slot_mode_all">Tutte le richieste</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">A Blokada segített %s hirdetést és nyomkövetőt blokkolni az elmúlt %d percben! Szerezd be a blokada.org oldalról.</string>
+    <string name="social_share_body_hour">A Blokada segített %s hirdetést és nyomkövetőt blokkolni az elmúlt %d órában! Szerezd be a blokada.org oldalról.</string>
+    <string name="social_share_body_day">A Blokada segített %s hirdetést és nyomkövetőt blokkolni az elmúlt %d napban! Szerezd be a blokada.org oldalról.</string>
+    <string name="social_share_body_week">A Blokada segített %s hirdetést és nyomkövetőt blokkolni az elmúlt %d héten! Szerezd be a blokada.org oldalról.</string>
+</resources>

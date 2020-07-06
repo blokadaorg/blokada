@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">कृपया जारी रखने के लिए स्टोरेज अनुमति दें</string>
+    <string name="logger_slot_title">लॉग का अनुरोध करें</string>
+    <string name="logger_slot_desc">डिफ़ॉल्ट रूप से, अनुरोध केवल ब्लोकाडा में आंतरिक रूप से संग्रहीत होते हैं। यदि यह सुविधा सक्षम है, तो ब्लोकाडा एक CSV फ़ाइल और लॉग अनुरोध बनाएगा जिन्हें एप्लिकेशन द्वारा अनुमति दी गई है और / या अवरुद्ध किया गया है। अपने बाहरी संग्रहण पर \"ब्लोकाडा\" फ़ोल्डर देखें। वैकल्पिक रूप से, अनुरोध लॉगिंग को पूरी तरह से अक्षम किया जा सकता है, बस अवरुद्ध डोमेन की संख्या संग्रहीत की जा रही है।</string>
+    <string name="logger_slot_mode_off">अक्षम</string>
+    <string name="logger_slot_mode_internal">केवल आंतरिक स्टोरेज में प्रवेश करें</string>
+    <string name="logger_slot_mode_allowed">लॉग अनुरोध की अनुमति दी</string>
+    <string name="logger_slot_mode_denied">अवरुद्ध अनुरोध लॉग करें</string>
+    <string name="logger_slot_mode_all">सभी अनुरोधों को लॉग इन करें</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_header">Klepněte pro vyhledávání...</string>
+    <string name="search_title">Hledat</string>
+    <string name="search_entered">Výsledky pro: %s</string>
+    <string name="search_description">Nahoře zadejte váš vyhledávací dotaz a klepněte na Potvrdit pro filtrování seznamu.</string>
+    <string name="search_action_confirm">Potvrdit</string>
+    <string name="search_action_clear">Vymazat</string>
+</resources>

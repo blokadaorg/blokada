@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">Blokada, son %d dakika içinde %s reklam ve izleyiciyi engellememe yardımcı oldu! Blokada.org adresinden edinin.</string>
+    <string name="social_share_body_hour">Blokada, son %d saat içinde %s reklam ve izleyiciyi engellememe yardımcı oldu! Blokada.org adresinden edinin.</string>
+    <string name="social_share_body_day">Blokada, son %d gün içinde %s reklam ve izleyiciyi engellememe yardımcı oldu! Blokada.org adresinden edinin.</string>
+    <string name="social_share_body_week">Blokada, son %d hafta içinde %s reklam ve izleyiciyi engellememe yardımcı oldu! Blokada.org adresinden edinin.</string>
+</resources>

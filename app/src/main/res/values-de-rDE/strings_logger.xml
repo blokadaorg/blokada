@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">Bitte erlaube zuerst den Speicherzugriff.</string>
+    <string name="logger_slot_title">Protokollierung anfordern</string>
+    <string name="logger_slot_desc">Anfragen werden standardmäßig nur innerhalb von Blokada gespeichert. Wenn diese Funktion aktiviert ist, wird Blokada eine CSV-Datei erstellen und Anfragen protokollieren, die von Blokada erlaubt und / oder blockiert wurden. Suche nach einem \"Blokada\"-Ordner in deinem externen Speicher. Alternativ kann die Protokollierung der Anfragen komplett deaktiviert werden, sodass lediglich die Anzahl der blockierten Domains gespeichert wird.</string>
+    <string name="logger_slot_mode_off">Deaktiviert</string>
+    <string name="logger_slot_mode_internal">Nur intern speichern</string>
+    <string name="logger_slot_mode_allowed">Erlaubte Anfragen protokollieren</string>
+    <string name="logger_slot_mode_denied">Blockierte Anfragen protokollieren</string>
+    <string name="logger_slot_mode_all">Alle Anfragen protokollieren</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_button">Güncellemeyi indir</string>
+    <string name="update_notification_title">Güncelleme mevcut</string>
+    <!-- Parameter: new app version, for example 2.0.1 -->
+    <string name="update_notification_text">Sürüm %1$s indirmeye hazır! Devam etmek için dokunun.</string>
+    <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
+    <string name="update_notification_channel">Güncelleme bildirimleri</string>
+    <string name="update_info">Uygulamayı Play Store, F-Droid veya başka bir uygulama mağazasından indirdiyseniz, mağazadan güncelleme geldiğinde güncelleme alırsınız. Güncelleme sırasında Blokada\'nın devre dışı bırakıldığından emin olun. Güncelleme ile ilgili herhangi bir sorun yaşarsanız, blokada.org adresine gidin ve uygulamayı elle indirin. Mevcut sürümü önceden kaldırmanıza gerek yoktur.</string>
+    <!-- Displayed in the home screen when there is an update. Keep it short. -->
+    <string name="update_dash_available">&lt;b&gt; Güncelleme mevcut! &lt;/b&gt;</string>
+    <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
+    <!-- Displayed in menu to open the About/Update screen. -->
+    <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">Uygulama ayrıntıları</string>
+    <!-- A button that opens the changelog. -->
+    <!-- A toast message displayed when the update process is starting. -->
+    <string name="update_starting">Başlatılıyor, lütfen bekleyin&#8230;</string>
+    <string name="update_progress">İndiriliyor: %%%s</string>
+    <string name="update_complete">İndirme tamamlandı</string>
+    <string name="update_failed">İndirme başarısız</string>
+    <string name="update_instruction">Tamamlandığında, Blokada\'nın güncellemeyi yüklemesine izin vermeniz istenecek.</string>
+    <string name="update_instruction_failed">Tekrar denemek için buraya dokunun veya tarayıcınız ile indirmek için uzun dokunun.</string>
+</resources>

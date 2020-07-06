@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
+    <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+    <string name="tunnel_config_refetch_now_title">Отримати списки</string>
+    <string name="tunnel_config_refetch_now">Отримати списки зараз</string>
+    <string name="tunnel_config_refetch_toast">Завантажуємо списки</string>
+    <string name="tunnel_config_refetch_now_description">Скористайтеся кнопкою внизу, щоб видалити кеш та завантажити списки знову. Це може допомогти у випадку проблем із фільтрацією.</string>
+    <string name="tunnel_config_refetch_frequency_title">Частота оновлення списків</string>
+    <string name="tunnel_config_refetch_frequency_description">Оберіть зі списку як часто додаток має оновлювати списки доменів.</string>
+    <string name="tunnel_config_refetch_frequency_1">Раз на день</string>
+    <string name="tunnel_config_refetch_frequency_2">Двічі на тиждень</string>
+    <string name="tunnel_config_refetch_frequency_3">Раз на тиждень</string>
+    <string name="tunnel_config_refetch_frequency_4">Раз на місяць</string>
+    <string name="tunnel_config_refetch_frequency_5">Ніколи</string>
+    <string name="tunnel_config_wifi_only_title">Отримувати лише з Wi-Fi</string>
+    <string name="tunnel_config_wifi_only_description">Увімкніть це, якщо хочете, щоб додаток завантажував списки тільки коли підключений до Wi-Fi. У іншому випадку додаток буде завантажувати списки через мобільну мережу, використовуючи трафік за тарифом.</string>
+    <string name="tunnel_config_watchdog_title">Сторож</string>
+    <string name="tunnel_config_powersave_title">Нагле пробудження</string>
+    <string name="tunnel_config_reports_title">Звіти</string>
+    <string name="tunnel_config_reports_description">Увімкніть це, якщо бажаєте дозволити надсилання звітів, щоб допомогти нам боротися з проблемами та помилками. Це буде відбуватися раз на день або коли додаток зазнає аварії. Якщо ви це відключите, нам буде складно побороти специфічні проблеми. Може знадобитися перезапуск додатку для зміни цієї опції.</string>
+    <string name="tunnel_config_wildcard_title">[BETA] Розширені правила блокування реклами</string>
+    <string name="tunnel_config_wildcard_description">Активуйте цей перемикач, якщо хочете використовувати шаблони у ваших правилах фільтрування. Наприклад, додавання правила для *.google.com заблокує всі домени з Google. Це може негативно вплинути на час роботи від батареї. Будь ласка, зверніть увагу, що це експериментальна функція і вона може працювати неналежним чином.</string>
+    <string name="tunnel_config_fallback_title">Запасний DNS</string>
+    <string name="tunnel_config_fallback_description">Активуйте цей параметр, якщо ви втрачаєте доступ в інтернет в таких ситуаціях, як перемикання на Wi-Fi. Це змусить додаток тимчасово переключитися на Cloudflare DNS для підтримки вашого підключення. Можливо, буде потрібно повторно вибрати сервери в розділі DNS, щоб цей параметр набув чинності.</string>
+    <string name="tunnel_config_smartlist_title">[BETA] Розумний Список</string>
+    <string name="tunnel_config_smartlist_reset_btn">Скинути</string>
+    <string name="tunnel_config_smartlist_clean_btn">Очистити</string>
+    <string name="tunnel_config_smartlist_clean_none">Нічого очищати</string>
+    <string name="tunnel_config_smartlist_clean_inactive">Розумний список неактивний</string>
+    <string name="tunnel_config_smartlist_clean_done">Розумний список очищений від старих правил</string>
+    <string name="tunnel_config_smartlist_reset_done">Смарт список скинуто</string>
+    <string name="tunnel_config_smartlist_description">Активуйте цей перемикач, щоб увімкнути функцію Розумного Списку, яка різко зменшує кількість правил у ваших фільтрах, потенційно покращуючи використання батареї та зменшуючи використання оперативної пам\'яті. Якщо увімкнено, Blokada буде переглядати ваш журнал запитів і динамічно генерувати список, який містить лише правила, які фактично заблокували хоча б один запит. Розумний список оновлюється щоночі. Зверніть увагу, що у вас може бути більша кількість небажаних запитів, що дозволені у навчальний період (кілька днів). Зверніть увагу, що це експериментальна функція і вона може працювати неналежним чином.</string>
+    <string name="tunnel_config_disable_wildcard">Спочатку вимкніть розширені правила блокування реклами.</string>
+    <string name="tunnel_config_disable_smartlist">Спочатку вимкніть Розумний Список.</string>
+</resources>

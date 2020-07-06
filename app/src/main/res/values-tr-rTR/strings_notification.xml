@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Bildirimler</string>
+    <string name="notification_on_description">Açık olduğunda, Blokada her engellendiği şeyde bir bildirim görüntüler. Bunun, bazı cihazların gösterdiği ve kapatılamayan VPN bildirimi ile aynı olmadığını unutmayın.&lt;br/&gt;Hangi bildirimlerin görüntüleneceğini aşağıdaki Ayarlar ile yapılandırabilirsiniz.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Engellendi</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Gösterme</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Beyaz Liste</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Bitti! Değişiklikler birkaç saniye sürebilir.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Sürekli Çalış</string>
+    <string name="notification_keepalive_description">Uygulamanın arka planda etkin kalmasıyla ilgili sorunlar yaşıyorsanız bu anahtarı etkinleştirin. Blokada, sistemin durdurulmasını önlemek için kalıcı bir bildirim sağlayacaktır. Yukarıdan ve oradan Ayarlar\'ı seçerek gizleyebilirsiniz.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Sürekli çalış (gizlemek için dokunun)</string>
+    <string name="notification_keepalive_text_new">Android, uygulamanın çalışmaya devam etmesi için bir bildirim göstermesini gerektiriyor. Ancak sistem ayarlarından bunu devre dışı bırakmakta özgürsünüz.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d engellendi</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">En son: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">izleniyor</string>
+    <string name="notification_keepalive_activate">Etkinleştir</string>
+    <string name="notification_keepalive_activating">Blokada başlıyor. Bu biraz zaman alabilir.</string>
+    <string name="notification_keepalive_deactivate">Devre dışı bırak</string>
+    <string name="notification_keepalive_deactivating">Blokada devre dışı bırakıldı!</string>
+    <string name="notification_expired_title">Blokada Plus devre dışı bırakıldı</string>
+    <string name="notification_expired_description">Hesabınız etkin değil ve Blokada Plus kapalı. Standart Blokada özellikleri, Blokada Plus VPN olmadan sorunsuz çalışır. Ancak, daha iyi koruma ve projeyi desteklemek için hesabınızı etkinleştirmeyi düşünün.</string>
+    <string name="notification_lease_expired_title">Blokada Plus devre dışı bırakıldı</string>
+    <string name="notification_lease_expired_description">Blokada Plus ile bağlantınızla ilgili bir sorun vardı. Lütfen başka bir ağ geçidi seçmeyi deneyin. Sorun devam ederse, lütfen bizimle iletişime geçin.</string>
+    <string name="notification_channel_filtered">Reklam engelleme</string>
+    <string name="notification_channel_announcements">Duyurular</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">Diğer</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">يُرجى مَنْح إذن التخزين أولاً.</string>
+    <string name="logger_slot_title">مُسَجِّلْ الطلب</string>
+    <string name="logger_slot_desc">بشكل افتراضي ، يَتِمّ تخزين الطلبات داخلياً فقط في بلوكادا. إذا تمّ تمكين هذه الميّزة ، فسيقوم بلوكادا بإنشاء ملف CSV و تسجيل طلبات تمّ السماح بها و / أو حظْرها بواسطة التطبيق. ابحث عن مجلّد \"blokada\" على وحدة التخزين الخارجية. بدلاً من ذلك ، يُمكِن تعطيل طلب التسجيل بالكامل ، مع تخزين عدد النطاقات المحظورة فقط.</string>
+    <string name="logger_slot_mode_off">غَير مُفَعَّل</string>
+    <string name="logger_slot_mode_internal">حفظ التسجيل في وحدة التخزين الداخليَّة فقط</string>
+    <string name="logger_slot_mode_allowed">تسجيل الطلبات المسموح بها</string>
+    <string name="logger_slot_mode_denied">تسجيل الطلبات المَحظورة</string>
+    <string name="logger_slot_mode_all">تسجيل كل الطلبات</string>
+</resources>

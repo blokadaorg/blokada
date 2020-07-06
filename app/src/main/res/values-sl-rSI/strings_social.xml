@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">Blokada mi je pomagala ustaviti %s oglasov in sledilnikov v zadnjih %d minutah! Dobite jo na blokada.org.</string>
+    <string name="social_share_body_hour">Blokada mi je pomagala ustaviti %s oglasov in sledilnikov v zadnjih %d urah! Dobite jo na blokada.org.</string>
+    <string name="social_share_body_day">Blokada mi je pomagala ustaviti %s oglasov in sledilnikov v zadnjih %d dneh! Dobite jo na blokada.org.</string>
+    <string name="social_share_body_week">Blokada mi je pomagala ustaviti %s oglasov in sledilnikov v zadnjih %d tednih! Dobite jo na blokada.org.</string>
+</resources>

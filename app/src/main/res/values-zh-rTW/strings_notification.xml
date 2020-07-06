@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">通知</string>
+    <string name="notification_on_description">在開啟時，Blokada 將會在每次有東西被阻擋時顯示通知。請注意，這與某些裝置上顯示且無法關閉的 VPN 通知並不相同。&lt;br/&gt;您可以使用以下的設定來設定要顯示哪些通知。</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">已阻擋</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">不再顯示</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">白名單</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">完成！變更可能需要幾秒才會生效。</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">保持連線狀態</string>
+    <string name="notification_keepalive_description">如果您在應用程式在背景作用時遇到問題，請啟用此開關。Blokada 將會啟用永久通知以避免系統將其砍除；您可以透過選擇上方的「通知」與「設定」來隱藏它。</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">持久連線（按一下隱藏)</string>
+    <string name="notification_keepalive_text_new">Android 需要顯示通知才能讓應用程式維持運作，但您仍可隨時在系統設定中停用。</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">已阻擋 %d 個</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">上次：%s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">監控中</string>
+    <string name="notification_keepalive_activate">啟用</string>
+    <string name="notification_keepalive_activating">Blokada 正在啟動。可能需要一點時間。</string>
+    <string name="notification_keepalive_deactivate">停用</string>
+    <string name="notification_keepalive_deactivating">Blokada 已停用！</string>
+    <string name="notification_expired_title">Blokada Plus 已停用</string>
+    <string name="notification_expired_description">您的帳號並未啟用，Blokada Plus 也已關閉。標準的 Blokada 功能在沒有 Blokada Plus VPN 的情況下仍能運作。但仍請您考慮啟用您的帳號以取得更佳的保護並支持專案開發。</string>
+    <string name="notification_lease_expired_title">Blokada Plus 已停用</string>
+    <string name="notification_lease_expired_description">無法連線到 Blokada Plus。請試著選擇其他閘道。如果問題仍在，請聯絡我們。</string>
+    <string name="notification_channel_filtered">廣告阻擋</string>
+    <string name="notification_channel_announcements">公告</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">其他</string>
+</resources>

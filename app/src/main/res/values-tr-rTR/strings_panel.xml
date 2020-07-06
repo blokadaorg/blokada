@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main screen section -->
+    <string name="panel_section_home">Ana Sayfa</string>
+    <string name="panel_section_menu">Menü</string>
+    <!-- Main screen section -->
+    <string name="panel_section_ads">Reklam engelleme</string>
+    <!-- Main screen section -->
+    <string name="panel_section_apps">Uygulamalar</string>
+    <!-- Main screen section -->
+    <string name="panel_section_home_help">Yardım</string>
+    <string name="panel_section_ads_lists">Host Listeleri</string>
+    <string name="panel_section_ads_log">Host Kaydı</string>
+    <string name="panel_section_ads_blacklist">Engellenen Host Listesi</string>
+    <string name="panel_section_ads_whitelist">İzin Verilen Host Listesi</string>
+    <string name="panel_section_advanced_dns">DNS</string>
+    <string name="panel_section_apps_all">Yüklü Uygulamalar</string>
+    <string name="panel_section_apps_system">Sistem Uygulamaları</string>
+    <string name="panel_section_advanced_settings">Ayarlar</string>
+    <string name="panel_section_app_settings">Uygulama ayarları</string>
+    <!-- When a domain is allowed (not blocked) -->
+    <string name="panel_domain_forwarded">&lt;b&gt;%s&lt;/b&gt; izin verildi</string>
+    <string name="panel_domain_forwarded_desc">Bu alan adına izin verilmiştir. Engellemek için aşağıdaki düğmeyi kullanın.</string>
+    <string name="panel_domain_forwarded_toast">Beyaz listeye eklendi.</string>
+    <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; engellendi</string>
+    <string name="panel_domain_blocked_normal_desc">Bu alan adı engellenmiştir. İzin vermek için aşağıdaki düğmeyi kullanın.</string>
+    <string name="panel_domain_blocked_answer_desc">Bu alan adı, DNS sunucusu tarafından doğru şekilde çözümlenemedi. Sunucu alan adı engellenmiş veya mevcut değil.</string>
+    <string name="panel_domain_blocked_toast">Kara listeye eklendi.</string>
+    <!-- Action to copy domain name to clipboard -->
+    <string name="panel_domain_copy">Kopyala</string>
+    <string name="panel_domain_copied">Panoya kopyalandı</string>
+    <string name="panel_ruleset">Filtre sayacı</string>
+    <!-- How many rules are configured. Parameters is number of rules. -->
+    <string name="panel_ruleset_title">Filtrelerin artık %s kuralı var.</string>
+    <string name="panel_ruleset_updating">Filtreler güncelleniyor...</string>
+    <string name="panel_ruleset_canfit">Filtreler artık &lt;b&gt;%s&lt;/b&gt; kuralla yapılandırılmıştır. Cihazınız her uygulama için maksimum &lt;b&gt;%s&lt;/b&gt; MB belleğe izin verir ve en fazla &lt;b&gt;%s&lt;/b&gt; kural sığabilir.&lt;br&gt;Unutmayın, bu sadece bir tahmindir ve Blokada en fazla belleği listeleri birleştirirken kullanır. Son zamanlarda birkaçını etkinleştirdiyseniz, sistemin belleği boşaltması için birkaç dakika bekleyin.</string>
+    <!-- Button to allow blocked domain -->
+    <string name="slot_action_allow">İzin ver</string>
+    <!-- Button to block allowed domain -->
+    <string name="slot_action_block">Engelle</string>
+    <string name="slot_action_close">Kapat</string>
+    <string name="slot_action_remove">Kaldır</string>
+    <!-- Button to open homepage of list's author. Keep it short. -->
+    <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Evet</string>
+    <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Hayır</string>
+    <!-- An action to toggle a switch -->
+    <string name="slot_intro_new">Yeni arayüz nasıl kullanılır? Tanıtım için buraya dokunun.</string>
+    <string name="slot_intro_new_header">Yeni arayüz nasıl kullanılır?</string>
+    <string name="slot_intro_desc">Şu anda Ana Sayfa bölümünde, sağa hızlıca kaydırdığınızda daha fazlası var. Her birinin kendi alt menüsü vardır. Bunları yukarı kaydırarak açın. &lt;br/&gt;&lt;br/&gt;Android TV\'de, kullanıcı arayüzünde dpad ile gezinin. Alt menüyü veya seçtiğiniz herhangi bir öğeyi açmak için orta tuşu kullanın. Düğmeler yukarı, aşağı, sol veya sağ okla işaretlenmiştir. Birine tıklamak için yön tuşlarını kullanın.</string>
+    <string name="slot_intro_info">Hatırlatma... Bazı öğelerin üzerinde soru işareti simgesi bulunur. Dokunulduğunda, bunun gibi kısa bir yardım mesajı görüntülenir!</string>
+    <string name="slot_new_filter">Engellenen listeye yeni bir host ekle</string>
+    <string name="slot_new_filter_list">Yeni bir host listesi ekle</string>
+    <string name="slot_new_filter_whitelist">İzin verilenler listesine yeni bir host ekle</string>
+    <!-- A state of input form when no input is entered (think: empty)  -->
+    <string name="slot_unset">ayarlanmadı</string>
+    <!-- A state of input form when correct input is entered  -->
+    <string name="slot_set">ayarla</string>
+    <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_invalid">geçersiz</string>
+    <string name="slot_continue">Devam et</string>
+    <string name="slot_enter_domain_title">Alan adları</string>
+    <string name="slot_enter_domain_desc">Alan adlarını virgülle ayırarak girin. Ayrıca herhangi bir host listesine bağlantı yapıştırabilir veya yerel bir host listesi dosyasını içe aktarabilirsiniz.</string>
+    <string name="slot_enter_domain_error">Bu bana hiçbir şey gibi gelmiyor.</string>
+    <string name="slot_enter_domain_file">Dosya</string>
+    <string name="slot_enter_domain_no_file">/Download/blokada/filters içinde dosya bulunamadı</string>
+    <string name="slot_enter_file_titel">Dosya adı</string>
+    <string name="slot_enter_file_import">İçe aktar</string>
+    <string name="slot_enter_file_desc">Kısmi dosya adı girin</string>
+    <string name="slot_enter_file_not_found">Girişinizi içeren dosya adı yok</string>
+    <string name="slot_enter_file_multi">Birden fazla dosya girişinize uygun</string>
+    <string name="slot_enter_name_title">Ad</string>
+    <string name="slot_enter_name_desc">Yeni giriş için ad girin. Ayrıca önerilen bir ad da oluşturabilirsiniz.</string>
+    <string name="slot_enter_name_error">Bu bana hiçbir şey gibi gelmiyor.</string>
+    <string name="slot_enter_name_generate">Oluştur</string>
+    <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; beyaz listeye alındı</string>
+    <string name="slot_app_desc">Bu uygulama beyaz listeye eklenmiştir. Yani üzerinde herhangi bir engelleme veya filtreleme yapılmaz.</string>
+    <string name="slot_allapp_desc">Bunun için herhangi bir trafiği engellemeyi durdurmak için, bu uygulamayı Blokada\'da atlayabilirsiniz. Atlanan uygulamaların VPN dışında iletişim kurduğunu unutmayın.</string>
+    <string name="slot_allapp_whitelisted">Atlandı</string>
+    <string name="slot_allapp_normal">Atlanmadı</string>
+    <string name="slot_allapp_whitelist">Atla</string>
+    <string name="slot_action_set">Ayarla</string>
+    <string name="slot_whitelist_all">Tüm uygulamaları atla</string>
+    <string name="slot_blacklist_all">Hiçbir uygulamayı atlama</string>
+    <string name="slot_dns_name">DNS etkin</string>
+    <string name="slot_dns_name_private">Özel DNS etkin</string>
+    <string name="slot_dns_name_disabled">DNS devre dışı bırakıldı</string>
+    <string name="slot_action_none">Bu işlem henüz mevcut değil.</string>
+    <string name="slot_action_unwhitelist">İptal et</string>
+    <string name="slot_action_author">Hakkında</string>
+    <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">Bir giriş</string>
+    <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">%s için giriş</string>
+    <string name="slot_dns_control_title">DNS sunucular listesi</string>
+    <string name="slot_dns_control_description">Özel girişlerinizi kaybetmeden DNS sunucuları listesini sunucularımızla senkronize edebilirsiniz. &lt;br/&gt;&lt;br/&gt;Alternatif olarak, tüm girişleri (sizinkiler dahil) bırakabilir ve tekrar indirebilirsiniz.</string>
+    <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_refresh">Eşitle</string>
+    <string name="slot_action_refresh_toast">Eşitleme başladı</string>
+    <string name="slot_action_restore">Bırak</string>
+    <string name="slot_export_title">Ayarlar konumu</string>
+    <string name="slot_export_description">Yapılandırmanın nereye kaydedileceğini (ve nereden yükleneceğini) değiştirebilirsiniz. Mevcut ayarları içe aktarıyorsanız, lütfen önce İçe Aktar\'ı seçin. Aksi takdirde bunların üzerine yazılır.</string>
+    <string name="slot_action_import">İçe aktar</string>
+    <string name="slot_action_internal">Dahili Depolama</string>
+    <string name="slot_action_external">Harici Depolama</string>
+    <string name="slot_filters_title">Filtreler listesi</string>
+    <string name="slot_filters_description">Özel girişlerinizi kaybetmeden filtre listesini sunucularımızla senkronize edebilirsiniz. &lt;br/&gt;&lt;br/&gt;Alternatif olarak, tüm girişleri (sizinkiler dahil) bırakıp tekrar indirebilirsiniz.</string>
+    <string name="slot_blocked_normal_title">Alan adı engellendi</string>
+    <string name="slot_blocked_answer_title">Alan adı çözülemedi</string>
+    <string name="slot_forwarded_title">Alan adı yönlendirildi</string>
+    <string name="slot_whitelist_title">Beyaz listedeki uygulama</string>
+    <string name="slot_list_no_desc">Bu girişin herhangi bir açıklaması yok.</string>
+    <string name="slot_status_info">Uygulama etkin olduğunda, ekranın üst kısmındaki bildirim çubuğunda anahtar simgesini görürsünüz, bu da cihazınızın korunduğu anlamına gelir. Aşağıdaki düğmeyi kullanarak veya alt menüyü kaydırarak uygulamayı kapatabilirsiniz.</string>
+    <string name="slot_action_deactivate">Kapat</string>
+    <string name="slot_action_activate">Aç</string>
+    <string name="slot_update_action_refresh">Tekrar kontrol et</string>
+    <string name="slot_telegram_title">Bize katılın!</string>
+    <string name="slot_telegram_desc">Yardım almak ya da sadece bir parçası olmak için topluluğumuzu ziyaret edin.</string>
+    <string name="slot_telegram_action">Aç</string>
+    <string name="slot_dropped_share_title">Şununla paylaş</string>
+    <string name="slot_adblocking_label">Reklamları engelle &amp; izleyiciler</string>
+    <string name="slot_adblocking_text">Etkinleştirildiğinde, Blokada reklamları, izleyicileri ve diğer istenmeyen içerikleri engeller. Bu gizliliğinizi korumaya yardımcı olur, cihazınızı hızlandırır ve veri paketinizden tasarruf sağlar.</string>
+    <string name="slot_account_label_active">Hesap %s tarihine kadar etkin</string>
+    <string name="slot_account_label_inactive">Hesap etkin değil</string>
+    <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">Aboneliği yönet</string>
+    <string name="slot_account_action_manage_inactive">Hesabı etkinleştir</string>
+    <string name="slot_account_action_change_id">Hesabı geri yükle</string>
+    <string name="slot_account_show">Hesap Kimliği</string>
+    <string name="slot_account_action_copied">Hesap kimliği panoya kopyalandı</string>
+    <string name="slot_account_action_unavailable">[ayarlanmadı]</string>
+    <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
+    <string name="slot_gateway_label">%s ağ geçidine bağlan</string>
+    <string name="slot_gateway_section_partner">İş ortağı ağ geçitleri ek konumlar sağlar. Blokada tarafından tam olarak yönetilmezler. Ancak şifrelenmiş trafiğinize erişimleri yoktur.</string>
+    <string name="slot_gateway_section_overloaded">Bu ağ geçitleri aşırı yüklenmiş ve geçici olarak kullanılamıyor.</string>
+    <string name="slot_gateway_description">Performans: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Bölge: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_overloaded">Bu ağ geçidi meşgul ve yeni bağlantılar kabul etmiyor.</string>
+    <string name="slot_gateway_learn_more">Ağ geçitleri hakkında daha fazla bilgi edinin</string>
+    <string name="slot_gateway_info_partner">İş ortağı ağ geçitleri nedir?</string>
+    <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Hangi cihazlarınızın Blokada Plus\'a bağlanacağını kontrol edin.</string>
+    <string name="slot_lease_name_current">%s (bu cihaz)</string>
+    <string name="slot_lease_description">Cihaz kimliği: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">Cihaz kimliği: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Bu mevcut cihazınız.</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_low">yüksek</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_high">düşük</string>
+    <string name="subscription_success">Hesabınız etkinleştiriliyor. Bu, bir kaç saniye alabilir. Teşekkür ederiz!</string>
+    <string name="slot_start_on_boot_description">Önyüklemede başlatmayı etkinleştirmek, Blokada\'nın her zaman etkin olmasını ve cihazınızı korumasını sağlar. Lütfen sistemin her zaman daha yüksek önceliğe sahip olduğunu ve bu seçeneğin üzerine yazabileceğini unutmayın. Bu nedenle Blokada başlamazsa sistem ayarlarınıza bakın.</string>
+    <string name="slot_recommended_dns_label">Önerilen DNS sunucularını kullanın</string>
+    <string name="slot_recommended_dns_description">Etkinleştirildiğinde, Blokada internetinizi hızlandırmanıza ve gizliliğinizi korumanıza yardımcı olmak için önerilen DNS sunucularını otomatik olarak seçecektir. Aksi takdirde, ağınızın varsayılan DNS sunucuları kullanılır. Gelişmiş bölümünden elle DNS sunucularını seçerseniz, bu ayar yok sayılır.</string>
+    <string name="slot_update_no_updates">Blokada güncel</string>
+    <string name="slot_about">Blokada hakkında</string>
+    <!-- A button to share debug log. Keep it short. -->
+    <string name="slot_about_share_log">Günlük</string>
+    <string name="slot_help_label">Yardım mı gerekli?</string>
+    <string name="slot_help_desc">Yardım sayfamızı açmak için aşağıdaki düğmeye dokunun. Sosyal medya adreslerimizi yardım almak için de kullanabilirsiniz. Telegram, Facebook, Reddit ve Twitter\'dayız.</string>
+    <!-- A button to open help -->
+    <string name="slot_help_action">Yardım</string>
+    <string name="slot_donate_label">Blokada\'yı seviyor musunuz? Uygulamayı geliştirmeye devam edebilmemiz için bizi desteklemeyi düşünün.</string>
+    <string name="slot_donate_desc">Yeni özellikler sunmamıza yardımcı olun! Daha fazla bilgi için buraya dokunun.</string>
+    <!-- A button to donate -->
+    <string name="slot_donate_action">Bağış yapın</string>
+    <string name="slot_cta_label">Hey! Fikrinizi bilmek isteriz.</string>
+    <string name="slot_cta_desc">Anketlerimize ve diğer etkinliklere katılarak desteğinizi gösterin. Görmek istediğiniz şey üzerinde çalıştığımızdan emin olmak için fikir ve yeni gelişmeler hakkında geri bildirim için topluluğumuza düzenli olarak ulaşıyoruz.</string>
+    <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">Aç</string>
+    <string name="slot_blog_label">Geliştirme blog\'umuza göz atın!</string>
+    <string name="slot_blog_desc">Block, projenin gelişimi, gelecek planları ve fikirleri tartıştığımız yerdir.</string>
+    <!-- A button to open a blog -->
+    <string name="slot_blog_action">Aç</string>
+    <string name="slot_updated_desc">Bu sürüme giriş yapmak için buraya dokunun.</string>
+    <!-- A button to open a description website of current app version after update. -->
+    <string name="slot_obsolete_desc">Blokada sürümünüz eski ve düzgün çalışmayabilir. Güncellemeleri almaya devam etmek için lütfen en yeni sürümü indirin.</string>
+    <!-- A button to update the app. -->
+    <string name="slot_cleanup_desc">Cihazınızda Blokada\'nın birçok sürümü yüklü gibi görünüyor. Diğer sürümleri kaldırmak ve sadece bir tane tutmak ister misiniz?</string>
+    <string name="account_inactive">Devam etmek için lütfen hesabınızı etkinleştirin veya geri yükleyin.</string>
+    <string name="slot_lease_cant_connect">Blokada Plus\'a bağlanılamadı. Başka bir ağ geçidi seçmeyi deneyin.</string>
+    <string name="slot_account_cant_create">Blokada Plus hesabınız oluşturulamadı. Lütfen daha sonra tekrar deneyin veya bize ulaşın.</string>
+    <string name="slot_account_name_title">Hesap kimliği</string>
+    <string name="slot_account_name_desc">Önceki aboneliğinizi geri yüklemek için eski hesap kimliğinizi girin. Bir hata yapmamak için, geçerli hesap kimliğinizi bu işlemden önce not etmek isteyebilirsiniz.</string>
+    <string name="slot_account_name_error">Hesap kimliği yalnızca harf ve rakam içerebilir.</string>
+    <string name="slot_account_name_api_error">Bu hesap kimliği doğru görünmüyor.</string>
+    <string name="slot_account_name_restore">Geri yükle</string>
+    <!-- A section in advanced settings. -->
+    <string name="label_basic">Ana ayarlar</string>
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <string name="label_advanced">Gelişmiş ayarlar</string>
+    <string name="slot_whitelist_updating">Yapılandırma güncelleniyor, lütfen bekleyin...</string>
+    <string name="slot_too_many_leases">Lütfen eski cihazı cihaz listenizden kaldırın.</string>
+    <string name="slot_background_animation">Arkaplan animasyonu</string>
+    <string name="slot_background_animation_description">Açık olduğunda, bir DNS isteği her engellendiğinde veya izin verildiğinde dalgalar oluşacaktır. Yavaşlama yaşarsanız kapatın.</string>
+    <string name="slot_reset_counter_label">Engellenen host sayacını sıfırla</string>
+    <string name="slot_reset_counter_description">Engellenen yerde kaç tane istek olduğunu 0 olarak gösteren sayacı ayarlar.</string>
+    <string name="slot_reset_counter_action">Sıfırla</string>
+    <string name="label_workarounds">Cihaza özgü geçici çözümler</string>
+    <string name="slot_dns_answer_label">Alternatif DNS yanıtı</string>
+    <string name="slot_dns_answer_description">Blokada\'nın engellenen istekler için \"host bulunamadı\" ifadesinden geçersiz bir IP\'ye gönderdiği yanıtı değiştirir. Bu, \"host bulunamadı\" yanıtı alırsa diğer DNS sunucularını sorgulayan bazı ROM\'larda yardımcı olabilir. Bunun, geçersiz adrese bağlanmaya çalışan bazı uygulamaları yavaşlatabileceğini lütfen unutmayın.</string>
+</resources>

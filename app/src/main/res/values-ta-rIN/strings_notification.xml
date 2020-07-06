@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">அறிவிப்புகள்</string>
+    <string name="notification_on_description">இது இயக்கத்தில் உள்ளபோது, ஒவ்வொரு முறையும் ஏதேனும் முடக்கப்படும்போது Blokada ஒரு அறிவிப்பை உங்களுக்கு காண்பிக்கும். தயவு செய்து கவனத்தில் கொள்ளவும், அதாவது இந்த அறிவிப்புகள், சில சாதனங்களில் காண்பிக்கப்படும் VPN அறிவிப்புகள் போல அல்ல மற்றும் இவற்றை அணைத்து வைக்க முடியாது. &lt;br/&gt; நீங்கள் எந்த அறிவிப்புகளை காட்டப்படவேண்டும் என்பதை கீழே உள்ள அமைப்புகளில் தெரிவு செய்து கொள்ளலாம்.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">முடக்கப்பட்டது</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">காண்பிக்காதே</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">அனுமதிப்பட்டியல்</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">முடிந்தது! மாற்றங்கள் சில நேரம் எடுக்கும்.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">உயிரோடு வைத்திரு</string>
+    <string name="notification_keepalive_description">இந்த செயலி பின்னணியில் இயங்குவதில் நீங்கள் பிரச்சனைகளை உணர்ந்தால், இதை இயக்கவும். Blokada ஒரு நிரந்தர அறிவிப்பின் மூலம் உங்கள் சாதனம் இந்த செயலியை நிறுத்துவதை தவிர்க்கும்; இந்த அறிவிப்பை மறைக்க மேலே உள்ள அமைப்புகளில் இருந்து அறிவிப்புகளை தெரிவு செய்யவும்.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">செயல்பாட்டில் வைத்திரு</string>
+    <string name="notification_keepalive_text_new">செயலி தொடர்ந்து இயங்க ஆண்ட்ராய்டு ஒரு அறிவிப்பை காண்பிக்க வேண்டும், ஆனால் நீங்கள் இதை இயக்க அமைவுகளில் முடக்கிக்கொள்ளலாம்.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d முடக்கப்பட்டுள்ளது</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">கடைசி: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">கண்காணிப்பு</string>
+    <string name="notification_keepalive_activate">செயல்படுத்து</string>
+    <string name="notification_keepalive_activating">Blokada துவக்கப்படுகிறது. இது சிறிது நேரம் எடுக்கும்.</string>
+    <string name="notification_keepalive_deactivate">நிறுத்து</string>
+    <string name="notification_keepalive_deactivating">Blokada நிறுத்தப்பட்டுவிட்டது!</string>
+    <string name="notification_channel_filtered">விளம்பரங்களை முடக்குதல்</string>
+    <string name="notification_channel_announcements">அறிவிப்புகள்</string>
+    <string name="notification_channel_other">மற்றவை</string>
+</resources>

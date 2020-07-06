@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_domain">Prikaži ime blokiranih domen</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_counter">Prikaži število blokiranih zahtev</string>
+    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget -->
+    <string name="widget_show_dns">Prikaži DNS</string>
+    <string name="widget_okay">Potrdi</string>
+</resources>

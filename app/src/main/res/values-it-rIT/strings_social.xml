@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">Blokada mi ha aiutato a bloccare %s pubblicità e tracker negli ultimi %d minuti! Scaricalo su blokada.org.</string>
+    <string name="social_share_body_hour">Blokada mi ha aiutato a bloccare %s pubblicità e tracker nelle ultime %d ore! Scaricalo su blokada.org.</string>
+    <string name="social_share_body_day">Blokada mi ha aiutato a bloccare %s pubblicità e tracker negli ultimi %d giorni! Scaricalo su blokada.org.</string>
+    <string name="social_share_body_week">Blokada mi ha aiutato a bloccare %s pubblicità e tracker nelle ultime %d settimane! Scaricalo su blokada.org.</string>
+</resources>

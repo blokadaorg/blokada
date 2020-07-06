@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_loading">التحميل جارٍ ، يُرجى الإنتظار …</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">تَفعيل</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <!-- Disabled status for the Quick Settings toggle -->
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">مُفَعَّل</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">غَير مُفَعَّل</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">التشغيل جارٍ</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">جارِ إلغاء التّفعيل</string>
+    <string name="main_blog_text">المُستجِدّات</string>
+    <string name="main_autostart_text">إطلاق التطبيق عند إقلاع النظام</string>
+    <!-- A menu option to send feedback or contact us -->
+    <!-- A menu option to open Patron of the month -->
+    <!-- A menu option to open Patron voting screen -->
+    <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+    <string name="main_cta">تَصويتُك</string>
+    <!-- A menu option to open changelog -->
+    <string name="main_changelog">سِجلّ التّغييرات</string>
+    <!-- A menu option to open credits screen -->
+    <string name="main_credits">المُساهِمون في المشروع</string>
+    <string name="main_legal">معلومات قانونيّة</string>
+    <string name="main_licenses">تراخيص الطرف الثالث</string>
+    <string name="main_terms">شروط الخدمة</string>
+    <string name="main_privacy">سياسة الخصوصيّة</string>
+    <!-- An overlay header on top of Patron page -->
+    <string name="main_log">مُشاركة السِجلّ</string>
+    <!-- To display a big number in short way, eg. 1.69 million -->
+    <string name="core_format_million">%s مليون</string>
+    <!-- To display a big number in short way, eg. 420 thousand -->
+    <string name="core_format_thousand">%s ألف</string>
+</resources>

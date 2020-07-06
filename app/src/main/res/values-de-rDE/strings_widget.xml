@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_domain">Name der blockierten Domain anzeigen</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_counter">Anzahl blockierter Anfragen anzeigen</string>
+    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget -->
+    <string name="widget_show_dns">DNS anzeigen</string>
+    <string name="widget_okay">Bestätigen</string>
+</resources>

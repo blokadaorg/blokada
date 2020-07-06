@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Upozornenia</string>
+    <string name="notification_on_description">Keď sú zapnuté, Blokada zobrazí upozornenie zakaždým, keď je niečo zablokované. Nie je to to isté ako upozornenie VPN, ktoré niektoré zariadenia zobrazujú, a ktoré sa nedá vypnúť.&lt;br/&gt;Pomocou nastavení nižšie môžete nastaviť, ktoré upozornenia by sa mali zobrazovať.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Zablokované</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Nezobrazovať</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Biela listina</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Hotovo! Zmeny sa prejavia o chvíľu.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Udržať aktívne</string>
+    <string name="notification_keepalive_description">Aktivujte tento prepínač, pokiaľ má aplikácia problémy zostať aktívnou na pozadí. Blokada aktivuje trvalú notifikáciu, ktorou zabráni systému ju ukončiť; môžete ju skryť výberom položky Upozornenia vyššie a tam pod položkou Nastavenia.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Udržať aktívne (dotykom skryjete)</string>
+    <string name="notification_keepalive_text_new">Aby mohla aplikácia zostať aktívna, Android musí zobrazovať upozornenie, môžete ho však vypnúť v systémových nastaveniach.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d zablokovaných</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Naposledy: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">monitorovanie</string>
+    <string name="notification_keepalive_activate">Aktivovať</string>
+    <string name="notification_keepalive_activating">Blokada sa spúšťa. Môže to chvíľu trvať.</string>
+    <string name="notification_keepalive_deactivate">Deaktivovať</string>
+    <string name="notification_keepalive_deactivating">Blokada bola deaktivovaná!</string>
+    <string name="notification_channel_filtered">Blokovanie reklám</string>
+    <string name="notification_channel_announcements">Oznámenia</string>
+    <string name="notification_channel_other">Ostatné</string>
+</resources>

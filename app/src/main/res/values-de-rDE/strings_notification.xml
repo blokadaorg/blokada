@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Benachrichtigungen</string>
+    <string name="notification_on_description">Wenn eingeschaltet, wird Blokada jedesmal eine Benachrichtigung anzeigen, wenn etwas blockiert wird. Bitte beachte, dass dies nicht identisch ist mit der VPN-Benachrichtigung, die einige Geräte anzeigen und die nicht deaktiviert werden kann.&lt;br/&gt;Du kannst in den folgenden Einstellungen festlegen, welche Benachrichtigungen angezeigt werden sollen.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Blockiert</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Nicht anzeigen</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Whitelist</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Erledigt! Die Änderungen werden in wenigen Sekunden aktiv.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Aktiv halten</string>
+    <string name="notification_keepalive_description">Aktiviere diesen Schalter, wenn du feststellst, dass die App Probleme hat, im Hintergrund aktiv zu bleiben. Blokada wird eine permanente Benachrichtigung aktivieren, um das Beenden durch das System zu verhindern; du kannst diese ausblenden, indem du oben Benachrichtigungen auswählst und dort Einstellungen.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Aktiv halten (zum Verstecken deaktivieren)</string>
+    <string name="notification_keepalive_text_new">Damit die App aktiv bleiben kann, muss Android eine Benachrichtigung anzeigen. Du kannst diese aber in den Systemeinstellungen deaktivieren.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d blockiert</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Zuletzt: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">Überwachung</string>
+    <string name="notification_keepalive_activate">Aktivieren</string>
+    <string name="notification_keepalive_activating">Blokada wird aktiviert. Das kann einen Moment dauern.</string>
+    <string name="notification_keepalive_deactivate">Deaktivieren</string>
+    <string name="notification_keepalive_deactivating">Blokada wurde deaktiviert!</string>
+    <string name="notification_expired_title">Blokada Plus ist deaktiviert</string>
+    <string name="notification_expired_description">Dein Konto ist nicht aktiv und Blokada Plus ist deaktiviert. Die Standard-Blokada-Funktionen funktionieren ohne das Blokada Plus VPN. Bitte denke darüber nach, dein Konto für besseren Schutz und Unterstützung des Projekts zu aktivieren.</string>
+    <string name="notification_lease_expired_title">Blokada Plus ist deaktiviert</string>
+    <string name="notification_lease_expired_description">Es gab ein Problem mit der Verbindung zum Blockada-Tunnel. Versuche bitte ein anderes Gateway. Wenn das Problem anhält, nimm bitte Kontakt mit uns auf.</string>
+    <string name="notification_channel_filtered">Werbeblocker</string>
+    <string name="notification_channel_announcements">Ankündigungen</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">Andere</string>
+</resources>

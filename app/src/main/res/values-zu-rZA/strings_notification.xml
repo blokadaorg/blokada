@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Izaziso</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Ivinjiwe</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Fihla</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Izinhlelo ezivunyelwe</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Kwenziwe! Izinguquko zingathatha imizuzwana embalwa.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Gcina</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Gcina Kuvuliwe (thinta ukufihle)</string>
+    <string name="notification_keepalive_text_new">I-Android idinga ukubonisa isaziso ukuze igcine uhlelo lusebenza, kepha ukhululekile ukukukhubaza lezilungiselelo zesistimu.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d avinjiwe</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Okugcinile: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">kukhangeliwe</string>
+    <string name="notification_keepalive_activate">Sebenzisa</string>
+    <string name="notification_keepalive_activating">I-Blokada iyavulwa. Kuzothatha isikhashana.</string>
+    <string name="notification_keepalive_deactivate">Cisha</string>
+    <string name="notification_keepalive_deactivating">I-Blokada icishiwe!</string>
+    <string name="notification_channel_filtered">Ukuvinjwa kwezikhangiso</string>
+    <string name="notification_channel_announcements">Izimemezelo</string>
+    <string name="notification_channel_other">Okunye</string>
+</resources>

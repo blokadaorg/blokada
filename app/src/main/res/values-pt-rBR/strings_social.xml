@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">O Blokada me ajudou a bloquear %s anúncios e rastreadores nos últimos %d minutos! Obtenha-o em blokada.org.</string>
+    <string name="social_share_body_hour">O Blokada me ajudou a bloquear %s anúncios e rastreadores nas últimas %d horas! Obtenha-o em blokada.org.</string>
+    <string name="social_share_body_day">O Blokada me ajudou a bloquear %s anúncios e rastreadores nos últimos %d dias! Obtenha-o em blokada.org.</string>
+    <string name="social_share_body_week">O Blokada me ajudou a bloquear %s anúncios e rastreadores nas últimas %d semanas! Obtenha-o em blokada.org.</string>
+</resources>

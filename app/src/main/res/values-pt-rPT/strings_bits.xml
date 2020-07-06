@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_touch">Pressione para configurar</string>
+    <string name="home_blokada_disabled">Blokada em pausa</string>
+    <string name="home_blokada_active">O Blokada está ativo</string>
+    <string name="home_blokada_inactive">O Blokada está desativado</string>
+    <string name="home_activating">A ativar</string>
+    <string name="home_please_wait">Por favor, aguarde...</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Blokada está ativo em modo de DNS</string>
+    <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked">%s bloqueado</string>
+    <string name="home_masterswitch_enabled">Blokada está activo</string>
+    <string name="home_masterswitch_waiting">A aguardar pela rede...</string>
+    <!-- A button to share the ads counter on social media -->
+    <string name="home_share">Diga aos seus amigos</string>
+    <string name="home_share_state">Partilhe a sua pontuação do Blokada</string>
+    <string name="home_share_state_google">Ajude a conhecer o Blokada</string>
+    <string name="home_share_msg_google">Experimente o Blokada Slim e mantenha a sua privacidade protegida! Obtenha no Google Play.</string>
+    <string name="home_adblocking_enabled">O bloqueio de publicidade está ativo</string>
+    <string name="home_adblocking_disabled">Bloqueio de publicidade está desativado</string>
+    <string name="home_blokadaorg">Está a utilizar Blokada Slm</string>
+    <string name="home_blokadaorg_state">Pressione para obter a edição de código aberto</string>
+    <!-- A short text for the item that displays update information -->
+    <string name="home_whats_new">O que há de novo?</string>
+    <string name="home_update_required">Atualização necessária</string>
+    <!-- A short text for the item that displays donate link -->
+    <string name="home_donate">Doar</string>
+    <string name="home_account_active">A sua conta ainda está ativa</string>
+    <string name="home_cleanup">Limpeza recomendada</string>
+    <!-- A short text for the button to change VPN settings -->
+    <string name="home_blocka_vpn_error">Não foi possível ligar ao gateway. Está online?</string>
+    <string name="home_account_error">Não foi possível verificar a conta. Está online?</string>
+    <string name="home_permission_error">Por favor, autorize as permissões de VPN.</string>
+    <string name="home_zero_filters_error">Não tem filtros configurados. Verifique as suas configurações de bloqueio de publicidade e as suas configurações de Wi-Fi.</string>
+    <string name="home_filters_memory_error">Algumas listas não puderam ser carregadas; selecione menos listas nas configurações de bloqueio de publicidade.</string>
+    <string name="tasker_switch_label">Pressione uma das opções para ligá-la (ou desligá-la) para o seu trigger.</string>
+    <!-- Ads section header in menu (for configuring ad blocking) -->
+    <string name="menu_ads">Publicidades</string>
+    <string name="menu_ads_live_label">Registo de pedidos aceites e bloqueados a endereços</string>
+    <string name="menu_ads_clear_log">Limpar registo de endereços</string>
+    <string name="menu_ads_lists_label">Seleccione listas de bloqueio a usar. As predefinidas servem para a maioria das pessoas.</string>
+    <string name="menu_ads_rules_label">Adicione as suas próprias regras para refinar o bloqueio.</string>
+    <string name="menu_ads_log_label">Veja o que foi bloqueado ou permitido recentemente.</string>
+    <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn_activate_account">Por favor, ative sua a conta primeiro.</string>
+    <string name="menu_vpn_select_gateway">Por favor, selecione um gateway.</string>
+    <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account_id">ID: %s</string>
+    <!-- A button opening VPN gateways settings -->
+    <string name="menu_vpn_gateways">Gateways</string>
+    <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_leases">Dispositivos</string>
+    <string name="menu_vpn_manage_subscription">Gerir a sua subscrição</string>
+    <string name="menu_vpn_account_secret">Pressione no seu avatar acima para ver o ID da sua conta. Lembre-se, o ID é seu e deve mantê-lo em segredo. Anote-o para o caso de desinstalar a aplicação.</string>
+    <string name="menu_vpn_restore_label">Aqui pode restaurar uma conta antiga caso, por exemplo, tenha reinstalado a aplicação.</string>
+    <string name="menu_vpn_account_label">Para utilizar a VPN necessita de uma conta activa. Verifique ou restaure a sua conta aqui.</string>
+    <string name="menu_vpn_gateways_label">Seleccione um dos gateways para se ligar. O seu dispositivo irá enviar a sua informação encriptada de forma segura e anónima através do gateway.</string>
+    <string name="menu_vpn_support_label">Se encontrar algum problema, não hesite em entrar em contacto connosco.</string>
+    <string name="menu_vpn_support_button">Ajuda</string>
+    <string name="menu_vpn_info_account_label">Eu tenho uma conta?</string>
+    <string name="menu_vpn_info_account_line1">Sim! A sua conta é automaticamente criada na sua primeira execução. Não precisa de se registar.</string>
+    <string name="menu_vpn_info_account_line2">Pressione o seu avatar acima para ver o ID da sua conta.</string>
+    <string name="menu_vpn_info_account_line3">O ID da sua conta é secreto e não deve mostrá-lo a ninguém.</string>
+    <string name="menu_vpn_info_account_line4">Anote o ID da sua conta para o caso de precisar de reinstalar a aplicação.</string>
+    <string name="menu_dns_recommended">Servidores de DNS recomendados</string>
+    <string name="menu_dns_intro">O DNS é responsável por traduzir os endereços IP dos sites e aplicações que utiliza. Escolher um bom DNS pode tornar o seu dispositivo mais rápido e irá ajudar a proteger sua privacidade.</string>
+    <string name="menu_dns_select">Seleccione um servidor de DNS.</string>
+    <string name="menu_apps_system_label">Aplicações de Sistema vêm pré-instaladas com o seu dispositivo. Algumas estão escondidas; Modifique se tiver a certeza do que está a fazer.</string>
+    <string name="menu_host_list_intro">Lista de Endereços que contêm regras para bloquear publicidade e localizadores. Menos listas activas oferecem menos impacto na performance.</string>
+    <string name="menu_host_adblocking_features">Blokada Labs</string>
+    <string name="menu_host_adblocking_settings">Configurações de bloqueio de publicidade</string>
+    <string name="menu_host_list_status">Estado da Lista</string>
+    <string name="menu_host_list_download">Definições de download de Listas</string>
+    <string name="menu_host_whitelist">Endereços que adicionar aqui nunca serão bloqueados. Use esta lista quando, por exemplo, quiser visitar um site que foi bloqueado por engano.</string>
+    <string name="menu_host_blacklist">Endereços adicionados aqui serão sempre bloqueados. Por exemplo, pode adicionar sites que não são bloqueados pelas listas padrão, mas pretende que o sejam.</string>
+    <!-- A section of other settings in menu -->
+    <string name="menu_other">Outros</string>
+    <string name="menu_share_log_label">Partilhar relatórios permite-nos descobrir as causas do seu problema. Certifique-se que os envia em privado para um dos membros da equipa principal do Blokada.</string>
+    <!-- A section of help, telegram, and other buttons in menu -->
+    <string name="menu_learn_more">Descubra mais</string>
+    <!-- A section informational content in menu -->
+    <string name="menu_knowledge">Obter ajuda</string>
+    <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">Participe</string>
+    <string name="menu_configure">Configurar funcionalidades do Blokada</string>
+    <string name="menu_exclude">Excluir aplicações que não funcionam correctamente</string>
+    <!-- A section in menu for additional buttons  -->
+    <string name="menu_dive_in">Configurações Adicionais</string>
+    <!-- A section to manage some settings (generic)  -->
+    <string name="menu_manage">Gerir</string>
+    <string name="menu_ok">OK</string>
+    <string name="menu_dns_remove_default">O DNS de padrão não pode ser removido.</string>
+</resources>

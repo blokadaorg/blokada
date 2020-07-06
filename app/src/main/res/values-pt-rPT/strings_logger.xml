@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">Por favor, autorize primeiro o acesso ao armazenamento.</string>
+    <string name="logger_slot_title">Registo de pedidos</string>
+    <string name="logger_slot_desc">Por defeito, os pedidos são guardados apenas internamente no Blokada. Se esta funcionalidade estiver ativada, o Blokada irá criar um ficheiro CSV e registar os pedidos que foram permitidos e / ou bloqueados pela aplicação. Procure por uma pasta \"blokada\" no seu armazenamento externo. Alternativamente, o registo pode ser desativado completamente, sendo apenas armazenado o número de domínios bloqueados.</string>
+    <string name="logger_slot_mode_off">Desativado</string>
+    <string name="logger_slot_mode_internal">Registrar apenas para armazenamento interno</string>
+    <string name="logger_slot_mode_allowed">Registrar pedidos permitidos</string>
+    <string name="logger_slot_mode_denied">Registrar pedidos bloqueados</string>
+    <string name="logger_slot_mode_all">Registrar todos pedidos</string>
+</resources>

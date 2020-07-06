@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main screen section -->
+    <string name="panel_section_home">होम</string>
+    <string name="panel_section_menu">मेन्यू</string>
+    <!-- Main screen section -->
+    <string name="panel_section_ads">विज्ञापन अवरोधन</string>
+    <!-- Main screen section -->
+    <string name="panel_section_apps">ऐप्स</string>
+    <!-- Main screen section -->
+    <string name="panel_section_home_help">सहायता</string>
+    <string name="panel_section_ads_lists">मेजबान सूचि</string>
+    <string name="panel_section_ads_log">होस्ट लॉग</string>
+    <string name="panel_section_ads_blacklist">अवरोधित मेजबान</string>
+    <string name="panel_section_ads_whitelist">होस्ट जिन्हें अनुमति दी गई है</string>
+    <string name="panel_section_advanced_dns">डीएनएस</string>
+    <string name="panel_section_apps_all">स्थापित किए गए ऐप्प</string>
+    <string name="panel_section_apps_system">सिस्टम ऐप्स</string>
+    <string name="panel_section_advanced_settings">सैटिंग्स</string>
+    <string name="panel_section_app_settings">ऐप सैटिंग्स</string>
+    <!-- When a domain is allowed (not blocked) -->
+    <string name="panel_domain_forwarded">अनुमित&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_forwarded_desc">इस डोमेन को अनुमति दी गई है। इसे रोकने के लिए नीचे दिया गया बटन इस्तेमाल करें।</string>
+    <string name="panel_domain_forwarded_toast">श्वेतसूची में जोड़ा गया।</string>
+    <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; अवरोधित</string>
+    <string name="panel_domain_blocked_normal_desc">यह डोमेन रोक दी गई है। भविष्य में इसे अनुमति देने के लिए नीचे दिया गया बटन इस्तेमाल करें।</string>
+    <string name="panel_domain_blocked_answer_desc">यह डोमेन डीएनएस सर्वर द्वारा सही ढंग से हल नहीं किया गया था। या तो सर्वर ने डोमेन को ब्लॉक कर दिया है या यह मौजूद नहीं है।</string>
+    <string name="panel_domain_blocked_toast">ब्लैकलिस्ट में जोड़ा गया।</string>
+    <!-- Action to copy domain name to clipboard -->
+    <string name="panel_domain_copy">कॉपी करें</string>
+    <string name="panel_domain_copied">क्लिपबोर्ड पर कॉपी हो गया</string>
+    <string name="panel_ruleset">फिल्टर काउंटर</string>
+    <!-- How many rules are configured. Parameters is number of rules. -->
+    <string name="panel_ruleset_title">फ़िल्टर्स में अब %s नियम हैं</string>
+    <string name="panel_ruleset_updating">फ़िल्टर अपडेट हो रहे हैं ...</string>
+    <string name="panel_ruleset_canfit">फ़िल्टर अब &lt;b&gt;%s&lt;/b&gt; के साथ कॉन्फ़िगर किए गए हैं नियम। आपका उपकरण अधिकतम &lt;b&gt;%s&lt;/b&gt; एमबी हर एप्लिकेशन के लिए मेमोरी, और &lt;b&gt;%s&lt;/b&gt; नियम इसमें फिट हो सकते हैं। &lt;br&gt; याद रखें, यह केवल एक अनुमान है और जब सूची में विलय होता है तब ब्लोकडा सबसे अधिक मेमोरी का उपयोग करता है। यदि आपने हाल ही में उनमें से कुछ को सक्षम किया है, तो सिस्टम को मेमोरी खाली करने के लिए कुछ मिनट प्रतीक्षा करें।</string>
+    <!-- Button to allow blocked domain -->
+    <string name="slot_action_allow">अनुमति दें</string>
+    <!-- Button to block allowed domain -->
+    <string name="slot_action_block">अवरुद्ध</string>
+    <string name="slot_action_close">बंद करें</string>
+    <string name="slot_action_remove">हटाएं</string>
+    <!-- Button to open homepage of list's author. Keep it short. -->
+    <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">हां</string>
+    <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">नहीं</string>
+    <!-- An action to toggle a switch -->
+    <string name="slot_intro_new">नया यूआई कैसे इस्तेमाल करें? इधर टैप करके जानें।</string>
+    <string name="slot_intro_new_header">नए यूआई का उपयोग कैसे करें?</string>
+    <string name="slot_intro_desc">आप वर्तमान में होम सेक्शन में हैं, यदि आप दाएं स्वाइप करते हैं तो अधिक है। उनमें से प्रत्येक का अपना निचला मेनू है - इसे स्वाइप करके खोलें। &lt;br/&gt;&lt;br/&gt;Android टीवी पर, dpad के साथ यूआई नेविगेट करें। नीचे मेनू, या आपके द्वारा चयनित किसी भी आइटम को खोलने के लिए केंद्र कुंजी का उपयोग करें। बटन को ऊपर, नीचे, बाएं या दाएं तीर के साथ चिह्नित किया जाता है - उन्हें क्लिक करने के लिए दिशा कुंजियों का उपयोग करें।</string>
+    <string name="slot_intro_info">कुछ वस्तुओं पर प्रश्न चिह्न चिह्न है। इसे टैप करने पर यह इस तरह की एक छोटी मदद संदेश प्रदर्शित करेगा!</string>
+    <string name="slot_new_filter">अवरुद्ध सूची में एक नया होस्ट जोड़ें</string>
+    <string name="slot_new_filter_list">नई मेजबान सूची जोड़ें</string>
+    <string name="slot_new_filter_whitelist">अनुमित सूची में एक नया होस्ट जोड़ें</string>
+    <!-- A state of input form when no input is entered (think: empty)  -->
+    <string name="slot_unset">सही नहीं/बेमेल</string>
+    <!-- A state of input form when correct input is entered  -->
+    <string name="slot_set">सेट</string>
+    <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_invalid">अमान्य</string>
+    <string name="slot_continue">जारी रखें</string>
+    <string name="slot_enter_domain_title">डोमेन (ओं)</string>
+    <string name="slot_enter_domain_desc">एक अल्पविराम द्वारा अलग किए गए डोमेन दर्ज करें। आप किसी होस्ट सूची का लिंक भी पेस्ट कर सकते हैं या स्थानीय होस्ट सूची फ़ाइल आयात कर सकते हैं।</string>
+    <string name="slot_enter_domain_error">यह मुझे कुछ भी नहीं लग राहा है।</string>
+    <string name="slot_enter_domain_file">फ़ाइल</string>
+    <string name="slot_enter_domain_no_file">/ Download / blokada / फ़िल्टर में कोई फ़ाइल नहीं मिली</string>
+    <string name="slot_enter_file_titel">फ़ाइल का नाम</string>
+    <string name="slot_enter_file_import">इम्पोर्ट</string>
+    <string name="slot_enter_file_desc">आंशिक फ़ाइल नाम डाले</string>
+    <string name="slot_enter_file_not_found">आपके इनपुट से कोई फ़ाइल नाम नहीं</string>
+    <string name="slot_enter_file_multi">एकाधिक फाइलें आपके इनपुट से मेल खाती हैं</string>
+    <string name="slot_enter_name_title">नाम</string>
+    <string name="slot_enter_name_desc">नई प्रविष्टि के लिए नाम दर्ज करें। आप सुझाया गया नाम भी जनरेट कर सकते हैं।</string>
+    <string name="slot_enter_name_error">यह मुझे कुछ भी नहीं लग राहा है।</string>
+    <string name="slot_enter_name_generate">उत्पन्न</string>
+    <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; सफ़ेद सूचि में हैं</string>
+    <string name="slot_app_desc">यह ऐप श्वेत है, जिसका अर्थ है कि इस पर कोई अवरोध या फ़िल्टरिंग नहीं की जाती है।</string>
+    <string name="slot_allapp_desc">आप इसके लिए किसी भी ट्रैफ़िक को रोकने के लिए ब्लोकाडा को बायपास कर इस ऐप को बना सकते हैं। याद रखें, बायपास किए गए ऐप वीपीएन के बाहर संवाद करते हैं।</string>
+    <string name="slot_allapp_whitelisted">नजरअंदाज</string>
+    <string name="slot_allapp_normal">नजरअंदाज नहीं हुआ</string>
+    <string name="slot_allapp_whitelist">नजरअंदाज</string>
+    <string name="slot_action_set">सेट</string>
+    <string name="slot_whitelist_all">सभी ऐप्स को बायपास करें</string>
+    <string name="slot_blacklist_all">किसी भी ऐप को बाईपास न करें</string>
+    <string name="slot_dns_name">डीएनएस चालू है</string>
+    <string name="slot_dns_name_private">आपका DNS चालू है</string>
+    <string name="slot_dns_name_disabled">डीएनएस चालू नहीं है</string>
+    <string name="slot_action_none">यह कार्रवाई अभी उपलब्ध नहीं है।</string>
+    <string name="slot_action_unwhitelist">रद्द करें</string>
+    <string name="slot_action_author">विवरण</string>
+    <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">एक प्रवेश</string>
+    <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">एक प्रवेश %s के लिए</string>
+    <string name="slot_dns_control_title">डीएनएस सर्वर सूची</string>
+    <string name="slot_dns_control_description">आप अपने कस्टम प्रविष्टियों को खोए बिना हमारे सर्वर के साथ DNS सर्वर सूची को सिंक कर सकते हैं। &lt;br/&gt;&lt;br/&gt;वैकल्पिक रूप से, आप सभी प्रविष्टियों (आपके सहित) को छोड़ सकते हैं, और उन्हें फिर से डाउनलोड कर सकते हैं</string>
+    <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_refresh">सिंक</string>
+    <string name="slot_action_refresh_toast">सिंक चालू किया गया</string>
+    <string name="slot_action_restore">छोड़ें</string>
+    <string name="slot_export_title">लोकेशन समायोजन</string>
+    <string name="slot_export_description">आप बदल सकते हैं जहां कॉन्फ़िगरेशन (और से लोड) में सहेजा गया है। यदि आप मौजूदा सेटिंग्स आयात कर रहे हैं, तो कृपया पहले आयात का चयन करें, अन्यथा वे अधिलेखित हो जाएंगे।</string>
+    <string name="slot_action_import">आयात</string>
+    <string name="slot_action_internal">आंतरिक संग्रहण</string>
+    <string name="slot_action_external">बाह्य संग्रहण</string>
+    <string name="slot_filters_title">फ़िल्टर सूची</string>
+    <string name="slot_filters_description">आप अपने कस्टम प्रविष्टियों को खोए बिना हमारे सर्वर के साथ फ़िल्टर सूची को सिंक कर सकते हैं। &lt;br/&gt;&lt;br/&gt;वैकल्पिक रूप से, आप सभी प्रविष्टियों (आपके सहित) को छोड़ सकते हैं, और उन्हें फिर से डाउनलोड कर सकते हैं</string>
+    <string name="slot_blocked_normal_title">डोमेन ब्लॉक</string>
+    <string name="slot_blocked_answer_title">डोमेन हल नहीं हुआ</string>
+    <string name="slot_forwarded_title">डोमेन अग्रेषित किया गया</string>
+    <string name="slot_whitelist_title">एप्लिकेशन की श्वेतसूची</string>
+    <string name="slot_list_no_desc">इस रोल को कोई अनुमतियाँ नहीं है|</string>
+    <string name="slot_status_info">जब एप्लिकेशन सक्रिय होता है, तो आपको स्क्रीन के शीर्ष पर सूचना पट्टी में कुंजी आइकन दिखाई देगा, जिसका अर्थ है कि आपका डिवाइस सुरक्षित है। आप नीचे दिए गए बटन का उपयोग करके या नीचे के मेनू को स्वाइप करके ऐप को बंद कर सकते हैं।</string>
+    <string name="slot_action_deactivate">बंद करे</string>
+    <string name="slot_action_activate">चालू करें</string>
+    <string name="slot_update_action_refresh">फिर से जांचें</string>
+    <string name="slot_telegram_title">हमसे जुड़ें!</string>
+    <string name="slot_telegram_desc">मदद के लिए या सिर्फ इसका हिस्सा बनने के लिए हमारे समुदाय पर जाएँ।</string>
+    <string name="slot_telegram_action">खोलें</string>
+    <string name="slot_dropped_share_title">पर साझा करें</string>
+    <string name="slot_adblocking_label">ब्लॉक विज्ञापन &amp; ट्रैकर</string>
+    <string name="slot_adblocking_text">सक्षम होने पर, ब्लोकाडा विज्ञापन, ट्रैकर्स और अन्य अवांछित सामग्री को रोक देगा। यह आपकी गोपनीयता को सुरक्षित रखने, आपके डिवाइस को गति देने और आपके डेटा को बचाने में मदद करता है।</string>
+    <string name="slot_account_label_active">खाता %s तक सक्रिय</string>
+    <string name="slot_account_label_inactive">खाता निष्क्रिय</string>
+    <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">सदस्यताओं को प्रबंधित करें</string>
+    <string name="slot_account_action_manage_inactive">खाते को सक्रिय करें</string>
+    <string name="slot_account_action_change_id">अकाउंट रिस्टोर करें</string>
+    <string name="slot_account_show">खाता आईडी</string>
+    <string name="slot_account_action_copied">क्लिपबोर्ड पर खाता आईडी कॉपी की गई</string>
+    <string name="slot_account_action_unavailable">सेट नहीं</string>
+    <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
+    <string name="slot_gateway_label">%s से जोड़े</string>
+    <string name="slot_gateway_section_partner">साथी द्वार अतिरिक्त स्थान प्रदान करते हैं। वे ब्लोकाडा द्वारा पूरी तरह से प्रबंधित नहीं हैं, लेकिन आपके एन्क्रिप्टेड ट्रैफ़िक तक उनकी पहुंच नहीं है</string>
+    <string name="slot_gateway_section_overloaded">वे प्रवेश द्वार ओवरलोड और अस्थायी रूप से अनुपलब्ध हैं।</string>
+    <string name="slot_gateway_description">प्रदर्शन&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;आईपी&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;जगा&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_overloaded">यह प्रवेश द्वार व्यस्त है और नए कनेक्शन स्वीकार नहीं करता है।</string>
+    <string name="slot_gateway_learn_more">गेटवे के बारे में अधिक जानें</string>
+    <string name="slot_gateway_info_partner">पार्टनर गेटवे क्या हैं?</string>
+    <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">नियंत्रण करें कि आपके कौन से उपकरण ब्लोकाडा प्लस से जुड़े हैं।</string>
+    <string name="slot_lease_name_current">इस डिवाइस के लिए %s</string>
+    <string name="slot_lease_description">डिवाइस आईडी:&lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">डिवाइस आईडी:&lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;यह आपका वर्तमान उपकरण है।</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_low">ऊंचा</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_high">कम</string>
+    <string name="subscription_success">आपका खाता सक्रिय किया जा रहा है। इस प्रयास में कुछ समय लग सकता है। धन्यवाद!</string>
+    <string name="slot_start_on_boot_description">बूट पर आरंभ सक्षम करने से ब्लोकाडा हर समय सक्रिय रहता है और आपके डिवाइस की सुरक्षा करता है। कृपया ध्यान दें कि सिस्टम में हमेशा उच्च प्राथमिकता होती है और इस विकल्प को अधिलेखित कर सकता है, इस प्रकार, यदि ब्लोकाडा शुरू नहीं होता है, तो अपने सिस्टम की सेटिंग्स पर एक नज़र डालें।</string>
+    <string name="slot_recommended_dns_label">अनुशंसित डीएनएस सर्वर का प्रयोग करें</string>
+    <string name="slot_recommended_dns_description">जब सक्षम किया जाता है, तो ब्लोकाडा स्वचालित रूप से आपके इंटरनेट की गति बढ़ाने और आपकी गोपनीयता की सुरक्षा के लिए अनुशंसित DNS सर्वरों का चयन करेगा। अन्यथा, आपके नेटवर्क के डिफ़ॉल्ट DNS सर्वर का उपयोग किया जाता है। यदि आप मैन्युअल रूप से उन्नत अनुभाग में DNS सर्वर चुनते हैं, तो यह सेटिंग अनदेखा कर दी जाती है।</string>
+    <string name="slot_update_no_updates">ब्लोकाडा अद्यतन है</string>
+    <string name="slot_about">ब्लोकाडा के बारे में</string>
+    <!-- A button to share debug log. Keep it short. -->
+    <string name="slot_about_share_log">लॉग</string>
+    <string name="slot_help_label">सहायता की आवश्यकता है?</string>
+    <string name="slot_help_desc">हमारे सहायता पृष्ठ को खोलने के लिए नीचे दिए गए बटन पर टैप करें। आप सहायता प्राप्त करने के लिए हमारे सोशल मीडिया का भी उपयोग कर सकते हैं - हम टेलीग्राम, फेसबुक, रेडिट और ट्विटर पर हैं।</string>
+    <!-- A button to open help -->
+    <string name="slot_help_action">सहायता</string>
+    <string name="slot_donate_label">ब्लोकाडा का आनंद ले रहे हैं? हमें समर्थन देने पर विचार करें, इसलिए हम ऐप को बेहतर बना सकते हैं।</string>
+    <string name="slot_donate_desc">नई सुविधाओं को पेश करने में हमारी मदद करें! अधिक के लिए यहां स्पर्श करें।</string>
+    <!-- A button to donate -->
+    <string name="slot_donate_action">दान करें</string>
+    <string name="slot_cta_label">श्श्श! हम आपकी राय जानना चाहेंगे।</string>
+    <string name="slot_cta_desc">हमारे सर्वेक्षण और अन्य घटनाओं में भाग लेकर अपना समर्थन दिखाएं। हम विचारों और नए विकास के बारे में प्रतिक्रिया के लिए नियमित रूप से हमारे समुदाय तक पहुंचते हैं, ताकि हम यह सुनिश्चित कर सकें कि आप जो देखना चाहते हैं, उस पर हम काम कर रहे हैं।</string>
+    <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">खोलें</string>
+    <string name="slot_blog_label">हमारे विकास ब्लॉग की जाँच करें!</string>
+    <string name="slot_blog_desc">ब्लॉक वह है जहां हम परियोजना के विकास, भविष्य की योजनाओं और विचारों पर चर्चा करते हैं।</string>
+    <!-- A button to open a blog -->
+    <string name="slot_blog_action">खोलें</string>
+    <string name="slot_updated_desc">इस रिलीज के लिए परिचय के लिए यहां टच करें।</string>
+    <!-- A button to open a description website of current app version after update. -->
+    <string name="slot_obsolete_desc">ब्लोकाडा का आपका संस्करण अप्रचलित है और सही ढंग से काम नहीं कर सकता है। अपडेट प्राप्त करने के लिए कृपया नवीनतम संस्करण डाउनलोड करें।</string>
+    <!-- A button to update the app. -->
+    <string name="slot_cleanup_desc">लगता है आपके डिवाइस पर ब्लोकाडा के कई संस्करण स्थापित हैं। क्या आप अन्य संस्करणों को निकालना और सिर्फ एक रखना चाहेंगे?</string>
+    <string name="account_inactive">जारी रखने के लिए कृपया अपना खाता सक्रिय करें या पुनर्स्थापित करें</string>
+    <string name="slot_lease_cant_connect">ब्लोकडा प्लस से जुड़ नहीं सका। दूसरे गेटवे का चयन करने का प्रयास करें।</string>
+    <string name="slot_account_cant_create">आपका ब्लोकाडा प्लस खाता नहीं बनाया जा सका। कृपया बाद में पुनः प्रयास करें या हमसे संपर्क करें।</string>
+    <string name="slot_account_name_title">खाता आईडी</string>
+    <string name="slot_account_name_desc">अपनी पिछली सदस्यता को पुनर्स्थापित करने के लिए अपनी पुरानी खाता आईडी दर्ज करें। यदि आप गलती करते हैं, तो ऐसा करने से पहले आप अपना करंट अकाउंट आईडी लिखना चाहते हैं।</string>
+    <string name="slot_account_name_error">खाता आईडी में केवल अक्षर और संख्याएं हो सकती हैं।</string>
+    <string name="slot_account_name_api_error">यह खाता आईडी सही नहीं लगता है।</string>
+    <string name="slot_account_name_restore">पुनर्स्थापित करें</string>
+    <!-- A section in advanced settings. -->
+    <string name="label_basic">प्राथमिक सेटिंग्स</string>
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <string name="label_advanced">एडवांस्ड सेटिंग</string>
+    <string name="slot_whitelist_updating">कॉन्फ़िगरेशन अपडेट हो रहा है, कृपया प्रतीक्षा करें...</string>
+    <string name="slot_too_many_leases">कृपया पुराने डिवाइस को अपनी डिवाइस की सूची से हटा दें।</string>
+    <string name="slot_background_animation">पृष्ठभूमि एनीमेशन</string>
+    <string name="slot_background_animation_description">हर बार, जब DNS अनुरोध अवरुद्ध या अनुमत होता है, तो हर बार तरंगें चेतन होंगी। यदि आप मंदी का अनुभव करते हैं तो बंद करें।</string>
+    <string name="slot_reset_counter_label">अवरुद्ध होस्ट काउंटर रीसेट करें</string>
+    <string name="slot_reset_counter_description">काउंटर को दर्शाता है कि कितने अनुरोध जहां 0 पर वापस अवरुद्ध हो गए हैं।</string>
+    <string name="slot_reset_counter_action">रीसेट</string>
+    <string name="label_workarounds">डिवाइस-विशिष्ट वर्कअराउंड</string>
+    <string name="slot_dns_answer_label">वैकल्पिक DNS उत्तर</string>
+    <string name="slot_dns_answer_description">उत्तर बदल जाता है ब्लोकडा ने अमान्य आईपी के लिए \"होस्ट नहीं मिला\" से अवरुद्ध अनुरोधों के लिए भेजा। यह कुछ ROM पर मदद कर सकता है जो अन्य DNS सर्वर को क्वेरी करते हैं यदि उन्हें \"होस्ट नहीं मिला\" उत्तर मिलता है। कृपया ध्यान दें कि यह कुछ ऐप्स को धीमा कर सकता है जो अमान्य पते से कनेक्ट करने का प्रयास करते हैं।</string>
+</resources>

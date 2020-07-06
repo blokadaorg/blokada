@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Notifiche</string>
+    <string name="notification_on_description">Se attive, Blokada mostrerà una notifica ogni volta che bloccherà qualcosa. Attenzione, non si tratta della stessa notifica VPN presente su alcuni dispositivi e che non può essere disattivata.&lt;br/&gt;È possibile configurare quali notifiche ricevere dalle Impostazioni qui sotto.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Ad bloccati</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Non mostrare</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Whitelist</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Fatto! I cambiamenti potrebbero richiedere qualche istante.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Mantieni attivo</string>
+    <string name="notification_keepalive_description">Attiva questa opzione se riscontri problemi nel mantenere attiva Blokada in background. Verrà abilitata una notifica permanente per cercare di prevenire la chiusura dell\'app da parte del sistema; puoi nasconderla dalle Impostazioni delle notifiche qui sopra.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Mantieni Attivo (tocca per nascondere)</string>
+    <string name="notification_keepalive_text_new">Android richiede una notifica per mantenere l\'app in esecuzione, è possibile disabilitarla dalle impostazioni di sistema.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d bloccati</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Ultimo: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">sto monitorando</string>
+    <string name="notification_keepalive_activate">Attiva</string>
+    <string name="notification_keepalive_activating">Blokada si sta avviando. Ciò potrebbe richiedere qualche momento.</string>
+    <string name="notification_keepalive_deactivate">Disattiva</string>
+    <string name="notification_keepalive_deactivating">Blokada è stata disattivata!</string>
+    <string name="notification_expired_title">Blokada Plus è disattivato</string>
+    <string name="notification_expired_description">Il tuo account non è attivo e così anche Blokada Plus. Le funzionalità standard di Blokada funzionano bene anche senza la VPN di Blokada Plus. Tuttavia, ti preghiamo di considerare l\'attivazione del tuo account per una protezione migliore e per supportare il progetto.</string>
+    <string name="notification_lease_expired_title">Blokada Plus è disattivato</string>
+    <string name="notification_lease_expired_description">C\'è stato un problema con la tua connessione a Blokada Plus. Per favore, prova a connetterti ad un altro gateway. Se il problema persiste, contattaci.</string>
+    <string name="notification_channel_filtered">Blocco pubblicità</string>
+    <string name="notification_channel_announcements">Avvisi</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">Altro</string>
+</resources>

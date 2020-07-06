@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A name used for DNS servers added by user. -->
+    <string name="dns_custom_add_slot">Lisää uusi DNS-palvelin…</string>
+    <string name="slot_enter_dns_error">Tämä ei minusta näytä IPv4-osoitteelta.</string>
+    <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_ip_label">IP-osoite</string>
+    <string name="dns_edit_ip1_enter">Syötä ensisijainen osoite</string>
+    <string name="dns_edit_ip2_enter">Syötä toissijainen osoite</string>
+    <string name="dns_edit_name_error">Ei kelvollinen nimi</string>
+    <string name="dns_edit_name_label">Palvelimen nimi</string>
+    <string name="dns_edit_name_default">Oletusnimi</string>
+    <string name="dns_edit_next">Seuraava</string>
+    <string name="dns_edit_last">Lisää</string>
+    <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
+    <string name="dns_text_none">Oletus DNS-palvelin</string>
+    <!-- Deletes all dns suggestions and fetches default ones. -->
+    <string name="dns_generate_defaults">Palauta oletusarvot</string>
+    <!-- Forcefully refetch dns suggestions ignoring cache. -->
+    <string name="dns_generate_refetch">Päivitä DNS-lista</string>
+    <!-- Keep Alive notification for DNS. Parameter: addresses of active dns servers. -->
+    <string name="dns_keepalive_content">Aktiivinen: %s</string>
+</resources>

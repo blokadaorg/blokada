@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A name used for DNS servers added by user. -->
+    <string name="dns_custom_add_slot">เพิ่ม DNS ใหม่</string>
+    <string name="slot_enter_dns_error">อันนี้ดูไม่เหมือน IPv4</string>
+    <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_ip_label">ที่อยู่ IP</string>
+    <string name="dns_edit_ip1_enter">ใส่ Primary address</string>
+    <string name="dns_edit_ip2_enter">ใส่ Secondary address</string>
+    <string name="dns_edit_name_error">ชื่อไม่ถูกต้อง</string>
+    <string name="dns_edit_name_label">Server name</string>
+    <string name="dns_edit_name_default">Default name</string>
+    <string name="dns_edit_next">ถัดไป</string>
+    <string name="dns_edit_last">เพิ่ม</string>
+    <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
+    <string name="dns_text_none">ค่าเริ่มต้น DNS</string>
+    <!-- Deletes all dns suggestions and fetches default ones. -->
+    <string name="dns_generate_defaults">กลับไปใช้ค่าเริ่มต้น</string>
+    <!-- Forcefully refetch dns suggestions ignoring cache. -->
+    <string name="dns_generate_refetch">โหลดรายการ DNS ใหม่</string>
+    <!-- Keep Alive notification for DNS. Parameter: addresses of active dns servers. -->
+    <string name="dns_keepalive_content">ใช้งาน: %s</string>
+</resources>

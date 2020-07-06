@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_domain">Näytä estetyn verkkotunnuksen nimi</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_counter">Näytä estettyjen pyyntöjen määrä</string>
+    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget -->
+    <string name="widget_show_dns">Näytä DNS</string>
+    <string name="widget_okay">Vahvista</string>
+</resources>

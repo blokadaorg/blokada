@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Notifikasi</string>
+    <string name="notification_on_description">Ketika diaktifkan, Blokada akan menampilkan pemberitahuan setiap kali ada yang diblokir. Harap diingat ini berbeda dengan notifikasi VPN yang ditampilkan oleh beberapa perangkat, yang mungkin tidak bisa dinonaktifkan.&lt;br/&gt;Anda bisa mengatur pemberitahuan apa saja yang bisa ditampilkan di laman pengaturan di bawah ini.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Diblokir</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Jangan tampilkan</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Whitelist</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Selesai! Perubahan mungkin membutuhkan waktu beberapa detik.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Keep Alive</string>
+    <string name="notification_keepalive_description">Aktifkan tombol ini jika Anda mengalami masalah dengan aplikasi yang tidak bisa tetap aktif ketika ada di latar belakang. Blokada akan mengaktifkan pemberitahuan permanen yang akan mencegah perangkat Anda dari menonaktifkan Blokada; Anda bisa menyembunyikan pemberitahuan tersebut dengan memilih Pemberitahuan kemudian Pengaturan.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Keep Alive (tekan untuk sembunyikan)</string>
+    <string name="notification_keepalive_text_new">Android mengharuskan sebuah aplikasi untuk menampilkan notifikasi agar aplikasi tersebut bisa tetap berjalan, namun Anda bisa menonaktifkannya di pengaturan sistem.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d diblokir</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Terakhir: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">memantau</string>
+    <string name="notification_keepalive_activate">Aktifkan</string>
+    <string name="notification_keepalive_activating">Blokada mulai diaktifkan. Mungkin akan memakan waktu beberapa saat.</string>
+    <string name="notification_keepalive_deactivate">Nonaktifkan</string>
+    <string name="notification_keepalive_deactivating">Blakada telah dinonaktifkan!</string>
+    <string name="notification_expired_title">Blokada Plus dinonaktifkan</string>
+    <string name="notification_expired_description">Akun Anda tidak aktif, dan Blokada Plus tidak terkoneksi. Fitur standar Blokada lainnya akan tetap bekerja dalam kondisi ini. Namun, untuk perlindungan yang lebih efektif dan jika Anda ingin mensupport Blokada, kami sarankan Anda mengaktifkan akun Anda.</string>
+    <string name="notification_lease_expired_title">Blokada Plus dinonaktifkan</string>
+    <string name="notification_lease_expired_description">Telah terjadi masalah dengan koneksi Anda ke Blokada Plus. Harap mencoba gateway lain. Jika masalah tetap berlanjut, silakan hubungi kami.</string>
+    <string name="notification_channel_filtered">Pemblokiran iklan</string>
+    <string name="notification_channel_announcements">Pengumuman</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">Lainnya</string>
+</resources>

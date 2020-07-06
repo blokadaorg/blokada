@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_button">আপডেট ডাউনলোড করুন</string>
+    <string name="update_notification_title">আপডেট চলে আসছে</string>
+    <!-- Parameter: new app version, for example 2.0.1 -->
+    <string name="update_notification_text">%1$s ডাউনলোডের জন্য প্রস্তুত! শুরু করতে চাপুন।</string>
+    <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
+    <string name="update_notification_channel">আপডেট নোটিফিকেশন</string>
+    <string name="update_info">আপনি যদি অ্যাপটি প্লে স্টোর, এফ-ড্রয়েড বা অন্যান্য অ্যাপ স্টোর থেকে নামিয়ে থাকেন তাহলে আপনি সেখান থেকেই আপডেট পাবেন। আপডেট করার সময় ব্লকাডা অফ করে রাখুন। যদি আপডেট এ কোন সমস্যা হয় তাহলে blokada.org এ গিয়ে এপিকে নামিয়ে নিয়ে ইন্সটল করুন। এইভাবে ইন্সটল করার সময় আগের ভার্শন আনইন্সটল করার প্রয়োজন নেই।</string>
+    <!-- Displayed in the home screen when there is an update. Keep it short. -->
+    <string name="update_dash_available">&lt;b&gt; আপডেট আসছে!&lt;/b&gt;</string>
+    <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
+    <!-- Displayed in menu to open the About/Update screen. -->
+    <!-- A button that opens system preferences for this app. -->
+    <!-- A button that opens the changelog. -->
+    <!-- A toast message displayed when the update process is starting. -->
+    <string name="update_starting">শুরু করা হচ্ছে&#8230;</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">Proszę przyznać uprawnienia pamięci.</string>
+    <string name="logger_slot_title">Logger domen</string>
+    <string name="logger_slot_desc">Domyślnie żądania są przechowywane tylko wewnątrz Blokady. Jeśli ta funkcja jest włączona, Blokada utworzy plik CSV i będzie logować żądania, które zostały dozwolone i/lub zablokowane przez aplikację. Szukaj folderu \"blokada\" w pamięci zewnętrznej. Alternatywnie logowanie żądań można całkowicie wyłączyć, przechowując tylko liczbę zablokowanych domen.</string>
+    <string name="logger_slot_mode_off">Wyłączone</string>
+    <string name="logger_slot_mode_internal">Loguj tylko do pamięci wewnętrznej</string>
+    <string name="logger_slot_mode_allowed">Loguj zezwolone zapytania</string>
+    <string name="logger_slot_mode_denied">Loguj zablokowane zapytania</string>
+    <string name="logger_slot_mode_all">Loguj wszystkie zapytania</string>
+</resources>

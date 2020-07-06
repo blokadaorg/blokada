@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A name used for DNS servers added by user. -->
+    <string name="dns_custom_add_slot">Lägg till ny DNS…</string>
+    <string name="slot_enter_dns_error">Det här ser inte ut som en IPv4 för mig.</string>
+    <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_ip_label">IP-adress</string>
+    <string name="dns_edit_name_error">Inte ett giltigt namn</string>
+    <string name="dns_edit_name_label">Servernamn</string>
+    <string name="dns_edit_name_default">Standardnamn</string>
+    <string name="dns_edit_next">Nästa</string>
+    <string name="dns_edit_last">Lägg till</string>
+    <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
+    <string name="dns_text_none">Standard-DNS</string>
+    <!-- Deletes all dns suggestions and fetches default ones. -->
+    <string name="dns_generate_defaults">Återställ standardvärden</string>
+    <!-- Forcefully refetch dns suggestions ignoring cache. -->
+    <string name="dns_generate_refetch">Uppdatera DNS-listan</string>
+    <!-- Keep Alive notification for DNS. Parameter: addresses of active dns servers. -->
+    <string name="dns_keepalive_content">Aktiv: %s</string>
+</resources>

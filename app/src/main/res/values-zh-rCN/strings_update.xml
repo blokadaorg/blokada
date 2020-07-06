@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_button">下载更新</string>
+    <string name="update_notification_title">更新可用</string>
+    <!-- Parameter: new app version, for example 2.0.1 -->
+    <string name="update_notification_text">正在准备下载版本 %1$s ！轻触以开始下载。</string>
+    <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
+    <string name="update_notification_channel">更新通知</string>
+    <string name="update_info">如果您在Google Play，F-Droid，或者其他的应用商店下载了本应用，您将会在您选择的下载平台可用时接收更新。请确保Blokada在更新过程中停用。如果您在更新过程中遇到问题，请前往blokada.org手动下载此应用(无需卸载之前已安装的版本)。</string>
+    <!-- Displayed in the home screen when there is an update. Keep it short. -->
+    <string name="update_dash_available">&lt;b&gt;更新可用&lt;/b&gt;</string>
+    <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
+    <!-- Displayed in menu to open the About/Update screen. -->
+    <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">应用信息</string>
+    <!-- A button that opens the changelog. -->
+    <!-- A toast message displayed when the update process is starting. -->
+    <string name="update_starting">正在打开，请等待&#8230;</string>
+    <string name="update_progress">正在下载 %s%%</string>
+    <string name="update_complete">下载完成</string>
+    <string name="update_failed">下载失败</string>
+    <string name="update_instruction">完成后，您将被要求允许 Blokada 安装更新。</string>
+    <string name="update_instruction_failed">点击这里再试一次，或者长按用您的浏览器下载。</string>
+</resources>

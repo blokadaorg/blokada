@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_header">Tippe um zu suchen...</string>
+    <string name="search_title">Suche</string>
+    <string name="search_entered">Ergebnisse für: %s</string>
+    <string name="search_description">Gib Deine Suchabfrage oben ein und tippe auf Bestätigen, um die Liste zu filtern.</string>
+    <string name="search_action_confirm">Bestätigen</string>
+    <string name="search_action_clear">Leeren</string>
+</resources>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main screen section -->
+    <string name="panel_section_home">Domov</string>
+    <string name="panel_section_menu">Meni</string>
+    <!-- Main screen section -->
+    <string name="panel_section_ads">Blokiranje oglasov</string>
+    <!-- Main screen section -->
+    <string name="panel_section_apps">Aplikacije</string>
+    <!-- Main screen section -->
+    <string name="panel_section_home_help">Pomoč</string>
+    <string name="panel_section_ads_lists">Seznam strežnikov</string>
+    <string name="panel_section_ads_log">Dnevnik strežnikov</string>
+    <string name="panel_section_ads_blacklist">Blokirani strežniki</string>
+    <string name="panel_section_ads_whitelist">Dovoljeni strežniki</string>
+    <string name="panel_section_advanced_dns">DNS</string>
+    <string name="panel_section_apps_all">Nameščene aplikacije</string>
+    <string name="panel_section_apps_system">Sistemske aplikacije</string>
+    <string name="panel_section_advanced_settings">Nastavitve</string>
+    <string name="panel_section_app_settings">Nastavitve aplikacije</string>
+    <!-- When a domain is allowed (not blocked) -->
+    <string name="panel_domain_forwarded">&lt;/b&gt;%s&lt;/b&gt; dovoljeno</string>
+    <string name="panel_domain_forwarded_desc">Ta domena je dovoljena. Za blokiranje uporabite spodnji gumb.</string>
+    <string name="panel_domain_forwarded_toast">Dodano na seznam dovoljenih.</string>
+    <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; blokirano</string>
+    <string name="panel_domain_blocked_normal_desc">Ta domena je blokirana. Če želite dostopati do nje, uporabite spodnji gumb.</string>
+    <string name="panel_domain_blocked_answer_desc">DNS strežnik ni pravilno obdelal te domene. Ali je blokirana na strežniku ali pa ne obstaja.</string>
+    <string name="panel_domain_blocked_toast">Dodano na seznam prepovedanih.</string>
+    <!-- Action to copy domain name to clipboard -->
+    <string name="panel_domain_copy">Kopiraj</string>
+    <string name="panel_domain_copied">Kopirano v odložišče</string>
+    <string name="panel_ruleset">Število filtrov</string>
+    <!-- How many rules are configured. Parameters is number of rules. -->
+    <string name="panel_ruleset_title">Filtri vsebujejo %s pravil.</string>
+    <string name="panel_ruleset_updating">Posodabljanje filtrov...</string>
+    <string name="panel_ruleset_canfit">Filtri vsebujejo &lt;b&gt;%s&lt;/b&gt; pravil. Vaša naprava dovoljuje največ &lt;b&gt;%s&lt;/b&gt; MB pomnilnika vsaki aplikaciji, kamor je mogoče shraniti do &lt;b&gt;%s&lt;/b&gt; pravil.&lt;br&gt;To je samo ocena. Blokada uporablja največ pomnilnika kadar združuje sezname. Če ste jih pred kratkim vključili več, počakajte nekaj minut, da sistem sprosti pomnilnik.</string>
+    <!-- Button to allow blocked domain -->
+    <string name="slot_action_allow">Dovoli</string>
+    <!-- Button to block allowed domain -->
+    <string name="slot_action_block">Blokiraj</string>
+    <string name="slot_action_close">Zapri</string>
+    <string name="slot_action_remove">Odstrani</string>
+    <!-- Button to open homepage of list's author. Keep it short. -->
+    <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Da</string>
+    <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Ne</string>
+    <!-- An action to toggle a switch -->
+    <string name="slot_intro_new">Kako uporabljati nov UI? Tapnite sem za uvod.</string>
+    <string name="slot_intro_new_header">Kako uporabljati nov UI?</string>
+    <string name="slot_intro_desc">Ste na začetnem zaslonu, za več strani podrsajte v desno. Vsaka ima svoj meni na dnu  odprite ga s podrsanjem gor. &lt;br/&gt;&lt;br/&gt;Na Android TV se po UI premikajte z dpadom. Uporabite centralno tipko za spodnji meni ali kak drug izbran element. Gumbi so označeni s puščicami gor, dol, levo in desno - uporabite smerne tipke.</string>
+    <string name="slot_intro_info">Psst... Nekateri objekti imajo ob sebi vprašajček. S tapom nanj dobite kratko pomoč, kot je tale!</string>
+    <string name="slot_new_filter">Dodaj nov strežnik na seznam blokiranih</string>
+    <string name="slot_new_filter_list">Dodaj nov seznam strežnikov</string>
+    <string name="slot_new_filter_whitelist">Dodaj nov strežnik na seznam dovoljenih</string>
+    <!-- A state of input form when no input is entered (think: empty)  -->
+    <string name="slot_unset">nenastavljeno</string>
+    <!-- A state of input form when correct input is entered  -->
+    <string name="slot_set">nastavljeno</string>
+    <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_invalid">neveljavno</string>
+    <string name="slot_continue">Nadaljuj</string>
+    <string name="slot_enter_domain_title">Domena/e</string>
+    <string name="slot_enter_domain_desc">Vnesi domene ločene z vejico. Lahko tudi prilepite povezavo do seznama strežnikov ali preberete datoteko s strežniki.</string>
+    <string name="slot_enter_domain_error">Ne najdem ničesar.</string>
+    <string name="slot_enter_domain_file">Datoteka</string>
+    <string name="slot_enter_domain_no_file">V /Download/blokada/filters ni datotek</string>
+    <string name="slot_enter_file_titel">Ime datoteke</string>
+    <string name="slot_enter_file_import">Uvozi</string>
+    <string name="slot_enter_file_desc">Vnesi delno ime</string>
+    <string name="slot_enter_file_not_found">Ni takih datotek</string>
+    <string name="slot_enter_file_multi">Več datotek ustreza</string>
+    <string name="slot_enter_name_title">Ime</string>
+    <string name="slot_enter_name_desc">Vnesite ime za nov vpis ali uporabite predlaganega.</string>
+    <string name="slot_enter_name_error">Ne najdem ničesar.</string>
+    <string name="slot_enter_name_generate">Predlagaj</string>
+    <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; je na seznamu dovoljenih</string>
+    <string name="slot_app_desc">Ta aplikacija je na seznamu dovoljenih, kar pomeni da ni blokirana ali filtrirana.</string>
+    <string name="slot_allapp_desc">To aplikacijo lahko uporabljate mimo Blokade, njen promet bo potekal izven VPN.</string>
+    <string name="slot_allapp_whitelisted">Izvzeto</string>
+    <string name="slot_allapp_normal">Nadzorovano</string>
+    <string name="slot_allapp_whitelist">Brez blokiranja</string>
+    <string name="slot_action_set">Nastavi</string>
+    <string name="slot_whitelist_all">Izvzemi vse aplikacije</string>
+    <string name="slot_blacklist_all">Nadzoruj vse aplikacije</string>
+    <string name="slot_dns_name">DNS je aktiven</string>
+    <string name="slot_dns_name_private">Uporabnikov DNS je aktiven</string>
+    <string name="slot_dns_name_disabled">DNS ni aktiven</string>
+    <string name="slot_action_none">Ta funkcija še ni na voljo.</string>
+    <string name="slot_action_unwhitelist">Prekliči</string>
+    <string name="slot_action_author">O aplikaciji</string>
+    <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">Vnos</string>
+    <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">Vnos za %s</string>
+    <string name="slot_dns_control_title">Seznam strežnikov DNS</string>
+    <string name="slot_dns_control_description">Seznam strežnikov DNS lahko uskladite z našim brez izgube dodatno vnešenih.&lt;br/&gt;&lt;br/&gt;Druga možnost je, da počitite seznam (vključno z dodatnimi) in ponovno prenesete.</string>
+    <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_refresh">Uskladi</string>
+    <string name="slot_action_refresh_toast">Usklajevanje poteka</string>
+    <string name="slot_action_restore">Počisti</string>
+    <string name="slot_export_title">Lokacija nastavitev</string>
+    <string name="slot_export_description">Nastavite, kam se shranijo (in preberejo) nastavitve. Če uvažate obstoječe nastavitve, najprej izberite Uvozi, sicer se bodo povozile z obstoječimi.</string>
+    <string name="slot_action_import">Uvozi</string>
+    <string name="slot_action_internal">Notranja shramba</string>
+    <string name="slot_action_external">Zunanja shramba</string>
+    <string name="slot_filters_title">Seznam filtrov</string>
+    <string name="slot_filters_description">Seznam filtrov lahko uskladite z našim brez izgube dodatno vnešenih.&lt;br/&gt;&lt;br/&gt;Druga možnost je, da počitite seznam (vključno z dodatnimi) in ponovno prenesete.</string>
+    <string name="slot_blocked_normal_title">Blokirana domena</string>
+    <string name="slot_blocked_answer_title">Domena ni najdena</string>
+    <string name="slot_forwarded_title">Preusmerjena domena</string>
+    <string name="slot_whitelist_title">Dovoljena aplikacija</string>
+    <string name="slot_list_no_desc">Ta vnos nima opisa.</string>
+    <string name="slot_status_info">Ko je aplikacija aktivna, boste v vrstici obvestil na vrhu zaslona opazili sliko ključka, kar pomeni, da je vaša naprava zaščitena. Aplikacijo lahko izključite s spodnjim gumbom ali s spodnjim menijem.</string>
+    <string name="slot_action_deactivate">Izklopi</string>
+    <string name="slot_action_activate">Vklopi</string>
+    <string name="slot_update_action_refresh">Preveri znova</string>
+    <string name="slot_telegram_action">Odpri</string>
+    <string name="slot_dropped_share_title">Deli</string>
+    <string name="slot_adblocking_label">Blokiraj oglase &amp; sledilnike</string>
+    <string name="slot_adblocking_text">Ta funkcija bo blokirala oglase, sledilnike in drugo neželjeno vsebino. To pomaga zaščititi vašo zasebnost,  pohitri delovanje naprave in zmanjša prenos podatkov.</string>
+    <string name="slot_account_label_active">Račun je aktiven do %s</string>
+    <string name="slot_account_label_inactive">Račun ni aktiven</string>
+    <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">Upravljanje naročnine</string>
+    <string name="slot_account_action_manage_inactive">Aktivirajte račun</string>
+    <string name="slot_account_action_change_id">Obnovite račun</string>
+    <string name="slot_account_show">ID računa</string>
+    <string name="slot_account_action_copied">ID računa je kopiran na odložišče</string>
+    <string name="slot_account_action_unavailable">[ni nastavljeno]</string>
+    <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
+    <string name="slot_gateway_label">Poveži v:</string>
+    <string name="slot_gateway_section_partner">Prehodi naših partnerjev omogočajo dodatne lokacije. Niso pod Blokadinim upravljanjem, a nimajo dostopa do vašega zakriptiranega prometa.</string>
+    <string name="slot_gateway_section_overloaded">Ti prehodi so preobremenjeni in začasno niso na voljo.</string>
+    <string name="slot_gateway_description">Zmogljivost: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP:&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Regija:&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_overloaded">Ta prehod je zaseden in ne sprejema novih povezav.</string>
+    <string name="slot_gateway_learn_more">Več o prehodih</string>
+    <string name="slot_gateway_info_partner">Kaj so partnerski prehodi?</string>
+    <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_lease_name_current">%s (ta naprava)</string>
+    <string name="slot_lease_description">ID naprave: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">ID naprave: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;To je vaša trenutna naprava.</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_low">visoka</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_high">nizka</string>
+    <string name="subscription_success">Vač račun se aktivira. To lahko traja nekaj sekund. Hvala!</string>
+    <string name="slot_start_on_boot_description">Izbira zagona ob vklopu dovoli Blokadi da je vedno aktivna in zaščiti vašo napravo. Vedite, da ima operacijski sistem sicer vedno višjo prioriteto in lahko izklopi to možnost. Če se Blokada ne požene, preverite še enkrat sistemske nastavitve.</string>
+    <string name="slot_recommended_dns_label">Uporabi priporočene strežnike DNS</string>
+    <string name="slot_recommended_dns_description">Vklop te možnosti dovoli Blokadi samodejno izbiro strežnikov DNS za hitrejšo internet povezavo in zaščito vaše zasebnosti. Sicer bodo uporabljeni privzeti strežniki DNS za vaše omrežje. Kadar ročno vpišete strežnike DNS v naprednih nastavitvah, se ta nastavitev ne upošteva.</string>
+    <string name="slot_update_no_updates">Blokada je posodobljena</string>
+    <string name="slot_about">O Blokadi</string>
+    <!-- A button to share debug log. Keep it short. -->
+    <string name="slot_about_share_log">Dnevnik</string>
+    <string name="slot_help_label">Potrebujete pomoč?</string>
+    <string name="slot_help_desc">S spodnjim gumbom odprete našo stran za pomoč. Lahko stopite v stik z nami tudi preko socialnih omrežij - smo na Telegramu, Facebooku, Redditu in Twitterju.</string>
+    <!-- A button to open help -->
+    <string name="slot_help_action">Pomoč</string>
+    <string name="slot_donate_label">Vam je Blokada všeč? Podprite nas, da lahko nadaljujemo z izboljšavami.</string>
+    <string name="slot_donate_desc">Pomagajte nam do novih funkcionalnosti! Tapnite sem za več informacij.</string>
+    <!-- A button to donate -->
+    <string name="slot_donate_action">Prispevajte</string>
+    <string name="slot_cta_label">Psst! Zanima nas vaše mnenje.</string>
+    <string name="slot_cta_desc">Pokažite svojo podporo s sodelovanjem v anketah in drugih dogodkih. Redno se obračamo na skupnost po povratne informacije o novih idejah in izboljšavah, da razvijemo čim bolj uporabne funkcije.</string>
+    <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">Odpri</string>
+    <string name="slot_blog_label">Oglejte si naš razvijalski blog!</string>
+    <string name="slot_blog_desc">Block je naš blog, kjer pišemo o razvoju projekta, prihodnjih načrtih in debatiramo o idejah.</string>
+    <!-- A button to open a blog -->
+    <string name="slot_blog_action">Odpri</string>
+    <string name="slot_updated_desc">Tapnite za več informacij o trenutni verziji.</string>
+    <!-- A button to open a description website of current app version after update. -->
+    <string name="slot_obsolete_desc">Vaša verzija Blokade je zastarela in morda ne deluje več pravilno. Prosimo, da si naložite najnovejšo kopijo.</string>
+    <!-- A button to update the app. -->
+    <string name="slot_cleanup_desc">Izgleda, da je na vaši napravi več verzij Blokad. Želite odstraniti ostale verzije in obdržati zgolj eno?</string>
+    <string name="account_inactive">Prosimo aktivirajte ali obnovite račun.</string>
+    <string name="slot_account_name_title">ID računa</string>
+    <string name="slot_account_name_desc">Vnesite ID starega računa za obnovitev prejšnjih naročnin. Zapišite si trenutni ID računa za vsak slučaj, če pride do napake.</string>
+    <string name="slot_account_name_error">ID računa lahko vsebuje le črke in številke.</string>
+    <string name="slot_account_name_api_error">Ta ID računa ni veljaven.</string>
+    <string name="slot_account_name_restore">Obnovi</string>
+    <!-- A section in advanced settings. -->
+    <string name="label_basic">Osnovne nastavitve</string>
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <string name="label_advanced">Napredne nastavitve</string>
+    <string name="slot_whitelist_updating">Posodabljam konfiguracijo, prosimo počakajte...</string>
+    <string name="slot_too_many_leases">Prosimo odstranite staro napravo s seznama naprav.</string>
+    <string name="slot_background_animation">Animacija odzadja</string>
+    <string name="slot_background_animation_description">Ta funkcija prikaže animacijo (valovi) ob vsaki dovoljeni ali blokirani poizvedbi DNS. Izklopite, če opazite upočasnitev delovanja.</string>
+    <string name="slot_reset_counter_label">Ponastavi števec blokiranih strežnikov</string>
+    <string name="slot_reset_counter_description">Nastavi števec blokiranih zahtev na 0.</string>
+    <string name="slot_reset_counter_action">Ponastavi</string>
+    <string name="label_workarounds">Posebne nastavitve</string>
+    <string name="slot_dns_answer_label">Alternativni odgovor DNS</string>
+    <string name="slot_dns_answer_description">Spremeni odgovor Blokade za blokirane poizvedbe iz \"strežnik ni najden\" v \"napačen IP\". To lahko pomaga v nekaterih sistemih, ki v primeru napake \"strežnik ni najden\" pošljejo poizvedbo na drug strežnik. Bodite pozorni, ker lahko napaka \"napačen IP\"  upočasni določene aplikacije.</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">การแจ้งเตือน</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">ที่ถูกบล็อก</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">ห้ามแสดง</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">รายการยกเว้น</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">เรียบร้อย! การเปลี่ยนแปลงจะใช้เวลาไม่นาน</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">เปิดใช้งานตลอด</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">อยู่ต่อไป (แตะเพื่อซ่อน)</string>
+    <string name="notification_keepalive_text_new">Android ต้องการแสดงการแจ้งเตือนเพื่อให้แอพทำงานต่อไป แต่คุณสามารถปิดการใช้งานได้ในการตั้งค่าระบบ</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d ถูกบล็อก</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">ล่าสุด: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">กำลังตรวจสอบ</string>
+    <string name="notification_keepalive_activate">ทำงาน</string>
+    <string name="notification_keepalive_activating">อีกสักครู่ Blokada จะเริ่มทำงาน</string>
+    <string name="notification_keepalive_deactivate">ปิดใช้งาน</string>
+    <string name="notification_keepalive_deactivating">Blokada ได้ปิดใช้งาน</string>
+    <string name="notification_channel_filtered">กำลังปิดกั้นโฆษณา</string>
+    <string name="notification_channel_announcements">ประกาศ</string>
+    <string name="notification_channel_other">อื่นๆ</string>
+</resources>

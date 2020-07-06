@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
+    <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+    <string name="tunnel_config_refetch_now_title">Lista de Downloads</string>
+    <string name="tunnel_config_refetch_now">Baixar listas agora</string>
+    <string name="tunnel_config_refetch_toast">Download de listas iniciadas</string>
+    <string name="tunnel_config_refetch_now_description">Use o botão abaixo para remover o cache e baixar sua lista novamente. Isto pode ajudar se você tiver algum problema com sua filtragem.</string>
+    <string name="tunnel_config_refetch_frequency_title">Listas de frequência de download</string>
+    <string name="tunnel_config_refetch_frequency_description">Selecione uma das opções para configurar quantas vezes o app deve baixar suas listas.</string>
+    <string name="tunnel_config_refetch_frequency_1">Diariamente</string>
+    <string name="tunnel_config_refetch_frequency_2">Duas vezes por semana</string>
+    <string name="tunnel_config_refetch_frequency_3">Uma vez por semana</string>
+    <string name="tunnel_config_refetch_frequency_4">Uma vez por mês</string>
+    <string name="tunnel_config_refetch_frequency_5">Nunca</string>
+    <string name="tunnel_config_wifi_only_title">Baixar somente via Wi-Fi</string>
+    <string name="tunnel_config_wifi_only_description">Ative essa opção se desejar que o aplicativo faça o download de listas apenas quando o dispositivo estiver conectado a WiFi. Caso contrário, o app também pode baixar listas quando o dispositivo estiver conectado a uma rede móvel e usar seu plano de dados.</string>
+    <string name="tunnel_config_watchdog_title">Watchdog</string>
+    <string name="tunnel_config_watchdog_description">Ative esta opção se quiser que o aplicativo ative a VPN somente se houver conectividade com a Internet e reinicie o túnel, caso haja problemas de conectividade. Isso pode ajudar em alguns dispositivos.</string>
+    <string name="tunnel_config_powersave_title">Despertar agressivo</string>
+    <string name="tunnel_config_powersave_description">Ative esta opção se tiver problemas causados pelo recurso de economia de energia do seu dispositivo. Quando o aplicativo detectar problemas de conectividade do túnel, ele tentará aumentar sua prioridade para tirá-lo do modo de economia de energia.</string>
+    <string name="tunnel_config_reports_title">Relatórios</string>
+    <string name="tunnel_config_reports_description">Ative essa opção para permitir que o aplicativo envie relatórios, nos ajudando a resolver problemas e bugs. Isto acontecerá somente uma vez por dia, ou quando o app parar de funcionar. Desabilitar isso pode tornar difícil para nós resolvermos quaisquer problemas que você possa estar enfrentando. Talvez você precise reiniciar o aplicativo para que essa configuração tenha efeito.</string>
+    <string name="tunnel_config_wildcard_title">[BETA] Regras avançadas de bloqueio</string>
+    <string name="tunnel_config_wildcard_description">Ative essa opção se desejar usar caracteres curinga nas suas regras de filtragem. Por exemplo, adicionar uma regra para *.google.com bloquearia todos os domínios do Google. Isso pode ter um impacto negativo na vida útil da bateria. Observe que esse é um recurso experimental e pode não funcionar corretamente.</string>
+    <string name="tunnel_config_fallback_title">Recuar DNS</string>
+    <string name="tunnel_config_fallback_description">Ative essa opção se você estiver perdendo o acesso à Internet em algumas situações, como seu Wi-Fi. Isto fará o app alternar temporariamente para o DNS do Cloudflare, para sustentar sua conectividade. Talvez você precise selecionar novamente seus servidores na seção de DNS para que essa configuração tenha efeito.</string>
+    <string name="tunnel_config_smartlist_title">[BETA] Lista Inteligente</string>
+    <string name="tunnel_config_smartlist_reset_btn">Redefinir</string>
+    <string name="tunnel_config_smartlist_clean_btn">Limpar</string>
+    <string name="tunnel_config_smartlist_clean_none">Nada para limpar</string>
+    <string name="tunnel_config_smartlist_clean_inactive">A Lista Inteligente está inativa</string>
+    <string name="tunnel_config_smartlist_clean_done">A Lista Inteligente foi limpa das regras antigas</string>
+    <string name="tunnel_config_smartlist_reset_done">A Lista Inteligente foi redefinida</string>
+    <string name="tunnel_config_smartlist_description">Ative essa opção para ativar o recurso de Lista Inteligente, que diminui drasticamente o número de regras em seus filtros, melhorando potencialmente a vida útil da bateria e diminuindo o uso de RAM. Quando ativado, o Blokada examinará seu registro de solicitações e gerará dinamicamente uma lista que contém apenas regras que realmente bloquearam pelo menos uma solicitação. A Lista Inteligente é atualizada diariamente à noite. Por favor, perceba que talvez você tenha um número maior de solicitações indesejadas sendo permitidas durante o período de aprendizado (alguns dias). Observe que esse é um recurso experimental e que pode não funcionar corretamente.</string>
+    <string name="tunnel_config_disable_wildcard">Desativar as regras de bloqueio Avançadas primeiro.</string>
+    <string name="tunnel_config_disable_smartlist">Desativar a Lista Inteligente primeiro.</string>
+</resources>

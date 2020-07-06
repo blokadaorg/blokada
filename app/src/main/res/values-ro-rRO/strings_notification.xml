@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Notificări</string>
+    <string name="notification_on_description">Când este pornit, Blokada va afișa o notificare de fiecare dată când ceva este blocat. Te rugăm să notezi că asta nu e același lucru ca notificarea VPN-ului pe care unele dispozitive o afișează și care nu poate fi oprită. &lt;br/&gt;Poți configura ce notificări se afișează cu meniul de mai jos.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Blocat</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Nu afişa</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Lista Albă</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Realizat! Modificările pot dura câteva secunde.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Păstrează activ</string>
+    <string name="notification_keepalive_description">Activați acest buton dacă întâmpinați probleme cu aplicația rămânând activă în fundal. Blokada va activa o notificare permanentă pentru a împiedica sistemul să o închidă; o puteți ascunde alegând opțiunea Notificații de mai sus și Setări.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Păstrează pornit (atinge pentru a ascunde)</string>
+    <string name="notification_keepalive_text_new">Sistemul Android are nevoie să afișeze o notificare pentru a păstra aplicația pornită, dar sunteți liber să o dezactivați din setările de sistem.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d blocat</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Ultimul: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">se monitorizează</string>
+    <string name="notification_keepalive_activate">Activare</string>
+    <string name="notification_keepalive_activating">Blokada este in curs de pornire. Acest lucru poate dura un moment.</string>
+    <string name="notification_keepalive_deactivate">Dezactivează</string>
+    <string name="notification_keepalive_deactivating">Blokada a fost dezactivat!</string>
+    <string name="notification_channel_filtered">Blocare reclame</string>
+    <string name="notification_channel_announcements">Anunțuri</string>
+    <string name="notification_channel_other">Altele</string>
+</resources>

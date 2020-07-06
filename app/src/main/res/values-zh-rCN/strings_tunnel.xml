@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
+    <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+    <string name="tunnel_config_refetch_now_title">下载列表</string>
+    <string name="tunnel_config_refetch_now">立即下载列表</string>
+    <string name="tunnel_config_refetch_toast">已开始下载列表</string>
+    <string name="tunnel_config_refetch_now_description">删除缓存并重新下载列表。如果广告过滤遇到任何问题, 这可能会有所帮助。</string>
+    <string name="tunnel_config_refetch_frequency_title">列表下载频率</string>
+    <string name="tunnel_config_refetch_frequency_description">选择下载列表的频率。</string>
+    <string name="tunnel_config_refetch_frequency_1">每天一次</string>
+    <string name="tunnel_config_refetch_frequency_2">每周两次</string>
+    <string name="tunnel_config_refetch_frequency_3">每周一次</string>
+    <string name="tunnel_config_refetch_frequency_4">每月一次</string>
+    <string name="tunnel_config_refetch_frequency_5">从不</string>
+    <string name="tunnel_config_wifi_only_title">仅从WiFi下载</string>
+    <string name="tunnel_config_wifi_only_description">启用此项后，仅在设备连接到 WiFi 时下载列表。未启用此项时，列表下载会使用数据流量</string>
+    <string name="tunnel_config_watchdog_title">Watchdog</string>
+    <string name="tunnel_config_watchdog_description">如果希望应用程序仅在具有Internet连接的情况下才激活VPN，请激活此开关，并在出现连接问题时重新启动隧道。 这可能对某些设备有所帮助。</string>
+    <string name="tunnel_config_powersave_title">主动唤醒</string>
+    <string name="tunnel_config_reports_title">报告</string>
+    <string name="tunnel_config_reports_description">打开此开关，允许应用程序发送报告，用于帮助我们解决问题和错误。报告将每天或者当应用崩溃时发送一次。禁用此项可能使我们难以解决您可能遇到的任何问题。您可能需要重启此应用程序才能使设置生效。</string>
+    <string name="tunnel_config_wildcard_title">[BETA] 高级广告屏蔽规则</string>
+    <string name="tunnel_config_wildcard_description">如果希望在过滤规则中使用通配符，请激活此开关。 例如，为*.google.com添加规则将阻止Google的所有域。 这可能会对电池寿命产生负面影响。 请注意，这是一项实验性功能，可能无法正常运行。</string>
+    <string name="tunnel_config_fallback_title">DNS错误</string>
+    <string name="tunnel_config_fallback_description">如果您在某些情况下（如WiFi）失去网络连接，打开此开关。这将使应用程序暂时切换到 Cloudflare DNS，以维持您的网络连接。您可能需要在 DNS 部分重新选择您的服务器，以使此设置生效。</string>
+    <string name="tunnel_config_smartlist_title">[BETA] 智能列表</string>
+    <string name="tunnel_config_smartlist_reset_btn">重置</string>
+    <string name="tunnel_config_smartlist_clean_btn">清除</string>
+    <string name="tunnel_config_smartlist_clean_none">没什么好清除的</string>
+    <string name="tunnel_config_smartlist_clean_inactive">智能列表未激活</string>
+    <string name="tunnel_config_smartlist_clean_done">智能列表已清理旧规则</string>
+    <string name="tunnel_config_smartlist_reset_done">智能列表已被重置</string>
+    <string name="tunnel_config_smartlist_description">激活此开关以启用智能列表功能，这会大幅减少过滤规则的数量， 有可能提高电池使用寿命和降低内存使用率。 启用时，Blokada将查看您的请求日志，并动态生成一个只包含至少一个请求的规则的列表。 智能列表每天晚上更新。 请注意，在学习期(几天) 期间，您可能会遇到更多的不想要的请求。 请注意这是一个实验功能，可能无法正常工作。</string>
+    <string name="tunnel_config_disable_wildcard">先禁用高级广告屏蔽规则。</string>
+    <string name="tunnel_config_disable_smartlist">首先禁用智能列表。</string>
+</resources>

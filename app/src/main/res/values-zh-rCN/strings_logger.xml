@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">请授予存储权限以继续</string>
+    <string name="logger_slot_title">请求日志</string>
+    <string name="logger_slot_desc">默认情况下，请求仅保存在Blokada内部。 如果启用此功能，Blokada将创建一个已被允许和/或被应用阻止的CSV文件和日志请求。 在您的外部存储上寻找\"blokada\"文件夹。或者，请求日志可以完全禁用，只需要存储被屏蔽的域的数量。</string>
+    <string name="logger_slot_mode_off">已禁用</string>
+    <string name="logger_slot_mode_internal">转至内部存储</string>
+    <string name="logger_slot_mode_allowed">允许日志请求</string>
+    <string name="logger_slot_mode_denied">记录已屏蔽的请求</string>
+    <string name="logger_slot_mode_all">记录所有请求</string>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_loading">加载中，请稍候......</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Label for the Quick Settings toggle -->
+    <string name="main_quicksettings_toggle">拦截广告</string>
+    <!-- Active status for the Quick Settings toggle -->
+    <!-- Disabled status for the Quick Settings toggle -->
+    <!-- App status, as in: Blokada is Active -->
+    <string name="main_status_active_recent">已启用</string>
+    <!-- App status, as in: Blokada is Disabled -->
+    <string name="main_status_disabled">已停用</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">正在启用</string>
+    <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_deactivating">正在停用</string>
+    <string name="main_blog_text">新闻</string>
+    <string name="main_autostart_text">开机自启动</string>
+    <!-- A menu option to send feedback or contact us -->
+    <!-- A menu option to open Patron of the month -->
+    <!-- A menu option to open Patron voting screen -->
+    <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+    <string name="main_cta">你的建议</string>
+    <!-- A menu option to open changelog -->
+    <string name="main_changelog">更新日志</string>
+    <!-- A menu option to open credits screen -->
+    <string name="main_credits">致谢</string>
+    <string name="main_legal">法律信息</string>
+    <string name="main_licenses">第三方许可</string>
+    <string name="main_terms">服务条款</string>
+    <string name="main_privacy">隐私政策</string>
+    <!-- An overlay header on top of Patron page -->
+    <string name="main_log">分享日志</string>
+    <!-- To display a big number in short way, eg. 1.69 million -->
+    <string name="core_format_million">%s 百万</string>
+    <!-- To display a big number in short way, eg. 420 thousand -->
+    <string name="core_format_thousand">%s 千</string>
+</resources>

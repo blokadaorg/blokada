@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_button">Λήψη ενημέρωσης</string>
+    <string name="update_notification_title">Διαθέσιμη ενημέρωση</string>
+    <!-- Parameter: new app version, for example 2.0.1 -->
+    <string name="update_notification_text">Η έκδοση %1$s είναι έτοιμη για λήψη! Πατήστε για να συνεχίσετε.</string>
+    <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
+    <string name="update_notification_channel">Ενημέρωση ειδοποιήσεων</string>
+    <string name="update_info">Εάν πραγματοποιήσατε λήψη της εφαρμογής από το Play Store, το F-Droid ή άλλο κατάστημα εφαρμογών, θα λάβετε ενημερώσεις από το κατάστημα καθώς αυτές είναι διαθέσιμες. Βεβαιωθείτε ότι το Blokada είναι απενεργοποιημένο κατά τη διάρκεια της ενημέρωσης. Εάν αντιμετωπίσετε προβλήματα ενημέρωσης, μεταβείτε στο blokada.org και κατεβάστε την εφαρμογή χειροκίνητα. Δεν χρειάζεται να απεγκαταστήσετε την υπάρχουσα έκδοση εκ των προτέρων.</string>
+    <!-- Displayed in the home screen when there is an update. Keep it short. -->
+    <string name="update_dash_available">&lt;b&gt;Διαθέσιμη ενημέρωση!&lt;/b&gt;</string>
+    <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
+    <!-- Displayed in menu to open the About/Update screen. -->
+    <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">Λεπτομέρειες εφαρμογής</string>
+    <!-- A button that opens the changelog. -->
+    <!-- A toast message displayed when the update process is starting. -->
+    <string name="update_starting">Ξεκινώντας, παρακαλώ περιμένετε&#8230;</string>
+    <string name="update_progress">Γίνεται λήψη: %s%%</string>
+    <string name="update_complete">Η λήψη ολοκληρώθηκε</string>
+    <string name="update_failed">Αποτυχία λήψης</string>
+    <string name="update_instruction">Όταν τελειώσει, θα σας ζητηθεί να επιτρέψετε στο Blokada να εγκαταστήσει την ενημέρωση.</string>
+    <string name="update_instruction_failed">Πατήστε εδώ για να δοκιμάσετε ξανά ή πατήστε παρατεταμένα για λήψη με το πρόγραμμα περιήγησης.</string>
+</resources>

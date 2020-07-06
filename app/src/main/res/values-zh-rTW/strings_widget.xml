@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_domain">顯示所阻擋的網域名稱</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_counter">顯示已阻擋請求數</string>
+    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget -->
+    <string name="widget_show_dns">顯示 DNS</string>
+    <string name="widget_okay">確定</string>
+</resources>

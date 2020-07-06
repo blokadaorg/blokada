@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">I-Blokada ungisize ngavimba izikhangiso ezi-%s kanye nama-tracker emizuzwini engu-%d edlule! Ithole ku blokada.org.</string>
+    <string name="social_share_body_hour">I-Blokada ungisize ngavimba izikhangiso ezi-%s kanye nama-tracker emahoreni angu-%d adlule! Ithole ku blokada.org.</string>
+    <string name="social_share_body_day">I-Blokada ungisize ngavimba izikhangiso ezi-%s kanye nama-tracker ezinsukwini ezi-%d ezedlule! Ithole ku blokada.org.</string>
+    <string name="social_share_body_week">I-Blokada wangisiza ngavimba izikhangiso ezi-%s kanye nama-trackers emasontweni angu-%d adlule! Ithole ku blokada.org.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="social_share_body_minute">Blokada 在過去的 %d 分鐘內協助我阻擋了 %s 個廣告與追蹤程式！在 blokada.org 下載。</string>
+    <string name="social_share_body_hour">Blokada 在過去的 %d 小時內協助我阻擋了 %s 個廣告與追蹤程式！在 blokada.org 下載。</string>
+    <string name="social_share_body_day">Blokada 在過去的 %d 天內協助我阻擋了 %s 個廣告與追蹤程式！在 blokada.org 下載。</string>
+    <string name="social_share_body_week">Blokada 在過去的 %d 週內協助我阻擋了 %s 個廣告與追蹤程式！在 blokada.org 下載。</string>
+</resources>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_touch">点击或按住以配置</string>
+    <string name="home_blokada_disabled">Blokada 已暂停使用</string>
+    <string name="home_blokada_active">Blokada 已激活</string>
+    <string name="home_blokada_inactive">Blokada 已停用</string>
+    <string name="home_activating">正在启用</string>
+    <string name="home_please_wait">请稍候...</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Blokada 以 DNS 模式启动</string>
+    <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked">已拦截 %s 个请求</string>
+    <string name="home_masterswitch_enabled">Blokada 已打开</string>
+    <string name="home_masterswitch_waiting">等待网络...</string>
+    <!-- A button to share the ads counter on social media -->
+    <string name="home_share">告诉您的朋友</string>
+    <string name="home_share_state">分享你的 Blokada 得分</string>
+    <string name="home_share_state_google">帮助他人了解 Blokada 。</string>
+    <string name="home_share_msg_google">试试 Blokada Slim 并保护您的隐私！在 Google Play 获得它。</string>
+    <string name="home_adblocking_enabled">已启用广告屏蔽</string>
+    <string name="home_adblocking_disabled">已停用广告屏蔽</string>
+    <string name="home_blokadaorg">您正在使用 Blokada Slim</string>
+    <string name="home_blokadaorg_state">点击获得开源版</string>
+    <!-- A short text for the item that displays update information -->
+    <string name="home_whats_new">更新说明</string>
+    <string name="home_update_required">需要更新</string>
+    <!-- A short text for the item that displays donate link -->
+    <string name="home_donate">捐赠</string>
+    <string name="home_account_active">您的帐户仍已激活</string>
+    <string name="home_cleanup">建议清理</string>
+    <!-- A short text for the button to change VPN settings -->
+    <string name="home_blocka_vpn_error">无法连接到网关。您在线吗？</string>
+    <string name="home_account_error">无法验证帐号。您在线吗？</string>
+    <string name="home_permission_error">请授予VPN权限。</string>
+    <string name="home_zero_filters_error">您没有配置过滤器。请检查您的广告拦截器和无线网络设置。</string>
+    <string name="home_filters_memory_error">无法加载某些列表；在广告拦截设置中选择更少的列表。</string>
+    <string name="tasker_switch_label">点击其中一个选项来配置以打开(或关闭) 触发器。</string>
+    <!-- Ads section header in menu (for configuring ad blocking) -->
+    <string name="menu_ads">广告</string>
+    <string name="menu_ads_live_label">已允许和已屏蔽的请求主机日志</string>
+    <string name="menu_ads_clear_log">清除主机日志</string>
+    <string name="menu_ads_lists_label">选择要使用的屏蔽列表。对大多数人而言，默认列表就可以。</string>
+    <string name="menu_ads_rules_label">添加您自己的规则来调整屏蔽。</string>
+    <string name="menu_ads_log_label">查看最近被拦截或允许的内容。</string>
+    <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn_activate_account">请先激活您的帐号。</string>
+    <string name="menu_vpn_select_gateway">请选择一个网关。</string>
+    <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account_id">ID: %s</string>
+    <!-- A button opening VPN gateways settings -->
+    <string name="menu_vpn_gateways">网关</string>
+    <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_leases">设备</string>
+    <string name="menu_vpn_manage_subscription">管理您的帐号订阅</string>
+    <string name="menu_vpn_account_secret">点击上面的头像来查看您的帐号ID。请记住，您的ID是保密的，您应该自己保留着它。如果您卸载应用程序，请将其记下。</string>
+    <string name="menu_vpn_restore_label">如果您重新安装应用程序，您可以在此恢复您的现有帐号。</string>
+    <string name="menu_vpn_account_label">要使用 VPN，您需要一个可用帐号。在此检查或恢复您的帐号。</string>
+    <string name="menu_vpn_gateways_label">选择一个网关进行连接。您的设备将通过这个网关安全地发送您的加密数据，并且您将保持匿名。</string>
+    <string name="menu_vpn_support_label">如果您遇到任何问题，请毫不犹豫地与我们联系。</string>
+    <string name="menu_vpn_support_button">支持</string>
+    <string name="menu_vpn_info_account_label">我有帐号吗？</string>
+    <string name="menu_vpn_info_account_line1">是的！您的帐号在首次运行时自动创建。您不需要注册。</string>
+    <string name="menu_vpn_info_account_line2">点击上面的头像查看您的帐号 ID。</string>
+    <string name="menu_vpn_info_account_line3">您的帐号 ID 是保密的，您不应该向任何人展示它。</string>
+    <string name="menu_vpn_info_account_line4">请在您需要重新安装应用程序时记下您的帐号 ID。</string>
+    <string name="menu_dns_recommended">推荐的 DNS 服务器</string>
+    <string name="menu_dns_intro">DNS 负责解析您使用的网站和应用的 IP 地址。选择一个好的 DNS 可以加速您的设备，并有助于保护您的隐私。</string>
+    <string name="menu_dns_select">选择一个 DNS 服务器。</string>
+    <string name="menu_apps_system_label">系统应用是预装在您的设备上的。有些系统应用是隐藏的。只有当您知道您正在做什么时，才能修改这些应用。</string>
+    <string name="menu_host_list_intro">主机列表包含了屏蔽广告和跟踪器的规则。尽量减少启用列表的数量。</string>
+    <string name="menu_host_adblocking_features">Blokada 实验室</string>
+    <string name="menu_host_adblocking_settings">广告屏蔽设置</string>
+    <string name="menu_host_list_status">列表状态</string>
+    <string name="menu_host_list_download">列表下载设置</string>
+    <string name="menu_host_whitelist">您在这里添加的主机将永远不会被屏蔽。例如，当您访问的网站被误屏蔽时，请使用此列表。</string>
+    <string name="menu_host_blacklist">您在这里添加的主机将始终被屏蔽。例如，您可以添加应该被屏蔽但没有被标准列表屏蔽的网站。</string>
+    <!-- A section of other settings in menu -->
+    <string name="menu_other">其它</string>
+    <string name="menu_share_log_label">我们可以通过共享日志发现您的问题的原因。请确保您私下将共享日志发送给 Blokada 核心团队成员之一。</string>
+    <!-- A section of help, telegram, and other buttons in menu -->
+    <string name="menu_learn_more">了解更多</string>
+    <!-- A section informational content in menu -->
+    <string name="menu_knowledge">获得帮助</string>
+    <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">加入我们</string>
+    <string name="menu_configure">配置 Blokada 功能</string>
+    <string name="menu_exclude">排除无法正常工作的应用</string>
+    <!-- A section in menu for additional buttons  -->
+    <string name="menu_dive_in">附加功能</string>
+    <!-- A section to manage some settings (generic)  -->
+    <string name="menu_manage">管理</string>
+    <string name="menu_ok">OK</string>
+    <string name="menu_dns_remove_default">默认 DNS 不可删除。</string>
+</resources>

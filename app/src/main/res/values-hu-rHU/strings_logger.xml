@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logger_permission">Kérjük, először add meg a tárhely elérési engedélyt.</string>
+    <string name="logger_slot_title">Naplózás kérése</string>
+    <string name="logger_slot_desc">Alapértelmezés szerint a kérelmeket csak a Blokada tárolja. Ha ez a szolgáltatás engedélyezve van, a Blokada létrehoz egy CSV fájlt, melybe naplózza azokat a kérelmeket, amelyeket a Blokada engedélyezett és/vagy blokkolt. Keresd meg a \"Blokada\" mappát a külső tárhelyen. Alternatív megoldásként a kérelmek naplózását teljesen deaktiválhatod, így csak a blokkolt tartományok száma kerül mentésre.</string>
+    <string name="logger_slot_mode_off">Letiltva</string>
+    <string name="logger_slot_mode_internal">Csak a belső tárhelyre naplózzon</string>
+    <string name="logger_slot_mode_allowed">Engedélyezett kérelmek naplózása</string>
+    <string name="logger_slot_mode_denied">Blokkolt kérelmek naplózása</string>
+    <string name="logger_slot_mode_all">Összes kérelem naplózása</string>
+</resources>

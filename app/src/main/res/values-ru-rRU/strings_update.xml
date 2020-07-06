@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_button">Загрузить обновление</string>
+    <string name="update_notification_title">Доступно обновление</string>
+    <!-- Parameter: new app version, for example 2.0.1 -->
+    <string name="update_notification_text">Версия %1$s готова к загрузке! Коснитесь, чтобы продолжить.</string>
+    <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
+    <string name="update_notification_channel">Уведомления об обновлении</string>
+    <string name="update_info">Если вы загрузили приложение из Play Store, F-Droid или другого магазина приложений, вы будете получать обновления из магазина по мере их появления. Убедитесь, что Blokada отключена во время обновления. Если у вас возникли проблемы с обновлением, перейдите на blokada.org и загрузите приложение вручную. Удалять текущую версию нет необходимости.</string>
+    <!-- Displayed in the home screen when there is an update. Keep it short. -->
+    <string name="update_dash_available">&lt;b&gt;Доступно обновление!&lt;/b&gt;</string>
+    <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
+    <!-- Displayed in menu to open the About/Update screen. -->
+    <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">Данные приложения</string>
+    <!-- A button that opens the changelog. -->
+    <!-- A toast message displayed when the update process is starting. -->
+    <string name="update_starting">Запуск, пожалуйста, подождите&#8230;</string>
+    <string name="update_progress">Загрузка: %s%%</string>
+    <string name="update_complete">Загрузка завершена</string>
+    <string name="update_failed">Ошибка загрузки</string>
+    <string name="update_instruction">По завершении вам будет предложено разрешить Blokada установить обновление.</string>
+    <string name="update_instruction_failed">Нажмите здесь, чтобы повторить попытку, или длительно удерживайте, чтобы загрузить с помощью браузера.</string>
+</resources>

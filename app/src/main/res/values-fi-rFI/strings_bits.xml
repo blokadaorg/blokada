@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_touch">Napauta tai pidä pohjassa muokataksesi</string>
+    <string name="home_blokada_disabled">Blokada on keskeytetty</string>
+    <string name="home_blokada_active">Blokada on aktiivinen</string>
+    <string name="home_blokada_inactive">Blokada on pois päältä</string>
+    <string name="home_activating">Aktivoidaan</string>
+    <string name="home_please_wait">Ole hyvä ja odota...</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Blokada on aktiivinen DNS-tilassa</string>
+    <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked">%s estetty</string>
+    <string name="home_masterswitch_enabled">Blokada on päällä</string>
+    <string name="home_masterswitch_waiting">Odotetaan verkkoa...</string>
+    <!-- A button to share the ads counter on social media -->
+    <string name="home_share">Kerro ystävillesi</string>
+    <string name="home_share_state">Jaa Blokada tuloksesi</string>
+    <string name="home_share_state_google">Auta muita oppimaan Blokadasta</string>
+    <string name="home_share_msg_google">Kokeile Blokada Slim-sovellusta ja pidä sinun yksityisyys suojattuna! Hanki se Google Playsta.</string>
+    <string name="home_adblocking_enabled">Mainosten esto on aktiivinen</string>
+    <string name="home_adblocking_disabled">Mainosten esto on poissa käytöstä</string>
+    <string name="home_blokadaorg">Käytät Blokada Slim-sovellusta</string>
+    <string name="home_blokadaorg_state">Napauta saadaksesi avoimen lähdekoodin version</string>
+    <!-- A short text for the item that displays update information -->
+    <string name="home_whats_new">Mitä uutta?</string>
+    <string name="home_update_required">Päivitys vaaditaan</string>
+    <!-- A short text for the item that displays donate link -->
+    <string name="home_donate">Lahjoita</string>
+    <string name="home_account_active">Tilisi on edelleen aktiivinen</string>
+    <string name="home_cleanup">Siivousta suositellaan</string>
+    <!-- A short text for the button to change VPN settings -->
+    <string name="home_blocka_vpn_error">Yhdyskäytävään ei saatu yhteyttä. Oletko verkossa?</string>
+    <string name="home_account_error">Tiliä ei voitu vahvistaa. Oletko verkossa?</string>
+    <string name="home_permission_error">Ole hyvä ja myönnä VPN-oikeudet.</string>
+    <string name="home_zero_filters_error">Sinulla ei ole määritettynä suodattimia. Tarkista mainosten esto ja WiFi-asetukset.</string>
+    <string name="home_filters_memory_error">Joitain listoja ei voitu ladata; valitse vähemmän listoja Mainosten esto-asetuksista.</string>
+    <string name="tasker_switch_label">Napauta yhtä vaihtoehdoista määrittääksesi sen päälle (tai pois päältä) sinun laukaisijallesi.</string>
+    <!-- Ads section header in menu (for configuring ad blocking) -->
+    <string name="menu_ads">Mainokset</string>
+    <string name="menu_ads_live_label">Sallittujen ja estettyjen pyyntöjen isäntäloki</string>
+    <string name="menu_ads_clear_log">Tyhjennä isäntaloki</string>
+    <string name="menu_ads_lists_label">Valitse estoja varten käytettävät listat. Oletusarvot sopivat useimmille ihmisille.</string>
+    <string name="menu_ads_rules_label">Lisää omia sääntöjäsi hienosäätääksesi estämistä.</string>
+    <string name="menu_ads_log_label">Katso, mitä viime aikoina on estetty tai sallittu.</string>
+    <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn_activate_account">Ole hyvä ja aktivoi ensin tilisi.</string>
+    <string name="menu_vpn_select_gateway">Ole hyvä ja valitse yhdyskäytävä.</string>
+    <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account_id">ID: %s</string>
+    <!-- A button opening VPN gateways settings -->
+    <string name="menu_vpn_gateways">Yhdyskäytävät</string>
+    <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_leases">Laitteet</string>
+    <string name="menu_vpn_manage_subscription">Hallinnoi tilaustasi</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Jos tilisi on uusi, käy verkkosivustollamme. Et voi ostaa tilausta Blokada Slim-sovelluksesta.</string>
+    <string name="menu_vpn_account_secret">Napauta yllä olevaa avatariasi nähdäksesi tilitunnuksesi. Muista, että tilitunnuksesi on salainen, ja sinun tulee säilyttää se itselläsi. Kirjoita se muistiin, jos poistat sovelluksen.</string>
+    <string name="menu_vpn_restore_label">Täällä voit palauttaa nykyisen tilisi, jos esimerkiksi asensit sovelluksen uudelleen.</string>
+    <string name="menu_vpn_account_label">Jotta voit käyttää VPN:ää, tarvitset aktiivisen tilin. Tarkista tai palauta tilisi täällä.</string>
+    <string name="menu_vpn_gateways_label">Valitse yksi yhdyskäytävistä, johon haluat yhdistää. Laitteesi lähettää salatun datasi turvallisesti kyseisen yhdyskäytävän kautta, ja sinä pysyt nimettömänä.</string>
+    <string name="menu_vpn_support_label">Jos sinulla on ongelmia, älä epäröi ottaa yhteyttä meihin.</string>
+    <string name="menu_vpn_support_button">Tuki</string>
+    <string name="menu_vpn_info_account_label">Onko minulla tili?</string>
+    <string name="menu_vpn_info_account_line1">Kyllä! Tilisi luodaan automaattisesti ensimmäisen ajon aikana. Sinun ei tarvitse rekisteröityä.</string>
+    <string name="menu_vpn_info_account_line2">Napauta yllä olevaa avatariasi nähdäksesi tilitunnuksesi.</string>
+    <string name="menu_vpn_info_account_line3">Tilitunnuksesi on salainen, eikä sinun pitäisi näyttää sitä kenellekään.</string>
+    <string name="menu_vpn_info_account_line4">Kirjoita tilin tunnus muistiin, jos sinun on asennettava sovellus uudelleen.</string>
+    <string name="menu_dns_recommended">Suositellut DNS-palvelimet</string>
+    <string name="menu_dns_intro">DNS on vastuussa käyttämiesi verkkosivustojen ja sovellusten IP-osoitteiden muuntamisesta. Hyvän DNS:n valitseminen saattaa nopeuttaa laitettasi ja auttaa suojaamaan yksityisyyttäsi.</string>
+    <string name="menu_dns_select">Valitse yksi DNS-palvelimista.</string>
+    <string name="menu_apps_system_label">Järjestelmäsovellukset ovat esiasennettuna laitteeseesi. Jotkut niistä ovat piilotettuja. Muokkaa niitä vain, jos tiedät mitä teet.</string>
+    <string name="menu_host_list_intro">Isäntäluettelot sisältävät sääntöjä mainosten ja jäljittäjien estämiseksi. Yritä pitää aktiivisten listojen määrä alhaisena.</string>
+    <string name="menu_host_adblocking_features">Blokada Labs</string>
+    <string name="menu_host_adblocking_settings">Mainosten estoasetukset</string>
+    <string name="menu_host_list_status">Listan tila</string>
+    <string name="menu_host_list_download">Listojen latausasetukset</string>
+    <string name="menu_host_whitelist">Täältä lisäämäsi isäntää ei koskaan estetä. Käytä tätä listaa, kun esimerkiksi verkkosivusto, jossa vierailet, on virheellisesti estetty.</string>
+    <string name="menu_host_blacklist">Täältä lisäämäsi isännät estetään aina. Voit esimerkiksi lisätä verkkosivustoja, joita standardilistat eivät ole estäneet, mutta joiden pitäisi olla estettynä.</string>
+    <!-- A section of other settings in menu -->
+    <string name="menu_other">Muu</string>
+    <string name="menu_share_log_label">Jakamislokin avulla voimme selvittää ongelmasi syyn. Varmista, että lähetät sen yksityisesti yhdelle Blokadan ydintiimin jäsenistä.</string>
+    <!-- A section of help, telegram, and other buttons in menu -->
+    <string name="menu_learn_more">Lue lisää</string>
+    <!-- A section informational content in menu -->
+    <string name="menu_knowledge">Hae apua</string>
+    <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">Tule mukaan</string>
+    <string name="menu_telegram">Yhteisö</string>
+    <string name="menu_configure">Määritä Blokadan ominaisuuksia</string>
+    <string name="menu_exclude">Poissulje sovellukset, jotka eivät toimi oikein</string>
+    <!-- A section in menu for additional buttons  -->
+    <string name="menu_dive_in">Sukella syvemmälle</string>
+    <!-- A section to manage some settings (generic)  -->
+    <string name="menu_manage">Hallinta</string>
+    <string name="menu_ok">OK</string>
+    <string name="menu_dns_remove_default">Oletus DNS-palvelinta ei voi poistaa.</string>
+</resources>
