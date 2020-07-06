@@ -52,7 +52,9 @@ class RequestLog : Closeable {
 
         private fun legacyLoadDropCounter(): Int{
             val p by lazy { getActiveContext()!!.getSharedPreferences("default", Context.MODE_PRIVATE) }
-            return max(get(LogConfig::class.java).dropCount, p.getInt("tunnelAdsCount", 0))
+            val count = max(get(LogConfig::class.java).dropCount, p.getInt("tunnelAdsCount", 0))
+            p.edit().remove("tunnelAdsCount").apply()
+            return count
         }
 
         private fun getBatch(index: Int): List<ExtendedRequest> {
