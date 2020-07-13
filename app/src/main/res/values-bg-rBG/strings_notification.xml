@@ -29,7 +29,12 @@
     <string name="notification_keepalive_activating">Blokada стартира. Това може да отнеме известно време.</string>
     <string name="notification_keepalive_deactivate">Деактивиране</string>
     <string name="notification_keepalive_deactivating">Blokada се деактивира!</string>
+    <string name="notification_expired_title">Blokada Plus е деактивирана</string>
+    <string name="notification_expired_description">Вашият акаунт не е активен и Blokada Plus е изключена. Стандартните функции на Blokada работят отлично и без VPN на Blokada Plus. Моля, помислете обаче, дали да не активирате акаунта си за по-добра защита и за подкрепа на проекта.</string>
+    <string name="notification_lease_expired_title">Blokada Plus е деактивирана</string>
+    <string name="notification_lease_expired_description">Възникна проблем с връзката с Blokada Plus. Моля, опитайте да изберете друг шлюз. Ако проблемът продължава, моля свържете се с нас.</string>
     <string name="notification_channel_filtered">Блокиране на реклами</string>
     <string name="notification_channel_announcements">Съобщения</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
     <string name="notification_channel_other">Друго</string>
 </resources>

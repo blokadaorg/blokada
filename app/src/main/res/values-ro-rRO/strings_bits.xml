@@ -28,6 +28,8 @@
     <string name="home_update_required">Actualizare necesară</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Donează</string>
+    <string name="home_vpn_enabled">Blokada Plus este activ</string>
+    <string name="home_vpn_disabled">Blokada Plus este dezactivat</string>
     <string name="home_account_active">Contul dvs. este incă activ</string>
     <string name="home_cleanup">Curățare recomandată</string>
     <!-- A short text for the button to change VPN settings -->
@@ -45,9 +47,12 @@
     <string name="menu_ads_rules_label">Adaugați-vă proprile reguli pentru o configurare personalizată.</string>
     <string name="menu_ads_log_label">Vedeți ce s-a permis sau blocat în ultima perioadă.</string>
     <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">Blokada Plus</string>
     <string name="menu_vpn_activate_account">Te rugăm să-ți activezi contul mai întâi.</string>
     <string name="menu_vpn_select_gateway">Vă rugăm să selectaţi un gateway.</string>
+    <string name="menu_vpn_intro_button">De ce am nevoie de Blokada Plus?</string>
     <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account">Comtul meu Blokada Plus</string>
     <string name="menu_vpn_account_id">ID: %s</string>
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Gateway-uri</string>
@@ -86,6 +91,7 @@
     <string name="menu_knowledge">Solicitați ajutor</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Implicați-vă</string>
+    <string name="menu_telegram">Comunitate</string>
     <string name="menu_configure">Configurare caracteristici Blokada</string>
     <string name="menu_exclude">Exclude aplicațiile care nu funcționează corect</string>
     <!-- A section in menu for additional buttons  -->

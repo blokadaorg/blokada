@@ -116,6 +116,8 @@
     <string name="slot_action_deactivate">Изключване</string>
     <string name="slot_action_activate">Включване</string>
     <string name="slot_update_action_refresh">Провери отново</string>
+    <string name="slot_telegram_title">Присъедини се към нас!</string>
+    <string name="slot_telegram_desc">Посетете нашата общност за помощ или просто да станете част от нея.</string>
     <string name="slot_telegram_action">Отвори</string>
     <string name="slot_dropped_share_title">Сподели с</string>
     <string name="slot_adblocking_label">Блокиране на реклами &amp; тракери</string>
@@ -138,6 +140,7 @@
     <string name="slot_gateway_learn_more">Научете повече за шлюзовете</string>
     <string name="slot_gateway_info_partner">Какво представляват партньорските шлюзове?</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Контролирайте кои от вашите устройства да бъдат свързани с Blokada Plus.</string>
     <string name="slot_lease_name_current">%s (това устройство)</string>
     <string name="slot_lease_description">Устройство ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">Устройство ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Това е вашето текущо устройство.</string>
@@ -175,6 +178,8 @@
     <!-- A button to update the app. -->
     <string name="slot_cleanup_desc">Изглежда, че на устройството ви са инсталирани няколко версии на Blokada. Искате ли да премахнете другите версии и да запазите само една?</string>
     <string name="account_inactive">Моля, активирайте или подновете профила си за да продължите.</string>
+    <string name="slot_lease_cant_connect">Не можа да се свърже с Blokada Plus. Опитайте да изберете друг шлюз.</string>
+    <string name="slot_account_cant_create">Не можахте да създадете профила си в Blokada Plus. Моля, опитайте отново по-късно или се свържете с нас.</string>
     <string name="slot_account_name_title">Профил ID</string>
     <string name="slot_account_name_desc">Въведете стария си идентификационен номер (ID) за да възстановите предишния си абонамент. Може да искате да запишете идентификационния номер на текущия си акаунт преди да възстановите стария, в случай че направите грешка.</string>
     <string name="slot_account_name_error">ID на профила може да съдържа само букви и цифри.</string>

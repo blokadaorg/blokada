@@ -116,6 +116,8 @@
     <string name="slot_action_deactivate">Oprește</string>
     <string name="slot_action_activate">Porneşte</string>
     <string name="slot_update_action_refresh">Verificați din nou</string>
+    <string name="slot_telegram_title">Alătură-te nouă!</string>
+    <string name="slot_telegram_desc">Vizitați comunitatea noastră pentru ajutor sau doar pentru a face parte din ea.</string>
     <string name="slot_telegram_action">Deschideți</string>
     <string name="slot_dropped_share_title">Trimiteți prin</string>
     <string name="slot_adblocking_label">Blochează reclame &amp; trackere</string>

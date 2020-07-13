@@ -4,10 +4,12 @@
     <string name="home_touch">Докосни или задръж за конфигуриране</string>
     <string name="home_blokada_disabled">Блокада е на пауза</string>
     <string name="home_blokada_active">Blokada е активна</string>
+    <string name="home_blokada_active_protected">Blokada Plus е активна и вашият интернет е защитен</string>
     <string name="home_blokada_inactive">Блокада е деактивирана</string>
     <string name="home_activating">Активиране</string>
     <string name="home_please_wait">Моля изчакайте...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_vpn_only">Blokada Plus е активна без да блокира реклами</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada е активна в DNS режим</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
@@ -28,9 +30,14 @@
     <string name="home_update_required">Изисква се актуализация</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Дарение</string>
+    <string name="home_vpn_enabled">Blokada Plus е активна</string>
+    <string name="home_vpn_disabled">Blokada Plus е деактивирана</string>
     <string name="home_account_active">Профилът ви още е активен</string>
+    <string name="home_connecting_vpn">Свързване с Blokada Plus</string>
     <string name="home_cleanup">Препоръчително е почистване</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">Свързано с Blokada Plus</string>
+    <string name="home_boringtun_not_loaded">За съжаление устройството ви не се поддържа от Blokada Plus. Но все още можете да използвате другите функции.</string>
     <string name="home_blocka_vpn_error">Не можа да се свърже с шлюза. Свързани ли сте с интернет?</string>
     <string name="home_account_error">Профилът не може да бъде потвърден. Свързани ли сте с интернет?</string>
     <string name="home_permission_error">Моля, дайте разрешения за VPN.</string>
@@ -45,9 +52,12 @@
     <string name="menu_ads_rules_label">Добавете свои собствени правила за фина настройка на блокирането.</string>
     <string name="menu_ads_log_label">Вижте какво е блокирано или разрешено наскоро.</string>
     <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">Blokada Plus</string>
     <string name="menu_vpn_activate_account">Моля, първо активирайте профила си.</string>
     <string name="menu_vpn_select_gateway">Моля, изберете шлюз.</string>
+    <string name="menu_vpn_intro_button">Защо ми трябва Blokada Plus?</string>
     <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account">Моята Blokada Plus</string>
     <string name="menu_vpn_account_id">ID: %s</string>
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Шлюзове</string>
@@ -57,10 +67,13 @@
     <string name="menu_vpn_manage_subscription_unavailable">Ако акаунтът ви е нов, посетете нашия уебсайт. Не можете да закупите абонамент в Blokada Slim.</string>
     <string name="menu_vpn_account_secret">Докоснете аватара си по-горе за да видите ID (идентификационния номер) на профила си. Не забравяйте, че идентификационния номер е поверителен и трябва да го пазите. Запишете го в случай, че деинсталирате приложението.</string>
     <string name="menu_vpn_restore_label">Тук можете да възстановите сегашния си профил, ако например инсталиралите отново приложението.</string>
+    <string name="menu_vpn_intro">С Blokada Plus вашите данни са криптирани, вашият IP адрес е скрит и местоположението ви е променено.</string>
     <string name="menu_vpn_account_label">За да използвате VPN трябва да имате активен акаунт. Проверете или възстановете профила си тук.</string>
     <string name="menu_vpn_gateways_label">Изберете един от шлюзовете, към който да се свържете. Устройството ви ще изпраща криптирани данни сигурно чрез този шлюз и ще останете анонимни.</string>
     <string name="menu_vpn_support_label">Ако имате някакви проблеми, не се колебайте да се свържете с нас.</string>
     <string name="menu_vpn_support_button">Поддръжка</string>
+    <string name="menu_vpn_tunnel_settings">Blokada Plus настройки</string>
+    <string name="menu_vpn_tunnel_learn_more">Научете повече за Blokada Plus</string>
     <string name="menu_vpn_info_account_label">Имам ли профил?</string>
     <string name="menu_vpn_info_account_line1">Да! Вашият профил се създава автоматично при първото пускане. Не е необходимо да се регистрирате.</string>
     <string name="menu_vpn_info_account_line2">Докоснете аватара си по-горе за да видите ID на профила си.</string>
@@ -69,6 +82,7 @@
     <string name="menu_dns_recommended">Препоръчителни DNS сървъри</string>
     <string name="menu_dns_intro">DNS отговаря за свързването на устройството ви с уеб сайтове и приложения, които използвате. Изборът на добър DNS може да ускори устройството и ще спомогне за защитата на вашата поверителност.</string>
     <string name="menu_dns_select">Изберете един от DNS сървърите.</string>
+    <string name="menu_apps_intro">Някои приложения може да не работят правилно с Blokada. Например, те могат да имат проблеми със свързването. \n\nАктивирането на VPN често помага в тези случаи. \n\nВ противен случай можете да накарате тези приложения да бъдат заобиколени напълно от проверката на Blokada. Но не забравяйте, че заобиколените приложения комуникират самостоятелно и извън Blokada Plus.</string>
     <string name="menu_apps_system_label">Системните приложения са тези, които са предварително инсталирани на устройство ви. Някои от тях са скрити. Променете тези, за които знаете какво правите.</string>
     <string name="menu_host_list_intro">Хост списъците съдържат правила за блокиране на реклами и тракери. Опитайте се да запазите нисък броя на активните списъци.</string>
     <string name="menu_host_adblocking_features">Blokada Лаболатория</string>
@@ -86,6 +100,7 @@
     <string name="menu_knowledge">Потърси помощ</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Присъединете се сега</string>
+    <string name="menu_telegram">Общност</string>
     <string name="menu_configure">Конфигуриране функциите на Blokada</string>
     <string name="menu_exclude">Изключване на приложения, които не работят правилно</string>
     <!-- A section in menu for additional buttons  -->

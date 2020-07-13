@@ -29,7 +29,10 @@
     <string name="notification_keepalive_activating">Blokada este in curs de pornire. Acest lucru poate dura un moment.</string>
     <string name="notification_keepalive_deactivate">Dezactivează</string>
     <string name="notification_keepalive_deactivating">Blokada a fost dezactivat!</string>
+    <string name="notification_expired_title">Blokada Plus este dezactivat</string>
+    <string name="notification_lease_expired_title">Blokada Plus este dezactivat</string>
     <string name="notification_channel_filtered">Blocare reclame</string>
     <string name="notification_channel_announcements">Anunțuri</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
     <string name="notification_channel_other">Altele</string>
 </resources>

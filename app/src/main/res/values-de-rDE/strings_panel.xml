@@ -116,6 +116,8 @@
     <string name="slot_action_deactivate">Ausschalten</string>
     <string name="slot_action_activate">Einschalten</string>
     <string name="slot_update_action_refresh">Erneut überprüfen</string>
+    <string name="slot_telegram_title">Mach mit!</string>
+    <string name="slot_telegram_desc">Besuch unsere Community für Hilfe oder nur um Teil davon zu sein.</string>
     <string name="slot_telegram_action">Öffnen</string>
     <string name="slot_dropped_share_title">Teilen mit</string>
     <string name="slot_adblocking_label">Werbung &amp; Tracker blockieren</string>
@@ -138,6 +140,7 @@
     <string name="slot_gateway_learn_more">Mehr über Gateways erfahren</string>
     <string name="slot_gateway_info_partner">Was sind Partner-Gateways?</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Lege fest, welche Geräte mit Blokada Plus verbunden sind.</string>
     <string name="slot_lease_name_current">%s (dieses Gerät)</string>
     <string name="slot_lease_description">Geräte-ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">Geräte-ID: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Dies ist dein aktuelles Gerät.</string>
@@ -175,6 +178,8 @@
     <!-- A button to update the app. -->
     <string name="slot_cleanup_desc">Es scheint, dass viele Versionen von Blokada auf dem Gerät installiert sind. Sollen die anderen Versionen entfernt werden und nur eine bleiben?</string>
     <string name="account_inactive">Bitte aktiviere oder oder reaktiviere dein Konto, um fortzufahren.</string>
+    <string name="slot_lease_cant_connect">Es konnte keine Verbindung zu Blokada Plus hergestellt werden. Versuch ein anderes Gateway auszuwählen.</string>
+    <string name="slot_account_cant_create">Dein Blokada Plus Konto konnte nicht erstellt werden. Bitte versuch es später noch einmal oder kontaktiere uns.</string>
     <string name="slot_account_name_title">Kontokennung</string>
     <string name="slot_account_name_desc">Gib deine alte Kontokennung ein, um dein früheres Abonnement wiederherzustellen. Schreib dir deine jetzige Kontokennung zur Sicherheit auf, falls ein Fehler auftreten sollte.</string>
     <string name="slot_account_name_error">Die Kontokennung kann nur Buchstaben und Nummern enthalten.</string>
