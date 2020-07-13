@@ -108,8 +108,8 @@
     <string name="menu_host_adblocking_settings">Ad blocking Settings</string>
     <string name="menu_host_list_status">List status</string>
     <string name="menu_host_list_download">List download settings</string>
-    <string name="menu_host_whitelist">Hosts you add here will never be blocked. Use this list when, for example, a website you visit is mistakenly blocked.</string>
-    <string name="menu_host_blacklist">Hosts you add here will always be blocked. For example, you may add websites that are not blocked by the standard lists, but should be.</string>
+    <string name="menu_host_whitelist">Hosts you add here will never be blocked. Use this list when, for example, a website you visit is mistakenly blocked. Note that this does not apply to bypassed apps.</string>
+    <string name="menu_host_blacklist">Hosts you add here will always be blocked. For example, you may add websites that are not blocked by the standard lists, but should be. Note that this does not apply to bypassed apps.</string>
 
     <!-- A section of other settings in menu -->
     <string name="menu_other">Other</string>

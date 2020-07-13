@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">Download of lists started</string>
     <string name="tunnel_config_refetch_now_description">Use the button below to remove cache and download your lists again. This may help if you experience any problems with your filtering.</string>
     <string name="tunnel_config_refetch_frequency_title">Lists download frequency</string>
-    <string name="tunnel_config_refetch_frequency_description">Select one of the options to configure how often should the app download your lists.</string>
+    <string name="tunnel_config_refetch_frequency_description">Select one of the options to configure how often the app should download your lists.</string>
     <string name="tunnel_config_refetch_frequency_1">Once a day</string>
     <string name="tunnel_config_refetch_frequency_2">Twice a week</string>
     <string name="tunnel_config_refetch_frequency_3">Once a week</string>
@@ -26,7 +26,7 @@
     <string name="tunnel_config_wildcard_description">Activate this switch if you wish to use wildcards in your filtering rules. For example, adding a rule for *.google.com would block all domains from Google. This may have a negative impact on battery life. Please note that this is an experimental feature, and may not work properly.</string>
 
     <string name="tunnel_config_fallback_title">DNS fallback</string>
-    <string name="tunnel_config_fallback_description">Activate this switch if you are losing Internet access in some situations, like your WiFi. This will make the app temporarily switch to Cloudflare DNS to sustain your connectivity. You may need to re-select your servers in the DNS section for this setting to take effect.</string>
+    <string name="tunnel_config_fallback_description">Activate this switch if you are losing Internet access in some situations, like your WiFi. This will make the app temporarily switch to Cloudflare or Google DNS to sustain your connectivity. You may need to re-select your servers in the DNS section for this setting to take effect.</string>
 
     <string name="tunnel_config_smartlist_title">[BETA] Smart List</string>
     <string name="tunnel_config_smartlist_reset_btn">Reset</string>
