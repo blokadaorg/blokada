@@ -269,15 +269,16 @@ dependencies {
     implementation 'com.github.salomonbrys.kodein:kodein:4.1.0'
     implementation 'nl.komponents.kovenant:kovenant-core:3.3.0'
     implementation 'nl.komponents.kovenant:kovenant-android:3.3.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.1'
 //    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:x.y.z'
     implementation 'com.github.michaelbull:kotlin-result:1.0.8'
     implementation 'io.paperdb:paperdb:2.7.1'
 
     // Proxy
-    implementation 'org.pcap4j:pcap4j-core:1.7.7'
-    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.7'
-    implementation 'dnsjava:dnsjava:3.1.0'
+    implementation 'org.pcap4j:pcap4j-core:1.7.0'
+    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.0'
+    implementation 'dnsjava:dnsjava:2.1.8'
+    implementation 'org.slf4j:slf4j-nop:1.6.1'
 
     // UI libraries
     implementation 'com.github.kar:AndroidSlidingUpPanel:4.1.0'
