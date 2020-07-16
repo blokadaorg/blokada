@@ -7,9 +7,13 @@
     <string name="widget_show_counter">Display number of blocked requests</string>
 
     <!-- A configuration option of widget -->
+    <string name="widget_show_counter_long">Use long number format</string>
 
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Display DNS</string>
+
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Display Gateway</string>
 
     <string name="widget_okay">Confirm</string>
 </resources>

@@ -14,6 +14,15 @@
         android:textSize="12sp" />
 
     <CheckBox
+        android:id="@+id/widget_cv_show_counter_long"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:checked="true"
+        android:text="@string/widget_show_counter_long"
+        android:textSize="12sp" />
+
+    <CheckBox
         android:id="@+id/widget_cv_show_host"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,6 +37,20 @@
         android:checked="true"
         android:text="@string/widget_show_dns"
         android:textSize="12sp" />
+
+    <CheckBox
+        android:id="@+id/widget_cv_show_gateway"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/widget_show_gateway"
+        android:textSize="12sp" />
+
+    <!--SeekBar
+        android:id="@+id/widget_cv_alpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="255" /-->
 
     <FrameLayout
         android:layout_width="match_parent"

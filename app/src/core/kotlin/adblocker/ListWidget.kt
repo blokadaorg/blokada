@@ -28,11 +28,12 @@ class ListWidgetProvider : AppWidgetProvider() {
         RequestLog
                 .getRecentHistory()
                 .filter { it.state == RequestState.BLOCKED_NORMAL }
-                .take(50)
-                .asReversed()
+                .map { it.domain }
                 .distinct()
+                .take(10)
+                .asReversed()
                 .forEach { request ->
-                    domainList += request.domain + '\n'
+                    domainList += request + '\n'
                 }
         remoteViews.setTextViewText(R.id.widget_list_message, domainList)
 

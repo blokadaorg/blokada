@@ -41,7 +41,7 @@ class AdsDashboardSectionVB(
     }
 
     private val request = { request: Request ->
-        if (!items.any { it.first == request.domain }) {
+        if (items.none { it.first == request.domain }) {
             val dash = if (request.blocked)
                 DomainBlockedNormalVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime) else
                 DomainForwarderVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime)
