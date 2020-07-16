@@ -12,10 +12,8 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Base64
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.RemoteViews
-import android.widget.TextView
+import android.widget.*
+import blocka.CurrentLease
 import com.github.salomonbrys.kodein.instance
 import core.*
 import gs.environment.inject
@@ -43,6 +41,8 @@ class WidgetData {
     var host: Boolean = false
     var dns: Boolean = false
     var counter: Boolean = false
+    var counterLong: Boolean = false
+    var vpn: Boolean = false
     var alpha: Int = 0
 
     override fun hashCode(): Int {
@@ -120,6 +120,7 @@ class UpdateWidgetService : Service() {
     private val onNewWidgetEvent = { data: WidgetData -> onNewWidget(data) }
     private val onRestoreEvent = { restoreData: WidgetRestoreData -> onRestoreWidget(restoreData) }
     private val onDeleteEvent = { appWidgetIds: IntArray -> onDeleteWidget(appWidgetIds) }
+    private val onGatewayEvent = { onGatewayChanged() }
     private var onTunnelStateEvent: IWhen? = null
     private var onDNSEvent: IWhen? = null
     private var widgetList: LinkedHashSet<WidgetData> = LinkedHashSet(5)
@@ -144,6 +145,8 @@ class UpdateWidgetService : Service() {
                     data.counter = (widgetConf and 0x100) > 0
                     data.host = (widgetConf and 0x200) > 0
                     data.dns = (widgetConf and 0x400) > 0
+                    data.counterLong = (widgetConf and 0x800) > 0
+                    data.vpn = (widgetConf and 0x1000) > 0
                     widgetList.add(data)
                     setWidget(data)
                 } else {
@@ -176,6 +179,8 @@ class UpdateWidgetService : Service() {
             onDNSEvent = d.dnsServers.doOnUiWhenChanged(withInit = true).then {
                 onDnsChanged()
             }
+
+            on(CurrentLease::class.java, onGatewayEvent)
         }
         return START_STICKY
     }
@@ -189,6 +194,7 @@ class UpdateWidgetService : Service() {
         t.tunnelState.cancel(onTunnelStateEvent)
         val d: Dns = this.inject().instance()
         d.dnsServers.cancel(onDNSEvent)
+        cancel(CurrentLease::class.java, onGatewayEvent)
         super.onDestroy()
     }
 
@@ -204,6 +210,12 @@ class UpdateWidgetService : Service() {
         }
         if (data.dns) {
             widgetConf = widgetConf or 0x400
+        }
+        if (data.counterLong) {
+            widgetConf = widgetConf or 0x800
+        }
+        if (data.vpn) {
+            widgetConf = widgetConf or 0x1000
         }
         pref.edit().putInt("widget-${data.id}", widgetConf).apply()
         setWidget(data)
@@ -291,22 +303,31 @@ class UpdateWidgetService : Service() {
         }
 
         remoteViews.setTextViewText(R.id.widget_dns, name)
-        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.dns) e.id else null }.toIntArray(), remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.filter { it.dns }.map { it.id }.toIntArray(), remoteViews)
+    }
+
+    private fun onGatewayChanged(): Unit{
+        val lease = get(CurrentLease::class.java)
+        val appWidgetManager = AppWidgetManager.getInstance(this)
+        val remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
+        remoteViews.setTextViewText(R.id.widget_gateway, lease.gatewayNiceName)
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.filter { it.vpn }.map { it.id }.toIntArray(), remoteViews)
     }
 
     private fun onBlocked(host: String) {
         val appWidgetManager = AppWidgetManager.getInstance(this)
+
         var remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
-
-        val t: Tunnel = this.inject().instance()
         remoteViews.setTextViewText(R.id.widget_counter, Format.counterShort(RequestLog.dropCount))
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.filter { it.counter && !it.counterLong }.map { it.id }.toIntArray(), remoteViews)
 
-        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.counter) e.id else null }.toIntArray(), remoteViews)
+        remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
+        remoteViews.setTextViewText(R.id.widget_counter_long, (RequestLog.dropCount / 1000).toString() + 'k')
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.filter { it.counter && it.counterLong }.map { it.id }.toIntArray(), remoteViews)
 
         remoteViews = RemoteViews(this.packageName, R.layout.widget_active)
         remoteViews.setTextViewText(R.id.widget_host, host)
-
-        appWidgetManager.partiallyUpdateAppWidget(widgetList.mapNotNull { e -> if (e.host) e.id else null }.toIntArray(), remoteViews)
+        appWidgetManager.partiallyUpdateAppWidget(widgetList.filter { it.host }.map { it.id }.toIntArray(), remoteViews)
     }
 
     private fun setWidget(data: WidgetData) {
@@ -315,8 +336,15 @@ class UpdateWidgetService : Service() {
         val views = RemoteViews(this.packageName,
                 R.layout.widget_active)
         if (data.counter) {
-            views.setViewVisibility(R.id.widget_counter, View.VISIBLE)
+            if (data.counterLong) {
+                views.setViewVisibility(R.id.widget_counter_long, View.VISIBLE)
+                views.setViewVisibility(R.id.widget_counter, View.GONE)
+            } else {
+                views.setViewVisibility(R.id.widget_counter_long, View.GONE)
+                views.setViewVisibility(R.id.widget_counter, View.VISIBLE)
+            }
         } else {
+            views.setViewVisibility(R.id.widget_counter_long, View.GONE)
             views.setViewVisibility(R.id.widget_counter, View.GONE)
         }
 
@@ -332,16 +360,23 @@ class UpdateWidgetService : Service() {
             views.setViewVisibility(R.id.widget_dns, View.GONE)
         }
 
+        if (data.vpn) {
+            views.setViewVisibility(R.id.widget_gateway, View.VISIBLE)
+        } else {
+            views.setViewVisibility(R.id.widget_gateway, View.GONE)
+        }
+
 //        views.setInt(R.id.widget_root, "setBackgroundColor", data.alpha shl 24 or 0x00262626)
 
         val intent = Intent(this, ActiveWidgetProvider::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, data.id)
         intent.putExtra("changeBlokadaState", true)
-        val pendingIntent = PendingIntent.getBroadcast(this.applicationContext,
-                0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        var pendingIntent = PendingIntent.getBroadcast(this.applicationContext,
+                802099703, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         views.setOnClickPendingIntent(R.id.widget_active, pendingIntent)
-
+        pendingIntent = PendingIntent.getActivity(this.applicationContext, 429517360, Intent(this, PanelActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.widget_root, pendingIntent)
         appWidgetManager.updateAppWidget(data.id, views)
     }
 
@@ -373,43 +408,50 @@ class ConfigWidgetActivity : Activity() {
 
         val preview = findViewById<View>(R.id.widget_cv_preview)
 
-        preview.findViewById<TextView>(R.id.widget_counter).text = "17835"
+        preview.findViewById<TextView>(R.id.widget_counter).text = "17.8m"
+        preview.findViewById<TextView>(R.id.widget_counter_long).text = "17835k"
         preview.findViewById<TextView>(R.id.widget_host).text = "evil-tracker.com"
+        preview.findViewById<TextView>(R.id.widget_gateway).text = "London"
         preview.findViewById<TextView>(R.id.widget_dns).text = "1.1.1.1"
 
-        var cb = findViewById<CheckBox>(R.id.widget_cv_show_counter)
+        val togglePreviewVisible = { checkboxId: Int, viewId: Int ->
+            val cb = findViewById<CheckBox>(checkboxId)
 
-        cb.setOnCheckedChangeListener { buttonView, isChecked ->
-            val tv = preview.findViewById<TextView>(R.id.widget_counter)
-            if (isChecked) {
-                tv.visibility = View.VISIBLE
-
-            } else {
-                tv.visibility = View.GONE
+            cb.setOnCheckedChangeListener { _, isChecked ->
+                val tv = preview.findViewById<View>(viewId)
+                tv.visibility = if(isChecked) View.VISIBLE else View.GONE
             }
+
         }
 
-        cb = findViewById(R.id.widget_cv_show_host)
+        findViewById<CheckBox>(R.id.widget_cv_show_counter)
+                .setOnCheckedChangeListener { _, isChecked ->
+                    val normal = preview.findViewById<View>(R.id.widget_counter)
+                    val long = preview.findViewById<View>(R.id.widget_counter_long)
+                    val longCb = findViewById<CheckBox>(R.id.widget_cv_show_counter_long)
+                    if(isChecked){
+                        normal.visibility = if(longCb.isChecked) View.GONE else View.VISIBLE
+                        long.visibility = if(longCb.isChecked) View.VISIBLE else View.GONE
+                        longCb.isEnabled = true
+                    } else {
+                        normal.visibility = View.GONE
+                        long.visibility = View.GONE
+                        longCb.isEnabled = false
+                    }
+                }
 
-        cb.setOnCheckedChangeListener { buttonView, isChecked ->
-            val host = preview.findViewById<TextView>(R.id.widget_host)
-            if (isChecked) {
-                host.visibility = View.VISIBLE
-            } else {
-                host.visibility = View.GONE
+        findViewById<CheckBox>(R.id.widget_cv_show_counter_long)
+            .setOnCheckedChangeListener { _, isChecked ->
+                val normal = preview.findViewById<View>(R.id.widget_counter)
+                val long = preview.findViewById<View>(R.id.widget_counter_long)
+                normal.visibility = if(isChecked) View.GONE else View.VISIBLE
+                long.visibility = if(isChecked) View.VISIBLE else View.GONE
             }
-        }
+        findViewById<CheckBox>(R.id.widget_cv_show_counter_long).isChecked = false
 
-        cb = findViewById(R.id.widget_cv_show_dns)
-
-        cb.setOnCheckedChangeListener { buttonView, isChecked ->
-            val dns = preview.findViewById<TextView>(R.id.widget_dns)
-            if (isChecked) {
-                dns.visibility = View.VISIBLE
-            } else {
-                dns.visibility = View.GONE
-            }
-        }
+        togglePreviewVisible(R.id.widget_cv_show_host, R.id.widget_host)
+        togglePreviewVisible(R.id.widget_cv_show_gateway, R.id.widget_gateway)
+        togglePreviewVisible(R.id.widget_cv_show_dns, R.id.widget_dns)
 
 //        val sb = findViewById<SeekBar>(R.id.widget_cv_alpha)
 //        sb.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
@@ -430,8 +472,10 @@ class ConfigWidgetActivity : Activity() {
             val data = WidgetData()
 
             data.counter = findViewById<CheckBox>(R.id.widget_cv_show_counter).isChecked
+            data.counterLong = findViewById<CheckBox>(R.id.widget_cv_show_counter_long).isChecked
             data.host = findViewById<CheckBox>(R.id.widget_cv_show_host).isChecked
             data.dns = findViewById<CheckBox>(R.id.widget_cv_show_dns).isChecked
+            data.vpn = findViewById<CheckBox>(R.id.widget_cv_show_gateway).isChecked
 //            data.alpha = findViewById<SeekBar>(R.id.widget_cv_alpha).progress
             data.id = appWidgetId
 
