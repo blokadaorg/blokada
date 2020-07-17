@@ -3,13 +3,13 @@ package core.bits
 import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.Tunnel
 import core.bits.menu.MENU_CLICK_BY_NAME
 import gs.property.I18n
 import org.blokada.R
-import tunnel.RequestLog
-import tunnel.RequestUpdate
-import tunnel.TunnelConfig
-import tunnel.TunnelEvents
+import tunnel.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AdsBlockedVB(
         private val ktx: AndroidKontext,
@@ -26,6 +26,7 @@ class AdsBlockedVB(
         }
     private var dropped: Int = 0
     private var active = false
+    private var countStartDate = ""
     private var activating = false
 
     override fun attach(view: ByteView) {
@@ -34,7 +35,9 @@ class AdsBlockedVB(
         tunnelStatus.update(tunnelEvents)
         on(TunnelConfig::class.java, this::update)
         on(BlockaVpnState::class.java, this::update)
+        on(LogConfig::class.java, this::updateStartDate)
         update()
+        updateStartDate()
     }
 
     override fun detach(view: ByteView) {
@@ -42,6 +45,11 @@ class AdsBlockedVB(
         tunnelStatus.listeners.remove(tunnelListener)
         cancel(TunnelConfig::class.java, this::update)
         cancel(BlockaVpnState::class.java, this::update)
+        cancel(LogConfig::class.java, this::updateStartDate)
+    }
+
+    private fun updateStartDate() {
+        countStartDate = SimpleDateFormat("dd.MM.yy").format(Date())
     }
 
     private fun update() {
@@ -57,7 +65,7 @@ class AdsBlockedVB(
                 entrypoint.onSwitchAdblocking(enable)
             }
 
-            val droppedString = i18n.getString(R.string.home_requests_blocked, Format.counter(dropped))
+            val droppedString = i18n.getString(R.string.home_requests_blocked, Format.counter(dropped), countStartDate)
 
             when {
                 !config.adblocking || !tunnelEvents.enabled() -> {
