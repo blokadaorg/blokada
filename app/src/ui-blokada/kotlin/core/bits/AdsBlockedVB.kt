@@ -20,13 +20,12 @@ class AdsBlockedVB(
 
     private var onDropped = { update: RequestUpdate ->
             if (update.oldState == null) {
-                dropped = RequestLog.dropCount
                 update()
             }
         }
-    private var dropped: Int = 0
     private var active = false
     private var countStartDate = ""
+    private var countStart = 0L
     private var activating = false
 
     override fun attach(view: ByteView) {
@@ -36,8 +35,8 @@ class AdsBlockedVB(
         on(TunnelConfig::class.java, this::update)
         on(BlockaVpnState::class.java, this::update)
         on(LogConfig::class.java, this::updateStartDate)
-        update()
         updateStartDate()
+        update()
     }
 
     override fun detach(view: ByteView) {
@@ -49,7 +48,12 @@ class AdsBlockedVB(
     }
 
     private fun updateStartDate() {
-        countStartDate = SimpleDateFormat("dd.MM.yy").format(Date())
+        val setStartDate = get(LogConfig::class.java).dropStart
+        if(setStartDate != countStart) {
+            countStart = setStartDate
+            countStartDate = SimpleDateFormat("dd.MM.yy").format(Date(countStart))
+            update()
+        }
     }
 
     private fun update() {
@@ -65,7 +69,7 @@ class AdsBlockedVB(
                 entrypoint.onSwitchAdblocking(enable)
             }
 
-            val droppedString = i18n.getString(R.string.home_requests_blocked, Format.counter(dropped), countStartDate)
+            val droppedString = i18n.getString(R.string.home_requests_blocked, Format.counter(RequestLog.dropCount), countStartDate)
 
             when {
                 !config.adblocking || !tunnelEvents.enabled() -> {
