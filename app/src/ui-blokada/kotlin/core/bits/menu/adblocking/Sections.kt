@@ -19,7 +19,7 @@ internal class SlotMutex {
     val openOneAtATime = { view: SlotView ->
         val opened = openedView
         when {
-            opened == null || !opened.isUnfolded() -> {
+            opened == null || !opened.isUnfolded() || !opened.isAttachedToWindow -> {
                 openedView = view
                 view.unfold()
             }
