@@ -104,5 +104,5 @@ abstract class AbstractWebActivity : Activity() {
         }
     }
 
-    fun bindChromeTabs() = false // CustomTabsClient.bindCustomTabsService(this, CUSTOM_TAB_PACKAGE_NAME, connection)
+    fun bindChromeTabs() = CustomTabsClient.bindCustomTabsService(this, CUSTOM_TAB_PACKAGE_NAME, connection)
 }
