@@ -14,7 +14,7 @@
     <string name="home_dns_only">Blokada is active in DNS mode</string>
 
     <!-- A text on the main ads counter. "490 requests blocked" -->
-    <string name="home_requests_blocked">%s blocked since %s</string>
+    <string name="home_requests_blocked_since">%s blocked since %s</string>
 
     <string name="home_masterswitch_enabled">Blokada is on</string>
     <string name="home_masterswitch_waiting">Waiting for network...</string>
