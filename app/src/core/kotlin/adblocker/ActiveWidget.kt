@@ -373,9 +373,9 @@ class UpdateWidgetService : Service() {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, data.id)
         intent.putExtra("changeBlokadaState", true)
         var pendingIntent = PendingIntent.getBroadcast(this.applicationContext,
-                802099703, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                802099703, intent, PendingIntent.FLAG_UPDATE_CURRENT) // random 32 bit value for PendingIntent requestCode
         views.setOnClickPendingIntent(R.id.widget_active, pendingIntent)
-        pendingIntent = PendingIntent.getActivity(this.applicationContext, 429517360, Intent(this, PanelActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getActivity(this.applicationContext, 429517360, Intent(this, PanelActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT) // random 32 bit value for PendingIntent requestCode
         views.setOnClickPendingIntent(R.id.widget_root, pendingIntent)
         appWidgetManager.updateAppWidget(data.id, views)
     }

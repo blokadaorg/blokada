@@ -6,7 +6,7 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Display number of blocked requests</string>
 
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <string name="widget_show_counter_long">Use long number format</string>
 
     <!-- A configuration option of widget -->
