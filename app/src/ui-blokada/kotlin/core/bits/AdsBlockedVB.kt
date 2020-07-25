@@ -69,7 +69,7 @@ class AdsBlockedVB(
                 entrypoint.onSwitchAdblocking(enable)
             }
 
-            val droppedString = i18n.getString(R.string.home_requests_blocked, Format.counter(RequestLog.dropCount), countStartDate)
+            val droppedString = i18n.getString(R.string.home_requests_blocked_since, Format.counter(RequestLog.dropCount), countStartDate)
 
             when {
                 !config.adblocking || !tunnelEvents.enabled() -> {
