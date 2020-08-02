@@ -50,7 +50,7 @@ internal class BlockaTunnelFiltering(
 
     private fun interceptDns(packetBytes: ByteArray, length: Int): Boolean {
         return if ((packetBytes[0] and ipv4Version) == ipv4Version) {
-            if (isUdp(packetBytes) && dstAddress4(packetBytes, length, dnsProxyDst4))
+            if (isUdp(packetBytes) && dstAddress4(packetBytes, dnsProxyDst4))
                 parseDns(packetBytes, length)
             else false
         } else if ((packetBytes[0] and ipv6Version) == ipv6Version) {
@@ -121,7 +121,7 @@ internal class BlockaTunnelFiltering(
         }
     }
 
-    private fun dstAddress4(packet: ByteArray, length: Int, ip: ByteArray): Boolean {
+    private fun dstAddress4(packet: ByteArray, ip: ByteArray): Boolean {
         return (
                 (packet[16] and ip[0]) == ip[0] &&
                         (packet[17] and ip[1]) == ip[1] &&
@@ -148,12 +148,10 @@ internal class BlockaTunnelFiltering(
 
     private fun rewriteSrcDns4(packet: ByteBuffer, length: Int) {
         val originEnvelope = try {
-            IpSelector.newPacket(packet.array(), packet.arrayOffset(), length) as IpPacket
+            IpSelector.newPacket(packet.array(), packet.arrayOffset(), length) as IpV4Packet
         } catch (e: Exception) {
             return
         }
-
-        originEnvelope as IpV4Packet
 
         if (originEnvelope.payload !is UdpPacket) {
             w("Non-UDP packet received from the DNS server, dropping")
@@ -180,7 +178,7 @@ internal class BlockaTunnelFiltering(
                     .correctLengthAtBuild(true)
                     .payloadBuilder(UnknownPacket.Builder().rawData(udpRaw))
 
-            val envelope = IpV4Packet.Builder(originEnvelope as IpV4Packet)
+            val envelope = IpV4Packet.Builder(originEnvelope)
                     .srcAddr(addr)
                     .dstAddr(originEnvelope.header.dstAddr)
                     .correctChecksumAtBuild(true)
