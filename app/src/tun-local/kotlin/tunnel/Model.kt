@@ -2,6 +2,8 @@ package tunnel
 
 import core.Time
 import core.Url
+import org.xbill.DNS.Rcode
+import java.net.Inet4Address
 import java.net.InetAddress
 import java.util.*
 
@@ -137,15 +139,19 @@ enum class RequestState {
     BLOCKED_CNAME,       // blocked by cname-check
     BLOCKED_ANSWER,      // blocked by DNS-server
     ALLOWED_APP_UNKNOWN, // allowed app unknown
-    ALLOWED_APP_KNOWN    // allowed app known ( future use in firewall )
+    ALLOWED_APP_KNOWN,   // allowed app known ( future use in firewall )
+    DNS_ERROR            // DNS server send back error code
 }
 
+val unspecifiedIp4Addr: Inet4Address = Inet4Address.getByAddress(byteArrayOf(0,0,0,0)) as Inet4Address
 
 data class ExtendedRequest(
         override val domain: String,
         override val time: Date = Date(),
+        var cnamedDomain: String? = null,
         var requestId: Int? = null,
         var state: RequestState = RequestState.ALLOWED_APP_UNKNOWN,
+        var rcode: Int? = null,
         var ip: InetAddress? = null, // for future use in firewall
         var appId: String? = null    // for future use in firewall
 ) : Request {
@@ -165,7 +171,65 @@ data class ExtendedRequest(
         }
         return false
     }
+
+    override fun hashCode(): Int {
+        var result = domain.hashCode()
+        result = 31 * result + (requestId ?: 0)
+        return result
+    }
+
+    fun update(diff: ExtendedRequestDiff): Boolean {
+        if (diff.rcode != null) {
+            if(rcode != null || blocked){
+                return false
+            }else{
+                rcode = diff.rcode
+                if (diff.rcode != Rcode.NOERROR) {
+                    if (diff.rcode == Rcode.NXDOMAIN) {
+                        state = RequestState.BLOCKED_ANSWER
+                    } else {
+                        state = RequestState.DNS_ERROR
+                    }
+                }
+            }
+        }
+        if (diff.ip != null) {
+            if(ip != null || blocked){
+                return false
+            }else{
+                ip = diff.ip
+                if (diff.ip == unspecifiedIp4Addr) {
+                    state = RequestState.BLOCKED_ANSWER
+                }
+            }
+        }
+        if (diff.cnamedDomain != null) {
+            if(cnamedDomain != null || blocked){
+                return false
+            }else{
+                cnamedDomain = diff.cnamedDomain
+                state = RequestState.BLOCKED_CNAME
+            }
+        }
+        if (diff.appId != null) {
+            if(appId != null || blocked){
+                return false
+            }else{
+                appId = diff.appId
+                state = RequestState.ALLOWED_APP_KNOWN
+            }
+        }
+
+        return true
+    }
 }
+
+data class ExtendedRequestDiff(
+        var cnamedDomain: String? = null,
+        var rcode: Int? = null,
+        var ip: InetAddress? = null,
+        var appId: String? = null
+)
 
 data class RequestUpdate(
         val oldState: ExtendedRequest?,
