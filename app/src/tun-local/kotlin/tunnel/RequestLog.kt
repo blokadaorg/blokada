@@ -7,7 +7,6 @@ import core.*
 import core.Register.set
 import java.io.Closeable
 import java.lang.IndexOutOfBoundsException
-import java.net.InetAddress
 import kotlin.math.max
 
 data class LogConfig(
@@ -172,49 +171,12 @@ class RequestLog : Closeable {
             return -1
         }
 
-        fun update(lambda: (request: ExtendedRequest) -> Boolean, state: RequestState): Boolean {
+        fun update(lambda: (request: ExtendedRequest) -> Boolean, diff: ExtendedRequestDiff): Boolean {
             val index = batch0.indexOfFirst(lambda)
             if (index < 0) {
                 return false;
             }
-            val current = batch0[index]
-            if ((state == RequestState.BLOCKED_ANSWER || state == RequestState.BLOCKED_CNAME) && current.state == RequestState.ALLOWED_APP_UNKNOWN){
-                val newState = current.copy(state = state)
-                batch0[index] = newState
-                emit(TunnelEvents.REQUEST_UPDATE, RequestUpdate(current, newState, index))
-                return true
-            }
-            return false
-        }
-
-        fun update(lambda: (request: ExtendedRequest) -> Boolean, ip: InetAddress): Boolean {
-            val index = batch0.indexOfFirst(lambda)
-            if (index < 0) {
-                return false;
-            }
-            val current = batch0[index]
-            if(current.ip == null && !current.blocked) {
-                val newState = current.copy(ip = ip)
-                batch0[index] = newState
-                emit(TunnelEvents.REQUEST_UPDATE, RequestUpdate(current, newState, index))
-                return true
-            }
-            return false
-        }
-
-        fun update(lambda: (request: ExtendedRequest) -> Boolean, appId: String): Boolean {
-            val index = batch0.indexOfFirst(lambda)
-            if (index < 0) {
-                return false;
-            }
-            val current = batch0[index]
-            if(current.appId == null && !current.blocked) {
-                val newState = current.copy(appId = appId, state = RequestState.ALLOWED_APP_KNOWN)
-                batch0[index] = newState
-                emit(TunnelEvents.REQUEST_UPDATE, RequestUpdate(current, newState, index))
-                return true
-            }
-            return false
+            return batch0[index].update(diff)
         }
 
         fun deleteAll() {
