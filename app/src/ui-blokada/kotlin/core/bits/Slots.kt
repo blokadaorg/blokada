@@ -196,6 +196,7 @@ class DomainBlockedNormalVB(
 class DomainBlockedAnswerVB(
         private val domain: String,
         private val date: Date,
+        private val type: RequestState,
         private val ktx: AndroidKontext,
         private val i18n: I18n = ktx.di().instance(),
         private val alternative: Boolean = false,
@@ -210,12 +211,16 @@ class DomainBlockedAnswerVB(
                 header = i18n.getString(R.string.slot_blocked_answer_title),
                 description = domain,
                 detail = Format.date(date),
-                info = i18n.getString(R.string.panel_domain_blocked_answer_desc),
+                info = i18n.getString(
+                        if (type == RequestState.BLOCKED_ANSWER)
+                            R.string.panel_domain_blocked_nxdomain_desc
+                        else // RequestState.DNS_ERROR
+                            R.string.panel_domain_blocked_error_desc
+                        ),
                 icon = ktx.ctx.getDrawable(R.drawable.ic_server)
         )
         if (alternative) view.enableAlternativeBackground()
     }
-
 }
 
 class FilterVB(
