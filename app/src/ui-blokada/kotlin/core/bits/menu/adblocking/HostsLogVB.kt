@@ -3,10 +3,7 @@ package core.bits.menu.adblocking
 import android.app.Activity
 import com.github.salomonbrys.kodein.instance
 import core.*
-import core.bits.DomainBlockedAnswerVB
-import core.bits.DomainBlockedNormalVB
-import core.bits.DomainForwarderVB
-import core.bits.SearchBarVB
+import core.bits.*
 import core.bits.menu.MenuItemVB
 import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
@@ -106,8 +103,9 @@ class HostsLogVB(
 
     private fun requestToVB(it: ExtendedRequest): SlotVB {
         return when (it.state){
-            RequestState.BLOCKED_NORMAL, RequestState.BLOCKED_CNAME -> DomainBlockedNormalVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
-            RequestState.BLOCKED_ANSWER -> DomainBlockedAnswerVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            RequestState.BLOCKED_NORMAL -> DomainBlockedNormalVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            RequestState.BLOCKED_ANSWER, RequestState.DNS_ERROR -> DomainBlockedAnswerVB(it.domain, it.time, it.state, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            RequestState.BLOCKED_CNAME -> DomainCnameAnswerVB(it, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
             RequestState.ALLOWED_APP_UNKNOWN, RequestState.ALLOWED_APP_KNOWN -> DomainForwarderVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
         }
     }
