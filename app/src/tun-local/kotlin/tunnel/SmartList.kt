@@ -220,7 +220,7 @@ class SmartListLogger{
     companion object{
         private const val SMARTLIST_LOG_CATEGORY = "smart-batch"
 
-        fun log(requests: List<ExtendedRequest>){ //TODO use request batches instead
+        fun log(requests: List<ExtendedRequest>){
             val config = get(SmartListConfig::class.java)
             if(config.state != SmartListState.DEACTIVATED) {
                 Persistence.request.saveBatch(SMARTLIST_LOG_CATEGORY, config.numBatches, requests)
@@ -228,7 +228,7 @@ class SmartListLogger{
              }
         }
 
-        fun load(filter: (ExtendedRequest) -> Boolean): HashSet<String>{
+        fun load(filter: (ExtendedRequest) -> Boolean): HashSet<String>{//TODO use request batches too
             val config = get(SmartListConfig::class.java)
             val domains = HashSet<String>()
 
