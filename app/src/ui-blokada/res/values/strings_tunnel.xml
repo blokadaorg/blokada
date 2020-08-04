@@ -24,6 +24,8 @@
     <string name="tunnel_config_reports_description">Activate this switch to allow the app to send reports helping us fix problems and bugs. This will happen only once per day, or when the app crashes. Disabling this may make it hard for us to solve any problems you may be experiencing. You may need to restart the app for this setting to take effect.</string>
     <string name="tunnel_config_wildcard_title">[BETA] Advanced adblocking rules</string>
     <string name="tunnel_config_wildcard_description">Activate this switch if you wish to use wildcards in your filtering rules. For example, adding a rule for *.google.com would block all domains from Google. This may have a negative impact on battery life. Please note that this is an experimental feature, and may not work properly.</string>
+    <string name="tunnel_config_cname_title">[BETA] CName-Blocking</string>
+    <string name="tunnel_config_cname_description">Activate this switch if you want to block all CNames for the domains on your block lists. A CName is an alias for a domain, which is used by some advertiser to hide there domain behind a often changing or less obvious domain. This tactic can be circumvented by blocking all CNames that would resolve to the blocked domain. Please note that this is an experimental feature, and may not work properly.</string>
 
     <string name="tunnel_config_fallback_title">DNS fallback</string>
     <string name="tunnel_config_fallback_description">Activate this switch if you are losing Internet access in some situations, like your WiFi. This will make the app temporarily switch to Cloudflare or Google DNS to sustain your connectivity. You may need to re-select your servers in the DNS section for this setting to take effect.</string>
