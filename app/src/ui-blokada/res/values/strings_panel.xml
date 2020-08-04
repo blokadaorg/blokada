@@ -32,6 +32,7 @@
     <string name="panel_domain_blocked_normal_desc">This domain has been blocked. To allow it in the future, use the button below.</string>
     <string name="panel_domain_blocked_nxdomain_desc">This domain was not correctly resolved by the DNS server. Either the server blocked the domain or it doesn\'t exist.</string>
     <string name="panel_domain_blocked_error_desc">Something went wrong while resolving this domain, The DNS server answered with a error code.</string>
+    <string name="panel_domain_blocked_cname_desc">This domain was blocked because it\'s a CName for a blocked domain. To allow it in the future you can either add the CName or the domain itself to the allowed hosts.</string>
     <string name="panel_domain_blocked_toast">Added to the blacklist.</string>
 
     <!-- Action to copy domain name to clipboard -->
@@ -47,6 +48,10 @@
 
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Allow</string>
+    <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">Allow CName</string>
+    <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">Allow Domain</string>
 
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Block</string>
@@ -146,6 +151,7 @@
 
     <string name="slot_blocked_normal_title">Domain blocked</string>
     <string name="slot_blocked_answer_title">Domain not resolved</string>
+    <string name="slot_blocked_cname_title">CName blocked</string>
     <string name="slot_forwarded_title">Domain forwarded</string>
 
     <string name="slot_whitelist_title">Whitelisted app</string>
@@ -279,4 +285,4 @@
     <string name="label_workarounds">Device-specific workarounds</string>
     <string name="slot_dns_answer_label">Alternative DNS answer</string>
     <string name="slot_dns_answer_description">Changes the answer Blokada sends for blocked requests from "host not found" to an invalid ip. This can help on some ROMs which query other DNS servers if they get a "host not found" answer. Please note that this might slow down some apps which try to connect to the invalid address.</string>
-    </resources>
+</resources>

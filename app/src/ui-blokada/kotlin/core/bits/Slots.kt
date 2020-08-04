@@ -216,11 +216,59 @@ class DomainBlockedAnswerVB(
                             R.string.panel_domain_blocked_nxdomain_desc
                         else // RequestState.DNS_ERROR
                             R.string.panel_domain_blocked_error_desc
-                        ),
+                ),
                 icon = ktx.ctx.getDrawable(R.drawable.ic_server)
         )
         if (alternative) view.enableAlternativeBackground()
     }
+}
+
+class DomainCnameAnswerVB(
+        private val request: ExtendedRequest,
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        private val alternative: Boolean = false,
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.type = Slot.Type.BLOCK
+        view.date = request.time
+        val cnamedDomain =request.cnamedDomain ?: "ERROR"
+        view.content = Slot.Content(
+                label = i18n.getString(R.string.panel_domain_blocked, request.domain),
+                header = i18n.getString(R.string.slot_blocked_cname_title),
+                description = request.domain + " (" + request.cnamedDomain + ')',
+                detail = Format.date(request.time),
+                info = i18n.getString(R.string.panel_domain_blocked_cname_desc),
+                icon = ktx.ctx.getDrawable(R.drawable.ic_server),
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_allow_domain)) {
+                    val f = Filter(
+                            id(cnamedDomain, whitelist = true),
+                            source = FilterSourceDescriptor("single", cnamedDomain),
+                            active = true,
+                            whitelist = true
+                    )
+                    entrypoint.onSaveFilter(f)
+                    view.fold()
+                    showSnack(R.string.panel_domain_forwarded_toast)
+                },
+
+                action2 = Slot.Action(i18n.getString(R.string.slot_action_allow_cname)) {
+                    val f = Filter(
+                            id(request.domain, whitelist = true),
+                            source = FilterSourceDescriptor("single", request.domain),
+                            active = true,
+                            whitelist = true
+                    )
+                    entrypoint.onSaveFilter(f)
+                    view.fold()
+                    showSnack(R.string.panel_domain_forwarded_toast)
+                }
+        )
+        if (alternative) view.enableAlternativeBackground()
+    }
+
 }
 
 class FilterVB(
@@ -414,6 +462,30 @@ class WildcardVB(
                 val new = cfg.copy(wildcards = switched)
                 entrypoint.onChangeTunnelConfig(new)
             }
+        }
+    }
+
+}
+
+class CnameBlockingVB(
+        private val ktx: AndroidKontext,
+        private val ctx: Context = ktx.ctx,
+        private val i18n: I18n = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                label = i18n.getString(R.string.tunnel_config_cname_title),
+                description = i18n.getString(R.string.tunnel_config_cname_description),
+                icon = ctx.getDrawable(R.drawable.ic_show),
+                switched = get(TunnelConfig::class.java).cNameBlocking
+        )
+        view.onSwitch = { switched ->
+            val new = get(TunnelConfig::class.java).copy(cNameBlocking = switched)
+            entrypoint.onChangeTunnelConfig(new)
         }
     }
 
@@ -1078,8 +1150,8 @@ class BackgroundAnimationVB(
 }
 
 class ResetCounterVB(private val ktx: AndroidKontext,
-         private val i18n: I18n = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
+                     private val i18n: I18n = ktx.di().instance(),
+                     onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
@@ -1111,14 +1183,14 @@ class DnsListControlVB(
                 label = i18n.getString(R.string.slot_dns_control_title),
                 description = i18n.getString(R.string.slot_dns_control_description),
                 icon = ctx.getDrawable(R.drawable.ic_reload),
-                action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh), {
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh)) {
                     showSnack(R.string.slot_action_refresh_toast)
                     dns.choices.refresh(force = true)
-                }),
-                action2 = Slot.Action(i18n.getString(R.string.slot_action_restore), {
+                },
+                action2 = Slot.Action(i18n.getString(R.string.slot_action_restore)) {
                     dns.choices %= emptyList()
                     dns.choices.refresh()
-                })
+                }
         )
     }
 
