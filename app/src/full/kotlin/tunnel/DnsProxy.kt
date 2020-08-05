@@ -4,20 +4,19 @@ import android.system.ErrnoException
 import android.system.OsConstants
 import com.github.michaelbull.result.mapError
 import core.Result
+import core.get
 import core.w
 import org.pcap4j.packet.*
 import org.pcap4j.packet.namednumber.UdpPort
 import org.xbill.DNS.*
 import java.io.IOException
 import java.net.*
-import java.nio.ByteBuffer
 import java.util.*
-import kotlin.experimental.and
 
 
 interface Proxy {
     fun fromDevice(packetBytes: ByteArray, length: Int)
-    fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?)
+    fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?, isSyntheticMessage: Boolean = false)
 }
 
 internal class DnsProxy(
@@ -30,15 +29,6 @@ internal class DnsProxy(
 
         private val doCreateSocket: () -> DatagramSocket = { DatagramSocket() }
 ) : Proxy {
-
-    private fun isAnswerValid(dnsAnswer: ByteArray): Boolean {
-        return (dnsAnswer[3] and  0x0f.toByte()) == 0.toByte() // checks the RCODE of the DNS-msg. 0 -> no error
-    }
-
-    private fun requestIdFromDnsMsg(msg: ByteArray): Int{
-        val buffer: ByteBuffer = ByteBuffer.wrap(msg)
-        return buffer.short.toInt()
-    }
 
     override fun fromDevice(packetBytes: ByteArray, length: Int) {
         val originEnvelope = try {
@@ -74,29 +64,44 @@ internal class DnsProxy(
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
         if (blockade.allowed(host) || !blockade.denied(host)) {
-            val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.getAddress(),
-                    destination.getPort())
+            val proxiedDns = DatagramPacket(udpRaw, 0, udpRaw.size, destination.address,
+                    destination.port)
             forward(proxiedDns, originEnvelope)
             RequestLog.add(ExtendedRequest(host, requestId = dnsMessage.header.id))
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             generateDnsAnswer(dnsMessage, denyResponse)
-            toDevice(dnsMessage.toWire(), -1, originEnvelope)
+            toDevice(dnsMessage.toWire(), -1, originEnvelope, true)
             RequestLog.add(ExtendedRequest(host, blocked = true))
         }
     }
 
-    override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?) {
+    override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?, isSyntheticMessage: Boolean) {
+        var responseData = response
         originEnvelope as IpPacket
 
-        if (response.size >= 4 && !isAnswerValid(response)){
-            // the first 12 bytes of response contain the DNS-header and are cut of. The header
-            // should be followed by a resource record which starts with the name that was requested.
-            //val responseName = Name(response.sliceArray(12 until response.size)).canonicalize().toString(true)
-            val requestId = requestIdFromDnsMsg(response);
-            RequestLog.update({it.requestId == requestId}, RequestState.BLOCKED_ANSWER)
+        if (!isSyntheticMessage) {
+            val dnsMessage = try {
+                Message(responseData)
+            } catch (e: IOException) {
+                w("failed reading DNS answer", e)
+                return
+            }
+
+            val updateDiff = ExtendedRequestDiff()
+            updateDiff.rcode = dnsMessage.rcode
+
+            if (dnsMessage.getSectionArray(Section.ANSWER).any { it is ARecord && it.address == unspecifiedIp4Addr }) {
+                updateDiff.ip = unspecifiedIp4Addr
+            } else if (dnsMessage.rcode == Rcode.NOERROR) {
+                val answer = dnsMessage.getSectionArray(Section.ANSWER).find { it is ARecord } as ARecord? ?: return
+                updateDiff.ip = answer.address
+            }
+
+            RequestLog.update({ it.requestId == dnsMessage.header.id }, updateDiff)
         }
+
 
         val udp = originEnvelope.payload as UdpPacket
         val udpResponse = UdpPacket.Builder(udp)
@@ -106,7 +111,7 @@ internal class DnsProxy(
                 .dstPort(udp.header.srcPort)
                 .correctChecksumAtBuild(true)
                 .correctLengthAtBuild(true)
-                .payloadBuilder(UnknownPacket.Builder().rawData(response))
+                .payloadBuilder(UnknownPacket.Builder().rawData(responseData))
 
         val envelope: IpPacket
         if (originEnvelope is IpV4Packet) {
