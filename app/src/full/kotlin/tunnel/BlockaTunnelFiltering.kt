@@ -1,5 +1,6 @@
 package tunnel
 
+import core.get
 import core.w
 import org.pcap4j.packet.*
 import org.xbill.DNS.*
@@ -159,7 +160,25 @@ internal class BlockaTunnelFiltering(
         }
 
         val udp = originEnvelope.payload as UdpPacket
-        val udpRaw = udp.payload.rawData
+        var udpRaw = udp.payload.rawData
+        val dnsMessage = try {
+            Message(udpRaw)
+        } catch (e: IOException) {
+            w("failed reading DNS answer", e)
+            return
+        }
+
+        val updateDiff = ExtendedRequestDiff()
+        updateDiff.rcode = dnsMessage.rcode
+
+        if (dnsMessage.getSectionArray(Section.ANSWER).any { it is ARecord && it.address == unspecifiedIp4Addr }) {
+            updateDiff.ip = unspecifiedIp4Addr
+        } else if (dnsMessage.rcode == Rcode.NOERROR) {
+            val answer = dnsMessage.getSectionArray(Section.ANSWER).find { it is ARecord } as ARecord? ?: return
+            updateDiff.ip = answer.address
+        }
+
+        RequestLog.update({ it.requestId == dnsMessage.header.id }, updateDiff)
 
         val dst = dnsServers.firstOrNull { it.address == originEnvelope.header.srcAddr }
         val dnsIndex = dnsServers.indexOf(dst)
