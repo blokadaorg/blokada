@@ -1,20 +1,32 @@
 # The RequestLog
 
 ## Overall structure off the RequestLog
-The 'RequestLog'-class is responsible for keeping track of allowed and blocked domains,
+The `RequestLog`-class is responsible for keeping track of allowed and blocked domains,
 allowing changes to recent requests after for example checking the response from the DNS-server and manages persistence of this data.
 Persistence can be deactivated if the user wants so but will lead to some functionality being unavailable and slightly increased memory usage.
 The class allows access to this information over 2 different ways depending what logs should be accessed:
 
 ### Instance of RequestLog
 * A instance of the class has access to the complete saved log but not all of it is loaded all the time to save memory
-* If a bigger portion of the log is needed a call to 'expandHistory()' will load another batch
-* 'close()' should be called if the instance is no longer needed so the temporary loaded parts of the log can be discarded. -> lower memory usage.
+* If a bigger portion of the log is needed a call to `expandHistory()` will load another batch
+* `close()` should be called if the instance is no longer needed so the temporary loaded parts of the log can be discarded. -> lower memory usage.
 
 ### Companion-object
 * The companion object of the class allows access to the last few requests which are always keept in memory.
-* The adblocking-part calls 'add()' to add a new request to the log.
-* Different parts of the app can use the 'update()'-functions to update info for requests in this part of the log.
+* The adblocking-part calls `add()` to add a new request to the log.
+* Different parts of the app can use the `update()`-function to update info for requests in this part of the log (see also "[Updating log entries](#updating-log-entries)").
+
+### Updating log entries
+* updating a log entry is done by calling the `update()`-function on `RequestLog` with the following 2 parameters:
+    * `lambda: (request: ExtendedRequest) -> Boolean`: this lambda is used to search for the entry that has to be update. wherever possible this should check the `requestId`-field as it should always be unique
+    * `diff: ExtendedRequestDiff`: data structure containing the update info that should be applied to the entry
+* The `ExtendedRequestDiff`-structure has the following fields:
+    * `cnamedDomain: String?`
+    * `rcode: Int?`
+    * `ip: InetAddress?`
+    * `appId: String?`
+* A log entry can be updated by setting the fields in a `ExtendedRequestDiff`-instance to the new values and calling the `update()`-function with it
+* the `update()`-function will return `false` if the new values contradict the current state of the log entry 
 
 ## Usage of the log
 
@@ -30,22 +42,30 @@ The class allows access to this information over 2 different ways depending what
 
 ### CSV
 * If the first batch of the hostlog overflows and this feature is active the domains are also logged in the CSV file
+* the log entries consists of the following fields:
+    * unix timestamp
+    * 'a'/'b' (allowed or blocked)
+    * domain
 
 ## The REQUEST_UPDATE-event
 * This event allows every part to get notified when a new request is added or a existing one is updated
-* For a newly added request the 'oldState' variable will be 'null' and the 'index' will be -1
-* 'oldState' and 'newState' values in the event allow to check what changed
+* For a newly added request the `oldState` variable will be `null` and the `index` will be -1
+* `oldState` and `newState` values in the event allow to check what changed
 
 ## The ExtendedRequest-data-class
 This data class is used to store all data connected to a single request.
 It has the following fields: 
-* 'domain: String':
-* 'time: Date = Date():'
-* 'state: RequestState': Enum representing the current state of this request. Possible values are the following:
-    * 'BLOCKED_NORMAL': blocked by blacklist
-    * 'BLOCKED_CNAME': blocked by cname-check
-    * 'BLOCKED_ANSWER': blocked by DNS-server
-    * 'ALLOWED_APP_UNKNOWN': allowed app unknown
-    * 'ALLOWED_APP_KNOWN': allowed app known ( future use )
-* 'ip: InetAddress?': For future use
-* 'appId: String?': For future use
+* `domain: String`: The domain requested from the DNS-server
+* `time: Date`: Timestamp of the moment the request passed through Blokada
+* `cnamedDomain: String?`: If the domain requested was a CNAME this field should be set to the domain the CNAME points to after the answer has been received
+* `requestId: Int?`:  The request id from the header of the DNS request/answer. This field should be used to map new to a `ExtendedRequest`-object whenever possible as it should be unique
+* `state: RequestState`: Enum representing the current state of this request. Possible values are the following:
+    * `BLOCKED_NORMAL`: blocked by blacklist
+    * `BLOCKED_CNAME`: blocked by cname-check
+    * `BLOCKED_ANSWER`: blocked by DNS-server
+    * `ALLOWED_APP_UNKNOWN`: allowed app unknown
+    * `ALLOWED_APP_KNOWN`: allowed app known ( future use )
+    * `DNS_ERROR`: DNS-server answered with a RCODE that wasn't NOERROR(0) or NXDOMAIN(3)
+* `rcode: Int?`: RCODE from the answer of the DNS-server, which shows if there where any errors while resolving the domain
+* `ip: InetAddress?`: For future use
+* `appId: String?`: For future use
