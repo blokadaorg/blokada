@@ -61,16 +61,6 @@ android {
         abortOnError false
     }
 
-    signingConfigs {
-        // Set the BLOKADA_* constants in your ~/.gradle/gradle.properties to point to your keystore.
-        release {
-            keyAlias 'blokada'
-            keyPassword BLOKADA_KEY_PASSWORD
-            storeFile file(BLOKADA_KEY_PATH)
-            storePassword BLOKADA_STORE_PASSWORD
-        }
-    }
-
     buildTypes {
         debug {
             // By default it is a 'debuggable' build, signed with a debug key.
@@ -82,9 +72,28 @@ android {
              * inclusion standards, which means they cannot contain any non-free software or
              * tracking, hence we can provide only limited support for them.
              */
+
+            def f = rootProject.file('keystore.properties')
+            if (f.exists()) {
+                println "Release build will use Blokada keystore"
+                Properties props = new Properties()
+                InputStream inputStream = new FileInputStream(f)
+                props.load(inputStream)
+                inputStream.close()
+
+                signingConfigs {
+                    release {
+                        storeFile rootProject.file(props['BLOKADA_KEY_PATH'])
+                        storePassword props['BLOKADA_STORE_PASSWORD']
+                        keyAlias 'blokada'
+                        keyPassword props['BLOKADA_KEY_PASSWORD']
+                    }
+                }
+                signingConfig signingConfigs.release
+            }
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
 
         official {
