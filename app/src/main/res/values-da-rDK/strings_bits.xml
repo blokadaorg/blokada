@@ -41,8 +41,6 @@
     <string name="menu_host_list_intro">Host lister indeholder regler for at blokere reklamer og trackere. Prøv at holde mængden af aktive liste lav.</string>
     <string name="menu_host_list_status">Liste status</string>
     <string name="menu_host_list_download">Liste download indstillinger</string>
-    <string name="menu_host_whitelist">Hosts du tilføjer her vil aldrig blive blokeret. Brug denne list til, for eksempel, en hjemmeside du besøger som blokeres ved et uheld.</string>
-    <string name="menu_host_blacklist">Hosts du tilføjer her vil altid blive blokeret. For eksempel, du kan tilføje en hjemmeside som ikke er blokeret af de standard lister, men som burde være.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Andre</string>
     <string name="menu_share_log_label">Deling af log tillader os at finde årsagen til dit prblem. Vær sikker på du sender den privat til en af Blokadas primære medlemmer.</string>

@@ -7,7 +7,6 @@
     <string name="tunnel_config_refetch_now">지금 다운로드 목록</string>
     <string name="tunnel_config_refetch_now_description">아래의 버튼을 사용하여 캐시를 제거하고 목록을 다시 다운로드하십시오. 필터링 문제가 발생하면 도움이 될 수 있습니다.</string>
     <string name="tunnel_config_refetch_frequency_title">수시로 목록 다운로드</string>
-    <string name="tunnel_config_refetch_frequency_description">앱에서 목록을 다운로드해야하는 빈도를 구성하는 옵션 중 하나를 선택합니다.</string>
     <string name="tunnel_config_refetch_frequency_1">하루에 한 번</string>
     <string name="tunnel_config_refetch_frequency_2">주 2 회</string>
     <string name="tunnel_config_refetch_frequency_3">일주일에 한 번</string>

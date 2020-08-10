@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">Listeler indirilmeye başlandı</string>
     <string name="tunnel_config_refetch_now_description">Önbelleği kaldırmak ve listelerinizi tekrar indirmek için aşağıdaki düğmeyi kullanın. Filtrenizle ilgili herhangi bir sorun yaşarsanız bu yardımcı olabilir.</string>
     <string name="tunnel_config_refetch_frequency_title">Listeleri indirme sıklığı</string>
-    <string name="tunnel_config_refetch_frequency_description">Uygulamanın listelerinizi ne sıklıkla indirmesi gerektiğini yapılandırmak için seçeneklerden birini seçin.</string>
+    <string name="tunnel_config_refetch_frequency_description">Uygulamanın listelerinizi ne sıklıkta indirmesi gerektiğini yapılandırmak için seçeneklerden birini seçin.</string>
     <string name="tunnel_config_refetch_frequency_1">Günde bir defa</string>
     <string name="tunnel_config_refetch_frequency_2">Haftadaki iki kez</string>
     <string name="tunnel_config_refetch_frequency_3">Haftada bir kez</string>
@@ -25,7 +25,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] Gelişmiş reklam engelleme kuralları</string>
     <string name="tunnel_config_wildcard_description">Filtreleme kurallarınızda joker karakterler kullanmak istiyorsanız bu anahtarı etkinleştirin. Örneğin, *.google.com için bir kural eklemek Google’ın tüm alan adlarını engelleyecektir. Bunun pil ömrü üzerinde negatif bir etkisi olabilir. Lütfen bunun deneysel bir özellik olduğunu ve düzgün çalışmayabileceğini unutmayın.</string>
     <string name="tunnel_config_fallback_title">DNS geri dönüşü</string>
-    <string name="tunnel_config_fallback_description">WiFi gibi, bazı durumlarda internet erişimini kaybediyorsanız; bu anahtarı etkinleştirin. Bu, uygulama bağlantısının sürdürebilmesi için Cloudflare DNS\'e geçici olarak geçiş yapar. Bu ayarın geçerli olması için, DNS bölümünden sunucularınızı yeniden seçmeniz gerekebilir.</string>
+    <string name="tunnel_config_fallback_description">Kablosuz ağ gibi bazı durumlarda internet erişimini kaybediyorsanız, bu anahtarı etkinleştirin. Bu, bağlantınızı sürdürmek için uygulamanın geçici olarak Cloudflare veya Google DNS\'e geçmesini sağlayacaktır. Bu ayarın etkili olabilmesi için DNS bölümünden sunucularınızı yeniden seçmeniz gerekebilir.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Akıllı Liste</string>
     <string name="tunnel_config_smartlist_reset_btn">Sıfırla</string>
     <string name="tunnel_config_smartlist_clean_btn">Temizle</string>

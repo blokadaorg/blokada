@@ -53,8 +53,6 @@
     <string name="menu_host_adblocking_settings">Annonseblokkeringsinnstillinger</string>
     <string name="menu_host_list_status">Listestatus</string>
     <string name="menu_host_list_download">Listenedlastingsinnstillinger</string>
-    <string name="menu_host_whitelist">Verter du legger til her, vil aldri bli blokkert. Bruk denne listen når for eksempel et nettsted du besøker er feilaktig blokkert.</string>
-    <string name="menu_host_blacklist">Verter du legger til her, vil alltid blokkeres. For eksempel kan du legge til nettsteder som ikke er blokkert av standardlistene, men bør være det.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Annet</string>
     <string name="menu_share_log_label">Deling logg lar oss finne årsaken til problemet ditt. Forsikre deg om at du sender det privat til et av Blokada kjerneteammedlemmer.</string>

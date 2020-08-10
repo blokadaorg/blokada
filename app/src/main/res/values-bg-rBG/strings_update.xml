@@ -19,6 +19,6 @@
     <string name="update_progress">Изтегляне %s%%</string>
     <string name="update_complete">Изтеглянето приключи</string>
     <string name="update_failed">Неуспешно изтегляне</string>
-    <string name="update_instruction">Когато приключите, ще бъдете помолени да разрешите Blokada да инсталира актуализацията.</string>
+    <string name="update_instruction">Когато приключи ще бъдете помолени да разрешите Blokada да инсталира актуализацията.</string>
     <string name="update_instruction_failed">Докоснете тук за да опитате отново, или вместо това натиснете по-дълго за да изтеглите с браузъра.</string>
 </resources>

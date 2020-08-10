@@ -4,10 +4,12 @@
     <string name="home_touch">Napauta tai pidä pohjassa muokataksesi</string>
     <string name="home_blokada_disabled">Blokada on keskeytetty</string>
     <string name="home_blokada_active">Blokada on aktiivinen</string>
+    <string name="home_blokada_active_protected">Blokada Plus on aktiivinen ja Internet-yhteytesi on suojattu</string>
     <string name="home_blokada_inactive">Blokada on pois päältä</string>
     <string name="home_activating">Aktivoidaan</string>
     <string name="home_please_wait">Ole hyvä ja odota...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_vpn_only">Blokada Plus on aktiivinen ilman mainosten estämistä</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada on aktiivinen DNS-tilassa</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
@@ -28,9 +30,14 @@
     <string name="home_update_required">Päivitys vaaditaan</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Lahjoita</string>
+    <string name="home_vpn_enabled">Blokada Plus on aktiivinen</string>
+    <string name="home_vpn_disabled">Blokada Plus on pois päältä</string>
     <string name="home_account_active">Tilisi on edelleen aktiivinen</string>
+    <string name="home_connecting_vpn">Yhdistetään Blokada Plussaan</string>
     <string name="home_cleanup">Siivousta suositellaan</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">Yhdistetty Blokada Plussaan</string>
+    <string name="home_boringtun_not_loaded">Blokada Plus ei valitettavasti tue laitettasi. Voit silti käyttää muita ominaisuuksia.</string>
     <string name="home_blocka_vpn_error">Yhdyskäytävään ei saatu yhteyttä. Oletko verkossa?</string>
     <string name="home_account_error">Tiliä ei voitu vahvistaa. Oletko verkossa?</string>
     <string name="home_permission_error">Ole hyvä ja myönnä VPN-oikeudet.</string>
@@ -45,9 +52,12 @@
     <string name="menu_ads_rules_label">Lisää omia sääntöjäsi hienosäätääksesi estämistä.</string>
     <string name="menu_ads_log_label">Katso, mitä viime aikoina on estetty tai sallittu.</string>
     <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">Blokada Plus</string>
     <string name="menu_vpn_activate_account">Ole hyvä ja aktivoi ensin tilisi.</string>
     <string name="menu_vpn_select_gateway">Ole hyvä ja valitse yhdyskäytävä.</string>
+    <string name="menu_vpn_intro_button">Miksi tarvitsen Blokada Plussan?</string>
     <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account">Blokada Plussani</string>
     <string name="menu_vpn_account_id">ID: %s</string>
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Yhdyskäytävät</string>
@@ -57,10 +67,13 @@
     <string name="menu_vpn_manage_subscription_unavailable">Jos tilisi on uusi, käy verkkosivustollamme. Et voi ostaa tilausta Blokada Slim-sovelluksesta.</string>
     <string name="menu_vpn_account_secret">Napauta yllä olevaa avatariasi nähdäksesi tilitunnuksesi. Muista, että tilitunnuksesi on salainen, ja sinun tulee säilyttää se itselläsi. Kirjoita se muistiin, jos poistat sovelluksen.</string>
     <string name="menu_vpn_restore_label">Täällä voit palauttaa nykyisen tilisi, jos esimerkiksi asensit sovelluksen uudelleen.</string>
+    <string name="menu_vpn_intro">Blokada Plussalla datasi on salattu, IP-osoitteesi on piilotettu ja sijaintisi on muutettu.</string>
     <string name="menu_vpn_account_label">Jotta voit käyttää VPN:ää, tarvitset aktiivisen tilin. Tarkista tai palauta tilisi täällä.</string>
     <string name="menu_vpn_gateways_label">Valitse yksi yhdyskäytävistä, johon haluat yhdistää. Laitteesi lähettää salatun datasi turvallisesti kyseisen yhdyskäytävän kautta, ja sinä pysyt nimettömänä.</string>
     <string name="menu_vpn_support_label">Jos sinulla on ongelmia, älä epäröi ottaa yhteyttä meihin.</string>
     <string name="menu_vpn_support_button">Tuki</string>
+    <string name="menu_vpn_tunnel_settings">Blokada Plussan asetukset</string>
+    <string name="menu_vpn_tunnel_learn_more">Opi lisää Blokada Plussasta</string>
     <string name="menu_vpn_info_account_label">Onko minulla tili?</string>
     <string name="menu_vpn_info_account_line1">Kyllä! Tilisi luodaan automaattisesti ensimmäisen ajon aikana. Sinun ei tarvitse rekisteröityä.</string>
     <string name="menu_vpn_info_account_line2">Napauta yllä olevaa avatariasi nähdäksesi tilitunnuksesi.</string>
@@ -69,14 +82,15 @@
     <string name="menu_dns_recommended">Suositellut DNS-palvelimet</string>
     <string name="menu_dns_intro">DNS on vastuussa käyttämiesi verkkosivustojen ja sovellusten IP-osoitteiden muuntamisesta. Hyvän DNS:n valitseminen saattaa nopeuttaa laitettasi ja auttaa suojaamaan yksityisyyttäsi.</string>
     <string name="menu_dns_select">Valitse yksi DNS-palvelimista.</string>
+    <string name="menu_apps_intro">Jotkin sovellukset eivät välttämättä toimi kunnolla Blokadan kanssa. Esimerkiksi niillä voi olla vaikeuksia yhteyden muodostamisessa.\n\nVPN: n aktivointi auttaa usein näissä tapauksissa.\n\nMuutoin voit asettaa nämä sovellukset ohittamaan Blokadan tarkastuksen kokonaan. Muista, että ohitetut sovellukset kommunikoivat Blokadan Plussan ulkopuolella.</string>
     <string name="menu_apps_system_label">Järjestelmäsovellukset ovat esiasennettuna laitteeseesi. Jotkut niistä ovat piilotettuja. Muokkaa niitä vain, jos tiedät mitä teet.</string>
-    <string name="menu_host_list_intro">Isäntäluettelot sisältävät sääntöjä mainosten ja jäljittäjien estämiseksi. Yritä pitää aktiivisten listojen määrä alhaisena.</string>
+    <string name="menu_host_list_intro">Isäntälistat sisältävät sääntöjä mainosten ja jäljittäjien estämiseksi. Yritä pitää aktiivisten listojen määrä alhaisena.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
     <string name="menu_host_adblocking_settings">Mainosten estoasetukset</string>
     <string name="menu_host_list_status">Listan tila</string>
     <string name="menu_host_list_download">Listojen latausasetukset</string>
-    <string name="menu_host_whitelist">Täältä lisäämäsi isäntää ei koskaan estetä. Käytä tätä listaa, kun esimerkiksi verkkosivusto, jossa vierailet, on virheellisesti estetty.</string>
-    <string name="menu_host_blacklist">Täältä lisäämäsi isännät estetään aina. Voit esimerkiksi lisätä verkkosivustoja, joita standardilistat eivät ole estäneet, mutta joiden pitäisi olla estettynä.</string>
+    <string name="menu_host_whitelist">Täältä lisäämäsi isäntää ei koskaan estetä. Käytä tätä listaa, kun esimerkiksi verkkosivusto, jossa vierailet on virheellisesti estetty. Huomaa, että tämä ei koske ohitettuja sovelluksia.</string>
+    <string name="menu_host_blacklist">Täältä lisäämäsi isännät estetään aina. Voit esimerkiksi lisätä verkkosivustoja, joita standardilistat eivät ole estäneet, mutta joiden pitäisi olla estettynä. Huomaa, että tämä ei koske ohitettuja sovelluksia.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Muu</string>
     <string name="menu_share_log_label">Jakamislokin avulla voimme selvittää ongelmasi syyn. Varmista, että lähetät sen yksityisesti yhdelle Blokadan ydintiimin jäsenistä.</string>

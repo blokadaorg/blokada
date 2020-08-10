@@ -72,8 +72,6 @@
     <string name="menu_host_adblocking_settings">הגדרות חסימת פרסומות</string>
     <string name="menu_host_list_status">סטטוס רשימה</string>
     <string name="menu_host_list_download">הגדרות הורדת רשימה</string>
-    <string name="menu_host_whitelist">השרתים שתוסיף כאן לעולם לא ייחסמו. השתמש ברשימה זו כאשר, לדוגמה, אתר שבו אתה מבקר נחסם בטעות.</string>
-    <string name="menu_host_blacklist">השרתים שתוסיף כאן תמיד ייחסמו. לדוגמה, תוכל להוסיף אתרים שאינם נחסמים על ידי הרשימות הסטנדרטיות, אך צריכים להיחסם.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">אחר</string>
     <string name="menu_share_log_label">שיתוף יומן מאפשר לנו לגלות את הסיבה לבעיה שלך. הקפד לשלוח אותו באופן פרטי לאחד מחברי הליבה של Blokada.</string>

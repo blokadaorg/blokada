@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Muat turun senarai bermula</string>
     <string name="tunnel_config_refetch_now_description">Gunakan butang di bawah untuk memadam cache dan memuat turun senarai anda semula. Ini boleh membantu jika anda mengalami sebarang masalah dengan penapisan anda.</string>
     <string name="tunnel_config_refetch_frequency_title">Kekerapan memuat turun senarai</string>
-    <string name="tunnel_config_refetch_frequency_description">Pilih salah satu pilihan untuk mengkonfigurasi kekerapan aplikasi memuat turun senarai anda.</string>
     <string name="tunnel_config_refetch_frequency_1">Sekali sehari</string>
     <string name="tunnel_config_refetch_frequency_2">Dua kali seminggu</string>
     <string name="tunnel_config_refetch_frequency_3">Sekali seminggu</string>
@@ -20,5 +19,4 @@
     <string name="tunnel_config_reports_title">Laporan</string>
     <string name="tunnel_config_reports_description">Aktifkan suis ini untuk membenarkan aplikasi menghantar laporan yang membantu kami menyelesaikan masalah dan pepijat. Ini akan berlaku hanya sekali sehari, atau apabila aplikasi rosak. Menyahaktifkan fungsi ini akan menyebabkan kesukaran bagi kami untuk menyelesaikan sebarang masalah yang mungkin dialami oleh anda. Anda mungkin perlu memulakan semula aplikasi untuk tetapan ini berfungsi.</string>
     <string name="tunnel_config_fallback_title">DNS fallback</string>
-    <string name="tunnel_config_fallback_description">Aktifkan suis ini jika anda kehilangan akses Internet di dalam sesetengah keadaan, seperti WiFi anda. Ini akan membuat aplikasi beralih sementara ke DNS Cloudflare untuk mengekalkan sambungan anda. Anda mungkin perlu untuk memilih semula pelayan anda di bahagian DNS untuk seting ini berkesan.</string>
 </resources>

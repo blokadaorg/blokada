@@ -89,8 +89,8 @@
     <string name="menu_host_adblocking_settings">Impostazioni blocco pubblicità</string>
     <string name="menu_host_list_status">Stato lista</string>
     <string name="menu_host_list_download">Impostazioni download lista</string>
-    <string name="menu_host_whitelist">Gli host che aggiungi qui non saranno mai bloccati. Usa questa lista quando, ad esempio, un sito che visiti viene erroneamente bloccato.</string>
-    <string name="menu_host_blacklist">Gli host che aggiungi qui saranno sempre bloccati. Ad esempio, puoi aggiungere siti web che non vengono bloccati dalle liste standard, ma che dovrebbero esserlo.</string>
+    <string name="menu_host_whitelist">Gli host che aggiungi qui non saranno mai bloccati. Usa questa lista quando, ad esempio, un sito che visiti viene erroneamente bloccato. Attenzione, questo non si applica alle app ignorate.</string>
+    <string name="menu_host_blacklist">Gli host che aggiungi qui saranno sempre bloccati. Ad esempio, puoi aggiungere siti web che non vengono bloccati dalle liste standard, ma che dovrebbero esserlo. Attenzione, questo non si applica alle app ignorate.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Altro</string>
     <string name="menu_share_log_label">La condivisione del log ci permette di scoprire la ragione del tuo problema. Assicurati di inviarlo privatamente a uno dei membri dello staff di Blokada.</string>

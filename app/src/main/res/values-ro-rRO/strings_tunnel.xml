@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">Descărcarea listelor a început</string>
     <string name="tunnel_config_refetch_now_description">Folosește butonul de mai jos pentru a șterge cache-ul și a descarca listele din nou. Acest lucru poate ajuta în cazul în care întâmpini probleme de filtrare.</string>
     <string name="tunnel_config_refetch_frequency_title">Frecvența de descărcare a filtrelor</string>
-    <string name="tunnel_config_refetch_frequency_description">Selectează una dintre opțiuni pentru a configura cât de des să descarce aplicația listele.</string>
+    <string name="tunnel_config_refetch_frequency_description">Selectați una dintre opțiuni pentru a configura cât de des aplicația ar trebui să descarce listele.</string>
     <string name="tunnel_config_refetch_frequency_1">Odată pe zi</string>
     <string name="tunnel_config_refetch_frequency_2">De două ori pe săptămână</string>
     <string name="tunnel_config_refetch_frequency_3">Odată pe săptămână</string>
@@ -25,7 +25,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] Reguli avansate de blocare</string>
     <string name="tunnel_config_wildcard_description">Activați acest comutator dacă doriți să folosiți wildcards în regulile dvs. de filtrare. De exemplu, adăugarea unei reguli pentru *.google.com ar bloca toate domeniile de pe Google. Acest lucru poate avea un impact negativ asupra duratei de viață a bateriei. Vă rugăm să rețineți că aceasta este o funcție experimentală și s-ar putea sa nu funcționeze corect.</string>
     <string name="tunnel_config_fallback_title">DNS de rezervă</string>
-    <string name="tunnel_config_fallback_description">Activați acest buton în cazul în care pierdeți conexiunea la internet în unele situații, cum ar fi pe WiFi. Aceasta va face aplicația să comute temporar pe DNS-ul Cloudflare pentru a menține conectivitatea. S-ar putea să trebuiască să alegeți din nou serverele din secțiunea DNS, ca setarea să aibă efect.</string>
+    <string name="tunnel_config_fallback_description">Activați acest comutator dacă vă pierdeți accesul la internet în unele situații, cum ar fi WiFi-ul dvs. Aceasta va face aplicația să treacă temporar la Cloudflare sau la Google DNS pentru a vă susține conectivitatea. Este posibil să trebuiască să vă reselectați serverele din secțiunea DNS pentru ca această setare să aibă efect.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Listă inteligentă</string>
     <string name="tunnel_config_smartlist_reset_btn">Resetare</string>
     <string name="tunnel_config_smartlist_clean_btn">Curăță</string>

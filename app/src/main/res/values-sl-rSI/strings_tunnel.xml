@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Prenos seznamov se je začel</string>
     <string name="tunnel_config_refetch_now_description">S spodnjim gumbom počistite začasne podatke in ponovno prenesete sezname. To lahko včasih odpravi težave pri filtriranju.</string>
     <string name="tunnel_config_refetch_frequency_title">Pogostost prenosa seznamov</string>
-    <string name="tunnel_config_refetch_frequency_description">Izberite eno od možnosti za pogostost prenosa seznamov.</string>
     <string name="tunnel_config_refetch_frequency_1">Enkrat dnevno</string>
     <string name="tunnel_config_refetch_frequency_2">Dvakrat tedensko</string>
     <string name="tunnel_config_refetch_frequency_3">Enkrat tedensko</string>
@@ -24,7 +23,6 @@
     <string name="tunnel_config_wildcard_title">[BETA] Napredna pravila blokiranja oglasov</string>
     <string name="tunnel_config_wildcard_description">Vključite to možnost če želite uporabljati nadomestne znake v filtrirnih pravilih. Na primer, pravilo *.google.com blokira vse Googlove domene. Opozarjamo, da lahko taka pravila povzročijo hitrejšo porabo baterije. Ta funkcija je še v razvoju in lahko da ne deluje pravilno.</string>
     <string name="tunnel_config_fallback_title">Zasilni DNS</string>
-    <string name="tunnel_config_fallback_description">Vklopite to možnost če izgubljate dostop do interneta pri nekaterih povezavah, npr. vašem WiFi. Aplikacija bo začasno preklopila na Cloudflare-ov DNS in obdržala povezljivost. Morda boste morali ponovno izbrati strežnike v razdelku DNS za aktivacijo te funkcije.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Pametni seznam</string>
     <string name="tunnel_config_smartlist_reset_btn">Ponastavi</string>
     <string name="tunnel_config_smartlist_clean_btn">Počisti</string>

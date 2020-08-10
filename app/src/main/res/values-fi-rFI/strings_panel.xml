@@ -105,8 +105,8 @@
     <string name="slot_action_import">Tuo</string>
     <string name="slot_action_internal">Sisäinen tallennustila</string>
     <string name="slot_action_external">Ulkoinen tallennustila</string>
-    <string name="slot_filters_title">Suodatinluettelo</string>
-    <string name="slot_filters_description">Voit synkronoida suodatinluettelon palvelimiemme kanssa menettämättä mukautettuja merkintöjä. &lt;br/&gt;&lt;br/&gt;Vaihtoehtoisesti voit poistaa kaikki merkinnät (mukaan lukien omasi) ja ladata ne uudelleen.</string>
+    <string name="slot_filters_title">Suodatinlista</string>
+    <string name="slot_filters_description">Voit synkronoida suodatinlistan palvelimiemme kanssa menettämättä mukautettuja merkintöjä. &lt;br/&gt;&lt;br/&gt;Vaihtoehtoisesti voit poistaa kaikki merkinnät (mukaan lukien omasi) ja ladata ne uudelleen.</string>
     <string name="slot_blocked_normal_title">Verkkotunnus estetty</string>
     <string name="slot_blocked_answer_title">Verkkotunnusta ei selvitetty</string>
     <string name="slot_forwarded_title">Verkkotunnus välitetty</string>
@@ -117,6 +117,7 @@
     <string name="slot_action_activate">Ota käyttöön</string>
     <string name="slot_update_action_refresh">Tarkista uudelleen</string>
     <string name="slot_telegram_title">Liity mukaan!</string>
+    <string name="slot_telegram_desc">Vieraile yhteisössämme saadaksesi apua tai vain ollaksesi osa sitä.</string>
     <string name="slot_telegram_action">Avaa</string>
     <string name="slot_dropped_share_title">Jaa</string>
     <string name="slot_adblocking_label">Estä mainokset &amp; jäljittäjät</string>
@@ -139,6 +140,7 @@
     <string name="slot_gateway_learn_more">Lisätietoja yhdyskäytävistä</string>
     <string name="slot_gateway_info_partner">Mitä ovat kumppaneiden yhdyskäytävät?</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Hallitse, mitkä laitteesi yhdistävät Blokada Plussaan.</string>
     <string name="slot_lease_name_current">%s (tämä laite)</string>
     <string name="slot_lease_description">Laitetunnus: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">Laitetunnus: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Tämä on nykyinen laitteesi.</string>
@@ -176,6 +178,8 @@
     <!-- A button to update the app. -->
     <string name="slot_cleanup_desc">Laitteessasi näyttäisi olevan monta versiota Blokadasta asennettuna. Haluaisitko poistaa muut versiot ja pitää vain yhden?</string>
     <string name="account_inactive">Aktivoi tai palauta tilisi jatkaaksesi.</string>
+    <string name="slot_lease_cant_connect">Blokadan Plussaan ei saatu yhteyttä. Yritä valita toinen yhdyskäytävä.</string>
+    <string name="slot_account_cant_create">Blokada Plus-tiliäsi ei voitu luoda. Yritä myöhemmin uudelleen tai ota meihin yhteyttä.</string>
     <string name="slot_account_name_title">Käyttäjätunnus</string>
     <string name="slot_account_name_desc">Anna vanha käyttäjätunnuksesi palauttaaksesi aiemman tilauksesi. Sinun kannattaa ehkä kirjoittaa nykyinen käyttäjätunnuksesi ylös ennen kuin teet sen virheen sattumisen varalta.</string>
     <string name="slot_account_name_error">Käyttäjätunnus voi sisältää vain kirjaimia ja numeroita.</string>

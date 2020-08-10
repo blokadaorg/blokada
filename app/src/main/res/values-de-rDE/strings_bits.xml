@@ -21,8 +21,8 @@
     <string name="home_share_state">Teile deinen Blokada-Score</string>
     <string name="home_share_state_google">Hilf anderen, mehr über Blokada zu erfahren</string>
     <string name="home_share_msg_google">Probier Blokada Slim aus und schütze deine Privatsphäre! Hol es dir im Google Playstore.</string>
-    <string name="home_adblocking_enabled">Werbesperre ist aktiv</string>
-    <string name="home_adblocking_disabled">Werbesperre ist deaktiviert</string>
+    <string name="home_adblocking_enabled">Werbeblocker ist aktiv</string>
+    <string name="home_adblocking_disabled">Werbeblocker ist deaktiviert</string>
     <string name="home_blokadaorg">Du verwendest Blokada Slim</string>
     <string name="home_blokadaorg_state">Hier tippen, um die Open-Source Version zu erhalten</string>
     <!-- A short text for the item that displays update information -->
@@ -43,7 +43,7 @@
     <string name="home_permission_error">Bitte gewähre dem VPN die Berechtigung.</string>
     <string name="home_zero_filters_error">Du hast keine Filter konfiguriert. Überprüfe deine Werbeblocker- und WLAN-Einstellungen.</string>
     <string name="home_filters_memory_error">Einige Listen konnten nicht geladen werden; wähle weniger Listen in den Einstellungen des Werbeblockers.</string>
-    <string name="tasker_switch_label">Wähle eine der Optionen, um sie so zu konfigurieren, dass Blokada für Ihren Trigger ein- oder ausgeschaltet wird.</string>
+    <string name="tasker_switch_label">Wähle eine der Optionen, um sie so zu konfigurieren, dass Blokada für deinen Trigger ein- oder ausgeschaltet wird.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Anzeigen</string>
     <string name="menu_ads_live_label">Protokoll der zugelassenen und blockierten Host-Anfragen</string>
@@ -89,8 +89,8 @@
     <string name="menu_host_adblocking_settings">Werbeblockereinstellungen</string>
     <string name="menu_host_list_status">Listenstatus</string>
     <string name="menu_host_list_download">Download-Einstellungen auflisten</string>
-    <string name="menu_host_whitelist">Hosts, die du hier hinzufügst, werden nie blockiert. Verwende diese Liste, wenn zum Beispiel eine Webseite, die du besuchst, fälschlicherweise blockiert wird.</string>
-    <string name="menu_host_blacklist">Hosts, die du hier hinzufügst, werden immer blockiert. Zum Beispiel kannst du Webseiten hinzufügen, die durch die Standardlisten nicht blockiert werden, aber blockiert werden sollen.</string>
+    <string name="menu_host_whitelist">Hosts, die Sie hier hinzufügen, werden nie blockiert. Benutzen Sie diese Liste, wenn beispielsweise eine Website, die Sie besuchen, irrtümlich blockiert wird. Beachten Sie, dass dies nicht auf umgeleitete Apps zutrifft.</string>
+    <string name="menu_host_blacklist">Hosts, die Sie hier hinzufügen, werden immer blockiert. Zum Beispiel können Sie Websites hinzufügen, die nicht von den Standardlisten blockiert werden, es aber sein sollten. Beachten Sie, dass dies nicht auf umgeleitete Apps zutrifft.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Andere</string>
     <string name="menu_share_log_label">Das Teilen von Protokolldaten ermöglicht es uns, den Grund für dein Problem zu ermitteln. Achte darauf, sie privat an eines der Mitglieder des Blokada-Kernteams zu senden.</string>

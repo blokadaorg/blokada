@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="notification_on_text">Benachrichtigungen</string>
-    <string name="notification_on_description">Wenn eingeschaltet, wird Blokada jedesmal eine Benachrichtigung anzeigen, wenn etwas blockiert wird. Bitte beachte, dass dies nicht identisch ist mit der VPN-Benachrichtigung, die einige Geräte anzeigen und die nicht deaktiviert werden kann.&lt;br/&gt;Du kannst in den folgenden Einstellungen festlegen, welche Benachrichtigungen angezeigt werden sollen.</string>
+    <string name="notification_on_description">Wenn eingeschaltet, wird Blokada jedes Mal eine Benachrichtigung anzeigen, wenn etwas blockiert wird. Bitte beachte, dass dies nicht identisch mit der VPN-Benachrichtigung ist, die einige Geräte anzeigen und die nicht deaktiviert werden kann.&lt;br/&gt;Du kannst in den folgenden Einstellungen festlegen, welche Benachrichtigungen angezeigt werden sollen.</string>
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Blockiert</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
@@ -17,7 +17,7 @@
     <string name="notification_keepalive_text">Aktiv halten</string>
     <string name="notification_keepalive_description">Aktiviere diesen Schalter, wenn du feststellst, dass die App Probleme hat, im Hintergrund aktiv zu bleiben. Blokada wird eine permanente Benachrichtigung aktivieren, um das Beenden durch das System zu verhindern; du kannst diese ausblenden, indem du oben Benachrichtigungen auswählst und dort Einstellungen.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
-    <string name="notification_keepalive_title_new">Aktiv halten (zum Verstecken deaktivieren)</string>
+    <string name="notification_keepalive_title_new">Aktiv halten (zum Verstecken tippen)</string>
     <string name="notification_keepalive_text_new">Damit die App aktiv bleiben kann, muss Android eine Benachrichtigung anzeigen. Du kannst diese aber in den Systemeinstellungen deaktivieren.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d blockiert</string>

@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">S\'ha iniciat la baixada de llistes</string>
     <string name="tunnel_config_refetch_now_description">Utilitzeu el botó següent per eliminar la memòria cau i torneu a baixar les vostres llistes. Això pot ajudar si experimenteu algun problema amb el filtratge.</string>
     <string name="tunnel_config_refetch_frequency_title">Freqüència de baixada de les llistes</string>
-    <string name="tunnel_config_refetch_frequency_description">Seleccioneu una de les opcions per configurar la freqüència amb què l\'aplicació ha de baixar les vostres llistes.</string>
     <string name="tunnel_config_refetch_frequency_1">Un cop al dia</string>
     <string name="tunnel_config_refetch_frequency_2">Dos cops per set.</string>
     <string name="tunnel_config_refetch_frequency_3">Un cop per set.</string>
@@ -20,5 +19,4 @@
     <string name="tunnel_config_reports_title">Informes</string>
     <string name="tunnel_config_reports_description">Activeu aquest commutador per permetre que l\'aplicació enviï informes que ens ajudin a solucionar problemes i errors. Això succeirà només un cop al dia, o quan l\'aplicació es bloquegi. En desactivar això podeu dificultar la resolució de qualsevol problema que pugueu experimentar. És possible que necessiteu reiniciar l\'aplicació perquè aquesta configuració tingui efecte.</string>
     <string name="tunnel_config_fallback_title">DNS alternatiu</string>
-    <string name="tunnel_config_fallback_description">Activeu aquest commutador si perdeu l\'accés a Internet en algunes situacions, com ara el vostre Wi-Fi. D\'aquesta manera, l\'aplicació canviarà temporalment als DNS de Cloudflare per mantenir la connectivitat. És possible que hageu de tornar a seleccionar els vostres servidors a la secció de DNS perquè aquesta configuració tingui efecte.</string>
 </resources>

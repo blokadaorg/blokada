@@ -60,8 +60,6 @@
     <string name="menu_host_list_intro">Izinhlu zokusingatha ziqukethe imithetho yokuvimbela izikhangiso nama-tracker. Zama ukugcina inombolo yezinhla iphansi.</string>
     <string name="menu_host_list_status">Isimo sohlu</string>
     <string name="menu_host_list_download">Bhala uhlu lwezilungiselelo zokulanda</string>
-    <string name="menu_host_whitelist">Amawebhusayithi owengeza lapha awasoze avinjwe. Sebenzisa lolu hlu uma, ngokwesibonelo, iwebhusayithi oyivakashelayo ivinjiwe ngephutha.</string>
-    <string name="menu_host_blacklist">Amawebhusayithi owengeza lapha azohlala evinjiwe. Ngokwesibonelo, ungengeza amawebhusayithi angavinjelwe ngohlu olujwayelekile, kepha kufanele.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Okunye</string>
     <string name="menu_share_log_label">Ukwabelana nge-log kusivumela ukuthola isizathu senkinga yakho. Qiniseka ukuthi uyithumela ngasese kwelinye lamalungu eqembu likaBlokada.</string>

@@ -29,7 +29,12 @@
     <string name="notification_keepalive_activating">A Blokada elindításra került. Néhány pillanatig eltarthat.</string>
     <string name="notification_keepalive_deactivate">Deaktiválás</string>
     <string name="notification_keepalive_deactivating">Blokada deaktiválásra került!</string>
+    <string name="notification_expired_title">Blokada Plus deaktiválva</string>
+    <string name="notification_expired_description">Fiókod nem aktív, és a Blokada Plus ki van kapcsolva. A normál Blokada funkciók a Blokada Plus VPN nélkül is jól működnek. Kérjük, vedd fontolóra a fiók aktiválását a jobb védelem és a projekt támogatása érdekében.</string>
+    <string name="notification_lease_expired_title">Blokada Plus deaktiválva</string>
+    <string name="notification_lease_expired_description">Probléma merült fel a Blokada Plus-hoz való csatlakozással. Kérjük, próbálj meg egy másik átjárót választani. Ha a probléma továbbra is fennáll, kérjük, lépj velünk a kapcsolatba.</string>
     <string name="notification_channel_filtered">Hirdetés blokkolás</string>
     <string name="notification_channel_announcements">Közlemények</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
     <string name="notification_channel_other">Egyéb</string>
 </resources>

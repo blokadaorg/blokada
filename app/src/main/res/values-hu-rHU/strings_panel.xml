@@ -117,6 +117,7 @@
     <string name="slot_action_activate">Bekapcsolás</string>
     <string name="slot_update_action_refresh">Ellenőrizze újra</string>
     <string name="slot_telegram_title">Csatlakozz hozzánk!</string>
+    <string name="slot_telegram_desc">Látogass el a közösségünkbe segítségért, vagy csak azért, hogy annak részévé válj.</string>
     <string name="slot_telegram_action">Megnyitás</string>
     <string name="slot_dropped_share_title">Megosztás itt:</string>
     <string name="slot_adblocking_label">Hirdetések és nyomkövetők blokkolása</string>
@@ -139,6 +140,7 @@
     <string name="slot_gateway_learn_more">További információ az átjárókról</string>
     <string name="slot_gateway_info_partner">Mik a partner átjárók?</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Szabályozhatod, hogy melyik készüléked csatlakozzon a Blokada Plus-hoz.</string>
     <string name="slot_lease_name_current">%s (ez a készülék)</string>
     <string name="slot_lease_description">Készülék azonosító: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">Készülék azonosító: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Ez az aktuális készüléked.</string>
@@ -176,6 +178,8 @@
     <!-- A button to update the app. -->
     <string name="slot_cleanup_desc">Úgy tűnik, hogy a Blokada számos verziója telepítve van a készülékeden. Szeretnéd eltávolítani a többi verziót és csak egyet megtartani?</string>
     <string name="account_inactive">Kérjük, aktiváld vagy állítsd vissza a fiókodat a folytatáshoz.</string>
+    <string name="slot_lease_cant_connect">Nem sikerült csatlakozni a Blokada Plus-hoz. Próbálj másik átjárót kiválasztani.</string>
+    <string name="slot_account_cant_create">Nem sikerült létrehozni a Blokada Plus fiókot. Kérjük, próbáld újra később, vagy lépj kapcsolatba velünk.</string>
     <string name="slot_account_name_title">Fiókazonosító</string>
     <string name="slot_account_name_desc">Add meg régi fiókazonosítódat az előző előfizetés visszaállításához. Írd le az aktuális fiókazonosítódat mielőtt ezt megtennéd, hogy elkerüld a félregépelést.</string>
     <string name="slot_account_name_error">A Fiókazonosító csak betűket (ékezet nélküli) és számokat tartalmazhat.</string>

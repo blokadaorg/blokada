@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">הורדת הרשימות החלה</string>
     <string name="tunnel_config_refetch_now_description">השתמש בלחצן שלהלן כדי למחוק את קובצי המטמון ולהוריד את הרשימות שלך שוב. הליך זה עשוי לעזור אם יש תקלות בבעיות עם הגדרות הסינון.</string>
     <string name="tunnel_config_refetch_frequency_title">תדירות הורדת רשימות</string>
-    <string name="tunnel_config_refetch_frequency_description">בחר באחת האפשרויות כדי לקבוע באיזו תדירות היישום אמור להוריד את הרשימות.</string>
     <string name="tunnel_config_refetch_frequency_1">פעם ביום</string>
     <string name="tunnel_config_refetch_frequency_2">פעמיים בשבוע</string>
     <string name="tunnel_config_refetch_frequency_3">פעם בשבוע</string>
@@ -20,5 +19,4 @@
     <string name="tunnel_config_reports_title">דוחו\"ת</string>
     <string name="tunnel_config_reports_description">הפעל מפסק זה כדי לאפשר ליישום לשלוח דוחות שיעזרו לנו לתקן בעיות ובאגים. זה יבוצע רק פעם ביום, או כאשר היישום קורס. השבתת אופציה זו עלולה להקשות עלינו לפתור בעיות שבהן אתה נתקל. ייתכן שתצטרך להפעיל מחדש את היישום לשינוי הגדרה זו.</string>
     <string name="tunnel_config_fallback_title">השבת DNS</string>
-    <string name="tunnel_config_fallback_description">הפעל מפקס זה אם אתה מאבד גישה לאינטרנט במצבים מסוימים, כגון רשת WiFi. פעולה זו תגרום ליישום לעבור באופן זמני ל- DNS של Cloudflare כדי להחזיק את הקישוריות שלך. ייתכן שתצטרך לבחור מחדש את השרתים שלך בהגדרות ה- DNS כדי שהגדרה זו תיכנס לתוקף.</string>
 </resources>

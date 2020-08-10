@@ -45,8 +45,6 @@
     <string name="menu_host_list_intro">Senarai hos mengandungi aturan untuk menyekat iklan dan penjejak. Cubalah untuk mengurangakan bilangan senarai kepada paling rendah.</string>
     <string name="menu_host_list_status">Senarai status</string>
     <string name="menu_host_list_download">Senarai tetapan muaturun</string>
-    <string name="menu_host_whitelist">Hos yang anda tambahkan di sini tidak akan pernah disekat. Gunakan daftar ini ketika, contohnya, sesawang yang anda kunjungi tersalah disekat.</string>
-    <string name="menu_host_blacklist">Hos yang anda tambahkan di sini akan sentisa disekat. Contohnya, anda dapat menambah sesawang yang tidak disekat oleh daftar lalai, tetapi sepatutnya.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Lain-lain</string>
     <string name="menu_share_log_label">Berkongsi log membolehkan kami untuk mengetahui sebab masalah anda. Pastikan anda menghantarnya secara pribadi ke salah seorang anggota teras kumpulan Blokada.</string>

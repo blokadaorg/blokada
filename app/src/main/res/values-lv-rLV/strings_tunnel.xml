@@ -7,7 +7,6 @@
     <string name="tunnel_config_refetch_now">Lejupielādēt sarakstus tūlīt</string>
     <string name="tunnel_config_refetch_now_description">Izmatojiet zemāk esošo pogu, lai izdzēstu kešatmiņu un lejupielādētu jūsu sarakstus vēlreiz. Šis var palīdzēt, ja sastopaties ar jebkādām sarakstu filtrēšanas problēmām.</string>
     <string name="tunnel_config_refetch_frequency_title">Sarakstu lejupielādes biežums</string>
-    <string name="tunnel_config_refetch_frequency_description">Izvēlieties kādu no opcijām, cik bieži lietotnei vajadzētu lejupielādēt sarakstus.</string>
     <string name="tunnel_config_refetch_frequency_1">Reizi dienā</string>
     <string name="tunnel_config_refetch_frequency_2">Divas reizes nedēļā</string>
     <string name="tunnel_config_refetch_frequency_3">Reizi nedēļā</string>
@@ -19,5 +18,4 @@
     <string name="tunnel_config_reports_title">Ziņojumi</string>
     <string name="tunnel_config_reports_description">Aktivizējiet šo slēdzi, lai atļautu lietotnei sūtīt ziņojumus par kļūdām, tas mums palīdzēs tās novērst. Ziņojumi tiks sūtīti reizi dienā, vai, kad lietotne neparedzēti aizvērsies. Šo deaktivizējot, mums būs grūtāk novērst kļūdas un problēmas, ar kurām jūs, iespējams, sastopaties. Lai šis iestatījums stātos spēkā, restartējiet lietotni.</string>
     <string name="tunnel_config_fallback_title">DNS fallback</string>
-    <string name="tunnel_config_fallback_description">Aktivizējiet šo slēdzi, ja jums mēdz pazust interneta savienojums. Šis liks lietotnei īslaicīgi pārslēgties uz Cloudfare DNS, lai saglabātu savienojumu. Jums, iespējams, vajadzēs atkārtoti atzīmēt serverus DNS sekcijā, lai šis iestatījums stātos spēkā.</string>
 </resources>

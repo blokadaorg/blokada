@@ -25,7 +25,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] Edistyneet mainosten estämissäännöt</string>
     <string name="tunnel_config_wildcard_description">Aktivoi tämä kytkin, jos haluat käyttää jokerimerkkejä suodatussäännöissäsi. Esimerkiksi lisäämällä säännön *.google.com-sivustolle, estetään kaikki Google-verkkotunnukset. Tällä voi olla negatiivinen vaikutus akun käyttöikään. Huomaa, että tämä on kokeellinen ominaisuus, eikä se välttämättä toimi oikein.</string>
     <string name="tunnel_config_fallback_title">DNS-varasuunnitelma</string>
-    <string name="tunnel_config_fallback_description">Aktivoi tämä kytkin, jos kadotat Internet-yhteyden joissain tilanteissa, kuten langattomanssa verkossa. Tämän ansiosta sovellus siirtyy väliaikaisesti Cloudflare DNS:ään yhteyden ylläpitämiseksi. Saatat joutua valitsemaan palvelimet uudelleen DNS-osiosta, jotta tämä asetus tulee voimaan.</string>
+    <string name="tunnel_config_fallback_description">Aktivoi tämä kytkin, jos kadotat Internet-yhteyden joissain tilanteissa, kuten langattomanssa verkossa. Tämän ansiosta sovellus siirtyy väliaikaisesti Cloudflaren tai Googlen DNS:ään yhteyden ylläpitämiseksi. Saatat joutua valitsemaan palvelimet uudelleen DNS-osiosta, jotta tämä asetus tulee voimaan.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Älykäs Lista</string>
     <string name="tunnel_config_smartlist_reset_btn">Nollaa</string>
     <string name="tunnel_config_smartlist_clean_btn">Puhdista</string>
@@ -33,7 +33,7 @@
     <string name="tunnel_config_smartlist_clean_inactive">Älykäs Lista toimeton</string>
     <string name="tunnel_config_smartlist_clean_done">Älykäs Lista puhdistettiin vanhoista säännöistä</string>
     <string name="tunnel_config_smartlist_reset_done">Älykäs Lista nollattiin</string>
-    <string name="tunnel_config_smartlist_description">Aktivoi tämä kytkin ottaaksesi käyttöön Älykäs Lista -ominaisuuden, mikä vähentää dramaattisesti suodattimien sääntöjen määrää, joka potentiaalisesti parantaa akun käyttöikää ja vähentää RAM-muistin käyttöä. Kun tämä on käytössä, Blokada tarkastelee pyyntölokiasi ja luo dynaamisesti luettelon, joka sisältää vain säännöt, jotka todellakin estivät ainakin yhden pyynnön. Älykäs Lista päivitetään jokaisena yönä. Huomaa, että sinulla voi olla enemmän epätoivottuja pyyntöjä, jotka sallitaan oppimisjakson aikana (muutama päivä). Huomaa, että tämä on kokeellinen ominaisuus, eikä se välttämättä toimi oikein.</string>
+    <string name="tunnel_config_smartlist_description">Aktivoi tämä kytkin ottaaksesi käyttöön Älykäs Lista -ominaisuuden, mikä vähentää dramaattisesti suodattimien sääntöjen määrää, joka potentiaalisesti parantaa akun käyttöikää ja vähentää RAM-muistin käyttöä. Kun tämä on käytössä, Blokada tarkastelee pyyntölokiasi ja luo dynaamisesti listan, joka sisältää vain säännöt, jotka todellakin estivät ainakin yhden pyynnön. Älykäs Lista päivitetään jokaisena yönä. Huomaa, että sinulla voi olla enemmän epätoivottuja pyyntöjä, jotka sallitaan oppimisjakson aikana (muutama päivä). Huomaa, että tämä on kokeellinen ominaisuus, eikä se välttämättä toimi oikein.</string>
     <string name="tunnel_config_disable_wildcard">Poista ensimmäisenä edistyneet mainosten estämissäännöt.</string>
     <string name="tunnel_config_disable_smartlist">Poista ensimmäisenä Älykäs Lista käytöstä.</string>
 </resources>

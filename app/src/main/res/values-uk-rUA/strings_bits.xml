@@ -75,8 +75,6 @@
     <string name="menu_host_adblocking_settings">Налаштування блокування реклами</string>
     <string name="menu_host_list_status">Стан списку</string>
     <string name="menu_host_list_download">Налаштування завантажень</string>
-    <string name="menu_host_whitelist">Додані тут хости ніколи не будуть блокуватися. Використовуйте цей список, якщо потрібний сайт був випадково заблокований.</string>
-    <string name="menu_host_blacklist">Додані тут хости будуть завжди блокуватися. Тут можна додати те, що не блокується стандартними списками.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Інше</string>
     <string name="menu_share_log_label">Поділившись журналом роботи, Ви дозволите нам знайти рішення для проблеми, що виникла. Переконайтеся, що надаєте його саме учаснику основної команди Blokada.</string>

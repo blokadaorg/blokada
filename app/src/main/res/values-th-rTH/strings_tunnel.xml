@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">เริ่มดาวน์โหลดรายการ</string>
     <string name="tunnel_config_refetch_now_description">ใช้ปุ่มด้านล่างเพื่อลบแคชและดาวน์โหลดรายการของคุณอีกครั้ง  วิธีนี้อาจช่วยได้หากคุณประสบปัญหาเกี่ยวกับการกรองของคุณ</string>
     <string name="tunnel_config_refetch_frequency_title">ความถี่ในการโหลดรายการ</string>
-    <string name="tunnel_config_refetch_frequency_description">เลือกหนึ่งในตัวเลือกนี้เพื่อกำหนดความถี่ให้แอพดาวน์โหลดรายการของคุณ</string>
     <string name="tunnel_config_refetch_frequency_1">วันละครั้ง</string>
     <string name="tunnel_config_refetch_frequency_2">2/สัปดาห์</string>
     <string name="tunnel_config_refetch_frequency_3">1/สัปดาห์</string>
@@ -24,7 +23,6 @@
     <string name="tunnel_config_wildcard_title">[BETA] Advanced adblocking rules</string>
     <string name="tunnel_config_wildcard_description">เปิดใช้งานสวิตช์นี้ หากคุณต้องการใช้สัญลักษณ์แทนในกฎการกรองของคุณ  ตัวอย่างเช่นการเพิ่มกฎสำหรับ * .google.com จะบล็อกโดเมนทั้งหมดจาก Google  สิ่งนี้อาจส่งผลเสียต่อแบตเตอรี่  โปรดทราบว่านี่เป็นคุณลักษณะทดลองและอาจทำงานไม่ถูกต้อง</string>
     <string name="tunnel_config_fallback_title">DNS ผิดพลาด</string>
-    <string name="tunnel_config_fallback_description">เปิดใช้งานสวิตช์นี้ หากคุณสูญเสียการเข้าถึงอินเทอร์เน็ตในบางสถานการณ์เช่น WiFi ของคุณ  สิ่งนี้จะทำให้แอปสลับไปที่ Cloudflare DNS ชั่วคราวเพื่อรักษาการเชื่อมต่อของคุณ  คุณอาจต้องเลือกเซิร์ฟเวอร์ของคุณอีกครั้งในส่วน DNS เพื่อให้การตั้งค่านี้มีผล</string>
     <string name="tunnel_config_smartlist_title">[BETA] Smart List</string>
     <string name="tunnel_config_smartlist_description">เปิดใช้งานสวิตช์นี้ เพื่อเปิดใช้งานคุณสมบัติรายการสมาร์ทซึ่งจะลดจำนวนกฎในตัวกรองของคุณอย่างมากซึ่งอาจปรับปรุงอายุการใช้งานแบตเตอรี่และลดการใช้ RAM  เมื่อเปิดใช้งาน Blokada จะดูบันทึกคำขอของคุณและสร้างรายการแบบไดนามิกที่มีกฎที่บล็อกอย่างน้อยหนึ่งคำขอเท่านั้น  รายการสมาร์ทอัปเดตทุกวันในเวลากลางคืน  โปรดทราบว่าคุณอาจพบคำขอที่ไม่ต้องการจำนวนมากขึ้นในช่วงระยะเวลาการเรียนรู้ (สองสามวัน)  โปรดทราบว่านี่เป็นคุณลักษณะทดลองและอาจทำงานไม่ถูกต้อง</string>
     <string name="tunnel_config_disable_wildcard">ปิด Advanced adblocking rules ก่อน</string>

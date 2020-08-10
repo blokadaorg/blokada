@@ -25,7 +25,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] Erweiterte Werbesperre-Regeln</string>
     <string name="tunnel_config_wildcard_description">Betätige diesen Schalter, wenn du in deinen Filterregeln Wildcards verwenden möchtest. Z. B. würde das Hinzufügen einer Regel mit *.google.com alle Domänen von Google blockieren. Beachte bitte, dass dies eine experimentelle Funktion ist, die möglicherweise nicht richtig funktioniert.</string>
     <string name="tunnel_config_fallback_title">DNS-Fallback</string>
-    <string name="tunnel_config_fallback_description">Aktiviere diesen Schalter, wenn in bestimmten Situationen der Internetzugang, z. B. über WLAN, verloren geht. Die App wird dann vorübergehend zu Cloudflare DNS wechseln, um die Verbindung aufrecht zu erhalten. Du musst möglicherweise deine Server im DNS-Bereich neu auswählen, damit diese Einstellung wirksam wird.</string>
+    <string name="tunnel_config_fallback_description">Aktiviere diesen Schalter, wenn in bestimmten Situationen der Internetzugang, z. B. über WLAN, verloren geht. Die App wird dann vorübergehend zu Cloudflare DNS oder Google DNS wechseln, um die Verbindung aufrecht zu erhalten. Du musst möglicherweise deine Server im DNS-Bereich neu auswählen, damit diese Einstellung wirksam wird.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Intelligente Liste</string>
     <string name="tunnel_config_smartlist_reset_btn">Zurücksetzen</string>
     <string name="tunnel_config_smartlist_clean_btn">Bereinigen</string>

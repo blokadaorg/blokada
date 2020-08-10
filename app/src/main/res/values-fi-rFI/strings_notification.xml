@@ -28,6 +28,10 @@
     <string name="notification_keepalive_activating">Blokada käynnistyy. Tämä voi viedä hetken.</string>
     <string name="notification_keepalive_deactivate">Poista käytöstä</string>
     <string name="notification_keepalive_deactivating">Blokada otettiin pois päältä!</string>
+    <string name="notification_expired_title">Blokada Plus on pois päältä</string>
+    <string name="notification_expired_description">Tilisi ei ole aktiivinen ja Blokada Plus on pois päältä. Blokadan vakio-ominaisuudet toimivat hyvin ilman Blokada Plus VPN:ää. Harkitse kuitenkin tilin aktivointia saadaksesi paremman suojauksen ja tukeaksesi projektia.</string>
+    <string name="notification_lease_expired_title">Blokada Plus on pois päältä</string>
+    <string name="notification_lease_expired_description">Yhteydessäsi Blokada Plussaan tapahtui ongelma. Yritä valita toinen yhdyskäytävä. Jos ongelma jatkuu, ota meihin yhteyttä.</string>
     <string name="notification_channel_filtered">Mainosten estäminen</string>
     <string name="notification_channel_announcements">Tiedotteet</string>
     <string name="notification_channel_vpn">Blokada Plus</string>

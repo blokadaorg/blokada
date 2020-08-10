@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">Pengunduhan list dimulai</string>
     <string name="tunnel_config_refetch_now_description">Gunakan tombol di bawah ini untuk menghapus cache dan mengunduh daftar Anda lagi. Ini dapat membantu jika Anda mengalami masalah dengan filter yang Anda gunakan.</string>
     <string name="tunnel_config_refetch_frequency_title">Frekuensi pengunduhan daftar</string>
-    <string name="tunnel_config_refetch_frequency_description">Pilih salah satu opsi untuk mengkonfigurasi seberapa sering Blokada harus mengunduh daftar Anda.</string>
+    <string name="tunnel_config_refetch_frequency_description">Pilih salah satu opsi untuk mengkonfigurasi seberapa sering Blokada mengunduh lists.</string>
     <string name="tunnel_config_refetch_frequency_1">Sekali sehari</string>
     <string name="tunnel_config_refetch_frequency_2">Dua kali seminggu</string>
     <string name="tunnel_config_refetch_frequency_3">Seminggu sekali</string>

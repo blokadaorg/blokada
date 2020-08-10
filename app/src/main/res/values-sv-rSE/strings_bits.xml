@@ -45,8 +45,6 @@
     <string name="menu_host_list_intro">Filterlistor innehåller regler för att filtrera reklam och statistikinsamlingar. Försök att inte aktivera för många listor samtidigt.</string>
     <string name="menu_host_list_status">Listans status</string>
     <string name="menu_host_list_download">Hämtningsinställningar</string>
-    <string name="menu_host_whitelist">Sajter du lägger till här kommer aldrig att filtreras. Använd denna lista när till exempel en sajt du vill besöka har blockerats av misstag.</string>
-    <string name="menu_host_blacklist">Sajter du lägger till här kommer alltid att filtreras. Du kan använda denna lista för att komplettera standardlistorna.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Annat</string>
     <string name="menu_share_log_label">Att dela din logg hjälper oss att upptäcka orsaken till ditt problem. Se till att du skickar loggen privat till en medlem av Blokadas inre krets.</string>

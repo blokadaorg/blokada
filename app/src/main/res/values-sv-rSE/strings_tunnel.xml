@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Hämtning av listor startad</string>
     <string name="tunnel_config_refetch_now_description">Använd knappen nedan för att rensa cachen och ladda ner listorna igen. Detta kan hjälpa om du upplever problem med filtren.</string>
     <string name="tunnel_config_refetch_frequency_title">Hämtningsfrekvens av listor</string>
-    <string name="tunnel_config_refetch_frequency_description">Välj ett av alternativen för att konfigurera hur ofta appen ska hämta dina listor.</string>
     <string name="tunnel_config_refetch_frequency_1">En gång om dagen</string>
     <string name="tunnel_config_refetch_frequency_2">Två gånger i veckan</string>
     <string name="tunnel_config_refetch_frequency_3">En gång i veckan</string>

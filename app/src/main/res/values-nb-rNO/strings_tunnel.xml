@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Nedlasting av lister startet</string>
     <string name="tunnel_config_refetch_now_description">Bruk knappen nedenfor for å fjerne cache og last ned lister på nytt. Dette kan hjelpe hvis du opplever problemer med filtreringene dine.</string>
     <string name="tunnel_config_refetch_frequency_title">Nedlastingshyppighet for lister</string>
-    <string name="tunnel_config_refetch_frequency_description">Velg ett av alternativene for å konfigurere hvor ofte appen skal nedlaste listene.</string>
     <string name="tunnel_config_refetch_frequency_1">En gang om dagen</string>
     <string name="tunnel_config_refetch_frequency_2">To ganger i uken</string>
     <string name="tunnel_config_refetch_frequency_3">En gang i uken</string>
@@ -22,7 +21,6 @@
     <string name="tunnel_config_reports_description">Aktiver denne bryteren for å la appen sende rapporter som hjelper oss med å løse problemer og feil. Dette vil skje bare en gang per dag, eller når appen krasjer. Deaktivering av dette kan gjøre det vanskelig for oss å løse eventuelle problemer du måtte oppleve. Du må kanskje starte appen på nytt for at denne innstillingen skal tre i kraft.</string>
     <string name="tunnel_config_wildcard_title">[BETA] Oppføringer med jokertegn</string>
     <string name="tunnel_config_fallback_title">DNS-tilbakefall</string>
-    <string name="tunnel_config_fallback_description">Aktiver denne bryteren hvis du mister Internett-tilgang i noen situasjoner, for eksempel din WiFi. Dette vil gjøre at appen midlertidig går over til Cloudflare DNS for å opprettholde tilkoblingen din. Det kan hende du må velge serverne dine på nytt i DNS-delen for at denne innstillingen skal tre i kraft.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Smartliste</string>
     <string name="tunnel_config_smartlist_reset_btn">Nullstill</string>
     <string name="tunnel_config_smartlist_clean_btn">Tøm</string>

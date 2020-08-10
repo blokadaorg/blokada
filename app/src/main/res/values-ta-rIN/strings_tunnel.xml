@@ -7,7 +7,6 @@
     <string name="tunnel_config_refetch_now">பட்டியலை இப்போது பதிவிறக்கு</string>
     <string name="tunnel_config_refetch_toast">பட்டியல் பதிவிறக்கம் ஆரம்பம்</string>
     <string name="tunnel_config_refetch_frequency_title">பட்டியல் பதிவிறக்க தொடர்ச்சி</string>
-    <string name="tunnel_config_refetch_frequency_description">உங்கள் பட்டியலை தரவிறக்குதல் சம்பந்தமாக Optionகளை தேர்வு செய்யுங்கள்.</string>
     <string name="tunnel_config_refetch_frequency_1">தினம் ஒரு முறை</string>
     <string name="tunnel_config_refetch_frequency_2">வாரம் இருமுறை</string>
     <string name="tunnel_config_refetch_frequency_3">வாரம் ஒரு முறை</string>

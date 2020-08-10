@@ -31,9 +31,13 @@
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Támogatás</string>
     <string name="home_vpn_enabled">A Blokada Plus aktív</string>
+    <string name="home_vpn_disabled">Blokada Plus deaktiválva</string>
     <string name="home_account_active">A fiókod még aktív</string>
+    <string name="home_connecting_vpn">Csatlakozás Blokada Plus-hoz</string>
     <string name="home_cleanup">Tisztítás ajánlott</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">Csatlakozva Blokada Plus-hoz</string>
+    <string name="home_boringtun_not_loaded">Sajnáljuk, a készüléked nem támogatott a Blokada Plus által. A többi funkciót továbbra is használhatod.</string>
     <string name="home_blocka_vpn_error">Nem sikerült csatlakozni az átjáróhoz. Online vagy?</string>
     <string name="home_account_error">Fiók hitelesítése sikertelen. Online vagy?</string>
     <string name="home_permission_error">Kérjük, add meg a VPN engedélyeket.</string>
@@ -51,7 +55,9 @@
     <string name="menu_vpn">Blokada Plus</string>
     <string name="menu_vpn_activate_account">Kérjük, először aktiváld a fiókodat.</string>
     <string name="menu_vpn_select_gateway">Kérjük, válassz egy átjárót.</string>
+    <string name="menu_vpn_intro_button">Miért lenne szükségem a Blokada Plus-ra?</string>
     <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account">Az én Blokada Plus-om</string>
     <string name="menu_vpn_account_id">ID: %s</string>
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Átjárók</string>
@@ -61,11 +67,13 @@
     <string name="menu_vpn_manage_subscription_unavailable">Ha új fiókod van, keresd fel weboldalunkat. A Blokada Slim alkalmazásban előfizetés nem vásárolható.</string>
     <string name="menu_vpn_account_secret">A fiókazonosítód megtekintéséhez érintsd meg a fenti avatart. Ne felejtsd, hogy az azonosítód titkos, és titokban is kell tartanod. Írd fel valahova arra az esetre, ha eltávolítanád az alkalmazást.</string>
     <string name="menu_vpn_restore_label">Itt tudod visszaállítani a meglévő fiókodat, ha például újratelepítetted az alkalmazást.</string>
+    <string name="menu_vpn_intro">A Blokada Plus használatával az adataid titkosításra, az IP-címed elrejtésre, valamint a tartózkodási helyed is módosításra kerül.</string>
     <string name="menu_vpn_account_label">A VPN használatához egy aktív fiókra van szükséged. Itt ellenőrizheted vagy visszaállíthatod a fiókodat.</string>
     <string name="menu_vpn_gateways_label">Válaszd ki az egyik átjárót. A készüléked a titkosított adatokat ezen az átjárón keresztül küldi biztonságosan, és így névtelen maradsz.</string>
     <string name="menu_vpn_support_label">Ha bármilyen problémát tapasztalsz, ne habozz kapcsolatba lépni velünk.</string>
     <string name="menu_vpn_support_button">Támogatás</string>
     <string name="menu_vpn_tunnel_settings">Blokada Plus beállítások</string>
+    <string name="menu_vpn_tunnel_learn_more">Tudj meg többet a Blokada Plus-ról</string>
     <string name="menu_vpn_info_account_label">Van már fiókom?</string>
     <string name="menu_vpn_info_account_line1">Igen! Az első futtatáskor a fiók automatikusan létrejön. Nem kell regisztrálnod.</string>
     <string name="menu_vpn_info_account_line2">A fiókazonosítód megtekintéséhez érintsd meg a fenti avatart.</string>
@@ -74,14 +82,15 @@
     <string name="menu_dns_recommended">Ajánlott DNS-kiszolgálók</string>
     <string name="menu_dns_intro">A DNS felelős a használt weboldalak és alkalmazások IP-címeinek fordításáért. A jó DNS kiválasztása felgyorsíthatja a készüléket, és segít megvédeni az adataidat.</string>
     <string name="menu_dns_select">Válaszd ki az egyik DNS-kiszolgálót.</string>
+    <string name="menu_apps_intro">Egyes alkalmazások nem működhetnek megfelelően a Blokada-val. Például, nehézséget okoz a kapcsolódás.\n\nAz ilyen esetekben a VPN aktiválása gyakran segít.\n\nUgyanakkor ezekhez az alkalmazásokhoz beállíthatod a Blokada felügyeletének megkerülését. Ne feledd, hogy a megkerülésre beállított alkalmazások a Blokada Plus-on kívül kommunikálnak.</string>
     <string name="menu_apps_system_label">A rendszeralkalmazások azok, amelyek előre telepítve vannak a készülékeden. Némelyike rejtett. Csak akkor módosíts rajtuk, ha tudod, mit csinálsz.</string>
     <string name="menu_host_list_intro">A hosztlisták tartalmazzák a hirdetések és a nyomkövetők blokkolására vonatkozó szabályokat. Próbáld meg alacsonyan tartani az aktív listák számát.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
     <string name="menu_host_adblocking_settings">Hirdetés blokkolás beállításai</string>
     <string name="menu_host_list_status">Lista állapota</string>
     <string name="menu_host_list_download">Lista letöltési beállítások</string>
-    <string name="menu_host_whitelist">Az itt hozzáadott hosztok soha nem lesznek blokkolva. Ezt a listát akkor használd, ha például egy meglátogatott weboldal tévesen blokkolásra került.</string>
-    <string name="menu_host_blacklist">Az itt hozzáadott hosztok mindig blokkolva lesznek. Például hozzáadhatsz olyan webhelyeket, amelyeket a normál listák nem blokkolnak, de kellene.</string>
+    <string name="menu_host_whitelist">Az itt hozzáadott hosztok soha nem kerülnek blokkolásra. Akkor használd ezt a listát, ha például egy meglátogatott webhely tévesen került blokkolásra. Ne feledd, hogy a megkerülésre beállított alkalmazásokra ez nem vonatkozik.</string>
+    <string name="menu_host_blacklist">Az itt hozzáadott hosztok mindig blokkolásra kerülnek. Például hozzáadhatsz olyan webhelyeket, amelyeket a szokásos listák nem blokkolnak, pedig kellene. Ne feledd, hogy a megkerülésre beállított alkalmazásokra ez nem vonatkozik.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Egyéb</string>
     <string name="menu_share_log_label">A napló megosztása lehetővé teszi, hogy feltárjuk a probléma okát. Győződj meg róla, hogy privát módon küldöd el a Blokada egyik fő csapattagjának.</string>

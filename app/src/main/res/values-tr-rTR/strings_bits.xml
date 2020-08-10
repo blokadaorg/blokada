@@ -89,8 +89,8 @@
     <string name="menu_host_adblocking_settings">Reklam Engelleme Ayarları</string>
     <string name="menu_host_list_status">Liste durumu</string>
     <string name="menu_host_list_download">Liste indirme ayarları</string>
-    <string name="menu_host_whitelist">Buraya eklediğiniz hostlar hiçbir zaman engellenmez. Örneğin, ziyaret ettiğiniz bir web sitesi yanlışlıkla engellendiğinde bu listeyi kullanın.</string>
-    <string name="menu_host_blacklist">Buraya eklediğiniz hostlar her zaman engellenir. Örneğin, standart listeler tarafından engellenmeyen, ancak olması gereken web sitelerini ekleyebilirsiniz.</string>
+    <string name="menu_host_whitelist">Buraya eklediğiniz ana bilgisayarlar asla engellenmeyecektir. Örneğin, ziyaret ettiğiniz bir web sitesi yanlışlıkla engellendiğinde bu listeyi kullanın. Bunun göz ardı edilen uygulamalar için geçerli olmadığını unutmayın.</string>
+    <string name="menu_host_blacklist">Buraya eklediğiniz ana bilgisayarlar her zaman engellenir. Örneğin, standart listeler tarafından engellenmeyen, ancak engellenmesi gereken web sitelerini buraya ekleyebilirsiniz. Bunun göz ardı edilen uygulamalar için geçerli olmadığını unutmayın.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Diğer</string>
     <string name="menu_share_log_label">Günlüğü paylaşmak, sorunun nedenini keşfetmemizi sağlar. Blokada çekirdek ekip üyelerinden birine özel olarak gönderdiğinizden emin olun.</string>

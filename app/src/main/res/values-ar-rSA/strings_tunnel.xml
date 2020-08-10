@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">بدأ تحميل القوائم</string>
     <string name="tunnel_config_refetch_now_description">إستخدم الأيقونة أدناه لحذف الملفات المؤقتة و إعادة تحميل قوائمك. قد يكون ذلك مُفيداً إذا كنت تواجه مشاكل تصفية مع الفلاتر التي تستخدمها.</string>
     <string name="tunnel_config_refetch_frequency_title">تواتر تحميل القوائم</string>
-    <string name="tunnel_config_refetch_frequency_description">إختر واحد من الإختيارات لتحديد طريقة التطبيق في تحميل القوائم.</string>
+    <string name="tunnel_config_refetch_frequency_description">حدِّد أحد الخيارات لتهيئة عدد مرّات تنزيل التطبيق لقوائمك.</string>
     <string name="tunnel_config_refetch_frequency_1">مَرّة في اليوم</string>
     <string name="tunnel_config_refetch_frequency_2">مَرّتين في الأسبوع</string>
     <string name="tunnel_config_refetch_frequency_3">مَرّة في الأسبوع</string>
@@ -26,7 +26,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] قواعد حَظْر الإعلانات المتقدِّمة</string>
     <string name="tunnel_config_wildcard_description">قم بتنشيط رمز التبديل هذا إذا كنت ترغب في استخدام wildcards في قواعد الفلاتر. على سبيل المثال ، تؤدّي إضافة قاعدة لـ *.google.com إلى حظر جميع المجالات من Google. قد يكون لهذا تأثير سلبي على عمر البطّاريّة. يرجى ملاحظة أن هذه ميِّزة تجريبيّة ، وقد لا تعمل بشكل صحيح.</string>
     <string name="tunnel_config_fallback_title">الـ DNS البديل</string>
-    <string name="tunnel_config_fallback_description">قم بتفعيل هذا المفتاح إذا كان هناك فشل في الإتصال بالإنترنت في بعض الحالات، مثل ال WiFi. هذا الإختيار سيجعل التطبيق يستخدم Cloudflare DNS بشكل مؤقّت للحفاظ على إتصالك. قد تحتاج لإعادة إختيار الـ DNS المناسب لك من القائمة حتى يتمّ تفعيل هذا الإختيار.</string>
+    <string name="tunnel_config_fallback_description">قم بتفعيل هذا المفتاح إذا كان هناك فشل في الإتصال بالإنترنت في بعض الحالات، مثل الـ WiFi. هذا الإختيار سيجعل التطبيق يستخدم Cloudflare أو Google DNS بشكل مؤقَّت للحفاظ على إتصالك. قد تحتاج لإعادة إختيار الـ DNS المناسب لك من القائمة حتّى يتمّ تفعيل هذا الإختيار.</string>
     <string name="tunnel_config_smartlist_title">[BETA] القائمة الذكيّة</string>
     <string name="tunnel_config_smartlist_reset_btn">إعادة تعيين</string>
     <string name="tunnel_config_smartlist_clean_btn">تنظيف</string>

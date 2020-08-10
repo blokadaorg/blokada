@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Ukulanda kwezinhla kuqaliwe</string>
     <string name="tunnel_config_refetch_now_description">Sebenzisa inkinobho ngezansi ukuze ususe isilondolozi bese ulanda izinhla zakho futhi. Lokhu kungasiza uma uhlangabezana nezinkinga ngesilonda sakho.</string>
     <string name="tunnel_config_refetch_frequency_title">Ukulandwa kwezinhla</string>
-    <string name="tunnel_config_refetch_frequency_description">Khetha enye yezinketho ukuze ulungise ukuthi kukangakanani uhlelo lungalanda izinhla zakho.</string>
     <string name="tunnel_config_refetch_frequency_1">Kanye ngosuku</string>
     <string name="tunnel_config_refetch_frequency_2">Kabili ngeviki</string>
     <string name="tunnel_config_refetch_frequency_3">Kanye ngeviki</string>
@@ -20,5 +19,4 @@
     <string name="tunnel_config_reports_title">Imibiko</string>
     <string name="tunnel_config_reports_description">Yenza lokhu kusetshenziswe ukuze uvumele uhlelo ukuthi lithumele imibiko esisiza ukuba silungise izinkinga. Lokhu kuzokwenzeka kanye kuphela ngosuku, noma uma uhlelo luphazamiseka. Ukukhubaza lokhu kungenza kube nzima ukuxazulula noma yiziphi izinkinga ongase ube nazo. Kungase kudingeke uqale kabusha lolu hlelo ukuze lusebenze.</string>
     <string name="tunnel_config_fallback_title">Enye i-DNS</string>
-    <string name="tunnel_config_fallback_description">Yenza lokhu kusebenze uma ulahlekelwa ukufinyelela kwe-inthanethi kwezinye izimo, njenge-WiFi yakho. Lokhu kuzokwenza ukuthi uhlelo lushintshe okwesikhashana lusebenzise i-Cloudflare DNS ukugcina ukuxhumana kwakho. Kungadingeka ukhethe kabusha amaseva wakho kusigaba se-DNS salesi silungiselelo ukuze sisebenze.</string>
 </resources>

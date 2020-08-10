@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Začalo sa sťahovanie zoznamov</string>
     <string name="tunnel_config_refetch_now_description">Pre odstránenie vyrovnávacej pamäte a opätovné prevzatie zoznamov použite tlačidlo nižšie. Môže to pomôcť, ak sa vyskytnú nejaké problémy s filtrovaním.</string>
     <string name="tunnel_config_refetch_frequency_title">Frekvencia preberania zoznamov</string>
-    <string name="tunnel_config_refetch_frequency_description">Vyberte jednu z možností pre nastavenie, ako často by aplikácia mala sťahovať nové zoznamy.</string>
     <string name="tunnel_config_refetch_frequency_1">Raz denne</string>
     <string name="tunnel_config_refetch_frequency_2">Dvakrát do týždňa</string>
     <string name="tunnel_config_refetch_frequency_3">Raz týždenne</string>
@@ -24,7 +23,6 @@
     <string name="tunnel_config_wildcard_title">[BETA] Pokročilé pravidlá blokovania reklám</string>
     <string name="tunnel_config_wildcard_description">Aktivujte tento prepínač, pokiaľ chcete v pravidlách filtrovania použiť zástupné znaky. Napríklad pravidlo pre *.google.com by zablokovalo všetky domény od Googlu. Táto funkcia môže mať negatívny vplyv na životnosť batérie. Upozorňujeme, že sa jedná o experimentálnu funkciu, nemusí fungovať správne.</string>
     <string name="tunnel_config_fallback_title">Záložné DNS</string>
-    <string name="tunnel_config_fallback_description">Aktivujte tento prepínač, ak v niektorých situáciách strácate prístup k internetu, napr. počas pripojenia cez WiFi. Aplikácia dočasne zmení DNS na Cloudflare DNS kvôli udržaniu vášho pripojenia. Aby sa toto nastavenie prejavilo, možno budete musieť znova vybrať vaše servery v DNS sekcii.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Inteligentný zoznam</string>
     <string name="tunnel_config_smartlist_description">Aktivovaním tohto prepínača zapnete funkciu inteligentného zoznamu, ktorá dramaticky znižuje počet pravidiel vo vašich filtroch, čo potenciálne zlepšuje životnosť batérie a znižuje využitie RAM. Pri zapnutej funkcii Blokada preskúma váš záznam požiadaviek a dynamicky vygeneruje zoznam obsahujúci iba také pravidlá, ktoré skutočne zablokovali aspoň jednu požiadavku. Inteligentný zoznam je aktualizovaný každý deň počas noci. Upozorňujeme, že počas obdobia učenia (niekoľko dní) môžete zaznamenať vyšší počet nechcených povolených žiadostí. Toto je experimentálna funkcia, ktorá nemusí fungovať správne.</string>
     <string name="tunnel_config_disable_wildcard">Najprv deaktivujte Pokročilé pravidlá blokovania reklám.</string>

@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">सूचियों का डाउनलोड शुरू हुआ</string>
     <string name="tunnel_config_refetch_now_description">कैश निकालने और अपनी सूचियों को फिर से डाउनलोड करने के लिए नीचे दिए गए बटन का उपयोग करें। यदि आपको अपने फ़िल्टरिंग में कोई समस्या आती है तो यह मदद कर सकता है।</string>
     <string name="tunnel_config_refetch_frequency_title">सूची डाउनलोड आवृत्ति</string>
-    <string name="tunnel_config_refetch_frequency_description">विन्यास करने के लिए विकल्पों में से एक का चयन करें कि ऐप को कितनी बार आपकी सूची डाउनलोड करनी चाहिए।</string>
+    <string name="tunnel_config_refetch_frequency_description">कॉन्फ़िगर करने के लिए विकल्पों में से एक का चयन करें कि ऐप को कितनी बार आपकी सूची डाउनलोड करनी चाहिए।</string>
     <string name="tunnel_config_refetch_frequency_1">दिन में एक बार</string>
     <string name="tunnel_config_refetch_frequency_2">सप्ताह में दो बार</string>
     <string name="tunnel_config_refetch_frequency_3">सप्ताह में एक बार</string>
@@ -25,7 +25,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] उन्नत एडब्लॉकिंग नियम</string>
     <string name="tunnel_config_wildcard_description">यदि आप अपने फ़िल्टरिंग नियमों में वाइल्डकार्ड का उपयोग करना चाहते हैं तो इस स्विच को सक्रिय करें। उदाहरण के लिए, * .google.com के लिए एक नियम जोड़ने से Google के सभी डोमेन ब्लॉक हो जाएंगे। इससे बैटरी जीवन पर नकारात्मक प्रभाव पड़ सकता है। कृपया ध्यान दें कि यह एक प्रयोगात्मक विशेषता है, और ठीक सेाम नहीं कर सकती हैं</string>
     <string name="tunnel_config_fallback_title">डीएनएस फॉलबैक</string>
-    <string name="tunnel_config_fallback_description">इस स्विच को सक्रिय करें यदि आप कुछ स्थितियों में अपने वाईफाई की तरह इंटरनेट संबंध खो रहे हैं। यह आपकी संबंध को बनाए रखने के लिए ऐप को अस्थायी रूप से क्लाउडफ्लेयर डीएनएस पर स्विच कर देगा। इस सेटिंग को प्रभावी करने के लिए आपको डीएनएस अनुभाग में अपने सर्वर को फिर से चुनना पड़ सकता है।</string>
+    <string name="tunnel_config_fallback_description">यदि आप कुछ स्थितियों में अपने इंटरनेट से कनेक्ट नहीं कर पा रहे हैं तो इस स्विच को सक्रिय करें। यह आपकी कनेक्टिविटी को बनाए रखने के लिए ऐप को अस्थायी रूप से क्लॉउडफैर या गूगल DNS में बदल देगा। इस सेटिंग को प्रभावी करने के लिए आपको DNS अनुभाग में अपने सर्वर को फिर से चुनना पड़ सकता है।</string>
     <string name="tunnel_config_smartlist_title">[BETA] स्मार्ट सूची</string>
     <string name="tunnel_config_smartlist_reset_btn">पुनः सेट करें</string>
     <string name="tunnel_config_smartlist_clean_btn">साफ़ करें</string>

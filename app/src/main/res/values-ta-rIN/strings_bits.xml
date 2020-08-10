@@ -72,8 +72,6 @@
     <string name="menu_host_adblocking_settings">Ad blocking அமைப்புகள்</string>
     <string name="menu_host_list_status">பட்டியல் நிலை</string>
     <string name="menu_host_list_download">பதிவிறக்க பட்டியல் அமைப்புகள்</string>
-    <string name="menu_host_whitelist">நீங்கள் இங்கு சேர்க்கும் விருந்தோம்பி பட்டியல் எப்போதும் முடக்கப்படமாட்டது. உதாரணமாக, நீங்கள் பார்க்கும் வலைத்தளம் தவறுதலாக முடக்கப்பட்டால், இத்தகைய பட்டியலை பயன்படுத்தவும்.</string>
-    <string name="menu_host_blacklist">நீங்கள் இங்கு சேர்க்கும் விருந்தோம்பி பட்டியல் எப்போதும் முடக்கப்படும். உதாரணமாக, ஏற்கனவே இருக்கும் பட்டியல் மூலம் முடக்க இயலாத அதே சமயம் முடக்கப்பட வேண்டிய வலைத்தளங்களை இங்கே சேர்க்கலாம்.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">மற்றவை</string>
     <string name="menu_share_log_label">செயலியின் பதிவேட்டை எங்களிடம் பகிர்வதின் மூலம் உங்கள் பிரச்சனைக்கான காரணத்தை கண்டுபிடிக்க முடியும். இதை நீங்கள் Blokada உள்ளக அணி உறுப்பினர்களிடம் தனிப்பட்ட முறையில் அனுப்பவும்.</string>

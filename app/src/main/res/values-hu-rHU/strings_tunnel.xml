@@ -25,7 +25,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] Speciális hirdetésblokkolási szabályok</string>
     <string name="tunnel_config_wildcard_description">Akkor aktiváld ezt a kapcsolót, ha helyettesítő karaktereket szeretnél használni a szűrési szabályokban. Például a *.google.com szabály hozzáadása blokkolja a Google összes tartományát. Ez negatív hatással lehet az akkumulátor élettartamára. Kérjük vedd figyelembe, hogy ez egy kísérleti szolgáltatás, és előfordulhat, hogy nem megfelelően működik.</string>
     <string name="tunnel_config_fallback_title">DNS megkerülés</string>
-    <string name="tunnel_config_fallback_description">Ezt a kapcsolót akkor aktiváld, ha bizonyos helyzetekben elveszíted az internet-hozzáférést, például a Wi-Fi-t. Ezzel az alkalmazás ideiglenesen átkapcsol a Cloudflare DNS-re a kapcsolat fenntartásához. Előfordulhat, hogy a beállítás aktiválásához a DNS szakaszban újra ki kell választanod a kiszolgálókat.</string>
+    <string name="tunnel_config_fallback_description">Ezt a kapcsolót akkor aktiváld, ha bizonyos helyzetekben elveszíted az internet-hozzáférést, például a Wi-Fi-t. Ezzel az alkalmazás ideiglenesen átkapcsol a Cloudflare vagy Google DNS-re a kapcsolat fenntartásához. Előfordulhat, hogy a beállítás aktiválásához a DNS szakaszban újra ki kell választanod a kiszolgálókat.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Intelligens lista</string>
     <string name="tunnel_config_smartlist_reset_btn">Nullázás</string>
     <string name="tunnel_config_smartlist_clean_btn">Tisztítás</string>

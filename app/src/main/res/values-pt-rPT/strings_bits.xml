@@ -74,8 +74,6 @@
     <string name="menu_host_adblocking_settings">Configurações de bloqueio de publicidade</string>
     <string name="menu_host_list_status">Estado da Lista</string>
     <string name="menu_host_list_download">Definições de download de Listas</string>
-    <string name="menu_host_whitelist">Endereços que adicionar aqui nunca serão bloqueados. Use esta lista quando, por exemplo, quiser visitar um site que foi bloqueado por engano.</string>
-    <string name="menu_host_blacklist">Endereços adicionados aqui serão sempre bloqueados. Por exemplo, pode adicionar sites que não são bloqueados pelas listas padrão, mas pretende que o sejam.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Outros</string>
     <string name="menu_share_log_label">Partilhar relatórios permite-nos descobrir as causas do seu problema. Certifique-se que os envia em privado para um dos membros da equipa principal do Blokada.</string>

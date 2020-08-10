@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">Изтеглянето на списъци, стартира</string>
     <string name="tunnel_config_refetch_now_description">Използвайте бутона по-долу за да премахнете кеша и да изтеглите списъците отново. Това може да помогне ако имате някакви проблеми с филтрирането.</string>
     <string name="tunnel_config_refetch_frequency_title">Показва честотата на изтегляне</string>
-    <string name="tunnel_config_refetch_frequency_description">Изберете една от опциите за да конфигурирате колко често да се изтеглят списъците.</string>
+    <string name="tunnel_config_refetch_frequency_description">Изберете една от опциите за да конфигурирате колко често приложението трябва да изтегля вашите списъци.</string>
     <string name="tunnel_config_refetch_frequency_1">Веднъж дневно</string>
     <string name="tunnel_config_refetch_frequency_2">Два пъти седмично</string>
     <string name="tunnel_config_refetch_frequency_3">Веднъж седмично</string>
@@ -25,7 +25,7 @@
     <string name="tunnel_config_wildcard_title">[БЕТА] Разширени правила за блокиране на реклами</string>
     <string name="tunnel_config_wildcard_description">Активирайте този превключвател ако искате да използвате заместващи знаци във вашите правила за филтриране. Например, добавянето на правило за *.google.com ще блокира всички домейни от Google. Това може да има отрицателно влияние върху живота на батерията. Моля, обърнете внимание, че това е експериментална функция и може да не работи правилно.</string>
     <string name="tunnel_config_fallback_title">Възстановяване на DNS</string>
-    <string name="tunnel_config_fallback_description">Активирайте този превключвател ако в някои случаи губите достъп до интернет, например WiFi. Това ще позволи приложението временно да превключи към Cloudflare DNS за да поддържа връзката ви. Може да се наложи да изберете повторно сървърите си в секцията DNS за да влезе в сила тази настройка.</string>
+    <string name="tunnel_config_fallback_description">Активирайте този превключвател, ако в някои случаи загубите достъп до Интернет, например WiFi мрежата ви. Това ще накара приложението временно да премине към Cloudflare или Google DNS за да поддържа вашата връзка. Може да се наложи да изберете отново вашите сървъри в секцията DNS за да влезе в сила тази настройка.</string>
     <string name="tunnel_config_smartlist_title">[БЕТА] Интелигентен списък</string>
     <string name="tunnel_config_smartlist_reset_btn">Нулиране</string>
     <string name="tunnel_config_smartlist_clean_btn">Почистено</string>

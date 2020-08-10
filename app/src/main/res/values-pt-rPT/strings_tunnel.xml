@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Transferência de listas começou</string>
     <string name="tunnel_config_refetch_now_description">Use o botão abaixo para remover os ficheiros temporários e fazer download novamente das suas listas. Isto pode ajudar se tiver algum problema com a sua filtragem.</string>
     <string name="tunnel_config_refetch_frequency_title">Frequência de transferência das listas</string>
-    <string name="tunnel_config_refetch_frequency_description">Selecione uma das opções para configurar com que frequência a aplicação deve fazer transferência das suas listas.</string>
     <string name="tunnel_config_refetch_frequency_1">Uma vez por dia</string>
     <string name="tunnel_config_refetch_frequency_2">Duas vezes por semana</string>
     <string name="tunnel_config_refetch_frequency_3">Uma vez por semana</string>
@@ -24,7 +23,6 @@
     <string name="tunnel_config_wildcard_title">[BETA] Regras avançadas de bloqueio de publicidade</string>
     <string name="tunnel_config_wildcard_description">Ative esta opção se desejar utilizar wildcards nas suas regras de filtragem. Por exemplo, adicionar uma regra para *.google.com bloquearia todos os domínios do Google. Isto pode ter um impacto negativo na vida útil da bateria. Note que esta é uma funcionalidade experimental, e pode não funcionar corretamente.</string>
     <string name="tunnel_config_fallback_title">DNS secundário</string>
-    <string name="tunnel_config_fallback_description">Ative esta opção se estiver a perder o acesso à Internet em algumas situações, com a sua Wi-Fi. Isto irá fazer a aplicação mudar temporariamente para o DNS da Cloudflare para manter a sua conectividade. Pode precisar de selecionar novamente os seus servidores na secção de DNS para que esta configuração tenha efeito.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Lista Inteligente</string>
     <string name="tunnel_config_smartlist_reset_btn">Pré-definições</string>
     <string name="tunnel_config_smartlist_clean_btn">Limpar</string>

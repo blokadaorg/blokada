@@ -74,8 +74,6 @@
     <string name="menu_host_adblocking_settings">广告屏蔽设置</string>
     <string name="menu_host_list_status">列表状态</string>
     <string name="menu_host_list_download">列表下载设置</string>
-    <string name="menu_host_whitelist">您在这里添加的主机将永远不会被屏蔽。例如，当您访问的网站被误屏蔽时，请使用此列表。</string>
-    <string name="menu_host_blacklist">您在这里添加的主机将始终被屏蔽。例如，您可以添加应该被屏蔽但没有被标准列表屏蔽的网站。</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">其它</string>
     <string name="menu_share_log_label">我们可以通过共享日志发现您的问题的原因。请确保您私下将共享日志发送给 Blokada 核心团队成员之一。</string>

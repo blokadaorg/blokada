@@ -89,8 +89,8 @@
     <string name="menu_host_adblocking_settings">廣告阻擋設定</string>
     <string name="menu_host_list_status">列表狀態</string>
     <string name="menu_host_list_download">列表下載設定</string>
-    <string name="menu_host_whitelist">您在此新增的主機將永遠不會被阻擋。舉例來說，您可以將您造訪過被意外阻擋的網頁新增到此清單。</string>
-    <string name="menu_host_blacklist">您在此新增的主機將會永遠被阻擋。舉例來說，您可以將未被標準清單阻擋的網頁（但您覺得它應該被阻擋）新增到此清單。</string>
+    <string name="menu_host_whitelist">您在此新增的主機將永遠不會被阻擋。舉例來說，您可以將您造訪過被意外阻擋的網頁新增到此清單。注意，這不適用於已繞過的應用程式。</string>
+    <string name="menu_host_blacklist">您在此新增的主機將會永遠被阻擋。舉例來說，您可以將未被標準清單阻擋的網頁（但您覺得它應該被阻擋）新增到此清單。注意，這不適用於已繞過的應用程式。</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">其他</string>
     <string name="menu_share_log_label">分享紀錄檔以尋找您問題的根源。請務必將其私下傳送給其中一位 Blokada 核心成員。</string>

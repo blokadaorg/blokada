@@ -7,7 +7,6 @@
     <string name="tunnel_config_refetch_now">Tải xuống các danh sách bây giờ</string>
     <string name="tunnel_config_refetch_now_description">Sử dụng nút dưới để xoá bộ nhớ cache và tải lại các danh sách. Điều này có thể giúp nếu bạn đang gặp vấn đề với việc chặn quảng cáo.</string>
     <string name="tunnel_config_refetch_frequency_title">Tần số tải các danh sách</string>
-    <string name="tunnel_config_refetch_frequency_description">Chọn một trong các tùy chọn để cấu hình khoảng thời gian ứng dụng cập nhật các danh sách.</string>
     <string name="tunnel_config_refetch_frequency_1">Mỗi ngày một lần</string>
     <string name="tunnel_config_refetch_frequency_2">Hai lần một tuần</string>
     <string name="tunnel_config_refetch_frequency_3">Mỗi tuần một lần</string>
@@ -19,5 +18,4 @@
     <string name="tunnel_config_reports_title">Báo cáo</string>
     <string name="tunnel_config_reports_description">Kích hoạt lựa chọn này để cho phép ứng dụng gửi những báo cáo giúp chúng tôi sửa các vấn đề và lỗi. Điều này sẽ chỉ xảy ra một lần mỗi ngày, hoặc khi ứng dụng bị thoát đột ngột. Không kích hoạt lựa chọn này có thể làm cho việc sửa những lỗi bạn đang gặp trở nên khó khăn hơn. Bạn có thể sẽ cần khởi động lại ứng dụng để cài đặt này có hiệu lực.</string>
     <string name="tunnel_config_fallback_title">DNS dự phòng</string>
-    <string name="tunnel_config_fallback_description">Kích hoạt lựa chọn này nếu bạn đang mất kết nối Internet trong một số trường hợp, chẳng hạn như WiFi của bạn. Lựa chọn này sẽ làm cho ứng dụng tạm thời chuyển sang Cloudflare DNS để duy trì kết nối. Bạn có thể sẽ cần phải chọn lại máy chủ của bạn trong mục DNS để cài đặt này có hiệu lực.</string>
 </resources>

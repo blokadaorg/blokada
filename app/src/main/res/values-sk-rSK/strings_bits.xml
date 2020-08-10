@@ -75,8 +75,6 @@
     <string name="menu_host_adblocking_settings">Možnosti blokovania reklám</string>
     <string name="menu_host_list_status">Stav zoznamu</string>
     <string name="menu_host_list_download">Nastavenia sťahovania zoznamu</string>
-    <string name="menu_host_whitelist">Hosty, ktoré sem pridáte, nebudú nikdy blokované. Tento zoznam použite napríklad v prípade, keď je stránka, ktorú chcete navštíviť, zablokovaná.</string>
-    <string name="menu_host_blacklist">Hosty, ktoré sem pridáte, budú vždy zablokované. Môžete napríklad pridať webstránky, ktoré nie sú blokované štandardnými zoznamami, ale mali by byť.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Iné</string>
     <string name="menu_share_log_label">Zdieľanie záznamu nám dovoľuje zistiť príčinu vášho problému. Uistite sa, že ho posielate súkromne, jednému z členov tímu Blokada.</string>

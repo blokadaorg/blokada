@@ -19,7 +19,7 @@
     <string name="notification_keepalive_title_new">Κρατήστε το στο παρασκήνιο (πατήστε για απόκρυψη)</string>
     <string name="notification_keepalive_text_new">Το Android πρέπει να εμφανίζει μια ειδοποίηση για να διατηρεί την εφαρμογή σε λειτουργία, αλλά μπορείτε να την απενεργοποιήσετε στις ρυθμίσεις συστήματος.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d αποκλείσεις</string>
+    <string name="notification_keepalive_title">%d αποκλεισμένα</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">Τελευταία: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
@@ -28,7 +28,12 @@
     <string name="notification_keepalive_activating">Το Blokada ξεκινά. Αυτό μπορεί να διαρκέσει λίγο.</string>
     <string name="notification_keepalive_deactivate">Απενεργοποιημένο</string>
     <string name="notification_keepalive_deactivating">Tο blokada απενεργοποιήθηκε!</string>
+    <string name="notification_expired_title">To Blokada Plus έχει απενεργοποιηθεί</string>
+    <string name="notification_expired_description">Ο λογαριασμός σας δεν είναι ενεργός και το Blokada Plus είναι απενεργοποιημένο. Τα τυπικά χαρακτηριστικά Blokada λειτουργούν καλά χωρίς το Blokada Plus VPN. Ωστόσο, σκεφτείτε το ενδεχόμενο να ενεργοποιήσετε τον λογαριασμό σας για καλύτερη προστασία και για υποστήριξη του έργου.</string>
+    <string name="notification_lease_expired_title">To Blokada Plus έχει απενεργοποιηθεί</string>
+    <string name="notification_lease_expired_description">Παρουσιάστηκε πρόβλημα με τη σύνδεσή σας στο Blokada Plus. Δοκιμάστε να επιλέξετε άλλη πύλη. Εάν το πρόβλημα παραμένει, επικοινωνήστε μαζί μας.</string>
     <string name="notification_channel_filtered">Αποκλεισμός διαφημίσεων</string>
     <string name="notification_channel_announcements">Ανακοινώσεις</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
     <string name="notification_channel_other">Άλλα</string>
 </resources>

@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Ξεκίνησε η λήψη λιστών</string>
     <string name="tunnel_config_refetch_now_description">Χρησιμοποιήστε το παρακάτω κουμπί για να καταργήσετε την προσωρινή μνήμη και να κατεβάσετε ξανά τις λίστες σας. Αυτό μπορεί να σας βοηθήσει εάν αντιμετωπίσετε προβλήματα με το φιλτράρισμα.</string>
     <string name="tunnel_config_refetch_frequency_title">Συχνότητα λήψης των λιστών</string>
-    <string name="tunnel_config_refetch_frequency_description">Ορίστε μία από τις επιλογές για να διαμορφώσετε πόσο συχνά θα πρέπει η εφαρμογή να κατεβάζει τις λίστες σας.</string>
     <string name="tunnel_config_refetch_frequency_1">Μία φορά την ημέρα</string>
     <string name="tunnel_config_refetch_frequency_2">Δύο φορές την εβδομάδα</string>
     <string name="tunnel_config_refetch_frequency_3">Μία φορά την εβδομάδα</string>
@@ -24,7 +23,6 @@
     <string name="tunnel_config_wildcard_title">[BETA] Σύνθετοι κανόνες αποκλεισμού διαφημίσεων</string>
     <string name="tunnel_config_wildcard_description">Ενεργοποιήστε αυτόν τον διακόπτη εάν θέλετε να χρησιμοποιήσετε χαρακτήρες μπαλαντέρ στους κανόνες φιλτραρίσματος. Για παράδειγμα, η προσθήκη ενός κανόνα για το *.google.com θα αποκλείσει όλους τους τομείς από την Google. Αυτό μπορεί να έχει αρνητικό αντίκτυπο στη διάρκεια ζωής της μπαταρίας. Λάβετε υπόψη ότι πρόκειται για πειραματική λειτουργία και ενδέχεται να μην λειτουργεί σωστά.</string>
     <string name="tunnel_config_fallback_title">Εναλλαγή DNS</string>
-    <string name="tunnel_config_fallback_description">Ενεργοποιήστε αυτόν τον διακόπτη εάν χάσετε την πρόσβαση στο Διαδίκτυο σε ορισμένες περιπτώσεις, όπως το WiFi σας. Αυτό θα κάνει την εφαρμογή να αλλάξει προσωρινά στο Cloudflare DNS για να διατηρήσει τη σύνδεσή σας. Ίσως χρειαστεί να επιλέξετε ξανά τους διακομιστές σας στην ενότητα DNS για να τεθεί σε ισχύ αυτή η ρύθμιση.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Έξυπνη λίστα</string>
     <string name="tunnel_config_smartlist_reset_btn">Επαναφορά</string>
     <string name="tunnel_config_smartlist_clean_btn">Εκκαθάριση</string>

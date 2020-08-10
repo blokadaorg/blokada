@@ -89,8 +89,8 @@
     <string name="menu_host_adblocking_settings">Ustawienia blokowania reklam</string>
     <string name="menu_host_list_status">Status list</string>
     <string name="menu_host_list_download">Ustawienia pobierania list</string>
-    <string name="menu_host_whitelist">Hosty, które tutaj dodasz, nigdy nie będą blokowane. Użyj tej listy kiedy stroną, którą odwiedzasz, jest omyłkowo blokowana.</string>
-    <string name="menu_host_blacklist">Hosty, które tutaj dodasz, będą zawsze blokowane. Na przykład, możesz tu dodać stront które nie są blokowane przez standardowe filtry, a powinny być.</string>
+    <string name="menu_host_whitelist">Hosty, które tutaj dodasz, nigdy nie będą blokowane. Użyj tej listy, kiedy na przykład strona, którą odwiedzasz, jest omyłkowo blokowana. Pamiętaj, że nie dotyczy to pomijanych aplikacji.</string>
+    <string name="menu_host_blacklist">Hosty, które tutaj dodasz, będą zawsze blokowane. Na przykład możesz dodać strony, które nie są blokowane przez standardowe listy, ale powinny. Pamiętaj, że nie dotyczy to pomijanych aplikacji.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Inne</string>
     <string name="menu_share_log_label">Udostępnienie logów pomoże nam ustalić przyczynę Twojego problemu. Upewnij się, że wysyłasz je tylko do jednego z głównych członków zespołu Blokada.</string>

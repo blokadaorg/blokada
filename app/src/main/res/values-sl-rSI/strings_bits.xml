@@ -74,8 +74,6 @@
     <string name="menu_host_adblocking_settings">Nastavitve blokiranja oglasov</string>
     <string name="menu_host_list_status">Status seznamov</string>
     <string name="menu_host_list_download">Nastavitve prenosa seznamov</string>
-    <string name="menu_host_whitelist">Ti strežniki ne bodo nikoli blokirani. Dodajte sem tiste, ki so na primer nenamerno blokirani.</string>
-    <string name="menu_host_blacklist">Ti strežniki bodo vedno blokirani. Sem lahko dodate tiste strežnike, ki jih standardni seznami ne blokirajo, pa bi jih morali.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Ostalo</string>
     <string name="menu_share_log_label">Deljenje dnevnika nam omogoča, da lažje odkrijemo vzrok vaše težave. Pazite, da ga zasebno pošljete kateremu koli članu ožje Blokadine ekipe.</string>

@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Téléchargement des listes commencé</string>
     <string name="tunnel_config_refetch_now_description">Utilisez le bouton ci-dessous pour supprimer le cache et télécharger à nouveau vos listes. Ceci peut vous aider si vous rencontrez des problèmes avec votre filtrage.</string>
     <string name="tunnel_config_refetch_frequency_title">Fréquence de téléchargement des listes</string>
-    <string name="tunnel_config_refetch_frequency_description">Sélectionnez l\'une des options pour configurer la fréquence de téléchargement de vos listes.</string>
     <string name="tunnel_config_refetch_frequency_1">Une fois par jour</string>
     <string name="tunnel_config_refetch_frequency_2">Deux fois par semaine</string>
     <string name="tunnel_config_refetch_frequency_3">Une fois par semaine</string>
@@ -25,7 +24,6 @@
     <string name="tunnel_config_wildcard_title">[BÊTA] Règles avancées de blocage des publicités</string>
     <string name="tunnel_config_wildcard_description">Activez cette option si vous souhaitez définir des règles de filtrages globales. Par exemple, l\'ajout d\'une règle pour *.google.com bloquerait tous les domaines de Google. Cela peut avoir un impact négatif sur l\'autonomie. Il s\'agit d\'une fonctionnalité expérimentale qui peut ne pas fonctionner correctement.</string>
     <string name="tunnel_config_fallback_title">DNS de repli</string>
-    <string name="tunnel_config_fallback_description">Activez cette option si vous perdez l\'accès à Internet dans certaines situations. L\'application basculera temporairement sur le DNS de Cloudflare pour maintenir votre connexion. Vous devrez peut-être resélectionner vos serveurs dans la section DNS pour que ce paramètre prenne effet.</string>
     <string name="tunnel_config_smartlist_title">[BÊTA] Liste intelligente</string>
     <string name="tunnel_config_smartlist_reset_btn">Réinitialiser</string>
     <string name="tunnel_config_smartlist_clean_btn">Effacer</string>

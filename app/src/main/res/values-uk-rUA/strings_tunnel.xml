@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Завантажуємо списки</string>
     <string name="tunnel_config_refetch_now_description">Скористайтеся кнопкою внизу, щоб видалити кеш та завантажити списки знову. Це може допомогти у випадку проблем із фільтрацією.</string>
     <string name="tunnel_config_refetch_frequency_title">Частота оновлення списків</string>
-    <string name="tunnel_config_refetch_frequency_description">Оберіть зі списку як часто додаток має оновлювати списки доменів.</string>
     <string name="tunnel_config_refetch_frequency_1">Раз на день</string>
     <string name="tunnel_config_refetch_frequency_2">Двічі на тиждень</string>
     <string name="tunnel_config_refetch_frequency_3">Раз на тиждень</string>
@@ -23,7 +22,6 @@
     <string name="tunnel_config_wildcard_title">[BETA] Розширені правила блокування реклами</string>
     <string name="tunnel_config_wildcard_description">Активуйте цей перемикач, якщо хочете використовувати шаблони у ваших правилах фільтрування. Наприклад, додавання правила для *.google.com заблокує всі домени з Google. Це може негативно вплинути на час роботи від батареї. Будь ласка, зверніть увагу, що це експериментальна функція і вона може працювати неналежним чином.</string>
     <string name="tunnel_config_fallback_title">Запасний DNS</string>
-    <string name="tunnel_config_fallback_description">Активуйте цей параметр, якщо ви втрачаєте доступ в інтернет в таких ситуаціях, як перемикання на Wi-Fi. Це змусить додаток тимчасово переключитися на Cloudflare DNS для підтримки вашого підключення. Можливо, буде потрібно повторно вибрати сервери в розділі DNS, щоб цей параметр набув чинності.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Розумний Список</string>
     <string name="tunnel_config_smartlist_reset_btn">Скинути</string>
     <string name="tunnel_config_smartlist_clean_btn">Очистити</string>

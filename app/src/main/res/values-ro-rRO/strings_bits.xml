@@ -4,10 +4,12 @@
     <string name="home_touch">Atingeți sau țineți apăsat pentru a configura</string>
     <string name="home_blokada_disabled">Blokada este in pauză</string>
     <string name="home_blokada_active">Blokada este activ</string>
+    <string name="home_blokada_active_protected">Blokada Plus este activ și internetul dvs. este protejat</string>
     <string name="home_blokada_inactive">Blokada este dezactivat</string>
     <string name="home_activating">Se activează</string>
     <string name="home_please_wait">Vă rugăm așteptați...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_vpn_only">Blokada Plus este activ fără adblocking</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada este activ in modul DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
@@ -31,8 +33,11 @@
     <string name="home_vpn_enabled">Blokada Plus este activ</string>
     <string name="home_vpn_disabled">Blokada Plus este dezactivat</string>
     <string name="home_account_active">Contul dvs. este incă activ</string>
+    <string name="home_connecting_vpn">Se conectează la Blokada Plus</string>
     <string name="home_cleanup">Curățare recomandată</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">Conectat la Blokada Plus</string>
+    <string name="home_boringtun_not_loaded">Ne pare rău, dispozitivul dvs. nu este compatibil cu Blokada Plus. Puteți utiliza în continuare alte caracteristici.</string>
     <string name="home_blocka_vpn_error">Nu s-a putut conecta la gateway. Sunteți conectat la internet?</string>
     <string name="home_account_error">Nu s-a putut verifica contul. Sunteți conectat la internet?</string>
     <string name="home_permission_error">Vă rugăm acordați permisiunile VPN de conectare.</string>
@@ -62,10 +67,13 @@
     <string name="menu_vpn_manage_subscription_unavailable">Dacă contul dvs. este nou, vizitați site-ul nostru. Nu puteți achiziționa un abonament în Blokada Slim.</string>
     <string name="menu_vpn_account_secret">Apasați pe poza dvs. pentru a vedea ID-ul contului. Tineți minte, ID-ul dvs. este secret si nu ar trebui să-l dați nimănui. Notați-l in caz ca veti dezinstala aplicația.</string>
     <string name="menu_vpn_restore_label">Aici vă puteți recupera contul existent dacă, de exemplu, vă reinstalați aplicația.</string>
+    <string name="menu_vpn_intro">Cu Blokada Plus datele dvs. sunt criptate, adresa dvs. de IP este ascunsă, iar locația vă este schimbată.</string>
     <string name="menu_vpn_account_label">Pentru a utiliza serviciul VPN, aveti nevoie de un cont activ. Verificați sau recuperațiva contul aici.</string>
     <string name="menu_vpn_gateways_label">Selectați unul dintre gateway-uri pentru a vă conecta. Dispozitivul dvs vă va trimite datele criptate în siguranță prin acel gateway, și vă veți păstra anonimatul.</string>
     <string name="menu_vpn_support_label">Dacă intâmpinați orice fel de problem, nu ezitaţi să ne contactaţi.</string>
     <string name="menu_vpn_support_button">Asistenţă</string>
+    <string name="menu_vpn_tunnel_settings">Setări Blokada Plus</string>
+    <string name="menu_vpn_tunnel_learn_more">Aflați mai multe despre Blokada Plus</string>
     <string name="menu_vpn_info_account_label">Am deja un cont?</string>
     <string name="menu_vpn_info_account_line1">Da! Contul dvs. este creat automat la prima rulare. Nu trebuie să vă înregistrați.</string>
     <string name="menu_vpn_info_account_line2">Atinge avatarul de mai sus pentru a vedea ID-ul de cont.</string>
@@ -74,14 +82,15 @@
     <string name="menu_dns_recommended">Servere recomandate DNS</string>
     <string name="menu_dns_intro">DNS este responsabil pentru traducerea adreselor IP ale site-urilor web și aplicațiilor pe care le folosiți. Alegerea unui DNS bun vă poate accelera dispozitivul și vă va proteja confidențialitatea.</string>
     <string name="menu_dns_select">Selectați unul dintre serverele DNS.</string>
+    <string name="menu_apps_intro">Este posibil ca unele aplicații să nu funcționeze corespunzător cu Blokada. De exemplu, pot avea probleme de conectare.\n\nActivarea VPN ajută adesea în aceste cazuri.\n\nAltfel, puteți face aceste aplicații să ocolească complet inspecția Blokada. Rețineți, aplicațiile ocolite comunică în afara VPN-ului Blokada Plus.</string>
     <string name="menu_apps_system_label">Aplicațiile de sistem sunt cele preinstalate pe dispozitiv. Unele dintre ele sunt ascunse. Modificați-le doar dacă știți ce faceți.</string>
     <string name="menu_host_list_intro">Listele de host-uri conţin reguli pentru blocarea reclamelor şi a tracker-elor. Încercaţi să păstraţi numărul de liste active la un nivel scăzut.</string>
     <string name="menu_host_adblocking_features">Blokada Labs</string>
     <string name="menu_host_adblocking_settings">Setări Ad Blocking</string>
     <string name="menu_host_list_status">Starea listelor</string>
     <string name="menu_host_list_download">Listează setările de descărcare</string>
-    <string name="menu_host_whitelist">Host-urile pe care le adăugați aici nu vor fi niciodată blocate. Utilizați această listă atunci când, de exemplu, un site web pe care îl vizitați este blocat din greșeală.</string>
-    <string name="menu_host_blacklist">Host-urile pe care le adăugați aici vor fi întotdeauna blocate. De exemplu, puteți adăuga site-uri web care nu sunt blocate de listele standard, dar ar trebui să fie.</string>
+    <string name="menu_host_whitelist">Host-urile pe care le ve-ți adăuga aici nu vor fi niciodată blocate. Utilizați această listă atunci când, de exemplu, un site web pe care îl vizitați este blocat din greșeală. Țineți cont că acest lucru nu se aplică aplicațiilor ocolite.</string>
+    <string name="menu_host_blacklist">Host-urile pe care le ve-ți adăuga aici vor fi întotdeauna blocate. De exemplu, puteți adăuga site-uri web care nu sunt blocate de listele standard, dar ar trebui să fie. Țineți cont că acest lucru nu se aplică aplicațiilor ocolite.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Altele</string>
     <string name="menu_share_log_label">Jurnalul de partajare ne permite să descoperim motivul problemei dvs. Asigurați-vă că îl trimiteți în privat unuia dintre membrii echipei de bază Blokada.</string>

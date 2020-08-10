@@ -89,8 +89,8 @@
     <string name="menu_host_adblocking_settings">Pengaturan pemblokiran iklan</string>
     <string name="menu_host_list_status">Status daftar host</string>
     <string name="menu_host_list_download">Pengaturan pengunduhan daftar host</string>
-    <string name="menu_host_whitelist">Host yang Anda masukkan di whitelist tidak akan diblokir. Gunakan fitur ini ketika misalnya situs yang Anda kunjungi terblokir secara tidak sengaja.</string>
-    <string name="menu_host_blacklist">Host yang Anda masukkan ke dalam blacklist akan selalu diblokir. Anda bisa memasukkan situs-situs yang menurut Anda patut diblokir namun situs tersebut tidak tercantum di blacklist standar/default.</string>
+    <string name="menu_host_whitelist">Host yang Anda masukkan di whitelist tidak akan diblokir. Gunakan fitur ini ketika misalnya situs yang Anda kunjungi terblokir secara tidak sengaja. Harap diingat bahwa pengaturan ini tidak berlaku untuk aplikasi yang di-bypass.</string>
+    <string name="menu_host_blacklist">Host yang Anda masukkan ke dalam blacklist akan selalu diblokir. Anda bisa memasukkan situs-situs yang menurut Anda patut diblokir namun situs tersebut tidak tercantum di blacklist standar/default. Harap diingat bahwa pengaturan ini tidak berlaku untuk aplikasi yang di-bypass.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Lainnya</string>
     <string name="menu_share_log_label">Membagikan log memungkinkan kami untuk menemukan akar masalah yang Anda hadapi. Pastikan Anda mengirimkan log tersebut melalui pesan privat ke salah satu anggota tim inti Blokada.</string>

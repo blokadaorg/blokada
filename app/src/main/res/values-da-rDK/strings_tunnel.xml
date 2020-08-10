@@ -8,7 +8,6 @@
     <string name="tunnel_config_refetch_toast">Download af lister startet</string>
     <string name="tunnel_config_refetch_now_description">Brug knappen nedenfor til at slette din cache og download dine lister igen. Dette kan hjælpe hvis du oplever problemer med filtrering.</string>
     <string name="tunnel_config_refetch_frequency_title">Liste download frekvens</string>
-    <string name="tunnel_config_refetch_frequency_description">Vælg en af mulighederne for at konfigurere hvor ofte appen skal hente dine lister.</string>
     <string name="tunnel_config_refetch_frequency_1">En gang om dagen</string>
     <string name="tunnel_config_refetch_frequency_2">To gange om ugen</string>
     <string name="tunnel_config_refetch_frequency_3">En gang om ugen</string>
@@ -20,5 +19,4 @@
     <string name="tunnel_config_reports_title">Rapporter</string>
     <string name="tunnel_config_reports_description">Aktiver denne knap for at tillade appen at sende rapporter som hjælper os med at fixe problemer og fejl. Dette vil kun ske en gang om dagen, eller hvis appen crasher. Hvis du slår den her fra kan det være svært for os at finde og løse problemet. Det kan være du skal genstarte appen for at denne indstillinger bruges.</string>
     <string name="tunnel_config_fallback_title">DNS fallback</string>
-    <string name="tunnel_config_fallback_description">Aktiver denne knap hbvis du mister internettet i nogle situationer, såsom WiFi. Dette vil få appen til midlertidigt at skifte til Cloudflare DNS for at vedholde forbindelsen. Du skal måske vælge din server i DNS sektionen for at denne indstilling bruges.</string>
 </resources>

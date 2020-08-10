@@ -30,7 +30,9 @@
     <string name="notification_keepalive_deactivate">Dezactivează</string>
     <string name="notification_keepalive_deactivating">Blokada a fost dezactivat!</string>
     <string name="notification_expired_title">Blokada Plus este dezactivat</string>
+    <string name="notification_expired_description">Contul dvs. nu este activ și Blokada Plus este oprit. Funcțiile Blokada standard funcționează eficient și fără Blokada Plus VPN. Cu toate acestea, vă rugăm să luați în considerare activarea contului dumneavoastră pentru o mai bună protecție și pentru sprijinirea proiectului.</string>
     <string name="notification_lease_expired_title">Blokada Plus este dezactivat</string>
+    <string name="notification_lease_expired_description">A apărut o problemă cu conexiunea dvs. la Blokada Plus. Încercați să alegeți un alt portal. Dacă problema persistă, vă rugăm să ne contactați.</string>
     <string name="notification_channel_filtered">Blocare reclame</string>
     <string name="notification_channel_announcements">Anunțuri</string>
     <string name="notification_channel_vpn">Blokada Plus</string>

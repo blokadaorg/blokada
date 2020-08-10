@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">Download de listas iniciadas</string>
     <string name="tunnel_config_refetch_now_description">Use o botão abaixo para remover o cache e baixar sua lista novamente. Isto pode ajudar se você tiver algum problema com sua filtragem.</string>
     <string name="tunnel_config_refetch_frequency_title">Listas de frequência de download</string>
-    <string name="tunnel_config_refetch_frequency_description">Selecione uma das opções para configurar quantas vezes o app deve baixar suas listas.</string>
+    <string name="tunnel_config_refetch_frequency_description">Selecione uma das opções para configurar com que frequência o app deve baixar suas listas.</string>
     <string name="tunnel_config_refetch_frequency_1">Diariamente</string>
     <string name="tunnel_config_refetch_frequency_2">Duas vezes por semana</string>
     <string name="tunnel_config_refetch_frequency_3">Uma vez por semana</string>

@@ -8,7 +8,7 @@
     <string name="tunnel_config_refetch_toast">Загрузка списков началась</string>
     <string name="tunnel_config_refetch_now_description">Используйте кнопку ниже для очистки кэша и повторной загрузки списков. Это может помочь, если у вас возникнут проблемы с фильтрацией.</string>
     <string name="tunnel_config_refetch_frequency_title">Периодичность загрузки списков</string>
-    <string name="tunnel_config_refetch_frequency_description">Выберите один из параметров для настройки периодичности загрузки списков.</string>
+    <string name="tunnel_config_refetch_frequency_description">Выберите один из вариантов, чтобы настроить, как часто приложение должно загружать ваши списки.</string>
     <string name="tunnel_config_refetch_frequency_1">Один раз в день</string>
     <string name="tunnel_config_refetch_frequency_2">Дважды в неделю</string>
     <string name="tunnel_config_refetch_frequency_3">Раз в неделю</string>
@@ -25,7 +25,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] Расширенные правила блокировки рекламы</string>
     <string name="tunnel_config_wildcard_description">Активируйте этот переключатель, если вы хотите использовать подстановочные символы в правилах фильтрации. Например, добавление правила для *.google.com блокирует все домены от Google. Это может отрицательно сказаться на времени работы от батареи. Обратите внимание, что это экспериментальная функция, которая может работать некорректно.</string>
     <string name="tunnel_config_fallback_title">Резервный DNS</string>
-    <string name="tunnel_config_fallback_description">Активируйте этот переключатель, если вы теряете доступ к интернету в некоторых ситуациях, например, в сети WiFi. Это заставит приложение временно переключиться на DNS Cloudflare для поддержания вашего подключения. Может потребоваться повторный выбор серверов в разделе DNS, чтобы этот параметр вступил в силу.</string>
+    <string name="tunnel_config_fallback_description">Активируйте этот переключатель, если вы теряете доступ к интернету в некоторых ситуациях, например, в сети WiFi. Это заставит приложение временно переключиться на Cloudflare или Google DNS для поддержания работоспособности подключения. Может потребоваться повторный выбор серверов в разделе DNS, чтобы этот параметр вступил в силу.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Умный список</string>
     <string name="tunnel_config_smartlist_reset_btn">Сбросить</string>
     <string name="tunnel_config_smartlist_clean_btn">Очистить</string>

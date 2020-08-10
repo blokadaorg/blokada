@@ -4,7 +4,7 @@
     <string name="logger_slot_title">Registro de peticiones</string>
     <string name="logger_slot_desc">Por defecto, las peticiones solo se almacenan internamente en Blokada. Si esta función es activada, Blokada creará un archivo CSV y registrará las peticiones que han sido permitidas y/o bloqueadas por la aplicación. Busca la carpeta \"blokada\" en tu almacenamiento externo. Alternativamente, el registro de peticiones puede ser desactivado completamente, almacenando solo el número de dominios bloqueados.</string>
     <string name="logger_slot_mode_off">Desactivado</string>
-    <string name="logger_slot_mode_internal">Registrar solo en almacenamiento interno</string>
+    <string name="logger_slot_mode_internal">Registrar en almacenamiento interno</string>
     <string name="logger_slot_mode_allowed">Registrar peticiones permitidas</string>
     <string name="logger_slot_mode_denied">Registrar peticiones bloqueadas</string>
     <string name="logger_slot_mode_all">Registrar todas las peticiones</string>

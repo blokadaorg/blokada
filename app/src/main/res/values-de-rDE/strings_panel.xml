@@ -106,7 +106,7 @@
     <string name="slot_action_internal">Interner Speicher</string>
     <string name="slot_action_external">Externer Speicher</string>
     <string name="slot_filters_title">Filterlisten</string>
-    <string name="slot_filters_description">Du kannst die Filterliste mit unseren Servern synchronisieren, ohne eigene Einträge zu verlieren. &lt;br/&gt;&lt;br/&gt;Alternativ kannst du alle Einträge (einschließlich der eigenen) abwählen und sie neu herunterladen.</string>
+    <string name="slot_filters_description">Du kannst die Filterliste mit unseren Servern synchronisieren, ohne eigene Einträge zu verlieren. &lt;br/&gt;&lt;br/&gt;Alternativ kannst du alle Einträge (einschließlich der eigenen) löschen und sie neu herunterladen.</string>
     <string name="slot_blocked_normal_title">Domain blockiert</string>
     <string name="slot_blocked_answer_title">Domain nicht aufgelöst</string>
     <string name="slot_forwarded_title">Domain weitergeleitet</string>

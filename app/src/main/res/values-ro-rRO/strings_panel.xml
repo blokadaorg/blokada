@@ -116,7 +116,7 @@
     <string name="slot_action_deactivate">Oprește</string>
     <string name="slot_action_activate">Porneşte</string>
     <string name="slot_update_action_refresh">Verificați din nou</string>
-    <string name="slot_telegram_title">Alătură-te nouă!</string>
+    <string name="slot_telegram_title">Alătururați-vă nouă!</string>
     <string name="slot_telegram_desc">Vizitați comunitatea noastră pentru ajutor sau doar pentru a face parte din ea.</string>
     <string name="slot_telegram_action">Deschideți</string>
     <string name="slot_dropped_share_title">Trimiteți prin</string>
@@ -140,6 +140,7 @@
     <string name="slot_gateway_learn_more">Află mai multe despre gateway-uri</string>
     <string name="slot_gateway_info_partner">Ce sunt gateway-urile partenerilor?</string>
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Controla-ți care dintre dispozitivele dvs. se vor conecta la Blokada Plus.</string>
     <string name="slot_lease_name_current">%s (acest dispozitiv)</string>
     <string name="slot_lease_description">ID dispozitiv: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_lease_description_current">ID dispozitiv: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Acesta este dispozitivul dvs. curent.</string>
@@ -177,6 +178,8 @@
     <!-- A button to update the app. -->
     <string name="slot_cleanup_desc">Se pare că există multiple versiuni de Blokada instalate pe dispozitivul dvs. Doriți să eliminați celelalte versiuni și să păstrați una singură?</string>
     <string name="account_inactive">Vă rugăm să vă activați sau să vă recuperați contul pentru a continua.</string>
+    <string name="slot_lease_cant_connect">Nu s-a putut conecta la Blokada Plus. Încercați să selectați un alt gateway.</string>
+    <string name="slot_account_cant_create">Nu s-a putut crea contul dvs. Blokada Plus. Vă rugăm să încercați din nou mai târziu sau să ne contactați.</string>
     <string name="slot_account_name_title">ID Cont</string>
     <string name="slot_account_name_desc">Introduceți vechiul ID de cont pentru a vă restabili abonamentul anterior. S-ar putea să doriți să vă notați ID-ul contului dvs. curent înainte de schimbare, în cazul în care faceți o greșeală.</string>
     <string name="slot_account_name_error">ID-ul contului poate conţine doar litere şi cifre.</string>
