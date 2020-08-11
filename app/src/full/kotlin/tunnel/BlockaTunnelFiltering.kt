@@ -218,9 +218,9 @@ internal class BlockaTunnelFiltering(
                     .payloadBuilder(udpForward)
                     .build()
 
+            packet.limit(envelope.rawData.size)
             packet.put(envelope.rawData)
             packet.position(0)
-            packet.limit(envelope.rawData.size)
         }
     }
 
