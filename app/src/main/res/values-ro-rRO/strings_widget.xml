@@ -4,8 +4,11 @@
     <string name="widget_show_domain">Afişează denumirea domeniului blocat</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Afișează numărul de solicitări blocate</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Folosește formatul numerelor lungi</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Afișează DNS</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Afișează Gateway-ul</string>
     <string name="widget_okay">Confirmați</string>
 </resources>

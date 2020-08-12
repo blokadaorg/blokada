@@ -4,8 +4,11 @@
     <string name="widget_show_domain">عرضْ اسم النِطاق المحظور</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">عرضْ عدد الطلبات المحظورة</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">استخدام تنسيق الرقم الطويل</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">عرضْ DNS</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">عرض البوّابة</string>
     <string name="widget_okay">تأكيد</string>
 </resources>

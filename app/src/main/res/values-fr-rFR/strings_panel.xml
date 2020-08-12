@@ -25,7 +25,7 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Bloqué &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">Ce domaine a été bloqué. Pour l\'autoriser, utilisez le bouton ci-dessous.</string>
-    <string name="panel_domain_blocked_answer_desc">Ce domaine a mené à une résolution incorrecte par le serveur DNS. Soit le serveur a bloqué ce domaine, soit il n\'existe pas.</string>
+    <string name="panel_domain_blocked_error_desc">Une erreur s\'est produite lors de la résolution de ce domaine, le serveur DNS a renvoyé un code d\'erreur.</string>
     <string name="panel_domain_blocked_toast">Ajouté à la liste noire.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copier</string>
@@ -37,6 +37,10 @@
     <string name="panel_ruleset_canfit">Les filtres sont maintenant configurés avec les règles &lt;b&gt;%s&lt;/b&gt;. Votre appareil permet au maximum une mémoire de &lt;b&gt;%s&lt;/b&gt; Mo pour chaque application, et une intégration de &lt;b&gt;%s&lt;/b&gt; règles.&lt;br&gt;N\'oubliez pas qu\'il s\'agit d\'une estimation et que Blokada utilise plus de mémoire lorsqu\'il fusionne les listes. Si vous en avez activé quelques-unes récemment, attendez quelques minutes pour que le système libère de la mémoire.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Autoriser</string>
+    <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">Autoriser le CName</string>
+    <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">Autoriser le domaine</string>
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Bloquer</string>
     <string name="slot_action_close">Fermer</string>
@@ -109,6 +113,7 @@
     <string name="slot_filters_description">Vous pouvez synchroniser vos listes sur nos serveurs pour ne pas perdre vos entrées personnalisées. &lt;br/&gt;&lt;br/&gt;Vous pouvez également supprimer toutes les entrées (y compris les vôtres) et les télécharger à nouveau.</string>
     <string name="slot_blocked_normal_title">Domaine bloqué</string>
     <string name="slot_blocked_answer_title">Domaine non résolu</string>
+    <string name="slot_blocked_cname_title">CName bloqué</string>
     <string name="slot_forwarded_title">Domaine transféré</string>
     <string name="slot_whitelist_title">Application en liste blanche</string>
     <string name="slot_list_no_desc">Cette entrée n\'a aucune description.</string>

@@ -4,8 +4,11 @@
     <string name="widget_show_domain">Zobrazit název blokované domény</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Zobrazit počet blokovaných požadavků</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Použít dlouhý formát čísla</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Zobrazit DNS</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Zobrazit bránu</string>
     <string name="widget_okay">Potvrdit</string>
 </resources>

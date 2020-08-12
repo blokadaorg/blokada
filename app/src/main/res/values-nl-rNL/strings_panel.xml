@@ -25,7 +25,6 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; geblokkeerd</string>
     <string name="panel_domain_blocked_normal_desc">Dit domein is geblokkeerd. Gebruik de knop hieronder om het voortaan toe te staan.</string>
-    <string name="panel_domain_blocked_answer_desc">Dit domein is niet correct omgezet door de DNS-server. De server heeft het domein geblokkeerd of het bestaat niet.</string>
     <string name="panel_domain_blocked_toast">Toegevoegd aan de blacklist.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopiëren</string>
@@ -37,6 +36,8 @@
     <string name="panel_ruleset_canfit">Filters zijn nu geconfigureerd met &lt;b&gt;%s&lt;/b&gt; regels. Je apparaat staat maximaal &lt;b&gt;%s&lt;/b&gt; MB geheugen toe voor elke applicatie, en tot &lt;b&gt;%s&lt;/b&gt; regels kunnen er in passen.&lt;br&gt;Onthoud, dit is slechts een schatting en Blokada gebruikt het meeste geheugen wanneer het de lijsten samenvoegt. Als je er onlangs een paar hebt aangezet, wacht dan een paar minuten tot het systeem geheugen heeft vrijmaakt.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Toestaan</string>
+    <!-- Button to allow blocked cname -->
+    <!-- Button to allow blocked domain that was blocked by a cname -->
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Blokkeren</string>
     <string name="slot_action_close">Sluit</string>

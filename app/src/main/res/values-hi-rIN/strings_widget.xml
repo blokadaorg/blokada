@@ -4,8 +4,9 @@
     <string name="widget_show_domain">अवरुद्ध डोमेन का प्रदर्शन नाम</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">अवरुद्ध अनुरोधों की संख्या प्रदर्शित करें</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">डीएनएस प्रदर्शित करें</string>
+    <!-- A configuration option of widget -->
     <string name="widget_okay">पुष्टि करें</string>
 </resources>

@@ -9,7 +9,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Блокада је активна у DNS моду</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
-    <string name="home_requests_blocked">%s блокираних</string>
     <string name="home_masterswitch_enabled">Блокада је укључена</string>
     <string name="home_masterswitch_waiting">Чека се мрежа...</string>
     <!-- A button to share the ads counter on social media -->

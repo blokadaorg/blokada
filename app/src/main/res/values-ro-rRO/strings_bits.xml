@@ -13,7 +13,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada este activ in modul DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
-    <string name="home_requests_blocked">%s blocat</string>
+    <string name="home_requests_blocked_since">%s blocat din data de %s</string>
     <string name="home_masterswitch_enabled">Blokada este pornit</string>
     <string name="home_masterswitch_waiting">Așteptare rețea...</string>
     <!-- A button to share the ads counter on social media -->

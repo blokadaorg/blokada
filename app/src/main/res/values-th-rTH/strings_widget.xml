@@ -4,8 +4,9 @@
     <string name="widget_show_domain">แสดงชื่อ Domain ที่ถูกบล๊อก</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">แสดงจำนวนคำขอที่ถูกบล็อก</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">แสดง DNS</string>
+    <!-- A configuration option of widget -->
     <string name="widget_okay">ยืนยัน</string>
 </resources>

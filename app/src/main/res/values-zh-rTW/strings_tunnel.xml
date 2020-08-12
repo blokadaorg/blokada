@@ -24,6 +24,8 @@
     <string name="tunnel_config_reports_description">開啟此功能即可允許 App 傳送報告來幫忙修正問題以及漏洞。我們只會一天、或者是在 App 當機時才傳一次報告，而停用此功能可能會使解決你所發生的問題變得困難。請重開 App 套用變更。</string>
     <string name="tunnel_config_wildcard_title">[測試版] 進階廣告阻擋規則</string>
     <string name="tunnel_config_wildcard_description">如果您想要在您的過濾規則中使用萬用字元的話，請啟用此開關。舉例來說，加入 *.google.com 這個規則就會阻擋所有從 Google 而來的網域。這可能會對電池壽命有負面影響。請注意，這是實驗性功能，可能無法正常運作。</string>
+    <string name="tunnel_config_cname_title">[測試版] CName 阻擋</string>
+    <string name="tunnel_config_cname_description">如果要將您封鎖清單中所有域名的 CName 都封鎖的話，請啟用此開關。CName 是域名的別名，某些廣告商將其用於把域名隱藏在經常變動或不太明顯的域名後面。可以透過封鎖所有會解析到被封鎖域名的 CName 來繞過這項策略。請注意，這是一項實驗性的功能，可能無法正常運作。</string>
     <string name="tunnel_config_fallback_title">候選 DNS</string>
     <string name="tunnel_config_fallback_description">若您在部份情況下（例如 Wi-Fi）會斷開網路連線，請啟用此功能。這將使 App 暫時連線到 CloudFlare 或 Google 的 DNS 以不讓連線斷開。啟用此選項之後，可能需要在 DNS 部份重選伺服器才能套用變更。</string>
     <string name="tunnel_config_smartlist_title">[測試版] 智慧清單</string>

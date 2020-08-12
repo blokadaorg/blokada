@@ -25,7 +25,9 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; محظور</string>
     <string name="panel_domain_blocked_normal_desc">تَمّ حَظْر هذا الموقع. للسماح به في المستقبل ، إستخدم الزرّ أدناه.</string>
-    <string name="panel_domain_blocked_answer_desc">لم يتم معالجو هذا المجال بشكل صحيح من قِبَل خادِم DNS. إمّا أنّ الخادِم حَظرَ المجال أو أنّه غير موجود.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">لم يَتمّ معالجة هذا النطاق بشكل صحيح من قبل خادم الـ DNS. إمّا قام الخادم بحظر النطاق أو أنّه غير موجود.</string>
+    <string name="panel_domain_blocked_error_desc">حدث خطأ أثناء معالجة هذا النطاق، أجاب خادم الـ DNS برمز خطأ.</string>
+    <string name="panel_domain_blocked_cname_desc">تمّ حظر هذا المجال لأنّه اسم CN لمجال محظور. لعدم حظره في المستقبل ، يُمكِنك إمّا إضافة CName أو المجال نفسه إلى المضيفين المسموح بهم.</string>
     <string name="panel_domain_blocked_toast">تَمَّت الإضافة إلى القائمة السوداء.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">نسخ</string>
@@ -37,6 +39,10 @@
     <string name="panel_ruleset_canfit">يَتمّ تكوين الفلاتر الآن باستخدام &lt;b&gt;%s&lt;/b&gt; قاعدة. يسمح جهازك بحد أقصى &lt;b&gt;%s&lt;/b&gt; ميجابايت من الذاكرة لكل تطبيق ، و يمكن أن يصل عدد قواعده إلى &lt;b&gt;%s&lt;/b&gt; قاعدة.&lt;br&gt;تَذكّر ، هذا مجرّد تقدير و يَستخدم بلوكادا معظم الذاكرة عند دمج القوائم. إذا قمت بتمكين القليل منها مؤخراً ، فانتظر بضع دقائق حتى يقوم النظام بتحرير الذاكرة.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">سماح</string>
+    <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">السماح لـ CName</string>
+    <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">السماح للنطاق</string>
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">حَظْر</string>
     <string name="slot_action_close">إغلاق</string>
@@ -109,6 +115,7 @@
     <string name="slot_filters_description">يمكنك مُزامَنة قائمة الفلاتر مع خَوادِمنا دون فقد إدخالاتك المُخصَّصة. &lt;br/&gt;&lt;br/&gt;بدلاً من ذلك ، يُمكِنك إسقاط جميع الإدخالات (بما في ذلك إدخالاتك) و تنزيلها مرّة أُخرى.</string>
     <string name="slot_blocked_normal_title">نِطاق تمَّ حَظْره</string>
     <string name="slot_blocked_answer_title">نِطاق لم يَتِمّ معالجته</string>
+    <string name="slot_blocked_cname_title">تَمّ حَظْر CName</string>
     <string name="slot_forwarded_title">نطاق تمَّ تحويله</string>
     <string name="slot_whitelist_title">تطبيق في القائمة البيضاء</string>
     <string name="slot_list_no_desc">لا يحتوي هذا الإدخال على أيّ وصف.</string>

@@ -13,7 +13,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada je aktivní v režimu DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
-    <string name="home_requests_blocked">%s zablokováno</string>
+    <string name="home_requests_blocked_since">%s zablokováno od %s</string>
     <string name="home_masterswitch_enabled">Blokada je zapnutá</string>
     <string name="home_masterswitch_waiting">Čekání na síť...</string>
     <!-- A button to share the ads counter on social media -->

@@ -25,7 +25,6 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; अवरोधित</string>
     <string name="panel_domain_blocked_normal_desc">यह डोमेन रोक दी गई है। भविष्य में इसे अनुमति देने के लिए नीचे दिया गया बटन इस्तेमाल करें।</string>
-    <string name="panel_domain_blocked_answer_desc">यह डोमेन डीएनएस सर्वर द्वारा सही ढंग से हल नहीं किया गया था। या तो सर्वर ने डोमेन को ब्लॉक कर दिया है या यह मौजूद नहीं है।</string>
     <string name="panel_domain_blocked_toast">ब्लैकलिस्ट में जोड़ा गया।</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">कॉपी करें</string>
@@ -37,6 +36,8 @@
     <string name="panel_ruleset_canfit">फ़िल्टर अब &lt;b&gt;%s&lt;/b&gt; के साथ कॉन्फ़िगर किए गए हैं नियम। आपका उपकरण अधिकतम &lt;b&gt;%s&lt;/b&gt; एमबी हर एप्लिकेशन के लिए मेमोरी, और &lt;b&gt;%s&lt;/b&gt; नियम इसमें फिट हो सकते हैं। &lt;br&gt; याद रखें, यह केवल एक अनुमान है और जब सूची में विलय होता है तब ब्लोकडा सबसे अधिक मेमोरी का उपयोग करता है। यदि आपने हाल ही में उनमें से कुछ को सक्षम किया है, तो सिस्टम को मेमोरी खाली करने के लिए कुछ मिनट प्रतीक्षा करें।</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">अनुमति दें</string>
+    <!-- Button to allow blocked cname -->
+    <!-- Button to allow blocked domain that was blocked by a cname -->
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">अवरुद्ध</string>
     <string name="slot_action_close">बंद करें</string>

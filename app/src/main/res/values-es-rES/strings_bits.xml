@@ -13,7 +13,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada está activo en modo DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
-    <string name="home_requests_blocked">%s bloqueados</string>
+    <string name="home_requests_blocked_since">%s bloqueados desde %s</string>
     <string name="home_masterswitch_enabled">Blokada está activado</string>
     <string name="home_masterswitch_waiting">Esperando red...</string>
     <!-- A button to share the ads counter on social media -->

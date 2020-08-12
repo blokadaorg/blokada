@@ -25,7 +25,9 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Заблокирован &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">Этот домен был заблокирован. Чтобы разрешить его в будущем, воспользуйтесь кнопкой ниже.</string>
-    <string name="panel_domain_blocked_answer_desc">Этот домен был некорректно разрешен DNS-сервером. Либо сервер заблокировал домен, либо его не существует.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">Этот домен был некорректно разрешен DNS-сервером. Возможно сервер заблокировал домен, либо его не существует.</string>
+    <string name="panel_domain_blocked_error_desc">Что-то пошло не так при разрешении этого домена, DNS-сервер ответил кодом ошибки.</string>
+    <string name="panel_domain_blocked_cname_desc">Этот домен был заблокирован, поскольку это CName для заблокированного домена. Чтобы разрешить его в будущем, вы можете добавить либо CName, либо сам домен в разрешенные узлы.</string>
     <string name="panel_domain_blocked_toast">Добавлен в черный список.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Копировать</string>
@@ -37,6 +39,10 @@
     <string name="panel_ruleset_canfit">Фильтры теперь настроены с &lt;b&gt;%s&lt;/b&gt; правилами. Ваше устройство позволяет максимум &lt;b&gt;%s&lt;/b&gt; МБ памяти для каждого приложения, и до &lt;b&gt;%s&lt;/b&gt; правил могут вписываться в него.&lt;br&gt;Помните, что это всего лишь оценка, и Blokada использует большую часть памяти при объединении списков. Если вы недавно включили несколько из них, подождите несколько минут, пока система не освободит память.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Разрешить</string>
+    <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">Разрешить CName</string>
+    <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">Разрешить домен</string>
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Заблокировать</string>
     <string name="slot_action_close">Закрыть</string>
@@ -109,6 +115,7 @@
     <string name="slot_filters_description">Вы можете синхронизировать список фильтров с нашими серверами без потери ваших записей. &lt;br/&gt;&lt;br/&gt;Кроме того, вы можете удалить все записи (включая ваши) и загрузить их снова.</string>
     <string name="slot_blocked_normal_title">Домен заблокирован</string>
     <string name="slot_blocked_answer_title">Не удалось преобразовать домен</string>
+    <string name="slot_blocked_cname_title">CName заблокирован</string>
     <string name="slot_forwarded_title">Домен переадресован</string>
     <string name="slot_whitelist_title">Белый список приложений</string>
     <string name="slot_list_no_desc">Эта запись не имеет никакого описания.</string>

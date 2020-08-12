@@ -4,8 +4,9 @@
     <string name="widget_show_domain">முடக்கப்பட்ட Domainகளின் பெயர்களைக் காட்டவும்</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">முடக்கப்பட்ட Requestகளின் எண்ணிக்கையைக் காட்டவும்</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">DNSஐ காண்பி</string>
+    <!-- A configuration option of widget -->
     <string name="widget_okay">உறுதிசெய்</string>
 </resources>

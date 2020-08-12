@@ -4,8 +4,11 @@
     <string name="widget_show_domain">顯示所阻擋的網域名稱</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">顯示已阻擋請求數</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">使用長數字格式</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">顯示 DNS</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">顯示閘道</string>
     <string name="widget_okay">確定</string>
 </resources>

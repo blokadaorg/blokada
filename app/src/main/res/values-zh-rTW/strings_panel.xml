@@ -25,7 +25,9 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">已封鎖 &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">此網域已被阻擋。若要未來允許此網域，請使用下方按鈕。</string>
-    <string name="panel_domain_blocked_answer_desc">此網域未被 DNS 伺服器正確解析。不是伺服器阻擋了該網域就是其根本就不存在。</string>
+    <string name="panel_domain_blocked_nxdomain_desc">這個網域無法被 DNS 伺服器正確解析。可能是伺服器阻擋了網域，或者是網域不存在。</string>
+    <string name="panel_domain_blocked_error_desc">解析此網域時發生錯誤，DNS 伺服器回傳了錯誤碼。</string>
+    <string name="panel_domain_blocked_cname_desc">此網域因是某個被阻擋網域的 CName 而被阻擋。如您未來想要放行，則您可以在允許的主機中加入 CName 或這個網域。</string>
     <string name="panel_domain_blocked_toast">已加入黑名單。</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">複製</string>
@@ -37,6 +39,10 @@
     <string name="panel_ruleset_canfit">過濾條件現在已設定 &lt;b&gt;%s&lt;/b&gt; 條規則。您的裝置最多可以讓每個應用程式使用 &lt;b&gt;%s&lt;/b&gt; MB 的記憶體，最多可以使用 &lt;b&gt;%s&lt;/b&gt; 條規則。&lt;br&gt;請記住，這只是估計值，Blokada 在合併清單時會使用最多的記憶體。如果您最近啟用了其中的某些功能，請等待數分鐘以讓系統釋放記憶體。</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">允許</string>
+    <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">允許 CName</string>
+    <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">允許網域</string>
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">封鎖</string>
     <string name="slot_action_close">關閉</string>
@@ -109,6 +115,7 @@
     <string name="slot_filters_description">您不必失去任何您的自訂項目也可以從我們的伺服器同步過濾規則清單。&lt;br/&gt;&lt;br/&gt;或者您也可以刪除所有的項目（包含您自己的），然後重新下載。</string>
     <string name="slot_blocked_normal_title">已阻擋網域</string>
     <string name="slot_blocked_answer_title">域名未解析</string>
+    <string name="slot_blocked_cname_title">阻擋的 CName</string>
     <string name="slot_forwarded_title">已轉發網域</string>
     <string name="slot_whitelist_title">已加入白名單的應用程式</string>
     <string name="slot_list_no_desc">這個項目沒有任何描述。</string>

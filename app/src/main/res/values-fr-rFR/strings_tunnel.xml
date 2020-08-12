@@ -23,6 +23,7 @@
     <string name="tunnel_config_reports_description">Activez cette option pour permettre à l\'application d\'envoyer des rapports nous aidant à résoudre les problèmes et les bogues. Cela ne se produira qu\'une fois par jour ou lorsque l\'application plantera. Si vous désactivez cette option, il peut être difficile pour nous de résoudre les problèmes que vous pourriez rencontrer. Vous devrez peut-être redémarrer l\'application pour que ce paramètre prenne effet.</string>
     <string name="tunnel_config_wildcard_title">[BÊTA] Règles avancées de blocage des publicités</string>
     <string name="tunnel_config_wildcard_description">Activez cette option si vous souhaitez définir des règles de filtrages globales. Par exemple, l\'ajout d\'une règle pour *.google.com bloquerait tous les domaines de Google. Cela peut avoir un impact négatif sur l\'autonomie. Il s\'agit d\'une fonctionnalité expérimentale qui peut ne pas fonctionner correctement.</string>
+    <string name="tunnel_config_cname_title">[BETA] Blocage CNam</string>
     <string name="tunnel_config_fallback_title">DNS de repli</string>
     <string name="tunnel_config_smartlist_title">[BÊTA] Liste intelligente</string>
     <string name="tunnel_config_smartlist_reset_btn">Réinitialiser</string>

@@ -4,8 +4,11 @@
     <string name="widget_show_domain">Показать имя заблокированного домена</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Показать количество заблокированных запросов</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Использовать длинный формат числа</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Показать DNS</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Показать шлюз</string>
     <string name="widget_okay">Подтвердить</string>
 </resources>

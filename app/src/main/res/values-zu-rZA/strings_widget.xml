@@ -4,8 +4,9 @@
     <string name="widget_show_domain">Khombisa igama lesizinda esivinjiwe</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Khombisa inombolo yezicelo ezivinjiwe</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Khombisa i-DNS</string>
+    <!-- A configuration option of widget -->
     <string name="widget_okay">Qinisekisa</string>
 </resources>

@@ -34,6 +34,8 @@
     <string name="panel_ruleset_updating">Оновлення фільтрів...</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Дозволити</string>
+    <!-- Button to allow blocked cname -->
+    <!-- Button to allow blocked domain that was blocked by a cname -->
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Блокувати</string>
     <string name="slot_action_close">Закрити</string>

@@ -25,7 +25,9 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Blocat &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">Acest domeniu a fost blocat. Pentru a-i acorda permisiune în viitor, folosiți butonul de mai jos.</string>
-    <string name="panel_domain_blocked_answer_desc">Acest domeniu nu a fost rezolvat corect de serverul DNS. Fie serverul a blocat domeniul, fie acesta nu există.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">Acest domeniu nu a fost rezolvat corect de serverul DNS. Fie serverul a blocat domeniul, fie acesta nu există.</string>
+    <string name="panel_domain_blocked_error_desc">Ceva nu a mers bine în rezolvarea acestui domeniu, serverul DNS a răspuns cu un cod de eroare.</string>
+    <string name="panel_domain_blocked_cname_desc">Acest domeniu a fost blocat deoarece este un CName pentru un domeniu blocat. Pentru a permite acest lucru în viitor, puteți adăuga CName sau domeniul însuși la host-urile permise.</string>
     <string name="panel_domain_blocked_toast">Adăugat pe Lista Neagră.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copiază</string>
@@ -37,6 +39,10 @@
     <string name="panel_ruleset_canfit">Filtrele sunt acum configurate cu &lt;b&gt;%s&lt;/b&gt; reguli. Dispozitivul dvs. permite maxim &lt;b&gt;%s&lt;/b&gt; MB de memorie pentru fiecare aplicație, și până la &lt;b&gt;%s&lt;/b&gt; reguli pot sa fie stocate în el.&lt;br&gt;Amintiți-vă, aceasta este doar o estimare și Blokada utilizează cea mai pare di memorie atunci când combină listele. Dacă ați activat recent câteva dintre ele, așteptați câteva minute ca sistemul să elibereze memoria.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Permiteți</string>
+    <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">Permite CName</string>
+    <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">Permite domeniu</string>
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Blochează</string>
     <string name="slot_action_close">Închideţi</string>
@@ -109,6 +115,7 @@
     <string name="slot_filters_description">Puteți sincroniza lista de filtre cu serverele noastre fără a vă pierde intrările personalizate. &lt;br/&gt;&lt;br/&gt;Alternativ, puteți să renunțați la toate intrările (inclusiv ale dvs.) și să le descărcați din nou.</string>
     <string name="slot_blocked_normal_title">Domeniu blocat</string>
     <string name="slot_blocked_answer_title">Domeniu nerezolvat</string>
+    <string name="slot_blocked_cname_title">CName blocat</string>
     <string name="slot_forwarded_title">Domeniu redirecţionat</string>
     <string name="slot_whitelist_title">Aplicație pe Lista Albă</string>
     <string name="slot_list_no_desc">Această intrare nu are nici o descriere.</string>

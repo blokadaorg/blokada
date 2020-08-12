@@ -25,7 +25,6 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">已屏蔽 &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">此域名已被屏蔽。要允许此域名，使用下面的按钮。</string>
-    <string name="panel_domain_blocked_answer_desc">DNS 服务器未正确解析此域名。可能是服务器拦截了域名，或是它不存在。</string>
     <string name="panel_domain_blocked_toast">已添加到黑名单。</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">复制</string>
@@ -37,6 +36,8 @@
     <string name="panel_ruleset_canfit">过滤器现已配置了 &lt;b&gt;%s&lt;/b&gt; 条规则。您的设备允许每个应用使用最多 &lt;b&gt;%s&lt;/b&gt; MB 内存，最多适用于 &lt;b&gt;%s&lt;/b&gt; 条规则。 &lt;br&gt;请记住，这只是估计值且 Blokada 在合并列表时使用最多内存。如果您刚启用了一些规则，请等待几分钟让系统释放内存。</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">允许</string>
+    <!-- Button to allow blocked cname -->
+    <!-- Button to allow blocked domain that was blocked by a cname -->
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">阻止</string>
     <string name="slot_action_close">关闭</string>

@@ -25,7 +25,8 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; bloqueado</string>
     <string name="panel_domain_blocked_normal_desc">Este dominio ha sido bloqueado. Para permitirlo en el futuro, utiliza el botón de abajo.</string>
-    <string name="panel_domain_blocked_answer_desc">Este dominio no fue resuelto correctamente por el servidor DNS. O el servidor bloqueó el dominio o no existe.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">Este dominio no fue resuelto correctamente por el servidor DNS. O el servidor bloqueó el dominio, o no existe.</string>
+    <string name="panel_domain_blocked_error_desc">Algo salió mal al resolver este dominio, el servidor DNS respondió con un código de error.</string>
     <string name="panel_domain_blocked_toast">Añadido a la lista negra.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copiar</string>
@@ -37,6 +38,9 @@
     <string name="panel_ruleset_canfit">Los filtros ahora están configurados con &lt;b&gt;%s&lt;/b&gt; reglas. Tu dispositivo permite un máximo de &lt;b&gt;%s&lt;/b&gt; MB de memoria para cada aplicación, por lo que pueden caber hasta &lt;b&gt;%s&lt;/b&gt; reglas.&lt;br&gt;Recuerda, esto es solo una estimación y Blokada utiliza más cantidad de memoria cuando combinas varias listas. Si has habilitado varias de ellas recientemente, espera unos minutos para que el sistema libere memoria.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Permitir</string>
+    <!-- Button to allow blocked cname -->
+    <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">Permitir dominio</string>
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Bloquear</string>
     <string name="slot_action_close">Cerrar</string>

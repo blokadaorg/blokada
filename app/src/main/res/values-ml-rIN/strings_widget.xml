@@ -4,8 +4,9 @@
     <string name="widget_show_domain">തടഞ്ഞ ഡൊമെയ്‌നിന്റെ പേര് പ്രദർശിപ്പിക്കുക</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">തടഞ്ഞ അഭ്യർത്ഥനകളുടെ എണ്ണം പ്രദർശിപ്പിക്കുക</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">ഡിഎൻ‌എസ് പ്രദർശിപ്പിക്കുക</string>
+    <!-- A configuration option of widget -->
     <string name="widget_okay">ഉറപ്പിക്കുക</string>
 </resources>

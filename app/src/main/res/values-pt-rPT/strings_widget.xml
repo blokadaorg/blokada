@@ -4,8 +4,9 @@
     <string name="widget_show_domain">Mostrar o nome do domínio bloqueado</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Mostrar número de pedidos bloqueados</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Apresentar DNS</string>
+    <!-- A configuration option of widget -->
     <string name="widget_okay">Confirmar</string>
 </resources>

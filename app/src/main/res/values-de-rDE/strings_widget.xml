@@ -4,8 +4,11 @@
     <string name="widget_show_domain">Name der blockierten Domain anzeigen</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Anzahl blockierter Anfragen anzeigen</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Langes Zahlenformat verwenden</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">DNS anzeigen</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Gateway anzeigen</string>
     <string name="widget_okay">Bestätigen</string>
 </resources>

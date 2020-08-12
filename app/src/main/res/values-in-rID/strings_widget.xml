@@ -4,8 +4,11 @@
     <string name="widget_show_domain">Tampilan nama-nama domain yang diblokir</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Menampilkan jumlah request yang diblokir</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Gunakan format long number</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Tampilkan DNS</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Tampilkan Gateway</string>
     <string name="widget_okay">Konfirmasi</string>
 </resources>

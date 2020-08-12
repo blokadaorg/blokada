@@ -25,7 +25,6 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; blokirano</string>
     <string name="panel_domain_blocked_normal_desc">Ta domena je blokirana. Če želite dostopati do nje, uporabite spodnji gumb.</string>
-    <string name="panel_domain_blocked_answer_desc">DNS strežnik ni pravilno obdelal te domene. Ali je blokirana na strežniku ali pa ne obstaja.</string>
     <string name="panel_domain_blocked_toast">Dodano na seznam prepovedanih.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopiraj</string>
@@ -37,6 +36,8 @@
     <string name="panel_ruleset_canfit">Filtri vsebujejo &lt;b&gt;%s&lt;/b&gt; pravil. Vaša naprava dovoljuje največ &lt;b&gt;%s&lt;/b&gt; MB pomnilnika vsaki aplikaciji, kamor je mogoče shraniti do &lt;b&gt;%s&lt;/b&gt; pravil.&lt;br&gt;To je samo ocena. Blokada uporablja največ pomnilnika kadar združuje sezname. Če ste jih pred kratkim vključili več, počakajte nekaj minut, da sistem sprosti pomnilnik.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Dovoli</string>
+    <!-- Button to allow blocked cname -->
+    <!-- Button to allow blocked domain that was blocked by a cname -->
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Blokiraj</string>
     <string name="slot_action_close">Zapri</string>

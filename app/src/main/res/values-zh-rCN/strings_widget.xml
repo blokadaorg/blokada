@@ -4,8 +4,9 @@
     <string name="widget_show_domain">显示已屏蔽的域名</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">显示已屏蔽的请求数</string>
-    <!-- A configuration option of widget -->
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">显示DNS</string>
+    <!-- A configuration option of widget -->
     <string name="widget_okay">确认</string>
 </resources>

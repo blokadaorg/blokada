@@ -9,7 +9,6 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- A text on the main ads counter. "490 requests blocked" -->
-    <string name="home_requests_blocked">%s ถูกบล็อก</string>
     <string name="home_masterswitch_enabled">Blokada ทำงานอยู้</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">บอกเพื่อนๆ ของคุณ</string>

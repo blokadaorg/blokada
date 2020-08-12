@@ -35,6 +35,8 @@
     <string name="panel_ruleset_canfit">வடிகட்டிகள் தற்போது &lt;b&gt;%s&lt;/b&gt;விதிகளுடன் உடன் கட்டமைக்கப்பட்டுள்ளது. உங்கள் சாதனம் ஒவ்வொரு செயலிக்கும் அதிகபட்சம் &lt;b&gt;%s&lt;/b&gt; மெகாபைட் வரை அனுமதிக்கிறது. மற்றும் &lt;b&gt;%s&lt;/b&gt; விதிகள் அதற்குள் பொறுத்த முடியும். &lt;br&gt; நினைவில் கொள்க: இது ஒரு தோராய மதிப்பீடு மட்டுமே மற்றும் பட்டியல்களை ஒன்றிணைக்கும் போது Blokada அதிகப்படியான நினைவகத்தை பயன்படுத்துகிறது. இவற்றில் சிலவற்றை நீங்கள் சமீபத்தில் செயல்படுத்தி இருந்தால், நினைவகத்தை விடுவிக்க சில நிமிடங்கள் காத்திருக்கவும்.</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">அனுமதி</string>
+    <!-- Button to allow blocked cname -->
+    <!-- Button to allow blocked domain that was blocked by a cname -->
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">நிறுத்து</string>
     <string name="slot_action_close">மூடு</string>
