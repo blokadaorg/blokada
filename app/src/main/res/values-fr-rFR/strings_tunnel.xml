@@ -8,6 +8,7 @@
     <string name="tunnel_config_refetch_toast">Téléchargement des listes commencé</string>
     <string name="tunnel_config_refetch_now_description">Utilisez le bouton ci-dessous pour supprimer le cache et télécharger à nouveau vos listes. Ceci peut vous aider si vous rencontrez des problèmes avec votre filtrage.</string>
     <string name="tunnel_config_refetch_frequency_title">Fréquence de téléchargement des listes</string>
+    <string name="tunnel_config_refetch_frequency_description">Sélectionnez l\'une des options pour configurer la fréquence de téléchargement de vos listes.</string>
     <string name="tunnel_config_refetch_frequency_1">Une fois par jour</string>
     <string name="tunnel_config_refetch_frequency_2">Deux fois par semaine</string>
     <string name="tunnel_config_refetch_frequency_3">Une fois par semaine</string>

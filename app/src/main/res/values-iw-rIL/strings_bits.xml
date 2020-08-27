@@ -3,6 +3,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">הקש או החזק להגדרה</string>
     <string name="home_blokada_disabled">Blokada מושהית</string>
+    <string name="home_blokada_inactive">Blokada הושבתה</string>
     <string name="home_activating">מפעיל</string>
     <string name="home_please_wait">אנא המתן...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
@@ -80,6 +81,7 @@
     <string name="menu_knowledge">קבל עזרה</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">להיות מעורב</string>
+    <string name="menu_telegram">קהילה</string>
     <string name="menu_configure">הגדרת תצורה של Blokada</string>
     <string name="menu_exclude">אל תכלול יישומים שאינם פועלים כראוי</string>
     <!-- A section in menu for additional buttons  -->

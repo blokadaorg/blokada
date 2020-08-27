@@ -19,6 +19,7 @@
     <string name="tunnel_config_wildcard_title">[BETA] மேம்பட்ட adblocking விதிகளை</string>
     <string name="tunnel_config_fallback_title">DNS fallback</string>
     <string name="tunnel_config_smartlist_title">[BETA] Smart List</string>
+    <string name="tunnel_config_smartlist_reset_btn">Reset</string>
     <string name="tunnel_config_disable_wildcard">மேம்பட்ட adblocking விதிகளை முதலில் செயலிழக்கச்செய்.</string>
     <string name="tunnel_config_disable_smartlist">Smart Listகளை முதலில் முடக்கு.</string>
 </resources>

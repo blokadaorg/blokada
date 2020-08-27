@@ -5,8 +5,10 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Engellenen isteklerin sayısını görüntüle</string>
     <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Uzun sayı biçimini kullan</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">DNS\'i görüntüle</string>
     <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Ağ Geçidini Görüntüle</string>
     <string name="widget_okay">Onayla</string>
 </resources>

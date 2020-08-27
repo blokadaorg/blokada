@@ -19,7 +19,7 @@
     <string name="tunnel_config_watchdog_title">Wachhund</string>
     <string name="tunnel_config_watchdog_description">Aktiviere diese Einstellung, wenn die App das VPN nur aktivieren soll, wenn eine Internetverbindung besteht. Starte den Tunnel neu, falls Verbindungsprobleme auftreten. Dies hilft möglicherweise bei einigen Geräten.</string>
     <string name="tunnel_config_powersave_title">Aggressives Aufwecken</string>
-    <string name="tunnel_config_powersave_description">Aktiviere diesen Schalter, wenn Probleme auftreten, die durch die Stromsparfunktion des Geräts verursacht werden. Wenn die App Probleme mit dem Vpn feststellt, versucht sie die Priorität zu erhöhen, um den Energiesparmodus zu deaktivieren.</string>
+    <string name="tunnel_config_powersave_description">Aktiviere diesen Schalter, wenn Probleme auftreten, die durch die Stromsparfunktion des Geräts verursacht werden. Wenn die App Probleme mit dem VPN feststellt, versucht sie die Priorität zu erhöhen, um den Energiesparmodus zu deaktivieren.</string>
     <string name="tunnel_config_reports_title">Berichte</string>
     <string name="tunnel_config_reports_description">Aktiviere diese Einstellung, damit die App Berichte senden kann. Diese helfen uns dabei, Probleme und Fehler zu beheben. Das Senden geschieht nur einmal pro Tag bzw. dann, wenn die App abstürzt. Ist sie deaktiviert, fällt es uns eventuell schwer, alle Probleme zu lösen, die bei dir möglicherweise auftreten. Du musst die App neu starten, damit diese Einstellung wirksam wird.</string>
     <string name="tunnel_config_wildcard_title">[BETA] Erweiterte Werbesperre-Regeln</string>

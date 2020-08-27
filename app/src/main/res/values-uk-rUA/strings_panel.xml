@@ -24,6 +24,7 @@
     <string name="panel_domain_forwarded_toast">Додано до білого списку.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Заблоковано &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">Цей домен було заблоковано. Щоб надалі дозволяти його, натисніть кнопку нижче.</string>
     <string name="panel_domain_blocked_toast">Додано до чорного списку.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Копіювати</string>

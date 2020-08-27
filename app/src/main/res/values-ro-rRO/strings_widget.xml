@@ -5,7 +5,7 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Afișează numărul de solicitări blocate</string>
     <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
-    <string name="widget_show_counter_long">Folosește formatul numerelor lungi</string>
+    <string name="widget_show_counter_long">Folosiți formatul numerelor lungi</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Afișează DNS</string>
     <!-- A configuration option of widget -->

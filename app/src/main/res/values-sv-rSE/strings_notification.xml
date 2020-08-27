@@ -25,4 +25,5 @@
     <string name="notification_keepalive_deactivate">Inaktivera</string>
     <string name="notification_keepalive_deactivating">Blokada blev inaktiverad!</string>
     <string name="notification_channel_filtered">Annonsblockering</string>
+    <string name="notification_channel_other">Annat</string>
 </resources>

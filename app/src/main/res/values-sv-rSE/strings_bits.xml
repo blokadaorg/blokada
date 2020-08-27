@@ -2,6 +2,8 @@
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_blokada_disabled">Blokada är pausad</string>
+    <string name="home_blokada_active">Blokada är aktivt</string>
+    <string name="home_blokada_inactive">Blokada är inaktiverat</string>
     <string name="home_activating">Aktiverar</string>
     <string name="home_please_wait">Var god vänta...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->

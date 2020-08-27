@@ -24,6 +24,7 @@
     <string name="panel_domain_forwarded_toast">அனுமதிக்கப்பட்டது.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">முடக்கப்பட்டது&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">இந்த Domain முடக்கப்பட்டது. இதை அனுமதிக்க கீழே உள்ள Button-ஐ தட்டவும்.</string>
     <string name="panel_domain_blocked_toast">முடக்கப்பட்டது.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">நகலெடு</string>
@@ -103,6 +104,7 @@
     <string name="slot_action_external">வெளி சேமிப்பு</string>
     <string name="slot_filters_title">வடிகட்டி பட்டியல்கள்</string>
     <string name="slot_filters_description">வடிகட்டிகள் மற்றும் அதிலுள்ள உங்களின் தனிப்பட்ட பதிவுகளை இழக்காமல் எங்களின் சேவையகங்கள் கூட ஒத்திசைவு செய்து கொள்ளலாம். &lt;br/&gt;&lt;br/&gt; அதே மாதிரி நீங்கள் எல்லா பதிவுகளை நீக்கலாம் (உங்கள் பதிவுகள் உட்பட), மற்றும் திரும்ப தரவிறக்கம் செய்தும் கொள்ளலாம்.</string>
+    <string name="slot_blocked_normal_title">தளம் முடக்கப்பட்டது</string>
     <string name="slot_forwarded_title">தளம் மாற்றிவிடப்பட்டது</string>
     <string name="slot_whitelist_title">அனுமதிக்கப்பட்ட செயலி</string>
     <string name="slot_list_no_desc">இந்த உள்ளீடுக்கு விவரங்கள் இல்லை.</string>

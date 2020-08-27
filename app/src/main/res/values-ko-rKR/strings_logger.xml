@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="logger_slot_mode_off">비활성화됨</string>
+</resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_blokada_inactive">Blokada er ikke aktiveret</string>
     <string name="home_activating">Aktivere</string>
     <string name="home_please_wait">Vent venligst...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
@@ -48,6 +49,7 @@
     <!-- A section informational content in menu -->
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Bliv involveret</string>
+    <string name="menu_telegram">Fællesskab</string>
     <string name="menu_configure">Konfigurer Blokada funtioner</string>
     <string name="menu_exclude">Udeluk apps der ikke virker korrekt</string>
     <!-- A section in menu for additional buttons  -->

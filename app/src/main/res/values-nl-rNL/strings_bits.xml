@@ -13,6 +13,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada is actief in DNS-modus</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked_since">%s geblokkeerd sinds %s</string>
     <string name="home_masterswitch_enabled">Blokada is aan</string>
     <string name="home_masterswitch_waiting">Wachten op netwerk...</string>
     <!-- A button to share the ads counter on social media -->

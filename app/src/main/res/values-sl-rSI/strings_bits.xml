@@ -4,13 +4,16 @@
     <string name="home_touch">Tapnite ali držite za nastavitve</string>
     <string name="home_blokada_disabled">Blokada ni aktivna</string>
     <string name="home_blokada_active">Blokada je aktivna</string>
+    <string name="home_blokada_active_protected">Blokada Plus je aktivna, vaša povezava je zaščitena</string>
     <string name="home_blokada_inactive">Blokada ni aktivna</string>
     <string name="home_activating">Aktiviranje</string>
     <string name="home_please_wait">Prosimo počakajte...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_vpn_only">Blokada Plus je aktivna samo z VPN</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada deluje v načinu DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked_since">%s blokiranih od %s</string>
     <string name="home_masterswitch_enabled">Blokada je vključena</string>
     <string name="home_masterswitch_waiting">Čakanje na omrežje...</string>
     <!-- A button to share the ads counter on social media -->
@@ -27,9 +30,14 @@
     <string name="home_update_required">Potrebna je posodobitev</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Prispevajte</string>
+    <string name="home_vpn_enabled">Blokada Plus je aktivna</string>
+    <string name="home_vpn_disabled">Blokada Plus je deaktivirana</string>
     <string name="home_account_active">Vaš račun je še aktiven</string>
+    <string name="home_connecting_vpn">Povezovanje na Blokado Plus</string>
     <string name="home_cleanup">Priporočeno čiščenje</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">Povezan z Blokado Plus</string>
+    <string name="home_boringtun_not_loaded">Žal vaša naprava ni podprta v Blokadi Plus. Lahko pa še vedno uporabljate ostale funkcije.</string>
     <string name="home_blocka_vpn_error">Priključitev na strežnik ni uspela. Ali ste na mreži?</string>
     <string name="home_account_error">Ne morem preveriti računa. Ali ste na mreži?</string>
     <string name="home_permission_error">Prosimo dovolite dostop do VPN.</string>
@@ -44,21 +52,28 @@
     <string name="menu_ads_rules_label">Dodajte lastna pravila za uspešnejše blokiranje.</string>
     <string name="menu_ads_log_label">Oglejte si, kaj je bilo pred kratkim blokirano ali dovoljeno.</string>
     <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">Blokada Plus</string>
     <string name="menu_vpn_activate_account">Prosimo, da najprej aktivirate svoj račun.</string>
     <string name="menu_vpn_select_gateway">Prosimo izberite gateway strežnik.</string>
+    <string name="menu_vpn_intro_button">Zakaj potrebujem Blokado Plus?</string>
     <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account">Moja Blokada Plus</string>
     <string name="menu_vpn_account_id">ID: %s</string>
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Gateway strežniki</string>
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Naprave</string>
     <string name="menu_vpn_manage_subscription">Upravljaj z naročnino računa</string>
+    <string name="menu_vpn_manage_subscription_unavailable">Če je vaš račun nov, obiščite našo spletno stran. V Blokadi Slim nakup naročnine ni mogoč.</string>
     <string name="menu_vpn_account_secret">Tapnite sliko zgoraj za vaš ID. Vaš ID je tajen in ga ne povejte drugim. Zapišite si ga za primer, če morate aplikacijo izbrisati.</string>
     <string name="menu_vpn_restore_label">Tu lahko ponovno namestite vaš račun, če ste na primer pobrisali aplikacijo.</string>
+    <string name="menu_vpn_intro">Skozi Blokado Plus so vaši podatki zakodirani, IP naslov je skrit in vaša lokacija spremenjena.</string>
     <string name="menu_vpn_account_label">Za uporabo VPN potrebujete aktiven račun. Preverite ali namestite vaš račun tukaj.</string>
     <string name="menu_vpn_gateways_label">Izberite enega od gateway strežnikov za povezavo. Vaša naprava bo varno pošiljala zakodirane podatke skozi ta strežnik in ostali boste anonimni.</string>
     <string name="menu_vpn_support_label">Če naletite na težave, stopite v stik z nami.</string>
     <string name="menu_vpn_support_button">Podpora</string>
+    <string name="menu_vpn_tunnel_settings">Nastavitve Blokade Plus</string>
+    <string name="menu_vpn_tunnel_learn_more">Več o Blokadi Plus</string>
     <string name="menu_vpn_info_account_label">Ali imam račun?</string>
     <string name="menu_vpn_info_account_line1">Da! Vaš račun je samodejno ustvarjen ob prvem zagonu. Ni se potrebno posebej registrirati.</string>
     <string name="menu_vpn_info_account_line2">Tapnite gornjo sliko in videli boste svoj ID računa.</string>
@@ -67,12 +82,15 @@
     <string name="menu_dns_recommended">Priporočeni strežniki DNS</string>
     <string name="menu_dns_intro">Naloga DNS je preslikava med IP številkami in imeni spletišč in strežnikov, ki jih uporabljate. Izbira dobrega DNS lahko pohitri vaše delo in pomaga pri zaščiti vaše zasebnosti.</string>
     <string name="menu_dns_select">Izberite enega od strežnikov DNS.</string>
+    <string name="menu_apps_intro">Nekatere aplikacije morda ne bodo delovale pravilno zaradi Blokade. Lahko imajo na primer težave s povezovanjem.\n\nPogosto v takih primerih pomaga vključen VPN.\n\nSicer pa lahko za te aplikacije popolnoma izključite Blokadin nadzor. Zavedajte se, da izvzete aplikacije komunicirajo mimo Blokade Plus.</string>
     <string name="menu_apps_system_label">Sistemske aplikacije so tiste, ki so prednameščene na vaši napravi. Nekatere od njih so skrite. Ne spreminjajte nastavitev, če niste zagotovo prepričani.</string>
     <string name="menu_host_list_intro">Seznam strežnikov vsebuje pravila za blokado oglasov in sledlinikov. Priporočamo čim manj aktivnih seznamov.</string>
     <string name="menu_host_adblocking_features">Blokadini Laboratoriji</string>
     <string name="menu_host_adblocking_settings">Nastavitve blokiranja oglasov</string>
     <string name="menu_host_list_status">Status seznamov</string>
     <string name="menu_host_list_download">Nastavitve prenosa seznamov</string>
+    <string name="menu_host_whitelist">Strežniki na tem seznamu ne bodo nikoli blokirani. To funkcijo uporabite, ko je nek strežnik blokiran, pa tega ne želite. Ta seznam nima učinka na izvzete aplikacije.</string>
+    <string name="menu_host_blacklist">Strežniki na tem seznamu bodo vedno blokirani. To funkcijo uporabite, ko nek strežnik ni blokiran z aktivnimi pravili, pa bi ga želeli blokirati. Ta seznam nima učinka na izvzete aplikacije.</string>
     <!-- A section of other settings in menu -->
     <string name="menu_other">Ostalo</string>
     <string name="menu_share_log_label">Deljenje dnevnika nam omogoča, da lažje odkrijemo vzrok vaše težave. Pazite, da ga zasebno pošljete kateremu koli članu ožje Blokadine ekipe.</string>
@@ -82,6 +100,7 @@
     <string name="menu_knowledge">Dobite pomoč</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Pridružite se</string>
+    <string name="menu_telegram">Skupnost</string>
     <string name="menu_configure">Nastavite Blokado</string>
     <string name="menu_exclude">Izpustite aplikacije, ki ne delujejo pravilno</string>
     <!-- A section in menu for additional buttons  -->

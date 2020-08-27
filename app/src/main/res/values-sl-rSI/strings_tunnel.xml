@@ -8,6 +8,7 @@
     <string name="tunnel_config_refetch_toast">Prenos seznamov se je začel</string>
     <string name="tunnel_config_refetch_now_description">S spodnjim gumbom počistite začasne podatke in ponovno prenesete sezname. To lahko včasih odpravi težave pri filtriranju.</string>
     <string name="tunnel_config_refetch_frequency_title">Pogostost prenosa seznamov</string>
+    <string name="tunnel_config_refetch_frequency_description">Izberite eno od možnosti, kako pogosto naj aplikacija posodobi sezname.</string>
     <string name="tunnel_config_refetch_frequency_1">Enkrat dnevno</string>
     <string name="tunnel_config_refetch_frequency_2">Dvakrat tedensko</string>
     <string name="tunnel_config_refetch_frequency_3">Enkrat tedensko</string>
@@ -18,11 +19,15 @@
     <string name="tunnel_config_watchdog_title">Čuvaj</string>
     <string name="tunnel_config_watchdog_description">Vključite to nastavitev, če želite aktivirati VPN samo kadar ste priključeni v internet in samodejno ponovno zagnati tunel ob težavah s povezavo. Na nekaterih napravah ta nastavitev pomaga.</string>
     <string name="tunnel_config_powersave_title">Agresivno zbujanje</string>
+    <string name="tunnel_config_powersave_description">Vključite to nastavitev, če imate težave zaradi varčevanja z energijo. Ko aplikacija zazna težave s povezljivostjo prek tunela, bo skušala povečati svojo prioriteto in tako izključiti način varčevanja z energijo.</string>
     <string name="tunnel_config_reports_title">Poročila</string>
     <string name="tunnel_config_reports_description">Vključite to nastavitev, da dovolite pošiljanje poročil, s katerimi si bomo pomagali pri odpravi težav in napak. To se bo dogajalo le enkrat dnevno ali ob sesutju programa. Izklop te nastavitve nam bo otežil reševanje težav. Ob spremembi nastavitve boste mogoče morali ponovno zagnati aplikacijo.</string>
     <string name="tunnel_config_wildcard_title">[BETA] Napredna pravila blokiranja oglasov</string>
     <string name="tunnel_config_wildcard_description">Vključite to možnost če želite uporabljati nadomestne znake v filtrirnih pravilih. Na primer, pravilo *.google.com blokira vse Googlove domene. Opozarjamo, da lahko taka pravila povzročijo hitrejšo porabo baterije. Ta funkcija je še v razvoju in lahko da ne deluje pravilno.</string>
+    <string name="tunnel_config_cname_title">[BETA] Blokiranje glede na CName</string>
+    <string name="tunnel_config_cname_description">Vključite to možnost, če želite blokirati vse CName variante domen na vašem seznamu. CName je pripeto ime domene, ki ga nekateri oglaševalci uporabljajo za skrivanje ciljnih domen. To taktiko lahko zaobidemo z blokado vseh različnih domen, ki se preslikajo v blokirano ime domene. Ta funkcija je še v razvoju in lahko da ne deluje popolnoma.</string>
     <string name="tunnel_config_fallback_title">Zasilni DNS</string>
+    <string name="tunnel_config_fallback_description">Vklopite to možnost če izgubljate dostop do interneta pri nekaterih povezavah, npr. vašem WiFi. Aplikacija bo začasno preklopila na Cloudflare-ov ali Googlov DNS in obdržala povezljivost. Morda boste morali ponovno izbrati strežnike v razdelku DNS za aktivacijo te funkcije.</string>
     <string name="tunnel_config_smartlist_title">[BETA] Pametni seznam</string>
     <string name="tunnel_config_smartlist_reset_btn">Ponastavi</string>
     <string name="tunnel_config_smartlist_clean_btn">Počisti</string>

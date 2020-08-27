@@ -36,6 +36,7 @@
     <!-- A button opening VPN account settings -->
     <!-- A button opening VPN gateways settings -->
     <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_support_button">പിന്തുണ</string>
     <!-- A section of other settings in menu -->
     <!-- A section of help, telegram, and other buttons in menu -->
     <!-- A section informational content in menu -->

@@ -83,6 +83,7 @@
     <string name="menu_knowledge">Отримати допомогу</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Долучитися</string>
+    <string name="menu_telegram">Спільнота</string>
     <string name="menu_configure">Налаштувати Blokada</string>
     <string name="menu_exclude">Пропустити додатки, що працюють неправильно</string>
     <!-- A section in menu for additional buttons  -->

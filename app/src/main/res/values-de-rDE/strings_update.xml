@@ -20,5 +20,5 @@
     <string name="update_complete">Download vollständig</string>
     <string name="update_failed">Download fehlgeschlagen</string>
     <string name="update_instruction">Sobald es fertig ist, fragt Blokada dich, ob das Update installiert werden darf.</string>
-    <string name="update_instruction_failed">Tippe hier, um es erneut zu versuchen oder drücke lange drauf um es über deinen Browser runterzuladen.</string>
+    <string name="update_instruction_failed">Tippe hier, um es erneut zu versuchen oder drücke lange drauf, um es über deinen Browser runterzuladen.</string>
 </resources>

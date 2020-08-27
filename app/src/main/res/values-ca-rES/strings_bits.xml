@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_activating">S\'està activant</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <!-- A button to share the ads counter on social media -->
     <!-- A short text for the item that displays update information -->
     <!-- A short text for the item that displays donate link -->
+    <string name="home_donate">Donatius</string>
     <!-- A short text for the button to change VPN settings -->
     <!-- Ads section header in menu (for configuring ad blocking) -->
+    <string name="menu_ads">Ads</string>
     <!-- VPN section header in menu (for configuring VPN) -->
     <!-- A button opening VPN account settings -->
     <!-- A button opening VPN gateways settings -->
     <!-- A button opening VPN leases (devices) settings -->
     <!-- A section of other settings in menu -->
+    <string name="menu_other">Other</string>
     <!-- A section of help, telegram, and other buttons in menu -->
     <!-- A section informational content in menu -->
     <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">Involucreu-vos</string>
+    <string name="menu_telegram">Comunitat</string>
     <!-- A section in menu for additional buttons  -->
     <!-- A section to manage some settings (generic)  -->
+    <string name="menu_manage">Gestiona</string>
 </resources>

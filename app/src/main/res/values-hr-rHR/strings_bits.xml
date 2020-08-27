@@ -38,6 +38,7 @@
     <!-- A section of help, telegram, and other buttons in menu -->
     <!-- A section informational content in menu -->
     <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">Uključite se</string>
     <!-- A section in menu for additional buttons  -->
     <!-- A section to manage some settings (generic)  -->
 </resources>

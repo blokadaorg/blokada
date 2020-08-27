@@ -30,9 +30,11 @@
     <string name="menu_vpn_gateways">เกตเวย์</string>
     <!-- A button opening VPN leases (devices) settings -->
     <!-- A section of other settings in menu -->
+    <string name="menu_other">อื่นๆ</string>
     <!-- A section of help, telegram, and other buttons in menu -->
     <!-- A section informational content in menu -->
     <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">เข้าร่วมกับเรา</string>
     <!-- A section in menu for additional buttons  -->
     <!-- A section to manage some settings (generic)  -->
 </resources>

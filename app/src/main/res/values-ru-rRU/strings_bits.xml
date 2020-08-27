@@ -5,7 +5,7 @@
     <string name="home_blokada_disabled">Blokada приостановлена</string>
     <string name="home_blokada_active">Blokada активна</string>
     <string name="home_blokada_active_protected">Blokada Plus активен, ваш интернет защищен</string>
-    <string name="home_blokada_inactive">Blokada деактивирована</string>
+    <string name="home_blokada_inactive">Blokada неактивна</string>
     <string name="home_activating">Активация</string>
     <string name="home_please_wait">Пожалуйста, подождите...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
@@ -21,7 +21,7 @@
     <string name="home_share_state">Поделитесь количеством заблокированной рекламы</string>
     <string name="home_share_state_google">Помогите другим узнать о Blokada</string>
     <string name="home_share_msg_google">Попробуйте Blokada Slim и сохраните свою конфиденциальность! Получите его в Google Play.</string>
-    <string name="home_adblocking_enabled">Блокировка рекламы активирована</string>
+    <string name="home_adblocking_enabled">Блокировка рекламы активна</string>
     <string name="home_adblocking_disabled">Блокировка рекламы деактивирована</string>
     <string name="home_blokadaorg">Вы используете Blokada Slim</string>
     <string name="home_blokadaorg_state">Нажмите, чтобы получить версию с открытым исходным кодом</string>
@@ -30,7 +30,7 @@
     <string name="home_update_required">Требуется обновление</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Пожертвовать</string>
-    <string name="home_vpn_enabled">Blokada Plus активирована</string>
+    <string name="home_vpn_enabled">Blokada Plus активна</string>
     <string name="home_vpn_disabled">Blokada Plus деактивирована</string>
     <string name="home_account_active">Ваш аккаунт все еще активен</string>
     <string name="home_connecting_vpn">Подключение к Blokada Plus</string>

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_activating">有効になっています</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <!-- A text on the main ads counter. "490 requests blocked" -->
     <!-- A button to share the ads counter on social media -->
     <!-- A short text for the item that displays update information -->
     <!-- A short text for the item that displays donate link -->
+    <string name="home_donate">寄付</string>
     <!-- A short text for the button to change VPN settings -->
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <!-- VPN section header in menu (for configuring VPN) -->

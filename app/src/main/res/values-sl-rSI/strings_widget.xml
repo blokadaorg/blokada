@@ -5,8 +5,10 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Prikaži število blokiranih zahtev</string>
     <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Vedno pokaži številke v tisočih</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Prikaži DNS</string>
     <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Pokaži prehod</string>
     <string name="widget_okay">Potrdi</string>
 </resources>

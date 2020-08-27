@@ -24,6 +24,7 @@
     <string name="tunnel_config_wildcard_description">Aktivujte tento prepínač, pokiaľ chcete v pravidlách filtrovania použiť zástupné znaky. Napríklad pravidlo pre *.google.com by zablokovalo všetky domény od Googlu. Táto funkcia môže mať negatívny vplyv na životnosť batérie. Upozorňujeme, že sa jedná o experimentálnu funkciu, nemusí fungovať správne.</string>
     <string name="tunnel_config_fallback_title">Záložné DNS</string>
     <string name="tunnel_config_smartlist_title">[BETA] Inteligentný zoznam</string>
+    <string name="tunnel_config_smartlist_reset_btn">Vynulovať</string>
     <string name="tunnel_config_smartlist_description">Aktivovaním tohto prepínača zapnete funkciu inteligentného zoznamu, ktorá dramaticky znižuje počet pravidiel vo vašich filtroch, čo potenciálne zlepšuje životnosť batérie a znižuje využitie RAM. Pri zapnutej funkcii Blokada preskúma váš záznam požiadaviek a dynamicky vygeneruje zoznam obsahujúci iba také pravidlá, ktoré skutočne zablokovali aspoň jednu požiadavku. Inteligentný zoznam je aktualizovaný každý deň počas noci. Upozorňujeme, že počas obdobia učenia (niekoľko dní) môžete zaznamenať vyšší počet nechcených povolených žiadostí. Toto je experimentálna funkcia, ktorá nemusí fungovať správne.</string>
     <string name="tunnel_config_disable_wildcard">Najprv deaktivujte Pokročilé pravidlá blokovania reklám.</string>
     <string name="tunnel_config_disable_smartlist">Najprv deaktivujte Inteligentný zoznam.</string>

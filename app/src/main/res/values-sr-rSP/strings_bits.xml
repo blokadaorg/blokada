@@ -36,10 +36,13 @@
     <!-- A button opening VPN leases (devices) settings -->
     <string name="menu_vpn_leases">Уређаји</string>
     <string name="menu_vpn_manage_subscription">Управљајте претплатом</string>
+    <string name="menu_vpn_support_button">Подршка</string>
     <!-- A section of other settings in menu -->
+    <string name="menu_other">Друго</string>
     <!-- A section of help, telegram, and other buttons in menu -->
     <!-- A section informational content in menu -->
     <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">Укључите се</string>
     <!-- A section in menu for additional buttons  -->
     <!-- A section to manage some settings (generic)  -->
 </resources>

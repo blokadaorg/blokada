@@ -24,6 +24,7 @@
     <string name="panel_domain_forwarded_toast">Lagt til i hvitelisten.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Blokkert &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">Dette domenet er blokkert. For å tillate det i fremtiden, bruk knappen nedenfor.</string>
     <string name="panel_domain_blocked_toast">Lagt til i svartelisten.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopier</string>

@@ -57,7 +57,7 @@
     <string name="menu_vpn_select_gateway">Vă rugăm să selectaţi un gateway.</string>
     <string name="menu_vpn_intro_button">De ce am nevoie de Blokada Plus?</string>
     <!-- A button opening VPN account settings -->
-    <string name="menu_vpn_account">Comtul meu Blokada Plus</string>
+    <string name="menu_vpn_account">Contul meu Blokada Plus</string>
     <string name="menu_vpn_account_id">ID: %s</string>
     <!-- A button opening VPN gateways settings -->
     <string name="menu_vpn_gateways">Gateway-uri</string>

@@ -25,6 +25,7 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Bloqueado &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">Este domínio foi bloqueado. Para o permitir no futuro, use o botão abaixo.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">Este domínio não foi resolvido corretamente pelo servidor de DNS. Ou o servidor bloqueou o domínio ou este não existe.</string>
     <string name="panel_domain_blocked_toast">Adicionado à lista negra</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copiar</string>

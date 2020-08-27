@@ -32,7 +32,7 @@
     <string name="notification_expired_title">Blokada Plus ist deaktiviert</string>
     <string name="notification_expired_description">Dein Konto ist nicht aktiv und Blokada Plus ist deaktiviert. Die Standard-Blokada-Funktionen funktionieren ohne das Blokada Plus VPN. Bitte denke darüber nach, dein Konto für besseren Schutz und Unterstützung des Projekts zu aktivieren.</string>
     <string name="notification_lease_expired_title">Blokada Plus ist deaktiviert</string>
-    <string name="notification_lease_expired_description">Es gab ein Problem mit der Verbindung zum Blockada-Tunnel. Versuche bitte ein anderes Gateway. Wenn das Problem anhält, nimm bitte Kontakt mit uns auf.</string>
+    <string name="notification_lease_expired_description">Es gab ein Problem mit der Verbindung zum Blokada-Tunnel. Versuche bitte ein anderes Gateway. Wenn das Problem anhält, nimm bitte Kontakt mit uns auf.</string>
     <string name="notification_channel_filtered">Werbeblocker</string>
     <string name="notification_channel_announcements">Ankündigungen</string>
     <string name="notification_channel_vpn">Blokada Plus</string>

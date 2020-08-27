@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_touch">Tekan atau sentuh untuk mengubah</string>
     <string name="home_blokada_disabled">Blokada sedang ditangguhkan</string>
+    <string name="home_blokada_active">Blokada sedang aktif</string>
+    <string name="home_blokada_active_protected">Blokada Plus sedang aktif, dan sambungan internet anda dilindungi</string>
+    <string name="home_blokada_inactive">Blokada dinyahaktifkan</string>
     <string name="home_activating">Sedang Diaktifkan</string>
     <string name="home_please_wait">Sila tunggu...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_vpn_only">Blokada Plus sedang aktif tetapi tidak menyekat iklan</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Blokada sedang aktif pada mod DNS</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked_since">%s disekat sejak %s</string>
     <string name="home_masterswitch_enabled">Blokada sedang berjalan</string>
+    <string name="home_masterswitch_waiting">Menunggu sambungan rangkaian...</string>
     <!-- A button to share the ads counter on social media -->
     <string name="home_share">Beritahu rakan anda</string>
     <string name="home_share_state">Kongsi markah Blokada anda</string>
+    <string name="home_share_state_google">Bantu yang lain untuk belajar tentang Blokada</string>
+    <string name="home_share_msg_google">Cuba Blokada Slim dan kekalkan keselamatan privasi anda! Dapatkannya di Google Play.</string>
     <string name="home_adblocking_enabled">Penyekat iklan sedang aktif</string>
     <string name="home_adblocking_disabled">Penyekat iklan tidak diaktifkan</string>
+    <string name="home_blokadaorg">Anda sedang menggunakan Blokada Slim</string>
+    <string name="home_blokadaorg_state">Sentuh untuk dapatkan edisi sumber terbuka</string>
     <!-- A short text for the item that displays update information -->
     <string name="home_whats_new">Apa yang baharu?</string>
     <string name="home_update_required">Kemaskini diperlukan</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Derma</string>
+    <string name="home_vpn_enabled">Blokada Plus sedang aktif</string>
+    <string name="home_vpn_disabled">Blokada Plus dinyahaktifkan</string>
     <string name="home_account_active">Akaun anda masih aktif</string>
+    <string name="home_connecting_vpn">Menyambung kepada Blokada Plus</string>
     <string name="home_cleanup">Pembersihan disarankan</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">Bersambung kepada Blokada Plus</string>
+    <string name="home_boringtun_not_loaded">Maaf, peranti anda tidak menyokong Blokada Plus. Tetapi anda masih boleh menggunakan fungsi-fungsi yang lain.</string>
+    <string name="home_blocka_vpn_error">Tidak dapat bersambung kepada geteway. Adakah anda sedang di atas talian?</string>
+    <string name="home_account_error">Akaun anda tidak dapat disahkan. Adakah anda sedang di atas talian?</string>
+    <string name="home_permission_error">Sila beri kebenaran kepada VPN.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <string name="menu_ads">Iklan</string>
     <string name="menu_ads_live_label">Log permintaan hos yang benarkan dan yang disekat</string>
@@ -52,6 +72,7 @@
     <!-- A section informational content in menu -->
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Libatkan diri</string>
+    <string name="menu_telegram">Komuniti</string>
     <string name="menu_configure">Tetapan sifat Blokada</string>
     <string name="menu_exclude">Kecualikan aplikasi yang tidak berfingsi dengan betul</string>
     <!-- A section in menu for additional buttons  -->

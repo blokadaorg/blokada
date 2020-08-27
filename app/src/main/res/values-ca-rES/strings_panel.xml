@@ -23,6 +23,7 @@
     <string name="panel_domain_forwarded_toast">S\'ha afegit a la llista blanca.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; bloquejat</string>
+    <string name="panel_domain_blocked_normal_desc">Aquest domini s\'ha bloquejat. Per permetre\'l en el futur, utilitzeu el botó de sota.</string>
     <string name="panel_domain_blocked_toast">S\'ha afegit a la llista negra.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_ruleset">Comptador de filtres</string>
@@ -39,7 +40,9 @@
     <string name="slot_action_remove">Elimina</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Si</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">No</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Com s\'utilitza la nova interfície d\'usuari? Toqueu aquí per saber-ne més.</string>
     <string name="slot_intro_new_header">Com s\'utilitza la nova interfície?</string>
@@ -59,6 +62,7 @@
     <string name="slot_enter_domain_desc">Introduïu els dominis separats per una coma. També podeu enganxar un enllaç a qualsevol llista de servidors o importar un fitxer de llista de servidors local.</string>
     <string name="slot_enter_domain_error">Això no s\'assembla gens a mi.</string>
     <string name="slot_enter_domain_file">Fitxer</string>
+    <string name="slot_enter_file_import">Import</string>
     <string name="slot_enter_name_title">Nom</string>
     <string name="slot_enter_name_desc">Introduïu el nom de la nova entrada. També podeu generar un nom suggerit.</string>
     <string name="slot_enter_name_error">Això no s\'assembla gens a mi.</string>
@@ -69,6 +73,7 @@
     <string name="slot_allapp_whitelisted">Ignorada</string>
     <string name="slot_allapp_normal">No ignorada</string>
     <string name="slot_allapp_whitelist">Ignora</string>
+    <string name="slot_dns_name_private">El DNS personalitzat està actiu</string>
     <string name="slot_action_none">Aquesta acció encara no està disponible.</string>
     <string name="slot_action_unwhitelist">Cancel·la</string>
     <string name="slot_action_author">Quant a</string>
@@ -89,6 +94,7 @@
     <string name="slot_action_external">Emmagatzematge extern</string>
     <string name="slot_filters_title">Llista de filtres</string>
     <string name="slot_filters_description">Podeu sincronitzar la llista de filtres amb els nostres servidors sense perdre les entrades personalitzades. &lt;br/&gt;&lt;br/&gt;Alternativament, podeu eliminar totes les entrades (incloses les vostres) i tornar-les a baixar.</string>
+    <string name="slot_blocked_normal_title">Domini bloquejat</string>
     <string name="slot_forwarded_title">Domini reenviat</string>
     <string name="slot_whitelist_title">Aplicació en la llista blanca</string>
     <string name="slot_list_no_desc">Aquesta entrada no té cap descripció.</string>

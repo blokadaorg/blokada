@@ -24,6 +24,7 @@
     <string name="panel_domain_forwarded_toast">נוסף לרשימת ההיתרים.</string>
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; חסום</string>
+    <string name="panel_domain_blocked_normal_desc">דומיין זה חסום. כדי לאשר אותו בעתיד, השתמש בלחצן למטה.</string>
     <string name="panel_domain_blocked_toast">נוסף לרשימת החסימה.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">העתק</string>
@@ -104,6 +105,7 @@
     <string name="slot_action_external">אחסון חיצוני</string>
     <string name="slot_filters_title">רשימת מסננים</string>
     <string name="slot_filters_description">תוכל לסנכרן את רשימת המסננים עם השרתים שלנו מבלי לאבד את הערכים המותאמים אישית שהוספת.&lt;br/&gt;&lt;br/&gt;לחלופין, תוכל לאפס את כל הערכים (כולל מותאמים אישית) ולהוריד אותם מחדש.</string>
+    <string name="slot_blocked_normal_title">דומיין חסום</string>
     <string name="slot_forwarded_title">הדומיין הועבר</string>
     <string name="slot_whitelist_title">יישום מאושר</string>
     <string name="slot_list_no_desc">רשומה זו אינה מכילה תיאור.</string>
@@ -146,11 +148,16 @@
     <string name="slot_recommended_dns_description">כאשר מופעל, Blokada תיבחר באופן אוטומטי בשרתי DNS מומלצים שיסייעו להאיץ את האינטרנט שלך ולהגן על פרטיותך. אחרת, מכשירך ישתמש בשרתי DNS ברירת מחדל של הרשת שלך. אם תבחר ידנית בשרתי DNS בסעיף מתקדם, התעלם מהגדרה זו.</string>
     <!-- A button to share debug log. Keep it short. -->
     <!-- A button to open help -->
+    <string name="slot_help_action">עזרה</string>
     <!-- A button to donate -->
+    <string name="slot_donate_action">תרום</string>
     <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">פתח</string>
     <!-- A button to open a blog -->
+    <string name="slot_blog_action">פתח</string>
     <!-- A button to open a description website of current app version after update. -->
     <!-- A button to update the app. -->
+    <string name="slot_account_name_title">מזהה משתמש</string>
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->

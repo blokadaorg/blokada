@@ -83,6 +83,7 @@
     <string name="menu_knowledge">Získať pomoc</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Zapojte sa</string>
+    <string name="menu_telegram">Komunita</string>
     <string name="menu_configure">Konfigurovať funkcie Blokady</string>
     <string name="menu_exclude">Vynechať aplikácie, ktoré nepracujú správne</string>
     <!-- A section in menu for additional buttons  -->

@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="logger_slot_mode_off">নিষ্ক্রিয় রয়েছে</string>
+</resources>

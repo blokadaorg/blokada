@@ -13,6 +13,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">Blokada е активна в DNS режим</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked_since">%s е блокиран от %s</string>
     <string name="home_masterswitch_enabled">Блокада е включена</string>
     <string name="home_masterswitch_waiting">Изчаква се мрежа...</string>
     <!-- A button to share the ads counter on social media -->

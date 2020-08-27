@@ -25,6 +25,7 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Αποκλεισμένο &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">Αυτός ο τομέας έχει αποκλειστεί. Για να το επιτρέψετε στο μέλλον, χρησιμοποιήστε το παρακάτω κουμπί.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">Αυτός ο τομέας δεν επιλύθηκε σωστά από το διακομιστή DNS. Είτε ο διακομιστής απέκλεισε τον τομέα είτε δεν υπάρχει.</string>
     <string name="panel_domain_blocked_toast">Προστέθηκε στη μαύρη λίστα.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Αντιγραφή</string>
@@ -69,23 +70,31 @@
     <string name="slot_enter_domain_no_file">Δεν βρέθηκαν αρχεία στο /Download/blokada/filters</string>
     <string name="slot_enter_file_titel">Όνομα αρχείου</string>
     <string name="slot_enter_file_import">Εισαγωγή</string>
+    <string name="slot_enter_name_error">Αυτό δεν μου μοιάζει με κάτι.</string>
+    <string name="slot_action_unwhitelist">Ακυρωσε</string>
     <!-- A prefix for generated name for manually entered domain.  -->
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
     <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_import">Εισαγωγή</string>
     <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_show">Αναγνωριστικό λογαριασμού</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
     <!-- Gateway load -->
     <!-- Gateway load -->
     <!-- A button to share debug log. Keep it short. -->
     <!-- A button to open help -->
+    <string name="slot_help_action">Βοήθεια</string>
     <!-- A button to donate -->
+    <string name="slot_donate_action">Κάντε μια δωρεά</string>
     <!-- A button to open something (a website) -->
     <!-- A button to open a blog -->
     <!-- A button to open a description website of current app version after update. -->
     <!-- A button to update the app. -->
+    <string name="slot_account_name_title">Αναγνωριστικό λογαριασμού</string>
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
+    <string name="slot_reset_counter_action">Επαναφορά</string>
 </resources>

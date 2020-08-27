@@ -25,6 +25,7 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">已屏蔽 &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">此域名已被屏蔽。要允许此域名，使用下面的按钮。</string>
+    <string name="panel_domain_blocked_nxdomain_desc">DNS 服务器未正确解析此域名。可能是服务器拦截了域名，或是它不存在。</string>
     <string name="panel_domain_blocked_toast">已添加到黑名单。</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">复制</string>

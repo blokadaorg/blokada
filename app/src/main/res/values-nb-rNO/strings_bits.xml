@@ -3,6 +3,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Trykk eller hold inn for å sette opp</string>
     <string name="home_blokada_disabled">Blokada er satt på pause</string>
+    <string name="home_blokada_inactive">Blokada er deaktivert</string>
     <string name="home_activating">Aktiverer</string>
     <string name="home_please_wait">Vennligst vent...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
@@ -61,6 +62,7 @@
     <string name="menu_knowledge">Få hjelp</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Bli involvert</string>
+    <string name="menu_telegram">Nettsamfunn</string>
     <string name="menu_configure">Konfigurer Blokada-funksjoner</string>
     <string name="menu_exclude">Ekskluder apper som ikke fungerer riktig</string>
     <!-- A section in menu for additional buttons  -->

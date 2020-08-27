@@ -2,6 +2,7 @@
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_blokada_disabled">Uhlelo lumisiwe</string>
+    <string name="home_blokada_inactive">I-Blokada icishiwe</string>
     <string name="home_activating">Iyaqala</string>
     <string name="home_please_wait">Sicela ulinde...</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
@@ -68,6 +69,7 @@
     <string name="menu_knowledge">Thola usizo</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Bamba iqhaza</string>
+    <string name="menu_telegram">Umphakathi</string>
     <string name="menu_configure">Lungiselela imimo yeBlokada</string>
     <string name="menu_exclude">Khipha izinhlelo ezingasebenzi kahle</string>
     <!-- A section in menu for additional buttons  -->

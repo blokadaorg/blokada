@@ -19,4 +19,5 @@
     <string name="tunnel_config_reports_title">Informes</string>
     <string name="tunnel_config_reports_description">Activeu aquest commutador per permetre que l\'aplicació enviï informes que ens ajudin a solucionar problemes i errors. Això succeirà només un cop al dia, o quan l\'aplicació es bloquegi. En desactivar això podeu dificultar la resolució de qualsevol problema que pugueu experimentar. És possible que necessiteu reiniciar l\'aplicació perquè aquesta configuració tingui efecte.</string>
     <string name="tunnel_config_fallback_title">DNS alternatiu</string>
+    <string name="tunnel_config_smartlist_reset_btn">Restableix</string>
 </resources>

@@ -25,6 +25,7 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">Blokkolva &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="panel_domain_blocked_normal_desc">Ez a domain blokkolásra került. Az engedélyezéshez használd a lenti gombot.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">Ezt a domain-t a DNS-kiszolgáló helytelenül fejtette meg. Vagy a szerver blokkolta a tartományt, vagy az nem létezik.</string>
     <string name="panel_domain_blocked_toast">Hozzáadva a tiltólistához.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Másolás</string>

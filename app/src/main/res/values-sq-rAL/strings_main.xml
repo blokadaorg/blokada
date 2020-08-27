@@ -14,6 +14,7 @@
     <!-- App status, as in: Blokada is Active -->
     <!-- App status, as in: Blokada is Disabled -->
     <!-- App status, always displayed without the "Blokada is" part. -->
+    <string name="main_status_activating">Po fillon</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
     <!-- A menu option to send feedback or contact us -->
     <!-- A menu option to open Patron of the month -->

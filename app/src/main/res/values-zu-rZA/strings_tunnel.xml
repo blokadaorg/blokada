@@ -19,4 +19,5 @@
     <string name="tunnel_config_reports_title">Imibiko</string>
     <string name="tunnel_config_reports_description">Yenza lokhu kusetshenziswe ukuze uvumele uhlelo ukuthi lithumele imibiko esisiza ukuba silungise izinkinga. Lokhu kuzokwenzeka kanye kuphela ngosuku, noma uma uhlelo luphazamiseka. Ukukhubaza lokhu kungenza kube nzima ukuxazulula noma yiziphi izinkinga ongase ube nazo. Kungase kudingeke uqale kabusha lolu hlelo ukuze lusebenze.</string>
     <string name="tunnel_config_fallback_title">Enye i-DNS</string>
+    <string name="tunnel_config_smartlist_reset_btn">Setha kabusha</string>
 </resources>

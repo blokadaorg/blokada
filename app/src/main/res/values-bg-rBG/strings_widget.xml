@@ -9,6 +9,6 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Показва DNS</string>
     <!-- A configuration option of widget -->
-    <string name="widget_show_gateway">Показва Gateway</string>
+    <string name="widget_show_gateway">Показване на Шлюза</string>
     <string name="widget_okay">Потвърди</string>
 </resources>

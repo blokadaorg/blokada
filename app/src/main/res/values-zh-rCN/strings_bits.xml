@@ -82,6 +82,7 @@
     <string name="menu_knowledge">获得帮助</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">加入我们</string>
+    <string name="menu_telegram">社区</string>
     <string name="menu_configure">配置 Blokada 功能</string>
     <string name="menu_exclude">排除无法正常工作的应用</string>
     <!-- A section in menu for additional buttons  -->

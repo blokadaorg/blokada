@@ -82,6 +82,7 @@
     <string name="menu_knowledge">Obter ajuda</string>
     <!-- A section content promoting participating in our project -->
     <string name="menu_get_involved">Participe</string>
+    <string name="menu_telegram">Comunidade</string>
     <string name="menu_configure">Configurar funcionalidades do Blokada</string>
     <string name="menu_exclude">Excluir aplicações que não funcionam correctamente</string>
     <!-- A section in menu for additional buttons  -->

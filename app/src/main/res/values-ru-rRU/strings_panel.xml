@@ -90,7 +90,7 @@
     <string name="slot_action_set">Задать</string>
     <string name="slot_whitelist_all">Обходить все приложения</string>
     <string name="slot_blacklist_all">Не обходить никакие приложения</string>
-    <string name="slot_dns_name">DNS активирован</string>
+    <string name="slot_dns_name">DNS активен</string>
     <string name="slot_dns_name_private">Пользовательский DNS активен</string>
     <string name="slot_dns_name_disabled">DNS деактивирован</string>
     <string name="slot_action_none">Это действие пока не доступно.</string>

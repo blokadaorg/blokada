@@ -27,7 +27,7 @@
     <string name="panel_domain_blocked_normal_desc">Този домейн е блокиран. За да го разрешите в бъдеще, използвайте бутона по-долу.</string>
     <string name="panel_domain_blocked_nxdomain_desc">Този домейн не е анализиран правилно от DNS сървъра. Или сървърът блокира домейна, или той не съществува.</string>
     <string name="panel_domain_blocked_error_desc">Нещо се обърка при анализа на този домейн, DNS сървърът отговори с код за грешка.</string>
-    <string name="panel_domain_blocked_cname_desc">Този домейн бе блокиран защото е CName за блокиран домейн. За да го разрешите в бъдеще можете или да добавите CNam, e или самия домейн към разрешените хостове.</string>
+    <string name="panel_domain_blocked_cname_desc">Този домейн бе блокиран защото е CName блокиран домейн. За да го разрешите в бъдеще можете или да добавите CName, или самия домейн към разрешените хостове.</string>
     <string name="panel_domain_blocked_toast">Добавен е в черния списък.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Копирай</string>

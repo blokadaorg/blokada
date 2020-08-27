@@ -25,6 +25,7 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; अवरोधित</string>
     <string name="panel_domain_blocked_normal_desc">यह डोमेन रोक दी गई है। भविष्य में इसे अनुमति देने के लिए नीचे दिया गया बटन इस्तेमाल करें।</string>
+    <string name="panel_domain_blocked_nxdomain_desc">यह डोमेन डीएनएस सर्वर द्वारा सही ढंग से हल नहीं किया गया था। या तो सर्वर ने डोमेन को ब्लॉक कर दिया है या यह मौजूद नहीं है।</string>
     <string name="panel_domain_blocked_toast">ब्लैकलिस्ट में जोड़ा गया।</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">कॉपी करें</string>
