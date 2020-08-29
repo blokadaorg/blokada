@@ -97,19 +97,20 @@ internal class DnsProxy(
                     updateDiff.ip = unspecifiedIp4Addr
                 } else if (dnsMessage.rcode == Rcode.NOERROR) {
                     val answer = dnsMessage.getSectionArray(Section.ANSWER).find { it is ARecord } as ARecord?
-                            ?: return
-                    updateDiff.ip = answer.address
+                    if(answer != null) {
+                        updateDiff.ip = answer.address
 
-                    if (get(TunnelConfig::class.java).cNameBlocking && dnsMessage.question.name != answer.name) {
-                        val cName = dnsMessage.question.name.toString(true)
-                        val cNamedDomain = answer.name.toString(true)
+                        if (get(TunnelConfig::class.java).cNameBlocking && dnsMessage.question.name != answer.name) {
+                            val cName = dnsMessage.question.name.toString(true)
+                            val cNamedDomain = answer.name.toString(true)
 
-                        if (!blockade.allowed(cName) && !blockade.allowed(cNamedDomain) && blockade.denied(cNamedDomain)) {
-                            updateDiff.cnamedDomain = cNamedDomain
-                            dnsMessage.header.setFlag(Flags.QR.toInt())
-                            dnsMessage.header.rcode = Rcode.NOERROR
-                            generateDnsAnswer(dnsMessage, denyResponse)
-                            responseData = dnsMessage.toWire()
+                            if (!blockade.allowed(cName) && !blockade.allowed(cNamedDomain) && blockade.denied(cNamedDomain)) {
+                                updateDiff.cnamedDomain = cNamedDomain
+                                dnsMessage.header.setFlag(Flags.QR.toInt())
+                                dnsMessage.header.rcode = Rcode.NOERROR
+                                generateDnsAnswer(dnsMessage, denyResponse)
+                                responseData = dnsMessage.toWire()
+                            }
                         }
                     }
                 }
