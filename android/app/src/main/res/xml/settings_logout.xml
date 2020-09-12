@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ Blokada is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Blokada is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+  ~
+  ~ Copyright © 2020 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="account_logout"
+        app:title="Log out">
+
+        <Preference
+            app:enabled="false"
+            app:key="logout_description"
+            app:summary="Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one)."
+            app:title="" />
+
+        <EditTextPreference
+            app:key="logout_accountid"
+            app:summary="(unchanged)"
+            app:title="Account ID" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="logout_help"
+        app:title="Help">
+
+        <Preference
+            android:fragment="ui.web.WebFragment"
+            app:icon="@drawable/ic_baseline_help_outline_24"
+            app:key="logout_howtorestore"
+            app:title="How do I restore my old account?" />
+
+        <Preference
+            android:fragment="ui.web.WebFragment"
+            app:icon="@drawable/ic_baseline_help_outline_24"
+            app:key="logout_support"
+            app:title="Contact us" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

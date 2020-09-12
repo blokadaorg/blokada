@@ -1,0 +1,46 @@
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ Blokada is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Blokada is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+  ~
+  ~ Copyright © 2020 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<resources>
+    <dimen name="quad">48dp</dimen>
+    <dimen name="doubled">24dp</dimen>
+    <dimen name="oneandhalf">16dp</dimen>
+    <dimen name="normal">12dp</dimen>
+    <dimen name="half">6dp</dimen>
+
+    <dimen name="icon_small">24dp</dimen>
+    <dimen name="icon">40dp</dimen>
+    <dimen name="icon_bigger">48dp</dimen>
+    <dimen name="icon_verybig">60dp</dimen>
+    <dimen name="icon_huge">72dp</dimen>
+    <dimen name="icon_humonguous">60dp</dimen>
+
+    <dimen name="header_width">150dp</dimen>
+    <dimen name="header_width_payment">130dp</dimen>
+    <dimen name="header_height">24dp</dimen>
+
+    <dimen name="powerview">200dp</dimen>
+    <dimen name="powerview_below">32dp</dimen>
+    <dimen name="plusbutton_above">90dp</dimen>
+
+    <dimen name="maxwidth">600dp</dimen>
+    <dimen name="sheet_maxwidth">300dp</dimen>
+</resources>

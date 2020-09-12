@@ -1,0 +1,206 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+import SwiftUI
+
+struct EncryptionExplanationView: View {
+
+    @Binding var showSheet: Bool
+    @Binding var sheet: String
+
+    @ObservedObject var vm: HomeViewModel
+
+    @State var level: Int
+
+    var body: some View {
+        NavigationView {
+            ZStack {
+                ScrollView {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            LevelView(level: self.level, animate: true)
+                                .frame(width: 100, height: 100)
+
+                            Text(level >= 3 ? L10n.accountEncryptLevelHigh : level >= 2 ? L10n.accountEncryptLevelMedium : L10n.accountEncryptLevelLow)
+                                .font(.largeTitle)
+                                .bold()
+                                .padding()
+
+
+                            VStack(alignment: .leading) {
+                                HStack(alignment: .top) {
+                                    Image(systemName: "shield.lefthalf.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cAccent)
+
+                                    VStack(alignment: .leading) {
+                                        Text(L10n.accountEncryptLabelDnsOnly)
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text(L10n.accountEncryptDescDnsOnly)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                }
+                                .padding(.bottom)
+                                .saturation(level >= 2 ? 1 : 0)
+                                .opacity(level >= 2 ? 1 : 0.3)
+
+                                HStack(alignment: .top) {
+                                    Image(systemName: Image.fShield)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cAccent)
+
+                                    VStack(alignment: .leading) {
+                                        Text(L10n.accountEncryptLabelEverything)
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text(L10n.accountEncryptDescEverything)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                }
+                                .padding(.bottom)
+                                .saturation(level >= 3 ? 1 : 0)
+                                .opacity(level >= 3 ? 1 : 0.3)
+                            }
+                            .padding([.leading, .trailing])
+
+                            Text("")
+                                .frame(height: 90)
+                        }
+                        .frame(maxWidth: 500)
+                        Spacer()
+                    }
+                }
+                VStack {
+                    Spacer()
+
+                    if level >= 3 {
+                        Button(action: {
+                            self.showSheet = false
+                        }) {
+                            ZStack {
+                                ButtonView(enabled: .constant(true), plus: .constant(true))
+                                    .frame(height: 44)
+                                Text(L10n.universalActionDone)
+                                    .foregroundColor(.white)
+                                    .bold()
+                            }
+                        }
+                    } else if level >= 2 {
+                        Button(action: {
+                            self.showSheet = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+                                self.sheet = "plus"
+                                self.showSheet = true
+                            })
+                        }) {
+                            ZStack {
+                                ButtonView(enabled: .constant(true), plus: .constant(true))
+                                    .frame(height: 44)
+                                L10n.universalActionUpgrade
+                                    .toBlokadaPlusText(color: .white, plusColor: .white)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    } else {
+                        Button(action: {
+                            self.showSheet = false
+
+                            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+                                // A copypaste from PowerView
+                                self.vm.mainSwitch = true
+                                self.vm.switchMain(activate: self.vm.mainSwitch,
+                                    noPermissions: {
+                                        // A callback trigerred when there is no VPN profile
+                                        self.sheet = "askvpn"
+                                        self.showSheet = true
+                                    },
+                                    showRateScreen: {
+                                        self.sheet = "rate"
+                                        self.showSheet = true
+                                    }
+                                )
+                                })
+                        }) {
+                            ZStack {
+                                ButtonView(enabled: .constant(true), plus: .constant(true))
+                                    .frame(height: 44)
+                                L10n.accountEncryptActionTurnOn
+                                    .toBlokadaText()
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: 500)
+                .padding([.leading, .trailing], 40)
+                .padding(.bottom)
+                .background(
+                    VStack {
+                        Spacer()
+                        Rectangle()
+                            .fill(
+                                LinearGradient(gradient: Gradient(stops: [
+                                    .init(color: Color.cPrimaryBackground.opacity(0), location: 0),
+                                    .init(color: Color.cPrimaryBackground, location: 0.45)
+                                ]), startPoint: .top, endPoint: .bottom)
+                            )
+                            .frame(height: 120)
+                    }
+                )
+            }
+
+            .navigationBarItems(trailing:
+                Button(action: {
+                    self.showSheet = false
+                }) {
+                    Text(L10n.universalActionDone)
+                }
+                .contentShape(Rectangle())
+            )
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .accentColor(Color.cAccent)
+        .onAppear {
+
+        }
+    }
+}
+
+struct EncryptionExplanationView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            EncryptionExplanationView(showSheet: .constant(false), sheet: .constant(""), vm: HomeViewModel(), level: 1)
+            EncryptionExplanationView(showSheet: .constant(false), sheet: .constant(""), vm: HomeViewModel(), level: 2)
+        }
+    }
+}

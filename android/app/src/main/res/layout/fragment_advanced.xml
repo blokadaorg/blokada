@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ Blokada is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Blokada is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+  ~
+  ~ Copyright © 2020 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/textColorTertiary" />
+
+    <LinearLayout
+        android:id="@+id/advanced_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackgroundFloating"
+        android:orientation="vertical"
+        android:padding="@dimen/half">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/oneandhalf"
+            android:paddingTop="@dimen/half"
+            android:paddingBottom="@dimen/half">
+
+            <ImageView
+                android:id="@+id/advanced_level_icon"
+                android:layout_width="@dimen/icon_small"
+                android:layout_height="@dimen/icon_small"
+                android:src="@drawable/ic_baseline_lock_24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/oneandhalf"
+                android:layout_marginEnd="@dimen/half"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_encrypt_header_level" />
+
+                <TextView
+                    android:id="@+id/advanced_level_status"
+                    style="@style/Text.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_encrypt_label_level_low" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/textColorTertiary" />
+
+    <TextView
+        style="@style/Text.H4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/doubled"
+        android:layout_marginTop="@dimen/doubled"
+        android:layout_marginBottom="@dimen/normal"
+        android:text="@string/account_section_header_primary" />
+
+    <LinearLayout
+        android:id="@+id/advanced_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/item_advanced_section" />
+
+        <include layout="@layout/item_advanced_section" />
+
+        <include layout="@layout/item_advanced_section" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/advanced_migrateslim"
+        style="@style/Text.Link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal"
+        android:gravity="center"
+        android:text="@string/advanced_action_slim_migrate_to_full" />
+
+</LinearLayout>

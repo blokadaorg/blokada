@@ -1,0 +1,24 @@
+[package]
+name = "blocka_api"
+version = "0.1.0"
+authors = ["Johnny Bergström <johnny@klaudify.se>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = { version = "0.10", features = ["rustls-tls", "stream"] }
+regex = "1.3"
+libc = "0.2"
+async-std = { version = "1.5", features = ["attributes"] }
+util = { path = "../util" }
+log = "0.4"
+futures = "0.3"
+tokio = { version = "0.2", features = ["rt-core", "rt-threaded", "macros", "io-util", "uds", "stream"] }
+lazy_static = "1.4"
+
+[features]
+integration-test = []
+
+[lib]
+crate-type = ["lib", "staticlib"]

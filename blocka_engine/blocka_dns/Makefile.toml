@@ -1,0 +1,9 @@
+[config]
+skip_core_tasks = true
+
+[config.modify_core_tasks]
+# if true, all core tasks are set to private (default false)
+private = true
+
+[env]
+CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = "true"

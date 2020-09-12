@@ -1,0 +1,70 @@
+[package]
+name = "blocka_dns"
+version = "0.1.0"
+authors = ["Johnny Bergström <johnny@klaudify.se>"]
+edition = "2018"
+
+[features]
+default = ["resolver", "dns-over-rustls", "dns-over-https-rustls", "dnssec-ring"]
+dnssec-openssl = ["dnssec", "trust-dns-client/dnssec-openssl", "trust-dns-proto/dnssec-openssl", "trust-dns-server/dnssec-openssl"]
+dnssec-ring = ["dnssec", "trust-dns-client/dnssec-ring", "trust-dns-proto/dnssec-ring", "trust-dns-server/dnssec-ring"]
+dnssec = []
+resolver = ["trust-dns-server/resolver"]
+sqlite = ["trust-dns-server/sqlite"]
+
+# TODO: Need to figure out how to be consistent with ring/openssl usage...
+# dns-over-https-openssl = ["dns-over-openssl", "trust-dns-client/dns-over-https-openssl", "dns-over-https"]
+dns-over-https-rustls = ["dns-over-https", "dns-over-rustls", "trust-dns-client/dns-over-https-rustls", "trust-dns-server/dns-over-https-rustls"]
+dns-over-https = ["trust-dns-server/dns-over-https"]
+
+# TODO: migrate all tls and tls-openssl features to dns-over-tls, et al
+dns-over-rustls = ["dns-over-tls", "dnssec-ring", "trust-dns-rustls", "rustls", "trust-dns-client/dns-over-rustls", "trust-dns-server/dns-over-rustls",]
+dns-over-tls = []
+
+# WARNING: there is a bug in the mutual tls auth code at the moment see issue #100
+# mtls = ["trust-dns-client/mtls"]
+
+[lib]
+crate-type = ["lib", "staticlib", "cdylib"]
+
+[target.'cfg(target_os = "android")'.dependencies]
+jni = { version = "0.13.1", default-features = false }
+android_logger = "0.8"
+
+[dependencies]
+foreign-types = "0.5"
+grep-searcher = "0.1"
+grep-matcher = "0.1"
+grep-regex = "0.1"
+regex = "1.3"
+lru = "0.4"
+libc = "0.2"
+chrono = "0.4"
+clap = "2.33"
+futures = { version = "0.3", default-features = false, features = ["std"] }
+log = "0.4"
+rustls = { version = "0.17", optional = true }
+tokio = { version = "0.2", features = ["rt-core", "rt-threaded", "time", "macros", "tcp", "blocking", "sync"] }
+tokio-io-timeout = "0.4"
+hyper = "0.13"
+hyper-tls = "0.4"
+tower-service = "0.3"
+futures-util = "0.3"
+native-tls = { version = "^0.2", features = ["vendored"] }
+trust-dns-client= { version = "0.20" }
+trust-dns-proto = { version = "0.20" }
+trust-dns-rustls = { version = "0.20", optional = true }
+trust-dns-server = { version = "0.20" }
+trust-dns-resolver = { version = "0.20" }
+socket2 = { git = "https://github.com/balboah/socket2-rs.git", branch = "feature/set_bound_interface", features = ["all"] }
+async-trait = "0.1"
+doh-dns = "0.2"
+lazy_static = "1.4"
+util = { path = "../util" }
+
+[dev-dependencies]
+rand = "0.7"
+env_logger = "0.7"
+native-tls = "0.2"
+regex = "1.3"
+webpki-roots = { version = "0.18" }

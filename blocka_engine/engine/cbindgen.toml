@@ -1,0 +1,24 @@
+language = "C"
+
+[parse]
+parse_deps = true
+include = ["blocka_api", "blocka_dns", "boringtun"]
+extra_bindings = ["blocka_api", "blocka_dns", "boringtun"]
+
+[export]
+exclude = ["Java_com_cloudflare_app_boringtun_BoringTunJNI_00024Companion_device_1wait",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_00024Companion_new_1device",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_new_1tunnel",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_wireguard_1read",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_wireguard_1tick",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_wireguard_1write",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_x25519_1key_1to_1base64",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_x25519_1key_1to_1hex",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_x25519_1public_1key",
+  "Java_com_cloudflare_app_boringtun_BoringTunJNI_x25519_1secret_1key",
+  "Java_com_blocka_dns_BlockaDnsJNI_00024Companion_create_1new_1dns",
+  "Java_com_blocka_dns_BlockaDnsJNI_00024Companion_dns_1close",
+  "Java_com_blocka_dns_BlockaDnsJNI_00024Companion_engine_1logger",
+  "wireguard_stats",
+  "timerfd_settime",
+  "benchmark"]

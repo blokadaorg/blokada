@@ -1,0 +1,69 @@
+# ===============================================================
+
+127.0.0.1 localhost
+127.0.0.1 localhost.localdomain
+127.0.0.1 local
+255.255.255.255 broadcasthost
+::1 localhost
+::1 ip6-localhost
+::1 ip6-loopback
+fe80::1%lo0 localhost
+ff00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+0.0.0.0 0.0.0.0
+
+# Custom host records are listed here.
+
+
+# End of custom host records.
+# Start StevenBlack
+
+#=====================================
+# Hosts contributed by Steven Black
+# http://stevenblack.com
+
+0.0.0.0 01mspmd5yalky8.com
+0.0.0.0 0byv9mgbn0.com
+0.0.0.0 zoetermeerov.nl
+# Number of entries: 869# End URLHaus
+
+# Start yoyo.org
+
+# Blocklist for use with hosts files to block ads, trackers, and other nasty things
+#
+# For more information about this list, see: https://pgl.yoyo.org/adservers/
+# ----
+# last updated:   Tue, 05 May 2020 18:39:44 GMT
+# entries:        3350
+# format:         hosts (hosts -- in hosts file format)
+# credits:        Peter Lowe - pgl@yoyo.org - https://pgl.yoyo.org/ - https://twitter.com/pgl
+# this URL:       https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&mimetype=plaintext&useip=0.0.0.0
+# Patreon:        https://patreon.com/blocklist
+# other formats:  https://pgl.yoyo.org/adservers/formats.php
+# policy:         https://pgl.yoyo.org/adservers/policy.php
+#
+# start date:    Thu, 11 May 2000 00:00:00
+0.0.0.0 1-1ads.com
+127.0.0.1 mspmd5yalky8.com
+0.0.0.0 zy16eoat1w.com
+# End yoyo.org
+google.com
+0.0.0.0 underscore_hostname.domain.com
+0.0.0.0 analytics.247sports.com
+0.0.0.0 logitechlogitechglobal.112.2o7.net
+0.0.0.0 0.0.0.0.beeglivesex.com
+0.0.0.0 videos.twitter.secure-logins01.com  # twitter worm (http://mashable.com/2009/09/23/twitter-worm-dms/)
+apple.com--------scanner.bid
+nönlatin.todo.com
+
+# blacklist
+#
+# The contents of this file (containing a listing of additional domains in
+# 'hosts' file format) are appended to the unified hosts file during the
+# update process. For example, uncomment the following line to block
+# 'example.com':
+
+# 0.0.0.0 example.com

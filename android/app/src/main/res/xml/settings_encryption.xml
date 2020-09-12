@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ Blokada is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Blokada is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+  ~
+  ~ Copyright © 2020 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="encryption_dns_category"
+        app:title="DNS">
+
+        <Preference
+            app:enabled="false"
+            app:key="encryption_dns_description"
+            app:summary="DNS is how your device knows where to find websites. BLOKADA supports only encrypted servers."
+            app:title="" />
+
+        <ListPreference
+            app:key="encryption_dns"
+            app:title="DNS"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreference
+            app:key="encryption_blockadns"
+            app:enabled="false"
+            app:isPreferenceVisible="false"
+            app:title="Use Blokada DNS in Plus mode"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="encryption_help"
+        app:title="Help">
+
+        <Preference
+            android:fragment="ui.web.WebFragment"
+            app:icon="@drawable/ic_baseline_help_outline_24"
+            app:key="encryption_help_dns"
+            app:title="What is DNS?" />
+
+        <Preference
+            android:fragment="ui.web.WebFragment"
+            app:icon="@drawable/ic_baseline_help_outline_24"
+            app:key="encryption_help_upgrade"
+            app:title="Why should I upgrade?" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

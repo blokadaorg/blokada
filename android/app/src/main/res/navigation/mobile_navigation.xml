@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ Blokada is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Blokada is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+  ~
+  ~ Copyright © 2020 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="ui.home.HomeFragment"
+        android:label=""
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_activity"
+        android:name="ui.stats.StatsFragment"
+        tools:layout="@layout/fragment_stats">
+        <action
+            android:id="@+id/action_navigation_activity_to_activityDetailFragment"
+            app:destination="@id/activityDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_activity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_packs"
+        android:name="ui.advanced.packs.PacksFragment"
+        tools:layout="@layout/fragment_packs">
+        <action
+            android:id="@+id/action_navigation_packs_to_packDetailFragment"
+            app:destination="@id/packDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_packs" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="ui.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_settings_account"
+            app:destination="@id/navigation_settings_account"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_settings_to_settingsLogoutFragment"
+            app:destination="@id/settingsLogoutFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_settings_to_leasesFragment"
+            app:destination="@id/leasesFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_settings_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_settings_to_settingsAppFragment"
+            app:destination="@id/settingsAppFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_settings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings_account"
+        android:name="ui.settings.SettingsAccountFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_navigation_settings_account_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_settings_account" />
+    </fragment>
+    <fragment
+        android:id="@+id/packDetailFragment"
+        android:name="ui.advanced.packs.PackDetailFragment">
+        <argument
+            android:name="packId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_packDetailFragment_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/packDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsEncryptionFragment"
+        android:name="ui.advanced.encryption.SettingsEncryptionFragment">
+        <action
+            android:id="@+id/action_settingsEncryptionFragment_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/settingsEncryptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityDetailFragment"
+        android:name="ui.stats.StatsDetailFragment">
+        <argument
+            android:name="historyId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsLogoutFragment"
+        android:name="ui.settings.SettingsLogoutFragment">
+        <action
+            android:id="@+id/action_settingsLogoutFragment_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/settingsLogoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leasesFragment"
+        android:name="ui.settings.leases.LeasesFragment"
+        tools:layout="@layout/fragment_leases" />
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="ui.web.WebFragment"
+        android:label="{name}"
+        tools:layout="@layout/fragment_web">
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/appsFragment"
+        android:name="ui.advanced.apps.AppsFragment"
+        android:label="Apps"
+        tools:layout="@layout/fragment_apps" />
+    <fragment
+        android:id="@+id/settingsAppFragment"
+        android:name="ui.settings.SettingsAppFragment" >
+        <action
+            android:id="@+id/action_settingsAppFragment_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/settingsAppFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advancedFragment"
+        android:name="ui.advanced.AdvancedFragment">
+        <action
+            android:id="@+id/action_advancedFragment_to_navigation_packs"
+            app:destination="@id/navigation_packs"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/advancedFragment" />
+        <action
+            android:id="@+id/action_advancedFragment_to_appsFragment"
+            app:destination="@id/appsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/advancedFragment" />
+        <action
+            android:id="@+id/action_advancedFragment_to_settingsEncryptionFragment"
+            app:destination="@id/settingsEncryptionFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/advancedFragment" />
+        <action
+            android:id="@+id/action_advancedFragment_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/advancedFragment" />
+    </fragment>
+</navigation>
