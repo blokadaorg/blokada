@@ -25,36 +25,36 @@
 
     <PreferenceCategory
         app:key="account_logout"
-        app:title="Log out">
+        app:title="@string/account_header_logout">
 
         <Preference
             app:enabled="false"
             app:key="logout_description"
-            app:summary="Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one)."
+            app:summary="@string/account_logout_description"
             app:title="" />
 
         <EditTextPreference
             app:key="logout_accountid"
-            app:summary="(unchanged)"
-            app:title="Account ID" />
+            app:summary="@string/account_id_status_unchanged"
+            app:title="@string/account_label_id" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         app:key="logout_help"
-        app:title="Help">
+        app:title="@string/universal_label_help">
 
         <Preference
             android:fragment="ui.web.WebFragment"
             app:icon="@drawable/ic_baseline_help_outline_24"
             app:key="logout_howtorestore"
-            app:title="How do I restore my old account?" />
+            app:title="@string/account_action_how_to_restore" />
 
         <Preference
             android:fragment="ui.web.WebFragment"
             app:icon="@drawable/ic_baseline_help_outline_24"
             app:key="logout_support"
-            app:title="Contact us" />
+            app:title="@string/universal_action_contact_us" />
 
     </PreferenceCategory>
 

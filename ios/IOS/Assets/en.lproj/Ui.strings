@@ -186,7 +186,7 @@
 "account action encryption" = "Encryption";
 "account action devices" = "Devices";
 "account action inbox" = "Inbox";
-"account action logout" = "Logout / Restore account";
+"account action logout" = "Restore purchase";
 "account action about" = "About";
 "account action tap to show" = "Tap to show";
 "account action restoring" = "Restoring account: %@";
@@ -202,7 +202,7 @@
 
 "account unlock to show" = "Unlock to show your account ID";
 
-"account header logout" = "Log out";
+"account header logout" = "Restore purchase";
 "account logout description" = "Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one).";
 "account id status unchanged" = "(unchanged)";
 "account action how to restore" = "How do I restore my old account?";

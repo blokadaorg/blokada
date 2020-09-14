@@ -144,7 +144,7 @@
     <string name="account_action_encryption">Encryption</string>
     <string name="account_action_devices">Devices</string>
     <string name="account_action_inbox">Inbox</string>
-    <string name="account_action_logout">Logout / Restore account</string>
+    <string name="account_action_logout">Restore purchase</string>
     <string name="account_action_about">About</string>
     <string name="account_action_tap_to_show">Tap to show</string>
     <string name="account_action_restoring">Restoring account: %s</string>
@@ -157,7 +157,7 @@
     <string name="account_action_manage_subscription">Manage subscription</string>
     <string name="account_action_why_upgrade">Why should I upgrade?</string>
     <string name="account_unlock_to_show">Unlock to show your account ID</string>
-    <string name="account_header_logout">Log out</string>
+    <string name="account_header_logout">Restore purchase</string>
     <string name="account_logout_description">Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one).</string>
     <string name="account_id_status_unchanged">(unchanged)</string>
     <string name="account_action_how_to_restore">How do I restore my old account?</string>
