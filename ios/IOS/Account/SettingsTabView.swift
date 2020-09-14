@@ -41,10 +41,17 @@ struct SettingsTabView: View {
                       .frame(width: 64, height: 64)
                       .padding()
 
-                    L10n.accountStatusText(self.vm.type, self.vm.activeUntil)
-                        .toBlokadaText()
-                        .font(.footnote)
-                        .padding(.trailing)
+                    if self.vm.active {
+                        L10n.accountStatusText(self.vm.type, self.vm.activeUntil)
+                            .toBlokadaText()
+                            .font(.footnote)
+                            .padding(.trailing)
+                    } else {
+                        L10n.accountStatusTextLibre
+                            .toBlokadaText()
+                            .font(.footnote)
+                            .padding(.trailing)
+                    }
                 }
 
                 Section(header: Text(L10n.accountSectionHeaderPrimary)) {

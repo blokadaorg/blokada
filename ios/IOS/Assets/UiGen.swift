@@ -21,12 +21,18 @@ internal enum L10n {
   internal static let accountActionHowToRestore = L10n.tr("Ui", "account action how to restore")
   /// Inbox
   internal static let accountActionInbox = L10n.tr("Ui", "account action inbox")
-  /// Logout
+  /// Logout / Restore account
   internal static let accountActionLogout = L10n.tr("Ui", "account action logout")
   /// Manage subscription
   internal static let accountActionManageSubscription = L10n.tr("Ui", "account action manage subscription")
   /// My account
   internal static let accountActionMyAccount = L10n.tr("Ui", "account action my account")
+  /// Restoring account: %@
+  internal static func accountActionRestoring(_ p1: String) -> String {
+    return L10n.tr("Ui", "account action restoring", p1)
+  }
+  /// Tap to show
+  internal static let accountActionTapToShow = L10n.tr("Ui", "account action tap to show")
   /// Why should I upgrade?
   internal static let accountActionWhyUpgrade = L10n.tr("Ui", "account action why upgrade")
   /// Forever
@@ -99,6 +105,8 @@ internal enum L10n {
   internal static func accountStatusText(_ p1: String, _ p2: String) -> String {
     return L10n.tr("Ui", "account status text", p1, p2)
   }
+  /// Your BLOKADA Libre account is active until forever.
+  internal static let accountStatusTextLibre = L10n.tr("Ui", "account status text libre")
   /// How can we help you?
   internal static let accountSupportActionHowHelp = L10n.tr("Ui", "account support action how help")
   /// Open Knowledge Base
@@ -131,6 +139,8 @@ internal enum L10n {
   internal static let activityCategoryTopBlocked = L10n.tr("Ui", "activity category top blocked")
   /// Full name
   internal static let activityDomainName = L10n.tr("Ui", "activity domain name")
+  /// Try using your device, and come back here later, to see where your device connects to.
+  internal static let activityEmptyText = L10n.tr("Ui", "activity empty text")
   /// Which entries would you like to see?
   internal static let activityFilterHeader = L10n.tr("Ui", "activity filter header")
   /// Show all entries
@@ -159,6 +169,8 @@ internal enum L10n {
   internal static let activityRequestBlockedBlacklisted = L10n.tr("Ui", "activity request blocked blacklisted")
   /// Activity
   internal static let activitySectionHeader = L10n.tr("Ui", "activity section header")
+  /// Activity Details
+  internal static let activitySectionHeaderDetails = L10n.tr("Ui", "activity section header details")
   /// allowed
   internal static let activityStateAllowed = L10n.tr("Ui", "activity state allowed")
   /// blocked
@@ -167,14 +179,88 @@ internal enum L10n {
   internal static let activityStateModified = L10n.tr("Ui", "activity state modified")
   /// Time
   internal static let activityTimeOfOccurrence = L10n.tr("Ui", "activity time of occurrence")
+  /// You are using Blokada Slim. Learn more
+  internal static let advancedActionSlimMigrateToFull = L10n.tr("Ui", "advanced action slim migrate to full")
+  /// Blocklists
+  internal static let advancedSectionHeaderPacks = L10n.tr("Ui", "advanced section header packs")
+  /// Choose apps that should never be blocked
+  internal static let advancedSectionSluglineApps = L10n.tr("Ui", "advanced section slugline apps")
+  /// Adjust your encryption level and DNS
+  internal static let advancedSectionSluglineEncryption = L10n.tr("Ui", "advanced section slugline encryption")
+  /// Activate for more restrictive blocking
+  internal static let advancedSectionSluglinePacks = L10n.tr("Ui", "advanced section slugline packs")
+  /// For security reasons, to download a file, we need to open this website in your browser. Then, please tap the download link again.
+  internal static let alertDownloadLinkBody = L10n.tr("Ui", "alert download link body")
   /// Ooops!
   internal static let alertErrorHeader = L10n.tr("Ui", "alert error header")
+  /// Blokada %@ is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.
+  internal static func alertUpdateBody(_ p1: String) -> String {
+    return L10n.tr("Ui", "alert update body", p1)
+  }
   /// BLOKADA+ expired
   internal static let alertVpnExpiredHeader = L10n.tr("Ui", "alert vpn expired header")
+  /// Open App Information
+  internal static let appSettingsActionAppInfo = L10n.tr("Ui", "app settings action app info")
+  /// Open Notification Settings
+  internal static let appSettingsActionNotifications = L10n.tr("Ui", "app settings action notifications")
+  /// Open VPN Profile
+  internal static let appSettingsActionVpnProfile = L10n.tr("Ui", "app settings action vpn profile")
+  /// Use cloud backup
+  internal static let appSettingsBackup = L10n.tr("Ui", "app settings backup")
+  /// External browser (if possible)
+  internal static let appSettingsBrowserExternal = L10n.tr("Ui", "app settings browser external")
+  /// Internal browser
+  internal static let appSettingsBrowserInternal = L10n.tr("Ui", "app settings browser internal")
+  /// Redirect links to
+  internal static let appSettingsBrowserLabel = L10n.tr("Ui", "app settings browser label")
+  /// Allow IPv6
+  internal static let appSettingsIpv6Label = L10n.tr("Ui", "app settings ipv6 label")
+  /// Language
+  internal static let appSettingsLanguageLabel = L10n.tr("Ui", "app settings language label")
+  /// Advanced
+  internal static let appSettingsSectionAdvanced = L10n.tr("Ui", "app settings section advanced")
+  /// Details
+  internal static let appSettingsSectionDetails = L10n.tr("Ui", "app settings section details")
+  /// This device
+  internal static let appSettingsSectionHeader = L10n.tr("Ui", "app settings section header")
+  /// System
+  internal static let appSettingsSectionSystem = L10n.tr("Ui", "app settings section system")
+  /// Start on boot
+  internal static let appSettingsStartOnBoot = L10n.tr("Ui", "app settings start on boot")
+  /// System default
+  internal static let appSettingsStatusDefault = L10n.tr("Ui", "app settings status default")
+  /// Dark
+  internal static let appSettingsThemeDark = L10n.tr("Ui", "app settings theme dark")
+  /// App theme
+  internal static let appSettingsThemeLabel = L10n.tr("Ui", "app settings theme label")
+  /// Light
+  internal static let appSettingsThemeLight = L10n.tr("Ui", "app settings theme light")
+  /// Use DNS over HTTPS
+  internal static let appSettingsUseDnsOverHttps = L10n.tr("Ui", "app settings use dns over https")
+  /// Show all apps
+  internal static let appsFilterActionShowAll = L10n.tr("Ui", "apps filter action show all")
+  /// Show bypassed only
+  internal static let appsFilterActionShowBypassed = L10n.tr("Ui", "apps filter action show bypassed")
+  /// Show not bypassed only
+  internal static let appsFilterActionShowNotBypassed = L10n.tr("Ui", "apps filter action show not bypassed")
+  /// Toggle all system apps
+  internal static let appsFilterActionToggleSystem = L10n.tr("Ui", "apps filter action toggle system")
+  /// Which apps would you like to see?
+  internal static let appsFilterHeader = L10n.tr("Ui", "apps filter header")
+  /// Installed
+  internal static let appsLabelInstalled = L10n.tr("Ui", "apps label installed")
+  /// System
+  internal static let appsLabelSystem = L10n.tr("Ui", "apps label system")
+  /// Apps
+  internal static let appsSectionHeader = L10n.tr("Ui", "apps section header")
+  /// (bypassed)
+  internal static let appsStatusBypassed = L10n.tr("Ui", "apps status bypassed")
   /// Your account is inactive. Please activate your account in order to continue using BLOKADA+.
   internal static let errorAccountInactive = L10n.tr("Ui", "error account inactive")
   /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.
   internal static let errorAccountInactiveAfterRestore = L10n.tr("Ui", "error account inactive after restore")
+  /// Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.
+  internal static let errorBlockaDnsInFilteringMode = L10n.tr("Ui", "error blocka dns in filtering mode")
   /// Could not create a new account. Please try again later.
   internal static let errorCreatingAccount = L10n.tr("Ui", "error creating account")
   /// Your device is offline
@@ -195,7 +281,7 @@ internal enum L10n {
   internal static let errorPaymentNotAvailable = L10n.tr("Ui", "error payment not available")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorTunnel = L10n.tr("Ui", "error tunnel")
-  /// An unknown problem occured. Please try again. If the problem persists, please contact us by tapping the help icon at the top.
+  /// An unknown problem occurred. Please try again. If the problem persists, please contact us by tapping the help icon at the top.
   internal static let errorUnknown = L10n.tr("Ui", "error unknown")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorVpn = L10n.tr("Ui", "error vpn")
@@ -233,6 +319,8 @@ internal enum L10n {
   internal static let homeStatusDeactivated = L10n.tr("Ui", "home status deactivated")
   /// blocking *ads* and *trackers*
   internal static let homeStatusDetailActive = L10n.tr("Ui", "home status detail active")
+  /// Blokada *Slim* is active
+  internal static let homeStatusDetailActiveSlim = L10n.tr("Ui", "home status detail active slim")
   /// blocked *%@* ads and trackers
   internal static func homeStatusDetailActiveWithCounter(_ p1: String) -> String {
     return L10n.tr("Ui", "home status detail active with counter", p1)
@@ -245,8 +333,18 @@ internal enum L10n {
   internal static let homeStatusDetailProgress = L10n.tr("Ui", "home status detail progress")
   /// PAUSED
   internal static let homeStatusPaused = L10n.tr("Ui", "home status paused")
+  /// Blokada is Active!
+  internal static let introHeader = L10n.tr("Ui", "intro header")
+  /// A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.
+  internal static let introText = L10n.tr("Ui", "intro text")
   /// Choose a Location
   internal static let locationChoiceHeader = L10n.tr("Ui", "location choice header")
+  /// America
+  internal static let locationRegionAmerica = L10n.tr("Ui", "location region america")
+  /// Asia
+  internal static let locationRegionAsia = L10n.tr("Ui", "location region asia")
+  /// Europe
+  internal static let locationRegionEurope = L10n.tr("Ui", "location region europe")
   /// Blokada is using a VPN Configuration to block ads. You will be asked to allow it in the next step.
   internal static let mainAskForPermissionsDescription = L10n.tr("Ui", "main ask for permissions description")
   /// Just one more step
@@ -271,6 +369,8 @@ internal enum L10n {
   internal static let mainTabHome = L10n.tr("Ui", "main tab home")
   /// Settings
   internal static let mainTabSettings = L10n.tr("Ui", "main tab settings")
+  /// An update is available
+  internal static let notificationUpdateHeader = L10n.tr("Ui", "notification update header")
   /// Please update your subscription to continue using BLOKADA+
   internal static let notificationVpnExpiredBody = L10n.tr("Ui", "notification vpn expired body")
   /// BLOKADA+ subscription expired
@@ -297,6 +397,8 @@ internal enum L10n {
   internal static let packInformationHeader = L10n.tr("Ui", "pack information header")
   /// Advanced Features
   internal static let packSectionHeader = L10n.tr("Ui", "pack section header")
+  /// Feature Details
+  internal static let packSectionHeaderDetails = L10n.tr("Ui", "pack section header details")
   /// Tags
   internal static let packTagsHeader = L10n.tr("Ui", "pack tags header")
   /// None
@@ -363,18 +465,30 @@ internal enum L10n {
   internal static let universalActionCancel = L10n.tr("Ui", "universal action cancel")
   /// Close
   internal static let universalActionClose = L10n.tr("Ui", "universal action close")
+  /// Community
+  internal static let universalActionCommunity = L10n.tr("Ui", "universal action community")
   /// Contact us
   internal static let universalActionContactUs = L10n.tr("Ui", "universal action contact us")
   /// Continue
   internal static let universalActionContinue = L10n.tr("Ui", "universal action continue")
   /// Copy
   internal static let universalActionCopy = L10n.tr("Ui", "universal action copy")
+  /// Donate
+  internal static let universalActionDonate = L10n.tr("Ui", "universal action donate")
   /// Done
   internal static let universalActionDone = L10n.tr("Ui", "universal action done")
+  /// Download
+  internal static let universalActionDownload = L10n.tr("Ui", "universal action download")
   /// Help
   internal static let universalActionHelp = L10n.tr("Ui", "universal action help")
   /// Learn more
   internal static let universalActionLearnMore = L10n.tr("Ui", "universal action learn more")
+  /// More
+  internal static let universalActionMore = L10n.tr("Ui", "universal action more")
+  /// No
+  internal static let universalActionNo = L10n.tr("Ui", "universal action no")
+  /// Open in browser
+  internal static let universalActionOpenInBrowser = L10n.tr("Ui", "universal action open in browser")
   /// Save
   internal static let universalActionSave = L10n.tr("Ui", "universal action save")
   /// Share log
@@ -387,10 +501,20 @@ internal enum L10n {
   internal static let universalActionTryAgain = L10n.tr("Ui", "universal action try again")
   /// Upgrade to BLOKADA+
   internal static let universalActionUpgrade = L10n.tr("Ui", "universal action upgrade")
+  /// Yes
+  internal static let universalActionYes = L10n.tr("Ui", "universal action yes")
   /// Help
   internal static let universalLabelHelp = L10n.tr("Ui", "universal label help")
+  /// Copied to Clipboard
+  internal static let universalStatusCopiedToClipboard = L10n.tr("Ui", "universal status copied to clipboard")
   /// Processing... Please wait.
   internal static let universalStatusProcessing = L10n.tr("Ui", "universal status processing")
+  /// Please restart the app for the changes to take effect.
+  internal static let universalStatusRestartRequired = L10n.tr("Ui", "universal status restart required")
+  /// The update is now downloading, and you should see the installation prompt shortly.
+  internal static let updateDownloadingDescription = L10n.tr("Ui", "update downloading description")
+  /// Updated!
+  internal static let updateLabelUpdated = L10n.tr("Ui", "update label updated")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name

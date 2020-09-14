@@ -69,8 +69,7 @@ class SettingsFragment : Fragment() {
                 getString(R.string.account_status_text, getAccountType(account), account.active_until.toSimpleString())
                     .toBlokadaText()
             } else {
-                getString(R.string.account_status_text, "Libre", getString(R.string.account_active_forever))
-                    .toBlokadaText()
+                getString(R.string.account_status_text_libre).toBlokadaText()
             }
         })
 

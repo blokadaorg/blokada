@@ -137,6 +137,7 @@
     <string name="activity_empty_text">Try using your device, and come back here later, to see where your device connects to.</string>
     <string name="account_section_header_settings">Settings</string>
     <string name="account_status_text">Your BLOKADA %s account is active until %s.</string>
+    <string name="account_status_text_libre">Your BLOKADA Libre account is active until forever.</string>
     <string name="account_section_header_primary">Primary</string>
     <string name="account_section_header_other">Other</string>
     <string name="account_action_my_account">My account</string>

@@ -178,6 +178,8 @@
 
 "account section header settings" = "Settings";
 "account status text" = "Your BLOKADA %@ account is active until %@.";
+"account status text libre" = "Your BLOKADA Libre account is active until forever.";
+
 "account section header primary" = "Primary";
 "account section header other" = "Other";
 "account action my account" = "My account";
