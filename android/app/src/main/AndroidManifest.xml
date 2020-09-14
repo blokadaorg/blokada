@@ -74,6 +74,13 @@
                     android:pathPrefix="/success"
                     android:scheme="https" />
             </intent-filter>
+
+            <!-- QuickSettings preferences - for now just redirect to the app -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -134,6 +141,16 @@
         <service android:name="service.ForegroundService" />
 
         <service android:name="ui.CommandService" />
+
+        <service
+            android:name="ui.QuickSettingsToggle"
+            android:icon="@drawable/blokada_logo"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
         <provider
             android:name="androidx.core.content.FileProvider"
