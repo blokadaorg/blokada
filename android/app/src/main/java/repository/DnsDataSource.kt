@@ -42,6 +42,22 @@ object DnsDataSource {
             label = "Alternate DNS"
         ),
         Dns(
+            id = "blahdns.de",
+            ips = listOf("159.69.198.101", "2a01:4f8:1c1c:6b4b::1"),
+            port = 443,
+            name = "doh-de.blahdns.com",
+            path = "dns-query",
+            label = "Blah DNS (Germany)"
+        ),
+        Dns(
+            id = "blahdns.jp",
+            ips = listOf("45.32.55.94", "2001:19f0:7001:3259:5400:02ff:fe71:0bc9"),
+            port = 443,
+            name = "doh-jp.blahdns.com",
+            path = "dns-query",
+            label = "Blah DNS (Japan)"
+        ),
+        Dns(
             id = "cloudflare",
             ips = listOf("1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"),
             port = 443,
