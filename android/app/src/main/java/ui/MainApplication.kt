@@ -84,6 +84,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         }
 
         settingsVM.localConfig.observeForever {
+            EnvironmentService.escaped = it.escaped
             TranslationService.setLocale(it.locale)
             tunnelVM.refreshStatus()
         }

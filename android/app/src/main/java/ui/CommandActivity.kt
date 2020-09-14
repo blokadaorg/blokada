@@ -38,7 +38,7 @@ import ui.utils.cause
 import utils.Logger
 
 enum class Command {
-    OFF, ON, DNS, LOG, ACC
+    OFF, ON, DNS, LOG, ACC, ESCAPE
 }
 
 const val ACC_MANAGE = "manage_account"
@@ -95,6 +95,9 @@ class CommandActivity : AppCompatActivity() {
                     }
                     startActivity(intent)
                 } else throw BlokadaException("Unknown param for command ACC: $param, ignoring")
+            }
+            Command.ESCAPE -> {
+                settingsVM.setEscaped(true)
             }
         }
     }

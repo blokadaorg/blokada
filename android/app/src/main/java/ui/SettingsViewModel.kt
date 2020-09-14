@@ -263,6 +263,16 @@ class SettingsViewModel : ViewModel() {
         }
     }
 
+    fun setEscaped(escaped: Boolean) {
+        log.v("Setting escaped: $escaped")
+        _localConfig.value?.let { current ->
+            viewModelScope.launch {
+                val new = current.copy(escaped = escaped)
+                persistence.save(new)
+                _localConfig.value = new
+            }
+        }
+    }
 }
 
 const val THEME_RETRO_KEY = "retro"
