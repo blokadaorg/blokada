@@ -83,7 +83,13 @@ object AppRepository {
         "ch.threema.app.work",
         "com.xiaomi.discover",
         "eu.siacs.conversations",
-        "org.jitsi.meet"
+        "org.jitsi.meet",
+        // RCS: https://github.com/blokadaorg/blokadaorg.github.io/pull/31
+        "com.android.service.ims.RcsServiceApp",
+        "com.google.android.carriersetup",
+        "com.google.android.ims",
+        "com.codeaurora.ims",
+        "com.android.carrierconfig"
     )
 
     fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
