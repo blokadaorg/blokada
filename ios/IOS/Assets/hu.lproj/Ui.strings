@@ -1,0 +1,194 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"error device offline" = "A készüléked offline állapotban van";
+"error account inactive" = "Fiókod inaktív. Kérjük, aktiváld fiókodat a BLOKADA+ használatának folytatása érdekében.";
+"error account inactive after restore" = "Nem tűnik érvényes aktív fióknak. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.";
+"error creating account" = "Nem sikerült új fiókot létrehozni. Kérjük, próbáld újra később.";
+"error fetching data" = "Ezt a műveletet nem lehetett befejezni. Ellenőrizd, hogy online vagy-e, és próbálkozz később újra. Ha a probléma továbbra is fennáll, kérjük, vedd fel velünk a kapcsolatot súgó ikon megérintésével.";
+"error tunnel" = "A VPN létrehozása sikertelen. Indítsd újra a készüléket, vagy távolítsd el a Blokada VPN profilt a rendszerbeállításokból, és próbáld újra.";
+"error vpn" = "A VPN létrehozása sikertelen. Indítsd újra a készüléket, vagy távolítsd el a Blokada VPN profilt a rendszerbeállításokból, és próbáld újra.";
+"error vpn perms" = "Nincs engedély a VPN profil létrehozására.";
+"error vpn no current lease" = "Kérjük, először válaszd ki a helyet.";
+"error vpn too many leases" = "Elérted a készülékek számának korlátját. Kérjük, távolítsd el az egyik eszközt, és próbáld újra.";
+"error vpn expired" = "A VPN le van tiltva. Kérjük, frissítsd előfizetésed a BLOKADA+ további használatához";
+"error payment inactive after restore" = "Az előző befizetésed visszaállítottuk, de az előfizetésed már lejárt. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.";
+"error payment failed" = "A kifizetések jelenleg nem érhetők el. Győződj meg arról, hogy online vagy és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot a fenti súgó gomb megnyomásával.";
+"error payment not available" = "A készülékhez nem érhető el a kifizetés. Vagy az Apple Pay nincs aktiválva, vagy még nem fogadunk el kifizetéseket az adott országból.";
+"error payment canceled" = "A fizetés visszavonásra került. A terhelés nem történt meg.";
+"error pack install" = "Ezt a szolgáltatást nem lehetett telepíteni (vagy eltávolítani). Kérlek, próbáld újra később.";
+"error location failed fetching" = "Nem sikerült lekérdezni a helyet.";
+
+"universal action continue" = "Tovább";
+"universal action cancel" = "Mégse";
+"universal action close" = "Bezárás";
+"universal action done" = "Kész";
+"universal action try again" = "Próbálja újra";
+"universal action learn more" = "További információ";
+"universal action help" = "Segítség";
+"universal action show log" = "Naplók";
+"universal action share log" = "Napló megosztása";
+"universal action copy" = "Másolás";
+"universal action save" = "Mentés";
+"universal action contact us" = "Kapcsolat";
+"universal action support" = "Támogatás";
+"universal action yes" = "Igen";
+"universal action no" = "Nem";
+"universal action donate" = "Támogatás";
+"universal action community" = "Közösség";
+"universal action open in browser" = "Megnyitás böngészőben";
+"universal action more" = "Továbbiak";
+
+"universal label help" = "Segítség";
+"universal status processing" = "Feldolgozás... Kérjük, várj.";
+
+"alert error header" = "Hoppá!";
+"alert vpn expired header" = "BLOKADA+ lejárt";
+
+"notification vpn expired header" = "BLOKADA+ előfizetés lejárt";
+
+"account active forever" = "Örökre";
+
+"main ask for permissions header" = "Csak még egy lépés";
+"main ask for permissions description" = "A Blokada VPN-konfigurációt használ a hirdetések blokkolására. A következő lépésben kérjük engedélyezd.";
+
+"main rate us header" = "Értékelj minket!";
+"main rate us description" = "Eddig hogy tetszik a Blokada?";
+"main rate us on app store" = "Az App Store értékeléssel lenne kedved segíteni nekünk?";
+"main rate us action sure" = "Persze!";
+
+// Make sure each tab name has a similar length
+"main tab home" = "Kezdőlap";
+// Make sure each tab name has a similar length
+"main tab activity" = "Tevékenység";
+// Make sure each tab name has a similar length
+"main tab advanced" = "Haladó";
+// Make sure each tab name has a similar length
+"main tab settings" = "Beállítások";
+"home power off menu header" = "Mit szeretnél tenni?";
+"home power action turn on" = "Bekapcsolás";
+"home power action turn off" = "Kikapcsolás";
+"home status active" = "AKTÍV";
+"home status deactivated" = "DEAKTIVÁLVA";
+"home action tap to activate" = "koppints az aktiváláshoz";
+"home status detail progress" = "kérlek, várj...";
+
+"home plus button deactivated" = "BLOKADA+ deaktiválva";
+"home plus button select location" = "Hely kiválasztása";
+"home plus button location" = "Hely: *%@*";
+
+"pack section header" = "Speciális funkciók";
+"pack action install" = "TELEPÍTÉS";
+"pack action update" = "FRISSÍTÉS";
+"pack action uninstall" = "ELTÁVOLÍTÁS";
+"pack author" = "Szerző";
+"pack configurations header" = "Konfigurációk";
+"pack information header" = "Továbbiak";
+"pack category active" = "Aktív";
+"pack category all" = "Összes";
+
+"location choice header" = "Válassz ki egy helyet";
+
+"activity section header" = "Tevékenység";
+"activity request blocked" = "Ez a kérelem blokkolásra került.";
+"activity request allowed" = "Ez a kérelem engedélyezésre került.";
+"activity request allowed whitelisted" = "Ez a kérelem engedélyezésre került, mert az Engedélyezett listádban szerepel";
+"activity request blocked blacklisted" = "Ez a kérelem blokkolásra került, mert a Blokkolt listádban szerepel";
+"activity information header" = "Információ";
+"activity action add to whitelist" = "Engedélyezetthez ad";
+"activity action remove from whitelist" = "Engedélyezettből eltávolít";
+"activity action added to whitelist" = "Engedélyezetthez adva";
+"activity action add to blacklist" = "Blokkolthoz ad";
+"activity action remove from blacklist" = "Blokkoltból eltávolít";
+"activity action added to blacklist" = "Blokkolthoz adva";
+"activity action copy to clipboard" = "Név másolása a vágólapra";
+"activity domain name" = "Teljes név";
+"activity time of occurrence" = "Idő";
+"activity number of occurrences" = "Események száma";
+"activity state modified" = "módosítva";
+"activity state blocked" = "reklám szűrve";
+"activity state allowed" = "engedélyezve";
+"activity happened one time" = "1 alkalommal";
+"activity happened many times" = "%@ alkalommal";
+"activity category recent" = "Legutóbbi";
+"activity filter header" = "Melyik bejegyzéseket szeretnéd látni?";
+"activity filter show all" = "Minden bejegyzést";
+"activity filter show blocked" = "Csak a blokkoltat";
+"activity filter show allowed" = "Csak az engedélyezettet";
+
+"account section header settings" = "Beállítások";
+"account status text" = "A BLOKADA %@ fiókod aktív eddig: %@.";
+
+"account section header primary" = "Elsődleges";
+"account section header other" = "Egyéb";
+"account action my account" = "Fiókom";
+"account action encryption" = "Titkosítás";
+"account action devices" = "Készülékek";
+"account action inbox" = "Bejövő";
+"account action about" = "Névjegy";
+
+"account section header my subscription" = "Előfizetésem";
+"account section header general" = "Általános";
+"account section header subscription" = "Előfizetés";
+"account label id" = "Fiókazonosító";
+"account label type" = "Fiók típusa";
+"account label active until" = "Aktív eddig";
+"account action manage subscription" = "Előfizetés kezelése";
+"account action why upgrade" = "Miért kellene bővítenem?";
+"account id status unchanged" = "(változatlan)";
+
+"account encrypt level low" = "Alacsony";
+"account encrypt level medium" = "Közepes";
+"account encrypt level high" = "Magas";
+"account encrypt label level" = "Szint";
+"account encrypt label level low" = "Alacsony: Nincs titkosítás";
+"account encrypt label level medium" = "Közepes: DNS titkosítása";
+"account encrypt label level high" = "Magas: Mindent titkosít";
+"account encrypt label dns" = "DNS";
+"account encrypt action what is dns" = "Mi a DNS?";
+"account encrypt section header" = "Titkosítás";
+"account lease label devices" = "Készülékek";
+"account lease label this device" = " (ez a készülék)";
+
+"account support action how help" = "Hogyan segíthetünk?";
+
+"payment header activated" = "Aktiválva!";
+"payment action choose location" = "Válassz ki egy helyet";
+"payment feature title change location" = "Hely módosítása";
+"payment feature title encrypt data" = "Adatok titkosítása";
+"payment feature title faster connection" = "Gyorsabb csatlakozás";
+"payment feature desc faster connection" = "Gyors csatlakozás az akár 100 Mbit/s sebességű szerverekhez, szerte a világon.";
+"payment feature title devices" = "Akár 5 eszköz";
+"payment feature desc devices" = "Ugyanazon fiók használatával megoszthatod előfizetésed legfeljebb öt készülék között: iOS, Android, vagy PC.";
+"payment feature title no ads" = "Reklámmentesség";
+"payment action see all features" = "Összes funkció megtekintése";
+"payment action restore" = "Vásárlások visszaállítása";
+"payment action terms" = "Felhasználási feltételek";
+"payment action policy" = "Adatvédelmi irányelvek";
+
+"payment subscription 1 month" = "1 hónap";
+"payment subscription many months" = "%@ hónap";
+"payment subscription per month" = "%@ havonta";
+"payment subscription offer" = "%@ spórolása";
+
+"apps section header" = "Appok";
+"app settings start on boot" = "Bootoláskor indul";
+"app settings section advanced" = "Haladó";

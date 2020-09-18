@@ -1,0 +1,33 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Listă de blocare pentru reclame și trackere";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Acest Sistem Energized este proiectat pentru sisteme ca Unix, primește o listă de domenii care deservesc reclame, urmărirea script-urilor și a malware-urilor din mai multe surse reputabile și creează un fișier host care împiedică sistemul să se conecteze la ele. Atenție, instalarea configurației \"Rețele de Socializare\" poate face ca aplicațiile sociale, precum Messenger, să se comporte in mod eronat.";
+"Popular for adblocking" = "Populare pentru blocare reclamelor";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Consolidând și extinzând fișierele hosts din mai multe surse bine curate. Opțional puteți alege extinderi pentru a bloca Pornografia, Rețele Sociale și alte categorii.";
+"Alternative blocklist with advanced features" = "Listă alternativă de blocare cu caracteristici avansate";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "O listă de blocare cu extensii unice din care să alegeți. Fiți conștient că este mai agresivă și poate afecta unele aplicații sau site-uri. Blochează graph.facebook.com și mqtt-mini.facebook.com. Puteți lua în considerare excluderea lor în secțiunea Activitate, în cazul în care întâmpinați probleme cu aplicațiile Facebook.";
+"Adblocking for your mobile device" = "Adblocking pentru dispozitivul dvs. mobil.";
+"A special blocklist containing mobile ad providers." = "O listă specială de blocare care conține furnizori de anunțuri mobile.";
+"Protects against cyber attacks" = "Protejează împotriva atacurilor informatice";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "O listă de blocare pentru filtrarea site-urilor web de înșelăciune. Falsificarea este o practică incorectă bazată pe redirecționarea către site-uri web false, care arată exact ca cele originale, pentru a păcăli vizitatorii, şi pentru a fura informaţii sensibile. Instalarea acestei liste de blocare vă va ajuta să preveniți astfel de situații.";
+"A new and upcoming tracker database" = "O nouă și viitoare bază de date a tracker-elor";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar este un set de date cel mai bun în clasă despre trackere care este generat și întreținut automat prin crawling și analiză continuă. Vedeți informațiile despre autor pentru detalii.";

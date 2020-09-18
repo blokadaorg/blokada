@@ -1,0 +1,32 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Hirdetések és nyomkövetők blokkolási listája";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Az Energized System az Unix-szerű rendszerekhez lett tervezve, és listázza azokat a domaineket, amelyek hirdetéseket, nyomkövetőket és rosszindulatú programokat küldenek több megbízható forrásból, és létrehoz egy hoszt fájlt, amely megakadályozza, hogy a rendszer kapcsolódjon hozzájuk. Megjegyzés: a \"Közösségi\" konfiguráció telepítése miatt a közösségi alkalmazások, például a Messenger, hibásan viselkedhetnek.";
+"Popular for adblocking" = "Népszerű hirdetésblokkoló";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Egyesíti és kibővíti a több ismert forrásból származó hosztfájlokat. Opcionálisan további kiterjesztéseket is választhatsz a pornográfia, a közösségi média és más kategóriák blokkolására.";
+"Alternative blocklist with advanced features" = "Alternatív blokkolási lista kibővített funkciókkal";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Blokkolási lista egyedi választható kiterjesztésekkel. Vedd figyelembe, hogy ez agresszívabb, és az alkalmazások vagy a webhelyek nem várt működését eredményezheti. Blokkolja a graph.facebook.com és az mqtt-mini.facebook.com webhelyeket. A Tevékenység szakasz engedélyezőlistájába felveheted ezeket, ha problémákat tapasztalsz a Facebook alkalmazásokban.";
+"Adblocking for your mobile device" = "Hirdetésblokkoló a mobil készülékedhez";
+"A special blocklist containing mobile ad providers." = "Egy speciális blokkolási lista, amely a mobilhirdetési szolgáltatókat tartalmazza.";
+"Protects against cyber attacks" = "Védelem a kibertámadások ellen";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Blokkoló lista az adathalász webhelyek szűrésére. Az adathalászat olyan csalás, mely olyan hamis weboldalakra való átirányításon alapul, amelyek pontosan úgy néznek ki, mint az eredeti, a látogatók megtévesztése és az érzékeny információk ellopása céljából. A blokkoló lista telepítése segít elkerülni az ilyen helyzeteket.";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "A DuckDuckGo Tracker Radar egy a maga kategóriájában legjobb adatkészlet a nyomkövetőkről, amelyet folyamatos feltérképezéssel és elemzéssel automatikusan generál és tart fenn. A részleteket lásd a szerző adataiban.";

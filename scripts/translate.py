@@ -49,10 +49,11 @@ def main(argv):
     config = {
         "repo_dir": "../../translate",
         "action": "export",
-        "langs": ["pl", "de", "es", "it", "hi", "ru", "bg", "tr", "ja", "id", "cs", "zh-Hant", "ar", "fi"],
+        "langs": ["pl", "de", "es", "it", "hi", "ru", "bg", "tr", "ja", "id", "cs", "zh-Hant", "ar", "fi", "ro", "pt-BR", "fr", "hu", "nl"],
         "langs-android": {
             "id": "in",
-            "zh-Hant": "zh"
+            "zh-Hant": "zh",
+	    "pt-BR": "b+pt+BR"
         }
     }
 

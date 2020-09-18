@@ -1,0 +1,78 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"error device offline" = "Jouw apparaat is offline";
+"error account inactive" = "Je account is inactief. Gelieve je account te activeren om BLOKADA+ te kunnen blijven gebruiken.";
+"error account inactive after restore" = "Dit lijkt geen geldig actief account te zijn. Als je denkt dat dit niet klopt, neem dan contact met ons op door op het hulp icoon bovenaan te klikken.";
+"error creating account" = "Kan geen nieuw account aanmaken. Probeer het later nog eens.";
+"error vpn no current lease" = "Kies eerst een lokatie.";
+
+"universal action continue" = "Doorgaan";
+"universal action cancel" = "Annuleren";
+"universal action close" = "Sluiten";
+"universal action done" = "Klaar";
+"universal action try again" = "Probeer opnieuw";
+"universal action learn more" = "Meer weten";
+"universal action help" = "Hulp";
+"universal action show log" = "Logs";
+"universal action share log" = "Deel log";
+"universal action copy" = "Kopiëren";
+"universal action save" = "Opslaan";
+"universal action contact us" = "Neem contact op";
+"universal action support" = "Ondersteuning";
+"universal action upgrade" = "Upgrade naar BLOKADA+";
+"universal action yes" = "Ja";
+"universal action no" = "Nee";
+"universal action donate" = "Doneren";
+"universal action community" = "Community";
+"universal action open in browser" = "Openen in browser";
+
+"universal label help" = "Hulp";
+"universal status processing" = "Bezig... Even geduld.";
+"universal status copied to clipboard" = "Gekopieerd naar Klembord";
+
+// Make sure each tab name has a similar length
+"main tab home" = "Home";
+// Make sure each tab name has a similar length
+"main tab settings" = "Instellingen";
+"home power action turn on" = "Inschakelen";
+"home power action turn off" = "Uitschakelen";
+"home status active" = "ACTIEF";
+"home status detail progress" = "even geduld...";
+"pack category active" = "Actief";
+"activity state blocked" = "geblokkeerd";
+
+"account section header settings" = "Instellingen";
+"account section header other" = "Overige";
+"account action devices" = "Apparaten";
+"account action about" = "Over";
+"account label id" = "Account ID";
+"account action manage subscription" = "Abonnement beheren";
+"account encrypt label dns" = "DNS";
+"account lease label devices" = "Apparaten";
+
+"payment subscription 1 month" = "1 Maand";
+"payment subscription many months" = "%@ Maanden";
+"payment subscription per month" = "%@ per maand";
+"payment subscription offer" = "%@ Opslaan";
+
+"apps section header" = "Apps";
+"app settings start on boot" = "Starten bij opstarten";

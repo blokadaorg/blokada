@@ -1,0 +1,33 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Lista de bloqueio de anúncios e rastreadores";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Este Sistema Energizado foi projetado para sistemas semelhantes a Unix, obtém uma lista de domínios que servem anúncios, scripts de rastreamento e malware de múltiplas fontes conceituadas e cria um arquivo de hosts que impede o sistema de se conectar a eles. Cuidado, instalar a configuração \"Social\" pode fazer seus apps sociais, como o Messenger, se comportar mal.";
+"Popular for adblocking" = "Popular para bloqueio de anúncios";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Consolidando e Estendendo os arquivos de hosts de várias fontes bem selecionadas. Você pode opcionalmente escolher extensões para bloquear \nPornô, Redes Sociais e outras categorias.";
+"Alternative blocklist with advanced features" = "Lista de bloqueio alternativa com recursos avançados";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Uma lista de bloqueio com extensões exclusivas para escolher. Esteja ciente de que é mais agressivo e pode quebrar aplicativos ou sites. Ele bloqueia graph.facebook.com e mqtt-mini.facebook.com. Você pode considerar colocá-los na lista de permissões na seção Atividade, caso tenha problemas com aplicativos do Facebook.";
+"Adblocking for your mobile device" = "Bloqueio de anúncios para o seu dispositivo móvel";
+"A special blocklist containing mobile ad providers." = "Uma lista de bloqueio especial que contém provedores de anúncios móveis.";
+"Protects against cyber attacks" = "Protege contra ataques virtuais";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Uma lista de bloqueio para filtrar sites de phishing. Phishing é uma prática incorreta baseada no redirecionamento para sites falsos, que se parecem exatamente com os originais, a fim de enganar os visitantes e roubar informações confidenciais. A instalação desta lista de bloqueio irá ajudá-lo a prevenir tais situações.";
+"A new and upcoming tracker database" = "Um futuro novo banco de dados de rastreadores";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar é um dos melhores da classe em matéria de dados de rastreadores, que é gerado e mantido automaticamente através de rastreamento e análise contínua. Veja as informações do autor para detalhes.";
