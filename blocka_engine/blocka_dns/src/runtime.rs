@@ -155,8 +155,18 @@ async fn lookup_to_doh_resolve<C: DnsClient>(
     // TODO: dnssec types
     // RecordType::DNSSEC(rtype) => match rtype {
     // }
+    RecordType::Unknown(rtype) => {
+      if rtype == 65 {
+        // Reduce error log spam for this known issue on iOS 14.
+        debug!("HTTPS record type not implemented");
+        return Ok(vec![]);
+      } else {
+        error!("unknown or invalid record type: {:?}", rtype);
+      }
+      return Err(DnsError::InvalidRecordType);
+    }
     _ => {
-      error!("invalid record type: {:?}", rtype);
+      info!("valid but not yet supported record type: {:?}", rtype);
       return Err(DnsError::InvalidRecordType);
     }
   }
