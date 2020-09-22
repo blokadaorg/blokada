@@ -155,7 +155,10 @@ async fn lookup_to_doh_resolve<C: DnsClient>(
     // TODO: dnssec types
     // RecordType::DNSSEC(rtype) => match rtype {
     // }
-    _ => return Err(DnsError::InvalidRecordType),
+    _ => {
+      error!("invalid record type: {:?}", rtype);
+      return Err(DnsError::InvalidRecordType);
+    }
   }
 }
 
