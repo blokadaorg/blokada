@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_touch">Takoni ose mbani për të konfiguruar</string>
+    <string name="home_blokada_disabled">Blokada është ndalur</string>
+    <string name="home_blokada_active">Blokada është aktive</string>
+    <string name="home_blokada_inactive">Blokada është çaktivizuar</string>
+    <string name="home_activating">Po fillon</string>
+    <string name="home_please_wait">Te lutem prit...</string>
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">Blokada është aktiv në modalitetin DNS</string>
+    <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_masterswitch_enabled">Blokada është e ndezur</string>
+    <string name="home_masterswitch_waiting">Në pritje të rrjetit...</string>
+    <!-- A button to share the ads counter on social media -->
+    <string name="home_share">U thoni miqve tuaj</string>
+    <string name="home_share_state">Ndani rezultatin tuaj në Blokada</string>
+    <string name="home_share_state_google">Ndihmoni të tjerët të mësojnë rreth Blokada</string>
+    <string name="home_share_msg_google">Provoni Blokada Slim dhe ruajeni intimitetin tuaj të mbrojtur! Merrni atë në Google Play.</string>
+    <string name="home_adblocking_enabled">Bllokimi i reklamave është aktiv</string>
+    <string name="home_adblocking_disabled">Bllokimi i reklamave eshte e çaktivizuar</string>
+    <string name="home_blokadaorg">Ju jeni duke përdorur Blokada Slim</string>
+    <!-- A short text for the item that displays update information -->
+    <!-- A short text for the item that displays donate link -->
+    <!-- A short text for the button to change VPN settings -->
+    <!-- Ads section header in menu (for configuring ad blocking) -->
+    <!-- VPN section header in menu (for configuring VPN) -->
+    <!-- A button opening VPN account settings -->
+    <!-- A button opening VPN gateways settings -->
+    <!-- A button opening VPN leases (devices) settings -->
+    <!-- A section of other settings in menu -->
+    <!-- A section of help, telegram, and other buttons in menu -->
+    <!-- A section informational content in menu -->
+    <!-- A section content promoting participating in our project -->
+    <!-- A section in menu for additional buttons  -->
+    <!-- A section to manage some settings (generic)  -->
+</resources>

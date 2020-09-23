@@ -1,6 +1,5 @@
 package tunnel
 
-import core.emit
 import core.get
 import core.w
 import org.pcap4j.packet.*
@@ -8,7 +7,6 @@ import org.xbill.DNS.*
 import java.io.IOException
 import java.net.Inet4Address
 import java.net.Inet6Address
-import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
 import java.util.*
@@ -53,7 +51,7 @@ internal class BlockaTunnelFiltering(
 
     private fun interceptDns(packetBytes: ByteArray, length: Int): Boolean {
         return if ((packetBytes[0] and ipv4Version) == ipv4Version) {
-            if (isUdp(packetBytes) && dstAddress4(packetBytes, length, dnsProxyDst4))
+            if (isUdp(packetBytes) && dstAddress4(packetBytes, dnsProxyDst4))
                 parseDns(packetBytes, length)
             else false
         } else if ((packetBytes[0] and ipv6Version) == ipv6Version) {
@@ -109,7 +107,7 @@ internal class BlockaTunnelFiltering(
 
             envelope.rawData.copyInto(packetBytes)
 
-            emit(TunnelEvents.REQUEST, Request(host))
+            RequestLog.add(ExtendedRequest(host, requestId = dnsMessage.header.id))
             if (++oneWayDnsCounter > MAX_ONE_WAY_DNS_REQUESTS) {
                 throw Exception("Too many DNS requests without response")
             }
@@ -119,12 +117,12 @@ internal class BlockaTunnelFiltering(
             dnsMessage.header.rcode = Rcode.NOERROR
             generateDnsAnswer(dnsMessage, denyResponse)
             toDeviceFakeDnsResponse(dnsMessage.toWire(), originEnvelope)
-            emit(TunnelEvents.REQUEST, Request(host, blocked = true))
+            RequestLog.add(ExtendedRequest(host, blocked = true))
             true
         }
     }
 
-    private fun dstAddress4(packet: ByteArray, length: Int, ip: ByteArray): Boolean {
+    private fun dstAddress4(packet: ByteArray, ip: ByteArray): Boolean {
         return (
                 (packet[16] and ip[0]) == ip[0] &&
                         (packet[17] and ip[1]) == ip[1] &&
@@ -151,12 +149,10 @@ internal class BlockaTunnelFiltering(
 
     private fun rewriteSrcDns4(packet: ByteBuffer, length: Int) {
         val originEnvelope = try {
-            IpSelector.newPacket(packet.array(), packet.arrayOffset(), length) as IpPacket
+            IpSelector.newPacket(packet.array(), packet.arrayOffset(), length) as IpV4Packet
         } catch (e: Exception) {
             return
         }
-
-        originEnvelope as IpV4Packet
 
         if (originEnvelope.payload !is UdpPacket) {
             w("Non-UDP packet received from the DNS server, dropping")
@@ -164,7 +160,42 @@ internal class BlockaTunnelFiltering(
         }
 
         val udp = originEnvelope.payload as UdpPacket
-        val udpRaw = udp.payload.rawData
+        var udpRaw = udp.payload.rawData
+        val dnsMessage = try {
+            Message(udpRaw)
+        } catch (e: IOException) {
+            w("failed reading DNS answer", e)
+            null
+        }
+
+        if(dnsMessage != null) {
+            val updateDiff = ExtendedRequestDiff()
+            updateDiff.rcode = dnsMessage.rcode
+
+            if (dnsMessage.getSectionArray(Section.ANSWER).any { it is ARecord && it.address == unspecifiedIp4Addr }) {
+                updateDiff.ip = unspecifiedIp4Addr
+            } else if (dnsMessage.rcode == Rcode.NOERROR) {
+                val answer = dnsMessage.getSectionArray(Section.ANSWER).find { it is ARecord } as ARecord?
+                if (answer != null) {
+                    updateDiff.ip = answer.address
+
+                    if (get(TunnelConfig::class.java).cNameBlocking && dnsMessage.question.name != answer.name) {
+                        val cName = dnsMessage.question.name.toString(true)
+                        val cNamedDomain = answer.name.toString(true)
+
+                        if (!blockade.allowed(cName) && !blockade.allowed(cNamedDomain) && blockade.denied(cNamedDomain)) {
+                            updateDiff.cnamedDomain = cNamedDomain
+                            dnsMessage.header.setFlag(Flags.QR.toInt())
+                            dnsMessage.header.rcode = Rcode.NOERROR
+                            generateDnsAnswer(dnsMessage, denyResponse)
+                            udpRaw = dnsMessage.toWire()
+                        }
+                    }
+                }
+            }
+
+            RequestLog.update({ it.requestId == dnsMessage.header.id }, updateDiff)
+        }
 
         val dst = dnsServers.firstOrNull { it.address == originEnvelope.header.srcAddr }
         val dnsIndex = dnsServers.indexOf(dst)
@@ -183,7 +214,7 @@ internal class BlockaTunnelFiltering(
                     .correctLengthAtBuild(true)
                     .payloadBuilder(UnknownPacket.Builder().rawData(udpRaw))
 
-            val envelope = IpV4Packet.Builder(originEnvelope as IpV4Packet)
+            val envelope = IpV4Packet.Builder(originEnvelope)
                     .srcAddr(addr)
                     .dstAddr(originEnvelope.header.dstAddr)
                     .correctChecksumAtBuild(true)
@@ -191,9 +222,9 @@ internal class BlockaTunnelFiltering(
                     .payloadBuilder(udpForward)
                     .build()
 
+            packet.limit(envelope.rawData.size)
             packet.put(envelope.rawData)
             packet.position(0)
-            packet.limit(envelope.rawData.size)
         }
     }
 

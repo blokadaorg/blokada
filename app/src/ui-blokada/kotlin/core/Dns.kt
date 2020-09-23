@@ -44,7 +44,7 @@ abstract class Dns {
 
 private val FALLBACK_DNS = listOf(
         InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 1, 1, 1)), 53),
-        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(1, 0, 0, 1)), 53)
+        InetSocketAddress(InetAddress.getByAddress(byteArrayOf(8, 8, 8, 8)), 53)
 )
 
 class DnsImpl(
@@ -116,7 +116,7 @@ class DnsImpl(
         val choice = if(enabled()) choices().firstOrNull { it.active } else null
         val proposed = choice?.servers ?: getDnsServers(ctx)
         when {
-            blockaVpnState.enabled && choice == null -> {
+            blockaVpnState.enabled && (choice == null || choice.id == "default") -> {
                 // We can't tell if default DNS servers will be reachable in the tunnel. Safely default.
                 v("using fallback DNS under Blocka VPN")
                 FALLBACK_DNS

@@ -512,17 +512,26 @@ class LabelView(
             field = value
             labelView.text = i18n.getString(value)
         }
+
+    fun setHiddenAction(action: () -> Unit) {
+        labelView.setOnLongClickListener {
+            action()
+            true
+        }
+    }
 }
 
 class LabelVB(
         val ktx: AndroidKontext,
         val i18n: I18n = ktx.di().instance(),
-        val label: Resource
+        val label: Resource,
+        val hiddenAction: (() -> Unit)? = null
 ) : LayoutViewBinder(R.layout.labelview) {
 
     override fun attach(view: View) {
         view as LabelView
         view.label = i18n.getString(label)
+        hiddenAction?.run { view.setHiddenAction(this) }
     }
 
 }

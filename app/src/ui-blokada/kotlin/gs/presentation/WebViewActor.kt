@@ -23,6 +23,12 @@ import gs.property.IProperty
 import gs.property.IWhen
 import org.blokada.R
 import java.net.URL
+import android.webkit.WebViewClient
+
+import android.webkit.WebChromeClient
+
+
+
 
 class WebDash(
         private val xx: Environment,
@@ -114,7 +120,8 @@ class WebDash(
         if (javascript) web.settings.javaScriptEnabled = true
         if (big) web.minimumHeight = ctx.resources.toPx(480)
         web.settings.domStorageEnabled = true
-        web.settings.userAgentString = blokadaUserAgent(ctx, viewer = false)
+        //web.settings.userAgentString = blokadaUserAgent(ctx, viewer = false)
+        web.webChromeClient = WebChromeClient()
         val cookie = CookieManager.getInstance()
         cookie.setAcceptCookie(true)
         if (Build.VERSION.SDK_INT >= 21) cookie.setAcceptThirdPartyCookies(web, true)

@@ -93,24 +93,24 @@ class FiltersPersistence {
 }
 
 class RequestPersistence(
-        val load: (Int) -> Result<List<Request>> = { batch: Int ->
-            Result.of { core.Persistence.paper().read<List<Request>>("requests:$batch", emptyList()) }
+        val load: (String, Int) -> Result<List<ExtendedRequest>> = { batchCategory: String, batch: Int ->
+            Result.of { core.Persistence.paper().read<List<ExtendedRequest>>("requests:$batchCategory-$batch", emptyList()) }
         },
-        val saveBatch: (Int, List<Request>) -> Any = { batch: Int, requests: List<Request> ->
-            Result.of { core.Persistence.paper().write("requests:$batch", requests) }
-        },
-        val batch_sizes: List<Int> = listOf(10, 100, 1000)
+        val saveBatch: (String, Int, List<ExtendedRequest>) -> Any = { batchCategory: String, batch: Int, requests: List<ExtendedRequest> ->   //TODO: Legacy loader
+            Result.of { core.Persistence.paper().write("requests:$batchCategory-$batch", requests) }
+        }
+        //val batch_sizes: List<Int> = listOf(25, 100, 1000)
 ) {
 
-    private val batch0 = mutableListOf<Request>()
+    //private val batch0 = mutableListOf<ExtendedRequest>()
 
-    val batches = listOf(
+    /*val batches = listOf(
             { batch0 },
             { load(1).getOr { emptyList() } },
             { load(2).getOr { emptyList() } }
-    )
+    )*/
 
-    val save = { request: Request ->
+    /*val save = { request: ExtendedRequest ->
         batch0.add(0, request)
         saveBatch(0, batch0)
         rollIfNeeded()
@@ -132,11 +132,11 @@ class RequestPersistence(
                 }
             } else break
         }
-    }
+    }*/
 
-    fun clear(){
-        for (i in 0 until batches.size) {
-            saveBatch(i, emptyList())
+    fun clear(batchCategory: String, numberBatches: Int){
+        for (i in 0 until numberBatches) {
+            saveBatch(batchCategory, i, emptyList())
         }
     }
 }

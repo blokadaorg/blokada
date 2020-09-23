@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_header">Paina hakeaksesi...</string>
+    <string name="search_title">Hae</string>
+    <string name="search_entered">Tulokset haulle: %s</string>
+    <string name="search_description">Kirjoita hakukysely yläpuolella ja napauta Vahvista suodattaaksesi listan.</string>
+    <string name="search_action_confirm">Vahvista</string>
+    <string name="search_action_clear">Tyhjennä</string>
+</resources>

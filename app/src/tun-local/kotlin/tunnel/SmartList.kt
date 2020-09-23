@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.github.michaelbull.result.getOr
 import com.github.michaelbull.result.mapBoth
 import com.github.salomonbrys.kodein.instance
 import core.*
@@ -18,14 +19,13 @@ import org.blokada.R
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.PrintWriter
 import java.util.*
 import kotlin.collections.HashSet
 
 
 private val asyncContext = newSingleThreadContext("smartlist-main") + logCoroutineExceptions()
 const val SMARTLIST_REQUEST_CODE = 1105321546 // random 32 bit value
-val smartlistLogfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.log")
+//val smartlistLogfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.log")
 val smartlistListfile = File(core.Persistence.global.getPathForSmartList(), "smartlist.hosts")
 val smartlistFilter = Filter("smart", FilterSourceDescriptor("file", smartlistListfile.absolutePath))
 
@@ -59,7 +59,8 @@ enum class SmartListState {
 }
 
 data class SmartListConfig (
-        val state: SmartListState
+        val state: SmartListState = SmartListState.DEACTIVATED,
+        val numBatches: Int = 0
 )
 
 //Triggered every night at 4AM
@@ -79,24 +80,18 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
     private var store = FilterStore(lastFetch = 0)
 
 
-    override fun onReceive(context: Context, intent: Intent) {
+    override fun onReceive(context: Context, intent: Intent) { //TODO split into multiple smaller functions
         val tunnelConfig = get(TunnelConfig::class.java)
         val smartConfig = get(SmartListConfig::class.java)
         when(smartConfig.state) {
             SmartListState.ACTIVE_PHASE1 -> {
-                val data = Scanner(FileInputStream(smartlistLogfile))
-                val newHosts = HashSet<String>()
-                while (data.hasNextLine()) {
-                    val host = data.nextLine()
-                    newHosts.add(host)
-                }
+                val newHosts = SmartListLogger.load { it.state == RequestState.BLOCKED_NORMAL || it.state == RequestState.BLOCKED_CNAME }
                 val smartlistFile = FileOutputStream(smartlistListfile, true).writer()
                 newHosts.forEach { host ->
                     v(host)
                     smartlistFile.write(host + '\n')
                 }
                 smartlistFile.close()
-                data.close()
                 SmartListLogger.clear()
                 set(SmartListConfig::class.java,SmartListConfig(state = SmartListState.ACTIVE_PHASE2))
                 entrypoint.onFiltersChanged()
@@ -182,13 +177,8 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
                         smartlistFile.close()
                         showSnack(R.string.tunnel_config_smartlist_clean_done)
                     }else{
-                        val data = Scanner(FileInputStream(smartlistLogfile))
                         val newHosts = HashSet<String>()
-                        val loggedHosts = HashSet<String>()
-                        while (data.hasNextLine()) {
-                            loggedHosts.add(data.nextLine())
-                        }
-                        data.close()
+                        val loggedHosts = SmartListLogger.load { !it.blocked }
 
                         store.cache.filter { it.active && !it.whitelist }.forEach {
                             val activeFilters = whitelists.toMutableSet()
@@ -225,56 +215,42 @@ class OnGenerateSmartListReceiver : BroadcastReceiver() {
 
 
 
-class SmartListLogWriter {
-
-    private var file: PrintWriter? = try {
-        val writer = PrintWriter(FileOutputStream(smartlistLogfile, true), true)
-        writer
-    } catch (ex: Exception) {
-        null
-    }
-
-    private var lastLine = ""
-
-    @Synchronized
-    internal fun writer(line: String) {
-        if(line != lastLine) {
-            lastLine = line
-            file?.println(line)
-        }
-    }
-
-    @Synchronized
-    internal fun clear() {
-        file?.close()
-        file = PrintWriter(FileOutputStream(smartlistLogfile, false), true)
-    }
-}
-
-
 class SmartListLogger{
 
     companion object{
-        private val smartListLogWriter: SmartListLogWriter = SmartListLogWriter()
+        private const val SMARTLIST_LOG_CATEGORY = "smart-batch"
 
-        @Synchronized
-        fun log(request: Request){
-            val state = get(SmartListConfig::class.java).state
-            if (!request.blocked && state == SmartListState.ACTIVE_PHASE2) {
-                smartListLogWriter.writer(request.domain)
-            }
-            if (request.blocked && state == SmartListState.ACTIVE_PHASE1) {
-                smartListLogWriter.writer(request.domain)
-            }
+        fun log(requests: List<ExtendedRequest>){
+            val config = get(SmartListConfig::class.java)
+            if(config.state != SmartListState.DEACTIVATED) {
+                Persistence.request.saveBatch(SMARTLIST_LOG_CATEGORY, config.numBatches, requests)
+                set(SmartListConfig::class.java, config.copy(numBatches = config.numBatches + 1))
+             }
         }
 
-        @Synchronized
+        fun load(filter: (ExtendedRequest) -> Boolean): HashSet<String>{//TODO use request batches too
+            val config = get(SmartListConfig::class.java)
+            val domains = HashSet<String>()
+
+            for (i in 0..config.numBatches){
+                domains.addAll(
+                        Persistence.request.load(SMARTLIST_LOG_CATEGORY, i)
+                                .getOr { emptyList() }
+                                .filter(filter)
+                                .map { it.domain }
+                )
+            }
+
+            return domains
+        }
+
         fun clear(){
-            smartListLogWriter.clear()
+            val config = get(SmartListConfig::class.java)
+            Persistence.request.clear(SMARTLIST_LOG_CATEGORY,config.numBatches)
+            set(SmartListConfig::class.java, config.copy(numBatches = 0))
         }
     }
 }
-
 
 class SmartListVB(
         private val ktx: AndroidKontext,
@@ -295,7 +271,7 @@ class SmartListVB(
                     val cfg = get(SmartListConfig::class.java)
                     if (cfg.state != SmartListState.DEACTIVATED) {
                         smartlistListfile.delete()
-                        smartlistLogfile.delete()
+                        SmartListLogger.clear()
                         set(SmartListConfig::class.java, SmartListConfig(state = SmartListState.ACTIVE_PHASE1))
                         showSnack(R.string.tunnel_config_smartlist_reset_done)
                         entrypoint.onFiltersChanged()

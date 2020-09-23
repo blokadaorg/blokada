@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
 
     <application
         android:name="core.MainApplication"
@@ -42,6 +43,38 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </receiver>
+
+
+        <receiver
+            android:name="core.GeneralSwitchWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/controlswitch_general_widget_info" />
+        </receiver>
+        <receiver
+            android:name="core.DnsSwitchWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/controlswitch_dns_widget_info" />
+        </receiver>
+        <receiver
+            android:name="core.VpnSwitchWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/controlswitch_vpn_widget_info" />
         </receiver>
 
 

@@ -3,11 +3,13 @@ package core.bits
 import blocka.BlockaVpnState
 import com.github.salomonbrys.kodein.instance
 import core.*
+import core.Tunnel
 import core.bits.menu.MENU_CLICK_BY_NAME
 import gs.property.I18n
-import gs.property.IWhen
 import org.blokada.R
-import tunnel.TunnelConfig
+import tunnel.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AdsBlockedVB(
         private val ktx: AndroidKontext,
@@ -16,28 +18,42 @@ class AdsBlockedVB(
         private val tunnelStatus: EnabledStateActor = ktx.di().instance()
 ) : ByteVB() {
 
-    private var droppedCountListener: IWhen? = null
-    private var dropped: Int = 0
+    private var onDropped = { update: RequestUpdate ->
+            if (update.oldState == null) {
+                update()
+            }
+        }
     private var active = false
+    private var countStartDate = ""
+    private var countStart = 0L
     private var activating = false
 
     override fun attach(view: ByteView) {
-        droppedCountListener = tunnelEvents.tunnelDropCount.doOnUiWhenSet().then {
-            dropped = tunnelEvents.tunnelDropCount()
-            update()
-        }
+        ktx.on(TunnelEvents.REQUEST_UPDATE, onDropped)
         tunnelStatus.listeners.add(tunnelListener)
         tunnelStatus.update(tunnelEvents)
         on(TunnelConfig::class.java, this::update)
         on(BlockaVpnState::class.java, this::update)
+        on(LogConfig::class.java, this::updateStartDate)
+        updateStartDate()
         update()
     }
 
     override fun detach(view: ByteView) {
-        tunnelEvents.tunnelDropCount.cancel(droppedCountListener)
+        ktx.cancel(TunnelEvents.REQUEST_UPDATE, onDropped)
         tunnelStatus.listeners.remove(tunnelListener)
         cancel(TunnelConfig::class.java, this::update)
         cancel(BlockaVpnState::class.java, this::update)
+        cancel(LogConfig::class.java, this::updateStartDate)
+    }
+
+    private fun updateStartDate() {
+        val setStartDate = get(LogConfig::class.java).dropStart
+        if(setStartDate != countStart) {
+            countStart = setStartDate
+            countStartDate = SimpleDateFormat("dd.MM.yy").format(Date(countStart))
+            update()
+        }
     }
 
     private fun update() {
@@ -53,7 +69,7 @@ class AdsBlockedVB(
                 entrypoint.onSwitchAdblocking(enable)
             }
 
-            val droppedString = i18n.getString(R.string.home_requests_blocked, Format.counter(dropped))
+            val droppedString = i18n.getString(R.string.home_requests_blocked_since, Format.counter(RequestLog.dropCount), countStartDate)
 
             when {
                 !config.adblocking || !tunnelEvents.enabled() -> {

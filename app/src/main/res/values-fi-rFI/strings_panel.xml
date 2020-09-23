@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main screen section -->
+    <string name="panel_section_home">Etusivu</string>
+    <string name="panel_section_menu">Valikko</string>
+    <!-- Main screen section -->
+    <string name="panel_section_ads">Mainosten estäminen</string>
+    <!-- Main screen section -->
+    <string name="panel_section_apps">Sovellukset</string>
+    <!-- Main screen section -->
+    <string name="panel_section_home_help">Ohje</string>
+    <string name="panel_section_ads_lists">Isäntälistat</string>
+    <string name="panel_section_ads_log">Isäntäloki</string>
+    <string name="panel_section_ads_blacklist">Estetyt isännät</string>
+    <string name="panel_section_ads_whitelist">Sallitut isännät</string>
+    <string name="panel_section_advanced_dns">DNS</string>
+    <string name="panel_section_apps_all">Asennetut sovellukset</string>
+    <string name="panel_section_apps_system">Järjestelmäsovellukset</string>
+    <string name="panel_section_advanced_settings">Asetukset</string>
+    <string name="panel_section_app_settings">Sovellusasetukset</string>
+    <!-- When a domain is allowed (not blocked) -->
+    <string name="panel_domain_forwarded">Sallittiin &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_forwarded_desc">Tämä verkkotunnus on sallittu. Estääksesi sen, käytä alla olevaa painiketta.</string>
+    <string name="panel_domain_forwarded_toast">Lisätty sallittujen luetteloon.</string>
+    <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked">Estettiin &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="panel_domain_blocked_normal_desc">Tämä verkkotunnus on estetty. Voit sallia sen tulevaisuudessa käyttämällä alla olevaa painiketta.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">DNS-palvelin ei selvittänyt tätä verkkotunnusta oikein. Joko palvelin esti verkkotunnuksen tai sitä ei ole olemassa.</string>
+    <string name="panel_domain_blocked_error_desc">Jokin meni pieleen selvittäessä tätä verkkotunnusta, DNS-palvelin vastasi virhekoodilla.</string>
+    <string name="panel_domain_blocked_cname_desc">Tämä verkkotunnus estettiin, koska se on estettyjen verkkotunnusten CName. Jotta voit myöhemmin sallia sen, voit joko lisätä CNamen tai itse verkkotunnuksen sallittuihin isäntiin.</string>
+    <string name="panel_domain_blocked_toast">Lisätty estettyjen luetteloon.</string>
+    <!-- Action to copy domain name to clipboard -->
+    <string name="panel_domain_copy">Kopioi</string>
+    <string name="panel_domain_copied">Kopioitu leikepöydälle</string>
+    <string name="panel_ruleset">Suodatinlaskuri</string>
+    <!-- How many rules are configured. Parameters is number of rules. -->
+    <string name="panel_ruleset_title">Suodattimilla on nyt %s sääntöä.</string>
+    <string name="panel_ruleset_updating">Päivitetään suodattimia...</string>
+    <string name="panel_ruleset_canfit">Suodattimet on nyt määritetty seuraavilla &lt;b&gt;%s&lt;/b&gt; säännöillä. Laitteesi sallii enimmillään &lt;b&gt;%s&lt;/b&gt; Mt muistia jokaiselle sovellukselle ja jopa &lt;b&gt;%s&lt;/b&gt; sääntöä mahtuu siihen.&lt;br&gt;Muista, että tämä on vain arvio ja Blokada käyttää eniten muistia yhdistäessään listat. Jos otit käyttöön muutaman niistä äskettäin, odota muutama minuutti, kunnes järjestelmä vapauttaa muistia.</string>
+    <!-- Button to allow blocked domain -->
+    <string name="slot_action_allow">Salli</string>
+    <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">Salli CName</string>
+    <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">Salli verkkotunnus</string>
+    <!-- Button to block allowed domain -->
+    <string name="slot_action_block">Estä</string>
+    <string name="slot_action_close">Sulje</string>
+    <string name="slot_action_remove">Poista</string>
+    <!-- Button to open homepage of list's author. Keep it short. -->
+    <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">Kyllä</string>
+    <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">Ei</string>
+    <!-- An action to toggle a switch -->
+    <string name="slot_intro_new">Kuinka käyttää uutta käyttöliittymää? Napauta tätä saadaksesi esittely.</string>
+    <string name="slot_intro_new_header">Kuinka käyttää uutta käyttöliittymää?</string>
+    <string name="slot_intro_desc">Olet tällä hetkellä Etusivu-osiossa, joita on lisää jos pyyhkäiset oikealle. Jokaisella niistä on oma alavalikko - avaa se pyyhkäisemällä ylöspäin. &lt;br/&gt;&lt;br/&gt;Android TV:ssä, selaa käyttöliittymää dpadilla. Avaa alavalikko tai mikä tahansa valitsemasi kohde keskipainikkeella. Painikkeet on merkitty nuolilla, mitkä ovat ylös, alas, vasemmalle tai oikealle - paina suuntanäppäimiä klikataksesi niitä.</string>
+    <string name="slot_intro_info">Psst... Joissakin kohteissa on kysymysmerkki-kuvake. Napauttamalla sitä näytetään lyhyt ohjeviesti, kuten tämä!</string>
+    <string name="slot_new_filter">Lisää uusi isäntä estetyt-listaan</string>
+    <string name="slot_new_filter_list">Lisää uusi isäntälista</string>
+    <string name="slot_new_filter_whitelist">Lisää uusi isäntä sallitut-listaan</string>
+    <!-- A state of input form when no input is entered (think: empty)  -->
+    <string name="slot_unset">ei asetettu</string>
+    <!-- A state of input form when correct input is entered  -->
+    <string name="slot_set">asetettu</string>
+    <!-- A state of input form when incorrect input is entered  -->
+    <string name="slot_invalid">virheellinen</string>
+    <string name="slot_continue">Jatka</string>
+    <string name="slot_enter_domain_title">Verkkotunnus(kset)</string>
+    <string name="slot_enter_domain_desc">Kirjoita verkkotunnukset pilkulla erotettuna. Voit myös liittää linkin mihin tahansa isäntälistaan tai tuoda paikallisen isäntälistatiedoston.</string>
+    <string name="slot_enter_domain_error">Tämä ei näytä minusta miltään.</string>
+    <string name="slot_enter_domain_file">Tiedosto</string>
+    <string name="slot_enter_domain_no_file">Tiedostoja ei löytynyt hakemistosta /Download/blokada/filters</string>
+    <string name="slot_enter_file_titel">Tiedostonimi</string>
+    <string name="slot_enter_file_import">Tuo</string>
+    <string name="slot_enter_file_desc">Syötä osittainen tiedostonimi</string>
+    <string name="slot_enter_file_not_found">Ei tiedostonimeä, joka sisältää syötteesi</string>
+    <string name="slot_enter_file_multi">Useat tiedostot vastaavat syötettäsi</string>
+    <string name="slot_enter_name_title">Nimi</string>
+    <string name="slot_enter_name_desc">Kirjoita uuden merkinnän nimi. Voit myös luoda ehdotetun nimen.</string>
+    <string name="slot_enter_name_error">Tämä ei näytä minusta miltään.</string>
+    <string name="slot_enter_name_generate">Luo</string>
+    <string name="slot_app_label">&lt;b&gt;%s&lt;/b&gt; on sallittujen listoissa</string>
+    <string name="slot_app_desc">Tämä sovellus on sallittujen listoissa, mikä tarkoittaa, että sitä ei suodateta tai estetä.</string>
+    <string name="slot_allapp_desc">Voit asettaa tämän sovelluksen ohittamaan Blokadan, jotta sen liikennettä ei estetä. Muista, että ohitetut sovellukset kommunikoivat VPN:n ulkopuolella.</string>
+    <string name="slot_allapp_whitelisted">Ohitettu</string>
+    <string name="slot_allapp_normal">Ei ohitettu</string>
+    <string name="slot_allapp_whitelist">Ohita</string>
+    <string name="slot_action_set">Aseta</string>
+    <string name="slot_whitelist_all">Ohita kaikki sovellukset</string>
+    <string name="slot_blacklist_all">Älä ohita mitään sovellusta</string>
+    <string name="slot_dns_name">DNS on päällä</string>
+    <string name="slot_dns_name_private">Mukautettu DNS on päällä</string>
+    <string name="slot_dns_name_disabled">DNS on pois päältä</string>
+    <string name="slot_action_none">Tämä toiminto ei ole vielä käytettävissä.</string>
+    <string name="slot_action_unwhitelist">Peruuta</string>
+    <string name="slot_action_author">Tietoa</string>
+    <!-- A prefix for generated name for manually entered domain.  -->
+    <string name="slot_input_suggestion">Merkintä</string>
+    <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
+    <string name="slot_input_suggestion_for">Merkintä osoitteelle %s</string>
+    <string name="slot_dns_control_title">DNS-palvelinluettelo</string>
+    <string name="slot_dns_control_description">Voit synkronoida DNS-palvelinluettelon palvelimiemme kanssa menettämättä mukautettuja merkintöjä. &lt;br/&gt;&lt;br/&gt;Vaihtoehtoisesti voit poistaa kaikki merkinnät (mukaan lukien omasi) ja ladata ne uudelleen.</string>
+    <!-- A button to synchronize (fetch) lists  -->
+    <string name="slot_action_refresh">Synkronoi</string>
+    <string name="slot_action_refresh_toast">Synkronointi aloitettu</string>
+    <string name="slot_action_restore">Poista</string>
+    <string name="slot_export_title">Asetusten sijainti</string>
+    <string name="slot_export_description">Voit muuttaa, mihin asetukset tallennetaan (ja mistä ladataan). Jos tuot nykyisiä asetuksia, valitse Tuo ensin, muuten niiden päälle kirjoitetaan.</string>
+    <string name="slot_action_import">Tuo</string>
+    <string name="slot_action_internal">Sisäinen tallennustila</string>
+    <string name="slot_action_external">Ulkoinen tallennustila</string>
+    <string name="slot_filters_title">Suodatinlista</string>
+    <string name="slot_filters_description">Voit synkronoida suodatinlistan palvelimiemme kanssa menettämättä mukautettuja merkintöjä. &lt;br/&gt;&lt;br/&gt;Vaihtoehtoisesti voit poistaa kaikki merkinnät (mukaan lukien omasi) ja ladata ne uudelleen.</string>
+    <string name="slot_blocked_normal_title">Verkkotunnus estetty</string>
+    <string name="slot_blocked_answer_title">Verkkotunnusta ei selvitetty</string>
+    <string name="slot_blocked_cname_title">CName estetty</string>
+    <string name="slot_forwarded_title">Verkkotunnus välitetty</string>
+    <string name="slot_whitelist_title">Sallittu sovellus</string>
+    <string name="slot_list_no_desc">Tällä merkinnällä ei ole kuvausta.</string>
+    <string name="slot_status_info">Kun sovellus on Aktiivinen, näytön yläosassa näkyy ilmoituspalkissa avainkuvake, mikä tarkoittaa, että laite on suojattu. Voit kytkeä sovelluksen pois käytöstä alla olevan painikkeen avulla tai pyyhkäisemällä alavalikkoa alaspäin.</string>
+    <string name="slot_action_deactivate">Kytke pois</string>
+    <string name="slot_action_activate">Ota käyttöön</string>
+    <string name="slot_update_action_refresh">Tarkista uudelleen</string>
+    <string name="slot_telegram_title">Liity mukaan!</string>
+    <string name="slot_telegram_desc">Vieraile yhteisössämme saadaksesi apua tai vain ollaksesi osa sitä.</string>
+    <string name="slot_telegram_action">Avaa</string>
+    <string name="slot_dropped_share_title">Jaa</string>
+    <string name="slot_adblocking_label">Estä mainokset &amp; jäljittäjät</string>
+    <string name="slot_adblocking_text">Kun tämä on käytössä, Blokada estää mainoksia, jäljittäjiä ja muuta ei-toivottua sisältöä. Tämä auttaa suojaamaan yksityisyyttäsi, nopeuttamaan laitettasi ja säästämään dataasi.</string>
+    <string name="slot_account_label_active">Tili aktiivinen, kunnes %s</string>
+    <string name="slot_account_label_inactive">Tili ei ole aktiivinen</string>
+    <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_action_manage">Hallitse tilausta</string>
+    <string name="slot_account_action_manage_inactive">Aktivoi tili</string>
+    <string name="slot_account_action_change_id">Palauta tili</string>
+    <string name="slot_account_show">Käyttäjätunnus</string>
+    <string name="slot_account_action_copied">Käyttäjätunnus kopioitiin leikepöydälle</string>
+    <string name="slot_account_action_unavailable">[ei asetettu]</string>
+    <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
+    <string name="slot_gateway_label">Yhdistä kohteeseen %s</string>
+    <string name="slot_gateway_section_partner">Kumppanin yhdyskäytävät tarjoavat lisäsijainteja. Blokada ei hallitse niitä kokonaan, mutta niillä ole pääsyä salattuun liikenteesi.</string>
+    <string name="slot_gateway_section_overloaded">Nämä yhdyskäytävät ovat ylikuormitetut ja ovat väliaikaisesti poissa käytöstä.</string>
+    <string name="slot_gateway_description">Suorituskyky: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP-osoite: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;Alue: &lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_gateway_overloaded">Tämä yhdyskäytävä on varattu eikä hyväksy uusia yhteyksiä.</string>
+    <string name="slot_gateway_learn_more">Lisätietoja yhdyskäytävistä</string>
+    <string name="slot_gateway_info_partner">Mitä ovat kumppaneiden yhdyskäytävät?</string>
+    <!-- Leases are devices connected to VPN. There might be multiple devices. -->
+    <string name="slot_leases_info">Hallitse, mitkä laitteesi yhdistävät Blokada Plussaan.</string>
+    <string name="slot_lease_name_current">%s (tämä laite)</string>
+    <string name="slot_lease_description">Laitetunnus: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;</string>
+    <string name="slot_lease_description_current">Laitetunnus: &lt;br/&gt;&lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Tämä on nykyinen laitteesi.</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_low">korkea</string>
+    <!-- Gateway load -->
+    <string name="slot_gateway_load_high">matala</string>
+    <string name="subscription_success">Tiliäsi aktivoidaan. Tämä voi viedä muutaman sekunnin. Kiitos!</string>
+    <string name="slot_start_on_boot_description">\"Aloita käynnistettäessä\" salliminen mahdollistaa Blokadan olevan aktiivinen koko ajan ja suojaamaan laitteesi. Huomaa, että järjestelmällä on aina korkeampi prioriteetti ja se voi korvata tämän vaihtoehdon, joten jos Blokada ei käynnisty, vilkaise järjestelmäsi asetuksia.</string>
+    <string name="slot_recommended_dns_label">Käytä suositeltuja DNS-palvelimia</string>
+    <string name="slot_recommended_dns_description">Kun toiminto on käytössä, Blokada valitsee automaattisesti suositellut DNS-palvelimet nopeuttaaksesi Internetiäsi ja suojatakseen yksityisyyttäsi. Muussa tapauksessa käytetään verkkosi oletus DNS-palvelimia. Jos valitset DNS-palvelimet manuaalisesti Lisäasetukset-osiosta, tätä asetusta ei huomioida.</string>
+    <string name="slot_update_no_updates">Blokada on ajan tasalla</string>
+    <string name="slot_about">Tietoa Blokadasta</string>
+    <!-- A button to share debug log. Keep it short. -->
+    <string name="slot_about_share_log">Kirjaa</string>
+    <string name="slot_help_label">Tarvitsetko apua?</string>
+    <string name="slot_help_desc">Napauta alla olevaa painiketta avataksesi ohjesivumme. Voit käyttää myös sosiaalista mediaamme saadaksesi apua - olemme Telegramissa, Facebookissa, Redditissä ja Twitterissä.</string>
+    <!-- A button to open help -->
+    <string name="slot_help_action">Ohje</string>
+    <string name="slot_donate_label">Nautitko Blokadasta? Harkitse tukemistamme, jotta voimme jatkaa sovelluksen parantamista.</string>
+    <string name="slot_donate_desc">Auta meitä ottamaan käyttöön uusia ominaisuuksia! Kosketa tätä saadaksesi lisää tietoa.</string>
+    <!-- A button to donate -->
+    <string name="slot_donate_action">Lahjoita</string>
+    <string name="slot_cta_label">Psst! Haluaisimme kuulla mielipiteesi.</string>
+    <string name="slot_cta_desc">Näytä tukesi osallistumalla tutkimuksiimme ja muihin tapahtumiin. Otamme säännöllisesti yhteyttä yhteisöömme saadaksemme palautetta ideoista ja uudesta kehityksestä varmistaaksemme, että työskentelemme sen parissa, mitä olette toivoneet.</string>
+    <!-- A button to open something (a website) -->
+    <string name="slot_cta_action">Avaa</string>
+    <string name="slot_blog_label">Tutustu kehitysblogiimme!</string>
+    <string name="slot_blog_desc">The Block on, jossa kirjoitamme projektin kehityksestä, tulevaisuuden suunnitelmista ja keskustelemme ideoista.</string>
+    <!-- A button to open a blog -->
+    <string name="slot_blog_action">Avaa</string>
+    <string name="slot_updated_desc">Kosketa tätä saadaksesi esittelyn tähän julkaisuun.</string>
+    <!-- A button to open a description website of current app version after update. -->
+    <string name="slot_obsolete_desc">Tämä Blokadan versio on vanhentunut, ja se ei välttämättä toimi oikein. Lataa uusin versio, jotta voit jatkaa uusien päivitysten vastaanottamista.</string>
+    <!-- A button to update the app. -->
+    <string name="slot_cleanup_desc">Laitteessasi näyttäisi olevan monta versiota Blokadasta asennettuna. Haluaisitko poistaa muut versiot ja pitää vain yhden?</string>
+    <string name="account_inactive">Aktivoi tai palauta tilisi jatkaaksesi.</string>
+    <string name="slot_lease_cant_connect">Blokadan Plussaan ei saatu yhteyttä. Yritä valita toinen yhdyskäytävä.</string>
+    <string name="slot_account_cant_create">Blokada Plus-tiliäsi ei voitu luoda. Yritä myöhemmin uudelleen tai ota meihin yhteyttä.</string>
+    <string name="slot_account_name_title">Käyttäjätunnus</string>
+    <string name="slot_account_name_desc">Anna vanha käyttäjätunnuksesi palauttaaksesi aiemman tilauksesi. Sinun kannattaa ehkä kirjoittaa nykyinen käyttäjätunnuksesi ylös ennen kuin teet sen virheen sattumisen varalta.</string>
+    <string name="slot_account_name_error">Käyttäjätunnus voi sisältää vain kirjaimia ja numeroita.</string>
+    <string name="slot_account_name_api_error">Tämä käyttäjätunnus ei vaikuta olevan oikea.</string>
+    <string name="slot_account_name_restore">Palauta</string>
+    <!-- A section in advanced settings. -->
+    <string name="label_basic">Ensisijaiset asetukset</string>
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <!-- A section in advanced settings. -->
+    <string name="label_advanced">Lisäasetukset</string>
+    <string name="slot_whitelist_updating">Päivitetään asetuksia, ole hyvä ja odota...</string>
+    <string name="slot_too_many_leases">Ole hyvä ja poista vanha laite laiteluettelostasi.</string>
+    <string name="slot_background_animation">Taustaanimaatio</string>
+    <string name="slot_background_animation_description">Päällä ollessaan, aallot liikkuvat joka kerta, kun DNS-pyyntö estetään tai sallitaan. Ota pois käytöstä, jos koet hidastumisia.</string>
+    <string name="slot_reset_counter_label">Nollaa estetyt-isännät-laskuri</string>
+    <string name="slot_reset_counter_description">Asettaa laskurin, joka näyttää kuinka monta pyyntöä on estetty takaisin arvoon 0.</string>
+    <string name="slot_reset_counter_action">Nollaa</string>
+    <string name="label_workarounds">Laitekohtaiset kiertotavat</string>
+    <string name="slot_dns_answer_label">Vaihtoehtoinen DNS-vastaus</string>
+    <string name="slot_dns_answer_description">Muuttaa vastauksen, jonka Blokada lähettää estettyjen pyyntöjen vastaanottajilta \"isäntää ei löydy\" kelpaamattomaan IP:hen. Tämä voi auttaa joissakin ohjelmistoissa, jotka kysyvät muita DNS-palvelimia, jos ne saavat vastauksen \"isäntäö ei löydy\". Huomaa, että tämä saattaa hidastaa joitain sovelluksia, jotka yrittävät muodostaa yhteyden virheelliseen osoitteeseen.</string>
+</resources>

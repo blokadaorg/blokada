@@ -5,6 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.AppVB
 import core.bits.SearchBarVB
+import core.bits.SetAllAppRulesVB
 import core.bits.menu.adblocking.SlotMutex
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
@@ -43,8 +44,10 @@ class AllAppsDashboardSectionVB(
 
         val whitelisted = apps.filter { (it.appId in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }.sortedBy { it.label.toLowerCase() }
         val notWhitelisted = apps.filter { (it.appId !in fil) && (keyword.isEmpty() || it.label.toLowerCase().contains(keyword.toLowerCase())) }.sortedBy { it.label.toLowerCase() }
+        val whitelistAll = whitelisted.size < notWhitelisted.size
 
-        val listing = listOf(LabelVB(ktx, label = R.string.slot_allapp_whitelisted.res())) +
+        val listing = listOf(SetAllAppRulesVB(if(whitelistAll){notWhitelisted}else{whitelisted}, whitelistAll, ktx)) +
+                LabelVB(ktx, label = R.string.slot_allapp_whitelisted.res()) +
                 whitelisted.map { AppVB(it, true, ktx, onTap = slotMutex.openOneAtATime) } +
                 LabelVB(ktx, label = R.string.slot_allapp_normal.res()) +
                 notWhitelisted.map { AppVB(it, false, ktx, onTap = slotMutex.openOneAtATime) }

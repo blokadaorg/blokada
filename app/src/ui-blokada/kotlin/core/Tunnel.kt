@@ -28,9 +28,6 @@ abstract class Tunnel {
     abstract val updating: IProperty<Boolean>
     abstract val tunnelState: IProperty<TunnelState>
     abstract val tunnelPermission: IProperty<Boolean>
-    abstract val tunnelDropCount: IProperty<Int>
-    abstract val tunnelDropStart: IProperty<Long>
-    abstract val tunnelRecentDropped: IProperty<List<String>>
     abstract val startOnBoot: IProperty<Boolean>
 }
 
@@ -65,16 +62,6 @@ class TunnelImpl(
         val (completed, _) = hasCompleted { checkTunnelPermissions(ctx.ktx("check perm")) }
         completed
     })
-
-    override val tunnelDropCount = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsCount"),
-            { 0 }
-    )
-
-    override val tunnelDropStart = newPersistedProperty(kctx, APrefsPersistence(ctx, "tunnelAdsStart"),
-            { System.currentTimeMillis() }
-    )
-
-    override val tunnelRecentDropped = newProperty<List<String>>(kctx, { listOf() })
 
     override val startOnBoot  = newPersistedProperty(kctx, APrefsPersistence(ctx, "startOnBoot"),
             { true }
@@ -302,17 +289,6 @@ fun newTunnelModule(ctx: Context): Module {
                 }
             }
 
-            ktx.on(TunnelEvents.REQUEST) { request ->
-                if (request.blocked) {
-                    s.tunnelDropCount %= s.tunnelDropCount() + 1
-                    val dropped = s.tunnelRecentDropped() + request.domain
-                    s.tunnelRecentDropped %= dropped.takeLast(10)
-                }
-
-                SmartListLogger.log(request)
-                tunnel.Persistence.request.save(request)
-            }
-
             initAnnouncement()
             d.screenOn.doWhenChanged().then {
                 if (d.screenOn()) maybeCheckForAnnouncement()
@@ -320,6 +296,7 @@ fun newTunnelModule(ctx: Context): Module {
 
             setTunnelPersistenceSource()
             setSmartListPersistenceSource()
+            setLogPersistenceSource()
             Register.sourceFor(BlockaVpnState::class.java, default = BlockaVpnState(false),
                     source = PaperSource("blockaVpnState"))
             Register.sourceFor(DnsAnswerState::class.java, default = DnsAnswerState(true),

@@ -1,6 +1,8 @@
 package core.bits
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -10,7 +12,6 @@ import android.widget.EditText
 import blocka.blokadaUserAgent
 import com.github.salomonbrys.kodein.instance
 import core.*
-import core.Register.set
 import core.Tunnel
 import core.bits.menu.MENU_CLICK_BY_NAME_SUBMENU
 import filter.hostnameRegex
@@ -133,6 +134,13 @@ class DomainForwarderVB(
                     entrypoint.onSaveFilter(f)
                     view.fold()
                     showSnack(R.string.panel_domain_blocked_toast)
+                },
+                action2 = Slot.Action(i18n.getString(R.string.panel_domain_copy)) {
+                    // Copy
+                    val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("domain", domain)
+                    clipboardManager.primaryClip = clipData
+                    showSnack(R.string.panel_domain_copied)
                 }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
         )
@@ -141,7 +149,7 @@ class DomainForwarderVB(
 
 }
 
-class DomainBlockedVB(
+class DomainBlockedNormalVB(
         private val domain: String,
         private val date: Date,
         private val ktx: AndroidKontext,
@@ -155,10 +163,10 @@ class DomainBlockedVB(
         view.date = date
         view.content = Slot.Content(
                 label = i18n.getString(R.string.panel_domain_blocked, domain),
-                header = i18n.getString(R.string.slot_blocked_title),
+                header = i18n.getString(R.string.slot_blocked_normal_title),
                 description = domain,
                 detail = Format.date(date),
-                info = i18n.getString(R.string.panel_domain_blocked_desc),
+                info = i18n.getString(R.string.panel_domain_blocked_normal_desc),
                 action1 = Slot.Action(i18n.getString(R.string.slot_action_allow)) {
                     val f = Filter(
                             id(domain, whitelist = true),
@@ -169,8 +177,94 @@ class DomainBlockedVB(
                     entrypoint.onSaveFilter(f)
                     view.fold()
                     showSnack(R.string.panel_domain_forwarded_toast)
+                },
+                action2 = Slot.Action(i18n.getString(R.string.panel_domain_copy)) {
+                    // Copy
+                    val clipboardManager = ktx.ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("domain", domain)
+                    clipboardManager.primaryClip = clipData
+                    showSnack(R.string.panel_domain_copied)
                 }
                 //action2 = Slot.Action(i18n.getString(R.string.slot_action_facts), view.ACTION_NONE)
+        )
+        if (alternative) view.enableAlternativeBackground()
+    }
+
+}
+
+
+class DomainBlockedAnswerVB(
+        private val domain: String,
+        private val date: Date,
+        private val type: RequestState,
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        private val alternative: Boolean = false,
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.type = Slot.Type.BLOCK
+        view.date = date
+        view.content = Slot.Content(
+                label = i18n.getString(R.string.panel_domain_blocked, domain),
+                header = i18n.getString(R.string.slot_blocked_answer_title),
+                description = domain,
+                detail = Format.date(date),
+                info = i18n.getString(
+                        if (type == RequestState.BLOCKED_ANSWER)
+                            R.string.panel_domain_blocked_nxdomain_desc
+                        else // RequestState.DNS_ERROR
+                            R.string.panel_domain_blocked_error_desc
+                ),
+                icon = ktx.ctx.getDrawable(R.drawable.ic_server)
+        )
+        if (alternative) view.enableAlternativeBackground()
+    }
+}
+
+class DomainCnameAnswerVB(
+        private val request: ExtendedRequest,
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance(),
+        private val alternative: Boolean = false,
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.type = Slot.Type.BLOCK
+        view.date = request.time
+        val cnamedDomain =request.cnamedDomain ?: "ERROR"
+        view.content = Slot.Content(
+                label = i18n.getString(R.string.panel_domain_blocked, request.domain),
+                header = i18n.getString(R.string.slot_blocked_cname_title),
+                description = request.domain + " (" + request.cnamedDomain + ')',
+                detail = Format.date(request.time),
+                info = i18n.getString(R.string.panel_domain_blocked_cname_desc),
+                icon = ktx.ctx.getDrawable(R.drawable.ic_server),
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_allow_domain)) {
+                    val f = Filter(
+                            id(cnamedDomain, whitelist = true),
+                            source = FilterSourceDescriptor("single", cnamedDomain),
+                            active = true,
+                            whitelist = true
+                    )
+                    entrypoint.onSaveFilter(f)
+                    view.fold()
+                    showSnack(R.string.panel_domain_forwarded_toast)
+                },
+
+                action2 = Slot.Action(i18n.getString(R.string.slot_action_allow_cname)) {
+                    val f = Filter(
+                            id(request.domain, whitelist = true),
+                            source = FilterSourceDescriptor("single", request.domain),
+                            active = true,
+                            whitelist = true
+                    )
+                    entrypoint.onSaveFilter(f)
+                    view.fold()
+                    showSnack(R.string.panel_domain_forwarded_toast)
+                }
         )
         if (alternative) view.enableAlternativeBackground()
     }
@@ -368,6 +462,30 @@ class WildcardVB(
                 val new = cfg.copy(wildcards = switched)
                 entrypoint.onChangeTunnelConfig(new)
             }
+        }
+    }
+
+}
+
+class CnameBlockingVB(
+        private val ktx: AndroidKontext,
+        private val ctx: Context = ktx.ctx,
+        private val i18n: I18n = ktx.di().instance(),
+        onTap: (SlotView) -> Unit
+) : SlotVB(onTap) {
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        view.content = Slot.Content(
+                label = i18n.getString(R.string.tunnel_config_cname_title),
+                description = i18n.getString(R.string.tunnel_config_cname_description),
+                icon = ctx.getDrawable(R.drawable.ic_show),
+                switched = get(TunnelConfig::class.java).cNameBlocking
+        )
+        view.onSwitch = { switched ->
+            val new = get(TunnelConfig::class.java).copy(cNameBlocking = switched)
+            entrypoint.onChangeTunnelConfig(new)
         }
     }
 
@@ -728,6 +846,47 @@ class AppVB(
     }
 }
 
+class SetAllAppRulesVB(
+        private val apps: List<App>,
+        private val whitelist: Boolean,
+        private val ktx: AndroidKontext,
+        private val i18n: I18n = ktx.di().instance()
+) : SlotVB({}){
+
+    override fun attach(view: SlotView) {
+        view.enableAlternativeBackground()
+        view.type = Slot.Type.INFO
+        refresh()
+    }
+
+    private fun refresh() {
+        val currentOption = i18n.getString(if (whitelist) R.string.slot_whitelist_all else R.string.slot_blacklist_all)
+        view?.apply {
+            val c = Slot.Content(
+                    label = currentOption,
+                    header = currentOption,
+                    description = currentOption,
+                    action1 = Slot.Action(i18n.getString(R.string.slot_action_set)) {
+                            showSnack(R.string.slot_whitelist_updating)
+                            apps.forEach { app ->
+                                async {
+                                    val filter = Filter(
+                                            id = tunnelMain.findFilterBySource(app.appId).await()?.id
+                                                    ?: id(app.appId, whitelist = true),
+                                            source = FilterSourceDescriptor("app", app.appId),
+                                            active = whitelist,
+                                            whitelist = true
+                                    )
+                                    entrypoint.onSaveFilter(filter)
+                                }
+                            }
+                        }
+            )
+            content = c
+        }
+    }
+}
+
 class AddDnsVB(private val ktx: AndroidKontext,
                private val modal: ModalManager = modalManager): SlotVB({
     modal.openModal()
@@ -1001,8 +1160,8 @@ class BackgroundAnimationVB(
 }
 
 class ResetCounterVB(private val ktx: AndroidKontext,
-         private val i18n: I18n = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
+                     private val i18n: I18n = ktx.di().instance(),
+                     onTap: (SlotView) -> Unit
 ) : SlotVB(onTap) {
     override fun attach(view: SlotView) {
         view.enableAlternativeBackground()
@@ -1012,31 +1171,9 @@ class ResetCounterVB(private val ktx: AndroidKontext,
                 label = i18n.getString(R.string.slot_reset_counter_label),
                 description = i18n.getString(R.string.slot_reset_counter_description),
                 action1 = Slot.Action(i18n.getString(R.string.slot_reset_counter_action)) {
-                    val t: Tunnel = ktx.di().instance()
-                    t.tunnelDropCount %= 0
-                    t.tunnelDropStart %= System.currentTimeMillis()
+                    RequestLog.resetDropCount()
                 }
         )
-    }
-
-}
-
-class DnsAnswerTypeVB(
-        private val ktx: AndroidKontext,
-        private val i18n: I18n = ktx.di().instance(),
-        onTap: (SlotView) -> Unit
-) : SlotVB(onTap) {
-
-    override fun attach(view: SlotView) {
-        view.enableAlternativeBackground()
-        view.type = Slot.Type.INFO
-        view.content = Slot.Content(
-                icon = ktx.ctx.getDrawable(R.drawable.ic_feedback),
-                label = i18n.getString(R.string.slot_dns_answer_label),
-                description = i18n.getString(R.string.slot_dns_answer_description),
-                switched = !get(DnsAnswerState::class.java).hostNotFoundAnswer
-        )
-        view.onSwitch = { set(DnsAnswerState::class.java, DnsAnswerState(!it)) }
     }
 
 }
@@ -1056,14 +1193,14 @@ class DnsListControlVB(
                 label = i18n.getString(R.string.slot_dns_control_title),
                 description = i18n.getString(R.string.slot_dns_control_description),
                 icon = ctx.getDrawable(R.drawable.ic_reload),
-                action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh), {
+                action1 = Slot.Action(i18n.getString(R.string.slot_action_refresh)) {
                     showSnack(R.string.slot_action_refresh_toast)
                     dns.choices.refresh(force = true)
-                }),
-                action2 = Slot.Action(i18n.getString(R.string.slot_action_restore), {
+                },
+                action2 = Slot.Action(i18n.getString(R.string.slot_action_restore)) {
                     dns.choices %= emptyList()
                     dns.choices.refresh()
-                })
+                }
         )
     }
 

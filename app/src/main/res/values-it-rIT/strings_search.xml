@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_header">Tocca per cercare...</string>
+    <string name="search_title">Cerca</string>
+    <string name="search_entered">Risultati per: %s</string>
+    <string name="search_description">Digita una parola chiave e tocca Conferma per filtrare l\'elenco.</string>
+    <string name="search_action_confirm">Conferma</string>
+    <string name="search_action_clear">Elimina</string>
+</resources>

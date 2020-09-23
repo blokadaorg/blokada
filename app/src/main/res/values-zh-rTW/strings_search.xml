@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_header">觸碰以搜尋…</string>
+    <string name="search_title">搜尋</string>
+    <string name="search_entered">下述的搜尋結果：%s</string>
+    <string name="search_description">請在上方輸入您要搜尋的東西，然後按下「確認」過濾清單。</string>
+    <string name="search_action_confirm">確認</string>
+    <string name="search_action_clear">清空</string>
+</resources>

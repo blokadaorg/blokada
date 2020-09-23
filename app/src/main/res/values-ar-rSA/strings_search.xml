@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_header">اضغط للبحث...</string>
+    <string name="search_title">بحث</string>
+    <string name="search_entered">نتائج لـ: %s</string>
+    <string name="search_description">اكتب ما ترغب البحث عنه أعلاه و انقر فوق تأكيد ، لتصفية القائمة.</string>
+    <string name="search_action_confirm">تأكيد</string>
+    <string name="search_action_clear">مَسْح</string>
+</resources>

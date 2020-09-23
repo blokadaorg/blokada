@@ -18,6 +18,7 @@ import gs.property.IProperty
 import gs.property.IWhen
 import org.blokada.R
 import java.net.URL
+import java.net.URLEncoder
 
 abstract class AbstractWebActivity : Activity() {
 
@@ -44,9 +45,9 @@ abstract class AbstractWebActivity : Activity() {
         if (bound || bindChromeTabs()) {
             val target = targetUrl().toExternalForm()
             val url = if (target.contains("?")) {
-                target + "&user-agent=" + blokadaUserAgent(this, true)
+                target + "&user-agent=" + URLEncoder.encode(blokadaUserAgent(this, true), "utf-8")
             } else {
-                target + "?user-agent=" + blokadaUserAgent(this, true)
+                target + "?user-agent=" + URLEncoder.encode(blokadaUserAgent(this, true), "utf-8")
             }
             val builder = CustomTabsIntent.Builder()
             val customTabsIntent = builder.build()

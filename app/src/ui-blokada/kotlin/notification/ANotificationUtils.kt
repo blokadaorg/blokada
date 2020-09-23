@@ -14,6 +14,8 @@ import gs.property.I18n
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import org.blokada.R
+import tunnel.RequestLog
+import tunnel.RequestState
 import java.net.URL
 
 
@@ -159,12 +161,12 @@ class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNoti
         NotificationChannels.KEEP_ALIVE,
         create = { ctx ->
             val i18n = ctx.inject().instance<I18n>()
-            val choice = ctx.inject().instance<Dns>().choices().first { it.active }
             val servers = printServers(ctx.inject().instance<Dns>().dnsServers())
             val t: Tunnel = ctx.inject().instance()
 
             val b = NotificationCompat.Builder(ctx)
             if (Product.current(ctx) == Product.GOOGLE) {
+                val choice = ctx.inject().instance<Dns>().choices().first { it.active }
                 val id = if (choice.id.startsWith("custom")) "custom" else choice.id
                 val provider = i18n.localisedOrNull("dns_${id}_name") ?: id.capitalize()
 
@@ -172,15 +174,13 @@ class UsefulKeepAliveNotification(val count: Int, val last: String): BlokadaNoti
                 b.setContentText(ctx.getString(R.string.dns_keepalive_content, servers))
             } else {
                 val domainList = NotificationCompat.InboxStyle()
-                val duplicates =ArrayList<String>(0)
-                t.tunnelRecentDropped().asReversed().forEach { s ->
-                    if(!duplicates.contains(s)){
-                        duplicates.add(s)
-                        domainList.addLine(s)
-                    }
+
+                RequestLog.getRecentHistory().filter { it.state == RequestState.BLOCKED_NORMAL }.take(15).asReversed().distinct().forEach { request ->
+                    domainList.addLine(request.domain)
                 }
 
                 val intent = Intent(ctx, ANotificationsToggleService::class.java).putExtra("new_state",!t.enabled())
+                intent.putExtra("setting", NotificationsToggleSeviceSettings.GENERAL)
                 val statePendingIntent = PendingIntent.getService(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 if(t.enabled()) {
                     b.addAction(R.drawable.ic_stat_blokada, ctx.resources.getString(R.string.notification_keepalive_deactivate), statePendingIntent)
@@ -220,7 +220,7 @@ class UpdateNotification(versionName: String): BlokadaNotification(3, Notificati
             b.setVibrate(LongArray(0))
 
             val intentActivity = Intent(ctx, PanelActivity::class.java)
-            intentActivity.putExtra("notification", true)
+            intentActivity.putExtra("update", true)
             val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
             b.setContentIntent(piActivity)
         }

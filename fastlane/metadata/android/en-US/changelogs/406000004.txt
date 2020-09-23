@@ -1,0 +1,9 @@
+Blokada v4.6 (May, 2020)
+This is a feature release with better host logs and various improvements to the app.
+
+- New switch widgets for quick control (by Faedrak)
+- Added Bypass All Apps function (by Faedrak)
+- Display queries blocked by the DNS server (by Faedrak)
+- Improvements to Host Log and widgets (by Faedrak)
+- Update translations
+- Stability fixes

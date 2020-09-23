@@ -11,6 +11,7 @@ import android.view.View
 import androidx.annotation.ArrayRes
 import org.blokada.R
 import tunnel.Request
+import tunnel.SimpleRequest
 
 
 class ColorfulBackground(

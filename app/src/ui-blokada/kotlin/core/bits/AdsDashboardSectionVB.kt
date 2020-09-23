@@ -2,7 +2,6 @@ package core.bits
 
 import android.app.Activity
 import android.graphics.Point
-import com.github.michaelbull.result.onSuccess
 import com.github.salomonbrys.kodein.instance
 import core.*
 import core.bits.menu.adblocking.SlotMutex
@@ -11,8 +10,7 @@ import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
 import org.blokada.R
-import tunnel.TunnelEvents
-import tunnel.Request
+import tunnel.*
 import kotlin.math.max
 
 class AdsDashboardSectionVB(
@@ -32,18 +30,22 @@ class AdsDashboardSectionVB(
         max(5, limit)
     }
 
-    private val displayingEntries = mutableListOf<String>()
     private val slotMutex = SlotMutex()
 
-    private val items = mutableListOf<SlotVB>()
+    private val items = mutableListOf<Pair<String, SlotVB>>()
 
-    private val request = { it: Request ->
-        if (!displayingEntries.contains(it.domain)) {
-            displayingEntries.add(it.domain)
-            val dash = if (it.blocked)
-                DomainBlockedVB(it.domain, it.time, ktx, onTap = slotMutex.openOneAtATime) else
-                DomainForwarderVB(it.domain, it.time, ktx, onTap = slotMutex.openOneAtATime)
-            items.add(dash)
+    private val requestUpdate = { it: RequestUpdate ->
+        if (it.oldState == null) {
+            request(it.newState)
+        }
+    }
+
+    private val request = { request: Request ->
+        if (items.none { it.first == request.domain }) {
+            val dash = if (request.blocked)
+                DomainBlockedNormalVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime) else
+                DomainForwarderVB(request.domain, request.time, ktx, onTap = slotMutex.openOneAtATime)
+            items.add(request.domain to dash)
             view?.add(dash)
             trimListIfNecessary()
             onSelectedListener(null)
@@ -54,8 +56,8 @@ class AdsDashboardSectionVB(
     private fun trimListIfNecessary() {
         if (items.size > countLimit) {
             items.firstOrNull()?.apply {
+                view?.remove(this.second)
                 items.remove(this)
-                view?.remove(this)
             }
         }
     }
@@ -65,15 +67,14 @@ class AdsDashboardSectionVB(
             view.enableLandscapeMode(reversed = false)
         }
 
-        tunnel.Persistence.request.load(0).onSuccess {
-            it.forEach(request)
-        }
-        ktx.on(TunnelEvents.REQUEST, request)
+        RequestLog.getRecentHistory().forEach(request)
+        ktx.on(TunnelEvents.REQUEST_UPDATE, requestUpdate)
     }
 
     override fun detach(view: VBListView) {
         slotMutex.detach()
-        displayingEntries.clear()
-        ktx.cancel(TunnelEvents.REQUEST, request)
+        items.clear()
+        view.set(emptyList())
+        ktx.cancel(TunnelEvents.REQUEST_UPDATE, requestUpdate)
     }
 }

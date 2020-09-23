@@ -21,6 +21,7 @@ import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
 import org.blokada.BuildConfig
 import org.blokada.R
+import tunnel.RequestLog
 import tunnel.TunnelConfig
 import ui.StaticUrlWebActivity
 import update.DOWNLOAD_COMPLETE
@@ -342,7 +343,7 @@ fun createOneTimeBytes(
         )},
         OneTimeByte.BLOKADAPLUS to { SimpleByteVB(ktx,
                 label = "Get $1 for yourself".res(),
-                description = "Refer a friend to Blokada Tunnel".res(),
+                description = "Refer a friend to Blokada Plus".res(),
                 onTap  = { ktx, _ ->
                 }
         )}
@@ -423,7 +424,7 @@ class ShareVB(
             val shareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, getMessage(ktx.ctx,
-                        tunnelEvents.tunnelDropStart(), Format.counter(tunnelEvents.tunnelDropCount())))
+                        RequestLog.dropStart, Format.counter(RequestLog.dropCount)))
                 type = "text/plain"
             }
             ktx.ctx.startActivity(Intent.createChooser(shareIntent,

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
+    <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
+    <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
+    <string name="tunnel_config_refetch_now_title">Lataa listat</string>
+    <string name="tunnel_config_refetch_now">Lataa listat nyt</string>
+    <string name="tunnel_config_refetch_toast">Listojen lataaminen alkoi</string>
+    <string name="tunnel_config_refetch_now_description">Poista välimuisti ja lataa listat uudelleen alla olevan painikkeen avulla. Tästä voi olla apua, jos suodatuksessa ilmenee ongelmia.</string>
+    <string name="tunnel_config_refetch_frequency_title">Listojen lataustiheys</string>
+    <string name="tunnel_config_refetch_frequency_description">Valitse yksi vaihtoehdoista määrittääksesi, kuinka usein sovelluksen tulisi ladata listasi.</string>
+    <string name="tunnel_config_refetch_frequency_1">Kerran päivässä</string>
+    <string name="tunnel_config_refetch_frequency_2">Kahdesti viikossa</string>
+    <string name="tunnel_config_refetch_frequency_3">Kerran viikossa</string>
+    <string name="tunnel_config_refetch_frequency_4">Kerran kuukaudessa</string>
+    <string name="tunnel_config_refetch_frequency_5">Ei koskaan</string>
+    <string name="tunnel_config_wifi_only_title">Lataa vain WiFi:llä</string>
+    <string name="tunnel_config_wifi_only_description">Aktivoi tämä kytkin, jos haluat sovelluksen lataavan listoja vain, kun laitteesi on yhteydessä WiFi-verkkoon. Muutoin sovellus saattaa ladata listoja myös, kun laite on yhteydessä matkapuhelinverkkoon ja käyttää datapakettiasi.</string>
+    <string name="tunnel_config_watchdog_title">Vahtikoira</string>
+    <string name="tunnel_config_watchdog_description">Aktivoi tämä kytkin, jos haluat sovelluksen aktivoivan VPN:n vain, jos Internet-yhteys on käytettävissä, ja käynnistävän tunnelin uudelleen, jos yhteysongelmia ilmenee. Tästä voi olla apua joillekin laitteille.</string>
+    <string name="tunnel_config_powersave_title">Aggressiivinen herätys</string>
+    <string name="tunnel_config_powersave_description">Aktivoi tämä kytkin, jos laitteen virransäästöominaisuudet aiheuttamat ongelmia. Kun sovellus havaitsee tunnelin kytkentäongelmia, se yrittää nostaa prioriteettiaan päästäkseen pois virransäästötilasta.</string>
+    <string name="tunnel_config_reports_title">Raportit</string>
+    <string name="tunnel_config_reports_description">Aktivoi tämä kytkin, jotta sovellus voi lähettää raportteja auttaaksemme meitä korjaamaan ongelmia ja virheitä. Tämä tapahtuu vain kerran päivässä tai kun sovellus kaatuu. Tämän poistaminen käytöstä voi vaikeuttaa meidän työtämme mahdollisten ongelmien ratkaisemisessa. Saatat joutua käynnistämään sovelluksen uudelleen, jotta tämä asetus tulee voimaan.</string>
+    <string name="tunnel_config_wildcard_title">[BETA] Edistyneet mainosten estämissäännöt</string>
+    <string name="tunnel_config_wildcard_description">Aktivoi tämä kytkin, jos haluat käyttää jokerimerkkejä suodatussäännöissäsi. Esimerkiksi lisäämällä säännön *.google.com-sivustolle, estetään kaikki Google-verkkotunnukset. Tällä voi olla negatiivinen vaikutus akun käyttöikään. Huomaa, että tämä on kokeellinen ominaisuus, eikä se välttämättä toimi oikein.</string>
+    <string name="tunnel_config_cname_title">[BETA] CName estäminen</string>
+    <string name="tunnel_config_cname_description">Aktivoi tämä kytkin, jos haluat estää kaikki estolistojen verkkotunnusten CNamet. CName on verkkotunnuksen alias, jota jotkut mainostajat käyttävät piilottaakseen verkkotunnuksen usein muuttuvan tai vähemmän ilmeisen verkkotunnuksen taakse. Tämä taktiikkaa voidaan kiertää estämällä kaikki CNamet, jotka selvittäisivät estettyyn verkkotunnukseen. Huomaa, että tämä on kokeellinen ominaisuus, eikä se välttämättä toimi oikein.</string>
+    <string name="tunnel_config_fallback_title">DNS-varasuunnitelma</string>
+    <string name="tunnel_config_fallback_description">Aktivoi tämä kytkin, jos kadotat Internet-yhteyden joissain tilanteissa, kuten langattomanssa verkossa. Tämän ansiosta sovellus siirtyy väliaikaisesti Cloudflaren tai Googlen DNS:ään yhteyden ylläpitämiseksi. Saatat joutua valitsemaan palvelimet uudelleen DNS-osiosta, jotta tämä asetus tulee voimaan.</string>
+    <string name="tunnel_config_smartlist_title">[BETA] Älykäs Lista</string>
+    <string name="tunnel_config_smartlist_reset_btn">Nollaa</string>
+    <string name="tunnel_config_smartlist_clean_btn">Puhdista</string>
+    <string name="tunnel_config_smartlist_clean_none">Ei puhdistettavaa</string>
+    <string name="tunnel_config_smartlist_clean_inactive">Älykäs Lista toimeton</string>
+    <string name="tunnel_config_smartlist_clean_done">Älykäs Lista puhdistettiin vanhoista säännöistä</string>
+    <string name="tunnel_config_smartlist_reset_done">Älykäs Lista nollattiin</string>
+    <string name="tunnel_config_smartlist_description">Aktivoi tämä kytkin ottaaksesi käyttöön Älykäs Lista -ominaisuuden, mikä vähentää dramaattisesti suodattimien sääntöjen määrää, joka potentiaalisesti parantaa akun käyttöikää ja vähentää RAM-muistin käyttöä. Kun tämä on käytössä, Blokada tarkastelee pyyntölokiasi ja luo dynaamisesti listan, joka sisältää vain säännöt, jotka todellakin estivät ainakin yhden pyynnön. Älykäs Lista päivitetään jokaisena yönä. Huomaa, että sinulla voi olla enemmän epätoivottuja pyyntöjä, jotka sallitaan oppimisjakson aikana (muutama päivä). Huomaa, että tämä on kokeellinen ominaisuus, eikä se välttämättä toimi oikein.</string>
+    <string name="tunnel_config_disable_wildcard">Poista ensimmäisenä edistyneet mainosten estämissäännöt.</string>
+    <string name="tunnel_config_disable_smartlist">Poista ensimmäisenä Älykäs Lista käytöstä.</string>
+</resources>

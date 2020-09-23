@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import blocka.BlockaVpnState
 import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.github.salomonbrys.kodein.instance
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import core.bits.AdsDashboardSectionVB
@@ -26,7 +25,7 @@ import gs.presentation.NamedViewBinder
 import gs.presentation.doAfter
 import gs.property.I18n
 import org.blokada.R
-import tunnel.Persistence
+import tunnel.RequestLog
 import tunnel.TunnelConfig
 import tunnel.TunnelEvents
 import kotlin.math.max
@@ -339,8 +338,10 @@ class DashboardView(
     }
 
     private fun setupExternalEventListeners() {
-        ktx.on(TunnelEvents.REQUEST) {
-            bg_packets.addToHistory(it)
+        ktx.on(TunnelEvents.REQUEST_UPDATE) {
+            if(it.oldState == null) {
+                bg_packets.addToHistory(it.newState)
+            }
         }
 
         tunnelEvents.listeners.add(object : IEnabledStateActorListener {
@@ -357,9 +358,7 @@ class DashboardView(
             override fun finishActivating() {
                 bg_packets.setTunnelState(TunnelState.ACTIVE)
                 bg_logo_icon.setColorFilter(resources.getColor(android.R.color.transparent))
-                Persistence.request.load(0).onSuccess {
-                    bg_packets.setRecentHistory(it)
-                }
+                bg_packets.setRecentHistory(RequestLog.getRecentHistory())
                 stopAnimatingLogo()
 
                 activating = false

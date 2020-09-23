@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_on_text">Ilmoitukset</string>
+    <string name="notification_on_description">Kun päällä, Blokada näyttää ilmoituksen aina, kun jotain estetään. Huomaa, että tämä ei ole sama kuin VPN-ilmoitus, jota jotkut laitteet näyttävät, ja jota ei voi ottaa pois päältä.&lt;br/&gt;Voit määrittää, mitkä ilmoitukset näytetään alla olevien Asetusten avulla.</string>
+    <!-- Title of the notification that shows up every time something is blocked. -->
+    <string name="notification_blocked_title">Estetty</string>
+    <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <!-- Button to turn off notifications. -->
+    <string name="notification_blocked_off">Älä näytä</string>
+    <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
+    <string name="notification_blocked_whitelist">Lisää sallittujen listalle</string>
+    <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">Tehty! Muutokset voivat viedä muutaman sekunnin.</string>
+    <!-- Parameter: branded app name (Blokada). -->
+    <!-- Parameter: branded app name (Blokada). -->
+    <string name="notification_keepalive_text">Pidä päällä</string>
+    <string name="notification_keepalive_description">Aktivoi tämä kytkin, jos sinulla on ongelmia sovelluksen pysymisessä aktiivisena taustalla. Blokada aktivoi pysyvän ilmoituksen estääkseen järjestelmää lopettamasta sitä; voit piilottaa sen valitsemalla Ilmoitukset ylhäältä ja sieltä Asetukset.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">Pidä Päällä (piilota napauttamalla)</string>
+    <string name="notification_keepalive_text_new">Android vaatii ilmoituksen näyttämisen sovelluksen toiminnan jatkamiseksi, mutta voit poistaa sen käytöstä järjestelmäasetuksista.</string>
+    <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
+    <string name="notification_keepalive_title">%d estetty</string>
+    <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
+    <string name="notification_keepalive_content">Viimeisin: %s</string>
+    <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
+    <string name="notification_keepalive_none">tarkkaillaan</string>
+    <string name="notification_keepalive_activate">Ota käyttöön</string>
+    <string name="notification_keepalive_activating">Blokada käynnistyy. Tämä voi viedä hetken.</string>
+    <string name="notification_keepalive_deactivate">Poista käytöstä</string>
+    <string name="notification_keepalive_deactivating">Blokada otettiin pois päältä!</string>
+    <string name="notification_expired_title">Blokada Plus on pois päältä</string>
+    <string name="notification_expired_description">Tilisi ei ole aktiivinen ja Blokada Plus on pois päältä. Blokadan vakio-ominaisuudet toimivat hyvin ilman Blokada Plus VPN:ää. Harkitse kuitenkin tilin aktivointia saadaksesi paremman suojauksen ja tukeaksesi projektia.</string>
+    <string name="notification_lease_expired_title">Blokada Plus on pois päältä</string>
+    <string name="notification_lease_expired_description">Yhteydessäsi Blokada Plussaan tapahtui ongelma. Yritä valita toinen yhdyskäytävä. Jos ongelma jatkuu, ota meihin yhteyttä.</string>
+    <string name="notification_channel_filtered">Mainosten estäminen</string>
+    <string name="notification_channel_announcements">Tiedotteet</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">Muu</string>
+</resources>

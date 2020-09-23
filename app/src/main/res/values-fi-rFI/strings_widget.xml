@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_domain">Näytä estetyn verkkotunnuksen nimi</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_counter">Näytä estettyjen pyyntöjen määrä</string>
+    <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Käytä pitkää numeromuotoa</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_dns">Näytä DNS</string>
+    <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">Näytä yhdyskäytävä</string>
+    <string name="widget_okay">Vahvista</string>
+</resources>

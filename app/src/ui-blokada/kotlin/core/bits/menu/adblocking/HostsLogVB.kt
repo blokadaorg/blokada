@@ -1,20 +1,17 @@
 package core.bits.menu.adblocking
 
 import android.app.Activity
-import com.github.michaelbull.result.getOr
 import com.github.salomonbrys.kodein.instance
 import core.*
-import core.bits.DomainBlockedVB
-import core.bits.DomainForwarderVB
-import core.bits.SearchBarVB
+import core.bits.*
 import core.bits.menu.MenuItemVB
 import gs.environment.ComponentProvider
 import gs.presentation.ListViewBinder
 import gs.presentation.NamedViewBinder
+import gs.presentation.ViewBinder
 import org.blokada.R
-import tunnel.TunnelEvents
-import tunnel.Persistence
-import tunnel.Request
+import tunnel.*
+import java.lang.IndexOutOfBoundsException
 
 class HostsLogVB(
         val ktx: AndroidKontext,
@@ -24,59 +21,60 @@ class HostsLogVB(
 
     private val slotMutex = SlotMutex()
 
-    private val items = mutableListOf<SlotVB>()
-    private var nextBatch = 0
-    private var firstItem: Request? = null
-    private var listener: (SlotVB?) -> Unit = {}
+    private val items = mutableListOf<ViewBinder>()
+    private var log: RequestLog? = null
     private var searchString: String = ""
 
-    private val request = { it: Request ->
-        if (it != firstItem) {
-            if(searchString.isEmpty() || it.domain.contains(searchString.toLowerCase())) {
-                val dash = requestToVB(it)
-                items.add(0, dash)
-                view?.add(dash, 3)
-                firstItem = it
-                onSelectedListener(null)
+    private val requestUpdate = { update: RequestUpdate ->
+            if (update.newState.domain.contains(searchString.toLowerCase())) {
+                val dash = requestToVB(update.newState)
+                if (update.oldState == null) {
+                    items.add(3, dash)
+                    view?.add(dash, 3)
+                } else {
+                    try {
+                        items[update.index + 3] = dash
+                        view?.set(items)
+                    } catch (e: IndexOutOfBoundsException){
+
+                    }
+                }
             }
         }
-        Unit
-    }
 
     override fun attach(view: VBListView) {
         view.enableAlternativeMode()
+        if (log == null){
+            log = RequestLog()
+            ktx.on(TunnelEvents.REQUEST_UPDATE, requestUpdate, recentValue = false)
+        }
         if(view.getItemCount() == 0) {
-            view.add(SearchBarVB(ktx, onSearch = { s ->
+            items.clear()
+            items.add(SearchBarVB(ktx, onSearch = { s ->
                 searchString = s
-                nextBatch = 0
                 this.items.clear()
                 view.set(emptyList())
                 attach(view)
             }))
-            view.add(ResetHostLogVB {
-                nextBatch = 0
-                Persistence.request.clear()
+            items.add(ResetHostLogVB {
+                RequestLog.deleteAll()
                 this.items.clear()
                 view.set(emptyList())
                 attach(view)
             })
-            view.add(LabelVB(ktx, label = R.string.menu_ads_live_label.res()))
-        }
-        if (items.isEmpty()) {
-            var items = loadBatch(0)
-            items += loadBatch(1)
-            nextBatch = 2
-            if (items.isEmpty()) {
-                items += loadBatch(2)
-                nextBatch = 3
+            items.add(LabelVB(ktx, label = R.string.menu_ads_live_label.res()))
+            if(log?.size == 0){
+                log?.expandHistory()
             }
-            firstItem = items.getOrNull(0)
-            addBatch(items)
-        } else {
-            items.forEach { view.add(it) }
+            log?.forEach {
+                if(it.domain.contains(searchString.toLowerCase())) {
+                    val dash = requestToVB(it)
+                    items.add(dash)
+                }
+            }
         }
 
-        ktx.on(TunnelEvents.REQUEST, request)
+        view.set(items)
         view.onEndReached = loadMore
     }
 
@@ -85,31 +83,31 @@ class HostsLogVB(
         view.onEndReached = {}
         searchString = ""
         items.clear()
-        ktx.cancel(TunnelEvents.REQUEST, request)
+        view.set(emptyList())
+        ktx.cancel(TunnelEvents.REQUEST_UPDATE, requestUpdate)
+        log?.close()
+        log = null
     }
 
     private val loadMore = {
-        if (nextBatch < 3) addBatch(loadBatch(nextBatch++))
+        log?.expandHistory()?.forEach {
+            if(it.domain.contains(searchString.toLowerCase())) {
+                val dash = requestToVB(it)
+                items.add(items.size, dash)
+            }
+        }
+        view?.set(items)
+        Unit
     }
 
-    private fun loadBatch(batch: Int) = Persistence.request.load(batch).getOr { emptyList() }.filter { r ->
-        if (searchString.isEmpty()) true
-        else r.domain.contains(searchString.toLowerCase())
-    }
 
-    private fun addBatch(batch: List<Request>) {
-        items.addAll(batch.distinct().map {
-            val dash = requestToVB(it)
-            view?.add(dash)
-            dash
-        })
-        if (items.size < 20) loadMore()
-    }
-
-    private fun requestToVB(it: Request): SlotVB {
-        return if (it.blocked)
-            DomainBlockedVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime) else
-            DomainForwarderVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+    private fun requestToVB(it: ExtendedRequest): SlotVB {
+        return when (it.state){
+            RequestState.BLOCKED_NORMAL -> DomainBlockedNormalVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            RequestState.BLOCKED_ANSWER, RequestState.DNS_ERROR -> DomainBlockedAnswerVB(it.domain, it.time, it.state, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            RequestState.BLOCKED_CNAME -> DomainCnameAnswerVB(it, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+            RequestState.ALLOWED_APP_UNKNOWN, RequestState.ALLOWED_APP_KNOWN -> DomainForwarderVB(it.domain, it.time, ktx, alternative = true, onTap = slotMutex.openOneAtATime)
+        }
     }
 }
 

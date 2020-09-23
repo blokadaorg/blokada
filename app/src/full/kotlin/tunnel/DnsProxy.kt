@@ -4,7 +4,6 @@ import android.system.ErrnoException
 import android.system.OsConstants
 import com.github.michaelbull.result.mapError
 import core.Result
-import core.emit
 import core.get
 import core.w
 import org.pcap4j.packet.*
@@ -16,9 +15,10 @@ import java.io.*
 import javax.net.ssl.*
 
 
+
 interface Proxy {
     fun fromDevice(packetBytes: ByteArray, length: Int)
-    fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?)
+    fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?, isSyntheticMessage: Boolean = false)
 }
 
 internal class DnsProxy(
@@ -62,6 +62,7 @@ internal class DnsProxy(
             w("failed reading DNS message", e)
             return
         }
+
         if (dnsMessage.question == null) return
 
         val host = dnsMessage.question.name.toString(true).toLowerCase(Locale.ENGLISH)
@@ -75,18 +76,59 @@ internal class DnsProxy(
                 //conventional DNS
                 forwardUdp(proxiedDns, originEnvelope)
             }
-            emit(TunnelEvents.REQUEST, Request(host))
+            RequestLog.add(ExtendedRequest(host, requestId = dnsMessage.header.id))
         } else {
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             generateDnsAnswer(dnsMessage, denyResponse)
-            toDevice(dnsMessage.toWire(), -1, originEnvelope)
-            emit(TunnelEvents.REQUEST, Request(host, blocked = true))
+            toDevice(dnsMessage.toWire(), -1, originEnvelope, true)
+            RequestLog.add(ExtendedRequest(host, blocked = true))
         }
     }
 
-    override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?) {
+    override fun toDevice(response: ByteArray, length: Int, originEnvelope: Packet?, isSyntheticMessage: Boolean) {
+        var responseData = response
         originEnvelope as IpPacket
+
+        if (!isSyntheticMessage) {
+            val dnsMessage = try {
+                Message(responseData)
+            } catch (e: IOException) {
+                w("failed reading DNS answer", e)
+                null
+            }
+
+            if(dnsMessage != null) {
+                val updateDiff = ExtendedRequestDiff()
+                updateDiff.rcode = dnsMessage.rcode
+
+                if (dnsMessage.getSectionArray(Section.ANSWER).any { it is ARecord && it.address == unspecifiedIp4Addr }) {
+                    updateDiff.ip = unspecifiedIp4Addr
+                } else if (dnsMessage.rcode == Rcode.NOERROR) {
+                    val answer = dnsMessage.getSectionArray(Section.ANSWER).find { it is ARecord } as ARecord?
+                    if(answer != null) {
+                        updateDiff.ip = answer.address
+
+                        if (get(TunnelConfig::class.java).cNameBlocking && dnsMessage.question.name != answer.name) {
+                            val cName = dnsMessage.question.name.toString(true)
+                            val cNamedDomain = answer.name.toString(true)
+
+                            if (!blockade.allowed(cName) && !blockade.allowed(cNamedDomain) && blockade.denied(cNamedDomain)) {
+                                updateDiff.cnamedDomain = cNamedDomain
+                                dnsMessage.header.setFlag(Flags.QR.toInt())
+                                dnsMessage.header.rcode = Rcode.NOERROR
+                                generateDnsAnswer(dnsMessage, denyResponse)
+                                responseData = dnsMessage.toWire()
+                            }
+                        }
+                    }
+                }
+
+                RequestLog.update({ it.requestId == dnsMessage.header.id }, updateDiff)
+            }
+        }
+
+
         val udp = originEnvelope.payload as UdpPacket
         val udpResponse = UdpPacket.Builder(udp)
                 .srcAddr(originEnvelope.header.dstAddr)
@@ -95,7 +137,7 @@ internal class DnsProxy(
                 .dstPort(udp.header.srcPort)
                 .correctChecksumAtBuild(true)
                 .correctLengthAtBuild(true)
-                .payloadBuilder(UnknownPacket.Builder().rawData(response))
+                .payloadBuilder(UnknownPacket.Builder().rawData(responseData))
 
         val envelope: IpPacket
         if (originEnvelope is IpV4Packet) {

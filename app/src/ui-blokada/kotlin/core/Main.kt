@@ -15,6 +15,7 @@ import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.lazy
+import core.bits.menu.advanced.registerPersistenceForAdvancedSettings
 import flavor.newFlavorModule
 import gs.environment.inject
 import gs.environment.newGscoreModule
@@ -65,11 +66,13 @@ class MainApplication: Application(), KodeinAware {
         val ktx = "boot".ktx()
         repeat(10) { ktx.v("BLOKADA", "*".repeat(it * 2)) }
         setRestartAppOnCrash()
+        registerPersistenceForAdvancedSettings()
     }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         Paper.init(this)
+        // Please do not add anything more here, may cause tricky crashes
     }
 
     private fun setRestartAppOnCrash() {

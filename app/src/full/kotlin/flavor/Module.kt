@@ -3,7 +3,6 @@ package flavor
 import adblocker.ActiveWidgetProvider
 import adblocker.ForegroundStartService
 import adblocker.ListWidgetProvider
-import adblocker.LoggerConfigPersistence
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
@@ -14,8 +13,13 @@ import com.github.salomonbrys.kodein.instance
 import core.Tunnel
 import core.UiState
 import core.ktx
+import core.updateControllswitchWidgets
 import notification.FilteredNotification
 import notification.notificationMain
+import tunnel.RequestLog
+import tunnel.LogConfig
+import tunnel.RequestUpdate
+import tunnel.TunnelEvents.REQUEST_UPDATE
 
 fun newFlavorModule(ctx: Context): Kodein.Module {
     return Kodein.Module {
@@ -24,30 +28,43 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
             val ui: UiState = instance()
 
             // Display notifications for dropped
-            s.tunnelRecentDropped.doOnUiWhenSet().then {
-                if (s.tunnelRecentDropped().isEmpty()) notificationMain.cancel(FilteredNotification(""))
-                else if (ui.notifications()) notificationMain.show(FilteredNotification(s.tunnelRecentDropped().last(),
-                        counter = s.tunnelDropCount()))
+            val updateNotification = { ru: RequestUpdate? ->
+                if (ru?.oldState == null) { //TODO ru == null || ru.oldState == null
+                    if (RequestLog.lastBlockedDomain == "") {
+                        notificationMain.cancel(FilteredNotification(""))
+                    } else if (ui.notifications()) {
+                        notificationMain.show(FilteredNotification(RequestLog.lastBlockedDomain,
+                                counter = RequestLog.dropCount))
+                    }
+                    updateListWidget(ctx)
+                }
+                Unit
             }
+            ctx.ktx().on(REQUEST_UPDATE, updateNotification)
+            updateNotification(null)
 
-            s.tunnelRecentDropped.doWhenChanged().then{
-                updateListWidget(ctx)
-            }
             s.enabled.doWhenChanged().then{
                 updateListWidget(ctx)
+                updateControllswitchWidgets(ctx)
             }
+
+            s.tunnelState.doWhenChanged().then{
+                updateListWidget(ctx)
+                updateControllswitchWidgets(ctx)
+            }
+
             updateListWidget(ctx)
+            updateControllswitchWidgets(ctx)
 
             // Hide notification when disabled
             ui.notifications.doOnUiWhenSet().then {
                 notificationMain.cancel(FilteredNotification(""))
             }
 
-            val persistenceConfig = LoggerConfigPersistence()
-            val config = persistenceConfig.load(ctx.ktx())
+            val config = core.get(LogConfig::class.java)
             val wm: AppWidgetManager = AppWidgetManager.getInstance(ctx)
             val ids = wm.getAppWidgetIds(ComponentName(ctx, ActiveWidgetProvider::class.java))
-            if(((ids != null) and (ids.isNotEmpty())) or config.active) {
+            if(((ids != null) and (ids.isNotEmpty())) or config.logActive) {
                 val serviceIntent = Intent(ctx.applicationContext,
                         ForegroundStartService::class.java)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -56,9 +73,6 @@ fun newFlavorModule(ctx: Context): Kodein.Module {
                     ctx.startService(serviceIntent)
                 }
             }
-
-            // Initialize default values for properties that need it (async)
-            s.tunnelDropCount {}
         }
 
 
