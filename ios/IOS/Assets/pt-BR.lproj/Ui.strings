@@ -63,8 +63,6 @@
 
 "universal label help" = "Ajuda";
 "universal status processing" = "Processando... Por favor, aguarde.";
-"universal status copied to clipboard" = "Copiado à área de transferência";
-"universal status restart required" = "Por favor reinicie o programa para que as alterações tenham efeito.";
 
 "alert error header" = "Opa!";
 "alert vpn expired header" = "O BLOKADA+ expirou";
@@ -174,7 +172,6 @@
 "activity filter show all" = "Mostrar todas as entradas";
 "activity filter show blocked" = "Mostrar somente bloqueados";
 "activity filter show allowed" = "Mostrar somente permitidos";
-"activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver a onde o seu dispositivo se conecta.";
 
 "account section header settings" = "Configurações";
 "account status text" = "Sua conta BLOKADA %@ está ativa até %@.";

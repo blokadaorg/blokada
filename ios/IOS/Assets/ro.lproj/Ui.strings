@@ -220,7 +220,7 @@
 "account encrypt label level low" = "Scăzut: Fără criptare";
 "account encrypt label level medium" = "Mediu: Criptare DNS";
 "account encrypt label level high" = "Ridicat: Se Criptează tot";
-"account encrypt header explanation" = "DNS este modul în care dispozitivul dvs. știe unde să găsească site-uri web. BLOKADA suportă doar servere criptate.";
+"account encrypt header explanation" = "DNS este modul în care dispozitivul dvs. știe unde să găsească site-urile web. BLOKADA suportă doar servere criptate.";
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "Ce este DNS?";
 "account encrypt section header" = "Criptare";
