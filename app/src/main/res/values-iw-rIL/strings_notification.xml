@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="notification_on_text">התראות</string>
+    <string name="notification_on_description">כאשר דולקת, Blokada תציג התראות בכול פעם שמשהו נחסם. שימו לב שזה לא כמו התראות הVPN שחלק מהמכשירים מציגים, ואשר לא יכולים להתבטל.&lt;br/&gt;אתם יכולים להגדיר איזה התראות יוצגו בעזרת ההגדרות למטה.</string>
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">נחסם</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">אל תציג</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
@@ -13,17 +15,26 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">השאר בחיים</string>
+    <string name="notification_keepalive_description">הפעל/י מתג זה אם את/ה חווה בעיות בהשארת האפליקציה ברקע. Blokada תיצור התראה תמידית על מנת למנוע מהמערכת להרוג אותה; את/ה יכול/ה להסתיר זאת על ידי בחירה בהתראות למעלה ושם בהגדרות.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">השאר בחיים (הקש/י על מנת להסתיר)</string>
+    <string name="notification_keepalive_text_new">אנדרואיד דורש להציג התראה על מנת לשמור על האפליקציה רצה, אבל את/ה חופשי/ה לבטל אותה בהגדרות המערכת.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d נחסמו</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">אחרון: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">מנטר</string>
-    <string name="notification_keepalive_activate">הפעל</string>
-    <string name="notification_keepalive_activating">Blokada מתחילה. זה עלול לקחת כמה רגעים.</string>
+    <string name="notification_keepalive_activate">הפעלה</string>
+    <string name="notification_keepalive_activating">Blokada נדלקת. זה עלול לקחת כמה רגעים.</string>
     <string name="notification_keepalive_deactivate">השבת</string>
     <string name="notification_keepalive_deactivating">Blokada הושבתה!</string>
-    <string name="notification_channel_filtered">חסימת פרסומות</string>
+    <string name="notification_expired_title">Blokada פלוס הושבתה</string>
+    <string name="notification_expired_description">המנוי שלך אינו פעיל, וBlokada פלוס כבוי. Blokada סטנדרטית תעבוד רגיל ללא Blokada פלוס VPN. אם זאת אנא שקול/י להפעיל את מנויך להגנה טובה יותר ותמיכה בפרויקט.</string>
+    <string name="notification_lease_expired_title">Blokada פלוס הושבתה</string>
+    <string name="notification_lease_expired_description">אירעה בעיה בחיבור שלך לBlokada פלוס. נסה/י להתחבר אל שרת אחר. אם הבעיה נמשכת, אנא פנה/י אלינו.</string>
+    <string name="notification_channel_filtered">חוסם פרסומות</string>
+    <string name="notification_channel_announcements">הכרזות</string>
+    <string name="notification_channel_vpn">Blokada פלוס</string>
     <string name="notification_channel_other">אחר</string>
 </resources>

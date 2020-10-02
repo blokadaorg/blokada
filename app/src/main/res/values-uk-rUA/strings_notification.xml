@@ -29,6 +29,7 @@
     <string name="notification_keepalive_deactivate">Вимкнути</string>
     <string name="notification_keepalive_deactivating">Blokada була зупинена!</string>
     <string name="notification_expired_title">Blokada Plus неактивна</string>
+    <string name="notification_lease_expired_title">Blokada Plus неактивна</string>
     <string name="notification_channel_filtered">Блокування реклами</string>
     <string name="notification_channel_announcements">Оголошення</string>
     <string name="notification_channel_other">Інший</string>

@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="notification_on_text">通知</string>
+    <string name="notification_on_description">有効にすると、何かがブロックされるたびにBlokadaの通知が表示されます。 これは、一部のデバイスで表示されるVPN通知とは異なり、無効にすることはできません。
+&lt;br/&gt;から表示する通知を設定できます。</string>
     <!-- Title of the notification that shows up every time something is blocked. -->
-    <string name="notification_blocked_title">をブロック</string>
+    <string name="notification_blocked_title">ブロック済み</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">表示しない</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
     <string name="notification_blocked_whitelist">ホワイトリスト</string>
     <!-- Toast message that shows up once user adds a host to the whitelist, using a button from the notification. -->
+    <string name="notification_blocked_whitelist_applied">設定完了 変更には少し時間がかかることがあります。</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">スリープモードにしない</string>
+    <string name="notification_keepalive_description">このスイッチは、アプリをバックグラウンドで起動していて問題が発生した場合にONにしてください。Blokadaは通知を表示させつづけることで、システムによる強制終了を防ぎます。上の通知または設定から非表示にできます。</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
+    <string name="notification_keepalive_title_new">表示を続ける(タップで非表示)</string>
+    <string name="notification_keepalive_text_new">Androidではアプリを動作させ続けるために通知を表示する必要がありますが、システム設定で無効にすることができます。</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
-    <string name="notification_keepalive_title">%d をブロック</string>
+    <string name="notification_keepalive_title">ブロック済み：%d</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
     <string name="notification_keepalive_content">前回: %s</string>
     <!-- Content of the Keep Alive notification, if nothing was blocked yet, as in "Last: nothing yet". -->
     <string name="notification_keepalive_none">モニタリング</string>
+    <string name="notification_keepalive_activate">有効にする</string>
+    <string name="notification_keepalive_activating">Blokadaが起動しています。少し時間がかかる場合があります。</string>
+    <string name="notification_keepalive_deactivate">無効にする</string>
+    <string name="notification_keepalive_deactivating">Blokadaが無効になりました</string>
+    <string name="notification_expired_title">Blokada Plusが無効になりました</string>
+    <string name="notification_expired_description">あなたのアカウントはBlokada Plusではありません。Blokadaの基本的な機能はBlokada Plusなしで正常に動作します。 
+しかしBlokada Plusへアップグレードすることで、高度な保護が利用可能となり、このプロジェクトへのサポートとなります。</string>
+    <string name="notification_lease_expired_title">Blokada Plusが無効になりました</string>
+    <string name="notification_lease_expired_description">Blokada Plusへの接続に問題がありました。別のゲートウェイを選択してください。問題が解決しない場合は、お問い合わせください。</string>
+    <string name="notification_channel_filtered">広告ブロック</string>
+    <string name="notification_channel_announcements">お知らせ</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">その他</string>
 </resources>

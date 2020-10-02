@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="social_share_body_minute">Blokadaは、過去 %d 分間に%sの広告とトラッカーをブロックするのに役立ちました！ blokada.orgで入手してください。</string>
+    <string name="social_share_body_hour">Blokadaは、過去 %d 時間に%sの広告とトラッカーをブロックするのに役立ちました！ blokada.orgで入手してください。</string>
+    <string name="social_share_body_day">Blokadaは、過去 %d 日間に%sの広告とトラッカーをブロックするのに役立ちました！ blokada.orgで入手してください。</string>
+    <string name="social_share_body_week">Blokadaは、過去 %d 週間に%sの広告とトラッカーをブロックするのに役立ちました！ blokada.orgで入手してください。</string>
+</resources>

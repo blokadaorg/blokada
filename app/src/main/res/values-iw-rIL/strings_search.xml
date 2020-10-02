@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search_action_confirm">אשר</string>
+    <string name="search_header">לחצ/י לחיפוש...</string>
+    <string name="search_title">חיפוש</string>
+    <string name="search_entered">תוצאות עבור: %s</string>
+    <string name="search_description">הקלד/י את השאלה שלך למעלה ולחצ/י אישור כדי לסנן את הרשימה.</string>
+    <string name="search_action_confirm">אישור</string>
+    <string name="search_action_clear">ניקוי</string>
 </resources>

@@ -22,7 +22,7 @@
     <!-- App status, always displayed without the "Blokada is" part. -->
     <string name="main_status_deactivating">Disattivazione</string>
     <string name="main_blog_text">Notizie</string>
-    <string name="main_autostart_text">Avvia al boot</string>
+    <string name="main_autostart_text">Abilita all\'avvio</string>
     <!-- A menu option to send feedback or contact us -->
     <!-- A menu option to open Patron of the month -->
     <!-- A menu option to open Patron voting screen -->

@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="update_button">更新プログラムをダウンロードします。</string>
+    <string name="update_button">更新プログラムをダウンロード</string>
     <string name="update_notification_title">利用可能なアップデートがあります</string>
     <!-- Parameter: new app version, for example 2.0.1 -->
+    <string name="update_notification_text">リリース %1$s への更新をダウンロードする準備ができました！タップして進みます。</string>
     <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
+    <string name="update_notification_channel">アップデート通知</string>
+    <string name="update_info">Playストア、F-Droid、または他のアプリストアからアプリをダウンロードすると、ストアから更新が届きます。更新中は Blokada を停止してください。アップデートに問題が発生した場合は、blokada.orgにアクセスして手動でアプリをダウンロードしてください。使用中のバージョンを事前にアンインストールする必要はありません。</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
+    <string name="update_dash_available">&lt;b&gt;アップデートがあります&lt;/b&gt;</string>
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
     <!-- Displayed in menu to open the About/Update screen. -->
     <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">アプリの詳細</string>
     <!-- A button that opens the changelog. -->
     <!-- A toast message displayed when the update process is starting. -->
+    <string name="update_starting">開始中、しばらくお待ちください&#8230;</string>
+    <string name="update_progress">ダウンロード中: %s%%</string>
+    <string name="update_complete">ダウンロードが完了しました</string>
+    <string name="update_failed">ダウンロードに失敗しました</string>
+    <string name="update_instruction">終了時に、Blokadaにアップデートのインストールを許可するように求められます。</string>
+    <string name="update_instruction_failed">ここをタップしてもう一度試すか、長押ししてブラウザーでダウンロードしてください。</string>
 </resources>

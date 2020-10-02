@@ -30,5 +30,6 @@
     <string name="notification_keepalive_deactivating">Блокада је искључена!</string>
     <string name="notification_channel_filtered">Блокирање огласа</string>
     <string name="notification_channel_announcements">Обавештења</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
     <string name="notification_channel_other">Друго</string>
 </resources>

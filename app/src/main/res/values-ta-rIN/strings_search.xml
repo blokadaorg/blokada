@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="search_header">தேடத் தொடவும்...</string>
+    <string name="search_title">தேடு</string>
+    <string name="search_entered">முடிவுகள்: %s</string>
+    <string name="search_description">மேலே உங்கள் தேடல் வினவலைத் தட்டச்சு செய்து பட்டியலை வடிகட்ட உறுதிப்படுத்தவும் என்பதைத் தட்டவும்.</string>
     <string name="search_action_confirm">உறுதிசெய்</string>
+    <string name="search_action_clear">அழி</string>
 </resources>

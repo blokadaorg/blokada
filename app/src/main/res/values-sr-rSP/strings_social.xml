@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="social_share_body_minute">Blokada ми је помогла да блокирам %s реклама и тракера у последњих %d минута! Преузми из blokada.org.</string>
+</resources>

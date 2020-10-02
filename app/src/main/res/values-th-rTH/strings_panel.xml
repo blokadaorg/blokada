@@ -29,6 +29,7 @@
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
     <!-- A button to synchronize (fetch) lists  -->
     <!-- Action to manage active subscription. Keep it short -->
+    <string name="slot_account_show">เลขที่บัญชี</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <!-- Leases are devices connected to VPN. There might be multiple devices. -->
     <!-- Gateway load -->
@@ -42,6 +43,7 @@
     <!-- A button to open a blog -->
     <!-- A button to open a description website of current app version after update. -->
     <!-- A button to update the app. -->
+    <string name="slot_account_name_title">เลขที่บัญชี</string>
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->

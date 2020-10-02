@@ -25,8 +25,9 @@
     <!-- When a domain is blocked -->
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; bloqueado</string>
     <string name="panel_domain_blocked_normal_desc">Este dominio ha sido bloqueado. Para permitirlo en el futuro, utiliza el botón de abajo.</string>
-    <string name="panel_domain_blocked_nxdomain_desc">Este dominio no fue resuelto correctamente por el servidor DNS. O el servidor bloqueó el dominio, o no existe.</string>
-    <string name="panel_domain_blocked_error_desc">Algo salió mal al resolver este dominio, el servidor DNS respondió con un código de error.</string>
+    <string name="panel_domain_blocked_nxdomain_desc">Este dominio no fue resuelto correctamente por el servidor DNS. O el servidor ha bloqueado el dominio, o no existe.</string>
+    <string name="panel_domain_blocked_error_desc">Algo salió mal al resolver este dominio. El servidor DNS ha respondido con un código de error.</string>
+    <string name="panel_domain_blocked_cname_desc">Este dominio fue bloqueado porque es un CNAME para un dominio bloqueado. Para permitirlo en el futuro puedes agregar el CNAME o el propio dominio a los hosts permitidos.</string>
     <string name="panel_domain_blocked_toast">Añadido a la lista negra.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copiar</string>
@@ -39,6 +40,7 @@
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Permitir</string>
     <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">Permitir CNAME</string>
     <!-- Button to allow blocked domain that was blocked by a cname -->
     <string name="slot_action_allow_domain">Permitir dominio</string>
     <!-- Button to block allowed domain -->
@@ -115,6 +117,7 @@
 &lt;br/&gt;&lt;br/&gt;Alternativamente, puedes eliminar todas las entradas (incluyendo las tuyas) y descargarlas de nuevo.</string>
     <string name="slot_blocked_normal_title">Dominio bloqueado</string>
     <string name="slot_blocked_answer_title">Dominio no resuelto</string>
+    <string name="slot_blocked_cname_title">CNAME bloqueado</string>
     <string name="slot_forwarded_title">Dominio redirigido</string>
     <string name="slot_whitelist_title">Aplicación en la lista blanca</string>
     <string name="slot_list_no_desc">Esta entrada no tiene una descripción.</string>

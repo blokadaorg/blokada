@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- A configuration option of widget -->
+    <string name="widget_show_domain">Прикажи име блокираног домена</string>
     <!-- A configuration option of widget -->
+    <string name="widget_show_counter">Прикажи број блокираних захтева</string>
     <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Прикажи DNS</string>

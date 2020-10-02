@@ -27,6 +27,7 @@
     <string name="home_update_required">Потрібно оновити</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">Фондувати</string>
+    <string name="home_vpn_disabled">Blokada Plus неактивна</string>
     <string name="home_account_active">Ваша підписка активна</string>
     <string name="home_cleanup">Рекомендовано очищення</string>
     <!-- A short text for the button to change VPN settings -->

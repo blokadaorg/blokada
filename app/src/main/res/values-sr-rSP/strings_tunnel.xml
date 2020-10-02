@@ -6,4 +6,10 @@
     <string name="tunnel_config_refetch_now_title">Листа преузимања</string>
     <string name="tunnel_config_refetch_now">Преузмите листе</string>
     <string name="tunnel_config_refetch_toast">Преузимање листи је покренуто</string>
+    <string name="tunnel_config_refetch_frequency_1">Једном дневно</string>
+    <string name="tunnel_config_refetch_frequency_2">Двапут недељно</string>
+    <string name="tunnel_config_refetch_frequency_3">Једном недељно</string>
+    <string name="tunnel_config_refetch_frequency_4">Једном месечно</string>
+    <string name="tunnel_config_refetch_frequency_5">Никада</string>
+    <string name="tunnel_config_reports_title">Извештаји</string>
 </resources>

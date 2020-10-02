@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_loading">読み込み中です。しばらくお待ちください…</string>
+    <string name="main_loading">読み込み中。しばらくお待ちください…</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
@@ -10,7 +10,7 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Label for the Quick Settings toggle -->
-    <string name="main_quicksettings_toggle">ブロック中</string>
+    <string name="main_quicksettings_toggle">ブロック</string>
     <!-- Active status for the Quick Settings toggle -->
     <!-- Disabled status for the Quick Settings toggle -->
     <!-- App status, as in: Blokada is Active -->
@@ -18,21 +18,28 @@
     <!-- App status, as in: Blokada is Disabled -->
     <string name="main_status_disabled">無効</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
-    <string name="main_status_activating">有効になっています</string>
+    <string name="main_status_activating">有効にしています…</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
-    <string name="main_status_deactivating">無効になっています</string>
+    <string name="main_status_deactivating">無効にしています</string>
     <string name="main_blog_text">ニュース</string>
-    <string name="main_autostart_text">起動時に実行</string>
+    <string name="main_autostart_text">デバイス起動時にBlokadaを開始する</string>
     <!-- A menu option to send feedback or contact us -->
     <!-- A menu option to open Patron of the month -->
     <!-- A menu option to open Patron voting screen -->
     <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
+    <string name="main_cta">あなたのご意見をお聞かせください</string>
     <!-- A menu option to open changelog -->
     <string name="main_changelog">更新履歴</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">クレジット</string>
+    <string name="main_legal">法的情報</string>
+    <string name="main_licenses">サードパーティライセンス</string>
+    <string name="main_terms">利用規約</string>
+    <string name="main_privacy">プライバシーポリシー</string>
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">ログを共有</string>
     <!-- To display a big number in short way, eg. 1.69 million -->
+    <string name="core_format_million">%s00万</string>
     <!-- To display a big number in short way, eg. 420 thousand -->
+    <string name="core_format_thousand">%s, 000</string>
 </resources>

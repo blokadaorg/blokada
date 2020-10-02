@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="social_share_body_minute">¡Blokada me ayudó a bloquear %s anuncios y trackers en los últimos %d minutos! Consíguela en blokada.org.</string>
-    <string name="social_share_body_hour">¡Blokada me ha ayudado a bloquear %s anuncios y trackers en las últimas %d horas! Consíguela en blokada.org.</string>
-    <string name="social_share_body_day">¡Blokada me ha ayudado a bloquear %s anuncios y trackers en los últimos %d días! Consíguela en blokada.org.</string>
-    <string name="social_share_body_week">¡Blokada me ha ayudado a bloquear %s anuncios y trackers en las últimas %d semanas! Consíguela en blokada.org.</string>
+    <string name="social_share_body_minute">¡Blokada me ha ayudado a bloquear %s anuncios y rastreadores en los últimos %d minutos! Consíguela en blokada.org.</string>
+    <string name="social_share_body_hour">¡Blokada me ha ayudado a bloquear %s anuncios y rastreadrores en las últimas %d horas! Consíguela en blokada.org.</string>
+    <string name="social_share_body_day">¡Blokada me ha ayudado a bloquear %s anuncios y rastreadores en los últimos %d días! Consíguela en blokada.org.</string>
+    <string name="social_share_body_week">¡Blokada me ha ayudado a bloquear %s anuncios y rastreadores en las últimas %d semanas! Consíguela en blokada.org.</string>
 </resources>

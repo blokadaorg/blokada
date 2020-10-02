@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- A name used for DNS servers added by user. -->
+    <string name="dns_custom_add_slot">新しいDNSを追加…</string>
+    <string name="slot_enter_dns_error">IPv4を確認できません</string>
     <!-- An example format of a DNS server address. -->
+    <string name="dns_edit_ip_label">IPアドレス</string>
+    <string name="dns_edit_ip1_enter">プライマリアドレスを入力してください</string>
+    <string name="dns_edit_ip2_enter">セカンダリアドレスを入力してください</string>
+    <string name="dns_edit_name_error">有効な名前ではありません</string>
+    <string name="dns_edit_name_label">サーバー名</string>
+    <string name="dns_edit_name_default">デフォルトの名前</string>
+    <string name="dns_edit_next">次へ</string>
+    <string name="dns_edit_last">追加する</string>
     <!-- Displayed in the home screen when no custom dns is set, keep it short. -->
-    <string name="dns_text_none">既定のDNS</string>
+    <string name="dns_text_none">デフォルトのDNS</string>
     <!-- Deletes all dns suggestions and fetches default ones. -->
-    <string name="dns_generate_defaults">標準の設定へ戻す</string>
+    <string name="dns_generate_defaults">初期設定に戻す</string>
     <!-- Forcefully refetch dns suggestions ignoring cache. -->
     <string name="dns_generate_refetch">DNSリストを更新</string>
     <!-- Keep Alive notification for DNS. Parameter: addresses of active dns servers. -->

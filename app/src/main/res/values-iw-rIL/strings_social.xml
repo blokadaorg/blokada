@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="social_share_body_minute">Blokada עזרה לי לחסום %s פרסומות ועוקבים ב%d דקות האחרונות! הורד/י את זה בblokada.org.</string>
+    <string name="social_share_body_hour">Blokada עזרה לי לחסום %s פרסומות ועוקבים ב%d שעות האחרונות! הורד/י את זה בblokada.org.</string>
+    <string name="social_share_body_day">Blokada עזרה לי לחסום %s פרסומות ועוקבים ב%d ימים האחרונים! הורד/י את זה בblokada.org.</string>
+    <string name="social_share_body_week">Blokada עזרה לי לחסום %s פרסומות ועוקבים ב%d שבועות האחרונים! הורד/י את זה בblokada.org.</string>
+</resources>

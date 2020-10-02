@@ -2,7 +2,7 @@
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">Toca o mantén pulsado para configurar</string>
-    <string name="home_blokada_disabled">Blokada está pausado</string>
+    <string name="home_blokada_disabled">Blokada está en pausa</string>
     <string name="home_blokada_active">Blokada está activo</string>
     <string name="home_blokada_active_protected">Blokada Plus está activo y tú conexión está protegida</string>
     <string name="home_blokada_inactive">Blokada está desactivado</string>
@@ -37,7 +37,7 @@
     <string name="home_cleanup">Se recomienda una limpieza</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">Conexión establecida con Blokada Plus</string>
-    <string name="home_boringtun_not_loaded">Lo sentimos, tú dispositivo no es soportado por Blokada Plus. Aún así, puedes usar otras características.</string>
+    <string name="home_boringtun_not_loaded">Lo sentimos, tú dispositivo no está soportado por Blokada Plus. Aún así, puedes usar otras características.</string>
     <string name="home_blocka_vpn_error">No se pudo conectar a la puerta de enlace. ¿Estás en línea?</string>
     <string name="home_account_error">No se pudo verificar la cuenta. ¿Tienes conexión?</string>
     <string name="home_permission_error">Por favor, concede el permiso de conexión VPN.</string>

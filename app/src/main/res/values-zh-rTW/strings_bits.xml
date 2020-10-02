@@ -3,7 +3,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_touch">點擊或長按以設定</string>
     <string name="home_blokada_disabled">已停用 Blokada</string>
-    <string name="home_blokada_active">Blokada 已啟用</string>
+    <string name="home_blokada_active">Blokada 運作中</string>
     <string name="home_blokada_active_protected">Blokada Plus 已經啟用，您的網路已受保護</string>
     <string name="home_blokada_inactive">Blokada 已停用</string>
     <string name="home_activating">啟用中</string>

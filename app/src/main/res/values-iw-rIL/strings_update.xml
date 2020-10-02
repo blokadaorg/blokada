@@ -12,7 +12,13 @@
     <!-- Displayed in the home screen whenever there is no update. Keep it short. -->
     <!-- Displayed in menu to open the About/Update screen. -->
     <!-- A button that opens system preferences for this app. -->
+    <string name="update_button_appinfo">פרטי האפליקציה</string>
     <!-- A button that opens the changelog. -->
     <!-- A toast message displayed when the update process is starting. -->
     <string name="update_starting">מתחיל, אנא המתן&#8230;</string>
+    <string name="update_progress">מוריד %s%%</string>
+    <string name="update_complete">ההורדה הושלמה</string>
+    <string name="update_failed">ההורדה נכשלה</string>
+    <string name="update_instruction">כאשר התהליך יסתיים, תתבקש/י לאשר לBlokada להתקין את העדכון.</string>
+    <string name="update_instruction_failed">לחצ/י כאן על מנת לנסות שנית, או לחצ/י לחיצה ארוכה על מנת להוריד עם הדפדפן שלך במקום.</string>
 </resources>

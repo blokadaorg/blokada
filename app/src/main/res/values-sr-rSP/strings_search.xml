@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="search_header">Додирни да тражиш...</string>
+    <string name="search_title">Претрага</string>
+    <string name="search_entered">Резултати за: %s</string>
     <string name="search_action_confirm">Потврди</string>
+    <string name="search_action_clear">Очисти</string>
 </resources>

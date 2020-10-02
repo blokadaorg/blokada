@@ -97,7 +97,7 @@
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">Оновити</string>
     <string name="slot_action_refresh_toast">Почалося оновлення</string>
-    <string name="slot_action_restore">Викинути</string>
+    <string name="slot_action_restore">Видалити</string>
     <string name="slot_export_title">Місце для налаштувань</string>
     <string name="slot_export_description">Можна змінити місце, куди будуть збережені налаштування (та звідки будуть завантажені). Якщо ви імпортуєте наявні налаштування, оберіть спочатку \"Імпорт\", інакше вони будуть перезаписані.</string>
     <string name="slot_action_import">Імпорт</string>

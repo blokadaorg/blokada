@@ -1,24 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_activating">有効になっています</string>
+    <string name="home_touch">タップまたはホールドして設定</string>
+    <string name="home_blokada_disabled">Blokadaは一時停止されました</string>
+    <string name="home_blokada_active">Blokadaが有効です</string>
+    <string name="home_blokada_active_protected">Blokada Plusが有効です。インターネットは保護されています</string>
+    <string name="home_blokada_inactive">Blokadaが無効です</string>
+    <string name="home_activating">有効にしています</string>
+    <string name="home_please_wait">お待ちください…</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_vpn_only">Blokada Plusが有効です。広告ブロックは無効になっています</string>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
+    <string name="home_dns_only">BlokadaがDNSモードで有効です。広告ブロックは無効になっています</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
+    <string name="home_requests_blocked_since">%s は %s からブロックされました</string>
+    <string name="home_masterswitch_enabled">BlokadaがONです</string>
+    <string name="home_masterswitch_waiting">ネットワーク接続の待機中...</string>
     <!-- A button to share the ads counter on social media -->
+    <string name="home_share">友達にシェアする</string>
+    <string name="home_share_state">Blokadaスコアを共有</string>
+    <string name="home_share_state_google">Blokadaアプリを知り合いに教える</string>
+    <string name="home_share_msg_google">Blokada Slimを試して、あなたのプライバシーを保護してください。Google Playでダウンロードします。</string>
+    <string name="home_adblocking_enabled">広告ブロックが有効です</string>
+    <string name="home_adblocking_disabled">広告ブロックが無効です</string>
+    <string name="home_blokadaorg">Blokada Slimを使用しています</string>
+    <string name="home_blokadaorg_state">タップしてオープンソース版を入手する</string>
     <!-- A short text for the item that displays update information -->
+    <string name="home_whats_new">新着情報</string>
+    <string name="home_update_required">更新が必要です</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">寄付</string>
+    <string name="home_vpn_enabled">Blokada Plusが有効です</string>
+    <string name="home_vpn_disabled">Blokada Plusが無効です</string>
+    <string name="home_account_active">あなたのアカウントはまだ有効です</string>
+    <string name="home_connecting_vpn">Blokada Plusに接続中</string>
+    <string name="home_cleanup">クリーンアップを推奨します</string>
     <!-- A short text for the button to change VPN settings -->
+    <string name="home_connected_vpn">Blokada Plusに接続しました</string>
+    <string name="home_boringtun_not_loaded">申し訳ありませんが、お使いのデバイスはBlokada Plusでサポートされていません。他の機能は使用することができます。</string>
+    <string name="home_blocka_vpn_error">ゲートウェイに接続できませんでした。インターネット接続を確認してください</string>
+    <string name="home_account_error">アカウントを確認できませんでした。インターネット接続を確認してください</string>
+    <string name="home_permission_error">VPNの権限を許可してください。</string>
+    <string name="home_zero_filters_error">フィルターが設定されていません。広告ブロックと Wi-Fi の設定を確認してください。</string>
+    <string name="home_filters_memory_error">一部のリストを読み込めませんでした。広告ブロック設定でリストの数を減らしてください。</string>
+    <string name="tasker_switch_label">いずれかのオプションをタップして、トリガーのON(またはOFF) を切り替えます。</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
+    <string name="menu_ads">広告</string>
+    <string name="menu_ads_live_label">許可またはブロックされたリクエストのホストログ</string>
+    <string name="menu_ads_clear_log">ホストログをクリア</string>
+    <string name="menu_ads_lists_label">ブロックに使用するリストを選択します。ほとんどの人はデフォルトで問題ありません。</string>
+    <string name="menu_ads_rules_label">ブロックを微調整し独自のルールを追加します。</string>
+    <string name="menu_ads_log_label">最近ブロックまたは許可されたものを参照してください。</string>
     <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">Blokada Plus</string>
+    <string name="menu_vpn_activate_account">まずアカウントをアクティベートしてください。</string>
+    <string name="menu_vpn_select_gateway">ゲートウェイを選択してください。</string>
+    <string name="menu_vpn_intro_button">なぜBlokada Plusが必要なのですか？</string>
     <!-- A button opening VPN account settings -->
+    <string name="menu_vpn_account">My Blokada Plus</string>
+    <string name="menu_vpn_account_id">ID: %s</string>
     <!-- A button opening VPN gateways settings -->
+    <string name="menu_vpn_gateways">ゲートウェイ</string>
     <!-- A button opening VPN leases (devices) settings -->
+    <string name="menu_vpn_leases">デバイス</string>
+    <string name="menu_vpn_manage_subscription">アカウントの定期購入を管理する</string>
+    <string name="menu_vpn_manage_subscription_unavailable">あなたのアカウントが新しい場合は、当社のウェブサイトにアクセスしてください。Blokada Slimでサブスクリプションを購入することはできません。</string>
+    <string name="menu_vpn_account_secret">アカウントIDを確認するには、上のアバターをタップしてください。IDは秘密で、自分自身に残しておく必要があります。アプリをアンインストールする場合に備えて書き留めてください。</string>
+    <string name="menu_vpn_restore_label">ここでは、たとえばアプリを再インストールした場合などに、既存のアカウントを復元できます。</string>
+    <string name="menu_vpn_intro">Blokada Plusを使用すると、データは暗号化され、IPアドレスは非表示になり、ロケーションは変更されます。</string>
+    <string name="menu_vpn_account_label">VPNを使用するには、アクティブなアカウントが必要です。ここでアカウントを確認または復元してください。</string>
+    <string name="menu_vpn_gateways_label">接続するゲートウェイを選択します。デバイスはそのゲートウェイを通じて暗号化されたデータを安全に送信し、通信を匿名化します。</string>
+    <string name="menu_vpn_support_label">何か問題が発生した場合は、お気軽にお問い合わせください。</string>
+    <string name="menu_vpn_support_button">サポート</string>
+    <string name="menu_vpn_tunnel_settings">Blokada Plusの設定</string>
+    <string name="menu_vpn_tunnel_learn_more">Blokada Plusの詳細</string>
+    <string name="menu_vpn_info_account_label">私はアカウントを持っていますか？</string>
+    <string name="menu_vpn_info_account_line1">はい！あなたのアカウントは最初の実行時に自動的に作成されます。登録する必要はありません。</string>
+    <string name="menu_vpn_info_account_line2">アカウントIDを表示するには、上のアバターをタップしてください。</string>
+    <string name="menu_vpn_info_account_line3">あなたのアカウントIDは秘密であり、誰にも教えないでください。</string>
+    <string name="menu_vpn_info_account_line4">アプリを再インストールする必要がある場合に備えて、アカウントIDを書き留めてください。</string>
+    <string name="menu_dns_recommended">推奨されるDNSサーバー</string>
+    <string name="menu_dns_intro">DNSは、使用するWebサイトおよびアプリのIPアドレスへの変換を担当します。 適切なDNSを選択すると、デバイスの速度が向上し、プライバシーの保護に役立ちます。</string>
+    <string name="menu_dns_select">DNSサーバーを1つ選択します。</string>
+    <string name="menu_apps_intro">一部のアプリはBlokadaで正しく動作しない場合があります。 たとえば、接続に問題がある可能性があります。\n\nこのような場合、VPNをアクティブにすると解決することがよくあります。\n\nそれ以外の場合は、これらのアプリにBlokadaを完全にバイパスさせることができます。 バイパスされたアプリはBlokada Plusの外部で通信することを覚えておいてください。</string>
+    <string name="menu_apps_system_label">システムアプリは、お使いのデバイスでプリインストールされているものです。それらのいくつかは隠されています。これらのアプリが何をしているか分かっている場合にのみ、変更してください。</string>
+    <string name="menu_host_list_intro">ホストリストには、広告とトラッカーをブロックするためのルールが含まれています。動作を安定させるためにアクティブなリストの数は必要最低限におさえることをおすすめします。</string>
+    <string name="menu_host_adblocking_features">Blokada Labs</string>
+    <string name="menu_host_adblocking_settings">広告ブロック設定</string>
+    <string name="menu_host_list_status">リストの状態</string>
+    <string name="menu_host_list_download">リストのダウンロード設定</string>
+    <string name="menu_host_whitelist">ここに追加したホストがブロックされることはありません。 このリストは、たとえば、アクセスするWebサイトが誤ってブロックされた場合に使用します。 これはバイパスされたアプリには適用されないことに注意してください。</string>
+    <string name="menu_host_blacklist">ここに追加したホストは常にブロックされます。たとえば、標準リストによってブロックされていないが、ブロックされる必要があるWebサイトを追加できます。これはバイパスされたアプリには適用されないことに注意してください。</string>
     <!-- A section of other settings in menu -->
+    <string name="menu_other">その他</string>
+    <string name="menu_share_log_label">ログを共有することで、問題の理由を発見できます。 Blokadaコアチームメンバーの1人に非公開で送信します。</string>
     <!-- A section of help, telegram, and other buttons in menu -->
+    <string name="menu_learn_more">詳細</string>
     <!-- A section informational content in menu -->
+    <string name="menu_knowledge">ヘルプを見る</string>
     <!-- A section content promoting participating in our project -->
+    <string name="menu_get_involved">活動に参加する</string>
+    <string name="menu_telegram">コミュニティ</string>
+    <string name="menu_configure">Blokadaの機能を設定</string>
+    <string name="menu_exclude">正しく動作しないアプリを除外</string>
     <!-- A section in menu for additional buttons  -->
+    <string name="menu_dive_in">もっと見る</string>
     <!-- A section to manage some settings (generic)  -->
+    <string name="menu_manage">管理</string>
+    <string name="menu_ok">OK</string>
+    <string name="menu_dns_remove_default">デフォルトのDNSは削除できません。</string>
 </resources>

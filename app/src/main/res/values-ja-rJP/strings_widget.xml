@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- A configuration option of widget -->
+    <string name="widget_show_domain">ブロックされたドメイン名を表示</string>
     <!-- A configuration option of widget -->
+    <string name="widget_show_counter">ブロックされたリクエスト数を表示</string>
     <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">細かく数字を表示</string>
     <!-- A configuration option of widget -->
+    <string name="widget_show_dns">DNSを表示</string>
     <!-- A configuration option of widget -->
+    <string name="widget_show_gateway">ゲートウェイを表示</string>
+    <string name="widget_okay">確認</string>
 </resources>
