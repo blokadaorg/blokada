@@ -73,7 +73,7 @@ extension Dns {
     }
 
     static var hardcoded = [
-        //Dns(ips: ["176.103.130.130", "176.103.130.131", "2a00:5a60::ad1:0ff", "2a00:5a60::ad2:0ff"], port: 443, name: "dns.adguard.com", path: "dns-query", label: "Adguard"),
+        Dns(ips: ["176.103.130.130", "176.103.130.131", "2a00:5a60::ad1:0ff", "2a00:5a60::ad2:0ff"], port: 443, name: "dns.adguard.com", path: "dns-query", label: "Adguard"),
         //Dns(ips: ["185.228.168.9", "185.228.169.9", "2a0d:2a00:1::2", "2a0d:2a00:2::2"], port: 443, name: "doh.cleanbrowsing.org", path: "doh/security-filter", label: "CleanBrowsing: Security filter"),
         //Dns(ips: ["185.228.168.10", "185.228.169.11", "2a0d:2a00:1::1", "2a0d:2a00:2::1"], port: 443, name: "doh.cleanbrowsing.org", path: "doh/adult-filter", label: "CleanBrowsing: Adult filter"),
         Dns(ips: ["2001:678:e34:b10c:ada::1", "2001:678:e34:b10c:ada::2"], port: 443, name: "dns.blokada.org", path: "dns-query", label: "Blokada (IPv6) Beta"),
