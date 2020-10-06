@@ -10,10 +10,10 @@ typedef enum {
 } DNSHistoryAction;
 
 typedef enum {
-  Disabled,
-  TunneledInterface,
-  DefaultInterface,
-} TunnelMode;
+  CLEAR,
+  TLS,
+  HTTPS,
+} DNSMode;
 
 /**
  * Indicates the operation required from the caller
@@ -131,7 +131,7 @@ void dns_history_free(DNSHistory history);
 
 bool dns_use_lists(Handle *h, const char *blocklist_filename, const char *whitelist_filename);
 
-void dns_via(Handle *h, TunnelMode mode);
+void dns_via(Handle *h, bool tunnel);
 
 void engine_logger(const char *level);
 
@@ -149,8 +149,9 @@ Handle *new_dns(const char *listen_addr,
                 const char *blocklist_filename,
                 const char *whitelist_filename,
                 const char *dns_ips,
+                uint16_t dns_port,
                 const char *dns_name,
-                const char *dns_path);
+                DNSMode dns_mode);
 
 /**
  * Allocate a new tunnel, return NULL on failure.

@@ -5,7 +5,6 @@ use std::os::raw::c_char;
 use std::panic;
 use std::ptr;
 use std::sync::{Arc, Mutex};
-use std::time::Duration;
 
 use tokio::net::UdpSocket;
 use tokio::runtime::Builder;
@@ -13,6 +12,7 @@ use tokio::task;
 
 #[cfg(feature = "resolver")]
 use trust_dns_client::rr::Name;
+use trust_dns_resolver::config::NameServerConfigGroup;
 use trust_dns_server::authority::Catalog;
 #[cfg(feature = "dns-over-tls")]
 use trust_dns_server::server::ServerFuture;
@@ -20,8 +20,7 @@ use trust_dns_server::server::ServerFuture;
 use crate::authority::{
     with_cache, BlockaAuthority, Blocklist, BlocklistAction, CachedList, FileList, ListType,
 };
-use crate::runtime::Resolver;
-use doh_dns::DnsHttpsServer;
+use crate::runtime::{new_resolver, Resolver};
 
 pub struct Handle {
     runtime: tokio::runtime::Runtime,
@@ -100,9 +99,12 @@ pub extern "C" fn new_dns(
     blocklist_filename: *const c_char,
     whitelist_filename: *const c_char,
     dns_ips: *const c_char,
+    dns_port: u16,
     dns_name: *const c_char,
-    dns_path: *const c_char,
+    dns_mode: DNSMode,
 ) -> *mut Handle {
+    info!("new_dns");
+
     let c_str = unsafe { CStr::from_ptr(listen_addr) };
     let listen_addr = match c_str.to_str() {
         Err(_) => return ptr::null_mut(),
@@ -145,7 +147,6 @@ pub extern "C" fn new_dns(
         .threaded_scheduler()
         .thread_name("blocka_dns")
         .core_threads(1)
-        .max_threads(25)
         .enable_all()
         .build()
     {
@@ -161,42 +162,27 @@ pub extern "C" fn new_dns(
         Err(_) => return ptr::null_mut(),
         Ok(string) => string,
     };
-    let c_str = unsafe { CStr::from_ptr(dns_path) };
-    let dns_path = match c_str.to_str() {
-        Err(_) => return ptr::null_mut(),
-        Ok(string) => string,
-    };
     let c_str = unsafe { CStr::from_ptr(dns_ips) };
     let dns_ips = match c_str.to_str() {
         Err(_) => return ptr::null_mut(),
         Ok(string) => string,
     };
 
-    info!("new dns using {}", dns_name);
-
     let dns_ips: Vec<IpAddr> = dns_ips
         .split(",")
         .filter_map(|ip| ip.trim().parse().ok())
         .collect();
-    let dns_mode = DNSMode::HTTPS;
-    let servers = match dns_mode {
-        DNSMode::HTTPS => vec![DnsHttpsServer::new(
-            dns_name.into(),
-            dns_path.into(),
-            dns_ips,
-            Duration::from_secs(10),
-        )],
-        DNSMode::CLEAR => {
-            error!("clear DNS is not supported");
-            return ptr::null_mut();
+    let ns = match dns_mode {
+        DNSMode::CLEAR => NameServerConfigGroup::from_ips_clear(&dns_ips, dns_port),
+        DNSMode::HTTPS => {
+            NameServerConfigGroup::from_ips_https(&dns_ips, dns_port, dns_name.to_string())
         }
         DNSMode::TLS => {
-            error!("DoT is not supported");
-            return ptr::null_mut();
+            NameServerConfigGroup::from_ips_tls(&dns_ips, dns_port, dns_name.to_string())
         }
     };
 
-    let resolver = match Resolver::new(servers, runtime.handle()) {
+    let resolver = match new_resolver(ns, runtime.handle()) {
         Ok(r) => r,
         Err(e) => {
             error!("failed creating resolver: {:?}", e);
@@ -223,7 +209,7 @@ pub extern "C" fn new_dns(
             Err(e) => {
                 error!("server error: {:?}", e);
             }
-            Ok(_) => info!("server has stopped"),
+            Ok(_) => (),
         }
     });
     let h = Handle {
@@ -284,27 +270,10 @@ pub unsafe extern "C" fn dns_close(h: *mut Handle) {
     Box::from_raw(h);
 }
 
-#[repr(C)]
-pub enum TunnelMode {
-    Disabled,
-    TunneledInterface,
-    DefaultInterface,
-}
-
-impl From<TunnelMode> for Option<bool> {
-    fn from(mode: TunnelMode) -> Self {
-        match mode {
-            TunnelMode::TunneledInterface => Some(true),
-            TunnelMode::DefaultInterface => Some(false),
-            TunnelMode::Disabled => None,
-        }
-    }
-}
-
 #[no_mangle]
-pub extern "C" fn dns_via(h: *mut Handle, mode: TunnelMode) {
+pub extern "C" fn dns_via(h: *mut Handle, tunnel: bool) {
     let h = unsafe { &mut *h };
-    h.runtime.block_on(h.resolver.toggle(mode.into()));
+    h.runtime.block_on(h.resolver.toggle(tunnel));
 }
 
 #[no_mangle]
