@@ -44,7 +44,8 @@ def main(argv):
         "input": None,
         "output": "strings",
         "key_prefix": "",
-        "json": False
+        "json": False,
+        "vue": False
     }
 
     try:
@@ -62,7 +63,8 @@ def main(argv):
         elif opt == "-k":
             config["key_prefix"] = arg
         elif opt == "-f":
-            config["json"] = arg == "json"
+            config["json"] = arg.startswith("json")
+            config["vue"] = "vue" in arg
         else:
             print("  Unknown argument: %s" % opt)
             usage()
@@ -106,7 +108,9 @@ def main(argv):
             strings[name] = var.replace("\";", "")
             counter += 1
 
-    if config["json"]:
+    if config["vue"]:
+        outputAsJsonVue(output_file, strings)
+    elif config["json"]:
         outputAsJson(output_file, strings)
     else:
         outputAsAndroidXml(output_file, strings)
@@ -124,6 +128,7 @@ def outputAsAndroidXml(output_file, strings):
 def outputAsJson(output_file, strings):
     with open(output_file, "w") as f:
         f.write("{ \"strings\": {\n")
+
         count = 0
         for key in strings:
             count += 1
@@ -131,7 +136,22 @@ def outputAsJson(output_file, strings):
             if count < len(strings):
                 f.write(",")
             f.write("\n")
+
         f.write("} }\n")
+
+def outputAsJsonVue(output_file, strings):
+    with open(output_file, "w") as f:
+        f.write("{\n")
+
+        count = 0
+        for key in strings:
+            count += 1
+            f.write(f"    \"{key}\": \"{convertPlaceholdersToVue(strings[key])}\"")
+            if count < len(strings):
+                f.write(",")
+            f.write("\n")
+
+        f.write("}\n")
 
 def makeAndroidKey(line):
     line = remove_chars(line, keep=ascii_letters + ' ')
@@ -145,6 +165,14 @@ def makeAndroidValue(line):
 
 def convertPlaceholders(line):
     return line.replace("%@", "%s")
+
+def convertPlaceholdersToVue(line):
+    params = [0, 1, 2]
+    out = line
+    for p in params:
+        out = out.replace("%@", "{" + f"{p}" + "}", 1)
+    out = out.replace("*", "") # No bold
+    return out
 
 def remove_chars(input_string, keep):
     return ''.join([_ for _ in input_string if _ in keep])

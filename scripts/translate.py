@@ -38,22 +38,23 @@ def main(argv):
     def usage():
         print("usage: translate -r <repo-dir> -a action")
         print("Default repo dir is ../../translate")
-        print("Actions: export import import-ios import-android sync-android ")
+        print("Actions: export import import-ios import-android sync-android import-pulpit sync-pulpit")
         print("Default action is 'export'")
         print("The canonical source for strings is iOS")
 
-    print("Translate v0.2")
+    print("Translate v0.3")
 
     # parse command line options
     base_path = "."
     config = {
         "repo_dir": "../../translate",
+        "pulpit_repo_dir": "../../pulpit",
         "action": "export",
         "langs": ["pl", "de", "es", "it", "hi", "ru", "bg", "tr", "ja", "id", "cs", "zh-Hant", "ar", "fi", "ro", "pt-BR", "fr", "hu", "nl"],
         "langs-android": {
             "id": "in",
             "zh-Hant": "zh",
-	    "pt-BR": "b+pt+BR"
+            "pt-BR": "b+pt+BR"
         }
     }
 
@@ -74,7 +75,7 @@ def main(argv):
             usage()
             return 2
 
-    if config["action"] not in ["export", "import", "import-ios", "import-android", "sync-android"]:
+    if config["action"] not in ["export", "import", "import-ios", "import-android", "sync-android", "import-pulpit", "sync-pulpit"]:
         print("  Unknown action")
         usage()
         return 1
@@ -93,6 +94,10 @@ def main(argv):
         androidImport(repo, config["langs"], config["langs-android"])
     elif config["action"] == "sync-android":
         androidSyncSources()
+    elif config["action"] == "import-pulpit":
+        pulpitImport(repo, config["langs"], config["pulpit_repo_dir"])
+    elif config["action"] == "sync-pulpit":
+        pulpitSyncSources(config["pulpit_repo_dir"])
 
     print("Done")
 
@@ -141,6 +146,18 @@ def androidImport(repo, langs, langs_android):
         subprocess.call(f"./convert.py -i {repo}/build/fem/{lang}.lproj/Packs.strings -o ../android/app/src/main/assets/translations/{lang}/packs.json -f \"json\"", shell = True)
         subprocess.call(f"./convert.py -i {repo}/build/fem/{lang}.lproj/Ui.strings -o ../android/app/src/main/assets/translations/{lang}/ui.json -f \"json\"", shell = True)
         subprocess.call(f"./convert.py -i {repo}/build/fem/{lang}.lproj/Ui.strings -o ../android/app/src/translations/res/values-{alang}/strings_ui.xml -f \"xml\"", shell = True)
+
+def pulpitSyncSources(pulpit_repo):
+    print("Syncing Pulpit strings with iOS")
+
+    subprocess.call(f"./convert.py -i ../ios/IOS/Assets/en.lproj/Ui.strings -o {pulpit_repo}/src/locales/en.json -f \"json_vue\"", shell = True)
+
+def pulpitImport(repo, langs, pulpit_repo):
+    print(f"Importing strings from {repo} to pulpit: {pulpit_repo}")
+    for lang in langs:
+        print(f"Importing {lang}")
+
+        subprocess.call(f"./convert.py -i {repo}/build/fem/{lang}.lproj/Ui.strings -o {pulpit_repo}/src/locales/{lang}.json -f \"json_vue\"", shell = True)
 
 def outputAsAndroidXml(output_file, strings):
     with open(output_file, "w") as f:
