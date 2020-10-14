@@ -124,7 +124,7 @@ android {
         main.java.srcDirs += 'src/legacy/kotlin'
 
         main.java.srcDirs += 'src/engine/kotlin'
-        main.jniLibs.srcDirs += 'src/engine/jnilibs'
+        main.jniLibs.srcDirs += 'src/engine/jniLibs'
 
         debug.java.srcDirs += 'src/mock/kotlin'
 
