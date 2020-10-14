@@ -44,6 +44,7 @@ clap = "2.33"
 futures = { version = "0.3", default-features = false, features = ["std"] }
 log = "0.4"
 rustls = { version = "0.17", optional = true }
+native-tls = { version = "^0.2", features = ["vendored"] }
 tokio = { version = "0.2", features = ["rt-core", "rt-threaded", "time", "macros", "tcp", "blocking", "sync"] }
 tokio-io-timeout = "0.4"
 trust-dns-client= { version = "0.20" }
