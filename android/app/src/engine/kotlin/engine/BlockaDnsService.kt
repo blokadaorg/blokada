@@ -43,8 +43,10 @@ object BlockaDnsService {
         BlockaDnsJNI.create_new_dns(
             listen_addr = "127.0.0.1:$PROXY_PORT",
             dns_ips = dns.ips.joinToString(","),
+            dns_port = dns.port!!.toChar(),
             dns_name = name,
-            dns_path = path
+            dns_path = path,
+            use_doh = dns.isDnsOverHttps()
         )
         started = true
     }

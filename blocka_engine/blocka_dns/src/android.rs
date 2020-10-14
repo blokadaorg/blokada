@@ -5,7 +5,7 @@ use std::ptr;
 use std::ffi::CString;
 
 use jni::objects::{JClass, JString};
-use jni::sys::jlong;
+use jni::sys::{jboolean, jlong, jchar};
 use jni::JNIEnv;
 
 use crate::ffi;
@@ -23,19 +23,28 @@ pub unsafe extern "C" fn create_new_dns(
   _class: JClass,
   listen_addr: JString,
   dns_ips: JString,
+  dns_port: jchar,
   dns_name: JString,
   dns_path: JString,
+  use_doh: jboolean
 ) -> jlong {
   let addr: String = env.get_string(listen_addr).expect("JNI param fail").into();
   let ips: String = env.get_string(dns_ips).expect("JNI param fail").into();
   let name: String = env.get_string(dns_name).expect("JNI param fail").into();
-  let path: String = env.get_string(dns_path).expect("JNI param fail").into();
+  //let path: String = env.get_string(dns_path).expect("JNI param fail").into();
+
+  let mut mode = ffi::DNSMode::CLEAR;
+  if use_doh > 0 {
+    mode = ffi::DNSMode::HTTPS;
+  }
 
   DNS_HANDLE = Some(ffi::new_dns(CString::new(addr).expect("no cstring").as_ptr(),
     ptr::null(), ptr::null(),
     CString::new(ips).expect("no cstring").as_ptr(),
+    dns_port,
     CString::new(name).expect("no cstring").as_ptr(),
-    CString::new(path).expect("no cstring").as_ptr()
+    //CString::new(path).expect("no cstring").as_ptr(),
+    mode
   ));
   0
 }

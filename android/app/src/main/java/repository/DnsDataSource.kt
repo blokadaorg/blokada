@@ -26,9 +26,12 @@ import model.Dns
 object DnsDataSource {
 
     fun getDns() = listOf(
-        Dns.plaintextDns(
+        Dns(
             id = "adguard",
-            ips = listOf("176.103.130.130", "176.103.130.131"),
+            ips = listOf("176.103.130.130", "176.103.130.131", "2a00:5a60::ad1:0ff", "2a00:5a60::ad2:0ff"),
+            port = 443,
+            name = "dns.adguard.com",
+            path = "dns-query",
             label = "AdGuard"
         ),
         Dns.plaintextDns(
