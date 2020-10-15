@@ -27,11 +27,15 @@ import java.lang.ref.WeakReference
 
 object ContextService {
 
-    private var context = WeakReference<Context?>(null)
+    private var context: Context? = null
     private var activityContext = WeakReference<Activity?>(null)
 
     fun setContext(context: Context) {
-        this.context = WeakReference(context)
+        /**
+         * I assume it's ok to keep a strong reference to the app context (and not activity context),
+         * since its lifespan is same as app's.
+         */
+        this.context = context
     }
 
     fun setActivityContext(context: Activity) {
@@ -39,11 +43,11 @@ object ContextService {
     }
 
     fun requireContext(): Context {
-        return activityContext.get() ?: context.get() ?: throw Exception("No context set in ContextService")
+        return activityContext.get() ?: context ?: throw Exception("No context set in ContextService")
     }
 
     fun requireAppContext(): Context {
-        return context.get() ?: throw Exception("No context set in ContextService")
+        return context ?: throw Exception("No context set in ContextService")
     }
 
     fun hasActivityContext(): Boolean {
