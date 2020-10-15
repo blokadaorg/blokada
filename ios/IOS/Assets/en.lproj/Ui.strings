@@ -83,6 +83,7 @@
 "notification update header" = "An update is available";
 "alert update body" = "Blokada %@ is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.";
 "update label updated" = "Updated!";
+"update desc updated" = "You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.";
 "update downloading description" = "The update is now downloading, and you should see the installation prompt shortly.";
 
 "account active forever" = "Forever";

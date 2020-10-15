@@ -62,6 +62,20 @@ object UpdateService {
         } else false
     }
 
+    fun handleUpdateFlow(
+        onOpenDonate: () -> Unit,
+        onOpenMore: () -> Unit
+    ) {
+        val appVersion = EnvironmentService.getVersionCode()
+        if (!hasUserSeenAfterUpdateDialog(appVersion)) {
+            markUserSeenAfterUpdateDialog(appVersion)
+            showThankYouAlert(onOpenDonate, onOpenMore)
+        } else {
+            // This is in else branch to make sure only one dialog can show at once
+            showUpdateAlertIfNecessary()
+        }
+    }
+
     fun showUpdateNotificationIfNecessary() {
         updateInfo?.let {
             notification.show(UpdateNotification(it.newest))
@@ -116,6 +130,21 @@ object UpdateService {
         )
     }
 
+    private fun showThankYouAlert(
+        onOpenDonate: () -> Unit,
+        onOpenMore: () -> Unit
+    ) {
+        val ctx = context.requireContext()
+        alert.showAlert(
+            message = ctx.getString(R.string.update_desc_updated),
+            title = ctx.getString(R.string.update_label_updated),
+            positiveAction =
+                if (EnvironmentService.isSlim()) ctx.getString(R.string.universal_action_close) to {}
+                else ctx.getString(R.string.universal_action_donate) to onOpenDonate,
+            additionalAction = ctx.getString(R.string.universal_action_learn_more) to onOpenMore
+        )
+    }
+
     private fun hasUserSeenThisUpdate(update: BlockaRepoUpdate): Boolean {
         val seen = persistence.load(BlockaRepoUpdate::class)
         return seen.newest == update.newest
@@ -131,7 +160,7 @@ object UpdateService {
         persistence.save(Defaults.noSeenUpdate())
     }
 
-    fun hasUserSeenAfterUpdateDialog(appVersion: Int): Boolean {
+    private fun hasUserSeenAfterUpdateDialog(appVersion: Int): Boolean {
         val seen = persistence.load(BlockaAfterUpdate::class)
         if (seen.dialogShownForVersion == null) {
             // Null is used to not show the dialog right on first install
@@ -141,7 +170,7 @@ object UpdateService {
         return seen.dialogShownForVersion  == appVersion
     }
 
-    fun markUserSeenAfterUpdateDialog(appVersion: Int) {
+    private fun markUserSeenAfterUpdateDialog(appVersion: Int) {
         log.v("Marking user seen after update dialog for version: $appVersion")
         persistence.save(BlockaAfterUpdate(dialogShownForVersion = appVersion))
     }

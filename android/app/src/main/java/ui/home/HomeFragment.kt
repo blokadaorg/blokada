@@ -38,7 +38,6 @@ import ui.AdsCounterViewModel
 import ui.TunnelViewModel
 import ui.app
 import ui.settings.SettingsFragmentDirections
-import ui.utils.getColor
 import ui.utils.getColorFromAttr
 import utils.Links
 import utils.withBoldSections
@@ -183,8 +182,28 @@ class HomeFragment : Fragment() {
         })
 
         lifecycleScope.launchWhenCreated {
-            delay(2000)
-            handleUpdateFlow()
+            delay(1000)
+            UpdateService.handleUpdateFlow(
+                onOpenDonate = {
+                    val nav = findNavController()
+                    nav.navigate(R.id.navigation_home)
+                    nav.navigate(
+                        HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                            Links.donate, getString(R.string.universal_action_donate)
+                        )
+                    )
+                },
+                onOpenMore = {
+                    // Display the thank you page
+                    val nav = findNavController()
+                    nav.navigate(R.id.navigation_home)
+                    nav.navigate(
+                        HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                            Links.updated, getString(R.string.update_label_updated)
+                        )
+                    )
+                }
+            )
         }
         return root
     }
@@ -197,25 +216,6 @@ class HomeFragment : Fragment() {
     override fun onPause() {
         powerButton.stop()
         super.onPause()
-    }
-
-    private fun handleUpdateFlow() {
-        val appVersion = EnvironmentService.getVersionCode()
-        if (!UpdateService.hasUserSeenAfterUpdateDialog(appVersion)) {
-            UpdateService.markUserSeenAfterUpdateDialog(appVersion)
-
-            // Display the thank you page
-            val nav = findNavController()
-            nav.navigate(R.id.navigation_home)
-            nav.navigate(
-                HomeFragmentDirections.actionNavigationHomeToWebFragment(
-                    Links.updated, getString(R.string.update_label_updated)
-                )
-            )
-        } else {
-            // This is in else branch to make sure only one dialog can show at once
-            UpdateService.showUpdateAlertIfNecessary()
-        }
     }
 
     private fun showVpnPermsSheet() {
