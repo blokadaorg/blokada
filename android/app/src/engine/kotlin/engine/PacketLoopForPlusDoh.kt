@@ -203,7 +203,10 @@ internal class PacketLoopForPlusDoh (
                     metrics.onRecoverableError("toDevice: wireguard error: ${BoringTunJNI.errors[response]}".ex())
                 }
                 BoringTunJNI.WIREGUARD_DONE -> {
-                    if (i == 1) metrics.onRecoverableError("toDevice: packet dropped, length: $length".ex())
+                    // This conditional is ignoring the "normal operation" errors
+                    // It would be nice to know why exactly they happen.
+                    if (i == 1 && length != 32)
+                        metrics.onRecoverableError("toDevice: packet dropped, length: $length".ex())
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV4 -> {
                     //if (adblocking) tunnelFiltering.handleToDevice(destination, length)
