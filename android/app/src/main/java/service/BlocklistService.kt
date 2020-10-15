@@ -31,7 +31,7 @@ import utils.Logger
 
 object BlocklistService {
 
-    private const val DEFAULT_BLOCKLIST = "default_blocklist"
+    private const val DEFAULT_BLOCKLIST = "default_blocklist.zip"
     private const val MERGED_BLOCKLIST = "merged_blocklist"
     const val USER_ALLOWED = "allowed"
     const val USER_DENIED = "denied"
@@ -53,7 +53,7 @@ object BlocklistService {
 
             val default = file.commonDir().file(DEFAULT_BLOCKLIST)
             val asset = context.requireAppContext().assets.open(DEFAULT_BLOCKLIST)
-            val decodedAsset = Base64Service.decodeStream(asset, key = DEFAULT_BLOCKLIST)
+            val decodedAsset = ZipService.decodeStream(asset, key = DEFAULT_BLOCKLIST)
             file.save(source = decodedAsset, destination = default)
             file.merge(listOf(default), destination)
             sanitize(destination)
