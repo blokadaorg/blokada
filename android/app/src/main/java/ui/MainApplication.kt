@@ -93,7 +93,9 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
             maybePerformAction(it)
             UpdateService.checkForUpdate(it)
             if (ContextService.hasActivityContext())
-                UpdateService.showUpdateAlertIfNecessary()
+                UpdateService.showUpdateAlertIfNecessary(
+                    libreMode = !(tunnelVM.config.value?.vpnEnabled ?: false)
+                )
             else
                 UpdateService.showUpdateNotificationIfNecessary()
         }

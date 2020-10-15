@@ -157,3 +157,9 @@ fun getIntentForCommand(cmd: String): Intent {
         data = Uri.parse("blocka://cmd/$cmd")
     }
 }
+
+fun executeCommand(cmd: Command, param: Param? = null) {
+    val ctx = ContextService.requireContext()
+    val intent = getIntentForCommand(cmd, param)
+    ctx.startService(intent)
+}

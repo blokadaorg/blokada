@@ -21,8 +21,13 @@
 
 package service
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import model.*
 import org.blokada.R
+import ui.Command
+import ui.executeCommand
 import ui.utils.cause
 import ui.utils.openInBrowser
 import utils.Logger
@@ -36,6 +41,7 @@ object UpdateService {
     private val notification = NotificationService
     private val context = ContextService
     private val persistence = PersistenceService
+    private val scope = GlobalScope
 
     private var updateInfo: BlockaRepoUpdate? = null
 
@@ -62,7 +68,7 @@ object UpdateService {
         }
     }
 
-    fun showUpdateAlertIfNecessary() {
+    fun showUpdateAlertIfNecessary(libreMode: Boolean = false) {
         updateInfo?.let {
             val ctx = context.requireContext()
             alert.showAlert(
@@ -70,8 +76,11 @@ object UpdateService {
                 title = ctx.getString(R.string.notification_update_header),
                 positiveAction = ctx.getString(R.string.universal_action_download) to {
                     showUpdatingAlert(it.infoUrl)
-                    UpdateDownloaderService.installUpdate(it.mirrors) {
-                        alert.dismiss()
+                    scope.launch {
+                        if (libreMode) deactivateBeforeDownload()
+                        UpdateDownloaderService.installUpdate(it.mirrors) {
+                            alert.dismiss()
+                        }
                     }
                 },
                 onDismiss = {
@@ -81,6 +90,12 @@ object UpdateService {
                 }
             )
         }
+    }
+
+    private suspend fun deactivateBeforeDownload() {
+        log.v("Deactivating before downloading the update")
+        executeCommand(Command.OFF)
+        delay(2000)
     }
 
     private fun showUpdatingAlert(url: Uri) {

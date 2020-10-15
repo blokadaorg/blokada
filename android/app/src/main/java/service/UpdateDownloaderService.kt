@@ -34,6 +34,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.BlokadaException
 import model.Uri
+import ui.Command
+import ui.executeCommand
 import ui.utils.cause
 import utils.Logger
 import java.io.File
