@@ -27,6 +27,7 @@ import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
 import com.cloudflare.app.boringtun.BoringTunJNI
+import engine.MetricsService.PACKET_BUFFER_SIZE
 import model.BlokadaException
 import model.GatewayId
 import model.ex
@@ -58,22 +59,20 @@ internal class PacketLoopForPlusDoh (
 ): Thread("PacketLoopForPlusDoh") {
 
     private val log = Logger("PLPlusDoh")
+    private val metrics = MetricsService
 
     // Constants
-    private val MAX_ERRORS = 20
-    private val ERRORS_RESET_AFTER_TICKS = 20 /* 20 * 500 = 10 seconds */
-    private val MTU = 1600
     private val TICK_INTERVAL_MS = 500
 
     private val forwarder: Forwarder = Forwarder()
 
     // Memory buffers
     private val buffer = ByteBuffer.allocateDirect(2000)
-    private val memory = ByteArray(MTU)
+    private val memory = ByteArray(PACKET_BUFFER_SIZE)
     private val packet = DatagramPacket(memory, 0, 1)
     private val op = ByteBuffer.allocateDirect(8)
 
-    private val proxyMemory = ByteArray(MTU)
+    private val proxyMemory = ByteArray(PACKET_BUFFER_SIZE)
     private val proxyPacket = DatagramPacket(proxyMemory, 0, 1)
 
     private var boringtunHandle: Long = -1L
@@ -83,12 +82,10 @@ internal class PacketLoopForPlusDoh (
     private var gatewaySocket: DatagramSocket? = null
     private var gatewayParcelFileDescriptor: ParcelFileDescriptor? = null
 
-    private var errorsRecently = 0
-
     private var lastTickMs = 0L
     private var ticks = 0
 
-    private val rewriter = PacketRewriter(this::loopback, this::errorOccurred, buffer)
+    private val rewriter = PacketRewriter(this::loopback, buffer)
 
     private fun createTunnel() {
         log.v("Creating boringtun tunnel for gateway: $gatewayId")
@@ -170,14 +167,13 @@ internal class PacketLoopForPlusDoh (
                 forwardToGateway()
             }
             BoringTunJNI.WIREGUARD_ERROR -> {
-                errorOccurred("Wireguard error: ${BoringTunJNI.errors[response]}".ex())
+                metrics.onRecoverableError("Wireguard error: ${BoringTunJNI.errors[response]}".ex())
             }
             BoringTunJNI.WIREGUARD_DONE -> {
-//                log.e("Packet dropped, length: $length")
-                errorOccurred("Packet dropped, length: $length".ex())
+                metrics.onRecoverableError("Packet dropped, length: $length".ex())
             }
             else -> {
-                errorOccurred("Wireguard write unknown response: $opCode".ex())
+                metrics.onRecoverableError("Wireguard write unknown response: $opCode".ex())
             }
         }
     }
@@ -204,11 +200,10 @@ internal class PacketLoopForPlusDoh (
                     forwardToGateway()
                 }
                 BoringTunJNI.WIREGUARD_ERROR -> {
-                    errorOccurred("toDevice: wireguard error: ${BoringTunJNI.errors[response]}".ex())
+                    metrics.onRecoverableError("toDevice: wireguard error: ${BoringTunJNI.errors[response]}".ex())
                 }
                 BoringTunJNI.WIREGUARD_DONE -> {
-//                    if (i == 1) log.e("toDevice: packet dropped, length: $length")
-                    errorOccurred("toDevice: packet dropped, length: $length".ex())
+                    if (i == 1) metrics.onRecoverableError("toDevice: packet dropped, length: $length".ex())
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV4 -> {
                     //if (adblocking) tunnelFiltering.handleToDevice(destination, length)
@@ -217,7 +212,7 @@ internal class PacketLoopForPlusDoh (
                 }
                 BoringTunJNI.WRITE_TO_TUNNEL_IPV6 -> loopback()
                 else -> {
-                    errorOccurred("toDevice: wireguard unknown response: $opCode".ex())
+                    metrics.onRecoverableError("toDevice: wireguard unknown response: $opCode".ex())
                 }
             }
         } while (opCode == BoringTunJNI.WRITE_TO_NETWORK)
@@ -371,7 +366,7 @@ internal class PacketLoopForPlusDoh (
     private fun fromDeviceToProxy(device: StructPollfd, input: InputStream) {
         if (device.isEvent(OsConstants.POLLIN)) {
             try {
-                val length = input.read(proxyMemory, 0, MTU)
+                val length = input.read(proxyMemory, 0, PACKET_BUFFER_SIZE)
                 if (length > 0) {
                     fromDevice(proxyMemory, length)
                 }
@@ -417,8 +412,8 @@ internal class PacketLoopForPlusDoh (
             lastTickMs = now
             tickWireguard()
             ticks++
-
-            if (ticks % ERRORS_RESET_AFTER_TICKS == 0) errorsRecently = 0
+            metrics.onLoopExit()
+            metrics.onLoopEnter()
         }
     }
 
@@ -435,21 +430,13 @@ internal class PacketLoopForPlusDoh (
                 forwardToGateway()
             }
             BoringTunJNI.WIREGUARD_ERROR -> {
-                errorOccurred("tick: wireguard error: ${BoringTunJNI.errors[response]}".ex())
+                metrics.onRecoverableError("tick: wireguard error: ${BoringTunJNI.errors[response]}".ex())
             }
             BoringTunJNI.WIREGUARD_DONE -> {
             }
             else -> {
-                errorOccurred("tick: wireguard timer unknown response: $opCode".ex())
+                metrics.onRecoverableError("tick: wireguard timer unknown response: $opCode".ex())
             }
-        }
-    }
-
-    private fun errorOccurred(ex: BlokadaException) {
-        log.e("Packet loop error (${++errorsRecently}): ${ex.message}")
-        if (errorsRecently >= MAX_ERRORS) {
-            errorsRecently = 0
-            throw BlokadaException("Too many errors recently", ex)
         }
     }
 

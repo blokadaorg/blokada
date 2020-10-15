@@ -28,6 +28,7 @@ import android.system.ErrnoException
 import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
+import engine.MetricsService.PACKET_BUFFER_SIZE
 import org.pcap4j.packet.*
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
 import org.pcap4j.util.PropertiesLoader
@@ -45,33 +46,28 @@ internal class PacketLoopForLibre (
 ): Thread("PacketLoopForLibre") {
 
     private val log = Logger("PLLibre")
-
-    // Constants
-    private val MAX_ERRORS = 50
-    private val MTU = 1600
-
+    private val metrics = MetricsService
     private val forwarder: Forwarder = Forwarder()
 
     // Memory buffers
     private val buffer = ByteBuffer.allocateDirect(2000)
-    private val memory = ByteArray(MTU)
+    private val memory = ByteArray(PACKET_BUFFER_SIZE)
     private val packet = DatagramPacket(memory, 0, 1)
 
     private var devicePipe: FileDescriptor? = null
     private var errorPipe: FileDescriptor? = null
 
-    private var errorsRecently = 0
-
-    private val rewriter = PacketRewriter(this::loopback, this::errorOccurred, buffer, filter = filter)
+    private val rewriter = PacketRewriter(this::loopback, buffer, filter = filter)
 
     override fun run() {
-        log.v("Started packet loop thread: $this")
+        log.v("Started packet loop thread: ${this.hashCode()}")
 
         try {
             val errors = setupErrorsPipe()
             val device = setupDevicePipe(deviceIn)
 
             while (true) {
+                metrics.onLoopEnter()
                 if (shouldInterruptLoop()) throw InterruptedException()
 
                 device.listenFor(OsConstants.POLLIN)
@@ -81,6 +77,7 @@ internal class PacketLoopForLibre (
                 fromOpenSocketsToProxy(polls)
                 fromDeviceToProxy(device, deviceIn)
                 purge()
+                metrics.onLoopExit()
             }
         } catch (ex: InterruptedException) {
             log.v("Tunnel thread interrupted, stopping")
@@ -233,7 +230,7 @@ internal class PacketLoopForLibre (
     private fun fromDeviceToProxy(device: StructPollfd, input: InputStream) {
         if (device.isEvent(OsConstants.POLLIN)) {
             try {
-                val length = input.read(memory, 0, MTU)
+                val length = input.read(memory, 0, PACKET_BUFFER_SIZE)
                 if (length > 0) {
                     fromDevice(memory, length)
                 }
@@ -265,14 +262,6 @@ internal class PacketLoopForLibre (
                     log.w("Failed closing socket".cause(ex))
                 }
             }
-        }
-    }
-
-    private fun errorOccurred(ex: BlokadaException) {
-        log.e("Error occurred for $errorsRecently time".cause(ex))
-        if (++errorsRecently > MAX_ERRORS) {
-            errorsRecently = 0
-            throw BlokadaException("Too many errors recently", ex)
         }
     }
 

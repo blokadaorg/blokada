@@ -39,7 +39,6 @@ import kotlin.experimental.and
 
 internal class PacketRewriter(
     private val loopback: () -> Any,
-    private val errorOccurred: (BlokadaException) -> Any,
     private val buffer: ByteBuffer,
     private val filter: Boolean = true
 ) {
@@ -47,6 +46,7 @@ internal class PacketRewriter(
     private val log = Logger("Rewriter")
     private val filtering = FilteringService
     private val dns = DnsMapperService
+    private val metrics = MetricsService
 
     private var lastBlocked: Host = ""
 
@@ -126,7 +126,7 @@ internal class PacketRewriter(
 
             envelope.rawData.copyInto(packetBytes)
 
-            MetricsService.onDnsQueryStarted(udp.header.srcPort.value())
+            metrics.onDnsQueryStarted(udp.header.srcPort.value())
 
             false
         } else {
@@ -164,7 +164,7 @@ internal class PacketRewriter(
 
         val origin = originEnvelope.header.srcAddr
         val addr = dns.externalToInternal(origin) as Inet4Address?
-        if (addr == null) errorOccurred("cannot rewrite DNS response, unknown dns server: $origin. dropping".ex())
+        if (addr == null) metrics.onRecoverableError("Cannot rewrite DNS response, unknown dns server: $origin. dropping".ex())
         else {
             val udpForward = UdpPacket.Builder(udp)
                 .srcAddr(addr)
