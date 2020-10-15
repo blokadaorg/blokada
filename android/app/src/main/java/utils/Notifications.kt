@@ -60,7 +60,7 @@ class MonitorNotification(
         val b = NotificationCompat.Builder(ctx)
 //        b.setContentTitle(ctx.resources.getString(R.string.notification_keepalive_title, counter))
 //        b.setContentText(ctx.getString(R.string.notification_blocked_text, reason))
-        b.setSmallIcon(R.drawable.blokada_logo)
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.priority = NotificationCompat.PRIORITY_MAX
         b.setVibrate(LongArray(0))
 
@@ -188,7 +188,7 @@ class UpdateNotification(versionName: String): NotificationPrototype(3, Notifica
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.notification_update_header))
         b.setContentText(ctx.getString(R.string.universal_action_learn_more))
-        b.setSmallIcon(R.drawable.blokada_logo)
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.setPriority(NotificationCompat.PRIORITY_DEFAULT)
         b.setVibrate(LongArray(0))
 
@@ -206,7 +206,7 @@ class ExpiredNotification: NotificationPrototype(4, NotificationChannels.BLOCKA,
         b.setContentText(ctx.getString(R.string.notification_vpn_expired_subtitle))
         b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.notification_vpn_expired_body)))
         //b.setSmallIcon(R.drawable.ic_stat_blokada)
-        b.setSmallIcon(R.drawable.blokada_logo)
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.setPriority(NotificationCompat.PRIORITY_MAX)
         b.setVibrate(LongArray(0))
 
