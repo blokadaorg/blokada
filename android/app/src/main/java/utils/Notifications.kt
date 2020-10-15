@@ -93,6 +93,15 @@ class MonitorNotification(
                             ctx.getString(R.string.home_power_action_turn_off), it)
                     }
                 })
+
+                b.addAction(run {
+                    getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {
+                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                    }.let {
+                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
+                            ctx.getString(R.string.universal_action_hide), it)
+                    }
+                })
             }
             else -> {
                 b.setContentTitle(
@@ -105,6 +114,15 @@ class MonitorNotification(
                     }.let {
                         NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
                             ctx.getString(R.string.home_power_action_turn_on), it)
+                    }
+                })
+
+                b.addAction(run {
+                    getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {
+                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                    }.let {
+                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
+                            ctx.getString(R.string.universal_action_hide), it)
                     }
                 })
             }

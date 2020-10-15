@@ -29,16 +29,18 @@ import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import model.BlokadaException
+import service.AlertDialogService
 import service.ContextService
 import service.LogService
 import ui.utils.cause
 import utils.Logger
 
 enum class Command {
-    OFF, ON, DNS, LOG, ACC, ESCAPE
+    OFF, ON, DNS, LOG, ACC, ESCAPE, TOAST
 }
 
 const val ACC_MANAGE = "manage_account"
@@ -98,6 +100,9 @@ class CommandActivity : AppCompatActivity() {
             }
             Command.ESCAPE -> {
                 settingsVM.setEscaped(true)
+            }
+            Command.TOAST -> {
+                Toast.makeText(this, param, Toast.LENGTH_LONG).show()
             }
         }
     }

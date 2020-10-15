@@ -45,6 +45,7 @@
     <string name="universal_action_download">Download</string>
     <string name="universal_action_news">News</string>
     <string name="universal_action_delete">Delete</string>
+    <string name="universal_action_hide">Hide</string>
     <string name="universal_label_help">Help</string>
     <string name="universal_label_welcome">Welcome!</string>
     <string name="universal_status_processing">Processing... Please wait.</string>
@@ -56,6 +57,7 @@
     <string name="notification_vpn_expired_header">BLOKADA+ subscription expired</string>
     <string name="notification_vpn_expired_subtitle">The VPN is disabled</string>
     <string name="notification_vpn_expired_body">Please update your subscription to continue using BLOKADA+</string>
+    <string name="notification_desc_settings">Swipe the notification left or right for settings.</string>
     <string name="notification_update_header">An update is available</string>
     <string name="alert_update_body">Blokada %s is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.</string>
     <string name="update_label_updated">Updated!</string>
