@@ -87,42 +87,44 @@ def main(argv):
     repo_dir = path.join(base_path, config["input"], "domains")
     counter = 0
 
-    for filename in os.listdir(repo_dir):
-        with open(os.path.join(repo_dir, filename), 'r') as f:
-            domain = json.loads(f.read())
-            if domain["domain"] in whitelist:
-                print(f"  Skipping (whitelisted): {domain['domain']}")
-                continue
+    for region in os.listdir(repo_dir):
+        region_dir = os.path.join(repo_dir, region)
+        for filename in os.listdir(region_dir):
+            with open(os.path.join(region_dir, filename), 'r') as f:
+                domain = json.loads(f.read())
+                if domain["domain"] in whitelist:
+                    print(f"  Skipping (whitelisted): {domain['domain']}")
+                    continue
 
-            if len(domain["categories"]) > 0 and len(intersection(config["whitelistedCategories"], domain["categories"])) > 0:
-                print(f"  Skipping (whitelisted category): {domain['domain']} - {domain['categories']}")
-                continue
+                if len(domain["categories"]) > 0 and len(intersection(config["whitelistedCategories"], domain["categories"])) > 0:
+                    print(f"  Skipping (whitelisted category): {domain['domain']} - {domain['categories']}")
+                    continue
 
-            if len(domain["resources"]) < config["minResources"]:
-                print(f"  Skipping (not enough resources): {domain['domain']}")
-                continue
+                if len(domain["resources"]) < config["minResources"]:
+                    print(f"  Skipping (not enough resources): {domain['domain']}")
+                    continue
 
-            if len(domain["subdomains"]) < 0:
-                #print(f"  Skipping (no subdomains): {domain['domain']}")
-                domains.append(domain["domain"])
-                counter += 1
-            else:
-                for subdomain in domain["subdomains"]:
-                    if subdomain in config["whitelistedSubdomains"]:
-                        print(f"  Skipping (whitelisted subdomain): {subdomain}.{domain['domain']}")
-                        continue
-
-                    resourcesPerSubdomain = 0
-                    for resource in domain["resources"]:
-                        if subdomain in resource["subdomains"]:
-                            resourcesPerSubdomain += 1
-
-                    if resourcesPerSubdomain < config["minResourcesPerSubdomain"]:
-                        print(f"  Skipping (not enough resources per subdomain): {subdomain}.{domain['domain']}")
-                        continue
-
-                    domains.append(f"{subdomain}.{domain['domain']}")
+                if len(domain["subdomains"]) < 0:
+                    #print(f"  Skipping (no subdomains): {domain['domain']}")
+                    domains.append(domain["domain"])
                     counter += 1
+                else:
+                    for subdomain in domain["subdomains"]:
+                        if subdomain in config["whitelistedSubdomains"]:
+                            print(f"  Skipping (whitelisted subdomain): {subdomain}.{domain['domain']}")
+                            continue
+
+                        resourcesPerSubdomain = 0
+                        for resource in domain["resources"]:
+                            if subdomain in resource["subdomains"]:
+                                resourcesPerSubdomain += 1
+
+                        if resourcesPerSubdomain < config["minResourcesPerSubdomain"]:
+                            print(f"  Skipping (not enough resources per subdomain): {subdomain}.{domain['domain']}")
+                            continue
+
+                        domains.append(f"{subdomain}.{domain['domain']}")
+                        counter += 1
 
     # write converted format
     out_file = path.join(base_path, config["output"])
