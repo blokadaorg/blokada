@@ -9,6 +9,6 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Afficher les DNS</string>
     <!-- A configuration option of widget -->
-    <string name="widget_show_gateway">Afficher la passerelle</string>
+    <string name="widget_show_gateway" comment="widget_show_gateway&#10;A configuration option of widget&#10;&#10;A toggle switch in a widget to set whether to show the VPN gateway (location) user is connected to.">Afficher la passerelle</string>
     <string name="widget_okay">Confirmer</string>
 </resources>

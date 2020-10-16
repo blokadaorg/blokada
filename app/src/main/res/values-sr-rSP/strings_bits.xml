@@ -27,6 +27,7 @@
     <!-- A short text for the button to change VPN settings -->
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">Blokada Plus</string>
     <string name="menu_vpn_activate_account">Молимо вас активирајте ваш налог.</string>
     <string name="menu_vpn_select_gateway">Молимо изаберите \"gateway\".</string>
     <!-- A button opening VPN account settings -->

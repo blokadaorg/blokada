@@ -9,6 +9,6 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">Pokaż DNS</string>
     <!-- A configuration option of widget -->
-    <string name="widget_show_gateway">Pokaż bramę</string>
+    <string name="widget_show_gateway" comment="widget_show_gateway&#10;A configuration option of widget&#10;&#10;A toggle switch in a widget to set whether to show the VPN gateway (location) user is connected to.">Pokaż bramę</string>
     <string name="widget_okay">Zatwierdź</string>
 </resources>

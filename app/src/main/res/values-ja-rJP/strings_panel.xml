@@ -140,7 +140,7 @@
     <string name="slot_account_action_unavailable">[未設定]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">%s に接続</string>
-    <string name="slot_gateway_section_partner">Partnerゲートウェイは追加の場所を提供します。Blokada によって完全に管理されていませんが、暗号化されたトラフィックにアクセスすることはできません。</string>
+    <string name="slot_gateway_section_partner">Partnerゲートウェイは追加の場所を提供します。Blokadaによって完全に管理されていませんが、暗号化されたトラフィックにアクセスすることはできません。</string>
     <string name="slot_gateway_section_overloaded">これらのゲートウェイはオーバーロードされ、一時的に利用できません。</string>
     <string name="slot_gateway_description">パフォーマンス: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;IP: &lt;b&gt;%s&lt;/b&gt;&lt;br/&gt;地域: &lt;b&gt;%s&lt;/b&gt;</string>
     <string name="slot_gateway_overloaded">このゲートウェイはビジー状態で、新しい接続は受け付けていません。</string>

@@ -65,7 +65,7 @@
     <string name="menu_vpn_leases">デバイス</string>
     <string name="menu_vpn_manage_subscription">アカウントの定期購入を管理する</string>
     <string name="menu_vpn_manage_subscription_unavailable">あなたのアカウントが新しい場合は、当社のウェブサイトにアクセスしてください。Blokada Slimでサブスクリプションを購入することはできません。</string>
-    <string name="menu_vpn_account_secret">アカウントIDを確認するには、上のアバターをタップしてください。IDは秘密で、自分自身に残しておく必要があります。アプリをアンインストールする場合に備えて書き留めてください。</string>
+    <string name="menu_vpn_account_secret">アカウントIDを確認するには、上のアバターをタップしてください。IDは誰とも共有せずに保管してください。アプリをアンインストールする場合に備えて書き留めてください。</string>
     <string name="menu_vpn_restore_label">ここでは、たとえばアプリを再インストールした場合などに、既存のアカウントを復元できます。</string>
     <string name="menu_vpn_intro">Blokada Plusを使用すると、データは暗号化され、IPアドレスは非表示になり、ロケーションは変更されます。</string>
     <string name="menu_vpn_account_label">VPNを使用するには、アクティブなアカウントが必要です。ここでアカウントを確認または復元してください。</string>
@@ -78,7 +78,7 @@
     <string name="menu_vpn_info_account_line1">はい！あなたのアカウントは最初の実行時に自動的に作成されます。登録する必要はありません。</string>
     <string name="menu_vpn_info_account_line2">アカウントIDを表示するには、上のアバターをタップしてください。</string>
     <string name="menu_vpn_info_account_line3">あなたのアカウントIDは秘密であり、誰にも教えないでください。</string>
-    <string name="menu_vpn_info_account_line4">アプリを再インストールする必要がある場合に備えて、アカウントIDを書き留めてください。</string>
+    <string name="menu_vpn_info_account_line4">アプリを再インストールする場合に備えて、アカウントIDを書き留めてください。</string>
     <string name="menu_dns_recommended">推奨されるDNSサーバー</string>
     <string name="menu_dns_intro">DNSは、使用するWebサイトおよびアプリのIPアドレスへの変換を担当します。 適切なDNSを選択すると、デバイスの速度が向上し、プライバシーの保護に役立ちます。</string>
     <string name="menu_dns_select">DNSサーバーを1つ選択します。</string>

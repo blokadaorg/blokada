@@ -5,8 +5,10 @@
     <!-- A configuration option of widget -->
     <string name="widget_show_counter">Toon aantal geblokkeerde verzoeken</string>
     <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
+    <string name="widget_show_counter_long">Gebruik het lange getal formaat</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_dns">DNS weergeven</string>
     <!-- A configuration option of widget -->
+    <string name="widget_show_gateway" comment="widget_show_gateway&#10;A configuration option of widget&#10;&#10;A toggle switch in a widget to set whether to show the VPN gateway (location) user is connected to.">Gateway weergeven</string>
     <string name="widget_okay">Bevestigen</string>
 </resources>
