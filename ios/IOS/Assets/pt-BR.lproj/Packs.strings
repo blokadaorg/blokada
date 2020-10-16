@@ -20,6 +20,7 @@
 //
 
 "Ads and trackers blocking list" = "Lista de bloqueio de anúncios e rastreadores";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "O Energized System foi projetado para sistemas semelhantes a Unix, obtém uma lista de domínios que oferecem anúncios, scripts de rastreamento e malware de múltiplas fontes conceituadas e cria um arquivo de endereços que impede o sistema de se conectar a eles. Cuidado, ao instalar a configuração \"Social\" pode fazer com que seus apps sociais, como o Messenger, apresentarem mau comportamento.";
 "Popular for adblocking" = "Popular para bloqueio de anúncios";
 "Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Consolidando e Estendendo os arquivos de hosts de várias fontes bem selecionadas. Você pode opcionalmente escolher extensões para bloquear \nPornô, Redes Sociais e outras categorias.";
 "Alternative blocklist with advanced features" = "Lista de bloqueio alternativa com recursos avançados";
@@ -29,3 +30,4 @@
 "Protects against cyber attacks" = "Protege contra ataques virtuais";
 "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Uma lista de bloqueio para filtrar sites de phishing. Phishing é uma prática incorreta baseada no redirecionamento para sites falsos, que se parecem exatamente com os originais, a fim de enganar os visitantes e roubar informações confidenciais. A instalação desta lista de bloqueio irá ajudá-lo a prevenir tais situações.";
 "A new and upcoming tracker database" = "Um futuro novo banco de dados de rastreadores";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar é o melhor conjunto de dados da categoria sobre rastreadores que é gerado e mantido automaticamente através de rastreamento e análise contínua. Veja as informações do autor para detalhes.";

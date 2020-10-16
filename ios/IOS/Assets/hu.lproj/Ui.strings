@@ -56,6 +56,9 @@
 "universal action community" = "Közösség";
 "universal action open in browser" = "Megnyitás böngészőben";
 "universal action more" = "Továbbiak";
+"universal action download" = "Letöltés";
+"universal action news" = "Hírek";
+"universal action delete" = "Törlés";
 
 "universal label help" = "Segítség";
 "universal status processing" = "Feldolgozás... Kérjük, várj.";
@@ -142,8 +145,11 @@
 "account action my account" = "Fiókom";
 "account action encryption" = "Titkosítás";
 "account action devices" = "Készülékek";
+"account action new device" = "Új készülék";
 "account action inbox" = "Bejövő";
+"account action logout only" = "Kijelentkezés";
 "account action about" = "Névjegy";
+"account label enter to continue" = "Add meg a fiókazonosítót a folytatáshoz";
 
 "account section header my subscription" = "Előfizetésem";
 "account section header general" = "Általános";
@@ -167,6 +173,9 @@
 "account encrypt section header" = "Titkosítás";
 "account lease label devices" = "Készülékek";
 "account lease label this device" = " (ez a készülék)";
+"account lease label name" = "Készülék neve";
+"account lease label dns" = "DNS";
+"account lease label public key" = "Nyilvános kulcs";
 
 "account support action how help" = "Hogyan segíthetünk?";
 
@@ -188,6 +197,9 @@
 "payment subscription many months" = "%@ hónap";
 "payment subscription per month" = "%@ havonta";
 "payment subscription offer" = "%@ spórolása";
+
+"payment success label" = "Köszönjük!";
+"payment change method" = "Váltás";
 
 "apps section header" = "Appok";
 "app settings start on boot" = "Bootoláskor indul";

@@ -22,6 +22,7 @@
 "error device offline" = "Dispozitivul dumneavoastră este oprit";
 "error account inactive" = "Contul dvs. este inactiv. Vă rugăm să vă activați contul pentru a putea continua să folosiți BLOKADA+.";
 "error account inactive after restore" = "Acesta nu pare a fi un cont activ valid. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.";
+"error account invalid" = "ID-ul acestui cont pare nevalid.";
 "error creating account" = "Nu s-a putut crea un cont nou. Vă rugăm să încercați din nou mai târziu.";
 "error fetching data" = "Această acțiune nu a putut fi finalizată. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
 "error tunnel" = "VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.";
@@ -53,6 +54,7 @@
 "universal action contact us" = "Contactați-ne";
 "universal action support" = "Asistenţă";
 "universal action upgrade" = "Treceți la BLOKADA+";
+"universal action upgrade short" = "Trecere la o variantă superioară";
 "universal action yes" = "Da";
 "universal action no" = "Nu";
 "universal action donate" = "Donează";
@@ -60,8 +62,12 @@
 "universal action open in browser" = "Deschide în browser";
 "universal action more" = "Mai multe";
 "universal action download" = "Descarcă";
+"universal action news" = "Noutăți";
+"universal action delete" = "Ştergere";
+"universal action hide" = "Ascunde";
 
 "universal label help" = "Ajutor";
+"universal label welcome" = "Bine aţi venit!";
 "universal status processing" = "Se procesează... Vă rugăm așteptați.";
 "universal status copied to clipboard" = "Copiat în Clipboard";
 "universal status restart required" = "Vă rugăm să reporniţi aplicaţia pentru ca modificările să aibă efect.";
@@ -80,6 +86,7 @@
 "update downloading description" = "Actualizarea este în curs de descărcare și în scurt timp ar trebui să vedeți prompt-ul de instalare.";
 
 "account active forever" = "Pentru totdeauna";
+"account active forever full" = "Valabil pentru totdeauna";
 
 "main ask for permissions header" = "Doar încă un pas";
 "main ask for permissions description" = "Blokada folosește o configurație VPN pentru a bloca reclamele. Vi se va cere să îi acordați permisie în pasul următor.";
@@ -185,11 +192,16 @@
 "account action my account" = "Contul meu";
 "account action encryption" = "Criptare";
 "account action devices" = "Dispozitive";
+"account action new device" = "Dispozitiv nou";
 "account action inbox" = "Mesaje";
 "account action logout" = "Restabilește achiziția";
+"account action logout only" = "Iesire din cont";
+"account action create" = "Generează un cont nou";
 "account action about" = "Despre";
 "account action tap to show" = "Atingeți pentru a afișa";
 "account action restoring" = "Recuperare cont: %@";
+"account label enter to continue" = "Introduceți ID-ul contului dvs. pentru a continua";
+"account create confirm" = "Cunosc ID-ul contului meu";
 
 "account section header my subscription" = "Abonamentul meu";
 "account section header general" = "Preferințe generale";
@@ -199,6 +211,9 @@
 "account label active until" = "Activ până la";
 "account action manage subscription" = "Gestionare abonament";
 "account action why upgrade" = "De ce ar trebui să trec la BLOKADA+?";
+"account subscription header renew" = "Reînnoire automată";
+"account subscription header payment method" = "Metoda de plată";
+"account subscription renew unsupported" = "Metoda dvs. de plată nu acceptă reînnoire automată.";
 
 "account unlock to show" = "Deblocați pentru a arăta ID-ul contului dvs.";
 
@@ -206,6 +221,10 @@
 "account logout description" = "Vă rugăm să introduceți un alt ID de cont, sau să merge-ți înapoi pentru a păstra contul existent (această aplicație nu poate fi folosită fără unul).";
 "account id status unchanged" = "(neschimbat)";
 "account action how to restore" = "Cum îmi pot recupera contul meu vechi?";
+
+"account subscription days remaining" = "Zile rămase: %@";
+"account devices remaining" = "Nr. dispozitive rămase: %@";
+"account devices not available" = "Indisponibil";
 
 "account encrypt level low" = "Scăzut";
 "account encrypt level medium" = "Mediu";
@@ -228,6 +247,14 @@
 "account lease label devices list" = "Aceste dispozitive sunt conectate la contul dvs.";
 "account lease label devices" = "Dispozitive";
 "account lease label this device" = " (acest dispozitiv)";
+"account lease label name" = "Denumire dispozitiv";
+"account lease label location" = "Locatie";
+"account lease action generate" = "Genereaza configuratie";
+"account lease action download" = "Descarcă Configurație";
+"account lease wireguard desc" = "Blokada folosește Wireguard. Configurațiile pot fi descărcate la crearea de dispozitive noi.";
+"account lease label dns" = "DNS";
+"account lease action dns" = "Alege un DNS";
+"account lease label public key" = "Cheie publică";
 
 "account support action how help" = "Cu ce ​​vă putem ajuta?";
 "account support action kb" = "Deschide Baza de Cunostințe";
@@ -260,6 +287,13 @@
 "payment subscription many months" = "%@ Luni";
 "payment subscription per month" = "%@ pe lună";
 "payment subscription offer" = "Economisești %@";
+
+"payment success label" = "Mulţumim!";
+"payment success desc" = "Contul dvs. este acum activ! Acum puteți folosi toate funcțiile Blokada Plus pe toate dispozitivele dvs.";
+"payment pay google" = "Plătiți prin Google Pay";
+"payment pay apple" = "Plătește cu Apple Pay";
+"payment change method" = "Modifică";
+"payment action pay" = "Plătește %@";
 
 "apps section header" = "Aplicații";
 "apps label installed" = "Instalat";

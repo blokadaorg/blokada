@@ -22,6 +22,7 @@
 "error device offline" = "O seu dispositivo está offline";
 "error account inactive" = "Sua conta está inativa. Por favor, ative sua conta para continuar a usar o BLOKADA+.";
 "error account inactive after restore" = "Esta não parece ser uma conta ativa válida. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error account invalid" = "O ID dessa conta parece inválido.";
 "error creating account" = "Não foi possível criar uma conta nova. Por favor, tente novamente mais tarde.";
 "error fetching data" = "Esta ação não pôde ser concluída. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error tunnel" = "Não foi possível estabelecer a VPN. Por favor, reinicie seu dispositivo ou remova o perfil de VPN do Blokada nas configurações do sistema e tente novamente.";
@@ -32,6 +33,7 @@
 "error vpn expired" = "A VPN está desativada. Atualize sua assinatura para continuar a utilizar o BLOKADA+";
 "error payment inactive after restore" = "Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error payment failed" = "Os pagamentos não estão disponíveis neste momento. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error payment failed alternative" = "Não foi possível concluir seu pagamento. Por favor, certifique-se de que seus dados estão corretos e tente novamente. Se o problema persistir, por favor, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error payment not available" = "Pagamentos não estão disponíveis para este dispositivo. Ou o Apple Pay não está ativado, ou ainda não tratamos de compras em seu país.";
 "error payment canceled" = "O pagamento foi cancelado. Você não foi cobrado.";
 "error pack install" = "Não foi possível instalar (ou desinstalar) este recurso. Por favor, tente novamente mais tarde.";
@@ -53,6 +55,7 @@
 "universal action contact us" = "Contate-nos";
 "universal action support" = "Suporte";
 "universal action upgrade" = "Atualize para o BLOKADA+";
+"universal action upgrade short" = "Atualizar";
 "universal action yes" = "Sim";
 "universal action no" = "Não";
 "universal action donate" = "Doar";
@@ -60,9 +63,15 @@
 "universal action open in browser" = "Abrir no navegador";
 "universal action more" = "Mais";
 "universal action download" = "Baixar";
+"universal action news" = "Novidades";
+"universal action delete" = "Excluir";
+"universal action hide" = "Ocultar";
 
 "universal label help" = "Ajuda";
+"universal label welcome" = "Bem-vindo!";
 "universal status processing" = "Processando... Por favor, aguarde.";
+"universal status copied to clipboard" = "Copiado para a Área de Transferência";
+"universal status restart required" = "Por favor, reinicie o programa para que as alterações entrem em vigor.";
 
 "alert error header" = "Opa!";
 "alert vpn expired header" = "O BLOKADA+ expirou";
@@ -71,13 +80,16 @@
 "notification vpn expired header" = "Assinatura BLOKADA+ expirada";
 "notification vpn expired subtitle" = "A VPN está desativada";
 "notification vpn expired body" = "Por favor, atualize sua assinatura para continuar usando o BLOKADA+";
+"notification desc settings" = "Deslize a notificação para a esquerda ou direita para as configurações.";
 
 "notification update header" = "Atualização disponível";
 "alert update body" = "Blokada %@ está agora disponível para baixar. Recomendamos manter o aplicativo atualizado, e baixá-lo apenas de nossas fontes oficiais.";
 "update label updated" = "Atualizado!";
+"update desc updated" = "Agora você está usando a versão mais recente do Blokada! Lembre-se, doar ou assinar o Blokada Plus nos permite continuar melhorando o aplicativo.";
 "update downloading description" = "A atualização está sendo baixada, e você verá a solicitação de instalação em breve.";
 
 "account active forever" = "Para sempre";
+"account active forever full" = "Ativo para sempre";
 
 "main ask for permissions header" = "Só mais um passo";
 "main ask for permissions description" = "O Blokada está usando uma configuração de VPN para bloquear anúncios. Você será solicitado a permiti-lo na próxima etapa.";
@@ -172,6 +184,7 @@
 "activity filter show all" = "Mostrar todas as entradas";
 "activity filter show blocked" = "Mostrar somente bloqueados";
 "activity filter show allowed" = "Mostrar somente permitidos";
+"activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.";
 
 "account section header settings" = "Configurações";
 "account status text" = "Sua conta BLOKADA %@ está ativa até %@.";
@@ -182,11 +195,18 @@
 "account action my account" = "Minha conta";
 "account action encryption" = "Criptografia";
 "account action devices" = "Dispositivos";
+"account action new device" = "Novo dispositivo";
 "account action inbox" = "Caixa de entrada";
 "account action logout" = "Restaurar compras";
+"account action logout only" = "Encerrar sessão";
+"account action create" = "Gerar nova conta";
 "account action about" = "Sobre";
 "account action tap to show" = "Toque para mostrar";
 "account action restoring" = "Restaurando conta: %@";
+"account label enter to continue" = "Digite o ID da sua conta para continuar";
+"account restore description" = "Não se preocupe, se você perdeu ou esqueceu o seu ID de conta, poderemos recuperá-lo. Por favor, entre em contato com o nosso suporte e nos forneça informações que nos permitirão identificar sua compra (por exemplo, últimos 4 dígitos do seu cartão de crédito, ou e-mail do PayPal).";
+"account create description" = "Este é o ID da sua conta. Você deve anotá-lo, pois é o único modo de obter acesso a sua assinatura. Também, não compartilhe isso com ninguém, assim sua conta não será roubada.";
+"account create confirm" = "Eu sei o meu ID de conta";
 
 "account section header my subscription" = "Minha Assinatura";
 "account section header general" = "Geral";
@@ -196,6 +216,9 @@
 "account label active until" = "Ativo até";
 "account action manage subscription" = "Gerenciar assinatura";
 "account action why upgrade" = "Por que devo fazer o upgrade?";
+"account subscription header renew" = "Renovar automaticamente";
+"account subscription header payment method" = "Método de pagamento";
+"account subscription renew unsupported" = "Seu método de pagamento não suporta renovação automática.";
 
 "account unlock to show" = "Desbloqueie para mostrar o ID da sua conta";
 
@@ -203,6 +226,11 @@
 "account logout description" = "Por favor insira outro ID de conta, ou volte para continuar usando sua conta existente (este aplicativo não pode ser usado sem um ID).";
 "account id status unchanged" = "(inalterado)";
 "account action how to restore" = "Como faço para restaurar minha conta antiga?";
+
+"account subscription days remaining" = "Dias restantes: %@";
+"account devices remaining" = "Dispositivos restantes: %@";
+"account devices not available" = "Não disponível";
+"account devices out of" = "%@ de %@";
 
 "account encrypt level low" = "Baixa";
 "account encrypt level medium" = "Média";
@@ -225,6 +253,15 @@
 "account lease label devices list" = "Estes dispositivos estão conectados à sua conta.";
 "account lease label devices" = "Dispositivos";
 "account lease label this device" = " (este dispositivo)";
+"account lease label name" = "Nome do dispositivo";
+"account lease label location" = "Localização";
+"account lease action generate" = "Gerar Configuração";
+"account lease action download" = "Baixar Configuração";
+"account lease generated" = "Dispositivo adicionado! Baixe a configuração para usá-la em qualquer dispositivo suportado pelo Wireguard.";
+"account lease wireguard desc" = "O Blokada usa o Wireguard. As configurações podem ser baixadas ao criar novos dispositivos.";
+"account lease label dns" = "DNS";
+"account lease action dns" = "Escolha um DNS";
+"account lease label public key" = "Chave Pública";
 
 "account support action how help" = "Como podemos te ajudar?";
 "account support action kb" = "Base de Conhecimento Aberta";
@@ -257,6 +294,18 @@
 "payment subscription many months" = "%@ Meses";
 "payment subscription per month" = "%@ por mês";
 "payment subscription offer" = "Salvar %@";
+
+"payment success label" = "Obrigado!";
+"payment success desc" = "Sua conta agora está ativa! Agora você pode usar todos os recursos do Blokada Plus em todos os seus dispositivos.";
+
+"payment ongoing desc" = "Seu pagamento está sendo processado agora. No caso do PayPal, pode demorar até 24 horas. Outros métodos de pagamento não devem demorar mais que uma hora. Se você acha que está demorando muito, por favor, entre em contato conosco.";
+"payment pay google" = "Pagar com Google Pay";
+"payment pay apple" = "Pague com Apple Pay";
+"payment change method" = "Alterar";
+"payment action pay" = "Pagar %@";
+"payment action pay period" = "Pagar %@ por período";
+"payment label email" = "E-mail";
+"payment crypto desc" = "Para pagar com sua carteira de criptomoedas, toque no botão abaixo.";
 
 "apps section header" = "Apps";
 "apps label installed" = "Instalado";

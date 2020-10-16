@@ -44,35 +44,80 @@
 "universal action donate" = "Doneren";
 "universal action community" = "Community";
 "universal action open in browser" = "Openen in browser";
+"universal action more" = "Meer";
+"universal action download" = "Download";
+"universal action news" = "Nieuws";
+"universal action delete" = "Verwijderen";
 
 "universal label help" = "Hulp";
 "universal status processing" = "Bezig... Even geduld.";
 "universal status copied to clipboard" = "Gekopieerd naar Klembord";
 
+"alert error header" = "Ooeps!";
+"alert vpn expired header" = "BLOKADA+ verlopen";
+"notification vpn expired subtitle" = "De VPN is uitgeschakeld";
+
+"main rate us header" = "Beoordeel ons!";
+"main rate us description" = "Wat vind je tot nu toe van Blokada?";
+"main rate us on app store" = "Zou je ons willen helpen door Blokada te beoordelen in de App Store?";
+"main rate us action sure" = "Zeker!";
+
 // Make sure each tab name has a similar length
 "main tab home" = "Home";
 // Make sure each tab name has a similar length
+"main tab activity" = "Activiteit";
+// Make sure each tab name has a similar length
+"main tab advanced" = "Geavanceerd";
+// Make sure each tab name has a similar length
 "main tab settings" = "Instellingen";
+
+"home ads counter footnote" = "advertenties en trackers geblokkeerd sinds de installatie";
+"home power off menu header" = "Wat zou je willen doen?";
 "home power action turn on" = "Inschakelen";
 "home power action turn off" = "Uitschakelen";
+"home power action pause" = "Pauzeer voor 5 minuten";
+
+"home status paused" = "GEPAUZEERD";
 "home status active" = "ACTIEF";
+"home status deactivated" = "GEDEACTIVEERD";
+"home action tap to activate" = "tik om te activeren";
+"home status detail paused" = "gepauzeerd totdat de timer afloopt";
+"home status detail active" = "blokkeert *advertenties* en *trackers*";
+"home status detail active with counter" = "*%@* advertenties en trackers geblokkeerd";
+"home status detail active slim" = "Blokada *Slim* is actief";
+"home status detail plus" = "*+* bescherming van uw *privacy*";
 "home status detail progress" = "even geduld...";
+
+"home plus button deactivated" = "BLOKADA+ gedeactiveerd";
+"home plus button select location" = "Selecteer locatie";
+"pack information header" = "Meer";
 "pack category active" = "Actief";
+
+"activity section header" = "Activiteit";
 "activity state blocked" = "geblokkeerd";
 
 "account section header settings" = "Instellingen";
 "account section header other" = "Overige";
 "account action devices" = "Apparaten";
+"account action new device" = "Nieuw apparaat";
 "account action about" = "Over";
+"account label enter to continue" = "Voer je account ID in om door te gaan";
 "account label id" = "Account ID";
 "account action manage subscription" = "Abonnement beheren";
 "account encrypt label dns" = "DNS";
 "account lease label devices" = "Apparaten";
+"account lease label name" = "Naam van apparaat";
+"account lease label dns" = "DNS";
+"account lease label public key" = "Publieke sleutel";
 
 "payment subscription 1 month" = "1 Maand";
 "payment subscription many months" = "%@ Maanden";
 "payment subscription per month" = "%@ per maand";
 "payment subscription offer" = "%@ Opslaan";
 
+"payment success label" = "Bedankt!";
+"payment change method" = "Wijzigen";
+
 "apps section header" = "Apps";
 "app settings start on boot" = "Starten bij opstarten";
+"app settings section advanced" = "Geavanceerd";

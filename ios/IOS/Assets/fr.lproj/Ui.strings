@@ -22,6 +22,7 @@
 "error device offline" = "Votre appareil est hors ligne";
 "error account inactive" = "Votre compte est inactif. Veuillez activer votre compte pour continuer avec BLOKADA+.";
 "error account inactive after restore" = "Ce compte ne semble pas être valide ou actif. Si vous pensez qu'il s'agit d'une erreur, contactez-nous en cliquant sur l'icône d'aide en haut de l'écran.";
+"error account invalid" = "Cet ID de compte semble non valide.";
 "error creating account" = "Impossible de créer un nouveau compte. Veuillez réessayer plus tard.";
 "error fetching data" = "Cette action n'a pas pu être menée à bien. Assurez-vous d'être en ligne, et réessayez plus tard. Si le problème persiste, contactez-nous en cliquant sur l'icône d'aide en haut de l'écran.";
 "error tunnel" = "Impossible d'établir le VPN. Veuillez redémarrer votre appareil, ou retirer le profil VPN Blokada dans vos paramètres système, et réessayer.";
@@ -53,6 +54,7 @@
 "universal action contact us" = "Nous contacter";
 "universal action support" = "Support";
 "universal action upgrade" = "Mise à niveau vers BLOKADA+";
+"universal action upgrade short" = "Mettre à jour";
 "universal action yes" = "Oui";
 "universal action no" = "Non";
 "universal action donate" = "Faire un don";
@@ -60,8 +62,12 @@
 "universal action open in browser" = "Ouvrir dans votre navigateur";
 "universal action more" = "Plus";
 "universal action download" = "Télécharger";
+"universal action news" = "Actualités";
+"universal action delete" = "Supprimer";
+"universal action hide" = "Masquer";
 
 "universal label help" = "Aide";
+"universal label welcome" = "Bienvenue !";
 "universal status processing" = "Traitement en cours... Veuillez patienter.";
 "universal status copied to clipboard" = "Copié dans le presse-papier";
 "universal status restart required" = "Veuillez redémarrer l'application pour que les modifications prennent effet.";
@@ -77,9 +83,11 @@
 "notification update header" = "Une mise à jour est disponible";
 "alert update body" = "Blokada %@ est maintenant disponible au téléchargement. Nous vous recommandons de garder l'appli à jour, et de ne la télécharger que depuis nos sources officielles.";
 "update label updated" = "Mis à jour !";
+"update desc updated" = "Désormais vous utilisez la dernière version de Blokada ! Rappelez-vous : faites un don ou abonnez-vous à \"Blokada Plus\" pour nous permettre de faire évoluer l'application.";
 "update downloading description" = "La mise à jour est en cours de téléchargement, la fenêtre d'installation devrait bientôt s'afficher.";
 
 "account active forever" = "Pour toujours";
+"account active forever full" = "Actif pour toujours";
 
 "main ask for permissions header" = "Plus qu'une étape";
 "main ask for permissions description" = "Blokada utilise une configuration VPN pour bloquer les pubs. Nous vous demanderons d'activer la permission VPN lors de la prochaine étape.";
@@ -184,11 +192,16 @@
 "account action my account" = "Mon compte";
 "account action encryption" = "Chiffrement";
 "account action devices" = "Appareils";
+"account action new device" = "Nouvel appareil";
 "account action inbox" = "Messagerie";
 "account action logout" = "Résilier l'achat";
+"account action logout only" = "Déconnexion";
+"account action create" = "Générer un nouveau compte";
 "account action about" = "À propos";
 "account action tap to show" = "Appuyer pour afficher";
 "account action restoring" = "Restauration du compte : %@";
+"account label enter to continue" = "Saisissez votre ID de compte pour continuer";
+"account create confirm" = "Je connais mon ID de compte";
 
 "account section header my subscription" = "Mon abonnement";
 "account section header general" = "Général";
@@ -198,6 +211,8 @@
 "account label active until" = "Actif jusqu'au";
 "account action manage subscription" = "Gérer mon abonnement";
 "account action why upgrade" = "Pourquoi devrais-je me mettre à niveau ?";
+"account subscription header renew" = "Renouveler automatiquement";
+"account subscription header payment method" = "Moyen de paiement";
 
 "account unlock to show" = "Débloquez pour afficher l'ID de votre compte";
 
@@ -205,6 +220,11 @@
 "account logout description" = "Veuillez saisir un autre ID de compte, ou revenez en arrière pour continuer d'utiliser le compte actuel (vous devez être connecté pour utiliser cette app).";
 "account id status unchanged" = "(inchangé)";
 "account action how to restore" = "Comment puis-je restaurer mon ancien compte ?";
+
+"account subscription days remaining" = "Jours restants : %@";
+"account devices remaining" = "Appareils restants : %@";
+"account devices not available" = "Non disponible";
+"account devices out of" = "%@ sur %@";
 
 "account encrypt level low" = "Faible";
 "account encrypt level medium" = "Moyen";
@@ -227,6 +247,13 @@
 "account lease label devices list" = "Ces appareils sont connectés à votre compte.";
 "account lease label devices" = "Appareils";
 "account lease label this device" = " (cet appareil)";
+"account lease label name" = "Nom de l'appareil";
+"account lease label location" = "Emplacement";
+"account lease action generate" = "Générer la configuration";
+"account lease action download" = "Télécharger la configuration";
+"account lease label dns" = "DNS";
+"account lease action dns" = "Sélectionner un DNS";
+"account lease label public key" = "Clé publique";
 
 "account support action how help" = "Comment pouvons-nous vous aider ?";
 "account support action kb" = "Ouvrir la Base de connaissances";
@@ -259,6 +286,13 @@
 "payment subscription many months" = "%@ mois";
 "payment subscription per month" = "%@ par mois";
 "payment subscription offer" = "Économisez %@";
+
+"payment success label" = "Merci !";
+"payment pay google" = "Payer avec Google Pay";
+"payment pay apple" = "Payer avec Apple Pay";
+"payment change method" = "Modifier";
+"payment action pay" = "Payer %@";
+"payment label email" = "Adresse email";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installé";

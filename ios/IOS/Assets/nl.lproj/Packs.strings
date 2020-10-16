@@ -19,6 +19,15 @@
 //  @author Karol Gusak
 //
 
-"Ads and trackers blocking list" = "Advertenties en trackers blokkeringslijst";
-"Popular for adblocking" = "Populair voor adblocking";
+"Ads and trackers blocking list" = "Advertenties en trackers blokkeerlijst";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Dit Energized System is ontworpen voor Unix-achtige systemen, je krijgt een lijst met domeinen die advertenties, trackingscripts en malware uit meerdere onbetrouwbare bronnen weergeven en maakt een hosts bestand aan dat voorkomt dat uw systeem er verbinding mee maakt. Pas op, het installeren van de \"Social\" configuratie kan ervoor zorgen dat uw sociale apps, zoals Messenger, niet goed werken.";
+"Popular for adblocking" = "Populair voor advertentie blokkering";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Host bestanden uit verschillende goed samengestelde bronnen samenvoegen en uitbreiden. U kunt optioneel extensies kiezen om porno, sociale media en andere categorieën te blokkeren.";
+"Alternative blocklist with advanced features" = "Alternatieve blokkeerlijst met geavanceerde functies";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Een blokkeerlijst met unieke extensies om uit te kiezen. Houd er rekening mee dat het agressiever is en apps of sites kan beschadigen. Het blokkeert graph.facebook.com en mqtt-mini.facebook.com. U kunt overwegen om ze op de witte lijst te zetten in het gedeelte Activiteit, voor het geval u problemen ondervindt met Facebook apps.";
+"Adblocking for your mobile device" = "Advertenties blokkeren op uw mobiele apparaat";
+"A special blocklist containing mobile ad providers." = "Een speciale blokkeerlijst met aanbieders van mobiele advertenties.";
+"Protects against cyber attacks" = "Beschermt tegen cyberaanvallen";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Een blokkeerlijst om phishing websites te filteren. Phishing is een wanpraktijk die is gebaseerd op het omleiden naar nepwebsites, die er precies zo uitzien als de originele, om bezoekers te misleiden en gevoelige informatie te stelen. Door deze blokkeerlijst te installeren, kunt u dergelijke situaties voorkomen.";
+"A new and upcoming tracker database" = "Een nieuwe en aankomende tracker database";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar is een best-in-class dataset over trackers die automatisch wordt gegenereerd en onderhouden door continu crawlen en analyseren. Zie de auteursinformatie voor details.";
