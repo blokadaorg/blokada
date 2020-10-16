@@ -85,6 +85,10 @@ object SystemTunnelConfigurator {
     }
 
     fun forLibre(tun: VpnService.Builder, dns: Dns) {
+        if (dns == DnsDataSource.blocka) {
+            throw BlockaDnsInFilteringMode()
+        }
+
         log.v("Configuring VPN for Libre mode")
 
         // TEST-NET IP range from RFC5735
@@ -98,8 +102,17 @@ object SystemTunnelConfigurator {
 
         log.v("Using IP: $ip")
 
-        if (dns == DnsDataSource.blocka) {
-            throw BlockaDnsInFilteringMode()
+        if (dns.ips.ipv6().isNotEmpty()) {
+            // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
+            val ipv6 = "2001:db8:0:0:0:0:0:0"
+
+            try {
+                val address = Inet6Address.getByName(ipv6)
+                tun.addAddress(address, 120)
+                log.v("Using IPv6: $ipv6")
+            } catch (ex: Exception) {
+                log.e("Failed adding IPv6 address".cause(ex))
+            }
         }
 
         var index = 1
