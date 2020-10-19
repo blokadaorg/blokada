@@ -32,6 +32,7 @@ object ConnectivityService {
 
     private val log = Logger("Connectivity")
     private val context = ContextService
+    private val doze = DozeService
     private val manager by lazy {
         context.requireAppContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
@@ -58,13 +59,22 @@ object ConnectivityService {
             override fun onAvailable(network: Network) {
                 log.w("Network available: $network")
                 availableNetworks += network.networkHandle
-                onConnectivityChanged(true)
+                val canConnect = !doze.isDoze()
+                onConnectivityChanged(canConnect)
             }
         })
+
+        doze.onDozeChanged = { doze ->
+            if (doze) onConnectivityChanged(false)
+            else {
+                val canConnect = availableNetworks.isNotEmpty()
+                onConnectivityChanged(canConnect)
+            }
+        }
     }
 
     fun isDeviceInOfflineMode(): Boolean {
-        return !hasAvailableNetwork && !isConnectedOldApi()
+        return (!hasAvailableNetwork && !isConnectedOldApi()) || doze.isDoze()
     }
 
     private fun isConnectedOldApi(): Boolean {

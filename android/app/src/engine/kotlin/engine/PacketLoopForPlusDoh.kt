@@ -34,6 +34,7 @@ import model.ex
 import org.pcap4j.packet.*
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
 import org.pcap4j.util.PropertiesLoader
+import service.DozeService
 import ui.utils.cause
 import utils.Logger
 import java.io.FileDescriptor
@@ -417,6 +418,7 @@ internal class PacketLoopForPlusDoh (
             ticks++
             metrics.onLoopExit()
             metrics.onLoopEnter()
+            DozeService.ensureNotDoze()
         }
     }
 

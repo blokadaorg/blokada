@@ -28,6 +28,7 @@ import model.Gateway
 import model.PrivateKey
 import newengine.BlockaDnsService
 import service.ConnectivityService
+import service.DozeService
 import utils.Logger
 import java.net.DatagramSocket
 
@@ -35,6 +36,7 @@ object PacketLoopService {
 
     private val log = Logger("PacketLoop")
     private val connectivity = ConnectivityService
+    private val doze = DozeService
 
     var onCreateSocket = {
         log.e("Created unprotected socket for the packet loop")

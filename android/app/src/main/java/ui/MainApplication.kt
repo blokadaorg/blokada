@@ -68,6 +68,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         MonitorService.setup()
         LegacyAccountImport.setup()
         LogService.setup()
+        DozeService.setup(this)
         setupEvents()
     }
 

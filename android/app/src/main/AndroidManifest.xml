@@ -126,6 +126,8 @@
 
         <receiver android:name="service.ExpirationReceiver" />
 
+        <receiver android:name="service.DozeReceiver" />
+
         <service
             android:name="engine.SystemTunnel"
             android:permission="android.permission.BIND_VPN_SERVICE">
