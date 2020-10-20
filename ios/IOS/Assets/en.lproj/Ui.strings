@@ -72,6 +72,7 @@
 "universal status processing" = "Processing... Please wait.";
 "universal status copied to clipboard" = "Copied to Clipboard";
 "universal status restart required" = "Please restart the app for the changes to take effect.";
+"universal status redirect" = "Continue with the Blokada App";
 
 "alert error header" = "Ooops!";
 "alert vpn expired header" = "BLOKADA+ expired";
