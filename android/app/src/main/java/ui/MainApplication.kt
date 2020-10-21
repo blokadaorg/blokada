@@ -65,7 +65,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     override fun onCreate() {
         super.onCreate()
         ContextService.setContext(this)
-        MonitorService.setup()
+//        MonitorService.setup()
         LegacyAccountImport.setup()
         LogService.setup()
         DozeService.setup(this)
@@ -102,16 +102,16 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         }
 
         statsVM.stats.observeForever { stats ->
-            MonitorService.setStats(stats)
+//            MonitorService.setStats(stats)
             adsCounterVM.setRuntimeCounter(stats.denied.toLong())
         }
 
         adsCounterVM.counter.observeForever {
-            MonitorService.setCounter(it)
+//            MonitorService.setCounter(it)
         }
 
         tunnelVM.tunnelStatus.observeForever {
-            MonitorService.setTunnelStatus(it)
+//            MonitorService.setTunnelStatus(it)
         }
 
         EngineService.setup()
