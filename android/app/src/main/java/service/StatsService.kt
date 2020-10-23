@@ -82,10 +82,10 @@ object StatsService {
             entry.occurrences += 1
             internalStats[key] = entry
 
-//            launch {
-//                 XXX: not the best place, but we want realtime notification updates
-//                MonitorService.setStats(getStats())
-//            }
+            launch {
+                // XXX: not the best place, but we want realtime notification updates
+                MonitorService.setStats(getStats())
+            }
         }
     }
 
