@@ -40,10 +40,12 @@ import ui.utils.cause
 import utils.Logger
 
 enum class Command {
-    OFF, ON, DNS, LOG, ACC, ESCAPE, TOAST
+    OFF, ON, DNS, LOG, ACC, ESCAPE, TOAST, DOH
 }
 
 const val ACC_MANAGE = "manage_account"
+const val OFF = "off"
+const val ON = "on"
 
 private typealias Param = String
 
@@ -103,6 +105,15 @@ class CommandActivity : AppCompatActivity() {
             }
             Command.TOAST -> {
                 Toast.makeText(this, param, Toast.LENGTH_LONG).show()
+            }
+            Command.DOH -> {
+                if (param == ON) {
+                    log.v("Enabling DoH by command")
+                    settingsVM.setUseDnsOverHttps(true)
+                } else {
+                    log.v("Disabling DoH by command")
+                    settingsVM.setUseDnsOverHttps(false)
+                }
             }
         }
     }

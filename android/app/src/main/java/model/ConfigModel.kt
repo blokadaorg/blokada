@@ -48,7 +48,7 @@ data class LocalConfig(
     val locale: String? = null,
     val ipv6: Boolean = true,
     val backup: Boolean = true,
-    val useDnsOverHttps: Boolean = true,
+    val useDnsOverHttps: Boolean = false,
     val useBlockaDnsInPlusMode: Boolean = true,
     val escaped: Boolean = false
 )
