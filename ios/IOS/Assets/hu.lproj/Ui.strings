@@ -62,6 +62,7 @@
 
 "universal label help" = "Segítség";
 "universal status processing" = "Feldolgozás... Kérjük, várj.";
+"universal status redirect" = "Folytatás a Blokada alkalmazással";
 
 "alert error header" = "Hoppá!";
 "alert vpn expired header" = "BLOKADA+ lejárt";
@@ -200,6 +201,12 @@
 
 "payment success label" = "Köszönjük!";
 "payment change method" = "Váltás";
+"payment label pay with card" = "Bankártyás fizetés";
+"payment label pay with paypal" = "Fizetés PayPal segítségével";
+"payment label pay with crypto" = "Fizess kriptovalutával";
+"payment package one month" = "1 hónap";
+"payment package six months" = "6 hónap";
+"payment package twelve months" = "12 hónap";
 
 "apps section header" = "Appok";
 "app settings start on boot" = "Bootoláskor indul";

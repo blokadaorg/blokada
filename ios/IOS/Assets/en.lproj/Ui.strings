@@ -316,9 +316,9 @@
 "payment label pay with card" = "Pay with card";
 "payment label pay with paypal" = "Pay with PayPal";
 "payment label pay with crypto" = "Pay with cryptocurrency";
-"payment package 1 month" = "1 Month";
-"payment package 6 months" = "6 Months";
-"payment package 12 months" = "12 Months";
+"payment package one month" = "1 Month";
+"payment package six months" = "6 Months";
+"payment package twelve months" = "12 Months";
 "payment label discount" = "Save %@ (%@ / mo)";
 
 "apps section header" = "Apps";

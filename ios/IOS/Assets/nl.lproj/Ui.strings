@@ -52,6 +52,7 @@
 "universal label help" = "Hulp";
 "universal status processing" = "Bezig... Even geduld.";
 "universal status copied to clipboard" = "Gekopieerd naar Klembord";
+"universal status redirect" = "Ga verder met de Blokada App";
 
 "alert error header" = "Ooeps!";
 "alert vpn expired header" = "BLOKADA+ verlopen";
@@ -117,6 +118,12 @@
 
 "payment success label" = "Bedankt!";
 "payment change method" = "Wijzigen";
+"payment label pay with card" = "Betaal met kaart";
+"payment label pay with paypal" = "Betaal met PayPal";
+"payment label pay with crypto" = "Betaal met cryptocurrency";
+"payment package one month" = "1 Maand";
+"payment package six months" = "6 Maanden";
+"payment package twelve months" = "12 Maanden";
 
 "apps section header" = "Apps";
 "app settings start on boot" = "Starten bij opstarten";

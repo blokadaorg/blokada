@@ -72,6 +72,7 @@
 "universal status processing" = "Processando... Por favor, aguarde.";
 "universal status copied to clipboard" = "Copiado para a Área de Transferência";
 "universal status restart required" = "Por favor, reinicie o programa para que as alterações entrem em vigor.";
+"universal status redirect" = "Continuar com o Aplicativo do Blokada";
 
 "alert error header" = "Opa!";
 "alert vpn expired header" = "O BLOKADA+ expirou";
@@ -299,13 +300,17 @@
 "payment success desc" = "Sua conta agora está ativa! Agora você pode usar todos os recursos do Blokada Plus em todos os seus dispositivos.";
 
 "payment ongoing desc" = "Seu pagamento está sendo processado agora. No caso do PayPal, pode demorar até 24 horas. Outros métodos de pagamento não devem demorar mais que uma hora. Se você acha que está demorando muito, por favor, entre em contato conosco.";
-"payment pay google" = "Pagar com Google Pay";
-"payment pay apple" = "Pague com Apple Pay";
 "payment change method" = "Alterar";
 "payment action pay" = "Pagar %@";
 "payment action pay period" = "Pagar %@ por período";
 "payment label email" = "E-mail";
 "payment crypto desc" = "Para pagar com sua carteira de criptomoedas, toque no botão abaixo.";
+"payment label pay with card" = "Pagar com cartão";
+"payment label pay with paypal" = "Pagar com PayPal";
+"payment label pay with crypto" = "Pagar com criptomoeda";
+"payment package one month" = "1 Mês";
+"payment package six months" = "6 Meses";
+"payment package twelve months" = "12 Meses";
 
 "apps section header" = "Apps";
 "apps label installed" = "Instalado";

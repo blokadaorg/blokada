@@ -65,12 +65,15 @@
 "universal action news" = "Actualités";
 "universal action delete" = "Supprimer";
 "universal action hide" = "Masquer";
+"universal action select" = "Sélectionner";
+"universal action selected" = "Sélectionné";
 
 "universal label help" = "Aide";
 "universal label welcome" = "Bienvenue !";
 "universal status processing" = "Traitement en cours... Veuillez patienter.";
 "universal status copied to clipboard" = "Copié dans le presse-papier";
 "universal status restart required" = "Veuillez redémarrer l'application pour que les modifications prennent effet.";
+"universal status redirect" = "Continuer avec l'application Blokada";
 
 "alert error header" = "Oups !";
 "alert vpn expired header" = "BLOKADA+ a expiré";
@@ -288,11 +291,21 @@
 "payment subscription offer" = "Économisez %@";
 
 "payment success label" = "Merci !";
-"payment pay google" = "Payer avec Google Pay";
-"payment pay apple" = "Payer avec Apple Pay";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
 "payment change method" = "Modifier";
 "payment action pay" = "Payer %@";
 "payment label email" = "Adresse email";
+"payment label choose package" = "Sélectionnez votre offre";
+"payment label choose payment method" = "Sélectionnez un moyen de paiement";
+"payment label cheapest" = "Les moins chers";
+"payment label most popular" = "Les plus populaires";
+"payment label pay with card" = "Payer par carte";
+"payment label pay with paypal" = "Payer avec PayPal";
+"payment label pay with crypto" = "Payer en cryptomonnaie";
+"payment package one month" = "1 mois";
+"payment package six months" = "6 mois";
+"payment package twelve months" = "12 mois";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installé";
