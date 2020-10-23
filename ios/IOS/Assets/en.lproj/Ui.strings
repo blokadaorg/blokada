@@ -66,6 +66,8 @@
 "universal action news" = "News";
 "universal action delete" = "Delete";
 "universal action hide" = "Hide";
+"universal action select" = "Select";
+"universal action selected" = "Selected";
 
 "universal label help" = "Help";
 "universal label welcome" = "Welcome!";
@@ -300,13 +302,24 @@
 "payment success desc" = "Your account is now active! You may now use all Blokada Plus features on all your devices.";
 
 "payment ongoing desc" = "Your payment is now being processed. In case of PayPal, it may take up to 24 hours. Other payment methods shouldn't take more than an hour. If you feel like it is taking too long, please contact us.";
-"payment pay google" = "Pay with Google Pay";
-"payment pay apple" = "Pay with Apple Pay";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
 "payment change method" = "Change";
 "payment action pay" = "Pay %@";
 "payment action pay period" = "Pay %@ each period";
 "payment label email" = "Email";
 "payment crypto desc" = "To pay with your cryptocurrency wallet, tap the button below.";
+"payment label choose package" = "Choose your package";
+"payment label choose payment method" = "Choose your payment method";
+"payment label cheapest" = "Cheapest";
+"payment label most popular" = "Most popular";
+"payment label pay with card" = "Pay with card";
+"payment label pay with paypal" = "Pay with PayPal";
+"payment label pay with crypto" = "Pay with cryptocurrency";
+"payment package 1 month" = "1 Month";
+"payment package 6 months" = "6 Months";
+"payment package 12 months" = "12 Months";
+"payment label discount" = "Save %@ (%@ / mo)";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installed";
