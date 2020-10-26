@@ -84,7 +84,7 @@ object SystemTunnelConfigurator {
         }
     }
 
-    fun forLibre(tun: VpnService.Builder, dns: Dns) {
+    fun forLibre(tun: VpnService.Builder, dns: Dns, ipv6: Boolean) {
         if (dns == DnsDataSource.blocka) {
             throw BlockaDnsInFilteringMode()
         }
@@ -102,7 +102,7 @@ object SystemTunnelConfigurator {
 
         log.v("Using IP: $ip")
 
-        if (dns.ips.ipv6().isNotEmpty()) {
+        if (ipv6 && dns.ips.ipv6().isNotEmpty()) {
             // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
             val ipv6 = "2001:db8:0:0:0:0:0:0"
 
@@ -144,7 +144,11 @@ object SystemTunnelConfigurator {
         }
     }
 
-    fun forSlim(tun: VpnService.Builder, doh: Boolean, dns: Dns) {
+    fun forSlim(tun: VpnService.Builder, doh: Boolean, dns: Dns, ipv6: Boolean) {
+        if (dns.id == "blocka") {
+            throw BlockaDnsInFilteringMode()
+        }
+
         log.v("Configuring VPN for Slim mode")
 
         // TEST-NET IP range from RFC5735
@@ -158,8 +162,17 @@ object SystemTunnelConfigurator {
 
         log.v("Using IP: $ip")
 
-        if (dns.id == "blocka") {
-            throw BlockaDnsInFilteringMode()
+        if (ipv6 && dns.ips.ipv6().isNotEmpty()) {
+            // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
+            val ipv6 = "2001:db8:0:0:0:0:0:0"
+
+            try {
+                val address = Inet6Address.getByName(ipv6)
+                tun.addAddress(address, 120)
+                log.v("Using IPv6: $ipv6")
+            } catch (ex: Exception) {
+                log.e("Failed adding IPv6 address".cause(ex))
+            }
         }
 
         if (doh && dns.isDnsOverHttps()) {
