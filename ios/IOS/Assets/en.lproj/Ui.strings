@@ -351,6 +351,7 @@
 "app settings use dns over https" = "Use DNS over HTTPS";
 "app settings backup" = "Use cloud backup";
 "app settings section advanced" = "Advanced";
+"app settings section use foreground" = "Keep alive";
 
 "intro header" = "Blokada is Active!";
 "intro text" = "A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.";

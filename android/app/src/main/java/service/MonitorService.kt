@@ -41,6 +41,65 @@ import utils.MonitorNotification
 
 object MonitorService {
 
+    private var strategy: MonitorServiceStrategy = SimpleMonitorServiceStrategy()
+
+    fun setup(useForeground: Boolean) {
+        if (useForeground) {
+            strategy = ForegroundMonitorServiceStrategy()
+        }
+
+        strategy.setup()
+    }
+
+    fun setCounter(counter: Long) = strategy.setCounter(counter)
+    fun setStats(stats: Stats) = strategy.setStats(stats)
+    fun setTunnelStatus(tunnelStatus: TunnelStatus) = strategy.setTunnelStatus(tunnelStatus)
+
+}
+
+private interface MonitorServiceStrategy {
+    fun setup()
+    fun setCounter(counter: Long)
+    fun setStats(stats: Stats)
+    fun setTunnelStatus(tunnelStatus: TunnelStatus)
+}
+
+// This strategy just shows the notification
+private class SimpleMonitorServiceStrategy: MonitorServiceStrategy {
+
+    private val notification = NotificationService
+
+    private var counter: Long = 0
+    private var lastDenied: List<Host> = emptyList()
+    private var tunnelStatus: TunnelStatus = TunnelStatus.off()
+
+    override fun setup() {}
+
+    override fun setCounter(counter: Long) {
+        this.counter = counter
+        updateNotification()
+    }
+
+    override fun setStats(stats: Stats) {
+        lastDenied = stats.entries.sortedByDescending { it.time }.take(5).map { it.name }
+        updateNotification()
+    }
+
+    override fun setTunnelStatus(tunnelStatus: TunnelStatus) {
+        this.tunnelStatus = tunnelStatus
+        updateNotification()
+    }
+
+    private fun updateNotification() {
+        val prototype = MonitorNotification(tunnelStatus, counter, lastDenied)
+        notification.show(prototype)
+    }
+
+}
+
+// This strategy keeps the app alive while showing the notification
+private class ForegroundMonitorServiceStrategy: MonitorServiceStrategy {
+
     private val log = Logger("Monitor")
     private val context = ContextService
     private val scope = GlobalScope
@@ -49,8 +108,9 @@ object MonitorService {
         @Synchronized get
         @Synchronized set
 
-    fun setup() {
+    override fun setup() {
         try {
+            log.v("Starting Foreground Service")
             val ctx = context.requireAppContext()
             ctx.startService(Intent(ctx, ForegroundService::class.java))
         } catch (ex: Exception) {
@@ -63,20 +123,20 @@ object MonitorService {
         }
     }
 
-    fun setCounter(counter: Long) {
+    override fun setCounter(counter: Long) {
         scope.launch {
             getConnection().binder.onNewStats(counter, null, null)
         }
     }
 
-    fun setStats(stats: Stats) {
+    override fun setStats(stats: Stats) {
         scope.launch {
             val lastDenied = stats.entries.sortedByDescending { it.time }.take(5).map { it.name }
             getConnection().binder.onNewStats(null, lastDenied, null)
         }
     }
 
-    fun setTunnelStatus(tunnelStatus: TunnelStatus) {
+    override fun setTunnelStatus(tunnelStatus: TunnelStatus) {
         scope.launch {
             getConnection().binder.onNewStats(null, null, tunnelStatus)
         }
@@ -94,7 +154,6 @@ object MonitorService {
     }
 
     private suspend fun bind(deferred: ConnectDeferred): ForegroundConnection {
-        //log.v("Binding Foreground")
         val ctx = context.requireAppContext()
         val intent = Intent(ctx, ForegroundService::class.java).apply {
             action = FOREGROUND_BINDER_ACTION
@@ -112,9 +171,9 @@ object MonitorService {
         }
         return connection
     }
+
 }
 
-// This service keeps the app alive while showing the notification
 class ForegroundService: Service() {
 
     private val notification = NotificationService

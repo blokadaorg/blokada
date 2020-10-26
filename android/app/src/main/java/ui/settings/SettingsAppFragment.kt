@@ -151,6 +151,18 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             true
         }
 
+        val useForeground: ListPreference = findPreference("app_useforeground")!!
+        useForeground.entryValues = yesNoChoice
+        useForeground.entries = useForeground.entryValues
+        useForeground.setOnPreferenceChangeListener { _, newValue ->
+            when (newValue) {
+                getString(R.string.universal_action_yes) -> vm.setUseForegroundService(true)
+                else -> vm.setUseForegroundService(false)
+            }
+            showRestartRequired()
+            true
+        }
+
         val details: Preference = findPreference("app_details")!!
         details.summary = EnvironmentService.getUserAgent()
 
@@ -199,6 +211,11 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             else getString(R.string.universal_action_no)
             dnsOverHttps.setDefaultValue(useDoh)
             dnsOverHttps.value = useDoh
+
+            val useFg = if (it.useForegroundService) getString(R.string.universal_action_yes)
+            else getString(R.string.universal_action_no)
+            useForeground.setDefaultValue(useFg)
+            useForeground.value = useFg
         })
 
         val config: Preference = findPreference("app_config")!!

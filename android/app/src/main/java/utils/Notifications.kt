@@ -63,6 +63,7 @@ class MonitorNotification(
         b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.priority = NotificationCompat.PRIORITY_MAX
         b.setVibrate(LongArray(0))
+        b.setOngoing(true)
 
         when {
             tunnelStatus.inProgress -> {

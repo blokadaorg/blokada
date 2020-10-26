@@ -22,6 +22,7 @@
 package engine
 
 import android.net.VpnService
+import android.os.Build
 import model.*
 import repository.AppRepository
 import repository.DnsDataSource
@@ -77,6 +78,11 @@ object SystemTunnelConfigurator {
         tun.setMtu(MTU)
         tun.setBlocking(true)
 
+        // To not show our VPN as a metered connection
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            tun.setMetered(false)
+        }
+
         val bypassed = apps.getPackageNamesOfAppsToBypass(forRealTunnel = true)
         log.v("Setting bypass for ${bypassed.count()} apps")
         bypassed.forEach {
@@ -128,6 +134,11 @@ object SystemTunnelConfigurator {
         log.v("Setting MTU: $MTU")
         tun.setMtu(MTU)
         tun.setBlocking(true)
+
+        // To not show our VPN as a metered connection
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            tun.setMetered(false)
+        }
 
         /**
          * This may fix the problematic apps that have been reported to not work under Blokada.
@@ -194,6 +205,11 @@ object SystemTunnelConfigurator {
         }
 
         tun.setBlocking(true)
+
+        // To not show our VPN as a metered connection
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            tun.setMetered(false)
+        }
 
         /**
          * This may fix the problematic apps that have been reported to not work under Blokada.

@@ -31,7 +31,7 @@ import utils.Logger
 
 object DozeService {
 
-    private val log = Logger("doze")
+    private val log = Logger("Doze")
     private lateinit var powerManager: PowerManager
 
     var onDozeChanged = { isDoze: Boolean -> }

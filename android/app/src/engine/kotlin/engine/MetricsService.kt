@@ -117,7 +117,7 @@ object MetricsService {
 
             if ((++queryCounter % printEveryXQuery) == 0) {
                 log.v("DNS-RTT/DNS-ERR/REC-ERR: ${lastRtt}ms/$oneWayDnsCounter/$errorCounter")
-                printEveryXQuery++
+                if (printEveryXQuery < 30) printEveryXQuery++
                 queryCounter = 0
             }
         }

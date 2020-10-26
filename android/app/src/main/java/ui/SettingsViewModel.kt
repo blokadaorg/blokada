@@ -273,6 +273,22 @@ class SettingsViewModel : ViewModel() {
             }
         }
     }
+
+    fun setUseForegroundService(use: Boolean) {
+        log.v("Setting use Foreground Service: $use")
+        _localConfig.value?.let { current ->
+            viewModelScope.launch {
+                val new = current.copy(useForegroundService = use)
+                persistence.save(new)
+                _localConfig.value = new
+            }
+        }
+    }
+
+    fun getUseForegroundService(): Boolean {
+        return _localConfig.value?.useForegroundService ?: false
+    }
+
 }
 
 const val THEME_RETRO_KEY = "retro"

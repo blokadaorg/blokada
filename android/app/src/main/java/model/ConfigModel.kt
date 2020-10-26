@@ -50,7 +50,8 @@ data class LocalConfig(
     val backup: Boolean = true,
     val useDnsOverHttps: Boolean = false,
     val useBlockaDnsInPlusMode: Boolean = true,
-    val escaped: Boolean = false
+    val escaped: Boolean = false,
+    val useForegroundService: Boolean = false
 )
 
 // These settings are always backed up to the cloud (if possible)

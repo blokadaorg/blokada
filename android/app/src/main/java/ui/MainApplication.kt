@@ -65,11 +65,11 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     override fun onCreate() {
         super.onCreate()
         ContextService.setContext(this)
-        MonitorService.setup()
         LegacyAccountImport.setup()
         LogService.setup()
         DozeService.setup(this)
         setupEvents()
+        MonitorService.setup(settingsVM.getUseForegroundService())
     }
 
     private fun setupEvents() {
