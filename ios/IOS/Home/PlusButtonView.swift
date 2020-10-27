@@ -72,14 +72,24 @@ struct PlusButtonView: View {
                             .fill(Color.cBackground)
                             .frame(width: 58)
 
-                        Toggle("", isOn: self.$vm.vpnEnabled)
-                            .labelsHidden()
-                            .frame(width: 64)
-                            .padding(.trailing, 4)
-                            .onTapGesture {
-                                self.vm.switchVpn(activate: !self.vm.vpnEnabled)
-                            }
-                            //.toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
+                        if #available(iOS 14.0, *) {
+                            Toggle("", isOn: self.$vm.vpnEnabled)
+                                .labelsHidden()
+                                .frame(width: 64)
+                                .padding(.trailing, 4)
+                                .onTapGesture {
+                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled)
+                                }
+                                .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
+                        } else {
+                            Toggle("", isOn: self.$vm.vpnEnabled)
+                                .labelsHidden()
+                                .frame(width: 64)
+                                .padding(.trailing, 4)
+                                .onTapGesture {
+                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled)
+                                }
+                        }
                     }
                     .padding(.top, 4)
                     .padding(.bottom, 4)
