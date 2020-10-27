@@ -25,7 +25,7 @@ struct ChangeAccountView: View {
 
     @ObservedObject var vm: AccountViewModel
 
-    @Binding var showSheet: Bool
+    @Binding var activeSheet: ActiveSheet?
     @State var accountId = ""
 
     var body: some View {
@@ -37,7 +37,7 @@ struct ChangeAccountView: View {
                         Spacer()
                         Button(action: {
                             self.vm.restoreAccount(self.accountId) {
-                                self.showSheet = false
+                                self.activeSheet = nil
                             }
                         }) {
                             Text(L10n.universalActionSave)
@@ -81,6 +81,6 @@ struct ChangeAccountView: View {
 
 struct ChangeAccountView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangeAccountView(vm: AccountViewModel(), showSheet: .constant(true))
+        ChangeAccountView(vm: AccountViewModel(), activeSheet: .constant(nil))
     }
 }

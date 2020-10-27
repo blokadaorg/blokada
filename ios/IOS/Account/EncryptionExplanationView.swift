@@ -23,8 +23,7 @@ import SwiftUI
 
 struct EncryptionExplanationView: View {
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     @ObservedObject var vm: HomeViewModel
 
@@ -105,7 +104,7 @@ struct EncryptionExplanationView: View {
 
                     if level >= 3 {
                         Button(action: {
-                            self.showSheet = false
+                            self.activeSheet = nil
                         }) {
                             ZStack {
                                 ButtonView(enabled: .constant(true), plus: .constant(true))
@@ -117,10 +116,9 @@ struct EncryptionExplanationView: View {
                         }
                     } else if level >= 2 {
                         Button(action: {
-                            self.showSheet = false
+                            self.activeSheet = nil
                             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                                self.sheet = "plus"
-                                self.showSheet = true
+                                self.activeSheet = .plus
                             })
                         }) {
                             ZStack {
@@ -133,7 +131,7 @@ struct EncryptionExplanationView: View {
                         }
                     } else {
                         Button(action: {
-                            self.showSheet = false
+                            self.activeSheet = nil
 
                             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
                                 // A copypaste from PowerView
@@ -141,12 +139,10 @@ struct EncryptionExplanationView: View {
                                 self.vm.switchMain(activate: self.vm.mainSwitch,
                                     noPermissions: {
                                         // A callback trigerred when there is no VPN profile
-                                        self.sheet = "askvpn"
-                                        self.showSheet = true
+                                        self.activeSheet = .askvpn
                                     },
                                     showRateScreen: {
-                                        self.sheet = "rate"
-                                        self.showSheet = true
+                                        self.activeSheet = .rate
                                     }
                                 )
                                 })
@@ -181,7 +177,7 @@ struct EncryptionExplanationView: View {
 
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                 }) {
                     Text(L10n.universalActionDone)
                 }
@@ -199,8 +195,8 @@ struct EncryptionExplanationView: View {
 struct EncryptionExplanationView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            EncryptionExplanationView(showSheet: .constant(false), sheet: .constant(""), vm: HomeViewModel(), level: 1)
-            EncryptionExplanationView(showSheet: .constant(false), sheet: .constant(""), vm: HomeViewModel(), level: 2)
+            EncryptionExplanationView(activeSheet: .constant(nil), vm: HomeViewModel(), level: 1)
+            EncryptionExplanationView(activeSheet: .constant(nil), vm: HomeViewModel(), level: 2)
         }
     }
 }

@@ -25,8 +25,7 @@ struct AccountView: View {
 
     @ObservedObject var vm: AccountViewModel
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     @State var showChangeAccount = false
     @State var showDevices = false
@@ -81,8 +80,7 @@ struct AccountView: View {
                         }
                     } else {
                         Button(action: {
-                            self.sheet = "plus"
-                            self.showSheet = true
+                            self.activeSheet = .plus
                         }) {
                             L10n.universalActionUpgrade.toBlokadaPlusText()
                         }
@@ -111,6 +109,6 @@ struct AccountView: View {
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountView(vm: AccountViewModel(), showSheet: .constant(true), sheet: .constant(""))
+        AccountView(vm: AccountViewModel(), activeSheet: .constant(nil))
     }
 }

@@ -25,8 +25,7 @@ struct LogView: View {
 
     @ObservedObject var vm: LogViewModel
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     var body: some View {
         return VStack(alignment: .leading) {
@@ -57,7 +56,7 @@ struct LogView: View {
                     .foregroundColor(Color.cActivePlus)
                     .frame(width: 32, height: 32)
                     .onTapGesture {
-                        self.sheet = "sharelog"
+                        self.activeSheet = .sharelog
                     }
                 if !Env.isProduction {
                     Image(systemName: "ant.circle")
@@ -65,7 +64,7 @@ struct LogView: View {
                         .foregroundColor(Color.cActivePlus)
                         .frame(width: 32, height: 32)
                         .onTapGesture {
-                            self.sheet = "debug"
+                            self.activeSheet = .debug
                         }
                 }
             }
@@ -91,6 +90,6 @@ struct LogView: View {
 
 struct LogView_Previews: PreviewProvider {
     static var previews: some View {
-        LogView(vm: LogViewModel(), showSheet: .constant(false), sheet: .constant(""))
+        LogView(vm: LogViewModel(), activeSheet: .constant(nil))
     }
 }

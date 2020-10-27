@@ -32,8 +32,7 @@ struct MainView: View {
 
     @ObservedObject var tabVM: TabViewModel
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     @State var showHelpActions = false
 
@@ -43,13 +42,13 @@ struct MainView: View {
     var body: some View {
         VStack {
             ZStack {
-                HomeView(vm: self.vm, showSheet: self.$showSheet, sheet: self.$sheet)
+                HomeView(vm: self.vm, activeSheet: self.$activeSheet)
                     .opacity(self.tabVM.activeTab == "home" ? 1 : 0)
                 ActivityView(vm: self.activityVM, tabVM: self.tabVM)
                     .opacity(self.tabVM.activeTab == "activity" ? 1 : 0)
                 PacksView(vm: self.packsVM, tabVM: self.tabVM)
                     .opacity(self.tabVM.activeTab == "packs" ? 1 : 0)
-                SettingsTabView(homeVM: self.vm, vm: self.accountVM, tabVM: self.tabVM, inboxVM: self.inboxVM, leaseVM: self.leaseVM, showSheet: self.$showSheet, sheet: self.$sheet)
+                SettingsTabView(homeVM: self.vm, vm: self.accountVM, tabVM: self.tabVM, inboxVM: self.inboxVM, leaseVM: self.leaseVM, activeSheet: self.$activeSheet)
                     .opacity(self.tabVM.activeTab == "more" ? 1 : 0)
 
                 VStack {
@@ -58,8 +57,7 @@ struct MainView: View {
 
                         Button(action: {
                             withAnimation {
-                                self.sheet = "help"
-                                self.showSheet = true
+                                self.activeSheet = .help
                             }
                         }) {
                             Image(systemName: Image.fHelp)
@@ -67,7 +65,7 @@ struct MainView: View {
                                 .foregroundColor(.primary)
                                 .frame(width: 32, height: 32, alignment: .center)
                                 .padding(8)
-                                .padding(.top, 16)
+                                .padding(.top, 24)
                                 .onTapGesture {
                                     self.showHelpActions = true
                                 }
@@ -80,28 +78,24 @@ struct MainView: View {
                                             Links.openInBrowser(Links.support())
                                         },
                                         .default(Text(L10n.universalActionShowLog)) {
-                                            self.sheet = "log"
-                                            self.showSheet = true
+                                            self.activeSheet = .log
                                         },
                                         .default(Text(L10n.universalActionShareLog)) {
-                                            self.sheet = "sharelog"
-                                            self.showSheet = true
+                                            self.activeSheet = .sharelog
                                         },
                                         .cancel()
                                     ])
                                 }
                                 .contextMenu {
                                     Button(action: {
-                                        self.sheet = "log"
-                                        self.showSheet = true
+                                        self.activeSheet = .log
                                     }) {
                                         Text(L10n.universalActionShowLog)
                                         Image(systemName: "list.dash")
                                     }
 
                                     Button(action: {
-                                        self.sheet = "sharelog"
-                                        self.showSheet = true
+                                        self.activeSheet = .sharelog
                                     }) {
                                         Text(L10n.universalActionShareLog)
                                         Image(systemName: "square.and.arrow.up")
@@ -109,8 +103,7 @@ struct MainView: View {
 
                                     if !Env.isProduction {
                                         Button(action: {
-                                            self.sheet = "debug"
-                                            self.showSheet = true
+                                            self.activeSheet = .debug
                                         }) {
                                             Text("Debug tools")
                                             Image(systemName: "ant.circle")
@@ -154,8 +147,7 @@ struct MainView_Previews: PreviewProvider {
                 inboxVM: InboxViewModel(),
                 leaseVM: LeaseListViewModel(),
                 tabVM: tabVM,
-                showSheet: .constant(false),
-                sheet: .constant("")
+                activeSheet: .constant(nil)
             )
             .previewDevice(PreviewDevice(rawValue: "iPhone X"))
             .environment(\.colorScheme, .dark)
@@ -168,8 +160,7 @@ struct MainView_Previews: PreviewProvider {
                 inboxVM: InboxViewModel(),
                 leaseVM: LeaseListViewModel(),
                 tabVM: tabVM,
-                showSheet: .constant(false),
-                sheet: .constant("")
+                activeSheet: .constant(nil)
             )
             .environment(\.sizeCategory, .extraExtraExtraLarge)
             .environment(\.colorScheme, .dark)
@@ -182,8 +173,8 @@ struct MainView_Previews: PreviewProvider {
                 inboxVM: InboxViewModel(),
                 leaseVM: LeaseListViewModel(),
                 tabVM: tabVM,
-                showSheet: .constant(false),
-                sheet: .constant("")
+                activeSheet: .constant(nil)
+
             )
         }
     }

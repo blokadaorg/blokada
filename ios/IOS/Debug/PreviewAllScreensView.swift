@@ -117,11 +117,11 @@ struct PreviewAllScreensView: View {
                 }
                 .padding()
             } else if counter == 5 {
-                AskVpnProfileView(homeVM: defaultHomeVM, showSheet: .constant(false))
+                AskVpnProfileView(homeVM: defaultHomeVM, activeSheet: .constant(nil))
             } else if counter == 6 {
-                RateAppView(showSheet: .constant(false))
+                RateAppView(activeSheet: .constant(nil))
             } else if counter == 7 {
-                AdsCounterShareView(homeVM: vmAdsCounter, sheet: .constant(""), showSheet: .constant(false))
+                AdsCounterShareView(homeVM: vmAdsCounter, activeSheet: .constant(nil))
             } else if counter == 8 {
                 MainView(
                       accountVM: defaultAccountVM,
@@ -131,11 +131,10 @@ struct PreviewAllScreensView: View {
                       inboxVM: InboxViewModel(),
                       leaseVM: LeaseListViewModel(),
                       tabVM: defaultTabVM,
-                      showSheet: .constant(false),
-                      sheet: .constant("")
+                      activeSheet: .constant(nil)
                   )
             } else if counter == 9 {
-                LocationListView(showSheet: .constant(false))
+                LocationListView(activeSheet: .constant(nil))
             } else if counter == 10 {
                 SettingsTabView(
                     homeVM: defaultHomeVM,
@@ -143,20 +142,17 @@ struct PreviewAllScreensView: View {
                     tabVM: defaultTabVM,
                     inboxVM: InboxViewModel(),
                     leaseVM: LeaseListViewModel(),
-                    showSheet: .constant(false),
-                    sheet: .constant("")
+                    activeSheet: .constant(nil)
                 )
             } else if counter == 11 {
                 EncryptionExplanationView(
-                    showSheet: .constant(false),
-                    sheet: .constant(""),
+                    activeSheet: .constant(nil),
                     vm: defaultHomeVM,
                     level: 3
                 )
             } else if counter == 12 {
                 AfterActivatedView(
-                    showSheet: .constant(false),
-                    sheet: .constant("")
+                    activeSheet: .constant(nil)
                 )
             } else {
                 EmptyView()

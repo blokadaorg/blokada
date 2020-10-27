@@ -24,8 +24,7 @@ import SwiftUI
 struct DebugView: View {
 
     let vm: DebugViewModel
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
     @Binding var showPreviewAllScreens: Bool
 
     var body: some View {
@@ -35,26 +34,25 @@ struct DebugView: View {
 
             List {
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                     self.vm.activateAccount()
                 }) {
                     Text("Activate account")
                 }
 
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                     self.vm.deactivateAccount()
                 }) {
                     Text("Deactivate account")
                 }
 
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                     onBackground {
                         sleep(5)
                         onMain {
-                            self.sheet = "rate"
-                            self.showSheet = true
+                            self.activeSheet = .rate
                         }
                     }
                 }) {
@@ -62,7 +60,7 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                     onBackground {
                         sleep(5)
                         onMain {
@@ -74,7 +72,7 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                     onBackground {
                         sleep(5)
                         onMain {
@@ -86,7 +84,7 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                   self.showSheet = false
+                   self.activeSheet = nil
                    onBackground {
                        sleep(5)
                        onMain {
@@ -98,7 +96,7 @@ struct DebugView: View {
                }
 
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                     onBackground {
                         sleep(5)
                         onMain {
@@ -110,7 +108,7 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                     onBackground {
                         sleep(5)
                         onMain {
@@ -128,6 +126,6 @@ struct DebugView: View {
 
 struct DebugView_Previews: PreviewProvider {
     static var previews: some View {
-        DebugView(vm: DebugViewModel(homeVM: HomeViewModel()), showSheet: .constant(false), sheet: .constant(""), showPreviewAllScreens: .constant(false))
+        DebugView(vm: DebugViewModel(homeVM: HomeViewModel()), activeSheet: .constant(nil), showPreviewAllScreens: .constant(false))
     }
 }

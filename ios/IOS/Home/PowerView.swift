@@ -25,8 +25,7 @@ struct PowerView: View {
 
     @ObservedObject var vm: HomeViewModel
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     @State var point = UnitPoint(x: 0, y: 0)
     @State var orientationOpacity = 0.0
@@ -162,12 +161,10 @@ struct PowerView: View {
                     self.vm.switchMain(activate: self.vm.mainSwitch,
                         noPermissions: {
                             // A callback trigerred when there is no VPN profile
-                            self.sheet = "askvpn"
-                            self.showSheet = true
+                            self.activeSheet = .askvpn
                         },
                         showRateScreen: {
-                            self.sheet = "rate"
-                            self.showSheet = true
+                            self.activeSheet = .rate
                         }
                     )
                 }
@@ -207,18 +204,18 @@ struct PowerView_Previews: PreviewProvider {
         timer.startTimer(seconds: 60 * 5 - 60)
 
         return Group {
-            PowerView(vm: off, showSheet: .constant(true), sheet: .constant(""))
+            PowerView(vm: off, activeSheet: .constant(nil))
                 .previewLayout(.fixed(width: 200, height: 200))
 
-            PowerView(vm: on, showSheet: .constant(true), sheet: .constant(""))
+            PowerView(vm: on, activeSheet: .constant(nil))
                 .previewLayout(.fixed(width: 200, height: 200))
 
-            PowerView(vm: off, showSheet: .constant(true), sheet: .constant(""))
+            PowerView(vm: off, activeSheet: .constant(nil))
                 .previewLayout(.fixed(width: 200, height: 200))
                 .environment(\.colorScheme, .dark)
                 .background(Color.black)
 
-            PowerView(vm: timer, showSheet: .constant(true), sheet: .constant(""))
+            PowerView(vm: timer, activeSheet: .constant(nil))
                 .previewLayout(.fixed(width: 200, height: 200))
                 .environment(\.colorScheme, .dark)
                 .background(Color.black)

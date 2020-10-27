@@ -72,11 +72,6 @@ struct ActivityView: View {
 
                         ForEach(self.vm.entries, id: \.self) { entry in
                             ZStack {
-                                NavigationLink(destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry, whitelisted: self.vm.whitelist.contains(entry.name), blacklisted: self.vm.blacklist.contains(entry.name)), activityVM: self.vm), tag: entry.name, selection: self.$tabVM.selection) {
-                                    EmptyView()
-                                }
-                                .hidden()
-
                                 ActivityItemView(vm: ActivityItemViewModel(entry: entry, whitelisted: self.vm.whitelist.contains(entry.name), blacklisted: self.vm.blacklist.contains(entry.name)))
                                     .listRowInsets(EdgeInsets())
                                     .contextMenu {
@@ -123,6 +118,7 @@ struct ActivityView: View {
         //                                }
                                     }
                             }
+                            .background(NavigationLink("", destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry, whitelisted: self.vm.whitelist.contains(entry.name), blacklisted: self.vm.blacklist.contains(entry.name)), activityVM: self.vm), tag: entry.name, selection: self.$tabVM.selection))
                         }
                     }
                 }

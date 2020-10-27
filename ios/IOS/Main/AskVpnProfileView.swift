@@ -24,7 +24,7 @@ import SwiftUI
 struct AskVpnProfileView: View {
 
     @ObservedObject var homeVM: HomeViewModel
-    @Binding var showSheet: Bool
+    @Binding var activeSheet: ActiveSheet?
 
     private let network = NetworkService.shared
 
@@ -53,7 +53,7 @@ struct AskVpnProfileView: View {
 
                 VStack {
                     Button(action: {
-                        self.showSheet = false
+                        self.activeSheet = nil
                         self.network.createVpnProfile { _, _ in
                             self.homeVM.switchMain(activate: true, noPermissions: {}, showRateScreen: {})
                         }
@@ -73,7 +73,7 @@ struct AskVpnProfileView: View {
 
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                 }) {
                     Text(L10n.universalActionCancel)
                 }
@@ -87,6 +87,6 @@ struct AskVpnProfileView: View {
 
 struct AskVpnProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        AskVpnProfileView(homeVM: HomeViewModel(), showSheet: .constant(false))
+        AskVpnProfileView(homeVM: HomeViewModel(), activeSheet: .constant(nil))
     }
 }

@@ -29,8 +29,7 @@ struct SettingsTabView: View {
     @ObservedObject var inboxVM: InboxViewModel
     @ObservedObject var leaseVM: LeaseListViewModel
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     var body: some View {
         GeometryReader { geo in
@@ -55,7 +54,7 @@ struct SettingsTabView: View {
                 }
 
                 Section(header: Text(L10n.accountSectionHeaderPrimary)) {
-                    NavigationLink(destination: AccountView(vm: self.vm, showSheet: self.$showSheet, sheet: self.$sheet), tag: "manage", selection: self.$tabVM.selection) {
+                    NavigationLink(destination: AccountView(vm: self.vm, activeSheet: self.$activeSheet), tag: "manage", selection: self.$tabVM.selection) {
                         HStack {
                          Image(systemName: Image.fAccount)
                              .imageScale(.large)
@@ -85,7 +84,7 @@ struct SettingsTabView: View {
                         }
                     }
 
-                    NavigationLink(destination: EncryptionView(homeVM: self.homeVM, showSheet: self.$showSheet, sheet: self.$sheet), tag: "encryption", selection: self.$tabVM.selection) {
+                    NavigationLink(destination: EncryptionView(homeVM: self.homeVM, activeSheet: self.$activeSheet), tag: "encryption", selection: self.$tabVM.selection) {
                          HStack {
                           Image(systemName: "lock")
                               .imageScale(.large)
@@ -110,7 +109,7 @@ struct SettingsTabView: View {
                 }
 
                     Section(header: Text(L10n.accountSectionHeaderOther)) {
-                        NavigationLink(destination: ChangeAccountView(vm: self.vm, showSheet: .constant(true)), tag: "changeaccount", selection: self.$tabVM.selection) {
+                        NavigationLink(destination: ChangeAccountView(vm: self.vm, activeSheet: self.$activeSheet), tag: "changeaccount", selection: self.$tabVM.selection) {
                             HStack {
                              Image(systemName: Image.fLogout)
                                  .imageScale(.large)
@@ -123,8 +122,7 @@ struct SettingsTabView: View {
                         }
 
                          Button(action: {
-                            self.sheet = "help"
-                            self.showSheet = true
+                            self.activeSheet = .help
                          }) {
                             HStack {
                              Image(systemName: Image.fHelp)
@@ -166,6 +164,6 @@ struct SettingsTabView: View {
 
 struct SettingsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsTabView(homeVM: HomeViewModel(), vm: AccountViewModel(), tabVM: TabViewModel(), inboxVM: InboxViewModel(), leaseVM: LeaseListViewModel(), showSheet: .constant(true), sheet: .constant(""))
+        SettingsTabView(homeVM: HomeViewModel(), vm: AccountViewModel(), tabVM: TabViewModel(), inboxVM: InboxViewModel(), leaseVM: LeaseListViewModel(), activeSheet: .constant(nil))
     }
 }

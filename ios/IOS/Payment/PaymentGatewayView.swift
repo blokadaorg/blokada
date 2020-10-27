@@ -25,17 +25,15 @@ struct PaymentGatewayView: View {
 
     @ObservedObject var vm: PaymentGatewayViewModel
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     @State var showPrivacySheet = false
     @State var showPlusFeaturesSheet = false
 
     var body: some View {
         if self.vm.accountActive {
-            self.showSheet = false
-            self.sheet = "activated"
-            self.showSheet = true
+            self.activeSheet = nil
+            self.activeSheet = .activated
         }
 
         return ZStack(alignment: .topTrailing) {
@@ -154,10 +152,9 @@ struct PaymentGatewayView: View {
 
             Button(action: {
                 withAnimation {
-                    self.showSheet = false
+                    self.activeSheet = nil
                     DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                        self.sheet = "help"
-                        self.showSheet = true
+                        self.activeSheet = .help
                     })
                 }
             }) {
@@ -175,10 +172,10 @@ struct PaymentGatewayView: View {
 struct PaymentGatewayView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PaymentGatewayView(vm: PaymentGatewayViewModel(), showSheet: .constant(false), sheet: .constant(""))
-            PaymentGatewayView(vm: PaymentGatewayViewModel(), showSheet: .constant(false), sheet: .constant(""))
+            PaymentGatewayView(vm: PaymentGatewayViewModel(), activeSheet: .constant(nil))
+            PaymentGatewayView(vm: PaymentGatewayViewModel(), activeSheet: .constant(nil))
                 .environment(\.sizeCategory, .extraExtraExtraLarge)
-            PaymentGatewayView(vm: PaymentGatewayViewModel(), showSheet: .constant(false), sheet: .constant(""))
+            PaymentGatewayView(vm: PaymentGatewayViewModel(), activeSheet: .constant(nil))
                 .previewDevice(PreviewDevice(rawValue: "iPhone X"))
         }
     }

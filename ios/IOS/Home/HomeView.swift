@@ -25,8 +25,7 @@ struct HomeView: View {
 
     @ObservedObject var vm: HomeViewModel
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     @State var size: CGFloat = 0.0
     @State var anOpacity = 0.6
@@ -54,7 +53,7 @@ struct HomeView: View {
                     .transition(.opacity)
                     .animation(Animation.easeIn(duration: 0.2))
 
-                PowerView(vm: self.vm, showSheet: self.$showSheet, sheet: self.$sheet)
+                PowerView(vm: self.vm, activeSheet: self.$activeSheet)
                     .frame(maxWidth: 190, maxHeight: 190)
             }
 
@@ -110,12 +109,10 @@ struct HomeView: View {
                                 self.vm.switchMain(activate: self.vm.mainSwitch,
                                     noPermissions: {
                                         // A callback trigerred when there is no VPN profile
-                                        self.sheet = "askvpn"
-                                        self.showSheet = true
+                                        self.activeSheet = .askvpn
                                     },
                                     showRateScreen: {
-                                        self.sheet = "rate"
-                                        self.showSheet = true
+                                        self.activeSheet = .rate
                                     }
                                 )
                             }
@@ -137,8 +134,7 @@ struct HomeView: View {
                         }
                         .opacity(self.vm.mainSwitch && self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
-                            self.sheet = "counter"
-                            self.showSheet = true
+                            self.activeSheet = .counter
                         }
 
                         VStack {
@@ -151,8 +147,7 @@ struct HomeView: View {
                         }
                         .opacity(self.vm.mainSwitch && !self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
-                            self.sheet = "counter"
-                            self.showSheet = true
+                            self.activeSheet = .counter
                         }
 
                         Text(L10n.homeStatusDetailProgress)
@@ -165,14 +160,14 @@ struct HomeView: View {
                 }
                 .frame(width: 280, height: 96, alignment: .top)
 
-                PlusButtonView(vm: self.vm, showSheet: self.$showSheet, sheet: self.$sheet)
+                PlusButtonView(vm: self.vm, activeSheet: self.$activeSheet)
                     .frame(maxWidth: 500)
             }
         }
         .background(Color.cBackground)
         .onAppear {
             self.vm.ensureAppStartedSuccessfully { _, _ in }
-            self.vm.onAccountExpired = { self.showSheet = false }
+            self.vm.onAccountExpired = { self.activeSheet = nil }
         }
     }
 }
@@ -186,14 +181,12 @@ struct HomeView_Previews: PreviewProvider {
         return Group {
             HomeView(
                 vm: HomeViewModel(),
-                showSheet: .constant(false),
-                sheet: .constant("")
+                activeSheet: .constant(nil)
             ).previewDevice(PreviewDevice(rawValue: "iPhone X"))
 
             HomeView(
                 vm: error,
-                showSheet: .constant(false),
-                sheet: .constant("")
+                activeSheet: .constant(nil)
             )
             .environment(\.locale, .init(identifier: "pl"))
         }

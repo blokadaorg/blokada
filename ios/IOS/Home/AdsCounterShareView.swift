@@ -25,8 +25,7 @@ struct AdsCounterShareView: View {
 
     @ObservedObject var homeVM: HomeViewModel
 
-    @Binding var sheet: String
-    @Binding var showSheet: Bool
+    @Binding var activeSheet: ActiveSheet?
 
     @State var point = UnitPoint(x: 1, y: 1)
     @State var counter = 0
@@ -82,13 +81,12 @@ struct AdsCounterShareView: View {
             }
             .frame(maxWidth: 500)
             .navigationBarItems(leading: Button(action: {
-                self.showSheet = false
+                self.activeSheet = nil
             }) {
                 Text(L10n.universalActionDone)
             }.contentShape(Rectangle()),
             trailing: Button(action: {
-                self.sheet = "sharecounter"
-                self.showSheet = true
+                self.activeSheet = .sharecounter
             }) {
                 Image(systemName: Image.fShare)
                    .imageScale(.large)
@@ -130,11 +128,11 @@ struct AdsCounterShareView_Previews: PreviewProvider {
         vm3.blockedCounter = 100101
 
         return Group {
-            AdsCounterShareView(homeVM: vm, sheet: .constant(""), showSheet: .constant(false))
-            AdsCounterShareView(homeVM: vm2, sheet: .constant(""), showSheet: .constant(false))
+            AdsCounterShareView(homeVM: vm, activeSheet: .constant(nil))
+            AdsCounterShareView(homeVM: vm2, activeSheet: .constant(nil))
                 .environment(\.sizeCategory, .extraExtraExtraLarge)
                 .environment(\.colorScheme, .dark)
-            AdsCounterShareView(homeVM: vm3, sheet: .constant(""), showSheet: .constant(false))
+            AdsCounterShareView(homeVM: vm3, activeSheet: .constant(nil))
         }
     }
 }

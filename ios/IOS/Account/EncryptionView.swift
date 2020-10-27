@@ -33,8 +33,7 @@ struct EncryptionView: View {
         VpnService.shared.restartTunnel { _, _ in }
     })
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     var body: some View {
         Form {
@@ -54,8 +53,7 @@ struct EncryptionView: View {
                     }
                 }
                 .onTapGesture {
-                    self.showSheet = true
-                    self.sheet = "encryption-explain"
+                    self.activeSheet = .encryptionExplain
                 }
             }
 
@@ -108,8 +106,8 @@ struct EncryptionView_Previews: PreviewProvider {
         working.working = true
 
         return Group {
-            EncryptionView(homeVM: HomeViewModel(), showSheet: .constant(true), sheet: .constant(""))
-            EncryptionView(homeVM: working, showSheet: .constant(true), sheet: .constant(""))
+            EncryptionView(homeVM: HomeViewModel(), activeSheet: .constant(nil))
+            EncryptionView(homeVM: working, activeSheet: .constant(nil))
         }
     }
 }

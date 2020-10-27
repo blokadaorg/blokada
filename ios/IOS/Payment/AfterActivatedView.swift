@@ -23,8 +23,7 @@ import SwiftUI
 
 struct AfterActivatedView: View {
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
     @State var appear = false
 
     var body: some View {
@@ -45,10 +44,9 @@ struct AfterActivatedView: View {
 
                 VStack {
                     Button(action: {
-                        self.showSheet = false
+                        self.activeSheet = nil
                         DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                            self.sheet = "location"
-                            self.showSheet = true
+                            self.activeSheet = .location
                         })
                     }) {
                         ZStack {
@@ -65,7 +63,7 @@ struct AfterActivatedView: View {
             .frame(maxWidth: 500)
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                 }) {
                     Text(L10n.universalActionDone)
                 }
@@ -85,9 +83,9 @@ struct AfterActivatedView: View {
 struct AfterActivatedView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AfterActivatedView(showSheet: .constant(true), sheet: .constant(""))
+            AfterActivatedView(activeSheet: .constant(nil))
                 .previewDevice(PreviewDevice(rawValue: "iPhone X"))
-            AfterActivatedView(showSheet: .constant(true), sheet: .constant(""))
+            AfterActivatedView(activeSheet: .constant(nil))
                 .environment(\.sizeCategory, .extraExtraExtraLarge)
                 .environment(\.colorScheme, .dark)
         }

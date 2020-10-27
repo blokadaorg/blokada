@@ -24,7 +24,7 @@ import SwiftUI
 struct LocationListView: View {
 
     @ObservedObject var vm = LocationListViewModel()
-    @Binding var showSheet: Bool
+    @Binding var activeSheet: ActiveSheet?
     @State var showSpinner = true
 
     var body: some View {
@@ -80,7 +80,7 @@ struct LocationListView: View {
                                     ForEach(self.vm.items, id: \.self) { item in
                                         Button(action: {
                                             withAnimation {
-                                                self.showSheet = false
+                                                self.activeSheet = nil
                                                 self.vm.changeLocation(item)
                                             }
                                         }) {
@@ -117,7 +117,7 @@ struct LocationListView: View {
 
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.showSheet = false
+                    self.activeSheet = nil
                 }) {
                     Text(L10n.universalActionCancel)
                 }
@@ -136,6 +136,6 @@ struct LocationListView: View {
 
 struct LocationListView_Previews: PreviewProvider {
     static var previews: some View {
-        return LocationListView(showSheet: .constant(false))
+        return LocationListView(activeSheet: .constant(nil))
     }
 }

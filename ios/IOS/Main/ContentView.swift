@@ -21,6 +21,15 @@
 
 import SwiftUI
 
+enum ActiveSheet: Identifiable {
+    case help, plus, location, activated, askvpn, encryptionExplain,
+         log, sharelog, debug, rate, counter, sharecounter
+
+    var id: Int {
+        hashValue
+    }
+}
+
 struct ContentView: View {
 
     let accountVM: AccountViewModel
@@ -36,8 +45,7 @@ struct ContentView: View {
     @ObservedObject var vm: HomeViewModel
 
     @State var showPreviewAllScreens = false
-    @State var showSheet = false
-    @State var sheet = "none"
+    @State var activeSheet: ActiveSheet?
 
     var body: some View {
         // Set accent color on all switches
@@ -45,36 +53,36 @@ struct ContentView: View {
 
         return GeometryReader { geometry in
             ZStack {
-                MainView(accountVM: self.accountVM, packsVM: self.packsVM, activityVM: self.activityVM, vm: self.vm, inboxVM: self.inboxVM, leaseVM: self.leaseVM, tabVM: self.tabVM,
-                         showSheet: self.$showSheet, sheet: self.$sheet)
+                MainView(accountVM: self.accountVM, packsVM: self.packsVM, activityVM: self.activityVM, vm: self.vm, inboxVM: self.inboxVM, leaseVM: self.leaseVM, tabVM: self.tabVM, activeSheet: self.$activeSheet)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .padding(.top, geometry.safeAreaInsets.top)
-                    .sheet(isPresented: self.$showSheet) {
-                        if self.sheet == "plus" {
-                            PaymentGatewayView(vm: self.paymentVM, showSheet: self.$showSheet, sheet: self.$sheet)
-                        } else if self.sheet == "location" {
-                            LocationListView(vm: self.locationVM, showSheet: self.$showSheet)
-                        } else if self.sheet == "activated" {
-                            AfterActivatedView(showSheet: self.$showSheet, sheet: self.$sheet)
-                        } else if self.sheet == "askvpn" {
-                            AskVpnProfileView(homeVM: self.vm, showSheet: self.$showSheet)
-                        } else if self.sheet == "encryption-explain" {
-                            EncryptionExplanationView(showSheet: self.$showSheet, sheet: self.$sheet, vm: self.vm, level: self.vm.encryptionLevel)
-                        } else if self.sheet == "log" {
-                            LogView(vm: self.logVM, showSheet: self.$showSheet, sheet: self.$sheet)
-                        } else if self.sheet == "sharelog" {
+                    .sheet(item: self.$activeSheet) { item in
+                        switch item {
+                        case .plus:
+                            PaymentGatewayView(vm: self.paymentVM, activeSheet: self.$activeSheet)
+                        case .location:
+                            LocationListView(vm: self.locationVM, activeSheet: self.$activeSheet)
+                        case .activated:
+                            AfterActivatedView(activeSheet: self.$activeSheet)
+                        case .askvpn:
+                            AskVpnProfileView(homeVM: self.vm, activeSheet: self.$activeSheet)
+                        case .encryptionExplain:
+                            EncryptionExplanationView(activeSheet: self.$activeSheet, vm: self.vm, level: self.vm.encryptionLevel)
+                        case .log:
+                            LogView(vm: self.logVM, activeSheet: self.$activeSheet)
+                        case .sharelog:
                             ShareSheet(activityItems: [LoggerSaver.logFile])
-                        } else if self.sheet == "debug" {
-                            DebugView(vm: DebugViewModel(homeVM: self.vm), showSheet: self.$showSheet, sheet: self.$sheet, showPreviewAllScreens: self.$showPreviewAllScreens)
-                        } else if self.sheet == "rate" {
-                            RateAppView(showSheet: self.$showSheet)
-                        } else if self.sheet == "counter" {
-                            AdsCounterShareView(homeVM: self.vm, sheet: self.$sheet, showSheet: self.$showSheet)
-                        } else if self.sheet == "sharecounter" {
+                        case .debug:
+                            DebugView(vm: DebugViewModel(homeVM: self.vm), activeSheet: self.$activeSheet, showPreviewAllScreens: self.$showPreviewAllScreens)
+                        case .rate:
+                            RateAppView(activeSheet: self.$activeSheet)
+                        case .counter:
+                            AdsCounterShareView(homeVM: self.vm, activeSheet: self.$activeSheet)
+                        case .sharecounter:
                             ShareSheet(activityItems: [L10n.mainShareMessage(self.vm.blockedCounter.compact)])
-                        } else if self.sheet == "help" {
-                            SupportView(showSheet: self.$showSheet)
-                        } else {
+                        case .help:
+                            SupportView(activeSheet: self.$activeSheet)
+                        default:
                             VStack {
                                 Spacer()
                                 HStack {

@@ -25,8 +25,7 @@ struct PlusButtonView: View {
 
     @ObservedObject var vm: HomeViewModel
 
-    @Binding var showSheet: Bool
-    @Binding var sheet: String
+    @Binding var activeSheet: ActiveSheet?
 
     @State var orientationOpacity = 0.0
 
@@ -35,8 +34,7 @@ struct PlusButtonView: View {
             ButtonView(enabled: .constant(!self.vm.vpnEnabled), plus: .constant(true))
             HStack {
                 Button(action: {
-                    self.showSheet = true
-                    self.sheet = self.vm.accountActive ? "location" : "plus"
+                    self.activeSheet = self.vm.accountActive ? .location : .plus
                     self.vm.expiredAlertShown = false
                 }) {
                     ZStack {
@@ -81,6 +79,7 @@ struct PlusButtonView: View {
                             .onTapGesture {
                                 self.vm.switchVpn(activate: !self.vm.vpnEnabled)
                             }
+                            //.toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
                     }
                     .padding(.top, 4)
                     .padding(.bottom, 4)
@@ -106,8 +105,7 @@ struct PlusButtonView_Previews: PreviewProvider {
     static var previews: some View {
         PlusButtonView(
             vm: HomeViewModel(),
-            showSheet: .constant(false),
-            sheet: .constant("")
+            activeSheet: .constant(nil)
         )
     }
 }

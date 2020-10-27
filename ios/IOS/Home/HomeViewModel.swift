@@ -191,7 +191,7 @@ class HomeViewModel: ObservableObject {
                     }
                 } else {
                     // Tunnel is already up and running, check lease and account
-                    if status!.hasGateway() {
+                    if status?.hasGateway() ?? false {
                         if !Config.shared.accountActive() || !Config.shared.leaseActive() {
                             self.log.w("start: Lease expired, showing alert dialog")
                             self.showExpiredAlert()

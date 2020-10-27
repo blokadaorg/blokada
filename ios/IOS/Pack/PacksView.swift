@@ -53,12 +53,9 @@ struct PacksView: View {
 
                         ForEach(self.vm.packs, id: \.self) { pack in
                             ZStack {
-                                NavigationLink(destination: PackDetailView(packsVM: self.vm, vm: PackDetailViewModel(pack: pack)), tag: pack.id, selection: self.$tabVM.selection) {
-                                    EmptyView()
-                                }
-                                    .hidden()
                                 PackView(packsVM: self.vm, vm: PackDetailViewModel(pack: pack))
                             }
+                            .background(NavigationLink("", destination: PackDetailView(packsVM: self.vm, vm: PackDetailViewModel(pack: pack)), tag: pack.id, selection: self.$tabVM.selection))
                         }
 
                     }
