@@ -320,6 +320,7 @@
 "payment package six months" = "6 Months";
 "payment package twelve months" = "12 Months";
 "payment label discount" = "Save %@ (%@ / mo)";
+"payment label country" = "Country";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installed";
