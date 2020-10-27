@@ -77,7 +77,7 @@ extension Dns {
         //Dns(ips: ["185.228.168.9", "185.228.169.9", "2a0d:2a00:1::2", "2a0d:2a00:2::2"], port: 443, name: "doh.cleanbrowsing.org", path: "doh/security-filter", label: "CleanBrowsing: Security filter"),
         //Dns(ips: ["185.228.168.10", "185.228.169.11", "2a0d:2a00:1::1", "2a0d:2a00:2::1"], port: 443, name: "doh.cleanbrowsing.org", path: "doh/adult-filter", label: "CleanBrowsing: Adult filter"),
         Dns(ips: ["2001:678:e34:b10c:ada::1", "2001:678:e34:b10c:ada::2"], port: 443, name: "dns.blokada.org", path: "dns-query", label: "Blokada (IPv6) Beta"),
-        Dns(ips: ["2606:4700:4700::1111", "2606:4700:4700::1001"], port: 443, name: "cloudflare-dns.com", path: "dns-query", label: "Cloudflare"),
+        Dns(ips: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"], port: 443, name: "cloudflare-dns.com", path: "dns-query", label: "Cloudflare"),
         // Turns out those two are not DoH
         //Dns(ips: ["1.1.1.2", "1.0.0.2", "2606:4700:4700::1112", "2606:4700:4700::1002"], port: 443, name: "cloudflare-dns.com", path: "dns-query", label: "Cloudflare: malware blocking"),
         //Dns(ips: ["1.1.1.3", "1.0.0.3", "2606:4700:4700::1113", "2606:4700:4700::1003"], port: 443, name: "cloudflare-dns.com", path: "dns-query", label: "Cloudflare: malware & adult blocking"),
