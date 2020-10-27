@@ -121,7 +121,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
             self.networkMonitor = NWPathMonitor()
             self.networkMonitor?.start(queue: .global())
             self.device.start(privateKey: config.privateKey, gatewayKey: config.gatewayId, delegate: self)
-            self.dnsVia(tunnel: true)
+            self.dnsVia(mode: TunneledInterface)
             NELogger.v("PacketTunnelProvider: real VPN established")
             completionHandler(nil)
         }
@@ -194,15 +194,15 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         }
     }
 
-    private func dnsVia(tunnel: Bool) {
+    private func dnsVia(mode: TunnelMode) {
         guard let dnsHandle = dnsHandle else { return }
-        dns_via(dnsHandle, tunnel)
+        dns_via(dnsHandle, mode)
     }
 
     private func setupDNS(dnsName: String, dnsIps: String, dnsPath: String) {
         self.dnsHandle = new_dns(
             "127.0.0.1:53", self.blocklist(), self.allowlist(),
-            dnsIps, 443, dnsName, HTTPS
+            dnsIps, dnsName, dnsPath
         )
         if self.dnsHandle == nil {
             fatalError("could not start DNS")
@@ -243,7 +243,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
     }
 
     private func disconnectVPN() {
-        dnsVia(tunnel: false)
+        dnsVia(mode: DefaultInterface)
         self.device.stop()
         self.networkMonitor?.cancel()
         self.networkMonitor = nil

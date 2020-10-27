@@ -46,6 +46,11 @@ log = "0.4"
 rustls = { version = "0.17", optional = true }
 tokio = { version = "0.2", features = ["rt-core", "rt-threaded", "time", "macros", "tcp", "blocking", "sync"] }
 tokio-io-timeout = "0.4"
+hyper = "0.13"
+hyper-tls = "0.4"
+tower-service = "0.3"
+futures-util = "0.3"
+native-tls = { version = "^0.2", features = ["vendored"] }
 trust-dns-client= { version = "0.20" }
 trust-dns-proto = { version = "0.20" }
 trust-dns-rustls = { version = "0.20", optional = true }
@@ -53,6 +58,8 @@ trust-dns-server = { version = "0.20" }
 trust-dns-resolver = { version = "0.20" }
 socket2 = { git = "https://github.com/balboah/socket2-rs.git", branch = "feature/set_bound_interface", features = ["all"] }
 async-trait = "0.1"
+doh-dns = "0.2"
+lazy_static = "1.4"
 util = { path = "../util" }
 
 [dev-dependencies]

@@ -15,5 +15,7 @@ trust-dns-resolver = { git = "https://github.com/bluejekyll/trust-dns.git", rev 
 trust-dns-rustls = { git = "https://github.com/bluejekyll/trust-dns.git", rev = "fb5716cf" }
 trust-dns-server = { git = "https://github.com/bluejekyll/trust-dns.git", rev = "fb5716cf" }
 
+doh-dns = { git = "https://github.com/balboah/doh-dns.git" }
+
 [profile.dev]
 opt-level = 1

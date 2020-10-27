@@ -1,4 +1,5 @@
 pub mod authority;
+mod connector;
 pub mod ffi;
 mod network;
 pub mod runtime;

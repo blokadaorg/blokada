@@ -154,7 +154,7 @@ impl ForwardLookup {
         resolver: Arc<Resolver>,
         blocker: Arc<Mutex<T>>,
     ) -> Result<ForwardLookup, LookupError> {
-        match resolver.lookup(name, rtype, Default::default()).await {
+        match resolver.lookup(name, rtype).await {
             Ok(records) => {
                 // Block CNAME cloaking
                 let cnames = records
@@ -178,19 +178,27 @@ impl ForwardLookup {
                     _ => Ok(ForwardLookup(records)),
                 }
             }
-            Err(e) => {
-                match e.kind() {
-                    &ResolveErrorKind::NoRecordsFound {
-                        query: _,
-                        valid_until: _,
-                    } => debug!("lookup failed: not found"),
-                    &ResolveErrorKind::Proto(ref err) => debug!("lookup failed: {}", err),
-                    &ResolveErrorKind::Timeout => info!("lookup failed: timed out"),
-                    _ => error!("lookup failed: {:?}", e),
+            Err(e) => match e.kind() {
+                &ResolveErrorKind::NoRecordsFound {
+                    query: _,
+                    valid_until: _,
+                } => {
+                    debug!("return NXDomain");
+                    Err(LookupError::ResponseCode(ResponseCode::NXDomain))
                 }
-
-                Err(e.into())
-            }
+                &ResolveErrorKind::Proto(ref err) => {
+                    debug!("lookup failed: {}", err);
+                    Err(e.into())
+                }
+                &ResolveErrorKind::Timeout => {
+                    info!("lookup failed: timed out");
+                    Err(e.into())
+                }
+                _ => {
+                    error!("lookup failed: {:?}", e);
+                    Err(e.into())
+                }
+            },
         }
     }
 }
