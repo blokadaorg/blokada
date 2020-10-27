@@ -26,10 +26,8 @@ class BlockaDnsJNI {
         external fun create_new_dns(
             listen_addr: String,
             dns_ips: String,
-            dns_port: Char,
             dns_name: String,
-            dns_path: String,
-            use_doh: Boolean
+            dns_path: String
         ): Long
 
         external fun dns_close(
