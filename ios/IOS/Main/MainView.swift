@@ -65,7 +65,7 @@ struct MainView: View {
                                 .foregroundColor(.primary)
                                 .frame(width: 32, height: 32, alignment: .center)
                                 .padding(8)
-                                .padding(.top, 24)
+                                .padding(.top, 28)
                                 .onTapGesture {
                                     self.showHelpActions = true
                                 }
