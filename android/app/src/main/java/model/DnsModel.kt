@@ -34,7 +34,7 @@ data class Dns(
     val name: String?,
     val path: String?,
     val label : String,
-    val plaintext: Boolean = true
+    val canUseInPlaintext: Boolean = true
 ) {
     companion object {
         fun plaintextDns(

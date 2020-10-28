@@ -102,7 +102,7 @@ object DnsDataSource {
             name = "dns.digitale-gesellschaft.ch",
             path = "dns-query",
             label = "Digitale Gesellschaft (Switzerland)",
-            plaintext = false
+            canUseInPlaintext = false
         ),
         Dns(
             id = "google",
@@ -162,13 +162,16 @@ object DnsDataSource {
             id = "verisign",
             ips = listOf("64.6.64.6", "64.6.65.6"),
             label = "Verisign Public DNS"
-        ),
+        )
     )
 
-    val blocka = Dns.plaintextDns(
+    val blocka = Dns(
         id = "blocka",
-        ips = listOf("10.96.0.100", "10.96.0.101"),
-        label = "Blokada DNS (beta: BLOKADA+ only)"
+        ips = listOf("193.180.80.100"),
+        label = "Blokada DNS (beta: BLOKADA+ only)",
+        port = 443,
+        name = "dns.blokada.org",
+        path = "dns-query"
     )
 
 }

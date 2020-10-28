@@ -22,7 +22,6 @@
 package ui.advanced.encryption
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.*
 import model.Dns
@@ -97,7 +96,7 @@ class SettingsEncryptionFragment : PreferenceFragmentCompat() {
             when {
                 //useDoh && dns.isDnsOverHttps() -> true
                 useDoh-> true // Show all when DoH enabled, we can fallback to plaintext
-                !useDoh && dns.plaintext -> true
+                !useDoh && dns.canUseInPlaintext -> true
                 else -> false
             }
         }
