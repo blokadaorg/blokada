@@ -76,6 +76,7 @@ class PlusButton : FrameLayout {
 
     var onNoLocation = {}
 
+    var onClick = { }
     var onActivated = { activated: Boolean -> }
 
     constructor(context: Context) : super(context) {
@@ -104,7 +105,11 @@ class PlusButton : FrameLayout {
         LayoutInflater.from(context).inflate(R.layout.plusbutton, this, true)
 
         switch.setOnClickListener {
-            if (location != null) {
+            if (!isEnabled) {
+                // Set it back to what it was since the switch should be disabled
+                switch.isChecked = !switch.isChecked
+                Unit
+            } else if (location != null) {
                 if (switch.isChecked) {
                     onActivated(true)
                     refreshBackground(true)
@@ -125,7 +130,8 @@ class PlusButton : FrameLayout {
         }
 
         plusButtonBg.setOnClickListener {
-            callOnClick()
+            if (!isEnabled) Unit
+            else onClick()
         }
 
         translationY = 280f

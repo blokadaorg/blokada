@@ -171,7 +171,7 @@ class HomeFragment : Fragment() {
             plusButton.animate = plusButtonReady
             plusButtonReady = true // Hacky
 
-            plusButton.setOnClickListener {
+            plusButton.onClick = {
                 if (account.isActive()) showLocationSheet()
                 else showPlusSheet()
             }
