@@ -66,6 +66,8 @@
 "universal action news" = "Novidades";
 "universal action delete" = "Excluir";
 "universal action hide" = "Ocultar";
+"universal action select" = "Selecionar";
+"universal action selected" = "Selecionado";
 
 "universal label help" = "Ajuda";
 "universal label welcome" = "Bem-vindo!";
@@ -300,17 +302,24 @@
 "payment success desc" = "Sua conta agora está ativa! Agora você pode usar todos os recursos do Blokada Plus em todos os seus dispositivos.";
 
 "payment ongoing desc" = "Seu pagamento está sendo processado agora. No caso do PayPal, pode demorar até 24 horas. Outros métodos de pagamento não devem demorar mais que uma hora. Se você acha que está demorando muito, por favor, entre em contato conosco.";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
 "payment change method" = "Alterar";
 "payment action pay" = "Pagar %@";
 "payment action pay period" = "Pagar %@ por período";
 "payment label email" = "E-mail";
 "payment crypto desc" = "Para pagar com sua carteira de criptomoedas, toque no botão abaixo.";
+"payment label choose package" = "Escolha o seu pacote";
+"payment label choose payment method" = "Escolha o seu método de pagamento";
+"payment label cheapest" = "Mais barato";
+"payment label most popular" = "Mais popular";
 "payment label pay with card" = "Pagar com cartão";
-"payment label pay with paypal" = "Pagar com PayPal";
+"payment label pay with paypal" = "Pagar com o PayPal";
 "payment label pay with crypto" = "Pagar com criptomoeda";
 "payment package one month" = "1 Mês";
 "payment package six months" = "6 Meses";
 "payment package twelve months" = "12 Meses";
+"payment label discount" = "Economize %@ (%@ / mês)";
 
 "apps section header" = "Apps";
 "apps label installed" = "Instalado";
@@ -342,6 +351,7 @@
 "app settings use dns over https" = "Usar DNS sobre HTTPS";
 "app settings backup" = "Usar backup na nuvem";
 "app settings section advanced" = "Avançado";
+"app settings section use foreground" = "Manter ativo";
 
 "intro header" = "O Blokada está Ativo!";
 "intro text" = "Um anel azul significa que o Blokada está funcionando.\n\nLembre-se, alguns anúncios, como o YouTube, não podem ser bloqueados. No entanto, você notará uma diferença em muitos outros aplicativos.\n\nRecomendamos que você ative VPN Sempre ativa / Conectar sob Demanda nas suas configurações do sistema.";

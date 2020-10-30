@@ -337,6 +337,7 @@
 "app settings use dns over https" = "Utiliser le DNS sur HTTPS";
 "app settings backup" = "Sauvegarder sur le Cloud";
 "app settings section advanced" = "Avancé";
+"app settings section use foreground" = "Garder actif";
 
 "intro header" = "Blokada est actif";
 "intro text" = "Un anneau bleu signifie que Blokada est actif.\n\nRappelez-vous que certaines publicités, comme celles de YouTube, ne peuvent être bloquées. Toutefois, vous verrez la différence dans la majorité des autres applications.\n\nNous vous recommandons d'activer \"VPN toujours actif\" / \"Connexion à la demande\" dans vos paramètres système.";

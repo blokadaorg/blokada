@@ -33,6 +33,7 @@
 "error vpn expired" = "VPN-ul este dezactivat. Vă rugăm să vă actualizezi abonamentul pentru a continua să folosiți BLOKADA+";
 "error payment inactive after restore" = "Plata dvs. anterioară a fost restituită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.";
 "error payment failed" = "Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
+"error payment failed alternative" = "Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
 "error payment not available" = "Plățile nu sunt disponibile pentru acest dispozitiv. Fie Apple Pay nu este activat, fie nu ne ocupăm încă de achizițiile din țara dvs.";
 "error payment canceled" = "Plata a fost anulată. Nu ați fost taxat.";
 "error pack install" = "Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.";
@@ -65,6 +66,8 @@
 "universal action news" = "Ştiri";
 "universal action delete" = "Ştergere";
 "universal action hide" = "Ascunde";
+"universal action select" = "Selectați";
+"universal action selected" = "Selectat";
 
 "universal label help" = "Ajutor";
 "universal label welcome" = "Bine aţi venit!";
@@ -85,6 +88,7 @@
 "notification update header" = "Este disponibilă o actualizare";
 "alert update body" = "Blokada %@ este acum disponibilă pentru descărcare. Vă recomandăm să păstrați aplicația la zi și să o descărcați doar din sursele noastre oficiale.";
 "update label updated" = "Actualizat!";
+"update desc updated" = "Acum folosești cea mai nouă versiune Blokada! Amintește-ți, donarea sau abonarea către Blokada Plus ne permite să continuăm să îmbunătățim aplicația.";
 "update downloading description" = "Actualizarea este în curs de descărcare și în scurt timp ar trebui să vedeți prompt-ul de instalare.";
 
 "account active forever" = "Pentru totdeauna";
@@ -203,6 +207,8 @@
 "account action tap to show" = "Atingeți pentru a afișa";
 "account action restoring" = "Recuperare cont: %@";
 "account label enter to continue" = "Introduceți ID-ul contului dvs. pentru a continua";
+"account restore description" = "Nu-ți face griji, dacă ți-ai pierdut sau ai uitat ID-ul de cont, îl putem recupera. Te rugăm să contactezi asistența noastră și să ne furnizezi informații care ne vor permite să identificăm achiziția ta (de ex. ultimele 4 cifre ale cardului de credit sau e-mailul PayPal).";
+"account create description" = "Acesta este ID-ul contului tău. Ar trebui să îl notezi, deoarece este singurul mod în care poți avea acces la abonamentul tău. De asemenea, nu-l împărtășiți cu nimeni, astfel contul tău nu va fi furat.";
 "account create confirm" = "Cunosc ID-ul contului meu";
 
 "account section header my subscription" = "Abonamentul meu";
@@ -227,6 +233,7 @@
 "account subscription days remaining" = "Zile rămase: %@";
 "account devices remaining" = "Nr. dispozitive rămase: %@";
 "account devices not available" = "Indisponibil";
+"account devices out of" = "%@ din %@";
 
 "account encrypt level low" = "Scăzut";
 "account encrypt level medium" = "Mediu";
@@ -293,16 +300,25 @@
 
 "payment success label" = "Mulţumim!";
 "payment success desc" = "Contul dvs. este acum activ! Acum puteți folosi toate funcțiile Blokada Plus pe toate dispozitivele dvs.";
+
+"payment ongoing desc" = "Plata este acum în curs de procesare. În cazul PayPal, poate dura până la 24 de ore. Alte metode de plată nu ar trebui să dureze mai mult de o oră. Dacă simţi că durează prea mult, te rugăm să ne contactezi.";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
 "payment change method" = "Modifică";
 "payment action pay" = "Plătește %@";
 "payment action pay period" = "Plătiți%@ € în fiecare perioadă";
 "payment label email" = "E-mail";
+"payment label choose package" = "Alegeţi pachetul";
+"payment label choose payment method" = "Alege metoda de plată";
+"payment label cheapest" = "Cel mai ieftin";
+"payment label most popular" = "Cele mai populare";
 "payment label pay with card" = "Plătiți cu cardul";
 "payment label pay with paypal" = "Plătiți prin PayPal";
 "payment label pay with crypto" = "Plătiți cu criptomonede";
 "payment package one month" = "1 Lună";
 "payment package six months" = "6 Luni";
 "payment package twelve months" = "12 Luni";
+"payment label discount" = "Salvează %@ (%@ / lună)";
 
 "apps section header" = "Aplicații";
 "apps label installed" = "Instalat";
@@ -334,6 +350,7 @@
 "app settings use dns over https" = "Utilizați DNS prin HTTPS";
 "app settings backup" = "Folosește copia de rezervă din cloud";
 "app settings section advanced" = "Avansat";
+"app settings section use foreground" = "Păstrează activ";
 
 "intro header" = "Blokada este Activ!";
 "intro text" = "Un inel albastru înseamnă că Blokada funcționează.\n\nRețineți că unele reclame, precum YouTube, nu pot fi blocate. Cu toate acestea, veţi observa o diferenţă în multe alte aplicaţii.\n\nVă recomandăm să activați opțiunea Mereu pe VPN / Conectare la cerere în setările sistemului dvs.";
