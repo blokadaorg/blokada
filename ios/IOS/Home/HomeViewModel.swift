@@ -101,6 +101,8 @@ class HomeViewModel: ObservableObject {
 
     @Published var selectedGateway: Gateway? = nil
 
+    @Published var useBlockaDnsInPlusMode: Bool = true
+
     var hasSelectedLocation : Bool {
         return selectedGateway != nil
     }
@@ -546,7 +548,7 @@ class HomeViewModel: ObservableObject {
 
                Config.shared.setVpnEnabled(false)
                Config.shared.clearLease()
-               self.network.updateConfig(lease: nil, gateway: nil, done: { _, _ in })
+               self.network.updateConfig(lease: nil, gateway: nil, useBlockaDnsInPlusMode: Config.shared.useBlockaDnsInPlusMode(), done: { _, _ in })
 
                self.network.queryStatus { error, status in onMain {
                    guard let status = status else {
@@ -583,6 +585,7 @@ class HomeViewModel: ObservableObject {
         }
 
         self.vpnEnabled = Config.shared.vpnEnabled()
+        self.useBlockaDnsInPlusMode = Config.shared.useBlockaDnsInPlusMode()
     }
 
     private func syncUiWithTunnel(done: @escaping Callback<NetworkStatus>) {
@@ -703,6 +706,13 @@ class HomeViewModel: ObservableObject {
         if self.timerSeconds != 0 {
             self.timerSeconds = 0
             self.network.pause(seconds: 0, done: { _, _ in })
+        }
+    }
+
+    func toggleUseBlockaDnsInPlusMode() {
+        onBackground {
+            Config.shared.setUseBlockaDnsInPlusMode(!self.useBlockaDnsInPlusMode)
+            VpnService.shared.restartTunnel { _, _ in }
         }
     }
 

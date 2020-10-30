@@ -13,6 +13,8 @@ import Foundation
 internal enum L10n {
   /// About
   internal static let accountActionAbout = L10n.tr("Ui", "account action about")
+  /// Generate new account
+  internal static let accountActionCreate = L10n.tr("Ui", "account action create")
   /// Devices
   internal static let accountActionDevices = L10n.tr("Ui", "account action devices")
   /// Encryption
@@ -21,12 +23,16 @@ internal enum L10n {
   internal static let accountActionHowToRestore = L10n.tr("Ui", "account action how to restore")
   /// Inbox
   internal static let accountActionInbox = L10n.tr("Ui", "account action inbox")
-  /// Logout / Restore account
+  /// Restore purchase
   internal static let accountActionLogout = L10n.tr("Ui", "account action logout")
+  /// Log out
+  internal static let accountActionLogoutOnly = L10n.tr("Ui", "account action logout only")
   /// Manage subscription
   internal static let accountActionManageSubscription = L10n.tr("Ui", "account action manage subscription")
   /// My account
   internal static let accountActionMyAccount = L10n.tr("Ui", "account action my account")
+  /// New device
+  internal static let accountActionNewDevice = L10n.tr("Ui", "account action new device")
   /// Restoring account: %@
   internal static func accountActionRestoring(_ p1: String) -> String {
     return L10n.tr("Ui", "account action restoring", p1)
@@ -37,6 +43,22 @@ internal enum L10n {
   internal static let accountActionWhyUpgrade = L10n.tr("Ui", "account action why upgrade")
   /// Forever
   internal static let accountActiveForever = L10n.tr("Ui", "account active forever")
+  /// Active forever
+  internal static let accountActiveForeverFull = L10n.tr("Ui", "account active forever full")
+  /// I know my account ID
+  internal static let accountCreateConfirm = L10n.tr("Ui", "account create confirm")
+  /// This is your account ID. You should write it down, as it is the only way for you to get access to your subscription. Also, do not share it with anyone, so your account won't get stolen.
+  internal static let accountCreateDescription = L10n.tr("Ui", "account create description")
+  /// Not available
+  internal static let accountDevicesNotAvailable = L10n.tr("Ui", "account devices not available")
+  /// %@ out of %@
+  internal static func accountDevicesOutOf(_ p1: String, _ p2: String) -> String {
+    return L10n.tr("Ui", "account devices out of", p1, p2)
+  }
+  /// Devices remaining: %@
+  internal static func accountDevicesRemaining(_ p1: String) -> String {
+    return L10n.tr("Ui", "account devices remaining", p1)
+  }
   /// Turn on BLOKADA
   internal static let accountEncryptActionTurnOn = L10n.tr("Ui", "account encrypt action turn on")
   /// What is DNS?
@@ -63,32 +85,58 @@ internal enum L10n {
   internal static let accountEncryptLabelLevelLow = L10n.tr("Ui", "account encrypt label level low")
   /// Medium: Encrypting DNS
   internal static let accountEncryptLabelLevelMedium = L10n.tr("Ui", "account encrypt label level medium")
+  /// Use Blokada DNS in Plus mode
+  internal static let accountEncryptLabelUseBlockaDns = L10n.tr("Ui", "account encrypt label use blocka dns")
   /// High
   internal static let accountEncryptLevelHigh = L10n.tr("Ui", "account encrypt level high")
   /// Low
   internal static let accountEncryptLevelLow = L10n.tr("Ui", "account encrypt level low")
   /// Medium
   internal static let accountEncryptLevelMedium = L10n.tr("Ui", "account encrypt level medium")
+  /// Blokada DNS
+  internal static let accountEncryptSectionBlockaDns = L10n.tr("Ui", "account encrypt section blocka dns")
   /// Encryption
   internal static let accountEncryptSectionHeader = L10n.tr("Ui", "account encrypt section header")
-  /// Log out
+  /// Restore purchase
   internal static let accountHeaderLogout = L10n.tr("Ui", "account header logout")
   /// (unchanged)
   internal static let accountIdStatusUnchanged = L10n.tr("Ui", "account id status unchanged")
   /// Active until
   internal static let accountLabelActiveUntil = L10n.tr("Ui", "account label active until")
+  /// Enter your account ID to continue
+  internal static let accountLabelEnterToContinue = L10n.tr("Ui", "account label enter to continue")
   /// Account ID
   internal static let accountLabelId = L10n.tr("Ui", "account label id")
   /// Account type
   internal static let accountLabelType = L10n.tr("Ui", "account label type")
+  /// Choose a DNS
+  internal static let accountLeaseActionDns = L10n.tr("Ui", "account lease action dns")
+  /// Download Config
+  internal static let accountLeaseActionDownload = L10n.tr("Ui", "account lease action download")
+  /// Generate Config
+  internal static let accountLeaseActionGenerate = L10n.tr("Ui", "account lease action generate")
+  /// Device added! Download the configuration to use it on any device supported by Wireguard.
+  internal static let accountLeaseGenerated = L10n.tr("Ui", "account lease generated")
   /// Devices
   internal static let accountLeaseLabelDevices = L10n.tr("Ui", "account lease label devices")
   /// These devices are connected to your account.
   internal static let accountLeaseLabelDevicesList = L10n.tr("Ui", "account lease label devices list")
+  /// DNS
+  internal static let accountLeaseLabelDns = L10n.tr("Ui", "account lease label dns")
+  /// Location
+  internal static let accountLeaseLabelLocation = L10n.tr("Ui", "account lease label location")
+  /// Name of device
+  internal static let accountLeaseLabelName = L10n.tr("Ui", "account lease label name")
+  /// Public Key
+  internal static let accountLeaseLabelPublicKey = L10n.tr("Ui", "account lease label public key")
   ///  (this device)
   internal static let accountLeaseLabelThisDevice = L10n.tr("Ui", "account lease label this device")
+  /// Blokada uses Wireguard. Configurations can be downloaded when creating new devices.
+  internal static let accountLeaseWireguardDesc = L10n.tr("Ui", "account lease wireguard desc")
   /// Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one).
   internal static let accountLogoutDescription = L10n.tr("Ui", "account logout description")
+  /// Don't worry, if you lost or forgot your account ID, we can recover it. Please contact our support, and provide us information that will allow us to identify your purchase (eg. last 4 digits of your credit card, or PayPal email).
+  internal static let accountRestoreDescription = L10n.tr("Ui", "account restore description")
   /// General
   internal static let accountSectionHeaderGeneral = L10n.tr("Ui", "account section header general")
   /// My Subscription
@@ -107,6 +155,16 @@ internal enum L10n {
   }
   /// Your BLOKADA Libre account is active until forever.
   internal static let accountStatusTextLibre = L10n.tr("Ui", "account status text libre")
+  /// Days remaining: %@
+  internal static func accountSubscriptionDaysRemaining(_ p1: String) -> String {
+    return L10n.tr("Ui", "account subscription days remaining", p1)
+  }
+  /// Payment method
+  internal static let accountSubscriptionHeaderPaymentMethod = L10n.tr("Ui", "account subscription header payment method")
+  /// Renew automatically
+  internal static let accountSubscriptionHeaderRenew = L10n.tr("Ui", "account subscription header renew")
+  /// Your payment method does not support auto renew.
+  internal static let accountSubscriptionRenewUnsupported = L10n.tr("Ui", "account subscription renew unsupported")
   /// How can we help you?
   internal static let accountSupportActionHowHelp = L10n.tr("Ui", "account support action how help")
   /// Open Knowledge Base
@@ -225,6 +283,8 @@ internal enum L10n {
   internal static let appSettingsSectionHeader = L10n.tr("Ui", "app settings section header")
   /// System
   internal static let appSettingsSectionSystem = L10n.tr("Ui", "app settings section system")
+  /// Keep alive
+  internal static let appSettingsSectionUseForeground = L10n.tr("Ui", "app settings section use foreground")
   /// Start on boot
   internal static let appSettingsStartOnBoot = L10n.tr("Ui", "app settings start on boot")
   /// System default
@@ -259,6 +319,8 @@ internal enum L10n {
   internal static let errorAccountInactive = L10n.tr("Ui", "error account inactive")
   /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.
   internal static let errorAccountInactiveAfterRestore = L10n.tr("Ui", "error account inactive after restore")
+  /// This account ID seems invalid.
+  internal static let errorAccountInvalid = L10n.tr("Ui", "error account invalid")
   /// Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.
   internal static let errorBlockaDnsInFilteringMode = L10n.tr("Ui", "error blocka dns in filtering mode")
   /// Could not create a new account. Please try again later.
@@ -275,6 +337,8 @@ internal enum L10n {
   internal static let errorPaymentCanceled = L10n.tr("Ui", "error payment canceled")
   /// Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.
   internal static let errorPaymentFailed = L10n.tr("Ui", "error payment failed")
+  /// Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.
+  internal static let errorPaymentFailedAlternative = L10n.tr("Ui", "error payment failed alternative")
   /// Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.
   internal static let errorPaymentInactiveAfterRestore = L10n.tr("Ui", "error payment inactive after restore")
   /// Payments are unavailable for this device. Either Apple Pay is not activated, or we do not handle purchases in your country yet.
@@ -333,6 +397,48 @@ internal enum L10n {
   internal static let homeStatusDetailProgress = L10n.tr("Ui", "home status detail progress")
   /// PAUSED
   internal static let homeStatusPaused = L10n.tr("Ui", "home status paused")
+  /// Learn more about Blokada Plus
+  internal static let homepageAboutActionPlus = L10n.tr("Ui", "homepage about action plus")
+  /// If you want to efficiently block ads, trackers, malware, save on your data plan, speed up your device and protect your privacy with just one application, then Blokada is for you. It is free, secure and open source.
+  internal static let homepageAboutDesc = L10n.tr("Ui", "homepage about desc")
+  /// Let's stay in touch!
+  internal static let homepageAboutFooter = L10n.tr("Ui", "homepage about footer")
+  /// Built in VPN for better protection
+  internal static let homepageAboutPointFour = L10n.tr("Ui", "homepage about point four")
+  /// Blocks ads & trackers
+  internal static let homepageAboutPointOne = L10n.tr("Ui", "homepage about point one")
+  /// Requires no root or jailbreak
+  internal static let homepageAboutPointThree = L10n.tr("Ui", "homepage about point three")
+  /// Works for all apps and the browser
+  internal static let homepageAboutPointTwo = L10n.tr("Ui", "homepage about point two")
+  /// Blokada 5, the ad blocker
+  internal static let homepageAboutTitle = L10n.tr("Ui", "homepage about title")
+  /// Authors
+  internal static let homepageActionAuthors = L10n.tr("Ui", "homepage action authors")
+  /// Dashboard
+  internal static let homepageActionDashboard = L10n.tr("Ui", "homepage action dashboard")
+  /// Forums
+  internal static let homepageActionForums = L10n.tr("Ui", "homepage action forums")
+  /// Source
+  internal static let homepageActionSource = L10n.tr("Ui", "homepage action source")
+  /// Join our awesome community.
+  internal static let homepageDescCommunity = L10n.tr("Ui", "homepage desc community")
+  /// Download Blokada for your platform.
+  internal static let homepageDescDownload = L10n.tr("Ui", "homepage desc download")
+  /// Donate to help us continue the project.
+  internal static let homepageDescSupport = L10n.tr("Ui", "homepage desc support")
+  /// Learn the basic information about the app.
+  internal static let homepageDescWhatIsBlokada = L10n.tr("Ui", "homepage desc what is blokada")
+  /// Support us
+  internal static let homepageHeaderSupport = L10n.tr("Ui", "homepage header support")
+  /// What is Blokada?
+  internal static let homepageHeaderWhatIsBlokada = L10n.tr("Ui", "homepage header what is blokada")
+  /// Blokada is the popular ad blocker and privacy app for Android and iOS. It's being supported and actively developed by the amazing open source community.
+  internal static let homepageHeroDesc = L10n.tr("Ui", "homepage hero desc")
+  /// free and open source
+  internal static let homepageHeroSubtitle = L10n.tr("Ui", "homepage hero subtitle")
+  /// The privacy app
+  internal static let homepageHeroTitle = L10n.tr("Ui", "homepage hero title")
   /// Blokada is Active!
   internal static let introHeader = L10n.tr("Ui", "intro header")
   /// A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.
@@ -369,6 +475,8 @@ internal enum L10n {
   internal static let mainTabHome = L10n.tr("Ui", "main tab home")
   /// Settings
   internal static let mainTabSettings = L10n.tr("Ui", "main tab settings")
+  /// Swipe the notification left or right for settings.
+  internal static let notificationDescSettings = L10n.tr("Ui", "notification desc settings")
   /// An update is available
   internal static let notificationUpdateHeader = L10n.tr("Ui", "notification update header")
   /// Please update your subscription to continue using BLOKADA+
@@ -405,6 +513,14 @@ internal enum L10n {
   internal static let packTagsNone = L10n.tr("Ui", "pack tags none")
   /// Choose a location
   internal static let paymentActionChooseLocation = L10n.tr("Ui", "payment action choose location")
+  /// Pay %@
+  internal static func paymentActionPay(_ p1: String) -> String {
+    return L10n.tr("Ui", "payment action pay", p1)
+  }
+  /// Pay %@ each period
+  internal static func paymentActionPayPeriod(_ p1: String) -> String {
+    return L10n.tr("Ui", "payment action pay period", p1)
+  }
   /// Privacy Policy
   internal static let paymentActionPolicy = L10n.tr("Ui", "payment action policy")
   /// Restore Purchases
@@ -419,6 +535,10 @@ internal enum L10n {
   internal static let paymentActivatedDescription = L10n.tr("Ui", "payment activated description")
   /// A message from App Store
   internal static let paymentAlertErrorHeader = L10n.tr("Ui", "payment alert error header")
+  /// Change
+  internal static let paymentChangeMethod = L10n.tr("Ui", "payment change method")
+  /// To pay with your cryptocurrency wallet, tap the button below.
+  internal static let paymentCryptoDesc = L10n.tr("Ui", "payment crypto desc")
   /// Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.
   internal static let paymentFeatureDescChangeLocation = L10n.tr("Ui", "payment feature desc change location")
   /// Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.
@@ -445,6 +565,40 @@ internal enum L10n {
   internal static let paymentFeatureTitleSupport = L10n.tr("Ui", "payment feature title support")
   /// Activated!
   internal static let paymentHeaderActivated = L10n.tr("Ui", "payment header activated")
+  /// Cheapest
+  internal static let paymentLabelCheapest = L10n.tr("Ui", "payment label cheapest")
+  /// Choose your package
+  internal static let paymentLabelChoosePackage = L10n.tr("Ui", "payment label choose package")
+  /// Choose your payment method
+  internal static let paymentLabelChoosePaymentMethod = L10n.tr("Ui", "payment label choose payment method")
+  /// Country
+  internal static let paymentLabelCountry = L10n.tr("Ui", "payment label country")
+  /// Save %@ (%@ / mo)
+  internal static func paymentLabelDiscount(_ p1: String, _ p2: String) -> String {
+    return L10n.tr("Ui", "payment label discount", p1, p2)
+  }
+  /// Email
+  internal static let paymentLabelEmail = L10n.tr("Ui", "payment label email")
+  /// Most popular
+  internal static let paymentLabelMostPopular = L10n.tr("Ui", "payment label most popular")
+  /// Pay with card
+  internal static let paymentLabelPayWithCard = L10n.tr("Ui", "payment label pay with card")
+  /// Pay with cryptocurrency
+  internal static let paymentLabelPayWithCrypto = L10n.tr("Ui", "payment label pay with crypto")
+  /// Pay with PayPal
+  internal static let paymentLabelPayWithPaypal = L10n.tr("Ui", "payment label pay with paypal")
+  /// Your payment is now being processed. In case of PayPal, it may take up to 24 hours. Other payment methods shouldn't take more than an hour. If you feel like it is taking too long, please contact us.
+  internal static let paymentOngoingDesc = L10n.tr("Ui", "payment ongoing desc")
+  /// 1 Month
+  internal static let paymentPackageOneMonth = L10n.tr("Ui", "payment package one month")
+  /// 6 Months
+  internal static let paymentPackageSixMonths = L10n.tr("Ui", "payment package six months")
+  /// 12 Months
+  internal static let paymentPackageTwelveMonths = L10n.tr("Ui", "payment package twelve months")
+  /// Apple Pay
+  internal static let paymentPayAppleShort = L10n.tr("Ui", "payment pay apple short")
+  /// Google Pay
+  internal static let paymentPayGoogleShort = L10n.tr("Ui", "payment pay google short")
   /// 1 Month
   internal static let paymentSubscription1Month = L10n.tr("Ui", "payment subscription 1 month")
   /// %@ Months
@@ -459,6 +613,10 @@ internal enum L10n {
   internal static func paymentSubscriptionPerMonth(_ p1: String) -> String {
     return L10n.tr("Ui", "payment subscription per month", p1)
   }
+  /// Your account is now active! You may now use all Blokada Plus features on all your devices.
+  internal static let paymentSuccessDesc = L10n.tr("Ui", "payment success desc")
+  /// Thanks!
+  internal static let paymentSuccessLabel = L10n.tr("Ui", "payment success label")
   /// Upgrade to our VPN service to stay in control of *your privacy*.
   internal static let paymentTitle = L10n.tr("Ui", "payment title")
   /// Cancel
@@ -473,6 +631,8 @@ internal enum L10n {
   internal static let universalActionContinue = L10n.tr("Ui", "universal action continue")
   /// Copy
   internal static let universalActionCopy = L10n.tr("Ui", "universal action copy")
+  /// Delete
+  internal static let universalActionDelete = L10n.tr("Ui", "universal action delete")
   /// Donate
   internal static let universalActionDonate = L10n.tr("Ui", "universal action donate")
   /// Done
@@ -481,16 +641,24 @@ internal enum L10n {
   internal static let universalActionDownload = L10n.tr("Ui", "universal action download")
   /// Help
   internal static let universalActionHelp = L10n.tr("Ui", "universal action help")
+  /// Hide
+  internal static let universalActionHide = L10n.tr("Ui", "universal action hide")
   /// Learn more
   internal static let universalActionLearnMore = L10n.tr("Ui", "universal action learn more")
   /// More
   internal static let universalActionMore = L10n.tr("Ui", "universal action more")
+  /// News
+  internal static let universalActionNews = L10n.tr("Ui", "universal action news")
   /// No
   internal static let universalActionNo = L10n.tr("Ui", "universal action no")
   /// Open in browser
   internal static let universalActionOpenInBrowser = L10n.tr("Ui", "universal action open in browser")
   /// Save
   internal static let universalActionSave = L10n.tr("Ui", "universal action save")
+  /// Select
+  internal static let universalActionSelect = L10n.tr("Ui", "universal action select")
+  /// Selected
+  internal static let universalActionSelected = L10n.tr("Ui", "universal action selected")
   /// Share log
   internal static let universalActionShareLog = L10n.tr("Ui", "universal action share log")
   /// Logs
@@ -501,16 +669,24 @@ internal enum L10n {
   internal static let universalActionTryAgain = L10n.tr("Ui", "universal action try again")
   /// Upgrade to BLOKADA+
   internal static let universalActionUpgrade = L10n.tr("Ui", "universal action upgrade")
+  /// Upgrade
+  internal static let universalActionUpgradeShort = L10n.tr("Ui", "universal action upgrade short")
   /// Yes
   internal static let universalActionYes = L10n.tr("Ui", "universal action yes")
   /// Help
   internal static let universalLabelHelp = L10n.tr("Ui", "universal label help")
+  /// Welcome!
+  internal static let universalLabelWelcome = L10n.tr("Ui", "universal label welcome")
   /// Copied to Clipboard
   internal static let universalStatusCopiedToClipboard = L10n.tr("Ui", "universal status copied to clipboard")
   /// Processing... Please wait.
   internal static let universalStatusProcessing = L10n.tr("Ui", "universal status processing")
+  /// Continue with the Blokada App
+  internal static let universalStatusRedirect = L10n.tr("Ui", "universal status redirect")
   /// Please restart the app for the changes to take effect.
   internal static let universalStatusRestartRequired = L10n.tr("Ui", "universal status restart required")
+  /// You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.
+  internal static let updateDescUpdated = L10n.tr("Ui", "update desc updated")
   /// The update is now downloading, and you should see the installation prompt shortly.
   internal static let updateDownloadingDescription = L10n.tr("Ui", "update downloading description")
   /// Updated!

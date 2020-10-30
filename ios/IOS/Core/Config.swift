@@ -170,6 +170,10 @@ class Config {
         return localStorage.bool(forKey: "notFirstRun")
     }
 
+    func useBlockaDnsInPlusMode() -> Bool {
+        return localStorage.object(forKey: "useBlockaDnsInPlusMode") as? Bool ?? true
+    }
+
     /**
             Thread safe setters
      */
@@ -252,6 +256,16 @@ class Config {
 
     func markFirstRun() {
         localStorage.set(true, forKey: "notFirstRun")
+    }
+
+    func setUseBlockaDnsInPlusMode(_ enabled: Bool) {
+        if enabled != useBlockaDnsInPlusMode() {
+            localStorage.set(enabled, forKey: "useBlockaDnsInPlusMode")
+
+            onMain {
+                self.onConfigUpdated()
+            }
+        }
     }
 
     /**

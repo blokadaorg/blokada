@@ -85,9 +85,15 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
 
         self.apiHandle = api_new(10, config["userAgent"] as! String)
 
-        self.setupDNS(dnsName: config["dnsName"] as! String, dnsIps: config["dnsIps"] as! String, dnsPath: config["dnsPath"] as! String)
+        let isPlusMode = config["mode"] as? String == "plus"
+        if isPlusMode && config["useBlockaDnsInPlusMode"] as? Bool == true {
+            NELogger.v("PacketTunnelProvider: using Blokada DNS in Plus Mode")
+            self.setupDNS(dnsName: "dns.blokada.org", dnsIps: "193.180.80.100", dnsPath: "dns-query")
+        } else {
+            self.setupDNS(dnsName: config["dnsName"] as! String, dnsIps: config["dnsIps"] as! String, dnsPath: config["dnsPath"] as! String)
+        }
 
-        if config["mode"] as? String == "plus" {
+        if isPlusMode {
             tunnelConfig = TunnelConfig(
                 privateKey: config["privateKey"] as! String,
                 gatewayId: config["gatewayId"] as! String,

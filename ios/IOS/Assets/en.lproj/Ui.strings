@@ -252,6 +252,8 @@
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "What is DNS?";
 "account encrypt section header" = "Encryption";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "Use Blokada DNS in Plus mode";
 
 "account lease label devices list" = "These devices are connected to your account.";
 "account lease label devices" = "Devices";

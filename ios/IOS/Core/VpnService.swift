@@ -36,7 +36,7 @@ class VpnService {
     func changeGateway(lease: Lease, gateway: Gateway, done: @escaping Callback<String>) {
         onBackground {
             self.network.queryStatus { error, status in
-                self.network.updateConfig(lease: lease, gateway: gateway) { _, _ in
+                self.network.updateConfig(lease: lease, gateway: gateway, useBlockaDnsInPlusMode: Config.shared.useBlockaDnsInPlusMode()) { _, _ in
                     if status?.active ?? false {
                         self.network.changeGateway(lease: lease, gateway: gateway, done: done)
                     } else {
@@ -49,7 +49,7 @@ class VpnService {
 
     func disconnect(done: @escaping Callback<String>) {
         onBackground {
-            self.network.updateConfig(lease: nil, gateway: nil) { _, _ in
+            self.network.updateConfig(lease: nil, gateway: nil, useBlockaDnsInPlusMode: Config.shared.useBlockaDnsInPlusMode()) { _, _ in
                 self.network.disconnect(done: done)
             }
         }
@@ -69,7 +69,7 @@ class VpnService {
 
                 if status.active {
                     self.network.stopTunnel { error, _ in
-                        self.network.updateConfig(lease: nil, gateway: nil) { error, _ in
+                        self.network.updateConfig(lease: nil, gateway: nil, useBlockaDnsInPlusMode: Config.shared.useBlockaDnsInPlusMode()) { error, _ in
                             onMain {
                                 done(error, nil)
                             }
@@ -85,7 +85,7 @@ class VpnService {
     func restartTunnel(done: @escaping Callback<Void>) {
        onBackground {
            self.network.queryStatus { error, status in
-                self.network.updateConfig(lease: Config.shared.lease(), gateway: Config.shared.gateway()) { _, _ in
+            self.network.updateConfig(lease: Config.shared.lease(), gateway: Config.shared.gateway(), useBlockaDnsInPlusMode: Config.shared.useBlockaDnsInPlusMode()) { _, _ in
                     if status?.active ?? false {
                         self.log.v("Restarting tunnel")
                         self.network.stopTunnel { error, _ in

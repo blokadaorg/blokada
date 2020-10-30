@@ -65,6 +65,23 @@ struct EncryptionView: View {
                 }
             }
 
+            Section(header: Text(L10n.accountEncryptSectionBlockaDns)) {
+                if #available(iOS 14.0, *) {
+                    Toggle(L10n.accountEncryptLabelUseBlockaDns, isOn: self.$homeVM.useBlockaDnsInPlusMode)
+                        .padding(.trailing, 4)
+                        .onTapGesture {
+                            self.homeVM.toggleUseBlockaDnsInPlusMode()
+                        }
+                        .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
+                } else {
+                    Toggle(L10n.accountEncryptLabelUseBlockaDns, isOn: self.$homeVM.useBlockaDnsInPlusMode)
+                        .padding(.trailing, 4)
+                        .onTapGesture {
+                            self.homeVM.toggleUseBlockaDnsInPlusMode()
+                        }
+                }
+            }
+
             Section(header: Text(L10n.universalLabelHelp)) {
                 HStack {
                     Text(L10n.accountEncryptActionWhatIsDns)
