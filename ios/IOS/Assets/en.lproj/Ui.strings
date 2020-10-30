@@ -360,3 +360,25 @@
 "location region america" = "America";
 "location region europe" = "Europe";
 "location region asia" = "Asia";
+
+"homepage header what is blokada" = "What is Blokada?";
+"homepage desc what is blokada" = "Learn the basic information about the app.";
+"homepage desc download" = "Download Blokada for your platform.";
+"homepage desc community" = "Join our awesome community.";
+"homepage header support" = "Support us";
+"homepage desc support" = "Donate to help us continue the project.";
+"homepage action authors" = "Authors";
+"homepage action source" = "Source";
+"homepage action forums" = "Forums";
+"homepage action dashboard" = "Dashboard";
+"homepage about footer" = "Let's stay in touch!";
+"homepage hero title" = "The privacy app";
+"homepage hero subtitle" = "free and open source";
+"homepage hero desc" = "Blokada is the popular ad blocker and privacy app for Android and iOS. It's being supported and actively developed by the amazing open source community.";
+"homepage about title" = "Blokada 5, the ad blocker";
+"homepage about desc" = "If you want to efficiently block ads, trackers, malware, save on your data plan, speed up your device and protect your privacy with just one application, then Blokada is for you. It is free, secure and open source.";
+"homepage about point one" = "Blocks ads & trackers";
+"homepage about point two" = "Works for all apps and the browser";
+"homepage about point three" = "Requires no root or jailbreak";
+"homepage about point four" = "Built in VPN for better protection";
+"homepage about action plus" = "Learn more about Blokada Plus";

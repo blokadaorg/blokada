@@ -266,6 +266,7 @@
     <string name="payment_package_six_months">6 Months</string>
     <string name="payment_package_twelve_months">12 Months</string>
     <string name="payment_label_discount">Save %s (%s / mo)</string>
+    <string name="payment_label_country">Country</string>
     <string name="apps_section_header">Apps</string>
     <string name="apps_label_installed">Installed</string>
     <string name="apps_label_system">System</string>
@@ -300,4 +301,25 @@
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europe</string>
     <string name="location_region_asia">Asia</string>
+    <string name="homepage_header_what_is_blokada">What is Blokada?</string>
+    <string name="homepage_desc_what_is_blokada">Learn the basic information about the app.</string>
+    <string name="homepage_desc_download">Download Blokada for your platform.</string>
+    <string name="homepage_desc_community">Join our awesome community.</string>
+    <string name="homepage_header_support">Support us</string>
+    <string name="homepage_desc_support">Donate to help us continue the project.</string>
+    <string name="homepage_action_authors">Authors</string>
+    <string name="homepage_action_source">Source</string>
+    <string name="homepage_action_forums">Forums</string>
+    <string name="homepage_action_dashboard">Dashboard</string>
+    <string name="homepage_about_footer">Let\'s stay in touch!</string>
+    <string name="homepage_hero_title">The privacy app</string>
+    <string name="homepage_hero_subtitle">free and open source</string>
+    <string name="homepage_hero_desc">Blokada is the popular ad blocker and privacy app for Android and iOS. It\'s being supported and actively developed by the amazing open source community.</string>
+    <string name="homepage_about_title">Blokada 5, the ad blocker</string>
+    <string name="homepage_about_desc">If you want to efficiently block ads, trackers, malware, save on your data plan, speed up your device and protect your privacy with just one application, then Blokada is for you. It is free, secure and open source.</string>
+    <string name="homepage_about_point_one">Blocks ads &amp; trackers</string>
+    <string name="homepage_about_point_two">Works for all apps and the browser</string>
+    <string name="homepage_about_point_three">Requires no root or jailbreak</string>
+    <string name="homepage_about_point_four">Built in VPN for better protection</string>
+    <string name="homepage_about_action_plus">Learn more about Blokada Plus</string>
 </resources>
