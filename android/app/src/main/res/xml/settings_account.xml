@@ -25,48 +25,48 @@
 
     <PreferenceCategory
         app:key="account_general"
-        app:title="General">
+        app:title="@string/account_section_header_general">
 
         <Preference
             app:icon="@drawable/ic_baseline_account_circle_24"
             app:key="account_id"
-            app:summary="Tap to show"
-            app:title="Account ID" />
+            app:summary="@string/account_action_tap_to_show"
+            app:title="@string/account_label_id" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         app:key="account_subscription"
-        app:title="Subscription">
+        app:title="@string/account_section_header_subscription">
 
         <Preference
             app:enabled="false"
             app:key="account_subscription_type"
             app:summary="Libre"
-            app:title="Account Type" />
+            app:title="@string/account_label_type" />
 
         <Preference
             app:enabled="false"
             app:key="account_subscription_active"
-            app:summary="Forever"
-            app:title="Active Until" />
+            app:summary="@string/account_active_forever"
+            app:title="@string/account_label_active_until" />
 
         <Preference
             android:fragment="ui.web.WebFragment"
             app:icon="@drawable/ic_baseline_credit_card_24"
             app:key="account_subscription_manage"
-            app:title="Manage subscription" />
+            app:title="@string/account_action_manage_subscription" />
     </PreferenceCategory>
 
     <PreferenceCategory
         app:key="account_help"
-        app:title="Help">
+        app:title="@string/universal_label_help">
 
         <Preference
             android:fragment="ui.web.WebFragment"
             app:icon="@drawable/ic_baseline_help_outline_24"
             app:key="account_help_why"
-            app:title="Why should I upgrade?" />
+            app:title="@string/account_action_why_upgrade" />
 
     </PreferenceCategory>
 

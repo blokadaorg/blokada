@@ -205,6 +205,8 @@
     <string name="account_encrypt_label_dns">DNS</string>
     <string name="account_encrypt_action_what_is_dns">What is DNS?</string>
     <string name="account_encrypt_section_header">Encryption</string>
+    <string name="account_encrypt_section_blocka_dns">Blokada DNS</string>
+    <string name="account_encrypt_label_use_blocka_dns">Use Blokada DNS in Plus mode</string>
     <string name="account_lease_label_devices_list">These devices are connected to your account.</string>
     <string name="account_lease_label_devices">Devices</string>
     <string name="account_lease_label_this_device"> (this device)</string>
