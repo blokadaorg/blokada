@@ -43,7 +43,7 @@ class NetworkService {
         self.httpClient = api_new(10, BlockaApiService.userAgent())
     }
 
-    func updateConfig(lease: Lease?, gateway: Gateway?, useBlockaDnsInPlusMode: Bool, done: @escaping Callback<Void>) {
+    func updateConfig(lease: Lease?, gateway: Gateway?, done: @escaping Callback<Void>) {
         onBackground {
             self.getManager { error, manager in
                 onMain {
@@ -51,7 +51,7 @@ class NetworkService {
                         return done(error, nil)
                     }
 
-                    self.saveConfig(manager!, lease, gateway, useBlockaDnsInPlusMode) { error, _ in
+                    self.saveConfig(manager!, lease, gateway) { error, _ in
                         onMain {
                             return done(error, nil)
                         }
@@ -62,11 +62,10 @@ class NetworkService {
     }
 
     private func saveConfig(_ manager: NETunnelProviderManager, _ lease: Lease?, _ gateway: Gateway?,
-            _ useBlockaDnsInPlusMode: Bool,
             done: @escaping Callback<Void>) { onBackground {
         let dns = Dns.load()
 
-        self.log.v("saveConfig: gateway: \(gateway?.niceName()), dns: \(dns.label), useBlockaDnsInPlusMode: \(useBlockaDnsInPlusMode)")
+        self.log.v("saveConfig: gateway: \(gateway?.niceName()), dns: \(dns.label)")
 
         let protoConfig = NETunnelProviderProtocol()
         protoConfig.providerBundleIdentifier = "net.blocka.app.engine"
@@ -439,7 +438,7 @@ class NetworkService {
                     return onMain { done(error, nil) }
                 }
 
-                self.saveConfig(manager, nil, nil, true) { error, _ in
+                self.saveConfig(manager, nil, nil) { error, _ in
                     return onMain { done(error, nil) }
                 }
             }}

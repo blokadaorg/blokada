@@ -38,7 +38,7 @@ class NetworkService {
         pauseSeconds: 0
     ))
 
-    func updateConfig(lease: Lease?, gateway: Gateway?, useBlockaDnsInPlusMode: Bool, done: @escaping Callback<Void>) {
+    func updateConfig(lease: Lease?, gateway: Gateway?, done: @escaping Callback<Void>) {
         done(nil, nil)
     }
 
