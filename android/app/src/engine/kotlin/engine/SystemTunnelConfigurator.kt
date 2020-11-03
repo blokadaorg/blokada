@@ -49,7 +49,8 @@ object SystemTunnelConfigurator {
         }
 
         var index = 1
-        for (address in dns.ips.includeIpv6(false)) {
+        val ips = dns.plusIps ?: dns.ips
+        for (address in ips.includeIpv6(false)) {
             try {
                 log.v("Adding DNS server: $address")
                 tun.addMappedDnsServer(address, index++)
@@ -62,11 +63,6 @@ object SystemTunnelConfigurator {
         IPV4_PUBLIC_NETWORKS.forEach {
             val (ip, mask) = it.split("/")
             tun.addRoute(ip, mask.toInt())
-        }
-
-        if (dns == DnsDataSource.blocka) {
-            log.v("Adding route for Blocka DNS")
-            tun.addRoute("10.143.0.0", 24)
         }
 
         if (ipv6) {
@@ -91,10 +87,6 @@ object SystemTunnelConfigurator {
     }
 
     fun forLibre(tun: VpnService.Builder, dns: Dns, ipv6: Boolean) {
-        if (dns == DnsDataSource.blocka) {
-            throw BlockaDnsInFilteringMode()
-        }
-
         log.v("Configuring VPN for Libre mode")
 
         // TEST-NET IP range from RFC5735

@@ -36,9 +36,13 @@ object DnsMapperService {
     private var servers = emptyList<InetAddress>()
     private var useProxyDns = false
 
-    fun setDns(dns: Dns, doh: Boolean) {
-        log.v("Using DNS configuration (DoH: $doh): $dns")
+    fun setDns(dns: Dns, doh: Boolean, plusMode: Boolean = false) {
+        log.v("Using DNS configuration [DoH/PlusMode: $doh/$plusMode]: $dns")
         servers = dns.ips.ipv4().map { Inet4Address.getByName(it) }
+
+        if (plusMode && dns.plusIps != null) {
+            servers = dns.plusIps.ipv4().map { Inet4Address.getByName(it) }
+        }
 
         useProxyDns = false
         if (dns.isDnsOverHttps() && doh) {

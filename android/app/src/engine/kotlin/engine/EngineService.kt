@@ -145,8 +145,8 @@ object EngineService {
             }
             // Plus mode
             else -> {
-                val useDoh = useDoh(dnsForPlusMode)
-                dnsMapper.setDns(dnsForPlusMode, useDoh)
+                val useDoh = useDoh(dnsForPlusMode, plusMode = true)
+                dnsMapper.setDns(dnsForPlusMode, useDoh, plusMode = true)
                 if (useDoh) dnsService.startDnsProxy(dnsForPlusMode)
                 systemTunnel.onConfigureTunnel = { tun ->
                     val ipv6 = PersistenceService.load(LocalConfig::class).ipv6
@@ -171,7 +171,7 @@ object EngineService {
         if (config.gateway == null) throw BlokadaException("No gateway configured")
         status = TunnelStatus.inProgress()
         packetLoop.startPlusMode(
-            useDoh =useDoh(dnsForPlusMode), dnsForPlusMode,
+            useDoh = useDoh(dnsForPlusMode, plusMode = true), dnsForPlusMode,
             tunnelConfig = systemTunnel.getTunnelConfig(),
             privateKey = config.privateKey,
             gateway = config.gateway
@@ -228,7 +228,22 @@ object EngineService {
         systemTunnel.protectSocket(socket)
     }
 
-    private fun useDoh(dns: Dns): Boolean {
-        return dns.isDnsOverHttps() && PersistenceService.load(LocalConfig::class).useDnsOverHttps
+    private fun useDoh(dns: Dns, plusMode: Boolean = false): Boolean {
+        return when {
+            plusMode && dns.plusIps != null -> {
+                // If plusIps are set, they will point to a clear text DNS, because the plus mode
+                // VPN itself is encrypting everything, so there is no need to encrypt DNS.
+                log.w("Using clear text as DNS defines special IPs for plusMode")
+                false
+            }
+            dns.isDnsOverHttps() && !dns.canUseInCleartext -> {
+                // If DNS supports only DoH and no clear text, we are forced to use it
+                log.w("Forcing DoH as selected DNS does not support clear text")
+                true
+            }
+            else -> {
+                dns.isDnsOverHttps() && PersistenceService.load(LocalConfig::class).useDnsOverHttps
+            }
+        }
     }
 }

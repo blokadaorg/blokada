@@ -91,19 +91,22 @@ class SettingsEncryptionFragment : PreferenceFragmentCompat() {
     }
 
     private fun ListPreference.updateDnsList(entries: List<Pair<DnsId, Dns>>, useDoh: Boolean) {
-        val filteredEntries = entries.filter {
-            val dns = it.second
-            when {
-                //useDoh && dns.isDnsOverHttps() -> true
-                useDoh-> true // Show all when DoH enabled, we can fallback to plaintext
-                !useDoh && dns.canUseInPlaintext -> true
-                else -> false
-            }
-        }
+        val filteredEntries = entries
+//        val filteredEntries = entries.filter {
+//            val dns = it.second
+//            when {
+//                //useDoh && dns.isDnsOverHttps() -> true
+//                useDoh-> true // Show all when DoH enabled, we can fallback to cleartext
+//                !useDoh && dns.canUseInCleartext -> true
+//                else -> false
+//            }
+//        }
         this.entryValues = filteredEntries.map { it.first }.toTypedArray()
         this.entries = filteredEntries.map {
             it.second.label +
-            if (useDoh && it.second.isDnsOverHttps()) " [DoH]" else ""
+            if (useDoh && it.second.isDnsOverHttps()) " [DoH]"
+            else if (!it.second.canUseInCleartext) " [DoH]"
+            else ""
         }.toTypedArray()
     }
 

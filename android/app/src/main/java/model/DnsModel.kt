@@ -30,18 +30,19 @@ typealias DnsId = String
 data class Dns(
     val id: DnsId,
     val ips: List<DnsIp>,
+    val plusIps: List<DnsIp>? = null,
     val port: Int?,
     val name: String?,
     val path: String?,
     val label : String,
-    val canUseInPlaintext: Boolean = true
+    val canUseInCleartext: Boolean = true
 ) {
     companion object {
         fun plaintextDns(
             id: DnsId,
             ips: List<DnsIp>,
             label : String
-        ) = Dns(id, ips, null, null, null, label)
+        ) = Dns(id, ips, null, null, null, null, label)
     }
 }
 

@@ -73,6 +73,11 @@ class NetworkService {
         protoConfig.serverAddress = gateway == nil ? self.configurationFilteringOnly : gateway!.niceName()
         protoConfig.username = ""
 
+        var plusIps = dns.ips
+        if dns.plusIps != nil {
+            self.log.w("Using plusMode specific DNS IPs")
+            plusIps = dns.plusIps!
+        }
 
         if let l = lease, let g = gateway {
             protoConfig.providerConfiguration = [
@@ -86,15 +91,16 @@ class NetworkService {
                 "vip4": l.vip4,
                 "vip6": l.vip6,
                 "dnsIps": dns.ips.joined(separator: ","),
+                "plusDnsIps": plusIps.joined(separator: ","),
                 "dnsName": dns.name,
-                "dnsPath": dns.path,
-                "useBlockaDnsInPlusMode": useBlockaDnsInPlusMode
+                "dnsPath": dns.path
             ]
         } else {
             protoConfig.providerConfiguration = [
                 "mode": "libre",
                 "userAgent": BlockaApiService.userAgent(),
                 "dnsIps": dns.ips.joined(separator: ","),
+                "plusDnsIps": plusIps.joined(separator: ","),
                 "dnsName": dns.name,
                 "dnsPath": dns.path
             ]

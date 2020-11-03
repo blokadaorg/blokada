@@ -25,7 +25,28 @@ import model.Dns
 
 object DnsDataSource {
 
+    val blocka = Dns(
+        id = "blocka",
+        ips = listOf("193.180.80.1", "193.180.80.2"),
+        plusIps = listOf("193.180.80.100", "193.180.80.101"),
+        label = "Blokada DNS (beta)",
+        port = 443,
+        name = "dns.blokada.org",
+        path = "dns-query",
+        canUseInCleartext = false
+    )
+
+    val cloudflare = Dns(
+        id = "cloudflare",
+        ips = listOf("1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"),
+        port = 443,
+        name = "cloudflare-dns.com",
+        path = "dns-query",
+        label = "Cloudflare"
+    )
+
     fun getDns() = listOf(
+        blocka,
         Dns.plaintextDns(
             id = "adguard",
             ips = listOf("176.103.130.130", "176.103.130.131"),
@@ -57,14 +78,7 @@ object DnsDataSource {
             path = "dns-query",
             label = "Blah DNS (Japan)"
         ),
-        Dns(
-            id = "cloudflare",
-            ips = listOf("1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"),
-            port = 443,
-            name = "cloudflare-dns.com",
-            path = "dns-query",
-            label = "Cloudflare"
-        ),
+        cloudflare,
         Dns.plaintextDns(
             id = "cloudflare.malware",
             ips = listOf("1.1.1.2", "1.0.0.2", "2606:4700:4700::1112", "2606:4700:4700::1002"),
@@ -102,7 +116,7 @@ object DnsDataSource {
             name = "dns.digitale-gesellschaft.ch",
             path = "dns-query",
             label = "Digitale Gesellschaft (Switzerland)",
-            canUseInPlaintext = false
+            canUseInCleartext = false
         ),
         Dns(
             id = "google",
@@ -163,15 +177,6 @@ object DnsDataSource {
             ips = listOf("64.6.64.6", "64.6.65.6"),
             label = "Verisign Public DNS"
         )
-    )
-
-    val blocka = Dns(
-        id = "blocka",
-        ips = listOf("193.180.80.100"),
-        label = "Blokada DNS (beta: BLOKADA+ only)",
-        port = 443,
-        name = "dns.blokada.org",
-        path = "dns-query"
     )
 
 }

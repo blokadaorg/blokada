@@ -33,6 +33,13 @@ struct TunnelConfig {
     var vip6: String
 }
 
+struct DnsConfig {
+    var name: String
+    var path: String
+    var ips: String
+    var plusIps: String
+}
+
 enum PacketTunnelProviderError: String, Error {
     case couldNotStartBackend
     case couldNotDetermineFileDescriptor
@@ -55,6 +62,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
     private var networkMonitor: NWPathMonitor?
     private var currentGatewayStack: IPStack?
     private var pauseTimer: Timer?
+    private var dns: DnsConfig?
 
     deinit {
         networkMonitor?.cancel()
@@ -85,15 +93,16 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
 
         self.apiHandle = api_new(10, config["userAgent"] as! String)
 
-        let isPlusMode = config["mode"] as? String == "plus"
-        if isPlusMode && config["useBlockaDnsInPlusMode"] as? Bool == true {
-            NELogger.v("PacketTunnelProvider: using Blokada DNS in Plus Mode")
-            self.setupDNS(dnsName: "dns.blokada.org", dnsIps: "193.180.80.100", dnsPath: "dns-query")
-        } else {
-            self.setupDNS(dnsName: config["dnsName"] as! String, dnsIps: config["dnsIps"] as! String, dnsPath: config["dnsPath"] as! String)
-        }
+        self.dns = DnsConfig(
+            name: config["dnsName"] as! String,
+            path: config["dnsPath"] as! String,
+            ips: config["dnsIps"] as! String,
+            plusIps: config["plusDnsIps"] as? String ?? config["dnsIps"] as! String
+        )
 
-        if isPlusMode {
+        if config["mode"] as? String == "plus" {
+            self.setupDNS(plusMode: true)
+
             tunnelConfig = TunnelConfig(
                 privateKey: config["privateKey"] as! String,
                 gatewayId: config["gatewayId"] as! String,
@@ -104,6 +113,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
                 vip6: config["vip6"] as! String
             )
             return self.connectVPN(completionHandler: startTunnelCompletionHandler)
+        } else {
+            self.setupDNS(plusMode: false)
         }
 
         NELogger.v("PacketTunnelProvider: startTunnel: using black hole configuration")
@@ -121,6 +132,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
                 return
             }
             guard let config = self.tunnelConfig else { fatalError("connectVPN: no config") }
+
+            if self.shouldRestartDns() {
+                NELogger.w("PacketTunnelProvider: restarting DNS to use different IPs")
+                self.tearDownDNS()
+                self.setupDNS(plusMode: true)
+            }
 
             NELogger.v("PacketTunnelProvider: connecting to: \(self.tunnelConfig!.gatewayId)")
             self.device.stop()
@@ -205,14 +222,26 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         dns_via(dnsHandle, mode)
     }
 
-    private func setupDNS(dnsName: String, dnsIps: String, dnsPath: String) {
+    private func setupDNS(plusMode: Bool) {
+        let dns = self.dns!
+
+        var ips = dns.ips
+        if plusMode {
+            ips = dns.plusIps
+        }
+
+        NELogger.v("Using DNS: \(dns.name) (\(ips))")
         self.dnsHandle = new_dns(
             "127.0.0.1:53", self.blocklist(), self.allowlist(),
-            dnsIps, dnsName, dnsPath
+            ips, dns.name, dns.path
         )
         if self.dnsHandle == nil {
             fatalError("could not start DNS")
         }
+    }
+
+    private func shouldRestartDns() -> Bool {
+        return self.dns!.ips != self.dns!.plusIps
     }
 
     private func blocklist() -> String {
@@ -253,6 +282,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         self.device.stop()
         self.networkMonitor?.cancel()
         self.networkMonitor = nil
+        if (shouldRestartDns()) {
+            self.tearDownDNS()
+            self.setupDNS(plusMode: false)
+        }
         NELogger.v("PacketTunnelProvider: disconnectVPN done")
     }
 
