@@ -380,7 +380,7 @@
 "homepage about title" = "Blokada 5, the ad blocker";
 "homepage about desc" = "If you want to efficiently block ads, trackers, malware, save on your data plan, speed up your device and protect your privacy with just one application, then Blokada is for you. It is free, secure and open source.";
 "homepage about point one" = "Blocks ads & trackers";
-"homepage about point two" = "Works for all apps and the browser";
+"homepage about point two" = "Works for all apps and all browsers";
 "homepage about point three" = "Requires no root or jailbreak";
 "homepage about point four" = "Built in VPN for better protection";
 "homepage about action plus" = "Learn more about Blokada Plus";
@@ -400,7 +400,7 @@
 "homepage download action android five beta" = "Beta .apk";
 "homepage download desc android slim" = "Blokada Slim is a <b>lightweight version of the app</b>, and it only contains features allowed by the Google Play policy.";
 "homepage download action android slim" = "Open Google Play";
-"homepage download desc android four" = "We still maintain the older version of Blokada. It has more features, and works on older devices, and TVs.";
+"homepage download desc android four" = "We still maintain the older version of Blokada. It has more features, works on older devices, and TVs.";
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "Open F-Droid";
 
@@ -413,9 +413,9 @@
 
 "homepage support header" = "Support the project";
 "homepage support desc" = "If you like what we do, consider supporting us, so that we can continue developing new features and improvements. This way, Blokada can stay open source and free forever.";
-"homepage support cta header" = "Blokada is made by you";
+"homepage support cta header" = "Blokada is dependent on you";
 "homepage support cta desc" = "Blokada is an open source project, which means you can be sure it's always going to be free, safe to use, and without any hidden agenda. We believe this is the only right way to develop a privacy app you can trust.";
-"homepage support cta desc more" = "However, developing a quality app like Blokada requires a considerable amount of resources. This project exists thanks to the support of awesome people like you!.";
+"homepage support cta desc more" = "However, developing a quality app like Blokada requires a considerable amount of resources. This project exists thanks to the support of awesome people like you!";
 "homepage support cta action" = "Donate (card, Paypal)";
 "homepage support cta action alt" = "Donate (bank, crypto)";
 
