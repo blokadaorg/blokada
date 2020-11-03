@@ -252,6 +252,8 @@
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "O que é DNS?";
 "account encrypt section header" = "Criptografia";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "Use o Blokada DNS no modo Plus";
 
 "account lease label devices list" = "Estes dispositivos estão conectados à sua conta.";
 "account lease label devices" = "Dispositivos";
@@ -320,6 +322,7 @@
 "payment package six months" = "6 Meses";
 "payment package twelve months" = "12 Meses";
 "payment label discount" = "Economize %@ (%@ / mês)";
+"payment label country" = "País";
 
 "apps section header" = "Apps";
 "apps label installed" = "Instalado";
@@ -359,3 +362,28 @@
 "location region america" = "América";
 "location region europe" = "Europa";
 "location region asia" = "Ásia";
+
+"homepage header what is blokada" = "O que é o Blokada?";
+"homepage desc what is blokada" = "Obtenha informações básicas sobre o aplicativo.";
+"homepage desc download" = "Baixe o Blokada para sua plataforma.";
+"homepage desc community" = "Junte-se à nossa incrível comunidade.";
+"homepage header support" = "Apoie-nos";
+"homepage desc support" = "Doe para nos ajudar a continuar o projeto.";
+"homepage action authors" = "Autores";
+"homepage action source" = "Fonte";
+"homepage action forums" = "Fóruns";
+"homepage action dashboard" = "Painel de controle";
+"homepage about footer" = "Vamos ficar em contato!";
+"homepage hero title" = "O aplicativo de privacidade";
+"homepage hero subtitle" = "gratuito e de código-aberto";
+"homepage hero desc" = "O Blokada é o popular bloqueador de anúncios e aplicativo de privacidade para Android e iOS. Ele está sendo suportado e desenvolvido ativamente pela incrível comunidade de código aberto.";
+"homepage about title" = "Blokada 5, o bloqueador de anúncios";
+"homepage about desc" = "Se você quiser bloquear com eficiência anúncios, rastreadores, malware, economizar seu plano de dados, acelerar seu dispositivo e proteger sua privacidade com apenas um aplicativo, então o Blokada é para você. É de gratuito, seguro e de código aberto.";
+"homepage about point one" = "Bloqueia anúncios e rastreadores";
+"homepage about point two" = "Funciona para todos os aplicativos e o navegador";
+"homepage about point three" = "Não requer root ou jailbreak";
+"homepage about point four" = "VPN incorporada para uma melhor proteção";
+"homepage about action plus" = "Saiba mais sobre o Blokada Plus";
+
+"homepage download header" = "Baixe o Blokada";
+"homepage support cta header" = "O Blokada é feito por você";

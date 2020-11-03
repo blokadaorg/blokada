@@ -306,6 +306,7 @@
 "payment package one month" = "1 mois";
 "payment package six months" = "6 mois";
 "payment package twelve months" = "12 mois";
+"payment label country" = "Pays";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installé";
@@ -345,3 +346,32 @@
 "location region america" = "Amérique";
 "location region europe" = "Europe";
 "location region asia" = "Asie";
+"homepage action authors" = "Auteurs";
+"homepage action forums" = "Forums";
+"homepage hero subtitle" = "gratuit et open source";
+"homepage about action plus" = "En savoir plus sur Blokada Plus";
+
+"homepage download header" = "Télécharger Blokada";
+"homepage download subheader" = "Blokada est disponible sur plusieurs plateformes, sélectionnez la vôtre.";
+"homepage download option android five" = "Blokada 5 pour Android";
+"homepage download option android slim" = "Blokada 5 Slim pour Android";
+"homepage download option android four" = "Blokada 4 pour Android";
+"homepage download option ios" = "Blokada 5 pour iOS";
+"homepage download option other" = "Blokada pour d'autres plateformes";
+"homepage download action ios" = "Ouvrir l'App Store";
+"homepage download action android five" = ".apk Blokada 5";
+"homepage download action android five beta" = ".apk bêta";
+"homepage download action android slim" = "Ouvrir Google Play";
+"homepage download action android four" = ".apk Blokada 4";
+"homepage download action android four fdroid" = "Ouvrir F-Droid";
+
+"homepage community header" = "Communauté";
+"homepage community cta desc" = "Nous basons tout notre travail sur les commentaires de nos utilisateurs. Dites-nous ce que vous pensez, ce que nous devrions améliorer.";
+"homepage community cta action" = "Accéder aux forums";
+"homepage community opinions" = "Voici quelques avis de nos utilisateurs.";
+"homepage support cta header" = "Blokada est fait par vous";
+"homepage support cta action" = "Faire un don (carte bancaire, Paypal)";
+
+"homepage developer header" = "Vous-êtes un développeur";
+"homepage developer subheader" = "et vous souhaitez améliorer Blokada ?";
+"homepage developer action" = "Accéder au dépôt";
