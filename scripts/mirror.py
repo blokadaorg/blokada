@@ -198,6 +198,23 @@ def main(argv):
                     #     ]
                     # }
                 ]
+            },
+            {
+                "id": "blacklist",
+                "configs": [
+                    {
+                        "name": "adservers",
+                        "urls": [
+                            "https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt"
+                        ]
+                    },
+                    {
+                        "name": "facebook",
+                        "urls": [
+                            "https://raw.githubusercontent.com/anudeepND/blacklist/master/facebook.txt"
+                        ]
+                    }
+                ]
             }
         ]
     }

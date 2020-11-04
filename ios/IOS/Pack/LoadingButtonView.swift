@@ -35,10 +35,18 @@ struct LoadingButtonView: View {
             self.action()
         }) {
             ZStack(alignment: alignTrailing ? .trailing : .leading) {
-                Toggle("", isOn: .constant(self.isOn))
-                    .labelsHidden()
-                    .opacity(loading ? 0 : 1)
-                    .animation(.easeInOut)
+                if #available(iOS 14.0, *) {
+                    Toggle("", isOn: .constant(self.isOn))
+                        .labelsHidden()
+                        .opacity(loading ? 0 : 1)
+                        .animation(.easeInOut)
+                        .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
+                } else {
+                    Toggle("", isOn: .constant(self.isOn))
+                        .labelsHidden()
+                        .opacity(loading ? 0 : 1)
+                        .animation(.easeInOut)
+                }
 
                 SpinnerView()
                     .opacity(loading ? 1 : 0)

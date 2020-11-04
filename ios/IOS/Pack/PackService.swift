@@ -107,10 +107,22 @@ class PackService {
             configs: ["Standard"]
         )
             .changeStatus(config: "Standard")
-            .withSource(PackSource.new(url: "https://blokada.org/blocklists/ddgtrackerradar/standard/hosts.txt", applyFor: "Standard"))
+            .withSource(PackSource.new(url: "https://blokada.org/blocklists/ddgtrackerradar/standard/hosts.txt", applyFor: "Standard")),
+
+        Pack.mocked(id: "blacklist", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy"],
+            title: "Blacklist",
+            slugline: "Curated blocklist to block trackers and advertisements",
+            description: "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly.",
+            creditName: "anudeepND",
+            creditUrl: "https://github.com/anudeepND/blacklist",
+            configs: ["Adservers", "Facebook"]
+        )
+            .changeStatus(config: "Adservers")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/adservers/hosts.txt", applyFor: "Adservers"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/facebook/hosts.txt", applyFor: "Facebook"))
     ]
 
-    private let packsVersion = 12
+    private let packsVersion = 13
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false
