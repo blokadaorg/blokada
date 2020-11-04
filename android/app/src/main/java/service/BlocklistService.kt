@@ -32,7 +32,7 @@ import utils.Logger
 object BlocklistService {
 
     private const val DEFAULT_BLOCKLIST = "default_blocklist.zip"
-    private const val MERGED_BLOCKLIST = "merged_blocklist"
+    const val MERGED_BLOCKLIST = "merged_blocklist"
     const val USER_ALLOWED = "allowed"
     const val USER_DENIED = "denied"
 
