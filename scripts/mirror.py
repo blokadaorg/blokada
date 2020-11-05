@@ -151,7 +151,14 @@ def main(argv):
                         "urls": [
                             "https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Extension/GoodbyeAds-Xiaomi-Extension.txt"
                         ]
+                    },
+                    {
+                        "name": "spotify",
+                        "urls": [
+                            "https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Extension/GoodbyeAds-Spotify-AdBlock.txt"
+                        ]
                     }
+
                 ]
             },
             {

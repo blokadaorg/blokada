@@ -69,11 +69,12 @@ class PackService {
             description: "A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps.",
             creditName: "Jerryn70",
             creditUrl: "https://github.com/jerryn70/GoodbyeAds",
-            configs: ["Standard", "YouTube"]
+            configs: ["Standard", "YouTube", "Spotify"]
         )
             .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/standard/hosts.txt", applyFor: "Standard"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/youtube/hosts.txt", applyFor: "YouTube")),
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/youtube/hosts.txt", applyFor: "YouTube"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/spotify/hosts.txt", applyFor: "Spotify")),
 
         Pack.mocked(id: "adaway", tags: [Pack.official, "adblocking"],
                title: "AdAway",
@@ -122,7 +123,7 @@ class PackService {
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/facebook/hosts.txt", applyFor: "Facebook"))
     ]
 
-    private let packsVersion = 13
+    private let packsVersion = 14
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false

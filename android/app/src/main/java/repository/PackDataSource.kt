@@ -65,13 +65,14 @@ object PackDataSource {
             description = "A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps.",
             creditName = "Jerryn70",
             creditUrl = "https://github.com/jerryn70/GoodbyeAds",
-            configs = listOf("Standard", "YouTube", "Samsung", "Xiaomi")
+            configs = listOf("Standard", "YouTube", "Samsung", "Xiaomi", "Spotify")
         )
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/goodbyeads/standard/hosts.txt", applyFor = "Standard"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/goodbyeads/youtube/hosts.txt", applyFor = "YouTube"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/goodbyeads/samsung/hosts.txt", applyFor = "Samsung"))
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/goodbyeads/xiaomi/hosts.txt", applyFor = "Xiaomi")),
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/goodbyeads/xiaomi/hosts.txt", applyFor = "Xiaomi"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/goodbyeads/spotify/hosts.txt", applyFor = "Spotify")),
 
     Pack.mocked(id = "adaway", tags = listOf(Pack.official, "adblocking"),
             title = "AdAway",
