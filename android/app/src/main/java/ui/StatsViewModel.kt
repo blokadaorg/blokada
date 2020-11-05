@@ -107,9 +107,9 @@ class StatsViewModel : ViewModel() {
                 try {
                     val new = current.allow(name)
                     persistence.save(new)
-                    engine.reloadBlockLists()
                     _allowed.value = new
                     updateLiveData()
+                    engine.reloadBlockLists()
                 } catch (ex: Exception) {
                     log.e("Could not allow host $name".cause(ex))
                     persistence.save(current)
@@ -124,9 +124,9 @@ class StatsViewModel : ViewModel() {
                 try {
                     val new = current.unallow(name)
                     persistence.save(new)
-                    engine.reloadBlockLists()
                     _allowed.value = new
                     updateLiveData()
+                    engine.reloadBlockLists()
                 } catch (ex: Exception) {
                     log.e("Could not unallow host $name".cause(ex))
                     persistence.save(current)
@@ -141,9 +141,9 @@ class StatsViewModel : ViewModel() {
                 try {
                     val new = current.deny(name)
                     persistence.save(new)
-                    engine.reloadBlockLists()
                     _denied.value = new
                     updateLiveData()
+                    engine.reloadBlockLists()
                 } catch (ex: Exception) {
                     log.e("Could not deny host $name".cause(ex))
                     persistence.save(current)
@@ -158,9 +158,9 @@ class StatsViewModel : ViewModel() {
                 try {
                     val new = current.undeny(name)
                     persistence.save(new)
-                    engine.reloadBlockLists()
                     _denied.value = new
                     updateLiveData()
+                    engine.reloadBlockLists()
                 } catch (ex: Exception) {
                     log.e("Could not undeny host $name".cause(ex))
                     persistence.save(current)

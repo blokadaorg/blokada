@@ -69,7 +69,9 @@ class PacksViewModel : ViewModel() {
     fun getFilter() = filter
 
     fun changeConfig(pack: Pack, config: PackConfig) {
-        updatePack(pack.changeStatus(installed = false, config = config))
+        val updated = pack.changeStatus(installed = false, config = config)
+        updatePack(updated)
+        install(updated)
     }
 
     fun install(pack: Pack) {
