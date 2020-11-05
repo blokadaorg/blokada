@@ -60,6 +60,20 @@ struct LocationListView: View {
                 .opacity(!self.vm.items.isEmpty ? 1 : 0)
                 .frame(maxWidth: 500)
 
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text(L10n.errorUnknown)
+                            .padding(16)
+                            .multilineTextAlignment(.center)
+                        Spacer()
+                    }
+                    .padding(.top, 100)
+                    Spacer()
+                }
+                    .background(Color.cBackground)
+                    .opacity(self.vm.items.isEmpty ? 1.0 : 0.0)
+
                 ScrollView {
                     ZStack(alignment: .top) {
                         VStack {
@@ -94,10 +108,10 @@ struct LocationListView: View {
                             Spacer()
                         }
                     }
-                    .opacity(self.vm.items.isEmpty ? 0 : 1)
                     .frame(maxWidth: 500)
                 }
                 .background(Color.cBackground)
+                .opacity(self.vm.items.isEmpty ? 0 : 1)
                 .disabled(self.vm.items.isEmpty)
 
                 VStack {
@@ -111,8 +125,6 @@ struct LocationListView: View {
                 }
                 .background(Color.cBackground)
                 .opacity(self.showSpinner ? 1.0 : 0.0)
-                .transition(.opacity)
-                .animation(.easeInOut)
             }
 
             .navigationBarItems(trailing:

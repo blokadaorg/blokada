@@ -24,16 +24,23 @@ import SwiftUI
 struct SpinnerView: View {
 
     @State var spin = false
+    
+    var foreverAnimation: Animation {
+        Animation.linear(duration: 1.3)
+            .repeatForever(autoreverses: true)
+    }
 
     var body: some View {
         Circle()
             .trim(from: 0, to: 7/10)
             .stroke(Color(UIColor.systemGray4), lineWidth: 2)
             .rotationEffect(.degrees(self.spin ? 0 : -360), anchor: .center)
-            .animation(Animation.linear(duration: 1.3).repeatForever(autoreverses: false))
+            .opacity(0.4)
             .frame(width: 24, height: 24)
             .onAppear {
-                self.spin = true
+                withAnimation(foreverAnimation) {
+                    self.spin = true
+                }
             }
     }
 }
