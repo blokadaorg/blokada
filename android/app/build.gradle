@@ -89,13 +89,8 @@ android {
 
     productFlavors {
         full {
-            // full lands on blokada.org.
+            // full lands on blokada.org, and on Huawei App Gallery
             applicationId "org.blokada.origin.alarm"
-        }
-
-        community {
-            // community lands on F-Droid and XDA Labs.
-            applicationId "org.blokada.alarm"
         }
 
         google {
@@ -106,6 +101,16 @@ android {
         escaped {
             // escaped build can be installed on top of google build to get all features.
             applicationId "org.blokada.alarm.dnschanger"
+        }
+
+        droid {
+            // droid lands on F-Droid.
+            applicationId "org.blokada.fem.fdroid"
+        }
+
+        xda {
+            // xda lands on XDA Labs.
+            applicationId "org.blokada.fem.xda"
         }
     }
 
@@ -134,8 +139,11 @@ android {
         full.res.srcDirs += 'src/notgoogle/res'
         full.java.srcDirs += 'src/notgoogle/kotlin'
 
-        community.res.srcDirs += 'src/notgoogle/res'
-        community.java.srcDirs += 'src/notgoogle/kotlin'
+        droid.res.srcDirs += 'src/notgoogle/res'
+        droid.java.srcDirs += 'src/notgoogle/kotlin'
+
+        xda.res.srcDirs += 'src/notgoogle/res'
+        xda.java.srcDirs += 'src/notgoogle/kotlin'
 
         escaped.res.srcDirs += 'src/notgoogle/res'
         escaped.java.srcDirs += 'src/notgoogle/kotlin'
