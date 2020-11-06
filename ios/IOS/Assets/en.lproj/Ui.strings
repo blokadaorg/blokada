@@ -174,8 +174,11 @@
 "activity domain name" = "Full name";
 "activity time of occurrence" = "Time";
 "activity number of occurrences" = "Number of occurrences";
+// As in sentence, "this item has been modified"
 "activity state modified" = "modified";
+// As in sentence, "this host has been blocked"
 "activity state blocked" = "blocked";
+// As in sentence, "this host has been allowed"
 "activity state allowed" = "allowed";
 "activity happened one time" = "1 time";
 "activity happened many times" = "%@ times";
@@ -188,6 +191,13 @@
 "activity filter show blocked" = "Show blocked only";
 "activity filter show allowed" = "Show allowed only";
 "activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
+
+"userdenied section header" = "My blocklists";
+"userdenied section slugline" = "Manage blocking of particular websites";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "Allowed";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "Blocked";
 
 "account section header settings" = "Settings";
 "account status text" = "Your BLOKADA %@ account is active until %@.";

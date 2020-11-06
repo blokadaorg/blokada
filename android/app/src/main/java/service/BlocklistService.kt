@@ -44,19 +44,21 @@ object BlocklistService {
     suspend fun setup() {
         val destination = file.commonDir().file(MERGED_BLOCKLIST)
         if (!file.exists(destination)) {
-            log.w("Initiating default blocklist files")
-            val allowed = file.commonDir().file(USER_ALLOWED)
-            file.save(allowed, "")
-
-            val denied = file.commonDir().file(USER_DENIED)
-            file.save(denied, "")
-
+            log.w("Initiating default blocklist file")
             val default = file.commonDir().file(DEFAULT_BLOCKLIST)
             val asset = context.requireAppContext().assets.open(DEFAULT_BLOCKLIST)
             val decodedAsset = ZipService.decodeStream(asset, key = DEFAULT_BLOCKLIST)
             file.save(source = decodedAsset, destination = default)
             file.merge(listOf(default), destination)
             sanitize(destination)
+        }
+
+        val allowed = file.commonDir().file(USER_ALLOWED)
+        val denied = file.commonDir().file(USER_DENIED)
+        if (!file.exists(allowed) || !file.exists(denied)) {
+            log.w("Initiating empty user allowed and user denied lists")
+            file.save(allowed, "")
+            file.save(denied, "")
         }
     }
 

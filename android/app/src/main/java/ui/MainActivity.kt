@@ -138,6 +138,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 R.id.settingsAppFragment -> R.string.app_settings_section_header
                 R.id.leasesFragment -> R.string.account_action_devices
                 R.id.appsFragment -> R.string.apps_section_header
+                R.id.userDeniedFragment -> R.string.userdenied_section_header
                 else -> null
             }
             toolbar.title = translationId?.let {

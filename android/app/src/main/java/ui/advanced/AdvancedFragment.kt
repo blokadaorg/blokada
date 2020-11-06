@@ -68,12 +68,24 @@ class AdvancedFragment : Fragment() {
                     destination = AdvancedFragmentDirections.actionAdvancedFragmentToNavigationPacks()
                 )
             },
+
+            if (EnvironmentService.isSlim()) null
+            else {
+                Section(
+                    name = getString(R.string.userdenied_section_header),
+                    slugline = getString(R.string.userdenied_section_slugline),
+                    iconResId = R.drawable.ic_baseline_admin_panel_settings_24,
+                    destination = AdvancedFragmentDirections.actionAdvancedFragmentToUserDeniedFragment()
+                )
+            },
+
             Section(
                 name = getString(R.string.apps_section_header),
                 slugline = getString(R.string.advanced_section_slugline_apps),
                 iconResId = R.drawable.ic_baseline_apps_24,
                 destination = AdvancedFragmentDirections.actionAdvancedFragmentToAppsFragment()
             ),
+
             Section(
                 name = getString(R.string.account_action_encryption),
                 slugline = getString(R.string.advanced_section_slugline_encryption),

@@ -27,6 +27,7 @@ import model.*
 import repository.BlockaRepoRepository
 import repository.TranslationPack
 import ui.ActivationViewModel
+import utils.Logger
 import java.util.*
 import kotlin.reflect.KClass
 
@@ -185,20 +186,19 @@ object JsonSerializationService : SerializationService {
 }
 
 object NewlineSerializationService : SerializationService {
-
     override fun serialize(obj: Any): String {
-        when (obj) {
-            is Allowed -> return obj.value.joinToString(separator = "\n")
-            is Denied -> return obj.value.joinToString(separator = "\n")
+        return when (obj) {
+            is Allowed -> obj.value.joinToString(separator = "\n")
+            is Denied -> obj.value.joinToString(separator = "\n")
             else -> throw BlokadaException("Unsupported type for newline serialization: ${obj.javaClass}")
         }
     }
 
     override fun <T : Any> deserialize(serialized: Any, type: KClass<T>): T {
         serialized as String
-        when (type) {
-            Allowed::class -> return Allowed(value = serialized.split("\n")) as T
-            Denied::class -> return Denied(value = serialized.split("\n")) as T
+        return when (type) {
+            Allowed::class -> Allowed(value = serialized.split("\n").filter { it.isNotBlank() }) as T
+            Denied::class -> Denied(value = serialized.split("\n").filter { it.isNotBlank() }) as T
             else -> throw BlokadaException("Unsupported type for newline deserialization: $type")
         }
     }

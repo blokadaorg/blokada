@@ -57,10 +57,10 @@ class StatsViewModel : ViewModel() {
     }
 
     private val _allowed = MutableLiveData<Allowed>()
-    private val allowed = _allowed.map { it.value }
+    val allowed = _allowed.map { it.value }
 
     private val _denied = MutableLiveData<Denied>()
-    private val denied = _denied.map { it.value }
+    val denied = _denied.map { it.value }
 
     init {
         viewModelScope.launch {
@@ -73,6 +73,8 @@ class StatsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 _stats.value = statistics.getStats()
+                _allowed.value = _allowed.value
+                _denied.value = _denied.value
             } catch (ex: Exception) {
                 log.e("Could not load stats".cause(ex))
             }

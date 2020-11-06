@@ -41,7 +41,6 @@ import ui.StatsViewModel
 import ui.app
 import ui.settings.SettingsFragmentDirections
 import ui.utils.getColorFromAttr
-import utils.Links
 
 class StatsFragment : Fragment() {
 
