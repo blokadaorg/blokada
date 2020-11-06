@@ -13,7 +13,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">BlokadaがDNSモードで有効です。広告ブロックは無効になっています</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
-    <string name="home_requests_blocked_since">%s は %s からブロックされました</string>
+    <string name="home_requests_blocked_since">%s 個のリクエストをブロック（ %s 以降）</string>
     <string name="home_masterswitch_enabled">BlokadaがONです</string>
     <string name="home_masterswitch_waiting">ネットワーク接続の待機中...</string>
     <!-- A button to share the ads counter on social media -->
@@ -48,14 +48,14 @@
     <string name="menu_ads">広告</string>
     <string name="menu_ads_live_label">許可またはブロックされたリクエストのホストログ</string>
     <string name="menu_ads_clear_log">ホストログをクリア</string>
-    <string name="menu_ads_lists_label">ブロックに使用するリストを選択します。ほとんどの人はデフォルトで問題ありません。</string>
-    <string name="menu_ads_rules_label">ブロックを微調整し独自のルールを追加します。</string>
-    <string name="menu_ads_log_label">最近ブロックまたは許可されたものを参照してください。</string>
+    <string name="menu_ads_lists_label">ブロックに利用するリストを選択する</string>
+    <string name="menu_ads_rules_label">独自のルールを追加してブロック内容を微調整する</string>
+    <string name="menu_ads_log_label">最近ブロックまたは許可されたものを参照する</string>
     <!-- VPN section header in menu (for configuring VPN) -->
     <string name="menu_vpn">Blokada Plus</string>
     <string name="menu_vpn_activate_account">まずアカウントをアクティベートしてください。</string>
     <string name="menu_vpn_select_gateway">ゲートウェイを選択してください。</string>
-    <string name="menu_vpn_intro_button">なぜBlokada Plusが必要なのですか？</string>
+    <string name="menu_vpn_intro_button">Blokada Plusが必要な理由</string>
     <!-- A button opening VPN account settings -->
     <string name="menu_vpn_account">My Blokada Plus</string>
     <string name="menu_vpn_account_id">ID: %s</string>

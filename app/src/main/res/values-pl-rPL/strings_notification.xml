@@ -30,7 +30,7 @@
     <string name="notification_keepalive_deactivate">Wyłącz</string>
     <string name="notification_keepalive_deactivating">Blokada została wyłączona!</string>
     <string name="notification_expired_title">Blokada Plus jest wyłączona</string>
-    <string name="notification_expired_description">Twoje konto nie jest aktywne, a Blokada Plus jest wyłączony. Standardowe funkcje Blokady dobrze działają bez VPN Blokady Plus. Zastanów się jednak nad aktywacją konta, aby uzyskać lepszą ochronę i wsparcie projektu.</string>
+    <string name="notification_expired_description">Twoje konto nie jest aktywne, a Blokada Plus jest wyłączona. Standardowe funkcje Blokady dobrze działają bez VPN Blokady Plus. Zastanów się jednak nad aktywacją konta, aby uzyskać lepszą ochronę i wsparcie projektu.</string>
     <string name="notification_lease_expired_title">Blokada Plus jest wyłączona</string>
     <string name="notification_lease_expired_description">Wystąpił problem z połączeniem z Blokadą Plus. Spróbuj wybrać inną bramę. Jeśli problem będzie się powtarzał, skontaktuj się z nami.</string>
     <string name="notification_channel_filtered">Blokowanie reklam</string>

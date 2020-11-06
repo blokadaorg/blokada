@@ -24,4 +24,9 @@
     <string name="notification_keepalive_activating">Blokada를 시작하고 있습니다. 잠시만 기다려주세요.</string>
     <string name="notification_keepalive_deactivate">비활성화</string>
     <string name="notification_keepalive_deactivating">Blokada 비활성화됨!</string>
+    <string name="notification_expired_title">Blokada Plus가 비활성화되었습니다</string>
+    <string name="notification_lease_expired_title">Blokada Plus가 비활성화되었습니다</string>
+    <string name="notification_lease_expired_description">Blokada Plus와 장치 사이의 연결에 문제가 있었습니다. 다른 게이트웨이를 선택한 뒤 다시 시도해보세요. 만약 문제가 계속 발생할 경우, 우리에게 알려주세요.</string>
+    <string name="notification_channel_vpn">Blokada Plus</string>
+    <string name="notification_channel_other">기타</string>
 </resources>

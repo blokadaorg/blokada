@@ -32,6 +32,8 @@
     <string name="main_changelog">업데이트 내역</string>
     <!-- A menu option to open credits screen -->
     <string name="main_credits">개발진</string>
+    <string name="main_terms">이용 약관</string>
+    <string name="main_privacy">개인 정보 보호정책</string>
     <!-- An overlay header on top of Patron page -->
     <string name="main_log">로그 공유</string>
     <!-- To display a big number in short way, eg. 1.69 million -->

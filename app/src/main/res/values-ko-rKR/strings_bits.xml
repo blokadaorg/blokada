@@ -25,6 +25,7 @@
     <string name="home_update_required">업데이트 필요</string>
     <!-- A short text for the item that displays donate link -->
     <string name="home_donate">후원하기</string>
+    <string name="home_vpn_disabled">Blokada Plus가 비활성화되었습니다</string>
     <string name="home_account_active">계정 활성화됨</string>
     <string name="home_cleanup">정리 필요</string>
     <!-- A short text for the button to change VPN settings -->
@@ -35,6 +36,7 @@
     <string name="home_filters_memory_error">일부 목록을 불러오지 못할 수 있습니다. 광고 차단 설정에서 더 적은 목록을 선택하세요.</string>
     <!-- Ads section header in menu (for configuring ad blocking) -->
     <!-- VPN section header in menu (for configuring VPN) -->
+    <string name="menu_vpn">Blokada Plus</string>
     <string name="menu_vpn_activate_account">먼저 계정을 활성화하세요.</string>
     <string name="menu_vpn_select_gateway">게이트웨이를 선택하세요.</string>
     <!-- A button opening VPN account settings -->
@@ -46,6 +48,7 @@
     <string name="menu_vpn_manage_subscription">계정 구독 관리</string>
     <string name="menu_vpn_account_secret">아바타를 눌러 계정 ID를 보세요. 사용자의 ID는 사용자 혼자서 비밀로 기억해야 합니다. 앱 제거 시 다른 곳에 적어두세요.</string>
     <!-- A section of other settings in menu -->
+    <string name="menu_other">기타</string>
     <!-- A section of help, telegram, and other buttons in menu -->
     <string name="menu_learn_more">더 알아보기</string>
     <!-- A section informational content in menu -->

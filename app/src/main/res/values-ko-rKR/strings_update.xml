@@ -15,4 +15,7 @@
     <!-- A button that opens the changelog. -->
     <!-- A toast message displayed when the update process is starting. -->
     <string name="update_starting">시작중, &#8230; 을 기다려 주세요</string>
+    <string name="update_progress">다운로드 중: %s%%</string>
+    <string name="update_complete">다운로드 완료</string>
+    <string name="update_failed">다운로드 실패</string>
 </resources>

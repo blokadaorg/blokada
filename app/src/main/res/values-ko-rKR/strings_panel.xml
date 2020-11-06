@@ -7,15 +7,24 @@
     <string name="panel_section_home_help">도움</string>
     <!-- When a domain is allowed (not blocked) -->
     <!-- When a domain is blocked -->
+    <string name="panel_domain_blocked_toast">블랙리스트에 추가합니다.</string>
     <!-- Action to copy domain name to clipboard -->
+    <string name="panel_domain_copy">복사</string>
+    <string name="panel_domain_copied">클립보드에 복사됨</string>
     <!-- How many rules are configured. Parameters is number of rules. -->
+    <string name="panel_ruleset_updating">필터를 업데이트 하는 중...</string>
     <!-- Button to allow blocked domain -->
+    <string name="slot_action_allow">허용</string>
     <!-- Button to allow blocked cname -->
     <!-- Button to allow blocked domain that was blocked by a cname -->
     <!-- Button to block allowed domain -->
+    <string name="slot_action_close">닫기</string>
+    <string name="slot_action_remove">제거</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
+    <string name="slot_switch_on">네</string>
     <!-- A state for switches (like notifications: off) -->
+    <string name="slot_switch_off">아니오</string>
     <!-- An action to toggle a switch -->
     <!-- A state of input form when no input is entered (think: empty)  -->
     <!-- A state of input form when correct input is entered  -->
@@ -45,4 +54,5 @@
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
     <!-- A section in advanced settings. -->
+    <string name="slot_reset_counter_action">초기화</string>
 </resources>

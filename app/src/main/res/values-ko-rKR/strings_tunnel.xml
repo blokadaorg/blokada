@@ -13,4 +13,5 @@
     <string name="tunnel_config_refetch_frequency_4">한 달에 한 번</string>
     <string name="tunnel_config_wifi_only_title">Wi-Fi 에서 만 다운로드</string>
     <string name="tunnel_config_wifi_only_description">기기가 Wi-Fi에 연결된 경우에만 앱이 목록을 다운로드하도록하려면이 스위치를 활성화합니다. 그렇지 않으면 휴대 기기가 모바일 네트워크에 연결되어 있고 데이터 요금제를 사용하는 경우 앱에서 목록을 다운로드 할 수도 있습니다.</string>
+    <string name="tunnel_config_smartlist_reset_btn">초기화</string>
 </resources>

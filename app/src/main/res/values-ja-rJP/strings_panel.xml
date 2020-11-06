@@ -34,7 +34,7 @@
     <string name="panel_domain_copied">クリップボードにコピーされました</string>
     <string name="panel_ruleset">フィルターカウンター</string>
     <!-- How many rules are configured. Parameters is number of rules. -->
-    <string name="panel_ruleset_title">フィルターには %s 個のルールがあります。</string>
+    <string name="panel_ruleset_title">%s 個のルールを使用</string>
     <string name="panel_ruleset_updating">フィルターを更新しています...</string>
     <string name="panel_ruleset_canfit">フィルタは&lt;b&gt;%s&lt;/b&gt;のルールで構成されています。 お使いのデバイスでは、すべてのアプリケーションに最大&lt;b&gt;%s&lt;/b&gt;MBのメモリが許可されており、最大&lt;b&gt;%s&lt;/b&gt;のルールをデバイスに適用できます。&lt;br&gt;これは単なる推定値であり、Blokadaはリストをマージするときに最も多くのメモリを使用します。それらのいくつかを最近有効にした場合は、システムがメモリを解放するまで時間がかかる場合があります。</string>
     <!-- Button to allow blocked domain -->
@@ -53,8 +53,8 @@
     <!-- A state for switches (like notifications: off) -->
     <string name="slot_switch_off">No</string>
     <!-- An action to toggle a switch -->
-    <string name="slot_intro_new">新しい UI の使用方法：ここをタップして表示します。</string>
-    <string name="slot_intro_new_header">新しいUIの使い方は？</string>
+    <string name="slot_intro_new">タップして新しい UI の使用方法を表示</string>
+    <string name="slot_intro_new_header">新しいUIの使い方</string>
     <string name="slot_intro_desc">ここはホームセクションです。右にスワイプするとさらに多くのことができます。 それぞれの下部にメニューがあります - 上にスワイプして開きます。 &lt;br/&gt;&lt;br/&gt;Android TVでは、dpadでUIをナビゲートします。 中央キーを使用して、下部のメニューや選択した項目を開きます。 ボタンは、上下左右の4方向の矢印でマークされています - 方向キーを使用してボタンをクリックします。</string>
     <string name="slot_intro_info">一部のアイテムにはクエッションマークアイコンが付いています。 それをタップすると、このような短いヘルプメッセージが表示されます。</string>
     <string name="slot_new_filter">ブロックリストに新しいホストを追加</string>
@@ -89,7 +89,7 @@
     <string name="slot_allapp_whitelist">バイパス</string>
     <string name="slot_action_set">設定</string>
     <string name="slot_whitelist_all">すべてのアプリをバイパスする</string>
-    <string name="slot_blacklist_all">すべてのアプリをバイパスしない</string>
+    <string name="slot_blacklist_all">すべてのアプリをバイパス解除</string>
     <string name="slot_dns_name">DNSが有効です</string>
     <string name="slot_dns_name_private">カスタムDNSが有効です</string>
     <string name="slot_dns_name_disabled">DNSが無効になっています</string>
@@ -109,7 +109,7 @@
     <string name="slot_export_title">場所を設定</string>
     <string name="slot_export_description">構成が保存される場所を変更することができます(そして、そこからロードされます)。 既存の設定をインポートする場合は、先にインポートを選択してください。そうでない場合は上書きされます。</string>
     <string name="slot_action_import">インポート</string>
-    <string name="slot_action_internal">内部ストレージ</string>
+    <string name="slot_action_internal">アプリ内</string>
     <string name="slot_action_external">外部ストレージ</string>
     <string name="slot_filters_title">フィルターリスト</string>
     <string name="slot_filters_description">カスタム エントリを失うことなく、フィルターリストをサーバーと同期できます。 &lt;br/&gt;&lt;br/&gt;または、(あなたのものを含む) すべてのエントリをドロップして、もう一度ダウンロードすることもできます。</string>
@@ -169,7 +169,7 @@
     <!-- A button to open help -->
     <string name="slot_help_action">ヘルプ</string>
     <string name="slot_donate_label">Blokadaを楽しんでいますか？私たちをサポートすることを検討してください。アプリを改善し続けることができます。</string>
-    <string name="slot_donate_desc">新機能の紹介を手伝ってください！詳細はこちらをタップしてください。</string>
+    <string name="slot_donate_desc">新機能の開発を支援してください！詳細はこちらをタップしてください。</string>
     <!-- A button to donate -->
     <string name="slot_donate_action">寄付</string>
     <string name="slot_cta_label">あなたの意見をお聞かせください</string>
@@ -180,7 +180,7 @@
     <string name="slot_blog_desc">ブロックは、プロジェクトの開発、今後の計画、アイデアについて書く場所です。</string>
     <!-- A button to open a blog -->
     <string name="slot_blog_action">開く</string>
-    <string name="slot_updated_desc">このリリースの概要については、ここをタップしてください。</string>
+    <string name="slot_updated_desc">タップして今回のリリースの概要を確認</string>
     <!-- A button to open a description website of current app version after update. -->
     <string name="slot_obsolete_desc">ご使用のBlokadaのバージョンは最新ではないため、正しく機能しない可能性があります。 アップデートを導入するには、最新バージョンをダウンロードしてください。</string>
     <!-- A button to update the app. -->
@@ -203,7 +203,7 @@
     <string name="slot_too_many_leases">デバイスのリストから古いデバイスを削除してください。</string>
     <string name="slot_background_animation">バックグラウンドアニメーション</string>
     <string name="slot_background_animation_description">ONの場合、DNSリクエストがブロックまたは許可されるたびに波動アニメーションが表示されます。デバイスの動作に遅延が発生した場合はOFFにしてください。</string>
-    <string name="slot_reset_counter_label">ブロックされたホストのカウンターをリセット</string>
+    <string name="slot_reset_counter_label">カウンターをリセット</string>
     <string name="slot_reset_counter_description">ブロックされたリクエストの数を示すカウンターを0に戻します。</string>
     <string name="slot_reset_counter_action">リセット</string>
     <string name="label_workarounds">デバイス固有の回避策</string>

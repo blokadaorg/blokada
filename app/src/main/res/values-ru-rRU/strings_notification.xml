@@ -14,10 +14,10 @@
     <string name="notification_blocked_whitelist_applied">Готово! Изменения вступят в силу через несколько секунд.</string>
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
-    <string name="notification_keepalive_text">Активный режим</string>
+    <string name="notification_keepalive_text">Работать в фоне</string>
     <string name="notification_keepalive_description">Включите этот параметр, если у вас возникли проблемы с тем, чтобы приложение оставалось активным в фоновом режиме. Blokada включит постоянное уведомление, чтобы не дать системе его убить; вы можете скрыть его, выбрав пункт Уведомления выше и далее пункт Настройки.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
-    <string name="notification_keepalive_title_new">Сохранять включенным (нажмите, чтобы скрыть)</string>
+    <string name="notification_keepalive_title_new">Работать в фоне (нажмите, чтобы скрыть)</string>
     <string name="notification_keepalive_text_new">Android требует отображения уведомления, чтобы приложение продолжало работать, но вы можете отключить это в настройках системы.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d заблокировано</string>
