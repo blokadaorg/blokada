@@ -27,7 +27,7 @@ struct SpinnerView: View {
     
     var foreverAnimation: Animation {
         Animation.linear(duration: 1.3)
-            .repeatForever(autoreverses: true)
+            .repeatForever(autoreverses: false)
     }
 
     var body: some View {

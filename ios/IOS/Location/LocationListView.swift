@@ -25,10 +25,26 @@ struct LocationListView: View {
 
     @ObservedObject var vm = LocationListViewModel()
     @Binding var activeSheet: ActiveSheet?
-    @State var showSpinner = true
+
+    @State var showSpinner = false
+    var foreverAnimation: Animation {
+        Animation.linear(duration: 1.3)
+            .repeatForever(autoreverses: false)
+    }
 
     var body: some View {
-        return NavigationView {
+        return VStack {
+            HStack {
+                Spacer()
+                Text(L10n.universalActionCancel)
+                    .foregroundColor(Color.cAccent)
+                    .bold()
+                    .padding(16)
+                    .onTapGesture {
+                        self.activeSheet = nil
+                    }
+            }
+
             ZStack {
                 VStack {
                     HStack {
@@ -59,20 +75,6 @@ struct LocationListView: View {
                 }
                 .opacity(!self.vm.items.isEmpty ? 1 : 0)
                 .frame(maxWidth: 500)
-
-                VStack {
-                    HStack {
-                        Spacer()
-                        Text(L10n.errorUnknown)
-                            .padding(16)
-                            .multilineTextAlignment(.center)
-                        Spacer()
-                    }
-                    .padding(.top, 100)
-                    Spacer()
-                }
-                    .background(Color.cBackground)
-                    .opacity(self.vm.items.isEmpty ? 1.0 : 0.0)
 
                 ScrollView {
                     ZStack(alignment: .top) {
@@ -117,7 +119,18 @@ struct LocationListView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        SpinnerView()
+                        // Spinner
+                        Circle()
+                            .trim(from: 0, to: 7/10)
+                            .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                            .rotationEffect(.degrees(self.showSpinner ? 0 : -360), anchor: .center)
+                            .opacity(0.4)
+                            .frame(width: 24, height: 24)
+                            .onAppear {
+                                withAnimation(foreverAnimation) {
+                                    self.showSpinner = true
+                                }
+                            }
                         Spacer()
                     }
                     .padding(.top, 100)
@@ -126,18 +139,7 @@ struct LocationListView: View {
                 .background(Color.cBackground)
                 .opacity(self.showSpinner ? 1.0 : 0.0)
             }
-
-            .navigationBarItems(trailing:
-                Button(action: {
-                    self.activeSheet = nil
-                }) {
-                    Text(L10n.universalActionCancel)
-                }
-                .contentShape(Rectangle())
-            )
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(Color.cAccent)
         .onAppear {
             self.vm.loadGateways {
                 self.showSpinner = false
