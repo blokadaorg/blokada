@@ -140,8 +140,8 @@ class UserDeniedFragment : Fragment() {
         val empty: View = root.findViewById(R.id.activity_empty)
 
         vm.denied.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) empty.visibility = View.GONE
             if (!allowed) {
-                if (it.isNotEmpty()) empty.visibility = View.GONE
                 adapter.swapData(it.sorted())
                 lifecycleScope.launch {
                     delay(400) // Just Android things
@@ -151,8 +151,8 @@ class UserDeniedFragment : Fragment() {
         })
 
         vm.allowed.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) empty.visibility = View.GONE
             if (allowed) {
-                if (it.isNotEmpty()) empty.visibility = View.GONE
                 adapter.swapData(it.sorted())
                 lifecycleScope.launch {
                     delay(400) // Just Android things
