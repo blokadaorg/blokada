@@ -127,8 +127,11 @@
 "activity domain name" = "Teljes név";
 "activity time of occurrence" = "Idő";
 "activity number of occurrences" = "Események száma";
+// As in sentence, "this item has been modified"
 "activity state modified" = "módosítva";
+// As in sentence, "this host has been blocked"
 "activity state blocked" = "reklám szűrve";
+// As in sentence, "this host has been allowed"
 "activity state allowed" = "engedélyezve";
 "activity happened one time" = "1 alkalommal";
 "activity happened many times" = "%@ alkalommal";
@@ -216,4 +219,3 @@
 "homepage about action plus" = "Tudj meg többet a Blokada Plus-ról";
 
 "homepage download header" = "Blokada letöltése";
-"homepage support cta header" = "A Blokada veled készül";

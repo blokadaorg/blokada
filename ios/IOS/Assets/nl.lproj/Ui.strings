@@ -95,6 +95,7 @@
 "pack category active" = "Actief";
 
 "activity section header" = "Activiteit";
+// As in sentence, "this host has been blocked"
 "activity state blocked" = "geblokkeerd";
 
 "account section header settings" = "Instellingen";
@@ -133,4 +134,3 @@
 "homepage about action plus" = "Meer informatie over Blokada Plus";
 
 "homepage download header" = "Blokada downloaden";
-"homepage support cta header" = "Blokada wordt gemaakt door jou";

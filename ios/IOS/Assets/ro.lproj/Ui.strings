@@ -174,8 +174,11 @@
 "activity domain name" = "Denumirea completă";
 "activity time of occurrence" = "Oră";
 "activity number of occurrences" = "Numărul de apariții";
+// As in sentence, "this item has been modified"
 "activity state modified" = "modificat";
+// As in sentence, "this host has been blocked"
 "activity state blocked" = "blocat";
+// As in sentence, "this host has been allowed"
 "activity state allowed" = "permis";
 "activity happened one time" = "o dată";
 "activity happened many times" = "%@ ori";
@@ -252,6 +255,8 @@
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "Ce este DNS?";
 "account encrypt section header" = "Criptare";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "Folosiți Blokada DNS în modul Plus";
 
 "account lease label devices list" = "Aceste dispozitive sunt conectate la contul dvs.";
 "account lease label devices" = "Dispozitive";
@@ -319,6 +324,7 @@
 "payment package six months" = "6 Luni";
 "payment package twelve months" = "12 Luni";
 "payment label discount" = "Salvează %@ (%@ / lună)";
+"payment label country" = "Țara";
 
 "apps section header" = "Aplicații";
 "apps label installed" = "Instalat";
@@ -358,8 +364,40 @@
 "location region america" = "America";
 "location region europe" = "Europa";
 "location region asia" = "Asia";
+
+"homepage header what is blokada" = "Ce este Blokada?";
+"homepage desc what is blokada" = "Învață informațiile de bază despre aplicație.";
+"homepage desc download" = "Descarcă Blokada pentru platforma ta.";
+"homepage desc community" = "Alătură-te comunității noastre minunate.";
+"homepage header support" = "Susține-ne";
+"homepage desc support" = "Donează pentru a ne ajuta să continuăm proiectul.";
+"homepage action authors" = "Autori";
+"homepage action source" = "Sursă";
+"homepage action forums" = "Forum";
+"homepage about footer" = "Să stăm la curent!";
 "homepage hero subtitle" = "gratis și open source";
+"homepage about title" = "Blokada 5, ad blocker-ul";
+"homepage about point one" = "Blochează reclame și trackere";
+"homepage about point two" = "Funcționează pentru toate aplicațiile și toate browserele";
+"homepage about point three" = "Nu necesită acces root sau jailbreak";
 "homepage about action plus" = "Aflați mai multe despre Blokada Plus";
 
 "homepage download header" = "Descarcă Blokada";
-"homepage support cta header" = "Blokada este creat de tine";
+"homepage download option android five" = "Blokada 5 pentru Android";
+"homepage download option android slim" = "Blokada 5 Slim pentru Android";
+"homepage download option android four" = "Blokada 4 pentru Android";
+"homepage download option ios" = "Blokada 5 pentru iOS";
+"homepage download option other" = "Blokada pentru alte platforme";
+"homepage download action ios" = "Deschide App Store";
+"homepage download action android five" = "Blokada 5 .apk";
+"homepage download action android five beta" = "Beta .apk";
+"homepage download action android slim" = "Deschide Google Play";
+"homepage download action android four" = "Blokada 4 .apk";
+"homepage download action android four fdroid" = "Deschide F-Droid";
+
+"homepage community header" = "Comunitatea";
+"homepage community cta action" = "Spre forum";
+"homepage community opinions" = "Iată câteva dintre opiniile utilizatorilor noştri.";
+
+"homepage support header" = "Susţine acest proiect";
+"homepage support cta header" = "Blokada depinde de dvs.";

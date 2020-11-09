@@ -172,8 +172,11 @@
 "activity domain name" = "Nom complet";
 "activity time of occurrence" = "Heure";
 "activity number of occurrences" = "Nombre d'occurrences";
+// As in sentence, "this item has been modified"
 "activity state modified" = "modifié";
+// As in sentence, "this host has been blocked"
 "activity state blocked" = "élément bloqué";
+// As in sentence, "this host has been allowed"
 "activity state allowed" = "autorisé";
 "activity happened one time" = "1 fois";
 "activity happened many times" = "%@ fois";
@@ -185,6 +188,10 @@
 "activity filter show blocked" = "N'afficher que les éléments bloqués";
 "activity filter show allowed" = "N'afficher que les éléments autorisés";
 "activity empty text" = "Essayez d'utiliser votre appareil et revenez ici plus tard pour voir à quel endroit votre périphérique se connecte.";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "Autorisé";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "Bloqué";
 
 "account section header settings" = "Paramètres";
 "account status text" = "Votre compte BLOKADA %@ est actif jusqu'au %@.";
@@ -349,6 +356,7 @@
 "homepage action authors" = "Auteurs";
 "homepage action forums" = "Forums";
 "homepage hero subtitle" = "gratuit et open source";
+"homepage about point two" = "Fonctionne pour toutes les applications et tous les navigateurs web";
 "homepage about action plus" = "En savoir plus sur Blokada Plus";
 
 "homepage download header" = "Télécharger Blokada";
@@ -369,7 +377,7 @@
 "homepage community cta desc" = "Nous basons tout notre travail sur les commentaires de nos utilisateurs. Dites-nous ce que vous pensez, ce que nous devrions améliorer.";
 "homepage community cta action" = "Accéder aux forums";
 "homepage community opinions" = "Voici quelques avis de nos utilisateurs.";
-"homepage support cta header" = "Blokada est fait par vous";
+"homepage support cta header" = "Blokada compte sur vous";
 "homepage support cta action" = "Faire un don (carte bancaire, Paypal)";
 
 "homepage developer header" = "Vous-êtes un développeur";
