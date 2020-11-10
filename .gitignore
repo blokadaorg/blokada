@@ -1,14 +1,6 @@
-*.iml
-.gradle/
-version.gradle
-paths.gradle
-.idea/
 .DS_Store
-*.aar
-vendor
-local.properties
+
 keystore.properties
-build/
-captures/
-firebase.xml
-google-services.json
+
+# Dirs relevant to Blokada 5
+android5

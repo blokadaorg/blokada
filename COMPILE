@@ -1,6 +1,0 @@
-1. Make sure you have keystore properties (referenced in app/build.gradle) defined in your ~/.gradle/gradle.properties
-2. Setup NDK as described in [1] (first part)
-3. Adjust NDK paths in boringtun/.cargo/config
-4. Run install.sh at least once
-
-[1] https://medium.com/visly/rust-on-android-19f34a2fb43
