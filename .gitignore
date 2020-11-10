@@ -5,20 +5,6 @@
 
 keystore.properties
 
-android/app/src/main/assets/translations
-android/app/src/translations
-
-ios/IOS/Assets/pl.lproj
-ios/IOS/Assets/de.lproj
-ios/IOS/Assets/es.lproj
-ios/IOS/Assets/it.lproj
-ios/IOS/Assets/hi.lproj
-ios/IOS/Assets/ru.lproj
-ios/IOS/Assets/bg.lproj
-ios/IOS/Assets/tr.lproj
-ios/IOS/Assets/ja.lproj
-ios/IOS/Assets/id.lproj
-ios/IOS/Assets/cs.lproj
-ios/IOS/Assets/zh-Hant.lproj
-ios/IOS/Assets/ar.lproj
-ios/IOS/Assets/fi.lproj
+# Dirs from the 4 branch, not relevant to 5
+android4
+boringtun
