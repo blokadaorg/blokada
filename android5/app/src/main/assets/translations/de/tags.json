@@ -1,0 +1,15 @@
+{ "strings": {
+    "recommended": "empfohlen",
+    "official": "offiziell",
+    "adblocking": "werbeblocker",
+    "tracking": "verfolgen",
+    "privacy": "datenschutz",
+    "adult": "erwachsene/r",
+    "social": "sozial",
+    "regional": "regional",
+    "fake news": "falschnachrichten",
+    "gambling": "spielen",
+    "youtube": "youtube",
+    "phishing": "phishing",
+    "security": "sicherheit"
+} }

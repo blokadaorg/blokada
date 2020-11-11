@@ -1,0 +1,435 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"error device offline" = "Устройството ви е офлайн";
+"error account inactive" = "Вашият профил не е активен. Моля, активирайте го си за да продължите да използвате BLOKADA +.";
+"error account inactive after restore" = "Изглежда, че това не е валиден активен профил. Ако смятате това за грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.";
+"error account invalid" = "Това ID на този профил изглежда невалидно.";
+"error creating account" = "Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.";
+"error fetching data" = "Действието не можа да приключи. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
+"error tunnel" = "VPN не можа да бъде създаден. Моля, рестартирайте устройството си, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.";
+"error vpn" = "VPN не можа да бъде създаден. Моля, рестартирайте устройството си, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.";
+"error vpn perms" = "Няма предоставено разрешение за създаване на VPN профил.";
+"error vpn no current lease" = "Моля, първо изберете местоположение.";
+"error vpn too many leases" = "Достигнат е лимита на устройствата. Моля, премахнете едно от устройствата си и опитайте отново.";
+"error vpn expired" = "VPN е деактивиран. Моля, актуализирайте абонамента си за да продължите да използвате BLOKADA +";
+"error payment inactive after restore" = "Плащането не е прието защото абонаментът ви е изтекъл. Ако смятате, че това е грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.";
+"error payment failed" = "В момента няма налично плащане. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
+"error payment failed alternative" = "Не можахме да завършим плащането Ви. Моля уверете се, че вашите данни са верни и опитайте отново. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
+"error payment not available" = "Плащанията не са активни за това устройство. Или Apple Pay не е активиран, или все още не обработваме плащания от вашата страна.";
+"error payment canceled" = "Плащането е анулирано. Не сте таксувани.";
+"error pack install" = "Функцията не можа да се инсталира (или деинсталира). Моля, опитайте отново по-късно.";
+"error location failed fetching" = "Местоположенията не можаха да бъдат извлечени.";
+"error unknown" = "Възникна неизвестен проблем. Моля, опитайте отново. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
+"error blocka dns in filtering mode" = "Понастоящем Blokada DNS се поддържа само в режим Plus. Моля, изберете друг DNS и опитайте отново.";
+
+"universal action continue" = "Продължи";
+"universal action cancel" = "Отказ";
+"universal action close" = "Затвори";
+"universal action done" = "Готово";
+"universal action try again" = "Опитайте отново";
+"universal action learn more" = "Научете повече";
+"universal action help" = "Помощ";
+"universal action show log" = "Регистри";
+"universal action share log" = "Сподели дневника";
+"universal action copy" = "Копирай";
+"universal action save" = "Запази";
+"universal action contact us" = "Свържете се с нас";
+"universal action support" = "Поддръжка";
+"universal action upgrade" = "Надстройте до BLOKADA+";
+"universal action upgrade short" = "Надграждане";
+"universal action yes" = "Да";
+"universal action no" = "Не";
+"universal action donate" = "Дарение";
+"universal action community" = "Общност";
+"universal action open in browser" = "Отваряне в браузър";
+"universal action more" = "Още";
+"universal action download" = "Изтегляне";
+"universal action news" = "Новини";
+"universal action delete" = "Изтриване";
+"universal action hide" = "Скриване";
+"universal action select" = "Изберете";
+"universal action selected" = "Избиране";
+
+"universal label help" = "Помощ";
+"universal label welcome" = "Добре дошли!";
+"universal status processing" = "В процес... Моля, изчакайте.";
+"universal status copied to clipboard" = "Копирано в клипборда";
+"universal status restart required" = "Моля, рестартирайте приложението за да влязат в сила промените.";
+"universal status redirect" = "Продължете към приложението Blokada";
+
+"alert error header" = "Ооопс!";
+"alert vpn expired header" = "BLOKADA+ е изтекла";
+"alert download link body" = "От съображения за сигурност за да изтеглите файл ще трябва този уебсайт да се отвори във вашия браузър. След това, моля докоснете отново връзката за изтегляне.";
+
+"notification vpn expired header" = "Изтекъл срок на абонамента за BLOKADA+";
+"notification vpn expired subtitle" = "VPN е деактивиран";
+"notification vpn expired body" = "Моля, актуализирайте абонамента си за да продължите да използвате BLOKADA+";
+"notification desc settings" = "Плъзнете известието наляво или надясно за настройки.";
+
+"notification update header" = "Налична е актуализация";
+"alert update body" = "Blokada %@ вече е достъпна за изтегляне. Препоръчваме да поддържате приложението актуално, както и да бъде изтеглена само от нашите официални източници.";
+"update label updated" = "Обновено!";
+"update desc updated" = "Вече използвате най-новата версия на Blokada! Не забравяйте, че дарението или абонамента за Blokada Plus ни позволява да продължим да подобряваме приложението.";
+"update downloading description" = "Актуализацията вече се изтегля и след малко трябва да видите подкана за инсталиране.";
+
+"account active forever" = "Завинаги";
+"account active forever full" = "Активен завинаги";
+
+"main ask for permissions header" = "Само още една стъпка";
+"main ask for permissions description" = "Blokada използва VPN конфигурация за блокиране на рекламите. Ще бъдете помолени в следващата стъпка това да бъде разрешено.";
+
+"main share message" = "Blokada за iOS ми помогна да блокирам %@ реклами и тракери!";
+
+"main rate us header" = "Оценете ни!";
+"main rate us description" = "Харесва ли ви Blokada до сега?";
+"main rate us on app store" = "Бихте ли ни помогнали като оцените Blokada в App Store?";
+"main rate us action sure" = "Разбира се!";
+
+// Make sure each tab name has a similar length
+"main tab home" = "Начало";
+// Make sure each tab name has a similar length
+"main tab activity" = "Активност";
+// Make sure each tab name has a similar length
+"main tab advanced" = "Разширени";
+// Make sure each tab name has a similar length
+"main tab settings" = "Настройки";
+
+"home ads counter footnote" = "рекламите и тракерите са блокирани след инсталирането";
+"home power off menu header" = "Какво искате да направите?";
+"home power action turn on" = "Включване";
+"home power action turn off" = "Изключване";
+"home power action pause" = "Пауза за 5 мин";
+
+"home status paused" = "ПАУЗА";
+"home status active" = "АКТИВНА";
+"home status deactivated" = "ДЕАКТИВИРАНА";
+"home action tap to activate" = "докоснете за да активирате";
+"home status detail paused" = "на пауза докато приключи таймерът";
+"home status detail active" = "блокиране на *реклами* и *тракери*";
+"home status detail active with counter" = "блокирани *%@* реклами и тракери";
+"home status detail active slim" = "Blokada *Slim* е активна";
+"home status detail plus" = "*+* защитава вашата *поверителност*";
+"home status detail progress" = "моля изчакайте...";
+
+"home plus button deactivated" = "BLOKADA+ е деактивирана";
+"home plus button select location" = "Избор на местоположение";
+"home plus button location" = "Местоположение: *%@*";
+
+"pack section header" = "Разширени функции";
+"pack section header details" = "Подробности Детайли";
+"pack action install" = "ВЗЕМИ";
+"pack action update" = "АКТУАЛИЗАЦИЯ";
+"pack action uninstall" = "ПРЕМАХВАНЕ";
+"pack author" = "Автор";
+"pack configurations header" = "Конфигурация";
+"pack information header" = "Още";
+"pack tags header" = "Маркери";
+"pack tags none" = "Нищо";
+"pack category highlights" = "Акценти";
+"pack category active" = "Активни";
+"pack category all" = "Всички";
+
+"advanced section header packs" = "Списък за блокиране";
+"advanced section slugline packs" = "Активирайте за по-ограничително блокиране";
+"advanced section slugline apps" = "Изберете приложения, които никога да не бъдат блокирани";
+"advanced section slugline encryption" = "Регулирайте нивото си на криптиране и DNS";
+"advanced action slim migrate to full" = "Използвате Blokada Slim. Научете повече";
+
+"location choice header" = "Избор на местоположение";
+
+"activity section header" = "Активност";
+"activity section header details" = "Детайли за активността";
+"activity request blocked" = "Тази заявка е блокирана.";
+"activity request allowed" = "Тази заявка е разрешена.";
+"activity request allowed whitelisted" = "Тази заявка е разрешена, защото е в списъка ви с Позволени";
+"activity request blocked blacklisted" = "Тази заявка е блокирана, защото е в списъка ви с Блокирани";
+"activity actions header" = "Действия";
+"activity information header" = "Информация";
+"activity action add to whitelist" = "Добавяне към Разрешени";
+"activity action remove from whitelist" = "Премахване от Разрешени";
+"activity action added to whitelist" = "Добавено към Разрешени";
+"activity action add to blacklist" = "Добавяне към Блокирани";
+"activity action remove from blacklist" = "Премахване от Блокирани";
+"activity action added to blacklist" = "Добавено към Блокирани";
+"activity action copy to clipboard" = "Копиране на името в клипборда";
+"activity domain name" = "Пълно име";
+"activity time of occurrence" = "Време";
+"activity number of occurrences" = "Брой събития";
+// As in sentence, "this item has been modified"
+"activity state modified" = "променено";
+// As in sentence, "this host has been blocked"
+"activity state blocked" = "блокиран";
+// As in sentence, "this host has been allowed"
+"activity state allowed" = "разрешен";
+"activity happened one time" = "1 път";
+"activity happened many times" = "%@ пъти";
+"activity category recent" = "Последни";
+"activity category top" = "Най";
+"activity category top blocked" = "Най-много блокирани";
+"activity category top allowed" = "Най-много разрешени";
+"activity filter header" = "Кои записи искате да видите?";
+"activity filter show all" = "Показване на всички записи";
+"activity filter show blocked" = "Показване само на блокирани";
+"activity filter show allowed" = "Показване само на разрешени";
+"activity empty text" = "Използвайте устройството и се върнете тук за да видите къде се свързва вашето устройство.";
+
+"userdenied section header" = "Моите списъци за блокиране";
+"userdenied section slugline" = "Управлявайте блокирането на определени уеб сайтове";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "Разрешени";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "Блокирани";
+
+"account section header settings" = "Настройки";
+"account status text" = "Вашият BLOKADA %@ профил е активен до %@.";
+"account status text libre" = "Вашият профил в BLOKADA Libre е активен завинаги.";
+
+"account section header primary" = "Основен";
+"account section header other" = "Друг";
+"account action my account" = "Моят профил";
+"account action encryption" = "Криптиране";
+"account action devices" = "Устройства";
+"account action new device" = "Ново устройство";
+"account action inbox" = "Входяща кутия";
+"account action logout" = "Възстановяване на покупка";
+"account action logout only" = "Изход от профила";
+"account action create" = "Генериране на нов профил";
+"account action about" = "За приложението";
+"account action tap to show" = "Докоснете за да се покаже";
+"account action restoring" = "Възстановяване на профил: %@";
+"account label enter to continue" = "Въведете ID номер на профила за да продължите";
+"account restore description" = "Не се притеснявайте ако сте загубили или забравили ID на профила си, можем да го възстановим. Моля, свържете се с нашата поддръжка и ни дайте информация, с която ще ни позволите да идентифицираме вашата покупка (напр. Последните 4 цифри на вашата кредитна карта или PayPal email).";
+"account create description" = "Това е идентификационният номер на вашия профил. Трябва да го запишете, тъй като това е единственият начин да получите достъп до абонамента си. Също така не го споделяйте с никого, така че профилът ви да не бъде откраднат.";
+"account create confirm" = "Знам моето ID на профила";
+
+"account section header my subscription" = "Моят абонамент";
+"account section header general" = "Основни";
+"account section header subscription" = "Абонамент";
+"account label id" = "Профил ID";
+"account label type" = "Тип на профила";
+"account label active until" = "Активен до";
+"account action manage subscription" = "Управление на абонамента";
+"account action why upgrade" = "Защо трябва да надстроя?";
+"account subscription header renew" = "Автоматично подновяване";
+"account subscription header payment method" = "Начин на плащане";
+"account subscription renew unsupported" = "Начинът на плащане не се поддържа за автоматично подновяване.";
+
+"account unlock to show" = "Отключете за да се покаже ID на акаунта";
+
+"account header logout" = "Възстановяване на покупка";
+"account logout description" = "Моля, въведете друг идентификационен номер за потребителският профил или се върнете и продължете да използвате съществуващ профил (това приложение не може да се използва без такъв).";
+"account id status unchanged" = "(непроменен)";
+"account action how to restore" = "Как да възстановя старият си акаунт?";
+
+"account subscription days remaining" = "Оставащи дни: %@";
+"account devices remaining" = "Оставащи устройства: %@";
+"account devices not available" = "Не е налично";
+"account devices out of" = "%@ от %@";
+
+"account encrypt level low" = "Ниско";
+"account encrypt level medium" = "Средно";
+"account encrypt level high" = "Високо";
+"account encrypt label dns only" = "Криптиране на DNS";
+"account encrypt desc dns only" = "Системата за имена на домейни показва на вашето устройство къде да намери уеб сайтовете, които искате да посетите. За съжаление по-голямата част от Интернет все още използва некриптиран DNS, което излага историята на сърфирането ви в риск да бъде шпионирана. Когато е активирана, Blokada принуждава вашето устройство да се свързва само към криптирани DNS сървъри (наричани също DNS през HTTPS).";
+"account encrypt label everything" = "Криптиране на всичко";
+"account encrypt desc everything" = "Вашето устройство се свързва чрез нашите защитени VPN сървъри и цялата комуникация, идваща от или към вашето устройство се криптира чрез силни алгоритми. Това предпазва личната ви информация, като банкови данни или лични снимки от кражба на несигурни места, като WiFi в кафене.";
+"account encrypt action turn on" = "Включване на BLOKADA";
+"account encrypt header level" = "Ниво на криптиране";
+"account encrypt label level" = "Ниво";
+"account encrypt label level low" = "Ниско: Няма криптиране";
+"account encrypt label level medium" = "Средно: Криптиран DNS";
+"account encrypt label level high" = "Високо: Криптирано е всичко";
+"account encrypt header explanation" = "DNS е как вашето устройство знае къде да намира уеб сайтовете. BLOKADA поддържа само криптирани сървъри.";
+"account encrypt label dns" = "DNS";
+"account encrypt action what is dns" = "Какво е DNS?";
+"account encrypt section header" = "Криптиране";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "Използвайте Blokada DNS в режим Plus";
+
+"account lease label devices list" = "Тези устройства са свързани с вашият акаунт.";
+"account lease label devices" = "Устройства";
+"account lease label this device" = " (това устройство)";
+"account lease label name" = "Име на устройството";
+"account lease label location" = "Местоположение";
+"account lease action generate" = "Генериране на конфигурация";
+"account lease action download" = "Изтегляне на конфигурацията";
+"account lease generated" = "Устройството е добавено! Изтеглете конфигурацията за да я използвате на всяко устройство поддържано от Wireguard.";
+"account lease wireguard desc" = "Blokada използва Wireguard. Конфигурациите могат да бъдат изтеглени при създаване на нови устройства.";
+"account lease label dns" = "DNS";
+"account lease action dns" = "Изберете DNS";
+"account lease label public key" = "Публичен ключ";
+
+"account support action how help" = "Как можем да ви помогнем?";
+"account support action kb" = "Отворена База Знания";
+
+"payment header activated" = "Активирано!";
+"payment activated description" = "Сега Blokada ще премине в режим Plus и ще се свърже чрез едно от нашите сигурни места. Ако не сте сигурни кое да изберете, препоръчва се най-близкото до вас.";
+"payment action choose location" = "Изберете местоположение";
+
+"payment title" = "Надстройте до нашата VPN услуга за да имате контрол над *вашата поверителност*.";
+"payment feature title change location" = "Промяна на местоположение";
+"payment feature desc change location" = "Скрийте своя IP адрес и се преструвайте, че сте в друга държава. Това ще ви скрие за пред трети страни и ще ви помогне да защитите вашата самоличност.";
+"payment feature title encrypt data" = "Криптиране на данни";
+"payment feature desc encrypt data" = "Данните изпратени през нашия VPN тунел се криптират с помощта на силни алгоритми за да се защитят от прихващане от неоторизирани страни.";
+"payment feature title faster connection" = "По-бърза връзка";
+"payment feature desc faster connection" = "Големи скорости до 100Mbps със сървъри в различни части на света.";
+"payment feature title devices" = "До 5 устройства";
+"payment feature desc devices" = "Използвайте един профил за да споделяте абонамента си с до 5 устройства: iOS, Android или компютър.";
+"payment feature title no ads" = "Без Реклами";
+"payment feature desc no ads" = "Използвайте световно известната технология на Blokada за блокиране на реклами, като същевременно подобрите нивото на защита и запазите данните си поверителни.";
+"payment feature title support" = "Страхотна поддръжка";
+"payment feature desc support" = "Получете бърз отговор на всякакви въпроси благодарение на нашата Поддръжка за клиенти и енергичната общност с отворен код.";
+"payment action see all features" = "Вижте всички функции";
+"payment action restore" = "Възстановяване на покупките";
+"payment action terms and privacy" = "Условия & Поверителност";
+"payment action terms" = "Условия за ползване";
+"payment action policy" = "Декларация за поверителност";
+"payment alert error header" = "Съобщение от App Store";
+
+"payment subscription 1 month" = "1 Месец";
+"payment subscription many months" = "%@ Месеца";
+"payment subscription per month" = "%@ на месец";
+"payment subscription offer" = "Запази %@";
+
+"payment success label" = "Благодаря!";
+"payment success desc" = "Вашият акаунт е активен! Вече можете да използвате всички функции на Blokada Plus на всичките си устройства.";
+
+"payment ongoing desc" = "Плащането Ви се обработва. В някои случай като при PayPal, това може да отнеме до 24 часа. Другите методи на плащане не би трябвало да отнемат повече от час. Ако смятате, че отнема твърде много време, моля свържете се с нас.";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
+"payment change method" = "Промяна";
+"payment action pay" = "Платете %@";
+"payment action pay period" = "Платете %@ за всеки един период";
+"payment label email" = "Имейл";
+"payment crypto desc" = "За да платите с криптовалута от портфейла си, натиснете бутона по-долу.";
+"payment label choose package" = "Изберете пакет";
+"payment label choose payment method" = "Изберете метод на плащане";
+"payment label cheapest" = "Най-евтин";
+"payment label most popular" = "Най-популярен";
+"payment label pay with card" = "Платете с карта";
+"payment label pay with paypal" = "Платете с PayPal";
+"payment label pay with crypto" = "Платете с криптовалута";
+"payment package one month" = "1 Месец";
+"payment package six months" = "6 Месеца";
+"payment package twelve months" = "12 Месеца";
+"payment label discount" = "Спестете %@ (%@ / mo)";
+"payment label country" = "Държава";
+
+"apps section header" = "Приложения";
+"apps label installed" = "Инсталирани";
+"apps label system" = "Система";
+"apps status bypassed" = "(заобиколено)";
+"apps filter header" = "Кои приложения искате да видите?";
+"apps filter action show all" = "Показване на всички приложения";
+"apps filter action show bypassed" = "Показване само на заобиколени";
+"apps filter action show not bypassed" = "Показване само на не заобиколени";
+"apps filter action toggle system" = "Превключване към всички системни приложения";
+
+"app settings section header" = "Това устройство";
+"app settings language label" = "Език";
+"app settings theme label" = "Тема на приложението";
+"app settings theme light" = "Светла";
+"app settings theme dark" = "Тъмна";
+// A setting for changing if to open links internally in the app, or by using this device's web browser
+"app settings browser label" = "Пренасочване на връзките към";
+"app settings browser internal" = "Вътрешен браузър";
+"app settings browser external" = "Външен браузър (ако е възможно)";
+"app settings ipv6 label" = "Разрешаване на IPv6";
+"app settings section system" = "Система";
+"app settings action app info" = "Отваряне на информацията за приложението";
+"app settings action vpn profile" = "Отваряне на VPN профила";
+"app settings action notifications" = "Отваряне на настройките за известия";
+"app settings section details" = "Подробности";
+"app settings status default" = "Настройки по подразбиране";
+"app settings start on boot" = "Старт със системата";
+"app settings use dns over https" = "Използване на DNS през HTTPS";
+"app settings backup" = "Използване на облачно архивиране";
+"app settings section advanced" = "Разширени";
+"app settings section use foreground" = "Винаги в активност";
+
+"intro header" = "Blokada е активна!";
+"intro text" = "Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Въпреки това, ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN мрежа / Свързване при поискване в системните настройки.";
+
+"location region america" = "Америка";
+"location region europe" = "Европа";
+"location region asia" = "Азия";
+
+"homepage header what is blokada" = "Какво е Blokada?";
+"homepage desc what is blokada" = "Запознайте се с основната информация за приложението.";
+"homepage desc download" = "Изтеглете Blokada за вашата платформа.";
+"homepage desc community" = "Присъединете се към нашата страхотна общност.";
+"homepage header support" = "Подкрепи ни";
+"homepage desc support" = "Дарете за да ни помогнете да продължим проекта.";
+"homepage action authors" = "Автори";
+"homepage action source" = "Източник";
+"homepage action forums" = "Форуми";
+"homepage action dashboard" = "Табло";
+"homepage about footer" = "Нека поддържаме връзка!";
+"homepage hero title" = "Поверителност на приложението";
+"homepage hero subtitle" = "безплатно и с отворен код";
+"homepage hero desc" = "Blokada е популярно приложение за блокиране на реклами и защита на поверителността за Android и iOS. То се поддържа и активно развива от невероятната общност и е с отворен код.";
+"homepage about title" = "Blokada 5, рекламният блокер";
+"homepage about desc" = "Ако искате ефективно да блокирате реклами, тракери, злонамерен софтуер, да спестите от плана си за данни, да ускорите устройството си и да защитите поверителността си само с едно приложение, то тогава Blokada е за вас. Тя е безплатна, сигурна и с отворен код.";
+"homepage about point one" = "Блокира реклами & тракери";
+"homepage about point two" = "Работи с всички приложения и всички браузъри";
+"homepage about point three" = "Не изисква root или jailbreak";
+"homepage about point four" = "С вградена VPN, за по-добра защита";
+"homepage about action plus" = "Научете повече за Blokada Plus";
+
+"homepage download header" = "Изтегляне на Blokada";
+"homepage download subheader" = "Blokada се предлага за няколко платформи, изберете вашата.";
+"homepage download option android five" = "Blokada 5 за Android";
+"homepage download option android slim" = "Blokada 5 Slim за Android";
+"homepage download option android four" = "Blokada 4 за Android";
+"homepage download option ios" = "Blokada 5 за iOS";
+"homepage download option other" = "Blokada за други платформи";
+"homepage download desc other" = "Понастоящем не предлагаме Blokada за други платформи. Ако обаче сте потребител на Blokada Plus можете да използвате нашата VPN на Windows, Linux, Mac и други платформи, ако е наличен Wireguard.";
+"homepage download desc ios" = "Blokada 5 просто е достъпна в App Store.";
+"homepage download action ios" = "Отваряне на Play Store";
+"homepage download desc android five" = "Това е новата ни препоръчителна версия <b>за смартфони и таблети с Android 7 или по-нова версия</b>. Тя е по-проста и по-бърза в сравнение с Blokada 4.";
+"homepage download action android five" = "Blokada 5 .apk";
+"homepage download action android five beta" = "Beta .apk";
+"homepage download desc android slim" = "Blokada Slim е <b>леката версия на приложението</b> и съдържа само функции, които са разрешени от правилата на Google Play.";
+"homepage download action android slim" = "Отваряне на Google Play";
+"homepage download desc android four" = "Все още поддържаме по-старата версия на Blokada. Тя има повече функции и работи на по-стари устройства и телевизори.";
+"homepage download action android four" = "Blokada 4 .apk";
+"homepage download action android four fdroid" = "Отваряне на F-Droid";
+
+"homepage community header" = "Общността";
+"homepage community desc" = "Blokada не е само приложение за поверителност. Това е и общността на хората, които се грижат за дигиталната неприкосновеност и благосъстояние. Ще ни намерите на нашия форум където можете да зададете всякакви въпроси, които имате. Присъстваме и в други социални медии и чатове.";
+"homepage community cta subheader" = "Присъединете се към нас и и кажете здравей!";
+"homepage community cta desc" = "В основата на нашата работа се основаваме на обратната връзка с нашите потребители. Кажете ни какво мислите, какво трябва да подобрим или просто да премахнем.";
+"homepage community cta action" = "Към форумите";
+"homepage community opinions" = "Ето някои от мненията на нашите потребители.";
+
+"homepage support header" = "Подкрепете проекта";
+"homepage support desc" = "Ако ви харесва това, което правим помислете за Вашата подкрепа, така ще можем да продължим да разработваме нови функции и подобрения. По този начин Blokada може да остане с отворен код и безплатна завинаги.";
+"homepage support cta header" = "Blokada зависи от вас";
+"homepage support cta desc" = "Blokada е проект с отворен код, което означава, и можете да сте сигурни, че той винаги ще бъде безплатен, безопасен за използване и без никакви скрити програми. Вярваме, че това е единственият правилен начин за разработване на приложение за поверителност, на което можете да се доверите.";
+"homepage support cta desc more" = "Разработването на качествено приложение като Blokada обаче изисква значителен обем ресурси. Този проект съществува благодарение на подкрепата на страхотни хора като теб!";
+"homepage support cta action" = "Дарете (карта, Paypal)";
+"homepage support cta action alt" = "Дарете (банка, crypto)";
+
+"homepage developer header" = "Вие сте разработчик";
+"homepage developer subheader" = "и искате да направите Blokada по-добра?";
+"homepage developer desc" = "Blokada е проект с отворен код посветен на разработването на най-добрия рекламен блокер и приложение за поверителност за Android и iOS. Проверете нашия Github и ни уведомете ако имате нужда от помощ за да направите първия си PR.";
+"homepage developer action" = "Към repo";

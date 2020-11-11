@@ -1,0 +1,15 @@
+{ "strings": {
+    "recommended": "препоръчително",
+    "official": "официални",
+    "adblocking": "филтър за реклами",
+    "tracking": "проследяващи",
+    "privacy": "поверителност",
+    "adult": "за възрастни",
+    "social": "социални",
+    "regional": "регионални",
+    "fake news": "фалшиви новини",
+    "gambling": "хазарт",
+    "youtube": "youtube",
+    "phishing": "фишинг",
+    "security": "защита"
+} }

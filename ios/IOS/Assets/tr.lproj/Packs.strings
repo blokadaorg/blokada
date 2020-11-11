@@ -1,0 +1,35 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Reklamları ve izleyicileri engelleme listesi";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Bu Energized Sistemi, Unix benzeri sistemler için tasarlanmıştır. Birden fazla saygın kaynaktan reklam, izleme komut dosyaları ve kötü amaçlı yazılım sunan etki alanlarının bir listesini alır ve sisteminizin bunlara bağlanmasını engelleyen bir hosts dosyası oluşturur. Dikkatli olun, \"Sosyal\" yapılandırmayı yüklemek, Messenger gibi sosyal uygulamalarınızın hatalı davranmasına neden olabilir.";
+"Popular for adblocking" = "Reklam engelleme için popüler";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Çeşitli iyi seçilmiş kaynaklardan hosts dosyalarını Birleştirme ve Genişletme. İsteğe bağlı olarak porno, sosyal medya ve diğer kategorilerini engellemek için eklentiler seçebilirsiniz.";
+"Alternative blocklist with advanced features" = "Gelişmiş özelliklere sahip alternatif engelleme listesi";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Aralarından seçim yapabileceğiniz benzersiz eklentilere sahip bir engelleme listesi. Daha agresif olduğunu ve uygulamaları veya siteleri bozabileceğini unutmayın. Bu, graph.facebook.com ve mqtt-mini.facebook.com'u engeller. Facebook uygulamalarıyla ilgili sorun yaşamanız durumunda bunları etkinlik bölümünden beyaz listeye eklemeyi düşünebilirsiniz.";
+"Adblocking for your mobile device" = "Mobil cihazınız için reklam engelleme";
+"A special blocklist containing mobile ad providers." = "Mobil reklam sağlayıcıları içeren özel bir engelleme listesi.";
+"Protects against cyber attacks" = "Siber saldırılara karşı korur";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Kimlik Avı web sitelerini filtrelemek için bir engelleme listesi. Kimlik Avı, ziyaretçileri kandırmak ve hassas bilgileri çalmak için orijinal web sitelerine tam olarak benzeyen sahte web sitelerine yönlendirmeye dayanan bir yanlış uygulamadır. Bu engelleme listesini yüklemek, bu tür durumları önlemenize yardımcı olacaktır.";
+"A new and upcoming tracker database" = "Yeni ve yakında çıkacak bir izleyici veritabanı";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radarı, sürekli tarama ve analiz yoluyla otomatik olarak oluşturulan ve desteklenen izleyicilerle ilgili sınıfının en iyi veri kümesidir. Daha fazla bilgi için yazarın bilgilerine bakın.";
+"Curated blocklist to block trackers and advertisements" = "İzleyicileri ve reklamları engellemek için seçilmiş engelleme listesi";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Bu, reklamları, izlemeyi ve daha fazlasını engellemek için seçilmiş ve bakımlı bir engelleme listesidir! Düzenli olarak güncellenir.";

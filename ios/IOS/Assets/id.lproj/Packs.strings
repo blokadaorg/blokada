@@ -1,0 +1,35 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Daftar blokir iklan dan pelacak";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Energized System dirancang untuk sistem berbasis Unix, dibuat dengan mengkompilasi domain yang menyajikan iklan, skrip pelacak, dan malware dari berbagai sumber terpercaya, kemudian disatukan menjadi sebuah host file yang akan mencegah sistem Anda terhubung dengan domain tersebut. Hati-hati, mengaktifkan konfigurasi \"Sosial\" bisa membuat kinerja aplikasi sosial media Anda, misalnya Messenger, terganggu.";
+"Popular for adblocking" = "Populer untuk pemblokiran iklan";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Mengumpulkan host file dari berbagai sumber yang dikurasi dengan teliti. Anda dapat memilih ekstensi untuk memblokir konten pornografi, media sosial, dan kategori lainnya.";
+"Alternative blocklist with advanced features" = "Blocklist alternatif dengan fitur lanjutan";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Sebuah blocklist dengan ekstensi unik yang bisa Anda pilih. Harap diingat bahwa blocklist ini lebih agresif dibanding yang lain, dan mungkin membuat beberapa aplikasi atau situs tidak bisa diakses. Blocklist ini memblokir graph.facebook.com dan mqtt-mini.facebook.com. Jika Anda mengalami masalah dengan aplikasi milik Facebook, Anda bisa memasukkan dua domain tersebut ke dalam whitelist.";
+"Adblocking for your mobile device" = "Pemblokir iklan untuk perangkat seluler Anda";
+"A special blocklist containing mobile ad providers." = "Blocklist khusus berisi penyedia iklan di perangkat seluler.";
+"Protects against cyber attacks" = "Melindungi dari serangan siber";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Swbuah blocklist untuk menyaring situs-situs phishing. Phishing adalah sebuah metode untuk mencuri data-data pribadi yang bersifat sensitif, dengan cara mengalihkan lalu lintas data Anda ke situs-situs palsu yang terlihat mirip dengan situs resmi. Blocklist ini dapat membantu Anda terhindar dari situs-situs palsu.";
+"A new and upcoming tracker database" = "Database tracker yang baru";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar adalah dataset terbaik di kelasnya. DuckDuckGo Tracker Radar menghasilkan data secara otomatis dan diperbarui melalui analisis yang berkelanjutan. Silakan kunjungi situs pembuat list ini untuk informasi lebih detail.";
+"Curated blocklist to block trackers and advertisements" = "Daftar cekal untuk memblokir trackers dan iklan";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Daftar ini adalah daftar cekal yang dikurasi dan selalu diperbarui dan berguna untuk memblokir iklan, trackers, dan lainnya! Diperbarui secara berkala.";

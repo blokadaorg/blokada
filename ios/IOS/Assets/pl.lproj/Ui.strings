@@ -1,0 +1,435 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"error device offline" = "Twoje urządzenie jest offline";
+"error account inactive" = "Twoje konto jest nieaktywne. Aktywuj swoje konto, jeśli chcesz nadal korzystać z BLOKADA+.";
+"error account inactive after restore" = "To nie wygląda na poprawne, aktywne konto. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.";
+"error account invalid" = "Ten identyfikator konta wygląda na niepoprawny.";
+"error creating account" = "Nie można stworzyć nowego konta. Spróbuj ponownie później.";
+"error fetching data" = "Coś poszło nie tak. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.";
+"error tunnel" = "Nie udało się ustawić VPN. Zrestartuj to urządzenie, lub usuń profil VPN Blokady w ustawieniach systemowych, i spróbuj ponownie.";
+"error vpn" = "Nie udało się ustawić VPN. Zrestartuj to urządzenie, lub usuń profil VPN Blokady w ustawieniach systemowych, i spróbuj ponownie.";
+"error vpn perms" = "Brak uprawnień do utworzenia profilu VPN.";
+"error vpn no current lease" = "Wybierz lokalizację.";
+"error vpn too many leases" = "Z Twojego konta korzysta już maksymalna dozwolona liczba urządzeń. Usuń któreś z listy urządzeń, i spróbuj ponownie.";
+"error vpn expired" = "VPN został dezaktywowany. Wznów swoją subskrypcję, aby kontynuować korzystanie z BLOKADA+";
+"error payment inactive after restore" = "Twoja ostatnia płatność została znaleziona, ale jej ważność już upłynęła. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.";
+"error payment failed" = "Płatności są chwilowo niedostępne. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.";
+"error payment failed alternative" = "Nie można dokończyć płatności. Upewnij się, że dane są poprawne i spróbuj ponownie. Jeśli problem będzie się powtarzał, skontaktuj się z nami, stukając ikonę pomocy u góry.";
+"error payment not available" = "Płatności nie są dostępne dla tego urządzenia. Twój Apple Pay nie został aktywowany, lub nie obsługujemy jeszcze płatności w Twoim kraju.";
+"error payment canceled" = "Płatność została anulowana. Twoje konto nie zostało obciążone.";
+"error pack install" = "Nie można zainstalować (lub odinstalować) tej funkcji. Spróbuj ponownie później.";
+"error location failed fetching" = "Nie można pobrać lokalizacji.";
+"error unknown" = "Wystąpił nieznany problem. Proszę spróbować ponownie. Jeśli problem będzie się powtarzał, skontaktuj się z nami, stukając ikonę pomocy u góry.";
+"error blocka dns in filtering mode" = "Blokada DNS jest obecnie obsługiwana tylko w trybie Plus. Wybierz inny DNS i spróbuj ponownie.";
+
+"universal action continue" = "Kontynuuj";
+"universal action cancel" = "Anuluj";
+"universal action close" = "Zamknij";
+"universal action done" = "Gotowe";
+"universal action try again" = "Spróbuj ponownie";
+"universal action learn more" = "Dowiedz się więcej";
+"universal action help" = "Pomoc";
+"universal action show log" = "Logi";
+"universal action share log" = "Udostępnij log";
+"universal action copy" = "Kopiuj";
+"universal action save" = "Zapisz";
+"universal action contact us" = "Skontaktuj się z nami";
+"universal action support" = "Pomoc";
+"universal action upgrade" = "Ulepsz do wersji BLOKADA+";
+"universal action upgrade short" = "Ulepsz";
+"universal action yes" = "Tak";
+"universal action no" = "Nie";
+"universal action donate" = "Dotacja";
+"universal action community" = "Społeczność";
+"universal action open in browser" = "Otwórz w przeglądarce";
+"universal action more" = "Więcej";
+"universal action download" = "Pobierz";
+"universal action news" = "Wiadomości";
+"universal action delete" = "Usuń";
+"universal action hide" = "Ukryj";
+"universal action select" = "Wybierz";
+"universal action selected" = "Wybrano";
+
+"universal label help" = "Pomoc";
+"universal label welcome" = "Witaj!";
+"universal status processing" = "Przetwarzanie, proszę czekać...";
+"universal status copied to clipboard" = "Skopiowano do schowka";
+"universal status restart required" = "Proszę uruchom ponownie aplikację, by zmiany zostały zastosowane.";
+"universal status redirect" = "Kontynuuj do aplikacji Blokada";
+
+"alert error header" = "Ups!";
+"alert vpn expired header" = "BLOKADA+ wygasła";
+"alert download link body" = "Ze względów bezpieczeństwa, aby pobrać plik, musimy otworzyć tę witrynę w Twojej przeglądarce. Następnie ponownie stuknij łącze pobierania.";
+
+"notification vpn expired header" = "Subskrypcja BLOKADA+ wygasła";
+"notification vpn expired subtitle" = "VPN jest wyłączony";
+"notification vpn expired body" = "Zaktualizuj subskrypcję, aby kontynuować korzystanie z BLOKADA+";
+"notification desc settings" = "Przesuń powiadomienie w lewo lub w prawo, aby wyświetlić ustawienia.";
+
+"notification update header" = "Aktualizacja jest dostępna";
+"alert update body" = "Blokada %@ jest teraz dostępna do pobrania. Zalecamy szybką aktualizację aplikacji i pobieranie jej tylko z naszych oficjalnych źródeł.";
+"update label updated" = "Zaktualizowano!";
+"update desc updated" = "Korzystasz teraz z najnowszej wersji Blokady! Pamiętaj, że przekazanie darowizny lub zapisanie się do Blokada Plus pozwala nam na dalsze ulepszanie aplikacji.";
+"update downloading description" = "Aktualizacja jest teraz pobierana i wkrótce powinien pojawić się monit instalacji.";
+
+"account active forever" = "końca świata";
+"account active forever full" = "Aktywne na zawsze";
+
+"main ask for permissions header" = "Jeszcze jeden krok";
+"main ask for permissions description" = "Blokada używa profilu VPN do blokowania reklam. Zostaniesz poproszony o zezwolenie w następnym kroku.";
+
+"main share message" = "Blokada iOS pomogła mi zablokować %@ reklam i trackerów!";
+
+"main rate us header" = "Oceń nas!";
+"main rate us description" = "Jak Ci się podoba Blokada?";
+"main rate us on app store" = "Czy mógłbyś nam pomóc, oceniając Blokadę w App Store?";
+"main rate us action sure" = "Jasne!";
+
+// Make sure each tab name has a similar length
+"main tab home" = "Ekran główny";
+// Make sure each tab name has a similar length
+"main tab activity" = "Aktywność";
+// Make sure each tab name has a similar length
+"main tab advanced" = "Funkcje";
+// Make sure each tab name has a similar length
+"main tab settings" = "Ustawienia";
+
+"home ads counter footnote" = "reklamy i trackery zablokowane od czasu instalacji";
+"home power off menu header" = "Co chciałbyś zrobić?";
+"home power action turn on" = "Włącz";
+"home power action turn off" = "Wyłącz";
+"home power action pause" = "Wstrzymaj na 5 min";
+
+"home status paused" = "WSTRZYMANA";
+"home status active" = "AKTYWNA";
+"home status deactivated" = "NIEAKTYWNA";
+"home action tap to activate" = "dotknij, aby aktywować";
+"home status detail paused" = "wstrzymano do zakończenia timera";
+"home status detail active" = "blokowanie *reklam* i *trackerów*";
+"home status detail active with counter" = "zablokowano *%@* reklam i trackerów";
+"home status detail active slim" = "Blokada *Slim* jest włączona";
+"home status detail plus" = "*+* ochrona Twojej *prywatności*";
+"home status detail progress" = "proszę czekać...";
+
+"home plus button deactivated" = "BLOKADA+ wyłączona";
+"home plus button select location" = "Wybierz lokalizację";
+"home plus button location" = "Lokalizacja: *%@*";
+
+"pack section header" = "Funkcje";
+"pack section header details" = "Szczegóły";
+"pack action install" = "POBIERZ";
+"pack action update" = "AKTUALIZUJ";
+"pack action uninstall" = "USUŃ";
+"pack author" = "Autor";
+"pack configurations header" = "Konfiguracje";
+"pack information header" = "Więcej";
+"pack tags header" = "Tagi";
+"pack tags none" = "Brak";
+"pack category highlights" = "Wyróżnione";
+"pack category active" = "Aktywne";
+"pack category all" = "Wszystkie";
+
+"advanced section header packs" = "Blocklisty";
+"advanced section slugline packs" = "Włącz, aby uzyskać bardziej restrykcyjne blokowanie";
+"advanced section slugline apps" = "Wybierz aplikacje, które nigdy nie powinny być blokowane";
+"advanced section slugline encryption" = "Dostosuj poziom szyfrowania oraz DNS";
+"advanced action slim migrate to full" = "Używasz Blokady Slim. Dowiedz się więcej";
+
+"location choice header" = "Wybierz lokalizację";
+
+"activity section header" = "Aktywność";
+"activity section header details" = "Szczegóły Aktywności";
+"activity request blocked" = "To żądanie zostało zablokowane.";
+"activity request allowed" = "To żądanie zostało zezwolone.";
+"activity request allowed whitelisted" = "To żądanie zostało zezwolone, ponieważ znajduje się na Twojej liście Zezwolonych";
+"activity request blocked blacklisted" = "To żądanie zostało zablokowane, ponieważ znajduje się na Twojej liście Blokowanych";
+"activity actions header" = "Działania";
+"activity information header" = "Informacje";
+"activity action add to whitelist" = "Dodaj do Zezwolonych";
+"activity action remove from whitelist" = "Usuń z Zezwolonych";
+"activity action added to whitelist" = "Dodano do Zezwolonych";
+"activity action add to blacklist" = "Dodaj do Blokowanych";
+"activity action remove from blacklist" = "Usuń z Blokowanych";
+"activity action added to blacklist" = "Dodano do Blokowanych";
+"activity action copy to clipboard" = "Skopiuj nazwę do schowka";
+"activity domain name" = "Pełna nazwa";
+"activity time of occurrence" = "Czas";
+"activity number of occurrences" = "Liczba wystąpień";
+// As in sentence, "this item has been modified"
+"activity state modified" = "zmodyfikowane";
+// As in sentence, "this host has been blocked"
+"activity state blocked" = "zablokowano";
+// As in sentence, "this host has been allowed"
+"activity state allowed" = "zezwolone";
+"activity happened one time" = "1 raz";
+"activity happened many times" = "%@ razy(ów)";
+"activity category recent" = "Ostatnia";
+"activity category top" = "Częsta";
+"activity category top blocked" = "Często Blokowana";
+"activity category top allowed" = "Często Zezwalana";
+"activity filter header" = "Jaką aktywność chcesz zobaczyć?";
+"activity filter show all" = "Pokaż wszystko";
+"activity filter show blocked" = "Pokaż tylko blokowaną";
+"activity filter show allowed" = "Pokaż tylko zezwoloną";
+"activity empty text" = "Spróbuj użyć swojego urządzenia i wróć tutaj później, aby sprawdzić, gdzie łączy się Twoje urządzenie.";
+
+"userdenied section header" = "Moje listy blokowania";
+"userdenied section slugline" = "Zarządzaj blokowaniem poszczególnych stron";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "Dozwolone";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "Zablokowane";
+
+"account section header settings" = "Ustawienia";
+"account status text" = "Twoje konto BLOKADA %@ jest aktywne do %@.";
+"account status text libre" = "Twoje konto BLOKADA Libre jest aktywne na zawsze.";
+
+"account section header primary" = "Podstawowe";
+"account section header other" = "Inne";
+"account action my account" = "Moje konto";
+"account action encryption" = "Szyfrowanie";
+"account action devices" = "Urządzenia";
+"account action new device" = "Nowe urządzenie";
+"account action inbox" = "Odebrane";
+"account action logout" = "Zwróć zakup";
+"account action logout only" = "Wyloguj";
+"account action create" = "Wygeneruj nowe konto";
+"account action about" = "O aplikacji";
+"account action tap to show" = "Dotknij aby pokazać";
+"account action restoring" = "Przywracam konto: %@";
+"account label enter to continue" = "Podaj swój identyfikator konta, aby kontynuować";
+"account restore description" = "Nie martw się, jeśli zgubiłeś lub zapomniałeś swojego identyfikatora, możemy go odzyskać. Skontaktuj się z naszą obsługą i podaj nam informacje, które pozwolą nam zidentyfikować Twój zakup (np. 4 ostatnie cyfry Twojej karty kredytowej lub e-mail PayPal).";
+"account create description" = "To jest Twój identyfikator konta. Powinieneś go zapisać, ponieważ jest to jedyny sposób na uzyskanie dostępu do subskrypcji. Nie udostępniaj go nikomu, aby Twoje konto nie zostało skradzione.";
+"account create confirm" = "Znam mój identyfikator konta";
+
+"account section header my subscription" = "Moja subskrypcja";
+"account section header general" = "Ogólne";
+"account section header subscription" = "Subskrypcja";
+"account label id" = "ID Konta";
+"account label type" = "Rodzaj konta";
+"account label active until" = "Konto ważne do";
+"account action manage subscription" = "Zarządzaj subskrypcją";
+"account action why upgrade" = "Dlaczego warto przejść na wersję Plus?";
+"account subscription header renew" = "Odnawiaj automatycznie";
+"account subscription header payment method" = "Metoda płatności";
+"account subscription renew unsupported" = "Twoja metoda płatności nie obsługuje automatycznego odnawiania.";
+
+"account unlock to show" = "Odblokuj aby pokazać ID konta";
+
+"account header logout" = "Zwróć zakup";
+"account logout description" = "Wprowadź inny identyfikator konta lub wróć do istniejącego (ta aplikacja nie może być używana bez konta).";
+"account id status unchanged" = "(bez zmian)";
+"account action how to restore" = "Jak przywrócić swoje stare konto?";
+
+"account subscription days remaining" = "Pozostało dni: %@";
+"account devices remaining" = "Pozostało urządzeń: %@";
+"account devices not available" = "Niedostępne";
+"account devices out of" = "%@ z %@";
+
+"account encrypt level low" = "Niski";
+"account encrypt level medium" = "Średni";
+"account encrypt level high" = "Wysoki";
+"account encrypt label dns only" = "Szyfrowanie DNS";
+"account encrypt desc dns only" = "System nazw domen (DNS) to mechanizm, dzięki któremu Twoje urządzenie wie gdzie znaleźć witryny, które chcesz odwiedzić. Niestety większość Internetu nadal używa niezaszyfrowanego DNS, co naraża Twoją historię przeglądania i aktywności online na ryzyko podsłuchu. Po włączeniu, Blokada zmusza Twoje urządzenie do łączenia się tylko z zaszyfrowanymi serwerami DNS (nazywa się to także \"DNS przez HTTPS\").";
+"account encrypt label everything" = "Szyfrowanie wszystkiego";
+"account encrypt desc everything" = "Twoje urządzenie łączy się przez nasze bezpieczne serwery VPN, a wszelka komunikacja przesyłana z, lub do, Twojego urządzenia jest szyfrowana za pomocą silnych algorytmów. Chroni to Twoje dane osobowe, takie jak dane bankowe lub zdjęcia osobiste, przed kradzieżą w niezabezpieczonych miejscach, jak w kawiarni WiFi.";
+"account encrypt action turn on" = "Włącz BLOKADA";
+"account encrypt header level" = "Poziom szyfrowania";
+"account encrypt label level" = "Poziom";
+"account encrypt label level low" = "Niski: Brak szyfrowania";
+"account encrypt label level medium" = "Średni: Szyfrowanie DNS";
+"account encrypt label level high" = "Wysoki: Szyfrowanie wszystkiego";
+"account encrypt header explanation" = "DNS to mechanizm, dzięki któremu Twoje urządzenie wie, gdzie znaleźć strony internetowe. BLOKADA zezwala tylko na te serwery DNS, które szyfrują połączenie.";
+"account encrypt label dns" = "DNS";
+"account encrypt action what is dns" = "Co to jest DNS?";
+"account encrypt section header" = "Szyfrowanie";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "Użyj Blokady DNS w trybie Plus";
+
+"account lease label devices list" = "Te urządzenia są podłączone do Twojego konta.";
+"account lease label devices" = "Urządzenia";
+"account lease label this device" = " (to urządzenie)";
+"account lease label name" = "Nazwa urządzenia";
+"account lease label location" = "Lokalizacja";
+"account lease action generate" = "Generuj konfigurację";
+"account lease action download" = "Pobierz konfigurację";
+"account lease generated" = "Dodano urządzenie! Pobierz konfigurację, aby użyć ją na dowolnym urządzeniu obsługiwanym przez Wireguard.";
+"account lease wireguard desc" = "Blokada używa Wireguard. Konfiguracja może być pobierana podczas tworzenia nowych urządzeń.";
+"account lease label dns" = "DNS";
+"account lease action dns" = "Wybierz DNS";
+"account lease label public key" = "Klucz publiczny";
+
+"account support action how help" = "Jak możemy Ci pomóc?";
+"account support action kb" = "Otwórz Bazę Wiedzy";
+
+"payment header activated" = "Aktywowane!";
+"payment activated description" = "Blokada przełączy się teraz w tryb Plus, i połączy się przez jedną z naszych bezpiecznych lokalizacji. Jeśli nie jesteś pewien, którą z nich wybrać, zalecamy wybranie najbliższej względem Ciebie.";
+"payment action choose location" = "Wybierz lokalizację";
+
+"payment title" = "Aktywuj nasz VPN, aby zachować kontrolę nad *swoją prywatnością*.";
+"payment feature title change location" = "Zmień lokalizację";
+"payment feature desc change location" = "Ukryj swój adres IP i udawaj, że jesteś w innym kraju. To maskuje Cię od postronnych firm zbierających dane personalne, i pomoże chronić Twoją tożsamość.";
+"payment feature title encrypt data" = "Szyfruj dane";
+"payment feature desc encrypt data" = "Dane przesyłane przez nasz tunel VPN są szyfrowane przy użyciu silnych algorytmów w celu ochrony przed przechwytywaniem przez nieupoważnione strony.";
+"payment feature title faster connection" = "Szybsze połączenie";
+"payment feature desc faster connection" = "Świetne prędkości do 100 Mb/s z serwerami w różnych częściach świata.";
+"payment feature title devices" = "Do 5 urządzeń";
+"payment feature desc devices" = "Użyj tego samego konta, aby współdzielić swoją subskrypcję z maksymalnie 5 urządzeniami: iOS, Android lub PC.";
+"payment feature title no ads" = "Brak reklam";
+"payment feature desc no ads" = "Korzystaj ze słynnej technologii blokowania reklam Blokady, poprawiając poziom ochrony i dbając o prywatność Twoich danych.";
+"payment feature title support" = "Świetne wsparcie";
+"payment feature desc support" = "Uzyskaj szybką odpowiedź na wszelkie pytania dzięki naszej Obsłudze Klienta i aktywnej społeczności open source.";
+"payment action see all features" = "Pokaż wszystkie plusy";
+"payment action restore" = "Przywróć zakup";
+"payment action terms and privacy" = "Warunki i polityka prywatności";
+"payment action terms" = "Warunki usługi";
+"payment action policy" = "Polityka Prywatności";
+"payment alert error header" = "Wiadomość od App Store";
+
+"payment subscription 1 month" = "1 Miesiąc";
+"payment subscription many months" = "%@ Miesięcy";
+"payment subscription per month" = "%@ miesięcznie";
+"payment subscription offer" = "Oszczędź %@";
+
+"payment success label" = "Dzięki!";
+"payment success desc" = "Twoje konto jest teraz aktywne! Możesz teraz używać wszystkich funkcji Blokady Plus na wszystkich swoich urządzeniach.";
+
+"payment ongoing desc" = "Twoja płatność jest obecnie przetwarzana. W przypadku PayPal może to potrwać do 24 godzin. Inne metody płatności nie powinny trwać dłużej niż godzina. Jeśli uważasz, że trwa to zbyt długo, skontaktuj się z nami.";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
+"payment change method" = "Zmień";
+"payment action pay" = "Zapłać %@";
+"payment action pay period" = "Zapłać %@ w każdym okresie";
+"payment label email" = "E-mail";
+"payment crypto desc" = "Aby zapłacić za pomocą portfela kryptowalut, stuknij przycisk poniżej.";
+"payment label choose package" = "Wybierz pakiet";
+"payment label choose payment method" = "Wybierz metodę płatności";
+"payment label cheapest" = "Najtańszy";
+"payment label most popular" = "Najpopularniejszy";
+"payment label pay with card" = "Zapłać kartą";
+"payment label pay with paypal" = "Zapłać z PayPal";
+"payment label pay with crypto" = "Zapłać za pomocą kryptowaluty";
+"payment package one month" = "1 Miesiąc";
+"payment package six months" = "6 Miesięcy";
+"payment package twelve months" = "12 Miesięcy";
+"payment label discount" = "Oszczędź %@ (%@ / mies.)";
+"payment label country" = "Kraj";
+
+"apps section header" = "Aplikacje";
+"apps label installed" = "Zainstalowane";
+"apps label system" = "Systemowe";
+"apps status bypassed" = "(pominięte)";
+"apps filter header" = "Które aplikacje chciałbyś zobaczyć?";
+"apps filter action show all" = "Pokaż wszystkie aplikacje";
+"apps filter action show bypassed" = "Pokaż tylko pomijane";
+"apps filter action show not bypassed" = "Pokaż tylko niepomijane";
+"apps filter action toggle system" = "Przełącz wszystkie aplikacje systemowe";
+
+"app settings section header" = "To urządzenie";
+"app settings language label" = "Język";
+"app settings theme label" = "Motyw aplikacji";
+"app settings theme light" = "Jasny";
+"app settings theme dark" = "Ciemny";
+// A setting for changing if to open links internally in the app, or by using this device's web browser
+"app settings browser label" = "Przekieruj linki do";
+"app settings browser internal" = "Wewnętrzna przeglądarka";
+"app settings browser external" = "Zewnętrzna przeglądarka (jeśli to możliwe)";
+"app settings ipv6 label" = "Zezwalaj na IPv6";
+"app settings section system" = "System";
+"app settings action app info" = "Otwórz informacje o aplikacji";
+"app settings action vpn profile" = "Otwórz profil VPN";
+"app settings action notifications" = "Otwórz ustawienia powiadomień";
+"app settings section details" = "Szczegóły";
+"app settings status default" = "Domyślny";
+"app settings start on boot" = "Uruchom przy starcie";
+"app settings use dns over https" = "Użyj DNS over HTTPS";
+"app settings backup" = "Użyj kopii zapasowej w chmurze";
+"app settings section advanced" = "Zaawansowane";
+"app settings section use foreground" = "Zawsze w tle";
+
+"intro header" = "Blokada jest aktywna!";
+"intro text" = "Niebieski pierścień oznacza, że Blokada działa.\n\nPamiętaj, że niektóre reklamy, takie jak YouTube, nie mogą być zablokowane. Jednak zauważysz różnicę w wielu innych aplikacjach.\n\nZalecamy aktywację Zawsze w sieci VPN / Połącz na żądanie w ustawieniach systemowych.";
+
+"location region america" = "Ameryka";
+"location region europe" = "Europa";
+"location region asia" = "Azja";
+
+"homepage header what is blokada" = "Czym jest Blokada?";
+"homepage desc what is blokada" = "Poznaj podstawowe informacje o aplikacji.";
+"homepage desc download" = "Pobierz Blokadę na swoją platformę.";
+"homepage desc community" = "Dołącz do naszej niesamowitej społeczności.";
+"homepage header support" = "Wesprzyj nas";
+"homepage desc support" = "Wspomóż nas w kontynuowaniu projektu.";
+"homepage action authors" = "Autorzy";
+"homepage action source" = "Źródła";
+"homepage action forums" = "Fora";
+"homepage action dashboard" = "Pulpit";
+"homepage about footer" = "Zostańmy w kontakcie!";
+"homepage hero title" = "Aplikacja do ochrony prywatności";
+"homepage hero subtitle" = "darmowa i otwarta";
+"homepage hero desc" = "Blokada jest popularnym blokerem reklam i aplikacją do ochrony prywatności dla Androida i iOS. Jest wspierana i aktywnie rozwijana przez niesamowitą społeczność open source.";
+"homepage about title" = "Blokada 5, bloker reklam";
+"homepage about desc" = "Jeśli chcesz skutecznie blokować reklamy, moduły śledzące, złośliwe oprogramowanie, zaoszczędzić na transmisji danych, przyspieszyć urządzenie i chronić swoją prywatność za pomocą tylko jednej aplikacji, to Blokada jest dla Ciebie.";
+"homepage about point one" = "Blokuje reklamy i moduły śledzące";
+"homepage about point two" = "Działa we wszystkich aplikacjach i przeglądarkach";
+"homepage about point three" = "Nie wymaga dostępu root ani jailbreak";
+"homepage about point four" = "Wbudowany VPN dla lepszej ochrony";
+"homepage about action plus" = "Dowiedz się więcej o Blokadzie Plus";
+
+"homepage download header" = "Pobierz Blokadę";
+"homepage download subheader" = "Blokada jest dostępna dla kilku platform, wybierz swoją.";
+"homepage download option android five" = "Blokada 5 dla Androida";
+"homepage download option android slim" = "Blokada 5 Slim dla Androida";
+"homepage download option android four" = "Blokada 4 dla Androida";
+"homepage download option ios" = "Blokada 5 dla iOS";
+"homepage download option other" = "Blokada dla innych platform";
+"homepage download desc other" = "Obecnie nie zapewniamy Blokady dla innych platform. Jeśli jednak jesteś użytkownikiem Blokady Plus, możesz korzystać z naszego VPN w systemach Windows, Linux, Mac oraz na platformach, na których jest dostępny Wireguard.";
+"homepage download desc ios" = "Blokada 5 jest dostępna w App Store.";
+"homepage download action ios" = "Otwórz App Store";
+"homepage download desc android five" = "To jest nasza nowa, zalecana wersja <b>dla smartfonów i tabletów z Androidem 7 lub nowszym</b>. Jest prostsza i szybsza w porównaniu z Blokadą 4.";
+"homepage download action android five" = "Blokada 5 .apk";
+"homepage download action android five beta" = "Beta .apk";
+"homepage download desc android slim" = "Blokada Slim to <b>lekka wersja aplikacji</b>, która zawiera tylko funkcje dozwolone przez zasady Google Play.";
+"homepage download action android slim" = "Otwórz Google Play";
+"homepage download desc android four" = "Nadal utrzymujemy starszą wersję Blokady. Ma więcej funkcji, działa na starszych urządzeniach i telewizorach.";
+"homepage download action android four" = "Blokada 4 .apk";
+"homepage download action android four fdroid" = "Otwórz F-Droid";
+
+"homepage community header" = "Społeczność";
+"homepage community desc" = "Blokada jest nie tylko aplikacją do ochrony prywatności. Jest to również społeczność ludzi, którzy dbają o swoją cyfrową prywatność i dobro. Znajdziesz nas na naszym forum, na którym możesz zadawać ewentualne pytania. Jesteśmy również obecni w innych mediach społecznościowych i na czatach.";
+"homepage community cta subheader" = "Dołącz do nas i przywitaj się!";
+"homepage community cta desc" = "Opieramy naszą pracę na opiniach naszych użytkowników. Powiedz nam, co myślisz, co powinniśmy poprawić lub po prostu spędź z nami czas.";
+"homepage community cta action" = "Przejdź do forów";
+"homepage community opinions" = "Oto niektóre opinie naszych użytkowników.";
+
+"homepage support header" = "Wesprzyj projekt";
+"homepage support desc" = "Jeśli lubisz to, co robimy, rozważ wsparcie nas, abyśmy mogli nadal rozwijać nowe funkcje i ulepszenia. W ten sposób Blokada może pozostać otwarta i wolna na zawsze.";
+"homepage support cta header" = "Blokada jest zależna od Ciebie";
+"homepage support cta desc" = "Blokada jest projektem open source, co oznacza, że możesz być pewien, że zawsze będzie darmowa, bezpieczna do używania i pozbawiona ukrytych zamiarów. Uważamy, że to jedyny słuszny sposób na stworzenie aplikacji do ochrony prywatności, której możesz zaufać.";
+"homepage support cta desc more" = "Jednak opracowanie wysokiej jakości aplikacji, takiej jak Blokada, wymaga znacznych zasobów. Ten projekt istnieje dzięki wsparciu niesamowitych ludzi, takich jak Ty!";
+"homepage support cta action" = "Dotacja (karta, Paypal)";
+"homepage support cta action alt" = "Dotacja (bank, krypto)";
+
+"homepage developer header" = "Jesteś programistą";
+"homepage developer subheader" = "i chcesz ulepszyć Blokadę?";
+"homepage developer desc" = "Blokada jest projektem open source poświęconym stworzeniu najlepszej aplikacji do blokowania reklam i ochrony prywatności dla Androida i iOS. Sprawdź nasz Github i daj nam znać, jeśli potrzebujesz pomocy przy stworzeniu pierwszego PR.";
+"homepage developer action" = "Przejdź do repozytorium";

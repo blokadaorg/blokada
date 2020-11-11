@@ -1,0 +1,267 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"error device offline" = "आपका उपकरण ऑफ़लाइन है";
+"error account inactive" = "आपका खाता निष्क्रिय है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपने खाते को सक्रिय करें।";
+"error account inactive after restore" = "यह एक मान्य सक्रिय खाता नहीं लगता है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error creating account" = "नया खाता नहीं बनाया जा सका। बाद में पुन: प्रयास करें।";
+"error fetching data" = "यह कार्रवाई पूरी नहीं हो सकी। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error tunnel" = "वीपीएन स्थापित नहीं कर सका। कृपया अपने डिवाइस को पुनः आरंभ करें, या सिस्टम सेटिंग्स में Blokada VPN प्रोफाइल को हटा दें, और फिर से प्रयास करें।";
+"error vpn" = "वीपीएन स्थापित नहीं कर सका। कृपया अपने डिवाइस को पुनः आरंभ करें, या सिस्टम सेटिंग्स में Blokada VPN प्रोफाइल को हटा दें, और फिर से प्रयास करें।";
+"error vpn perms" = "वीपीएन प्रोफाइल बनाने के लिए कोई अनुमति नहीं दी गई।";
+"error vpn no current lease" = "कृपया पहले एक स्थान चुनें।";
+"error vpn too many leases" = "आप अपने उपकरणों की सीमा तक पहुँच गए। कृपया अपना एक उपकरण निकालें और पुनः प्रयास करें।";
+"error vpn expired" = "VPN अक्षम है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपनी सदस्यता अपडेट करें";
+"error payment inactive after restore" = "आपका पिछला भुगतान बहाल कर दिया गया था, लेकिन सदस्यता पहले ही समाप्त हो चुकी है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error payment failed" = "इस समय भुगतान उपलब्ध नहीं है। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error payment not available" = "इस उपकरण के लिए भुगतान उपलब्ध नहीं हैं। या तो ऐप्पल पे सक्रिय नहीं है, या हम आपके देश में खरीद को अभी तक संभाल नहीं रहे हैं।";
+"error payment canceled" = "भुगतान रद्द कर दिया गया था। आपसे शुल्क नहीं लिया गया।";
+"error pack install" = "इस सुविधा को इंस्टॉल (या अनइंस्टॉल) नहीं कर सका। बाद में पुन: प्रयास करें।";
+"error location failed fetching" = "स्थानों को नहीं ला सके।";
+
+"universal action continue" = "जारी रखें";
+"universal action cancel" = "रद्द करें";
+"universal action close" = "बंद करें";
+"universal action done" = "पूर्ण";
+"universal action try again" = "दुबारा कोशिश करें";
+"universal action learn more" = "और जानें";
+"universal action help" = "मदद";
+"universal action show log" = "लॉग";
+"universal action share log" = "लॉग शेयर करें";
+"universal action copy" = "कॉपी करें";
+"universal action save" = "सहेज करे";
+"universal action contact us" = "हमसे संपर्क करें";
+"universal action support" = "सहायता";
+"universal action upgrade" = "BLOKADA + में अपग्रेड करें";
+"universal action yes" = "हां";
+"universal action no" = "नहीं";
+"universal action donate" = "दान";
+"universal action community" = "समुदाय";
+"universal action open in browser" = "ब्राउज़र में खोलें";
+"universal action more" = "अधिक";
+"universal action download" = "डाउन्लोड";
+"universal action news" = "समाचार";
+"universal action delete" = "हटाएँ";
+
+"universal label help" = "मदद";
+"universal status processing" = "प्रॉसेस हो रहा हैं; कृपया प्रतीक्षा करें...";
+"universal status redirect" = "ब्लोकाडा ऐप के साथ जारी रखें";
+
+"alert error header" = "ओह!";
+"alert vpn expired header" = "BLOKADA + समाप्त हो गया";
+
+"notification vpn expired header" = "BLOKADA + की सदस्यता समाप्त हो गई है";
+"notification vpn expired subtitle" = "VPN अक्षम है";
+"notification vpn expired body" = "BLOKADA + का उपयोग जारी रखने के लिए कृपया अपनी सदस्यता अपडेट करें";
+
+"account active forever" = "हमेशा के लिए";
+
+"main ask for permissions header" = "बस एक और कदम";
+"main ask for permissions description" = "ब्लोकडा विज्ञापनों को ब्लॉक करने के लिए वीपीएन कॉन्फ़िगरेशन का उपयोग कर रहा है। आपको इसे अगले चरण में अनुमति देने के लिए कहा जाएगा।";
+
+"main share message" = "IOS के लिए ब्लोकडा ने मुझे %@ विज्ञापनों और ट्रैकर्स को ब्लॉक करने में मदद की!";
+
+"main rate us header" = "हमें रेट करें!";
+"main rate us description" = "आपको ब्लोकडा अब तक कैसा लगा?";
+"main rate us on app store" = "क्या आप App Store पर Blokada रेटिंग द्वारा हमारी मदद करेंगे?";
+"main rate us action sure" = "ज़रूर!";
+
+// Make sure each tab name has a similar length
+"main tab home" = "होम";
+// Make sure each tab name has a similar length
+"main tab activity" = "गतिविधि";
+// Make sure each tab name has a similar length
+"main tab advanced" = "उच्च";
+// Make sure each tab name has a similar length
+"main tab settings" = "सैटिंग्स";
+
+"home ads counter footnote" = "स्थापना के बाद से विज्ञापन और ट्रैकर अवरुद्ध";
+"home power off menu header" = "आप क्या करना चाहेंगे?";
+"home power action turn on" = "चालू करें";
+"home power action turn off" = "बंद करे";
+"home power action pause" = "5 मिनट के लिए रुकें";
+
+"home status paused" = "रोक दिया गया है";
+"home status active" = "सक्रिय";
+"home status deactivated" = "निष्क्रिय";
+"home action tap to activate" = "सक्रिय करने के लिए टैप करें";
+"home status detail paused" = "टाइमर समाप्त होने तक रोक दिया गया";
+"home status detail active" = "अवरोधक *विज्ञापन* और *ट्रैकर्स*";
+"home status detail active with counter" = "*%@* विज्ञापनों और ट्रैकर्स को अवरुद्ध किया";
+"home status detail plus" = "*+* अपनी *निजता* की रक्षा";
+"home status detail progress" = "कृपया प्रतीक्षा करें...";
+
+"home plus button deactivated" = "BLOKADA + निष्क्रिय किया गया";
+"home plus button select location" = "स्थान चुने";
+"home plus button location" = "स्थान: *%@*";
+
+"pack section header" = "उन्नत सुविधाओं";
+"pack action install" = "पाएं";
+"pack action update" = "अपडेट करें";
+"pack action uninstall" = "हटाए इसे";
+"pack author" = "लेखक";
+"pack configurations header" = "विन्यास";
+"pack information header" = "अधिक";
+"pack tags header" = "टैग";
+"pack tags none" = "कोई नहीं";
+"pack category highlights" = "विशेषताएँ";
+"pack category active" = "सक्रिय";
+"pack category all" = "सभी";
+
+"location choice header" = "स्थान चुनें";
+
+"activity section header" = "गतिविधि";
+"activity request blocked" = "इस अनुरोध को अवरोधित कर दिया गया है।";
+"activity request allowed" = "इस अनुरोध की अनुमति दी गई है।";
+"activity request allowed whitelisted" = "इस अनुरोध को अनुमति दी गई है, क्योंकि यह आपकी अनुमति सूची में है";
+"activity request blocked blacklisted" = "इस अनुरोध को अनुमति दी गई है, क्योंकि यह आपकी अवरुद्ध सूची में है";
+"activity actions header" = "कार्रवाई";
+"activity information header" = "जानकारी";
+"activity action add to whitelist" = "इसे अनुमति दें";
+"activity action remove from whitelist" = "अनुमति से निकालें";
+"activity action added to whitelist" = "इसे अनुमति दें";
+"activity action add to blacklist" = "अवरुद्ध में जोड़ें";
+"activity action remove from blacklist" = "अवरुद्ध से निकालें";
+"activity action added to blacklist" = "अवरुद्ध में जोड़ें";
+"activity action copy to clipboard" = "क्लिपबोर्ड पर नाम कॉपी करें";
+"activity domain name" = "पूरा नाम";
+"activity time of occurrence" = "समय";
+"activity number of occurrences" = "घटनाओं की संख्या";
+// As in sentence, "this item has been modified"
+"activity state modified" = "संशोधित";
+// As in sentence, "this host has been blocked"
+"activity state blocked" = "अवरुद्ध";
+// As in sentence, "this host has been allowed"
+"activity state allowed" = "अनुमति है";
+"activity happened one time" = "एक बार";
+"activity happened many times" = "%@ बार";
+"activity category recent" = "हाल ही में";
+"activity category top" = "शीर्ष";
+"activity category top blocked" = "शीर्ष अवरुद्ध";
+"activity category top allowed" = "शीर्ष अनुमति";
+"activity filter header" = "आप कौन सी प्रविष्टियाँ देखना चाहेंगे?";
+"activity filter show all" = "सभी प्रविष्टियाँ दिखाएँ";
+"activity filter show blocked" = "केवल अवरुद्ध दिखाएं";
+"activity filter show allowed" = "केवल दिखाने की अनुमति है";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "अवरुद्ध";
+
+"account section header settings" = "सैटिंग्स";
+"account status text" = "आपका BLOKADA%@ खाता %@ तक सक्रिय है।";
+
+"account section header primary" = "प्रमुख";
+"account section header other" = "अन्य";
+"account action my account" = "मेरा खाता";
+"account action encryption" = "एन्क्रिप्शन";
+"account action devices" = "उपकरण";
+"account action new device" = "नया उपकरण";
+"account action inbox" = "इनबॉक्स";
+"account action logout only" = "लोग आउट";
+"account action about" = "हमारे बारे में";
+"account label enter to continue" = "जारी रखने के लिए अपना खाता आईडी दर्ज करें";
+
+"account section header my subscription" = "मेरी सदस्यता";
+"account section header general" = "सामान्य";
+"account section header subscription" = "सदस्यता";
+"account label id" = "खाता आईडी";
+"account label type" = "खाता प्रकार";
+"account label active until" = "... तक एक्टिव";
+"account action manage subscription" = "सदस्यताओं को प्रबंधित करें";
+"account action why upgrade" = "मुझे अपग्रेड क्यों करना चाहिए?";
+
+"account unlock to show" = "अपना खाता आईडी दिखाने के लिए अनलॉक करें";
+"account logout description" = "कृपया कोई अन्य खाता आईडी दर्ज करें, या मौजूदा खाते का उपयोग करने के लिए वापस जाएं (यह ऐप बिना उपयोग किए नहीं किया जा सकता है)।";
+"account id status unchanged" = "(अपरिवर्तित)";
+"account action how to restore" = "मैं अपने पुराने खाते को कैसे पुनर्स्थापित करूं?";
+
+"account encrypt level low" = "कम";
+"account encrypt level medium" = "मध्यम";
+"account encrypt level high" = "ऊंचा";
+"account encrypt label dns only" = "डीएनएस को एन्क्रिप्ट करना";
+"account encrypt desc dns only" = "डोमेन नेम सिस्टम यह है कि आपकी डिवाइस को पता है कि आप जिन वेबसाइटों पर जाना चाहते हैं, उन्हें कहां खोजें। दुर्भाग्य से, अधिकांश इंटरनेट अभी भी अनएन्क्रिप्टेड डीएनएस का उपयोग करता है, जो आपके ब्राउज़िंग इतिहास को जासूसी करने के जोखिम में डालता है। जब सक्षम किया जाता है, तो Blokada आपके डिवाइस को केवल एन्क्रिप्टेड DNS सर्वर (जिसे DNS को HTTPS भी कहा जाता है) से कनेक्ट करने के लिए मजबूर कर रहा है।";
+"account encrypt label everything" = "सब कुछ एन्क्रिप्ट करें";
+"account encrypt desc everything" = "आपका डिवाइस हमारे सुरक्षित वीपीएन सर्वर, और सभी संचार से आने वाले या, आपके डिवाइस को मजबूत एल्गोरिदम का उपयोग करके एन्क्रिप्ट किया जा रहा है। यह आपकी व्यक्तिगत जानकारी को सुरक्षित रखता है, जैसे बैंकिंग विवरण या व्यक्तिगत फ़ोटो, असुरक्षित स्थानों में चोरी होने से, कॉफी शॉप वाईफाई की तरह।";
+"account encrypt action turn on" = "BLOKADA चालू करें";
+"account encrypt header level" = "एन्क्रिप्शन स्तर";
+"account encrypt label level" = "स्तर";
+"account encrypt label level low" = "निम्न: कोई एन्क्रिप्शन नहीं";
+"account encrypt label level medium" = "माध्यम: डीएनएस को एन्क्रिप्ट करना";
+"account encrypt label level high" = "उच्च: सब कुछ एन्क्रिप्ट करना";
+"account encrypt header explanation" = "DNS है कि आपका डिवाइस जानता है कि वेबसाइटों को कहां खोजना है। BLOKADA केवल एन्क्रिप्टेड सर्वर का समर्थन करता है।";
+"account encrypt label dns" = "डीएनएस";
+"account encrypt action what is dns" = "DNS क्या है?";
+"account encrypt section header" = "एन्क्रिप्शन";
+
+"account lease label devices list" = "ये उपकरण आपके खाते से जुड़े हैं।";
+"account lease label devices" = "उपकरण";
+"account lease label this device" = " (यह डिवाइस)";
+"account lease label name" = "उपकरण का नाम";
+"account lease label dns" = "डीएनएस";
+"account lease label public key" = "सार्वजनिक चाबी";
+
+"account support action how help" = "हम आपकी क्या मदद कर सकते हैं?";
+"account support action kb" = "ज्ञान कोष";
+
+"payment header activated" = "सक्रिय!";
+"payment activated description" = "ब्लोकडा अब प्लस मोड में बदल जाएगा, और हमारे सुरक्षित स्थानों में से एक के माध्यम से कनेक्ट होगा। यदि आप अनिश्चित हैं कि किसे चुनना है, तो आपके लिए सबसे निकटतम एक की सिफारिश की जाती है।";
+"payment action choose location" = "स्थान चुनें";
+
+"payment title" = "*आपकी गोपनीयता* के नियंत्रण में रहने के लिए हमारी वीपीएन सेवा को अपग्रेड करें।";
+"payment feature title change location" = "स्थान बदलें";
+"payment feature desc change location" = "अपना आईपी पता छिपाएं और दिखावा करें कि आप दूसरे देश में हैं। यह आपको तृतीय-पक्ष से मुखौटा देगा और आपकी पहचान की रक्षा करने में मदद करेगा।";
+"payment feature title encrypt data" = "डेटा एन्क्रिप्ट करें";
+"payment feature desc encrypt data" = "हमारे वीपीएन सुरंग के माध्यम से भेजे गए डेटा को अनधिकृत पार्टियों द्वारा अवरोधन से बचाने के लिए मजबूत एल्गोरिदम का उपयोग करके एन्क्रिप्ट किया गया है।";
+"payment feature title faster connection" = "तेज़ कनेक्शन";
+"payment feature desc faster connection" = "दुनिया के विभिन्न हिस्सों में सर्वर के साथ 100Mbps तक की महान गति।";
+"payment feature title devices" = "5 उपकरणों तक";
+"payment feature desc devices" = "5 उपकरणों के साथ अपनी सदस्यता साझा करने के लिए एक ही खाते का उपयोग करें: iOS, Android, या PC।";
+"payment feature title no ads" = "कोई विज्ञापन नहीं";
+"payment feature desc no ads" = "अपने संरक्षण स्तर में सुधार करते हुए और अपने डेटा को निजी रखते हुए विश्व प्रसिद्ध ब्लोकडा एड ब्लॉकिंग तकनीक का उपयोग करें।";
+"payment feature title support" = "शानदार समर्थन";
+"payment feature desc support" = "ग्राहक सहायता और जीवंत ओपन सोर्स समुदाय से किसी भी प्रश्न का तुरंत जवाब प्राप्त करें।";
+"payment action see all features" = "सभी सुविधाएँ देखें";
+"payment action restore" = "खरीदारी रीस्टोर करें";
+"payment action terms and privacy" = "शर्तें और गोपनीयता नीति";
+"payment action terms" = "सेवा की शर्तें";
+"payment action policy" = "गोपनीयता नीति";
+"payment alert error header" = "ऐप स्टोर से एक संदेश";
+
+"payment subscription 1 month" = "1 महीना";
+"payment subscription many months" = "%@ महीने";
+"payment subscription per month" = "%@ प्रति माह";
+"payment subscription offer" = "बचाएं %@";
+
+"payment success label" = "धन्यवाद!";
+"payment change method" = "बदलें";
+"payment label pay with card" = "कार्ड से भुगतान करें";
+"payment label pay with paypal" = "पेपैल के साथ भुगतान करें";
+"payment label pay with crypto" = "Cryptocurrency से भुगतान करें";
+"payment package one month" = "1 महीना";
+"payment package six months" = "6 महीने";
+"payment package twelve months" = "12 महीने";
+
+"apps section header" = "ऐप्स";
+"app settings start on boot" = "बूट पर प्रारंभ करें";
+"app settings section advanced" = "उच्च";
+"app settings section use foreground" = "जिंदा रखें";
+"homepage about action plus" = "ब्लोकाडा प्लस के बारे में अधिक जानें";
+
+"homepage download header" = "Blokada डाउनलोड करें";

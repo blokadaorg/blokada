@@ -1,0 +1,34 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Werbungen und Tracker Blockierliste";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Das Energized-System ist für Unix-ähnliche Systeme entwickelt und bekommt eine Liste von Domains, die Werbungen, Tracker und Malware liefern, aus angesehenen Quellen und erschafft eine Hosts-Datei, die verhindert, dass dein System sich mit diesen verbindet. Beachte: Wenn du die \"Social\"-Konfiguration installierst, können deine sozialen Apps wie z. B. Messenger, ein Fehlverhalten aufweisen.";
+"Popular for adblocking" = "Beliebt für Werbeblocker";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Zusammenfassen und Erweitern von Host-Dateien von mehreren gut-kuratierten Quellen. Du kannst optional die Erweiterungen Porn, Social Media und andere Kategorien auswählen, um diese zu blockieren.";
+"Alternative blocklist with advanced features" = "Alternative Blockierlisten mit erweiterten Funktionen";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Eine Blockierliste mit einzigartigen Erweiterungen, die man wählen kann. Beachte, dass diese aggressiver sind und möglicherweise Apps oder Webseiten zerstört. Sie blockiert graph.facebook.com und mqtt-mini.facebook.com. Du kannst diese im Abschnitt Aktivität Whitelisten, solltest du Probleme mit Facebookapps haben.";
+"Adblocking for your mobile device" = "Werbeblocker für dein Mobilgerät";
+"A special blocklist containing mobile ad providers." = "Eine spezielle Blockierliste, die Handywerbeprovider sperrt.";
+"Protects against cyber attacks" = "Schützt gegen Cyberattacken";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Eine Blockierliste um Phishing-Webseiten auszufiltern. Phishing ist eine Art, die dich auf eine gefälschte Webseite führt, welche genauso wie die richtige Webseite aussieht um die Besucher auszutricksen und ihre sensiblen Informationen zu stehlen. Wenn du diese Blockierliste installierst wird sie dir helfen, solche Situationen zu vermeiden.";
+"A new and upcoming tracker database" = "Eine zukünftige, neue Tracker-Datenbank";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "Das DuckDuckGo Tracker Radar ist einer der besten, verfügbaren Datensätze mit Trackern, welcher durch kontinuierliches Suchen und Analysieren automatisch erstellt und gepflegt wird. Einzelheiten dazu liefern die Informationen des Autors.";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Dies ist eine betreute und gut gepflegte Sperrliste, um Werbung, Tracking und mehr zu blockieren. Sie wird regelmäßig aktualisiert.";

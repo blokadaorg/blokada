@@ -1,0 +1,15 @@
+{ "strings": {
+    "recommended": "suositellut",
+    "official": "virallinen",
+    "adblocking": "mainosten estäminen",
+    "tracking": "seuranta",
+    "privacy": "yksityisyys",
+    "adult": "aikuinen",
+    "social": "sosiaalinen",
+    "regional": "alue",
+    "fake news": "valeuutiset",
+    "gambling": "uhkapelaaminen",
+    "youtube": "youtube",
+    "phishing": "tietojenkalastelu",
+    "security": "turvallisuus"
+} }

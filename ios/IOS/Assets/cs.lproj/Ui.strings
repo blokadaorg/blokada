@@ -1,0 +1,435 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"error device offline" = "Vaše zařízení je offline";
+"error account inactive" = "Váš není aktivní. Aktivujte prosím svůj účet, abyste mohli pokračovat v používání služby BLOKADA+.";
+"error account inactive after restore" = "Nezdá se, že by se jednalo o platný aktivní účet. Pokud se domníváte, že se jedná o chybu, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
+"error account invalid" = "Toto ID účtu se zdá být neplatné.";
+"error creating account" = "Nelze vytvořit nový účet. Opakujte akci později.";
+"error fetching data" = "Tuto akci nelze dokončit. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
+"error tunnel" = "Nelze vytvořit VPN. Restartujte zařízení nebo odstraňte profil Blokada VPN v systémovém nastavení a zkuste to znovu.";
+"error vpn" = "Nelze vytvořit VPN. Restartujte zařízení nebo odstraňte profil Blokada VPN v systémovém nastavení a zkuste to znovu.";
+"error vpn perms" = "K vytvoření profilu VPN nebyla udělena žádná oprávnění.";
+"error vpn no current lease" = "Nejprve prosím vyberte umístění.";
+"error vpn too many leases" = "Dosáhli jste limitu zařízení. Prosím odeberte jedno z vašich zařízení a zkuste to znovu.";
+"error vpn expired" = "VPN je zakázána. Aktualizujte vaše předplatné a pokračujte v používání služby BLOKADA+";
+"error payment inactive after restore" = "Vaše předchozí platba byla obnovena, ale předplatné již vypršelo. Pokud se domníváte, že se jedná o chybu, kontaktujte nás kliknutím na ikonu nápovědy v horní části.";
+"error payment failed" = "Platby nejsou momentálně k dispozici. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
+"error payment failed alternative" = "Nelze dokončit Vaši platbu. Ujistěte se, že jsou vaše údaje správné, a zkuste to znovu. Pokud problém přetrvává, prosím, kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
+"error payment not available" = "Pro toto zařízení nejsou platby k dispozici. Buď není aktivován Apple Pay, nebo nákupy ve vaší zemi zatím nezpracováváme.";
+"error payment canceled" = "Platba byla zrušena. Nebyli vám účtovány žádné poplatky.";
+"error pack install" = "Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.";
+"error location failed fetching" = "Nelze načíst umístění.";
+"error unknown" = "Došlo k neznámému problému. Zkuste to prosím znovu. Pokud problém přetrvává, kontaktujte nás kliknutím na ikonu nápovědy nahoře.";
+"error blocka dns in filtering mode" = "Blokada DNS je aktuálně podporována pouze v režimu Plus. Vyberte jiné DNS a zkuste to znovu.";
+
+"universal action continue" = "Pokračovat";
+"universal action cancel" = "Zrušit";
+"universal action close" = "Zavřít";
+"universal action done" = "Hotovo";
+"universal action try again" = "Zkusit znovu";
+"universal action learn more" = "Zjistit více";
+"universal action help" = "Nápověda";
+"universal action show log" = "Protokoly";
+"universal action share log" = "Sdílet protokol";
+"universal action copy" = "Kopírovat";
+"universal action save" = "Uložit";
+"universal action contact us" = "Kontaktujte nás";
+"universal action support" = "Podpora";
+"universal action upgrade" = "Upgradovat na BLOKADA+";
+"universal action upgrade short" = "Aktualizovat";
+"universal action yes" = "Ano";
+"universal action no" = "Ne";
+"universal action donate" = "Podpořit";
+"universal action community" = "Komunita";
+"universal action open in browser" = "Otevřít v prohlížeči";
+"universal action more" = "Více";
+"universal action download" = "Stáhnout";
+"universal action news" = "Novinky";
+"universal action delete" = "Odstranit";
+"universal action hide" = "Skrýt";
+"universal action select" = "Vybrat";
+"universal action selected" = "Vybrané";
+
+"universal label help" = "Nápověda";
+"universal label welcome" = "Vítejte!";
+"universal status processing" = "Zpracovávám... Čekejte prosím.";
+"universal status copied to clipboard" = "Zkopírováno do schránky";
+"universal status restart required" = "Restartujte prosím aplikaci, aby se změny projevily.";
+"universal status redirect" = "Pokračovat s aplikací Blokada";
+
+"alert error header" = "Ups!";
+"alert vpn expired header" = "Platnost služby BLOKADA+ vypršela";
+"alert download link body" = "Pro stažení souboru musíme z bezpečnostních důvodů otevřít tento web ve vašem prohlížeči. Poté prosím klepněte na odkaz pro stažení.";
+
+"notification vpn expired header" = "Předplatné služby BLOKADA+ vypršelo";
+"notification vpn expired subtitle" = "VPN je zakázáno";
+"notification vpn expired body" = "Aktualizujte vaše předplatné a pokračujte v používání služby BLOKADA+";
+"notification desc settings" = "Nastavení zobrazíte přejetím oznámení doleva nebo doprava.";
+
+"notification update header" = "K dispozici je aktualizace";
+"alert update body" = "Blokada %@ je nyní k dispozici ke stažení. Doporučujeme aplikaci aktualizovat a stahovat pouze z našich oficiálních zdrojů.";
+"update label updated" = "Aktualizováno!";
+"update desc updated" = "Nyní používáte nejnovější verzi Blokady! Pamatujte, že podpora nebo předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.";
+"update downloading description" = "Aktualizace se nyní stahuje a brzy byste měli vidět výzvu k instalaci.";
+
+"account active forever" = "Navždy";
+"account active forever full" = "Vždy aktivní";
+
+"main ask for permissions header" = "Již jen jeden krok";
+"main ask for permissions description" = "Blokada používá konfiguraci VPN k blokování reklam. V dalším kroku budete požádáni o její povolení.";
+
+"main share message" = "Blokada pro iOS mi pomohla zablokovat %@ reklam a sledovačů!";
+
+"main rate us header" = "Ohodnoťte nás!";
+"main rate us description" = "Jak se vám zatím Blokada líbí?";
+"main rate us on app store" = "Pomůžete nám ohodnotit Blokadu v App Store?";
+"main rate us action sure" = "Jistě!";
+
+// Make sure each tab name has a similar length
+"main tab home" = "Hlavní obrazovka";
+// Make sure each tab name has a similar length
+"main tab activity" = "Aktivita";
+// Make sure each tab name has a similar length
+"main tab advanced" = "Pokročilé";
+// Make sure each tab name has a similar length
+"main tab settings" = "Nastavení";
+
+"home ads counter footnote" = "počet reklam a sledovačů zablokovaných od instalace";
+"home power off menu header" = "Co chcete udělat?";
+"home power action turn on" = "Zapnout";
+"home power action turn off" = "Vypnout";
+"home power action pause" = "Pozastavit na 5 minut";
+
+"home status paused" = "POZASTAVENA";
+"home status active" = "AKTIVNÍ";
+"home status deactivated" = "DEAKTIVOVÁNA";
+"home action tap to activate" = "klepnutím aktivovat";
+"home status detail paused" = "pozastaveno, do konce časovače";
+"home status detail active" = "blokuje *reklamy* a *sledovače*";
+"home status detail active with counter" = "zablokováno *%@* reklam a sledovačů";
+"home status detail active slim" = "Blokada *Slim* je aktivní";
+"home status detail plus" = "*+* chrání vaše *soukromí*";
+"home status detail progress" = "čekejte prosím...";
+
+"home plus button deactivated" = "BLOKADA+ deaktivována";
+"home plus button select location" = "Vybrat umístění";
+"home plus button location" = "Umístění: *%@*";
+
+"pack section header" = "Pokročilé funkce";
+"pack section header details" = "Podrobnosti o funkci";
+"pack action install" = "ZÍSKAT";
+"pack action update" = "AKTUALIZOVAT";
+"pack action uninstall" = "ODSTRANIT";
+"pack author" = "Autor";
+"pack configurations header" = "Konfigurace";
+"pack information header" = "Více";
+"pack tags header" = "Tagy";
+"pack tags none" = "Žádné";
+"pack category highlights" = "Zvýraznění";
+"pack category active" = "Aktivní";
+"pack category all" = "Vše";
+
+"advanced section header packs" = "Seznamy blokovaných";
+"advanced section slugline packs" = "Aktivujte pro restriktivnější blokování";
+"advanced section slugline apps" = "Vyberte aplikace, které by nikdy neměly být blokovány";
+"advanced section slugline encryption" = "Upravte svou úroveň šifrování a DNS";
+"advanced action slim migrate to full" = "Používáte Blokadu Slim. Zjistěte více";
+
+"location choice header" = "Zvolte umístění";
+
+"activity section header" = "Aktivita";
+"activity section header details" = "Podrobnosti o aktivitě";
+"activity request blocked" = "Tento požadavek byl zablokován.";
+"activity request allowed" = "Tento požadavek byl povolen.";
+"activity request allowed whitelisted" = "Tento požadavek byl povolen, protože je na vašem Seznamu povolených";
+"activity request blocked blacklisted" = "Tento požadavek byl zablokován, protože je na vašem Seznamu blokovaných";
+"activity actions header" = "Akce";
+"activity information header" = "Informace";
+"activity action add to whitelist" = "Přidat k povoleným";
+"activity action remove from whitelist" = "Odebrat z povolených";
+"activity action added to whitelist" = "Přidáno k povoleným";
+"activity action add to blacklist" = "Přidat do blokovaných";
+"activity action remove from blacklist" = "Odebrat z blokovaných";
+"activity action added to blacklist" = "Přidáno do blokovaných";
+"activity action copy to clipboard" = "Kopírovat název do schránky";
+"activity domain name" = "Celý název";
+"activity time of occurrence" = "Čas";
+"activity number of occurrences" = "Počet výskytů";
+// As in sentence, "this item has been modified"
+"activity state modified" = "upraveno";
+// As in sentence, "this host has been blocked"
+"activity state blocked" = "zablokováno";
+// As in sentence, "this host has been allowed"
+"activity state allowed" = "povoleno";
+"activity happened one time" = "1 krát";
+"activity happened many times" = "%@ krát";
+"activity category recent" = "Nedávné";
+"activity category top" = "Top";
+"activity category top blocked" = "Nejvíce blokováno";
+"activity category top allowed" = "Nejvíce povoleno";
+"activity filter header" = "Které položky chcete vidět?";
+"activity filter show all" = "Zobrazit všechny položky";
+"activity filter show blocked" = "Zobrazit pouze blokované";
+"activity filter show allowed" = "Zobrazit pouze povolené";
+"activity empty text" = "Zkuste použít své zařízení a vraťte se sem později, abyste zjistili, kam se vaše zařízení připojuje.";
+
+"userdenied section header" = "Moje seznamy blokovaných";
+"userdenied section slugline" = "Spravovat blokování konkrétních webových stránek";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "Povolené";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "Blokované";
+
+"account section header settings" = "Nastavení";
+"account status text" = "Váš účet BLOKADA %@ je aktivní do %@.";
+"account status text libre" = "Váš účet BLOKADA Libre je aktivní navždy.";
+
+"account section header primary" = "Primární";
+"account section header other" = "Ostatní";
+"account action my account" = "Můj účet";
+"account action encryption" = "Šifrování";
+"account action devices" = "Zařízení";
+"account action new device" = "Nové zařízení";
+"account action inbox" = "Novinky";
+"account action logout" = "Obnovit nákup";
+"account action logout only" = "Odhlásit se";
+"account action create" = "Vytvořit nový účet";
+"account action about" = "O aplikaci";
+"account action tap to show" = "Klepněte pro zobrazení";
+"account action restoring" = "Obnovuji účet: %@";
+"account label enter to continue" = "Pro pokračování zadejte ID vašeho účtu";
+"account restore description" = "Nemějte obavy, pokud jste ztratili nebo zapomněli ID účtu, můžeme jej obnovit. Kontaktujte naši podporu a poskytněte nám informace, které nám umožní identifikovat váš nákup (např. poslední 4 číslice vaší kreditní karty nebo e-mail k PayPalu).";
+"account create description" = "Toto je vaše ID účtu. Měli byste si ho zapsat, protože to je jediný způsob, jak získat přístup k vašemu předplatnému. Také jej s nikým nesdílejte, aby vám nebyl účet odcizen.";
+"account create confirm" = "Znám své ID účtu";
+
+"account section header my subscription" = "Moje předplatné";
+"account section header general" = "Obecné";
+"account section header subscription" = "Předplatné";
+"account label id" = "ID účtu";
+"account label type" = "Typ účtu";
+"account label active until" = "Aktivní do";
+"account action manage subscription" = "Spravovat předplatné";
+"account action why upgrade" = "Proč bych měl upgradovat?";
+"account subscription header renew" = "Automaticky obnovit";
+"account subscription header payment method" = "Způsob platby";
+"account subscription renew unsupported" = "Vaše platební metoda nepodporuje automatické obnovení.";
+
+"account unlock to show" = "Odemkněte pro zobrazení ID vašeho účtu";
+
+"account header logout" = "Obnovit nákup";
+"account logout description" = "Zadejte jiné ID účtu nebo se vraťte a pokračujte v používání stávajícího účtu (tuto aplikaci nelze použít bez jednoho).";
+"account id status unchanged" = "(nezměněno)";
+"account action how to restore" = "Jak obnovím svůj starý účet?";
+
+"account subscription days remaining" = "Zbývající dny: %@";
+"account devices remaining" = "Zbývající zařízení: %@";
+"account devices not available" = "Není k dispozici";
+"account devices out of" = "%@ z %@";
+
+"account encrypt level low" = "Nízký";
+"account encrypt level medium" = "Střední";
+"account encrypt level high" = "Vysoký";
+"account encrypt label dns only" = "Šifrování DNS";
+"account encrypt desc dns only" = "Domain Name System (DNS) je systém který ví, kde najít weby, které chcete navštívit. Většina Internetu bohužel stále používá nešifrované DNS, což ohrožuje vaši historii prohlížení. Pokud je povoleno, Blokada nutí vaše zařízení, aby se připojovalo pouze k šifrovaným serverům DNS (nazývaným také DNS přes HTTPS).";
+"account encrypt label everything" = "Šifrování všeho";
+"account encrypt desc everything" = "Vaše zařízení se připojuje prostřednictvím našich zabezpečených serverů VPN a veškerá komunikace přicházející z nebo do vašeho zařízení je šifrována pomocí silných algoritmů. Toto chrání vaše osobní údaje, jako jsou bankovní údaje nebo osobní fotografie, před odcizením na nezabezpečených místech, jako je Wi-Fi internet v kavárně.";
+"account encrypt action turn on" = "Zapnout BLOKADU";
+"account encrypt header level" = "Úroveň šifrování";
+"account encrypt label level" = "Úroveň";
+"account encrypt label level low" = "Nízká: Žádné šifrování";
+"account encrypt label level medium" = "Střední: Šifrování DNS";
+"account encrypt label level high" = "Vysoká: Šifrování všeho";
+"account encrypt header explanation" = "DNS je systém který ví, kde najít webové stránky. BLOKADA podporuje pouze šifrované servery.";
+"account encrypt label dns" = "DNS";
+"account encrypt action what is dns" = "Co je DNS?";
+"account encrypt section header" = "Šifrování";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "Použít Blokada DNS v režimu Plus";
+
+"account lease label devices list" = "Tato zařízení jsou připojena k vašemu účtu.";
+"account lease label devices" = "Zařízení";
+"account lease label this device" = " (toto zařízení)";
+"account lease label name" = "Název zařízení";
+"account lease label location" = "Umístění";
+"account lease action generate" = "Generovat konfiguraci";
+"account lease action download" = "Stáhnout konfiguraci";
+"account lease generated" = "Zařízení přidáno! Stáhněte si konfiguraci, abyste jej mohli používat na jakémkoliv zařízení podporovaném službou Wireguard.";
+"account lease wireguard desc" = "Blokada používá službu Wireguard. Konfigurace lze stáhnout při vytváření nových zařízení.";
+"account lease label dns" = "DNS";
+"account lease action dns" = "Zvolte DNS";
+"account lease label public key" = "Veřejný klíč";
+
+"account support action how help" = "Jak Vám můžeme pomoci?";
+"account support action kb" = "Otevřít znalostní databázi";
+
+"payment header activated" = "Aktivováno!";
+"payment activated description" = "Blokada se nyní přepne do režimu Plus a připojí se přes jedno z našich zabezpečených míst. Pokud si nejste jisti, které z nich si vybrat, doporučujeme vám to nejbližší.";
+"payment action choose location" = "Zvolte umístění";
+
+"payment title" = "Upgradujte na naši VPN službu, abyste měli kontrolu nad *vaším soukromím*.";
+"payment feature title change location" = "Změna polohy";
+"payment feature desc change location" = "Skryje vaši IP adresu a předstírá, že se nacházíte v jiné zemi. To vás chrání před třetími stranami a pomůže ochránit vaši identitu.";
+"payment feature title encrypt data" = "Šifruje data";
+"payment feature desc encrypt data" = "Data odesílaná pomocí našeho VPN tunelu jsou šifrována pomocí silných algoritmů, aby byla chráněna před odposlechem neoprávněných stran.";
+"payment feature title faster connection" = "Rychlejší připojení";
+"payment feature desc faster connection" = "Skvělá rychlost až 100 Mbps se servery v různých částech světa.";
+"payment feature title devices" = "Až 5 zařízení";
+"payment feature desc devices" = "Pomocí stejného účtu můžete sdílet své předplatné až s 5 zařízeními: iOS, Android nebo PC.";
+"payment feature title no ads" = "Žádné reklamy";
+"payment feature desc no ads" = "Nepřestávejte používat světově proslulou technologii blokování reklam Blokada a zároveň zlepšujte úroveň vaší ochrany a udržujte vaše data v soukromí.";
+"payment feature title support" = "Skvělá podpora";
+"payment feature desc support" = "Získejte rychlou odpověď na jakékoliv dotazy díky naší zákaznické podpoře a aktivní početné komunitě.";
+"payment action see all features" = "Zobrazit všechny funkce";
+"payment action restore" = "Obnovit nákupy";
+"payment action terms and privacy" = "Podmínky & Soukromí";
+"payment action terms" = "Podmínky použití služby";
+"payment action policy" = "Zásady ochrany osobních údajů";
+"payment alert error header" = "Zpráva z App Store";
+
+"payment subscription 1 month" = "1 měsíc";
+"payment subscription many months" = "%@ měsíců";
+"payment subscription per month" = "%@ měsíčně";
+"payment subscription offer" = "Ušetříte %@";
+
+"payment success label" = "Děkujeme!";
+"payment success desc" = "Váš účet je nyní aktivní! Nyní můžete používat všechny funkce Blokada Plus na všech vašich zařízeních.";
+
+"payment ongoing desc" = "Vaše platba je nyní zpracovávána. V případě PayPalu to může trvat až 24 hodin. Zpracování platby prostřednictví ostatních platebních metod by nemělo trvat déle než hodinu. Pokud máte pocit, že to trvá příliš dlouho, kontaktujte nás.";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
+"payment change method" = "Změnit";
+"payment action pay" = "Zaplatit %@";
+"payment action pay period" = "Zaplatit %@ za každé období";
+"payment label email" = "E-mail";
+"payment crypto desc" = "Chcete-li zaplatit svou peněženkou s kryptoměnou, klepněte na tlačítko níže.";
+"payment label choose package" = "Vyberte si balíček";
+"payment label choose payment method" = "Zvolte způsob platby";
+"payment label cheapest" = "Nejlevnější";
+"payment label most popular" = "Nejoblíbenější";
+"payment label pay with card" = "Zaplatit kartou";
+"payment label pay with paypal" = "Zaplatit přes PayPal";
+"payment label pay with crypto" = "Zaplatit pomocí kryptoměny";
+"payment package one month" = "1 měsíc";
+"payment package six months" = "6 měsíců";
+"payment package twelve months" = "12 měsíců";
+"payment label discount" = "Úspora %@ (%@ / měsíčně)";
+"payment label country" = "Stát";
+
+"apps section header" = "Aplikace";
+"apps label installed" = "Nainstalované";
+"apps label system" = "Systémové";
+"apps status bypassed" = "(vyloučené)";
+"apps filter header" = "Které aplikace chcete vidět?";
+"apps filter action show all" = "Zobrazit všechny aplikace";
+"apps filter action show bypassed" = "Zobrazit pouze vyloučené";
+"apps filter action show not bypassed" = "Zobrazit pouze nevyloučené";
+"apps filter action toggle system" = "Přepnout všechny systémové aplikace";
+
+"app settings section header" = "Toto zařízení";
+"app settings language label" = "Jazyk";
+"app settings theme label" = "Motiv aplikace";
+"app settings theme light" = "Světlý";
+"app settings theme dark" = "Tmavý";
+// A setting for changing if to open links internally in the app, or by using this device's web browser
+"app settings browser label" = "Přesměrovat odkazy na";
+"app settings browser internal" = "Interní prohlížeč";
+"app settings browser external" = "Externí prohlížeč (je-li to možné)";
+"app settings ipv6 label" = "Povolit IPv6";
+"app settings section system" = "Systémové";
+"app settings action app info" = "Otevřít informace o aplikaci";
+"app settings action vpn profile" = "Otevřít VPN profil";
+"app settings action notifications" = "Otevřít nastavení oznámení";
+"app settings section details" = "Podrobnosti";
+"app settings status default" = "Výchozí nastavení";
+"app settings start on boot" = "Spustit při spuštění systému";
+"app settings use dns over https" = "Použít DNS přes HTTPS";
+"app settings backup" = "Použít cloudovou zálohu";
+"app settings section advanced" = "Pokročilé";
+"app settings section use foreground" = "Udržet naživu";
+
+"intro header" = "Blokada je aktivní!";
+"intro text" = "Modrý kruh znamená, že Blokada funguje.\n\nPamatujte, že některé reklamy, například na YouTube, nelze blokovat. V mnoha jiných aplikacích si však všimnete rozdílu.\n\nVždy doporučujeme aktivovat VPN / Připojit na vyžádání v systémovém nastavení.";
+
+"location region america" = "Amerika";
+"location region europe" = "Evropa";
+"location region asia" = "Asie";
+
+"homepage header what is blokada" = "Co je Blokada?";
+"homepage desc what is blokada" = "Zjistěte základní informace o aplikaci.";
+"homepage desc download" = "Stáhněte si Blokadu pro vaši platformu.";
+"homepage desc community" = "Připojte se k naší úžasné komunitě.";
+"homepage header support" = "Podpořte nás";
+"homepage desc support" = "Přispějte, abyste nám pomohli v projektu pokračovat.";
+"homepage action authors" = "Autoři";
+"homepage action source" = "Zdroj";
+"homepage action forums" = "Fóra";
+"homepage action dashboard" = "Nástěnka";
+"homepage about footer" = "Zůstaňme v kontaktu!";
+"homepage hero title" = "Aplikace pro ochranu osobních údajů";
+"homepage hero subtitle" = "zdarma a s otevřeným zdrojovým kódem";
+"homepage hero desc" = "Blokada je populární aplikace na blokování reklam a ochranu soukromí pro Android a iOS. Je podporována a aktivně rozvíjena úžasnou otevřenou komunitou.";
+"homepage about title" = "Blokada 5, blokátor reklam";
+"homepage about desc" = "Pokud chcete efektivně blokovat reklamy, sledovače a malware, chcete šetřit vaše mobilní data, urychlit svůj přístroj a chránit své soukromí s jednou aplikací, pak je tu Blokada právě pro vás. Je bezplatná, bezpečná a s otevřeným zdrojovým kódem.";
+"homepage about point one" = "Blokuje reklamy a sledovače";
+"homepage about point two" = "Funguje ve všech aplikacích a všech prohlížečích";
+"homepage about point three" = "Nevyžaduje root ani jailbreak";
+"homepage about point four" = "Vestavěné VPN pro lepší ochranu";
+"homepage about action plus" = "Zjistěte více o službě Blokada Plus";
+
+"homepage download header" = "Stáhnout Blokadu";
+"homepage download subheader" = "Blokada je k dispozici pro několik platforem, vyberte si.";
+"homepage download option android five" = "Blokada 5 pro Android";
+"homepage download option android slim" = "Blokada 5 Slim pro Android";
+"homepage download option android four" = "Blokada 4 pro Android";
+"homepage download option ios" = "Blokada 5 pro iOS";
+"homepage download option other" = "Blokada pro ostatní platformy";
+"homepage download desc other" = "V současné době nenabízíme Blokadu pro ostatní platformy. Jste-li však uživatelem Blokada Plus, můžete použít VPN na Windows, Linuxu, Macu a dalších platformách, kde je Wireguard k dispozici.";
+"homepage download desc ios" = "Blokada 5 je jednoduše k dispozici v App Store.";
+"homepage download action ios" = "Otevřít App Store";
+"homepage download desc android five" = "Toto je naše nová, doporučená verze <b>pro chytré telefony a tablety s Androidem 7 nebo novějším</b>. Ve srovnání s Blokadou 4 je to jednodušší a rychlejší.";
+"homepage download action android five" = "Blokada 5 .apk";
+"homepage download action android five beta" = "Beta .apk";
+"homepage download desc android slim" = "Blokada Slim je <b>odlehčená verze původní aplikace</b>a obsahuje pouze funkce povolené zásadami Google Play.";
+"homepage download action android slim" = "Otevřít Google Play";
+"homepage download desc android four" = "Stále udržujeme starší verzi Blokady. Má více funkcí, funguje na starších zařízeních a televizorech.";
+"homepage download action android four" = "Blokada 4 .apk";
+"homepage download action android four fdroid" = "Otevřít F-Droid";
+
+"homepage community header" = "Komunita";
+"homepage community desc" = "Blokada není pouze aplikací na ochranu vašeho soukromí. Je to také komunita lidí, kterým záleží na jejich digitálním soukromí a pohodě. Najdete nás na našem fóru, kde můžete klást případné otázky. Jsme přítomni i na jiných sociálních médiích a chatech.";
+"homepage community cta subheader" = "Připojte se k nám a pozdravte!";
+"homepage community cta desc" = "Celou naši práci zakládáme na zpětné vazbě našich uživatelů. Řekněte nám, co si myslíte, co bychom měli zlepšit, nebo se prostě jen zastavte.";
+"homepage community cta action" = "Přejít na fórum";
+"homepage community opinions" = "Zde jsou některé názory našich uživatelů.";
+
+"homepage support header" = "Podpořte tento projekt";
+"homepage support desc" = "Pokud se vám líbí to, co děláme, zvažte naši podporu, abychom mohli pokračovat ve vytváření nových funkcí a vylepšení. Tímto způsobem může Blokada navždy zůstat open source a zdarma.";
+"homepage support cta header" = "Blokada je na vás závislá";
+"homepage support cta desc" = "Blokada je open source projekt, což znamená, že si můžete být jisti, že bude vždy zdarma, bezpečně použitelná a bez jakékoliv skryté agendy. Domníváme se, že je to jediný správný způsob, jak vyvinout aplikaci na ochranu soukromí, které můžete důvěřovat.";
+"homepage support cta desc more" = "Vytváření kvalitní aplikace jako je Blokada však vyžaduje značné množství zdrojů. Tento projekt existuje díky podpoře úžasných lidí, jako jste vy!";
+"homepage support cta action" = "Přispět (karta, PayPal)";
+"homepage support cta action alt" = "Přispět (banka, kryptoměna)";
+
+"homepage developer header" = "Jste vývojář";
+"homepage developer subheader" = "a chcete Blokadu vylepšit?";
+"homepage developer desc" = "Blokada je open source projekt věnovaný vývoji nejlepší aplikace pro blokování reklam a soukromí pro Android a iOS. Podívejte se na náš Github, a dejte nám vědět, pokud potřebujete pomoc s vytvořením vašeho prvního PR (Pull Request).";
+"homepage developer action" = "Přejít do repozitáře";

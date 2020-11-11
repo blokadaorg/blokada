@@ -1,0 +1,34 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Seznam blokování reklam a sledovačů";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Tento Energized System je navržen pro unixové systémy, získává seznam domén, které slouží k zobrazování reklam, sledovacích skriptů a malwaru z více renomovaných zdrojů a vytváří soubor hostitelů, který brání systému v připojení k nim. Pozor, instalace „Sociální“ konfigurace může způsobit, že se vaše sociální aplikace, jako je například Messenger, budou chovat nestandardně.";
+"Popular for adblocking" = "Populární pro blokování reklam";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Konsolidace a rozšíření souborů hostitelů z několika dobře spravovaných zdrojů. Případně můžete vybrat rozšíření pro blokování porna, sociálních médií a dalších kategorií.";
+"Alternative blocklist with advanced features" = "Alternativní seznam hostitelů s pokročilými funkcemi";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Seznam hostitelů s jedinečnými rozšířeními, ze kterých si můžete vybrat. Uvědomte si, že je agresivnější a může narušit korektní chod aplikací nebo webů. Blokuje graph.facebook.com a mqtt-mini.facebook.com. V případě, že máte problémy s aplikacemi od Facebooku, můžete je přesunout do seznamu vyloučených v sekci Aktivita.";
+"Adblocking for your mobile device" = "Blokování reklam pro vaše mobilní zařízení";
+"A special blocklist containing mobile ad providers." = "Speciální seznam hostitelů obsahující poskytovatele mobilních reklam.";
+"Protects against cyber attacks" = "Chrání před kybernetickými útoky";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Seznam hostitelů filtrů phishingových webů. Phishing je nekalost založená na přesměrování internetové komunikace na falešné weby, které vypadají přesně jako ty původní, za účelem podvádění návštěvníků a krádeže citlivých informací. Instalace tohoto seznamu hostitelů vám pomůže zabránit takovým situacím.";
+"A new and upcoming tracker database" = "Nová a nadcházející databáze sledovačů";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar je nejlepší datová sada obsahující databázi sledovačů, která je automaticky generována a udržována průběžným procházením a analýzou. Podrobnosti najdete v informacích autora sady.";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Toto je upravený a dobře udržovaný blocklist pro blokování reklam, sledování a další! Je pravidelně aktualizován.";

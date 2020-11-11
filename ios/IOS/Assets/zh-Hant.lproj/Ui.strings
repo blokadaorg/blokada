@@ -1,0 +1,435 @@
+//
+//  This file is part of Blokada.
+//
+//  Blokada is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  Blokada is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"error device offline" = "您的裝置已離線";
+"error account inactive" = "您未啟用帳號。請啟用帳號，以便繼續使用 BLOKADA+。";
+"error account inactive after restore" = "這似乎不是一個有效的帳號。如果您認為其中有誤，請使用頂部的「輔助說明」來聯絡我們。";
+"error account invalid" = "此帳號 ID 似乎無效。";
+"error creating account" = "無法建立新帳號。請稍候再試。";
+"error fetching data" = "無法完成此動作。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error tunnel" = "無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。";
+"error vpn" = "無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。";
+"error vpn perms" = "未授予建立 VPN 設定檔的權限。";
+"error vpn no current lease" = "請先選擇位置。";
+"error vpn too many leases" = "您已達裝置限制。請移除您其中一個裝置後重試。";
+"error vpn expired" = "已停用 VPN。請續訂訂閱以繼續使用 BLOKADA+。";
+"error payment inactive after restore" = "已還原您上個付款，但訂閱已經到期。如有任何問題，請按上方的協助按鈕聯絡我們。";
+"error payment failed" = "此刻尚無法付款。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error payment failed alternative" = "無法完成您的付款。請確保您的資料是正確的，然後重試。如果問題仍然持續，請透過點擊頂部的說明圖示聯絡我們。";
+"error payment not available" = "此裝置無法付款。可能是 Apple Pay 未啟用，或是我們尚不處理您所在地區的付款。";
+"error payment canceled" = "付款已取消。未收取您的費用。";
+"error pack install" = "無法安裝或解除安裝此功能。請稍候再試。";
+"error location failed fetching" = "無法取得地點。";
+"error unknown" = "發生未知錯誤，請重試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error blocka dns in filtering mode" = "Blokada DNS 目前僅在 Plus 模式中支援。請選擇其他 DNS 並再試一次。";
+
+"universal action continue" = "繼續";
+"universal action cancel" = "取消";
+"universal action close" = "關閉";
+"universal action done" = "完成";
+"universal action try again" = "重試";
+"universal action learn more" = "了解更多";
+"universal action help" = "協助";
+"universal action show log" = "日誌記錄";
+"universal action share log" = "分享日誌紀錄";
+"universal action copy" = "複製";
+"universal action save" = "儲存";
+"universal action contact us" = "聯絡我們";
+"universal action support" = "支援";
+"universal action upgrade" = "升級至 BLOKADA+";
+"universal action upgrade short" = "升級";
+"universal action yes" = "是";
+"universal action no" = "否";
+"universal action donate" = "斗內";
+"universal action community" = "社群";
+"universal action open in browser" = "在瀏覽器開啟";
+"universal action more" = "更多";
+"universal action download" = "下載";
+"universal action news" = "動態";
+"universal action delete" = "刪除";
+"universal action hide" = "隱藏";
+"universal action select" = "選取";
+"universal action selected" = "已選取";
+
+"universal label help" = "協助";
+"universal label welcome" = "歡迎！";
+"universal status processing" = "處理中… 請稍候。";
+"universal status copied to clipboard" = "已複製到剪貼簿";
+"universal status restart required" = "請重新啟動 APP 以套用變更。";
+"universal status redirect" = "使用 Blokada 應用程式繼續";
+
+"alert error header" = "哎呀！";
+"alert vpn expired header" = "BLOKADA+ 已到期";
+"alert download link body" = "因為安全因素，我們必須在您的瀏覽器中開啟此網站以下載檔案。到時請再次點擊下載連結。";
+
+"notification vpn expired header" = "BLOKADA+ 訂閱過期";
+"notification vpn expired subtitle" = "VPN 已停用";
+"notification vpn expired body" = "請更新您的訂閱以繼續使用 BLOKADA+";
+"notification desc settings" = "將通知向左或向右滑動以進行設定。";
+
+"notification update header" = "有更新版本";
+"alert update body" = "現在可以下載 Blokada %@。我們建議將本 APP 保持在最新版本，並只從我們的官方來源下載。";
+"update label updated" = "已更新！";
+"update desc updated" = "您正在使用最新版本的 Blokada！請記住，捐款或訂閱 Blokada Plus 讓我們可以繼續改進應用程式。";
+"update downloading description" = "正在下載更新，您稍後就會看到安裝提示框。";
+
+"account active forever" = "永遠";
+"account active forever full" = "永遠可用";
+
+"main ask for permissions header" = "只剩最後一步";
+"main ask for permissions description" = "Blokada 使用 VPN 設定以阻擋廣告。下一步您將被要求允許 Blokada。";
+
+"main share message" = "Blokada for iOS 幫我阻擋了 %@ 個廣告和追蹤器！";
+
+"main rate us header" = "幫我們評分！";
+"main rate us description" = "迄今您喜歡 Blokada 多少？";
+"main rate us on app store" = "您願意在 App Store 幫我們評分嗎？";
+"main rate us action sure" = "OK！";
+
+// Make sure each tab name has a similar length
+"main tab home" = "首頁";
+// Make sure each tab name has a similar length
+"main tab activity" = "活動";
+// Make sure each tab name has a similar length
+"main tab advanced" = "進階";
+// Make sure each tab name has a similar length
+"main tab settings" = "設定";
+
+"home ads counter footnote" = "自安裝以來所阻擋的廣告與追蹤器量";
+"home power off menu header" = "您想做什麼？";
+"home power action turn on" = "開啟";
+"home power action turn off" = "關閉";
+"home power action pause" = "暫停 5 分鐘";
+
+"home status paused" = "已暫停";
+"home status active" = "運作中";
+"home status deactivated" = "已關閉";
+"home action tap to activate" = "按一下啟動";
+"home status detail paused" = "暫停至計時結束";
+"home status detail active" = "阻擋 *廣告* 及 *追蹤器*";
+"home status detail active with counter" = "已阻擋 *%@* 個廣告及追蹤器";
+"home status detail active slim" = "Blokada *Slim* 已啟用";
+"home status detail plus" = "*+* 保護您的 *隱私*";
+"home status detail progress" = "請稍候…";
+
+"home plus button deactivated" = "已停用 BLOKADA+";
+"home plus button select location" = "選擇位置";
+"home plus button location" = "位置：*%@*";
+
+"pack section header" = "進階功能";
+"pack section header details" = "功能詳細資訊";
+"pack action install" = "取得";
+"pack action update" = "更新";
+"pack action uninstall" = "移除";
+"pack author" = "作者";
+"pack configurations header" = "設定";
+"pack information header" = "更多";
+"pack tags header" = "標籤";
+"pack tags none" = "無";
+"pack category highlights" = "標示區域";
+"pack category active" = "作用中";
+"pack category all" = "全部";
+
+"advanced section header packs" = "阻擋清單";
+"advanced section slugline packs" = "啟用以進行更嚴格的阻擋";
+"advanced section slugline apps" = "選擇不要被阻擋的 APP";
+"advanced section slugline encryption" = "調整您的加密等級與 DNS";
+"advanced action slim migrate to full" = "您正在使用 Blokada Slim。取得更多資訊";
+
+"location choice header" = "選擇位置";
+
+"activity section header" = "活動";
+"activity section header details" = "活動詳細資訊";
+"activity request blocked" = "此請求已被阻擋。";
+"activity request allowed" = "此請求已被允許。";
+"activity request allowed whitelisted" = "此請求已被允許，因為其在您的允許清單中";
+"activity request blocked blacklisted" = "此請求已被阻擋，因為其在您的阻擋清單中";
+"activity actions header" = "動作";
+"activity information header" = "資訊";
+"activity action add to whitelist" = "加入至允許清單";
+"activity action remove from whitelist" = "從允許清單移除";
+"activity action added to whitelist" = "已加入到允許清單";
+"activity action add to blacklist" = "加入到阻擋清單";
+"activity action remove from blacklist" = "從阻擋清單移除";
+"activity action added to blacklist" = "已加入到阻擋清單";
+"activity action copy to clipboard" = "複製名稱到剪貼簿";
+"activity domain name" = "完整名稱";
+"activity time of occurrence" = "時間";
+"activity number of occurrences" = "出現次數";
+// As in sentence, "this item has been modified"
+"activity state modified" = "已修改";
+// As in sentence, "this host has been blocked"
+"activity state blocked" = "已阻擋";
+// As in sentence, "this host has been allowed"
+"activity state allowed" = "已允許";
+"activity happened one time" = "1 次";
+"activity happened many times" = "%@ 次";
+"activity category recent" = "最近";
+"activity category top" = "最多";
+"activity category top blocked" = "阻擋最多次";
+"activity category top allowed" = "允許最多次";
+"activity filter header" = "您想查看哪些項目？";
+"activity filter show all" = "顯示所有項目";
+"activity filter show blocked" = "僅顯示已阻擋";
+"activity filter show allowed" = "僅顯示已允許";
+"activity empty text" = "嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。";
+
+"userdenied section header" = "我的阻擋清單";
+"userdenied section slugline" = "管理對特定網站的封鎖";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "使用者允許";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "使用者阻擋";
+
+"account section header settings" = "設定";
+"account status text" = "您的 BLOKADA %@ 帳號有效日期至 %@ 為止。";
+"account status text libre" = "您的 BLOKADA Libre 帳戶永不過期。";
+
+"account section header primary" = "主要";
+"account section header other" = "其他";
+"account action my account" = "我的帳號";
+"account action encryption" = "加密";
+"account action devices" = "裝置";
+"account action new device" = "新裝置";
+"account action inbox" = "Inbox";
+"account action logout" = "復原購買";
+"account action logout only" = "登出";
+"account action create" = "生成新帳號";
+"account action about" = "關於";
+"account action tap to show" = "點一下顯示";
+"account action restoring" = "還原帳號：%@";
+"account label enter to continue" = "輸入您的帳號 ID 已繼續";
+"account restore description" = "不用擔心，如果您遺失或忘記您的帳號 ID，我們可以將其復原。請聯絡我們的支援團隊，並向我們提供資訊，讓我們可以識別您的購買行為（例如您信用卡的最後 4 碼或 PayPal 電子郵件）。";
+"account create description" = "這是您的帳號 ID。您應該把它寫下來，因為這是您存取訂閱的唯一途徑。請不要將其與其他人分享，這樣您的帳號才不會被盜。";
+"account create confirm" = "我知道我的帳號 ID";
+
+"account section header my subscription" = "我的訂閱";
+"account section header general" = "一般";
+"account section header subscription" = "訂閱";
+"account label id" = "帳號 ID";
+"account label type" = "帳號類型";
+"account label active until" = "使用到";
+"account action manage subscription" = "管理訂閱";
+"account action why upgrade" = "為什麼要升級？";
+"account subscription header renew" = "自動續訂";
+"account subscription header payment method" = "付款方法";
+"account subscription renew unsupported" = "您的付款方式不支援自動續訂。";
+
+"account unlock to show" = "解鎖以顯示您的帳號 ID";
+
+"account header logout" = "復原購買";
+"account logout description" = "請輸入其他帳號 ID，或是返回以繼續使用您現有的帳號（本 APP 需要帳號才可使用）。";
+"account id status unchanged" = "(未變更)";
+"account action how to restore" = "如何還原我的舊帳號？";
+
+"account subscription days remaining" = "剩餘天數：%@";
+"account devices remaining" = "剩餘裝置：%@";
+"account devices not available" = "不可用";
+"account devices out of" = "%@ 個，共 %@ 個";
+
+"account encrypt level low" = "低";
+"account encrypt level medium" = "中";
+"account encrypt level high" = "高";
+"account encrypt label dns only" = "加密 DNS";
+"account encrypt desc dns only" = "網域名稱系統（Domain Name System，DNS）是讓您的裝置知道如何找到您想造訪的網站的方式。不幸的是，網際網路大部份的流量都還是使用未加密的 DNS，這讓您的瀏覽歷史有被竊取的風險。啟用後，Blokada 會強制您的裝置僅連線至加密的 DNS 伺服器（又稱為 DNS over HTTPS）。";
+"account encrypt label everything" = "全部加密";
+"account encrypt desc everything" = "您的裝置正透過我們的安全 VPN 伺服器連線至網際網路，並使用強大的加密演算法保護您裝置所有的通訊。這樣可以防止您的個人資訊（如銀行資料或個人照片）在不安全的地方（如咖啡廳的 Wi-Fi）被盜。";
+"account encrypt action turn on" = "開啟 BLOKADA";
+"account encrypt header level" = "加密等級";
+"account encrypt label level" = "等級";
+"account encrypt label level low" = "低：不加密";
+"account encrypt label level medium" = "中：加密 DNS";
+"account encrypt label level high" = "高：全部加密";
+"account encrypt header explanation" = "DNS 是您的裝置知道如何找到您想造訪的網站的方式。BLOKADA 僅支援加密的伺服器。";
+"account encrypt label dns" = "DNS";
+"account encrypt action what is dns" = "DNS 是什麼？";
+"account encrypt section header" = "加密";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "使用 Plus 模式的 Blokada DNS";
+
+"account lease label devices list" = "這些裝置已連結至您的帳號。";
+"account lease label devices" = "裝置";
+"account lease label this device" = "（此裝置）";
+"account lease label name" = "裝置名稱";
+"account lease label location" = "位置";
+"account lease action generate" = "生成設定";
+"account lease action download" = "下載設定";
+"account lease generated" = "已新增裝置！下載設定以在任何支援 Wireguard 的裝置上使用。";
+"account lease wireguard desc" = "Blokada 使用 Wireguard。建立新裝置時可以下載設定。";
+"account lease label dns" = "DNS";
+"account lease action dns" = "選擇 DNS";
+"account lease label public key" = "公開金鑰";
+
+"account support action how help" = "我們可以怎麼協助您？";
+"account support action kb" = "開啟知識庫";
+
+"payment header activated" = "已啟用！";
+"payment activated description" = "Blokada 將會切換到 Plus 模式，並透過我們的其中一個安全位置進行連線。如果不確定要怎麼選擇的話，就選最近的一個。";
+"payment action choose location" = "選擇位置";
+
+"payment title" = "升級至我們的 VPN 服務以掌控 *您的隱私*。";
+"payment feature title change location" = "變更位置";
+"payment feature desc change location" = "隱藏 IP 位址並假裝您在其他國家。這將讓降低您被第三方攻擊的機會，並協助保護您的身份。";
+"payment feature title encrypt data" = "加密資料";
+"payment feature desc encrypt data" = "透過我們的 VPN 隧道傳送的資料使用強大的演算法來加密以防止未經授權的人員攔截。";
+"payment feature title faster connection" = "較快速的連線";
+"payment feature desc faster connection" = "在世界各地的伺服器上最高可達 100Mbps。";
+"payment feature title devices" = "最多 5 個裝置";
+"payment feature desc devices" = "使用相同的帳號以在最多 5 個裝置上分享您的訂閱：iOS、Android 或 PC。";
+"payment feature title no ads" = "無廣告";
+"payment feature desc no ads" = "繼續使用世界知名的 Blokada 廣告阻擋技術，同時提升保護等級並保護您資料的隱私。";
+"payment feature title support" = "最佳支援";
+"payment feature desc support" = "歸功於我們的客戶支援與充滿活力的開放原始碼社群，您的任何問題都能迅速得到答覆。";
+"payment action see all features" = "檢視所有功能";
+"payment action restore" = "還原購買";
+"payment action terms and privacy" = "條款與隱私";
+"payment action terms" = "服務條款";
+"payment action policy" = "隱私權政策";
+"payment alert error header" = "來自 App Store 的訊息";
+
+"payment subscription 1 month" = "1 個月";
+"payment subscription many months" = "%@ 個月";
+"payment subscription per month" = "每月 %@";
+"payment subscription offer" = "省下 %@";
+
+"payment success label" = "謝謝！";
+"payment success desc" = "您的帳號已可使用！您現在可以在您的裝置上使用所有的 Blokada Plus 功能。";
+
+"payment ongoing desc" = "您的付款正在處理中。如果是使用 PayPal，那可能需要24小時。其他付款方式應該不用超過一個小時。如果您覺得時間太長，請聯絡我們。";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
+"payment change method" = "變更";
+"payment action pay" = "支付 %@";
+"payment action pay period" = "每個週期付 %@";
+"payment label email" = "電子郵件";
+"payment crypto desc" = "使用您的加密貨幣錢包付款，點擊下方的按鈕。";
+"payment label choose package" = "選擇套件";
+"payment label choose payment method" = "選擇付款方式";
+"payment label cheapest" = "最便宜";
+"payment label most popular" = "最熱門";
+"payment label pay with card" = "以信用卡付款";
+"payment label pay with paypal" = "使用 PayPal 支付";
+"payment label pay with crypto" = "使用加密貨幣付款";
+"payment package one month" = "1 個月";
+"payment package six months" = "6 個月";
+"payment package twelve months" = "12 個月";
+"payment label discount" = "省下 %@ (每個月 %@)";
+"payment label country" = "國家";
+
+"apps section header" = "應用程式";
+"apps label installed" = "已安裝";
+"apps label system" = "系統";
+"apps status bypassed" = "（已繞過）";
+"apps filter header" = "您想查看哪些應用程式？";
+"apps filter action show all" = "顯示所有應用程式";
+"apps filter action show bypassed" = "只顯示繞過的應用程式";
+"apps filter action show not bypassed" = "只顯示未繞過的應用程式";
+"apps filter action toggle system" = "切換所有系統 App";
+
+"app settings section header" = "這台裝置";
+"app settings language label" = "語言";
+"app settings theme label" = "App 主題";
+"app settings theme light" = "亮色";
+"app settings theme dark" = "暗色";
+// A setting for changing if to open links internally in the app, or by using this device's web browser
+"app settings browser label" = "重新導向連結至";
+"app settings browser internal" = "內建瀏覽器";
+"app settings browser external" = "外部瀏覽器 （如果有）";
+"app settings ipv6 label" = "允許 IPv6";
+"app settings section system" = "系統";
+"app settings action app info" = "開啟應用程式資訊";
+"app settings action vpn profile" = "開啟 VPN 設定檔";
+"app settings action notifications" = "開啟通知設定";
+"app settings section details" = "詳細資料";
+"app settings status default" = "系統預設值";
+"app settings start on boot" = "開機時啟動";
+"app settings use dns over https" = "使用 DNS over HTTPS";
+"app settings backup" = "使用雲端備份";
+"app settings section advanced" = "進階";
+"app settings section use foreground" = "保持連線狀態";
+
+"intro header" = "Blokada 運作中！";
+"intro text" = "藍色環表示 Blokada 正在運作。\n\n請記住，某些廣告（如 YouTube）無法被阻擋。但您會在其他許多的 APP 中注意到不同之處。\n\n我們建議您在系統設定中啟用「永久連線的 VPN」／「需要時連線」。";
+
+"location region america" = "美洲";
+"location region europe" = "歐洲";
+"location region asia" = "亞洲";
+
+"homepage header what is blokada" = "Blokada 是什麼？";
+"homepage desc what is blokada" = "了解 App 的基本資訊。";
+"homepage desc download" = "下載適合您平台的 Blokada。";
+"homepage desc community" = "加入我們的超棒社群。";
+"homepage header support" = "支持我們";
+"homepage desc support" = "您的捐助會幫助我們將這個專案持續下去。";
+"homepage action authors" = "作者";
+"homepage action source" = "原始碼";
+"homepage action forums" = "討論板";
+"homepage action dashboard" = "監控面板";
+"homepage about footer" = "跟我們互動吧！";
+"homepage hero title" = "保障隱私權的 App";
+"homepage hero subtitle" = "免費且開放原始碼";
+"homepage hero desc" = "Blokada 是知名，可以在 Android 和 iOS 使用的廣告阻擋程式並可以保障隱私權的 App。我們出色的開放原始碼社群正源源不絕地提供支援並積極開發這個專案。";
+"homepage about title" = "Blokada 5，廣告阻擋程式";
+"homepage about desc" = "如果您想要有效地阻擋廣告、追蹤器、惡意軟體、節省您的行動數據消耗、為您的裝置加速並保護您的隱私，而且只使用一個應用程式就達到以上目的，那麼 Blokada 就是為您所設計的。其免費、安全且開放原始碼。";
+"homepage about point one" = "阻擋廣告與追蹤器";
+"homepage about point two" = "所有 App 和瀏覽器皆可使用";
+"homepage about point three" = "不需要 root 或越獄";
+"homepage about point four" = "內建 VPN 提供更完善的保護";
+"homepage about action plus" = "深入了解 Blokada Plus";
+
+"homepage download header" = "下載 Blokada";
+"homepage download subheader" = "Blokada 可用於多種平台，請選擇您要的。";
+"homepage download option android five" = "供 Android 使用的 Blokada 5";
+"homepage download option android slim" = "供 Android 使用的 Blokada 5 Slim";
+"homepage download option android four" = "供 Android 使用的 Blokada 4";
+"homepage download option ios" = "供 iOS 使用的 Blokada 5";
+"homepage download option other" = "供其他平台使用的 Blokada";
+"homepage download desc other" = "目前我們尚未在其他平台上提供 Blokada。但如果您是 Blokada Plus 的使用者，您可以在 Windows、Linux、Mac 或其他 Wireguard 支援的平台上使用我們的 VPN。";
+"homepage download desc ios" = "Blokada 5 只在 App Store 上提供。";
+"homepage download action ios" = "開啟 App Store";
+"homepage download desc android five" = "這是我們推薦的新版本，<b>供搭載 Android 7 或更新版本的智慧型手機與平板電腦</b>使用。它與 Blokada 4 相比更簡潔且更快。";
+"homepage download action android five" = "Blokada 5 .apk";
+"homepage download action android five beta" = "Beta .apk";
+"homepage download desc android slim" = "Blokada Slim 是<b>輕量版的應用程式</b>，並僅包含 Google Play 政策允許的功能。";
+"homepage download action android slim" = "開啟 Google Play";
+"homepage download desc android four" = "我們仍在維護較舊版本的 Blokada。它有更多功能，且可在較舊的裝置與電視上執行。";
+"homepage download action android four" = "Blokada 4 .apk";
+"homepage download action android four fdroid" = "開啟 F-Droid";
+
+"homepage community header" = "社群";
+"homepage community desc" = "Blokada 不僅是隱私應用程式。它也是關心數位隱私與福祉的人們所組成的社群。您可以在我們的論壇上找到我們，並可以在那裡詢問任何您想要問的問題。我們也在其他的社群媒體與聊天軟體上出現。";
+"homepage community cta subheader" = "加入我們，然後打個招呼！";
+"homepage community cta desc" = "我們所有的工作都是以我們的使用者回饋為基礎。告訴我們您的想法，有什麼要改進的地方，或只是閒聊。";
+"homepage community cta action" = "前往論壇";
+"homepage community opinions" = "以下是來自我們的使用者的一些意見。";
+
+"homepage support header" = "支援專案";
+"homepage support desc" = "如果您喜歡我們的工作，請考慮支援我們，這樣我們才能繼續開發新功能與改進。如此，Blokada 才能永遠保持開放原始碼且免費。";
+"homepage support cta header" = "Blokada 需要你";
+"homepage support cta desc" = "Blokada 是開放原始碼專案，這代表了您永遠可以免費且安全地使用，不會有任何隱藏的東西。我們認為這是開發您信任的隱私應用程式的唯一方法。";
+"homepage support cta desc more" = "但是，開發如 Blokada 這樣的高品質應用程式需要大量的資源。此專案的存在得益於像您這樣超棒的人支援！";
+"homepage support cta action" = "捐款（信用卡、PayPal）";
+"homepage support cta action alt" = "捐款（銀行、加密貨幣）";
+
+"homepage developer header" = "您是開發者";
+"homepage developer subheader" = "且想要讓 Blokada 變得更好嗎？";
+"homepage developer desc" = "Blokada 是開放原始碼專案，致力於為 Android 與 iOS 開發最號的廣告封鎖程式與隱私應用程式。看看我們的 GitHub，如果您需要任何協助來進行您的第一次 PR 的話，請讓我們知道。";
+"homepage developer action" = "前往 repo";
