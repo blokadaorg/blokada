@@ -7,7 +7,7 @@
     <string name="dns_edit_ip_label">IP адрес</string>
     <string name="dns_edit_ip1_enter">Въведете основен адрес</string>
     <string name="dns_edit_ip2_enter">Въведете втори адрес</string>
-    <string name="dns_edit_name_error">Не е валидно име</string>
+    <string name="dns_edit_name_error">Това не е валидно име</string>
     <string name="dns_edit_name_label">Име на сървъра</string>
     <string name="dns_edit_name_default">Име по подразбиране</string>
     <string name="dns_edit_next">Напред</string>

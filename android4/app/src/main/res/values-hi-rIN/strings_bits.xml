@@ -28,7 +28,7 @@
     <string name="home_whats_new">नया क्या है?</string>
     <string name="home_update_required">अपडेट आवश्यक</string>
     <!-- A short text for the item that displays donate link -->
-    <string name="home_donate">दान करें</string>
+    <string name="home_donate">दान</string>
     <string name="home_vpn_enabled">ब्लोकाडा प्लस चल रहा है</string>
     <string name="home_vpn_disabled">ब्लोकाडा प्लस निष्क्रिय है</string>
     <string name="home_account_active">आपका खाता अभी भी सक्रिय है</string>

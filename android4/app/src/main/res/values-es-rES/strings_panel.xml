@@ -137,7 +137,7 @@
     <string name="slot_account_action_manage">Gestionar suscripción</string>
     <string name="slot_account_action_manage_inactive">Activar cuenta</string>
     <string name="slot_account_action_change_id">Restaurar cuenta</string>
-    <string name="slot_account_show">ID de Cuenta</string>
+    <string name="slot_account_show">ID de cuenta</string>
     <string name="slot_account_action_copied">ID de cuenta copiado al portapapeles</string>
     <string name="slot_account_action_unavailable">[sin definir]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->

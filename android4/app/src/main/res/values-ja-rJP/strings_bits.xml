@@ -48,7 +48,7 @@
     <string name="menu_ads">広告</string>
     <string name="menu_ads_live_label">許可またはブロックされたリクエストのホストログ</string>
     <string name="menu_ads_clear_log">ホストログをクリア</string>
-    <string name="menu_ads_lists_label">ブロックに利用するリストを選択する</string>
+    <string name="menu_ads_lists_label">ブロックに利用するリストを管理する</string>
     <string name="menu_ads_rules_label">独自のルールを追加してブロック内容を微調整する</string>
     <string name="menu_ads_log_label">最近ブロックまたは許可されたものを参照する</string>
     <!-- VPN section header in menu (for configuring VPN) -->

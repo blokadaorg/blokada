@@ -5,7 +5,7 @@
     <!-- Parameter: new app version, for example 2.0.1 -->
     <string name="update_notification_text">Версия %1$s е налична за изтегляне! Докоснете за да продължите.</string>
     <!-- Header displaying the new app version. Important! Parameter was removed from this string, so please remove any variable placeholders from translations. -->
-    <string name="update_notification_channel">Актуализация на известията</string>
+    <string name="update_notification_channel">Известия за актуализацията</string>
     <string name="update_info">Ако сте изтеглили приложението от Google Play Магазин, F-Droid или друг магазин за приложения ще получите актуализации от магазина, когато те станат достъпни. Уверете се, че Blokada е деактивирана по време на актуализацията. Ако имате проблеми с актуализирането отидете на blokada.org и изтеглете ръчно приложението. Не е необходимо предварително да деинсталирате съществуващата версия.</string>
     <!-- Displayed in the home screen when there is an update. Keep it short. -->
     <string name="update_dash_available">&lt;b&gt;Налична е актуализация!&lt;/b&gt;</string>

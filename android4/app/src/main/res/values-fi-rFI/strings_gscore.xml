@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="welcome_open">Avaa selaimessa</string>
     <string name="welcome_cleanup_done">Poistaminen alkoi&#8230;</string>
+    <string name="welcome_continue">Jatka</string>
+    <string name="welcome_donate">Lahjoita</string>
     <!-- Opens info screen about the Blokada Insiders program, which invites user to be part of the team improving Blokada. -->
 </resources>

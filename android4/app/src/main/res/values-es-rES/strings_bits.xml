@@ -92,7 +92,7 @@
     <string name="menu_host_whitelist">Los hosts que añadas aquí nunca serán bloqueados. Utiliza esta lista cuando, por ejemplo, un sitio web que visitas es bloqueado erróneamente. Ten en cuenta que esto no aplica a las aplicaciones puenteadas.</string>
     <string name="menu_host_blacklist">Los hosts que añadas aquí siempre serán bloqueados. Por ejemplo, puedes añadir sitios web que no están siendo bloqueados por las listas estándar, pero deberían. Ten en cuenta que esto no aplica a las aplicaciones puenteadas.</string>
     <!-- A section of other settings in menu -->
-    <string name="menu_other">Otro</string>
+    <string name="menu_other">Otros</string>
     <string name="menu_share_log_label">Compartir el registro nos permite descubrir la razón de tu problema. Asegúrate de enviarlo en privado a uno de los miembros del equipo base de Blokada.</string>
     <!-- A section of help, telegram, and other buttons in menu -->
     <string name="menu_learn_more">Aprender más</string>

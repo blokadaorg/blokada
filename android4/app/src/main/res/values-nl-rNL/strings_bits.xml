@@ -29,7 +29,7 @@
     <string name="home_whats_new">Wat is er nieuw?</string>
     <string name="home_update_required">Update vereist</string>
     <!-- A short text for the item that displays donate link -->
-    <string name="home_donate">Doneer</string>
+    <string name="home_donate">Doneren</string>
     <string name="home_vpn_enabled">Blokada Plus is actief</string>
     <string name="home_vpn_disabled">Blokada Plus is gedeactiveerd</string>
     <string name="home_account_active">Uw account is nog steeds actief</string>

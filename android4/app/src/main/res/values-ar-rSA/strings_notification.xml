@@ -5,6 +5,7 @@
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">مَحظور</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">لا تَعرِض</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
@@ -28,7 +29,7 @@
     <string name="notification_keepalive_activating">جارِ تَشغيل بلوكادا. قد يَستَغرِق ذلك لحظات.</string>
     <string name="notification_keepalive_deactivate">إلغاء التَّفعيل</string>
     <string name="notification_keepalive_deactivating">تَمَّ إلغاء تَفعيل بلوكادا !</string>
-    <string name="notification_expired_title">بلوكادا بلس مُعَطَّل</string>
+    <string name="notification_expired_title">Blokada Plus مُعَطَّل</string>
     <string name="notification_expired_description">حسابك غير نَشِط ، و Blokada Plus متوقِّف. مَيِّزات بلوكادا القياسيّة تعمل بشكل جيّد دون Blokada Plus VPN. ومع ذلك ، يُرجى التفكير في تنشيط حسابك من أجل حماية أفضل و دعم المشروع.</string>
     <string name="notification_lease_expired_title">بلوكادا بلس مُعَطَّل</string>
     <string name="notification_lease_expired_description">حدثت مشكلة في إتصالك بـ Blokada Plus. الرجاء اختيار بوّابة أُخرى. إذا استمرّت المشكلة ، فيُرجى التواصل معنا.</string>

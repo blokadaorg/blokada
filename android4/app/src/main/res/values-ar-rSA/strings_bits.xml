@@ -32,14 +32,14 @@
     <string name="home_donate">التَّبرُّع</string>
     <string name="home_vpn_enabled">Blokada Plus نَشِط</string>
     <string name="home_vpn_disabled">Blokada Plus مُعَطَّل</string>
-    <string name="home_account_active">حسابك لا يزال نَشِطاً</string>
+    <string name="home_account_active">حسابك لا يَزال نَشِطاً</string>
     <string name="home_connecting_vpn">جارِ الاتصال بـ Blokada Plus</string>
     <string name="home_cleanup">يُنصَح بالتنظيف</string>
     <!-- A short text for the button to change VPN settings -->
     <string name="home_connected_vpn">مُتَّصل بـ Blokada Plus</string>
     <string name="home_boringtun_not_loaded">عذراً ، جهازك غير مدعوم من Blokada Plus. لا يزال بإمكانك استخدام الميّزات الأُخرى.</string>
     <string name="home_blocka_vpn_error">لا يمكن الاتصال بالبوابة. هل أنت متّصل؟</string>
-    <string name="home_account_error">فشل التأكّد مِن حسابك. هل أنت متصل؟</string>
+    <string name="home_account_error">فشل التأكّد مِن حسابك. هل أنت متّصل؟</string>
     <string name="home_permission_error">يُرجى منْح التصريحات للـ VPN.</string>
     <string name="home_zero_filters_error">لا يوجد لديك فلاتر مُهيَّأة. تحقّق من إعدادات حَظْر الإعلانات و wifi.</string>
     <string name="home_filters_memory_error">لا يُمكِن تحميل بعض القوائم ؛ حَدِّد قوائم أقل في إعدادات حظر الإعلانات.</string>

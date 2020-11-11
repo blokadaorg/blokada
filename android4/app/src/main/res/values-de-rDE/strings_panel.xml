@@ -103,7 +103,7 @@
     <string name="slot_dns_control_title">Liste der DNS-Server</string>
     <string name="slot_dns_control_description">Du kannst die DNS-Serverliste mit unseren Servern synchronisieren, ohne eigene Einträge zu verlieren. &lt;br/&gt;&lt;br/&gt;Alternativ kannst du alle Einträge (einschließlich der eigenen) abwählen und sie neu herunterladen.</string>
     <!-- A button to synchronize (fetch) lists  -->
-    <string name="slot_action_refresh">Synchronisieren</string>
+    <string name="slot_action_refresh">Sync</string>
     <string name="slot_action_refresh_toast">Synchronisation gestartet</string>
     <string name="slot_action_restore">Verwerfen</string>
     <string name="slot_export_title">Speicherort für Einstellungen</string>

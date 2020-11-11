@@ -66,7 +66,7 @@
     <string name="slot_set">simpan</string>
     <!-- A state of input form when incorrect input is entered  -->
     <string name="slot_invalid">tidak valid</string>
-    <string name="slot_continue">Lanjutkan</string>
+    <string name="slot_continue">Lanjut</string>
     <string name="slot_enter_domain_title">Domain</string>
     <string name="slot_enter_domain_desc">Masukkan domain, dipisahkan oleh koma. Anda bisa menyalin tautan ke daftar host manapun dan merekatkannya di sini, atau Anda bisa juga mengimpor berkas daftar host yang tersimpan di perangkat Anda.</string>
     <string name="slot_enter_domain_error">Sepertinya ini bukan domain.</string>

@@ -10,7 +10,7 @@
     <!-- Main screen section -->
     <string name="panel_section_home_help">Помощ</string>
     <string name="panel_section_ads_lists">Списъци с хостове</string>
-    <string name="panel_section_ads_log">Лог на хостове</string>
+    <string name="panel_section_ads_log">Регистър на хостове</string>
     <string name="panel_section_ads_blacklist">Блокирани хостове</string>
     <string name="panel_section_ads_whitelist">Позволени хостове</string>
     <string name="panel_section_advanced_dns">DNS</string>
@@ -53,9 +53,9 @@
     <!-- A state for switches (like notifications: off) -->
     <string name="slot_switch_off">Не</string>
     <!-- An action to toggle a switch -->
-    <string name="slot_intro_new">Как да използваме новия UI? Докоснете тук за инфо.</string>
+    <string name="slot_intro_new">Как да използваме новия UI? Докоснете тук за въведение.</string>
     <string name="slot_intro_new_header">Как да използваме новия потребителски интерфейс (UI)?</string>
-    <string name="slot_intro_desc">В момента сте в секцията Начало и ако плъзнете на дясно ще видите още. Всяка от тях има свое собствено долно меню - отворете го с плъзгане нагоре. &lt;br/&gt;&lt;br/&gt;На телевизори с Android можете да се движите в потребителския интерфейс с помощта на dpad. Използвайте централния бутон, за да отворите долното меню или всеки елемент, който изберете. Бутоните са маркирани със стрелка нагоре, надолу, наляво или надясно - използвате бутоните за посока, за да кликнете върху тях.</string>
+    <string name="slot_intro_desc">В момента сте в секцията Начало и ако плъзнете на дясно ще видите още. Всяка от тях има свое собствено долно меню - отворете го с плъзгане нагоре. &lt;br/&gt;&lt;br/&gt;На телевизори с Android можете да се движите в потребителския интерфейс с помощта на dpad. Използвайте централния бутон, за да отворите долното меню или всеки елемент, който изберете. Бутоните са маркирани със стрелка нагоре, надолу, наляво или надясно - използвайте бутоните за посока, за да кликнете върху тях.</string>
     <string name="slot_intro_info">Хей... Някои точки имат икона с въпросителен знак върху тях. Докосването му ще покаже кратко съобщение за помощ, също като това!</string>
     <string name="slot_new_filter">Добавяне на нов хост към списъка с блокирани</string>
     <string name="slot_new_filter_list">Добавяне на нов списък с хостове</string>
@@ -63,7 +63,7 @@
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">незапазен</string>
     <!-- A state of input form when correct input is entered  -->
-    <string name="slot_set">зададен</string>
+    <string name="slot_set">запазен</string>
     <!-- A state of input form when incorrect input is entered  -->
     <string name="slot_invalid">невалиден</string>
     <string name="slot_continue">Продължи</string>
@@ -76,7 +76,7 @@
     <string name="slot_enter_file_import">Импортиране</string>
     <string name="slot_enter_file_desc">Въведете част от името на файла</string>
     <string name="slot_enter_file_not_found">Няма файл с име, съдържащ въведеното</string>
-    <string name="slot_enter_file_multi">Няколко файла съвпадат с въведенето</string>
+    <string name="slot_enter_file_multi">Няколко файла съвпадат с въведеното</string>
     <string name="slot_enter_name_title">Име</string>
     <string name="slot_enter_name_desc">Въведете име на новия запис. Можете също да генерирате предложено име.</string>
     <string name="slot_enter_name_error">Това не ми прилича на нищо.</string>
@@ -99,7 +99,7 @@
     <!-- A prefix for generated name for manually entered domain.  -->
     <string name="slot_input_suggestion">Запис</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
-    <string name="slot_input_suggestion_for">Запис за %s</string>
+    <string name="slot_input_suggestion_for">Запис на %s</string>
     <string name="slot_dns_control_title">Списък с DNS сървъри</string>
     <string name="slot_dns_control_description">Можете да синхронизирате списъка с DNS сървъри с нашите сървъри без да губите персонализираните си записи. &lt;br/&gt;&lt;br/&gt;Освен това можете да изтриете всички записи (включително и вашите) и да ги изтеглите отново.</string>
     <!-- A button to synchronize (fetch) lists  -->
@@ -115,7 +115,7 @@
     <string name="slot_filters_description">Можете да синхронизирате списъка с филтри с нашите сървъри без да губите персонализираните си записи. &lt;br/&gt;&lt;br/&gt;Освен това можете да изтриете всички записи (включително и вашите) и да ги изтеглите отново.</string>
     <string name="slot_blocked_normal_title">Домейнът е блокиран</string>
     <string name="slot_blocked_answer_title">Домейнът не е разрешен</string>
-    <string name="slot_blocked_cname_title">CName блокиран</string>
+    <string name="slot_blocked_cname_title">CName е блокиран</string>
     <string name="slot_forwarded_title">Препратен домейн</string>
     <string name="slot_whitelist_title">Бял списък с приложения</string>
     <string name="slot_list_no_desc">Този запис няма описание.</string>
@@ -124,7 +124,7 @@
     <string name="slot_action_activate">Включване</string>
     <string name="slot_update_action_refresh">Провери отново</string>
     <string name="slot_telegram_title">Присъедини се към нас!</string>
-    <string name="slot_telegram_desc">Посетете нашата общност за помощ или просто да станете част от нея.</string>
+    <string name="slot_telegram_desc">Посетете нашата общност за помощ, или просто станете част от нея.</string>
     <string name="slot_telegram_action">Отвори</string>
     <string name="slot_dropped_share_title">Сподели с</string>
     <string name="slot_adblocking_label">Блокиране на реклами &amp; тракери</string>
@@ -136,7 +136,7 @@
     <string name="slot_account_action_manage_inactive">Активиране на профил</string>
     <string name="slot_account_action_change_id">Възстановяване на профил</string>
     <string name="slot_account_show">Профилно ID</string>
-    <string name="slot_account_action_copied">Профилен ID е копиран в клипборда</string>
+    <string name="slot_account_action_copied">Профилният ID е копиран в клипборда</string>
     <string name="slot_account_action_unavailable">[не е зададено]</string>
     <!-- A slot to connect to given gateway. Example: Connect to Stockholm. -->
     <string name="slot_gateway_label">Свързване с %s</string>
@@ -170,7 +170,7 @@
     <string name="slot_donate_label">Наслаждавате се на Блокада? Помислете да ни подкрепите за да можем да продължим с подобряването на приложението.</string>
     <string name="slot_donate_desc">Помогнете ни да въведем нови функции! Докоснете тук за повече.</string>
     <!-- A button to donate -->
-    <string name="slot_donate_action">Дарете</string>
+    <string name="slot_donate_action">Дарение</string>
     <string name="slot_cta_label">Хей! Бихме искали да знаем вашето мнение.</string>
     <string name="slot_cta_desc">Покажете своята подкрепа като участвате в нашите проучвания и други събития. Ние редовно поддържаме обратна връзка с нашата общност за идеи за бъдещото развитие, така сме сигурни, че работим върху това, което искате да видите.</string>
     <!-- A button to open something (a website) -->
@@ -201,7 +201,7 @@
     <string name="slot_whitelist_updating">Конфигурацията се актуализира, моля изчакайте...</string>
     <string name="slot_too_many_leases">Моля, премахнете старото устройство от списъка с устройства.</string>
     <string name="slot_background_animation">Фонова анимация</string>
-    <string name="slot_background_animation_description">Когато са включени вълните ще анимират всеки път при блокирана или позволена заявка за DNS. Изключете, ако има забавяне в призводителността.</string>
+    <string name="slot_background_animation_description">Когато са включени вълните ще анимират всеки път при блокирана или позволена заявка за DNS. Изключете ако има забавяне в производителността.</string>
     <string name="slot_reset_counter_label">Нулиране брояча на блокирани хостове</string>
     <string name="slot_reset_counter_description">Задава на брояча, който показва колко заявки са блокирани да бъде 0.</string>
     <string name="slot_reset_counter_action">Нулиране</string>

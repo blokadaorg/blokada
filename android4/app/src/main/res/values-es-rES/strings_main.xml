@@ -14,7 +14,7 @@
     <!-- Active status for the Quick Settings toggle -->
     <!-- Disabled status for the Quick Settings toggle -->
     <!-- App status, as in: Blokada is Active -->
-    <string name="main_status_active_recent">Activado</string>
+    <string name="main_status_active_recent">Activo</string>
     <!-- App status, as in: Blokada is Disabled -->
     <string name="main_status_disabled">Desactivado</string>
     <!-- App status, always displayed without the "Blokada is" part. -->

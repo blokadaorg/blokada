@@ -3,8 +3,8 @@
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
-    <string name="tunnel_config_refetch_now_title">リストをダウンロード</string>
-    <string name="tunnel_config_refetch_now">今すぐリストをダウンロードする</string>
+    <string name="tunnel_config_refetch_now_title">リストの手動更新</string>
+    <string name="tunnel_config_refetch_now">ダウンロード</string>
     <string name="tunnel_config_refetch_toast">リストのダウンロードを開始しました</string>
     <string name="tunnel_config_refetch_now_description">フィルタリングに問題が発生した場合、下のボタンをタップしてください。キャッシュを削除し、リストを再度ダウンロードします。</string>
     <string name="tunnel_config_refetch_frequency_title">リストの更新頻度</string>

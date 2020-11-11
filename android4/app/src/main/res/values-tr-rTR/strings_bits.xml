@@ -29,7 +29,7 @@
     <string name="home_whats_new">Neler değişti?</string>
     <string name="home_update_required">Güncelleştirme gerekli</string>
     <!-- A short text for the item that displays donate link -->
-    <string name="home_donate">Bağış</string>
+    <string name="home_donate">Bağış Yap</string>
     <string name="home_vpn_enabled">Blokada Plus etkin</string>
     <string name="home_vpn_disabled">Blokada Plus devre dışı bırakıldı</string>
     <string name="home_account_active">Hesabınız hala etkin</string>

@@ -8,7 +8,7 @@
     <!-- Main screen section -->
     <string name="panel_section_apps">Appok</string>
     <!-- Main screen section -->
-    <string name="panel_section_home_help">Súgó</string>
+    <string name="panel_section_home_help">Segítség</string>
     <string name="panel_section_ads_lists">Hosztlisták</string>
     <string name="panel_section_ads_log">Hoszt napló</string>
     <string name="panel_section_ads_blacklist">Blokkolt hosztok</string>
@@ -62,7 +62,7 @@
     <string name="slot_set">beállítva</string>
     <!-- A state of input form when incorrect input is entered  -->
     <string name="slot_invalid">érvénytelen</string>
-    <string name="slot_continue">Folytatás</string>
+    <string name="slot_continue">Tovább</string>
     <string name="slot_enter_domain_title">Domain(ek)</string>
     <string name="slot_enter_domain_desc">Vesszővel elválasztott domainokat adj meg. Beilleszthetsz egy linket bármely hoszt listához, vagy importálhatsz is egy helyi hoszt lista fájlt.</string>
     <string name="slot_enter_domain_error">Ez nem úgy néz ki, mintha jó lenne.</string>

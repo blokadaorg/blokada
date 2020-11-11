@@ -95,7 +95,7 @@
     <string name="slot_dns_name_disabled">DNSが無効になっています</string>
     <string name="slot_action_none">この操作はまだ利用できません。</string>
     <string name="slot_action_unwhitelist">キャンセル</string>
-    <string name="slot_action_author">アプリについて</string>
+    <string name="slot_action_author">詳細</string>
     <!-- A prefix for generated name for manually entered domain.  -->
     <string name="slot_input_suggestion">エントリ</string>
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->

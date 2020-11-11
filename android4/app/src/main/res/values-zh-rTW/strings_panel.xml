@@ -4,11 +4,11 @@
     <string name="panel_section_home">首頁</string>
     <string name="panel_section_menu">選單</string>
     <!-- Main screen section -->
-    <string name="panel_section_ads">廣告封鎖</string>
+    <string name="panel_section_ads">廣告阻擋</string>
     <!-- Main screen section -->
     <string name="panel_section_apps">應用程式</string>
     <!-- Main screen section -->
-    <string name="panel_section_home_help">輔助說明</string>
+    <string name="panel_section_home_help">協助</string>
     <string name="panel_section_ads_lists">主機列表</string>
     <string name="panel_section_ads_log">主機記錄</string>
     <string name="panel_section_ads_blacklist">已封鎖主機</string>
@@ -170,7 +170,7 @@
     <string name="slot_donate_label">享受 Blokada 嗎？請考慮支援我們，這樣我們才能持續改善應用程式。</string>
     <string name="slot_donate_desc">協助我們引入新功能！點選以取得更多資訊。</string>
     <!-- A button to donate -->
-    <string name="slot_donate_action">贊助</string>
+    <string name="slot_donate_action">捐助</string>
     <string name="slot_cta_label">嘿！我們想要知道您的想法。</string>
     <string name="slot_cta_desc">透過參與我們的調查與其他活動來展示您的支持。我們會定期與我們的社群聯繫來取得創意與新發展的回饋，以確保我們正在努力實現您想要看到的功能。</string>
     <!-- A button to open something (a website) -->

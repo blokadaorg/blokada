@@ -5,7 +5,7 @@
     <string name="logger_slot_desc">デフォルトでは、リクエストはBlokadaの内部でのみ保存されます。 この機能を有効にすると、BlokadaはCSVファイルを作成し、アプリによって許可またはブロックされたリクエストログを記録して外部ストレージの「blokada」フォルダに保存します。 ブロックされているドメインの数だけを保存して、リクエストログを隠すこともできます。</string>
     <string name="logger_slot_mode_off">無効</string>
     <string name="logger_slot_mode_internal">アプリ内のみ</string>
-    <string name="logger_slot_mode_allowed">許可されたログを記録</string>
-    <string name="logger_slot_mode_denied">ブロックされたログを記録</string>
+    <string name="logger_slot_mode_allowed">許可ログを記録</string>
+    <string name="logger_slot_mode_denied">ブロックログを記録</string>
     <string name="logger_slot_mode_all">すべてのログを記録</string>
 </resources>

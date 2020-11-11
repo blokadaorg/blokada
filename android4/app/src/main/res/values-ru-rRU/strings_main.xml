@@ -14,7 +14,7 @@
     <!-- Active status for the Quick Settings toggle -->
     <!-- Disabled status for the Quick Settings toggle -->
     <!-- App status, as in: Blokada is Active -->
-    <string name="main_status_active_recent">Активна</string>
+    <string name="main_status_active_recent">Активно</string>
     <!-- App status, as in: Blokada is Disabled -->
     <string name="main_status_disabled">Отключена</string>
     <!-- App status, always displayed without the "Blokada is" part. -->

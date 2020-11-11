@@ -166,11 +166,11 @@
     <string name="slot_help_label">सहायता की आवश्यकता है?</string>
     <string name="slot_help_desc">हमारे सहायता पृष्ठ को खोलने के लिए नीचे दिए गए बटन पर टैप करें। आप सहायता प्राप्त करने के लिए हमारे सोशल मीडिया का भी उपयोग कर सकते हैं - हम टेलीग्राम, फेसबुक, रेडिट और ट्विटर पर हैं।</string>
     <!-- A button to open help -->
-    <string name="slot_help_action">सहायता</string>
+    <string name="slot_help_action">मदद</string>
     <string name="slot_donate_label">ब्लोकाडा का आनंद ले रहे हैं? हमें समर्थन देने पर विचार करें, इसलिए हम ऐप को बेहतर बना सकते हैं।</string>
     <string name="slot_donate_desc">नई सुविधाओं को पेश करने में हमारी मदद करें! अधिक के लिए यहां स्पर्श करें।</string>
     <!-- A button to donate -->
-    <string name="slot_donate_action">दान करें</string>
+    <string name="slot_donate_action">दान</string>
     <string name="slot_cta_label">श्श्श! हम आपकी राय जानना चाहेंगे।</string>
     <string name="slot_cta_desc">हमारे सर्वेक्षण और अन्य घटनाओं में भाग लेकर अपना समर्थन दिखाएं। हम विचारों और नए विकास के बारे में प्रतिक्रिया के लिए नियमित रूप से हमारे समुदाय तक पहुंचते हैं, ताकि हम यह सुनिश्चित कर सकें कि आप जो देखना चाहते हैं, उस पर हम काम कर रहे हैं।</string>
     <!-- A button to open something (a website) -->

@@ -99,7 +99,7 @@
     <!-- A section informational content in menu -->
     <string name="menu_knowledge">Uzyskaj pomoc</string>
     <!-- A section content promoting participating in our project -->
-    <string name="menu_get_involved">Zaangażuj się</string>
+    <string name="menu_get_involved">Wspomóż nas</string>
     <string name="menu_telegram">Społeczność</string>
     <string name="menu_configure">Konfiguruj funkcje Blokady</string>
     <string name="menu_exclude">Wyklucz aplikacje które nie działają prawidłowo</string>

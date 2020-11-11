@@ -6,6 +6,7 @@
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">ブロック済み</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
+    <string name="notification_blocked_text">%s</string>
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">表示しない</string>
     <!-- Button to whitelist a host that was just blocked, visible in a notification. -->
@@ -29,7 +30,7 @@
     <string name="notification_keepalive_activating">Blokadaが起動しています。少し時間がかかる場合があります。</string>
     <string name="notification_keepalive_deactivate">無効にする</string>
     <string name="notification_keepalive_deactivating">Blokadaが無効になりました</string>
-    <string name="notification_expired_title">Blokada Plusが無効になりました</string>
+    <string name="notification_expired_title">Blokada Plusが無効です</string>
     <string name="notification_expired_description">あなたのアカウントはBlokada Plusではありません。Blokadaの基本的な機能はBlokada Plusなしで正常に動作します。 
 しかしBlokada Plusへアップグレードすることで、高度な保護が利用可能となり、このプロジェクトへのサポートとなります。</string>
     <string name="notification_lease_expired_title">Blokada Plusが無効になりました</string>
