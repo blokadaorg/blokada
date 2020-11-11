@@ -107,7 +107,7 @@
 // Make sure each tab name has a similar length
 "main tab activity" = "Activité";
 // Make sure each tab name has a similar length
-"main tab advanced" = "Avancé";
+"main tab advanced" = "Paramètres Avancés";
 // Make sure each tab name has a similar length
 "main tab settings" = "Paramètres";
 
@@ -126,7 +126,7 @@
 "home status detail active with counter" = "a bloqué *%@* pubs et trackers";
 "home status detail active slim" = "Blokada * Slim* est actif";
 "home status detail plus" = "*+* protège votre *vie privée*";
-"home status detail progress" = "veuillez patienter...";
+"home status detail progress" = "Veuillez patienter...";
 
 "home plus button deactivated" = "BLOKADA+ désactivé";
 "home plus button select location" = "Choisir l'emplacement";
@@ -216,7 +216,7 @@
 "account section header my subscription" = "Mon abonnement";
 "account section header general" = "Général";
 "account section header subscription" = "Inscription";
-"account label id" = "ID du compte";
+"account label id" = "Identifiant du compte";
 "account label type" = "Type de compte";
 "account label active until" = "Actif jusqu'au";
 "account action manage subscription" = "Gérer mon abonnement";

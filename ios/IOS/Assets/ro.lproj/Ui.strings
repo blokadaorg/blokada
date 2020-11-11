@@ -49,9 +49,9 @@
 "universal action learn more" = "Aflați mai multe";
 "universal action help" = "Ajutor";
 "universal action show log" = "Jurnale";
-"universal action share log" = "Împărtășește jurnal";
+"universal action share log" = "Împarte log";
 "universal action copy" = "Copiază";
-"universal action save" = "Salvează";
+"universal action save" = "Salvați";
 "universal action contact us" = "Contactați-ne";
 "universal action support" = "Asistenţă";
 "universal action upgrade" = "Treceți la BLOKADA+";
@@ -191,6 +191,8 @@
 "activity filter show blocked" = "Arată doar blocate";
 "activity filter show allowed" = "Arată doar permise";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "Blocat";
 
 "account section header settings" = "Setări";
 "account status text" = "Contul dvs. BLOKADA %@ este activ până la %@.";

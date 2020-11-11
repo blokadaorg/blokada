@@ -97,6 +97,8 @@
 "activity section header" = "Activiteit";
 // As in sentence, "this host has been blocked"
 "activity state blocked" = "geblokkeerd";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "Adv. geblokkeerd";
 
 "account section header settings" = "Instellingen";
 "account section header other" = "Overige";

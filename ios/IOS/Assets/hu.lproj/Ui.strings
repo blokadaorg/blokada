@@ -140,6 +140,8 @@
 "activity filter show all" = "Minden bejegyzést";
 "activity filter show blocked" = "Csak a blokkoltat";
 "activity filter show allowed" = "Csak az engedélyezettet";
+// A section name for the list of hosts blocked by user
+"userdenied tab blocked" = "Reklám szűrve";
 
 "account section header settings" = "Beállítások";
 "account status text" = "A BLOKADA %@ fiókod aktív eddig: %@.";
