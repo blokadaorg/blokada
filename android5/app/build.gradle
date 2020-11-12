@@ -36,7 +36,7 @@ android {
         applicationId "org.blokada" // Not a real name, see flavors below
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 504000000
+        versionCode 504000001
         versionName "5.4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
