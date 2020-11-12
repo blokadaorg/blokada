@@ -31,7 +31,8 @@ import utils.Logger
 
 object BlocklistService {
 
-    private const val DEFAULT_BLOCKLIST = "default_blocklist.zip"
+    private const val DEFAULT_BLOCKLIST = "default_blocklist"
+    private const val DEFAULT_BLOCKLIST_ZIP = "default_blocklist.zip"
     const val MERGED_BLOCKLIST = "merged_blocklist"
     const val USER_ALLOWED = "allowed"
     const val USER_DENIED = "denied"
@@ -46,9 +47,15 @@ object BlocklistService {
         if (!file.exists(destination)) {
             log.w("Initiating default blocklist file")
             val default = file.commonDir().file(DEFAULT_BLOCKLIST)
-            val asset = context.requireAppContext().assets.open(DEFAULT_BLOCKLIST)
-            val decodedAsset = ZipService.decodeStream(asset, key = DEFAULT_BLOCKLIST)
-            file.save(source = decodedAsset, destination = default)
+            try {
+                val asset = context.requireAppContext().assets.open(DEFAULT_BLOCKLIST_ZIP)
+                val decodedAsset = ZipService.decodeStream(asset, key = DEFAULT_BLOCKLIST_ZIP)
+                file.save(source = decodedAsset, destination = default)
+            } catch (ex: Exception) {
+                log.w("No zip blocklist, falling back to plaintext one")
+                val asset = context.requireAppContext().assets.open(DEFAULT_BLOCKLIST)
+                file.save(source = asset, destination = default)
+            }
             file.merge(listOf(default), destination)
             sanitize(destination)
         }
