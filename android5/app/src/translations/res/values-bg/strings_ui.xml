@@ -110,7 +110,7 @@
     <string name="pack_category_highlights">Акценти</string>
     <string name="pack_category_active">Активни</string>
     <string name="pack_category_all">Всички</string>
-    <string name="advanced_section_header_packs">Списък за блокиране</string>
+    <string name="advanced_section_header_packs">Блокиращи списъци</string>
     <string name="advanced_section_slugline_packs">Активирайте за по-ограничително блокиране</string>
     <string name="advanced_section_slugline_apps">Изберете приложения, които никога да не бъдат блокирани</string>
     <string name="advanced_section_slugline_encryption">Регулирайте нивото си на криптиране и DNS</string>
@@ -147,7 +147,7 @@
     <string name="activity_filter_show_all">Показване на всички записи</string>
     <string name="activity_filter_show_blocked">Показване само на блокирани</string>
     <string name="activity_filter_show_allowed">Показване само на разрешени</string>
-    <string name="activity_empty_text">Използвайте устройството и се върнете тук за да видите къде се свързва вашето устройство.</string>
+    <string name="activity_empty_text">Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.</string>
     <string name="userdenied_section_header">Моите списъци за блокиране</string>
     <string name="userdenied_section_slugline">Управлявайте блокирането на определени уеб сайтове</string>
     <string name="userdenied_tab_allowed">Разрешени</string>
@@ -183,11 +183,11 @@
     <string name="account_subscription_header_renew">Автоматично подновяване</string>
     <string name="account_subscription_header_payment_method">Начин на плащане</string>
     <string name="account_subscription_renew_unsupported">Начинът на плащане не се поддържа за автоматично подновяване.</string>
-    <string name="account_unlock_to_show">Отключете за да се покаже ID на акаунта</string>
+    <string name="account_unlock_to_show">Отключете за да се покаже ID на профила</string>
     <string name="account_header_logout">Възстановяване на покупка</string>
-    <string name="account_logout_description">Моля, въведете друг идентификационен номер за потребителският профил или се върнете и продължете да използвате съществуващ профил (това приложение не може да се използва без такъв).</string>
+    <string name="account_logout_description">Моля, въведете друго ID за потребителският профил или се върнете и продължете да използвате съществуващ профил (това приложение не може да се използва без такъв).</string>
     <string name="account_id_status_unchanged">(непроменен)</string>
-    <string name="account_action_how_to_restore">Как да възстановя старият си акаунт?</string>
+    <string name="account_action_how_to_restore">Как да възстановя старият си профил?</string>
     <string name="account_subscription_days_remaining">Оставащи дни: %s</string>
     <string name="account_devices_remaining">Оставащи устройства: %s</string>
     <string name="account_devices_not_available">Не е налично</string>
@@ -211,7 +211,7 @@
     <string name="account_encrypt_section_header">Криптиране</string>
     <string name="account_encrypt_section_blocka_dns">Blokada DNS</string>
     <string name="account_encrypt_label_use_blocka_dns">Използвайте Blokada DNS в режим Plus</string>
-    <string name="account_lease_label_devices_list">Тези устройства са свързани с вашият акаунт.</string>
+    <string name="account_lease_label_devices_list">Тези устройства са свързани с вашият профил.</string>
     <string name="account_lease_label_devices">Устройства</string>
     <string name="account_lease_label_this_device"> (това устройство)</string>
     <string name="account_lease_label_name">Име на устройството</string>
@@ -252,7 +252,7 @@
     <string name="payment_subscription_per_month">%s на месец</string>
     <string name="payment_subscription_offer">Запази %s</string>
     <string name="payment_success_label">Благодаря!</string>
-    <string name="payment_success_desc">Вашият акаунт е активен! Вече можете да използвате всички функции на Blokada Plus на всичките си устройства.</string>
+    <string name="payment_success_desc">Вашият профил е активен! Вече можете да използвате всички функции на Blokada Plus на всичките си устройства.</string>
     <string name="payment_ongoing_desc">Плащането Ви се обработва. В някои случай като при PayPal, това може да отнеме до 24 часа. Другите методи на плащане не би трябвало да отнемат повече от час. Ако смятате, че отнема твърде много време, моля свържете се с нас.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
@@ -303,7 +303,7 @@
     <string name="app_settings_section_advanced">Разширени</string>
     <string name="app_settings_section_use_foreground">Винаги в активност</string>
     <string name="intro_header">Blokada е активна!</string>
-    <string name="intro_text">Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Въпреки това, ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN мрежа / Свързване при поискване в системните настройки.</string>
+    <string name="intro_text">Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Въпреки това, ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN мрежа / Мрежа и интернет - VPN, в системните настройки.</string>
     <string name="location_region_america">Америка</string>
     <string name="location_region_europe">Европа</string>
     <string name="location_region_asia">Азия</string>
