@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="notification_on_text">Benachrichtigungen</string>
-    <string name="notification_on_description">Wenn eingeschaltet, wird Blokada jedes Mal eine Benachrichtigung anzeigen, wenn etwas blockiert wird. Bitte beachte, dass dies nicht identisch mit der VPN-Benachrichtigung ist, die einige Geräte anzeigen und die nicht deaktiviert werden kann.&lt;br/&gt;Du kannst in den folgenden Einstellungen festlegen, welche Benachrichtigungen angezeigt werden sollen.</string>
+    <string name="notification_on_description">Wenn eingeschaltet wird Blokada jedes Mal eine Benachrichtigung anzeigen, wenn etwas blockiert wird. Bitte beachte, dass dies nicht identisch mit der VPN-Benachrichtigung ist, die einige Geräte anzeigen und die nicht deaktiviert werden kann.&lt;br/&gt;Du kannst in den folgenden Einstellungen festlegen, welche Benachrichtigungen angezeigt werden sollen.</string>
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Blockiert</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
