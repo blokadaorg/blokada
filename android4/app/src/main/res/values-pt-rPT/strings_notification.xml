@@ -3,7 +3,7 @@
     <string name="notification_on_text">Notificações</string>
     <string name="notification_on_description">Quando ativado, o Blokada apresentará uma notificação sempre que algo for bloqueado. Tenha atenção que isto não é o mesmo que a notificação da VPN que apresenta em alguns dispositivos, e que não pode ser desligada.&lt;br/&gt;Pode configurar que notificações são apresentadas nas Definições abaixo.</string>
     <!-- Title of the notification that shows up every time something is blocked. -->
-    <string name="notification_blocked_title">Bloqueados</string>
+    <string name="notification_blocked_title">Bloqueada</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
     <!-- Button to turn off notifications. -->
     <string name="notification_blocked_off">Não mostrar</string>
