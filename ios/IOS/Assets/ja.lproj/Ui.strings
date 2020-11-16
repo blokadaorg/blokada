@@ -188,23 +188,23 @@
 "activity category top blocked" = "ブロック回数";
 "activity category top allowed" = "許可回数";
 "activity filter header" = "表示するエントリを選択";
-"activity filter show all" = "すべてのエントリ";
+"activity filter show all" = "すべて";
 "activity filter show blocked" = "ブロックされたエントリ";
 "activity filter show allowed" = "許可されたエントリ";
 "activity empty text" = "デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。";
 
 "userdenied section header" = "マイ・ブロックリスト";
-"userdenied section slugline" = "特定のウェブサイトのブロックを管理する";
+"userdenied section slugline" = "ブロック・許可したサイトを管理する";
 // A section name for the list of hosts allowed by user
-"userdenied tab allowed" = "許可されたホスト";
+"userdenied tab allowed" = "許可するホスト";
 // A section name for the list of hosts blocked by user
-"userdenied tab blocked" = "ブロックさせたホスト";
+"userdenied tab blocked" = "ブロックするホスト";
 
 "account section header settings" = "設定";
 "account status text" = "BLOKADA %@ - アカウントの有効期限は %@ です。";
 "account status text libre" = "BLOKADA Libre - 有効期限のない無料アカウントです。";
 
-"account section header primary" = "基本情報";
+"account section header primary" = "メイン";
 "account section header other" = "その他";
 "account action my account" = "アカウント情報";
 "account action encryption" = "暗号化";
