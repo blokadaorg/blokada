@@ -1,0 +1,3 @@
+[submodule "translate"]
+	path = translate
+	url = https://github.com/blokadaorg/translate.git
