@@ -11,6 +11,7 @@ commit="translate: sync strings to: $hash"
 echo $commit
 
 ./translate.py -a android5
+./translate.py -a ios
 
 cd ../../
 
