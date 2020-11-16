@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Syncing strings (will push)"
+echo "Syncing strings"
 
 cd translate/scripts
 git checkout master
@@ -15,6 +15,5 @@ echo $commit
 cd ../../
 
 git commit -am "$commit"
-git push
 
 echo "Done"
