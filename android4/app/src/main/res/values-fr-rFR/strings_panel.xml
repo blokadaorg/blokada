@@ -27,6 +27,7 @@
     <string name="panel_domain_blocked_normal_desc">Ce domaine a été bloqué. Pour l\'autoriser, utilisez le bouton ci-dessous.</string>
     <string name="panel_domain_blocked_nxdomain_desc">Ce domaine a mené à une résolution incorrecte par le serveur DNS. Soit le serveur a bloqué ce domaine, soit il n\'existe pas.</string>
     <string name="panel_domain_blocked_error_desc">Une erreur s\'est produite lors de la résolution de ce domaine, le serveur DNS a renvoyé un code d\'erreur.</string>
+    <string name="panel_domain_blocked_cname_desc">Ce domaine est bloqué car c\'est un CName d\'un domaine bloqué. Pour l\'autoriser, vous pouvez ajouter soit le CName, soit le domaine aux hôtes autorisés.</string>
     <string name="panel_domain_blocked_toast">Ajouté à la liste noire.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Copier</string>

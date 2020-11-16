@@ -49,9 +49,9 @@
     <string name="slot_action_remove">Entfernen</string>
     <!-- Button to open homepage of list's author. Keep it short. -->
     <!-- A state for switches (like notifications: on) -->
-    <string name="slot_switch_on">Ja</string>
+    <string name="slot_switch_on">An</string>
     <!-- A state for switches (like notifications: off) -->
-    <string name="slot_switch_off">Nein</string>
+    <string name="slot_switch_off">Aus</string>
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Wie verwendet man die neue Benutzeroberfläche? Zur Einführung hier antippen.</string>
     <string name="slot_intro_new_header">Wie benutzt man die neue Benutzeroberfläche?</string>
