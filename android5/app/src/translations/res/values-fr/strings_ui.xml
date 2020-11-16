@@ -14,6 +14,7 @@
     <string name="error_vpn_expired">Le VPN est désactivé. Veuillez mettre votre abonnement à jour pour continuer d\'utiliser BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Votre paiement précédent a été restauré, mais l\'abonnement a déjà expiré. Si vous pensez que c\'est une erreur, veuillez nous contacter en cliquant sur le bouton d\'aide en haut de l\'écran.</string>
     <string name="error_payment_failed">Les paiements sont actuellement indisponibles. Assurez-vous d\'être en ligne, et réessayez plus tard. Si le problème persiste, contactez-nous en cliquant sur l\'icône d\'aide en haut de l\'écran.</string>
+    <string name="error_payment_failed_alternative">Impossible d\'effectuer votre paiement. Veuillez vous assurer que vos données sont correctes puis réessayez réessayez. Si le problème persiste, contactez-nous en appuyant sur l\'icône d\'aide en haut.</string>
     <string name="error_payment_not_available">Les paiements sont indisponibles sur cet appareil. Soit vous n\'avez pas activé Apple Pay, soit nous ne prenons pas encore en charge les paiements dans votre pays.</string>
     <string name="error_payment_canceled">Le paiement a été annulé. Vous n\'avez pas été débité.</string>
     <string name="error_pack_install">Impossible d\'installer (ou désinstaller) cette fonctionnalité. Veuillez réessayer plus tard.</string>
@@ -59,6 +60,7 @@
     <string name="notification_vpn_expired_header">L\'abonnement BLOKADA+ a expiré</string>
     <string name="notification_vpn_expired_subtitle">Le VPN est désactivé</string>
     <string name="notification_vpn_expired_body">Veuillez mettre à jour votre abonnement pour continuer à utiliser BLOKADA+</string>
+    <string name="notification_desc_settings">Faites glisser la notification à droite ou a gauche pour accéder aux paramètres.</string>
     <string name="notification_update_header">Une mise à jour est disponible</string>
     <string name="alert_update_body">Blokada %s est maintenant disponible au téléchargement. Nous vous recommandons de garder l\'appli à jour, et de ne la télécharger que depuis nos sources officielles.</string>
     <string name="update_label_updated">Mis à jour !</string>

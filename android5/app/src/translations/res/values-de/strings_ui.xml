@@ -2,16 +2,16 @@
 <resources>
     <string name="error_device_offline">Das Gerät ist nicht verbunden</string>
     <string name="error_account_inactive">Dein Konto ist inaktiv. Bitte aktiviere dein Konto, damit du weiterhin BLOKADA+ nutzen kannst.</string>
-    <string name="error_account_inactive_after_restore">Dies scheint kein gültiges Konto zu sein. Wenn du denkst, das dies ein Fehler ist, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.</string>
+    <string name="error_account_inactive_after_restore">Dies scheint kein gültiges Konto zu sein. Wenn du denkst, dass dies ein Fehler ist, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.</string>
     <string name="error_account_invalid">Diese Konto-ID scheint ungültig zu sein.</string>
     <string name="error_creating_account">Konnte kein neues Konto erstellen. Bitte probiere es später erneut.</string>
-    <string name="error_fetching_data">Diese Aktion konnte nicht fertiggestellt werden. Stelle sicher, dass du online bist und versuche es später nochmal. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.</string>
-    <string name="error_tunnel">VPN konnte nicht eingerichtet werden. Bitte starte dein Gerät neu oder entferne Blokadas VPN-Profil in den Systemeinstellungen und versuche es erneut.</string>
+    <string name="error_fetching_data">Diese Aktion konnte nicht richtig beendet werden. Stelle sicher, dass du online bist und versuche es später nochmal. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.</string>
+    <string name="error_tunnel">Das VPN konnte nicht eingerichtet werden. Bitte starte dein Gerät neu oder entferne Blokadas VPN-Profil in den Systemeinstellungen und versuche es erneut.</string>
     <string name="error_vpn">VPN konnte nicht eingerichtet werden. Bitte starte dein Gerät neu oder entferne Blokadas VPN-Profil in den Systemeinstellungen und versuche es erneut.</string>
-    <string name="error_vpn_perms">Keine Berechtigung zum erstellen eines VPN-Profils erteilt.</string>
+    <string name="error_vpn_perms">Keine Berechtigung zum erstellen eines VPN-Profils erhalten.</string>
     <string name="error_vpn_no_current_lease">Bitte wähle zuerst einen Standort aus.</string>
     <string name="error_vpn_too_many_leases">Du hast die maximale Anzahl an Geräten erreicht. Bitte entferne eines deiner Geräte und versuche es erneut.</string>
-    <string name="error_vpn_expired">Das VPN ist deaktiviert. Bitte erneuere dein Abo um weiter BLOKADA+ nutzen zu können</string>
+    <string name="error_vpn_expired">Das VPN ist deaktiviert. Bitte erneuere dein Abo um weiterhin BLOKADA+ nutzen zu können</string>
     <string name="error_payment_inactive_after_restore">Deine bisherige Zahlung wurde wiederhergestellt, aber dein Abo ist bereits ausgelaufen. Wenn du denkst, dass dies ein Fehler ist, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.</string>
     <string name="error_payment_failed">Zahlungen sind derzeit nicht möglich. Stelle sicher, dass du online bist und probiere es später erneut. Wenn das Problem weiterhin besteht, kontaktiere und bitte, indem du den Hilfe-Knopf oben drückst.</string>
     <string name="error_payment_failed_alternative">Deine Zahlung konnte nicht abgeschlossen werden. Bitte stelle sicher, dass deine Daten korrekt sind, und versuch es erneut. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du auf das Hilfe-Symbol oben tippst.</string>
@@ -319,7 +319,7 @@
     <string name="homepage_action_dashboard">Kontrollzentrum</string>
     <string name="homepage_about_footer">Bleiben wir in Kontakt!</string>
     <string name="homepage_hero_title">Die Datenschutz-App</string>
-    <string name="homepage_hero_subtitle">frei und Open Source</string>
+    <string name="homepage_hero_subtitle">Kostenlos und Open Source</string>
     <string name="homepage_hero_desc">Blokada ist eine beliebte Werbeblocker- und Datenschutz-App für Android und iOS. Sie wird von einer großartigen Freie-Software-Gemeinschaft unterstützt und entwickelt.</string>
     <string name="homepage_about_title">Blokada 5, der Werbeblocker</string>
     <string name="homepage_about_desc">Wenn du wirksam Werbung, Tracker und Schadsoftware blockieren, deine mobilen Daten schonen, dein Gerät schneller machen und deine privaten Daten mit nur einer Anwendung schützen möchtest, dann ist Blokada für dich. Es ist gratis, sicher und quelloffen.</string>

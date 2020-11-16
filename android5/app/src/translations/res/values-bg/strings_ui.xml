@@ -64,7 +64,7 @@
     <string name="notification_update_header">Налична е актуализация</string>
     <string name="alert_update_body">Blokada %s вече е достъпна за изтегляне. Препоръчваме да поддържате приложението актуално, както и да бъде изтеглена само от нашите официални източници.</string>
     <string name="update_label_updated">Обновено!</string>
-    <string name="update_desc_updated">Вече използвате най-новата версия на Blokada! Не забравяйте, че дарението или абонамента за Blokada Plus ни позволява да продължим да подобряваме приложението.</string>
+    <string name="update_desc_updated">Вече използвате най-новата версия на Blokada! Не забравяйте, че дарението или абонамента за Blokada Plus ни позволява да продължим подобряването на приложението.</string>
     <string name="update_downloading_description">Актуализацията вече се изтегля и след малко трябва да видите подкана за инсталиране.</string>
     <string name="account_active_forever">Завинаги</string>
     <string name="account_active_forever_full">Активен завинаги</string>
@@ -303,7 +303,7 @@
     <string name="app_settings_section_advanced">Разширени</string>
     <string name="app_settings_section_use_foreground">Винаги в активност</string>
     <string name="intro_header">Blokada е активна!</string>
-    <string name="intro_text">Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Въпреки това, ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN мрежа / Мрежа и интернет - VPN, в системните настройки.</string>
+    <string name="intro_text">Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Въпреки това, ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN / Мрежа и интернет - VPN, или Always on VPN / Connect on Demand в системните настройки.</string>
     <string name="location_region_america">Америка</string>
     <string name="location_region_europe">Европа</string>
     <string name="location_region_asia">Азия</string>
@@ -320,7 +320,7 @@
     <string name="homepage_about_footer">Нека поддържаме връзка!</string>
     <string name="homepage_hero_title">Поверителност на приложението</string>
     <string name="homepage_hero_subtitle">безплатно и с отворен код</string>
-    <string name="homepage_hero_desc">Blokada е популярно приложение за блокиране на реклами и защита на поверителността за Android и iOS. То се поддържа и активно развива от невероятната общност и е с отворен код.</string>
+    <string name="homepage_hero_desc">Blokada е популярно приложение, което блокира рекламите и защитава поверителността, предназначено за Android и iOS. То се поддържа и активно развива от невероятна общност и е с отворен код.</string>
     <string name="homepage_about_title">Blokada 5, рекламният блокер</string>
     <string name="homepage_about_desc">Ако искате ефективно да блокирате реклами, тракери, злонамерен софтуер, да спестите от плана си за данни, да ускорите устройството си и да защитите поверителността си само с едно приложение, то тогава Blokada е за вас. Тя е безплатна, сигурна и с отворен код.</string>
     <string name="homepage_about_point_one">Блокира реклами &amp; тракери</string>
@@ -343,7 +343,7 @@
     <string name="homepage_download_action_android_five_beta">Beta .apk</string>
     <string name="homepage_download_desc_android_slim">Blokada Slim е <b>леката версия на приложението</b> и съдържа само функции, които са разрешени от правилата на Google Play.</string>
     <string name="homepage_download_action_android_slim">Отваряне на Google Play</string>
-    <string name="homepage_download_desc_android_four">Все още поддържаме по-старата версия на Blokada. Тя има повече функции и работи на по-стари устройства и телевизори.</string>
+    <string name="homepage_download_desc_android_four">Все още поддържаме и старата версия на Blokada. Тя има повече функции и работи на по-стари устройства и телевизори.</string>
     <string name="homepage_download_action_android_four">Blokada 4 .apk</string>
     <string name="homepage_download_action_android_four_fdroid">Отваряне на F-Droid</string>
     <string name="homepage_community_header">Общността</string>
