@@ -1,3 +1,6 @@
 [submodule "translate"]
 	path = translate
 	url = https://github.com/blokadaorg/translate.git
+[submodule "boringtun"]
+	path = boringtun
+	url = https://github.com/cloudflare/boringtun.git
