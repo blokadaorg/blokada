@@ -1,14 +1,16 @@
 #!/bin/sh
 
 set -e
+
 export PATH=$PATH:~/.cargo/bin:/usr/local/bin
-export PATH=$PATH:$ANDROID_NDK/arm64/bin
+export ANDROID_NDK_HOME=$ANDROID_NDK
+
+echo "Using NDK location: $ANDROID_NDK_HOME"
+
 JNI_LIBS=android5/app/src/engine/jniLibs
 
 mkdir -p $JNI_LIBS/arm64-v8a
 mkdir -p $JNI_LIBS/armeabi-v7a
-mkdir -p $JNI_LIBS/x86
-mkdir -p $JNI_LIBS/x86_64
 
 cd blocka_engine/blocka_dns
 
