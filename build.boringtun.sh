@@ -2,7 +2,7 @@
 
 set -e
 export PATH=$PATH:~/.cargo/bin:/usr/local/bin
-export PATH=$PATH:$NDK_STANDALONE/arm64/bin
+export PATH=$PATH:$ANDROID_NDK/arm64/bin
 JNI_LIBS=android5/app/src/engine/jniLibs
 
 mkdir -p $JNI_LIBS/arm64-v8a
