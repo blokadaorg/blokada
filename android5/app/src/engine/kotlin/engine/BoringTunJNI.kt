@@ -54,13 +54,29 @@ class BoringTunJNI {
             "ConnectionExpired"
         )
 
-        external fun x25519_secret_key(): ByteArray
-        external fun x25519_public_key(secret_key: ByteArray): ByteArray
-        external fun x25519_key_to_hex(key: ByteArray): String
-        external fun x25519_key_to_base64(key: ByteArray): String
-        external fun new_tunnel(secret_key: String, public_key: String): Long
-        external fun wireguard_write(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
-        external fun wireguard_read(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
-        external fun wireguard_tick(tunnel: Long, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
+        private val instance = BoringTunJNI()
+
+        fun x25519_secret_key() = instance.x25519_secret_key()
+        fun x25519_public_key(secret_key: ByteArray) = instance.x25519_public_key(secret_key)
+        fun x25519_key_to_hex(key: ByteArray) = instance.x25519_key_to_hex(key)
+        fun x25519_key_to_base64(key: ByteArray) = instance.x25519_key_to_base64(key)
+        fun new_tunnel(secret_key: String, public_key: String) = instance.new_tunnel(secret_key, public_key)
+        fun wireguard_write(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer)
+                = instance.wireguard_write(tunnel, src, src_size, dst, dst_size, op)
+        fun wireguard_read(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer)
+                = instance.wireguard_read(tunnel, src, src_size, dst, dst_size, op)
+        fun wireguard_tick(tunnel: Long, dst: ByteBuffer, dst_size: Int, op: ByteBuffer)
+                = instance.wireguard_tick(tunnel, dst, dst_size, op)
+
     }
+
+    external fun x25519_secret_key(): ByteArray
+    external fun x25519_public_key(secret_key: ByteArray): ByteArray
+    external fun x25519_key_to_hex(key: ByteArray): String
+    external fun x25519_key_to_base64(key: ByteArray): String
+    external fun new_tunnel(secret_key: String, public_key: String): Long
+    external fun wireguard_write(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
+    external fun wireguard_read(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
+    external fun wireguard_tick(tunnel: Long, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
+
 }
