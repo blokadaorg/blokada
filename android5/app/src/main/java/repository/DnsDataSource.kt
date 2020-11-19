@@ -49,7 +49,7 @@ object DnsDataSource {
         blocka,
         Dns.plaintextDns(
             id = "adguard",
-            ips = listOf("176.103.130.130", "176.103.130.131"),
+            ips = listOf("94.140.14.14", "94.140.15.15", "2a10:50c0::ad1:ff", "2a10:50c0::ad2:ff"),
             label = "AdGuard"
         ),
         Dns.plaintextDns(
