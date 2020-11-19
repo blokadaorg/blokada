@@ -195,6 +195,9 @@ dependencies {
     implementation 'dnsjava:dnsjava:2.1.9'
     implementation 'org.slf4j:slf4j-nop:1.6.1'
 
+    // unzip default blocklist
+    implementation 'net.lingala.zip4j:zip4j:2.6.4'
+
     // test deps
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

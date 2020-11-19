@@ -22,11 +22,9 @@
 package service
 
 import model.BlokadaException
+import net.lingala.zip4j.ZipFile
+import net.lingala.zip4j.io.inputstream.ZipInputStream
 import java.io.InputStream
-import android.util.Base64
-import java.io.BufferedInputStream
-import java.util.zip.ZipEntry
-import java.util.zip.ZipInputStream
 
 
 object ZipService {
@@ -36,7 +34,7 @@ object ZipService {
     fun decodeStream(stream: InputStream, key: String): InputStream {
         var zipInput: InputStream? = null
         try {
-            zipInput = ZipInputStream(stream)
+            zipInput = ZipInputStream(stream, key.toCharArray())
             val entry = zipInput.nextEntry ?: throw BlokadaException("Unexpected format of the zip file")
             val decoded = fileService.load(zipInput)
             return decoded.toByteArray().inputStream()

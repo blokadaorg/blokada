@@ -27,6 +27,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import model.BlokadaException
 import model.Uri
+import model.ex
+import ui.utils.cause
 import utils.Logger
 
 object BlocklistService {
@@ -49,10 +51,10 @@ object BlocklistService {
             val default = file.commonDir().file(DEFAULT_BLOCKLIST)
             try {
                 val asset = context.requireAppContext().assets.open(DEFAULT_BLOCKLIST_ZIP)
-                val decodedAsset = ZipService.decodeStream(asset, key = DEFAULT_BLOCKLIST_ZIP)
+                val decodedAsset = ZipService.decodeStream(asset, key = DEFAULT_BLOCKLIST)
                 file.save(source = decodedAsset, destination = default)
             } catch (ex: Exception) {
-                log.w("No zip blocklist, falling back to plaintext one")
+                log.w("No zip blocklist, falling back to plaintext one".cause(ex))
                 val asset = context.requireAppContext().assets.open(DEFAULT_BLOCKLIST)
                 file.save(source = asset, destination = default)
             }
