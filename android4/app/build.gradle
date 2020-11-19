@@ -118,17 +118,17 @@ android {
     productFlavors {
         full {
             // full lands on blokada.org.
-            applicationId "org.blokada.origin.alarm"
-        }
-
-        community {
-            // community lands on F-Droid and XDA Labs.
-            applicationId "org.blokada.alarm"
+            applicationId "org.blokada.fyra"
         }
 
         google {
             // google build lands on Google Play.
             applicationId "org.blokada.alarm.dnschanger"
+        }
+
+        droid {
+            // droid lands on F-Droid.
+            applicationId "org.blokada.alarm"
         }
 
         /**
@@ -207,20 +207,20 @@ android {
 //        testfull.java.srcDirs += testModG11n.java.srcDirs
 //        testfull.java.srcDirs += testModWireguard.java.srcDirs
 
-        community.manifest.srcFile 'src/full/AndroidManifest.xml'
-        community.java.srcDirs += srcCoreKotlin
-        community.java.srcDirs += srcTunLocalKotlin
-        community.java.srcDirs += srcTunBlockaKotlin
-        community.java.srcDirs += srcFilterKotlin
-        community.java.srcDirs += srcUiCoreKotlin
-        community.java.srcDirs += srcUiBlokadaKotlin
-        community.java.srcDirs += srcLegacyKotlin
-        community.java.srcDirs += 'src/full/kotlin'
-        community.jniLibs.srcDirs += srcTunBlockaJni
-        community.res.srcDirs += srcCoreRes
-        community.res.srcDirs += srcUiCoreRes
-        community.res.srcDirs += srcUiBlokadaRes
-        community.res.srcDirs += 'src/full/res'
+        droid.manifest.srcFile 'src/full/AndroidManifest.xml'
+        droid.java.srcDirs += srcCoreKotlin
+        droid.java.srcDirs += srcTunLocalKotlin
+        droid.java.srcDirs += srcTunBlockaKotlin
+        droid.java.srcDirs += srcFilterKotlin
+        droid.java.srcDirs += srcUiCoreKotlin
+        droid.java.srcDirs += srcUiBlokadaKotlin
+        droid.java.srcDirs += srcLegacyKotlin
+        droid.java.srcDirs += 'src/full/kotlin'
+        droid.jniLibs.srcDirs += srcTunBlockaJni
+        droid.res.srcDirs += srcCoreRes
+        droid.res.srcDirs += srcUiCoreRes
+        droid.res.srcDirs += srcUiBlokadaRes
+        droid.res.srcDirs += 'src/full/res'
 //
 //        google.manifest.srcFile 'src/ui/AndroidManifest.xml'
 //        google.java.srcDirs += srcCoreKotlin
