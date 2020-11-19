@@ -1,7 +1,27 @@
+/*
+ * This file is part of Blokada.
+ *
+ * Blokada is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Blokada is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Copyright © 2020 Blocka AB. All rights reserved.
+ *
+ * @author Karol Gusak (karol@blocka.net)
+ */
+
 package com.cloudflare.app.boringtun
 
 import java.nio.ByteBuffer
-
 
 class BoringTunJNI {
     companion object {
@@ -34,13 +54,29 @@ class BoringTunJNI {
             "ConnectionExpired"
         )
 
-        external fun x25519_secret_key(): ByteArray
-        external fun x25519_public_key(secret_key: ByteArray): ByteArray
-        external fun x25519_key_to_hex(key: ByteArray): String
-        external fun x25519_key_to_base64(key: ByteArray): String
-        external fun new_tunnel(secret_key: String, public_key: String): Long
-        external fun wireguard_write(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
-        external fun wireguard_read(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
-        external fun wireguard_tick(tunnel: Long, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
+        private val instance = BoringTunJNI()
+
+        fun x25519_secret_key() = instance.x25519_secret_key()
+        fun x25519_public_key(secret_key: ByteArray) = instance.x25519_public_key(secret_key)
+        fun x25519_key_to_hex(key: ByteArray) = instance.x25519_key_to_hex(key)
+        fun x25519_key_to_base64(key: ByteArray) = instance.x25519_key_to_base64(key)
+        fun new_tunnel(secret_key: String, public_key: String) = instance.new_tunnel(secret_key, public_key)
+        fun wireguard_write(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer)
+                = instance.wireguard_write(tunnel, src, src_size, dst, dst_size, op)
+        fun wireguard_read(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer)
+                = instance.wireguard_read(tunnel, src, src_size, dst, dst_size, op)
+        fun wireguard_tick(tunnel: Long, dst: ByteBuffer, dst_size: Int, op: ByteBuffer)
+                = instance.wireguard_tick(tunnel, dst, dst_size, op)
+
     }
+
+    external fun x25519_secret_key(): ByteArray
+    external fun x25519_public_key(secret_key: ByteArray): ByteArray
+    external fun x25519_key_to_hex(key: ByteArray): String
+    external fun x25519_key_to_base64(key: ByteArray): String
+    external fun new_tunnel(secret_key: String, public_key: String): Long
+    external fun wireguard_write(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
+    external fun wireguard_read(tunnel: Long, src: ByteArray, src_size: Int, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
+    external fun wireguard_tick(tunnel: Long, dst: ByteBuffer, dst_size: Int, op: ByteBuffer): Int
+
 }
