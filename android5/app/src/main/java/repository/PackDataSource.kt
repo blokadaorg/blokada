@@ -106,7 +106,7 @@ object PackDataSource {
             configs = listOf("Standard")
         )
             .changeStatus(config = "Standard")
-            .withSource(PackSource.new(url = "https://blokada.org/blocklists/ddgtrackerradar/standard/hosts.txt", applyFor = "Standard")),
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/ddgtrackerradar/standard/hosts.txt", applyFor = "Standard")),
 
         Pack.mocked(id = "blacklist", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy"),
             title = "Blacklist",
@@ -118,6 +118,17 @@ object PackDataSource {
         )
             .changeStatus(config = "Adservers")
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blacklist/adservers/hosts.txt", applyFor = "Adservers"))
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blacklist/facebook/hosts.txt", applyFor = "Facebook"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blacklist/facebook/hosts.txt", applyFor = "Facebook")),
+
+        Pack.mocked(id = "exodusprivacy", tags = listOf(Pack.recommended, Pack.official, "tracking", "privacy"),
+            title = "Exodus Privacy",
+            slugline = "Analyzes privacy concerns in Android applications",
+            description = "This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also enable one of the more popular lists (like Energized).",
+            creditName = "Exodus Privacy",
+            creditUrl = "https://go.blokada.org/exodusprivacy",
+            configs = listOf("Standard")
+        )
+            .changeStatus(config = "Standard")
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/exodusprivacy/standard/hosts.txt", applyFor = "Standard")),
     )
 }
