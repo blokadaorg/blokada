@@ -119,9 +119,9 @@
 "home power action turn off" = "Turn off";
 "home power action pause" = "Pause for 5 min";
 
-"home status paused" = "PAUSED";
-"home status active" = "ACTIVE";
-"home status deactivated" = "DEACTIVATED";
+"home status paused" = "Paused";
+"home status active" = "Active";
+"home status deactivated" = "Deactivated";
 "home action tap to activate" = "tap to activate";
 "home status detail paused" = "paused until timer ends";
 "home status detail active" = "blocking *ads* and *trackers*";

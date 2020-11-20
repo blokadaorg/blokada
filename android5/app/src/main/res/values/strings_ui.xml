@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Turn on</string>
     <string name="home_power_action_turn_off">Turn off</string>
     <string name="home_power_action_pause">Pause for 5 min</string>
-    <string name="home_status_paused">PAUSED</string>
-    <string name="home_status_active">ACTIVE</string>
-    <string name="home_status_deactivated">DEACTIVATED</string>
+    <string name="home_status_paused">Paused</string>
+    <string name="home_status_active">Active</string>
+    <string name="home_status_deactivated">Deactivated</string>
     <string name="home_action_tap_to_activate">tap to activate</string>
     <string name="home_status_detail_paused">paused until timer ends</string>
     <string name="home_status_detail_active">blocking *ads* and *trackers*</string>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_device_offline">Устройството ви е офлайн</string>
-    <string name="error_account_inactive">Вашият профил не е активен. Моля, активирайте го си за да продължите да използвате BLOKADA +.</string>
+    <string name="error_account_inactive">Вашият профил не е активен. Моля, активирайте го за да продължите да използвате BLOKADA +.</string>
     <string name="error_account_inactive_after_restore">Изглежда, че това не е валиден активен профил. Ако смятате това за грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
     <string name="error_account_invalid">Това ID на този профил изглежда невалидно.</string>
     <string name="error_creating_account">Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.</string>
     <string name="error_fetching_data">Действието не можа да приключи. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
-    <string name="error_tunnel">VPN не можа да бъде създаден. Моля, рестартирайте устройството си, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.</string>
-    <string name="error_vpn">VPN не можа да бъде създаден. Моля, рестартирайте устройството си, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.</string>
+    <string name="error_tunnel">VPN не можа да бъде създаден. Моля, рестартирайте устройството или премахнете профила на Blokada VPN от системните настройки и опитайте отново.</string>
+    <string name="error_vpn">VPN не можа да бъде създаден. Моля, рестартирайте устройството или премахнете профила на Blokada VPN от системните настройки и опитайте отново.</string>
     <string name="error_vpn_perms">Няма предоставено разрешение за създаване на VPN профил.</string>
     <string name="error_vpn_no_current_lease">Моля, първо изберете местоположение.</string>
     <string name="error_vpn_too_many_leases">Достигнат е лимита на устройствата. Моля, премахнете едно от устройствата си и опитайте отново.</string>
@@ -62,14 +62,14 @@
     <string name="notification_vpn_expired_body">Моля, актуализирайте абонамента си за да продължите да използвате BLOKADA+</string>
     <string name="notification_desc_settings">Плъзнете известието наляво или надясно за настройки.</string>
     <string name="notification_update_header">Налична е актуализация</string>
-    <string name="alert_update_body">Blokada %s вече е достъпна за изтегляне. Препоръчваме да поддържате приложението актуално, както и да бъде изтеглена само от нашите официални източници.</string>
+    <string name="alert_update_body">Blokada %s вече е достъпна за изтегляне. Препоръчваме да поддържате приложението актуално, както и да бъде изтегленo само от нашите официални източници.</string>
     <string name="update_label_updated">Обновено!</string>
     <string name="update_desc_updated">Вече използвате най-новата версия на Blokada! Не забравяйте, че дарението или абонамента за Blokada Plus ни позволява да продължим подобряването на приложението.</string>
     <string name="update_downloading_description">Актуализацията вече се изтегля и след малко трябва да видите подкана за инсталиране.</string>
     <string name="account_active_forever">Завинаги</string>
     <string name="account_active_forever_full">Активен завинаги</string>
     <string name="main_ask_for_permissions_header">Само още една стъпка</string>
-    <string name="main_ask_for_permissions_description">Blokada използва VPN конфигурация за блокиране на рекламите. Ще бъдете помолени в следващата стъпка това да бъде разрешено.</string>
+    <string name="main_ask_for_permissions_description">Blokada използва VPN конфигурация за блокиране на рекламите. В следващата стъпка ще бъдете помолени това да бъде разрешено.</string>
     <string name="main_share_message">Blokada за iOS ми помогна да блокирам %s реклами и тракери!</string>
     <string name="main_rate_us_header">Оценете ни!</string>
     <string name="main_rate_us_description">Харесва ли ви Blokada до сега?</string>

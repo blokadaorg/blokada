@@ -161,16 +161,16 @@
 "activity section header details" = "アクティビティの詳細";
 "activity request blocked" = "このリクエストはブロックされています。";
 "activity request allowed" = "このリクエストは許可されています。";
-"activity request allowed whitelisted" = "許可リストにあるため、このリクエストは通信を許可されています";
-"activity request blocked blacklisted" = "ブロックリストにあるため、このリクエストは通信をブロックされています。";
+"activity request allowed whitelisted" = "マイ・リストにより、このリクエストは通信を許可されています";
+"activity request blocked blacklisted" = "マイ・リストにより、このリクエストは通信をブロックされています。";
 "activity actions header" = "アクション";
 "activity information header" = "情報";
-"activity action add to whitelist" = "許可リストに追加";
+"activity action add to whitelist" = "マイ・リストで通信を許可";
 "activity action remove from whitelist" = "許可リストから削除";
-"activity action added to whitelist" = "許可リストに追加しました";
-"activity action add to blacklist" = "ブロックリストに追加";
+"activity action added to whitelist" = "マイ・リストで通信を許可中";
+"activity action add to blacklist" = "マイ・リストで通信をブロック";
 "activity action remove from blacklist" = "ブロックリストから削除";
-"activity action added to blacklist" = "ブロックリストに追加しました";
+"activity action added to blacklist" = "マイ・リストで通信をブロック中";
 "activity action copy to clipboard" = "クリップボードに名前をコピー";
 "activity domain name" = "フルネーム";
 "activity time of occurrence" = "時刻";
@@ -193,12 +193,12 @@
 "activity filter show allowed" = "許可されたエントリ";
 "activity empty text" = "デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。";
 
-"userdenied section header" = "マイ・ブロックリスト";
+"userdenied section header" = "マイ・リスト";
 "userdenied section slugline" = "ブロック・許可したサイトを管理する";
 // A section name for the list of hosts allowed by user
-"userdenied tab allowed" = "許可するホスト";
+"userdenied tab allowed" = "許可リスト";
 // A section name for the list of hosts blocked by user
-"userdenied tab blocked" = "ブロックするホスト";
+"userdenied tab blocked" = "ブロックリスト";
 
 "account section header settings" = "設定";
 "account status text" = "BLOKADA %@ - アカウントの有効期限は %@ です。";
@@ -387,7 +387,8 @@
 "homepage about footer" = "連絡を取り合いましょう！";
 "homepage hero title" = "プライバシーアプリ";
 "homepage hero subtitle" = "無料でオープンソース";
-"homepage hero desc" = "Blokadaは、AndroidとiOS向けの人気の広告ブロッカーとプライバシーアプリです。素晴らしいオープンソースコミュニティによってサポートされ、積極的に開発されています。";
+"homepage hero desc" = "Blokadaは、AndroidとiOS向けの広告ブロッカーでありプライバシーアプリです。
+オープンソースコミュニティによって開発・サポートされています。";
 "homepage about title" = "Blokada 5 - 広告ブロッカー";
 "homepage about desc" = "1つのアプリで、広告・トラッカー・マルウェアのブロック、データ通信量の削減、デバイスのスピードアップ、プライバシーの保護を効率よくできるBlokadaはあなたにぴったりです。そしてBlokadaは無料で安全なオープンソースです。";
 "homepage about point one" = "広告とトラッカーをブロック";
