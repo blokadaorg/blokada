@@ -113,7 +113,7 @@ object PersistenceService {
     }
 
     private fun getPrefsKey(type: KClass<*>) = when (type) {
-        Stats::class -> "stats"
+        StatsPersisted::class -> "stats"
         Packs::class -> "packs"
         BlockaConfig::class -> "blockaConfig"
         LocalConfig::class -> "localConfig"
@@ -131,7 +131,7 @@ object PersistenceService {
     }
 
     private fun <T: Any> getDefault(type: KClass<T>) = when (type) {
-        Stats::class -> Defaults.stats() as T
+        StatsPersisted::class -> Defaults.stats() as T
         Allowed::class -> Defaults.allowed() as T
         Denied::class -> Defaults.denied() as T
         Packs::class -> Defaults.packs() as T

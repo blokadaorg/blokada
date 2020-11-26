@@ -24,16 +24,19 @@ package model
 import androidx.lifecycle.GeneratedAdapter
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import engine.Host
 import java.util.*
 
-@JsonClass(generateAdapter = true)
+/**
+ * Public structures used by other components.
+ */
+
 data class Stats(
     val allowed: Int,
     val denied: Int,
     val entries: List<HistoryEntry>
 )
 
-@JsonClass(generateAdapter = true)
 data class HistoryEntry(
     val name: String,
     val type: HistoryEntryType,
@@ -86,3 +89,24 @@ data class AdsCounter(
     fun get() = persistedValue + runtimeValue
     fun roll() = AdsCounter(persistedValue = persistedValue + runtimeValue)
 }
+
+/**
+ * Structures internal to StatsService used to persist the entries.
+ */
+
+@JsonClass(generateAdapter = true)
+data class StatsPersisted(
+    val entries: Map<String, StatsPersistedEntry>
+)
+
+@JsonClass(generateAdapter = true)
+data class StatsPersistedKey(
+    val host: Host,
+    val type: HistoryEntryType
+)
+
+@JsonClass(generateAdapter = true)
+class StatsPersistedEntry(
+    var lastEncounter: Long,
+    var occurrences: Int
+)

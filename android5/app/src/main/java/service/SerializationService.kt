@@ -44,8 +44,8 @@ object JsonSerializationService : SerializationService {
 
     override fun serialize(obj: Any): String {
         when (obj) {
-            is Stats -> {
-                val adapter = moshi.adapter(Stats::class.java)
+            is StatsPersisted -> {
+                val adapter = moshi.adapter(StatsPersisted::class.java)
                 return adapter.toJson(obj)
             }
             is Packs -> {
@@ -115,8 +115,8 @@ object JsonSerializationService : SerializationService {
     override fun <T: Any> deserialize(serialized: Any, type: KClass<T>): T {
         serialized as String
         when (type) {
-            Stats::class -> {
-                val adapter = moshi.adapter(Stats::class.java)
+            StatsPersisted::class -> {
+                val adapter = moshi.adapter(StatsPersisted::class.java)
                 return adapter.fromJson(serialized) as T
             }
             Packs::class -> {

@@ -29,7 +29,7 @@ object Defaults {
 
     val PACKS_VERSION = 7
 
-    fun stats() = Stats(allowed = 0, denied = 0, entries = listOf())
+    fun stats() = StatsPersisted(entries = emptyMap())
     fun allowed() = Allowed(value = listOf())
     fun denied() = Denied(value = listOf())
     fun packs() = Packs(PackDataSource.getPacks(), version = PACKS_VERSION)

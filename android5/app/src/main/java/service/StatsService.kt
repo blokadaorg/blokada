@@ -21,19 +21,25 @@
 
 package service
 
+import android.util.Log
 import kotlinx.coroutines.coroutineScope
-import model.HistoryEntry
-import model.HistoryEntryType
-import model.Stats
 import engine.Host
 import kotlinx.coroutines.launch
+import model.*
 import java.util.*
 
 object StatsService {
 
     private var runtimeAllowed = 0
     private var runtimeDenied = 0
-    private val internalStats: MutableMap<InternalKey, InternalEntry> = mutableMapOf()
+    private val internalStats: MutableMap<StatsPersistedKey, StatsPersistedEntry> = mutableMapOf()
+
+    private val persistence = PersistenceService
+
+    fun load() {
+        internalStats.clear()
+        internalStats.putAll(persistence.load(StatsPersisted::class).entries)
+    }
 
     suspend fun passedAllowed(host: Host) {
         increment(host, HistoryEntryType.passed_allowed)
@@ -62,8 +68,8 @@ object StatsService {
                 denied = runtimeAllowed,
                 entries = internalStats.map {
                     HistoryEntry(
-                        name = it.key.host,
-                        type = it.key.type,
+                        name = it.key.host(),
+                        type = it.key.type(),
                         time = Date(it.value.lastEncounter),
                         requests = it.value.occurrences
                     )
@@ -74,13 +80,16 @@ object StatsService {
 
     private suspend fun increment(host: Host, type: HistoryEntryType) {
         coroutineScope {
-            val key = InternalKey(host, type)
+            val key = statsPersistedKey(host, type)
             val entry = internalStats.getOrElse(key, {
-                InternalEntry(lastEncounter = System.currentTimeMillis(), occurrences = 0)
+                StatsPersistedEntry(lastEncounter = System.currentTimeMillis(), occurrences = 0)
             })
             entry.lastEncounter = System.currentTimeMillis()
             entry.occurrences += 1
             internalStats[key] = entry
+
+            // XXX: we create a wrapper object on every time we persist
+            persistence.save(StatsPersisted(internalStats))
 
             launch {
                 // XXX: not the best place, but we want realtime notification updates
@@ -91,12 +100,8 @@ object StatsService {
 
 }
 
-private data class InternalKey(
-    val host: Host,
-    val type: HistoryEntryType
-)
-
-private class InternalEntry(
-    var lastEncounter: Long,
-    var occurrences: Int
-)
+// XXX: a proper solution would be to configure Moshi to handle Object as a key
+private typealias StatsPersistedKey = String
+private fun String.host(): Host = this.substringBefore(";")
+private fun String.type(): HistoryEntryType = HistoryEntryType.valueOf(this.substringAfter(";"))
+private fun statsPersistedKey(host: Host, type: HistoryEntryType) = "$host;$type"
