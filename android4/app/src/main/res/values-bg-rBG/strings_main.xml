@@ -14,13 +14,13 @@
     <!-- Active status for the Quick Settings toggle -->
     <!-- Disabled status for the Quick Settings toggle -->
     <!-- App status, as in: Blokada is Active -->
-    <string name="main_status_active_recent">Е активна</string>
+    <string name="main_status_active_recent">Активна</string>
     <!-- App status, as in: Blokada is Disabled -->
     <string name="main_status_disabled">Изключена</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
-    <string name="main_status_activating">Активна</string>
+    <string name="main_status_activating">Е активна</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
-    <string name="main_status_deactivating">Деактивирана</string>
+    <string name="main_status_deactivating">Е деактивирана</string>
     <string name="main_blog_text">Новини</string>
     <string name="main_autostart_text">Старт със системата</string>
     <!-- A menu option to send feedback or contact us -->

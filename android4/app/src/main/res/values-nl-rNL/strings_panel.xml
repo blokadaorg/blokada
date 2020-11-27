@@ -26,6 +26,8 @@
     <string name="panel_domain_blocked">&lt;b&gt;%s&lt;/b&gt; geblokkeerd</string>
     <string name="panel_domain_blocked_normal_desc">Dit domein is geblokkeerd. Gebruik de knop hieronder om het voortaan toe te staan.</string>
     <string name="panel_domain_blocked_nxdomain_desc">Dit domein is niet correct omgezet door de DNS-server. De server heeft het domein geblokkeerd of het bestaat niet.</string>
+    <string name="panel_domain_blocked_error_desc">Er is iets misgegaan bij het oplossen van dit domein. De DNS-server antwoordde met een foutcode.</string>
+    <string name="panel_domain_blocked_cname_desc">Dit domein is geblokkeerd omdat het een CName is voor een geblokkeerd domein. Om het in de toekomst toe te staan, kun je de CName of het domein zelf toevoegen aan de toegestane hosts.</string>
     <string name="panel_domain_blocked_toast">Toegevoegd aan de blacklist.</string>
     <!-- Action to copy domain name to clipboard -->
     <string name="panel_domain_copy">Kopiëren</string>
@@ -38,7 +40,9 @@
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Toestaan</string>
     <!-- Button to allow blocked cname -->
+    <string name="slot_action_allow_cname">Cname toestaan</string>
     <!-- Button to allow blocked domain that was blocked by a cname -->
+    <string name="slot_action_allow_domain">Domein toestaan</string>
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Blokkeren</string>
     <string name="slot_action_close">Sluit</string>
@@ -111,6 +115,7 @@
     <string name="slot_filters_description">Je kunt de filterlijst synchroniseren met onze servers zonder je eigen domeinen te verliezen. &lt;br/&gt;&lt;br/&gt;Als alternatief kun je alle items (inclusief de jouwe) laten vervallen en ze opnieuw downloaden.</string>
     <string name="slot_blocked_normal_title">Domein geblokkeerd</string>
     <string name="slot_blocked_answer_title">Domein niet omgezet</string>
+    <string name="slot_blocked_cname_title">CName Geblokkeerd</string>
     <string name="slot_forwarded_title">Domein doorgestuurd</string>
     <string name="slot_whitelist_title">Toegestane app</string>
     <string name="slot_list_no_desc">Deze vermelding heeft geen beschrijving.</string>

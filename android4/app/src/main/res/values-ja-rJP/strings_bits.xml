@@ -13,7 +13,7 @@
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
     <string name="home_dns_only">BlokadaがDNSモードで有効です。広告ブロックは無効になっています</string>
     <!-- A text on the main ads counter. "490 requests blocked" -->
-    <string name="home_requests_blocked_since">%s 個のリクエストをブロック（ %s 以降）</string>
+    <string name="home_requests_blocked_since">累計 %s 回ブロック（ %s 以降）</string>
     <string name="home_masterswitch_enabled">BlokadaがONです</string>
     <string name="home_masterswitch_waiting">ネットワーク接続の待機中...</string>
     <!-- A button to share the ads counter on social media -->
