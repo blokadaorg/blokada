@@ -80,7 +80,7 @@ class Links {
 
     static func credits() -> URLComponents {
         return self.URLComponentsFor(
-            host: "go.blokada.org", path: "credits", queries: nil)
+            host: "go.blokada.org", path: "/credits", queries: nil)
     }
 
     static func openInBrowser(_ link: URLComponents) {
