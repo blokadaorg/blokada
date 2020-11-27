@@ -905,7 +905,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B2240DCB2417F83100F13E97 /* Build configuration list for PBXNativeTarget "Blocka Engine" */;
 			buildPhases = (
-				B2240DCE2417F83A00F13E97 /* ShellScript */,
+				B2240DCE2417F83A00F13E97 /* Run Script */,
 				3DACB097F954FE40B0737A34 /* Frameworks */,
 			);
 			buildRules = (
@@ -1028,7 +1028,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\nexport PATH=$PATH:~/.cargo/bin:/usr/local/bin\n";
 		};
-		B2240DCE2417F83A00F13E97 /* ShellScript */ = {
+		B2240DCE2417F83A00F13E97 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1037,6 +1037,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
