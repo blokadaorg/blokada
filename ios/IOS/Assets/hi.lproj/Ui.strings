@@ -98,10 +98,6 @@
 "home power action turn on" = "चालू करें";
 "home power action turn off" = "बंद करे";
 "home power action pause" = "5 मिनट के लिए रुकें";
-
-"home status paused" = "रोक दिया गया है";
-"home status active" = "सक्रिय";
-"home status deactivated" = "निष्क्रिय";
 "home action tap to activate" = "सक्रिय करने के लिए टैप करें";
 "home status detail paused" = "टाइमर समाप्त होने तक रोक दिया गया";
 "home status detail active" = "अवरोधक *विज्ञापन* और *ट्रैकर्स*";
@@ -170,7 +166,6 @@
 "account section header primary" = "प्रमुख";
 "account section header other" = "अन्य";
 "account action my account" = "मेरा खाता";
-"account action encryption" = "एन्क्रिप्शन";
 "account action devices" = "उपकरण";
 "account action new device" = "नया उपकरण";
 "account action inbox" = "इनबॉक्स";

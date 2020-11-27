@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Porneşte</string>
     <string name="home_power_action_turn_off">Oprește</string>
     <string name="home_power_action_pause">Pauză pentru 5 minute</string>
-    <string name="home_status_paused">ÎN PAUZĂ</string>
-    <string name="home_status_active">ACTIV</string>
-    <string name="home_status_deactivated">DEZACTIVAT</string>
+    <string name="home_status_paused">În Pauză</string>
+    <string name="home_status_active">Activ</string>
+    <string name="home_status_deactivated">Dezactivat</string>
     <string name="home_action_tap_to_activate">atinge pentru a activa</string>
     <string name="home_status_detail_paused">în pauză până se termină cronometrul</string>
     <string name="home_status_detail_active">în curs de blocare *reclame* și *trackere*</string>
@@ -148,6 +148,7 @@
     <string name="activity_filter_show_blocked">Arată doar blocate</string>
     <string name="activity_filter_show_allowed">Arată doar permise</string>
     <string name="activity_empty_text">Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.</string>
+    <string name="userdenied_tab_allowed">Permis</string>
     <string name="userdenied_tab_blocked">Blocat</string>
     <string name="account_section_header_settings">Setări</string>
     <string name="account_status_text">Contul dvs. BLOKADA %s este activ până la %s.</string>
@@ -155,7 +156,7 @@
     <string name="account_section_header_primary">Principal</string>
     <string name="account_section_header_other">Altele</string>
     <string name="account_action_my_account">Contul meu</string>
-    <string name="account_action_encryption">Criptare</string>
+    <string name="account_action_encryption">Criptare și DNS</string>
     <string name="account_action_devices">Dispozitive</string>
     <string name="account_action_new_device">Dispozitiv nou</string>
     <string name="account_action_inbox">Mesaje</string>
@@ -179,7 +180,7 @@
     <string name="account_action_why_upgrade">De ce ar trebui să trec la BLOKADA+?</string>
     <string name="account_subscription_header_renew">Reînnoire automată</string>
     <string name="account_subscription_header_payment_method">Metoda de plată</string>
-    <string name="account_subscription_renew_unsupported">Metoda dvs. de plată nu acceptă reînnoire automată.</string>
+    <string name="account_subscription_renew_unsupported">Metoda dvs. de plată nu permite controlul reînnoirii automate a setării aici.</string>
     <string name="account_unlock_to_show">Deblocați pentru a arăta ID-ul contului dvs.</string>
     <string name="account_header_logout">Restabilește achiziția</string>
     <string name="account_logout_description">Vă rugăm să introduceți un alt ID de cont, sau să merge-ți înapoi pentru a păstra contul existent (această aplicație nu poate fi folosită fără unul).</string>
@@ -244,13 +245,13 @@
     <string name="payment_action_terms">Termenii Serviciului</string>
     <string name="payment_action_policy">Politica de confidenţialitate</string>
     <string name="payment_alert_error_header">Un mesaj de la App Store</string>
+    <string name="payment_save_text">Economisești %s</string>
     <string name="payment_subscription__month">1 Lună</string>
     <string name="payment_subscription_many_months">%s Luni</string>
     <string name="payment_subscription_per_month">%s pe lună</string>
     <string name="payment_subscription_offer">Economisești %s</string>
     <string name="payment_success_label">Mulţumim!</string>
     <string name="payment_success_desc">Contul dvs. este acum activ! Acum puteți folosi toate funcțiile Blokada Plus pe toate dispozitivele dvs.</string>
-    <string name="payment_ongoing_desc">Plata este acum în curs de procesare. În cazul PayPal, poate dura până la 24 de ore. Alte metode de plată nu ar trebui să dureze mai mult de o oră. Dacă simţi că durează prea mult, te rugăm să ne contactezi.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Modifică</string>
@@ -312,12 +313,14 @@
     <string name="homepage_action_authors">Autori</string>
     <string name="homepage_action_source">Sursă</string>
     <string name="homepage_action_forums">Forum</string>
+    <string name="homepage_action_dashboard">Panou de control</string>
     <string name="homepage_about_footer">Să stăm la curent!</string>
     <string name="homepage_hero_subtitle">gratis și open source</string>
     <string name="homepage_about_title">Blokada 5, ad blocker-ul</string>
     <string name="homepage_about_point_one">Blochează reclame și trackere</string>
     <string name="homepage_about_point_two">Funcționează pentru toate aplicațiile și toate browserele</string>
     <string name="homepage_about_point_three">Nu necesită acces root sau jailbreak</string>
+    <string name="homepage_about_point_four">Cu VPN încorporat pentru o protecție mai bună</string>
     <string name="homepage_about_action_plus">Aflați mai multe despre Blokada Plus</string>
     <string name="homepage_download_header">Descarcă Blokada</string>
     <string name="homepage_download_option_android_five">Blokada 5 pentru Android</string>
@@ -336,4 +339,6 @@
     <string name="homepage_community_opinions">Iată câteva dintre opiniile utilizatorilor noştri.</string>
     <string name="homepage_support_header">Susţine acest proiect</string>
     <string name="homepage_support_cta_header">Blokada depinde de dvs.</string>
+    <string name="homepage_support_cta_action">Donează (prin card, Paypal)</string>
+    <string name="homepage_support_cta_action_alt">Donează (bancă, cripto)</string>
 </resources>

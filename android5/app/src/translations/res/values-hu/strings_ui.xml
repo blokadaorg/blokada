@@ -59,8 +59,6 @@
     <string name="home_power_off_menu_header">Mit szeretnél tenni?</string>
     <string name="home_power_action_turn_on">Bekapcsolás</string>
     <string name="home_power_action_turn_off">Kikapcsolás</string>
-    <string name="home_status_active">AKTÍV</string>
-    <string name="home_status_deactivated">DEAKTIVÁLVA</string>
     <string name="home_action_tap_to_activate">koppints az aktiváláshoz</string>
     <string name="home_status_detail_progress">kérlek, várj...</string>
     <string name="home_plus_button_deactivated">BLOKADA+ deaktiválva</string>
@@ -108,7 +106,6 @@
     <string name="account_section_header_primary">Elsődleges</string>
     <string name="account_section_header_other">Egyéb</string>
     <string name="account_action_my_account">Fiókom</string>
-    <string name="account_action_encryption">Titkosítás</string>
     <string name="account_action_devices">Készülékek</string>
     <string name="account_action_new_device">Új készülék</string>
     <string name="account_action_inbox">Bejövő</string>

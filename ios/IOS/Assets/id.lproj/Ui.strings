@@ -119,9 +119,9 @@
 "home power action turn off" = "Nonaktifkan";
 "home power action pause" = "Hentikan selama 5 menit";
 
-"home status paused" = "DIHENTIKAN";
-"home status active" = "AKTIF";
-"home status deactivated" = "DINONAKTIFKAN";
+"home status paused" = "Dijeda";
+"home status active" = "Aktif";
+"home status deactivated" = "Dinonaktifkan";
 "home action tap to activate" = "tekan untuk mengaktifkan";
 "home status detail paused" = "dihentikan sementara sampai pengatur waktu berhenti";
 "home status detail active" = "memblokir *iklan* dan *pelacak*";
@@ -206,7 +206,7 @@
 "account section header primary" = "Utama";
 "account section header other" = "Lainnya";
 "account action my account" = "Akun saya";
-"account action encryption" = "Enkripsi";
+"account action encryption" = "Enkripsi & DNS";
 "account action devices" = "Perangkat";
 "account action new device" = "Perangkat baru";
 "account action inbox" = "Kotak Masuk";
@@ -231,7 +231,7 @@
 "account action why upgrade" = "Kenapa saya harus berlangganan?";
 "account subscription header renew" = "Perpanjang secara otomatis";
 "account subscription header payment method" = "Cara Pembayaran";
-"account subscription renew unsupported" = "Metode pembayaran Anda tidak mendukung perpanjangan otomatis.";
+"account subscription renew unsupported" = "Metode pembayaran yang Anda pakai tidak memungkinkan untuk mengatur proses pembaruan langganan secara otomatis.";
 
 "account unlock to show" = "Unlock untuk melihat ID akun Anda";
 
@@ -304,6 +304,8 @@
 "payment action terms" = "Ketentuan Layanan";
 "payment action policy" = "Kebijakan Privasi";
 "payment alert error header" = "Sebuah pesan dari App Store";
+// As in saving money: You are saving $5
+"payment save text" = "Anda menghemat %@";
 
 "payment subscription 1 month" = "1 Bulan";
 "payment subscription many months" = "%@ bulan";
@@ -313,7 +315,8 @@
 "payment success label" = "Terima kasih!";
 "payment success desc" = "Akun Anda telah aktif! Sekarang Anda dapat menggunakan semua fitur Blokada Plus di semua perangkat Anda.";
 
-"payment ongoing desc" = "Pembayaran Anda sedang diproses. Jika Anda menggunakan PayPal, proses ini bisa memakan waktu hingga 24 jam. Metode pembayaran lain biasanya tidak lebih dari satu jam. Jika Anda merasa proses ini terlalu lama, silakan hubungi kami.";
+"payment ongoing title" = "Pembayaran Anda sedang diproses.";
+"payment ongoing desc" = "Pembayaran melalui kartu kredit biasanya hanya memerlukan waktu beberapa menit saja. Pembayaran melalui cryptocurrency bisa mencapai satu jam, tergantung pada jenis transaksi yang Anda pakai. PayPal bisa memakan waktu sampai 24 jam. Anda akan diarahkan saat akun Anda telah siap. Anda juga bisa menutup halaman ini, dan kembali lagi beberapa waktu kemudian. Jika menurut Anda transaksi ini memakan terlalu banyak waktu, silakan hubungi kami.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Ubah";

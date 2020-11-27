@@ -84,7 +84,7 @@
     <string name="home_power_action_turn_on">ONにする</string>
     <string name="home_power_action_turn_off">OFFにする</string>
     <string name="home_power_action_pause">5分間一時停止</string>
-    <string name="home_status_paused">一時停止されました</string>
+    <string name="home_status_paused">一時停止しています</string>
     <string name="home_status_active">有効</string>
     <string name="home_status_deactivated">無効</string>
     <string name="home_action_tap_to_activate">タップして有効化</string>
@@ -140,7 +140,7 @@
     <string name="activity_happened_one_time">1回</string>
     <string name="activity_happened_many_times">%s回</string>
     <string name="activity_category_recent">新着</string>
-    <string name="activity_category_top">回数順</string>
+    <string name="activity_category_top">回数</string>
     <string name="activity_category_top_blocked">ブロック回数</string>
     <string name="activity_category_top_allowed">許可回数</string>
     <string name="activity_filter_header">表示するエントリを選択</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">メイン</string>
     <string name="account_section_header_other">その他</string>
     <string name="account_action_my_account">アカウント情報</string>
-    <string name="account_action_encryption">暗号化</string>
+    <string name="account_action_encryption">暗号化とDNS</string>
     <string name="account_action_devices">デバイス管理</string>
     <string name="account_action_new_device">新しいデバイス</string>
     <string name="account_action_inbox">受信トレイ</string>
@@ -171,7 +171,7 @@
     <string name="account_label_enter_to_continue">続行するにはアカウントIDを入力してください</string>
     <string name="account_restore_description">アカウントIDを紛失または忘れてしまった場合、 当社のサポートに連絡してください。その際、お客様の購入を確認するためにクレジットカードの下4桁またはPayPalメールを提供してください。</string>
     <string name="account_create_description">これはあなたのアカウントIDです。サブスクリプションにアクセスするための唯一の方法ですので、書き留めておいてください。アカウントの盗難防止のため、IDは誰とも共有せずに保管してください。</string>
-    <string name="account_create_confirm">私のアカウントIDを知っています</string>
+    <string name="account_create_confirm">アカウントIDを確認しました</string>
     <string name="account_section_header_my_subscription">サブスクリプション</string>
     <string name="account_section_header_general">全般</string>
     <string name="account_section_header_subscription">サブスクリプション</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">アップグレードする理由は？</string>
     <string name="account_subscription_header_renew">自動更新</string>
     <string name="account_subscription_header_payment_method">お支払い方法</string>
-    <string name="account_subscription_renew_unsupported">自動更新をサポートしていないお支払い方法です。</string>
+    <string name="account_subscription_renew_unsupported">指定のお支払い方法は、ここで自動更新を設定できません。</string>
     <string name="account_unlock_to_show">ロックを解除してアカウントIDを表示する</string>
     <string name="account_header_logout">購入を復元</string>
     <string name="account_logout_description">別のアカウントIDを入力するか、戻って既存のアカウントを引き続き使用してください (アカウントを利用せずこのアプリを使用することはできません)</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">利用規約</string>
     <string name="payment_action_policy">プライバシーポリシー</string>
     <string name="payment_alert_error_header">App Storeからのメッセージ</string>
+    <string name="payment_save_text">%s 割引</string>
     <string name="payment_subscription__month">1ヶ月</string>
     <string name="payment_subscription_many_months">%sヶ月</string>
     <string name="payment_subscription_per_month">月額%s</string>
     <string name="payment_subscription_offer">%sを保存</string>
     <string name="payment_success_label">ありがとうございます！</string>
     <string name="payment_success_desc">アカウントが有効になりました！すべてのデバイスでBlokada Plus機能を使用できます。</string>
-    <string name="payment_ongoing_desc">お支払いが処理されています。PayPalの場合、最大24時間かかる場合があります。 他の支払い方法は1時間以上かかることはありません。時間がかかりすぎると思われる場合は、お問い合わせください。</string>
+    <string name="payment_ongoing_title">お支払いは現在処理中です。</string>
+    <string name="payment_ongoing_desc">クレジットカードの支払いは数分で完了します。暗号通貨の支払いは通常、あなたが選択した取引手数料に応じて1時間以内に完了します。PayPalの場合、最大24時間かかる場合があります。 アカウントの準備が完了するとリダイレクトされます。この画面を閉じて、後で再度表示することもできます。 取引に時間がかかりすぎる場合は、お問い合わせください。</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">変更</string>
@@ -303,7 +305,7 @@
     <string name="app_settings_section_advanced">詳細</string>
     <string name="app_settings_section_use_foreground">スリープモードにしない</string>
     <string name="intro_header">Blokadaは有効です！</string>
-    <string name="intro_text">青いリングはBlokadaが動作していることを意味します。\n\n YouTubeなどの一部の広告はブロックできません。 ただし、他の多くのアプリには有効です。\n\n システム設定で常時接続VPN (Android) / オンデマンド接続 (iOS)を有効にすることをお勧めします。</string>
+    <string name="intro_text">青いリングはBlokadaが動作していることを意味します。\n\n YouTubeなどの一部の広告はブロックできません。 ただし、他の多くのアプリには有効です。\n\n システム設定で常時接続VPN (Android) / オンデマンド接続 (iOS) を有効にすることをお勧めします。</string>
     <string name="location_region_america">アメリカ</string>
     <string name="location_region_europe">ヨーロッパ</string>
     <string name="location_region_asia">アジア</string>

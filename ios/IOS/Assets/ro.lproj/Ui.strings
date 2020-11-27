@@ -119,9 +119,9 @@
 "home power action turn off" = "Oprește";
 "home power action pause" = "Pauză pentru 5 minute";
 
-"home status paused" = "ÎN PAUZĂ";
-"home status active" = "ACTIV";
-"home status deactivated" = "DEZACTIVAT";
+"home status paused" = "În Pauză";
+"home status active" = "Activ";
+"home status deactivated" = "Dezactivat";
 "home action tap to activate" = "atinge pentru a activa";
 "home status detail paused" = "în pauză până se termină cronometrul";
 "home status detail active" = "în curs de blocare *reclame* și *trackere*";
@@ -191,6 +191,8 @@
 "activity filter show blocked" = "Arată doar blocate";
 "activity filter show allowed" = "Arată doar permise";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "Permis";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blocat";
 
@@ -201,7 +203,7 @@
 "account section header primary" = "Principal";
 "account section header other" = "Altele";
 "account action my account" = "Contul meu";
-"account action encryption" = "Criptare";
+"account action encryption" = "Criptare și DNS";
 "account action devices" = "Dispozitive";
 "account action new device" = "Dispozitiv nou";
 "account action inbox" = "Mesaje";
@@ -226,7 +228,7 @@
 "account action why upgrade" = "De ce ar trebui să trec la BLOKADA+?";
 "account subscription header renew" = "Reînnoire automată";
 "account subscription header payment method" = "Metoda de plată";
-"account subscription renew unsupported" = "Metoda dvs. de plată nu acceptă reînnoire automată.";
+"account subscription renew unsupported" = "Metoda dvs. de plată nu permite controlul reînnoirii automate a setării aici.";
 
 "account unlock to show" = "Deblocați pentru a arăta ID-ul contului dvs.";
 
@@ -299,6 +301,8 @@
 "payment action terms" = "Termenii Serviciului";
 "payment action policy" = "Politica de confidenţialitate";
 "payment alert error header" = "Un mesaj de la App Store";
+// As in saving money: You are saving $5
+"payment save text" = "Economisești %@";
 
 "payment subscription 1 month" = "1 Lună";
 "payment subscription many months" = "%@ Luni";
@@ -307,8 +311,6 @@
 
 "payment success label" = "Mulţumim!";
 "payment success desc" = "Contul dvs. este acum activ! Acum puteți folosi toate funcțiile Blokada Plus pe toate dispozitivele dvs.";
-
-"payment ongoing desc" = "Plata este acum în curs de procesare. În cazul PayPal, poate dura până la 24 de ore. Alte metode de plată nu ar trebui să dureze mai mult de o oră. Dacă simţi că durează prea mult, te rugăm să ne contactezi.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Modifică";
@@ -376,12 +378,14 @@
 "homepage action authors" = "Autori";
 "homepage action source" = "Sursă";
 "homepage action forums" = "Forum";
+"homepage action dashboard" = "Panou de control";
 "homepage about footer" = "Să stăm la curent!";
 "homepage hero subtitle" = "gratis și open source";
 "homepage about title" = "Blokada 5, ad blocker-ul";
 "homepage about point one" = "Blochează reclame și trackere";
 "homepage about point two" = "Funcționează pentru toate aplicațiile și toate browserele";
 "homepage about point three" = "Nu necesită acces root sau jailbreak";
+"homepage about point four" = "Cu VPN încorporat pentru o protecție mai bună";
 "homepage about action plus" = "Aflați mai multe despre Blokada Plus";
 
 "homepage download header" = "Descarcă Blokada";
@@ -403,3 +407,5 @@
 
 "homepage support header" = "Susţine acest proiect";
 "homepage support cta header" = "Blokada depinde de dvs.";
+"homepage support cta action" = "Donează (prin card, Paypal)";
+"homepage support cta action alt" = "Donează (bancă, cripto)";

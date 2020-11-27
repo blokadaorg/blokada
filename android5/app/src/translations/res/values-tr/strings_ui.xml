@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Aç</string>
     <string name="home_power_action_turn_off">Kapat</string>
     <string name="home_power_action_pause">5 dakika duraklat</string>
-    <string name="home_status_paused">DURAKLATILDI</string>
-    <string name="home_status_active">ETKİN</string>
-    <string name="home_status_deactivated">ETKİN DEĞİL</string>
+    <string name="home_status_paused">Duraklatıldı</string>
+    <string name="home_status_active">Etkin</string>
+    <string name="home_status_deactivated">Devre dışı</string>
     <string name="home_action_tap_to_activate">etkinleştirmek için dokunun</string>
     <string name="home_status_detail_paused">zamanlayıcı bitene kadar duraklatıldı</string>
     <string name="home_status_detail_active">*reklam* ve *izleyici* engelleniyor</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">Birincil</string>
     <string name="account_section_header_other">Diğer</string>
     <string name="account_action_my_account">Hesabım</string>
-    <string name="account_action_encryption">Şifreleme</string>
+    <string name="account_action_encryption">Şifreleme ve DNS</string>
     <string name="account_action_devices">Cihazlar</string>
     <string name="account_action_new_device">Yeni cihaz</string>
     <string name="account_action_inbox">Gelen Kutusu</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">Neden yükseltmeliyim?</string>
     <string name="account_subscription_header_renew">Otomatik olarak yenile</string>
     <string name="account_subscription_header_payment_method">Ödeme yöntemi</string>
-    <string name="account_subscription_renew_unsupported">Ödeme yönteminiz otomatik yenilemeyi desteklemiyor.</string>
+    <string name="account_subscription_renew_unsupported">Ödeme yönteminiz, burada otomatik yenileme ayarının kontrol edilmesine izin vermiyor.</string>
     <string name="account_unlock_to_show">Hesap kimliğinizi göstermek için kilidi açın</string>
     <string name="account_header_logout">Satın alımı geri yükle</string>
     <string name="account_logout_description">Lütfen başka bir hesap kimliği girin veya mevcut hesabınızı kullanmaya devam etmek için geri dönün (bu uygulama olmadan kullanılamaz).</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">Hizmet Koşulları</string>
     <string name="payment_action_policy">Gizlilik Politikası</string>
     <string name="payment_alert_error_header">App Store\'dan mesaj</string>
+    <string name="payment_save_text">%s tasarruf ediyorsun</string>
     <string name="payment_subscription__month">1 ay</string>
     <string name="payment_subscription_many_months">%s ay</string>
     <string name="payment_subscription_per_month">Aylık %s</string>
     <string name="payment_subscription_offer">%s indirim</string>
     <string name="payment_success_label">Teşekkürler!</string>
     <string name="payment_success_desc">Hesabınız artık etkin! Artık Blokada Plus özelliklerini tamamını tüm cihazlarınızda kullanabilirsiniz.</string>
-    <string name="payment_ongoing_desc">Ödemeniz şu anda işleniyor. PayPal söz konusu ise 24 saate kadar sürebilir. Diğer ödeme yöntemleri bir saatten fazla sürmemelidir. Çok uzun sürdüğünü düşünüyorsanız, lütfen bizimle iletişime geçin.</string>
+    <string name="payment_ongoing_title">Ödemeniz şu an işleniyor.</string>
+    <string name="payment_ongoing_desc">Kredi kartı ödemeleri birkaç dakikadan fazla sürmemelidir. Kripto para birimi ödemeleri, seçtiğiniz işlem ücretine bağlı olarak genellikle bir saat kadar sürer. PayPal söz konusu ise bu süre 24 saat kadar sürebilir. Hesabınız hazır olur olmaz yönlendirileceksiniz. Ayrıca bu ekranı kapatabilir ve daha sonra tekrar gelebilirsiniz. İşleminizin çok uzun sürdüğünü düşünüyorsanız, lütfen bizimle iletişime geçin.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Değiştir</string>

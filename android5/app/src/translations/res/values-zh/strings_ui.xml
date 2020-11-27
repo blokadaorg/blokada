@@ -86,7 +86,7 @@
     <string name="home_power_action_pause">暫停 5 分鐘</string>
     <string name="home_status_paused">已暫停</string>
     <string name="home_status_active">運作中</string>
-    <string name="home_status_deactivated">已關閉</string>
+    <string name="home_status_deactivated">已停用</string>
     <string name="home_action_tap_to_activate">按一下啟動</string>
     <string name="home_status_detail_paused">暫停至計時結束</string>
     <string name="home_status_detail_active">阻擋 *廣告* 及 *追蹤器*</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">主要</string>
     <string name="account_section_header_other">其他</string>
     <string name="account_action_my_account">我的帳號</string>
-    <string name="account_action_encryption">加密</string>
+    <string name="account_action_encryption">加密與 DNS</string>
     <string name="account_action_devices">裝置</string>
     <string name="account_action_new_device">新裝置</string>
     <string name="account_action_inbox">Inbox</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">為什麼要升級？</string>
     <string name="account_subscription_header_renew">自動續訂</string>
     <string name="account_subscription_header_payment_method">付款方法</string>
-    <string name="account_subscription_renew_unsupported">您的付款方式不支援自動續訂。</string>
+    <string name="account_subscription_renew_unsupported">您的付款方式不允許在此控制自動續訂設定。</string>
     <string name="account_unlock_to_show">解鎖以顯示您的帳號 ID</string>
     <string name="account_header_logout">復原購買</string>
     <string name="account_logout_description">請輸入其他帳號 ID，或是返回以繼續使用您現有的帳號（本 APP 需要帳號才可使用）。</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">服務條款</string>
     <string name="payment_action_policy">隱私權政策</string>
     <string name="payment_alert_error_header">來自 App Store 的訊息</string>
+    <string name="payment_save_text">您省下了 %s</string>
     <string name="payment_subscription__month">1 個月</string>
     <string name="payment_subscription_many_months">%s 個月</string>
     <string name="payment_subscription_per_month">每月 %s</string>
     <string name="payment_subscription_offer">省下 %s</string>
     <string name="payment_success_label">謝謝！</string>
     <string name="payment_success_desc">您的帳號已可使用！您現在可以在您的裝置上使用所有的 Blokada Plus 功能。</string>
-    <string name="payment_ongoing_desc">您的付款正在處理中。如果是使用 PayPal，那可能需要24小時。其他付款方式應該不用超過一個小時。如果您覺得時間太長，請聯絡我們。</string>
+    <string name="payment_ongoing_title">您的付款現正處理中。</string>
+    <string name="payment_ongoing_desc">信用卡付款的時間應該不會超過數分鐘。加密貨幣付款通常需要一小時，取決於您選擇的交易費用。如果使用 PayPal，則最多可能需要24小時。您的帳號準備就緒後，您就會被重新導向。您也可以關閉此畫面，稍後再回來。如果您覺得交易時間太長，請聯絡我們。</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">變更</string>

@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Włącz</string>
     <string name="home_power_action_turn_off">Wyłącz</string>
     <string name="home_power_action_pause">Wstrzymaj na 5 min</string>
-    <string name="home_status_paused">WSTRZYMANA</string>
-    <string name="home_status_active">AKTYWNA</string>
-    <string name="home_status_deactivated">NIEAKTYWNA</string>
+    <string name="home_status_paused">Wstrzymana</string>
+    <string name="home_status_active">Aktywna</string>
+    <string name="home_status_deactivated">Dezaktywowana</string>
     <string name="home_action_tap_to_activate">dotknij, aby aktywować</string>
     <string name="home_status_detail_paused">wstrzymano do zakończenia timera</string>
     <string name="home_status_detail_active">blokowanie *reklam* i *trackerów*</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">Podstawowe</string>
     <string name="account_section_header_other">Inne</string>
     <string name="account_action_my_account">Moje konto</string>
-    <string name="account_action_encryption">Szyfrowanie</string>
+    <string name="account_action_encryption">Szyfrowanie i DNS</string>
     <string name="account_action_devices">Urządzenia</string>
     <string name="account_action_new_device">Nowe urządzenie</string>
     <string name="account_action_inbox">Odebrane</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">Dlaczego warto przejść na wersję Plus?</string>
     <string name="account_subscription_header_renew">Odnawiaj automatycznie</string>
     <string name="account_subscription_header_payment_method">Metoda płatności</string>
-    <string name="account_subscription_renew_unsupported">Twoja metoda płatności nie obsługuje automatycznego odnawiania.</string>
+    <string name="account_subscription_renew_unsupported">Twoja metoda płatności nie pozwala kontrolować ustawienia automatycznego odnawiania w tym miejscu.</string>
     <string name="account_unlock_to_show">Odblokuj aby pokazać ID konta</string>
     <string name="account_header_logout">Zwróć zakup</string>
     <string name="account_logout_description">Wprowadź inny identyfikator konta lub wróć do istniejącego (ta aplikacja nie może być używana bez konta).</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">Warunki usługi</string>
     <string name="payment_action_policy">Polityka Prywatności</string>
     <string name="payment_alert_error_header">Wiadomość od App Store</string>
+    <string name="payment_save_text">Oszczędzasz %s</string>
     <string name="payment_subscription__month">1 Miesiąc</string>
     <string name="payment_subscription_many_months">%s Miesięcy</string>
     <string name="payment_subscription_per_month">%s miesięcznie</string>
     <string name="payment_subscription_offer">Oszczędź %s</string>
     <string name="payment_success_label">Dzięki!</string>
     <string name="payment_success_desc">Twoje konto jest teraz aktywne! Możesz teraz używać wszystkich funkcji Blokady Plus na wszystkich swoich urządzeniach.</string>
-    <string name="payment_ongoing_desc">Twoja płatność jest obecnie przetwarzana. W przypadku PayPal może to potrwać do 24 godzin. Inne metody płatności nie powinny trwać dłużej niż godzina. Jeśli uważasz, że trwa to zbyt długo, skontaktuj się z nami.</string>
+    <string name="payment_ongoing_title">Twoja płatność jest teraz przetwarzana.</string>
+    <string name="payment_ongoing_desc">Płatności kartami kredytowymi nie powinny trwać dłużej niż kilka minut. Płatności kryptowalutami zazwyczaj trwają do godziny, w zależności od wybranej opłaty transakcyjnej. W przypadku PayPal może to trwać do 24 godzin. Zostaniesz przekierowany, gdy Twoje konto będzie gotowe. Możesz również zamknąć ten ekran i wrócić później. Jeśli masz wrażenie, że Twoja transakcja trwa zbyt długo, skontaktuj się z nami.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Zmień</string>

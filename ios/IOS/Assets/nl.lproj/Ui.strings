@@ -77,10 +77,6 @@
 "home power action turn on" = "Inschakelen";
 "home power action turn off" = "Uitschakelen";
 "home power action pause" = "Pauzeer voor 5 minuten";
-
-"home status paused" = "GEPAUZEERD";
-"home status active" = "ACTIEF";
-"home status deactivated" = "GEDEACTIVEERD";
 "home action tap to activate" = "tik om te activeren";
 "home status detail paused" = "gepauzeerd totdat de timer afloopt";
 "home status detail active" = "blokkeert *advertenties* en *trackers*";

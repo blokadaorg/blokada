@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Attiva</string>
     <string name="home_power_action_turn_off">Disabilita</string>
     <string name="home_power_action_pause">Pausa per 5 min</string>
-    <string name="home_status_paused">IN PAUSA</string>
-    <string name="home_status_active">ATTIVA</string>
-    <string name="home_status_deactivated">DISATTIVATA</string>
+    <string name="home_status_paused">In pausa</string>
+    <string name="home_status_active">Attiva</string>
+    <string name="home_status_deactivated">Disattivata</string>
     <string name="home_action_tap_to_activate">tocca per attivare</string>
     <string name="home_status_detail_paused">in pausa fino alla fine del timer</string>
     <string name="home_status_detail_active">sto bloccando *pubblicità* e *tracker*</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">Primario</string>
     <string name="account_section_header_other">Altro</string>
     <string name="account_action_my_account">Il mio account</string>
-    <string name="account_action_encryption">Crittografia</string>
+    <string name="account_action_encryption">Crittografia e DNS</string>
     <string name="account_action_devices">Dispositivi</string>
     <string name="account_action_new_device">Nuovo dispositivo</string>
     <string name="account_action_inbox">Messaggi</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">Perché dovrei aggiornare?</string>
     <string name="account_subscription_header_renew">Rinnova automaticamente</string>
     <string name="account_subscription_header_payment_method">Metodo di pagamento</string>
-    <string name="account_subscription_renew_unsupported">Il tuo metodo di pagamento non supporta il rinnovo automatico.</string>
+    <string name="account_subscription_renew_unsupported">Il tuo metodo di pagamento non consente di controllare l\'impostazione di rinnovo automatico.</string>
     <string name="account_unlock_to_show">Sblocca per mostrare l\'ID del tuo account</string>
     <string name="account_header_logout">Ripristina acquisto</string>
     <string name="account_logout_description">Per favore, inserisci un altro ID o continua ad utilizzare l\'account esistente (non è possibile utilizzare questa app senza un account).</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">Termini del Servizio</string>
     <string name="payment_action_policy">Politica sulla Privacy</string>
     <string name="payment_alert_error_header">Un messaggio dall\'App Store</string>
+    <string name="payment_save_text">Stai risparmiando %s</string>
     <string name="payment_subscription__month">1 Mese</string>
     <string name="payment_subscription_many_months">%s Mesi</string>
     <string name="payment_subscription_per_month">%s al mese</string>
     <string name="payment_subscription_offer">Risparmia %s</string>
     <string name="payment_success_label">Grazie!</string>
     <string name="payment_success_desc">Adesso il tuo account è attivo! Ora puoi utilizzare tutte le funzionalità Blokada Plus su tutti i tuoi dispositivi.</string>
-    <string name="payment_ongoing_desc">Il tuo pagamento è in fase di elaborazione. Nel caso di PayPal, potrebbe richiedere fino a 24 ore. Altri metodi di pagamento non dovrebbero richiedere più di un\'ora. Se impiega troppo tempo, contattaci.</string>
+    <string name="payment_ongoing_title">Il pagamento è in fase di elaborazione.</string>
+    <string name="payment_ongoing_desc">I pagamenti con carta di credito non dovrebbero richiedere più di alcuni minuti. I pagamenti con criptovalute di solito richiedono fino a un\'ora, a seconda del costo della transazione scelta. In caso di PayPal, può richiedere fino a 24 ore. Verrai reindirizzato quando il tuo account sarà pronto. Puoi anche chiudere questa schermata e tornare più tardi. Se pensi che la tua transazione stia durando troppo, contattaci.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Modifica</string>

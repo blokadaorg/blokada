@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Aktifkan</string>
     <string name="home_power_action_turn_off">Nonaktifkan</string>
     <string name="home_power_action_pause">Hentikan selama 5 menit</string>
-    <string name="home_status_paused">DIHENTIKAN</string>
-    <string name="home_status_active">AKTIF</string>
-    <string name="home_status_deactivated">DINONAKTIFKAN</string>
+    <string name="home_status_paused">Dijeda</string>
+    <string name="home_status_active">Aktif</string>
+    <string name="home_status_deactivated">Dinonaktifkan</string>
     <string name="home_action_tap_to_activate">tekan untuk mengaktifkan</string>
     <string name="home_status_detail_paused">dihentikan sementara sampai pengatur waktu berhenti</string>
     <string name="home_status_detail_active">memblokir *iklan* dan *pelacak*</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">Utama</string>
     <string name="account_section_header_other">Lainnya</string>
     <string name="account_action_my_account">Akun saya</string>
-    <string name="account_action_encryption">Enkripsi</string>
+    <string name="account_action_encryption">Enkripsi &amp; DNS</string>
     <string name="account_action_devices">Perangkat</string>
     <string name="account_action_new_device">Perangkat baru</string>
     <string name="account_action_inbox">Kotak Masuk</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">Kenapa saya harus berlangganan?</string>
     <string name="account_subscription_header_renew">Perpanjang secara otomatis</string>
     <string name="account_subscription_header_payment_method">Cara Pembayaran</string>
-    <string name="account_subscription_renew_unsupported">Metode pembayaran Anda tidak mendukung perpanjangan otomatis.</string>
+    <string name="account_subscription_renew_unsupported">Metode pembayaran yang Anda pakai tidak memungkinkan untuk mengatur proses pembaruan langganan secara otomatis.</string>
     <string name="account_unlock_to_show">Unlock untuk melihat ID akun Anda</string>
     <string name="account_header_logout">Kembalikan pembelian</string>
     <string name="account_logout_description">Silakan masukkan ID akun yang lain, atau kembali untuk menggunakan akun yang sudah ada (aplikasi ini tidak bisa digunakan tanpa akun).</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">Ketentuan Layanan</string>
     <string name="payment_action_policy">Kebijakan Privasi</string>
     <string name="payment_alert_error_header">Sebuah pesan dari App Store</string>
+    <string name="payment_save_text">Anda menghemat %s</string>
     <string name="payment_subscription__month">1 Bulan</string>
     <string name="payment_subscription_many_months">%s bulan</string>
     <string name="payment_subscription_per_month">%s per bulan</string>
     <string name="payment_subscription_offer">Hemat %s</string>
     <string name="payment_success_label">Terima kasih!</string>
     <string name="payment_success_desc">Akun Anda telah aktif! Sekarang Anda dapat menggunakan semua fitur Blokada Plus di semua perangkat Anda.</string>
-    <string name="payment_ongoing_desc">Pembayaran Anda sedang diproses. Jika Anda menggunakan PayPal, proses ini bisa memakan waktu hingga 24 jam. Metode pembayaran lain biasanya tidak lebih dari satu jam. Jika Anda merasa proses ini terlalu lama, silakan hubungi kami.</string>
+    <string name="payment_ongoing_title">Pembayaran Anda sedang diproses.</string>
+    <string name="payment_ongoing_desc">Pembayaran melalui kartu kredit biasanya hanya memerlukan waktu beberapa menit saja. Pembayaran melalui cryptocurrency bisa mencapai satu jam, tergantung pada jenis transaksi yang Anda pakai. PayPal bisa memakan waktu sampai 24 jam. Anda akan diarahkan saat akun Anda telah siap. Anda juga bisa menutup halaman ini, dan kembali lagi beberapa waktu kemudian. Jika menurut Anda transaksi ini memakan terlalu banyak waktu, silakan hubungi kami.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Ubah</string>

@@ -74,9 +74,6 @@
     <string name="home_power_action_turn_on">Ota käyttöön</string>
     <string name="home_power_action_turn_off">Kytke pois</string>
     <string name="home_power_action_pause">Pysäytä viideksi minuutiksi</string>
-    <string name="home_status_paused">Pysäytetty</string>
-    <string name="home_status_active">Aktiivinen</string>
-    <string name="home_status_deactivated">Deaktivoitu</string>
     <string name="home_action_tap_to_activate">napauta aktivoidaksesi</string>
     <string name="home_status_detail_paused">pysäytetty kunnes ajastin loppuu</string>
     <string name="home_status_detail_active">estetään *mainoksia* ja *seurantaohjelmia*</string>
@@ -145,7 +142,6 @@
     <string name="account_section_header_primary">Ensisijainen</string>
     <string name="account_section_header_other">Muu</string>
     <string name="account_action_my_account">Tilini</string>
-    <string name="account_action_encryption">Salaus</string>
     <string name="account_action_devices">Laitteet</string>
     <string name="account_action_new_device">Uusi laite</string>
     <string name="account_action_inbox">Saapuneet</string>

@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">تشغيل</string>
     <string name="home_power_action_turn_off">إيقاف التشغيل</string>
     <string name="home_power_action_pause">إيقاف مؤقَّت لمدّة 5 دقائق</string>
-    <string name="home_status_paused">تمّ الإيقاف مؤقّتاً</string>
-    <string name="home_status_active">نَشِط</string>
-    <string name="home_status_deactivated">مُعطَّل</string>
+    <string name="home_status_paused">إيقاف مؤقَّت</string>
+    <string name="home_status_active">مُفَعَّل</string>
+    <string name="home_status_deactivated">غير مُفعَّل</string>
     <string name="home_action_tap_to_activate">اضغط للتفعيل</string>
     <string name="home_status_detail_paused">متوقّف مؤقّتاً حتّى ينتهي المؤقِّت</string>
     <string name="home_status_detail_active">حَظْر *الإعلانات* و *المتعقِّبين*</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">الأساسي</string>
     <string name="account_section_header_other">غير ذلك</string>
     <string name="account_action_my_account">حسابي</string>
-    <string name="account_action_encryption">التشفير</string>
+    <string name="account_action_encryption">التشفير و DNS</string>
     <string name="account_action_devices">الأجهزة</string>
     <string name="account_action_new_device">جهاز جديد</string>
     <string name="account_action_inbox">صندوق الوارد</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">لماذا ينبغي عليّ الترقية؟</string>
     <string name="account_subscription_header_renew">تجديد تلقائي</string>
     <string name="account_subscription_header_payment_method">طريقة الدفع</string>
-    <string name="account_subscription_renew_unsupported">طريقة الدفع الخاصّة بك لا تدعم التجديد التلقائي.</string>
+    <string name="account_subscription_renew_unsupported">طريقة الدفع الخاصّة بك لا تسمح بالتحكم في إعداد التجديد التلقائي هنا.</string>
     <string name="account_unlock_to_show">افتح لإظهار معرِّف حسابك</string>
     <string name="account_header_logout">استعادة الشراء</string>
     <string name="account_logout_description">الرجاء إدخال معرِّف حساب آخر، أو العودة للإستمرار في إستخدام حسابك الحالي (لا يمكن إستخدام هذا التطبيق بدون حساب).</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">شروط الخدمة</string>
     <string name="payment_action_policy">سياسة الخصوصيّة</string>
     <string name="payment_alert_error_header">رسالة من متجر التطبيقات</string>
+    <string name="payment_save_text">إنت تقوم بحفظ %s</string>
     <string name="payment_subscription__month">شهر واحد</string>
     <string name="payment_subscription_many_months">%s أشهر</string>
     <string name="payment_subscription_per_month">%s في الشهر</string>
     <string name="payment_subscription_offer">توفير %s</string>
     <string name="payment_success_label">شكراً !</string>
     <string name="payment_success_desc">الآن حسابك نَشِط ! يُمكِنك الآن استخدام جميع ميّزات بلوكادا بلس على جميع أجهزتك.</string>
-    <string name="payment_ongoing_desc">يَتمّ الآن معالجة عمليّة الدفع الخاصّة بك. في حالة PayPal، قد تَستغرق مدّة تصل إلى 24 ساعة. طُرق الدفع الأُخرى لا يَنبغي أن تستغرق أكثر من ساعة. إذا كنت تشعر أنها تستغرق وقتاً طويلاً، يُرجى التواصل معنا.</string>
+    <string name="payment_ongoing_title">جارِ معالجة عمليّة الدفع الخاصّة بك.</string>
+    <string name="payment_ongoing_desc">يجب ألّا يستغرق دفع بطاقة الإئتمان أكثر من بضع دقائق. عادةً ما تستغرق مدفوعات العملات الرقميّة ما يصل إلى ساعة، تبعاً لرسوم المعاملات التي تختارها. في حالة باي بال ، قد يستغرق ما يصل إلى 24 ساعة. سيتم إعادة توجيه حسابك بمجرّد أن يكون جاهزاً. يمكنك أيضاً إغلاق هذه الشاشة، والعودة مرّة أُخرى لاحقاً. إذا كنت تشعر أن معاملتك تستغرق وقتاً طويلاً، الرجاء الاتصال بنا.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">تغيير</string>

@@ -121,7 +121,7 @@
 
 "home status paused" = "已暫停";
 "home status active" = "運作中";
-"home status deactivated" = "已關閉";
+"home status deactivated" = "已停用";
 "home action tap to activate" = "按一下啟動";
 "home status detail paused" = "暫停至計時結束";
 "home status detail active" = "阻擋 *廣告* 及 *追蹤器*";
@@ -206,7 +206,7 @@
 "account section header primary" = "主要";
 "account section header other" = "其他";
 "account action my account" = "我的帳號";
-"account action encryption" = "加密";
+"account action encryption" = "加密與 DNS";
 "account action devices" = "裝置";
 "account action new device" = "新裝置";
 "account action inbox" = "Inbox";
@@ -231,7 +231,7 @@
 "account action why upgrade" = "為什麼要升級？";
 "account subscription header renew" = "自動續訂";
 "account subscription header payment method" = "付款方法";
-"account subscription renew unsupported" = "您的付款方式不支援自動續訂。";
+"account subscription renew unsupported" = "您的付款方式不允許在此控制自動續訂設定。";
 
 "account unlock to show" = "解鎖以顯示您的帳號 ID";
 
@@ -304,6 +304,8 @@
 "payment action terms" = "服務條款";
 "payment action policy" = "隱私權政策";
 "payment alert error header" = "來自 App Store 的訊息";
+// As in saving money: You are saving $5
+"payment save text" = "您省下了 %@";
 
 "payment subscription 1 month" = "1 個月";
 "payment subscription many months" = "%@ 個月";
@@ -313,7 +315,8 @@
 "payment success label" = "謝謝！";
 "payment success desc" = "您的帳號已可使用！您現在可以在您的裝置上使用所有的 Blokada Plus 功能。";
 
-"payment ongoing desc" = "您的付款正在處理中。如果是使用 PayPal，那可能需要24小時。其他付款方式應該不用超過一個小時。如果您覺得時間太長，請聯絡我們。";
+"payment ongoing title" = "您的付款現正處理中。";
+"payment ongoing desc" = "信用卡付款的時間應該不會超過數分鐘。加密貨幣付款通常需要一小時，取決於您選擇的交易費用。如果使用 PayPal，則最多可能需要24小時。您的帳號準備就緒後，您就會被重新導向。您也可以關閉此畫面，稍後再回來。如果您覺得交易時間太長，請聯絡我們。";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "變更";

@@ -119,9 +119,9 @@
 "home power action turn off" = "Wyłącz";
 "home power action pause" = "Wstrzymaj na 5 min";
 
-"home status paused" = "WSTRZYMANA";
-"home status active" = "AKTYWNA";
-"home status deactivated" = "NIEAKTYWNA";
+"home status paused" = "Wstrzymana";
+"home status active" = "Aktywna";
+"home status deactivated" = "Dezaktywowana";
 "home action tap to activate" = "dotknij, aby aktywować";
 "home status detail paused" = "wstrzymano do zakończenia timera";
 "home status detail active" = "blokowanie *reklam* i *trackerów*";
@@ -206,7 +206,7 @@
 "account section header primary" = "Podstawowe";
 "account section header other" = "Inne";
 "account action my account" = "Moje konto";
-"account action encryption" = "Szyfrowanie";
+"account action encryption" = "Szyfrowanie i DNS";
 "account action devices" = "Urządzenia";
 "account action new device" = "Nowe urządzenie";
 "account action inbox" = "Odebrane";
@@ -231,7 +231,7 @@
 "account action why upgrade" = "Dlaczego warto przejść na wersję Plus?";
 "account subscription header renew" = "Odnawiaj automatycznie";
 "account subscription header payment method" = "Metoda płatności";
-"account subscription renew unsupported" = "Twoja metoda płatności nie obsługuje automatycznego odnawiania.";
+"account subscription renew unsupported" = "Twoja metoda płatności nie pozwala kontrolować ustawienia automatycznego odnawiania w tym miejscu.";
 
 "account unlock to show" = "Odblokuj aby pokazać ID konta";
 
@@ -304,6 +304,8 @@
 "payment action terms" = "Warunki usługi";
 "payment action policy" = "Polityka Prywatności";
 "payment alert error header" = "Wiadomość od App Store";
+// As in saving money: You are saving $5
+"payment save text" = "Oszczędzasz %@";
 
 "payment subscription 1 month" = "1 Miesiąc";
 "payment subscription many months" = "%@ Miesięcy";
@@ -313,7 +315,8 @@
 "payment success label" = "Dzięki!";
 "payment success desc" = "Twoje konto jest teraz aktywne! Możesz teraz używać wszystkich funkcji Blokady Plus na wszystkich swoich urządzeniach.";
 
-"payment ongoing desc" = "Twoja płatność jest obecnie przetwarzana. W przypadku PayPal może to potrwać do 24 godzin. Inne metody płatności nie powinny trwać dłużej niż godzina. Jeśli uważasz, że trwa to zbyt długo, skontaktuj się z nami.";
+"payment ongoing title" = "Twoja płatność jest teraz przetwarzana.";
+"payment ongoing desc" = "Płatności kartami kredytowymi nie powinny trwać dłużej niż kilka minut. Płatności kryptowalutami zazwyczaj trwają do godziny, w zależności od wybranej opłaty transakcyjnej. W przypadku PayPal może to trwać do 24 godzin. Zostaniesz przekierowany, gdy Twoje konto będzie gotowe. Możesz również zamknąć ten ekran i wrócić później. Jeśli masz wrażenie, że Twoja transakcja trwa zbyt długo, skontaktuj się z nami.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Zmień";

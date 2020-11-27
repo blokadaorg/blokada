@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Activer</string>
     <string name="home_power_action_turn_off">Désactiver</string>
     <string name="home_power_action_pause">Pause pour 5 min</string>
-    <string name="home_status_paused">EN PAUSE</string>
-    <string name="home_status_active">ACTIF</string>
-    <string name="home_status_deactivated">DÉSACTIVÉ</string>
+    <string name="home_status_paused">En pause</string>
+    <string name="home_status_active">Actif</string>
+    <string name="home_status_deactivated">Désactivé</string>
     <string name="home_action_tap_to_activate">cliquez pour activer</string>
     <string name="home_status_detail_paused">mis en pause jusqu\'à la fin du timer</string>
     <string name="home_status_detail_active">bloque les *pubs* et *trackers*</string>
@@ -155,7 +155,7 @@
     <string name="account_section_header_primary">Principal</string>
     <string name="account_section_header_other">Autre</string>
     <string name="account_action_my_account">Mon compte</string>
-    <string name="account_action_encryption">Chiffrement</string>
+    <string name="account_action_encryption">Chiffrement &amp; DNS</string>
     <string name="account_action_devices">Appareils</string>
     <string name="account_action_new_device">Nouvel appareil</string>
     <string name="account_action_inbox">Messagerie</string>
@@ -237,11 +237,13 @@
     <string name="payment_action_terms">Conditions d\'utilisation</string>
     <string name="payment_action_policy">Politique de confidentialité</string>
     <string name="payment_alert_error_header">Un message de l\'App Store</string>
+    <string name="payment_save_text">Vous faites une économie de %s</string>
     <string name="payment_subscription__month">1 mois</string>
     <string name="payment_subscription_many_months">%s mois</string>
     <string name="payment_subscription_per_month">%s par mois</string>
     <string name="payment_subscription_offer">Économisez %s</string>
     <string name="payment_success_label">Merci !</string>
+    <string name="payment_ongoing_title">Votre paiement est en cours de traitement.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Modifier</string>

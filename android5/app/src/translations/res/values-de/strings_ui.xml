@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Einschalten</string>
     <string name="home_power_action_turn_off">Ausschalten</string>
     <string name="home_power_action_pause">Pausieren für 5 min</string>
-    <string name="home_status_paused">PAUSIERT</string>
-    <string name="home_status_active">AKTIV</string>
-    <string name="home_status_deactivated">DEAKTIVIERT</string>
+    <string name="home_status_paused">Pause</string>
+    <string name="home_status_active">Aktiv</string>
+    <string name="home_status_deactivated">Deaktiviert</string>
     <string name="home_action_tap_to_activate">zum aktivieren tippen</string>
     <string name="home_status_detail_paused">pausiert, bis der Timer abgelaufen ist</string>
     <string name="home_status_detail_active">*Werbungen* und *Tracker* blockieren</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">Primär</string>
     <string name="account_section_header_other">Andere</string>
     <string name="account_action_my_account">Mein Konto</string>
-    <string name="account_action_encryption">Verschlüsselung</string>
+    <string name="account_action_encryption">Verschlüsselung &amp; DNS</string>
     <string name="account_action_devices">Geräte</string>
     <string name="account_action_new_device">Neues Gerät</string>
     <string name="account_action_inbox">Inbox</string>
@@ -182,7 +182,6 @@
     <string name="account_action_why_upgrade">Warum sollte ich upgraden?</string>
     <string name="account_subscription_header_renew">Automatisch erneuern</string>
     <string name="account_subscription_header_payment_method">Zahlungsart</string>
-    <string name="account_subscription_renew_unsupported">Deine Zahlungsmethode unterstützt keine automatische Verlängerung.</string>
     <string name="account_unlock_to_show">Entsperren, um deine Konto-ID zu sehen</string>
     <string name="account_header_logout">Käufe wiederherstellen</string>
     <string name="account_logout_description">Bitte gib eine weitere Konto-ID ein oder geh zurück um das bestehende Konto zu nutzen (diese App kann nicht ohne ein Konto benutzt werden).</string>
@@ -247,13 +246,15 @@
     <string name="payment_action_terms">AGB</string>
     <string name="payment_action_policy">Datenschutzerklärung</string>
     <string name="payment_alert_error_header">Eine Nachricht aus dem App Store</string>
+    <string name="payment_save_text">Du sparst %s</string>
     <string name="payment_subscription__month">1 Monat</string>
     <string name="payment_subscription_many_months">%s Monate</string>
     <string name="payment_subscription_per_month">%s pro Monat</string>
     <string name="payment_subscription_offer">Spare %s</string>
     <string name="payment_success_label">Danke!</string>
     <string name="payment_success_desc">Ihr Konto ist jetzt aktiv! Du kannst jetzt alle Blokada Plus Funktionen auf all deinen Geräten verwenden.</string>
-    <string name="payment_ongoing_desc">Deine Zahlung wird jetzt bearbeitet. Im Falle von PayPal kann es bis zu 24 Stunden dauern. Andere Zahlungsmethoden sollten nicht länger als eine Stunde dauern. Wenn du das Gefühl hast, dass es zu lange dauert, kontaktiere uns bitte.</string>
+    <string name="payment_ongoing_title">Deine Zahlung wird jetzt bearbeitet.</string>
+    <string name="payment_ongoing_desc">Kreditkartenzahlungen sollten nicht länger als ein paar Minuten dauern. Zahlungen mit Kryptowährungen dauern in der Regel bis zu einer Stunde, je nachdem, welche Transaktionsgebühr Du wählst. Im Falle von PayPal kann es bis zu 24 Stunden dauern. Du wirst weitergeleitet, sobald Dein Konto fertig ist. Du kannst dieses Menü auch schließen und später wieder kommen. Wenn Du glaubst, dass Deine Transaktion zu lange dauert, kontaktiere uns bitte.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Ändern</string>

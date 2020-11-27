@@ -119,9 +119,9 @@
 "home power action turn off" = "Vypnout";
 "home power action pause" = "Pozastavit na 5 minut";
 
-"home status paused" = "POZASTAVENA";
-"home status active" = "AKTIVNÍ";
-"home status deactivated" = "DEAKTIVOVÁNA";
+"home status paused" = "Pozastaveno";
+"home status active" = "Aktivní";
+"home status deactivated" = "Deaktivováno";
 "home action tap to activate" = "klepnutím aktivovat";
 "home status detail paused" = "pozastaveno, do konce časovače";
 "home status detail active" = "blokuje *reklamy* a *sledovače*";
@@ -144,11 +144,11 @@
 "pack information header" = "Více";
 "pack tags header" = "Tagy";
 "pack tags none" = "Žádné";
-"pack category highlights" = "Zvýraznění";
+"pack category highlights" = "Populární";
 "pack category active" = "Aktivní";
 "pack category all" = "Vše";
 
-"advanced section header packs" = "Seznamy blokovaných";
+"advanced section header packs" = "Seznamy hostitelů";
 "advanced section slugline packs" = "Aktivujte pro restriktivnější blokování";
 "advanced section slugline apps" = "Vyberte aplikace, které by nikdy neměly být blokovány";
 "advanced section slugline encryption" = "Upravte svou úroveň šifrování a DNS";
@@ -192,7 +192,7 @@
 "activity filter show allowed" = "Zobrazit pouze povolené";
 "activity empty text" = "Zkuste použít své zařízení a vraťte se sem později, abyste zjistili, kam se vaše zařízení připojuje.";
 
-"userdenied section header" = "Moje seznamy blokovaných";
+"userdenied section header" = "Moje seznamy hostitelů";
 "userdenied section slugline" = "Spravovat blokování konkrétních webových stránek";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Povolené";
@@ -206,7 +206,7 @@
 "account section header primary" = "Primární";
 "account section header other" = "Ostatní";
 "account action my account" = "Můj účet";
-"account action encryption" = "Šifrování";
+"account action encryption" = "Šifrování & DNS";
 "account action devices" = "Zařízení";
 "account action new device" = "Nové zařízení";
 "account action inbox" = "Novinky";
@@ -231,7 +231,7 @@
 "account action why upgrade" = "Proč bych měl upgradovat?";
 "account subscription header renew" = "Automaticky obnovit";
 "account subscription header payment method" = "Způsob platby";
-"account subscription renew unsupported" = "Vaše platební metoda nepodporuje automatické obnovení.";
+"account subscription renew unsupported" = "Vaše platební metoda neumožňuje kontrolovat nastavení automatického obnovení.";
 
 "account unlock to show" = "Odemkněte pro zobrazení ID vašeho účtu";
 
@@ -304,6 +304,8 @@
 "payment action terms" = "Podmínky použití služby";
 "payment action policy" = "Zásady ochrany osobních údajů";
 "payment alert error header" = "Zpráva z App Store";
+// As in saving money: You are saving $5
+"payment save text" = "Ušetříte %@";
 
 "payment subscription 1 month" = "1 měsíc";
 "payment subscription many months" = "%@ měsíců";
@@ -313,7 +315,8 @@
 "payment success label" = "Děkujeme!";
 "payment success desc" = "Váš účet je nyní aktivní! Nyní můžete používat všechny funkce Blokada Plus na všech vašich zařízeních.";
 
-"payment ongoing desc" = "Vaše platba je nyní zpracovávána. V případě PayPalu to může trvat až 24 hodin. Zpracování platby prostřednictví ostatních platebních metod by nemělo trvat déle než hodinu. Pokud máte pocit, že to trvá příliš dlouho, kontaktujte nás.";
+"payment ongoing title" = "Vaše platba se nyní zpracovává.";
+"payment ongoing desc" = "Platby kreditní kartou by neměly trvat déle než několik minut. Platby kryptoměnou obvykle trvají až hodinu, v závislosti na tom, jaký transakční poplatek jste si vybrali. V případě služby PayPal to může trvat až 24 hodin. Jakmile bude váš účet připraven, budete přesměrováni. Také můžete tuto obrazovku zavřít a vrátit se později. Pokud máte pocit, že vaše transakce trvá příliš dlouho, kontaktujte nás.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Změnit";

@@ -206,7 +206,7 @@
 "account section header primary" = "Primary";
 "account section header other" = "Other";
 "account action my account" = "My account";
-"account action encryption" = "Encryption";
+"account action encryption" = "Encryption & DNS";
 "account action devices" = "Devices";
 "account action new device" = "New device";
 "account action inbox" = "Inbox";
@@ -231,7 +231,7 @@
 "account action why upgrade" = "Why should I upgrade?";
 "account subscription header renew" = "Renew automatically";
 "account subscription header payment method" = "Payment method";
-"account subscription renew unsupported" = "Your payment method does not support auto renew.";
+"account subscription renew unsupported" = "Your payment method does not allow to control the auto renewal setting here.";
 
 "account unlock to show" = "Unlock to show your account ID";
 
@@ -304,6 +304,8 @@
 "payment action terms" = "Terms of Service";
 "payment action policy" = "Privacy Policy";
 "payment alert error header" = "A message from App Store";
+// As in saving money: You are saving $5
+"payment save text" = "You are saving %@";
 
 "payment subscription 1 month" = "1 Month";
 "payment subscription many months" = "%@ Months";
@@ -313,7 +315,8 @@
 "payment success label" = "Thanks!";
 "payment success desc" = "Your account is now active! You may now use all Blokada Plus features on all your devices.";
 
-"payment ongoing desc" = "Your payment is now being processed. In case of PayPal, it may take up to 24 hours. Other payment methods shouldn't take more than an hour. If you feel like it is taking too long, please contact us.";
+"payment ongoing title" = "Your payment is now being processed.";
+"payment ongoing desc" = "Credit card payments should not take more than a few minutes. Cryptocurrency payments usually take up to an hour, depending on what transaction fee you chose. In case of PayPal, it may take up to 24 hours. You will get redirected once your account is ready. You may also close this screen, and come again later. If you feel like your transaction is taking too long, please contact us.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Change";

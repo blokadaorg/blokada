@@ -119,9 +119,9 @@
 "home power action turn off" = "Desativar";
 "home power action pause" = "Pausar por 5 min";
 
-"home status paused" = "PAUSADO";
-"home status active" = "ATIVO";
-"home status deactivated" = "DESATIVADO";
+"home status paused" = "Em pausa";
+"home status active" = "Ativo";
+"home status deactivated" = "Desativado";
 "home action tap to activate" = "toque para ativar";
 "home status detail paused" = "pausado até o tempo terminar";
 "home status detail active" = "bloqueando *anúncios* e *rastreadores*";
@@ -206,7 +206,7 @@
 "account section header primary" = "Primário";
 "account section header other" = "Outros";
 "account action my account" = "Minha conta";
-"account action encryption" = "Criptografia";
+"account action encryption" = "Criptografia e DNS";
 "account action devices" = "Dispositivos";
 "account action new device" = "Novo dispositivo";
 "account action inbox" = "Caixa de entrada";
@@ -231,7 +231,7 @@
 "account action why upgrade" = "Por que devo fazer o upgrade?";
 "account subscription header renew" = "Renovar automaticamente";
 "account subscription header payment method" = "Método de pagamento";
-"account subscription renew unsupported" = "Seu método de pagamento não suporta renovação automática.";
+"account subscription renew unsupported" = "Seu método de pagamento não permite controlar a configuração de renovação automática aqui.";
 
 "account unlock to show" = "Desbloqueie para mostrar o ID da sua conta";
 
@@ -304,6 +304,8 @@
 "payment action terms" = "Termos de Serviço";
 "payment action policy" = "Política de Privacidade";
 "payment alert error header" = "Uma mensagem da App Store";
+// As in saving money: You are saving $5
+"payment save text" = "Você está salvando %@";
 
 "payment subscription 1 month" = "1 Mês";
 "payment subscription many months" = "%@ Meses";
@@ -313,7 +315,8 @@
 "payment success label" = "Obrigado!";
 "payment success desc" = "Sua conta agora está ativa! Agora você pode usar todos os recursos do Blokada Plus em todos os seus dispositivos.";
 
-"payment ongoing desc" = "Seu pagamento está sendo processado agora. No caso do PayPal, pode demorar até 24 horas. Outros métodos de pagamento não devem demorar mais que uma hora. Se você acha que está demorando muito, por favor, entre em contato conosco.";
+"payment ongoing title" = "Seu pagamento está sendo processado agora.";
+"payment ongoing desc" = "Os pagamentos com cartão de crédito não devem levar mais do que alguns minutos. Os pagamentos com criptomoedas geralmente levam até uma hora, dependendo da taxa de transação que você escolheu. No caso do PayPal, pode levar até 24 horas. Você será redirecionado assim que a sua conta estiver pronta. Você também pode fechar esta tela e voltar mais tarde. Se você acha que sua transação está demorando demais, entre em contato conosco.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Alterar";

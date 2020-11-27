@@ -119,9 +119,9 @@
 "home power action turn off" = "Kapat";
 "home power action pause" = "5 dakika duraklat";
 
-"home status paused" = "DURAKLATILDI";
-"home status active" = "ETKİN";
-"home status deactivated" = "ETKİN DEĞİL";
+"home status paused" = "Duraklatıldı";
+"home status active" = "Etkin";
+"home status deactivated" = "Devre dışı";
 "home action tap to activate" = "etkinleştirmek için dokunun";
 "home status detail paused" = "zamanlayıcı bitene kadar duraklatıldı";
 "home status detail active" = "*reklam* ve *izleyici* engelleniyor";
@@ -206,7 +206,7 @@
 "account section header primary" = "Birincil";
 "account section header other" = "Diğer";
 "account action my account" = "Hesabım";
-"account action encryption" = "Şifreleme";
+"account action encryption" = "Şifreleme ve DNS";
 "account action devices" = "Cihazlar";
 "account action new device" = "Yeni cihaz";
 "account action inbox" = "Gelen Kutusu";
@@ -231,7 +231,7 @@
 "account action why upgrade" = "Neden yükseltmeliyim?";
 "account subscription header renew" = "Otomatik olarak yenile";
 "account subscription header payment method" = "Ödeme yöntemi";
-"account subscription renew unsupported" = "Ödeme yönteminiz otomatik yenilemeyi desteklemiyor.";
+"account subscription renew unsupported" = "Ödeme yönteminiz, burada otomatik yenileme ayarının kontrol edilmesine izin vermiyor.";
 
 "account unlock to show" = "Hesap kimliğinizi göstermek için kilidi açın";
 
@@ -304,6 +304,8 @@
 "payment action terms" = "Hizmet Koşulları";
 "payment action policy" = "Gizlilik Politikası";
 "payment alert error header" = "App Store'dan mesaj";
+// As in saving money: You are saving $5
+"payment save text" = "%@ tasarruf ediyorsun";
 
 "payment subscription 1 month" = "1 ay";
 "payment subscription many months" = "%@ ay";
@@ -313,7 +315,8 @@
 "payment success label" = "Teşekkürler!";
 "payment success desc" = "Hesabınız artık etkin! Artık Blokada Plus özelliklerini tamamını tüm cihazlarınızda kullanabilirsiniz.";
 
-"payment ongoing desc" = "Ödemeniz şu anda işleniyor. PayPal söz konusu ise 24 saate kadar sürebilir. Diğer ödeme yöntemleri bir saatten fazla sürmemelidir. Çok uzun sürdüğünü düşünüyorsanız, lütfen bizimle iletişime geçin.";
+"payment ongoing title" = "Ödemeniz şu an işleniyor.";
+"payment ongoing desc" = "Kredi kartı ödemeleri birkaç dakikadan fazla sürmemelidir. Kripto para birimi ödemeleri, seçtiğiniz işlem ücretine bağlı olarak genellikle bir saat kadar sürer. PayPal söz konusu ise bu süre 24 saat kadar sürebilir. Hesabınız hazır olur olmaz yönlendirileceksiniz. Ayrıca bu ekranı kapatabilir ve daha sonra tekrar gelebilirsiniz. İşleminizin çok uzun sürdüğünü düşünüyorsanız, lütfen bizimle iletişime geçin.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Değiştir";

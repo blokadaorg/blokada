@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Ativar</string>
     <string name="home_power_action_turn_off">Desativar</string>
     <string name="home_power_action_pause">Pausar por 5 min</string>
-    <string name="home_status_paused">PAUSADO</string>
-    <string name="home_status_active">ATIVO</string>
-    <string name="home_status_deactivated">DESATIVADO</string>
+    <string name="home_status_paused">Em pausa</string>
+    <string name="home_status_active">Ativo</string>
+    <string name="home_status_deactivated">Desativado</string>
     <string name="home_action_tap_to_activate">toque para ativar</string>
     <string name="home_status_detail_paused">pausado até o tempo terminar</string>
     <string name="home_status_detail_active">bloqueando *anúncios* e *rastreadores*</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">Primário</string>
     <string name="account_section_header_other">Outros</string>
     <string name="account_action_my_account">Minha conta</string>
-    <string name="account_action_encryption">Criptografia</string>
+    <string name="account_action_encryption">Criptografia e DNS</string>
     <string name="account_action_devices">Dispositivos</string>
     <string name="account_action_new_device">Novo dispositivo</string>
     <string name="account_action_inbox">Caixa de entrada</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">Por que devo fazer o upgrade?</string>
     <string name="account_subscription_header_renew">Renovar automaticamente</string>
     <string name="account_subscription_header_payment_method">Método de pagamento</string>
-    <string name="account_subscription_renew_unsupported">Seu método de pagamento não suporta renovação automática.</string>
+    <string name="account_subscription_renew_unsupported">Seu método de pagamento não permite controlar a configuração de renovação automática aqui.</string>
     <string name="account_unlock_to_show">Desbloqueie para mostrar o ID da sua conta</string>
     <string name="account_header_logout">Restaurar compras</string>
     <string name="account_logout_description">Por favor insira outro ID de conta, ou volte para continuar usando sua conta existente (este aplicativo não pode ser usado sem um ID).</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">Termos de Serviço</string>
     <string name="payment_action_policy">Política de Privacidade</string>
     <string name="payment_alert_error_header">Uma mensagem da App Store</string>
+    <string name="payment_save_text">Você está salvando %s</string>
     <string name="payment_subscription__month">1 Mês</string>
     <string name="payment_subscription_many_months">%s Meses</string>
     <string name="payment_subscription_per_month">%s por mês</string>
     <string name="payment_subscription_offer">Salvar %s</string>
     <string name="payment_success_label">Obrigado!</string>
     <string name="payment_success_desc">Sua conta agora está ativa! Agora você pode usar todos os recursos do Blokada Plus em todos os seus dispositivos.</string>
-    <string name="payment_ongoing_desc">Seu pagamento está sendo processado agora. No caso do PayPal, pode demorar até 24 horas. Outros métodos de pagamento não devem demorar mais que uma hora. Se você acha que está demorando muito, por favor, entre em contato conosco.</string>
+    <string name="payment_ongoing_title">Seu pagamento está sendo processado agora.</string>
+    <string name="payment_ongoing_desc">Os pagamentos com cartão de crédito não devem levar mais do que alguns minutos. Os pagamentos com criptomoedas geralmente levam até uma hora, dependendo da taxa de transação que você escolheu. No caso do PayPal, pode levar até 24 horas. Você será redirecionado assim que a sua conta estiver pronta. Você também pode fechar esta tela e voltar mais tarde. Se você acha que sua transação está demorando demais, entre em contato conosco.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Alterar</string>

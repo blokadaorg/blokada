@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">Primary</string>
     <string name="account_section_header_other">Other</string>
     <string name="account_action_my_account">My account</string>
-    <string name="account_action_encryption">Encryption</string>
+    <string name="account_action_encryption">Encryption &amp; DNS</string>
     <string name="account_action_devices">Devices</string>
     <string name="account_action_new_device">New device</string>
     <string name="account_action_inbox">Inbox</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">Why should I upgrade?</string>
     <string name="account_subscription_header_renew">Renew automatically</string>
     <string name="account_subscription_header_payment_method">Payment method</string>
-    <string name="account_subscription_renew_unsupported">Your payment method does not support auto renew.</string>
+    <string name="account_subscription_renew_unsupported">Your payment method does not allow to control the auto renewal setting here.</string>
     <string name="account_unlock_to_show">Unlock to show your account ID</string>
     <string name="account_header_logout">Restore purchase</string>
     <string name="account_logout_description">Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one).</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">Terms of Service</string>
     <string name="payment_action_policy">Privacy Policy</string>
     <string name="payment_alert_error_header">A message from App Store</string>
+    <string name="payment_save_text">You are saving %s</string>
     <string name="payment_subscription__month">1 Month</string>
     <string name="payment_subscription_many_months">%s Months</string>
     <string name="payment_subscription_per_month">%s per month</string>
     <string name="payment_subscription_offer">Save %s</string>
     <string name="payment_success_label">Thanks!</string>
     <string name="payment_success_desc">Your account is now active! You may now use all Blokada Plus features on all your devices.</string>
-    <string name="payment_ongoing_desc">Your payment is now being processed. In case of PayPal, it may take up to 24 hours. Other payment methods shouldn\'t take more than an hour. If you feel like it is taking too long, please contact us.</string>
+    <string name="payment_ongoing_title">Your payment is now being processed.</string>
+    <string name="payment_ongoing_desc">Credit card payments should not take more than a few minutes. Cryptocurrency payments usually take up to an hour, depending on what transaction fee you chose. In case of PayPal, it may take up to 24 hours. You will get redirected once your account is ready. You may also close this screen, and come again later. If you feel like your transaction is taking too long, please contact us.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Change</string>

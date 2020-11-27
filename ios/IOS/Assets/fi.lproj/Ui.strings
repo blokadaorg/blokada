@@ -108,10 +108,6 @@
 "home power action turn on" = "Ota käyttöön";
 "home power action turn off" = "Kytke pois";
 "home power action pause" = "Pysäytä viideksi minuutiksi";
-
-"home status paused" = "Pysäytetty";
-"home status active" = "Aktiivinen";
-"home status deactivated" = "Deaktivoitu";
 "home action tap to activate" = "napauta aktivoidaksesi";
 "home status detail paused" = "pysäytetty kunnes ajastin loppuu";
 "home status detail active" = "estetään *mainoksia* ja *seurantaohjelmia*";
@@ -191,7 +187,6 @@
 "account section header primary" = "Ensisijainen";
 "account section header other" = "Muu";
 "account action my account" = "Tilini";
-"account action encryption" = "Salaus";
 "account action devices" = "Laitteet";
 "account action new device" = "Uusi laite";
 "account action inbox" = "Saapuneet";

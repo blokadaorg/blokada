@@ -33,3 +33,5 @@
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar は、連続的なクロールと分析を通じて自動的に生成および維持されるトラッカーに関するクラス最高のデータセットです。詳細は著者情報をご覧ください。";
 "Curated blocklist to block trackers and advertisements" = "トラッカーと広告をブロックするための厳選されたブロックリスト";
 "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "これらのブロックリストは、広告、トラッキングなどをブロックするために作成され、維持されています。定期的に更新されます";
+"Analyzes privacy concerns in Android applications" = "Androidアプリのプライバシーに関する懸念を分析します";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "このブロックリストは、Androidアプリケーションを分析して、埋め込まれたトラッカーを探すExodus Privacy projectに基づいています。 トラッカーとは、あなた自身や、あなたの行動に関する情報を収集するためのソフトウェアです。 これは非常に限られたリストであるため、Energizedなどの他のリストをアクティブにする必要があります。";

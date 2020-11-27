@@ -84,9 +84,9 @@
     <string name="home_power_action_turn_on">Включване</string>
     <string name="home_power_action_turn_off">Изключване</string>
     <string name="home_power_action_pause">Пауза за 5 мин</string>
-    <string name="home_status_paused">ПАУЗА</string>
-    <string name="home_status_active">АКТИВНА</string>
-    <string name="home_status_deactivated">ДЕАКТИВИРАНА</string>
+    <string name="home_status_paused">На пауза</string>
+    <string name="home_status_active">Активен</string>
+    <string name="home_status_deactivated">Деактивиран</string>
     <string name="home_action_tap_to_activate">докоснете за да активирате</string>
     <string name="home_status_detail_paused">на пауза докато приключи таймерът</string>
     <string name="home_status_detail_active">блокиране на *реклами* и *тракери*</string>
@@ -98,7 +98,7 @@
     <string name="home_plus_button_select_location">Избор на местоположение</string>
     <string name="home_plus_button_location">Местоположение: *%s*</string>
     <string name="pack_section_header">Разширени функции</string>
-    <string name="pack_section_header_details">Подробности Детайли</string>
+    <string name="pack_section_header_details">Особености и Детайли</string>
     <string name="pack_action_install">ВЗЕМИ</string>
     <string name="pack_action_update">АКТУАЛИЗАЦИЯ</string>
     <string name="pack_action_uninstall">ПРЕМАХВАНЕ</string>
@@ -158,7 +158,7 @@
     <string name="account_section_header_primary">Основен</string>
     <string name="account_section_header_other">Друг</string>
     <string name="account_action_my_account">Моят профил</string>
-    <string name="account_action_encryption">Криптиране</string>
+    <string name="account_action_encryption">Криптиране &amp; DNS</string>
     <string name="account_action_devices">Устройства</string>
     <string name="account_action_new_device">Ново устройство</string>
     <string name="account_action_inbox">Входяща кутия</string>
@@ -182,7 +182,7 @@
     <string name="account_action_why_upgrade">Защо трябва да надстроя?</string>
     <string name="account_subscription_header_renew">Автоматично подновяване</string>
     <string name="account_subscription_header_payment_method">Начин на плащане</string>
-    <string name="account_subscription_renew_unsupported">Начинът на плащане не се поддържа за автоматично подновяване.</string>
+    <string name="account_subscription_renew_unsupported">Начинът на плащане не ви позволява да контролирате от тук настройката за автоматично подновяване.</string>
     <string name="account_unlock_to_show">Отключете за да се покаже ID на профила</string>
     <string name="account_header_logout">Възстановяване на покупка</string>
     <string name="account_logout_description">Моля, въведете друго ID за потребителският профил или се върнете и продължете да използвате съществуващ профил (това приложение не може да се използва без такъв).</string>
@@ -247,13 +247,15 @@
     <string name="payment_action_terms">Условия за ползване</string>
     <string name="payment_action_policy">Декларация за поверителност</string>
     <string name="payment_alert_error_header">Съобщение от App Store</string>
+    <string name="payment_save_text">Вие спестявате %s</string>
     <string name="payment_subscription__month">1 Месец</string>
     <string name="payment_subscription_many_months">%s Месеца</string>
     <string name="payment_subscription_per_month">%s на месец</string>
     <string name="payment_subscription_offer">Запази %s</string>
     <string name="payment_success_label">Благодаря!</string>
     <string name="payment_success_desc">Вашият профил е активен! Вече можете да използвате всички функции на Blokada Plus на всичките си устройства.</string>
-    <string name="payment_ongoing_desc">Плащането Ви се обработва. В някои случай като при PayPal, това може да отнеме до 24 часа. Другите методи на плащане не би трябвало да отнемат повече от час. Ако смятате, че отнема твърде много време, моля свържете се с нас.</string>
+    <string name="payment_ongoing_title">Плащането Ви се обработва.</string>
+    <string name="payment_ongoing_desc">Плащанията с кредитни карти не трябва да отнемат повече от няколко минути. Плащанията с криптовалута обикновено отнемат до час, в зависимост от това каква такса за транзакция сте избрали. В някои случаи като при PayPal, това може да отнеме до 24 часа. Ще получите пренасочване след като профилът ви е готов. Можете да затворите този екран и да дойдете отново по-късно. Ако смятате, че транзакцията се забавя много време, моля свържете се с нас.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Промяна</string>
@@ -295,7 +297,7 @@
     <string name="app_settings_action_app_info">Отваряне на информацията за приложението</string>
     <string name="app_settings_action_vpn_profile">Отваряне на VPN профила</string>
     <string name="app_settings_action_notifications">Отваряне на настройките за известия</string>
-    <string name="app_settings_section_details">Подробности</string>
+    <string name="app_settings_section_details">Детайли</string>
     <string name="app_settings_status_default">Настройки по подразбиране</string>
     <string name="app_settings_start_on_boot">Старт със системата</string>
     <string name="app_settings_use_dns_over_https">Използване на DNS през HTTPS</string>

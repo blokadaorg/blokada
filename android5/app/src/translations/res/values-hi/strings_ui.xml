@@ -65,9 +65,6 @@
     <string name="home_power_action_turn_on">चालू करें</string>
     <string name="home_power_action_turn_off">बंद करे</string>
     <string name="home_power_action_pause">5 मिनट के लिए रुकें</string>
-    <string name="home_status_paused">रोक दिया गया है</string>
-    <string name="home_status_active">सक्रिय</string>
-    <string name="home_status_deactivated">निष्क्रिय</string>
     <string name="home_action_tap_to_activate">सक्रिय करने के लिए टैप करें</string>
     <string name="home_status_detail_paused">टाइमर समाप्त होने तक रोक दिया गया</string>
     <string name="home_status_detail_active">अवरोधक *विज्ञापन* और *ट्रैकर्स*</string>
@@ -126,7 +123,6 @@
     <string name="account_section_header_primary">प्रमुख</string>
     <string name="account_section_header_other">अन्य</string>
     <string name="account_action_my_account">मेरा खाता</string>
-    <string name="account_action_encryption">एन्क्रिप्शन</string>
     <string name="account_action_devices">उपकरण</string>
     <string name="account_action_new_device">नया उपकरण</string>
     <string name="account_action_inbox">इनबॉक्स</string>
