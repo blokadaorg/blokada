@@ -34,5 +34,6 @@ class SharedActionsService {
     var refreshLeases = {}
     var present = { (vc: UIActivityViewController) in }
     var newMessage = {}
+    var refreshStats = {}
 
 }

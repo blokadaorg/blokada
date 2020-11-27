@@ -34,6 +34,9 @@ class HomeViewModel: ObservableObject {
 
     init() {
         sharedActions.changeGateway = switchGateway
+        sharedActions.refreshStats = {
+            self.refreshAdsCounter(delay: false)
+        }
         Config.shared.setOnConfigUpdated {
             onMain { self.syncUiWithConfig() }
         }
@@ -280,11 +283,9 @@ class HomeViewModel: ObservableObject {
                             } else {
                                 self.log.w("Foreground: synced: missing lease")
                             }
-                            self.refreshAdsCounter()
                         }
                     } else {
                         self.log.v("Foreground: synced")
-                        self.refreshAdsCounter()
                     }
                 }}
             }
@@ -358,7 +359,7 @@ class HomeViewModel: ObservableObject {
 
                                     self.expiration.update(Config.shared.lease())
                                     self.recheckActiveLeaseAfterActivating()
-                                    self.refreshAdsCounter()
+                                    self.refreshAdsCounter(delay: true)
                                     self.log.v("User action: switchMain: done")
                                 }}
                             } else if Config.shared.vpnEnabled() && Config.shared.hasLease() && Config.shared.accountActive() {
@@ -376,7 +377,7 @@ class HomeViewModel: ObservableObject {
                                         }
 
                                         self.expiration.update(Config.shared.lease())
-                                        self.refreshAdsCounter()
+                                        self.refreshAdsCounter(delay: true)
                                         self.log.v("User action: switchMain: done")
                                     }}
                                 }}
@@ -386,7 +387,7 @@ class HomeViewModel: ObservableObject {
                                 return self.handleError(CommonError.accountInactive, cause: error)
                             } else {
                                 // Filtering only mode
-                                self.refreshAdsCounter {
+                                self.refreshAdsCounter(delay: true) {
                                     if self.shouldShowRateScreen() {
                                         DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
                                             showRateScreen(())
@@ -604,6 +605,7 @@ class HomeViewModel: ObservableObject {
                 return done(nil, status)
             } else if status.active {
                 self.log.v(" NETX active")
+                self.refreshAdsCounter(delay: false)
                 if status.hasGateway() {
                     self.log.v("  Connected to gateway: \(status.gatewayId!)")
                     self.mainSwitch = true
@@ -707,9 +709,9 @@ class HomeViewModel: ObservableObject {
     }
 
     private let decoder = initJsonDecoder()
-    func refreshAdsCounter(ok: @escaping Ok<Void> = { _ in }) {
+    func refreshAdsCounter(delay: Bool, ok: @escaping Ok<Void> = { _ in }) {
         // Delay so that we get some entries on the activity list without the need to re-enter the app
-        bgThread.asyncAfter(deadline: .now() + TimeInterval(3), execute: {
+        bgThread.asyncAfter(deadline: .now() + TimeInterval(delay ? 3 : 0), execute: {
             self.network.sendMessage(msg: "stats", skipReady: false) { error, result in
                 if error != nil {
                     return self.log.w("refreshAdsCounter: failed sending stats message".cause(error))

@@ -167,7 +167,6 @@ class PackService {
 
     private init() {
         self.packs = loadPacks()
-        self.checkConfiguration()
         if self.packs.isEmpty {
             self.resetToDefaults()
         }

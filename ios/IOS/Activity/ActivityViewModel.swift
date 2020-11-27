@@ -24,6 +24,7 @@ import Foundation
 class ActivityViewModel: ObservableObject {
 
     private let service = ActivityService.shared
+    private let sharedActions = SharedActionsService.shared
 
     var allEntries = [HistoryEntry]()
     @Published var entries = [HistoryEntry]()
@@ -103,5 +104,9 @@ class ActivityViewModel: ObservableObject {
 
     func undeny(_ entry: HistoryEntry) {
         self.service.undeny(entry: entry)
+    }
+
+    func refreshStats() {
+        self.sharedActions.refreshStats()
     }
 }
