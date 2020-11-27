@@ -1528,7 +1528,7 @@
 				CODE_SIGN_ENTITLEMENTS = IOS/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1546,7 +1546,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.4.0;
+				MARKETING_VERSION = 5.5.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -1568,7 +1568,7 @@
 				CODE_SIGN_ENTITLEMENTS = IOS/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1586,7 +1586,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.4.0;
+				MARKETING_VERSION = 5.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = Blokada;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1677,7 +1677,7 @@
 				CODE_SIGN_ENTITLEMENTS = IOSNetworkExtension/IOSNetworkExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = IOSNetworkExtension/Info.plist;
@@ -1691,7 +1691,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.4.0;
+				MARKETING_VERSION = 5.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1709,7 +1709,7 @@
 				CODE_SIGN_ENTITLEMENTS = IOSNetworkExtension/IOSNetworkExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = IOSNetworkExtension/Info.plist;
@@ -1723,7 +1723,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.4.0;
+				MARKETING_VERSION = 5.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
