@@ -118,7 +118,7 @@ android {
     productFlavors {
         full {
             // full lands on blokada.org.
-            applicationId "org.blokada.origin.alarm"
+            applicationId "org.blokada.fyra"
         }
 
         google {
