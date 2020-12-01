@@ -117,13 +117,13 @@ android {
 
     productFlavors {
         full {
-            // full lands on blokada.org.
-            applicationId "org.blokada.fyra"
+            // full is old package name for blokada.org that is being phased out.
+            applicationId "org.blokada.origin.alarm"
         }
 
-        google {
-            // google build lands on Google Play.
-            applicationId "org.blokada.alarm.dnschanger"
+        fyra {
+            // fyra lands on blokada.org.
+            applicationId "org.blokada.fyra"
         }
 
         droid {
@@ -207,6 +207,21 @@ android {
 //        testfull.java.srcDirs += testModG11n.java.srcDirs
 //        testfull.java.srcDirs += testModWireguard.java.srcDirs
 
+        fyra.manifest.srcFile 'src/full/AndroidManifest.xml'
+        fyra.java.srcDirs += srcCoreKotlin
+        fyra.java.srcDirs += srcTunLocalKotlin
+        fyra.java.srcDirs += srcTunBlockaKotlin
+        fyra.java.srcDirs += srcFilterKotlin
+        fyra.java.srcDirs += srcUiCoreKotlin
+        fyra.java.srcDirs += srcUiBlokadaKotlin
+        fyra.java.srcDirs += srcLegacyKotlin
+        fyra.java.srcDirs += 'src/full/kotlin'
+        fyra.jniLibs.srcDirs += srcTunBlockaJni
+        fyra.res.srcDirs += srcCoreRes
+        fyra.res.srcDirs += srcUiCoreRes
+        fyra.res.srcDirs += srcUiBlokadaRes
+        fyra.res.srcDirs += 'src/full/res'
+
         droid.manifest.srcFile 'src/full/AndroidManifest.xml'
         droid.java.srcDirs += srcCoreKotlin
         droid.java.srcDirs += srcTunLocalKotlin
@@ -221,32 +236,7 @@ android {
         droid.res.srcDirs += srcUiCoreRes
         droid.res.srcDirs += srcUiBlokadaRes
         droid.res.srcDirs += 'src/full/res'
-//
-//        google.manifest.srcFile 'src/ui/AndroidManifest.xml'
-//        google.java.srcDirs += srcCoreKotlin
-//        google.java.srcDirs += srcTunnelKotlin
-//        google.java.srcDirs += srcG11nKotlin
-//        google.java.srcDirs += srcWireguardKotlin
-//        google.java.srcDirs += srcUiKotlin
-//        google.java.srcDirs += 'src/google/kotlin'
-//        google.jniLibs.srcDirs += srcWireguardJni
-//        google.res.srcDirs += srcUiRes
-//        google.res.srcDirs += 'src/google/res'
 
-        google.manifest.srcFile 'src/google/AndroidManifest.xml'
-        google.java.srcDirs += srcCoreKotlin
-        google.java.srcDirs += srcTunLocalKotlin
-        google.java.srcDirs += srcTunBlockaKotlin
-        google.java.srcDirs += srcFilterKotlin
-        google.java.srcDirs += srcUiCoreKotlin
-        google.java.srcDirs += srcUiBlokadaKotlin
-        google.java.srcDirs += srcLegacyKotlin
-        google.java.srcDirs += 'src/google/kotlin'
-        google.jniLibs.srcDirs += srcTunBlockaJni
-        google.res.srcDirs += srcCoreRes
-        google.res.srcDirs += srcUiCoreRes
-        google.res.srcDirs += srcUiBlokadaRes
-        google.res.srcDirs += 'src/google/res'
 
         /**
          * Build types are cross combined with flavors to make a final release
