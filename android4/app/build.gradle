@@ -10,17 +10,8 @@ buildscript {
     }
 }
 
-plugins {
-    id 'com.gladed.androidgitversion' version '0.4.13'
-}
-
 repositories {
     mavenCentral()
-}
-
-androidGitVersion {
-    codeFormat 'MNNPPPPPP'
-    format '%tag%'
 }
 
 apply plugin: 'com.android.application'
@@ -49,8 +40,8 @@ android {
         applicationId "org.blokada"
         minSdkVersion 21
         targetSdkVersion 28
-        versionName androidGitVersion.name()
-        versionCode androidGitVersion.code()
+        versionCode 409000000
+        versionName "4.9.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
