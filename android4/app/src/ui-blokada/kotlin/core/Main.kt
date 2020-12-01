@@ -60,6 +60,7 @@ class MainApplication: Application(), KodeinAware {
 
     override fun onCreate() {
         super.onCreate()
+        PersistenceMigration.setup(ktx("persistence"))
         Paper.init(this)
         setActiveContext(activity = false)
         defaultWriter.ctx = this
