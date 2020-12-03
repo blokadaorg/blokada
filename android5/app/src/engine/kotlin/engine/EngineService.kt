@@ -123,8 +123,7 @@ object EngineService {
 //                systemTunnel.open()
 //                status = TunnelStatus.filteringOnly(useDoh)
                 systemTunnel.onConfigureTunnel = { tun ->
-                    val ipv6 = PersistenceService.load(LocalConfig::class).ipv6
-                    configurator.forLibre(tun, dns, ipv6)
+                    configurator.forLibre(tun, dns)
                 }
                 val tunnelConfig = systemTunnel.open()
                 packetLoop.startSlimMode(useDoh, dns, tunnelConfig)
@@ -137,7 +136,7 @@ object EngineService {
                 if (useDoh) dnsService.startDnsProxy(dns)
                 systemTunnel.onConfigureTunnel = { tun ->
                     val ipv6 = PersistenceService.load(LocalConfig::class).ipv6
-                    configurator.forLibre(tun, dns, ipv6)
+                    configurator.forLibre(tun, dns)
                 }
                 val tunnelConfig = systemTunnel.open()
                 packetLoop.startLibreMode(useDoh, dns, tunnelConfig)
@@ -149,8 +148,7 @@ object EngineService {
                 dnsMapper.setDns(dnsForPlusMode, useDoh, plusMode = true)
                 if (useDoh) dnsService.startDnsProxy(dnsForPlusMode)
                 systemTunnel.onConfigureTunnel = { tun ->
-                    val ipv6 = PersistenceService.load(LocalConfig::class).ipv6
-                    configurator.forPlus(tun, ipv6, dnsForPlusMode, lease = lease)
+                    configurator.forPlus(tun, dnsForPlusMode, lease = lease)
                 }
                 systemTunnel.open()
                 status = TunnelStatus.filteringOnly(useDoh)

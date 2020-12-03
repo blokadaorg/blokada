@@ -116,18 +116,6 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             getString(R.string.universal_action_no)
         ).toTypedArray()
 
-        val ipv6: ListPreference = findPreference("app_ipv6")!!
-        ipv6.entryValues = yesNoChoice
-        ipv6.entries = ipv6.entryValues
-        ipv6.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                getString(R.string.universal_action_yes) -> vm.setIpv6(true)
-                else -> vm.setIpv6(false)
-            }
-            showRestartRequired()
-            true
-        }
-
         val backup: ListPreference = findPreference("app_backup")!!
         backup.entryValues = yesNoChoice
         backup.entries = backup.entryValues
@@ -196,11 +184,6 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             else getString(R.string.app_settings_browser_internal)
             browser.setDefaultValue(b)
             browser.value = b
-
-            val useIpv6 = if (it.ipv6) getString(R.string.universal_action_yes)
-            else getString(R.string.universal_action_no)
-            ipv6.setDefaultValue(useIpv6)
-            ipv6.value = useIpv6
 
             val useBackup = if (it.backup) getString(R.string.universal_action_yes)
             else getString(R.string.universal_action_no)

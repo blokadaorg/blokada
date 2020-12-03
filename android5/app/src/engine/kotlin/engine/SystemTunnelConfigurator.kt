@@ -36,17 +36,12 @@ object SystemTunnelConfigurator {
     private val log = Logger("STConfigurator")
     private val apps = AppRepository
 
-    fun forPlus(tun: VpnService.Builder, ipv6: Boolean, dns: Dns, lease: Lease) {
+    fun forPlus(tun: VpnService.Builder, dns: Dns, lease: Lease) {
         log.v("Configuring VPN for Plus mode")
 
-        if (ipv6) {
-            log.v("Using IP: ${lease.vip4}, ${lease.vip6}")
-            tun.addAddress(lease.vip4, 32)
-            tun.addAddress(lease.vip6, 128)
-        } else {
-            log.v("Using IP: ${lease.vip4}")
-            tun.addAddress(lease.vip4, 32)
-        }
+        log.v("Using IP: ${lease.vip4}, ${lease.vip6}")
+        tun.addAddress(lease.vip4, 32)
+        tun.addAddress(lease.vip6, 128)
 
         var index = 1
         val ips = dns.plusIps ?: dns.ips
@@ -65,10 +60,8 @@ object SystemTunnelConfigurator {
             tun.addRoute(ip, mask.toInt())
         }
 
-        if (ipv6) {
-            log.v("Setting all networks as routes for IPv6")
-            tun.addRoute("::", 0)
-        }
+        log.v("Setting all networks as routes for IPv6")
+        tun.addRoute("::", 0)
 
         log.v("Setting MTU: $MTU")
         tun.setMtu(MTU)
@@ -86,7 +79,7 @@ object SystemTunnelConfigurator {
         }
     }
 
-    fun forLibre(tun: VpnService.Builder, dns: Dns, ipv6: Boolean) {
+    fun forLibre(tun: VpnService.Builder, dns: Dns) {
         log.v("Configuring VPN for Libre mode")
 
         // TEST-NET IP range from RFC5735
@@ -100,18 +93,16 @@ object SystemTunnelConfigurator {
 
         log.v("Using IP: $ip")
 
-//        if (ipv6) {
-            // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
-            val ipv6 = "2001:db8:0:0:0:0:0:0"
+        // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
+        val ipv6 = "2001:db8:0:0:0:0:0:0"
 
-            try {
-                val address = Inet6Address.getByName(ipv6)
-                tun.addAddress(address, 120)
-                log.v("Using IPv6: $ipv6")
-            } catch (ex: Exception) {
-                log.e("Failed adding IPv6 address".cause(ex))
-            }
-//        }
+        try {
+            val address = Inet6Address.getByName(ipv6)
+            tun.addAddress(address, 120)
+            log.v("Using IPv6: $ipv6")
+        } catch (ex: Exception) {
+            log.e("Failed adding IPv6 address".cause(ex))
+        }
 
         var index = 1
         for (address in dns.ips.includeIpv6(false)) {
@@ -147,7 +138,7 @@ object SystemTunnelConfigurator {
         }
     }
 
-    fun forSlim(tun: VpnService.Builder, doh: Boolean, dns: Dns, ipv6: Boolean) {
+    fun forSlim(tun: VpnService.Builder, doh: Boolean, dns: Dns) {
         if (dns.id == "blocka") {
             throw BlockaDnsInFilteringMode()
         }
@@ -165,17 +156,15 @@ object SystemTunnelConfigurator {
 
         log.v("Using IP: $ip")
 
-        if (ipv6 && dns.ips.ipv6().isNotEmpty()) {
-            // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
-            val ipv6 = "2001:db8:0:0:0:0:0:0"
+        // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
+        val ipv6 = "2001:db8:0:0:0:0:0:0"
 
-            try {
-                val address = Inet6Address.getByName(ipv6)
-                tun.addAddress(address, 120)
-                log.v("Using IPv6: $ipv6")
-            } catch (ex: Exception) {
-                log.e("Failed adding IPv6 address".cause(ex))
-            }
+        try {
+            val address = Inet6Address.getByName(ipv6)
+            tun.addAddress(address, 120)
+            log.v("Using IPv6: $ipv6")
+        } catch (ex: Exception) {
+            log.e("Failed adding IPv6 address".cause(ex))
         }
 
         if (doh && dns.isDnsOverHttps()) {

@@ -69,12 +69,6 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:icon="@drawable/ic_baseline_settings_ethernet_24"
-            app:key="app_ipv6"
-            app:title="@string/app_settings_ipv_label"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
             app:icon="@drawable/ic_baseline_open_in_browser_24"
             app:key="app_browser"
             app:title="@string/app_settings_browser_label"
