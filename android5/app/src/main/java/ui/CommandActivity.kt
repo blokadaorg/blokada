@@ -35,6 +35,7 @@ import androidx.lifecycle.ViewModelProvider
 import model.BlokadaException
 import service.AlertDialogService
 import service.ContextService
+import service.EnvironmentService
 import service.LogService
 import ui.utils.cause
 import utils.Logger
@@ -101,7 +102,16 @@ class CommandActivity : AppCompatActivity() {
                 } else throw BlokadaException("Unknown param for command ACC: $param, ignoring")
             }
             Command.ESCAPE -> {
-                settingsVM.setEscaped(true)
+                if (param == null) {
+                    settingsVM.setEscaped(true)
+                } else {
+                    val versionCode = param.toInt()
+                    if (EnvironmentService.getVersionCode() <= versionCode) {
+                        settingsVM.setEscaped(true)
+                    } else {
+                        log.v("Ignoring escape command, too new version code")
+                    }
+                }
             }
             Command.TOAST -> {
                 Toast.makeText(this, param, Toast.LENGTH_LONG).show()
