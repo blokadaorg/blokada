@@ -135,7 +135,6 @@ object EngineService {
                 dnsMapper.setDns(dns, useDoh)
                 if (useDoh) dnsService.startDnsProxy(dns)
                 systemTunnel.onConfigureTunnel = { tun ->
-                    val ipv6 = PersistenceService.load(LocalConfig::class).ipv6
                     configurator.forLibre(tun, dns)
                 }
                 val tunnelConfig = systemTunnel.open()
