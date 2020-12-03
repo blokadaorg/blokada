@@ -100,7 +100,7 @@ object SystemTunnelConfigurator {
 
         log.v("Using IP: $ip")
 
-        if (ipv6 && dns.ips.ipv6().isNotEmpty()) {
+//        if (ipv6) {
             // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
             val ipv6 = "2001:db8:0:0:0:0:0:0"
 
@@ -111,7 +111,7 @@ object SystemTunnelConfigurator {
             } catch (ex: Exception) {
                 log.e("Failed adding IPv6 address".cause(ex))
             }
-        }
+//        }
 
         var index = 1
         for (address in dns.ips.includeIpv6(false)) {
