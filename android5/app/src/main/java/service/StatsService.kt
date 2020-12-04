@@ -65,7 +65,7 @@ object StatsService {
         return coroutineScope {
             Stats(
                 allowed = runtimeAllowed,
-                denied = runtimeAllowed,
+                denied = runtimeDenied,
                 entries = internalStats.map {
                     HistoryEntry(
                         name = it.key.host(),
