@@ -198,12 +198,12 @@ class StatsViewModel : ViewModel() {
         // Apply filtering
         when (filter) {
             Filter.BLOCKED -> {
-                // Blocked only
-                entries = entries.filter { it.type == HistoryEntryType.blocked }
+                // Show blocked and denied hosts only
+                entries = entries.filter { it.type == HistoryEntryType.blocked || it.type == HistoryEntryType.blocked_denied }
             }
             Filter.ALLOWED -> {
-                // Allowed only
-                entries = entries.filter { it.type != HistoryEntryType.blocked }
+                // Show allowed and bypassed hosts only
+                entries = entries.filter { it.type != HistoryEntryType.blocked && it.type != HistoryEntryType.blocked_denied }
             }
             else -> {}
         }
