@@ -74,7 +74,7 @@ object PackDataSource {
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/goodbyeads/xiaomi/hosts.txt", applyFor = "Xiaomi"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/goodbyeads/spotify/hosts.txt", applyFor = "Spotify")),
 
-    Pack.mocked(id = "adaway", tags = listOf(Pack.official, "adblocking"),
+        Pack.mocked(id = "adaway", tags = listOf(Pack.official, "adblocking"),
             title = "AdAway",
             slugline = "Adblocking for your mobile device",
             description = "A special blocklist containing mobile ad providers.",
@@ -108,7 +108,7 @@ object PackDataSource {
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/ddgtrackerradar/standard/hosts.txt", applyFor = "Standard")),
 
-        Pack.mocked(id = "blacklist", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy"),
+        Pack.mocked(id = "blacklist", tags = listOf(Pack.official, "adblocking", "tracking", "privacy"),
             title = "Blacklist",
             slugline = "Curated blocklist to block trackers and advertisements",
             description = "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly.",
@@ -130,5 +130,16 @@ object PackDataSource {
         )
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/exodusprivacy/standard/hosts.txt", applyFor = "Standard")),
+
+        Pack.mocked(id = "oisd", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"),
+            title = "OISD",
+            slugline = "A good general purpose blocklist",
+            description = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere w normal apps and services.",
+            creditName = "sjhgvr",
+            creditUrl = "https://go.blokada.org/oisd",
+            configs = listOf("Light")
+        )
+            .changeStatus(config = "Light")
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor = "Light")),
     )
 }
