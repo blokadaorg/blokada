@@ -182,6 +182,7 @@
     <string name="account_action_why_upgrade">Warum sollte ich upgraden?</string>
     <string name="account_subscription_header_renew">Automatisch erneuern</string>
     <string name="account_subscription_header_payment_method">Zahlungsart</string>
+    <string name="account_subscription_renew_unsupported">Deine Zahlungsmethode erlaubt es hier nicht die automatische Erneuerungseinstellung zu kontrollieren.</string>
     <string name="account_unlock_to_show">Entsperren, um deine Konto-ID zu sehen</string>
     <string name="account_header_logout">Käufe wiederherstellen</string>
     <string name="account_logout_description">Bitte gib eine weitere Konto-ID ein oder geh zurück um das bestehende Konto zu nutzen (diese App kann nicht ohne ein Konto benutzt werden).</string>

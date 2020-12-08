@@ -84,6 +84,9 @@
     <string name="home_power_action_turn_on">Activar</string>
     <string name="home_power_action_turn_off">Desactivar</string>
     <string name="home_power_action_pause">Pausar 5 minutos</string>
+    <string name="home_status_paused">En pausa</string>
+    <string name="home_status_active">Activo</string>
+    <string name="home_status_deactivated">Desactivado</string>
     <string name="home_action_tap_to_activate">toca para activar</string>
     <string name="home_status_detail_paused">en pausa hasta que el temporizador termine</string>
     <string name="home_status_detail_active">bloqueando *anuncios* y *rastreadores*</string>
@@ -155,6 +158,7 @@
     <string name="account_section_header_primary">Principal</string>
     <string name="account_section_header_other">Otros</string>
     <string name="account_action_my_account">Mi cuenta</string>
+    <string name="account_action_encryption">Encriptación y DNS</string>
     <string name="account_action_devices">Dispositivos</string>
     <string name="account_action_new_device">Nuevo dispositivo</string>
     <string name="account_action_inbox">Bandeja de entrada</string>
@@ -178,6 +182,7 @@
     <string name="account_action_why_upgrade">¿Por qué deberías actualizar?</string>
     <string name="account_subscription_header_renew">Renovar automáticamente</string>
     <string name="account_subscription_header_payment_method">Método de pago</string>
+    <string name="account_subscription_renew_unsupported">Su método de pago no permite controlar la configuración de renovación automática aquí.</string>
     <string name="account_unlock_to_show">Desbloquea para mostrar el ID de tu cuenta</string>
     <string name="account_header_logout">Restaurar compra</string>
     <string name="account_logout_description">Por favor, introduce otro ID de cuenta, o vuelve atrás para seguir usando la cuenta existente (esta aplicación no se puede utilizar sin una).</string>
@@ -242,12 +247,15 @@
     <string name="payment_action_terms">Condiciones del servicio</string>
     <string name="payment_action_policy">Política de privacidad</string>
     <string name="payment_alert_error_header">Un mensaje de App Store</string>
+    <string name="payment_save_text">Estás ahorrando %s</string>
     <string name="payment_subscription__month">1 mes</string>
     <string name="payment_subscription_many_months">%s meses</string>
     <string name="payment_subscription_per_month">%s por mes</string>
     <string name="payment_subscription_offer">Ahorra %s</string>
     <string name="payment_success_label">¡Gracias!</string>
     <string name="payment_success_desc">¡Tu cuenta está activa! Ahora puedes usar todas las funciones de Blokada Plus en todos tus dispositivos.</string>
+    <string name="payment_ongoing_title">Tu pago está siendo procesado.</string>
+    <string name="payment_ongoing_desc">Los pagos con tarjeta de crédito no deberían tardar más de unos minutos. Los pagos con criptomonedas generalmente demoran hasta una hora, dependiendo de la tarifa de transacción que elija. En el caso de PayPal, puede tardar hasta 24 horas. Serás redirigido una vez que tu cuenta esté lista. También puede cerrar esta ventana y volver más tarde. Si cree que su transacción está demorando demasiado, comuníquese con nosotros.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Cambiar</string>

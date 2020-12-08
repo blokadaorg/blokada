@@ -231,7 +231,7 @@
 "account action why upgrade" = "為什麼要升級？";
 "account subscription header renew" = "自動續訂";
 "account subscription header payment method" = "付款方法";
-"account subscription renew unsupported" = "您的付款方式不允許在此控制自動續訂設定。";
+"account subscription renew unsupported" = "您的付款方式不允許在此使用自動續約。";
 
 "account unlock to show" = "解鎖以顯示您的帳號 ID";
 
@@ -315,8 +315,8 @@
 "payment success label" = "謝謝！";
 "payment success desc" = "您的帳號已可使用！您現在可以在您的裝置上使用所有的 Blokada Plus 功能。";
 
-"payment ongoing title" = "您的付款現正處理中。";
-"payment ongoing desc" = "信用卡付款的時間應該不會超過數分鐘。加密貨幣付款通常需要一小時，取決於您選擇的交易費用。如果使用 PayPal，則最多可能需要24小時。您的帳號準備就緒後，您就會被重新導向。您也可以關閉此畫面，稍後再回來。如果您覺得交易時間太長，請聯絡我們。";
+"payment ongoing title" = "正在處理您的付款。";
+"payment ongoing desc" = "信用卡付款應該不會花太久時間。加密貨幣則通常花到一個小時以上，這取決於您給的處理費用。而 PayPal 可能要用到一整天。當準備好後，將會自動引導您的帳號。可以關掉螢幕，稍微休息一下。如果覺得付款時間太長，請再聯絡我們。";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "變更";

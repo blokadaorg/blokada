@@ -59,6 +59,7 @@
     <string name="home_power_off_menu_header">Mit szeretnél tenni?</string>
     <string name="home_power_action_turn_on">Bekapcsolás</string>
     <string name="home_power_action_turn_off">Kikapcsolás</string>
+    <string name="home_status_active">Aktív</string>
     <string name="home_action_tap_to_activate">koppints az aktiváláshoz</string>
     <string name="home_status_detail_progress">kérlek, várj...</string>
     <string name="home_plus_button_deactivated">BLOKADA+ deaktiválva</string>

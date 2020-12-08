@@ -218,8 +218,8 @@
 "account action restoring" = "Restoring account: %@";
 "account label enter to continue" = "Enter your account ID to continue";
 "account restore description" = "Don't worry, if you lost or forgot your account ID, we can recover it. Please contact our support, and provide us information that will allow us to identify your purchase (eg. last 4 digits of your credit card, or PayPal email).";
-"account create description" = "This is your account ID. You should write it down, as it is the only way for you to get access to your subscription. Also, do not share it with anyone, so your account won't get stolen.";
-"account create confirm" = "I know my account ID";
+"account create description" = "This is your account ID. Write it down and keep it private. It’s the only way to access your subscription.";
+"account create confirm" = "I wrote it down";
 
 "account section header my subscription" = "My Subscription";
 "account section header general" = "General";
@@ -315,6 +315,9 @@
 "payment success label" = "Thanks!";
 "payment success desc" = "Your account is now active! You may now use all Blokada Plus features on all your devices.";
 
+"payment redirect label" = "Redirecting...";
+"payment redirect desc" = "Please wait. This should only take a moment.";
+
 "payment ongoing title" = "Your payment is now being processed.";
 "payment ongoing desc" = "Credit card payments should not take more than a few minutes. Cryptocurrency payments usually take up to an hour, depending on what transaction fee you chose. In case of PayPal, it may take up to 24 hours. You will get redirected once your account is ready. You may also close this screen, and come again later. If you feel like your transaction is taking too long, please contact us.";
 "payment pay google short" = "Google Pay";
@@ -336,6 +339,9 @@
 "payment package twelve months" = "12 Months";
 "payment label discount" = "Save %@ (%@ / mo)";
 "payment label country" = "Country";
+
+"payment euro desc" = "We are based in Europe, so we accept Euro: €10 is roughly $12.";
+"payment donate disclaimer" = "This won't activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installed";

@@ -48,6 +48,7 @@
     <string name="home_power_action_turn_on">Inschakelen</string>
     <string name="home_power_action_turn_off">Uitschakelen</string>
     <string name="home_power_action_pause">Pauzeer voor 5 minuten</string>
+    <string name="home_status_active">Actief</string>
     <string name="home_action_tap_to_activate">tik om te activeren</string>
     <string name="home_status_detail_paused">gepauzeerd totdat de timer afloopt</string>
     <string name="home_status_detail_active">blokkeert *advertenties* en *trackers*</string>

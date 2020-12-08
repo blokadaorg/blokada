@@ -170,8 +170,8 @@
     <string name="account_action_restoring">Restoring account: %s</string>
     <string name="account_label_enter_to_continue">Enter your account ID to continue</string>
     <string name="account_restore_description">Don\'t worry, if you lost or forgot your account ID, we can recover it. Please contact our support, and provide us information that will allow us to identify your purchase (eg. last 4 digits of your credit card, or PayPal email).</string>
-    <string name="account_create_description">This is your account ID. You should write it down, as it is the only way for you to get access to your subscription. Also, do not share it with anyone, so your account won\'t get stolen.</string>
-    <string name="account_create_confirm">I know my account ID</string>
+    <string name="account_create_description">This is your account ID. Write it down and keep it private. It’s the only way to access your subscription.</string>
+    <string name="account_create_confirm">I wrote it down</string>
     <string name="account_section_header_my_subscription">My Subscription</string>
     <string name="account_section_header_general">General</string>
     <string name="account_section_header_subscription">Subscription</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">Save %s</string>
     <string name="payment_success_label">Thanks!</string>
     <string name="payment_success_desc">Your account is now active! You may now use all Blokada Plus features on all your devices.</string>
+    <string name="payment_redirect_label">Redirecting...</string>
+    <string name="payment_redirect_desc">Please wait. This should only take a moment.</string>
     <string name="payment_ongoing_title">Your payment is now being processed.</string>
     <string name="payment_ongoing_desc">Credit card payments should not take more than a few minutes. Cryptocurrency payments usually take up to an hour, depending on what transaction fee you chose. In case of PayPal, it may take up to 24 hours. You will get redirected once your account is ready. You may also close this screen, and come again later. If you feel like your transaction is taking too long, please contact us.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 Months</string>
     <string name="payment_label_discount">Save %s (%s / mo)</string>
     <string name="payment_label_country">Country</string>
+    <string name="payment_euro_desc">We are based in Europe, so we accept Euro: €10 is roughly $12.</string>
+    <string name="payment_donate_disclaimer">This won\'t activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.</string>
     <string name="apps_section_header">Apps</string>
     <string name="apps_label_installed">Installed</string>
     <string name="apps_label_system">System</string>

@@ -65,6 +65,7 @@
     <string name="home_power_action_turn_on">चालू करें</string>
     <string name="home_power_action_turn_off">बंद करे</string>
     <string name="home_power_action_pause">5 मिनट के लिए रुकें</string>
+    <string name="home_status_active">सक्रिय</string>
     <string name="home_action_tap_to_activate">सक्रिय करने के लिए टैप करें</string>
     <string name="home_status_detail_paused">टाइमर समाप्त होने तक रोक दिया गया</string>
     <string name="home_status_detail_active">अवरोधक *विज्ञापन* और *ट्रैकर्स*</string>

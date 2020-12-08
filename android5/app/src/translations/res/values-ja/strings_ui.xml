@@ -9,7 +9,7 @@
     <string name="error_tunnel">VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokada VPNプロファイルを削除して再度お試しください。</string>
     <string name="error_vpn">VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokada VPNプロファイルを削除して再度お試しください。</string>
     <string name="error_vpn_perms">VPNプロファイルを作成する権限がありません。</string>
-    <string name="error_vpn_no_current_lease">場所を選択してください。</string>
+    <string name="error_vpn_no_current_lease">接続先を選択してください。</string>
     <string name="error_vpn_too_many_leases">デバイス数の上限に達しました。いずれかのデバイスを削除して、もう一度やり直してください。</string>
     <string name="error_vpn_expired">VPNは無効です。BLOKADA+を引き続き使用するには、サブスクリプションを更新してください</string>
     <string name="error_payment_inactive_after_restore">以前の支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。</string>
@@ -92,11 +92,11 @@
     <string name="home_status_detail_active">*広告*と*トラッカー*をブロック</string>
     <string name="home_status_detail_active_with_counter">*%s* の広告とトラッカーをブロック</string>
     <string name="home_status_detail_active_slim">Blokada *Slim*がアクティブです</string>
-    <string name="home_status_detail_plus">*+* *プライバシー*を保護する</string>
+    <string name="home_status_detail_plus">*+* *プライバシー*を保護</string>
     <string name="home_status_detail_progress">お待ちください…</string>
     <string name="home_plus_button_deactivated">BLOKADA+は無効です</string>
-    <string name="home_plus_button_select_location">場所を選択</string>
-    <string name="home_plus_button_location">場所: *%s*</string>
+    <string name="home_plus_button_select_location">接続先を選択</string>
+    <string name="home_plus_button_location">接続先：*%s*</string>
     <string name="pack_section_header">高度な機能</string>
     <string name="pack_section_header_details">機能の詳細</string>
     <string name="pack_action_install">取得</string>
@@ -115,7 +115,7 @@
     <string name="advanced_section_slugline_apps">アプリのバイパスを管理する</string>
     <string name="advanced_section_slugline_encryption">暗号化レベルとDNSを管理する</string>
     <string name="advanced_action_slim_migrate_to_full">Blokada Slimを使用しています。詳細はこちら</string>
-    <string name="location_choice_header">場所を選択</string>
+    <string name="location_choice_header">接続先を選択</string>
     <string name="activity_section_header">アクティビティ</string>
     <string name="activity_section_header_details">アクティビティの詳細</string>
     <string name="activity_request_blocked">このリクエストはブロックされています。</string>
@@ -205,7 +205,7 @@
     <string name="account_encrypt_label_level_low">低：暗号化なし</string>
     <string name="account_encrypt_label_level_medium">中: DNSの暗号化</string>
     <string name="account_encrypt_label_level_high">高: すべての暗号化</string>
-    <string name="account_encrypt_header_explanation">DNSとは、あなたのデバイスがウェブサイトのある場所を知る方法です。BLOKADAは暗号化されたサーバーのみをサポートしています。</string>
+    <string name="account_encrypt_header_explanation">DNSとは、あなたのデバイスにウェブサイトのあるサーバーを案内するシステムです。BLOKADAは暗号化されたサーバーのみをサポートしています。</string>
     <string name="account_encrypt_label_dns">DNS</string>
     <string name="account_encrypt_action_what_is_dns">DNSとは？</string>
     <string name="account_encrypt_section_header">暗号化</string>
@@ -215,7 +215,7 @@
     <string name="account_lease_label_devices">デバイス</string>
     <string name="account_lease_label_this_device"> (このデバイス)</string>
     <string name="account_lease_label_name">デバイス名</string>
-    <string name="account_lease_label_location">場所</string>
+    <string name="account_lease_label_location">接続先</string>
     <string name="account_lease_action_generate">設定を作成する</string>
     <string name="account_lease_action_download">設定をダウンロード</string>
     <string name="account_lease_generated">デバイスが追加されました！設定をダウンロードして、Wireguardでサポートされているすべてのデバイスで使用できます。</string>
@@ -226,10 +226,10 @@
     <string name="account_support_action_how_help">お困りですか？</string>
     <string name="account_support_action_kb">サポートFAQ</string>
     <string name="payment_header_activated">アクティベートされました！</string>
-    <string name="payment_activated_description">BlokadaがPlusモードに切り替わり、安全な場所の1つを介して接続します。 どれを選択すればよいかわからない場合は、最も近いものをお勧めします。</string>
-    <string name="payment_action_choose_location">場所を選択</string>
+    <string name="payment_activated_description">BlokadaがPlusモードに切り替わり、安全な接続先の1つを介して接続します。 どれを選択すればよいかわからない場合は、最も近いものをお勧めします。</string>
+    <string name="payment_action_choose_location">接続先を選択</string>
     <string name="payment_title">VPNサービスにアップグレードして、*あなたのプライバシー*を管理し続けましょう。</string>
-    <string name="payment_feature_title_change_location">場所を変更</string>
+    <string name="payment_feature_title_change_location">接続先を変更</string>
     <string name="payment_feature_desc_change_location">あなたのIPアドレスを非表示にして、あなたが他の国に居るように見せかけます。これは第三者からあなたを隠し、身元を保護するのに役立ちます。</string>
     <string name="payment_feature_title_encrypt_data">データを暗号化</string>
     <string name="payment_feature_desc_encrypt_data">当社のVPNトンネルを通じて送信されるデータは、権限のない当事者による傍受から保護するために強力なアルゴリズムを使用して暗号化されます。</string>

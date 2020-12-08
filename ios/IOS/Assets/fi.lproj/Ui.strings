@@ -108,6 +108,7 @@
 "home power action turn on" = "Ota käyttöön";
 "home power action turn off" = "Kytke pois";
 "home power action pause" = "Pysäytä viideksi minuutiksi";
+"home status active" = "Aktiivinen";
 "home action tap to activate" = "napauta aktivoidaksesi";
 "home status detail paused" = "pysäytetty kunnes ajastin loppuu";
 "home status detail active" = "estetään *mainoksia* ja *seurantaohjelmia*";

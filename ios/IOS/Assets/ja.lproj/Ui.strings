@@ -28,7 +28,7 @@
 "error tunnel" = "VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokada VPNプロファイルを削除して再度お試しください。";
 "error vpn" = "VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokada VPNプロファイルを削除して再度お試しください。";
 "error vpn perms" = "VPNプロファイルを作成する権限がありません。";
-"error vpn no current lease" = "場所を選択してください。";
+"error vpn no current lease" = "接続先を選択してください。";
 "error vpn too many leases" = "デバイス数の上限に達しました。いずれかのデバイスを削除して、もう一度やり直してください。";
 "error vpn expired" = "VPNは無効です。BLOKADA+を引き続き使用するには、サブスクリプションを更新してください";
 "error payment inactive after restore" = "以前の支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
@@ -128,12 +128,12 @@
 "home status detail active" = "*広告*と*トラッカー*をブロック";
 "home status detail active with counter" = "*%@* の広告とトラッカーをブロック";
 "home status detail active slim" = "Blokada *Slim*がアクティブです";
-"home status detail plus" = "*+* *プライバシー*を保護する";
+"home status detail plus" = "*+* *プライバシー*を保護";
 "home status detail progress" = "お待ちください…";
 
 "home plus button deactivated" = "BLOKADA+は無効です";
-"home plus button select location" = "場所を選択";
-"home plus button location" = "場所: *%@*";
+"home plus button select location" = "接続先を選択";
+"home plus button location" = "接続先：*%@*";
 
 "pack section header" = "高度な機能";
 "pack section header details" = "機能の詳細";
@@ -155,7 +155,7 @@
 "advanced section slugline encryption" = "暗号化レベルとDNSを管理する";
 "advanced action slim migrate to full" = "Blokada Slimを使用しています。詳細はこちら";
 
-"location choice header" = "場所を選択";
+"location choice header" = "接続先を選択";
 
 "activity section header" = "アクティビティ";
 "activity section header details" = "アクティビティの詳細";
@@ -259,7 +259,7 @@
 "account encrypt label level low" = "低：暗号化なし";
 "account encrypt label level medium" = "中: DNSの暗号化";
 "account encrypt label level high" = "高: すべての暗号化";
-"account encrypt header explanation" = "DNSとは、あなたのデバイスがウェブサイトのある場所を知る方法です。BLOKADAは暗号化されたサーバーのみをサポートしています。";
+"account encrypt header explanation" = "DNSとは、あなたのデバイスにウェブサイトのあるサーバーを案内するシステムです。BLOKADAは暗号化されたサーバーのみをサポートしています。";
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "DNSとは？";
 "account encrypt section header" = "暗号化";
@@ -270,7 +270,7 @@
 "account lease label devices" = "デバイス";
 "account lease label this device" = " (このデバイス)";
 "account lease label name" = "デバイス名";
-"account lease label location" = "場所";
+"account lease label location" = "接続先";
 "account lease action generate" = "設定を作成する";
 "account lease action download" = "設定をダウンロード";
 "account lease generated" = "デバイスが追加されました！設定をダウンロードして、Wireguardでサポートされているすべてのデバイスで使用できます。";
@@ -283,11 +283,11 @@
 "account support action kb" = "サポートFAQ";
 
 "payment header activated" = "アクティベートされました！";
-"payment activated description" = "BlokadaがPlusモードに切り替わり、安全な場所の1つを介して接続します。 どれを選択すればよいかわからない場合は、最も近いものをお勧めします。";
-"payment action choose location" = "場所を選択";
+"payment activated description" = "BlokadaがPlusモードに切り替わり、安全な接続先の1つを介して接続します。 どれを選択すればよいかわからない場合は、最も近いものをお勧めします。";
+"payment action choose location" = "接続先を選択";
 
 "payment title" = "VPNサービスにアップグレードして、*あなたのプライバシー*を管理し続けましょう。";
-"payment feature title change location" = "場所を変更";
+"payment feature title change location" = "接続先を変更";
 "payment feature desc change location" = "あなたのIPアドレスを非表示にして、あなたが他の国に居るように見せかけます。これは第三者からあなたを隠し、身元を保護するのに役立ちます。";
 "payment feature title encrypt data" = "データを暗号化";
 "payment feature desc encrypt data" = "当社のVPNトンネルを通じて送信されるデータは、権限のない当事者による傍受から保護するために強力なアルゴリズムを使用して暗号化されます。";

@@ -181,6 +181,7 @@
     "account action why upgrade": "Warum sollte ich upgraden?",
     "account subscription header renew": "Automatisch erneuern",
     "account subscription header payment method": "Zahlungsart",
+    "account subscription renew unsupported": "Deine Zahlungsmethode erlaubt es hier nicht die automatische Erneuerungseinstellung zu kontrollieren.",
     "account unlock to show": "Entsperren, um deine Konto-ID zu sehen",
     "account header logout": "Käufe wiederherstellen",
     "account logout description": "Bitte gib eine weitere Konto-ID ein oder geh zurück um das bestehende Konto zu nutzen (diese App kann nicht ohne ein Konto benutzt werden).",

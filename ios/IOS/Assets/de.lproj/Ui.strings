@@ -231,6 +231,7 @@
 "account action why upgrade" = "Warum sollte ich upgraden?";
 "account subscription header renew" = "Automatisch erneuern";
 "account subscription header payment method" = "Zahlungsart";
+"account subscription renew unsupported" = "Deine Zahlungsmethode erlaubt es hier nicht die automatische Erneuerungseinstellung zu kontrollieren.";
 
 "account unlock to show" = "Entsperren, um deine Konto-ID zu sehen";
 
