@@ -32,6 +32,7 @@ import utils.Logger
 import java.io.IOException
 import java.net.Inet4Address
 import java.net.Inet6Address
+import java.net.InetAddress
 import java.net.SocketException
 import java.nio.ByteBuffer
 import java.util.*
@@ -138,7 +139,7 @@ internal class PacketRewriter(
 
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
-            dnsMessage.addRecord(denyResponse, Section.AUTHORITY)
+            dnsMessage.addRecord(generateDenyResponse(host), Section.ANSWER)
             toDeviceFakeDnsResponse(dnsMessage.toWire(), originEnvelope)
             true
         }
@@ -258,8 +259,5 @@ fun handleForwardException(ex: Exception): Boolean {
     }
 }
 
-private val denyResponse: SOARecord = SOARecord(
-    Name("org.blokada.invalid."), DClass.IN,
-    5L, Name("org.blokada.invalid."), Name("org.blokada.invalid."), 0, 0, 0, 0, 5
-)
-
+private fun generateDenyResponse(name: String) = ARecord(Name(name), DClass.IN, 5, localhost)
+private val localhost = InetAddress.getByAddress(byteArrayOf(127, 1, 1, 1))
