@@ -259,5 +259,5 @@ fun handleForwardException(ex: Exception): Boolean {
     }
 }
 
-private fun generateDenyResponse(name: String) = ARecord(Name(name), DClass.IN, 5, localhost)
+private fun generateDenyResponse(name: String) = ARecord(Name("$name."), DClass.IN, 5, localhost)
 private val localhost = InetAddress.getByAddress(byteArrayOf(127, 1, 1, 1))
