@@ -56,7 +56,7 @@ struct ContentView: View {
                 MainView(accountVM: self.accountVM, packsVM: self.packsVM, activityVM: self.activityVM, vm: self.vm, inboxVM: self.inboxVM, leaseVM: self.leaseVM, tabVM: self.tabVM, activeSheet: self.$activeSheet)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .padding(.top, geometry.safeAreaInsets.top)
-                    .sheet(item: self.$activeSheet) { item in
+                    .sheet(item: self.$activeSheet, onDismiss: { self.activeSheet = nil }) { item in
                         switch item {
                         case .plus:
                             PaymentGatewayView(vm: self.paymentVM, activeSheet: self.$activeSheet)

@@ -33,7 +33,9 @@ struct PaymentGatewayView: View {
     var body: some View {
         if self.vm.accountActive {
             self.activeSheet = nil
-            self.activeSheet = .activated
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+                self.activeSheet = .activated
+            })
         }
 
         return ZStack(alignment: .topTrailing) {
