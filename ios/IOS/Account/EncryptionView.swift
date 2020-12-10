@@ -43,7 +43,11 @@ struct EncryptionView: View {
                     Spacer()
 
                     if self.homeVM.working {
-                        SpinnerView()
+                        if #available(iOS 14.0, *) {
+                            ProgressView()
+                        } else {
+                            SpinnerView()
+                        }
                     } else if self.homeVM.encryptionLevel == 1 {
                         Text(L10n.accountEncryptLabelLevelLow).foregroundColor(Color.red)
                     } else if self.homeVM.encryptionLevel == 2 {

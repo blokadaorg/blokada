@@ -41,16 +41,20 @@ struct LoadingButtonView: View {
                         .opacity(loading ? 0 : 1)
                         .animation(.easeInOut)
                         .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
+
+                    ProgressView()
+                        .opacity(loading ? 1 : 0)
+                        .animation(.easeInOut)
                 } else {
                     Toggle("", isOn: .constant(self.isOn))
                         .labelsHidden()
                         .opacity(loading ? 0 : 1)
                         .animation(.easeInOut)
-                }
 
-                SpinnerView()
-                    .opacity(loading ? 1 : 0)
-                    .animation(.easeInOut)
+                    SpinnerView()
+                        .opacity(loading ? 1 : 0)
+                        .animation(.easeInOut)
+                }
             }
 
         }.buttonStyle(BorderlessButtonStyle())

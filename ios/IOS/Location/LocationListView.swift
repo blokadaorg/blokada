@@ -26,11 +26,7 @@ struct LocationListView: View {
     @ObservedObject var vm = LocationListViewModel()
     @Binding var activeSheet: ActiveSheet?
 
-    @State var showSpinner = false
-    var foreverAnimation: Animation {
-        Animation.linear(duration: 1.3)
-            .repeatForever(autoreverses: false)
-    }
+    @State var showSpinner = true
 
     var body: some View {
         return VStack {
@@ -119,18 +115,11 @@ struct LocationListView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        // Spinner
-                        Circle()
-                            .trim(from: 0, to: 7/10)
-                            .stroke(Color(UIColor.systemGray4), lineWidth: 2)
-                            .rotationEffect(.degrees(self.showSpinner ? 0 : -360), anchor: .center)
-                            .opacity(0.4)
-                            .frame(width: 24, height: 24)
-                            .onAppear {
-                                withAnimation(foreverAnimation) {
-                                    self.showSpinner = true
-                                }
-                            }
+                        if #available(iOS 14.0, *) {
+                            ProgressView()
+                        } else {
+                            SpinnerView()
+                        }
                         Spacer()
                     }
                     .padding(.top, 100)

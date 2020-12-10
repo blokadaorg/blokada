@@ -87,7 +87,11 @@ struct ContentView: View {
                                 Spacer()
                                 HStack {
                                     Spacer()
-                                    SpinnerView()
+                                    if #available(iOS 14.0, *) {
+                                        ProgressView()
+                                    } else {
+                                        SpinnerView()
+                                    }
                                     Spacer()
                                 }
                                 Spacer()

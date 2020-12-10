@@ -53,9 +53,14 @@ struct PaymentListView: View {
                     Spacer()
                     VStack {
                         if self.vm.working {
-                            SpinnerView()
-                                .frame(width: 24, height: 24)
-                                .padding(.bottom)
+                            if #available(iOS 14.0, *) {
+                                ProgressView()
+                                    .padding(.bottom)
+                            } else {
+                                SpinnerView()
+                                    .frame(width: 24, height: 24)
+                                    .padding(.bottom)
+                            }
 
                             Text(L10n.universalStatusProcessing)
                                 .multilineTextAlignment(.center)
