@@ -170,8 +170,8 @@
     <string name="account_action_restoring">استعادة الحساب: %s</string>
     <string name="account_label_enter_to_continue">أدخل مُعرِّف حسابك للمتابعة</string>
     <string name="account_restore_description">لا تقلق، إذا فقدت أو نسيت مُعرِّف حسابك، يُمكِننا استرداده. يُرجى الاتصال بدعمنا، وتوفير المعلومات التي سَتُمكّننا من التعرُّف على عمليّة الشراء الخاصّة بك (على سبيل المثال، آخر 4 أرقام لبطاقة الإئتمان الخاصّة بك، أو بريدك الإلكتروني في PayPal).</string>
-    <string name="account_create_description">هذا هو مُعَرِّف الحساب الخاص بك. يجب عليك كتابته، لأنّه الطريقة الوحيدة لك للوصول إلى اشتراكك. وأيضاً، لا تشاركه مع أي شخص، حتى لا يَتم سرقة حسابك.</string>
-    <string name="account_create_confirm">أنا أعرف مُعَرِّف حسابي</string>
+    <string name="account_create_description">هذا هو معرِّف حسابك. قم بتدوينه و حافظه عليه. إنّه الطريقة الوحيدة للوصول إلى اشتراكك.</string>
+    <string name="account_create_confirm">لقد قمت بتدوينه</string>
     <string name="account_section_header_my_subscription">اشتراكي</string>
     <string name="account_section_header_general">عام</string>
     <string name="account_section_header_subscription">الإشتراك</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">توفير %s</string>
     <string name="payment_success_label">شكراً !</string>
     <string name="payment_success_desc">الآن حسابك نَشِط ! يُمكِنك الآن استخدام جميع ميّزات بلوكادا بلس على جميع أجهزتك.</string>
+    <string name="payment_redirect_label">جارِ إعادة التوجيه...</string>
+    <string name="payment_redirect_desc">الرجاء الإنتظار. يجب أن يستغرق لحظات فقط.</string>
     <string name="payment_ongoing_title">جارِ معالجة عمليّة الدفع الخاصّة بك.</string>
     <string name="payment_ongoing_desc">يجب ألّا يستغرق دفع بطاقة الإئتمان أكثر من بضع دقائق. عادةً ما تستغرق مدفوعات العملات الرقميّة ما يصل إلى ساعة، تبعاً لرسوم المعاملات التي تختارها. في حالة باي بال ، قد يستغرق ما يصل إلى 24 ساعة. سيتم إعادة توجيه حسابك بمجرّد أن يكون جاهزاً. يمكنك أيضاً إغلاق هذه الشاشة، والعودة مرّة أُخرى لاحقاً. إذا كنت تشعر أن معاملتك تستغرق وقتاً طويلاً، الرجاء الاتصال بنا.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 شهر</string>
     <string name="payment_label_discount">حفظ %s (%s / mo)</string>
     <string name="payment_label_country">الدولة</string>
+    <string name="payment_euro_desc">نحن موجودون في أوروبا ، لذلك نقبل اليورو: 10 يورو تعادل 12 دولاراً تقريباً.</string>
+    <string name="payment_donate_disclaimer">لن يؤدّي هذا إلى تنشيط حساب بلوكادا بلس الخاصّ بك. إذا كنت ترغب في استخدام خدمة VPN الخاصّة بنا، يُرجى الإشتراك بدلاً من التبرُّع.</string>
     <string name="apps_section_header">التطبيقات</string>
     <string name="apps_label_installed">مُثَبَّت</string>
     <string name="apps_label_system">النظام</string>

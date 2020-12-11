@@ -218,8 +218,8 @@
 "account action restoring" = "Memulihkan akun: %@";
 "account label enter to continue" = "Masukkan ID akun Anda untuk melanjutkan";
 "account restore description" = "Jangan khawatir, jika Anda kehilangan atau lupa ID akun Anda, kami dapat memulihkannya. Silakan hubungi kanal dukungan kami, dan siapkan informasi yang memungkinkan kami mengidentifikasi pembelian Anda (misalnya 4 digit terakhir kartu kredit Anda, atau email yang Anda pakai untuk login di PayPal).";
-"account create description" = "Ini adalah ID akun Anda. Kami sangat menyarankan Anda untuk mencatatnya, karena ini adalah satu-satunya cara bagi Anda untuk mendapatkan akses ke langganan Anda. Selain itu, jangan membagikannya kepada siapa pun, agar akun Anda tidak dicuri.";
-"account create confirm" = "Saya tahu ID akun saya";
+"account create description" = "Ini adalah ID akun Anda. Harap dicatat dan dijaga kerahasiaannya. ID akun ini satu-satunya cara mengakses data berlangganan Anda.";
+"account create confirm" = "Saya sudah mencatat detil akun saya";
 
 "account section header my subscription" = "Status Berlangganan";
 "account section header general" = "Umum";
@@ -315,6 +315,9 @@
 "payment success label" = "Terima kasih!";
 "payment success desc" = "Akun Anda telah aktif! Sekarang Anda dapat menggunakan semua fitur Blokada Plus di semua perangkat Anda.";
 
+"payment redirect label" = "Mengalihkan...";
+"payment redirect desc" = "Harap tunggu beberapa saat.";
+
 "payment ongoing title" = "Pembayaran Anda sedang diproses.";
 "payment ongoing desc" = "Pembayaran melalui kartu kredit biasanya hanya memerlukan waktu beberapa menit saja. Pembayaran melalui cryptocurrency bisa mencapai satu jam, tergantung pada jenis transaksi yang Anda pakai. PayPal bisa memakan waktu sampai 24 jam. Anda akan diarahkan saat akun Anda telah siap. Anda juga bisa menutup halaman ini, dan kembali lagi beberapa waktu kemudian. Jika menurut Anda transaksi ini memakan terlalu banyak waktu, silakan hubungi kami.";
 "payment pay google short" = "Google Pay";
@@ -336,6 +339,9 @@
 "payment package twelve months" = "12 Bulan";
 "payment label discount" = "Hemat %@ (%@ / bulan)";
 "payment label country" = "Negara";
+
+"payment euro desc" = "Kami berbasis di Eropa, mata uang yang kami terima berupa Euro: di mana €10 kira-kira senilai Rp170.000.";
+"payment donate disclaimer" = "Donasi yang Anda berikan tidak akan mengaktifkan akun Blokada Plus. Jika Anda ingin menggunakan layanan VPN kami, silakan pilih opsi berlangganan.";
 
 "apps section header" = "Aplikasi";
 "apps label installed" = "Terinstal";

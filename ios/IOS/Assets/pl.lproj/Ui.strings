@@ -218,8 +218,8 @@
 "account action restoring" = "Przywracam konto: %@";
 "account label enter to continue" = "Podaj swój identyfikator konta, aby kontynuować";
 "account restore description" = "Nie martw się, jeśli zgubiłeś lub zapomniałeś swojego identyfikatora, możemy go odzyskać. Skontaktuj się z naszą obsługą i podaj nam informacje, które pozwolą nam zidentyfikować Twój zakup (np. 4 ostatnie cyfry Twojej karty kredytowej lub e-mail PayPal).";
-"account create description" = "To jest Twój identyfikator konta. Powinieneś go zapisać, ponieważ jest to jedyny sposób na uzyskanie dostępu do subskrypcji. Nie udostępniaj go nikomu, aby Twoje konto nie zostało skradzione.";
-"account create confirm" = "Znam mój identyfikator konta";
+"account create description" = "To jest Twój identyfikator konta. Zapisz i zachowaj go dla siebie. Jest to jedyny sposób na uzyskanie dostępu do subskrypcji.";
+"account create confirm" = "Zapisałem go";
 
 "account section header my subscription" = "Moja subskrypcja";
 "account section header general" = "Ogólne";
@@ -315,6 +315,9 @@
 "payment success label" = "Dzięki!";
 "payment success desc" = "Twoje konto jest teraz aktywne! Możesz teraz używać wszystkich funkcji Blokady Plus na wszystkich swoich urządzeniach.";
 
+"payment redirect label" = "Przekierowuję...";
+"payment redirect desc" = "Proszę czekać. To powinno zająć tylko chwilę.";
+
 "payment ongoing title" = "Twoja płatność jest teraz przetwarzana.";
 "payment ongoing desc" = "Płatności kartami kredytowymi nie powinny trwać dłużej niż kilka minut. Płatności kryptowalutami zazwyczaj trwają do godziny, w zależności od wybranej opłaty transakcyjnej. W przypadku PayPal może to trwać do 24 godzin. Zostaniesz przekierowany, gdy Twoje konto będzie gotowe. Możesz również zamknąć ten ekran i wrócić później. Jeśli masz wrażenie, że Twoja transakcja trwa zbyt długo, skontaktuj się z nami.";
 "payment pay google short" = "Google Pay";
@@ -336,6 +339,9 @@
 "payment package twelve months" = "12 Miesięcy";
 "payment label discount" = "Oszczędź %@ (%@ / mies.)";
 "payment label country" = "Kraj";
+
+"payment euro desc" = "Mamy siedzibę w Europie, więc akceptujemy euro: 10 euro to około 12 dolarów.";
+"payment donate disclaimer" = "To nie aktywuje Twojego konta Blokada Plus. Jeśli chcesz korzystać z naszej usługi VPN, wykup subskrypcję zamiast przekazywać darowiznę.";
 
 "apps section header" = "Aplikacje";
 "apps label installed" = "Zainstalowane";

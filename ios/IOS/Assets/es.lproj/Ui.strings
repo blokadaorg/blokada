@@ -218,8 +218,6 @@
 "account action restoring" = "Restaurando cuenta: %@";
 "account label enter to continue" = "Introduce tu ID de cuenta para continuar";
 "account restore description" = "No te preocupes, si has perdido o olvidado tu ID de cuenta, podemos recuperarlo. Por favor, ponte en contacto con nuestro equipo de soporte y proporciónanos información que nos permita identificar tu compra (por ejemplo, los últimos 4 dígitos de tu tarjeta de crédito o tu e-mail de PayPal).";
-"account create description" = "Este es el ID de tu cuenta. Deberías anotarlo, ya que es la única forma de obtener acceso a tu suscripción. Recuerda no compartirlo con nadie, para que tu cuenta no sea robada.";
-"account create confirm" = "Conozco mi ID de cuenta";
 
 "account section header my subscription" = "Mi suscripción";
 "account section header general" = "General";

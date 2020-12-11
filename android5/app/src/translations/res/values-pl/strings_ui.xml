@@ -170,8 +170,8 @@
     <string name="account_action_restoring">Przywracam konto: %s</string>
     <string name="account_label_enter_to_continue">Podaj swój identyfikator konta, aby kontynuować</string>
     <string name="account_restore_description">Nie martw się, jeśli zgubiłeś lub zapomniałeś swojego identyfikatora, możemy go odzyskać. Skontaktuj się z naszą obsługą i podaj nam informacje, które pozwolą nam zidentyfikować Twój zakup (np. 4 ostatnie cyfry Twojej karty kredytowej lub e-mail PayPal).</string>
-    <string name="account_create_description">To jest Twój identyfikator konta. Powinieneś go zapisać, ponieważ jest to jedyny sposób na uzyskanie dostępu do subskrypcji. Nie udostępniaj go nikomu, aby Twoje konto nie zostało skradzione.</string>
-    <string name="account_create_confirm">Znam mój identyfikator konta</string>
+    <string name="account_create_description">To jest Twój identyfikator konta. Zapisz i zachowaj go dla siebie. Jest to jedyny sposób na uzyskanie dostępu do subskrypcji.</string>
+    <string name="account_create_confirm">Zapisałem go</string>
     <string name="account_section_header_my_subscription">Moja subskrypcja</string>
     <string name="account_section_header_general">Ogólne</string>
     <string name="account_section_header_subscription">Subskrypcja</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">Oszczędź %s</string>
     <string name="payment_success_label">Dzięki!</string>
     <string name="payment_success_desc">Twoje konto jest teraz aktywne! Możesz teraz używać wszystkich funkcji Blokady Plus na wszystkich swoich urządzeniach.</string>
+    <string name="payment_redirect_label">Przekierowuję...</string>
+    <string name="payment_redirect_desc">Proszę czekać. To powinno zająć tylko chwilę.</string>
     <string name="payment_ongoing_title">Twoja płatność jest teraz przetwarzana.</string>
     <string name="payment_ongoing_desc">Płatności kartami kredytowymi nie powinny trwać dłużej niż kilka minut. Płatności kryptowalutami zazwyczaj trwają do godziny, w zależności od wybranej opłaty transakcyjnej. W przypadku PayPal może to trwać do 24 godzin. Zostaniesz przekierowany, gdy Twoje konto będzie gotowe. Możesz również zamknąć ten ekran i wrócić później. Jeśli masz wrażenie, że Twoja transakcja trwa zbyt długo, skontaktuj się z nami.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 Miesięcy</string>
     <string name="payment_label_discount">Oszczędź %s (%s / mies.)</string>
     <string name="payment_label_country">Kraj</string>
+    <string name="payment_euro_desc">Mamy siedzibę w Europie, więc akceptujemy euro: 10 euro to około 12 dolarów.</string>
+    <string name="payment_donate_disclaimer">To nie aktywuje Twojego konta Blokada Plus. Jeśli chcesz korzystać z naszej usługi VPN, wykup subskrypcję zamiast przekazywać darowiznę.</string>
     <string name="apps_section_header">Aplikacje</string>
     <string name="apps_label_installed">Zainstalowane</string>
     <string name="apps_label_system">Systemowe</string>

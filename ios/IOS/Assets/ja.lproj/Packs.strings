@@ -35,3 +35,5 @@
 "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "これらのブロックリストは、広告、トラッキングなどをブロックするために作成され、維持されています。定期的に更新されます";
 "Analyzes privacy concerns in Android applications" = "Androidアプリのプライバシーに関する懸念を分析して作られたリスト";
 "This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "このブロックリストは、Androidアプリケーションを分析して、埋め込まれたトラッカーを捜索するExodus Privacy projectに基づいています。トラッカーとは、あなた自身や、あなたの行動に関する情報を収集するためのソフトウェアです。Energizedなどの他のリストとの併用をおすすめします。";
+"A good general purpose blocklist" = "汎用性の高いおすすめブロックリスト";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere w normal apps and services." = "一般的な動作に影響を与えることなく、必要のない広告、フィッシング、マルウェア、スパイウェア、ランサムウェア、詐欺サイト、トラッキングやユーザー分析をブロック。";

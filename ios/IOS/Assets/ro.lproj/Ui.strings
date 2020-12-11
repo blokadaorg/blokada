@@ -215,8 +215,6 @@
 "account action restoring" = "Recuperare cont: %@";
 "account label enter to continue" = "Introduceți ID-ul contului dvs. pentru a continua";
 "account restore description" = "Nu-ți face griji, dacă ți-ai pierdut sau ai uitat ID-ul de cont, îl putem recupera. Te rugăm să contactezi asistența noastră și să ne furnizezi informații care ne vor permite să identificăm achiziția ta (de ex. ultimele 4 cifre ale cardului de credit sau e-mailul PayPal).";
-"account create description" = "Acesta este ID-ul contului tău. Ar trebui să îl notezi, deoarece este singurul mod în care poți avea acces la abonamentul tău. De asemenea, nu-l împărtășiți cu nimeni, astfel contul tău nu va fi furat.";
-"account create confirm" = "Cunosc ID-ul contului meu";
 
 "account section header my subscription" = "Abonamentul meu";
 "account section header general" = "Preferințe generale";

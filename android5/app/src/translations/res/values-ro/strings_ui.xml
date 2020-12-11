@@ -168,8 +168,6 @@
     <string name="account_action_restoring">Recuperare cont: %s</string>
     <string name="account_label_enter_to_continue">Introduceți ID-ul contului dvs. pentru a continua</string>
     <string name="account_restore_description">Nu-ți face griji, dacă ți-ai pierdut sau ai uitat ID-ul de cont, îl putem recupera. Te rugăm să contactezi asistența noastră și să ne furnizezi informații care ne vor permite să identificăm achiziția ta (de ex. ultimele 4 cifre ale cardului de credit sau e-mailul PayPal).</string>
-    <string name="account_create_description">Acesta este ID-ul contului tău. Ar trebui să îl notezi, deoarece este singurul mod în care poți avea acces la abonamentul tău. De asemenea, nu-l împărtășiți cu nimeni, astfel contul tău nu va fi furat.</string>
-    <string name="account_create_confirm">Cunosc ID-ul contului meu</string>
     <string name="account_section_header_my_subscription">Abonamentul meu</string>
     <string name="account_section_header_general">Preferințe generale</string>
     <string name="account_section_header_subscription">Abonament</string>

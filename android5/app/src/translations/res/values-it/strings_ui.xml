@@ -170,8 +170,8 @@
     <string name="account_action_restoring">Ripristino account: %s</string>
     <string name="account_label_enter_to_continue">Inserisci l\'ID del tuo account per continuare</string>
     <string name="account_restore_description">Non ti preoccupare, se hai perso o dimenticato l\'ID del tuo account, possiamo recuperarlo. Per favore, contatta il nostro supporto e fornisci le informazioni che ci permetteranno di identificare il tuo acquisto (esempio: ultime 4 cifre della tua carta di credito o e-mail PayPal).</string>
-    <string name="account_create_description">Questo è il tuo ID account. Dovresti scrivertelo, perché è l\'unico modo per ottenere l\'accesso al tuo abbonamento. Inoltre, non condividerlo con nessuno, in modo che il tuo account non venga rubato.</string>
-    <string name="account_create_confirm">Conosco il mio ID account</string>
+    <string name="account_create_description">Questo è l\'ID del tuo account. Annotalo e mantienilo privato. È l\'unico modo per accedere al tuo abbonamento.</string>
+    <string name="account_create_confirm">L\'ho fatto</string>
     <string name="account_section_header_my_subscription">Il mio abbonamento</string>
     <string name="account_section_header_general">Generale</string>
     <string name="account_section_header_subscription">Abbonamento</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">Risparmia %s</string>
     <string name="payment_success_label">Grazie!</string>
     <string name="payment_success_desc">Adesso il tuo account è attivo! Ora puoi utilizzare tutte le funzionalità Blokada Plus su tutti i tuoi dispositivi.</string>
+    <string name="payment_redirect_label">Reindirizzamento...</string>
+    <string name="payment_redirect_desc">Attendere prego. Ci vorrà solo un attimo.</string>
     <string name="payment_ongoing_title">Il pagamento è in fase di elaborazione.</string>
     <string name="payment_ongoing_desc">I pagamenti con carta di credito non dovrebbero richiedere più di alcuni minuti. I pagamenti con criptovalute di solito richiedono fino a un\'ora, a seconda del costo della transazione scelta. In caso di PayPal, può richiedere fino a 24 ore. Verrai reindirizzato quando il tuo account sarà pronto. Puoi anche chiudere questa schermata e tornare più tardi. Se pensi che la tua transazione stia durando troppo, contattaci.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 Mesi</string>
     <string name="payment_label_discount">Risparmia %s (%s / mese)</string>
     <string name="payment_label_country">Paese</string>
+    <string name="payment_euro_desc">Abbiamo sede in Europa, quindi accettiamo l\'euro: 10€ sono circa 12$.</string>
+    <string name="payment_donate_disclaimer">La donazione non attiverà un account Blokada Plus. Per usufruire del servizio VPN ti preghiamo di abbonarti anziché donare.</string>
     <string name="apps_section_header">Applicazioni</string>
     <string name="apps_label_installed">Installata</string>
     <string name="apps_label_system">Sistema</string>

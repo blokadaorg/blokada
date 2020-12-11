@@ -218,8 +218,8 @@
 "account action restoring" = "Wiederherstellung des Kontos: %@";
 "account label enter to continue" = "Gib hier deine Konto-ID ein, um fortzufahren";
 "account restore description" = "Keine Sorge, wenn du deine Account-ID verloren oder vergessen hast, können wir sie wiederherstellen. Bitte kontaktiere unseren Support und gib uns Informationen, die es uns ermöglichen, deinen Kauf zu identifizieren (zB. die letzten 4 Ziffern Ihrer Kreditkarte, oder PayPal E-Mail).";
-"account create description" = "Das ist deine Konto-ID. Du solltest sie notieren, da sie die einzige Möglichkeit für dich ist, Zugang zu deinem Abonnement zu erhalten. Teil es auch nicht mit irgendjemandem, so dass dein Konto nicht gestohlen werden kann.";
-"account create confirm" = "Ich kenne meine Konto-ID";
+"account create description" = "Dies ist deine Konto-ID. Schreib sie sicher auf und teile sie niemanden mit. Dies ist die einzige Möglichkeit, auf dein Abonnement zuzugreifen.";
+"account create confirm" = "Ich habe es notiert";
 
 "account section header my subscription" = "Mein Abo";
 "account section header general" = "Allgemein";
@@ -231,7 +231,7 @@
 "account action why upgrade" = "Warum sollte ich upgraden?";
 "account subscription header renew" = "Automatisch erneuern";
 "account subscription header payment method" = "Zahlungsart";
-"account subscription renew unsupported" = "Deine Zahlungsmethode erlaubt es hier nicht die automatische Erneuerungseinstellung zu kontrollieren.";
+"account subscription renew unsupported" = "Deine Zahlungsmethode erlaubt es nicht die automatische Erneuerungseinstellung zu kontrollieren.";
 
 "account unlock to show" = "Entsperren, um deine Konto-ID zu sehen";
 
@@ -315,6 +315,9 @@
 "payment success label" = "Danke!";
 "payment success desc" = "Ihr Konto ist jetzt aktiv! Du kannst jetzt alle Blokada Plus Funktionen auf all deinen Geräten verwenden.";
 
+"payment redirect label" = "Leite weiter...";
+"payment redirect desc" = "Bitte warten. Dies sollte nur einen Moment dauern.";
+
 "payment ongoing title" = "Deine Zahlung wird jetzt bearbeitet.";
 "payment ongoing desc" = "Kreditkartenzahlungen sollten nicht länger als ein paar Minuten dauern. Zahlungen mit Kryptowährungen dauern in der Regel bis zu einer Stunde, je nachdem, welche Transaktionsgebühr Du wählst. Im Falle von PayPal kann es bis zu 24 Stunden dauern. Du wirst weitergeleitet, sobald Dein Konto fertig ist. Du kannst dieses Menü auch schließen und später wieder kommen. Wenn Du glaubst, dass Deine Transaktion zu lange dauert, kontaktiere uns bitte.";
 "payment pay google short" = "Google Pay";
@@ -336,6 +339,9 @@
 "payment package twelve months" = "12 Monate";
 "payment label discount" = "Spare %@ (%@ / Mo)";
 "payment label country" = "Land";
+
+"payment euro desc" = "Wir sind in Europa ansässig und akzeptieren deshalb Euros: 10 € sind etwa 12 $.";
+"payment donate disclaimer" = "Dies aktiviert nicht dein Blokada Plus-Konto. Wenn Du unseren VPN-Service nutzen möchtest, abonniere bitte anstatt zu spenden.";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installiert";

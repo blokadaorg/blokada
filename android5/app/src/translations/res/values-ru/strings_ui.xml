@@ -170,8 +170,8 @@
     <string name="account_action_restoring">Восстановление аккаунта: %s</string>
     <string name="account_label_enter_to_continue">Для продолжения введите ID вашего аккаунта</string>
     <string name="account_restore_description">Не волнуйтесь, если вы потеряли или забыли ID вашего аккаунта - мы сможем его восстановить. Пожалуйста, свяжитесь с нашей службой поддержки и предоставьте сведения, которые позволят нам идентифицировать вашу покупку (например, последние 4 цифры вашей кредитной карты, или электронная почта PayPal).</string>
-    <string name="account_create_description">Это ID вашего аккаунта. Вы должны записать его, так как это единственный способ получить доступ к вашей подписке. Также не делитесь им ни с кем, чтобы вашу учетную запись не украли.</string>
-    <string name="account_create_confirm">Я знаю ID моего аккаунта</string>
+    <string name="account_create_description">Это ID вашего аккаунта. Запишите его и храните в секрете. Это единственный способ получить доступ к вашей подписке.</string>
+    <string name="account_create_confirm">Я записал</string>
     <string name="account_section_header_my_subscription">Моя подписка</string>
     <string name="account_section_header_general">Общее</string>
     <string name="account_section_header_subscription">Подписка</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">Сэкономить %s</string>
     <string name="payment_success_label">Спасибо!</string>
     <string name="payment_success_desc">Ваш аккаунт теперь активен! Теперь вы можете использовать все функции Blokada Plus на всех своих устройствах.</string>
+    <string name="payment_redirect_label">Перенаправление...</string>
+    <string name="payment_redirect_desc">Пожалуйста, подождите. Это займет немного времени.</string>
     <string name="payment_ongoing_title">Ваш платеж обрабатывается.</string>
     <string name="payment_ongoing_desc">Оплата по кредитной карте не должна занимать больше нескольких минут. Платежи в криптовалюте обычно занимают до часа, в зависимости от выбранного вами метода оплаты. При использовании PayPal может потребоваться до 24 часов. Вы будете перенаправлены, как только ваш счет будет готов. Также вы можете закрыть этот экран и вернуться к нему позднее. Если вы полагаете, что ваша транзакция занимает слишком много времени, пожалуйста, свяжитесь с нами.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 месяцев</string>
     <string name="payment_label_discount">Сэкономить %s (%s / месяц)</string>
     <string name="payment_label_country">Страна</string>
+    <string name="payment_euro_desc">Мы находимся в Европе, поэтому мы принимаем евро: €10 - это примерно $12.</string>
+    <string name="payment_donate_disclaimer">Это не активирует ваш аккаунт Blokada Plus. Если вы хотите использовать наш сервис VPN, пожалуйста, подпишитесь вместо того, чтобы сделать пожертвование.</string>
     <string name="apps_section_header">Приложения</string>
     <string name="apps_label_installed">Установленные</string>
     <string name="apps_label_system">Системные</string>

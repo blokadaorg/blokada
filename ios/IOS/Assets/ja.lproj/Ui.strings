@@ -25,17 +25,17 @@
 "error account invalid" = "アカウントを確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
 "error fetching data" = "この操作は完了できませんでした。オンラインであることを確認し、時間を置いてもう一度やり直してください。 問題が解決しない場合は、ヘルプからご連絡ください。";
-"error tunnel" = "VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokada VPNプロファイルを削除して再度お試しください。";
-"error vpn" = "VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokada VPNプロファイルを削除して再度お試しください。";
+"error tunnel" = "VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokadaのVPNプロファイルを削除して再度お試しください。";
+"error vpn" = "VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokadaのVPNプロファイルを削除して再度お試しください。";
 "error vpn perms" = "VPNプロファイルを作成する権限がありません。";
 "error vpn no current lease" = "接続先を選択してください。";
 "error vpn too many leases" = "デバイス数の上限に達しました。いずれかのデバイスを削除して、もう一度やり直してください。";
-"error vpn expired" = "VPNは無効です。BLOKADA+を引き続き使用するには、サブスクリプションを更新してください";
-"error payment inactive after restore" = "以前の支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
-"error payment failed" = "現在、支払いが利用できません。オンラインであることを確認して、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error payment failed alternative" = "支払いを完了できませんでした。入力内容が正しいことを確認して、もう一度やり直してください。 問題が解決しない場合は、上部にあるヘルプアイコンをタップしてご連絡ください。";
+"error vpn expired" = "VPNは無効です。BLOKADA+を引き続き使用するには、サブスクリプションを更新してください。";
+"error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
+"error payment failed" = "現在、お支払いいただくことができません。オンラインであることを確認して、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error payment failed alternative" = "お支払いを完了できませんでした。入力内容が正しいことを確認して、もう一度やり直してください。 問題が解決しない場合は、ヘルプからご連絡ください。";
 "error payment not available" = "このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国での購入はまだ処理されていません。";
-"error payment canceled" = "支払いがキャンセルされました。課金されていません。";
+"error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
 "error pack install" = "この機能をインストール(またはアンインストール) できませんでした。後でもう一度お試しください。";
 "error location failed fetching" = "場所を取得できませんでした。";
 "error unknown" = "不明な問題が発生しました。もう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
@@ -86,7 +86,7 @@
 "notification desc settings" = "通知を右または左にスワイプして設定";
 
 "notification update header" = "アップデートが利用可能です";
-"alert update body" = "Blokada %@ がダウンロード可能になりました。アプリを最新の状態に保ち、公式ソースからのみダウンロードすることをお勧めします。";
+"alert update body" = "Blokada %@ がダウンロード可能になりました。常に公式ソースの最新版を利用することをお勧めします。";
 "update label updated" = "更新されました！";
 "update desc updated" = "Blokadaの最新バージョンを使用しています！
 寄付またはBlokada Plusは、アプリ開発への支援となります。";
@@ -219,8 +219,8 @@
 "account action restoring" = "アカウントを復元中: %@";
 "account label enter to continue" = "続行するにはアカウントIDを入力してください";
 "account restore description" = "アカウントIDを紛失または忘れてしまった場合、 当社のサポートに連絡してください。その際、お客様の購入を確認するためにクレジットカードの下4桁またはPayPalメールを提供してください。";
-"account create description" = "これはあなたのアカウントIDです。サブスクリプションにアクセスするための唯一の方法ですので、書き留めておいてください。アカウントの盗難防止のため、IDは誰とも共有せずに保管してください。";
-"account create confirm" = "アカウントIDを確認しました";
+"account create description" = "これはあなたのアカウントIDです。サブスクリプションにアクセスする唯一の方法です。他の人から見られない場所で確実に保管してください。";
+"account create confirm" = "保管しました";
 
 "account section header my subscription" = "サブスクリプション";
 "account section header general" = "全般";
@@ -241,7 +241,7 @@
 "account id status unchanged" = "(変更なし)";
 "account action how to restore" = "古いアカウントを復元する方法";
 
-"account subscription days remaining" = "残りの日数: %@";
+"account subscription days remaining" = "残りの日数：%@";
 "account devices remaining" = "残りのデバイス: %@";
 "account devices not available" = "利用できません";
 "account devices out of" = "%@ / %@";
@@ -294,7 +294,7 @@
 "payment feature title faster connection" = "より高速な接続";
 "payment feature desc faster connection" = "世界のさまざまな地域のサーバーで最高100Mbpsのスピードを実現します。";
 "payment feature title devices" = "最大5台のデバイス";
-"payment feature desc devices" = "同じアカウントを使用して、最大5つのデバイス (iOS、Android、PC) でサブスクリプションを共有できます。";
+"payment feature desc devices" = "1つのアカウントで最大5つのデバイス (iOS、Android、PC) を使用できます。";
 "payment feature title no ads" = "広告のない快適なブラウジング";
 "payment feature desc no ads" = "世界的に有名な Blokada の広告ブロック技術を使用し、保護レベルを向上させ、データをプライベートに保ちます。";
 "payment feature title support" = "丁寧なサポート";
@@ -315,6 +315,9 @@
 
 "payment success label" = "ありがとうございます！";
 "payment success desc" = "アカウントが有効になりました！すべてのデバイスでBlokada Plus機能を使用できます。";
+
+"payment redirect label" = "リダイレクトしています…";
+"payment redirect desc" = "しばらくお待ちください。このプロセスは時間がかかります。";
 
 "payment ongoing title" = "お支払いは現在処理中です。";
 "payment ongoing desc" = "クレジットカードの支払いは数分で完了します。暗号通貨の支払いは通常、あなたが選択した取引手数料に応じて1時間以内に完了します。PayPalの場合、最大24時間かかる場合があります。 アカウントの準備が完了するとリダイレクトされます。この画面を閉じて、後で再度表示することもできます。 取引に時間がかかりすぎる場合は、お問い合わせください。";
@@ -337,6 +340,9 @@
 "payment package twelve months" = "12ヶ月";
 "payment label discount" = "%@ を保存 (%@ / 月)";
 "payment label country" = "国";
+
+"payment euro desc" = "私たちはヨーロッパを拠点としているため、ユーロでお支払いいただいています。10ユーロはおよそ12ドルです。";
+"payment donate disclaimer" = "これにより、Blokada Plusアカウントは有効化されません。VPNサービスを利用したい場合は、寄付の代わりにサブスクリプションにご登録ください。";
 
 "apps section header" = "アプリ";
 "apps label installed" = "インストール済み";
@@ -401,7 +407,7 @@
 "homepage about action plus" = "Blokada Plusの詳細";
 
 "homepage download header" = "Blokadaをダウンロード";
-"homepage download subheader" = "Blokadaは複数のプラットフォームで利用可能です。あなたのものを選択してください。";
+"homepage download subheader" = "Blokadaは複数のプラットフォームで利用可能です。ご利用のプラットフォームを選択してください。";
 "homepage download option android five" = "Blokada 5 for Android";
 "homepage download option android slim" = "Blokada 5 Slim for Android";
 "homepage download option android four" = "Blokada 4 for Android";
@@ -415,12 +421,12 @@
 "homepage download action android five beta" = "Beta .apk";
 "homepage download desc android slim" = "Blokada Slim は <b>軽量版のアプリ</b>であり、Google Play ポリシーで許可されている機能のみが含まれています。";
 "homepage download action android slim" = "Google Playを開く";
-"homepage download desc android four" = "私たちはまだBlokadaの古いバージョンをメンテナンスしています。それはより多くの機能を持ち、古いデバイスやAndroid TVでも動作します。";
+"homepage download desc android four" = "私たちはまだBlokadaの古いバージョンをメンテナンスしています。Blokada 5 にない機能を搭載し、古いデバイスやAndroid TVでも動作します。";
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "Open F-Droid";
 
 "homepage community header" = "コミュニティ";
-"homepage community desc" = "Blokadaはただのプライバシーアプリではありません。それはデジタルプライバシーと幸福を大切にする人々のコミュニティでもあります。 あなたが質問したいとき、フォーラムで私たちに尋ねることができます。 私たちは他のソーシャルメディアやチャットも利用しています。";
+"homepage community desc" = "Blokadaはただのプライバシーアプリではありません。Blokadaはデジタルプライバシーと幸福を大切にする人々のコミュニティでもあります。フォーラムで問題を話し合うことができます。 他のソーシャルメディアやチャットから連絡することもできます。";
 "homepage community cta subheader" = "ぜひご参加ください！";
 "homepage community cta desc" = "私たちはユーザーのフィードバックに基づいています。何を考えているのか、何を改善し、何を維持すべきなのかを教えてください。";
 "homepage community cta action" = "フォーラムに移動";
@@ -429,7 +435,7 @@
 "homepage support header" = "プロジェクトを支援する";
 "homepage support desc" = "私たちの活動を気に入っていただけるなら、私たちをサポートすることを検討してください。それにより、新しい機能と改善を開発し続けることができます。 そして、Blokadaは永遠に無料かつオープンソースであり続けることができます。";
 "homepage support cta header" = "Blokadaはあなたのご協力を必要としています";
-"homepage support cta desc" = "Blokadaはオープンソースプロジェクトです。つまり、常に無料であり、安全性に影響を及ぼす隠れた問題がないことを確認できます。 私たちは、これが信頼できるプライバシーアプリを開発する唯一の方法だと確信ています。";
+"homepage support cta desc" = "Blokadaはオープンソースプロジェクトです。つまり、常に無料であり、安全性に影響を及ぼす隠れた問題がないことを確認することができるということです。私たちは、これが信頼できるプライバシーアプリを開発する唯一の方法だと確信しています。";
 "homepage support cta desc more" = "しかし、Blokadaのような質の高いアプリを開発するには、かなりのリソースが必要です。このプロジェクトは、あなたのような素晴らしい人々の支援のおかげで存在します！";
 "homepage support cta action" = "寄付（カード、Paypal）";
 "homepage support cta action alt" = "寄付（銀行振込、暗号資産）";

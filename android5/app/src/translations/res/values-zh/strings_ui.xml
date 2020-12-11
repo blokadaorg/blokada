@@ -170,8 +170,8 @@
     <string name="account_action_restoring">還原帳號：%s</string>
     <string name="account_label_enter_to_continue">輸入您的帳號 ID 已繼續</string>
     <string name="account_restore_description">不用擔心，如果您遺失或忘記您的帳號 ID，我們可以將其復原。請聯絡我們的支援團隊，並向我們提供資訊，讓我們可以識別您的購買行為（例如您信用卡的最後 4 碼或 PayPal 電子郵件）。</string>
-    <string name="account_create_description">這是您的帳號 ID。您應該把它寫下來，因為這是您存取訂閱的唯一途徑。請不要將其與其他人分享，這樣您的帳號才不會被盜。</string>
-    <string name="account_create_confirm">我知道我的帳號 ID</string>
+    <string name="account_create_description">這是您的帳戶 ID。請寫下並保管好，這是唯一一個可以存取您訂閱的途徑。</string>
+    <string name="account_create_confirm">我寫好了</string>
     <string name="account_section_header_my_subscription">我的訂閱</string>
     <string name="account_section_header_general">一般</string>
     <string name="account_section_header_subscription">訂閱</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">省下 %s</string>
     <string name="payment_success_label">謝謝！</string>
     <string name="payment_success_desc">您的帳號已可使用！您現在可以在您的裝置上使用所有的 Blokada Plus 功能。</string>
+    <string name="payment_redirect_label">正在重新導向…</string>
+    <string name="payment_redirect_desc">請稍候。不久後就緒。</string>
     <string name="payment_ongoing_title">正在處理您的付款。</string>
     <string name="payment_ongoing_desc">信用卡付款應該不會花太久時間。加密貨幣則通常花到一個小時以上，這取決於您給的處理費用。而 PayPal 可能要用到一整天。當準備好後，將會自動引導您的帳號。可以關掉螢幕，稍微休息一下。如果覺得付款時間太長，請再聯絡我們。</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 個月</string>
     <string name="payment_label_discount">省下 %s (每個月 %s)</string>
     <string name="payment_label_country">國家</string>
+    <string name="payment_euro_desc">我們位於歐洲，因此我們接受歐元：€10 大約是 $12。</string>
+    <string name="payment_donate_disclaimer">這不會啟用您的 Blokada Plus 帳戶。如果你想要使用我們的 VPN 服務，請改成「訂閱」，而非捐助。</string>
     <string name="apps_section_header">應用程式</string>
     <string name="apps_label_installed">已安裝</string>
     <string name="apps_label_system">系統</string>
@@ -305,7 +309,7 @@
     <string name="app_settings_section_advanced">進階</string>
     <string name="app_settings_section_use_foreground">保持連線狀態</string>
     <string name="intro_header">Blokada 運作中！</string>
-    <string name="intro_text">藍色環表示 Blokada 正在運作。\n\n請記住，某些廣告（如 YouTube）無法被阻擋。但您會在其他許多的 APP 中注意到不同之處。\n\n我們建議您在系統設定中啟用「永久連線的 VPN」／「需要時連線」。</string>
+    <string name="intro_text">藍色圈圈表示 Blokada 正在運作。\n\n注意，某些廣告（像是 YouTube）無法阻擋。但您會在其他 APP 發現多有不同。\n\n我們建議您在系統設定中啟用「永久連線的 VPN」／「需要時連線」。</string>
     <string name="location_region_america">美洲</string>
     <string name="location_region_europe">歐洲</string>
     <string name="location_region_asia">亞洲</string>

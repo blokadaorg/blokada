@@ -170,8 +170,6 @@
     <string name="account_action_restoring">Restaurando cuenta: %s</string>
     <string name="account_label_enter_to_continue">Introduce tu ID de cuenta para continuar</string>
     <string name="account_restore_description">No te preocupes, si has perdido o olvidado tu ID de cuenta, podemos recuperarlo. Por favor, ponte en contacto con nuestro equipo de soporte y proporciónanos información que nos permita identificar tu compra (por ejemplo, los últimos 4 dígitos de tu tarjeta de crédito o tu e-mail de PayPal).</string>
-    <string name="account_create_description">Este es el ID de tu cuenta. Deberías anotarlo, ya que es la única forma de obtener acceso a tu suscripción. Recuerda no compartirlo con nadie, para que tu cuenta no sea robada.</string>
-    <string name="account_create_confirm">Conozco mi ID de cuenta</string>
     <string name="account_section_header_my_subscription">Mi suscripción</string>
     <string name="account_section_header_general">General</string>
     <string name="account_section_header_subscription">Suscripción</string>

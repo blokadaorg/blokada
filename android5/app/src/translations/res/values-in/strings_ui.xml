@@ -170,8 +170,8 @@
     <string name="account_action_restoring">Memulihkan akun: %s</string>
     <string name="account_label_enter_to_continue">Masukkan ID akun Anda untuk melanjutkan</string>
     <string name="account_restore_description">Jangan khawatir, jika Anda kehilangan atau lupa ID akun Anda, kami dapat memulihkannya. Silakan hubungi kanal dukungan kami, dan siapkan informasi yang memungkinkan kami mengidentifikasi pembelian Anda (misalnya 4 digit terakhir kartu kredit Anda, atau email yang Anda pakai untuk login di PayPal).</string>
-    <string name="account_create_description">Ini adalah ID akun Anda. Kami sangat menyarankan Anda untuk mencatatnya, karena ini adalah satu-satunya cara bagi Anda untuk mendapatkan akses ke langganan Anda. Selain itu, jangan membagikannya kepada siapa pun, agar akun Anda tidak dicuri.</string>
-    <string name="account_create_confirm">Saya tahu ID akun saya</string>
+    <string name="account_create_description">Ini adalah ID akun Anda. Harap dicatat dan dijaga kerahasiaannya. ID akun ini satu-satunya cara mengakses data berlangganan Anda.</string>
+    <string name="account_create_confirm">Saya sudah mencatat detil akun saya</string>
     <string name="account_section_header_my_subscription">Status Berlangganan</string>
     <string name="account_section_header_general">Umum</string>
     <string name="account_section_header_subscription">Langganan</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">Hemat %s</string>
     <string name="payment_success_label">Terima kasih!</string>
     <string name="payment_success_desc">Akun Anda telah aktif! Sekarang Anda dapat menggunakan semua fitur Blokada Plus di semua perangkat Anda.</string>
+    <string name="payment_redirect_label">Mengalihkan...</string>
+    <string name="payment_redirect_desc">Harap tunggu beberapa saat.</string>
     <string name="payment_ongoing_title">Pembayaran Anda sedang diproses.</string>
     <string name="payment_ongoing_desc">Pembayaran melalui kartu kredit biasanya hanya memerlukan waktu beberapa menit saja. Pembayaran melalui cryptocurrency bisa mencapai satu jam, tergantung pada jenis transaksi yang Anda pakai. PayPal bisa memakan waktu sampai 24 jam. Anda akan diarahkan saat akun Anda telah siap. Anda juga bisa menutup halaman ini, dan kembali lagi beberapa waktu kemudian. Jika menurut Anda transaksi ini memakan terlalu banyak waktu, silakan hubungi kami.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 Bulan</string>
     <string name="payment_label_discount">Hemat %s (%s / bulan)</string>
     <string name="payment_label_country">Negara</string>
+    <string name="payment_euro_desc">Kami berbasis di Eropa, mata uang yang kami terima berupa Euro: di mana €10 kira-kira senilai Rp170.000.</string>
+    <string name="payment_donate_disclaimer">Donasi yang Anda berikan tidak akan mengaktifkan akun Blokada Plus. Jika Anda ingin menggunakan layanan VPN kami, silakan pilih opsi berlangganan.</string>
     <string name="apps_section_header">Aplikasi</string>
     <string name="apps_label_installed">Terinstal</string>
     <string name="apps_label_system">Sistem</string>

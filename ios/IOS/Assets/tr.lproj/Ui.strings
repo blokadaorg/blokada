@@ -218,8 +218,8 @@
 "account action restoring" = "Hesap geri yükleniyor: %@";
 "account label enter to continue" = "Devam etmek için hesap kimliğinizi girin";
 "account restore description" = "Endişelenmeyin, hesap kimliğinizi kaybettiyseniz veya unuttuysanız kurtarabiliriz. Lütfen desteğimizle iletişime geçin ve satın alma işleminizi belirlememizi sağlayacak bilgileri bize sağlayın (Örn. Kredi kartınızın son 4 hanesi veya PayPal e-postası).";
-"account create description" = "Bu sizin hesap kimliğinizdir. Aboneliğinize erişmenin tek yolu bu olduğu için bunu bir yere yazmalısınız. Ayrıca, kimseyle paylaşmayın, böylece hesabınız çalınmaz.";
-"account create confirm" = "Hesap kimliğimi biliyorum";
+"account create description" = "Bu sizin hesap kimliğinizdir. Bunu bir yere yazın ve gizli tutun. Aboneliğinize erişmenin tek yolu budur.";
+"account create confirm" = "Not aldım";
 
 "account section header my subscription" = "Aboneliğim";
 "account section header general" = "Genel";
@@ -315,6 +315,9 @@
 "payment success label" = "Teşekkürler!";
 "payment success desc" = "Hesabınız artık etkin! Artık Blokada Plus özelliklerini tamamını tüm cihazlarınızda kullanabilirsiniz.";
 
+"payment redirect label" = "Yönlendiriliyor...";
+"payment redirect desc" = "Lütfen bekleyin. Bu sadece bir dakika sürecek.";
+
 "payment ongoing title" = "Ödemeniz şu an işleniyor.";
 "payment ongoing desc" = "Kredi kartı ödemeleri birkaç dakikadan fazla sürmemelidir. Kripto para birimi ödemeleri, seçtiğiniz işlem ücretine bağlı olarak genellikle bir saat kadar sürer. PayPal söz konusu ise bu süre 24 saat kadar sürebilir. Hesabınız hazır olur olmaz yönlendirileceksiniz. Ayrıca bu ekranı kapatabilir ve daha sonra tekrar gelebilirsiniz. İşleminizin çok uzun sürdüğünü düşünüyorsanız, lütfen bizimle iletişime geçin.";
 "payment pay google short" = "Google Pay";
@@ -336,6 +339,9 @@
 "payment package twelve months" = "12 ay";
 "payment label discount" = "%@ (%@ / ay) indirim";
 "payment label country" = "Ülke";
+
+"payment euro desc" = "Merkezimiz Avrupa'da olduğundan Euro'yu kabul ediyoruz: 10 € kabaca 12 $'dır.";
+"payment donate disclaimer" = "Bu, Blokada Plus hesabını etkinleştirmez. VPN hizmetimizi kullanmak istiyorsan, lütfen bağış yapmak yerine abone ol.";
 
 "apps section header" = "Uygulamalar";
 "apps label installed" = "Yüklü";

@@ -170,8 +170,8 @@
     <string name="account_action_restoring">Възстановяване на профил: %s</string>
     <string name="account_label_enter_to_continue">Въведете ID номер на профила за да продължите</string>
     <string name="account_restore_description">Не се притеснявайте ако сте загубили или забравили ID на профила си, можем да го възстановим. Моля, свържете се с нашата поддръжка и ни дайте информация, с която ще ни позволите да идентифицираме вашата покупка (напр. Последните 4 цифри на вашата кредитна карта или PayPal email).</string>
-    <string name="account_create_description">Това е идентификационният номер на вашия профил. Трябва да го запишете, тъй като това е единственият начин да получите достъп до абонамента си. Също така не го споделяйте с никого, така че профилът ви да не бъде откраднат.</string>
-    <string name="account_create_confirm">Знам моето ID на профила</string>
+    <string name="account_create_description">Това е идентификаторът на вашия профил. Запишете и го пазете. Това е единственият начин за достъп до абонамента ви.</string>
+    <string name="account_create_confirm">Записах го</string>
     <string name="account_section_header_my_subscription">Моят абонамент</string>
     <string name="account_section_header_general">Основни</string>
     <string name="account_section_header_subscription">Абонамент</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">Запази %s</string>
     <string name="payment_success_label">Благодаря!</string>
     <string name="payment_success_desc">Вашият профил е активен! Вече можете да използвате всички функции на Blokada Plus на всичките си устройства.</string>
+    <string name="payment_redirect_label">Пренасочване...</string>
+    <string name="payment_redirect_desc">Моля изчакайте. Това ще отнеме малко време.</string>
     <string name="payment_ongoing_title">Плащането Ви се обработва.</string>
     <string name="payment_ongoing_desc">Плащанията с кредитни карти не трябва да отнемат повече от няколко минути. Плащанията с криптовалута обикновено отнемат до час, в зависимост от това каква такса за транзакция сте избрали. В някои случаи като при PayPal, това може да отнеме до 24 часа. Ще получите пренасочване след като профилът ви е готов. Можете да затворите този екран и да дойдете отново по-късно. Ако смятате, че транзакцията се забавя много време, моля свържете се с нас.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 Месеца</string>
     <string name="payment_label_discount">Спестете %s (%s / mo)</string>
     <string name="payment_label_country">Държава</string>
+    <string name="payment_euro_desc">Ние се намираме в Европа, така че приемаме Евро: €10 са приблизително $12.</string>
+    <string name="payment_donate_disclaimer">Това няма да активира вашия профил в Blokada Plus. Ако искате да използвате нашата VPN услуга, моля абонирайте се, вместо да дарявате.</string>
     <string name="apps_section_header">Приложения</string>
     <string name="apps_label_installed">Инсталирани</string>
     <string name="apps_label_system">Система</string>

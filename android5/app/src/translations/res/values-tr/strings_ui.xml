@@ -170,8 +170,8 @@
     <string name="account_action_restoring">Hesap geri yükleniyor: %s</string>
     <string name="account_label_enter_to_continue">Devam etmek için hesap kimliğinizi girin</string>
     <string name="account_restore_description">Endişelenmeyin, hesap kimliğinizi kaybettiyseniz veya unuttuysanız kurtarabiliriz. Lütfen desteğimizle iletişime geçin ve satın alma işleminizi belirlememizi sağlayacak bilgileri bize sağlayın (Örn. Kredi kartınızın son 4 hanesi veya PayPal e-postası).</string>
-    <string name="account_create_description">Bu sizin hesap kimliğinizdir. Aboneliğinize erişmenin tek yolu bu olduğu için bunu bir yere yazmalısınız. Ayrıca, kimseyle paylaşmayın, böylece hesabınız çalınmaz.</string>
-    <string name="account_create_confirm">Hesap kimliğimi biliyorum</string>
+    <string name="account_create_description">Bu sizin hesap kimliğinizdir. Bunu bir yere yazın ve gizli tutun. Aboneliğinize erişmenin tek yolu budur.</string>
+    <string name="account_create_confirm">Not aldım</string>
     <string name="account_section_header_my_subscription">Aboneliğim</string>
     <string name="account_section_header_general">Genel</string>
     <string name="account_section_header_subscription">Abonelik</string>
@@ -254,6 +254,8 @@
     <string name="payment_subscription_offer">%s indirim</string>
     <string name="payment_success_label">Teşekkürler!</string>
     <string name="payment_success_desc">Hesabınız artık etkin! Artık Blokada Plus özelliklerini tamamını tüm cihazlarınızda kullanabilirsiniz.</string>
+    <string name="payment_redirect_label">Yönlendiriliyor...</string>
+    <string name="payment_redirect_desc">Lütfen bekleyin. Bu sadece bir dakika sürecek.</string>
     <string name="payment_ongoing_title">Ödemeniz şu an işleniyor.</string>
     <string name="payment_ongoing_desc">Kredi kartı ödemeleri birkaç dakikadan fazla sürmemelidir. Kripto para birimi ödemeleri, seçtiğiniz işlem ücretine bağlı olarak genellikle bir saat kadar sürer. PayPal söz konusu ise bu süre 24 saat kadar sürebilir. Hesabınız hazır olur olmaz yönlendirileceksiniz. Ayrıca bu ekranı kapatabilir ve daha sonra tekrar gelebilirsiniz. İşleminizin çok uzun sürdüğünü düşünüyorsanız, lütfen bizimle iletişime geçin.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -275,6 +277,8 @@
     <string name="payment_package_twelve_months">12 ay</string>
     <string name="payment_label_discount">%s (%s / ay) indirim</string>
     <string name="payment_label_country">Ülke</string>
+    <string name="payment_euro_desc">Merkezimiz Avrupa\'da olduğundan Euro\'yu kabul ediyoruz: 10 € kabaca 12 $\'dır.</string>
+    <string name="payment_donate_disclaimer">Bu, Blokada Plus hesabını etkinleştirmez. VPN hizmetimizi kullanmak istiyorsan, lütfen bağış yapmak yerine abone ol.</string>
     <string name="apps_section_header">Uygulamalar</string>
     <string name="apps_label_installed">Yüklü</string>
     <string name="apps_label_system">Sistem</string>

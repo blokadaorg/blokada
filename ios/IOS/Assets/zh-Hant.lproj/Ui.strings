@@ -218,8 +218,8 @@
 "account action restoring" = "還原帳號：%@";
 "account label enter to continue" = "輸入您的帳號 ID 已繼續";
 "account restore description" = "不用擔心，如果您遺失或忘記您的帳號 ID，我們可以將其復原。請聯絡我們的支援團隊，並向我們提供資訊，讓我們可以識別您的購買行為（例如您信用卡的最後 4 碼或 PayPal 電子郵件）。";
-"account create description" = "這是您的帳號 ID。您應該把它寫下來，因為這是您存取訂閱的唯一途徑。請不要將其與其他人分享，這樣您的帳號才不會被盜。";
-"account create confirm" = "我知道我的帳號 ID";
+"account create description" = "這是您的帳戶 ID。請寫下並保管好，這是唯一一個可以存取您訂閱的途徑。";
+"account create confirm" = "我寫好了";
 
 "account section header my subscription" = "我的訂閱";
 "account section header general" = "一般";
@@ -315,6 +315,9 @@
 "payment success label" = "謝謝！";
 "payment success desc" = "您的帳號已可使用！您現在可以在您的裝置上使用所有的 Blokada Plus 功能。";
 
+"payment redirect label" = "正在重新導向…";
+"payment redirect desc" = "請稍候。不久後就緒。";
+
 "payment ongoing title" = "正在處理您的付款。";
 "payment ongoing desc" = "信用卡付款應該不會花太久時間。加密貨幣則通常花到一個小時以上，這取決於您給的處理費用。而 PayPal 可能要用到一整天。當準備好後，將會自動引導您的帳號。可以關掉螢幕，稍微休息一下。如果覺得付款時間太長，請再聯絡我們。";
 "payment pay google short" = "Google Pay";
@@ -336,6 +339,9 @@
 "payment package twelve months" = "12 個月";
 "payment label discount" = "省下 %@ (每個月 %@)";
 "payment label country" = "國家";
+
+"payment euro desc" = "我們位於歐洲，因此我們接受歐元：€10 大約是 $12。";
+"payment donate disclaimer" = "這不會啟用您的 Blokada Plus 帳戶。如果你想要使用我們的 VPN 服務，請改成「訂閱」，而非捐助。";
 
 "apps section header" = "應用程式";
 "apps label installed" = "已安裝";
@@ -370,7 +376,7 @@
 "app settings section use foreground" = "保持連線狀態";
 
 "intro header" = "Blokada 運作中！";
-"intro text" = "藍色環表示 Blokada 正在運作。\n\n請記住，某些廣告（如 YouTube）無法被阻擋。但您會在其他許多的 APP 中注意到不同之處。\n\n我們建議您在系統設定中啟用「永久連線的 VPN」／「需要時連線」。";
+"intro text" = "藍色圈圈表示 Blokada 正在運作。\n\n注意，某些廣告（像是 YouTube）無法阻擋。但您會在其他 APP 發現多有不同。\n\n我們建議您在系統設定中啟用「永久連線的 VPN」／「需要時連線」。";
 
 "location region america" = "美洲";
 "location region europe" = "歐洲";

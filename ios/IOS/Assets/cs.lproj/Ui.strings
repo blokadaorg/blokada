@@ -218,8 +218,8 @@
 "account action restoring" = "Obnovuji účet: %@";
 "account label enter to continue" = "Pro pokračování zadejte ID vašeho účtu";
 "account restore description" = "Nemějte obavy, pokud jste ztratili nebo zapomněli ID účtu, můžeme jej obnovit. Kontaktujte naši podporu a poskytněte nám informace, které nám umožní identifikovat váš nákup (např. poslední 4 číslice vaší kreditní karty nebo e-mail k PayPalu).";
-"account create description" = "Toto je vaše ID účtu. Měli byste si ho zapsat, protože to je jediný způsob, jak získat přístup k vašemu předplatnému. Také jej s nikým nesdílejte, aby vám nebyl účet odcizen.";
-"account create confirm" = "Znám své ID účtu";
+"account create description" = "Toto je ID vašeho účtu. Zapište si jej a udržujte ho v soukromí. Je to jediný způsob, jak přistupovat k vašemu předplatnému.";
+"account create confirm" = "Mám zapsáno";
 
 "account section header my subscription" = "Moje předplatné";
 "account section header general" = "Obecné";
@@ -315,6 +315,9 @@
 "payment success label" = "Děkujeme!";
 "payment success desc" = "Váš účet je nyní aktivní! Nyní můžete používat všechny funkce Blokada Plus na všech vašich zařízeních.";
 
+"payment redirect label" = "Přesměrování...";
+"payment redirect desc" = "Počkejte prosím. Mělo by to trvat jen chvíli.";
+
 "payment ongoing title" = "Vaše platba se nyní zpracovává.";
 "payment ongoing desc" = "Platby kreditní kartou by neměly trvat déle než několik minut. Platby kryptoměnou obvykle trvají až hodinu, v závislosti na tom, jaký transakční poplatek jste si vybrali. V případě služby PayPal to může trvat až 24 hodin. Jakmile bude váš účet připraven, budete přesměrováni. Také můžete tuto obrazovku zavřít a vrátit se později. Pokud máte pocit, že vaše transakce trvá příliš dlouho, kontaktujte nás.";
 "payment pay google short" = "Google Pay";
@@ -336,6 +339,9 @@
 "payment package twelve months" = "12 měsíců";
 "payment label discount" = "Úspora %@ (%@ / měsíčně)";
 "payment label country" = "Stát";
+
+"payment euro desc" = "Máme sídlo v Evropě, takže akceptujeme euro: 10 eur je zhruba 12 dolarů.";
+"payment donate disclaimer" = "Toto neaktivuje váš účet Blokada Plus. Pokud chcete používat naši službu VPN, místo darů se prosím přihlaste k předplatnému.";
 
 "apps section header" = "Aplikace";
 "apps label installed" = "Nainstalované";
