@@ -134,7 +134,7 @@ object PackDataSource {
         Pack.mocked(id = "oisd", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"),
             title = "OISD",
             slugline = "A good general purpose blocklist",
-            description = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere w normal apps and services.",
+            description = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
             creditName = "sjhgvr",
             creditUrl = "https://go.blokada.org/oisd",
             configs = listOf("Light")

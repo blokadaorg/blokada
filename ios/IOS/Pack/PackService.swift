@@ -125,7 +125,7 @@ class PackService {
         Pack.mocked(id: "oisd", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"],
             title: "OISD",
             slugline: "A good general purpose blocklist",
-            description: "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere w normal apps and services.",
+            description: "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
             creditName: "sjhgvr",
             creditUrl: "https://go.blokada.org/oisd",
             configs: ["Light"]
@@ -134,7 +134,7 @@ class PackService {
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor: "Light"))
     ]
 
-    private let packsVersion = 15
+    private let packsVersion = 16
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false
