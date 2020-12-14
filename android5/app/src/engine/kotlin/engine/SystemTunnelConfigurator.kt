@@ -128,8 +128,8 @@ object SystemTunnelConfigurator {
          * In Libre mode, we allow for them to just bypass us. Better to let the ads go through,
          * than to break the app. We do not do that for the Plus mode.
           */
-        log.w("Allowing bypass (experimental)")
-        tun.allowBypass()
+//        log.w("Allowing bypass (experimental)")
+//        tun.allowBypass()
 
         val bypassed = apps.getPackageNamesOfAppsToBypass()
         log.v("Setting bypass for ${bypassed.count()} apps")
@@ -197,8 +197,8 @@ object SystemTunnelConfigurator {
          * In Slim mode, we allow for them to just bypass us. Better to let the ads go through,
          * than to break the app. We do not do that for the Plus mode.
          */
-        log.w("Allowing bypass (experimental)")
-        tun.allowBypass()
+//        log.w("Allowing bypass (experimental)")
+//        tun.allowBypass()
 
         val bypassed = apps.getPackageNamesOfAppsToBypass()
         log.v("Setting bypass for ${bypassed.count()} apps")
