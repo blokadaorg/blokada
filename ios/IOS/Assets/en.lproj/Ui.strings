@@ -68,6 +68,12 @@
 "universal action hide" = "Hide";
 "universal action select" = "Select";
 "universal action selected" = "Selected";
+// A verb "to search in the list"
+"universal action search" = "Search";
+// A verb "to filter the list"
+"universal action filter" = "Filter";
+// A verb "to clear the list"
+"universal action clear" = "Clear";
 
 "universal label help" = "Help";
 "universal label welcome" = "Welcome!";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "Copied to Clipboard";
 "universal status restart required" = "Please restart the app for the changes to take effect.";
 "universal status redirect" = "Continue with the Blokada App";
+"universal status confirm" = "Are you sure you want to proceed?";
 
 "alert error header" = "Ooops!";
 "alert vpn expired header" = "BLOKADA+ expired";
