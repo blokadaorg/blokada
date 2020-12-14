@@ -107,11 +107,6 @@ android {
             // droid lands on F-Droid.
             applicationId "org.blokada.fem.fdroid"
         }
-
-        xda {
-            // xda lands on XDA Labs.
-            applicationId "org.blokada.fem.xda"
-        }
     }
 
     compileOptions {
@@ -141,9 +136,6 @@ android {
 
         droid.res.srcDirs += 'src/notgoogle/res'
         droid.java.srcDirs += 'src/notgoogle/kotlin'
-
-        xda.res.srcDirs += 'src/notgoogle/res'
-        xda.java.srcDirs += 'src/notgoogle/kotlin'
 
         escaped.res.srcDirs += 'src/notgoogle/res'
         escaped.java.srcDirs += 'src/notgoogle/kotlin'
