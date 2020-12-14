@@ -25,8 +25,20 @@
 
     <item
         android:id="@+id/stats_search"
-        android:icon="@drawable/ic_baseline_expand_more_24"
-        android:title="@string/universal_action_more"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/universal_action_search"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/stats_filter"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:title="@string/universal_action_filter"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/stats_clear"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:title="@string/universal_action_clear"
+        app:showAsAction="ifRoom" />
 
 </menu>

@@ -37,6 +37,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.HistoryEntry
 import org.blokada.R
+import service.AlertDialogService
 import ui.StatsViewModel
 import ui.app
 import ui.settings.SettingsFragmentDirections
@@ -47,6 +48,7 @@ class StatsFragment : Fragment() {
     private lateinit var vm: StatsViewModel
 
     private lateinit var searchGroup: ViewGroup
+    private lateinit var search: SearchView
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -62,12 +64,6 @@ class StatsFragment : Fragment() {
 
         searchGroup = root.findViewById(R.id.activity_searchgroup)
         searchGroup.visibility = View.GONE
-
-        val filter: ImageView = root.findViewById(R.id.activity_filter)
-        filter.setOnClickListener {
-            val fragment = StatsFilterFragment.newInstance()
-            fragment.show(parentFragmentManager, null)
-        }
 
         val adapter = StatsAdapter(vm, interaction = object : StatsAdapter.Interaction {
             override fun onClick(item: HistoryEntry) {
@@ -103,6 +99,7 @@ class StatsFragment : Fragment() {
                     else -> StatsViewModel.Sorting.TOP
                 }
                 vm.sort(sorting)
+                recycler.scrollToTop()
             }
 
         })
@@ -111,20 +108,28 @@ class StatsFragment : Fragment() {
             when (vm.getFilter()) {
                 StatsViewModel.Filter.ALLOWED -> {
                     tabs.getTabAt(1)?.text = getString(R.string.activity_category_top_allowed)
-                    filter.setColorFilter(requireContext().getColorFromAttr(android.R.attr.colorPrimary))
+//                    filter.setColorFilter(requireContext().getColorFromAttr(android.R.attr.colorPrimary))
                 }
                 StatsViewModel.Filter.BLOCKED -> {
                     tabs.getTabAt(1)?.text = getString(R.string.activity_category_top_blocked)
-                    filter.setColorFilter(requireContext().getColorFromAttr(android.R.attr.colorPrimary))
+//                    filter.setColorFilter(requireContext().getColorFromAttr(android.R.attr.colorPrimary))
                 }
                 else -> {
                     tabs.getTabAt(1)?.text = getString(R.string.activity_category_top)
-                    filter.setColorFilter(null)
+//                    filter.setColorFilter(null)
                 }
             }
         }
 
-        val search: SearchView = root.findViewById(R.id.activity_search)
+        search = root.findViewById(R.id.activity_search)
+        search.setOnClickListener {
+            search.isIconified = false
+            search.requestFocus()
+        }
+        search.setOnCloseListener {
+            searchGroup.visibility = View.GONE
+            true
+        }
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(term: String): Boolean {
@@ -132,8 +137,11 @@ class StatsFragment : Fragment() {
             }
 
             override fun onQueryTextChange(term: String): Boolean {
-                if (term.isNotBlank()) vm.search(term.trim())
-                else vm.search(null)
+                if (term.isNotBlank()) {
+                    vm.search(term.trim())
+                } else {
+                    vm.search(null)
+                }
                 return true
             }
 
@@ -145,10 +153,6 @@ class StatsFragment : Fragment() {
             if (it.isNotEmpty()) empty.visibility = View.GONE
             adapter.swapData(it)
             updateTabsAndFilter()
-            lifecycleScope.launch {
-                delay(400) // Just Android things
-                recycler.scrollToTop()
-            }
         })
 
         lifecycleScope.launch {
@@ -161,8 +165,10 @@ class StatsFragment : Fragment() {
     }
 
     private fun RecyclerView.scrollToTop() {
-        smoothScrollToPosition(0)
-        //scrollToPositionWithOffset(0, 0)
+        lifecycleScope.launch {
+            delay(1000) // Just Android things
+            smoothScrollToPosition(0)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -173,11 +179,28 @@ class StatsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.stats_search -> {
-                if (searchGroup.visibility == View.GONE) {
+                if (vm.stats.value?.entries?.isEmpty() == true) {
+                    // Ignore action when empty
+                } else if (searchGroup.visibility == View.GONE) {
                     searchGroup.visibility = View.VISIBLE
+                    search.isIconified = false
+                    search.requestFocus()
                 } else {
                     searchGroup.visibility = View.GONE
                 }
+                true
+            }
+            R.id.stats_filter -> {
+                val fragment = StatsFilterFragment.newInstance()
+                fragment.show(parentFragmentManager, null)
+                true
+            }
+            R.id.stats_clear -> {
+                AlertDialogService.showAlert(getString(R.string.universal_status_confirm),
+                    title = getString(R.string.universal_action_clear),
+                    positiveAction = getString(R.string.universal_action_yes) to {
+                        vm.clear()
+                    })
                 true
             }
             else -> false

@@ -37,6 +37,7 @@ import model.HistoryEntry
 import model.HistoryEntryType
 import org.blokada.R
 import ui.StatsViewModel
+import java.lang.Integer.min
 import java.util.*
 
 class StatsAdapter(
@@ -66,7 +67,6 @@ class StatsAdapter(
         private val iconCounter: TextView = itemView.findViewById(R.id.activity_iconcounter)
         private val name: TextView = itemView.findViewById(R.id.activity_name)
         private val time: TextView = itemView.findViewById(R.id.activity_date)
-        private val counter: TextView = itemView.findViewById(R.id.activity_counter)
         private val modified: View = itemView.findViewById(R.id.activity_modified)
 
         init {
@@ -85,25 +85,21 @@ class StatsAdapter(
                     icon.setImageResource(R.drawable.ic_shield_off_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.green))
                     iconCounter.visibility = View.GONE
-                    counter.text = getBlockedAllowedString(context, counter = item.requests, blocked = false)
                 }
                 HistoryEntryType.blocked_denied -> {
                     icon.setImageResource(R.drawable.ic_shield_off_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.red))
                     iconCounter.visibility = View.GONE
-                    counter.text = getBlockedAllowedString(context, counter = item.requests, blocked = true)
                 }
                 HistoryEntryType.passed -> {
                     icon.setImageResource(R.drawable.ic_shield_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.green))
                     iconCounter.visibility = View.VISIBLE
-                    counter.text = getBlockedAllowedString(context, counter = item.requests, blocked = false)
                 }
                 else -> {
                     icon.setImageResource(R.drawable.ic_shield_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.red))
                     iconCounter.visibility = View.VISIBLE
-                    counter.text = getBlockedAllowedString(context, counter = item.requests, blocked = true)
                 }
             }
 
@@ -118,7 +114,7 @@ class StatsAdapter(
                 itemView.alpha = 1.0f
             }
 
-            iconCounter.text = item.requests.toString() // TODO: max val
+            iconCounter.text = min(99, item.requests).toString()
             name.text = item.name
             time.text = DateUtils.getRelativeTimeSpanString(item.time.time, Date().time, 0)
         }

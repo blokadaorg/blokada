@@ -41,6 +41,11 @@ object StatsService {
         internalStats.putAll(persistence.load(StatsPersisted::class).entries)
     }
 
+    fun clear() {
+        internalStats.clear()
+        persistence.save(StatsPersisted(internalStats))
+    }
+
     suspend fun passedAllowed(host: Host) {
         increment(host, HistoryEntryType.passed_allowed)
         runtimeAllowed += 1

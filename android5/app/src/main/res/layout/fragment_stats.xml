@@ -42,16 +42,8 @@
 
         <SearchView
             android:id="@+id/activity_search"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/activity_filter"
-            android:layout_width="@dimen/icon"
-            android:layout_height="@dimen/icon"
-            android:padding="@dimen/half"
-            android:src="@drawable/ic_baseline_filter_list_24" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout

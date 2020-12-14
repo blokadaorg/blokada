@@ -82,6 +82,11 @@ class StatsViewModel : ViewModel() {
         }
     }
 
+    fun clear() {
+        statistics.clear()
+        refresh()
+    }
+
     fun get(forName: String): HistoryEntry? {
         return history.value?.firstOrNull { it.name == forName }
     }
