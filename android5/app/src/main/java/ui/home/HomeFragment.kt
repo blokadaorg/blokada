@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import model.*
 import org.blokada.R
 import service.AlertDialogService
@@ -140,7 +141,10 @@ class HomeFragment : Fragment() {
             plusButton.visible = s.inProgress || s.active
             plusButton.isEnabled = !s.inProgress
             if (!s.inProgress) {
-                plusButton.checked = s.gatewayId != null
+                // Trying to fix a weird out of sync switch state
+                lifecycleScope.launch {
+                    plusButton.checked = s.gatewayId != null
+                }
             }
 
             // Only after first init, to not animate on fragment creation
