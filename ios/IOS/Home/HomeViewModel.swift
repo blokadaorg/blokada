@@ -34,8 +34,8 @@ class HomeViewModel: ObservableObject {
 
     init() {
         sharedActions.changeGateway = switchGateway
-        sharedActions.refreshStats = {
-            self.refreshAdsCounter(delay: false)
+        sharedActions.refreshStats = { ok in
+            self.refreshAdsCounter(delay: false, ok: ok)
         }
         Config.shared.setOnConfigUpdated {
             onMain { self.syncUiWithConfig() }

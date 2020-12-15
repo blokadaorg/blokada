@@ -34,13 +34,13 @@ class ActivityViewModel: ObservableObject {
 
     @Published var sorting = 0 {
         didSet {
-            apply()
+            refreshStats(ok: { _ in self.apply() })
         }
     }
 
     @Published var filtering = 0 {
         didSet {
-            apply()
+            refreshStats(ok: { _ in self.apply() })
         }
     }
 
@@ -106,7 +106,7 @@ class ActivityViewModel: ObservableObject {
         self.service.undeny(entry: entry)
     }
 
-    func refreshStats() {
-        self.sharedActions.refreshStats()
+    func refreshStats(ok: @escaping Ok<Void> = { _ in }) {
+        self.sharedActions.refreshStats(ok)
     }
 }
