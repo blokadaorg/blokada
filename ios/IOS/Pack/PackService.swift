@@ -122,7 +122,7 @@ class PackService {
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/adservers/hosts.txt", applyFor: "Adservers"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/facebook/hosts.txt", applyFor: "Facebook")),
 
-        Pack.mocked(id: "oisd", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"],
+        Pack.mocked(id: "oisd", tags: [Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"],
             title: "OISD",
             slugline: "A good general purpose blocklist",
             description: "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
@@ -131,10 +131,24 @@ class PackService {
             configs: ["Light"]
         )
             .changeStatus(config: "Light")
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor: "Light"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor: "Light")),
+
+        Pack.mocked(id: "developerdan", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social"],
+            title: "Developer Dan's Hosts",
+            slugline: "A blocklist for ads and tracking, updated regularly",
+            description: "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.",
+            creditName: "Daniel White",
+            creditUrl: "https://go.blokada.org/developerdan",
+            configs: ["Ads & Tracking", "Facebook", "AMP", "Hate & Junk"]
+        )
+            .changeStatus(config: "Ads & Tracking")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/ads/hosts.txt", applyFor: "Ads & Tracking"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/facebook/hosts.txt", applyFor: "Facebook"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/amp/hosts.txt", applyFor: "AMP"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/junk/hosts.txt", applyFor: "Hate & Junk")),
     ]
 
-    private let packsVersion = 16
+    private let packsVersion = 17
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false

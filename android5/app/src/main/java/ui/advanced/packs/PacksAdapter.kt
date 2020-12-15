@@ -98,6 +98,7 @@ class PacksAdapter(private val interaction: Interaction? = null) :
             "blacklist" -> R.drawable.feature_blacklist
             "exodusprivacy" -> R.drawable.feature_exodusprivacy
             "oisd" -> R.drawable.feature_oisd
+            "developerdan" -> R.drawable.feature_developerdan
             else -> R.drawable.feature_phishingarmy // TODO placeholder
         }
     }
