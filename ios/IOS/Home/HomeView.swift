@@ -82,9 +82,9 @@ struct HomeView: View {
 
                     Text(
                         self.vm.working ? "..."
-                        : self.vm.timerSeconds > 0 ? L10n.homeStatusPaused
-                        : self.vm.mainSwitch ? L10n.homeStatusActive
-                        : L10n.homeStatusDeactivated
+                            : self.vm.timerSeconds > 0 ? L10n.homeStatusPaused.uppercased()
+                            : self.vm.mainSwitch ? L10n.homeStatusActive.uppercased()
+                            : L10n.homeStatusDeactivated.uppercased()
                     )
                     .fontWeight(.heavy).kerning(2).padding(.bottom).font(.headline)
                     .foregroundColor(

@@ -23,16 +23,12 @@ import Foundation
 
 class LocationListViewModel: ObservableObject {
 
-    @Published var items = [LocationViewModel]()
+    @Published var items = [String: [LocationViewModel]]()
 
     private let api = BlockaApiService.shared
     private let sharedActions = SharedActionsService.shared
 
     func loadGateways(done: @escaping Ok<Void>) {
-        self.items = items.map { i in
-            LocationViewModel(gateway: i.gateway, selectedGateway: self.selectedGateway())
-        }
-
         if !self.items.isEmpty {
             // Hides spinner immediatelly
             done(())
@@ -44,10 +40,13 @@ class LocationListViewModel: ObservableObject {
                     return done(())
                 }
 
-                self.items = gateways!.sorted { $0.location < $1.location }
+                let vms = gateways!.sorted { $0.location < $1.location }
                 .map { gateway in
                     LocationViewModel(gateway: gateway, selectedGateway: self.selectedGateway())
                 }
+
+                self.items = Dictionary(grouping: vms, by: { $0.gateway.region.components(separatedBy: "-")[0]  })
+
                 return done(())
             }
         }

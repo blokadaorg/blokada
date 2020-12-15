@@ -89,18 +89,29 @@ struct LocationListView: View {
 
                             ZStack {
                                 VStack(spacing: 0) {
-                                    ForEach(self.vm.items, id: \.self) { item in
-                                        Button(action: {
-                                            withAnimation {
-                                                self.activeSheet = nil
-                                                self.vm.changeLocation(item)
-                                            }
-                                        }) {
-                                            LocationView(vm: item)
+                                    ForEach(self.vm.items.sorted(by: { $0.0 > $1.0 }), id: \.key) { region, locations in
+                                        HStack {
+                                            Text(region.uppercased())
+                                                .font(.subheadline)
+                                                .foregroundColor(Color.secondary)
+                                                .padding(.top)
+                                            Spacer()
                                         }
+
+                                        ForEach(locations, id: \.self) { item in
+                                            Button(action: {
+                                                withAnimation {
+                                                    self.activeSheet = nil
+                                                    self.vm.changeLocation(item)
+                                                }
+                                            }) {
+                                                LocationView(vm: item)
+                                            }
+                                        }
+
                                     }
                                 }
-                                .padding([.leading, .trailing], 20)
+                                .padding([.leading, .trailing], 40)
                             }
 
                             Spacer()
