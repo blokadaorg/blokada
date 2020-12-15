@@ -72,18 +72,6 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.activeSheet = nil
-                    onBackground {
-                        sleep(5)
-                        onMain {
-                            // TODO
-                        }
-                    }
-                }) {
-                    Text("Reset configuration (wipe data)")
-                }
-
-                Button(action: {
                    self.activeSheet = nil
                    onBackground {
                        sleep(5)

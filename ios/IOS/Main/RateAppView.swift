@@ -66,7 +66,6 @@ struct RateAppView: View {
 
                     Button(action: {
                         self.activeSheet = nil
-                        // TODO: redirect to app store
                         SKStoreReviewController.requestReview()
                     }) {
                         ZStack {
