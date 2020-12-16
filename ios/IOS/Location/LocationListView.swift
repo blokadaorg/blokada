@@ -141,6 +141,7 @@ struct LocationListView: View {
             }
         }
         .onAppear {
+            self.showSpinner = true
             self.vm.loadGateways {
                 self.showSpinner = false
             }

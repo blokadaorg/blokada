@@ -29,17 +29,13 @@ class LocationListViewModel: ObservableObject {
     private let sharedActions = SharedActionsService.shared
 
     func loadGateways(done: @escaping Ok<Void>) {
-        if !self.items.isEmpty {
-            // Hides spinner immediatelly
-            done(())
-        }
+        self.items = Dictionary()
 
         self.api.getGateways { error, gateways in
             onMain {
                 guard error == nil else {
                     return done(())
                 }
-
                 let vms = gateways!.sorted { $0.location < $1.location }
                 .map { gateway in
                     LocationViewModel(gateway: gateway, selectedGateway: self.selectedGateway())
