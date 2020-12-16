@@ -124,8 +124,8 @@ class HomeFragment : Fragment() {
             val status: TextView = root.findViewById(R.id.home_status)
             status.text = when {
                 s.inProgress -> "..."
-                s.active -> getString(R.string.home_status_active)
-                else -> getString(R.string.home_status_deactivated)
+                s.active -> getString(R.string.home_status_active).toUpperCase()
+                else -> getString(R.string.home_status_deactivated).toUpperCase()
             }
 
             updateLongStatus(s, adsCounterVm.counter.value?.let {

@@ -37,7 +37,7 @@
     <dimen name="header_width_payment">130dp</dimen>
     <dimen name="header_height">24dp</dimen>
 
-    <dimen name="powerview">200dp</dimen>
+    <dimen name="powerview">140dp</dimen>
     <dimen name="powerview_below">32dp</dimen>
     <dimen name="plusbutton_above">90dp</dimen>
 
