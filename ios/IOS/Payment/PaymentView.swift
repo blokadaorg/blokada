@@ -39,6 +39,7 @@ struct PaymentView: View {
             .frame(height: 44)
 
             Text(self.vm.description).foregroundColor(Color.primary).font(.caption)
+                .multilineTextAlignment(.center)
         }
         .padding(.bottom, 12)
         .padding(.leading, 8)

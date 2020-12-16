@@ -28,47 +28,51 @@ struct AfterActivatedView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                BlokadaView(animate: true)
-                    .frame(width: 100, height: 100)
+            ZStack {
+                ScrollView {
+                    VStack {
+                        BlokadaView(animate: true)
+                            .frame(width: 100, height: 100)
 
-                Text(L10n.paymentHeaderActivated)
-                    .font(.largeTitle)
-                    .bold()
-                    .padding()
+                        Text(L10n.paymentHeaderActivated)
+                            .font(.largeTitle)
+                            .bold()
+                            .padding()
 
-                Text(L10n.paymentActivatedDescription)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding([.leading, .trailing], 40)
-                    .padding([.top, .bottom])
+                        Text(L10n.paymentActivatedDescription)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding([.leading, .trailing], 40)
+                            .padding([.top, .bottom])
 
-                VStack {
-                    Button(action: {
-                        self.activeSheet = nil
-                        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                            self.activeSheet = .location
-                        })
-                    }) {
-                        ZStack {
-                            ButtonView(enabled: .constant(true), plus: .constant(true))
-                                .frame(height: 44)
-                            Text(L10n.paymentActionChooseLocation)
-                                .foregroundColor(.white)
-                                .bold()
+                        VStack {
+                            Button(action: {
+                                self.activeSheet = nil
+                                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+                                    self.activeSheet = .location
+                                })
+                            }) {
+                                ZStack {
+                                    ButtonView(enabled: .constant(true), plus: .constant(true))
+                                        .frame(height: 44)
+                                    Text(L10n.paymentActionChooseLocation)
+                                        .foregroundColor(.white)
+                                        .bold()
+                                }
+                            }
                         }
+                        .padding(40)
                     }
+                    .frame(maxWidth: 500)
+                    .navigationBarItems(trailing:
+                        Button(action: {
+                            self.activeSheet = nil
+                        }) {
+                            Text(L10n.universalActionDone)
+                        }
+                        .contentShape(Rectangle())
+                    )
                 }
-                .padding(40)
             }
-            .frame(maxWidth: 500)
-            .navigationBarItems(trailing:
-                Button(action: {
-                    self.activeSheet = nil
-                }) {
-                    Text(L10n.universalActionDone)
-                }
-                .contentShape(Rectangle())
-            )
         }
         .opacity(self.appear ? 1 : 0)
         .animation(.easeInOut)

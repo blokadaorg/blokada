@@ -32,6 +32,8 @@ struct BenefitView: View {
                 .foregroundColor(.primary)
                 .frame(width: 32, height: 32)
             Text(text).font(.system(size: 12))
+                .multilineTextAlignment(.center)
+                .padding(.top, 3)
         }
         .padding(4)
     }

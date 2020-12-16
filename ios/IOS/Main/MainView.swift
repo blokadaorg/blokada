@@ -61,11 +61,11 @@ struct MainView: View {
                             }
                         }) {
                             Image(systemName: Image.fHelp)
-                                .imageScale(.large)
+                                .imageScale(.medium)
                                 .foregroundColor(.primary)
                                 .frame(width: 32, height: 32, alignment: .center)
                                 .padding(8)
-                                .padding(.top, 28)
+                                .padding(.top, 25)
                                 .onTapGesture {
                                     self.showHelpActions = true
                                 }
@@ -162,7 +162,7 @@ struct MainView_Previews: PreviewProvider {
                 tabVM: tabVM,
                 activeSheet: .constant(nil)
             )
-            .environment(\.sizeCategory, .extraExtraExtraLarge)
+            .environment(\.sizeCategory, .accessibilityExtraLarge)
             .environment(\.colorScheme, .dark)
 
             MainView(

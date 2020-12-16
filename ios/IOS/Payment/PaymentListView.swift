@@ -40,6 +40,7 @@ struct PaymentListView: View {
                     }
                 }
                 .padding(.bottom, 8)
+                Spacer()
             }
             .padding(.top, 1)
             .opacity(self.vm.working || self.vm.options.isEmpty ? 0.0 : 1.0)

@@ -36,7 +36,7 @@ struct BadgeView: View {
     var body: some View {
         Text(numberToText())
             .foregroundColor(Color.white)
-            .font(.caption)
+            .font(.system(size: 9))
             .padding(6)
             .frame(minWidth: 18)
             .background(

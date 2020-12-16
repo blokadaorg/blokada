@@ -44,6 +44,7 @@ struct PlusButtonView: View {
                                 L10n.universalActionUpgrade
                                     .toBlokadaPlusText(color: self.vm.vpnEnabled ? Color.primary : Color.white, plusColor: self.vm.vpnEnabled ? Color.primary : Color.white)
                                     .foregroundColor(self.vm.vpnEnabled ? Color.primary : Color.white)
+                                    .font(.system(size: 14))
                             } else if !self.vm.vpnEnabled {
                                 if !self.vm.hasLease {
                                     Spacer()
@@ -52,14 +53,17 @@ struct PlusButtonView: View {
                                 L10n.homePlusButtonDeactivated
                                     .toBlokadaPlusText(color: Color.white, plusColor: Color.white)
                                     .foregroundColor(.white)
+                                    .font(.system(size: 14))
                             } else if !self.vm.hasSelectedLocation {
                                 Spacer()
                                 Text(L10n.homePlusButtonSelectLocation)
                                     .foregroundColor(.white)
+                                    .font(.system(size: 14))
                             } else {
                                 L10n.homePlusButtonLocation(self.vm.location)
-                                    .withBoldSections(font: .headline)
+                                    .withBoldSections(font: .system(size: 14))
                                     .foregroundColor(.primary)
+                                    .font(.system(size: 14))
                             }
                             Spacer()
                         }
@@ -97,7 +101,7 @@ struct PlusButtonView: View {
             }
         }
         .frame(height: 44)
-        .padding()
+        .padding([.bottom, .leading, .trailing])
         .transition(.slide)
         .offset(y: self.vm.mainSwitch && !self.vm.isPaused ? 0 : 64)
         .animation(

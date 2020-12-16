@@ -59,14 +59,16 @@ struct PaymentGatewayView: View {
                             Spacer()
                         }
 
-                        L10n.paymentTitle.withBoldSections()
+                        L10n.paymentTitle.withBoldSections(font: .system(size: 13))
                             .multilineTextAlignment(.center)
                             .lineLimit(2)
+                            .font(.system(size: 13))
                             .padding(.top, 32)
                             .padding(.leading, 24)
                             .padding(.trailing, 32)
 
-                        HStack {
+                        HStack(alignment: .top) {
+                            Spacer()
                             VStack {
                                 BenefitView(icon: Image.fLocation, text: L10n.paymentFeatureTitleChangeLocation)
                                 //BenefitItemView(icon: Image.fComputer, text: "Up to 3 Devices")
@@ -79,6 +81,7 @@ struct PaymentGatewayView: View {
                                 BenefitView(icon: Image.fSpeed, text: L10n.paymentFeatureTitleFasterConnection)
                                 //BenefitItemView(icon: Image.fMessage, text: "Great Support")
                             }
+                            Spacer()
                         }
                         .padding(.top, 18)
                         .padding(.bottom, 18)
@@ -106,6 +109,7 @@ struct PaymentGatewayView: View {
                             Text(L10n.paymentActionRestore)
                                 .foregroundColor(Color.cActivePlus)
                                 .padding(.top, 8)
+                                .multilineTextAlignment(.center)
                                 .onTapGesture {
                                     withAnimation {
                                         self.vm.restoreTransactions()
@@ -115,6 +119,7 @@ struct PaymentGatewayView: View {
                             Text(L10n.paymentActionTermsAndPrivacy)
                                 .foregroundColor(Color.cActivePlus)
                                 .padding(.top, 12)
+                                .multilineTextAlignment(.center)
                                 .actionSheet(isPresented: self.$showPrivacySheet) {
                                     ActionSheet(title: Text(L10n.paymentActionTermsAndPrivacy), buttons: [
                                         .default(Text(L10n.paymentActionTerms)) {
@@ -161,7 +166,7 @@ struct PaymentGatewayView: View {
                 }
             }) {
                 Image(systemName: Image.fHelp)
-                    .imageScale(.large)
+                    .imageScale(.medium)
                     .foregroundColor(.primary)
                     .frame(width: 32, height: 32, alignment: .center)
                     .padding(8)

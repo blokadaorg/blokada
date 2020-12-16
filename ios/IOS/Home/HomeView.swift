@@ -54,7 +54,7 @@ struct HomeView: View {
                     .animation(Animation.easeIn(duration: 0.2))
 
                 PowerView(vm: self.vm, activeSheet: self.$activeSheet)
-                    .frame(maxWidth: 190, maxHeight: 190)
+                    .frame(maxWidth: 170, maxHeight: 170)
             }
 
             VStack {
@@ -86,7 +86,7 @@ struct HomeView: View {
                             : self.vm.mainSwitch ? L10n.homeStatusActive.uppercased()
                             : L10n.homeStatusDeactivated.uppercased()
                     )
-                    .fontWeight(.heavy).kerning(2).padding(.bottom).font(.headline)
+                    .fontWeight(.heavy).kerning(2).padding(.bottom).font(.system(size: 15))
                     .foregroundColor(
                         !self.vm.mainSwitch ? .primary
                         : self.vm.vpnEnabled ? Color.cActivePlus
@@ -182,7 +182,8 @@ struct HomeView_Previews: PreviewProvider {
             HomeView(
                 vm: HomeViewModel(),
                 activeSheet: .constant(nil)
-            ).previewDevice(PreviewDevice(rawValue: "iPhone X"))
+            )
+            .previewDevice(PreviewDevice(rawValue: "iPhone X"))
 
             HomeView(
                 vm: error,

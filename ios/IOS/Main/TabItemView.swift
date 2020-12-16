@@ -61,7 +61,7 @@ struct TabItemView: View {
                     .offset(y: -8)
             }
         }
-        .frame(minWidth: 80)
+        .frame(minWidth: 74)
         .onTapGesture {
             self.active = self.id
         }

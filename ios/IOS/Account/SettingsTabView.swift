@@ -37,8 +37,8 @@ struct SettingsTabView: View {
                Form {
                 HStack {
                     BlokadaView(animate: true)
-                      .frame(width: 64, height: 64)
-                      .padding()
+                        .frame(width: 64, height: 64)
+                        .padding([.bottom, .top, .trailing], 6)
 
                     if self.vm.active {
                         L10n.accountStatusText(self.vm.type, self.vm.activeUntil)
@@ -62,6 +62,7 @@ struct SettingsTabView: View {
                              .frame(width: 32, height: 32)
 
                             Text(L10n.accountActionMyAccount)
+                                .padding(.leading, 6)
 
                         }
                     }
@@ -74,14 +75,16 @@ struct SettingsTabView: View {
                              .frame(width: 32, height: 32)
 
                             Text(L10n.accountActionInbox)
+                                .padding(.leading, 6)
+                                .lineLimit(1)
                         }
 
                         Spacer()
 
-                        if self.tabVM.hasInboxBadge() {
+                       if self.tabVM.hasInboxBadge() {
                             BadgeView(number: self.tabVM.inboxBadge)
                                 .padding(.trailing, 8)
-                        }
+                       }
                     }
 
                     NavigationLink(destination: EncryptionView(homeVM: self.homeVM, activeSheet: self.$activeSheet), tag: "encryption", selection: self.$tabVM.selection) {
@@ -92,6 +95,7 @@ struct SettingsTabView: View {
                               .frame(width: 32, height: 32)
 
                             Text(L10n.accountActionEncryption)
+                                .padding(.leading, 6)
                          }
                      }
 
@@ -103,6 +107,7 @@ struct SettingsTabView: View {
                              .frame(width: 32, height: 32)
 
                             Text(L10n.accountActionDevices)
+                                .padding(.leading, 6)
 
                         }
                     }
@@ -117,6 +122,7 @@ struct SettingsTabView: View {
                                  .frame(width: 32, height: 32)
 
                                 Text(L10n.accountActionLogout)
+                                    .padding(.leading, 6)
 
                             }
                         }
@@ -132,6 +138,7 @@ struct SettingsTabView: View {
 
                                 Text(L10n.universalActionSupport)
                                     .foregroundColor(Color.primary)
+                                    .padding(.leading, 6)
 
                             }
                         }
@@ -147,6 +154,7 @@ struct SettingsTabView: View {
 
                                 Text(L10n.accountActionAbout)
                                     .foregroundColor(.primary)
+                                    .padding(.leading, 6)
 
                             }
                         }
