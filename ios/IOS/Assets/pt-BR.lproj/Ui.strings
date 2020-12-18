@@ -68,6 +68,12 @@
 "universal action hide" = "Ocultar";
 "universal action select" = "Selecionar";
 "universal action selected" = "Selecionado";
+// A verb "to search in the list"
+"universal action search" = "Pesquisar";
+// A verb "to filter the list"
+"universal action filter" = "Filtrar";
+// A verb "to clear the list"
+"universal action clear" = "Limpar";
 
 "universal label help" = "Ajuda";
 "universal label welcome" = "Bem-vindo!";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "Copiado para a Área de Transferência";
 "universal status restart required" = "Por favor, reinicie o programa para que as alterações entrem em vigor.";
 "universal status redirect" = "Continuar com o Aplicativo do Blokada";
+"universal status confirm" = "Tem certeza que deseja continuar?";
 
 "alert error header" = "Opa!";
 "alert vpn expired header" = "O BLOKADA+ expirou";

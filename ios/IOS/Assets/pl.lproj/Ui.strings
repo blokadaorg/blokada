@@ -68,6 +68,12 @@
 "universal action hide" = "Ukryj";
 "universal action select" = "Wybierz";
 "universal action selected" = "Wybrano";
+// A verb "to search in the list"
+"universal action search" = "Szukaj";
+// A verb "to filter the list"
+"universal action filter" = "Filtruj";
+// A verb "to clear the list"
+"universal action clear" = "Wyczyść";
 
 "universal label help" = "Pomoc";
 "universal label welcome" = "Witaj!";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "Skopiowano do schowka";
 "universal status restart required" = "Proszę uruchom ponownie aplikację, by zmiany zostały zastosowane.";
 "universal status redirect" = "Kontynuuj do aplikacji Blokada";
+"universal status confirm" = "Czy na pewno chcesz kontynuować?";
 
 "alert error header" = "Ups!";
 "alert vpn expired header" = "BLOKADA+ wygasła";
@@ -105,7 +112,7 @@
 "main rate us action sure" = "Jasne!";
 
 // Make sure each tab name has a similar length
-"main tab home" = "Ekran główny";
+"main tab home" = "Start";
 // Make sure each tab name has a similar length
 "main tab activity" = "Aktywność";
 // Make sure each tab name has a similar length
@@ -181,7 +188,7 @@
 // As in sentence, "this host has been allowed"
 "activity state allowed" = "zezwolone";
 "activity happened one time" = "1 raz";
-"activity happened many times" = "%@ razy(ów)";
+"activity happened many times" = "%@ razy";
 "activity category recent" = "Ostatnia";
 "activity category top" = "Częsta";
 "activity category top blocked" = "Często Blokowana";
@@ -210,7 +217,7 @@
 "account action devices" = "Urządzenia";
 "account action new device" = "Nowe urządzenie";
 "account action inbox" = "Odebrane";
-"account action logout" = "Zwróć zakup";
+"account action logout" = "Przywróć zakup";
 "account action logout only" = "Wyloguj";
 "account action create" = "Wygeneruj nowe konto";
 "account action about" = "O aplikacji";
@@ -235,7 +242,7 @@
 
 "account unlock to show" = "Odblokuj aby pokazać ID konta";
 
-"account header logout" = "Zwróć zakup";
+"account header logout" = "Przywróć zakup";
 "account logout description" = "Wprowadź inny identyfikator konta lub wróć do istniejącego (ta aplikacja nie może być używana bez konta).";
 "account id status unchanged" = "(bez zmian)";
 "account action how to restore" = "Jak przywrócić swoje stare konto?";

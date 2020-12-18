@@ -48,6 +48,10 @@
 "universal action download" = "Download";
 "universal action news" = "Nieuws";
 "universal action delete" = "Verwijderen";
+// A verb "to search in the list"
+"universal action search" = "Zoeken";
+// A verb "to clear the list"
+"universal action clear" = "Wissen";
 
 "universal label help" = "Hulp";
 "universal status processing" = "Bezig... Even geduld.";

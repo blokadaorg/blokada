@@ -68,6 +68,10 @@
 "universal action hide" = "Ocultar";
 "universal action select" = "Seleccionar";
 "universal action selected" = "Seleccionado";
+// A verb "to search in the list"
+"universal action search" = "Buscar";
+// A verb "to clear the list"
+"universal action clear" = "Limpiar";
 
 "universal label help" = "Ayuda";
 "universal label welcome" = "¡Bienvenido!";
@@ -218,6 +222,8 @@
 "account action restoring" = "Restaurando cuenta: %@";
 "account label enter to continue" = "Introduce tu ID de cuenta para continuar";
 "account restore description" = "No te preocupes, si has perdido o olvidado tu ID de cuenta, podemos recuperarlo. Por favor, ponte en contacto con nuestro equipo de soporte y proporciónanos información que nos permita identificar tu compra (por ejemplo, los últimos 4 dígitos de tu tarjeta de crédito o tu e-mail de PayPal).";
+"account create description" = "Este es tu ID de cuenta. Anótalo y mantenlo en privado. Es la única forma de acceder a tu suscripción.";
+"account create confirm" = "Ya lo anoté";
 
 "account section header my subscription" = "Mi suscripción";
 "account section header general" = "General";
@@ -313,6 +319,9 @@
 "payment success label" = "¡Gracias!";
 "payment success desc" = "¡Tu cuenta está activa! Ahora puedes usar todas las funciones de Blokada Plus en todos tus dispositivos.";
 
+"payment redirect label" = "Redirigiendo...";
+"payment redirect desc" = "Por favor, espera. Esto solo debería tomar un momento.";
+
 "payment ongoing title" = "Tu pago está siendo procesado.";
 "payment ongoing desc" = "Los pagos con tarjeta de crédito no deberían tardar más de unos minutos. Los pagos con criptomonedas generalmente demoran hasta una hora, dependiendo de la tarifa de transacción que elija. En el caso de PayPal, puede tardar hasta 24 horas. Serás redirigido una vez que tu cuenta esté lista. También puede cerrar esta ventana y volver más tarde. Si cree que su transacción está demorando demasiado, comuníquese con nosotros.";
 "payment pay google short" = "Google Pay";
@@ -334,6 +343,9 @@
 "payment package twelve months" = "12 meses";
 "payment label discount" = "Ahorra %@ (%@ / mes)";
 "payment label country" = "País";
+
+"payment euro desc" = "Tenemos sede en Europa, así que aceptamos Euros: €10 son aproximadamente $12.";
+"payment donate disclaimer" = "Esto no activará tu cuenta de Blokada Plus. Si deseas utilizar nuestro servicio VPN, por favor suscríbete en lugar de donar.";
 
 "apps section header" = "Apps";
 "apps label installed" = "Instalado";

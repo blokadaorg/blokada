@@ -60,6 +60,10 @@
 "universal action download" = "डाउन्लोड";
 "universal action news" = "समाचार";
 "universal action delete" = "हटाएँ";
+// A verb "to search in the list"
+"universal action search" = "खोजें";
+// A verb "to clear the list"
+"universal action clear" = "साफ़";
 
 "universal label help" = "मदद";
 "universal status processing" = "प्रॉसेस हो रहा हैं; कृपया प्रतीक्षा करें...";

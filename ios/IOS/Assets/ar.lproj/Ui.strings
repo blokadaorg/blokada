@@ -68,6 +68,12 @@
 "universal action hide" = "إخفاء";
 "universal action select" = "اختر";
 "universal action selected" = "مُحَدَّد";
+// A verb "to search in the list"
+"universal action search" = "بحث";
+// A verb "to filter the list"
+"universal action filter" = "فلتر";
+// A verb "to clear the list"
+"universal action clear" = "مَسْح";
 
 "universal label help" = "المُساعَدة";
 "universal label welcome" = "مرحباً !";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "تَمّ النسخ إلى الحافظة";
 "universal status restart required" = "الرجاء إعادة تشغيل التطبيق لتصبح التغييرات سارية المفعول.";
 "universal status redirect" = "المتابعة مع تطبيق بلوكادا";
+"universal status confirm" = "هل أنت متأكّد أنّك تريد المتابعة؟";
 
 "alert error header" = "عُذراً !";
 "alert vpn expired header" = "إنتهت صلاحيّة BLOKADA+";

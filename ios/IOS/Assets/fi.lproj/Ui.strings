@@ -62,6 +62,10 @@
 "universal action download" = "Lataa";
 "universal action news" = "Uutiset";
 "universal action delete" = "Poista";
+// A verb "to search in the list"
+"universal action search" = "Hae";
+// A verb "to clear the list"
+"universal action clear" = "Tyhjennä";
 
 "universal label help" = "Ohje";
 "universal status processing" = "Käsitellään... odota hetki.";

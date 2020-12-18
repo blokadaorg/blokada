@@ -39,6 +39,8 @@
     <string name="universal_action_download">Letöltés</string>
     <string name="universal_action_news">Hírek</string>
     <string name="universal_action_delete">Törlés</string>
+    <string name="universal_action_search">Keresés</string>
+    <string name="universal_action_clear">Törlés</string>
     <string name="universal_label_help">Segítség</string>
     <string name="universal_status_processing">Feldolgozás... Kérjük, várj.</string>
     <string name="universal_status_redirect">Folytatás a Blokada alkalmazással</string>

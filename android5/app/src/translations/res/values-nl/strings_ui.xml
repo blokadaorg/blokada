@@ -28,6 +28,8 @@
     <string name="universal_action_download">Download</string>
     <string name="universal_action_news">Nieuws</string>
     <string name="universal_action_delete">Verwijderen</string>
+    <string name="universal_action_search">Zoeken</string>
+    <string name="universal_action_clear">Wissen</string>
     <string name="universal_label_help">Hulp</string>
     <string name="universal_status_processing">Bezig... Even geduld.</string>
     <string name="universal_status_copied_to_clipboard">Gekopieerd naar Klembord</string>

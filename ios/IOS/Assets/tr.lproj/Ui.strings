@@ -68,6 +68,12 @@
 "universal action hide" = "Gizle";
 "universal action select" = "Seç";
 "universal action selected" = "Seçildi";
+// A verb "to search in the list"
+"universal action search" = "Ara";
+// A verb "to filter the list"
+"universal action filter" = "Filtre";
+// A verb "to clear the list"
+"universal action clear" = "Temizle";
 
 "universal label help" = "Yardım";
 "universal label welcome" = "Hoş geldiniz!";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "Panoya kopyalandı";
 "universal status restart required" = "Değişikliklerin etkili olması için lütfen programı yeniden başlatın.";
 "universal status redirect" = "Blokada uygulaması ile devam edin";
+"universal status confirm" = "Devam etmek istediğinizden emin misiniz?";
 
 "alert error header" = "Hay aksi!";
 "alert vpn expired header" = "BLOKADA+ süresi doldu";

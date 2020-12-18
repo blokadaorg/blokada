@@ -41,6 +41,8 @@
     "universal action download": "Lataa",
     "universal action news": "Uutiset",
     "universal action delete": "Poista",
+    "universal action search": "Hae",
+    "universal action clear": "Tyhjennä",
     "universal label help": "Ohje",
     "universal status processing": "Käsitellään... odota hetki.",
     "universal status copied to clipboard": "Kopioitu leikepöydälle",

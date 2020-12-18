@@ -48,12 +48,16 @@
     <string name="universal_action_hide">隱藏</string>
     <string name="universal_action_select">選取</string>
     <string name="universal_action_selected">已選取</string>
+    <string name="universal_action_search">搜尋</string>
+    <string name="universal_action_filter">篩選</string>
+    <string name="universal_action_clear">清除</string>
     <string name="universal_label_help">協助</string>
     <string name="universal_label_welcome">歡迎！</string>
     <string name="universal_status_processing">處理中… 請稍候。</string>
     <string name="universal_status_copied_to_clipboard">已複製到剪貼簿</string>
     <string name="universal_status_restart_required">請重新啟動 APP 以套用變更。</string>
     <string name="universal_status_redirect">使用 Blokada 應用程式繼續</string>
+    <string name="universal_status_confirm">你確定要繼續嗎?</string>
     <string name="alert_error_header">哎呀！</string>
     <string name="alert_vpn_expired_header">BLOKADA+ 已到期</string>
     <string name="alert_download_link_body">因為安全因素，我們必須在您的瀏覽器中開啟此網站以下載檔案。到時請再次點擊下載連結。</string>

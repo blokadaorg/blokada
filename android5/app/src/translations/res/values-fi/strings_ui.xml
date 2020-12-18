@@ -42,6 +42,8 @@
     <string name="universal_action_download">Lataa</string>
     <string name="universal_action_news">Uutiset</string>
     <string name="universal_action_delete">Poista</string>
+    <string name="universal_action_search">Hae</string>
+    <string name="universal_action_clear">Tyhjennä</string>
     <string name="universal_label_help">Ohje</string>
     <string name="universal_status_processing">Käsitellään... odota hetki.</string>
     <string name="universal_status_copied_to_clipboard">Kopioitu leikepöydälle</string>

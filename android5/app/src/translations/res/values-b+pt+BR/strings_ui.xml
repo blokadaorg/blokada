@@ -48,12 +48,16 @@
     <string name="universal_action_hide">Ocultar</string>
     <string name="universal_action_select">Selecionar</string>
     <string name="universal_action_selected">Selecionado</string>
+    <string name="universal_action_search">Pesquisar</string>
+    <string name="universal_action_filter">Filtrar</string>
+    <string name="universal_action_clear">Limpar</string>
     <string name="universal_label_help">Ajuda</string>
     <string name="universal_label_welcome">Bem-vindo!</string>
     <string name="universal_status_processing">Processando... Por favor, aguarde.</string>
     <string name="universal_status_copied_to_clipboard">Copiado para a Área de Transferência</string>
     <string name="universal_status_restart_required">Por favor, reinicie o programa para que as alterações entrem em vigor.</string>
     <string name="universal_status_redirect">Continuar com o Aplicativo do Blokada</string>
+    <string name="universal_status_confirm">Tem certeza que deseja continuar?</string>
     <string name="alert_error_header">Opa!</string>
     <string name="alert_vpn_expired_header">O BLOKADA+ expirou</string>
     <string name="alert_download_link_body">Por motivos de segurança, para baixar um arquivo, precisamos abrir este site no seu navegador. Em seguida, toque no link de download novamente.</string>

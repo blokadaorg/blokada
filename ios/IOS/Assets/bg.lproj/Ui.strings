@@ -68,6 +68,12 @@
 "universal action hide" = "Скриване";
 "universal action select" = "Изберете";
 "universal action selected" = "Избиране";
+// A verb "to search in the list"
+"universal action search" = "Търсене";
+// A verb "to filter the list"
+"universal action filter" = "Филтър";
+// A verb "to clear the list"
+"universal action clear" = "Изчистване";
 
 "universal label help" = "Помощ";
 "universal label welcome" = "Добре дошли!";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "Копирано в клипборда";
 "universal status restart required" = "Моля, рестартирайте приложението за да влязат в сила промените.";
 "universal status redirect" = "Продължете към приложението Blokada";
+"universal status confirm" = "Сигурни ли сте, че искате да продължите?";
 
 "alert error header" = "Ооопс!";
 "alert vpn expired header" = "BLOKADA+ е изтекла";

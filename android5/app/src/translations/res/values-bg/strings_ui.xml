@@ -48,12 +48,16 @@
     <string name="universal_action_hide">Скриване</string>
     <string name="universal_action_select">Изберете</string>
     <string name="universal_action_selected">Избиране</string>
+    <string name="universal_action_search">Търсене</string>
+    <string name="universal_action_filter">Филтър</string>
+    <string name="universal_action_clear">Изчистване</string>
     <string name="universal_label_help">Помощ</string>
     <string name="universal_label_welcome">Добре дошли!</string>
     <string name="universal_status_processing">В процес... Моля, изчакайте.</string>
     <string name="universal_status_copied_to_clipboard">Копирано в клипборда</string>
     <string name="universal_status_restart_required">Моля, рестартирайте приложението за да влязат в сила промените.</string>
     <string name="universal_status_redirect">Продължете към приложението Blokada</string>
+    <string name="universal_status_confirm">Сигурни ли сте, че искате да продължите?</string>
     <string name="alert_error_header">Ооопс!</string>
     <string name="alert_vpn_expired_header">BLOKADA+ е изтекла</string>
     <string name="alert_download_link_body">От съображения за сигурност за да изтеглите файл ще трябва този уебсайт да се отвори във вашия браузър. След това, моля докоснете отново връзката за изтегляне.</string>

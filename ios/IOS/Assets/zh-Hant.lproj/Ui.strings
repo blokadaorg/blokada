@@ -68,6 +68,12 @@
 "universal action hide" = "隱藏";
 "universal action select" = "選取";
 "universal action selected" = "已選取";
+// A verb "to search in the list"
+"universal action search" = "搜尋";
+// A verb "to filter the list"
+"universal action filter" = "篩選";
+// A verb "to clear the list"
+"universal action clear" = "清除";
 
 "universal label help" = "協助";
 "universal label welcome" = "歡迎！";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "已複製到剪貼簿";
 "universal status restart required" = "請重新啟動 APP 以套用變更。";
 "universal status redirect" = "使用 Blokada 應用程式繼續";
+"universal status confirm" = "你確定要繼續嗎?";
 
 "alert error header" = "哎呀！";
 "alert vpn expired header" = "BLOKADA+ 已到期";

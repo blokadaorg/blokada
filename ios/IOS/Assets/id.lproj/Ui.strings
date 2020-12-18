@@ -68,6 +68,12 @@
 "universal action hide" = "Sembunyikan";
 "universal action select" = "Pilih";
 "universal action selected" = "Dipilih";
+// A verb "to search in the list"
+"universal action search" = "Cari";
+// A verb "to filter the list"
+"universal action filter" = "Filter";
+// A verb "to clear the list"
+"universal action clear" = "Hapus";
 
 "universal label help" = "Bantuan";
 "universal label welcome" = "Selamat Datang!";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "Disalin ke clipboard";
 "universal status restart required" = "Silakan restart Blokada agar perubahan bisa diterapkan.";
 "universal status redirect" = "Lanjutkan dengan Blokada";
+"universal status confirm" = "Anda yakin ingin melanjutkan?";
 
 "alert error header" = "Ups!";
 "alert vpn expired header" = "BLOKADA+ kedaluwarsa";

@@ -68,6 +68,12 @@
 "universal action hide" = "非表示";
 "universal action select" = "選択";
 "universal action selected" = "選択済み";
+// A verb "to search in the list"
+"universal action search" = "検索";
+// A verb "to filter the list"
+"universal action filter" = "フィルター";
+// A verb "to clear the list"
+"universal action clear" = "消去";
 
 "universal label help" = "ヘルプ";
 "universal label welcome" = "ようこそ！";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "クリップボードにコピーしました";
 "universal status restart required" = "変更を反映するにはアプリを再起動してください。";
 "universal status redirect" = "Blokadaアプリで続ける";
+"universal status confirm" = "続行しますか？";
 
 "alert error header" = "エラーが発生しました！";
 "alert vpn expired header" = "BLOKADA+の有効期限が終了しました";
@@ -149,8 +156,8 @@
 "pack category active" = "有効";
 "pack category all" = "すべて";
 
-"advanced section header packs" = "ブロックリスト";
-"advanced section slugline packs" = "ブロックに利用するリストを管理する";
+"advanced section header packs" = "フィルター";
+"advanced section slugline packs" = "ブロックに利用するフィルターを管理する";
 "advanced section slugline apps" = "アプリのバイパスを管理する";
 "advanced section slugline encryption" = "暗号化レベルとDNSを管理する";
 "advanced action slim migrate to full" = "Blokada Slimを使用しています。詳細はこちら";
@@ -165,12 +172,12 @@
 "activity request blocked blacklisted" = "マイ・リストにより、このリクエストは通信をブロックされています。";
 "activity actions header" = "アクション";
 "activity information header" = "情報";
-"activity action add to whitelist" = "マイ・リストで通信を許可";
+"activity action add to whitelist" = "通信を許可する";
 "activity action remove from whitelist" = "許可リストから削除";
-"activity action added to whitelist" = "マイ・リストで通信を許可中";
-"activity action add to blacklist" = "マイ・リストで通信をブロック";
+"activity action added to whitelist" = "通信を許可しています";
+"activity action add to blacklist" = "通信をブロックする";
 "activity action remove from blacklist" = "ブロックリストから削除";
-"activity action added to blacklist" = "マイ・リストで通信をブロック中";
+"activity action added to blacklist" = "通信をブロックしています";
 "activity action copy to clipboard" = "クリップボードに名前をコピー";
 "activity domain name" = "フルネーム";
 "activity time of occurrence" = "時刻";

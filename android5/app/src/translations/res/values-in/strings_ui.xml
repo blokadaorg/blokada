@@ -48,12 +48,16 @@
     <string name="universal_action_hide">Sembunyikan</string>
     <string name="universal_action_select">Pilih</string>
     <string name="universal_action_selected">Dipilih</string>
+    <string name="universal_action_search">Cari</string>
+    <string name="universal_action_filter">Filter</string>
+    <string name="universal_action_clear">Hapus</string>
     <string name="universal_label_help">Bantuan</string>
     <string name="universal_label_welcome">Selamat Datang!</string>
     <string name="universal_status_processing">Sedang diproses... Harap tunggu.</string>
     <string name="universal_status_copied_to_clipboard">Disalin ke clipboard</string>
     <string name="universal_status_restart_required">Silakan restart Blokada agar perubahan bisa diterapkan.</string>
     <string name="universal_status_redirect">Lanjutkan dengan Blokada</string>
+    <string name="universal_status_confirm">Anda yakin ingin melanjutkan?</string>
     <string name="alert_error_header">Ups!</string>
     <string name="alert_vpn_expired_header">BLOKADA+ kedaluwarsa</string>
     <string name="alert_download_link_body">Untuk alasan keamanan, untuk mengunduh file ini, Blokada harus membuka situs yang dituju di browser Anda. Silahkan tekan tautan download kembali.</string>

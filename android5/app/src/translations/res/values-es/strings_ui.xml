@@ -48,6 +48,8 @@
     <string name="universal_action_hide">Ocultar</string>
     <string name="universal_action_select">Seleccionar</string>
     <string name="universal_action_selected">Seleccionado</string>
+    <string name="universal_action_search">Buscar</string>
+    <string name="universal_action_clear">Limpiar</string>
     <string name="universal_label_help">Ayuda</string>
     <string name="universal_label_welcome">¡Bienvenido!</string>
     <string name="universal_status_processing">Procesando... espera por favor.</string>
@@ -170,6 +172,8 @@
     <string name="account_action_restoring">Restaurando cuenta: %s</string>
     <string name="account_label_enter_to_continue">Introduce tu ID de cuenta para continuar</string>
     <string name="account_restore_description">No te preocupes, si has perdido o olvidado tu ID de cuenta, podemos recuperarlo. Por favor, ponte en contacto con nuestro equipo de soporte y proporciónanos información que nos permita identificar tu compra (por ejemplo, los últimos 4 dígitos de tu tarjeta de crédito o tu e-mail de PayPal).</string>
+    <string name="account_create_description">Este es tu ID de cuenta. Anótalo y mantenlo en privado. Es la única forma de acceder a tu suscripción.</string>
+    <string name="account_create_confirm">Ya lo anoté</string>
     <string name="account_section_header_my_subscription">Mi suscripción</string>
     <string name="account_section_header_general">General</string>
     <string name="account_section_header_subscription">Suscripción</string>
@@ -252,6 +256,8 @@
     <string name="payment_subscription_offer">Ahorra %s</string>
     <string name="payment_success_label">¡Gracias!</string>
     <string name="payment_success_desc">¡Tu cuenta está activa! Ahora puedes usar todas las funciones de Blokada Plus en todos tus dispositivos.</string>
+    <string name="payment_redirect_label">Redirigiendo...</string>
+    <string name="payment_redirect_desc">Por favor, espera. Esto solo debería tomar un momento.</string>
     <string name="payment_ongoing_title">Tu pago está siendo procesado.</string>
     <string name="payment_ongoing_desc">Los pagos con tarjeta de crédito no deberían tardar más de unos minutos. Los pagos con criptomonedas generalmente demoran hasta una hora, dependiendo de la tarifa de transacción que elija. En el caso de PayPal, puede tardar hasta 24 horas. Serás redirigido una vez que tu cuenta esté lista. También puede cerrar esta ventana y volver más tarde. Si cree que su transacción está demorando demasiado, comuníquese con nosotros.</string>
     <string name="payment_pay_google_short">Google Pay</string>
@@ -273,6 +279,8 @@
     <string name="payment_package_twelve_months">12 meses</string>
     <string name="payment_label_discount">Ahorra %s (%s / mes)</string>
     <string name="payment_label_country">País</string>
+    <string name="payment_euro_desc">Tenemos sede en Europa, así que aceptamos Euros: €10 son aproximadamente $12.</string>
+    <string name="payment_donate_disclaimer">Esto no activará tu cuenta de Blokada Plus. Si deseas utilizar nuestro servicio VPN, por favor suscríbete en lugar de donar.</string>
     <string name="apps_section_header">Apps</string>
     <string name="apps_label_installed">Instalado</string>
     <string name="apps_label_system">Sistema</string>

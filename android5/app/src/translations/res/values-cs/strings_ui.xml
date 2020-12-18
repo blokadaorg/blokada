@@ -48,12 +48,16 @@
     <string name="universal_action_hide">Skrýt</string>
     <string name="universal_action_select">Vybrat</string>
     <string name="universal_action_selected">Vybrané</string>
+    <string name="universal_action_search">Hledat</string>
+    <string name="universal_action_filter">Filtr</string>
+    <string name="universal_action_clear">Vymazat</string>
     <string name="universal_label_help">Nápověda</string>
     <string name="universal_label_welcome">Vítejte!</string>
     <string name="universal_status_processing">Zpracovávám... Čekejte prosím.</string>
     <string name="universal_status_copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="universal_status_restart_required">Restartujte prosím aplikaci, aby se změny projevily.</string>
     <string name="universal_status_redirect">Pokračovat s aplikací Blokada</string>
+    <string name="universal_status_confirm">Opravdu chcete pokračovat?</string>
     <string name="alert_error_header">Ups!</string>
     <string name="alert_vpn_expired_header">Platnost služby BLOKADA+ vypršela</string>
     <string name="alert_download_link_body">Pro stažení souboru musíme z bezpečnostních důvodů otevřít tento web ve vašem prohlížeči. Poté prosím klepněte na odkaz pro stažení.</string>

@@ -48,12 +48,16 @@
     <string name="universal_action_hide">Ukryj</string>
     <string name="universal_action_select">Wybierz</string>
     <string name="universal_action_selected">Wybrano</string>
+    <string name="universal_action_search">Szukaj</string>
+    <string name="universal_action_filter">Filtruj</string>
+    <string name="universal_action_clear">Wyczyść</string>
     <string name="universal_label_help">Pomoc</string>
     <string name="universal_label_welcome">Witaj!</string>
     <string name="universal_status_processing">Przetwarzanie, proszę czekać...</string>
     <string name="universal_status_copied_to_clipboard">Skopiowano do schowka</string>
     <string name="universal_status_restart_required">Proszę uruchom ponownie aplikację, by zmiany zostały zastosowane.</string>
     <string name="universal_status_redirect">Kontynuuj do aplikacji Blokada</string>
+    <string name="universal_status_confirm">Czy na pewno chcesz kontynuować?</string>
     <string name="alert_error_header">Ups!</string>
     <string name="alert_vpn_expired_header">BLOKADA+ wygasła</string>
     <string name="alert_download_link_body">Ze względów bezpieczeństwa, aby pobrać plik, musimy otworzyć tę witrynę w Twojej przeglądarce. Następnie ponownie stuknij łącze pobierania.</string>
@@ -75,7 +79,7 @@
     <string name="main_rate_us_description">Jak Ci się podoba Blokada?</string>
     <string name="main_rate_us_on_app_store">Czy mógłbyś nam pomóc, oceniając Blokadę w App Store?</string>
     <string name="main_rate_us_action_sure">Jasne!</string>
-    <string name="main_tab_home">Ekran główny</string>
+    <string name="main_tab_home">Start</string>
     <string name="main_tab_activity">Aktywność</string>
     <string name="main_tab_advanced">Funkcje</string>
     <string name="main_tab_settings">Ustawienia</string>
@@ -138,7 +142,7 @@
     <string name="activity_state_blocked">zablokowano</string>
     <string name="activity_state_allowed">zezwolone</string>
     <string name="activity_happened_one_time">1 raz</string>
-    <string name="activity_happened_many_times">%s razy(ów)</string>
+    <string name="activity_happened_many_times">%s razy</string>
     <string name="activity_category_recent">Ostatnia</string>
     <string name="activity_category_top">Częsta</string>
     <string name="activity_category_top_blocked">Często Blokowana</string>
@@ -162,7 +166,7 @@
     <string name="account_action_devices">Urządzenia</string>
     <string name="account_action_new_device">Nowe urządzenie</string>
     <string name="account_action_inbox">Odebrane</string>
-    <string name="account_action_logout">Zwróć zakup</string>
+    <string name="account_action_logout">Przywróć zakup</string>
     <string name="account_action_logout_only">Wyloguj</string>
     <string name="account_action_create">Wygeneruj nowe konto</string>
     <string name="account_action_about">O aplikacji</string>
@@ -184,7 +188,7 @@
     <string name="account_subscription_header_payment_method">Metoda płatności</string>
     <string name="account_subscription_renew_unsupported">Twoja metoda płatności nie pozwala kontrolować ustawienia automatycznego odnawiania w tym miejscu.</string>
     <string name="account_unlock_to_show">Odblokuj aby pokazać ID konta</string>
-    <string name="account_header_logout">Zwróć zakup</string>
+    <string name="account_header_logout">Przywróć zakup</string>
     <string name="account_logout_description">Wprowadź inny identyfikator konta lub wróć do istniejącego (ta aplikacja nie może być używana bez konta).</string>
     <string name="account_id_status_unchanged">(bez zmian)</string>
     <string name="account_action_how_to_restore">Jak przywrócić swoje stare konto?</string>

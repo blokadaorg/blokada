@@ -68,6 +68,12 @@
 "universal action hide" = "Masquer";
 "universal action select" = "Sélectionner";
 "universal action selected" = "Sélectionné";
+// A verb "to search in the list"
+"universal action search" = "Rechercher";
+// A verb "to filter the list"
+"universal action filter" = "Filtrer";
+// A verb "to clear the list"
+"universal action clear" = "Effacer";
 
 "universal label help" = "Aide";
 "universal label welcome" = "Bienvenue !";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "Copié dans le presse-papier";
 "universal status restart required" = "Veuillez redémarrer l'application pour que les modifications prennent effet.";
 "universal status redirect" = "Continuer avec l'application Blokada";
+"universal status confirm" = "Êtes-vous certain de vouloir continuer ?";
 
 "alert error header" = "Oups !";
 "alert vpn expired header" = "BLOKADA+ a expiré";
@@ -183,6 +190,7 @@
 "activity happened one time" = "1 fois";
 "activity happened many times" = "%@ fois";
 "activity category recent" = "Récent";
+"activity category top" = "Haut";
 "activity category top blocked" = "Top de Bloqué";
 "activity category top allowed" = "Top de Autorisé";
 "activity filter header" = "Quelles entrées voulez-vous voir ?";
@@ -192,6 +200,7 @@
 "activity empty text" = "Essayez d'utiliser votre appareil et revenez ici plus tard pour voir à quel endroit votre périphérique se connecte.";
 
 "userdenied section header" = "Mes listes noires";
+"userdenied section slugline" = "Gérer la blocage de sites web spécifiques";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Autorisé";
 // A section name for the list of hosts blocked by user
@@ -229,6 +238,7 @@
 "account action why upgrade" = "Pourquoi devrais-je me mettre à niveau ?";
 "account subscription header renew" = "Renouveler automatiquement";
 "account subscription header payment method" = "Moyen de paiement";
+"account subscription renew unsupported" = "Votre méthode de paiement ne vous permet pas de contrôler les paramètres de renouvellement automatique ici.";
 
 "account unlock to show" = "Débloquez pour afficher l'ID de votre compte";
 
@@ -316,6 +326,7 @@
 "payment redirect desc" = "Merci de patienter. Cela ne devrait prendre qu'un instant.";
 
 "payment ongoing title" = "Votre paiement est en cours de traitement.";
+"payment ongoing desc" = "Les paiements par carte de crédit ne devraient pas demander plus de quelques minutes. Les paiements en cryptomonnaie prennent en général une heure maximum selon votre mode de transaction. Pour PayPal, cela peut prendre jusqu'à 24 heures. Vous serez redirigé une fois que votre compte est prêt. Vous pouvez aussi fermer cet écran et revenir plus tard. Si vous pensez que la transaction est anormalement lente, veuillez nous contacter.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Modifier";
@@ -391,6 +402,7 @@
 "homepage about footer" = "Restons en contact !";
 "homepage hero title" = "L'appli pro-vie privée";
 "homepage hero subtitle" = "gratuit et open source";
+"homepage hero desc" = "Blokada est une application populaire de blocage des publicités et de protection de la vie privée pour Android et iOS. Elle est activement développée par une fantastique communauté open source.";
 "homepage about title" = "Blokada 5, le bloqueur de pubs";
 "homepage about desc" = "Si vous voulez bloquer efficacement les publicités, les pisteurs et les virus ; si vous voulez économiser vos données mobiles, rendre votre appareil plus rapide et protéger votre vie privée avec une seule application ; Blokada est faite pour vous. C'est une appli gratuite, sécurisée et open source.";
 "homepage about point one" = "Bloque les pubs & trackers";
@@ -418,6 +430,7 @@
 "homepage download action android four fdroid" = "Ouvrir F-Droid";
 
 "homepage community header" = "Communauté";
+"homepage community desc" = "Blokada n'est pas qu'une application de sécurité. C'est aussi une communauté de personnes attachées à leur vie privée et leur bien-être numériques. Vous pouvez nous retrouver sur notre forum, où vous pouvez nous poser toutes vos questions. Nous sommes aussi présents sur d'autres réseaux sociaux et logiciels de chat.";
 "homepage community cta subheader" = "Passez nous dire bonjour !";
 "homepage community cta desc" = "Nous basons tout notre travail sur les commentaires de nos utilisateurs. Dites-nous ce que vous pensez, ce que nous devrions améliorer.";
 "homepage community cta action" = "Accéder aux forums";

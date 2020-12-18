@@ -36,4 +36,6 @@
 "Analyzes privacy concerns in Android applications" = "分析 Android 應用程式中的隱私問題";
 "This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "此封鎖清單是以 The Exodus Privacy 專案為基礎，此專案分析 Android 應用程式並尋找嵌入的追蹤器。追蹤器是一種用來蒐集關於您或您做的事情資料的軟體。這是一份很小的清單，因此您應該同時啟用另一份較流行的清單（如 Energized）。";
 "A good general purpose blocklist" = "好用且適合一般用途的阻擋清單";
-"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere w normal apps and services." = "阻擋廣告、釣魚攻擊、惡意軟體、間諜軟體、勒索軟體、詐騙網站，以及對功能沒有影響的遙測、分析和追蹤功能。應不影響一般的 App 和服務。";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "阻擋廣告、釣魚攻擊、惡意軟體、間諜軟體、勒索軟體、詐騙網站，以及對功能沒有影響的遙測、分析和追蹤功能。應不影響一般的 App 和服務。";
+"A blocklist for ads and tracking, updated regularly" = "廣告與追蹤的封鎖清單，定期更新";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "作為主要的封鎖清單，這是不錯的選擇。均衡、中等大小且經常更新。";

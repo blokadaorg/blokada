@@ -68,6 +68,10 @@
 "universal action hide" = "Ascunde";
 "universal action select" = "Selectați";
 "universal action selected" = "Selectat";
+// A verb "to search in the list"
+"universal action search" = "Căutare";
+// A verb "to clear the list"
+"universal action clear" = "Curăță";
 
 "universal label help" = "Ajutor";
 "universal label welcome" = "Bine aţi venit!";
@@ -309,6 +313,11 @@
 
 "payment success label" = "Mulţumim!";
 "payment success desc" = "Contul dvs. este acum activ! Acum puteți folosi toate funcțiile Blokada Plus pe toate dispozitivele dvs.";
+
+"payment redirect label" = "Redirecţionare...";
+"payment redirect desc" = "Vă rugăm să așteptați. Acest lucru ar trebui să dureze doar un moment.";
+
+"payment ongoing title" = "Plata dvs. este acum în curs de procesare.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Modifică";

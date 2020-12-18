@@ -59,6 +59,10 @@
 "universal action download" = "Letöltés";
 "universal action news" = "Hírek";
 "universal action delete" = "Törlés";
+// A verb "to search in the list"
+"universal action search" = "Keresés";
+// A verb "to clear the list"
+"universal action clear" = "Törlés";
 
 "universal label help" = "Segítség";
 "universal status processing" = "Feldolgozás... Kérjük, várj.";

@@ -40,6 +40,8 @@
     <string name="universal_action_download">डाउन्लोड</string>
     <string name="universal_action_news">समाचार</string>
     <string name="universal_action_delete">हटाएँ</string>
+    <string name="universal_action_search">खोजें</string>
+    <string name="universal_action_clear">साफ़</string>
     <string name="universal_label_help">मदद</string>
     <string name="universal_status_processing">प्रॉसेस हो रहा हैं; कृपया प्रतीक्षा करें...</string>
     <string name="universal_status_redirect">ब्लोकाडा ऐप के साथ जारी रखें</string>

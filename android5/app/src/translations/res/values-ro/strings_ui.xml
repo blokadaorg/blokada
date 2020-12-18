@@ -48,6 +48,8 @@
     <string name="universal_action_hide">Ascunde</string>
     <string name="universal_action_select">Selectați</string>
     <string name="universal_action_selected">Selectat</string>
+    <string name="universal_action_search">Căutare</string>
+    <string name="universal_action_clear">Curăță</string>
     <string name="universal_label_help">Ajutor</string>
     <string name="universal_label_welcome">Bine aţi venit!</string>
     <string name="universal_status_processing">Se procesează... Vă rugăm așteptați.</string>
@@ -250,6 +252,9 @@
     <string name="payment_subscription_offer">Economisești %s</string>
     <string name="payment_success_label">Mulţumim!</string>
     <string name="payment_success_desc">Contul dvs. este acum activ! Acum puteți folosi toate funcțiile Blokada Plus pe toate dispozitivele dvs.</string>
+    <string name="payment_redirect_label">Redirecţionare...</string>
+    <string name="payment_redirect_desc">Vă rugăm să așteptați. Acest lucru ar trebui să dureze doar un moment.</string>
+    <string name="payment_ongoing_title">Plata dvs. este acum în curs de procesare.</string>
     <string name="payment_pay_google_short">Google Pay</string>
     <string name="payment_pay_apple_short">Apple Pay</string>
     <string name="payment_change_method">Modifică</string>

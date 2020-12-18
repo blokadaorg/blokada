@@ -48,12 +48,16 @@
     <string name="universal_action_hide">Скрыть</string>
     <string name="universal_action_select">Выбор</string>
     <string name="universal_action_selected">Выбрано</string>
+    <string name="universal_action_search">Поиск</string>
+    <string name="universal_action_filter">Фильтр</string>
+    <string name="universal_action_clear">Очистить</string>
     <string name="universal_label_help">Помощь</string>
     <string name="universal_label_welcome">Добро пожаловать!</string>
     <string name="universal_status_processing">Обработка... Пожалуйста, подождите.</string>
     <string name="universal_status_copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="universal_status_restart_required">Пожалуйста, перезапустите приложение, чтобы изменения вступили в силу.</string>
     <string name="universal_status_redirect">Продолжить в Blokada</string>
+    <string name="universal_status_confirm">Вы хотите продолжить?</string>
     <string name="alert_error_header">Ой!</string>
     <string name="alert_vpn_expired_header">Срок действия BLOKADA+ истек</string>
     <string name="alert_download_link_body">Из соображений безопасности для загрузки файла нам необходимо открыть этот сайт в вашем браузере. После этого нажмите на ссылку для скачивания еще раз.</string>

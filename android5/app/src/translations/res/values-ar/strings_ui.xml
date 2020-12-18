@@ -48,12 +48,16 @@
     <string name="universal_action_hide">إخفاء</string>
     <string name="universal_action_select">اختر</string>
     <string name="universal_action_selected">مُحَدَّد</string>
+    <string name="universal_action_search">بحث</string>
+    <string name="universal_action_filter">فلتر</string>
+    <string name="universal_action_clear">مَسْح</string>
     <string name="universal_label_help">المُساعَدة</string>
     <string name="universal_label_welcome">مرحباً !</string>
     <string name="universal_status_processing">جارِ المعالجة... انتظر من فضلك.</string>
     <string name="universal_status_copied_to_clipboard">تَمّ النسخ إلى الحافظة</string>
     <string name="universal_status_restart_required">الرجاء إعادة تشغيل التطبيق لتصبح التغييرات سارية المفعول.</string>
     <string name="universal_status_redirect">المتابعة مع تطبيق بلوكادا</string>
+    <string name="universal_status_confirm">هل أنت متأكّد أنّك تريد المتابعة؟</string>
     <string name="alert_error_header">عُذراً !</string>
     <string name="alert_vpn_expired_header">إنتهت صلاحيّة BLOKADA+</string>
     <string name="alert_download_link_body">لأسباب أمنيّة، لتنزيل ملف، نحتاج إلى فتح هذا الموقع في متصفّحك. ثم، الرجاء الضغط على رابط التنزيل مرّة أُخرى.</string>

@@ -68,6 +68,12 @@
 "universal action hide" = "Skrýt";
 "universal action select" = "Vybrat";
 "universal action selected" = "Vybrané";
+// A verb "to search in the list"
+"universal action search" = "Hledat";
+// A verb "to filter the list"
+"universal action filter" = "Filtr";
+// A verb "to clear the list"
+"universal action clear" = "Vymazat";
 
 "universal label help" = "Nápověda";
 "universal label welcome" = "Vítejte!";
@@ -75,6 +81,7 @@
 "universal status copied to clipboard" = "Zkopírováno do schránky";
 "universal status restart required" = "Restartujte prosím aplikaci, aby se změny projevily.";
 "universal status redirect" = "Pokračovat s aplikací Blokada";
+"universal status confirm" = "Opravdu chcete pokračovat?";
 
 "alert error header" = "Ups!";
 "alert vpn expired header" = "Platnost služby BLOKADA+ vypršela";

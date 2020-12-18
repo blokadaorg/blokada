@@ -48,12 +48,16 @@
     <string name="universal_action_hide">Verbergen</string>
     <string name="universal_action_select">Auswählen</string>
     <string name="universal_action_selected">Ausgewählt</string>
+    <string name="universal_action_search">Suchen</string>
+    <string name="universal_action_filter">Filtern</string>
+    <string name="universal_action_clear">Leeren</string>
     <string name="universal_label_help">Hilfe</string>
     <string name="universal_label_welcome">Herzlich willkommen!</string>
     <string name="universal_status_processing">Verarbeitung... Bitte warten.</string>
     <string name="universal_status_copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="universal_status_restart_required">Bitte starte die App neu, damit die Änderungen wirksam werden.</string>
     <string name="universal_status_redirect">In der Blokada App fortfahren</string>
+    <string name="universal_status_confirm">Bist du sicher, dass du fortfahren willst?</string>
     <string name="alert_error_header">Hoppla!</string>
     <string name="alert_vpn_expired_header">BLOKADA+ ist abgelaufen</string>
     <string name="alert_download_link_body">Um diese Datei herunterzuladen müssen wir aus Sicherheitsgründen, diese Webseite in deinem Browser öffnen. Benutzte dort erneut den Downloadlink.</string>
