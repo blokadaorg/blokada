@@ -64,7 +64,8 @@ data class Gateway(
     val ipv4: String,
     val ipv6: String,
     val port: Int,
-    val tags: List<String>?
+    val tags: List<String>?,
+    val country: String?
 ) {
     fun niceName() = location.split('-').map { it.capitalize() }.joinToString(" ")
     fun overloaded() = resource_usage_percent >= 100
@@ -115,7 +116,8 @@ fun Gateway.Companion.mocked(name: String) = Gateway(
     ipv4 = "0.0.0.0",
     ipv6 = ":",
     port = 8080,
-    tags = listOf()
+    tags = listOf(),
+    country = "SE"
 )
 
 fun Lease.Companion.mocked(name: String) = Lease(

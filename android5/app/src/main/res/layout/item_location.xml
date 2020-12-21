@@ -33,7 +33,6 @@
         android:layout_width="@dimen/icon_bigger"
         android:layout_height="@dimen/icon_bigger"
         android:padding="@dimen/half"
-        android:tint="?android:attr/colorPrimary"
         app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
     <TextView

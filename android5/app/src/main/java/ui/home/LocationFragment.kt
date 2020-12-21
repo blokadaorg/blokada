@@ -40,6 +40,7 @@ import ui.BottomSheetFragment
 import ui.TunnelViewModel
 import ui.app
 import ui.utils.getColorFromAttr
+import utils.Logger
 
 class LocationFragment : BottomSheetFragment() {
 
@@ -113,11 +114,11 @@ class LocationFragment : BottomSheetFragment() {
         val checkmark: ImageView = item.findViewById(R.id.location_checkmark)
 
         name.text = location.niceName()
+        icon.setImageResource(getFlag(location))
 
         if (tunnelVM.isCurrentlySelectedGateway(location.public_key)) {
-            // Nothing to do
+            name.setTextColor(requireContext().getColorFromAttr(android.R.attr.colorAccent))
         } else {
-            icon.setColorFilter(requireContext().getColorFromAttr(android.R.attr.textColorTertiary))
             checkmark.visibility = View.GONE
         }
 
@@ -129,5 +130,23 @@ class LocationFragment : BottomSheetFragment() {
         container.addView(item)
         container.alpha = 0f
         container.animate().alpha(1f)
+    }
+
+    private fun getFlag(location: Gateway): Int {
+        return when (location.country) {
+            "SE" -> R.drawable.flag_se
+            "GB" -> R.drawable.flag_gb
+            "CA" -> R.drawable.flag_ca
+            "NL" -> R.drawable.flag_nl
+            "US" -> R.drawable.flag_us
+            "JP" -> R.drawable.flag_jp
+            "AE" -> R.drawable.flag_ae
+            "FR" -> R.drawable.flag_fr
+            "DE" -> R.drawable.flag_de
+            else -> {
+                Logger.w("Location", "No flag asset for: ${location.country}")
+                R.drawable.ic_baseline_location_on_24
+            }
+        }
     }
 }
