@@ -118,6 +118,7 @@ struct Gateway: Codable {
     let port: Int
     //let expires: ActiveUntil
     let tags: [String]?
+    let country: String?
 
     func niceName() -> String {
         return location.components(separatedBy: "-")

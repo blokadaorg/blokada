@@ -28,14 +28,15 @@ struct LocationView: View {
     var body: some View {
         VStack {
             HStack {
-                Image(systemName: Image.fLocation)
-                    .imageScale(.large)
-                    .foregroundColor(self.vm.isActive ? Color.cAccent : Color.cSecondaryBackground)
+                Image(self.vm.getFlag())
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 48, height: 48)
 
                 Text(self.vm.name)
                     .fontWeight(self.vm.isActive ? .bold : .regular)
-                    .foregroundColor(Color.primary)
+                    .foregroundColor(self.vm.isActive ? Color.cAccent : Color.primary)
+                    .padding(.leading, 8)
 
                 Spacer()
 

@@ -20,6 +20,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct LocationViewModel {
 
@@ -34,7 +35,7 @@ struct LocationViewModel {
     init(mocked: String) {
         gateway = Gateway(public_key: mocked, region: "", location: mocked,
                           resource_usage_percent: 0, ipv4: "", ipv6: "",
-                          port: 0, tags: nil)
+                          port: 0, tags: nil, country: "DE")
         selectedGateway = nil
     }
 
@@ -44,6 +45,29 @@ struct LocationViewModel {
 
     var name: String {
         return gateway.niceName()
+    }
+
+    func getFlag() -> String {
+        switch (gateway.country) {
+        case "AE":
+            return "flag_ae"
+        case "CA":
+            return "flag_ca"
+        case "DE":
+            return "flag_de"
+        case "FR":
+            return "flag_fr"
+        case "GB":
+            return "flag_gb"
+        case "JP":
+            return "flag_jp"
+        case "NL":
+            return "flag_nl"
+        case "SE":
+            return "flag_se"
+        default:
+            return "flag_us"
+        }
     }
 }
 
