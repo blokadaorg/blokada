@@ -68,7 +68,7 @@ class SettingsViewModel : ViewModel() {
                         val dns = _dnsEntries.value?.value?.first { it.id == id }
                             ?: throw BlokadaException("Unknown DNS")
                         val new = current.copy(dnsChoice = id)
-                        engine.changeDns(dns, dnsForPlusMode = decideDnsForPlusMode(dns))
+//                        engine.changeDns(dns, dnsForPlusMode = decideDnsForPlusMode(dns))
                         persistence.save(new)
                         _localConfig.value = new
                     } catch (ex: Exception) {
@@ -91,7 +91,7 @@ class SettingsViewModel : ViewModel() {
                 try {
                     log.v("Changing use Blocka DNS in Plus mode: $use")
                     val new = current.copy(useBlockaDnsInPlusMode = use)
-                    engine.changeDns(getCurrentDns(), dnsForPlusMode = decideDnsForPlusMode(useBlockaDnsInPlusMode = use))
+//                    engine.changeDns(getCurrentDns(), dnsForPlusMode = decideDnsForPlusMode(useBlockaDnsInPlusMode = use))
                     persistence.save(new)
                     _localConfig.value = new
                 } catch (ex: Exception) {

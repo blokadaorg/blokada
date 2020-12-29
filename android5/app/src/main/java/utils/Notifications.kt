@@ -70,15 +70,14 @@ class MonitorNotification(
                 b.setContentTitle(ctx.getString(R.string.universal_status_processing))
             }
             tunnelStatus.active -> {
-                b.setContentTitle(
-//                    ctx.getString(R.string.home_status_detail_active_with_counter, counter.toString())
-//                        .replace("*", "")
-//                        .capitalize()
-                    ctx.getString(R.string.home_status_active).toLowerCase().capitalize()
-                )
-                lastDenied.firstOrNull()?.let {
-                    b.setContentText(it)
-                }
+                val title = if (tunnelStatus.dns != null) {
+                    "%s - %s - %s".format (
+                        ctx.getString(R.string.home_status_active),
+                        tunnelStatus.dns.label,
+                        if (tunnelStatus.isDnsEncrypted()) "Encrypted" else "Not Encrypted"
+                    )
+                } else ctx.getString(R.string.home_status_active)
+                b.setContentTitle(title)
 
                 val style = NotificationCompat.InboxStyle()
                 lastDenied.forEach {

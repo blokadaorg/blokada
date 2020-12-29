@@ -24,6 +24,8 @@ package engine
 import model.*
 import newengine.BlockaDnsService
 import org.pcap4j.packet.namednumber.UdpPort
+import repository.DnsDataSource
+import service.ConnectivityService
 import service.PersistenceService
 import utils.Logger
 import java.net.Inet4Address
@@ -33,16 +35,17 @@ import java.net.InetAddress
 object DnsMapperService {
 
     private val log = Logger("DnsMapper")
+
     private var servers = emptyList<InetAddress>()
     private var useProxyDns = false
 
     fun setDns(dns: Dns, doh: Boolean, plusMode: Boolean = false) {
         log.v("Using DNS configuration [DoH/PlusMode: $doh/$plusMode]: $dns")
-        servers = dns.ips.ipv4().map { Inet4Address.getByName(it) }
 
-        if (plusMode && dns.plusIps != null) {
-            servers = dns.plusIps.ipv4().map { Inet4Address.getByName(it) }
-        }
+        servers = decideDns(dns, plusMode)
+
+        if (servers.isEmpty()) throw BlokadaException("No DNS servers found")
+        else log.v("Using DNS: $servers")
 
         useProxyDns = false
         if (dns.isDnsOverHttps() && doh) {
@@ -93,6 +96,16 @@ object DnsMapperService {
     val proxyDnsIp = Inet4Address.getByAddress(proxyDnsIpBytes)
     val proxyDnsPort = UdpPort(BlockaDnsService.PROXY_PORT, "blocka-doh-proxy")
 
+}
+
+fun decideDns(dns: Dns, plusMode: Boolean): List<InetAddress> {
+    return when {
+        dns.id == DnsDataSource.network.id -> {
+            ConnectivityService.getDnsServers(ConnectivityService.activeNetwork)
+        }
+        plusMode && dns.plusIps != null -> dns.plusIps.ipv4().map { Inet4Address.getByName(it) }
+        else -> dns.ips.ipv4().map { Inet4Address.getByName(it) }
+    }
 }
 
 // A TEST-NET IP range from RFC5735

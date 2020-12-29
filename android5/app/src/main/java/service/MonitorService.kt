@@ -72,6 +72,7 @@ private class SimpleMonitorServiceStrategy: MonitorServiceStrategy {
     private var counter: Long = 0
     private var lastDenied: List<Host> = emptyList()
     private var tunnelStatus: TunnelStatus = TunnelStatus.off()
+    private var dnsLabel: String = ""
 
     override fun setup() {}
 
@@ -81,7 +82,7 @@ private class SimpleMonitorServiceStrategy: MonitorServiceStrategy {
     }
 
     override fun setStats(stats: Stats) {
-        lastDenied = stats.entries.sortedByDescending { it.time }.take(5).map { it.name }
+        lastDenied = stats.entries.sortedByDescending { it.time }.take(3).map { it.name }
         updateNotification()
     }
 
@@ -125,20 +126,20 @@ private class ForegroundMonitorServiceStrategy: MonitorServiceStrategy {
 
     override fun setCounter(counter: Long) {
         scope.launch {
-            getConnection().binder.onNewStats(counter, null, null)
+            getConnection().binder.onNewStats(counter, null, null, null)
         }
     }
 
     override fun setStats(stats: Stats) {
         scope.launch {
-            val lastDenied = stats.entries.sortedByDescending { it.time }.take(5).map { it.name }
-            getConnection().binder.onNewStats(null, lastDenied, null)
+            val lastDenied = stats.entries.sortedByDescending { it.time }.take(3).map { it.name }
+            getConnection().binder.onNewStats(null, lastDenied, null, null)
         }
     }
 
     override fun setTunnelStatus(tunnelStatus: TunnelStatus) {
         scope.launch {
-            getConnection().binder.onNewStats(null, null, tunnelStatus)
+            getConnection().binder.onNewStats(null, null, tunnelStatus, null)
         }
     }
 
@@ -192,7 +193,7 @@ class ForegroundService: Service() {
     override fun onBind(intent: Intent?): IBinder? {
         if (FOREGROUND_BINDER_ACTION == intent?.action) {
             ContextService.setContext(this)
-            binder = ForegroundBinder { counter, lastDenied, tunnelStatus ->
+            binder = ForegroundBinder { counter, lastDenied, tunnelStatus, dnsLabel ->
                 this.counter = counter ?: this.counter
                 this.lastDenied = lastDenied ?: this.lastDenied
                 this.tunnelStatus = tunnelStatus ?: this.tunnelStatus
@@ -212,7 +213,7 @@ class ForegroundService: Service() {
 }
 
 class ForegroundBinder(
-    val onNewStats: (counter: Long?, lastDenied: List<Host>?, tunnelStatus: TunnelStatus?) -> Unit
+    val onNewStats: (counter: Long?, lastDenied: List<Host>?, tunnelStatus: TunnelStatus?, dnsLabel: String?) -> Unit
 ) : Binder()
 
 const val FOREGROUND_BINDER_ACTION = "ForegroundBinder"

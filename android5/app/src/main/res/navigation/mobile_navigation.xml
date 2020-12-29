@@ -144,16 +144,23 @@
             app:popUpTo="@id/packDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/settingsEncryptionFragment"
-        android:name="ui.advanced.encryption.SettingsEncryptionFragment">
+        android:id="@+id/settingsNetworksFragment"
+        android:name="ui.advanced.networks.NetworksFragment">
         <action
-            android:id="@+id/action_settingsEncryptionFragment_to_webFragment"
-            app:destination="@id/webFragment"
+            android:id="@+id/action_settingsNetworksFragment_to_networksDetailFragment"
+            app:destination="@id/networksDetailFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_open_enter"
             app:popExitAnim="@anim/fragment_close_exit"
-            app:popUpTo="@id/settingsEncryptionFragment" />
+            app:popUpTo="@id/settingsNetworksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/networksDetailFragment"
+        android:name="ui.advanced.networks.NetworksDetailFragment">
+        <argument
+            android:name="networkId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/activityDetailFragment"
@@ -193,7 +200,6 @@
     <fragment
         android:id="@+id/appsFragment"
         android:name="ui.advanced.apps.AppsFragment"
-        android:label="Apps"
         tools:layout="@layout/fragment_apps" />
     <fragment
         android:id="@+id/settingsAppFragment"
@@ -227,8 +233,8 @@
             app:popExitAnim="@anim/fragment_close_exit"
             app:popUpTo="@id/advancedFragment" />
         <action
-            android:id="@+id/action_advancedFragment_to_settingsEncryptionFragment"
-            app:destination="@id/settingsEncryptionFragment"
+            android:id="@+id/action_advancedFragment_to_settingsNetworksFragment"
+            app:destination="@id/settingsNetworksFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_open_enter"

@@ -44,11 +44,10 @@ object SystemTunnelConfigurator {
         tun.addAddress(lease.vip6, 128)
 
         var index = 1
-        val ips = dns.plusIps ?: dns.ips
-        for (address in ips.includeIpv6(false)) {
+        for (address in decideDns(dns, plusMode = true)) {
             try {
                 log.v("Adding DNS server: $address")
-                tun.addMappedDnsServer(address, index++)
+                tun.addMappedDnsServer(index++)
             } catch (ex: Exception) {
                 log.e("Failed adding DNS server".cause(ex))
             }
@@ -105,10 +104,10 @@ object SystemTunnelConfigurator {
         }
 
         var index = 1
-        for (address in dns.ips.includeIpv6(false)) {
+        for (address in decideDns(dns, false)) {
             try {
                 log.v("Adding DNS server: $address")
-                tun.addMappedDnsServer(address, index++, addRoute = true)
+                tun.addMappedDnsServer(index++, addRoute = true)
             } catch (ex: Exception) {
                 log.e("Failed adding DNS server".cause(ex))
             }
@@ -175,7 +174,7 @@ object SystemTunnelConfigurator {
                 log.e("Failed adding DNS server".cause(ex))
             }
         } else {
-            for (address in dns.ips.includeIpv6(false)) {
+            for (address in decideDns(dns, plusMode = false)) {
                 try {
                     log.v("Adding DNS server: $address")
                     tun.addDnsServer(address)
@@ -207,7 +206,7 @@ object SystemTunnelConfigurator {
         }
     }
 
-    private fun VpnService.Builder.addMappedDnsServer(address: DnsIp, index: Int, addRoute: Boolean = false) {
+    private fun VpnService.Builder.addMappedDnsServer(index: Int, addRoute: Boolean = false) {
         log.v("Adding mapped DNS server for IPv4")
         val template = dnsProxyDst4.copyOf()
         template[template.size - 1] = (index).toByte()

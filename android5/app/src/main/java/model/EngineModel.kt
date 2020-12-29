@@ -21,69 +21,65 @@
 
 package model
 
+import repository.DnsDataSource
+
 class TunnelStatus private constructor (
     val active: Boolean,
-    val inProgress: Boolean,
-    val isUsingDnsOverHttps: Boolean,
-    val gatewayId: GatewayId?,
-    val error: BlokadaException?,
-    val pauseSeconds: Int
+    val inProgress: Boolean = false,
+    val restarting: Boolean = false,
+    val isUsingDnsOverHttps: Boolean = false,
+    val dns: Dns? = null,
+    val gatewayId: GatewayId? = null,
+    val error: BlokadaException? = null,
+    val pauseSeconds: Int = 0
 ) {
+
+    fun isDnsEncrypted() = when {
+        !active -> false
+        dns == DnsDataSource.network -> false
+        else -> isUsingDnsOverHttps || isPlusMode()
+    }
+
+    fun isPlusMode() = active && gatewayId != null
 
     companion object {
         fun off() = TunnelStatus(
-            active = false,
-            inProgress = false,
-            isUsingDnsOverHttps = false,
-            gatewayId = null,
-            error = null,
-            pauseSeconds = 0
+            active = false
         )
 
         fun inProgress() = TunnelStatus(
             active = false,
-            inProgress = true,
-            isUsingDnsOverHttps = false,
-            gatewayId = null,
-            error = null,
-            pauseSeconds = 0
+            inProgress = true
         )
 
-        fun filteringOnly(doh: Boolean = false) = TunnelStatus(
+        fun filteringOnly(dns: Dns, doh: Boolean = false) = TunnelStatus(
             active = true,
             inProgress = false,
             isUsingDnsOverHttps = doh,
-            gatewayId = null,
-            error = null,
-            pauseSeconds = 0
+            dns = dns
         )
 
-        fun connected(gatewayId: GatewayId) = TunnelStatus(
+        fun connected(dns: Dns, doh: Boolean, gatewayId: GatewayId) = TunnelStatus(
             active = true,
-            inProgress = false,
-            isUsingDnsOverHttps = false,
-            gatewayId = gatewayId,
-            error = null,
-            pauseSeconds = 0
+            isUsingDnsOverHttps = doh,
+            dns = dns,
+            gatewayId = gatewayId
         )
 
         fun noPermissions() = TunnelStatus(
             active = false,
-            inProgress = false,
-            isUsingDnsOverHttps = false,
-            gatewayId = null,
-            error = NoPermissions(),
-            pauseSeconds = 0
+            error = NoPermissions()
         )
 
         fun error(ex: BlokadaException) = TunnelStatus(
             active = false,
-            inProgress = false,
-            isUsingDnsOverHttps = false,
-            gatewayId = null,
-            error = ex,
-            pauseSeconds = 0
+            error = ex
         )
 
+        fun restarting() = TunnelStatus(
+            active = false,
+            inProgress = true,
+            restarting = true
+        )
     }
 }

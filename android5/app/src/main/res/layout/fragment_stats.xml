@@ -89,19 +89,19 @@
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/sheet_maxwidth">
 
         <ImageView
-            android:layout_width="@dimen/icon_huge"
-            android:layout_height="@dimen/icon_huge"
+            android:layout_width="@dimen/icon_humonguous"
+            android:layout_height="@dimen/icon_humonguous"
             app:tint="?android:attr/textColorTertiary"
-            android:src="@drawable/ic_baseline_remove_red_eye_24" />
+            android:src="@drawable/ic_baseline_bar_chart_24" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/doubled"
-            android:maxWidth="@dimen/sheet_maxwidth"
             android:gravity="center"
             android:text="@string/activity_empty_text" />
     </LinearLayout>

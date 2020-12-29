@@ -21,46 +21,83 @@
 
 package service
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
-import android.net.NetworkRequest
+import android.net.*
+import android.net.wifi.WifiManager
+import android.os.Build
+import android.telephony.SubscriptionManager
+import model.*
+import ui.utils.cause
 import utils.Logger
+import java.net.InetAddress
 
 object ConnectivityService {
 
     private val log = Logger("Connectivity")
     private val context = ContextService
     private val doze = DozeService
+
     private val manager by lazy {
         context.requireAppContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
-    private var availableNetworks = emptyList<NetworkId>()
+    private val wifiManager by lazy {
+        context.requireAppContext().getSystemService(Context.WIFI_SERVICE) as WifiManager
+    }
+
+    private val simManager by lazy {
+        context.requireAppContext().getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
+    }
+
+    private var availableNetworks = emptyList<NetworkDescriptor>()
         set(value) {
             field = value
             hasAvailableNetwork = field.isNotEmpty()
         }
 
+    private var networkToHandle = mutableMapOf<NetworkDescriptor, Network>()
+
     private var hasAvailableNetwork = false
 
+    var activeNetwork: NetworkDescriptor = NetworkDescriptor.fallback()
+        set(value) {
+            field = value
+            onActiveNetworkChanged(value)
+        }
+
     var onConnectivityChanged = { isConnected: Boolean -> }
+    var onNetworkAvailable = { network: NetworkDescriptor -> }
+    var onActiveNetworkChanged = { network: NetworkDescriptor -> }
 
     fun setup() {
-        val network = NetworkRequest.Builder().addCapability(NET_CAPABILITY_INTERNET).build()
-        manager.registerNetworkCallback(network, object : ConnectivityManager.NetworkCallback() {
+        manager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
             override fun onLost(network: Network) {
-                log.w("Network unavailable: ${network.networkHandle}")
-                availableNetworks -= network.networkHandle
-                if (!hasAvailableNetwork) onConnectivityChanged(false)
+                NetworkDescriptor.fromNetwork(network)?.let { descriptor ->
+                    log.w("Unavailable network: $descriptor")
+                    availableNetworks -= descriptor
+                    if (!hasAvailableNetwork) {
+                        onConnectivityChanged(false)
+                        activeNetwork = NetworkDescriptor.fallback()
+                    } else {
+                        activeNetwork = availableNetworks.last()
+                    }
+                }
             }
 
             override fun onAvailable(network: Network) {
-                log.w("Network available: $network")
-                availableNetworks += network.networkHandle
-                val canConnect = !doze.isDoze()
-                onConnectivityChanged(canConnect)
+                NetworkDescriptor.fromNetwork(network)?.let { descriptor ->
+                    log.w("Network available: $descriptor")
+
+                    if (descriptor.type != NetworkType.FALLBACK)
+                        networkToHandle[descriptor] = network
+
+                    availableNetworks += descriptor
+                    val canConnect = !doze.isDoze()
+                    onConnectivityChanged(canConnect)
+                    onNetworkAvailable(descriptor)
+                    activeNetwork = descriptor
+                }
             }
         })
 
@@ -73,6 +110,12 @@ object ConnectivityService {
         }
     }
 
+    fun getDnsServers(descriptor: NetworkDescriptor): List<InetAddress> {
+        return networkToHandle[descriptor]?.let { network ->
+            manager.getLinkProperties(network)?.dnsServers ?: emptyList()
+        } ?: emptyList()
+    }
+
     fun isDeviceInOfflineMode(): Boolean {
         return (!hasAvailableNetwork && !isConnectedOldApi()) || doze.isDoze()
     }
@@ -82,6 +125,41 @@ object ConnectivityService {
         return activeInfo.isConnected
     }
 
-}
+    @SuppressLint("MissingPermission")
+    private fun NetworkDescriptor.Companion.fromNetwork(network: Network): NetworkDescriptor? {
+        return try {
+            val cap = manager.getNetworkCapabilities(network)
+            when {
+                cap?.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ?: false -> {
+                    // Ignore VPN network since it's us
+                    null
+                }
+                cap?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ?: false -> {
+                    // This assumes there is only one active WiFi network at a time
+                    var name: String? = wifiManager.connectionInfo.ssid.trim('"')
+                    if (name == "<unknown ssid>") name = null // No perms in bg, we'll try next time
+                    wifi(name)
+                }
+                cap?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ?: false -> {
+                    // This assumes there is only one active cellular network at a time
+                    try {
+                        val id = SubscriptionManager.getDefaultDataSubscriptionId()
+                        cell(simManager.getActiveSubscriptionInfo(id)?.carrierName?.toString())
+                    } catch (ex: Exception) {
+                        // Probably no permissions, just identify network type
+                        cell(null)
+                    }
+                }
+                else -> fallback()
+            }
+        } catch (ex: Exception) {
+            log.w("Could not recognize network".cause(ex))
+            return fallback()
+        }
+    }
 
-private typealias NetworkId = Long
+    private fun LinkProperties.usesPrivateDns(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) isPrivateDnsActive else false
+    }
+
+}

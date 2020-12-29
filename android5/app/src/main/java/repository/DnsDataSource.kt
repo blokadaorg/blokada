@@ -22,8 +22,15 @@
 package repository
 
 import model.Dns
+import model.DnsId
 
 object DnsDataSource {
+
+    val network = Dns.plaintextDns(
+        id = "network",
+        ips = listOf(),
+        label = "Network"
+    )
 
     val blocka = Dns(
         id = "blocka",
@@ -68,7 +75,8 @@ object DnsDataSource {
             port = 443,
             name = "doh-de.blahdns.com",
             path = "dns-query",
-            label = "Blah DNS (Germany)"
+            label = "Blah DNS (Germany)",
+            region = "europe"
         ),
         Dns(
             id = "blahdns.jp",
@@ -76,7 +84,8 @@ object DnsDataSource {
             port = 443,
             name = "doh-jp.blahdns.com",
             path = "dns-query",
-            label = "Blah DNS (Japan)"
+            label = "Blah DNS (Japan)",
+            region = "asia"
         ),
         cloudflare,
         Dns.plaintextDns(
@@ -116,7 +125,8 @@ object DnsDataSource {
             name = "dns.digitale-gesellschaft.ch",
             path = "dns-query",
             label = "Digitale Gesellschaft (Switzerland)",
-            canUseInCleartext = false
+            canUseInCleartext = false,
+            region = "europe"
         ),
         Dns(
             id = "google",
@@ -142,7 +152,8 @@ object DnsDataSource {
             port = 443,
             name = "ns03.dns.tin-fan.com",
             path = "dns-query",
-            label = "OpenNIC: USA"
+            label = "OpenNIC: USA",
+            region = "us"
         ),
         Dns(
             id = "opennic.europe",
@@ -150,7 +161,8 @@ object DnsDataSource {
             port = 443,
             name = "ns01.dns.tin-fan.com",
             path = "dns-query",
-            label = "OpenNIC: Europe"
+            label = "OpenNIC: Europe",
+            region = "europe"
         ),
         Dns.plaintextDns(
             id = "quad9",
@@ -179,4 +191,9 @@ object DnsDataSource {
         )
     )
 
+    // All special cases and removed legacy needs to be handled here to not cause crashes when migrating
+    fun byId(dnsId: DnsId) = when(dnsId) {
+        network.id -> network
+        else -> getDns().first { it.id == dnsId }
+    }
 }

@@ -28,6 +28,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -54,6 +55,7 @@ class AdvancedFragment : Fragment() {
         val name: String,
         val slugline: String,
         val iconResId: Int,
+        val iconColorResId: Int,
         val destination: NavDirections
     )
 
@@ -64,7 +66,8 @@ class AdvancedFragment : Fragment() {
                 Section(
                     name = getString(R.string.advanced_section_header_packs),
                     slugline = getString(R.string.advanced_section_slugline_packs),
-                    iconResId = R.drawable.ic_baseline_remove_red_eye_24,
+                    iconResId = R.drawable.ic_shield,
+                    iconColorResId = R.color.white,
                     destination = AdvancedFragmentDirections.actionAdvancedFragmentToNavigationPacks()
                 )
             },
@@ -75,6 +78,7 @@ class AdvancedFragment : Fragment() {
                     name = getString(R.string.userdenied_section_header),
                     slugline = getString(R.string.userdenied_section_slugline),
                     iconResId = R.drawable.ic_baseline_admin_panel_settings_24,
+                    iconColorResId = R.color.white,
                     destination = AdvancedFragmentDirections.actionAdvancedFragmentToUserDeniedFragment()
                 )
             },
@@ -85,15 +89,17 @@ class AdvancedFragment : Fragment() {
                     name = getString(R.string.apps_section_header),
                     slugline = getString(R.string.advanced_section_slugline_apps),
                     iconResId = R.drawable.ic_baseline_apps_24,
+                    iconColorResId = R.color.white,
                     destination = AdvancedFragmentDirections.actionAdvancedFragmentToAppsFragment()
                 )
             },
 
             Section(
-                name = getString(R.string.account_action_encryption),
-                slugline = getString(R.string.advanced_section_slugline_encryption),
-                iconResId = R.drawable.ic_baseline_lock_24,
-                destination = AdvancedFragmentDirections.actionAdvancedFragmentToSettingsEncryptionFragment()
+                name = getString(R.string.networks_section_header),
+                slugline = getString(R.string.networks_section_label),
+                iconResId = R.drawable.ic_baseline_wifi_lock_24,
+                iconColorResId = R.color.white,
+                destination = AdvancedFragmentDirections.actionAdvancedFragmentToSettingsNetworksFragment()
             )
         ).filterNotNull()
     }
@@ -112,7 +118,7 @@ class AdvancedFragment : Fragment() {
         sectionsContainer.removeAllViews()
 
         for (section in sections) {
-            val (name, slugline, iconResId, destination) = section
+            val (name, slugline, iconResId, iconColorResId, destination) = section
 
             val sectionView = inflater.inflate(R.layout.item_advanced_section, sectionsContainer, false)
             sectionView.setOnClickListener {
@@ -129,6 +135,7 @@ class AdvancedFragment : Fragment() {
 
             val iconView = sectionView.findViewById<ImageView>(R.id.advanced_icon)
             iconView.setImageResource(iconResId)
+            iconView.setColorFilter(ContextCompat.getColor(requireContext(), iconColorResId))
         }
 
         val encryptionView = root.findViewById<View>(R.id.advanced_level)

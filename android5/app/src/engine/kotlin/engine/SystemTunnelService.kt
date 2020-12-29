@@ -29,6 +29,7 @@ import android.net.VpnService
 import android.os.IBinder
 import kotlinx.coroutines.CompletableDeferred
 import model.BlokadaException
+import model.Dns
 import model.TunnelStatus
 import service.ContextService
 import ui.utils.cause
@@ -57,14 +58,13 @@ object SystemTunnelService {
         ctx.startService(intent)
     }
 
-    suspend fun getStatus(): TunnelStatus {
+    suspend fun getStatus(): Boolean {
         return try {
             val hasFileDescriptor = getConnection().binder.tunnel.queryConfig() != null
-            if (hasFileDescriptor) TunnelStatus.filteringOnly()
-            else TunnelStatus.off()
+            hasFileDescriptor
         } catch (ex: Exception) {
             log.e("Could not get tunnel status".cause(ex))
-            TunnelStatus.error(BlokadaException(ex.message ?: "Unknown reason"))
+            false
         }
     }
 

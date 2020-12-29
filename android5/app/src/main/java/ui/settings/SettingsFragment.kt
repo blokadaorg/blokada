@@ -40,7 +40,6 @@ import org.blokada.R
 import service.ContextService
 import service.tr
 import ui.AccountViewModel
-import ui.advanced.encryption.SettingsEncryptionFragmentDirections
 import ui.app
 import ui.utils.AndroidUtils
 import utils.Links
@@ -99,8 +98,6 @@ object SettingsNavigation {
             "main_about" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.credits, getString(R.string.account_action_about))
             "account_subscription_manage" -> accountId?.let { SettingsAccountFragmentDirections.actionNavigationSettingsAccountToWebFragment(Links.manageSubscriptions(it), getString(R.string.account_action_manage_subscription)) }
             "account_help_why" -> SettingsAccountFragmentDirections.actionNavigationSettingsAccountToWebFragment(Links.whyUpgrade, getString(R.string.account_action_why_upgrade))
-            "encryption_help_dns" -> SettingsEncryptionFragmentDirections.actionSettingsEncryptionFragmentToWebFragment(Links.whatIsDns, getString(R.string.account_encrypt_action_what_is_dns))
-            "encryption_help_upgrade" -> SettingsEncryptionFragmentDirections.actionSettingsEncryptionFragmentToWebFragment(Links.whyUpgrade, getString(R.string.account_action_why_upgrade))
             "logout_howtorestore" -> SettingsLogoutFragmentDirections.actionSettingsLogoutFragmentToWebFragment(Links.howToRestore, getString(R.string.account_action_how_to_restore))
             "logout_support" -> accountId?.let { SettingsLogoutFragmentDirections.actionSettingsLogoutFragmentToWebFragment(Links.support(it), getString(R.string.universal_action_contact_us)) }
             else -> null

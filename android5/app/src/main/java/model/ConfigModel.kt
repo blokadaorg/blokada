@@ -41,15 +41,15 @@ data class BlockaConfig(
 // These settings are never backed up to the cloud
 @JsonClass(generateAdapter = true)
 data class LocalConfig(
-    val dnsChoice: DnsId,
+    val dnsChoice: DnsId, // Deprecated
     val useChromeTabs: Boolean = false,
     val useDarkTheme: Boolean? = null,
     val themeName: String? = null,
     val locale: String? = null,
-    val ipv6: Boolean = true,
+    val ipv6: Boolean = true, // Deprecated
     val backup: Boolean = true,
-    val useDnsOverHttps: Boolean = false,
-    val useBlockaDnsInPlusMode: Boolean = true,
+    val useDnsOverHttps: Boolean = false, // Deprecated
+    val useBlockaDnsInPlusMode: Boolean = true, // Deprecated
     val escaped: Boolean = false,
     val useForegroundService: Boolean = false
 )

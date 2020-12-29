@@ -68,4 +68,21 @@ object Defaults {
 
     fun noAfterUpdate() = BlockaAfterUpdate()
 
+    fun noNetworkSpecificConfigs() = NetworkSpecificConfigs(configs = listOf(
+        defaultNetworkConfig(),
+        defaultNetworkConfig().copy(network = NetworkDescriptor.cell(null)),
+        defaultNetworkConfig().copy(network = NetworkDescriptor.wifi(null))
+    ))
+
+    fun networkConfig(network: NetworkDescriptor) = defaultNetworkConfig().copy(network = network)
+
+    private fun defaultNetworkConfig() = NetworkSpecificConfig(
+        network = NetworkDescriptor.fallback(),
+        encryptDns = true,
+        useNetworkDns = false,
+        dnsChoice = DnsDataSource.blocka.id,
+        useBlockaDnsInPlusMode = true,
+        enabled = false
+    )
+
 }

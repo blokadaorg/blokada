@@ -127,6 +127,7 @@ object PersistenceService {
         BlockaRepoUpdate::class -> "blockaRepoUpdate"
         BlockaRepoPayload::class -> "blockaRepoPayload"
         BlockaAfterUpdate::class -> "blockaAfterUpdate"
+        NetworkSpecificConfigs::class -> "networkSpecificConfigs"
         else -> throw BlokadaException("Unsupported type for persistence: $type")
     }
 
@@ -147,6 +148,7 @@ object PersistenceService {
         BlockaRepoUpdate::class -> Defaults.noSeenUpdate() as T
         BlockaRepoPayload::class -> Defaults.noPayload() as T
         BlockaAfterUpdate::class -> Defaults.noAfterUpdate() as T
+        NetworkSpecificConfigs::class -> Defaults.noNetworkSpecificConfigs() as T
         else -> throw BlokadaException("No default for persisted type: $type")
     }
 

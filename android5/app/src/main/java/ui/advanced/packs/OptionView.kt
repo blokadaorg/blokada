@@ -37,6 +37,7 @@ class OptionView : FrameLayout {
 
     private var _name: String? = null
     private var _active: Boolean = false
+    private var _icon: Drawable? = null
 
     var name: String?
         get() = _name
@@ -52,7 +53,12 @@ class OptionView : FrameLayout {
             refresh()
         }
 
-    var icon: Drawable? = null
+    var icon: Drawable?
+        get() = _icon
+        set(value) {
+            _icon = value
+            refresh()
+        }
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -79,8 +85,8 @@ class OptionView : FrameLayout {
         _active = a.getBoolean(R.styleable.OptionView_active, false)
 
         if (a.hasValue(R.styleable.OptionView_iconRef)) {
-            icon = a.getDrawable(R.styleable.OptionView_iconRef)
-            icon?.callback = this
+            _icon = a.getDrawable(R.styleable.OptionView_iconRef)
+            _icon?.callback = this
         }
 
         a.recycle()
@@ -94,7 +100,7 @@ class OptionView : FrameLayout {
     private fun refresh() {
         nameView.text = name
 
-        icon?.run {
+        _icon?.run {
             iconView.setImageDrawable(this)
         }
 

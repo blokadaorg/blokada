@@ -108,6 +108,10 @@ object JsonSerializationService : SerializationService {
                 val adapter = moshi.adapter(BlockaAfterUpdate::class.java)
                 return adapter.toJson(obj)
             }
+            is NetworkSpecificConfigs -> {
+                val adapter = moshi.adapter(NetworkSpecificConfigs::class.java)
+                return adapter.toJson(obj)
+            }
             else -> throw BlokadaException("Unsupported type for json serialization: ${obj.javaClass}")
         }
     }
@@ -177,6 +181,10 @@ object JsonSerializationService : SerializationService {
             }
             BlockaAfterUpdate::class -> {
                 val adapter = moshi.adapter(BlockaAfterUpdate::class.java)
+                return adapter.fromJson(serialized) as T
+            }
+            NetworkSpecificConfigs::class -> {
+                val adapter = moshi.adapter(NetworkSpecificConfigs::class.java)
                 return adapter.fromJson(serialized) as T
             }
             else -> throw BlokadaException("Unsupported type for json deserialization: $type")

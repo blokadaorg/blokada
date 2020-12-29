@@ -27,8 +27,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.*
 import newengine.BlockaDnsService
+import repository.DnsDataSource
+import service.ConnectivityService
 import service.EnvironmentService
-import service.PersistenceService
 import utils.Logger
 import java.net.DatagramSocket
 import java.net.Socket
@@ -36,6 +37,12 @@ import java.net.Socket
 object EngineService {
 
     private var status = TunnelStatus.off()
+        set(value) {
+            if (field != value) {
+                field = value
+                onTunnelStatusChanged(value)
+            }
+        }
 
     private val log = Logger("Engine")
     private val systemTunnel = SystemTunnelService
@@ -43,16 +50,22 @@ object EngineService {
     private val filtering = FilteringService
     private val dnsMapper = DnsMapperService
     private val dnsService = BlockaDnsService
+    private val connectivity = ConnectivityService
     private val configurator = SystemTunnelConfigurator
     private val scope = GlobalScope
 
+    // Current state of the tunnel
+    private lateinit var netCfg: NetworkSpecificConfig
+    private lateinit var dns: Dns
+    private var doh: Boolean = false
     private var lease: Lease? = null
     private var config: BlockaConfig? = null
 
-    private lateinit var dns: Dns
+    private lateinit var dnsForLibreMode: Dns
     private lateinit var dnsForPlusMode: Dns
 
     var onTunnelStoppedUnexpectedly = { ex: BlokadaException -> }
+    var onTunnelStatusChanged = { status: TunnelStatus -> }
 
     fun setup() {
         JniService.setup()
@@ -74,23 +87,26 @@ object EngineService {
         systemTunnel.onTunnelClosed = { ex: BlokadaException? ->
             ex?.let {
                 scope.launch {
-                    packetLoop.stop()
-                    status = TunnelStatus.off()
-                    onTunnelStoppedUnexpectedly(it)
+                    if (!status.restarting) {
+                        packetLoop.stop()
+                        status = TunnelStatus.off()
+                        onTunnelStoppedUnexpectedly(it)
+                    }
                 }
             }
         }
     }
 
     suspend fun getTunnelStatus(): TunnelStatus {
+        if (status.restarting) return status
         packetLoop.getStatus()?.let {
-            status = TunnelStatus.connected(it)
+            status = TunnelStatus.connected(dns, doh, it)
         } ?: run {
-            status = systemTunnel.getStatus()
-            if (status.active) {
+            val active = systemTunnel.getStatus()
+            status = if (active) {
                 // Make sure to communicate DoH status too
-                status = TunnelStatus.filteringOnly(useDoh(dns))
-            }
+                TunnelStatus.filteringOnly(dns, doh)
+            } else TunnelStatus.off()
         }
         return status
     }
@@ -114,45 +130,42 @@ object EngineService {
         when {
             // Slim mode
             lease == null && EnvironmentService.isSlim() -> {
-                val useDoh = useDoh(dns)
-                dnsMapper.setDns(dns, useDoh)
-                if (useDoh) dnsService.startDnsProxy(dns)
-//                systemTunnel.onConfigureTunnel = { tun ->
-//                    configurator.forSlim(tun, useDoh, dns)
-//                }
-//                systemTunnel.open()
-//                status = TunnelStatus.filteringOnly(useDoh)
+                dns = dnsForLibreMode
+                doh = useDoh(dns)
+                dnsMapper.setDns(dns, doh)
+                if (doh) dnsService.startDnsProxy(dns)
                 systemTunnel.onConfigureTunnel = { tun ->
                     configurator.forLibre(tun, dns)
                 }
                 val tunnelConfig = systemTunnel.open()
-                packetLoop.startSlimMode(useDoh, dns, tunnelConfig)
-                status = TunnelStatus.filteringOnly(useDoh)
+                packetLoop.startSlimMode(doh, dns, tunnelConfig)
             }
             // Libre mode
             lease == null -> {
-                val useDoh = useDoh(dns)
-                dnsMapper.setDns(dns, useDoh)
-                if (useDoh) dnsService.startDnsProxy(dns)
+                dns = dnsForLibreMode
+                doh = useDoh(dns)
+                dnsMapper.setDns(dns, doh)
+                if (doh) dnsService.startDnsProxy(dns)
                 systemTunnel.onConfigureTunnel = { tun ->
                     configurator.forLibre(tun, dns)
                 }
                 val tunnelConfig = systemTunnel.open()
-                packetLoop.startLibreMode(useDoh, dns, tunnelConfig)
-                status = TunnelStatus.filteringOnly(useDoh)
+                packetLoop.startLibreMode(doh, dns, tunnelConfig)
             }
             // Plus mode
             else -> {
-                val useDoh = useDoh(dnsForPlusMode, plusMode = true)
-                dnsMapper.setDns(dnsForPlusMode, useDoh, plusMode = true)
-                if (useDoh) dnsService.startDnsProxy(dnsForPlusMode)
+                dns = dnsForPlusMode
+                doh = useDoh(dns, plusMode = true)
+                dnsMapper.setDns(dns, doh, plusMode = true)
+                if (doh) dnsService.startDnsProxy(dns)
                 systemTunnel.onConfigureTunnel = { tun ->
-                    configurator.forPlus(tun, dnsForPlusMode, lease = lease)
+                    configurator.forPlus(tun, dns, lease = lease)
                 }
                 systemTunnel.open()
-                status = TunnelStatus.filteringOnly(useDoh)
+                // Packet loop is started by connectVpn()
             }
         }
+        status = TunnelStatus.filteringOnly(dns, doh)
     }
 
     suspend fun stopTunnel() {
@@ -168,42 +181,64 @@ object EngineService {
         if (config.gateway == null) throw BlokadaException("No gateway configured")
         status = TunnelStatus.inProgress()
         packetLoop.startPlusMode(
-            useDoh = useDoh(dnsForPlusMode, plusMode = true), dnsForPlusMode,
+            useDoh = doh,
+            dns = dns,
             tunnelConfig = systemTunnel.getTunnelConfig(),
             privateKey = config.privateKey,
             gateway = config.gateway
         )
         this.config = config
-        status = TunnelStatus.connected(config.gateway.public_key)
+        status = TunnelStatus.connected(dns, doh, config.gateway.public_key)
     }
 
     suspend fun disconnectVpn() {
-        if (!status.active) throw BlokadaException("Wrong tunnel state")
+        if (!status.active && !status.restarting) throw BlokadaException("Wrong tunnel state")
         status = TunnelStatus.inProgress()
         packetLoop.stop()
-        status = TunnelStatus.filteringOnly(useDoh(dns))
+        status = TunnelStatus.filteringOnly(dns, doh)
     }
 
-    fun setDns(dns: Dns, dnsForPlusMode: Dns? = null) {
-        this.dns = dns
-        this.dnsForPlusMode = dnsForPlusMode ?: dns
+    fun setNetworkConfig(cfg: NetworkSpecificConfig) {
+        this.netCfg = cfg
+
+        /**
+         * The DNS server choice gets a bit complicated:
+         * - useNetworkDns will force to use network-provided DNS servers (if any) and to not use DoH
+         *   despite user setting (in useDoh()). If no network DNS servers were detected, then it'll
+         *   use the cfg.dnsChoice after all.
+         * - For Plus Mode, ignore the useNetworkDns setting, since network DNS would not resolve
+         *   under the real VPN. Instead, use the useBlockaDnsInPlusMode flag (which is true by
+         *   default), to safely fallback to our DNS.
+         *
+         * This approach may not address all user network specific problems, but I could not think
+         * of a better one.
+         */
+        this.dnsForLibreMode = if (cfg.useNetworkDns && cfg.hasNetworkDns()) DnsDataSource.network else DnsDataSource.byId(cfg.dnsChoice)
+        this.dnsForPlusMode = if (cfg.useBlockaDnsInPlusMode) DnsDataSource.blocka else this.dnsForLibreMode
     }
 
-    suspend fun changeDns(dns: Dns, dnsForPlusMode: Dns? = null) {
-        log.w("Requested to change DNS")
-        this.dns = dns
-        this.dnsForPlusMode = dnsForPlusMode ?: dns
-        restart()
+    suspend fun applyNetworkConfig(cfg: NetworkSpecificConfig) {
+        log.w("Applying network config: $cfg")
+        val shouldRestart = when {
+            cfg.dnsChoice != netCfg.dnsChoice -> true
+            cfg.useBlockaDnsInPlusMode != netCfg.useBlockaDnsInPlusMode -> true
+            cfg.encryptDns != netCfg.encryptDns -> true
+            cfg.useNetworkDns != netCfg.useNetworkDns -> true
+            else -> false
+        }
+        setNetworkConfig(cfg)
+        if (shouldRestart) restart()
+        else log.v("Network config change does not require engine restart")
     }
 
-    suspend fun reloadBlockLists() {
-        filtering.reload()
-        restart()
+    private fun NetworkSpecificConfig.hasNetworkDns(): Boolean {
+        return connectivity.getDnsServers(this.network).isNotEmpty()
     }
 
     suspend fun restart() {
         val status = getTunnelStatus()
         if (status.active) {
+            this.status = TunnelStatus.restarting()
             if (status.gatewayId != null) disconnectVpn()
             restartSystemTunnel(lease)
             if (status.gatewayId != null) connectVpn(config!!)
@@ -211,10 +246,17 @@ object EngineService {
     }
 
     suspend fun restartSystemTunnel(lease: Lease?) {
-        stopTunnel()
+        dnsService.stopDnsProxy()
+        packetLoop.stop()
+        systemTunnel.close()
         log.w("Waiting after stopping system tunnel, before another start")
         delay(5000)
         startTunnel(lease)
+    }
+
+    suspend fun reloadBlockLists() {
+        filtering.reload()
+        restart()
     }
 
     suspend fun pause() {
@@ -227,6 +269,10 @@ object EngineService {
 
     private fun useDoh(dns: Dns, plusMode: Boolean = false): Boolean {
         return when {
+            dns.id == DnsDataSource.network.id -> {
+                // Only plaintext network DNS are supported currently
+                false
+            }
             plusMode && dns.plusIps != null -> {
                 // If plusIps are set, they will point to a clear text DNS, because the plus mode
                 // VPN itself is encrypting everything, so there is no need to encrypt DNS.
@@ -239,7 +285,7 @@ object EngineService {
                 true
             }
             else -> {
-                dns.isDnsOverHttps() && PersistenceService.load(LocalConfig::class).useDnsOverHttps
+                dns.isDnsOverHttps() && netCfg.encryptDns
             }
         }
     }

@@ -51,6 +51,9 @@ class TunnelViewModel: ViewModel() {
 
     init {
         engine.onTunnelStoppedUnexpectedly = this::handleTunnelStoppedUnexpectedly
+        engine.onTunnelStatusChanged = { status ->
+            viewModelScope.launch { status.emit() }
+        }
         viewModelScope.launch {
             val cfg = persistence.load(BlockaConfig::class)
             _config.value = cfg

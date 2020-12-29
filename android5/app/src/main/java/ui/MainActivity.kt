@@ -127,18 +127,19 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
             val translationId = when (destination.id) {
                 R.id.navigation_activity -> R.string.main_tab_activity
-                R.id.advancedFragment -> R.string.main_tab_advanced
+                R.id.activityDetailFragment -> R.string.main_tab_activity
                 R.id.navigation_packs -> getString(R.string.advanced_section_header_packs)
-                R.id.activityDetailFragment -> R.string.activity_section_header_details
-                R.id.packDetailFragment -> R.string.pack_section_header_details
+                R.id.packDetailFragment -> R.string.advanced_section_header_packs
+                R.id.advancedFragment -> R.string.main_tab_advanced
+                R.id.userDeniedFragment -> R.string.userdenied_section_header
+                R.id.settingsNetworksFragment -> R.string.networks_section_header
+                R.id.networksDetailFragment -> R.string.networks_section_header
+                R.id.appsFragment -> R.string.apps_section_header
                 R.id.navigation_settings -> R.string.main_tab_settings
                 R.id.navigation_settings_account -> R.string.account_action_my_account
-                R.id.settingsEncryptionFragment -> R.string.account_encrypt_section_header
                 R.id.settingsLogoutFragment -> R.string.account_header_logout
                 R.id.settingsAppFragment -> R.string.app_settings_section_header
                 R.id.leasesFragment -> R.string.account_action_devices
-                R.id.appsFragment -> R.string.apps_section_header
-                R.id.userDeniedFragment -> R.string.userdenied_section_header
                 else -> null
             }
             toolbar.title = translationId?.let {
@@ -257,6 +258,15 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         VpnPermissionService.resultReturned(resultCode)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        NetworkMonitorPermissionService.resultReturned(grantResults)
     }
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {

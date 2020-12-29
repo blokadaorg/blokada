@@ -36,6 +36,7 @@ import model.BlockaRepoConfig
 import model.BlockaRepoPayload
 import newengine.BlockaDnsService
 import engine.FilteringService
+import repository.DnsDataSource
 import service.*
 import ui.utils.cause
 import utils.Logger
@@ -61,6 +62,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     private lateinit var blockaRepoVM: BlockaRepoViewModel
     private lateinit var statsVM: StatsViewModel
     private lateinit var adsCounterVM: AdsCounterViewModel
+    private lateinit var networksVM: NetworksViewModel
 
     override fun onCreate() {
         super.onCreate()
@@ -79,6 +81,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         blockaRepoVM = ViewModelProvider(this).get(BlockaRepoViewModel::class.java)
         statsVM = ViewModelProvider(this).get(StatsViewModel::class.java)
         adsCounterVM = ViewModelProvider(this).get(AdsCounterViewModel::class.java)
+        networksVM = ViewModelProvider(this).get(NetworksViewModel::class.java)
 
         accountVM.account.observeForever { account ->
             tunnelVM.checkConfigAfterAccountChanged(account)
@@ -115,10 +118,19 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         }
 
         EngineService.setup()
-        EngineService.setDns(
-            settingsVM.getCurrentDns(),
-            dnsForPlusMode = settingsVM.decideDnsForPlusMode()
-        )
+        EngineService.setNetworkConfig(networksVM.getActiveNetworkConfig())
+
+        networksVM.activeConfig.observeForever {
+            GlobalScope.launch {
+                EngineService.applyNetworkConfig(it)
+
+                // Without the foreground service, we will get killed while switching the VPN.
+                // The simplest solution is to force the flag (which will apply from the next
+                // app start). Not the nicest though.
+                if (networksVM.hasCustomConfigs() && !settingsVM.getUseForegroundService())
+                    settingsVM.setUseForegroundService(true)
+            }
+        }
         ConnectivityService.setup()
 
         GlobalScope.launch {
