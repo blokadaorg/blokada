@@ -206,6 +206,29 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blocked";
 
+"networks section header" = "Networks";
+"networks section label" = "Adjust settings for WiFi and mobile networks";
+"networks action default settings" = "Tap here to modify default settings";
+"networks label all networks" = "All networks";
+"networks action network specific" = "To make the app behave differently on some networks, tap below.";
+"networks label configuration active" = "These settings are currently active";
+"networks label configuration enabled" = "Not connected to this network";
+"networks label configuration inactive" = "Tap to modify settings for this network";
+"networks label details default network" = "The settings below are applied by default for all networks. You can overwrite them for selected networks (in the previous screen).";  
+"networks action encrypt dns" = "Encrypt DNS if possible";
+"networks action never encrypt dns" = "Never encrypt DNS";
+"networks action use dns" = "Use DNS: %@";
+"networks action use network dns" = "Use network-provided DNS";
+"networks action deactivate plus" = "Deactivate Blokada Plus (VPN)";
+"networks label specific network" = "Adjust what should happen when your device connects to this network.";
+"networks label network type" = "Network type";
+"networks type wifi" = "WiFi network";
+"networks type mobile" = "Mobile network";
+"networks alert no network dns" = "This network did not specify any DNS. Try reconnecting to this network.";
+"networks permission request" = "To use this feature, you need to grant permissions that allow the app to recognise networks.";
+"networks section choose dns" = "Choose DNS";
+
+
 "account section header settings" = "Settings";
 "account status text" = "Your BLOKADA %@ account is active until %@.";
 "account status text libre" = "Your BLOKADA Libre account is active until forever.";
@@ -385,6 +408,7 @@
 "intro header" = "Blokada is Active!";
 "intro text" = "A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.";
 
+"location region worldwide" = "Everywhere";
 "location region america" = "America";
 "location region europe" = "Europe";
 "location region asia" = "Asia";
