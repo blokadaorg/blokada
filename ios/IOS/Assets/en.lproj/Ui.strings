@@ -208,24 +208,22 @@
 
 "networks section header" = "Networks";
 "networks section label" = "Adjust settings for WiFi and mobile networks";
-"networks action default settings" = "Tap here to modify default settings";
 "networks label all networks" = "All networks";
-"networks action network specific" = "To make the app behave differently on some networks, tap below.";
+"networks action network specific" = "Tap here to modify default settings. To make the app behave differently on some networks, tap below.";
 "networks label configuration active" = "These settings are currently active";
 "networks label configuration enabled" = "Not connected to this network";
 "networks label configuration inactive" = "Tap to modify settings for this network";
 "networks label details default network" = "The settings below are applied by default for all networks. You can overwrite them for selected networks (in the previous screen).";  
-"networks action encrypt dns" = "Encrypt DNS if possible";
-"networks action never encrypt dns" = "Never encrypt DNS";
+"networks action encrypt dns" = "Encrypt DNS";
 "networks action use dns" = "Use DNS: %@";
-"networks action use network dns" = "Use network-provided DNS";
-"networks action deactivate plus" = "Deactivate Blokada Plus (VPN)";
+"networks action use network dns" = "Prefer network DNS";
 "networks label specific network" = "Adjust what should happen when your device connects to this network.";
 "networks label network type" = "Network type";
 "networks type wifi" = "WiFi network";
 "networks type mobile" = "Mobile network";
-"networks alert no network dns" = "This network did not specify any DNS. Try reconnecting to this network.";
-"networks permission request" = "To use this feature, you need to grant permissions that allow the app to recognise networks.";
+// As in "any (wifi) network"
+"networks match any" = "(any)";
+"networks permission request" = "To have more control, tap here and let the app recognise all networks.";
 "networks section choose dns" = "Choose DNS";
 
 

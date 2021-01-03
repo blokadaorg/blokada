@@ -158,7 +158,6 @@
     <string name="userdenied_tab_blocked">Blocked</string>
     <string name="networks_section_header">Networks</string>
     <string name="networks_section_label">Adjust settings for WiFi and mobile networks</string>
-    <string name="networks_action_default_settings">Tap here to modify default settings</string>
     <string name="networks_label_all_networks">All networks</string>
     <string name="networks_action_network_specific">Tap here to modify default settings. To make the app behave differently on some networks, tap below.</string>
     <string name="networks_label_configuration_active">These settings are currently active</string>
@@ -166,16 +165,14 @@
     <string name="networks_label_configuration_inactive">Tap to modify settings for this network</string>
     <string name="networks_label_details_default_network">The settings below are applied by default for all networks. You can overwrite them for selected networks (in the previous screen).</string>
     <string name="networks_action_encrypt_dns">Encrypt DNS</string>
-    <string name="networks_action_never_encrypt_dns">Never encrypt DNS</string>
     <string name="networks_action_use_dns">Use DNS: %s</string>
-    <string name="networks_action_use_network_dns">Use network-provided DNS</string>
-    <string name="networks_action_deactivate_plus">Deactivate Blokada Plus (VPN)</string>
+    <string name="networks_action_use_network_dns">Prefer network DNS</string>
     <string name="networks_label_specific_network">Adjust what should happen when your device connects to this network.</string>
     <string name="networks_label_network_type">Network type</string>
     <string name="networks_type_wifi">WiFi network</string>
     <string name="networks_type_mobile">Mobile network</string>
-    <string name="networks_alert_no_network_dns">This network did not specify any DNS. Try reconnecting to this network.</string>
-    <string name="networks_permission_request">To use this feature, you need to grant permissions that allow the app to recognise networks.</string>
+    <string name="networks_match_any">(any)</string>
+    <string name="networks_permission_request">To have more control, tap here and let the app recognise all networks.</string>
     <string name="networks_section_choose_dns">Choose DNS</string>
     <string name="account_section_header_settings">Settings</string>
     <string name="account_status_text">Your BLOKADA %s account is active until %s.</string>
