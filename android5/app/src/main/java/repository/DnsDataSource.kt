@@ -36,7 +36,7 @@ object DnsDataSource {
         id = "blocka",
         ips = listOf("193.180.80.1", "193.180.80.2"),
         plusIps = listOf("193.180.80.100", "193.180.80.101"),
-        label = "Blokada DNS (beta)",
+        label = "Blokada DNS",
         port = 443,
         name = "dns.blokada.org",
         path = "dns-query",
