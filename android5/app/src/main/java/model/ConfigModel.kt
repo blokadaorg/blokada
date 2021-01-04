@@ -51,7 +51,7 @@ data class LocalConfig(
     val useDnsOverHttps: Boolean = false, // Deprecated
     val useBlockaDnsInPlusMode: Boolean = true, // Deprecated
     val escaped: Boolean = false,
-    val useForegroundService: Boolean = false
+    val useForegroundService: Boolean = true
 )
 
 // These settings are always backed up to the cloud (if possible)
