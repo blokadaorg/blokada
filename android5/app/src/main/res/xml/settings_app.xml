@@ -63,12 +63,6 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:icon="@drawable/ic_baseline_lock_24"
-            app:key="app_doh"
-            app:title="@string/app_settings_use_dns_over_https"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
             app:icon="@drawable/ic_baseline_open_in_browser_24"
             app:key="app_browser"
             app:title="@string/app_settings_browser_label"

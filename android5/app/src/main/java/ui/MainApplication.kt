@@ -22,7 +22,6 @@
 package ui
 
 import android.app.Activity
-import android.app.Application
 import android.app.Service
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -34,9 +33,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.BlockaRepoConfig
 import model.BlockaRepoPayload
-import newengine.BlockaDnsService
 import engine.FilteringService
-import repository.DnsDataSource
+import model.BlockaConfig
 import service.*
 import ui.utils.cause
 import utils.Logger
@@ -75,13 +73,18 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     }
 
     private fun setupEvents() {
+        networksVM = ViewModelProvider(this).get(NetworksViewModel::class.java)
+        EngineService.setup(
+            network = networksVM.getActiveNetworkConfig(),
+            user = PersistenceService.load(BlockaConfig::class) // TODO: not nice
+        )
+
         accountVM = ViewModelProvider(this).get(AccountViewModel::class.java)
         tunnelVM = ViewModelProvider(this).get(TunnelViewModel::class.java)
         settingsVM = ViewModelProvider(this).get(SettingsViewModel::class.java)
         blockaRepoVM = ViewModelProvider(this).get(BlockaRepoViewModel::class.java)
         statsVM = ViewModelProvider(this).get(StatsViewModel::class.java)
         adsCounterVM = ViewModelProvider(this).get(AdsCounterViewModel::class.java)
-        networksVM = ViewModelProvider(this).get(NetworksViewModel::class.java)
 
         accountVM.account.observeForever { account ->
             tunnelVM.checkConfigAfterAccountChanged(account)
@@ -117,12 +120,10 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
             MonitorService.setTunnelStatus(it)
         }
 
-        EngineService.setup()
-        EngineService.setNetworkConfig(networksVM.getActiveNetworkConfig())
 
         networksVM.activeConfig.observeForever {
             GlobalScope.launch {
-                EngineService.applyNetworkConfig(it)
+                EngineService.updateConfig(network = it)
 
                 // Without the foreground service, we will get killed while switching the VPN.
                 // The simplest solution is to force the flag (which will apply from the next

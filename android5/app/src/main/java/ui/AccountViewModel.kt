@@ -104,6 +104,10 @@ class AccountViewModel: ViewModel() {
         }
     }
 
+    fun isActive(): Boolean {
+        return account.value?.isActive() ?: false
+    }
+
     private fun hasAccount() = try {
         persistence.load(Account::class)
         true

@@ -71,6 +71,10 @@ class HomeFragment : Fragment() {
         var plusButtonReady = false
 
         val longStatus: TextView = root.findViewById(R.id.home_longstatus)
+        longStatus.setOnClickListener {
+            val fragment = ProtectionLevelFragment.newInstance()
+            fragment.show(parentFragmentManager, null)
+        }
         val updateLongStatus = { s: TunnelStatus, counter: Long? ->
             longStatus.text = when {
                 s.inProgress -> getString(R.string.home_status_detail_progress)
@@ -143,7 +147,7 @@ class HomeFragment : Fragment() {
             if (!s.inProgress) {
                 // Trying to fix a weird out of sync switch state
                 lifecycleScope.launch {
-                    plusButton.checked = s.gatewayId != null
+                    plusButton.plusActive = s.isPlusMode()
                 }
             }
 
@@ -161,6 +165,7 @@ class HomeFragment : Fragment() {
 
         vm.config.observe(viewLifecycleOwner, Observer { config ->
             plusButton.location = config.gateway?.niceName()
+            plusButton.plusEnabled = config.vpnEnabled
         })
 
         plusButton.onNoLocation = ::showLocationSheet

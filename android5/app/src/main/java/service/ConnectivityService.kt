@@ -110,10 +110,8 @@ object ConnectivityService {
         }
     }
 
-    fun getDnsServers(descriptor: NetworkDescriptor): List<InetAddress> {
-        return networkToHandle[descriptor]?.let { network ->
-            manager.getLinkProperties(network)?.dnsServers ?: emptyList()
-        } ?: emptyList()
+    fun getActiveNetworkDns(): List<InetAddress> {
+        return manager.getLinkProperties(networkToHandle[activeNetwork])?.dnsServers ?: emptyList()
     }
 
     fun isDeviceInOfflineMode(): Boolean {

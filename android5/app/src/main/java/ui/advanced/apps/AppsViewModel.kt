@@ -88,7 +88,7 @@ class AppsViewModel : ViewModel() {
         viewModelScope.launch {
             log.v("Switching bypass for app: $name")
             appRepo.switchBypassForApp(name)
-            engine.restart()
+            engine.forceReload()
             refresh()
         }
     }
@@ -101,7 +101,7 @@ class AppsViewModel : ViewModel() {
                 it.filter { app -> app.isSystem && app.isBypassed == isBypassed }.forEach { app ->
                     appRepo.switchBypassForApp(app.id)
                 }
-                engine.restart()
+                engine.forceReload()
                 refresh()
             }
         }

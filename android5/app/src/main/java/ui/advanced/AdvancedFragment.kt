@@ -34,16 +34,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import androidx.preference.Preference
 import model.TunnelStatus
 import org.blokada.R
 import service.EnvironmentService
-import service.tr
-import ui.SettingsViewModel
 import ui.TunnelViewModel
-import ui.advanced.encryption.EncryptionLevelFragment
+import ui.home.ProtectionLevelFragment
 import ui.app
-import ui.home.PaymentFeaturesFragment
 import ui.utils.getColorFromAttr
 import utils.Links
 
@@ -138,35 +134,30 @@ class AdvancedFragment : Fragment() {
             iconView.setColorFilter(ContextCompat.getColor(requireContext(), iconColorResId))
         }
 
-        val encryptionView = root.findViewById<View>(R.id.advanced_level)
-        val encryptionIcon = root.findViewById<ImageView>(R.id.advanced_level_icon)
-        val encryptionLevel = root.findViewById<TextView>(R.id.advanced_level_status)
-
-        encryptionView.setOnClickListener {
-            val fragment = EncryptionLevelFragment.newInstance()
-            fragment.show(parentFragmentManager, null)
-        }
-
-        tunnelVM.tunnelStatus.observe(viewLifecycleOwner, Observer { status ->
-            val level = statusToLevel(status)
-            val ctx = requireContext()
-            val color = when (level) {
-                -1 -> ctx.getColorFromAttr(android.R.attr.textColorSecondary)
-                1 -> ctx.getColor(R.color.orange)
-                2 -> ctx.getColor(R.color.green)
-                else -> ctx.getColor(R.color.red)
-            }
-
-            encryptionIcon.setColorFilter(color)
-            encryptionIcon.setImageResource(when (level) {
-                2 -> R.drawable.ic_baseline_lock_24
-                1 -> R.drawable.ic_baseline_lock_open_24
-                else -> R.drawable.ic_baseline_no_encryption_24
-            })
-
-            encryptionLevel.setTextColor(color)
-            encryptionLevel.text = ctx.levelToText(level)
-        })
+//        val encryptionView = root.findViewById<View>(R.id.advanced_level)
+//        val encryptionIcon = root.findViewById<ImageView>(R.id.advanced_level_icon)
+//        val encryptionLevel = root.findViewById<TextView>(R.id.advanced_level_status)
+//
+//        tunnelVM.tunnelStatus.observe(viewLifecycleOwner, Observer { status ->
+//            val level = statusToLevel(status)
+//            val ctx = requireContext()
+//            val color = when (level) {
+//                -1 -> ctx.getColorFromAttr(android.R.attr.textColorSecondary)
+//                1 -> ctx.getColor(R.color.orange)
+//                2 -> ctx.getColor(R.color.green)
+//                else -> ctx.getColor(R.color.red)
+//            }
+//
+//            encryptionIcon.setColorFilter(color)
+//            encryptionIcon.setImageResource(when (level) {
+//                2 -> R.drawable.ic_baseline_lock_24
+//                1 -> R.drawable.ic_baseline_lock_open_24
+//                else -> R.drawable.ic_baseline_no_encryption_24
+//            })
+//
+//            encryptionLevel.setTextColor(color)
+//            encryptionLevel.text = ctx.levelToText(level)
+//        })
 
         val migrateSlim = root.findViewById<View>(R.id.advanced_migrateslim)
         migrateSlim.visibility = if (EnvironmentService.isSlim()) View.VISIBLE else View.GONE

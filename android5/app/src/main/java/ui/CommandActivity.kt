@@ -82,14 +82,6 @@ class CommandActivity : AppCompatActivity() {
         when (command) {
             Command.OFF -> tunnelVM.turnOff()
             Command.ON -> tunnelVM.turnOn()
-            Command.DNS -> {
-                val desiredDns = ensureParam(param)
-                settingsVM.selectedDns.value?.let { selectedDns ->
-                    if (selectedDns != desiredDns) {
-                        settingsVM.setSelectedDns(desiredDns)
-                    } else log.w("Desired DNS already set, ignoring")
-                } ?: settingsVM.setSelectedDns(desiredDns)
-            }
             Command.LOG -> LogService.shareLog()
             Command.ACC -> {
                 if (param == ACC_MANAGE) {
@@ -115,15 +107,6 @@ class CommandActivity : AppCompatActivity() {
             }
             Command.TOAST -> {
                 Toast.makeText(this, param, Toast.LENGTH_LONG).show()
-            }
-            Command.DOH -> {
-                if (param == ON) {
-                    log.v("Enabling DoH by command")
-                    settingsVM.setUseDnsOverHttps(true)
-                } else {
-                    log.v("Disabling DoH by command")
-                    settingsVM.setUseDnsOverHttps(false)
-                }
             }
         }
     }

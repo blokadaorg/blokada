@@ -26,7 +26,6 @@ import newengine.BlockaDnsService
 import org.pcap4j.packet.namednumber.UdpPort
 import repository.DnsDataSource
 import service.ConnectivityService
-import service.PersistenceService
 import utils.Logger
 import java.net.Inet4Address
 import java.net.Inet6Address
@@ -101,7 +100,7 @@ object DnsMapperService {
 fun decideDns(dns: Dns, plusMode: Boolean): List<InetAddress> {
     return when {
         dns.id == DnsDataSource.network.id -> {
-            ConnectivityService.getDnsServers(ConnectivityService.activeNetwork)
+            ConnectivityService.getActiveNetworkDns()
         }
         plusMode && dns.plusIps != null -> dns.plusIps.ipv4().map { Inet4Address.getByName(it) }
         else -> dns.ips.ipv4().map { Inet4Address.getByName(it) }

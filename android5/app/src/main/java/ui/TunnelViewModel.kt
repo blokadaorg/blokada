@@ -51,7 +51,7 @@ class TunnelViewModel: ViewModel() {
 
     init {
         engine.onTunnelStoppedUnexpectedly = this::handleTunnelStoppedUnexpectedly
-        engine.onTunnelStatusChanged = { status ->
+        engine.setOnTunnelStatusChangedListener { status ->
             viewModelScope.launch { status.emit() }
         }
         viewModelScope.launch {
@@ -100,17 +100,10 @@ class TunnelViewModel: ViewModel() {
                 val s = engine.getTunnelStatus()
                 if (!s.inProgress && !s.active) {
                     try {
-                        TunnelStatus.inProgress().emit()
-                        val cfg = _config.value ?: throw BlokadaException("Config not set")
-                        if (cfg.vpnEnabled) {
-                            engine.startTunnel(cfg.lease)
-                            engine.connectVpn(cfg)
-                            lease.checkLease(cfg)
-                        } else {
-                            engine.startTunnel(null)
-                        }
+                        val cfg = _config.value?.copy(tunnelEnabled = true) ?: throw BlokadaException("Config not set")
+                        engine.updateConfig(user = cfg)
+                        if (cfg.vpnEnabled) lease.checkLease(cfg)
                         cfg.copy(tunnelEnabled = true).emit()
-                        engine.getTunnelStatus().emit()
                         log.v("Tunnel started successfully")
                     } catch (ex: Exception) {
                         handleException(ex)
@@ -129,10 +122,9 @@ class TunnelViewModel: ViewModel() {
             val s = engine.getTunnelStatus()
             if (!s.inProgress && s.active) {
                 try {
-                    TunnelStatus.inProgress().emit()
-                    engine.stopTunnel()
-                    _config.value?.copy(tunnelEnabled = false)?.emit()
-                    engine.getTunnelStatus().emit()
+                    val cfg = _config.value?.copy(tunnelEnabled = false) ?: throw BlokadaException("Config not set")
+                    engine.updateConfig(user = cfg)
+                    cfg.emit()
                     log.v("Tunnel stopped successfully")
                 } catch (ex: Exception) {
                     handleException(ex)
@@ -150,16 +142,12 @@ class TunnelViewModel: ViewModel() {
             val s = engine.getTunnelStatus()
             if (!s.inProgress && s.gatewayId == null) {
                 try {
-                    TunnelStatus.inProgress().emit()
                     if (!s.active) throw BlokadaException("Tunnel is not active")
-                    val cfg = _config.value ?: throw BlokadaException("BlockaConfig not set")
+                    var cfg = _config.value ?: throw BlokadaException("BlockaConfig not set")
                     if (cfg.lease == null) throw BlokadaException("Lease not set in BlockaConfig")
-
-                    engine.restartSystemTunnel(cfg.lease)
-                    engine.connectVpn(cfg)
-
-                    cfg.copy(vpnEnabled = true).emit()
-                    engine.getTunnelStatus().emit()
+                    cfg = cfg.copy(vpnEnabled = true)
+                    engine.updateConfig(user = cfg)
+                    cfg.emit()
                     log.v("Gateway switched on successfully")
 
                     viewModelScope.launch {
@@ -186,13 +174,10 @@ class TunnelViewModel: ViewModel() {
             val s = engine.getTunnelStatus()
             if (!s.inProgress && s.gatewayId != null) {
                 try {
-                    TunnelStatus.inProgress().emit()
-                    if (s.active) {
-                        engine.disconnectVpn()
-                        engine.restartSystemTunnel(null)
-                    }
-                    _config.value?.copy(vpnEnabled = false)?.emit()
-                    engine.getTunnelStatus().emit()
+                    var cfg = _config.value ?: throw BlokadaException("BlockaConfig not set")
+                    cfg = cfg.copy(vpnEnabled = false)
+                    engine.updateConfig(user = cfg)
+                    cfg.emit()
                     log.v("Gateway switched off successfully")
                 } catch (ex: Exception) {
                     handleException(ex)
@@ -210,18 +195,11 @@ class TunnelViewModel: ViewModel() {
             val s = engine.getTunnelStatus()
             if (!s.inProgress) {
                 try {
-                    TunnelStatus.inProgress().emit()
                     var cfg = _config.value ?: throw BlokadaException("BlockaConfig not set")
                     val lease = lease.createLease(cfg, gateway)
                     cfg = cfg.copy(vpnEnabled = true, lease = lease, gateway = gateway)
-
-                    if (s.active && s.gatewayId != null) engine.disconnectVpn()
-                    if (s.active) engine.restartSystemTunnel(lease)
-                    else engine.startTunnel(lease)
-                    engine.connectVpn(cfg)
-
+                    engine.updateConfig(user = cfg)
                     cfg.emit()
-                    engine.getTunnelStatus().emit()
                     log.v("Gateway changed successfully")
                 } catch (ex: Exception) {
                     handleException(ex)
@@ -251,23 +229,13 @@ class TunnelViewModel: ViewModel() {
     fun clearLease() {
         viewModelScope.launch {
             log.v("Clearing lease")
-            _config.value?.copy(vpnEnabled = false, lease = null, gateway = null)?.emit()
-            val s = engine.getTunnelStatus()
-            if (!s.inProgress && s.gatewayId != null) {
-                try {
-                    TunnelStatus.inProgress().emit()
-                    if (s.active) {
-                        engine.disconnectVpn()
-                        engine.restartSystemTunnel(null)
-                    }
-                    engine.getTunnelStatus().emit()
-                    log.v("Disconnected from VPN")
-                } catch (ex: Exception) {
-                    handleException(ex)
-                }
-            } else {
-                log.w("Tunnel busy")
-                s.emit()
+            try {
+                var cfg = _config.value ?: throw BlokadaException("BlockaConfig not set")
+                cfg = cfg.copy(vpnEnabled = false, lease = null, gateway = null)
+                engine.updateConfig(user = cfg)
+                log.v("Disconnected from VPN")
+            } catch (ex: Exception) {
+                handleException(ex)
             }
         }
     }

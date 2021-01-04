@@ -128,17 +128,6 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             true
         }
 
-        val dnsOverHttps: ListPreference = findPreference("app_doh")!!
-        dnsOverHttps.entryValues = yesNoChoice
-        dnsOverHttps.entries = dnsOverHttps.entryValues
-        dnsOverHttps.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                getString(R.string.universal_action_yes) -> vm.setUseDnsOverHttps(true)
-                else -> vm.setUseDnsOverHttps(false)
-            }
-            true
-        }
-
         val useForeground: ListPreference = findPreference("app_useforeground")!!
         useForeground.entryValues = yesNoChoice
         useForeground.entries = useForeground.entryValues
@@ -189,11 +178,6 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             else getString(R.string.universal_action_no)
             backup.setDefaultValue(useBackup)
             backup.value = useBackup
-
-            val useDoh = if (it.useDnsOverHttps) getString(R.string.universal_action_yes)
-            else getString(R.string.universal_action_no)
-            dnsOverHttps.setDefaultValue(useDoh)
-            dnsOverHttps.value = useDoh
 
             val useFg = if (it.useForegroundService) getString(R.string.universal_action_yes)
             else getString(R.string.universal_action_no)

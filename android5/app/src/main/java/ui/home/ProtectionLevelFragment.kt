@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with Blokada.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright © 2020 Blocka AB. All rights reserved.
+ * Copyright © 2021 Blocka AB. All rights reserved.
  *
  * @author Karol Gusak (karol@blocka.net)
  */
 
-package ui.advanced.encryption
+package ui.home
 
 import android.content.Context
 import android.graphics.drawable.LevelListDrawable
@@ -32,25 +32,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.blokada.R
 import ui.BottomSheetFragment
 import ui.TunnelViewModel
-import ui.advanced.AdvancedFragmentDirections
 import ui.advanced.statusToLevel
 import ui.app
-import ui.home.PaymentFragment
 import utils.toBlokadaPlusText
+import java.lang.Integer.max
 
-class EncryptionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
+class ProtectionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
 
     private lateinit var tunnelVM: TunnelViewModel
 
     companion object {
-        fun newInstance() = EncryptionLevelFragment()
+        fun newInstance() = ProtectionLevelFragment()
     }
 
     override fun onCreateView(
@@ -75,10 +71,15 @@ class EncryptionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
 
         val encryptLevel = root.findViewById<TextView>(R.id.encryption_level)
         val encryptDns = root.findViewById<View>(R.id.encryption_dns)
+        val encryptDnsIcon = root.findViewById<ImageView>(R.id.encryption_dns_icon)
         val encryptEverything = root.findViewById<View>(R.id.encryption_everything)
+        val encryptEverythingIcon = root.findViewById<ImageView>(R.id.encryption_everything_icon)
         val encryptIcon = root.findViewById<ImageView>(R.id.encryption_icon)
+        val detailDns = root.findViewById<TextView>(R.id.home_detail_dns)
+        val detailDoh = root.findViewById<TextView>(R.id.home_detail_dns_doh)
+        val detailVpn = root.findViewById<TextView>(R.id.home_detail_vpn)
 
-        tunnelVM.tunnelStatus.observe(viewLifecycleOwner, Observer { status ->
+        tunnelVM.tunnelStatus.observe(viewLifecycleOwner, { status ->
             val level = statusToLevel(status)
             val ctx = requireContext()
             encryptLevel.text = ctx.levelToShortText(level)
@@ -87,40 +88,54 @@ class EncryptionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
             encryptEverything.alpha = if (level == 2) 1.0f else 0.3f
 
             (encryptIcon.drawable as? LevelListDrawable)?.let {
-                it.level = level
+                it.level = max(0, level)
             }
+
+            detailDns.text = status.dns?.label ?: ctx.getString(R.string.universal_label_none)
 
             when (level) {
                 2 -> {
                     encryptDns.alpha = 1.0f
                     encryptEverything.alpha = 1.0f
-                    encryptContinue.text = getString(R.string.universal_action_continue)
-                    encryptContinue.setOnClickListener {
-                        dismiss()
-                    }
+                    encryptDnsIcon.setImageResource(R.drawable.ic_baseline_check_24)
+                    encryptEverythingIcon.setImageResource(R.drawable.ic_baseline_check_24)
+                    detailDoh.text = ctx.getString(R.string.universal_action_yes)
+                    detailVpn.text = status.gatewayLabel
+//                    encryptContinue.text = getString(R.string.universal_action_close)
+//                    encryptContinue.setOnClickListener {
+//                        dismiss()
+//                    }
                 }
                 1 -> {
                     encryptDns.alpha = 1.0f
                     encryptEverything.alpha = 0.3f
-                    encryptContinue.text = getString(R.string.universal_action_upgrade).toBlokadaPlusText()
-                    encryptContinue.setOnClickListener {
-                        dismiss()
-                        val nav = findNavController()
-                        nav.navigate(R.id.navigation_home)
-                        val fragment = PaymentFragment.newInstance()
-                        fragment.show(parentFragmentManager, null)
-                    }
+                    encryptDnsIcon.setImageResource(R.drawable.ic_baseline_check_24)
+                    encryptEverythingIcon.setImageResource(R.drawable.ic_baseline_close_24)
+                    detailDoh.text = ctx.getString(R.string.universal_action_yes)
+                    detailVpn.text = ctx.getString(R.string.universal_label_none)
+//                    encryptContinue.text = getString(R.string.universal_action_upgrade).toBlokadaPlusText()
+//                    encryptContinue.setOnClickListener {
+//                        dismiss()
+//                        val nav = findNavController()
+//                        nav.navigate(R.id.navigation_home)
+//                        val fragment = PaymentFragment.newInstance()
+//                        fragment.show(parentFragmentManager, null)
+//                    }
                 }
                 else -> {
                     encryptDns.alpha = 0.3f
                     encryptEverything.alpha = 0.3f
-                    encryptContinue.text = getString(R.string.home_power_action_turn_on)
-                    encryptContinue.setOnClickListener {
-                        dismiss()
-                        val nav = findNavController()
-                        nav.navigate(R.id.navigation_home)
-                        tunnelVM.turnOn()
-                    }
+                    encryptDnsIcon.setImageResource(R.drawable.ic_baseline_close_24)
+                    encryptEverythingIcon.setImageResource(R.drawable.ic_baseline_close_24)
+                    detailDoh.text = ctx.getString(R.string.universal_action_no)
+                    detailVpn.text = ctx.getString(R.string.universal_label_none)
+//                    encryptContinue.text = getString(R.string.home_power_action_turn_on)
+//                    encryptContinue.setOnClickListener {
+//                        dismiss()
+//                        val nav = findNavController()
+//                        nav.navigate(R.id.navigation_home)
+//                        tunnelVM.turnOn()
+//                    }
                 }
             }
         })
@@ -132,8 +147,8 @@ class EncryptionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
 
 private fun Context.levelToShortText(level: Int): String {
     return when (level) {
-        1 -> getString(R.string.account_encrypt_level_medium)
-        2 -> getString(R.string.account_encrypt_level_high)
-        else -> getString(R.string.account_encrypt_level_low)
+        1 -> getString(R.string.home_level_medium)
+        2 -> getString(R.string.home_level_high)
+        else -> getString(R.string.home_level_low)
     }
 }

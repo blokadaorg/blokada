@@ -36,6 +36,8 @@ data class BlockaConfig(
     val tunnelEnabled: Boolean = false
 ) {
     fun getAccountId() = keysGeneratedForAccountId
+    fun lease() = lease!!
+    fun gateway() = gateway!!
 }
 
 // These settings are never backed up to the cloud

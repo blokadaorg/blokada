@@ -76,7 +76,7 @@ object Defaults {
 
     fun networkConfig(network: NetworkDescriptor) = defaultNetworkConfig().copy(network = network)
 
-    private fun defaultNetworkConfig() = NetworkSpecificConfig(
+    fun defaultNetworkConfig() = NetworkSpecificConfig(
         network = NetworkDescriptor.fallback(),
         encryptDns = true,
         useNetworkDns = false,

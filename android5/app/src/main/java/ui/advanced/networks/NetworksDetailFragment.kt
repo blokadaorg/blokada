@@ -34,6 +34,8 @@ import androidx.navigation.fragment.navArgs
 import model.NetworkType
 import org.blokada.R
 import repository.DnsDataSource
+import service.AlertDialogService
+import ui.AccountViewModel
 import ui.NetworksViewModel
 import ui.app
 import ui.advanced.packs.OptionView
@@ -46,9 +48,12 @@ class NetworksDetailFragment : Fragment() {
         fun newInstance() = NetworksDetailFragment()
     }
 
+    private val alert = AlertDialogService
+
     private val args: NetworksDetailFragmentArgs by navArgs()
 
     private lateinit var viewModel: NetworksViewModel
+    private lateinit var accountViewModel: AccountViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +61,7 @@ class NetworksDetailFragment : Fragment() {
     ): View? {
         activity?.let {
             viewModel = ViewModelProvider(it.app()).get(NetworksViewModel::class.java)
+            accountViewModel = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
         }
 
         val root =  inflater.inflate(R.layout.fragment_networks_detail, container, false)
@@ -117,7 +123,16 @@ class NetworksDetailFragment : Fragment() {
                 }
 
                 actionUseNetworkDns.setOnClickListener {
-                    viewModel.actionUseNetworkDns(cfg.network, !actionUseNetworkDns.active)
+                    val wantsToUse = !actionUseNetworkDns.active
+                    if (wantsToUse && accountViewModel.isActive()) {
+                        alert.showAlert(
+                            message = ctx.getString(R.string.networks_alert_network_dns_and_plus_mode),
+                            title = ctx.getString(R.string.universal_status_confirm),
+                            positiveAction = ctx.getString(R.string.universal_action_continue) to {
+                                viewModel.actionUseNetworkDns(cfg.network, true)
+                            }
+                        )
+                    } else viewModel.actionUseNetworkDns(cfg.network, wantsToUse)
                 }
 
                 actionChangeDns.setOnClickListener {

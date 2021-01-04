@@ -38,7 +38,6 @@ class SettingsViewModel : ViewModel() {
 
     private val log = Logger("Settings")
     private val persistence = PersistenceService
-    private val engine = EngineService
 
     private val _dnsEntries = MutableLiveData<DnsWrapper>()
     val dnsEntries: LiveData<List<Pair<DnsId, Dns>>> = _dnsEntries.map { entry ->
@@ -57,32 +56,6 @@ class SettingsViewModel : ViewModel() {
         _syncableConfig.value = persistence.load(SyncableConfig::class)
         _dnsEntries.value = persistence.load(DnsWrapper::class)
         log.v("Config: ${_localConfig.value}")
-    }
-
-    fun setSelectedDns(id: DnsId) {
-        _localConfig.value?.let { current ->
-            if (id != current.dnsChoice) {
-                viewModelScope.launch {
-                    try {
-                        log.v("Changing selected DNS: $id")
-                        val dns = _dnsEntries.value?.value?.first { it.id == id }
-                            ?: throw BlokadaException("Unknown DNS")
-                        val new = current.copy(dnsChoice = id)
-//                        engine.changeDns(dns, dnsForPlusMode = decideDnsForPlusMode(dns))
-                        persistence.save(new)
-                        _localConfig.value = new
-                    } catch (ex: Exception) {
-                        log.e("Could not change dns to $id".cause(ex))
-
-                        // Notify the listener to reset its value to what it was
-                        viewModelScope.launch {
-                            delay(1000)
-                            _localConfig.value = current
-                        }
-                    }
-                }
-            }
-        }
     }
 
     fun setUseBlockaDnsInPlusMode(use: Boolean) {
@@ -127,31 +100,6 @@ class SettingsViewModel : ViewModel() {
                 _syncableConfig.value = new
             }
         }
-    }
-
-    fun getCurrentDns(): Dns {
-        val current = _dnsEntries.value?.let { entries ->
-            _localConfig.value?.let { localConfig ->
-                entries.value.firstOrNull { localConfig.dnsChoice == it.id }
-                    ?: run {
-                        log.w("Currently selected DNS does not exist, resetting to default")
-                        val newLocalConfig = localConfig.copy(dnsChoice = Defaults.localConfig().dnsChoice)
-                        persistence.save(newLocalConfig)
-                        viewModelScope.launch {
-                            _localConfig.value = newLocalConfig
-                        }
-                        entries.value.first { newLocalConfig.dnsChoice == it.id }
-                    }
-            }
-        }
-
-        return current ?: throw BlokadaException("Accessed getCurrentDns() before loaded")
-    }
-
-    fun decideDnsForPlusMode(dns: Dns? = null, useBlockaDnsInPlusMode: Boolean? = null): Dns {
-        val d = dns ?: getCurrentDns()
-        val u = useBlockaDnsInPlusMode ?: _localConfig.value?.useBlockaDnsInPlusMode ?: true
-        return if (u) DnsDataSource.blocka else d
     }
 
     fun getUseChromeTabs(): Boolean {
@@ -225,39 +173,12 @@ class SettingsViewModel : ViewModel() {
         }
     }
 
-    fun getIpv6(): Boolean {
-        return _localConfig.value?.ipv6 ?: false
-    }
-
-    fun setIpv6(ipv6: Boolean) {
-        log.v("Setting ipv6: $ipv6")
-        _localConfig.value?.let { current ->
-            viewModelScope.launch {
-                val new = current.copy(ipv6 = ipv6)
-                persistence.save(new)
-                _localConfig.value = new
-            }
-        }
-    }
-
     fun setUseBackup(backup: Boolean) {
         log.v("Setting use cloud backup: $backup")
         _localConfig.value?.let { current ->
             viewModelScope.launch {
                 val new = current.copy(backup = backup)
                 persistence.save(new)
-                _localConfig.value = new
-            }
-        }
-    }
-
-    fun setUseDnsOverHttps(doh: Boolean) {
-        log.v("Setting use DNS over HTTPS: $doh")
-        _localConfig.value?.let { current ->
-            viewModelScope.launch {
-                val new = current.copy(useDnsOverHttps = doh)
-                persistence.save(new)
-                engine.restart()
                 _localConfig.value = new
             }
         }

@@ -29,7 +29,7 @@ object DnsDataSource {
     val network = Dns.plaintextDns(
         id = "network",
         ips = listOf(),
-        label = "Network"
+        label = "Network DNS"
     )
 
     val blocka = Dns(

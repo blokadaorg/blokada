@@ -70,13 +70,21 @@ class MonitorNotification(
                 b.setContentTitle(ctx.getString(R.string.universal_status_processing))
             }
             tunnelStatus.active -> {
-                val title = if (tunnelStatus.dns != null) {
-                    "%s - %s - %s".format (
-                        ctx.getString(R.string.home_status_active),
-                        tunnelStatus.dns.label,
-                        if (tunnelStatus.isDnsEncrypted()) "Encrypted" else "Not Encrypted"
-                    )
-                } else ctx.getString(R.string.home_status_active)
+                val protection = when {
+                    tunnelStatus.isPlusMode() -> ctx.getString(R.string.home_level_high)
+                    tunnelStatus.isDnsEncrypted() -> ctx.getString(R.string.home_level_medium)
+                    else -> ctx.getString(R.string.home_level_low)
+                }
+
+                val location = if (tunnelStatus.isPlusMode()) tunnelStatus.gatewayLabel
+                else ctx.getString(R.string.home_status_active)
+
+                val title = "%s - %s - %s".format(
+                    location,
+                    protection,
+                    tunnelStatus.dns!!.label
+                )
+
                 b.setContentTitle(title)
 
                 val style = NotificationCompat.InboxStyle()

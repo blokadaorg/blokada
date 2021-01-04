@@ -25,7 +25,7 @@ import android.content.Context
 import com.squareup.moshi.JsonClass
 import org.blokada.R
 import repository.DnsDataSource
-import java.net.InetAddress
+import service.ConnectivityService
 
 @JsonClass(generateAdapter = true)
 data class NetworkDescriptor(

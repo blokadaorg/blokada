@@ -22,11 +22,6 @@
 package ui.home
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Typeface
-import android.graphics.drawable.Drawable
-import android.text.SpannableString
-import android.text.style.TextAppearanceSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -57,12 +52,20 @@ class PlusButton : FrameLayout {
             }
         }
 
-    var checked: Boolean = false
+    var plusActive: Boolean = false
         set(value) {
             if (field != value) {
                 field = value
                 refresh()
                 switch.isChecked = value
+            }
+        }
+
+    var plusEnabled: Boolean = false
+        set(value) {
+            if (field != value) {
+                field = value
+                refresh()
             }
         }
 
@@ -139,26 +142,39 @@ class PlusButton : FrameLayout {
     }
 
     private fun refresh() {
-        if (upgrade) {
-            plusText.text = context.getString(R.string.universal_action_upgrade).toBlokadaPlusText()
-            plusText.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            switch.visibility = View.GONE
+        when {
+            upgrade -> {
+                plusText.text = context.getString(R.string.universal_action_upgrade).toBlokadaPlusText()
+                plusText.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                switch.visibility = View.GONE
 
-            if (animate) plusButtonBg.animate().alpha(1.0f)
-            else plusButtonBg.alpha = 1.0f
-            plusText.setTextColor(ContextCompat.getColor(context, R.color.white))
-        } else if (location != null && checked) {
-            plusText.text = String.format(context.getString(R.string.home_plus_button_location), location)
-                .withBoldSections(context.getColorFromAttr(android.R.attr.textColor))
-            plusText.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
-            switch.visibility = View.VISIBLE
-            refreshBackground(checked)
-        } else {
-            val text = context.getString(R.string.home_plus_button_deactivated).toBlokadaPlusText()
-            plusText.text = text
-            plusText.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
-            switch.visibility = View.VISIBLE
-            switch.isChecked = false
+                if (animate) plusButtonBg.animate().alpha(1.0f)
+                else plusButtonBg.alpha = 1.0f
+                plusText.setTextColor(ContextCompat.getColor(context, R.color.white))
+                refreshBackground(false)
+            }
+            location != null && plusActive -> {
+                plusText.text = String.format(context.getString(R.string.home_plus_button_location), location)
+                    .withBoldSections(context.getColorFromAttr(android.R.attr.textColor))
+                plusText.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+                switch.visibility = View.VISIBLE
+                refreshBackground(true)
+            }
+            !plusActive && plusEnabled -> {
+                plusText.text = "BLOKADA+ is paused"
+                    .withBoldSections(context.getColorFromAttr(android.R.attr.textColor))
+                plusText.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+                switch.visibility = View.INVISIBLE
+                refreshBackground(true)
+            }
+            else -> {
+                val text = context.getString(R.string.home_plus_button_deactivated).toBlokadaPlusText()
+                plusText.text = text
+                plusText.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+                switch.visibility = View.VISIBLE
+                switch.isChecked = false
+                refreshBackground(false)
+            }
         }
 
         if (visible) {
@@ -170,8 +186,8 @@ class PlusButton : FrameLayout {
         }
     }
 
-    private fun refreshBackground(checked: Boolean) {
-        if (checked) {
+    private fun refreshBackground(transparent: Boolean) {
+        if (transparent) {
             if (animate) plusButtonBg.animate().alpha(0.0f)
             else plusButtonBg.alpha = 0.0f
             plusText.setTextColor(context.getColorFromAttr(android.R.attr.textColor))

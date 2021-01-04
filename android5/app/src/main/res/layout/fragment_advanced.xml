@@ -25,71 +25,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/textColorTertiary" />
-
-    <LinearLayout
-        android:id="@+id/advanced_level"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/colorBackgroundFloating"
-        android:orientation="vertical"
-        android:padding="@dimen/half">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/oneandhalf"
-            android:paddingTop="@dimen/half"
-            android:paddingBottom="@dimen/half">
-
-            <ImageView
-                android:id="@+id/advanced_level_icon"
-                android:layout_width="@dimen/icon_small"
-                android:layout_height="@dimen/icon_small"
-                android:src="@drawable/ic_baseline_lock_24" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/oneandhalf"
-                android:layout_marginEnd="@dimen/half"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/account_encrypt_header_level" />
-
-                <TextView
-                    android:id="@+id/advanced_level_status"
-                    style="@style/Text.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/account_encrypt_label_level_low" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/textColorTertiary" />
-
-    <TextView
-        style="@style/Text.H4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/doubled"
-        android:layout_marginTop="@dimen/doubled"
-        android:layout_marginBottom="@dimen/normal"
-        android:text="@string/account_section_header_primary" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -97,6 +32,8 @@
             android:id="@+id/advanced_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/normal"
+            android:paddingBottom="@dimen/normal"
             android:orientation="vertical">
 
             <include layout="@layout/item_advanced_section" />
