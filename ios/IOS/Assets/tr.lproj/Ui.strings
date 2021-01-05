@@ -206,6 +206,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Engellendi";
 
+"networks section header" = "Ağlar";
+"networks section label" = "Kablosuz ve mobil ağlar için ayarları yapın";
+"networks label all networks" = "Tüm ağlar";
+"networks action network specific" = "Varsayılan ayarları değiştirmek için buraya dokunun. Uygulamanın bazı ağlarda farklı davranmasını sağlamak için aşağıya dokunun.";
+"networks label configuration active" = "Bu ayarlar şu anda aktif";
+"networks label configuration enabled" = "Bu ağa bağlı değil";
+"networks label configuration inactive" = "Bu ağın ayarlarını değiştirmek için dokunun";
+"networks label details default network" = "Aşağıdaki ayarlar tüm ağlar için varsayılan olarak uygulanır. Seçili ağlar (önceki ekranda) için bunların üzerine yazabilirsiniz.";
+"networks action encrypt dns" = "DNS'yi şifrele";
+"networks action use dns" = "DNS'i kullan: %@";
+"networks action use network dns" = "Ağ DNS'sini tercih et";
+"networks label specific network" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
+"networks label network type" = "Ağ türü";
+"networks type wifi" = "Kablosuz ağ";
+"networks type mobile" = "Mobil ağ";
+// As in "any (wifi) network"
+"networks match any" = "(herhangi)";
+"networks permission request" = "Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.";
+"networks section choose dns" = "DNS seç";
+
+
 "account section header settings" = "Ayarlar";
 "account status text" = "BLOKADA %@ hesabınız %@ kadar etkindir.";
 "account status text libre" = "BLOKADA Libre hesabınız sonsuza kadar etkindir.";
@@ -282,7 +303,7 @@
 "account lease generated" = "Cihaz eklendi! Wireguard tarafından desteklenen herhangi bir cihazda kullanmak için yapılandırmayı indirin.";
 "account lease wireguard desc" = "Blokada, Wireguard kullanıyor. Yeni cihazlar oluştururken yapılandırmalar indirilebilir.";
 "account lease label dns" = "DNS";
-"account lease action dns" = "Bir DNS seçin";
+"account lease action dns" = "DNS seçin";
 "account lease label public key" = "Genel Anahtar";
 
 "account support action how help" = "Size nasıl yardımcı olabiliriz?";
@@ -385,6 +406,7 @@
 "intro header" = "Blokada etkin!";
 "intro text" = "Mavi halka, Blokada'nın çalıştığı anlamına gelir.\n\nUnutmayın, YouTube'daki reklamlar gibi bazı reklamlar engellenemez. Ancak, diğer birçok uygulamada farkı göreceksiniz.\n\nSistem ayarlarınızdan Her zaman VPN/Talep üzerine bağlan seçeneğini etkinleştirmenizi öneririz.";
 
+"location region worldwide" = "Her yerde";
 "location region america" = "Amerika";
 "location region europe" = "Avrupa";
 "location region asia" = "Asya";

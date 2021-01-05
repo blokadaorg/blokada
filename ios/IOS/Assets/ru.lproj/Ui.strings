@@ -206,6 +206,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Заблокировано";
 
+"networks section header" = "Сети";
+"networks section label" = "Настройка параметров WiFi и мобильных сетей";
+"networks label all networks" = "Все сети";
+"networks action network specific" = "Нажмите здесь, чтобы изменить настройки по умолчанию. Чтобы приложение в некоторых сетях работало по-другому, нажмите ниже.";
+"networks label configuration active" = "В настоящее время активны эти настройки";
+"networks label configuration enabled" = "Нет подключения к этой сети";
+"networks label configuration inactive" = "Нажмите, чтобы изменить настройки для этой сети";
+"networks label details default network" = "Приведенные ниже настройки по умолчанию применяются для всех сетей. Вы можете перезаписать их для выбранных сетей (на предыдущем экране).";
+"networks action encrypt dns" = "Шифровать DNS";
+"networks action use dns" = "Использовать DNS: %@";
+"networks action use network dns" = "Предпочитать DNS провайдера";
+"networks label specific network" = "Настройте, что должно произойти, когда устройство подключится к этой сети.";
+"networks label network type" = "Тип сети";
+"networks type wifi" = "Сеть WiFi";
+"networks type mobile" = "Мобильная сеть";
+// As in "any (wifi) network"
+"networks match any" = "(любая)";
+"networks permission request" = "Чтобы получить больше контроля, нажмите здесь и разрешите приложению распознавать все сети.";
+"networks section choose dns" = "Выбрать DNS";
+
+
 "account section header settings" = "Настройки";
 "account status text" = "Ваш аккаунт BLOKADA %@ активен до %@.";
 "account status text libre" = "Ваш аккаунт BLOKADA Libre активен бессрочно.";
@@ -385,6 +406,7 @@
 "intro header" = "Blokada активна!";
 "intro text" = "Синее кольцо означает, что Blokada работает.\n\nПомните, что некоторая реклама, например, YouTube, не может быть заблокирована. Тем не менее, вы заметите разницу в большинстве других приложений.\n\nМы рекомендуем вам активировать VPN всегда включен / Подключение по требованию в настройках вашей системы.";
 
+"location region worldwide" = "Везде";
 "location region america" = "Америка";
 "location region europe" = "Европа";
 "location region asia" = "Азия";

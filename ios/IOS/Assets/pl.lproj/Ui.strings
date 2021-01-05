@@ -206,6 +206,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Zablokowane";
 
+"networks section header" = "Sieci";
+"networks section label" = "Dostosuj ustawienia WiFi i sieci komórkowych";
+"networks label all networks" = "Wszystkie sieci";
+"networks action network specific" = "Stuknij tutaj, aby zmienić ustawienia domyślne. Aby aplikacja działała inaczej w niektórych sieciach, stuknij poniżej.";
+"networks label configuration active" = "Te ustawienia są obecnie aktywne";
+"networks label configuration enabled" = "Brak połączenia z tą siecią";
+"networks label configuration inactive" = "Stuknij, aby zmodyfikować ustawienia dla tej sieci";
+"networks label details default network" = "Poniższe ustawienia są stosowane domyślnie we wszystkich sieciach. Możesz nadpisać je dla wybranych sieci (na poprzednim ekranie).";
+"networks action encrypt dns" = "Szyfruj DNS";
+"networks action use dns" = "Używaj DNS: %@";
+"networks action use network dns" = "Preferuj sieciowy DNS";
+"networks label specific network" = "Określ, co ma się stać, gdy urządzenie łączy się z tą siecią.";
+"networks label network type" = "Typ sieci";
+"networks type wifi" = "Sieć WiFi";
+"networks type mobile" = "Sieć komórkowa";
+// As in "any (wifi) network"
+"networks match any" = "(dowolna)";
+"networks permission request" = "Aby mieć większą kontrolę, stuknij tutaj i pozwól aplikacji rozpoznawać wszystkie sieci.";
+"networks section choose dns" = "Wybierz DNS";
+
+
 "account section header settings" = "Ustawienia";
 "account status text" = "Twoje konto BLOKADA %@ jest aktywne do %@.";
 "account status text libre" = "Twoje konto BLOKADA Libre jest aktywne na zawsze.";
@@ -385,6 +406,7 @@
 "intro header" = "Blokada jest aktywna!";
 "intro text" = "Niebieski pierścień oznacza, że Blokada działa.\n\nPamiętaj, że niektóre reklamy, takie jak YouTube, nie mogą być zablokowane. Jednak zauważysz różnicę w wielu innych aplikacjach.\n\nZalecamy aktywację Zawsze w sieci VPN / Połącz na żądanie w ustawieniach systemowych.";
 
+"location region worldwide" = "Wszędzie";
 "location region america" = "Ameryka";
 "location region europe" = "Europa";
 "location region asia" = "Azja";

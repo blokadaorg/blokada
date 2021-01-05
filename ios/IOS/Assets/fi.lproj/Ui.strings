@@ -185,6 +185,7 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Estetty";
 
+
 "account section header settings" = "Asetukset";
 "account status text" = "BLOKADA %@ tilisi on aktiivinen, kunnes %@.";
 "account status text libre" = "BLOKADA Libre -tilisi on käytössä ikuisesti.";
@@ -318,7 +319,6 @@
 
 "intro header" = "Blokada on aktiivinen!";
 "intro text" = "Sininen rengas tarkoittaa, että Blokada toimii.\n\nMuista, että joitain mainoksia kuten YouTubessa, ei voida estää. Huomaat kuitenkin eron monissa muissa sovelluksissa.\n\nSuosittelemme, että aktivoit järjestelmäasetuksista VPN Aina Päällä / Yhdistä Pyytäessä -kohdan.";
-
 "location region america" = "Amerikka";
 "location region europe" = "Eurooppa";
 "location region asia" = "Aasia";

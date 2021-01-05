@@ -206,6 +206,7 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blokované";
 
+
 "account section header settings" = "Nastavení";
 "account status text" = "Váš účet BLOKADA %@ je aktivní do %@.";
 "account status text libre" = "Váš účet BLOKADA Libre je aktivní navždy.";
@@ -384,7 +385,6 @@
 
 "intro header" = "Blokada je aktivní!";
 "intro text" = "Modrý kruh znamená, že Blokada funguje.\n\nPamatujte, že některé reklamy, například na YouTube, nelze blokovat. V mnoha jiných aplikacích si však všimnete rozdílu.\n\nVždy doporučujeme aktivovat VPN / Připojit na vyžádání v systémovém nastavení.";
-
 "location region america" = "Amerika";
 "location region europe" = "Evropa";
 "location region asia" = "Asie";

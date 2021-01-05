@@ -156,6 +156,8 @@
     <string name="userdenied_section_slugline">Gérer la blocage de sites web spécifiques</string>
     <string name="userdenied_tab_allowed">Autorisé</string>
     <string name="userdenied_tab_blocked">Bloqué</string>
+    <string name="networks_match_any">(tous)</string>
+    <string name="networks_permission_request">Pour avoir plus de contrôle, appuyez ici et laissez l\'application découvrir tous les réseaux.</string>
     <string name="account_section_header_settings">Paramètres</string>
     <string name="account_status_text">Votre compte BLOKADA %s est actif jusqu\'au %s.</string>
     <string name="account_status_text_libre">Votre compte BLOKADA Libre est actif pour toujours.</string>

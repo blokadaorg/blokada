@@ -206,6 +206,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blockiert";
 
+"networks section header" = "Netwerke";
+"networks section label" = "Passen Sie die Einstellungen für WLAN und Mobilfunknetze an";
+"networks label all networks" = "Alle Netzwerke";
+"networks action network specific" = "Tippen Sie hier, um die Standardeinstellungen zu ändern. Tippen Sie unten auf, damit sich die App in einigen Netzwerken anders verhält.";
+"networks label configuration active" = "Diese Einstellungen sind derzeit aktiv";
+"networks label configuration enabled" = "Nicht mit diesem Netzwerk verbunden";
+"networks label configuration inactive" = "Tippen sie hier, um Einstellungen für dieses Netzwerk zu ändern";
+"networks label details default network" = "Die folgenden Einstellungen gelten standardmäßig für alle Netzwerke. Sie können sie für ausgewählte Netzwerke überschreiben (im vorherigen Bildschirm).";
+"networks action encrypt dns" = "DNS verschlüsseln";
+"networks action use dns" = "verwende DNS: %@";
+"networks action use network dns" = "Bevorzuge Netzwerk-DNS";
+"networks label specific network" = "Passen Sie an, was passieren soll, wenn Ihr Gerät eine Verbindung zu diesem Netzwerk herstellt.";
+"networks label network type" = "Netzwerk-Typ";
+"networks type wifi" = "WLAN Netzwerk";
+"networks type mobile" = "Mobiles Netzwerk";
+// As in "any (wifi) network"
+"networks match any" = "(alle)";
+"networks permission request" = "Um mehr Kontrolle zu haben, tippen Sie hier und lassen Sie die App alle Netzwerke erkennen.";
+"networks section choose dns" = "Wähle DNS";
+
+
 "account section header settings" = "Einstellungen";
 "account status text" = "Dein BLOKADA %@ Konto ist aktiv bis zum %@.";
 "account status text libre" = "Dein BLOKADA Libre Konto ist für immer aktiv.";
@@ -385,6 +406,7 @@
 "intro header" = "Blokada ist aktiv!";
 "intro text" = "Ein blauer Ring bedeutet, dass Blokada aktiv ist.\n\nDenke daran, dass teilweise Werbung, wie z. B. bei YouTube, nicht blockiert werden kann. Allerdings wirst du in vielen anderen Apps einen Unterschied bemerken.\n\nWir empfehlen dir, »Durchgehend aktives VPN / Verbindung zu VPN immer beibehalten« in deinen Systemeinstellungen zu aktivieren.";
 
+"location region worldwide" = "Überall";
 "location region america" = "Amerika";
 "location region europe" = "Europa";
 "location region asia" = "Asien";

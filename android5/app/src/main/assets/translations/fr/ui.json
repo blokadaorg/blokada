@@ -155,6 +155,8 @@
     "userdenied section slugline": "Gérer la blocage de sites web spécifiques",
     "userdenied tab allowed": "Autorisé",
     "userdenied tab blocked": "Bloqué",
+    "networks match any": "(tous)",
+    "networks permission request": "Pour avoir plus de contrôle, appuyez ici et laissez l'application découvrir tous les réseaux.",
     "account section header settings": "Paramètres",
     "account status text": "Votre compte BLOKADA %s est actif jusqu'au %s.",
     "account status text libre": "Votre compte BLOKADA Libre est actif pour toujours.",

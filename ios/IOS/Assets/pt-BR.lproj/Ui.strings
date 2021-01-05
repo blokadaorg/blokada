@@ -206,6 +206,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Bloqueado";
 
+"networks section header" = "Redes";
+"networks section label" = "Ajustar configurações para WiFi e redes móveis";
+"networks label all networks" = "Todas as redes";
+"networks action network specific" = "Toque aqui para modificar as configurações padrão. Para fazer com que o aplicativo se comporte de forma diferente em algumas redes, toque abaixo.";
+"networks label configuration active" = "Essas configurações estão atualmente ativas";
+"networks label configuration enabled" = "Não conectado a esta rede";
+"networks label configuration inactive" = "Toque para modificar as configurações desta rede";
+"networks label details default network" = "As configurações abaixo são aplicadas por padrão para todas as redes. Você pode substituí-las para as redes selecionadas (na tela anterior).";
+"networks action encrypt dns" = "Criptografar DNS";
+"networks action use dns" = "Usar DNS: %@";
+"networks action use network dns" = "Preferir DNS de rede";
+"networks label specific network" = "Ajuste o que deve acontecer quando o seu dispositivo se conectar a esta rede.";
+"networks label network type" = "Tipo de rede";
+"networks type wifi" = "Rede Wi-Fi";
+"networks type mobile" = "Rede móvel";
+// As in "any (wifi) network"
+"networks match any" = "(qualquer)";
+"networks permission request" = "Para ter mais controle, toque aqui e deixe o app reconhecer todas as redes.";
+"networks section choose dns" = "Escolher DNS";
+
+
 "account section header settings" = "Configurações";
 "account status text" = "Sua conta BLOKADA %@ está ativa até %@.";
 "account status text libre" = "Sua conta BLOKADA Libre está ativa para sempre.";
@@ -385,6 +406,7 @@
 "intro header" = "O Blokada está Ativo!";
 "intro text" = "Um anel azul significa que o Blokada está funcionando.\n\nLembre-se, alguns anúncios, como o YouTube, não podem ser bloqueados. No entanto, você notará uma diferença em muitos outros aplicativos.\n\nRecomendamos que você ative VPN Sempre ativa / Conectar sob Demanda nas suas configurações do sistema.";
 
+"location region worldwide" = "Todos os lugares";
 "location region america" = "América";
 "location region europe" = "Europa";
 "location region asia" = "Ásia";

@@ -53,6 +53,7 @@
     <string name="universal_action_clear">Clear</string>
     <string name="universal_label_help">Help</string>
     <string name="universal_label_welcome">Welcome!</string>
+    <string name="universal_label_none">None</string>
     <string name="universal_status_processing">Processing... Please wait.</string>
     <string name="universal_status_copied_to_clipboard">Copied to Clipboard</string>
     <string name="universal_status_restart_required">Please restart the app for the changes to take effect.</string>
@@ -101,6 +102,9 @@
     <string name="home_plus_button_deactivated">BLOKADA+ deactivated</string>
     <string name="home_plus_button_select_location">Select location</string>
     <string name="home_plus_button_location">Location: *%s*</string>
+    <string name="home_level_low">Protection: Low</string>
+    <string name="home_level_medium">Protection: Medium</string>
+    <string name="home_level_high">Protection: High</string>
     <string name="pack_section_header">Advanced Features</string>
     <string name="pack_section_header_details">Feature Details</string>
     <string name="pack_action_install">GET</string>
@@ -174,6 +178,7 @@
     <string name="networks_match_any">(any)</string>
     <string name="networks_permission_request">To have more control, tap here and let the app recognise all networks.</string>
     <string name="networks_section_choose_dns">Choose DNS</string>
+    <string name="networks_alert_network_dns_and_plus_mode">Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.</string>
     <string name="account_section_header_settings">Settings</string>
     <string name="account_status_text">Your BLOKADA %s account is active until %s.</string>
     <string name="account_status_text_libre">Your BLOKADA Libre account is active until forever.</string>
@@ -219,7 +224,7 @@
     <string name="account_encrypt_level_high">High</string>
     <string name="account_encrypt_label_dns_only">Encrypting DNS</string>
     <string name="account_encrypt_desc_dns_only">Domain Name System is how your device knows where to find the websites you want to visit. Unfortunately, most of  the Internet still uses unencrypted DNS, which puts your browsing history at risk of being spied on. When enabled, Blokada is forcing your device to connect only to encrypted DNS servers (also called DNS over HTTPS).</string>
-    <string name="account_encrypt_label_everything">Encrypting everything</string>
+    <string name="account_encrypt_label_everything">Connecting through VPN</string>
     <string name="account_encrypt_desc_everything">Your device is connecting through our secure VPN servers, and all communication coming from, or to, your device is being encrypted using strong algorithms. This protects your personal information, like banking details or personal photos, from being stolen in unsecure places, like a coffee shop WiFi.</string>
     <string name="account_encrypt_action_turn_on">Turn on BLOKADA</string>
     <string name="account_encrypt_header_level">Encryption Level</string>

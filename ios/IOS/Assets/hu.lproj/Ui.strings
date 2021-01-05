@@ -146,6 +146,7 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Reklám szűrve";
 
+
 "account section header settings" = "Beállítások";
 "account status text" = "A BLOKADA %@ fiókod aktív eddig: %@.";
 

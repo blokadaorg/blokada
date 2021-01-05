@@ -207,6 +207,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "ブロックリスト";
 
+"networks section header" = "ネットワーク";
+"networks section label" = "Wi-Fi とモバイルネットワークの設定を管理する";
+"networks label all networks" = "すべてのネットワーク";
+"networks action network specific" = "デフォルトの設定を変更するには、ここをタップしてください。一部のネットワークでアプリの動作を変更するには、下をタップしてください。";
+"networks label configuration active" = "これらの設定は有効です";
+"networks label configuration enabled" = "このネットワークに接続されていません";
+"networks label configuration inactive" = "タップしてこのネットワークの設定を変更します";
+"networks label details default network" = "以下の設定は、すべてのネットワークにデフォルトで適用されます。任意のネットワークの設定を（前の画面で）上書きできます。";
+"networks action encrypt dns" = "DNSを暗号化";
+"networks action use dns" = "DNSを使用：%@";
+"networks action use network dns" = "ネットワーク DNS";
+"networks label specific network" = "このネットワークに接続されたときの動作を設定します。";
+"networks label network type" = "ネットワークの種類";
+"networks type wifi" = "Wi-Fi ネットワーク";
+"networks type mobile" = "モバイルネットワーク";
+// As in "any (wifi) network"
+"networks match any" = "（任意）";
+"networks permission request" = "さらにコントロールするには、タップしてアプリにすべてのネットワークを認識させます。";
+"networks section choose dns" = "DNS を選択";
+
+
 "account section header settings" = "設定";
 "account status text" = "BLOKADA %@ - アカウントの有効期限は %@ です。";
 "account status text libre" = "BLOKADA Libre - 有効期限のない無料アカウントです。";
@@ -386,6 +407,7 @@
 "intro header" = "Blokadaは有効です！";
 "intro text" = "青いリングはBlokadaが動作していることを意味します。\n\n YouTubeなどの一部の広告はブロックできません。 ただし、他の多くのアプリには有効です。\n\n システム設定で常時接続VPN (Android) / オンデマンド接続 (iOS) を有効にすることをお勧めします。";
 
+"location region worldwide" = "すべての場所";
 "location region america" = "アメリカ";
 "location region europe" = "ヨーロッパ";
 "location region asia" = "アジア";

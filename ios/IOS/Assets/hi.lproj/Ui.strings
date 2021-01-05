@@ -165,6 +165,7 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "अवरुद्ध";
 
+
 "account section header settings" = "सैटिंग्स";
 "account status text" = "आपका BLOKADA%@ खाता %@ तक सक्रिय है।";
 

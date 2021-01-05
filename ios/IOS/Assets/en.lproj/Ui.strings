@@ -77,6 +77,8 @@
 
 "universal label help" = "Help";
 "universal label welcome" = "Welcome!";
+// Common label when some feature has no setting
+"universal label none" = "None";
 "universal status processing" = "Processing... Please wait.";
 "universal status copied to clipboard" = "Copied to Clipboard";
 "universal status restart required" = "Please restart the app for the changes to take effect.";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "BLOKADA+ deactivated";
 "home plus button select location" = "Select location";
 "home plus button location" = "Location: *%@*";
+
+"home level low" = "Protection: Low";
+"home level medium" = "Protection: Medium";
+"home level high" = "Protection: High";
+
 
 "pack section header" = "Advanced Features";
 "pack section header details" = "Feature Details";
@@ -225,6 +232,7 @@
 "networks match any" = "(any)";
 "networks permission request" = "To have more control, tap here and let the app recognise all networks.";
 "networks section choose dns" = "Choose DNS";
+"networks alert network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.";
 
 
 "account section header settings" = "Settings";
@@ -278,7 +286,7 @@
 "account encrypt level high" = "High";
 "account encrypt label dns only" = "Encrypting DNS";
 "account encrypt desc dns only" = "Domain Name System is how your device knows where to find the websites you want to visit. Unfortunately, most of  the Internet still uses unencrypted DNS, which puts your browsing history at risk of being spied on. When enabled, Blokada is forcing your device to connect only to encrypted DNS servers (also called DNS over HTTPS).";
-"account encrypt label everything" = "Encrypting everything";
+"account encrypt label everything" = "Connecting through VPN";
 "account encrypt desc everything" = "Your device is connecting through our secure VPN servers, and all communication coming from, or to, your device is being encrypted using strong algorithms. This protects your personal information, like banking details or personal photos, from being stolen in unsecure places, like a coffee shop WiFi.";
 "account encrypt action turn on" = "Turn on BLOKADA";
 "account encrypt header level" = "Encryption Level";

@@ -70,6 +70,8 @@
 "universal action selected" = "Selectat";
 // A verb "to search in the list"
 "universal action search" = "Căutare";
+// A verb "to filter the list"
+"universal action filter" = "Filtru";
 // A verb "to clear the list"
 "universal action clear" = "Curăță";
 
@@ -79,6 +81,7 @@
 "universal status copied to clipboard" = "Copiat în Clipboard";
 "universal status restart required" = "Vă rugăm să reporniţi aplicaţia pentru ca modificările să aibă efect.";
 "universal status redirect" = "Continuă cu aplicația Blokada";
+"universal status confirm" = "Sunteţi sigur că doriţi să continuaţi?";
 
 "alert error header" = "Ooops!";
 "alert vpn expired header" = "BLOKADA+ a expirat";
@@ -195,10 +198,14 @@
 "activity filter show blocked" = "Arată doar blocate";
 "activity filter show allowed" = "Arată doar permise";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
+
+"userdenied section header" = "Blocajele mele";
+"userdenied section slugline" = "Gestionați blocarea anumitor site-uri";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Permis";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blocat";
+
 
 "account section header settings" = "Setări";
 "account status text" = "Contul dvs. BLOKADA %@ este activ până la %@.";
@@ -219,6 +226,8 @@
 "account action restoring" = "Recuperare cont: %@";
 "account label enter to continue" = "Introduceți ID-ul contului dvs. pentru a continua";
 "account restore description" = "Nu-ți face griji, dacă ți-ai pierdut sau ai uitat ID-ul de cont, îl putem recupera. Te rugăm să contactezi asistența noastră și să ne furnizezi informații care ne vor permite să identificăm achiziția ta (de ex. ultimele 4 cifre ale cardului de credit sau e-mailul PayPal).";
+"account create description" = "Acesta este ID-ul contului dvs. Notați-l și păstrați-l secret. Este singurul mod de a vă accesa abonamentul.";
+"account create confirm" = "L-am notat";
 
 "account section header my subscription" = "Abonamentul meu";
 "account section header general" = "Preferințe generale";
@@ -318,12 +327,14 @@
 "payment redirect desc" = "Vă rugăm să așteptați. Acest lucru ar trebui să dureze doar un moment.";
 
 "payment ongoing title" = "Plata dvs. este acum în curs de procesare.";
+"payment ongoing desc" = "Plățile cu cardul de credit nu ar trebui să dureze mai mult de câteva minute. Plățile prin criptomonede durează de obicei până la o oră, în funcție de taxa de tranzacție pe care ați ales-o. În cazul PayPal, poate dura până la 24 de ore. Veți fi redirecționat odată ce contul dvs. este pregătit. Puteți închide acest ecran și să vă întoarceți mai târziu. Dacă vi se pare că tranzacția durează prea mult, vă rugăm să ne contactați.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Modifică";
 "payment action pay" = "Plătește %@";
 "payment action pay period" = "Plătiți%@ € în fiecare perioadă";
 "payment label email" = "E-mail";
+"payment crypto desc" = "Pentru a plăti cu portofelul de criptomonede, apăsați butonul de mai jos.";
 "payment label choose package" = "Alegeţi pachetul";
 "payment label choose payment method" = "Alege metoda de plată";
 "payment label cheapest" = "Cel mai ieftin";
@@ -336,6 +347,9 @@
 "payment package twelve months" = "12 Luni";
 "payment label discount" = "Salvează %@ (%@ / lună)";
 "payment label country" = "Țara";
+
+"payment euro desc" = "Suntem stabiliți în Europa, așadar acceptăm Euro: €10 sunt aproximativ $12.";
+"payment donate disclaimer" = "Aceasta nu vă va activa contul Blokada Plus. Dacă doriți să folosiți serviciul nostru VPN, vă rugăm să vă abonați în loc să donați.";
 
 "apps section header" = "Aplicații";
 "apps label installed" = "Instalat";
@@ -371,7 +385,6 @@
 
 "intro header" = "Blokada este Activ!";
 "intro text" = "Un inel albastru înseamnă că Blokada funcționează.\n\nRețineți că unele reclame, precum YouTube, nu pot fi blocate. Cu toate acestea, veţi observa o diferenţă în multe alte aplicaţii.\n\nVă recomandăm să activați opțiunea Mereu pe VPN / Conectare la cerere în setările sistemului dvs.";
-
 "location region america" = "America";
 "location region europe" = "Europa";
 "location region asia" = "Asia";
@@ -388,7 +401,9 @@
 "homepage action dashboard" = "Panou de control";
 "homepage about footer" = "Să stăm la curent!";
 "homepage hero subtitle" = "gratis și open source";
+"homepage hero desc" = "Blokada este populara aplicație de blocare a reclamelor și de păstrarea intimității pentru Android și iOS. Este suportată și dezvoltată activ de către uimitoarea comunitate open source.";
 "homepage about title" = "Blokada 5, ad blocker-ul";
+"homepage about desc" = "Dacă vreți să blocați reclame, trackere, malware, să vă economisiți datele mobile, să accelerați viteza dispozitivului dvs. și să vă protejezați intimitatea într-un mod eficient cu o singură aplicație, atunci Blokada este pentru dvs. E gratuită, sigură și cu sursa deschisă.";
 "homepage about point one" = "Blochează reclame și trackere";
 "homepage about point two" = "Funcționează pentru toate aplicațiile și toate browserele";
 "homepage about point three" = "Nu necesită acces root sau jailbreak";
@@ -396,12 +411,16 @@
 "homepage about action plus" = "Aflați mai multe despre Blokada Plus";
 
 "homepage download header" = "Descarcă Blokada";
+"homepage download subheader" = "Blokada este disponibilă pe mai multe platforme, alege-o pe a ta.";
 "homepage download option android five" = "Blokada 5 pentru Android";
 "homepage download option android slim" = "Blokada 5 Slim pentru Android";
 "homepage download option android four" = "Blokada 4 pentru Android";
 "homepage download option ios" = "Blokada 5 pentru iOS";
 "homepage download option other" = "Blokada pentru alte platforme";
+"homepage download desc other" = "În prezent, nu oferim Blokada pentru alte platforme. Cu toate acestea, dacă sunteți utilizator Blokada Plus, puteți utiliza VPN-ul nostru pe Windows, Linux, Mac și alte platforme unde Wireguard este disponibil.";
+"homepage download desc ios" = "Blokada 5 este disponibil doar în App Store.";
 "homepage download action ios" = "Deschide App Store";
+"homepage download desc android five" = "Aceasta este noua versiune recomandată <b>pentru smartphone-uri și tablete cu Android 7 sau mai nou</b>. Este mai simplă și mai rapidă în comparație cu Blokada 4.";
 "homepage download action android five" = "Blokada 5 .apk";
 "homepage download action android five beta" = "Beta .apk";
 "homepage download action android slim" = "Deschide Google Play";

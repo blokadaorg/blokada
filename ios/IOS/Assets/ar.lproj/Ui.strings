@@ -206,6 +206,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "المَحظور";
 
+"networks section header" = "الشبكات";
+"networks section label" = "ضبط إعدادات WiFi و شبكات الجوّال";
+"networks label all networks" = "جميع الشبكات";
+"networks action network specific" = "انقر هنا لتعديل الإعدادات الافتراضيّة. لجعل التطبيق يعمل بشكل مختلف على بعض الشبكات ، انقر أدناه.";
+"networks label configuration active" = "هذه الإعدادات نشطة حاليّاً";
+"networks label configuration enabled" = "غير متّصل بهذه الشبكة";
+"networks label configuration inactive" = "انقر لتعديل إعدادات هذه الشبكة";
+"networks label details default network" = "يتم تطبيق الإعدادات أدناه بشكل افتراضي على جميع الشبكات. يمكنك الكتابة فوقها للشبكات المحددة (في الشاشة السابقة).";
+"networks action encrypt dns" = "تشفير DNS";
+"networks action use dns" = "استخدام DNS: %@";
+"networks action use network dns" = "تفضيل شبكة DNS";
+"networks label specific network" = "اضبط ما يجب أن يحدث عندما يتّصل جهازك بهذه الشبكة.";
+"networks label network type" = "نوع الشبكة";
+"networks type wifi" = "شبكة WiFi";
+"networks type mobile" = "شبكة الهاتف";
+// As in "any (wifi) network"
+"networks match any" = "(أي)";
+"networks permission request" = "لمزيد من التحكّم ، انقر هنا و دع التطبيق يتعرّف على جميع الشبكات.";
+"networks section choose dns" = "اختر DNS";
+
+
 "account section header settings" = "الإعدادات";
 "account status text" = "حسابك في BLOKADA %@ نَشِط حتّى %@.";
 "account status text libre" = "حسابك في BLOKADA الحر نَشِط إلى الأبد.";
@@ -385,6 +406,7 @@
 "intro header" = "بلوكادا نَشِط!";
 "intro text" = "الدائرة الزرقاء تعني أن بلوكادا يعمل.\n\nتذكّر، بعض الإعلانات، مثل يوتيوب، لا يمكن حظرها. ومع ذلك، ستلاحظ وجود فرق في العديد من التطبيقات الأُخرى.\n\nننصحك بتفعيل ميِّزة إبقاء VPN مُفَعَّل / الإتصال إثناء الطلب، الموجودان في إعدادات النظام الخاص بك.";
 
+"location region worldwide" = "في كل مكان";
 "location region america" = "أمريكا";
 "location region europe" = "أوروبا";
 "location region asia" = "آسيا";

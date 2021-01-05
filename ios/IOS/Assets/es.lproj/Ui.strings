@@ -203,6 +203,7 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Bloqueado";
 
+
 "account section header settings" = "Configuración";
 "account status text" = "Tu cuenta de BLOKADA %@ está activa hasta %@.";
 "account status text libre" = "Tu cuenta de BLOKADA Libre está activa para siempre.";
@@ -381,7 +382,6 @@
 
 "intro header" = "¡Blokada está activo!";
 "intro text" = "Un anillo azul significa que Blokada está funcionando.\n\nRecuerda que algunos anuncios, como los de YouTube, no pueden ser bloqueados. Sin embargo, notarás una diferencia en muchas otras aplicaciones.\n\nTe recomendamos activar \"VPN siempre activada\" (Android) / \"Conectarse bajo demanda\" (iOS) en la configuración del sistema.";
-
 "location region america" = "América";
 "location region europe" = "Europa";
 "location region asia" = "Asia";

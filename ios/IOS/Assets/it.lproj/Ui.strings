@@ -206,6 +206,21 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Bloccati";
 
+"networks section header" = "Reti";
+"networks section label" = "Regola le impostazioni per le reti WiFi e mobili";
+"networks label all networks" = "Tutte le reti";
+"networks label configuration active" = "Attualmente, queste impostazioni sono attive";
+"networks label configuration enabled" = "Non connesso a questa rete";
+"networks label configuration inactive" = "Tocca per modificare le impostazioni per questa rete";
+"networks label details default network" = "Le impostazioni sottostanti sono applicate per impostazione predefinita a tutte le reti. È possibile sovrascriverle per le reti selezionate (nella schermata precedente).";
+"networks action use dns" = "Usa DNS: %@";
+"networks label specific network" = "Regola cosa dovrebbe accadere quando il dispositivo si connette a questa rete.";
+"networks label network type" = "Tipo di rete";
+"networks type wifi" = "Rete WiFi";
+"networks type mobile" = "Rete mobile";
+"networks section choose dns" = "Scegli un DNS";
+
+
 "account section header settings" = "Impostazioni";
 "account status text" = "Il tuo account BLOKADA %@ è attivo fino a %@.";
 "account status text libre" = "Il tuo account Gratuito BLOKADA è attivo per sempre.";
@@ -385,6 +400,7 @@
 "intro header" = "Blokada è attiva!";
 "intro text" = "Un anello blu significa che Blokada è in funzione.\n\nRicorda, alcune pubblicità, come quelle su YouTube, non possono essere bloccate. Tuttavia, noterai la differenza in molte altre applicazioni.\n\nTi consigliamo di attivare \"VPN sempre attiva\" (Android) / \"Connetti su richiesta\" (iOS) nelle impostazioni di sistema.";
 
+"location region worldwide" = "Ovunque";
 "location region america" = "America";
 "location region europe" = "Europa";
 "location region asia" = "Asia";

@@ -156,6 +156,19 @@
     <string name="userdenied_section_slugline">Gestisci il blocco di particolari siti web</string>
     <string name="userdenied_tab_allowed">Consentiti</string>
     <string name="userdenied_tab_blocked">Bloccati</string>
+    <string name="networks_section_header">Reti</string>
+    <string name="networks_section_label">Regola le impostazioni per le reti WiFi e mobili</string>
+    <string name="networks_label_all_networks">Tutte le reti</string>
+    <string name="networks_label_configuration_active">Attualmente, queste impostazioni sono attive</string>
+    <string name="networks_label_configuration_enabled">Non connesso a questa rete</string>
+    <string name="networks_label_configuration_inactive">Tocca per modificare le impostazioni per questa rete</string>
+    <string name="networks_label_details_default_network">Le impostazioni sottostanti sono applicate per impostazione predefinita a tutte le reti. È possibile sovrascriverle per le reti selezionate (nella schermata precedente).</string>
+    <string name="networks_action_use_dns">Usa DNS: %s</string>
+    <string name="networks_label_specific_network">Regola cosa dovrebbe accadere quando il dispositivo si connette a questa rete.</string>
+    <string name="networks_label_network_type">Tipo di rete</string>
+    <string name="networks_type_wifi">Rete WiFi</string>
+    <string name="networks_type_mobile">Rete mobile</string>
+    <string name="networks_section_choose_dns">Scegli un DNS</string>
     <string name="account_section_header_settings">Impostazioni</string>
     <string name="account_status_text">Il tuo account BLOKADA %s è attivo fino a %s.</string>
     <string name="account_status_text_libre">Il tuo account Gratuito BLOKADA è attivo per sempre.</string>
@@ -314,6 +327,7 @@
     <string name="app_settings_section_use_foreground">Mantieni attivo</string>
     <string name="intro_header">Blokada è attiva!</string>
     <string name="intro_text">Un anello blu significa che Blokada è in funzione.\n\nRicorda, alcune pubblicità, come quelle su YouTube, non possono essere bloccate. Tuttavia, noterai la differenza in molte altre applicazioni.\n\nTi consigliamo di attivare \"VPN sempre attiva\" (Android) / \"Connetti su richiesta\" (iOS) nelle impostazioni di sistema.</string>
+    <string name="location_region_worldwide">Ovunque</string>
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europa</string>
     <string name="location_region_asia">Asia</string>

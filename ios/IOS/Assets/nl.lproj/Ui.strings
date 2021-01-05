@@ -101,6 +101,7 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Adv. geblokkeerd";
 
+
 "account section header settings" = "Instellingen";
 "account section header other" = "Overige";
 "account action devices" = "Apparaten";

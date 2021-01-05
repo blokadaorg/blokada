@@ -206,6 +206,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Diblokir";
 
+"networks section header" = "Jaringan";
+"networks section label" = "Pengaturan untuk WiFi dan jaringan seluler";
+"networks label all networks" = "Semua jaringan";
+"networks action network specific" = "Ketuk di sini untuk merubah pengaturan bawaan. Untuk pengaturan aplikasi di jaringan berbeda, ketuk di bawah.";
+"networks label configuration active" = "Pengaturan ini sedang aktif";
+"networks label configuration enabled" = "Tidak tersambung ke jaringan ini";
+"networks label configuration inactive" = "Ketuk untuk memodifikasi pengaturan jaringan ini";
+"networks label details default network" = "Pengaturan di bawah ini diterapkan secara default untuk semua jaringan. Anda bisa merubahnya untuk jaringan yang Anda pilih (di menu sebelumnya).";
+"networks action encrypt dns" = "Enkripsikan DNS";
+"networks action use dns" = "Gunakan DNS: %@";
+"networks action use network dns" = "Utamakan DNS jaringan";
+"networks label specific network" = "Atur apa yang terjadi ketika perangkat Anda tersambung dengan jaringan ini.";
+"networks label network type" = "Jenis jaringan";
+"networks type wifi" = "Jaringan WiFi";
+"networks type mobile" = "Jaringan selular";
+// As in "any (wifi) network"
+"networks match any" = "(apapun)";
+"networks permission request" = "Ketuk di sini untuk mengijinkan Blokada mengenali semua jaringan.";
+"networks section choose dns" = "Pilih server DNS";
+
+
 "account section header settings" = "Pengaturan";
 "account status text" = "%@ Akun BLOKADA Anda aktif sampai %@.";
 "account status text libre" = "Akun BLOKADA Libre Anda telah aktif tanpa batas waktu.";
@@ -385,6 +406,7 @@
 "intro header" = "Blokada Aktif!";
 "intro text" = "Lingkaran biru menandakan Blokada sedang aktif \n\nIngat, beberapa iklan, seperti yang ada di YouTube, tidak bisa diblokir. Namun Anda bisa saja melihat perbedaan di aplikasi yang lain.\n\nKami sarankan Anda untuk mengaktifkan Always On VPN/Connect on Demand di pengaturan perangkat Anda.";
 
+"location region worldwide" = "Dimana saja";
 "location region america" = "Amerika";
 "location region europe" = "Eropa";
 "location region asia" = "Asia";
