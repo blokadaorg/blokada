@@ -21,13 +21,13 @@
     <string name="main_status_activating">有効にしています…</string>
     <!-- App status, always displayed without the "Blokada is" part. -->
     <string name="main_status_deactivating">無効にしています</string>
-    <string name="main_blog_text">ニュース</string>
+    <string name="main_blog_text">新着</string>
     <string name="main_autostart_text">デバイス起動時にBlokadaを開始する</string>
     <!-- A menu option to send feedback or contact us -->
     <!-- A menu option to open Patron of the month -->
     <!-- A menu option to open Patron voting screen -->
     <!-- A menu option to open the Call to Action screen (inviting user to do something to help Blokada). -->
-    <string name="main_cta">あなたのご意見をお聞かせください</string>
+    <string name="main_cta">ご意見・ご要望</string>
     <!-- A menu option to open changelog -->
     <string name="main_changelog">更新履歴</string>
     <!-- A menu option to open credits screen -->

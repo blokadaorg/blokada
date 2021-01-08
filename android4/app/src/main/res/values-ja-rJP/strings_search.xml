@@ -3,7 +3,7 @@
     <string name="search_header">タップして検索...</string>
     <string name="search_title">検索</string>
     <string name="search_entered">検索結果: %s</string>
-    <string name="search_description">上に検索クエリを入力し、タップしてリストをフィルタリングします。</string>
+    <string name="search_description">検索ワードを入力して、確認をタップしてください。</string>
     <string name="search_action_confirm">確認</string>
     <string name="search_action_clear">消去</string>
 </resources>

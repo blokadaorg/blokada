@@ -27,10 +27,10 @@
     <string name="panel_domain_blocked_normal_desc">Този домейн е блокиран. За да го разрешите в бъдеще, използвайте бутона по-долу.</string>
     <string name="panel_domain_blocked_nxdomain_desc">Този домейн не е анализиран правилно от DNS сървъра. Или сървърът блокира домейна, или той не съществува.</string>
     <string name="panel_domain_blocked_error_desc">Нещо се обърка при анализа на този домейн, DNS сървърът отговори с код за грешка.</string>
-    <string name="panel_domain_blocked_cname_desc">Този домейн бе блокиран защото е CName блокиран домейн. За да го разрешите в бъдеще можете или да добавите CName, или самия домейн към разрешените хостове.</string>
+    <string name="panel_domain_blocked_cname_desc">Този домейн е блокиран защото е с CName за блокиран домейн. За да го разрешите в бъдеще можете или да добавите CName, или самия домейн към разрешените хостове.</string>
     <string name="panel_domain_blocked_toast">Добавен е в черния списък.</string>
     <!-- Action to copy domain name to clipboard -->
-    <string name="panel_domain_copy">Копирай</string>
+    <string name="panel_domain_copy">Копиране</string>
     <string name="panel_domain_copied">Копирано в клипборда</string>
     <string name="panel_ruleset">Брояч на филтри</string>
     <!-- How many rules are configured. Parameters is number of rules. -->
@@ -40,9 +40,9 @@
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">Разреши</string>
     <!-- Button to allow blocked cname -->
-    <string name="slot_action_allow_cname">Позволи CName</string>
+    <string name="slot_action_allow_cname">Разреши CName</string>
     <!-- Button to allow blocked domain that was blocked by a cname -->
-    <string name="slot_action_allow_domain">Позволи Domain</string>
+    <string name="slot_action_allow_domain">Разреши Domain</string>
     <!-- Button to block allowed domain -->
     <string name="slot_action_block">Блокирай</string>
     <string name="slot_action_close">Затвори</string>
@@ -55,7 +55,7 @@
     <!-- An action to toggle a switch -->
     <string name="slot_intro_new">Как да използваме новия UI? Докоснете тук за въведение.</string>
     <string name="slot_intro_new_header">Как да използваме новия потребителски интерфейс (UI)?</string>
-    <string name="slot_intro_desc">В момента сте в секцията Начало и ако плъзнете на дясно ще видите още. Всяка от тях има свое собствено долно меню - отворете го с плъзгане нагоре. &lt;br/&gt;&lt;br/&gt;На телевизори с Android можете да се движите в потребителския интерфейс с помощта на dpad. Използвайте централния бутон, за да отворите долното меню или всеки елемент, който изберете. Бутоните са маркирани със стрелка нагоре, надолу, наляво или надясно - използвайте бутоните за посока, за да кликнете върху тях.</string>
+    <string name="slot_intro_desc">В момента сте в секцията Начало и ако плъзнете на дясно ще видите още. Всяка от тях има свое собствено долно меню - отворете го с плъзгане нагоре. &lt;br/&gt;&lt;br/&gt;На телевизори с Android можете да се движите в потребителския интерфейс с помощта на dpad. Използвайте централния бутон за да отворите долното меню или всеки елемент, който изберете. Бутоните са маркирани със стрелка нагоре, надолу, наляво или надясно - използвайте бутоните за посока, за да кликнете върху тях.</string>
     <string name="slot_intro_info">Хей... Някои точки имат икона с въпросителен знак върху тях. Докосването му ще покаже кратко съобщение за помощ, също като това!</string>
     <string name="slot_new_filter">Добавяне на нов хост към списъка с блокирани</string>
     <string name="slot_new_filter_list">Добавяне на нов списък с хостове</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="notification_on_text">Известия</string>
-    <string name="notification_on_description">Когато е включена Blokada ще показва известие всеки път, когато блокира нещо. Моля обърнете внимание, че това не е същото като VPN известието, което някои устройства показват, и което не може да бъде изключено.&lt;br/&gt;Можете с настройките по-долу да конфигурирате кои известия да се показват.</string>
+    <string name="notification_on_description">Когато е включена Blokada ще показва известие всеки път, блокирайки нещо. Моля обърнете внимание, че това не е същото както VPN известието, което някои устройства показват и не може да бъде изключено.&lt;br/&gt;С настройките по-долу можете да конфигурирате кои известия да се показват.</string>
     <!-- Title of the notification that shows up every time something is blocked. -->
     <string name="notification_blocked_title">Блокирани</string>
     <!-- Content of the notification that shows up every time something is blocked. Parameter: blocked host name. -->
@@ -15,10 +15,10 @@
     <!-- Parameter: branded app name (Blokada). -->
     <!-- Parameter: branded app name (Blokada). -->
     <string name="notification_keepalive_text">Винаги в активност</string>
-    <string name="notification_keepalive_description">Активирайте този превключвател ако имате проблем приложението да е винаги активно на заден план. Blokada ще включи постоянно уведомяване за да предотврати убийството му от системата; можете да го скриете като изберете по горе Известия в Настройки.</string>
+    <string name="notification_keepalive_description">Активирайте този превключвател ако има проблем приложението да остава активно във фонов режим. Blokada ще включи постоянно известяване, което ще попречи на системата да го убие; можете да го скриете като изберете по горе Известия в Настройки.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. -->
     <string name="notification_keepalive_title_new">Винаги в активност (докоснете за да се скрие)</string>
-    <string name="notification_keepalive_text_new">Android изисква да се показва известие за да поддържа приложението работещо, но вие сте свободни да го деактивирате в системните настройки.</string>
+    <string name="notification_keepalive_text_new">Android изисква да се показва известие за да поддържа приложението работещо, но вие сте свободни да деактивирате това в системните настройки.</string>
     <!-- The blocked counter, displayed in the Keep Alive notification. Parameter: blocked counter. -->
     <string name="notification_keepalive_title">%d блокирани</string>
     <!-- The most recently blocked host, displayed in the Keep Alive notification. Parameter: blocked host name -->
@@ -30,7 +30,7 @@
     <string name="notification_keepalive_deactivate">Деактивиране</string>
     <string name="notification_keepalive_deactivating">Blokada се деактивира!</string>
     <string name="notification_expired_title">Blokada Plus е деактивирана</string>
-    <string name="notification_expired_description">Вашият профил не е активен и Blokada Plus е изключена. Стандартните функции на Blokada работят отлично и без VPN на Blokada Plus. Моля, помислете обаче, дали да не активирате профила си за по-добра защита и за подкрепа на проекта.</string>
+    <string name="notification_expired_description">Вашият профил не е активен и Blokada Plus е изключена. Стандартните функции на Blokada работят отлично и без VPN на Blokada Plus. Моля, помислете обаче, дали да не активирате профила си за по-добра защита и подкрепа на проекта.</string>
     <string name="notification_lease_expired_title">Blokada Plus е деактивирана</string>
     <string name="notification_lease_expired_description">Възникна проблем при връзката с Blokada Plus. Моля, опитайте да изберете друг шлюз. Ако проблемът продължава, моля свържете се с нас.</string>
     <string name="notification_channel_filtered">Блокиране на реклами</string>

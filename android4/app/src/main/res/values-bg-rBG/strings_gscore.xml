@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="welcome_advanced">Аз съм активен потребител</string>
-    <string name="welcome_open">Отвори в браузъра</string>
+    <string name="welcome_open">Отваряне в браузър</string>
     <string name="welcome_share">Сподели</string>
     <string name="welcome_cleanup_done">Деинсталирането започна&#8230;</string>
     <string name="welcome_continue">Продължи</string>

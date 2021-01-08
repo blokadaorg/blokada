@@ -3,19 +3,19 @@
     <!-- How many hosts is configured to be blocked (the blacklist). Parameter: number of hosts. -->
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being processed. -->
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
-    <string name="tunnel_config_refetch_now_title">リストの手動更新</string>
+    <string name="tunnel_config_refetch_now_title">フィルターの手動更新</string>
     <string name="tunnel_config_refetch_now">ダウンロード</string>
-    <string name="tunnel_config_refetch_toast">リストのダウンロードを開始しました</string>
-    <string name="tunnel_config_refetch_now_description">フィルタリングに問題が発生した場合、下のボタンをタップしてください。キャッシュを削除し、リストを再度ダウンロードします。</string>
-    <string name="tunnel_config_refetch_frequency_title">リストの更新頻度</string>
-    <string name="tunnel_config_refetch_frequency_description">アプリがリストを自動更新する頻度を選択してください。</string>
+    <string name="tunnel_config_refetch_toast">フィルターのダウンロードを開始しました</string>
+    <string name="tunnel_config_refetch_now_description">フィルタリングに問題が発生した場合、下のボタンをタップしてください。キャッシュを削除し、フィルターを再度ダウンロードします。</string>
+    <string name="tunnel_config_refetch_frequency_title">フィルターの更新頻度</string>
+    <string name="tunnel_config_refetch_frequency_description">アプリがフィルターを自動更新する頻度を選択してください。</string>
     <string name="tunnel_config_refetch_frequency_1">毎日1回</string>
     <string name="tunnel_config_refetch_frequency_2">毎週2回</string>
     <string name="tunnel_config_refetch_frequency_3">毎週1回</string>
     <string name="tunnel_config_refetch_frequency_4">毎月1回</string>
     <string name="tunnel_config_refetch_frequency_5">自動更新しない</string>
     <string name="tunnel_config_wifi_only_title">Wi-Fi接続時のみダウンロード</string>
-    <string name="tunnel_config_wifi_only_description">有効にすると、デバイスがWi-Fiに接続されている場合にのみリストを更新します。無効にするとリストのダウンロードにモバイルデータ通信を使用します。</string>
+    <string name="tunnel_config_wifi_only_description">有効にすると、デバイスがWi-Fiに接続されている場合にのみフィルターを更新します。無効にするとフィルターのダウンロードにモバイルデータ通信を使用します。</string>
     <string name="tunnel_config_watchdog_title">Watchdog</string>
     <string name="tunnel_config_watchdog_description">有効にすると、インターネット接続がある場合に限りVPNを使用します。 接続に問題がある場合はトンネルを再起動してください。これは一部の機種で有効な対処法です。</string>
     <string name="tunnel_config_powersave_title">強制スリープ解除</string>
@@ -25,17 +25,17 @@
     <string name="tunnel_config_wildcard_title">[BETA] 高度な広告ブロックルール</string>
     <string name="tunnel_config_wildcard_description">このスイッチを有効にすると、フィルタリングルールでワイルドカードを使用します。例えば、*.google.comのルールを追加すると、Googleからのすべてのドメインをブロックします。これはバッテリー寿命に悪影響を与える可能性があります。これは実験的な機能であり、正常に動作しない可能性がありますのでご注意ください。</string>
     <string name="tunnel_config_cname_title">[BETA] CNameブロック</string>
-    <string name="tunnel_config_cname_description">このスイッチを有効にすると、ブロックリストにあるドメインのすべてのCNameをブロックします。CNameはドメインのエイリアスであり、一部の広告主が広告のドメインを、頻繁に変化するドメインまたはあまり目立たないドメインの背後に隠すために使用します。 この方法は、ブロックされたドメインに解決されるすべてのCNameをブロックすることで回避できます。これは実験的な機能であり、正常に動作しない可能性がありますのでご注意ください。</string>
+    <string name="tunnel_config_cname_description">このスイッチを有効にすると、フィルターにあるドメインのすべてのCNameをブロックします。CNameはドメインのエイリアスであり、一部の広告主が広告のドメインを、頻繁に変化するドメインまたはあまり目立たないドメインの背後に隠すために使用します。 この方法は、ブロックされたドメインに解決されるすべてのCNameをブロックすることで回避できます。これは実験的な機能であり、正常に動作しない可能性がありますのでご注意ください。</string>
     <string name="tunnel_config_fallback_title">DNSフォールバック</string>
     <string name="tunnel_config_fallback_description">Wi-Fi使用時などでインターネット接続が出来なくなる場合は、このスイッチを有効にしてください。これにより、アプリが一時的にCloudflareまたはGoogle DNSへ切り替え、接続を維持します。この設定を有効にするには、DNSセクションでサーバーを再選択する必要がある場合があります。</string>
-    <string name="tunnel_config_smartlist_title">[BETA] スマートリスト</string>
+    <string name="tunnel_config_smartlist_title">[BETA] スマートフィルター</string>
     <string name="tunnel_config_smartlist_reset_btn">リセット</string>
-    <string name="tunnel_config_smartlist_clean_btn">クリーンアップ</string>
+    <string name="tunnel_config_smartlist_clean_btn">クリア</string>
     <string name="tunnel_config_smartlist_clean_none">クリーンアップするものがありません</string>
-    <string name="tunnel_config_smartlist_clean_inactive">スマートリストは無効です</string>
-    <string name="tunnel_config_smartlist_clean_done">スマートリストの古いルールがクリーンアップされました</string>
-    <string name="tunnel_config_smartlist_reset_done">スマートリストがリセットされました</string>
-    <string name="tunnel_config_smartlist_description">このスイッチを有効にするとスマートリスト機能が有効になります。これにより、フィルター内のルールの数が大幅に削減されて、バッテリーの寿命が向上し、RAMの使用量が減少する可能性があります。有効にすると、Blokadaはリクエストログを確認し、ブロックしたことのあるルールのみを選び出して新しいリストを生成します。スマートリストの作成は毎日の夜に (数日かけて) 行われます。作成期間中は、不要なリクエストが誤って許可される可能性があることに注意してください。これは実験的な機能であり、正常に動作しない可能性があることに注意してください。</string>
+    <string name="tunnel_config_smartlist_clean_inactive">スマートフィルターは無効です</string>
+    <string name="tunnel_config_smartlist_clean_done">スマートフィルターの古いルールがクリーンアップされました</string>
+    <string name="tunnel_config_smartlist_reset_done">スマートフィルターがリセットされました</string>
+    <string name="tunnel_config_smartlist_description">このスイッチを有効にするとスマートフィルター機能が有効になります。これにより、フィルター内のルールの数が大幅に削減されて、バッテリーの寿命が向上し、RAMの使用量が減少する可能性があります。有効にすると、Blokadaはリクエストログを確認し、ブロックしたことのあるルールのみを選び出して新しいフィルターを生成します。スマートリストの作成は毎日の夜に (数日かけて) 行われます。作成期間中は、不要なリクエストが誤って許可される可能性があることに注意してください。これは実験的な機能であり、正常に動作しない可能性があることに注意してください。</string>
     <string name="tunnel_config_disable_wildcard">先に高度な広告ブロックルールを無効にしてください。</string>
-    <string name="tunnel_config_disable_smartlist">先にスマートリストを無効にしてください。</string>
+    <string name="tunnel_config_disable_smartlist">先にスマートフィルターを無効にしてください。</string>
 </resources>

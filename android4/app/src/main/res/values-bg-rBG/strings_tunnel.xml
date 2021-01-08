@@ -5,10 +5,10 @@
     <!-- Shown on the Home screen instead of the Hosts count whenever hosts are being downloaded. -->
     <string name="tunnel_config_refetch_now_title">Изтегляне на списъци</string>
     <string name="tunnel_config_refetch_now">Изтеглете списъците сега</string>
-    <string name="tunnel_config_refetch_toast">Изтеглянето на списъци, стартира</string>
+    <string name="tunnel_config_refetch_toast">Стартира изтеглянето на списъците</string>
     <string name="tunnel_config_refetch_now_description">Използвайте бутона по-долу за да премахнете кеша и да изтеглите списъците отново. Това може да помогне ако имате някакви проблеми с филтрирането.</string>
     <string name="tunnel_config_refetch_frequency_title">Показва честотата на изтегляне</string>
-    <string name="tunnel_config_refetch_frequency_description">Изберете една от опциите за да конфигурирате колко често приложението трябва да изтегля вашите списъци.</string>
+    <string name="tunnel_config_refetch_frequency_description">Изберете една от опциите за да конфигурирате колко често приложението да изтегля списъците.</string>
     <string name="tunnel_config_refetch_frequency_1">Веднъж дневно</string>
     <string name="tunnel_config_refetch_frequency_2">Два пъти седмично</string>
     <string name="tunnel_config_refetch_frequency_3">Веднъж седмично</string>
@@ -30,9 +30,9 @@
     <string name="tunnel_config_fallback_description">Активирайте този превключвател, ако в някои случаи загубите достъп до Интернет, например WiFi мрежата ви. Това ще накара приложението временно да премине към Cloudflare или Google DNS за да поддържа вашата връзка. Може да се наложи да изберете отново вашите сървъри в секцията DNS за да влезе в сила тази настройка.</string>
     <string name="tunnel_config_smartlist_title">[БЕТА] Интелигентен списък</string>
     <string name="tunnel_config_smartlist_reset_btn">Нулиране</string>
-    <string name="tunnel_config_smartlist_clean_btn">Почистено</string>
+    <string name="tunnel_config_smartlist_clean_btn">Почистване</string>
     <string name="tunnel_config_smartlist_clean_none">Няма нищо за почистване</string>
-    <string name="tunnel_config_smartlist_clean_inactive">Smart List е неактивен</string>
+    <string name="tunnel_config_smartlist_clean_inactive">Smart List не е активен</string>
     <string name="tunnel_config_smartlist_clean_done">Smart List е изчистен от стари правила</string>
     <string name="tunnel_config_smartlist_reset_done">Smart List е нулиран</string>
     <string name="tunnel_config_smartlist_description">Активирайки този превключвател ще активирате функцията Интелигентен списък, която значително намалява броя на правилата във вашите филтри, което потенциално подобрява живота на батерията и намалява използването на RAM. Когато е активирана Blokada ще прегледа дневника на вашите заявки и динамично ще генерира списък, който съдържа само правила, които действително блокират поне една заявка. Интелигентният списък се актуализира всеки ден през нощта. Моля, обърнете внимание, че може да получите по-голям брой нежелани заявки, които са разрешени по време на учебния период (няколко дни). Моля обърнете внимание, че това е експериментална функция и може да не работи правилно.</string>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- A configuration option of widget -->
-    <string name="widget_show_domain">Показва името на блокирания домейн</string>
+    <string name="widget_show_domain">Показване на името на блокирания домейн</string>
     <!-- A configuration option of widget -->
-    <string name="widget_show_counter">Показва броя на блокираните заявки</string>
+    <string name="widget_show_counter">Показване на броя на блокираните заявки</string>
     <!-- A configuration option of widget. Shows the number of blocked requests always in thousands instead of thousands or millions -->
     <string name="widget_show_counter_long">Използване на формат с дълги числа</string>
     <!-- A configuration option of widget -->
-    <string name="widget_show_dns">Показва DNS</string>
+    <string name="widget_show_dns">Показване на DNS</string>
     <!-- A configuration option of widget -->
     <string name="widget_show_gateway">Показване на Шлюз</string>
     <string name="widget_okay">Потвърди</string>

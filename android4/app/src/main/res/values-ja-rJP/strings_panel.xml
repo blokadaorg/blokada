@@ -9,7 +9,7 @@
     <string name="panel_section_apps">アプリ</string>
     <!-- Main screen section -->
     <string name="panel_section_home_help">ヘルプ</string>
-    <string name="panel_section_ads_lists">ホストリスト</string>
+    <string name="panel_section_ads_lists">フィルター</string>
     <string name="panel_section_ads_log">ホストログ</string>
     <string name="panel_section_ads_blacklist">ブロックされたホスト</string>
     <string name="panel_section_ads_whitelist">許可されたホスト</string>
@@ -36,7 +36,7 @@
     <!-- How many rules are configured. Parameters is number of rules. -->
     <string name="panel_ruleset_title">%s 個のルールを使用</string>
     <string name="panel_ruleset_updating">フィルターを更新しています...</string>
-    <string name="panel_ruleset_canfit">フィルタは&lt;b&gt;%s&lt;/b&gt;のルールで構成されています。 お使いのデバイスでは、すべてのアプリケーションに最大&lt;b&gt;%s&lt;/b&gt;MBのメモリが許可されており、最大&lt;b&gt;%s&lt;/b&gt;のルールをデバイスに適用できます。&lt;br&gt;これは単なる推定値であり、Blokadaはリストをマージするときに最も多くのメモリを使用します。それらのいくつかを最近有効にした場合は、システムがメモリを解放するまで時間がかかる場合があります。</string>
+    <string name="panel_ruleset_canfit">フィルタは&lt;b&gt;%s&lt;/b&gt;のルールで構成されています。 お使いのデバイスでは、すべてのアプリケーションで最大&lt;b&gt;%s&lt;/b&gt;MBのメモリが許可されており、最大&lt;b&gt;%s&lt;/b&gt;のルールをデバイスに適用できます。&lt;br&gt;これは単なる推定値であり、Blokadaは複数のフィルターを併用するとより多くのメモリを使用します。新しいフィルターを有効にすると、処理に時間がかかる場合があります。</string>
     <!-- Button to allow blocked domain -->
     <string name="slot_action_allow">許可</string>
     <!-- Button to allow blocked cname -->
@@ -58,7 +58,7 @@
     <string name="slot_intro_desc">ここはホームセクションです。右にスワイプするとさらに多くのことができます。 それぞれの下部にメニューがあります - 上にスワイプして開きます。 &lt;br/&gt;&lt;br/&gt;Android TVでは、dpadでUIをナビゲートします。 中央キーを使用して、下部のメニューや選択した項目を開きます。 ボタンは、上下左右の4方向の矢印でマークされています - 方向キーを使用してボタンをクリックします。</string>
     <string name="slot_intro_info">一部のアイテムにはクエッションマークアイコンが付いています。 それをタップすると、このような短いヘルプメッセージが表示されます。</string>
     <string name="slot_new_filter">ブロックリストに新しいホストを追加</string>
-    <string name="slot_new_filter_list">新しいホストリストを追加</string>
+    <string name="slot_new_filter_list">新しいフィルターを追加</string>
     <string name="slot_new_filter_whitelist">許可リストに新しいホストを追加</string>
     <!-- A state of input form when no input is entered (think: empty)  -->
     <string name="slot_unset">未設定</string>
@@ -68,7 +68,7 @@
     <string name="slot_invalid">無効</string>
     <string name="slot_continue">続行</string>
     <string name="slot_enter_domain_title">ドメイン</string>
-    <string name="slot_enter_domain_desc">ドメインはカンマで区切って入力してください。 また、任意のホストリストへのリンクを貼り付けたり、ローカルホストリストファイルをインポートしたりすることもできます。</string>
+    <string name="slot_enter_domain_desc">ドメインはカンマで区切って入力してください。 また、任意のフィルターへのリンクを貼り付けたり、ローカルファイルをインポートしたりすることもできます。</string>
     <string name="slot_enter_domain_error">確認できません</string>
     <string name="slot_enter_domain_file">ファイル</string>
     <string name="slot_enter_domain_no_file">/Download/blokada/filters にファイルが確認できません</string>
@@ -85,7 +85,7 @@
     <string name="slot_app_desc">このアプリはホワイトリストに登録されているため、ブロックやフィルタリングは実行されません。</string>
     <string name="slot_allapp_desc">このアプリがBlokadaをバイパスして、トラフィックのブロックを受けないように設定できます。 バイパスされたアプリはVPN外で通信することにご注意ください。</string>
     <string name="slot_allapp_whitelisted">バイパス済み</string>
-    <string name="slot_allapp_normal">未バイパス (ノーマル)</string>
+    <string name="slot_allapp_normal">未バイパス (デフォルト)</string>
     <string name="slot_allapp_whitelist">バイパス</string>
     <string name="slot_action_set">設定</string>
     <string name="slot_whitelist_all">すべてのアプリをバイパスする</string>
@@ -101,7 +101,7 @@
     <!-- A prefix for generated name for manually entered domain. "an entry for example.com"  -->
     <string name="slot_input_suggestion_for">%s のエントリ</string>
     <string name="slot_dns_control_title">DNSサーバーリスト</string>
-    <string name="slot_dns_control_description">DNSサーバーリストは、カスタムエントリを失うことなくサーバーと同期できます。 &lt;br/&gt;&lt;br/&gt;または、(あなたのものを含む) すべてのエントリをドロップして、もう一度ダウンロードすることもできます。</string>
+    <string name="slot_dns_control_description">カスタムDNSを失うことなくサーバーと同期できます。 &lt;br/&gt;&lt;br/&gt;ドロップを選択すると、(カスタムしたものを含む) すべてのDNSを削除して、もう一度ダウンロードします。</string>
     <!-- A button to synchronize (fetch) lists  -->
     <string name="slot_action_refresh">同期</string>
     <string name="slot_action_refresh_toast">同期を開始</string>
@@ -112,7 +112,7 @@
     <string name="slot_action_internal">アプリ内</string>
     <string name="slot_action_external">外部ストレージ</string>
     <string name="slot_filters_title">フィルターリスト</string>
-    <string name="slot_filters_description">カスタム エントリを失うことなく、フィルターリストをサーバーと同期できます。 &lt;br/&gt;&lt;br/&gt;または、(あなたのものを含む) すべてのエントリをドロップして、もう一度ダウンロードすることもできます。</string>
+    <string name="slot_filters_description">カスタムフィルターを失うことなく、フィルターリストをサーバーと同期できます。 &lt;br/&gt;&lt;br/&gt;ドロップを選択すると、(カスタムしたものを含む) すべてのリストを削除して、もう一度ダウンロードします。</string>
     <string name="slot_blocked_normal_title">ドメインがブロックされました</string>
     <string name="slot_blocked_answer_title">ドメインが解決されていません</string>
     <string name="slot_blocked_cname_title">CNameがブロックされました</string>
@@ -200,7 +200,7 @@
     <!-- A section in advanced settings. -->
     <string name="label_advanced">詳細設定</string>
     <string name="slot_whitelist_updating">設定を更新しています。しばらくお待ちください...</string>
-    <string name="slot_too_many_leases">デバイスのリストから古いデバイスを削除してください。</string>
+    <string name="slot_too_many_leases">デバイスリストから古いデバイスを削除してください。</string>
     <string name="slot_background_animation">バックグラウンドアニメーション</string>
     <string name="slot_background_animation_description">ONの場合、DNSリクエストがブロックまたは許可されるたびに波動アニメーションが表示されます。デバイスの動作に遅延が発生した場合はOFFにしてください。</string>
     <string name="slot_reset_counter_label">カウンターをリセット</string>

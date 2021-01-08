@@ -16,7 +16,7 @@
     <!-- A button that opens the changelog. -->
     <!-- A toast message displayed when the update process is starting. -->
     <string name="update_starting">Започва, моля изчакайте&#8230;</string>
-    <string name="update_progress">Изтегляне %s%%</string>
+    <string name="update_progress">Изтегляне: %s%%</string>
     <string name="update_complete">Изтеглянето приключи</string>
     <string name="update_failed">Неуспешно изтегляне</string>
     <string name="update_instruction">Когато приключи ще бъдете помолени да разрешите Blokada да инсталира актуализацията.</string>

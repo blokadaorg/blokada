@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Displayed on home screen, make sure it's very short. It's ok to modify the exact meaning to make it fit. -->
-    <string name="home_touch">Нажмите или удерживайте, чтобы настроить</string>
+    <string name="home_touch">Для настройки нажмите или удерживайте</string>
     <string name="home_blokada_disabled">Blokada приостановлена</string>
     <string name="home_blokada_active">Blokada активна</string>
     <string name="home_blokada_active_protected">Blokada Plus активен, ваш интернет защищен</string>
