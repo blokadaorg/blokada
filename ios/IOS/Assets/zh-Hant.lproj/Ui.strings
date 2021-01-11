@@ -77,6 +77,8 @@
 
 "universal label help" = "協助";
 "universal label welcome" = "歡迎！";
+// Common label when some feature has no setting
+"universal label none" = "無";
 "universal status processing" = "處理中… 請稍候。";
 "universal status copied to clipboard" = "已複製到剪貼簿";
 "universal status restart required" = "請重新啟動 APP 以套用變更。";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "已停用 BLOKADA+";
 "home plus button select location" = "選擇位置";
 "home plus button location" = "位置：*%@*";
+
+"home level low" = "保護級別：弱";
+"home level medium" = "保護級別：中";
+"home level high" = "保護級別：強";
+
 
 "pack section header" = "進階功能";
 "pack section header details" = "功能詳細資訊";
@@ -225,6 +232,7 @@
 "networks match any" = "（任何）";
 "networks permission request" = "要進行更多控制，請點擊此處並讓應用程式識別所有網路。";
 "networks section choose dns" = "選擇 DNS";
+"networks alert network dns and plus mode" = "每次使用網路 DNS 時，Blokada 都會暫時停用 Plus 模式。因為無法在 VPN 中存取網路 DNS。當您的裝置切換到另一個網路時，Plus 模式就會自動恢復。";
 
 
 "account section header settings" = "設定";
@@ -278,7 +286,7 @@
 "account encrypt level high" = "高";
 "account encrypt label dns only" = "加密 DNS";
 "account encrypt desc dns only" = "網域名稱系統（Domain Name System，DNS）是讓您的裝置知道如何找到您想造訪的網站的方式。不幸的是，網際網路大部份的流量都還是使用未加密的 DNS，這讓您的瀏覽歷史有被竊取的風險。啟用後，Blokada 會強制您的裝置僅連線至加密的 DNS 伺服器（又稱為 DNS over HTTPS）。";
-"account encrypt label everything" = "全部加密";
+"account encrypt label everything" = "正在經由 VPN 連線";
 "account encrypt desc everything" = "您的裝置正透過我們的安全 VPN 伺服器連線至網際網路，並使用強大的加密演算法保護您裝置所有的通訊。這樣可以防止您的個人資訊（如銀行資料或個人照片）在不安全的地方（如咖啡廳的 Wi-Fi）被盜。";
 "account encrypt action turn on" = "開啟 BLOKADA";
 "account encrypt header level" = "加密等級";

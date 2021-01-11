@@ -28,7 +28,7 @@
 "Adblocking for your mobile device" = "モバイルデバイスの広告ブロック";
 "A special blocklist containing mobile ad providers." = "モバイル広告プロバイダーを含む特別なフィルター";
 "Protects against cyber attacks" = "サイバー攻撃から保護";
-"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "フィッシングサイトをブロックするためのフィルター。フィッシングは、元のサイトと同じように見える偽のサイトに誘導して個人情報やパスワードを盗み取る不正行為です。 このフィルターはフィッシングからあなたを保護します。";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "フィッシングサイトをブロックするためのフィルター。フィッシングは、元のサイトと同じように見える偽のサイトに誘導して個人情報やパスワードを盗み取る不正行為です。このフィルターはフィッシングからあなたを保護します。";
 "A new and upcoming tracker database" = "新しい、これからのトラッカーデータベース";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo トラッカーレーダーは、連続的なクロールと分析を通じて自動的に管理される最高水準のフィルターです。詳細は著者情報をご覧ください。";
 "Curated blocklist to block trackers and advertisements" = "トラッカーと広告をブロックするための厳選されたフィルター";

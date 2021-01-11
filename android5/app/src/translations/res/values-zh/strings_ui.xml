@@ -53,6 +53,7 @@
     <string name="universal_action_clear">清除</string>
     <string name="universal_label_help">協助</string>
     <string name="universal_label_welcome">歡迎！</string>
+    <string name="universal_label_none">無</string>
     <string name="universal_status_processing">處理中… 請稍候。</string>
     <string name="universal_status_copied_to_clipboard">已複製到剪貼簿</string>
     <string name="universal_status_restart_required">請重新啟動 APP 以套用變更。</string>
@@ -101,6 +102,9 @@
     <string name="home_plus_button_deactivated">已停用 BLOKADA+</string>
     <string name="home_plus_button_select_location">選擇位置</string>
     <string name="home_plus_button_location">位置：*%s*</string>
+    <string name="home_level_low">保護級別：弱</string>
+    <string name="home_level_medium">保護級別：中</string>
+    <string name="home_level_high">保護級別：強</string>
     <string name="pack_section_header">進階功能</string>
     <string name="pack_section_header_details">功能詳細資訊</string>
     <string name="pack_action_install">取得</string>
@@ -174,6 +178,7 @@
     <string name="networks_match_any">（任何）</string>
     <string name="networks_permission_request">要進行更多控制，請點擊此處並讓應用程式識別所有網路。</string>
     <string name="networks_section_choose_dns">選擇 DNS</string>
+    <string name="networks_alert_network_dns_and_plus_mode">每次使用網路 DNS 時，Blokada 都會暫時停用 Plus 模式。因為無法在 VPN 中存取網路 DNS。當您的裝置切換到另一個網路時，Plus 模式就會自動恢復。</string>
     <string name="account_section_header_settings">設定</string>
     <string name="account_status_text">您的 BLOKADA %s 帳號有效日期至 %s 為止。</string>
     <string name="account_status_text_libre">您的 BLOKADA Libre 帳戶永不過期。</string>
@@ -219,7 +224,7 @@
     <string name="account_encrypt_level_high">高</string>
     <string name="account_encrypt_label_dns_only">加密 DNS</string>
     <string name="account_encrypt_desc_dns_only">網域名稱系統（Domain Name System，DNS）是讓您的裝置知道如何找到您想造訪的網站的方式。不幸的是，網際網路大部份的流量都還是使用未加密的 DNS，這讓您的瀏覽歷史有被竊取的風險。啟用後，Blokada 會強制您的裝置僅連線至加密的 DNS 伺服器（又稱為 DNS over HTTPS）。</string>
-    <string name="account_encrypt_label_everything">全部加密</string>
+    <string name="account_encrypt_label_everything">正在經由 VPN 連線</string>
     <string name="account_encrypt_desc_everything">您的裝置正透過我們的安全 VPN 伺服器連線至網際網路，並使用強大的加密演算法保護您裝置所有的通訊。這樣可以防止您的個人資訊（如銀行資料或個人照片）在不安全的地方（如咖啡廳的 Wi-Fi）被盜。</string>
     <string name="account_encrypt_action_turn_on">開啟 BLOKADA</string>
     <string name="account_encrypt_header_level">加密等級</string>

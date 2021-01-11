@@ -172,7 +172,6 @@
     <string name="account_encrypt_level_high">Korkea</string>
     <string name="account_encrypt_label_dns_only">Salataan DNS</string>
     <string name="account_encrypt_desc_dns_only">Verkkotunnusjärjestelmä (DNS) on miten laite tietää mistä löytää verkkosivustot, joissa haluat käydä. Valitettavasti suurin osa Internetistä käyttää edelleen salaamatonta DNS:ää, mikä vaarantaa selaushistorian vakoilun. Kun tämä asetus on käytössä, Blokada pakottaa laitteen muodostamaan yhteyden vain salattuihin DNS-palvelimiin (jota kutsutaan myös DNS HTTPS:n kautta).</string>
-    <string name="account_encrypt_label_everything">Salataan kaikki</string>
     <string name="account_encrypt_desc_everything">Laitteesi muodostaa yhteyden suojattujen VPN-palvelimiemme kautta ja kaikki laitteestasi tuleva tai siihen tuleva kommunikaatio on salattu vahvoilla algoritmeilla. Tämä suojaa henkilökohtaisia tietojasi, kuten pankkitietoja tai henkilökohtaisia valokuvia varastamiselta turvattomissa paikoissa, kuten kahvilan WiFi:ssä.</string>
     <string name="account_encrypt_action_turn_on">Käynnistä BLOKADA</string>
     <string name="account_encrypt_header_level">Salaustaso</string>

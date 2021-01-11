@@ -219,7 +219,6 @@
     <string name="account_encrypt_level_high">Alta</string>
     <string name="account_encrypt_label_dns_only">Criptografando DNS</string>
     <string name="account_encrypt_desc_dns_only">O Sistema de Nomes de Domínio é como seu dispositivo sabe onde encontrar os sites que você deseja visitar. Infelizmente, a maior parte da Internet ainda usa DNS não criptografado, o que coloca seu histórico de navegação em risco de ser espionado. Quando ativado, o Blokada está forçando seu dispositivo a se conectar apenas a servidores DNS criptografados (também chamados de DNS sobre HTTPS).</string>
-    <string name="account_encrypt_label_everything">Criptografando tudo</string>
     <string name="account_encrypt_desc_everything">Seu dispositivo está se conectando por meio de nossos servidores VPN seguros, e todas as comunicações vindas de, ou para, seu dispositivo estão sendo criptografadas usando algoritmos fortes. Isso protege suas informações pessoais, como dados bancários ou fotos pessoais, de serem roubadas em locais inseguros, como o WiFi de uma cafeteria.</string>
     <string name="account_encrypt_action_turn_on">Ativar o BLOKADA</string>
     <string name="account_encrypt_header_level">Nível de Criptografia</string>

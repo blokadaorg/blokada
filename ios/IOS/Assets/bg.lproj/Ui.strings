@@ -141,6 +141,7 @@
 "home plus button select location" = "Избор на местоположение";
 "home plus button location" = "Местоположение: *%@*";
 
+
 "pack section header" = "Разширени функции";
 "pack section header details" = "Особености и Детайли";
 "pack action install" = "ВЗЕМИ";
@@ -206,6 +207,26 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Блокирани";
 
+"networks section header" = "Мрежи";
+"networks section label" = "Регулиране на настройките за WiFi и мобилни мрежи";
+"networks label all networks" = "Всички мрежи";
+"networks action network specific" = "Докоснете тук за да промените настройките по подразбиране. За да определите различно поведение на приложението в някои мрежи, докоснете по-долу.";
+"networks label configuration active" = "В момента тези настройки са активни";
+"networks label configuration enabled" = "Не е свързана с тази мрежа";
+"networks label configuration inactive" = "Докоснете за да промените настройката за тази мрежа";
+"networks label details default network" = "Настройките по-долу се прилагат по подразбиране за всички мрежи. Можете да ги запишете само и за избрани мрежи (в предишния екран).";
+"networks action encrypt dns" = "Криптиран DNS";
+"networks action use dns" = "Използвайте DNS: %@";
+"networks action use network dns" = "Предпочитан мрежов DNS";
+"networks label specific network" = "Настройте поведението на устройството, когато се свърже с тази мрежа.";
+"networks label network type" = "Тип мрежа";
+"networks type wifi" = "WiFi мрежа";
+"networks type mobile" = "Мобилна мрежа";
+// As in "any (wifi) network"
+"networks match any" = "(всички)";
+"networks permission request" = "За да имате повече контрол, докоснете тук и оставете приложението да разпознава всички мрежи.";
+"networks section choose dns" = "Изберете DNS";
+
 
 "account section header settings" = "Настройки";
 "account status text" = "Вашият BLOKADA %@ профил е активен до %@.";
@@ -258,7 +279,6 @@
 "account encrypt level high" = "Високо";
 "account encrypt label dns only" = "Криптиране на DNS";
 "account encrypt desc dns only" = "Системата за имена на домейни показва на вашето устройство къде да намери уеб сайтовете, които искате да посетите. За съжаление по-голямата част от Интернет все още използва некриптиран DNS, което излага историята на сърфирането ви в риск да бъде шпионирана. Когато е активирана, Blokada принуждава вашето устройство да се свързва само към криптирани DNS сървъри (наричани също DNS през HTTPS).";
-"account encrypt label everything" = "Криптиране на всичко";
 "account encrypt desc everything" = "Вашето устройство се свързва чрез нашите защитени VPN сървъри и цялата комуникация, идваща от или към вашето устройство се криптира чрез силни алгоритми. Това предпазва личната ви информация, като банкови данни или лични снимки от кражба на несигурни места, като WiFi в кафене.";
 "account encrypt action turn on" = "Включване на BLOKADA";
 "account encrypt header level" = "Ниво на криптиране";
@@ -385,6 +405,8 @@
 
 "intro header" = "Blokada е активна!";
 "intro text" = "Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Въпреки това, ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN / Мрежа и интернет - VPN, или Always on VPN / Connect on Demand в системните настройки.";
+
+"location region worldwide" = "Навсякъде";
 "location region america" = "Америка";
 "location region europe" = "Европа";
 "location region asia" = "Азия";

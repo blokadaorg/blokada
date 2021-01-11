@@ -138,6 +138,7 @@
 "home plus button select location" = "Elegir ubicación";
 "home plus button location" = "Ubicación: *%@*";
 
+
 "pack section header" = "Características avanzadas";
 "pack section header details" = "Detalles de la funcionalidad";
 "pack action install" = "OBTENER";
@@ -255,7 +256,6 @@
 "account encrypt level high" = "Alto";
 "account encrypt label dns only" = "Cifrando DNS";
 "account encrypt desc dns only" = "El Sistema de Nombres de Dominio (DNS, por sus siglas en inglés) es la forma por la que tu dispositivo sabe dónde encontrar los sitios web que quieres visitar. Desafortunadamente, la mayoría de los sitios de internet siguen sin usar DNS cifrados, lo que pone tu historial de navegación expuesto. Cuando está activado, Blokada obliga al dispositivo a conectarse solo a servidores DNS cifrados (también llamados DNS sobre HTTPS).";
-"account encrypt label everything" = "Cifrando todo";
 "account encrypt desc everything" = "Tu dispositivo se está conectando a través de nuestros servidores VPN seguros, y toda la comunicación saliente o entrante de él está siendo cifrado mediante algoritmos. Esto protege tu información personal, así como tus datos bancarios o fotografías personales, de ser obtenidas en lugares inseguros, como una cafetería WiFi.";
 "account encrypt action turn on" = "Activar BLOKADA";
 "account encrypt header level" = "Nivel de cifrado";

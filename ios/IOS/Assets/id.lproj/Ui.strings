@@ -77,6 +77,8 @@
 
 "universal label help" = "Bantuan";
 "universal label welcome" = "Selamat Datang!";
+// Common label when some feature has no setting
+"universal label none" = "Tidak ada";
 "universal status processing" = "Sedang diproses... Harap tunggu.";
 "universal status copied to clipboard" = "Disalin ke clipboard";
 "universal status restart required" = "Silakan restart Blokada agar perubahan bisa diterapkan.";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "BLOKADA+ dinonaktifkan";
 "home plus button select location" = "Pilih lokasi";
 "home plus button location" = "Lokasi: *%@*";
+
+"home level low" = "Perlindungan: Rendah";
+"home level medium" = "Perlindungan: Sedang";
+"home level high" = "Perlindungan: Tinggi";
+
 
 "pack section header" = "Fitur lanjutan";
 "pack section header details" = "Detail Fitur";
@@ -225,6 +232,7 @@
 "networks match any" = "(apapun)";
 "networks permission request" = "Ketuk di sini untuk mengijinkan Blokada mengenali semua jaringan.";
 "networks section choose dns" = "Pilih server DNS";
+"networks alert network dns and plus mode" = "Blokada akan menonaktifkan Mode Plus untuk sementara waktu ketika DNS jaringan digunakan. Hal ini terjadi karena pengguna tidak akan mungkin mengakses DNS jaringan saat menggunakan VPN. Mode Plus akan kembali aktif secara otomatis ketika perangkat Anda beralih ke jaringan lain.";
 
 
 "account section header settings" = "Pengaturan";
@@ -278,7 +286,7 @@
 "account encrypt level high" = "Tinggi";
 "account encrypt label dns only" = "DNS terenkripsi";
 "account encrypt desc dns only" = "Domain Name System adalah cara perangkat Anda mengetahui di mana mencari situs yang ingin Anda kunjungi. Sayangnya, sebagian besar masih menggunakan DNS yang tidak dienkripsi, yang memungkinkan browsing history Anda dilihat pihak lain. Jika diaktifkan, Blokada memaksa perangkat Anda untuk terkoneksi hanya dengan server DNS yang terenkripsi (disebut juga dengan DNS over HTTPS).";
-"account encrypt label everything" = "Mengenkripsi semua";
+"account encrypt label everything" = "Terhubung melalui VPN";
 "account encrypt desc everything" = "Perangkat Anda terhubung melalui server VPN kami yang aman, dan semua komunikasi, dari dan menuju perangkat Anda, dienkripsi dengan algoritma kuat. Ini menjadikan data pribadi Anda, seperti data perbankan atau foto-foto pribadi, aman dari pihak-pihak yang ingin mencurinya jika Anda mengakses internet di tempat yang tidak aman, misalnya jaringan WiFi sebuah kedai kopi.";
 "account encrypt action turn on" = "Aktifkan BLOKADA";
 "account encrypt header level" = "Tingkat Enkripsi";

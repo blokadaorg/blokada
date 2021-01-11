@@ -199,7 +199,6 @@
     <string name="account_encrypt_level_high">Alto</string>
     <string name="account_encrypt_label_dns_only">Cifrando DNS</string>
     <string name="account_encrypt_desc_dns_only">El Sistema de Nombres de Dominio (DNS, por sus siglas en inglés) es la forma por la que tu dispositivo sabe dónde encontrar los sitios web que quieres visitar. Desafortunadamente, la mayoría de los sitios de internet siguen sin usar DNS cifrados, lo que pone tu historial de navegación expuesto. Cuando está activado, Blokada obliga al dispositivo a conectarse solo a servidores DNS cifrados (también llamados DNS sobre HTTPS).</string>
-    <string name="account_encrypt_label_everything">Cifrando todo</string>
     <string name="account_encrypt_desc_everything">Tu dispositivo se está conectando a través de nuestros servidores VPN seguros, y toda la comunicación saliente o entrante de él está siendo cifrado mediante algoritmos. Esto protege tu información personal, así como tus datos bancarios o fotografías personales, de ser obtenidas en lugares inseguros, como una cafetería WiFi.</string>
     <string name="account_encrypt_action_turn_on">Activar BLOKADA</string>
     <string name="account_encrypt_header_level">Nivel de cifrado</string>

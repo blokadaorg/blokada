@@ -77,6 +77,8 @@
 
 "universal label help" = "Aide";
 "universal label welcome" = "Bienvenue !";
+// Common label when some feature has no setting
+"universal label none" = "Aucun";
 "universal status processing" = "Traitement en cours... Veuillez patienter.";
 "universal status copied to clipboard" = "Copié dans le presse-papier";
 "universal status restart required" = "Veuillez redémarrer l'application pour que les modifications prennent effet.";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "BLOKADA+ désactivé";
 "home plus button select location" = "Choisir l'emplacement";
 "home plus button location" = "Emplacement : *%@*";
+
+"home level low" = "Protection : Faible";
+"home level medium" = "Protection : Moyenne";
+"home level high" = "Protection : Forte";
+
 
 "pack section header" = "Fonctionnalités avancées";
 "pack section header details" = "Détails de la fonctionnalité";
@@ -205,9 +212,21 @@
 "userdenied tab allowed" = "Autorisé";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Bloqué";
+
+"networks section header" = "Réseaux";
+"networks section label" = "Ajustez les paramètres des réseaux mobiles et Wi-Fi";
+"networks label all networks" = "Tous les réseaux";
+"networks action network specific" = "Appuyez ici pour modifier les paramètres par défaut. Pour que l'appli se comporte différemment sur des réseaux spécifiques, appuyez ci-dessous.";
+"networks label configuration active" = "Ces paramètres sont actuellement actifs";
+"networks label configuration enabled" = "Non connecté à ce réseau";
+"networks label configuration inactive" = "Appuyez pour modifier les paramètres de ce réseau";
+"networks action use dns" = "Utiliser le DNS : %@";
+"networks type wifi" = "Réseau WiFi";
+"networks type mobile" = "Réseau mobile";
 // As in "any (wifi) network"
 "networks match any" = "(tous)";
 "networks permission request" = "Pour avoir plus de contrôle, appuyez ici et laissez l'application découvrir tous les réseaux.";
+"networks section choose dns" = "Sélectionnez un DNS";
 
 
 "account section header settings" = "Paramètres";
@@ -261,7 +280,6 @@
 "account encrypt level high" = "Élevé";
 "account encrypt label dns only" = "Chiffrement DNS";
 "account encrypt desc dns only" = "Le \"Domain Name System\" permet à votre appareil de trouver les sites web que vous souhaitez consulter. Malheureusement, la majorité des sites web utilisent encore le DNS non-chiffré. Votre historique risque d'être espionné. Lorsque cette option est activée, Blokada force votre appareil à ne se connecter qu'aux serveurs utilisant le DNS chiffré (aussi appelé DNS par HTTPS).";
-"account encrypt label everything" = "Chiffrement universel";
 "account encrypt desc everything" = "Votre appareil se connecte grâce à nos serveurs VPN sécurisés, et toutes les communications émises ou reçues par votre appareil sont chiffrées avec de puissants algorithmes. Cela protège vos informations personnelles, comme vos photos privées ou données bancaires, lorsque vous vous connectez à un endroit peu sécurisé comme le WiFi d'un café.";
 "account encrypt action turn on" = "Activer BLOKADA";
 "account encrypt header level" = "Niveau de chiffrement";
@@ -388,6 +406,8 @@
 
 "intro header" = "Blokada est actif";
 "intro text" = "Un anneau bleu signifie que Blokada est actif.\n\nRappelez-vous que certaines publicités, comme celles de YouTube, ne peuvent être bloquées. Toutefois, vous verrez la différence dans la majorité des autres applications.\n\nNous vous recommandons d'activer \"VPN toujours actif\" / \"Connexion à la demande\" dans vos paramètres système.";
+
+"location region worldwide" = "Partout";
 "location region america" = "Amérique";
 "location region europe" = "Europe";
 "location region asia" = "Asie";

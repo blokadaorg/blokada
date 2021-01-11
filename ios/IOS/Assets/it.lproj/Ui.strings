@@ -77,6 +77,8 @@
 
 "universal label help" = "Aiuto";
 "universal label welcome" = "Benvenuto!";
+// Common label when some feature has no setting
+"universal label none" = "Nessuno";
 "universal status processing" = "Elaborazione in corso, attendere prego...";
 "universal status copied to clipboard" = "Copiato negli Appunti";
 "universal status restart required" = "Per favore, riavvia l'app per rendere effettive le modifiche.";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "BLOKADA+ è disattivato";
 "home plus button select location" = "Seleziona la località";
 "home plus button location" = "Località: *%@*";
+
+"home level low" = "Protezione: Bassa";
+"home level medium" = "Protezione: Media";
+"home level high" = "Protezione: Alta";
+
 
 "pack section header" = "Funzioni Avanzate";
 "pack section header details" = "Dettagli delle funzionalità";
@@ -209,16 +216,23 @@
 "networks section header" = "Reti";
 "networks section label" = "Regola le impostazioni per le reti WiFi e mobili";
 "networks label all networks" = "Tutte le reti";
+"networks action network specific" = "Tocca qui per modificare le impostazioni predefinite. Per far sì che l'applicazione si comporti diversamente su alcune reti, tocca qui sotto.";
 "networks label configuration active" = "Attualmente, queste impostazioni sono attive";
 "networks label configuration enabled" = "Non connesso a questa rete";
 "networks label configuration inactive" = "Tocca per modificare le impostazioni per questa rete";
 "networks label details default network" = "Le impostazioni sottostanti sono applicate per impostazione predefinita a tutte le reti. È possibile sovrascriverle per le reti selezionate (nella schermata precedente).";
+"networks action encrypt dns" = "Cripta DNS";
 "networks action use dns" = "Usa DNS: %@";
+"networks action use network dns" = "Preferisci DNS di rete";
 "networks label specific network" = "Regola cosa dovrebbe accadere quando il dispositivo si connette a questa rete.";
 "networks label network type" = "Tipo di rete";
 "networks type wifi" = "Rete WiFi";
 "networks type mobile" = "Rete mobile";
+// As in "any (wifi) network"
+"networks match any" = "(qualsiasi)";
+"networks permission request" = "Per avere più controllo, tocca qui e lascia che l'app riconosca tutte le reti.";
 "networks section choose dns" = "Scegli un DNS";
+"networks alert network dns and plus mode" = "Blokada disabiliterà temporaneamente la modalità Plus ogni volta che viene utilizzato il DNS di rete. Questo perché non è possibile accedere al DNS di rete in VPN. La modalità Plus verrà ripristinata automaticamente quando il dispositivo passerà ad un'altra rete.";
 
 
 "account section header settings" = "Impostazioni";
@@ -272,7 +286,7 @@
 "account encrypt level high" = "Alta";
 "account encrypt label dns only" = "Crittografia DNS";
 "account encrypt desc dns only" = "Il Domain Name System permette al tuo dispositivo di localizzare i siti web che vuoi visitare. Purtroppo, la maggior parte di Internet utilizza ancora DNS non crittografati, che mettono a rischio la tua cronologia di navigazione. Se abilitata, Blokada costringe il dispositivo a connettersi solo ai server DNS crittografati (chiamati anche DNS over HTTPS).";
-"account encrypt label everything" = "Cripta tutto";
+"account encrypt label everything" = "Connessione alla VPN";
 "account encrypt desc everything" = "Il tuo dispositivo si sta connettendo attraverso i nostri server VPN sicuri e tutte le comunicazioni provenienti da o verso il tuo dispositivo vengono crittografate utilizzando algoritmi sicuri. Questo protegge i tuoi dati personali, come i dati bancari o le foto personali, prevenendone il furto in luoghi non sicuri, per esempio utilizzando WiFi pubblici.";
 "account encrypt action turn on" = "Attiva BLOKADA";
 "account encrypt header level" = "Livello di Crittografia";

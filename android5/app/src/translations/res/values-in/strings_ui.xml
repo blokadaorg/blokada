@@ -53,6 +53,7 @@
     <string name="universal_action_clear">Hapus</string>
     <string name="universal_label_help">Bantuan</string>
     <string name="universal_label_welcome">Selamat Datang!</string>
+    <string name="universal_label_none">Tidak ada</string>
     <string name="universal_status_processing">Sedang diproses... Harap tunggu.</string>
     <string name="universal_status_copied_to_clipboard">Disalin ke clipboard</string>
     <string name="universal_status_restart_required">Silakan restart Blokada agar perubahan bisa diterapkan.</string>
@@ -101,6 +102,9 @@
     <string name="home_plus_button_deactivated">BLOKADA+ dinonaktifkan</string>
     <string name="home_plus_button_select_location">Pilih lokasi</string>
     <string name="home_plus_button_location">Lokasi: *%s*</string>
+    <string name="home_level_low">Perlindungan: Rendah</string>
+    <string name="home_level_medium">Perlindungan: Sedang</string>
+    <string name="home_level_high">Perlindungan: Tinggi</string>
     <string name="pack_section_header">Fitur lanjutan</string>
     <string name="pack_section_header_details">Detail Fitur</string>
     <string name="pack_action_install">DAPATKAN</string>
@@ -174,6 +178,7 @@
     <string name="networks_match_any">(apapun)</string>
     <string name="networks_permission_request">Ketuk di sini untuk mengijinkan Blokada mengenali semua jaringan.</string>
     <string name="networks_section_choose_dns">Pilih server DNS</string>
+    <string name="networks_alert_network_dns_and_plus_mode">Blokada akan menonaktifkan Mode Plus untuk sementara waktu ketika DNS jaringan digunakan. Hal ini terjadi karena pengguna tidak akan mungkin mengakses DNS jaringan saat menggunakan VPN. Mode Plus akan kembali aktif secara otomatis ketika perangkat Anda beralih ke jaringan lain.</string>
     <string name="account_section_header_settings">Pengaturan</string>
     <string name="account_status_text">%s Akun BLOKADA Anda aktif sampai %s.</string>
     <string name="account_status_text_libre">Akun BLOKADA Libre Anda telah aktif tanpa batas waktu.</string>
@@ -219,7 +224,7 @@
     <string name="account_encrypt_level_high">Tinggi</string>
     <string name="account_encrypt_label_dns_only">DNS terenkripsi</string>
     <string name="account_encrypt_desc_dns_only">Domain Name System adalah cara perangkat Anda mengetahui di mana mencari situs yang ingin Anda kunjungi. Sayangnya, sebagian besar masih menggunakan DNS yang tidak dienkripsi, yang memungkinkan browsing history Anda dilihat pihak lain. Jika diaktifkan, Blokada memaksa perangkat Anda untuk terkoneksi hanya dengan server DNS yang terenkripsi (disebut juga dengan DNS over HTTPS).</string>
-    <string name="account_encrypt_label_everything">Mengenkripsi semua</string>
+    <string name="account_encrypt_label_everything">Terhubung melalui VPN</string>
     <string name="account_encrypt_desc_everything">Perangkat Anda terhubung melalui server VPN kami yang aman, dan semua komunikasi, dari dan menuju perangkat Anda, dienkripsi dengan algoritma kuat. Ini menjadikan data pribadi Anda, seperti data perbankan atau foto-foto pribadi, aman dari pihak-pihak yang ingin mencurinya jika Anda mengakses internet di tempat yang tidak aman, misalnya jaringan WiFi sebuah kedai kopi.</string>
     <string name="account_encrypt_action_turn_on">Aktifkan BLOKADA</string>
     <string name="account_encrypt_header_level">Tingkat Enkripsi</string>

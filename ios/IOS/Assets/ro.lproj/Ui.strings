@@ -141,6 +141,7 @@
 "home plus button select location" = "Selectați locația";
 "home plus button location" = "Locație: *%@*";
 
+
 "pack section header" = "Caracteristici Avansate";
 "pack section header details" = "Detalii caracteristici";
 "pack action install" = "OBȚINE";
@@ -258,7 +259,6 @@
 "account encrypt level high" = "Ridicat";
 "account encrypt label dns only" = "Criptare DNS";
 "account encrypt desc dns only" = "Domain Name System este modul în care dispozitivul dvs. știe unde să găsească site-urile pe care doriți să le vizitați. Din păcate, cea mai mare parte a internetului încă utilizează DNS necriptat, ceea ce pune istoria navigării în pericol de a fi spionată. Când este activat, Blokada vă forțează dispozitivul să se conecteze doar la serverele DNS criptate (numite și DNS prin HTTPS).";
-"account encrypt label everything" = "Totul este criptat";
 "account encrypt desc everything" = "Dispozitivul dvs. se conectează prin intermediul serverelor noastre de VPN securizate și toate comunicațiile care vin de la sau către dispozitivul dvs. sunt criptate folosind algoritmi puternici. Acest lucru vă protejează informațiile personale, cum ar fi datele bancare sau fotografiile personale, de la a fi furate în locuri nesigure, cum ar fi o cafenea cu WiFi.";
 "account encrypt action turn on" = "Porniți BLOKADA";
 "account encrypt header level" = "Nivel de criptare";

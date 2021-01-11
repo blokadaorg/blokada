@@ -77,6 +77,8 @@
 
 "universal label help" = "المُساعَدة";
 "universal label welcome" = "مرحباً !";
+// Common label when some feature has no setting
+"universal label none" = "لا يوجد";
 "universal status processing" = "جارِ المعالجة... انتظر من فضلك.";
 "universal status copied to clipboard" = "تَمّ النسخ إلى الحافظة";
 "universal status restart required" = "الرجاء إعادة تشغيل التطبيق لتصبح التغييرات سارية المفعول.";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "معطَّل BLOKADA+";
 "home plus button select location" = "حدِّد الموقع";
 "home plus button location" = "الموقع: *%@*";
+
+"home level low" = "الحماية: منخفضة";
+"home level medium" = "الحماية: متوسّطة";
+"home level high" = "الحماية: عالية";
+
 
 "pack section header" = "الميّزات المتقدّمة";
 "pack section header details" = "تفاصيل المَيِّزة";
@@ -225,6 +232,7 @@
 "networks match any" = "(أي)";
 "networks permission request" = "لمزيد من التحكّم ، انقر هنا و دع التطبيق يتعرّف على جميع الشبكات.";
 "networks section choose dns" = "اختر DNS";
+"networks alert network dns and plus mode" = "سيقوم Blokada مؤقّتاً بتعطيل وضع Plus عند استخدام DNS للشبكة. لأنّه لا يمكن الوصول إلى DNS للشبكة أثناء اتصال VPN. سيتم استعادة وضع Plus تلقائيّاً عندما ينتقل جهازك إلى شبكة أُخرى.";
 
 
 "account section header settings" = "الإعدادات";
@@ -278,7 +286,7 @@
 "account encrypt level high" = "قُصوى";
 "account encrypt label dns only" = "تشفير الـ DNS";
 "account encrypt desc dns only" = "نظام اسم النطاق هو كيف يعرف جهازك أين يمكن العثور على المواقع التي تريد زيارتها. لسوء الحظ، لا يزال معظم الإنترنت يستخدم DNS غير مشفر، ممّا يُعَرِّض سجل التصفح الخاص بك لخطر التجسّس. عند التمكين، يُجبِر بلوكادا جهازك على الإتصال فقط بخوادم DNS المشفرة (تُسمّى أيضاً DNS عبر HTTPS).";
-"account encrypt label everything" = "تشفير كل شيء";
+"account encrypt label everything" = "جارِ الاتصال بـ VPN";
 "account encrypt desc everything" = "جهازك يتصل عبر خوادم VPN الآمنة الخاصّة بنا، وجميع الإتصالات القادمة من جهازك أو إليه يتمّ تشفيرها باستخدام خوارزميات قويّة. هذا يحمي معلوماتك الشخصيّة، مثل التفاصيل المصرفيّة أو الصور الشخصيّة، من السرقة في أماكن غير آمنة، مثل WiFi.";
 "account encrypt action turn on" = "تشغيل BLOKADA";
 "account encrypt header level" = "مستوى التشفير";

@@ -125,6 +125,7 @@
 "home plus button select location" = "Valitse sijainti";
 "home plus button location" = "Sijainti: *%@*";
 
+
 "pack section header" = "Edistyneet ominaisuudet";
 "pack section header details" = "Ominaisuuden yksityiskohdat";
 "pack action install" = "HAE";
@@ -224,7 +225,6 @@
 "account encrypt level high" = "Korkea";
 "account encrypt label dns only" = "Salataan DNS";
 "account encrypt desc dns only" = "Verkkotunnusjärjestelmä (DNS) on miten laite tietää mistä löytää verkkosivustot, joissa haluat käydä. Valitettavasti suurin osa Internetistä käyttää edelleen salaamatonta DNS:ää, mikä vaarantaa selaushistorian vakoilun. Kun tämä asetus on käytössä, Blokada pakottaa laitteen muodostamaan yhteyden vain salattuihin DNS-palvelimiin (jota kutsutaan myös DNS HTTPS:n kautta).";
-"account encrypt label everything" = "Salataan kaikki";
 "account encrypt desc everything" = "Laitteesi muodostaa yhteyden suojattujen VPN-palvelimiemme kautta ja kaikki laitteestasi tuleva tai siihen tuleva kommunikaatio on salattu vahvoilla algoritmeilla. Tämä suojaa henkilökohtaisia tietojasi, kuten pankkitietoja tai henkilökohtaisia valokuvia varastamiselta turvattomissa paikoissa, kuten kahvilan WiFi:ssä.";
 "account encrypt action turn on" = "Käynnistä BLOKADA";
 "account encrypt header level" = "Salaustaso";

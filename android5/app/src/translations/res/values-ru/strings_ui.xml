@@ -53,6 +53,7 @@
     <string name="universal_action_clear">Очистить</string>
     <string name="universal_label_help">Помощь</string>
     <string name="universal_label_welcome">Добро пожаловать!</string>
+    <string name="universal_label_none">Нет</string>
     <string name="universal_status_processing">Обработка... Пожалуйста, подождите.</string>
     <string name="universal_status_copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="universal_status_restart_required">Пожалуйста, перезапустите приложение, чтобы изменения вступили в силу.</string>
@@ -101,6 +102,9 @@
     <string name="home_plus_button_deactivated">BLOKADA+ деактивирована</string>
     <string name="home_plus_button_select_location">Выберите местоположение</string>
     <string name="home_plus_button_location">Местоположение: *%s*</string>
+    <string name="home_level_low">Защита: Низкая</string>
+    <string name="home_level_medium">Защита: Средняя</string>
+    <string name="home_level_high">Защита: Высокая</string>
     <string name="pack_section_header">Расширенные возможности</string>
     <string name="pack_section_header_details">Описание функции</string>
     <string name="pack_action_install">ПОЛУЧИТЬ</string>
@@ -174,6 +178,7 @@
     <string name="networks_match_any">(любая)</string>
     <string name="networks_permission_request">Чтобы получить больше контроля, нажмите здесь и разрешите приложению распознавать все сети.</string>
     <string name="networks_section_choose_dns">Выбрать DNS</string>
+    <string name="networks_alert_network_dns_and_plus_mode">Blokada временно отключает режим Plus при использовании DNS сети. Это связано с тем, что при использовании VPN невозможно получить доступ к DNS сети. Режим Plus будет автоматически восстановлен, когда ваше устройство переключится на другую сеть.</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Ваш аккаунт BLOKADA %s активен до %s.</string>
     <string name="account_status_text_libre">Ваш аккаунт BLOKADA Libre активен бессрочно.</string>
@@ -219,7 +224,7 @@
     <string name="account_encrypt_level_high">Высокий</string>
     <string name="account_encrypt_label_dns_only">Шифрование DNS</string>
     <string name="account_encrypt_desc_dns_only">Система доменных имен - это механизм, с помощью которого ваше устройство узнает, где найти веб-сайты, которые вы хотите посетить. К сожалению, большая часть интернета все еще использует незашифрованный DNS, что подвергает вашу историю просмотров риску прослушивания. При включении, Blokada принудительно устанавливает соединение устройства только с зашифрованными DNS-серверами (также называемыми DNS через HTTPS).</string>
-    <string name="account_encrypt_label_everything">Шифрование всего</string>
+    <string name="account_encrypt_label_everything">Подключение через VPN</string>
     <string name="account_encrypt_desc_everything">Ваше устройство подключается через наши защищенные VPN-серверы, и весь трафик, проходящий через него, шифруется с помощью надежных алгоритмов. Это защищает вашу личную информацию, такую как банковские реквизиты или личные фотографии, от кражи в небезопасных местах, таких как WiFi в кафе.</string>
     <string name="account_encrypt_action_turn_on">Включить BLOKADA</string>
     <string name="account_encrypt_header_level">Уровень шифрования</string>

@@ -77,6 +77,8 @@
 
 "universal label help" = "Помощь";
 "universal label welcome" = "Добро пожаловать!";
+// Common label when some feature has no setting
+"universal label none" = "Нет";
 "universal status processing" = "Обработка... Пожалуйста, подождите.";
 "universal status copied to clipboard" = "Скопировано в буфер обмена";
 "universal status restart required" = "Пожалуйста, перезапустите приложение, чтобы изменения вступили в силу.";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "BLOKADA+ деактивирована";
 "home plus button select location" = "Выберите местоположение";
 "home plus button location" = "Местоположение: *%@*";
+
+"home level low" = "Защита: Низкая";
+"home level medium" = "Защита: Средняя";
+"home level high" = "Защита: Высокая";
+
 
 "pack section header" = "Расширенные возможности";
 "pack section header details" = "Описание функции";
@@ -225,6 +232,7 @@
 "networks match any" = "(любая)";
 "networks permission request" = "Чтобы получить больше контроля, нажмите здесь и разрешите приложению распознавать все сети.";
 "networks section choose dns" = "Выбрать DNS";
+"networks alert network dns and plus mode" = "Blokada временно отключает режим Plus при использовании DNS сети. Это связано с тем, что при использовании VPN невозможно получить доступ к DNS сети. Режим Plus будет автоматически восстановлен, когда ваше устройство переключится на другую сеть.";
 
 
 "account section header settings" = "Настройки";
@@ -278,7 +286,7 @@
 "account encrypt level high" = "Высокий";
 "account encrypt label dns only" = "Шифрование DNS";
 "account encrypt desc dns only" = "Система доменных имен - это механизм, с помощью которого ваше устройство узнает, где найти веб-сайты, которые вы хотите посетить. К сожалению, большая часть интернета все еще использует незашифрованный DNS, что подвергает вашу историю просмотров риску прослушивания. При включении, Blokada принудительно устанавливает соединение устройства только с зашифрованными DNS-серверами (также называемыми DNS через HTTPS).";
-"account encrypt label everything" = "Шифрование всего";
+"account encrypt label everything" = "Подключение через VPN";
 "account encrypt desc everything" = "Ваше устройство подключается через наши защищенные VPN-серверы, и весь трафик, проходящий через него, шифруется с помощью надежных алгоритмов. Это защищает вашу личную информацию, такую как банковские реквизиты или личные фотографии, от кражи в небезопасных местах, таких как WiFi в кафе.";
 "account encrypt action turn on" = "Включить BLOKADA";
 "account encrypt header level" = "Уровень шифрования";

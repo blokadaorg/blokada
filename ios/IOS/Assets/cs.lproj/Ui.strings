@@ -77,6 +77,8 @@
 
 "universal label help" = "Nápověda";
 "universal label welcome" = "Vítejte!";
+// Common label when some feature has no setting
+"universal label none" = "Žádné";
 "universal status processing" = "Zpracovávám... Čekejte prosím.";
 "universal status copied to clipboard" = "Zkopírováno do schránky";
 "universal status restart required" = "Restartujte prosím aplikaci, aby se změny projevily.";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "BLOKADA+ deaktivována";
 "home plus button select location" = "Vybrat umístění";
 "home plus button location" = "Umístění: *%@*";
+
+"home level low" = "Ochrana: Nízká";
+"home level medium" = "Ochrana: Střední";
+"home level high" = "Ochrana: Vysoká";
+
 
 "pack section header" = "Pokročilé funkce";
 "pack section header details" = "Podrobnosti o funkci";
@@ -206,6 +213,27 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blokované";
 
+"networks section header" = "Sítě";
+"networks section label" = "Upravit nastavení pro WiFi a mobilní sítě";
+"networks label all networks" = "Všechny sítě";
+"networks action network specific" = "Klepnutím sem upravíte výchozí nastavení. Chcete-li, aby se aplikace v některých sítích chovala odlišně, klepněte níže.";
+"networks label configuration active" = "Tato nastavení jsou aktuálně aktivní";
+"networks label configuration enabled" = "Není připojeno k této síti";
+"networks label configuration inactive" = "Klepnutím upravíte nastavení pro tuto síť";
+"networks label details default network" = "Níže uvedená nastavení jsou ve výchozím nastavení použita pro všechny sítě. Můžete je upravit pro vybrané sítě (na předchozí obrazovce).";
+"networks action encrypt dns" = "Šifrovat DNS";
+"networks action use dns" = "Použít DNS: %@";
+"networks action use network dns" = "Preferovat síťovou DNS";
+"networks label specific network" = "Nastavte, co by se mělo stát, když se vaše zařízení připojí k této síti.";
+"networks label network type" = "Typ sítě";
+"networks type wifi" = "WiFi síť";
+"networks type mobile" = "Mobilní síť";
+// As in "any (wifi) network"
+"networks match any" = "(libovolná)";
+"networks permission request" = "Chcete-li mít větší kontrolu, klepněte sem a nechte aplikaci rozpoznat všechny sítě.";
+"networks section choose dns" = "Zvolte DNS";
+"networks alert network dns and plus mode" = "Blokada dočasně zakáže režim Plus, kdykoli se použije síťové DNS. Je to proto, že ve VPN není možné přistupovat k síťovému DNS. Jakmile se zařízení přepne do jiné sítě, režim Plus se automaticky obnoví.";
+
 
 "account section header settings" = "Nastavení";
 "account status text" = "Váš účet BLOKADA %@ je aktivní do %@.";
@@ -258,7 +286,7 @@
 "account encrypt level high" = "Vysoký";
 "account encrypt label dns only" = "Šifrování DNS";
 "account encrypt desc dns only" = "Domain Name System (DNS) je systém který ví, kde najít weby, které chcete navštívit. Většina Internetu bohužel stále používá nešifrované DNS, což ohrožuje vaši historii prohlížení. Pokud je povoleno, Blokada nutí vaše zařízení, aby se připojovalo pouze k šifrovaným serverům DNS (nazývaným také DNS přes HTTPS).";
-"account encrypt label everything" = "Šifrování všeho";
+"account encrypt label everything" = "Připojování přes VPN";
 "account encrypt desc everything" = "Vaše zařízení se připojuje prostřednictvím našich zabezpečených serverů VPN a veškerá komunikace přicházející z nebo do vašeho zařízení je šifrována pomocí silných algoritmů. Toto chrání vaše osobní údaje, jako jsou bankovní údaje nebo osobní fotografie, před odcizením na nezabezpečených místech, jako je Wi-Fi internet v kavárně.";
 "account encrypt action turn on" = "Zapnout BLOKADU";
 "account encrypt header level" = "Úroveň šifrování";
@@ -385,6 +413,8 @@
 
 "intro header" = "Blokada je aktivní!";
 "intro text" = "Modrý kruh znamená, že Blokada funguje.\n\nPamatujte, že některé reklamy, například na YouTube, nelze blokovat. V mnoha jiných aplikacích si však všimnete rozdílu.\n\nVždy doporučujeme aktivovat VPN / Připojit na vyžádání v systémovém nastavení.";
+
+"location region worldwide" = "Všude";
 "location region america" = "Amerika";
 "location region europe" = "Evropa";
 "location region asia" = "Asie";

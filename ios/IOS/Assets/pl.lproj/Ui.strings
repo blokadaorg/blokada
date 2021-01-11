@@ -77,6 +77,8 @@
 
 "universal label help" = "Pomoc";
 "universal label welcome" = "Witaj!";
+// Common label when some feature has no setting
+"universal label none" = "Brak";
 "universal status processing" = "Przetwarzanie, proszę czekać...";
 "universal status copied to clipboard" = "Skopiowano do schowka";
 "universal status restart required" = "Proszę uruchom ponownie aplikację, by zmiany zostały zastosowane.";
@@ -140,6 +142,11 @@
 "home plus button deactivated" = "BLOKADA+ wyłączona";
 "home plus button select location" = "Wybierz lokalizację";
 "home plus button location" = "Lokalizacja: *%@*";
+
+"home level low" = "Ochrona: niska";
+"home level medium" = "Ochrona: średnia";
+"home level high" = "Ochrona: wysoka";
+
 
 "pack section header" = "Funkcje";
 "pack section header details" = "Szczegóły";
@@ -225,6 +232,7 @@
 "networks match any" = "(dowolna)";
 "networks permission request" = "Aby mieć większą kontrolę, stuknij tutaj i pozwól aplikacji rozpoznawać wszystkie sieci.";
 "networks section choose dns" = "Wybierz DNS";
+"networks alert network dns and plus mode" = "Blokada tymczasowo wyłączy tryb Plus za każdym razem, gdy używany jest sieciowy DNS. Dzieje się tak dlatego, że dostęp do sieciowego DNS w VPN nie jest możliwy. Tryb Plus zostanie automatycznie przywrócony, gdy urządzenie przełączy się na inną sieć.";
 
 
 "account section header settings" = "Ustawienia";
@@ -278,7 +286,7 @@
 "account encrypt level high" = "Wysoki";
 "account encrypt label dns only" = "Szyfrowanie DNS";
 "account encrypt desc dns only" = "System nazw domen (DNS) to mechanizm, dzięki któremu Twoje urządzenie wie gdzie znaleźć witryny, które chcesz odwiedzić. Niestety większość Internetu nadal używa niezaszyfrowanego DNS, co naraża Twoją historię przeglądania i aktywności online na ryzyko podsłuchu. Po włączeniu, Blokada zmusza Twoje urządzenie do łączenia się tylko z zaszyfrowanymi serwerami DNS (nazywa się to także \"DNS przez HTTPS\").";
-"account encrypt label everything" = "Szyfrowanie wszystkiego";
+"account encrypt label everything" = "Łączenie poprzez VPN";
 "account encrypt desc everything" = "Twoje urządzenie łączy się przez nasze bezpieczne serwery VPN, a wszelka komunikacja przesyłana z, lub do, Twojego urządzenia jest szyfrowana za pomocą silnych algorytmów. Chroni to Twoje dane osobowe, takie jak dane bankowe lub zdjęcia osobiste, przed kradzieżą w niezabezpieczonych miejscach, jak w kawiarni WiFi.";
 "account encrypt action turn on" = "Włącz BLOKADA";
 "account encrypt header level" = "Poziom szyfrowania";

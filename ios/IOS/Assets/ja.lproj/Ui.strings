@@ -24,7 +24,7 @@
 "error account inactive after restore" = "有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error account invalid" = "アカウントを確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
-"error fetching data" = "この操作は完了できませんでした。オンラインであることを確認し、時間を置いてもう一度やり直してください。 問題が解決しない場合は、ヘルプからご連絡ください。";
+"error fetching data" = "この操作は完了できませんでした。オンラインであることを確認し、時間を置いてもう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error tunnel" = "VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokadaのVPNプロファイルを削除して再度お試しください。";
 "error vpn" = "VPN接続を確立できませんでした。デバイスを再起動するか、システム設定でBlokadaのVPNプロファイルを削除して再度お試しください。";
 "error vpn perms" = "VPNプロファイルを作成する権限がありません。";
@@ -33,11 +33,11 @@
 "error vpn expired" = "VPNは無効です。BLOKADA+を引き続き使用するには、サブスクリプションを更新してください。";
 "error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error payment failed" = "現在、お支払いいただくことができません。オンラインであることを確認して、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error payment failed alternative" = "お支払いを完了できませんでした。入力内容が正しいことを確認して、もう一度やり直してください。 問題が解決しない場合は、ヘルプからご連絡ください。";
-"error payment not available" = "このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国での購入はまだ処理されていません。";
+"error payment failed alternative" = "お支払いを完了できませんでした。入力内容が正しいことを確認して、もう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error payment not available" = "このデバイスではお支払いはご利用いただけません。Apple Payが有効になっていないか、お住まいの国での購入はまだ処理されていません。";
 "error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
-"error pack install" = "この機能をインストール(またはアンインストール) できませんでした。後でもう一度お試しください。";
-"error location failed fetching" = "場所を取得できませんでした。";
+"error pack install" = "この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。";
+"error location failed fetching" = "接続先を取得できませんでした。";
 "error unknown" = "不明な問題が発生しました。もう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error blocka dns in filtering mode" = "Blokada DNSは現在Plusモードでのみサポートされています。別のDNSを選択して再度お試し下さい。";
 
@@ -77,6 +77,8 @@
 
 "universal label help" = "ヘルプ";
 "universal label welcome" = "ようこそ！";
+// Common label when some feature has no setting
+"universal label none" = "未設定";
 "universal status processing" = "処理中です… しばらくお待ちください。";
 "universal status copied to clipboard" = "クリップボードにコピーしました";
 "universal status restart required" = "変更を反映するにはアプリを再起動してください。";
@@ -103,7 +105,7 @@
 "account active forever full" = "無期限有効";
 
 "main ask for permissions header" = "権限を許可してください";
-"main ask for permissions description" = "Blokadaは広告をブロックするためにVPN設定を使用しています。次のステップでVPN権限を許可するよう求められます。";
+"main ask for permissions description" = "Blokadaは広告をブロックするためにVPN権限を使用しています。次のステップでVPN権限を許可するよう求められます。";
 
 "main share message" = "Blokada for iOSは、%@の広告とトラッカーをブロックしました！";
 
@@ -141,6 +143,11 @@
 "home plus button deactivated" = "BLOKADA+は無効です";
 "home plus button select location" = "接続先を選択";
 "home plus button location" = "接続先：*%@*";
+
+"home level low" = "保護レベル：低";
+"home level medium" = "保護レベル：中";
+"home level high" = "保護レベル：高";
+
 
 "pack section header" = "高度な機能";
 "pack section header details" = "機能の詳細";
@@ -208,7 +215,7 @@
 "userdenied tab blocked" = "ブロックリスト";
 
 "networks section header" = "ネットワーク";
-"networks section label" = "Wi-Fi とモバイルネットワークの設定を管理する";
+"networks section label" = "Wi-Fiとモバイルネットワークの設定を管理する";
 "networks label all networks" = "すべてのネットワーク";
 "networks action network specific" = "デフォルトの設定を変更するには、ここをタップしてください。一部のネットワークでアプリの動作を変更するには、下をタップしてください。";
 "networks label configuration active" = "これらの設定は有効です";
@@ -217,15 +224,16 @@
 "networks label details default network" = "以下の設定は、すべてのネットワークにデフォルトで適用されます。任意のネットワークの設定を（前の画面で）上書きできます。";
 "networks action encrypt dns" = "DNSを暗号化";
 "networks action use dns" = "DNSを使用：%@";
-"networks action use network dns" = "ネットワーク DNS";
+"networks action use network dns" = "ネットワークDNS";
 "networks label specific network" = "このネットワークに接続されたときの動作を設定します。";
 "networks label network type" = "ネットワークの種類";
-"networks type wifi" = "Wi-Fi ネットワーク";
+"networks type wifi" = "Wi-Fiネットワーク";
 "networks type mobile" = "モバイルネットワーク";
 // As in "any (wifi) network"
 "networks match any" = "（任意）";
 "networks permission request" = "さらにコントロールするには、タップしてアプリにすべてのネットワークを認識させます。";
-"networks section choose dns" = "DNS を選択";
+"networks section choose dns" = "DNSを選択";
+"networks alert network dns and plus mode" = "Blokadaは、ネットワークDNSが使用されるたびにBlokada Plus VPNを一時的に無効にします。これはVPNでネットワークDNSにアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPNは自動的に復元されます。";
 
 
 "account section header settings" = "設定";
@@ -244,7 +252,7 @@
 "account action create" = "新しいアカウントを生成";
 "account action about" = "アプリについて";
 "account action tap to show" = "タップして表示";
-"account action restoring" = "アカウントを復元中: %@";
+"account action restoring" = "アカウントを復元中：%@";
 "account label enter to continue" = "続行するにはアカウントIDを入力してください";
 "account restore description" = "アカウントIDを紛失または忘れてしまった場合、 当社のサポートに連絡してください。その際、お客様の購入を確認するためにクレジットカードの下4桁またはPayPalメールを提供してください。";
 "account create description" = "これはあなたのアカウントIDです。サブスクリプションにアクセスする唯一の方法です。他の人から見られない場所で確実に保管してください。";
@@ -265,12 +273,12 @@
 "account unlock to show" = "ロックを解除してアカウントIDを表示する";
 
 "account header logout" = "購入を復元";
-"account logout description" = "別のアカウントIDを入力するか、戻って既存のアカウントを引き続き使用してください (アカウントを利用せずこのアプリを使用することはできません)";
+"account logout description" = "別のアカウントIDを入力するか、戻って既存のアカウントを引き続き使用してください（アカウントを利用せずこのアプリを使用することはできません）";
 "account id status unchanged" = "(変更なし)";
 "account action how to restore" = "古いアカウントを復元する方法";
 
 "account subscription days remaining" = "残りの日数：%@";
-"account devices remaining" = "残りのデバイス: %@";
+"account devices remaining" = "残りのデバイス：%@";
 "account devices not available" = "利用できません";
 "account devices out of" = "%@ / %@";
 
@@ -278,15 +286,15 @@
 "account encrypt level medium" = "中";
 "account encrypt level high" = "高";
 "account encrypt label dns only" = "暗号化されたDNS";
-"account encrypt desc dns only" = "DNSは、ドメイン名からWebサイトのあるサーバーの場所を検索するシステムです。ほとんどの場合、暗号化されていないDNSを使用しているため、閲覧履歴がスパイされる危険性があります。Blokadaはデバイスに暗号化されたDNSサーバー (DNS over HTTPSとも呼ばれます) のみに接続するように設定できます。";
-"account encrypt label everything" = "通信は暗号化されています";
-"account encrypt desc everything" = "デバイスは安全なVPNサーバーを介して接続されており、デバイスとの間のすべての通信は強力なアルゴリズムを使用して暗号化されています。 これにより、銀行取引やプライベートな写真などの個人情報が、コーヒーショップのWi-Fiなどの安全でない場所で盗まれるのを防ぎます。";
+"account encrypt desc dns only" = "DNSは、ドメイン名からWebサイトのあるサーバーの場所を検索するシステムです。ほとんどの場合、暗号化されていないDNSを使用しているため、閲覧履歴がスパイされる危険性があります。Blokadaはデバイスに暗号化されたDNSサーバー（DNS over HTTPSとも呼ばれます）のみに接続するように設定できます。";
+"account encrypt label everything" = "VPN経由で接続中";
+"account encrypt desc everything" = "デバイスは安全なVPNサーバーを介して接続されており、デバイスとの間のすべての通信は強力なアルゴリズムを使用して暗号化されています。これにより、銀行取引やプライベートな写真などの個人情報が、コーヒーショップのWi-Fiなどの安全でない場所で盗まれるのを防ぎます。";
 "account encrypt action turn on" = "BLOKADAをONにする";
 "account encrypt header level" = "暗号化レベル";
 "account encrypt label level" = "レベル";
 "account encrypt label level low" = "低：暗号化なし";
-"account encrypt label level medium" = "中: DNSの暗号化";
-"account encrypt label level high" = "高: すべての暗号化";
+"account encrypt label level medium" = "中：DNSの暗号化";
+"account encrypt label level high" = "高：すべての暗号化";
 "account encrypt header explanation" = "DNSとは、あなたのデバイスにウェブサイトのあるサーバーを案内するシステムです。BLOKADAは暗号化されたサーバーのみをサポートしています。";
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "DNSとは？";
@@ -296,7 +304,7 @@
 
 "account lease label devices list" = "これらのデバイスはあなたのアカウントに接続されています。";
 "account lease label devices" = "デバイス";
-"account lease label this device" = " (このデバイス)";
+"account lease label this device" = " （このデバイス）";
 "account lease label name" = "デバイス名";
 "account lease label location" = "接続先";
 "account lease action generate" = "設定を作成する";
@@ -311,7 +319,7 @@
 "account support action kb" = "サポートFAQ";
 
 "payment header activated" = "アクティベートされました！";
-"payment activated description" = "BlokadaがPlusモードに切り替わり、安全な接続先の1つを介して接続します。 どれを選択すればよいかわからない場合は、最も近いものをお勧めします。";
+"payment activated description" = "BlokadaがPlusモードに切り替わり、安全な接続先の1つを介して接続します。どれを選択すればよいかわからない場合は、最も近いものをお勧めします。";
 "payment action choose location" = "接続先を選択";
 
 "payment title" = "VPNサービスにアップグレードして、*あなたのプライバシー*を管理し続けましょう。";
@@ -322,9 +330,9 @@
 "payment feature title faster connection" = "より高速な接続";
 "payment feature desc faster connection" = "世界のさまざまな地域のサーバーで最高100Mbpsのスピードを実現します。";
 "payment feature title devices" = "最大5台のデバイス";
-"payment feature desc devices" = "1つのアカウントで最大5つのデバイス (iOS、Android、PC) を使用できます。";
+"payment feature desc devices" = "1つのアカウントで最大5つのデバイス（iOS、Android、PC）を使用できます。";
 "payment feature title no ads" = "広告のない快適なブラウジング";
-"payment feature desc no ads" = "世界的に有名な Blokada の広告ブロック技術を使用し、保護レベルを向上させ、データをプライベートに保ちます。";
+"payment feature desc no ads" = "世界的に有名なBlokadaの広告ブロック技術を使用し、保護レベルを向上させ、データをプライベートに保ちます。";
 "payment feature title support" = "丁寧なサポート";
 "payment feature desc support" = "当社のカスタマーサポートと活気のあるオープンソースコミュニティのおかげで、質問に迅速に対応できます。";
 "payment action see all features" = "すべての機能を見る";
@@ -348,7 +356,7 @@
 "payment redirect desc" = "しばらくお待ちください。このプロセスは時間がかかります。";
 
 "payment ongoing title" = "お支払いは現在処理中です。";
-"payment ongoing desc" = "クレジットカードの支払いは数分で完了します。暗号通貨の支払いは通常、あなたが選択した取引手数料に応じて1時間以内に完了します。PayPalの場合、最大24時間かかる場合があります。 アカウントの準備が完了するとリダイレクトされます。この画面を閉じて、後で再度表示することもできます。 取引に時間がかかりすぎる場合は、お問い合わせください。";
+"payment ongoing desc" = "クレジットカードの支払いは数分で完了します。暗号通貨の支払いは通常、あなたが選択した取引手数料に応じて1時間以内に完了します。PayPalの場合、最大24時間かかる場合があります。アカウントの準備が完了するとリダイレクトされます。この画面を閉じて、後で再度表示することもできます。取引に時間がかかりすぎる場合は、お問い合わせください。";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "変更";
@@ -366,7 +374,7 @@
 "payment package one month" = "1ヶ月";
 "payment package six months" = "6ヶ月";
 "payment package twelve months" = "12ヶ月";
-"payment label discount" = "%@ を保存 (%@ / 月)";
+"payment label discount" = "%@ を保存（%@ / 月）";
 "payment label country" = "国";
 
 "payment euro desc" = "私たちはヨーロッパを拠点としているため、ユーロでお支払いいただいています。10ユーロはおよそ12ドルです。";
@@ -390,7 +398,7 @@
 // A setting for changing if to open links internally in the app, or by using this device's web browser
 "app settings browser label" = "リンクを開く";
 "app settings browser internal" = "内部ブラウザー";
-"app settings browser external" = "外部ブラウザー (可能な場合)";
+"app settings browser external" = "外部ブラウザー（可能な場合）";
 "app settings ipv6 label" = "IPv6を許可する";
 "app settings section system" = "システム";
 "app settings action app info" = "アプリ情報";
@@ -405,7 +413,7 @@
 "app settings section use foreground" = "スリープモードにしない";
 
 "intro header" = "Blokadaは有効です！";
-"intro text" = "青いリングはBlokadaが動作していることを意味します。\n\n YouTubeなどの一部の広告はブロックできません。 ただし、他の多くのアプリには有効です。\n\n システム設定で常時接続VPN (Android) / オンデマンド接続 (iOS) を有効にすることをお勧めします。";
+"intro text" = "青いリングはBlokadaが動作していることを意味します。\n\n YouTubeなどの一部の広告はブロックできません。ただし、他の多くのアプリには有効です。\n\n システム設定で常時接続VPN（Android）/ オンデマンド接続（iOS）を有効にすることをお勧めします。";
 
 "location region worldwide" = "すべての場所";
 "location region america" = "アメリカ";
@@ -442,27 +450,27 @@
 "homepage download option android four" = "Blokada 4 for Android";
 "homepage download option ios" = "Blokada 5 for iOS";
 "homepage download option other" = "その他のOS用のBlokada";
-"homepage download desc other" = "現在、他のプラットフォームでBlokadaを使用できません。 ただし、Blokada Plusユーザーは、Windows、Linux、Mac、およびWireguardが利用可能なその他のプラットフォームでVPNを使用できます。";
+"homepage download desc other" = "現在、他のプラットフォームでBlokadaを使用できません。ただし、Blokada Plusユーザーは、Windows、Linux、Mac、およびWireguardが利用可能なその他のプラットフォームでVPNを使用できます。";
 "homepage download desc ios" = "Blokada 5はApp Storeで入手できます。";
 "homepage download action ios" = "App Storeを開く";
 "homepage download desc android five" = "これは、<b>Android7以降を搭載したスマートフォンやタブレット向けの新しい推奨バージョン</b>です。Blokada 4と比較して、よりシンプルで高速です。";
-"homepage download action android five" = "Blokada 5 .apk";
-"homepage download action android five beta" = "Beta .apk";
-"homepage download desc android slim" = "Blokada Slim は <b>軽量版のアプリ</b>であり、Google Play ポリシーで許可されている機能のみが含まれています。";
+"homepage download action android five" = "Blokada 5.apk";
+"homepage download action android five beta" = "Beta.apk";
+"homepage download desc android slim" = "Blokada Slimは<b>軽量版のアプリ</b>であり、Google Play ポリシーで許可されている機能のみが含まれています。";
 "homepage download action android slim" = "Google Playを開く";
 "homepage download desc android four" = "私たちはまだBlokadaの古いバージョンをメンテナンスしています。Blokada 5 にない機能を搭載し、古いデバイスやAndroid TVでも動作します。";
-"homepage download action android four" = "Blokada 4 .apk";
-"homepage download action android four fdroid" = "Open F-Droid";
+"homepage download action android four" = "Blokada 4.apk";
+"homepage download action android four fdroid" = "F-Droidを開く";
 
 "homepage community header" = "コミュニティ";
-"homepage community desc" = "Blokadaはただのプライバシーアプリではありません。Blokadaはデジタルプライバシーと幸福を大切にする人々のコミュニティでもあります。フォーラムで問題を話し合うことができます。 他のソーシャルメディアやチャットから連絡することもできます。";
+"homepage community desc" = "Blokadaはただのプライバシーアプリではありません。Blokadaはデジタルプライバシーと幸福を大切にする人々のコミュニティでもあります。フォーラムで問題を話し合うことができます。他のソーシャルメディアやチャットから連絡することもできます。";
 "homepage community cta subheader" = "ぜひご参加ください！";
 "homepage community cta desc" = "私たちはユーザーのフィードバックに基づいています。何を考えているのか、何を改善し、何を維持すべきなのかを教えてください。";
 "homepage community cta action" = "フォーラムに移動";
 "homepage community opinions" = "ユーザーからの意見をいくつか紹介します。";
 
 "homepage support header" = "プロジェクトを支援する";
-"homepage support desc" = "私たちの活動を気に入っていただけるなら、私たちをサポートすることを検討してください。それにより、新しい機能と改善を開発し続けることができます。 そして、Blokadaは永遠に無料かつオープンソースであり続けることができます。";
+"homepage support desc" = "私たちの活動を気に入っていただけるなら、私たちをサポートすることを検討してください。それにより、新しい機能と改善を開発し続けることができます。そして、Blokadaは永遠に無料かつオープンソースであり続けることができます。";
 "homepage support cta header" = "Blokadaはあなたのご協力を必要としています";
 "homepage support cta desc" = "Blokadaはオープンソースプロジェクトです。つまり、常に無料であり、安全性に影響を及ぼす隠れた問題がないことを確認することができるということです。私たちは、これが信頼できるプライバシーアプリを開発する唯一の方法だと確信しています。";
 "homepage support cta desc more" = "しかし、Blokadaのような質の高いアプリを開発するには、かなりのリソースが必要です。このプロジェクトは、あなたのような素晴らしい人々の支援のおかげで存在します！";

@@ -141,6 +141,11 @@
 "home plus button select location" = "Konum seçin";
 "home plus button location" = "Konum: *%@*";
 
+"home level low" = "Koruma: Düşük";
+"home level medium" = "Koruma: Orta";
+"home level high" = "Koruma: Yüksek";
+
+
 "pack section header" = "Gelişmiş Özellikler";
 "pack section header details" = "Özellik Ayrıntıları";
 "pack action install" = "YÜKLE";
@@ -225,6 +230,7 @@
 "networks match any" = "(herhangi)";
 "networks permission request" = "Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.";
 "networks section choose dns" = "DNS seç";
+"networks alert network dns and plus mode" = "Ağ DNS'si kullanıldığında Blokada geçici olarak Plus Modunu devre dışı bırakır. Bunun nedeni, VPN'de ağ DNS'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.";
 
 
 "account section header settings" = "Ayarlar";
@@ -278,7 +284,7 @@
 "account encrypt level high" = "Yüksek";
 "account encrypt label dns only" = "DNS şifreleniyor";
 "account encrypt desc dns only" = "Alan Adı Sistemi, cihazınızın ziyaret etmek istediğiniz web sitelerini nerede bulacağını bilme şeklidir. Ne yazık ki, İnternet'in çoğu hala şifrelenmemiş DNS kullanıyor, bu da tarama geçmişinizi casusluk riskiyle karşı karşıya bırakıyor. Etkinleştirildiğinde Blokada, cihazınızı yalnızca şifrelenmiş DNS sunucularına (HTTPS üzerinden DNS olarak da adlandırılır) bağlanmaya zorlar.";
-"account encrypt label everything" = "Her şey şifreleniyor";
+"account encrypt label everything" = "VPN üzerinden bağlanıyor";
 "account encrypt desc everything" = "Cihazınız güvenli VPN sunucularımız üzerinden bağlanıyor ve cihazınızdan gelen tüm iletişim, güçlü algoritmalar kullanılarak şifreleniyor. Bu, banka bilgileri veya kişisel fotoğraflar gibi kişisel bilgilerinizin, kahve dükkanındaki WiFi gibi güvenli olmayan yerlerde çalınmasını önler.";
 "account encrypt action turn on" = "BLOKADA'yı aç";
 "account encrypt header level" = "Şifreleme Seviyesi";

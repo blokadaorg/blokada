@@ -22,13 +22,13 @@
 "recommended" = "empfohlen";
 "official" = "offiziell";
 "adblocking" = "werbeblocker";
-"tracking" = "verfolgen";
+"tracking" = "tracking";
 "privacy" = "datenschutz";
-"adult" = "erwachsene/r";
+"adult" = "erwachsen";
 "social" = "sozial";
 "regional" = "regional";
 "fake news" = "falschnachrichten";
-"gambling" = "spielen";
+"gambling" = "glücksspiel";
 "youtube" = "youtube";
 "phishing" = "phishing";
 "security" = "sicherheit";
