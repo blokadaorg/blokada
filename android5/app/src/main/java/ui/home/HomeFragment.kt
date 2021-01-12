@@ -71,10 +71,6 @@ class HomeFragment : Fragment() {
         var plusButtonReady = false
 
         val longStatus: TextView = root.findViewById(R.id.home_longstatus)
-        longStatus.setOnClickListener {
-            val fragment = ProtectionLevelFragment.newInstance()
-            fragment.show(parentFragmentManager, null)
-        }
         val updateLongStatus = { s: TunnelStatus, counter: Long? ->
             longStatus.text = when {
                 s.inProgress -> getString(R.string.home_status_detail_progress)
@@ -103,6 +99,18 @@ class HomeFragment : Fragment() {
                         .withBoldSections(requireContext().getColorFromAttr(R.attr.colorRingLibre1))
                 }
                 else -> getString(R.string.home_action_tap_to_activate)
+            }
+
+            longStatus.setOnClickListener {
+                when {
+                    s.inProgress -> Unit
+                    s.error != null -> Unit
+                    s.active -> {
+                        val fragment = ProtectionLevelFragment.newInstance()
+                        fragment.show(parentFragmentManager, null)
+                    }
+                    else -> vm.turnOn()
+                }
             }
         }
 
