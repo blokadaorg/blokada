@@ -35,6 +35,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.NetworkDescriptor
 import org.blokada.R
+import service.AlertDialogService
 import service.NetworkMonitorPermissionService
 import ui.NetworksViewModel
 import ui.app
@@ -43,6 +44,8 @@ import ui.utils.getColorFromAttr
 class NetworksFragment : Fragment() {
 
     private val perms = NetworkMonitorPermissionService
+    private val dialog = AlertDialogService
+
     private lateinit var vm: NetworksViewModel
 
     override fun onCreateView(
@@ -60,7 +63,13 @@ class NetworksFragment : Fragment() {
         val permsButton: View = root.findViewById(R.id.network_perms)
         permsButton.visibility = if (perms.hasPermission()) View.GONE else View.VISIBLE
         permsButton.setOnClickListener {
-            perms.askPermission()
+            dialog.showAlert(
+                message = getString(R.string.networks_permission_dialog),
+                title = getString(R.string.universal_status_confirm),
+                positiveAction = getString(R.string.universal_action_continue) to {
+                    perms.askPermission()
+                }
+            )
         }
 
         perms.onPermissionGranted = {
