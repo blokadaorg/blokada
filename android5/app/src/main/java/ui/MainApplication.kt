@@ -123,7 +123,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
 
         networksVM.activeConfig.observeForever {
             GlobalScope.launch {
-                EngineService.updateConfig(network = it)
+                try { EngineService.updateConfig(network = it) } catch (ex: Exception) {}
 
                 // Without the foreground service, we will get killed while switching the VPN.
                 // The simplest solution is to force the flag (which will apply from the next

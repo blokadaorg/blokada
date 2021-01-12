@@ -50,10 +50,10 @@ class TunnelViewModel: ViewModel() {
     val tunnelStatus: LiveData<TunnelStatus> = _tunnelStatus.distinctUntilChanged()
 
     init {
-        engine.onTunnelStoppedUnexpectedly = this::handleTunnelStoppedUnexpectedly
         engine.setOnTunnelStatusChangedListener { status ->
             viewModelScope.launch { status.emit() }
         }
+
         viewModelScope.launch {
             val cfg = persistence.load(BlockaConfig::class)
             _config.value = cfg
@@ -269,19 +269,13 @@ class TunnelViewModel: ViewModel() {
     }
 
     private fun handleException(ex: Exception) {
-        log.e("Tunnel failure".cause(ex))
-        TunnelStatus.error(TunnelFailure(ex)).emit()
+        log.e("Engine failed to execute action")
     }
 
     private fun handleTunnelStoppedUnexpectedly(ex: BlokadaException) {
-        viewModelScope.launch {
-            log.e("Engine reports tunnel stopped unexpectedly".cause(ex))
-            TunnelStatus.error(ex).emit()
-            //engine.getTunnelStatus().emit()
-        }
     }
 
-    private suspend fun newKeypair(accountId: AccountId) {
+    private fun newKeypair(accountId: AccountId) {
         _config.value?.let {
             try {
                 log.w("Generating new keypair")

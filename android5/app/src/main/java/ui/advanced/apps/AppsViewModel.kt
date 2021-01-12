@@ -86,10 +86,14 @@ class AppsViewModel : ViewModel() {
 
     fun switchBypass(name: AppId) {
         viewModelScope.launch {
-            log.v("Switching bypass for app: $name")
-            appRepo.switchBypassForApp(name)
-            engine.forceReload()
-            refresh()
+            try {
+                log.v("Switching bypass for app: $name")
+                appRepo.switchBypassForApp(name)
+                engine.forceReload()
+                refresh()
+            } catch (ex: Exception) {
+                log.e("Failed switching bypass".cause(ex))
+            }
         }
     }
 
@@ -97,12 +101,16 @@ class AppsViewModel : ViewModel() {
         viewModelScope.launch {
             log.v("Switching bypass for all system apps")
             _apps.value?.let {
-                val isBypassed = it.first { it.isSystem }.isBypassed
-                it.filter { app -> app.isSystem && app.isBypassed == isBypassed }.forEach { app ->
-                    appRepo.switchBypassForApp(app.id)
+                try {
+                    val isBypassed = it.first { it.isSystem }.isBypassed
+                    it.filter { app -> app.isSystem && app.isBypassed == isBypassed }.forEach { app ->
+                        appRepo.switchBypassForApp(app.id)
+                    }
+                    engine.forceReload()
+                    refresh()
+                } catch (ex: Exception) {
+                    log.e("Failed switching bypass".cause(ex))
                 }
-                engine.forceReload()
-                refresh()
             }
         }
     }

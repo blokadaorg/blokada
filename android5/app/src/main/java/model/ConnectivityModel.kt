@@ -33,18 +33,6 @@ data class NetworkDescriptor(
     val type: NetworkType = NetworkType.FALLBACK
 ) {
 
-    /**
-     * We assume the handle is something that uniquely identifies a network on Android, is stable,
-     * and can be persisted. This is guaranteed nowhere in the documentation, but I checked the
-     * source code, and it seems that it should be safe to assume so.
-     *
-     * This is risky, but the only alternative I could find to identify networks, would require
-     * to use SSID in case of WiFis, and that requires the background location permission, which
-     * has a terrible UX. User literally has to go to settings to grant it, plus the OS will show
-     * a scary notification everytime we actually access the SSID while being in background. I guess
-     * only Google apps are cool enough to access the background location without a fuss.
-     */
-
     companion object {
         fun wifi(name: String?) = NetworkDescriptor(name, NetworkType.WIFI)
         fun cell(name: String?) = NetworkDescriptor(name, NetworkType.CELLULAR)

@@ -31,6 +31,7 @@ import repository.DnsDataSource
 import service.ConnectivityService
 import service.EnvironmentService
 import utils.Logger
+import ui.utils.cause
 import java.net.DatagramSocket
 import java.net.Socket
 
@@ -42,11 +43,8 @@ object EngineService {
     private val filtering = FilteringService
     private val dnsMapper = DnsMapperService
     private val dnsService = BlockaDnsService
-    private val connectivity = ConnectivityService
     private val configurator = SystemTunnelConfigurator
     private val scope = GlobalScope
-
-    var onTunnelStoppedUnexpectedly = { ex: BlokadaException -> }
 
     private lateinit var config: EngineConfiguration
         @Synchronized set
@@ -66,9 +64,8 @@ object EngineService {
 
         packetLoop.onStoppedUnexpectedly = {
             scope.launch {
-                systemTunnel.close()
-                state.stopped()
-                onTunnelStoppedUnexpectedly(BlokadaException("PacketLoop stopped"))
+                state.error(BlokadaException("PacketLoop stopped"))
+                stopAll()
             }
         }
 
@@ -76,9 +73,8 @@ object EngineService {
             ex?.let {
                 scope.launch {
                     if (!state.isRestarting()) {
-                        packetLoop.stop()
-                        state.stopped()
-                        onTunnelStoppedUnexpectedly(it)
+                        state.error(BlokadaException("PacketLoop stopped"))
+                        stopAll()
                     }
                 }
             }
@@ -120,22 +116,16 @@ object EngineService {
 
         state.restarting()
 
-        if (wasActive) {
-            if (onlyReloadPacketLoop) {
-                packetLoop.stop()
-            } else {
-                packetLoop.stop()
-                dnsService.stopDnsProxy()
-                systemTunnel.close()
-                log.w("Waiting after stopping system tunnel, before another start")
-                delay(5000)
+        try {
+            if (wasActive) {
+                if (onlyReloadPacketLoop) packetLoop.stop()
+                else stopAll()
             }
-        }
 
-        when {
-            !config.tunnelEnabled -> {
-                state.stopped(config)
-            }
+            when {
+                !config.tunnelEnabled -> {
+                    state.stopped(config)
+                }
 //            onlyReloadPacketLoop -> {
 //                packetLoop.startPlusMode(
 //                    useDoh = config.,
@@ -146,12 +136,18 @@ object EngineService {
 //                )
 //                status = TunnelStatus.connected(dns, doh, config.gateway())
 //            }
-            else -> startAll(config)
-        }
+                else -> startAll(config)
+            }
 
-        if (this.config != config) {
-            log.v("Another reload was queued, executing")
-            reload(this.config)
+            if (this.config != config) {
+                log.v("Another reload was queued, executing")
+                reload(this.config)
+            }
+        } catch (ex: Exception) {
+            log.e("Engine reload failed".cause(ex))
+            state.error(ex)
+            stopAll()
+            throw ex
         }
     }
 
@@ -200,6 +196,16 @@ object EngineService {
                 }
             }
         }
+    }
+
+    private suspend fun stopAll() {
+        state.inProgress()
+        packetLoop.stop()
+        dnsService.stopDnsProxy()
+        systemTunnel.close()
+        log.w("Waiting after stopping system tunnel, before another start")
+        delay(5000)
+        state.stopped()
     }
 
     suspend fun reloadBlockLists() {
@@ -371,7 +377,8 @@ private data class EngineConfiguration(
 private data class EngineState(
     var tunnel: TunnelStatus = TunnelStatus.off(),
     var currentConfig: EngineConfiguration? = null,
-    var onTunnelStatusChanged: (TunnelStatus) -> Unit = { _ -> }
+    var onTunnelStatusChanged: (TunnelStatus) -> Unit = { _ -> },
+    var restarting: Boolean = false
 ) {
 
     @Synchronized fun inProgress() {
@@ -380,17 +387,20 @@ private data class EngineState(
     }
 
     @Synchronized fun restarting() {
-        tunnel = TunnelStatus.restarting()
+        restarting = true
+        tunnel = TunnelStatus.inProgress()
         onTunnelStatusChanged(tunnel)
     }
 
     @Synchronized fun libreMode(config: EngineConfiguration) {
+        restarting = false
         tunnel = TunnelStatus.filteringOnly(config.dns, config.doh, config.gateway?.public_key)
         currentConfig = config
         onTunnelStatusChanged(tunnel)
     }
 
     @Synchronized fun plusMode(config: EngineConfiguration) {
+        restarting = false
         tunnel = TunnelStatus.connected(config.dns, config.doh, config.gateway())
         currentConfig = config
         onTunnelStatusChanged(tunnel)
@@ -402,7 +412,13 @@ private data class EngineState(
         onTunnelStatusChanged(tunnel)
     }
 
-    @Synchronized fun isRestarting() = tunnel.restarting
+    @Synchronized fun error(ex: Exception) {
+        restarting = false
+        tunnel = TunnelStatus.error(TunnelFailure(ex))
+        onTunnelStatusChanged(tunnel)
+    }
+
+    @Synchronized fun isRestarting() = restarting
     @Synchronized fun isInProgress() = tunnel.inProgress
 
     @Synchronized fun canReloadJustPacketLoop(config: EngineConfiguration) = when {

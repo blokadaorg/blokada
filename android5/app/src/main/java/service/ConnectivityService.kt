@@ -111,7 +111,8 @@ object ConnectivityService {
     }
 
     fun getActiveNetworkDns(): List<InetAddress> {
-        return manager.getLinkProperties(networkToHandle[activeNetwork])?.dnsServers ?: emptyList()
+        return manager.getLinkProperties(networkToHandle[activeNetwork])
+            ?.dnsServers?.filter { it is java.net.Inet4Address } ?: emptyList()
     }
 
     fun isDeviceInOfflineMode(): Boolean {
