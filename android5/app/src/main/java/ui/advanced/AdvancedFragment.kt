@@ -63,7 +63,7 @@ class AdvancedFragment : Fragment() {
                     name = getString(R.string.advanced_section_header_packs),
                     slugline = getString(R.string.advanced_section_slugline_packs),
                     iconResId = R.drawable.ic_shield,
-                    iconColorResId = R.color.white,
+                    iconColorResId = R.color.orange,
                     destination = AdvancedFragmentDirections.actionAdvancedFragmentToNavigationPacks()
                 )
             },
@@ -74,7 +74,7 @@ class AdvancedFragment : Fragment() {
                     name = getString(R.string.userdenied_section_header),
                     slugline = getString(R.string.userdenied_section_slugline),
                     iconResId = R.drawable.ic_baseline_admin_panel_settings_24,
-                    iconColorResId = R.color.white,
+                    iconColorResId = R.color.orange,
                     destination = AdvancedFragmentDirections.actionAdvancedFragmentToUserDeniedFragment()
                 )
             },
@@ -85,7 +85,7 @@ class AdvancedFragment : Fragment() {
                     name = getString(R.string.apps_section_header),
                     slugline = getString(R.string.advanced_section_slugline_apps),
                     iconResId = R.drawable.ic_baseline_apps_24,
-                    iconColorResId = R.color.white,
+                    iconColorResId = R.color.orange,
                     destination = AdvancedFragmentDirections.actionAdvancedFragmentToAppsFragment()
                 )
             },
@@ -94,7 +94,7 @@ class AdvancedFragment : Fragment() {
                 name = getString(R.string.networks_section_header),
                 slugline = getString(R.string.networks_section_label),
                 iconResId = R.drawable.ic_baseline_wifi_lock_24,
-                iconColorResId = R.color.white,
+                iconColorResId = R.color.orange,
                 destination = AdvancedFragmentDirections.actionAdvancedFragmentToSettingsNetworksFragment()
             )
         ).filterNotNull()
