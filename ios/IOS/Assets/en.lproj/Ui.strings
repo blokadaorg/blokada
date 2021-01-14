@@ -236,7 +236,7 @@
 "networks label any mobile" = "Any mobile network";
 "networks permission request" = "To have more control, tap here and let the app recognise all networks.";
 "networks section choose dns" = "Choose DNS";
-"networks alert network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.";
+"networks alert network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network. Also, the Encrypt DNS settings will be ignored whenever network DNS is used.";
 "networks alert network dns" = "Blokada will try to use the network's DNS if possible, or fallback to the DNS you selected above. Also, the Encrypt DNS settings will be ignored whenever network DNS is used.";
 "networks permission dialog" = "Blokada can recognize networks you connect to, and let you configure separate settings for them. However, to do so, location permission is required. Sometimes you may see a system notification about location access, but this is not accurate - Blokada will only read the network's name.";
 
