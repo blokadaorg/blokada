@@ -232,6 +232,8 @@
 "networks match any" = "(any network of this type)";
 // As in "Use this settings for network ABC"
 "networks label match" = "Use these settings for";
+"networks label any wifi" = "Any WiFi network";
+"networks label any mobile" = "Any mobile network";
 "networks permission request" = "To have more control, tap here and let the app recognise all networks.";
 "networks section choose dns" = "Choose DNS";
 "networks alert network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.";
