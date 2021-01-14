@@ -38,13 +38,22 @@
         android:paddingBottom="@dimen/normal">
 
         <FrameLayout
-            android:layout_width="@dimen/icon_verybig"
-            android:layout_height="@dimen/icon_verybig">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/pack_thumb"
+                android:layout_width="@dimen/icon_verybig"
+                android:layout_height="@dimen/icon_verybig"
+                android:src="@drawable/bg_gradient"
+                app:shapeAppearanceOverlay="@style/roundedImageView" />
 
             <ImageView
                 android:id="@+id/advanced_icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/icon"
+                android:layout_height="@dimen/icon"
+                android:layout_gravity="center"
+                app:tint="@color/white"
                 android:src="@drawable/ic_baseline_apps_24" />
         </FrameLayout>
 
