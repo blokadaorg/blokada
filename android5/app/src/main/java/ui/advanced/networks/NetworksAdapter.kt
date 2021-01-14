@@ -84,7 +84,11 @@ class NetworksAdapter(
         fun bind(item: NetworkDescriptor) = with(itemView) {
             val ctx = itemView.context
 
-            name.text = item.name ?: item.type.localised(ctx) + " " + ctx.getString(R.string.networks_match_any)
+            name.text = when {
+                item.name != null -> item.name
+                item.type == NetworkType.WIFI -> ctx.getString(R.string.networks_label_any_wifi)
+                else -> ctx.getString(R.string.networks_label_any_mobile)
+            }
 
             if (item.type == NetworkType.WIFI) {
                 icon.setImageResource(R.drawable.ic_baseline_wifi_24)

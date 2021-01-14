@@ -95,18 +95,18 @@
                 app:name="@string/networks_action_encrypt_dns" />
 
             <ui.advanced.packs.OptionView
-                android:id="@+id/network_action_networkdns"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:iconRef="@drawable/ic_baseline_settings_ethernet_24"
-                app:name="@string/networks_action_use_network_dns" />
-
-            <ui.advanced.packs.OptionView
                 android:id="@+id/network_action_changedns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconRef="@drawable/ic_baseline_settings_ethernet_24"
                 app:name="@string/networks_action_use_dns" />
+
+            <ui.advanced.packs.OptionView
+                android:id="@+id/network_action_networkdns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRef="@drawable/ic_baseline_settings_ethernet_24"
+                app:name="@string/networks_action_use_network_dns" />
 
         </LinearLayout>
 
@@ -141,7 +141,7 @@
                     style="@style/Text.Small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_domain_name" />
+                    android:text="@string/networks_label_match" />
 
                 <TextView
                     android:id="@+id/network_fullname"

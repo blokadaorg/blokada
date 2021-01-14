@@ -81,10 +81,15 @@ class NetworksDetailFragment : Fragment() {
                 val ctx = requireContext()
 
                 name.text = cfg.network.name ?: cfg.network.type.localised(ctx)
-                fullName.text = cfg.network.name ?: ctx.getString(R.string.networks_match_any)
                 type.text = cfg.network.type.localised(ctx)
 
-                    when (cfg.network.type) {
+                fullName.text = when {
+                    cfg.network.name != null -> cfg.network.name
+                    cfg.network.type == NetworkType.WIFI -> ctx.getString(R.string.networks_label_any_wifi)
+                    else -> ctx.getString(R.string.networks_label_any_mobile)
+                }
+
+                when (cfg.network.type) {
                     NetworkType.FALLBACK -> {
                         // Hide unnecessary things for the "All networks" config
                         icon.setImageResource(R.drawable.ic_baseline_wifi_lock_24)
@@ -124,9 +129,13 @@ class NetworksDetailFragment : Fragment() {
 
                 actionUseNetworkDns.setOnClickListener {
                     val wantsToUse = !actionUseNetworkDns.active
-                    if (wantsToUse && accountViewModel.isActive()) {
+                    if (wantsToUse) {
                         alert.showAlert(
-                            message = ctx.getString(R.string.networks_alert_network_dns_and_plus_mode),
+                            message = if (accountViewModel.isActive())
+                                ctx.getString(R.string.networks_alert_network_dns_and_plus_mode)
+                            else
+                                ctx.getString(R.string.networks_alert_network_dns),
+
                             title = ctx.getString(R.string.universal_status_confirm),
                             positiveAction = ctx.getString(R.string.universal_action_continue) to {
                                 viewModel.actionUseNetworkDns(cfg.network, true)
