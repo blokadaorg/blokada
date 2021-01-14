@@ -123,7 +123,7 @@ internal class PacketLoopForPlusDoh (
                 purge()
             }
         } catch (ex: InterruptedException) {
-            log.v("Tunnel thread interrupted, stopping")
+            log.v("Tunnel thread ${this.hashCode()} interrupted, stopping")
         } catch (ex: Exception) {
             log.w("Unexpected failure, stopping (maybe just closed?): $this: ${ex.message}")
         } finally {

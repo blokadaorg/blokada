@@ -33,6 +33,7 @@ import service.EnvironmentService
 import utils.Logger
 import ui.utils.cause
 import java.net.DatagramSocket
+import java.net.InetAddress
 import java.net.Socket
 
 object EngineService {
@@ -112,30 +113,16 @@ object EngineService {
         }
 
         val wasActive = state.tunnel.active
-        val onlyReloadPacketLoop = state.canReloadJustPacketLoop(config)
 
         state.restarting()
 
         try {
-            if (wasActive) {
-                if (onlyReloadPacketLoop) packetLoop.stop()
-                else stopAll()
-            }
+            if (wasActive) stopAll()
 
             when {
                 !config.tunnelEnabled -> {
                     state.stopped(config)
                 }
-//            onlyReloadPacketLoop -> {
-//                packetLoop.startPlusMode(
-//                    useDoh = config.,
-//                    dns = dns,
-//                    tunnelConfig = systemTunnel.getTunnelConfig(),
-//                    privateKey = config.privateKey,
-//                    gateway = config.gateway()
-//                )
-//                status = TunnelStatus.connected(dns, doh, config.gateway())
-//            }
                 else -> startAll(config)
             }
 
@@ -251,6 +238,7 @@ private data class EngineConfiguration(
     val privateKey: PrivateKey,
     val gateway: Gateway?,
     val lease: Lease?,
+    var networkDns: List<InetAddress>,
 
     val network: NetworkSpecificConfig,
     val user: BlockaConfig
@@ -276,6 +264,7 @@ private data class EngineConfiguration(
                 privateKey = user.privateKey,
                 gateway = if (plusMode) user.gateway else null,
                 lease = if (plusMode) user.lease else null,
+                networkDns = ConnectivityService.getActiveNetworkDns(),
                 network = network,
                 user = user
             )
@@ -341,6 +330,10 @@ private data class EngineConfiguration(
         }
     }
 
+    override fun toString(): String {
+        return "(enabled=$tunnelEnabled, dns=${dns.id}, doh=$doh, gw=${gateway?.niceName()})"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -353,6 +346,7 @@ private data class EngineConfiguration(
         if (privateKey != other.privateKey) return false
         if (gateway != other.gateway) return false
         if (lease != other.lease) return false
+        if (networkDns != other.networkDns) return false
 
         return true
     }
@@ -364,13 +358,9 @@ private data class EngineConfiguration(
         result = 31 * result + privateKey.hashCode()
         result = 31 * result + (gateway?.hashCode() ?: 0)
         result = 31 * result + (lease?.hashCode() ?: 0)
+        result = 31 * result + networkDns.hashCode()
         return result
     }
-
-    override fun toString(): String {
-        return "(enabled=$tunnelEnabled, dns=${dns.id}, doh=$doh, gw=${gateway?.niceName()})"
-    }
-
 
 }
 
@@ -378,7 +368,7 @@ private data class EngineState(
     var tunnel: TunnelStatus = TunnelStatus.off(),
     var currentConfig: EngineConfiguration? = null,
     var onTunnelStatusChanged: (TunnelStatus) -> Unit = { _ -> },
-    var restarting: Boolean = false
+    var restarting: Boolean = false,
 ) {
 
     @Synchronized fun inProgress() {
@@ -420,10 +410,5 @@ private data class EngineState(
 
     @Synchronized fun isRestarting() = restarting
     @Synchronized fun isInProgress() = tunnel.inProgress
-
-    @Synchronized fun canReloadJustPacketLoop(config: EngineConfiguration) = when {
-        // TODO
-        else -> false
-    }
 
 }
