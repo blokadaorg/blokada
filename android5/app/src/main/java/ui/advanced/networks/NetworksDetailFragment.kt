@@ -28,10 +28,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import model.NetworkType
+import model.isDnsOverHttps
 import org.blokada.R
 import repository.DnsDataSource
 import service.AlertDialogService
@@ -70,8 +72,9 @@ class NetworksDetailFragment : Fragment() {
         val name: TextView = root.findViewById(R.id.network_name)
         val desc: TextView = root.findViewById(R.id.network_desc)
         val info: View = root.findViewById(R.id.network_info)
-        val fullName: TextView = root.findViewById(R.id.network_fullname)
-        val type: TextView = root.findViewById(R.id.network_type)
+        val summaryEncryptDns: TextView = root.findViewById(R.id.network_summary_encrypt_dns)
+        val summaryUseDns: TextView = root.findViewById(R.id.network_summary_use_dns)
+        val summaryUseDnsPlus: TextView = root.findViewById(R.id.network_summary_use_dns_plus)
         val actionEncrypt: OptionView = root.findViewById(R.id.network_action_encryptdns)
         val actionUseNetworkDns: OptionView = root.findViewById(R.id.network_action_networkdns)
         val actionChangeDns: OptionView = root.findViewById(R.id.network_action_changedns)
@@ -80,10 +83,7 @@ class NetworksDetailFragment : Fragment() {
             viewModel.getConfigForId(args.networkId).let { cfg ->
                 val ctx = requireContext()
 
-                name.text = cfg.network.name ?: cfg.network.type.localised(ctx)
-                type.text = cfg.network.type.localised(ctx)
-
-                fullName.text = when {
+                name.text = when {
                     cfg.network.name != null -> cfg.network.name
                     cfg.network.type == NetworkType.WIFI -> ctx.getString(R.string.networks_label_any_wifi)
                     else -> ctx.getString(R.string.networks_label_any_mobile)
@@ -95,11 +95,11 @@ class NetworksDetailFragment : Fragment() {
                         icon.setImageResource(R.drawable.ic_baseline_wifi_lock_24)
                         name.text = ctx.getString(R.string.networks_label_all_networks)
                         desc.text = ctx.getString(R.string.networks_label_details_default_network)
-                        info.visibility = View.GONE
                         actionUseNetworkDns.visibility = View.GONE
                     }
                     NetworkType.WIFI -> {
                         icon.setImageResource(R.drawable.ic_baseline_wifi_24)
+                        desc.text = ctx.getString(R.string.networks_label_specific_network_type)
                     }
                     else -> {
                         icon.setImageResource(R.drawable.ic_baseline_signal_cellular_4_bar_24)
@@ -118,10 +118,13 @@ class NetworksDetailFragment : Fragment() {
                 actionEncrypt.active = cfg.encryptDns
                 actionUseNetworkDns.active = cfg.useNetworkDns
 
+                val dns = DnsDataSource.byId(cfg.dnsChoice)
                 actionChangeDns.active = true
-                actionChangeDns.name = ctx.getString(R.string.networks_action_use_dns,
-                                   DnsDataSource.byId(cfg.dnsChoice).label
-                                   )
+                actionChangeDns.name = ctx.getString(R.string.networks_action_use_dns, dns.label)
+                actionChangeDns.icon = if (dns.isDnsOverHttps())
+                    ContextCompat.getDrawable(ctx, R.drawable.ic_baseline_lock_24)
+                else
+                    ContextCompat.getDrawable(ctx, R.drawable.ic_baseline_no_encryption_24)
 
                 actionEncrypt.setOnClickListener {
                     viewModel.actionEncryptDns(cfg.network, !actionEncrypt.active)
@@ -129,19 +132,7 @@ class NetworksDetailFragment : Fragment() {
 
                 actionUseNetworkDns.setOnClickListener {
                     val wantsToUse = !actionUseNetworkDns.active
-                    if (wantsToUse) {
-                        alert.showAlert(
-                            message = if (accountViewModel.isActive())
-                                ctx.getString(R.string.networks_alert_network_dns_and_plus_mode)
-                            else
-                                ctx.getString(R.string.networks_alert_network_dns),
-
-                            title = ctx.getString(R.string.universal_status_confirm),
-                            positiveAction = ctx.getString(R.string.universal_action_continue) to {
-                                viewModel.actionUseNetworkDns(cfg.network, true)
-                            }
-                        )
-                    } else viewModel.actionUseNetworkDns(cfg.network, wantsToUse)
+                    viewModel.actionUseNetworkDns(cfg.network, wantsToUse)
                 }
 
                 actionChangeDns.setOnClickListener {
@@ -153,14 +144,26 @@ class NetworksDetailFragment : Fragment() {
                     }
                     fragment.show(parentFragmentManager, null)
                 }
+
+                // Summary based on selected actions
+                summaryEncryptDns.visibility = if (cfg.encryptDns) View.VISIBLE else View.GONE
+                summaryUseDnsPlus.visibility = when {
+                    !accountViewModel.isActive() -> View.GONE
+                    cfg.useNetworkDns && !cfg.useBlockaDnsInPlusMode -> View.VISIBLE
+                    cfg.useBlockaDnsInPlusMode -> View.VISIBLE
+                    else -> View.GONE
+                }
+                summaryUseDnsPlus.text = when {
+                    cfg.useBlockaDnsInPlusMode -> ctx.getString(R.string.networks_summary_blocka_plus_mode)
+                    else -> ctx.getString(R.string.networks_summary_network_dns_and_plus_mode)
+                }
+                summaryUseDns.text = when {
+                    cfg.useNetworkDns -> ctx.getString(R.string.networks_summary_network_dns, dns.label)
+                    else -> ctx.getString(R.string.networks_summary_use_dns, dns.label)
+                }
             }
         })
 
         return root
     }
-}
-
-internal fun NetworkType.localised(ctx: Context) = when (this) {
-    NetworkType.WIFI -> ctx.getString(R.string.networks_type_wifi)
-    else -> ctx.getString(R.string.networks_type_mobile)
 }
