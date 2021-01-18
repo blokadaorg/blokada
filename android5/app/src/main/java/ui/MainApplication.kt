@@ -108,8 +108,11 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         }
 
         statsVM.stats.observeForever { stats ->
-            MonitorService.setStats(stats)
-            adsCounterVM.setRuntimeCounter(stats.denied.toLong())
+            // Not sure how it can be null, but there was a crash report
+            stats?.let { stats ->
+                MonitorService.setStats(stats)
+                adsCounterVM.setRuntimeCounter(stats.denied.toLong())
+            }
         }
 
         adsCounterVM.counter.observeForever {
