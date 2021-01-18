@@ -27,6 +27,8 @@ import android.net.*
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.SubscriptionManager
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import model.*
 import ui.utils.cause
 import utils.Logger
@@ -37,6 +39,7 @@ object ConnectivityService {
     private val log = Logger("Connectivity")
     private val context = ContextService
     private val doze = DozeService
+    private val scope = GlobalScope
 
     private val manager by lazy {
         context.requireAppContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -50,73 +53,96 @@ object ConnectivityService {
         context.requireAppContext().getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
     }
 
-    private var availableNetworks = emptyList<NetworkDescriptor>()
-        set(value) {
-            field = value
-            hasAvailableNetwork = field.isNotEmpty()
-        }
-
-    private var networkToHandle = mutableMapOf<NetworkDescriptor, Network>()
-
-    private var hasAvailableNetwork = false
-
-    var activeNetwork: NetworkDescriptor = NetworkDescriptor.fallback()
-        set(value) {
-            field = value
-            onActiveNetworkChanged(value)
-        }
-
     var onConnectivityChanged = { isConnected: Boolean -> }
     var onNetworkAvailable = { network: NetworkDescriptor -> }
     var onActiveNetworkChanged = { network: NetworkDescriptor -> }
 
+    private var networks = mutableMapOf<NetworkDescriptor, Network>()
+    private var networksLost = emptyList<NetworkHandle>()
+    private var activeNetwork: Pair<NetworkDescriptor, Network?> = NetworkDescriptor.fallback() to null
+
     fun setup() {
-        manager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
+        val request = NetworkRequest.Builder().build()
+        manager.registerNetworkCallback(request, object : ConnectivityManager.NetworkCallback() {
+
+            override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
+                log.v("Network status changed: ${network.networkHandle}")
+                handleNetworkChange(network)
+            }
+
             override fun onLost(network: Network) {
-                NetworkDescriptor.fromNetwork(network)?.let { descriptor ->
-                    log.w("Unavailable network: $descriptor")
-                    availableNetworks -= descriptor
-                    if (!hasAvailableNetwork) {
-                        onConnectivityChanged(false)
-                        activeNetwork = NetworkDescriptor.fallback()
-                    } else {
-                        activeNetwork = availableNetworks.last()
-                    }
-                }
+                log.v("Network status lost: ${network.networkHandle}")
+                handleNetworkChange(network)
             }
 
-            override fun onAvailable(network: Network) {
-                NetworkDescriptor.fromNetwork(network)?.let { descriptor ->
-                    log.w("Network available: $descriptor")
-
-                    if (descriptor.type != NetworkType.FALLBACK)
-                        networkToHandle[descriptor] = network
-
-                    availableNetworks += descriptor
-                    val canConnect = !doze.isDoze()
-                    onConnectivityChanged(canConnect)
-                    onNetworkAvailable(descriptor)
-                    activeNetwork = descriptor
-                }
-            }
         })
 
         doze.onDozeChanged = { doze ->
-            if (doze) onConnectivityChanged(false)
-            else {
-                val canConnect = availableNetworks.isNotEmpty()
-                onConnectivityChanged(canConnect)
+            decideActiveNetwork()
+        }
+    }
+
+    private fun handleNetworkChange(network: Network) {
+        scope.launch {
+            NetworkDescriptor.fromNetwork(network)?.let { (descriptor, hasConnectivity) ->
+                networks[descriptor] = network
+                if (hasConnectivity) {
+                    log.v("Network up: ${network.networkHandle}, $descriptor")
+                    networksLost -= network.networkHandle
+                    decideActiveNetwork(becameAvailable = network.networkHandle)
+                } else {
+                    log.v("Network down: ${network.networkHandle}, $descriptor")
+                    networksLost += network.networkHandle
+                    decideActiveNetwork()
+                }
             }
         }
     }
 
+    private fun decideActiveNetwork(becameAvailable: NetworkHandle? = null) {
+        val available = networks.filter { it.value.networkHandle !in networksLost }.entries
+        val hasConnectivity = when (available.size) {
+            0 -> {
+                activeNetwork = NetworkDescriptor.fallback() to null
+                false
+            }
+            1 -> {
+                activeNetwork = available.first().toPair()
+                !doze.isDoze()
+            }
+            else -> {
+                available.firstOrNull { it.value.networkHandle == becameAvailable }?.let { network ->
+                    // Use the network that just became available
+                    activeNetwork = network.toPair()
+                } ?: run {
+                    // Use a network that is still reported as available. This is displeasing.
+                    activeNetwork = available.last().toPair()
+                    log.w("Guessing which network to use: ${activeNetwork.first}")
+                }
+                !doze.isDoze()
+            }
+        }
+
+        onConnectivityChanged(hasConnectivity)
+        onActiveNetworkChanged(activeNetwork.first)
+    }
+
+    fun getActiveNetwork(): NetworkDescriptor {
+        return activeNetwork.first
+    }
+
     fun getActiveNetworkDns(): List<InetAddress> {
-        return manager.getLinkProperties(networkToHandle[activeNetwork])
-            ?.dnsServers?.filter { it is java.net.Inet4Address } ?: emptyList()
+        return manager.getLinkProperties(activeNetwork.second)
+            ?.dnsServers?.filterIsInstance<java.net.Inet4Address>() ?: emptyList()
     }
 
     fun isDeviceInOfflineMode(): Boolean {
-        return (!hasAvailableNetwork && !isConnectedOldApi()) || doze.isDoze()
+        return when {
+            doze.isDoze() -> true
+            networks.filter { it.value.networkHandle !in networksLost }.isNotEmpty() -> false
+            isConnectedOldApi() -> false
+            else -> true
+        }
     }
 
     private fun isConnectedOldApi(): Boolean {
@@ -125,9 +151,10 @@ object ConnectivityService {
     }
 
     @SuppressLint("MissingPermission")
-    private fun NetworkDescriptor.Companion.fromNetwork(network: Network): NetworkDescriptor? {
+    private fun NetworkDescriptor.Companion.fromNetwork(network: Network): Pair<NetworkDescriptor, HasConnectivity>? {
         return try {
             val cap = manager.getNetworkCapabilities(network)
+            val hasConnectivity = cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
             when {
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ?: false -> {
                     // Ignore VPN network since it's us
@@ -137,23 +164,26 @@ object ConnectivityService {
                     // This assumes there is only one active WiFi network at a time
                     var name: String? = wifiManager.connectionInfo.ssid.trim('"')
                     if (name == "<unknown ssid>") name = null // No perms in bg, we'll try next time
-                    wifi(name)
+                    wifi(name) to hasConnectivity
                 }
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ?: false -> {
                     // This assumes there is only one active cellular network at a time
                     try {
                         val id = SubscriptionManager.getDefaultDataSubscriptionId()
-                        cell(simManager.getActiveSubscriptionInfo(id)?.carrierName?.toString())
+                        cell(simManager.getActiveSubscriptionInfo(id)?.carrierName?.toString()) to hasConnectivity
                     } catch (ex: Exception) {
                         // Probably no permissions, just identify network type
-                        cell(null)
+                        cell(null) to hasConnectivity
                     }
                 }
-                else -> fallback()
+                else -> {
+                    val known = networks.filter { it.value.networkHandle == network.networkHandle }.entries.firstOrNull()?.key
+                    (known ?: fallback()) to hasConnectivity
+                }
             }
         } catch (ex: Exception) {
             log.w("Could not recognize network".cause(ex))
-            return fallback()
+            return fallback() to true // Assume it has connectivity
         }
     }
 
@@ -162,3 +192,6 @@ object ConnectivityService {
     }
 
 }
+
+private typealias HasConnectivity = Boolean
+private typealias NetworkHandle = Long

@@ -41,7 +41,7 @@ class NetworksViewModel : ViewModel() {
     val configs: LiveData<List<NetworkSpecificConfig>> = _configs.distinctUntilChanged()
 
     private val _activeConfig = MutableLiveData<NetworkSpecificConfig>()
-    val activeConfig: LiveData<NetworkSpecificConfig> = _activeConfig.distinctUntilChanged()
+    val activeConfig: LiveData<NetworkSpecificConfig> = _activeConfig
 
     init {
         val configs = persistence.load(NetworkSpecificConfigs::class).configs
@@ -153,7 +153,7 @@ class NetworksViewModel : ViewModel() {
 
     private fun MutableLiveData<NetworkSpecificConfig>.decideConfig(new: NetworkDescriptor? = null) {
         val configs = _configs.value!!
-        val network = new ?: connectivity.activeNetwork
+        val network = new ?: connectivity.getActiveNetwork()
         value = configs.firstOrNull { it.network == network && it.enabled } ?: run {
             // Find a config for all networks of this type (if enabled)
             configs.firstOrNull {
