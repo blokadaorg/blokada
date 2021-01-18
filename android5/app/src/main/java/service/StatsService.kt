@@ -26,6 +26,7 @@ import kotlinx.coroutines.coroutineScope
 import engine.Host
 import kotlinx.coroutines.launch
 import model.*
+import utils.Logger
 import java.util.*
 
 object StatsService {
@@ -36,9 +37,13 @@ object StatsService {
 
     private val persistence = PersistenceService
 
-    fun load() {
+    fun setup() {
         internalStats.clear()
         internalStats.putAll(persistence.load(StatsPersisted::class).entries)
+        LogService.onShareLog = {
+            val log = Logger("Stats")
+            log.v(internalStats.keys.toString())
+        }
     }
 
     fun clear() {

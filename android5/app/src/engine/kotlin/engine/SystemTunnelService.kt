@@ -90,11 +90,11 @@ object SystemTunnelService {
     }
 
     fun protectSocket(socket: DatagramSocket) {
-        tunnel?.protect(socket) ?: log.e("No tunnel reference while called protectSocket()")
+        tunnel?.protect(socket) ?: log.w("No tunnel reference while called protectSocket()")
     }
 
     fun protectSocket(socket: Socket) {
-        tunnel?.protect(socket) ?: log.e("No tunnel reference while called protectSocket()")
+        tunnel?.protect(socket) ?: log.w("No tunnel reference while called protectSocket()")
     }
 
     private suspend fun getConnection(): SystemTunnelConnection {

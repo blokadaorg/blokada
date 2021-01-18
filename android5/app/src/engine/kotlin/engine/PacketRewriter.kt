@@ -131,12 +131,6 @@ internal class PacketRewriter(
 
             false
         } else {
-            if (lastBlocked != host) {
-                // To not print the same name multiple times in a row
-                lastBlocked = host
-                log.v("Blocked: $host")
-            }
-
             dnsMessage.header.setFlag(Flags.QR.toInt())
             dnsMessage.header.rcode = Rcode.NOERROR
             dnsMessage.addRecord(generateDenyResponse(host), Section.ANSWER)

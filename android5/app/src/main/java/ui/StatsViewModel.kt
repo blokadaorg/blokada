@@ -66,7 +66,7 @@ class StatsViewModel : ViewModel() {
         viewModelScope.launch {
             _allowed.value = persistence.load(Allowed::class)
             _denied.value = persistence.load(Denied::class)
-            statistics.load()
+            statistics.setup()
         }
     }
 

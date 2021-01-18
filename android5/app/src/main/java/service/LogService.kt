@@ -45,6 +45,8 @@ object LogService {
     private val context = ContextService
     private val file = FileService
 
+    var onShareLog = {}
+
     private val handle by lazy {
         val handle = file.commonDir().file("blokada5.log")
         Log.println(Log.VERBOSE, "Logger", "Logger will log to file: $handle")
@@ -66,6 +68,7 @@ object LogService {
         }
         builder.setNeutralButton("Share") { dialog, _ ->
             dialog.dismiss()
+            preShareLog()
             shareLog()
         }
         val dialog = builder.show()
@@ -76,6 +79,12 @@ object LogService {
             it.textSize = 8f
             it.typeface = Typeface.create("monospace", Typeface.NORMAL)
         }
+    }
+
+    private fun preShareLog() {
+        Logger.w("Log", "Printing debug information for log sharing")
+        Logger.v("Log", EnvironmentService.getUserAgent())
+        onShareLog()
     }
 
     fun shareLog() {
