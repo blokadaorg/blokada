@@ -390,22 +390,22 @@ internal class PacketLoopForPlusDoh (
     }
 
     private fun fromOpenProxySockets(polls: Array<StructPollfd>) {
-        var index = 0
-        val iterator = forwarder.iterator()
-        while (iterator.hasNext()) {
-            val rule = iterator.next()
-            if (polls[3 + index++].isEvent(OsConstants.POLLIN)) {
-                iterator.remove()
+        var pollIndex = 0
+        var socketIndex = 0
+
+        while (forwarder.size() > socketIndex) {
+            val rule = forwarder[socketIndex]
+            if (polls[3 + pollIndex++].isEvent(OsConstants.POLLIN)) {
                 try {
-                    proxyPacket.setData(proxyMemory)
+                    proxyPacket.data = proxyMemory
                     rule.socket.receive(proxyPacket)
                     toDeviceFromProxy(proxyMemory, proxyPacket.length, rule.originEnvelope)
                 } catch (ex: Exception) {
                     log.w("Failed receiving socket".cause(ex))
                 }
 
-                forwarder.closeRule(rule)
-            }
+                forwarder.close(socketIndex)
+            } else socketIndex++
         }
     }
 

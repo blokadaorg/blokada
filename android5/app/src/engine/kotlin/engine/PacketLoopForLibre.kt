@@ -242,26 +242,22 @@ internal class PacketLoopForLibre (
     }
 
     private fun fromOpenSocketsToProxy(polls: Array<StructPollfd>) {
-        var index = 0
-        val iterator = forwarder.iterator()
-        while (iterator.hasNext()) {
-            val rule = iterator.next()
-            if (polls[2 + index++].isEvent(OsConstants.POLLIN)) {
-                iterator.remove()
+        var pollIndex = 0
+        var socketIndex = 0
+
+        while (forwarder.size() > socketIndex) {
+            val rule = forwarder[socketIndex]
+            if (polls[2 + pollIndex++].isEvent(OsConstants.POLLIN)) {
                 try {
-                    packet.setData(memory)
+                    packet.data = memory
                     rule.socket.receive(packet)
                     toDevice(memory, packet.length, rule.originEnvelope)
                 } catch (ex: Exception) {
                     log.w("Failed receiving socket".cause(ex))
                 }
 
-                try {
-                    rule.socket.close()
-                } catch (ex: Exception) {
-                    log.w("Failed closing socket".cause(ex))
-                }
-            }
+                forwarder.close(socketIndex)
+            } else socketIndex++
         }
     }
 

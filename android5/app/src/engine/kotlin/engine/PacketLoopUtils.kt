@@ -32,21 +32,25 @@ import java.nio.ByteBuffer
 import java.util.*
 import kotlin.experimental.and
 
-internal class Forwarder(private val ttl: Long = 10 * 1000): Iterable<ForwardRule> {
+internal class Forwarder(private val ttl: Long = 10 * 1000) {
 
     private val log = Logger("PLForwarder")
     private val store = LinkedList<ForwardRule>()
 
     fun add(socket: DatagramSocket, originEnvelope: Packet) {
-        if (store.size >= 1024) {
-            log.w("Forwarder reached 1024 open sockets")
-            closeRule(store.element())
-            store.remove()
+        if (size() >= 1024) {
+            log.w("Forwarder reached 1024 open sockets, closing oldest")
+            close(0)
         }
-        while (store.isNotEmpty() && store.element().isOld()) {
-            closeRule(store.element())
-            store.remove()
+
+        // Close all old sockets
+        var counter = 0
+        while (size() > 0 && get(0).isOld()) {
+            close(0)
+            counter++
         }
+
+        if (counter > 0) log.v("Forwarder closed $counter old sockets")
 
         val fd = ParcelFileDescriptor.fromDatagramSocket(socket)
         val pipe = StructPollfd()
@@ -56,11 +60,16 @@ internal class Forwarder(private val ttl: Long = 10 * 1000): Iterable<ForwardRul
         store.add(ForwardRule(socket, originEnvelope, pipe, fd, ttl))
     }
 
-    override fun iterator() = store.iterator()
+    fun close(index: Int) {
+        val rule = store.removeAt(index)
+        closeRule(rule)
+    }
+
     operator fun get(index: Int) = store[index]
+
     fun size() = store.size
 
-    fun closeRule(rule: ForwardRule) {
+    private fun closeRule(rule: ForwardRule) {
         // Never sure enough which one to close
         try { rule.fd.close() } catch (ex: Exception) {}
         try { rule.socket.close() } catch (ex: Exception) {}
@@ -68,12 +77,14 @@ internal class Forwarder(private val ttl: Long = 10 * 1000): Iterable<ForwardRul
     }
 
     fun closeAll() {
-        log.v("Closing all remaining sockets in Forwarder")
-        for(rule in store) {
-            closeRule(rule)
+        var counter = 0
+        while (size() > 0) {
+            close(0)
+            counter++
         }
-        store.clear()
+        log.v("Forwarder closed all remaining sockets: $counter")
     }
+
 }
 
 internal data class ForwardRule(
