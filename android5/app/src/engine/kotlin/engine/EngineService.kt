@@ -99,15 +99,15 @@ object EngineService {
     }
 
     private suspend fun reload(config: EngineConfiguration, force: Boolean = false) {
-        log.v("Reloading engine, config: $config")
+        log.v("Reloading engine, config: $config, force: $force")
 
         when {
             state.isInProgress() -> {
-                log.w("Engine currently reloading, ignoring")
+                log.w("Reloading engine already in progress, ignoring")
                 return
             }
             !force && config == state.currentConfig -> {
-                log.w("Configuration change does not require engine reload, ignoring")
+                log.w("Reloading engine unnecessary, ignoring")
                 return
             }
         }
@@ -264,7 +264,7 @@ private data class EngineConfiguration(
                 privateKey = user.privateKey,
                 gateway = if (plusMode) user.gateway else null,
                 lease = if (plusMode) user.lease else null,
-                networkDns = ConnectivityService.getActiveNetworkDns(),
+                networkDns = if (network.useNetworkDns) ConnectivityService.getActiveNetworkDns() else emptyList(),
                 network = network,
                 user = user
             )

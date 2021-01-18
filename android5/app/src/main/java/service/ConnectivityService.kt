@@ -61,31 +61,39 @@ object ConnectivityService {
     private var networksLost = emptyList<NetworkHandle>()
     private var activeNetwork: Pair<NetworkDescriptor, Network?> = NetworkDescriptor.fallback() to null
 
+    private val systemCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
+            log.v("Network status changed: ${network.networkHandle}")
+            handleNetworkChange(network)
+        }
+
+        override fun onLost(network: Network) {
+            log.v("Network status lost: ${network.networkHandle}")
+            handleNetworkChange(network)
+        }
+    }
+
     fun setup() {
-        val request = NetworkRequest.Builder().build()
-        manager.registerNetworkCallback(request, object : ConnectivityManager.NetworkCallback() {
-
-            override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
-                log.v("Network status changed: ${network.networkHandle}")
-                handleNetworkChange(network)
-            }
-
-            override fun onLost(network: Network) {
-                log.v("Network status lost: ${network.networkHandle}")
-                handleNetworkChange(network)
-            }
-
-        })
-
         doze.onDozeChanged = { doze ->
             decideActiveNetwork()
         }
+        rescan()
+    }
+
+    fun rescan() {
+        val request = NetworkRequest.Builder().build()
+        try { manager.unregisterNetworkCallback(systemCallback) } catch (ex: Exception) {}
+        manager.registerNetworkCallback(request, systemCallback)
     }
 
     private fun handleNetworkChange(network: Network) {
         scope.launch {
             NetworkDescriptor.fromNetwork(network)?.let { (descriptor, hasConnectivity) ->
+                // Would be nicer to have a reversed map, but it's late and I'm tired
+                val existing = networks.filterValues { it.networkHandle == network.networkHandle }.keys.firstOrNull()
+                existing?.let { networks.remove(it) }
                 networks[descriptor] = network
+
                 if (hasConnectivity) {
                     log.v("Network up: ${network.networkHandle}, $descriptor")
                     networksLost -= network.networkHandle
@@ -100,7 +108,7 @@ object ConnectivityService {
     }
 
     private fun decideActiveNetwork(becameAvailable: NetworkHandle? = null) {
-        val available = networks.filter { it.value.networkHandle !in networksLost }.entries
+        val available = networks.filterValues { it.networkHandle !in networksLost }.entries
         val hasConnectivity = when (available.size) {
             0 -> {
                 activeNetwork = NetworkDescriptor.fallback() to null
@@ -124,6 +132,7 @@ object ConnectivityService {
         }
 
         onConnectivityChanged(hasConnectivity)
+        onNetworkAvailable(activeNetwork.first)
         onActiveNetworkChanged(activeNetwork.first)
     }
 
@@ -139,7 +148,7 @@ object ConnectivityService {
     fun isDeviceInOfflineMode(): Boolean {
         return when {
             doze.isDoze() -> true
-            networks.filter { it.value.networkHandle !in networksLost }.isNotEmpty() -> false
+            networks.filterValues { it.networkHandle !in networksLost }.isNotEmpty() -> false
             isConnectedOldApi() -> false
             else -> true
         }
@@ -177,7 +186,7 @@ object ConnectivityService {
                     }
                 }
                 else -> {
-                    val known = networks.filter { it.value.networkHandle == network.networkHandle }.entries.firstOrNull()?.key
+                    val known = networks.filterValues { it.networkHandle == network.networkHandle }.entries.firstOrNull()?.key
                     (known ?: fallback()) to hasConnectivity
                 }
             }

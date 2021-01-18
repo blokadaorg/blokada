@@ -36,6 +36,7 @@ import kotlinx.coroutines.launch
 import model.NetworkDescriptor
 import org.blokada.R
 import service.AlertDialogService
+import service.ConnectivityService
 import service.NetworkMonitorPermissionService
 import ui.NetworksViewModel
 import ui.app
@@ -74,6 +75,7 @@ class NetworksFragment : Fragment() {
 
         perms.onPermissionGranted = {
             permsButton.visibility = View.GONE
+            ConnectivityService.rescan()
         }
 
         val adapter = NetworksAdapter(vm, interaction = object : NetworksAdapter.Interaction {

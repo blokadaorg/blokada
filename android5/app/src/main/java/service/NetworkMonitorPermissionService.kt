@@ -69,8 +69,10 @@ object NetworkMonitorPermissionService {
     }
 
     fun resultReturned(result: IntArray) {
-        if (result.all { it == PackageManager.PERMISSION_GRANTED }) onPermissionGranted()
-        else log.w("Network monitor permission not granted")
+        if (result.all { it == PackageManager.PERMISSION_GRANTED }) {
+            log.v("Network monitor permission granted")
+            onPermissionGranted()
+        } else log.w("Network monitor permission not granted")
     }
 
 }
