@@ -74,6 +74,8 @@
 "universal action filter" = "Filter";
 // A verb "to clear the list"
 "universal action clear" = "Clear";
+// A verb "to revoke permissions"
+"universal action revoke" = "Revoke";
 
 "universal label help" = "Help";
 "universal label welcome" = "Welcome!";
@@ -229,6 +231,7 @@
 "networks label any wifi" = "Any WiFi network";
 "networks label any mobile" = "Any mobile network";
 "networks permission request" = "To have more control, tap here and let the app recognise all networks.";
+"networks permission request granted" = "You may see a notification when Blokada reads your network name in background.";
 "networks section choose dns" = "Choose DNS";
 "networks summary encrypt dns" = "Blokada will encrypt DNS if possible. This improves your security and prevents malicious actors to spy on what websites and apps you use.";
 "networks summary use dns" = "Blokada will use %@ as your device's DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.";
