@@ -35,6 +35,7 @@ import service.EnvironmentService
 import service.PersistenceService
 import ui.utils.cause
 import utils.Logger
+import java.util.*
 
 class AccountViewModel: ViewModel() {
 
@@ -80,7 +81,7 @@ class AccountViewModel: ViewModel() {
                     connectivity.isDeviceInOfflineMode() ->
                         log.w("Could not refresh account but device is offline, ignoring")
                     else -> {
-                        log.w("Could not refresh account, TODO".cause(ex))
+                        log.e("Could not refresh account, TODO".cause(ex))
                     }
                 }
 

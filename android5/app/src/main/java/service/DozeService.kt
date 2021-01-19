@@ -57,7 +57,6 @@ object DozeService {
 
 class DozeReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, p1: Intent) {
-        ContextService.setContext(ctx)
         DozeService.dozeChanged()
     }
 }

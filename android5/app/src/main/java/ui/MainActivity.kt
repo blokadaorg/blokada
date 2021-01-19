@@ -161,6 +161,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         blockaRepoVM = ViewModelProvider(app()).get(BlockaRepoViewModel::class.java)
         activationVM = ViewModelProvider(this).get(ActivationViewModel::class.java)
 
+        var expiredDialogShown = false
         activationVM.state.observe(this, Observer { state ->
             when (state) {
                 ActivationViewModel.ActivationState.JUST_PURCHASED -> {
@@ -173,16 +174,19 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                     fragment.show(supportFragmentManager, null)
                 }
                 ActivationViewModel.ActivationState.JUST_EXPIRED -> {
-                    AlertDialogService.showAlert(getString(R.string.error_vpn_expired),
-                        title = getString(R.string.alert_vpn_expired_header),
-                        onDismiss = {
-                            lifecycleScope.launch {
-                                activationVM.setInformedUserAboutExpiration()
-                                NotificationService.cancel(ExpiredNotification())
-                                tunnelVM.clearLease()
-                                accountVM.refreshAccount()
-                            }
-                        })
+                    if (!expiredDialogShown) {
+                        expiredDialogShown = true
+                        AlertDialogService.showAlert(getString(R.string.error_vpn_expired),
+                            title = getString(R.string.alert_vpn_expired_header),
+                            onDismiss = {
+                                lifecycleScope.launch {
+                                    activationVM.setInformedUserAboutExpiration()
+                                    NotificationService.cancel(ExpiredNotification())
+                                    tunnelVM.clearLease()
+                                    accountVM.refreshAccount()
+                                }
+                            })
+                    }
                 }
             }
         })

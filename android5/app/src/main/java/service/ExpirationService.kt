@@ -31,6 +31,7 @@ import ui.beforeNow
 import ui.utils.cause
 import utils.ExpiredNotification
 import utils.Logger
+import java.util.Date
 
 
 object ExpirationService {
@@ -69,7 +70,6 @@ object ExpirationService {
 
 class ExpirationReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, p1: Intent) {
-        ContextService.setContext(ctx)
         Logger.v("Expiration", "Alarm received")
         NotificationService.show(ExpiredNotification())
         ExpirationService.onExpired()
