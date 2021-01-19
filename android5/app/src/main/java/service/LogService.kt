@@ -48,7 +48,7 @@ object LogService {
     var onShareLog = {}
 
     private val handle by lazy {
-        val handle = file.commonDir().file("blokada5.log")
+        val handle = file.commonDir().file("blokada5.log.txt")
         Log.println(Log.VERBOSE, "Logger", "Logger will log to file: $handle")
         handle
     }
