@@ -148,7 +148,6 @@ private class ForegroundMonitorServiceStrategy: MonitorServiceStrategy {
             val deferred = CompletableDeferred<ForegroundBinder>()
             val connection = bind(deferred)
             deferred.await()
-            log.v("Bound Foreground")
             this.connection = connection
             connection
         }

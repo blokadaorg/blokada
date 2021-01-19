@@ -99,6 +99,14 @@ class PaymentFragment : BottomSheetFragment() {
             fragment.show(parentFragmentManager, null)
         }
 
+        val seeLocations: View = root.findViewById(R.id.payment_locations)
+        seeLocations.setOnClickListener {
+            dismiss()
+            val fragment = LocationFragment.newInstance()
+            fragment.clickable = false
+            fragment.show(parentFragmentManager, null)
+        }
+
         return root
     }
 

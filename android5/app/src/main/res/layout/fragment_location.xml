@@ -57,6 +57,7 @@
                 app:layout_constraintWidth_max="@dimen/maxwidth">
 
                 <TextView
+                    android:id="@+id/location_header"
                     style="@style/Text.Header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

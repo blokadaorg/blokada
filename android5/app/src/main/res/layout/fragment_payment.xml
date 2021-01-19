@@ -203,10 +203,19 @@
                         android:text="@string/universal_action_continue" />
 
                     <TextView
+                        android:id="@+id/payment_locations"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/half"
+                        android:text="@string/payment_action_see_locations"
+                        android:textColor="?android:attr/colorPrimary" />
+
+                    <TextView
                         android:id="@+id/payment_restore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/half"
+                        android:layout_marginBottom="@dimen/half"
                         android:gravity="center"
                         android:text="@string/payment_action_restore"
                         android:textColor="?android:attr/colorPrimary" />

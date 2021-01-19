@@ -48,6 +48,8 @@ class LocationFragment : BottomSheetFragment() {
         fun newInstance() = LocationFragment()
     }
 
+    var clickable: Boolean = true
+
     private lateinit var vm: LocationViewModel
     private lateinit var tunnelVM: TunnelViewModel
 
@@ -62,14 +64,23 @@ class LocationFragment : BottomSheetFragment() {
 
         val root = inflater.inflate(R.layout.fragment_location, container, false)
 
-        val back: View = root.findViewById(R.id.back)
-        back.setOnClickListener {
+        val goBack = {
             dismiss()
+            if (!clickable) {
+                val fragment = PaymentFragment.newInstance()
+                fragment.show(parentFragmentManager, null)
+            }
         }
 
+        val back: View = root.findViewById(R.id.back)
+        back.setOnClickListener { goBack() }
+
         val cancel: View = root.findViewById(R.id.cancel)
-        cancel.setOnClickListener {
-            dismiss()
+        cancel.setOnClickListener { goBack() }
+
+        if (!clickable) {
+            val header: TextView = root.findViewById(R.id.location_header)
+            header.setText(R.string.payment_action_see_locations)
         }
 
         val container1: LinearLayout = root.findViewById(R.id.location_container1)
@@ -116,15 +127,17 @@ class LocationFragment : BottomSheetFragment() {
         name.text = location.niceName()
         icon.setImageResource(getFlag(location))
 
-        if (tunnelVM.isCurrentlySelectedGateway(location.public_key)) {
+        if (clickable && tunnelVM.isCurrentlySelectedGateway(location.public_key)) {
             name.setTextColor(requireContext().getColorFromAttr(android.R.attr.colorAccent))
         } else {
             checkmark.visibility = View.GONE
         }
 
-        item.setOnClickListener {
-            tunnelVM.changeGateway(location)
-            dismiss()
+        if (clickable) {
+            item.setOnClickListener {
+                tunnelVM.changeGateway(location)
+                dismiss()
+            }
         }
 
         container.addView(item)
