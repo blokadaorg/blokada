@@ -30,6 +30,7 @@ import newengine.BlockaDnsService
 import repository.DnsDataSource
 import service.ConnectivityService
 import service.EnvironmentService
+import service.VpnPermissionService
 import utils.Logger
 import ui.utils.cause
 import java.net.DatagramSocket
@@ -45,6 +46,7 @@ object EngineService {
     private val dnsMapper = DnsMapperService
     private val dnsService = BlockaDnsService
     private val configurator = SystemTunnelConfigurator
+    private val vpnPerm = VpnPermissionService
     private val scope = GlobalScope
 
     private lateinit var config: EngineConfiguration
@@ -120,7 +122,9 @@ object EngineService {
             if (wasActive) stopAll()
 
             when {
-                !config.tunnelEnabled -> {
+                !config.tunnelEnabled -> state.stopped(config)
+                !vpnPerm.hasPermission() -> {
+                    log.w("No VPN permissions, engine stopped")
                     state.stopped(config)
                 }
                 else -> startAll(config)
