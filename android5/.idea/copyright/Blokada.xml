@@ -1,6 +1,6 @@
 <component name="CopyrightManager">
   <copyright>
-    <option name="notice" value="This file is part of Blokada.&#10;&#10;Blokada is free software: you can redistribute it and/or modify&#10;it under the terms of the GNU General Public License as published by&#10;the Free Software Foundation, either version 3 of the License, or&#10;(at your option) any later version.&#10;&#10;Blokada is distributed in the hope that it will be useful,&#10;but WITHOUT ANY WARRANTY; without even the implied warranty of&#10;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#10;GNU General Public License for more details.&#10;&#10;You should have received a copy of the GNU General Public License&#10;along with Blokada.  If not, see &lt;https://www.gnu.org/licenses/&gt;.&#10;&#10;Copyright © &amp;#36;today.year Blocka AB. All rights reserved.&#10;&#10;@author Karol Gusak (karol@blocka.net)" />
+    <option name="notice" value="This file is part of Blokada.&#10;&#10;This Source Code Form is subject to the terms of the Mozilla Public&#10;License, v. 2.0. If a copy of the MPL was not distributed with this&#10;file, You can obtain one at https://mozilla.org/MPL/2.0/.&#10;&#10;Copyright © &amp;#36;today.year Blocka AB. All rights reserved.&#10;&#10;@author Karol Gusak (karol@blocka.net)" />
     <option name="myName" value="Blokada" />
   </copyright>
 </component>
