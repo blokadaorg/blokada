@@ -65,9 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="@dimen/half"
         android:paddingTop="@dimen/half"
-        android:paddingEnd="@dimen/half"
         app:layout_constraintTop_toBottomOf="@id/network_all">
 
         <LinearLayout
@@ -75,15 +73,18 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
+            android:paddingStart="@dimen/half"
+            android:paddingEnd="@dimen/half"
             android:paddingBottom="@dimen/half">
 
             <ImageView
                 android:layout_width="@dimen/icon_small"
                 android:layout_height="@dimen/icon_small"
                 android:src="@drawable/ic_baseline_help_outline_24"
-                app:tint="?android:attr/textColorTertiary" />
+                app:tint="?android:attr/textColorSecondary" />
 
             <TextView
+                android:id="@+id/network_perms_text"
                 style="@style/Text.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,6 +95,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/half"
             android:background="?android:attr/textColorTertiary" />
     </LinearLayout>
 
@@ -101,6 +103,8 @@
         android:id="@+id/network_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingStart="@dimen/oneandhalf"
+        android:paddingEnd="@dimen/oneandhalf"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

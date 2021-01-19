@@ -40,6 +40,8 @@ import service.ConnectivityService
 import service.NetworkMonitorPermissionService
 import ui.NetworksViewModel
 import ui.app
+import ui.settings.getIntentForAppInfo
+import ui.utils.getColor
 import ui.utils.getColorFromAttr
 
 class NetworksFragment : Fragment() {
@@ -62,7 +64,7 @@ class NetworksFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_networks, container, false)
 
         val permsButton: View = root.findViewById(R.id.network_perms)
-        permsButton.visibility = if (perms.hasPermission()) View.GONE else View.VISIBLE
+        val permsText: TextView = root.findViewById(R.id.network_perms_text)
         permsButton.setOnClickListener {
             dialog.showAlert(
                 message = getString(R.string.networks_permission_dialog),
@@ -73,8 +75,24 @@ class NetworksFragment : Fragment() {
             )
         }
 
+         val showPermsGrantedInfo = {
+            permsText.text = getString(R.string.networks_permission_request_granted)
+            permsText.setTextColor(getColor(R.color.green))
+            permsButton.setOnClickListener {
+                dialog.showAlert(
+                    message = getString(R.string.networks_permission_dialog),
+                    title = getString(R.string.universal_label_help),
+                    positiveAction = getString(R.string.universal_action_revoke) to {
+                        val ctx = requireContext()
+                        ctx.startActivity(getIntentForAppInfo(ctx))
+                    }
+                )
+            }
+        }
+        if (perms.hasPermission()) showPermsGrantedInfo()
+
         perms.onPermissionGranted = {
-            permsButton.visibility = View.GONE
+            showPermsGrantedInfo()
             ConnectivityService.rescan()
         }
 

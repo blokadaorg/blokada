@@ -233,12 +233,6 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
         Toast.makeText(requireContext(), getString(R.string.universal_status_restart_required), Toast.LENGTH_LONG).show()
     }
 
-    private fun getIntentForAppInfo(ctx: Context) = Intent().apply {
-        action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        data = Uri.parse("package:${ctx.packageName}")
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    }
-
     private fun getIntentForVpnProfile(ctx: Context) = Intent().apply {
         action = "android.net.vpn.SETTINGS"
         flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -252,3 +246,10 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
         putExtra("android.provider.extra.APP_PACKAGE", ctx.packageName)
     }
 }
+
+fun getIntentForAppInfo(ctx: Context) = Intent().apply {
+    action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+    data = Uri.parse("package:${ctx.packageName}")
+    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+}
+
