@@ -179,7 +179,7 @@
     <string name="networks_section_choose_dns">Choose DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada will encrypt DNS if possible. This improves your security and prevents malicious actors to spy on what websites and apps you use.</string>
     <string name="networks_summary_use_dns">Blokada will use %s as your device\'s DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.</string>
-    <string name="networks_summary_network_dns">Blokada will use the network\'s DNS if possible, or switch to %s instead. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network\'s DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.</string>
+    <string name="networks_summary_network_dns">Blokada will use the network\'s DNS if available, or switch to %s otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network\'s DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada will use Blokada DNS in Plus mode, to ensure high level of encryption and speed. You may change this setting at the bottom of the Choose DNS screen.</string>
     <string name="networks_permission_dialog">Blokada can recognize networks you connect to, and let you configure separate settings for them. However, to do so, location permission is required. Sometimes you may see a system notification about location access, but this is not accurate - Blokada will only read the network\'s name.</string>
@@ -259,6 +259,7 @@
     <string name="payment_header_activated">Activated!</string>
     <string name="payment_activated_description">Blokada will now switch into Plus mode, and connect through one of our secure locations. If you are unsure which one to choose, the closest one to you is recommended.</string>
     <string name="payment_action_choose_location">Choose a location</string>
+    <string name="payment_action_see_locations">Our Locations</string>
     <string name="payment_title">Upgrade to our VPN service to stay in control of *your privacy*.</string>
     <string name="payment_feature_title_change_location">Change Location</string>
     <string name="payment_feature_desc_change_location">Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.</string>

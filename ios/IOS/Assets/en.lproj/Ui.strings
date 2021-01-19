@@ -232,7 +232,7 @@
 "networks section choose dns" = "Choose DNS";
 "networks summary encrypt dns" = "Blokada will encrypt DNS if possible. This improves your security and prevents malicious actors to spy on what websites and apps you use.";
 "networks summary use dns" = "Blokada will use %@ as your device's DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.";
-"networks summary network dns" = "Blokada will use the network's DNS if possible, or switch to %@ instead. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network's DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.";
+"networks summary network dns" = "Blokada will use the network's DNS if available, or switch to %@ otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network's DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.";
 "networks summary network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.";
 "networks summary blocka plus mode" = "Blokada will use Blokada DNS in Plus mode, to ensure high level of encryption and speed. You may change this setting at the bottom of the Choose DNS screen.";
 "networks permission dialog" = "Blokada can recognize networks you connect to, and let you configure separate settings for them. However, to do so, location permission is required. Sometimes you may see a system notification about location access, but this is not accurate - Blokada will only read the network's name.";
@@ -323,6 +323,7 @@
 "payment header activated" = "Activated!";
 "payment activated description" = "Blokada will now switch into Plus mode, and connect through one of our secure locations. If you are unsure which one to choose, the closest one to you is recommended.";
 "payment action choose location" = "Choose a location";
+"payment action see locations" = "Our Locations";
 
 "payment title" = "Upgrade to our VPN service to stay in control of *your privacy*.";
 "payment feature title change location" = "Change Location";
