@@ -125,7 +125,7 @@ object EngineService {
                 !config.tunnelEnabled -> state.stopped(config)
                 !vpnPerm.hasPermission() -> {
                     log.w("No VPN permissions, engine stopped")
-                    state.stopped(config)
+                    state.stopped(config.copy(tunnelEnabled = false))
                 }
                 else -> startAll(config)
             }
