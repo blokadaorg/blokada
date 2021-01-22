@@ -68,6 +68,8 @@
 
 "universal label help" = "Yardım";
 "universal label welcome" = "Hoş geldiniz!";
+// Common label when some feature has no setting
+"universal label none" = "Hiçbiri";
 "universal status processing" = "İşeniyor... Lütfen bekleyin.";
 "universal status copied to clipboard" = "Panoya kopyalandı";
 "universal status restart required" = "Değişikliklerin etkili olması için lütfen programı yeniden başlatın.";
@@ -214,14 +216,8 @@
 "networks action use dns" = "DNS'i kullan: %@";
 "networks action use network dns" = "Ağ DNS'sini tercih et";
 "networks label specific network" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
-"networks label network type" = "Ağ türü";
-"networks type wifi" = "Kablosuz ağ";
-"networks type mobile" = "Mobil ağ";
-// As in "any (wifi) network"
-"networks match any" = "(herhangi)";
 "networks permission request" = "Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.";
 "networks section choose dns" = "DNS seç";
-"networks alert network dns and plus mode" = "Ağ DNS'si kullanıldığında Blokada geçici olarak Plus Modunu devre dışı bırakır. Bunun nedeni, VPN'de ağ DNS'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.";
 
 
 "account section header settings" = "Ayarlar";

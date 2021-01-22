@@ -65,6 +65,8 @@
 "universal action filter" = "Filtrer";
 // A verb "to clear the list"
 "universal action clear" = "Effacer";
+// A verb "to revoke permissions"
+"universal action revoke" = "Révoquer";
 
 "universal label help" = "Aide";
 "universal label welcome" = "Bienvenue !";
@@ -212,10 +214,6 @@
 "networks label configuration enabled" = "Non connecté à ce réseau";
 "networks label configuration inactive" = "Appuyez pour modifier les paramètres de ce réseau";
 "networks action use dns" = "Utiliser le DNS : %@";
-"networks type wifi" = "Réseau WiFi";
-"networks type mobile" = "Réseau mobile";
-// As in "any (wifi) network"
-"networks match any" = "(tous)";
 "networks permission request" = "Pour avoir plus de contrôle, appuyez ici et laissez l'application découvrir tous les réseaux.";
 "networks section choose dns" = "Sélectionnez un DNS";
 

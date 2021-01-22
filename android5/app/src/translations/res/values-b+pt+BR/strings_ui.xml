@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">O seu dispositivo está offline</string>
     <string name="error_account_inactive">Sua conta está inativa. Por favor, ative sua conta para continuar a usar o BLOKADA+.</string>
@@ -65,6 +53,7 @@
     <string name="universal_action_clear">Limpar</string>
     <string name="universal_label_help">Ajuda</string>
     <string name="universal_label_welcome">Bem-vindo!</string>
+    <string name="universal_label_none">Nenhuma</string>
     <string name="universal_status_processing">Processando... Por favor, aguarde.</string>
     <string name="universal_status_copied_to_clipboard">Copiado para a Área de Transferência</string>
     <string name="universal_status_restart_required">Por favor, reinicie o programa para que as alterações entrem em vigor.</string>
@@ -113,6 +102,9 @@
     <string name="home_plus_button_deactivated">BLOKADA+ desativado</string>
     <string name="home_plus_button_select_location">Selecionar local</string>
     <string name="home_plus_button_location">Localização: *%s*</string>
+    <string name="home_level_low">Proteção: Baixa</string>
+    <string name="home_level_medium">Proteção: Média</string>
+    <string name="home_level_high">Proteção: Alta</string>
     <string name="pack_section_header">Recursos Avançados</string>
     <string name="pack_section_header_details">Detalhes do Recurso</string>
     <string name="pack_action_install">OBTER</string>
@@ -180,12 +172,9 @@
     <string name="networks_action_use_dns">Usar DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferir DNS de rede</string>
     <string name="networks_label_specific_network">Ajuste o que deve acontecer quando o seu dispositivo se conectar a esta rede.</string>
-    <string name="networks_label_network_type">Tipo de rede</string>
-    <string name="networks_type_wifi">Rede Wi-Fi</string>
-    <string name="networks_type_mobile">Rede móvel</string>
-    <string name="networks_match_any">(qualquer)</string>
     <string name="networks_permission_request">Para ter mais controle, toque aqui e deixe o app reconhecer todas as redes.</string>
     <string name="networks_section_choose_dns">Escolher DNS</string>
+    <string name="networks_permission_dialog">O Blokada pode reconhecer as redes em que você se conecta, e permitir que você configure ajustes separados para elas. Para fazer isso, é necessária a permissão de localização. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização, mas isso não é correto - o Blokada só vai ler o nome da rede.</string>
     <string name="account_section_header_settings">Configurações</string>
     <string name="account_status_text">Sua conta BLOKADA %s está ativa até %s.</string>
     <string name="account_status_text_libre">Sua conta BLOKADA Libre está ativa para sempre.</string>
@@ -231,6 +220,7 @@
     <string name="account_encrypt_level_high">Alta</string>
     <string name="account_encrypt_label_dns_only">Criptografando DNS</string>
     <string name="account_encrypt_desc_dns_only">O Sistema de Nomes de Domínio é como seu dispositivo sabe onde encontrar os sites que você deseja visitar. Infelizmente, a maior parte da Internet ainda usa DNS não criptografado, o que coloca seu histórico de navegação em risco de ser espionado. Quando ativado, o Blokada está forçando seu dispositivo a se conectar apenas a servidores DNS criptografados (também chamados de DNS sobre HTTPS).</string>
+    <string name="account_encrypt_label_everything">Conectando através da VPN</string>
     <string name="account_encrypt_desc_everything">Seu dispositivo está se conectando por meio de nossos servidores VPN seguros, e todas as comunicações vindas de, ou para, seu dispositivo estão sendo criptografadas usando algoritmos fortes. Isso protege suas informações pessoais, como dados bancários ou fotos pessoais, de serem roubadas em locais inseguros, como o WiFi de uma cafeteria.</string>
     <string name="account_encrypt_action_turn_on">Ativar o BLOKADA</string>
     <string name="account_encrypt_header_level">Nível de Criptografia</string>

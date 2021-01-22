@@ -65,6 +65,8 @@
 "universal action filter" = "フィルター";
 // A verb "to clear the list"
 "universal action clear" = "消去";
+// A verb "to revoke permissions"
+"universal action revoke" = "取り消す";
 
 "universal label help" = "ヘルプ";
 "universal label welcome" = "ようこそ！";
@@ -146,7 +148,7 @@
 "pack action update" = "更新";
 "pack action uninstall" = "削除";
 "pack author" = "作成者";
-"pack configurations header" = "構成";
+"pack configurations header" = "設定";
 "pack information header" = "もっと見る";
 "pack tags header" = "タグ";
 "pack tags none" = "未設定";
@@ -169,7 +171,7 @@
 "activity request allowed whitelisted" = "マイ・リストにより、このリクエストは通信を許可されています";
 "activity request blocked blacklisted" = "マイ・リストにより、このリクエストは通信をブロックされています。";
 "activity actions header" = "アクション";
-"activity information header" = "情報";
+"activity information header" = "Info";
 "activity action add to whitelist" = "通信を許可する";
 "activity action remove from whitelist" = "許可リストから削除";
 "activity action added to whitelist" = "通信を許可しています";
@@ -214,17 +216,21 @@
 "networks label configuration inactive" = "タップしてこのネットワークの設定を変更します";
 "networks label details default network" = "以下の設定は、すべてのネットワークにデフォルトで適用されます。任意のネットワークの設定を（前の画面で）上書きできます。";
 "networks action encrypt dns" = "DNSを暗号化";
-"networks action use dns" = "DNSを使用：%@";
+"networks action use dns" = "DNS：%@";
 "networks action use network dns" = "ネットワークDNS";
 "networks label specific network" = "このネットワークに接続されたときの動作を設定します。";
-"networks label network type" = "ネットワークの種類";
-"networks type wifi" = "Wi-Fiネットワーク";
-"networks type mobile" = "モバイルネットワーク";
-// As in "any (wifi) network"
-"networks match any" = "（任意）";
+"networks label specific network type" = "この種類のネットワークに接続されたときの動作を設定します。";
+"networks label any wifi" = "全てのWi-Fiネットワーク";
+"networks label any mobile" = "全てのモバイルネットワーク";
 "networks permission request" = "さらにコントロールするには、タップしてアプリにすべてのネットワークを認識させます。";
+"networks permission request granted" = "Blokadaがネットワーク名をバックグラウンドで読み込むと通知が表示されることがあります。";
 "networks section choose dns" = "DNSを選択";
-"networks alert network dns and plus mode" = "Blokadaは、ネットワークDNSが使用されるたびにBlokada Plus VPNを一時的に無効にします。これはVPNでネットワークDNSにアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPNは自動的に復元されます。";
+"networks summary encrypt dns" = "Blokadaは暗号化されたDNSを優先して接続します。これによりセキュリティが向上し、悪意のある人物があなたが使用するウェブサイトやアプリをスパイするのを防ぎます。";
+"networks summary use dns" = "BlokadaはデバイスのDNSとして %@ を使用します。ロックアイコン付きの暗号化されたDNSサーバーを選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。";
+"networks summary network dns" = "BlokadaはネットワークDNSを使用し、使用できない場合は %@ に切り替えます。また、ネットワークDNSを使用すると、DNSは暗号化されません。ネットワークDNSを使用すると、ネットワーク上の接続の問題を解決するのに役立ちますが、保護されていない状態になります。";
+"networks summary network dns and plus mode" = "Blokadaは、ネットワークDNSが使用されるたびにBlokada Plus VPNを一時的に無効にします。これはVPNでネットワークDNSにアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPNは自動的に復元されます。";
+"networks summary blocka plus mode" = "BlokadaはPlusモードでBlokada DNSを使用して、高いレベルの暗号化と速度を確保します。DNS選択画面の下部でこの設定を変更できます。";
+"networks permission dialog" = "Blokadaは、接続先のネットワークを認識して個別の設定を適用することができます。位置情報へのアクセス許可が必要ですが、Blokadaはネットワーク名のみを読み取りその他の情報は利用しません。";
 
 
 "account section header settings" = "設定";
@@ -312,6 +318,7 @@
 "payment header activated" = "アクティベートされました！";
 "payment activated description" = "BlokadaがPlusモードに切り替わり、安全な接続先の1つを介して接続します。どれを選択すればよいかわからない場合は、最も近いものをお勧めします。";
 "payment action choose location" = "接続先を選択";
+"payment action see locations" = "Our Locations";
 
 "payment title" = "VPNサービスにアップグレードして、*あなたのプライバシー*を管理し続けましょう。";
 "payment feature title change location" = "接続先を変更";

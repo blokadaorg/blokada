@@ -65,6 +65,8 @@
 "universal action filter" = "Filtern";
 // A verb "to clear the list"
 "universal action clear" = "Leeren";
+// A verb "to revoke permissions"
+"universal action revoke" = "Widerrufen";
 
 "universal label help" = "Hilfe";
 "universal label welcome" = "Herzlich willkommen!";
@@ -122,7 +124,7 @@
 "home status paused" = "Pausiert";
 "home status active" = "Aktiv";
 "home status deactivated" = "Deaktiviert";
-"home action tap to activate" = "zum Aktivieren tippen";
+"home action tap to activate" = "Zum Aktivieren tippen";
 "home status detail paused" = "pausiert, bis der Timer abgelaufen ist";
 "home status detail active" = "*Werbung* und *Tracker* blockieren";
 "home status detail active with counter" = "*%@* Werbeanzeigen und Tracker blockiert";
@@ -169,12 +171,12 @@
 "activity request blocked blacklisted" = "Diese Anfrage wurde blockiert, weil sie sich auf deiner Sperrliste befindet";
 "activity actions header" = "Aktionen";
 "activity information header" = "Informationen";
-"activity action add to whitelist" = "Zu erlaubten hinzufügen";
-"activity action remove from whitelist" = "Aus erlaubten entfernen";
-"activity action added to whitelist" = "Zu erlaubten hinzugefügt";
-"activity action add to blacklist" = "Zu gesperrten hinzufügen";
-"activity action remove from blacklist" = "Aus gesperrten entfernen";
-"activity action added to blacklist" = "Zu gesperrten hinzugefügt";
+"activity action add to whitelist" = "Zu Erlaubten hinzufügen";
+"activity action remove from whitelist" = "Aus Erlaubten entfernen";
+"activity action added to whitelist" = "Zu Erlaubten hinzugefügt";
+"activity action add to blacklist" = "Zu Gesperrten hinzufügen";
+"activity action remove from blacklist" = "Aus Gesperrten entfernen";
+"activity action added to blacklist" = "Zu Gesperrten hinzugefügt";
 "activity action copy to clipboard" = "Name in die Zwischenablage kopieren";
 "activity domain name" = "Vollständiger Name";
 "activity time of occurrence" = "Zeit";
@@ -216,14 +218,18 @@
 "networks action use dns" = "Verwende DNS: %@";
 "networks action use network dns" = "Netzwerk-DNS bevorzugen";
 "networks label specific network" = "Stelle ein, was passieren soll, wenn dein Gerät eine Verbindung zu diesem Netzwerk herstellt.";
-"networks label network type" = "Netzwerk-Typ";
-"networks type wifi" = "WLAN Netzwerk";
-"networks type mobile" = "Mobiles Netzwerk";
-// As in "any (wifi) network"
-"networks match any" = "(alle)";
+"networks label specific network type" = "Stelle ein, was passieren soll, wenn dein Gerät eine Verbindung zu einem Netzwerk dieser Art herstellt.";
+"networks label any wifi" = "Jedes WLAN-Netzwerk";
+"networks label any mobile" = "Jedes Mobilfunknetz";
 "networks permission request" = "Um mehr Kontrolle zu haben, tippe hier und lasse die App alle Netzwerke erkennen.";
+"networks permission request granted" = "Du siehst möglicherweise eine Benachrichtigung, wenn Blokada im Hintergrund den Netzwerknamen ausliest.";
 "networks section choose dns" = "Wähle DNS";
-"networks alert network dns and plus mode" = "Blokada deaktiviert vorübergehend den Plus-Modus, wenn Netzwerk-DNS verwendet wird. Dies liegt daran, dass im VPN der Zugriff auf Netzwerk-DNS nicht möglich ist. Der Plus-Modus wird automatisch wiederhergestellt, wenn dein Gerät in ein anderes Netzwerk wechselt.";
+"networks summary encrypt dns" = "Blokada verschlüsselt DNS, wenn möglich. Dies verbessert deine Sicherheit und verhindert, dass böswillige Akteure ausspionieren, welche Websites und Apps du verwendest.";
+"networks summary use dns" = "Blokada wird %@ als DNS für dein Gerät verwenden. Wenn du einen DNS auswählst, der eine Verschlüsselung zulässt (gekennzeichnet durch das Schlosssymbol) und sich in deiner Nähe befindet, kannst du deine Daten schützen und eine schnelle Verbindung herstellen.";
+"networks summary network dns" = "Blokada verwendet - sofern verfügbar - das DNS des Netzwerks und wechselt andernfalls zu %@. Außerdem werden die Einstellungen für \"DNS verschlüsseln\" ignoriert, wenn Netzwerk-DNS verwendet wird. Die Verwendung des Netzwerk-DNS hilft bei der Behebung von Verbindungsproblemen in fehlerhaften Netzwerken, lässt dich aber ungeschützt.";
+"networks summary network dns and plus mode" = "Blokada deaktiviert vorübergehend den Plus-Modus, wenn Netzwerk-DNS verwendet wird. Dies liegt daran, dass im VPN der Zugriff auf Netzwerk-DNS nicht möglich ist. Der Plus-Modus wird automatisch wiederhergestellt, wenn dein Gerät in ein anderes Netzwerk wechselt.";
+"networks summary blocka plus mode" = "Blokada verwendet Blokada DNS im Plus-Modus, um ein hohes Maß an Verschlüsselung und Geschwindigkeit zu gewährleisten. Du kannst diese Einstellung unten bei \"DNS auswählen\" ändern.";
+"networks permission dialog" = "Blokada kann Netzwerke erkennen, mit denen du dich verbindest und du kannst für diese Netzwerke individuelle Einstellungen konfigurieren. Um dies zu tun, ist jedoch eine Standortberechtigung erforderlich. Möglicherweise siehst du manchmal eine Systembenachrichtigung bezüglich des Standortzugriffs, aber das ist nicht korrekt. Blokada liest nur den Namen des Netzwerks.";
 
 
 "account section header settings" = "Einstellungen";
@@ -311,6 +317,7 @@
 "payment header activated" = "Aktiviert!";
 "payment activated description" = "Blokada wechselt nun in den Plus-Modus und verbindet sich mit einem unserer sicheren Standorte. Wenn du dir nicht sicher bist, welchen du wählen solltest, empfehlen wir den am nächsten gelegenen.";
 "payment action choose location" = "Standort wählen";
+"payment action see locations" = "Unsere Standorte";
 
 "payment title" = "Upgrade auf unseren VPN-Service, um die Kontrolle über *deine Privatsphäre* zu behalten.";
 "payment feature title change location" = "Standort ändern";
@@ -466,7 +473,7 @@
 "homepage support cta action" = "Spenden (Kreditkarte, Paypal)";
 "homepage support cta action alt" = "Spenden (Bank, Kryptowährung)";
 
-"homepage developer header" = "Bist du ein Entwickler";
-"homepage developer subheader" = "und willst Blokada verbessern?";
+"homepage developer header" = "Du bist ein Entwickler";
+"homepage developer subheader" = "und möchtest Blokada verbessern?";
 "homepage developer desc" = "Blokada ist ein quelloffenes Projekt, das sich der Entwicklung der besten Werbeblocker- und Datenschutz-App für Android und iOS widmet. Schaue in unserem GitHub-Repository nach und lass uns wissen, wenn du Hilfe benötigst, um deinen ersten PR zu machen.";
 "homepage developer action" = "Zum Repository springen";

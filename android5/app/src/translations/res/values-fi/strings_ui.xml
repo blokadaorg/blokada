@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">Laitteesi on offline-tilassa</string>
     <string name="error_account_inactive">Tilisi on toimeton. Aktivoi tilisi jatkaaksesi BLOKADA+:n käyttöä.</string>
@@ -57,6 +45,7 @@
     <string name="universal_action_search">Hae</string>
     <string name="universal_action_clear">Tyhjennä</string>
     <string name="universal_label_help">Ohje</string>
+    <string name="universal_label_none">Ei mitään</string>
     <string name="universal_status_processing">Käsitellään... odota hetki.</string>
     <string name="universal_status_copied_to_clipboard">Kopioitu leikepöydälle</string>
     <string name="universal_status_restart_required">Käynnistä ohjelma uudelleen, jotta muutokset astuvat voimaan.</string>

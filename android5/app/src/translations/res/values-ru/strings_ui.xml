@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">Ваше устройство не в сети</string>
     <string name="error_account_inactive">Ваш аккаунт неактивен. Пожалуйста, его, чтобы продолжить использовать BLOKADA+.</string>
@@ -63,6 +51,7 @@
     <string name="universal_action_search">Поиск</string>
     <string name="universal_action_filter">Фильтр</string>
     <string name="universal_action_clear">Очистить</string>
+    <string name="universal_action_revoke">Отозвать</string>
     <string name="universal_label_help">Помощь</string>
     <string name="universal_label_welcome">Добро пожаловать!</string>
     <string name="universal_label_none">Нет</string>
@@ -184,13 +173,18 @@
     <string name="networks_action_use_dns">Использовать DNS: %s</string>
     <string name="networks_action_use_network_dns">Предпочитать DNS провайдера</string>
     <string name="networks_label_specific_network">Настройте, что должно произойти, когда устройство подключится к этой сети.</string>
-    <string name="networks_label_network_type">Тип сети</string>
-    <string name="networks_type_wifi">Сеть WiFi</string>
-    <string name="networks_type_mobile">Мобильная сеть</string>
-    <string name="networks_match_any">(любая)</string>
+    <string name="networks_label_specific_network_type">Настройте, что должно произойти, когда устройство подключается к сети данного типа.</string>
+    <string name="networks_label_any_wifi">Любая сеть WiFi</string>
+    <string name="networks_label_any_mobile">Любая мобильная сеть</string>
     <string name="networks_permission_request">Чтобы получить больше контроля, нажмите здесь и разрешите приложению распознавать все сети.</string>
+    <string name="networks_permission_request_granted">Вы можете увидеть уведомление, когда Blokada будет считывать название вашей сети в фоновом режиме.</string>
     <string name="networks_section_choose_dns">Выбрать DNS</string>
-    <string name="networks_alert_network_dns_and_plus_mode">Blokada временно отключает режим Plus при использовании DNS сети. Это связано с тем, что при использовании VPN невозможно получить доступ к DNS сети. Режим Plus будет автоматически восстановлен, когда ваше устройство переключится на другую сеть.</string>
+    <string name="networks_summary_encrypt_dns">Blokada будет шифровать DNS, если это возможно. Это позволяет повысить безопасность и предотвратить слежку за используемыми вами веб-сайтами и приложениями со стороны злоумышленников.</string>
+    <string name="networks_summary_use_dns">Blokada будет использовать %s в качестве DNS вашего устройства. Выбор DNS, обеспечивающего шифрование (со значком замка) и находящегося рядом с вами, поможет защитить ваши данные и сделать ваше соединение более быстрым.</string>
+    <string name="networks_summary_network_dns">Blokada будет использовать DNS вашей сети, если он доступен, или переключится на %s в противном случае. Кроме того, настройки шифрования DNS будут игнорироваться при использовании сетевого DNS. Использование DNS сети помогает решить проблемы с подключением в проблемных сетях, но при этом делает вас незащищенным.</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Blokada временно отключает режим Plus при использовании DNS сети. Это связано с тем, что при использовании VPN невозможно получить доступ к DNS сети. Режим Plus будет автоматически восстановлен, когда ваше устройство переключится на другую сеть.</string>
+    <string name="networks_summary_blocka_plus_mode">Blokada будет использовать Blokada DNS в режиме Plus для обеспечения высокого уровня шифрования и скорости. Вы можете изменить эту настройку в нижней части экрана меню выбора DNS.</string>
+    <string name="networks_permission_dialog">Blokada может распознавать сети, к которым вы подключаетесь, и позволяет вам настраивать для них отдельные параметры. Однако для этого требуется разрешение на доступ к местоположению. Иногда вы можете увидеть системное уведомление о доступе к местоположению, но это не совсем точно - Blokada сможет прочитать только название сети.</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Ваш аккаунт BLOKADA %s активен до %s.</string>
     <string name="account_status_text_libre">Ваш аккаунт BLOKADA Libre активен бессрочно.</string>
@@ -267,6 +261,7 @@
     <string name="payment_header_activated">Активировано!</string>
     <string name="payment_activated_description">Теперь Blokada перешла в режим Plus и подключена через одно из наших безопасных местоположений. Если вы не определились с выбором, рекомендуется выбрать наиболее близкое к вам.</string>
     <string name="payment_action_choose_location">Выбрать местоположение</string>
+    <string name="payment_action_see_locations">Наши локации</string>
     <string name="payment_title">Перейдите на наш VPN-сервис, чтобы контролировать *вашу конфиденциальность*.</string>
     <string name="payment_feature_title_change_location">Изменить местоположение</string>
     <string name="payment_feature_desc_change_location">Спрячьте свой IP-адрес и притворитесь, что вы находитесь в другой стране. Это замаскирует вас от третьих лиц и поможет защитить вашу идентичность.</string>

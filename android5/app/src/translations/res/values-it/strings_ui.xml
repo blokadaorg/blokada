@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">Il tuo dispositivo è offline</string>
     <string name="error_account_inactive">Il tuo account non è attivo. Si prega di attivare il tuo account per continuare a utilizzare BLOKADA+.</string>
@@ -63,9 +51,10 @@
     <string name="universal_action_search">Cerca</string>
     <string name="universal_action_filter">Filtra</string>
     <string name="universal_action_clear">Elimina</string>
+    <string name="universal_action_revoke">Revoca</string>
     <string name="universal_label_help">Aiuto</string>
     <string name="universal_label_welcome">Benvenuto!</string>
-    <string name="universal_label_none">Nessuno</string>
+    <string name="universal_label_none">Nulla</string>
     <string name="universal_status_processing">Elaborazione in corso, attendere prego...</string>
     <string name="universal_status_copied_to_clipboard">Copiato negli Appunti</string>
     <string name="universal_status_restart_required">Per favore, riavvia l\'app per rendere effettive le modifiche.</string>
@@ -184,13 +173,18 @@
     <string name="networks_action_use_dns">Usa DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferisci DNS di rete</string>
     <string name="networks_label_specific_network">Regola cosa dovrebbe accadere quando il dispositivo si connette a questa rete.</string>
-    <string name="networks_label_network_type">Tipo di rete</string>
-    <string name="networks_type_wifi">Rete WiFi</string>
-    <string name="networks_type_mobile">Rete mobile</string>
-    <string name="networks_match_any">(qualsiasi)</string>
+    <string name="networks_label_specific_network_type">Imposta cosa dovrebbe accadere quando il dispositivo si connette a una rete di questo tipo.</string>
+    <string name="networks_label_any_wifi">Qualsiasi rete WiFi</string>
+    <string name="networks_label_any_mobile">Qualsiasi rete mobile</string>
     <string name="networks_permission_request">Per avere più controllo, tocca qui e lascia che l\'app riconosca tutte le reti.</string>
-    <string name="networks_section_choose_dns">Scegli un DNS</string>
-    <string name="networks_alert_network_dns_and_plus_mode">Blokada disabiliterà temporaneamente la modalità Plus ogni volta che viene utilizzato il DNS di rete. Questo perché non è possibile accedere al DNS di rete in VPN. La modalità Plus verrà ripristinata automaticamente quando il dispositivo passerà ad un\'altra rete.</string>
+    <string name="networks_permission_request_granted">Potrai vedere una notifica quando Blokada legge il nome della rete in background.</string>
+    <string name="networks_section_choose_dns">Scegli DNS</string>
+    <string name="networks_summary_encrypt_dns">Se possibile, Blokada cifrerà i DNS. Ciò migliorerà la tua sicurezza e impedirà a malintenzionati di spiare le tue attività sul web e delle app che utilizzi.</string>
+    <string name="networks_summary_use_dns">Blokada userà %s come DNS del dispositivo. Sceglierne uno che consente la crittografia (ha l\'icona di un lucchetto), e che ti è vicino, aiuterà nel proteggere i tuoi dati e rendere più veloce la tua connessione.</string>
+    <string name="networks_summary_network_dns">Se disponibile, Blokada userà i DNS della rete, altrimenti passerà a %s. Inoltre, le impostazioni di Crittografia DNS verranno ignorate se utilizzati i DNS di rete. L\'utilizzo dei DNS di rete aiuta a risolvere i problemi di connettività su reti problematiche, ma non ti offre protezione.</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Blokada disabiliterà temporaneamente la modalità Plus ogni volta che viene utilizzato il DNS di rete. Questo perché non è possibile accedere al DNS di rete in VPN. La modalità Plus verrà ripristinata automaticamente quando il dispositivo passerà ad un\'altra rete.</string>
+    <string name="networks_summary_blocka_plus_mode">Blokada utilizzerà i DNS di Blokada in modalità Plus, per garantire un alto livello di crittografia e velocità. È possibile modificare questa impostazione nella parte inferiore della schermata Scegli DNS.</string>
+    <string name="networks_permission_dialog">Blokada può riconoscere le reti a cui ti connetti e consentire di configurare impostazioni separate per ognuna di loro. Per farlo, è necessario il permesso di localizzazione. Potrà capitare di vedere la notifica di sistema sull\'accesso alla posizione, tuttavia Blokada leggerà solo il nome della rete.</string>
     <string name="account_section_header_settings">Impostazioni</string>
     <string name="account_status_text">Il tuo account BLOKADA %s è attivo fino a %s.</string>
     <string name="account_status_text_libre">Il tuo account Gratuito BLOKADA è attivo per sempre.</string>
@@ -260,13 +254,14 @@
     <string name="account_lease_generated">Dispositivo aggiunto! Scarica la configurazione per usarla su qualsiasi dispositivo supportato da Wireguard.</string>
     <string name="account_lease_wireguard_desc">Blokada utilizza Wireguard. Le configurazioni possono essere scaricate quando si creano nuovi dispositivi.</string>
     <string name="account_lease_label_dns">DNS</string>
-    <string name="account_lease_action_dns">Scegli un DNS</string>
+    <string name="account_lease_action_dns">Scegli DNS</string>
     <string name="account_lease_label_public_key">Chiave pubblica</string>
     <string name="account_support_action_how_help">Come possiamo aiutarti?</string>
     <string name="account_support_action_kb">Apri Base di Conoscenza</string>
     <string name="payment_header_activated">Attivata!</string>
     <string name="payment_activated_description">Adesso Blokada passerà in modalità Plus e si connetterà attraverso una delle nostre località sicure. Se non sei sicuro di quale scegliere, si raccomanda quella più vicina.</string>
     <string name="payment_action_choose_location">Scegli una località</string>
+    <string name="payment_action_see_locations">Le nostre sedi</string>
     <string name="payment_title">Aggiorna al nostro servizio VPN per mantenere il controllo della *tua privacy*.</string>
     <string name="payment_feature_title_change_location">Modifica località</string>
     <string name="payment_feature_desc_change_location">Nascondi il tuo indirizzo IP e fingi di essere in un altro paese. Questo ti garantirà l\'anonimato e ti aiuterà a proteggere la tua identità.</string>

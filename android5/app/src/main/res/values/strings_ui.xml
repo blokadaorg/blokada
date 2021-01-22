@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">Your device is offline</string>
     <string name="error_account_inactive">Your account is inactive. Please activate your account in order to continue using BLOKADA+.</string>
@@ -189,7 +177,7 @@
     <string name="networks_label_any_wifi">Any WiFi network</string>
     <string name="networks_label_any_mobile">Any mobile network</string>
     <string name="networks_permission_request">To have more control, tap here and let the app recognise all networks.</string>
-    <string name="networks_permission_request_granted">You may see a notification when Blokada reads your network name in background.</string>
+    <string name="networks_permission_request_granted">You may see a notification when Blokada reads your network name in the background.</string>
     <string name="networks_section_choose_dns">Choose DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada will encrypt DNS if possible. This improves your security and prevents malicious actors to spy on what websites and apps you use.</string>
     <string name="networks_summary_use_dns">Blokada will use %s as your device\'s DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.</string>

@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">आपका उपकरण ऑफ़लाइन है</string>
     <string name="error_account_inactive">आपका खाता निष्क्रिय है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपने खाते को सक्रिय करें।</string>
@@ -55,6 +43,7 @@
     <string name="universal_action_search">खोजें</string>
     <string name="universal_action_clear">साफ़</string>
     <string name="universal_label_help">मदद</string>
+    <string name="universal_label_none">कोई नहीं</string>
     <string name="universal_status_processing">प्रॉसेस हो रहा हैं; कृपया प्रतीक्षा करें...</string>
     <string name="universal_status_redirect">ब्लोकाडा ऐप के साथ जारी रखें</string>
     <string name="alert_error_header">ओह!</string>

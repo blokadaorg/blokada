@@ -65,6 +65,8 @@
 "universal action filter" = "فلتر";
 // A verb "to clear the list"
 "universal action clear" = "مَسْح";
+// A verb "to revoke permissions"
+"universal action revoke" = "إلغاء";
 
 "universal label help" = "المُساعَدة";
 "universal label welcome" = "مرحباً !";
@@ -216,14 +218,18 @@
 "networks action use dns" = "استخدام DNS: %@";
 "networks action use network dns" = "تفضيل شبكة DNS";
 "networks label specific network" = "اضبط ما يجب أن يحدث عندما يتّصل جهازك بهذه الشبكة.";
-"networks label network type" = "نوع الشبكة";
-"networks type wifi" = "شبكة WiFi";
-"networks type mobile" = "شبكة الهاتف";
-// As in "any (wifi) network"
-"networks match any" = "(أي)";
+"networks label specific network type" = "اضبط ما يجب أن يحدث عندما يتّصل جهازك بشبكة من هذا النوع.";
+"networks label any wifi" = "أي شبكة WiFi";
+"networks label any mobile" = "أي شبكة هاتف";
 "networks permission request" = "لمزيد من التحكّم ، انقر هنا و دع التطبيق يتعرّف على جميع الشبكات.";
+"networks permission request granted" = "قد ترى إشعاراً عندما يقرأ بلوكادا اسم شبكتك في الخلفية.";
 "networks section choose dns" = "اختر DNS";
-"networks alert network dns and plus mode" = "سيقوم Blokada مؤقّتاً بتعطيل وضع Plus عند استخدام DNS للشبكة. لأنّه لا يمكن الوصول إلى DNS للشبكة أثناء اتصال VPN. سيتم استعادة وضع Plus تلقائيّاً عندما ينتقل جهازك إلى شبكة أُخرى.";
+"networks summary encrypt dns" = "سيقوم بلوكادا بتشفير DNS إن أمكن. يعمل ذلك على تحسين أمنك و يمنع الجهات الضارة من التجسس على مواقع الويب و التطبيقات التي تستخدمها.";
+"networks summary use dns" = "سيستخدم بلوكادا %@ كنظام DNS لجهازك. سيساعد اختيار الخيار الذي يسمح بالتشفير (الذي يحتوي على رمز القفل) ، و القريب منك ، على حماية بياناتك و جعل اتصالك سريعاً.";
+"networks summary network dns" = "سيستخدم بلوكادا DNS الخاص بالشبكة إذا كان متاحاً ، أو يتحوّل إلى %@ بدلاً من ذلك. أيضاً ، سيتم تجاهل إعدادات تشفير DNS عند استخدام DNS الشبكة. يساعد استخدام DNS الخاص بالشبكة في إصلاح مشكلات الاتصال على الشبكات المزعجة ، لكنّه يتركك غير محمي.";
+"networks summary network dns and plus mode" = "سيقوم بلوكادا مؤقّتاً بتعطيل وضع Plus عند استخدام DNS للشبكة. لأنّه لا يمكن الوصول إلى DNS للشبكة أثناء اتصال VPN. سيتم استعادة وضع Plus تلقائيّاً عندما ينتقل جهازك إلى شبكة أُخرى.";
+"networks summary blocka plus mode" = "بلوكادا سيستخدم Blokada DNS في وضع Plus لضمان مستوى عالٍ من التشفير و السرعة. يمكنك تغيير هذا الإعداد في الجزء السفلي من شاشة اختيار DNS.";
+"networks permission dialog" = "يستطيع بلوكادا التعرف على الشبكات التي تتّصل بها ، و يتيح لك تكوين إعدادات منفصلة لها. و مع ذلك ، للقيام بذلك ، مطلوب إذن الموقع. في بعض الأحيان قد ترى إشعار النظام حول الوصول إلى الموقع ، ولكن هذا ليس دقيقاً - سيقرأ بلوكادا اسم الشبكة فقط.";
 
 
 "account section header settings" = "الإعدادات";
@@ -311,6 +317,7 @@
 "payment header activated" = "مفَعَّل!";
 "payment activated description" = "سيتحول بلوكادا الآن إلى وضع Plus ، و سيتّصل عبر أحد مواقعنا الآمنة. إذا لم تكن متأكّداً من الإختيار، فيُنصح بالموقع الأقرب إليك.";
 "payment action choose location" = "إختيار موقع";
+"payment action see locations" = "مواقعنا";
 
 "payment title" = "قم بالترقية إلى خدمة VPN الخاصّة بنا لكي تبقى مسيطر على *خصوصيّتك*.";
 "payment feature title change location" = "تغيير الموقع";

@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">Perangkat Anda offline/tidak terkoneksi</string>
     <string name="error_account_inactive">Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa menggunakan BLOKADA+.</string>
@@ -63,6 +51,7 @@
     <string name="universal_action_search">Cari</string>
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Hapus</string>
+    <string name="universal_action_revoke">Cabut izin</string>
     <string name="universal_label_help">Bantuan</string>
     <string name="universal_label_welcome">Selamat Datang!</string>
     <string name="universal_label_none">Tidak ada</string>
@@ -184,13 +173,18 @@
     <string name="networks_action_use_dns">Gunakan DNS: %s</string>
     <string name="networks_action_use_network_dns">Utamakan DNS jaringan</string>
     <string name="networks_label_specific_network">Atur apa yang terjadi ketika perangkat Anda tersambung dengan jaringan ini.</string>
-    <string name="networks_label_network_type">Jenis jaringan</string>
-    <string name="networks_type_wifi">Jaringan WiFi</string>
-    <string name="networks_type_mobile">Jaringan selular</string>
-    <string name="networks_match_any">(apapun)</string>
-    <string name="networks_permission_request">Ketuk di sini untuk mengijinkan Blokada mengenali semua jaringan.</string>
+    <string name="networks_label_specific_network_type">Pengaturan ketika perangkat Anda tersambung dengan jaringan ini.</string>
+    <string name="networks_label_any_wifi">Jaringan WiFi manapun</string>
+    <string name="networks_label_any_mobile">Jaringan seluler manapun</string>
+    <string name="networks_permission_request">Ketuk di sini untuk mengizinkan Blokada mengenali semua jaringan.</string>
+    <string name="networks_permission_request_granted">Anda mungkin akan melihat pemberitahuan ketika Blokada memindai nama jaringan Anda di latar belakang.</string>
     <string name="networks_section_choose_dns">Pilih server DNS</string>
-    <string name="networks_alert_network_dns_and_plus_mode">Blokada akan menonaktifkan Mode Plus untuk sementara waktu ketika DNS jaringan digunakan. Hal ini terjadi karena pengguna tidak akan mungkin mengakses DNS jaringan saat menggunakan VPN. Mode Plus akan kembali aktif secara otomatis ketika perangkat Anda beralih ke jaringan lain.</string>
+    <string name="networks_summary_encrypt_dns">Blokada akan mengenkripsi DNS jika memungkinkan. Hal ini akan memperkuat keamanan dan mencegah orang lain memata-matai situs web dan aplikasi yang Anda pakai.</string>
+    <string name="networks_summary_use_dns">Blokada akan mempergunakan %s sebagai DNS perangkat Anda. Memilih DNS yang mendukung enkripsi (bertanda ikon kunci) dan lokasi yang berdekatan dengan Anda akan membantu melindungi serta mempercepat koneksi Anda.</string>
+    <string name="networks_summary_network_dns">Blokada akan mempergunakan DNS dari jaringan jika tersedia, jika tidak memungkinkan Blokada akan menggunakan %s. Pengaturan Enkripsi DNS akan diabaikan ketika DNS jaringan aktif. Penggunaan DNS dari jaringan membantu perbaikan kendala koneksi pada jaringan bermasalah, namun akan membuat koneksi Anda tak terlindungi.</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Blokada akan menonaktifkan Mode Plus untuk sementara waktu ketika DNS jaringan digunakan. Hal ini terjadi karena pengguna tidak akan mungkin mengakses DNS jaringan saat menggunakan VPN. Mode Plus akan kembali aktif secara otomatis ketika perangkat Anda beralih ke jaringan lain.</string>
+    <string name="networks_summary_blocka_plus_mode">Blokada akan mempergunakan Blokada DNS dalam Mode Plus demi menjamin kecepatan dan tingkat enkripsi tinggi. Anda dapat mengubah pengaturan ini di bagian bawah layar Pilih DNS.</string>
+    <string name="networks_permission_dialog">Blokada mampu mengenali jaringan yang terhubung dengan perangkat Anda, dan kemudian memungkinkan Anda untuk mengkonfigurasi pengaturan terpisah untuk masih-masing jaringan. Namun supaya bisa melakukan hal tersebut, Blokada memerlukan izin lokasi. Anda akan sesekali melihat pemberitahuan dari sistem mengenai akses lokasi, namun hal ini tidaklah akurat - Blokada hanya akan membaca nama jaringan Anda.</string>
     <string name="account_section_header_settings">Pengaturan</string>
     <string name="account_status_text">%s Akun BLOKADA Anda aktif sampai %s.</string>
     <string name="account_status_text_libre">Akun BLOKADA Libre Anda telah aktif tanpa batas waktu.</string>
@@ -267,6 +261,7 @@
     <string name="payment_header_activated">Diaktifkan!</string>
     <string name="payment_activated_description">Blokada sekarang akan masuk ke dalam mode Plus, dan menghubungkan perangkat Anda ke salah satu lokasi yang terlindungi. Jika Anda tidak yakin lokasi mana yang harus dipilih, kami sarankan Anda memilih lokasi terdekat.</string>
     <string name="payment_action_choose_location">Pilih lokasi</string>
+    <string name="payment_action_see_locations">Lokasi Kami</string>
     <string name="payment_title">Upgrade ke layanan VPN kami, agar Anda tetap dapat mengendalikan *privasi Anda*.</string>
     <string name="payment_feature_title_change_location">Ubah Lokasi</string>
     <string name="payment_feature_desc_change_location">Sembunyikan IP address Anda agar terlihat seolah Anda berada di negara lain. Hal ini akan melindungi Anda dari pihak ketiga yang tidak bertanggungjawab, dan juga membantu melindungi identitas Anda.</string>

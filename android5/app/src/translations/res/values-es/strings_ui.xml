@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">Tu dispositivo está desconectado</string>
     <string name="error_account_inactive">Tu cuenta está inactiva. Activa tu cuenta para continuar usando BLOKADA+.</string>
@@ -61,13 +49,17 @@
     <string name="universal_action_select">Seleccionar</string>
     <string name="universal_action_selected">Seleccionado</string>
     <string name="universal_action_search">Buscar</string>
+    <string name="universal_action_filter">Filtro</string>
     <string name="universal_action_clear">Limpiar</string>
+    <string name="universal_action_revoke">Revocar</string>
     <string name="universal_label_help">Ayuda</string>
     <string name="universal_label_welcome">¡Bienvenido!</string>
+    <string name="universal_label_none">Ninguna</string>
     <string name="universal_status_processing">Procesando... espera por favor.</string>
     <string name="universal_status_copied_to_clipboard">Copiado al portapapeles</string>
     <string name="universal_status_restart_required">Por favor, reinicia la aplicación para aplicar los cambios.</string>
     <string name="universal_status_redirect">Continuar con Blokada</string>
+    <string name="universal_status_confirm">¿Deseas continuar?</string>
     <string name="alert_error_header">¡Vaya!</string>
     <string name="alert_vpn_expired_header">BLOKADA+ ha expirado</string>
     <string name="alert_download_link_body">Por razones de seguridad, para descargar un archivo, necesitamos abrir este sitio web en tu navegador. Luego, pulsa el enlace de descarga de nuevo.</string>
@@ -111,6 +103,9 @@
     <string name="home_plus_button_deactivated">BLOKADA+ desactivado</string>
     <string name="home_plus_button_select_location">Elegir ubicación</string>
     <string name="home_plus_button_location">Ubicación: *%s*</string>
+    <string name="home_level_low">Protección: Baja</string>
+    <string name="home_level_medium">Protección: Media</string>
+    <string name="home_level_high">Protección: Alta</string>
     <string name="pack_section_header">Características avanzadas</string>
     <string name="pack_section_header_details">Detalles de la funcionalidad</string>
     <string name="pack_action_install">OBTENER</string>
@@ -166,6 +161,28 @@
     <string name="userdenied_section_slugline">Administrar bloqueo de sitios web particulares</string>
     <string name="userdenied_tab_allowed">Permitido</string>
     <string name="userdenied_tab_blocked">Bloqueado</string>
+    <string name="networks_section_header">Redes</string>
+    <string name="networks_section_label">Ajustar configuración de WiFi y redes móviles</string>
+    <string name="networks_label_all_networks">Todas las redes</string>
+    <string name="networks_action_network_specific">Toca aquí para modificar la configuración predeterminada. Para hacer que la aplicación se comporte de forma diferente en algunas redes, pulsa a continuación.</string>
+    <string name="networks_label_configuration_active">Estos ajustes están actualmente activos</string>
+    <string name="networks_label_configuration_enabled">No estás conectado a esta red</string>
+    <string name="networks_label_configuration_inactive">Toca para modificar la configuración de esta red</string>
+    <string name="networks_label_details_default_network">Los siguientes ajustes se aplican por defecto para todas las redes. Puedes sobrescribirlos para las redes seleccionadas (en la pantalla anterior).</string>
+    <string name="networks_action_encrypt_dns">Encriptar DNS</string>
+    <string name="networks_action_use_dns">Usar DNS: %s</string>
+    <string name="networks_action_use_network_dns">Preferir red DNS</string>
+    <string name="networks_label_specific_network">Ajusta lo que debería suceder cuando el dispositivo se conecte a esta red.</string>
+    <string name="networks_label_specific_network_type">Ajuste lo que debería pasar cuando su dispositivo se conecte a una red de este tipo.</string>
+    <string name="networks_permission_request">Para tener más control, pulsa aquí y deja que la aplicación reconozca todas las redes.</string>
+    <string name="networks_permission_request_granted">Talvez vea una notificación cuando Blokada lea el nombre de su red en segundo plano.</string>
+    <string name="networks_section_choose_dns">Elegir DNS</string>
+    <string name="networks_summary_encrypt_dns">Blokada cifrará DNS si es posible. Esto mejora tu seguridad y evita que actores maliciosos espíen qué sitios web y aplicaciones utilizas.</string>
+    <string name="networks_summary_use_dns">Blokada usará %s como DNS de tu dispositivo. Eligiendo el que permite el cifrado (tiene el icono de bloqueo), y está cerca de ti, ayudará a proteger sus datos y hará que su conexión sea rápida.</string>
+    <string name="networks_summary_network_dns">Blokada utilizará el DNS de la red si está disponible, o cambiará a %s de lo contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar el DNS de la red ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Blokada desactivará temporalmente el modo Plus cuando se utilice DNS de red. Esto es porque no es posible acceder a DNS de red en VPN. El modo Plus se restaurará automáticamente cuando el dispositivo cambie a otra red.</string>
+    <string name="networks_summary_blocka_plus_mode">Blokada usará Blokada DNS en modo Plus, para asegurar un alto nivel de cifrado y velocidad. Puede cambiar esta configuración en la parte inferior de la pantalla Elegir DNS.</string>
+    <string name="networks_permission_dialog">Blokada puede reconocer las redes a las que se conecta y le permite configurar configuraciones separadas. Sin embargo, para ello, se requiere permiso de ubicación. A veces se puede ver una notificación del sistema sobre el acceso a la ubicación, pero esto no es cierto - Blokada sólo leerá el nombre de la red.</string>
     <string name="account_section_header_settings">Configuración</string>
     <string name="account_status_text">Tu cuenta de BLOKADA %s está activa hasta %s.</string>
     <string name="account_status_text_libre">Tu cuenta de BLOKADA Libre está activa para siempre.</string>
@@ -211,6 +228,7 @@
     <string name="account_encrypt_level_high">Alto</string>
     <string name="account_encrypt_label_dns_only">Cifrando DNS</string>
     <string name="account_encrypt_desc_dns_only">El Sistema de Nombres de Dominio (DNS, por sus siglas en inglés) es la forma por la que tu dispositivo sabe dónde encontrar los sitios web que quieres visitar. Desafortunadamente, la mayoría de los sitios de internet siguen sin usar DNS cifrados, lo que pone tu historial de navegación expuesto. Cuando está activado, Blokada obliga al dispositivo a conectarse solo a servidores DNS cifrados (también llamados DNS sobre HTTPS).</string>
+    <string name="account_encrypt_label_everything">Conectando a través de VPN</string>
     <string name="account_encrypt_desc_everything">Tu dispositivo se está conectando a través de nuestros servidores VPN seguros, y toda la comunicación saliente o entrante de él está siendo cifrado mediante algoritmos. Esto protege tu información personal, así como tus datos bancarios o fotografías personales, de ser obtenidas en lugares inseguros, como una cafetería WiFi.</string>
     <string name="account_encrypt_action_turn_on">Activar BLOKADA</string>
     <string name="account_encrypt_header_level">Nivel de cifrado</string>
@@ -241,6 +259,7 @@
     <string name="payment_header_activated">¡Activado!</string>
     <string name="payment_activated_description">Ahora Blokada cambiará al modo Plus y se conectará a través de una de nuestros servidores seguros. Si no sabes cuál elegir, te recomendamos que elijas el más cercano a ti.</string>
     <string name="payment_action_choose_location">Elige una ubicación</string>
+    <string name="payment_action_see_locations">Nuestras Ubicaciones</string>
     <string name="payment_title">Actualiza a nuestro servicio VPN para mantener el control de tu *privacidad*.</string>
     <string name="payment_feature_title_change_location">Cambiar ubicación</string>
     <string name="payment_feature_desc_change_location">Oculta tu dirección IP y finge que estás en otro país. Esto te hará una máscara a terceros y ayudará a proteger tu identidad.</string>
@@ -323,6 +342,7 @@
     <string name="app_settings_section_use_foreground">Mantener activo</string>
     <string name="intro_header">¡Blokada está activo!</string>
     <string name="intro_text">Un anillo azul significa que Blokada está funcionando.\n\nRecuerda que algunos anuncios, como los de YouTube, no pueden ser bloqueados. Sin embargo, notarás una diferencia en muchas otras aplicaciones.\n\nTe recomendamos activar \"VPN siempre activada\" (Android) / \"Conectarse bajo demanda\" (iOS) en la configuración del sistema.</string>
+    <string name="location_region_worldwide">En todas partes</string>
     <string name="location_region_america">América</string>
     <string name="location_region_europe">Europa</string>
     <string name="location_region_asia">Asia</string>

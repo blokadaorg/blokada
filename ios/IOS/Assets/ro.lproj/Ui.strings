@@ -68,6 +68,8 @@
 
 "universal label help" = "Ajutor";
 "universal label welcome" = "Bine aţi venit!";
+// Common label when some feature has no setting
+"universal label none" = "Nici unul";
 "universal status processing" = "Se procesează... Vă rugăm așteptați.";
 "universal status copied to clipboard" = "Copiat în Clipboard";
 "universal status restart required" = "Vă rugăm să reporniţi aplicaţia pentru ca modificările să aibă efect.";

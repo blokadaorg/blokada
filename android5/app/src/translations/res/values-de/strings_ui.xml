@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">Das Gerät ist nicht verbunden</string>
     <string name="error_account_inactive">Dein Konto ist inaktiv. Bitte aktiviere dein Konto, damit du weiterhin BLOKADA+ verwenden kannst.</string>
@@ -63,6 +51,7 @@
     <string name="universal_action_search">Suchen</string>
     <string name="universal_action_filter">Filtern</string>
     <string name="universal_action_clear">Leeren</string>
+    <string name="universal_action_revoke">Widerrufen</string>
     <string name="universal_label_help">Hilfe</string>
     <string name="universal_label_welcome">Herzlich willkommen!</string>
     <string name="universal_label_none">Keine</string>
@@ -104,7 +93,7 @@
     <string name="home_status_paused">Pausiert</string>
     <string name="home_status_active">Aktiv</string>
     <string name="home_status_deactivated">Deaktiviert</string>
-    <string name="home_action_tap_to_activate">zum Aktivieren tippen</string>
+    <string name="home_action_tap_to_activate">Zum Aktivieren tippen</string>
     <string name="home_status_detail_paused">pausiert, bis der Timer abgelaufen ist</string>
     <string name="home_status_detail_active">*Werbung* und *Tracker* blockieren</string>
     <string name="home_status_detail_active_with_counter">*%s* Werbeanzeigen und Tracker blockiert</string>
@@ -144,12 +133,12 @@
     <string name="activity_request_blocked_blacklisted">Diese Anfrage wurde blockiert, weil sie sich auf deiner Sperrliste befindet</string>
     <string name="activity_actions_header">Aktionen</string>
     <string name="activity_information_header">Informationen</string>
-    <string name="activity_action_add_to_whitelist">Zu erlaubten hinzufügen</string>
-    <string name="activity_action_remove_from_whitelist">Aus erlaubten entfernen</string>
-    <string name="activity_action_added_to_whitelist">Zu erlaubten hinzugefügt</string>
-    <string name="activity_action_add_to_blacklist">Zu gesperrten hinzufügen</string>
-    <string name="activity_action_remove_from_blacklist">Aus gesperrten entfernen</string>
-    <string name="activity_action_added_to_blacklist">Zu gesperrten hinzugefügt</string>
+    <string name="activity_action_add_to_whitelist">Zu Erlaubten hinzufügen</string>
+    <string name="activity_action_remove_from_whitelist">Aus Erlaubten entfernen</string>
+    <string name="activity_action_added_to_whitelist">Zu Erlaubten hinzugefügt</string>
+    <string name="activity_action_add_to_blacklist">Zu Gesperrten hinzufügen</string>
+    <string name="activity_action_remove_from_blacklist">Aus Gesperrten entfernen</string>
+    <string name="activity_action_added_to_blacklist">Zu Gesperrten hinzugefügt</string>
     <string name="activity_action_copy_to_clipboard">Name in die Zwischenablage kopieren</string>
     <string name="activity_domain_name">Vollständiger Name</string>
     <string name="activity_time_of_occurrence">Zeit</string>
@@ -184,13 +173,18 @@
     <string name="networks_action_use_dns">Verwende DNS: %s</string>
     <string name="networks_action_use_network_dns">Netzwerk-DNS bevorzugen</string>
     <string name="networks_label_specific_network">Stelle ein, was passieren soll, wenn dein Gerät eine Verbindung zu diesem Netzwerk herstellt.</string>
-    <string name="networks_label_network_type">Netzwerk-Typ</string>
-    <string name="networks_type_wifi">WLAN Netzwerk</string>
-    <string name="networks_type_mobile">Mobiles Netzwerk</string>
-    <string name="networks_match_any">(alle)</string>
+    <string name="networks_label_specific_network_type">Stelle ein, was passieren soll, wenn dein Gerät eine Verbindung zu einem Netzwerk dieser Art herstellt.</string>
+    <string name="networks_label_any_wifi">Jedes WLAN-Netzwerk</string>
+    <string name="networks_label_any_mobile">Jedes Mobilfunknetz</string>
     <string name="networks_permission_request">Um mehr Kontrolle zu haben, tippe hier und lasse die App alle Netzwerke erkennen.</string>
+    <string name="networks_permission_request_granted">Du siehst möglicherweise eine Benachrichtigung, wenn Blokada im Hintergrund den Netzwerknamen ausliest.</string>
     <string name="networks_section_choose_dns">Wähle DNS</string>
-    <string name="networks_alert_network_dns_and_plus_mode">Blokada deaktiviert vorübergehend den Plus-Modus, wenn Netzwerk-DNS verwendet wird. Dies liegt daran, dass im VPN der Zugriff auf Netzwerk-DNS nicht möglich ist. Der Plus-Modus wird automatisch wiederhergestellt, wenn dein Gerät in ein anderes Netzwerk wechselt.</string>
+    <string name="networks_summary_encrypt_dns">Blokada verschlüsselt DNS, wenn möglich. Dies verbessert deine Sicherheit und verhindert, dass böswillige Akteure ausspionieren, welche Websites und Apps du verwendest.</string>
+    <string name="networks_summary_use_dns">Blokada wird %s als DNS für dein Gerät verwenden. Wenn du einen DNS auswählst, der eine Verschlüsselung zulässt (gekennzeichnet durch das Schlosssymbol) und sich in deiner Nähe befindet, kannst du deine Daten schützen und eine schnelle Verbindung herstellen.</string>
+    <string name="networks_summary_network_dns">Blokada verwendet - sofern verfügbar - das DNS des Netzwerks und wechselt andernfalls zu %s. Außerdem werden die Einstellungen für \"DNS verschlüsseln\" ignoriert, wenn Netzwerk-DNS verwendet wird. Die Verwendung des Netzwerk-DNS hilft bei der Behebung von Verbindungsproblemen in fehlerhaften Netzwerken, lässt dich aber ungeschützt.</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Blokada deaktiviert vorübergehend den Plus-Modus, wenn Netzwerk-DNS verwendet wird. Dies liegt daran, dass im VPN der Zugriff auf Netzwerk-DNS nicht möglich ist. Der Plus-Modus wird automatisch wiederhergestellt, wenn dein Gerät in ein anderes Netzwerk wechselt.</string>
+    <string name="networks_summary_blocka_plus_mode">Blokada verwendet Blokada DNS im Plus-Modus, um ein hohes Maß an Verschlüsselung und Geschwindigkeit zu gewährleisten. Du kannst diese Einstellung unten bei \"DNS auswählen\" ändern.</string>
+    <string name="networks_permission_dialog">Blokada kann Netzwerke erkennen, mit denen du dich verbindest und du kannst für diese Netzwerke individuelle Einstellungen konfigurieren. Um dies zu tun, ist jedoch eine Standortberechtigung erforderlich. Möglicherweise siehst du manchmal eine Systembenachrichtigung bezüglich des Standortzugriffs, aber das ist nicht korrekt. Blokada liest nur den Namen des Netzwerks.</string>
     <string name="account_section_header_settings">Einstellungen</string>
     <string name="account_status_text">Dein BLOKADA %s Konto ist aktiv bis zum %s.</string>
     <string name="account_status_text_libre">Dein BLOKADA Libre Konto ist für immer aktiv.</string>
@@ -267,6 +261,7 @@
     <string name="payment_header_activated">Aktiviert!</string>
     <string name="payment_activated_description">Blokada wechselt nun in den Plus-Modus und verbindet sich mit einem unserer sicheren Standorte. Wenn du dir nicht sicher bist, welchen du wählen solltest, empfehlen wir den am nächsten gelegenen.</string>
     <string name="payment_action_choose_location">Standort wählen</string>
+    <string name="payment_action_see_locations">Unsere Standorte</string>
     <string name="payment_title">Upgrade auf unseren VPN-Service, um die Kontrolle über *deine Privatsphäre* zu behalten.</string>
     <string name="payment_feature_title_change_location">Standort ändern</string>
     <string name="payment_feature_desc_change_location">Verstecke deine IP-Adresse und tu so, als ob du in einem anderen Land bist. Das wird dich vor Drittanbietern verbergen und dir helfen, deine Identität zu schützen.</string>
@@ -405,8 +400,8 @@
     <string name="homepage_support_cta_desc_more">Die Entwicklung einer hochwertigen App wie Blokada erfordert jedoch eine beträchtliche Menge an Ressourcen. Dieses Projekt existiert dank der Unterstützung von großartigen Menschen wie dich!</string>
     <string name="homepage_support_cta_action">Spenden (Kreditkarte, Paypal)</string>
     <string name="homepage_support_cta_action_alt">Spenden (Bank, Kryptowährung)</string>
-    <string name="homepage_developer_header">Bist du ein Entwickler</string>
-    <string name="homepage_developer_subheader">und willst Blokada verbessern?</string>
+    <string name="homepage_developer_header">Du bist ein Entwickler</string>
+    <string name="homepage_developer_subheader">und möchtest Blokada verbessern?</string>
     <string name="homepage_developer_desc">Blokada ist ein quelloffenes Projekt, das sich der Entwicklung der besten Werbeblocker- und Datenschutz-App für Android und iOS widmet. Schaue in unserem GitHub-Repository nach und lass uns wissen, wenn du Hilfe benötigst, um deinen ersten PR zu machen.</string>
     <string name="homepage_developer_action">Zum Repository springen</string>
 </resources>

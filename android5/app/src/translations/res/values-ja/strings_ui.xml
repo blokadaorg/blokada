@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">インターネットに接続されていません</string>
     <string name="error_account_inactive">あなたのアカウントはアクティベートされていません。BLOKADA+を使用するにはアカウントをアクティベートしてください。</string>
@@ -63,6 +51,7 @@
     <string name="universal_action_search">検索</string>
     <string name="universal_action_filter">フィルター</string>
     <string name="universal_action_clear">消去</string>
+    <string name="universal_action_revoke">取り消す</string>
     <string name="universal_label_help">ヘルプ</string>
     <string name="universal_label_welcome">ようこそ！</string>
     <string name="universal_label_none">未設定</string>
@@ -123,7 +112,7 @@
     <string name="pack_action_update">更新</string>
     <string name="pack_action_uninstall">削除</string>
     <string name="pack_author">作成者</string>
-    <string name="pack_configurations_header">構成</string>
+    <string name="pack_configurations_header">設定</string>
     <string name="pack_information_header">もっと見る</string>
     <string name="pack_tags_header">タグ</string>
     <string name="pack_tags_none">未設定</string>
@@ -143,7 +132,7 @@
     <string name="activity_request_allowed_whitelisted">マイ・リストにより、このリクエストは通信を許可されています</string>
     <string name="activity_request_blocked_blacklisted">マイ・リストにより、このリクエストは通信をブロックされています。</string>
     <string name="activity_actions_header">アクション</string>
-    <string name="activity_information_header">情報</string>
+    <string name="activity_information_header">Info</string>
     <string name="activity_action_add_to_whitelist">通信を許可する</string>
     <string name="activity_action_remove_from_whitelist">許可リストから削除</string>
     <string name="activity_action_added_to_whitelist">通信を許可しています</string>
@@ -181,16 +170,21 @@
     <string name="networks_label_configuration_inactive">タップしてこのネットワークの設定を変更します</string>
     <string name="networks_label_details_default_network">以下の設定は、すべてのネットワークにデフォルトで適用されます。任意のネットワークの設定を（前の画面で）上書きできます。</string>
     <string name="networks_action_encrypt_dns">DNSを暗号化</string>
-    <string name="networks_action_use_dns">DNSを使用：%s</string>
+    <string name="networks_action_use_dns">DNS：%s</string>
     <string name="networks_action_use_network_dns">ネットワークDNS</string>
     <string name="networks_label_specific_network">このネットワークに接続されたときの動作を設定します。</string>
-    <string name="networks_label_network_type">ネットワークの種類</string>
-    <string name="networks_type_wifi">Wi-Fiネットワーク</string>
-    <string name="networks_type_mobile">モバイルネットワーク</string>
-    <string name="networks_match_any">（任意）</string>
+    <string name="networks_label_specific_network_type">この種類のネットワークに接続されたときの動作を設定します。</string>
+    <string name="networks_label_any_wifi">全てのWi-Fiネットワーク</string>
+    <string name="networks_label_any_mobile">全てのモバイルネットワーク</string>
     <string name="networks_permission_request">さらにコントロールするには、タップしてアプリにすべてのネットワークを認識させます。</string>
+    <string name="networks_permission_request_granted">Blokadaがネットワーク名をバックグラウンドで読み込むと通知が表示されることがあります。</string>
     <string name="networks_section_choose_dns">DNSを選択</string>
-    <string name="networks_alert_network_dns_and_plus_mode">Blokadaは、ネットワークDNSが使用されるたびにBlokada Plus VPNを一時的に無効にします。これはVPNでネットワークDNSにアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPNは自動的に復元されます。</string>
+    <string name="networks_summary_encrypt_dns">Blokadaは暗号化されたDNSを優先して接続します。これによりセキュリティが向上し、悪意のある人物があなたが使用するウェブサイトやアプリをスパイするのを防ぎます。</string>
+    <string name="networks_summary_use_dns">BlokadaはデバイスのDNSとして %s を使用します。ロックアイコン付きの暗号化されたDNSサーバーを選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。</string>
+    <string name="networks_summary_network_dns">BlokadaはネットワークDNSを使用し、使用できない場合は %s に切り替えます。また、ネットワークDNSを使用すると、DNSは暗号化されません。ネットワークDNSを使用すると、ネットワーク上の接続の問題を解決するのに役立ちますが、保護されていない状態になります。</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Blokadaは、ネットワークDNSが使用されるたびにBlokada Plus VPNを一時的に無効にします。これはVPNでネットワークDNSにアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPNは自動的に復元されます。</string>
+    <string name="networks_summary_blocka_plus_mode">BlokadaはPlusモードでBlokada DNSを使用して、高いレベルの暗号化と速度を確保します。DNS選択画面の下部でこの設定を変更できます。</string>
+    <string name="networks_permission_dialog">Blokadaは、接続先のネットワークを認識して個別の設定を適用することができます。位置情報へのアクセス許可が必要ですが、Blokadaはネットワーク名のみを読み取りその他の情報は利用しません。</string>
     <string name="account_section_header_settings">設定</string>
     <string name="account_status_text">BLOKADA %s - アカウントの有効期限は %s です。</string>
     <string name="account_status_text_libre">BLOKADA Libre - 有効期限のない無料アカウントです。</string>
@@ -267,6 +261,7 @@
     <string name="payment_header_activated">アクティベートされました！</string>
     <string name="payment_activated_description">BlokadaがPlusモードに切り替わり、安全な接続先の1つを介して接続します。どれを選択すればよいかわからない場合は、最も近いものをお勧めします。</string>
     <string name="payment_action_choose_location">接続先を選択</string>
+    <string name="payment_action_see_locations">Our Locations</string>
     <string name="payment_title">VPNサービスにアップグレードして、*あなたのプライバシー*を管理し続けましょう。</string>
     <string name="payment_feature_title_change_location">接続先を変更</string>
     <string name="payment_feature_desc_change_location">あなたのIPアドレスを非表示にして、あなたが他の国に居るように見せかけます。これは第三者からあなたを隠し、身元を保護するのに役立ちます。</string>

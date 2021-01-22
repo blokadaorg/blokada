@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">您的裝置已離線</string>
     <string name="error_account_inactive">您未啟用帳號。請啟用帳號，以便繼續使用 BLOKADA+。</string>
@@ -63,6 +51,7 @@
     <string name="universal_action_search">搜尋</string>
     <string name="universal_action_filter">篩選</string>
     <string name="universal_action_clear">清除</string>
+    <string name="universal_action_revoke">撤銷</string>
     <string name="universal_label_help">協助</string>
     <string name="universal_label_welcome">歡迎！</string>
     <string name="universal_label_none">無</string>
@@ -184,13 +173,18 @@
     <string name="networks_action_use_dns">使用 DNS：%s</string>
     <string name="networks_action_use_network_dns">偏好網路 DNS</string>
     <string name="networks_label_specific_network">調整您的裝置連線到此網路時應該發生的狀況。</string>
-    <string name="networks_label_network_type">網路類型</string>
-    <string name="networks_type_wifi">WiFi 網路</string>
-    <string name="networks_type_mobile">行動網路</string>
-    <string name="networks_match_any">（任何）</string>
+    <string name="networks_label_specific_network_type">調整您的裝置連線到此類型的網路時應該發生的狀況。</string>
+    <string name="networks_label_any_wifi">任何無線網路</string>
+    <string name="networks_label_any_mobile">任何行動網路</string>
     <string name="networks_permission_request">要進行更多控制，請點擊此處並讓應用程式識別所有網路。</string>
+    <string name="networks_permission_request_granted">當 Blokada 在背景讀取您的網路名稱時，您可能會看到一則通知。</string>
     <string name="networks_section_choose_dns">選擇 DNS</string>
-    <string name="networks_alert_network_dns_and_plus_mode">每次使用網路 DNS 時，Blokada 都會暫時停用 Plus 模式。因為無法在 VPN 中存取網路 DNS。當您的裝置切換到另一個網路時，Plus 模式就會自動恢復。</string>
+    <string name="networks_summary_encrypt_dns">Blokada 將盡可能加密 DNS。這可以提升您的安全性，並防止有惡意的人窺探您使用的網站與應用程式。</string>
+    <string name="networks_summary_use_dns">Blokada 將會使用 %s 作為您裝置的 DNS。選擇可加密（有鎖的圖示的）且在您附近的，這有助於保護您的資料並讓連線更快。</string>
+    <string name="networks_summary_network_dns">Blokada 將會在可用時使用網路的 DNS，否則將切換到 %s。同時，若使用了網路 DNS 就會忽略加密 DNS 設定。使用網路的 DNS 可以協助修復麻煩的網路上的連線問題，但您將不會受到保護。</string>
+    <string name="networks_summary_network_dns_and_plus_mode">每次使用網路 DNS 時，Blokada 都會暫時停用 Plus 模式。因為無法在 VPN 中存取網路 DNS。當您的裝置切換到另一個網路時，Plus 模式就會自動恢復。</string>
+    <string name="networks_summary_blocka_plus_mode">Blokada 將會在 Plus 模式中使用 Blokada DNS，以確保較高等級的加密與速度。您可以在「選擇 DNS」畫面的底部變更此設定。</string>
+    <string name="networks_permission_dialog">Blokada 可以識別您連線的網路，並能單獨設定網路的組態設定。但是要單獨設定，您得授予「位置」權限。某些時候您可能會看到存取位置的系統通知，但並非完全如此 — Blokada 只會讀取網路的名稱。</string>
     <string name="account_section_header_settings">設定</string>
     <string name="account_status_text">您的 BLOKADA %s 帳號有效日期至 %s 為止。</string>
     <string name="account_status_text_libre">您的 BLOKADA Libre 帳戶永不過期。</string>
@@ -267,6 +261,7 @@
     <string name="payment_header_activated">已啟用！</string>
     <string name="payment_activated_description">Blokada 將會切換到 Plus 模式，並透過我們的其中一個安全位置進行連線。如果不確定要怎麼選擇的話，就選最近的一個。</string>
     <string name="payment_action_choose_location">選擇位置</string>
+    <string name="payment_action_see_locations">我們的位置</string>
     <string name="payment_title">升級至我們的 VPN 服務以掌控 *您的隱私*。</string>
     <string name="payment_feature_title_change_location">變更位置</string>
     <string name="payment_feature_desc_change_location">隱藏 IP 位址並假裝您在其他國家。這將讓降低您被第三方攻擊的機會，並協助保護您的身份。</string>

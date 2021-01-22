@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of Blokada.
-  ~
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  ~
-  ~ Copyright © 2021 Blocka AB. All rights reserved.
-  ~
-  ~ @author Karol Gusak (karol@blocka.net)
-  -->
-
 <resources>
     <string name="error_device_offline">Устройството ви е офлайн</string>
     <string name="error_account_inactive">Вашият профил не е активен. Моля, активирайте го за да продължите да използвате BLOKADA +.</string>
@@ -63,8 +51,10 @@
     <string name="universal_action_search">Търсене</string>
     <string name="universal_action_filter">Филтър</string>
     <string name="universal_action_clear">Изчистване</string>
+    <string name="universal_action_revoke">Анулирaне</string>
     <string name="universal_label_help">Помощ</string>
     <string name="universal_label_welcome">Добре дошли!</string>
+    <string name="universal_label_none">Нищо</string>
     <string name="universal_status_processing">В процес... Моля, изчакайте.</string>
     <string name="universal_status_copied_to_clipboard">Копирано в клипборда</string>
     <string name="universal_status_restart_required">Моля, рестартирайте приложението за да влязат в сила промените.</string>
@@ -113,6 +103,9 @@
     <string name="home_plus_button_deactivated">BLOKADA+ е деактивирана</string>
     <string name="home_plus_button_select_location">Избор на местоположение</string>
     <string name="home_plus_button_location">Местоположение: *%s*</string>
+    <string name="home_level_low">Защита: Ниска</string>
+    <string name="home_level_medium">Защита: Средна</string>
+    <string name="home_level_high">Защита: Висока</string>
     <string name="pack_section_header">Разширени функции</string>
     <string name="pack_section_header_details">Особености и Детайли</string>
     <string name="pack_action_install">ВЗЕМИ</string>
@@ -180,12 +173,17 @@
     <string name="networks_action_use_dns">Използвайте DNS: %s</string>
     <string name="networks_action_use_network_dns">Предпочитан мрежов DNS</string>
     <string name="networks_label_specific_network">Настройте поведението на устройството, когато се свърже с тази мрежа.</string>
-    <string name="networks_label_network_type">Тип мрежа</string>
-    <string name="networks_type_wifi">WiFi мрежа</string>
-    <string name="networks_type_mobile">Мобилна мрежа</string>
-    <string name="networks_match_any">(всички)</string>
+    <string name="networks_label_specific_network_type">Настройте поведението на устройството, когато се свърже с мрежа от този тип.</string>
+    <string name="networks_label_any_wifi">Всяка WiFi мрежа</string>
+    <string name="networks_label_any_mobile">Всяка мобилна мрежа</string>
     <string name="networks_permission_request">За да имате повече контрол, докоснете тук и оставете приложението да разпознава всички мрежи.</string>
     <string name="networks_section_choose_dns">Изберете DNS</string>
+    <string name="networks_summary_encrypt_dns">Blokada ще шифрова DNS, ако е възможно. Това ще подобри вашата сигурност и ще предотврати злонамерени участници да шпионират какви уебсайтове и приложения използвате.</string>
+    <string name="networks_summary_use_dns">Blokada ще използва %s като DNS на вашето устройство. Изборът му позволява криптиране (има икона на ключ) и е близо до вас, това ще помогне за защита на вашите данни и за по-бърза връзка.</string>
+    <string name="networks_summary_network_dns">Blokada ще използва мрежов DNS, ако е наличен, или ще превключи на %s. Когато се използва мрежов DNSС настройките за шифроване на DNS ще бъдат игнорирани. Използването на мрежов DNS помага за отстраняване на проблеми с връзката в цъмнителни мрежи, но ви оставя незащитени.</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Blokada временно ще деактивира режим Плюс, когато се използва мрежов DNS. Това е така, защото не е възможен достъп до мрежовия DNS във VPN. Плюс режимът ще се възстанови автоматично, когато вашето устройство превключи към друга мрежа.</string>
+    <string name="networks_summary_blocka_plus_mode">Blokada ще използва Blokada DNS в режим Plus за да осигури високо ниво на криптиране и скорост. Можете да промените тази настройка в долната част на екрана Избор на DNS.</string>
+    <string name="networks_permission_dialog">Blokada може да разпознава мрежите, към които се свързвате и ви позволява да конфигурирате отделни настройки за тях. За целта обаче е необходимо разрешение за местоположение. Понякога може да видите системно известие за достъп до местоположение, но това не е точно - Blokada ще прочете само името на мрежата.</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Вашият BLOKADA %s профил е активен до %s.</string>
     <string name="account_status_text_libre">Вашият профил в BLOKADA Libre е активен завинаги.</string>
@@ -231,6 +229,7 @@
     <string name="account_encrypt_level_high">Високо</string>
     <string name="account_encrypt_label_dns_only">Криптиране на DNS</string>
     <string name="account_encrypt_desc_dns_only">Системата за имена на домейни показва на вашето устройство къде да намери уеб сайтовете, които искате да посетите. За съжаление по-голямата част от Интернет все още използва некриптиран DNS, което излага историята на сърфирането ви в риск да бъде шпионирана. Когато е активирана, Blokada принуждава вашето устройство да се свързва само към криптирани DNS сървъри (наричани също DNS през HTTPS).</string>
+    <string name="account_encrypt_label_everything">Свързване чрез VPN</string>
     <string name="account_encrypt_desc_everything">Вашето устройство се свързва чрез нашите защитени VPN сървъри и цялата комуникация, идваща от или към вашето устройство се криптира чрез силни алгоритми. Това предпазва личната ви информация, като банкови данни или лични снимки от кражба на несигурни места, като WiFi в кафене.</string>
     <string name="account_encrypt_action_turn_on">Включване на BLOKADA</string>
     <string name="account_encrypt_header_level">Ниво на криптиране</string>
@@ -261,6 +260,7 @@
     <string name="payment_header_activated">Активирано!</string>
     <string name="payment_activated_description">Сега Blokada ще премине в режим Plus и ще се свърже чрез едно от нашите сигурни места. Ако не сте сигурни кое да изберете, препоръчва се най-близкото до вас.</string>
     <string name="payment_action_choose_location">Изберете местоположение</string>
+    <string name="payment_action_see_locations">Нашите местоположения</string>
     <string name="payment_title">Надстройте до нашата VPN услуга за да имате контрол над *вашата поверителност*.</string>
     <string name="payment_feature_title_change_location">Промяна на местоположение</string>
     <string name="payment_feature_desc_change_location">Скрийте своя IP адрес и се преструвайте, че сте в друга държава. Това ще ви скрие за пред трети страни и ще ви помогне да защитите вашата самоличност.</string>

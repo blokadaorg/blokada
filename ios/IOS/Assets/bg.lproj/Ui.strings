@@ -65,9 +65,13 @@
 "universal action filter" = "Филтър";
 // A verb "to clear the list"
 "universal action clear" = "Изчистване";
+// A verb "to revoke permissions"
+"universal action revoke" = "Анулирaне";
 
 "universal label help" = "Помощ";
 "universal label welcome" = "Добре дошли!";
+// Common label when some feature has no setting
+"universal label none" = "Нищо";
 "universal status processing" = "В процес... Моля, изчакайте.";
 "universal status copied to clipboard" = "Копирано в клипборда";
 "universal status restart required" = "Моля, рестартирайте приложението за да влязат в сила промените.";
@@ -131,6 +135,10 @@
 "home plus button deactivated" = "BLOKADA+ е деактивирана";
 "home plus button select location" = "Избор на местоположение";
 "home plus button location" = "Местоположение: *%@*";
+
+"home level low" = "Защита: Ниска";
+"home level medium" = "Защита: Средна";
+"home level high" = "Защита: Висока";
 
 
 "pack section header" = "Разширени функции";
@@ -210,13 +218,17 @@
 "networks action use dns" = "Използвайте DNS: %@";
 "networks action use network dns" = "Предпочитан мрежов DNS";
 "networks label specific network" = "Настройте поведението на устройството, когато се свърже с тази мрежа.";
-"networks label network type" = "Тип мрежа";
-"networks type wifi" = "WiFi мрежа";
-"networks type mobile" = "Мобилна мрежа";
-// As in "any (wifi) network"
-"networks match any" = "(всички)";
+"networks label specific network type" = "Настройте поведението на устройството, когато се свърже с мрежа от този тип.";
+"networks label any wifi" = "Всяка WiFi мрежа";
+"networks label any mobile" = "Всяка мобилна мрежа";
 "networks permission request" = "За да имате повече контрол, докоснете тук и оставете приложението да разпознава всички мрежи.";
 "networks section choose dns" = "Изберете DNS";
+"networks summary encrypt dns" = "Blokada ще шифрова DNS, ако е възможно. Това ще подобри вашата сигурност и ще предотврати злонамерени участници да шпионират какви уебсайтове и приложения използвате.";
+"networks summary use dns" = "Blokada ще използва %@ като DNS на вашето устройство. Изборът му позволява криптиране (има икона на ключ) и е близо до вас, това ще помогне за защита на вашите данни и за по-бърза връзка.";
+"networks summary network dns" = "Blokada ще използва мрежов DNS, ако е наличен, или ще превключи на %@. Когато се използва мрежов DNSС настройките за шифроване на DNS ще бъдат игнорирани. Използването на мрежов DNS помага за отстраняване на проблеми с връзката в цъмнителни мрежи, но ви оставя незащитени.";
+"networks summary network dns and plus mode" = "Blokada временно ще деактивира режим Плюс, когато се използва мрежов DNS. Това е така, защото не е възможен достъп до мрежовия DNS във VPN. Плюс режимът ще се възстанови автоматично, когато вашето устройство превключи към друга мрежа.";
+"networks summary blocka plus mode" = "Blokada ще използва Blokada DNS в режим Plus за да осигури високо ниво на криптиране и скорост. Можете да промените тази настройка в долната част на екрана Избор на DNS.";
+"networks permission dialog" = "Blokada може да разпознава мрежите, към които се свързвате и ви позволява да конфигурирате отделни настройки за тях. За целта обаче е необходимо разрешение за местоположение. Понякога може да видите системно известие за достъп до местоположение, но това не е точно - Blokada ще прочете само името на мрежата.";
 
 
 "account section header settings" = "Настройки";
@@ -270,6 +282,7 @@
 "account encrypt level high" = "Високо";
 "account encrypt label dns only" = "Криптиране на DNS";
 "account encrypt desc dns only" = "Системата за имена на домейни показва на вашето устройство къде да намери уеб сайтовете, които искате да посетите. За съжаление по-голямата част от Интернет все още използва некриптиран DNS, което излага историята на сърфирането ви в риск да бъде шпионирана. Когато е активирана, Blokada принуждава вашето устройство да се свързва само към криптирани DNS сървъри (наричани също DNS през HTTPS).";
+"account encrypt label everything" = "Свързване чрез VPN";
 "account encrypt desc everything" = "Вашето устройство се свързва чрез нашите защитени VPN сървъри и цялата комуникация, идваща от или към вашето устройство се криптира чрез силни алгоритми. Това предпазва личната ви информация, като банкови данни или лични снимки от кражба на несигурни места, като WiFi в кафене.";
 "account encrypt action turn on" = "Включване на BLOKADA";
 "account encrypt header level" = "Ниво на криптиране";
@@ -303,6 +316,7 @@
 "payment header activated" = "Активирано!";
 "payment activated description" = "Сега Blokada ще премине в режим Plus и ще се свърже чрез едно от нашите сигурни места. Ако не сте сигурни кое да изберете, препоръчва се най-близкото до вас.";
 "payment action choose location" = "Изберете местоположение";
+"payment action see locations" = "Нашите местоположения";
 
 "payment title" = "Надстройте до нашата VPN услуга за да имате контрол над *вашата поверителност*.";
 "payment feature title change location" = "Промяна на местоположение";
