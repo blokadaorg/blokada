@@ -59,7 +59,6 @@ object LogService {
         }
         builder.setNeutralButton("Share") { dialog, _ ->
             dialog.dismiss()
-            preShareLog()
             shareLog()
         }
         val dialog = builder.show()
@@ -79,6 +78,7 @@ object LogService {
     }
 
     fun shareLog() {
+        preShareLog()
         Logger.w("Log", "Sharing log")
         val ctx = context.requireContext()
         val uri = File(handle)

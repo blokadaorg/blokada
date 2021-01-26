@@ -78,7 +78,7 @@ object EngineService {
     }
 
     suspend fun updateConfig(network: NetworkSpecificConfig? = null, user: BlockaConfig? = null) {
-        log.w("Updating engine config")
+        log.v("Updating engine config")
 
         network?.let {
             config = config.newNetworkConfig(network)
@@ -100,7 +100,7 @@ object EngineService {
                 return
             }
             !force && config == state.currentConfig -> {
-                log.w("Reloading engine unnecessary, ignoring")
+                log.v("Reloading engine unnecessary, ignoring")
                 return
             }
         }
@@ -311,12 +311,10 @@ private data class EngineConfiguration(
             plusMode && dns.plusIps != null -> {
                 // If plusIps are set, they will point to a clear text DNS, because the plus mode
                 // VPN itself is encrypting everything, so there is no need to encrypt DNS.
-                Logger.w("Engine", "Using clear text as DNS defines special IPs for plusMode")
                 false
             }
             dns.isDnsOverHttps() && !dns.canUseInCleartext -> {
                 // If DNS supports only DoH and no clear text, we are forced to use it
-                Logger.w("Engine", "Forcing DoH as selected DNS does not support clear text")
                 true
             }
             else -> {
