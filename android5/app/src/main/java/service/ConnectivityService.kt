@@ -163,7 +163,16 @@ object ConnectivityService {
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ?: false -> {
                     // This assumes there is only one active WiFi network at a time
                     var name: String? = wifiManager.connectionInfo.ssid.trim('"')
-                    if (name == "<unknown ssid>") name = null // No perms in bg, we'll try next time
+                    if (name == WifiManager.UNKNOWN_SSID) name = null // No perms in bg, we'll try next time
+
+                    if (name == null) {
+                        // Of course, this being Android, there are some weird cases in the wild
+                        // where we get null despite having the perms. Try to use a fallback.
+                        val networkId = wifiManager.connectionInfo.networkId
+                        name = if (networkId != -1 ) networkId.toString() else wifiManager.connectionInfo.bssid.trim('"')
+                        if (name == "02:00:00:00:00:00") name = null // No perms (according to docs)
+                    }
+
                     wifi(name) to hasConnectivity
                 }
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ?: false -> {
