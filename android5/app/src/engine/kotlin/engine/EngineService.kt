@@ -92,7 +92,7 @@ object EngineService {
     }
 
     private suspend fun reload(config: EngineConfiguration, force: Boolean = false) {
-        log.v("Reloading engine, config: $config, force: $force")
+        log.v("Reloading engine, config: $config for ${config.network.network}")
 
         when {
             state.isInProgress() -> {

@@ -110,13 +110,24 @@ object ConnectivityService {
                 !doze.isDoze()
             }
             else -> {
-                available.firstOrNull { it.value.networkHandle == becameAvailable }?.let { network ->
-                    // Use the network that just became available
-                    activeNetwork = network.toPair()
-                } ?: run {
-                    // Use a network that is still reported as available. This is displeasing.
-                    activeNetwork = available.last().toPair()
-                    log.w("Guessing which network to use: ${activeNetwork.first}")
+                val subjectNetwork = available.firstOrNull { it.value.networkHandle == becameAvailable }
+                val wifiNetworks = available.filter { it.key.type == NetworkType.WIFI }
+                when {
+                    wifiNetworks.isEmpty() -> {
+                        subjectNetwork?.let { network ->
+                            // Use the network that just became available
+                            activeNetwork = network.toPair()
+                        } ?: run {
+                            // Use a network that is still reported as available. This is displeasing.
+                            activeNetwork = available.last().toPair()
+                            log.w("Guessing which network to use: ${activeNetwork.first}")
+                        }
+                    }
+                    subjectNetwork?.key?.type == NetworkType.WIFI -> activeNetwork = subjectNetwork.toPair()
+                    else -> {
+                        activeNetwork = wifiNetworks.last().toPair()
+                        log.w("Guessing which wifi network to use: ${activeNetwork.first}")
+                    }
                 }
                 !doze.isDoze()
             }
