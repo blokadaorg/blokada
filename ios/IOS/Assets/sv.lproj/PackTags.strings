@@ -10,16 +10,16 @@
 //  @author Karol Gusak
 //
 
-"recommended" = "rekommenderade";
-"official" = "officiell";
-"adblocking" = "annonsblockering";
-"tracking" = "spårning";
-"privacy" = "integritet";
-"adult" = "barnförbjudet";
-"social" = "socialt";
-"regional" = "regionalt";
-"fake news" = "fejknyheter";
-"gambling" = "spelande";
+"recommended" = "recommended";
+"official" = "official";
+"adblocking" = "adblocking";
+"tracking" = "tracking";
+"privacy" = "privacy";
+"adult" = "adult";
+"social" = "social";
+"regional" = "regional";
+"fake news" = "fake news";
+"gambling" = "gambling";
 "youtube" = "youtube";
-"phishing" = "nätfiske";
-"security" = "säkerhet";
+"phishing" = "phishing";
+"security" = "security";
