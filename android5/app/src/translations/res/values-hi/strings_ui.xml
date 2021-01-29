@@ -199,7 +199,6 @@
     <string name="payment_change_method">बदलें</string>
     <string name="payment_label_pay_with_card">कार्ड से भुगतान करें</string>
     <string name="payment_label_pay_with_paypal">पेपैल के साथ भुगतान करें</string>
-    <string name="payment_label_pay_with_crypto">Cryptocurrency से भुगतान करें</string>
     <string name="payment_package_one_month">1 महीना</string>
     <string name="payment_package_six_months">6 महीने</string>
     <string name="payment_package_twelve_months">12 महीने</string>

@@ -222,7 +222,6 @@
     <string name="payment_change_method">Vaihda</string>
     <string name="payment_label_pay_with_card">Maksa kortilla</string>
     <string name="payment_label_pay_with_paypal">Maksa PayPalilla</string>
-    <string name="payment_label_pay_with_crypto">Maksa kryptovaluutalla</string>
     <string name="payment_package_one_month">1 kuukausi</string>
     <string name="payment_package_six_months">6 kuukautta</string>
     <string name="payment_package_twelve_months">12 kuukautta</string>

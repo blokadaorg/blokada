@@ -161,7 +161,6 @@
     <string name="payment_change_method">Váltás</string>
     <string name="payment_label_pay_with_card">Bankártyás fizetés</string>
     <string name="payment_label_pay_with_paypal">Fizetés PayPal segítségével</string>
-    <string name="payment_label_pay_with_crypto">Fizess kriptovalutával</string>
     <string name="payment_package_one_month">1 hónap</string>
     <string name="payment_package_six_months">6 hónap</string>
     <string name="payment_package_twelve_months">12 hónap</string>

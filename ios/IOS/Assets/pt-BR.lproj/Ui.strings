@@ -65,6 +65,8 @@
 "universal action filter" = "Filtrar";
 // A verb "to clear the list"
 "universal action clear" = "Limpar";
+// A verb "to revoke permissions"
+"universal action revoke" = "Revogar";
 
 "universal label help" = "Ajuda";
 "universal label welcome" = "Bem-vindo!";
@@ -211,14 +213,22 @@
 "networks label configuration active" = "Essas configurações estão atualmente ativas";
 "networks label configuration enabled" = "Não conectado a esta rede";
 "networks label configuration inactive" = "Toque para modificar as configurações desta rede";
-"networks label details default network" = "As configurações abaixo são aplicadas por padrão para todas as redes. Você pode substituí-las para as redes selecionadas (na tela anterior).";
 "networks action encrypt dns" = "Criptografar DNS";
 "networks action use dns" = "Usar DNS: %@";
 "networks action use network dns" = "Preferir DNS de rede";
 "networks label specific network" = "Ajuste o que deve acontecer quando o seu dispositivo se conectar a esta rede.";
+"networks label specific network type" = "Ajuste o que deve acontecer quando seu dispositivo se conectar a uma rede deste tipo.";
+"networks label any wifi" = "Qualquer rede Wi-Fi";
+"networks label any mobile" = "Qualquer rede móvel";
 "networks permission request" = "Para ter mais controle, toque aqui e deixe o app reconhecer todas as redes.";
+"networks permission request granted" = "Você poderá ver uma notificação quando o Blokada ler o nome da sua rede em segundo plano.";
 "networks section choose dns" = "Escolher DNS";
-"networks permission dialog" = "O Blokada pode reconhecer as redes em que você se conecta, e permitir que você configure ajustes separados para elas. Para fazer isso, é necessária a permissão de localização. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização, mas isso não é correto - o Blokada só vai ler o nome da rede.";
+"networks summary encrypt dns" = "O Blokada criptografará o DNS, se possível. Isso melhora sua segurança e impede que agentes maliciosos espionem quais sites e aplicativos você usa.";
+"networks summary use dns" = "O Blokada usará %@ como o DNS do seu dispositivo. Ao escolher o que permite criptografia (tem o ícone de bloqueio), e está próximo de você, ajudará a proteger seus dados e a tornar a sua conexão rápida.";
+"networks summary network dns" = "O Blokada usará o DNS da rede se disponível, ou alternará para %@ caso contrário. Além disso, as configurações de Criptografia de DNS serão ignoradas sempre que o DNS da rede for usado. O uso do DNS da rede ajuda a resolver problemas de conectividade em redes problemáticas, mas deixa você desprotegido.";
+"networks summary network dns and plus mode" = "O Blokada desativará temporariamente o Modo Plus sempre que o DNS da rede for usado. Isso ocorre porque não é possível acessar o DNS da rede na VPN. O Modo Plus será automaticamente restaurado quando seu dispositivo mudar para outra rede.";
+"networks summary blocka plus mode" = "O Blokada usará o Blokada DNS no modo Plus, para garantir um alto nível de criptografia e velocidade. Você pode alterar essa configuração na parte inferior da tela de Escolha de DNS.";
+"networks permission dialog" = "O Blokada pode reconhecer as redes em que você se conecta, e permitir que você configure ajustes separados para elas. Para fazer isso, é necessário a permissão de localização. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização, mas não é isso que acontece de verdade - o Blokada só vai ler o nome da rede.";
 
 
 "account section header settings" = "Configurações";
@@ -306,6 +316,7 @@
 "payment header activated" = "Ativado!";
 "payment activated description" = "O Blokada agora mudará para o modo Plus, e se conectará por meio de um de nossos locais seguros. Se você não tiver certeza de qual escolher, o mais próximo de você é recomendado.";
 "payment action choose location" = "Escolha um local";
+"payment action see locations" = "Nossos Locais";
 
 "payment title" = "Atualize para nosso serviço de VPN para manter o controle da *sua privacidade*.";
 "payment feature title change location" = "Alterar Localização";
@@ -355,7 +366,6 @@
 "payment label most popular" = "Mais popular";
 "payment label pay with card" = "Pagar com cartão";
 "payment label pay with paypal" = "Pagar com PayPal";
-"payment label pay with crypto" = "Pagar com criptomoeda";
 "payment package one month" = "1 Mês";
 "payment package six months" = "6 Meses";
 "payment package twelve months" = "12 Meses";
@@ -424,7 +434,6 @@
 "homepage about point one" = "Bloqueia anúncios e rastreadores";
 "homepage about point two" = "Funciona para todos os aplicativos e navegadores";
 "homepage about point three" = "Não requer root ou jailbreak";
-"homepage about point four" = "VPN incorporada para uma melhor proteção";
 "homepage about action plus" = "Saiba mais sobre o Blokada Plus";
 
 "homepage download header" = "Baixe o Blokada";

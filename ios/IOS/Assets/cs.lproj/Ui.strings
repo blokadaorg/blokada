@@ -65,6 +65,8 @@
 "universal action filter" = "Filtr";
 // A verb "to clear the list"
 "universal action clear" = "Vymazat";
+// A verb "to revoke permissions"
+"universal action revoke" = "Zrušit";
 
 "universal label help" = "Nápověda";
 "universal label welcome" = "Vítejte!";
@@ -211,7 +213,6 @@
 "networks label configuration active" = "Tato nastavení jsou aktuálně aktivní";
 "networks label configuration enabled" = "Není připojeno k této síti";
 "networks label configuration inactive" = "Klepnutím upravíte nastavení pro tuto síť";
-"networks label details default network" = "Níže uvedená nastavení jsou ve výchozím nastavení použita pro všechny sítě. Můžete je upravit pro vybrané sítě (na předchozí obrazovce).";
 "networks action encrypt dns" = "Šifrovat DNS";
 "networks action use dns" = "Použít DNS: %@";
 "networks action use network dns" = "Preferovat síťovou DNS";
@@ -220,6 +221,7 @@
 "networks label any wifi" = "Jakákoliv WiFi síť";
 "networks label any mobile" = "Jakákoliv mobilní síť";
 "networks permission request" = "Chcete-li mít větší kontrolu, klepněte sem a nechte aplikaci rozpoznat všechny sítě.";
+"networks permission request granted" = "Když Blokada na pozadí přečte název vaší sítě, může se zobrazit oznámení.";
 "networks section choose dns" = "Vybrat DNS";
 "networks summary encrypt dns" = "Blokada šifruje DNS, pokud je to možné. Tím se zlepší vaše zabezpečení a zabrání se škodlivým činitelům špehovat, jaké weby a aplikace používáte.";
 "networks summary use dns" = "Blokada použije %@ jako DNS vašeho zařízení. Výběr toho, který umožňuje šifrování (má ikonu zámku) a je blízko vás, pomůže chránit vaše data a zrychlí vaše připojení.";
@@ -314,6 +316,7 @@
 "payment header activated" = "Aktivováno!";
 "payment activated description" = "Blokada se nyní přepne do režimu Plus a připojí se přes jedno z našich zabezpečených míst. Pokud si nejste jisti, které z nich si vybrat, doporučujeme vám to nejbližší.";
 "payment action choose location" = "Zvolte umístění";
+"payment action see locations" = "Naše poloha";
 
 "payment title" = "Upgradujte na naši VPN službu, abyste měli kontrolu nad *vaším soukromím*.";
 "payment feature title change location" = "Změna polohy";
@@ -363,7 +366,6 @@
 "payment label most popular" = "Nejoblíbenější";
 "payment label pay with card" = "Zaplatit kartou";
 "payment label pay with paypal" = "Zaplatit přes PayPal";
-"payment label pay with crypto" = "Zaplatit pomocí kryptoměny";
 "payment package one month" = "1 měsíc";
 "payment package six months" = "6 měsíců";
 "payment package twelve months" = "12 měsíců";
@@ -432,7 +434,6 @@
 "homepage about point one" = "Blokuje reklamy a sledovače";
 "homepage about point two" = "Funguje ve všech aplikacích a všech prohlížečích";
 "homepage about point three" = "Nevyžaduje root ani jailbreak";
-"homepage about point four" = "Vestavěné VPN pro lepší ochranu";
 "homepage about action plus" = "Zjistěte více o službě Blokada Plus";
 
 "homepage download header" = "Stáhnout Blokadu";

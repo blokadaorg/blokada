@@ -168,7 +168,6 @@
     <string name="networks_label_configuration_active">В момента тези настройки са активни</string>
     <string name="networks_label_configuration_enabled">Не е свързана с тази мрежа</string>
     <string name="networks_label_configuration_inactive">Докоснете за да промените настройката за тази мрежа</string>
-    <string name="networks_label_details_default_network">Настройките по-долу се прилагат по подразбиране за всички мрежи. Можете да ги запишете само и за избрани мрежи (в предишния екран).</string>
     <string name="networks_action_encrypt_dns">Криптиран DNS</string>
     <string name="networks_action_use_dns">Използвайте DNS: %s</string>
     <string name="networks_action_use_network_dns">Предпочитан мрежов DNS</string>
@@ -304,7 +303,6 @@
     <string name="payment_label_most_popular">Най-популярен</string>
     <string name="payment_label_pay_with_card">Платете с карта</string>
     <string name="payment_label_pay_with_paypal">Платете с PayPal</string>
-    <string name="payment_label_pay_with_crypto">Платете с криптовалута</string>
     <string name="payment_package_one_month">1 Месец</string>
     <string name="payment_package_six_months">6 Месеца</string>
     <string name="payment_package_twelve_months">12 Месеца</string>
@@ -366,7 +364,6 @@
     <string name="homepage_about_point_one">Блокира реклами &amp; тракери</string>
     <string name="homepage_about_point_two">Работи с всички приложения и всички браузъри</string>
     <string name="homepage_about_point_three">Не изисква root или jailbreak</string>
-    <string name="homepage_about_point_four">С вградена VPN, за по-добра защита</string>
     <string name="homepage_about_action_plus">Научете повече за Blokada Plus</string>
     <string name="homepage_download_header">Изтегляне на Blokada</string>
     <string name="homepage_download_subheader">Blokada се предлага за няколко платформи, изберете вашата.</string>

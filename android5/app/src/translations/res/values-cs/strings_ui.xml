@@ -51,6 +51,7 @@
     <string name="universal_action_search">Hledat</string>
     <string name="universal_action_filter">Filtr</string>
     <string name="universal_action_clear">Vymazat</string>
+    <string name="universal_action_revoke">Zrušit</string>
     <string name="universal_label_help">Nápověda</string>
     <string name="universal_label_welcome">Vítejte!</string>
     <string name="universal_label_none">Žádné</string>
@@ -167,7 +168,6 @@
     <string name="networks_label_configuration_active">Tato nastavení jsou aktuálně aktivní</string>
     <string name="networks_label_configuration_enabled">Není připojeno k této síti</string>
     <string name="networks_label_configuration_inactive">Klepnutím upravíte nastavení pro tuto síť</string>
-    <string name="networks_label_details_default_network">Níže uvedená nastavení jsou ve výchozím nastavení použita pro všechny sítě. Můžete je upravit pro vybrané sítě (na předchozí obrazovce).</string>
     <string name="networks_action_encrypt_dns">Šifrovat DNS</string>
     <string name="networks_action_use_dns">Použít DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferovat síťovou DNS</string>
@@ -176,6 +176,7 @@
     <string name="networks_label_any_wifi">Jakákoliv WiFi síť</string>
     <string name="networks_label_any_mobile">Jakákoliv mobilní síť</string>
     <string name="networks_permission_request">Chcete-li mít větší kontrolu, klepněte sem a nechte aplikaci rozpoznat všechny sítě.</string>
+    <string name="networks_permission_request_granted">Když Blokada na pozadí přečte název vaší sítě, může se zobrazit oznámení.</string>
     <string name="networks_section_choose_dns">Vybrat DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada šifruje DNS, pokud je to možné. Tím se zlepší vaše zabezpečení a zabrání se škodlivým činitelům špehovat, jaké weby a aplikace používáte.</string>
     <string name="networks_summary_use_dns">Blokada použije %s jako DNS vašeho zařízení. Výběr toho, který umožňuje šifrování (má ikonu zámku) a je blízko vás, pomůže chránit vaše data a zrychlí vaše připojení.</string>
@@ -259,6 +260,7 @@
     <string name="payment_header_activated">Aktivováno!</string>
     <string name="payment_activated_description">Blokada se nyní přepne do režimu Plus a připojí se přes jedno z našich zabezpečených míst. Pokud si nejste jisti, které z nich si vybrat, doporučujeme vám to nejbližší.</string>
     <string name="payment_action_choose_location">Zvolte umístění</string>
+    <string name="payment_action_see_locations">Naše poloha</string>
     <string name="payment_title">Upgradujte na naši VPN službu, abyste měli kontrolu nad *vaším soukromím*.</string>
     <string name="payment_feature_title_change_location">Změna polohy</string>
     <string name="payment_feature_desc_change_location">Skryje vaši IP adresu a předstírá, že se nacházíte v jiné zemi. To vás chrání před třetími stranami a pomůže ochránit vaši identitu.</string>
@@ -302,7 +304,6 @@
     <string name="payment_label_most_popular">Nejoblíbenější</string>
     <string name="payment_label_pay_with_card">Zaplatit kartou</string>
     <string name="payment_label_pay_with_paypal">Zaplatit přes PayPal</string>
-    <string name="payment_label_pay_with_crypto">Zaplatit pomocí kryptoměny</string>
     <string name="payment_package_one_month">1 měsíc</string>
     <string name="payment_package_six_months">6 měsíců</string>
     <string name="payment_package_twelve_months">12 měsíců</string>
@@ -364,7 +365,6 @@
     <string name="homepage_about_point_one">Blokuje reklamy a sledovače</string>
     <string name="homepage_about_point_two">Funguje ve všech aplikacích a všech prohlížečích</string>
     <string name="homepage_about_point_three">Nevyžaduje root ani jailbreak</string>
-    <string name="homepage_about_point_four">Vestavěné VPN pro lepší ochranu</string>
     <string name="homepage_about_action_plus">Zjistěte více o službě Blokada Plus</string>
     <string name="homepage_download_header">Stáhnout Blokadu</string>
     <string name="homepage_download_subheader">Blokada je k dispozici pro několik platforem, vyberte si.</string>

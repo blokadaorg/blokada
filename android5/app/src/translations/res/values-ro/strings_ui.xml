@@ -275,7 +275,6 @@
     <string name="payment_label_most_popular">Cele mai populare</string>
     <string name="payment_label_pay_with_card">Plătiți cu cardul</string>
     <string name="payment_label_pay_with_paypal">Plătiți prin PayPal</string>
-    <string name="payment_label_pay_with_crypto">Plătiți cu criptomonede</string>
     <string name="payment_package_one_month">1 Lună</string>
     <string name="payment_package_six_months">6 Luni</string>
     <string name="payment_package_twelve_months">12 Luni</string>
@@ -335,7 +334,6 @@
     <string name="homepage_about_point_one">Blochează reclame și trackere</string>
     <string name="homepage_about_point_two">Funcționează pentru toate aplicațiile și toate browserele</string>
     <string name="homepage_about_point_three">Nu necesită acces root sau jailbreak</string>
-    <string name="homepage_about_point_four">Cu VPN încorporat pentru o protecție mai bună</string>
     <string name="homepage_about_action_plus">Aflați mai multe despre Blokada Plus</string>
     <string name="homepage_download_header">Descarcă Blokada</string>
     <string name="homepage_download_subheader">Blokada este disponibilă pe mai multe platforme, alege-o pe a ta.</string>

@@ -334,7 +334,6 @@
 "payment label most popular" = "Cele mai populare";
 "payment label pay with card" = "Plătiți cu cardul";
 "payment label pay with paypal" = "Plătiți prin PayPal";
-"payment label pay with crypto" = "Plătiți cu criptomonede";
 "payment package one month" = "1 Lună";
 "payment package six months" = "6 Luni";
 "payment package twelve months" = "12 Luni";
@@ -400,7 +399,6 @@
 "homepage about point one" = "Blochează reclame și trackere";
 "homepage about point two" = "Funcționează pentru toate aplicațiile și toate browserele";
 "homepage about point three" = "Nu necesită acces root sau jailbreak";
-"homepage about point four" = "Cu VPN încorporat pentru o protecție mai bună";
 "homepage about action plus" = "Aflați mai multe despre Blokada Plus";
 
 "homepage download header" = "Descarcă Blokada";

@@ -51,6 +51,7 @@
     <string name="universal_action_search">Pesquisar</string>
     <string name="universal_action_filter">Filtrar</string>
     <string name="universal_action_clear">Limpar</string>
+    <string name="universal_action_revoke">Revogar</string>
     <string name="universal_label_help">Ajuda</string>
     <string name="universal_label_welcome">Bem-vindo!</string>
     <string name="universal_label_none">Nenhuma</string>
@@ -167,14 +168,22 @@
     <string name="networks_label_configuration_active">Essas configurações estão atualmente ativas</string>
     <string name="networks_label_configuration_enabled">Não conectado a esta rede</string>
     <string name="networks_label_configuration_inactive">Toque para modificar as configurações desta rede</string>
-    <string name="networks_label_details_default_network">As configurações abaixo são aplicadas por padrão para todas as redes. Você pode substituí-las para as redes selecionadas (na tela anterior).</string>
     <string name="networks_action_encrypt_dns">Criptografar DNS</string>
     <string name="networks_action_use_dns">Usar DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferir DNS de rede</string>
     <string name="networks_label_specific_network">Ajuste o que deve acontecer quando o seu dispositivo se conectar a esta rede.</string>
+    <string name="networks_label_specific_network_type">Ajuste o que deve acontecer quando seu dispositivo se conectar a uma rede deste tipo.</string>
+    <string name="networks_label_any_wifi">Qualquer rede Wi-Fi</string>
+    <string name="networks_label_any_mobile">Qualquer rede móvel</string>
     <string name="networks_permission_request">Para ter mais controle, toque aqui e deixe o app reconhecer todas as redes.</string>
+    <string name="networks_permission_request_granted">Você poderá ver uma notificação quando o Blokada ler o nome da sua rede em segundo plano.</string>
     <string name="networks_section_choose_dns">Escolher DNS</string>
-    <string name="networks_permission_dialog">O Blokada pode reconhecer as redes em que você se conecta, e permitir que você configure ajustes separados para elas. Para fazer isso, é necessária a permissão de localização. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização, mas isso não é correto - o Blokada só vai ler o nome da rede.</string>
+    <string name="networks_summary_encrypt_dns">O Blokada criptografará o DNS, se possível. Isso melhora sua segurança e impede que agentes maliciosos espionem quais sites e aplicativos você usa.</string>
+    <string name="networks_summary_use_dns">O Blokada usará %s como o DNS do seu dispositivo. Ao escolher o que permite criptografia (tem o ícone de bloqueio), e está próximo de você, ajudará a proteger seus dados e a tornar a sua conexão rápida.</string>
+    <string name="networks_summary_network_dns">O Blokada usará o DNS da rede se disponível, ou alternará para %s caso contrário. Além disso, as configurações de Criptografia de DNS serão ignoradas sempre que o DNS da rede for usado. O uso do DNS da rede ajuda a resolver problemas de conectividade em redes problemáticas, mas deixa você desprotegido.</string>
+    <string name="networks_summary_network_dns_and_plus_mode">O Blokada desativará temporariamente o Modo Plus sempre que o DNS da rede for usado. Isso ocorre porque não é possível acessar o DNS da rede na VPN. O Modo Plus será automaticamente restaurado quando seu dispositivo mudar para outra rede.</string>
+    <string name="networks_summary_blocka_plus_mode">O Blokada usará o Blokada DNS no modo Plus, para garantir um alto nível de criptografia e velocidade. Você pode alterar essa configuração na parte inferior da tela de Escolha de DNS.</string>
+    <string name="networks_permission_dialog">O Blokada pode reconhecer as redes em que você se conecta, e permitir que você configure ajustes separados para elas. Para fazer isso, é necessário a permissão de localização. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização, mas não é isso que acontece de verdade - o Blokada só vai ler o nome da rede.</string>
     <string name="account_section_header_settings">Configurações</string>
     <string name="account_status_text">Sua conta BLOKADA %s está ativa até %s.</string>
     <string name="account_status_text_libre">Sua conta BLOKADA Libre está ativa para sempre.</string>
@@ -251,6 +260,7 @@
     <string name="payment_header_activated">Ativado!</string>
     <string name="payment_activated_description">O Blokada agora mudará para o modo Plus, e se conectará por meio de um de nossos locais seguros. Se você não tiver certeza de qual escolher, o mais próximo de você é recomendado.</string>
     <string name="payment_action_choose_location">Escolha um local</string>
+    <string name="payment_action_see_locations">Nossos Locais</string>
     <string name="payment_title">Atualize para nosso serviço de VPN para manter o controle da *sua privacidade*.</string>
     <string name="payment_feature_title_change_location">Alterar Localização</string>
     <string name="payment_feature_desc_change_location">Oculte o seu endereço IP e finja que está em outro país. Isso irá mascará-lo de terceiros e ajuda a proteger sua identidade.</string>
@@ -294,7 +304,6 @@
     <string name="payment_label_most_popular">Mais popular</string>
     <string name="payment_label_pay_with_card">Pagar com cartão</string>
     <string name="payment_label_pay_with_paypal">Pagar com PayPal</string>
-    <string name="payment_label_pay_with_crypto">Pagar com criptomoeda</string>
     <string name="payment_package_one_month">1 Mês</string>
     <string name="payment_package_six_months">6 Meses</string>
     <string name="payment_package_twelve_months">12 Meses</string>
@@ -356,7 +365,6 @@
     <string name="homepage_about_point_one">Bloqueia anúncios e rastreadores</string>
     <string name="homepage_about_point_two">Funciona para todos os aplicativos e navegadores</string>
     <string name="homepage_about_point_three">Não requer root ou jailbreak</string>
-    <string name="homepage_about_point_four">VPN incorporada para uma melhor proteção</string>
     <string name="homepage_about_action_plus">Saiba mais sobre o Blokada Plus</string>
     <string name="homepage_download_header">Baixe o Blokada</string>
     <string name="homepage_download_subheader">O Blokada está disponível para várias plataformas, escolha a sua.</string>

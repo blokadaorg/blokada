@@ -213,7 +213,7 @@
 "networks label configuration active" = "These settings are currently active";
 "networks label configuration enabled" = "Not connected to this network";
 "networks label configuration inactive" = "Tap to modify settings for this network";
-"networks label details default network" = "The settings below are applied by default for all networks. You can overwrite them for selected networks (in the previous screen).";  
+"networks label details default network" = "The settings below are applied by default for all networks. You can override them for selected networks (in the previous screen).";
 "networks action encrypt dns" = "Encrypt DNS";
 "networks action use dns" = "Use DNS: %@";
 "networks action use network dns" = "Prefer network DNS";
@@ -340,6 +340,7 @@
 "payment alert error header" = "A message from App Store";
 // As in saving money: You are saving $5
 "payment save text" = "You are saving %@";
+"payment conversion note" = "We accept Euro, and the displayed prices are an estimate. A refund is available if your bank charges too much.";
 
 "payment subscription 1 month" = "1 Month";
 "payment subscription many months" = "%@ Months";
@@ -367,7 +368,7 @@
 "payment label most popular" = "Most popular";
 "payment label pay with card" = "Pay with card";
 "payment label pay with paypal" = "Pay with PayPal";
-"payment label pay with crypto" = "Pay with cryptocurrency";
+"payment label pay with crypto" = "Pay with crypto";
 "payment package one month" = "1 Month";
 "payment package six months" = "6 Months";
 "payment package twelve months" = "12 Months";
@@ -423,6 +424,9 @@
 "homepage desc community" = "Join our awesome community.";
 "homepage header support" = "Support us";
 "homepage desc support" = "Donate to help us continue the project.";
+"homepage action faq" = "FAQ";
+"homepage action vpn" = "VPN";
+"homepage action opinions" = "Reviews";
 "homepage action authors" = "Authors";
 "homepage action source" = "Source";
 "homepage action forums" = "Forums";
@@ -436,8 +440,32 @@
 "homepage about point one" = "Blocks ads & trackers";
 "homepage about point two" = "Works for all apps and all browsers";
 "homepage about point three" = "Requires no root or jailbreak";
-"homepage about point four" = "Built in VPN for better protection";
+"homepage about point four" = "Safe design (does not break encryption)";
+"homepage about point five" = "Trusted & free forever";
+
+"homepage about action faq" = "See the FAQs";
 "homepage about action plus" = "Learn more about Blokada Plus";
+
+"homepage vpn title" = "Blokada 5, the VPN";
+"homepage vpn desc" = "For ultimate privacy protection, upgrade to Blokada Plus and connect through our VPN. We use WireGuard®, the most advanced VPN protocol, to encrypt your network activity and hide your IP address.";
+"homepage vpn point one" = "No bandwidth restrictions";
+"homepage vpn point two" = "Fast & modern encryption";
+"homepage vpn point three" = "No logging of your network activity";
+"homepage vpn point four" = "Connect up to 5 devices";
+"homepage vpn credit" = "WireGuard is a registered trademark of Jason A. Donenfeld";
+
+"homepage faq header" = "Frequently Asked Questions";
+"homepage faq action more" = "See more FAQs";
+"homepage faq title 1" = "What information does Blokada keep?";
+"homepage faq desc 1" = "Blokada does not track or share any of your network activity. If you use Blokada Plus, for technical reasons we need to collect the most minimal data required to keep the service operational. Please consult our Privacy Policy available in the top menu for details.";
+"homepage faq title 2" = "How is my privacy protected?";
+"homepage faq desc 2" =  "Blokada prevents apps and browsers installed on your device from sending your private data (known as tracking fingerprints) to the Internet. It also encrypts some of your network activity (DNS queries). If you need more protection, Blokada Plus makes your device connect through our VPN, and uses the WireGuard® protocol to encrypt your entire network traffic.";
+"homepage faq title 3" = "What is Blokada Plus?";
+"homepage faq desc 3" = "Blokada Plus is our safe and modern VPN (Virtual Private Network) service. It uses WireGuard® - a fast protocol with best-in-class encryption and low battery usage. Blokada Plus encrypts all of your network activity in real time, giving you the highest level of protection available. You also get the popular VPN features - hide your IP address, change your location, and unblock geo-restricted content.";
+"homepage faq title 4" = "Do I need to upgrade to Blokada Plus?";
+"homepage faq desc 4" = "No, the upgrade is optional. You may stick to the free version of Blokada, forever. It is a recommended upgrade if you wish to increase your privacy protection even more, or need any of the popular features VPNs provide.";
+"homepage faq title 5" = "What is the Blokada Plus refund policy?";
+"homepage faq desc 5" = "You can get your money back within 7-days of purchasing the subscription. Contact us through any of our apps, and simply mention you want a refund.";
 
 "homepage download header" = "Download Blokada";
 "homepage download subheader" = "Blokada is available for several platforms, choose yours.";

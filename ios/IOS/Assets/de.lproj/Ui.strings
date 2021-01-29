@@ -18,7 +18,7 @@
 "error fetching data" = "Diese Aktion konnte nicht richtig beendet werden. Stelle sicher, dass du online bist und versuche es später nochmal. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.";
 "error tunnel" = "Das VPN konnte nicht eingerichtet werden. Bitte starte dein Gerät neu oder entferne Blokadas VPN-Profil in den Systemeinstellungen und versuche es erneut.";
 "error vpn" = "VPN konnte nicht eingerichtet werden. Bitte starte dein Gerät neu oder entferne Blokadas VPN-Profil in den Systemeinstellungen und versuche es erneut.";
-"error vpn perms" = "Keine Berechtigung zum erstellen eines VPN-Profils erhalten.";
+"error vpn perms" = "Keine Berechtigung zum Erstellen eines VPN-Profils erteilt.";
 "error vpn no current lease" = "Bitte wähle zuerst einen Standort aus.";
 "error vpn too many leases" = "Du hast die maximale Anzahl an Geräten erreicht. Bitte entferne eines deiner Geräte und versuche es erneut.";
 "error vpn expired" = "Das VPN ist deaktiviert. Bitte erneuere dein Abonnement, um BLOKADA+ weiter verwenden zu können";
@@ -190,7 +190,7 @@
 "activity happened one time" = "1 Mal";
 "activity happened many times" = "%@ Mal";
 "activity category recent" = "Neueste";
-"activity category top" = "Top";
+"activity category top" = "Häufig";
 "activity category top blocked" = "Häufig blockiert";
 "activity category top allowed" = "Häufig erlaubt";
 "activity filter header" = "Welche Einträge möchtest du sehen?";
@@ -213,7 +213,6 @@
 "networks label configuration active" = "Diese Einstellungen sind derzeit aktiv";
 "networks label configuration enabled" = "Nicht mit diesem Netzwerk verbunden";
 "networks label configuration inactive" = "Tippe hier, um Einstellungen für dieses Netzwerk zu ändern";
-"networks label details default network" = "Die folgenden Einstellungen gelten standardmäßig für alle Netzwerke. Du kannst sie für ausgewählte Netzwerke überschreiben (im vorherigen Bildschirm).";
 "networks action encrypt dns" = "DNS verschlüsseln";
 "networks action use dns" = "Verwende DNS: %@";
 "networks action use network dns" = "Netzwerk-DNS bevorzugen";
@@ -223,7 +222,7 @@
 "networks label any mobile" = "Jedes Mobilfunknetz";
 "networks permission request" = "Um mehr Kontrolle zu haben, tippe hier und lasse die App alle Netzwerke erkennen.";
 "networks permission request granted" = "Du siehst möglicherweise eine Benachrichtigung, wenn Blokada im Hintergrund den Netzwerknamen ausliest.";
-"networks section choose dns" = "Wähle DNS";
+"networks section choose dns" = "DNS auswählen";
 "networks summary encrypt dns" = "Blokada verschlüsselt DNS, wenn möglich. Dies verbessert deine Sicherheit und verhindert, dass böswillige Akteure ausspionieren, welche Websites und Apps du verwendest.";
 "networks summary use dns" = "Blokada wird %@ als DNS für dein Gerät verwenden. Wenn du einen DNS auswählst, der eine Verschlüsselung zulässt (gekennzeichnet durch das Schlosssymbol) und sich in deiner Nähe befindet, kannst du deine Daten schützen und eine schnelle Verbindung herstellen.";
 "networks summary network dns" = "Blokada verwendet - sofern verfügbar - das DNS des Netzwerks und wechselt andernfalls zu %@. Außerdem werden die Einstellungen für \"DNS verschlüsseln\" ignoriert, wenn Netzwerk-DNS verwendet wird. Die Verwendung des Netzwerk-DNS hilft bei der Behebung von Verbindungsproblemen in fehlerhaften Netzwerken, lässt dich aber ungeschützt.";
@@ -340,6 +339,7 @@
 "payment alert error header" = "Eine Nachricht aus dem App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Du sparst %@";
+"payment conversion note" = "Wir akzeptieren Euro und die angezeigten Preise sind eine Abschätzung. Eine Erstattung ist möglich, wenn die Bank zu viel abbucht.";
 
 "payment subscription 1 month" = "1 Monat";
 "payment subscription many months" = "%@ Monate";
@@ -367,7 +367,7 @@
 "payment label most popular" = "Am beliebtesten";
 "payment label pay with card" = "Mit Karte zahlen";
 "payment label pay with paypal" = "Mit PayPal bezahlen";
-"payment label pay with crypto" = "Mit Kryptowährung bezahlen";
+"payment label pay with crypto" = "Mit Krypto bezahlen";
 "payment package one month" = "1 Monat";
 "payment package six months" = "6 Monate";
 "payment package twelve months" = "12 Monate";
@@ -423,10 +423,13 @@
 "homepage desc community" = "Werde Teil unserer großartigen Community.";
 "homepage header support" = "Unterstütze uns";
 "homepage desc support" = "Spende, um uns dabei zu helfen, das Projekt fortzusetzen.";
+"homepage action faq" = "FAQ";
+"homepage action vpn" = "VPN";
+"homepage action opinions" = "Bewertungen";
 "homepage action authors" = "Autoren";
 "homepage action source" = "Quellcode";
 "homepage action forums" = "Foren";
-"homepage action dashboard" = "Kontrollzentrum";
+"homepage action dashboard" = "Dashboard";
 "homepage about footer" = "Bleiben wir in Kontakt!";
 "homepage hero title" = "Die Datenschutz-App";
 "homepage hero subtitle" = "Kostenlos und Open Source";
@@ -436,8 +439,32 @@
 "homepage about point one" = "Blockiert Werbung & Tracker";
 "homepage about point two" = "Funktioniert für alle Apps und alle Browser";
 "homepage about point three" = "Erfordert kein Root oder Jailbreak";
-"homepage about point four" = "Eingebauter VPN für besseren Schutz";
+"homepage about point four" = "Sicheres Design (kein Aufbrechen der Verschlüsselung)";
+"homepage about point five" = "Vertrauenswürdig & kostenlos für immer";
+
+"homepage about action faq" = "Zu den häufig gestellten Fragen";
 "homepage about action plus" = "Mehr über Blokada Plus erfahren";
+
+"homepage vpn title" = "Blokada 5, das VPN";
+"homepage vpn desc" = "Für den ultimativen Schutz deiner Privatsphäre kannst du ein Upgrade auf Blokada Plus durchführen und dich über unser VPN verbinden. Wir verwenden WireGuard®, das fortschrittlichste VPN-Protokoll, um deine Netzwerkaktivitäten zu verschlüsseln und die IP-Adresse zu verbergen.";
+"homepage vpn point one" = "Keine Beschränkung der Bandbreite";
+"homepage vpn point two" = "Schnelle & moderne Verschlüsselung";
+"homepage vpn point three" = "Keine Protokollierung deiner Netzwerkaktivitäten";
+"homepage vpn point four" = "Verbinde bis zu 5 Geräte";
+"homepage vpn credit" = "WireGuard ist eine eingetragene Marke von Jason A. Donenfeld";
+
+"homepage faq header" = "Häufig gestellte Fragen";
+"homepage faq action more" = "Weitere häufig gestellte Fragen sehen";
+"homepage faq title 1" = "Welche Informationen werden von Blokada gespeichert?";
+"homepage faq desc 1" = "Blokada überwacht und teilt keine deiner Netzwerkaktivitäten. Wenn du Blokada Plus verwendest, müssen wir aus technischen Gründen die minimalsten Daten sammeln, die erforderlich sind, um den Dienst betriebsbereit zu halten. Bitte schaue für weitere Details in unsere Datenschutzerklärung, die du im oberen Menü findest.";
+"homepage faq title 2" = "Wie wird meine Privatsphäre geschützt?";
+"homepage faq desc 2" = "Blokada verhindert, dass Apps und Browser, die auf deinem Gerät installiert sind, deine privaten Daten (so genannte Tracking-Fingerabdrücke) an das Internet senden. Außerdem wird ein Teil deiner Netzwerkaktivitäten (DNS-Anfragen) verschlüsselt. Wenn du mehr Schutz benötigst, sorgt Blokada Plus dafür, dass sich dein Gerät über unser VPN verbindet und verwendet das WireGuard®-Protokoll, um deinen gesamten Netzwerkverkehr zu verschlüsseln.";
+"homepage faq title 3" = "Was ist Blokada Plus?";
+"homepage faq desc 3" = "Blokada Plus ist unser sicherer und moderner VPN-Dienst (Virtual Private Network). Hierbei kommt WireGuard® zum Einsatz - ein schnelles Protokoll mit erstklassiger Verschlüsselung und geringem Akkuverbrauch. Blokada Plus verschlüsselt alle deine Netzwerkaktivitäten in Echtzeit und bietet so den höchsten verfügbaren Schutz. Du erhältst auch die beliebten VPN-Funktionen - verbirg deine IP-Adresse, ändere deinen Standort und entsperre geobeschränkte Inhalte.";
+"homepage faq title 4" = "Ist ein Upgrade auf Blokada Plus notwendig?";
+"homepage faq desc 4" = "Nein, das Upgrade ist optional. Du kannst bei der kostenlosen Version von Blokada bleiben, für immer. Es ist ein empfohlenes Upgrade, wenn du den Schutz deiner Privatsphäre noch weiter erhöhen möchtest oder eine der beliebten Funktionen benötigst, die VPNs bieten.";
+"homepage faq title 5" = "Wie ist die Rückerstattungsrichtlinie von Blokada Plus?";
+"homepage faq desc 5" = "Du kannst dein Geld innerhalb von 7 Tagen nach dem Kauf des Abonnements zurückerhalten. Kontaktiere uns über eine unserer Apps und erwähne einfach, dass du eine Rückerstattung wünschst.";
 
 "homepage download header" = "Blokada herunterladen";
 "homepage download subheader" = "Blokada ist für verschiedene Plattformen verfügbar, wähle deine aus.";
@@ -446,7 +473,7 @@
 "homepage download option android four" = "Blokada 4 für Android";
 "homepage download option ios" = "Blokada 5 für iOS";
 "homepage download option other" = "Blokada für andere Plattformen";
-"homepage download desc other" = "Derzeit stellen wir Blokada nicht für andere Plattformen zur Verfügung. Wenn du jedoch Blokada Plus-Nutzer bist, kannst du unser VPN auf Windows, Linux, Mac und anderen Plattformen verwenden, auf denen Wireguard verfügbar ist.";
+"homepage download desc other" = "Derzeit stellen wir Blokada nicht für andere Plattformen zur Verfügung. Wenn du jedoch Blokada Plus-Nutzer bist, kannst du unser VPN auf Windows, Linux, Mac und anderen Plattformen verwenden, auf denen WireGuard verfügbar ist.";
 "homepage download desc ios" = "Blokada 5 ist einfach im App Store verfügbar.";
 "homepage download action ios" = "App Store öffnen";
 "homepage download desc android five" = "Dies ist unsere neue, empfohlene Version <b>für Smartphones und Tablets mit Android 7 oder neuer</b>. Sie ist einfacher zu bedienen und schneller als Blokada 4.";

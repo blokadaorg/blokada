@@ -167,7 +167,6 @@
     <string name="networks_label_configuration_active">Bu ayarlar şu anda aktif</string>
     <string name="networks_label_configuration_enabled">Bu ağa bağlı değil</string>
     <string name="networks_label_configuration_inactive">Bu ağın ayarlarını değiştirmek için dokunun</string>
-    <string name="networks_label_details_default_network">Aşağıdaki ayarlar tüm ağlar için varsayılan olarak uygulanır. Seçili ağlar (önceki ekranda) için bunların üzerine yazabilirsiniz.</string>
     <string name="networks_action_encrypt_dns">DNS\'yi şifrele</string>
     <string name="networks_action_use_dns">DNS\'i kullan: %s</string>
     <string name="networks_action_use_network_dns">Ağ DNS\'sini tercih et</string>
@@ -293,7 +292,6 @@
     <string name="payment_label_most_popular">En popüler</string>
     <string name="payment_label_pay_with_card">Kart ile öde</string>
     <string name="payment_label_pay_with_paypal">PayPal ile öde</string>
-    <string name="payment_label_pay_with_crypto">Kripto para ile öde</string>
     <string name="payment_package_one_month">1 ay</string>
     <string name="payment_package_six_months">6 ay</string>
     <string name="payment_package_twelve_months">12 ay</string>
@@ -355,7 +353,6 @@
     <string name="homepage_about_point_one">Reklamları ve izleyicileri engeller</string>
     <string name="homepage_about_point_two">Tüm uygulamalar ve tarayıcılarda çalışır</string>
     <string name="homepage_about_point_three">Root veya jailbreak gerektirmez</string>
-    <string name="homepage_about_point_four">Daha iyi koruma için yerleşik VPN</string>
     <string name="homepage_about_action_plus">Blokada Plus hakkında daha fazla bilgi edinin</string>
     <string name="homepage_download_header">Blokada\'yı İndir</string>
     <string name="homepage_download_subheader">Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.</string>

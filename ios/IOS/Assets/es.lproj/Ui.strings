@@ -213,7 +213,6 @@
 "networks label configuration active" = "Estos ajustes están actualmente activos";
 "networks label configuration enabled" = "No estás conectado a esta red";
 "networks label configuration inactive" = "Toca para modificar la configuración de esta red";
-"networks label details default network" = "Los siguientes ajustes se aplican por defecto para todas las redes. Puedes sobrescribirlos para las redes seleccionadas (en la pantalla anterior).";
 "networks action encrypt dns" = "Encriptar DNS";
 "networks action use dns" = "Usar DNS: %@";
 "networks action use network dns" = "Preferir red DNS";
@@ -365,7 +364,6 @@
 "payment label most popular" = "Más popular";
 "payment label pay with card" = "Pagar con tarjeta";
 "payment label pay with paypal" = "Pagar con Paypal";
-"payment label pay with crypto" = "Pagar con criptomoneda";
 "payment package one month" = "1 mes";
 "payment package six months" = "6 meses";
 "payment package twelve months" = "12 meses";
@@ -421,6 +419,8 @@
 "homepage desc community" = "Únete a nuestra impresionante comunidad.";
 "homepage header support" = "Ayúdanos";
 "homepage desc support" = "Dona para ayudarnos a continuar el proyecto.";
+"homepage action faq" = "Preguntas frecuentes (FAQ)";
+"homepage action vpn" = "VPN";
 "homepage action authors" = "Autores";
 "homepage action source" = "Código fuente";
 "homepage action forums" = "Foros";
@@ -434,8 +434,32 @@
 "homepage about point one" = "Bloquea anuncios y rastreadores";
 "homepage about point two" = "Funciona para todas las aplicaciones y todos los navegadores";
 "homepage about point three" = "No requiere root o jailbreak";
-"homepage about point four" = "VPN incorporado para una mejor protección";
+"homepage about point four" = "Diseño seguro (no rompe el cifrado)";
+"homepage about point five" = "Confiable y gratuita para siempre";
+
+"homepage about action faq" = "Ver las preguntas más frecuentes (FAQ)";
 "homepage about action plus" = "Aprende más sobre Blokada Plus";
+
+"homepage vpn title" = "Blokada 5, el VPN";
+"homepage vpn desc" = "Para una protección de privacidad definitiva, actualice a Blokada Plus y conéctese a través de nuestra VPN. Utilizamos WireGuard®, el protocolo VPN más avanzado, para cifrar su actividad de red y ocultar su dirección IP.";
+"homepage vpn point one" = "Sin restricciones de ancho de banda";
+"homepage vpn point two" = "Cifrado rápido y moderno";
+"homepage vpn point three" = "No hay registro de la actividad de su red";
+"homepage vpn point four" = "Conecte hasta 5 dispositivos";
+"homepage vpn credit" = "WireGuard es una marca registrada de Jason A. Donenfeld";
+
+"homepage faq header" = "Preguntas frecuentes (FAQ)";
+"homepage faq action more" = "Ver más preguntas frecuentes (FAQ)";
+"homepage faq title 1" = "¿Qué información conserva Blokada?";
+"homepage faq desc 1" = "Blokada no rastrea o comparte ninguna de las actividades de su red. Si utiliza Blokada Plus, por razones técnicas, necesitamos recopilar los datos más mínimos necesarios para mantener el servicio operativo. Consulte nuestra Política de Privacidad disponible en el menú superior para más detalles.";
+"homepage faq title 2" = "¿Cómo se protege mi privacidad?";
+"homepage faq desc 2" = "Blokada evita que las aplicaciones y navegadores instalados en tu dispositivo envíen tus datos privados (conocidos como huellas dactilares) a Internet. También encripta parte de su actividad de red (consultas DNS). Si necesitas más protección, Blokada Plus hace que tu dispositivo se conecte a través de nuestra VPN y utilice el protocolo WireGuard® para cifrar todo el tráfico de tu red.";
+"homepage faq title 3" = "¿Qué es Blokada Plus?";
+"homepage faq desc 3" = "Blokada Plus es nuestro servicio de VPN seguro y moderno (red privada virtual). Utiliza WireGuard® un protocolo rápido con cifrado de mejor calidad y bajo consumo de batería. Blokada Plus encripta toda la actividad de su red en tiempo real, dándote el mayor nivel de protección disponible. También obtendrá las características populares de VPN: oculta tu dirección IP, cambia tu ubicación y desbloquea el contenido restringido geográficamente.";
+"homepage faq title 4" = "¿Necesito actualizar a Blokada Plus?";
+"homepage faq desc 4" = "No, la mejora es opcional. Puedes optar a la versión gratuita de Blokada, para siempre. Es una mejora recomendada si desea aumentar aún más su protección de la privacidad o si necesita alguna de las características populares que proporcionan las VPNs.";
+"homepage faq title 5" = "¿Cuál es la política de reembolso de Blokada Plus?";
+"homepage faq desc 5" = "Puedes recuperar tu dinero dentro de los 7 días próximos a la compra de la suscripción. Póngase en contacto con nosotros a través de cualquiera de nuestras aplicaciones y simplemente mencione que desea un reembolso.";
 
 "homepage download header" = "Descargar Blokada";
 "homepage download subheader" = "Blokada está disponible para varias plataformas, elige la tuya.";

@@ -213,7 +213,6 @@
 "networks label configuration active" = "هذه الإعدادات نشطة حاليّاً";
 "networks label configuration enabled" = "غير متّصل بهذه الشبكة";
 "networks label configuration inactive" = "انقر لتعديل إعدادات هذه الشبكة";
-"networks label details default network" = "يتم تطبيق الإعدادات أدناه بشكل افتراضي على جميع الشبكات. يمكنك الكتابة فوقها للشبكات المحددة (في الشاشة السابقة).";
 "networks action encrypt dns" = "تشفير DNS";
 "networks action use dns" = "استخدام DNS: %@";
 "networks action use network dns" = "تفضيل شبكة DNS";
@@ -340,6 +339,7 @@
 "payment alert error header" = "رسالة من متجر التطبيقات";
 // As in saving money: You are saving $5
 "payment save text" = "إنت تقوم بحفظ %@";
+"payment conversion note" = "نحن نقبل اليورو ، و الأسعار المعروضة تقديريّة. استرداد المبلغ متاح إذا كان البنك الذي تستخدمه يفرض رسوماً كبيرة.";
 
 "payment subscription 1 month" = "شهر واحد";
 "payment subscription many months" = "%@ أشهر";
@@ -367,7 +367,7 @@
 "payment label most popular" = "الأكثر شعبيّة";
 "payment label pay with card" = "الدفع باستخدام البطاقة";
 "payment label pay with paypal" = "الدفع بواسطة PayPal";
-"payment label pay with crypto" = "الدفع بالعملة المشفَّرة";
+"payment label pay with crypto" = "الدفع بالعملات المشفّرة";
 "payment package one month" = "شهر واحد";
 "payment package six months" = "6 أشهر";
 "payment package twelve months" = "12 شهر";
@@ -423,6 +423,9 @@
 "homepage desc community" = "انضم إلى مجتمعنا الرائع.";
 "homepage header support" = "ادعمنا";
 "homepage desc support" = "تَبرَّع لمساعدتنا على متابعة المشروع.";
+"homepage action faq" = "الأسئلة الشائعة";
+"homepage action vpn" = "VPN";
+"homepage action opinions" = "التعليقات";
 "homepage action authors" = "المؤلّفون";
 "homepage action source" = "المَصدر";
 "homepage action forums" = "المنتديات";
@@ -436,8 +439,32 @@
 "homepage about point one" = "حَظْر الإعلانات و المُتَعقِّبين";
 "homepage about point two" = "يعمل مع جميع التطبيقات و المتصفِّحات";
 "homepage about point three" = "لا يتطلَّب روت أو جيلبريك";
-"homepage about point four" = "VPN مدمج لحماية أفضل";
+"homepage about point four" = "التصميم الآمن (لا يكسر التشفير)";
+"homepage about point five" = "موثوق به و مجّاني إلى الأبد";
+
+"homepage about action faq" = "مشاهدة الأسئلة الشائعة";
 "homepage about action plus" = "تعرّف على المزيد حول Blokada Plus";
+
+"homepage vpn title" = "بلوكادا 5، VPN";
+"homepage vpn desc" = "لحماية مطلقة للخصوصيّة ، قم بالترقية إلى Blokada Plus و اتصل من خلال VPN الخاصّ بنا. نحن نستخدم WireGuard® ، بروتوكول VPN الأكثر تقدّماً ، لتشفير نشاط الشبكة و إخفاء عنوان IP الخاصّ بك.";
+"homepage vpn point one" = "لا قيود على النطاق التردّدي";
+"homepage vpn point two" = "تشفير سريع و حديث";
+"homepage vpn point three" = "لا يوجد تسجيل لنشاط الشبكة الخاصّ بك";
+"homepage vpn point four" = "قم بتوصيل ما يصل إلى 5 أجهزة";
+"homepage vpn credit" = "WireGuard هي علامة تجاريّة مسجّلة لـ Jason A. Donenfeld";
+
+"homepage faq header" = "الأسئلة الشائعة";
+"homepage faq action more" = "مشاهدة المزيد من الأسئلة الشائعة";
+"homepage faq title 1" = "ما هي المعلومات التي يحتفظ بها بلوكادا؟";
+"homepage faq desc 1" = "لا يقوم Blokada بتتبّع أو مشاركة أيّ من أنشطة الشبكة الخاصّة بك. إذا كنت تستخدم Blokada Plus ، لأسباب فنيّة نحتاج إلى جمع الحدّ الأدنى من البيانات المطلوبة للحفاظ على تشغيل الخدمة. الرجاء الرجوع إلى سياسة الخصوصيّة المتوفّرة لدينا في القائمة العليا للحصول على التفاصيل.";
+"homepage faq title 2" = "كيف يتم حماية خصوصيّتي؟";
+"homepage faq desc 2" = "يمنع Blokada التطبيقات و المتصفّحات المثبّتة على جهازك من إرسال بياناتك الخاصّة (المعروفة باسم تتبُّع بصمات الأصابع) إلى الإنترنت. يقوم أيضاً بتشفير بعض أنشطة الشبكة (استعلامات DNS). إذا كنت بحاجة إلى مزيد من الحماية ، فإن Blokada Plus يجعل جهازك يتّصل من خلال VPN الخاصّ بنا ، و يستخدم بروتوكول WireGuard® لتشفير حركة مرور الشبكة بالكامل.";
+"homepage faq title 3" = "ما هو Blokada Plus؟";
+"homepage faq desc 3" = "Blokada Plus هي خدمة VPN (شبكة افتراضيّة خاصّة) آمنة و حديثة. يستخدم WireGuard® - وهو بروتوكول سريع مع تشفير هو الأفضل في فئته و استخدام منخفض للبطاريّة. يقوم Blokada Plus بتشفير جميع أنشطة الشبكة الخاصّة بك في الوقت الفعلي ، ممّا يمنحك أعلى مستوى من الحماية المتاحة. يمكنك أيضاً الحصول على ميّزات VPN الشائعة - إخفاء عنوان IP الخاصّ بك ، و تغيير موقعك ، و إلغاء حَظْر المحتوى المُقَيَّد جغرافياً.";
+"homepage faq title 4" = "هل أحتاج للترقية إلى Blokada Plus؟";
+"homepage faq desc 4" = "لا ، الترقية اختياريّة. يمكنك الإلتزام بالإصدار المجّاني من بلوكادا إلى الأبد. الترقية موصى بها إذا كنت ترغب في زيادة حماية خصوصيّتك بشكل أكبر ، أو تحتاج إلى أي من الميّزات الشائعة التي توفّرها شبكات VPN.";
+"homepage faq title 5" = "ما هي سياسة Blokada Plus لاسترداد الدفع ؟";
+"homepage faq desc 5" = "يمكنك استرداد أموالك في غضون 7 أيّام من شراء الاشتراك. اتصل بنا من خلال أيّ من تطبيقاتنا ، و اذكر ببساطة أنّك تريد استرداد أموالك.";
 
 "homepage download header" = "تحميل بلوكادا";
 "homepage download subheader" = "بلوكادا متوفّر للعديد من المنصات، اختر منصَّتك.";

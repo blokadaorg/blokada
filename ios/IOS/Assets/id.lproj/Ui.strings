@@ -340,6 +340,7 @@
 "payment alert error header" = "Sebuah pesan dari App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Anda menghemat %@";
+"payment conversion note" = "Kami menerima mata uang Euro, dan tarif langganan yang ditampilkan hanya berupa perkiraan. Pengembalian uang bisa dilakukan jika bank Anda mengutip biaya admin terlalu tinggi.";
 
 "payment subscription 1 month" = "1 Bulan";
 "payment subscription many months" = "%@ bulan";
@@ -423,6 +424,9 @@
 "homepage desc community" = "Bergabunglah dengan komunitas kami yang luar biasa.";
 "homepage header support" = "Dukung kami";
 "homepage desc support" = "Beri donasi agar kami bisa tetap mengembangkan Blokada lebih baik lagi.";
+"homepage action faq" = "FAQ";
+"homepage action vpn" = "VPN";
+"homepage action opinions" = "Ulasan";
 "homepage action authors" = "Pembuat";
 "homepage action source" = "Sumber";
 "homepage action forums" = "Forum";
@@ -436,8 +440,32 @@
 "homepage about point one" = "Memblokir iklan & pelacak";
 "homepage about point two" = "Berfungsi di semua aplikasi dan browser";
 "homepage about point three" = "Tidak perlu root atau jailbreak";
-"homepage about point four" = "Dengan VPN terintegrasi untuk perlindungan yang lebih baik";
+"homepage about point four" = "Rancangan aman (tak merusak enkripsi)";
+"homepage about point five" = "Terpercaya & gratis selamanya";
+
+"homepage about action faq" = "Lihat FAQ";
 "homepage about action plus" = "Pelajari lebih lanjut tentang Blokada Plus";
+
+"homepage vpn title" = "Blokada 5, VPN";
+"homepage vpn desc" = "Untuk perlindungan privasi terbaik, upgrade ke Blokada Plus dan berselancar melalui VPN kami. Kami menggunakan WireGuard®, protokol VPN tercanggih saat ini, untuk mengenkripsi aktivitas internet dan menyembunyikan IP address Anda.";
+"homepage vpn point one" = "Tanpa pembatasan bandwidth";
+"homepage vpn point two" = "Enkripsi cepat & modern";
+"homepage vpn point three" = "Tanpa pencatatan aktivitas jaringan Anda";
+"homepage vpn point four" = "Cakupan koneksi hingga 5 perangkat";
+"homepage vpn credit" = "WireGuard merupakan merk dagang terdaftar atas nama Jason A. Donenfeld";
+
+"homepage faq header" = "Pertanyaan Yang Sering Diajukan";
+"homepage faq action more" = "Lihat selengkapnya";
+"homepage faq title 1" = "Informasi apa yang disimpan oleh Blokada?";
+"homepage faq desc 1" = "Blokada tidak melacak atau membagikan detail aktivitas Anda selama menggunakan internet. Jika Anda berlangganan Blokada Plus, untuk beberapa alasan teknis kami akan mengumpulkan data seminimal mungkin yang diperlukan agar layanan kami bisa berfungsi optimal. Harap lihat Kebijakan Privasi kami yang tersedia di menu bagian atas untuk informasi lebih lanjut.";
+"homepage faq title 2" = "Bagaimana privasi saya terlindungi?";
+"homepage faq desc 2" = "Blokada mencegah pengiriman data pribadi oleh aplikasi dan browser yang ada di perangkat Anda (dikenal sebagai tracking fingerprints) melalui internet. Blokada juga mengenkripsi sebagian aktivitas berselancar Anda (DNS queries). Jika Anda membutuhkan perlindungan lebih, kami menyediakan Blokada Plus yang akan menghubungkan perangkat Anda dengan VPN kami yang menggunakan protokol WireGuard® untuk mengenkripsi seluruh lalu lintas data Anda.";
+"homepage faq title 3" = "Apa itu Blokada Plus?";
+"homepage faq desc 3" = "Blokada Plus adalah layanan VPN (Virtual Private Network) kami yang modern dan dijamin aman. Layanan VPN kami menggunakan WireGuard® - protokol gegas dengan tingkat enkripsi terbaik di kelasnya dengan konsumsi daya yang minimal. Blokada Plus mengenkripsi semua lalu lintas data Anda secara real-time, memberikan Anda perlindungan tertinggi. Dengan Blokada Plus, Anda juga mendapatkan fitur-fitur VPN populer lainnya - menyembunyikan IP address, mengubah lokasi, dan mengakses konten yang hanya tersedia di negara-negara tertentu.";
+"homepage faq title 4" = "Perlukah saya meng-upgrade ke Blokada Plus?";
+"homepage faq desc 4" = "Tidak, upgrade ke Blokada Plus bersifat opsional. Anda bisa tetap menggunakan Blokada versi gratis, selamanya. Upgrade ke Blokada Plus disarankan jika Anda ingin meningkatkan perlindungan privasi Anda ke level yang lebih tinggi, atau Anda memerlukan fitur-fitur yang hanya bisa disediakan oleh layanan VPN.";
+"homepage faq title 5" = "Bagaimana kebijakan refund Blokada Plus?";
+"homepage faq desc 5" = "Jika Anda tidak puas dengan layanan VPN kami, Anda dapat memperoleh uang Anda kembali dalam jangka waktu 7 hari sejak mulai berlangganan. Cukup hubungi kami melalui kanal manapun dan ajukan permintaan untuk pengembalian uang Anda.";
 
 "homepage download header" = "Unduh Blokada";
 "homepage download subheader" = "Blokada tersedia di berbagai platform, silahkan pilih mana yang sesuai untuk Anda.";
