@@ -412,6 +412,9 @@
 		4E78E362245ED1D80017B234 /* PackDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackDetailViewModel.swift; sourceTree = "<group>"; };
 		4E7FE9D8244DC28900851E9F /* Preview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Preview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E85E98A243382B3001B2795 /* BlockaApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiModel.swift; sourceTree = "<group>"; };
+		4E8800F325C401CD001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Packs.strings; sourceTree = "<group>"; };
+		4E8800F425C401CE001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PackTags.strings; sourceTree = "<group>"; };
+		4E8800F525C401CE001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Ui.strings; sourceTree = "<group>"; };
 		4E94C2FC2420B0A60008E318 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayView.swift; sourceTree = "<group>"; };
 		4E94C3022428F1C20008E318 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -958,6 +961,7 @@
 				id,
 				cs,
 				ro,
+				sv,
 			);
 			mainGroup = 47729DF922F447C800B9B36B;
 			productRefGroup = 47729E0322F447C800B9B36B /* Products */;
@@ -1354,6 +1358,7 @@
 				4E99A3B12514985C0054BF69 /* id */,
 				4E99A3B4251498630054BF69 /* cs */,
 				4E99A3BA2514986C0054BF69 /* ro */,
+				4E8800F325C401CD001FD4C9 /* sv */,
 			);
 			name = Packs.strings;
 			sourceTree = "<group>";
@@ -1374,6 +1379,7 @@
 				4E99A3B22514985C0054BF69 /* id */,
 				4E99A3B5251498630054BF69 /* cs */,
 				4E99A3BB2514986C0054BF69 /* ro */,
+				4E8800F425C401CE001FD4C9 /* sv */,
 			);
 			name = PackTags.strings;
 			sourceTree = "<group>";
@@ -1394,6 +1400,7 @@
 				4E99A3B32514985C0054BF69 /* id */,
 				4E99A3B6251498630054BF69 /* cs */,
 				4E99A3BC2514986C0054BF69 /* ro */,
+				4E8800F525C401CE001FD4C9 /* sv */,
 			);
 			name = Ui.strings;
 			sourceTree = "<group>";
@@ -1548,7 +1555,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.6.0;
+				MARKETING_VERSION = 5.7.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -1588,7 +1595,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.6.0;
+				MARKETING_VERSION = 5.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = Blokada;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1693,7 +1700,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.6.0;
+				MARKETING_VERSION = 5.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1725,7 +1732,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.6.0;
+				MARKETING_VERSION = 5.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
