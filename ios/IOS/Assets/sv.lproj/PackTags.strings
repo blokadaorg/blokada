@@ -1,0 +1,25 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"recommended" = "rekommenderade";
+"official" = "officiell";
+"adblocking" = "annonsblockering";
+"tracking" = "spårning";
+"privacy" = "integritet";
+"adult" = "barnförbjudet";
+"social" = "socialt";
+"regional" = "regionalt";
+"fake news" = "fejknyheter";
+"gambling" = "spelande";
+"youtube" = "youtube";
+"phishing" = "nätfiske";
+"security" = "säkerhet";

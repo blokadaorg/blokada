@@ -1,0 +1,31 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Blocklista för annonser och trackers";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Detta Energizedsystem är utformat för Unix-liknande system, hämtar en lista över domäner som visar annonser, spårningsskript och skadlig kod från flera ansedda källor och skapar en värdfil som förhindrar att ditt system ansluter till dem. Tänk på att konfigurationen \"Socialt\" kan göra dina sociala appar, som Messenger, att sluta fungera.";
+"Popular for adblocking" = "Populär för annonsblockering";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Konsoliderar och utökar domänfiler från flera välkurerade källor. Du kan välja valfria tillägg så som Porr, Sociala Medier och andra kategorier.";
+"Alternative blocklist with advanced features" = "Alternativ blocklista med avancerade funktioner";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "En blocklista med unika tillägg att välja mellan. Var medveten om att den är mer aggressiv och kan förstöra appar eller webbplatser. Den blockerar graph.facebook.com och mqtt-mini.facebook.com. Du kan överväga att vitlista dem i avsnittet Aktiviteter, om du upplever problem med Facebook-appar.";
+"Adblocking for your mobile device" = "Annonsblockering för din mobila enhet";
+"A special blocklist containing mobile ad providers." = "En blocklista specialiserad på mobila annonsörer.";
+"Protects against cyber attacks" = "Skyddar mot cyberattacker";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "En blocklista för att filtrera nätfiskewebbplatser. Nätfiske baseras på omdirigering till falska webbplatser, som ser ut precis som de ursprungliga, för att lura besökare, och stjäla känslig information. Installation av denna blocklista hjälper dig att förhindra sådana situationer.";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar är en förstklassig databas om spårning som automatiskt genereras och underhålls genom kontinuerlig analys av webbsidor. Se skaparens hemsida för detaljer.";
+"Curated blocklist to block trackers and advertisements" = "Kurerad blocklista för att blockera spårning och annonser";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Detta är en kurerad och välskött blocklista för att blockera annonser, spårning och mycket mer! Uppdateras regelbundet.";
+"Analyzes privacy concerns in Android applications" = "Analyserar integritetsproblem i Androidappar";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Denna blocklista är baserad på projektet Exodus Privacy, som analyserar Androidappar och letar efter inbäddad spårning. En spårare är en programvara som är tänkt att samla in data om dig, eller vad du gör. Detta är en mycket liten lista, så du bör också aktivera en av de mer populära listorna (som t. ex. Energized).";
+"A good general purpose blocklist" = "En bra blocklista för allmänna ändamål";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blockerar annonser, nätfiske, skadling kod, spionprogram, ransomware, bedrägerier, telemetri, analys, spårning (där det inte behövs för korrekt funktionalitet). Bör inte störa vanliga appar och tjänster.";
+"A blocklist for ads and tracking, updated regularly" = "En blocklista för annonser och spårning, uppdateras regelbundet";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Detta är ett bra val som den primära blocklistan. Den är väl balanserad, medelstor och uppdateras ofta.";
