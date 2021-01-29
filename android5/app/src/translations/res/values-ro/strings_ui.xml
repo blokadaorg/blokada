@@ -252,7 +252,7 @@
     <string name="payment_action_policy">Politica de confidenţialitate</string>
     <string name="payment_alert_error_header">Un mesaj de la App Store</string>
     <string name="payment_save_text">Economisești %s</string>
-    <string name="payment_subscription__month">1 Lună</string>
+    <string name="payment_subscription_one_month">1 Lună</string>
     <string name="payment_subscription_many_months">%s Luni</string>
     <string name="payment_subscription_per_month">%s pe lună</string>
     <string name="payment_subscription_offer">Economisești %s</string>

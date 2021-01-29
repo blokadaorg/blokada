@@ -280,7 +280,7 @@
     <string name="payment_action_policy">Декларация за поверителност</string>
     <string name="payment_alert_error_header">Съобщение от App Store</string>
     <string name="payment_save_text">Вие спестявате %s</string>
-    <string name="payment_subscription__month">1 Месец</string>
+    <string name="payment_subscription_one_month">1 Месец</string>
     <string name="payment_subscription_many_months">%s Месеца</string>
     <string name="payment_subscription_per_month">%s на месец</string>
     <string name="payment_subscription_offer">Запази %s</string>

@@ -153,7 +153,7 @@
     <string name="payment_action_restore">Vásárlások visszaállítása</string>
     <string name="payment_action_terms">Felhasználási feltételek</string>
     <string name="payment_action_policy">Adatvédelmi irányelvek</string>
-    <string name="payment_subscription__month">1 hónap</string>
+    <string name="payment_subscription_one_month">1 hónap</string>
     <string name="payment_subscription_many_months">%s hónap</string>
     <string name="payment_subscription_per_month">%s havonta</string>
     <string name="payment_subscription_offer">%s spórolása</string>

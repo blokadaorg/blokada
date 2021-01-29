@@ -281,7 +281,7 @@
     <string name="payment_action_policy">Zásady ochrany osobních údajů</string>
     <string name="payment_alert_error_header">Zpráva z App Store</string>
     <string name="payment_save_text">Ušetříte %s</string>
-    <string name="payment_subscription__month">1 měsíc</string>
+    <string name="payment_subscription_one_month">1 měsíc</string>
     <string name="payment_subscription_many_months">%s měsíců</string>
     <string name="payment_subscription_per_month">%s měsíčně</string>
     <string name="payment_subscription_offer">Ušetříte %s</string>

@@ -78,7 +78,7 @@
     <string name="account_lease_label_name">Naam van apparaat</string>
     <string name="account_lease_label_dns">DNS</string>
     <string name="account_lease_label_public_key">Publieke sleutel</string>
-    <string name="payment_subscription__month">1 Maand</string>
+    <string name="payment_subscription_one_month">1 Maand</string>
     <string name="payment_subscription_many_months">%s Maanden</string>
     <string name="payment_subscription_per_month">%s per maand</string>
     <string name="payment_subscription_offer">%s Opslaan</string>

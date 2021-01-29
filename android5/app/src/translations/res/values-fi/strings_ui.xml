@@ -214,7 +214,7 @@
     <string name="payment_action_terms">Käyttöehdot</string>
     <string name="payment_action_policy">Tietosuojakäytäntö</string>
     <string name="payment_alert_error_header">Viesti App Storesta</string>
-    <string name="payment_subscription__month">1 kuukausi</string>
+    <string name="payment_subscription_one_month">1 kuukausi</string>
     <string name="payment_subscription_many_months">%s kuukautta</string>
     <string name="payment_subscription_per_month">%s kuukaudessa</string>
     <string name="payment_subscription_offer">Säästä %s</string>

@@ -191,7 +191,7 @@
     <string name="payment_action_terms">सेवा की शर्तें</string>
     <string name="payment_action_policy">गोपनीयता नीति</string>
     <string name="payment_alert_error_header">ऐप स्टोर से एक संदेश</string>
-    <string name="payment_subscription__month">1 महीना</string>
+    <string name="payment_subscription_one_month">1 महीना</string>
     <string name="payment_subscription_many_months">%s महीने</string>
     <string name="payment_subscription_per_month">%s प्रति माह</string>
     <string name="payment_subscription_offer">बचाएं %s</string>

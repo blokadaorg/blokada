@@ -270,7 +270,7 @@
     <string name="payment_alert_error_header">Un message de l\'App Store</string>
     <string name="payment_save_text">Vous faites une économie de %s</string>
     <string name="payment_conversion_note">Nous acceptons l\'Euro (€). Les prix affichés sont une estimation. Un remboursement est possible si vos frais bancaires s\'avèrent trop élevés.</string>
-    <string name="payment_subscription__month">1 mois</string>
+    <string name="payment_subscription_one_month">1 mois</string>
     <string name="payment_subscription_many_months">%s mois</string>
     <string name="payment_subscription_per_month">%s par mois</string>
     <string name="payment_subscription_offer">Économisez %s</string>
@@ -366,12 +366,12 @@
     <string name="homepage_vpn_credit">WireGuard est une marque déposée de Jason A. Donenfeld</string>
     <string name="homepage_faq_header">Foire aux Questions</string>
     <string name="homepage_faq_action_more">Voir plus de FAQs</string>
-    <string name="homepage_faq_title_">Quelles informations sont-elles gardées par Blokada ?</string>
-    <string name="homepage_faq_title_">Comment ma vie privée est-elle protégée ?</string>
-    <string name="homepage_faq_title_">Qu\'est-ce que Blokada Plus ?</string>
-    <string name="homepage_faq_desc_">Blokada Plus est notre service de VPN (Virtual Private Network) moderne et sécurisé. Il utilise WireGuard® - un protocole véloce avec un chiffrement à la pointe de la technologie et une faible consommation de batterie. Blokada Plus chiffre toute votre activité réseau en temps réel, vous conférant le plus haut niveau de protection possible. Vous bénéficierez des fonctionnalités VPN populaires - masquer votre adresse IP, changer votre localisation, et débloquer les contenus géo-restreints.</string>
-    <string name="homepage_faq_title_">Quelle est la politique de remboursement de Blokada Plus ?</string>
-    <string name="homepage_faq_desc_">Vous pouvez récupérer votre argent dans les 7 jours suivant l\'achat de l\'abonnement. Contactez-nous via l\'une de nos applications, et mentionnez simplement que vous souhaitez un remboursement.</string>
+    <string name="homepage_faq_title_one">Quelles informations sont-elles gardées par Blokada ?</string>
+    <string name="homepage_faq_title_two">Comment ma vie privée est-elle protégée ?</string>
+    <string name="homepage_faq_title_three">Qu\'est-ce que Blokada Plus ?</string>
+    <string name="homepage_faq_desc_three">Blokada Plus est notre service de VPN (Virtual Private Network) moderne et sécurisé. Il utilise WireGuard® - un protocole véloce avec un chiffrement à la pointe de la technologie et une faible consommation de batterie. Blokada Plus chiffre toute votre activité réseau en temps réel, vous conférant le plus haut niveau de protection possible. Vous bénéficierez des fonctionnalités VPN populaires - masquer votre adresse IP, changer votre localisation, et débloquer les contenus géo-restreints.</string>
+    <string name="homepage_faq_title_five">Quelle est la politique de remboursement de Blokada Plus ?</string>
+    <string name="homepage_faq_desc_five">Vous pouvez récupérer votre argent dans les 7 jours suivant l\'achat de l\'abonnement. Contactez-nous via l\'une de nos applications, et mentionnez simplement que vous souhaitez un remboursement.</string>
     <string name="homepage_download_header">Télécharger Blokada</string>
     <string name="homepage_download_subheader">Blokada est disponible sur plusieurs plateformes, sélectionnez la vôtre.</string>
     <string name="homepage_download_option_android_five">Blokada 5 pour Android</string>

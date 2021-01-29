@@ -269,7 +269,7 @@
     <string name="payment_action_policy">Gizlilik Politikası</string>
     <string name="payment_alert_error_header">App Store\'dan mesaj</string>
     <string name="payment_save_text">%s tasarruf ediyorsun</string>
-    <string name="payment_subscription__month">1 ay</string>
+    <string name="payment_subscription_one_month">1 ay</string>
     <string name="payment_subscription_many_months">%s ay</string>
     <string name="payment_subscription_per_month">Aylık %s</string>
     <string name="payment_subscription_offer">%s indirim</string>

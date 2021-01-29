@@ -281,7 +281,7 @@
     <string name="payment_action_policy">Política de Privacidade</string>
     <string name="payment_alert_error_header">Uma mensagem da App Store</string>
     <string name="payment_save_text">Você está salvando %s</string>
-    <string name="payment_subscription__month">1 Mês</string>
+    <string name="payment_subscription_one_month">1 Mês</string>
     <string name="payment_subscription_many_months">%s Meses</string>
     <string name="payment_subscription_per_month">%s por mês</string>
     <string name="payment_subscription_offer">Salvar %s</string>
