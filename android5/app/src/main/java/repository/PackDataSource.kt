@@ -90,7 +90,7 @@ object PackDataSource {
 
         Pack.mocked(id = "ddgtrackerradar", tags = listOf(Pack.recommended, Pack.official, "tracking", "privacy"),
             title = "DuckDuckGo Tracker Radar",
-            slugline = "A new and upcoming tracker database",
+            slugline = "A new and expanding tracker database",
             description = "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details.",
             creditName = "DuckDuckGo",
             creditUrl = "https://go.blokada.org/ddgtrackerradar",
