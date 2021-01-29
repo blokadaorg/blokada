@@ -76,7 +76,7 @@
     <string name="account_active_forever_full">Aktiv för alltid</string>
     <string name="main_ask_for_permissions_header">Bara ett steg till</string>
     <string name="main_ask_for_permissions_description">Blokada använder en VPN-konfiguration för att blockera annonser. Du kommer att bli ombedd att tillåta det i nästa steg.</string>
-    <string name="main_share_message">Blokada för iOS hjälpte mig att blockera %s annonser och spårare!</string>
+    <string name="main_share_message">Blokada för iOS hjälpte mig att blockera %s annonser och trackers!</string>
     <string name="main_rate_us_header">Betygsätt oss!</string>
     <string name="main_rate_us_description">Hur gillar du Blokada hittills?</string>
     <string name="main_rate_us_on_app_store">Skulle du kunna hjälpa oss genom att betygsätta Blokada på App Store?</string>
@@ -85,7 +85,7 @@
     <string name="main_tab_activity">Aktivitet</string>
     <string name="main_tab_advanced">Avancerat</string>
     <string name="main_tab_settings">Inställningar</string>
-    <string name="home_ads_counter_footnote">annonser och spårare blockerade sedan installationen</string>
+    <string name="home_ads_counter_footnote">annonser och trackers blockerade sedan installationen</string>
     <string name="home_power_off_menu_header">Vad skulle du vilja göra?</string>
     <string name="home_power_action_turn_on">Slå på</string>
     <string name="home_power_action_turn_off">Stäng av</string>
@@ -95,8 +95,8 @@
     <string name="home_status_deactivated">Avaktiverad</string>
     <string name="home_action_tap_to_activate">tryck för att aktivera</string>
     <string name="home_status_detail_paused">pausad tills timern slutar</string>
-    <string name="home_status_detail_active">blockerar *annonser* och *spårare*</string>
-    <string name="home_status_detail_active_with_counter">blockerade *%s* annonser och spårare</string>
+    <string name="home_status_detail_active">blockerar *annonser* och *trackers*</string>
+    <string name="home_status_detail_active_with_counter">blockerade *%s* annonser och trackers</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* är aktiv</string>
     <string name="home_status_detail_plus">*+* skyddar din *integritet*</string>
     <string name="home_status_detail_progress">var god vänta...</string>
@@ -133,12 +133,12 @@
     <string name="activity_request_blocked_blacklisted">Denna begäran har blockerats, eftersom den finns på din lista över blockerade</string>
     <string name="activity_actions_header">Åtgärder</string>
     <string name="activity_information_header">Information</string>
-    <string name="activity_action_add_to_whitelist">Lägg till i listan över tillåtna</string>
-    <string name="activity_action_remove_from_whitelist">Ta bort från listan över tillåtna</string>
-    <string name="activity_action_added_to_whitelist">Tillagd i listan över tillåtna</string>
-    <string name="activity_action_add_to_blacklist">Lägg till i listan över blockerade</string>
-    <string name="activity_action_remove_from_blacklist">Ta bort från listan över blockerade</string>
-    <string name="activity_action_added_to_blacklist">Lades till i listan över blockerade</string>
+    <string name="activity_action_add_to_whitelist">Lägg till i tillåtna</string>
+    <string name="activity_action_remove_from_whitelist">Ta bort från tillåtna</string>
+    <string name="activity_action_added_to_whitelist">Lagt till i tillåtna</string>
+    <string name="activity_action_add_to_blacklist">Lägg till i blockerade</string>
+    <string name="activity_action_remove_from_blacklist">Ta bort från blockerade</string>
+    <string name="activity_action_added_to_blacklist">Lagt till i blockerade</string>
     <string name="activity_action_copy_to_clipboard">Kopiera namn till urklipp</string>
     <string name="activity_domain_name">Fullständigt namn</string>
     <string name="activity_time_of_occurrence">Tid</string>
@@ -150,8 +150,8 @@
     <string name="activity_happened_many_times">%s gånger</string>
     <string name="activity_category_recent">Nyligen</string>
     <string name="activity_category_top">Topplista</string>
-    <string name="activity_category_top_blocked">Topplista Blockerade</string>
-    <string name="activity_category_top_allowed">Topplista Tillåtna</string>
+    <string name="activity_category_top_blocked">Flest blockerade</string>
+    <string name="activity_category_top_allowed">Flest tillåtna</string>
     <string name="activity_filter_header">Vilka poster skulle du vilja se?</string>
     <string name="activity_filter_show_all">Visa alla poster</string>
     <string name="activity_filter_show_blocked">Visa endast blockerade</string>
@@ -168,6 +168,7 @@
     <string name="networks_label_configuration_active">Dessa inställningar är för närvarande aktiva</string>
     <string name="networks_label_configuration_enabled">Inte ansluten till detta nätverk</string>
     <string name="networks_label_configuration_inactive">Tryck för att ändra inställningar för detta nätverk</string>
+    <string name="networks_label_details_default_network">Inställningarna nedan tillämpas som standard för alla nätverk. Du kan åsidosätta dem för valda nätverk (i föregående skärm).</string>
     <string name="networks_action_encrypt_dns">Kryptera DNS</string>
     <string name="networks_action_use_dns">Använd DNS: %s</string>
     <string name="networks_action_use_network_dns">Föredra nätverkets DNS</string>
@@ -185,7 +186,7 @@
     <string name="networks_summary_blocka_plus_mode">Blokada kommer att använda Blokada DNS i Plus-läge, för att säkerställa hög nivå av kryptering och hastighet. Du kan ändra den här inställningen längst ner på Välj DNS.</string>
     <string name="networks_permission_dialog">Blokada kan känna igen nätverk som du ansluter till och låter dig konfigurera separata inställningar för dem. Men för att göra det krävs platsbehörighet. Ibland kan du se ett systemmeddelande om platsåtkomst, men detta är inte korrekt - Blokada kommer bara att läsa nätverkets namn.</string>
     <string name="account_section_header_settings">Inställningar</string>
-    <string name="account_status_text">Ditt BLOKADA %s konto är aktivt fram till %s.</string>
+    <string name="account_status_text">Ditt BLOKADA %skonto är aktivt fram till %s.</string>
     <string name="account_status_text_libre">Ditt BLOKADA Libre konto är aktivt för all evighet.</string>
     <string name="account_section_header_primary">Primär</string>
     <string name="account_section_header_other">Annat</string>
@@ -228,7 +229,7 @@
     <string name="account_encrypt_level_medium">Medel</string>
     <string name="account_encrypt_level_high">Hög</string>
     <string name="account_encrypt_label_dns_only">Krypterar DNS</string>
-    <string name="account_encrypt_desc_dns_only">Domain Name System är hur din enhet vet var du hittar de webbplatser du vill besöka. Tyvärr så använder de flesta på internet fortfarande okrypterad DNS, som sätter din webbhistorik i riskzonen för att bli avlyssnad. När den är aktiverad tvingar Blokada din enhet att endast ansluta till krypterade DNS-servrar (även kallad DNS över HTTPS).</string>
+    <string name="account_encrypt_desc_dns_only">Domain Name System är hur din enhet vet hur man hittar de webbplatser du vill besöka. Tyvärr så använder de flesta på internet fortfarande okrypterad DNS, som sätter din webbhistorik i riskzonen för att bli avlyssnad. När den är aktiverad tvingar Blokada din enhet att endast ansluta till krypterade DNS-servrar (även kallad DNS över HTTPS).</string>
     <string name="account_encrypt_label_everything">Ansluter via VPN</string>
     <string name="account_encrypt_desc_everything">Din enhet ansluter via våra säkra VPN-servrar och all kommunikation som kommer från, eller till, din enhet krypteras med hjälp av starka algoritmer. Detta skyddar din personliga information, som bankuppgifter eller personliga bilder, från att bli stulen på osäkra platser. T. ex. när du använder WiFi på ett kafé.</string>
     <string name="account_encrypt_action_turn_on">Slå på BLOKADA</string>
@@ -237,7 +238,7 @@
     <string name="account_encrypt_label_level_low">Låg: Ingen kryptering</string>
     <string name="account_encrypt_label_level_medium">Medium: Krypterar DNS</string>
     <string name="account_encrypt_label_level_high">Hög: Krypterar allt</string>
-    <string name="account_encrypt_header_explanation">DNS är hur din enhet vet var du hittar webbplatser. BLOKADA stöder endast krypterade servrar.</string>
+    <string name="account_encrypt_header_explanation">DNS är hur din enhet vet var man hittar webbplatser. BLOKADA stöder endast krypterade servrar.</string>
     <string name="account_encrypt_label_dns">DNS</string>
     <string name="account_encrypt_action_what_is_dns">Vad är DNS?</string>
     <string name="account_encrypt_section_header">Kryptering</string>
@@ -366,8 +367,8 @@
     <string name="homepage_hero_subtitle">gratis och öppen källkod</string>
     <string name="homepage_hero_desc">Blokada är den populära annonsblockeraren och integritetsappen för Android och iOS. Den stöds och utvecklas aktivt med hjälp av den fantastiska open source-miljön.</string>
     <string name="homepage_about_title">Blokada 5, annonsblockeraren</string>
-    <string name="homepage_about_desc">Om du effektivt vill blockera annonser, spårare, skadling kod, spara på din dataplan, snabba upp din enhet och skydda din integritet med bara en enda app, då är Blokada något för dig. Den är gratis, säker och har öppen källkod.</string>
-    <string name="homepage_about_point_one">Blockerar annonser och spårare</string>
+    <string name="homepage_about_desc">Om du effektivt vill blockera annonser, trackers, skadlig kod, spara på din dataplan, snabba upp din enhet och skydda din integritet med bara en enda app, då är Blokada något för dig. Den är gratis, säker och har öppen källkod.</string>
+    <string name="homepage_about_point_one">Blockerar annonser och trackers</string>
     <string name="homepage_about_point_two">Fungerar för alla appar och alla webbläsare</string>
     <string name="homepage_about_point_three">Kräver inte root eller jailbreak</string>
     <string name="homepage_about_point_four">Säker design (bryter inte kryptering)</string>
@@ -384,9 +385,9 @@
     <string name="homepage_faq_header">Vanliga frågor</string>
     <string name="homepage_faq_action_more">Se fler vanliga frågor</string>
     <string name="homepage_faq_title_one">Vilken information sparar Blokada?</string>
-    <string name="homepage_faq_desc_one">Blokada varken spårar eller delar något av dina nätverksaktiviteter. Om du använder Blokada Plus måste vi av tekniska skäl samla in den mest minimala informationen som krävs för att hålla tjänsten operativ. Läs vår integritetspolicy som finns i den översta menyn för detaljer.</string>
+    <string name="homepage_faq_desc_one">Blokada varken avlyssnar eller delar något av dina nätverksaktiviteter. Om du använder Blokada Plus måste vi av tekniska skäl samla in den mest minimala informationen som krävs för att hålla tjänsten operativ. Läs vår integritetspolicy som finns i den översta menyn för detaljer.</string>
     <string name="homepage_faq_title_two">Hur skyddas min integritet?</string>
-    <string name="homepage_faq_desc_two">Blokada hindrar appar och webbläsare som är installerade på din enhet från att skicka din privata information (även kallat att spåra fingeravtryck) till Internet. Den krypterar också en del av din nätverksaktivitet (DNS-frågor). Om du behöver mer skydd får Blokada Plus din enhet att ansluta via vårt VPN och använder WireGuard®-protokollet för att kryptera all din nätverkstrafik.</string>
+    <string name="homepage_faq_desc_two">Blokada hindrar appar och webbläsare som är installerade på din enhet från att skicka din privata information (även kallat att spåra fingeravtryck) till Internet. Den krypterar också en del av din nätverksaktivitet (DNS-frågor). Om du behöver mer skydd får Blokada Plus din enhet att ansluta via vår VPN-tjänst och använder WireGuard®-protokollet för att kryptera all din nätverkstrafik.</string>
     <string name="homepage_faq_title_three">Vad är Blokada Plus?</string>
     <string name="homepage_faq_desc_three">Blokada Plus är vår säkra och moderna VPN-tjänst (Virtuellt Privat Nätverk). Den använder WireGuard® - ett snabbt protokoll med kryptering i världsklass och låg batterianvändning. Blokada Plus krypterar all nätverksaktivitet i realtid, vilket ger dig den högsta skyddsnivån som finns tillgänglig. Du får också de populära VPN-funktionerna - dölja din IP-adress, ändra din plats för att öppna innehåll som annars är begränsat.</string>
     <string name="homepage_faq_title_four">Behöver jag uppgradera till Blokada Plus?</string>

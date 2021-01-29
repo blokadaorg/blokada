@@ -99,7 +99,7 @@
 "main ask for permissions header" = "Bara ett steg till";
 "main ask for permissions description" = "Blokada använder en VPN-konfiguration för att blockera annonser. Du kommer att bli ombedd att tillåta det i nästa steg.";
 
-"main share message" = "Blokada för iOS hjälpte mig att blockera %@ annonser och spårare!";
+"main share message" = "Blokada för iOS hjälpte mig att blockera %@ annonser och trackers!";
 
 "main rate us header" = "Betygsätt oss!";
 "main rate us description" = "Hur gillar du Blokada hittills?";
@@ -115,7 +115,7 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Inställningar";
 
-"home ads counter footnote" = "annonser och spårare blockerade sedan installationen";
+"home ads counter footnote" = "annonser och trackers blockerade sedan installationen";
 "home power off menu header" = "Vad skulle du vilja göra?";
 "home power action turn on" = "Slå på";
 "home power action turn off" = "Stäng av";
@@ -126,8 +126,8 @@
 "home status deactivated" = "Avaktiverad";
 "home action tap to activate" = "tryck för att aktivera";
 "home status detail paused" = "pausad tills timern slutar";
-"home status detail active" = "blockerar *annonser* och *spårare*";
-"home status detail active with counter" = "blockerade *%@* annonser och spårare";
+"home status detail active" = "blockerar *annonser* och *trackers*";
+"home status detail active with counter" = "blockerade *%@* annonser och trackers";
 "home status detail active slim" = "Blokada *Slim* är aktiv";
 "home status detail plus" = "*+* skyddar din *integritet*";
 "home status detail progress" = "var god vänta...";
@@ -171,12 +171,12 @@
 "activity request blocked blacklisted" = "Denna begäran har blockerats, eftersom den finns på din lista över blockerade";
 "activity actions header" = "Åtgärder";
 "activity information header" = "Information";
-"activity action add to whitelist" = "Lägg till i listan över tillåtna";
-"activity action remove from whitelist" = "Ta bort från listan över tillåtna";
-"activity action added to whitelist" = "Tillagd i listan över tillåtna";
-"activity action add to blacklist" = "Lägg till i listan över blockerade";
-"activity action remove from blacklist" = "Ta bort från listan över blockerade";
-"activity action added to blacklist" = "Lades till i listan över blockerade";
+"activity action add to whitelist" = "Lägg till i tillåtna";
+"activity action remove from whitelist" = "Ta bort från tillåtna";
+"activity action added to whitelist" = "Lagt till i tillåtna";
+"activity action add to blacklist" = "Lägg till i blockerade";
+"activity action remove from blacklist" = "Ta bort från blockerade";
+"activity action added to blacklist" = "Lagt till i blockerade";
 "activity action copy to clipboard" = "Kopiera namn till urklipp";
 "activity domain name" = "Fullständigt namn";
 "activity time of occurrence" = "Tid";
@@ -191,8 +191,8 @@
 "activity happened many times" = "%@ gånger";
 "activity category recent" = "Nyligen";
 "activity category top" = "Topplista";
-"activity category top blocked" = "Topplista Blockerade";
-"activity category top allowed" = "Topplista Tillåtna";
+"activity category top blocked" = "Flest blockerade";
+"activity category top allowed" = "Flest tillåtna";
 "activity filter header" = "Vilka poster skulle du vilja se?";
 "activity filter show all" = "Visa alla poster";
 "activity filter show blocked" = "Visa endast blockerade";
@@ -213,6 +213,7 @@
 "networks label configuration active" = "Dessa inställningar är för närvarande aktiva";
 "networks label configuration enabled" = "Inte ansluten till detta nätverk";
 "networks label configuration inactive" = "Tryck för att ändra inställningar för detta nätverk";
+"networks label details default network" = "Inställningarna nedan tillämpas som standard för alla nätverk. Du kan åsidosätta dem för valda nätverk (i föregående skärm).";
 "networks action encrypt dns" = "Kryptera DNS";
 "networks action use dns" = "Använd DNS: %@";
 "networks action use network dns" = "Föredra nätverkets DNS";
@@ -232,7 +233,7 @@
 
 
 "account section header settings" = "Inställningar";
-"account status text" = "Ditt BLOKADA %@ konto är aktivt fram till %@.";
+"account status text" = "Ditt BLOKADA %@konto är aktivt fram till %@.";
 "account status text libre" = "Ditt BLOKADA Libre konto är aktivt för all evighet.";
 
 "account section header primary" = "Primär";
@@ -281,7 +282,7 @@
 "account encrypt level medium" = "Medel";
 "account encrypt level high" = "Hög";
 "account encrypt label dns only" = "Krypterar DNS";
-"account encrypt desc dns only" = "Domain Name System är hur din enhet vet var du hittar de webbplatser du vill besöka. Tyvärr så använder de flesta på internet fortfarande okrypterad DNS, som sätter din webbhistorik i riskzonen för att bli avlyssnad. När den är aktiverad tvingar Blokada din enhet att endast ansluta till krypterade DNS-servrar (även kallad DNS över HTTPS).";
+"account encrypt desc dns only" = "Domain Name System är hur din enhet vet hur man hittar de webbplatser du vill besöka. Tyvärr så använder de flesta på internet fortfarande okrypterad DNS, som sätter din webbhistorik i riskzonen för att bli avlyssnad. När den är aktiverad tvingar Blokada din enhet att endast ansluta till krypterade DNS-servrar (även kallad DNS över HTTPS).";
 "account encrypt label everything" = "Ansluter via VPN";
 "account encrypt desc everything" = "Din enhet ansluter via våra säkra VPN-servrar och all kommunikation som kommer från, eller till, din enhet krypteras med hjälp av starka algoritmer. Detta skyddar din personliga information, som bankuppgifter eller personliga bilder, från att bli stulen på osäkra platser. T. ex. när du använder WiFi på ett kafé.";
 "account encrypt action turn on" = "Slå på BLOKADA";
@@ -290,7 +291,7 @@
 "account encrypt label level low" = "Låg: Ingen kryptering";
 "account encrypt label level medium" = "Medium: Krypterar DNS";
 "account encrypt label level high" = "Hög: Krypterar allt";
-"account encrypt header explanation" = "DNS är hur din enhet vet var du hittar webbplatser. BLOKADA stöder endast krypterade servrar.";
+"account encrypt header explanation" = "DNS är hur din enhet vet var man hittar webbplatser. BLOKADA stöder endast krypterade servrar.";
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "Vad är DNS?";
 "account encrypt section header" = "Kryptering";
@@ -435,8 +436,8 @@
 "homepage hero subtitle" = "gratis och öppen källkod";
 "homepage hero desc" = "Blokada är den populära annonsblockeraren och integritetsappen för Android och iOS. Den stöds och utvecklas aktivt med hjälp av den fantastiska open source-miljön.";
 "homepage about title" = "Blokada 5, annonsblockeraren";
-"homepage about desc" = "Om du effektivt vill blockera annonser, spårare, skadling kod, spara på din dataplan, snabba upp din enhet och skydda din integritet med bara en enda app, då är Blokada något för dig. Den är gratis, säker och har öppen källkod.";
-"homepage about point one" = "Blockerar annonser och spårare";
+"homepage about desc" = "Om du effektivt vill blockera annonser, trackers, skadlig kod, spara på din dataplan, snabba upp din enhet och skydda din integritet med bara en enda app, då är Blokada något för dig. Den är gratis, säker och har öppen källkod.";
+"homepage about point one" = "Blockerar annonser och trackers";
 "homepage about point two" = "Fungerar för alla appar och alla webbläsare";
 "homepage about point three" = "Kräver inte root eller jailbreak";
 "homepage about point four" = "Säker design (bryter inte kryptering)";
@@ -456,9 +457,9 @@
 "homepage faq header" = "Vanliga frågor";
 "homepage faq action more" = "Se fler vanliga frågor";
 "homepage faq title 1" = "Vilken information sparar Blokada?";
-"homepage faq desc 1" = "Blokada varken spårar eller delar något av dina nätverksaktiviteter. Om du använder Blokada Plus måste vi av tekniska skäl samla in den mest minimala informationen som krävs för att hålla tjänsten operativ. Läs vår integritetspolicy som finns i den översta menyn för detaljer.";
+"homepage faq desc 1" = "Blokada varken avlyssnar eller delar något av dina nätverksaktiviteter. Om du använder Blokada Plus måste vi av tekniska skäl samla in den mest minimala informationen som krävs för att hålla tjänsten operativ. Läs vår integritetspolicy som finns i den översta menyn för detaljer.";
 "homepage faq title 2" = "Hur skyddas min integritet?";
-"homepage faq desc 2" = "Blokada hindrar appar och webbläsare som är installerade på din enhet från att skicka din privata information (även kallat att spåra fingeravtryck) till Internet. Den krypterar också en del av din nätverksaktivitet (DNS-frågor). Om du behöver mer skydd får Blokada Plus din enhet att ansluta via vårt VPN och använder WireGuard®-protokollet för att kryptera all din nätverkstrafik.";
+"homepage faq desc 2" = "Blokada hindrar appar och webbläsare som är installerade på din enhet från att skicka din privata information (även kallat att spåra fingeravtryck) till Internet. Den krypterar också en del av din nätverksaktivitet (DNS-frågor). Om du behöver mer skydd får Blokada Plus din enhet att ansluta via vår VPN-tjänst och använder WireGuard®-protokollet för att kryptera all din nätverkstrafik.";
 "homepage faq title 3" = "Vad är Blokada Plus?";
 "homepage faq desc 3" = "Blokada Plus är vår säkra och moderna VPN-tjänst (Virtuellt Privat Nätverk). Den använder WireGuard® - ett snabbt protokoll med kryptering i världsklass och låg batterianvändning. Blokada Plus krypterar all nätverksaktivitet i realtid, vilket ger dig den högsta skyddsnivån som finns tillgänglig. Du får också de populära VPN-funktionerna - dölja din IP-adress, ändra din plats för att öppna innehåll som annars är begränsat.";
 "homepage faq title 4" = "Behöver jag uppgradera till Blokada Plus?";
