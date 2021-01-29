@@ -24,7 +24,7 @@ import java.util.*
 
 val SUPPORTED_LANGUAGES = listOf(
     "en", "pl", "de", "es", "it", "hi", "ru", "bg", "tr", "ja", "id", "cs", "zh-Hant", "ar", "fi",
-    "ro", "pt-BR", "fr", "hu", "nl"
+    "ro", "pt-BR", "fr", "hu", "nl", "sv"
 )
 
 val LANGUAGE_NICE_NAMES = mapOf(
@@ -47,7 +47,8 @@ val LANGUAGE_NICE_NAMES = mapOf(
     "pt-BR" to "Portugues (Brasil)",
     "fr" to "Français",
     "hu" to "Magyar",
-    "nl" to "Nederlands"
+    "nl" to "Nederlands",
+    "sv" to "Svenska"
 )
 
 fun LocaleListCompat.getFirstSupportedLocale(): Locale {
