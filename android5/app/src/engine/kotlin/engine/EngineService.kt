@@ -186,7 +186,7 @@ object EngineService {
         dnsService.stopDnsProxy()
         systemTunnel.close()
         log.w("Waiting after stopping system tunnel, before another start")
-        delay(5000)
+        delay(4000)
         state.stopped()
     }
 
