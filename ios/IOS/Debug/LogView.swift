@@ -47,7 +47,11 @@ struct LogView: View {
                     .foregroundColor(Color.cActivePlus)
                     .frame(width: 32, height: 32)
                     .onTapGesture {
-                        self.activeSheet = .sharelog
+                        self.activeSheet = nil
+                        onBackground {
+                            sleep(1)
+                            onMain { self.activeSheet = .sharelog }
+                        }
                     }
                 if !Env.isProduction {
                     Image(systemName: "ant.circle")
@@ -55,7 +59,11 @@ struct LogView: View {
                         .foregroundColor(Color.cActivePlus)
                         .frame(width: 32, height: 32)
                         .onTapGesture {
-                            self.activeSheet = .debug
+                            self.activeSheet = nil
+                            onBackground {
+                                sleep(1)
+                                onMain { self.activeSheet = .debug }
+                            }
                         }
                 }
             }

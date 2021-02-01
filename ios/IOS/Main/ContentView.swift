@@ -37,6 +37,7 @@ struct ContentView: View {
 
     @State var showPreviewAllScreens = false
     @State var activeSheet: ActiveSheet?
+    @State var secondLevelSheet: ActiveSheet?
 
     var body: some View {
         // Set accent color on all switches
@@ -73,25 +74,10 @@ struct ContentView: View {
                             ShareSheet(activityItems: [L10n.mainShareMessage(self.vm.blockedCounter.compact)])
                         case .help:
                             SupportView(activeSheet: self.$activeSheet)
-                        default:
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Spacer()
-                                    if #available(iOS 14.0, *) {
-                                        ProgressView()
-                                    } else {
-                                        SpinnerView()
-                                    }
-                                    Spacer()
-                                }
-                                Spacer()
-                            }
-                            .background(Color.cBackground)
                         }
                     }
-            }
-            .background(Color.cBackground)
+                }
+                .background(Color.cBackground)
 
 //            if self.showPreviewAllScreens {
 //                PreviewAllScreensView(showPreviewAllScreens: self.$showPreviewAllScreens)

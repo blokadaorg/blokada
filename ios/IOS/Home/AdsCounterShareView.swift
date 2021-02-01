@@ -77,7 +77,11 @@ struct AdsCounterShareView: View {
                 Text(L10n.universalActionDone)
             }.contentShape(Rectangle()),
             trailing: Button(action: {
-                self.activeSheet = .sharecounter
+                self.activeSheet = nil
+                onBackground {
+                    sleep(1)
+                    onMain { self.activeSheet = .sharecounter }
+                }
             }) {
                 Image(systemName: Image.fShare)
                    .imageScale(.large)
