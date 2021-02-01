@@ -70,6 +70,7 @@ object SharedPreferencesStorageService : StorageService {
         "localConfig" -> localSharedPreferences
         "syncableConfig" -> backedUpSharedPreferences
         "account" -> backedUpSharedPreferences
+        "networkSpecificConfigs" -> localSharedPreferences // Not send network names anywhere
         else -> if (useBackup) backedUpSharedPreferences else localSharedPreferences
     }
 
