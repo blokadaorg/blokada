@@ -209,10 +209,11 @@
 "networks section header" = "網路";
 "networks section label" = "調整 WiFi 與行動網路的設定";
 "networks label all networks" = "所有網路";
-"networks action network specific" = "點擊此處以修改預設設定。要讓應用程式在不同的網路上有不同的行為，請點擊下方。";
+"networks action network specific" = "點此修改預設設定。要讓應用程式在不同的網路上有不同的行為，請輕觸下方。";
 "networks label configuration active" = "這些設定目前正作用中";
 "networks label configuration enabled" = "未連線至此網路";
-"networks label configuration inactive" = "點擊以修改此網路設定";
+"networks label configuration inactive" = "輕觸以修改此網路的設定";
+"networks label details default network" = "下方設定將預設套用至所有網路。您可以（在上一個畫面）選擇要覆蓋設定的網路。";
 "networks action encrypt dns" = "加密 DNS";
 "networks action use dns" = "使用 DNS：%@";
 "networks action use network dns" = "偏好網路 DNS";

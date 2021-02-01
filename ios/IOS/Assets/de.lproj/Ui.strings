@@ -213,6 +213,7 @@
 "networks label configuration active" = "Diese Einstellungen sind derzeit aktiv";
 "networks label configuration enabled" = "Nicht mit diesem Netzwerk verbunden";
 "networks label configuration inactive" = "Tippe hier, um Einstellungen für dieses Netzwerk zu ändern";
+"networks label details default network" = "Die unten aufgeführten Einstellungen werden standardmäßig für alle Netzwerke angewendet. Du kannst sie für ausgewählte Netzwerke überschreiben (im vorherigen Bildschirm).";
 "networks action encrypt dns" = "DNS verschlüsseln";
 "networks action use dns" = "Verwende DNS: %@";
 "networks action use network dns" = "Netzwerk-DNS bevorzugen";

@@ -168,6 +168,7 @@
     <string name="networks_label_configuration_active">В настоящее время активны эти настройки</string>
     <string name="networks_label_configuration_enabled">Нет подключения к этой сети</string>
     <string name="networks_label_configuration_inactive">Нажмите, чтобы изменить настройки для этой сети</string>
+    <string name="networks_label_details_default_network">Настройки, приведенные ниже, применяются по умолчанию для всех сетей. Их можно переопределить для выбранных сетей (на предыдущем экране).</string>
     <string name="networks_action_encrypt_dns">Шифровать DNS</string>
     <string name="networks_action_use_dns">Использовать DNS: %s</string>
     <string name="networks_action_use_network_dns">Предпочитать DNS провайдера</string>
@@ -281,6 +282,7 @@
     <string name="payment_action_policy">Политика конфиденциальности</string>
     <string name="payment_alert_error_header">Сообщение из App Store</string>
     <string name="payment_save_text">Вы сохраняете %s</string>
+    <string name="payment_conversion_note">Мы принимаем евро, и отображаемые цены являются оценочными. Возврат доступен, если ваш банк взимает слишком большую плату.</string>
     <string name="payment_subscription_one_month">1 месяц</string>
     <string name="payment_subscription_many_months">%s месяцев</string>
     <string name="payment_subscription_per_month">%s в месяц</string>

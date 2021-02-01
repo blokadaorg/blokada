@@ -218,6 +218,8 @@
 "networks action use network dns" = "Preferir red DNS";
 "networks label specific network" = "Ajusta lo que debería suceder cuando el dispositivo se conecte a esta red.";
 "networks label specific network type" = "Ajuste lo que debería pasar cuando su dispositivo se conecte a una red de este tipo.";
+"networks label any wifi" = "Cualquier red WiFi";
+"networks label any mobile" = "Cualquier red móvil";
 "networks permission request" = "Para tener más control, pulsa aquí y deja que la aplicación reconozca todas las redes.";
 "networks permission request granted" = "Talvez vea una notificación cuando Blokada lea el nombre de su red en segundo plano.";
 "networks section choose dns" = "Elegir DNS";
@@ -364,6 +366,7 @@
 "payment label most popular" = "Más popular";
 "payment label pay with card" = "Pagar con tarjeta";
 "payment label pay with paypal" = "Pagar con Paypal";
+"payment label pay with crypto" = "Pagar con criptomoneda";
 "payment package one month" = "1 mes";
 "payment package six months" = "6 meses";
 "payment package twelve months" = "12 meses";
@@ -421,6 +424,7 @@
 "homepage desc support" = "Dona para ayudarnos a continuar el proyecto.";
 "homepage action faq" = "Preguntas frecuentes (FAQ)";
 "homepage action vpn" = "VPN";
+"homepage action opinions" = "Reseñas";
 "homepage action authors" = "Autores";
 "homepage action source" = "Código fuente";
 "homepage action forums" = "Foros";

@@ -213,6 +213,7 @@
 "networks label configuration active" = "Tato nastavení jsou aktuálně aktivní";
 "networks label configuration enabled" = "Není připojeno k této síti";
 "networks label configuration inactive" = "Klepnutím upravíte nastavení pro tuto síť";
+"networks label details default network" = "Níže uvedená nastavení jsou ve výchozím nastavení použita pro všechny sítě. Můžete je upravit pro vybrané sítě (na předchozí obrazovce).";
 "networks action encrypt dns" = "Šifrovat DNS";
 "networks action use dns" = "Použít DNS: %@";
 "networks action use network dns" = "Preferovat síťovou DNS";
@@ -339,6 +340,7 @@
 "payment alert error header" = "Zpráva z App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Ušetříte %@";
+"payment conversion note" = "Přijímáme euro a zobrazené ceny jsou pouze orientační. Pokud vaše banka účtuje za nevýhodný kurz, vrácení peněz je možné.";
 
 "payment subscription 1 month" = "1 měsíc";
 "payment subscription many months" = "%@ měsíců";
@@ -366,6 +368,7 @@
 "payment label most popular" = "Nejoblíbenější";
 "payment label pay with card" = "Zaplatit kartou";
 "payment label pay with paypal" = "Zaplatit přes PayPal";
+"payment label pay with crypto" = "Zaplatit pomocí kryptoměny";
 "payment package one month" = "1 měsíc";
 "payment package six months" = "6 měsíců";
 "payment package twelve months" = "12 měsíců";
@@ -421,6 +424,9 @@
 "homepage desc community" = "Připojte se k naší úžasné komunitě.";
 "homepage header support" = "Podpořte nás";
 "homepage desc support" = "Přispějte, abyste nám pomohli v projektu pokračovat.";
+"homepage action faq" = "FAQ";
+"homepage action vpn" = "VPN";
+"homepage action opinions" = "Recenze";
 "homepage action authors" = "Autoři";
 "homepage action source" = "Zdroj";
 "homepage action forums" = "Fóra";
@@ -434,7 +440,32 @@
 "homepage about point one" = "Blokuje reklamy a sledovače";
 "homepage about point two" = "Funguje ve všech aplikacích a všech prohlížečích";
 "homepage about point three" = "Nevyžaduje root ani jailbreak";
+"homepage about point four" = "Bezpečný design (neporušuje šifrování)";
+"homepage about point five" = "Důvěryhodný & navždy zdarma";
+
+"homepage about action faq" = "Podívejte se na FAQ";
 "homepage about action plus" = "Zjistěte více o službě Blokada Plus";
+
+"homepage vpn title" = "Blokada 5, VPN";
+"homepage vpn desc" = "Pro maximální ochranu soukromí upgradujte na Blokada Plus a připojte se prostřednictvím naší VPN. K šifrování vaší síťové aktivity a skrytí vaší IP adresy používáme nejmodernější protokol VPN WireGuard®.";
+"homepage vpn point one" = "Žádná omezení šířky pásma";
+"homepage vpn point two" = "Rychlé & moderní šifrování";
+"homepage vpn point three" = "Nezaznamenává vaše aktivity na síti";
+"homepage vpn point four" = "Připojte až 5 zařízení";
+"homepage vpn credit" = "WireGuard je zapsaná ochranná známka Jasona A. Donenfelda";
+
+"homepage faq header" = "Často kladené otázky (FAQ)";
+"homepage faq action more" = "Zobrazit další FAQ";
+"homepage faq title 1" = "Jaké informace Blokada uchovává?";
+"homepage faq desc 1" = "Blokada nesleduje ani nesdílí žádnou vaši síťovou aktivitu. Pokud používáte Blokada Plus, z technických důvodů potřebujeme shromáždit co nejmenší množství dat potřebných k zajištění provozu služby. Podrobnosti najdete v našich zásadách ochrany osobních údajů, které jsou k dispozici v horní nabídce.";
+"homepage faq title 2" = "Jak je chráněno mé soukromí?";
+"homepage faq desc 2" = "Blokada brání aplikacím a prohlížečům nainstalovaným ve vašem zařízení v odesílání vašich soukromých dat (známých jako sledování otisků prstů) na internet. Šifruje také některé vaše síťové aktivity (dotazy DNS). Pokud potřebujete větší ochranu, Blokada Plus umožňuje připojení vašeho zařízení prostřednictvím naší VPN a k šifrování celého vašeho síťového provozu používá protokol WireGuard®.";
+"homepage faq title 3" = "Co je Blokada Plus?";
+"homepage faq desc 3" = "Blokada Plus je naše bezpečná a moderní služba VPN (Virtual Private Network). Využívá WireGuard® - rychlý protokol s nejlepším šifrováním ve své třídě a nízkou spotřebou baterie. Blokada Plus šifruje veškerou vaši síťovou aktivitu v reálném čase a poskytuje vám nejvyšší dostupnou úroveň ochrany. Získáte také oblíbené funkce VPN - skryjte svou IP adresu, změňte svou polohu a odblokujte geograficky omezený obsah.";
+"homepage faq title 4" = "Potřebuji přejít na Blokadu Plus?";
+"homepage faq desc 4" = "Ne, upgrade je volitelný. Můžete zůstat u bezplatné verze Blokady, navždy. Jedná se o doporučený upgrade, pokud si přejete ještě více zvýšit ochranu svého soukromí nebo potřebujete některou z populárních funkcí, které VPN poskytují.";
+"homepage faq title 5" = "Jaké jsou podmínky vracení peněz za přechod na Blokada Plus?";
+"homepage faq desc 5" = "Peníze můžete získat zpět do 7 dnů od zakoupení předplatného. Kontaktujte nás prostřednictvím kterékoli z našich aplikací a jednoduše nám sdělte, že chcete vrátit peníze.";
 
 "homepage download header" = "Stáhnout Blokadu";
 "homepage download subheader" = "Blokada je k dispozici pro několik platforem, vyberte si.";

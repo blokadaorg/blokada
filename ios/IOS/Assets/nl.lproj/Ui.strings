@@ -13,8 +13,22 @@
 "error device offline" = "Jouw apparaat is offline";
 "error account inactive" = "Je account is inactief. Gelieve je account te activeren om BLOKADA+ te kunnen blijven gebruiken.";
 "error account inactive after restore" = "Dit lijkt geen geldig actief account te zijn. Als je denkt dat dit niet klopt, neem dan contact met ons op door op het hulp icoon bovenaan te klikken.";
+"error account invalid" = "Dit account ID is ongeldig.";
 "error creating account" = "Kan geen nieuw account aanmaken. Probeer het later nog eens.";
+"error fetching data" = "Deze actie kon niet worden voltooid. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
+"error tunnel" = "Kon de VPN niet tot stand brengen. Start uw apparaat opnieuw op, of verwijder het Blokada VPN profiel in de systeeminstellingen, en probeer het opnieuw.";
+"error vpn" = "Kon de VPN niet tot stand brengen. Start uw apparaat opnieuw op, of verwijder het Blokada VPN profiel in de systeeminstellingen, en probeer het opnieuw.";
+"error vpn perms" = "Geen bevoegdheden verleend om een VPN-profiel aan te maken.";
 "error vpn no current lease" = "Kies eerst een lokatie.";
+"error vpn too many leases" = "U heeft de apparatenlimiet bereikt. Verwijder een van uw apparaten en probeer het opnieuw.";
+"error vpn expired" = "De VPN is uitgeschakeld. Werk uw abonnement bij om BLOKADA+ te blijven gebruiken";
+"error payment inactive after restore" = "Uw vorige betaling is hersteld, maar het abonnement is al verlopen. Als u denkt dat dit een vergissing is, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
+"error payment failed" = "Betalingen zijn op dit moment niet beschikbaar. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
+"error payment failed alternative" = "Uw betaling kon niet worden voltooid. Controleer of uw gegevens juist zijn en probeer het opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
+"error payment not available" = "Betalingen zijn niet beschikbaar voor dit apparaat. Ofwel is Apple Pay niet geactiveerd, ofwel verwerken we nog geen aankopen in uw land.";
+"error payment canceled" = "De betaling is geannuleerd. Er is niets in rekening gebracht.";
+"error pack install" = "Kon deze functie niet installeren (of deïnstalleren). Probeer het later opnieuw.";
+"error location failed fetching" = "Kon locaties niet ophalen.";
 
 "universal action continue" = "Doorgaan";
 "universal action cancel" = "Annuleren";
@@ -30,6 +44,7 @@
 "universal action contact us" = "Neem contact op";
 "universal action support" = "Ondersteuning";
 "universal action upgrade" = "Upgrade naar BLOKADA+";
+"universal action upgrade short" = "Upgraden";
 "universal action yes" = "Ja";
 "universal action no" = "Nee";
 "universal action donate" = "Doneren";
@@ -39,19 +54,37 @@
 "universal action download" = "Download";
 "universal action news" = "Nieuws";
 "universal action delete" = "Verwijderen";
+"universal action hide" = "Verberg";
+"universal action select" = "Selecteer";
+"universal action selected" = "Geselecteerd";
 // A verb "to search in the list"
 "universal action search" = "Zoeken";
+// A verb "to filter the list"
+"universal action filter" = "Filter";
 // A verb "to clear the list"
 "universal action clear" = "Wissen";
+// A verb "to revoke permissions"
+"universal action revoke" = "Intrekken";
 
 "universal label help" = "Hulp";
+"universal label welcome" = "Welkom!";
+// Common label when some feature has no setting
+"universal label none" = "Geen";
 "universal status processing" = "Bezig... Even geduld.";
 "universal status copied to clipboard" = "Gekopieerd naar Klembord";
+"universal status restart required" = "Gelieve de app opnieuw opstarten om de veranderingen uit te voeren.";
 "universal status redirect" = "Ga verder met de Blokada App";
+"universal status confirm" = "Weet u zeker dat u wilt doorgaan?";
 
 "alert error header" = "Ooeps!";
 "alert vpn expired header" = "BLOKADA+ verlopen";
 "notification vpn expired subtitle" = "De VPN is uitgeschakeld";
+"update label updated" = "Bijgewerkt!";
+
+"account active forever" = "Voor altijd";
+"account active forever full" = "Voor altijd actief";
+
+"main ask for permissions header" = "Nog slechts één stap";
 
 "main rate us header" = "Beoordeel ons!";
 "main rate us description" = "Wat vind je tot nu toe van Blokada?";
@@ -72,7 +105,10 @@
 "home power action turn on" = "Inschakelen";
 "home power action turn off" = "Uitschakelen";
 "home power action pause" = "Pauzeer voor 5 minuten";
+
+"home status paused" = "Gepauzeerd";
 "home status active" = "Actief";
+"home status deactivated" = "Gedeactiveerd";
 "home action tap to activate" = "tik om te activeren";
 "home status detail paused" = "gepauzeerd totdat de timer afloopt";
 "home status detail active" = "blokkeert *advertenties* en *trackers*";
@@ -83,24 +119,105 @@
 
 "home plus button deactivated" = "BLOKADA+ gedeactiveerd";
 "home plus button select location" = "Selecteer locatie";
+"home plus button location" = "Locatie: *%@*";
+
+"home level low" = "Bescherming: Laag";
+"home level medium" = "Bescherming: Gemiddeld";
+"home level high" = "Bescherming: Hoog";
+
+
+"pack section header" = "Geavanceerde Functies";
+"pack section header details" = "Functie Details";
+"pack action install" = "OPHALEN";
+"pack action update" = "BIJWERKEN";
+"pack action uninstall" = "VERWIJDEREN";
+"pack author" = "Auteur";
+"pack configurations header" = "Configuraties";
 "pack information header" = "Meer";
+"pack tags header" = "Labels";
+"pack tags none" = "Geen";
+"pack category highlights" = "Hoogtepunten";
 "pack category active" = "Actief";
+"pack category all" = "Alles";
+
+"advanced section header packs" = "Blokkeerlijsten";
+
+"location choice header" = "Kies een Locatie";
 
 "activity section header" = "Activiteit";
+"activity section header details" = "Activiteitendetails";
+"activity request blocked" = "Dit verzoek is geblokkeerd.";
+"activity request allowed" = "Dit verzoek is toegelaten.";
+"activity request allowed whitelisted" = "Dit verzoek is toegelaten, omdat het op uw Toegelaten lijst staat";
+"activity request blocked blacklisted" = "Dit verzoek is geblokkeerd, omdat het op je Blokkeer lijst staat";
+"activity actions header" = "Acties";
+"activity information header" = "Informatie";
+"activity action add to whitelist" = "Toevoegen aan Toegestaan";
+"activity action remove from whitelist" = "Verwijderen van Toegestaan";
+"activity action added to whitelist" = "Toegevoegd aan Toegestaan";
+"activity action add to blacklist" = "Toevoegen aan Geblokkeerd";
+"activity action remove from blacklist" = "Verwijderen uit Geblokkeerd";
+"activity action added to blacklist" = "Toegevoegd aan Geblokkeerd";
+"activity action copy to clipboard" = "Kopieer naam naar Klembord";
+"activity domain name" = "Volledige naam";
+"activity time of occurrence" = "Tijd";
+"activity number of occurrences" = "Aantal gebeurtenissen";
+// As in sentence, "this item has been modified"
+"activity state modified" = "gewijzigd";
 // As in sentence, "this host has been blocked"
 "activity state blocked" = "geblokkeerd";
+// As in sentence, "this host has been allowed"
+"activity state allowed" = "toegestaan";
+"activity happened one time" = "1 keer";
+"activity happened many times" = "%@ keer";
+"activity category recent" = "Recent";
+"activity category top" = "Top";
+"activity category top blocked" = "Top Geblokkeerd";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Adv. geblokkeerd";
 
 
 "account section header settings" = "Instellingen";
+"account status text libre" = "Je BLOKADA Libre account is voor altijd actief.";
+
+"account section header primary" = "Primair";
 "account section header other" = "Overige";
+"account action my account" = "Mijn account";
+"account action encryption" = "Encryptie & DNS";
 "account action devices" = "Apparaten";
 "account action new device" = "Nieuw apparaat";
+"account action inbox" = "Inbox";
+"account action logout" = "Herstel aankoop";
+"account action logout only" = "Uitloggen";
+"account action create" = "Genereer nieuw account";
 "account action about" = "Over";
+"account action tap to show" = "Druk om weer te geven";
+"account action restoring" = "Account herstellen: %@";
 "account label enter to continue" = "Voer je account ID in om door te gaan";
+"account create confirm" = "Ik heb het opgeschreven";
+
+"account section header my subscription" = "Mijn Abonnement";
+"account section header general" = "Algemeen";
+"account section header subscription" = "Abonnement";
 "account label id" = "Account ID";
+"account label type" = "Accounttype";
+"account label active until" = "Actief tot";
 "account action manage subscription" = "Abonnement beheren";
+"account action why upgrade" = "Waarom zou ik upgraden?";
+"account subscription header renew" = "Automatisch vernieuwen";
+"account subscription header payment method" = "Betaalmethode";
+
+"account header logout" = "Herstel aankoop";
+"account id status unchanged" = "(ongewijzigd)";
+"account action how to restore" = "Hoe herstel ik mijn oude account?";
+
+"account subscription days remaining" = "Dag(en) resterend: %@";
+"account devices remaining" = "Resterende apparaten: %@";
+"account devices not available" = "Niet beschikbaar";
+"account devices out of" = "%@ van de %@";
+
+"account encrypt level low" = "Laag";
+"account encrypt level medium" = "Nomaal";
 "account encrypt label dns" = "DNS";
 "account lease label devices" = "Apparaten";
 "account lease label name" = "Naam van apparaat";

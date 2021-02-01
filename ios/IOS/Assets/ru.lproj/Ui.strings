@@ -213,6 +213,7 @@
 "networks label configuration active" = "В настоящее время активны эти настройки";
 "networks label configuration enabled" = "Нет подключения к этой сети";
 "networks label configuration inactive" = "Нажмите, чтобы изменить настройки для этой сети";
+"networks label details default network" = "Настройки, приведенные ниже, применяются по умолчанию для всех сетей. Их можно переопределить для выбранных сетей (на предыдущем экране).";
 "networks action encrypt dns" = "Шифровать DNS";
 "networks action use dns" = "Использовать DNS: %@";
 "networks action use network dns" = "Предпочитать DNS провайдера";
@@ -339,6 +340,7 @@
 "payment alert error header" = "Сообщение из App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Вы сохраняете %@";
+"payment conversion note" = "Мы принимаем евро, и отображаемые цены являются оценочными. Возврат доступен, если ваш банк взимает слишком большую плату.";
 
 "payment subscription 1 month" = "1 месяц";
 "payment subscription many months" = "%@ месяцев";

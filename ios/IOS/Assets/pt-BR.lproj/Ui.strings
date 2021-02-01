@@ -213,6 +213,7 @@
 "networks label configuration active" = "Essas configurações estão atualmente ativas";
 "networks label configuration enabled" = "Não conectado a esta rede";
 "networks label configuration inactive" = "Toque para modificar as configurações desta rede";
+"networks label details default network" = "As configurações abaixo são aplicadas por padrão para todas as redes. Você pode substituí-las para as redes selecionadas (na tela anterior).";
 "networks action encrypt dns" = "Criptografar DNS";
 "networks action use dns" = "Usar DNS: %@";
 "networks action use network dns" = "Preferir DNS de rede";
@@ -339,6 +340,7 @@
 "payment alert error header" = "Uma mensagem da App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Você está salvando %@";
+"payment conversion note" = "Aceitamos Euro, e os preços exibidos são uma estimativa. Existe um reembolso se o seu banco cobrar demais.";
 
 "payment subscription 1 month" = "1 Mês";
 "payment subscription many months" = "%@ Meses";
@@ -366,6 +368,7 @@
 "payment label most popular" = "Mais popular";
 "payment label pay with card" = "Pagar com cartão";
 "payment label pay with paypal" = "Pagar com PayPal";
+"payment label pay with crypto" = "Pague com cripto";
 "payment package one month" = "1 Mês";
 "payment package six months" = "6 Meses";
 "payment package twelve months" = "12 Meses";
@@ -421,6 +424,9 @@
 "homepage desc community" = "Junte-se à nossa incrível comunidade.";
 "homepage header support" = "Apoie-nos";
 "homepage desc support" = "Doe para nos ajudar a continuar o projeto.";
+"homepage action faq" = "Perguntas Frequentes";
+"homepage action vpn" = "VPN";
+"homepage action opinions" = "Avaliações";
 "homepage action authors" = "Autores";
 "homepage action source" = "Fonte";
 "homepage action forums" = "Fóruns";
@@ -434,7 +440,32 @@
 "homepage about point one" = "Bloqueia anúncios e rastreadores";
 "homepage about point two" = "Funciona para todos os aplicativos e navegadores";
 "homepage about point three" = "Não requer root ou jailbreak";
+"homepage about point four" = "Design seguro (não quebra a criptografia)";
+"homepage about point five" = "Confiável e gratuito para sempre";
+
+"homepage about action faq" = "Veja as FAQs";
 "homepage about action plus" = "Saiba mais sobre o Blokada Plus";
+
+"homepage vpn title" = "Blokada 5, a VPN";
+"homepage vpn desc" = "Para proteção de privacidade definitiva, assine o Blokada Plus e conecte-se através da nossa VPN. Nós usamos o WireGuard®, o protocolo VPN mais avançado, para criptografar sua atividade de rede e ocultar seu endereço IP.";
+"homepage vpn point one" = "Sem restrições de banda";
+"homepage vpn point two" = "Criptografia rápida e moderna";
+"homepage vpn point three" = "Não há registro da sua atividade de rede";
+"homepage vpn point four" = "Conecte até 5 dispositivos";
+"homepage vpn credit" = "O WireGuard é uma marca registada de Jason A. Donenfeld";
+
+"homepage faq header" = "Perguntas Frequentes";
+"homepage faq action more" = "Veja mais FAQs";
+"homepage faq title 1" = "Que informações o Blokada mantém?";
+"homepage faq desc 1" = "O Blokada não rastreia ou compartilha nenhuma das suas atividades na rede. Se você usar o Blokada Plus, por razões técnicas, precisamos coletar os dados mínimos necessários para manter o serviço operacional. Por favor, consulte nossa Política de Privacidade disponível no menu superior para mais detalhes.";
+"homepage faq title 2" = "Como a minha privacidade está protegida?";
+"homepage faq desc 2" = "O Blokada impede que aplicativos e navegadores instalados no seu dispositivo enviem seus dados privados (conhecidos como rastreamento de impressões digitais) para a Internet. Ele também criptografa algumas das suas atividades de rede (consultas DNS). Se você precisar de mais proteção, o Blokada Plus faz seu dispositivo se conectar através de nossa VPN e usa o protocolo do WireGuard® para criptografar todo o tráfego de rede.";
+"homepage faq title 3" = "O que é o Blokada Plus?";
+"homepage faq desc 3" = "O Blokada Plus é nosso serviço de VPN (Rede Privada Virtual) moderna. Ele usa o WireGuard® - um protocolo rápido com criptografia de melhor classe e baixo uso de bateria. O Blokada Plus criptografa toda a atividade de rede em tempo real, oferecendo a você o maior nível de proteção disponível. Você também obtém os recursos populares da VPN - ocultar seu endereço IP, alterar sua localização e desbloquear conteúdo georrestrito.";
+"homepage faq title 4" = "Eu preciso atualizar para o Blokada Plus?";
+"homepage faq desc 4" = "Não, a assinatura é opcional. Você pode ficar na versão gratuita do Blokada, para sempre. É recomendável fazer uma assinatura se você desejar aumentar ainda mais sua proteção à privacidade, ou se precisar de qualquer um dos recursos mais populares fornecidos por VPNs.";
+"homepage faq title 5" = "Qual é a política de reembolso do Blokada Plus?";
+"homepage faq desc 5" = "Você pode recuperar seu dinheiro dentro de 7 dias após a compra da assinatura. Entre em contato conosco através de qualquer um de nossos aplicativos e simplesmente mencione que você quer um reembolso.";
 
 "homepage download header" = "Baixe o Blokada";
 "homepage download subheader" = "O Blokada está disponível para várias plataformas, escolha a sua.";

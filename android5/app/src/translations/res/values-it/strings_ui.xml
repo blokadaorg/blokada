@@ -168,6 +168,7 @@
     <string name="networks_label_configuration_active">Attualmente, queste impostazioni sono attive</string>
     <string name="networks_label_configuration_enabled">Non connesso a questa rete</string>
     <string name="networks_label_configuration_inactive">Tocca per modificare le impostazioni per questa rete</string>
+    <string name="networks_label_details_default_network">Le impostazioni sottostanti sono applicate per impostazione predefinita a tutte le reti. È possibile sovrascriverle per le reti selezionate (nella schermata precedente).</string>
     <string name="networks_action_encrypt_dns">Cripta DNS</string>
     <string name="networks_action_use_dns">Usa DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferisci DNS di rete</string>

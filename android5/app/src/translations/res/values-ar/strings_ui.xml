@@ -168,6 +168,7 @@
     <string name="networks_label_configuration_active">هذه الإعدادات نشطة حاليّاً</string>
     <string name="networks_label_configuration_enabled">غير متّصل بهذه الشبكة</string>
     <string name="networks_label_configuration_inactive">انقر لتعديل إعدادات هذه الشبكة</string>
+    <string name="networks_label_details_default_network">يتم تطبيق الإعدادات أدناه بشكل افتراضي على جميع الشبكات. يمكنك تجاوزها للشبكات المحدّدة (في الشاشة السابقة).</string>
     <string name="networks_action_encrypt_dns">تشفير DNS</string>
     <string name="networks_action_use_dns">استخدام DNS: %s</string>
     <string name="networks_action_use_network_dns">تفضيل شبكة DNS</string>

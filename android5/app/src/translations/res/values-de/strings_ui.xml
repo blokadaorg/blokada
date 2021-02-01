@@ -168,6 +168,7 @@
     <string name="networks_label_configuration_active">Diese Einstellungen sind derzeit aktiv</string>
     <string name="networks_label_configuration_enabled">Nicht mit diesem Netzwerk verbunden</string>
     <string name="networks_label_configuration_inactive">Tippe hier, um Einstellungen für dieses Netzwerk zu ändern</string>
+    <string name="networks_label_details_default_network">Die unten aufgeführten Einstellungen werden standardmäßig für alle Netzwerke angewendet. Du kannst sie für ausgewählte Netzwerke überschreiben (im vorherigen Bildschirm).</string>
     <string name="networks_action_encrypt_dns">DNS verschlüsseln</string>
     <string name="networks_action_use_dns">Verwende DNS: %s</string>
     <string name="networks_action_use_network_dns">Netzwerk-DNS bevorzugen</string>

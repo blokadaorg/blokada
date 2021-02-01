@@ -117,7 +117,7 @@
     <string name="pack_tags_header">Taggar</string>
     <string name="pack_tags_none">Inget</string>
     <string name="pack_category_highlights">Höjdpunkter</string>
-    <string name="pack_category_active">Aktiv</string>
+    <string name="pack_category_active">Aktiva</string>
     <string name="pack_category_all">Alla</string>
     <string name="advanced_section_header_packs">Blocklistor</string>
     <string name="advanced_section_slugline_packs">Aktivera för en mer restriktiv blockering</string>
