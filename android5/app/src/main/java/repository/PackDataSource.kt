@@ -85,7 +85,7 @@ object PackDataSource {
             configs = listOf("Standard", "Extended")
         )
             .changeStatus(config = "Standard")
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/phishingarmy/extended/hosts.txt", applyFor = "Standard"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/phishingarmy/standard/hosts.txt", applyFor = "Standard"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/phishingarmy/extended/hosts.txt", applyFor = "Extended")),
 
         Pack.mocked(id = "ddgtrackerradar", tags = listOf(Pack.recommended, Pack.official, "tracking", "privacy"),
