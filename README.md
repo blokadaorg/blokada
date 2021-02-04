@@ -4,7 +4,7 @@ For Blokada 5 repo, [go here](https://github.com/blokadaorg/fem).
 
 Blokada is a free, open source, compact, fast ad blocker for Android that works for all apps and does not require root because it uses the VPN API
 
-Want to try out this app? Click here to **[download Blokada](http://go.blokada.org/download_section)**.
+Want to try out this app? Click here to **[download Blokada](https://go.blokada.org/download_section)**.
 
 <a href="https://f-droid.org/packages/org.blokada.alarm/" target="_blank">
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="90"/></a>
@@ -19,7 +19,7 @@ Blokada community welcomes everyone, but before you ask a question, please get y
 
 We invite you to join any of our networks and stay up to date with the newest developments.
 
-[Forums](http://go.blokada.org/forum) | [Telegram](http://go.blokada.org/chat) | [Keybase](https://keybase.io/blocka) | [Twitter](http://go.blokada.org/social_twitter) | [Facebook](http://go.blokada.org/social_facebook)
+[Forums](https://go.blokada.org/forum) | [Telegram](https://go.blokada.org/chat) | [Keybase](https://keybase.io/blocka) | [Twitter](https://go.blokada.org/social_twitter) | [Facebook](https://go.blokada.org/social_facebook)
 
 ## Issues and feature requests
 
