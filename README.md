@@ -2,7 +2,7 @@
 
 Blokada 5 is the next generation of the well known open source mobile ad blocker and privacy app.
 
-Want to try it out? **[Click here to download Blokada](http://go.blokada.org/download_section)**.
+Want to try it out? **[Click here to download Blokada](https://go.blokada.org/download_section)**.
 
 ## Getting started
 
@@ -14,7 +14,7 @@ The Blokada community welcomes everyone! before you ask a question, please get y
 
 We invite you to join any of our network and stay up to date with the newest developments.
 
-[Forums](http://go.blokada.org/forum) | [Telegram](http://go.blokada.org/chat) | [Keybase](https://keybase.io/blocka) | [Twitter](http://go.blokada.org/social_twitter) | [Facebook](http://go.blokada.org/social_facebook)
+[Forums](https://go.blokada.org/forum) | [Telegram](https://go.blokada.org/chat) | [Keybase](https://keybase.io/blocka) | [Twitter](https://go.blokada.org/social_twitter) | [Facebook](https://go.blokada.org/social_facebook)
 
 ## Issues and feature requests
 
