@@ -137,24 +137,6 @@ object DnsDataSource {
             ips = listOf("208.67.220.123", "208.67.222.123"),
             label = "Open DNS: family"
         ),
-        Dns(
-            id = "opennic.usa",
-            ips = listOf("155.138.240.237", "2001:19f0:6401:b3d:5400:2ff:fe5a:fb9f"),
-            port = 443,
-            name = "ns03.dns.tin-fan.com",
-            path = "dns-query",
-            label = "OpenNIC: USA",
-            region = "us"
-        ),
-        Dns(
-            id = "opennic.europe",
-            ips = listOf("95.217.16.205", "2a01:4f9:c010:6093::3485"),
-            port = 443,
-            name = "ns01.dns.tin-fan.com",
-            path = "dns-query",
-            label = "OpenNIC: Europe",
-            region = "europe"
-        ),
         Dns.plaintextDns(
             id = "quad9",
             ips = listOf("9.9.9.9", "149.112.112.112"),
