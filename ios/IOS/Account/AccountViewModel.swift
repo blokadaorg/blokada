@@ -75,7 +75,8 @@ class AccountViewModel: ObservableObject {
         self.working = true
 
         onBackground {
-            self.api.getAccount(id: newId) { error, account in onMain {
+            let accountId = newId.lowercased().trimmingCharacters(in: CharacterSet.whitespaces)
+            self.api.getAccount(id: accountId) { error, account in onMain {
                 guard error == nil else {
                     return self.onError(CommonError.accountInactiveAfterRestore, error)
                 }
