@@ -83,5 +83,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?android:attr/textColorTertiary" />
+        android:background="?android:attr/shadowColor" />
 </LinearLayout>

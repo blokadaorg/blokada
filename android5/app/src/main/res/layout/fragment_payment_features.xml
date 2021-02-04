@@ -77,7 +77,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/doubled"
                     android:layout_marginBottom="@dimen/normal"
-                    android:background="?android:attr/textColorTertiary" />
+                    android:background="?android:attr/shadowColor" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -259,7 +259,7 @@
                             android:layout_height="1dp"
                             android:layout_marginTop="@dimen/normal"
                             android:layout_marginBottom="@dimen/normal"
-                            android:background="?android:attr/textColorTertiary" />
+                            android:background="?android:attr/shadowColor" />
 
                         <Button
                             android:id="@+id/payment_continue"

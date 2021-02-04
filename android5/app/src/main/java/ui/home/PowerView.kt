@@ -127,7 +127,7 @@ class PowerView : View {
         }
 
         inactiveRingPaint = Paint().apply {
-            color = context.getColorFromAttr(android.R.attr.textColorTertiary)
+            color = context.getColorFromAttr(android.R.attr.shadowColor)
             strokeWidth = ringWidth
             style = Paint.Style.STROKE
         }
@@ -268,14 +268,14 @@ class PowerView : View {
     private val innerShadowPaint by lazy {
         Paint().apply {
             isAntiAlias = true
-            color = context.getColorFromAttr(android.R.attr.textColorTertiary)
+            color = context.getColorFromAttr(android.R.attr.shadowColor)
             shader = RadialGradient(
                 w / 2f,
                 w / 2f,
                 w / 2f,
                 intArrayOf(
-                    context.getColorFromAttr(android.R.attr.textColorTertiary),
-                    context.getColorFromAttr(android.R.attr.textColorTertiary),
+                    context.getColorFromAttr(android.R.attr.shadowColor),
+                    context.getColorFromAttr(android.R.attr.shadowColor),
                     ContextCompat.getColor(context, R.color.black)
                 ),
                 floatArrayOf(

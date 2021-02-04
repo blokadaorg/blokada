@@ -28,7 +28,7 @@
         android:left="32dp"
         android:top="24dp">
         <shape android:shape="rectangle">
-            <solid android:color="?android:textColorTertiary" />
+            <solid android:color="?android:shadowColor" />
             <corners android:radius="4dp" />
         </shape>
     </item>
@@ -38,7 +38,7 @@
         android:height="72dp"
         android:left="64dp">
         <shape android:shape="rectangle">
-            <solid android:color="?android:textColorTertiary" />
+            <solid android:color="?android:shadowColor" />
             <corners android:radius="4dp" />
         </shape>
     </item>

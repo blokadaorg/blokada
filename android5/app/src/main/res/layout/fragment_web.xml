@@ -48,7 +48,7 @@
             android:layout_height="1dp"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/oneandhalf"
-            android:background="?android:attr/textColorTertiary" />
+            android:background="?android:attr/shadowColor" />
 
         <TextView
             android:id="@+id/web_openinbrowser"

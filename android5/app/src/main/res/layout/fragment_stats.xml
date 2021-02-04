@@ -86,7 +86,7 @@
         <ImageView
             android:layout_width="@dimen/icon_humonguous"
             android:layout_height="@dimen/icon_humonguous"
-            app:tint="?android:attr/textColorTertiary"
+            app:tint="?android:attr/shadowColor"
             android:src="@drawable/ic_baseline_bar_chart_24" />
 
         <TextView

@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/normal"
-                    android:background="?android:attr/textColorTertiary" />
+                    android:background="?android:attr/shadowColor" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                             android:layout_height="1dp"
                             android:layout_marginTop="@dimen/normal"
                             android:layout_marginBottom="@dimen/normal"
-                            android:background="?android:attr/textColorTertiary" />
+                            android:background="?android:attr/shadowColor" />
 
                         <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/dnschoice_useblocka"
@@ -157,7 +157,7 @@
                             android:layout_height="1dp"
                             android:layout_marginTop="@dimen/normal"
                             android:layout_marginBottom="@dimen/normal"
-                            android:background="?android:attr/textColorTertiary" />
+                            android:background="?android:attr/shadowColor" />
 
                         <Button
                             android:id="@+id/done"

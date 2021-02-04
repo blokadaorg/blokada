@@ -94,7 +94,7 @@
         <ImageView
             android:layout_width="@dimen/icon_huge"
             android:layout_height="@dimen/icon_huge"
-            app:tint="?android:attr/textColorTertiary"
+            app:tint="?android:attr/shadowColor"
             android:src="@drawable/ic_baseline_remove_red_eye_24" />
 
         <TextView
