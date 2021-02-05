@@ -229,7 +229,7 @@
 "networks summary network dns" = "Blokada použije DNS sítě, pokud je k dispozici, nebo přepne na %@. Při každém použití síťového DNS bude také ignorováno nastavení Šifrovat DNS. Používání DNS v síti pomáhá řešit problémy s připojením v problémových sítích, ale nechává vás nechráněného.";
 "networks summary network dns and plus mode" = "Blokada dočasně zakáže režim Plus, kdykoli se použije síťové DNS. Je to proto, že ve VPN není možné přistupovat k síťovému DNS. Jakmile se zařízení přepne do jiné sítě, režim Plus se automaticky obnoví.";
 "networks summary blocka plus mode" = "Blokada bude používat Blokada DNS v režimu Plus, aby zajistila vysokou úroveň šifrování a rychlosti. Toto nastavení můžete změnit v dolní části obrazovky \"Vybrat DNS\".";
-"networks permission dialog" = "Blokada dokáže rozpoznat sítě, ke kterým se připojujete, a umožní vám pro ně nakonfigurovat samostatná nastavení. K tomu je však nutné povolení k poloze. Někdy se může zobrazit systémové oznámení o přístupu k poloze, ale to není přesné - Blokada bude číst pouze název sítě.";
+"networks permission dialog" = "Blokada dokáže rozpoznat sítě, ke kterým se připojujete, a umožní vám pro ně nakonfigurovat samostatná nastavení. Tato aplikace však bude shromažďovat údaje o poloze ve formě názvu sítě, aby tuto funkci povolila, i když je aplikace zavřená nebo se nepoužívá. Někdy se může zobrazit systémové oznámení o přístupu k poloze - Blokada bude číst pouze název sítě.";
 
 
 "account section header settings" = "Nastavení";

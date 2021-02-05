@@ -172,7 +172,6 @@
     <string name="networks_action_use_dns">Utiliser le DNS : %s</string>
     <string name="networks_permission_request">Pour avoir plus de contrôle, appuyez ici et laissez l\'application découvrir tous les réseaux.</string>
     <string name="networks_section_choose_dns">Sélectionnez un DNS</string>
-    <string name="networks_permission_dialog">Blokada peut reconnaître les réseaux auxquels vous vous connectez, et vous laisse configurer leurs paramètres individuellement. Toutefois, pour cela, vous devez autoriser Blokada à consulter votre position. Vous verrez parfois une notification système vous informant que Blokada accède à votre position, mais c\'est inexact - Blokada ne lira que le nom du réseau.</string>
     <string name="account_section_header_settings">Paramètres</string>
     <string name="account_status_text">Votre compte BLOKADA %s est actif jusqu\'au %s.</string>
     <string name="account_status_text_libre">Votre compte BLOKADA Libre est actif pour toujours.</string>

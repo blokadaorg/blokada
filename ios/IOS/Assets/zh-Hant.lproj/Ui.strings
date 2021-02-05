@@ -229,7 +229,7 @@
 "networks summary network dns" = "Blokada 將會在可用時使用網路的 DNS，否則將切換到 %@。同時，若使用了網路 DNS 就會忽略加密 DNS 設定。使用網路的 DNS 可以協助修復麻煩的網路上的連線問題，但您將不會受到保護。";
 "networks summary network dns and plus mode" = "每次使用網路 DNS 時，Blokada 都會暫時停用 Plus 模式。因為無法在 VPN 中存取網路 DNS。當您的裝置切換到另一個網路時，Plus 模式就會自動恢復。";
 "networks summary blocka plus mode" = "Blokada 將會在 Plus 模式中使用 Blokada DNS，以確保較高等級的加密與速度。您可以在「選擇 DNS」畫面的底部變更此設定。";
-"networks permission dialog" = "Blokada 可以識別您連線的網路，並能單獨設定網路的組態設定。但是要單獨設定，您得授予「位置」權限。某些時候您可能會看到存取位置的系統通知，但並非完全如此 — Blokada 只會讀取網路的名稱。";
+"networks permission dialog" = "Blokada 可以識別您連線的網路，並能讓您為每個網路分開設定。不過，此應用程式將會以網路名稱的形式蒐集位置資料來啟用此功能，即便應用程式已關閉或未使用。某些時候您可能會看到關於位置存取的系統通知，Blokada 僅會讀取網路名稱。";
 
 
 "account section header settings" = "設定";

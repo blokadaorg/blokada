@@ -229,7 +229,7 @@
 "networks summary network dns" = "Se disponibile, Blokada userà i DNS della rete, altrimenti passerà a %@. Inoltre, le impostazioni di Crittografia DNS verranno ignorate se utilizzati i DNS di rete. L'utilizzo dei DNS di rete aiuta a risolvere i problemi di connettività su reti problematiche, ma non ti offre protezione.";
 "networks summary network dns and plus mode" = "Blokada disabiliterà temporaneamente la modalità Plus ogni volta che viene utilizzato il DNS di rete. Questo perché non è possibile accedere al DNS di rete in VPN. La modalità Plus verrà ripristinata automaticamente quando il dispositivo passerà ad un'altra rete.";
 "networks summary blocka plus mode" = "Blokada utilizzerà i DNS di Blokada in modalità Plus, per garantire un alto livello di crittografia e velocità. È possibile modificare questa impostazione nella parte inferiore della schermata Scegli DNS.";
-"networks permission dialog" = "Blokada può riconoscere le reti a cui ti connetti e consentire di configurare impostazioni separate per ognuna di loro. Per farlo, è necessario il permesso di localizzazione. Potrà capitare di vedere la notifica di sistema sull'accesso alla posizione, tuttavia Blokada leggerà solo il nome della rete.";
+"networks permission dialog" = "Blokada può riconoscere le reti a cui ti connetti e consentire di configurare impostazioni separate per ognuna di loro. Tuttavia, per farlo, l'applicazione raccoglierà i dati della posizione per poter accedere al nome della rete, anche quando è chiusa o non in uso. Talvolta potresti vedere una notifica circa l'accesso alla posizione - Blokada leggerà solo il nome della rete.";
 
 
 "account section header settings" = "Impostazioni";

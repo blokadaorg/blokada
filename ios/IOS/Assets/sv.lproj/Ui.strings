@@ -229,7 +229,6 @@
 "networks summary network dns" = "Blokada kommer att använda nätverkets DNS om tillgängligt, eller byta till %@ i övriga fall. Även inställningar för \"Kryptera DNS\" kommer att ignoreras när nätverkets DNS används. Att använda nätverkets DNS hjälper till att åtgärda anslutningsproblem på besvärliga nätverk, men lämnar dig oskyddad.";
 "networks summary network dns and plus mode" = "Blokada kommer tillfälligt att inaktivera Plus-läget när nätverkets DNS används. Detta beror på att det inte är möjligt att komma åt nätverkets DNS via VPN. Plus-läget återställs automatiskt när enheten växlar till ett annat nätverk.";
 "networks summary blocka plus mode" = "Blokada kommer att använda Blokada DNS i Plus-läge, för att säkerställa hög nivå av kryptering och hastighet. Du kan ändra den här inställningen längst ner på Välj DNS.";
-"networks permission dialog" = "Blokada kan känna igen nätverk som du ansluter till och låter dig konfigurera separata inställningar för dem. Men för att göra det krävs platsbehörighet. Ibland kan du se ett systemmeddelande om platsåtkomst, men detta är inte korrekt - Blokada kommer bara att läsa nätverkets namn.";
 
 
 "account section header settings" = "Inställningar";

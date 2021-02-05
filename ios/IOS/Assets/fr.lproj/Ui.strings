@@ -217,7 +217,6 @@
 "networks action use dns" = "Utiliser le DNS : %@";
 "networks permission request" = "Pour avoir plus de contrôle, appuyez ici et laissez l'application découvrir tous les réseaux.";
 "networks section choose dns" = "Sélectionnez un DNS";
-"networks permission dialog" = "Blokada peut reconnaître les réseaux auxquels vous vous connectez, et vous laisse configurer leurs paramètres individuellement. Toutefois, pour cela, vous devez autoriser Blokada à consulter votre position. Vous verrez parfois une notification système vous informant que Blokada accède à votre position, mais c'est inexact - Blokada ne lira que le nom du réseau.";
 
 
 "account section header settings" = "Paramètres";

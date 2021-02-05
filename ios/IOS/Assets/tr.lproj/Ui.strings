@@ -65,6 +65,8 @@
 "universal action filter" = "Filtre";
 // A verb "to clear the list"
 "universal action clear" = "Temizle";
+// A verb "to revoke permissions"
+"universal action revoke" = "Kaldır";
 
 "universal label help" = "Yardım";
 "universal label welcome" = "Hoş geldiniz!";
@@ -215,6 +217,8 @@
 "networks action use dns" = "DNS'i kullan: %@";
 "networks action use network dns" = "Ağ DNS'sini tercih et";
 "networks label specific network" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
+"networks label any wifi" = "Herhangi Kablosuz ağ";
+"networks label any mobile" = "Herhangi mobil ağ";
 "networks permission request" = "Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.";
 "networks section choose dns" = "DNS seç";
 
@@ -304,6 +308,7 @@
 "payment header activated" = "Etkinleştirildi!";
 "payment activated description" = "Blokada şimdi Plus moduna geçecek ve güvenli konumlarımızdan biri üzerinden bağlanacak. Hangisini seçeceğinizden emin değilseniz, size en yakın olanı kullanmanız önerilir.";
 "payment action choose location" = "Bir konum seçin";
+"payment action see locations" = "Konumumuz";
 
 "payment title" = "*Gizliliğinizi* kontrol altında kalmak için VPN hizmetimize yükseltin.";
 "payment feature title change location" = "Konumu Değiştirme";
@@ -353,6 +358,7 @@
 "payment label most popular" = "En popüler";
 "payment label pay with card" = "Kart ile öde";
 "payment label pay with paypal" = "PayPal ile öde";
+"payment label pay with crypto" = "Kripto para ile öde";
 "payment package one month" = "1 ay";
 "payment package six months" = "6 ay";
 "payment package twelve months" = "12 ay";
@@ -408,6 +414,9 @@
 "homepage desc community" = "Harika topluluğumuza katılın.";
 "homepage header support" = "Bizi destekle";
 "homepage desc support" = "Projeye devam etmemize yardımcı olmak için bağışta bulunun.";
+"homepage action faq" = "SSS";
+"homepage action vpn" = "VPN";
+"homepage action opinions" = "İncelemeler";
 "homepage action authors" = "Yazarlar";
 "homepage action source" = "Kaynak";
 "homepage action forums" = "Forumlar";
@@ -421,7 +430,17 @@
 "homepage about point one" = "Reklamları ve izleyicileri engeller";
 "homepage about point two" = "Tüm uygulamalar ve tarayıcılarda çalışır";
 "homepage about point three" = "Root veya jailbreak gerektirmez";
+
+"homepage about action faq" = "SSS'e bakın";
 "homepage about action plus" = "Blokada Plus hakkında daha fazla bilgi edinin";
+
+"homepage vpn title" = "Blokada 5, VPN";
+"homepage vpn point one" = "Bant genişliği kısıtlaması yok";
+"homepage vpn point two" = "Hızlı ve modern şifreleme";
+"homepage vpn point four" = "5 kadar cihazla bağlantı";
+
+"homepage faq header" = "Sıkça Sorulan Sorular";
+"homepage faq title 3" = "Blokada Plus nedir?";
 
 "homepage download header" = "Blokada'yı İndir";
 "homepage download subheader" = "Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.";

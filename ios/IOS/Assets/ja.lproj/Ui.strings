@@ -230,7 +230,7 @@
 "networks summary network dns" = "Blokada はネットワーク DNS を使用し、使用できない場合は %@ に切り替えます。また、ネットワーク DNS を使用すると、DNS は暗号化されません。ネットワーク DNS を使用すると、ネットワーク上の接続の問題を解決するのに役立ちますが、保護されていない状態になります。";
 "networks summary network dns and plus mode" = "Blokada は、ネットワーク DNS が使用されるたびに Blokada Plus VPN を一時的に無効にします。これは VPN でネットワーク DNS にアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPN は自動的に復元されます。";
 "networks summary blocka plus mode" = "Blokada は Plus モードで Blokada DNS を使用して、高いレベルの暗号化と速度を確保します。DNS 選択画面の下部でこの設定を変更できます。";
-"networks permission dialog" = "Blokada は、接続先のネットワークを認識して個別の設定を適用することができます。位置情報へのアクセス許可が必要ですが、Blokada はネットワーク名のみを読み取りその他の情報は利用しません。";
+"networks permission dialog" = "Blokada は接続先のネットワークを認識して個別の設定を適用することができます。Blokada がこの機能を有効にするためにはネットワーク名を収集する必要があり、位置情報へのアクセス許可が必要です。アプリが閉じられているか使用されていない場合でも、場合によっては位置情報へのアクセスに関するシステム通知が表示されることがあります。Blokada はネットワーク名のみを読み取りその他の情報は利用しません。";
 
 
 "account section header settings" = "設定";

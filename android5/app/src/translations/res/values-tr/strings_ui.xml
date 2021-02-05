@@ -51,6 +51,7 @@
     <string name="universal_action_search">Ara</string>
     <string name="universal_action_filter">Filtre</string>
     <string name="universal_action_clear">Temizle</string>
+    <string name="universal_action_revoke">Kaldır</string>
     <string name="universal_label_help">Yardım</string>
     <string name="universal_label_welcome">Hoş geldiniz!</string>
     <string name="universal_label_none">Hiçbiri</string>
@@ -171,6 +172,8 @@
     <string name="networks_action_use_dns">DNS\'i kullan: %s</string>
     <string name="networks_action_use_network_dns">Ağ DNS\'sini tercih et</string>
     <string name="networks_label_specific_network">Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.</string>
+    <string name="networks_label_any_wifi">Herhangi Kablosuz ağ</string>
+    <string name="networks_label_any_mobile">Herhangi mobil ağ</string>
     <string name="networks_permission_request">Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.</string>
     <string name="networks_section_choose_dns">DNS seç</string>
     <string name="account_section_header_settings">Ayarlar</string>
@@ -249,6 +252,7 @@
     <string name="payment_header_activated">Etkinleştirildi!</string>
     <string name="payment_activated_description">Blokada şimdi Plus moduna geçecek ve güvenli konumlarımızdan biri üzerinden bağlanacak. Hangisini seçeceğinizden emin değilseniz, size en yakın olanı kullanmanız önerilir.</string>
     <string name="payment_action_choose_location">Bir konum seçin</string>
+    <string name="payment_action_see_locations">Konumumuz</string>
     <string name="payment_title">*Gizliliğinizi* kontrol altında kalmak için VPN hizmetimize yükseltin.</string>
     <string name="payment_feature_title_change_location">Konumu Değiştirme</string>
     <string name="payment_feature_desc_change_location">IP adresinizi gizleyin ve başka bir ülkede olduğunuzu iddia edin. Bu sizi üçüncü taraflardan maskeleyecek ve kimliğinizi korumaya yardımcı olacaktır.</string>
@@ -292,6 +296,7 @@
     <string name="payment_label_most_popular">En popüler</string>
     <string name="payment_label_pay_with_card">Kart ile öde</string>
     <string name="payment_label_pay_with_paypal">PayPal ile öde</string>
+    <string name="payment_label_pay_with_crypto">Kripto para ile öde</string>
     <string name="payment_package_one_month">1 ay</string>
     <string name="payment_package_six_months">6 ay</string>
     <string name="payment_package_twelve_months">12 ay</string>
@@ -340,6 +345,9 @@
     <string name="homepage_desc_community">Harika topluluğumuza katılın.</string>
     <string name="homepage_header_support">Bizi destekle</string>
     <string name="homepage_desc_support">Projeye devam etmemize yardımcı olmak için bağışta bulunun.</string>
+    <string name="homepage_action_faq">SSS</string>
+    <string name="homepage_action_vpn">VPN</string>
+    <string name="homepage_action_opinions">İncelemeler</string>
     <string name="homepage_action_authors">Yazarlar</string>
     <string name="homepage_action_source">Kaynak</string>
     <string name="homepage_action_forums">Forumlar</string>
@@ -353,7 +361,14 @@
     <string name="homepage_about_point_one">Reklamları ve izleyicileri engeller</string>
     <string name="homepage_about_point_two">Tüm uygulamalar ve tarayıcılarda çalışır</string>
     <string name="homepage_about_point_three">Root veya jailbreak gerektirmez</string>
+    <string name="homepage_about_action_faq">SSS\'e bakın</string>
     <string name="homepage_about_action_plus">Blokada Plus hakkında daha fazla bilgi edinin</string>
+    <string name="homepage_vpn_title">Blokada 5, VPN</string>
+    <string name="homepage_vpn_point_one">Bant genişliği kısıtlaması yok</string>
+    <string name="homepage_vpn_point_two">Hızlı ve modern şifreleme</string>
+    <string name="homepage_vpn_point_four">5 kadar cihazla bağlantı</string>
+    <string name="homepage_faq_header">Sıkça Sorulan Sorular</string>
+    <string name="homepage_faq_title_three">Blokada Plus nedir?</string>
     <string name="homepage_download_header">Blokada\'yı İndir</string>
     <string name="homepage_download_subheader">Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.</string>
     <string name="homepage_download_option_android_five">Android için Blokada 5</string>
