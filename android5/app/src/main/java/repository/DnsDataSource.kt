@@ -94,15 +94,6 @@ object DnsDataSource {
             ips = listOf("46.182.19.48", "46.182.19.48"),
             label = "Digitalcourage"
         ),
-        Dns(
-            id = "dnsforge",
-            ips = listOf("176.9.93.198", "176.9.1.117", "2a01:4f8:151:34aa::198", "2a01:4f8:141:316d::117"),
-            port = 443,
-            name = "dnsforge.de",
-            path = "dns-query",
-            label = "DNS Forge",
-            region = "europe"
-        ),
         Dns.plaintextDns(
             id = "dnswatch",
             ips = listOf("84.200.69.80", "84.200.70.40"),
@@ -125,16 +116,6 @@ object DnsDataSource {
             name = "dns.digitale-gesellschaft.ch",
             path = "dns-query",
             label = "Digitale Gesellschaft (Switzerland)",
-            canUseInCleartext = false,
-            region = "europe"
-        ),
-        Dns(
-            id = "freifunk",
-            ips = listOf("5.1.66.255", "2001:678:e68:f000::"),
-            port = 443,
-            name = "doh.ffmuc.net",
-            path = "dns-query",
-            label = "Freifunk Munich DNS",
             canUseInCleartext = false,
             region = "europe"
         ),
