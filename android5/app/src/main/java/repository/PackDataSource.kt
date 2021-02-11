@@ -18,7 +18,18 @@ object PackDataSource {
 
     // Copypasted and adapted from iOS
     fun getPacks() = listOf(
-        Pack.mocked(id = "energized", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"),
+        Pack.mocked(id = "oisd", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"),
+            title = "OISD",
+            slugline = "A good, small, general purpose blocklist",
+            description = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
+            creditName = "sjhgvr",
+            creditUrl = "https://go.blokada.org/oisd",
+            configs = listOf("Light")
+        )
+            .changeStatus(config = "Light")
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor = "Light")),
+
+        Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"),
             title = "Energized",
             slugline = "Ads and trackers blocking list",
             description = "This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave.",
@@ -122,17 +133,6 @@ object PackDataSource {
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/exodusprivacy/standard/hosts.txt", applyFor = "Standard")),
 
-        Pack.mocked(id = "oisd", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"),
-            title = "OISD",
-            slugline = "A good, small, general purpose blocklist",
-            description = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
-            creditName = "sjhgvr",
-            creditUrl = "https://go.blokada.org/oisd",
-            configs = listOf("Light")
-        )
-            .changeStatus(config = "Light")
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor = "Light")),
-
         Pack.mocked(id = "developerdan", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social"),
             title = "Developer Dan's Hosts",
             slugline = "A blocklist for ads and tracking, updated regularly",
@@ -146,5 +146,33 @@ object PackDataSource {
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/developerdan/facebook/hosts.txt", applyFor = "Facebook"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/developerdan/amp/hosts.txt", applyFor = "AMP"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/developerdan/junk/hosts.txt", applyFor = "Hate & Junk")),
+
+        Pack.mocked(id = "blocklist", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social", "youtube", "adult"),
+            title = "The Block List Project",
+            slugline = "A collection of blocklists for various use cases.",
+            description = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.",
+            creditName = "blocklistproject",
+            creditUrl = "https://go.blokada.org/blocklistproject",
+            configs = listOf("Ads", "Facebook", "Malware", "Phishing", "Adult", "Tracking", "YouTube")
+        )
+            .changeStatus(config = "Ads")
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/ads/hosts.txt", applyFor = "Ads"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/facebook/hosts.txt", applyFor = "Facebook"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/malware/hosts.txt", applyFor = "Malware"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/phishing/hosts.txt", applyFor = "Phishing"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/porn/hosts.txt", applyFor = "Adult"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/tracking/hosts.txt", applyFor = "Tracking"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/youtube/hosts.txt", applyFor = "YouTube")),
+
+        Pack.mocked(id = "spam404", tags = listOf(Pack.recommended, Pack.official, "privacy", "phishing", "security"),
+            title = "Spam404",
+            slugline = "A blocklist based on spam reports",
+            description = "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.",
+            creditName = "spam404",
+            creditUrl = "https://go.blokada.org/spam404",
+            configs = listOf("Standard")
+        )
+            .changeStatus(config = "Standard")
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/spam404/standard/hosts.txt", applyFor = "Standard"))
     )
 }

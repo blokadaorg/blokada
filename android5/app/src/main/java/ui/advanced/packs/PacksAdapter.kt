@@ -90,6 +90,8 @@ class PacksAdapter(private val interaction: Interaction? = null) :
             "exodusprivacy" -> R.drawable.feature_exodusprivacy
             "oisd" -> R.drawable.feature_oisd
             "developerdan" -> R.drawable.feature_developerdan
+            "blocklist" -> R.drawable.feature_blocklist
+            "spam404" -> R.drawable.feature_spam404
             else -> R.drawable.feature_phishingarmy // TODO placeholder
         }
     }
