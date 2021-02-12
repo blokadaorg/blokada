@@ -103,6 +103,6 @@ object StatsService {
 
 // XXX: a proper solution would be to configure Moshi to handle Object as a key
 private typealias StatsPersistedKey = String
-private fun String.host(): Host = this.substringBefore(";")
-private fun String.type(): HistoryEntryType = HistoryEntryType.valueOf(this.substringAfter(";"))
+private fun String.host(): Host = this.substringBeforeLast(";")
+private fun String.type(): HistoryEntryType = HistoryEntryType.valueOf(this.substringAfterLast(";"))
 private fun statsPersistedKey(host: Host, type: HistoryEntryType) = "$host;$type"
