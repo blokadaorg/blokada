@@ -217,7 +217,7 @@
 "networks action use dns" = "DNS'i kullan: %@";
 "networks action use network dns" = "Ağ DNS'sini tercih et";
 "networks label specific network" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
-"networks label any wifi" = "Herhangi Kablosuz ağ";
+"networks label any wifi" = "Herhangi kablosuz ağ";
 "networks label any mobile" = "Herhangi mobil ağ";
 "networks permission request" = "Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.";
 "networks section choose dns" = "DNS seç";

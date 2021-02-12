@@ -213,6 +213,7 @@
 "networks label configuration active" = "Estos ajustes están actualmente activos";
 "networks label configuration enabled" = "No estás conectado a esta red";
 "networks label configuration inactive" = "Toca para modificar la configuración de esta red";
+"networks label details default network" = "Los siguientes ajustes se aplican por defecto para todas las redes. Puede anularlos para las redes seleccionadas (en la pantalla anterior).";
 "networks action encrypt dns" = "Encriptar DNS";
 "networks action use dns" = "Usar DNS: %@";
 "networks action use network dns" = "Preferir red DNS";
@@ -228,6 +229,7 @@
 "networks summary network dns" = "Blokada utilizará el DNS de la red si está disponible, o cambiará a %@ de lo contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar el DNS de la red ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.";
 "networks summary network dns and plus mode" = "Blokada desactivará temporalmente el modo Plus cuando se utilice DNS de red. Esto es porque no es posible acceder a DNS de red en VPN. El modo Plus se restaurará automáticamente cuando el dispositivo cambie a otra red.";
 "networks summary blocka plus mode" = "Blokada usará Blokada DNS en modo Plus, para asegurar un alto nivel de cifrado y velocidad. Puede cambiar esta configuración en la parte inferior de la pantalla Elegir DNS.";
+"networks permission dialog" = "Blokada puede reconocer las redes a las que se conecta y le permite configurar configuraciones separadas para ellas. Sin embargo, esta aplicación recopilará datos de ubicación en forma de nombre de red, para activar esta función incluso cuando la aplicación está cerrada o no está en uso. A veces puede ver una notificación del sistema sobre el acceso a la ubicación - Blokada sólo leerá el nombre de la red.";
 
 
 "account section header settings" = "Configuración";
@@ -338,6 +340,7 @@
 "payment alert error header" = "Un mensaje de App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Estás ahorrando %@";
+"payment conversion note" = "Aceptamos euros y los precios mostrados son una estimación, un reembolso está disponible si sus cargos bancarios son excesivos.";
 
 "payment subscription 1 month" = "1 mes";
 "payment subscription many months" = "%@ meses";

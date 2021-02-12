@@ -168,6 +168,7 @@
     <string name="networks_label_configuration_active">Estos ajustes están actualmente activos</string>
     <string name="networks_label_configuration_enabled">No estás conectado a esta red</string>
     <string name="networks_label_configuration_inactive">Toca para modificar la configuración de esta red</string>
+    <string name="networks_label_details_default_network">Los siguientes ajustes se aplican por defecto para todas las redes. Puede anularlos para las redes seleccionadas (en la pantalla anterior).</string>
     <string name="networks_action_encrypt_dns">Encriptar DNS</string>
     <string name="networks_action_use_dns">Usar DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferir red DNS</string>
@@ -183,6 +184,7 @@
     <string name="networks_summary_network_dns">Blokada utilizará el DNS de la red si está disponible, o cambiará a %s de lo contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar el DNS de la red ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada desactivará temporalmente el modo Plus cuando se utilice DNS de red. Esto es porque no es posible acceder a DNS de red en VPN. El modo Plus se restaurará automáticamente cuando el dispositivo cambie a otra red.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada usará Blokada DNS en modo Plus, para asegurar un alto nivel de cifrado y velocidad. Puede cambiar esta configuración en la parte inferior de la pantalla Elegir DNS.</string>
+    <string name="networks_permission_dialog">Blokada puede reconocer las redes a las que se conecta y le permite configurar configuraciones separadas para ellas. Sin embargo, esta aplicación recopilará datos de ubicación en forma de nombre de red, para activar esta función incluso cuando la aplicación está cerrada o no está en uso. A veces puede ver una notificación del sistema sobre el acceso a la ubicación - Blokada sólo leerá el nombre de la red.</string>
     <string name="account_section_header_settings">Configuración</string>
     <string name="account_status_text">Tu cuenta de BLOKADA %s está activa hasta %s.</string>
     <string name="account_status_text_libre">Tu cuenta de BLOKADA Libre está activa para siempre.</string>
@@ -280,6 +282,7 @@
     <string name="payment_action_policy">Política de privacidad</string>
     <string name="payment_alert_error_header">Un mensaje de App Store</string>
     <string name="payment_save_text">Estás ahorrando %s</string>
+    <string name="payment_conversion_note">Aceptamos euros y los precios mostrados son una estimación, un reembolso está disponible si sus cargos bancarios son excesivos.</string>
     <string name="payment_subscription_one_month">1 mes</string>
     <string name="payment_subscription_many_months">%s meses</string>
     <string name="payment_subscription_per_month">%s por mes</string>

@@ -172,7 +172,7 @@
     <string name="networks_action_use_dns">DNS\'i kullan: %s</string>
     <string name="networks_action_use_network_dns">Ağ DNS\'sini tercih et</string>
     <string name="networks_label_specific_network">Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.</string>
-    <string name="networks_label_any_wifi">Herhangi Kablosuz ağ</string>
+    <string name="networks_label_any_wifi">Herhangi kablosuz ağ</string>
     <string name="networks_label_any_mobile">Herhangi mobil ağ</string>
     <string name="networks_permission_request">Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.</string>
     <string name="networks_section_choose_dns">DNS seç</string>
