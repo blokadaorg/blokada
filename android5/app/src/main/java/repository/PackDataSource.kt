@@ -147,20 +147,19 @@ object PackDataSource {
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/developerdan/amp/hosts.txt", applyFor = "AMP"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/developerdan/junk/hosts.txt", applyFor = "Hate & Junk")),
 
-        Pack.mocked(id = "blocklist", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social", "youtube", "adult"),
+        Pack.mocked(id = "blocklist", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social", "youtube"),
             title = "The Block List Project",
             slugline = "A collection of blocklists for various use cases.",
             description = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.",
             creditName = "blocklistproject",
             creditUrl = "https://go.blokada.org/blocklistproject",
-            configs = listOf("Ads", "Facebook", "Malware", "Phishing", "Adult", "Tracking", "YouTube")
+            configs = listOf("Ads", "Facebook", "Malware", "Phishing", "Tracking", "YouTube")
         )
             .changeStatus(config = "Ads")
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/ads/hosts.txt", applyFor = "Ads"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/facebook/hosts.txt", applyFor = "Facebook"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/malware/hosts.txt", applyFor = "Malware"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/phishing/hosts.txt", applyFor = "Phishing"))
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/porn/hosts.txt", applyFor = "Adult"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/tracking/hosts.txt", applyFor = "Tracking"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/blocklist/youtube/hosts.txt", applyFor = "YouTube")),
 
