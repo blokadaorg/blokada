@@ -1,5 +1,8 @@
 Block ads without killing the battery
 
+From now on, Blokada 5 is the recommended version for all new and existing users. 
+(https://f-droid.org/en/packages/org.blokada.fem.fdroid/)
+
 Try the new version of Blokada to experience even higher level of stability,
 speed and battery efficiency of one of the best ad blockers out there!
 
