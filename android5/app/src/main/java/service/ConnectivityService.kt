@@ -176,12 +176,10 @@ object ConnectivityService {
                     // This assumes there is only one active WiFi network at a time
                     var name: String? = wifiManager.connectionInfo.ssid.trim('"')
                     if (name == WifiManager.UNKNOWN_SSID) {
-                        log.v("Wifi network got null ssid")
                         name = null
                     } // No perms in bg, we'll try next time
 
                     if (name == null) {
-                        log.v("WiFi network has null ssid")
                         // Of course, this being Android, there are some weird cases in the wild
                         // where we get null despite having the perms. Try to use a fallback.
                         val networkId = wifiManager.connectionInfo.networkId

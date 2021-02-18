@@ -26,6 +26,7 @@ import org.pcap4j.util.PropertiesLoader
 import java.io.*
 import java.net.*
 import java.nio.ByteBuffer
+import kotlin.experimental.xor
 
 
 internal class PacketLoopForLibre (
@@ -91,20 +92,16 @@ internal class PacketLoopForLibre (
         }
 
         if (originEnvelope.payload !is UdpPacket) {
-            //log.w("Expected UdpPacket but got something else")
+            // Expected UdpPacket but got something else
+            return
+        }
+
+        if (originEnvelope.header.dstAddr.address[3] == 0xFF.toByte()) {
+            // Do not forward broadcasts, we are just supposed to handle DNS here
             return
         }
 
         val udp = originEnvelope.payload as UdpPacket
-
-        if (udp.payload == null) {
-            // Some apps use empty UDP packets for something good
-            log.w("Empty udp packets not handled")
-//            val proxiedUdp = DatagramPacket(ByteArray(0), 0, 0, destination.getAddress(),
-//                udp.header.dstPort.valueAsInt())
-//            forward(proxiedUdp)
-            return
-        }
 
         val proxiedDns = DatagramPacket(udp.payload.rawData, 0, udp.payload.length(),
             originEnvelope.header.dstAddr,
