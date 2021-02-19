@@ -10,3 +10,5 @@ zip -e default_blocklist.zip default_blocklist
 rm default_blocklist
 cd ../../../../
 echo "Done"
+git add .
+git ci -am "sync: update default blocklist"
