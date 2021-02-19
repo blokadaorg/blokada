@@ -153,9 +153,6 @@
     <string name="activity_category_top_blocked">Nejvíce blokováno</string>
     <string name="activity_category_top_allowed">Nejvíce povoleno</string>
     <string name="activity_filter_header">Které položky chcete vidět?</string>
-    <string name="activity_filter_show_all">Zobrazit všechny položky</string>
-    <string name="activity_filter_show_blocked">Zobrazit pouze blokované</string>
-    <string name="activity_filter_show_allowed">Zobrazit pouze povolené</string>
     <string name="activity_empty_text">Zkuste použít své zařízení a vraťte se sem později, abyste zjistili, kam se vaše zařízení připojuje.</string>
     <string name="userdenied_section_header">Moje seznamy hostitelů</string>
     <string name="userdenied_section_slugline">Spravovat blokování konkrétních webových stránek</string>
@@ -319,9 +316,6 @@
     <string name="apps_label_system">Systémové</string>
     <string name="apps_status_bypassed">(vyloučené)</string>
     <string name="apps_filter_header">Které aplikace chcete vidět?</string>
-    <string name="apps_filter_action_show_all">Zobrazit všechny aplikace</string>
-    <string name="apps_filter_action_show_bypassed">Zobrazit pouze vyloučené</string>
-    <string name="apps_filter_action_show_not_bypassed">Zobrazit pouze nevyloučené</string>
     <string name="apps_filter_action_toggle_system">Přepnout všechny systémové aplikace</string>
     <string name="app_settings_section_header">Toto zařízení</string>
     <string name="app_settings_language_label">Jazyk</string>
@@ -381,7 +375,6 @@
     <string name="homepage_vpn_point_two">Rychlé &amp; moderní šifrování</string>
     <string name="homepage_vpn_point_three">Nezaznamenává vaše aktivity na síti</string>
     <string name="homepage_vpn_point_four">Připojte až 5 zařízení</string>
-    <string name="homepage_vpn_credit">WireGuard je zapsaná ochranná známka Jasona A. Donenfelda</string>
     <string name="homepage_faq_header">Často kladené otázky (FAQ)</string>
     <string name="homepage_faq_action_more">Zobrazit další FAQ</string>
     <string name="homepage_faq_title_one">Jaké informace Blokada uchovává?</string>

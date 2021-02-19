@@ -172,9 +172,6 @@
 "activity category top blocked" = "Eniten estetyt";
 "activity category top allowed" = "Eniten sallitut";
 "activity filter header" = "Mitä merkintöjä haluaisit nähdä?";
-"activity filter show all" = "Näytä kaikki merkinnät";
-"activity filter show blocked" = "Näytä vain estetyt";
-"activity filter show allowed" = "Näytä vain sallitut";
 "activity empty text" = "Kokeile käyttää laitettasi ja palaa tänne myöhemmin nähdäksesi, mihin laitteesi yhdistää.";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Estetty";
@@ -282,9 +279,6 @@
 "apps label system" = "Järjestelmä";
 "apps status bypassed" = "(ohitettu)";
 "apps filter header" = "Mitä sovelluksia haluaisit nähdä?";
-"apps filter action show all" = "Näytä kaikki sovellukset";
-"apps filter action show bypassed" = "Näytä vain ohitetut";
-"apps filter action show not bypassed" = "Näytä vain ohittamatta jätetyt";
 "apps filter action toggle system" = "Vaihda kaikki järjestelmän sovellukset";
 
 "app settings section header" = "Tämä laite";

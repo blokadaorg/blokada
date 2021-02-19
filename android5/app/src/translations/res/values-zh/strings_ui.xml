@@ -153,10 +153,11 @@
     <string name="activity_category_top_blocked">阻擋最多次</string>
     <string name="activity_category_top_allowed">允許最多次</string>
     <string name="activity_filter_header">您想查看哪些項目？</string>
-    <string name="activity_filter_show_all">顯示所有項目</string>
-    <string name="activity_filter_show_blocked">僅顯示已阻擋</string>
-    <string name="activity_filter_show_allowed">僅顯示已允許</string>
+    <string name="activity_filter_show_all">所有項目</string>
+    <string name="activity_filter_show_blocked">只有阻擋項目</string>
+    <string name="activity_filter_show_allowed">只有允許項目</string>
     <string name="activity_empty_text">嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。</string>
+    <string name="activity_device_filter_show_all">所有裝置</string>
     <string name="userdenied_section_header">我的阻擋清單</string>
     <string name="userdenied_section_slugline">管理對特定網站的封鎖</string>
     <string name="userdenied_tab_allowed">使用者允許</string>
@@ -249,6 +250,7 @@
     <string name="account_lease_label_this_device">（此裝置）</string>
     <string name="account_lease_label_name">裝置名稱</string>
     <string name="account_lease_label_location">位置</string>
+    <string name="account_lease_label_generate">產生能用於 WireGuard 的組態設定檔</string>
     <string name="account_lease_action_generate">生成設定</string>
     <string name="account_lease_action_download">下載設定</string>
     <string name="account_lease_generated">已新增裝置！下載設定以在任何支援 Wireguard 的裝置上使用。</string>
@@ -319,9 +321,9 @@
     <string name="apps_label_system">系統</string>
     <string name="apps_status_bypassed">（已繞過）</string>
     <string name="apps_filter_header">您想查看哪些應用程式？</string>
-    <string name="apps_filter_action_show_all">顯示所有應用程式</string>
-    <string name="apps_filter_action_show_bypassed">只顯示繞過的應用程式</string>
-    <string name="apps_filter_action_show_not_bypassed">只顯示未繞過的應用程式</string>
+    <string name="apps_filter_action_show_all">所有 App</string>
+    <string name="apps_filter_action_show_bypassed">只有繞過的 App</string>
+    <string name="apps_filter_action_show_not_bypassed">只有沒繞過的 App</string>
     <string name="apps_filter_action_toggle_system">切換所有系統 App</string>
     <string name="app_settings_section_header">這台裝置</string>
     <string name="app_settings_language_label">語言</string>
@@ -381,7 +383,7 @@
     <string name="homepage_vpn_point_two">快速且現代的加密方式</string>
     <string name="homepage_vpn_point_three">不會記錄您的網路活動</string>
     <string name="homepage_vpn_point_four">最多可以連線 5 台裝置</string>
-    <string name="homepage_vpn_credit">WireGuard 是 Jason A. Donenfeld 的註冊商標</string>
+    <string name="homepage_vpn_credit">「WireGuard」和「Wireguard」標誌是 Jason A. Donenfeld 的註冊商標。</string>
     <string name="homepage_faq_header">常見問題</string>
     <string name="homepage_faq_action_more">查閱更多 FAQ</string>
     <string name="homepage_faq_title_one">Blokada 保留哪些資訊？</string>

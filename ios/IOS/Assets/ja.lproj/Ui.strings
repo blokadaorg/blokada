@@ -156,8 +156,8 @@
 "pack category active" = "有効";
 "pack category all" = "すべて";
 
-"advanced section header packs" = "フィルター";
-"advanced section slugline packs" = "ブロックに利用するフィルターを管理する";
+"advanced section header packs" = "ブロックリスト";
+"advanced section slugline packs" = "ブロックに利用するリストを管理する";
 "advanced section slugline apps" = "アプリのバイパスを管理する";
 "advanced section slugline encryption" = "暗号化レベルと DNS を管理する";
 "advanced action slim migrate to full" = "Blokada Slim を使用しています。詳細はこちら";
@@ -194,11 +194,12 @@
 "activity category top" = "回数";
 "activity category top blocked" = "ブロック回数";
 "activity category top allowed" = "許可回数";
-"activity filter header" = "表示するエントリを選択";
+"activity filter header" = "表示するアクティビティを選択";
 "activity filter show all" = "すべて";
-"activity filter show blocked" = "ブロックされたエントリ";
-"activity filter show allowed" = "許可されたエントリ";
+"activity filter show blocked" = "ブロックされた通信";
+"activity filter show allowed" = "許可された通信";
 "activity empty text" = "デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。";
+"activity device filter show all" = "すべてのデバイス";
 
 "userdenied section header" = "マイ・リスト";
 "userdenied section slugline" = "ブロック・許可したサイトを管理する";
@@ -304,6 +305,7 @@
 "account lease label this device" = " （このデバイス）";
 "account lease label name" = "デバイス名";
 "account lease label location" = "接続先";
+"account lease label generate" = "WireGuard で使用する設定ファイルを作成する";
 "account lease action generate" = "設定を作成する";
 "account lease action download" = "設定をダウンロード";
 "account lease generated" = "デバイスが追加されました！設定をダウンロードして、Wireguardでサポートされているすべてのデバイスで使用できます。";
@@ -384,7 +386,7 @@
 "apps label system" = "システム";
 "apps status bypassed" = "（バイパス済み）";
 "apps filter header" = "どのアプリを表示しますか？";
-"apps filter action show all" = "すべてのアプリを表示";
+"apps filter action show all" = "すべて";
 "apps filter action show bypassed" = "バイパスされたアプリ";
 "apps filter action show not bypassed" = "バイパスされていないアプリ";
 "apps filter action toggle system" = "すべてのシステムアプリを切り替える";
@@ -405,7 +407,7 @@
 "app settings action notifications" = "通知設定";
 "app settings section details" = "詳細";
 "app settings status default" = "システムのデフォルト";
-"app settings start on boot" = "デバイス起動時に Blokada を開始する";
+"app settings start on boot" = "デバイス起動時に Blokada を開始";
 "app settings use dns over https" = "DNS over HTTPS を利用する";
 "app settings backup" = "クラウドバックアップ";
 "app settings section advanced" = "詳細";
@@ -454,7 +456,7 @@
 "homepage vpn point two" = "高速で最先端の暗号化";
 "homepage vpn point three" = "アクティビティ ログの保存なし";
 "homepage vpn point four" = "デバイス最大 5 台に接続";
-"homepage vpn credit" = "WireGuard は Jason A. Donenfeld の登録商標です";
+"homepage vpn credit" = "「WireGuard」と「Wireguard」ロゴは Jason A. Donenfeld の登録商標です。";
 
 "homepage faq header" = "よくある質問";
 "homepage faq action more" = "よくある質問を見る";

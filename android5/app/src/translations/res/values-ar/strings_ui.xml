@@ -153,10 +153,11 @@
     <string name="activity_category_top_blocked">الأكثر حَظراً</string>
     <string name="activity_category_top_allowed">الأكثر سماحاً</string>
     <string name="activity_filter_header">ما هي الإدخالات التي ترغب في رؤيتها؟</string>
-    <string name="activity_filter_show_all">إظهار كافّة الإدخالات</string>
-    <string name="activity_filter_show_blocked">إظهار المحظور فقط</string>
-    <string name="activity_filter_show_allowed">إظهار المسموح به فقط</string>
+    <string name="activity_filter_show_all">جميع المدخلات</string>
+    <string name="activity_filter_show_blocked">محظور فقط</string>
+    <string name="activity_filter_show_allowed">مسموح فقط</string>
     <string name="activity_empty_text">حاول استخدام جهازك، و العودة إلى هنا لاحقاً، لمعرفة من أين يتّصل جهازك.</string>
+    <string name="activity_device_filter_show_all">جميع الأجهزة</string>
     <string name="userdenied_section_header">قوائم الحظر الخاصّة بي</string>
     <string name="userdenied_section_slugline">إدارة حظر مواقع ويب معيَّنة</string>
     <string name="userdenied_tab_allowed">المسموح به</string>
@@ -249,6 +250,7 @@
     <string name="account_lease_label_this_device"> (هذا الجهاز)</string>
     <string name="account_lease_label_name">اسم الجهاز</string>
     <string name="account_lease_label_location">الموقع</string>
+    <string name="account_lease_label_generate">إنشاء ملف تكوين لاستخدامه مع WireGuard</string>
     <string name="account_lease_action_generate">إعدادات الإنشاء</string>
     <string name="account_lease_action_download">إعدادات التحميل</string>
     <string name="account_lease_generated">تم إضافة الجهاز ! قُم بتحميل الإعدادات لاستخدامها على أي جهاز مدعوم من Wireguard.</string>
@@ -319,9 +321,9 @@
     <string name="apps_label_system">النظام</string>
     <string name="apps_status_bypassed">(تمَّ التجاوز)</string>
     <string name="apps_filter_header">ما هي التطبيقات التي ترغب في رؤيتها؟</string>
-    <string name="apps_filter_action_show_all">إظهار جميع التطبيقات</string>
-    <string name="apps_filter_action_show_bypassed">إظهار التجاوز فقط</string>
-    <string name="apps_filter_action_show_not_bypassed">إظهار عدم التجاوز فقط</string>
+    <string name="apps_filter_action_show_all">جميع التطبيقات</string>
+    <string name="apps_filter_action_show_bypassed">تمّ تجاوزه فقط</string>
+    <string name="apps_filter_action_show_not_bypassed">لم يتمّ تجاوزه فقط</string>
     <string name="apps_filter_action_toggle_system">تحديد كافة تطبيقات النظام</string>
     <string name="app_settings_section_header">هذا الجهاز</string>
     <string name="app_settings_language_label">اللُّغة</string>
@@ -381,7 +383,7 @@
     <string name="homepage_vpn_point_two">تشفير سريع و حديث</string>
     <string name="homepage_vpn_point_three">لا يوجد تسجيل لنشاط الشبكة الخاصّ بك</string>
     <string name="homepage_vpn_point_four">قم بتوصيل ما يصل إلى 5 أجهزة</string>
-    <string name="homepage_vpn_credit">WireGuard هي علامة تجاريّة مسجّلة لـ Jason A. Donenfeld</string>
+    <string name="homepage_vpn_credit">\'WireGuard\' و شعار \'Wireguard\' علامات تجاريّة مسجّلة لـ Jason A. Donenfeld.</string>
     <string name="homepage_faq_header">الأسئلة الشائعة</string>
     <string name="homepage_faq_action_more">مشاهدة المزيد من الأسئلة الشائعة</string>
     <string name="homepage_faq_title_one">ما هي المعلومات التي يحتفظ بها بلوكادا؟</string>

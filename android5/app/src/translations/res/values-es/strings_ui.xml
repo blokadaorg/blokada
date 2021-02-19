@@ -153,10 +153,11 @@
     <string name="activity_category_top_blocked">Más bloqueadas</string>
     <string name="activity_category_top_allowed">Más permitidas</string>
     <string name="activity_filter_header">¿Qué entradas te gustaría ver?</string>
-    <string name="activity_filter_show_all">Mostrar todas las entradas</string>
-    <string name="activity_filter_show_blocked">Mostrar solo bloqueadas</string>
-    <string name="activity_filter_show_allowed">Mostrar solo permitidas</string>
+    <string name="activity_filter_show_all">Todas las entradas</string>
+    <string name="activity_filter_show_blocked">Solo bloqueado</string>
+    <string name="activity_filter_show_allowed">Solo permitido</string>
     <string name="activity_empty_text">Intenta usar tu dispositivo y vuelve aquí más tarde, para ver a dónde se conecta tu dispositivo.</string>
+    <string name="activity_device_filter_show_all">Todos los dispositivos</string>
     <string name="userdenied_section_header">Mis listas de bloqueo</string>
     <string name="userdenied_section_slugline">Administrar bloqueo de sitios web particulares</string>
     <string name="userdenied_tab_allowed">Permitido</string>
@@ -249,6 +250,7 @@
     <string name="account_lease_label_this_device"> (este dispositivo)</string>
     <string name="account_lease_label_name">Nombre del dispositivo</string>
     <string name="account_lease_label_location">Ubicación</string>
+    <string name="account_lease_label_generate">Generar un archivo de configuración para usar con WireGuard</string>
     <string name="account_lease_action_generate">Generar configuración</string>
     <string name="account_lease_action_download">Descargar configuración</string>
     <string name="account_lease_generated">¡Dispositivo añadido! Descarga la configuración para usarla en cualquier dispositivo soportado por Wireguard.</string>
@@ -319,9 +321,9 @@
     <string name="apps_label_system">Sistema</string>
     <string name="apps_status_bypassed">(omitidas)</string>
     <string name="apps_filter_header">¿Qué aplicaciones te gustaría ver?</string>
-    <string name="apps_filter_action_show_all">Mostrar todas</string>
-    <string name="apps_filter_action_show_bypassed">Solo mostrar omitidas</string>
-    <string name="apps_filter_action_show_not_bypassed">Solo mostrar no omitidas</string>
+    <string name="apps_filter_action_show_all">Todas las aplicaciones</string>
+    <string name="apps_filter_action_show_bypassed">Solo omitido</string>
+    <string name="apps_filter_action_show_not_bypassed">Solo no omitido</string>
     <string name="apps_filter_action_toggle_system">Filtrar todas las aplicaciones del sistema</string>
     <string name="app_settings_section_header">Este dispositivo</string>
     <string name="app_settings_language_label">Idioma</string>
@@ -381,7 +383,7 @@
     <string name="homepage_vpn_point_two">Cifrado rápido y moderno</string>
     <string name="homepage_vpn_point_three">No hay registro de la actividad de su red</string>
     <string name="homepage_vpn_point_four">Conecte hasta 5 dispositivos</string>
-    <string name="homepage_vpn_credit">WireGuard es una marca registrada de Jason A. Donenfeld</string>
+    <string name="homepage_vpn_credit">\'WireGuard\' y el logotipo de \'Wireguard\' son marcas comerciales registradas de Jason A. Donenfeld.</string>
     <string name="homepage_faq_header">Preguntas frecuentes (FAQ)</string>
     <string name="homepage_faq_action_more">Ver más preguntas frecuentes (FAQ)</string>
     <string name="homepage_faq_title_one">¿Qué información conserva Blokada?</string>

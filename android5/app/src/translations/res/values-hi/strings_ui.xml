@@ -118,9 +118,6 @@
     <string name="activity_category_top_blocked">शीर्ष अवरुद्ध</string>
     <string name="activity_category_top_allowed">शीर्ष अनुमति</string>
     <string name="activity_filter_header">आप कौन सी प्रविष्टियाँ देखना चाहेंगे?</string>
-    <string name="activity_filter_show_all">सभी प्रविष्टियाँ दिखाएँ</string>
-    <string name="activity_filter_show_blocked">केवल अवरुद्ध दिखाएं</string>
-    <string name="activity_filter_show_allowed">केवल दिखाने की अनुमति है</string>
     <string name="userdenied_tab_blocked">अवरुद्ध</string>
     <string name="account_section_header_settings">सैटिंग्स</string>
     <string name="account_status_text">आपका BLOKADA%s खाता %s तक सक्रिय है।</string>

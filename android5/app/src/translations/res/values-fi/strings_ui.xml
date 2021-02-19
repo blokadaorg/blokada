@@ -135,9 +135,6 @@
     <string name="activity_category_top_blocked">Eniten estetyt</string>
     <string name="activity_category_top_allowed">Eniten sallitut</string>
     <string name="activity_filter_header">Mitä merkintöjä haluaisit nähdä?</string>
-    <string name="activity_filter_show_all">Näytä kaikki merkinnät</string>
-    <string name="activity_filter_show_blocked">Näytä vain estetyt</string>
-    <string name="activity_filter_show_allowed">Näytä vain sallitut</string>
     <string name="activity_empty_text">Kokeile käyttää laitettasi ja palaa tänne myöhemmin nähdäksesi, mihin laitteesi yhdistää.</string>
     <string name="userdenied_tab_blocked">Estetty</string>
     <string name="account_section_header_settings">Asetukset</string>
@@ -230,9 +227,6 @@
     <string name="apps_label_system">Järjestelmä</string>
     <string name="apps_status_bypassed">(ohitettu)</string>
     <string name="apps_filter_header">Mitä sovelluksia haluaisit nähdä?</string>
-    <string name="apps_filter_action_show_all">Näytä kaikki sovellukset</string>
-    <string name="apps_filter_action_show_bypassed">Näytä vain ohitetut</string>
-    <string name="apps_filter_action_show_not_bypassed">Näytä vain ohittamatta jätetyt</string>
     <string name="apps_filter_action_toggle_system">Vaihda kaikki järjestelmän sovellukset</string>
     <string name="app_settings_section_header">Tämä laite</string>
     <string name="app_settings_language_label">Kieli</string>

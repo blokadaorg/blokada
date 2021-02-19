@@ -100,9 +100,6 @@
     <string name="activity_happened_many_times">%s alkalommal</string>
     <string name="activity_category_recent">Legutóbbi</string>
     <string name="activity_filter_header">Melyik bejegyzéseket szeretnéd látni?</string>
-    <string name="activity_filter_show_all">Minden bejegyzést</string>
-    <string name="activity_filter_show_blocked">Csak a blokkoltat</string>
-    <string name="activity_filter_show_allowed">Csak az engedélyezettet</string>
     <string name="userdenied_tab_blocked">Reklám szűrve</string>
     <string name="account_section_header_settings">Beállítások</string>
     <string name="account_status_text">A BLOKADA %s fiókod aktív eddig: %s.</string>

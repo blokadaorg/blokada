@@ -153,9 +153,6 @@
     <string name="activity_category_top_blocked">En Çok Engellenen</string>
     <string name="activity_category_top_allowed">En Çok İzin Verilen</string>
     <string name="activity_filter_header">Hangi girişleri görmek istersiniz?</string>
-    <string name="activity_filter_show_all">Tüm girdileri göster</string>
-    <string name="activity_filter_show_blocked">Yalnızca engellenenleri göster</string>
-    <string name="activity_filter_show_allowed">Yalnızca izin verilenleri göster</string>
     <string name="activity_empty_text">Cihazınızı kullanmayı deneyin ve cihazınızın nereye bağlandığını görmek için daha sonra buraya tekrar gelin.</string>
     <string name="userdenied_section_header">Engelleme listelerim</string>
     <string name="userdenied_section_slugline">Belirli web sitelerinin engellenmesini yönetin</string>
@@ -309,9 +306,6 @@
     <string name="apps_label_system">Sistem</string>
     <string name="apps_status_bypassed">(atlandı)</string>
     <string name="apps_filter_header">Hangi uygulamaları görmek istersiniz?</string>
-    <string name="apps_filter_action_show_all">Tüm uygulamaları göster</string>
-    <string name="apps_filter_action_show_bypassed">Yalnızca atlananları göster</string>
-    <string name="apps_filter_action_show_not_bypassed">Yalnızca atlanmayanları göster</string>
     <string name="apps_filter_action_toggle_system">Tüm sistem uygulamalarını değiştir</string>
     <string name="app_settings_section_header">Bu cihaz</string>
     <string name="app_settings_language_label">Dil</string>

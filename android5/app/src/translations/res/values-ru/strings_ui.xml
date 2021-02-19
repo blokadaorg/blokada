@@ -153,10 +153,11 @@
     <string name="activity_category_top_blocked">Топ заблокированных</string>
     <string name="activity_category_top_allowed">Топ разрешенных</string>
     <string name="activity_filter_header">Какие записи вы хотели бы видеть?</string>
-    <string name="activity_filter_show_all">Показать все записи</string>
-    <string name="activity_filter_show_blocked">Показать только заблокированные</string>
-    <string name="activity_filter_show_allowed">Показать только разрешенные</string>
+    <string name="activity_filter_show_all">Все записи</string>
+    <string name="activity_filter_show_blocked">Только блокированные</string>
+    <string name="activity_filter_show_allowed">Только разрешенные</string>
     <string name="activity_empty_text">Попробуйте использовать свое устройство, а впоследствии вернитесь сюда, чтобы посмотреть, к чему оно подключается.</string>
+    <string name="activity_device_filter_show_all">Все устройства</string>
     <string name="userdenied_section_header">Мои черные списки</string>
     <string name="userdenied_section_slugline">Управление блокировкой определенных сайтов</string>
     <string name="userdenied_tab_allowed">Разрешено</string>
@@ -249,6 +250,7 @@
     <string name="account_lease_label_this_device"> (это устройство)</string>
     <string name="account_lease_label_name">Название устройства</string>
     <string name="account_lease_label_location">Местоположение</string>
+    <string name="account_lease_label_generate">Сгенерировать файл конфигурации для использования в WireGuard</string>
     <string name="account_lease_action_generate">Создать конфигурацию</string>
     <string name="account_lease_action_download">Скачать конфигурацию</string>
     <string name="account_lease_generated">Устройство добавлено! Скачайте конфигурацию, чтобы использовать ее на любом устройстве, которое поддерживается Wireguard.</string>
@@ -282,7 +284,7 @@
     <string name="payment_action_policy">Политика конфиденциальности</string>
     <string name="payment_alert_error_header">Сообщение из App Store</string>
     <string name="payment_save_text">Вы сохраняете %s</string>
-    <string name="payment_conversion_note">Мы принимаем евро, и отображаемые цены являются оценочными. Возврат доступен, если ваш банк взимает слишком большую плату.</string>
+    <string name="payment_conversion_note">Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую плату.</string>
     <string name="payment_subscription_one_month">1 месяц</string>
     <string name="payment_subscription_many_months">%s месяцев</string>
     <string name="payment_subscription_per_month">%s в месяц</string>
@@ -319,9 +321,9 @@
     <string name="apps_label_system">Системные</string>
     <string name="apps_status_bypassed">(в обход)</string>
     <string name="apps_filter_header">Какие приложения вы хотели бы видеть?</string>
-    <string name="apps_filter_action_show_all">Показать все приложения</string>
-    <string name="apps_filter_action_show_bypassed">В обход</string>
-    <string name="apps_filter_action_show_not_bypassed">Не в обход</string>
+    <string name="apps_filter_action_show_all">Все приложения</string>
+    <string name="apps_filter_action_show_bypassed">Только в обход</string>
+    <string name="apps_filter_action_show_not_bypassed">Только не в обход</string>
     <string name="apps_filter_action_toggle_system">Скрыть/показать все системные приложения</string>
     <string name="app_settings_section_header">Это устройство</string>
     <string name="app_settings_language_label">Язык</string>
@@ -381,7 +383,7 @@
     <string name="homepage_vpn_point_two">Быстрое и современное шифрование</string>
     <string name="homepage_vpn_point_three">Никакого журналирования вашей сетевой активности</string>
     <string name="homepage_vpn_point_four">Подключите до 5 устройств</string>
-    <string name="homepage_vpn_credit">WireGuard - зарегистрированная торговая марка Джейсона А. Доненфельда (Jason A. Donenfeld)</string>
+    <string name="homepage_vpn_credit">\'WireGuard\' и логотип \'WireGuard\' являются зарегистрированными торговыми марками Джейсона А. Доненфельда (Jason A. Donenfeld).</string>
     <string name="homepage_faq_header">Часто задаваемые вопросы</string>
     <string name="homepage_faq_action_more">Для получения подробностей см. часто задаваемые вопросы</string>
     <string name="homepage_faq_title_one">Какую информацию собирает Blokada?</string>

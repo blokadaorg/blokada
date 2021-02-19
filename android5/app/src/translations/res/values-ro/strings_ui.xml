@@ -149,9 +149,6 @@
     <string name="activity_category_top_blocked">Top blocate</string>
     <string name="activity_category_top_allowed">Top Permise</string>
     <string name="activity_filter_header">Ce intrări ați dori să vedeţi?</string>
-    <string name="activity_filter_show_all">Arată toate intrările</string>
-    <string name="activity_filter_show_blocked">Arată doar blocate</string>
-    <string name="activity_filter_show_allowed">Arată doar permise</string>
     <string name="activity_empty_text">Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.</string>
     <string name="userdenied_section_header">Blocajele mele</string>
     <string name="userdenied_section_slugline">Gestionați blocarea anumitor site-uri</string>
@@ -287,9 +284,6 @@
     <string name="apps_label_system">Sistem</string>
     <string name="apps_status_bypassed">(ocolit)</string>
     <string name="apps_filter_header">Ce aplicații doriți să vedeți?</string>
-    <string name="apps_filter_action_show_all">Arată toate aplicațiile</string>
-    <string name="apps_filter_action_show_bypassed">Arată doar ocolite</string>
-    <string name="apps_filter_action_show_not_bypassed">Arată doar nepermise</string>
     <string name="apps_filter_action_toggle_system">Comută toate aplicațiile de sistem</string>
     <string name="app_settings_section_header">Acest dispozitiv</string>
     <string name="app_settings_language_label">Limbă</string>

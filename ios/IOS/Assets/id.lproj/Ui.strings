@@ -194,10 +194,11 @@
 "activity category top blocked" = "Paling sering diblokir";
 "activity category top allowed" = "Paling sering diizinkan";
 "activity filter header" = "Entri mana yang ingin Anda lihat?";
-"activity filter show all" = "Tampilkan semua entri";
-"activity filter show blocked" = "Tampilkan yang diblokir saja";
-"activity filter show allowed" = "Tampilkan yang diizinkan saja";
+"activity filter show all" = "Tanpilkan semua entri";
+"activity filter show blocked" = "Hanya tampilkan entri yang diblokir";
+"activity filter show allowed" = "Hanya tampilkan entri yang diizinkan";
 "activity empty text" = "Coba gunakan perangkat Anda, lalu kembali ke sini untuk melihat perangkat Anda terhubung ke mana.";
+"activity device filter show all" = "Semua perangkat";
 
 "userdenied section header" = "Daftar Cekal Saya";
 "userdenied section slugline" = "Atur pemblokiran untuk situs-situs tertentu";
@@ -303,6 +304,7 @@
 "account lease label this device" = " (perangkat ini)";
 "account lease label name" = "Nama perangkat";
 "account lease label location" = "Lokasi";
+"account lease label generate" = "Buat file config untuk dipakai ketika menggunakan Wireguard";
 "account lease action generate" = "Hasilkan file Config";
 "account lease action download" = "Unduh file Config";
 "account lease generated" = "Perangkat ditambahkan! Unduh file konfigurasi untuk menggunakannya di perangkat apa pun yang mendukung protokol Wireguard.";
@@ -383,9 +385,9 @@
 "apps label system" = "Sistem";
 "apps status bypassed" = "(di-bypass)";
 "apps filter header" = "Aplikasi mana yang ingin Anda lihat?";
-"apps filter action show all" = "Tampilkan semua aplikasi";
-"apps filter action show bypassed" = "Hanya tampilkan aplikasi yang di-bypass";
-"apps filter action show not bypassed" = "Hanya tampilkan aplikasi yang tidak di-bypass";
+"apps filter action show all" = "Semua aplikasi";
+"apps filter action show bypassed" = "Hanya tampilkan entri yang di-bypass";
+"apps filter action show not bypassed" = "Hanya tampilkan entri yang tidak di-bypass";
 "apps filter action toggle system" = "Tampilkan semua aplikasi sistem";
 
 "app settings section header" = "Perangkat ini";
@@ -452,7 +454,7 @@
 "homepage vpn point two" = "Enkripsi cepat & modern";
 "homepage vpn point three" = "Tanpa pencatatan aktivitas jaringan Anda";
 "homepage vpn point four" = "Cakupan koneksi hingga 5 perangkat";
-"homepage vpn credit" = "WireGuard merupakan merk dagang terdaftar atas nama Jason A. Donenfeld";
+"homepage vpn credit" = "'Wireguard' dan logo 'Wireguard' adalah merk terdaftar milik Jason A. Donenfeld.";
 
 "homepage faq header" = "Pertanyaan Yang Sering Diajukan";
 "homepage faq action more" = "Lihat selengkapnya";

@@ -153,10 +153,11 @@
     <string name="activity_category_top_blocked">Paling sering diblokir</string>
     <string name="activity_category_top_allowed">Paling sering diizinkan</string>
     <string name="activity_filter_header">Entri mana yang ingin Anda lihat?</string>
-    <string name="activity_filter_show_all">Tampilkan semua entri</string>
-    <string name="activity_filter_show_blocked">Tampilkan yang diblokir saja</string>
-    <string name="activity_filter_show_allowed">Tampilkan yang diizinkan saja</string>
+    <string name="activity_filter_show_all">Tanpilkan semua entri</string>
+    <string name="activity_filter_show_blocked">Hanya tampilkan entri yang diblokir</string>
+    <string name="activity_filter_show_allowed">Hanya tampilkan entri yang diizinkan</string>
     <string name="activity_empty_text">Coba gunakan perangkat Anda, lalu kembali ke sini untuk melihat perangkat Anda terhubung ke mana.</string>
+    <string name="activity_device_filter_show_all">Semua perangkat</string>
     <string name="userdenied_section_header">Daftar Cekal Saya</string>
     <string name="userdenied_section_slugline">Atur pemblokiran untuk situs-situs tertentu</string>
     <string name="userdenied_tab_allowed">Diizinkan</string>
@@ -249,6 +250,7 @@
     <string name="account_lease_label_this_device"> (perangkat ini)</string>
     <string name="account_lease_label_name">Nama perangkat</string>
     <string name="account_lease_label_location">Lokasi</string>
+    <string name="account_lease_label_generate">Buat file config untuk dipakai ketika menggunakan Wireguard</string>
     <string name="account_lease_action_generate">Hasilkan file Config</string>
     <string name="account_lease_action_download">Unduh file Config</string>
     <string name="account_lease_generated">Perangkat ditambahkan! Unduh file konfigurasi untuk menggunakannya di perangkat apa pun yang mendukung protokol Wireguard.</string>
@@ -319,9 +321,9 @@
     <string name="apps_label_system">Sistem</string>
     <string name="apps_status_bypassed">(di-bypass)</string>
     <string name="apps_filter_header">Aplikasi mana yang ingin Anda lihat?</string>
-    <string name="apps_filter_action_show_all">Tampilkan semua aplikasi</string>
-    <string name="apps_filter_action_show_bypassed">Hanya tampilkan aplikasi yang di-bypass</string>
-    <string name="apps_filter_action_show_not_bypassed">Hanya tampilkan aplikasi yang tidak di-bypass</string>
+    <string name="apps_filter_action_show_all">Semua aplikasi</string>
+    <string name="apps_filter_action_show_bypassed">Hanya tampilkan entri yang di-bypass</string>
+    <string name="apps_filter_action_show_not_bypassed">Hanya tampilkan entri yang tidak di-bypass</string>
     <string name="apps_filter_action_toggle_system">Tampilkan semua aplikasi sistem</string>
     <string name="app_settings_section_header">Perangkat ini</string>
     <string name="app_settings_language_label">Bahasa</string>
@@ -381,7 +383,7 @@
     <string name="homepage_vpn_point_two">Enkripsi cepat &amp; modern</string>
     <string name="homepage_vpn_point_three">Tanpa pencatatan aktivitas jaringan Anda</string>
     <string name="homepage_vpn_point_four">Cakupan koneksi hingga 5 perangkat</string>
-    <string name="homepage_vpn_credit">WireGuard merupakan merk dagang terdaftar atas nama Jason A. Donenfeld</string>
+    <string name="homepage_vpn_credit">\'Wireguard\' dan logo \'Wireguard\' adalah merk terdaftar milik Jason A. Donenfeld.</string>
     <string name="homepage_faq_header">Pertanyaan Yang Sering Diajukan</string>
     <string name="homepage_faq_action_more">Lihat selengkapnya</string>
     <string name="homepage_faq_title_one">Informasi apa yang disimpan oleh Blokada?</string>

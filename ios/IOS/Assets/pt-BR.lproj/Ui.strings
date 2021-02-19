@@ -194,9 +194,6 @@
 "activity category top blocked" = "Mais Bloqueados";
 "activity category top allowed" = "Mais Permitidos";
 "activity filter header" = "Quais entradas você gostaria de ver?";
-"activity filter show all" = "Mostrar todas as entradas";
-"activity filter show blocked" = "Mostrar somente bloqueados";
-"activity filter show allowed" = "Mostrar somente permitidos";
 "activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.";
 
 "userdenied section header" = "Minhas listas de bloqueio";
@@ -382,9 +379,6 @@
 "apps label system" = "Sistema";
 "apps status bypassed" = "(ignorado)";
 "apps filter header" = "Quais aplicativos você gostaria de ver?";
-"apps filter action show all" = "Mostrar todos os apps";
-"apps filter action show bypassed" = "Mostrar apenas ignorados";
-"apps filter action show not bypassed" = "Mostrar apenas não ignorados";
 "apps filter action toggle system" = "Alternar todos os aplicativos de sistema";
 
 "app settings section header" = "Este dispositivo";
@@ -451,7 +445,6 @@
 "homepage vpn point two" = "Criptografia rápida e moderna";
 "homepage vpn point three" = "Não há registro da sua atividade de rede";
 "homepage vpn point four" = "Conecte até 5 dispositivos";
-"homepage vpn credit" = "O WireGuard é uma marca registada de Jason A. Donenfeld";
 
 "homepage faq header" = "Perguntas Frequentes";
 "homepage faq action more" = "Veja mais FAQs";

@@ -194,9 +194,6 @@
 "activity category top blocked" = "Nejvíce blokováno";
 "activity category top allowed" = "Nejvíce povoleno";
 "activity filter header" = "Které položky chcete vidět?";
-"activity filter show all" = "Zobrazit všechny položky";
-"activity filter show blocked" = "Zobrazit pouze blokované";
-"activity filter show allowed" = "Zobrazit pouze povolené";
 "activity empty text" = "Zkuste použít své zařízení a vraťte se sem později, abyste zjistili, kam se vaše zařízení připojuje.";
 
 "userdenied section header" = "Moje seznamy hostitelů";
@@ -383,9 +380,6 @@
 "apps label system" = "Systémové";
 "apps status bypassed" = "(vyloučené)";
 "apps filter header" = "Které aplikace chcete vidět?";
-"apps filter action show all" = "Zobrazit všechny aplikace";
-"apps filter action show bypassed" = "Zobrazit pouze vyloučené";
-"apps filter action show not bypassed" = "Zobrazit pouze nevyloučené";
 "apps filter action toggle system" = "Přepnout všechny systémové aplikace";
 
 "app settings section header" = "Toto zařízení";
@@ -452,7 +446,6 @@
 "homepage vpn point two" = "Rychlé & moderní šifrování";
 "homepage vpn point three" = "Nezaznamenává vaše aktivity na síti";
 "homepage vpn point four" = "Připojte až 5 zařízení";
-"homepage vpn credit" = "WireGuard je zapsaná ochranná známka Jasona A. Donenfelda";
 
 "homepage faq header" = "Často kladené otázky (FAQ)";
 "homepage faq action more" = "Zobrazit další FAQ";

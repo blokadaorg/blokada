@@ -30,3 +30,7 @@
 "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "حَظْر الإعلانات ، و التصيُّد الإحتيالي ، و البرامج الضّارة ، و برامج التجسّس ، و برامج الفدية ، و الإحتيال ، و القياس عن بُعد ، و التحليلات ، و التعقُّب (عند عدم الحاجة إلى الوظائف المناسبة) يجب ألّا تتدخَّل في التطبيقات و الخدمات العاديّة.";
 "A blocklist for ads and tracking, updated regularly" = "قائمة حظر للإعلانات و التتبُّع ، يتمّ تحديثها بانتظام";
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "خيار جيّد كقائمة الحظر الأساسيّة. إنها متوازنة ، متوسّطة الحجم، و يتمّ تحديثها باستمرار.";
+"A collection of blocklists for various use cases." = "مجموعة من قوائم الحظر لمختلف حالات الاستخدام.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "تم إنشاء هذه القوائم لأن مؤسّس المشروع أراد شيئاً يتمتّع بقدر أكبر من التحكّم في ما يتمّ حظْره.";
+"A blocklist based on spam reports" = "قائمة حظْر تستند إلى تقارير البريد المزعج";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 هي خدمة تساعد الشركات عبر الإنترنت في مراقبة المحتوى و اختبار الإختراق و حماية العلامة التجاريّة. تستند هذه القائمة على التقارير الواردة من الشركات.";

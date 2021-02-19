@@ -194,10 +194,11 @@
 "activity category top blocked" = "Top Blocked";
 "activity category top allowed" = "Top Allowed";
 "activity filter header" = "Which entries would you like to see?";
-"activity filter show all" = "Show all entries";
-"activity filter show blocked" = "Show blocked only";
-"activity filter show allowed" = "Show allowed only";
+"activity filter show all" = "All entries";
+"activity filter show blocked" = "Blocked only";
+"activity filter show allowed" = "Allowed only";
 "activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
+"activity device filter show all" = "All devices";
 
 "userdenied section header" = "My blocklists";
 "userdenied section slugline" = "Manage blocking of particular websites";
@@ -303,6 +304,7 @@
 "account lease label this device" = " (this device)";
 "account lease label name" = "Name of device";
 "account lease label location" = "Location";
+"account lease label generate" = "Generate a config file to use with WireGuard";
 "account lease action generate" = "Generate Config";
 "account lease action download" = "Download Config";
 "account lease generated" = "Device added! Download the configuration to use it on any device supported by Wireguard.";
@@ -383,9 +385,9 @@
 "apps label system" = "System";
 "apps status bypassed" = "(bypassed)";
 "apps filter header" = "Which apps would you like to see?";
-"apps filter action show all" = "Show all apps";
-"apps filter action show bypassed" = "Show bypassed only";
-"apps filter action show not bypassed" = "Show not bypassed only";
+"apps filter action show all" = "All apps";
+"apps filter action show bypassed" = "Bypassed only";
+"apps filter action show not bypassed" = "Not bypassed only";
 "apps filter action toggle system" = "Toggle all system apps";
 
 "app settings section header" = "This device";
@@ -452,7 +454,7 @@
 "homepage vpn point two" = "Fast & modern encryption";
 "homepage vpn point three" = "No logging of your network activity";
 "homepage vpn point four" = "Connect up to 5 devices";
-"homepage vpn credit" = "WireGuard is a registered trademark of Jason A. Donenfeld";
+"homepage vpn credit" = "'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
 
 "homepage faq header" = "Frequently Asked Questions";
 "homepage faq action more" = "See more FAQs";

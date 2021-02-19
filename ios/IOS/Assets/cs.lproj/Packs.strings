@@ -30,3 +30,7 @@
 "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blokuje reklamy, phishing, malware, spyware, ransomware, podvody, telemetrii, analýzy, sledování (pokud to není nutné pro správnou funkčnost). Neměl by zasahovat do běžných aplikací a služeb.";
 "A blocklist for ads and tracking, updated regularly" = "Seznam hostitelů proti reklamám a sledování, pravidelně aktualizován";
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Je dobrou volbou jako primární seznam hostitelů. Je správně vyvážený, úměrně veliký a často aktualizovaný.";
+"A collection of blocklists for various use cases." = "Kolekce seznamů hostitelů pro různé případy použití.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Tyto seznamy byly vytvořeny, protože zakladatel projektu chtěl něco s trochou větší kontroly nad tím, co je blokováno.";
+"A blocklist based on spam reports" = "Seznam hostitelů na základě zpráv o spamu";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 je služba, která pomáhá online společnostem se sledováním obsahu, penetračním testováním a ochranou značky. Tento seznam je založen na zprávách obdržených od společností.";

@@ -194,9 +194,6 @@
 "activity category top blocked" = "Най-много блокирани";
 "activity category top allowed" = "Най-много разрешени";
 "activity filter header" = "Кои записи искате да видите?";
-"activity filter show all" = "Показване на всички записи";
-"activity filter show blocked" = "Показване само на блокирани";
-"activity filter show allowed" = "Показване само на разрешени";
 "activity empty text" = "Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.";
 
 "userdenied section header" = "Моите списъци за блокиране";
@@ -383,9 +380,6 @@
 "apps label system" = "Система";
 "apps status bypassed" = "(заобиколено)";
 "apps filter header" = "Кои приложения искате да видите?";
-"apps filter action show all" = "Показване на всички приложения";
-"apps filter action show bypassed" = "Показване само на заобиколени";
-"apps filter action show not bypassed" = "Показване само на не заобиколени";
 "apps filter action toggle system" = "Превключване към всички системни приложения";
 
 "app settings section header" = "Това устройство";
@@ -452,7 +446,6 @@
 "homepage vpn point two" = "Бързо & модерно криптиране";
 "homepage vpn point three" = "Не се регистрира вашата мрежова активност";
 "homepage vpn point four" = "Свържете до 5 устройства";
-"homepage vpn credit" = "WireGuard е регистрирана търговска марка на Джейсън А. Доненфелд";
 
 "homepage faq header" = "Често Задавани Въпроси";
 "homepage faq action more" = "Вижте още ЧЗВ";

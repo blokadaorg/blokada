@@ -194,10 +194,11 @@
 "activity category top blocked" = "Топ заблокированных";
 "activity category top allowed" = "Топ разрешенных";
 "activity filter header" = "Какие записи вы хотели бы видеть?";
-"activity filter show all" = "Показать все записи";
-"activity filter show blocked" = "Показать только заблокированные";
-"activity filter show allowed" = "Показать только разрешенные";
+"activity filter show all" = "Все записи";
+"activity filter show blocked" = "Только блокированные";
+"activity filter show allowed" = "Только разрешенные";
 "activity empty text" = "Попробуйте использовать свое устройство, а впоследствии вернитесь сюда, чтобы посмотреть, к чему оно подключается.";
+"activity device filter show all" = "Все устройства";
 
 "userdenied section header" = "Мои черные списки";
 "userdenied section slugline" = "Управление блокировкой определенных сайтов";
@@ -303,6 +304,7 @@
 "account lease label this device" = " (это устройство)";
 "account lease label name" = "Название устройства";
 "account lease label location" = "Местоположение";
+"account lease label generate" = "Сгенерировать файл конфигурации для использования в WireGuard";
 "account lease action generate" = "Создать конфигурацию";
 "account lease action download" = "Скачать конфигурацию";
 "account lease generated" = "Устройство добавлено! Скачайте конфигурацию, чтобы использовать ее на любом устройстве, которое поддерживается Wireguard.";
@@ -340,7 +342,7 @@
 "payment alert error header" = "Сообщение из App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Вы сохраняете %@";
-"payment conversion note" = "Мы принимаем евро, и отображаемые цены являются оценочными. Возврат доступен, если ваш банк взимает слишком большую плату.";
+"payment conversion note" = "Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую плату.";
 
 "payment subscription 1 month" = "1 месяц";
 "payment subscription many months" = "%@ месяцев";
@@ -383,9 +385,9 @@
 "apps label system" = "Системные";
 "apps status bypassed" = "(в обход)";
 "apps filter header" = "Какие приложения вы хотели бы видеть?";
-"apps filter action show all" = "Показать все приложения";
-"apps filter action show bypassed" = "В обход";
-"apps filter action show not bypassed" = "Не в обход";
+"apps filter action show all" = "Все приложения";
+"apps filter action show bypassed" = "Только в обход";
+"apps filter action show not bypassed" = "Только не в обход";
 "apps filter action toggle system" = "Скрыть/показать все системные приложения";
 
 "app settings section header" = "Это устройство";
@@ -452,7 +454,7 @@
 "homepage vpn point two" = "Быстрое и современное шифрование";
 "homepage vpn point three" = "Никакого журналирования вашей сетевой активности";
 "homepage vpn point four" = "Подключите до 5 устройств";
-"homepage vpn credit" = "WireGuard - зарегистрированная торговая марка Джейсона А. Доненфельда (Jason A. Donenfeld)";
+"homepage vpn credit" = "'WireGuard' и логотип 'WireGuard' являются зарегистрированными торговыми марками Джейсона А. Доненфельда (Jason A. Donenfeld).";
 
 "homepage faq header" = "Часто задаваемые вопросы";
 "homepage faq action more" = "Для получения подробностей см. часто задаваемые вопросы";

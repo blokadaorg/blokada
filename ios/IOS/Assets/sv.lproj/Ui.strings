@@ -194,10 +194,11 @@
 "activity category top blocked" = "Flest blockerade";
 "activity category top allowed" = "Flest tillåtna";
 "activity filter header" = "Vilka poster skulle du vilja se?";
-"activity filter show all" = "Visa alla poster";
-"activity filter show blocked" = "Visa endast blockerade";
-"activity filter show allowed" = "Visa endast tillåtna";
+"activity filter show all" = "Alla poster";
+"activity filter show blocked" = "Endast blockerade";
+"activity filter show allowed" = "Endast tillåtna";
 "activity empty text" = "Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.";
+"activity device filter show all" = "Alla enheter";
 
 "userdenied section header" = "Mina blocklistor";
 "userdenied section slugline" = "Hantera blockering av vissa webbplatser";
@@ -229,6 +230,7 @@
 "networks summary network dns" = "Blokada kommer att använda nätverkets DNS om tillgängligt, eller byta till %@ i övriga fall. Även inställningar för \"Kryptera DNS\" kommer att ignoreras när nätverkets DNS används. Att använda nätverkets DNS hjälper till att åtgärda anslutningsproblem på besvärliga nätverk, men lämnar dig oskyddad.";
 "networks summary network dns and plus mode" = "Blokada kommer tillfälligt att inaktivera Plus-läget när nätverkets DNS används. Detta beror på att det inte är möjligt att komma åt nätverkets DNS via VPN. Plus-läget återställs automatiskt när enheten växlar till ett annat nätverk.";
 "networks summary blocka plus mode" = "Blokada kommer att använda Blokada DNS i Plus-läge, för att säkerställa hög nivå av kryptering och hastighet. Du kan ändra den här inställningen längst ner på Välj DNS.";
+"networks permission dialog" = "Blokada kan känna igen nätverk som du ansluter till och låter dig konfigurera separata inställningar för dem. Denna app kommer dock att samla in platsdata i form av nätverksnamn för att aktivera den här funktionen, även när appen är stängd eller inte används. Ibland kan du se ett systemmeddelande om platsåtkomst - Blokada läser bara nätverkets namn.";
 
 
 "account section header settings" = "Inställningar";
@@ -302,6 +304,7 @@
 "account lease label this device" = " (denna enhet)";
 "account lease label name" = "Enhetens namn";
 "account lease label location" = "Plats";
+"account lease label generate" = "Generera en konfigurationsfil för att använda med WireGuard";
 "account lease action generate" = "Generera konfiguration";
 "account lease action download" = "Ladda ner konfiguration";
 "account lease generated" = "Enheten tillagd! Ladda ner konfigurationen för att använda den på alla enheter som stöds av Wireguard.";
@@ -382,9 +385,9 @@
 "apps label system" = "System";
 "apps status bypassed" = "(förbigås)";
 "apps filter header" = "Vilka appar vill du se?";
-"apps filter action show all" = "Visa alla appar";
-"apps filter action show bypassed" = "Visa endast förbigångna";
-"apps filter action show not bypassed" = "Visa inte bara förbigågna";
+"apps filter action show all" = "Alla appar";
+"apps filter action show bypassed" = "Endast förbigångna";
+"apps filter action show not bypassed" = "Endast ej förbigångna";
 "apps filter action toggle system" = "Växla alla systemappar";
 
 "app settings section header" = "Denna enhet";
@@ -426,8 +429,8 @@
 "homepage action faq" = "Vanliga frågor";
 "homepage action vpn" = "VPN";
 "homepage action opinions" = "Recensioner";
-"homepage action authors" = "Skapare";
-"homepage action source" = "Källa";
+"homepage action authors" = "Utvecklare";
+"homepage action source" = "Källkod";
 "homepage action forums" = "Forum";
 "homepage action dashboard" = "Översikt";
 "homepage about footer" = "Låt oss hålla kontakten!";
@@ -451,7 +454,7 @@
 "homepage vpn point two" = "Snabb & modern kryptering";
 "homepage vpn point three" = "Ingen loggning av din nätverksaktivitet";
 "homepage vpn point four" = "Anslut upp till 5 enheter";
-"homepage vpn credit" = "WireGuard är ett registrerat varumärke som tillhör Jason A. Donenfeld";
+"homepage vpn credit" = "'WireGuard' och logotypen 'Wireguard' är registrerade varumärken som tillhör Jason A. Donenfeld.";
 
 "homepage faq header" = "Vanliga frågor";
 "homepage faq action more" = "Se fler vanliga frågor";

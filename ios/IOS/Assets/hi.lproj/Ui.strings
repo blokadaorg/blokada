@@ -153,9 +153,6 @@
 "activity category top blocked" = "शीर्ष अवरुद्ध";
 "activity category top allowed" = "शीर्ष अनुमति";
 "activity filter header" = "आप कौन सी प्रविष्टियाँ देखना चाहेंगे?";
-"activity filter show all" = "सभी प्रविष्टियाँ दिखाएँ";
-"activity filter show blocked" = "केवल अवरुद्ध दिखाएं";
-"activity filter show allowed" = "केवल दिखाने की अनुमति है";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "अवरुद्ध";
 

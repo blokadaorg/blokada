@@ -153,10 +153,11 @@
     <string name="activity_category_top_blocked">Flest blockerade</string>
     <string name="activity_category_top_allowed">Flest tillåtna</string>
     <string name="activity_filter_header">Vilka poster skulle du vilja se?</string>
-    <string name="activity_filter_show_all">Visa alla poster</string>
-    <string name="activity_filter_show_blocked">Visa endast blockerade</string>
-    <string name="activity_filter_show_allowed">Visa endast tillåtna</string>
+    <string name="activity_filter_show_all">Alla poster</string>
+    <string name="activity_filter_show_blocked">Endast blockerade</string>
+    <string name="activity_filter_show_allowed">Endast tillåtna</string>
     <string name="activity_empty_text">Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.</string>
+    <string name="activity_device_filter_show_all">Alla enheter</string>
     <string name="userdenied_section_header">Mina blocklistor</string>
     <string name="userdenied_section_slugline">Hantera blockering av vissa webbplatser</string>
     <string name="userdenied_tab_allowed">Tillåten</string>
@@ -184,6 +185,7 @@
     <string name="networks_summary_network_dns">Blokada kommer att använda nätverkets DNS om tillgängligt, eller byta till %s i övriga fall. Även inställningar för \"Kryptera DNS\" kommer att ignoreras när nätverkets DNS används. Att använda nätverkets DNS hjälper till att åtgärda anslutningsproblem på besvärliga nätverk, men lämnar dig oskyddad.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada kommer tillfälligt att inaktivera Plus-läget när nätverkets DNS används. Detta beror på att det inte är möjligt att komma åt nätverkets DNS via VPN. Plus-läget återställs automatiskt när enheten växlar till ett annat nätverk.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada kommer att använda Blokada DNS i Plus-läge, för att säkerställa hög nivå av kryptering och hastighet. Du kan ändra den här inställningen längst ner på Välj DNS.</string>
+    <string name="networks_permission_dialog">Blokada kan känna igen nätverk som du ansluter till och låter dig konfigurera separata inställningar för dem. Denna app kommer dock att samla in platsdata i form av nätverksnamn för att aktivera den här funktionen, även när appen är stängd eller inte används. Ibland kan du se ett systemmeddelande om platsåtkomst - Blokada läser bara nätverkets namn.</string>
     <string name="account_section_header_settings">Inställningar</string>
     <string name="account_status_text">Ditt BLOKADA %skonto är aktivt fram till %s.</string>
     <string name="account_status_text_libre">Ditt BLOKADA Libre konto är aktivt för all evighet.</string>
@@ -248,6 +250,7 @@
     <string name="account_lease_label_this_device"> (denna enhet)</string>
     <string name="account_lease_label_name">Enhetens namn</string>
     <string name="account_lease_label_location">Plats</string>
+    <string name="account_lease_label_generate">Generera en konfigurationsfil för att använda med WireGuard</string>
     <string name="account_lease_action_generate">Generera konfiguration</string>
     <string name="account_lease_action_download">Ladda ner konfiguration</string>
     <string name="account_lease_generated">Enheten tillagd! Ladda ner konfigurationen för att använda den på alla enheter som stöds av Wireguard.</string>
@@ -318,9 +321,9 @@
     <string name="apps_label_system">System</string>
     <string name="apps_status_bypassed">(förbigås)</string>
     <string name="apps_filter_header">Vilka appar vill du se?</string>
-    <string name="apps_filter_action_show_all">Visa alla appar</string>
-    <string name="apps_filter_action_show_bypassed">Visa endast förbigångna</string>
-    <string name="apps_filter_action_show_not_bypassed">Visa inte bara förbigågna</string>
+    <string name="apps_filter_action_show_all">Alla appar</string>
+    <string name="apps_filter_action_show_bypassed">Endast förbigångna</string>
+    <string name="apps_filter_action_show_not_bypassed">Endast ej förbigångna</string>
     <string name="apps_filter_action_toggle_system">Växla alla systemappar</string>
     <string name="app_settings_section_header">Denna enhet</string>
     <string name="app_settings_language_label">Språk</string>
@@ -357,8 +360,8 @@
     <string name="homepage_action_faq">Vanliga frågor</string>
     <string name="homepage_action_vpn">VPN</string>
     <string name="homepage_action_opinions">Recensioner</string>
-    <string name="homepage_action_authors">Skapare</string>
-    <string name="homepage_action_source">Källa</string>
+    <string name="homepage_action_authors">Utvecklare</string>
+    <string name="homepage_action_source">Källkod</string>
     <string name="homepage_action_forums">Forum</string>
     <string name="homepage_action_dashboard">Översikt</string>
     <string name="homepage_about_footer">Låt oss hålla kontakten!</string>
@@ -380,7 +383,7 @@
     <string name="homepage_vpn_point_two">Snabb &amp; modern kryptering</string>
     <string name="homepage_vpn_point_three">Ingen loggning av din nätverksaktivitet</string>
     <string name="homepage_vpn_point_four">Anslut upp till 5 enheter</string>
-    <string name="homepage_vpn_credit">WireGuard är ett registrerat varumärke som tillhör Jason A. Donenfeld</string>
+    <string name="homepage_vpn_credit">\'WireGuard\' och logotypen \'Wireguard\' är registrerade varumärken som tillhör Jason A. Donenfeld.</string>
     <string name="homepage_faq_header">Vanliga frågor</string>
     <string name="homepage_faq_action_more">Se fler vanliga frågor</string>
     <string name="homepage_faq_title_one">Vilken information sparar Blokada?</string>

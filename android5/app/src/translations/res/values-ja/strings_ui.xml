@@ -119,8 +119,8 @@
     <string name="pack_category_highlights">ハイライト</string>
     <string name="pack_category_active">有効</string>
     <string name="pack_category_all">すべて</string>
-    <string name="advanced_section_header_packs">フィルター</string>
-    <string name="advanced_section_slugline_packs">ブロックに利用するフィルターを管理する</string>
+    <string name="advanced_section_header_packs">ブロックリスト</string>
+    <string name="advanced_section_slugline_packs">ブロックに利用するリストを管理する</string>
     <string name="advanced_section_slugline_apps">アプリのバイパスを管理する</string>
     <string name="advanced_section_slugline_encryption">暗号化レベルと DNS を管理する</string>
     <string name="advanced_action_slim_migrate_to_full">Blokada Slim を使用しています。詳細はこちら</string>
@@ -152,11 +152,12 @@
     <string name="activity_category_top">回数</string>
     <string name="activity_category_top_blocked">ブロック回数</string>
     <string name="activity_category_top_allowed">許可回数</string>
-    <string name="activity_filter_header">表示するエントリを選択</string>
+    <string name="activity_filter_header">表示するアクティビティを選択</string>
     <string name="activity_filter_show_all">すべて</string>
-    <string name="activity_filter_show_blocked">ブロックされたエントリ</string>
-    <string name="activity_filter_show_allowed">許可されたエントリ</string>
+    <string name="activity_filter_show_blocked">ブロックされた通信</string>
+    <string name="activity_filter_show_allowed">許可された通信</string>
     <string name="activity_empty_text">デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。</string>
+    <string name="activity_device_filter_show_all">すべてのデバイス</string>
     <string name="userdenied_section_header">マイ・リスト</string>
     <string name="userdenied_section_slugline">ブロック・許可したサイトを管理する</string>
     <string name="userdenied_tab_allowed">許可リスト</string>
@@ -249,6 +250,7 @@
     <string name="account_lease_label_this_device"> （このデバイス）</string>
     <string name="account_lease_label_name">デバイス名</string>
     <string name="account_lease_label_location">接続先</string>
+    <string name="account_lease_label_generate">WireGuard で使用する設定ファイルを作成する</string>
     <string name="account_lease_action_generate">設定を作成する</string>
     <string name="account_lease_action_download">設定をダウンロード</string>
     <string name="account_lease_generated">デバイスが追加されました！設定をダウンロードして、Wireguardでサポートされているすべてのデバイスで使用できます。</string>
@@ -319,7 +321,7 @@
     <string name="apps_label_system">システム</string>
     <string name="apps_status_bypassed">（バイパス済み）</string>
     <string name="apps_filter_header">どのアプリを表示しますか？</string>
-    <string name="apps_filter_action_show_all">すべてのアプリを表示</string>
+    <string name="apps_filter_action_show_all">すべて</string>
     <string name="apps_filter_action_show_bypassed">バイパスされたアプリ</string>
     <string name="apps_filter_action_show_not_bypassed">バイパスされていないアプリ</string>
     <string name="apps_filter_action_toggle_system">すべてのシステムアプリを切り替える</string>
@@ -338,7 +340,7 @@
     <string name="app_settings_action_notifications">通知設定</string>
     <string name="app_settings_section_details">詳細</string>
     <string name="app_settings_status_default">システムのデフォルト</string>
-    <string name="app_settings_start_on_boot">デバイス起動時に Blokada を開始する</string>
+    <string name="app_settings_start_on_boot">デバイス起動時に Blokada を開始</string>
     <string name="app_settings_use_dns_over_https">DNS over HTTPS を利用する</string>
     <string name="app_settings_backup">クラウドバックアップ</string>
     <string name="app_settings_section_advanced">詳細</string>
@@ -381,7 +383,7 @@
     <string name="homepage_vpn_point_two">高速で最先端の暗号化</string>
     <string name="homepage_vpn_point_three">アクティビティ ログの保存なし</string>
     <string name="homepage_vpn_point_four">デバイス最大 5 台に接続</string>
-    <string name="homepage_vpn_credit">WireGuard は Jason A. Donenfeld の登録商標です</string>
+    <string name="homepage_vpn_credit">「WireGuard」と「Wireguard」ロゴは Jason A. Donenfeld の登録商標です。</string>
     <string name="homepage_faq_header">よくある質問</string>
     <string name="homepage_faq_action_more">よくある質問を見る</string>
     <string name="homepage_faq_title_one">どのような情報が Blokada に保存されますか？</string>

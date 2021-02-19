@@ -153,9 +153,6 @@
     <string name="activity_category_top_blocked">Mais Bloqueados</string>
     <string name="activity_category_top_allowed">Mais Permitidos</string>
     <string name="activity_filter_header">Quais entradas você gostaria de ver?</string>
-    <string name="activity_filter_show_all">Mostrar todas as entradas</string>
-    <string name="activity_filter_show_blocked">Mostrar somente bloqueados</string>
-    <string name="activity_filter_show_allowed">Mostrar somente permitidos</string>
     <string name="activity_empty_text">Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.</string>
     <string name="userdenied_section_header">Minhas listas de bloqueio</string>
     <string name="userdenied_section_slugline">Gerenciar bloqueio de sites específicos</string>
@@ -318,9 +315,6 @@
     <string name="apps_label_system">Sistema</string>
     <string name="apps_status_bypassed">(ignorado)</string>
     <string name="apps_filter_header">Quais aplicativos você gostaria de ver?</string>
-    <string name="apps_filter_action_show_all">Mostrar todos os apps</string>
-    <string name="apps_filter_action_show_bypassed">Mostrar apenas ignorados</string>
-    <string name="apps_filter_action_show_not_bypassed">Mostrar apenas não ignorados</string>
     <string name="apps_filter_action_toggle_system">Alternar todos os aplicativos de sistema</string>
     <string name="app_settings_section_header">Este dispositivo</string>
     <string name="app_settings_language_label">Idioma</string>
@@ -380,7 +374,6 @@
     <string name="homepage_vpn_point_two">Criptografia rápida e moderna</string>
     <string name="homepage_vpn_point_three">Não há registro da sua atividade de rede</string>
     <string name="homepage_vpn_point_four">Conecte até 5 dispositivos</string>
-    <string name="homepage_vpn_credit">O WireGuard é uma marca registada de Jason A. Donenfeld</string>
     <string name="homepage_faq_header">Perguntas Frequentes</string>
     <string name="homepage_faq_action_more">Veja mais FAQs</string>
     <string name="homepage_faq_title_one">Que informações o Blokada mantém?</string>

@@ -194,10 +194,11 @@
 "activity category top blocked" = "阻擋最多次";
 "activity category top allowed" = "允許最多次";
 "activity filter header" = "您想查看哪些項目？";
-"activity filter show all" = "顯示所有項目";
-"activity filter show blocked" = "僅顯示已阻擋";
-"activity filter show allowed" = "僅顯示已允許";
+"activity filter show all" = "所有項目";
+"activity filter show blocked" = "只有阻擋項目";
+"activity filter show allowed" = "只有允許項目";
 "activity empty text" = "嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。";
+"activity device filter show all" = "所有裝置";
 
 "userdenied section header" = "我的阻擋清單";
 "userdenied section slugline" = "管理對特定網站的封鎖";
@@ -303,6 +304,7 @@
 "account lease label this device" = "（此裝置）";
 "account lease label name" = "裝置名稱";
 "account lease label location" = "位置";
+"account lease label generate" = "產生能用於 WireGuard 的組態設定檔";
 "account lease action generate" = "生成設定";
 "account lease action download" = "下載設定";
 "account lease generated" = "已新增裝置！下載設定以在任何支援 Wireguard 的裝置上使用。";
@@ -383,9 +385,9 @@
 "apps label system" = "系統";
 "apps status bypassed" = "（已繞過）";
 "apps filter header" = "您想查看哪些應用程式？";
-"apps filter action show all" = "顯示所有應用程式";
-"apps filter action show bypassed" = "只顯示繞過的應用程式";
-"apps filter action show not bypassed" = "只顯示未繞過的應用程式";
+"apps filter action show all" = "所有 App";
+"apps filter action show bypassed" = "只有繞過的 App";
+"apps filter action show not bypassed" = "只有沒繞過的 App";
 "apps filter action toggle system" = "切換所有系統 App";
 
 "app settings section header" = "這台裝置";
@@ -452,7 +454,7 @@
 "homepage vpn point two" = "快速且現代的加密方式";
 "homepage vpn point three" = "不會記錄您的網路活動";
 "homepage vpn point four" = "最多可以連線 5 台裝置";
-"homepage vpn credit" = "WireGuard 是 Jason A. Donenfeld 的註冊商標";
+"homepage vpn credit" = "「WireGuard」和「Wireguard」標誌是 Jason A. Donenfeld 的註冊商標。";
 
 "homepage faq header" = "常見問題";
 "homepage faq action more" = "查閱更多 FAQ";

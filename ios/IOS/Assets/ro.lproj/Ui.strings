@@ -188,9 +188,6 @@
 "activity category top blocked" = "Top blocate";
 "activity category top allowed" = "Top Permise";
 "activity filter header" = "Ce intrări ați dori să vedeţi?";
-"activity filter show all" = "Arată toate intrările";
-"activity filter show blocked" = "Arată doar blocate";
-"activity filter show allowed" = "Arată doar permise";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
 
 "userdenied section header" = "Blocajele mele";
@@ -348,9 +345,6 @@
 "apps label system" = "Sistem";
 "apps status bypassed" = "(ocolit)";
 "apps filter header" = "Ce aplicații doriți să vedeți?";
-"apps filter action show all" = "Arată toate aplicațiile";
-"apps filter action show bypassed" = "Arată doar ocolite";
-"apps filter action show not bypassed" = "Arată doar nepermise";
 "apps filter action toggle system" = "Comută toate aplicațiile de sistem";
 
 "app settings section header" = "Acest dispozitiv";

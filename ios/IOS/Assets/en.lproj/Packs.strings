@@ -31,3 +31,7 @@
 "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.";
 "A blocklist for ads and tracking, updated regularly" = "A blocklist for ads and tracking, updated regularly";
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.";
+"A collection of blocklists for various use cases." = "A collection of blocklists for various use cases.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.";
+"A blocklist based on spam reports" = "A blocklist based on spam reports";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.";

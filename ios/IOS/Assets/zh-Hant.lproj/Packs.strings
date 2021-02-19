@@ -30,3 +30,7 @@
 "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "阻擋廣告、釣魚攻擊、惡意軟體、間諜軟體、勒索軟體、詐騙網站，以及對功能沒有影響的遙測、分析和追蹤功能。應不影響一般的 App 和服務。";
 "A blocklist for ads and tracking, updated regularly" = "廣告與追蹤的封鎖清單，定期更新";
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "作為主要的封鎖清單，這是不錯的選擇。均衡、中等大小且經常更新。";
+"A collection of blocklists for various use cases." = "適合各種情況的阻擋清單集錦。";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "之所以會建立這些列表，是因為專案的創始人想要一些可以對被封鎖內容進行更多控制的東西。";
+"A blocklist based on spam reports" = "根據垃圾資訊報告所製作的阻擋清單";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 是一項可以協助線上公司監視內容、滲透測試與品牌保護的服務。此列表是以從公司收到的回報為基礎。";

@@ -194,10 +194,11 @@
 "activity category top blocked" = "Más bloqueadas";
 "activity category top allowed" = "Más permitidas";
 "activity filter header" = "¿Qué entradas te gustaría ver?";
-"activity filter show all" = "Mostrar todas las entradas";
-"activity filter show blocked" = "Mostrar solo bloqueadas";
-"activity filter show allowed" = "Mostrar solo permitidas";
+"activity filter show all" = "Todas las entradas";
+"activity filter show blocked" = "Solo bloqueado";
+"activity filter show allowed" = "Solo permitido";
 "activity empty text" = "Intenta usar tu dispositivo y vuelve aquí más tarde, para ver a dónde se conecta tu dispositivo.";
+"activity device filter show all" = "Todos los dispositivos";
 
 "userdenied section header" = "Mis listas de bloqueo";
 "userdenied section slugline" = "Administrar bloqueo de sitios web particulares";
@@ -303,6 +304,7 @@
 "account lease label this device" = " (este dispositivo)";
 "account lease label name" = "Nombre del dispositivo";
 "account lease label location" = "Ubicación";
+"account lease label generate" = "Generar un archivo de configuración para usar con WireGuard";
 "account lease action generate" = "Generar configuración";
 "account lease action download" = "Descargar configuración";
 "account lease generated" = "¡Dispositivo añadido! Descarga la configuración para usarla en cualquier dispositivo soportado por Wireguard.";
@@ -383,9 +385,9 @@
 "apps label system" = "Sistema";
 "apps status bypassed" = "(omitidas)";
 "apps filter header" = "¿Qué aplicaciones te gustaría ver?";
-"apps filter action show all" = "Mostrar todas";
-"apps filter action show bypassed" = "Solo mostrar omitidas";
-"apps filter action show not bypassed" = "Solo mostrar no omitidas";
+"apps filter action show all" = "Todas las aplicaciones";
+"apps filter action show bypassed" = "Solo omitido";
+"apps filter action show not bypassed" = "Solo no omitido";
 "apps filter action toggle system" = "Filtrar todas las aplicaciones del sistema";
 
 "app settings section header" = "Este dispositivo";
@@ -452,7 +454,7 @@
 "homepage vpn point two" = "Cifrado rápido y moderno";
 "homepage vpn point three" = "No hay registro de la actividad de su red";
 "homepage vpn point four" = "Conecte hasta 5 dispositivos";
-"homepage vpn credit" = "WireGuard es una marca registrada de Jason A. Donenfeld";
+"homepage vpn credit" = "'WireGuard' y el logotipo de 'Wireguard' son marcas comerciales registradas de Jason A. Donenfeld.";
 
 "homepage faq header" = "Preguntas frecuentes (FAQ)";
 "homepage faq action more" = "Ver más preguntas frecuentes (FAQ)";

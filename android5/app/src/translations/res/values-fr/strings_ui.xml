@@ -153,10 +153,11 @@
     <string name="activity_category_top_blocked">Top de Bloqué</string>
     <string name="activity_category_top_allowed">Top de Autorisé</string>
     <string name="activity_filter_header">Quelles entrées voulez-vous voir ?</string>
-    <string name="activity_filter_show_all">Afficher tous les éléments</string>
-    <string name="activity_filter_show_blocked">N\'afficher que les éléments bloqués</string>
-    <string name="activity_filter_show_allowed">N\'afficher que les éléments autorisés</string>
+    <string name="activity_filter_show_all">Tous les éléments</string>
+    <string name="activity_filter_show_blocked">Bloqués uniquement</string>
+    <string name="activity_filter_show_allowed">Autorisés uniquement</string>
     <string name="activity_empty_text">Essayez d\'utiliser votre appareil et revenez ici plus tard pour voir à quel endroit votre périphérique se connecte.</string>
+    <string name="activity_device_filter_show_all">Tous les appareils</string>
     <string name="userdenied_section_header">Mes listes noires</string>
     <string name="userdenied_section_slugline">Gérer la blocage de sites web spécifiques</string>
     <string name="userdenied_tab_allowed">Autorisé</string>
@@ -305,9 +306,7 @@
     <string name="apps_label_system">Système</string>
     <string name="apps_status_bypassed">(contourné)</string>
     <string name="apps_filter_header">Quelles applis voulez-vous voir ?</string>
-    <string name="apps_filter_action_show_all">Afficher toutes les apps</string>
-    <string name="apps_filter_action_show_bypassed">N\'afficher que les elements contournés</string>
-    <string name="apps_filter_action_show_not_bypassed">N\'afficher que les elements non-contournés</string>
+    <string name="apps_filter_action_show_all">Toutes les apps</string>
     <string name="apps_filter_action_toggle_system">Activer/désactiver toutes les applications système</string>
     <string name="app_settings_section_header">Cet appareil</string>
     <string name="app_settings_language_label">Langue</string>
@@ -362,7 +361,6 @@
     <string name="homepage_vpn_point_one">Aucune restriction de bande passante</string>
     <string name="homepage_vpn_point_two">Chiffrement rapide et moderne</string>
     <string name="homepage_vpn_point_four">Connectez jusqu\'à 5 appareils</string>
-    <string name="homepage_vpn_credit">WireGuard est une marque déposée de Jason A. Donenfeld</string>
     <string name="homepage_faq_header">Foire aux Questions</string>
     <string name="homepage_faq_action_more">Voir plus de FAQs</string>
     <string name="homepage_faq_title_one">Quelles informations sont-elles gardées par Blokada ?</string>
