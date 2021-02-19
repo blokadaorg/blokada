@@ -183,7 +183,7 @@ object ConnectivityService {
                         // Of course, this being Android, there are some weird cases in the wild
                         // where we get null despite having the perms. Try to use a fallback.
                         val networkId = wifiManager.connectionInfo.networkId
-                        name = if (networkId != -1 ) networkId.toString() else wifiManager.connectionInfo.bssid.trim('"')
+                        name = if (networkId != -1 ) networkId.toString() else wifiManager.connectionInfo.bssid?.trim('"')
                         if (name == "02:00:00:00:00:00") name = null // No perms (according to docs)
                         if (name == "0") name = null // No perms (according to empirical)
                     }
