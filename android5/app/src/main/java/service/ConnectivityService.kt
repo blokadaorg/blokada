@@ -54,12 +54,12 @@ object ConnectivityService {
 
     private val systemCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
-            log.v("Network status changed: ${network.networkHandle}")
+            //log.v("Network status changed: ${network.networkHandle}")
             handleNetworkChange(network)
         }
 
         override fun onLost(network: Network) {
-            log.v("Network status lost: ${network.networkHandle}")
+            //log.v("Network status lost: ${network.networkHandle}")
             handleNetworkChange(network)
         }
     }
@@ -172,7 +172,6 @@ object ConnectivityService {
                     null
                 }
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ?: false -> {
-                    log.v("Detected WiFi network")
                     // This assumes there is only one active WiFi network at a time
                     var name: String? = wifiManager.connectionInfo.ssid.trim('"')
                     if (name == WifiManager.UNKNOWN_SSID) {
@@ -182,13 +181,11 @@ object ConnectivityService {
                     if (name == null) {
                         // Of course, this being Android, there are some weird cases in the wild
                         // where we get null despite having the perms. Try to use a fallback.
-                        val networkId = wifiManager.connectionInfo.networkId
-                        name = if (networkId != -1 ) networkId.toString() else wifiManager.connectionInfo.bssid?.trim('"')
+                        name = wifiManager.connectionInfo.bssid?.trim('"')
                         if (name == "02:00:00:00:00:00") name = null // No perms (according to docs)
-                        if (name == "0") name = null // No perms (according to empirical)
                     }
 
-                    if (name == "null") {
+                    if (name == null) {
                         log.v("Wifi network fallback name detection returned null")
                     }
 

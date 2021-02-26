@@ -32,7 +32,7 @@ class NetworksViewModel : ViewModel() {
     val configs: LiveData<List<NetworkSpecificConfig>> = _configs.distinctUntilChanged()
 
     private val _activeConfig = MutableLiveData<NetworkSpecificConfig>()
-    val activeConfig: LiveData<NetworkSpecificConfig> = _activeConfig
+    val activeConfig: LiveData<NetworkSpecificConfig> = _activeConfig.distinctUntilChanged()
 
     init {
         val configs = persistence.load(NetworkSpecificConfigs::class).configs
