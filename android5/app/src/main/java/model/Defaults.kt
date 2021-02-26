@@ -71,7 +71,7 @@ object Defaults {
         network = NetworkDescriptor.fallback(),
         encryptDns = true,
         useNetworkDns = false,
-        dnsChoice = DnsDataSource.blocka.id,
+        dnsChoice = DnsDataSource.cloudflare.id,
         useBlockaDnsInPlusMode = true,
         enabled = false
     )

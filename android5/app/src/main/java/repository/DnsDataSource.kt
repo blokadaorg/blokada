@@ -167,6 +167,6 @@ object DnsDataSource {
     // All special cases and removed legacy needs to be handled here to not cause crashes when migrating
     fun byId(dnsId: DnsId) = when(dnsId) {
         network.id -> network
-        else -> getDns().firstOrNull { it.id == dnsId } ?: blocka // Fallback for previously selected removed DNS
+        else -> getDns().firstOrNull { it.id == dnsId } ?: cloudflare // Fallback for previously selected removed DNS
     }
 }
