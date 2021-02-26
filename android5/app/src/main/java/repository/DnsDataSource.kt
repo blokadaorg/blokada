@@ -24,7 +24,7 @@ object DnsDataSource {
     )
 
     val blocka = Dns(
-        id = "blocka",
+        id = "blocka2",
         ips = listOf("193.180.80.1", "193.180.80.2"),
         plusIps = listOf("193.180.80.100", "193.180.80.101"),
         label = "Blokada DNS",
