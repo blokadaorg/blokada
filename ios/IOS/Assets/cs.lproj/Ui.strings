@@ -194,7 +194,11 @@
 "activity category top blocked" = "Nejvíce blokováno";
 "activity category top allowed" = "Nejvíce povoleno";
 "activity filter header" = "Které položky chcete vidět?";
+"activity filter show all" = "Všechny položky";
+"activity filter show blocked" = "Pouze blokované";
+"activity filter show allowed" = "Pouze povolené";
 "activity empty text" = "Zkuste použít své zařízení a vraťte se sem později, abyste zjistili, kam se vaše zařízení připojuje.";
+"activity device filter show all" = "Všechna zařízení";
 
 "userdenied section header" = "Moje seznamy hostitelů";
 "userdenied section slugline" = "Spravovat blokování konkrétních webových stránek";
@@ -300,6 +304,7 @@
 "account lease label this device" = " (toto zařízení)";
 "account lease label name" = "Název zařízení";
 "account lease label location" = "Umístění";
+"account lease label generate" = "Generovat konfigurační soubor pro použití s WireGuard";
 "account lease action generate" = "Generovat konfiguraci";
 "account lease action download" = "Stáhnout konfiguraci";
 "account lease generated" = "Zařízení přidáno! Stáhněte si konfiguraci, abyste jej mohli používat na jakémkoliv zařízení podporovaném službou Wireguard.";
@@ -380,6 +385,9 @@
 "apps label system" = "Systémové";
 "apps status bypassed" = "(vyloučené)";
 "apps filter header" = "Které aplikace chcete vidět?";
+"apps filter action show all" = "Všechny aplikace";
+"apps filter action show bypassed" = "Pouze vyloučené";
+"apps filter action show not bypassed" = "Pouze nevyloučené";
 "apps filter action toggle system" = "Přepnout všechny systémové aplikace";
 
 "app settings section header" = "Toto zařízení";
@@ -446,6 +454,7 @@
 "homepage vpn point two" = "Rychlé & moderní šifrování";
 "homepage vpn point three" = "Nezaznamenává vaše aktivity na síti";
 "homepage vpn point four" = "Připojte až 5 zařízení";
+"homepage vpn credit" = "'WireGuard' a logo 'Wireguard' jsou registrované ochranné známky Jasona A. Donenfelda.";
 
 "homepage faq header" = "Často kladené otázky (FAQ)";
 "homepage faq action more" = "Zobrazit další FAQ";

@@ -194,7 +194,11 @@
 "activity category top blocked" = "Mais Bloqueados";
 "activity category top allowed" = "Mais Permitidos";
 "activity filter header" = "Quais entradas você gostaria de ver?";
+"activity filter show all" = "Todas as entradas";
+"activity filter show blocked" = "Somente bloqueados";
+"activity filter show allowed" = "Somente permitidos";
 "activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.";
+"activity device filter show all" = "Todos os dispositivos";
 
 "userdenied section header" = "Minhas listas de bloqueio";
 "userdenied section slugline" = "Gerenciar bloqueio de sites específicos";
@@ -226,6 +230,7 @@
 "networks summary network dns" = "O Blokada usará o DNS da rede se disponível, ou alternará para %@ caso contrário. Além disso, as configurações de Criptografia de DNS serão ignoradas sempre que o DNS da rede for usado. O uso do DNS da rede ajuda a resolver problemas de conectividade em redes problemáticas, mas deixa você desprotegido.";
 "networks summary network dns and plus mode" = "O Blokada desativará temporariamente o Modo Plus sempre que o DNS da rede for usado. Isso ocorre porque não é possível acessar o DNS da rede na VPN. O Modo Plus será automaticamente restaurado quando seu dispositivo mudar para outra rede.";
 "networks summary blocka plus mode" = "O Blokada usará o Blokada DNS no modo Plus, para garantir um alto nível de criptografia e velocidade. Você pode alterar essa configuração na parte inferior da tela de Escolha de DNS.";
+"networks permission dialog" = "O Blokada pode reconhecer redes às quais você se conecta, e permite que você defina configurações separadas para elas. No entanto, este aplicativo irá coletar dados de localização na forma de nome de rede para habilitar esse recurso, mesmo quando o aplicativo está fechado ou não em uso. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização - o Blokada só lerá o nome da rede.";
 
 
 "account section header settings" = "Configurações";
@@ -299,6 +304,7 @@
 "account lease label this device" = " (este dispositivo)";
 "account lease label name" = "Nome do dispositivo";
 "account lease label location" = "Localização";
+"account lease label generate" = "Gerar um arquivo de configuração para usar com o WireGuard";
 "account lease action generate" = "Gerar Configuração";
 "account lease action download" = "Baixar Configuração";
 "account lease generated" = "Dispositivo adicionado! Baixe a configuração para usá-la em qualquer dispositivo suportado pelo Wireguard.";
@@ -379,6 +385,9 @@
 "apps label system" = "Sistema";
 "apps status bypassed" = "(ignorado)";
 "apps filter header" = "Quais aplicativos você gostaria de ver?";
+"apps filter action show all" = "Todos os aplicativos";
+"apps filter action show bypassed" = "Ignorados apenas";
+"apps filter action show not bypassed" = "Não ignorados apenas";
 "apps filter action toggle system" = "Alternar todos os aplicativos de sistema";
 
 "app settings section header" = "Este dispositivo";
@@ -436,7 +445,7 @@
 "homepage about point four" = "Design seguro (não quebra a criptografia)";
 "homepage about point five" = "Confiável e gratuito para sempre";
 
-"homepage about action faq" = "Veja as FAQs";
+"homepage about action faq" = "Veja as perguntas frequentes";
 "homepage about action plus" = "Saiba mais sobre o Blokada Plus";
 
 "homepage vpn title" = "Blokada 5, a VPN";
@@ -445,9 +454,10 @@
 "homepage vpn point two" = "Criptografia rápida e moderna";
 "homepage vpn point three" = "Não há registro da sua atividade de rede";
 "homepage vpn point four" = "Conecte até 5 dispositivos";
+"homepage vpn credit" = "'WireGuard' e o logotipo 'Wireguard' são marcas registradas de Jason A. Donenfeld.";
 
 "homepage faq header" = "Perguntas Frequentes";
-"homepage faq action more" = "Veja mais FAQs";
+"homepage faq action more" = "Veja mais perguntas frequentes";
 "homepage faq title 1" = "Que informações o Blokada mantém?";
 "homepage faq desc 1" = "O Blokada não rastreia ou compartilha nenhuma das suas atividades na rede. Se você usar o Blokada Plus, por razões técnicas, precisamos coletar os dados mínimos necessários para manter o serviço operacional. Por favor, consulte nossa Política de Privacidade disponível no menu superior para mais detalhes.";
 "homepage faq title 2" = "Como a minha privacidade está protegida?";

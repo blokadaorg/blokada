@@ -153,7 +153,11 @@
     <string name="activity_category_top_blocked">Mais Bloqueados</string>
     <string name="activity_category_top_allowed">Mais Permitidos</string>
     <string name="activity_filter_header">Quais entradas você gostaria de ver?</string>
+    <string name="activity_filter_show_all">Todas as entradas</string>
+    <string name="activity_filter_show_blocked">Somente bloqueados</string>
+    <string name="activity_filter_show_allowed">Somente permitidos</string>
     <string name="activity_empty_text">Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.</string>
+    <string name="activity_device_filter_show_all">Todos os dispositivos</string>
     <string name="userdenied_section_header">Minhas listas de bloqueio</string>
     <string name="userdenied_section_slugline">Gerenciar bloqueio de sites específicos</string>
     <string name="userdenied_tab_allowed">Permitido</string>
@@ -181,6 +185,7 @@
     <string name="networks_summary_network_dns">O Blokada usará o DNS da rede se disponível, ou alternará para %s caso contrário. Além disso, as configurações de Criptografia de DNS serão ignoradas sempre que o DNS da rede for usado. O uso do DNS da rede ajuda a resolver problemas de conectividade em redes problemáticas, mas deixa você desprotegido.</string>
     <string name="networks_summary_network_dns_and_plus_mode">O Blokada desativará temporariamente o Modo Plus sempre que o DNS da rede for usado. Isso ocorre porque não é possível acessar o DNS da rede na VPN. O Modo Plus será automaticamente restaurado quando seu dispositivo mudar para outra rede.</string>
     <string name="networks_summary_blocka_plus_mode">O Blokada usará o Blokada DNS no modo Plus, para garantir um alto nível de criptografia e velocidade. Você pode alterar essa configuração na parte inferior da tela de Escolha de DNS.</string>
+    <string name="networks_permission_dialog">O Blokada pode reconhecer redes às quais você se conecta, e permite que você defina configurações separadas para elas. No entanto, este aplicativo irá coletar dados de localização na forma de nome de rede para habilitar esse recurso, mesmo quando o aplicativo está fechado ou não em uso. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização - o Blokada só lerá o nome da rede.</string>
     <string name="account_section_header_settings">Configurações</string>
     <string name="account_status_text">Sua conta BLOKADA %s está ativa até %s.</string>
     <string name="account_status_text_libre">Sua conta BLOKADA Libre está ativa para sempre.</string>
@@ -245,6 +250,7 @@
     <string name="account_lease_label_this_device"> (este dispositivo)</string>
     <string name="account_lease_label_name">Nome do dispositivo</string>
     <string name="account_lease_label_location">Localização</string>
+    <string name="account_lease_label_generate">Gerar um arquivo de configuração para usar com o WireGuard</string>
     <string name="account_lease_action_generate">Gerar Configuração</string>
     <string name="account_lease_action_download">Baixar Configuração</string>
     <string name="account_lease_generated">Dispositivo adicionado! Baixe a configuração para usá-la em qualquer dispositivo suportado pelo Wireguard.</string>
@@ -315,6 +321,9 @@
     <string name="apps_label_system">Sistema</string>
     <string name="apps_status_bypassed">(ignorado)</string>
     <string name="apps_filter_header">Quais aplicativos você gostaria de ver?</string>
+    <string name="apps_filter_action_show_all">Todos os aplicativos</string>
+    <string name="apps_filter_action_show_bypassed">Ignorados apenas</string>
+    <string name="apps_filter_action_show_not_bypassed">Não ignorados apenas</string>
     <string name="apps_filter_action_toggle_system">Alternar todos os aplicativos de sistema</string>
     <string name="app_settings_section_header">Este dispositivo</string>
     <string name="app_settings_language_label">Idioma</string>
@@ -366,7 +375,7 @@
     <string name="homepage_about_point_three">Não requer root ou jailbreak</string>
     <string name="homepage_about_point_four">Design seguro (não quebra a criptografia)</string>
     <string name="homepage_about_point_five">Confiável e gratuito para sempre</string>
-    <string name="homepage_about_action_faq">Veja as FAQs</string>
+    <string name="homepage_about_action_faq">Veja as perguntas frequentes</string>
     <string name="homepage_about_action_plus">Saiba mais sobre o Blokada Plus</string>
     <string name="homepage_vpn_title">Blokada 5, a VPN</string>
     <string name="homepage_vpn_desc">Para proteção de privacidade definitiva, assine o Blokada Plus e conecte-se através da nossa VPN. Nós usamos o WireGuard®, o protocolo VPN mais avançado, para criptografar sua atividade de rede e ocultar seu endereço IP.</string>
@@ -374,8 +383,9 @@
     <string name="homepage_vpn_point_two">Criptografia rápida e moderna</string>
     <string name="homepage_vpn_point_three">Não há registro da sua atividade de rede</string>
     <string name="homepage_vpn_point_four">Conecte até 5 dispositivos</string>
+    <string name="homepage_vpn_credit">\'WireGuard\' e o logotipo \'Wireguard\' são marcas registradas de Jason A. Donenfeld.</string>
     <string name="homepage_faq_header">Perguntas Frequentes</string>
-    <string name="homepage_faq_action_more">Veja mais FAQs</string>
+    <string name="homepage_faq_action_more">Veja mais perguntas frequentes</string>
     <string name="homepage_faq_title_one">Que informações o Blokada mantém?</string>
     <string name="homepage_faq_desc_one">O Blokada não rastreia ou compartilha nenhuma das suas atividades na rede. Se você usar o Blokada Plus, por razões técnicas, precisamos coletar os dados mínimos necessários para manter o serviço operacional. Por favor, consulte nossa Política de Privacidade disponível no menu superior para mais detalhes.</string>
     <string name="homepage_faq_title_two">Como a minha privacidade está protegida?</string>
