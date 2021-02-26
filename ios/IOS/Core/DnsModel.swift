@@ -64,7 +64,7 @@ extension Dns {
         }
     }
 
-    static var blocka = Dns(ips: ["193.180.80.1", "193.180.80.2"], port: 443, name: "dns.blokada.org", path: "dns-query", label: "Blokada DNS", plusIps: ["193.180.80.100", "193.180.80.101"])
+    static var blocka = Dns(ips: ["193.180.80.1", "193.180.80.2"], port: 443, name: "dns.blokada.org", path: "dns-query", label: "Blokada DNS (beta)", plusIps: ["193.180.80.100", "193.180.80.101"])
 
     static var hardcoded = [
         //Dns(ips: ["176.103.130.130", "176.103.130.131", "2a00:5a60::ad1:0ff", "2a00:5a60::ad2:0ff"], port: 443, name: "dns.adguard.com", path: "dns-query", label: "Adguard"),
@@ -83,7 +83,7 @@ extension Dns {
         ])
 
     static func defaultDns() -> Dns {
-        return hardcoded.first { $0.label == "Blokada DNS" }!
+        return hardcoded.first { $0.label == "Cloudflare" }!
     }
 
 }
