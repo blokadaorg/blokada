@@ -22,6 +22,17 @@ class PackService {
     private let packDownloader = PackDownloader()
 
     private var hardcodedPacks = [
+        Pack.mocked(id: "oisd", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"],
+            title: "OISD",
+            slugline: "A good general purpose blocklist",
+            description: "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
+            creditName: "sjhgvr",
+            creditUrl: "https://go.blokada.org/oisd",
+            configs: ["Light"]
+        )
+            .changeStatus(config: "Light")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor: "Light")),
+
         Pack.mocked(id: "energized", tags: [Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"],
             title: "Energized",
             slugline: "Ads and trackers blocking list",
@@ -113,17 +124,6 @@ class PackService {
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/adservers/hosts.txt", applyFor: "Adservers"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/facebook/hosts.txt", applyFor: "Facebook")),
 
-        Pack.mocked(id: "oisd", tags: [Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"],
-            title: "OISD",
-            slugline: "A good general purpose blocklist",
-            description: "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
-            creditName: "sjhgvr",
-            creditUrl: "https://go.blokada.org/oisd",
-            configs: ["Light"]
-        )
-            .changeStatus(config: "Light")
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor: "Light")),
-
         Pack.mocked(id: "developerdan", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social"],
             title: "Developer Dan's Hosts",
             slugline: "A blocklist for ads and tracking, updated regularly",
@@ -166,7 +166,7 @@ class PackService {
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/spam404/standard/hosts.txt", applyFor: "Standard")),
     ]
 
-    private let packsVersion = 19
+    private let packsVersion = 20
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false
