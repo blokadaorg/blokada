@@ -21,16 +21,17 @@ object PackDataSource {
         Pack.mocked(id = "oisd", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"),
             title = "OISD",
             slugline = "A good, small, general purpose blocklist",
-            description = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
+            description = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.",
             creditName = "sjhgvr",
-            creditUrl = "https://go.blokada.org/oisd",
-            configs = listOf("Light")
+            creditUrl = "https://oisd.nl/",
+            configs = listOf("Basic (Wildcards)", "Basic")
         )
-            .changeStatus(config = "Light")
+            .changeStatus(config = "Basic (Wildcards)")
             .changeStatus(installed = true) // Default config. Will auto download.
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor = "Light")),
+            .withSource(PackSource.new(url = "https://dblw.oisd.nl/basic/", applyFor = "Basic (Wildcards)"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor = "Basic")),
 
-        Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"),
+    Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"),
             title = "Energized",
             slugline = "Ads and trackers blocking list",
             description = "This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave.",
