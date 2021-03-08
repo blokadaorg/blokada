@@ -24,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.blokada.R
 import service.tr
+import ui.app
 
 class PackDetailFragment : Fragment() {
 
@@ -40,7 +41,7 @@ class PackDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.let {
-            vm = ViewModelProvider(it).get(PacksViewModel::class.java)
+            vm = ViewModelProvider(it.app()).get(PacksViewModel::class.java)
         }
 
         val root =  inflater.inflate(R.layout.fragment_pack_detail, container, false)

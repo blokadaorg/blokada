@@ -14,6 +14,7 @@ package ui
 
 import android.app.Activity
 import android.app.Service
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
@@ -27,6 +28,7 @@ import model.BlockaRepoPayload
 import engine.FilteringService
 import model.BlockaConfig
 import service.*
+import ui.advanced.packs.PacksViewModel
 import ui.utils.cause
 import utils.Logger
 import java.util.*
@@ -52,6 +54,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     private lateinit var statsVM: StatsViewModel
     private lateinit var adsCounterVM: AdsCounterViewModel
     private lateinit var networksVM: NetworksViewModel
+    private lateinit var packsVM: PacksViewModel
 
     override fun onCreate() {
         super.onCreate()
@@ -76,6 +79,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         blockaRepoVM = ViewModelProvider(this).get(BlockaRepoViewModel::class.java)
         statsVM = ViewModelProvider(this).get(StatsViewModel::class.java)
         adsCounterVM = ViewModelProvider(this).get(AdsCounterViewModel::class.java)
+        packsVM = ViewModelProvider(this).get(PacksViewModel::class.java)
 
         accountVM.account.observeForever { account ->
             tunnelVM.checkConfigAfterAccountChanged(account)
@@ -130,6 +134,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
 
         GlobalScope.launch {
             BlocklistService.setup()
+            packsVM.setup()
             FilteringService.reload()
         }
     }

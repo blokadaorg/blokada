@@ -23,7 +23,7 @@ object Defaults {
     fun stats() = StatsPersisted(entries = emptyMap())
     fun allowed() = Allowed(value = listOf())
     fun denied() = Denied(value = listOf())
-    fun packs() = Packs(PackDataSource.getPacks(), version = PACKS_VERSION)
+    fun packs() = Packs(PackDataSource.getPacks(), version = PACKS_VERSION, lastRefreshMillis = 0)
     fun localConfig() = LocalConfig(dnsChoice = BuildSpecificDefaults.dns)
     fun syncableConfig() = SyncableConfig(rateAppShown = false, notFirstRun = false)
     fun dnsWrapper() = DnsWrapper(DnsDataSource.getDns())

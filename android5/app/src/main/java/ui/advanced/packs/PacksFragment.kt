@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import model.Pack
 import org.blokada.R
+import ui.app
 
 class PacksFragment : Fragment() {
 
@@ -36,7 +37,7 @@ class PacksFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         activity?.let {
-            vm = ViewModelProvider(it).get(PacksViewModel::class.java)
+            vm = ViewModelProvider(it.app()).get(PacksViewModel::class.java)
         }
 
         val root = inflater.inflate(R.layout.fragment_packs, container, false)

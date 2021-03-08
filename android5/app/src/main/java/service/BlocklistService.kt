@@ -62,11 +62,11 @@ object BlocklistService {
         }
     }
 
-    suspend fun downloadAll(urls: List<Uri>) {
+    suspend fun downloadAll(urls: List<Uri>, force: Boolean = false) {
         log.v("Starting download of ${urls.size} urls")
         coroutineScope {
             for (url in urls) {
-                if (!hasDownloaded(url))
+                if (force || !hasDownloaded(url))
                     launch(Dispatchers.IO) {
                         download(url)
                         sanitize(getDestination(url))

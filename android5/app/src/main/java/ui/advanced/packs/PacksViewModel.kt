@@ -18,11 +18,14 @@ import model.*
 import service.AlertDialogService
 import service.BlocklistService
 import engine.EngineService
+import kotlinx.coroutines.delay
 import service.PersistenceService
 import ui.utils.cause
 import utils.Logger
 import java.lang.Exception
 import org.blokada.R
+import ui.utils.now
+import kotlin.random.Random
 
 class PacksViewModel : ViewModel() {
 
@@ -46,6 +49,28 @@ class PacksViewModel : ViewModel() {
         viewModelScope.launch {
             _packs.value = persistence.load(Packs::class)
         }
+    }
+
+    suspend fun setup() {
+        viewModelScope.launch {
+            delay(3000) // Let the app start up and not block our download
+            // Refresh every 2-3 days but only on app fresh start
+            if (_packs.value?.lastRefreshMillis ?: 0 < (now() - (2 * 86400 + Random.nextInt(86400)))) {
+                try {
+                    log.w("Packs are stale, re-downloading")
+                    // Also include urls of any active pack
+                    _packs.value?.let { packs ->
+                        val urls = packs.packs.filter { it.status.installed }.flatMap { it.getUrls() }.distinct()
+                        blocklist.downloadAll(urls, force = true)
+                        blocklist.mergeAll(urls)
+                        engine.reloadBlockLists()
+                        persistence.save(packs.copy(lastRefreshMillis = now()))
+                    }
+                } catch (ex: Throwable) {
+                    log.e("Could not re-download packs".cause(ex))
+                }
+            }
+        }.join()
     }
 
     fun get(packId: String): Pack? {

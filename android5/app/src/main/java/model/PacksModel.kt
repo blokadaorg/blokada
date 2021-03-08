@@ -104,30 +104,17 @@ data class PackStatus(
 @JsonClass(generateAdapter = true)
 data class Packs(
     val packs: List<Pack>,
-    val version : Int?
+    val version : Int?,
+    val lastRefreshMillis: Long
 ) {
     fun replace(pack: Pack): Packs {
         return Packs(
             packs = packs.map { if (it == pack) pack else it },
-            version = Defaults.PACKS_VERSION
+            version = Defaults.PACKS_VERSION,
+            lastRefreshMillis = this.lastRefreshMillis
         )
     }
 }
-
-//            private enum CodingKeys: String, CodingKey {
-//        // Dont persist "installing"
-//        case installed, updatable, badge, config, hits
-//    }
-//
-//    init(installed: Bool, updatable: Bool, installing: Bool,
-//        badge: Bool, config: [PackConfig], hits: Int) {
-//        self.installed = installed
-//        self.updatable = updatable
-//        self.installing = installing
-//        self.badge = badge
-//        self.config = config
-//        self.hits = hits
-//    }
 
 fun Pack.Companion.mocked(
     id: PackId, tags: List<Tag> = emptyList(),

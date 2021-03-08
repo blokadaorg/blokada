@@ -27,6 +27,7 @@ object PackDataSource {
             configs = listOf("Light")
         )
             .changeStatus(config = "Light")
+            .changeStatus(installed = true) // Default config. Will auto download.
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor = "Light")),
 
         Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"),

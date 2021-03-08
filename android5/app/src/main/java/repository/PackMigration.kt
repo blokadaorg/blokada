@@ -32,7 +32,8 @@ object PackMigration {
                         )
                     } ?: fresh
                 },
-                version = Defaults.PACKS_VERSION
+                version = Defaults.PACKS_VERSION,
+                lastRefreshMillis = 0L // Force re-download
             ) to true
         } else packs to false
     }

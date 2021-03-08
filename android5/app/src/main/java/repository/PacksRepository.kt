@@ -34,11 +34,4 @@ class PacksRepository {
         return packs.packs.first { it.id == packId }
     }
 
-    fun updatePack(pack: Pack) {
-        packs = Packs(
-            packs = packs.packs.map { if (it == pack) pack else it },
-            version = PACKS_VERSION
-        )
-    }
-
 }
