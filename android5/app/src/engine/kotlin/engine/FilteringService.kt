@@ -30,12 +30,33 @@ internal object FilteringService {
     private var userAllowed = emptyList<Host>()
     private var userDenied = emptyList<Host>()
 
+    private var filteringStrategy: FilteringStrategy = NoopFilteringStrategy
+
     fun reload() {
         log.v("Reloading blocklist")
         merged = blocklist.loadMerged()
         userAllowed = blocklist.loadUserAllowed()
         userDenied = blocklist.loadUserDenied()
         log.v("Reloaded: ${merged.size} hosts, + user: ${userDenied.size} denied, ${userAllowed.size} allowed")
+
+        if (merged.size < 10000) {
+            log.w("Merged blocklist is suspiciously small, may not block sufficiently")
+        }
+
+        filteringStrategy = when {
+            merged.isEmpty() && userDenied.isEmpty() -> {
+                log.e("Empty merged blocklist and user denied list, will not block anything")
+                NoopFilteringStrategy
+            }
+            merged.first().startsWith("*.") -> {
+                log.v("Detected wildcard blocklist, will use wildcard matching")
+                merged = merged.map { it.replace("*.", "") }
+                WildcardFilteringStrategy(merged)
+            }
+            else -> {
+                SimpleFilteringStrategy(merged)
+            }
+        }
     }
 
     fun allowed(host: Host): Boolean {
@@ -49,7 +70,7 @@ internal object FilteringService {
         return if (userDenied.contains(host)) {
             scope.launch(Dispatchers.Main) { stats.blockedDenied(host) }
             true
-        } else if (merged.contains(host)) {
+        } else if (filteringStrategy.denied(host)) {
             scope.launch(Dispatchers.Main) { stats.blocked(host) }
             true
         } else {
@@ -61,3 +82,36 @@ internal object FilteringService {
 }
 
 typealias Host = String
+
+private interface FilteringStrategy {
+    fun denied(host: Host): Boolean
+}
+
+private class SimpleFilteringStrategy(
+    private val merged: List<Host>,
+): FilteringStrategy {
+
+    override fun denied(host: Host): Boolean {
+        return merged.contains(host)
+    }
+
+}
+
+private class WildcardFilteringStrategy(
+    private val merged: List<Host>,
+): FilteringStrategy {
+
+    override fun denied(host: Host): Boolean {
+        var partial = host
+        do {
+            if (merged.contains(partial)) return true
+            partial = partial.substringAfter(".")
+        } while (partial.contains("."))
+        return false
+    }
+
+}
+
+private object NoopFilteringStrategy: FilteringStrategy {
+    override fun denied(host: Host) = false
+}
