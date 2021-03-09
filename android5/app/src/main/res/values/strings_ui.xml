@@ -173,6 +173,7 @@
     <string name="networks_action_encrypt_dns">Encrypt DNS</string>
     <string name="networks_action_use_dns">Use DNS: %s</string>
     <string name="networks_action_use_network_dns">Prefer network DNS</string>
+    <string name="networks_action_force_libre_mode">Force Libre mode</string>
     <string name="networks_label_specific_network">Adjust what should happen when your device connects to this network.</string>
     <string name="networks_label_specific_network_type">Adjust what should happen when your device connects to a network of this type.</string>
     <string name="networks_label_any_wifi">Any WiFi network</string>
@@ -185,6 +186,7 @@
     <string name="networks_summary_network_dns">Blokada will use the network\'s DNS if available, or switch to %s otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network\'s DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada will use Blokada DNS in Plus mode, to ensure high level of encryption and speed. You may change this setting at the bottom of the Choose DNS screen.</string>
+    <string name="networks_summary_force_libre_mode">Blokada will always use Libre mode on this network, and ignore your Blokada Plus location. This is useful for networks where you do not want the additional protection.</string>
     <string name="networks_permission_dialog">Blokada can recognize networks you connect to, and let you configure separate settings for them. However, this app will collect location data in the form of network name to enable this feature, even when the app is closed or not in use. Sometimes you may see a system notification about location access - Blokada will only read the network\'s name.</string>
     <string name="account_section_header_settings">Settings</string>
     <string name="account_status_text">Your BLOKADA %s account is active until %s.</string>
@@ -250,7 +252,7 @@
     <string name="account_lease_label_this_device"> (this device)</string>
     <string name="account_lease_label_name">Name of device</string>
     <string name="account_lease_label_location">Location</string>
-    <string name="account_lease_label_generate">Generate a config file to use with WireGuard</string>
+    <string name="account_lease_label_generate">Selecting a location here will generate a config file that you can use in any VPN app that supports Wireguard. This is useful for platforms where we don\'t have our apps yet. Otherwise, we recommend using our native apps instead.</string>
     <string name="account_lease_action_generate">Generate Config</string>
     <string name="account_lease_action_download">Download Config</string>
     <string name="account_lease_generated">Device added! Download the configuration to use it on any device supported by Wireguard.</string>
@@ -396,6 +398,8 @@
     <string name="homepage_faq_desc_four">No, the upgrade is optional. You may stick to the free version of Blokada, forever. It is a recommended upgrade if you wish to increase your privacy protection even more, or need any of the popular features VPNs provide.</string>
     <string name="homepage_faq_title_five">What is the Blokada Plus refund policy?</string>
     <string name="homepage_faq_desc_five">You can get your money back within 7-days of purchasing the subscription. Contact us through any of our apps, and simply mention you want a refund.</string>
+    <string name="homepage_faq_title_">Where is Blokada located?</string>
+    <string name="homepage_faq_desc_">We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.</string>
     <string name="homepage_download_header">Download Blokada</string>
     <string name="homepage_download_subheader">Blokada is available for several platforms, choose yours.</string>
     <string name="homepage_download_option_android_five">Blokada 5 for Android</string>

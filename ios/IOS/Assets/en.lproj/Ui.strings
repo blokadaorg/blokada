@@ -218,6 +218,7 @@
 "networks action encrypt dns" = "Encrypt DNS";
 "networks action use dns" = "Use DNS: %@";
 "networks action use network dns" = "Prefer network DNS";
+"networks action force libre mode" = "Force Libre mode";
 "networks label specific network" = "Adjust what should happen when your device connects to this network.";
 "networks label specific network type" = "Adjust what should happen when your device connects to a network of this type.";
 "networks label any wifi" = "Any WiFi network";
@@ -230,6 +231,7 @@
 "networks summary network dns" = "Blokada will use the network's DNS if available, or switch to %@ otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network's DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.";
 "networks summary network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.";
 "networks summary blocka plus mode" = "Blokada will use Blokada DNS in Plus mode, to ensure high level of encryption and speed. You may change this setting at the bottom of the Choose DNS screen.";
+"networks summary force libre mode" = "Blokada will always use Libre mode on this network, and ignore your Blokada Plus location. This is useful for networks where you do not want the additional protection.";
 "networks permission dialog" = "Blokada can recognize networks you connect to, and let you configure separate settings for them. However, this app will collect location data in the form of network name to enable this feature, even when the app is closed or not in use. Sometimes you may see a system notification about location access - Blokada will only read the network's name.";
 
 
@@ -304,7 +306,7 @@
 "account lease label this device" = " (this device)";
 "account lease label name" = "Name of device";
 "account lease label location" = "Location";
-"account lease label generate" = "Generate a config file to use with WireGuard";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports Wireguard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
 "account lease action generate" = "Generate Config";
 "account lease action download" = "Download Config";
 "account lease generated" = "Device added! Download the configuration to use it on any device supported by Wireguard.";
@@ -468,6 +470,8 @@
 "homepage faq desc 4" = "No, the upgrade is optional. You may stick to the free version of Blokada, forever. It is a recommended upgrade if you wish to increase your privacy protection even more, or need any of the popular features VPNs provide.";
 "homepage faq title 5" = "What is the Blokada Plus refund policy?";
 "homepage faq desc 5" = "You can get your money back within 7-days of purchasing the subscription. Contact us through any of our apps, and simply mention you want a refund.";
+"homepage faq title 6" = "Where is Blokada located?";
+"homepage faq desc 6" = "We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.";
 
 "homepage download header" = "Download Blokada";
 "homepage download subheader" = "Blokada is available for several platforms, choose yours.";

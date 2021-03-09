@@ -21,5 +21,7 @@
     "A collection of blocklists for various use cases.": "A collection of blocklists for various use cases.",
     "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.": "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.",
     "A blocklist based on spam reports": "A blocklist based on spam reports",
-    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies."
+    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.",
+    "A comprehensive lists to block ads and tracking": "A comprehensive lists to block ads and tracking",
+    "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.": "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them."
 } }
