@@ -234,6 +234,7 @@ private data class EngineConfiguration(
     val gateway: Gateway?,
     val lease: Lease?,
     var networkDns: List<InetAddress>,
+    val forceLibreMode: Boolean,
 
     val network: NetworkSpecificConfig,
     val user: BlockaConfig
@@ -249,7 +250,7 @@ private data class EngineConfiguration(
     companion object {
         fun new(network: NetworkSpecificConfig, user: BlockaConfig): EngineConfiguration {
             val (dnsForLibre, dnsForPlus) = decideDnsForNetwork(network)
-            val plusMode = decidePlusMode(dnsForPlus, user)
+            val plusMode = decidePlusMode(dnsForPlus, user, network)
             val dns = if (plusMode) dnsForPlus else dnsForLibre
 
             return EngineConfiguration(
@@ -260,6 +261,7 @@ private data class EngineConfiguration(
                 gateway = if (plusMode) user.gateway else null,
                 lease = if (plusMode) user.lease else null,
                 networkDns = if (network.useNetworkDns) ConnectivityService.getActiveNetworkDns() else emptyList(),
+                forceLibreMode = network.forceLibreMode,
                 network = network,
                 user = user
             )
@@ -291,7 +293,7 @@ private data class EngineConfiguration(
             return forLibre to forPlus
         }
 
-        private fun decidePlusMode(dns: Dns, user: BlockaConfig) = when {
+        private fun decidePlusMode(dns: Dns, user: BlockaConfig, network: NetworkSpecificConfig) = when {
             !user.tunnelEnabled -> false
             !user.vpnEnabled -> false
             user.lease == null -> false
@@ -300,6 +302,7 @@ private data class EngineConfiguration(
                 // Network provided DNS are likely not accessibly within the VPN.
                 false
             }
+            network.forceLibreMode -> false
             else -> true
         }
 
@@ -340,6 +343,7 @@ private data class EngineConfiguration(
         if (gateway != other.gateway) return false
         if (lease != other.lease) return false
         if (networkDns != other.networkDns) return false
+        if (forceLibreMode != other.forceLibreMode) return false
 
         return true
     }
@@ -352,6 +356,7 @@ private data class EngineConfiguration(
         result = 31 * result + (gateway?.hashCode() ?: 0)
         result = 31 * result + (lease?.hashCode() ?: 0)
         result = 31 * result + networkDns.hashCode()
+        result = 31 * result + forceLibreMode.hashCode()
         return result
     }
 

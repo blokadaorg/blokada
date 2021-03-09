@@ -107,6 +107,15 @@ class NetworksViewModel : ViewModel() {
         }
     }
 
+    fun actionForceLibreMode(network: NetworkDescriptor, force: Boolean) {
+        log.v("actionForceLibreMode ($force) for ${network.id()}")
+        viewModelScope.launch {
+            val cfg = getConfig(network).copy(forceLibreMode = force)
+            _configs.replace(cfg)
+            updateLiveData()
+        }
+    }
+
     private fun MutableLiveData<List<NetworkDescriptor>>.add(network: NetworkDescriptor) {
         if (network.type != NetworkType.FALLBACK) {
             var current = value ?: emptyList()

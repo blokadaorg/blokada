@@ -73,7 +73,8 @@ object Defaults {
         useNetworkDns = false,
         dnsChoice = DnsDataSource.cloudflare.id,
         useBlockaDnsInPlusMode = true,
-        enabled = false
+        forceLibreMode = false,
+        enabled = false,
     )
 
 }

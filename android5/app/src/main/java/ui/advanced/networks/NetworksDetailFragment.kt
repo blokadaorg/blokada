@@ -57,7 +57,7 @@ class NetworksDetailFragment : Fragment() {
             accountViewModel = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
         }
 
-        val root =  inflater.inflate(R.layout.fragment_networks_detail, container, false)
+        val root = inflater.inflate(R.layout.fragment_networks_detail, container, false)
 
         val icon: ImageView = root.findViewById(R.id.network_icon)
         val name: TextView = root.findViewById(R.id.network_name)
@@ -66,9 +66,11 @@ class NetworksDetailFragment : Fragment() {
         val summaryEncryptDns: TextView = root.findViewById(R.id.network_summary_encrypt_dns)
         val summaryUseDns: TextView = root.findViewById(R.id.network_summary_use_dns)
         val summaryUseDnsPlus: TextView = root.findViewById(R.id.network_summary_use_dns_plus)
+        val summaryForceLibre: TextView = root.findViewById(R.id.network_summary_force_libre)
         val actionEncrypt: OptionView = root.findViewById(R.id.network_action_encryptdns)
         val actionUseNetworkDns: OptionView = root.findViewById(R.id.network_action_networkdns)
         val actionChangeDns: OptionView = root.findViewById(R.id.network_action_changedns)
+        val actionForceLibre: OptionView = root.findViewById(R.id.network_action_forcelibre)
 
         viewModel.configs.observe(viewLifecycleOwner, {
             viewModel.getConfigForId(args.networkId).let { cfg ->
@@ -87,6 +89,7 @@ class NetworksDetailFragment : Fragment() {
                         name.text = ctx.getString(R.string.networks_label_all_networks)
                         desc.text = ctx.getString(R.string.networks_label_details_default_network)
                         actionUseNetworkDns.visibility = View.GONE
+                        actionForceLibre.visibility = View.GONE
                     }
                     NetworkType.WIFI -> {
                         icon.setImageResource(R.drawable.ic_baseline_wifi_24)
@@ -108,6 +111,7 @@ class NetworksDetailFragment : Fragment() {
                 // Actions and interdependencies between them
                 actionEncrypt.active = cfg.encryptDns
                 actionUseNetworkDns.active = cfg.useNetworkDns
+                actionForceLibre.active = cfg.forceLibreMode
 
                 val dns = DnsDataSource.byId(cfg.dnsChoice)
                 actionChangeDns.active = true
@@ -136,6 +140,11 @@ class NetworksDetailFragment : Fragment() {
                     fragment.show(parentFragmentManager, null)
                 }
 
+                actionForceLibre.setOnClickListener {
+                    val wantsToUse = !actionForceLibre.active
+                    viewModel.actionForceLibreMode(cfg.network, wantsToUse)
+                }
+
                 // Summary based on selected actions
                 summaryEncryptDns.visibility = if (cfg.encryptDns) View.VISIBLE else View.GONE
                 summaryUseDnsPlus.visibility = when {
@@ -152,6 +161,7 @@ class NetworksDetailFragment : Fragment() {
                     cfg.useNetworkDns -> ctx.getString(R.string.networks_summary_network_dns, dns.label)
                     else -> ctx.getString(R.string.networks_summary_use_dns, dns.label)
                 }
+                summaryForceLibre.visibility = if (cfg.forceLibreMode) View.VISIBLE else View.GONE
             }
         })
 

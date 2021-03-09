@@ -16,7 +16,6 @@ import android.content.Context
 import com.squareup.moshi.JsonClass
 import org.blokada.R
 import repository.DnsDataSource
-import service.ConnectivityService
 
 @JsonClass(generateAdapter = true)
 data class NetworkDescriptor(
@@ -51,6 +50,7 @@ data class NetworkSpecificConfig(
     val useNetworkDns: Boolean,
     val dnsChoice: DnsId,
     val useBlockaDnsInPlusMode: Boolean,
+    val forceLibreMode: Boolean
 ) {
 
     override fun toString(): String {
@@ -69,6 +69,7 @@ data class NetworkSpecificConfig(
                     R.string.networks_action_use_dns,
                     DnsDataSource.byId(it.second as DnsId).label
                 )
+                "forceLibreMode" -> ctx.getString(R.string.networks_action_force_libre_mode)
                 else -> null
             }
         }.joinToString(", ")
@@ -80,6 +81,7 @@ data class NetworkSpecificConfig(
             "useNetworkDns" to useNetworkDns,
             "dnsChoice" to dnsChoice,
             "useBlockaDnsInPlusMode" to useBlockaDnsInPlusMode,
+            "forceLibreMode" to forceLibreMode,
         ).filter { it.second !is Boolean || it.second == true }
     }
 }

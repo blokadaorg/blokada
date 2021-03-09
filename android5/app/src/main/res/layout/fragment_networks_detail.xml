@@ -82,22 +82,29 @@
                 android:id="@+id/network_action_encryptdns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:iconRef="@drawable/ic_baseline_lock_24"
+                app:iconRef="@drawable/ic_lock_check"
                 app:name="@string/networks_action_encrypt_dns" />
 
             <ui.advanced.packs.OptionView
                 android:id="@+id/network_action_changedns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:iconRef="@drawable/ic_baseline_settings_ethernet_24"
+                app:iconRef="@drawable/ic_baseline_no_encryption_24"
                 app:name="@string/networks_action_use_dns" />
 
             <ui.advanced.packs.OptionView
                 android:id="@+id/network_action_networkdns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:iconRef="@drawable/ic_baseline_settings_ethernet_24"
+                app:iconRef="@drawable/ic_baseline_dns_24"
                 app:name="@string/networks_action_use_network_dns" />
+
+            <ui.advanced.packs.OptionView
+                android:id="@+id/network_action_forcelibre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRef="@drawable/ic_map_marker_off"
+                app:name="@string/networks_action_force_libre_mode" />
 
         </LinearLayout>
 
@@ -145,6 +152,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/half"
                 android:text="@string/networks_summary_network_dns_and_plus_mode" />
+
+            <TextView
+                android:id="@+id/network_summary_force_libre"
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half"
+                android:text="@string/networks_summary_force_libre_mode" />
 
         </LinearLayout>
 
