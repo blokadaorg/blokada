@@ -28,7 +28,7 @@ object PackDataSource {
         )
             .changeStatus(config = "Basic (Wildcards)")
             .changeStatus(installed = true) // Default config. Will auto download.
-            .withSource(PackSource.new(url = "https://dblw.oisd.nl/basic/", applyFor = "Basic (Wildcards)"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/basicw/hosts.txt", applyFor = "Basic (Wildcards)"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor = "Basic")),
 
     Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"),
@@ -174,6 +174,17 @@ object PackDataSource {
             configs = listOf("Standard")
         )
             .changeStatus(config = "Standard")
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/spam404/standard/hosts.txt", applyFor = "Standard"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/spam404/standard/hosts.txt", applyFor = "Standard")),
+
+        Pack.mocked(id = "hblock", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "phishing", "security"),
+            title = "hBlock",
+            slugline = "A comprehensive lists to block ads and tracking",
+            description = "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.",
+            creditName = "hblock",
+            creditUrl = "https://go.blokada.org/hblock",
+            configs = listOf("Standard")
+        )
+            .changeStatus(config = "Standard")
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/hblock/standard/hosts.txt", applyFor = "Standard"))
     )
 }

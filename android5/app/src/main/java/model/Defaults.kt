@@ -18,7 +18,7 @@ import service.EnvironmentService
 
 object Defaults {
 
-    val PACKS_VERSION = 17
+    val PACKS_VERSION = 18
 
     fun stats() = StatsPersisted(entries = emptyMap())
     fun allowed() = Allowed(value = listOf())

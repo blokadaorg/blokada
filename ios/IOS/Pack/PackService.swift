@@ -164,9 +164,20 @@ class PackService {
         )
             .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/spam404/standard/hosts.txt", applyFor: "Standard")),
+
+        Pack.mocked(id: "hblock", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "phishing", "security"],
+            title: "hBlock",
+            slugline: "A comprehensive lists to block ads and tracking",
+            description: "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.",
+            creditName: "spam404",
+            creditUrl: "https://go.blokada.org/hblock",
+            configs: ["Standard"]
+        )
+            .changeStatus(config: "Standard")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/hblock/standard/hosts.txt", applyFor: "Standard")),
     ]
 
-    private let packsVersion = 20
+    private let packsVersion = 21
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false
