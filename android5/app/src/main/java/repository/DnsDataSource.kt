@@ -55,9 +55,12 @@ object DnsDataSource {
             ips = listOf("176.103.130.132", "176.103.130.134"),
             label = "AdGuard: family"
         ),
-        Dns.plaintextDns(
+        Dns(
             id = "alternate",
-            ips = listOf("23.253.163.53", "198.101.242.72"),
+            ips = listOf("76.76.19.19", "76.223.122.150", "2001:4801:7825:103:be76:4eff:fe10:2e49", "2001:4800:780e:510:a8cf:392e:ff04:8982"),
+            port = 443,
+            name = "dns.alternate-dns.com",
+            path = "dns-query",
             label = "Alternate DNS"
         ),
         Dns(
