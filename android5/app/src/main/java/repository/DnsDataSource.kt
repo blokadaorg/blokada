@@ -57,26 +57,8 @@ object DnsDataSource {
         ),
         Dns.plaintextDns(
             id = "alternate",
-            ips = listOf("23.253.163.53", "198.101.242.72"),
+            ips = listOf("76.76.19.19", "76.223.122.150", "2001:4801:7825:103:be76:4eff:fe10:2e49", "2001:4800:780e:510:a8cf:392e:ff04:8982"),
             label = "Alternate DNS"
-        ),
-        Dns(
-            id = "blahdns.de",
-            ips = listOf("159.69.198.101", "2a01:4f8:1c1c:6b4b::1"),
-            port = 443,
-            name = "doh-de.blahdns.com",
-            path = "dns-query",
-            label = "Blah DNS (Germany)",
-            region = "europe"
-        ),
-        Dns(
-            id = "blahdns.jp",
-            ips = listOf("45.32.55.94", "2001:19f0:7001:3259:5400:02ff:fe71:0bc9"),
-            port = 443,
-            name = "doh-jp.blahdns.com",
-            path = "dns-query",
-            label = "Blah DNS (Japan)",
-            region = "asia"
         ),
         cloudflare,
         Dns.plaintextDns(
@@ -93,6 +75,12 @@ object DnsDataSource {
             id = "digitalcourage",
             ips = listOf("46.182.19.48", "46.182.19.48"),
             label = "Digitalcourage"
+        ),
+        Dns.plaintextDns(
+            id = "dismail",
+            ips = listOf("80.241.218.68", "159.69.114.157", "2a02:c205:3001:4558::1", "2a01:4f8:c17:739a::2"),
+            label = "Dismail",
+            region = "europe"
         ),
         Dns.plaintextDns(
             id = "dnswatch",
@@ -147,11 +135,6 @@ object DnsDataSource {
             ips = listOf("101.101.101.101", "101.102.103.104"),
             label = "Quad 101"
         ),
-//        Dns.plaintextDns(
-//            id = "tenta",
-//            ips = listOf("99.192.182.100", "99.192.182.101"),
-//            label = "Tenta DNS"
-//        ),
         Dns.plaintextDns(
             id = "uncensored",
             ips = listOf("91.239.100.100", "89.233.43.71"),
