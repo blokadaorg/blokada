@@ -75,6 +75,8 @@ object AppRepository {
         "com.xiaomi.discover",
         "eu.siacs.conversations",
         "org.jitsi.meet",
+        "com.tomtom.speedcams.android.map",
+        "com.tomtom.amigo.huawei",
         // RCS: https://github.com/blokadaorg/blokadaorg.github.io/pull/31
         "com.android.service.ims.RcsServiceApp",
         "com.google.android.carriersetup",
