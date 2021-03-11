@@ -11,6 +11,7 @@
 //
 
 import Foundation
+import UIKit
 
 class BlockaApiService {
 
@@ -30,7 +31,7 @@ class BlockaApiService {
     }
 
     static func userAgent() -> String {
-        return "blokada/\(Env.appVersion) (ios alpha \(Env.buildType) \(Env.cpu) apple \(Env.deviceModel) touch api compatible)"
+        return "blokada/\(Env.appVersion) (ios-\(UIDevice.current.systemVersion) ios \(Env.buildType) \(Env.cpu) apple \(Env.deviceModel) touch api compatible)"
     }
 
     func postAccount(done: @escaping Callback<Account>) {
