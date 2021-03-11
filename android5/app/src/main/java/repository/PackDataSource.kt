@@ -185,6 +185,28 @@ object PackDataSource {
             configs = listOf("Standard")
         )
             .changeStatus(config = "Standard")
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/hblock/standard/hosts.txt", applyFor = "Standard"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/hblock/standard/hosts.txt", applyFor = "Standard")),
+
+        Pack.mocked(id = "cpbl", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "security"),
+            title = "Combined Privacy Block Lists",
+            slugline = "A general purpose, medium weight lists",
+            description = "These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains.",
+            creditName = "bongochong",
+            creditUrl = "https://go.blokada.org/cpbl",
+            configs = listOf("Standard")
+        )
+            .changeStatus(config = "Standard")
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", applyFor = "Standard")),
+
+        Pack.mocked(id = "danpollock", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking"),
+            title = "Dan Pollock's Hosts",
+            slugline = "A reasonably balanced ad blocking hosts file",
+            description = "This is a well known, general purpose blocklist of small size, updated regularly.",
+            creditName = "Dan Pollock",
+            creditUrl = "https://go.blokada.org/danpollock",
+            configs = listOf("Standard")
+        )
+            .changeStatus(config = "Standard")
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/danpollock/standard/hosts.txt", applyFor = "Standard"))
     )
 }

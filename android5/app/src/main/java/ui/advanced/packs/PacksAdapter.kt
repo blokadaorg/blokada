@@ -93,6 +93,9 @@ class PacksAdapter(private val interaction: Interaction? = null) :
             "blocklist" -> R.drawable.feature_blocklist
             "spam404" -> R.drawable.feature_spam404
             "hblock" -> R.drawable.feature_hblock
+            "danpollock" -> R.drawable.feature_danpollock
+            "mvps" -> R.drawable.feature_mvps
+            "cpbl" -> R.drawable.feature_cpbl
             else -> R.drawable.feature_phishingarmy // TODO placeholder
         }
     }

@@ -175,9 +175,31 @@ class PackService {
         )
             .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/hblock/standard/hosts.txt", applyFor: "Standard")),
+
+        Pack.mocked(id: "cpbl", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "phishing", "security"],
+            title: "Combined Privacy Block Lists",
+            slugline: "A general purpose, medium weight lists",
+            description: "These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains.",
+            creditName: "bongochong",
+            creditUrl: "https://go.blokada.org/cpbl",
+            configs: ["Standard"]
+        )
+            .changeStatus(config: "Standard")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", applyFor: "Standard")),
+
+        Pack.mocked(id: "danpollock", tags: [Pack.recommended, Pack.official, "adblocking", "tracking"],
+            title: "Dan Pollock's Hosts",
+            slugline: "A reasonably balanced ad blocking hosts file",
+            description: "This is a well known, general purpose blocklist of small size, updated regularly.",
+            creditName: "Dan Pollock",
+            creditUrl: "https://go.blokada.org/danpollock",
+            configs: ["Standard"]
+        )
+            .changeStatus(config: "Standard")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/danpollock/standard/hosts.txt", applyFor: "Standard")),
     ]
 
-    private let packsVersion = 21
+    private let packsVersion = 22
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false
