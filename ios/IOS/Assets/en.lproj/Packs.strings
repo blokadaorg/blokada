@@ -37,3 +37,7 @@
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.";
 "A comprehensive lists to block ads and tracking" = "A comprehensive lists to block ads and tracking";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.";
+"A general purpose, medium weight lists" = "A general purpose, medium weight lists";
+"These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains." = "These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains.";
+"A reasonably balanced ad blocking hosts file" = "A reasonably balanced ad blocking hosts file";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "This is a well known, general purpose blocklist of small size, updated regularly.";

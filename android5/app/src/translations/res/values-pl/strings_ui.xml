@@ -173,6 +173,7 @@
     <string name="networks_action_encrypt_dns">Szyfruj DNS</string>
     <string name="networks_action_use_dns">Używaj DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferuj sieciowy DNS</string>
+    <string name="networks_action_force_libre_mode">Wymuś tryb Libre</string>
     <string name="networks_label_specific_network">Określ, co ma się stać, gdy urządzenie łączy się z tą siecią.</string>
     <string name="networks_label_specific_network_type">Określ, co ma się stać, gdy urządzenie łączy się z siecią tego typu.</string>
     <string name="networks_label_any_wifi">Dowolna sieć WiFi</string>
@@ -185,6 +186,7 @@
     <string name="networks_summary_network_dns">Blokada użyje sieciowego DNS, jeśli jest dostępny, lub przełączy się na %s. Ponadto ustawienie Szyfruj DNS będzie ignorowane przy każdym użyciu sieciowego DNS. Korzystanie z sieciowego DNS pomaga rozwiązać problemy z łącznością w kłopotliwych sieciach, ale pozostawia Cię bez ochrony.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada tymczasowo wyłączy tryb Plus za każdym razem, gdy używany jest sieciowy DNS. Dzieje się tak dlatego, że dostęp do sieciowego DNS w VPN nie jest możliwy. Tryb Plus zostanie automatycznie przywrócony, gdy urządzenie przełączy się na inną sieć.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada będzie używać Blokada DNS w trybie Plus, aby zapewnić wysoki poziom szyfrowania i szybkość. Możesz zmienić to ustawienie na dole ekranu Wybierz DNS.</string>
+    <string name="networks_summary_force_libre_mode">Blokada zawsze będzie używała trybu Libre w tej sieci i zignoruje Twoją lokalizację Blokady Plus. Jest to użyteczne w sieciach, w których nie chcesz dodatkowej ochrony.</string>
     <string name="networks_permission_dialog">Blokada może rozpoznawać sieci, z którymi się łączysz, i umożliwić skonfigurowanie dla nich osobnych ustawień. Jednak ta aplikacja będzie gromadzić dane o lokalizacji w postaci nazwy sieci, aby móc wykonać tę funkcję, nawet gdy aplikacja jest zamknięta lub nie jest używana. Czasami możesz zobaczyć powiadomienie systemowe o dostępie do lokalizacji – Blokada odczyta tylko nazwę sieci.</string>
     <string name="account_section_header_settings">Ustawienia</string>
     <string name="account_status_text">Twoje konto BLOKADA %s jest aktywne do %s.</string>
@@ -250,7 +252,7 @@
     <string name="account_lease_label_this_device"> (to urządzenie)</string>
     <string name="account_lease_label_name">Nazwa urządzenia</string>
     <string name="account_lease_label_location">Lokalizacja</string>
-    <string name="account_lease_label_generate">Wygeneruj plik konfiguracyjny do użycia przez WireGuard</string>
+    <string name="account_lease_label_generate">Wybór lokalizacji w tym miejscu spowoduje wygenerowanie pliku konfiguracyjnego, którego można użyć w dowolnej aplikacji VPN obsługującej Wireguard. Jest to przydatne na platformach, na których nie mamy jeszcze naszych aplikacji. W przeciwnym razie zalecamy używanie naszych natywnych aplikacji.</string>
     <string name="account_lease_action_generate">Generuj konfigurację</string>
     <string name="account_lease_action_download">Pobierz konfigurację</string>
     <string name="account_lease_generated">Dodano urządzenie! Pobierz konfigurację, aby użyć ją na dowolnym urządzeniu obsługiwanym przez Wireguard.</string>
@@ -396,6 +398,8 @@
     <string name="homepage_faq_desc_four">Nie, aktualizacja jest opcjonalna. Możesz pozostać przy darmowej wersji Blokady, na zawsze. Jest to zalecane ulepszenie, jeśli chcesz jeszcze bardziej zwiększyć ochronę prywatności lub potrzebujesz którejkolwiek z popularnych funkcji VPN.</string>
     <string name="homepage_faq_title_five">Jaka jest polityka zwrotu kosztów Blokady Plus?</string>
     <string name="homepage_faq_desc_five">Możesz odzyskać pieniądze w ciągu 7 dni od zakupu subskrypcji. Skontaktuj się z nami za pośrednictwem naszej dowolnej aplikacji i po prostu poinformuj o chęci zwrotu.</string>
+    <string name="homepage_faq_title_">Gdzie znajduje się Blokada?</string>
+    <string name="homepage_faq_desc_">Mamy siedzibę w Szwecji, gdzie prywatność traktowana jest bardzo poważnie. Nasze serwery są dostępne w wielu miejscach na całym świecie.</string>
     <string name="homepage_download_header">Pobierz Blokadę</string>
     <string name="homepage_download_subheader">Blokada jest dostępna dla kilku platform, wybierz swoją.</string>
     <string name="homepage_download_option_android_five">Blokada 5 dla Androida</string>

@@ -250,7 +250,7 @@
     <string name="account_lease_label_this_device"> (toto zařízení)</string>
     <string name="account_lease_label_name">Název zařízení</string>
     <string name="account_lease_label_location">Umístění</string>
-    <string name="account_lease_label_generate">Generovat konfigurační soubor pro použití s WireGuard</string>
+    <string name="account_lease_label_generate">Pokud zde vyberete umístění, vygeneruje se konfigurační soubor, který můžete použít v jakékoli VPN aplikac, která podporuje Wireguard. To je užitečné pro platformy, na zatím nemáme naší aplikaci. Jinak doporučujeme místo toho použít naší nativní aplikaci.</string>
     <string name="account_lease_action_generate">Generovat konfiguraci</string>
     <string name="account_lease_action_download">Stáhnout konfiguraci</string>
     <string name="account_lease_generated">Zařízení přidáno! Stáhněte si konfiguraci, abyste jej mohli používat na jakémkoliv zařízení podporovaném službou Wireguard.</string>
@@ -396,6 +396,8 @@
     <string name="homepage_faq_desc_four">Ne, upgrade je volitelný. Můžete zůstat u bezplatné verze Blokady, navždy. Jedná se o doporučený upgrade, pokud si přejete ještě více zvýšit ochranu svého soukromí nebo potřebujete některou z populárních funkcí, které VPN poskytují.</string>
     <string name="homepage_faq_title_five">Jaké jsou podmínky vracení peněz za přechod na Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Peníze můžete získat zpět do 7 dnů od zakoupení předplatného. Kontaktujte nás prostřednictvím kterékoli z našich aplikací a jednoduše nám sdělte, že chcete vrátit peníze.</string>
+    <string name="homepage_faq_title_">Odkud Blokada pochází?</string>
+    <string name="homepage_faq_desc_">Sídlíme ve Švédsku, kde se se soukromím zachází velmi obezřetně. Naše servery se nacházejí na mnoha místech po celém světě.</string>
     <string name="homepage_download_header">Stáhnout Blokadu</string>
     <string name="homepage_download_subheader">Blokada je k dispozici pro několik platforem, vyberte si.</string>
     <string name="homepage_download_option_android_five">Blokada 5 pro Android</string>

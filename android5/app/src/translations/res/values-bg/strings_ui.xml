@@ -153,7 +153,11 @@
     <string name="activity_category_top_blocked">Най-много блокирани</string>
     <string name="activity_category_top_allowed">Най-много разрешени</string>
     <string name="activity_filter_header">Кои записи искате да видите?</string>
+    <string name="activity_filter_show_all">Всички записи</string>
+    <string name="activity_filter_show_blocked">Блокирани само</string>
+    <string name="activity_filter_show_allowed">Разрешени само</string>
     <string name="activity_empty_text">Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.</string>
+    <string name="activity_device_filter_show_all">Всички устройства</string>
     <string name="userdenied_section_header">Моите списъци за блокиране</string>
     <string name="userdenied_section_slugline">Управлявайте блокирането на определени уеб сайтове</string>
     <string name="userdenied_tab_allowed">Разрешени</string>
@@ -169,6 +173,7 @@
     <string name="networks_action_encrypt_dns">Криптиран DNS</string>
     <string name="networks_action_use_dns">Използвайте DNS: %s</string>
     <string name="networks_action_use_network_dns">Предпочитан мрежов DNS</string>
+    <string name="networks_action_force_libre_mode">Принудителен Libre режим</string>
     <string name="networks_label_specific_network">Настройте поведението на устройството, когато се свърже с тази мрежа.</string>
     <string name="networks_label_specific_network_type">Настройте поведението на устройството, когато се свърже с мрежа от този тип.</string>
     <string name="networks_label_any_wifi">Всяка WiFi мрежа</string>
@@ -181,6 +186,7 @@
     <string name="networks_summary_network_dns">Blokada ще използва мрежов DNS, ако е наличен, или ще превключи на %s. Когато се използва мрежов DNSС настройките за шифроване на DNS ще бъдат игнорирани. Използването на мрежов DNS помага за отстраняване на проблеми с връзката в цъмнителни мрежи, но ви оставя незащитени.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada временно ще деактивира режим Плюс, когато се използва мрежов DNS. Това е така, защото не е възможен достъп до мрежовия DNS във VPN. Плюс режимът ще се възстанови автоматично, когато вашето устройство превключи към друга мрежа.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada ще използва Blokada DNS в режим Plus за да осигури високо ниво на криптиране и скорост. Можете да промените тази настройка в долната част на екрана Избор на DNS.</string>
+    <string name="networks_summary_force_libre_mode">Blokada винаги ще използва режим Libre в тази мрежа и ще игнорира Blokada Plus от това местоположение. Това е полезно за мрежи, при които не искате допълнителна защита.</string>
     <string name="networks_permission_dialog">Blokada може да разпознава мрежите, към които се свързвате и ви позволява да конфигурирате отделни настройки за тях. Приложението обаче ще събира данни за местоположението под формата на име на мрежа за да активира тази функция, дори когато е затворено или не се използва. Понякога може да видите системно известие за достъп до местоположение - Blokada ще прочете само името на мрежата.</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Вашият BLOKADA %s профил е активен до %s.</string>
@@ -246,6 +252,7 @@
     <string name="account_lease_label_this_device"> (това устройство)</string>
     <string name="account_lease_label_name">Име на устройството</string>
     <string name="account_lease_label_location">Местоположение</string>
+    <string name="account_lease_label_generate">Избирането на местоположение ще генерира конфигурационен файл, който можете да използвате във всяко VPN приложение, което поддържа Wireguard. Това е полезно за платформи, за които все още нямаме наше приложение. В този случай препоръчваме да използвате ваше собствено приложение.</string>
     <string name="account_lease_action_generate">Генериране на конфигурация</string>
     <string name="account_lease_action_download">Изтегляне на конфигурацията</string>
     <string name="account_lease_generated">Устройството е добавено! Изтеглете конфигурацията за да я използвате на всяко устройство поддържано от Wireguard.</string>
@@ -316,6 +323,9 @@
     <string name="apps_label_system">Система</string>
     <string name="apps_status_bypassed">(заобиколено)</string>
     <string name="apps_filter_header">Кои приложения искате да видите?</string>
+    <string name="apps_filter_action_show_all">Всички приложения</string>
+    <string name="apps_filter_action_show_bypassed">Заобиколени само</string>
+    <string name="apps_filter_action_show_not_bypassed">Не заобиколени само</string>
     <string name="apps_filter_action_toggle_system">Превключване към всички системни приложения</string>
     <string name="app_settings_section_header">Това устройство</string>
     <string name="app_settings_language_label">Език</string>
@@ -375,6 +385,7 @@
     <string name="homepage_vpn_point_two">Бързо &amp; модерно криптиране</string>
     <string name="homepage_vpn_point_three">Не се регистрира вашата мрежова активност</string>
     <string name="homepage_vpn_point_four">Свържете до 5 устройства</string>
+    <string name="homepage_vpn_credit">„WireGuard“ и логото „Wireguard“ са регистрирани търговски марки на Jason A. Donenfeld.</string>
     <string name="homepage_faq_header">Често Задавани Въпроси</string>
     <string name="homepage_faq_action_more">Вижте още ЧЗВ</string>
     <string name="homepage_faq_title_one">Каква информация съхранява Blokada?</string>
@@ -387,6 +398,8 @@
     <string name="homepage_faq_desc_four">Не, надстройката не е задължителна. Можете да се придържате към безплатната версия на Blokada, завинаги. Препоръчва се надстройка, ако искате да увеличите още повече защитата си за поверителност или се нуждаете от някоя от популярните функции, които VPN предлага.</string>
     <string name="homepage_faq_title_five">Каква е политиката за възстановяване на средства Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Можете да си върнете парите в рамките на 7 дни от закупуването на абонамента. Свържете се с нас чрез някое от нашите приложения и просто споменете, че искате възстановяване на сумата.</string>
+    <string name="homepage_faq_title_">Къде се намира Blokada?</string>
+    <string name="homepage_faq_desc_">Ние се намираме в Швеция, където на поверителността се гледа много сериозно. Нашите сървъри са достъпни на много места по света.</string>
     <string name="homepage_download_header">Изтегляне на Blokada</string>
     <string name="homepage_download_subheader">Blokada се предлага за няколко платформи, изберете вашата.</string>
     <string name="homepage_download_option_android_five">Blokada 5 за Android</string>

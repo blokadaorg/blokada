@@ -173,6 +173,7 @@
     <string name="networks_action_encrypt_dns">DNS verschlüsseln</string>
     <string name="networks_action_use_dns">Verwende DNS: %s</string>
     <string name="networks_action_use_network_dns">Netzwerk-DNS bevorzugen</string>
+    <string name="networks_action_force_libre_mode">Libre-Modus erzwingen</string>
     <string name="networks_label_specific_network">Stelle ein, was passieren soll, wenn dein Gerät eine Verbindung zu diesem Netzwerk herstellt.</string>
     <string name="networks_label_specific_network_type">Stelle ein, was passieren soll, wenn dein Gerät eine Verbindung zu einem Netzwerk dieser Art herstellt.</string>
     <string name="networks_label_any_wifi">Jedes WLAN-Netzwerk</string>
@@ -185,6 +186,7 @@
     <string name="networks_summary_network_dns">Blokada verwendet - sofern verfügbar - das DNS des Netzwerks und wechselt andernfalls zu %s. Außerdem werden die Einstellungen für \"DNS verschlüsseln\" ignoriert, wenn Netzwerk-DNS verwendet wird. Die Verwendung des Netzwerk-DNS hilft bei der Behebung von Verbindungsproblemen in fehlerhaften Netzwerken, lässt dich aber ungeschützt.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada deaktiviert vorübergehend den Plus-Modus, wenn Netzwerk-DNS verwendet wird. Dies liegt daran, dass im VPN der Zugriff auf Netzwerk-DNS nicht möglich ist. Der Plus-Modus wird automatisch wiederhergestellt, wenn dein Gerät in ein anderes Netzwerk wechselt.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada verwendet Blokada DNS im Plus-Modus, um ein hohes Maß an Verschlüsselung und Geschwindigkeit zu gewährleisten. Du kannst diese Einstellung unten bei \"DNS auswählen\" ändern.</string>
+    <string name="networks_summary_force_libre_mode">Blokada wird in diesem Netzwerk immer den Libre-Modus verwenden und deinen Blokada Plus-Standort ignorieren. Dies ist nützlich für Netzwerke, in denen du den zusätzlichen Schutz nicht möchtest.</string>
     <string name="networks_permission_dialog">Blokada kann Netzwerke erkennen, mit denen du dich verbindest und du kannst für diese Netzwerke individuelle Einstellungen konfigurieren. Um diese Funktion zu aktivieren, erfasst diese App jedoch Standortdaten in Form des Netzwerknamens, auch wenn die App geschlossen oder nicht verwendet wird. Möglicherweise siehst du manchmal eine Systembenachrichtigung bezüglich des Standortzugriffs - Blokada liest nur den Namen des Netzwerks.</string>
     <string name="account_section_header_settings">Einstellungen</string>
     <string name="account_status_text">Dein BLOKADA %s Konto ist aktiv bis zum %s.</string>
@@ -250,7 +252,7 @@
     <string name="account_lease_label_this_device"> (Dieses Gerät)</string>
     <string name="account_lease_label_name">Name des Gerätes</string>
     <string name="account_lease_label_location">Standort</string>
-    <string name="account_lease_label_generate">Generiere eine Konfigurationsdatei zur Verwendung mit WireGuard</string>
+    <string name="account_lease_label_generate">Wenn du hier einen Standort auswählst, wird eine Konfigurationsdatei generiert, die du in jeder VPN-App verwenden kannst, die WireGuard unterstützt. Dies ist nützlich für Plattformen, für die wir noch keine eigenen Apps bereitstellen. Ansonsten empfehlen wir, stattdessen unsere nativen Apps zu verwenden.</string>
     <string name="account_lease_action_generate">Konfiguration generieren</string>
     <string name="account_lease_action_download">Konfiguration herunterladen</string>
     <string name="account_lease_generated">Gerät hinzugefügt! Lade die Konfiguration herunter, um sie auf jedem Gerät zu verwenden, dass von Wireguard unterstützt wird.</string>
@@ -396,6 +398,8 @@
     <string name="homepage_faq_desc_four">Nein, das Upgrade ist optional. Du kannst bei der kostenlosen Version von Blokada bleiben, für immer. Es ist ein empfohlenes Upgrade, wenn du den Schutz deiner Privatsphäre noch weiter erhöhen möchtest oder eine der beliebten Funktionen benötigst, die VPNs bieten.</string>
     <string name="homepage_faq_title_five">Wie ist die Rückerstattungsrichtlinie von Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Du kannst dein Geld innerhalb von 7 Tagen nach dem Kauf des Abonnements zurückerhalten. Kontaktiere uns über eine unserer Apps und erwähne einfach, dass du eine Rückerstattung wünschst.</string>
+    <string name="homepage_faq_title_">Wo ist Blokada angesiedelt?</string>
+    <string name="homepage_faq_desc_">Wir haben unseren Sitz in Schweden, wo der Datenschutz sehr ernst genommen wird. Unsere Server sind an vielen Orten auf der ganzen Welt verfügbar.</string>
     <string name="homepage_download_header">Blokada herunterladen</string>
     <string name="homepage_download_subheader">Blokada ist für verschiedene Plattformen verfügbar, wähle deine aus.</string>
     <string name="homepage_download_option_android_five">Blokada 5 für Android</string>

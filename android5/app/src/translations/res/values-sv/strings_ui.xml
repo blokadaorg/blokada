@@ -250,7 +250,6 @@
     <string name="account_lease_label_this_device"> (denna enhet)</string>
     <string name="account_lease_label_name">Enhetens namn</string>
     <string name="account_lease_label_location">Plats</string>
-    <string name="account_lease_label_generate">Generera en konfigurationsfil för att använda med WireGuard</string>
     <string name="account_lease_action_generate">Generera konfiguration</string>
     <string name="account_lease_action_download">Ladda ner konfiguration</string>
     <string name="account_lease_generated">Enheten tillagd! Ladda ner konfigurationen för att använda den på alla enheter som stöds av Wireguard.</string>

@@ -249,7 +249,6 @@
     "account lease label this device": " (este dispositivo)",
     "account lease label name": "Nome do dispositivo",
     "account lease label location": "Localização",
-    "account lease label generate": "Gerar um arquivo de configuração para usar com o WireGuard",
     "account lease action generate": "Gerar Configuração",
     "account lease action download": "Baixar Configuração",
     "account lease generated": "Dispositivo adicionado! Baixe a configuração para usá-la em qualquer dispositivo suportado pelo Wireguard.",

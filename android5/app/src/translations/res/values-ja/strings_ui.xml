@@ -173,6 +173,7 @@
     <string name="networks_action_encrypt_dns">DNS を暗号化</string>
     <string name="networks_action_use_dns">DNS：%s</string>
     <string name="networks_action_use_network_dns">ネットワーク DNS</string>
+    <string name="networks_action_force_libre_mode">Libre モードを強制する</string>
     <string name="networks_label_specific_network">このネットワークに接続されたときの動作を設定します。</string>
     <string name="networks_label_specific_network_type">この種類のネットワークに接続されたときの動作を設定します。</string>
     <string name="networks_label_any_wifi">すべての Wi-Fi ネットワーク</string>
@@ -185,6 +186,7 @@
     <string name="networks_summary_network_dns">Blokada はネットワーク DNS を使用し、使用できない場合は %s に切り替えます。また、ネットワーク DNS を使用すると、DNS は暗号化されません。ネットワーク DNS を使用すると、ネットワーク上の接続の問題を解決するのに役立ちますが、保護されていない状態になります。</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada は、ネットワーク DNS が使用されるたびに Blokada Plus VPN を一時的に無効にします。これは VPN でネットワーク DNS にアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPN は自動的に復元されます。</string>
     <string name="networks_summary_blocka_plus_mode">Blokada は Plus モードで Blokada DNS を使用して、高いレベルの暗号化と速度を確保します。DNS 選択画面の下部でこの設定を変更できます。</string>
+    <string name="networks_summary_force_libre_mode">Blokada は常にこのネットワーク上で Libre モードを使用し、Blokada Plus の接続先を無視します。追加の保護を必要としないネットワークでご利用ください。</string>
     <string name="networks_permission_dialog">Blokada は接続先のネットワークを認識して個別の設定を適用することができます。Blokada がこの機能を有効にするためにはネットワーク名を収集する必要があり、位置情報へのアクセス許可が必要です。アプリが閉じられているか使用されていない場合でも、場合によっては位置情報へのアクセスに関するシステム通知が表示されることがあります。Blokada はネットワーク名のみを読み取りその他の情報は利用しません。</string>
     <string name="account_section_header_settings">設定</string>
     <string name="account_status_text">BLOKADA %s - アカウントの有効期限は %s です。</string>
@@ -250,7 +252,7 @@
     <string name="account_lease_label_this_device"> （このデバイス）</string>
     <string name="account_lease_label_name">デバイス名</string>
     <string name="account_lease_label_location">接続先</string>
-    <string name="account_lease_label_generate">WireGuard で使用する設定ファイルを作成する</string>
+    <string name="account_lease_label_generate">接続先を選択すると、Wireguard をサポートする VPN アプリで使用できる設定ファイルが生成されます。これにより、まだアプリのないプラットフォームでも VPN を使用できます。対応プラットフォームでは Blokada アプリを使用することをお勧めします。</string>
     <string name="account_lease_action_generate">設定を作成する</string>
     <string name="account_lease_action_download">設定をダウンロード</string>
     <string name="account_lease_generated">デバイスが追加されました！設定をダウンロードして、Wireguardでサポートされているすべてのデバイスで使用できます。</string>
@@ -396,6 +398,8 @@
     <string name="homepage_faq_desc_four">いいえ、アップグレードは任意です。Blokada は無料のまま使い続けることができます。プライバシー保護をさらに強化したい場合や、VPN が提供する一般的な機能が必要な場合は、Blokada Plus へのアップグレードをお勧めします。</string>
     <string name="homepage_faq_title_five">Blokada Plus 払い戻しポリシーとは何ですか？</string>
     <string name="homepage_faq_desc_five">サブスクリプションを購入してから7日以内であれば返金できます。アプリを通じて私たちに連絡し、払い戻しをしてほしいと伝えるだけで構いません。</string>
+    <string name="homepage_faq_title_">Blokada の所在地</string>
+    <string name="homepage_faq_desc_">私たちの拠点はプライバシーを厳格に取り扱うように求められるスウェーデンにあります。私たちのサーバーは世界中の多くの場所で利用できます。</string>
     <string name="homepage_download_header">Blokada をダウンロード</string>
     <string name="homepage_download_subheader">Blokada は複数のプラットフォームで利用可能です。ご利用のプラットフォームを選択してください。</string>
     <string name="homepage_download_option_android_five">Blokada 5 for Android</string>

@@ -173,6 +173,7 @@
     <string name="networks_action_encrypt_dns">Enkripsikan DNS</string>
     <string name="networks_action_use_dns">Gunakan DNS: %s</string>
     <string name="networks_action_use_network_dns">Utamakan DNS jaringan</string>
+    <string name="networks_action_force_libre_mode">Tetap pakai Libre Mode</string>
     <string name="networks_label_specific_network">Atur apa yang terjadi ketika perangkat Anda tersambung dengan jaringan ini.</string>
     <string name="networks_label_specific_network_type">Pengaturan ketika perangkat Anda tersambung dengan jaringan ini.</string>
     <string name="networks_label_any_wifi">Jaringan WiFi manapun</string>
@@ -185,6 +186,7 @@
     <string name="networks_summary_network_dns">Blokada akan mempergunakan DNS dari jaringan jika tersedia, jika tidak memungkinkan Blokada akan menggunakan %s. Pengaturan Enkripsi DNS akan diabaikan ketika DNS jaringan aktif. Penggunaan DNS dari jaringan membantu perbaikan kendala koneksi pada jaringan bermasalah, namun akan membuat koneksi Anda tak terlindungi.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada akan menonaktifkan Mode Plus untuk sementara waktu ketika DNS jaringan digunakan. Hal ini terjadi karena pengguna tidak akan mungkin mengakses DNS jaringan saat menggunakan VPN. Mode Plus akan kembali aktif secara otomatis ketika perangkat Anda beralih ke jaringan lain.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada akan mempergunakan Blokada DNS dalam Mode Plus demi menjamin kecepatan dan tingkat enkripsi tinggi. Anda dapat mengubah pengaturan ini di bagian bawah layar Pilih DNS.</string>
+    <string name="networks_summary_force_libre_mode">Blokada akan selalu menggunakan Mode Libre di jaringan ini, dan mengabaikan lokasi yang Anda pilih di mode Blokada Plus. Ini berguna untuk jaringan di mana Anda tidak menginginkan perlindungan tambahan.</string>
     <string name="networks_permission_dialog">Blokada bisa mengenali jaringan apa saja yang terkoneksi dengan perangkat Anda, dan memungkinkan Anda untuk membuat pengaturan terpisah untuk masing-masing jaringan tersebut. Namun, Blokada akan mengumpulkan data lokasi dalam bentuk nama jaringan supaya fitur ini bisa berfungsi dengan baik, bahkan ketika Blokada sedang non aktif atau tidak digunakan. Anda sesekali akan mendapat notifikasi sistem tentang Blokada yang mengakses informasi lokasi, namun Blokada hanya membaca nama jaringan yang Anda gunakan.</string>
     <string name="account_section_header_settings">Pengaturan</string>
     <string name="account_status_text">%s Akun BLOKADA Anda aktif sampai %s.</string>
@@ -250,7 +252,7 @@
     <string name="account_lease_label_this_device"> (perangkat ini)</string>
     <string name="account_lease_label_name">Nama perangkat</string>
     <string name="account_lease_label_location">Lokasi</string>
-    <string name="account_lease_label_generate">Buat file config untuk dipakai ketika menggunakan Wireguard</string>
+    <string name="account_lease_label_generate">Memilih lokasi akan menghasilkan file config yang bisa Anda pakai di aplikasi VPN manapun yang mendukung protokol Wireguard. Hal ini berguna di platform yang belum didukung oleh Blokada (mis. Windows, Linux). Untuk Android dan iOS kami sarankan Anda untuk menggunakan aplikasi resmi kami.</string>
     <string name="account_lease_action_generate">Hasilkan file Config</string>
     <string name="account_lease_action_download">Unduh file Config</string>
     <string name="account_lease_generated">Perangkat ditambahkan! Unduh file konfigurasi untuk menggunakannya di perangkat apa pun yang mendukung protokol Wireguard.</string>
@@ -396,6 +398,8 @@
     <string name="homepage_faq_desc_four">Tidak, upgrade ke Blokada Plus bersifat opsional. Anda bisa tetap menggunakan Blokada versi gratis, selamanya. Upgrade ke Blokada Plus disarankan jika Anda ingin meningkatkan perlindungan privasi Anda ke level yang lebih tinggi, atau Anda memerlukan fitur-fitur yang hanya bisa disediakan oleh layanan VPN.</string>
     <string name="homepage_faq_title_five">Bagaimana kebijakan refund Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Jika Anda tidak puas dengan layanan VPN kami, Anda dapat memperoleh uang Anda kembali dalam jangka waktu 7 hari sejak mulai berlangganan. Cukup hubungi kami melalui kanal manapun dan ajukan permintaan untuk pengembalian uang Anda.</string>
+    <string name="homepage_faq_title_">Di mana Blokada berada?</string>
+    <string name="homepage_faq_desc_">Kami berbasis di Swedia, di mana privasi ditangani secara serius. Server-server kami tersedia di berbagai lokasi di seluruh dunia.</string>
     <string name="homepage_download_header">Unduh Blokada</string>
     <string name="homepage_download_subheader">Blokada tersedia di berbagai platform, silahkan pilih mana yang sesuai untuk Anda.</string>
     <string name="homepage_download_option_android_five">Blokada 5 untuk Android</string>

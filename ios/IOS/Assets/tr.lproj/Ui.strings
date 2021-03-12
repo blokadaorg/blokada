@@ -195,6 +195,7 @@
 "activity category top allowed" = "En Çok İzin Verilen";
 "activity filter header" = "Hangi girişleri görmek istersiniz?";
 "activity empty text" = "Cihazınızı kullanmayı deneyin ve cihazınızın nereye bağlandığını görmek için daha sonra buraya tekrar gelin.";
+"activity device filter show all" = "Tüm cihazlar";
 
 "userdenied section header" = "Engelleme listelerim";
 "userdenied section slugline" = "Belirli web sitelerinin engellenmesini yönetin";
@@ -370,6 +371,7 @@
 "apps label system" = "Sistem";
 "apps status bypassed" = "(atlandı)";
 "apps filter header" = "Hangi uygulamaları görmek istersiniz?";
+"apps filter action show all" = "Tüm uygulamalar";
 "apps filter action toggle system" = "Tüm sistem uygulamalarını değiştir";
 
 "app settings section header" = "Bu cihaz";

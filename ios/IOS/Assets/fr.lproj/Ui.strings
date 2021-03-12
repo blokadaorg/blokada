@@ -441,6 +441,8 @@
 "homepage faq desc 3" = "Blokada Plus est notre service de VPN (Virtual Private Network) moderne et sécurisé. Il utilise WireGuard® - un protocole véloce avec un chiffrement à la pointe de la technologie et une faible consommation de batterie. Blokada Plus chiffre toute votre activité réseau en temps réel, vous conférant le plus haut niveau de protection possible. Vous bénéficierez des fonctionnalités VPN populaires - masquer votre adresse IP, changer votre localisation, et débloquer les contenus géo-restreints.";
 "homepage faq title 5" = "Quelle est la politique de remboursement de Blokada Plus ?";
 "homepage faq desc 5" = "Vous pouvez récupérer votre argent dans les 7 jours suivant l'achat de l'abonnement. Contactez-nous via l'une de nos applications, et mentionnez simplement que vous souhaitez un remboursement.";
+"homepage faq title 6" = "Où est situé Blokada ?";
+"homepage faq desc 6" = "Nous sommes basés en Suède, où la vie privée est traitée très sérieusement. Nos serveurs sont disponibles dans de nombreux lieux à travers le monde.";
 
 "homepage download header" = "Télécharger Blokada";
 "homepage download subheader" = "Blokada est disponible sur plusieurs plateformes, sélectionnez la vôtre.";

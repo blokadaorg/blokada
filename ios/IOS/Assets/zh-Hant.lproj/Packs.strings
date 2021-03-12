@@ -20,7 +20,7 @@
 "A special blocklist containing mobile ad providers." = "包含行動廣告提供者的特殊阻擋清單";
 "Protects against cyber attacks" = "保護免受網路攻擊";
 "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "過濾釣魚網站的阻擋清單。網路釣魚是奠基於重新導向至看似原網站的假網站的不當行為，目的是欺騙訪客並竊取機密資訊。安裝此阻擋清單可協助您避免這種狀況。";
-"A new and expanding tracker database" = "全新，廣大無邊的追蹤器資料庫";
+"A new and expanding tracker database" = "一個新穎而不斷更新的追蹤資料庫";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo 追蹤器雷達是關於追蹤器的資料集中最好的，其由連續爬蟲與分析自動生成與維護。請見作者資訊以取得更多詳細資訊。";
 "Curated blocklist to block trackers and advertisements" = "精選的阻擋廣告、追蹤清單";
 "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "這是一個精心挑選且有良好維護的封鎖清單，用來封鎖廣告、追蹤器與更多東西！定期更新。";
@@ -34,3 +34,9 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "之所以會建立這些列表，是因為專案的創始人想要一些可以對被封鎖內容進行更多控制的東西。";
 "A blocklist based on spam reports" = "根據垃圾資訊報告所製作的阻擋清單";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 是一項可以協助線上公司監視內容、滲透測試與品牌保護的服務。此列表是以從公司收到的回報為基礎。";
+"A comprehensive lists to block ads and tracking" = "全面阻擋廣告與追蹤程式的清單";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock 是個寫著廣告、追蹤指令碼及惡意軟體的網域清單，能防止您的裝置連線至這些網域。";
+"A general purpose, medium weight lists" = "一般用途，大小適中的清單";
+"These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains." = "這些清單會擋掉惡意及有害的欺騙內容，例如廣告、追蹤程式、遙測、詐騙訊息及惡意軟體伺服器。這些清單不阻擋色情資訊、社群媒體，或所謂的假訊息網域。";
+"A reasonably balanced ad blocking hosts file" = "合理平衡的廣告阻擋主機檔案";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "這是個已知，一般用途的小型阻擋清單，定期更新。";

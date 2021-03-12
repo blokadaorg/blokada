@@ -22,5 +22,11 @@
     "A collection of blocklists for various use cases.": "Колекция от списъци за употреба при различни случаи.",
     "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.": "Тези списъци бяха създадени, защото основателят на проекта искаше да има малко повече контрол върху това, което се блокира.",
     "A blocklist based on spam reports": "Блокиращ списък създаден въз основа на отчетите за нежелана поща",
-    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 е услуга, която помага на компании с онлайн мониторинг на съдържание, тестване за проникване и качество на защитата. Този списък се основава на отчетите получени от тези компании."
+    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 е услуга, която помага на компании с онлайн мониторинг на съдържание, тестване за проникване и качество на защитата. Този списък се основава на отчетите получени от тези компании.",
+    "A comprehensive lists to block ads and tracking": "Изчерпателни списъци за блокиране на реклами и проследяване",
+    "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.": "hBlock е списък с домейни, които обслужват реклами, скриптове за проследяване и злонамерен софтуер. Това пречи на вашето устройство да се свърже с тях.",
+    "A general purpose, medium weight lists": "Общо предназначение, списъци със средна важност",
+    "These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains.": "Тези списъци блокират злонамерено и вредно измамно съдържание, като реклами, проследяване, телеметрия, измами и злонамерен софтуер. Тези списъци не блокират порнографията, социалните медии или така наречените фалшиви новинарски домейни.",
+    "A reasonably balanced ad blocking hosts file": "Рационално балансиран файл, блокиращ хостове за реклами",
+    "This is a well known, general purpose blocklist of small size, updated regularly.": "Това е добре познат, общ блокиращ списък с малки размери, актуализиран редовно."
 } }

@@ -173,6 +173,7 @@
     <string name="networks_action_encrypt_dns">تشفير DNS</string>
     <string name="networks_action_use_dns">استخدام DNS: %s</string>
     <string name="networks_action_use_network_dns">تفضيل شبكة DNS</string>
+    <string name="networks_action_force_libre_mode">فرض وضع Libre</string>
     <string name="networks_label_specific_network">اضبط ما يجب أن يحدث عندما يتّصل جهازك بهذه الشبكة.</string>
     <string name="networks_label_specific_network_type">اضبط ما يجب أن يحدث عندما يتّصل جهازك بشبكة من هذا النوع.</string>
     <string name="networks_label_any_wifi">أي شبكة WiFi</string>
@@ -185,6 +186,7 @@
     <string name="networks_summary_network_dns">سيستخدم بلوكادا DNS الخاص بالشبكة إذا كان متاحاً ، أو يتحوّل إلى %s بدلاً من ذلك. أيضاً ، سيتم تجاهل إعدادات تشفير DNS عند استخدام DNS الشبكة. يساعد استخدام DNS الخاص بالشبكة في إصلاح مشكلات الاتصال على الشبكات المزعجة ، لكنّه يتركك غير محمي.</string>
     <string name="networks_summary_network_dns_and_plus_mode">سيقوم بلوكادا مؤقّتاً بتعطيل وضع Plus عند استخدام DNS للشبكة. لأنّه لا يمكن الوصول إلى DNS للشبكة أثناء اتصال VPN. سيتم استعادة وضع Plus تلقائيّاً عندما ينتقل جهازك إلى شبكة أُخرى.</string>
     <string name="networks_summary_blocka_plus_mode">بلوكادا سيستخدم Blokada DNS في وضع Plus لضمان مستوى عالٍ من التشفير و السرعة. يمكنك تغيير هذا الإعداد في الجزء السفلي من شاشة اختيار DNS.</string>
+    <string name="networks_summary_force_libre_mode">سيستخدم Blokada دائماً وضع Libre على هذه الشبكة ، و يتجاهل موقع Blokada Plus الخاصّ بك. هذا مفيد للشبكات التي لا تريد فيها حماية إضافيّة.</string>
     <string name="networks_permission_dialog">يستطيع بلوكادا التعرّف على الشبكات التي تتّصل بها ، و يتيح لك تكوين إعدادات منفصلة لها. و مع ذلك ، سيجمع هذا التطبيق بيانات الموقع على شكل اسم شبكة لتمكين هذه الميّزة ، حتى عندما يكون التطبيق مغلقاً أو غير مستخدم. في بعض الأحيان قد ترى إشعار النظام حول الوصول إلى الموقع - سيقرأ بلوكادا اسم الشبكة فقط.</string>
     <string name="account_section_header_settings">الإعدادات</string>
     <string name="account_status_text">حسابك في BLOKADA %s نَشِط حتّى %s.</string>
@@ -250,7 +252,7 @@
     <string name="account_lease_label_this_device"> (هذا الجهاز)</string>
     <string name="account_lease_label_name">اسم الجهاز</string>
     <string name="account_lease_label_location">الموقع</string>
-    <string name="account_lease_label_generate">إنشاء ملف تكوين لاستخدامه مع WireGuard</string>
+    <string name="account_lease_label_generate">سيؤدّي تحديد موقع هنا إلى إنشاء ملف تكوين يمكنك استخدامه في أي تطبيق VPN يدعم Wireguard. هذا مفيد للمنصّات التي لا تتوفّر فيها تطبيقاتنا حتّى الآن. بخلاف ذلك ، نوصي باستخدام تطبيقاتنا الأصليّة بدلاً من ذلك.</string>
     <string name="account_lease_action_generate">إعدادات الإنشاء</string>
     <string name="account_lease_action_download">إعدادات التحميل</string>
     <string name="account_lease_generated">تم إضافة الجهاز ! قُم بتحميل الإعدادات لاستخدامها على أي جهاز مدعوم من Wireguard.</string>
@@ -396,6 +398,8 @@
     <string name="homepage_faq_desc_four">لا ، الترقية اختياريّة. يمكنك الإلتزام بالإصدار المجّاني من بلوكادا إلى الأبد. الترقية موصى بها إذا كنت ترغب في زيادة حماية خصوصيّتك بشكل أكبر ، أو تحتاج إلى أي من الميّزات الشائعة التي توفّرها شبكات VPN.</string>
     <string name="homepage_faq_title_five">ما هي سياسة Blokada Plus لاسترداد الدفع ؟</string>
     <string name="homepage_faq_desc_five">يمكنك استرداد أموالك في غضون 7 أيّام من شراء الاشتراك. اتصل بنا من خلال أيّ من تطبيقاتنا ، و اذكر ببساطة أنّك تريد استرداد أموالك.</string>
+    <string name="homepage_faq_title_">أين يقع بلوكادا؟</string>
+    <string name="homepage_faq_desc_">نحن موجودون في السويد ، حيث يتم التعامل مع الخصوصيّة بجديّة بالغة. خوادمنا متوفّرة في العديد من الأماكن حول العالم.</string>
     <string name="homepage_download_header">تحميل بلوكادا</string>
     <string name="homepage_download_subheader">بلوكادا متوفّر للعديد من المنصات، اختر منصَّتك.</string>
     <string name="homepage_download_option_android_five">Blokada 5 للأندرويد</string>

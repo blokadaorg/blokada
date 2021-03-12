@@ -22,5 +22,11 @@
     "A collection of blocklists for various use cases.": "Kumpulan blocklist untuk berbagai macam kegunaan.",
     "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.": "Daftar ini dibuat karena sang pendiri menginginkan sebuah blocklist yang lebih bisa diatur dalam hal entri apa saja yang diblokir.",
     "A blocklist based on spam reports": "Sebuah blocklist yang didasarkan pada laporan spam",
-    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 adalah layanan yang membantu banyak bisnis online dalam hal memantau konten, uji penetrasi dan perlindungan merk. Daftar ini didasarkan pada laporan yang didapat dari banyak perusahaan."
+    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 adalah layanan yang membantu banyak bisnis online dalam hal memantau konten, uji penetrasi dan perlindungan merk. Daftar ini didasarkan pada laporan yang didapat dari banyak perusahaan.",
+    "A comprehensive lists to block ads and tracking": "Daftar host yang cukup komprehensif untuk memblokir ilkan dan pelacak",
+    "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.": "hBlock adalah daftar host yang berisi domain-domain yang menyajikan iklan, skrip pelacak, dan malware. Daftar ini berguna untuk mencegah perangkat Anda agar tidak terhubung ke domain-domain tersebut.",
+    "A general purpose, medium weight lists": "Daftar untuk penggunaan standar yang cukup ringan",
+    "These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains.": "Daftar-daftar ini memblokir konten berbahaya, seperti iklan, pelacak, telemetri, penipuan, dan server malware. Daftar-daftar ini tidak memblokir konten pornografi, media sosial, atau domain \"berita palsu\".",
+    "A reasonably balanced ad blocking hosts file": "File host pemblokiran iklan yang cukup seimbang",
+    "This is a well known, general purpose blocklist of small size, updated regularly.": "Blocklist yang cukup dikenal, berukuran kecil, dan diperbarui secara berkala."
 } }

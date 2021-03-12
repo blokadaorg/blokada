@@ -34,3 +34,9 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Diese Listen wurden erstellt, weil der Gründer des Projekts etwas mehr Kontrolle darüber haben wollte, was blockiert wird.";
 "A blocklist based on spam reports" = "Eine Sperrliste basierend auf Spam-Meldungen";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 ist ein Service, der Online-Unternehmen bei der Überwachung von Inhalten, Penetrationstests und Markenschutz unterstützt. Diese Liste basiert auf den eingegangenen Meldungen von Unternehmen.";
+"A comprehensive lists to block ads and tracking" = "Eine umfangreiche Liste zum Blockieren von Werbung und Tracking";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock enthält eine Liste mit Domains, die Werbung, Tracking-Skripte und Malware anbieten. Sie verhindert, dass sich dein Gerät mit diesen verbindet.";
+"A general purpose, medium weight lists" = "Eine allgemeine, durchschnittlich große Liste";
+"These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains." = "Diese Listen blockieren bösartige und schädlich irreführende Inhalte, wie z. B. Werbe-, Tracking-, Telemetrie-, Scam- und Malware-Server. Diese Listen blockieren keine Porno-, Social-Media- oder sogenannte Fake-News-Domains.";
+"A reasonably balanced ad blocking hosts file" = "Eine angemessen ausgewogene Hosts-Datei zur Werbeblockierung";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Dies ist eine bekannte, allgemeine Sperrliste von geringem Umfang, die regelmäßig aktualisiert wird.";

@@ -304,7 +304,6 @@
 "account lease label this device" = " (este dispositivo)";
 "account lease label name" = "Nombre del dispositivo";
 "account lease label location" = "Ubicación";
-"account lease label generate" = "Generar un archivo de configuración para usar con WireGuard";
 "account lease action generate" = "Generar configuración";
 "account lease action download" = "Descargar configuración";
 "account lease generated" = "¡Dispositivo añadido! Descarga la configuración para usarla en cualquier dispositivo soportado por Wireguard.";

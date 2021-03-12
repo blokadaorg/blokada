@@ -250,7 +250,6 @@
     <string name="account_lease_label_this_device"> (este dispositivo)</string>
     <string name="account_lease_label_name">Nombre del dispositivo</string>
     <string name="account_lease_label_location">Ubicación</string>
-    <string name="account_lease_label_generate">Generar un archivo de configuración para usar con WireGuard</string>
     <string name="account_lease_action_generate">Generar configuración</string>
     <string name="account_lease_action_download">Descargar configuración</string>
     <string name="account_lease_generated">¡Dispositivo añadido! Descarga la configuración para usarla en cualquier dispositivo soportado por Wireguard.</string>

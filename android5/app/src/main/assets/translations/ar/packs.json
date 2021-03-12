@@ -22,5 +22,11 @@
     "A collection of blocklists for various use cases.": "مجموعة من قوائم الحظر لمختلف حالات الاستخدام.",
     "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.": "تم إنشاء هذه القوائم لأن مؤسّس المشروع أراد شيئاً يتمتّع بقدر أكبر من التحكّم في ما يتمّ حظْره.",
     "A blocklist based on spam reports": "قائمة حظْر تستند إلى تقارير البريد المزعج",
-    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 هي خدمة تساعد الشركات عبر الإنترنت في مراقبة المحتوى و اختبار الإختراق و حماية العلامة التجاريّة. تستند هذه القائمة على التقارير الواردة من الشركات."
+    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 هي خدمة تساعد الشركات عبر الإنترنت في مراقبة المحتوى و اختبار الإختراق و حماية العلامة التجاريّة. تستند هذه القائمة على التقارير الواردة من الشركات.",
+    "A comprehensive lists to block ads and tracking": "قوائم شاملة لمنع الإعلانات و التعقّب",
+    "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.": "hBlock هي قائمة من النطاقات التي تخدم الإعلانات، و التعقّب و البرامج النصيّة و البرمجيات الخبيثة. و تمنع جهازك من الاتصال بها.",
+    "A general purpose, medium weight lists": "أغراض عامة ، قوائم متوسطة الحجم",
+    "These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains.": "تحظر هذه القوائم المحتوى الخبيث والمخادع و الضار ، مثل الإعلان و التتبّع و القياس عن بُعد و الإحتيال و خوادم البرامج الضارّة. لا تحظر هذه القوائم الإباحية أو وسائل التواصل الإجتماعي أو ما يسمى بمجالات الأخبار المزيفة.",
+    "A reasonably balanced ad blocking hosts file": "ملف مضيفات متوازنة بشكل معقول لحظر الإعلانات",
+    "This is a well known, general purpose blocklist of small size, updated regularly.": "هذه قائمة حظر معروفة جيّداً للأغراض العامّة و صغيرة الحجم ، يتمّ تحديثها بانتظام."
 } }

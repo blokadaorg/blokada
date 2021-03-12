@@ -22,5 +22,11 @@
     "A collection of blocklists for various use cases.": "様々な用途のためのブロックリスト集",
     "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.": "これらのリストは、ブロックされるものを的確に制御する目的で作成されました。",
     "A blocklist based on spam reports": "スパムレポートに基づくブロックリスト",
-    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 は、コンテンツ監視、侵入テスト、ブランド保護をオンライン企業に提供するサービスです。このリストは、企業から受け取ったレポートに基づいています。"
+    "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.": "Spam404 は、コンテンツ監視、侵入テスト、ブランド保護をオンライン企業に提供するサービスです。このリストは、企業から受け取ったレポートに基づいています。",
+    "A comprehensive lists to block ads and tracking": "広告とトラッキングをブロックする包括的なブロックリスト",
+    "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.": "hBlock は、広告を提供するドメイン、スクリプト、マルウェアのリストです。お使いのデバイスがそれらに接続することを防止します。",
+    "A general purpose, medium weight lists": "総合的、中程度のサイズのブロックリスト",
+    "These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains.": "これらのリストは、広告、トラッキング、テレメトリー、詐欺、マルウェアなど悪意のある有害なコンテンツをブロックします。これらのリストはポルノ、ソーシャルメディア、フェイクニュースをブロックしません。",
+    "A reasonably balanced ad blocking hosts file": "合理的でバランスの取れた広告ブロックのホストファイル。",
+    "This is a well known, general purpose blocklist of small size, updated regularly.": "小さいサイズの有名な汎用ブロックリストで定期的に更新されます。"
 } }

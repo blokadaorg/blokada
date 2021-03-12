@@ -250,7 +250,7 @@
     <string name="account_lease_label_this_device"> (это устройство)</string>
     <string name="account_lease_label_name">Название устройства</string>
     <string name="account_lease_label_location">Местоположение</string>
-    <string name="account_lease_label_generate">Сгенерировать файл конфигурации для использования в WireGuard</string>
+    <string name="account_lease_label_generate">После выбора местоположения здесь будет создан файл конфигурации, который вы сможете использовать в любом VPN-приложении, поддерживающем Wireguard. Это полезно для платформ, для которых у нас пока нет наших приложений. В противном случае, мы рекомендуем использовать наши собственные приложения.</string>
     <string name="account_lease_action_generate">Создать конфигурацию</string>
     <string name="account_lease_action_download">Скачать конфигурацию</string>
     <string name="account_lease_generated">Устройство добавлено! Скачайте конфигурацию, чтобы использовать ее на любом устройстве, которое поддерживается Wireguard.</string>
@@ -396,6 +396,8 @@
     <string name="homepage_faq_desc_four">Нет, обновление необязательно. Вы можете продолжать использовать бесплатную версию Blokada всегда. Это рекомендуемое обновление, если вы хотите усилить защиту вашей конфиденциальности или нуждаетесь в любой из популярных функций, предоставляемых VPN.</string>
     <string name="homepage_faq_title_five">Какова политика возврата Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Вы можете получить возврат денежных средств в течение 7 дней с момента покупки подписки. Свяжитесь с нами через любое из наших приложений и просто укажите, что вы хотите вернуть деньги.</string>
+    <string name="homepage_faq_title_">Где находится Blokada?</string>
+    <string name="homepage_faq_desc_">Мы находимся в Швеции, где к конфиденциальности относятся очень серьезно. Наши серверы доступны во многих местах по всему миру.</string>
     <string name="homepage_download_header">Скачать Blokada</string>
     <string name="homepage_download_subheader">Blokada доступна для нескольких платформ. Выберите свою.</string>
     <string name="homepage_download_option_android_five">Blokada 5 для Android</string>

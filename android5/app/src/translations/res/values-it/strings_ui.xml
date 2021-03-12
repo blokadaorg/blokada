@@ -173,6 +173,7 @@
     <string name="networks_action_encrypt_dns">Cripta DNS</string>
     <string name="networks_action_use_dns">Usa DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferisci DNS di rete</string>
+    <string name="networks_action_force_libre_mode">Forza modalità Gratuita</string>
     <string name="networks_label_specific_network">Regola cosa dovrebbe accadere quando il dispositivo si connette a questa rete.</string>
     <string name="networks_label_specific_network_type">Imposta cosa dovrebbe accadere quando il dispositivo si connette a una rete di questo tipo.</string>
     <string name="networks_label_any_wifi">Qualsiasi rete WiFi</string>
@@ -185,6 +186,7 @@
     <string name="networks_summary_network_dns">Se disponibile, Blokada userà i DNS della rete, altrimenti passerà a %s. Inoltre, le impostazioni di Crittografia DNS verranno ignorate se utilizzati i DNS di rete. L\'utilizzo dei DNS di rete aiuta a risolvere i problemi di connettività su reti problematiche, ma non ti offre protezione.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada disabiliterà temporaneamente la modalità Plus ogni volta che viene utilizzato il DNS di rete. Questo perché non è possibile accedere al DNS di rete in VPN. La modalità Plus verrà ripristinata automaticamente quando il dispositivo passerà ad un\'altra rete.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada utilizzerà i DNS di Blokada in modalità Plus, per garantire un alto livello di crittografia e velocità. È possibile modificare questa impostazione nella parte inferiore della schermata Scegli DNS.</string>
+    <string name="networks_summary_force_libre_mode">Blokada userà sempre la modalità Gratuita su questa rete e ignorerà la tua posizione Blokada Plus. Ciò è utile per le reti delle quali non si desidera una protezione aggiuntiva.</string>
     <string name="networks_permission_dialog">Blokada può riconoscere le reti a cui ti connetti e consentire di configurare impostazioni separate per ognuna di loro. Tuttavia, per farlo, l\'applicazione raccoglierà i dati della posizione per poter accedere al nome della rete, anche quando è chiusa o non in uso. Talvolta potresti vedere una notifica circa l\'accesso alla posizione - Blokada leggerà solo il nome della rete.</string>
     <string name="account_section_header_settings">Impostazioni</string>
     <string name="account_status_text">Il tuo account BLOKADA %s è attivo fino a %s.</string>
@@ -250,7 +252,7 @@
     <string name="account_lease_label_this_device"> (questo dispositivo)</string>
     <string name="account_lease_label_name">Nome del dispositivo</string>
     <string name="account_lease_label_location">Posizione</string>
-    <string name="account_lease_label_generate">Genera un file di configurazione da usare con WireGuard</string>
+    <string name="account_lease_label_generate">Selezionando una posizione si genererà un file di configurazione che è possibile utilizzare in qualsiasi app VPN che supporti WireGuard. Ciò è utile per le piattaforme per ora prive delle nostre app. Altrimenti, ti consigliamo di usare le nostre app native.</string>
     <string name="account_lease_action_generate">Genera Configurazione</string>
     <string name="account_lease_action_download">Scarica Configurazione</string>
     <string name="account_lease_generated">Dispositivo aggiunto! Scarica la configurazione per usarla su qualsiasi dispositivo supportato da Wireguard.</string>
@@ -396,6 +398,8 @@
     <string name="homepage_faq_desc_four">No, l\'aggiornamento è opzionale. Puoi restare alla versione gratuita di Blokada, per sempre. L\'aggiornamento è raccomandato se desideri aumentare la protezione della tua privacy o necessiti di una qualunque delle funzionalità che le VPN offrono.</string>
     <string name="homepage_faq_title_five">Qual è la politica di rimborso di Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Puoi avere un rimborso entro 7 giorni dall\'acquisto del tuo abbonamento. Contattaci attraverso una qualunque delle nostre app e dì semplicemente che desideri un rimborso.</string>
+    <string name="homepage_faq_title_">Dove si trova Blokada?</string>
+    <string name="homepage_faq_desc_">Abbiamo sede in Svezia, dove la privacy è gestita molto seriamente. I nostri server sono disponibili in varie località, in tutto il mondo.</string>
     <string name="homepage_download_header">Scarica Blokada</string>
     <string name="homepage_download_subheader">Blokada è disponibile per diverse piattaforme, scegli la tua.</string>
     <string name="homepage_download_option_android_five">Blokada 5 per Android</string>

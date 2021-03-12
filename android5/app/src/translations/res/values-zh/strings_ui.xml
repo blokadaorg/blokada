@@ -173,6 +173,7 @@
     <string name="networks_action_encrypt_dns">加密 DNS</string>
     <string name="networks_action_use_dns">使用 DNS：%s</string>
     <string name="networks_action_use_network_dns">偏好網路 DNS</string>
+    <string name="networks_action_force_libre_mode">強制 Libre 模式</string>
     <string name="networks_label_specific_network">調整您的裝置連線到此網路時應該發生的狀況。</string>
     <string name="networks_label_specific_network_type">調整您的裝置連線到此類型的網路時應該發生的狀況。</string>
     <string name="networks_label_any_wifi">任何無線網路</string>
@@ -185,6 +186,7 @@
     <string name="networks_summary_network_dns">Blokada 將會在可用時使用網路的 DNS，否則將切換到 %s。同時，若使用了網路 DNS 就會忽略加密 DNS 設定。使用網路的 DNS 可以協助修復麻煩的網路上的連線問題，但您將不會受到保護。</string>
     <string name="networks_summary_network_dns_and_plus_mode">每次使用網路 DNS 時，Blokada 都會暫時停用 Plus 模式。因為無法在 VPN 中存取網路 DNS。當您的裝置切換到另一個網路時，Plus 模式就會自動恢復。</string>
     <string name="networks_summary_blocka_plus_mode">Blokada 將會在 Plus 模式中使用 Blokada DNS，以確保較高等級的加密與速度。您可以在「選擇 DNS」畫面的底部變更此設定。</string>
+    <string name="networks_summary_force_libre_mode">Blokada 將永遠在這個網路上使用 Libre 模式，並忽略您的 Blokada Plus 位置。這適合您不想有額外保護的網路。</string>
     <string name="networks_permission_dialog">Blokada 可以識別您連線的網路，並能讓您為每個網路分開設定。不過，此應用程式將會以網路名稱的形式蒐集位置資料來啟用此功能，即便應用程式已關閉或未使用。某些時候您可能會看到關於位置存取的系統通知，Blokada 僅會讀取網路名稱。</string>
     <string name="account_section_header_settings">設定</string>
     <string name="account_status_text">您的 BLOKADA %s 帳號有效日期至 %s 為止。</string>
@@ -250,7 +252,7 @@
     <string name="account_lease_label_this_device">（此裝置）</string>
     <string name="account_lease_label_name">裝置名稱</string>
     <string name="account_lease_label_location">位置</string>
-    <string name="account_lease_label_generate">產生能用於 WireGuard 的組態設定檔</string>
+    <string name="account_lease_label_generate">在這選完位置後，就會產生出一個能在任何支援 Wireguard 的 VPN app 使用的設定檔。這適合用在還不支援 Blokada 的平台，如果支援，建議使用原生 app。</string>
     <string name="account_lease_action_generate">生成設定</string>
     <string name="account_lease_action_download">下載設定</string>
     <string name="account_lease_generated">已新增裝置！下載設定以在任何支援 Wireguard 的裝置上使用。</string>
@@ -396,6 +398,8 @@
     <string name="homepage_faq_desc_four">否，升級是選擇性的。您可能想要永遠留在免費版本的 Blokada。如果您想要增強您的隱私保護，或是需要任何 VPN 提供的流行功能，則建議升級。</string>
     <string name="homepage_faq_title_five">那麼 Blokada Plus 的退款政策呢？</string>
     <string name="homepage_faq_desc_five">您可以在購買訂閱後的七天內取回款項。透過我們的任何應用程式聯絡我們，只要提到您想要退款即可。</string>
+    <string name="homepage_faq_title_">Blokada 位於哪裡？</string>
+    <string name="homepage_faq_desc_">我們立足於瑞典，一個非常注重隱私權的國家。我們的伺服器在世界不少地方都有開設。</string>
     <string name="homepage_download_header">下載 Blokada</string>
     <string name="homepage_download_subheader">Blokada 可用於多種平台，請選擇您要的。</string>
     <string name="homepage_download_option_android_five">供 Android 使用的 Blokada 5</string>
