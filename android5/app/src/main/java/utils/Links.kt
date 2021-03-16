@@ -29,7 +29,7 @@ object Links {
     val donate = "https://go.blokada.org/donate"
     val privacy = "https://go.blokada.org/privacy"
     val terms = "https://go.blokada.org/terms"
-    val credits = "https://go.blokada.org/credits"
+    val credits = "https://blokada.org/"
     val community = "https://go.blokada.org/forum"
 
     val updated =
