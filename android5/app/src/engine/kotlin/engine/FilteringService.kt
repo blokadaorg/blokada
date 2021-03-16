@@ -53,6 +53,11 @@ internal object FilteringService {
                 merged = merged.map { it.replace("*.", "") }
                 WildcardFilteringStrategy(merged)
             }
+            merged.first().startsWith("||") -> {
+                log.v("Detected ABP wildcard blocklist, will use wildcard matching")
+                merged = merged.map { it.replace("||", "").replace("^", "") }
+                WildcardFilteringStrategy(merged)
+            }
             else -> {
                 SimpleFilteringStrategy(merged)
             }
