@@ -15,6 +15,10 @@ echo $commit
 
 cd ../../
 
+cd ios/
+swiftgen
+cd ../
+
 git commit -am "$commit"
 
 echo "Done"
