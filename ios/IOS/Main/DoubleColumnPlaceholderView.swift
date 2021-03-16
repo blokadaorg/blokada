@@ -18,7 +18,7 @@ struct DoubleColumnPlaceholderView: View {
             //BlokadaView(animate: true)
             //    .frame(width: 100, height: 100)
 
-            Text("Use side menu to navigate")
+            Text(L10n.mainLabelUseSideMenu)
                 //.font(.largeTitle)
                 .bold()
                 .padding()
