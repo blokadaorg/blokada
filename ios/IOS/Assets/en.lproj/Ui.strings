@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Settings";
 
+"main label use side menu" = "Use side menu to navigate";
+
 "home ads counter footnote" = "ads and trackers blocked since installation";
 "home power off menu header" = "What would you like to do?";
 "home power action turn on" = "Turn on";

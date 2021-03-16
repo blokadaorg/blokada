@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Activity</string>
     <string name="main_tab_advanced">Advanced</string>
     <string name="main_tab_settings">Settings</string>
+    <string name="main_label_use_side_menu">Use side menu to navigate</string>
     <string name="home_ads_counter_footnote">ads and trackers blocked since installation</string>
     <string name="home_power_off_menu_header">What would you like to do?</string>
     <string name="home_power_action_turn_on">Turn on</string>

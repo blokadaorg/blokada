@@ -17,7 +17,7 @@ internal enum L10n {
   internal static let accountActionCreate = L10n.tr("Ui", "account action create")
   /// Devices
   internal static let accountActionDevices = L10n.tr("Ui", "account action devices")
-  /// Encryption
+  /// Encryption & DNS
   internal static let accountActionEncryption = L10n.tr("Ui", "account action encryption")
   /// How do I restore my old account?
   internal static let accountActionHowToRestore = L10n.tr("Ui", "account action how to restore")
@@ -45,9 +45,9 @@ internal enum L10n {
   internal static let accountActiveForever = L10n.tr("Ui", "account active forever")
   /// Active forever
   internal static let accountActiveForeverFull = L10n.tr("Ui", "account active forever full")
-  /// I know my account ID
+  /// I wrote it down
   internal static let accountCreateConfirm = L10n.tr("Ui", "account create confirm")
-  /// This is your account ID. You should write it down, as it is the only way for you to get access to your subscription. Also, do not share it with anyone, so your account won't get stolen.
+  /// This is your account ID. Write it down and keep it private. It’s the only way to access your subscription.
   internal static let accountCreateDescription = L10n.tr("Ui", "account create description")
   /// Not available
   internal static let accountDevicesNotAvailable = L10n.tr("Ui", "account devices not available")
@@ -75,7 +75,7 @@ internal enum L10n {
   internal static let accountEncryptLabelDns = L10n.tr("Ui", "account encrypt label dns")
   /// Encrypting DNS
   internal static let accountEncryptLabelDnsOnly = L10n.tr("Ui", "account encrypt label dns only")
-  /// Encrypting everything
+  /// Connecting through VPN
   internal static let accountEncryptLabelEverything = L10n.tr("Ui", "account encrypt label everything")
   /// Level
   internal static let accountEncryptLabelLevel = L10n.tr("Ui", "account encrypt label level")
@@ -123,6 +123,8 @@ internal enum L10n {
   internal static let accountLeaseLabelDevicesList = L10n.tr("Ui", "account lease label devices list")
   /// DNS
   internal static let accountLeaseLabelDns = L10n.tr("Ui", "account lease label dns")
+  /// Selecting a location here will generate a config file that you can use in any VPN app that supports Wireguard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.
+  internal static let accountLeaseLabelGenerate = L10n.tr("Ui", "account lease label generate")
   /// Location
   internal static let accountLeaseLabelLocation = L10n.tr("Ui", "account lease label location")
   /// Name of device
@@ -163,7 +165,7 @@ internal enum L10n {
   internal static let accountSubscriptionHeaderPaymentMethod = L10n.tr("Ui", "account subscription header payment method")
   /// Renew automatically
   internal static let accountSubscriptionHeaderRenew = L10n.tr("Ui", "account subscription header renew")
-  /// Your payment method does not support auto renew.
+  /// Your payment method does not allow to control the auto renewal setting here.
   internal static let accountSubscriptionRenewUnsupported = L10n.tr("Ui", "account subscription renew unsupported")
   /// How can we help you?
   internal static let accountSupportActionHowHelp = L10n.tr("Ui", "account support action how help")
@@ -195,17 +197,19 @@ internal enum L10n {
   internal static let activityCategoryTopAllowed = L10n.tr("Ui", "activity category top allowed")
   /// Top Blocked
   internal static let activityCategoryTopBlocked = L10n.tr("Ui", "activity category top blocked")
+  /// All devices
+  internal static let activityDeviceFilterShowAll = L10n.tr("Ui", "activity device filter show all")
   /// Full name
   internal static let activityDomainName = L10n.tr("Ui", "activity domain name")
   /// Try using your device, and come back here later, to see where your device connects to.
   internal static let activityEmptyText = L10n.tr("Ui", "activity empty text")
   /// Which entries would you like to see?
   internal static let activityFilterHeader = L10n.tr("Ui", "activity filter header")
-  /// Show all entries
+  /// All entries
   internal static let activityFilterShowAll = L10n.tr("Ui", "activity filter show all")
-  /// Show allowed only
+  /// Allowed only
   internal static let activityFilterShowAllowed = L10n.tr("Ui", "activity filter show allowed")
-  /// Show blocked only
+  /// Blocked only
   internal static let activityFilterShowBlocked = L10n.tr("Ui", "activity filter show blocked")
   /// %@ times
   internal static func activityHappenedManyTimes(_ p1: String) -> String {
@@ -297,11 +301,11 @@ internal enum L10n {
   internal static let appSettingsThemeLight = L10n.tr("Ui", "app settings theme light")
   /// Use DNS over HTTPS
   internal static let appSettingsUseDnsOverHttps = L10n.tr("Ui", "app settings use dns over https")
-  /// Show all apps
+  /// All apps
   internal static let appsFilterActionShowAll = L10n.tr("Ui", "apps filter action show all")
-  /// Show bypassed only
+  /// Bypassed only
   internal static let appsFilterActionShowBypassed = L10n.tr("Ui", "apps filter action show bypassed")
-  /// Show not bypassed only
+  /// Not bypassed only
   internal static let appsFilterActionShowNotBypassed = L10n.tr("Ui", "apps filter action show not bypassed")
   /// Toggle all system apps
   internal static let appsFilterActionToggleSystem = L10n.tr("Ui", "apps filter action toggle system")
@@ -361,6 +365,12 @@ internal enum L10n {
   internal static let homeActionTapToActivate = L10n.tr("Ui", "home action tap to activate")
   /// ads and trackers blocked since installation
   internal static let homeAdsCounterFootnote = L10n.tr("Ui", "home ads counter footnote")
+  /// Protection: High
+  internal static let homeLevelHigh = L10n.tr("Ui", "home level high")
+  /// Protection: Low
+  internal static let homeLevelLow = L10n.tr("Ui", "home level low")
+  /// Protection: Medium
+  internal static let homeLevelMedium = L10n.tr("Ui", "home level medium")
   /// BLOKADA+ deactivated
   internal static let homePlusButtonDeactivated = L10n.tr("Ui", "home plus button deactivated")
   /// Location: *%@*
@@ -377,9 +387,9 @@ internal enum L10n {
   internal static let homePowerActionTurnOn = L10n.tr("Ui", "home power action turn on")
   /// What would you like to do?
   internal static let homePowerOffMenuHeader = L10n.tr("Ui", "home power off menu header")
-  /// ACTIVE
+  /// Active
   internal static let homeStatusActive = L10n.tr("Ui", "home status active")
-  /// DEACTIVATED
+  /// Deactivated
   internal static let homeStatusDeactivated = L10n.tr("Ui", "home status deactivated")
   /// blocking *ads* and *trackers*
   internal static let homeStatusDetailActive = L10n.tr("Ui", "home status detail active")
@@ -395,21 +405,25 @@ internal enum L10n {
   internal static let homeStatusDetailPlus = L10n.tr("Ui", "home status detail plus")
   /// please wait...
   internal static let homeStatusDetailProgress = L10n.tr("Ui", "home status detail progress")
-  /// PAUSED
+  /// Paused
   internal static let homeStatusPaused = L10n.tr("Ui", "home status paused")
+  /// See the FAQs
+  internal static let homepageAboutActionFaq = L10n.tr("Ui", "homepage about action faq")
   /// Learn more about Blokada Plus
   internal static let homepageAboutActionPlus = L10n.tr("Ui", "homepage about action plus")
   /// If you want to efficiently block ads, trackers, malware, save on your data plan, speed up your device and protect your privacy with just one application, then Blokada is for you. It is free, secure and open source.
   internal static let homepageAboutDesc = L10n.tr("Ui", "homepage about desc")
   /// Let's stay in touch!
   internal static let homepageAboutFooter = L10n.tr("Ui", "homepage about footer")
-  /// Built in VPN for better protection
+  /// Trusted & free forever
+  internal static let homepageAboutPointFive = L10n.tr("Ui", "homepage about point five")
+  /// Safe design (does not break encryption)
   internal static let homepageAboutPointFour = L10n.tr("Ui", "homepage about point four")
   /// Blocks ads & trackers
   internal static let homepageAboutPointOne = L10n.tr("Ui", "homepage about point one")
   /// Requires no root or jailbreak
   internal static let homepageAboutPointThree = L10n.tr("Ui", "homepage about point three")
-  /// Works for all apps and the browser
+  /// Works for all apps and all browsers
   internal static let homepageAboutPointTwo = L10n.tr("Ui", "homepage about point two")
   /// Blokada 5, the ad blocker
   internal static let homepageAboutTitle = L10n.tr("Ui", "homepage about title")
@@ -417,10 +431,28 @@ internal enum L10n {
   internal static let homepageActionAuthors = L10n.tr("Ui", "homepage action authors")
   /// Dashboard
   internal static let homepageActionDashboard = L10n.tr("Ui", "homepage action dashboard")
+  /// FAQ
+  internal static let homepageActionFaq = L10n.tr("Ui", "homepage action faq")
   /// Forums
   internal static let homepageActionForums = L10n.tr("Ui", "homepage action forums")
+  /// Reviews
+  internal static let homepageActionOpinions = L10n.tr("Ui", "homepage action opinions")
   /// Source
   internal static let homepageActionSource = L10n.tr("Ui", "homepage action source")
+  /// VPN
+  internal static let homepageActionVpn = L10n.tr("Ui", "homepage action vpn")
+  /// Go to forums
+  internal static let homepageCommunityCtaAction = L10n.tr("Ui", "homepage community cta action")
+  /// We base all of our work on the feedback of our users. Tell us what you think, what should we improve, or just hang out.
+  internal static let homepageCommunityCtaDesc = L10n.tr("Ui", "homepage community cta desc")
+  /// Join us and say hi!
+  internal static let homepageCommunityCtaSubheader = L10n.tr("Ui", "homepage community cta subheader")
+  /// Blokada is not only the privacy app. It is also the community of people who care about their digital privacy and wellbeing. You will find us on our forum, where you can ask any questions you may have. We are also present on other social media and chats.
+  internal static let homepageCommunityDesc = L10n.tr("Ui", "homepage community desc")
+  /// The Community
+  internal static let homepageCommunityHeader = L10n.tr("Ui", "homepage community header")
+  /// Here are some of the opinions from our users.
+  internal static let homepageCommunityOpinions = L10n.tr("Ui", "homepage community opinions")
   /// Join our awesome community.
   internal static let homepageDescCommunity = L10n.tr("Ui", "homepage desc community")
   /// Download Blokada for your platform.
@@ -429,6 +461,78 @@ internal enum L10n {
   internal static let homepageDescSupport = L10n.tr("Ui", "homepage desc support")
   /// Learn the basic information about the app.
   internal static let homepageDescWhatIsBlokada = L10n.tr("Ui", "homepage desc what is blokada")
+  /// Go to repo
+  internal static let homepageDeveloperAction = L10n.tr("Ui", "homepage developer action")
+  /// Blokada is an open source project dedicated to developing the best ad blocker and privacy app for Android and iOS. Check our Github, and let us know, if you need any assistance to make your first PR.
+  internal static let homepageDeveloperDesc = L10n.tr("Ui", "homepage developer desc")
+  /// Are you a developer
+  internal static let homepageDeveloperHeader = L10n.tr("Ui", "homepage developer header")
+  /// and want to make Blokada better?
+  internal static let homepageDeveloperSubheader = L10n.tr("Ui", "homepage developer subheader")
+  /// Blokada 5 .apk
+  internal static let homepageDownloadActionAndroidFive = L10n.tr("Ui", "homepage download action android five")
+  /// Beta .apk
+  internal static let homepageDownloadActionAndroidFiveBeta = L10n.tr("Ui", "homepage download action android five beta")
+  /// Blokada 4 .apk
+  internal static let homepageDownloadActionAndroidFour = L10n.tr("Ui", "homepage download action android four")
+  /// Open F-Droid
+  internal static let homepageDownloadActionAndroidFourFdroid = L10n.tr("Ui", "homepage download action android four fdroid")
+  /// Open Google Play
+  internal static let homepageDownloadActionAndroidSlim = L10n.tr("Ui", "homepage download action android slim")
+  /// Open App Store
+  internal static let homepageDownloadActionIos = L10n.tr("Ui", "homepage download action ios")
+  /// This is our new, recommended version <b>for smartphones and tablets with Android 7 or newer</b>. It is simpler and faster compared to Blokada 4.
+  internal static let homepageDownloadDescAndroidFive = L10n.tr("Ui", "homepage download desc android five")
+  /// We still maintain the older version of Blokada. It has more features, works on older devices, and TVs.
+  internal static let homepageDownloadDescAndroidFour = L10n.tr("Ui", "homepage download desc android four")
+  /// Blokada Slim is a <b>lightweight version of the app</b>, and it only contains features allowed by the Google Play policy.
+  internal static let homepageDownloadDescAndroidSlim = L10n.tr("Ui", "homepage download desc android slim")
+  /// Blokada 5 is simply available on App Store.
+  internal static let homepageDownloadDescIos = L10n.tr("Ui", "homepage download desc ios")
+  /// Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where Wireguard is available.
+  internal static let homepageDownloadDescOther = L10n.tr("Ui", "homepage download desc other")
+  /// Download Blokada
+  internal static let homepageDownloadHeader = L10n.tr("Ui", "homepage download header")
+  /// Blokada 5 for Android
+  internal static let homepageDownloadOptionAndroidFive = L10n.tr("Ui", "homepage download option android five")
+  /// Blokada 4 for Android
+  internal static let homepageDownloadOptionAndroidFour = L10n.tr("Ui", "homepage download option android four")
+  /// Blokada 5 Slim for Android
+  internal static let homepageDownloadOptionAndroidSlim = L10n.tr("Ui", "homepage download option android slim")
+  /// Blokada 5 for iOS
+  internal static let homepageDownloadOptionIos = L10n.tr("Ui", "homepage download option ios")
+  /// Blokada for other platforms
+  internal static let homepageDownloadOptionOther = L10n.tr("Ui", "homepage download option other")
+  /// Blokada is available for several platforms, choose yours.
+  internal static let homepageDownloadSubheader = L10n.tr("Ui", "homepage download subheader")
+  /// See more FAQs
+  internal static let homepageFaqActionMore = L10n.tr("Ui", "homepage faq action more")
+  /// Blokada does not track or share any of your network activity. If you use Blokada Plus, for technical reasons we need to collect the most minimal data required to keep the service operational. Please consult our Privacy Policy available in the top menu for details.
+  internal static let homepageFaqDesc1 = L10n.tr("Ui", "homepage faq desc 1")
+  /// Blokada prevents apps and browsers installed on your device from sending your private data (known as tracking fingerprints) to the Internet. It also encrypts some of your network activity (DNS queries). If you need more protection, Blokada Plus makes your device connect through our VPN, and uses the WireGuard® protocol to encrypt your entire network traffic.
+  internal static let homepageFaqDesc2 = L10n.tr("Ui", "homepage faq desc 2")
+  /// Blokada Plus is our safe and modern VPN (Virtual Private Network) service. It uses WireGuard® - a fast protocol with best-in-class encryption and low battery usage. Blokada Plus encrypts all of your network activity in real time, giving you the highest level of protection available. You also get the popular VPN features - hide your IP address, change your location, and unblock geo-restricted content.
+  internal static let homepageFaqDesc3 = L10n.tr("Ui", "homepage faq desc 3")
+  /// No, the upgrade is optional. You may stick to the free version of Blokada, forever. It is a recommended upgrade if you wish to increase your privacy protection even more, or need any of the popular features VPNs provide.
+  internal static let homepageFaqDesc4 = L10n.tr("Ui", "homepage faq desc 4")
+  /// You can get your money back within 7-days of purchasing the subscription. Contact us through any of our apps, and simply mention you want a refund.
+  internal static let homepageFaqDesc5 = L10n.tr("Ui", "homepage faq desc 5")
+  /// We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.
+  internal static let homepageFaqDesc6 = L10n.tr("Ui", "homepage faq desc 6")
+  /// Frequently Asked Questions
+  internal static let homepageFaqHeader = L10n.tr("Ui", "homepage faq header")
+  /// What information does Blokada keep?
+  internal static let homepageFaqTitle1 = L10n.tr("Ui", "homepage faq title 1")
+  /// How is my privacy protected?
+  internal static let homepageFaqTitle2 = L10n.tr("Ui", "homepage faq title 2")
+  /// What is Blokada Plus?
+  internal static let homepageFaqTitle3 = L10n.tr("Ui", "homepage faq title 3")
+  /// Do I need to upgrade to Blokada Plus?
+  internal static let homepageFaqTitle4 = L10n.tr("Ui", "homepage faq title 4")
+  /// What is the Blokada Plus refund policy?
+  internal static let homepageFaqTitle5 = L10n.tr("Ui", "homepage faq title 5")
+  /// Where is Blokada located?
+  internal static let homepageFaqTitle6 = L10n.tr("Ui", "homepage faq title 6")
   /// Support us
   internal static let homepageHeaderSupport = L10n.tr("Ui", "homepage header support")
   /// What is Blokada?
@@ -439,6 +543,34 @@ internal enum L10n {
   internal static let homepageHeroSubtitle = L10n.tr("Ui", "homepage hero subtitle")
   /// The privacy app
   internal static let homepageHeroTitle = L10n.tr("Ui", "homepage hero title")
+  /// Donate (card, Paypal)
+  internal static let homepageSupportCtaAction = L10n.tr("Ui", "homepage support cta action")
+  /// Donate (bank, crypto)
+  internal static let homepageSupportCtaActionAlt = L10n.tr("Ui", "homepage support cta action alt")
+  /// Blokada is an open source project, which means you can be sure it's always going to be free, safe to use, and without any hidden agenda. We believe this is the only right way to develop a privacy app you can trust.
+  internal static let homepageSupportCtaDesc = L10n.tr("Ui", "homepage support cta desc")
+  /// However, developing a quality app like Blokada requires a considerable amount of resources. This project exists thanks to the support of awesome people like you!
+  internal static let homepageSupportCtaDescMore = L10n.tr("Ui", "homepage support cta desc more")
+  /// Blokada is dependent on you
+  internal static let homepageSupportCtaHeader = L10n.tr("Ui", "homepage support cta header")
+  /// If you like what we do, consider supporting us, so that we can continue developing new features and improvements. This way, Blokada can stay open source and free forever.
+  internal static let homepageSupportDesc = L10n.tr("Ui", "homepage support desc")
+  /// Support the project
+  internal static let homepageSupportHeader = L10n.tr("Ui", "homepage support header")
+  /// 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.
+  internal static let homepageVpnCredit = L10n.tr("Ui", "homepage vpn credit")
+  /// For ultimate privacy protection, upgrade to Blokada Plus and connect through our VPN. We use WireGuard®, the most advanced VPN protocol, to encrypt your network activity and hide your IP address.
+  internal static let homepageVpnDesc = L10n.tr("Ui", "homepage vpn desc")
+  /// Connect up to 5 devices
+  internal static let homepageVpnPointFour = L10n.tr("Ui", "homepage vpn point four")
+  /// No bandwidth restrictions
+  internal static let homepageVpnPointOne = L10n.tr("Ui", "homepage vpn point one")
+  /// No logging of your network activity
+  internal static let homepageVpnPointThree = L10n.tr("Ui", "homepage vpn point three")
+  /// Fast & modern encryption
+  internal static let homepageVpnPointTwo = L10n.tr("Ui", "homepage vpn point two")
+  /// Blokada 5, the VPN
+  internal static let homepageVpnTitle = L10n.tr("Ui", "homepage vpn title")
   /// Blokada is Active!
   internal static let introHeader = L10n.tr("Ui", "intro header")
   /// A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.
@@ -451,10 +583,14 @@ internal enum L10n {
   internal static let locationRegionAsia = L10n.tr("Ui", "location region asia")
   /// Europe
   internal static let locationRegionEurope = L10n.tr("Ui", "location region europe")
+  /// Everywhere
+  internal static let locationRegionWorldwide = L10n.tr("Ui", "location region worldwide")
   /// Blokada is using a VPN Configuration to block ads. You will be asked to allow it in the next step.
   internal static let mainAskForPermissionsDescription = L10n.tr("Ui", "main ask for permissions description")
   /// Just one more step
   internal static let mainAskForPermissionsHeader = L10n.tr("Ui", "main ask for permissions header")
+  /// Use side menu to navigate
+  internal static let mainLabelUseSideMenu = L10n.tr("Ui", "main label use side menu")
   /// Sure!
   internal static let mainRateUsActionSure = L10n.tr("Ui", "main rate us action sure")
   /// How do you like Blokada so far?
@@ -475,6 +611,64 @@ internal enum L10n {
   internal static let mainTabHome = L10n.tr("Ui", "main tab home")
   /// Settings
   internal static let mainTabSettings = L10n.tr("Ui", "main tab settings")
+  /// Encrypt DNS
+  internal static let networksActionEncryptDns = L10n.tr("Ui", "networks action encrypt dns")
+  /// Force Libre mode
+  internal static let networksActionForceLibreMode = L10n.tr("Ui", "networks action force libre mode")
+  /// Tap here to modify default settings. To make the app behave differently on some networks, tap below.
+  internal static let networksActionNetworkSpecific = L10n.tr("Ui", "networks action network specific")
+  /// Use DNS: %@
+  internal static func networksActionUseDns(_ p1: String) -> String {
+    return L10n.tr("Ui", "networks action use dns", p1)
+  }
+  /// Prefer network DNS
+  internal static let networksActionUseNetworkDns = L10n.tr("Ui", "networks action use network dns")
+  /// All networks
+  internal static let networksLabelAllNetworks = L10n.tr("Ui", "networks label all networks")
+  /// Any mobile network
+  internal static let networksLabelAnyMobile = L10n.tr("Ui", "networks label any mobile")
+  /// Any WiFi network
+  internal static let networksLabelAnyWifi = L10n.tr("Ui", "networks label any wifi")
+  /// These settings are currently active
+  internal static let networksLabelConfigurationActive = L10n.tr("Ui", "networks label configuration active")
+  /// Not connected to this network
+  internal static let networksLabelConfigurationEnabled = L10n.tr("Ui", "networks label configuration enabled")
+  /// Tap to modify settings for this network
+  internal static let networksLabelConfigurationInactive = L10n.tr("Ui", "networks label configuration inactive")
+  /// The settings below are applied by default for all networks. You can override them for selected networks (in the previous screen).
+  internal static let networksLabelDetailsDefaultNetwork = L10n.tr("Ui", "networks label details default network")
+  /// Adjust what should happen when your device connects to this network.
+  internal static let networksLabelSpecificNetwork = L10n.tr("Ui", "networks label specific network")
+  /// Adjust what should happen when your device connects to a network of this type.
+  internal static let networksLabelSpecificNetworkType = L10n.tr("Ui", "networks label specific network type")
+  /// Blokada can recognize networks you connect to, and let you configure separate settings for them. However, this app will collect location data in the form of network name to enable this feature, even when the app is closed or not in use. Sometimes you may see a system notification about location access - Blokada will only read the network's name.
+  internal static let networksPermissionDialog = L10n.tr("Ui", "networks permission dialog")
+  /// To have more control, tap here and let the app recognise all networks.
+  internal static let networksPermissionRequest = L10n.tr("Ui", "networks permission request")
+  /// You may see a notification when Blokada reads your network name in the background.
+  internal static let networksPermissionRequestGranted = L10n.tr("Ui", "networks permission request granted")
+  /// Choose DNS
+  internal static let networksSectionChooseDns = L10n.tr("Ui", "networks section choose dns")
+  /// Networks
+  internal static let networksSectionHeader = L10n.tr("Ui", "networks section header")
+  /// Adjust settings for WiFi and mobile networks
+  internal static let networksSectionLabel = L10n.tr("Ui", "networks section label")
+  /// Blokada will use Blokada DNS in Plus mode, to ensure high level of encryption and speed. You may change this setting at the bottom of the Choose DNS screen.
+  internal static let networksSummaryBlockaPlusMode = L10n.tr("Ui", "networks summary blocka plus mode")
+  /// Blokada will encrypt DNS if possible. This improves your security and prevents malicious actors to spy on what websites and apps you use.
+  internal static let networksSummaryEncryptDns = L10n.tr("Ui", "networks summary encrypt dns")
+  /// Blokada will always use Libre mode on this network, and ignore your Blokada Plus location. This is useful for networks where you do not want the additional protection.
+  internal static let networksSummaryForceLibreMode = L10n.tr("Ui", "networks summary force libre mode")
+  /// Blokada will use the network's DNS if available, or switch to %@ otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network's DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.
+  internal static func networksSummaryNetworkDns(_ p1: String) -> String {
+    return L10n.tr("Ui", "networks summary network dns", p1)
+  }
+  /// Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.
+  internal static let networksSummaryNetworkDnsAndPlusMode = L10n.tr("Ui", "networks summary network dns and plus mode")
+  /// Blokada will use %@ as your device's DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.
+  internal static func networksSummaryUseDns(_ p1: String) -> String {
+    return L10n.tr("Ui", "networks summary use dns", p1)
+  }
   /// Swipe the notification left or right for settings.
   internal static let notificationDescSettings = L10n.tr("Ui", "notification desc settings")
   /// An update is available
@@ -527,6 +721,8 @@ internal enum L10n {
   internal static let paymentActionRestore = L10n.tr("Ui", "payment action restore")
   /// See All Features
   internal static let paymentActionSeeAllFeatures = L10n.tr("Ui", "payment action see all features")
+  /// Our Locations
+  internal static let paymentActionSeeLocations = L10n.tr("Ui", "payment action see locations")
   /// Terms of Service
   internal static let paymentActionTerms = L10n.tr("Ui", "payment action terms")
   /// Terms & Privacy
@@ -537,8 +733,14 @@ internal enum L10n {
   internal static let paymentAlertErrorHeader = L10n.tr("Ui", "payment alert error header")
   /// Change
   internal static let paymentChangeMethod = L10n.tr("Ui", "payment change method")
+  /// We accept Euro, and the displayed prices are an estimate. A refund is available if your bank charges too much.
+  internal static let paymentConversionNote = L10n.tr("Ui", "payment conversion note")
   /// To pay with your cryptocurrency wallet, tap the button below.
   internal static let paymentCryptoDesc = L10n.tr("Ui", "payment crypto desc")
+  /// This won't activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.
+  internal static let paymentDonateDisclaimer = L10n.tr("Ui", "payment donate disclaimer")
+  /// We are based in Europe, so we accept Euro: €10 is roughly $12.
+  internal static let paymentEuroDesc = L10n.tr("Ui", "payment euro desc")
   /// Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.
   internal static let paymentFeatureDescChangeLocation = L10n.tr("Ui", "payment feature desc change location")
   /// Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.
@@ -583,12 +785,14 @@ internal enum L10n {
   internal static let paymentLabelMostPopular = L10n.tr("Ui", "payment label most popular")
   /// Pay with card
   internal static let paymentLabelPayWithCard = L10n.tr("Ui", "payment label pay with card")
-  /// Pay with cryptocurrency
+  /// Pay with crypto
   internal static let paymentLabelPayWithCrypto = L10n.tr("Ui", "payment label pay with crypto")
   /// Pay with PayPal
   internal static let paymentLabelPayWithPaypal = L10n.tr("Ui", "payment label pay with paypal")
-  /// Your payment is now being processed. In case of PayPal, it may take up to 24 hours. Other payment methods shouldn't take more than an hour. If you feel like it is taking too long, please contact us.
+  /// Credit card payments should not take more than a few minutes. Cryptocurrency payments usually take up to an hour, depending on what transaction fee you chose. In case of PayPal, it may take up to 24 hours. You will get redirected once your account is ready. You may also close this screen, and come again later. If you feel like your transaction is taking too long, please contact us.
   internal static let paymentOngoingDesc = L10n.tr("Ui", "payment ongoing desc")
+  /// Your payment is now being processed.
+  internal static let paymentOngoingTitle = L10n.tr("Ui", "payment ongoing title")
   /// 1 Month
   internal static let paymentPackageOneMonth = L10n.tr("Ui", "payment package one month")
   /// 6 Months
@@ -599,6 +803,14 @@ internal enum L10n {
   internal static let paymentPayAppleShort = L10n.tr("Ui", "payment pay apple short")
   /// Google Pay
   internal static let paymentPayGoogleShort = L10n.tr("Ui", "payment pay google short")
+  /// Please wait. This should only take a moment.
+  internal static let paymentRedirectDesc = L10n.tr("Ui", "payment redirect desc")
+  /// Redirecting...
+  internal static let paymentRedirectLabel = L10n.tr("Ui", "payment redirect label")
+  /// You are saving %@
+  internal static func paymentSaveText(_ p1: String) -> String {
+    return L10n.tr("Ui", "payment save text", p1)
+  }
   /// 1 Month
   internal static let paymentSubscription1Month = L10n.tr("Ui", "payment subscription 1 month")
   /// %@ Months
@@ -621,6 +833,8 @@ internal enum L10n {
   internal static let paymentTitle = L10n.tr("Ui", "payment title")
   /// Cancel
   internal static let universalActionCancel = L10n.tr("Ui", "universal action cancel")
+  /// Clear
+  internal static let universalActionClear = L10n.tr("Ui", "universal action clear")
   /// Close
   internal static let universalActionClose = L10n.tr("Ui", "universal action close")
   /// Community
@@ -639,6 +853,8 @@ internal enum L10n {
   internal static let universalActionDone = L10n.tr("Ui", "universal action done")
   /// Download
   internal static let universalActionDownload = L10n.tr("Ui", "universal action download")
+  /// Filter
+  internal static let universalActionFilter = L10n.tr("Ui", "universal action filter")
   /// Help
   internal static let universalActionHelp = L10n.tr("Ui", "universal action help")
   /// Hide
@@ -653,8 +869,12 @@ internal enum L10n {
   internal static let universalActionNo = L10n.tr("Ui", "universal action no")
   /// Open in browser
   internal static let universalActionOpenInBrowser = L10n.tr("Ui", "universal action open in browser")
+  /// Revoke
+  internal static let universalActionRevoke = L10n.tr("Ui", "universal action revoke")
   /// Save
   internal static let universalActionSave = L10n.tr("Ui", "universal action save")
+  /// Search
+  internal static let universalActionSearch = L10n.tr("Ui", "universal action search")
   /// Select
   internal static let universalActionSelect = L10n.tr("Ui", "universal action select")
   /// Selected
@@ -675,8 +895,12 @@ internal enum L10n {
   internal static let universalActionYes = L10n.tr("Ui", "universal action yes")
   /// Help
   internal static let universalLabelHelp = L10n.tr("Ui", "universal label help")
+  /// None
+  internal static let universalLabelNone = L10n.tr("Ui", "universal label none")
   /// Welcome!
   internal static let universalLabelWelcome = L10n.tr("Ui", "universal label welcome")
+  /// Are you sure you want to proceed?
+  internal static let universalStatusConfirm = L10n.tr("Ui", "universal status confirm")
   /// Copied to Clipboard
   internal static let universalStatusCopiedToClipboard = L10n.tr("Ui", "universal status copied to clipboard")
   /// Processing... Please wait.
@@ -691,6 +915,14 @@ internal enum L10n {
   internal static let updateDownloadingDescription = L10n.tr("Ui", "update downloading description")
   /// Updated!
   internal static let updateLabelUpdated = L10n.tr("Ui", "update label updated")
+  /// My blocklists
+  internal static let userdeniedSectionHeader = L10n.tr("Ui", "userdenied section header")
+  /// Manage blocking of particular websites
+  internal static let userdeniedSectionSlugline = L10n.tr("Ui", "userdenied section slugline")
+  /// Allowed
+  internal static let userdeniedTabAllowed = L10n.tr("Ui", "userdenied tab allowed")
+  /// Blocked
+  internal static let userdeniedTabBlocked = L10n.tr("Ui", "userdenied tab blocked")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name
