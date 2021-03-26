@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Aktivität</string>
     <string name="main_tab_advanced">Erweitert</string>
     <string name="main_tab_settings">Einstellungen</string>
+    <string name="main_label_use_side_menu">Seitenmenü zum Navigieren verwenden</string>
     <string name="home_ads_counter_footnote">Tracker und Werbeanzeigen seit der Installation blockiert</string>
     <string name="home_power_off_menu_header">Was möchtest du machen?</string>
     <string name="home_power_action_turn_on">Einschalten</string>

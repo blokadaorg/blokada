@@ -194,6 +194,9 @@
 "activity category top blocked" = "En Çok Engellenen";
 "activity category top allowed" = "En Çok İzin Verilen";
 "activity filter header" = "Hangi girişleri görmek istersiniz?";
+"activity filter show all" = "Tüm girdiler";
+"activity filter show blocked" = "Yalnızca engellenen";
+"activity filter show allowed" = "Yalnızca izin verilen";
 "activity empty text" = "Cihazınızı kullanmayı deneyin ve cihazınızın nereye bağlandığını görmek için daha sonra buraya tekrar gelin.";
 "activity device filter show all" = "Tüm cihazlar";
 
@@ -436,7 +439,11 @@
 "homepage vpn point four" = "5 kadar cihazla bağlantı";
 
 "homepage faq header" = "Sıkça Sorulan Sorular";
+"homepage faq title 1" = "Blokada hangi bilgileri saklıyor?";
+"homepage faq desc 1" = "Blokada, ağ etkinliğinizdeki hiçbir şeyi izlemez veya paylaşmaz. Blokada Plus'ı kullanıyorsanız, teknik nedenlerden dolayı, hizmetin çalışmasını sağlamak için gereken en az veriyi toplamamız gerekiyor. Ayrıntılar için lütfen üst menüde mevcut olan Gizlilik Politikamıza danışın.";
+"homepage faq title 2" = "Gizliliğim nasıl korunuyor?";
 "homepage faq title 3" = "Blokada Plus nedir?";
+"homepage faq title 4" = "Blokada Plus'a geçmem gerekiyor mu?";
 
 "homepage download header" = "Blokada'yı İndir";
 "homepage download subheader" = "Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.";

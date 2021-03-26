@@ -37,6 +37,6 @@
 "A comprehensive lists to block ads and tracking" = "Una lista completa per bloccare annunci e tracciamento";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock è una lista con domini usati per annunci, script di tracciamento e malware. Impedisce al dispositivo di connettersi a questi domini.";
 "A general purpose, medium weight lists" = "Una lista generale, di medio peso";
-"These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains." = "Queste liste bloccano contenuti dannosi e ingannevoli, come le pubblicità, il monitoraggio, la telemetria, le truffe e i malware. Queste liste non bloccano il porno, i social media, o i cosiddetti domini di notizie false.";
-"A reasonably balanced ad blocking hosts file" = "Un file blocca pubblicità ragionevolmente bilanciato";
-"This is a well known, general purpose blocklist of small size, updated regularly." = "Questa è una lista di blocchi ben nota, di piccole dimensioni, di uso generale, aggiornata regolarmente.";
+"These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains." = "Queste liste bloccano contenuti dannosi e ingannevoli come le pubblicità, il monitoraggio, la telemetria, le truffe e i malware. Queste liste non bloccano i porno, i social media o i siti di fake news.";
+"A reasonably balanced ad blocking hosts file" = "Una lista di blocco ragionevolmente bilanciata";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Questa è una piccola lista di blocco ben nota, di uso generale e aggiornata regolarmente.";

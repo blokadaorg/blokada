@@ -85,6 +85,7 @@
     <string name="main_tab_activity">活動</string>
     <string name="main_tab_advanced">進階</string>
     <string name="main_tab_settings">設定</string>
+    <string name="main_label_use_side_menu">使用側邊選單尋找功能</string>
     <string name="home_ads_counter_footnote">自安裝以來所阻擋的廣告與追蹤器量</string>
     <string name="home_power_off_menu_header">您想做什麼？</string>
     <string name="home_power_action_turn_on">開啟</string>
@@ -173,7 +174,7 @@
     <string name="networks_action_encrypt_dns">加密 DNS</string>
     <string name="networks_action_use_dns">使用 DNS：%s</string>
     <string name="networks_action_use_network_dns">偏好網路 DNS</string>
-    <string name="networks_action_force_libre_mode">強制 Libre 模式</string>
+    <string name="networks_action_force_libre_mode">強制使用 Libre 模式</string>
     <string name="networks_label_specific_network">調整您的裝置連線到此網路時應該發生的狀況。</string>
     <string name="networks_label_specific_network_type">調整您的裝置連線到此類型的網路時應該發生的狀況。</string>
     <string name="networks_label_any_wifi">任何無線網路</string>

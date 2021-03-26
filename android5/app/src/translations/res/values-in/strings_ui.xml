@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Aktifitas</string>
     <string name="main_tab_advanced">Tingkat Lanjut</string>
     <string name="main_tab_settings">Pengaturan</string>
+    <string name="main_label_use_side_menu">Gunakan menu di samping untuk menavigasi</string>
     <string name="home_ads_counter_footnote">iklan dan pelacak yang diblokir sejak Blokada diinstal</string>
     <string name="home_power_off_menu_header">Apa yang ingin Anda lakukan?</string>
     <string name="home_power_action_turn_on">Aktifkan</string>

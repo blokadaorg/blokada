@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "الإعدادات";
 
+"main label use side menu" = "استخدم القائمة الجانبيّة للتنقّل";
+
 "home ads counter footnote" = "الإعلانات و المتعقّبين المحظورين منذ التثبيت";
 "home power off menu header" = "ماذا تريد أن تفعل؟";
 "home power action turn on" = "تشغيل";

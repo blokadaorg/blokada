@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Activité</string>
     <string name="main_tab_advanced">Paramètres Avancés</string>
     <string name="main_tab_settings">Paramètres</string>
+    <string name="main_label_use_side_menu">Utiliser le menu latéral pour naviguer</string>
     <string name="home_ads_counter_footnote">pubs et trackers bloqués depuis l\'installation</string>
     <string name="home_power_off_menu_header">Que souhaitez-vous faire ?</string>
     <string name="home_power_action_turn_on">Activer</string>

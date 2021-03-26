@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Aktywność</string>
     <string name="main_tab_advanced">Funkcje</string>
     <string name="main_tab_settings">Ustawienia</string>
+    <string name="main_label_use_side_menu">Użyj menu bocznego do nawigacji</string>
     <string name="home_ads_counter_footnote">reklamy i trackery zablokowane od czasu instalacji</string>
     <string name="home_power_off_menu_header">Co chciałbyś zrobić?</string>
     <string name="home_power_action_turn_on">Włącz</string>

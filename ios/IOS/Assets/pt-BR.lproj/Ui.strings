@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Configurações";
 
+"main label use side menu" = "Use o menu lateral para navegar";
+
 "home ads counter footnote" = "anúncios e rastreadores bloqueados desde a instalação";
 "home power off menu header" = "O que você gostaria de fazer?";
 "home power action turn on" = "Ativar";
@@ -218,6 +220,7 @@
 "networks action encrypt dns" = "Criptografar DNS";
 "networks action use dns" = "Usar DNS: %@";
 "networks action use network dns" = "Preferir DNS de rede";
+"networks action force libre mode" = "Forçar o modo Livre";
 "networks label specific network" = "Ajuste o que deve acontecer quando o seu dispositivo se conectar a esta rede.";
 "networks label specific network type" = "Ajuste o que deve acontecer quando seu dispositivo se conectar a uma rede deste tipo.";
 "networks label any wifi" = "Qualquer rede Wi-Fi";
@@ -230,6 +233,7 @@
 "networks summary network dns" = "O Blokada usará o DNS da rede se disponível, ou alternará para %@ caso contrário. Além disso, as configurações de Criptografia de DNS serão ignoradas sempre que o DNS da rede for usado. O uso do DNS da rede ajuda a resolver problemas de conectividade em redes problemáticas, mas deixa você desprotegido.";
 "networks summary network dns and plus mode" = "O Blokada desativará temporariamente o Modo Plus sempre que o DNS da rede for usado. Isso ocorre porque não é possível acessar o DNS da rede na VPN. O Modo Plus será automaticamente restaurado quando seu dispositivo mudar para outra rede.";
 "networks summary blocka plus mode" = "O Blokada usará o Blokada DNS no modo Plus, para garantir um alto nível de criptografia e velocidade. Você pode alterar essa configuração na parte inferior da tela de Escolha de DNS.";
+"networks summary force libre mode" = "O Blokada sempre usará o modo Livre nessa rede e ignorará sua localização do Blokada Plus. Isso é útil para redes nas quais você não quer proteção adicional.";
 "networks permission dialog" = "O Blokada pode reconhecer redes às quais você se conecta, e permite que você defina configurações separadas para elas. No entanto, este aplicativo irá coletar dados de localização na forma de nome de rede para habilitar esse recurso, mesmo quando o aplicativo está fechado ou não em uso. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização - o Blokada só lerá o nome da rede.";
 
 
@@ -304,6 +308,7 @@
 "account lease label this device" = " (este dispositivo)";
 "account lease label name" = "Nome do dispositivo";
 "account lease label location" = "Localização";
+"account lease label generate" = "Selecionar um local aqui gerará um arquivo de configuração que você pode usar em qualquer aplicativo de VPN que suporte Wireguard. Isso é útil para plataformas nas quais ainda não temos os nossos aplicativos. Caso contrário, recomendamos usar nossos aplicativos nativos.";
 "account lease action generate" = "Gerar Configuração";
 "account lease action download" = "Baixar Configuração";
 "account lease generated" = "Dispositivo adicionado! Baixe a configuração para usá-la em qualquer dispositivo suportado pelo Wireguard.";
@@ -467,6 +472,8 @@
 "homepage faq desc 4" = "Não, a assinatura é opcional. Você pode ficar na versão gratuita do Blokada, para sempre. É recomendável fazer uma assinatura se você desejar aumentar ainda mais sua proteção à privacidade, ou se precisar de qualquer um dos recursos mais populares fornecidos por VPNs.";
 "homepage faq title 5" = "Qual é a política de reembolso do Blokada Plus?";
 "homepage faq desc 5" = "Você pode recuperar seu dinheiro dentro de 7 dias após a compra da assinatura. Entre em contato conosco através de qualquer um de nossos aplicativos e simplesmente mencione que você quer um reembolso.";
+"homepage faq title 6" = "Onde o Blokada está localizado?";
+"homepage faq desc 6" = "Estamos sediados na Suécia, onde a privacidade é tratada muito seriamente. Nossos servidores estão disponíveis em muitos lugares do mundo.";
 
 "homepage download header" = "Baixe o Blokada";
 "homepage download subheader" = "O Blokada está disponível para várias plataformas, escolha a sua.";

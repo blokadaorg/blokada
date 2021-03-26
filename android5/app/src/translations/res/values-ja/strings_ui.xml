@@ -85,6 +85,7 @@
     <string name="main_tab_activity">アクティビティ</string>
     <string name="main_tab_advanced">詳細</string>
     <string name="main_tab_settings">設定</string>
+    <string name="main_label_use_side_menu">サイドメニューを使用して移動する</string>
     <string name="home_ads_counter_footnote">インストール後にブロックされた広告とトラッカー</string>
     <string name="home_power_off_menu_header">何をしたいですか？</string>
     <string name="home_power_action_turn_on">ON にする</string>
@@ -423,7 +424,7 @@
     <string name="homepage_community_cta_subheader">ぜひご参加ください！</string>
     <string name="homepage_community_cta_desc">私たちはユーザーのフィードバックに基づいています。何を考えているのか、何を改善し、何を維持すべきなのかを教えてください。</string>
     <string name="homepage_community_cta_action">フォーラムに移動</string>
-    <string name="homepage_community_opinions">ユーザーからの意見をいくつか紹介します。</string>
+    <string name="homepage_community_opinions">ユーザーの声</string>
     <string name="homepage_support_header">プロジェクトを支援する</string>
     <string name="homepage_support_desc">私たちの活動を気に入っていただけるなら、私たちをサポートすることを検討してください。それにより、新しい機能と改善を開発し続けることができます。そして、Blokada は永遠に無料かつオープンソースであり続けることができます。</string>
     <string name="homepage_support_cta_header">Blokada はあなたのご協力を必要としています</string>

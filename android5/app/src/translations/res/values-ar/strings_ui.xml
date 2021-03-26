@@ -85,6 +85,7 @@
     <string name="main_tab_activity">الأنشطة</string>
     <string name="main_tab_advanced">إعدادات مُتقَدِّمة</string>
     <string name="main_tab_settings">الإعدادات</string>
+    <string name="main_label_use_side_menu">استخدم القائمة الجانبيّة للتنقّل</string>
     <string name="home_ads_counter_footnote">الإعلانات و المتعقّبين المحظورين منذ التثبيت</string>
     <string name="home_power_off_menu_header">ماذا تريد أن تفعل؟</string>
     <string name="home_power_action_turn_on">تشغيل</string>

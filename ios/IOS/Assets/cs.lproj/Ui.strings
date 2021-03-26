@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Nastavení";
 
+"main label use side menu" = "Pro navigaci použijte postranní nabídku";
+
 "home ads counter footnote" = "počet reklam a sledovačů zablokovaných od instalace";
 "home power off menu header" = "Co chcete udělat?";
 "home power action turn on" = "Zapnout";
@@ -218,6 +220,7 @@
 "networks action encrypt dns" = "Šifrovat DNS";
 "networks action use dns" = "Použít DNS: %@";
 "networks action use network dns" = "Preferovat síťovou DNS";
+"networks action force libre mode" = "Vynutit režim Libre";
 "networks label specific network" = "Nastavte, co by se mělo stát, když se vaše zařízení připojí k této síti.";
 "networks label specific network type" = "Nastavte, co by se mělo stát, když se vaše zařízení připojí k síti tohoto typu.";
 "networks label any wifi" = "Jakákoliv WiFi síť";
@@ -230,6 +233,7 @@
 "networks summary network dns" = "Blokada použije DNS sítě, pokud je k dispozici, nebo přepne na %@. Při každém použití síťového DNS bude také ignorováno nastavení Šifrovat DNS. Používání DNS v síti pomáhá řešit problémy s připojením v problémových sítích, ale nechává vás nechráněného.";
 "networks summary network dns and plus mode" = "Blokada dočasně zakáže režim Plus, kdykoli se použije síťové DNS. Je to proto, že ve VPN není možné přistupovat k síťovému DNS. Jakmile se zařízení přepne do jiné sítě, režim Plus se automaticky obnoví.";
 "networks summary blocka plus mode" = "Blokada bude používat Blokada DNS v režimu Plus, aby zajistila vysokou úroveň šifrování a rychlosti. Toto nastavení můžete změnit v dolní části obrazovky \"Vybrat DNS\".";
+"networks summary force libre mode" = "Blokada bude v této síti vždy používat režim Libre a bude ignorovat vaši polohu Blokada Plus. To je užitečné pro sítě, kde nevyžadujete další ochranu.";
 "networks permission dialog" = "Blokada dokáže rozpoznat sítě, ke kterým se připojujete, a umožní vám pro ně nakonfigurovat samostatná nastavení. Tato aplikace však bude shromažďovat údaje o poloze ve formě názvu sítě, aby tuto funkci povolila, i když je aplikace zavřená nebo se nepoužívá. Někdy se může zobrazit systémové oznámení o přístupu k poloze - Blokada bude číst pouze název sítě.";
 
 

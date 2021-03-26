@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Paramètres";
 
+"main label use side menu" = "Utiliser le menu latéral pour naviguer";
+
 "home ads counter footnote" = "pubs et trackers bloqués depuis l'installation";
 "home power off menu header" = "Que souhaitez-vous faire ?";
 "home power action turn on" = "Activer";

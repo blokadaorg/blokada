@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Aktivita</string>
     <string name="main_tab_advanced">Pokročilé</string>
     <string name="main_tab_settings">Nastavení</string>
+    <string name="main_label_use_side_menu">Pro navigaci použijte postranní nabídku</string>
     <string name="home_ads_counter_footnote">počet reklam a sledovačů zablokovaných od instalace</string>
     <string name="home_power_off_menu_header">Co chcete udělat?</string>
     <string name="home_power_action_turn_on">Zapnout</string>
@@ -173,6 +174,7 @@
     <string name="networks_action_encrypt_dns">Šifrovat DNS</string>
     <string name="networks_action_use_dns">Použít DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferovat síťovou DNS</string>
+    <string name="networks_action_force_libre_mode">Vynutit režim Libre</string>
     <string name="networks_label_specific_network">Nastavte, co by se mělo stát, když se vaše zařízení připojí k této síti.</string>
     <string name="networks_label_specific_network_type">Nastavte, co by se mělo stát, když se vaše zařízení připojí k síti tohoto typu.</string>
     <string name="networks_label_any_wifi">Jakákoliv WiFi síť</string>
@@ -185,6 +187,7 @@
     <string name="networks_summary_network_dns">Blokada použije DNS sítě, pokud je k dispozici, nebo přepne na %s. Při každém použití síťového DNS bude také ignorováno nastavení Šifrovat DNS. Používání DNS v síti pomáhá řešit problémy s připojením v problémových sítích, ale nechává vás nechráněného.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada dočasně zakáže režim Plus, kdykoli se použije síťové DNS. Je to proto, že ve VPN není možné přistupovat k síťovému DNS. Jakmile se zařízení přepne do jiné sítě, režim Plus se automaticky obnoví.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada bude používat Blokada DNS v režimu Plus, aby zajistila vysokou úroveň šifrování a rychlosti. Toto nastavení můžete změnit v dolní části obrazovky \"Vybrat DNS\".</string>
+    <string name="networks_summary_force_libre_mode">Blokada bude v této síti vždy používat režim Libre a bude ignorovat vaši polohu Blokada Plus. To je užitečné pro sítě, kde nevyžadujete další ochranu.</string>
     <string name="networks_permission_dialog">Blokada dokáže rozpoznat sítě, ke kterým se připojujete, a umožní vám pro ně nakonfigurovat samostatná nastavení. Tato aplikace však bude shromažďovat údaje o poloze ve formě názvu sítě, aby tuto funkci povolila, i když je aplikace zavřená nebo se nepoužívá. Někdy se může zobrazit systémové oznámení o přístupu k poloze - Blokada bude číst pouze název sítě.</string>
     <string name="account_section_header_settings">Nastavení</string>
     <string name="account_status_text">Váš účet BLOKADA %s je aktivní do %s.</string>

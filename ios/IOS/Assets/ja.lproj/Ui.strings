@@ -116,6 +116,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "設定";
 
+"main label use side menu" = "サイドメニューを使用して移動する";
+
 "home ads counter footnote" = "インストール後にブロックされた広告とトラッカー";
 "home power off menu header" = "何をしたいですか？";
 "home power action turn on" = "ON にする";
@@ -499,7 +501,7 @@
 "homepage community cta subheader" = "ぜひご参加ください！";
 "homepage community cta desc" = "私たちはユーザーのフィードバックに基づいています。何を考えているのか、何を改善し、何を維持すべきなのかを教えてください。";
 "homepage community cta action" = "フォーラムに移動";
-"homepage community opinions" = "ユーザーからの意見をいくつか紹介します。";
+"homepage community opinions" = "ユーザーの声";
 
 "homepage support header" = "プロジェクトを支援する";
 "homepage support desc" = "私たちの活動を気に入っていただけるなら、私たちをサポートすることを検討してください。それにより、新しい機能と改善を開発し続けることができます。そして、Blokada は永遠に無料かつオープンソースであり続けることができます。";

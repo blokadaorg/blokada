@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Pengaturan";
 
+"main label use side menu" = "Gunakan menu di samping untuk menavigasi";
+
 "home ads counter footnote" = "iklan dan pelacak yang diblokir sejak Blokada diinstal";
 "home power off menu header" = "Apa yang ingin Anda lakukan?";
 "home power action turn on" = "Aktifkan";

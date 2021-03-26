@@ -34,3 +34,9 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Эти списки появились потому, что основатель проекта хотел иметь возможность контроля над тем, что именно блокируется.";
 "A blocklist based on spam reports" = "Список блокировки, основанный на отчетах о спаме";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 - это сервис, который помогает онлайн-компаниям в мониторинге контента, тестировании на проникновение и защите торговых марок. Этот список основан на отчетах, полученных от компаний.";
+"A comprehensive lists to block ads and tracking" = "Комплексные списки для блокировки рекламы и отслеживания";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock - это список доменов, которые используются для рекламы, скриптов отслеживания и вредоносного ПО. Он не позволяет вашему устройству к ним подключаться.";
+"A general purpose, medium weight lists" = "Списки общего назначения, среднего размера";
+"These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains." = "Эти списки блокируют вредоносный и вводящий в заблуждение контент, такой как реклама, отслеживание, телеметрия, мошенничество и вредоносные серверы. Эти списки не блокируют порно, социальные сети или домены так называемых фейковых новостей.";
+"A reasonably balanced ad blocking hosts file" = "Сбалансированный файл хостов для блокировки рекламы";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Это хорошо известный, регулярно обновляемый, универсальный список блокировки небольшого размера.";

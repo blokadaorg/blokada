@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Настройки";
 
+"main label use side menu" = "Използвайте страничното меню за навигация";
+
 "home ads counter footnote" = "рекламите и тракерите са блокирани след инсталирането";
 "home power off menu header" = "Какво искате да направите?";
 "home power action turn on" = "Включване";

@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Активность</string>
     <string name="main_tab_advanced">Дополнительно</string>
     <string name="main_tab_settings">Настройки</string>
+    <string name="main_label_use_side_menu">Использовать боковое меню для навигации</string>
     <string name="home_ads_counter_footnote">рекламы и трекеров заблокировано с момента установки</string>
     <string name="home_power_off_menu_header">Что бы вы хотели сделать?</string>
     <string name="home_power_action_turn_on">Включить</string>
@@ -173,6 +174,7 @@
     <string name="networks_action_encrypt_dns">Шифровать DNS</string>
     <string name="networks_action_use_dns">Использовать DNS: %s</string>
     <string name="networks_action_use_network_dns">Предпочитать DNS провайдера</string>
+    <string name="networks_action_force_libre_mode">Принудительный режим Libre</string>
     <string name="networks_label_specific_network">Настройте, что должно произойти, когда устройство подключится к этой сети.</string>
     <string name="networks_label_specific_network_type">Настройте, что должно произойти, когда устройство подключается к сети данного типа.</string>
     <string name="networks_label_any_wifi">Любая сеть WiFi</string>
@@ -185,6 +187,7 @@
     <string name="networks_summary_network_dns">Blokada будет использовать DNS вашей сети, если он доступен, или переключится на %s в противном случае. Кроме того, настройки шифрования DNS будут игнорироваться при использовании сетевого DNS. Использование DNS сети помогает решить проблемы с подключением в проблемных сетях, но при этом делает вас незащищенным.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada временно отключает режим Plus при использовании DNS сети. Это связано с тем, что при использовании VPN невозможно получить доступ к DNS сети. Режим Plus будет автоматически восстановлен, когда ваше устройство переключится на другую сеть.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada будет использовать Blokada DNS в режиме Plus для обеспечения высокого уровня шифрования и скорости. Вы можете изменить эту настройку в нижней части экрана меню выбора DNS.</string>
+    <string name="networks_summary_force_libre_mode">Blokada всегда будет использовать режим Libre в этой сети и игнорировать ваше местоположение Blokada Plus. Это полезно для сетей, в которых дополнительная защита не требуется.</string>
     <string name="networks_permission_dialog">Blokada может распознавать сети, к которым вы подключаетесь, и позволяет настраивать для них отдельные параметры. Однако, для активации этой функции приложение будет собирать данные о местоположении в виде имени сети, даже если приложение закрыто или не используется. Иногда вы можете увидеть системное уведомление о доступе к местоположению - в этом случае Blokada будет считывать только название сети.</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Ваш аккаунт BLOKADA %s активен до %s.</string>

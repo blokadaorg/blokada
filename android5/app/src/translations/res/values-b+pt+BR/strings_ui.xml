@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Atividade</string>
     <string name="main_tab_advanced">Avançado</string>
     <string name="main_tab_settings">Configurações</string>
+    <string name="main_label_use_side_menu">Use o menu lateral para navegar</string>
     <string name="home_ads_counter_footnote">anúncios e rastreadores bloqueados desde a instalação</string>
     <string name="home_power_off_menu_header">O que você gostaria de fazer?</string>
     <string name="home_power_action_turn_on">Ativar</string>
@@ -173,6 +174,7 @@
     <string name="networks_action_encrypt_dns">Criptografar DNS</string>
     <string name="networks_action_use_dns">Usar DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferir DNS de rede</string>
+    <string name="networks_action_force_libre_mode">Forçar o modo Livre</string>
     <string name="networks_label_specific_network">Ajuste o que deve acontecer quando o seu dispositivo se conectar a esta rede.</string>
     <string name="networks_label_specific_network_type">Ajuste o que deve acontecer quando seu dispositivo se conectar a uma rede deste tipo.</string>
     <string name="networks_label_any_wifi">Qualquer rede Wi-Fi</string>
@@ -185,6 +187,7 @@
     <string name="networks_summary_network_dns">O Blokada usará o DNS da rede se disponível, ou alternará para %s caso contrário. Além disso, as configurações de Criptografia de DNS serão ignoradas sempre que o DNS da rede for usado. O uso do DNS da rede ajuda a resolver problemas de conectividade em redes problemáticas, mas deixa você desprotegido.</string>
     <string name="networks_summary_network_dns_and_plus_mode">O Blokada desativará temporariamente o Modo Plus sempre que o DNS da rede for usado. Isso ocorre porque não é possível acessar o DNS da rede na VPN. O Modo Plus será automaticamente restaurado quando seu dispositivo mudar para outra rede.</string>
     <string name="networks_summary_blocka_plus_mode">O Blokada usará o Blokada DNS no modo Plus, para garantir um alto nível de criptografia e velocidade. Você pode alterar essa configuração na parte inferior da tela de Escolha de DNS.</string>
+    <string name="networks_summary_force_libre_mode">O Blokada sempre usará o modo Livre nessa rede e ignorará sua localização do Blokada Plus. Isso é útil para redes nas quais você não quer proteção adicional.</string>
     <string name="networks_permission_dialog">O Blokada pode reconhecer redes às quais você se conecta, e permite que você defina configurações separadas para elas. No entanto, este aplicativo irá coletar dados de localização na forma de nome de rede para habilitar esse recurso, mesmo quando o aplicativo está fechado ou não em uso. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização - o Blokada só lerá o nome da rede.</string>
     <string name="account_section_header_settings">Configurações</string>
     <string name="account_status_text">Sua conta BLOKADA %s está ativa até %s.</string>
@@ -250,6 +253,7 @@
     <string name="account_lease_label_this_device"> (este dispositivo)</string>
     <string name="account_lease_label_name">Nome do dispositivo</string>
     <string name="account_lease_label_location">Localização</string>
+    <string name="account_lease_label_generate">Selecionar um local aqui gerará um arquivo de configuração que você pode usar em qualquer aplicativo de VPN que suporte Wireguard. Isso é útil para plataformas nas quais ainda não temos os nossos aplicativos. Caso contrário, recomendamos usar nossos aplicativos nativos.</string>
     <string name="account_lease_action_generate">Gerar Configuração</string>
     <string name="account_lease_action_download">Baixar Configuração</string>
     <string name="account_lease_generated">Dispositivo adicionado! Baixe a configuração para usá-la em qualquer dispositivo suportado pelo Wireguard.</string>
@@ -395,6 +399,8 @@
     <string name="homepage_faq_desc_four">Não, a assinatura é opcional. Você pode ficar na versão gratuita do Blokada, para sempre. É recomendável fazer uma assinatura se você desejar aumentar ainda mais sua proteção à privacidade, ou se precisar de qualquer um dos recursos mais populares fornecidos por VPNs.</string>
     <string name="homepage_faq_title_five">Qual é a política de reembolso do Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Você pode recuperar seu dinheiro dentro de 7 dias após a compra da assinatura. Entre em contato conosco através de qualquer um de nossos aplicativos e simplesmente mencione que você quer um reembolso.</string>
+    <string name="homepage_faq_title_">Onde o Blokada está localizado?</string>
+    <string name="homepage_faq_desc_">Estamos sediados na Suécia, onde a privacidade é tratada muito seriamente. Nossos servidores estão disponíveis em muitos lugares do mundo.</string>
     <string name="homepage_download_header">Baixe o Blokada</string>
     <string name="homepage_download_subheader">O Blokada está disponível para várias plataformas, escolha a sua.</string>
     <string name="homepage_download_option_android_five">Blokada 5 para Android</string>

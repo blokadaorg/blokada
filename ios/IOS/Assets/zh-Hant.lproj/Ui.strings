@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "設定";
 
+"main label use side menu" = "使用側邊選單尋找功能";
+
 "home ads counter footnote" = "自安裝以來所阻擋的廣告與追蹤器量";
 "home power off menu header" = "您想做什麼？";
 "home power action turn on" = "開啟";
@@ -218,7 +220,7 @@
 "networks action encrypt dns" = "加密 DNS";
 "networks action use dns" = "使用 DNS：%@";
 "networks action use network dns" = "偏好網路 DNS";
-"networks action force libre mode" = "強制 Libre 模式";
+"networks action force libre mode" = "強制使用 Libre 模式";
 "networks label specific network" = "調整您的裝置連線到此網路時應該發生的狀況。";
 "networks label specific network type" = "調整您的裝置連線到此類型的網路時應該發生的狀況。";
 "networks label any wifi" = "任何無線網路";
