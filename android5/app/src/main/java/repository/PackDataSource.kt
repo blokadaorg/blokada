@@ -28,7 +28,7 @@ object PackDataSource {
         )
             .changeStatus(config = "Basic (Wildcards)")
             .changeStatus(installed = true) // Default config. Will auto download.
-            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/basicw/hosts.txt", applyFor = "Basic (Wildcards)"))
+            .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/basica/hosts.txt", applyFor = "Basic (Wildcards)"))
             .withSource(PackSource.new(url = "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor = "Basic")),
 
     Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"),
