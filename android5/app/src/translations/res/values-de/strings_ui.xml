@@ -85,7 +85,7 @@
     <string name="main_tab_activity">Aktivität</string>
     <string name="main_tab_advanced">Erweitert</string>
     <string name="main_tab_settings">Einstellungen</string>
-    <string name="main_label_use_side_menu">Seitenmenü zum Navigieren verwenden</string>
+    <string name="main_label_use_side_menu">Zum Navigieren das Seitenmenü verwenden</string>
     <string name="home_ads_counter_footnote">Tracker und Werbeanzeigen seit der Installation blockiert</string>
     <string name="home_power_off_menu_header">Was möchtest du machen?</string>
     <string name="home_power_action_turn_on">Einschalten</string>
@@ -399,7 +399,7 @@
     <string name="homepage_faq_desc_four">Nein, das Upgrade ist optional. Du kannst bei der kostenlosen Version von Blokada bleiben, für immer. Es ist ein empfohlenes Upgrade, wenn du den Schutz deiner Privatsphäre noch weiter erhöhen möchtest oder eine der beliebten Funktionen benötigst, die VPNs bieten.</string>
     <string name="homepage_faq_title_five">Wie ist die Rückerstattungsrichtlinie von Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Du kannst dein Geld innerhalb von 7 Tagen nach dem Kauf des Abonnements zurückerhalten. Kontaktiere uns über eine unserer Apps und erwähne einfach, dass du eine Rückerstattung wünschst.</string>
-    <string name="homepage_faq_title_">Wo ist Blokada angesiedelt?</string>
+    <string name="homepage_faq_title_">Wo befindet sich der Standort von Blokada?</string>
     <string name="homepage_faq_desc_">Wir haben unseren Sitz in Schweden, wo der Datenschutz sehr ernst genommen wird. Unsere Server sind an vielen Orten auf der ganzen Welt verfügbar.</string>
     <string name="homepage_download_header">Blokada herunterladen</string>
     <string name="homepage_download_subheader">Blokada ist für verschiedene Plattformen verfügbar, wähle deine aus.</string>

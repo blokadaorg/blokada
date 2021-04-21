@@ -85,6 +85,7 @@
     <string name="main_tab_activity">Etkinlik</string>
     <string name="main_tab_advanced">Gelişmiş</string>
     <string name="main_tab_settings">Ayarlar</string>
+    <string name="main_label_use_side_menu">Gezinmek için yan menüyü kullanın</string>
     <string name="home_ads_counter_footnote">kurulumdan bu yana engellenen reklamlar ve izleyiciler</string>
     <string name="home_power_off_menu_header">Ne yapmak istiyorsunuz?</string>
     <string name="home_power_action_turn_on">Aç</string>
@@ -172,6 +173,7 @@
     <string name="networks_action_encrypt_dns">DNS\'yi şifrele</string>
     <string name="networks_action_use_dns">DNS\'i kullan: %s</string>
     <string name="networks_action_use_network_dns">Ağ DNS\'sini tercih et</string>
+    <string name="networks_action_force_libre_mode">Libre moduna zorla</string>
     <string name="networks_label_specific_network">Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.</string>
     <string name="networks_label_any_wifi">Herhangi kablosuz ağ</string>
     <string name="networks_label_any_mobile">Herhangi mobil ağ</string>
@@ -274,6 +276,7 @@
     <string name="payment_action_policy">Gizlilik Politikası</string>
     <string name="payment_alert_error_header">App Store\'dan mesaj</string>
     <string name="payment_save_text">%s tasarruf ediyorsun</string>
+    <string name="payment_conversion_note">Euro\'yu kabul ediyoruz ve görüntülenen fiyatlar tahminidir. Bankanız çok fazla ücret alıyorsa geri ödeme yapılabilir.</string>
     <string name="payment_subscription_one_month">1 ay</string>
     <string name="payment_subscription_many_months">%s ay</string>
     <string name="payment_subscription_per_month">Aylık %s</string>
@@ -351,7 +354,7 @@
     <string name="homepage_action_source">Kaynak</string>
     <string name="homepage_action_forums">Forumlar</string>
     <string name="homepage_action_dashboard">Kontrol paneli</string>
-    <string name="homepage_about_footer">İrtibatta olalım!</string>
+    <string name="homepage_about_footer">İletişimde kalalım!</string>
     <string name="homepage_hero_title">Gizlilik uygulaması</string>
     <string name="homepage_hero_subtitle">ücretsiz ve açık kaynaklı</string>
     <string name="homepage_hero_desc">Blokada, Android ve iOS için popüler bir reklam engelleyici ve gizlilik uygulamasıdır. Harika bir açık kaynak topluluğu tarafından desteklenmekte ve aktif olarak geliştirilmektedir.</string>
@@ -360,18 +363,28 @@
     <string name="homepage_about_point_one">Reklamları ve izleyicileri engeller</string>
     <string name="homepage_about_point_two">Tüm uygulamalar ve tarayıcılarda çalışır</string>
     <string name="homepage_about_point_three">Root veya jailbreak gerektirmez</string>
+    <string name="homepage_about_point_four">Güvenli tasarım (şifrelemeyi bozmaz)</string>
+    <string name="homepage_about_point_five">Güvenilir ve sonsuza kadar ücretsiz</string>
     <string name="homepage_about_action_faq">SSS\'e bakın</string>
     <string name="homepage_about_action_plus">Blokada Plus hakkında daha fazla bilgi edinin</string>
     <string name="homepage_vpn_title">Blokada 5, VPN</string>
-    <string name="homepage_vpn_point_one">Bant genişliği kısıtlaması yok</string>
+    <string name="homepage_vpn_desc">En üst düzey gizlilik koruması için Blokada Plus\'a yükseltin ve VPN\'imiz üzerinden bağlanın. Ağ etkinliğinizi şifrelemek ve IP adresinizi gizlemek için en gelişmiş VPN protokolü olan WireGuard® protokolünü kullanıyoruz.</string>
+    <string name="homepage_vpn_point_one">Bant genişliği kısıtlanmaz</string>
     <string name="homepage_vpn_point_two">Hızlı ve modern şifreleme</string>
-    <string name="homepage_vpn_point_four">5 kadar cihazla bağlantı</string>
+    <string name="homepage_vpn_point_three">Ağ etkinliğiniz günlüğe kaydedilmez</string>
+    <string name="homepage_vpn_point_four">5 cihaza kadar bağlantı</string>
+    <string name="homepage_vpn_credit">\'WireGuard\' ve \'Wireguard\' logosu Jason A. Donenfeld\'in tescilli ticari markalarıdır.</string>
     <string name="homepage_faq_header">Sıkça Sorulan Sorular</string>
+    <string name="homepage_faq_action_more">SSS\'den daha fazlasına bakın</string>
     <string name="homepage_faq_title_one">Blokada hangi bilgileri saklıyor?</string>
     <string name="homepage_faq_desc_one">Blokada, ağ etkinliğinizdeki hiçbir şeyi izlemez veya paylaşmaz. Blokada Plus\'ı kullanıyorsanız, teknik nedenlerden dolayı, hizmetin çalışmasını sağlamak için gereken en az veriyi toplamamız gerekiyor. Ayrıntılar için lütfen üst menüde mevcut olan Gizlilik Politikamıza danışın.</string>
     <string name="homepage_faq_title_two">Gizliliğim nasıl korunuyor?</string>
     <string name="homepage_faq_title_three">Blokada Plus nedir?</string>
     <string name="homepage_faq_title_four">Blokada Plus\'a geçmem gerekiyor mu?</string>
+    <string name="homepage_faq_title_five">Blokada Plus iade politikası nedir?</string>
+    <string name="homepage_faq_desc_five">Aboneliğinizi satın aldıktan sonra 7 gün içinde paranızı geri alabilirsiniz. Uygulamalarımızdan herhangi biri aracılığıyla bizimle iletişime geçin ve sadece iade istediğinizi belirtin.</string>
+    <string name="homepage_faq_title_">Blokada nerede?</string>
+    <string name="homepage_faq_desc_">Mahremiyetin çok ciddiye alındığı İsveç\'te yaşıyoruz. Sunucularımız dünyanın birçok yerinde bulunuyor.</string>
     <string name="homepage_download_header">Blokada\'yı İndir</string>
     <string name="homepage_download_subheader">Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.</string>
     <string name="homepage_download_option_android_five">Android için Blokada 5</string>
@@ -402,9 +415,9 @@
     <string name="homepage_support_cta_desc">Blokada açık kaynak kodlu bir projedir. Yani her zaman ücretsiz kalacağından, kullanımının güvenli olduğundan ve gizli bir ajandası olmayacağından emin olabilirsiniz. Bunun güvenebileceğiniz bir gizlilik uygulaması geliştirmenin tek doğru yolu olduğuna inanıyoruz.</string>
     <string name="homepage_support_cta_desc_more">Bununla birlikte, Blokada gibi kaliteli bir uygulamayı geliştirmek önemli miktarda kaynak gerektiriyor. Bu proje, sizin gibi harika insanların desteği sayesinde var!</string>
     <string name="homepage_support_cta_action">Bağış (kredi kartı, Paypal)</string>
-    <string name="homepage_support_cta_action_alt">Donate (banka, kripto para)</string>
+    <string name="homepage_support_cta_action_alt">Bağış (banka, kripto para)</string>
     <string name="homepage_developer_header">Geliştirici misiniz?</string>
-    <string name="homepage_developer_subheader">ve Blokada\'yı daha iyi hale getirmek mi istiyorsunuz?</string>
+    <string name="homepage_developer_subheader">Blokada\'yı daha iyi hale getirmek ister misiniz?</string>
     <string name="homepage_developer_desc">Blokada, Android ve iOS için en iyi reklam engelleyici ve gizlilik uygulamasını geliştirmeye adanmış açık kaynaklı bir projedir. Github\'umuzu kontrol edin ve ilk PR\'nizi yapmak için herhangi bir yardıma ihtiyacınız varsa bize bildirin.</string>
     <string name="homepage_developer_action">Depoya git</string>
 </resources>

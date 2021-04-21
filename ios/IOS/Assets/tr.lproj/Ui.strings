@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Ayarlar";
 
+"main label use side menu" = "Gezinmek için yan menüyü kullanın";
+
 "home ads counter footnote" = "kurulumdan bu yana engellenen reklamlar ve izleyiciler";
 "home power off menu header" = "Ne yapmak istiyorsunuz?";
 "home power action turn on" = "Aç";
@@ -217,6 +219,7 @@
 "networks action encrypt dns" = "DNS'yi şifrele";
 "networks action use dns" = "DNS'i kullan: %@";
 "networks action use network dns" = "Ağ DNS'sini tercih et";
+"networks action force libre mode" = "Libre moduna zorla";
 "networks label specific network" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
 "networks label any wifi" = "Herhangi kablosuz ağ";
 "networks label any mobile" = "Herhangi mobil ağ";
@@ -332,6 +335,7 @@
 "payment alert error header" = "App Store'dan mesaj";
 // As in saving money: You are saving $5
 "payment save text" = "%@ tasarruf ediyorsun";
+"payment conversion note" = "Euro'yu kabul ediyoruz ve görüntülenen fiyatlar tahminidir. Bankanız çok fazla ücret alıyorsa geri ödeme yapılabilir.";
 
 "payment subscription 1 month" = "1 ay";
 "payment subscription many months" = "%@ ay";
@@ -420,7 +424,7 @@
 "homepage action source" = "Kaynak";
 "homepage action forums" = "Forumlar";
 "homepage action dashboard" = "Kontrol paneli";
-"homepage about footer" = "İrtibatta olalım!";
+"homepage about footer" = "İletişimde kalalım!";
 "homepage hero title" = "Gizlilik uygulaması";
 "homepage hero subtitle" = "ücretsiz ve açık kaynaklı";
 "homepage hero desc" = "Blokada, Android ve iOS için popüler bir reklam engelleyici ve gizlilik uygulamasıdır. Harika bir açık kaynak topluluğu tarafından desteklenmekte ve aktif olarak geliştirilmektedir.";
@@ -429,21 +433,31 @@
 "homepage about point one" = "Reklamları ve izleyicileri engeller";
 "homepage about point two" = "Tüm uygulamalar ve tarayıcılarda çalışır";
 "homepage about point three" = "Root veya jailbreak gerektirmez";
+"homepage about point four" = "Güvenli tasarım (şifrelemeyi bozmaz)";
+"homepage about point five" = "Güvenilir ve sonsuza kadar ücretsiz";
 
 "homepage about action faq" = "SSS'e bakın";
 "homepage about action plus" = "Blokada Plus hakkında daha fazla bilgi edinin";
 
 "homepage vpn title" = "Blokada 5, VPN";
-"homepage vpn point one" = "Bant genişliği kısıtlaması yok";
+"homepage vpn desc" = "En üst düzey gizlilik koruması için Blokada Plus'a yükseltin ve VPN'imiz üzerinden bağlanın. Ağ etkinliğinizi şifrelemek ve IP adresinizi gizlemek için en gelişmiş VPN protokolü olan WireGuard® protokolünü kullanıyoruz.";
+"homepage vpn point one" = "Bant genişliği kısıtlanmaz";
 "homepage vpn point two" = "Hızlı ve modern şifreleme";
-"homepage vpn point four" = "5 kadar cihazla bağlantı";
+"homepage vpn point three" = "Ağ etkinliğiniz günlüğe kaydedilmez";
+"homepage vpn point four" = "5 cihaza kadar bağlantı";
+"homepage vpn credit" = "'WireGuard' ve 'Wireguard' logosu Jason A. Donenfeld'in tescilli ticari markalarıdır.";
 
 "homepage faq header" = "Sıkça Sorulan Sorular";
+"homepage faq action more" = "SSS'den daha fazlasına bakın";
 "homepage faq title 1" = "Blokada hangi bilgileri saklıyor?";
 "homepage faq desc 1" = "Blokada, ağ etkinliğinizdeki hiçbir şeyi izlemez veya paylaşmaz. Blokada Plus'ı kullanıyorsanız, teknik nedenlerden dolayı, hizmetin çalışmasını sağlamak için gereken en az veriyi toplamamız gerekiyor. Ayrıntılar için lütfen üst menüde mevcut olan Gizlilik Politikamıza danışın.";
 "homepage faq title 2" = "Gizliliğim nasıl korunuyor?";
 "homepage faq title 3" = "Blokada Plus nedir?";
 "homepage faq title 4" = "Blokada Plus'a geçmem gerekiyor mu?";
+"homepage faq title 5" = "Blokada Plus iade politikası nedir?";
+"homepage faq desc 5" = "Aboneliğinizi satın aldıktan sonra 7 gün içinde paranızı geri alabilirsiniz. Uygulamalarımızdan herhangi biri aracılığıyla bizimle iletişime geçin ve sadece iade istediğinizi belirtin.";
+"homepage faq title 6" = "Blokada nerede?";
+"homepage faq desc 6" = "Mahremiyetin çok ciddiye alındığı İsveç'te yaşıyoruz. Sunucularımız dünyanın birçok yerinde bulunuyor.";
 
 "homepage download header" = "Blokada'yı İndir";
 "homepage download subheader" = "Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.";
@@ -477,9 +491,9 @@
 "homepage support cta desc" = "Blokada açık kaynak kodlu bir projedir. Yani her zaman ücretsiz kalacağından, kullanımının güvenli olduğundan ve gizli bir ajandası olmayacağından emin olabilirsiniz. Bunun güvenebileceğiniz bir gizlilik uygulaması geliştirmenin tek doğru yolu olduğuna inanıyoruz.";
 "homepage support cta desc more" = "Bununla birlikte, Blokada gibi kaliteli bir uygulamayı geliştirmek önemli miktarda kaynak gerektiriyor. Bu proje, sizin gibi harika insanların desteği sayesinde var!";
 "homepage support cta action" = "Bağış (kredi kartı, Paypal)";
-"homepage support cta action alt" = "Donate (banka, kripto para)";
+"homepage support cta action alt" = "Bağış (banka, kripto para)";
 
 "homepage developer header" = "Geliştirici misiniz?";
-"homepage developer subheader" = "ve Blokada'yı daha iyi hale getirmek mi istiyorsunuz?";
+"homepage developer subheader" = "Blokada'yı daha iyi hale getirmek ister misiniz?";
 "homepage developer desc" = "Blokada, Android ve iOS için en iyi reklam engelleyici ve gizlilik uygulamasını geliştirmeye adanmış açık kaynaklı bir projedir. Github'umuzu kontrol edin ve ilk PR'nizi yapmak için herhangi bir yardıma ihtiyacınız varsa bize bildirin.";
 "homepage developer action" = "Depoya git";

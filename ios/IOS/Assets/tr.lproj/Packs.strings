@@ -20,6 +20,7 @@
 "A special blocklist containing mobile ad providers." = "Mobil reklam sağlayıcıları içeren özel bir engelleme listesi.";
 "Protects against cyber attacks" = "Siber saldırılara karşı korur";
 "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Kimlik Avı web sitelerini filtrelemek için bir engelleme listesi. Kimlik Avı, ziyaretçileri kandırmak ve hassas bilgileri çalmak için orijinal web sitelerine tam olarak benzeyen sahte web sitelerine yönlendirmeye dayanan bir yanlış uygulamadır. Bu engelleme listesini yüklemek, bu tür durumları önlemenize yardımcı olacaktır.";
+"A new and expanding tracker database" = "Yeni ve genişleyen bir izleyici veritabanı";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radarı, sürekli tarama ve analiz yoluyla otomatik olarak oluşturulan ve desteklenen izleyicilerle ilgili sınıfının en iyi veri kümesidir. Daha fazla bilgi için yazarın bilgilerine bakın.";
 "Curated blocklist to block trackers and advertisements" = "İzleyicileri ve reklamları engellemek için seçilmiş engelleme listesi";
 "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Bu, reklamları, izlemeyi ve daha fazlasını engellemek için seçilmiş ve bakımlı bir engelleme listesidir! Düzenli olarak güncellenir.";
@@ -29,3 +30,7 @@
 "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Reklamları, kimlik avını, kötü amaçlı yazılımları, casus yazılımları, fidye yazılımlarını, dolandırıcılığı, telemetriyi, analizleri, izlemeyi (uygun işlevsellik için gerekli olmayan yerlerde) engeller. Normal uygulamalara ve hizmetlere müdahale etmemelidir.";
 "A blocklist for ads and tracking, updated regularly" = "Düzenli olarak güncellenen reklamlar ve izleyiciler için bir engelleme listesi";
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Bu ana engelleme listesi olarak iyi bir seçimdir. İyi dengelenmiş, orta boyutlu ve sık sık güncellenir.";
+"A collection of blocklists for various use cases." = "Çeşitli kullanım durumları için engelleme listesi koleksiyonu.";
+"A blocklist based on spam reports" = "Spam raporlarına dayalı bir engelleme listesi";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404; çevrimiçi şirketlere içerik izleme, penetrasyon testi ve marka koruması konusunda yardımcı olan bir hizmettir. Bu liste şirketlerden alınan raporlara dayanmaktadır.";
+"A general purpose, medium weight lists" = "Genel amaçlı, orta yüklü listeler";

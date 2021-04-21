@@ -115,7 +115,7 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Einstellungen";
 
-"main label use side menu" = "Seitenmenü zum Navigieren verwenden";
+"main label use side menu" = "Zum Navigieren das Seitenmenü verwenden";
 
 "home ads counter footnote" = "Tracker und Werbeanzeigen seit der Installation blockiert";
 "home power off menu header" = "Was möchtest du machen?";
@@ -472,7 +472,7 @@
 "homepage faq desc 4" = "Nein, das Upgrade ist optional. Du kannst bei der kostenlosen Version von Blokada bleiben, für immer. Es ist ein empfohlenes Upgrade, wenn du den Schutz deiner Privatsphäre noch weiter erhöhen möchtest oder eine der beliebten Funktionen benötigst, die VPNs bieten.";
 "homepage faq title 5" = "Wie ist die Rückerstattungsrichtlinie von Blokada Plus?";
 "homepage faq desc 5" = "Du kannst dein Geld innerhalb von 7 Tagen nach dem Kauf des Abonnements zurückerhalten. Kontaktiere uns über eine unserer Apps und erwähne einfach, dass du eine Rückerstattung wünschst.";
-"homepage faq title 6" = "Wo ist Blokada angesiedelt?";
+"homepage faq title 6" = "Wo befindet sich der Standort von Blokada?";
 "homepage faq desc 6" = "Wir haben unseren Sitz in Schweden, wo der Datenschutz sehr ernst genommen wird. Unsere Server sind an vielen Orten auf der ganzen Welt verfügbar.";
 
 "homepage download header" = "Blokada herunterladen";

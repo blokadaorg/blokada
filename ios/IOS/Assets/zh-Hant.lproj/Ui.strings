@@ -76,7 +76,7 @@
 "universal status copied to clipboard" = "已複製到剪貼簿";
 "universal status restart required" = "請重新啟動 APP 以套用變更。";
 "universal status redirect" = "使用 Blokada 應用程式繼續";
-"universal status confirm" = "你確定要繼續嗎?";
+"universal status confirm" = "你確定要繼續嗎？";
 
 "alert error header" = "哎呀！";
 "alert vpn expired header" = "BLOKADA+ 已到期";
@@ -213,16 +213,16 @@
 "networks section label" = "調整 WiFi 與行動網路的設定";
 "networks label all networks" = "所有網路";
 "networks action network specific" = "點此修改預設設定。要讓應用程式在不同的網路上有不同的行為，請輕觸下方。";
-"networks label configuration active" = "這些設定目前正作用中";
+"networks label configuration active" = "這些設定目前運作中";
 "networks label configuration enabled" = "未連線至此網路";
-"networks label configuration inactive" = "輕觸以修改此網路的設定";
+"networks label configuration inactive" = "輕觸修改此網路的設定";
 "networks label details default network" = "下方設定將預設套用至所有網路。您可以（在上一個畫面）選擇要覆蓋設定的網路。";
 "networks action encrypt dns" = "加密 DNS";
 "networks action use dns" = "使用 DNS：%@";
 "networks action use network dns" = "偏好網路 DNS";
 "networks action force libre mode" = "強制使用 Libre 模式";
-"networks label specific network" = "調整您的裝置連線到此網路時應該發生的狀況。";
-"networks label specific network type" = "調整您的裝置連線到此類型的網路時應該發生的狀況。";
+"networks label specific network" = "調整您的裝置連線到此網路後該執行的行為。";
+"networks label specific network type" = "調整您的裝置連線到此類型的網路後該執行的行為。";
 "networks label any wifi" = "任何無線網路";
 "networks label any mobile" = "任何行動網路";
 "networks permission request" = "要進行更多控制，請點擊此處並讓應用程式識別所有網路。";
@@ -356,7 +356,7 @@
 "payment success label" = "謝謝！";
 "payment success desc" = "您的帳號已可使用！您現在可以在您的裝置上使用所有的 Blokada Plus 功能。";
 
-"payment redirect label" = "正在重新導向…";
+"payment redirect label" = "正在重新導向⋯⋯";
 "payment redirect desc" = "請稍候。不久後就緒。";
 
 "payment ongoing title" = "正在處理您的付款。";
@@ -381,8 +381,8 @@
 "payment label discount" = "省下 %@ (每個月 %@)";
 "payment label country" = "國家";
 
-"payment euro desc" = "我們位於歐洲，因此我們接受歐元：€10 大約是 $12。";
-"payment donate disclaimer" = "這不會啟用您的 Blokada Plus 帳戶。如果你想要使用我們的 VPN 服務，請改成「訂閱」，而非捐助。";
+"payment euro desc" = "我們立足於歐洲，所以接受歐元：€10 大約是 $12。";
+"payment donate disclaimer" = "這不會啟用您的 Blokada Plus 帳戶。如果你想使用我們的 VPN 服務，請改成「訂閱」而非捐助。";
 
 "apps section header" = "應用程式";
 "apps label installed" = "已安裝";
@@ -464,7 +464,7 @@
 "homepage faq action more" = "查閱更多 FAQ";
 "homepage faq title 1" = "Blokada 保留哪些資訊？";
 "homepage faq desc 1" = "Blokada 不會追蹤或分享您任何的網路活動。如果您使用 Blokada Plus，出於技術原因，我們需要蒐集維持服務運作所需的最少資料。關於詳細資訊，請見頂部選單中的我們的隱私權政策。";
-"homepage faq title 2" = "如何保護我的隱私？";
+"homepage faq title 2" = "我的隱私是怎麼個保護法？";
 "homepage faq desc 2" = "Blokada 阻止安裝在您裝置上的應用程式與瀏覽器傳送您的私人資料（稱為追蹤指紋）到網既網路上。它還會加密您的網路活動（DNS 查詢）。如果您需要更多保護，Blokada Plus 可讓您的裝置透過我們的 VPN 連線，並使用 WireGuard® 協定來加密您所有的網路流量。";
 "homepage faq title 3" = "Blokada Plus 是什麼？";
 "homepage faq desc 3" = "Blokada Plus 是我們所建立，安全且現代化的 VPN（虛擬私人網路）服務。它使用 WireGuard® - 同類型協定中加密功能最好，且電池使用量低的快速協定。Blokada Plus 會即時加密您所有的網路流量，為您提供最高等級的保護。您也可以取得流行的 VPN 功能 - 隱藏您的 IP 地址、變更您的位置以及解除地域限制內容的封鎖。";
