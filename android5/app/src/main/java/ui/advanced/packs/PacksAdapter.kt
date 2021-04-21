@@ -58,7 +58,6 @@ class PacksAdapter(private val interaction: Interaction? = null) :
                 if (adapterPosition == RecyclerView.NO_POSITION) Unit
                 else {
                     val clicked = getItem(adapterPosition)
-                    Log.v("packs", "switched")
                     interaction?.onSwitch(clicked, switch.isChecked)
                 }
             }

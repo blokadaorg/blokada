@@ -102,7 +102,7 @@ object BlocklistService {
     fun removeAll(urls: List<Uri>) {
         log.v("Removing ${urls.size} blocklists")
         for (url in urls) {
-            remove(getDestination(url))
+            remove(url)
         }
         log.v("Done removing")
     }
@@ -133,6 +133,7 @@ object BlocklistService {
 
     private fun isLineOk(line: String) = when {
         line.startsWith("#") -> false
+        line.startsWith("!") -> false
         line.trim().isEmpty() -> false
         else -> true
     }
