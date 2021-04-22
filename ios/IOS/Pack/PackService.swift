@@ -178,7 +178,7 @@ class PackService {
 
         Pack.mocked(id: "cpbl", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "phishing", "security"],
             title: "Combined Privacy Block Lists",
-            slugline: "A general purpose, medium weight list.",
+            slugline: "A general purpose, medium weight list",
             description: "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.",
             creditName: "bongochong",
             creditUrl: "https://go.blokada.org/cpbl",
