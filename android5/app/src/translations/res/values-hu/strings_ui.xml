@@ -165,6 +165,7 @@
     <string name="app_settings_start_on_boot">Bootoláskor indul</string>
     <string name="app_settings_section_advanced">Haladó</string>
     <string name="app_settings_section_use_foreground">Életben tart</string>
+    <string name="homepage_action_vpn">VPN</string>
     <string name="homepage_hero_subtitle">ingyenes és nyílt forráskódú</string>
     <string name="homepage_about_action_plus">Tudj meg többet a Blokada Plus-ról</string>
     <string name="homepage_download_header">Blokada letöltése</string>

@@ -316,6 +316,7 @@
     <string name="homepage_desc_community">Alătură-te comunității noastre minunate.</string>
     <string name="homepage_header_support">Susține-ne</string>
     <string name="homepage_desc_support">Donează pentru a ne ajuta să continuăm proiectul.</string>
+    <string name="homepage_action_vpn">Serviciu VPN</string>
     <string name="homepage_action_authors">Autori</string>
     <string name="homepage_action_source">Sursă</string>
     <string name="homepage_action_forums">Forum</string>

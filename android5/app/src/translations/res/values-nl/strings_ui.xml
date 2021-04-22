@@ -192,6 +192,7 @@
     <string name="app_settings_start_on_boot">Starten bij opstarten</string>
     <string name="app_settings_section_advanced">Geavanceerd</string>
     <string name="app_settings_section_use_foreground">Actief blijven</string>
+    <string name="homepage_action_vpn">VPN</string>
     <string name="homepage_hero_subtitle">gratis en open source</string>
     <string name="homepage_about_action_plus">Meer informatie over Blokada Plus</string>
     <string name="homepage_download_header">Blokada downloaden</string>

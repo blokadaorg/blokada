@@ -424,6 +424,7 @@
 "location region america" = "アメリカ";
 "location region europe" = "ヨーロッパ";
 "location region asia" = "アジア";
+"location region australia" = "オーストラリア";
 
 "homepage header what is blokada" = "Blokada とは？";
 "homepage desc what is blokada" = "アプリに関する基本情報を学びましょう。";

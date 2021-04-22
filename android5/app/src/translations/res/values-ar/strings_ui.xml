@@ -354,6 +354,7 @@
     <string name="location_region_america">أمريكا</string>
     <string name="location_region_europe">أوروبا</string>
     <string name="location_region_asia">آسيا</string>
+    <string name="location_region_australia">أستراليا</string>
     <string name="homepage_header_what_is_blokada">ما هو بلوكادا؟</string>
     <string name="homepage_desc_what_is_blokada">تعلّم المعلومات الأساسيّة حول التطبيق.</string>
     <string name="homepage_desc_download">تحميل بلوكادا للمنصّة الخاصّة بك.</string>

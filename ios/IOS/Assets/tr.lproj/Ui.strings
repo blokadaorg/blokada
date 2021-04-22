@@ -225,6 +225,7 @@
 "networks label any mobile" = "Herhangi mobil ağ";
 "networks permission request" = "Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.";
 "networks section choose dns" = "DNS seç";
+"networks summary network dns and plus mode" = "Ağ DNS'si kullanıldığında Blokada geçici olarak Plus Modunu devre dışı bırakır. Bunun nedeni, VPN'de ağ DNS'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.";
 
 
 "account section header settings" = "Ayarlar";

@@ -354,6 +354,7 @@
     <string name="location_region_america">アメリカ</string>
     <string name="location_region_europe">ヨーロッパ</string>
     <string name="location_region_asia">アジア</string>
+    <string name="location_region_australia">オーストラリア</string>
     <string name="homepage_header_what_is_blokada">Blokada とは？</string>
     <string name="homepage_desc_what_is_blokada">アプリに関する基本情報を学びましょう。</string>
     <string name="homepage_desc_download">あなたのプラットフォームに最適なバージョンの Blokada をダウンロードします。</string>

@@ -179,6 +179,7 @@
     <string name="networks_label_any_mobile">Herhangi mobil ağ</string>
     <string name="networks_permission_request">Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.</string>
     <string name="networks_section_choose_dns">DNS seç</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Ağ DNS\'si kullanıldığında Blokada geçici olarak Plus Modunu devre dışı bırakır. Bunun nedeni, VPN\'de ağ DNS\'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.</string>
     <string name="account_section_header_settings">Ayarlar</string>
     <string name="account_status_text">BLOKADA %s hesabınız %s kadar etkindir.</string>
     <string name="account_status_text_libre">BLOKADA Libre hesabınız sonsuza kadar etkindir.</string>

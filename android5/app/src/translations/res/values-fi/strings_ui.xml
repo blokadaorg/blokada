@@ -253,6 +253,7 @@
     <string name="location_region_america">Amerikka</string>
     <string name="location_region_europe">Eurooppa</string>
     <string name="location_region_asia">Aasia</string>
+    <string name="homepage_action_vpn">VPN</string>
     <string name="homepage_hero_subtitle">ilmainen ja perustuu avoimeen lähdekoodiin</string>
     <string name="homepage_about_action_plus">Opi lisää Blokada Plussasta</string>
     <string name="homepage_download_header">Lataa Blokada</string>

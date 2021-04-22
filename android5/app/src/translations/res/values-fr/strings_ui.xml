@@ -338,6 +338,7 @@
     <string name="location_region_america">Amérique</string>
     <string name="location_region_europe">Europe</string>
     <string name="location_region_asia">Asie</string>
+    <string name="location_region_australia">Australie</string>
     <string name="homepage_header_what_is_blokada">Qu\'est-ce que Blokada ?</string>
     <string name="homepage_desc_what_is_blokada">Renseignez-vous sur les fondamentaux de l\'application.</string>
     <string name="homepage_desc_download">Téléchargez Blokada pour votre plateforme.</string>

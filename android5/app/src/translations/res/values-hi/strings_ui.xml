@@ -203,6 +203,7 @@
     <string name="app_settings_start_on_boot">बूट पर प्रारंभ करें</string>
     <string name="app_settings_section_advanced">उच्च</string>
     <string name="app_settings_section_use_foreground">जिंदा रखें</string>
+    <string name="homepage_action_vpn">वीपीएन</string>
     <string name="homepage_about_action_plus">ब्लोकाडा प्लस के बारे में अधिक जानें</string>
     <string name="homepage_download_header">Blokada डाउनलोड करें</string>
 </resources>

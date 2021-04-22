@@ -581,6 +581,8 @@ internal enum L10n {
   internal static let locationRegionAmerica = L10n.tr("Ui", "location region america")
   /// Asia
   internal static let locationRegionAsia = L10n.tr("Ui", "location region asia")
+  /// Australia
+  internal static let locationRegionAustralia = L10n.tr("Ui", "location region australia")
   /// Europe
   internal static let locationRegionEurope = L10n.tr("Ui", "location region europe")
   /// Everywhere

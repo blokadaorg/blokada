@@ -423,6 +423,7 @@
 "location region america" = "Ameryka";
 "location region europe" = "Europa";
 "location region asia" = "Azja";
+"location region australia" = "Australia";
 
 "homepage header what is blokada" = "Czym jest Blokada?";
 "homepage desc what is blokada" = "Poznaj podstawowe informacje o aplikacji.";
