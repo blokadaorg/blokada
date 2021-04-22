@@ -154,14 +154,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:visibility="invisible">
+                                android:orientation="vertical">
 
                                 <TextView
                                     style="@style/Text.Small"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Other" />
+                                    android:text="@string/location_region_australia" />
 
                                 <LinearLayout
                                     android:id="@+id/location_container4"

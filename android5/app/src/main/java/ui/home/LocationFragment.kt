@@ -77,6 +77,7 @@ class LocationFragment : BottomSheetFragment() {
         val container1: LinearLayout = root.findViewById(R.id.location_container1)
         val container2: LinearLayout = root.findViewById(R.id.location_container2)
         val container3: LinearLayout = root.findViewById(R.id.location_container3)
+        val container4: LinearLayout = root.findViewById(R.id.location_container4)
 
         vm.locations.observe(viewLifecycleOwner, {
             val spinner: View = root.findViewById(R.id.spinner)
@@ -85,10 +86,12 @@ class LocationFragment : BottomSheetFragment() {
             container1.removeAllViews()
             container2.removeAllViews()
             container3.removeAllViews()
+            container4.removeAllViews()
 
             val groupedLocations = it.map {
                 when {
                     it.region.startsWith("europe") -> 2 to it
+                    it.region.startsWith("australia") -> 4 to it
                     it.region.startsWith("us") || it.region.startsWith("northamerica") -> 1 to it
                     else -> 3 to it
                 }
@@ -99,7 +102,8 @@ class LocationFragment : BottomSheetFragment() {
                 when (region) {
                     1 -> addLocationItemView(inflater, container1, location)
                     2 -> addLocationItemView(inflater, container2, location)
-                    else -> addLocationItemView(inflater, container3, location)
+                    3 -> addLocationItemView(inflater, container3, location)
+                    else -> addLocationItemView(inflater, container4, location)
                 }
             }
         })
@@ -148,6 +152,7 @@ class LocationFragment : BottomSheetFragment() {
             "FR" -> R.drawable.flag_fr
             "DE" -> R.drawable.flag_de
             "CH" -> R.drawable.flag_ch
+            "AU" -> R.drawable.flag_au
             else -> {
                 Logger.w("Location", "No flag asset for: ${location.country}")
                 R.drawable.ic_baseline_location_on_24
