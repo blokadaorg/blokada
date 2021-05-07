@@ -423,6 +423,7 @@
 "location region america" = "美洲";
 "location region europe" = "歐洲";
 "location region asia" = "亞洲";
+"location region australia" = "澳洲";
 
 "homepage header what is blokada" = "Blokada 是什麼？";
 "homepage desc what is blokada" = "了解 App 的基本資訊。";

@@ -216,16 +216,25 @@
 "networks label configuration active" = "Bu ayarlar şu anda aktif";
 "networks label configuration enabled" = "Bu ağa bağlı değil";
 "networks label configuration inactive" = "Bu ağın ayarlarını değiştirmek için dokunun";
+"networks label details default network" = "Aşağıdaki ayarlar varsayılan olarak tüm ağlar için uygulanır. Seçili ağlar için bunları geçersiz kılabilirsiniz (önceki ekranda).";
 "networks action encrypt dns" = "DNS'yi şifrele";
 "networks action use dns" = "DNS'i kullan: %@";
 "networks action use network dns" = "Ağ DNS'sini tercih et";
 "networks action force libre mode" = "Libre moduna zorla";
 "networks label specific network" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
+"networks label specific network type" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
 "networks label any wifi" = "Herhangi kablosuz ağ";
 "networks label any mobile" = "Herhangi mobil ağ";
 "networks permission request" = "Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.";
+"networks permission request granted" = "Blokada arka planda ağ adınızı okuduğunda bir bildirim görebilirsiniz.";
 "networks section choose dns" = "DNS seç";
+"networks summary encrypt dns" = "Blokada, mümkün olduğunda DNS'yi şifreleyecektir. Bu, güvenliğinizi artırır ve kötü niyetli kişilerin hangi web sitelerini ve uygulamaları kullandığınız hakkında casusluk yapmasını engeller.";
+"networks summary use dns" = "Blokada, cihazınızın DNS'si olarak %@ kullanacaktır. Şifrelemeye izin veren (kilit simgesi olan) ve size yakın olanı seçmek, verilerinizin korunmasına ve bağlantınızın hızlı olmasına yardımcı olacaktır.";
+"networks summary network dns" = "Blokada, varsa ağın DNS'sini kullanacak veya aksi takdirde %@ geçecektir. Ayrıca, DNS'yi Şifrele ayarları, ağ DNS'si her kullanıldığında yok sayılacaktır. Ağın DNS'sini kullanmak, sorunlu ağlardaki bağlantı sorunlarını çözmenize yardımcı olur, ancak sizi korumasız bırakır.";
 "networks summary network dns and plus mode" = "Ağ DNS'si kullanıldığında Blokada geçici olarak Plus Modunu devre dışı bırakır. Bunun nedeni, VPN'de ağ DNS'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.";
+"networks summary blocka plus mode" = "Blokada, yüksek düzeyde şifreleme ve hız sağlamak için Blokada DNS'yi Plus modunda kullanacaktır. Bu ayarı DNS Seçin ekranının altında değiştirebilirsiniz.";
+"networks summary force libre mode" = "Blokada, bu ağda her zaman Libre modunu kullanacak ve Blokada Plus konumunuzu yok sayacaktır. Bu, ek koruma istemediğiniz ağlar için kullanışlıdır.";
+"networks permission dialog" = "Blokada, bağlandığınız ağları tanıyabilir ve onlar için ayrı ayarlar yapılandırmanıza izin verebilir. Ancak bu uygulama, uygulama kapalıyken veya kullanımda değilken bile bu özelliği etkinleştirmek için konum verilerini ağ adı biçiminde toplayacaktır. Bazen konum erişimi hakkında bir sistem bildirimi görebilirsiniz - Blokada yalnızca ağın adını okuyacaktır.";
 
 
 "account section header settings" = "Ayarlar";
@@ -299,6 +308,7 @@
 "account lease label this device" = " (bu cihaz)";
 "account lease label name" = "Cihaz adı";
 "account lease label location" = "Konum";
+"account lease label generate" = "Burada bir konum seçmek, Wireguard'ı destekleyen herhangi bir VPN uygulamasında kullanabileceğiniz bir yapılandırma dosyası oluşturacaktır. Bu, henüz uygulamalarımıza sahip olmadığımız platformlar için kullanışlıdır. Aksi takdirde, bunun yerine yerel uygulamalarımızı kullanmanızı öneririz.";
 "account lease action generate" = "Yapılandırma Oluştur";
 "account lease action download" = "Yapılandırmayı İndir";
 "account lease generated" = "Cihaz eklendi! Wireguard tarafından desteklenen herhangi bir cihazda kullanmak için yapılandırmayı indirin.";
@@ -380,6 +390,8 @@
 "apps status bypassed" = "(atlandı)";
 "apps filter header" = "Hangi uygulamaları görmek istersiniz?";
 "apps filter action show all" = "Tüm uygulamalar";
+"apps filter action show bypassed" = "Yalnızca baypas edildi";
+"apps filter action show not bypassed" = "Sadece baypas edilmedi";
 "apps filter action toggle system" = "Tüm sistem uygulamalarını değiştir";
 
 "app settings section header" = "Bu cihaz";
@@ -411,6 +423,7 @@
 "location region america" = "Amerika";
 "location region europe" = "Avrupa";
 "location region asia" = "Asya";
+"location region australia" = "Avustralya";
 
 "homepage header what is blokada" = "Blokada nedir?";
 "homepage desc what is blokada" = "Uygulama hakkında temel bilgileri öğrenin.";
@@ -453,8 +466,11 @@
 "homepage faq title 1" = "Blokada hangi bilgileri saklıyor?";
 "homepage faq desc 1" = "Blokada, ağ etkinliğinizdeki hiçbir şeyi izlemez veya paylaşmaz. Blokada Plus'ı kullanıyorsanız, teknik nedenlerden dolayı, hizmetin çalışmasını sağlamak için gereken en az veriyi toplamamız gerekiyor. Ayrıntılar için lütfen üst menüde mevcut olan Gizlilik Politikamıza danışın.";
 "homepage faq title 2" = "Gizliliğim nasıl korunuyor?";
+"homepage faq desc 2" = "Blokada, cihazınızda yüklü olan uygulamaların ve tarayıcıların özel verilerinizi (izleme parmak izleri olarak bilinir) İnternet'e göndermesini engeller. Ayrıca bazı ağ etkinliklerinizi (DNS sorguları) şifreler. Daha fazla korumaya ihtiyacınız varsa, Blokada Plus, cihazınızın VPN'miz aracılığıyla bağlanmasını sağlar ve tüm ağ trafiğinizi şifrelemek için WireGuard® protokolünü kullanır.";
 "homepage faq title 3" = "Blokada Plus nedir?";
+"homepage faq desc 3" = "Blokada Plus, güvenli ve modern VPN (Sanal Özel Ağ) hizmetimizdir. Sınıfının en iyisi şifreleme ve düşük pil kullanımı ile hızlı bir protokol olan WireGuard®'ı kullanır. Blokada Plus, tüm ağ faaliyetlerinizi gerçek zamanlı olarak şifreler ve size mümkün olan en yüksek seviyede koruma sağlar. Ayrıca popüler VPN özelliklerine de sahip olursunuz - IP adresinizi gizleyin, konumunuzu değiştirin ve coğrafi olarak kısıtlanmış içeriğin engelini kaldırın.";
 "homepage faq title 4" = "Blokada Plus'a geçmem gerekiyor mu?";
+"homepage faq desc 4" = "Hayır, yükseltme isteğe bağlıdır. Sonsuza kadar Blokada'nın ücretsiz sürümünü kullanabilirsiniz. Gizlilik korumanızı daha da artırmak istiyorsanız veya VPN'lerin sunduğu popüler özelliklerden herhangi birine ihtiyaç duyuyorsanız, bu önerilen bir yükseltmedir.";
 "homepage faq title 5" = "Blokada Plus iade politikası nedir?";
 "homepage faq desc 5" = "Aboneliğinizi satın aldıktan sonra 7 gün içinde paranızı geri alabilirsiniz. Uygulamalarımızdan herhangi biri aracılığıyla bizimle iletişime geçin ve sadece iade istediğinizi belirtin.";
 "homepage faq title 6" = "Blokada nerede?";

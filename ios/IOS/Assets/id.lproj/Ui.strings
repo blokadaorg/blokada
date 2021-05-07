@@ -423,6 +423,7 @@
 "location region america" = "Amerika";
 "location region europe" = "Eropa";
 "location region asia" = "Asia";
+"location region australia" = "Australia";
 
 "homepage header what is blokada" = "Apa itu Blokada?";
 "homepage desc what is blokada" = "Pelajari informasi dasar tentang Blokada.";

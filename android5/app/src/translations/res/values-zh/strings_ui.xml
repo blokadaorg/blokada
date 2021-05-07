@@ -354,6 +354,7 @@
     <string name="location_region_america">美洲</string>
     <string name="location_region_europe">歐洲</string>
     <string name="location_region_asia">亞洲</string>
+    <string name="location_region_australia">澳洲</string>
     <string name="homepage_header_what_is_blokada">Blokada 是什麼？</string>
     <string name="homepage_desc_what_is_blokada">了解 App 的基本資訊。</string>
     <string name="homepage_desc_download">下載適合您平台的 Blokada。</string>

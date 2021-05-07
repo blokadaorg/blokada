@@ -223,9 +223,9 @@
 "networks label any wifi" = "Cualquier red WiFi";
 "networks label any mobile" = "Cualquier red móvil";
 "networks permission request" = "Para tener más control, pulsa aquí y deja que la aplicación reconozca todas las redes.";
-"networks permission request granted" = "Talvez vea una notificación cuando Blokada lea el nombre de su red en segundo plano.";
+"networks permission request granted" = "Tal vez veas una notificación cuando Blokada lea el nombre de la red en segundo plano.";
 "networks section choose dns" = "Elegir DNS";
-"networks summary encrypt dns" = "Blokada cifrará DNS si es posible. Esto mejora tu seguridad y evita que actores maliciosos espíen qué sitios web y aplicaciones utilizas.";
+"networks summary encrypt dns" = "Blokada cifrará el DNS si es posible. Esto mejora tu seguridad y evita que agentes maliciosos espíen qué sitios web y aplicaciones utilizas.";
 "networks summary use dns" = "Blokada usará %@ como DNS de tu dispositivo. Eligiendo el que permite el cifrado (tiene el icono de bloqueo), y está cerca de ti, ayudará a proteger sus datos y hará que su conexión sea rápida.";
 "networks summary network dns" = "Blokada utilizará el DNS de la red si está disponible, o cambiará a %@ de lo contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar el DNS de la red ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.";
 "networks summary network dns and plus mode" = "Blokada desactivará temporalmente el modo Plus cuando se utilice DNS de red. Esto es porque no es posible acceder a DNS de red en VPN. El modo Plus se restaurará automáticamente cuando el dispositivo cambie a otra red.";
@@ -418,6 +418,7 @@
 "location region america" = "América";
 "location region europe" = "Europa";
 "location region asia" = "Asia";
+"location region australia" = "Australia";
 
 "homepage header what is blokada" = "¿Qué es Blokada?";
 "homepage desc what is blokada" = "Aprende la información básica sobre la aplicación.";
@@ -467,6 +468,7 @@
 "homepage faq desc 4" = "No, la mejora es opcional. Puedes optar a la versión gratuita de Blokada, para siempre. Es una mejora recomendada si desea aumentar aún más su protección de la privacidad o si necesita alguna de las características populares que proporcionan las VPNs.";
 "homepage faq title 5" = "¿Cuál es la política de reembolso de Blokada Plus?";
 "homepage faq desc 5" = "Puedes recuperar tu dinero dentro de los 7 días próximos a la compra de la suscripción. Póngase en contacto con nosotros a través de cualquiera de nuestras aplicaciones y simplemente mencione que desea un reembolso.";
+"homepage faq title 6" = "¿Dónde se encuentra Blokada?";
 
 "homepage download header" = "Descargar Blokada";
 "homepage download subheader" = "Blokada está disponible para varias plataformas, elige la tuya.";

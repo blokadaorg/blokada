@@ -31,7 +31,12 @@
 "A blocklist for ads and tracking, updated regularly" = "Düzenli olarak güncellenen reklamlar ve izleyiciler için bir engelleme listesi";
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Bu ana engelleme listesi olarak iyi bir seçimdir. İyi dengelenmiş, orta boyutlu ve sık sık güncellenir.";
 "A collection of blocklists for various use cases." = "Çeşitli kullanım durumları için engelleme listesi koleksiyonu.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Bu listeler, projenin kurucusunun neyin engellendiği üzerinde biraz daha fazla kontrole sahip bir şey istediği için oluşturuldu.";
 "A blocklist based on spam reports" = "Spam raporlarına dayalı bir engelleme listesi";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404; çevrimiçi şirketlere içerik izleme, penetrasyon testi ve marka koruması konusunda yardımcı olan bir hizmettir. Bu liste şirketlerden alınan raporlara dayanmaktadır.";
+"A comprehensive lists to block ads and tracking" = "Reklamları ve izlemeyi engellemek için kapsamlı bir liste";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock; reklamlar, izleme komut dosyaları ve kötü amaçlı yazılım sunan alan adlarını içeren bir listedir. Cihazınızın bunlara bağlanmasını engeller.";
 "A general purpose, medium weight lists" = "Genel amaçlı, orta yüklü listeler";
+"These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains." = "Bu listeler, reklamcılık, izleme, telemetri, dolandırıcılık ve kötü amaçlı yazılım sunucuları gibi kötü niyetli ve zararlı şekilde aldatıcı içeriği engeller. Bu listeler porno, sosyal medya veya sözde sahte haber alanlarını engellemez.";
 "A reasonably balanced ad blocking hosts file" = "Oldukça dengeli bir reklam engelleme host dosyası";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Bu, düzenli olarak güncellenen, iyi bilinen, küçük boyutlu genel amaçlı bir bloklama listesidir.";

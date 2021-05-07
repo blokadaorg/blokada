@@ -178,9 +178,9 @@
     <string name="networks_label_any_wifi">Cualquier red WiFi</string>
     <string name="networks_label_any_mobile">Cualquier red móvil</string>
     <string name="networks_permission_request">Para tener más control, pulsa aquí y deja que la aplicación reconozca todas las redes.</string>
-    <string name="networks_permission_request_granted">Talvez vea una notificación cuando Blokada lea el nombre de su red en segundo plano.</string>
+    <string name="networks_permission_request_granted">Tal vez veas una notificación cuando Blokada lea el nombre de la red en segundo plano.</string>
     <string name="networks_section_choose_dns">Elegir DNS</string>
-    <string name="networks_summary_encrypt_dns">Blokada cifrará DNS si es posible. Esto mejora tu seguridad y evita que actores maliciosos espíen qué sitios web y aplicaciones utilizas.</string>
+    <string name="networks_summary_encrypt_dns">Blokada cifrará el DNS si es posible. Esto mejora tu seguridad y evita que agentes maliciosos espíen qué sitios web y aplicaciones utilizas.</string>
     <string name="networks_summary_use_dns">Blokada usará %s como DNS de tu dispositivo. Eligiendo el que permite el cifrado (tiene el icono de bloqueo), y está cerca de ti, ayudará a proteger sus datos y hará que su conexión sea rápida.</string>
     <string name="networks_summary_network_dns">Blokada utilizará el DNS de la red si está disponible, o cambiará a %s de lo contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar el DNS de la red ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada desactivará temporalmente el modo Plus cuando se utilice DNS de red. Esto es porque no es posible acceder a DNS de red en VPN. El modo Plus se restaurará automáticamente cuando el dispositivo cambie a otra red.</string>
@@ -350,6 +350,7 @@
     <string name="location_region_america">América</string>
     <string name="location_region_europe">Europa</string>
     <string name="location_region_asia">Asia</string>
+    <string name="location_region_australia">Australia</string>
     <string name="homepage_header_what_is_blokada">¿Qué es Blokada?</string>
     <string name="homepage_desc_what_is_blokada">Aprende la información básica sobre la aplicación.</string>
     <string name="homepage_desc_download">Descarga Blokada para tu plataforma.</string>
@@ -395,6 +396,7 @@
     <string name="homepage_faq_desc_four">No, la mejora es opcional. Puedes optar a la versión gratuita de Blokada, para siempre. Es una mejora recomendada si desea aumentar aún más su protección de la privacidad o si necesita alguna de las características populares que proporcionan las VPNs.</string>
     <string name="homepage_faq_title_five">¿Cuál es la política de reembolso de Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Puedes recuperar tu dinero dentro de los 7 días próximos a la compra de la suscripción. Póngase en contacto con nosotros a través de cualquiera de nuestras aplicaciones y simplemente mencione que desea un reembolso.</string>
+    <string name="homepage_faq_title_">¿Dónde se encuentra Blokada?</string>
     <string name="homepage_download_header">Descargar Blokada</string>
     <string name="homepage_download_subheader">Blokada está disponible para varias plataformas, elige la tuya.</string>
     <string name="homepage_download_option_android_five">Blokada 5 para Android</string>
