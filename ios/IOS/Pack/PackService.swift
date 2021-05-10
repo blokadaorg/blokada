@@ -33,35 +33,35 @@ class PackService {
             .changeStatus(config: "Light")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor: "Light")),
 
-        Pack.mocked(id: "energized", tags: [Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "regional"],
+        Pack.mocked(id: "energized", tags: [Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "regional"],
             title: "Energized",
             slugline: "Ads and trackers blocking list",
             description: "This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave.",
             creditName: "Team Boltz",
             creditUrl: "https://energized.pro/",
-            configs: ["Spark", "Blu", "Basic", "Adult", "Regional", "Social", "Ultimate"]
+            configs: ["Spark", "Blu", "Basic", "Porn", "Regional", "Social", "Ultimate"]
         )
             .changeStatus(config: "Blu")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/spark/hosts.txt", applyFor: "Spark"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/blu/hosts.txt", applyFor: "Blu"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/basic/hosts.txt", applyFor: "Basic"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/adult/hosts.txt", applyFor: "Adult"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/adult/hosts.txt", applyFor: "Porn"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/regional/hosts.txt", applyFor: "Regional"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/social/hosts.txt", applyFor: "Social"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/ultimate/hosts.txt", applyFor: "Ultimate")),
 
-        Pack.mocked(id: "stevenblack", tags: [Pack.official, "adblocking", "tracking", "privacy", "adult", "social", "fake news", "gambling"],
+        Pack.mocked(id: "stevenblack", tags: [Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "fake news", "gambling"],
             title: "Steven Black",
             slugline: "Popular for adblocking",
             description: "Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories.",
             creditName: "Steven Black",
             creditUrl: "https://github.com/StevenBlack/hosts",
-            configs: ["Unified", "Fake news", "Adult", "Social", "Gambling"]
+            configs: ["Unified", "Fake news", "Porn", "Social", "Gambling"]
         )
             .changeStatus(config: "Unified")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/unified/hosts.txt", applyFor: "Unified"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/fakenews/hosts.txt", applyFor: "Fake news"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/adult/hosts.txt", applyFor: "Adult"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/adult/hosts.txt", applyFor: "Porn"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/social/hosts.txt", applyFor: "Social"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/gambling/hosts.txt", applyFor: "Gambling")),
 
@@ -197,9 +197,20 @@ class PackService {
         )
             .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/danpollock/standard/hosts.txt", applyFor: "Standard")),
+
+        Pack.mocked(id: "urlhaus", tags: [Pack.recommended, Pack.official, "security"],
+            title: "URLhaus",
+            slugline: "A blocklist based on malware database",
+            description: "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.",
+            creditName: "curben",
+            creditUrl: "https://go.blokada.org/urlhaus",
+            configs: ["Standard"]
+        )
+            .changeStatus(config: "Standard")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/urlhaus/standard/hosts.txt", applyFor: "Standard")),
     ]
 
-    private let packsVersion = 22
+    private let packsVersion = 23
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false
