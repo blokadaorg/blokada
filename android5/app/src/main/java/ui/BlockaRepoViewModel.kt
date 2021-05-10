@@ -37,7 +37,7 @@ class BlockaRepoViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 val config = persistence.load(BlockaRepoConfig::class)
-                if (now() > config.lastRefresh + REPO_REFRESH_MILLIS) {
+                if (!EnvironmentService.isFdroid() && now() > config.lastRefresh + REPO_REFRESH_MILLIS) {
                     log.w("Repo config is stale, refreshing")
                     refreshRepo()
                 } else {
