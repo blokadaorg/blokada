@@ -95,6 +95,7 @@ class PacksAdapter(private val interaction: Interaction? = null) :
             "danpollock" -> R.drawable.feature_danpollock
             "mvps" -> R.drawable.feature_mvps
             "cpbl" -> R.drawable.feature_cpbl
+            "urlhaus" -> R.drawable.feature_urlhaus
             else -> R.drawable.feature_phishingarmy // TODO placeholder
         }
     }

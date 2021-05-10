@@ -149,7 +149,7 @@ object PackDataSource {
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/developerdan/amp/hosts.txt", "https://www.github.developerdan.com/hosts/lists/amp-hosts-extended.txt"), applyFor = "AMP"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/developerdan/junk/hosts.txt", "https://www.github.developerdan.com/hosts/lists/hate-and-junk-extended.txt"), applyFor = "Hate & Junk")),
 
-        Pack.mocked(id = "blocklist", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social", "youtube"),
+        Pack.mocked(id = "blocklist", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social", "youtube", "security"),
             title = "The Block List Project",
             slugline = "A collection of blocklists for various use cases.",
             description = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.",
@@ -207,6 +207,17 @@ object PackDataSource {
             configs = listOf("Standard")
         )
             .changeStatus(config = "Standard")
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/danpollock/standard/hosts.txt", "https://someonewhocares.org/hosts/hosts"), applyFor = "Standard"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/danpollock/standard/hosts.txt", "https://someonewhocares.org/hosts/hosts"), applyFor = "Standard")),
+
+        Pack.mocked(id = "urlhaus", tags = listOf(Pack.recommended, Pack.official, "security"),
+            title = "URLhaus",
+            slugline = "A blocklist based on malware database",
+            description = "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.",
+            creditName = "curben",
+            creditUrl = "https://go.blokada.org/urlhaus",
+            configs = listOf("Standard")
+        )
+            .changeStatus(config = "Standard")
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/urlhaus/standard/hosts.txt", "https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt"), applyFor = "Standard"))
     )
 }
