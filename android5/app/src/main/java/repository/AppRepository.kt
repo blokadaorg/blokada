@@ -73,7 +73,7 @@ object AppRepository {
         "ch.threema.app",
         "ch.threema.app.work",
         "ch.threema.app.hms",
-        "ch.threema.app.work.hms,
+        "ch.threema.app.work.hms",
         "com.xiaomi.discover",
         "eu.siacs.conversations",
         "org.jitsi.meet",

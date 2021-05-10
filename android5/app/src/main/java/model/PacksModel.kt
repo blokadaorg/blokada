@@ -89,6 +89,8 @@ data class PackSource(
     val applyFor: List<PackConfig>?,
     val whitelist: Boolean
 ) {
+    companion object {}
+
     // Last link is always the direct source link (and not mirror)
     fun urlsForFlavor() = if (EnvironmentService.isFdroid()) listOf(urls.last()) else urls.dropLast(1)
 }
