@@ -43,6 +43,7 @@ class NetworksViewModel : ViewModel() {
         connectivity.onNetworkAvailable = { network ->
             viewModelScope.launch {
                 _configs.ensureConfigFor(network)
+                _configs.purgeUnused()
             }
         }
 
@@ -159,6 +160,17 @@ class NetworksViewModel : ViewModel() {
             configs.firstOrNull {
                 it.network.type == network.type && it.enabled && it.network.name == null
             } ?: getFallbackNetworkConfig()
+        }
+    }
+
+    private fun MutableLiveData<List<NetworkSpecificConfig>>.purgeUnused() {
+        var current = value!!
+        val unused = current.filter { it.canBePurged() }
+        if (unused.isNotEmpty()) {
+            log.v("Purging ${unused.size} unused networks")
+            current -= unused
+            persistence.save(NetworkSpecificConfigs(current))
+            value = current
         }
     }
 

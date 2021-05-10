@@ -15,6 +15,7 @@ package model
 import repository.DnsDataSource
 import repository.PackDataSource
 import service.EnvironmentService
+import ui.utils.now
 
 object Defaults {
 
@@ -75,6 +76,7 @@ object Defaults {
         useBlockaDnsInPlusMode = true,
         forceLibreMode = false,
         enabled = false,
+        createdAt = now()
     )
 
 }

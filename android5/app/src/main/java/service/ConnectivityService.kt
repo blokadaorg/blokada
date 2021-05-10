@@ -100,6 +100,7 @@ object ConnectivityService {
 
     private fun decideActiveNetwork(becameAvailable: NetworkHandle? = null) {
         val available = networks.filterValues { it.networkHandle !in networksLost }.entries
+        log.v("Available networks: $available")
         val hasConnectivity = when (available.size) {
             0 -> {
                 activeNetwork = NetworkDescriptor.fallback() to null
