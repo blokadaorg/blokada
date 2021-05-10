@@ -27,14 +27,17 @@ object EnvironmentService {
     fun getUserAgent(): String {
         val version = BuildConfig.VERSION_NAME
         val androidVersion = Build.VERSION.SDK_INT
+        val flavor = getFlavor()
         val type = BuildConfig.BUILD_TYPE
         val arch = Build.SUPPORTED_ABIS[0]
         val brand = Build.MANUFACTURER
         val device = Build.DEVICE
-        val flavor = getFlavor()
         val touch = if (isSupportingTouch()) "touch" else "donttouch"
         val compatible = if (isCompatible()) "compatible" else "incompatible"
-        return "blokada/$version (android-$androidVersion $flavor $type $arch $brand $device $touch api $compatible)"
+        return if (isFdroid())
+            "blokada/5.x.x (android-droid droid droid droid droid droid droid compatible)"
+        else
+            "blokada/$version (android-$androidVersion $flavor $type $arch $brand $device $touch api $compatible)"
     }
 
     fun isPublicBuild(): Boolean {
@@ -43,6 +46,10 @@ object EnvironmentService {
 
     fun isSlim(): Boolean {
         return BuildConfig.FLAVOR == "google" && !escaped
+    }
+
+    fun isFdroid(): Boolean {
+        return BuildConfig.FLAVOR == "fdroid"
     }
 
     fun getFlavor(): String {
