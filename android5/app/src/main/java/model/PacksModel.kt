@@ -13,6 +13,7 @@
 package model
 
 import com.squareup.moshi.JsonClass
+import service.EnvironmentService
 import service.Localised
 import utils.Logger
 
@@ -88,7 +89,8 @@ data class PackSource(
     val applyFor: List<PackConfig>?,
     val whitelist: Boolean
 ) {
-    companion object {}
+    // Last link is always the direct source link (and not mirror)
+    fun urlsForFlavor() = if (EnvironmentService.isFdroid()) listOf(urls.last()) else urls.dropLast(1)
 }
 
 @JsonClass(generateAdapter = true)
@@ -180,9 +182,9 @@ fun Pack.withSource(source: PackSource): Pack {
     )
 }
 
-fun PackSource.Companion.new(url: Uri, applyFor: PackConfig): PackSource {
+fun PackSource.Companion.new(urls: List<Uri>, applyFor: PackConfig): PackSource {
     return PackSource(
-        id = "xxx", urls = listOf(url), liveUpdateUrl = null, applyFor = listOf(applyFor),
+        id = "xxx", urls = urls, liveUpdateUrl = null, applyFor = listOf(applyFor),
         whitelist = false
     )
 }
@@ -190,7 +192,7 @@ fun PackSource.Companion.new(url: Uri, applyFor: PackConfig): PackSource {
 fun Pack.getUrls(): List<Uri> {
     if (configs.isEmpty()) {
         // For packs without configs, just take all sources
-        return sources.flatMap { it.urls }.distinct()
+        return sources.flatMap { it.urlsForFlavor() }.distinct()
     } else {
         val activeSources = sources.filter {
             if (it.applyFor == null) {
@@ -202,9 +204,9 @@ fun Pack.getUrls(): List<Uri> {
 
         if (activeSources.isEmpty()) {
             Logger.w("Pack", "No matching sources for chosen configuration, choosing first")
-            return sources.first().urls
+            return sources.first().urlsForFlavor()
         } else {
-            return activeSources.flatMap { it.urls }.distinct()
+            return activeSources.flatMap { it.urlsForFlavor() }.distinct()
         }
     }
 }
