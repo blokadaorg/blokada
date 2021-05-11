@@ -346,7 +346,7 @@
 "payment alert error header" = "Сообщение из App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Вы сохраняете %@";
-"payment conversion note" = "Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую плату.";
+"payment conversion note" = "Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую комиссию.";
 
 "payment subscription 1 month" = "1 месяц";
 "payment subscription many months" = "%@ месяцев";

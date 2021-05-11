@@ -287,7 +287,7 @@
     <string name="payment_action_policy">Политика конфиденциальности</string>
     <string name="payment_alert_error_header">Сообщение из App Store</string>
     <string name="payment_save_text">Вы сохраняете %s</string>
-    <string name="payment_conversion_note">Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую плату.</string>
+    <string name="payment_conversion_note">Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую комиссию.</string>
     <string name="payment_subscription_one_month">1 месяц</string>
     <string name="payment_subscription_many_months">%s месяцев</string>
     <string name="payment_subscription_per_month">%s в месяц</string>

@@ -36,7 +36,7 @@
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 是一項可以協助線上公司監視內容、滲透測試與品牌保護的服務。此列表是以從公司收到的回報為基礎。";
 "A comprehensive lists to block ads and tracking" = "全面阻擋廣告與追蹤程式的清單";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock 是個寫著廣告、追蹤指令碼及惡意軟體的網域清單，能防止您的裝置連線至這些網域。";
-"A general purpose, medium weight lists" = "一份大小適中的通用清單";
-"These lists block malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. These lists do not block porn, social media, or so-called fake news domains." = "這些清單會擋掉惡意及有害的欺騙內容，例如廣告、追蹤程式、遙測、詐騙、惡意軟體伺服器。這些清單不會阻擋色情、社群媒體、及所謂的假新聞網域。";
+"A general purpose, medium weight list" = "適合一般用途的中型清單";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "這個清單會阻擋惡意及有害的詐欺內容，比如廣告、追蹤、遙測、詐騙和惡意伺服器。這個清單不會阻擋色情內容、社群媒體及所謂的假新聞網域。CPBL 致力提供兼顧全方位保護及合理大小與範圍的阻擋清單。";
 "A reasonably balanced ad blocking hosts file" = "合理平衡的廣告阻擋主機檔案";
 "This is a well known, general purpose blocklist of small size, updated regularly." = "這是個知名的通用小型阻擋清單，會定期更新。";

@@ -286,7 +286,7 @@
     "payment action policy": "Политика конфиденциальности",
     "payment alert error header": "Сообщение из App Store",
     "payment save text": "Вы сохраняете %s",
-    "payment conversion note": "Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую плату.",
+    "payment conversion note": "Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую комиссию.",
     "payment subscription 1 month": "1 месяц",
     "payment subscription many months": "%s месяцев",
     "payment subscription per month": "%s в месяц",
