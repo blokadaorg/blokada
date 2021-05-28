@@ -1,9 +1,7 @@
 Blokada 5
 
-Notice: The F-Droid version of Blokada is currently under an unprecedented level
-of scrutiny warranted by sensational claims from a new competitor app. We
-consider this situation temporary, and never had any intentions of tracking
-our users. More: https://go.blokada.org/fdroidfud
+Notice: For background on the current AntiFeatures, please see
+https://gitlab.com/fdroid/fdroiddata/-/merge_requests/8536
 
 This is the most recent major release of Blokada. It features a full UI redesign,
 faster networking code, DNS over HTTPS support, and many many more. Enjoy!
