@@ -137,11 +137,11 @@
 
 "home plus button deactivated" = "BLOKADA+ は無効です";
 "home plus button select location" = "接続先を選択";
-"home plus button location" = "接続先：*%@*";
+"home plus button location" = "接続先: *%@*";
 
-"home level low" = "保護レベル：低";
-"home level medium" = "保護レベル：中";
-"home level high" = "保護レベル：高";
+"home level low" = "保護レベル: 低";
+"home level medium" = "保護レベル: 中";
+"home level high" = "保護レベル: 高";
 
 
 "pack section header" = "高度な機能";
@@ -219,7 +219,7 @@
 "networks label configuration inactive" = "タップしてこのネットワークの設定を変更します";
 "networks label details default network" = "以下の設定は、すべてのネットワークにデフォルトで適用されます。任意のネットワークの設定を（前の画面で）上書きできます。";
 "networks action encrypt dns" = "DNS を暗号化";
-"networks action use dns" = "DNS：%@";
+"networks action use dns" = "DNS: %@";
 "networks action use network dns" = "ネットワーク DNS";
 "networks action force libre mode" = "Libre モードを強制する";
 "networks label specific network" = "このネットワークに接続されたときの動作を設定します。";
@@ -254,7 +254,7 @@
 "account action create" = "新しいアカウントを生成";
 "account action about" = "アプリについて";
 "account action tap to show" = "タップして表示";
-"account action restoring" = "アカウントを復元中：%@";
+"account action restoring" = "アカウントを復元中: %@";
 "account label enter to continue" = "続行するにはアカウント ID を入力してください";
 "account restore description" = "アカウント ID を紛失または忘れてしまった場合、 当社のサポートに連絡してください。その際、お客様の購入を確認するためにクレジットカードの下4桁または PayPal メールを提供してください。";
 "account create description" = "これはあなたのアカウントIDです。サブスクリプションにアクセスする唯一の方法です。他の人から見られない場所で確実に保管してください。";
@@ -279,8 +279,8 @@
 "account id status unchanged" = "（変更なし）";
 "account action how to restore" = "古いアカウントを復元する方法";
 
-"account subscription days remaining" = "残りの日数：%@";
-"account devices remaining" = "残りのデバイス：%@";
+"account subscription days remaining" = "残りの日数: %@";
+"account devices remaining" = "残りのデバイス: %@";
 "account devices not available" = "利用できません";
 "account devices out of" = "%@ / %@";
 
@@ -294,9 +294,9 @@
 "account encrypt action turn on" = "BLOKADA を ON にする";
 "account encrypt header level" = "暗号化レベル";
 "account encrypt label level" = "レベル";
-"account encrypt label level low" = "低：暗号化なし";
-"account encrypt label level medium" = "中：DNSの暗号化";
-"account encrypt label level high" = "高：すべての暗号化";
+"account encrypt label level low" = "低: 暗号化なし";
+"account encrypt label level medium" = "中: DNSの暗号化";
+"account encrypt label level high" = "高: すべての暗号化";
 "account encrypt header explanation" = "DNS とは、あなたのデバイスにウェブサイトのあるサーバーを案内するシステムです。BLOKADA は暗号化されたサーバーのみをサポートしています。";
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "DNS とは？";
@@ -366,7 +366,7 @@
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "変更";
 "payment action pay" = "お支払い %@";
-"payment action pay period" = "各期間に %@ 支払う";
+"payment action pay period" = "期限ごとのお支払い %@";
 "payment label email" = "Eメール";
 "payment crypto desc" = "暗号通貨ウォレットで支払うには、下のボタンをタップしてください。";
 "payment label choose package" = "パッケージを選択してください";

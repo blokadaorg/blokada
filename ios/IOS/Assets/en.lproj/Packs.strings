@@ -40,6 +40,4 @@
 "A general purpose, medium weight list" = "A general purpose, medium weight list";
 "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.";
 "A reasonably balanced ad blocking hosts file" = "A reasonably balanced ad blocking hosts file";
-"This is a well known, general purpose blocklist of small size, updated regularly." = "This is a well known, general purpose blocklist of small size, updated regularly."
-"A blocklist based on malware database" = "A blocklist based on malware database";
-"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "This is a well known, general purpose blocklist of small size, updated regularly.";

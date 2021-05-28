@@ -65,6 +65,8 @@
 "universal action filter" = "Filtru";
 // A verb "to clear the list"
 "universal action clear" = "Curăță";
+// A verb "to revoke permissions"
+"universal action revoke" = "Revocați";
 
 "universal label help" = "Ajutor";
 "universal label welcome" = "Bine aţi venit!";
@@ -113,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Setări";
 
+"main label use side menu" = "Folosește meniul lateral pentru a naviga";
+
 "home ads counter footnote" = "reclame și trackere blocate de la instalare";
 "home power off menu header" = "Ce ați dori să faceți?";
 "home power action turn on" = "Porneşte";
@@ -133,6 +137,10 @@
 "home plus button deactivated" = "BLOKADA+ dezactivat";
 "home plus button select location" = "Selectați locația";
 "home plus button location" = "Locație: *%@*";
+
+"home level low" = "Protecție: Scăzută";
+"home level medium" = "Protecție: Medie";
+"home level high" = "Protecție: Ridicată";
 
 
 "pack section header" = "Caracteristici Avansate";
@@ -188,7 +196,11 @@
 "activity category top blocked" = "Top blocate";
 "activity category top allowed" = "Top Permise";
 "activity filter header" = "Ce intrări ați dori să vedeţi?";
+"activity filter show all" = "Toate intrările";
+"activity filter show blocked" = "Doar cele blocate";
+"activity filter show allowed" = "Doar cele permise";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
+"activity device filter show all" = "Toate dispozitivele";
 
 "userdenied section header" = "Blocajele mele";
 "userdenied section slugline" = "Gestionați blocarea anumitor site-uri";
@@ -196,6 +208,33 @@
 "userdenied tab allowed" = "Permis";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blocat";
+
+"networks section header" = "Reţele";
+"networks section label" = "Reglaţi setările pentru WiFi şi reţelele mobile";
+"networks label all networks" = "Toate rețelele";
+"networks action network specific" = "Apăsați aici pentru a modifica setările implicite. Pentru a face aplicația să se comporte diferit pe unele rețele, apăsați mai jos.";
+"networks label configuration active" = "Aceste setări sunt în prezent active";
+"networks label configuration enabled" = "Neconectat la această rețea";
+"networks label configuration inactive" = "Apăsați pentru a modifica setările acestei rețele";
+"networks label details default network" = "Setările de mai jos sunt aplicate implicit pentru toate rețelele. Le puteți suprascrie pentru rețelele selectate (în ecranul anterior).";
+"networks action encrypt dns" = "Criptează DNS";
+"networks action use dns" = "Folosește DNS: %@";
+"networks action use network dns" = "Preferă rețeaua DNS";
+"networks action force libre mode" = "Forțează modul Libre";
+"networks label specific network" = "Reglaţi ce ar trebui să se întâmple când dispozitivul se conectează la această reţea.";
+"networks label specific network type" = "Reglaţi ce ar trebui să se întâmple când dispozitivul se conectează la o reţea de acest tip.";
+"networks label any wifi" = "Orice reţea WiFi";
+"networks label any mobile" = "Orice rețea mobilă";
+"networks permission request" = "Pentru a avea mai mult control, apăsați aici și lăsați aplicația să recunoască toate rețelele.";
+"networks permission request granted" = "Puteți vedea o notificare atunci când Blokada citește numele rețelei în fundal.";
+"networks section choose dns" = "Alege DNS";
+"networks summary encrypt dns" = "Blokada va cripta DNS dacă este posibil. Acest lucru îmbunătățește securitatea dvs. și previne actorii rău-intenționați să spioneze ce site-uri și aplicații utilizați.";
+"networks summary use dns" = "Blokada va folosi %@ ca DNS al dispozitivului. Alegerea celei care permite criptarea (are pictograma de blocare) şi se află în apropierea dumneavoastră, vă va ajuta să vă protejați datele și să vă conectați rapid.";
+"networks summary network dns" = "Blokada va utiliza DNS al rețelei dacă este disponibil, sau altfel va trece la %@. De asemenea, setările de criptare DNS vor fi ignorate ori de câte ori este folosit DNS de rețea. Utilizarea DNS al rețelei ajută la rezolvarea problemelor de conectivitate pe rețelele problematice, dar te lasă neprotejat.";
+"networks summary network dns and plus mode" = "Blokada va dezactiva temporar Modul Plus ori de câte ori este utilizat DNS de rețea. Acest lucru se datorează faptului că nu este posibil să accesezi DNS de rețea în VPN. Modul Plus va fi restaurat automat atunci când dispozitivul va trece la o altă rețea.";
+"networks summary blocka plus mode" = "Blokada va utiliza Blokada DNS în modul Plus, pentru a asigura un nivel ridicat de criptare și viteză. Puteți schimba această setare în partea de jos a ecranului Alege DNS.";
+"networks summary force libre mode" = "Blokada va utiliza întotdeauna modul Libre în această rețea și va ignora locația Blokada Plus. Acest lucru este util pentru rețelele în care nu doriți protecția suplimentară.";
+"networks permission dialog" = "Blokada poate recunoaște rețelele la care vă conectați și vă poate permite să configurați setări separate pentru ele. Totuși, această aplicație va colecta date de locație sub forma numelui de rețea pentru a activa această caracteristică, chiar și atunci când aplicația este închisă sau nu este în uz. Uneori puteți vedea o notificare de sistem despre accesul la locație - Blokada va citi doar numele rețelei.";
 
 
 "account section header settings" = "Setări";
@@ -249,6 +288,7 @@
 "account encrypt level high" = "Ridicat";
 "account encrypt label dns only" = "Criptare DNS";
 "account encrypt desc dns only" = "Domain Name System este modul în care dispozitivul dvs. știe unde să găsească site-urile pe care doriți să le vizitați. Din păcate, cea mai mare parte a internetului încă utilizează DNS necriptat, ceea ce pune istoria navigării în pericol de a fi spionată. Când este activat, Blokada vă forțează dispozitivul să se conecteze doar la serverele DNS criptate (numite și DNS prin HTTPS).";
+"account encrypt label everything" = "Conectare prin VPN";
 "account encrypt desc everything" = "Dispozitivul dvs. se conectează prin intermediul serverelor noastre de VPN securizate și toate comunicațiile care vin de la sau către dispozitivul dvs. sunt criptate folosind algoritmi puternici. Acest lucru vă protejează informațiile personale, cum ar fi datele bancare sau fotografiile personale, de la a fi furate în locuri nesigure, cum ar fi o cafenea cu WiFi.";
 "account encrypt action turn on" = "Porniți BLOKADA";
 "account encrypt header level" = "Nivel de criptare";
@@ -268,6 +308,7 @@
 "account lease label this device" = " (acest dispozitiv)";
 "account lease label name" = "Denumire dispozitiv";
 "account lease label location" = "Locatie";
+"account lease label generate" = "Selectarea unei locații aici va genera un fișier de configurare pe care îl poți utiliza în orice aplicație VPN care suportă Wireguard. Acest lucru este util pentru platformele în care nu avem încă aplicaţiile noastre. Altfel, recomandăm utilizarea aplicaţiilor noastre native.";
 "account lease action generate" = "Genereaza configuratie";
 "account lease action download" = "Descarcă Configurație";
 "account lease generated" = "Dispozitiv adăugat! Descarcați configurația pentru a o utiliza pe orice dispozitiv suportat de Wireguard.";
@@ -282,6 +323,7 @@
 "payment header activated" = "Activat!";
 "payment activated description" = "Blokada va trece acum la modul Plus și se va conecta prin una dintre locațiile noastre sigure. Dacă nu sunteţi sigur pe care să o alegeţi, se recomandă locația cea mai apropiat de dvs.";
 "payment action choose location" = "Alegeți o locație";
+"payment action see locations" = "Locațiile noastre";
 
 "payment title" = "Treciți la serviciul nostru VPN pentru a rămâne in controlul *intimitați dvs.*.";
 "payment feature title change location" = "Schimbă locația";
@@ -304,6 +346,7 @@
 "payment alert error header" = "Un mesaj de la App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Economisești %@";
+"payment conversion note" = "Acceptăm Euro, iar prețurile afișate sunt o estimare. O rambursare este disponibilă în cazul în care banca ta costă prea mult.";
 
 "payment subscription 1 month" = "1 Lună";
 "payment subscription many months" = "%@ Luni";
@@ -331,6 +374,7 @@
 "payment label most popular" = "Cele mai populare";
 "payment label pay with card" = "Plătiți cu cardul";
 "payment label pay with paypal" = "Plătiți prin PayPal";
+"payment label pay with crypto" = "Plătește cu cripto";
 "payment package one month" = "1 Lună";
 "payment package six months" = "6 Luni";
 "payment package twelve months" = "12 Luni";
@@ -345,6 +389,9 @@
 "apps label system" = "Sistem";
 "apps status bypassed" = "(ocolit)";
 "apps filter header" = "Ce aplicații doriți să vedeți?";
+"apps filter action show all" = "Toate aplicațiile";
+"apps filter action show bypassed" = "Doar ocolit";
+"apps filter action show not bypassed" = "Nu doar cele ocolite";
 "apps filter action toggle system" = "Comută toate aplicațiile de sistem";
 
 "app settings section header" = "Acest dispozitiv";
@@ -371,9 +418,12 @@
 
 "intro header" = "Blokada este Activ!";
 "intro text" = "Un inel albastru înseamnă că Blokada funcționează.\n\nRețineți că unele reclame, precum YouTube, nu pot fi blocate. Cu toate acestea, veţi observa o diferenţă în multe alte aplicaţii.\n\nVă recomandăm să activați opțiunea Mereu pe VPN / Conectare la cerere în setările sistemului dvs.";
+
+"location region worldwide" = "Everywhere";
 "location region america" = "America";
 "location region europe" = "Europa";
 "location region asia" = "Asia";
+"location region australia" = "Australia";
 
 "homepage header what is blokada" = "Ce este Blokada?";
 "homepage desc what is blokada" = "Învață informațiile de bază despre aplicație.";
@@ -381,12 +431,15 @@
 "homepage desc community" = "Alătură-te comunității noastre minunate.";
 "homepage header support" = "Susține-ne";
 "homepage desc support" = "Donează pentru a ne ajuta să continuăm proiectul.";
+"homepage action faq" = "Întrebări frecvente";
 "homepage action vpn" = "Serviciu VPN";
+"homepage action opinions" = "Evaluări";
 "homepage action authors" = "Autori";
 "homepage action source" = "Sursă";
 "homepage action forums" = "Forum";
 "homepage action dashboard" = "Panou de control";
 "homepage about footer" = "Să stăm la curent!";
+"homepage hero title" = "Aplicația de confidențialitate";
 "homepage hero subtitle" = "gratis și open source";
 "homepage hero desc" = "Blokada este populara aplicație de blocare a reclamelor și de păstrarea intimității pentru Android și iOS. Este suportată și dezvoltată activ de către uimitoarea comunitate open source.";
 "homepage about title" = "Blokada 5, ad blocker-ul";
@@ -394,6 +447,8 @@
 "homepage about point one" = "Blochează reclame și trackere";
 "homepage about point two" = "Funcționează pentru toate aplicațiile și toate browserele";
 "homepage about point three" = "Nu necesită acces root sau jailbreak";
+"homepage about point four" = "Design sigur (nu întrerupe criptarea)";
+"homepage about point five" = "De încredere și gratis pentru totdeauna";
 "homepage about action plus" = "Aflați mai multe despre Blokada Plus";
 
 "homepage download header" = "Descarcă Blokada";
