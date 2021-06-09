@@ -208,9 +208,21 @@ class PackService {
         )
             .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/urlhaus/standard/hosts.txt", applyFor: "Standard")),
+
+        Pack.mocked(id: "1hosts", tags: [Pack.recommended, Pack.official, "adblocking", "tracking"],
+            title: "1Hosts",
+            slugline: "A blocklist for ads and tracking, updated regularly",
+            description: "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.",
+            creditName: "badmojr",
+            creditUrl: "https://go.blokada.org/1hosts",
+            configs: ["Lite", "Pro"]
+        )
+            .changeStatus(config: "Lite")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/1hosts/lite/hosts.txt", applyFor: "Lite"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/1hosts/pro/hosts.txt", applyFor: "Pro")),
     ]
 
-    private let packsVersion = 23
+    private let packsVersion = 24
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false

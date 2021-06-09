@@ -218,6 +218,18 @@ object PackDataSource {
             configs = listOf("Standard")
         )
             .changeStatus(config = "Standard")
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/urlhaus/standard/hosts.txt", "https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt"), applyFor = "Standard"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/urlhaus/standard/hosts.txt", "https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt"), applyFor = "Standard")),
+
+        Pack.mocked(id = "1hosts", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking"),
+            title = "1Hosts",
+            slugline = "A blocklist for ads and tracking, updated regularly",
+            description = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.",
+            creditName = "badmojr",
+            creditUrl = "https://go.blokada.org/1hosts",
+            configs = listOf("Lite", "Pro")
+        )
+            .changeStatus(config = "Lite")
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/lite/hosts.txt", "https://badmojr.github.io/1Hosts/Lite/hosts.txt"), applyFor = "Lite"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/pro/hosts.txt", "https://badmojr.github.io/1Hosts/Pro/hosts.txt"), applyFor = "Pro"))
     )
 }
