@@ -72,7 +72,8 @@
 "universal label welcome" = "ようこそ！";
 // Common label when some feature has no setting
 "universal label none" = "未設定";
-"universal status processing" = "処理中です… しばらくお待ちください。";
+"universal status processing" = "処理中です...
+しばらくお待ちください";
 "universal status copied to clipboard" = "クリップボードにコピーしました";
 "universal status restart required" = "変更を反映するにはアプリを再起動してください。";
 "universal status redirect" = "Blokada アプリで続ける";
@@ -133,7 +134,7 @@
 "home status detail active with counter" = "*%@* の広告とトラッカーをブロック";
 "home status detail active slim" = "Blokada *Slim*がアクティブです";
 "home status detail plus" = "*+* *プライバシー*を保護";
-"home status detail progress" = "お待ちください…";
+"home status detail progress" = "お待ちください...";
 
 "home plus button deactivated" = "BLOKADA+ は無効です";
 "home plus button select location" = "接続先を選択";
@@ -357,8 +358,9 @@
 "payment success label" = "ありがとうございます！";
 "payment success desc" = "アカウントが有効になりました！すべてのデバイスで Blokada Plus 機能を使用できます。";
 
-"payment redirect label" = "リダイレクトしています…";
-"payment redirect desc" = "しばらくお待ちください。このプロセスは時間がかかります。";
+"payment redirect label" = "リダイレクトしています...";
+"payment redirect desc" = "少し時間がかかります
+しばらくお待ちください";
 
 "payment ongoing title" = "お支払いは現在処理中です。";
 "payment ongoing desc" = "クレジットカードの支払いは数分で完了します。暗号通貨の支払いは通常、あなたが選択した取引手数料に応じて1時間以内に完了します。PayPal の場合、最大24時間かかる場合があります。アカウントの準備が完了するとリダイレクトされます。この画面を閉じて、後で再度表示することもできます。取引に時間がかかりすぎる場合は、お問い合わせください。";
@@ -435,7 +437,7 @@
 "homepage action faq" = "FAQ";
 "homepage action vpn" = "VPN";
 "homepage action opinions" = "レビュー";
-"homepage action authors" = "著者";
+"homepage action authors" = "製作者";
 "homepage action source" = "ソース";
 "homepage action forums" = "フォーラム";
 "homepage action dashboard" = "ダッシュボード";
