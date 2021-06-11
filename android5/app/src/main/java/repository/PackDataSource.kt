@@ -20,7 +20,7 @@ object PackDataSource {
     fun getPacks() = listOf(
         Pack.mocked(id = "oisd", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"),
             title = "OISD",
-            slugline = "A good, small, general purpose blocklist",
+            slugline = "A good general purpose blocklist",
             description = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.",
             creditName = "sjhgvr",
             creditUrl = "https://oisd.nl/",
@@ -127,7 +127,7 @@ object PackDataSource {
         Pack.mocked(id = "exodusprivacy", tags = listOf(Pack.recommended, Pack.official, "tracking", "privacy"),
             title = "Exodus Privacy",
             slugline = "Analyzes privacy concerns in Android applications",
-            description = "This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also enable one of the more popular lists (like Energized).",
+            description = "This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized).",
             creditName = "Exodus Privacy",
             creditUrl = "https://go.blokada.org/exodusprivacy",
             configs = listOf("Standard")
