@@ -36,7 +36,12 @@ object LogService {
     private val context = ContextService
     private val file = FileService
 
-    var onShareLog = {}
+    fun onShareLog(name: String, run: PrintsDebugInfo) {
+        Logger.v("Log", "Adding onShareLog callback for $name")
+        onShareLogCallbacks += name to run
+    }
+
+    private var onShareLogCallbacks = emptyMap<String, PrintsDebugInfo>()
 
     private val handle by lazy {
         val handle = file.commonDir().file("blokada5.log.txt")
@@ -74,7 +79,10 @@ object LogService {
     private fun preShareLog() {
         Logger.w("Log", "Printing debug information for log sharing")
         Logger.v("Log", EnvironmentService.getUserAgent())
-        onShareLog()
+        onShareLogCallbacks.forEach {
+            Logger.v("Log", "Printing for callback ${it.key}")
+            it.value.printDebugInfo()
+        }
     }
 
     fun shareLog() {
@@ -165,6 +173,10 @@ class RestartJob : JobService() {
 
     override fun onStopJob(params: JobParameters?) = true
 
+}
+
+interface PrintsDebugInfo {
+    fun printDebugInfo()
 }
 
 private const val MAX_LOG_SIZE_KB = 1024

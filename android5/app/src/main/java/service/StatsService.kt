@@ -20,7 +20,7 @@ import model.*
 import utils.Logger
 import java.util.*
 
-object StatsService {
+object StatsService: PrintsDebugInfo {
 
     private var runtimeAllowed = 0
     private var runtimeDenied = 0
@@ -31,10 +31,7 @@ object StatsService {
     fun setup() {
         internalStats.clear()
         internalStats.putAll(persistence.load(StatsPersisted::class).entries)
-        LogService.onShareLog = {
-            val log = Logger("Stats")
-            log.v(internalStats.keys.toString())
-        }
+        LogService.onShareLog("Stats", this)
     }
 
     fun clear() {
@@ -97,6 +94,10 @@ object StatsService {
                 MonitorService.setStats(getStats())
             }
         }
+    }
+
+    override fun printDebugInfo() {
+        Logger.v("Stats", internalStats.keys.toString())
     }
 
 }

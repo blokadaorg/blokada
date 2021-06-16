@@ -16,17 +16,24 @@ import android.os.ParcelFileDescriptor
 import android.system.Os
 import android.system.OsConstants
 import android.system.StructPollfd
+import org.pcap4j.packet.IpPacket
 import org.pcap4j.packet.Packet
+import service.LogService
+import service.PrintsDebugInfo
 import utils.Logger
 import java.net.DatagramSocket
 import java.nio.ByteBuffer
 import java.util.*
 import kotlin.experimental.and
 
-internal class Forwarder(private val ttl: Long = 10 * 1000) {
+internal class Forwarder(private val ttl: Long = 10 * 1000): PrintsDebugInfo {
 
     private val log = Logger("PLForwarder")
     private val store = LinkedList<ForwardRule>()
+
+    init {
+        LogService.onShareLog("PLForwarder", this)
+    }
 
     fun add(socket: DatagramSocket, originEnvelope: Packet) {
         if (size() >= 1024) {
@@ -74,6 +81,15 @@ internal class Forwarder(private val ttl: Long = 10 * 1000) {
             counter++
         }
         log.v("Forwarder closed all remaining sockets: $counter")
+    }
+
+    override fun printDebugInfo() {
+        log.v("${size()} sockets waiting")
+        var i = 0
+        while (i < size()) {
+            val rule = get(i++)
+            log.v("%s %s".format((rule.originEnvelope.header as? IpPacket.IpHeader)?.dstAddr, rule.added))
+        }
     }
 
 }

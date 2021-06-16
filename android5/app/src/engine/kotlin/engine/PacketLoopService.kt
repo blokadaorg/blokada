@@ -12,12 +12,10 @@
 
 package engine
 
-import kotlinx.coroutines.delay
 import model.BlokadaException
 import model.Dns
 import model.Gateway
 import model.PrivateKey
-import newengine.BlockaDnsService
 import service.ConnectivityService
 import service.DozeService
 import utils.Logger
