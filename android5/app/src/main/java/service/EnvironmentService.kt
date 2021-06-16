@@ -49,7 +49,7 @@ object EnvironmentService {
     }
 
     fun isFdroid(): Boolean {
-        return BuildConfig.FLAVOR == "fdroid"
+        return BuildConfig.FLAVOR == "droid"
     }
 
     fun getFlavor(): String {
