@@ -182,10 +182,11 @@ class PackService {
             description: "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.",
             creditName: "bongochong",
             creditUrl: "https://go.blokada.org/cpbl",
-            configs: ["Standard"]
+            configs: ["Standard", "Mini"]
         )
             .changeStatus(config: "Standard")
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", applyFor: "Standard")),
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", applyFor: "Standard"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cpbl/mini/hosts.txt", applyFor: "Mini")),
 
         Pack.mocked(id: "danpollock", tags: [Pack.recommended, Pack.official, "adblocking", "tracking"],
             title: "Dan Pollock's Hosts",

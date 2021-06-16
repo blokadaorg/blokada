@@ -193,10 +193,11 @@ object PackDataSource {
             description = "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.",
             creditName = "bongochong",
             creditUrl = "https://go.blokada.org/cpbl",
-            configs = listOf("Standard")
+            configs = listOf("Standard", "Mini")
         )
             .changeStatus(config = "Standard")
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/newhosts-final.hosts"), applyFor = "Standard")),
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/newhosts-final.hosts"), applyFor = "Standard"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/cpbl/mini/hosts.txt", "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/MiniLists/mini-newhosts.hosts"), applyFor = "Mini")),
 
         Pack.mocked(id = "danpollock", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking"),
             title = "Dan Pollock's Hosts",
