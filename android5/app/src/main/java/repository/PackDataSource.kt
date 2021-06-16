@@ -227,10 +227,11 @@ object PackDataSource {
             description = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.",
             creditName = "badmojr",
             creditUrl = "https://go.blokada.org/1hosts",
-            configs = listOf("Lite", "Pro")
+            configs = listOf("Lite (Wildcards)", "Pro (Wildcards)", "Xtra (Wildcards)")
         )
-            .changeStatus(config = "Lite")
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/lite/hosts.txt", "https://badmojr.github.io/1Hosts/Lite/hosts.txt"), applyFor = "Lite"))
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/pro/hosts.txt", "https://badmojr.github.io/1Hosts/Pro/hosts.txt"), applyFor = "Pro"))
+            .changeStatus(config = "Lite (Wildcards)")
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/litea/hosts.txt", "https://hosts.netlify.app/Lite/adblock.tx"), applyFor = "Lite (Wildcards)"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/proa/hosts.txt", "https://hosts.netlify.app/Pro/adblock.txt"), applyFor = "Pro (Wildcards)"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/xtraa/hosts.txt", "https://hosts.netlify.app/Xtra/adblock.txt"), applyFor = "Xtra (Wildcards)"))
     )
 }
