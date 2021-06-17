@@ -97,7 +97,7 @@ internal class PacketLoopForLibre (
         }
 
         if (originEnvelope.header.dstAddr.address[3] == 0xFF.toByte()) {
-            // Do not forward broadcasts, we are just supposed to handle DNS here
+            // Drop broadcasts to not loop.
             return
         }
 

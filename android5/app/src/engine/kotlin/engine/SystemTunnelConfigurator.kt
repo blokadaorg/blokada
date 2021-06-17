@@ -14,6 +14,7 @@ package engine
 
 import android.net.VpnService
 import android.os.Build
+import android.system.OsConstants
 import model.*
 import repository.AppRepository
 import repository.DnsDataSource
@@ -21,6 +22,7 @@ import ui.utils.cause
 import utils.Logger
 import java.net.Inet4Address
 import java.net.Inet6Address
+import java.net.InetAddress
 
 object SystemTunnelConfigurator {
 
@@ -83,16 +85,8 @@ object SystemTunnelConfigurator {
 
         log.v("Using IP: $ip")
 
-        // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
-        val ipv6 = "2001:db8:0:0:0:0:0:0"
-
-        try {
-            val address = Inet6Address.getByName(ipv6)
-            tun.addAddress(address, 120)
-            log.v("Using IPv6: $ipv6")
-        } catch (ex: Exception) {
-            log.e("Failed adding IPv6 address".cause(ex))
-        }
+        // Let ipv6 fall through outside VPN
+        tun.allowFamily(OsConstants.AF_INET6)
 
         var index = 1
         for (address in decideDns(dns, false)) {
@@ -146,16 +140,8 @@ object SystemTunnelConfigurator {
 
         log.v("Using IP: $ip")
 
-        // Also a special subnet (2001:DB8::/32), from RFC3849. Meant for documentation use.
-        val ipv6 = "2001:db8:0:0:0:0:0:0"
-
-        try {
-            val address = Inet6Address.getByName(ipv6)
-            tun.addAddress(address, 120)
-            log.v("Using IPv6: $ipv6")
-        } catch (ex: Exception) {
-            log.e("Failed adding IPv6 address".cause(ex))
-        }
+        // Let ipv6 fall through outside VPN
+        tun.allowFamily(OsConstants.AF_INET6)
 
         if (doh && dns.isDnsOverHttps()) {
             try {
