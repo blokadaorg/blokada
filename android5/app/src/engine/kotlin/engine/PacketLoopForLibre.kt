@@ -101,6 +101,11 @@ internal class PacketLoopForLibre (
             return
         }
 
+        if (originEnvelope.header.dstAddr.address.size > 4) {
+            // Drop ipv6. This should not route here, but we're seeing some multicast loop.
+            return
+        }
+
         val udp = originEnvelope.payload as UdpPacket
 
         val proxiedDns = DatagramPacket(udp.payload.rawData, 0, udp.payload.length(),
