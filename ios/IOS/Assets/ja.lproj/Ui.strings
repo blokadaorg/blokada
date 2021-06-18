@@ -145,7 +145,7 @@
 "home level high" = "保護レベル: 高";
 
 
-"pack section header" = "高度な機能";
+"pack section header" = "詳細";
 "pack section header details" = "機能の詳細";
 "pack action install" = "取得";
 "pack action update" = "更新";

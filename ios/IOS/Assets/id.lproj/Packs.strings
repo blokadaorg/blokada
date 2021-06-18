@@ -41,3 +41,6 @@
 "A reasonably balanced ad blocking hosts file" = "File host pemblokiran iklan yang cukup seimbang";
 "This is a well known, general purpose blocklist of small size, updated regularly." = "Blocklist yang cukup dikenal, berukuran kecil, dan diperbarui secara berkala.";
 "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Data pribadi dan perhatian Anda rawan dijual ke pengiklan dengan penawaran tertinggi. Gunakan konfigurasi Ringan untuk mencegahnya. Jika konfigurasi itu dirasa kurang, Anda bisa mencoba konfigurasi Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "List ini bersifat universal dan memblokir iklan, baik di broswer maupun app. Tidak mempengaruhi kinerja aplikasi dan layanan seluler lainnya.";
+"A blocklist based on malware database" = "Blocklist yang didasarkan pada database malware";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Blocklist yang berisi daftar situs-situs berbahaya yang digunakan untuk menyebarkan malware, bersumber dari urlhaus.abuse.ch.";

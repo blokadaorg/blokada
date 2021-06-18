@@ -107,7 +107,7 @@
     <string name="home_level_low">保護レベル: 低</string>
     <string name="home_level_medium">保護レベル: 中</string>
     <string name="home_level_high">保護レベル: 高</string>
-    <string name="pack_section_header">高度な機能</string>
+    <string name="pack_section_header">詳細</string>
     <string name="pack_section_header_details">機能の詳細</string>
     <string name="pack_action_install">取得</string>
     <string name="pack_action_update">更新</string>

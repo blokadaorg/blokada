@@ -41,3 +41,6 @@
 "A reasonably balanced ad blocking hosts file" = "Přiměřeně vyvážený soubor hostitelů blokující reklamy";
 "This is a well known, general purpose blocklist of small size, updated regularly." = "Toto je dobře známý obecný seznam hostelů malé velikosti, pravidelně aktualizovaný.";
 "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Chraňte svá data a oční bulvy před dražbou nejvyšší nabídky. Nejprve si vyberte konfiguraci Light. Pokud vám nestačí, vyzkoušejte raději konfiguraci Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Tento univerzální seznam blokuje především reklamy a reklamní mobilní aplikace. Neměl by zasahovat do běžných aplikací a služeb.";
+"A blocklist based on malware database" = "Seznam hostitelů založený na databázi malwaru";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Seznam hostitelů škodlivých webových stránek, které se používají pro distribuci malware, založený na urlhaus.abuse.ch.";
