@@ -230,7 +230,7 @@ object PackDataSource {
             configs = listOf("Lite (Wildcards)", "Pro (Wildcards)", "Xtra (Wildcards)")
         )
             .changeStatus(config = "Lite (Wildcards)")
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/litea/hosts.txt", "https://hosts.netlify.app/Lite/adblock.tx"), applyFor = "Lite (Wildcards)"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/litea/hosts.txt", "https://hosts.netlify.app/Lite/adblock.txt"), applyFor = "Lite (Wildcards)"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/proa/hosts.txt", "https://hosts.netlify.app/Pro/adblock.txt"), applyFor = "Pro (Wildcards)"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/xtraa/hosts.txt", "https://hosts.netlify.app/Xtra/adblock.txt"), applyFor = "Xtra (Wildcards)"))
     )
