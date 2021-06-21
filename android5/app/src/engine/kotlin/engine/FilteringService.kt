@@ -48,12 +48,14 @@ internal object FilteringService {
                 log.e("Empty merged blocklist and user denied list, will not block anything")
                 NoopFilteringStrategy
             }
+            // "*." is sorted as first
             merged.first().startsWith("*.") -> {
                 log.v("Detected wildcard blocklist, will use wildcard matching")
                 merged = merged.map { it.replace("*.", "") }
                 WildcardFilteringStrategy(merged)
             }
-            merged.first().startsWith("||") -> {
+            // "||" is sorted as last
+            merged.last().startsWith("||") -> {
                 log.v("Detected ABP wildcard blocklist, will use wildcard matching")
                 merged = merged.map { it.replace("||", "").replace("^", "") }
                 WildcardFilteringStrategy(merged)
