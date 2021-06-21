@@ -1048,7 +1048,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nexport PATH=$PATH:~/.cargo/bin:/usr/local/bin\n\ncd $BLOCKA_ENGINE_PATH\ncargo lipo ${CARGO_LIPO_FLAG} -p engine\ncp target/universal/${CARGO_TARGET}/libengine.a engine/libengine.h $PROJECT_DIR/Engine\n";
+			shellScript = "set -e\nexport PATH=$PATH:~/.cargo/bin:/usr/local/bin\nexport LIBRARY_PATH=\"${DEVELOPER_SDK_DIR}/MacOSX.sdk/usr/lib:${LIBRARY_PATH:-}\"\n\ncd $BLOCKA_ENGINE_PATH\ncargo lipo ${CARGO_LIPO_FLAG} -p engine\ncp target/universal/${CARGO_TARGET}/libengine.a engine/libengine.h $PROJECT_DIR/Engine\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
