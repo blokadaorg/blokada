@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import service.BlocklistService
+import service.EnvironmentService
 import service.StatsService
 import utils.Logger
 
@@ -44,6 +45,10 @@ internal object FilteringService {
         }
 
         filteringStrategy = when {
+            EnvironmentService.isSlim() -> {
+                log.w("Slim build, will not block anything")
+                NoopFilteringStrategy
+            }
             merged.isEmpty() && userDenied.isEmpty() -> {
                 log.e("Empty merged blocklist and user denied list, will not block anything")
                 NoopFilteringStrategy
