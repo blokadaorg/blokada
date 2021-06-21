@@ -176,7 +176,7 @@ object PackDataSource {
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/spam404/standard/hosts.txt", "https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt"), applyFor = "Standard")),
 
-        Pack.mocked(id = "hblock", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "phishing", "security"),
+        Pack.mocked(id = "hblock", tags = listOf(Pack.official, "adblocking", "tracking", "phishing", "security"),
             title = "hBlock",
             slugline = "A comprehensive lists to block ads and tracking",
             description = "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.",
@@ -199,7 +199,7 @@ object PackDataSource {
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/newhosts-final.hosts"), applyFor = "Standard"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/cpbl/mini/hosts.txt", "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/MiniLists/mini-newhosts.hosts"), applyFor = "Mini")),
 
-        Pack.mocked(id = "danpollock", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking"),
+        Pack.mocked(id = "danpollock", tags = listOf(Pack.official, "adblocking", "tracking"),
             title = "Dan Pollock's Hosts",
             slugline = "A reasonably balanced ad blocking hosts file",
             description = "This is a well known, general purpose blocklist of small size, updated regularly.",
@@ -230,8 +230,19 @@ object PackDataSource {
             configs = listOf("Lite (Wildcards)", "Pro (Wildcards)", "Xtra (Wildcards)")
         )
             .changeStatus(config = "Lite (Wildcards)")
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/lite (wildcards)/hosts.txt", "https://hosts.netlify.app/Lite/adblock.tx"), applyFor = "Lite (Wildcards)"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/lite (wildcards)/hosts.txt", "https://hosts.netlify.app/Lite/adblock.txt"), applyFor = "Lite (Wildcards)"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/pro (wildcards)/hosts.txt", "https://hosts.netlify.app/Pro/adblock.txt"), applyFor = "Pro (Wildcards)"))
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/xtra (wildcards)/hosts.txt", "https://hosts.netlify.app/Xtra/adblock.txt"), applyFor = "Xtra (Wildcards)"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/xtra (wildcards)/hosts.txt", "https://hosts.netlify.app/Xtra/adblock.txt"), applyFor = "Xtra (Wildcards)")),
+
+        Pack.mocked(id = "d3host", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking"),
+            title = "d3Host",
+            slugline = "A blocklist from the maker of the adblocker test",
+            description = "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test",
+            creditName = "d3ward",
+            creditUrl = "https://go.blokada.org/d3host",
+            configs = listOf("Standard")
+        )
+            .changeStatus(config = "Standard")
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/d3host/standard/hosts.txt", "https://raw.githubusercontent.com/d3ward/toolz/master/src/d3host.txt"), applyFor = "Standard"))
     )
 }

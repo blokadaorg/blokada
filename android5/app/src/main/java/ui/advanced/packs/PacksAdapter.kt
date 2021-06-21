@@ -97,6 +97,7 @@ class PacksAdapter(private val interaction: Interaction? = null) :
             "cpbl" -> R.drawable.feature_cpbl
             "urlhaus" -> R.drawable.feature_urlhaus
             "1hosts" -> R.drawable.feature_1hosts
+            "d3host" -> R.drawable.feature_d3host
             else -> R.drawable.feature_phishingarmy // TODO placeholder
         }
     }
