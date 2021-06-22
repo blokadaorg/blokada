@@ -135,7 +135,7 @@ object PackDataSource {
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/exodusprivacy/standard/hosts.txt", "https://blokada.org/blocklists/exodusprivacy/standard/hosts.txt"), applyFor = "Standard")),
 
-        Pack.mocked(id = "developerdan", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social"),
+        Pack.mocked(id = "developerdan", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "social"),
             title = "Developer Dan's Hosts",
             slugline = "A blocklist for ads and tracking, updated regularly",
             description = "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.",
