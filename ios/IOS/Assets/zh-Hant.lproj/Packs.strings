@@ -44,3 +44,5 @@
 "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "這個萬用清單主要用來阻擋廣告，尤其是行動裝置 app 的廣告。不應影響正常的 app 及服務。";
 "A blocklist based on malware database" = "建基於惡意軟體資料庫的阻擋清單";
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "這個阻擋清單用來阻擋進行惡意軟體分發的惡意網站，基於 urlhaus.abuse.ch 製作。";
+"A blocklist from the maker of the adblocker test" = "adblocker test 作者製作的阻擋清單";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "這是 d3ward，也就是知名濾廣告工具測試站作者的官方阻擋清單。其主要用途是用來在測試中獲得 100 分的成績。注意，這清單內容不多，可能會需要與其他啟用的阻擋清單相互搭配。若要進行測試，請前往 go.blokada.org/test";

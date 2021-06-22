@@ -31,3 +31,4 @@
 "A blocklist for ads and tracking, updated regularly" = "Een blokkeerlijst voor advertenties en tracking, regelmatig bijgewerkt";
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Dit is een goede keuze als primaire blokkadelijst. Het is evenwichtig, middelgroot, en wordt regelmatig bijgewerkt.";
 "A reasonably balanced ad blocking hosts file" = "Een redelijk gebalanceerde lijst met geblokkeerde hostnamen";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Deze universele lijst blokkeert voornamelijk advertenties en mobiele app-advertenties. Zou niet storen met normale apps en services.";

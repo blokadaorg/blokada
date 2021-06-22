@@ -44,3 +44,5 @@
 "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "主にウェブ広告とモバイルアプリ広告をブロックする標準的なリストです。通常のアプリやサービスに干渉しません。";
 "A blocklist based on malware database" = "マルウェアデータベースに基づくブロックリスト";
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "urlhaus.abuse.ch に基づいて、マルウェア配布に使用されている悪意のあるウェブサイトをブロックします。";
+"A blocklist from the maker of the adblocker test" = "広告ブロッカーテストサイト製作者のブロックリスト";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "これは、人気の広告ブロッカーテストサイトの製作者である d3ward の公式ブロックリストです。テストで 100% のスコアを達成するために必要な最低限のリストです。他のブロックリストと一緒に使用することができます。 テストを実行したい場合は、go.blokada.org/test をご覧ください。";
