@@ -124,7 +124,7 @@ class PackService {
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/adservers/hosts.txt", applyFor: "Adservers"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/facebook/hosts.txt", applyFor: "Facebook")),
 
-        Pack.mocked(id: "developerdan", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social"],
+        Pack.mocked(id: "developerdan", tags: [Pack.official, "adblocking", "tracking", "privacy", "social"],
             title: "Developer Dan's Hosts",
             slugline: "A blocklist for ads and tracking, updated regularly",
             description: "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.",
@@ -165,7 +165,7 @@ class PackService {
             .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/spam404/standard/hosts.txt", applyFor: "Standard")),
 
-        Pack.mocked(id: "hblock", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "phishing", "security"],
+        Pack.mocked(id: "hblock", tags: [Pack.official, "adblocking", "tracking", "phishing", "security"],
             title: "hBlock",
             slugline: "A comprehensive lists to block ads and tracking",
             description: "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.",
@@ -188,7 +188,7 @@ class PackService {
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", applyFor: "Standard"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cpbl/mini/hosts.txt", applyFor: "Mini")),
 
-        Pack.mocked(id: "danpollock", tags: [Pack.recommended, Pack.official, "adblocking", "tracking"],
+        Pack.mocked(id: "danpollock", tags: [Pack.official, "adblocking", "tracking"],
             title: "Dan Pollock's Hosts",
             slugline: "A reasonably balanced ad blocking hosts file",
             description: "This is a well known, general purpose blocklist of small size, updated regularly.",
@@ -221,9 +221,20 @@ class PackService {
             .changeStatus(config: "Lite")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/1hosts/lite/hosts.txt", applyFor: "Lite"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/1hosts/pro/hosts.txt", applyFor: "Pro")),
+
+        Pack.mocked(id: "d3host", tags: [Pack.recommended, Pack.official, "adblocking", "tracking"],
+            title: "d3Host",
+            slugline: "A blocklist from the maker of the adblocker test",
+            description: "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test",
+            creditName: "d3ward",
+            creditUrl: "https://go.blokada.org/d3host",
+            configs: ["Standard"]
+        )
+            .changeStatus(config: "Standard")
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/d3host/standard/hosts.txt", applyFor: "Standard")),
     ]
 
-    private let packsVersion = 24
+    private let packsVersion = 25
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false
