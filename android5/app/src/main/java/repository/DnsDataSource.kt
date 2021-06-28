@@ -64,11 +64,17 @@ object DnsDataSource {
         Dns.plaintextDns(
             id = "cloudflare.malware",
             ips = listOf("1.1.1.2", "1.0.0.2", "2606:4700:4700::1112", "2606:4700:4700::1002"),
+            port = 443,
+            name = "security.cloudflare-dns.com",
+            path = "dns-query",
             label = "Cloudflare: malware blocking"
         ),
         Dns.plaintextDns(
             id = "cloudflare.adult",
             ips = listOf("1.1.1.3", "1.0.0.3", "2606:4700:4700::1113", "2606:4700:4700::1003"),
+            port = 443,
+            name = "family.cloudflare-dns.com",
+            path = "dns-query",       
             label = "Cloudflare: malware & adult blocking"
         ),
         Dns.plaintextDns(
