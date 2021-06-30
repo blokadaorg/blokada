@@ -172,6 +172,16 @@ object ConnectivityService {
                     // Ignore VPN network since it's us
                     null
                 }
+                cap?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ?: false -> {
+                    // This assumes there is only one active cellular network at a time
+                    try {
+                        val id = SubscriptionManager.getDefaultDataSubscriptionId()
+                        cell(simManager.getActiveSubscriptionInfo(id)?.carrierName?.toString()) to hasConnectivity
+                    } catch (ex: Exception) {
+                        // Probably no permissions, just identify network type
+                        cell(null) to hasConnectivity
+                    }
+                }
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ?: false -> {
                     // This assumes there is only one active WiFi network at a time
                     var name: String? = wifiManager.connectionInfo.ssid.trim('"')
@@ -191,16 +201,6 @@ object ConnectivityService {
                     }
 
                     wifi(name) to hasConnectivity
-                }
-                cap?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ?: false -> {
-                    // This assumes there is only one active cellular network at a time
-                    try {
-                        val id = SubscriptionManager.getDefaultDataSubscriptionId()
-                        cell(simManager.getActiveSubscriptionInfo(id)?.carrierName?.toString()) to hasConnectivity
-                    } catch (ex: Exception) {
-                        // Probably no permissions, just identify network type
-                        cell(null) to hasConnectivity
-                    }
                 }
                 else -> {
                     val known = networks.filterValues { it.networkHandle == network.networkHandle }.entries.firstOrNull()?.key
