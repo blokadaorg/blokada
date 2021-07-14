@@ -166,7 +166,6 @@ object ConnectivityService {
     private fun NetworkDescriptor.Companion.fromNetwork(network: Network): Pair<NetworkDescriptor, HasConnectivity>? {
         return try {
             val cap = manager.getNetworkCapabilities(network)
-            val hasConnectivity = cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
             when {
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ?: false -> {
                     // Ignore VPN network since it's us
@@ -174,6 +173,7 @@ object ConnectivityService {
                 }
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ?: false -> {
                     // This assumes there is only one active cellular network at a time
+                    val hasConnectivity = cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
                     try {
                         val id = SubscriptionManager.getDefaultDataSubscriptionId()
                         cell(simManager.getActiveSubscriptionInfo(id)?.carrierName?.toString()) to hasConnectivity
@@ -200,9 +200,12 @@ object ConnectivityService {
                         log.v("Wifi network fallback name detection returned null")
                     }
 
+                    // Android reporting is extremely unclear on the flags reported for wifi vs mobile
+                    val hasConnectivity = cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ?: false
                     wifi(name) to hasConnectivity
                 }
                 else -> {
+                    val hasConnectivity = cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ?: false
                     val known = networks.filterValues { it.networkHandle == network.networkHandle }.entries.firstOrNull()?.key
                     (known ?: fallback()) to hasConnectivity
                 }
