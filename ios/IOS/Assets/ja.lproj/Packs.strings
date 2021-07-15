@@ -11,7 +11,7 @@
 //
 
 "Ads and trackers blocking list" = "広告とトラッカーのブロックリスト";
-"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "この Energized システムは Unix 系システム向けに設計されており、広告、追跡スクリプト、マルウェアを送り出すドメインのリストを複数の信頼できるソースから取得し、それらへの接続を防ぐホストファイルを作成します。Social を有効にすると、メッセンジャーなどのソーシャルアプリが誤動作する可能性があります。";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "この Energized システムは Unix 系システム向けに設計されています。広告、追跡スクリプト、マルウェアのドメインのリストを複数の信頼できるソースから取得し、それらへの接続を防ぐホストファイルを作成します。Social を有効にすると、メッセンジャーなどのソーシャルアプリが誤動作する可能性があります。";
 "Popular for adblocking" = "人気の広告ブロックリスト";
 "Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "厳選された複数のソースからのホストファイルを統合および拡張します。オプションで、ポルノ、ソーシャルメディア、その他のカテゴリをブロックする拡張機能を選択できます。";
 "Alternative blocklist with advanced features" = "高度な機能を備えた Alternative ブロックリスト";
