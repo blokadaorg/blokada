@@ -24,6 +24,8 @@ import model.*
 import ui.utils.cause
 import utils.Logger
 import java.net.InetAddress
+import java.net.InetSocketAddress
+import java.net.Socket
 
 object ConnectivityService {
 
@@ -201,7 +203,18 @@ object ConnectivityService {
                     }
 
                     // Android reporting is extremely unclear on the flags reported for wifi vs mobile
-                    val hasConnectivity = cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ?: false
+                    var hasConnectivity = cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ?: false
+
+                    // Additional actual connectivity check because we can't trust it
+                    if (hasConnectivity) {
+                        log.v("Making connectivity check")
+                        val socket = Socket()
+                        socket.soTimeout = 3000
+                        hasConnectivity = try {
+                            socket.connect(InetSocketAddress("cloudflare.com", 80), 3000)
+                            true
+                        } catch (ex: Exception) { false }
+                    }
                     wifi(name) to hasConnectivity
                 }
                 else -> {
