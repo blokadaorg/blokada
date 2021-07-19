@@ -211,9 +211,13 @@ object ConnectivityService {
                         val socket = Socket()
                         socket.soTimeout = 3000
                         hasConnectivity = try {
-                            socket.connect(InetSocketAddress("cloudflare.com", 80), 3000)
+                            // blokada.org
+                            socket.connect(InetSocketAddress("104.21.11.200", 80), 3000)
                             true
-                        } catch (ex: Exception) { false }
+                        } catch (ex: Exception) {
+                            log.w("Wifi network reported to be online, but connectivity check failed")
+                            false
+                        }
                     }
                     wifi(name) to hasConnectivity
                 }
