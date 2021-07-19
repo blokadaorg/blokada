@@ -15,12 +15,10 @@ package engine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import service.BlocklistService
-import service.EnvironmentService
-import service.StatsService
+import service.*
 import utils.Logger
 
-internal object FilteringService {
+internal object FilteringService: PrintsDebugInfo {
 
     private val log = Logger("Filtering")
     private val blocklist = BlocklistService
@@ -32,6 +30,10 @@ internal object FilteringService {
     private var userDenied = emptyList<Host>()
 
     private var filteringStrategy: FilteringStrategy = NoopFilteringStrategy
+
+    init {
+        LogService.onShareLog("Filtering", this)
+    }
 
     fun reload() {
         log.v("Reloading blocklist")
@@ -91,6 +93,9 @@ internal object FilteringService {
         }
     }
 
+    override fun printDebugInfo() {
+        log.v("Current: ${merged.size} hosts, + user: ${userDenied.size} denied, ${userAllowed.size} allowed")
+    }
 }
 
 typealias Host = String
