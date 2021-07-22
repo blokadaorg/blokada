@@ -16,7 +16,7 @@ import model.*
 
 object PackDataSource {
 
-    // Copypasted and adapted from iOS
+    // iOS has similar list
     fun getPacks() = listOf(
         Pack.mocked(id = "oisd", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"),
             title = "OISD",
@@ -24,12 +24,12 @@ object PackDataSource {
             description = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.",
             creditName = "sjhgvr",
             creditUrl = "https://oisd.nl/",
-            configs = listOf("Basic (Wildcards)", "Basic")
+            configs = listOf("Basic (Wildcards)", "Extra (Wildcards)")
         )
             .changeStatus(config = "Basic (Wildcards)")
             .changeStatus(installed = true) // Default config. Will auto download.
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/oisd/basic (wildcards)/hosts.txt", "https://abp.oisd.nl/basic/"), applyFor = "Basic (Wildcards)"))
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/oisd/light/hosts.txt", "https://dbl.oisd.nl/basic/"), applyFor = "Basic")),
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/oisd/extra (wildcards)/hosts.txt", "https://abp.oisd.nl/extra/"), applyFor = "Extra (Wildcards)")),
 
     Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "regional"),
             title = "Energized",

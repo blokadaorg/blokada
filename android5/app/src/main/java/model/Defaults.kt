@@ -19,7 +19,7 @@ import ui.utils.now
 
 object Defaults {
 
-    val PACKS_VERSION = 25
+    val PACKS_VERSION = 27
 
     fun stats() = StatsPersisted(entries = emptyMap())
     fun allowed() = Allowed(value = listOf())
