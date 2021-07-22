@@ -15,6 +15,7 @@ package ui.home
 import android.content.Context
 import android.graphics.drawable.LevelListDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,11 +25,13 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import engine.MetricsService
 import org.blokada.R
 import ui.BottomSheetFragment
 import ui.TunnelViewModel
 import ui.advanced.statusToLevel
 import ui.app
+import utils.Logger
 import utils.toBlokadaPlusText
 import java.lang.Integer.max
 
@@ -131,7 +134,21 @@ class ProtectionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
             }
         })
 
+        detailPing = root.findViewById(R.id.home_detail_ping)
+        pingRefresh.sendEmptyMessage(0)
+
         return root
+    }
+
+    private lateinit var detailPing: TextView
+    private val pingRefresh = Handler {
+        detailPing.text = MetricsService.lastRtt.run { if (this == 9999L) "-" else toString() }
+        reschedulePingRefresh()
+        true
+    }
+
+    private fun reschedulePingRefresh() {
+        if (isAdded) pingRefresh.sendEmptyMessageDelayed(0, 3000)
     }
 
 }
