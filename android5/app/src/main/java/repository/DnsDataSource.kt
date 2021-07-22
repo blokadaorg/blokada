@@ -61,7 +61,7 @@ object DnsDataSource {
             label = "Alternate DNS"
         ),
         cloudflare,
-        Dns.plaintextDns(
+        Dns(
             id = "cloudflare.malware",
             ips = listOf("1.1.1.2", "1.0.0.2", "2606:4700:4700::1112", "2606:4700:4700::1002"),
             port = 443,
@@ -69,7 +69,7 @@ object DnsDataSource {
             path = "dns-query",
             label = "Cloudflare: malware blocking"
         ),
-        Dns.plaintextDns(
+        Dns(
             id = "cloudflare.adult",
             ips = listOf("1.1.1.3", "1.0.0.3", "2606:4700:4700::1113", "2606:4700:4700::1003"),
             port = 443,
