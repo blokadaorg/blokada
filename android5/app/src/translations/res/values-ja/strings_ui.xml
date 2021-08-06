@@ -232,8 +232,8 @@
     <string name="account_encrypt_level_low">低</string>
     <string name="account_encrypt_level_medium">中</string>
     <string name="account_encrypt_level_high">高</string>
-    <string name="account_encrypt_label_dns_only">暗号化された DNS</string>
-    <string name="account_encrypt_desc_dns_only">DNS は、ドメイン名からウェブサイトのあるサーバーの場所を検索するシステムです。ほとんどの場合、暗号化されていない DNS を使用しているため、閲覧履歴がスパイされる危険性があります。 Blokada はデバイスに暗号化された DNS サーバー（DNS over HTTPS とも呼ばれます）のみに接続するように設定できます。</string>
+    <string name="account_encrypt_label_dns_only">DNS 暗号化</string>
+    <string name="account_encrypt_desc_dns_only">DNS は、ドメイン名からウェブサイトのあるサーバーの場所を検索するシステムです。ほとんどの場合、暗号化されていない DNS を使用しているため、閲覧履歴がスパイされる危険性があります。Blokada では暗号化された DNS サーバー（DNS over HTTPS）のみに接続するように設定できます。</string>
     <string name="account_encrypt_label_everything">VPN 経由で接続中</string>
     <string name="account_encrypt_desc_everything">デバイスは安全な VPN サーバーを介して接続されており、デバイスとの間のすべての通信は強力なアルゴリズムを使用して暗号化されています。これにより、銀行取引やプライベートな写真などの個人情報が、コーヒーショップの Wi-Fi などの安全でない場所で盗まれるのを防ぎます。</string>
     <string name="account_encrypt_action_turn_on">BLOKADA を ON にする</string>
@@ -242,7 +242,7 @@
     <string name="account_encrypt_label_level_low">低: 暗号化なし</string>
     <string name="account_encrypt_label_level_medium">中: DNSの暗号化</string>
     <string name="account_encrypt_label_level_high">高: すべての暗号化</string>
-    <string name="account_encrypt_header_explanation">DNS とは、あなたのデバイスにウェブサイトのあるサーバーを案内するシステムです。BLOKADA は暗号化されたサーバーのみをサポートしています。</string>
+    <string name="account_encrypt_header_explanation">DNS とは、あなたのデバイスをウェブサイトのあるサーバーへ案内するシステムです。BLOKADA は暗号化された DNS サーバーのみをサポートしています。</string>
     <string name="account_encrypt_label_dns">DNS</string>
     <string name="account_encrypt_action_what_is_dns">DNS とは？</string>
     <string name="account_encrypt_section_header">暗号化</string>

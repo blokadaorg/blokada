@@ -288,8 +288,8 @@
 "account encrypt level low" = "低";
 "account encrypt level medium" = "中";
 "account encrypt level high" = "高";
-"account encrypt label dns only" = "暗号化された DNS";
-"account encrypt desc dns only" = "DNS は、ドメイン名からウェブサイトのあるサーバーの場所を検索するシステムです。ほとんどの場合、暗号化されていない DNS を使用しているため、閲覧履歴がスパイされる危険性があります。 Blokada はデバイスに暗号化された DNS サーバー（DNS over HTTPS とも呼ばれます）のみに接続するように設定できます。";
+"account encrypt label dns only" = "DNS 暗号化";
+"account encrypt desc dns only" = "DNS は、ドメイン名からウェブサイトのあるサーバーの場所を検索するシステムです。ほとんどの場合、暗号化されていない DNS を使用しているため、閲覧履歴がスパイされる危険性があります。Blokada では暗号化された DNS サーバー（DNS over HTTPS）のみに接続するように設定できます。";
 "account encrypt label everything" = "VPN 経由で接続中";
 "account encrypt desc everything" = "デバイスは安全な VPN サーバーを介して接続されており、デバイスとの間のすべての通信は強力なアルゴリズムを使用して暗号化されています。これにより、銀行取引やプライベートな写真などの個人情報が、コーヒーショップの Wi-Fi などの安全でない場所で盗まれるのを防ぎます。";
 "account encrypt action turn on" = "BLOKADA を ON にする";
@@ -298,7 +298,7 @@
 "account encrypt label level low" = "低: 暗号化なし";
 "account encrypt label level medium" = "中: DNSの暗号化";
 "account encrypt label level high" = "高: すべての暗号化";
-"account encrypt header explanation" = "DNS とは、あなたのデバイスにウェブサイトのあるサーバーを案内するシステムです。BLOKADA は暗号化されたサーバーのみをサポートしています。";
+"account encrypt header explanation" = "DNS とは、あなたのデバイスをウェブサイトのあるサーバーへ案内するシステムです。BLOKADA は暗号化された DNS サーバーのみをサポートしています。";
 "account encrypt label dns" = "DNS";
 "account encrypt action what is dns" = "DNS とは？";
 "account encrypt section header" = "暗号化";

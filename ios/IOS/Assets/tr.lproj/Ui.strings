@@ -231,7 +231,7 @@
 "networks summary encrypt dns" = "Blokada, mümkün olduğunda DNS'yi şifreleyecektir. Bu, güvenliğinizi artırır ve kötü niyetli kişilerin hangi web sitelerini ve uygulamaları kullandığınız hakkında casusluk yapmasını engeller.";
 "networks summary use dns" = "Blokada, cihazınızın DNS'si olarak %@ kullanacaktır. Şifrelemeye izin veren (kilit simgesi olan) ve size yakın olanı seçmek, verilerinizin korunmasına ve bağlantınızın hızlı olmasına yardımcı olacaktır.";
 "networks summary network dns" = "Blokada, varsa ağın DNS'sini kullanacak veya aksi takdirde %@ geçecektir. Ayrıca, DNS'yi Şifrele ayarları, ağ DNS'si her kullanıldığında yok sayılacaktır. Ağın DNS'sini kullanmak, sorunlu ağlardaki bağlantı sorunlarını çözmenize yardımcı olur, ancak sizi korumasız bırakır.";
-"networks summary network dns and plus mode" = "Ağ DNS'si kullanıldığında Blokada geçici olarak Plus Modunu devre dışı bırakır. Bunun nedeni, VPN'de ağ DNS'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.";
+"networks summary network dns and plus mode" = "Blokada, ağ DNS'si her kullanıldığındaPlus modunu geçici olarak devre dışı bırakır. Bunun nedeni, VPN'de ağ DNS'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.";
 "networks summary blocka plus mode" = "Blokada, yüksek düzeyde şifreleme ve hız sağlamak için Blokada DNS'yi Plus modunda kullanacaktır. Bu ayarı DNS Seçin ekranının altında değiştirebilirsiniz.";
 "networks summary force libre mode" = "Blokada, bu ağda her zaman Libre modunu kullanacak ve Blokada Plus konumunuzu yok sayacaktır. Bu, ek koruma istemediğiniz ağlar için kullanışlıdır.";
 "networks permission dialog" = "Blokada, bağlandığınız ağları tanıyabilir ve onlar için ayrı ayarlar yapılandırmanıza izin verebilir. Ancak bu uygulama, uygulama kapalıyken veya kullanımda değilken bile bu özelliği etkinleştirmek için konum verilerini ağ adı biçiminde toplayacaktır. Bazen konum erişimi hakkında bir sistem bildirimi görebilirsiniz - Blokada yalnızca ağın adını okuyacaktır.";
@@ -390,8 +390,8 @@
 "apps status bypassed" = "(atlandı)";
 "apps filter header" = "Hangi uygulamaları görmek istersiniz?";
 "apps filter action show all" = "Tüm uygulamalar";
-"apps filter action show bypassed" = "Yalnızca baypas edildi";
-"apps filter action show not bypassed" = "Sadece baypas edilmedi";
+"apps filter action show bypassed" = "Yalnızca atlandı";
+"apps filter action show not bypassed" = "Yalnızca atlanmadı";
 "apps filter action toggle system" = "Tüm sistem uygulamalarını değiştir";
 
 "app settings section header" = "Bu cihaz";
