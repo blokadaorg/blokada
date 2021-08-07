@@ -9,7 +9,7 @@ Work in progress
 - install rustup
 - make sure you use stable toolchain `rustup default stable`
 - cargo install cargo-make
-- cargo install cdbindgen
+- cargo install cbindgen
 - rustup target add aarch64-apple-ios
 
 ## build for ios
