@@ -84,7 +84,12 @@ object AppRepository {
         "com.google.android.carriersetup",
         "com.google.android.ims",
         "com.codeaurora.ims",
-        "com.android.carrierconfig"
+        "com.android.carrierconfig",
+        // MaaiiConnect #885
+        "com.m800.liveconnect.mobile.agent.prod",
+        "com.m800.liveconnect.mobile.agent.tb",
+        // TomTom Go #878
+        "com.tomtom.gplay.navapp"
     )
 
     fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
