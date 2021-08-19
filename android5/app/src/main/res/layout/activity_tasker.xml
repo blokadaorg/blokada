@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="256dp"
+    android:layout_height="match_parent"
+    android:background="@color/gray_400"
+    android:padding="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="@dimen/normal">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/normal"
+            android:src="@drawable/blokada_logo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Enter your command to be executed by Blokada.\nBasic commands are 'on' and 'off'." />
+
+        <EditText
+            android:id="@+id/tasker_command"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/doubled"
+            android:layout_marginTop="@dimen/normal"
+            android:layout_marginEnd="@dimen/doubled"
+            android:gravity="center"
+            android:hint="off" />
+
+        <Button
+            android:id="@+id/tasker_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
+            android:text="Done" />
+    </LinearLayout>
+</FrameLayout>
