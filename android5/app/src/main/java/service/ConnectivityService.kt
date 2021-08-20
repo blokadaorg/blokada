@@ -19,6 +19,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.SubscriptionManager
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.*
 import ui.utils.cause
@@ -165,7 +166,7 @@ object ConnectivityService {
     }
 
     @SuppressLint("MissingPermission")
-    private fun NetworkDescriptor.Companion.fromNetwork(network: Network): Pair<NetworkDescriptor, HasConnectivity>? {
+    private suspend fun NetworkDescriptor.Companion.fromNetwork(network: Network): Pair<NetworkDescriptor, HasConnectivity>? {
         return try {
             val cap = manager.getNetworkCapabilities(network)
             when {
@@ -208,6 +209,7 @@ object ConnectivityService {
                     // Additional actual connectivity check because we can't trust it
                     if (hasConnectivity) {
                         log.v("Making connectivity check")
+                        delay(2000) // To let the network establish
                         val socket = Socket()
                         socket.soTimeout = 3000
                         hasConnectivity = try {
