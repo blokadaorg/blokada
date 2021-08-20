@@ -34,6 +34,7 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "これらのリストは、ブロックされるものを的確に制御する目的で作成されました。";
 "A blocklist based on spam reports" = "スパムレポートに基づくブロックリスト";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 は、コンテンツ監視、侵入テスト、ブランド保護をオンライン企業に提供するサービスです。このリストは、企業から受け取ったレポートに基づいています。";
+/* A comprehensive list to block ads and tracking */
 "A comprehensive lists to block ads and tracking" = "広告とトラッキングをブロックする包括的なブロックリスト";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock は、広告を提供するドメイン、スクリプト、マルウェアのリストです。お使いのデバイスがそれらに接続することを防止します。";
 "A general purpose, medium weight list" = "総合的、中程度のサイズのブロックリスト";

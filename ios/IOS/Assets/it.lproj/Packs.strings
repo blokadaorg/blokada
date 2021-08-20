@@ -34,6 +34,7 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Queste liste sono state create perché il fondatore del progetto voleva più libertà di controllo su ciò che si vuole bloccare.";
 "A blocklist based on spam reports" = "Una lista di blocco basata sui rapporti di spam";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 è un servizio che aiuta le aziende online con il monitoraggio dei contenuti, test di penetrazione e protezione del marchio. Questo elenco si basa sui report ricevuti dalle imprese.";
+/* A comprehensive list to block ads and tracking */
 "A comprehensive lists to block ads and tracking" = "Una lista completa per bloccare annunci e tracciamento";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock è una lista con domini usati per annunci, script di tracciamento e malware. Impedisce al dispositivo di connettersi a questi domini.";
 "A general purpose, medium weight list" = "Una lista generale, di medio peso";

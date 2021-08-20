@@ -34,6 +34,7 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "之所以會建立這些列表，是因為專案的創始人想要一些可以對被封鎖內容進行更多控制的東西。";
 "A blocklist based on spam reports" = "根據垃圾資訊報告所製作的阻擋清單";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 是一項可以協助線上公司監視內容、滲透測試與品牌保護的服務。此列表是以從公司收到的回報為基礎。";
+/* A comprehensive list to block ads and tracking */
 "A comprehensive lists to block ads and tracking" = "全面阻擋廣告與追蹤程式的清單";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock 是個寫著廣告、追蹤指令碼及惡意軟體的網域清單，能防止您的裝置連線至這些網域。";
 "A general purpose, medium weight list" = "適合一般用途的中型清單";

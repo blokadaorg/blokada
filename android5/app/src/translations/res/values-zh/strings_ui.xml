@@ -117,8 +117,8 @@
     <string name="pack_information_header">更多</string>
     <string name="pack_tags_header">標籤</string>
     <string name="pack_tags_none">無</string>
-    <string name="pack_category_highlights">標示區域</string>
-    <string name="pack_category_active">作用中</string>
+    <string name="pack_category_highlights">官方推薦</string>
+    <string name="pack_category_active">啟用</string>
     <string name="pack_category_all">全部</string>
     <string name="advanced_section_header_packs">阻擋清單</string>
     <string name="advanced_section_slugline_packs">啟用以進行更嚴格的阻擋</string>
@@ -167,7 +167,7 @@
     <string name="networks_section_label">調整 WiFi 與行動網路的設定</string>
     <string name="networks_label_all_networks">所有網路</string>
     <string name="networks_action_network_specific">點此修改預設設定。要讓應用程式在不同的網路上有不同的行為，請輕觸下方。</string>
-    <string name="networks_label_configuration_active">這些設定目前運作中</string>
+    <string name="networks_label_configuration_active">這些設定目前已啟用</string>
     <string name="networks_label_configuration_enabled">未連線至此網路</string>
     <string name="networks_label_configuration_inactive">輕觸修改此網路的設定</string>
     <string name="networks_label_details_default_network">下方設定將預設套用至所有網路。您可以（在上一個畫面）選擇要覆蓋設定的網路。</string>

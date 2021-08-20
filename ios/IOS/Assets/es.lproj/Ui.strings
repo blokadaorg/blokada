@@ -115,6 +115,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Configuración";
 
+"main label use side menu" = "Usa el menú lateral para navegar";
+
 "home ads counter footnote" = "anuncios y rastreadores bloqueados desde la instalación";
 "home power off menu header" = "¿Qué te gustaría hacer?";
 "home power action turn on" = "Activar";
@@ -218,6 +220,7 @@
 "networks action encrypt dns" = "Encriptar DNS";
 "networks action use dns" = "Usar DNS: %@";
 "networks action use network dns" = "Preferir red DNS";
+"networks action force libre mode" = "Forzar modo Libre";
 "networks label specific network" = "Ajusta lo que debería suceder cuando el dispositivo se conecte a esta red.";
 "networks label specific network type" = "Ajuste lo que debería pasar cuando su dispositivo se conecte a una red de este tipo.";
 "networks label any wifi" = "Cualquier red WiFi";
@@ -226,11 +229,12 @@
 "networks permission request granted" = "Tal vez veas una notificación cuando Blokada lea el nombre de la red en segundo plano.";
 "networks section choose dns" = "Elegir DNS";
 "networks summary encrypt dns" = "Blokada cifrará el DNS si es posible. Esto mejora tu seguridad y evita que agentes maliciosos espíen qué sitios web y aplicaciones utilizas.";
-"networks summary use dns" = "Blokada usará %@ como DNS de tu dispositivo. Eligiendo el que permite el cifrado (tiene el icono de bloqueo), y está cerca de ti, ayudará a proteger sus datos y hará que su conexión sea rápida.";
-"networks summary network dns" = "Blokada utilizará el DNS de la red si está disponible, o cambiará a %@ de lo contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar el DNS de la red ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.";
+"networks summary use dns" = "Blokada utilizará %@ como el DNS de tu dispositivo. Elegir el que permite cifrado (tiene el icono del candado), y esté cerca de ti ayudará a proteger tus datos y a que tu conexión sea rápida.";
+"networks summary network dns" = "Blokada utilizará el DNS de la red si está disponible, o cambiará a %@ en caso contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar DNS ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.";
 "networks summary network dns and plus mode" = "Blokada desactivará temporalmente el modo Plus cuando se utilice DNS de red. Esto es porque no es posible acceder a DNS de red en VPN. El modo Plus se restaurará automáticamente cuando el dispositivo cambie a otra red.";
-"networks summary blocka plus mode" = "Blokada usará Blokada DNS en modo Plus, para asegurar un alto nivel de cifrado y velocidad. Puede cambiar esta configuración en la parte inferior de la pantalla Elegir DNS.";
-"networks permission dialog" = "Blokada puede reconocer las redes a las que se conecta y le permite configurar configuraciones separadas para ellas. Sin embargo, esta aplicación recopilará datos de ubicación en forma de nombre de red, para activar esta función incluso cuando la aplicación está cerrada o no está en uso. A veces puede ver una notificación del sistema sobre el acceso a la ubicación - Blokada sólo leerá el nombre de la red.";
+"networks summary blocka plus mode" = "Blokada usará Blokada DNS en modo Plus para asegurar un alto nivel de cifrado y velocidad. Puedes cambiar esto desde la parte inferior de la pantalla \"Elegir DNS\".";
+"networks summary force libre mode" = "Blokada siempre utilizará el modo Libre en esta red, e ignorará la ubicación de Blokada Plus. Esto puede ser útil para redes en las que no se quiera la protección adicional.";
+"networks permission dialog" = "Blokada puede reconocer las redes a las que te conectas y te permite seleccionar configuraciones diferentes para cada una. Sin embargo, esta aplicación recopilará datos de ubicación en forma de nombre de red para activar esta función incluso cuando esté cerrada o no esté en uso. A veces, podrás ver una notificación del sistema sobre el acceso a la ubicación - Blokada solo leerá el nombre de la red.";
 
 
 "account section header settings" = "Configuración";
@@ -253,7 +257,7 @@
 "account label enter to continue" = "Introduce tu ID de cuenta para continuar";
 "account restore description" = "No te preocupes, si has perdido o olvidado tu ID de cuenta, podemos recuperarlo. Por favor, ponte en contacto con nuestro equipo de soporte y proporciónanos información que nos permita identificar tu compra (por ejemplo, los últimos 4 dígitos de tu tarjeta de crédito o tu e-mail de PayPal).";
 "account create description" = "Este es tu ID de cuenta. Anótalo y mantenlo en privado. Es la única forma de acceder a tu suscripción.";
-"account create confirm" = "Ya lo anoté";
+"account create confirm" = "Ya lo he apuntado";
 
 "account section header my subscription" = "Mi suscripción";
 "account section header general" = "General";
@@ -265,7 +269,7 @@
 "account action why upgrade" = "¿Por qué deberías actualizar?";
 "account subscription header renew" = "Renovar automáticamente";
 "account subscription header payment method" = "Método de pago";
-"account subscription renew unsupported" = "Su método de pago no permite controlar la configuración de renovación automática aquí.";
+"account subscription renew unsupported" = "Tu método de pago no permite controlar la configuración de renovación automática aquí.";
 
 "account unlock to show" = "Desbloquea para mostrar el ID de tu cuenta";
 
@@ -304,6 +308,7 @@
 "account lease label this device" = " (este dispositivo)";
 "account lease label name" = "Nombre del dispositivo";
 "account lease label location" = "Ubicación";
+"account lease label generate" = "Al seleccionar una ubicación, se generará un archivo de configuración que podrás utilizar en cualquier aplicación VPN que admita Wireguard. Esto es útil para las plataformas en las que aún no tenemos nuestras aplicaciones. De lo contrario, recomendamos utilizar nuestras aplicaciones nativas en su lugar.";
 "account lease action generate" = "Generar configuración";
 "account lease action download" = "Descargar configuración";
 "account lease generated" = "¡Dispositivo añadido! Descarga la configuración para usarla en cualquier dispositivo soportado por Wireguard.";
@@ -341,7 +346,7 @@
 "payment alert error header" = "Un mensaje de App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Estás ahorrando %@";
-"payment conversion note" = "Aceptamos euros y los precios mostrados son una estimación, un reembolso está disponible si sus cargos bancarios son excesivos.";
+"payment conversion note" = "Aceptamos euros, y los precios mostrados son una estimación. Si tu banco te cobra demasiado, podemos devolverte el dinero.";
 
 "payment subscription 1 month" = "1 mes";
 "payment subscription many months" = "%@ meses";
@@ -352,10 +357,10 @@
 "payment success desc" = "¡Tu cuenta está activa! Ahora puedes usar todas las funciones de Blokada Plus en todos tus dispositivos.";
 
 "payment redirect label" = "Redirigiendo...";
-"payment redirect desc" = "Por favor, espera. Esto solo debería tomar un momento.";
+"payment redirect desc" = "Por favor, espera. Solo debería un momento.";
 
 "payment ongoing title" = "Tu pago está siendo procesado.";
-"payment ongoing desc" = "Los pagos con tarjeta de crédito no deberían tardar más de unos minutos. Los pagos con criptomonedas generalmente demoran hasta una hora, dependiendo de la tarifa de transacción que elija. En el caso de PayPal, puede tardar hasta 24 horas. Serás redirigido una vez que tu cuenta esté lista. También puede cerrar esta ventana y volver más tarde. Si cree que su transacción está demorando demasiado, comuníquese con nosotros.";
+"payment ongoing desc" = "Los pagos con tarjeta de crédito no deberían tardar más de unos minutos. Los pagos con criptomonedas generalmente pueden tardar hasta una hora, dependiendo de la tarifa de transacción que selecciones. En el caso de PayPal, puede tomar hasta 24 horas. Serás redirigido cuando tu cuenta esté lista. También puedes cerrar esta ventana y volver más tarde. Si crees que tu transacción se ha demorado demasiado, ponte en contacto con nosotros.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Cambiar";
@@ -376,7 +381,7 @@
 "payment label discount" = "Ahorra %@ (%@ / mes)";
 "payment label country" = "País";
 
-"payment euro desc" = "Tenemos sede en Europa, así que aceptamos Euros: €10 son aproximadamente $12.";
+"payment euro desc" = "Tenemos sede en Europa, así que aceptamos Euros: 10€ son aproximadamente 12$.";
 "payment donate disclaimer" = "Esto no activará tu cuenta de Blokada Plus. Si deseas utilizar nuestro servicio VPN, por favor suscríbete en lugar de donar.";
 
 "apps section header" = "Apps";
@@ -449,26 +454,27 @@
 "homepage about action plus" = "Aprende más sobre Blokada Plus";
 
 "homepage vpn title" = "Blokada 5, el VPN";
-"homepage vpn desc" = "Para una protección de privacidad definitiva, actualice a Blokada Plus y conéctese a través de nuestra VPN. Utilizamos WireGuard®, el protocolo VPN más avanzado, para cifrar su actividad de red y ocultar su dirección IP.";
+"homepage vpn desc" = "Para una protección de privacidad definitiva, actualiza a Blokada Plus y conéctate a través de nuestra VPN. Utilizamos WireGuard®, el protocolo VPN más avanzado, para cifrar su actividad de red y ocultar tu dirección IP.";
 "homepage vpn point one" = "Sin restricciones de ancho de banda";
 "homepage vpn point two" = "Cifrado rápido y moderno";
 "homepage vpn point three" = "No hay registro de la actividad de su red";
-"homepage vpn point four" = "Conecte hasta 5 dispositivos";
+"homepage vpn point four" = "Conecta hasta 5 dispositivos";
 "homepage vpn credit" = "'WireGuard' y el logotipo de 'Wireguard' son marcas comerciales registradas de Jason A. Donenfeld.";
 
 "homepage faq header" = "Preguntas frecuentes (FAQ)";
 "homepage faq action more" = "Ver más preguntas frecuentes (FAQ)";
 "homepage faq title 1" = "¿Qué información conserva Blokada?";
-"homepage faq desc 1" = "Blokada no rastrea o comparte ninguna de las actividades de su red. Si utiliza Blokada Plus, por razones técnicas, necesitamos recopilar los datos más mínimos necesarios para mantener el servicio operativo. Consulte nuestra Política de Privacidad disponible en el menú superior para más detalles.";
+"homepage faq desc 1" = "Blokada no rastrea o comparte ninguna de las actividades de tu red. Si utilizas Blokada Plus, por razones técnicas, necesitamos recopilar los datos mínimos necesarios para mantener el servicio operativo. Consulta nuestra Política de Privacidad disponible en el menú superior para más detalles.";
 "homepage faq title 2" = "¿Cómo se protege mi privacidad?";
-"homepage faq desc 2" = "Blokada evita que las aplicaciones y navegadores instalados en tu dispositivo envíen tus datos privados (conocidos como huellas dactilares) a Internet. También encripta parte de su actividad de red (consultas DNS). Si necesitas más protección, Blokada Plus hace que tu dispositivo se conecte a través de nuestra VPN y utilice el protocolo WireGuard® para cifrar todo el tráfico de tu red.";
+"homepage faq desc 2" = "Blokada evita que las aplicaciones y navegadores instalados en tu dispositivo envíen tus datos privados (conocidos como huellas dactilares) a Internet. También encripta parte de tu actividad de red (consultas DNS). Si necesitas más protección, Blokada Plus permite que tu dispositivo se conecte a través de nuestra VPN y utilice el protocolo WireGuard® para cifrar todo el tráfico de tu conexión.";
 "homepage faq title 3" = "¿Qué es Blokada Plus?";
-"homepage faq desc 3" = "Blokada Plus es nuestro servicio de VPN seguro y moderno (red privada virtual). Utiliza WireGuard® un protocolo rápido con cifrado de mejor calidad y bajo consumo de batería. Blokada Plus encripta toda la actividad de su red en tiempo real, dándote el mayor nivel de protección disponible. También obtendrá las características populares de VPN: oculta tu dirección IP, cambia tu ubicación y desbloquea el contenido restringido geográficamente.";
+"homepage faq desc 3" = "Blokada Plus es nuestro servicio de VPN seguro y moderno (red privada virtual). Utiliza WireGuard®, un protocolo rápido con cifrado de mejor calidad y bajo consumo de batería. Blokada Plus encripta toda la actividad de su red en tiempo real, dándote el mayor nivel de protección disponible. También obtendrá las características populares de VPN: oculta tu dirección IP, cambia tu ubicación y desbloquea el contenido restringido geográficamente.";
 "homepage faq title 4" = "¿Necesito actualizar a Blokada Plus?";
-"homepage faq desc 4" = "No, la mejora es opcional. Puedes optar a la versión gratuita de Blokada, para siempre. Es una mejora recomendada si desea aumentar aún más su protección de la privacidad o si necesita alguna de las características populares que proporcionan las VPNs.";
+"homepage faq desc 4" = "No, la mejora es opcional. Puedes optar a la versión gratuita de Blokada, para siempre. Es una mejora recomendada si deseas aumentar aún más la protección de tu privacidad o si necesitas alguna de las características populares que proporcionan las VPNs.";
 "homepage faq title 5" = "¿Cuál es la política de reembolso de Blokada Plus?";
-"homepage faq desc 5" = "Puedes recuperar tu dinero dentro de los 7 días próximos a la compra de la suscripción. Póngase en contacto con nosotros a través de cualquiera de nuestras aplicaciones y simplemente mencione que desea un reembolso.";
+"homepage faq desc 5" = "Puedes recuperar tu dinero dentro de los 7 días próximos a la compra de la suscripción. Ponte en contacto con nosotros a través de cualquiera de nuestras aplicaciones y simplemente comenta que deseas un reembolso.";
 "homepage faq title 6" = "¿Dónde se encuentra Blokada?";
+"homepage faq desc 6" = "Nuestra sede se encuentra en Suecia, donde la privacidad es tratada con gran seriedad. Nuestros servidores están disponibles en muchos lugares del mundo.";
 
 "homepage download header" = "Descargar Blokada";
 "homepage download subheader" = "Blokada está disponible para varias plataformas, elige la tuya.";

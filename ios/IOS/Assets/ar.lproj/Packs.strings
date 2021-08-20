@@ -34,6 +34,7 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "تم إنشاء هذه القوائم لأن مؤسّس المشروع أراد شيئاً يتمتّع بقدر أكبر من التحكّم في ما يتمّ حظْره.";
 "A blocklist based on spam reports" = "قائمة حظْر تستند إلى تقارير البريد المزعج";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 هي خدمة تساعد الشركات عبر الإنترنت في مراقبة المحتوى و اختبار الإختراق و حماية العلامة التجاريّة. تستند هذه القائمة على التقارير الواردة من الشركات.";
+/* A comprehensive list to block ads and tracking */
 "A comprehensive lists to block ads and tracking" = "قوائم شاملة لمنع الإعلانات و التعقّب";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock هي قائمة من النطاقات التي تخدم الإعلانات، و التعقّب و البرامج النصيّة و البرمجيات الخبيثة. و تمنع جهازك من الاتصال بها.";
 "A general purpose, medium weight list" = "قائمة متوسّطة الوزن للأغراض العامّة";

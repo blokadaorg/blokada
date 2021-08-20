@@ -153,8 +153,8 @@
 "pack information header" = "更多";
 "pack tags header" = "標籤";
 "pack tags none" = "無";
-"pack category highlights" = "標示區域";
-"pack category active" = "作用中";
+"pack category highlights" = "官方推薦";
+"pack category active" = "啟用";
 "pack category all" = "全部";
 
 "advanced section header packs" = "阻擋清單";
@@ -213,7 +213,7 @@
 "networks section label" = "調整 WiFi 與行動網路的設定";
 "networks label all networks" = "所有網路";
 "networks action network specific" = "點此修改預設設定。要讓應用程式在不同的網路上有不同的行為，請輕觸下方。";
-"networks label configuration active" = "這些設定目前運作中";
+"networks label configuration active" = "這些設定目前已啟用";
 "networks label configuration enabled" = "未連線至此網路";
 "networks label configuration inactive" = "輕觸修改此網路的設定";
 "networks label details default network" = "下方設定將預設套用至所有網路。您可以（在上一個畫面）選擇要覆蓋設定的網路。";
