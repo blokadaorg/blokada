@@ -51,6 +51,10 @@ object ConnectivityService {
     var onNetworkAvailable = { network: NetworkDescriptor -> }
     var onActiveNetworkChanged = { network: NetworkDescriptor -> }
 
+    var pingToCheckNetwork = false
+        @Synchronized set
+        @Synchronized get
+
     private var networks = mutableMapOf<NetworkDescriptor, Network>()
     private var networksLost = emptyList<NetworkHandle>()
     private var activeNetwork: Pair<NetworkDescriptor, Network?> = NetworkDescriptor.fallback() to null
@@ -207,7 +211,7 @@ object ConnectivityService {
                     var hasConnectivity = cap?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ?: false
 
                     // Additional actual connectivity check because we can't trust it
-                    if (hasConnectivity) {
+                    if (hasConnectivity && pingToCheckNetwork) {
                         log.v("Making connectivity check")
                         delay(2000) // To let the network establish
                         val socket = Socket()

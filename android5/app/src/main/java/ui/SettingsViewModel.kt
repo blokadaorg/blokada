@@ -49,28 +49,6 @@ class SettingsViewModel : ViewModel() {
         log.v("Config: ${_localConfig.value}")
     }
 
-    fun setUseBlockaDnsInPlusMode(use: Boolean) {
-        _localConfig.value?.let { current ->
-            viewModelScope.launch {
-                try {
-                    log.v("Changing use Blocka DNS in Plus mode: $use")
-                    val new = current.copy(useBlockaDnsInPlusMode = use)
-//                    engine.changeDns(getCurrentDns(), dnsForPlusMode = decideDnsForPlusMode(useBlockaDnsInPlusMode = use))
-                    persistence.save(new)
-                    _localConfig.value = new
-                } catch (ex: Exception) {
-                    log.e("Failed changing setting".cause(ex))
-
-                    // Notify the listener to reset its value to what it was
-                    viewModelScope.launch {
-                        delay(1000)
-                        _localConfig.value = current
-                    }
-                }
-            }
-        }
-    }
-
     fun setFirstTimeSeen() {
         log.v("Marking first time as seen")
         _syncableConfig.value?.let { current ->
@@ -201,6 +179,16 @@ class SettingsViewModel : ViewModel() {
         return _localConfig.value?.useForegroundService ?: false
     }
 
+    fun setPingToCheckNetwork(use: Boolean) {
+        log.v("Setting pingToCheckNetwork: $use")
+        _localConfig.value?.let { current ->
+            viewModelScope.launch {
+                val new = current.copy(pingToCheckNetwork = use)
+                persistence.save(new)
+                _localConfig.value = new
+            }
+        }
+    }
 }
 
 const val THEME_RETRO_KEY = "retro"

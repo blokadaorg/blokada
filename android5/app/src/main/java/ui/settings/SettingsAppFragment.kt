@@ -131,6 +131,17 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             true
         }
 
+        val ping: ListPreference = findPreference("app_ping")!!
+        ping.entryValues = yesNoChoice
+        ping.entries = backup.entryValues
+        ping.setOnPreferenceChangeListener { _, newValue ->
+            when (newValue) {
+                getString(R.string.universal_action_yes) -> vm.setPingToCheckNetwork(true)
+                else -> vm.setPingToCheckNetwork(false)
+            }
+            true
+        }
+
         val details: Preference = findPreference("app_details")!!
         details.summary = EnvironmentService.getUserAgent()
 
@@ -174,6 +185,11 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             else getString(R.string.universal_action_no)
             useForeground.setDefaultValue(useFg)
             useForeground.value = useFg
+
+            val usePing = if (it.pingToCheckNetwork) getString(R.string.universal_action_yes)
+            else getString(R.string.universal_action_no)
+            ping.setDefaultValue(usePing)
+            ping.value = usePing
         })
 
         val config: Preference = findPreference("app_config")!!
