@@ -95,9 +95,12 @@ object DnsDataSource {
             label = "Dismail",
             region = "europe"
         ),
-        Dns.plaintextDns(
+        Dns(
             id = "dnswatch",
-            ips = listOf("84.200.69.80", "84.200.70.40"),
+            ips = listOf("84.200.69.80", "84.200.70.40", "2001:1608:10:25::1c04:b12f", "2001:1608:10:25::9249:d69b"),
+            port = 443,
+            name = "resolver2.dns.watch",
+            path = "dns-query",
             label = "DNS.Watch",
             region = "europe"
         ),
