@@ -106,7 +106,7 @@ object DnsDataSource {
 //        ),
         Dns.plaintextDns(
             id = "fdn",
-            ips = listOf("80.67.169.12", "80.67.169.40"),
+            ips = listOf("80.67.169.12", "80.67.169.40", "2001:910:800::12", "2001:910:800::40"),
             label = "French Data Network"
         ),
         Dns(
