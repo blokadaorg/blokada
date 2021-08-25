@@ -147,7 +147,7 @@ object DnsDataSource {
         ),
         Dns.plaintextDns(
             id = "quad101",
-            ips = listOf("101.101.101.101", "101.102.103.104"),
+            ips = listOf("101.101.101.101", "101.102.103.104", "2001:de4::101". "2001:de4::102"),
             label = "Quad 101"
         ),
         Dns.plaintextDns(
