@@ -131,9 +131,12 @@ object DnsDataSource {
             ips = listOf("208.67.220.123", "208.67.222.123"),
             label = "Open DNS: family"
         ),
-        Dns.plaintextDns(
+        Dns(
             id = "quad9",
-            ips = listOf("9.9.9.9", "149.112.112.112"),
+            ips = listOf("9.9.9.9", "149.112.112.112", "2620:fe::fe", "2620:fe::9"),
+            port = 443,
+            name = "dns.quad9.net",
+            path = "dns-query",
             label = "Quad9"
         ),
         Dns.plaintextDns(
