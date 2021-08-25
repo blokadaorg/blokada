@@ -85,7 +85,7 @@ object DnsDataSource {
         ),
         Dns.plaintextDns(
             id = "digitalcourage",
-            ips = listOf("46.182.19.48", "46.182.19.48"),
+            ips = listOf("46.182.19.48", "2a02:2970:1002::18"),
             label = "Digitalcourage"
         ),
         Dns.plaintextDns(
