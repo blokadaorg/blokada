@@ -150,9 +150,12 @@ object DnsDataSource {
             ips = listOf("101.101.101.101", "101.102.103.104", "2001:de4::101", "2001:de4::102"),
             label = "Quad 101"
         ),
-        Dns.plaintextDns(
+        Dns(
             id = "uncensored",
-            ips = listOf("91.239.100.100", "89.233.43.71"),
+            ips = listOf("91.239.100.100", "89.233.43.71", "2001:67c:28a4::", "2a01:3a0:53:53::"),
+            port = 443,
+            name = "anycast.uncensoreddns.org",
+            path = "dns-query",
             label = "Uncensored DNS"
         ),
         Dns.plaintextDns(
