@@ -160,7 +160,7 @@ object DnsDataSource {
         ),
         Dns.plaintextDns(
             id = "verisign",
-            ips = listOf("64.6.64.6", "64.6.65.6"),
+            ips = listOf("64.6.64.6", "64.6.65.6", "2620:74:1b::1:1", "2620:74:1c::2:2"),
             label = "Verisign Public DNS"
         )
     )
