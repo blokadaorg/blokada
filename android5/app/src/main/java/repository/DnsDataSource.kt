@@ -86,7 +86,8 @@ object DnsDataSource {
         Dns.plaintextDns(
             id = "digitalcourage",
             ips = listOf("46.182.19.48", "2a02:2970:1002::18"),
-            label = "Digitalcourage"
+            label = "Digitalcourage",
+            region = "europe"
         ),
         Dns.plaintextDns(
             id = "dismail",
@@ -97,7 +98,8 @@ object DnsDataSource {
         Dns.plaintextDns(
             id = "dnswatch",
             ips = listOf("84.200.69.80", "84.200.70.40"),
-            label = "DNS.Watch"
+            label = "DNS.Watch",
+            region = "europe"
         ),
 //        Dns.plaintextDns(
 //            id = "freenom",
@@ -107,7 +109,8 @@ object DnsDataSource {
         Dns.plaintextDns(
             id = "fdn",
             ips = listOf("80.67.169.12", "80.67.169.40", "2001:910:800::12", "2001:910:800::40"),
-            label = "French Data Network"
+            label = "French Data Network",
+            region = "europe"
         ),
         Dns(
             id = "digitalegesellschaft",
@@ -143,7 +146,8 @@ object DnsDataSource {
             port = 443,
             name = "dns.quad9.net",
             path = "dns-query",
-            label = "Quad9"
+            label = "Quad9",
+            region = "europe"
         ),
         Dns.plaintextDns(
             id = "quad101",
@@ -156,7 +160,8 @@ object DnsDataSource {
             port = 443,
             name = "anycast.uncensoreddns.org",
             path = "dns-query",
-            label = "Uncensored DNS"
+            label = "Uncensored DNS",
+            region = "europe"
         ),
         Dns.plaintextDns(
             id = "verisign",
