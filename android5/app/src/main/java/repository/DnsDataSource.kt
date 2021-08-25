@@ -45,14 +45,20 @@ object DnsDataSource {
 
     fun getDns() = listOf(
         blocka,
-        Dns.plaintextDns(
+        Dns(
             id = "adguard",
             ips = listOf("94.140.14.14", "94.140.15.15", "2a10:50c0::ad1:ff", "2a10:50c0::ad2:ff"),
+            port = 443,
+            name = "dns.adguard.com",
+            path = "dns-query",
             label = "AdGuard"
         ),
-        Dns.plaintextDns(
+        Dns(
             id = "adguard_family",
-            ips = listOf("176.103.130.132", "176.103.130.134"),
+            ips = listOf("94.140.14.15", "94.140.15.16", "2a10:50c0::bad1:ff", "2a10:50c0::bad2:ff"),
+            port = 443,
+            name = "dns-family.adguard.com",
+            path = "dns-query",
             label = "AdGuard: family"
         ),
         Dns.plaintextDns(
@@ -74,7 +80,7 @@ object DnsDataSource {
             ips = listOf("1.1.1.3", "1.0.0.3", "2606:4700:4700::1113", "2606:4700:4700::1003"),
             port = 443,
             name = "family.cloudflare-dns.com",
-            path = "dns-query",       
+            path = "dns-query",
             label = "Cloudflare: malware & adult blocking"
         ),
         Dns.plaintextDns(
