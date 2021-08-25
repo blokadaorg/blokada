@@ -63,7 +63,7 @@ object DnsDataSource {
         ),
         Dns.plaintextDns(
             id = "alternate",
-            ips = listOf("76.76.19.19", "76.223.122.150", "2001:4801:7825:103:be76:4eff:fe10:2e49", "2001:4800:780e:510:a8cf:392e:ff04:8982"),
+            ips = listOf("76.76.19.19", "76.223.122.150", "2602:fcbc::ad", "2602:fcbc:2::ad"),
             label = "Alternate DNS"
         ),
         cloudflare,
