@@ -13,7 +13,9 @@
 package service
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.net.*
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -60,14 +62,22 @@ object ConnectivityService {
     private var activeNetwork: Pair<NetworkDescriptor, Network?> = NetworkDescriptor.fallback() to null
 
     private val systemCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
-            //log.v("Network status changed: ${network.networkHandle}")
-            handleNetworkChange(network)
+        override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+            // This should be called whenever network becomes available according to docs.
+            // Not just on capabilities changed.
+            log.v("Network status changed: ${network.networkHandle}")
+            handleNetworkChange(network, networkCapabilities)
         }
 
         override fun onLost(network: Network) {
-            //log.v("Network status lost: ${network.networkHandle}")
+            log.v("Network status lost: ${network.networkHandle}")
             handleNetworkChange(network)
+        }
+    }
+
+    private val defaultNetworkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            log.v("Default network changed: ${network.networkHandle}")
         }
     }
 
@@ -82,11 +92,12 @@ object ConnectivityService {
         val request = NetworkRequest.Builder().build()
         try { manager.unregisterNetworkCallback(systemCallback) } catch (ex: Exception) {}
         manager.registerNetworkCallback(request, systemCallback)
+        try { manager.registerDefaultNetworkCallback(defaultNetworkCallback) } catch (ex: Exception) {}
     }
 
-    private fun handleNetworkChange(network: Network) {
+    private fun handleNetworkChange(network: Network, cap: NetworkCapabilities? = null) {
         scope.launch {
-            NetworkDescriptor.fromNetwork(network)?.let { (descriptor, hasConnectivity) ->
+            NetworkDescriptor.fromNetwork(network, cap)?.let { (descriptor, hasConnectivity) ->
                 // Would be nicer to have a reversed map, but it's late and I'm tired
                 val existing = networks.filterValues { it.networkHandle == network.networkHandle }.keys.firstOrNull()
                 existing?.let { networks.remove(it) }
@@ -170,9 +181,9 @@ object ConnectivityService {
     }
 
     @SuppressLint("MissingPermission")
-    private suspend fun NetworkDescriptor.Companion.fromNetwork(network: Network): Pair<NetworkDescriptor, HasConnectivity>? {
+    private suspend fun NetworkDescriptor.Companion.fromNetwork(network: Network,
+                        cap: NetworkCapabilities?): Pair<NetworkDescriptor, HasConnectivity>? {
         return try {
-            val cap = manager.getNetworkCapabilities(network)
             when {
                 cap?.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ?: false -> {
                     // Ignore VPN network since it's us
