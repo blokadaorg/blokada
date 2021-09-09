@@ -29,12 +29,15 @@ import androidx.core.content.FileProvider
 import ui.utils.cause
 import utils.Logger
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.system.exitProcess
 
 object LogService {
 
     private val context = ContextService
     private val file = FileService
+    private val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.ENGLISH);
 
     fun onShareLog(name: String, run: PrintsDebugInfo) {
         Logger.v("Log", "Adding onShareLog callback for $name")
@@ -134,6 +137,7 @@ object LogService {
         log.v("*** BLOKADA STARTED ***")
         log.v("*** *************** ***")
         log.v(EnvironmentService.getUserAgent())
+        log.v("Local time: ${formatter.format(Calendar.getInstance().time)}")
         handleUncaughtExceptions()
     }
 
