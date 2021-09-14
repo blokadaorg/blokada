@@ -141,6 +141,12 @@ object LogService {
         handleUncaughtExceptions()
     }
 
+    fun markLog() {
+        val log = Logger("")
+        log.v("*** MARKING LOG ***")
+        log.v("Local time: ${formatter.format(Calendar.getInstance().time)}")
+    }
+
     private fun handleUncaughtExceptions() {
         Thread.setDefaultUncaughtExceptionHandler { _, ex ->
             Logger.e("Fatal", "Uncaught exception, restarting app".cause(ex))

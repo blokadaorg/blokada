@@ -143,6 +143,7 @@ object ConnectivityService {
                         }
                     }
                     subjectNetwork?.key?.type == NetworkType.WIFI -> activeNetwork = subjectNetwork.toPair()
+                    wifiNetworks.size == 1 -> activeNetwork = wifiNetworks.last().toPair()
                     else -> {
                         activeNetwork = wifiNetworks.last().toPair()
                         log.w("Guessing which wifi network to use: ${activeNetwork.first}")

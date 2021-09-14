@@ -284,6 +284,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             }
             R.id.help_logs -> LogService.showLog()
             R.id.help_sharelog -> LogService.shareLog()
+            R.id.help_marklog -> LogService.markLog()
             R.id.help_settings -> {
                 val nav = findNavController(R.id.nav_host_fragment)
                 nav.navigate(R.id.navigation_settings)
