@@ -28,6 +28,12 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <View
+            android:id="@+id/activity_redline"
+            android:layout_width="2dp"
+            android:background="@color/red"
+            android:layout_height="match_parent" />
+
         <FrameLayout
             android:layout_width="@dimen/icon_bigger"
             android:layout_height="@dimen/icon_bigger">

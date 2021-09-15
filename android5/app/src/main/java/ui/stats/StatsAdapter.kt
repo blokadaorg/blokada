@@ -59,6 +59,7 @@ class StatsAdapter(
         private val name: TextView = itemView.findViewById(R.id.activity_name)
         private val time: TextView = itemView.findViewById(R.id.activity_date)
         private val modified: View = itemView.findViewById(R.id.activity_modified)
+        private val redline: View = itemView.findViewById(R.id.activity_redline) // For color blind
 
         init {
             itemView.setOnClickListener(this)
@@ -76,21 +77,25 @@ class StatsAdapter(
                     icon.setImageResource(R.drawable.ic_shield_off_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.green))
                     iconCounter.visibility = View.GONE
+                    redline.visibility = View.GONE
                 }
                 HistoryEntryType.blocked_denied -> {
                     icon.setImageResource(R.drawable.ic_shield_off_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.red))
                     iconCounter.visibility = View.GONE
+                    redline.visibility = View.VISIBLE
                 }
                 HistoryEntryType.passed -> {
                     icon.setImageResource(R.drawable.ic_shield_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.green))
                     iconCounter.visibility = View.VISIBLE
+                    redline.visibility = View.GONE
                 }
                 else -> {
                     icon.setImageResource(R.drawable.ic_shield_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.red))
                     iconCounter.visibility = View.VISIBLE
+                    redline.visibility = View.VISIBLE
                 }
             }
 
