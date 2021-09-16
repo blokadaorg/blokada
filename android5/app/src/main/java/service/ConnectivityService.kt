@@ -65,7 +65,8 @@ object ConnectivityService {
     private val systemCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
             scope.launch {
-                describeNetwork(network, caps)
+                val descriptor = describeNetwork(network, caps)
+                if (descriptor != null) onNetworkAvailable(descriptor) // Announce for the UI to list it
                 announceActiveNetwork()
             }
         }
@@ -120,9 +121,9 @@ object ConnectivityService {
     }
 
     // Ensures we keep the best description of given network we can have.
-    private fun describeNetwork(network: Network, cap: NetworkCapabilities) {
+    private fun describeNetwork(network: Network, cap: NetworkCapabilities): NetworkDescriptor? {
         val existing = networkDescriptors[network.networkHandle]
-        try {
+        return try {
             val descriptor = NetworkDescriptor.fromNetwork(network, cap)
             if (existing == null || existing.isFallback() || existing.name == null) {
                 // The new descriptor can't be worse, use it instead
@@ -131,11 +132,13 @@ object ConnectivityService {
                 // Maybe this name is more up to date
                 networkDescriptors[network.networkHandle] = descriptor
             }
+            descriptor
         } catch (ex: Exception) {
             if (existing == null) {
                 log.w("Could not describe network, using fallback".cause(ex))
                 networkDescriptors[network.networkHandle] = NetworkDescriptor.fallback()
             }
+            null
         }
     }
 
@@ -174,7 +177,6 @@ object ConnectivityService {
                 log.v("Doze active, no connectivity")
 
                 onConnectivityChanged(false)
-                onNetworkAvailable(fallback)
                 onActiveNetworkChanged(fallback)
             }
             defaultRouteNetwork == lastSeenRouteNetwork -> {
@@ -187,7 +189,6 @@ object ConnectivityService {
                 log.v("Lost default network, no connectivity")
 
                 onConnectivityChanged(false)
-                onNetworkAvailable(fallback)
                 onActiveNetworkChanged(fallback)
             }
             descriptor == null -> {
@@ -200,7 +201,6 @@ object ConnectivityService {
                 log.v("Network is now default: $defaultRouteNetwork = $descriptor")
 
                 onConnectivityChanged(true)
-                onNetworkAvailable(descriptor)
                 onActiveNetworkChanged(descriptor)
             }
         }
@@ -217,7 +217,6 @@ object ConnectivityService {
         // We can't use the default network callback because it returns ourselves (the VPN network).
         val request = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
         try { manager.unregisterNetworkCallback(systemCallback) } catch (ex: Exception) {}
         manager.registerNetworkCallback(request, systemCallback)

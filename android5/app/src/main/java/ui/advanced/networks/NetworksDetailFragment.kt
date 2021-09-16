@@ -93,11 +93,14 @@ class NetworksDetailFragment : Fragment() {
                     }
                     NetworkType.WIFI -> {
                         icon.setImageResource(R.drawable.ic_baseline_wifi_24)
-                        desc.text = ctx.getString(R.string.networks_label_specific_network_type)
                     }
                     else -> {
                         icon.setImageResource(R.drawable.ic_baseline_signal_cellular_4_bar_24)
                     }
+                }
+
+                if (cfg.network.name == null) {
+                    desc.text = ctx.getString(R.string.networks_label_specific_network_type)
                 }
 
                 // Color the icon if this the currently active config
