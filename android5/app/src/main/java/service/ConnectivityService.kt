@@ -128,11 +128,12 @@ object ConnectivityService {
             if (existing == null || existing.isFallback() || existing.name == null) {
                 // The new descriptor can't be worse, use it instead
                 networkDescriptors[network.networkHandle] = descriptor
+                descriptor
             } else if (descriptor.name != null) {
                 // Maybe this name is more up to date
                 networkDescriptors[network.networkHandle] = descriptor
-            }
-            descriptor
+                descriptor
+            } else null
         } catch (ex: Exception) {
             if (existing == null) {
                 log.w("Could not describe network, using fallback".cause(ex))
@@ -201,6 +202,7 @@ object ConnectivityService {
                 log.v("Network is now default: $defaultRouteNetwork = $descriptor")
 
                 onConnectivityChanged(true)
+                onNetworkAvailable(descriptor) // Announce again just in case we haven't yet (shouldn't happen)
                 onActiveNetworkChanged(descriptor)
             }
         }

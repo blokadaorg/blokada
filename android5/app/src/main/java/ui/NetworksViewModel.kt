@@ -43,7 +43,7 @@ class NetworksViewModel : ViewModel(), PrintsDebugInfo {
         connectivity.onNetworkAvailable = { network ->
             viewModelScope.launch {
                 _configs.ensureConfigFor(network)
-                _configs.purgeUnused()
+                //_configs.purgeUnused() // Disable for now to test if purging is a problem of disappearing networks
             }
         }
 

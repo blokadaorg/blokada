@@ -91,7 +91,7 @@ data class NetworkSpecificConfig(
         return when {
             network.isFallback() -> false
             network.name == null -> false // "Any wifi network" / "Any mobile network"
-            createdAt + 1000 * 60 * 60 * 7 > now() -> false // Detected this week
+            createdAt + 1000 * 60 * 60 * 24 * 7 > now() -> false // Detected this week
             enabled -> false
             else -> {
                 val defaults = Defaults.defaultNetworkConfig()
