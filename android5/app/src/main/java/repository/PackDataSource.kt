@@ -149,7 +149,7 @@ object PackDataSource {
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/developerdan/amp/hosts.txt", "https://www.github.developerdan.com/hosts/lists/amp-hosts-extended.txt"), applyFor = "AMP"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/developerdan/junk/hosts.txt", "https://www.github.developerdan.com/hosts/lists/hate-and-junk-extended.txt"), applyFor = "Hate & Junk")),
 
-        Pack.mocked(id = "blocklist", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social", "youtube", "security"),
+        Pack.mocked(id = "blocklist", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "social", "youtube", "security"),
             title = "The Block List Project",
             slugline = "A collection of blocklists for various use cases.",
             description = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.",
@@ -187,7 +187,7 @@ object PackDataSource {
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/hblock/standard/hosts.txt", "https://hblock.molinero.dev/hosts_domains.txt"), applyFor = "Standard")),
 
-        Pack.mocked(id = "cpbl", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "security"),
+        Pack.mocked(id = "cpbl", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "security"),
             title = "Combined Privacy Block Lists",
             slugline = "A general purpose, medium weight list",
             description = "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.",
@@ -221,7 +221,7 @@ object PackDataSource {
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/urlhaus/standard/hosts.txt", "https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt"), applyFor = "Standard")),
 
-        Pack.mocked(id = "1hosts", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking"),
+        Pack.mocked(id = "1hosts", tags = listOf(Pack.official, "adblocking", "tracking"),
             title = "1Hosts",
             slugline = "A blocklist for ads and tracking, updated regularly",
             description = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.",
@@ -234,7 +234,7 @@ object PackDataSource {
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/pro (wildcards)/hosts.txt", "https://hosts.netlify.app/Pro/adblock.txt"), applyFor = "Pro (Wildcards)"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/1hosts/xtra (wildcards)/hosts.txt", "https://hosts.netlify.app/Xtra/adblock.txt"), applyFor = "Xtra (Wildcards)")),
 
-        Pack.mocked(id = "d3host", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking"),
+        Pack.mocked(id = "d3host", tags = listOf(Pack.official, "adblocking", "tracking"),
             title = "d3Host",
             slugline = "A blocklist from the maker of the adblocker test",
             description = "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test",
