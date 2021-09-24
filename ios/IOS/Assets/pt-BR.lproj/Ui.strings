@@ -72,6 +72,7 @@
 "universal label welcome" = "Bem-vindo!";
 // Common label when some feature has no setting
 "universal label none" = "Nenhuma";
+
 "universal status processing" = "Processando... Por favor, aguarde.";
 "universal status copied to clipboard" = "Copiado para a Área de Transferência";
 "universal status restart required" = "Por favor, reinicie o programa para que as alterações entrem em vigor.";
@@ -201,8 +202,6 @@
 "activity filter show allowed" = "Somente permitidos";
 "activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.";
 "activity device filter show all" = "Todos os dispositivos";
-
-"userdenied section header" = "Minhas listas de bloqueio";
 "userdenied section slugline" = "Gerenciar bloqueio de sites específicos";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Permitido";

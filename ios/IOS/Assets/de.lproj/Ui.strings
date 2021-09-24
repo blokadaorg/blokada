@@ -72,6 +72,7 @@
 "universal label welcome" = "Herzlich willkommen!";
 // Common label when some feature has no setting
 "universal label none" = "Keine";
+
 "universal status processing" = "Verarbeitung... Bitte warten.";
 "universal status copied to clipboard" = "In die Zwischenablage kopiert";
 "universal status restart required" = "Bitte starte die App neu, damit die Änderungen wirksam werden.";
@@ -201,8 +202,6 @@
 "activity filter show allowed" = "Nur erlaubte";
 "activity empty text" = "Verwende dein Gerät einfach weiter und komme später hierher zurück, um zu sehen, wohin sich dein Gerät verbindet.";
 "activity device filter show all" = "Alle Geräte";
-
-"userdenied section header" = "Meine Sperrlisten";
 "userdenied section slugline" = "Sperren bestimmter Websites verwalten";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Erlaubt";

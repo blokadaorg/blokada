@@ -72,6 +72,7 @@
 "universal label welcome" = "Hoş geldiniz!";
 // Common label when some feature has no setting
 "universal label none" = "Hiçbiri";
+
 "universal status processing" = "İşeniyor... Lütfen bekleyin.";
 "universal status copied to clipboard" = "Panoya kopyalandı";
 "universal status restart required" = "Değişikliklerin etkili olması için lütfen programı yeniden başlatın.";
@@ -201,8 +202,6 @@
 "activity filter show allowed" = "Yalnızca izin verilen";
 "activity empty text" = "Cihazınızı kullanmayı deneyin ve cihazınızın nereye bağlandığını görmek için daha sonra buraya tekrar gelin.";
 "activity device filter show all" = "Tüm cihazlar";
-
-"userdenied section header" = "Engelleme listelerim";
 "userdenied section slugline" = "Belirli web sitelerinin engellenmesini yönetin";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "İzin verildi";

@@ -70,6 +70,7 @@
 "universal label welcome" = "Welkom!";
 // Common label when some feature has no setting
 "universal label none" = "Geen";
+
 "universal status processing" = "Bezig... Even geduld.";
 "universal status copied to clipboard" = "Gekopieerd naar Klembord";
 "universal status restart required" = "Gelieve de app opnieuw opstarten om de veranderingen uit te voeren.";

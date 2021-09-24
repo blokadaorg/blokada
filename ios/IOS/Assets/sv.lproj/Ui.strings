@@ -72,6 +72,7 @@
 "universal label welcome" = "Välkommen!";
 // Common label when some feature has no setting
 "universal label none" = "Inget";
+
 "universal status processing" = "Bearbetar... Var god vänta.";
 "universal status copied to clipboard" = "Kopierad till urklipp";
 "universal status restart required" = "Starta om appen för att ändringarna ska träda i kraft.";
@@ -199,8 +200,6 @@
 "activity filter show allowed" = "Endast tillåtna";
 "activity empty text" = "Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.";
 "activity device filter show all" = "Alla enheter";
-
-"userdenied section header" = "Mina blocklistor";
 "userdenied section slugline" = "Hantera blockering av vissa webbplatser";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Tillåten";

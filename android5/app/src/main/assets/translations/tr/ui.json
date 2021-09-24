@@ -158,7 +158,6 @@
     "activity filter show allowed": "Yalnızca izin verilen",
     "activity empty text": "Cihazınızı kullanmayı deneyin ve cihazınızın nereye bağlandığını görmek için daha sonra buraya tekrar gelin.",
     "activity device filter show all": "Tüm cihazlar",
-    "userdenied section header": "Engelleme listelerim",
     "userdenied section slugline": "Belirli web sitelerinin engellenmesini yönetin",
     "userdenied tab allowed": "İzin verildi",
     "userdenied tab blocked": "Engellendi",

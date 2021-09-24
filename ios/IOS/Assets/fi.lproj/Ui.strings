@@ -61,6 +61,7 @@
 "universal label help" = "Ohje";
 // Common label when some feature has no setting
 "universal label none" = "Ei mitään";
+
 "universal status processing" = "Käsitellään... odota hetki.";
 "universal status copied to clipboard" = "Kopioitu leikepöydälle";
 "universal status restart required" = "Käynnistä ohjelma uudelleen, jotta muutokset astuvat voimaan.";

@@ -159,7 +159,6 @@
     <string name="activity_filter_show_allowed">Yalnızca izin verilen</string>
     <string name="activity_empty_text">Cihazınızı kullanmayı deneyin ve cihazınızın nereye bağlandığını görmek için daha sonra buraya tekrar gelin.</string>
     <string name="activity_device_filter_show_all">Tüm cihazlar</string>
-    <string name="userdenied_section_header">Engelleme listelerim</string>
     <string name="userdenied_section_slugline">Belirli web sitelerinin engellenmesini yönetin</string>
     <string name="userdenied_tab_allowed">İzin verildi</string>
     <string name="userdenied_tab_blocked">Engellendi</string>

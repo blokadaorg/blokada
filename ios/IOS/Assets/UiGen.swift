@@ -229,6 +229,16 @@ internal enum L10n {
   internal static let activityRequestBlocked = L10n.tr("Ui", "activity request blocked")
   /// This request has been blocked, because it is on your Blocked list
   internal static let activityRequestBlockedBlacklisted = L10n.tr("Ui", "activity request blocked blacklisted")
+  /// Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.
+  internal static let activityRetentionDesc = L10n.tr("Ui", "activity retention desc")
+  /// For how long can we store your activity?
+  internal static let activityRetentionHeader = L10n.tr("Ui", "activity retention header")
+  /// 24 hours
+  internal static let activityRetentionOption24h = L10n.tr("Ui", "activity retention option 24h")
+  /// Do not store my activity
+  internal static let activityRetentionOptionNone = L10n.tr("Ui", "activity retention option none")
+  /// By enabling log retention you accept Blokada Cloud Privacy Policy.
+  internal static let activityRetentionPolicy = L10n.tr("Ui", "activity retention policy")
   /// Activity
   internal static let activitySectionHeader = L10n.tr("Ui", "activity section header")
   /// Activity Details
@@ -833,6 +843,58 @@ internal enum L10n {
   internal static let paymentSuccessLabel = L10n.tr("Ui", "payment success label")
   /// Upgrade to our VPN service to stay in control of *your privacy*.
   internal static let paymentTitle = L10n.tr("Ui", "payment title")
+  /// Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.
+  internal static let setupCommentNativeApps = L10n.tr("Ui", "setup comment native apps")
+  /// Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.
+  internal static let setupCommentWireguard = L10n.tr("Ui", "setup comment wireguard")
+  /// There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.
+  internal static let setupDesc = L10n.tr("Ui", "setup desc")
+  /// Setup
+  internal static let setupHeader = L10n.tr("Ui", "setup header")
+  /// Choose any of the following setup options:
+  internal static let setupLabelChoose = L10n.tr("Ui", "setup label choose")
+  /// What type of device you wish to set up?
+  internal static let setupLabelWhichDevice = L10n.tr("Ui", "setup label which device")
+  /// (unnamed)
+  internal static let setupNameLabelUnnamed = L10n.tr("Ui", "setup name label unnamed")
+  /// Alternative: %@
+  internal static func setupOptionLabelAlternative(_ p1: String) -> String {
+    return L10n.tr("Ui", "setup option label alternative", p1)
+  }
+  /// Recommended: %@
+  internal static func setupOptionLabelRecommended(_ p1: String) -> String {
+    return L10n.tr("Ui", "setup option label recommended", p1)
+  }
+  /// Step %@: %@
+  internal static func setupStep(_ p1: String, _ p2: String) -> String {
+    return L10n.tr("Ui", "setup step", p1, p2)
+  }
+  /// Apply the new configuration
+  internal static let setupStepApplyConfig = L10n.tr("Ui", "setup step apply config")
+  /// Copy your hostname
+  internal static let setupStepCopy = L10n.tr("Ui", "setup step copy")
+  /// Generate and download your profile
+  internal static let setupStepDownloadProfile = L10n.tr("Ui", "setup step download profile")
+  /// When asked, enter your tag
+  internal static let setupStepEnterTag = L10n.tr("Ui", "setup step enter tag")
+  /// Install and start our app
+  internal static let setupStepInstall = L10n.tr("Ui", "setup step install")
+  /// Install and start Wireguard
+  internal static let setupStepInstallWireguard = L10n.tr("Ui", "setup step install wireguard")
+  /// Name your device (optional)
+  internal static let setupStepName = L10n.tr("Ui", "setup step name")
+  /// Stats
+  internal static let statsHeader = L10n.tr("Ui", "stats header")
+  /// Ratio
+  internal static let statsRatioHeader = L10n.tr("Ui", "stats ratio header")
+  /// Requests
+  internal static let statsRequestsHeader = L10n.tr("Ui", "stats requests header")
+  /// Queries over time
+  internal static let statsRequestsSubheader = L10n.tr("Ui", "stats requests subheader")
+  /// Top allowed requests
+  internal static let statsTopAllowedHeader = L10n.tr("Ui", "stats top allowed header")
+  /// Top blocked requests
+  internal static let statsTopBlockedHeader = L10n.tr("Ui", "stats top blocked header")
   /// Cancel
   internal static let universalActionCancel = L10n.tr("Ui", "universal action cancel")
   /// Clear
@@ -895,10 +957,20 @@ internal enum L10n {
   internal static let universalActionUpgradeShort = L10n.tr("Ui", "universal action upgrade short")
   /// Yes
   internal static let universalActionYes = L10n.tr("Ui", "universal action yes")
+  /// Count
+  internal static let universalLabelCount = L10n.tr("Ui", "universal label count")
+  /// Device
+  internal static let universalLabelDevice = L10n.tr("Ui", "universal label device")
   /// Help
   internal static let universalLabelHelp = L10n.tr("Ui", "universal label help")
+  /// Name
+  internal static let universalLabelName = L10n.tr("Ui", "universal label name")
   /// None
   internal static let universalLabelNone = L10n.tr("Ui", "universal label none")
+  /// Time
+  internal static let universalLabelTime = L10n.tr("Ui", "universal label time")
+  /// Type
+  internal static let universalLabelType = L10n.tr("Ui", "universal label type")
   /// Welcome!
   internal static let universalLabelWelcome = L10n.tr("Ui", "universal label welcome")
   /// Are you sure you want to proceed?
@@ -917,7 +989,11 @@ internal enum L10n {
   internal static let updateDownloadingDescription = L10n.tr("Ui", "update downloading description")
   /// Updated!
   internal static let updateLabelUpdated = L10n.tr("Ui", "update label updated")
-  /// My blocklists
+  /// Allow
+  internal static let userdeniedActionAllow = L10n.tr("Ui", "userdenied action allow")
+  /// Block
+  internal static let userdeniedActionBlock = L10n.tr("Ui", "userdenied action block")
+  /// Exceptions
   internal static let userdeniedSectionHeader = L10n.tr("Ui", "userdenied section header")
   /// Manage blocking of particular websites
   internal static let userdeniedSectionSlugline = L10n.tr("Ui", "userdenied section slugline")
@@ -925,6 +1001,18 @@ internal enum L10n {
   internal static let userdeniedTabAllowed = L10n.tr("Ui", "userdenied tab allowed")
   /// Blocked
   internal static let userdeniedTabBlocked = L10n.tr("Ui", "userdenied tab blocked")
+  /// Generate
+  internal static let webActionGenerate = L10n.tr("Ui", "web action generate")
+  /// Open setup
+  internal static let webActionOpenSetup = L10n.tr("Ui", "web action open setup")
+  /// Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.
+  internal static let webCtaPlusDesc = L10n.tr("Ui", "web cta plus desc")
+  /// Upgrade to Blokada Plus to stay in control of your privacy.
+  internal static let webCtaPlusHeader = L10n.tr("Ui", "web cta plus header")
+  /// VPN Devices
+  internal static let webVpnDevicesHeader = L10n.tr("Ui", "web vpn devices header")
+  /// Open VPN Devices
+  internal static let webVpnDevicesOpenAction = L10n.tr("Ui", "web vpn devices open action")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name

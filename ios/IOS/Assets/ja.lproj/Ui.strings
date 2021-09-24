@@ -72,6 +72,16 @@
 "universal label welcome" = "ようこそ！";
 // Common label when some feature has no setting
 "universal label none" = "未設定";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "名前";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "時刻";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "回数";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "タイプ";
+"universal label device" = "デバイス";
+
 "universal status processing" = "処理中です...
 しばらくお待ちください";
 "universal status copied to clipboard" = "クリップボードにコピーしました";
@@ -203,13 +213,22 @@
 "activity filter show allowed" = "許可された通信";
 "activity empty text" = "デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。";
 "activity device filter show all" = "すべてのデバイス";
+"activity retention header" = "どのくらいの期間、あなたの活動を保存しますか？";
+"activity retention option none" = "アクティビティを保存しない";
+"activity retention option 24h" = "24 時間";
+"activity retention policy" = "ログの保持を有効にすると、Blokada Cloud プライバシーポリシーに同意することになります。";
+"activity retention desc" = "Blokada Cloud はデフォルトでは何も記録しません。統計とアクティビティを保存する場合は、ログの保持期間を選択してください。この機能は、例外設定を管理したい場合や、お使いのデバイスで何が起こっているかの概要の確認に便利です。";
 
-"userdenied section header" = "マイ・リスト";
+"userdenied section header" = "例外";
 "userdenied section slugline" = "ブロック・許可したサイトを管理する";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "許可リスト";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "ブロックリスト";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "許可";
+// A short one word action to block a hostname.
+"userdenied action block" = "ブロック";
 
 "networks section header" = "ネットワーク";
 "networks section label" = "Wi-Fi とモバイルネットワークの設定を管理する";
@@ -327,7 +346,7 @@
 "payment action choose location" = "接続先を選択";
 "payment action see locations" = "接続先";
 
-"payment title" = "VPN サービスにアップグレードして、*あなたのプライバシー*を管理し続けましょう。";
+"payment title" = "VPN サービスにアップグレードして、*あなたのプライバシー*を管理しましょう。";
 "payment feature title change location" = "接続先を変更";
 "payment feature desc change location" = "あなたの IP アドレスを非表示にして、あなたが他の国に居るように見せかけます。これは第三者からあなたを隠し、身元を保護するのに役立ちます。";
 "payment feature title encrypt data" = "データを暗号化";
@@ -518,3 +537,42 @@
 "homepage developer subheader" = "Blokada の改良にご協力いただけますか？";
 "homepage developer desc" = "Blokada は、Android と iOS 向けの最高の広告ブロッカーとプライバシーアプリの開発に特化したオープンソースプロジェクトです。ぜひ Github をご確認ください。何かお手伝いいただける場合には、お知らせください。";
 "homepage developer action" = "リポジトリへ";
+
+"web vpn devices header" = "VPN デバイス";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "VPN デバイスを開く";
+"web action open setup" = "設定を開く";
+"web cta plus header" = "Blokada Plus にアップグレードして、あなたのプライバシーを管理し続けましょう。";
+"web cta plus desc" = "Libre アカウントでは、オープンソースアプリによる Android と iOS での広告ブロックを無料で使用できます。Blokada Plus にアップグレードすると VPN による更なる保護や、より速く、より使いやすい*クラウド広告ブロック*が選択できます。";
+// A short word for a button to generate profile
+"web action generate" = "生成";
+
+"setup header" = "設定";
+"setup desc" = "デバイスで Blokada Cloud を使用する設定方法はいくつかあります。あなたに合うものを選択してください。";
+"setup label which device" = "どの種類のデバイスを設定しますか？";
+"setup label choose" = "以下から設定を選択してください:";
+"setup comment wireguard" = "注意: Blokada VPNを使用すると、Blokada Cloud DNS が自動的に有効になります。その他のプラットフォームは今後サポートする予定です。「WireGuard」と「Wireguard」ロゴは Jason A. Donenfeld の登録商標です。";
+"setup comment native apps" = "注意: Android と iOS のネイティブアプリでは現在 Blokada Cloud をサポートしていません。今後のアップデートで対応する予定です。";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "ステップ %@: %@";
+"setup option label recommended" = "推奨: %@";
+"setup option label alternative" = "上級ユーザー向け: %@";
+"setup name label unnamed" = "（名前がありません）";
+
+"setup step name" = "デバイスに名前を付ける（オプション）";
+"setup step copy" = "ホスト名をコピー";
+"setup step apply config" = "新しい設定を適用";
+"setup step install" = "Blokada アプリをインストールして開く";
+"setup step enter tag" = "要求があれば、タグを入力してください";
+"setup step download profile" = "プロファイルを生成してダウンロード";
+"setup step install wireguard" = "Wireguard をインストールして開く";
+
+"stats header" = "統計";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "比率";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "リクエスト";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "時間の経過とクエリ";
+"stats top allowed header" = "よく許可されるリクエスト";
+"stats top blocked header" = "よくブロックされるリクエスト";

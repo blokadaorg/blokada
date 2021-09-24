@@ -159,7 +159,6 @@
     <string name="activity_filter_show_allowed">Pouze povolené</string>
     <string name="activity_empty_text">Zkuste použít své zařízení a vraťte se sem později, abyste zjistili, kam se vaše zařízení připojuje.</string>
     <string name="activity_device_filter_show_all">Všechna zařízení</string>
-    <string name="userdenied_section_header">Moje seznamy hostitelů</string>
     <string name="userdenied_section_slugline">Spravovat blokování konkrétních webových stránek</string>
     <string name="userdenied_tab_allowed">Povolené</string>
     <string name="userdenied_tab_blocked">Blokované</string>

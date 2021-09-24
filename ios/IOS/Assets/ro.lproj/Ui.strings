@@ -72,6 +72,7 @@
 "universal label welcome" = "Bine aţi venit!";
 // Common label when some feature has no setting
 "universal label none" = "Nici unul";
+
 "universal status processing" = "Se procesează... Vă rugăm așteptați.";
 "universal status copied to clipboard" = "Copiat în Clipboard";
 "universal status restart required" = "Vă rugăm să reporniţi aplicaţia pentru ca modificările să aibă efect.";
@@ -201,8 +202,6 @@
 "activity filter show allowed" = "Doar cele permise";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
 "activity device filter show all" = "Toate dispozitivele";
-
-"userdenied section header" = "Blocajele mele";
 "userdenied section slugline" = "Gestionați blocarea anumitor site-uri";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Permis";

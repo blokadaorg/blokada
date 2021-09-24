@@ -72,6 +72,7 @@
 "universal label welcome" = "Vítejte!";
 // Common label when some feature has no setting
 "universal label none" = "Žádné";
+
 "universal status processing" = "Zpracovávám... Čekejte prosím.";
 "universal status copied to clipboard" = "Zkopírováno do schránky";
 "universal status restart required" = "Restartujte prosím aplikaci, aby se změny projevily.";
@@ -201,8 +202,6 @@
 "activity filter show allowed" = "Pouze povolené";
 "activity empty text" = "Zkuste použít své zařízení a vraťte se sem později, abyste zjistili, kam se vaše zařízení připojuje.";
 "activity device filter show all" = "Všechna zařízení";
-
-"userdenied section header" = "Moje seznamy hostitelů";
 "userdenied section slugline" = "Spravovat blokování konkrétních webových stránek";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Povolené";

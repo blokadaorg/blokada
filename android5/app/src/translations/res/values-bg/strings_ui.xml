@@ -159,7 +159,6 @@
     <string name="activity_filter_show_allowed">Разрешени само</string>
     <string name="activity_empty_text">Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.</string>
     <string name="activity_device_filter_show_all">Всички устройства</string>
-    <string name="userdenied_section_header">Моите списъци за блокиране</string>
     <string name="userdenied_section_slugline">Управлявайте блокирането на определени уеб сайтове</string>
     <string name="userdenied_tab_allowed">Разрешени</string>
     <string name="userdenied_tab_blocked">Блокирани</string>

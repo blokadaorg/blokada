@@ -72,6 +72,16 @@
 "universal label welcome" = "歡迎！";
 // Common label when some feature has no setting
 "universal label none" = "無";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "名稱";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "時間";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "數量";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "類型";
+"universal label device" = "裝置";
+
 "universal status processing" = "處理中… 請稍候。";
 "universal status copied to clipboard" = "已複製到剪貼簿";
 "universal status restart required" = "請重新啟動 APP 以套用變更。";
@@ -201,13 +211,22 @@
 "activity filter show allowed" = "只有允許項目";
 "activity empty text" = "嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。";
 "activity device filter show all" = "所有裝置";
+"activity retention header" = "我們可以儲存您的使用活動多久？";
+"activity retention option none" = "不要儲存我的使用活動";
+"activity retention option 24h" = "24 小時";
+"activity retention policy" = "啟用使用活動保留即代表您接受 Blokada Cloud 隱私權政策。";
+"activity retention desc" = "Blokada Cloud 預設並不會紀錄任何東西。如果您想要檢視您所有裝置的彙整統計資訊與活動，請在下方選擇所需的紀錄檔保留時間。如果您想要管理自訂異常，或只是想要看看您的裝置發生了什麼是的話，此功能會很有用。";
 
-"userdenied section header" = "我的阻擋清單";
+"userdenied section header" = "例外";
 "userdenied section slugline" = "管理對特定網站的封鎖";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "使用者允許";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "使用者阻擋";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "允許";
+// A short one word action to block a hostname.
+"userdenied action block" = "阻擋";
 
 "networks section header" = "網路";
 "networks section label" = "調整 WiFi 與行動網路的設定";
@@ -514,3 +533,42 @@
 "homepage developer subheader" = "且想要讓 Blokada 變得更好嗎？";
 "homepage developer desc" = "Blokada 是開放原始碼專案，致力於為 Android 與 iOS 開發最號的廣告封鎖程式與隱私應用程式。看看我們的 GitHub，如果您需要任何協助來進行您的第一次 PR 的話，請讓我們知道。";
 "homepage developer action" = "前往 repo";
+
+"web vpn devices header" = "VPN 裝置";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "開啟 VPN 裝置";
+"web action open setup" = "開啟設定";
+"web cta plus header" = "升級到 Blokada Plus，您的隱私權不用再任人宰割。";
+"web cta plus desc" = "您的 Libre 帳戶賜予您在 Android 及 iOS，使用我們開放原始碼 App，免費在裝置上進行廣告阻擋的功能。若需更完善的保護，請升級到 Blokada Plus，取得 VPN 和我們既快又能輕鬆上手的雲端廣告阻擋功能。";
+// A short word for a button to generate profile
+"web action generate" = "產生";
+
+"setup header" = "設定";
+"setup desc" = "有很多方法可以讓您的裝置接上 Blokada Cloud。請選擇適合您的方法。";
+"setup label which device" = "您想設定什麼裝置？";
+"setup label choose" = "請選擇下述任一設定選項：";
+"setup comment wireguard" = "注意：使用 Blokada VPN 會自動啟用 Blokada Cloud DNS。我們還在製作這個平台的更多安裝方式。「WireGuard」和「Wireguard」標誌是 Jason A. Donenfeld 註冊的商標。";
+"setup comment native apps" = "注意：Android 和 iOS 的原生 App 尚未支援 Blokada Cloud。這個功能還在製作中。";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "第 %@ 步：%@";
+"setup option label recommended" = "建議設定：%@";
+"setup option label alternative" = "備用方案：%@";
+"setup name label unnamed" = "（未命名）";
+
+"setup step name" = "裝置名稱（選填）";
+"setup step copy" = "複製主機名稱";
+"setup step apply config" = "套用新設定";
+"setup step install" = "安裝並啟動 App";
+"setup step enter tag" = "詢問時請輸入您的標籤 (tag)";
+"setup step download profile" = "產生並下載量身打造的設定檔";
+"setup step install wireguard" = "安裝並啟動 Wireguard";
+
+"stats header" = "統計";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "比例";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "請求";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "各個時期的請求數變化";
+"stats top allowed header" = "允許最多次的請求";
+"stats top blocked header" = "阻擋最多次的請求";

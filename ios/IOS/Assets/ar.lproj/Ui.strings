@@ -72,6 +72,16 @@
 "universal label welcome" = "مرحباً !";
 // Common label when some feature has no setting
 "universal label none" = "لا يوجد";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "الاسم";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "الوقت";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "العدد";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "النوع";
+"universal label device" = "الجهاز";
+
 "universal status processing" = "جارِ المعالجة... انتظر من فضلك.";
 "universal status copied to clipboard" = "تَمّ النسخ إلى الحافظة";
 "universal status restart required" = "الرجاء إعادة تشغيل التطبيق لتصبح التغييرات سارية المفعول.";
@@ -201,13 +211,22 @@
 "activity filter show allowed" = "مسموح فقط";
 "activity empty text" = "حاول استخدام جهازك، و العودة إلى هنا لاحقاً، لمعرفة من أين يتّصل جهازك.";
 "activity device filter show all" = "جميع الأجهزة";
+"activity retention header" = "كم من الوقت يمكننا تخزين نشاطك؟";
+"activity retention option none" = "لا تقم بتخزين نشاطي";
+"activity retention option 24h" = "24 ساعة";
+"activity retention policy" = "من خلال تمكين الاحتفاظ بالسجلات ، فإنك تقبل سياسة خصوصيّة Blokada Cloud.";
+"activity retention desc" = "لا تقوم Blokada Cloud بتسجيل أي شيء بشكل افتراضي. إذا كنت ترغب في رؤية الإحصائيّات و النشاط المجمَّع من جميع أجهزتك ، فاختر فترة الإحتفاظ بالسجلّات المطلوبة أدناه. هذه الوظيفة مفيدة إذا كنت ترغب في إدارة استثناءات مخصّصة ، أو مجرد إلقاء نظرة عامة على ما يحدث على أجهزتك.";
 
-"userdenied section header" = "قوائم الحظر الخاصّة بي";
+"userdenied section header" = "الاستثناءات";
 "userdenied section slugline" = "إدارة حظر مواقع ويب معيَّنة";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "المسموح به";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "المَحظور";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "السماح";
+// A short one word action to block a hostname.
+"userdenied action block" = "حَظْر";
 
 "networks section header" = "الشبكات";
 "networks section label" = "ضبط إعدادات WiFi و شبكات الجوّال";
@@ -514,3 +533,42 @@
 "homepage developer subheader" = "هل تريد أن تجعل بلوكادا أفضل؟";
 "homepage developer desc" = "بلوكادا هو مشروع مفتوح المصدر مخصَّص لتطوير أفضل تطبيق لحظر الإعلانات و الخصوصيّة لنظاميّ التشغيل Android و iOS. تحقّق من Github ، وأخبرنا ، إذا كنت بحاجة إلى أي مساعدة لإجراء أول استعراض لك.";
 "homepage developer action" = "الذهاب إلى المخزن";
+
+"web vpn devices header" = "أجهزة VPN";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "فتح أجهزة VPN";
+"web action open setup" = "فتح الإعداد";
+"web cta plus header" = "قم بالترقية إلى Blokada Plus لكي تبقى مسيطر على خصوصيّتك.";
+"web cta plus desc" = "يمنحك حساب Libre الخاصّ بك إمكانيّة حظر الإعلانات مجّاناً على الجهاز لنظامي التشغيل Android و iOS من خلال تطبيقاتنا مفتوحة المصدر. للحصول على حماية أفضل ، قم بالترقية إلى Blokada Plus واحصل على VPN ، بالإضافة إلى ميّزة * حظر الإعلانات السحابيّة * الجديدة التي تتميّز بالسرعة و سهولة الإستخدام.";
+// A short word for a button to generate profile
+"web action generate" = "توليد";
+
+"setup header" = "الإعداد";
+"setup desc" = "هناك العديد من الطرق لتهيئة جهازك لاستخدام Blokada Cloud. اختر ما يناسبك.";
+"setup label which device" = "ما نوع الجهاز الذي ترغب في إعداده؟";
+"setup label choose" = "اختر أيّاً من خيارات الإعداد التالية:";
+"setup comment wireguard" = "ملاحظة: يؤدّي استخدام Blokada VPN تلقائيّاً إلى تمكين Blokada Cloud DNS. نحن نعمل على دعم الإعدادات الأخرى لهذه المنصّة. \"WireGuard\" و شعار \"Wireguard\" هما علامتان تجاريّتان مسجّلتان لشركة Jason A. Donenfeld.";
+"setup comment native apps" = "ملاحظة: التطبيقات الأصليّة للأندرويد و iOS لا تدعم Blokada Cloud بعد. نحن نعمل على التحديث.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "الخطوة %@: %@";
+"setup option label recommended" = "موصى به: %@";
+"setup option label alternative" = "بديل: %@";
+"setup name label unnamed" = "(بدون اسم)";
+
+"setup step name" = "قم بتسمية جهازك (اختياري)";
+"setup step copy" = "نسخ اسم المضيف الخاصّ بك";
+"setup step apply config" = "استخدام التهيئة الجديدة";
+"setup step install" = "تثبيت و بدء التطبيق الخاصّ بنا";
+"setup step enter tag" = "عند السؤال، أدخل العلامة الخاصّة بك";
+"setup step download profile" = "إنشاء و تنزيل ملفّك الشخّصي";
+"setup step install wireguard" = "تثبيت و بدء Wireguard";
+
+"stats header" = "الإحصائيّات";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "النسبة";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "الطلبات";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "الاستفسارات عبر الوقت";
+"stats top allowed header" = "أكثر الطلبات المسموح بها";
+"stats top blocked header" = "أكثر الطلبات المَحظورة";

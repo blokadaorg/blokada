@@ -72,6 +72,16 @@
 "universal label welcome" = "Welcome!";
 // Common label when some feature has no setting
 "universal label none" = "None";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Name";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Time";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Count";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Type";
+"universal label device" = "Device";
+
 "universal status processing" = "Processing... Please wait.";
 "universal status copied to clipboard" = "Copied to Clipboard";
 "universal status restart required" = "Please restart the app for the changes to take effect.";
@@ -201,13 +211,22 @@
 "activity filter show allowed" = "Allowed only";
 "activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
 "activity device filter show all" = "All devices";
+"activity retention header" = "For how long can we store your activity?";
+"activity retention option none" = "Do not store my activity";
+"activity retention option 24h" = "24 hours";
+"activity retention policy" = "By enabling log retention you accept Blokada Cloud Privacy Policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.";
 
-"userdenied section header" = "My blocklists";
+"userdenied section header" = "Exceptions";
 "userdenied section slugline" = "Manage blocking of particular websites";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Allowed";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blocked";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Allow";
+// A short one word action to block a hostname.
+"userdenied action block" = "Block";
 
 "networks section header" = "Networks";
 "networks section label" = "Adjust settings for WiFi and mobile networks";
@@ -514,3 +533,42 @@
 "homepage developer subheader" = "and want to make Blokada better?";
 "homepage developer desc" = "Blokada is an open source project dedicated to developing the best ad blocker and privacy app for Android and iOS. Check our Github, and let us know, if you need any assistance to make your first PR.";
 "homepage developer action" = "Go to repo";
+
+"web vpn devices header" = "VPN Devices";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Open VPN Devices";
+"web action open setup" = "Open setup";
+"web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
+"web cta plus desc" = "Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.";
+// A short word for a button to generate profile
+"web action generate" = "Generate";
+
+"setup header" = "Setup";
+"setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
+"setup label which device" = "What type of device you wish to set up?";
+"setup label choose" = "Choose any of the following setup options:";
+"setup comment wireguard" = "Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+"setup comment native apps" = "Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Step %@: %@";
+"setup option label recommended" = "Recommended: %@";
+"setup option label alternative" = "Alternative: %@";
+"setup name label unnamed" = "(unnamed)";
+
+"setup step name" = "Name your device (optional)";
+"setup step copy" = "Copy your hostname";
+"setup step apply config" = "Apply the new configuration";
+"setup step install" = "Install and start our app";
+"setup step enter tag" = "When asked, enter your tag";
+"setup step download profile" = "Generate and download your profile";
+"setup step install wireguard" = "Install and start Wireguard";
+
+"stats header" = "Stats";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Ratio";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Requests";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Queries over time";
+"stats top allowed header" = "Top allowed requests";
+"stats top blocked header" = "Top blocked requests";

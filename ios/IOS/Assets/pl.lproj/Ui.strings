@@ -72,6 +72,16 @@
 "universal label welcome" = "Witaj!";
 // Common label when some feature has no setting
 "universal label none" = "Brak";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Nazwa";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Czas";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Ilość";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Typ";
+"universal label device" = "Urządzenie";
+
 "universal status processing" = "Przetwarzanie, proszę czekać...";
 "universal status copied to clipboard" = "Skopiowano do schowka";
 "universal status restart required" = "Proszę uruchom ponownie aplikację, by zmiany zostały zastosowane.";
@@ -201,13 +211,22 @@
 "activity filter show allowed" = "Tylko dozwolone";
 "activity empty text" = "Spróbuj użyć swojego urządzenia i wróć tutaj później, aby sprawdzić, gdzie łączy się Twoje urządzenie.";
 "activity device filter show all" = "Wszystkie urządzenia";
+"activity retention header" = "Jak długo możemy przechowywać Twoją aktywność?";
+"activity retention option none" = "Nie przechowuj mojej aktywności";
+"activity retention option 24h" = "24 godziny";
+"activity retention policy" = "Włączając opcję retencji logów, akceptujesz politykę prywatności Blokady Cloud.";
+"activity retention desc" = "Blokada Cloud domyślnie niczego nie loguje. Jeśli chcesz zobaczyć zagregowane statystyki i aktywność ze wszystkich swoich urządzeń, wybierz poniżej żądany okres przechowywania logów. Ta funkcja jest przydatna, jeśli chcesz zarządzać niestandardowymi wyjątkami lub po prostu mieć przegląd tego, co dzieje się na Twoich urządzeniach.";
 
-"userdenied section header" = "Moje listy blokowania";
+"userdenied section header" = "Wyjątki";
 "userdenied section slugline" = "Zarządzaj blokowaniem poszczególnych stron";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Dozwolone";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Zablokowane";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Zezwól";
+// A short one word action to block a hostname.
+"userdenied action block" = "Zablokuj";
 
 "networks section header" = "Sieci";
 "networks section label" = "Dostosuj ustawienia WiFi i sieci komórkowych";
@@ -514,3 +533,42 @@
 "homepage developer subheader" = "i chcesz ulepszyć Blokadę?";
 "homepage developer desc" = "Blokada jest projektem open source poświęconym stworzeniu najlepszej aplikacji do blokowania reklam i ochrony prywatności dla Androida i iOS. Sprawdź nasz Github i daj nam znać, jeśli potrzebujesz pomocy przy stworzeniu pierwszego PR.";
 "homepage developer action" = "Przejdź do repozytorium";
+
+"web vpn devices header" = "Urządzenia VPN";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Otwórz Urządzenia VPN";
+"web action open setup" = "Otwórz konfigurację";
+"web cta plus header" = "Ulepsz do Blokady Plus, aby zachować kontrolę nad prywatnością.";
+"web cta plus desc" = "Twoje konto Libre daje darmowe blokowanie reklam na urządzeniach z systemami Android i iOS za pomocą naszych aplikacji open source. Aby jeszcze lepiej się zabezpieczyć, uaktualnij do Blokady Plus i uzyskaj VPN, jak również nasze nowe *blokowanie w chmurze*, które jest szybsze i łatwiejsze w użyciu.";
+// A short word for a button to generate profile
+"web action generate" = "Wygeneruj";
+
+"setup header" = "Konfiguracja";
+"setup desc" = "Istnieje wiele sposobów na skonfigurowanie urządzenia do korzystania z Blokady Cloud. Wybierz ten, który Ci odpowiada.";
+"setup label which device" = "Jaki typ urządzenia chcesz skonfigurować?";
+"setup label choose" = "Wybierz jedną z następujących opcji konfiguracji:";
+"setup comment wireguard" = "Uwaga: korzystanie z VPN Blokady automatycznie włącza DNS Blokady Cloud. Pracujemy nad obsługą innych konfiguracji na tej platformie. „WireGuard” i „Wireguard” są zarejestrowanymi znakami towarowymi Jasona A. Donenfelda.";
+"setup comment native apps" = "Uwaga: natywne aplikacje dla Androida i iOS nie obsługują jeszcze Blokady Cloud. Pracujemy nad aktualizacją.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Krok %@: %@";
+"setup option label recommended" = "Zalecane: %@";
+"setup option label alternative" = "Alternatywa: %@";
+"setup name label unnamed" = "(bez nazwy)";
+
+"setup step name" = "Nazwij urządzenie (opcjonalnie)";
+"setup step copy" = "Skopiuj nazwę hosta";
+"setup step apply config" = "Zastosuj nową konfigurację";
+"setup step install" = "Zainstaluj i uruchom naszą aplikację";
+"setup step enter tag" = "Po wyświetleniu monitu wprowadź swój tag";
+"setup step download profile" = "Wygeneruj i pobierz swój profil";
+"setup step install wireguard" = "Zainstaluj i uruchom Wireguard";
+
+"stats header" = "Statystyka";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Stosunek";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Żądania";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Zapytania w czasie";
+"stats top allowed header" = "Najczęściej zezwalane";
+"stats top blocked header" = "Najczęściej blokowane";

@@ -159,7 +159,6 @@
     <string name="activity_filter_show_allowed">Somente permitidos</string>
     <string name="activity_empty_text">Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.</string>
     <string name="activity_device_filter_show_all">Todos os dispositivos</string>
-    <string name="userdenied_section_header">Minhas listas de bloqueio</string>
     <string name="userdenied_section_slugline">Gerenciar bloqueio de sites específicos</string>
     <string name="userdenied_tab_allowed">Permitido</string>
     <string name="userdenied_tab_blocked">Bloqueado</string>

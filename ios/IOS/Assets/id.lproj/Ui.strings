@@ -72,6 +72,16 @@
 "universal label welcome" = "Selamat Datang!";
 // Common label when some feature has no setting
 "universal label none" = "Tidak ada";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Nama";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Waktu";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Jumlah";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Jenis";
+"universal label device" = "Perangkat";
+
 "universal status processing" = "Sedang diproses... Harap tunggu.";
 "universal status copied to clipboard" = "Disalin ke clipboard";
 "universal status restart required" = "Silakan restart Blokada agar perubahan bisa diterapkan.";
@@ -201,13 +211,22 @@
 "activity filter show allowed" = "Hanya tampilkan entri yang diizinkan";
 "activity empty text" = "Coba gunakan perangkat Anda, lalu kembali ke sini untuk melihat perangkat Anda terhubung ke mana.";
 "activity device filter show all" = "Semua perangkat";
+"activity retention header" = "Berapa lama kami bisa menyimpan aktifitas Anda?";
+"activity retention option none" = "Jangan simpan aktifitas saya";
+"activity retention option 24h" = "24 jam";
+"activity retention policy" = "Dengan mengaktifkan penyimpanan log berarti Anda menyetujui kebijakan privasi dari Blokada Cloud.";
+"activity retention desc" = "Blokada Cloud tidak menyimpan log secara default. Jika Anda ingin melihat kumpulan statistik dan aktifitas dari semua perangkat Anda, silakan pilih periode penyimpanan log di bawah. Fitur ini hanya berguna jika Anda ingin mengatur pengecualian yang Anda tentukan sendiri, atau ingin mempunyai gambaran atas apa yang terjadi pada perangkat Anda.";
 
-"userdenied section header" = "Daftar Cekal Saya";
+"userdenied section header" = "Pengecualian";
 "userdenied section slugline" = "Atur pemblokiran untuk situs-situs tertentu";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Diizinkan";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Diblokir";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Izinkan";
+// A short one word action to block a hostname.
+"userdenied action block" = "Blokir";
 
 "networks section header" = "Jaringan";
 "networks section label" = "Pengaturan untuk WiFi dan jaringan seluler";
@@ -514,3 +533,42 @@
 "homepage developer subheader" = "dan Anda ingin membuat Blokada lebih baik lagi?";
 "homepage developer desc" = "Blokada adalah proyek open source yang didedikasikan untuk membuat aplikasi pemblokir iklan dan penjaga privasi di platform Android dan iOS. Silahkan buka GitHub kami, dan beritahu kami jika Anda membutuhkan bantain dalam membuat PR pertama Anda di sana.";
 "homepage developer action" = "Buka repo";
+
+"web vpn devices header" = "Perangkat VPN";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Buka Perangkat VPN";
+"web action open setup" = "Buka Setup";
+"web cta plus header" = "Upgrade ke Blokada Plus supaya Anda bisa mengendalikan privasi Anda.";
+"web cta plus desc" = "Akun LIbre Anda memberikan pemblokiran iklan gratis di perangkat Anda, baik di Android maupun iOS dengan aplikasi open source kami. Untuk perlindungan yang lebih baik, silakan upgrade akun Anda ke Blokada Plus dan dapatkan Blokada VPN beserta fitur terbaru kami yaitu pemblokiran iklan berbasis cloud yang lebih gegas dan mudah digunakan.";
+// A short word for a button to generate profile
+"web action generate" = "Buat profil";
+
+"setup header" = "Pengaturan";
+"setup desc" = "Ada banyak cara untuk mengkonfigurasikan perangkat Anda agar bisa menggunakan Blokada Cloud. Pilih salah satu yang cocok untuk Anda.";
+"setup label which device" = "Apa jenis pernagkat yang ingin Anda atur untuk Blokada Cloud?";
+"setup label choose" = "Silakan pilih salah satu dari opsi pengaturan berikut:";
+"setup comment wireguard" = "Catatan: JIka Anda menggunakan Blokada VPN maka Blokada CLoud DNS akan otomatis aktif. Kami sedang berusaha untuk bisa mendukung pengaturan lain untuk platform ini. 'Wireguard' dan logo 'Wireguard' adalah merek dagang terdaftar milik Jason A. Donenfeld.";
+"setup comment native apps" = "Catatan: Aplikasi bawaan Android dan iOS saat ini belum mendukung Blokada Cloud. Kami sedang mengusahakan update untuk mengatasi hal ini.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Langkah %@: %@";
+"setup option label recommended" = "Disarankan: %@";
+"setup option label alternative" = "Alternatif: %@";
+"setup name label unnamed" = "(tanpa nama)";
+
+"setup step name" = "Beri nama perangkat Anda (opsional)";
+"setup step copy" = "Salin hostname";
+"setup step apply config" = "Terapkan konfigurasi baru";
+"setup step install" = "Instal dan mulai aplikasi";
+"setup step enter tag" = "Masukkan tag Anda ketika diminta";
+"setup step download profile" = "Buat dan unduh profil Anda";
+"setup step install wireguard" = "Instal dan mulai Wireguard";
+
+"stats header" = "Statistik";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Perbandingan";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Permintaan";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Permintaan dalam periode waktu tertentu";
+"stats top allowed header" = "Permintaan teratas yang diizinkan";
+"stats top blocked header" = "Permintaan teratas yang diblokir";

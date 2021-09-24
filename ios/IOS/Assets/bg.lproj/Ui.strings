@@ -72,6 +72,7 @@
 "universal label welcome" = "Добре дошли!";
 // Common label when some feature has no setting
 "universal label none" = "Нищо";
+
 "universal status processing" = "В процес... Моля, изчакайте.";
 "universal status copied to clipboard" = "Копирано в клипборда";
 "universal status restart required" = "Моля, рестартирайте приложението за да влязат в сила промените.";
@@ -201,8 +202,6 @@
 "activity filter show allowed" = "Разрешени само";
 "activity empty text" = "Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.";
 "activity device filter show all" = "Всички устройства";
-
-"userdenied section header" = "Моите списъци за блокиране";
 "userdenied section slugline" = "Управлявайте блокирането на определени уеб сайтове";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Разрешени";

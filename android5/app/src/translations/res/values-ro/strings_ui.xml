@@ -159,7 +159,6 @@
     <string name="activity_filter_show_allowed">Doar cele permise</string>
     <string name="activity_empty_text">Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.</string>
     <string name="activity_device_filter_show_all">Toate dispozitivele</string>
-    <string name="userdenied_section_header">Blocajele mele</string>
     <string name="userdenied_section_slugline">Gestionați blocarea anumitor site-uri</string>
     <string name="userdenied_tab_allowed">Permis</string>
     <string name="userdenied_tab_blocked">Blocat</string>

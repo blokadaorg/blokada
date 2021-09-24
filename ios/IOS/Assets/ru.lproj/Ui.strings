@@ -72,6 +72,16 @@
 "universal label welcome" = "Добро пожаловать!";
 // Common label when some feature has no setting
 "universal label none" = "Нет";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Название";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Время";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Количество";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Тип";
+"universal label device" = "Устройство";
+
 "universal status processing" = "Обработка... Пожалуйста, подождите.";
 "universal status copied to clipboard" = "Скопировано в буфер обмена";
 "universal status restart required" = "Пожалуйста, перезапустите приложение, чтобы изменения вступили в силу.";
@@ -201,13 +211,22 @@
 "activity filter show allowed" = "Только разрешенные";
 "activity empty text" = "Попробуйте использовать свое устройство, а впоследствии вернитесь сюда, чтобы посмотреть, к чему оно подключается.";
 "activity device filter show all" = "Все устройства";
+"activity retention header" = "Как долго мы можем хранить вашу активность?";
+"activity retention option none" = "Не сохранять мою активность";
+"activity retention option 24h" = "24 часа";
+"activity retention policy" = "Включая сохранение журнала, вы принимаете Политику конфиденциальности Blokada Cloud.";
+"activity retention desc" = "Blokada Cloud по умолчанию не ведет запись журнала. Если вы хотите видеть агрегированную статистику и активность со всех ваших устройств, выберите желаемый период хранения журнала ниже. Эта функция полезна, если вы хотите управлять настраиваемыми исключениями или просто иметь понимание того, что происходит на ваших устройствах.";
 
-"userdenied section header" = "Мои черные списки";
+"userdenied section header" = "Исключения";
 "userdenied section slugline" = "Управление блокировкой определенных сайтов";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Разрешено";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Заблокировано";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Разрешить";
+// A short one word action to block a hostname.
+"userdenied action block" = "Заблокировать";
 
 "networks section header" = "Сети";
 "networks section label" = "Настройка параметров WiFi и мобильных сетей";
@@ -514,3 +533,42 @@
 "homepage developer subheader" = "и хотите сделать Blokada лучше?";
 "homepage developer desc" = "Blokada - это проект с открытым исходным кодом, посвященный разработке лучшего приложения для блокировки рекламы и конфиденциальности для Android и iOS. Посетите наш Github и дайте нам знать, если вам нужна какая-либо помощь, чтобы сделать ваш первый вклад в проект.";
 "homepage developer action" = "Перейти к репозиторию";
+
+"web vpn devices header" = "Устройства VPN";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Открыть устройства VPN";
+"web action open setup" = "Открыть настройки";
+"web cta plus header" = "Перейти на Blokada Plus, чтобы всегда контролировать свою конфиденциальность.";
+"web cta plus desc" = "Ваша учетная запись Libre дает вам бесплатную блокировку рекламы на устройстве Android и iOS с помощью наших приложений с открытым исходным кодом. Для еще большей защиты перейдите на Blokada Plus и получите VPN, а также нашу новую *облачную блокировку рекламы*, которая быстрее и проще в использовании.";
+// A short word for a button to generate profile
+"web action generate" = "Создать";
+
+"setup header" = "Настройка";
+"setup desc" = "Есть много способов настроить ваше устройство для использования Blokada Cloud. Выберите тот, который подходит вам.";
+"setup label which device" = "Какой тип устройства вы хотите настроить?";
+"setup label choose" = "Выберите любой из следующих вариантов настройки:";
+"setup comment wireguard" = "Примечание: использование Blokada VPN автоматически включает Blokada Cloud DNS. Мы работаем над поддержкой других настроек для этой платформы. 'WireGuard' и логотип 'Wireguard' являются зарегистрированными товарными знаками Джейсона А. Доненфельда (Jason A. Donenfeld).";
+"setup comment native apps" = "Примечание. Нативные приложения для Android и iOS пока не поддерживают Blokada Cloud. Мы работаем над обновлением.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Шаг %@: %@";
+"setup option label recommended" = "Рекомендуется: %@";
+"setup option label alternative" = "Альтернативно: %@";
+"setup name label unnamed" = "(без названия)";
+
+"setup step name" = "Назовите свое устройство (необязательно)";
+"setup step copy" = "Скопировать имя хоста";
+"setup step apply config" = "Применить новую конфигурацию";
+"setup step install" = "Установите и запустите наше приложение";
+"setup step enter tag" = "Когда появится запрос, введите свой тег";
+"setup step download profile" = "Создайте и загрузите свой профиль";
+"setup step install wireguard" = "Установите и запустите Wireguard";
+
+"stats header" = "Статистика";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Соотношение";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Запросы";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Запросы по времени";
+"stats top allowed header" = "Топ разрешенных запросов";
+"stats top blocked header" = "Топ заблокированных запросов";

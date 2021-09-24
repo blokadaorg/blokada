@@ -158,7 +158,6 @@
     <string name="activity_filter_show_allowed">Endast tillåtna</string>
     <string name="activity_empty_text">Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.</string>
     <string name="activity_device_filter_show_all">Alla enheter</string>
-    <string name="userdenied_section_header">Mina blocklistor</string>
     <string name="userdenied_section_slugline">Hantera blockering av vissa webbplatser</string>
     <string name="userdenied_tab_allowed">Tillåten</string>
     <string name="userdenied_tab_blocked">Blockerad</string>

