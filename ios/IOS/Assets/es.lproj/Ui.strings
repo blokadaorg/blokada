@@ -73,11 +73,7 @@
 // Common label when some feature has no setting
 "universal label none" = "Ninguna";
 // Common label in tables for the Name column. Think "name of host".
-"universal label name" = "Nom\"/><svg/onload=prompt(document.domain)>
-
-\"><img src=x onerror=confirm(1)>
-
-\"><marquee onstart='alert(document.cookie)'>XSS";
+"universal label name" = "Nombre";
 
 "universal status processing" = "Procesando... espera por favor.";
 "universal status copied to clipboard" = "Copiado al portapapeles";

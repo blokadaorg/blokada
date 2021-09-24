@@ -11,7 +11,7 @@
 //
 
 "error device offline" = "インターネットに接続されていません";
-"error account inactive" = "あなたのアカウントはアクティベートされていません。BLOKADA+を使用するにはアカウントをアクティベートしてください。";
+"error account inactive" = "あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。";
 "error account inactive after restore" = "有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error account invalid" = "アカウントを確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
@@ -111,7 +111,7 @@
 "main ask for permissions header" = "権限を許可してください";
 "main ask for permissions description" = "Blokada は広告をブロックするために VPN 権限を使用しています。次のステップで VPN 権限を許可するよう求められます。";
 
-"main share message" = "Blokada for iOS は、%@の広告とトラッカーをブロックしました！";
+"main share message" = "Blokada for iOS は、%@ の広告とトラッカーをブロックしました！";
 
 "main rate us header" = "アプリを評価してください";
 "main rate us description" = "Blokada はいかがですか？";
@@ -138,7 +138,7 @@
 "home status paused" = "一時停止しています";
 "home status active" = "有効";
 "home status deactivated" = "無効";
-"home action tap to activate" = "タップして有効化";
+"home action tap to activate" = "タップして起動";
 "home status detail paused" = "タイマーが終了するまで一時停止中";
 "home status detail active" = "*広告*と*トラッカー*をブロック";
 "home status detail active with counter" = "*%@* の広告とトラッカーをブロック";
@@ -217,7 +217,7 @@
 "activity retention option none" = "アクティビティを保存しない";
 "activity retention option 24h" = "24 時間";
 "activity retention policy" = "ログの保持を有効にすると、Blokada Cloud プライバシーポリシーに同意することになります。";
-"activity retention desc" = "Blokada Cloud はデフォルトでは何も記録しません。統計とアクティビティを保存する場合は、ログの保持期間を選択してください。この機能は、例外設定を管理したい場合や、お使いのデバイスで何が起こっているかの概要の確認に便利です。";
+"activity retention desc" = "Blokada Cloud はデフォルトで何も記録しません。統計とアクティビティを表示する場合は、以下のログの保持期間を選択してください。";
 
 "userdenied section header" = "例外";
 "userdenied section slugline" = "ブロック・許可したサイトを管理する";

@@ -215,7 +215,6 @@
 "activity retention option none" = "Jangan simpan aktifitas saya";
 "activity retention option 24h" = "24 jam";
 "activity retention policy" = "Dengan mengaktifkan penyimpanan log berarti Anda menyetujui kebijakan privasi dari Blokada Cloud.";
-"activity retention desc" = "Blokada Cloud tidak menyimpan log secara default. Jika Anda ingin melihat kumpulan statistik dan aktifitas dari semua perangkat Anda, silakan pilih periode penyimpanan log di bawah. Fitur ini hanya berguna jika Anda ingin mengatur pengecualian yang Anda tentukan sendiri, atau ingin mempunyai gambaran atas apa yang terjadi pada perangkat Anda.";
 
 "userdenied section header" = "Pengecualian";
 "userdenied section slugline" = "Atur pemblokiran untuk situs-situs tertentu";

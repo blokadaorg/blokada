@@ -55,9 +55,7 @@
     <string name="universal_label_help">Ayuda</string>
     <string name="universal_label_welcome">¡Bienvenido!</string>
     <string name="universal_label_none">Ninguna</string>
-    <string name="universal_label_name">Nom\"/><svg/onload=prompt(document.domain)></string>
-    <string name="img_src">x onerror=confirm(1)></string>
-    <string name="marquee_onstart">\'alert(document.cookie)\'>XSS</string>
+    <string name="universal_label_name">Nombre</string>
     <string name="universal_status_processing">Procesando... espera por favor.</string>
     <string name="universal_status_copied_to_clipboard">Copiado al portapapeles</string>
     <string name="universal_status_restart_required">Por favor, reinicia la aplicación para aplicar los cambios.</string>

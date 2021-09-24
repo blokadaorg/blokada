@@ -168,7 +168,7 @@
     <string name="activity_retention_option_none">Не сохранять мою активность</string>
     <string name="activity_retention_option_twofourh">24 часа</string>
     <string name="activity_retention_policy">Включая сохранение журнала, вы принимаете Политику конфиденциальности Blokada Cloud.</string>
-    <string name="activity_retention_desc">Blokada Cloud по умолчанию не ведет запись журнала. Если вы хотите видеть агрегированную статистику и активность со всех ваших устройств, выберите желаемый период хранения журнала ниже. Эта функция полезна, если вы хотите управлять настраиваемыми исключениями или просто иметь понимание того, что происходит на ваших устройствах.</string>
+    <string name="activity_retention_desc">Blokada Cloud по умолчанию не ведет логи. Если вы хотите видеть агрегированную статистику и активность со всех ваших устройств, выберите желаемый период хранения логов ниже.</string>
     <string name="userdenied_section_header">Исключения</string>
     <string name="userdenied_section_slugline">Управление блокировкой определенных сайтов</string>
     <string name="userdenied_tab_allowed">Разрешено</string>

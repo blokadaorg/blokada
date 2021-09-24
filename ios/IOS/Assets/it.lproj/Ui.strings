@@ -214,7 +214,8 @@
 "activity retention header" = "Per quanto tempo possiamo memorizzare la tua attività?";
 "activity retention option none" = "Non memorizzare la mia attività";
 "activity retention option 24h" = "24 ore";
-"activity retention policy" = "Attivando la conservazione del log, accetti l'Informativa sulla Privacy di Blokada Cloud.";
+"activity retention policy" = "Attivando la conservazione dell'attività, accetti l'Informativa sulla Privacy di Blokada Cloud.";
+"activity retention desc" = "Per impostazione predefinita, Blokada Cloud non colleziona alcun dato. Se desideri tenere traccia delle statistiche e delle attività di tutti i tuoi dispositivi, scegli qui sotto l'opzione di memorizzazione che preferisci.";
 
 "userdenied section header" = "Eccezioni";
 "userdenied section slugline" = "Gestisci il blocco di particolari siti web";
@@ -538,20 +539,21 @@
 "web vpn devices open action" = "Apri Dispositivi VPN";
 "web action open setup" = "Apri configurazione";
 "web cta plus header" = "Aggiorna a Blokada Plus per mantenere il controllo della tua privacy.";
-"web cta plus desc" = "Il tuo account Libre ti offre un adblocking gratuito per Android e iOS con le nostre app open source. Per una protezione ancora migliore, aggiorna a Blokada Plus e ottieni la VPN, così come il nostro nuovo *cloud adblocking* che è più veloce e facile da usare.";
+"web cta plus desc" = "Il tuo account Gratuito ti offre un blocco pubblicità per Android e iOS grazie alle nostre app open source. Per una protezione ancora migliore, aggiorna a Blokada Plus e ottieni la VPN, così come il nostro nuovo *cloud adblocking* che è più veloce e facile da usare.";
 // A short word for a button to generate profile
 "web action generate" = "Genera";
 
 "setup header" = "Configurazione";
-"setup desc" = "Ci sono molti modi per configurare il tuo dispositivo per usare Blokada Cloud. Scegli quello che funziona per te.";
-"setup label which device" = "Che tipo di dispositivo si desidera configurare?";
-"setup label choose" = "Usa una delle seguenti opzioni:";
-"setup comment wireguard" = "Nota: L'utilizzo di Blokada VPN abilita automaticamente Blokada Cloud DNS. Stiamo lavorando per supportare altre configurazioni per questa piattaforma. 'WireGuard' e il logo 'Wireguard' sono marchi registrati di Jason A. Donenfeld.";
+"setup desc" = "Ci sono molti modi per configurare il tuo dispositivo per usare Blokada Cloud. Scegli quello che ti è più congeniale.";
+"setup label which device" = "Che tipo di dispositivo desideri configurare?";
+"setup label choose" = "Scegli una delle seguenti opzioni:";
+"setup comment wireguard" = "Nota: l'utilizzo di Blokada VPN abilita automaticamente Blokada Cloud DNS. Stiamo lavorando per supportare altre configurazioni per questa piattaforma. 'WireGuard' e il logo 'Wireguard' sono marchi registrati di Jason A. Donenfeld.";
 "setup comment native apps" = "Nota: le app native per Android e iOS non supportano ancora Blokada Cloud. Stiamo lavorando sull'aggiornamento.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Passo %@: %@";
 "setup option label recommended" = "Consigliato: %@";
 "setup option label alternative" = "Alternativa: %@";
+"setup name label unnamed" = "(senza nome)";
 
 "setup step name" = "Nome del dispositivo (opzionale)";
 "setup step copy" = "Copia il tuo hostname";

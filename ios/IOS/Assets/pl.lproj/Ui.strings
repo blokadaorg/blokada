@@ -215,7 +215,7 @@
 "activity retention option none" = "Nie przechowuj mojej aktywności";
 "activity retention option 24h" = "24 godziny";
 "activity retention policy" = "Włączając opcję retencji logów, akceptujesz politykę prywatności Blokady Cloud.";
-"activity retention desc" = "Blokada Cloud domyślnie niczego nie loguje. Jeśli chcesz zobaczyć zagregowane statystyki i aktywność ze wszystkich swoich urządzeń, wybierz poniżej żądany okres przechowywania logów. Ta funkcja jest przydatna, jeśli chcesz zarządzać niestandardowymi wyjątkami lub po prostu mieć przegląd tego, co dzieje się na Twoich urządzeniach.";
+"activity retention desc" = "Blokada Cloud domyślnie niczego nie loguje. Jeśli chcesz zobaczyć zagregowaną statystykę i aktywność na wszystkich swoich urządzeniach, wybierz poniżej żądany okres przechowywania logów.";
 
 "userdenied section header" = "Wyjątki";
 "userdenied section slugline" = "Zarządzaj blokowaniem poszczególnych stron";

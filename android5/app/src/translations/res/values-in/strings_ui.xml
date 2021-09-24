@@ -168,7 +168,6 @@
     <string name="activity_retention_option_none">Jangan simpan aktifitas saya</string>
     <string name="activity_retention_option_twofourh">24 jam</string>
     <string name="activity_retention_policy">Dengan mengaktifkan penyimpanan log berarti Anda menyetujui kebijakan privasi dari Blokada Cloud.</string>
-    <string name="activity_retention_desc">Blokada Cloud tidak menyimpan log secara default. Jika Anda ingin melihat kumpulan statistik dan aktifitas dari semua perangkat Anda, silakan pilih periode penyimpanan log di bawah. Fitur ini hanya berguna jika Anda ingin mengatur pengecualian yang Anda tentukan sendiri, atau ingin mempunyai gambaran atas apa yang terjadi pada perangkat Anda.</string>
     <string name="userdenied_section_header">Pengecualian</string>
     <string name="userdenied_section_slugline">Atur pemblokiran untuk situs-situs tertentu</string>
     <string name="userdenied_tab_allowed">Diizinkan</string>

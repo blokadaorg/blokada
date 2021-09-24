@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_device_offline">インターネットに接続されていません</string>
-    <string name="error_account_inactive">あなたのアカウントはアクティベートされていません。BLOKADA+を使用するにはアカウントをアクティベートしてください。</string>
+    <string name="error_account_inactive">あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。</string>
     <string name="error_account_inactive_after_restore">有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。</string>
     <string name="error_account_invalid">アカウントを確認してください</string>
     <string name="error_creating_account">新しいアカウントを作成できませんでした。後でもう一度お試しください。</string>
@@ -81,7 +81,7 @@
     <string name="account_active_forever_full">無期限有効</string>
     <string name="main_ask_for_permissions_header">権限を許可してください</string>
     <string name="main_ask_for_permissions_description">Blokada は広告をブロックするために VPN 権限を使用しています。次のステップで VPN 権限を許可するよう求められます。</string>
-    <string name="main_share_message">Blokada for iOS は、%sの広告とトラッカーをブロックしました！</string>
+    <string name="main_share_message">Blokada for iOS は、%s の広告とトラッカーをブロックしました！</string>
     <string name="main_rate_us_header">アプリを評価してください</string>
     <string name="main_rate_us_description">Blokada はいかがですか？</string>
     <string name="main_rate_us_on_app_store">App Store でBlokada を評価していただけませんか？</string>
@@ -99,7 +99,7 @@
     <string name="home_status_paused">一時停止しています</string>
     <string name="home_status_active">有効</string>
     <string name="home_status_deactivated">無効</string>
-    <string name="home_action_tap_to_activate">タップして有効化</string>
+    <string name="home_action_tap_to_activate">タップして起動</string>
     <string name="home_status_detail_paused">タイマーが終了するまで一時停止中</string>
     <string name="home_status_detail_active">*広告*と*トラッカー*をブロック</string>
     <string name="home_status_detail_active_with_counter">*%s* の広告とトラッカーをブロック</string>
@@ -168,7 +168,7 @@
     <string name="activity_retention_option_none">アクティビティを保存しない</string>
     <string name="activity_retention_option_twofourh">24 時間</string>
     <string name="activity_retention_policy">ログの保持を有効にすると、Blokada Cloud プライバシーポリシーに同意することになります。</string>
-    <string name="activity_retention_desc">Blokada Cloud はデフォルトでは何も記録しません。統計とアクティビティを保存する場合は、ログの保持期間を選択してください。この機能は、例外設定を管理したい場合や、お使いのデバイスで何が起こっているかの概要の確認に便利です。</string>
+    <string name="activity_retention_desc">Blokada Cloud はデフォルトで何も記録しません。統計とアクティビティを表示する場合は、以下のログの保持期間を選択してください。</string>
     <string name="userdenied_section_header">例外</string>
     <string name="userdenied_section_slugline">ブロック・許可したサイトを管理する</string>
     <string name="userdenied_tab_allowed">許可リスト</string>
