@@ -91,7 +91,7 @@ struct Account: Codable {
     }
 
     func isActive() -> Bool {
-        return activeUntil() > Date()
+        return active ?? (activeUntil() > Date())
     }
 }
 
