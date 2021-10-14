@@ -79,7 +79,7 @@ class WebFragment : BottomSheetFragment() {
             launchInBrowser(args.url)
         }
 
-        if ((settingsVM.getUseChromeTabs() || Links.isSubscriptionLink(args.url))
+        if ((settingsVM.getUseChromeTabs() || Links.isAvoidWebView(args.url))
             && (tabsServiceBound || bindChromeTabs())) {
             launchInCustomTabs(args.url)
         } else {

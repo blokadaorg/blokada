@@ -46,4 +46,5 @@ object Links {
 
     fun isSubscriptionLink(link: String) = link.startsWith("https://app.blokada.org/activate")
 
+    fun isAvoidWebView(link: String) = isSubscriptionLink(link) || link == donate
 }
