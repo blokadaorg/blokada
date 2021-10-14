@@ -156,7 +156,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         // Try to cycle the stacks on each session or fallback to ipv4
         switch deviceStack {
         case .IPv4:
-            if let nw = networkMonitor, nw.currentPath.supportsIPv6 {
+            if let nw = networkMonitor, nw.currentPath.supportsIPv6, !config.gatewayIpv6.isEmpty {
                 deviceStack = .IPv6
                 return createUDPSession(to: NWHostEndpoint(hostname: config.gatewayIpv6, port: config.gatewayPort), from: nil)
             }
