@@ -52,7 +52,7 @@ class TabViewModel : ObservableObject {
         self.settingsBadge = UserDefaults.standard.integer(forKey: "badge.settings")
         if self.inboxBadge == 0 {
             // First run, set to 1 to highlight the inbox section
-            setInboxUnseen()
+            //setInboxUnseen()
         }
     }
 
