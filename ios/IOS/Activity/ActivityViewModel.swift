@@ -15,7 +15,8 @@ import Foundation
 class ActivityViewModel: ObservableObject {
 
     private let service = ActivityService.shared
-    private let sharedActions = SharedActionsService.shared
+    //private let sharedActions = SharedActionsService.shared
+    private let api = BlockaApiService.shared
 
     var allEntries = [HistoryEntry]()
     @Published var entries = [HistoryEntry]()
@@ -98,6 +99,15 @@ class ActivityViewModel: ObservableObject {
     }
 
     func refreshStats(ok: @escaping Ok<Void> = { _ in }) {
-        self.sharedActions.refreshStats(ok)
+        //self.sharedActions.refreshStats(ok)
+        self.api.getCurrentDeviceActivity { error, activity in
+            guard let activity = activity else {
+                return // TODO
+            }
+            
+            self.service.setEntries(entries: convertActivity(activity: activity))
+
+            ok(())
+        }
     }
 }

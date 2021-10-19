@@ -27,6 +27,8 @@
 		4E118DFA24640356005112C1 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF824640356005112C1 /* FileManager+Extensions.swift */; };
 		4E11D2DA271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2D9271EE7DD0042385B /* DnsProfileConfiguredView.swift */; };
 		4E11D2DB271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2D9271EE7DD0042385B /* DnsProfileConfiguredView.swift */; };
+		4E11D2DD271F14C90042385B /* ActivityConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2DC271F14C90042385B /* ActivityConverter.swift */; };
+		4E11D2DE271F14C90042385B /* ActivityConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2DC271F14C90042385B /* ActivityConverter.swift */; };
 		4E1681A9247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E1681AA247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E1681AC247AF87C0040334B /* ActivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681AB247AF87C0040334B /* ActivityService.swift */; };
@@ -327,6 +329,7 @@
 		4E118DF52463ED24005112C1 /* Swift+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Extensions.swift"; sourceTree = "<group>"; };
 		4E118DF824640356005112C1 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		4E11D2D9271EE7DD0042385B /* DnsProfileConfiguredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnsProfileConfiguredView.swift; sourceTree = "<group>"; };
+		4E11D2DC271F14C90042385B /* ActivityConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityConverter.swift; sourceTree = "<group>"; };
 		4E1681A8247860490040334B /* ActivityItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemView.swift; sourceTree = "<group>"; };
 		4E1681AB247AF87C0040334B /* ActivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityService.swift; sourceTree = "<group>"; };
 		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
@@ -826,6 +829,7 @@
 				4ED41CC02478403E00155C88 /* ActivityView.swift */,
 				4ED41CC32478406800155C88 /* ActivityViewModel.swift */,
 				4ED41CC62478458100155C88 /* SearchBar.swift */,
+				4E11D2DC271F14C90042385B /* ActivityConverter.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -1106,6 +1110,7 @@
 				4E94C2FF2420D3B00008E318 /* PaymentGatewayView.swift in Sources */,
 				4EECA5052418E91D003A2541 /* ChangeAccountView.swift in Sources */,
 				4E78E363245ED1D80017B234 /* PackDetailViewModel.swift in Sources */,
+				4E11D2DD271F14C90042385B /* ActivityConverter.swift in Sources */,
 				4E1A84E12476AE19007FEAFB /* StatsModel.swift in Sources */,
 				4E2ECD0E245B2F38009040F1 /* GridStack.swift in Sources */,
 				4EB63F3C24364D5D009CBAC1 /* StreamReader.swift in Sources */,
@@ -1272,6 +1277,7 @@
 				4E7FE9B3244DC28900851E9F /* Env.swift in Sources */,
 				4EEF1BED2457FBD900734182 /* DebugView.swift in Sources */,
 				4E971F732469809000809EA6 /* PackDownloaderMock.swift in Sources */,
+				4E11D2DE271F14C90042385B /* ActivityConverter.swift in Sources */,
 				4E971F83246C14A400809EA6 /* DeviceTokenService.swift in Sources */,
 				4E7FE9B4244DC28900851E9F /* BenefitView.swift in Sources */,
 				4E2ECD0C245B2B14009040F1 /* TagView.swift in Sources */,

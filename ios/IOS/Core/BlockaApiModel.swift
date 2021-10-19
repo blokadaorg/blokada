@@ -181,6 +181,19 @@ struct LeaseRequest: Codable {
     let alias: String?
 }
 
+struct ActivityWrapper: Decodable {
+    let activity: [Activity]
+}
+
+struct Activity: Decodable {
+    let device_name: String
+    let domain_name: String
+    let action: String
+    let list: String
+    let timestamp: String
+    
+}
+
 struct AppleCheckoutRequest: Codable {
     let account_id: AccountId
     let receipt: String

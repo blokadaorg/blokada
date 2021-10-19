@@ -287,6 +287,51 @@ class BlockaApiService {
             }
         }
     }
+    
+    func getActivity(id: AccountId, done: @escaping Callback<[Activity]>) {
+        self.request(url: self.baseUrl + "/v1/activity?account_id=" + id, done: { (error, result) in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard let stringData = result else {
+                done("getActivity: request returned nil result", nil)
+                return
+            }
+
+            let jsonData = stringData.data(using: .utf8)
+            guard let json = jsonData else {
+                done("getActivity: parsing api response failed", nil)
+                return
+            }
+
+            do {
+                let activities = try self.decoder.decode(ActivityWrapper.self, from: json)
+                done(nil, activities.activity)
+            } catch {
+                self.log.e("getActivity: failed".cause(error))
+                done("getActivity: failed decoding api json response".cause(error), nil)
+            }
+        })
+    }
+
+    func getCurrentDeviceActivity(done: @escaping Callback<[Activity]>) {
+        self.getActivity(id: Config.shared.accountId()) { error, activity in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard let activity = activity else {
+                done("No activity result returned", nil)
+                return
+            }
+
+            let thisDevice = Config.shared.deviceName()
+            done(nil, activity.filter { it in it.device_name == thisDevice })
+        }
+    }
 
     func postAppleCheckout(request: AppleCheckoutRequest, done: @escaping Callback<Account>) {
         guard let body = request.toJson() else {
