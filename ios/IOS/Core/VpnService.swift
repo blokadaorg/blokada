@@ -29,8 +29,10 @@ class VpnService {
             self.network.queryStatus { error, status in
                 self.network.updateConfig(lease: lease, gateway: gateway) { _, _ in
                     if status?.active ?? false {
+                        self.log.v("change gateway, change gateway")
                         self.network.changeGateway(lease: lease, gateway: gateway, done: done)
                     } else {
+                        self.log.v("change gateway, start tunnel")
                         self.network.startTunnel(done: { error, _ in done(error, "") })
                     }
                 }
@@ -38,13 +40,13 @@ class VpnService {
         }
     }
 
-    func disconnect(done: @escaping Callback<String>) {
-        onBackground {
-            self.network.updateConfig(lease: nil, gateway: nil) { _, _ in
-                self.network.disconnect(done: done)
-            }
-        }
-    }
+//    func disconnect(done: @escaping Callback<String>) {
+//        onBackground {
+//            self.network.updateConfig(lease: nil, gateway: nil) { _, _ in
+//                self.network.disconnect(done: done)
+//            }
+//        }
+//    }
 
     func generateKeypair() -> (String, String) {
         return engine.generateKeypair()
@@ -60,11 +62,11 @@ class VpnService {
 
                 if status.active {
                     self.network.stopTunnel { error, _ in
-                        self.network.updateConfig(lease: nil, gateway: nil) { error, _ in
+//                        self.network.updateConfig(lease: nil, gateway: nil) { error, _ in
                             onMain {
                                 done(error, nil)
                             }
-                        }
+//                        }
                     }
                 } else {
                     done(nil, nil)

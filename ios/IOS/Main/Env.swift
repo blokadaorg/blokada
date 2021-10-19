@@ -30,6 +30,10 @@ class Env {
         return UIDevice.current.modelName
     }
 
+    static var name: String {
+        return UIDevice.current.name
+    }
+
     static var cpu: String {
         #if PREVIEW
             return "sim"

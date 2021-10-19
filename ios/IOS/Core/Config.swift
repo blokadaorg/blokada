@@ -161,6 +161,19 @@ class Config {
         return localStorage.bool(forKey: "notFirstRun")
     }
 
+    func deviceTag() -> String {
+        if let key = localStorage.string(forKey: "deviceTag") {
+            return key
+        } else {
+            log.e("Accessing deviceTag before it is set")
+            return ""
+        }
+    }
+
+    func deviceName() -> String {
+        return Env.name
+    }
+
     /**
             Thread safe setters
      */
@@ -243,6 +256,10 @@ class Config {
 
     func markFirstRun() {
         localStorage.set(true, forKey: "notFirstRun")
+    }
+
+    func setDeviceTag(tag: String) {
+        localStorage.set(tag, forKey: "deviceTag")
     }
 
     /**

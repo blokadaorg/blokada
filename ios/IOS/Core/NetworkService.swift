@@ -35,6 +35,10 @@ class NetworkService {
     }
 
     func updateConfig(lease: Lease?, gateway: Gateway?, done: @escaping Callback<Void>) {
+        guard lease != nil, gateway != nil else {
+            return done("Libre mode is no longer supported", nil)
+        }
+
         onBackground {
             self.getManager { error, manager in
                 onMain {

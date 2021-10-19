@@ -150,13 +150,19 @@ struct PowerView: View {
                 } else {
                     self.vm.mainSwitch = true
                     self.vm.switchMain(activate: self.vm.mainSwitch,
-                        noPermissions: {
-                            // A callback trigerred when there is no VPN profile
-                            self.activeSheet = .askvpn
-                        },
-                        showRateScreen: {
-                            self.activeSheet = .rate
-                        }
+                       noPermissions: {
+                           // A callback trigerred when there is no VPN profile
+                           self.activeSheet = .askvpn
+                       },
+                       showRateScreen: {
+                           self.activeSheet = .rate
+                       },
+                       dnsProfileConfigured: {
+                           self.activeSheet = .dnsProfile
+                       },
+                       noActiveAccount: {
+                           self.activeSheet = .plus
+                       }
                     )
                 }
             }
@@ -175,7 +181,7 @@ struct PowerView: View {
                 },
                 .destructive(Text(L10n.homePowerActionTurnOff)) {
                     self.vm.mainSwitch = false
-                    self.vm.switchMain(activate: false, noPermissions: {}, showRateScreen: {})
+                    self.vm.switchMain(activate: false, noPermissions: {}, showRateScreen: {}, dnsProfileConfigured: {}, noActiveAccount: {})
                 },
                 .cancel()
             ])

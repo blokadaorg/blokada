@@ -14,7 +14,7 @@ import SwiftUI
 
 enum ActiveSheet: Identifiable {
     case help, plus, location, activated, askvpn, encryptionExplain,
-         log, sharelog, debug, rate, counter, sharecounter
+         log, sharelog, debug, rate, counter, sharecounter, dnsProfile
 
     var id: Int {
         hashValue
@@ -74,6 +74,8 @@ struct ContentView: View {
                             ShareSheet(activityItems: [L10n.mainShareMessage(self.vm.blockedCounter.compact)])
                         case .help:
                             SupportView(activeSheet: self.$activeSheet)
+                        case .dnsProfile:
+                            DnsProfileConfiguredView(activeSheet: self.$activeSheet)
                         }
                     }
                 }

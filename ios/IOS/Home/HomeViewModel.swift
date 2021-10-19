@@ -22,6 +22,7 @@ class HomeViewModel: ObservableObject {
     private let notification = NotificationService.shared
     private let sharedActions = SharedActionsService.shared
     private let expiration = ExpirationService.shared
+    private let networkDns = NetworkDnsService.shared
 
     init() {
         sharedActions.changeGateway = switchGateway
@@ -34,7 +35,7 @@ class HomeViewModel: ObservableObject {
         network.onStatusChanged = { status in
             onMain {
                 self.working = status.inProgress
-                self.mainSwitch = self.working ? self.mainSwitch : status.active
+                //self.mainSwitch = self.working ? self.mainSwitch : status.active
                 Config.shared.setVpnEnabled(status.hasGateway())
                 self.syncUiWithConfig()
             }
@@ -250,7 +251,7 @@ class HomeViewModel: ObservableObject {
                                 self.log.w("Foreground: synced: missing lease")
                             }
                         }
-                    } else {
+                    } else { // TODO: if cloud, and no active account, popup cta here?
                         self.log.v("Foreground: synced")
                     }
                 }}
@@ -303,7 +304,7 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    func switchMain(activate: Bool, noPermissions: @escaping Ok<Void>, showRateScreen: @escaping Ok<Void>) {
+    func switchMain(activate: Bool, noPermissions: @escaping Ok<Void>, showRateScreen: @escaping Ok<Void>, dnsProfileConfigured: @escaping Ok<Void>, noActiveAccount: @escaping Ok<Void>) {
         onBackground {
             self.ensureAppStartedSuccessfully { error, _ in
                 guard error == nil else {
@@ -336,13 +337,28 @@ class HomeViewModel: ObservableObject {
                         self.log.v("User action: switchMain: enabling: \(activate)")
                         // Ask for permission to send notifications after power on
                         defer { self.notification.askForPermissions() }
-                        self.network.startTunnel { error, _ in onMain {
-                            guard error == nil else {
-                                return self.handleError(CommonError.failedTunnel, cause: error)
-                            }
 
-                            if Config.shared.vpnEnabled() && Config.shared.hasLease() && Config.shared.leaseActive() {
-                                // Vpn should be on, and lease is OK
+                        if Config.shared.vpnEnabled() && Config.shared.hasLease() && Config.shared.leaseActive() {
+                            // Vpn should be on, and lease is OK
+                            self.vpn.changeGateway(lease: Config.shared.lease()!, gateway: Config.shared.gateway()!) { error, _ in onMain {
+                                guard error == nil else {
+                                    Config.shared.clearLease()
+                                    return self.handleError(CommonError.failedTunnel, cause: error)
+                                }
+
+                                self.expiration.update(Config.shared.lease())
+                                self.recheckActiveLeaseAfterActivating()
+                                self.refreshAdsCounter(delay: true)
+                                self.log.v("User action: switchMain: done")
+                            }}
+                        } else if Config.shared.vpnEnabled() && Config.shared.hasLease() && Config.shared.accountActive() {
+                            // Vpn should be on, but lease expired, refresh
+                            self.refreshLease { error, _ in onMain {
+                                guard error == nil else {
+                                    Config.shared.clearLease()
+                                  return self.handleError(CommonError.failedFetchingData, cause: error)
+                                }
+
                                 self.vpn.changeGateway(lease: Config.shared.lease()!, gateway: Config.shared.gateway()!) { error, _ in onMain {
                                     guard error == nil else {
                                         Config.shared.clearLease()
@@ -350,48 +366,66 @@ class HomeViewModel: ObservableObject {
                                     }
 
                                     self.expiration.update(Config.shared.lease())
-                                    self.recheckActiveLeaseAfterActivating()
                                     self.refreshAdsCounter(delay: true)
                                     self.log.v("User action: switchMain: done")
                                 }}
-                            } else if Config.shared.vpnEnabled() && Config.shared.hasLease() && Config.shared.accountActive() {
-                                // Vpn should be on, but lease expired, refresh
-                                self.refreshLease { error, _ in onMain {
+                            }}
+                        } else if Config.shared.vpnEnabled() && Config.shared.hasLease() {
+                            // Vpn should be on, but account has expired
+                            Config.shared.clearLease()
+                            return self.handleError(CommonError.accountInactive, cause: error)
+                        } else if Config.shared.accountActive() {
+                            // Cloud mode
+                            self.api.getCurrentDevice { error, device in
+                                guard error == nil else {
+                                    return self.handleError(CommonError.unknownError, cause: error)
+                                }
+
+                                guard let tag = device?.device_tag else {
+                                    return self.handleError(CommonError.unknownError, cause: "No device tag")
+                                }
+
+                                Config.shared.setDeviceTag(tag: tag)
+
+                                self.networkDns.saveBlokadaNetworkDns(tag: tag, name: Config.shared.deviceName()) { error, _ in
                                     guard error == nil else {
-                                        Config.shared.clearLease()
-                                      return self.handleError(CommonError.failedFetchingData, cause: error)
+                                        return self.handleError(CommonError.unknownError, cause: error)
                                     }
 
-                                    self.vpn.changeGateway(lease: Config.shared.lease()!, gateway: Config.shared.gateway()!) { error, _ in onMain {
-                                        guard error == nil else {
-                                            Config.shared.clearLease()
-                                            return self.handleError(CommonError.failedTunnel, cause: error)
+//                                    self.refreshAdsCounter(delay: true) {
+//                                        if self.shouldShowRateScreen() {
+//                                            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+//                                                showRateScreen(())
+//                                            })
+//                                        }
+//                                    }
+
+                                    // It is possible the profile is already activated by the user
+                                    self.networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in
+                                        guard dnsEnabled == true else {
+                                            // If not, show the prompt
+                                            self.mainSwitch = false
+                                            self.working = false
+                                            self.log.v("User action: switchMain: done, dns profile unactivated")
+                                            return dnsProfileConfigured(())
                                         }
 
-                                        self.expiration.update(Config.shared.lease())
-                                        self.refreshAdsCounter(delay: true)
+                                        self.mainSwitch = true
+                                        self.working = false
                                         self.log.v("User action: switchMain: done")
-                                    }}
-                                }}
-                            } else if Config.shared.vpnEnabled() && Config.shared.hasLease() {
-                                // Vpn should be on, but account has expired
-                                Config.shared.clearLease()
-                                return self.handleError(CommonError.accountInactive, cause: error)
-                            } else {
-                                // Filtering only mode
-                                self.refreshAdsCounter(delay: true) {
-                                    if self.shouldShowRateScreen() {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                                            showRateScreen(())
-                                        })
                                     }
                                 }
-                                self.log.v("User action: switchMain: done")
                             }
-                        }}
+                        } else {
+                            // No activate account, show the payment screen
+                            self.log.v("User action: switchMain: no active account")
+                            noActiveAccount(())
+                        }
+
+
                     } else if !activate && status.active {
                         self.stopTimer()
-                        self.network.stopTunnel { error, _ in onMain {
+                        self.vpn.turnOffEverything { error, _ in onMain {
                             guard error == nil else {
                                 return self.handleError(CommonError.failedTunnel, cause: error)
                             }
@@ -439,7 +473,7 @@ class HomeViewModel: ObservableObject {
                         return self.handleError(CommonError.failedTunnel, cause: error)
                     }
 
-                    if activate && !status.hasGateway() {
+                    if activate {
                         if !Config.shared.accountActive() {
                             Config.shared.setVpnEnabled(false)
                             return self.handleError(CommonError.accountInactive)
@@ -461,7 +495,7 @@ class HomeViewModel: ObservableObject {
                             }}
                         }
                     } else if !activate && Config.shared.hasGateway() {
-                        self.vpn.disconnect { error, _ in onMain {
+                        self.vpn.turnOffEverything { error, _ in onMain {
                             guard error == nil else {
                                 return self.handleError(CommonError.failedVpn, cause: error)
                             }
@@ -539,22 +573,16 @@ class HomeViewModel: ObservableObject {
 
                Config.shared.setVpnEnabled(false)
                Config.shared.clearLease()
-               self.network.updateConfig(lease: nil, gateway: nil, done: { _, _ in })
+               self.vpn.turnOffEverything { _, _ in }
 
                self.network.queryStatus { error, status in onMain {
-                   guard let status = status else {
+                   guard error == nil else {
                         self.mainSwitch = false
                         self.working = false
                         return self.handleError(CommonError.failedTunnel, cause: error)
                    }
 
-                    if status.active && status.hasGateway() {
-                       self.vpn.disconnect { error, _ in onMain {
-                           self.log.v("User action: turnVpnOffAfterExpired disconnected vpn, done")
-                       }}
-                   } else {
-                       self.log.v("User action: turnVpnOffAfterExpired done")
-                   }
+                   self.log.v("User action: turnVpnOffAfterExpired done")
                }}
            }
        }
@@ -580,50 +608,68 @@ class HomeViewModel: ObservableObject {
 
     private func syncUiWithTunnel(done: @escaping Callback<NetworkStatus>) {
         self.log.v("Sync UI with NETX")
-        self.network.queryStatus { error, status in onMain {
-            guard let status = status else {
-                self.log.v("  NETX not active".cause(error))
+        networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in onMain {
+            guard error == nil else {
+                self.log.w("Could not get NetworkDns state".cause(error))
                 self.mainSwitch = false
-                Config.shared.setVpnEnabled(false)
                 self.working = false
                 return done(error, nil)
             }
 
-            if status.inProgress {
-                self.log.v(" NETX in progress")
-                //self.mainSwitch = false
-                //self.vpnEnabled = false
-                self.working = true
-                return done(nil, status)
-            } else if status.active {
-                self.log.v(" NETX active")
-                self.refreshAdsCounter(delay: false)
-                if status.hasGateway() {
-                    self.log.v("  Connected to gateway: \(status.gatewayId!)")
-                    self.mainSwitch = true
-                    Config.shared.setVpnEnabled(true)
-                    self.working = false
+            let mainSwitch = dnsEnabled ?? false
 
-                    if !Config.shared.hasLease() || Config.shared.gateway()?.public_key != status.gatewayId! {
-                        self.log.w("Gateway and lease mismatch, disconnecting VPN")
-                        self.turnVpnOffAfterExpired()
-                        return done(nil, nil)
+            self.network.queryStatus { error, status in onMain {
+                guard let status = status else {
+                    self.log.v("  NETX not active".cause(error))
+                    self.mainSwitch = mainSwitch
+                    Config.shared.setVpnEnabled(false)
+                    self.working = false
+                    return done(error, nil)
+                }
+
+                if status.inProgress {
+                    self.log.v(" NETX in progress")
+                    //self.mainSwitch = false
+                    //self.vpnEnabled = false
+                    self.working = true
+                    return done(nil, status)
+                } else if status.active {
+                    self.log.v(" NETX active")
+                    self.refreshAdsCounter(delay: false)
+                    if status.hasGateway() {
+                        self.log.v("  Connected to gateway: \(status.gatewayId!)")
+                        self.mainSwitch = true
+                        Config.shared.setVpnEnabled(true)
+                        self.working = false
+
+                        if !Config.shared.hasLease() || Config.shared.gateway()?.public_key != status.gatewayId! {
+                            self.log.w("Gateway and lease mismatch, disconnecting VPN")
+                            self.turnVpnOffAfterExpired()
+                            return done(nil, nil)
+                        } else {
+                            return done(nil, status)
+                        }
                     } else {
+                        self.log.w(" NETX in Libre mode, this should not happen")
+                        self.mainSwitch = true
+                        Config.shared.setVpnEnabled(false)
+                        self.working = false
                         return done(nil, status)
                     }
-                } else {
+                } else if (mainSwitch) {
+                    self.log.v(" NETX inactive, Cloud mode")
                     self.mainSwitch = true
                     Config.shared.setVpnEnabled(false)
                     self.working = false
                     return done(nil, status)
+                } else {
+                    self.log.v(" NETX inactive, app deactivated")
+                    self.mainSwitch = false
+                    Config.shared.setVpnEnabled(false)
+                    self.working = false
+                    return done(nil, status)
                 }
-            } else {
-                self.log.v(" NETX inactive")
-                self.mainSwitch = false
-                Config.shared.setVpnEnabled(false)
-                self.working = false
-                return done(nil, status)
-            }
+            }}
         }}
     }
 

@@ -27,7 +27,7 @@ class DebugViewModel {
             sleep(5)
             onMain {
                 let id = Config.shared.accountId()
-                let account = Account(id: id, active_until: "2069-03-15T11:38:38.48383Z", active: true)
+                let account = Account(id: id, active_until: "2069-03-15T11:38:38.48383Z", active: true, type: "plus")
                 SharedActionsService.shared.updateAccount(account)
             }
         }
@@ -39,7 +39,7 @@ class DebugViewModel {
             onMain {
                 let id = Config.shared.accountId()
                 let date = self.dateFormatter.string(from: Date().addingTimeInterval(5))
-                let account = Account(id: id, active_until: date, active: true)
+                let account = Account(id: id, active_until: date, active: true, type: "plus")
                 SharedActionsService.shared.updateAccount(account)
             }
         }

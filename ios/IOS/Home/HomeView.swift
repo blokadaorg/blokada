@@ -45,7 +45,7 @@ struct HomeView: View {
                     .animation(Animation.easeIn(duration: 0.2))
 
                 PowerView(vm: self.vm, activeSheet: self.$activeSheet)
-                    .frame(maxWidth: 170, maxHeight: 170)
+                    .frame(maxWidth: 196, maxHeight: 196)
             }
 
             VStack {
@@ -104,6 +104,12 @@ struct HomeView: View {
                                     },
                                     showRateScreen: {
                                         self.activeSheet = .rate
+                                    },
+                                    dnsProfileConfigured: {
+                                        self.activeSheet = .dnsProfile
+                                    },
+                                    noActiveAccount: {
+                                        self.activeSheet = .plus
                                     }
                                 )
                             }

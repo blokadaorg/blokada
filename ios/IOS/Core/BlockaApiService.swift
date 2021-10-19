@@ -90,8 +90,40 @@ class BlockaApiService {
         })
     }
 
+    func getDevice(id: AccountId, done: @escaping Callback<Device>) {
+        self.request(url: self.baseUrl + "/v1/device?account_id=" + id, done: { (error, result) in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard let stringData = result else {
+                done("getDevice: request returned nil result", nil)
+                return
+            }
+
+            let jsonData = stringData.data(using: .utf8)
+            guard let json = jsonData else {
+                done("getDevice: parsing api response failed", nil)
+                return
+            }
+
+            do {
+                let device = try self.decoder.decode(Device.self, from: json)
+                done(nil, device)
+            } catch {
+                self.log.e("getDevice: failed".cause(error))
+                done("getDevice: failed decoding api json response".cause(error), nil)
+            }
+        })
+    }
+
     func getCurrentAccount(done: @escaping Callback<Account>) {
         self.getAccount(id: Config.shared.accountId(), done: done)
+    }
+
+    func getCurrentDevice(done: @escaping Callback<Device>) {
+        self.getDevice(id: Config.shared.accountId(), done: done)
     }
 
     func getGateways(done: @escaping Callback<[Gateway]>) {

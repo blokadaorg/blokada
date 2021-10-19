@@ -105,11 +105,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
             )
             return self.connectVPN(completionHandler: startTunnelCompletionHandler)
         } else {
-            self.setupDNS(plusMode: false)
+            return startTunnelCompletionHandler("Libre mode unsupported")
+            //self.setupDNS(plusMode: false)
         }
 
-        NELogger.v("PacketTunnelProvider: startTunnel: using black hole configuration")
-        self.filteringOnly(completionHandler: startTunnelCompletionHandler)
+        //NELogger.v("PacketTunnelProvider: startTunnel: using black hole configuration")
+        //self.filteringOnly(completionHandler: startTunnelCompletionHandler)
     }
 
     private func connectVPN(completionHandler: @escaping ((Error?)) -> Void) {

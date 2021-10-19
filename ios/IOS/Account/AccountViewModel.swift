@@ -59,7 +59,7 @@ class AccountViewModel: ObservableObject {
     }
 
     init(mocked: String) {
-        account = Account(id: mocked, active_until: "", active: false)
+        account = Account(id: mocked, active_until: "", active: false, type: "libre")
     }
 
     func openManageSubscriptions() {

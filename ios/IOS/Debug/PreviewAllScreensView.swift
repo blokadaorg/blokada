@@ -42,7 +42,7 @@ struct PreviewAllScreensView: View {
         defaultHomeVM.accountActive = true
 
         let defaultAccountVM = AccountViewModel()
-        defaultAccountVM.account = Account(id: "", active_until: "2069-03-15T11:38:38.48383Z", active: true)
+        defaultAccountVM.account = Account(id: "", active_until: "2069-03-15T11:38:38.48383Z", active: true, type: "plus")
 
         let defaultActivityVM = ActivityViewModel()
         let defaultTabVM = TabViewModel()

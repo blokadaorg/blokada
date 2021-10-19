@@ -72,6 +72,7 @@ struct Account: Codable {
     let id: AccountId
     let active_until: String?
     let active: Bool?
+    let type: String?
 
     func activeUntil() -> ActiveUntil {
         guard let active = active_until else {
@@ -99,6 +100,12 @@ struct AccountWrapper: Decodable {
     let account: Account
 }
 
+struct Device: Codable {
+    let device_tag: String
+    let lists: [String]
+    let retention: String
+}
+
 struct Gateway: Codable {
     let public_key: GatewayId
     let region: String
@@ -121,6 +128,7 @@ struct Gateway: Codable {
 struct Gateways: Decodable {
     let gateways: [Gateway]
 }
+
 struct Lease: Codable, Identifiable {
     let id = UUID()
     let account_id: AccountId

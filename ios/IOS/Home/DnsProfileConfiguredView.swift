@@ -5,19 +5,18 @@
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
-//  Copyright © 2020 Blocka AB. All rights reserved.
+//  Copyright © 2021 Blocka AB. All rights reserved.
 //
 //  @author Karol Gusak
 //
 
 import SwiftUI
 
-struct AskVpnProfileView: View {
+struct DnsProfileConfiguredView: View {
 
-    @ObservedObject var homeVM: HomeViewModel
     @Binding var activeSheet: ActiveSheet?
 
-    private let network = NetworkService.shared
+    private let networkDns = NetworkDnsService.shared
 
     var body: some View {
         NavigationView {
@@ -30,7 +29,7 @@ struct AskVpnProfileView: View {
                     .bold()
                     .padding()
 
-                Text(L10n.mainAskForPermissionsDescription)
+                Text("Blokada Cloud just created a DNS profile for you in Settings. Activate it in General -> VPN & Network -> DNS.")
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .trailing], 40)
                     .padding([.top, .bottom])
@@ -45,9 +44,7 @@ struct AskVpnProfileView: View {
                 VStack {
                     Button(action: {
                         self.activeSheet = nil
-                        self.network.createVpnProfile { _, _ in
-                            self.homeVM.switchMain(activate: true, noPermissions: {}, showRateScreen: {}, dnsProfileConfigured: {}, noActiveAccount: {})
-                        }
+                        self.networkDns.openSettingsScreen()
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
@@ -76,8 +73,8 @@ struct AskVpnProfileView: View {
     }
 }
 
-struct AskVpnProfileView_Previews: PreviewProvider {
+struct DnsProfileConfiguredView_Previews: PreviewProvider {
     static var previews: some View {
-        AskVpnProfileView(homeVM: HomeViewModel(), activeSheet: .constant(nil))
+        DnsProfileConfiguredView(activeSheet: .constant(nil))
     }
 }

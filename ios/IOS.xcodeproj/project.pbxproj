@@ -25,6 +25,8 @@
 		4E118DF72463ED24005112C1 /* Swift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF52463ED24005112C1 /* Swift+Extensions.swift */; };
 		4E118DF924640356005112C1 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF824640356005112C1 /* FileManager+Extensions.swift */; };
 		4E118DFA24640356005112C1 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF824640356005112C1 /* FileManager+Extensions.swift */; };
+		4E11D2DA271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2D9271EE7DD0042385B /* DnsProfileConfiguredView.swift */; };
+		4E11D2DB271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2D9271EE7DD0042385B /* DnsProfileConfiguredView.swift */; };
 		4E1681A9247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E1681AA247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E1681AC247AF87C0040334B /* ActivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681AB247AF87C0040334B /* ActivityService.swift */; };
@@ -236,6 +238,8 @@
 		4EA2783024657E9E00C6372E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
 		4EA2783124657E9E00C6372E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
 		4EAFCE312487BA47003601A1 /* ShowTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAFCE2F2487BA47003601A1 /* ShowTime.swift */; };
+		4EB12415271DA6F600B10595 /* NetworkDnsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB12414271DA6F600B10595 /* NetworkDnsService.swift */; };
+		4EB12416271DA6F600B10595 /* NetworkDnsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB12414271DA6F600B10595 /* NetworkDnsService.swift */; };
 		4EB63F3C24364D5D009CBAC1 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB63F3B24364D5D009CBAC1 /* StreamReader.swift */; };
 		4EC013FE24606F6C001DF5F7 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC013FD24606F6C001DF5F7 /* BadgeView.swift */; };
 		4EC013FF24606F6C001DF5F7 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC013FD24606F6C001DF5F7 /* BadgeView.swift */; };
@@ -322,6 +326,7 @@
 		4E0F6FF1243DB49E002E1DF6 /* PlusButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButtonView.swift; sourceTree = "<group>"; };
 		4E118DF52463ED24005112C1 /* Swift+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Extensions.swift"; sourceTree = "<group>"; };
 		4E118DF824640356005112C1 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
+		4E11D2D9271EE7DD0042385B /* DnsProfileConfiguredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnsProfileConfiguredView.swift; sourceTree = "<group>"; };
 		4E1681A8247860490040334B /* ActivityItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemView.swift; sourceTree = "<group>"; };
 		4E1681AB247AF87C0040334B /* ActivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityService.swift; sourceTree = "<group>"; };
 		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
@@ -464,6 +469,7 @@
 		4EA105C3242BABC200559CBB /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		4EA2782F24657E9E00C6372E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		4EAFCE2F2487BA47003601A1 /* ShowTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTime.swift; sourceTree = "<group>"; };
+		4EB12414271DA6F600B10595 /* NetworkDnsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDnsService.swift; sourceTree = "<group>"; };
 		4EB63F3B24364D5D009CBAC1 /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		4EC013FD24606F6C001DF5F7 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		4EC014002460741C001DF5F7 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
@@ -696,6 +702,7 @@
 				4E290FBF2498A57000FC4C61 /* Localization.swift */,
 				4E9A04612448A93F003AB48D /* NetworkCommand.swift */,
 				4E227F34243479F1004F4955 /* NetworkService.swift */,
+				4EB12414271DA6F600B10595 /* NetworkDnsService.swift */,
 				4E9A045F2448A8C9003AB48D /* NetworkServiceMock.swift */,
 				4EEF1BE72457105E00734182 /* NotificationService.swift */,
 				4E4235532450714E005A0779 /* SharedActionsService.swift */,
@@ -714,6 +721,7 @@
 				4E42354D2450265C005A0779 /* HomeViewModel.swift */,
 				4E0F6FF1243DB49E002E1DF6 /* PlusButtonView.swift */,
 				4E36D5F12459D8BD00E339F2 /* PowerView.swift */,
+				4E11D2D9271EE7DD0042385B /* DnsProfileConfiguredView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1083,6 +1091,7 @@
 				4E42352E244EE662005A0779 /* AccountViewModel.swift in Sources */,
 				4EF7EDF3240E8FBF001FA02E /* ContentView.swift in Sources */,
 				4E40DBCC2416496700662E10 /* HomeView.swift in Sources */,
+				4EB12415271DA6F600B10595 /* NetworkDnsService.swift in Sources */,
 				4E290FC02498A57000FC4C61 /* Localization.swift in Sources */,
 				4EC013FE24606F6C001DF5F7 /* BadgeView.swift in Sources */,
 				4E2ECCF3245AEFA1009040F1 /* PackModel.swift in Sources */,
@@ -1149,6 +1158,7 @@
 				47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */,
 				4E227F40243496C5004F4955 /* Thread.swift in Sources */,
 				4E227F3924347A95004F4955 /* VpnService.swift in Sources */,
+				4E11D2DA271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */,
 				4E72D678246160EF00FE7737 /* InstalledMarkView.swift in Sources */,
 				4E94C3032428F1C20008E318 /* Logger.swift in Sources */,
 				4E45F4F0248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */,
@@ -1210,6 +1220,7 @@
 				4E53CCBD244E00EC009B3CF0 /* SKProduct+Extensions.swift in Sources */,
 				4E57FCD824A0B9FC00960ADF /* ChatInputView.swift in Sources */,
 				4E53CCBE244E00EC009B3CF0 /* PaymentViewModel.swift in Sources */,
+				4EB12416271DA6F600B10595 /* NetworkDnsService.swift in Sources */,
 				4E57FCE424A0D7BD00960ADF /* InboxViewModel.swift in Sources */,
 				4E57FCDB24A0BE1400960ADF /* KeyboardAware.swift in Sources */,
 				4EC013FF24606F6C001DF5F7 /* BadgeView.swift in Sources */,
@@ -1228,6 +1239,7 @@
 				4E45F4F4248EA5F4002D4DD6 /* LevelView.swift in Sources */,
 				4E290FC12498A57000FC4C61 /* Localization.swift in Sources */,
 				4E423531244EE9DB005A0779 /* PaymentServiceMock.swift in Sources */,
+				4E11D2DB271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */,
 				4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */,
 				4E2ECD0F245B2F38009040F1 /* GridStack.swift in Sources */,
 				4E7FE99E244DC28900851E9F /* SupportView.swift in Sources */,
@@ -1545,7 +1557,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = IOS/Assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1585,7 +1597,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = IOS/Assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1621,7 +1633,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = IOS/Assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1660,7 +1672,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = IOS/Assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
