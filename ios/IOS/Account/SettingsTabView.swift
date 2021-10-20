@@ -19,6 +19,7 @@ struct SettingsTabView: View {
     @ObservedObject var tabVM: TabViewModel
     @ObservedObject var inboxVM: InboxViewModel
     @ObservedObject var leaseVM: LeaseListViewModel
+    @ObservedObject var activityVM: ActivityViewModel
 
     @Binding var activeSheet: ActiveSheet?
 
@@ -85,7 +86,20 @@ struct SettingsTabView: View {
                              .foregroundColor(.secondary)
                              .frame(width: 32, height: 32)
 
-                            Text(L10n.accountActionDevices)
+                            Text(L10n.webVpnDevicesHeader)
+                                .padding(.leading, 6)
+
+                        }
+                    }
+
+                    NavigationLink(destination: NoLogRetentionView(vm: self.activityVM), tag: "logRetention", selection: self.$tabVM.selection) {
+                        HStack {
+                         Image(systemName: Image.fUp)
+                             .imageScale(.large)
+                             .foregroundColor(.secondary)
+                             .frame(width: 32, height: 32)
+
+                            Text(L10n.activitySectionHeader)
                                 .padding(.leading, 6)
 
                         }
@@ -151,6 +165,6 @@ struct SettingsTabView: View {
 
 struct SettingsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsTabView(homeVM: HomeViewModel(), vm: AccountViewModel(), tabVM: TabViewModel(), inboxVM: InboxViewModel(), leaseVM: LeaseListViewModel(), activeSheet: .constant(nil))
+        SettingsTabView(homeVM: HomeViewModel(), vm: AccountViewModel(), tabVM: TabViewModel(), inboxVM: InboxViewModel(), leaseVM: LeaseListViewModel(), activityVM: ActivityViewModel(), activeSheet: .constant(nil))
     }
 }

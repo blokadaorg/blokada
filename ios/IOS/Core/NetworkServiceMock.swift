@@ -29,7 +29,7 @@ class NetworkService {
         pauseSeconds: 0
     ))
 
-    func updateConfig(lease: Lease?, gateway: Gateway?, done: @escaping Callback<Void>) {
+    func syncConfig(done: @escaping Callback<Void>) {
         done(nil, nil)
     }
 
@@ -79,11 +79,11 @@ class NetworkService {
         }
     }
 
-    func changeGateway(lease: Lease, gateway: Gateway, done: @escaping Callback<String>) {
+    func applyGateway(done: @escaping Callback<String>) {
         onBackground {
             sleep(1)
             onMain {
-                self.status.value = NetworkStatus(active: true, inProgress: false, gatewayId: gateway.public_key, pauseSeconds: 0)
+                self.status.value = NetworkStatus(active: true, inProgress: false, gatewayId: "mock", pauseSeconds: 0)
                 self.onStatusChanged(self.status.value)
                 done(nil, "")
             }

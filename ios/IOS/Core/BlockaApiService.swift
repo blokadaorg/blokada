@@ -90,7 +90,7 @@ class BlockaApiService {
         })
     }
 
-    func getDevice(id: AccountId, done: @escaping Callback<Device>) {
+    func getDevice(id: AccountId, done: @escaping Callback<DevicePayload>) {
         self.request(url: self.baseUrl + "/v1/device?account_id=" + id, done: { (error, result) in
             guard error == nil else {
                 done(error, nil)
@@ -109,8 +109,8 @@ class BlockaApiService {
             }
 
             do {
-                let device = try self.decoder.decode(Device.self, from: json)
-                done(nil, device)
+                let val = try self.decoder.decode(DevicePayload.self, from: json)
+                done(nil, val)
             } catch {
                 self.log.e("getDevice: failed".cause(error))
                 done("getDevice: failed decoding api json response".cause(error), nil)
@@ -118,8 +118,13 @@ class BlockaApiService {
         })
     }
     
-    func postDevice(done: @escaping Callback<Void>) {
-        self.request(url: self.baseUrl + "/v1/device", method: "POST", done: { (error, result) in
+    func postDevice(request: DeviceRequest, done: @escaping Callback<Void>) {
+        guard let body = request.toJson() else {
+            onMain { done("Failed encoding Device", nil) }
+            return
+        }
+
+        self.request(url: self.baseUrl + "/v1/device", method: "PUT", body: body, done: { (error, result) in
             guard error == nil else {
                 done(error, nil)
                 return
@@ -130,26 +135,7 @@ class BlockaApiService {
                 return
             }
 
-            return
-        })
-    }
-    
-    func postDevice(request: Device, done: @escaping Callback<Void>) {
-        guard let body = request.toJson() else {
-            onMain { done("Failed encoding Device", nil) }
-            return
-        }
-
-        self.request(url: self.baseUrl + "/v1/device", method: "POST", body: body, done: { (error, result) in
-            guard error == nil else {
-                done(error, nil)
-                return
-            }
-
-            guard result != nil else {
-                done("postBlockingExceptions: request returned nil result", nil)
-                return
-            }
+            done(nil, ())
         })
     }
 
@@ -157,7 +143,7 @@ class BlockaApiService {
         self.getAccount(id: Config.shared.accountId(), done: done)
     }
 
-    func getCurrentDevice(done: @escaping Callback<Device>) {
+    func getCurrentDevice(done: @escaping Callback<DevicePayload>) {
         self.getDevice(id: Config.shared.accountId(), done: done)
     }
 

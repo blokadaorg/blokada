@@ -174,6 +174,10 @@ class Config {
         return Env.name
     }
 
+    func logRetention() -> String {
+        return localStorage.string(forKey: "logRetention") ?? ""
+    }
+
     /**
             Thread safe setters
      */
@@ -260,6 +264,10 @@ class Config {
 
     func setDeviceTag(tag: String) {
         localStorage.set(tag, forKey: "deviceTag")
+    }
+
+    func setLogRetention(retention: String) {
+        localStorage.set(retention, forKey: "logRetention")
     }
 
     /**

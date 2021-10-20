@@ -64,6 +64,11 @@ class Links {
            host: "go.blokada.org", path: "/privacy", queries: nil)
     }
 
+    static func cloudPrivacy() -> URLComponents {
+       return self.URLComponentsFor(
+           host: "go.blokada.org", path: "/privacy_cloud", queries: nil)
+    }
+
     static func tos() -> URLComponents {
        return self.URLComponentsFor(
            host: "go.blokada.org", path: "/terms", queries: nil)

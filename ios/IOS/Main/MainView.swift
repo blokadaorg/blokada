@@ -35,11 +35,11 @@ struct MainView: View {
             ZStack {
                 HomeView(vm: self.vm, activeSheet: self.$activeSheet)
                     .opacity(self.tabVM.activeTab == "home" ? 1 : 0)
-                ActivityView(vm: self.activityVM, tabVM: self.tabVM)
+                ActivityTabView(vm: self.activityVM, tabVM: self.tabVM)
                     .opacity(self.tabVM.activeTab == "activity" ? 1 : 0)
                 PacksView(vm: self.packsVM, tabVM: self.tabVM)
                     .opacity(self.tabVM.activeTab == "packs" ? 1 : 0)
-                SettingsTabView(homeVM: self.vm, vm: self.accountVM, tabVM: self.tabVM, inboxVM: self.inboxVM, leaseVM: self.leaseVM, activeSheet: self.$activeSheet)
+                SettingsTabView(homeVM: self.vm, vm: self.accountVM, tabVM: self.tabVM, inboxVM: self.inboxVM, leaseVM: self.leaseVM, activityVM: self.activityVM, activeSheet: self.$activeSheet)
                     .opacity(self.tabVM.activeTab == "more" ? 1 : 0)
 
                 VStack {

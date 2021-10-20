@@ -26,7 +26,7 @@ struct LeaseListView: View {
                 .onDelete(perform: self.vm.deleteLease)
             }
         }
-        .navigationBarTitle(L10n.accountLeaseLabelDevices)
+        .navigationBarTitle(L10n.webVpnDevicesHeader)
         .accentColor(Color.cAccent)
         .onAppear {
             self.vm.refreshLeases()

@@ -185,7 +185,19 @@ class HomeViewModel: ObservableObject {
                         return self.afterStart(done)
                     }
                 } else {
-                    return self.afterStart(done)
+                    // Tunnel is already up and running, check lease and account
+                    if status?.hasGateway() ?? false {
+                        if !Config.shared.accountActive() || !Config.shared.leaseActive() {
+                            //self.log.w("start: Lease expired, showing alert dialog")
+                            //self.showExpiredAlert()
+                            return self.afterStart(done)
+                        } else {
+                            self.expiration.update(Config.shared.lease()!)
+                            return self.afterStart(done)
+                        }
+                    } else {
+                         return self.afterStart(done)
+                    }
                 }
             }}
         }
@@ -240,8 +252,8 @@ class HomeViewModel: ObservableObject {
                     if status?.hasGateway() ?? false {
                         if !Config.shared.accountActive() || !Config.shared.leaseActive() {
                             // No active lease
-                            self.showExpiredAlert()
-                            self.log.w("Foreground: lease expired, showing alert dialog")
+                            //self.showExpiredAlert()
+                            //self.log.w("Foreground: lease expired, showing alert dialog")
                         } else {
                             if (Config.shared.hasLease()) {
                                 self.expiration.update(Config.shared.lease())

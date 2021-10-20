@@ -14,9 +14,13 @@ import Foundation
 
 class ActivityViewModel: ObservableObject {
 
+    private let log = Logger("ActivityVM")
     private let service = ActivityService.shared
     //private let sharedActions = SharedActionsService.shared
     private let api = BlockaApiService.shared
+
+    @Published var logRetention = Config.shared.logRetention()
+    @Published var logRetentionSelected = ""
 
     var allEntries = [HistoryEntry]()
     @Published var entries = [HistoryEntry]()
@@ -110,4 +114,39 @@ class ActivityViewModel: ObservableObject {
             ok(())
         }
     }
+
+    func checkLogRetention() {
+        // Set quickly from local storage and then refresh with a request
+        self.logRetentionSelected = self.logRetention
+        self.api.getCurrentDevice { error, device in
+            guard error == nil else {
+                return self.log.w("checkLogRetention: error getting device".cause(error))
+            }
+
+            guard let device = device else {
+                return self.log.v("checkLogRetention: no device")
+            }
+
+            self.logRetention = device.retention
+            Config.shared.setLogRetention(retention: self.logRetention)
+            self.logRetentionSelected = self.logRetention
+        }
+    }
+
+    func applyLogRetention() {
+        self.api.postDevice(request: DeviceRequest(
+            account_id: Config.shared.accountId(),
+            lists: nil,
+            retention: self.logRetentionSelected,
+            paused: nil
+        )) { error, _ in
+            guard error == nil else {
+                return self.log.w("applyLogRetention: request failed".cause(error))
+            }
+
+            Config.shared.setLogRetention(retention: self.logRetentionSelected)
+            self.logRetention = self.logRetentionSelected
+        }
+    }
+
 }

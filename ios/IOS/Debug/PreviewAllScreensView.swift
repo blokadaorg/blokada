@@ -133,6 +133,7 @@ struct PreviewAllScreensView: View {
                     tabVM: defaultTabVM,
                     inboxVM: InboxViewModel(),
                     leaseVM: LeaseListViewModel(),
+                    activityVM: defaultActivityVM,
                     activeSheet: .constant(nil)
                 )
             } else if counter == 11 {

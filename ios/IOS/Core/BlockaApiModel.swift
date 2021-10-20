@@ -187,11 +187,22 @@ struct Activity: Decodable {
     let timestamp: String
 }
 
-struct Device: Codable {
+struct DeviceWrapper: Decodable {
+    let device: DevicePayload
+}
+
+struct DevicePayload: Codable {
     let device_tag: String
     let lists: [String]
     let retention: String
-    let pause: Bool
+    let paused: Bool
+}
+
+struct DeviceRequest: Codable {
+    let account_id: AccountId
+    let lists: [String]?
+    let retention: String?
+    let paused: Bool?
 }
 
 struct Blocklist: Decodable {
