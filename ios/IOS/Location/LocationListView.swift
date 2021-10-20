@@ -93,7 +93,10 @@ struct LocationListView: View {
                                             Button(action: {
                                                 withAnimation {
                                                     self.activeSheet = nil
-                                                    self.vm.changeLocation(item)
+                                                    self.vm.changeLocation(item, noPermissions: {
+                                                        // A callback trigerred when there is no VPN profile
+                                                        self.activeSheet = .askvpn
+                                                    })
                                                 }
                                             }) {
                                                 LocationView(vm: item)

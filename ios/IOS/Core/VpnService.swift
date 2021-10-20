@@ -24,13 +24,14 @@ class VpnService {
         // Singleton
     }
 
-    func changeGateway(lease: Lease, gateway: Gateway, done: @escaping Callback<String>) {
+    func applyGatewayFromConfig(done: @escaping Callback<String>) {
         onBackground {
             self.network.queryStatus { error, status in
-                self.network.updateConfig(lease: lease, gateway: gateway) { _, _ in
+                self.network.syncConfig() { _, _ in
                     if status?.active ?? false {
                         self.log.v("change gateway, change gateway")
-                        self.network.changeGateway(lease: lease, gateway: gateway, done: done)
+                        // Uses the shared Config object to read current gateway and lease
+                        self.network.applyGateway(done: done)
                     } else {
                         self.log.v("change gateway, start tunnel")
                         self.network.startTunnel(done: { error, _ in done(error, "") })
@@ -78,7 +79,7 @@ class VpnService {
     func restartTunnel(done: @escaping Callback<Void>) {
        onBackground {
            self.network.queryStatus { error, status in
-            self.network.updateConfig(lease: Config.shared.lease(), gateway: Config.shared.gateway()) { _, _ in
+            //self.network.updateConfig(lease: Config.shared.lease(), gateway: Config.shared.gateway()) { _, _ in
                     if status?.active ?? false {
                         self.log.v("Restarting tunnel")
                         self.network.stopTunnel { error, _ in
@@ -89,7 +90,7 @@ class VpnService {
                             }
                         }
                     }
-                }
+                //}
             }
        }
    }

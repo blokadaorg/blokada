@@ -39,8 +39,8 @@ class LocationListViewModel: ObservableObject {
         }
     }
 
-    func changeLocation(_ item: LocationViewModel) {
-        sharedActions.changeGateway(item.gateway)
+    func changeLocation(_ item: LocationViewModel, noPermissions: @escaping Ok<Void>) {
+        sharedActions.changeGateway(item.gateway, noPermissions)
     }
 
     private func selectedGateway() -> Gateway? {

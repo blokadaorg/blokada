@@ -22,13 +22,7 @@ struct TunnelConfig {
     var gatewayPort: String
     var vip4: String
     var vip6: String
-}
-
-struct DnsConfig {
-    var name: String
-    var path: String
-    var ips: String
-    var plusIps: String
+    var dns: String
 }
 
 enum PacketTunnelProviderError: String, Error {
@@ -53,7 +47,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
     private var networkMonitor: NWPathMonitor?
     private var currentGatewayStack: IPStack?
     private var pauseTimer: Timer?
-    private var dns: DnsConfig?
 
     deinit {
         networkMonitor?.cancel()
@@ -84,38 +77,22 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
 
         self.apiHandle = api_new(10, config["userAgent"] as! String)
 
-        self.dns = DnsConfig(
-            name: config["dnsName"] as! String,
-            path: config["dnsPath"] as! String,
-            ips: config["dnsIps"] as! String,
-            plusIps: config["plusDnsIps"] as? String ?? config["dnsIps"] as! String
+        tunnelConfig = TunnelConfig(
+            privateKey: config["privateKey"] as! String,
+            gatewayId: config["gatewayId"] as! String,
+            gatewayIpv4: config["ipv4"] as! String,
+            gatewayIpv6: config["ipv6"] as! String,
+            gatewayPort: config["port"] as! String,
+            vip4: config["vip4"] as! String,
+            vip6: config["vip6"] as! String,
+            dns: config["dns"] as! String
         )
-
-        if config["mode"] as? String == "plus" {
-            self.setupDNS(plusMode: true)
-
-            tunnelConfig = TunnelConfig(
-                privateKey: config["privateKey"] as! String,
-                gatewayId: config["gatewayId"] as! String,
-                gatewayIpv4: config["ipv4"] as! String,
-                gatewayIpv6: config["ipv6"] as! String,
-                gatewayPort: config["port"] as! String,
-                vip4: config["vip4"] as! String,
-                vip6: config["vip6"] as! String
-            )
-            return self.connectVPN(completionHandler: startTunnelCompletionHandler)
-        } else {
-            return startTunnelCompletionHandler("Libre mode unsupported")
-            //self.setupDNS(plusMode: false)
-        }
-
-        //NELogger.v("PacketTunnelProvider: startTunnel: using black hole configuration")
-        //self.filteringOnly(completionHandler: startTunnelCompletionHandler)
+        return self.connectVPN(completionHandler: startTunnelCompletionHandler)
     }
 
     private func connectVPN(completionHandler: @escaping ((Error?)) -> Void) {
         NELogger.v("PacketTunnelProvider: connectVPN")
-        let settings = createTunnelSettings(gatewayIp: tunnelConfig!.gatewayIpv4, vip4: tunnelConfig!.vip4, vip6: tunnelConfig!.vip6, defaultRoute: true)
+        let settings = createTunnelSettings(gatewayIp: tunnelConfig!.gatewayIpv4, vip4: tunnelConfig!.vip4, vip6: tunnelConfig!.vip6, dns: tunnelConfig!.dns, defaultRoute: true)
 
         setTunnelNetworkSettings(settings) { error in
             if let error = error {
@@ -125,18 +102,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
             }
             guard let config = self.tunnelConfig else { fatalError("connectVPN: no config") }
 
-            if self.shouldRestartDns() {
-                NELogger.w("PacketTunnelProvider: restarting DNS to use different IPs")
-                self.tearDownDNS()
-                self.setupDNS(plusMode: true)
-            }
-
             NELogger.v("PacketTunnelProvider: connecting to: \(self.tunnelConfig!.gatewayId)")
             self.device.stop()
             self.networkMonitor = NWPathMonitor()
             self.networkMonitor?.start(queue: .global())
             self.device.start(privateKey: config.privateKey, gatewayKey: config.gatewayId, delegate: self)
-            self.dnsVia(mode: TunneledInterface)
             NELogger.v("PacketTunnelProvider: real VPN established")
             completionHandler(nil)
         }
@@ -194,93 +164,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         self.packetFlow.readPacketObjects(completionHandler: completionHandler)
     }
 
-    private func filteringOnly(completionHandler: @escaping ((Error?)) -> Void) {
-        NELogger.v("PacketTunnelProvider: filteringOnly")
-        tunnelConfig = nil
-        disconnectVPN()
-
-        setTunnelNetworkSettings(createFilteringOnlySettings()) { error in
-            if let error = error {
-                NELogger.e("PacketTunnelProvider: failed filteringOnly with tunnel network settings".cause(error))
-                completionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
-            } else {
-                completionHandler(nil)
-            }
-        }
-    }
-
-    private func dnsVia(mode: TunnelMode) {
-        guard let dnsHandle = dnsHandle else { return }
-        dns_via(dnsHandle, mode)
-    }
-
-    private func setupDNS(plusMode: Bool) {
-        let dns = self.dns!
-
-        var ips = dns.ips
-        if plusMode {
-            ips = dns.plusIps
-        }
-
-        NELogger.v("Using DNS: \(dns.name) (\(ips))")
-        self.dnsHandle = new_dns(
-            "127.0.0.1:53", self.blocklist(), self.allowlist(),
-            ips, dns.name, dns.path
-        )
-        if self.dnsHandle == nil {
-            fatalError("could not start DNS")
-        }
-    }
-
-    private func shouldRestartDns() -> Bool {
-        return self.dns!.ips != self.dns!.plusIps
-    }
-
-    private func blocklist() -> String {
-        if let packs = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.net.blocka.app")?.appendingPathComponent("hosts"),
-            FileManager.default.fileExists(atPath: packs.path)
-        {
-            NELogger.v("Using blocklist path: \(packs.path)")
-            return packs.path
-        }
-
-        // static default list based on energized
-        NELogger.w("Using hardcoded hosts list")
-        return Bundle(for: type(of : self)).path(forResource: "hosts", ofType: "txt")!
-    }
-
-    private func allowlist() -> String? {
-        if let allow = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.net.blocka.app")?.appendingPathComponent("allow"),
-            FileManager.default.fileExists(atPath: allow.path)
-        {
-            NELogger.v("Using allowlist path: \(allow.path)")
-            return allow.path
-        }
-
-        return nil
-    }
-
-    private func tearDownDNS() {
-        guard let dnsHandle = dnsHandle else { return }
-        dns_close(dnsHandle)
-        self.dnsHandle = nil
-        NELogger.v("PacketTunnelProvider: TearDownDNS done")
-    }
-
-    private func disconnectVPN() {
-        dnsVia(mode: DefaultInterface)
-        self.device.stop()
-        self.networkMonitor?.cancel()
-        self.networkMonitor = nil
-        if (shouldRestartDns()) {
-            self.tearDownDNS()
-            self.setupDNS(plusMode: false)
-        }
-        NELogger.v("PacketTunnelProvider: disconnectVPN done")
-    }
-
     private func performProtectedHttpRequest(url: String, method: String, body: String, completionHandler: @escaping ((Error?, String?) -> Void)) {
         let res = api_request(self.apiHandle, method, url, body)
         defer { api_response_free(res) }
@@ -295,8 +178,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         completionHandler(nil, responseBody)
     }
 
-    private func createTunnelSettings(gatewayIp: String, vip4: String, vip6: String, defaultRoute: Bool) -> NEPacketTunnelNetworkSettings {
-        let dns = NEDNSSettings(servers: ["127.0.0.1"])
+    private func createTunnelSettings(gatewayIp: String, vip4: String, vip6: String, dns: String, defaultRoute: Bool) -> NEPacketTunnelNetworkSettings {
+        let dns = NEDNSSettings(servers: [dns])
         dns.matchDomains = [""]
 
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: gatewayIp)
@@ -315,10 +198,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         return newSettings
     }
 
-    private func createFilteringOnlySettings() -> NEPacketTunnelNetworkSettings {
-        return createTunnelSettings(gatewayIp: "127.0.0.1", vip4: "127.0.0.1", vip6: "::1", defaultRoute: false)
-    }
-
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
         NELogger.v("PacketTunnelProvider: stopTunnel")
         self.stats()?.persist()
@@ -328,50 +207,35 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         completionHandler()
     }
 
-    private func pause(seconds: Int) {
-        guard let dnsHandle = self.dnsHandle else { return }
-
-        if let timer = self.pauseTimer {
-            timer.invalidate()
-            self.pauseTimer = nil
-        }
-        if seconds == 0 {
-            return self.unpause()
-        }
-
-        // Start pausing
-        NELogger.v("PacketTunnelProvider: pausing for \(seconds)s")
-        self.stats()?.persist()
-        self.pauseTimer = Timer.scheduledTimer(
-            timeInterval: TimeInterval(seconds),
-            target: self, selector: #selector(unpause), userInfo: nil, repeats: false
-        )
-        dns_use_lists(dnsHandle, nil, nil)
-    }
-
-    @objc private func unpause() {
-        guard tunnelStarted else { return }
-        guard let dnsHandle = self.dnsHandle else { return }
-
-        NELogger.v("PacketTunnelProvider: unpausing")
-        self.persistedStats = Stats.load()
-        dns_use_lists(dnsHandle, self.blocklist(), nil)
-    }
-
-    private func reload_lists() -> Error? {
-        guard tunnelStarted else { return "not started" }
-        guard let dnsHandle = self.dnsHandle else { return "no dns handle" }
-
-        // persist stats since in-memory cache will reset after reload
-        self.stats()?.persist()
-        defer { self.persistedStats = Stats.load() }
-
-        NELogger.v("PacketTunnelProvider: reload lists")
-        if !dns_use_lists(dnsHandle, self.blocklist(), self.allowlist()) {
-            return "could not reload lists"
-        }
-        return nil
-    }
+//    private func pause(seconds: Int) {
+//        guard let dnsHandle = self.dnsHandle else { return }
+//
+//        if let timer = self.pauseTimer {
+//            timer.invalidate()
+//            self.pauseTimer = nil
+//        }
+//        if seconds == 0 {
+//            return self.unpause()
+//        }
+//
+//        // Start pausing
+//        NELogger.v("PacketTunnelProvider: pausing for \(seconds)s")
+//        self.stats()?.persist()
+//        self.pauseTimer = Timer.scheduledTimer(
+//            timeInterval: TimeInterval(seconds),
+//            target: self, selector: #selector(unpause), userInfo: nil, repeats: false
+//        )
+//        dns_use_lists(dnsHandle, nil, nil)
+//    }
+//
+//    @objc private func unpause() {
+//        guard tunnelStarted else { return }
+//        guard let dnsHandle = self.dnsHandle else { return }
+//
+//        NELogger.v("PacketTunnelProvider: unpausing")
+//        self.persistedStats = Stats.load()
+//        dns_use_lists(dnsHandle, self.blocklist(), nil)
+//    }
 
     private var persistedStats: Stats = Stats.empty()
 
@@ -406,7 +270,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         switch command {
         case "connect":
             previousConfig = tunnelConfig
-            tunnelConfig = TunnelConfig(privateKey: params[1], gatewayId: params[2], gatewayIpv4: params[3], gatewayIpv6: params[4], gatewayPort: params[5], vip4: params[6], vip6: params[7])
+            tunnelConfig = TunnelConfig(privateKey: params[1], gatewayId: params[2], gatewayIpv4: params[3], gatewayIpv6: params[4], gatewayPort: params[5], vip4: params[6], vip6: params[7], dns: params[8])
             if (tunnelStarted) {
                 connectVPN { error in
                     self.respond(command: command, error: error, response: "", completionHandler: completionHandler)
@@ -414,10 +278,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
             } else {
                 NELogger.v("PacketTunnelProvider: connect: tunnel not started, just saved configuration")
                 self.respond(command: command, error: nil, response: "", completionHandler: completionHandler)
-            }
-        case "disconnect":
-            filteringOnly { error in
-                self.respond(command: command, error: error, response: "", completionHandler: completionHandler)
             }
         case "request":
             let url = params[1]
@@ -437,13 +297,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
                 tunnelState = String(Int(pauseTimer?.fireDate.timeIntervalSinceNow ?? 0))
             }
             self.respond(command: command, error: nil, response: tunnelState, completionHandler: completionHandler)
-        case "pause":
-            let pauseSeconds = Int(params[1]) ?? 0
-            self.pause(seconds: pauseSeconds)
-            self.respond(command: command, error: nil, response: "", completionHandler: completionHandler)
-        case "reload_lists":
-            let err = self.reload_lists()
-            self.respond(command: command, error: err, response: "", completionHandler: completionHandler)
+//        case "pause":
+//            let pauseSeconds = Int(params[1]) ?? 0
+//            self.pause(seconds: pauseSeconds)
+//            self.respond(command: command, error: nil, response: "", completionHandler: completionHandler)
         case "stats":
             var response = ""
             if let statsString = self.stats()?.toJson() {

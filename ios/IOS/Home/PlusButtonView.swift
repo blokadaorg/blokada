@@ -73,7 +73,10 @@ struct PlusButtonView: View {
                                 .frame(width: 64)
                                 .padding(.trailing, 4)
                                 .onTapGesture {
-                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled)
+                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled, noPermissions: {
+                                        // A callback trigerred when there is no VPN profile
+                                        self.activeSheet = .askvpn
+                                    })
                                 }
                                 .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
                         } else {
@@ -82,7 +85,10 @@ struct PlusButtonView: View {
                                 .frame(width: 64)
                                 .padding(.trailing, 4)
                                 .onTapGesture {
-                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled)
+                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled, noPermissions: {
+                                        // A callback trigerred when there is no VPN profile
+                                        self.activeSheet = .askvpn
+                                    })
                                 }
                         }
                     }

@@ -78,18 +78,6 @@ struct SettingsTabView: View {
                        }
                     }
 
-                    NavigationLink(destination: EncryptionView(homeVM: self.homeVM, activeSheet: self.$activeSheet), tag: "encryption", selection: self.$tabVM.selection) {
-                         HStack {
-                          Image(systemName: "lock")
-                              .imageScale(.large)
-                              .foregroundColor(.secondary)
-                              .frame(width: 32, height: 32)
-
-                            Text(L10n.accountActionEncryption)
-                                .padding(.leading, 6)
-                         }
-                     }
-
                     NavigationLink(destination: LeaseListView(vm: self.leaseVM), tag: "leases", selection: self.$tabVM.selection) {
                         HStack {
                          Image(systemName: Image.fComputer)

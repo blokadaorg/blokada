@@ -21,7 +21,7 @@ class SharedActionsService {
 
     var newUser = { (done: @escaping Callback<Void>) in }
     var updateAccount = { (account: Account) in }
-    var changeGateway = { (new: Gateway) in }
+    var changeGateway = { (new: Gateway, noPermissions: @escaping Ok<Void>) in }
     var refreshLeases = {}
     var present = { (vc: UIActivityViewController) in }
     var newMessage = {}

@@ -46,7 +46,7 @@ struct AskVpnProfileView: View {
                     Button(action: {
                         self.activeSheet = nil
                         self.network.createVpnProfile { _, _ in
-                            self.homeVM.switchMain(activate: true, noPermissions: {}, showRateScreen: {}, dnsProfileConfigured: {}, noActiveAccount: {})
+                            self.homeVM.switchVpn(activate: true, noPermissions: {})
                         }
                     }) {
                         ZStack {

@@ -18,6 +18,7 @@ class NetworkService {
     static let shared = NetworkService()
 
     private let log = Logger("Network")
+    private let config = Config.shared
     let httpClient: OpaquePointer?
     private let configurationFilteringOnly = "No Server"
 
@@ -34,10 +35,18 @@ class NetworkService {
         self.httpClient = api_new(10, BlockaApiService.userAgent())
     }
 
-    func updateConfig(lease: Lease?, gateway: Gateway?, done: @escaping Callback<Void>) {
-        guard lease != nil, gateway != nil else {
-            return done("Libre mode is no longer supported", nil)
+    func syncConfig(done: @escaping Callback<Void>) {
+        guard config.hasLease() else {
+            return done("syncConfig: No lease set", nil)
         }
+
+        let lease = config.lease()!
+
+        guard let gateway = config.gateway() else {
+            return done("syncConfig: No gateway set", nil)
+        }
+
+        let deviceTag = config.deviceTag()
 
         onBackground {
             self.getManager { error, manager in
@@ -46,7 +55,7 @@ class NetworkService {
                         return done(error, nil)
                     }
 
-                    self.saveConfig(manager!, lease, gateway) { error, _ in
+                    self.saveConfig(manager!, lease, gateway, deviceTag) { error, _ in
                         onMain {
                             return done(error, nil)
                         }
@@ -56,49 +65,27 @@ class NetworkService {
         }
     }
 
-    private func saveConfig(_ manager: NETunnelProviderManager, _ lease: Lease?, _ gateway: Gateway?,
+    private func saveConfig(_ manager: NETunnelProviderManager, _ lease: Lease, _ gateway: Gateway, _ deviceTag: String,
             done: @escaping Callback<Void>) { onBackground {
-        let dns = Dns.load()
 
-        self.log.v("saveConfig: gateway: \(gateway?.niceName()), dns: \(dns.label)")
+        self.log.v("saveConfig: gateway: \(gateway.niceName())")
 
         let protoConfig = NETunnelProviderProtocol()
         protoConfig.providerBundleIdentifier = "net.blocka.app.engine"
-        protoConfig.serverAddress = gateway == nil ? self.configurationFilteringOnly : gateway!.niceName()
+        protoConfig.serverAddress = gateway.niceName()
         protoConfig.username = ""
 
-        var plusIps = dns.ips
-        if dns.plusIps != nil {
-            self.log.w("Using plusMode specific DNS IPs")
-            plusIps = dns.plusIps!
-        }
-
-        if let l = lease, let g = gateway {
-            protoConfig.providerConfiguration = [
-                "mode": "plus",
-                "userAgent": BlockaApiService.userAgent(),
-                "privateKey": Config.shared.privateKey(),
-                "gatewayId": g.public_key,
-                "ipv4": g.ipv4,
-                "ipv6": g.ipv6,
-                "port": String(g.port),
-                "vip4": l.vip4,
-                "vip6": l.vip6,
-                "dnsIps": dns.ips.joined(separator: ","),
-                "plusDnsIps": plusIps.joined(separator: ","),
-                "dnsName": dns.name,
-                "dnsPath": dns.path
-            ]
-        } else {
-            protoConfig.providerConfiguration = [
-                "mode": "libre",
-                "userAgent": BlockaApiService.userAgent(),
-                "dnsIps": dns.ips.joined(separator: ","),
-                "plusDnsIps": plusIps.joined(separator: ","),
-                "dnsName": dns.name,
-                "dnsPath": dns.path
-            ]
-        }
+        protoConfig.providerConfiguration = [
+            "userAgent": BlockaApiService.userAgent(),
+            "privateKey": Config.shared.privateKey(),
+            "gatewayId": gateway.public_key,
+            "ipv4": gateway.ipv4,
+            "ipv6": gateway.ipv6,
+            "port": String(gateway.port),
+            "vip4": lease.vip4,
+            "vip6": lease.vip6,
+            "dns": self.getUserDnsIp(deviceTag)
+        ]
 
         manager.protocolConfiguration = protoConfig
         manager.localizedDescription = "BLOKADA"
@@ -113,6 +100,10 @@ class NetworkService {
             return done(nil, nil)
         }}
     }}
+
+    private func getUserDnsIp(_ tag: String) -> String {
+        return "2001:678:e34:1d::\(tag.prefix(2)):\(tag.suffix(4))"
+    }
 
     private func startMonitoringSession(_ connection: NETunnelProviderSession) {
         if let observer = self.internalStatusObserver.value {
@@ -281,6 +272,43 @@ class NetworkService {
         }
     }}
 
+    func applyGateway(done: @escaping Callback<String>) {
+        onBackground {
+            guard self.config.hasLease() else {
+                return done("syncGateway: No lease set", nil)
+            }
+
+            let lease = self.config.lease()!
+
+            guard let gateway = self.config.gateway() else {
+                return done("syncGateway: No gateway set", nil)
+            }
+
+            let connect = [
+                NetworkCommand.connect.rawValue,
+                Config.shared.privateKey(),
+                lease.gateway_id,
+                gateway.ipv4,
+                gateway.ipv6,
+                String(gateway.port),
+                lease.vip4,
+                lease.vip6,
+                self.getUserDnsIp(Config.shared.deviceTag())
+            ].joined(separator: " ")
+            self.sendMessage(msg: connect) { error, _ in
+                guard error == nil else {
+                    return onMain {
+                        self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: nil, pauseSeconds: 0))
+                        done(error, nil)
+                    }
+                }
+
+                self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: gateway.public_key, pauseSeconds: 0))
+                done(nil, nil)
+            }
+        }
+    }
+
     func queryStatus(done: @escaping Callback<NetworkStatus>) { onBackground {
         self.getManager { error, manager in
             guard error == nil else {
@@ -338,32 +366,6 @@ class NetworkService {
                 onMain { done(nil, responseBody) }
             } else {
                 return onMain { done("No result", nil) }
-            }
-        }
-    }
-
-    func changeGateway(lease: Lease, gateway: Gateway, done: @escaping Callback<String>) {
-        onBackground {
-            let connect = [
-                NetworkCommand.connect.rawValue,
-                Config.shared.privateKey(),
-                lease.gateway_id,
-                gateway.ipv4,
-                gateway.ipv6,
-                String(gateway.port),
-                lease.vip4,
-                lease.vip6
-            ].joined(separator: " ")
-            self.sendMessage(msg: connect) { error, _ in
-                guard error == nil else {
-                    return onMain {
-                        self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: nil, pauseSeconds: 0))
-                        done(error, nil)
-                    }
-                }
-
-                self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: gateway.public_key, pauseSeconds: 0))
-                done(nil, nil)
             }
         }
     }
@@ -433,7 +435,19 @@ class NetworkService {
                     return onMain { done(error, nil) }
                 }
 
-                self.saveConfig(manager, nil, nil) { error, _ in
+                guard self.config.hasLease() else {
+                    return done("createVpnProfile: No lease set", nil)
+                }
+
+                let lease = self.config.lease()!
+
+                guard let gateway = self.config.gateway() else {
+                    return done("createVpnProfile: No gateway set", nil)
+                }
+
+                let deviceTag = self.config.deviceTag()
+
+                self.saveConfig(manager, lease, gateway, deviceTag) { error, _ in
                     return onMain { done(error, nil) }
                 }
             }}
