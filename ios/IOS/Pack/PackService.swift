@@ -531,11 +531,6 @@ class PackService {
             FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.net.blocka.app")!.appendingPathComponent("\($0)".toBase64())
         }
-        
-        if FileManager.default.fileExists(atPath: ActivityService.destinationBlacklist.path) {
-            self.log.v("Including user blocklist")
-            files.append(ActivityService.destinationBlacklist) // Always include user blocklist (whitelist is included using engine api)
-        }
 
         let destination = FileManager.default.containerURL(
         forSecurityApplicationGroupIdentifier: "group.net.blocka.app")!.appendingPathComponent("hosts")
@@ -569,11 +564,6 @@ class PackService {
             self.log.v("Using default hardcoded list")
 
             var files = [Bundle(for: type(of : self)).url(forResource: "hosts", withExtension: "txt")!]
-
-            if FileManager.default.fileExists(atPath: ActivityService.destinationBlacklist.path) {
-                self.log.v("Including user blocklist")
-                files.append(ActivityService.destinationBlacklist) // Always include user blocklist (whitelist is included using engine api)
-            }
 
             let destination = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.net.blocka.app")!.appendingPathComponent("hosts")

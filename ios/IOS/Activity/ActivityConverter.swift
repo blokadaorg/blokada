@@ -21,7 +21,7 @@ func convertActivity(activity: [Activity]) -> [HistoryEntry] {
             requests: 1
         )
     }
-    let groups = Dictionary(grouping: act, by: { [$0.name: $0.type ] })
+    let groups = Dictionary(grouping: act, by: { [$0.type: $0.name] })
     return groups.map { _, value in
         // Assuming items are ordered by most recent first
         let item = value.first!

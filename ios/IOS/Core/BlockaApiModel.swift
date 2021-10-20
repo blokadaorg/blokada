@@ -100,12 +100,6 @@ struct AccountWrapper: Decodable {
     let account: Account
 }
 
-struct Device: Codable {
-    let device_tag: String
-    let lists: [String]
-    let retention: String
-}
-
 struct Gateway: Codable {
     let public_key: GatewayId
     let region: String
@@ -191,7 +185,39 @@ struct Activity: Decodable {
     let action: String
     let list: String
     let timestamp: String
-    
+}
+
+struct Device: Codable {
+    let device_tag: String
+    let lists: [String]
+    let retention: String
+    let pause: Bool
+}
+
+struct Blocklist: Decodable {
+    let id: String
+    let name: String
+    let managed: Bool
+    let is_allowlist: Bool
+}
+
+struct BlocklistWrapper: Decodable {
+    let lists: [Blocklist]
+}
+
+struct ExceptionWrapper: Decodable {
+    let customlist: [BlockingException]
+}
+
+struct BlockingException: Decodable {
+    let domain_name: String
+    let action: String
+}
+
+struct BlockingExceptionRequest: Codable {
+    let account_id: AccountId
+    let domain_name: String
+    let action: String
 }
 
 struct AppleCheckoutRequest: Codable {

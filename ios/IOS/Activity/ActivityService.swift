@@ -11,17 +11,18 @@
 //
 
 import Foundation
+import UIKit
 
 class ActivityService {
 
     static var shared = ActivityService()
 
     private init() {
-        self.loadWhitelist()
-        self.loadBlacklist()
+        self.loadExceptions()
     }
 
     private let log = Logger("Activity")
+    private let api = BlockaApiService.shared
 
     private let hardcodedHistory = [
         HistoryEntry(name: "doubleclick.com", type: .blocked, time: Date(timeIntervalSinceNow: -5), requests: 45),
@@ -80,7 +81,7 @@ class ActivityService {
             if !self.whitelist.contains(entry.name) {
                 self.whitelist.append(entry.name)
                 self.onUpdated(self.entries, self.whitelist, self.blacklist)
-                self.persistWhitelist()
+                self.persistException(entry.name, "allow")
             }
         }
     }
@@ -90,7 +91,7 @@ class ActivityService {
             if self.whitelist.contains(entry.name) {
                 self.whitelist.removeAll { $0 == entry.name }
                 self.onUpdated(self.entries, self.whitelist, self.blacklist)
-                self.persistWhitelist()
+                self.persistException(entry.name, "fallthrough")
             }
         }
     }
@@ -100,7 +101,7 @@ class ActivityService {
             if !self.blacklist.contains(entry.name) {
                 self.blacklist.append(entry.name)
                 self.onUpdated(self.entries, self.whitelist, self.blacklist)
-                self.persistBlacklist()
+                self.persistException(entry.name, "block")
             }
         }
     }
@@ -110,71 +111,43 @@ class ActivityService {
             if self.blacklist.contains(entry.name) {
                 self.blacklist.removeAll { $0 == entry.name }
                 self.onUpdated(self.entries, self.whitelist, self.blacklist)
-                self.persistBlacklist()
+                self.persistException(entry.name, "fallthrough")
             }
         }
     }
 
-    private let destinationWhitelist = FileManager.default.containerURL(
-    forSecurityApplicationGroupIdentifier: "group.net.blocka.app")!.appendingPathComponent("allow")
-
-    static let destinationBlacklist = FileManager.default.containerURL(
-    forSecurityApplicationGroupIdentifier: "group.net.blocka.app")!.appendingPathComponent("deny")
-
-    private func loadWhitelist() {
-        do {
-            let str = try String(contentsOf: self.destinationWhitelist, encoding: .utf8)
-            self.whitelist = str.components(separatedBy: "\n")
-            self.log.v("Loaded \(self.whitelist.count) entries in whitelist")
-        } catch {
-            self.whitelist = []
-        }
-    }
-
-    func persistWhitelist() {
-        onMain {
-            do {
-                if FileManager.default.fileExists(atPath: self.destinationWhitelist.path) {
-                    try FileManager.default.removeItem(at: self.destinationWhitelist)
+    private func loadExceptions() {
+        onBackground {
+            self.api.getCurrentBlockingExceptions { error, exceptions in
+                guard error == nil, let exceptions = exceptions else {
+                    return self.log.w("loadExceptions: could not fetch exceptions".cause(error))
                 }
 
-                self.log.v("Persisting \(self.whitelist.count) entries from whitelist")
-                let str = self.whitelist.joined(separator: "\n")
-                try str.write(to: self.destinationWhitelist, atomically: true, encoding: String.Encoding.utf8)
+                onMain {
+                    self.whitelist = exceptions.filter({
+                        exception in exception.action == "allow"
+                    }).map({ exception in exception.domain_name })
 
-                self.log.v("Reloading whitelist")
-                NetworkService.shared.sendMessage(msg: "reload_lists") { _, _ in }
-            } catch {
-                self.log.e("Could not persist whitelist".cause(error))
-            }
-        }
-    }
-
-    private func loadBlacklist() {
-        do {
-            let str = try String(contentsOf: ActivityService.destinationBlacklist, encoding: .utf8)
-            self.blacklist = str.components(separatedBy: "\n")
-            self.log.v("Loaded \(self.blacklist.count) entries in blacklist")
-        } catch {
-            self.blacklist = []
-        }
-    }
-
-    func persistBlacklist() {
-        onMain {
-            do {
-                if FileManager.default.fileExists(atPath: ActivityService.destinationBlacklist.path) {
-                    try FileManager.default.removeItem(at: ActivityService.destinationBlacklist)
+                    self.blacklist = exceptions.filter({
+                        exception in exception.action == "block"
+                    }).map({ exception in exception.domain_name })
                 }
-
-                self.log.v("Persisting \(self.blacklist.count) entries from blacklist")
-                let str = self.blacklist.joined(separator: "\n")
-                try str.write(to: ActivityService.destinationBlacklist, atomically: true, encoding: String.Encoding.utf8)
-
-                PackService.shared.reload()
-            } catch {
-                self.log.e("Could not persist blacklist".cause(error))
             }
         }
     }
+
+    func persistException(_ name: String, _ action: String) {
+        onBackground {
+            self.api.postBlockingException(request: BlockingExceptionRequest(
+                account_id: Config.shared.accountId(),
+                domain_name: name,
+                action: action
+            ), method: action == "fallthrough" ? "DELETE" : "POST") { error, _ in
+                guard error == nil else {
+                    return self.log.w("persistException: could not persist exception".cause(error))
+                }
+            }
+        }
+    }
+
 }

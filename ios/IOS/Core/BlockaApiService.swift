@@ -117,6 +117,41 @@ class BlockaApiService {
             }
         })
     }
+    
+    func postDevice(done: @escaping Callback<Void>) {
+        self.request(url: self.baseUrl + "/v1/device", method: "POST", done: { (error, result) in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard result != nil else {
+                done("postDevice: request returned nil result", nil)
+                return
+            }
+
+            return
+        })
+    }
+    
+    func postDevice(request: Device, done: @escaping Callback<Void>) {
+        guard let body = request.toJson() else {
+            onMain { done("Failed encoding Device", nil) }
+            return
+        }
+
+        self.request(url: self.baseUrl + "/v1/device", method: "POST", body: body, done: { (error, result) in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard result != nil else {
+                done("postBlockingExceptions: request returned nil result", nil)
+                return
+            }
+        })
+    }
 
     func getCurrentAccount(done: @escaping Callback<Account>) {
         self.getAccount(id: Config.shared.accountId(), done: done)
@@ -332,6 +367,89 @@ class BlockaApiService {
             // TODO: Including empty device because we cannot set device name in Plus mode
             done(nil, activity.filter { it in it.device_name == thisDevice || it.device_name.isEmpty })
         }
+    }
+    
+    func getBlockingExceptions(id: AccountId, done: @escaping Callback<[BlockingException]>) {
+        self.request(url: self.baseUrl + "/v1/customlist?account_id=" + id, done: { (error, result) in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard let stringData = result else {
+                done("getBlockingExceptions: request returned nil result", nil)
+                return
+            }
+
+            let jsonData = stringData.data(using: .utf8)
+            guard let json = jsonData else {
+                done("getBlockingExceptions: parsing api response failed", nil)
+                return
+            }
+
+            do {
+                let exceptions = try self.decoder.decode(ExceptionWrapper.self, from: json)
+                done(nil, exceptions.customlist)
+            } catch {
+                self.log.e("getBlockingExceptions: failed".cause(error))
+                done("getBlockingExceptions: failed decoding api json response".cause(error), nil)
+            }
+        })
+    }
+
+    func getCurrentBlockingExceptions(done: @escaping Callback<[BlockingException]>) {
+        return self.getBlockingExceptions(id: Config.shared.accountId(), done: done)
+    }
+
+    func postBlockingException(request: BlockingExceptionRequest, method: String = "POST", done: @escaping Callback<Void>) {
+        guard let body = request.toJson() else {
+            onMain { done("Failed encoding BlockingExceptionRequest", nil) }
+            return
+        }
+
+        self.request(url: self.baseUrl + "/v1/customlist", method: method, body: body, done: { (error, result) in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard result != nil else {
+                done("postBlockingExceptions: request returned nil result", nil)
+                return
+            }
+        })
+    }
+
+    func getCurrentBlocklists(done: @escaping Callback<[Blocklist]>) {
+        return self.getBlocklists(id: Config.shared.accountId(), done: done)
+    }
+    
+    func getBlocklists(id: AccountId, done: @escaping Callback<[Blocklist]>) {
+        self.request(url: self.baseUrl + "/v1/list?account_id=" + id, done: { (error, result) in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard let stringData = result else {
+                done("getBlocklists: request returned nil result", nil)
+                return
+            }
+
+            let jsonData = stringData.data(using: .utf8)
+            guard let json = jsonData else {
+                done("getBlocklists: parsing api response failed", nil)
+                return
+            }
+
+            do {
+                let blocklists = try self.decoder.decode(BlocklistWrapper.self, from: json)
+                done(nil, blocklists.lists)
+            } catch {
+                self.log.e("getBlocklists: failed".cause(error))
+                done("getBlocklists: failed decoding api json response".cause(error), nil)
+            }
+        })
     }
 
     func postAppleCheckout(request: AppleCheckoutRequest, done: @escaping Callback<Account>) {

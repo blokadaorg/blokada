@@ -34,11 +34,12 @@ enum HistoryEntryType: Int, Codable {
 extension HistoryEntry: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
+        hasher.combine(type)
     }
 }
 
 extension HistoryEntry: Equatable {
     static func == (lhs: HistoryEntry, rhs: HistoryEntry) -> Bool {
-        lhs.name == rhs.name
+        lhs.name == rhs.name && lhs.type == rhs.type
     }
 }
