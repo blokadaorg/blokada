@@ -329,7 +329,8 @@ class BlockaApiService {
             }
 
             let thisDevice = Config.shared.deviceName()
-            done(nil, activity.filter { it in it.device_name == thisDevice })
+            // TODO: Including empty device because we cannot set device name in Plus mode
+            done(nil, activity.filter { it in it.device_name == thisDevice || it.device_name.isEmpty })
         }
     }
 
