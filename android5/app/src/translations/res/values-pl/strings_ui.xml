@@ -137,6 +137,10 @@
     <string name="activity_request_allowed">To żądanie zostało zezwolone.</string>
     <string name="activity_request_allowed_whitelisted">To żądanie zostało zezwolone, ponieważ znajduje się na Twojej liście Zezwolonych</string>
     <string name="activity_request_blocked_blacklisted">To żądanie zostało zablokowane, ponieważ znajduje się na Twojej liście Blokowanych</string>
+    <string name="activity_request_allowed_list">To żądanie zostało dozwolone, ponieważ jest obecne na blokliście *%s*.</string>
+    <string name="activity_request_allowed_no_list">To żądanie zostało dozwolone, ponieważ nie jest obecne na żadnej ze skonfigurowanych bloklist.</string>
+    <string name="activity_request_blocked_list">To żądanie zostało zablokowane, ponieważ jest obecne na blokliście *%s*.</string>
+    <string name="activity_request_blocked_no_list">To żądanie zostało zablokowane, ponieważ nie jest obecne na żadnej ze skonfigurowanych bloklist.</string>
     <string name="activity_actions_header">Działania</string>
     <string name="activity_information_header">Informacje</string>
     <string name="activity_action_add_to_whitelist">Dodaj do Zezwolonych</string>

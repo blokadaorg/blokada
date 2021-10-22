@@ -137,6 +137,10 @@
     <string name="activity_request_allowed">This request has been allowed.</string>
     <string name="activity_request_allowed_whitelisted">This request has been allowed, because it is on your Allowed list</string>
     <string name="activity_request_blocked_blacklisted">This request has been blocked, because it is on your Blocked list</string>
+    <string name="activity_request_allowed_list">This request has been allowed, because it\'s present on the *%s* blocklist.</string>
+    <string name="activity_request_allowed_no_list">This request has been allowed, as it\'s not present on any of your configured blocklists.</string>
+    <string name="activity_request_blocked_list">This request has been blocked, because it\'s present on the *%s* blocklist.</string>
+    <string name="activity_request_blocked_no_list">This request has been blocked, as it\'s not present on any of your configured blocklists.</string>
     <string name="activity_actions_header">Actions</string>
     <string name="activity_information_header">Information</string>
     <string name="activity_action_add_to_whitelist">Add to Allowed</string>

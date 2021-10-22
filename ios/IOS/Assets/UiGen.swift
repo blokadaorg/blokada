@@ -223,12 +223,24 @@ internal enum L10n {
   internal static let activityNumberOfOccurrences = L10n.tr("Ui", "activity number of occurrences")
   /// This request has been allowed.
   internal static let activityRequestAllowed = L10n.tr("Ui", "activity request allowed")
+  /// This request has been allowed, because it's present on the *%@* blocklist.
+  internal static func activityRequestAllowedList(_ p1: String) -> String {
+    return L10n.tr("Ui", "activity request allowed list", p1)
+  }
+  /// This request has been allowed, as it's not present on any of your configured blocklists.
+  internal static let activityRequestAllowedNoList = L10n.tr("Ui", "activity request allowed no list")
   /// This request has been allowed, because it is on your Allowed list
   internal static let activityRequestAllowedWhitelisted = L10n.tr("Ui", "activity request allowed whitelisted")
   /// This request has been blocked.
   internal static let activityRequestBlocked = L10n.tr("Ui", "activity request blocked")
   /// This request has been blocked, because it is on your Blocked list
   internal static let activityRequestBlockedBlacklisted = L10n.tr("Ui", "activity request blocked blacklisted")
+  /// This request has been blocked, because it's present on the *%@* blocklist.
+  internal static func activityRequestBlockedList(_ p1: String) -> String {
+    return L10n.tr("Ui", "activity request blocked list", p1)
+  }
+  /// This request has been blocked, as it's not present on any of your configured blocklists.
+  internal static let activityRequestBlockedNoList = L10n.tr("Ui", "activity request blocked no list")
   /// Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.
   internal static let activityRetentionDesc = L10n.tr("Ui", "activity retention desc")
   /// For how long can we store your activity?

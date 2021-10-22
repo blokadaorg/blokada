@@ -181,6 +181,10 @@
 "activity request allowed" = "This request has been allowed.";
 "activity request allowed whitelisted" = "This request has been allowed, because it is on your Allowed list";
 "activity request blocked blacklisted" = "This request has been blocked, because it is on your Blocked list";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* blocklist.";
+"activity request allowed no list" = "This request has been allowed, as it's not present on any of your configured blocklists.";
+"activity request blocked list" = "This request has been blocked, because it's present on the *%@* blocklist.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured blocklists.";
 "activity actions header" = "Actions";
 "activity information header" = "Information";
 "activity action add to whitelist" = "Add to Allowed";

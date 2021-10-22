@@ -72,6 +72,15 @@
 "universal label welcome" = "Bem-vindo!";
 // Common label when some feature has no setting
 "universal label none" = "Nenhuma";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Nome";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Hora";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Contagem";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Tipo";
+"universal label device" = "Dispositivo";
 
 "universal status processing" = "Processando... Por favor, aguarde.";
 "universal status copied to clipboard" = "Copiado para a Área de Transferência";
@@ -172,6 +181,10 @@
 "activity request allowed" = "Esta solicitação foi permitida.";
 "activity request allowed whitelisted" = "Esta solicitação foi permitida, porque está na sua lista de Permitidos";
 "activity request blocked blacklisted" = "Esta solicitação foi bloqueada, porque está na sua lista de Bloqueados";
+"activity request allowed list" = "Esta solicitação foi permitida porque está presente na lista de bloqueio *%@*.";
+"activity request allowed no list" = "Esta solicitação foi permitida, pois não está presente em nenhuma de suas listas de bloqueio configuradas.";
+"activity request blocked list" = "Esta solicitação foi bloqueada porque está presente na lista de bloqueio *%@*.";
+"activity request blocked no list" = "Esta solicitação foi bloqueada, pois não está presente em nenhuma de suas listas de bloqueio configuradas.";
 "activity actions header" = "Ações";
 "activity information header" = "Informação";
 "activity action add to whitelist" = "Adicionar aos Permitidos";
@@ -202,11 +215,22 @@
 "activity filter show allowed" = "Somente permitidos";
 "activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.";
 "activity device filter show all" = "Todos os dispositivos";
+"activity retention header" = "Por quanto tempo podemos armazenar sua atividade?";
+"activity retention option none" = "Não armazenar minha atividade";
+"activity retention option 24h" = "24 horas";
+"activity retention policy" = "Ao ativar a retenção de log, você aceita a Política de Privacidade do Blokada Cloud.";
+"activity retention desc" = "O Blokada Cloud não está registrando algo por padrão. Se você deseja ver as estatísticas agregadas e a atividade de todos os seus dispositivos, escolha o período de retenção de registro desejado abaixo.";
+
+"userdenied section header" = "Exceções";
 "userdenied section slugline" = "Gerenciar bloqueio de sites específicos";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Permitido";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Bloqueado";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Permitir";
+// A short one word action to block a hostname.
+"userdenied action block" = "Bloquear";
 
 "networks section header" = "Redes";
 "networks section label" = "Ajustar configurações para WiFi e redes móveis";
@@ -513,3 +537,42 @@
 "homepage developer subheader" = "e quer deixar o Blokada melhor?";
 "homepage developer desc" = "O Blokada é um projeto de código aberto dedicado ao desenvolvimento do melhor bloqueador de anúncios e aplicativo de privacidade para Android e iOS. Confira nosso Github, e nos informe, se precisar de alguma ajuda para fazer seu primeiro PR (Pull Request).";
 "homepage developer action" = "Ir para o repositório";
+
+"web vpn devices header" = "Dispositivos VPN";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Abrir Dispositivos VPN";
+"web action open setup" = "Abrir configuração";
+"web cta plus header" = "Atualize para o Blokada Plus para manter o controle de sua privacidade.";
+"web cta plus desc" = "Sua conta Libre oferece bloqueio de anúncios gratuito no dispositivo para Android e iOS com nossos aplicativos de código aberto. Para uma proteção ainda melhor, atualize para o Blokada Plus e obtenha a VPN, bem como nosso novo *bloqueio de anúncios na nuvem* que é mais rápido e fácil de usar.";
+// A short word for a button to generate profile
+"web action generate" = "Gerar";
+
+"setup header" = "Configuração";
+"setup desc" = "Existem muitas maneiras de configurar seu dispositivo para usar o Blokada Cloud. Escolha aquele que funciona para você.";
+"setup label which device" = "Que tipo de dispositivo você deseja configurar?";
+"setup label choose" = "Escolha qualquer uma das seguintes opções de instalação:";
+"setup comment wireguard" = "Nota: Usar o Blokada VPN ativa automaticamente o Blokada Cloud DNS. Estamos trabalhando para oferecer suporte a outras configurações para esta plataforma. 'WireGuard' e o logotipo 'Wireguard' são marcas registradas de Jason A. Donenfeld.";
+"setup comment native apps" = "Nota: Os aplicativos nativos para Android e iOS ainda não oferecem suporte ao Blokada Cloud. Estamos trabalhando na atualização.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Passo %@: %@";
+"setup option label recommended" = "Recomendado: %@";
+"setup option label alternative" = "Alternativo: %@";
+"setup name label unnamed" = "(sem nome)";
+
+"setup step name" = "Nomear seu dispositivo (opcional)";
+"setup step copy" = "Copiar seu nome de domínio";
+"setup step apply config" = "Aplicar a nova configuração";
+"setup step install" = "Instalar e iniciar nosso aplicativo";
+"setup step enter tag" = "Quando perguntado, digite sua etiqueta";
+"setup step download profile" = "Gerar e baixar o seu perfil";
+"setup step install wireguard" = "Instalar e iniciar o Wireguard";
+
+"stats header" = "Estatísticas";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Proporção";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Solicitações";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Consultas ao longo do tempo";
+"stats top allowed header" = "Principais solicitações permitidas";
+"stats top blocked header" = "Principais solicitações bloqueadas";

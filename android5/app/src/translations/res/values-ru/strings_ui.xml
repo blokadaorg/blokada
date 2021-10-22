@@ -137,6 +137,10 @@
     <string name="activity_request_allowed">Этот запрос был разрешен.</string>
     <string name="activity_request_allowed_whitelisted">Этот запрос был разрешен, потому что он находится в вашем списке разрешенных</string>
     <string name="activity_request_blocked_blacklisted">Этот запрос был заблокирован, потому что он находится в вашем списке заблокированных</string>
+    <string name="activity_request_allowed_list">Этот запрос был разрешен, поскольку он присутствует в списке блокировки *%s*.</string>
+    <string name="activity_request_allowed_no_list">Этот запрос был разрешен, поскольку его нет ни в одном из настроенных вами списков блокировки.</string>
+    <string name="activity_request_blocked_list">Этот запрос был заблокирован, поскольку он присутствует в списке блокировки *%s*.</string>
+    <string name="activity_request_blocked_no_list">Этот запрос был заблокирован, поскольку его нет ни в одном из настроенных вами списков блокировки.</string>
     <string name="activity_actions_header">Действия</string>
     <string name="activity_information_header">Информация</string>
     <string name="activity_action_add_to_whitelist">Добавить в разрешенные</string>

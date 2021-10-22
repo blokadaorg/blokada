@@ -181,6 +181,10 @@
 "activity request allowed" = "Этот запрос был разрешен.";
 "activity request allowed whitelisted" = "Этот запрос был разрешен, потому что он находится в вашем списке разрешенных";
 "activity request blocked blacklisted" = "Этот запрос был заблокирован, потому что он находится в вашем списке заблокированных";
+"activity request allowed list" = "Этот запрос был разрешен, поскольку он присутствует в списке блокировки *%@*.";
+"activity request allowed no list" = "Этот запрос был разрешен, поскольку его нет ни в одном из настроенных вами списков блокировки.";
+"activity request blocked list" = "Этот запрос был заблокирован, поскольку он присутствует в списке блокировки *%@*.";
+"activity request blocked no list" = "Этот запрос был заблокирован, поскольку его нет ни в одном из настроенных вами списков блокировки.";
 "activity actions header" = "Действия";
 "activity information header" = "Информация";
 "activity action add to whitelist" = "Добавить в разрешенные";

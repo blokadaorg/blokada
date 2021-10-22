@@ -181,6 +181,10 @@
 "activity request allowed" = "تمّ السماح لهذا الطلب.";
 "activity request allowed whitelisted" = "تمّ السماح لهذا الطلب، لأنّه موجود في قائمة السماح";
 "activity request blocked blacklisted" = "تمّ حَظْر هذا الطلب، لأنّه موجود في قائمة الحَظْر";
+"activity request allowed list" = "تمّ السماح لهذا الطلب، لأنّه موجود في *%@* قائمة الحَظْر.";
+"activity request allowed no list" = "تمّ السماح لهذا الطلب، لأنّه غير موجود في قوائم الحَظْر الخاصّة بك.";
+"activity request blocked list" = "تمّ حَظْر هذا الطلب، لأنّه موجود في *%@* قائمة الحَظْر.";
+"activity request blocked no list" = "تمّ حَظْر هذا الطلب، لأنّه غير موجود في قائمة الحَظْر الخاصّة بك.";
 "activity actions header" = "الإجراءات";
 "activity information header" = "معلومات";
 "activity action add to whitelist" = "إضافة إلى قائمة السماح";

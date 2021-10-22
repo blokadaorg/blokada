@@ -137,6 +137,10 @@
     <string name="activity_request_allowed">Cette requête a été autorisée.</string>
     <string name="activity_request_allowed_whitelisted">Cette requête a été autorisée, car elle figure dans votre liste d\'autorisations</string>
     <string name="activity_request_blocked_blacklisted">Cette requête a été bloquée, car elle figure dans votre liste d\'interdictions</string>
+    <string name="activity_request_allowed_list">Cette requête a été autorisée car elle est présente dans la liste *%s*.</string>
+    <string name="activity_request_allowed_no_list">Cette requête a été autorisée car elle n\'est présente dans aucune de vos listes noires.</string>
+    <string name="activity_request_blocked_list">Cette requête a été bloquée car elle présente dans la liste noire *%s*.</string>
+    <string name="activity_request_blocked_no_list">Cette requête a été bloquée car elle n\'est présente dans aucune de vos listes.</string>
     <string name="activity_actions_header">Actions</string>
     <string name="activity_information_header">Information</string>
     <string name="activity_action_add_to_whitelist">Ajouter à Autorisé</string>

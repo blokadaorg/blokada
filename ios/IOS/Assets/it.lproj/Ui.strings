@@ -181,6 +181,10 @@
 "activity request allowed" = "Questa richiesta è stata consentita.";
 "activity request allowed whitelisted" = "Questa richiesta è stata consentita, perché è nella tua lista Consentite";
 "activity request blocked blacklisted" = "Questa richiesta è stata bloccata, perché è nella tua lista Bloccate";
+"activity request allowed list" = "Questa richiesta è stata consentita perché è presente nella lista *%@*.";
+"activity request allowed no list" = "Questa richiesta è stata consentita perché non è presente in nessuna delle tue liste di blocco.";
+"activity request blocked list" = "Questa richiesta è stata bloccata perché è presente nella lista *%@*.";
+"activity request blocked no list" = "Questa richiesta è stata bloccata perché non è presente in nessuna delle tue liste di blocco.";
 "activity actions header" = "Azioni";
 "activity information header" = "Informazioni";
 "activity action add to whitelist" = "Aggiungi a Consentite";

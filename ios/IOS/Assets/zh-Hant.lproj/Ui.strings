@@ -181,6 +181,10 @@
 "activity request allowed" = "此請求已被允許。";
 "activity request allowed whitelisted" = "此請求已被允許，因為其在您的允許清單中";
 "activity request blocked blacklisted" = "此請求已被阻擋，因為其在您的阻擋清單中";
+"activity request allowed list" = "這個請求因為在 *%@* 阻擋清單中而被允許。";
+"activity request allowed no list" = "這個請求因為不在您設定的阻擋清單中而被允許。";
+"activity request blocked list" = "這個請求因為在 *%@* 阻擋清單中而被阻擋。";
+"activity request blocked no list" = "這個請求因為不在您設定的阻擋清單中而被阻擋。";
 "activity actions header" = "動作";
 "activity information header" = "資訊";
 "activity action add to whitelist" = "加入至允許清單";

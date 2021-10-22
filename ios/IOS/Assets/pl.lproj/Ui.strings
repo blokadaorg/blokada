@@ -181,6 +181,10 @@
 "activity request allowed" = "To żądanie zostało zezwolone.";
 "activity request allowed whitelisted" = "To żądanie zostało zezwolone, ponieważ znajduje się na Twojej liście Zezwolonych";
 "activity request blocked blacklisted" = "To żądanie zostało zablokowane, ponieważ znajduje się na Twojej liście Blokowanych";
+"activity request allowed list" = "To żądanie zostało dozwolone, ponieważ jest obecne na blokliście *%@*.";
+"activity request allowed no list" = "To żądanie zostało dozwolone, ponieważ nie jest obecne na żadnej ze skonfigurowanych bloklist.";
+"activity request blocked list" = "To żądanie zostało zablokowane, ponieważ jest obecne na blokliście *%@*.";
+"activity request blocked no list" = "To żądanie zostało zablokowane, ponieważ nie jest obecne na żadnej ze skonfigurowanych bloklist.";
 "activity actions header" = "Działania";
 "activity information header" = "Informacje";
 "activity action add to whitelist" = "Dodaj do Zezwolonych";

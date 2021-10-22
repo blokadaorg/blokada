@@ -137,6 +137,10 @@
     <string name="activity_request_allowed">Permintaan ini telah diizinkan.</string>
     <string name="activity_request_allowed_whitelisted">Permintaan ini telah diizinkan, karena domain tersebut ada di dalam whitelist</string>
     <string name="activity_request_blocked_blacklisted">Permintaan ini telah diblokir, karena domain tersebut ada di dalam blacklist</string>
+    <string name="activity_request_allowed_list">Permintaan ini telah diizinkan, karena telah termasuk dalam blocklist *%s*.</string>
+    <string name="activity_request_allowed_no_list">Permintaan ini telah diizinkan, karena tidak termasuk dalam blocklist yang telah Anda buat.</string>
+    <string name="activity_request_blocked_list">Permintaan ini telah diblokir, karena telah termasuk dalam blocklist *%s*.</string>
+    <string name="activity_request_blocked_no_list">Permintaan ini telah diblokir, karena tidak termasuk dalam blocklist yang telah Anda buat.</string>
     <string name="activity_actions_header">Tindakan</string>
     <string name="activity_information_header">Informasi</string>
     <string name="activity_action_add_to_whitelist">Tambahkan ke dalam whitelist</string>
@@ -168,6 +172,7 @@
     <string name="activity_retention_option_none">Jangan simpan aktifitas saya</string>
     <string name="activity_retention_option_twofourh">24 jam</string>
     <string name="activity_retention_policy">Dengan mengaktifkan penyimpanan log berarti Anda menyetujui kebijakan privasi dari Blokada Cloud.</string>
+    <string name="activity_retention_desc">Blokada Cloud secara default tidak akan menyimpan data Anda. Jika Anda ingin melihat kumpulan statistik dan aktivitas pemakaian dari semua perangkat Anda, silakan pilih rentang waktu penyimpanan data yang Anda inginkan di bawah ini.</string>
     <string name="userdenied_section_header">Pengecualian</string>
     <string name="userdenied_section_slugline">Atur pemblokiran untuk situs-situs tertentu</string>
     <string name="userdenied_tab_allowed">Diizinkan</string>

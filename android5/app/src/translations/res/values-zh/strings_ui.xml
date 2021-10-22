@@ -137,6 +137,10 @@
     <string name="activity_request_allowed">此請求已被允許。</string>
     <string name="activity_request_allowed_whitelisted">此請求已被允許，因為其在您的允許清單中</string>
     <string name="activity_request_blocked_blacklisted">此請求已被阻擋，因為其在您的阻擋清單中</string>
+    <string name="activity_request_allowed_list">這個請求因為在 *%s* 阻擋清單中而被允許。</string>
+    <string name="activity_request_allowed_no_list">這個請求因為不在您設定的阻擋清單中而被允許。</string>
+    <string name="activity_request_blocked_list">這個請求因為在 *%s* 阻擋清單中而被阻擋。</string>
+    <string name="activity_request_blocked_no_list">這個請求因為不在您設定的阻擋清單中而被阻擋。</string>
     <string name="activity_actions_header">動作</string>
     <string name="activity_information_header">資訊</string>
     <string name="activity_action_add_to_whitelist">加入至允許清單</string>

@@ -137,6 +137,10 @@
     <string name="activity_request_allowed">تمّ السماح لهذا الطلب.</string>
     <string name="activity_request_allowed_whitelisted">تمّ السماح لهذا الطلب، لأنّه موجود في قائمة السماح</string>
     <string name="activity_request_blocked_blacklisted">تمّ حَظْر هذا الطلب، لأنّه موجود في قائمة الحَظْر</string>
+    <string name="activity_request_allowed_list">تمّ السماح لهذا الطلب، لأنّه موجود في *%s* قائمة الحَظْر.</string>
+    <string name="activity_request_allowed_no_list">تمّ السماح لهذا الطلب، لأنّه غير موجود في قوائم الحَظْر الخاصّة بك.</string>
+    <string name="activity_request_blocked_list">تمّ حَظْر هذا الطلب، لأنّه موجود في *%s* قائمة الحَظْر.</string>
+    <string name="activity_request_blocked_no_list">تمّ حَظْر هذا الطلب، لأنّه غير موجود في قائمة الحَظْر الخاصّة بك.</string>
     <string name="activity_actions_header">الإجراءات</string>
     <string name="activity_information_header">معلومات</string>
     <string name="activity_action_add_to_whitelist">إضافة إلى قائمة السماح</string>

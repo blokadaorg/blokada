@@ -181,6 +181,10 @@
 "activity request allowed" = "Cette requête a été autorisée.";
 "activity request allowed whitelisted" = "Cette requête a été autorisée, car elle figure dans votre liste d'autorisations";
 "activity request blocked blacklisted" = "Cette requête a été bloquée, car elle figure dans votre liste d'interdictions";
+"activity request allowed list" = "Cette requête a été autorisée car elle est présente dans la liste *%@*.";
+"activity request allowed no list" = "Cette requête a été autorisée car elle n'est présente dans aucune de vos listes noires.";
+"activity request blocked list" = "Cette requête a été bloquée car elle présente dans la liste noire *%@*.";
+"activity request blocked no list" = "Cette requête a été bloquée car elle n'est présente dans aucune de vos listes.";
 "activity actions header" = "Actions";
 "activity information header" = "Information";
 "activity action add to whitelist" = "Ajouter à Autorisé";

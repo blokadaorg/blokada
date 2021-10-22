@@ -138,7 +138,7 @@
 "home status paused" = "一時停止しています";
 "home status active" = "有効";
 "home status deactivated" = "無効";
-"home action tap to activate" = "タップして起動";
+"home action tap to activate" = "タップして開始";
 "home status detail paused" = "タイマーが終了するまで一時停止中";
 "home status detail active" = "*広告*と*トラッカー*をブロック";
 "home status detail active with counter" = "*%@* の広告とトラッカーをブロック";
@@ -179,18 +179,22 @@
 
 "activity section header" = "アクティビティ";
 "activity section header details" = "アクティビティの詳細";
-"activity request blocked" = "このリクエストはブロックされています。";
-"activity request allowed" = "このリクエストは許可されています。";
-"activity request allowed whitelisted" = "マイ・リストにより、このリクエストは通信を許可されています";
-"activity request blocked blacklisted" = "マイ・リストにより、このリクエストは通信をブロックされています。";
+"activity request blocked" = "このリクエストはブロックされています";
+"activity request allowed" = "このリクエストは許可されています";
+"activity request allowed whitelisted" = "例外リストでこのリクエストは許可されています";
+"activity request blocked blacklisted" = "例外リストでこのリクエストはブロックされています";
+"activity request allowed list" = "*%@* ブロックリストでこのリクエストは許可されています";
+"activity request allowed no list" = "設定されたブロックリストのいずれにも存在しないため、このリクエストは許可されています";
+"activity request blocked list" = "*%@* ブロックリストでこのリクエストはブロックされています";
+"activity request blocked no list" = "設定されたブロックリストのいずれにも存在しないため、このリクエストはブロックされています";
 "activity actions header" = "アクション";
 "activity information header" = "Info";
-"activity action add to whitelist" = "通信を許可する";
+"activity action add to whitelist" = "リクエストを許可する";
 "activity action remove from whitelist" = "許可リストから削除";
-"activity action added to whitelist" = "通信を許可しています";
-"activity action add to blacklist" = "通信をブロックする";
+"activity action added to whitelist" = "リクエストを許可しています";
+"activity action add to blacklist" = "リクエストをブロックする";
 "activity action remove from blacklist" = "ブロックリストから削除";
-"activity action added to blacklist" = "通信をブロックしています";
+"activity action added to blacklist" = "リクエストをブロックしています";
 "activity action copy to clipboard" = "クリップボードに名前をコピー";
 "activity domain name" = "フルネーム";
 "activity time of occurrence" = "時刻";
@@ -209,8 +213,8 @@
 "activity category top allowed" = "許可回数";
 "activity filter header" = "表示するアクティビティを選択";
 "activity filter show all" = "すべて";
-"activity filter show blocked" = "ブロックされた通信";
-"activity filter show allowed" = "許可された通信";
+"activity filter show blocked" = "ブロックされたリクエスト";
+"activity filter show allowed" = "許可されたリクエスト";
 "activity empty text" = "デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。";
 "activity device filter show all" = "すべてのデバイス";
 "activity retention header" = "どのくらいの期間、あなたの活動を保存しますか？";
@@ -222,9 +226,9 @@
 "userdenied section header" = "例外";
 "userdenied section slugline" = "ブロック・許可したサイトを管理する";
 // A section name for the list of hosts allowed by user
-"userdenied tab allowed" = "許可リスト";
+"userdenied tab allowed" = "許可";
 // A section name for the list of hosts blocked by user
-"userdenied tab blocked" = "ブロックリスト";
+"userdenied tab blocked" = "ブロック";
 // A short one word action to allow a hostname.
 "userdenied action allow" = "許可";
 // A short one word action to block a hostname.
@@ -330,9 +334,9 @@
 "account lease label name" = "デバイス名";
 "account lease label location" = "接続先";
 "account lease label generate" = "接続先を選択すると、Wireguard をサポートする VPN アプリで使用できる設定ファイルが生成されます。これにより、まだアプリのないプラットフォームでも VPN を使用できます。対応プラットフォームでは Blokada アプリを使用することをお勧めします。";
-"account lease action generate" = "設定を作成する";
-"account lease action download" = "設定をダウンロード";
-"account lease generated" = "デバイスが追加されました！設定をダウンロードして、Wireguardでサポートされているすべてのデバイスで使用できます。";
+"account lease action generate" = "設定ファイルを生成";
+"account lease action download" = "設定ファイルをダウンロード";
+"account lease generated" = "デバイスが追加されました！設定をダウンロードして、Wireguard でサポートされているすべてのデバイスで使用できます。";
 "account lease wireguard desc" = "Blokada は Wireguard を使用しています。設定をダウンロードして新しいデバイスを追加できます。";
 "account lease label dns" = "DNS";
 "account lease action dns" = "DNS を選択";
@@ -489,7 +493,7 @@
 "homepage faq title 1" = "どのような情報が Blokada に保存されますか？";
 "homepage faq desc 1" = "Blokada は、ネットワークのアクティビティを追跡または共有しません。 Blokada Plus を使用する場合は、技術的な理由から、サービスを維持するために必要な最小限のデータを収集する必要があります。 詳細についてはプライバシーポリシーをご覧ください。";
 "homepage faq title 2" = "私のプライバシーはどのように保護されますか?";
-"homepage faq desc 2" = "Blokada は、デバイスにインストールされているアプリやブラウザーが、インターネットにプライベートデータ（いわゆるフィンガープリント）を送信することを防ぎます。また、一部のネットワークアクティビティ（DNS クエリ）を暗号化します。さらに保護が必要な場合、Blokada Plus を使用してデバイスをVPN経由で接続し、WireGuard® プロトコルを使用してネットワークトラフィック全体を暗号化します。";
+"homepage faq desc 2" = "Blokada は、デバイスにインストールされているアプリやブラウザーが、インターネットにプライベートデータ（いわゆるフィンガープリント）を送信することを防ぎます。また、一部のネットワークアクティビティ（DNS クエリ）を暗号化します。さらに保護が必要な場合、Blokada Plus を使用してデバイスを VPN 経由で接続し、WireGuard® プロトコルを使用してネットワークトラフィック全体を暗号化します。";
 "homepage faq title 3" = "Blokada Plus とは?";
 "homepage faq desc 3" = "Blokada Plus は、当社の安全で最新の VPN（仮想プライベートネットワーク）サービスです。これは、クラス最高の暗号化と低バッテリ使用を備えた高速プロトコルである WireGuard® を使用しています。Blokada Plus はすべてのネットワークアクティビティをリアルタイムで暗号化し、利用可能な最高レベルの保護を提供します。また、一般的な VPN 機能も利用できます。IP アドレスを非表示にしたり、位置情報を変更したり、地理的に制限されたコンテンツのブロックを解除したりできます。";
 "homepage faq title 4" = "Blokada Plus にアップグレードする必要がありますか？";
@@ -549,21 +553,21 @@
 
 "setup header" = "設定";
 "setup desc" = "デバイスで Blokada Cloud を使用する設定方法はいくつかあります。あなたに合うものを選択してください。";
-"setup label which device" = "どの種類のデバイスを設定しますか？";
+"setup label which device" = "設定するデバイスを選択してください";
 "setup label choose" = "以下から設定を選択してください:";
-"setup comment wireguard" = "注意: Blokada VPNを使用すると、Blokada Cloud DNS が自動的に有効になります。その他のプラットフォームは今後サポートする予定です。「WireGuard」と「Wireguard」ロゴは Jason A. Donenfeld の登録商標です。";
+"setup comment wireguard" = "注意: Blokada VPN を使用すると、Blokada Cloud DNS が自動的に有効になります。その他のプラットフォームは今後サポートする予定です。「WireGuard」と「Wireguard」ロゴは Jason A. Donenfeld の登録商標です。";
 "setup comment native apps" = "注意: Android と iOS のネイティブアプリでは現在 Blokada Cloud をサポートしていません。今後のアップデートで対応する予定です。";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "ステップ %@: %@";
 "setup option label recommended" = "推奨: %@";
-"setup option label alternative" = "上級ユーザー向け: %@";
+"setup option label alternative" = "または: %@";
 "setup name label unnamed" = "（名前がありません）";
 
 "setup step name" = "デバイスに名前を付ける（オプション）";
 "setup step copy" = "ホスト名をコピー";
 "setup step apply config" = "新しい設定を適用";
 "setup step install" = "Blokada アプリをインストールして開く";
-"setup step enter tag" = "要求があれば、タグを入力してください";
+"setup step enter tag" = "指示に従ってタグを入力してください";
 "setup step download profile" = "プロファイルを生成してダウンロード";
 "setup step install wireguard" = "Wireguard をインストールして開く";
 

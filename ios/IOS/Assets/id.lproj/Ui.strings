@@ -181,6 +181,10 @@
 "activity request allowed" = "Permintaan ini telah diizinkan.";
 "activity request allowed whitelisted" = "Permintaan ini telah diizinkan, karena domain tersebut ada di dalam whitelist";
 "activity request blocked blacklisted" = "Permintaan ini telah diblokir, karena domain tersebut ada di dalam blacklist";
+"activity request allowed list" = "Permintaan ini telah diizinkan, karena telah termasuk dalam blocklist *%@*.";
+"activity request allowed no list" = "Permintaan ini telah diizinkan, karena tidak termasuk dalam blocklist yang telah Anda buat.";
+"activity request blocked list" = "Permintaan ini telah diblokir, karena telah termasuk dalam blocklist *%@*.";
+"activity request blocked no list" = "Permintaan ini telah diblokir, karena tidak termasuk dalam blocklist yang telah Anda buat.";
 "activity actions header" = "Tindakan";
 "activity information header" = "Informasi";
 "activity action add to whitelist" = "Tambahkan ke dalam whitelist";
@@ -215,6 +219,7 @@
 "activity retention option none" = "Jangan simpan aktifitas saya";
 "activity retention option 24h" = "24 jam";
 "activity retention policy" = "Dengan mengaktifkan penyimpanan log berarti Anda menyetujui kebijakan privasi dari Blokada Cloud.";
+"activity retention desc" = "Blokada Cloud secara default tidak akan menyimpan data Anda. Jika Anda ingin melihat kumpulan statistik dan aktivitas pemakaian dari semua perangkat Anda, silakan pilih rentang waktu penyimpanan data yang Anda inginkan di bawah ini.";
 
 "userdenied section header" = "Pengecualian";
 "userdenied section slugline" = "Atur pemblokiran untuk situs-situs tertentu";

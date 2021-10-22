@@ -74,6 +74,13 @@
 "universal label none" = "Ninguna";
 // Common label in tables for the Name column. Think "name of host".
 "universal label name" = "Nombre";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Tiempo";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Cantidad";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Tipo";
+"universal label device" = "Dispositivo";
 
 "universal status processing" = "Procesando... espera por favor.";
 "universal status copied to clipboard" = "Copiado al portapapeles";
@@ -174,6 +181,10 @@
 "activity request allowed" = "Esta solicitud ha sido permitida.";
 "activity request allowed whitelisted" = "Esta solicitud ha sido permitida porque se encuentra entre tus Hosts permitidos";
 "activity request blocked blacklisted" = "Esta solicitud ha sido bloqueada porque se encuentra entre tu Lista de bloqueados";
+"activity request allowed list" = "Esta solicitud ha sido permitida, porque está presente en *%@*.";
+"activity request allowed no list" = "Esta solicitud ha sido permitida, ya que no está presente en ninguna de sus listas de bloques configuradas.";
+"activity request blocked list" = "Esta solicitud ha sido bloqueada, porque está presente en *%@*.";
+"activity request blocked no list" = "Esta solicitud ha sido bloqueada, ya que no está presente en ninguna de sus listas de bloques configuradas.";
 "activity actions header" = "Acciones";
 "activity information header" = "Información";
 "activity action add to whitelist" = "Añadir a Permitidos";
@@ -204,11 +215,22 @@
 "activity filter show allowed" = "Solo permitido";
 "activity empty text" = "Intenta usar tu dispositivo y vuelve aquí más tarde, para ver a dónde se conecta tu dispositivo.";
 "activity device filter show all" = "Todos los dispositivos";
+"activity retention header" = "¿Durante cuánto tiempo podemos almacenar su actividad?";
+"activity retention option none" = "No guardar mi actividad";
+"activity retention option 24h" = "24 horas";
+"activity retention policy" = "Al activar la retención de registros, acepta la Política de Privacidad de Blokada Cloud.";
+"activity retention desc" = "Blokada Cloud no registra nada por defecto. Si desea ver las estadísticas y las actividades agregadas de todos sus dispositivos, elija el período de retención de registros que desea a continuación.";
+
+"userdenied section header" = "Excepciones";
 "userdenied section slugline" = "Administrar bloqueo de sitios web particulares";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Permitido";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Bloqueado";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Permitir";
+// A short one word action to block a hostname.
+"userdenied action block" = "Bloquear";
 
 "networks section header" = "Redes";
 "networks section label" = "Ajustar configuración de WiFi y redes móviles";
@@ -515,3 +537,42 @@
 "homepage developer subheader" = "y quieres mejorar Blokada?";
 "homepage developer desc" = "Blokada es un proyecto de código abierto dedicado al desarrollo de la mejor aplicación de bloqueo de anuncios y privacidad para Android e iOS. Consulta nuestro Github y haznos saber si necesitas ayuda para hacer tu primera contribución.";
 "homepage developer action" = "Ir al repositorio";
+
+"web vpn devices header" = "Dispositivos VPN";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Abrir ajustes de equipos VPN";
+"web action open setup" = "Abrir configuración";
+"web cta plus header" = "Actualice a Blokada Plus para mantener el control de su privacidad.";
+"web cta plus desc" = "Tu cuenta Libre te da bloqueo gratuito en dispositivos para Android e iOS con nuestras aplicaciones de código abierto. Para una protección aún mejor, actualiza a Blokada Plus y consigue la VPN, así como nuestro nuevo *bloqueo de nube* que es más rápido y fácil de usar.";
+// A short word for a button to generate profile
+"web action generate" = "Generar";
+
+"setup header" = "Configuración";
+"setup desc" = "Hay muchas maneras de configurar tu dispositivo para usar la nube de Blokada. Elige la que funcione para ti.";
+"setup label which device" = "¿Qué tipo de dispositivo desea configurar?";
+"setup label choose" = "Elija cualquiera de las siguientes opciones de configuración:";
+"setup comment wireguard" = "Nota: Al usar Blokada VPN automáticamente se activa Blokada Cloud DNS. Estamos trabajando en soportar otras configuraciones para esta plataforma. 'WireGuard' y el logotipo 'Wireguard' son marcas registradas de Jason A. Donenfeld.";
+"setup comment native apps" = "Nota: Las aplicaciones nativas para Android y iOS aún no soportan Blokada Cloud. Estamos trabajando en la actualización.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Paso %@: %@";
+"setup option label recommended" = "Recomendado: %@";
+"setup option label alternative" = "Alternativa: %@";
+"setup name label unnamed" = "(sin nombre)";
+
+"setup step name" = "Nombre de su dispositivo (opcional)";
+"setup step copy" = "Copiar el nombre de su host";
+"setup step apply config" = "Aplicar la nueva configuración";
+"setup step install" = "Instalar e iniciar nuestra aplicación";
+"setup step enter tag" = "Cuando se le pregunte, introduzca su etiqueta";
+"setup step download profile" = "Generar y descargar tu perfil";
+"setup step install wireguard" = "Instalar e iniciar Wireguard";
+
+"stats header" = "Estadísticas";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Diferencia";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Peticiones";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Consultas a lo largo del tiempo";
+"stats top allowed header" = "Solicitudes permitidas más solicitadas";
+"stats top blocked header" = "Solicitudes bloqueadas más solicitadas";

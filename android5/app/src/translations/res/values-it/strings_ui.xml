@@ -137,6 +137,10 @@
     <string name="activity_request_allowed">Questa richiesta è stata consentita.</string>
     <string name="activity_request_allowed_whitelisted">Questa richiesta è stata consentita, perché è nella tua lista Consentite</string>
     <string name="activity_request_blocked_blacklisted">Questa richiesta è stata bloccata, perché è nella tua lista Bloccate</string>
+    <string name="activity_request_allowed_list">Questa richiesta è stata consentita perché è presente nella lista *%s*.</string>
+    <string name="activity_request_allowed_no_list">Questa richiesta è stata consentita perché non è presente in nessuna delle tue liste di blocco.</string>
+    <string name="activity_request_blocked_list">Questa richiesta è stata bloccata perché è presente nella lista *%s*.</string>
+    <string name="activity_request_blocked_no_list">Questa richiesta è stata bloccata perché non è presente in nessuna delle tue liste di blocco.</string>
     <string name="activity_actions_header">Azioni</string>
     <string name="activity_information_header">Informazioni</string>
     <string name="activity_action_add_to_whitelist">Aggiungi a Consentite</string>
