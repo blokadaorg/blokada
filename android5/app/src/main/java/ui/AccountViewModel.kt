@@ -14,10 +14,7 @@ package ui
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import model.Account
-import model.AccountId
-import model.ActiveUntil
-import model.BlokadaException
+import model.*
 import org.blokada.R
 import repository.BlockaRepository
 import service.AlertDialogService
@@ -25,6 +22,7 @@ import service.ConnectivityService
 import service.EnvironmentService
 import service.PersistenceService
 import ui.utils.cause
+import ui.utils.now
 import utils.Logger
 import java.util.*
 
@@ -40,12 +38,9 @@ class AccountViewModel: ViewModel() {
     val account: LiveData<Account> = _account
     val accountExpiration: LiveData<ActiveUntil> = _account.map { it.active_until }.distinctUntilChanged()
 
-    init {
-        viewModelScope.launch {
-            log.v("Refreshing account after start")
-            refreshAccount()
-        }
-    }
+    // This var is thread safe because we work on Main.immediate dispatched coroutines
+    private var requestOngoing = false
+    private var lastAccountRefresh = 0L
 
     fun restoreAccount(accountId: AccountId) {
         viewModelScope.launch {
@@ -67,8 +62,18 @@ class AccountViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 log.v("Refreshing account")
-                refreshAccountInternal()
+                requestOngoing = true
+                val accountId = _account.value?.id ?: persistence.load(Account::class).id
+                val account = blocka.fetchAccount(accountId)
+                updateLiveData(account)
+                log.v("Account refreshed, plus: ${account.isActive()}")
+                lastAccountRefresh = now()
+                requestOngoing = false
+            } catch (ex: NoPersistedAccount) {
+                log.w("No account to refresh yet, ignoring")
+                requestOngoing = false
             } catch (ex: BlokadaException) {
+                requestOngoing = false
                 when {
                     connectivity.isDeviceInOfflineMode() ->
                         log.w("Could not refresh account but device is offline, ignoring")
@@ -85,15 +90,26 @@ class AccountViewModel: ViewModel() {
         }
     }
 
-    fun checkAccount() {
+    fun maybeRefreshAccount() {
         viewModelScope.launch {
-            if (!hasAccount())
+            if (requestOngoing) {
+                log.v("maybeRefreshAccount: Account request already in progress, ignoring")
+            } else if (!hasAccount()) {
                 try {
-                    createAccount()
+                    log.w("Creating new account")
+                    requestOngoing = true
+                    val account = blocka.createAccount()
+                    updateLiveData(account)
+                    requestOngoing = false
                 } catch (ex: Exception) {
+                    requestOngoing = false
                     log.w("Could not create account".cause(ex))
                     alert.showAlert(R.string.error_creating_account)
                 }
+            } else if (!EnvironmentService.isFdroid() && now() > lastAccountRefresh + ACCOUNT_REFRESH_MILLIS) {
+                log.v("Account is stale, refreshing")
+                refreshAccount()
+            }
         }
     }
 
@@ -106,21 +122,6 @@ class AccountViewModel: ViewModel() {
         true
     } catch (ex: Exception) { false }
 
-    private suspend fun createAccount(): Account {
-        log.w("Creating new account")
-        val account = blocka.createAccount()
-        updateLiveData(account)
-        return account
-    }
-
-    private suspend fun refreshAccountInternal(): Account {
-        val accountId = _account.value?.id ?: persistence.load(Account::class).id
-        val account = blocka.fetchAccount(accountId)
-        updateLiveData(account)
-        log.v("Account refreshed, plus: ${account.isActive()}")
-        return account
-    }
-
     private fun updateLiveData(account: Account) {
         persistence.save(account)
         viewModelScope.launch {
@@ -129,3 +130,5 @@ class AccountViewModel: ViewModel() {
     }
 
 }
+
+private const val ACCOUNT_REFRESH_MILLIS = 6 * 60 * 60 * 1000

@@ -43,7 +43,7 @@ object TranslationService {
     fun setup() {
         log.v("Translation service set up, locale: $locale")
         initialized = true
-        reload()
+        reload(skipUpdatingActivity = true)
     }
 
     fun setLocale(locale: String?) {
@@ -83,10 +83,10 @@ object TranslationService {
         }
     }
 
-    private fun reload() {
+    private fun reload(skipUpdatingActivity: Boolean = false) {
         if (initialized) {
             log.v("Reloading translations repositories")
-            applyLocaleToActivity()
+            if (!skipUpdatingActivity) applyLocaleToActivity()
             repo = getTranslationRepository(this.locale)
         }
     }

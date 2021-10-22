@@ -170,7 +170,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
 
     // dynamic translations
-    implementation 'com.akexorcist:localization:1.2.6'
+    implementation 'com.akexorcist:localization:1.2.9'
 
     // engine deps
     implementation 'org.pcap4j:pcap4j-core:1.7.7'

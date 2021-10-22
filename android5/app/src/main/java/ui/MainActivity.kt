@@ -12,7 +12,6 @@
 
 package ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -35,13 +34,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.blokada.R
 import service.*
-import ui.advanced.packs.PacksViewModel
 import ui.home.ActivatedFragment
 import ui.home.FirstTimeFragment
 import ui.home.HelpFragment
 import ui.home.HomeFragmentDirections
 import ui.settings.SettingsFragmentDirections
 import ui.settings.SettingsNavigation
+import ui.utils.now
 import ui.web.WebService
 import utils.ExpiredNotification
 import utils.Links
@@ -59,6 +58,8 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Logger.v("MainActivity", "onCreate: $this")
+
         ContextService.setActivityContext(this)
         TranslationService.setup()
         setupEvents()
@@ -224,19 +225,33 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         }
     }
 
+    private var lastOnResume = 0L
     override fun onResume() {
         super.onResume()
+
+        // Avoid multiple consecutive quick onResume events
+        if (lastOnResume + 5 * 1000 > now()) return
+        lastOnResume = now()
+
+        Logger.w("MainActivity", "onResume: $this")
         tunnelVM.refreshStatus()
-        accountVM.checkAccount()
         blockaRepoVM.maybeRefreshRepo()
         lifecycleScope.launch {
             statsVM.refresh()
         }
+
+        accountVM.maybeRefreshAccount()
     }
 
     override fun onPause() {
+        Logger.w("MainActivity", "onPause: $this")
         super.onPause()
         tunnelVM.goToBackground()
+    }
+
+    override fun onDestroy() {
+        Logger.w("MainActivity", "onDestroy: $this")
+        super.onDestroy()
     }
 
     override fun onSupportNavigateUp(): Boolean {

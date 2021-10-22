@@ -84,6 +84,7 @@ object PersistenceService {
                 }
                 else -> prefs.load(getPrefsKey(type)) to json
             }
+
             if (string != null) {
                 val deserialized = deserializer.deserialize(string, type)
                 return when (type) {
@@ -95,10 +96,11 @@ object PersistenceService {
                     else -> deserialized
                 }
             }
-            log.v("No persistence, using defaults for: $type")
-            return getDefault(type)
+
+            throw BlokadaException("Nothing persisted yet")
         } catch (ex: Exception) {
-            log.e("Could not load persistence, restoring defaults for: $type: ${ex.message}")
+            log.w("Could not load persistence for: $type, reason: ${ex.message}")
+            log.v("Returning defaults for $type")
             return getDefault(type)
         }
     }
