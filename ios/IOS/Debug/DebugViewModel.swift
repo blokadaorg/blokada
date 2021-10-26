@@ -46,7 +46,7 @@ class DebugViewModel {
     }
 
     func resetPacks() {
-        PackService.shared.resetToDefaults()
+        PackService.shared.reload()
     }
 
     func activateFakeAdCounter() {

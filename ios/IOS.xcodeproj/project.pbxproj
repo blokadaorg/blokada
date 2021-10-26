@@ -265,6 +265,8 @@
 		4ED41CC52478406800155C88 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC32478406800155C88 /* ActivityViewModel.swift */; };
 		4ED41CC72478458100155C88 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC62478458100155C88 /* SearchBar.swift */; };
 		4ED41CC82478458100155C88 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC62478458100155C88 /* SearchBar.swift */; };
+		4EE5842C2726D79C0042D34F /* BlocklistConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */; };
+		4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */; };
 		4EECA5032418D142003A2541 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA5022418D142003A2541 /* AccountView.swift */; };
 		4EECA5052418E91D003A2541 /* ChangeAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA5042418E91D003A2541 /* ChangeAccountView.swift */; };
 		4EEF1BE82457105E00734182 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF1BE72457105E00734182 /* NotificationService.swift */; };
@@ -497,6 +499,7 @@
 		4ED41CC02478403E00155C88 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4ED41CC32478406800155C88 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		4ED41CC62478458100155C88 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistConverter.swift; sourceTree = "<group>"; };
 		4EECA5022418D142003A2541 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		4EECA5042418E91D003A2541 /* ChangeAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAccountView.swift; sourceTree = "<group>"; };
 		4EEF1BE72457105E00734182 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -630,6 +633,7 @@
 				4E2ECCEF245AE5D1009040F1 /* PlaceholderView.swift */,
 				4E2ECCF8245AFBCB009040F1 /* SpinnerView.swift */,
 				4E2ECD0A245B2B14009040F1 /* TagView.swift */,
+				4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */,
 			);
 			path = Pack;
 			sourceTree = "<group>";
@@ -1187,6 +1191,7 @@
 				4E78E357245DB4D80017B234 /* InboxView.swift in Sources */,
 				4E267F5A243C8D4300D3160F /* ButtonChoiceView.swift in Sources */,
 				4E85E98B243382B3001B2795 /* BlockaApiModel.swift in Sources */,
+				4EE5842C2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4E4235542450714E005A0779 /* SharedActionsService.swift in Sources */,
 				4E52F3AD245AA9E6007E36EE /* RateAppView.swift in Sources */,
 				4E4562B8240E5E150022CBF6 /* SceneDelegate.swift in Sources */,
@@ -1254,6 +1259,7 @@
 				4E78E364245ED1D80017B234 /* PackDetailViewModel.swift in Sources */,
 				4E45F4F4248EA5F4002D4DD6 /* LevelView.swift in Sources */,
 				4E290FC12498A57000FC4C61 /* Localization.swift in Sources */,
+				4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4E423531244EE9DB005A0779 /* PaymentServiceMock.swift in Sources */,
 				4E11D2DB271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */,
 				4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */,

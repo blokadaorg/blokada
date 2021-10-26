@@ -46,11 +46,7 @@ class PacksViewModel: ObservableObject {
 
     func fetch() {
         self.log.v("Fetching packs")
-        service.fetchPacks(ok: { packs in
-            // we receive them through the callback in init
-        }) { error in
-            self.log.e("Failed fetching packs".cause(error))
-        }
+        service.reload()
     }
 
     func filter() {

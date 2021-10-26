@@ -212,6 +212,13 @@ struct Blocklist: Decodable {
     let is_allowlist: Bool
 }
 
+// Our internal version of the Blocklist
+struct MappedBlocklist: Decodable {
+    let id: String
+    let packId: String
+    let packConfig: String
+}
+
 struct BlocklistWrapper: Decodable {
     let lists: [Blocklist]
 }

@@ -16,10 +16,11 @@ class PackService {
 
     static let shared = PackService()
 
+    private let api = BlockaApiService.shared
+
     var onPacksUpdated = { (packs: [Pack]) in }
 
     private let log = Logger("Pack")
-    private let packDownloader = PackDownloader()
 
     private var hardcodedPacks = [
         Pack.mocked(id: "oisd", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "phishing", "security"],
@@ -30,7 +31,6 @@ class PackService {
             creditUrl: "https://go.blokada.org/oisd",
             configs: ["Light"]
         )
-            .changeStatus(config: "Light")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/oisd/light/hosts.txt", applyFor: "Light")),
 
         Pack.mocked(id: "energized", tags: [Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "regional"],
@@ -39,13 +39,12 @@ class PackService {
             description: "This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave.",
             creditName: "Team Boltz",
             creditUrl: "https://energized.pro/",
-            configs: ["Spark", "Blu", "Basic", "Porn", "Regional", "Social", "Ultimate"]
+            configs: ["Spark", "Blu", "Basic", "Adult", "Regional", "Social", "Ultimate"]
         )
-            .changeStatus(config: "Blu")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/spark/hosts.txt", applyFor: "Spark"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/blu/hosts.txt", applyFor: "Blu"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/basic/hosts.txt", applyFor: "Basic"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/adult/hosts.txt", applyFor: "Porn"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/adult/hosts.txt", applyFor: "Adult"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/regional/hosts.txt", applyFor: "Regional"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/social/hosts.txt", applyFor: "Social"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/energized/ultimate/hosts.txt", applyFor: "Ultimate")),
@@ -56,12 +55,11 @@ class PackService {
             description: "Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories.",
             creditName: "Steven Black",
             creditUrl: "https://github.com/StevenBlack/hosts",
-            configs: ["Unified", "Fake news", "Porn", "Social", "Gambling"]
+            configs: ["Unified", "Fake news", "Adult", "Social", "Gambling"]
         )
-            .changeStatus(config: "Unified")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/unified/hosts.txt", applyFor: "Unified"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/fakenews/hosts.txt", applyFor: "Fake news"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/adult/hosts.txt", applyFor: "Porn"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/adult/hosts.txt", applyFor: "Adult"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/social/hosts.txt", applyFor: "Social"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/stevenblack/gambling/hosts.txt", applyFor: "Gambling")),
 
@@ -73,7 +71,6 @@ class PackService {
             creditUrl: "https://github.com/jerryn70/GoodbyeAds",
             configs: ["Standard", "YouTube", "Spotify"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/standard/hosts.txt", applyFor: "Standard"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/youtube/hosts.txt", applyFor: "YouTube"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/spotify/hosts.txt", applyFor: "Spotify")),
@@ -86,7 +83,6 @@ class PackService {
                creditUrl: "https://github.com/AdAway/AdAway",
                configs: ["Standard"]
            )
-               .changeStatus(config: "Standard")
                .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/adaway/standard/hosts.txt", applyFor: "Standard")),
 
         Pack.mocked(id: "phishingarmy", tags: [Pack.recommended, Pack.official, "phishing", "security"],
@@ -97,7 +93,6 @@ class PackService {
             creditUrl: "https://phishing.army/index.html",
             configs: ["Standard", "Extended"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/phishingarmy/standard/hosts.txt", applyFor: "Standard"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/phishingarmy/extended/hosts.txt", applyFor: "Extended")),
 
@@ -109,7 +104,6 @@ class PackService {
             creditUrl: "https://go.blokada.org/ddgtrackerradar",
             configs: ["Standard"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/blocklists/ddgtrackerradar/standard/hosts.txt", applyFor: "Standard")),
 
         Pack.mocked(id: "blacklist", tags: [Pack.official, "adblocking", "tracking", "privacy"],
@@ -120,7 +114,6 @@ class PackService {
             creditUrl: "https://github.com/anudeepND/blacklist",
             configs: ["Adservers", "Facebook"]
         )
-            .changeStatus(config: "Adservers")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/adservers/hosts.txt", applyFor: "Adservers"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blacklist/facebook/hosts.txt", applyFor: "Facebook")),
 
@@ -130,15 +123,14 @@ class PackService {
             description: "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.",
             creditName: "Daniel White",
             creditUrl: "https://go.blokada.org/developerdan",
-            configs: ["Ads & Tracking", "Facebook", "AMP", "Hate & Junk"]
+            configs: ["Ads and tracking", "Facebook", "Amp", "Hate and junk"]
         )
-            .changeStatus(config: "Ads & Tracking")
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/ads/hosts.txt", applyFor: "Ads & Tracking"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/ads/hosts.txt", applyFor: "Ads and tracking"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/facebook/hosts.txt", applyFor: "Facebook"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/amp/hosts.txt", applyFor: "AMP"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/junk/hosts.txt", applyFor: "Hate & Junk")),
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/amp/hosts.txt", applyFor: "Amp"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/developerdan/junk/hosts.txt", applyFor: "Hate and junk")),
 
-        Pack.mocked(id: "blocklist", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "social", "youtube"],
+        Pack.mocked(id: "blocklist", tags: [Pack.official, "adblocking", "tracking", "privacy", "social", "youtube"],
             title: "The Block List Project",
             slugline: "A collection of blocklists for various use cases.",
             description: "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.",
@@ -146,7 +138,6 @@ class PackService {
             creditUrl: "https://go.blokada.org/blocklistproject",
             configs: ["Ads", "Facebook", "Malware", "Phishing", "Tracking", "YouTube"]
         )
-            .changeStatus(config: "Ads")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/ads/hosts.txt", applyFor: "Ads"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/facebook/hosts.txt", applyFor: "Facebook"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/malware/hosts.txt", applyFor: "Malware"))
@@ -162,21 +153,19 @@ class PackService {
             creditUrl: "https://go.blokada.org/spam404",
             configs: ["Standard"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/spam404/standard/hosts.txt", applyFor: "Standard")),
 
         Pack.mocked(id: "hblock", tags: [Pack.official, "adblocking", "tracking", "phishing", "security"],
             title: "hBlock",
             slugline: "A comprehensive lists to block ads and tracking",
             description: "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.",
-            creditName: "spam404",
+            creditName: "hBlock",
             creditUrl: "https://go.blokada.org/hblock",
             configs: ["Standard"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/hblock/standard/hosts.txt", applyFor: "Standard")),
 
-        Pack.mocked(id: "cpbl", tags: [Pack.recommended, Pack.official, "adblocking", "tracking", "phishing", "security"],
+        Pack.mocked(id: "cpbl", tags: [Pack.official, "adblocking", "tracking", "phishing", "security"],
             title: "Combined Privacy Block Lists",
             slugline: "A general purpose, medium weight list",
             description: "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.",
@@ -184,7 +173,6 @@ class PackService {
             creditUrl: "https://go.blokada.org/cpbl",
             configs: ["Standard", "Mini"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cpbl/standard/hosts.txt", applyFor: "Standard"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cpbl/mini/hosts.txt", applyFor: "Mini")),
 
@@ -196,7 +184,6 @@ class PackService {
             creditUrl: "https://go.blokada.org/danpollock",
             configs: ["Standard"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/danpollock/standard/hosts.txt", applyFor: "Standard")),
 
         Pack.mocked(id: "urlhaus", tags: [Pack.recommended, Pack.official, "security"],
@@ -207,10 +194,9 @@ class PackService {
             creditUrl: "https://go.blokada.org/urlhaus",
             configs: ["Standard"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/urlhaus/standard/hosts.txt", applyFor: "Standard")),
 
-        Pack.mocked(id: "1hosts", tags: [Pack.recommended, Pack.official, "adblocking", "tracking"],
+        Pack.mocked(id: "1hosts", tags: [Pack.official, "adblocking", "tracking"],
             title: "1Hosts",
             slugline: "A blocklist for ads and tracking, updated regularly",
             description: "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.",
@@ -218,11 +204,10 @@ class PackService {
             creditUrl: "https://go.blokada.org/1hosts",
             configs: ["Lite", "Pro"]
         )
-            .changeStatus(config: "Lite")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/1hosts/lite/hosts.txt", applyFor: "Lite"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/1hosts/pro/hosts.txt", applyFor: "Pro")),
 
-        Pack.mocked(id: "d3host", tags: [Pack.recommended, Pack.official, "adblocking", "tracking"],
+        Pack.mocked(id: "d3host", tags: [Pack.official, "adblocking", "tracking"],
             title: "d3Host",
             slugline: "A blocklist from the maker of the adblocker test",
             description: "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test",
@@ -230,68 +215,13 @@ class PackService {
             creditUrl: "https://go.blokada.org/d3host",
             configs: ["Standard"]
         )
-            .changeStatus(config: "Standard")
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/d3host/standard/hosts.txt", applyFor: "Standard")),
     ]
 
-    private let packsVersion = 25
+    private let packsVersion = 28
 
     private var packs = [Pack]()
     private var usingDefaultConfiguration = false
-
-    private let persistence = UserDefaults.standard
-    private let decoder = initJsonDecoder()
-    private let encoder = initJsonEncoder()
-
-    private func loadPacks() -> [Pack] {
-        let result = persistence.string(forKey: "packs")
-        guard let stringData = result else {
-            return []
-        }
-
-        let jsonData = stringData.data(using: .utf8)
-        guard let json = jsonData else {
-            log.e("Failed getting packs json")
-            return []
-        }
-
-        do {
-            let packs = try self.decoder.decode(Packs.self, from: json)
-            if packs.version ?? 0 < self.packsVersion {
-                return migratePacks(old: packs.packs, new: hardcodedPacks)
-            } else {
-                return packs.packs
-            }
-        } catch {
-            log.e("Failed decoding packs json".cause(error))
-            return []
-        }
-    }
-
-    private func persistPacks(_ packs: Packs) {
-        guard let body = packs.toJson() else {
-            return self.log.e("Failed encoding packs json")
-        }
-
-        persistence.set(body, forKey: "packs")
-    }
-
-    private init() {
-        self.packs = loadPacks()
-        if self.packs.isEmpty {
-            self.resetToDefaults()
-        }
-    }
-
-    func resetToDefaults() {
-        self.log.w("Using hardcoded packs")
-        self.packs = hardcodedPacks
-        self.onPacksUpdated(self.packs)
-        self.useHardcodedList()
-        onBackground {
-            self.persistPacks(Packs(packs: self.packs, version: self.packsVersion))
-        }
-    }
 
     private func migratePacks(old: [Pack], new: [Pack]) -> [Pack] {
         self.log.v("Migrating packs to version \(packsVersion)")
@@ -320,132 +250,186 @@ class PackService {
         }
     }
 
-    func fetchPacks(ok: @escaping Ok<[Pack]>, fail: @escaping Fail) {
-        onBackground {
-            onMain {
+    func reload() {
+        self.log.v("reload: reloading packs")
+        self.packs = hardcodedPacks
+        self.onPacksUpdated(self.packs)
+
+        self.api.getCurrentDevice { error, device in
+            guard error == nil else {
+                return self.log.e("reload: could not get device".cause(error))
+            }
+
+            guard let device = device else {
+                return self.log.e("reload: device returned empty")
+            }
+
+            let activeLists = device.lists
+
+            self.api.getCurrentBlocklists { error, blocklists in
+                guard error == nil else {
+                    return self.log.e("reload: could not reload packs".cause(error))
+                }
+
+                guard let blocklists = blocklists else {
+                    return self.log.e("reload: blocklists returned empty")
+                }
+
+                let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false
+                    && activeLists.contains(b.id) }))
+
+                self.packs = self.hardcodedPacks
+                var packsDict: [String: Pack] = [:]
+                self.packs.forEach { pack in packsDict[pack.id] = pack }
+
+                mapped.forEach { mapping in
+                    let packId = mapping.packId
+                    let configName = mapping.packConfig
+                    let pack = packsDict[packId]
+                    guard let pack = pack else {
+                        return self.log.w("reload: unknown pack id: \(packId)")
+                    }
+
+                    guard pack.configs.contains(configName) else {
+                        return self.log.w("reload: pack \(packId) doesnt know config \(configName)")
+                    }
+
+                    let newPack = pack.changeStatus(installed: true, config: configName)
+                    packsDict[packId] = newPack
+                    self.packs = self.packs.map { $0.id == packId ? newPack : $0 }
+                }
+
+                // Replace item without reordering them
                 self.onPacksUpdated(self.packs)
-                return ok(self.packs)
             }
         }
     }
 
     func installPack(pack: Pack, ok: @escaping Ok<Void>, fail: @escaping Fail) {
+        var pack = pack
+        if (pack.status.config.isEmpty) {
+            self.log.v("installPack: selecting first config by default: \(pack.configs.first!)")
+            pack = pack.changeStatus(config: pack.configs.first!)
+        }
+
         self.update(pack.changeStatus(installing: true))
         onBackground {
-            var urls = pack.getUrls()
-
-            // Also include urls of any active pack
-            let moreUrls = self.packs.filter { $0.status.installed }.flatMap { $0.getUrls() }
-            urls = (urls + moreUrls).unique()
-
-            self.downloadAll(urls: urls, ok: { _ in
-                onBackground {
-                    self.mergeSources(urls: urls, ok: { _ in
-                        onMain {
-                            self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
-                        }
-
-                        onBackground {
-                            NetworkService.shared.queryStatus { error, status in
-                                if let status = status, status.active {
-                                    self.log.v("Reloading blocklists in engine")
-                                    NetworkService.shared.sendMessage(msg: "reload_lists") { _, _ in
-                                        return ok(())
-                                    }
-                                } else {
-                                    return ok(())
-                                }
-                            }
-                        }
-                    }, fail: { error in
-                        onMain {
-                            self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                            return fail(error)
-                        }
-                    })
-                }
-            }, fail: { error in
-                onMain {
+            // Get active lists this user selected
+            self.api.getCurrentDevice { error, device in
+                guard error == nil else {
                     self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                    return fail(error)
+                    return fail("installPack: could not get device".cause(error))
                 }
-            })
+
+                guard let device = device else {
+                    self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+                    return fail("installPack: device returned empty")
+                }
+
+                // Map the list IDs to pack ID and config (that we use in client)
+                self.api.getCurrentBlocklists { error, blocklists in
+                    guard error == nil else {
+                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+                        return fail("installPack: could not reload packs".cause(error))
+                    }
+
+                    guard let blocklists = blocklists else {
+                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+                        return fail("installPack: blocklists returned empty")
+                    }
+
+                    let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false })).filter { it in
+                        // Get only mapping for selected pack
+                        it.packId == pack.id
+                        
+                        // And only for configs that are active for this pack
+                        && pack.status.config.contains(it.packConfig)
+                    }
+
+                    // Merge lists unique
+                    let newActiveLists = Set(mapped.map { it in it.id }).union(device.lists)
+
+                    self.api.postDevice(request: DeviceRequest(
+                        account_id: Config.shared.accountId(),
+                        lists: Array(newActiveLists),
+                        retention: nil,
+                        paused: nil
+                    )) { error, _ in
+                        guard error == nil else {
+                            self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+                            return fail("installPack: failed postings lists".cause(error))
+                        }
+
+                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+                        self.onPacksUpdated(self.packs)
+                        return ok(())
+                    }
+                }
+            }
         }
     }
 
     func uninstallPack(pack: Pack, ok: @escaping Ok<Void>, fail: @escaping Fail) {
         self.update(pack.changeStatus(installing: true))
         onBackground {
-            // Uninstall any downloaded sources for this pack
-            // We get all possible sources because user might have changed config and only then decided to uninstall
-            let urlsToUninstall = pack.sources.flatMap { $0.urls }
-            for url in urlsToUninstall {
-                self.log.v("Removing downloaded source (if any): \(url)")
-                self.packDownloader.remove(url: url)
+            // Get active lists this user selected
+            self.api.getCurrentDevice { error, device in
+                guard error == nil else {
+                    self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+                    return fail("uninstallPack: could not get device".cause(error))
+                }
+
+                guard let device = device else {
+                    self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+                    return fail("uninstallPack: device returned empty")
+                }
+
+                // Map the list IDs to pack ID and config (that we use in client)
+                self.api.getCurrentBlocklists { error, blocklists in
+                    guard error == nil else {
+                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+                        return fail("uninstallPack: could not reload packs".cause(error))
+                    }
+
+                    guard let blocklists = blocklists else {
+                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+                        return fail("uninstallPack: blocklists returned empty")
+                    }
+
+                    let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false })).filter { it in
+                        // Get only mapping for selected pack
+                        it.packId == pack.id
+                    }
+
+                    // Merge lists unique
+                    let newActiveLists = Set(device.lists).subtracting(mapped.map { it in it.id })
+
+                    self.api.postDevice(request: DeviceRequest(
+                        account_id: Config.shared.accountId(),
+                        lists: Array(newActiveLists),
+                        retention: nil,
+                        paused: nil
+                    )) { error, _ in
+                        guard error == nil else {
+                            self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+                            return fail("installPack: failed postings lists".cause(error))
+                        }
+
+                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+                        self.onPacksUpdated(self.packs)
+                        return ok(())
+                    }
+                }
             }
-
-            // Include urls of any active pack
-            let urls = self.packs.filter { $0.status.installed && $0.id != pack.id }.flatMap { $0.getUrls() }
-
-            self.downloadAll(urls: urls, ok: { _ in
-                onBackground {
-                    self.mergeSources(urls: urls, ok: { _ in
-                        onMain {
-                            self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                        }
-
-                        onBackground {
-                            NetworkService.shared.queryStatus { error, status in
-                                if let status = status, status.active {
-                                    self.log.v("Reloading blocklists in engine")
-                                    NetworkService.shared.sendMessage(msg: "reload_lists") { _, _ in
-                                        return ok(())
-                                    }
-                                }
-                            }
-                        }
-                    }, fail: { error in
-                        onMain {
-                            self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                        }
-                    })
-                }
-            }, fail: { error in
-                onMain {
-                    self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                }
-            })
         }
     }
 
-    func reload() {
-        onBackground {
-            self.log.v("Reloading all blocklists")
-
-            if self.usingDefaultConfiguration {
-                self.useHardcodedList()
-            } else {
-                // Include urls of any active pack
-                let urls = self.packs.filter { $0.status.installed }.flatMap { $0.getUrls() }.unique()
-
-                // If they are downloaded already, they'll be fetched from cache files instead
-                self.downloadAll(urls: urls, ok: { _ in
-                    onBackground {
-                        // Merging will also include user blocklist
-                        self.mergeSources(urls: urls, ok: { _ in
-                            onBackground {
-                                NetworkService.shared.queryStatus { error, status in
-                                    if let status = status, status.active {
-                                        self.log.v("Reloading blocklists in engine")
-                                        NetworkService.shared.sendMessage(msg: "reload_lists") { _, _ in }
-                                    }
-                                }
-                            }
-                        }, fail: { error in })
-                    }
-                }, fail: { error in })
-            }
-        }
+    // When user changes configuration (selects or deselects) for a pack that is active or not
+    func changeConfig(pack: Pack, config: PackConfig, fail: @escaping Fail) {
+        let updated = pack.changeStatus(installed: false, config: config)
+        self.installPack(pack: updated, ok: { pack in
+            
+        }, fail: fail)
     }
 
     func setBadge(pack: Pack) {
@@ -461,216 +445,12 @@ class PackService {
         return count == 0 ? nil : count
     }
 
-    func changeConfig(pack: Pack, config: PackConfig, fail: @escaping Fail) {
-        let updated = pack.changeStatus(installed: false, config: config)
-        self.installPack(pack: updated, ok: { pack in
-            
-        }, fail: fail)
-    }
-
     private func update(_ pack: Pack) {
         onMain {
-            self.log.v("Pack: \(pack.id): installed: \(pack.status.installed)")
+            self.log.v("Pack: \(pack.id): installed: \(pack.status.installed), installing: \(pack.status.installing)")
             self.packs = self.packs.map { $0.id == pack.id ? pack : $0 }
             self.onPacksUpdated(self.packs)
-            self.checkConfiguration()
-
-            onBackground {
-                self.persistPacks(Packs(packs: self.packs, version: self.packsVersion))
-            }
         }
     }
-
-    private func downloadAll(urls: [Url], ok: @escaping Ok<Void>, fail: @escaping Fail) {
-        onMain {
-            var downloads = urls.count
-            var errorNotified = false
-
-            if urls.isEmpty {
-                return ok(())
-            }
-
-            for url in urls {
-                onBackground {
-                    if self.packDownloader.hasDownloaded(url: url) {
-                        self.log.v("Skipping download, already present: \(url)")
-                        onMain {
-                            downloads -= 1
-                            if downloads == 0 {
-                                return ok(())
-                            }
-                        }
-                    } else {
-                        self.packDownloader.download(url: url, ok: { _ in
-                            onMain {
-                                downloads -= 1
-                                if downloads == 0 {
-                                    return ok(())
-                                }
-                            }
-                        }, fail: { error in
-                            onMain {
-                                if !errorNotified {
-                                    errorNotified = true
-                                    return fail(error)
-                                }
-                            }
-                        })
-                    }
-                }
-            }
-        }
-    }
-
-    private func mergeSources(urls: [Url], ok: @escaping Ok<Void>, fail: @escaping Fail) {
-        if urls.isEmpty {
-            return ok(())
-        }
-
-        var files = urls.map {
-            FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.net.blocka.app")!.appendingPathComponent("\($0)".toBase64())
-        }
-
-        let destination = FileManager.default.containerURL(
-        forSecurityApplicationGroupIdentifier: "group.net.blocka.app")!.appendingPathComponent("hosts")
-
-        do {
-            if FileManager.default.fileExists(atPath: destination.path) {
-                try FileManager.default.removeItem(at: destination)
-            }
-
-            self.log.v("Merging hosts files")
-            try FileManager.default.merge(files: files, to: destination)
-            ok(())
-        } catch {
-            return fail(error)
-        }
-    }
-
-    private func checkConfiguration() {
-        let anythingActivated = !self.packs.filter { $0.status.installed }.isEmpty
-        if !anythingActivated && !self.usingDefaultConfiguration {
-            self.log.v("Switching to hardcoded lists")
-            self.usingDefaultConfiguration = true
-            useHardcodedList()
-        } else if anythingActivated {
-            self.usingDefaultConfiguration = false
-        }
-    }
-
-    private func useHardcodedList() {
-        onBackground {
-            self.log.v("Using default hardcoded list")
-
-            var files = [Bundle(for: type(of : self)).url(forResource: "hosts", withExtension: "txt")!]
-
-            let destination = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.net.blocka.app")!.appendingPathComponent("hosts")
-
-            do {
-                if FileManager.default.fileExists(atPath: destination.path) {
-                    try FileManager.default.removeItem(at: destination)
-                }
-
-                self.log.v("Merging hardcoded blocklist with user blocklist")
-                try FileManager.default.merge(files: files, to: destination)
-
-                NetworkService.shared.queryStatus { error, status in
-                    if let status = status, status.active {
-                        self.log.v("Reloading blocklist")
-                        NetworkService.shared.sendMessage(msg: "reload_lists") { _, _ in }
-                    }
-                }
-            } catch {
-                self.log.e("Failed using default list file".cause(error))
-            }
-        }
-    }
-
-    //    private var packs = [
-    //        Pack.mocked(id: "45342345242", tags: ["recommended", "official", "adblocking", "privacy"],
-    //            title: "Block ads and trackers",
-    //            slugline: "BLOKADA recommended pack",
-    //            description: "This is our recommended pack for blocking ads & trackers. It consists of several popular lists, namely Energized, Unified and more. You may choose how many rules to use.",
-    //            creditName: "Various authors",
-    //            creditUrl: "https://blokada.org",
-    //            configs: ["Light version", "Full version"]
-    //        ).changeStatus(installed: true, config: "Full version", hits: 99),
-    //        Pack.mocked(id: "45241234252342", tags: ["recommended", "official", "privacy"],
-    //            title: "Block Facebook",
-    //            slugline: "Additional blocking of Facebook",
-    //            description: "This pack blocks more Facebook connections, enabling better protection from tracking and fingerprinting. This may lead to breaking Facebook or other apps.",
-    //            creditName: "BLOKADA",
-    //            creditUrl: "https://blokada.org"
-    //        ).changeStatus(),
-    //        Pack.mocked(id: "324235234", tags: ["recommended"],
-    //            title: "My blocked sites",
-    //            slugline: "Websites manually blocked by you",
-    //            description: "When manually block any site, it will land here.",
-    //            creditName: "Various authors",
-    //            creditUrl: "https://blokada.org"
-    //        ).changeStatus(installed: true),
-    //        Pack.mocked(id: "345324212524", tags: ["recommended"],
-    //            title: "My allowed sites",
-    //            slugline: "Websites manually allowed by you",
-    //            description: "When manually allow any site, it will land here.",
-    //            creditName: "Various authors",
-    //            creditUrl: "https://blokada.org"
-    //        ).changeStatus(installed: true),
-    //        Pack.mocked(id: "25312424214", tags: ["official", "security", "privacy"],
-    //            title: "Encrypt connections",
-    //            slugline: "Secure connections with encryption",
-    //            description: "When you enable this pack, BLOKADA will protect your connections by requiring encryption and rejecting the unencrypted ones.",
-    //            creditName: "BLOKADA",
-    //            creditUrl: "https://blokada.org",
-    //            configs: ["Encrypt DNS (DNS over HTTPS)", "Require HTTPS", "Use VPN"]
-    //        ).changeStatus(installed: true, config: "Encrypt DNS (DNS over HTTPS)"),
-    //        Pack.mocked(id: "579879748298778", tags: ["recommended", "adult", "regional", "Japan"],
-    //            title: "Block adult websites",
-    //            slugline: "Protect your children from adult content",
-    //            description: "This pack blocks all porn websites that exist.",
-    //            creditName: "Family guy"
-    //        ),
-    //
-    //        Pack.mocked(id: "35234234524252", tags: ["adblocking", "privacy"],
-    //            title: "Energized",
-    //            slugline: "A popular community pack",
-    //            description: "A nice overall packs for blocking ads and annoyances. Please note that if you are using BLOKADA default blocklist, this one is already included.",
-    //            creditName: "The Energized team",
-    //            creditUrl: "https://blokada.org"
-    //        ).changeStatus(installed: true, updatable: true, badge: true),
-    //        Pack.mocked(id: "44534534534231232423423", tags: ["recommended", "privacy"],
-    //            title: "EasyPrivacy",
-    //            slugline: "A popular anti tracking pack",
-    //            creditName: "The EasyPrivacy team",
-    //            creditUrl: "https://blokada.org"
-    //        ),
-    //        Pack.mocked(id: "3",
-    //            title: "Underscribed pack"
-    //        ),
-    //        Pack.mocked(id: "48797987987983", tags: ["adblocking", "privacy", "adult"],
-    //            title: "Super long freaking awesome name pack",
-    //            description: "This pack is great because it has lots of text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    //            creditName: "The Freaking Awesome Long Name Team"
-    //        ),
-    //
-    //        Pack.mocked(id: "634535353453", tags: ["adblocking", "privacy"],
-    //            title: "Super adblocking pack",
-    //            description: "This pack will help you block everyday annoyances.",
-    //            creditName: "The F-Society",
-    //            configs: ["Light", "Full", "Extreme"]
-    //        ).changeStatus(installed: true, updatable: true, badge: true, enabledConfig: ["Light"]),
-    //        Pack.mocked(id: "7", tags: ["adblocking", "privacy", "regional", "China"],
-    //            title: "China ads blocker",
-    //            slugline: "Blocks out ads in China.",
-    //            creditName: "The Chinese Ministry of Ads"
-    //        ),
-    //        Pack.mocked(id: "8", tags: ["adblocking", "privacy", "adult", "regional", "Poland"],
-    //            title: "Universal pack for Poland",
-    //            description: "A great choice for the Polish part of the Internet.",
-    //            creditName: "Polish Party People"
-    //        )
-    //    ]
 
 }
