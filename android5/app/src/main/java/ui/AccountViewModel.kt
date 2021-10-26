@@ -131,4 +131,4 @@ class AccountViewModel: ViewModel() {
 
 }
 
-private const val ACCOUNT_REFRESH_MILLIS = 6 * 60 * 60 * 1000
+private const val ACCOUNT_REFRESH_MILLIS = 10 * 60 * 1000 // Same as on iOS

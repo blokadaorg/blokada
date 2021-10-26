@@ -100,7 +100,7 @@ class Config {
     }
 
     func accountActive() -> Bool {
-        return (_account.value?.activeUntil() ?? Date(timeIntervalSince1970: 0)) > Date()
+        return _account.value?.isActive() ?? false
     }
 
     func hasKeys() -> Bool {

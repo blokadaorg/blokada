@@ -184,19 +184,7 @@ class HomeViewModel: ObservableObject {
                         return self.afterStart(done)
                     }
                 } else {
-                    // Tunnel is already up and running, check lease and account
-                    if status?.hasGateway() ?? false {
-                        if !Config.shared.accountActive() || !Config.shared.leaseActive() {
-                            self.log.w("start: Lease expired, showing alert dialog")
-                            self.showExpiredAlert()
-                            return self.afterStart(done)
-                        } else {
-                            self.expiration.update(Config.shared.lease()!)
-                            return self.afterStart(done)
-                        }
-                    } else {
-                         return self.afterStart(done)
-                    }
+                    return self.afterStart(done)
                 }
             }}
         }
@@ -210,21 +198,6 @@ class HomeViewModel: ObservableObject {
         onBackground {
             if !Config.shared.accountActive() {
                 PaymentService.shared.refreshProductsAfterStart()
-            }
-
-            // Check account on every fresh app start
-            self.log.v("Check account after start")
-            self.api.getAccount(id: Config.shared.accountId()) { error, account in
-                if let account = account {
-                    self.log.v("Updating account after start")
-                    SharedActionsService.shared.updateAccount(account)
-
-                    // Account got inactive from backend, turn off vpn and inform the user
-                    if !Config.shared.accountActive() && Config.shared.vpnEnabled() {
-                        self.log.w("Account got deactivated")
-                        self.expiration.update(nil)
-                    }
-                }
             }
 
             // Check lease on every fresh app start if using vpn
@@ -241,6 +214,8 @@ class HomeViewModel: ObservableObject {
                 guard error == nil else {
                     return
                 }
+
+                self.maybeSyncUserAfterForeground()
 
                 self.syncUiWithTunnel { error, status in onMain {
                     guard error == nil else {
@@ -281,6 +256,32 @@ class HomeViewModel: ObservableObject {
                 }}
             }
         }
+    }
+
+    private let ACCOUNT_REFRESH_SEC: Double = 10 * 60 // Same as on Android
+    private var lastOnForeground: Double = 0
+    private func maybeSyncUserAfterForeground() {
+        if Date().timeIntervalSince1970 < lastOnForeground + ACCOUNT_REFRESH_SEC {
+            return
+        }
+
+        // Check account on foreground at least once a day
+        self.log.v("Foreground: check account after foreground")
+        self.api.getAccount(id: Config.shared.accountId()) { error, account in
+            if let account = account {
+                self.lastOnForeground = Date().timeIntervalSince1970
+
+                self.log.v("Foreground: updating account after foreground")
+                SharedActionsService.shared.updateAccount(account)
+
+                // Account got inactive from backend, turn off vpn and inform the user
+                if !Config.shared.accountActive() && Config.shared.vpnEnabled() {
+                    self.log.w("Foreground: account got deactivated")
+                    self.expiration.update(nil)
+                }
+            }
+        }
+
     }
 
     private func showExpiredAlert() {
