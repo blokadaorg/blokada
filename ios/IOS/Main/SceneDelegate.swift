@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private let homeVM = HomeViewModel()
     private let tabVM = TabViewModel()
+    private let activityVM = ActivityViewModel()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -36,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     locationVM: LocationListViewModel(),
                     logVM: LogViewModel(),
                     packsVM: PacksViewModel(tabVM: self.tabVM),
-                    activityVM: ActivityViewModel(),
+                    activityVM: self.activityVM,
                     inboxVM: InboxViewModel(),
                     leaseVM: LeaseListViewModel(),
                     vm: homeVM
@@ -60,6 +61,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
 
             window.makeKeyAndVisible()
+            
+            self.tabVM.onTabChanged = { tab in
+                if (tab == "activity") {
+                    self.activityVM.refreshStats()
+                }
+            }
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -87,6 +94,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         self.homeVM.foreground()
+        self.activityVM.foreground()
 
         UIApplication.shared.applicationIconBadgeNumber = 0
     }

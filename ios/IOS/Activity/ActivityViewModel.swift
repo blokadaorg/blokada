@@ -106,13 +106,17 @@ class ActivityViewModel: ObservableObject {
         //self.sharedActions.refreshStats(ok)
         self.api.getCurrentDeviceActivity { error, activity in
             guard let activity = activity else {
-                return // TODO
+                return self.log.w("refreshStats: failed getting activity".cause(error))
             }
-            
+
             self.service.setEntries(entries: convertActivity(activity: activity))
 
             ok(())
         }
+    }
+
+    func foreground() {
+        refreshStats()
     }
 
     func checkLogRetention() {

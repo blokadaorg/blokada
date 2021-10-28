@@ -18,6 +18,7 @@ class TabViewModel : ObservableObject {
         didSet {
             // This is how we navigate back from multi level navigation
             self.selection = nil
+            onTabChanged(activeTab)
         }
     }
 
@@ -38,6 +39,8 @@ class TabViewModel : ObservableObject {
     }
 
     @Published var selection: String? = nil
+
+    var onTabChanged = { (tab: String) in }
 
     init() {
         SharedActionsService.shared.newMessage = {
