@@ -81,7 +81,7 @@ class AccountViewModel: ObservableObject {
                     return self.onError(CommonError.accountInactiveAfterRestore, error)
                 }
 
-                guard /*!Env.isProduction ||*/ account!.isActive() else {
+                guard !Env.isProduction || account!.isActive() else {
                     return self.onError(CommonError.accountInactiveAfterRestore)
                 }
 
