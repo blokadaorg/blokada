@@ -46,9 +46,16 @@ class PaymentService {
 
             self.storeKit.fetchProducts(ok: { products in
                 onMain {
-                    let convertedProducts = products.map { p in
-                        Product(id: p.productIdentifier, title: p.localTitle, description: p.localDescription,
-                                price: p.localPrice, period: p.durationMonths)
+                    let convertedProducts = products.map { p -> Product in
+                        var product = Product(id: p.productIdentifier, title: p.localTitle, description: p.localDescription,
+                                              price: p.localPrice, period: p.durationMonths, type: "plus")
+
+                        if p.productIdentifier == "plus_6month" {
+                            product = Product(id: p.productIdentifier, title: p.localTitle, description: p.localDescription,
+                                    price: p.localPrice, period: p.durationMonths, type: "cloud")
+                        }
+
+                        return product
                     }
                     ok(convertedProducts)
                 }

@@ -29,6 +29,18 @@ class PaymentGatewayViewModel: ObservableObject {
         }
     }
 
+    init() {
+        
+    }
+
+    init(mocked: Bool) {
+        self.options = [
+            PaymentViewModel("Product 1"),
+            PaymentViewModel("Product 2"),
+            PaymentViewModel("Cloud Product 3")
+        ]
+    }
+
     var accountActive: Bool {
         return Config.shared.accountActive()
     }

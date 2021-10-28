@@ -31,6 +31,9 @@ extension SKProduct {
         case .year:
             return (self.subscriptionPeriod?.numberOfUnits ?? 1) * 12
         default:
+            if (self.subscriptionPeriod?.numberOfUnits == 6) {
+                return 12
+            }
             return self.subscriptionPeriod?.numberOfUnits ?? 1
         }
     }
@@ -47,10 +50,14 @@ extension SKProduct {
     var localDescription: String {
        let length = self.durationMonths
        if length == 1 {
-           return ""
+           return "(\(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))))"
+       } else if self.productIdentifier == "plus_6month" {
+           let price = self.price.dividing(by: NSDecimalNumber(decimal: (length as NSNumber).decimalValue))
+           //return "then \(L10n.paymentSubscriptionPerMonth(formatPrice(price: price)))"
+           return "(\(localTitle) at \(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))))"
        } else {
-        let price = self.price.dividing(by: NSDecimalNumber(decimal: (length as NSNumber).decimalValue))
-        return "(\(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))). \(localInfo))"
+           let price = self.price.dividing(by: NSDecimalNumber(decimal: (length as NSNumber).decimalValue))
+           return "(\(localTitle) at \(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))). \(localInfo))"
        }
    }
 

@@ -158,7 +158,13 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         onBackground {
             if !response.products.isEmpty {
-                self.products = response.products.sorted { a, b in a.durationMonths < b.durationMonths }
+                self.products = response.products.sorted { a, b in
+                    if (a.durationMonths != b.durationMonths) {
+                        return a.durationMonths < b.durationMonths
+                    } else {
+                        return a.productIdentifier == "plus_6month"
+                    }
+                }
             }
 
             let callback = self.productsWaiting.value

@@ -30,6 +30,8 @@ extension Color {
 
     static let cPrimaryBackground = Color(UIColor.systemBackground)
     static let cSecondaryBackground = Color(UIColor.secondarySystemBackground)
+
+    static let cSemiTransparent = Color("SemiTransparent")
 }
 
 extension Image {
@@ -59,4 +61,6 @@ extension Image {
     static let fDelete = "delete.left"
     static let fShare = "square.and.arrow.up"
     static let fCopy = "doc.on.doc"
+    static let fPlus = "plus.diamond"
+    static let fCloud = "cloud"
 }

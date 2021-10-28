@@ -15,63 +15,22 @@ import SwiftUI
 struct PaymentListView: View {
 
     @ObservedObject var vm: PaymentGatewayViewModel
+    
+    let showType: String
 
     @State var showLocationSheet = false
 
     var body: some View {
-        ZStack {
-            VStack {
-                VStack {
-                    ForEach(self.vm.options, id: \.self) { option in
-                        PaymentView(vm: option).onTapGesture {
-                            withAnimation {
-                                self.vm.buy(option.product)
-                            }
-                        }
+        VStack {
+            ForEach(self.vm.options.filter({ it in it.product.type == self.showType}), id: \.self) { option in
+                PaymentView(vm: option).onTapGesture {
+                    withAnimation {
+                        self.vm.buy(option.product)
                     }
                 }
-                .padding(.bottom, 8)
-                Spacer()
             }
-            .padding(.top, 1)
-            .opacity(self.vm.working || self.vm.options.isEmpty ? 0.0 : 1.0)
-            .transition(.opacity)
-            .animation(
-                Animation.easeIn(duration: 0.3).repeatCount(1)
-            )
-
-            VStack {
-                HStack {
-                    Spacer()
-                    VStack {
-                        if self.vm.working {
-                            if #available(iOS 14.0, *) {
-                                ProgressView()
-                                    .padding(.bottom)
-                            } else {
-                                SpinnerView()
-                                    .frame(width: 24, height: 24)
-                                    .padding(.bottom)
-                            }
-
-                            Text(L10n.universalStatusProcessing)
-                                .multilineTextAlignment(.center)
-                        } else if self.vm.accountActive {
-                            Text(L10n.errorPaymentCanceled)
-                                .multilineTextAlignment(.center)
-                        } else {
-                            Text(errorDescriptions[CommonError.paymentFailed]!)
-                                .multilineTextAlignment(.center)
-                        }
-                    }
-                    .padding(32)
-                    Spacer()
-                }
-                Spacer()
-            }
-            .background(Color.cPrimaryBackground)
-            .opacity(self.vm.working || self.vm.error != nil || self.vm.options.isEmpty || self.vm.accountActive ? 1.0 : 0.0)
         }
+        .padding(.bottom, 8)
     }
 }
 
@@ -84,13 +43,13 @@ struct PaymentListView_Previews: PreviewProvider {
         error.error = "Bad error"
 
         return Group {
-            PaymentListView(vm: PaymentGatewayViewModel())
+            PaymentListView(vm: PaymentGatewayViewModel(), showType: "plus")
                 .previewLayout(.sizeThatFits)
 
-            PaymentListView(vm: error)
+            PaymentListView(vm: error, showType: "plus")
                 .previewLayout(.sizeThatFits)
 
-            PaymentListView(vm: working)
+            PaymentListView(vm: working, showType: "cloud")
                 .previewLayout(.sizeThatFits)
         }
     }

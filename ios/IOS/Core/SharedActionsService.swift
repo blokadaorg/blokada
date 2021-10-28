@@ -24,6 +24,7 @@ class SharedActionsService {
     var changeGateway = { (new: Gateway, noPermissions: @escaping Ok<Void>) in }
     var refreshLeases = {}
     var present = { (vc: UIActivityViewController) in }
+    var presentAlert = { (vc: UIAlertController) in }
     var newMessage = {}
     var refreshStats = { (ok: @escaping Ok<Void>) in }
 

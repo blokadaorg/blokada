@@ -49,7 +49,7 @@ extension String {
             output = output + Text(part)
                 .fontWeight(shouldBold ? .bold : .regular)
                 .foregroundColor(shouldBold ? color : Color.primary)
-                .font(shouldBold ? font ?? .body : .body)
+                .font(font ?? .body)
             shouldBold = !shouldBold
         }
         return output

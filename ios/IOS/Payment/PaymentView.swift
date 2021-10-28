@@ -19,17 +19,21 @@ struct PaymentView: View {
     var body: some View {
         return VStack {
             ZStack {
-                ButtonView(enabled: .constant(true), plus: .constant(true))
+                ButtonView(enabled: .constant(true), plus: .constant(self.vm.product.type == "plus"))
 
-                HStack {
-                    Text(self.vm.price).foregroundColor(Color.primary).font(.headline)
-                        + Text(" / ").foregroundColor(Color.primary)
-                        + Text(self.vm.name).foregroundColor(Color.primary)
+                if self.vm.product.id == "plus_6month" {
+                    Text("Start 7-Day Free Trial").foregroundColor(Color.primary).font(.headline)
+                } else if self.vm.product.period == 12 {
+                    Text("Subscribe Anually").foregroundColor(Color.primary).font(.headline)
+                } else {
+                    Text("Subscribe Monthly").foregroundColor(Color.primary).font(.headline)
                 }
             }
             .frame(height: 44)
 
-            Text(self.vm.description).foregroundColor(Color.primary).font(.caption)
+            Text(self.vm.description)
+                .foregroundColor(Color.primary)
+                .font(.caption)
                 .multilineTextAlignment(.center)
         }
         .padding(.bottom, 12)

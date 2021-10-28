@@ -22,6 +22,7 @@ struct Product {
     let description: String
     let price: String
     let period: Int
+    let type: String
 }
 
 struct Transaction {

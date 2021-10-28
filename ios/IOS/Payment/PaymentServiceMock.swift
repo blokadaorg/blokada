@@ -35,9 +35,10 @@ class PaymentService {
             sleep(3)
             onMain {
                 let products = [
-                    Product(id: "1", title: "Product 1", description: "Description of Product 1", price: "9.99", period: 1),
-                    Product(id: "2", title: "Product 2", description: "Description of Product 2", price: "19.99", period: 6),
-                    Product(id: "3", title: "Product 3", description: "Description of Product 3", price: "39.99", period: 12)
+                    Product(id: "11", title: "6 Months", description: "Blokada Cloud", price: "14.99", period: 1, type: "cloud"),
+                    Product(id: "1", title: "1 Month", description: "Blokada Plus", price: "9.99", period: 1, type: "plus"),
+                    Product(id: "2", title: "6 Months", description: "Blokada Plus (XX per month. Save 10%)", price: "19.99", period: 6, type: "plus"),
+                    Product(id: "3", title: "12 Months", description: "Blokada Plus (XX per month. Save 20%)", price: "39.99", period: 12, type: "plus")
                 ]
                 ok((products))
             }

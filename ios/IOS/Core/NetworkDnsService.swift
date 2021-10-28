@@ -58,7 +58,13 @@ class NetworkDnsService {
     }
 
     func openSettingsScreen() {
-        UIApplication.shared.open(URL.init(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        let alert = UIAlertController(title: "Open", message: "To give permissions tap on 'Change Settings' button", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Change Settings", style: .default, handler: { action in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }))
+
+        SharedActionsService.shared.presentAlert(alert)
     }
 
     private func getManager(done: @escaping Callback<NEDNSSettingsManager>) {

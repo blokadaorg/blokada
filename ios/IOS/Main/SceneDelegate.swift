@@ -56,8 +56,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             window.rootViewController = controller
             self.window = window
+
             SharedActionsService.shared.present = { vc in
-                window.rootViewController?.present(vc, animated: true, completion: nil)
+                controller.present(vc, animated: true, completion: nil)
+            }
+
+            SharedActionsService.shared.presentAlert = { alert in
+                controller.present(alert, animated: true)
             }
 
             window.makeKeyAndVisible()
