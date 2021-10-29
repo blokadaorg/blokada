@@ -215,11 +215,11 @@
 "activity filter show allowed" = "Nur erlaubte";
 "activity empty text" = "Verwende dein Gerät einfach weiter und komme später hierher zurück, um zu sehen, wohin sich dein Gerät verbindet.";
 "activity device filter show all" = "Alle Geräte";
-"activity retention header" = "Für wie lange können wir deine Aktivität speichern?";
-"activity retention option none" = "Meine Aktivität nicht speichern";
+"activity retention header" = "Für wie lange können wir deine Aktivitäten speichern?";
+"activity retention option none" = "Meine Aktivitäten nicht speichern";
 "activity retention option 24h" = "24 Stunden";
 "activity retention policy" = "Durch die Aktivierung der Log-Speicherung akzeptierst du die Blokada Cloud-Datenschutzrichtlinie.";
-"activity retention desc" = "Blokada Cloud protokolliert standardmäßig nichts. Wenn du die kombinierten Statistiken und Aktivitäten von all deinen Geräten sehen möchtest, wähle unten den gewünschten Zeitraum aus.";
+"activity retention desc" = "Blokada Cloud protokolliert standardmäßig nichts. Wenn du die kombinierten Statistiken und Aktivitäten von all deinen Geräten sehen möchtest, wähle unten den gewünschten Protokollierungzeitraum aus.";
 
 "userdenied section header" = "Ausnahmen";
 "userdenied section slugline" = "Sperren bestimmter Websites verwalten";
