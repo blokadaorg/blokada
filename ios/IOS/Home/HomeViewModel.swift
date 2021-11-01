@@ -461,6 +461,7 @@ class HomeViewModel: ObservableObject {
                             if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
                                 self.working = false
                                 self.mainSwitch = false
+                                self.stopTimer()
                                 return self.log.v("User action: switchMain: done (no vpn perms)")
                             }
                             return self.handleError(CommonError.failedTunnel, cause: error)
@@ -481,6 +482,7 @@ class HomeViewModel: ObservableObject {
                             // Turning off Cloud is not possible, show a message TODO?
                             self.working = false
                             self.mainSwitch = false
+                            self.stopTimer()
                             self.log.v("User action: switchMain: done")
                         }
                     }}
@@ -810,7 +812,6 @@ class HomeViewModel: ObservableObject {
             self.timerSeconds = self.timerSeconds - 1
             if self.timerSeconds <= 0 {
                 self.stopTimer()
-                self.timerSeconds = 0
                 timer.invalidate()
             }
         }
@@ -821,10 +822,12 @@ class HomeViewModel: ObservableObject {
     }
 
     func stopTimer() {
-        if self.timerSeconds > 0 {
+        if self.timerSeconds >= 0 {
             self.timerSeconds = 0
             self.log.v("stopTimer: stopping pause")
             self.api.pause(seconds: 0, done: { _, _ in })
+        } else {
+            self.timerSeconds = 0
         }
     }
 
