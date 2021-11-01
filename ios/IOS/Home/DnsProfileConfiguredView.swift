@@ -29,7 +29,7 @@ struct DnsProfileConfiguredView: View {
                     .bold()
                     .padding()
 
-                Text("Blokada Cloud just created a DNS profile for you in Settings. Activate it in General -> VPN & Network -> DNS.")
+                Text("Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN & Network -> DNS.")
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .trailing], 40)
                     .padding([.top, .bottom])
@@ -44,7 +44,9 @@ struct DnsProfileConfiguredView: View {
                 VStack {
                     Button(action: {
                         self.activeSheet = nil
-                        self.networkDns.openSettingsScreen()
+                       // DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+                            self.networkDns.openSettingsScreen()
+                       // })
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))

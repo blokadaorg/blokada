@@ -25,7 +25,8 @@ struct PaymentGatewayView: View {
         if self.vm.accountActive {
             self.activeSheet = nil
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                self.activeSheet = .activated
+                //self.activeSheet = .activated
+                self.activeSheet = .dnsProfile
             })
         }
 
