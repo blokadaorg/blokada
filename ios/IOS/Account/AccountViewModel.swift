@@ -161,7 +161,7 @@ class AccountViewModel: ObservableObject {
 
     private func syncTag() {
         onMain {
-            self.log.v("syncTag: account changed, updating tag")
+            self.log.v("syncTag: account object updated, updating tag")
             self.api.getCurrentDevice { error, device in
                 guard error == nil, let tag = device?.device_tag else {
                     return self.log.e("syncTag: failed to update tag".cause(error))

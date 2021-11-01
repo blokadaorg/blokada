@@ -29,6 +29,14 @@ class HomeViewModel: ObservableObject {
         sharedActions.refreshStats = { ok in
             self.refreshAdsCounter(delay: false, ok: ok)
         }
+        sharedActions.refreshPauseInformation = { paused in
+            self.log.v("Refreshing pause info")
+            if !paused {
+                self.stopTimer()
+            } else {
+                self.startTimer(seconds: 300)
+            }
+        }
         Config.shared.setOnConfigUpdated {
             onMain { self.syncUiWithConfig() }
         }
@@ -449,11 +457,12 @@ class HomeViewModel: ObservableObject {
                 } else {
                     // Turning off
                     self.network.queryStatus { error, status in onMain {
-                        guard error == nil else {
-                            return self.handleError(CommonError.failedTunnel, cause: error)
-                        }
-
-                        guard let status = status else {
+                        guard error == nil, let status = status else {
+                            if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
+                                self.working = false
+                                self.mainSwitch = false
+                                return self.log.v("User action: switchMain: done (no vpn perms)")
+                            }
                             return self.handleError(CommonError.failedTunnel, cause: error)
                         }
 
@@ -794,12 +803,14 @@ class HomeViewModel: ObservableObject {
     }
 
     func startTimer(seconds: Int) {
+        self.log.v("startTimer: starting pause")
         self.timerSeconds = seconds
-        self.network.pause(seconds: seconds, done: { _, _ in })
+        self.api.pause(seconds: seconds, done: { _, _ in })
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             self.timerSeconds = self.timerSeconds - 1
             if self.timerSeconds <= 0 {
                 self.stopTimer()
+                self.timerSeconds = 0
                 timer.invalidate()
             }
         }
@@ -810,9 +821,10 @@ class HomeViewModel: ObservableObject {
     }
 
     func stopTimer() {
-        if self.timerSeconds != 0 {
+        if self.timerSeconds > 0 {
             self.timerSeconds = 0
-            self.network.pause(seconds: 0, done: { _, _ in })
+            self.log.v("stopTimer: stopping pause")
+            self.api.pause(seconds: 0, done: { _, _ in })
         }
     }
 

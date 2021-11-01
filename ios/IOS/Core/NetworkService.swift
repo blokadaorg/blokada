@@ -19,6 +19,7 @@ class NetworkService {
 
     private let log = Logger("Network")
     private let config = Config.shared
+
     let httpClient: OpaquePointer?
     private let configurationFilteringOnly = "No Server"
 
@@ -376,13 +377,6 @@ class NetworkService {
                 self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: nil, pauseSeconds: 0))
                 done(error, nil)
             }
-        }
-    }
-
-    func pause(seconds: Int, done: @escaping Callback<String>) {
-        onBackground {
-            let command = ["pause", String(seconds)].joined(separator: " ")
-            self.sendMessage(msg: command, done: done)
         }
     }
 

@@ -16,7 +16,7 @@ class ActivityViewModel: ObservableObject {
 
     private let log = Logger("ActivityVM")
     private let service = ActivityService.shared
-    //private let sharedActions = SharedActionsService.shared
+    private let sharedActions = SharedActionsService.shared
     private let api = BlockaApiService.shared
 
     @Published var logRetention = Config.shared.logRetention()
@@ -134,6 +134,7 @@ class ActivityViewModel: ObservableObject {
             self.logRetention = device.retention
             Config.shared.setLogRetention(retention: self.logRetention)
             self.logRetentionSelected = self.logRetention
+            self.sharedActions.refreshPauseInformation(device.paused)
         }
     }
 

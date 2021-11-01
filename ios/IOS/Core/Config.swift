@@ -203,6 +203,10 @@ class Config {
 
     // XXX: Do not call this method directly, use SharedActionsService.shared.updateAccount(account)
     func setAccount(_ account: Account) {
+        if _account.value?.id != account.id {
+            self.log.v("Account ID changed")
+        }
+
         _account.value = account
         persistAccount(account)
 

@@ -482,6 +482,30 @@ class BlockaApiService {
         }
     }
 
+    func pause(seconds: Int, done: @escaping Callback<String>) {
+        onBackground {
+            if seconds > 0 {
+                self.postDevice(request: DeviceRequest(account_id: Config.shared.accountId(), lists: nil,
+                                                           retention: nil, paused: true)) { error, _ in
+                    guard error == nil else {
+                        return onMain { done("pause: request failed".cause(error), nil) }
+                    }
+
+                    return onMain { done(nil, nil) }
+                }
+            } else {
+                self.postDevice(request: DeviceRequest(account_id: Config.shared.accountId(), lists: nil,
+                                                           retention: nil, paused: false)) { error, _ in
+                    guard error == nil else {
+                        return onMain { done("pause: request failed".cause(error), nil) }
+                    }
+
+                    return onMain { done(nil, nil) }
+                }
+            }
+        }
+    }
+
     private func request(url: String, method: String = "GET", body: String = "", done: @escaping Callback<String>) {
         onBackground {
             let request = ["request", url, method, ":body:", body].joined(separator: " ")
