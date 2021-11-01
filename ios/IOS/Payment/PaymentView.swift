@@ -21,7 +21,7 @@ struct PaymentView: View {
             ZStack {
                 ButtonView(enabled: .constant(true), plus: .constant(self.vm.product.type == "plus"))
 
-                if self.vm.product.id == "plus_6month" {
+                if self.vm.product.trial {
                     Text("Start 7-Day Free Trial").foregroundColor(Color.primary).font(.headline)
                 } else if self.vm.product.period == 12 {
                     Text("Subscribe Anually").foregroundColor(Color.primary).font(.headline)
@@ -32,7 +32,7 @@ struct PaymentView: View {
             .frame(height: 44)
 
             Text(self.vm.description)
-                .foregroundColor(Color.primary)
+                .foregroundColor(Color.secondary)
                 .font(.caption)
                 .multilineTextAlignment(.center)
         }

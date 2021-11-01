@@ -232,6 +232,9 @@ class HomeViewModel: ObservableObject {
 
                 self.syncUiWithTunnel { error, status in onMain {
                     guard error == nil else {
+                        if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
+                           return self.log.v("No VPN profile")
+                        }
                         return self.log.e("Foreground: failed syncing tunnel".cause(error))
                     }
 

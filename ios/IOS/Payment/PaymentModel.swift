@@ -23,6 +23,7 @@ struct Product {
     let price: String
     let period: Int
     let type: String
+    let trial: Bool
 }
 
 struct Transaction {

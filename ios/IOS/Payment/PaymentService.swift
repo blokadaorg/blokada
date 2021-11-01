@@ -48,12 +48,9 @@ class PaymentService {
                 onMain {
                     let convertedProducts = products.map { p -> Product in
                         var product = Product(id: p.productIdentifier, title: p.localTitle, description: p.localDescription,
-                                              price: p.localPrice, period: p.durationMonths, type: "plus")
-
-                        if p.productIdentifier == "plus_6month" {
-                            product = Product(id: p.productIdentifier, title: p.localTitle, description: p.localDescription,
-                                    price: p.localPrice, period: p.durationMonths, type: "cloud")
-                        }
+                                  price: p.localPrice, period: p.durationMonths,
+                                  type: p.productIdentifier.starts(with: "cloud") ? "cloud" : "plus",
+                                trial: p.isTrial)
 
                         return product
                     }

@@ -18,7 +18,7 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
 
     private let productIdentifiers = [
         "plus_month",
-        "plus_6month",
+        "cloud_12month",
         "plus_12month",
     ]
 
@@ -159,11 +159,7 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
         onBackground {
             if !response.products.isEmpty {
                 self.products = response.products.sorted { a, b in
-                    if (a.durationMonths != b.durationMonths) {
-                        return a.durationMonths < b.durationMonths
-                    } else {
-                        return a.productIdentifier == "plus_6month"
-                    }
+                    a.durationMonths < b.durationMonths
                 }
             }
 

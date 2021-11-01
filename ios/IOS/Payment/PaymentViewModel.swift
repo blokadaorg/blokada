@@ -19,7 +19,7 @@ struct PaymentViewModel {
 
     init(_ name: String) {
         self.product = Product(id: name, title: name,
-                               description: "Mocked product description", price: "9.99", period: 6, type: name.contains("Cloud") ? "cloud" : "plus")
+                               description: "Mocked product description", price: "9.99", period: 6, type: name.contains("Cloud") ? "cloud" : "plus", trial: false)
     }
 
     init( _ product: Product) {
