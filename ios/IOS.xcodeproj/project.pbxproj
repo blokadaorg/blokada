@@ -1591,7 +1591,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.18;
+				MARKETING_VERSION = 6.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -1631,7 +1631,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.18;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = Blokada;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1736,7 +1736,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.18;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1768,7 +1768,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Engine",
 				);
-				MARKETING_VERSION = 5.18;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
