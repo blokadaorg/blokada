@@ -72,7 +72,7 @@ struct PlusFeaturesView: View {
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Improve your privacy with DNS encryption. Blokada Cloud uses modern procotols to help keep your queries private.")
+                                        Text("Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.")
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
@@ -94,7 +94,7 @@ struct PlusFeaturesView: View {
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Keep your device snappy, and your Internet connection at max speeds thanks to our new Cloud solution.")
+                                        Text("Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.")
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
@@ -138,7 +138,7 @@ struct PlusFeaturesView: View {
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Set up all your devices under one Blokada Cloud subscription. Use our mobile apps, or our web dashboard.")
+                                        Text("Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.")
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
