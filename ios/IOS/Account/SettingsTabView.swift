@@ -79,16 +79,18 @@ struct SettingsTabView: View {
                        }
                     }
 
-                    NavigationLink(destination: LeaseListView(vm: self.leaseVM), tag: "leases", selection: self.$tabVM.selection) {
-                        HStack {
-                         Image(systemName: Image.fComputer)
-                             .imageScale(.large)
-                             .foregroundColor(.secondary)
-                             .frame(width: 32, height: 32)
+                    if (self.vm.active && self.vm.type == "plus") {
+                        NavigationLink(destination: LeaseListView(vm: self.leaseVM), tag: "leases", selection: self.$tabVM.selection) {
+                            HStack {
+                             Image(systemName: Image.fComputer)
+                                 .imageScale(.large)
+                                 .foregroundColor(.secondary)
+                                 .frame(width: 32, height: 32)
 
-                            Text(L10n.webVpnDevicesHeader)
-                                .padding(.leading, 6)
+                                Text(L10n.webVpnDevicesHeader)
+                                    .padding(.leading, 6)
 
+                            }
                         }
                     }
 
