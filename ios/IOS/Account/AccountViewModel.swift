@@ -81,9 +81,9 @@ class AccountViewModel: ObservableObject {
                     return self.onError(CommonError.accountInactiveAfterRestore, error)
                 }
 
-                guard !Env.isProduction || account!.isActive() else {
-                    return self.onError(CommonError.accountInactiveAfterRestore)
-                }
+//            guard !Env.isProduction || account!.isActive() else {
+//                return self.onError(CommonError.accountInactiveAfterRestore)
+//            }
 
                 self.vpn.turnOffEverything { _, _ in
                     self.log.v("Generating keypair after restoring account")
