@@ -187,7 +187,8 @@ class Config {
      */
 
     func newUser(account: Account, privateKey: String, publicKey: String) {
-        setAccount(account)
+        _account.value = account
+        persistAccount(account)
         clearLease()
 
         localStorage.set(privateKey, forKey: "privateKey")
