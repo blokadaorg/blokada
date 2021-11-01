@@ -23,14 +23,190 @@ struct PlusFeaturesView: View {
                     HStack {
                         Spacer()
                         VStack {
-                            BlokadaView(animate: true)
-                                .frame(width: 100, height: 100)
+                            HStack {
+                                Spacer()
+                                Text("BLOKADA")
+                                    .fontWeight(.heavy).kerning(2).font(.system(size: 32))
 
-                            BlokadaPlusView()
-                                .font(.largeTitle)
+                                Text("CLOUD")
+                                    .fontWeight(.heavy).kerning(2).font(.system(size: 32))
+                                    .foregroundColor(Color.cActive)
+                                Spacer()
+                            }
+                            .padding(.bottom, 32)
+                            
+                            VStack(alignment: .leading) {
+                                HStack(alignment: .top) {
+                                    Image(systemName: Image.fHide)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cActive)
 
+                                    VStack(alignment: .leading) {
+                                        Text("Block ads")
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text("Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.")
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.bottom, 32)
+
+                                HStack(alignment: .top) {
+                                    Image(systemName: Image.fShield)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cActive)
+
+                                    VStack(alignment: .leading) {
+                                        Text("Encrypt DNS")
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text("Improve your privacy with DNS encryption. Blokada Cloud uses modern procotols to help keep your queries private.")
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.bottom, 32)
+
+                                HStack(alignment: .top) {
+                                    Image(systemName: Image.fSpeed)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cActive)
+
+                                    VStack(alignment: .leading) {
+                                        Text("Great performance")
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text("Keep your device snappy, and your Internet connection at max speeds thanks to our new Cloud solution.")
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.bottom, 32)
+
+                                HStack(alignment: .top) {
+                                    Image(systemName: "battery.100")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cActive)
+
+                                    VStack(alignment: .leading) {
+                                        Text("Zero battery impact")
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text("Your battery life is going to be the same, with our without Blokada Cloud activated.")
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.bottom, 32)
+
+                                HStack(alignment: .top) {
+                                    Image(systemName: Image.fComputer)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cActive)
+
+                                    VStack(alignment: .leading) {
+                                        Text("Multiple devices")
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text("Set up all your devices under one Blokada Cloud subscription. Use our mobile apps, or our web dashboard.")
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.bottom, 32)
+
+                                HStack(alignment: .top) {
+                                    Image(systemName: Image.fMessage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cActive)
+
+                                    VStack(alignment: .leading) {
+                                        Text(L10n.paymentFeatureTitleSupport)
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text(L10n.paymentFeatureDescSupport)
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.bottom)
+                            }
+                            .padding([.leading, .trailing])
+        
+
+                            HStack {
+                                Spacer()
+                                Text("BLOKADA")
+                                    .fontWeight(.heavy).kerning(2).font(.system(size: 32))
+
+                                Text("PLUS")
+                                    .fontWeight(.heavy).kerning(2).font(.system(size: 32))
+                                    .foregroundColor(Color.cActivePlus)
+                                Spacer()
+                            }
+                            .padding(.top, 64)
+                            .padding(.bottom, 32)
 
                             VStack(alignment: .leading) {
+                                HStack(alignment: .top) {
+                                    Image(systemName: Image.fCloud)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 48, height: 48)
+                                        .padding([.leading, .trailing], 8)
+                                        .foregroundColor(Color.cAccent)
+
+                                    VStack(alignment: .leading) {
+                                        Text("Cloud & VPN")
+                                            .font(.system(size: 20))
+                                            .bold()
+                                            .padding(.bottom)
+
+                                        Text("Enjoy all the features of Blokada Cloud. Aditionally, get access to our VPN network.")
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.bottom, 32)
+
                                 HStack(alignment: .top) {
                                     Image(systemName: Image.fLocation)
                                         .resizable()
@@ -46,9 +222,12 @@ struct PlusFeaturesView: View {
                                             .padding(.bottom)
 
                                         Text(L10n.paymentFeatureDescChangeLocation)
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
                                     }
+                                    Spacer()
                                 }
-                                .padding(.bottom)
+                                .padding(.bottom, 32)
 
                                 HStack(alignment: .top) {
                                     Image(systemName: Image.fShield)
@@ -65,9 +244,12 @@ struct PlusFeaturesView: View {
                                             .padding(.bottom)
 
                                         Text(L10n.paymentFeatureDescEncryptData)
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
                                     }
+                                    Spacer()
                                 }
-                                .padding(.bottom)
+                                .padding(.bottom, 32)
 
                                 HStack(alignment: .top) {
                                     Image(systemName: Image.fSpeed)
@@ -84,9 +266,12 @@ struct PlusFeaturesView: View {
                                             .padding(.bottom)
 
                                         Text(L10n.paymentFeatureDescFasterConnection)
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
                                     }
+                                    Spacer()
                                 }
-                                .padding(.bottom)
+                                .padding(.bottom, 32)
 
                                 HStack(alignment: .top) {
                                     Image(systemName: Image.fComputer)
@@ -103,52 +288,18 @@ struct PlusFeaturesView: View {
                                             .padding(.bottom)
 
                                         Text(L10n.paymentFeatureDescDevices)
+                                            .lineLimit(5)
+                                            .fixedSize(horizontal: false, vertical: true)
                                     }
+                                    Spacer()
                                 }
                                 .padding(.bottom)
+                                
+                                Text("").padding(.bottom, 90)
 
-                                HStack(alignment: .top) {
-                                    Image(systemName: Image.fHide)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 48, height: 48)
-                                        .padding([.leading, .trailing], 8)
-                                        .foregroundColor(Color.cAccent)
-
-                                    VStack(alignment: .leading) {
-                                        Text(L10n.paymentFeatureTitleNoAds)
-                                            .font(.system(size: 20))
-                                            .bold()
-                                            .padding(.bottom)
-
-                                        Text(L10n.paymentFeatureDescNoAds)
-                                    }
-                                }
-                                .padding(.bottom)
-
-                                HStack(alignment: .top) {
-                                    Image(systemName: Image.fMessage)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 48, height: 48)
-                                        .padding([.leading, .trailing], 8)
-                                        .foregroundColor(Color.cAccent)
-
-                                    VStack(alignment: .leading) {
-                                        Text(L10n.paymentFeatureTitleSupport)
-                                            .font(.system(size: 20))
-                                            .bold()
-                                            .padding(.bottom)
-
-                                        Text(L10n.paymentFeatureDescSupport)
-                                    }
-                                }
-                                .padding(.bottom)
                             }
                             .padding([.leading, .trailing])
 
-                            Text("")
-                                .frame(height: 90)
                         }
                         .frame(maxWidth: 500)
                         Spacer()
@@ -171,7 +322,7 @@ struct PlusFeaturesView: View {
                 }
                 .frame(maxWidth: 500)
                 .padding([.leading, .trailing], 40)
-                .padding(.bottom)
+                .padding(.bottom, 40)
                 .background(
                     VStack {
                         Spacer()
@@ -186,6 +337,7 @@ struct PlusFeaturesView: View {
                     }
                 )
             }
+            .edgesIgnoringSafeArea(.bottom) // Fixes the scroll content drawn underneath the home bar
 
             .navigationBarItems(trailing:
                 Button(action: {

@@ -41,8 +41,7 @@ struct PlusButtonView: View {
                                     Spacer()
                                 }
 
-                                L10n.homePlusButtonDeactivated
-                                    .toBlokadaPlusText(color: Color.white, plusColor: Color.white)
+                                Text("VPN deactivated")
                                     .foregroundColor(.white)
                                     .font(.system(size: 14))
                             } else if !self.vm.hasSelectedLocation {

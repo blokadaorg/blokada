@@ -31,7 +31,11 @@ class Strings {
 
     static func accountType(_ account: Account?) -> String {
         if account?.isActive() ?? false {
-            return account_type_plus
+            if account?.type == "cloud" {
+                return account_type_cloud
+            } else {
+                return account_type_plus
+            }
         } else {
             return account_type_free
         }

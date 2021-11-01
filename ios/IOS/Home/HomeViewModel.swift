@@ -332,6 +332,8 @@ class HomeViewModel: ObservableObject {
                     if (!cfg.accountActive()) {
                         // Payment popup
                         self.log.v("User action: switchMain: no active account")
+                        self.working = false
+                        self.mainSwitch = false
                         return noActiveAccount(())
                     }
 
@@ -661,6 +663,16 @@ class HomeViewModel: ObservableObject {
 
     private func syncUiWithTunnel(done: @escaping Callback<NetworkStatus>) {
         self.log.v("Sync UI with NETX")
+        
+        // Blokada Cloud may be configured, but when there is no active account, it will be passthrough.
+        if !self.accountActive {
+            return onMain {
+                self.mainSwitch = false
+                self.working = false
+                return done(nil, NetworkStatus.disconnected())
+            }
+        }
+
         networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in onMain {
             guard error == nil else {
                 self.log.w("Could not get NetworkDns state".cause(error))

@@ -38,7 +38,7 @@ struct SettingsTabView: View {
                             .font(.footnote)
                             .padding(.trailing)
                     } else {
-                        L10n.accountStatusTextLibre
+                        "Your BLOKADA account is inactive."
                             .toBlokadaText()
                             .font(.footnote)
                             .padding(.trailing)
@@ -94,7 +94,7 @@ struct SettingsTabView: View {
 
                     NavigationLink(destination: NoLogRetentionView(vm: self.activityVM), tag: "logRetention", selection: self.$tabVM.selection) {
                         HStack {
-                         Image(systemName: Image.fUp)
+                         Image(systemName: "chart.bar")
                              .imageScale(.large)
                              .foregroundColor(.secondary)
                              .frame(width: 32, height: 32)
