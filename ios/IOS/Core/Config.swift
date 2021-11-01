@@ -103,6 +103,10 @@ class Config {
         return _account.value?.isActive() ?? false
     }
 
+    func accountType() -> String {
+        return _account.value?.type ?? ""
+    }
+
     func hasKeys() -> Bool {
         return localStorage.string(forKey: "privateKey") != nil && localStorage.string(forKey: "publicKey") != nil
     }

@@ -25,12 +25,19 @@ struct PlusButtonView: View {
             ButtonView(enabled: .constant(!self.vm.vpnEnabled), plus: .constant(true))
             HStack {
                 Button(action: {
-                    self.activeSheet = self.vm.accountActive ? .location : .plus
                     self.vm.expiredAlertShown = false
+
+                    if !self.vm.accountActive {
+                        self.activeSheet = .plus
+                    } else if self.vm.accountType == "cloud" {
+                        Links.openInBrowser(Links.manageSubscriptions())
+                    } else {
+                        self.activeSheet = .location
+                    }
                 }) {
                     ZStack {
                         HStack {
-                            if !self.vm.accountActive {
+                            if !self.vm.accountActive || self.vm.accountType != "plus" {
                                 Spacer()
                                 L10n.universalActionUpgrade
                                     .toBlokadaPlusText(color: self.vm.vpnEnabled ? Color.primary : Color.white, plusColor: self.vm.vpnEnabled ? Color.primary : Color.white)

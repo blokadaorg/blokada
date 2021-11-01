@@ -93,6 +93,7 @@ class HomeViewModel: ObservableObject {
     @Published var timerSeconds: Int = 0
 
     @Published var accountActive = false
+    @Published var accountType = ""
 
     @Published var selectedGateway: Gateway? = nil
 
@@ -659,6 +660,7 @@ class HomeViewModel: ObservableObject {
 
         if Config.shared.hasAccount() && Config.shared.hasKeys() {
             self.accountActive = Config.shared.accountActive()
+            self.accountType = Config.shared.accountType()
         }
 
         self.vpnEnabled = Config.shared.vpnEnabled()
