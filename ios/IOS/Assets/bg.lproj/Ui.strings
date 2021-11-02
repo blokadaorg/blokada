@@ -563,6 +563,9 @@
 "setup step copy" = "Копирайте името на хоста";
 "setup step apply config" = "Прилагане на новата конфигурация";
 "setup step install" = "Инсталирайте и стартирайте приложението си";
+/* setup step enter tag
+
+Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "Когато бъдете помолени, въведете своя маркер";
 "setup step download profile" = "Генерирайте и изтеглете вашия профил";
 "setup step install wireguard" = "Инсталирайте и стартирайте Wireguard";

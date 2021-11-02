@@ -563,6 +563,9 @@
 "setup step copy" = "نسخ اسم المضيف الخاصّ بك";
 "setup step apply config" = "استخدام التهيئة الجديدة";
 "setup step install" = "تثبيت و بدء التطبيق الخاصّ بنا";
+/* setup step enter tag
+
+Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "عند السؤال، أدخل العلامة الخاصّة بك";
 "setup step download profile" = "إنشاء و تنزيل ملفّك الشخّصي";
 "setup step install wireguard" = "تثبيت و بدء Wireguard";

@@ -567,6 +567,9 @@
 "setup step copy" = "ホスト名をコピー";
 "setup step apply config" = "新しい設定を適用";
 "setup step install" = "Blokada アプリをインストールして開く";
+/* setup step enter tag
+
+Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "指示に従ってタグを入力してください";
 "setup step download profile" = "プロファイルを生成してダウンロード";
 "setup step install wireguard" = "Wireguard をインストールして開く";

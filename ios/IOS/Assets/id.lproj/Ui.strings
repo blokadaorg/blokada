@@ -563,6 +563,9 @@
 "setup step copy" = "Salin hostname";
 "setup step apply config" = "Terapkan konfigurasi baru";
 "setup step install" = "Instal dan mulai aplikasi";
+/* setup step enter tag
+
+Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "Masukkan tag Anda ketika diminta";
 "setup step download profile" = "Buat dan unduh profil Anda";
 "setup step install wireguard" = "Instal dan mulai Wireguard";

@@ -145,6 +145,7 @@
 "home status detail progress" = "please wait...";
 
 "home plus button deactivated" = "BLOKADA+ deactivated";
+"home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "Select location";
 "home plus button location" = "Location: *%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "Settings";
 "account status text" = "Your BLOKADA %@ account is active until %@.";
 "account status text libre" = "Your BLOKADA Libre account is active until forever.";
+"account status text inactive" = "Your BLOKADA account is inactive.";
 
 "account section header primary" = "Primary";
 "account section header other" = "Other";
@@ -353,12 +355,22 @@
 "payment feature desc change location" = "Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.";
 "payment feature title encrypt data" = "Encrypt Data";
 "payment feature desc encrypt data" = "Data sent through our VPN tunnel is encrypted using strong algorithms in order to protect against interception by unauthorized parties.";
+"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
+"payment feature title performance" = "Great Performance";
+"payment feature desc performance = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature title battery" = "Zero Battery Impact";
+"payment feature desc battery" = "Your battery life is going to be the same, with our without Blokada Cloud activated.";
+"payment feature title devices cloud" = "Multiple Devices";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" =  "Enjoy all the features of Blokada Cloud. Aditionally, get access to our VPN network.";
 "payment feature title faster connection" = "Faster Connection";
 "payment feature desc faster connection" = "Great speeds up to 100Mbps with servers in various parts of the World.";
 "payment feature title devices" = "Up to 5 devices";
 "payment feature desc devices" = "Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.";
-"payment feature title no ads" = "No Ads";
-"payment feature desc no ads" = "Keep using the world famous Blokada adblocking technology while improving your protection level and keeping your data private.";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "Great Support";
 "payment feature desc support" = "Get a prompt response to any questions thanks to our Customer Support and vibrant open source community.";
 "payment action see all features" = "See All Features";
@@ -406,6 +418,13 @@
 
 "payment euro desc" = "We are based in Europe, so we accept Euro: €10 is roughly $12.";
 "payment donate disclaimer" = "This won't activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.";
+
+"payment action compare" = "Compare plans";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
+"payment plan cta trial" = "Start 7-Day Free Trial";
+"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan cta annual" = "Subscribe Annually"
 
 "apps section header" = "Apps";
 "apps label installed" = "Installed";
@@ -576,3 +595,5 @@
 "stats requests subheader" = "Queries over time";
 "stats top allowed header" = "Top allowed requests";
 "stats top blocked header" = "Top blocked requests";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

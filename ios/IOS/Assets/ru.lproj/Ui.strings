@@ -563,6 +563,9 @@
 "setup step copy" = "Скопировать имя хоста";
 "setup step apply config" = "Применить новую конфигурацию";
 "setup step install" = "Установите и запустите наше приложение";
+/* setup step enter tag
+
+Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "Когда появится запрос, введите свой тег";
 "setup step download profile" = "Создайте и загрузите свой профиль";
 "setup step install wireguard" = "Установите и запустите Wireguard";

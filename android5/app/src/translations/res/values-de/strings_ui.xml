@@ -479,7 +479,7 @@
     <string name="stats_header">Statistiken</string>
     <string name="stats_ratio_header">Verhältnis</string>
     <string name="stats_requests_header">Anfragen</string>
-    <string name="stats_requests_subheader">Abfragen mit der Zeit</string>
-    <string name="stats_top_allowed_header">Top erlaubte Anfragen</string>
-    <string name="stats_top_blocked_header">Top blockierte Anfragen</string>
+    <string name="stats_requests_subheader">Abfragen im Laufe der Zeit</string>
+    <string name="stats_top_allowed_header">Häufigste zugelassene Anfragen</string>
+    <string name="stats_top_blocked_header">Häufigste blockierte Anfragen</string>
 </resources>

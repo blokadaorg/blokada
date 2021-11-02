@@ -539,6 +539,9 @@
 "setup step copy" = "Copiez votre nom d'hôte";
 "setup step apply config" = "Appliquer la nouvelle configuration";
 "setup step install" = "Installez et lancez notre application";
+/* setup step enter tag
+
+Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "Lorsque demandé, entrez votre tag";
 "setup step download profile" = "Générez et téléchargez votre profil";
 "setup step install wireguard" = "Installez et lancez Wireguard";

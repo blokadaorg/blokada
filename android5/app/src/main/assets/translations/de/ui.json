@@ -478,7 +478,7 @@
     "stats header": "Statistiken",
     "stats ratio header": "Verhältnis",
     "stats requests header": "Anfragen",
-    "stats requests subheader": "Abfragen mit der Zeit",
-    "stats top allowed header": "Top erlaubte Anfragen",
-    "stats top blocked header": "Top blockierte Anfragen"
+    "stats requests subheader": "Abfragen im Laufe der Zeit",
+    "stats top allowed header": "Häufigste zugelassene Anfragen",
+    "stats top blocked header": "Häufigste blockierte Anfragen"
 } }

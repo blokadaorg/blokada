@@ -563,6 +563,9 @@
 "setup step copy" = "複製主機名稱";
 "setup step apply config" = "套用新設定";
 "setup step install" = "安裝並啟動 App";
+/* setup step enter tag
+
+Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "詢問時請輸入您的標籤 (tag)";
 "setup step download profile" = "產生並下載量身打造的設定檔";
 "setup step install wireguard" = "安裝並啟動 Wireguard";
