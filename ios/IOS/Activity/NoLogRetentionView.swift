@@ -19,7 +19,8 @@ struct NoLogRetentionView: View {
     var body: some View {
         VStack() {
             Text(L10n.activityRetentionDesc)
-                .padding()
+                .foregroundColor(.secondary)
+                .padding(32)
 
             VStack {
                 Picker(L10n.activityRetentionHeader, selection: self.$vm.logRetentionSelected) {
