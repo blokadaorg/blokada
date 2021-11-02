@@ -29,7 +29,7 @@ struct DnsProfileConfiguredView: View {
                     .bold()
                     .padding()
 
-                Text("Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN & Network -> DNS.")
+                Text(L10n.dnsprofileDesc)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .trailing], 40)
                     .padding([.top, .bottom])

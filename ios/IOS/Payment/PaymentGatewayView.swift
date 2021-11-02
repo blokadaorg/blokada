@@ -51,7 +51,7 @@ struct PaymentGatewayView: View {
                             }
                             .padding(.bottom, 28)
 
-                            Text("Compare plans")
+                            Text(L10n.paymentActionCompare)
                                 .foregroundColor(Color.cActivePlus)
                                 .onTapGesture {
                                     withAnimation {
@@ -77,7 +77,7 @@ struct PaymentGatewayView: View {
                                 }
                                 .padding(.bottom, 2)
 
-                                Text("Blocks ads and trackers")
+                                Text(L10n.paymentPlanSluglineCloud)
                                    .multilineTextAlignment(.center)
                                    .lineLimit(2)
                                    .font(.system(size: 13))
@@ -108,7 +108,7 @@ struct PaymentGatewayView: View {
                                     }
                                     .padding(.bottom, 2)
 
-                                    Text("Additional protection with VPN")
+                                    Text(L10n.paymentPlanSluglinePlus)
                                        .multilineTextAlignment(.center)
                                        .lineLimit(2)
                                        .font(.system(size: 13))

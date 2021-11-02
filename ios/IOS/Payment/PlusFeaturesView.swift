@@ -314,7 +314,7 @@ struct PlusFeaturesView: View {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
                                 .frame(height: 44)
-                            Text(L10n.universalActionContinue)
+                            Text(L10n.universalActionContinue) 
                                 .foregroundColor(.white)
                                 .bold()
                         }
