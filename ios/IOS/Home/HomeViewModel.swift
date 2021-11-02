@@ -161,7 +161,7 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    func start(_ done: @escaping Callback<Void>) {
+    private func start(_ done: @escaping Callback<Void>) {
         self.log.v("Start")
         self.error = nil
         self.working = true

@@ -65,7 +65,7 @@ class Config {
 
     // Needs to be called once after app start
     func load() {
-        onBackground {
+        //onBackground {
             self.log.v("Loading config")
             self._account.value = self.loadAccount()
             self._lease.value = self.loadLease()
@@ -75,7 +75,7 @@ class Config {
                 self.onConfigUpdated()
                 self.onAccountUpdated()
             }
-        }
+        //}
     }
 
     /**

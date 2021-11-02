@@ -33,6 +33,7 @@ class NetworkDnsService {
     }
 
     func saveBlokadaNetworkDns(tag: String, name: String, done: @escaping Callback<Void>) {
+        self.log.v("saveBlokadaNetworkDns: saving new profile")
         self.getManager { error, manager in
             guard error == nil else {
                 return onMain { done(error, nil) }

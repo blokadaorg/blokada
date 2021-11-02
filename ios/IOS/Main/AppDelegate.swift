@@ -31,9 +31,9 @@ import UIKit
         log.w("*** ******************* ***")
         log.v(BlockaApiService.userAgent())
 
+        Config.shared.load()
         EngineService.shared.panicHook()
         PaymentService.shared.startObservingPayments()
-        Config.shared.load()
         DeviceTokenService.shared.startObserving()
         NotificationService.shared.registerNotifications(for: application)
         
