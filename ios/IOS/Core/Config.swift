@@ -83,7 +83,7 @@ class Config {
     */
 
     func hasAccount() -> Bool {
-        return _account.value != nil
+        return _account.value != nil && !_account.value!.id.isEmpty
     }
 
     func account() -> Account? {
@@ -91,7 +91,7 @@ class Config {
     }
 
     func accountId() -> AccountId {
-        if let id = _account.value?.id {
+        if let id = _account.value?.id, !id.isEmpty {
             return id
         } else {
             log.e("Accessing accountId before account is set")
@@ -187,6 +187,10 @@ class Config {
      */
 
     func newUser(account: Account, privateKey: String, publicKey: String) {
+        if (account.id.isEmpty) {
+            return self.log.e("newUser: provided empty ID, won't set account")
+        }
+
         _account.value = account
         persistAccount(account)
         clearLease()
@@ -203,8 +207,12 @@ class Config {
 
     // XXX: Do not call this method directly, use SharedActionsService.shared.updateAccount(account)
     func setAccount(_ account: Account) {
+        if (account.id.isEmpty) {
+            return self.log.e("setAccount: provided empty ID, won't set account")
+        }
+
         if _account.value?.id != account.id {
-            self.log.v("Account ID changed")
+            self.log.v("setAccount: Account ID changed")
         }
 
         _account.value = account

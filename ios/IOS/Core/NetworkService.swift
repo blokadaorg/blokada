@@ -380,6 +380,13 @@ class NetworkService {
         }
     }
 
+    func pause(seconds: Int, done: @escaping Callback<String>) {
+        onBackground {
+            let command = ["pause", String(seconds)].joined(separator: " ")
+            self.sendMessage(msg: command, done: done)
+        }
+    }
+
     func sendMessage(msg: String, skipReady: Bool = false, done: @escaping Callback<String>) { onBackground {
         if self.started.value || skipReady {
             self.getManager { error, manager in
