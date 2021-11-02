@@ -358,7 +358,7 @@
 "payment feature title encrypt dns" = "Encrypt DNS";
 "payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
 "payment feature title performance" = "Great Performance";
-"payment feature desc performance = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
 "payment feature title battery" = "Zero Battery Impact";
 "payment feature desc battery" = "Your battery life is going to be the same, with our without Blokada Cloud activated.";
 "payment feature title devices cloud" = "Multiple Devices";
