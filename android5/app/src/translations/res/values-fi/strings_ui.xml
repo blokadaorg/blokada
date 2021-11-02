@@ -201,8 +201,6 @@
     <string name="payment_feature_desc_faster_connection">Suuri nopeuksia jopa 100Mbps asti palvelimilla eri puolilla maailmaa.</string>
     <string name="payment_feature_title_devices">Jopa 5 laitetta</string>
     <string name="payment_feature_desc_devices">Käytä samaa tiliä jakaaksesi tilauksesi enintään viiden laitteen kanssa: iOS, Android tai PC.</string>
-    <string name="payment_feature_title_no_ads">Ei mainoksia</string>
-    <string name="payment_feature_desc_no_ads">Jatka maailmankuulua Blokadan mainostenesto-teknologian käyttöä samalla parantaen suojaustasoa ja pitämällä tietosi yksityisinä.</string>
     <string name="payment_feature_title_support">Mahtava tuki</string>
     <string name="payment_feature_desc_support">Saa nopea vastaus kaikkiin kysymyksiin, kiitos meidän asíakastukemme ja elinvoimaisen avoimen yhteisömme takia.</string>
     <string name="payment_action_see_all_features">Näe kaikki ominaisuudet</string>

@@ -107,6 +107,7 @@
     <string name="home_status_detail_plus">*+* ochrona Twojej *prywatności*</string>
     <string name="home_status_detail_progress">proszę czekać...</string>
     <string name="home_plus_button_deactivated">BLOKADA+ wyłączona</string>
+    <string name="home_plus_button_deactivated_cloud">VPN jest wyłączony</string>
     <string name="home_plus_button_select_location">Wybierz lokalizację</string>
     <string name="home_plus_button_location">Lokalizacja: *%s*</string>
     <string name="home_level_low">Ochrona: niska</string>
@@ -208,6 +209,7 @@
     <string name="account_section_header_settings">Ustawienia</string>
     <string name="account_status_text">Twoje konto BLOKADA %s jest aktywne do %s.</string>
     <string name="account_status_text_libre">Twoje konto BLOKADA Libre jest aktywne na zawsze.</string>
+    <string name="account_status_text_inactive">Twoje konto BLOKADA jest nieaktywne.</string>
     <string name="account_section_header_primary">Podstawowe</string>
     <string name="account_section_header_other">Inne</string>
     <string name="account_action_my_account">Moje konto</string>
@@ -288,12 +290,22 @@
     <string name="payment_feature_desc_change_location">Ukryj swój adres IP i udawaj, że jesteś w innym kraju. To maskuje Cię od postronnych firm zbierających dane personalne, i pomoże chronić Twoją tożsamość.</string>
     <string name="payment_feature_title_encrypt_data">Szyfruj dane</string>
     <string name="payment_feature_desc_encrypt_data">Dane przesyłane przez nasz tunel VPN są szyfrowane przy użyciu silnych algorytmów w celu ochrony przed przechwytywaniem przez nieupoważnione strony.</string>
+    <string name="payment_feature_title_encrypt_dns">Szyfruj DNS</string>
+    <string name="payment_feature_desc_encrypt_dns">Zabezpiecz swoją prywatność dzięki szyfrowaniu DNS. Blokada Cloud używa nowoczesnych protokołów, aby zapewnić prywatność Twoich zapytań.</string>
+    <string name="payment_feature_title_performance">Świetna Wydajność</string>
+    <string name="payment_feature_desc_performance">Dzięki naszemu nowemu rozwiązaniu w chmurze, Twoje urządzenie i połączenie z Internetem będzie w maksymalnie szybkie.</string>
+    <string name="payment_feature_title_battery">Zero Wpływu na Baterię</string>
+    <string name="payment_feature_desc_battery">Żywotność baterii będzie taka sama, z Blokadą Cloud, jak i bez.</string>
+    <string name="payment_feature_title_devices_cloud">Wiele urządzeń</string>
+    <string name="payment_feature_desc_devices_cloud">Skonfiguruj wszystkie swoje urządzenia w ramach jednej subskrypcji Blokada Cloud. Korzystaj z naszych aplikacji mobilnych lub naszego panelu webowego.</string>
+    <string name="payment_feature_title_cloud_vpn">Chmura i VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">Ciesz się wszystkimi funkcjami Blokady Cloud. Dodatkowo, uzyskaj dostęp do naszej sieci VPN.</string>
     <string name="payment_feature_title_faster_connection">Szybsze połączenie</string>
     <string name="payment_feature_desc_faster_connection">Świetne prędkości do 100 Mb/s z serwerami w różnych częściach świata.</string>
     <string name="payment_feature_title_devices">Do 5 urządzeń</string>
     <string name="payment_feature_desc_devices">Użyj tego samego konta, aby współdzielić swoją subskrypcję z maksymalnie 5 urządzeniami: iOS, Android lub PC.</string>
-    <string name="payment_feature_title_no_ads">Brak reklam</string>
-    <string name="payment_feature_desc_no_ads">Korzystaj ze słynnej technologii blokowania reklam Blokady, poprawiając poziom ochrony i dbając o prywatność Twoich danych.</string>
+    <string name="payment_feature_title_no_ads">Blokuj Reklamy</string>
+    <string name="payment_feature_desc_no_ads">Użyj popularnej technologii blokowania reklam Blokady, aby blokować reklamy na swoich urządzeniach. Dostępne są również ustawienia zaawansowane.</string>
     <string name="payment_feature_title_support">Świetne wsparcie</string>
     <string name="payment_feature_desc_support">Uzyskaj szybką odpowiedź na wszelkie pytania dzięki naszej Obsłudze Klienta i aktywnej społeczności open source.</string>
     <string name="payment_action_see_all_features">Pokaż wszystkie plusy</string>
@@ -335,6 +347,12 @@
     <string name="payment_label_country">Kraj</string>
     <string name="payment_euro_desc">Mamy siedzibę w Europie, więc akceptujemy euro: 10 euro to około 12 dolarów.</string>
     <string name="payment_donate_disclaimer">To nie aktywuje Twojego konta Blokada Plus. Jeśli chcesz korzystać z naszej usługi VPN, wykup subskrypcję zamiast przekazywać darowiznę.</string>
+    <string name="payment_action_compare">Porównaj plany</string>
+    <string name="payment_plan_slugline_cloud">Blokuje reklamy i trackery</string>
+    <string name="payment_plan_slugline_plus">Dodatkowa ochrona z VPN</string>
+    <string name="payment_plan_cta_trial">Testuj 7 dni za darmo</string>
+    <string name="payment_plan_cta_monthly">Subskrybuj miesięcznie</string>
+    <string name="payment_plan_cta_annual">Subskrybuj rocznie</string>
     <string name="apps_section_header">Aplikacje</string>
     <string name="apps_label_installed">Zainstalowane</string>
     <string name="apps_label_system">Systemowe</string>
@@ -482,4 +500,5 @@
     <string name="stats_requests_subheader">Zapytania w czasie</string>
     <string name="stats_top_allowed_header">Najczęściej zezwalane</string>
     <string name="stats_top_blocked_header">Najczęściej blokowane</string>
+    <string name="dnsprofile_desc">Blokada właśnie utworzyła dla Ciebie profil DNS w Ustawieniach. Aktywuj go w: Ogólne -> VPN, DNS &amp; Zarządzanie urządzeniami -> DNS.</string>
 </resources>

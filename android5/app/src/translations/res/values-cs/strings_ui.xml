@@ -292,8 +292,6 @@
     <string name="payment_feature_desc_faster_connection">Skvělá rychlost až 100 Mbps se servery v různých částech světa.</string>
     <string name="payment_feature_title_devices">Až 5 zařízení</string>
     <string name="payment_feature_desc_devices">Pomocí stejného účtu můžete sdílet své předplatné až s 5 zařízeními: iOS, Android nebo PC.</string>
-    <string name="payment_feature_title_no_ads">Žádné reklamy</string>
-    <string name="payment_feature_desc_no_ads">Nepřestávejte používat světově proslulou technologii blokování reklam Blokada a zároveň zlepšujte úroveň vaší ochrany a udržujte vaše data v soukromí.</string>
     <string name="payment_feature_title_support">Skvělá podpora</string>
     <string name="payment_feature_desc_support">Získejte rychlou odpověď na jakékoliv dotazy díky naší zákaznické podpoře a aktivní početné komunitě.</string>
     <string name="payment_action_see_all_features">Zobrazit všechny funkce</string>

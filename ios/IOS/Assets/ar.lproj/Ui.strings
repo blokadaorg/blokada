@@ -145,6 +145,7 @@
 "home status detail progress" = "الرجاء الإنتظار...";
 
 "home plus button deactivated" = "معطَّل BLOKADA+";
+"home plus button deactivated cloud" = "الـ VPN غير نَشِط";
 "home plus button select location" = "حدِّد الموقع";
 "home plus button location" = "الموقع: *%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "الإعدادات";
 "account status text" = "حسابك في BLOKADA %@ نَشِط حتّى %@.";
 "account status text libre" = "حسابك في BLOKADA الحر نَشِط إلى الأبد.";
+"account status text inactive" = "حسابك في BLOKADA غير نَشِط.";
 
 "account section header primary" = "الأساسي";
 "account section header other" = "غير ذلك";
@@ -353,12 +355,11 @@
 "payment feature desc change location" = "إخفاء عنوان IP الخاص بك و التظاهر بأنّك في بلد آخر. ذلك سوف يخفيك من أطراف ثالثة و يساعد على حماية هويّتك.";
 "payment feature title encrypt data" = "تشفير البيانات";
 "payment feature desc encrypt data" = "يتم تشفير البيانات المرسلة من خلال نفق VPN الخاص بنا باستخدام خوارزميات قويّة من أجل الحماية من اعتراض الأطراف غير المصرّح لها.";
+"payment feature title encrypt dns" = "تشفير الـ DNS";
 "payment feature title faster connection" = "إتصال أسرع";
 "payment feature desc faster connection" = "سرعة كبيرة تصل إلى 100 ميغابايت مع خوادِم في مختلف أنحاء العالم.";
 "payment feature title devices" = "حتّى 5 أجهزة";
 "payment feature desc devices" = "إستخدم نفس الحساب لمشاركة إشتراكك مع 5 أجهزة: iOS أو Android أو PC.";
-"payment feature title no ads" = "إزالة الإعلانات";
-"payment feature desc no ads" = "استمر في استخدام تكنولوجيا Blokada المشهورة في العالم لحَظْر الإعلانات مع تحسين مستوى حمايتك و الحفاظ على خصوصيّة بياناتك.";
 "payment feature title support" = "دعم كبير";
 "payment feature desc support" = "إحصل على رد فوري على أيّ أسئلة بفضل دعم العملاء لدينا و مجتمع نَشِط مفتوح المصدر.";
 "payment action see all features" = "مشاهدة جميع الميّزات";
@@ -563,9 +564,6 @@
 "setup step copy" = "نسخ اسم المضيف الخاصّ بك";
 "setup step apply config" = "استخدام التهيئة الجديدة";
 "setup step install" = "تثبيت و بدء التطبيق الخاصّ بنا";
-/* setup step enter tag
-
-Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "عند السؤال، أدخل العلامة الخاصّة بك";
 "setup step download profile" = "إنشاء و تنزيل ملفّك الشخّصي";
 "setup step install wireguard" = "تثبيت و بدء Wireguard";

@@ -292,8 +292,6 @@
     <string name="payment_feature_desc_faster_connection">Големи скорости до 100Mbps със сървъри в различни части на света.</string>
     <string name="payment_feature_title_devices">До 5 устройства</string>
     <string name="payment_feature_desc_devices">Използвайте един профил за да споделяте абонамента си с до 5 устройства: iOS, Android или компютър.</string>
-    <string name="payment_feature_title_no_ads">Без Реклами</string>
-    <string name="payment_feature_desc_no_ads">Използвайте световно известната технология на Blokada за блокиране на реклами, като същевременно подобрите нивото на защита и запазите данните си поверителни.</string>
     <string name="payment_feature_title_support">Страхотна поддръжка</string>
     <string name="payment_feature_desc_support">Получете бърз отговор на всякакви въпроси благодарение на нашата Поддръжка за клиенти и енергичната общност с отворен код.</string>
     <string name="payment_action_see_all_features">Вижте всички функции</string>

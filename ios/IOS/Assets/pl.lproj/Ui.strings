@@ -145,6 +145,7 @@
 "home status detail progress" = "proszę czekać...";
 
 "home plus button deactivated" = "BLOKADA+ wyłączona";
+"home plus button deactivated cloud" = "VPN jest wyłączony";
 "home plus button select location" = "Wybierz lokalizację";
 "home plus button location" = "Lokalizacja: *%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "Ustawienia";
 "account status text" = "Twoje konto BLOKADA %@ jest aktywne do %@.";
 "account status text libre" = "Twoje konto BLOKADA Libre jest aktywne na zawsze.";
+"account status text inactive" = "Twoje konto BLOKADA jest nieaktywne.";
 
 "account section header primary" = "Podstawowe";
 "account section header other" = "Inne";
@@ -353,12 +355,22 @@
 "payment feature desc change location" = "Ukryj swój adres IP i udawaj, że jesteś w innym kraju. To maskuje Cię od postronnych firm zbierających dane personalne, i pomoże chronić Twoją tożsamość.";
 "payment feature title encrypt data" = "Szyfruj dane";
 "payment feature desc encrypt data" = "Dane przesyłane przez nasz tunel VPN są szyfrowane przy użyciu silnych algorytmów w celu ochrony przed przechwytywaniem przez nieupoważnione strony.";
+"payment feature title encrypt dns" = "Szyfruj DNS";
+"payment feature desc encrypt dns" = "Zabezpiecz swoją prywatność dzięki szyfrowaniu DNS. Blokada Cloud używa nowoczesnych protokołów, aby zapewnić prywatność Twoich zapytań.";
+"payment feature title performance" = "Świetna Wydajność";
+"payment feature desc performance" = "Dzięki naszemu nowemu rozwiązaniu w chmurze, Twoje urządzenie i połączenie z Internetem będzie w maksymalnie szybkie.";
+"payment feature title battery" = "Zero Wpływu na Baterię";
+"payment feature desc battery" = "Żywotność baterii będzie taka sama, z Blokadą Cloud, jak i bez.";
+"payment feature title devices cloud" = "Wiele urządzeń";
+"payment feature desc devices cloud" = "Skonfiguruj wszystkie swoje urządzenia w ramach jednej subskrypcji Blokada Cloud. Korzystaj z naszych aplikacji mobilnych lub naszego panelu webowego.";
+"payment feature title cloud vpn" = "Chmura i VPN";
+"payment feature desc cloud vpn" = "Ciesz się wszystkimi funkcjami Blokady Cloud. Dodatkowo, uzyskaj dostęp do naszej sieci VPN.";
 "payment feature title faster connection" = "Szybsze połączenie";
 "payment feature desc faster connection" = "Świetne prędkości do 100 Mb/s z serwerami w różnych częściach świata.";
 "payment feature title devices" = "Do 5 urządzeń";
 "payment feature desc devices" = "Użyj tego samego konta, aby współdzielić swoją subskrypcję z maksymalnie 5 urządzeniami: iOS, Android lub PC.";
-"payment feature title no ads" = "Brak reklam";
-"payment feature desc no ads" = "Korzystaj ze słynnej technologii blokowania reklam Blokady, poprawiając poziom ochrony i dbając o prywatność Twoich danych.";
+"payment feature title no ads" = "Blokuj Reklamy";
+"payment feature desc no ads" = "Użyj popularnej technologii blokowania reklam Blokady, aby blokować reklamy na swoich urządzeniach. Dostępne są również ustawienia zaawansowane.";
 "payment feature title support" = "Świetne wsparcie";
 "payment feature desc support" = "Uzyskaj szybką odpowiedź na wszelkie pytania dzięki naszej Obsłudze Klienta i aktywnej społeczności open source.";
 "payment action see all features" = "Pokaż wszystkie plusy";
@@ -406,6 +418,13 @@
 
 "payment euro desc" = "Mamy siedzibę w Europie, więc akceptujemy euro: 10 euro to około 12 dolarów.";
 "payment donate disclaimer" = "To nie aktywuje Twojego konta Blokada Plus. Jeśli chcesz korzystać z naszej usługi VPN, wykup subskrypcję zamiast przekazywać darowiznę.";
+
+"payment action compare" = "Porównaj plany";
+"payment plan slugline cloud" = "Blokuje reklamy i trackery";
+"payment plan slugline plus" = "Dodatkowa ochrona z VPN";
+"payment plan cta trial" = "Testuj 7 dni za darmo";
+"payment plan cta monthly" = "Subskrybuj miesięcznie";
+"payment plan cta annual" = "Subskrybuj rocznie";
 
 "apps section header" = "Aplikacje";
 "apps label installed" = "Zainstalowane";
@@ -563,9 +582,6 @@
 "setup step copy" = "Skopiuj nazwę hosta";
 "setup step apply config" = "Zastosuj nową konfigurację";
 "setup step install" = "Zainstaluj i uruchom naszą aplikację";
-/* setup step enter tag
-
-Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "Po wyświetleniu monitu wprowadź swój tag";
 "setup step download profile" = "Wygeneruj i pobierz swój profil";
 "setup step install wireguard" = "Zainstaluj i uruchom Wireguard";
@@ -579,3 +595,5 @@ Tag is used for identifying user device, similar to Account ID. Everyone has uni
 "stats requests subheader" = "Zapytania w czasie";
 "stats top allowed header" = "Najczęściej zezwalane";
 "stats top blocked header" = "Najczęściej blokowane";
+
+"dnsprofile desc" = "Blokada właśnie utworzyła dla Ciebie profil DNS w Ustawieniach. Aktywuj go w: Ogólne -> VPN, DNS & Zarządzanie urządzeniami -> DNS.";

@@ -145,7 +145,6 @@
     <string name="payment_feature_desc_faster_connection">Gyors csatlakozás az akár 100 Mbit/s sebességű szerverekhez, szerte a világon.</string>
     <string name="payment_feature_title_devices">Akár 5 eszköz</string>
     <string name="payment_feature_desc_devices">Ugyanazon fiók használatával megoszthatod előfizetésed legfeljebb öt készülék között: iOS, Android, vagy PC.</string>
-    <string name="payment_feature_title_no_ads">Reklámmentesség</string>
     <string name="payment_action_see_all_features">Összes funkció megtekintése</string>
     <string name="payment_action_restore">Vásárlások visszaállítása</string>
     <string name="payment_action_terms">Felhasználási feltételek</string>

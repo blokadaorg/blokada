@@ -357,8 +357,6 @@
 "payment feature desc faster connection" = "在世界各地的伺服器上最高可達 100Mbps。";
 "payment feature title devices" = "最多 5 個裝置";
 "payment feature desc devices" = "使用相同的帳號以在最多 5 個裝置上分享您的訂閱：iOS、Android 或 PC。";
-"payment feature title no ads" = "無廣告";
-"payment feature desc no ads" = "繼續使用世界知名的 Blokada 廣告阻擋技術，同時提升保護等級並保護您資料的隱私。";
 "payment feature title support" = "最佳支援";
 "payment feature desc support" = "歸功於我們的客戶支援與充滿活力的開放原始碼社群，您的任何問題都能迅速得到答覆。";
 "payment action see all features" = "檢視所有功能";
@@ -563,9 +561,6 @@
 "setup step copy" = "複製主機名稱";
 "setup step apply config" = "套用新設定";
 "setup step install" = "安裝並啟動 App";
-/* setup step enter tag
-
-Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "詢問時請輸入您的標籤 (tag)";
 "setup step download profile" = "產生並下載量身打造的設定檔";
 "setup step install wireguard" = "安裝並啟動 Wireguard";

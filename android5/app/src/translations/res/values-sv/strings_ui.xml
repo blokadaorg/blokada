@@ -271,8 +271,6 @@
     <string name="payment_feature_desc_faster_connection">Stora hastigheter upp till 100 Mbps med servrar i olika delar av världen.</string>
     <string name="payment_feature_title_devices">Upp till 5 enheter</string>
     <string name="payment_feature_desc_devices">Använd samma konto för att dela din prenumeration med upp till 5 enheter: iOS, Android eller PC.</string>
-    <string name="payment_feature_title_no_ads">Inga annonser</string>
-    <string name="payment_feature_desc_no_ads">Fortsätt använda den världsberömda Blokada annonsblockeringstekniken samtidigt som du förbättrar din integritetsnivå och håller dina data privat.</string>
     <string name="payment_feature_title_support">Bra support</string>
     <string name="payment_feature_desc_support">Få ett snabbt svar på alla frågor tack vare vår kundsupport och vår pulserande mötesplats.</string>
     <string name="payment_action_see_all_features">Se alla funktioner</string>

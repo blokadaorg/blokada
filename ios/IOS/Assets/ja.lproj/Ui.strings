@@ -359,8 +359,6 @@
 "payment feature desc faster connection" = "世界のさまざまな地域のサーバーで最高100Mbpsのスピードを実現します。";
 "payment feature title devices" = "最大5台のデバイス";
 "payment feature desc devices" = "1つのアカウントで最大5つのデバイス（iOS、Android、PC）を使用できます。";
-"payment feature title no ads" = "広告のない快適なブラウジング";
-"payment feature desc no ads" = "世界的に有名な Blokada の広告ブロック技術を使用し、保護レベルを向上させ、データをプライベートに保ちます。";
 "payment feature title support" = "丁寧なサポート";
 "payment feature desc support" = "当社のカスタマーサポートと活気のあるオープンソースコミュニティのおかげで、質問に迅速に対応できます。";
 "payment action see all features" = "すべての機能を見る";
@@ -567,9 +565,6 @@
 "setup step copy" = "ホスト名をコピー";
 "setup step apply config" = "新しい設定を適用";
 "setup step install" = "Blokada アプリをインストールして開く";
-/* setup step enter tag
-
-Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "指示に従ってタグを入力してください";
 "setup step download profile" = "プロファイルを生成してダウンロード";
 "setup step install wireguard" = "Wireguard をインストールして開く";

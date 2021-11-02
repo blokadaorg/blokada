@@ -107,6 +107,7 @@
     <string name="home_status_detail_plus">*+* حماية *خصوصيّتك*</string>
     <string name="home_status_detail_progress">الرجاء الإنتظار...</string>
     <string name="home_plus_button_deactivated">معطَّل BLOKADA+</string>
+    <string name="home_plus_button_deactivated_cloud">الـ VPN غير نَشِط</string>
     <string name="home_plus_button_select_location">حدِّد الموقع</string>
     <string name="home_plus_button_location">الموقع: *%s*</string>
     <string name="home_level_low">الحماية: منخفضة</string>
@@ -208,6 +209,7 @@
     <string name="account_section_header_settings">الإعدادات</string>
     <string name="account_status_text">حسابك في BLOKADA %s نَشِط حتّى %s.</string>
     <string name="account_status_text_libre">حسابك في BLOKADA الحر نَشِط إلى الأبد.</string>
+    <string name="account_status_text_inactive">حسابك في BLOKADA غير نَشِط.</string>
     <string name="account_section_header_primary">الأساسي</string>
     <string name="account_section_header_other">غير ذلك</string>
     <string name="account_action_my_account">حسابي</string>
@@ -288,12 +290,11 @@
     <string name="payment_feature_desc_change_location">إخفاء عنوان IP الخاص بك و التظاهر بأنّك في بلد آخر. ذلك سوف يخفيك من أطراف ثالثة و يساعد على حماية هويّتك.</string>
     <string name="payment_feature_title_encrypt_data">تشفير البيانات</string>
     <string name="payment_feature_desc_encrypt_data">يتم تشفير البيانات المرسلة من خلال نفق VPN الخاص بنا باستخدام خوارزميات قويّة من أجل الحماية من اعتراض الأطراف غير المصرّح لها.</string>
+    <string name="payment_feature_title_encrypt_dns">تشفير الـ DNS</string>
     <string name="payment_feature_title_faster_connection">إتصال أسرع</string>
     <string name="payment_feature_desc_faster_connection">سرعة كبيرة تصل إلى 100 ميغابايت مع خوادِم في مختلف أنحاء العالم.</string>
     <string name="payment_feature_title_devices">حتّى 5 أجهزة</string>
     <string name="payment_feature_desc_devices">إستخدم نفس الحساب لمشاركة إشتراكك مع 5 أجهزة: iOS أو Android أو PC.</string>
-    <string name="payment_feature_title_no_ads">إزالة الإعلانات</string>
-    <string name="payment_feature_desc_no_ads">استمر في استخدام تكنولوجيا Blokada المشهورة في العالم لحَظْر الإعلانات مع تحسين مستوى حمايتك و الحفاظ على خصوصيّة بياناتك.</string>
     <string name="payment_feature_title_support">دعم كبير</string>
     <string name="payment_feature_desc_support">إحصل على رد فوري على أيّ أسئلة بفضل دعم العملاء لدينا و مجتمع نَشِط مفتوح المصدر.</string>
     <string name="payment_action_see_all_features">مشاهدة جميع الميّزات</string>

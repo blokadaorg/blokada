@@ -357,8 +357,6 @@
 "payment feature desc faster connection" = "Grandi velocità fino a 100Mbps con server in varie parti del mondo.";
 "payment feature title devices" = "Fino a 5 dispositivi";
 "payment feature desc devices" = "Usa lo stesso account per condividere il tuo abbonamento con un massimo di 5 dispositivi: iOS, Android o PC.";
-"payment feature title no ads" = "Nessuna pubblicità";
-"payment feature desc no ads" = "Continua ad utilizzare la famosa tecnologia di blocco di Blokada pur migliorando il tuo livello di protezione e mantenendo privati i tuoi dati.";
 "payment feature title support" = "Ottimo Supporto";
 "payment feature desc support" = "Ottieni una risposta veloce a tutte le domande grazie al nostro servizio clienti e una vivace comunità open source.";
 "payment action see all features" = "Visualizza tutte le funzionalità";
@@ -563,9 +561,6 @@
 "setup step copy" = "Copia il tuo hostname";
 "setup step apply config" = "Applica la nuova configurazione";
 "setup step install" = "Installa e avvia la nostra app";
-/* setup step enter tag
-
-Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "Quando richiesto, inserisci il tuo tag";
 "setup step download profile" = "Genera e scarica il tuo profilo";
 "setup step install wireguard" = "Installa e avvia Wireguard";

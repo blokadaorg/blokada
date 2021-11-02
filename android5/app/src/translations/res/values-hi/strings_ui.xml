@@ -178,8 +178,6 @@
     <string name="payment_feature_desc_faster_connection">दुनिया के विभिन्न हिस्सों में सर्वर के साथ 100Mbps तक की महान गति।</string>
     <string name="payment_feature_title_devices">5 उपकरणों तक</string>
     <string name="payment_feature_desc_devices">5 उपकरणों के साथ अपनी सदस्यता साझा करने के लिए एक ही खाते का उपयोग करें: iOS, Android, या PC।</string>
-    <string name="payment_feature_title_no_ads">कोई विज्ञापन नहीं</string>
-    <string name="payment_feature_desc_no_ads">अपने संरक्षण स्तर में सुधार करते हुए और अपने डेटा को निजी रखते हुए विश्व प्रसिद्ध ब्लोकडा एड ब्लॉकिंग तकनीक का उपयोग करें।</string>
     <string name="payment_feature_title_support">शानदार समर्थन</string>
     <string name="payment_feature_desc_support">ग्राहक सहायता और जीवंत ओपन सोर्स समुदाय से किसी भी प्रश्न का तुरंत जवाब प्राप्त करें।</string>
     <string name="payment_action_see_all_features">सभी सुविधाएँ देखें</string>

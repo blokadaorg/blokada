@@ -357,8 +357,6 @@
 "payment feature desc faster connection" = "Koneksi cepat sampai dengan 100Mbps dengan server yang berlokasi di berbagai tempat di dunia.";
 "payment feature title devices" = "Hingga 5 perangkat";
 "payment feature desc devices" = "Gunakan akun yang sama untuk berbagi langganan VPN Anda di 5 perangkat: iOS, Android, atau PC.";
-"payment feature title no ads" = "Tanpa Iklan";
-"payment feature desc no ads" = "Tetap gunakan teknologi pemblokir iklan dari Blokada yang telah dikenal dunia, dan secara bersamaan meningkatkan perlindungan terhadap data pribadi Anda.";
 "payment feature title support" = "Dukungan yang Hebat";
 "payment feature desc support" = "Dapatkan respon cepat untuk semua pertanyaan, yang dimungkinkan oleh staf Customer Support kami dan komunitas open source yang sangat aktif.";
 "payment action see all features" = "Lihat Semua Fitur";
@@ -563,9 +561,6 @@
 "setup step copy" = "Salin hostname";
 "setup step apply config" = "Terapkan konfigurasi baru";
 "setup step install" = "Instal dan mulai aplikasi";
-/* setup step enter tag
-
-Tag is used for identifying user device, similar to Account ID. Everyone has unique tag. */
 "setup step enter tag" = "Masukkan tag Anda ketika diminta";
 "setup step download profile" = "Buat dan unduh profil Anda";
 "setup step install wireguard" = "Instal dan mulai Wireguard";

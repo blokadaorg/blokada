@@ -292,8 +292,6 @@
     <string name="payment_feature_desc_faster_connection">Koneksi cepat sampai dengan 100Mbps dengan server yang berlokasi di berbagai tempat di dunia.</string>
     <string name="payment_feature_title_devices">Hingga 5 perangkat</string>
     <string name="payment_feature_desc_devices">Gunakan akun yang sama untuk berbagi langganan VPN Anda di 5 perangkat: iOS, Android, atau PC.</string>
-    <string name="payment_feature_title_no_ads">Tanpa Iklan</string>
-    <string name="payment_feature_desc_no_ads">Tetap gunakan teknologi pemblokir iklan dari Blokada yang telah dikenal dunia, dan secara bersamaan meningkatkan perlindungan terhadap data pribadi Anda.</string>
     <string name="payment_feature_title_support">Dukungan yang Hebat</string>
     <string name="payment_feature_desc_support">Dapatkan respon cepat untuk semua pertanyaan, yang dimungkinkan oleh staf Customer Support kami dan komunitas open source yang sangat aktif.</string>
     <string name="payment_action_see_all_features">Lihat Semua Fitur</string>

@@ -275,8 +275,6 @@
     <string name="payment_feature_desc_faster_connection">Dünyanın çeşitli yerlerindeki sunucularla 100 Mbps\'ye kadar yüksek hızlar.</string>
     <string name="payment_feature_title_devices">5 cihaza kadar</string>
     <string name="payment_feature_desc_devices">Aboneliğinizi en fazla 5 cihazla paylaşmak için aynı hesabı kullanın: iOS, Android veya PC.</string>
-    <string name="payment_feature_title_no_ads">Reklamsız</string>
-    <string name="payment_feature_desc_no_ads">Koruma düzeyinizi geliştirirken ve verilerinizi gizli tutarken dünyaca ünlü Blokada reklam engelleme teknolojisini kullanmaya devam edin.</string>
     <string name="payment_feature_title_support">Mükemmel Destek</string>
     <string name="payment_feature_desc_support">Müşteri desteğimiz ve canlı açık kaynak topluluğumuz sayesinde herhangi bir soruya hızlı bir yanıt alın.</string>
     <string name="payment_action_see_all_features">Tüm Özellikleri Gör</string>

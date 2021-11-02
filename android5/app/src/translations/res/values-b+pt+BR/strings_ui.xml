@@ -292,8 +292,6 @@
     <string name="payment_feature_desc_faster_connection">Ótimas velocidades de até 100Mbps com servidores em várias partes do Mundo.</string>
     <string name="payment_feature_title_devices">Até 5 dispositivos</string>
     <string name="payment_feature_desc_devices">Use a mesma conta para compartilhar sua assinatura com até 5 dispositivos: iOS, Android ou PC.</string>
-    <string name="payment_feature_title_no_ads">Sem anúncios</string>
-    <string name="payment_feature_desc_no_ads">Continue usando a mundialmente famosa tecnologia de bloqueio de anúncios do Blokada, enquanto melhora seu nível de proteção e mantém seus dados privados.</string>
     <string name="payment_feature_title_support">Ótimo suporte</string>
     <string name="payment_feature_desc_support">Obtenha uma resposta rápida a qualquer pergunta, graças ao nosso Suporte ao Cliente e à vibrante comunidade de código aberto.</string>
     <string name="payment_action_see_all_features">Ver Todos os Recursos</string>
