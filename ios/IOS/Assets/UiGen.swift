@@ -155,6 +155,8 @@ internal enum L10n {
   internal static func accountStatusText(_ p1: String, _ p2: String) -> String {
     return L10n.tr("Ui", "account status text", p1, p2)
   }
+  /// Your BLOKADA account is inactive.
+  internal static let accountStatusTextInactive = L10n.tr("Ui", "account status text inactive")
   /// Your BLOKADA Libre account is active until forever.
   internal static let accountStatusTextLibre = L10n.tr("Ui", "account status text libre")
   /// Days remaining: %@
@@ -341,6 +343,8 @@ internal enum L10n {
   internal static let appsSectionHeader = L10n.tr("Ui", "apps section header")
   /// (bypassed)
   internal static let appsStatusBypassed = L10n.tr("Ui", "apps status bypassed")
+  /// Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.
+  internal static let dnsprofileDesc = L10n.tr("Ui", "dnsprofile desc")
   /// Your account is inactive. Please activate your account in order to continue using BLOKADA+.
   internal static let errorAccountInactive = L10n.tr("Ui", "error account inactive")
   /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.
@@ -395,6 +399,8 @@ internal enum L10n {
   internal static let homeLevelMedium = L10n.tr("Ui", "home level medium")
   /// BLOKADA+ deactivated
   internal static let homePlusButtonDeactivated = L10n.tr("Ui", "home plus button deactivated")
+  /// VPN deactivated
+  internal static let homePlusButtonDeactivatedCloud = L10n.tr("Ui", "home plus button deactivated cloud")
   /// Location: *%@*
   internal static func homePlusButtonLocation(_ p1: String) -> String {
     return L10n.tr("Ui", "home plus button location", p1)
@@ -731,6 +737,8 @@ internal enum L10n {
   internal static let packTagsNone = L10n.tr("Ui", "pack tags none")
   /// Choose a location
   internal static let paymentActionChooseLocation = L10n.tr("Ui", "payment action choose location")
+  /// Compare plans
+  internal static let paymentActionCompare = L10n.tr("Ui", "payment action compare")
   /// Pay %@
   internal static func paymentActionPay(_ p1: String) -> String {
     return L10n.tr("Ui", "payment action pay", p1)
@@ -765,28 +773,48 @@ internal enum L10n {
   internal static let paymentDonateDisclaimer = L10n.tr("Ui", "payment donate disclaimer")
   /// We are based in Europe, so we accept Euro: €10 is roughly $12.
   internal static let paymentEuroDesc = L10n.tr("Ui", "payment euro desc")
+  /// Your battery life is going to be the same, with our without Blokada Cloud activated.
+  internal static let paymentFeatureDescBattery = L10n.tr("Ui", "payment feature desc battery")
   /// Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.
   internal static let paymentFeatureDescChangeLocation = L10n.tr("Ui", "payment feature desc change location")
+  /// Enjoy all the features of Blokada Cloud. Aditionally, get access to our VPN network.
+  internal static let paymentFeatureDescCloudVpn = L10n.tr("Ui", "payment feature desc cloud vpn")
   /// Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.
   internal static let paymentFeatureDescDevices = L10n.tr("Ui", "payment feature desc devices")
+  /// Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.
+  internal static let paymentFeatureDescDevicesCloud = L10n.tr("Ui", "payment feature desc devices cloud")
   /// Data sent through our VPN tunnel is encrypted using strong algorithms in order to protect against interception by unauthorized parties.
   internal static let paymentFeatureDescEncryptData = L10n.tr("Ui", "payment feature desc encrypt data")
+  /// Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.
+  internal static let paymentFeatureDescEncryptDns = L10n.tr("Ui", "payment feature desc encrypt dns")
   /// Great speeds up to 100Mbps with servers in various parts of the World.
   internal static let paymentFeatureDescFasterConnection = L10n.tr("Ui", "payment feature desc faster connection")
-  /// Keep using the world famous Blokada adblocking technology while improving your protection level and keeping your data private.
+  /// Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.
   internal static let paymentFeatureDescNoAds = L10n.tr("Ui", "payment feature desc no ads")
+  /// Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.
+  internal static let paymentFeatureDescPerformance = L10n.tr("Ui", "payment feature desc performance")
   /// Get a prompt response to any questions thanks to our Customer Support and vibrant open source community.
   internal static let paymentFeatureDescSupport = L10n.tr("Ui", "payment feature desc support")
+  /// Zero Battery Impact
+  internal static let paymentFeatureTitleBattery = L10n.tr("Ui", "payment feature title battery")
   /// Change Location
   internal static let paymentFeatureTitleChangeLocation = L10n.tr("Ui", "payment feature title change location")
+  /// Cloud & VPN
+  internal static let paymentFeatureTitleCloudVpn = L10n.tr("Ui", "payment feature title cloud vpn")
   /// Up to 5 devices
   internal static let paymentFeatureTitleDevices = L10n.tr("Ui", "payment feature title devices")
+  /// Multiple Devices
+  internal static let paymentFeatureTitleDevicesCloud = L10n.tr("Ui", "payment feature title devices cloud")
   /// Encrypt Data
   internal static let paymentFeatureTitleEncryptData = L10n.tr("Ui", "payment feature title encrypt data")
+  /// Encrypt DNS
+  internal static let paymentFeatureTitleEncryptDns = L10n.tr("Ui", "payment feature title encrypt dns")
   /// Faster Connection
   internal static let paymentFeatureTitleFasterConnection = L10n.tr("Ui", "payment feature title faster connection")
-  /// No Ads
+  /// Block Ads
   internal static let paymentFeatureTitleNoAds = L10n.tr("Ui", "payment feature title no ads")
+  /// Great Performance
+  internal static let paymentFeatureTitlePerformance = L10n.tr("Ui", "payment feature title performance")
   /// Great Support
   internal static let paymentFeatureTitleSupport = L10n.tr("Ui", "payment feature title support")
   /// Activated!
@@ -827,6 +855,16 @@ internal enum L10n {
   internal static let paymentPayAppleShort = L10n.tr("Ui", "payment pay apple short")
   /// Google Pay
   internal static let paymentPayGoogleShort = L10n.tr("Ui", "payment pay google short")
+  /// Subscribe Annually
+  internal static let paymentPlanCtaAnnual = L10n.tr("Ui", "payment plan cta annual")
+  /// Subscribe Monthly
+  internal static let paymentPlanCtaMonthly = L10n.tr("Ui", "payment plan cta monthly")
+  /// Start 7-Day Free Trial
+  internal static let paymentPlanCtaTrial = L10n.tr("Ui", "payment plan cta trial")
+  /// Blocks ads and trackers
+  internal static let paymentPlanSluglineCloud = L10n.tr("Ui", "payment plan slugline cloud")
+  /// Additional protection with VPN
+  internal static let paymentPlanSluglinePlus = L10n.tr("Ui", "payment plan slugline plus")
   /// Please wait. This should only take a moment.
   internal static let paymentRedirectDesc = L10n.tr("Ui", "payment redirect desc")
   /// Redirecting...
