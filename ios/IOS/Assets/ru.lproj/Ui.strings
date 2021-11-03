@@ -360,9 +360,11 @@
 "payment feature title performance" = "Отличная производительность";
 "payment feature desc performance" = "Поддерживайте быстродействие вашего устройства и максимальную скорость подключения к интернету благодаря нашему новому облачному решению.";
 "payment feature title battery" = "Никакого влияния на батарею";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
 "payment feature title devices cloud" = "Несколько устройств";
 "payment feature desc devices cloud" = "Объедините все свои устройства под одной подпиской Blokada Cloud. Используйте наши мобильные приложения или веб-панель управления.";
 "payment feature title cloud vpn" = "Cloud и VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "Более быстрое соединение";
 "payment feature desc faster connection" = "Высокие скорости до 100 Мбит/с с серверами в различных частях света.";
 "payment feature title devices" = "До 5 устройств";

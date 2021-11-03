@@ -295,9 +295,11 @@
     <string name="payment_feature_title_performance">Отличная производительность</string>
     <string name="payment_feature_desc_performance">Поддерживайте быстродействие вашего устройства и максимальную скорость подключения к интернету благодаря нашему новому облачному решению.</string>
     <string name="payment_feature_title_battery">Никакого влияния на батарею</string>
+    <string name="payment_feature_desc_battery">Your battery life is going to be the same, with or without Blokada Cloud activated.</string>
     <string name="payment_feature_title_devices_cloud">Несколько устройств</string>
     <string name="payment_feature_desc_devices_cloud">Объедините все свои устройства под одной подпиской Blokada Cloud. Используйте наши мобильные приложения или веб-панель управления.</string>
     <string name="payment_feature_title_cloud_vpn">Cloud и VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.</string>
     <string name="payment_feature_title_faster_connection">Более быстрое соединение</string>
     <string name="payment_feature_desc_faster_connection">Высокие скорости до 100 Мбит/с с серверами в различных частях света.</string>
     <string name="payment_feature_title_devices">До 5 устройств</string>

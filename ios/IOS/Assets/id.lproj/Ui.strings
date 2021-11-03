@@ -360,9 +360,11 @@
 "payment feature title performance" = "Kinerja yang mumpuni";
 "payment feature desc performance" = "Menjaga perangkat Anda tetap gegas dan koneksi internet Anda di kecepatan maksimal, berkat solusi Cloud baru dari kami.";
 "payment feature title battery" = "Tidak mempengaruhi daya tahan baterai";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
 "payment feature title devices cloud" = "Banyak Perangkat";
 "payment feature desc devices cloud" = "Set up semua perangkat Anda hanya dengan satu akun Blokada Cloud. Gunakan aplikasi atau dashboard web kami untuk pengaturan selanjutnya.";
 "payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "Koneksi Lebih Cepat";
 "payment feature desc faster connection" = "Koneksi cepat sampai dengan 100Mbps dengan server yang berlokasi di berbagai tempat di dunia.";
 "payment feature title devices" = "Hingga 5 perangkat";

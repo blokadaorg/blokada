@@ -356,10 +356,21 @@
 "payment feature title encrypt data" = "تشفير البيانات";
 "payment feature desc encrypt data" = "يتم تشفير البيانات المرسلة من خلال نفق VPN الخاص بنا باستخدام خوارزميات قويّة من أجل الحماية من اعتراض الأطراف غير المصرّح لها.";
 "payment feature title encrypt dns" = "تشفير الـ DNS";
+"payment feature desc encrypt dns" = "قم بتحسين خصوصيّتك باستخدام تشفير DNS. يستخدم Blokada Cloud البروتوكولات الحديثة للمساعدة في الحفاظ على خصوصيّة بياناتك.";
+"payment feature title performance" = "أداء عظيم";
+"payment feature desc performance" = "حافظ على سرعة أداء جهازك و اتصالك بالإنترنت بأقصى سرعات بفضل حل السحابة الجديد الذي نقدمه.";
+"payment feature title battery" = "تأثير البطّاريّة صفر";
+"payment feature desc battery" = "سيظل عمر البطارية كما هو ، مع تنشيط Blokada Cloud أو بدونه.";
+"payment feature title devices cloud" = "أجهزة متعدّدة";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "استمتع بجميع ميّزات Blokada Cloud. بالإضافة إلى ذلك، يمكنك الوصول إلى شبكة VPN الخاصّة بنا.";
 "payment feature title faster connection" = "إتصال أسرع";
 "payment feature desc faster connection" = "سرعة كبيرة تصل إلى 100 ميغابايت مع خوادِم في مختلف أنحاء العالم.";
 "payment feature title devices" = "حتّى 5 أجهزة";
 "payment feature desc devices" = "إستخدم نفس الحساب لمشاركة إشتراكك مع 5 أجهزة: iOS أو Android أو PC.";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "دعم كبير";
 "payment feature desc support" = "إحصل على رد فوري على أيّ أسئلة بفضل دعم العملاء لدينا و مجتمع نَشِط مفتوح المصدر.";
 "payment action see all features" = "مشاهدة جميع الميّزات";
@@ -407,6 +418,13 @@
 
 "payment euro desc" = "نحن موجودون في أوروبا ، لذلك نقبل اليورو: 10 يورو تعادل 12 دولاراً تقريباً.";
 "payment donate disclaimer" = "لن يؤدّي هذا إلى تنشيط حساب بلوكادا بلس الخاصّ بك. إذا كنت ترغب في استخدام خدمة VPN الخاصّة بنا، يُرجى الإشتراك بدلاً من التبرُّع.";
+
+"payment action compare" = "Compare plans";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
+"payment plan cta trial" = "Start 7-Day Free Trial";
+"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan cta annual" = "Subscribe Annually";
 
 "apps section header" = "التطبيقات";
 "apps label installed" = "مُثَبَّت";
@@ -577,3 +595,5 @@
 "stats requests subheader" = "الاستفسارات عبر الوقت";
 "stats top allowed header" = "أكثر الطلبات المسموح بها";
 "stats top blocked header" = "أكثر الطلبات المَحظورة";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

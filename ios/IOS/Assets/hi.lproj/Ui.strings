@@ -13,6 +13,7 @@
 "error device offline" = "आपका उपकरण ऑफ़लाइन है";
 "error account inactive" = "आपका खाता निष्क्रिय है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपने खाते को सक्रिय करें।";
 "error account inactive after restore" = "यह एक मान्य सक्रिय खाता नहीं लगता है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error account invalid" = "This account ID seems invalid.";
 "error creating account" = "नया खाता नहीं बनाया जा सका। बाद में पुन: प्रयास करें।";
 "error fetching data" = "यह कार्रवाई पूरी नहीं हो सकी। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
 "error tunnel" = "वीपीएन स्थापित नहीं कर सका। कृपया अपने डिवाइस को पुनः आरंभ करें, या सिस्टम सेटिंग्स में Blokada VPN प्रोफाइल को हटा दें, और फिर से प्रयास करें।";
@@ -23,10 +24,13 @@
 "error vpn expired" = "VPN अक्षम है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपनी सदस्यता अपडेट करें";
 "error payment inactive after restore" = "आपका पिछला भुगतान बहाल कर दिया गया था, लेकिन सदस्यता पहले ही समाप्त हो चुकी है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
 "error payment failed" = "इस समय भुगतान उपलब्ध नहीं है। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error payment failed alternative" = "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.";
 "error payment not available" = "इस उपकरण के लिए भुगतान उपलब्ध नहीं हैं। या तो ऐप्पल पे सक्रिय नहीं है, या हम आपके देश में खरीद को अभी तक संभाल नहीं रहे हैं।";
 "error payment canceled" = "भुगतान रद्द कर दिया गया था। आपसे शुल्क नहीं लिया गया।";
 "error pack install" = "इस सुविधा को इंस्टॉल (या अनइंस्टॉल) नहीं कर सका। बाद में पुन: प्रयास करें।";
 "error location failed fetching" = "स्थानों को नहीं ला सके।";
+"error unknown" = "An unknown problem occurred. Please try again. If the problem persists, please contact us by tapping the help icon at the top.";
+"error blocka dns in filtering mode" = "Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.";
 
 "universal action continue" = "जारी रखें";
 "universal action cancel" = "रद्द करें";
@@ -42,6 +46,7 @@
 "universal action contact us" = "हमसे संपर्क करें";
 "universal action support" = "सहायता";
 "universal action upgrade" = "BLOKADA + में अपग्रेड करें";
+"universal action upgrade short" = "Upgrade";
 "universal action yes" = "हां";
 "universal action no" = "नहीं";
 "universal action donate" = "दान";
@@ -51,26 +56,55 @@
 "universal action download" = "डाउन्लोड";
 "universal action news" = "समाचार";
 "universal action delete" = "हटाएँ";
+"universal action hide" = "Hide";
+"universal action select" = "Select";
+"universal action selected" = "Selected";
 // A verb "to search in the list"
 "universal action search" = "खोजें";
+// A verb "to filter the list"
+"universal action filter" = "Filter";
 // A verb "to clear the list"
 "universal action clear" = "साफ़";
+// A verb "to revoke permissions"
+"universal action revoke" = "Revoke";
 
 "universal label help" = "मदद";
+"universal label welcome" = "Welcome!";
 // Common label when some feature has no setting
 "universal label none" = "कोई नहीं";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Name";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Time";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Count";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Type";
+"universal label device" = "Device";
 
 "universal status processing" = "प्रॉसेस हो रहा हैं; कृपया प्रतीक्षा करें...";
+"universal status copied to clipboard" = "Copied to Clipboard";
+"universal status restart required" = "Please restart the app for the changes to take effect.";
 "universal status redirect" = "ब्लोकाडा ऐप के साथ जारी रखें";
+"universal status confirm" = "Are you sure you want to proceed?";
 
 "alert error header" = "ओह!";
 "alert vpn expired header" = "BLOKADA + समाप्त हो गया";
+"alert download link body" = "For security reasons, to download a file, we need to open this website in your browser. Then, please tap the download link again.";
 
 "notification vpn expired header" = "BLOKADA + की सदस्यता समाप्त हो गई है";
 "notification vpn expired subtitle" = "VPN अक्षम है";
 "notification vpn expired body" = "BLOKADA + का उपयोग जारी रखने के लिए कृपया अपनी सदस्यता अपडेट करें";
+"notification desc settings" = "Swipe the notification left or right for settings.";
+
+"notification update header" = "An update is available";
+"alert update body" = "Blokada %@ is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.";
+"update label updated" = "Updated!";
+"update desc updated" = "You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.";
+"update downloading description" = "The update is now downloading, and you should see the installation prompt shortly.";
 
 "account active forever" = "हमेशा के लिए";
+"account active forever full" = "Active forever";
 
 "main ask for permissions header" = "बस एक और कदम";
 "main ask for permissions description" = "ब्लोकडा विज्ञापनों को ब्लॉक करने के लिए वीपीएन कॉन्फ़िगरेशन का उपयोग कर रहा है। आपको इसे अगले चरण में अनुमति देने के लिए कहा जाएगा।";
@@ -91,25 +125,37 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "सैटिंग्स";
 
+"main label use side menu" = "Use side menu to navigate";
+
 "home ads counter footnote" = "स्थापना के बाद से विज्ञापन और ट्रैकर अवरुद्ध";
 "home power off menu header" = "आप क्या करना चाहेंगे?";
 "home power action turn on" = "चालू करें";
 "home power action turn off" = "बंद करे";
 "home power action pause" = "5 मिनट के लिए रुकें";
+
+"home status paused" = "Paused";
 "home status active" = "सक्रिय";
+"home status deactivated" = "Deactivated";
 "home action tap to activate" = "सक्रिय करने के लिए टैप करें";
 "home status detail paused" = "टाइमर समाप्त होने तक रोक दिया गया";
 "home status detail active" = "अवरोधक *विज्ञापन* और *ट्रैकर्स*";
 "home status detail active with counter" = "*%@* विज्ञापनों और ट्रैकर्स को अवरुद्ध किया";
+"home status detail active slim" = "Blokada *Slim* is active";
 "home status detail plus" = "*+* अपनी *निजता* की रक्षा";
 "home status detail progress" = "कृपया प्रतीक्षा करें...";
 
 "home plus button deactivated" = "BLOKADA + निष्क्रिय किया गया";
+"home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "स्थान चुने";
 "home plus button location" = "स्थान: *%@*";
 
+"home level low" = "Protection: Low";
+"home level medium" = "Protection: Medium";
+"home level high" = "Protection: High";
+
 
 "pack section header" = "उन्नत सुविधाओं";
+"pack section header details" = "Feature Details";
 "pack action install" = "पाएं";
 "pack action update" = "अपडेट करें";
 "pack action uninstall" = "हटाए इसे";
@@ -122,13 +168,24 @@
 "pack category active" = "सक्रिय";
 "pack category all" = "सभी";
 
+"advanced section header packs" = "Blocklists";
+"advanced section slugline packs" = "Activate for more restrictive blocking";
+"advanced section slugline apps" = "Choose apps that should never be blocked";
+"advanced section slugline encryption" = "Adjust your encryption level and DNS";
+"advanced action slim migrate to full" = "You are using Blokada Slim. Learn more";
+
 "location choice header" = "स्थान चुनें";
 
 "activity section header" = "गतिविधि";
+"activity section header details" = "Activity Details";
 "activity request blocked" = "इस अनुरोध को अवरोधित कर दिया गया है।";
 "activity request allowed" = "इस अनुरोध की अनुमति दी गई है।";
 "activity request allowed whitelisted" = "इस अनुरोध को अनुमति दी गई है, क्योंकि यह आपकी अनुमति सूची में है";
 "activity request blocked blacklisted" = "इस अनुरोध को अनुमति दी गई है, क्योंकि यह आपकी अवरुद्ध सूची में है";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* blocklist.";
+"activity request allowed no list" = "This request has been allowed, as it's not present on any of your configured blocklists.";
+"activity request blocked list" = "This request has been blocked, because it's present on the *%@* blocklist.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured blocklists.";
 "activity actions header" = "कार्रवाई";
 "activity information header" = "जानकारी";
 "activity action add to whitelist" = "इसे अनुमति दें";
@@ -154,22 +211,78 @@
 "activity category top blocked" = "शीर्ष अवरुद्ध";
 "activity category top allowed" = "शीर्ष अनुमति";
 "activity filter header" = "आप कौन सी प्रविष्टियाँ देखना चाहेंगे?";
+"activity filter show all" = "All entries";
+"activity filter show blocked" = "Blocked only";
+"activity filter show allowed" = "Allowed only";
+"activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
+"activity device filter show all" = "All devices";
+"activity retention header" = "For how long can we store your activity?";
+"activity retention option none" = "Do not store my activity";
+"activity retention option 24h" = "24 hours";
+"activity retention policy" = "By enabling log retention you accept Blokada Cloud Privacy Policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.";
+
+"userdenied section header" = "Exceptions";
+"userdenied section slugline" = "Manage blocking of particular websites";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "Allowed";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "अवरुद्ध";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Allow";
+// A short one word action to block a hostname.
+"userdenied action block" = "Block";
+
+"networks section header" = "Networks";
+"networks section label" = "Adjust settings for WiFi and mobile networks";
+"networks label all networks" = "All networks";
+"networks action network specific" = "Tap here to modify default settings. To make the app behave differently on some networks, tap below.";
+"networks label configuration active" = "These settings are currently active";
+"networks label configuration enabled" = "Not connected to this network";
+"networks label configuration inactive" = "Tap to modify settings for this network";
+"networks label details default network" = "The settings below are applied by default for all networks. You can override them for selected networks (in the previous screen).";
+"networks action encrypt dns" = "Encrypt DNS";
+"networks action use dns" = "Use DNS: %@";
+"networks action use network dns" = "Prefer network DNS";
+"networks action force libre mode" = "Force Libre mode";
+"networks label specific network" = "Adjust what should happen when your device connects to this network.";
+"networks label specific network type" = "Adjust what should happen when your device connects to a network of this type.";
+"networks label any wifi" = "Any WiFi network";
+"networks label any mobile" = "Any mobile network";
+"networks permission request" = "To have more control, tap here and let the app recognise all networks.";
+"networks permission request granted" = "You may see a notification when Blokada reads your network name in the background.";
+"networks section choose dns" = "Choose DNS";
+"networks summary encrypt dns" = "Blokada will encrypt DNS if possible. This improves your security and prevents malicious actors to spy on what websites and apps you use.";
+"networks summary use dns" = "Blokada will use %@ as your device's DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.";
+"networks summary network dns" = "Blokada will use the network's DNS if available, or switch to %@ otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network's DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.";
+"networks summary network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.";
+"networks summary blocka plus mode" = "Blokada will use Blokada DNS in Plus mode, to ensure high level of encryption and speed. You may change this setting at the bottom of the Choose DNS screen.";
+"networks summary force libre mode" = "Blokada will always use Libre mode on this network, and ignore your Blokada Plus location. This is useful for networks where you do not want the additional protection.";
+"networks permission dialog" = "Blokada can recognize networks you connect to, and let you configure separate settings for them. However, this app will collect location data in the form of network name to enable this feature, even when the app is closed or not in use. Sometimes you may see a system notification about location access - Blokada will only read the network's name.";
 
 
 "account section header settings" = "सैटिंग्स";
 "account status text" = "आपका BLOKADA%@ खाता %@ तक सक्रिय है।";
+"account status text libre" = "Your BLOKADA Libre account is active until forever.";
+"account status text inactive" = "Your BLOKADA account is inactive.";
 
 "account section header primary" = "प्रमुख";
 "account section header other" = "अन्य";
 "account action my account" = "मेरा खाता";
+"account action encryption" = "Encryption & DNS";
 "account action devices" = "उपकरण";
 "account action new device" = "नया उपकरण";
 "account action inbox" = "इनबॉक्स";
+"account action logout" = "Restore purchase";
 "account action logout only" = "लोग आउट";
+"account action create" = "Generate new account";
 "account action about" = "हमारे बारे में";
+"account action tap to show" = "Tap to show";
+"account action restoring" = "Restoring account: %@";
 "account label enter to continue" = "जारी रखने के लिए अपना खाता आईडी दर्ज करें";
+"account restore description" = "Don't worry, if you lost or forgot your account ID, we can recover it. Please contact our support, and provide us information that will allow us to identify your purchase (eg. last 4 digits of your credit card, or PayPal email).";
+"account create description" = "This is your account ID. Write it down and keep it private. It’s the only way to access your subscription.";
+"account create confirm" = "I wrote it down";
 
 "account section header my subscription" = "मेरी सदस्यता";
 "account section header general" = "सामान्य";
@@ -179,17 +292,28 @@
 "account label active until" = "... तक एक्टिव";
 "account action manage subscription" = "सदस्यताओं को प्रबंधित करें";
 "account action why upgrade" = "मुझे अपग्रेड क्यों करना चाहिए?";
+"account subscription header renew" = "Renew automatically";
+"account subscription header payment method" = "Payment method";
+"account subscription renew unsupported" = "Your payment method does not allow to control the auto renewal setting here.";
 
 "account unlock to show" = "अपना खाता आईडी दिखाने के लिए अनलॉक करें";
+
+"account header logout" = "Restore purchase";
 "account logout description" = "कृपया कोई अन्य खाता आईडी दर्ज करें, या मौजूदा खाते का उपयोग करने के लिए वापस जाएं (यह ऐप बिना उपयोग किए नहीं किया जा सकता है)।";
 "account id status unchanged" = "(अपरिवर्तित)";
 "account action how to restore" = "मैं अपने पुराने खाते को कैसे पुनर्स्थापित करूं?";
+
+"account subscription days remaining" = "Days remaining: %@";
+"account devices remaining" = "Devices remaining: %@";
+"account devices not available" = "Not available";
+"account devices out of" = "%@ out of %@";
 
 "account encrypt level low" = "कम";
 "account encrypt level medium" = "मध्यम";
 "account encrypt level high" = "ऊंचा";
 "account encrypt label dns only" = "डीएनएस को एन्क्रिप्ट करना";
 "account encrypt desc dns only" = "डोमेन नेम सिस्टम यह है कि आपकी डिवाइस को पता है कि आप जिन वेबसाइटों पर जाना चाहते हैं, उन्हें कहां खोजें। दुर्भाग्य से, अधिकांश इंटरनेट अभी भी अनएन्क्रिप्टेड डीएनएस का उपयोग करता है, जो आपके ब्राउज़िंग इतिहास को जासूसी करने के जोखिम में डालता है। जब सक्षम किया जाता है, तो Blokada आपके डिवाइस को केवल एन्क्रिप्टेड DNS सर्वर (जिसे DNS को HTTPS भी कहा जाता है) से कनेक्ट करने के लिए मजबूर कर रहा है।";
+"account encrypt label everything" = "Connecting through VPN";
 "account encrypt desc everything" = "आपका डिवाइस हमारे सुरक्षित वीपीएन सर्वर, और सभी संचार से आने वाले या, आपके डिवाइस को मजबूत एल्गोरिदम का उपयोग करके एन्क्रिप्ट किया जा रहा है। यह आपकी व्यक्तिगत जानकारी को सुरक्षित रखता है, जैसे बैंकिंग विवरण या व्यक्तिगत फ़ोटो, असुरक्षित स्थानों में चोरी होने से, कॉफी शॉप वाईफाई की तरह।";
 "account encrypt action turn on" = "BLOKADA चालू करें";
 "account encrypt header level" = "एन्क्रिप्शन स्तर";
@@ -201,12 +325,21 @@
 "account encrypt label dns" = "डीएनएस";
 "account encrypt action what is dns" = "DNS क्या है?";
 "account encrypt section header" = "एन्क्रिप्शन";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "Use Blokada DNS in Plus mode";
 
 "account lease label devices list" = "ये उपकरण आपके खाते से जुड़े हैं।";
 "account lease label devices" = "उपकरण";
 "account lease label this device" = " (यह डिवाइस)";
 "account lease label name" = "उपकरण का नाम";
+"account lease label location" = "Location";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports Wireguard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
+"account lease action generate" = "Generate Config";
+"account lease action download" = "Download Config";
+"account lease generated" = "Device added! Download the configuration to use it on any device supported by Wireguard.";
+"account lease wireguard desc" = "Blokada uses Wireguard. Configurations can be downloaded when creating new devices.";
 "account lease label dns" = "डीएनएस";
+"account lease action dns" = "Choose a DNS";
 "account lease label public key" = "सार्वजनिक चाबी";
 
 "account support action how help" = "हम आपकी क्या मदद कर सकते हैं?";
@@ -215,16 +348,29 @@
 "payment header activated" = "सक्रिय!";
 "payment activated description" = "ब्लोकडा अब प्लस मोड में बदल जाएगा, और हमारे सुरक्षित स्थानों में से एक के माध्यम से कनेक्ट होगा। यदि आप अनिश्चित हैं कि किसे चुनना है, तो आपके लिए सबसे निकटतम एक की सिफारिश की जाती है।";
 "payment action choose location" = "स्थान चुनें";
+"payment action see locations" = "Our Locations";
 
 "payment title" = "*आपकी गोपनीयता* के नियंत्रण में रहने के लिए हमारी वीपीएन सेवा को अपग्रेड करें।";
 "payment feature title change location" = "स्थान बदलें";
 "payment feature desc change location" = "अपना आईपी पता छिपाएं और दिखावा करें कि आप दूसरे देश में हैं। यह आपको तृतीय-पक्ष से मुखौटा देगा और आपकी पहचान की रक्षा करने में मदद करेगा।";
 "payment feature title encrypt data" = "डेटा एन्क्रिप्ट करें";
 "payment feature desc encrypt data" = "हमारे वीपीएन सुरंग के माध्यम से भेजे गए डेटा को अनधिकृत पार्टियों द्वारा अवरोधन से बचाने के लिए मजबूत एल्गोरिदम का उपयोग करके एन्क्रिप्ट किया गया है।";
+"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
+"payment feature title performance" = "Great Performance";
+"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature title battery" = "Zero Battery Impact";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature title devices cloud" = "Multiple Devices";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "तेज़ कनेक्शन";
 "payment feature desc faster connection" = "दुनिया के विभिन्न हिस्सों में सर्वर के साथ 100Mbps तक की महान गति।";
 "payment feature title devices" = "5 उपकरणों तक";
 "payment feature desc devices" = "5 उपकरणों के साथ अपनी सदस्यता साझा करने के लिए एक ही खाते का उपयोग करें: iOS, Android, या PC।";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "शानदार समर्थन";
 "payment feature desc support" = "ग्राहक सहायता और जीवंत ओपन सोर्स समुदाय से किसी भी प्रश्न का तुरंत जवाब प्राप्त करें।";
 "payment action see all features" = "सभी सुविधाएँ देखें";
@@ -233,6 +379,9 @@
 "payment action terms" = "सेवा की शर्तें";
 "payment action policy" = "गोपनीयता नीति";
 "payment alert error header" = "ऐप स्टोर से एक संदेश";
+// As in saving money: You are saving $5
+"payment save text" = "You are saving %@";
+"payment conversion note" = "We accept Euro, and the displayed prices are an estimate. A refund is available if your bank charges too much.";
 
 "payment subscription 1 month" = "1 महीना";
 "payment subscription many months" = "%@ महीने";
@@ -240,18 +389,211 @@
 "payment subscription offer" = "बचाएं %@";
 
 "payment success label" = "धन्यवाद!";
+"payment success desc" = "Your account is now active! You may now use all Blokada Plus features on all your devices.";
+
+"payment redirect label" = "Redirecting...";
+"payment redirect desc" = "Please wait. This should only take a moment.";
+
+"payment ongoing title" = "Your payment is now being processed.";
+"payment ongoing desc" = "Credit card payments should not take more than a few minutes. Cryptocurrency payments usually take up to an hour, depending on what transaction fee you chose. In case of PayPal, it may take up to 24 hours. You will get redirected once your account is ready. You may also close this screen, and come again later. If you feel like your transaction is taking too long, please contact us.";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
 "payment change method" = "बदलें";
+"payment action pay" = "Pay %@";
+"payment action pay period" = "Pay %@ each period";
+"payment label email" = "Email";
+"payment crypto desc" = "To pay with your cryptocurrency wallet, tap the button below.";
+"payment label choose package" = "Choose your package";
+"payment label choose payment method" = "Choose your payment method";
+"payment label cheapest" = "Cheapest";
+"payment label most popular" = "Most popular";
 "payment label pay with card" = "कार्ड से भुगतान करें";
 "payment label pay with paypal" = "पेपैल के साथ भुगतान करें";
+"payment label pay with crypto" = "Pay with crypto";
 "payment package one month" = "1 महीना";
 "payment package six months" = "6 महीने";
 "payment package twelve months" = "12 महीने";
+"payment label discount" = "Save %@ (%@ / mo)";
+"payment label country" = "Country";
+
+"payment euro desc" = "We are based in Europe, so we accept Euro: €10 is roughly $12.";
+"payment donate disclaimer" = "This won't activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.";
+
+"payment action compare" = "Compare plans";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
+"payment plan cta trial" = "Start 7-Day Free Trial";
+"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan cta annual" = "Subscribe Annually";
 
 "apps section header" = "ऐप्स";
+"apps label installed" = "Installed";
+"apps label system" = "System";
+"apps status bypassed" = "(bypassed)";
+"apps filter header" = "Which apps would you like to see?";
+"apps filter action show all" = "All apps";
+"apps filter action show bypassed" = "Bypassed only";
+"apps filter action show not bypassed" = "Not bypassed only";
+"apps filter action toggle system" = "Toggle all system apps";
+
+"app settings section header" = "This device";
+"app settings language label" = "Language";
+"app settings theme label" = "App theme";
+"app settings theme light" = "Light";
+"app settings theme dark" = "Dark";
+// A setting for changing if to open links internally in the app, or by using this device's web browser
+"app settings browser label" = "Redirect links to";
+"app settings browser internal" = "Internal browser";
+"app settings browser external" = "External browser (if possible)";
+"app settings ipv6 label" = "Allow IPv6";
+"app settings section system" = "System";
+"app settings action app info" = "Open App Information";
+"app settings action vpn profile" = "Open VPN Profile";
+"app settings action notifications" = "Open Notification Settings";
+"app settings section details" = "Details";
+"app settings status default" = "System default";
 "app settings start on boot" = "बूट पर प्रारंभ करें";
+"app settings use dns over https" = "Use DNS over HTTPS";
+"app settings backup" = "Use cloud backup";
 "app settings section advanced" = "उच्च";
 "app settings section use foreground" = "जिंदा रखें";
+
+"intro header" = "Blokada is Active!";
+"intro text" = "A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.";
+
+"location region worldwide" = "Everywhere";
+"location region america" = "America";
+"location region europe" = "Europe";
+"location region asia" = "Asia";
+"location region australia" = "Australia";
+
+"homepage header what is blokada" = "What is Blokada?";
+"homepage desc what is blokada" = "Learn the basic information about the app.";
+"homepage desc download" = "Download Blokada for your platform.";
+"homepage desc community" = "Join our awesome community.";
+"homepage header support" = "Support us";
+"homepage desc support" = "Donate to help us continue the project.";
+"homepage action faq" = "FAQ";
 "homepage action vpn" = "वीपीएन";
+"homepage action opinions" = "Reviews";
+"homepage action authors" = "Authors";
+"homepage action source" = "Source";
+"homepage action forums" = "Forums";
+"homepage action dashboard" = "Dashboard";
+"homepage about footer" = "Let's stay in touch!";
+"homepage hero title" = "The privacy app";
+"homepage hero subtitle" = "free and open source";
+"homepage hero desc" = "Blokada is the popular ad blocker and privacy app for Android and iOS. It's being supported and actively developed by the amazing open source community.";
+"homepage about title" = "Blokada 5, the ad blocker";
+"homepage about desc" = "If you want to efficiently block ads, trackers, malware, save on your data plan, speed up your device and protect your privacy with just one application, then Blokada is for you. It is free, secure and open source.";
+"homepage about point one" = "Blocks ads & trackers";
+"homepage about point two" = "Works for all apps and all browsers";
+"homepage about point three" = "Requires no root or jailbreak";
+"homepage about point four" = "Safe design (does not break encryption)";
+"homepage about point five" = "Trusted & free forever";
+
+"homepage about action faq" = "See the FAQs";
 "homepage about action plus" = "ब्लोकाडा प्लस के बारे में अधिक जानें";
 
+"homepage vpn title" = "Blokada 5, the VPN";
+"homepage vpn desc" = "For ultimate privacy protection, upgrade to Blokada Plus and connect through our VPN. We use WireGuard®, the most advanced VPN protocol, to encrypt your network activity and hide your IP address.";
+"homepage vpn point one" = "No bandwidth restrictions";
+"homepage vpn point two" = "Fast & modern encryption";
+"homepage vpn point three" = "No logging of your network activity";
+"homepage vpn point four" = "Connect up to 5 devices";
+"homepage vpn credit" = "'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+
+"homepage faq header" = "Frequently Asked Questions";
+"homepage faq action more" = "See more FAQs";
+"homepage faq title 1" = "What information does Blokada keep?";
+"homepage faq desc 1" = "Blokada does not track or share any of your network activity. If you use Blokada Plus, for technical reasons we need to collect the most minimal data required to keep the service operational. Please consult our Privacy Policy available in the top menu for details.";
+"homepage faq title 2" = "How is my privacy protected?";
+"homepage faq desc 2" = "Blokada prevents apps and browsers installed on your device from sending your private data (known as tracking fingerprints) to the Internet. It also encrypts some of your network activity (DNS queries). If you need more protection, Blokada Plus makes your device connect through our VPN, and uses the WireGuard® protocol to encrypt your entire network traffic.";
+"homepage faq title 3" = "What is Blokada Plus?";
+"homepage faq desc 3" = "Blokada Plus is our safe and modern VPN (Virtual Private Network) service. It uses WireGuard® - a fast protocol with best-in-class encryption and low battery usage. Blokada Plus encrypts all of your network activity in real time, giving you the highest level of protection available. You also get the popular VPN features - hide your IP address, change your location, and unblock geo-restricted content.";
+"homepage faq title 4" = "Do I need to upgrade to Blokada Plus?";
+"homepage faq desc 4" = "No, the upgrade is optional. You may stick to the free version of Blokada, forever. It is a recommended upgrade if you wish to increase your privacy protection even more, or need any of the popular features VPNs provide.";
+"homepage faq title 5" = "What is the Blokada Plus refund policy?";
+"homepage faq desc 5" = "You can get your money back within 7-days of purchasing the subscription. Contact us through any of our apps, and simply mention you want a refund.";
+"homepage faq title 6" = "Where is Blokada located?";
+"homepage faq desc 6" = "We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.";
+
 "homepage download header" = "Blokada डाउनलोड करें";
+"homepage download subheader" = "Blokada is available for several platforms, choose yours.";
+"homepage download option android five" = "Blokada 5 for Android";
+"homepage download option android slim" = "Blokada 5 Slim for Android";
+"homepage download option android four" = "Blokada 4 for Android";
+"homepage download option ios" = "Blokada 5 for iOS";
+"homepage download option other" = "Blokada for other platforms";
+"homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where Wireguard is available.";
+"homepage download desc ios" = "Blokada 5 is simply available on App Store.";
+"homepage download action ios" = "Open App Store";
+"homepage download desc android five" = "This is our new, recommended version <b>for smartphones and tablets with Android 7 or newer</b>. It is simpler and faster compared to Blokada 4.";
+"homepage download action android five" = "Blokada 5 .apk";
+"homepage download action android five beta" = "Beta .apk";
+"homepage download desc android slim" = "Blokada Slim is a <b>lightweight version of the app</b>, and it only contains features allowed by the Google Play policy.";
+"homepage download action android slim" = "Open Google Play";
+"homepage download desc android four" = "We still maintain the older version of Blokada. It has more features, works on older devices, and TVs.";
+"homepage download action android four" = "Blokada 4 .apk";
+"homepage download action android four fdroid" = "Open F-Droid";
+
+"homepage community header" = "The Community";
+"homepage community desc" = "Blokada is not only the privacy app. It is also the community of people who care about their digital privacy and wellbeing. You will find us on our forum, where you can ask any questions you may have. We are also present on other social media and chats.";
+"homepage community cta subheader" = "Join us and say hi!";
+"homepage community cta desc" = "We base all of our work on the feedback of our users. Tell us what you think, what should we improve, or just hang out.";
+"homepage community cta action" = "Go to forums";
+"homepage community opinions" = "Here are some of the opinions from our users.";
+
+"homepage support header" = "Support the project";
+"homepage support desc" = "If you like what we do, consider supporting us, so that we can continue developing new features and improvements. This way, Blokada can stay open source and free forever.";
+"homepage support cta header" = "Blokada is dependent on you";
+"homepage support cta desc" = "Blokada is an open source project, which means you can be sure it's always going to be free, safe to use, and without any hidden agenda. We believe this is the only right way to develop a privacy app you can trust.";
+"homepage support cta desc more" = "However, developing a quality app like Blokada requires a considerable amount of resources. This project exists thanks to the support of awesome people like you!";
+"homepage support cta action" = "Donate (card, Paypal)";
+"homepage support cta action alt" = "Donate (bank, crypto)";
+
+"homepage developer header" = "Are you a developer";
+"homepage developer subheader" = "and want to make Blokada better?";
+"homepage developer desc" = "Blokada is an open source project dedicated to developing the best ad blocker and privacy app for Android and iOS. Check our Github, and let us know, if you need any assistance to make your first PR.";
+"homepage developer action" = "Go to repo";
+
+"web vpn devices header" = "VPN Devices";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Open VPN Devices";
+"web action open setup" = "Open setup";
+"web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
+"web cta plus desc" = "Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.";
+// A short word for a button to generate profile
+"web action generate" = "Generate";
+
+"setup header" = "Setup";
+"setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
+"setup label which device" = "What type of device you wish to set up?";
+"setup label choose" = "Choose any of the following setup options:";
+"setup comment wireguard" = "Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+"setup comment native apps" = "Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Step %@: %@";
+"setup option label recommended" = "Recommended: %@";
+"setup option label alternative" = "Alternative: %@";
+"setup name label unnamed" = "(unnamed)";
+
+"setup step name" = "Name your device (optional)";
+"setup step copy" = "Copy your hostname";
+"setup step apply config" = "Apply the new configuration";
+"setup step install" = "Install and start our app";
+"setup step enter tag" = "When asked, enter your tag";
+"setup step download profile" = "Generate and download your profile";
+"setup step install wireguard" = "Install and start Wireguard";
+
+"stats header" = "Stats";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Ratio";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Requests";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Queries over time";
+"stats top allowed header" = "Top allowed requests";
+"stats top blocked header" = "Top blocked requests";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

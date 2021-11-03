@@ -107,6 +107,7 @@
     <string name="home_status_detail_plus">*+* chrání vaše *soukromí*</string>
     <string name="home_status_detail_progress">čekejte prosím...</string>
     <string name="home_plus_button_deactivated">BLOKADA+ deaktivována</string>
+    <string name="home_plus_button_deactivated_cloud">VPN deactivated</string>
     <string name="home_plus_button_select_location">Vybrat umístění</string>
     <string name="home_plus_button_location">Umístění: *%s*</string>
     <string name="home_level_low">Ochrana: Nízká</string>
@@ -208,6 +209,7 @@
     <string name="account_section_header_settings">Nastavení</string>
     <string name="account_status_text">Váš účet BLOKADA %s je aktivní do %s.</string>
     <string name="account_status_text_libre">Váš účet BLOKADA Libre je aktivní navždy.</string>
+    <string name="account_status_text_inactive">Your BLOKADA account is inactive.</string>
     <string name="account_section_header_primary">Primární</string>
     <string name="account_section_header_other">Ostatní</string>
     <string name="account_action_my_account">Můj účet</string>
@@ -288,10 +290,22 @@
     <string name="payment_feature_desc_change_location">Skryje vaši IP adresu a předstírá, že se nacházíte v jiné zemi. To vás chrání před třetími stranami a pomůže ochránit vaši identitu.</string>
     <string name="payment_feature_title_encrypt_data">Šifruje data</string>
     <string name="payment_feature_desc_encrypt_data">Data odesílaná pomocí našeho VPN tunelu jsou šifrována pomocí silných algoritmů, aby byla chráněna před odposlechem neoprávněných stran.</string>
+    <string name="payment_feature_title_encrypt_dns">Encrypt DNS</string>
+    <string name="payment_feature_desc_encrypt_dns">Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.</string>
+    <string name="payment_feature_title_performance">Great Performance</string>
+    <string name="payment_feature_desc_performance">Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.</string>
+    <string name="payment_feature_title_battery">Zero Battery Impact</string>
+    <string name="payment_feature_desc_battery">Your battery life is going to be the same, with or without Blokada Cloud activated.</string>
+    <string name="payment_feature_title_devices_cloud">Multiple Devices</string>
+    <string name="payment_feature_desc_devices_cloud">Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.</string>
+    <string name="payment_feature_title_cloud_vpn">Cloud &amp; VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.</string>
     <string name="payment_feature_title_faster_connection">Rychlejší připojení</string>
     <string name="payment_feature_desc_faster_connection">Skvělá rychlost až 100 Mbps se servery v různých částech světa.</string>
     <string name="payment_feature_title_devices">Až 5 zařízení</string>
     <string name="payment_feature_desc_devices">Pomocí stejného účtu můžete sdílet své předplatné až s 5 zařízeními: iOS, Android nebo PC.</string>
+    <string name="payment_feature_title_no_ads">Block Ads</string>
+    <string name="payment_feature_desc_no_ads">Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.</string>
     <string name="payment_feature_title_support">Skvělá podpora</string>
     <string name="payment_feature_desc_support">Získejte rychlou odpověď na jakékoliv dotazy díky naší zákaznické podpoře a aktivní početné komunitě.</string>
     <string name="payment_action_see_all_features">Zobrazit všechny funkce</string>
@@ -333,6 +347,12 @@
     <string name="payment_label_country">Stát</string>
     <string name="payment_euro_desc">Máme sídlo v Evropě, takže akceptujeme euro: 10 eur je zhruba 12 dolarů.</string>
     <string name="payment_donate_disclaimer">Toto neaktivuje váš účet Blokada Plus. Pokud chcete používat naši službu VPN, místo darů se prosím přihlaste k předplatnému.</string>
+    <string name="payment_action_compare">Compare plans</string>
+    <string name="payment_plan_slugline_cloud">Blocks ads and trackers</string>
+    <string name="payment_plan_slugline_plus">Additional protection with VPN</string>
+    <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
+    <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
+    <string name="payment_plan_cta_annual">Subscribe Annually</string>
     <string name="apps_section_header">Aplikace</string>
     <string name="apps_label_installed">Nainstalované</string>
     <string name="apps_label_system">Systémové</string>
@@ -480,4 +500,5 @@
     <string name="stats_requests_subheader">Dotazy v průběhu času</string>
     <string name="stats_top_allowed_header">Nejvíce povolené žádosti</string>
     <string name="stats_top_blocked_header">Nejvíce blokované žádosti</string>
+    <string name="dnsprofile_desc">Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS &amp; Device Management -> DNS.</string>
 </resources>

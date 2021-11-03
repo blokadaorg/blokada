@@ -72,6 +72,15 @@
 "universal label welcome" = "Välkommen!";
 // Common label when some feature has no setting
 "universal label none" = "Inget";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Name";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Time";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Count";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Type";
+"universal label device" = "Device";
 
 "universal status processing" = "Bearbetar... Var god vänta.";
 "universal status copied to clipboard" = "Kopierad till urklipp";
@@ -116,6 +125,8 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Inställningar";
 
+"main label use side menu" = "Use side menu to navigate";
+
 "home ads counter footnote" = "annonser och trackers blockerade sedan installationen";
 "home power off menu header" = "Vad skulle du vilja göra?";
 "home power action turn on" = "Slå på";
@@ -134,6 +145,7 @@
 "home status detail progress" = "var god vänta...";
 
 "home plus button deactivated" = "BLOKADA+ inaktiverad";
+"home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "Välj plats";
 "home plus button location" = "Plats: *%@*";
 
@@ -170,6 +182,10 @@
 "activity request allowed" = "Denna begäran har tillåtits.";
 "activity request allowed whitelisted" = "Denna begäran har tillåtits, eftersom den finns på din lista över tillåtna";
 "activity request blocked blacklisted" = "Denna begäran har blockerats, eftersom den finns på din lista över blockerade";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* blocklist.";
+"activity request allowed no list" = "This request has been allowed, as it's not present on any of your configured blocklists.";
+"activity request blocked list" = "This request has been blocked, because it's present on the *%@* blocklist.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured blocklists.";
 "activity actions header" = "Åtgärder";
 "activity information header" = "Information";
 "activity action add to whitelist" = "Lägg till i tillåtna";
@@ -200,11 +216,22 @@
 "activity filter show allowed" = "Endast tillåtna";
 "activity empty text" = "Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.";
 "activity device filter show all" = "Alla enheter";
+"activity retention header" = "For how long can we store your activity?";
+"activity retention option none" = "Do not store my activity";
+"activity retention option 24h" = "24 hours";
+"activity retention policy" = "By enabling log retention you accept Blokada Cloud Privacy Policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.";
+
+"userdenied section header" = "Exceptions";
 "userdenied section slugline" = "Hantera blockering av vissa webbplatser";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Tillåten";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blockerad";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Allow";
+// A short one word action to block a hostname.
+"userdenied action block" = "Block";
 
 "networks section header" = "Nätverk";
 "networks section label" = "Justera inställningar för WiFi och mobila nätverk";
@@ -217,6 +244,7 @@
 "networks action encrypt dns" = "Kryptera DNS";
 "networks action use dns" = "Använd DNS: %@";
 "networks action use network dns" = "Föredra nätverkets DNS";
+"networks action force libre mode" = "Force Libre mode";
 "networks label specific network" = "Välj vad som ska hända när enheten ansluter till detta nätverk.";
 "networks label specific network type" = "Välj vad som ska hända när din enhet ansluter till ett nätverk av denna typ.";
 "networks label any wifi" = "Alla WiFi-nätverk";
@@ -229,12 +257,14 @@
 "networks summary network dns" = "Blokada kommer att använda nätverkets DNS om tillgängligt, eller byta till %@ i övriga fall. Även inställningar för \"Kryptera DNS\" kommer att ignoreras när nätverkets DNS används. Att använda nätverkets DNS hjälper till att åtgärda anslutningsproblem på besvärliga nätverk, men lämnar dig oskyddad.";
 "networks summary network dns and plus mode" = "Blokada kommer tillfälligt att inaktivera Plus-läget när nätverkets DNS används. Detta beror på att det inte är möjligt att komma åt nätverkets DNS via VPN. Plus-läget återställs automatiskt när enheten växlar till ett annat nätverk.";
 "networks summary blocka plus mode" = "Blokada kommer att använda Blokada DNS i Plus-läge, för att säkerställa hög nivå av kryptering och hastighet. Du kan ändra den här inställningen längst ner på Välj DNS.";
+"networks summary force libre mode" = "Blokada will always use Libre mode on this network, and ignore your Blokada Plus location. This is useful for networks where you do not want the additional protection.";
 "networks permission dialog" = "Blokada kan känna igen nätverk som du ansluter till och låter dig konfigurera separata inställningar för dem. Denna app kommer dock att samla in platsdata i form av nätverksnamn för att aktivera den här funktionen, även när appen är stängd eller inte används. Ibland kan du se ett systemmeddelande om platsåtkomst - Blokada läser bara nätverkets namn.";
 
 
 "account section header settings" = "Inställningar";
 "account status text" = "Ditt BLOKADA %@konto är aktivt fram till %@.";
 "account status text libre" = "Ditt BLOKADA Libre konto är aktivt för all evighet.";
+"account status text inactive" = "Your BLOKADA account is inactive.";
 
 "account section header primary" = "Primär";
 "account section header other" = "Annat";
@@ -303,6 +333,7 @@
 "account lease label this device" = " (denna enhet)";
 "account lease label name" = "Enhetens namn";
 "account lease label location" = "Plats";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports Wireguard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
 "account lease action generate" = "Generera konfiguration";
 "account lease action download" = "Ladda ner konfiguration";
 "account lease generated" = "Enheten tillagd! Ladda ner konfigurationen för att använda den på alla enheter som stöds av Wireguard.";
@@ -324,10 +355,22 @@
 "payment feature desc change location" = "Dölj din IP-adress och låtsas att du är i ett annat land. Detta kommer att maskera dig från tredje part och skydda din identitet.";
 "payment feature title encrypt data" = "Kryptera data";
 "payment feature desc encrypt data" = "Data som skickas via vår VPN-tunnel krypteras med hjälp av starka algoritmer för att skydda mot avlyssning av obehöriga parter.";
+"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
+"payment feature title performance" = "Great Performance";
+"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature title battery" = "Zero Battery Impact";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature title devices cloud" = "Multiple Devices";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "Snabbare anslutning";
 "payment feature desc faster connection" = "Stora hastigheter upp till 100 Mbps med servrar i olika delar av världen.";
 "payment feature title devices" = "Upp till 5 enheter";
 "payment feature desc devices" = "Använd samma konto för att dela din prenumeration med upp till 5 enheter: iOS, Android eller PC.";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "Bra support";
 "payment feature desc support" = "Få ett snabbt svar på alla frågor tack vare vår kundsupport och vår pulserande mötesplats.";
 "payment action see all features" = "Se alla funktioner";
@@ -376,6 +419,13 @@
 "payment euro desc" = "Vi är baserade i Europa, så vi accepterar Euro: € 10 är ungefär $ 12.";
 "payment donate disclaimer" = "Detta kommer inte att aktivera ditt Blokada Plus-konto. Om du vill använda vår VPN-tjänst, vänligen prenumerera istället för att donera.";
 
+"payment action compare" = "Compare plans";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
+"payment plan cta trial" = "Start 7-Day Free Trial";
+"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan cta annual" = "Subscribe Annually";
+
 "apps section header" = "Appar";
 "apps label installed" = "Installerad";
 "apps label system" = "System";
@@ -415,6 +465,7 @@
 "location region america" = "Amerika";
 "location region europe" = "Europa";
 "location region asia" = "Asien";
+"location region australia" = "Australia";
 
 "homepage header what is blokada" = "Vad är Blokada?";
 "homepage desc what is blokada" = "Lär dig grundläggande information om appen.";
@@ -464,6 +515,8 @@
 "homepage faq desc 4" = "Nej, uppgraderingen är frivillig. Du kan hålla dig till den fria versionen av Blokada, för evigt. Det är en rekommenderad uppgradering om du vill öka din integritet ännu mer, eller behöver någon av de populära funktioner VPN-tjänsten tillhandahåller.";
 "homepage faq title 5" = "Vilken är återbetalningspolicyn för Blokada Plus?";
 "homepage faq desc 5" = "Du kan få tillbaka dina pengar inom 7 dagar efter att du beställt prenumerationen. Kontakta oss via någon av våra kanaler och nämn att du vill ha en återbetalning.";
+"homepage faq title 6" = "Where is Blokada located?";
+"homepage faq desc 6" = "We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.";
 
 "homepage download header" = "Ladda ner Blokada";
 "homepage download subheader" = "Blokada finns till flera plattformar, välj din.";
@@ -503,3 +556,44 @@
 "homepage developer subheader" = "och vill göra Blokada bättre?";
 "homepage developer desc" = "Blokada är ett projekt med öppen källkod som är dedikerat till att utveckla den bästa annonsblockeraren och integritetsappen för Android och iOS. Kolla in vår GitHub, hör av dig om du behöver någon hjälp för att göra din första PR.";
 "homepage developer action" = "Gå till repo";
+
+"web vpn devices header" = "VPN Devices";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Open VPN Devices";
+"web action open setup" = "Open setup";
+"web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
+"web cta plus desc" = "Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.";
+// A short word for a button to generate profile
+"web action generate" = "Generate";
+
+"setup header" = "Setup";
+"setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
+"setup label which device" = "What type of device you wish to set up?";
+"setup label choose" = "Choose any of the following setup options:";
+"setup comment wireguard" = "Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+"setup comment native apps" = "Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Step %@: %@";
+"setup option label recommended" = "Recommended: %@";
+"setup option label alternative" = "Alternative: %@";
+"setup name label unnamed" = "(unnamed)";
+
+"setup step name" = "Name your device (optional)";
+"setup step copy" = "Copy your hostname";
+"setup step apply config" = "Apply the new configuration";
+"setup step install" = "Install and start our app";
+"setup step enter tag" = "When asked, enter your tag";
+"setup step download profile" = "Generate and download your profile";
+"setup step install wireguard" = "Install and start Wireguard";
+
+"stats header" = "Stats";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Ratio";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Requests";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Queries over time";
+"stats top allowed header" = "Top allowed requests";
+"stats top blocked header" = "Top blocked requests";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

@@ -295,9 +295,11 @@
     <string name="payment_feature_title_performance">最適なパフォーマンス</string>
     <string name="payment_feature_desc_performance">新しいクラウドソリューションで、デバイスやインターネット接続の速度を快適に保ちます。</string>
     <string name="payment_feature_title_battery">バッテリー持ちへの影響なし</string>
+    <string name="payment_feature_desc_battery">Your battery life is going to be the same, with or without Blokada Cloud activated.</string>
     <string name="payment_feature_title_devices_cloud">複数デバイス</string>
     <string name="payment_feature_desc_devices_cloud">1 つの Blokada Cloud サブスクリプションをすべてのデバイスで共有できます。モバイルアプリまたはウェブダッシュボードから設定してください。</string>
     <string name="payment_feature_title_cloud_vpn">Cloud &amp; VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.</string>
     <string name="payment_feature_title_faster_connection">より高速な接続</string>
     <string name="payment_feature_desc_faster_connection">世界のさまざまな地域のサーバーで最高100Mbpsのスピードを実現します。</string>
     <string name="payment_feature_title_devices">最大5台のデバイス</string>

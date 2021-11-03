@@ -29,6 +29,8 @@
 "error payment canceled" = "De betaling is geannuleerd. Er is niets in rekening gebracht.";
 "error pack install" = "Kon deze functie niet installeren (of deïnstalleren). Probeer het later opnieuw.";
 "error location failed fetching" = "Kon locaties niet ophalen.";
+"error unknown" = "An unknown problem occurred. Please try again. If the problem persists, please contact us by tapping the help icon at the top.";
+"error blocka dns in filtering mode" = "Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.";
 
 "universal action continue" = "Doorgaan";
 "universal action cancel" = "Annuleren";
@@ -70,6 +72,15 @@
 "universal label welcome" = "Welkom!";
 // Common label when some feature has no setting
 "universal label none" = "Geen";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Name";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Time";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Count";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Type";
+"universal label device" = "Device";
 
 "universal status processing" = "Bezig... Even geduld.";
 "universal status copied to clipboard" = "Gekopieerd naar Klembord";
@@ -79,13 +90,26 @@
 
 "alert error header" = "Ooeps!";
 "alert vpn expired header" = "BLOKADA+ verlopen";
+"alert download link body" = "For security reasons, to download a file, we need to open this website in your browser. Then, please tap the download link again.";
+
+"notification vpn expired header" = "BLOKADA+ subscription expired";
 "notification vpn expired subtitle" = "De VPN is uitgeschakeld";
+"notification vpn expired body" = "Please update your subscription to continue using BLOKADA+";
+"notification desc settings" = "Swipe the notification left or right for settings.";
+
+"notification update header" = "An update is available";
+"alert update body" = "Blokada %@ is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.";
 "update label updated" = "Bijgewerkt!";
+"update desc updated" = "You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.";
+"update downloading description" = "The update is now downloading, and you should see the installation prompt shortly.";
 
 "account active forever" = "Voor altijd";
 "account active forever full" = "Voor altijd actief";
 
 "main ask for permissions header" = "Nog slechts één stap";
+"main ask for permissions description" = "Blokada is using a VPN Configuration to block ads. You will be asked to allow it in the next step.";
+
+"main share message" = "Blokada for iOS helped me block %@ ads and trackers!";
 
 "main rate us header" = "Beoordeel ons!";
 "main rate us description" = "Wat vind je tot nu toe van Blokada?";
@@ -100,6 +124,8 @@
 "main tab advanced" = "Geavanceerd";
 // Make sure each tab name has a similar length
 "main tab settings" = "Instellingen";
+
+"main label use side menu" = "Use side menu to navigate";
 
 "home ads counter footnote" = "advertenties en trackers geblokkeerd sinds de installatie";
 "home power off menu header" = "Wat zou je willen doen?";
@@ -119,6 +145,7 @@
 "home status detail progress" = "even geduld...";
 
 "home plus button deactivated" = "BLOKADA+ gedeactiveerd";
+"home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "Selecteer locatie";
 "home plus button location" = "Locatie: *%@*";
 
@@ -142,6 +169,10 @@
 "pack category all" = "Alles";
 
 "advanced section header packs" = "Blokkeerlijsten";
+"advanced section slugline packs" = "Activate for more restrictive blocking";
+"advanced section slugline apps" = "Choose apps that should never be blocked";
+"advanced section slugline encryption" = "Adjust your encryption level and DNS";
+"advanced action slim migrate to full" = "You are using Blokada Slim. Learn more";
 
 "location choice header" = "Kies een Locatie";
 
@@ -151,6 +182,10 @@
 "activity request allowed" = "Dit verzoek is toegelaten.";
 "activity request allowed whitelisted" = "Dit verzoek is toegelaten, omdat het op uw Toegelaten lijst staat";
 "activity request blocked blacklisted" = "Dit verzoek is geblokkeerd, omdat het op je Blokkeer lijst staat";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* blocklist.";
+"activity request allowed no list" = "This request has been allowed, as it's not present on any of your configured blocklists.";
+"activity request blocked list" = "This request has been blocked, because it's present on the *%@* blocklist.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured blocklists.";
 "activity actions header" = "Acties";
 "activity information header" = "Informatie";
 "activity action add to whitelist" = "Toevoegen aan Toegestaan";
@@ -174,12 +209,62 @@
 "activity category recent" = "Recent";
 "activity category top" = "Top";
 "activity category top blocked" = "Top Geblokkeerd";
+"activity category top allowed" = "Top Allowed";
+"activity filter header" = "Which entries would you like to see?";
+"activity filter show all" = "All entries";
+"activity filter show blocked" = "Blocked only";
+"activity filter show allowed" = "Allowed only";
+"activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
+"activity device filter show all" = "All devices";
+"activity retention header" = "For how long can we store your activity?";
+"activity retention option none" = "Do not store my activity";
+"activity retention option 24h" = "24 hours";
+"activity retention policy" = "By enabling log retention you accept Blokada Cloud Privacy Policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.";
+
+"userdenied section header" = "Exceptions";
+"userdenied section slugline" = "Manage blocking of particular websites";
+// A section name for the list of hosts allowed by user
+"userdenied tab allowed" = "Allowed";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Adv. geblokkeerd";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Allow";
+// A short one word action to block a hostname.
+"userdenied action block" = "Block";
+
+"networks section header" = "Networks";
+"networks section label" = "Adjust settings for WiFi and mobile networks";
+"networks label all networks" = "All networks";
+"networks action network specific" = "Tap here to modify default settings. To make the app behave differently on some networks, tap below.";
+"networks label configuration active" = "These settings are currently active";
+"networks label configuration enabled" = "Not connected to this network";
+"networks label configuration inactive" = "Tap to modify settings for this network";
+"networks label details default network" = "The settings below are applied by default for all networks. You can override them for selected networks (in the previous screen).";
+"networks action encrypt dns" = "Encrypt DNS";
+"networks action use dns" = "Use DNS: %@";
+"networks action use network dns" = "Prefer network DNS";
+"networks action force libre mode" = "Force Libre mode";
+"networks label specific network" = "Adjust what should happen when your device connects to this network.";
+"networks label specific network type" = "Adjust what should happen when your device connects to a network of this type.";
+"networks label any wifi" = "Any WiFi network";
+"networks label any mobile" = "Any mobile network";
+"networks permission request" = "To have more control, tap here and let the app recognise all networks.";
+"networks permission request granted" = "You may see a notification when Blokada reads your network name in the background.";
+"networks section choose dns" = "Choose DNS";
+"networks summary encrypt dns" = "Blokada will encrypt DNS if possible. This improves your security and prevents malicious actors to spy on what websites and apps you use.";
+"networks summary use dns" = "Blokada will use %@ as your device's DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.";
+"networks summary network dns" = "Blokada will use the network's DNS if available, or switch to %@ otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network's DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.";
+"networks summary network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.";
+"networks summary blocka plus mode" = "Blokada will use Blokada DNS in Plus mode, to ensure high level of encryption and speed. You may change this setting at the bottom of the Choose DNS screen.";
+"networks summary force libre mode" = "Blokada will always use Libre mode on this network, and ignore your Blokada Plus location. This is useful for networks where you do not want the additional protection.";
+"networks permission dialog" = "Blokada can recognize networks you connect to, and let you configure separate settings for them. However, this app will collect location data in the form of network name to enable this feature, even when the app is closed or not in use. Sometimes you may see a system notification about location access - Blokada will only read the network's name.";
 
 
 "account section header settings" = "Instellingen";
+"account status text" = "Your BLOKADA %@ account is active until %@.";
 "account status text libre" = "Je BLOKADA Libre account is voor altijd actief.";
+"account status text inactive" = "Your BLOKADA account is inactive.";
 
 "account section header primary" = "Primair";
 "account section header other" = "Overige";
@@ -195,6 +280,8 @@
 "account action tap to show" = "Druk om weer te geven";
 "account action restoring" = "Account herstellen: %@";
 "account label enter to continue" = "Voer je account ID in om door te gaan";
+"account restore description" = "Don't worry, if you lost or forgot your account ID, we can recover it. Please contact our support, and provide us information that will allow us to identify your purchase (eg. last 4 digits of your credit card, or PayPal email).";
+"account create description" = "This is your account ID. Write it down and keep it private. It’s the only way to access your subscription.";
 "account create confirm" = "Ik heb het opgeschreven";
 
 "account section header my subscription" = "Mijn Abonnement";
@@ -207,8 +294,12 @@
 "account action why upgrade" = "Waarom zou ik upgraden?";
 "account subscription header renew" = "Automatisch vernieuwen";
 "account subscription header payment method" = "Betaalmethode";
+"account subscription renew unsupported" = "Your payment method does not allow to control the auto renewal setting here.";
+
+"account unlock to show" = "Unlock to show your account ID";
 
 "account header logout" = "Herstel aankoop";
+"account logout description" = "Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one).";
 "account id status unchanged" = "(ongewijzigd)";
 "account action how to restore" = "Hoe herstel ik mijn oude account?";
 
@@ -219,11 +310,78 @@
 
 "account encrypt level low" = "Laag";
 "account encrypt level medium" = "Nomaal";
+"account encrypt level high" = "High";
+"account encrypt label dns only" = "Encrypting DNS";
+"account encrypt desc dns only" = "Domain Name System is how your device knows where to find the websites you want to visit. Unfortunately, most of  the Internet still uses unencrypted DNS, which puts your browsing history at risk of being spied on. When enabled, Blokada is forcing your device to connect only to encrypted DNS servers (also called DNS over HTTPS).";
+"account encrypt label everything" = "Connecting through VPN";
+"account encrypt desc everything" = "Your device is connecting through our secure VPN servers, and all communication coming from, or to, your device is being encrypted using strong algorithms. This protects your personal information, like banking details or personal photos, from being stolen in unsecure places, like a coffee shop WiFi.";
+"account encrypt action turn on" = "Turn on BLOKADA";
+"account encrypt header level" = "Encryption Level";
+"account encrypt label level" = "Level";
+"account encrypt label level low" = "Low: No Encryption";
+"account encrypt label level medium" = "Medium: Encrypting DNS";
+"account encrypt label level high" = "High: Encrypting Everything";
+"account encrypt header explanation" = "DNS is how your device knows where to find websites. BLOKADA supports only encrypted servers.";
 "account encrypt label dns" = "DNS";
+"account encrypt action what is dns" = "What is DNS?";
+"account encrypt section header" = "Encryption";
+"account encrypt section blocka dns" = "Blokada DNS";
+"account encrypt label use blocka dns" = "Use Blokada DNS in Plus mode";
+
+"account lease label devices list" = "These devices are connected to your account.";
 "account lease label devices" = "Apparaten";
+"account lease label this device" = " (this device)";
 "account lease label name" = "Naam van apparaat";
+"account lease label location" = "Location";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports Wireguard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
+"account lease action generate" = "Generate Config";
+"account lease action download" = "Download Config";
+"account lease generated" = "Device added! Download the configuration to use it on any device supported by Wireguard.";
+"account lease wireguard desc" = "Blokada uses Wireguard. Configurations can be downloaded when creating new devices.";
 "account lease label dns" = "DNS";
+"account lease action dns" = "Choose a DNS";
 "account lease label public key" = "Publieke sleutel";
+
+"account support action how help" = "How can we help you?";
+"account support action kb" = "Open Knowledge Base";
+
+"payment header activated" = "Activated!";
+"payment activated description" = "Blokada will now switch into Plus mode, and connect through one of our secure locations. If you are unsure which one to choose, the closest one to you is recommended.";
+"payment action choose location" = "Choose a location";
+"payment action see locations" = "Our Locations";
+
+"payment title" = "Upgrade to our VPN service to stay in control of *your privacy*.";
+"payment feature title change location" = "Change Location";
+"payment feature desc change location" = "Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.";
+"payment feature title encrypt data" = "Encrypt Data";
+"payment feature desc encrypt data" = "Data sent through our VPN tunnel is encrypted using strong algorithms in order to protect against interception by unauthorized parties.";
+"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
+"payment feature title performance" = "Great Performance";
+"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature title battery" = "Zero Battery Impact";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature title devices cloud" = "Multiple Devices";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
+"payment feature title faster connection" = "Faster Connection";
+"payment feature desc faster connection" = "Great speeds up to 100Mbps with servers in various parts of the World.";
+"payment feature title devices" = "Up to 5 devices";
+"payment feature desc devices" = "Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
+"payment feature title support" = "Great Support";
+"payment feature desc support" = "Get a prompt response to any questions thanks to our Customer Support and vibrant open source community.";
+"payment action see all features" = "See All Features";
+"payment action restore" = "Restore Purchases";
+"payment action terms and privacy" = "Terms & Privacy";
+"payment action terms" = "Terms of Service";
+"payment action policy" = "Privacy Policy";
+"payment alert error header" = "A message from App Store";
+// As in saving money: You are saving $5
+"payment save text" = "You are saving %@";
+"payment conversion note" = "We accept Euro, and the displayed prices are an estimate. A refund is available if your bank charges too much.";
 
 "payment subscription 1 month" = "1 Maand";
 "payment subscription many months" = "%@ Maanden";
@@ -231,19 +389,211 @@
 "payment subscription offer" = "%@ Opslaan";
 
 "payment success label" = "Bedankt!";
+"payment success desc" = "Your account is now active! You may now use all Blokada Plus features on all your devices.";
+
+"payment redirect label" = "Redirecting...";
+"payment redirect desc" = "Please wait. This should only take a moment.";
+
+"payment ongoing title" = "Your payment is now being processed.";
+"payment ongoing desc" = "Credit card payments should not take more than a few minutes. Cryptocurrency payments usually take up to an hour, depending on what transaction fee you chose. In case of PayPal, it may take up to 24 hours. You will get redirected once your account is ready. You may also close this screen, and come again later. If you feel like your transaction is taking too long, please contact us.";
+"payment pay google short" = "Google Pay";
+"payment pay apple short" = "Apple Pay";
 "payment change method" = "Wijzigen";
+"payment action pay" = "Pay %@";
+"payment action pay period" = "Pay %@ each period";
+"payment label email" = "Email";
+"payment crypto desc" = "To pay with your cryptocurrency wallet, tap the button below.";
+"payment label choose package" = "Choose your package";
+"payment label choose payment method" = "Choose your payment method";
+"payment label cheapest" = "Cheapest";
+"payment label most popular" = "Most popular";
 "payment label pay with card" = "Betaal met kaart";
 "payment label pay with paypal" = "Betaal met PayPal";
+"payment label pay with crypto" = "Pay with crypto";
 "payment package one month" = "1 Maand";
 "payment package six months" = "6 Maanden";
 "payment package twelve months" = "12 Maanden";
+"payment label discount" = "Save %@ (%@ / mo)";
+"payment label country" = "Country";
+
+"payment euro desc" = "We are based in Europe, so we accept Euro: €10 is roughly $12.";
+"payment donate disclaimer" = "This won't activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.";
+
+"payment action compare" = "Compare plans";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
+"payment plan cta trial" = "Start 7-Day Free Trial";
+"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan cta annual" = "Subscribe Annually";
 
 "apps section header" = "Apps";
+"apps label installed" = "Installed";
+"apps label system" = "System";
+"apps status bypassed" = "(bypassed)";
+"apps filter header" = "Which apps would you like to see?";
+"apps filter action show all" = "All apps";
+"apps filter action show bypassed" = "Bypassed only";
+"apps filter action show not bypassed" = "Not bypassed only";
+"apps filter action toggle system" = "Toggle all system apps";
+
+"app settings section header" = "This device";
+"app settings language label" = "Language";
+"app settings theme label" = "App theme";
+"app settings theme light" = "Light";
+"app settings theme dark" = "Dark";
+// A setting for changing if to open links internally in the app, or by using this device's web browser
+"app settings browser label" = "Redirect links to";
+"app settings browser internal" = "Internal browser";
+"app settings browser external" = "External browser (if possible)";
+"app settings ipv6 label" = "Allow IPv6";
+"app settings section system" = "System";
+"app settings action app info" = "Open App Information";
+"app settings action vpn profile" = "Open VPN Profile";
+"app settings action notifications" = "Open Notification Settings";
+"app settings section details" = "Details";
+"app settings status default" = "System default";
 "app settings start on boot" = "Starten bij opstarten";
+"app settings use dns over https" = "Use DNS over HTTPS";
+"app settings backup" = "Use cloud backup";
 "app settings section advanced" = "Geavanceerd";
 "app settings section use foreground" = "Actief blijven";
+
+"intro header" = "Blokada is Active!";
+"intro text" = "A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.";
+
+"location region worldwide" = "Everywhere";
+"location region america" = "America";
+"location region europe" = "Europe";
+"location region asia" = "Asia";
+"location region australia" = "Australia";
+
+"homepage header what is blokada" = "What is Blokada?";
+"homepage desc what is blokada" = "Learn the basic information about the app.";
+"homepage desc download" = "Download Blokada for your platform.";
+"homepage desc community" = "Join our awesome community.";
+"homepage header support" = "Support us";
+"homepage desc support" = "Donate to help us continue the project.";
+"homepage action faq" = "FAQ";
 "homepage action vpn" = "VPN";
+"homepage action opinions" = "Reviews";
+"homepage action authors" = "Authors";
+"homepage action source" = "Source";
+"homepage action forums" = "Forums";
+"homepage action dashboard" = "Dashboard";
+"homepage about footer" = "Let's stay in touch!";
+"homepage hero title" = "The privacy app";
 "homepage hero subtitle" = "gratis en open source";
+"homepage hero desc" = "Blokada is the popular ad blocker and privacy app for Android and iOS. It's being supported and actively developed by the amazing open source community.";
+"homepage about title" = "Blokada 5, the ad blocker";
+"homepage about desc" = "If you want to efficiently block ads, trackers, malware, save on your data plan, speed up your device and protect your privacy with just one application, then Blokada is for you. It is free, secure and open source.";
+"homepage about point one" = "Blocks ads & trackers";
+"homepage about point two" = "Works for all apps and all browsers";
+"homepage about point three" = "Requires no root or jailbreak";
+"homepage about point four" = "Safe design (does not break encryption)";
+"homepage about point five" = "Trusted & free forever";
+
+"homepage about action faq" = "See the FAQs";
 "homepage about action plus" = "Meer informatie over Blokada Plus";
 
+"homepage vpn title" = "Blokada 5, the VPN";
+"homepage vpn desc" = "For ultimate privacy protection, upgrade to Blokada Plus and connect through our VPN. We use WireGuard®, the most advanced VPN protocol, to encrypt your network activity and hide your IP address.";
+"homepage vpn point one" = "No bandwidth restrictions";
+"homepage vpn point two" = "Fast & modern encryption";
+"homepage vpn point three" = "No logging of your network activity";
+"homepage vpn point four" = "Connect up to 5 devices";
+"homepage vpn credit" = "'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+
+"homepage faq header" = "Frequently Asked Questions";
+"homepage faq action more" = "See more FAQs";
+"homepage faq title 1" = "What information does Blokada keep?";
+"homepage faq desc 1" = "Blokada does not track or share any of your network activity. If you use Blokada Plus, for technical reasons we need to collect the most minimal data required to keep the service operational. Please consult our Privacy Policy available in the top menu for details.";
+"homepage faq title 2" = "How is my privacy protected?";
+"homepage faq desc 2" = "Blokada prevents apps and browsers installed on your device from sending your private data (known as tracking fingerprints) to the Internet. It also encrypts some of your network activity (DNS queries). If you need more protection, Blokada Plus makes your device connect through our VPN, and uses the WireGuard® protocol to encrypt your entire network traffic.";
+"homepage faq title 3" = "What is Blokada Plus?";
+"homepage faq desc 3" = "Blokada Plus is our safe and modern VPN (Virtual Private Network) service. It uses WireGuard® - a fast protocol with best-in-class encryption and low battery usage. Blokada Plus encrypts all of your network activity in real time, giving you the highest level of protection available. You also get the popular VPN features - hide your IP address, change your location, and unblock geo-restricted content.";
+"homepage faq title 4" = "Do I need to upgrade to Blokada Plus?";
+"homepage faq desc 4" = "No, the upgrade is optional. You may stick to the free version of Blokada, forever. It is a recommended upgrade if you wish to increase your privacy protection even more, or need any of the popular features VPNs provide.";
+"homepage faq title 5" = "What is the Blokada Plus refund policy?";
+"homepage faq desc 5" = "You can get your money back within 7-days of purchasing the subscription. Contact us through any of our apps, and simply mention you want a refund.";
+"homepage faq title 6" = "Where is Blokada located?";
+"homepage faq desc 6" = "We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.";
+
 "homepage download header" = "Blokada downloaden";
+"homepage download subheader" = "Blokada is available for several platforms, choose yours.";
+"homepage download option android five" = "Blokada 5 for Android";
+"homepage download option android slim" = "Blokada 5 Slim for Android";
+"homepage download option android four" = "Blokada 4 for Android";
+"homepage download option ios" = "Blokada 5 for iOS";
+"homepage download option other" = "Blokada for other platforms";
+"homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where Wireguard is available.";
+"homepage download desc ios" = "Blokada 5 is simply available on App Store.";
+"homepage download action ios" = "Open App Store";
+"homepage download desc android five" = "This is our new, recommended version <b>for smartphones and tablets with Android 7 or newer</b>. It is simpler and faster compared to Blokada 4.";
+"homepage download action android five" = "Blokada 5 .apk";
+"homepage download action android five beta" = "Beta .apk";
+"homepage download desc android slim" = "Blokada Slim is a <b>lightweight version of the app</b>, and it only contains features allowed by the Google Play policy.";
+"homepage download action android slim" = "Open Google Play";
+"homepage download desc android four" = "We still maintain the older version of Blokada. It has more features, works on older devices, and TVs.";
+"homepage download action android four" = "Blokada 4 .apk";
+"homepage download action android four fdroid" = "Open F-Droid";
+
+"homepage community header" = "The Community";
+"homepage community desc" = "Blokada is not only the privacy app. It is also the community of people who care about their digital privacy and wellbeing. You will find us on our forum, where you can ask any questions you may have. We are also present on other social media and chats.";
+"homepage community cta subheader" = "Join us and say hi!";
+"homepage community cta desc" = "We base all of our work on the feedback of our users. Tell us what you think, what should we improve, or just hang out.";
+"homepage community cta action" = "Go to forums";
+"homepage community opinions" = "Here are some of the opinions from our users.";
+
+"homepage support header" = "Support the project";
+"homepage support desc" = "If you like what we do, consider supporting us, so that we can continue developing new features and improvements. This way, Blokada can stay open source and free forever.";
+"homepage support cta header" = "Blokada is dependent on you";
+"homepage support cta desc" = "Blokada is an open source project, which means you can be sure it's always going to be free, safe to use, and without any hidden agenda. We believe this is the only right way to develop a privacy app you can trust.";
+"homepage support cta desc more" = "However, developing a quality app like Blokada requires a considerable amount of resources. This project exists thanks to the support of awesome people like you!";
+"homepage support cta action" = "Donate (card, Paypal)";
+"homepage support cta action alt" = "Donate (bank, crypto)";
+
+"homepage developer header" = "Are you a developer";
+"homepage developer subheader" = "and want to make Blokada better?";
+"homepage developer desc" = "Blokada is an open source project dedicated to developing the best ad blocker and privacy app for Android and iOS. Check our Github, and let us know, if you need any assistance to make your first PR.";
+"homepage developer action" = "Go to repo";
+
+"web vpn devices header" = "VPN Devices";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Open VPN Devices";
+"web action open setup" = "Open setup";
+"web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
+"web cta plus desc" = "Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.";
+// A short word for a button to generate profile
+"web action generate" = "Generate";
+
+"setup header" = "Setup";
+"setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
+"setup label which device" = "What type of device you wish to set up?";
+"setup label choose" = "Choose any of the following setup options:";
+"setup comment wireguard" = "Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+"setup comment native apps" = "Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Step %@: %@";
+"setup option label recommended" = "Recommended: %@";
+"setup option label alternative" = "Alternative: %@";
+"setup name label unnamed" = "(unnamed)";
+
+"setup step name" = "Name your device (optional)";
+"setup step copy" = "Copy your hostname";
+"setup step apply config" = "Apply the new configuration";
+"setup step install" = "Install and start our app";
+"setup step enter tag" = "When asked, enter your tag";
+"setup step download profile" = "Generate and download your profile";
+"setup step install wireguard" = "Install and start Wireguard";
+
+"stats header" = "Stats";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Ratio";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Requests";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Queries over time";
+"stats top allowed header" = "Top allowed requests";
+"stats top blocked header" = "Top blocked requests";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

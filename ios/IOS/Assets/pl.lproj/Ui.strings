@@ -360,9 +360,11 @@
 "payment feature title performance" = "Świetna Wydajność";
 "payment feature desc performance" = "Dzięki naszemu nowemu rozwiązaniu w chmurze, Twoje urządzenie i połączenie z Internetem będzie w maksymalnie szybkie.";
 "payment feature title battery" = "Zero Wpływu na Baterię";
+"payment feature desc battery" = "Żywotność akumulatora będzie taka sama z Blokadą Cloud włączoną lub wyłączoną.";
 "payment feature title devices cloud" = "Wiele urządzeń";
 "payment feature desc devices cloud" = "Skonfiguruj wszystkie swoje urządzenia w ramach jednej subskrypcji Blokada Cloud. Korzystaj z naszych aplikacji mobilnych lub naszego panelu webowego.";
 "payment feature title cloud vpn" = "Chmura i VPN";
+"payment feature desc cloud vpn" = "Ciesz się wszystkimi funkcjami Blokady Cloud. Dodatkowo uzyskaj dostęp do naszej sieci VPN.";
 "payment feature title faster connection" = "Szybsze połączenie";
 "payment feature desc faster connection" = "Świetne prędkości do 100 Mb/s z serwerami w różnych częściach świata.";
 "payment feature title devices" = "Do 5 urządzeń";

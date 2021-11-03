@@ -295,9 +295,11 @@
     <string name="payment_feature_title_performance">Świetna Wydajność</string>
     <string name="payment_feature_desc_performance">Dzięki naszemu nowemu rozwiązaniu w chmurze, Twoje urządzenie i połączenie z Internetem będzie w maksymalnie szybkie.</string>
     <string name="payment_feature_title_battery">Zero Wpływu na Baterię</string>
+    <string name="payment_feature_desc_battery">Żywotność akumulatora będzie taka sama z Blokadą Cloud włączoną lub wyłączoną.</string>
     <string name="payment_feature_title_devices_cloud">Wiele urządzeń</string>
     <string name="payment_feature_desc_devices_cloud">Skonfiguruj wszystkie swoje urządzenia w ramach jednej subskrypcji Blokada Cloud. Korzystaj z naszych aplikacji mobilnych lub naszego panelu webowego.</string>
     <string name="payment_feature_title_cloud_vpn">Chmura i VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">Ciesz się wszystkimi funkcjami Blokady Cloud. Dodatkowo uzyskaj dostęp do naszej sieci VPN.</string>
     <string name="payment_feature_title_faster_connection">Szybsze połączenie</string>
     <string name="payment_feature_desc_faster_connection">Świetne prędkości do 100 Mb/s z serwerami w różnych częściach świata.</string>
     <string name="payment_feature_title_devices">Do 5 urządzeń</string>

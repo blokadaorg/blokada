@@ -360,9 +360,11 @@
 "payment feature title performance" = "Grande Desempenho";
 "payment feature desc performance" = "Mantenha seu dispositivo ágil e sua conexão com a Internet em velocidades máximas, graças à nossa nova solução Cloud.";
 "payment feature title battery" = "Sem Impacto na Bateria";
+"payment feature desc battery" = "A duração da bateria será a mesma, com ou sem o Blokada Cloud ativado.";
 "payment feature title devices cloud" = "Múltiplos Dispositivos";
 "payment feature desc devices cloud" = "Configure todos os seus dispositivos em uma assinatura do Blokada Cloud. Use nossos aplicativos móveis ou nosso painel da web.";
 "payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Aproveite todos os recursos do Blokada Cloud. Adicionalmente, obtenha acesso a nossa rede VPN.";
 "payment feature title faster connection" = "Conexão mais rápida";
 "payment feature desc faster connection" = "Ótimas velocidades de até 100Mbps com servidores em várias partes do Mundo.";
 "payment feature title devices" = "Até 5 dispositivos";

@@ -362,9 +362,11 @@
 "payment feature title performance" = "最適なパフォーマンス";
 "payment feature desc performance" = "新しいクラウドソリューションで、デバイスやインターネット接続の速度を快適に保ちます。";
 "payment feature title battery" = "バッテリー持ちへの影響なし";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
 "payment feature title devices cloud" = "複数デバイス";
 "payment feature desc devices cloud" = "1 つの Blokada Cloud サブスクリプションをすべてのデバイスで共有できます。モバイルアプリまたはウェブダッシュボードから設定してください。";
 "payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "より高速な接続";
 "payment feature desc faster connection" = "世界のさまざまな地域のサーバーで最高100Mbpsのスピードを実現します。";
 "payment feature title devices" = "最大5台のデバイス";

@@ -295,9 +295,11 @@
     <string name="payment_feature_title_performance">Kinerja yang mumpuni</string>
     <string name="payment_feature_desc_performance">Menjaga perangkat Anda tetap gegas dan koneksi internet Anda di kecepatan maksimal, berkat solusi Cloud baru dari kami.</string>
     <string name="payment_feature_title_battery">Tidak mempengaruhi daya tahan baterai</string>
+    <string name="payment_feature_desc_battery">Your battery life is going to be the same, with or without Blokada Cloud activated.</string>
     <string name="payment_feature_title_devices_cloud">Banyak Perangkat</string>
     <string name="payment_feature_desc_devices_cloud">Set up semua perangkat Anda hanya dengan satu akun Blokada Cloud. Gunakan aplikasi atau dashboard web kami untuk pengaturan selanjutnya.</string>
     <string name="payment_feature_title_cloud_vpn">Cloud &amp; VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.</string>
     <string name="payment_feature_title_faster_connection">Koneksi Lebih Cepat</string>
     <string name="payment_feature_desc_faster_connection">Koneksi cepat sampai dengan 100Mbps dengan server yang berlokasi di berbagai tempat di dunia.</string>
     <string name="payment_feature_title_devices">Hingga 5 perangkat</string>

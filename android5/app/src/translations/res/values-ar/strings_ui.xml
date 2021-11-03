@@ -291,10 +291,21 @@
     <string name="payment_feature_title_encrypt_data">تشفير البيانات</string>
     <string name="payment_feature_desc_encrypt_data">يتم تشفير البيانات المرسلة من خلال نفق VPN الخاص بنا باستخدام خوارزميات قويّة من أجل الحماية من اعتراض الأطراف غير المصرّح لها.</string>
     <string name="payment_feature_title_encrypt_dns">تشفير الـ DNS</string>
+    <string name="payment_feature_desc_encrypt_dns">قم بتحسين خصوصيّتك باستخدام تشفير DNS. يستخدم Blokada Cloud البروتوكولات الحديثة للمساعدة في الحفاظ على خصوصيّة بياناتك.</string>
+    <string name="payment_feature_title_performance">أداء عظيم</string>
+    <string name="payment_feature_desc_performance">حافظ على سرعة أداء جهازك و اتصالك بالإنترنت بأقصى سرعات بفضل حل السحابة الجديد الذي نقدمه.</string>
+    <string name="payment_feature_title_battery">تأثير البطّاريّة صفر</string>
+    <string name="payment_feature_desc_battery">سيظل عمر البطارية كما هو ، مع تنشيط Blokada Cloud أو بدونه.</string>
+    <string name="payment_feature_title_devices_cloud">أجهزة متعدّدة</string>
+    <string name="payment_feature_desc_devices_cloud">Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.</string>
+    <string name="payment_feature_title_cloud_vpn">Cloud &amp; VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">استمتع بجميع ميّزات Blokada Cloud. بالإضافة إلى ذلك، يمكنك الوصول إلى شبكة VPN الخاصّة بنا.</string>
     <string name="payment_feature_title_faster_connection">إتصال أسرع</string>
     <string name="payment_feature_desc_faster_connection">سرعة كبيرة تصل إلى 100 ميغابايت مع خوادِم في مختلف أنحاء العالم.</string>
     <string name="payment_feature_title_devices">حتّى 5 أجهزة</string>
     <string name="payment_feature_desc_devices">إستخدم نفس الحساب لمشاركة إشتراكك مع 5 أجهزة: iOS أو Android أو PC.</string>
+    <string name="payment_feature_title_no_ads">Block Ads</string>
+    <string name="payment_feature_desc_no_ads">Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.</string>
     <string name="payment_feature_title_support">دعم كبير</string>
     <string name="payment_feature_desc_support">إحصل على رد فوري على أيّ أسئلة بفضل دعم العملاء لدينا و مجتمع نَشِط مفتوح المصدر.</string>
     <string name="payment_action_see_all_features">مشاهدة جميع الميّزات</string>
@@ -336,6 +347,12 @@
     <string name="payment_label_country">الدولة</string>
     <string name="payment_euro_desc">نحن موجودون في أوروبا ، لذلك نقبل اليورو: 10 يورو تعادل 12 دولاراً تقريباً.</string>
     <string name="payment_donate_disclaimer">لن يؤدّي هذا إلى تنشيط حساب بلوكادا بلس الخاصّ بك. إذا كنت ترغب في استخدام خدمة VPN الخاصّة بنا، يُرجى الإشتراك بدلاً من التبرُّع.</string>
+    <string name="payment_action_compare">Compare plans</string>
+    <string name="payment_plan_slugline_cloud">Blocks ads and trackers</string>
+    <string name="payment_plan_slugline_plus">Additional protection with VPN</string>
+    <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
+    <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
+    <string name="payment_plan_cta_annual">Subscribe Annually</string>
     <string name="apps_section_header">التطبيقات</string>
     <string name="apps_label_installed">مُثَبَّت</string>
     <string name="apps_label_system">النظام</string>
@@ -483,4 +500,5 @@
     <string name="stats_requests_subheader">الاستفسارات عبر الوقت</string>
     <string name="stats_top_allowed_header">أكثر الطلبات المسموح بها</string>
     <string name="stats_top_blocked_header">أكثر الطلبات المَحظورة</string>
+    <string name="dnsprofile_desc">Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS &amp; Device Management -> DNS.</string>
 </resources>

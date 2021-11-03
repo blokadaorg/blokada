@@ -72,6 +72,15 @@
 "universal label welcome" = "Bine aţi venit!";
 // Common label when some feature has no setting
 "universal label none" = "Nici unul";
+// Common label in tables for the Name column. Think "name of host".
+"universal label name" = "Name";
+// Common label in tables for the Time column. Think "time of event".
+"universal label time" = "Time";
+// Common label in tables for the Count column. Think "number of items".
+"universal label count" = "Count";
+// Common label in tables for the Type column. Think "type of item".
+"universal label type" = "Type";
+"universal label device" = "Device";
 
 "universal status processing" = "Se procesează... Vă rugăm așteptați.";
 "universal status copied to clipboard" = "Copiat în Clipboard";
@@ -136,6 +145,7 @@
 "home status detail progress" = "vă rugăm așteptați...";
 
 "home plus button deactivated" = "BLOKADA+ dezactivat";
+"home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "Selectați locația";
 "home plus button location" = "Locație: *%@*";
 
@@ -172,6 +182,10 @@
 "activity request allowed" = "Această solicitare a fost permisă.";
 "activity request allowed whitelisted" = "Această solicitare a fost permisă, deoarece se află pe lista de permisii";
 "activity request blocked blacklisted" = "Această solicitare a fost blocată, deoarece se află în lista de restricții";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* blocklist.";
+"activity request allowed no list" = "This request has been allowed, as it's not present on any of your configured blocklists.";
+"activity request blocked list" = "This request has been blocked, because it's present on the *%@* blocklist.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured blocklists.";
 "activity actions header" = "Acțiuni";
 "activity information header" = "Informaţii";
 "activity action add to whitelist" = "Adaugă la Permise";
@@ -202,11 +216,22 @@
 "activity filter show allowed" = "Doar cele permise";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
 "activity device filter show all" = "Toate dispozitivele";
+"activity retention header" = "For how long can we store your activity?";
+"activity retention option none" = "Do not store my activity";
+"activity retention option 24h" = "24 hours";
+"activity retention policy" = "By enabling log retention you accept Blokada Cloud Privacy Policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.";
+
+"userdenied section header" = "Exceptions";
 "userdenied section slugline" = "Gestionați blocarea anumitor site-uri";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Permis";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Blocat";
+// A short one word action to allow a hostname.
+"userdenied action allow" = "Allow";
+// A short one word action to block a hostname.
+"userdenied action block" = "Block";
 
 "networks section header" = "Reţele";
 "networks section label" = "Reglaţi setările pentru WiFi şi reţelele mobile";
@@ -239,6 +264,7 @@
 "account section header settings" = "Setări";
 "account status text" = "Contul dvs. BLOKADA %@ este activ până la %@.";
 "account status text libre" = "Contul tău BLOKADA Libre este activ pentru întotdeauna.";
+"account status text inactive" = "Your BLOKADA account is inactive.";
 
 "account section header primary" = "Principal";
 "account section header other" = "Altele";
@@ -329,10 +355,22 @@
 "payment feature desc change location" = "Ascundeți-vă adresa IP și pretindeți că sunteți în altă țară. Acest lucru vă va masca de la terțe părți și vă va ajuta să vă protejați identitatea.";
 "payment feature title encrypt data" = "Criptare date";
 "payment feature desc encrypt data" = "Datele trimise prin tunelul nostru VPN sunt criptate folosind algoritmi puternici pentru a fi protejate împotriva interceptării de către părți neautorizate.";
+"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
+"payment feature title performance" = "Great Performance";
+"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature title battery" = "Zero Battery Impact";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature title devices cloud" = "Multiple Devices";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "Conexiune mai rapidă";
 "payment feature desc faster connection" = "Viteze mari de până la 100 Mbps cu servere în diferite părți ale lumii.";
 "payment feature title devices" = "Până la 5 dispozitive";
 "payment feature desc devices" = "Folosiți același cont pentru a partaja abonamentul cu până la 5 dispozitive: iOS, Android sau PC.";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "Asistență de Calitate";
 "payment feature desc support" = "Obțineți un răspuns prompt la orice întrebări datorită Asistenței noastre menită pentru clienți și comunității noastre open source.";
 "payment action see all features" = "Vezi toate caracteristicile";
@@ -380,6 +418,13 @@
 
 "payment euro desc" = "Suntem stabiliți în Europa, așadar acceptăm Euro: €10 sunt aproximativ $12.";
 "payment donate disclaimer" = "Aceasta nu vă va activa contul Blokada Plus. Dacă doriți să folosiți serviciul nostru VPN, vă rugăm să vă abonați în loc să donați.";
+
+"payment action compare" = "Compare plans";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
+"payment plan cta trial" = "Start 7-Day Free Trial";
+"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan cta annual" = "Subscribe Annually";
 
 "apps section header" = "Aplicații";
 "apps label installed" = "Instalat";
@@ -446,7 +491,32 @@
 "homepage about point three" = "Nu necesită acces root sau jailbreak";
 "homepage about point four" = "Design sigur (nu întrerupe criptarea)";
 "homepage about point five" = "De încredere și gratis pentru totdeauna";
+
+"homepage about action faq" = "See the FAQs";
 "homepage about action plus" = "Aflați mai multe despre Blokada Plus";
+
+"homepage vpn title" = "Blokada 5, the VPN";
+"homepage vpn desc" = "For ultimate privacy protection, upgrade to Blokada Plus and connect through our VPN. We use WireGuard®, the most advanced VPN protocol, to encrypt your network activity and hide your IP address.";
+"homepage vpn point one" = "No bandwidth restrictions";
+"homepage vpn point two" = "Fast & modern encryption";
+"homepage vpn point three" = "No logging of your network activity";
+"homepage vpn point four" = "Connect up to 5 devices";
+"homepage vpn credit" = "'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+
+"homepage faq header" = "Frequently Asked Questions";
+"homepage faq action more" = "See more FAQs";
+"homepage faq title 1" = "What information does Blokada keep?";
+"homepage faq desc 1" = "Blokada does not track or share any of your network activity. If you use Blokada Plus, for technical reasons we need to collect the most minimal data required to keep the service operational. Please consult our Privacy Policy available in the top menu for details.";
+"homepage faq title 2" = "How is my privacy protected?";
+"homepage faq desc 2" = "Blokada prevents apps and browsers installed on your device from sending your private data (known as tracking fingerprints) to the Internet. It also encrypts some of your network activity (DNS queries). If you need more protection, Blokada Plus makes your device connect through our VPN, and uses the WireGuard® protocol to encrypt your entire network traffic.";
+"homepage faq title 3" = "What is Blokada Plus?";
+"homepage faq desc 3" = "Blokada Plus is our safe and modern VPN (Virtual Private Network) service. It uses WireGuard® - a fast protocol with best-in-class encryption and low battery usage. Blokada Plus encrypts all of your network activity in real time, giving you the highest level of protection available. You also get the popular VPN features - hide your IP address, change your location, and unblock geo-restricted content.";
+"homepage faq title 4" = "Do I need to upgrade to Blokada Plus?";
+"homepage faq desc 4" = "No, the upgrade is optional. You may stick to the free version of Blokada, forever. It is a recommended upgrade if you wish to increase your privacy protection even more, or need any of the popular features VPNs provide.";
+"homepage faq title 5" = "What is the Blokada Plus refund policy?";
+"homepage faq desc 5" = "You can get your money back within 7-days of purchasing the subscription. Contact us through any of our apps, and simply mention you want a refund.";
+"homepage faq title 6" = "Where is Blokada located?";
+"homepage faq desc 6" = "We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.";
 
 "homepage download header" = "Descarcă Blokada";
 "homepage download subheader" = "Blokada este disponibilă pe mai multe platforme, alege-o pe a ta.";
@@ -461,15 +531,69 @@
 "homepage download desc android five" = "Aceasta este noua versiune recomandată <b>pentru smartphone-uri și tablete cu Android 7 sau mai nou</b>. Este mai simplă și mai rapidă în comparație cu Blokada 4.";
 "homepage download action android five" = "Blokada 5 .apk";
 "homepage download action android five beta" = "Beta .apk";
+"homepage download desc android slim" = "Blokada Slim is a <b>lightweight version of the app</b>, and it only contains features allowed by the Google Play policy.";
 "homepage download action android slim" = "Deschide Google Play";
+"homepage download desc android four" = "We still maintain the older version of Blokada. It has more features, works on older devices, and TVs.";
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "Deschide F-Droid";
 
 "homepage community header" = "Comunitatea";
+"homepage community desc" = "Blokada is not only the privacy app. It is also the community of people who care about their digital privacy and wellbeing. You will find us on our forum, where you can ask any questions you may have. We are also present on other social media and chats.";
+"homepage community cta subheader" = "Join us and say hi!";
+"homepage community cta desc" = "We base all of our work on the feedback of our users. Tell us what you think, what should we improve, or just hang out.";
 "homepage community cta action" = "Spre forum";
 "homepage community opinions" = "Iată câteva dintre opiniile utilizatorilor noştri.";
 
 "homepage support header" = "Susţine acest proiect";
+"homepage support desc" = "If you like what we do, consider supporting us, so that we can continue developing new features and improvements. This way, Blokada can stay open source and free forever.";
 "homepage support cta header" = "Blokada depinde de dvs.";
+"homepage support cta desc" = "Blokada is an open source project, which means you can be sure it's always going to be free, safe to use, and without any hidden agenda. We believe this is the only right way to develop a privacy app you can trust.";
+"homepage support cta desc more" = "However, developing a quality app like Blokada requires a considerable amount of resources. This project exists thanks to the support of awesome people like you!";
 "homepage support cta action" = "Donează (prin card, Paypal)";
 "homepage support cta action alt" = "Donează (bancă, cripto)";
+
+"homepage developer header" = "Are you a developer";
+"homepage developer subheader" = "and want to make Blokada better?";
+"homepage developer desc" = "Blokada is an open source project dedicated to developing the best ad blocker and privacy app for Android and iOS. Check our Github, and let us know, if you need any assistance to make your first PR.";
+"homepage developer action" = "Go to repo";
+
+"web vpn devices header" = "VPN Devices";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Open VPN Devices";
+"web action open setup" = "Open setup";
+"web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
+"web cta plus desc" = "Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.";
+// A short word for a button to generate profile
+"web action generate" = "Generate";
+
+"setup header" = "Setup";
+"setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
+"setup label which device" = "What type of device you wish to set up?";
+"setup label choose" = "Choose any of the following setup options:";
+"setup comment wireguard" = "Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+"setup comment native apps" = "Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.";
+// A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
+"setup step" = "Step %@: %@";
+"setup option label recommended" = "Recommended: %@";
+"setup option label alternative" = "Alternative: %@";
+"setup name label unnamed" = "(unnamed)";
+
+"setup step name" = "Name your device (optional)";
+"setup step copy" = "Copy your hostname";
+"setup step apply config" = "Apply the new configuration";
+"setup step install" = "Install and start our app";
+"setup step enter tag" = "When asked, enter your tag";
+"setup step download profile" = "Generate and download your profile";
+"setup step install wireguard" = "Install and start Wireguard";
+
+"stats header" = "Stats";
+// A ratio between counter of allowed vs denied requests.
+"stats ratio header" = "Ratio";
+// A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
+"stats requests header" = "Requests";
+// A subheader for the chart that display the number of requests over time. Can be a bit longer.
+"stats requests subheader" = "Queries over time";
+"stats top allowed header" = "Top allowed requests";
+"stats top blocked header" = "Top blocked requests";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

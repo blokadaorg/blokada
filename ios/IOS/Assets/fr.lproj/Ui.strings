@@ -145,6 +145,7 @@
 "home status detail progress" = "Veuillez patienter...";
 
 "home plus button deactivated" = "BLOKADA+ désactivé";
+"home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "Choisir l'emplacement";
 "home plus button location" = "Emplacement : *%@*";
 
@@ -218,6 +219,8 @@
 "activity retention header" = "Combien de temps pouvons-nous stocker votre activité ?";
 "activity retention option none" = "Ne pas stocker mon activité";
 "activity retention option 24h" = "24 heures";
+"activity retention policy" = "By enabling log retention you accept Blokada Cloud Privacy Policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.";
 
 "userdenied section header" = "Exceptions";
 "userdenied section slugline" = "Gérer la blocage de sites web spécifiques";
@@ -237,13 +240,25 @@
 "networks label configuration active" = "Ces paramètres sont actuellement actifs";
 "networks label configuration enabled" = "Non connecté à ce réseau";
 "networks label configuration inactive" = "Appuyez pour modifier les paramètres de ce réseau";
+"networks label details default network" = "The settings below are applied by default for all networks. You can override them for selected networks (in the previous screen).";
 "networks action encrypt dns" = "Chiffrement DNS";
 "networks action use dns" = "Utiliser le DNS : %@";
+"networks action use network dns" = "Prefer network DNS";
+"networks action force libre mode" = "Force Libre mode";
+"networks label specific network" = "Adjust what should happen when your device connects to this network.";
+"networks label specific network type" = "Adjust what should happen when your device connects to a network of this type.";
+"networks label any wifi" = "Any WiFi network";
+"networks label any mobile" = "Any mobile network";
 "networks permission request" = "Pour avoir plus de contrôle, appuyez ici et laissez l'application découvrir tous les réseaux.";
 "networks permission request granted" = "Vous verrez peut-être une notification lorsque Blokada lit le nom de votre réseau en arrière-plan.";
 "networks section choose dns" = "Choisir un DNS";
 "networks summary encrypt dns" = "Blokada chiffrera les données DNS si possible. Cela renforce votre sécurité et empêche les acteurs malveillants d'espionner votre activité sur le net et sur les applis.";
+"networks summary use dns" = "Blokada will use %@ as your device's DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.";
+"networks summary network dns" = "Blokada will use the network's DNS if available, or switch to %@ otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network's DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.";
+"networks summary network dns and plus mode" = "Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.";
 "networks summary blocka plus mode" = "Blokada utilisera Blokada DNS en mode Plus afin d'assurer un haut niveau de chiffrement avec de courts délais de calcul. Vous pouvez modifier ce paramètre en bas de l'écran Choisir un DNS.";
+"networks summary force libre mode" = "Blokada will always use Libre mode on this network, and ignore your Blokada Plus location. This is useful for networks where you do not want the additional protection.";
+"networks permission dialog" = "Blokada can recognize networks you connect to, and let you configure separate settings for them. However, this app will collect location data in the form of network name to enable this feature, even when the app is closed or not in use. Sometimes you may see a system notification about location access - Blokada will only read the network's name.";
 
 
 "account section header settings" = "Paramètres";
@@ -318,6 +333,7 @@
 "account lease label this device" = " (cet appareil)";
 "account lease label name" = "Nom de l'appareil";
 "account lease label location" = "Emplacement";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports Wireguard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
 "account lease action generate" = "Générer la configuration";
 "account lease action download" = "Télécharger la configuration";
 "account lease generated" = "Appareil ajouté ! Téléchargez la configuration pour l'utiliser sur n'importe quel appareil pris en charge par Wireguard.";
@@ -339,12 +355,22 @@
 "payment feature desc change location" = "Masquez votre adresse IP et apparaissez dans un autre pays. Cela protégera votre identité.";
 "payment feature title encrypt data" = "Chiffrement des données";
 "payment feature desc encrypt data" = "Les données transitant par notre tunnel VPN sont chiffrées avec de puissants algorithmes pour les prémunir d'une interception par de tierces parties.";
+"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
 "payment feature title performance" = "Grande performance";
+"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature title battery" = "Zero Battery Impact";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
 "payment feature title devices cloud" = "Plusieurs appareils";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "Connexion plus rapide";
 "payment feature desc faster connection" = "Des vitesses exceptionnelles allant jusqu'à 100 Mbps avec des serveurs partout dans le monde.";
 "payment feature title devices" = "Jusqu'à 5 appareils";
 "payment feature desc devices" = "Utilisez un seul compte pour partager votre abonnement avec 5 appareils à la fois : iOS, Android ou PC.";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "Excellent support";
 "payment feature desc support" = "Obtenez une réponse rapide à toutes vos questions grâce à notre service client et notre fantastique communauté open source.";
 "payment action see all features" = "Voir toutes les fonctionnalités";
@@ -394,6 +420,8 @@
 "payment donate disclaimer" = "Ceci n'activera pas votre compte Blokada Plus. Si vous voulez utiliser notre service VPN, veuillez vous abonner au lieu de faire un don.";
 
 "payment action compare" = "Comparer les offres";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
 "payment plan cta trial" = "Commencer l'essai gratuit de 7 jours";
 "payment plan cta monthly" = "S'abonner au mois";
 "payment plan cta annual" = "S'abonner à l'année";
@@ -460,11 +488,15 @@
 "homepage about desc" = "Si vous voulez bloquer efficacement les publicités, les pisteurs et les virus ; si vous voulez économiser vos données mobiles, rendre votre appareil plus rapide et protéger votre vie privée avec une seule application ; Blokada est faite pour vous. C'est une appli gratuite, sécurisée et open source.";
 "homepage about point one" = "Bloque les pubs & trackers";
 "homepage about point two" = "Fonctionne pour toutes les applications et tous les navigateurs web";
+"homepage about point three" = "Requires no root or jailbreak";
+"homepage about point four" = "Safe design (does not break encryption)";
+"homepage about point five" = "Trusted & free forever";
 
 "homepage about action faq" = "Voir nos FAQs";
 "homepage about action plus" = "En savoir plus sur Blokada Plus";
 
 "homepage vpn title" = "Blokada 5, le VPN";
+"homepage vpn desc" = "For ultimate privacy protection, upgrade to Blokada Plus and connect through our VPN. We use WireGuard®, the most advanced VPN protocol, to encrypt your network activity and hide your IP address.";
 "homepage vpn point one" = "Aucune restriction de bande passante";
 "homepage vpn point two" = "Chiffrement rapide et moderne";
 "homepage vpn point three" = "Pas d'archivage de votre activité réseau";
@@ -476,6 +508,7 @@
 "homepage faq title 1" = "Quelles informations sont-elles gardées par Blokada ?";
 "homepage faq desc 1" = "Blokada n'archive ni ne partage votre activité réseau. Si vous utilisez Blokada Plus, nous aurons besoin de collecter une quantité minimale de données afin de récolter des informations techniques nécessaires à la maintenance du service. Veuillez consulter notre Politique de Confidentialité pour plus de détails.";
 "homepage faq title 2" = "Comment ma vie privée est-elle protégée ?";
+"homepage faq desc 2" = "Blokada prevents apps and browsers installed on your device from sending your private data (known as tracking fingerprints) to the Internet. It also encrypts some of your network activity (DNS queries). If you need more protection, Blokada Plus makes your device connect through our VPN, and uses the WireGuard® protocol to encrypt your entire network traffic.";
 "homepage faq title 3" = "Qu'est-ce que Blokada Plus ?";
 "homepage faq desc 3" = "Blokada Plus est notre service de VPN (Virtual Private Network) moderne et sécurisé. Il utilise WireGuard® - un protocole véloce avec un chiffrement à la pointe de la technologie et une faible consommation de batterie. Blokada Plus chiffre toute votre activité réseau en temps réel, vous conférant le plus haut niveau de protection possible. Vous bénéficierez des fonctionnalités VPN populaires - masquer votre adresse IP, changer votre localisation, et débloquer les contenus géo-restreints.";
 "homepage faq title 4" = "Dois-je obligatoirement passer à Blokada Plus ?";
@@ -525,8 +558,11 @@
 "homepage developer action" = "Accéder au dépôt";
 
 "web vpn devices header" = "Périphériques VPN";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Open VPN Devices";
 "web action open setup" = "Ouvrir la configuration";
 "web cta plus header" = "Passez à 'Blokada Plus' pour garder le contrôle de votre vie privée.";
+"web cta plus desc" = "Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.";
 // A short word for a button to generate profile
 "web action generate" = "Générer";
 
@@ -534,6 +570,7 @@
 "setup desc" = "Il existe plusieurs manières de configurer votre appareil pour utiliser Blokada Cloud. Sélectionnez celle qui vous convient.";
 "setup label which device" = "Quel type d'appareil souhaitez-vous configurer ?";
 "setup label choose" = "Sélectionnez l'une des options de configuration suivantes :";
+"setup comment wireguard" = "Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
 "setup comment native apps" = "Remarque : les applications natives pour Android et iOS ne prennent pas encore en charge Blokada Cloud. Nous travaillons sur une mise à jour.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Etape %@ : %@";
@@ -558,3 +595,5 @@
 "stats requests subheader" = "Requêtes dans le temps";
 "stats top allowed header" = "Top des requêtes autorisées";
 "stats top blocked header" = "Top des requêtes bloquées";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

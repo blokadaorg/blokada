@@ -145,6 +145,7 @@
 "home status detail progress" = "bitte warte...";
 
 "home plus button deactivated" = "BLOKADA+ deaktiviert";
+"home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "Standort wählen";
 "home plus button location" = "Standort: *%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "Einstellungen";
 "account status text" = "Dein BLOKADA %@ Konto ist aktiv bis zum %@.";
 "account status text libre" = "Dein BLOKADA Libre Konto ist für immer aktiv.";
+"account status text inactive" = "Your BLOKADA account is inactive.";
 
 "account section header primary" = "Primär";
 "account section header other" = "Andere";
@@ -353,10 +355,22 @@
 "payment feature desc change location" = "Verstecke deine IP-Adresse und tu so, als ob du in einem anderen Land bist. Das wird dich vor Drittanbietern verbergen und dir helfen, deine Identität zu schützen.";
 "payment feature title encrypt data" = "Daten verschlüsseln";
 "payment feature desc encrypt data" = "Die Daten, die durch unseren VPN-Tunnel geschickt werden, sind durch starke Algorithmen verschlüsselt, um dich vor dem Abhören durch unberechtigte Personen zu schützen.";
+"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
+"payment feature title performance" = "Great Performance";
+"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature title battery" = "Zero Battery Impact";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature title devices cloud" = "Multiple Devices";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "Schnellere Verbindung";
 "payment feature desc faster connection" = "Schnelle Verbindungen mit bis zu 100 Mbit/s mit Servern überall auf der Welt verteilt.";
 "payment feature title devices" = "Bis zu 5 Geräte";
 "payment feature desc devices" = "Nutze das gleiche Konto und teile dein Abo mit bis zu 5 Geräten: egal ob iOS, Android oder PC.";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "Großartiger Support";
 "payment feature desc support" = "Bekomme eine schnelle Antwort auf jede Frage, dank unserem Kundensupport und der lebendigen Open-Source-Community.";
 "payment action see all features" = "Alle Funktionen anzeigen";
@@ -404,6 +418,13 @@
 
 "payment euro desc" = "Wir sind in Europa ansässig und akzeptieren deshalb Euros: 10 € sind etwa 12 $.";
 "payment donate disclaimer" = "Dies aktiviert nicht dein Blokada Plus-Konto. Wenn du unseren VPN-Service verwenden möchtest, abonniere bitte, anstatt zu spenden.";
+
+"payment action compare" = "Compare plans";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
+"payment plan cta trial" = "Start 7-Day Free Trial";
+"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan cta annual" = "Subscribe Annually";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installiert";
@@ -574,3 +595,5 @@
 "stats requests subheader" = "Abfragen im Laufe der Zeit";
 "stats top allowed header" = "Häufigste zugelassene Anfragen";
 "stats top blocked header" = "Häufigste blockierte Anfragen";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

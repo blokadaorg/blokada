@@ -295,9 +295,11 @@
     <string name="payment_feature_title_performance">Gran rendimiento</string>
     <string name="payment_feature_desc_performance">Mantén tu dispositivo rápido y tu conexión a Internet a máxima velocidad, gracias a nuestra nueva solución en la nube.</string>
     <string name="payment_feature_title_battery">Impacto de Batería Cero</string>
+    <string name="payment_feature_desc_battery">Your battery life is going to be the same, with or without Blokada Cloud activated.</string>
     <string name="payment_feature_title_devices_cloud">Múltiples dispositivos</string>
     <string name="payment_feature_desc_devices_cloud">Configura todos tus dispositivos bajo una suscripción a Blokada Cloud. Usa nuestras aplicaciones móviles o nuestro panel de control web.</string>
     <string name="payment_feature_title_cloud_vpn">Nube y VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.</string>
     <string name="payment_feature_title_faster_connection">Conexión más rápida</string>
     <string name="payment_feature_desc_faster_connection">Alcanza velocidades de hasta 100Mbps gracias a servidores alrededor del mundo.</string>
     <string name="payment_feature_title_devices">Hasta 5 dispositivos</string>

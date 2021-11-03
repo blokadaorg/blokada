@@ -145,6 +145,7 @@
 "home status detail progress" = "čekejte prosím...";
 
 "home plus button deactivated" = "BLOKADA+ deaktivována";
+"home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "Vybrat umístění";
 "home plus button location" = "Umístění: *%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "Nastavení";
 "account status text" = "Váš účet BLOKADA %@ je aktivní do %@.";
 "account status text libre" = "Váš účet BLOKADA Libre je aktivní navždy.";
+"account status text inactive" = "Your BLOKADA account is inactive.";
 
 "account section header primary" = "Primární";
 "account section header other" = "Ostatní";
@@ -353,10 +355,22 @@
 "payment feature desc change location" = "Skryje vaši IP adresu a předstírá, že se nacházíte v jiné zemi. To vás chrání před třetími stranami a pomůže ochránit vaši identitu.";
 "payment feature title encrypt data" = "Šifruje data";
 "payment feature desc encrypt data" = "Data odesílaná pomocí našeho VPN tunelu jsou šifrována pomocí silných algoritmů, aby byla chráněna před odposlechem neoprávněných stran.";
+"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
+"payment feature title performance" = "Great Performance";
+"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
+"payment feature title battery" = "Zero Battery Impact";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature title devices cloud" = "Multiple Devices";
+"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
+"payment feature title cloud vpn" = "Cloud & VPN";
+"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "Rychlejší připojení";
 "payment feature desc faster connection" = "Skvělá rychlost až 100 Mbps se servery v různých částech světa.";
 "payment feature title devices" = "Až 5 zařízení";
 "payment feature desc devices" = "Pomocí stejného účtu můžete sdílet své předplatné až s 5 zařízeními: iOS, Android nebo PC.";
+"payment feature title no ads" = "Block Ads";
+"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "Skvělá podpora";
 "payment feature desc support" = "Získejte rychlou odpověď na jakékoliv dotazy díky naší zákaznické podpoře a aktivní početné komunitě.";
 "payment action see all features" = "Zobrazit všechny funkce";
@@ -404,6 +418,13 @@
 
 "payment euro desc" = "Máme sídlo v Evropě, takže akceptujeme euro: 10 eur je zhruba 12 dolarů.";
 "payment donate disclaimer" = "Toto neaktivuje váš účet Blokada Plus. Pokud chcete používat naši službu VPN, místo darů se prosím přihlaste k předplatnému.";
+
+"payment action compare" = "Compare plans";
+"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline plus" = "Additional protection with VPN";
+"payment plan cta trial" = "Start 7-Day Free Trial";
+"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan cta annual" = "Subscribe Annually";
 
 "apps section header" = "Aplikace";
 "apps label installed" = "Nainstalované";
@@ -574,3 +595,5 @@
 "stats requests subheader" = "Dotazy v průběhu času";
 "stats top allowed header" = "Nejvíce povolené žádosti";
 "stats top blocked header" = "Nejvíce blokované žádosti";
+
+"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";
