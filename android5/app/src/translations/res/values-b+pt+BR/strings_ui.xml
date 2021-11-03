@@ -107,6 +107,7 @@
     <string name="home_status_detail_plus">*+* protegendo sua *privacidade*</string>
     <string name="home_status_detail_progress">por favor, aguarde...</string>
     <string name="home_plus_button_deactivated">BLOKADA+ desativado</string>
+    <string name="home_plus_button_deactivated_cloud">VPN desativada</string>
     <string name="home_plus_button_select_location">Selecionar local</string>
     <string name="home_plus_button_location">Localização: *%s*</string>
     <string name="home_level_low">Proteção: Baixa</string>
@@ -208,6 +209,7 @@
     <string name="account_section_header_settings">Configurações</string>
     <string name="account_status_text">Sua conta BLOKADA %s está ativa até %s.</string>
     <string name="account_status_text_libre">Sua conta BLOKADA Libre está ativa para sempre.</string>
+    <string name="account_status_text_inactive">Sua conta BLOKADA está inativa.</string>
     <string name="account_section_header_primary">Primário</string>
     <string name="account_section_header_other">Outros</string>
     <string name="account_action_my_account">Minha conta</string>
@@ -288,10 +290,20 @@
     <string name="payment_feature_desc_change_location">Oculte o seu endereço IP e finja que está em outro país. Isso irá mascará-lo de terceiros e ajuda a proteger sua identidade.</string>
     <string name="payment_feature_title_encrypt_data">Criptografe seus dados</string>
     <string name="payment_feature_desc_encrypt_data">Os dados enviados através de nosso túnel VPN são criptografados usando algoritmos fortes para proteger contra interceptação por partes não autorizadas.</string>
+    <string name="payment_feature_title_encrypt_dns">Criptografar DNS</string>
+    <string name="payment_feature_desc_encrypt_dns">Melhore sua privacidade com criptografia DNS. O Blokada Cloud usa protocolos modernos para ajudar a manter suas consultas privadas.</string>
+    <string name="payment_feature_title_performance">Grande Desempenho</string>
+    <string name="payment_feature_desc_performance">Mantenha seu dispositivo ágil e sua conexão com a Internet em velocidades máximas, graças à nossa nova solução Cloud.</string>
+    <string name="payment_feature_title_battery">Sem Impacto na Bateria</string>
+    <string name="payment_feature_title_devices_cloud">Múltiplos Dispositivos</string>
+    <string name="payment_feature_desc_devices_cloud">Configure todos os seus dispositivos em uma assinatura do Blokada Cloud. Use nossos aplicativos móveis ou nosso painel da web.</string>
+    <string name="payment_feature_title_cloud_vpn">Cloud &amp; VPN</string>
     <string name="payment_feature_title_faster_connection">Conexão mais rápida</string>
     <string name="payment_feature_desc_faster_connection">Ótimas velocidades de até 100Mbps com servidores em várias partes do Mundo.</string>
     <string name="payment_feature_title_devices">Até 5 dispositivos</string>
     <string name="payment_feature_desc_devices">Use a mesma conta para compartilhar sua assinatura com até 5 dispositivos: iOS, Android ou PC.</string>
+    <string name="payment_feature_title_no_ads">Bloquear Anúncios</string>
+    <string name="payment_feature_desc_no_ads">Use a tecnologia popular de bloqueio de anúncios do Blokada para bloquear anúncios em seus dispositivos. Configurações avançadas estão disponíveis.</string>
     <string name="payment_feature_title_support">Ótimo suporte</string>
     <string name="payment_feature_desc_support">Obtenha uma resposta rápida a qualquer pergunta, graças ao nosso Suporte ao Cliente e à vibrante comunidade de código aberto.</string>
     <string name="payment_action_see_all_features">Ver Todos os Recursos</string>
@@ -333,6 +345,12 @@
     <string name="payment_label_country">País</string>
     <string name="payment_euro_desc">Nós nos baseamos na Europa, então aceitamos Euro: €10 é aproximadamente $12.</string>
     <string name="payment_donate_disclaimer">Isso não vai ativar sua conta do Blokada Plus. Se você deseja usar nosso serviço de VPN, assine em vez de doar.</string>
+    <string name="payment_action_compare">Comparar planos</string>
+    <string name="payment_plan_slugline_cloud">Bloqueia anúncios e rastreadores</string>
+    <string name="payment_plan_slugline_plus">Proteção adicional com VPN</string>
+    <string name="payment_plan_cta_trial">Iniciar o Teste de 7 Dias Grátis</string>
+    <string name="payment_plan_cta_monthly">Assinar Mensalmente</string>
+    <string name="payment_plan_cta_annual">Assinar Anualmente</string>
     <string name="apps_section_header">Apps</string>
     <string name="apps_label_installed">Instalado</string>
     <string name="apps_label_system">Sistema</string>
@@ -480,4 +498,5 @@
     <string name="stats_requests_subheader">Consultas ao longo do tempo</string>
     <string name="stats_top_allowed_header">Principais solicitações permitidas</string>
     <string name="stats_top_blocked_header">Principais solicitações bloqueadas</string>
+    <string name="dnsprofile_desc">O Blokada acabou de criar um perfil de DNS para você em Configurações. Ative-o em Geral -> VPN, Gerenciamento de DNS &amp; Dispositivo -> DNS.</string>
 </resources>

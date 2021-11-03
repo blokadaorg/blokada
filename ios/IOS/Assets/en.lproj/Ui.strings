@@ -360,11 +360,11 @@
 "payment feature title performance" = "Great Performance";
 "payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
 "payment feature title battery" = "Zero Battery Impact";
-"payment feature desc battery" = "Your battery life is going to be the same, with our without Blokada Cloud activated.";
+"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
 "payment feature title devices cloud" = "Multiple Devices";
 "payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
 "payment feature title cloud vpn" = "Cloud & VPN";
-"payment feature desc cloud vpn" =  "Enjoy all the features of Blokada Cloud. Aditionally, get access to our VPN network.";
+"payment feature desc cloud vpn" =  "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
 "payment feature title faster connection" = "Faster Connection";
 "payment feature desc faster connection" = "Great speeds up to 100Mbps with servers in various parts of the World.";
 "payment feature title devices" = "Up to 5 devices";

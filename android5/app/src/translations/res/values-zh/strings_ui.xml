@@ -107,6 +107,7 @@
     <string name="home_status_detail_plus">*+* 保護您的 *隱私*</string>
     <string name="home_status_detail_progress">請稍候…</string>
     <string name="home_plus_button_deactivated">已停用 BLOKADA+</string>
+    <string name="home_plus_button_deactivated_cloud">VPN 已停用</string>
     <string name="home_plus_button_select_location">選擇位置</string>
     <string name="home_plus_button_location">位置：*%s*</string>
     <string name="home_level_low">保護級別：弱</string>
@@ -208,6 +209,7 @@
     <string name="account_section_header_settings">設定</string>
     <string name="account_status_text">您的 BLOKADA %s 帳號有效日期至 %s 為止。</string>
     <string name="account_status_text_libre">您的 BLOKADA Libre 帳戶永不過期。</string>
+    <string name="account_status_text_inactive">您的 BLOKADA 帳戶尚未啟用。</string>
     <string name="account_section_header_primary">主要</string>
     <string name="account_section_header_other">其他</string>
     <string name="account_action_my_account">我的帳號</string>
@@ -288,10 +290,22 @@
     <string name="payment_feature_desc_change_location">隱藏 IP 位址並假裝您在其他國家。這將讓降低您被第三方攻擊的機會，並協助保護您的身份。</string>
     <string name="payment_feature_title_encrypt_data">加密資料</string>
     <string name="payment_feature_desc_encrypt_data">透過我們的 VPN 隧道傳送的資料使用強大的演算法來加密以防止未經授權的人員攔截。</string>
+    <string name="payment_feature_title_encrypt_dns">DNS 加密</string>
+    <string name="payment_feature_desc_encrypt_dns">利用 DNS 加密功能增強保護您的隱私權。Blokada Cloud 採用現代通訊協定，保證您的查詢無人知曉。</string>
+    <string name="payment_feature_title_performance">效能更上一層</string>
+    <string name="payment_feature_desc_performance">新一代雲端解決方案，讓您的裝置火力全開，網速飆滿。</string>
+    <string name="payment_feature_title_battery">不多耗電</string>
+    <string name="payment_feature_desc_battery">開不開 Blokada Cloud，續航力都相同。</string>
+    <string name="payment_feature_title_devices_cloud">支援多裝置</string>
+    <string name="payment_feature_desc_devices_cloud">將您所有裝置納入 Blokada Cloud 訂閱。使用我們的行動裝置 App 或者是網頁控制介面。</string>
+    <string name="payment_feature_title_cloud_vpn">雲端與 VPN</string>
+    <string name="payment_feature_desc_cloud_vpn">享受 Blokada Cloud 的所有功能。附贈 Blokada VPN 網路的存取權。</string>
     <string name="payment_feature_title_faster_connection">較快速的連線</string>
     <string name="payment_feature_desc_faster_connection">在世界各地的伺服器上最高可達 100Mbps。</string>
     <string name="payment_feature_title_devices">最多 5 個裝置</string>
     <string name="payment_feature_desc_devices">使用相同的帳號以在最多 5 個裝置上分享您的訂閱：iOS、Android 或 PC。</string>
+    <string name="payment_feature_title_no_ads">阻擋廣告</string>
+    <string name="payment_feature_desc_no_ads">利用知名的 Blokada 廣告阻擋技術，阻擋您裝置上的廣告。可調進階設定。</string>
     <string name="payment_feature_title_support">最佳支援</string>
     <string name="payment_feature_desc_support">歸功於我們的客戶支援與充滿活力的開放原始碼社群，您的任何問題都能迅速得到答覆。</string>
     <string name="payment_action_see_all_features">檢視所有功能</string>
@@ -333,6 +347,12 @@
     <string name="payment_label_country">國家</string>
     <string name="payment_euro_desc">我們立足於歐洲，所以接受歐元：€10 大約是 $12。</string>
     <string name="payment_donate_disclaimer">這不會啟用您的 Blokada Plus 帳戶。如果你想使用我們的 VPN 服務，請改成「訂閱」而非捐助。</string>
+    <string name="payment_action_compare">比較方案</string>
+    <string name="payment_plan_slugline_cloud">阻擋廣告與追蹤器</string>
+    <string name="payment_plan_slugline_plus">使用 VPN 獲得增強保護</string>
+    <string name="payment_plan_cta_trial">開始 7 天免費試用期</string>
+    <string name="payment_plan_cta_monthly">訂閱月付方案</string>
+    <string name="payment_plan_cta_annual">訂閱年付方案</string>
     <string name="apps_section_header">應用程式</string>
     <string name="apps_label_installed">已安裝</string>
     <string name="apps_label_system">系統</string>
@@ -480,4 +500,5 @@
     <string name="stats_requests_subheader">各個時期的請求數變化</string>
     <string name="stats_top_allowed_header">允許最多次的請求</string>
     <string name="stats_top_blocked_header">阻擋最多次的請求</string>
+    <string name="dnsprofile_desc">Blokada 已經幫您在設定中建好 DNS 設定檔了。請到 [一般] > [VPN、DNS 與裝置管理] > [DNS] 中啟用。</string>
 </resources>

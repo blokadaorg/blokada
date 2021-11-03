@@ -194,6 +194,7 @@
     <string name="account_section_header_settings">Paramètres</string>
     <string name="account_status_text">Votre compte BLOKADA %s est actif jusqu\'au %s.</string>
     <string name="account_status_text_libre">Votre compte BLOKADA Libre est actif pour toujours.</string>
+    <string name="account_status_text_inactive">Votre compte BLOKADA est inactif.</string>
     <string name="account_section_header_primary">Principal</string>
     <string name="account_section_header_other">Autre</string>
     <string name="account_action_my_account">Mon compte</string>
@@ -273,6 +274,8 @@
     <string name="payment_feature_desc_change_location">Masquez votre adresse IP et apparaissez dans un autre pays. Cela protégera votre identité.</string>
     <string name="payment_feature_title_encrypt_data">Chiffrement des données</string>
     <string name="payment_feature_desc_encrypt_data">Les données transitant par notre tunnel VPN sont chiffrées avec de puissants algorithmes pour les prémunir d\'une interception par de tierces parties.</string>
+    <string name="payment_feature_title_performance">Grande performance</string>
+    <string name="payment_feature_title_devices_cloud">Plusieurs appareils</string>
     <string name="payment_feature_title_faster_connection">Connexion plus rapide</string>
     <string name="payment_feature_desc_faster_connection">Des vitesses exceptionnelles allant jusqu\'à 100 Mbps avec des serveurs partout dans le monde.</string>
     <string name="payment_feature_title_devices">Jusqu\'à 5 appareils</string>
@@ -318,6 +321,10 @@
     <string name="payment_label_country">Pays</string>
     <string name="payment_euro_desc">Nous sommes basés en Europe, nous acceptons donc les règlements en euro : 10€ vaut environ 12$.</string>
     <string name="payment_donate_disclaimer">Ceci n\'activera pas votre compte Blokada Plus. Si vous voulez utiliser notre service VPN, veuillez vous abonner au lieu de faire un don.</string>
+    <string name="payment_action_compare">Comparer les offres</string>
+    <string name="payment_plan_cta_trial">Commencer l\'essai gratuit de 7 jours</string>
+    <string name="payment_plan_cta_monthly">S\'abonner au mois</string>
+    <string name="payment_plan_cta_annual">S\'abonner à l\'année</string>
     <string name="apps_section_header">Apps</string>
     <string name="apps_label_installed">Installé</string>
     <string name="apps_label_system">Système</string>

@@ -145,6 +145,7 @@
 "home status detail progress" = "請稍候…";
 
 "home plus button deactivated" = "已停用 BLOKADA+";
+"home plus button deactivated cloud" = "VPN 已停用";
 "home plus button select location" = "選擇位置";
 "home plus button location" = "位置：*%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "設定";
 "account status text" = "您的 BLOKADA %@ 帳號有效日期至 %@ 為止。";
 "account status text libre" = "您的 BLOKADA Libre 帳戶永不過期。";
+"account status text inactive" = "您的 BLOKADA 帳戶尚未啟用。";
 
 "account section header primary" = "主要";
 "account section header other" = "其他";
@@ -353,10 +355,22 @@
 "payment feature desc change location" = "隱藏 IP 位址並假裝您在其他國家。這將讓降低您被第三方攻擊的機會，並協助保護您的身份。";
 "payment feature title encrypt data" = "加密資料";
 "payment feature desc encrypt data" = "透過我們的 VPN 隧道傳送的資料使用強大的演算法來加密以防止未經授權的人員攔截。";
+"payment feature title encrypt dns" = "DNS 加密";
+"payment feature desc encrypt dns" = "利用 DNS 加密功能增強保護您的隱私權。Blokada Cloud 採用現代通訊協定，保證您的查詢無人知曉。";
+"payment feature title performance" = "效能更上一層";
+"payment feature desc performance" = "新一代雲端解決方案，讓您的裝置火力全開，網速飆滿。";
+"payment feature title battery" = "不多耗電";
+"payment feature desc battery" = "開不開 Blokada Cloud，續航力都相同。";
+"payment feature title devices cloud" = "支援多裝置";
+"payment feature desc devices cloud" = "將您所有裝置納入 Blokada Cloud 訂閱。使用我們的行動裝置 App 或者是網頁控制介面。";
+"payment feature title cloud vpn" = "雲端與 VPN";
+"payment feature desc cloud vpn" = "享受 Blokada Cloud 的所有功能。附贈 Blokada VPN 網路的存取權。";
 "payment feature title faster connection" = "較快速的連線";
 "payment feature desc faster connection" = "在世界各地的伺服器上最高可達 100Mbps。";
 "payment feature title devices" = "最多 5 個裝置";
 "payment feature desc devices" = "使用相同的帳號以在最多 5 個裝置上分享您的訂閱：iOS、Android 或 PC。";
+"payment feature title no ads" = "阻擋廣告";
+"payment feature desc no ads" = "利用知名的 Blokada 廣告阻擋技術，阻擋您裝置上的廣告。可調進階設定。";
 "payment feature title support" = "最佳支援";
 "payment feature desc support" = "歸功於我們的客戶支援與充滿活力的開放原始碼社群，您的任何問題都能迅速得到答覆。";
 "payment action see all features" = "檢視所有功能";
@@ -404,6 +418,13 @@
 
 "payment euro desc" = "我們立足於歐洲，所以接受歐元：€10 大約是 $12。";
 "payment donate disclaimer" = "這不會啟用您的 Blokada Plus 帳戶。如果你想使用我們的 VPN 服務，請改成「訂閱」而非捐助。";
+
+"payment action compare" = "比較方案";
+"payment plan slugline cloud" = "阻擋廣告與追蹤器";
+"payment plan slugline plus" = "使用 VPN 獲得增強保護";
+"payment plan cta trial" = "開始 7 天免費試用期";
+"payment plan cta monthly" = "訂閱月付方案";
+"payment plan cta annual" = "訂閱年付方案";
 
 "apps section header" = "應用程式";
 "apps label installed" = "已安裝";
@@ -574,3 +595,5 @@
 "stats requests subheader" = "各個時期的請求數變化";
 "stats top allowed header" = "允許最多次的請求";
 "stats top blocked header" = "阻擋最多次的請求";
+
+"dnsprofile desc" = "Blokada 已經幫您在設定中建好 DNS 設定檔了。請到 [一般] > [VPN、DNS 與裝置管理] > [DNS] 中啟用。";

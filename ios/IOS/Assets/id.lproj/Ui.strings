@@ -145,6 +145,7 @@
 "home status detail progress" = "harap tunggu...";
 
 "home plus button deactivated" = "BLOKADA+ dinonaktifkan";
+"home plus button deactivated cloud" = "VPN telah dinonaktifkan";
 "home plus button select location" = "Pilih lokasi";
 "home plus button location" = "Lokasi: *%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "Pengaturan";
 "account status text" = "%@ Akun BLOKADA Anda aktif sampai %@.";
 "account status text libre" = "Akun BLOKADA Libre Anda telah aktif tanpa batas waktu.";
+"account status text inactive" = "Akun BLOKADA Anda tidak aktif.";
 
 "account section header primary" = "Utama";
 "account section header other" = "Lainnya";
@@ -353,10 +355,20 @@
 "payment feature desc change location" = "Sembunyikan IP address Anda agar terlihat seolah Anda berada di negara lain. Hal ini akan melindungi Anda dari pihak ketiga yang tidak bertanggungjawab, dan juga membantu melindungi identitas Anda.";
 "payment feature title encrypt data" = "Enkripsi Data";
 "payment feature desc encrypt data" = "Data yang dikirim melalui jalur VPN kami telah dienkripsi dengan algoritma yang kuat sehingga data Anda aman dari pihak-pihak yang tidak berkepentingan.";
+"payment feature title encrypt dns" = "Enkripsikan DNS";
+"payment feature desc encrypt dns" = "Tingkatkan privasi Anda dengan DNS terenkripsi. Blokada Cloud dengan protokol modern membantu menjaga privasi Anda.";
+"payment feature title performance" = "Kinerja yang mumpuni";
+"payment feature desc performance" = "Menjaga perangkat Anda tetap gegas dan koneksi internet Anda di kecepatan maksimal, berkat solusi Cloud baru dari kami.";
+"payment feature title battery" = "Tidak mempengaruhi daya tahan baterai";
+"payment feature title devices cloud" = "Banyak Perangkat";
+"payment feature desc devices cloud" = "Set up semua perangkat Anda hanya dengan satu akun Blokada Cloud. Gunakan aplikasi atau dashboard web kami untuk pengaturan selanjutnya.";
+"payment feature title cloud vpn" = "Cloud & VPN";
 "payment feature title faster connection" = "Koneksi Lebih Cepat";
 "payment feature desc faster connection" = "Koneksi cepat sampai dengan 100Mbps dengan server yang berlokasi di berbagai tempat di dunia.";
 "payment feature title devices" = "Hingga 5 perangkat";
 "payment feature desc devices" = "Gunakan akun yang sama untuk berbagi langganan VPN Anda di 5 perangkat: iOS, Android, atau PC.";
+"payment feature title no ads" = "Blokir Iklan";
+"payment feature desc no ads" = "Gunakan teknologi pemblokiran iklan milik Blokada yang sudah terkenal untuk memblokir iklan di perangkat Anda. Tersedia pula pengaturan lebih lanjut.";
 "payment feature title support" = "Dukungan yang Hebat";
 "payment feature desc support" = "Dapatkan respon cepat untuk semua pertanyaan, yang dimungkinkan oleh staf Customer Support kami dan komunitas open source yang sangat aktif.";
 "payment action see all features" = "Lihat Semua Fitur";
@@ -404,6 +416,13 @@
 
 "payment euro desc" = "Kami berbasis di Eropa, mata uang yang kami terima berupa Euro: di mana €10 kira-kira senilai Rp170.000.";
 "payment donate disclaimer" = "Donasi yang Anda berikan tidak akan mengaktifkan akun Blokada Plus. Jika Anda ingin menggunakan layanan VPN kami, silakan pilih opsi berlangganan.";
+
+"payment action compare" = "Bandingkan paket langganan";
+"payment plan slugline cloud" = "Memblokir iklan & pelacak";
+"payment plan slugline plus" = "Perlindungan tambahan dengan VPN";
+"payment plan cta trial" = "Mulai Trial Gratis 7 Hari";
+"payment plan cta monthly" = "Langganan Bulanan";
+"payment plan cta annual" = "Langganan Tahunan";
 
 "apps section header" = "Aplikasi";
 "apps label installed" = "Terinstal";
@@ -574,3 +593,5 @@
 "stats requests subheader" = "Permintaan dalam periode waktu tertentu";
 "stats top allowed header" = "Permintaan teratas yang diizinkan";
 "stats top blocked header" = "Permintaan teratas yang diblokir";
+
+"dnsprofile desc" = "Blokada baru saja membuat profil DNS untuk Anda, silakan lihat di Settings. Aktifkan profil tersebut di General -> VPN, DNS & Pengaturan Perangkat -> DNS.";

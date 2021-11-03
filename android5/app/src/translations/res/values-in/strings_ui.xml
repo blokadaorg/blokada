@@ -107,6 +107,7 @@
     <string name="home_status_detail_plus">*+* melindungi *privasi* Anda</string>
     <string name="home_status_detail_progress">harap tunggu...</string>
     <string name="home_plus_button_deactivated">BLOKADA+ dinonaktifkan</string>
+    <string name="home_plus_button_deactivated_cloud">VPN telah dinonaktifkan</string>
     <string name="home_plus_button_select_location">Pilih lokasi</string>
     <string name="home_plus_button_location">Lokasi: *%s*</string>
     <string name="home_level_low">Perlindungan: Rendah</string>
@@ -208,6 +209,7 @@
     <string name="account_section_header_settings">Pengaturan</string>
     <string name="account_status_text">%s Akun BLOKADA Anda aktif sampai %s.</string>
     <string name="account_status_text_libre">Akun BLOKADA Libre Anda telah aktif tanpa batas waktu.</string>
+    <string name="account_status_text_inactive">Akun BLOKADA Anda tidak aktif.</string>
     <string name="account_section_header_primary">Utama</string>
     <string name="account_section_header_other">Lainnya</string>
     <string name="account_action_my_account">Akun saya</string>
@@ -288,10 +290,20 @@
     <string name="payment_feature_desc_change_location">Sembunyikan IP address Anda agar terlihat seolah Anda berada di negara lain. Hal ini akan melindungi Anda dari pihak ketiga yang tidak bertanggungjawab, dan juga membantu melindungi identitas Anda.</string>
     <string name="payment_feature_title_encrypt_data">Enkripsi Data</string>
     <string name="payment_feature_desc_encrypt_data">Data yang dikirim melalui jalur VPN kami telah dienkripsi dengan algoritma yang kuat sehingga data Anda aman dari pihak-pihak yang tidak berkepentingan.</string>
+    <string name="payment_feature_title_encrypt_dns">Enkripsikan DNS</string>
+    <string name="payment_feature_desc_encrypt_dns">Tingkatkan privasi Anda dengan DNS terenkripsi. Blokada Cloud dengan protokol modern membantu menjaga privasi Anda.</string>
+    <string name="payment_feature_title_performance">Kinerja yang mumpuni</string>
+    <string name="payment_feature_desc_performance">Menjaga perangkat Anda tetap gegas dan koneksi internet Anda di kecepatan maksimal, berkat solusi Cloud baru dari kami.</string>
+    <string name="payment_feature_title_battery">Tidak mempengaruhi daya tahan baterai</string>
+    <string name="payment_feature_title_devices_cloud">Banyak Perangkat</string>
+    <string name="payment_feature_desc_devices_cloud">Set up semua perangkat Anda hanya dengan satu akun Blokada Cloud. Gunakan aplikasi atau dashboard web kami untuk pengaturan selanjutnya.</string>
+    <string name="payment_feature_title_cloud_vpn">Cloud &amp; VPN</string>
     <string name="payment_feature_title_faster_connection">Koneksi Lebih Cepat</string>
     <string name="payment_feature_desc_faster_connection">Koneksi cepat sampai dengan 100Mbps dengan server yang berlokasi di berbagai tempat di dunia.</string>
     <string name="payment_feature_title_devices">Hingga 5 perangkat</string>
     <string name="payment_feature_desc_devices">Gunakan akun yang sama untuk berbagi langganan VPN Anda di 5 perangkat: iOS, Android, atau PC.</string>
+    <string name="payment_feature_title_no_ads">Blokir Iklan</string>
+    <string name="payment_feature_desc_no_ads">Gunakan teknologi pemblokiran iklan milik Blokada yang sudah terkenal untuk memblokir iklan di perangkat Anda. Tersedia pula pengaturan lebih lanjut.</string>
     <string name="payment_feature_title_support">Dukungan yang Hebat</string>
     <string name="payment_feature_desc_support">Dapatkan respon cepat untuk semua pertanyaan, yang dimungkinkan oleh staf Customer Support kami dan komunitas open source yang sangat aktif.</string>
     <string name="payment_action_see_all_features">Lihat Semua Fitur</string>
@@ -333,6 +345,12 @@
     <string name="payment_label_country">Negara</string>
     <string name="payment_euro_desc">Kami berbasis di Eropa, mata uang yang kami terima berupa Euro: di mana €10 kira-kira senilai Rp170.000.</string>
     <string name="payment_donate_disclaimer">Donasi yang Anda berikan tidak akan mengaktifkan akun Blokada Plus. Jika Anda ingin menggunakan layanan VPN kami, silakan pilih opsi berlangganan.</string>
+    <string name="payment_action_compare">Bandingkan paket langganan</string>
+    <string name="payment_plan_slugline_cloud">Memblokir iklan &amp; pelacak</string>
+    <string name="payment_plan_slugline_plus">Perlindungan tambahan dengan VPN</string>
+    <string name="payment_plan_cta_trial">Mulai Trial Gratis 7 Hari</string>
+    <string name="payment_plan_cta_monthly">Langganan Bulanan</string>
+    <string name="payment_plan_cta_annual">Langganan Tahunan</string>
     <string name="apps_section_header">Aplikasi</string>
     <string name="apps_label_installed">Terinstal</string>
     <string name="apps_label_system">Sistem</string>
@@ -480,4 +498,5 @@
     <string name="stats_requests_subheader">Permintaan dalam periode waktu tertentu</string>
     <string name="stats_top_allowed_header">Permintaan teratas yang diizinkan</string>
     <string name="stats_top_blocked_header">Permintaan teratas yang diblokir</string>
+    <string name="dnsprofile_desc">Blokada baru saja membuat profil DNS untuk Anda, silakan lihat di Settings. Aktifkan profil tersebut di General -> VPN, DNS &amp; Pengaturan Perangkat -> DNS.</string>
 </resources>

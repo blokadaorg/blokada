@@ -145,6 +145,7 @@
 "home status detail progress" = "por favor, aguarde...";
 
 "home plus button deactivated" = "BLOKADA+ desativado";
+"home plus button deactivated cloud" = "VPN desativada";
 "home plus button select location" = "Selecionar local";
 "home plus button location" = "Localização: *%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "Configurações";
 "account status text" = "Sua conta BLOKADA %@ está ativa até %@.";
 "account status text libre" = "Sua conta BLOKADA Libre está ativa para sempre.";
+"account status text inactive" = "Sua conta BLOKADA está inativa.";
 
 "account section header primary" = "Primário";
 "account section header other" = "Outros";
@@ -353,10 +355,20 @@
 "payment feature desc change location" = "Oculte o seu endereço IP e finja que está em outro país. Isso irá mascará-lo de terceiros e ajuda a proteger sua identidade.";
 "payment feature title encrypt data" = "Criptografe seus dados";
 "payment feature desc encrypt data" = "Os dados enviados através de nosso túnel VPN são criptografados usando algoritmos fortes para proteger contra interceptação por partes não autorizadas.";
+"payment feature title encrypt dns" = "Criptografar DNS";
+"payment feature desc encrypt dns" = "Melhore sua privacidade com criptografia DNS. O Blokada Cloud usa protocolos modernos para ajudar a manter suas consultas privadas.";
+"payment feature title performance" = "Grande Desempenho";
+"payment feature desc performance" = "Mantenha seu dispositivo ágil e sua conexão com a Internet em velocidades máximas, graças à nossa nova solução Cloud.";
+"payment feature title battery" = "Sem Impacto na Bateria";
+"payment feature title devices cloud" = "Múltiplos Dispositivos";
+"payment feature desc devices cloud" = "Configure todos os seus dispositivos em uma assinatura do Blokada Cloud. Use nossos aplicativos móveis ou nosso painel da web.";
+"payment feature title cloud vpn" = "Cloud & VPN";
 "payment feature title faster connection" = "Conexão mais rápida";
 "payment feature desc faster connection" = "Ótimas velocidades de até 100Mbps com servidores em várias partes do Mundo.";
 "payment feature title devices" = "Até 5 dispositivos";
 "payment feature desc devices" = "Use a mesma conta para compartilhar sua assinatura com até 5 dispositivos: iOS, Android ou PC.";
+"payment feature title no ads" = "Bloquear Anúncios";
+"payment feature desc no ads" = "Use a tecnologia popular de bloqueio de anúncios do Blokada para bloquear anúncios em seus dispositivos. Configurações avançadas estão disponíveis.";
 "payment feature title support" = "Ótimo suporte";
 "payment feature desc support" = "Obtenha uma resposta rápida a qualquer pergunta, graças ao nosso Suporte ao Cliente e à vibrante comunidade de código aberto.";
 "payment action see all features" = "Ver Todos os Recursos";
@@ -404,6 +416,13 @@
 
 "payment euro desc" = "Nós nos baseamos na Europa, então aceitamos Euro: €10 é aproximadamente $12.";
 "payment donate disclaimer" = "Isso não vai ativar sua conta do Blokada Plus. Se você deseja usar nosso serviço de VPN, assine em vez de doar.";
+
+"payment action compare" = "Comparar planos";
+"payment plan slugline cloud" = "Bloqueia anúncios e rastreadores";
+"payment plan slugline plus" = "Proteção adicional com VPN";
+"payment plan cta trial" = "Iniciar o Teste de 7 Dias Grátis";
+"payment plan cta monthly" = "Assinar Mensalmente";
+"payment plan cta annual" = "Assinar Anualmente";
 
 "apps section header" = "Apps";
 "apps label installed" = "Instalado";
@@ -574,3 +593,5 @@
 "stats requests subheader" = "Consultas ao longo do tempo";
 "stats top allowed header" = "Principais solicitações permitidas";
 "stats top blocked header" = "Principais solicitações bloqueadas";
+
+"dnsprofile desc" = "O Blokada acabou de criar um perfil de DNS para você em Configurações. Ative-o em Geral -> VPN, Gerenciamento de DNS & Dispositivo -> DNS.";

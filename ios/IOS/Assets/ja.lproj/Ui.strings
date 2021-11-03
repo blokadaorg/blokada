@@ -147,6 +147,7 @@
 "home status detail progress" = "お待ちください...";
 
 "home plus button deactivated" = "BLOKADA+ は無効です";
+"home plus button deactivated cloud" = "VPN が無効になりました";
 "home plus button select location" = "接続先を選択";
 "home plus button location" = "接続先: *%@*";
 
@@ -254,8 +255,8 @@
 "networks permission request granted" = "Blokada がネットワーク名をバックグラウンドで読み込むと通知が表示されることがあります。";
 "networks section choose dns" = "DNS を選択";
 "networks summary encrypt dns" = "Blokada は暗号化された DNS に優先して接続します。これによりセキュリティが向上し、悪意のある人物があなたが使用するウェブサイトやアプリをスパイするのを防ぎます。";
-"networks summary use dns" = "Blokada はデバイスの DNS として %@ を使用します。ロックアイコン付きの暗号化された DNS サーバーを選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。";
-"networks summary network dns" = "Blokada はネットワーク DNS を使用し、使用できない場合は %@ に切り替えます。また、ネットワーク DNS を使用すると、DNS は暗号化されません。ネットワーク DNS を使用すると、ネットワーク上の接続の問題を解決するのに役立ちますが、保護されていない状態になります。";
+"networks summary use dns" = "Blokada はデバイスの DNS として %@ を使用します。ロックアイコン付きの暗号化された DNS を選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。";
+"networks summary network dns" = "Blokada はネットワーク DNS を使用し、使用できない場合は %@ に切り替えます。ネットワーク DNS を使用すると DNS は暗号化されません。ネットワーク上の接続の問題が解決される場合がありますが、保護されていない状態になります。";
 "networks summary network dns and plus mode" = "Blokada は、ネットワーク DNS が使用されるたびに Blokada Plus VPN を一時的に無効にします。これは VPN でネットワーク DNS にアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPN は自動的に復元されます。";
 "networks summary blocka plus mode" = "Blokada は Plus モードで Blokada DNS を使用して、高いレベルの暗号化と速度を確保します。DNS 選択画面の下部でこの設定を変更できます。";
 "networks summary force libre mode" = "Blokada は常にこのネットワーク上で Libre モードを使用し、Blokada Plus の接続先を無視します。追加の保護を必要としないネットワークでご利用ください。";
@@ -265,6 +266,7 @@
 "account section header settings" = "設定";
 "account status text" = "BLOKADA %@ - アカウントの有効期限は %@ です。";
 "account status text libre" = "BLOKADA Libre - 有効期限のない無料アカウントです。";
+"account status text inactive" = "BLOKADA アカウントは無効です";
 
 "account section header primary" = "メイン";
 "account section header other" = "その他";
@@ -319,7 +321,7 @@
 "account encrypt header level" = "暗号化レベル";
 "account encrypt label level" = "レベル";
 "account encrypt label level low" = "低: 暗号化なし";
-"account encrypt label level medium" = "中: DNSの暗号化";
+"account encrypt label level medium" = "中: DNS の暗号化";
 "account encrypt label level high" = "高: すべての暗号化";
 "account encrypt header explanation" = "DNS とは、あなたのデバイスをウェブサイトのあるサーバーへ案内するシステムです。BLOKADA は暗号化された DNS サーバーのみをサポートしています。";
 "account encrypt label dns" = "DNS";
@@ -355,10 +357,20 @@
 "payment feature desc change location" = "あなたの IP アドレスを非表示にして、あなたが他の国に居るように見せかけます。これは第三者からあなたを隠し、身元を保護するのに役立ちます。";
 "payment feature title encrypt data" = "データを暗号化";
 "payment feature desc encrypt data" = "当社の VPN トンネルを通じて送信されるデータは、権限のない当事者による傍受から保護するために強力なアルゴリズムを使用して暗号化されます。";
+"payment feature title encrypt dns" = "DNS を暗号化";
+"payment feature desc encrypt dns" = "DNS 暗号化でプライバシーを保護しましょう。Blokada Cloud は最新のプロトコルを使用してクエリをプライベートに保ちます。";
+"payment feature title performance" = "最適なパフォーマンス";
+"payment feature desc performance" = "新しいクラウドソリューションで、デバイスやインターネット接続の速度を快適に保ちます。";
+"payment feature title battery" = "バッテリー持ちへの影響なし";
+"payment feature title devices cloud" = "複数デバイス";
+"payment feature desc devices cloud" = "1 つの Blokada Cloud サブスクリプションをすべてのデバイスで共有できます。モバイルアプリまたはウェブダッシュボードから設定してください。";
+"payment feature title cloud vpn" = "Cloud & VPN";
 "payment feature title faster connection" = "より高速な接続";
 "payment feature desc faster connection" = "世界のさまざまな地域のサーバーで最高100Mbpsのスピードを実現します。";
 "payment feature title devices" = "最大5台のデバイス";
 "payment feature desc devices" = "1つのアカウントで最大5つのデバイス（iOS、Android、PC）を使用できます。";
+"payment feature title no ads" = "広告ブロック";
+"payment feature desc no ads" = "Blokada の広告ブロック技術を使用して、デバイス上の広告をブロックします。高度な設定が可能です。";
 "payment feature title support" = "丁寧なサポート";
 "payment feature desc support" = "当社のカスタマーサポートと活気のあるオープンソースコミュニティのおかげで、質問に迅速に対応できます。";
 "payment action see all features" = "すべての機能を見る";
@@ -408,6 +420,13 @@
 "payment euro desc" = "私たちはヨーロッパを拠点としているため、ユーロでお支払いいただいています。10ユーロはおよそ12ドルです。";
 "payment donate disclaimer" = "これにより、Blokada Plus アカウントは有効化されません。VPN サービスを利用したい場合は、寄付の代わりにサブスクリプションにご登録ください。";
 
+"payment action compare" = "プランを比較";
+"payment plan slugline cloud" = "広告とトラッカーをブロック";
+"payment plan slugline plus" = "VPN による追加保護";
+"payment plan cta trial" = "7 日間の無料トライアルを始める";
+"payment plan cta monthly" = "月額プラン";
+"payment plan cta annual" = "年額プラン";
+
 "apps section header" = "アプリ";
 "apps label installed" = "インストール済み";
 "apps label system" = "システム";
@@ -450,11 +469,11 @@
 "location region australia" = "オーストラリア";
 
 "homepage header what is blokada" = "Blokada とは？";
-"homepage desc what is blokada" = "アプリに関する基本情報を学びましょう。";
+"homepage desc what is blokada" = "アプリについて";
 "homepage desc download" = "あなたのプラットフォームに最適なバージョンの Blokada をダウンロードします。";
-"homepage desc community" = "私たちのコミュニティに参加しましょう。";
-"homepage header support" = "私たちを支援してください";
-"homepage desc support" = "私たちがプロジェクトを続けるのを助けるために寄付してください。";
+"homepage desc community" = "コミュニティに参加しませんか？";
+"homepage header support" = "支援のお願い";
+"homepage desc support" = "プロジェクトの継続のために寄付してください。";
 "homepage action faq" = "FAQ";
 "homepage action vpn" = "VPN";
 "homepage action opinions" = "レビュー";
@@ -462,24 +481,23 @@
 "homepage action source" = "ソース";
 "homepage action forums" = "フォーラム";
 "homepage action dashboard" = "ダッシュボード";
-"homepage about footer" = "連絡先";
+"homepage about footer" = "Official";
 "homepage hero title" = "プライバシーアプリ";
 "homepage hero subtitle" = "無料でオープンソース";
-"homepage hero desc" = "Blokada は、Android と iOS 向けの広告ブロッカーでありプライバシーアプリです。
-オープンソースコミュニティによって開発・サポートされています。";
+"homepage hero desc" = "Blokada は、オープンソースで開発されている Android と iOS 向けの広告ブロッカーです。広告をブロックしプライバシー侵害のないインターネットをお楽しみください。";
 "homepage about title" = "Blokada 5 - 広告ブロッカー";
-"homepage about desc" = "1つのアプリで、広告・トラッカー・マルウェアのブロック、データ通信量の削減、デバイスのスピードアップ、プライバシーの保護を効率よくできる Blokada はあなたにぴったりです。そして Blokada は無料で安全なオープンソースです。";
+"homepage about desc" = "Blokada アプリ 1 つで、広告・トラッカー・マルウェアをブロックできます。それにより、通信量の削減、デバイスのスピードアップ、プライバシーの保護などの効果があります。また、Blokada は無料で安全なオープンソースです。";
 "homepage about point one" = "広告とトラッカーをブロック";
-"homepage about point two" = "すべてのアプリとブラウザで動作";
+"homepage about point two" = "すべてのアプリとブラウザーに有効";
 "homepage about point three" = "root 権限や Jailbreak が不要";
 "homepage about point four" = "安全設計（暗号化を壊さない）";
 "homepage about point five" = "信頼と無料を両立";
 
 "homepage about action faq" = "FAQ を見る";
-"homepage about action plus" = "Blokada Plusの詳細";
+"homepage about action plus" = "Blokada Plus の詳細";
 
 "homepage vpn title" = "Blokada 5 VPN";
-"homepage vpn desc" = "究極のプライバシー保護のために、Blokada Plus にアップグレードし、VPN経由で接続できます。 最先端の VPN プロトコルである WireGuard® を使用して、ネットワークのアクティビティを暗号化し、IP アドレスを隠します。";
+"homepage vpn desc" = "究極のプライバシー保護のために、Blokada Plus にアップグレードし、VPN 経由で接続できます。 最先端の VPN プロトコルである WireGuard® を使用して、ネットワークのアクティビティを暗号化し、IP アドレスを隠します。";
 "homepage vpn point one" = "帯域幅制限なし";
 "homepage vpn point two" = "高速で最先端の暗号化";
 "homepage vpn point three" = "アクティビティ ログの保存なし";
@@ -489,15 +507,15 @@
 "homepage faq header" = "よくある質問";
 "homepage faq action more" = "よくある質問を見る";
 "homepage faq title 1" = "どのような情報が Blokada に保存されますか？";
-"homepage faq desc 1" = "Blokada は、ネットワークのアクティビティを追跡または共有しません。 Blokada Plus を使用する場合は、技術的な理由から、サービスを維持するために必要な最小限のデータを収集する必要があります。 詳細についてはプライバシーポリシーをご覧ください。";
-"homepage faq title 2" = "私のプライバシーはどのように保護されますか?";
+"homepage faq desc 1" = "Blokada は、ネットワークのアクティビティを追跡または共有しません。 Blokada Plus を使用する場合は、技術的な理由から、サービスを維持するために必要な最小限のデータを収集する必要があります。詳細についてはプライバシーポリシーをご覧ください。";
+"homepage faq title 2" = "私のプライバシーはどのように保護されますか？";
 "homepage faq desc 2" = "Blokada は、デバイスにインストールされているアプリやブラウザーが、インターネットにプライベートデータ（いわゆるフィンガープリント）を送信することを防ぎます。また、一部のネットワークアクティビティ（DNS クエリ）を暗号化します。さらに保護が必要な場合、Blokada Plus を使用してデバイスを VPN 経由で接続し、WireGuard® プロトコルを使用してネットワークトラフィック全体を暗号化します。";
-"homepage faq title 3" = "Blokada Plus とは?";
-"homepage faq desc 3" = "Blokada Plus は、当社の安全で最新の VPN（仮想プライベートネットワーク）サービスです。これは、クラス最高の暗号化と低バッテリ使用を備えた高速プロトコルである WireGuard® を使用しています。Blokada Plus はすべてのネットワークアクティビティをリアルタイムで暗号化し、利用可能な最高レベルの保護を提供します。また、一般的な VPN 機能も利用できます。IP アドレスを非表示にしたり、位置情報を変更したり、地理的に制限されたコンテンツのブロックを解除したりできます。";
+"homepage faq title 3" = "Blokada Plus とは？";
+"homepage faq desc 3" = "Blokada Plus は、私たちの安全で最新の VPN（仮想プライベートネットワーク）サービスです。これは、クラス最高の暗号化と低バッテリー使用を備えた高速プロトコルである WireGuard® を使用しています。Blokada Plus はすべてのネットワークアクティビティをリアルタイムで暗号化し、利用可能な最高レベルの保護を提供します。また、一般的な VPN 機能も利用できます。IP アドレスを非表示にしたり、位置情報を変更したり、地理的に制限されたコンテンツのブロックを解除したりできます。";
 "homepage faq title 4" = "Blokada Plus にアップグレードする必要がありますか？";
 "homepage faq desc 4" = "いいえ、アップグレードは任意です。Blokada は無料のまま使い続けることができます。プライバシー保護をさらに強化したい場合や、VPN が提供する一般的な機能が必要な場合は、Blokada Plus へのアップグレードをお勧めします。";
 "homepage faq title 5" = "Blokada Plus 払い戻しポリシーとは何ですか？";
-"homepage faq desc 5" = "サブスクリプションを購入してから7日以内であれば返金できます。アプリを通じて私たちに連絡し、払い戻しをしてほしいと伝えるだけで構いません。";
+"homepage faq desc 5" = "サブスクリプションを購入してから 7 日以内であれば返金できます。アプリを通じて私たちに連絡し、払い戻しをしてほしいと伝えるだけで構いません。";
 "homepage faq title 6" = "Blokada の所在地";
 "homepage faq desc 6" = "私たちの拠点はプライバシーを厳格に取り扱うように求められるスウェーデンにあります。私たちのサーバーは世界中の多くの場所で利用できます。";
 
@@ -507,31 +525,31 @@
 "homepage download option android slim" = "Blokada 5 Slim for Android";
 "homepage download option android four" = "Blokada 4 for Android";
 "homepage download option ios" = "Blokada 5 for iOS";
-"homepage download option other" = "その他の OS 用の Blokada";
+"homepage download option other" = "Blokada for other platforms";
 "homepage download desc other" = "現在、他のプラットフォームで Blokada を使用できません。ただし、Blokada Plus ユーザーは、Windows、Linux、Mac、および Wireguard が利用可能なその他のプラットフォームで VPN を使用できます。";
 "homepage download desc ios" = "Blokada 5 は App Store で入手できます。";
 "homepage download action ios" = "App Store を開く";
 "homepage download desc android five" = "これは、<b>Android 7 以降を搭載したスマートフォンやタブレット向けの新しい推奨バージョン</b>です。Blokada 4 と比較して、よりシンプルで高速です。";
 "homepage download action android five" = "Blokada 5.apk";
 "homepage download action android five beta" = "Beta.apk";
-"homepage download desc android slim" = "Blokada Slim は<b>軽量版のアプリ</b>であり、Google Play ポリシーで許可されている機能のみが含まれています。";
+"homepage download desc android slim" = "Blokada Slim は Google Play ポリシーで許可されている機能のみが含まれる<b>軽量版</b>です。";
 "homepage download action android slim" = "Google Play を開く";
-"homepage download desc android four" = "私たちはまだ Blokada の古いバージョンをメンテナンスしています。Blokada 5 にない機能を搭載し、古いデバイスや Android TV でも動作します。";
+"homepage download desc android four" = "継続メンテナンスされている古いバージョンです。Blokada 5 にない機能を搭載し、低いバージョンのデバイスや Android TV でも動作します。";
 "homepage download action android four" = "Blokada 4.apk";
 "homepage download action android four fdroid" = "F-Droid を開く";
 
 "homepage community header" = "コミュニティ";
-"homepage community desc" = "Blokada はただのプライバシーアプリではありません。Blokada はプライバシーとデジタルウェルビーイングを大切にする人々のコミュニティでもあります。フォーラムで問題を話し合うことができます。他のソーシャルメディアやチャットから連絡することもできます。";
+"homepage community desc" = "Blokada はただの広告ブロックアプリではありません。Blokada はプライバシーとデジタルウェルビーイングを大切にする人々のコミュニティでもあります。フォーラムで問題を話し合うことができます。他のソーシャルメディアやチャットから参加することもできます。";
 "homepage community cta subheader" = "ぜひご参加ください！";
-"homepage community cta desc" = "私たちはユーザーのフィードバックに基づいています。何を考えているのか、何を改善し、何を維持すべきなのかを教えてください。";
+"homepage community cta desc" = "アプリはユーザーのフィードバックに基づいています。何を考えているのか、何を改善し、何を維持すべきなのかを教えてください。";
 "homepage community cta action" = "フォーラムに移動";
 "homepage community opinions" = "ユーザーの声";
 
 "homepage support header" = "プロジェクトを支援する";
-"homepage support desc" = "私たちの活動を気に入っていただけるなら、私たちをサポートすることを検討してください。それにより、新しい機能と改善を開発し続けることができます。そして、Blokada は永遠に無料かつオープンソースであり続けることができます。";
+"homepage support desc" = "私たちの活動を気に入っていただけたなら、私たちをサポートすることも検討してください。それにより、新しい機能と改善を開発し続けることができます。そして、Blokada は永遠に無料かつオープンソースであり続けることができます。";
 "homepage support cta header" = "Blokada はあなたのご協力を必要としています";
 "homepage support cta desc" = "Blokada はオープンソースプロジェクトです。つまり、常に無料であり、安全性に影響を及ぼす隠れた問題がないことを確認することができるということです。私たちは、これが信頼できるプライバシーアプリを開発する唯一の方法だと確信しています。";
-"homepage support cta desc more" = "しかし、Blokada のような質の高いアプリを開発するには、かなりのリソースが必要です。このプロジェクトは、あなたのような素晴らしい人々の支援のおかげで存在します！";
+"homepage support cta desc more" = "しかし、Blokada のような質の高いアプリを開発するには、かなりのリソースが必要です。このプロジェクトは、素晴らしい人々の支援のおかげで存在します！";
 "homepage support cta action" = "寄付（カード、Paypal）";
 "homepage support cta action alt" = "寄付（銀行振込、暗号資産）";
 
@@ -578,3 +596,5 @@
 "stats requests subheader" = "時間の経過とクエリ";
 "stats top allowed header" = "よく許可されるリクエスト";
 "stats top blocked header" = "よくブロックされるリクエスト";
+
+"dnsprofile desc" = "あなたの DNS プロファイルを作成しました。[General] -> [VPN, DNS & Device Management] -> [DNS] で設定できます。";

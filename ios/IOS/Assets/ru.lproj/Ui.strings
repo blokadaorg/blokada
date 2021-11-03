@@ -145,6 +145,7 @@
 "home status detail progress" = "подождите пожалуйста...";
 
 "home plus button deactivated" = "BLOKADA+ деактивирована";
+"home plus button deactivated cloud" = "VPN деактивирован";
 "home plus button select location" = "Выберите местоположение";
 "home plus button location" = "Местоположение: *%@*";
 
@@ -263,6 +264,7 @@
 "account section header settings" = "Настройки";
 "account status text" = "Ваш аккаунт BLOKADA %@ активен до %@.";
 "account status text libre" = "Ваш аккаунт BLOKADA Libre активен бессрочно.";
+"account status text inactive" = "Ваш аккаунт BLOKADA неактивен.";
 
 "account section header primary" = "Главное";
 "account section header other" = "Другое";
@@ -353,10 +355,20 @@
 "payment feature desc change location" = "Спрячьте свой IP-адрес и притворитесь, что вы находитесь в другой стране. Это замаскирует вас от третьих лиц и поможет защитить вашу идентичность.";
 "payment feature title encrypt data" = "Данные зашифрованы";
 "payment feature desc encrypt data" = "Данные, передаваемые через наш VPN-туннель, шифруются при помощи сложных алгоритмов для защиты от перехвата посторонними лицами.";
+"payment feature title encrypt dns" = "Шифровать DNS";
+"payment feature desc encrypt dns" = "Повысьте уровень конфиденциальности с помощью шифрования DNS. Blokada Cloud использует современные протоколы для обеспечения конфиденциальности ваших запросов.";
+"payment feature title performance" = "Отличная производительность";
+"payment feature desc performance" = "Поддерживайте быстродействие вашего устройства и максимальную скорость подключения к интернету благодаря нашему новому облачному решению.";
+"payment feature title battery" = "Никакого влияния на батарею";
+"payment feature title devices cloud" = "Несколько устройств";
+"payment feature desc devices cloud" = "Объедините все свои устройства под одной подпиской Blokada Cloud. Используйте наши мобильные приложения или веб-панель управления.";
+"payment feature title cloud vpn" = "Cloud и VPN";
 "payment feature title faster connection" = "Более быстрое соединение";
 "payment feature desc faster connection" = "Высокие скорости до 100 Мбит/с с серверами в различных частях света.";
 "payment feature title devices" = "До 5 устройств";
 "payment feature desc devices" = "Используйте одну и ту же учетную запись, чтобы поделиться подпиской с 5 устройствами: iOS, Android или PC.";
+"payment feature title no ads" = "Блокировка рекламы";
+"payment feature desc no ads" = "Используйте популярную технологию Blokada для блокировки рекламы на ваших устройствах. Доступны расширенные настройки.";
 "payment feature title support" = "Отличная поддержка";
 "payment feature desc support" = "Получите быстрый ответ на любые вопросы через нашу службу поддержки клиентов и активное сообщество разработчиков По с открытым исходным кодом.";
 "payment action see all features" = "Посмотреть все функции";
@@ -404,6 +416,13 @@
 
 "payment euro desc" = "Мы находимся в Европе, поэтому мы принимаем евро: €10 - это примерно $12.";
 "payment donate disclaimer" = "Это не активирует ваш аккаунт Blokada Plus. Если вы хотите использовать наш сервис VPN, пожалуйста, подпишитесь вместо того, чтобы сделать пожертвование.";
+
+"payment action compare" = "Сравните тарифы";
+"payment plan slugline cloud" = "Блокировка рекламы и трекеров";
+"payment plan slugline plus" = "Дополнительная защита с помощью VPN";
+"payment plan cta trial" = "Начните 7-дневную бесплатную пробную версию";
+"payment plan cta monthly" = "Подписка на месяц";
+"payment plan cta annual" = "Подписка на год";
 
 "apps section header" = "Приложения";
 "apps label installed" = "Установленные";
@@ -574,3 +593,5 @@
 "stats requests subheader" = "Запросы по времени";
 "stats top allowed header" = "Топ разрешенных запросов";
 "stats top blocked header" = "Топ заблокированных запросов";
+
+"dnsprofile desc" = "Blokada только что создала для вас профиль DNS в Настройках. Активируйте его в разделе Общие -> VPN, DNS и управление устройствами -> DNS.";

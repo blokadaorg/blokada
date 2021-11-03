@@ -249,6 +249,7 @@
 "account section header settings" = "Paramètres";
 "account status text" = "Votre compte BLOKADA %@ est actif jusqu'au %@.";
 "account status text libre" = "Votre compte BLOKADA Libre est actif pour toujours.";
+"account status text inactive" = "Votre compte BLOKADA est inactif.";
 
 "account section header primary" = "Principal";
 "account section header other" = "Autre";
@@ -338,6 +339,8 @@
 "payment feature desc change location" = "Masquez votre adresse IP et apparaissez dans un autre pays. Cela protégera votre identité.";
 "payment feature title encrypt data" = "Chiffrement des données";
 "payment feature desc encrypt data" = "Les données transitant par notre tunnel VPN sont chiffrées avec de puissants algorithmes pour les prémunir d'une interception par de tierces parties.";
+"payment feature title performance" = "Grande performance";
+"payment feature title devices cloud" = "Plusieurs appareils";
 "payment feature title faster connection" = "Connexion plus rapide";
 "payment feature desc faster connection" = "Des vitesses exceptionnelles allant jusqu'à 100 Mbps avec des serveurs partout dans le monde.";
 "payment feature title devices" = "Jusqu'à 5 appareils";
@@ -389,6 +392,11 @@
 
 "payment euro desc" = "Nous sommes basés en Europe, nous acceptons donc les règlements en euro : 10€ vaut environ 12$.";
 "payment donate disclaimer" = "Ceci n'activera pas votre compte Blokada Plus. Si vous voulez utiliser notre service VPN, veuillez vous abonner au lieu de faire un don.";
+
+"payment action compare" = "Comparer les offres";
+"payment plan cta trial" = "Commencer l'essai gratuit de 7 jours";
+"payment plan cta monthly" = "S'abonner au mois";
+"payment plan cta annual" = "S'abonner à l'année";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installé";
