@@ -12,6 +12,7 @@ Work in progress
 - rustup target add aarch64-apple-ios
 
 ## build for ios
+- brew install swiftgen
 - check your account, signing certificates for the project
 - tap the run button
 
