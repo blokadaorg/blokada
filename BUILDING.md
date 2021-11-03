@@ -13,8 +13,6 @@ Work in progress
 - rustup target add aarch64-apple-ios
 
 ## build for ios
-- in ios dir: pods install
-- open the workspace file (not project) in xcode
-- check your signing certificates for the project
+- check your account, signing certificates for the project
 - tap the run button
 
