@@ -3,13 +3,12 @@
 
 import Foundation
 
-// swiftlint:disable superfluous_disable_command
-// swiftlint:disable file_length
+// swiftlint:disable superfluous_disable_command file_length implicit_return
 
 // MARK: - Strings
 
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
-// swiftlint:disable nesting type_body_length type_name
+// swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
   /// About
   internal static let accountActionAbout = L10n.tr("Ui", "account action about")
@@ -34,8 +33,8 @@ internal enum L10n {
   /// New device
   internal static let accountActionNewDevice = L10n.tr("Ui", "account action new device")
   /// Restoring account: %@
-  internal static func accountActionRestoring(_ p1: String) -> String {
-    return L10n.tr("Ui", "account action restoring", p1)
+  internal static func accountActionRestoring(_ p1: Any) -> String {
+    return L10n.tr("Ui", "account action restoring", String(describing: p1))
   }
   /// Tap to show
   internal static let accountActionTapToShow = L10n.tr("Ui", "account action tap to show")
@@ -52,12 +51,12 @@ internal enum L10n {
   /// Not available
   internal static let accountDevicesNotAvailable = L10n.tr("Ui", "account devices not available")
   /// %@ out of %@
-  internal static func accountDevicesOutOf(_ p1: String, _ p2: String) -> String {
-    return L10n.tr("Ui", "account devices out of", p1, p2)
+  internal static func accountDevicesOutOf(_ p1: Any, _ p2: Any) -> String {
+    return L10n.tr("Ui", "account devices out of", String(describing: p1), String(describing: p2))
   }
   /// Devices remaining: %@
-  internal static func accountDevicesRemaining(_ p1: String) -> String {
-    return L10n.tr("Ui", "account devices remaining", p1)
+  internal static func accountDevicesRemaining(_ p1: Any) -> String {
+    return L10n.tr("Ui", "account devices remaining", String(describing: p1))
   }
   /// Turn on BLOKADA
   internal static let accountEncryptActionTurnOn = L10n.tr("Ui", "account encrypt action turn on")
@@ -152,16 +151,16 @@ internal enum L10n {
   /// Subscription
   internal static let accountSectionHeaderSubscription = L10n.tr("Ui", "account section header subscription")
   /// Your BLOKADA %@ account is active until %@.
-  internal static func accountStatusText(_ p1: String, _ p2: String) -> String {
-    return L10n.tr("Ui", "account status text", p1, p2)
+  internal static func accountStatusText(_ p1: Any, _ p2: Any) -> String {
+    return L10n.tr("Ui", "account status text", String(describing: p1), String(describing: p2))
   }
   /// Your BLOKADA account is inactive.
   internal static let accountStatusTextInactive = L10n.tr("Ui", "account status text inactive")
   /// Your BLOKADA Libre account is active until forever.
   internal static let accountStatusTextLibre = L10n.tr("Ui", "account status text libre")
   /// Days remaining: %@
-  internal static func accountSubscriptionDaysRemaining(_ p1: String) -> String {
-    return L10n.tr("Ui", "account subscription days remaining", p1)
+  internal static func accountSubscriptionDaysRemaining(_ p1: Any) -> String {
+    return L10n.tr("Ui", "account subscription days remaining", String(describing: p1))
   }
   /// Payment method
   internal static let accountSubscriptionHeaderPaymentMethod = L10n.tr("Ui", "account subscription header payment method")
@@ -214,8 +213,8 @@ internal enum L10n {
   /// Blocked only
   internal static let activityFilterShowBlocked = L10n.tr("Ui", "activity filter show blocked")
   /// %@ times
-  internal static func activityHappenedManyTimes(_ p1: String) -> String {
-    return L10n.tr("Ui", "activity happened many times", p1)
+  internal static func activityHappenedManyTimes(_ p1: Any) -> String {
+    return L10n.tr("Ui", "activity happened many times", String(describing: p1))
   }
   /// 1 time
   internal static let activityHappenedOneTime = L10n.tr("Ui", "activity happened one time")
@@ -226,8 +225,8 @@ internal enum L10n {
   /// This request has been allowed.
   internal static let activityRequestAllowed = L10n.tr("Ui", "activity request allowed")
   /// This request has been allowed, because it's present on the *%@* blocklist.
-  internal static func activityRequestAllowedList(_ p1: String) -> String {
-    return L10n.tr("Ui", "activity request allowed list", p1)
+  internal static func activityRequestAllowedList(_ p1: Any) -> String {
+    return L10n.tr("Ui", "activity request allowed list", String(describing: p1))
   }
   /// This request has been allowed, as it's not present on any of your configured blocklists.
   internal static let activityRequestAllowedNoList = L10n.tr("Ui", "activity request allowed no list")
@@ -238,8 +237,8 @@ internal enum L10n {
   /// This request has been blocked, because it is on your Blocked list
   internal static let activityRequestBlockedBlacklisted = L10n.tr("Ui", "activity request blocked blacklisted")
   /// This request has been blocked, because it's present on the *%@* blocklist.
-  internal static func activityRequestBlockedList(_ p1: String) -> String {
-    return L10n.tr("Ui", "activity request blocked list", p1)
+  internal static func activityRequestBlockedList(_ p1: Any) -> String {
+    return L10n.tr("Ui", "activity request blocked list", String(describing: p1))
   }
   /// This request has been blocked, as it's not present on any of your configured blocklists.
   internal static let activityRequestBlockedNoList = L10n.tr("Ui", "activity request blocked no list")
@@ -280,8 +279,8 @@ internal enum L10n {
   /// Ooops!
   internal static let alertErrorHeader = L10n.tr("Ui", "alert error header")
   /// Blokada %@ is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.
-  internal static func alertUpdateBody(_ p1: String) -> String {
-    return L10n.tr("Ui", "alert update body", p1)
+  internal static func alertUpdateBody(_ p1: Any) -> String {
+    return L10n.tr("Ui", "alert update body", String(describing: p1))
   }
   /// BLOKADA+ expired
   internal static let alertVpnExpiredHeader = L10n.tr("Ui", "alert vpn expired header")
@@ -402,8 +401,8 @@ internal enum L10n {
   /// VPN deactivated
   internal static let homePlusButtonDeactivatedCloud = L10n.tr("Ui", "home plus button deactivated cloud")
   /// Location: *%@*
-  internal static func homePlusButtonLocation(_ p1: String) -> String {
-    return L10n.tr("Ui", "home plus button location", p1)
+  internal static func homePlusButtonLocation(_ p1: Any) -> String {
+    return L10n.tr("Ui", "home plus button location", String(describing: p1))
   }
   /// Select location
   internal static let homePlusButtonSelectLocation = L10n.tr("Ui", "home plus button select location")
@@ -424,8 +423,8 @@ internal enum L10n {
   /// Blokada *Slim* is active
   internal static let homeStatusDetailActiveSlim = L10n.tr("Ui", "home status detail active slim")
   /// blocked *%@* ads and trackers
-  internal static func homeStatusDetailActiveWithCounter(_ p1: String) -> String {
-    return L10n.tr("Ui", "home status detail active with counter", p1)
+  internal static func homeStatusDetailActiveWithCounter(_ p1: Any) -> String {
+    return L10n.tr("Ui", "home status detail active with counter", String(describing: p1))
   }
   /// paused until timer ends
   internal static let homeStatusDetailPaused = L10n.tr("Ui", "home status detail paused")
@@ -601,7 +600,11 @@ internal enum L10n {
   internal static let homepageVpnTitle = L10n.tr("Ui", "homepage vpn title")
   /// Blokada is Active!
   internal static let introHeader = L10n.tr("Ui", "intro header")
-  /// A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.
+  /// A blue ring means that Blokada is working.
+  /// 
+  /// Remember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.
+  /// 
+  /// We recommend you activate Always on VPN / Connect on Demand in your system settings.
   internal static let introText = L10n.tr("Ui", "intro text")
   /// Choose a Location
   internal static let locationChoiceHeader = L10n.tr("Ui", "location choice header")
@@ -630,8 +633,8 @@ internal enum L10n {
   /// Would you help us by rating Blokada on App Store?
   internal static let mainRateUsOnAppStore = L10n.tr("Ui", "main rate us on app store")
   /// Blokada for iOS helped me block %@ ads and trackers!
-  internal static func mainShareMessage(_ p1: String) -> String {
-    return L10n.tr("Ui", "main share message", p1)
+  internal static func mainShareMessage(_ p1: Any) -> String {
+    return L10n.tr("Ui", "main share message", String(describing: p1))
   }
   /// Activity
   internal static let mainTabActivity = L10n.tr("Ui", "main tab activity")
@@ -648,8 +651,8 @@ internal enum L10n {
   /// Tap here to modify default settings. To make the app behave differently on some networks, tap below.
   internal static let networksActionNetworkSpecific = L10n.tr("Ui", "networks action network specific")
   /// Use DNS: %@
-  internal static func networksActionUseDns(_ p1: String) -> String {
-    return L10n.tr("Ui", "networks action use dns", p1)
+  internal static func networksActionUseDns(_ p1: Any) -> String {
+    return L10n.tr("Ui", "networks action use dns", String(describing: p1))
   }
   /// Prefer network DNS
   internal static let networksActionUseNetworkDns = L10n.tr("Ui", "networks action use network dns")
@@ -690,14 +693,14 @@ internal enum L10n {
   /// Blokada will always use Libre mode on this network, and ignore your Blokada Plus location. This is useful for networks where you do not want the additional protection.
   internal static let networksSummaryForceLibreMode = L10n.tr("Ui", "networks summary force libre mode")
   /// Blokada will use the network's DNS if available, or switch to %@ otherwise. Also, the Encrypt DNS settings will be ignored whenever network DNS is used. Using the network's DNS helps to fix connectivity problems on troublesome networks, but leaves you unprotected.
-  internal static func networksSummaryNetworkDns(_ p1: String) -> String {
-    return L10n.tr("Ui", "networks summary network dns", p1)
+  internal static func networksSummaryNetworkDns(_ p1: Any) -> String {
+    return L10n.tr("Ui", "networks summary network dns", String(describing: p1))
   }
   /// Blokada will temporarily disable Plus Mode whenever network DNS is used. This is because it is not possible to access network DNS in VPN. The Plus Mode will be automatically restored when your device switches to another network.
   internal static let networksSummaryNetworkDnsAndPlusMode = L10n.tr("Ui", "networks summary network dns and plus mode")
   /// Blokada will use %@ as your device's DNS. Choosing the one that allows for encryption (has the lock icon), and is near to you, will help protecting your data and making your connection fast.
-  internal static func networksSummaryUseDns(_ p1: String) -> String {
-    return L10n.tr("Ui", "networks summary use dns", p1)
+  internal static func networksSummaryUseDns(_ p1: Any) -> String {
+    return L10n.tr("Ui", "networks summary use dns", String(describing: p1))
   }
   /// Swipe the notification left or right for settings.
   internal static let notificationDescSettings = L10n.tr("Ui", "notification desc settings")
@@ -740,12 +743,12 @@ internal enum L10n {
   /// Compare plans
   internal static let paymentActionCompare = L10n.tr("Ui", "payment action compare")
   /// Pay %@
-  internal static func paymentActionPay(_ p1: String) -> String {
-    return L10n.tr("Ui", "payment action pay", p1)
+  internal static func paymentActionPay(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment action pay", String(describing: p1))
   }
   /// Pay %@ each period
-  internal static func paymentActionPayPeriod(_ p1: String) -> String {
-    return L10n.tr("Ui", "payment action pay period", p1)
+  internal static func paymentActionPayPeriod(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment action pay period", String(describing: p1))
   }
   /// Privacy Policy
   internal static let paymentActionPolicy = L10n.tr("Ui", "payment action policy")
@@ -773,11 +776,11 @@ internal enum L10n {
   internal static let paymentDonateDisclaimer = L10n.tr("Ui", "payment donate disclaimer")
   /// We are based in Europe, so we accept Euro: €10 is roughly $12.
   internal static let paymentEuroDesc = L10n.tr("Ui", "payment euro desc")
-  /// Your battery life is going to be the same, with our without Blokada Cloud activated.
+  /// Your battery life is going to be the same, with or without Blokada Cloud activated.
   internal static let paymentFeatureDescBattery = L10n.tr("Ui", "payment feature desc battery")
   /// Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.
   internal static let paymentFeatureDescChangeLocation = L10n.tr("Ui", "payment feature desc change location")
-  /// Enjoy all the features of Blokada Cloud. Aditionally, get access to our VPN network.
+  /// Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.
   internal static let paymentFeatureDescCloudVpn = L10n.tr("Ui", "payment feature desc cloud vpn")
   /// Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.
   internal static let paymentFeatureDescDevices = L10n.tr("Ui", "payment feature desc devices")
@@ -828,8 +831,8 @@ internal enum L10n {
   /// Country
   internal static let paymentLabelCountry = L10n.tr("Ui", "payment label country")
   /// Save %@ (%@ / mo)
-  internal static func paymentLabelDiscount(_ p1: String, _ p2: String) -> String {
-    return L10n.tr("Ui", "payment label discount", p1, p2)
+  internal static func paymentLabelDiscount(_ p1: Any, _ p2: Any) -> String {
+    return L10n.tr("Ui", "payment label discount", String(describing: p1), String(describing: p2))
   }
   /// Email
   internal static let paymentLabelEmail = L10n.tr("Ui", "payment label email")
@@ -870,22 +873,22 @@ internal enum L10n {
   /// Redirecting...
   internal static let paymentRedirectLabel = L10n.tr("Ui", "payment redirect label")
   /// You are saving %@
-  internal static func paymentSaveText(_ p1: String) -> String {
-    return L10n.tr("Ui", "payment save text", p1)
+  internal static func paymentSaveText(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment save text", String(describing: p1))
   }
   /// 1 Month
   internal static let paymentSubscription1Month = L10n.tr("Ui", "payment subscription 1 month")
   /// %@ Months
-  internal static func paymentSubscriptionManyMonths(_ p1: String) -> String {
-    return L10n.tr("Ui", "payment subscription many months", p1)
+  internal static func paymentSubscriptionManyMonths(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment subscription many months", String(describing: p1))
   }
   /// Save %@
-  internal static func paymentSubscriptionOffer(_ p1: String) -> String {
-    return L10n.tr("Ui", "payment subscription offer", p1)
+  internal static func paymentSubscriptionOffer(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment subscription offer", String(describing: p1))
   }
   /// %@ per month
-  internal static func paymentSubscriptionPerMonth(_ p1: String) -> String {
-    return L10n.tr("Ui", "payment subscription per month", p1)
+  internal static func paymentSubscriptionPerMonth(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment subscription per month", String(describing: p1))
   }
   /// Your account is now active! You may now use all Blokada Plus features on all your devices.
   internal static let paymentSuccessDesc = L10n.tr("Ui", "payment success desc")
@@ -908,16 +911,16 @@ internal enum L10n {
   /// (unnamed)
   internal static let setupNameLabelUnnamed = L10n.tr("Ui", "setup name label unnamed")
   /// Alternative: %@
-  internal static func setupOptionLabelAlternative(_ p1: String) -> String {
-    return L10n.tr("Ui", "setup option label alternative", p1)
+  internal static func setupOptionLabelAlternative(_ p1: Any) -> String {
+    return L10n.tr("Ui", "setup option label alternative", String(describing: p1))
   }
   /// Recommended: %@
-  internal static func setupOptionLabelRecommended(_ p1: String) -> String {
-    return L10n.tr("Ui", "setup option label recommended", p1)
+  internal static func setupOptionLabelRecommended(_ p1: Any) -> String {
+    return L10n.tr("Ui", "setup option label recommended", String(describing: p1))
   }
   /// Step %@: %@
-  internal static func setupStep(_ p1: String, _ p2: String) -> String {
-    return L10n.tr("Ui", "setup step", p1, p2)
+  internal static func setupStep(_ p1: Any, _ p2: Any) -> String {
+    return L10n.tr("Ui", "setup step", String(describing: p1), String(describing: p2))
   }
   /// Apply the new configuration
   internal static let setupStepApplyConfig = L10n.tr("Ui", "setup step apply config")
@@ -1065,16 +1068,25 @@ internal enum L10n {
   internal static let webVpnDevicesOpenAction = L10n.tr("Ui", "web vpn devices open action")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
-// swiftlint:enable nesting type_body_length type_name
+// swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
 
 // MARK: - Implementation Details
 
 extension L10n {
   private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
-    // swiftlint:disable:next nslocalizedstring_key
-    let format = NSLocalizedString(key, tableName: table, bundle: Bundle(for: BundleToken.self), comment: "")
+    let format = BundleToken.bundle.localizedString(forKey: key, value: nil, table: table)
     return String(format: format, locale: Locale.current, arguments: args)
   }
 }
 
-private final class BundleToken {}
+// swiftlint:disable convenience_type
+private final class BundleToken {
+  static let bundle: Bundle = {
+    #if SWIFT_PACKAGE
+    return Bundle.module
+    #else
+    return Bundle(for: BundleToken.self)
+    #endif
+  }()
+}
+// swiftlint:enable convenience_type
