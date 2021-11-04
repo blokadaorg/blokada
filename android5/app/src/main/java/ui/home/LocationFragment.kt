@@ -153,6 +153,7 @@ class LocationFragment : BottomSheetFragment() {
             "DE" -> R.drawable.flag_de
             "CH" -> R.drawable.flag_ch
             "AU" -> R.drawable.flag_au
+            "SG" -> R.drawable.flag_sg
             else -> {
                 Logger.w("Location", "No flag asset for: ${location.country}")
                 R.drawable.ic_baseline_location_on_24

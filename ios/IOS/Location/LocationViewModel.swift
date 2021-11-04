@@ -60,6 +60,8 @@ struct LocationViewModel {
             return "flag_ch"
         case "AU":
             return "flag_au"
+        case "SG":
+            return "flag_sg"
         default:
             return "flag_us"
         }
