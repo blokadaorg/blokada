@@ -243,6 +243,17 @@ object PackDataSource {
             configs = listOf("Standard")
         )
             .changeStatus(config = "Standard")
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/d3host/standard/hosts.txt", "https://raw.githubusercontent.com/d3ward/toolz/master/src/d3host.txt"), applyFor = "Standard"))
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/d3host/standard/hosts.txt", "https://raw.githubusercontent.com/d3ward/toolz/master/src/d3host.txt"), applyFor = "Standard")),
+
+        Pack.mocked(id = "cyberthreatcoalition", tags = listOf(Pack.recommended, Pack.official, "phishing", "security", "covid19"),
+            title = "COVID-19 Cyber Thread Coalition",
+            slugline = "Protects from COVID-19 related cyber threads",
+            description = "This blocklist is maintained by a coalition of cybersecurity experts working to protect individuals and organizations from COVID-19-related cyber threats.",
+            creditName = "cyberthreatcoalition",
+            creditUrl = "https://go.blokada.org/cyberthreatcoalition",
+            configs = listOf("Vetted")
+        )
+            .changeStatus(config = "Vetted")
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/cyberthreatcoalition/vetted/hosts.txt", "https://blocklist.cyberthreatcoalition.org/vetted/domain.txt"), applyFor = "Vetted"))
     )
 }
