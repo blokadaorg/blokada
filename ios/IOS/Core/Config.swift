@@ -17,7 +17,7 @@ class Config {
     static let shared = Config()
 
     private init() {
-        iCloud.synchronizable = true
+        oldiCloud.synchronizable = true
     }
 
     private let log = Logger("Config")
@@ -26,7 +26,8 @@ class Config {
 
     // We persist config either on local storage, in the iCloud, or in RAM only
     private let localStorage = UserDefaults.standard
-    private let iCloud = KeychainSwift()
+    private let iCloud = NSUbiquitousKeyValueStore()
+    private let oldiCloud = KeychainSwift()
 
     private let _deviceToken = Atomic<DeviceToken?>(nil)
     private let _account = Atomic<Account?>(nil)
@@ -154,7 +155,7 @@ class Config {
     }
 
     func rateAppShown() -> Bool {
-        return iCloud.getBool("rateAppShown") ?? false
+        return iCloud.bool(forKey: "rateAppShown")
     }
 
     func deviceToken() -> DeviceToken? {
@@ -269,6 +270,7 @@ class Config {
     func markRateAppShown() {
         // Persist in the cloud to not bother same user again
         iCloud.set(true, forKey: "rateAppShown")
+        iCloud.synchronize()
 
         onMain {
             self.onConfigUpdated()
@@ -292,7 +294,16 @@ class Config {
     */
 
     private func loadAccount() -> Account? {
-        let result = iCloud.get("account")
+        var result = iCloud.string(forKey: "account")
+
+        if result == nil {
+            // A legacy read of the account - to be removed later
+            result = oldiCloud.get("account")
+            if result != nil {
+                log.w("Loaded account from old iCloud storage")
+            }
+        }
+
         guard let stringData = result else {
             log.w("No account loaded from config")
             return nil
@@ -318,6 +329,7 @@ class Config {
         }
 
         iCloud.set(body, forKey: "account")
+        iCloud.synchronize()
     }
 
     private func loadLease() -> Lease? {
