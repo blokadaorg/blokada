@@ -131,7 +131,7 @@ struct HomeView: View {
                         }
                         .opacity(self.vm.mainSwitch && self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
-                            self.activeSheet = .counter
+                            //self.activeSheet = .counter
                         }
 
                         VStack {
@@ -144,7 +144,7 @@ struct HomeView: View {
                         }
                         .opacity(self.vm.mainSwitch && !self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
-                            self.activeSheet = .counter
+                            //self.activeSheet = .counter
                         }
 
                         Text(L10n.homeStatusDetailProgress)
