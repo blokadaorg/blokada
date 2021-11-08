@@ -50,30 +50,32 @@ struct AccountView: View {
                         }
                     }
                 }
-                Section(header: Text(L10n.accountSectionHeaderSubscription)) {
-                    HStack {
-                        Text(L10n.accountLabelType)
-                        Spacer()
-                        Text(self.vm.type).foregroundColor(.secondary)
-                    }
-
-                    HStack {
-                        Text(L10n.accountLabelActiveUntil)
-                        Spacer()
-                        Text(self.vm.activeUntil).foregroundColor(.secondary)
-                    }
-
-                    if self.vm.active {
-                        Button(action: {
-                            self.vm.openManageSubscriptions()
-                        }) {
-                            Text(L10n.accountActionManageSubscription)
+                if self.vm.active {
+                    Section(header: Text(L10n.accountSectionHeaderSubscription)) {
+                        HStack {
+                            Text(L10n.accountLabelType)
+                            Spacer()
+                            Text(self.vm.type).foregroundColor(.secondary)
                         }
-                    } else {
-                        Button(action: {
-                            self.activeSheet = .plus
-                        }) {
-                            L10n.universalActionUpgrade.toBlokadaPlusText()
+
+                        HStack {
+                            Text(L10n.accountLabelActiveUntil)
+                            Spacer()
+                            Text(self.vm.activeUntil).foregroundColor(.secondary)
+                        }
+
+                        if self.vm.active {
+                            Button(action: {
+                                self.vm.openManageSubscriptions()
+                            }) {
+                                Text(L10n.accountActionManageSubscription)
+                            }
+                        } else {
+                            Button(action: {
+                                self.activeSheet = .plus
+                            }) {
+                                L10n.universalActionUpgrade.toBlokadaPlusText()
+                            }
                         }
                     }
                 }
