@@ -38,7 +38,10 @@ class HomeViewModel: ObservableObject {
             }
         }
         Config.shared.setOnConfigUpdated {
-            onMain { self.syncUiWithConfig() }
+            onMain {
+                self.syncUiWithConfig()
+                self.syncUiWithTunnel(done: { _, _ in } )
+            }
         }
         network.onStatusChanged = { status in
             onMain {

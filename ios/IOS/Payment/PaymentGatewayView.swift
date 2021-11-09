@@ -21,13 +21,21 @@ struct PaymentGatewayView: View {
     @State var showPrivacySheet = false
     @State var showPlusFeaturesSheet = false
 
+    private let networkDns = NetworkDnsService.shared
+
     var body: some View {
         if self.vm.accountActive {
             self.activeSheet = nil
-            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                //self.activeSheet = .activated
-                self.activeSheet = .dnsProfile
-            })
+            self.networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in
+                guard dnsEnabled == true else {
+                    // If not, show the prompt
+                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+                        //self.activeSheet = .activated
+                        self.activeSheet = .dnsProfile
+                    })
+                    return
+                }
+            }
         }
 
         return ZStack(alignment: .topTrailing) {
