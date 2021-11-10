@@ -102,6 +102,7 @@ class HomeViewModel: ObservableObject {
     @Published var vpnEnabled: Bool = false
 
     @Published var timerSeconds: Int = 0
+    private var timerBackgroundTask: UIBackgroundTaskIdentifier = .invalid
 
     @Published var accountActive = false
     @Published var accountType = ""
@@ -233,6 +234,7 @@ class HomeViewModel: ObservableObject {
     }
 
     func foreground() {
+        self.log.v("App entered foreground")
         syncUiWithConfig()
         onBackground {
             self.ensureAppStartedSuccessfully { error, _ in
@@ -283,6 +285,18 @@ class HomeViewModel: ObservableObject {
                     }
                 }}
             }
+        }
+
+        // We don't need the background task if we are in foreground
+        if timerSeconds != 0 {
+            self.endBackgroundTask()
+        }
+    }
+
+    func background() {
+        self.log.v("App entered background")
+        if timerSeconds != 0 {
+            self.registerBackgroundTask()
         }
     }
 
@@ -831,6 +845,23 @@ class HomeViewModel: ObservableObject {
             self.api.pause(seconds: 0, done: { _, _ in })
         } else {
             self.timerSeconds = 0
+        }
+        endBackgroundTask()
+    }
+
+    func registerBackgroundTask() {
+        self.log.v("Registering background task, time allowed: \(UIApplication.shared.backgroundTimeRemaining)")
+        timerBackgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.stopTimer()
+        }
+        assert(timerBackgroundTask != .invalid)
+    }
+      
+    func endBackgroundTask() {
+        if timerBackgroundTask != .invalid {
+        self.log.v("Background task ended")
+            UIApplication.shared.endBackgroundTask(timerBackgroundTask)
+            timerBackgroundTask = .invalid
         }
     }
 
