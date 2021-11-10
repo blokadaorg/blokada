@@ -837,33 +837,33 @@ class HomeViewModel: ObservableObject {
     private let decoder = initJsonDecoder()
     func refreshAdsCounter(delay: Bool, ok: @escaping Ok<Void> = { _ in }) {
         // Delay so that we get some entries on the activity list without the need to re-enter the app
-        bgThread.asyncAfter(deadline: .now() + TimeInterval(delay ? 3 : 0), execute: {
-            self.network.sendMessage(msg: "stats", skipReady: false) { error, result in
-                if error != nil {
-                    return self.log.w("refreshAdsCounter: failed sending stats message".cause(error))
-                }
-
-                guard let stats = result else {
-                    return self.log.e("refreshAdsCounter: could not read stats")
-                }
-
-                let jsonData = stats.data(using: .utf8)
-                guard let json = jsonData else {
-                    return self.log.e("refreshAdsCounter: failed getting json")
-                }
-
-                do {
-                    let s = try self.decoder.decode(Stats.self, from: json)
-                    onMain {
-                        self.blockedCounter = Int(s.denied)
-                        ActivityService.shared.setEntries(entries: s.entries)
-                        ok(())
-                    }
-                } catch {
-                    return self.log.e("refreshAdsCounter: Failed decoding account json".cause(error))
-                }
-            }
-        })
+//        bgThread.asyncAfter(deadline: .now() + TimeInterval(delay ? 3 : 0), execute: {
+//            self.network.sendMessage(msg: "stats", skipReady: false) { error, result in
+//                if error != nil {
+//                    return self.log.w("refreshAdsCounter: failed sending stats message".cause(error))
+//                }
+//
+//                guard let stats = result else {
+//                    return self.log.e("refreshAdsCounter: could not read stats")
+//                }
+//
+//                let jsonData = stats.data(using: .utf8)
+//                guard let json = jsonData else {
+//                    return self.log.e("refreshAdsCounter: failed getting json")
+//                }
+//
+//                do {
+//                    let s = try self.decoder.decode(Stats.self, from: json)
+//                    onMain {
+//                        self.blockedCounter = Int(s.denied)
+//                        ActivityService.shared.setEntries(entries: s.entries)
+//                        ok(())
+//                    }
+//                } catch {
+//                    return self.log.e("refreshAdsCounter: Failed decoding account json".cause(error))
+//                }
+//            }
+//        })
     }
 
     private func shouldShowRateScreen() -> Bool {
