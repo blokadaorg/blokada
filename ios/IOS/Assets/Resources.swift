@@ -27,6 +27,7 @@ extension Color {
     static let cBackground = Color(UIColor.systemBackground)
     static let cBackgroundSplash = Color(UIColor.systemBackground)
     static let cBackgroundNavBar = Color("Background")
+    static let cHomeBackground = Color("HomeBackground")
 
     static let cPrimaryBackground = Color(UIColor.systemBackground)
     static let cSecondaryBackground = Color(UIColor.secondarySystemBackground)
