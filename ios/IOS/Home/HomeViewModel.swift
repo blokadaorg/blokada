@@ -831,6 +831,14 @@ class HomeViewModel: ObservableObject {
                 self.stopTimer()
                 timer.invalidate()
             }
+
+            if var timeLeft = Int(exactly: UIApplication.shared.backgroundTimeRemaining.rounded()) {
+                // It starts from 29 usually, thats why +1
+                timeLeft += 1
+                if timeLeft % 10 == 0 {
+                    self.log.v("Background time left: \(timeLeft)s")
+                }
+            }
         }
     }
 
@@ -850,7 +858,7 @@ class HomeViewModel: ObservableObject {
     }
 
     func registerBackgroundTask() {
-        self.log.v("Registering background task, time allowed: \(UIApplication.shared.backgroundTimeRemaining)")
+        self.log.v("Registering background task")
         timerBackgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.stopTimer()
         }
