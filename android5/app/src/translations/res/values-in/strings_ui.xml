@@ -500,5 +500,7 @@
     <string name="stats_requests_subheader">Permintaan dalam periode waktu tertentu</string>
     <string name="stats_top_allowed_header">Permintaan teratas yang diizinkan</string>
     <string name="stats_top_blocked_header">Permintaan teratas yang diblokir</string>
-    <string name="dnsprofile_desc">Blokada baru saja membuat profil DNS untuk Anda, silakan lihat di Settings. Aktifkan profil tersebut di General -> VPN, DNS &amp; Pengaturan Perangkat -> DNS.</string>
+    <string name="dnsprofile_header">Enable Blokada in Settings</string>
+    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Open Settings</string>
 </resources>

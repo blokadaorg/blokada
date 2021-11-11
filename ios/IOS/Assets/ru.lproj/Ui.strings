@@ -596,4 +596,6 @@
 "stats top allowed header" = "Топ разрешенных запросов";
 "stats top blocked header" = "Топ заблокированных запросов";
 
-"dnsprofile desc" = "Blokada только что создала для вас профиль DNS в Настройках. Активируйте его в разделе Общие -> VPN, DNS и управление устройствами -> DNS.";
+"dnsprofile header" = "Включите Blokada в Настройках";
+"dnsprofile desc" = "В настройках устройства перейдите в раздел Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.";
+"dnsprofile action open settings" = "Открыть Настройки";

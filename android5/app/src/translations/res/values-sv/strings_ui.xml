@@ -99,13 +99,13 @@
     <string name="home_status_paused">Pausad</string>
     <string name="home_status_active">Aktiv</string>
     <string name="home_status_deactivated">Avaktiverad</string>
-    <string name="home_action_tap_to_activate">Tap to activate</string>
-    <string name="home_status_detail_paused">Paused until timer ends</string>
-    <string name="home_status_detail_active">Blocking *ads* and *trackers*</string>
-    <string name="home_status_detail_active_with_counter">Blocked *%s* ads and trackers</string>
+    <string name="home_action_tap_to_activate">Tryck för att aktivera</string>
+    <string name="home_status_detail_paused">Pausad tills att timern slutar</string>
+    <string name="home_status_detail_active">Blockerar *annonser* och *trackers*</string>
+    <string name="home_status_detail_active_with_counter">Blockerade *%s* annonser och trackers</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* är aktiv</string>
     <string name="home_status_detail_plus">*+* skyddar din *integritet*</string>
-    <string name="home_status_detail_progress">Please wait...</string>
+    <string name="home_status_detail_progress">Var god vänta...</string>
     <string name="home_plus_button_deactivated">BLOKADA+ inaktiverad</string>
     <string name="home_plus_button_deactivated_cloud">VPN inaktiverad</string>
     <string name="home_plus_button_select_location">Välj plats</string>
@@ -271,11 +271,11 @@
     <string name="account_lease_label_this_device"> (denna enhet)</string>
     <string name="account_lease_label_name">Enhetens namn</string>
     <string name="account_lease_label_location">Plats</string>
-    <string name="account_lease_label_generate">Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don\'t have our apps yet. Otherwise, we recommend using our native apps instead.</string>
+    <string name="account_lease_label_generate">Att välja en plats här kommer att generera en konfigurationsfil som du kan använda i alla VPN-appar som stöder WireGuard. Detta är användbart för plattformar där vi ännu inte har någon egen app. Annars rekommenderar vi att du använder våra egna appar istället.</string>
     <string name="account_lease_action_generate">Generera konfiguration</string>
     <string name="account_lease_action_download">Ladda ner konfiguration</string>
-    <string name="account_lease_generated">Device added! Download the configuration to use it on any device supported by WireGuard.</string>
-    <string name="account_lease_wireguard_desc">Blokada uses WireGuard. Configurations can be downloaded when creating new devices.</string>
+    <string name="account_lease_generated">Enheten tillagd! Ladda ner konfigurationen för att använda den på enheter som stöds av WireGuard.</string>
+    <string name="account_lease_wireguard_desc">Blokada använder Wireguard. Konfigurationer kan laddas ner när du skapar nya enheter.</string>
     <string name="account_lease_label_dns">DNS</string>
     <string name="account_lease_action_dns">Välj en DNS</string>
     <string name="account_lease_label_public_key">Publik nyckel</string>
@@ -291,7 +291,7 @@
     <string name="payment_feature_title_encrypt_data">Kryptera data</string>
     <string name="payment_feature_desc_encrypt_data">Data som skickas via vår VPN-tunnel krypteras med hjälp av starka algoritmer för att skydda mot avlyssning av obehöriga parter.</string>
     <string name="payment_feature_title_encrypt_dns">Kryptera DNS</string>
-    <string name="payment_feature_desc_encrypt_dns">Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.</string>
+    <string name="payment_feature_desc_encrypt_dns">Förbättra din integritet med DNS-kryptering. Blokada Cloud använder moderna protokoll för att hålla din trafik privat.</string>
     <string name="payment_feature_title_performance">Utmärkt prestanda</string>
     <string name="payment_feature_desc_performance">Behåll din enhet snabb och utnyttja din internetanslutning till fullo, tack vare vår nya molnlösning.</string>
     <string name="payment_feature_title_battery">Påverkar inte batteritiden</string>
@@ -421,7 +421,7 @@
     <string name="homepage_vpn_point_two">Snabb &amp; modern kryptering</string>
     <string name="homepage_vpn_point_three">Ingen loggning av din nätverksaktivitet</string>
     <string name="homepage_vpn_point_four">Anslut upp till 5 enheter</string>
-    <string name="homepage_vpn_credit">\'WireGuard\' and the \'WireGuard\' logo are registered trademarks of Jason A. Donenfeld.</string>
+    <string name="homepage_vpn_credit">\'WireGuard\' och logotypen \'WireGuard\' är registrerade varumärken som tillhör Jason A. Donenfeld.</string>
     <string name="homepage_faq_header">Vanliga frågor</string>
     <string name="homepage_faq_action_more">Se fler vanliga frågor</string>
     <string name="homepage_faq_title_one">Vilken information sparar Blokada?</string>
@@ -443,7 +443,7 @@
     <string name="homepage_download_option_android_four">Blokada 4 för Android</string>
     <string name="homepage_download_option_ios">Blokada 5 för iOS</string>
     <string name="homepage_download_option_other">Blokada för andra plattformar</string>
-    <string name="homepage_download_desc_other">Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.</string>
+    <string name="homepage_download_desc_other">För närvarande tillhandahåller vi inte Blokada för andra plattformar. Men om du är en Blokada Plus-användare kan du använda vår VPN-tjänst på Windows, Linux, Mac och andra plattformar där WireGuard finns tillgänglig.</string>
     <string name="homepage_download_desc_ios">Blokada 5 är helt enkelt tillgänglig på App Store.</string>
     <string name="homepage_download_action_ios">Öppna App Store</string>
     <string name="homepage_download_desc_android_five">Detta är vår nya, rekommenderade version <b>för smartphones och surfplattor med Android 7 eller nyare</b>. Den är enklare och snabbare jämfört med Blokada 4.</string>
@@ -481,7 +481,7 @@
     <string name="setup_desc">Det finns många sätt att konfigurera din enhet för att använda Blokada Cloud. Välj den som fungerar bäst för dig.</string>
     <string name="setup_label_which_device">Vilken typ av enhet vill du konfigurera?</string>
     <string name="setup_label_choose">Välj något av följande konfigurationsalternativ:</string>
-    <string name="setup_comment_wireguard">Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. \'WireGuard\' and the \'WireGuard\' logo are registered trademarks of Jason A. Donenfeld.</string>
+    <string name="setup_comment_wireguard">Obs: VPN-konfigurationen kommer att använda Blokada Cloud som standard. Välj en annan DNS-inställning om du vill undvika denna tjänst. \'WireGuard\' och \'WireGuard\' logotypen är registrerade varumärken som tillhör Jason A. Donenfeld.</string>
     <string name="setup_comment_native_apps">Obs: Appar för Android och iOS stöder inte Blokada Cloud ännu. Vi arbetar på en uppdatering.</string>
     <string name="setup_step">Steg %s: %s</string>
     <string name="setup_option_label_recommended">Rekommenderat: %s</string>
@@ -493,12 +493,14 @@
     <string name="setup_step_install">Installera och starta vår app</string>
     <string name="setup_step_enter_tag">När du blir tillfrågad, ange din tagg</string>
     <string name="setup_step_download_profile">Generera och ladda ner din profil</string>
-    <string name="setup_step_install_wireguard">Install and start WireGuard</string>
+    <string name="setup_step_install_wireguard">Installera och starta WireGuard</string>
     <string name="stats_header">Statistik</string>
     <string name="stats_ratio_header">Förhållande</string>
     <string name="stats_requests_header">Förfrågningar</string>
     <string name="stats_requests_subheader">Frågor över tid</string>
     <string name="stats_top_allowed_header">Flest tillåtna förfrågningarna</string>
     <string name="stats_top_blocked_header">Flest blockerade förfrågningarna</string>
-    <string name="dnsprofile_desc">Blokada har precis skapat en DNS-profil för dig i Inställningar. Aktivera den i Allmänt -> VPN och enhetshantering -> DNS.</string>
+    <string name="dnsprofile_header">Aktivera Blokada i Inställningar</string>
+    <string name="dnsprofile_desc">I appen Inställningar, navigera till Allmänt → VPN &amp; enhetshantering → DNS och välj Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Öppna Inställningar</string>
 </resources>

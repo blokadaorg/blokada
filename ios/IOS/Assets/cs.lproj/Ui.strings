@@ -596,4 +596,6 @@
 "stats top allowed header" = "Nejvíce povolené žádosti";
 "stats top blocked header" = "Nejvíce blokované žádosti";
 
-"dnsprofile desc" = "Blokada pro vás právě vytvořila v Nastavení profil DNS. Aktivujte jej v sekci Obecné -> VPN, DNS a správa zařízení -> DNS.";
+"dnsprofile header" = "Enable Blokada in Settings";
+"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile action open settings" = "Open Settings";

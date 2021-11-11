@@ -182,10 +182,10 @@
 "activity request allowed" = "تمّ السماح لهذا الطلب.";
 "activity request allowed whitelisted" = "تمّ السماح لهذا الطلب، لأنّه موجود في قائمة السماح";
 "activity request blocked blacklisted" = "تمّ حَظْر هذا الطلب، لأنّه موجود في قائمة الحَظْر";
-"activity request allowed list" = "This request has been allowed, because it's present on the *%@* allowlist.";
+"activity request allowed list" = "تمّ السماح لهذا الطلب، لأنّه موجود في *%@* قائمة السماح.";
 "activity request allowed no list" = "تمّ السماح لهذا الطلب، لأنّه غير موجود في قوائم الحَظْر الخاصّة بك.";
 "activity request blocked list" = "تمّ حَظْر هذا الطلب، لأنّه موجود في *%@* قائمة الحَظْر.";
-"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured allowlists.";
+"activity request blocked no list" = "تمّ حَظْر هذا الطلب، لأنّه غير موجود في قائمة السماح الخاصّة بك.";
 "activity actions header" = "الإجراءات";
 "activity information header" = "معلومات";
 "activity action add to whitelist" = "إضافة إلى قائمة السماح";
@@ -219,7 +219,7 @@
 "activity retention header" = "كم من الوقت يمكننا تخزين نشاطك؟";
 "activity retention option none" = "لا تقم بتخزين نشاطي";
 "activity retention option 24h" = "24 ساعة";
-"activity retention policy" = "By enabling log retention you accept the privacy policy.";
+"activity retention policy" = "من خلال تمكين الاحتفاظ بالسجلات ، فإنّك تقبل سياسة الخصوصيّة.";
 "activity retention desc" = "لا تقوم Blokada Cloud بتسجيل أي شيء افتراضيّاً. إذا كنت ترغب في رؤية الإحصائيّات و النشاط المجمَّع من جميع أجهزتك ، فاختر فترة الاحتفاظ بالسجلّات المطلوبة أدناه.";
 
 "userdenied section header" = "الاستثناءات";
@@ -360,11 +360,11 @@
 "payment feature title performance" = "أداء عظيم";
 "payment feature desc performance" = "حافظ على سرعة أداء جهازك و اتصالك بالإنترنت بأقصى سرعات بفضل حل السحابة الجديد الذي نقدمه.";
 "payment feature title battery" = "تأثير البطّاريّة صفر";
-"payment feature desc battery" = "Your battery life isn't going to be impacted, it might even improve when Blokada Cloud is activated.";
+"payment feature desc battery" = "لن يتأثر عمر البطاريّة ، بل قد يتحسّن عند تفعيل Blokada Cloud.";
 "payment feature title devices cloud" = "أجهزة متعدّدة";
-"payment feature desc devices cloud" = "Configure and monitor all your devices in one place. Either through our mobile app or our web app.";
-"payment feature title cloud vpn" = "The Cloud plus VPN";
-"payment feature desc cloud vpn" = "In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network";
+"payment feature desc devices cloud" = "تكوين و مراقبة جميع أجهزتك في مكان واحد. إمّا من خلال تطبيق الهاتف المحمول الخاص بنا أو تطبيق الويب الخاص بنا.";
+"payment feature title cloud vpn" = "الـ Cloud بالإضافة إلى VPN";
+"payment feature desc cloud vpn" = "بالإضافة إلى جميع مزايا Blokada Cloud ، ستتمكّن من الوصول إلى شبكة VPN العالميّة الخاصّة بنا";
 "payment feature title faster connection" = "إتصال أسرع";
 "payment feature desc faster connection" = "سرعة كبيرة تصل إلى 100 ميغابايت مع خوادِم في مختلف أنحاء العالم.";
 "payment feature title devices" = "حتّى 5 أجهزة";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "فتح أجهزة VPN";
 "web action open setup" = "فتح الإعداد";
 "web cta plus header" = "قم بالترقية إلى Blokada Plus لكي تبقى مسيطر على خصوصيّتك.";
-"web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
+"web cta plus desc" = "يمنحك حساب Libre الخاص بك إمكانية حظر الإعلانات مجاناً على جهازك من خلال تطبيقاتنا مفتوحة المصدر. قم بالترقية إلى Blokada Plus للحصول على حماية أفضل. ستتمكّن من الوصول إلى شبكة VPN العالمية الخاصّة بنا بالإضافة إلى حظر الإعلانات الجديد * القائم على السحابة * والذي يكون أكثر كفاءة و أسهل في الإستخدام.";
 // A short word for a button to generate profile
 "web action generate" = "توليد";
 
@@ -596,4 +596,6 @@
 "stats top allowed header" = "أكثر الطلبات المسموح بها";
 "stats top blocked header" = "أكثر الطلبات المَحظورة";
 
-"dnsprofile desc" = "قام Blokada للتو بإنشاء ملف تعريف DNS لك في الإعدادات. قم بتنشيطه بشكل عام -> DNS, VPN وإدارة الأجهزة -> DNS.";
+"dnsprofile header" = "Enable Blokada in Settings";
+"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile action open settings" = "Open Settings";

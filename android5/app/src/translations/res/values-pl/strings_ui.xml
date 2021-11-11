@@ -500,5 +500,7 @@
     <string name="stats_requests_subheader">Zapytania w czasie</string>
     <string name="stats_top_allowed_header">Najczęściej zezwalane</string>
     <string name="stats_top_blocked_header">Najczęściej blokowane</string>
-    <string name="dnsprofile_desc">Blokada właśnie utworzyła dla Ciebie profil DNS w Ustawieniach. Aktywuj go w: Ogólne -> VPN, DNS &amp; Zarządzanie urządzeniami -> DNS.</string>
+    <string name="dnsprofile_header">Aktywuj Blokadę w Ustawieniach</string>
+    <string name="dnsprofile_desc">W aplikacji Ustawienia przejdź do Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Otwórz Ustawienia</string>
 </resources>

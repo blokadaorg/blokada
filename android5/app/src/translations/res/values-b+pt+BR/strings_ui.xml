@@ -500,5 +500,7 @@
     <string name="stats_requests_subheader">Consultas ao longo do tempo</string>
     <string name="stats_top_allowed_header">Principais solicitações permitidas</string>
     <string name="stats_top_blocked_header">Principais solicitações bloqueadas</string>
-    <string name="dnsprofile_desc">O Blokada acabou de criar um perfil de DNS para você em Configurações. Ative-o em Geral -> VPN, Gerenciamento de DNS &amp; Dispositivo -> DNS.</string>
+    <string name="dnsprofile_header">Enable Blokada in Settings</string>
+    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Open Settings</string>
 </resources>

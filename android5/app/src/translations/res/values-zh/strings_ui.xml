@@ -500,5 +500,7 @@
     <string name="stats_requests_subheader">各個時期的請求數變化</string>
     <string name="stats_top_allowed_header">允許最多次的請求</string>
     <string name="stats_top_blocked_header">阻擋最多次的請求</string>
-    <string name="dnsprofile_desc">Blokada 已經幫您在設定中建好 DNS 設定檔了。請到 [一般] > [VPN、DNS 與裝置管理] > [DNS] 中啟用。</string>
+    <string name="dnsprofile_header">Enable Blokada in Settings</string>
+    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Open Settings</string>
 </resources>

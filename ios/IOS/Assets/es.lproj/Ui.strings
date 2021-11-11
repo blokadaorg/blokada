@@ -596,4 +596,6 @@
 "stats top allowed header" = "Solicitudes permitidas más solicitadas";
 "stats top blocked header" = "Solicitudes bloqueadas más solicitadas";
 
-"dnsprofile desc" = "Blokada acaba de crear un perfil DNS para usted en Configuración. Activa esto en General -> VPN, DNS & Device Management -> DNS.";
+"dnsprofile header" = "Enable Blokada in Settings";
+"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile action open settings" = "Open Settings";

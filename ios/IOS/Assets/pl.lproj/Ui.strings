@@ -596,4 +596,6 @@
 "stats top allowed header" = "Najczęściej zezwalane";
 "stats top blocked header" = "Najczęściej blokowane";
 
-"dnsprofile desc" = "Blokada właśnie utworzyła dla Ciebie profil DNS w Ustawieniach. Aktywuj go w: Ogólne -> VPN, DNS & Zarządzanie urządzeniami -> DNS.";
+"dnsprofile header" = "Aktywuj Blokadę w Ustawieniach";
+"dnsprofile desc" = "W aplikacji Ustawienia przejdź do Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.";
+"dnsprofile action open settings" = "Otwórz Ustawienia";

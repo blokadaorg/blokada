@@ -500,5 +500,7 @@
     <string name="stats_requests_subheader">Dotazy v průběhu času</string>
     <string name="stats_top_allowed_header">Nejvíce povolené žádosti</string>
     <string name="stats_top_blocked_header">Nejvíce blokované žádosti</string>
-    <string name="dnsprofile_desc">Blokada pro vás právě vytvořila v Nastavení profil DNS. Aktivujte jej v sekci Obecné -> VPN, DNS a správa zařízení -> DNS.</string>
+    <string name="dnsprofile_header">Enable Blokada in Settings</string>
+    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Open Settings</string>
 </resources>

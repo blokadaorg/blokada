@@ -500,5 +500,7 @@
     <string name="stats_requests_subheader">Запросы по времени</string>
     <string name="stats_top_allowed_header">Топ разрешенных запросов</string>
     <string name="stats_top_blocked_header">Топ заблокированных запросов</string>
-    <string name="dnsprofile_desc">Blokada только что создала для вас профиль DNS в Настройках. Активируйте его в разделе Общие -> VPN, DNS и управление устройствами -> DNS.</string>
+    <string name="dnsprofile_header">Включите Blokada в Настройках</string>
+    <string name="dnsprofile_desc">В настройках устройства перейдите в раздел Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Открыть Настройки</string>
 </resources>
