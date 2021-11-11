@@ -114,7 +114,7 @@ internal enum L10n {
   internal static let accountLeaseActionDownload = L10n.tr("Ui", "account lease action download")
   /// Generate Config
   internal static let accountLeaseActionGenerate = L10n.tr("Ui", "account lease action generate")
-  /// Device added! Download the configuration to use it on any device supported by Wireguard.
+  /// Device added! Download the configuration to use it on any device supported by WireGuard.
   internal static let accountLeaseGenerated = L10n.tr("Ui", "account lease generated")
   /// Devices
   internal static let accountLeaseLabelDevices = L10n.tr("Ui", "account lease label devices")
@@ -122,7 +122,7 @@ internal enum L10n {
   internal static let accountLeaseLabelDevicesList = L10n.tr("Ui", "account lease label devices list")
   /// DNS
   internal static let accountLeaseLabelDns = L10n.tr("Ui", "account lease label dns")
-  /// Selecting a location here will generate a config file that you can use in any VPN app that supports Wireguard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.
+  /// Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.
   internal static let accountLeaseLabelGenerate = L10n.tr("Ui", "account lease label generate")
   /// Location
   internal static let accountLeaseLabelLocation = L10n.tr("Ui", "account lease label location")
@@ -132,7 +132,7 @@ internal enum L10n {
   internal static let accountLeaseLabelPublicKey = L10n.tr("Ui", "account lease label public key")
   ///  (this device)
   internal static let accountLeaseLabelThisDevice = L10n.tr("Ui", "account lease label this device")
-  /// Blokada uses Wireguard. Configurations can be downloaded when creating new devices.
+  /// Blokada uses WireGuard. Configurations can be downloaded when creating new devices.
   internal static let accountLeaseWireguardDesc = L10n.tr("Ui", "account lease wireguard desc")
   /// Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one).
   internal static let accountLogoutDescription = L10n.tr("Ui", "account logout description")
@@ -224,7 +224,7 @@ internal enum L10n {
   internal static let activityNumberOfOccurrences = L10n.tr("Ui", "activity number of occurrences")
   /// This request has been allowed.
   internal static let activityRequestAllowed = L10n.tr("Ui", "activity request allowed")
-  /// This request has been allowed, because it's present on the *%@* blocklist.
+  /// This request has been allowed, because it's present on the *%@* allowlist.
   internal static func activityRequestAllowedList(_ p1: Any) -> String {
     return L10n.tr("Ui", "activity request allowed list", String(describing: p1))
   }
@@ -240,7 +240,7 @@ internal enum L10n {
   internal static func activityRequestBlockedList(_ p1: Any) -> String {
     return L10n.tr("Ui", "activity request blocked list", String(describing: p1))
   }
-  /// This request has been blocked, as it's not present on any of your configured blocklists.
+  /// This request has been blocked, as it's not present on any of your configured allowlists.
   internal static let activityRequestBlockedNoList = L10n.tr("Ui", "activity request blocked no list")
   /// Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.
   internal static let activityRetentionDesc = L10n.tr("Ui", "activity retention desc")
@@ -250,7 +250,7 @@ internal enum L10n {
   internal static let activityRetentionOption24h = L10n.tr("Ui", "activity retention option 24h")
   /// Do not store my activity
   internal static let activityRetentionOptionNone = L10n.tr("Ui", "activity retention option none")
-  /// By enabling log retention you accept Blokada Cloud Privacy Policy.
+  /// By enabling log retention you accept the privacy policy.
   internal static let activityRetentionPolicy = L10n.tr("Ui", "activity retention policy")
   /// Activity
   internal static let activitySectionHeader = L10n.tr("Ui", "activity section header")
@@ -386,7 +386,7 @@ internal enum L10n {
   internal static let errorVpnPerms = L10n.tr("Ui", "error vpn perms")
   /// You reached your devices limit. Please remove one of your devices and try again.
   internal static let errorVpnTooManyLeases = L10n.tr("Ui", "error vpn too many leases")
-  /// tap to activate
+  /// Tap to activate
   internal static let homeActionTapToActivate = L10n.tr("Ui", "home action tap to activate")
   /// ads and trackers blocked since installation
   internal static let homeAdsCounterFootnote = L10n.tr("Ui", "home ads counter footnote")
@@ -418,19 +418,19 @@ internal enum L10n {
   internal static let homeStatusActive = L10n.tr("Ui", "home status active")
   /// Deactivated
   internal static let homeStatusDeactivated = L10n.tr("Ui", "home status deactivated")
-  /// blocking *ads* and *trackers*
+  /// Blocking *ads* and *trackers*
   internal static let homeStatusDetailActive = L10n.tr("Ui", "home status detail active")
   /// Blokada *Slim* is active
   internal static let homeStatusDetailActiveSlim = L10n.tr("Ui", "home status detail active slim")
-  /// blocked *%@* ads and trackers
+  /// Blocked *%@* ads and trackers
   internal static func homeStatusDetailActiveWithCounter(_ p1: Any) -> String {
     return L10n.tr("Ui", "home status detail active with counter", String(describing: p1))
   }
-  /// paused until timer ends
+  /// Paused until timer ends
   internal static let homeStatusDetailPaused = L10n.tr("Ui", "home status detail paused")
   /// *+* protecting your *privacy*
   internal static let homeStatusDetailPlus = L10n.tr("Ui", "home status detail plus")
-  /// please wait...
+  /// Please wait...
   internal static let homeStatusDetailProgress = L10n.tr("Ui", "home status detail progress")
   /// Paused
   internal static let homeStatusPaused = L10n.tr("Ui", "home status paused")
@@ -516,7 +516,7 @@ internal enum L10n {
   internal static let homepageDownloadDescAndroidSlim = L10n.tr("Ui", "homepage download desc android slim")
   /// Blokada 5 is simply available on App Store.
   internal static let homepageDownloadDescIos = L10n.tr("Ui", "homepage download desc ios")
-  /// Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where Wireguard is available.
+  /// Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.
   internal static let homepageDownloadDescOther = L10n.tr("Ui", "homepage download desc other")
   /// Download Blokada
   internal static let homepageDownloadHeader = L10n.tr("Ui", "homepage download header")
@@ -584,7 +584,7 @@ internal enum L10n {
   internal static let homepageSupportDesc = L10n.tr("Ui", "homepage support desc")
   /// Support the project
   internal static let homepageSupportHeader = L10n.tr("Ui", "homepage support header")
-  /// 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.
+  /// 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.
   internal static let homepageVpnCredit = L10n.tr("Ui", "homepage vpn credit")
   /// For ultimate privacy protection, upgrade to Blokada Plus and connect through our VPN. We use WireGuard®, the most advanced VPN protocol, to encrypt your network activity and hide your IP address.
   internal static let homepageVpnDesc = L10n.tr("Ui", "homepage vpn desc")
@@ -776,19 +776,19 @@ internal enum L10n {
   internal static let paymentDonateDisclaimer = L10n.tr("Ui", "payment donate disclaimer")
   /// We are based in Europe, so we accept Euro: €10 is roughly $12.
   internal static let paymentEuroDesc = L10n.tr("Ui", "payment euro desc")
-  /// Your battery life is going to be the same, with or without Blokada Cloud activated.
+  /// Your battery life isn't going to be impacted, it might even improve when Blokada Cloud is activated.
   internal static let paymentFeatureDescBattery = L10n.tr("Ui", "payment feature desc battery")
   /// Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.
   internal static let paymentFeatureDescChangeLocation = L10n.tr("Ui", "payment feature desc change location")
-  /// Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.
+  /// In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network
   internal static let paymentFeatureDescCloudVpn = L10n.tr("Ui", "payment feature desc cloud vpn")
   /// Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.
   internal static let paymentFeatureDescDevices = L10n.tr("Ui", "payment feature desc devices")
-  /// Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.
+  /// Configure and monitor all your devices in one place. Either through our mobile app or our web app.
   internal static let paymentFeatureDescDevicesCloud = L10n.tr("Ui", "payment feature desc devices cloud")
   /// Data sent through our VPN tunnel is encrypted using strong algorithms in order to protect against interception by unauthorized parties.
   internal static let paymentFeatureDescEncryptData = L10n.tr("Ui", "payment feature desc encrypt data")
-  /// Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.
+  /// Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.
   internal static let paymentFeatureDescEncryptDns = L10n.tr("Ui", "payment feature desc encrypt dns")
   /// Great speeds up to 100Mbps with servers in various parts of the World.
   internal static let paymentFeatureDescFasterConnection = L10n.tr("Ui", "payment feature desc faster connection")
@@ -802,7 +802,7 @@ internal enum L10n {
   internal static let paymentFeatureTitleBattery = L10n.tr("Ui", "payment feature title battery")
   /// Change Location
   internal static let paymentFeatureTitleChangeLocation = L10n.tr("Ui", "payment feature title change location")
-  /// Cloud & VPN
+  /// The Cloud plus VPN
   internal static let paymentFeatureTitleCloudVpn = L10n.tr("Ui", "payment feature title cloud vpn")
   /// Up to 5 devices
   internal static let paymentFeatureTitleDevices = L10n.tr("Ui", "payment feature title devices")
@@ -898,7 +898,7 @@ internal enum L10n {
   internal static let paymentTitle = L10n.tr("Ui", "payment title")
   /// Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.
   internal static let setupCommentNativeApps = L10n.tr("Ui", "setup comment native apps")
-  /// Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.
+  /// Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.
   internal static let setupCommentWireguard = L10n.tr("Ui", "setup comment wireguard")
   /// There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.
   internal static let setupDesc = L10n.tr("Ui", "setup desc")
@@ -932,7 +932,7 @@ internal enum L10n {
   internal static let setupStepEnterTag = L10n.tr("Ui", "setup step enter tag")
   /// Install and start our app
   internal static let setupStepInstall = L10n.tr("Ui", "setup step install")
-  /// Install and start Wireguard
+  /// Install and start WireGuard
   internal static let setupStepInstallWireguard = L10n.tr("Ui", "setup step install wireguard")
   /// Name your device (optional)
   internal static let setupStepName = L10n.tr("Ui", "setup step name")
@@ -1058,7 +1058,7 @@ internal enum L10n {
   internal static let webActionGenerate = L10n.tr("Ui", "web action generate")
   /// Open setup
   internal static let webActionOpenSetup = L10n.tr("Ui", "web action open setup")
-  /// Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.
+  /// Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.
   internal static let webCtaPlusDesc = L10n.tr("Ui", "web cta plus desc")
   /// Upgrade to Blokada Plus to stay in control of your privacy.
   internal static let webCtaPlusHeader = L10n.tr("Ui", "web cta plus header")

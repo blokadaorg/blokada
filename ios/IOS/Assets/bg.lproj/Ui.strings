@@ -136,16 +136,16 @@
 "home status paused" = "На пауза";
 "home status active" = "Активен";
 "home status deactivated" = "Деактивиран";
-"home action tap to activate" = "докоснете за да активирате";
-"home status detail paused" = "на пауза докато приключи таймерът";
-"home status detail active" = "блокиране на *реклами* и *тракери*";
-"home status detail active with counter" = "блокирани *%@* реклами и тракери";
+"home action tap to activate" = "Tap to activate";
+"home status detail paused" = "Paused until timer ends";
+"home status detail active" = "Blocking *ads* and *trackers*";
+"home status detail active with counter" = "Blocked *%@* ads and trackers";
 "home status detail active slim" = "Blokada *Slim* е активна";
 "home status detail plus" = "*+* защитава вашата *поверителност*";
-"home status detail progress" = "моля изчакайте...";
+"home status detail progress" = "Please wait...";
 
 "home plus button deactivated" = "BLOKADA+ е деактивирана";
-"home plus button deactivated cloud" = "VPN deactivated";
+"home plus button deactivated cloud" = "Деактивиране на VPN";
 "home plus button select location" = "Избор на местоположение";
 "home plus button location" = "Местоположение: *%@*";
 
@@ -182,10 +182,10 @@
 "activity request allowed" = "Тази заявка е разрешена.";
 "activity request allowed whitelisted" = "Тази заявка е разрешена, защото е в списъка ви с Позволени";
 "activity request blocked blacklisted" = "Тази заявка е блокирана, защото е в списъка ви с Блокирани";
-"activity request allowed list" = "Тази заявка е разрешена, защото присъства в списъка за блокиране на *%@*.";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* allowlist.";
 "activity request allowed no list" = "Тази заявка е разрешена, тъй като не присъства в нито един от конфигурираните ви блокиращи списъци.";
 "activity request blocked list" = "Тази заявка е блокирана, защото присъства в списъка за блокиране на *%@*.";
-"activity request blocked no list" = "Тази заявка е блокирана, тъй като не присъства в нито един от конфигурираните ви блокиращи списъци.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured allowlists.";
 "activity actions header" = "Действия";
 "activity information header" = "Информация";
 "activity action add to whitelist" = "Добавяне към Разрешени";
@@ -219,7 +219,7 @@
 "activity retention header" = "За колко време можем да съхраняваме вашата дейност?";
 "activity retention option none" = "Не съхранявайте моята дейност";
 "activity retention option 24h" = "24 часа";
-"activity retention policy" = "Активирайки запазването на дневника, вие приемате Декларацията за поверителност на Blokada Cloud.";
+"activity retention policy" = "By enabling log retention you accept the privacy policy.";
 "activity retention desc" = "Blokada Cloud не регистрира нищо по подразбиране. Ако искате да видите обобщената статистика и активност от всичките си устройства, изберете желания период на съхранение на регистрационния файл по -долу.";
 
 "userdenied section header" = "Изключения";
@@ -264,7 +264,7 @@
 "account section header settings" = "Настройки";
 "account status text" = "Вашият BLOKADA %@ профил е активен до %@.";
 "account status text libre" = "Вашият профил в BLOKADA Libre е активен завинаги.";
-"account status text inactive" = "Your BLOKADA account is inactive.";
+"account status text inactive" = "Вашият BLOKADA профил не е активен.";
 
 "account section header primary" = "Основен";
 "account section header other" = "Друг";
@@ -333,11 +333,11 @@
 "account lease label this device" = " (това устройство)";
 "account lease label name" = "Име на устройството";
 "account lease label location" = "Местоположение";
-"account lease label generate" = "Избирането на местоположение ще генерира конфигурационен файл, който можете да използвате във всяко VPN приложение, което поддържа Wireguard. Това е полезно за платформи, за които все още нямаме наше приложение. В този случай препоръчваме да използвате ваше собствено приложение.";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
 "account lease action generate" = "Генериране на конфигурация";
 "account lease action download" = "Изтегляне на конфигурацията";
-"account lease generated" = "Устройството е добавено! Изтеглете конфигурацията за да я използвате на всяко устройство поддържано от Wireguard.";
-"account lease wireguard desc" = "Blokada използва Wireguard. Конфигурациите могат да бъдат изтеглени при създаване на нови устройства.";
+"account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
+"account lease wireguard desc" = "Blokada uses WireGuard. Configurations can be downloaded when creating new devices.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "Изберете DNS";
 "account lease label public key" = "Публичен ключ";
@@ -355,22 +355,22 @@
 "payment feature desc change location" = "Скрийте своя IP адрес и се преструвайте, че сте в друга държава. Това ще ви скрие за пред трети страни и ще ви помогне да защитите вашата самоличност.";
 "payment feature title encrypt data" = "Криптиране на данни";
 "payment feature desc encrypt data" = "Данните изпратени през нашия VPN тунел се криптират с помощта на силни алгоритми за да се защитят от прихващане от неоторизирани страни.";
-"payment feature title encrypt dns" = "Encrypt DNS";
-"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
-"payment feature title performance" = "Great Performance";
-"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
-"payment feature title battery" = "Zero Battery Impact";
-"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
-"payment feature title devices cloud" = "Multiple Devices";
-"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
-"payment feature title cloud vpn" = "Cloud & VPN";
-"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
+"payment feature title encrypt dns" = "Шифроване на DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
+"payment feature title performance" = "Голяма производителност";
+"payment feature desc performance" = "Поддържайте устройството си бързо и интернет връзката си с максимални скорости, благодарение на нашето ново решение с облак.";
+"payment feature title battery" = "Нулево въздействие върху батерията";
+"payment feature desc battery" = "Your battery life isn't going to be impacted, it might even improve when Blokada Cloud is activated.";
+"payment feature title devices cloud" = "Множество устройства";
+"payment feature desc devices cloud" = "Configure and monitor all your devices in one place. Either through our mobile app or our web app.";
+"payment feature title cloud vpn" = "The Cloud plus VPN";
+"payment feature desc cloud vpn" = "In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network";
 "payment feature title faster connection" = "По-бърза връзка";
 "payment feature desc faster connection" = "Големи скорости до 100Mbps със сървъри в различни части на света.";
 "payment feature title devices" = "До 5 устройства";
 "payment feature desc devices" = "Използвайте един профил за да споделяте абонамента си с до 5 устройства: iOS, Android или компютър.";
-"payment feature title no ads" = "Block Ads";
-"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
+"payment feature title no ads" = "Блокиране на реклами";
+"payment feature desc no ads" = "Използвайте популярната технология Blokada за блокиране на рекламите на вашите устройства. Налични са разширени настройки.";
 "payment feature title support" = "Страхотна поддръжка";
 "payment feature desc support" = "Получете бърз отговор на всякакви въпроси благодарение на нашата Поддръжка за клиенти и енергичната общност с отворен код.";
 "payment action see all features" = "Вижте всички функции";
@@ -419,12 +419,12 @@
 "payment euro desc" = "Ние се намираме в Европа, така че приемаме Евро: €10 са приблизително $12.";
 "payment donate disclaimer" = "Това няма да активира вашия профил в Blokada Plus. Ако искате да използвате нашата VPN услуга, моля абонирайте се, вместо да дарявате.";
 
-"payment action compare" = "Compare plans";
-"payment plan slugline cloud" = "Blocks ads and trackers";
-"payment plan slugline plus" = "Additional protection with VPN";
-"payment plan cta trial" = "Start 7-Day Free Trial";
-"payment plan cta monthly" = "Subscribe Monthly";
-"payment plan cta annual" = "Subscribe Annually";
+"payment action compare" = "Сравнете плановете";
+"payment plan slugline cloud" = "Блокиране на реклами и тракери";
+"payment plan slugline plus" = "Допълнителна защита с VPN";
+"payment plan cta trial" = "Започнете 7-дневен безплатен пробен период";
+"payment plan cta monthly" = "Месечен абонамент";
+"payment plan cta annual" = "Годишен абонамент";
 
 "apps section header" = "Приложения";
 "apps label installed" = "Инсталирани";
@@ -501,7 +501,7 @@
 "homepage vpn point two" = "Бързо & модерно криптиране";
 "homepage vpn point three" = "Не се регистрира вашата мрежова активност";
 "homepage vpn point four" = "Свържете до 5 устройства";
-"homepage vpn credit" = "„WireGuard“ и логото „Wireguard“ са регистрирани търговски марки на Jason A. Donenfeld.";
+"homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 
 "homepage faq header" = "Често Задавани Въпроси";
 "homepage faq action more" = "Вижте още ЧЗВ";
@@ -525,7 +525,7 @@
 "homepage download option android four" = "Blokada 4 за Android";
 "homepage download option ios" = "Blokada 5 за iOS";
 "homepage download option other" = "Blokada за други платформи";
-"homepage download desc other" = "Понастоящем не предлагаме Blokada за други платформи. Ако обаче сте потребител на Blokada Plus можете да използвате нашата VPN на Windows, Linux, Mac и други платформи, ако е наличен Wireguard.";
+"homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.";
 "homepage download desc ios" = "Blokada 5 просто е достъпна в App Store.";
 "homepage download action ios" = "Отваряне на Play Store";
 "homepage download desc android five" = "Това е новата ни препоръчителна версия <b>за смартфони и таблети с Android 7 или по-нова версия</b>. Тя е по-проста и по-бърза в сравнение с Blokada 4.";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "Отваряне на VPN устройства";
 "web action open setup" = "Отваряне на настройката";
 "web cta plus header" = "Надстройте до Blokada Plus за да контролирате поверителността си.";
-"web cta plus desc" = "Профилът в Libre ви дава безплатно блокиране на реклами на устройството с Android и iOS от нашите приложения с отворен код. За още по -добра защита надстройте до Blokada Plus и вземете VPN, както и нашето ново * облачно блокиране на реклами *, което е по-бързо и по-лесно за използване.";
+"web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
 // A short word for a button to generate profile
 "web action generate" = "Генерирай";
 
@@ -570,7 +570,7 @@
 "setup desc" = "Има много начини да конфигурирате устройството си да използва Blokada Cloud. Изберете този, който работи за вас.";
 "setup label which device" = "Какъв тип устройство искате да настроите?";
 "setup label choose" = "Изберете някоя от опциите за настройка:";
-"setup comment wireguard" = "Забележка: Използването на Blokada VPN автоматично активира Blokada Cloud DNS. Работим по поддръжката и на други настройки за тази платформа. „WireGuard“ и логото „Wireguard“ са регистрирани търговски марки на Джейсън А. Доненфелд.";
+"setup comment wireguard" = "Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 "setup comment native apps" = "Забележка: Приложенията за Android и iOS все още не поддържат Blokada Cloud. Работим по актуализацията.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Стъпка %@: %@";
@@ -584,7 +584,7 @@
 "setup step install" = "Инсталирайте и стартирайте приложението си";
 "setup step enter tag" = "Когато бъдете помолени, въведете своя маркер";
 "setup step download profile" = "Генерирайте и изтеглете вашия профил";
-"setup step install wireguard" = "Инсталирайте и стартирайте Wireguard";
+"setup step install wireguard" = "Install and start WireGuard";
 
 "stats header" = "Статистика";
 // A ratio between counter of allowed vs denied requests.
@@ -596,4 +596,4 @@
 "stats top allowed header" = "Най-разрешени заявки";
 "stats top blocked header" = "Най-блокирани заявки";
 
-"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";
+"dnsprofile desc" = "Blokada току-що създаде DNS профил за вас в Настройки. Активирайте го в Общи -> VPN, DNS & Управление на устройството -> DNS.";

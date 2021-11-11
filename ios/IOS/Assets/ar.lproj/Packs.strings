@@ -34,7 +34,6 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "تم إنشاء هذه القوائم لأن مؤسّس المشروع أراد شيئاً يتمتّع بقدر أكبر من التحكّم في ما يتمّ حظْره.";
 "A blocklist based on spam reports" = "قائمة حظْر تستند إلى تقارير البريد المزعج";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 هي خدمة تساعد الشركات عبر الإنترنت في مراقبة المحتوى و اختبار الإختراق و حماية العلامة التجاريّة. تستند هذه القائمة على التقارير الواردة من الشركات.";
-/* A comprehensive list to block ads and tracking */
 "A comprehensive lists to block ads and tracking" = "قوائم شاملة لمنع الإعلانات و التعقّب";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock هي قائمة من النطاقات التي تخدم الإعلانات، و التعقّب و البرامج النصيّة و البرمجيات الخبيثة. و تمنع جهازك من الاتصال بها.";
 "A general purpose, medium weight list" = "قائمة متوسّطة الوزن للأغراض العامّة";
@@ -43,7 +42,8 @@
 "This is a well known, general purpose blocklist of small size, updated regularly." = "هذه قائمة حظر معروفة جيّداً للأغراض العامّة و صغيرة الحجم ، يتمّ تحديثها بانتظام.";
 "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "حماية البيانات الخاصّة بك من أن يتم بيعها بالمزاد لمن يدفع أعلى سعر. الرجاء اختيار التكوين الخفيف أوّلاً. إذا لم يكن ذلك جيّداً بما يكفي بالنسبة لك ، فجرّب Pro بدلاً من ذلك.";
 "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "هذه القائمة الشاملة تعمل على حظر الإعلانات و إعلانات تطبيقات الجوّال بشكل أساسي. من المفترض ألا تتداخل مع التطبيقات و الخدمات العادية.";
-"A blocklist based on malware database" = "قائمة حظر تستند على قاعدة بيانات البرامج الضارة";
+"A blocklist based on malware database" = "A blocklist based on a malware database";
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "قائمة حظر بالمواقع الإلكترونيّة الخبيثة التي يتمّ استخدامها لتوزيع البرامج الضارة ، تستند على urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "قائمة حظر من صانع اختبار مانع الإعلانات";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "هذه قائمة الحظر الرسميّة من d3ward ، صانع موقع اختبار Adblocker الشهير. من المفترض أن تحقق درجة 100٪ في الاختبار. ضع في اعتبارك ، هذه قائمة الحدّ الأدنى. قد ترغب في استخدامها مع قائمة حظر أُخرى نشطة. إذا كنت ترغب في إجراء الاختبار ، فما عليك سوى زيارة go.blokada.org/test";
+"This blocklist is maintained by a coalition of cybersecurity experts working to protect individuals and organizations from COVID-19-related cyber threats." = "يتمّ تجميع قائمة الحظر هذه من قبل تحالف من خبراء الأمن السيبراني الذين يعملون على حماية الأفراد والمؤسّسات من التهديدات الإلكترونيّة المتعلّقة بـ COVID-19.";

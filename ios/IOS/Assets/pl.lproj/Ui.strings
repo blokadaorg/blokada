@@ -136,13 +136,13 @@
 "home status paused" = "Wstrzymana";
 "home status active" = "Aktywna";
 "home status deactivated" = "Dezaktywowana";
-"home action tap to activate" = "dotknij, aby aktywować";
-"home status detail paused" = "wstrzymano do zakończenia timera";
-"home status detail active" = "blokowanie *reklam* i *trackerów*";
-"home status detail active with counter" = "zablokowano *%@* reklam i trackerów";
+"home action tap to activate" = "Stuknij, aby aktywować";
+"home status detail paused" = "Wstrzymano do końca minutnika";
+"home status detail active" = "Blokowanie *reklam* i *trackerów*";
+"home status detail active with counter" = "Zablokowano *%@* reklam i trackerów";
 "home status detail active slim" = "Blokada *Slim* jest włączona";
 "home status detail plus" = "*+* ochrona Twojej *prywatności*";
-"home status detail progress" = "proszę czekać...";
+"home status detail progress" = "Proszę czekać...";
 
 "home plus button deactivated" = "BLOKADA+ wyłączona";
 "home plus button deactivated cloud" = "VPN jest wyłączony";
@@ -182,10 +182,10 @@
 "activity request allowed" = "To żądanie zostało zezwolone.";
 "activity request allowed whitelisted" = "To żądanie zostało zezwolone, ponieważ znajduje się na Twojej liście Zezwolonych";
 "activity request blocked blacklisted" = "To żądanie zostało zablokowane, ponieważ znajduje się na Twojej liście Blokowanych";
-"activity request allowed list" = "To żądanie zostało dozwolone, ponieważ jest obecne na blokliście *%@*.";
+"activity request allowed list" = "To żądanie zostało dozwolone, ponieważ jest obecne na liście dozwolonych *%@*.";
 "activity request allowed no list" = "To żądanie zostało dozwolone, ponieważ nie jest obecne na żadnej ze skonfigurowanych bloklist.";
 "activity request blocked list" = "To żądanie zostało zablokowane, ponieważ jest obecne na blokliście *%@*.";
-"activity request blocked no list" = "To żądanie zostało zablokowane, ponieważ nie jest obecne na żadnej ze skonfigurowanych bloklist.";
+"activity request blocked no list" = "To żądanie zostało zablokowane, ponieważ nie jest dostępne na żadnej skonfigurowanej liście dozwolonych.";
 "activity actions header" = "Działania";
 "activity information header" = "Informacje";
 "activity action add to whitelist" = "Dodaj do Zezwolonych";
@@ -333,11 +333,11 @@
 "account lease label this device" = " (to urządzenie)";
 "account lease label name" = "Nazwa urządzenia";
 "account lease label location" = "Lokalizacja";
-"account lease label generate" = "Wybór lokalizacji w tym miejscu spowoduje wygenerowanie pliku konfiguracyjnego, którego można użyć w dowolnej aplikacji VPN obsługującej Wireguard. Jest to przydatne na platformach, na których nie mamy jeszcze naszych aplikacji. W przeciwnym razie zalecamy używanie naszych natywnych aplikacji.";
+"account lease label generate" = "Wybór lokalizacji w tym miejscu spowoduje wygenerowanie pliku konfiguracyjnego, którego można użyć w dowolnej aplikacji VPN obsługującej WireGuard. Jest to przydatne na platformach, na których nie mamy jeszcze naszych aplikacji. W przeciwnym razie zalecamy używanie naszych natywnych aplikacji.";
 "account lease action generate" = "Generuj konfigurację";
 "account lease action download" = "Pobierz konfigurację";
-"account lease generated" = "Dodano urządzenie! Pobierz konfigurację, aby użyć ją na dowolnym urządzeniu obsługiwanym przez Wireguard.";
-"account lease wireguard desc" = "Blokada używa Wireguard. Konfiguracja może być pobierana podczas tworzenia nowych urządzeń.";
+"account lease generated" = "Dodano urządzenie! Pobierz konfigurację, aby użyć ją na dowolnym urządzeniu obsługiwanym przez WireGuard.";
+"account lease wireguard desc" = "Blokada używa WireGuard. Konfiguracja może być pobierana podczas tworzenia nowych urządzeń.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "Wybierz DNS";
 "account lease label public key" = "Klucz publiczny";
@@ -356,15 +356,15 @@
 "payment feature title encrypt data" = "Szyfruj dane";
 "payment feature desc encrypt data" = "Dane przesyłane przez nasz tunel VPN są szyfrowane przy użyciu silnych algorytmów w celu ochrony przed przechwytywaniem przez nieupoważnione strony.";
 "payment feature title encrypt dns" = "Szyfruj DNS";
-"payment feature desc encrypt dns" = "Zabezpiecz swoją prywatność dzięki szyfrowaniu DNS. Blokada Cloud używa nowoczesnych protokołów, aby zapewnić prywatność Twoich zapytań.";
+"payment feature desc encrypt dns" = "Popraw swoją prywatność dzięki szyfrowaniu DNS. Blokada Cloud wykorzystuje nowoczesne protokoły, aby pomóc zachować prywatność Twojego ruchu.";
 "payment feature title performance" = "Świetna Wydajność";
 "payment feature desc performance" = "Dzięki naszemu nowemu rozwiązaniu w chmurze, Twoje urządzenie i połączenie z Internetem będzie w maksymalnie szybkie.";
 "payment feature title battery" = "Zero Wpływu na Baterię";
-"payment feature desc battery" = "Żywotność akumulatora będzie taka sama z Blokadą Cloud włączoną lub wyłączoną.";
+"payment feature desc battery" = "Żywotność akumulatora nie zostanie zmieniona, może nawet ulec poprawie, gdy Blokada Cloud jest aktywna.";
 "payment feature title devices cloud" = "Wiele urządzeń";
-"payment feature desc devices cloud" = "Skonfiguruj wszystkie swoje urządzenia w ramach jednej subskrypcji Blokada Cloud. Korzystaj z naszych aplikacji mobilnych lub naszego panelu webowego.";
-"payment feature title cloud vpn" = "Chmura i VPN";
-"payment feature desc cloud vpn" = "Ciesz się wszystkimi funkcjami Blokady Cloud. Dodatkowo uzyskaj dostęp do naszej sieci VPN.";
+"payment feature desc devices cloud" = "Skonfiguruj i monitoruj wszystkie swoje urządzenia w jednym miejscu. Za pośrednictwem naszej aplikacji mobilnej lub naszej aplikacji internetowej.";
+"payment feature title cloud vpn" = "Chmura plus VPN";
+"payment feature desc cloud vpn" = "Oprócz wszystkich korzyści płynących z Blokady Cloud, uzyskasz dostęp do naszej globalnej sieci VPN";
 "payment feature title faster connection" = "Szybsze połączenie";
 "payment feature desc faster connection" = "Świetne prędkości do 100 Mb/s z serwerami w różnych częściach świata.";
 "payment feature title devices" = "Do 5 urządzeń";
@@ -501,7 +501,7 @@
 "homepage vpn point two" = "Szybkie i nowoczesne szyfrowanie";
 "homepage vpn point three" = "Bez logowania Twojej aktywności w sieci";
 "homepage vpn point four" = "Podłącz do 5 urządzeń";
-"homepage vpn credit" = "'WireGuard' i logo 'Wireguard' są zarejestrowanymi znakami towarowymi Jasona A. Donenfelda.";
+"homepage vpn credit" = "'WireGuard' i logo 'WireGuard' są zarejestrowanymi znakami towarowymi Jasona A. Donenfelda.";
 
 "homepage faq header" = "Często zadawane pytania";
 "homepage faq action more" = "Zobacz więcej FAQ";
@@ -525,7 +525,7 @@
 "homepage download option android four" = "Blokada 4 dla Androida";
 "homepage download option ios" = "Blokada 5 dla iOS";
 "homepage download option other" = "Blokada dla innych platform";
-"homepage download desc other" = "Obecnie nie zapewniamy Blokady dla innych platform. Jeśli jednak jesteś użytkownikiem Blokady Plus, możesz korzystać z naszego VPN w systemach Windows, Linux, Mac oraz na platformach, na których jest dostępny Wireguard.";
+"homepage download desc other" = "Obecnie nie zapewniamy Blokady na innych platformach. Jeśli jednak jesteś użytkownikiem Blokady Plus, możesz korzystać z naszego VPN w systemach Windows, Linux, Mac oraz na platformach, na których jest dostępny WireGuard.";
 "homepage download desc ios" = "Blokada 5 jest dostępna w App Store.";
 "homepage download action ios" = "Otwórz App Store";
 "homepage download desc android five" = "To jest nasza nowa, zalecana wersja <b>dla smartfonów i tabletów z Androidem 7 lub nowszym</b>. Jest prostsza i szybsza w porównaniu z Blokadą 4.";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "Otwórz Urządzenia VPN";
 "web action open setup" = "Otwórz konfigurację";
 "web cta plus header" = "Ulepsz do Blokady Plus, aby zachować kontrolę nad prywatnością.";
-"web cta plus desc" = "Twoje konto Libre daje darmowe blokowanie reklam na urządzeniach z systemami Android i iOS za pomocą naszych aplikacji open source. Aby jeszcze lepiej się zabezpieczyć, uaktualnij do Blokady Plus i uzyskaj VPN, jak również nasze nowe *blokowanie w chmurze*, które jest szybsze i łatwiejsze w użyciu.";
+"web cta plus desc" = "Twoje konto Libre zapewnia bezpłatne blokowanie reklam na Twoim urządzeniu dzięki naszym aplikacjom typu open source. Zaktualizuj do Blokady Plus, aby uzyskać jeszcze lepszą ochronę. Otrzymasz dostęp do naszej globalnej sieci VPN, a także do naszego nowego blokowania reklam *opartego na chmurze*, które jest wydajniejsze i łatwiejsze w użyciu.";
 // A short word for a button to generate profile
 "web action generate" = "Wygeneruj";
 
@@ -570,7 +570,7 @@
 "setup desc" = "Istnieje wiele sposobów na skonfigurowanie urządzenia do korzystania z Blokady Cloud. Wybierz ten, który Ci odpowiada.";
 "setup label which device" = "Jaki typ urządzenia chcesz skonfigurować?";
 "setup label choose" = "Wybierz jedną z następujących opcji konfiguracji:";
-"setup comment wireguard" = "Uwaga: korzystanie z VPN Blokady automatycznie włącza DNS Blokady Cloud. Pracujemy nad obsługą innych konfiguracji na tej platformie. „WireGuard” i „Wireguard” są zarejestrowanymi znakami towarowymi Jasona A. Donenfelda.";
+"setup comment wireguard" = "Uwaga: konfiguracja VPN będzie domyślnie używać Blokady Cloud. Wybierz inne ustawienie DNS, jeśli chcesz zrezygnować. 'WireGuard' i logo 'WireGuard' są zarejestrowanymi znakami towarowymi Jasona A. Donenfelda.";
 "setup comment native apps" = "Uwaga: natywne aplikacje dla Androida i iOS nie obsługują jeszcze Blokady Cloud. Pracujemy nad aktualizacją.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Krok %@: %@";
@@ -584,7 +584,7 @@
 "setup step install" = "Zainstaluj i uruchom naszą aplikację";
 "setup step enter tag" = "Po wyświetleniu monitu wprowadź swój tag";
 "setup step download profile" = "Wygeneruj i pobierz swój profil";
-"setup step install wireguard" = "Zainstaluj i uruchom Wireguard";
+"setup step install wireguard" = "Zainstaluj i uruchom WireGuard";
 
 "stats header" = "Statystyka";
 // A ratio between counter of allowed vs denied requests.

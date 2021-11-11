@@ -136,13 +136,13 @@
 "home status paused" = "Duraklatıldı";
 "home status active" = "Etkin";
 "home status deactivated" = "Devre dışı";
-"home action tap to activate" = "etkinleştirmek için dokunun";
-"home status detail paused" = "zamanlayıcı bitene kadar duraklatıldı";
-"home status detail active" = "*reklam* ve *izleyici* engelleniyor";
-"home status detail active with counter" = "*%@* reklamları ve izleyicileri engellendi";
+"home action tap to activate" = "Tap to activate";
+"home status detail paused" = "Paused until timer ends";
+"home status detail active" = "Blocking *ads* and *trackers*";
+"home status detail active with counter" = "Blocked *%@* ads and trackers";
 "home status detail active slim" = "Blokada *Slim* etkin";
 "home status detail plus" = "*+* *gizliliğinizi* koruyor";
-"home status detail progress" = "lütfen bekleyin...";
+"home status detail progress" = "Please wait...";
 
 "home plus button deactivated" = "BLOKADA+ devre dışı";
 "home plus button deactivated cloud" = "VPN deactivated";
@@ -182,10 +182,10 @@
 "activity request allowed" = "Bu isteğe izin verildi.";
 "activity request allowed whitelisted" = "Bu isteğe, izin verilen listenizde olduğu için izin verildi";
 "activity request blocked blacklisted" = "Bu istek, engellenen listenizde olduğu için engellendi";
-"activity request allowed list" = "This request has been allowed, because it's present on the *%@* blocklist.";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* allowlist.";
 "activity request allowed no list" = "This request has been allowed, as it's not present on any of your configured blocklists.";
 "activity request blocked list" = "This request has been blocked, because it's present on the *%@* blocklist.";
-"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured blocklists.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured allowlists.";
 "activity actions header" = "Eylemler";
 "activity information header" = "Bilgi";
 "activity action add to whitelist" = "İzin verilenlere ekle";
@@ -219,7 +219,7 @@
 "activity retention header" = "For how long can we store your activity?";
 "activity retention option none" = "Do not store my activity";
 "activity retention option 24h" = "24 hours";
-"activity retention policy" = "By enabling log retention you accept Blokada Cloud Privacy Policy.";
+"activity retention policy" = "By enabling log retention you accept the privacy policy.";
 "activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.";
 
 "userdenied section header" = "Exceptions";
@@ -333,11 +333,11 @@
 "account lease label this device" = " (bu cihaz)";
 "account lease label name" = "Cihaz adı";
 "account lease label location" = "Konum";
-"account lease label generate" = "Burada bir konum seçmek, Wireguard'ı destekleyen herhangi bir VPN uygulamasında kullanabileceğiniz bir yapılandırma dosyası oluşturacaktır. Bu, henüz uygulamalarımıza sahip olmadığımız platformlar için kullanışlıdır. Aksi takdirde, bunun yerine yerel uygulamalarımızı kullanmanızı öneririz.";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
 "account lease action generate" = "Yapılandırma Oluştur";
 "account lease action download" = "Yapılandırmayı İndir";
-"account lease generated" = "Cihaz eklendi! Wireguard tarafından desteklenen herhangi bir cihazda kullanmak için yapılandırmayı indirin.";
-"account lease wireguard desc" = "Blokada, Wireguard kullanıyor. Yeni cihazlar oluştururken yapılandırmalar indirilebilir.";
+"account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
+"account lease wireguard desc" = "Blokada uses WireGuard. Configurations can be downloaded when creating new devices.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "DNS seçin";
 "account lease label public key" = "Genel Anahtar";
@@ -356,15 +356,15 @@
 "payment feature title encrypt data" = "Verileri Şifreleme";
 "payment feature desc encrypt data" = "VPN tünelimizden gönderilen veriler, yetkisiz tarafların müdahalesine karşı korunması için güçlü algoritmalar kullanılarak şifrelenir.";
 "payment feature title encrypt dns" = "Encrypt DNS";
-"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
 "payment feature title performance" = "Great Performance";
 "payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
 "payment feature title battery" = "Zero Battery Impact";
-"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature desc battery" = "Your battery life isn't going to be impacted, it might even improve when Blokada Cloud is activated.";
 "payment feature title devices cloud" = "Multiple Devices";
-"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
-"payment feature title cloud vpn" = "Cloud & VPN";
-"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
+"payment feature desc devices cloud" = "Configure and monitor all your devices in one place. Either through our mobile app or our web app.";
+"payment feature title cloud vpn" = "The Cloud plus VPN";
+"payment feature desc cloud vpn" = "In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network";
 "payment feature title faster connection" = "Daha Hızlı Bağlantı";
 "payment feature desc faster connection" = "Dünyanın çeşitli yerlerindeki sunucularla 100 Mbps'ye kadar yüksek hızlar.";
 "payment feature title devices" = "5 cihaza kadar";
@@ -501,7 +501,7 @@
 "homepage vpn point two" = "Hızlı ve modern şifreleme";
 "homepage vpn point three" = "Ağ etkinliğiniz günlüğe kaydedilmez";
 "homepage vpn point four" = "5 cihaza kadar bağlantı";
-"homepage vpn credit" = "'WireGuard' ve 'Wireguard' logosu Jason A. Donenfeld'in tescilli ticari markalarıdır.";
+"homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 
 "homepage faq header" = "Sıkça Sorulan Sorular";
 "homepage faq action more" = "SSS'den daha fazlasına bakın";
@@ -525,7 +525,7 @@
 "homepage download option android four" = "Android için Blokada 4";
 "homepage download option ios" = "iOS için Blokada 5";
 "homepage download option other" = "Diğer platformalar için Blokada";
-"homepage download desc other" = "Şu anda Blokada'yı diğer platformlar için sağlamıyoruz. Ancak Blokada Plus kullanıcısıysanız, VPN'imizi Windows, Linux, Mac ve Wireguard'ın mevcut olduğu diğer platformlarda kullanabilirsiniz.";
+"homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.";
 "homepage download desc ios" = "Blokada 5 sadece App Store'da mevcuttur.";
 "homepage download action ios" = "App Store'u Aç";
 "homepage download desc android five" = "Bu, <b>Android 7 veya daha yenisine sahip akıllı telefonlar ve tabletler için</b> önerilen yeni sürümümüzdür. Blokada 4'e göre daha basit ve hızlıdır.";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "Open VPN Devices";
 "web action open setup" = "Open setup";
 "web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
-"web cta plus desc" = "Your Libre account gives you free on-device adblocking for Android and iOS with our open source apps. For even better protection, upgrade to Blokada Plus and get the VPN, as well as our new *cloud adblocking* that is faster and easier to use.";
+"web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
 // A short word for a button to generate profile
 "web action generate" = "Generate";
 
@@ -570,7 +570,7 @@
 "setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
 "setup label which device" = "What type of device you wish to set up?";
 "setup label choose" = "Choose any of the following setup options:";
-"setup comment wireguard" = "Note: Using Blokada VPN automatically enables Blokada Cloud DNS. We are working on supporting other setups for this platform. 'WireGuard' and the 'Wireguard' logo are registered trademarks of Jason A. Donenfeld.";
+"setup comment wireguard" = "Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 "setup comment native apps" = "Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Step %@: %@";
@@ -584,7 +584,7 @@
 "setup step install" = "Install and start our app";
 "setup step enter tag" = "When asked, enter your tag";
 "setup step download profile" = "Generate and download your profile";
-"setup step install wireguard" = "Install and start Wireguard";
+"setup step install wireguard" = "Install and start WireGuard";
 
 "stats header" = "Stats";
 // A ratio between counter of allowed vs denied requests.

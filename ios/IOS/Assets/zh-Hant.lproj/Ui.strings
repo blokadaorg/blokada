@@ -142,7 +142,7 @@
 "home status detail active with counter" = "已阻擋 *%@* 個廣告及追蹤器";
 "home status detail active slim" = "Blokada *Slim* 已啟用";
 "home status detail plus" = "*+* 保護您的 *隱私*";
-"home status detail progress" = "請稍候…";
+"home status detail progress" = "請稍候……";
 
 "home plus button deactivated" = "已停用 BLOKADA+";
 "home plus button deactivated cloud" = "VPN 已停用";
@@ -182,10 +182,10 @@
 "activity request allowed" = "此請求已被允許。";
 "activity request allowed whitelisted" = "此請求已被允許，因為其在您的允許清單中";
 "activity request blocked blacklisted" = "此請求已被阻擋，因為其在您的阻擋清單中";
-"activity request allowed list" = "這個請求因為在 *%@* 阻擋清單中而被允許。";
+"activity request allowed list" = "這個請求因為在 *%@* 允許清單中而被允許。";
 "activity request allowed no list" = "這個請求因為不在您設定的阻擋清單中而被允許。";
 "activity request blocked list" = "這個請求因為在 *%@* 阻擋清單中而被阻擋。";
-"activity request blocked no list" = "這個請求因為不在您設定的阻擋清單中而被阻擋。";
+"activity request blocked no list" = "這個請求因為不在您設定的允許清單中而被阻擋。";
 "activity actions header" = "動作";
 "activity information header" = "資訊";
 "activity action add to whitelist" = "加入至允許清單";
@@ -219,7 +219,7 @@
 "activity retention header" = "我們可以儲存您的使用活動多久？";
 "activity retention option none" = "不要儲存我的使用活動";
 "activity retention option 24h" = "24 小時";
-"activity retention policy" = "啟用使用活動保留即代表您接受 Blokada Cloud 隱私權政策。";
+"activity retention policy" = "啟用使用活動保留即代表您接受隱私權政策。";
 "activity retention desc" = "Blokada Cloud 預設不記錄任何資料。如果您希望在所有裝置上看到匯總的統計資料和活動紀錄，請在下方選擇想要的記錄保留時間。";
 
 "userdenied section header" = "例外";
@@ -333,11 +333,11 @@
 "account lease label this device" = "（此裝置）";
 "account lease label name" = "裝置名稱";
 "account lease label location" = "位置";
-"account lease label generate" = "在這選完位置後，就會產生出一個能在任何支援 Wireguard 的 VPN app 使用的設定檔。這適合用在還不支援 Blokada 的平台，如果支援，建議使用原生 app。";
+"account lease label generate" = "在這選完位置後，就會產生出一個設定檔，可以用在任何支援 WireGuard 的 VPN app。這適合用在還不支援 Blokada 的平台，如果支援，建議使用原生 app。";
 "account lease action generate" = "生成設定";
 "account lease action download" = "下載設定";
-"account lease generated" = "已新增裝置！下載設定以在任何支援 Wireguard 的裝置上使用。";
-"account lease wireguard desc" = "Blokada 使用 Wireguard。建立新裝置時可以下載設定。";
+"account lease generated" = "已新增裝置！下載設定，即可在任何支援 WireGuard 的裝置上使用。";
+"account lease wireguard desc" = "Blokada 使用 WireGuard。建立新裝置時可以下載設定。";
 "account lease label dns" = "DNS";
 "account lease action dns" = "選擇 DNS";
 "account lease label public key" = "公開金鑰";
@@ -356,15 +356,15 @@
 "payment feature title encrypt data" = "加密資料";
 "payment feature desc encrypt data" = "透過我們的 VPN 隧道傳送的資料使用強大的演算法來加密以防止未經授權的人員攔截。";
 "payment feature title encrypt dns" = "DNS 加密";
-"payment feature desc encrypt dns" = "利用 DNS 加密功能增強保護您的隱私權。Blokada Cloud 採用現代通訊協定，保證您的查詢無人知曉。";
+"payment feature desc encrypt dns" = "利用 DNS 加密功能增強保護您的隱私權。Blokada Cloud 採用現代通訊協定，保證您的流量無人知曉。";
 "payment feature title performance" = "效能更上一層";
 "payment feature desc performance" = "新一代雲端解決方案，讓您的裝置火力全開，網速飆滿。";
 "payment feature title battery" = "不多耗電";
-"payment feature desc battery" = "開不開 Blokada Cloud，續航力都相同。";
+"payment feature desc battery" = "您的電池壽命不會受到影響，當 Blokada Cloud 啟用時，它甚至可能會改善。";
 "payment feature title devices cloud" = "支援多裝置";
-"payment feature desc devices cloud" = "將您所有裝置納入 Blokada Cloud 訂閱。使用我們的行動裝置 App 或者是網頁控制介面。";
-"payment feature title cloud vpn" = "雲端與 VPN";
-"payment feature desc cloud vpn" = "享受 Blokada Cloud 的所有功能。附贈 Blokada VPN 網路的存取權。";
+"payment feature desc devices cloud" = "在一個地方設定並監視您的所有裝置。透過我們的行動應用程式或我們的網路應用程式。";
+"payment feature title cloud vpn" = "Cloud 加上 VPN";
+"payment feature desc cloud vpn" = "除了 Blokada Cloud 的所有優勢以外，您還可以存取我們的全球 VPN 網路";
 "payment feature title faster connection" = "較快速的連線";
 "payment feature desc faster connection" = "在世界各地的伺服器上最高可達 100Mbps。";
 "payment feature title devices" = "最多 5 個裝置";
@@ -501,7 +501,7 @@
 "homepage vpn point two" = "快速且現代的加密方式";
 "homepage vpn point three" = "不會記錄您的網路活動";
 "homepage vpn point four" = "最多可以連線 5 台裝置";
-"homepage vpn credit" = "「WireGuard」和「Wireguard」標誌是 Jason A. Donenfeld 的註冊商標。";
+"homepage vpn credit" = "「WireGuard」和「WireGuard」標誌是 Jason A. Donenfeld 的註冊商標。";
 
 "homepage faq header" = "常見問題";
 "homepage faq action more" = "查閱更多 FAQ";
@@ -525,7 +525,7 @@
 "homepage download option android four" = "供 Android 使用的 Blokada 4";
 "homepage download option ios" = "供 iOS 使用的 Blokada 5";
 "homepage download option other" = "供其他平台使用的 Blokada";
-"homepage download desc other" = "目前我們尚未在其他平台上提供 Blokada。但如果您是 Blokada Plus 的使用者，您可以在 Windows、Linux、Mac 或其他 Wireguard 支援的平台上使用我們的 VPN。";
+"homepage download desc other" = "目前我們尚未在其他平台上提供 Blokada。但如果您是 Blokada Plus 的使用者，您可以在 Windows、Linux、Mac 或其他 WireGuard 支援的平台上使用我們的 VPN。";
 "homepage download desc ios" = "Blokada 5 只在 App Store 上提供。";
 "homepage download action ios" = "開啟 App Store";
 "homepage download desc android five" = "這是我們推薦的新版本，<b>供搭載 Android 7 或更新版本的智慧型手機與平板電腦</b>使用。它與 Blokada 4 相比更簡潔且更快。";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "開啟 VPN 裝置";
 "web action open setup" = "開啟設定";
 "web cta plus header" = "升級到 Blokada Plus，您的隱私權不用再任人宰割。";
-"web cta plus desc" = "您的 Libre 帳戶賜予您在 Android 及 iOS，使用我們開放原始碼 App，免費在裝置上進行廣告阻擋的功能。若需更完善的保護，請升級到 Blokada Plus，取得 VPN 和我們既快又能輕鬆上手的雲端廣告阻擋功能。";
+"web cta plus desc" = "您的 Libre 帳號可透過我們的開放原始碼應用程式在您的裝置上封鎖廣告。升級至 Blokada Plus 來取得更好的保護。您將可以存取我們的全球 VPN 網路以及我們新的 *以雲端為基礎的* 廣告封鎖，其更有效率也更易於使用。";
 // A short word for a button to generate profile
 "web action generate" = "產生";
 
@@ -570,7 +570,7 @@
 "setup desc" = "有很多方法可以讓您的裝置接上 Blokada Cloud。請選擇適合您的方法。";
 "setup label which device" = "您想設定什麼裝置？";
 "setup label choose" = "請選擇下述任一設定選項：";
-"setup comment wireguard" = "注意：使用 Blokada VPN 會自動啟用 Blokada Cloud DNS。我們還在製作這個平台的更多安裝方式。「WireGuard」和「Wireguard」標誌是 Jason A. Donenfeld 註冊的商標。";
+"setup comment wireguard" = "注意：VPN 設定將會預設使用 Blokada Cloud。如果您想要退出，請選擇其他 DNS 設定。「WireGuard」與「WireGuard」圖示是 Jason A. Donenfeld 的註冊商標。";
 "setup comment native apps" = "注意：Android 和 iOS 的原生 App 尚未支援 Blokada Cloud。這個功能還在製作中。";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "第 %@ 步：%@";
@@ -584,7 +584,7 @@
 "setup step install" = "安裝並啟動 App";
 "setup step enter tag" = "詢問時請輸入您的標籤 (tag)";
 "setup step download profile" = "產生並下載量身打造的設定檔";
-"setup step install wireguard" = "安裝並啟動 Wireguard";
+"setup step install wireguard" = "安裝並啟動 WireGuard";
 
 "stats header" = "統計";
 // A ratio between counter of allowed vs denied requests.

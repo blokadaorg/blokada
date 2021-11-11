@@ -136,13 +136,13 @@
 "home status paused" = "Dijeda";
 "home status active" = "Aktif";
 "home status deactivated" = "Dinonaktifkan";
-"home action tap to activate" = "tekan untuk mengaktifkan";
-"home status detail paused" = "dihentikan sementara sampai pengatur waktu berhenti";
-"home status detail active" = "memblokir *iklan* dan *pelacak*";
-"home status detail active with counter" = "memblokir *%@* iklan dan pelacak";
+"home action tap to activate" = "Tekan untuk mengaktifkan";
+"home status detail paused" = "Dihentikan sementara sampai timer habis";
+"home status detail active" = "Memblokir *iklan* dan *pelacak*";
+"home status detail active with counter" = "Memblokir *%@* iklan dan pelacak";
 "home status detail active slim" = "Blokada *Slim* telah diaktifkan";
 "home status detail plus" = "*+* melindungi *privasi* Anda";
-"home status detail progress" = "harap tunggu...";
+"home status detail progress" = "Harap tunggu...";
 
 "home plus button deactivated" = "BLOKADA+ dinonaktifkan";
 "home plus button deactivated cloud" = "VPN telah dinonaktifkan";
@@ -185,7 +185,7 @@
 "activity request allowed list" = "Permintaan ini telah diizinkan, karena telah termasuk dalam blocklist *%@*.";
 "activity request allowed no list" = "Permintaan ini telah diizinkan, karena tidak termasuk dalam blocklist yang telah Anda buat.";
 "activity request blocked list" = "Permintaan ini telah diblokir, karena telah termasuk dalam blocklist *%@*.";
-"activity request blocked no list" = "Permintaan ini telah diblokir, karena tidak termasuk dalam blocklist yang telah Anda buat.";
+"activity request blocked no list" = "Permintaan ini telah diblokir, karena tidak ada dalam blocklist yang telah Anda buat.";
 "activity actions header" = "Tindakan";
 "activity information header" = "Informasi";
 "activity action add to whitelist" = "Tambahkan ke dalam whitelist";
@@ -219,7 +219,7 @@
 "activity retention header" = "Berapa lama kami bisa menyimpan aktifitas Anda?";
 "activity retention option none" = "Jangan simpan aktifitas saya";
 "activity retention option 24h" = "24 jam";
-"activity retention policy" = "Dengan mengaktifkan penyimpanan log berarti Anda menyetujui kebijakan privasi dari Blokada Cloud.";
+"activity retention policy" = "Dengan mengaktifkan penyimpanan log berarti Anda telah menyetujui kebijakan provasi kami.";
 "activity retention desc" = "Blokada Cloud secara default tidak akan menyimpan data Anda. Jika Anda ingin melihat kumpulan statistik dan aktivitas pemakaian dari semua perangkat Anda, silakan pilih rentang waktu penyimpanan data yang Anda inginkan di bawah ini.";
 
 "userdenied section header" = "Pengecualian";
@@ -360,11 +360,11 @@
 "payment feature title performance" = "Kinerja yang mumpuni";
 "payment feature desc performance" = "Menjaga perangkat Anda tetap gegas dan koneksi internet Anda di kecepatan maksimal, berkat solusi Cloud baru dari kami.";
 "payment feature title battery" = "Tidak mempengaruhi daya tahan baterai";
-"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature desc battery" = "Baterai Anda tidak akan terpengaruh, bahkan mungkin akan lebih irit ketika Blokada Cloud diaktifkan.";
 "payment feature title devices cloud" = "Banyak Perangkat";
-"payment feature desc devices cloud" = "Set up semua perangkat Anda hanya dengan satu akun Blokada Cloud. Gunakan aplikasi atau dashboard web kami untuk pengaturan selanjutnya.";
-"payment feature title cloud vpn" = "Cloud & VPN";
-"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
+"payment feature desc devices cloud" = "Konfigurasikan dan pantau semua perangkat Anda di satu tempat. Melalui aplikasi atau situs resmi kami.";
+"payment feature title cloud vpn" = "Blokada Cloud plus VPN";
+"payment feature desc cloud vpn" = "Selain keuntungan yang Anda dapatkan dari Blokada Cloud, Anda juga akan bisa mengkases jaringan VPN global kami";
 "payment feature title faster connection" = "Koneksi Lebih Cepat";
 "payment feature desc faster connection" = "Koneksi cepat sampai dengan 100Mbps dengan server yang berlokasi di berbagai tempat di dunia.";
 "payment feature title devices" = "Hingga 5 perangkat";
@@ -525,7 +525,7 @@
 "homepage download option android four" = "Blokada 4 untuk Android";
 "homepage download option ios" = "Blokada 5 untuk iOS";
 "homepage download option other" = "Blokada untuk platform lain";
-"homepage download desc other" = "Saat ini, kami belum menyediakan Blokada untuk platform selain Android dan iOS. Namun, jika Anda berlangganan Blokada Plus, Anda bisa menggunakan fitur VPN kami di Windows, Linux, Mac, dan platform lain yang mendukung protokol Wireguard.";
+"homepage download desc other" = "Untuk saat ini, Blokada belum tersedia di platform selain Android dan iOS. Namun, jika Anda berlangganan Blokada Plus, Anda bisa menggunakan fitur VPN kami di Windows, Linux, Mac, dan platform lain yang mendukung protokol Wireguard.";
 "homepage download desc ios" = "Blokada 5 tersedia di App Store.";
 "homepage download action ios" = "Buka App Store";
 "homepage download desc android five" = "Versi ini adalah versi terbaru dan yang kami rekomendasikan <b>untuk smartphone dan tablet yang menggunakan Android 7 atau lebih baru</b>. Versi ini lebih simpel dan cepat dibandingkan Blokada 4.";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "Buka Perangkat VPN";
 "web action open setup" = "Buka Setup";
 "web cta plus header" = "Upgrade ke Blokada Plus supaya Anda bisa mengendalikan privasi Anda.";
-"web cta plus desc" = "Akun LIbre Anda memberikan pemblokiran iklan gratis di perangkat Anda, baik di Android maupun iOS dengan aplikasi open source kami. Untuk perlindungan yang lebih baik, silakan upgrade akun Anda ke Blokada Plus dan dapatkan Blokada VPN beserta fitur terbaru kami yaitu pemblokiran iklan berbasis cloud yang lebih gegas dan mudah digunakan.";
+"web cta plus desc" = "Akun Libre memberi Anda fitur pemblokiran iklan gratis di perangkat Anda lewat aplikasi open source kami. Silakan upgrade ke Blokada PLus untuk perlindungan yang lebih baik lagi. Anda akan dapat menggunakan jaringan VPN global kami, dan juga fitur pemblokiran iklan *berbasis cloud* yang lebih efisien dan mudah digunakan.";
 // A short word for a button to generate profile
 "web action generate" = "Buat profil";
 
@@ -570,7 +570,7 @@
 "setup desc" = "Ada banyak cara untuk mengkonfigurasikan perangkat Anda agar bisa menggunakan Blokada Cloud. Pilih salah satu yang cocok untuk Anda.";
 "setup label which device" = "Apa jenis pernagkat yang ingin Anda atur untuk Blokada Cloud?";
 "setup label choose" = "Silakan pilih salah satu dari opsi pengaturan berikut:";
-"setup comment wireguard" = "Catatan: JIka Anda menggunakan Blokada VPN maka Blokada CLoud DNS akan otomatis aktif. Kami sedang berusaha untuk bisa mendukung pengaturan lain untuk platform ini. 'Wireguard' dan logo 'Wireguard' adalah merek dagang terdaftar milik Jason A. Donenfeld.";
+"setup comment wireguard" = "Catatan: Konfigurasi VPN bawaan adalah Blokada Cloud. Silakan pilih pengaturan DNS lain jika Anda ingin menggunakan server lain. 'Wireguard' dan logo 'Wireguard' adalah merk dagang terdaftar milik Jason A. Donenfeld.";
 "setup comment native apps" = "Catatan: Aplikasi bawaan Android dan iOS saat ini belum mendukung Blokada Cloud. Kami sedang mengusahakan update untuk mengatasi hal ini.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Langkah %@: %@";
@@ -584,7 +584,7 @@
 "setup step install" = "Instal dan mulai aplikasi";
 "setup step enter tag" = "Masukkan tag Anda ketika diminta";
 "setup step download profile" = "Buat dan unduh profil Anda";
-"setup step install wireguard" = "Instal dan mulai Wireguard";
+"setup step install wireguard" = "Instal dan nyalakan Wireguard";
 
 "stats header" = "Statistik";
 // A ratio between counter of allowed vs denied requests.

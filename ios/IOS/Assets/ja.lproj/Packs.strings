@@ -19,7 +19,7 @@
 "Adblocking for your mobile device" = "モバイルデバイスの広告ブロック";
 "A special blocklist containing mobile ad providers." = "モバイル広告プロバイダーを含む特別なブロックリスト。";
 "Protects against cyber attacks" = "サイバー攻撃から保護";
-"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "フィッシングサイトをブロックするためのリスト。フィッシングは、元のサイトと同じように見える偽のサイトに誘導して個人情報やパスワードを盗み取る不正行為です。 このリストはフィッシングからあなたを保護します。";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "フィッシングサイトをブロックするためのリスト。フィッシングは、元のサイトと同じように見える偽のサイトに誘導して個人情報やパスワードを盗み取る不正行為です。このリストはフィッシングからあなたを保護します。";
 "A new and expanding tracker database" = "新しく拡張されたトラッカーデータベース";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar は、連続的なクロールと分析を通じて自動的に生成および維持される、トラッカーに関するクラス最高のデータセットです。詳細は製作者情報をご覧ください。";
 "Curated blocklist to block trackers and advertisements" = "トラッカーと広告をブロックするための厳選されたブロックリスト";
@@ -34,7 +34,6 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "これらのリストは、ブロックされるものを的確に制御する目的で作成されました。";
 "A blocklist based on spam reports" = "スパムレポートに基づくブロックリスト";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 は、コンテンツ監視、侵入テスト、ブランド保護をオンライン企業に提供するサービスです。このリストは、企業から受け取ったレポートに基づいています。";
-/* A comprehensive list to block ads and tracking */
 "A comprehensive lists to block ads and tracking" = "広告とトラッキングをブロックする包括的なブロックリスト";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock は、広告を提供するドメイン、スクリプト、マルウェアのリストです。お使いのデバイスがそれらに接続することを防止します。";
 "A general purpose, medium weight list" = "総合的、中程度のサイズのブロックリスト";
@@ -46,4 +45,5 @@
 "A blocklist based on malware database" = "マルウェアデータベースに基づくブロックリスト";
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "urlhaus.abuse.ch に基づいて、マルウェア配布に使用されている悪意のあるウェブサイトをブロックします。";
 "A blocklist from the maker of the adblocker test" = "広告ブロッカーテストサイト製作者のブロックリスト";
-"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "これは、人気の広告ブロッカーテストサイトの製作者である d3ward の公式ブロックリストです。テストで 100% のスコアを達成するために必要な最低限のリストです。他のブロックリストと一緒に使用することができます。 テストを実行したい場合は、go.blokada.org/test をご覧ください。";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "これは、人気の広告ブロッカーテストサイトの製作者である d3ward の公式ブロックリストです。テストで 100% のスコアを達成するために必要な最低限の内容が含まれており、他のブロックリストと一緒に使用することができます。go.blokada.org/test からテストを実行できます。";
+"This blocklist is maintained by a coalition of cybersecurity experts working to protect individuals and organizations from COVID-19-related cyber threats." = "このブロックリストは、COVID-19 関連のサイバー脅威から個人や組織を保護するために働くサイバーセキュリティ専門家の連合によって維持されています。";

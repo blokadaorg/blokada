@@ -136,16 +136,16 @@
 "home status paused" = "Pozastaveno";
 "home status active" = "Aktivní";
 "home status deactivated" = "Deaktivováno";
-"home action tap to activate" = "klepnutím aktivovat";
-"home status detail paused" = "pozastaveno, do konce časovače";
-"home status detail active" = "blokuje *reklamy* a *slídiče*";
-"home status detail active with counter" = "zablokováno *%@* reklam a slídičů";
+"home action tap to activate" = "Tap to activate";
+"home status detail paused" = "Paused until timer ends";
+"home status detail active" = "Blocking *ads* and *trackers*";
+"home status detail active with counter" = "Blocked *%@* ads and trackers";
 "home status detail active slim" = "Blokada *Slim* je aktivní";
 "home status detail plus" = "*+* chrání vaše *soukromí*";
-"home status detail progress" = "čekejte prosím...";
+"home status detail progress" = "Please wait...";
 
 "home plus button deactivated" = "BLOKADA+ deaktivována";
-"home plus button deactivated cloud" = "VPN deactivated";
+"home plus button deactivated cloud" = "VPN deaktivováno";
 "home plus button select location" = "Vybrat umístění";
 "home plus button location" = "Umístění: *%@*";
 
@@ -182,10 +182,10 @@
 "activity request allowed" = "Tento požadavek byl povolen.";
 "activity request allowed whitelisted" = "Tento požadavek byl povolen, protože je na vašem Seznamu povolených";
 "activity request blocked blacklisted" = "Tento požadavek byl zablokován, protože je na vašem Seznamu blokovaných";
-"activity request allowed list" = "Tento požadavek byl povolen, protože se nachází na *%@* blocklistu.";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* allowlist.";
 "activity request allowed no list" = "Tento požadavek byl povolen, protože se nenachází na žádném z vašich nakonfigurovaných blocklistů.";
 "activity request blocked list" = "Tento požadavek byl zablokován, protože se nachází na *%@* blocklistu.";
-"activity request blocked no list" = "Tento požadavek byl zablokován, protože se nenachází na žádném z vašich nakonfigurovaných blocklistů.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured allowlists.";
 "activity actions header" = "Akce";
 "activity information header" = "Informace";
 "activity action add to whitelist" = "Přidat k povoleným";
@@ -219,7 +219,7 @@
 "activity retention header" = "Jak dlouho můžeme ukládat vaši aktivitu?";
 "activity retention option none" = "Neukládat moji aktivitu";
 "activity retention option 24h" = "24 hodin";
-"activity retention policy" = "Povolením uchovávání protokolů přijímáte zásady ochrany osobních údajů služby Blokada Cloud.";
+"activity retention policy" = "By enabling log retention you accept the privacy policy.";
 "activity retention desc" = "Blokada Cloud ve výchozím nastavení nic nezaznamenává. Pokud si přejete zobrazit souhrnné statistiky a aktivitu ze všech vašich zařízení, vyberte níže požadované období uchovávání protokolu.";
 
 "userdenied section header" = "Výjimky";
@@ -264,7 +264,7 @@
 "account section header settings" = "Nastavení";
 "account status text" = "Váš účet BLOKADA %@ je aktivní do %@.";
 "account status text libre" = "Váš účet BLOKADA Libre je aktivní navždy.";
-"account status text inactive" = "Your BLOKADA account is inactive.";
+"account status text inactive" = "Váš účet BLOKADA je neaktivní.";
 
 "account section header primary" = "Primární";
 "account section header other" = "Ostatní";
@@ -333,11 +333,11 @@
 "account lease label this device" = " (toto zařízení)";
 "account lease label name" = "Název zařízení";
 "account lease label location" = "Umístění";
-"account lease label generate" = "Pokud zde vyberete umístění, vygeneruje se konfigurační soubor, který můžete použít v jakékoli VPN aplikac, která podporuje Wireguard. To je užitečné pro platformy, na zatím nemáme naší aplikaci. Jinak doporučujeme místo toho použít naší nativní aplikaci.";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
 "account lease action generate" = "Generovat konfiguraci";
 "account lease action download" = "Stáhnout konfiguraci";
-"account lease generated" = "Zařízení přidáno! Stáhněte si konfiguraci, abyste jej mohli používat na jakémkoliv zařízení podporovaném službou Wireguard.";
-"account lease wireguard desc" = "Blokada používá službu Wireguard. Konfigurace lze stáhnout při vytváření nových zařízení.";
+"account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
+"account lease wireguard desc" = "Blokada uses WireGuard. Configurations can be downloaded when creating new devices.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "Zvolte DNS";
 "account lease label public key" = "Veřejný klíč";
@@ -355,22 +355,22 @@
 "payment feature desc change location" = "Skryje vaši IP adresu a předstírá, že se nacházíte v jiné zemi. To vás chrání před třetími stranami a pomůže ochránit vaši identitu.";
 "payment feature title encrypt data" = "Šifruje data";
 "payment feature desc encrypt data" = "Data odesílaná pomocí našeho VPN tunelu jsou šifrována pomocí silných algoritmů, aby byla chráněna před odposlechem neoprávněných stran.";
-"payment feature title encrypt dns" = "Encrypt DNS";
-"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
-"payment feature title performance" = "Great Performance";
-"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
-"payment feature title battery" = "Zero Battery Impact";
-"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
-"payment feature title devices cloud" = "Multiple Devices";
-"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
-"payment feature title cloud vpn" = "Cloud & VPN";
-"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
+"payment feature title encrypt dns" = "Šifrovat DNS";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
+"payment feature title performance" = "Skvělý výkon";
+"payment feature desc performance" = "Udržujte své zařízení svižné a internetové připojení na maximální rychlosti díky našemu novému cloudovému řešení.";
+"payment feature title battery" = "Nulový dopad na baterii";
+"payment feature desc battery" = "Your battery life isn't going to be impacted, it might even improve when Blokada Cloud is activated.";
+"payment feature title devices cloud" = "Více zařízení";
+"payment feature desc devices cloud" = "Configure and monitor all your devices in one place. Either through our mobile app or our web app.";
+"payment feature title cloud vpn" = "The Cloud plus VPN";
+"payment feature desc cloud vpn" = "In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network";
 "payment feature title faster connection" = "Rychlejší připojení";
 "payment feature desc faster connection" = "Skvělá rychlost až 100 Mbps se servery v různých částech světa.";
 "payment feature title devices" = "Až 5 zařízení";
 "payment feature desc devices" = "Pomocí stejného účtu můžete sdílet své předplatné až s 5 zařízeními: iOS, Android nebo PC.";
-"payment feature title no ads" = "Block Ads";
-"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
+"payment feature title no ads" = "Blokovat reklamy";
+"payment feature desc no ads" = "Použijte populární technologii blokování reklam Blokada k blokování reklam na vašich zařízeních. K dispozici jsou i pokročilá nastavení.";
 "payment feature title support" = "Skvělá podpora";
 "payment feature desc support" = "Získejte rychlou odpověď na jakékoliv dotazy díky naší zákaznické podpoře a aktivní početné komunitě.";
 "payment action see all features" = "Zobrazit všechny funkce";
@@ -419,12 +419,12 @@
 "payment euro desc" = "Máme sídlo v Evropě, takže akceptujeme euro: 10 eur je zhruba 12 dolarů.";
 "payment donate disclaimer" = "Toto neaktivuje váš účet Blokada Plus. Pokud chcete používat naši službu VPN, místo darů se prosím přihlaste k předplatnému.";
 
-"payment action compare" = "Compare plans";
-"payment plan slugline cloud" = "Blocks ads and trackers";
-"payment plan slugline plus" = "Additional protection with VPN";
-"payment plan cta trial" = "Start 7-Day Free Trial";
-"payment plan cta monthly" = "Subscribe Monthly";
-"payment plan cta annual" = "Subscribe Annually";
+"payment action compare" = "Porovnat plány";
+"payment plan slugline cloud" = "Blokuje reklamy a slídiče";
+"payment plan slugline plus" = "Dodatečná ochrana pomocí VPN";
+"payment plan cta trial" = "Zahájit 7denní bezplatnou zkušební dobu";
+"payment plan cta monthly" = "Měsíční předplatné";
+"payment plan cta annual" = "Roční předplatné";
 
 "apps section header" = "Aplikace";
 "apps label installed" = "Nainstalované";
@@ -501,7 +501,7 @@
 "homepage vpn point two" = "Rychlé & moderní šifrování";
 "homepage vpn point three" = "Nezaznamenává vaše aktivity na síti";
 "homepage vpn point four" = "Připojte až 5 zařízení";
-"homepage vpn credit" = "'WireGuard' a logo 'Wireguard' jsou registrované ochranné známky Jasona A. Donenfelda.";
+"homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 
 "homepage faq header" = "Často kladené otázky (FAQ)";
 "homepage faq action more" = "Zobrazit další FAQ";
@@ -525,7 +525,7 @@
 "homepage download option android four" = "Blokada 4 pro Android";
 "homepage download option ios" = "Blokada 5 pro iOS";
 "homepage download option other" = "Blokada pro ostatní platformy";
-"homepage download desc other" = "V současné době nenabízíme Blokadu pro ostatní platformy. Jste-li však uživatelem Blokada Plus, můžete použít VPN na Windows, Linuxu, Macu a dalších platformách, kde je Wireguard k dispozici.";
+"homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.";
 "homepage download desc ios" = "Blokada 5 je jednoduše k dispozici v App Store.";
 "homepage download action ios" = "Otevřít App Store";
 "homepage download desc android five" = "Toto je naše nová, doporučená verze <b>pro chytré telefony a tablety s Androidem 7 nebo novějším</b>. Ve srovnání s Blokadou 4 je to jednodušší a rychlejší.";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "Otevřít VPN zařízení";
 "web action open setup" = "Otevřít nastavení";
 "web cta plus header" = "Upgradujte na Blokada Plus, abyste měli kontrolu nad svým soukromím.";
-"web cta plus desc" = "Váš účet Libre vám poskytuje bezplatné blokování reklam na zařízení pro Android a iOS s našimi open source aplikacemi. Pro ještě lepší ochranu upgradujte na Blokada Plus a získejte VPN a také naše nové *cloudové blokování reklam*, které je rychlejší a jednodušší na používání.";
+"web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
 // A short word for a button to generate profile
 "web action generate" = "Generovat";
 
@@ -570,7 +570,7 @@
 "setup desc" = "Existuje mnoho způsobů, jak nakonfigurovat zařízení tak, aby používalo službu Blokada Cloud. Vyberte si ten, který vám vyhovuje.";
 "setup label which device" = "Jaký typ zařízení chcete nastavit?";
 "setup label choose" = "Vyberte některou z následujících možností nastavení:";
-"setup comment wireguard" = "Poznámka: Používání Blokada VPN automaticky aktivuje Blokada Cloud DNS. Pracujeme na podpoře dalších nastavení pro tuto platformu. „WireGuard“ a logo „Wireguard“ jsou registrované ochranné známky společnosti Jason A. Donenfeld.";
+"setup comment wireguard" = "Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 "setup comment native apps" = "Poznámka: Nativní aplikace pro Android a iOS zatím Blokada Cloud nepodporují. Na aktualizaci pracujeme.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Krok %@: %@";
@@ -584,7 +584,7 @@
 "setup step install" = "Nainstalujte si a spusťte naši aplikaci";
 "setup step enter tag" = "Na výzvu zadejte svou značku";
 "setup step download profile" = "Vygenerujte a stáhněte si svůj profil";
-"setup step install wireguard" = "Nainstalujte a spusťte Wireguard";
+"setup step install wireguard" = "Install and start WireGuard";
 
 "stats header" = "Statistiky";
 // A ratio between counter of allowed vs denied requests.
@@ -596,4 +596,4 @@
 "stats top allowed header" = "Nejvíce povolené žádosti";
 "stats top blocked header" = "Nejvíce blokované žádosti";
 
-"dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";
+"dnsprofile desc" = "Blokada pro vás právě vytvořila v Nastavení profil DNS. Aktivujte jej v sekci Obecné -> VPN, DNS a správa zařízení -> DNS.";

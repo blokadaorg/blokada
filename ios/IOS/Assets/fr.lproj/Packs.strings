@@ -34,7 +34,6 @@
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Ces listes ont été créées parce que le fondateur du projet voulait plus de granularité sur le blocage des éléments.";
 "A blocklist based on spam reports" = "A blocklist based on spam reports";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 est un service qui aide les entreprises en ligne à surveiller les contenus consultés, tester leur pénétration du marché et protéger leur marque. Cette liste se fonde sur des rapports établis et transmis par des entreprises.";
-/* A comprehensive list to block ads and tracking */
 "A comprehensive lists to block ads and tracking" = "Une liste complète pour bloquer les publicités et le suivi";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock liste les domaines distribuant des publicités, scripts de tracking et malwares. Cette liste empêche votre appareil de s'y connecter.";
 "A general purpose, medium weight list" = "A general purpose, medium weight list";
@@ -43,7 +42,8 @@
 "This is a well known, general purpose blocklist of small size, updated regularly." = "This is a well known, general purpose blocklist of small size, updated regularly.";
 "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.";
 "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.";
-"A blocklist based on malware database" = "A blocklist based on malware database";
+"A blocklist based on malware database" = "A blocklist based on a malware database";
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "A blocklist from the maker of the adblocker test";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test";
+"This blocklist is maintained by a coalition of cybersecurity experts working to protect individuals and organizations from COVID-19-related cyber threats." = "Cette liste est maintenue par un ensemble d’experts en cybersécurité qui s’efforce de protéger les individus et les organisations contre les cyber-menaces liées au COVID-19.";

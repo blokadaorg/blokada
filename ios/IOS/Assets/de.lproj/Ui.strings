@@ -137,15 +137,15 @@
 "home status active" = "Aktiv";
 "home status deactivated" = "Deaktiviert";
 "home action tap to activate" = "Zum Aktivieren tippen";
-"home status detail paused" = "pausiert, bis der Timer abgelaufen ist";
-"home status detail active" = "*Werbung* und *Tracker* blockieren";
-"home status detail active with counter" = "*%@* Werbeanzeigen und Tracker blockiert";
+"home status detail paused" = "Paused until timer ends";
+"home status detail active" = "Blocking *ads* and *trackers*";
+"home status detail active with counter" = "Blocked *%@* ads and trackers";
 "home status detail active slim" = "Blokada *Slim* ist aktiv";
 "home status detail plus" = "*+* beschützt deine *Privatsphäre*";
-"home status detail progress" = "bitte warte...";
+"home status detail progress" = "Bitte warte...";
 
 "home plus button deactivated" = "BLOKADA+ deaktiviert";
-"home plus button deactivated cloud" = "VPN deactivated";
+"home plus button deactivated cloud" = "VPN deaktiviert";
 "home plus button select location" = "Standort wählen";
 "home plus button location" = "Standort: *%@*";
 
@@ -182,10 +182,10 @@
 "activity request allowed" = "Diese Anfrage wurde erlaubt.";
 "activity request allowed whitelisted" = "Diese Anfrage wurde zugelassen, da sie sich auf deiner erlaubten Liste befindet";
 "activity request blocked blacklisted" = "Diese Anfrage wurde blockiert, weil sie sich auf deiner Sperrliste befindet";
-"activity request allowed list" = "Diese Anfrage wurde erlaubt, da sie auf der *%@* Blockliste vorhanden ist.";
+"activity request allowed list" = "This request has been allowed, because it's present on the *%@* allowlist.";
 "activity request allowed no list" = "Diese Anfrage wurde erlaubt, da sie in keiner deiner konfigurierten Blocklisten vorhanden ist.";
 "activity request blocked list" = "Diese Anfrage wurde blockiert, da sie auf der *%@* Sperrliste vorhanden ist.";
-"activity request blocked no list" = "Diese Anfrage wurde blockiert, da sie in keiner deiner konfigurierten Blocklisten vorhanden ist.";
+"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured allowlists.";
 "activity actions header" = "Aktionen";
 "activity information header" = "Informationen";
 "activity action add to whitelist" = "Zu Erlaubten hinzufügen";
@@ -219,7 +219,7 @@
 "activity retention header" = "Für wie lange können wir deine Aktivitäten speichern?";
 "activity retention option none" = "Meine Aktivitäten nicht speichern";
 "activity retention option 24h" = "24 Stunden";
-"activity retention policy" = "Durch die Aktivierung der Log-Speicherung akzeptierst du die Blokada Cloud-Datenschutzrichtlinie.";
+"activity retention policy" = "By enabling log retention you accept the privacy policy.";
 "activity retention desc" = "Blokada Cloud protokolliert standardmäßig nichts. Wenn du die kombinierten Statistiken und Aktivitäten von all deinen Geräten sehen möchtest, wähle unten den gewünschten Protokollierungzeitraum aus.";
 
 "userdenied section header" = "Ausnahmen";
@@ -264,7 +264,7 @@
 "account section header settings" = "Einstellungen";
 "account status text" = "Dein BLOKADA %@ Konto ist aktiv bis zum %@.";
 "account status text libre" = "Dein BLOKADA Libre Konto ist für immer aktiv.";
-"account status text inactive" = "Your BLOKADA account is inactive.";
+"account status text inactive" = "Dein BLOKADA Konto ist inaktiv.";
 
 "account section header primary" = "Primär";
 "account section header other" = "Andere";
@@ -333,11 +333,11 @@
 "account lease label this device" = " (Dieses Gerät)";
 "account lease label name" = "Name des Gerätes";
 "account lease label location" = "Standort";
-"account lease label generate" = "Wenn du hier einen Standort auswählst, wird eine Konfigurationsdatei generiert, die du in jeder VPN-App verwenden kannst, die WireGuard unterstützt. Dies ist nützlich für Plattformen, für die wir noch keine eigenen Apps bereitstellen. Ansonsten empfehlen wir, stattdessen unsere nativen Apps zu verwenden.";
+"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
 "account lease action generate" = "Konfiguration generieren";
 "account lease action download" = "Konfiguration herunterladen";
-"account lease generated" = "Gerät hinzugefügt! Lade die Konfiguration herunter, um sie auf jedem Gerät zu verwenden, dass von Wireguard unterstützt wird.";
-"account lease wireguard desc" = "Blokada verwendet Wireguard. Konfigurationen können heruntergeladen werden, wenn neue Geräte erstellt werden.";
+"account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
+"account lease wireguard desc" = "Blokada verwendet WireGuard. Konfigurationen können bei der Erstellung neuer Geräte heruntergeladen werden.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "DNS auswählen";
 "account lease label public key" = "Öffentlicher Schlüssel";
@@ -355,21 +355,21 @@
 "payment feature desc change location" = "Verstecke deine IP-Adresse und tu so, als ob du in einem anderen Land bist. Das wird dich vor Drittanbietern verbergen und dir helfen, deine Identität zu schützen.";
 "payment feature title encrypt data" = "Daten verschlüsseln";
 "payment feature desc encrypt data" = "Die Daten, die durch unseren VPN-Tunnel geschickt werden, sind durch starke Algorithmen verschlüsselt, um dich vor dem Abhören durch unberechtigte Personen zu schützen.";
-"payment feature title encrypt dns" = "Encrypt DNS";
-"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.";
-"payment feature title performance" = "Great Performance";
+"payment feature title encrypt dns" = "DNS verschlüsseln";
+"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
+"payment feature title performance" = "Großartige Leistung";
 "payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
-"payment feature title battery" = "Zero Battery Impact";
-"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
-"payment feature title devices cloud" = "Multiple Devices";
-"payment feature desc devices cloud" = "Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.";
-"payment feature title cloud vpn" = "Cloud & VPN";
-"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
+"payment feature title battery" = "Keine Belastung des Akkus";
+"payment feature desc battery" = "Deine Akkulaufzeit wird nicht beeinträchtigt, sie kann sich sogar verbessern, wenn Blokada Cloud aktiviert ist.";
+"payment feature title devices cloud" = "Mehrere Geräte";
+"payment feature desc devices cloud" = "Configure and monitor all your devices in one place. Either through our mobile app or our web app.";
+"payment feature title cloud vpn" = "The Cloud plus VPN";
+"payment feature desc cloud vpn" = "In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network";
 "payment feature title faster connection" = "Schnellere Verbindung";
 "payment feature desc faster connection" = "Schnelle Verbindungen mit bis zu 100 Mbit/s mit Servern überall auf der Welt verteilt.";
 "payment feature title devices" = "Bis zu 5 Geräte";
 "payment feature desc devices" = "Nutze das gleiche Konto und teile dein Abo mit bis zu 5 Geräten: egal ob iOS, Android oder PC.";
-"payment feature title no ads" = "Block Ads";
+"payment feature title no ads" = "Werbung blockieren";
 "payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
 "payment feature title support" = "Großartiger Support";
 "payment feature desc support" = "Bekomme eine schnelle Antwort auf jede Frage, dank unserem Kundensupport und der lebendigen Open-Source-Community.";
@@ -424,7 +424,7 @@
 "payment plan slugline plus" = "Additional protection with VPN";
 "payment plan cta trial" = "Start 7-Day Free Trial";
 "payment plan cta monthly" = "Subscribe Monthly";
-"payment plan cta annual" = "Subscribe Annually";
+"payment plan cta annual" = "Jährlich abonnieren";
 
 "apps section header" = "Apps";
 "apps label installed" = "Installiert";
@@ -525,7 +525,7 @@
 "homepage download option android four" = "Blokada 4 für Android";
 "homepage download option ios" = "Blokada 5 für iOS";
 "homepage download option other" = "Blokada für andere Plattformen";
-"homepage download desc other" = "Derzeit stellen wir Blokada nicht für andere Plattformen zur Verfügung. Wenn du jedoch Blokada Plus-Nutzer bist, kannst du unser VPN auf Windows, Linux, Mac und anderen Plattformen verwenden, auf denen WireGuard verfügbar ist.";
+"homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.";
 "homepage download desc ios" = "Blokada 5 ist einfach im App Store verfügbar.";
 "homepage download action ios" = "App Store öffnen";
 "homepage download desc android five" = "Dies ist unsere neue, empfohlene Version <b>für Smartphones und Tablets mit Android 7 oder neuer</b>. Sie ist einfacher zu bedienen und schneller als Blokada 4.";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "Öffne VPN-Geräte";
 "web action open setup" = "Setup öffnen";
 "web cta plus header" = "Upgrade auf Blokada Plus, um die Kontrolle über deine Privatsphäre zu behalten.";
-"web cta plus desc" = "Mit deinem Libre Account erhältst du mit unseren Open-Source-Apps, kostenlose On-Device-Adblocker für Android und iOS. Für noch besseren Schutz upgrade auf Blokada Plus und hol dir das VPN, sowie unsere neue *Cloud-Adblocking* die schneller und einfacher zu bedienen ist.";
+"web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
 // A short word for a button to generate profile
 "web action generate" = "Erzeugen";
 
@@ -570,7 +570,7 @@
 "setup desc" = "Es gibt viele Möglichkeiten dein Gerät so zu konfigurieren, dass es Blokada Cloud verwendet. Wähle die aus, die für dich am besten funktioniert.";
 "setup label which device" = "Welche Art von Gerät möchtest du einrichten?";
 "setup label choose" = "Wähle eine der folgenden Setup-Optionen:";
-"setup comment wireguard" = "Hinweis: Die Verwendung von Blokada VPN ermöglicht Blokada Cloud DNS automatisch. Wir arbeiten daran, andere Setups für diese Plattform zu unterstützen. 'WireGuard' und das 'Wireguard' Logo sind eingetragene Marken von Jason A. Donenfeld.";
+"setup comment wireguard" = "Hinweis: Die VPN-Konfiguration verwendet standardmäßig Blokada Cloud. Wähle eine andere DNS-Einstellung, wenn du dich dagegen entscheiden möchtest. 'WireGuard' und das 'WireGuard'-Logo sind eingetragene Marken von Jason A. Donenfeld.";
 "setup comment native apps" = "Hinweis: Native Apps für Android und iOS unterstützen Blokada Cloud noch nicht. Wir arbeiten an einem Update.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Schritt %@: %@";
@@ -584,7 +584,7 @@
 "setup step install" = "Installieren und unsere App starten";
 "setup step enter tag" = "Wenn du gefragt wirst, gib bitte deinen Tag ein";
 "setup step download profile" = "Erstelle und lade dein Profil herunter";
-"setup step install wireguard" = "Wireguard installieren und starten";
+"setup step install wireguard" = "WireGuard installieren und starten";
 
 "stats header" = "Statistiken";
 // A ratio between counter of allowed vs denied requests.
@@ -593,7 +593,7 @@
 "stats requests header" = "Anfragen";
 // A subheader for the chart that display the number of requests over time. Can be a bit longer.
 "stats requests subheader" = "Abfragen im Laufe der Zeit";
-"stats top allowed header" = "Häufigste zugelassene Anfragen";
-"stats top blocked header" = "Häufigste blockierte Anfragen";
+"stats top allowed header" = "Häufig zugelassene Anfragen";
+"stats top blocked header" = "Häufig blockierte Anfragen";
 
 "dnsprofile desc" = "Blokada just created a DNS profile for you in Settings. Activate it in General -> VPN, DNS & Device Management -> DNS.";

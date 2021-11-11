@@ -15,7 +15,7 @@
 "error account inactive after restore" = "有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error account invalid" = "アカウントを確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
-"error fetching data" = "この操作は完了できませんでした。オンラインであることを確認し、時間を置いてもう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error fetching data" = "この操作は完了できませんでした。インターネット接続があることを確認し、時間を置いてもう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error tunnel" = "VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
 "error vpn" = "VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
 "error vpn perms" = "VPN プロファイルを作成する権限がありません。";
@@ -25,7 +25,7 @@
 "error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error payment failed" = "現在、お支払いいただくことができません。オンラインであることを確認して、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error payment failed alternative" = "お支払いを完了できませんでした。入力内容が正しいことを確認して、もう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error payment not available" = "このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国での購入はまだ処理されていません。";
+"error payment not available" = "このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国からのお支払いに対応していません。";
 "error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
 "error pack install" = "この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。";
 "error location failed fetching" = "接続先を取得できませんでした。";
@@ -82,8 +82,7 @@
 "universal label type" = "タイプ";
 "universal label device" = "デバイス";
 
-"universal status processing" = "処理中です...
-しばらくお待ちください";
+"universal status processing" = "処理中です... しばらくお待ちください";
 "universal status copied to clipboard" = "クリップボードにコピーしました";
 "universal status restart required" = "変更を反映するにはアプリを再起動してください。";
 "universal status redirect" = "Blokada アプリで続ける";
@@ -99,10 +98,9 @@
 "notification desc settings" = "通知を右または左にスワイプして設定";
 
 "notification update header" = "アップデートが利用可能です";
-"alert update body" = "Blokada %@ がダウンロード可能になりました。常に公式ソースの最新版を利用することをお勧めします。";
+"alert update body" = "Blokada %@ がダウンロード可能になりました。公式ソースから最新版へアップデートすることをお勧めします。";
 "update label updated" = "更新されました！";
-"update desc updated" = "Blokada の最新バージョンを使用しています！
-寄付や Blokada Plus の登録はアプリ開発への支援となります。";
+"update desc updated" = "Blokada の最新バージョンを使用しています！ 寄付や Blokada Plus の登録はアプリ開発への支援となります。";
 "update downloading description" = "更新プログラムがダウンロードされます。すぐにインストール許可画面が表示されます。";
 
 "account active forever" = "無期限";
@@ -113,7 +111,7 @@
 
 "main share message" = "Blokada for iOS は、%@ の広告とトラッカーをブロックしました！";
 
-"main rate us header" = "アプリを評価してください";
+"main rate us header" = "アプリを評価してください！";
 "main rate us description" = "Blokada はいかがですか？";
 "main rate us on app store" = "App Store でBlokada を評価していただけませんか？";
 "main rate us action sure" = "もちろん！";
@@ -130,19 +128,19 @@
 "main label use side menu" = "サイドメニューを使用して移動する";
 
 "home ads counter footnote" = "インストール後にブロックされた広告とトラッカー";
-"home power off menu header" = "何をしたいですか？";
-"home power action turn on" = "ON にする";
-"home power action turn off" = "OFF にする";
-"home power action pause" = "5分間一時停止";
+"home power off menu header" = "停止オプションを選択してください";
+"home power action turn on" = "起動";
+"home power action turn off" = "停止";
+"home power action pause" = "5 分間停止";
 
-"home status paused" = "一時停止しています";
+"home status paused" = "停止しています";
 "home status active" = "有効";
 "home status deactivated" = "無効";
-"home action tap to activate" = "タップして開始";
-"home status detail paused" = "タイマーが終了するまで一時停止中";
+"home action tap to activate" = "タップして起動";
+"home status detail paused" = "タイマーが終了するまで停止中";
 "home status detail active" = "*広告*と*トラッカー*をブロック";
 "home status detail active with counter" = "*%@* の広告とトラッカーをブロック";
-"home status detail active slim" = "Blokada *Slim*がアクティブです";
+"home status detail active slim" = "Blokada *Slim*が有効";
 "home status detail plus" = "*+* *プライバシー*を保護";
 "home status detail progress" = "お待ちください...";
 
@@ -151,17 +149,17 @@
 "home plus button select location" = "接続先を選択";
 "home plus button location" = "接続先: *%@*";
 
-"home level low" = "保護レベル: 低";
-"home level medium" = "保護レベル: 中";
-"home level high" = "保護レベル: 高";
+"home level low" = "保護: 低";
+"home level medium" = "保護: 中";
+"home level high" = "保護: 高";
 
 
 "pack section header" = "詳細";
-"pack section header details" = "機能の詳細";
-"pack action install" = "取得";
+"pack section header details" = "機能";
+"pack action install" = "GET";
 "pack action update" = "更新";
 "pack action uninstall" = "削除";
-"pack author" = "作成者";
+"pack author" = "製作者";
 "pack configurations header" = "設定";
 "pack information header" = "もっと見る";
 "pack tags header" = "タグ";
@@ -184,10 +182,10 @@
 "activity request allowed" = "このリクエストは許可されています";
 "activity request allowed whitelisted" = "例外リストでこのリクエストは許可されています";
 "activity request blocked blacklisted" = "例外リストでこのリクエストはブロックされています";
-"activity request allowed list" = "*%@* ブロックリストでこのリクエストは許可されています";
+"activity request allowed list" = "*%@* 許可リストでこのリクエストは許可されています";
 "activity request allowed no list" = "設定されたブロックリストのいずれにも存在しないため、このリクエストは許可されています";
 "activity request blocked list" = "*%@* ブロックリストでこのリクエストはブロックされています";
-"activity request blocked no list" = "設定されたブロックリストのいずれにも存在しないため、このリクエストはブロックされています";
+"activity request blocked no list" = "設定された許可リストのいずれにも存在しないため、このリクエストはブロックされています";
 "activity actions header" = "アクション";
 "activity information header" = "Info";
 "activity action add to whitelist" = "リクエストを許可する";
@@ -196,7 +194,7 @@
 "activity action add to blacklist" = "リクエストをブロックする";
 "activity action remove from blacklist" = "ブロックリストから削除";
 "activity action added to blacklist" = "リクエストをブロックしています";
-"activity action copy to clipboard" = "クリップボードに名前をコピー";
+"activity action copy to clipboard" = "クリップボードにコピー";
 "activity domain name" = "フルネーム";
 "activity time of occurrence" = "時刻";
 "activity number of occurrences" = "発生回数";
@@ -206,8 +204,8 @@
 "activity state blocked" = "ブロック";
 // As in sentence, "this host has been allowed"
 "activity state allowed" = "許可";
-"activity happened one time" = "1回";
-"activity happened many times" = "%@回";
+"activity happened one time" = "1 回";
+"activity happened many times" = "%@ 回";
 "activity category recent" = "新着";
 "activity category top" = "回数";
 "activity category top blocked" = "ブロック回数";
@@ -221,8 +219,8 @@
 "activity retention header" = "どのくらいの期間、あなたの活動を保存しますか？";
 "activity retention option none" = "アクティビティを保存しない";
 "activity retention option 24h" = "24 時間";
-"activity retention policy" = "ログの保持を有効にすると、Blokada Cloud プライバシーポリシーに同意することになります。";
-"activity retention desc" = "Blokada Cloud はデフォルトで何も記録しません。統計とアクティビティを表示する場合は、以下のログの保持期間を選択してください。";
+"activity retention policy" = "ログの保持を有効にする場合、プライバシーポリシーに同意するものとします。";
+"activity retention desc" = "Blokada Cloud はデフォルトで何も記録しません。統計とアクティビティを表示する場合は、ログの保持期間を選択してください。";
 
 "userdenied section header" = "例外";
 "userdenied section slugline" = "ブロック・許可したサイトを管理する";
@@ -257,9 +255,9 @@
 "networks summary encrypt dns" = "Blokada は暗号化された DNS に優先して接続します。これによりセキュリティが向上し、悪意のある人物があなたが使用するウェブサイトやアプリをスパイするのを防ぎます。";
 "networks summary use dns" = "Blokada はデバイスの DNS として %@ を使用します。ロックアイコン付きの暗号化された DNS を選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。";
 "networks summary network dns" = "Blokada はネットワーク DNS を使用し、使用できない場合は %@ に切り替えます。ネットワーク DNS を使用すると DNS は暗号化されません。ネットワーク上の接続の問題が解決される場合がありますが、保護されていない状態になります。";
-"networks summary network dns and plus mode" = "Blokada は、ネットワーク DNS が使用されるたびに Blokada Plus VPN を一時的に無効にします。これは VPN でネットワーク DNS にアクセスできないためです。デバイスが別のネットワークに切り替わると、Blokada Plus VPN は自動的に復元されます。";
+"networks summary network dns and plus mode" = "Blokada は、ネットワーク DNS が使用されるたびに Plus モードを一時的に無効にします。これは VPN でネットワーク DNS にアクセスできないためです。デバイスが別のネットワークに切り替わると、Plus モードは自動的に復元されます。";
 "networks summary blocka plus mode" = "Blokada は Plus モードで Blokada DNS を使用して、高いレベルの暗号化と速度を確保します。DNS 選択画面の下部でこの設定を変更できます。";
-"networks summary force libre mode" = "Blokada は常にこのネットワーク上で Libre モードを使用し、Blokada Plus の接続先を無視します。追加の保護を必要としないネットワークでご利用ください。";
+"networks summary force libre mode" = "Blokada はこのネットワーク上で常に Libre モードを使用し、Blokada Plus の接続先を無視します。追加の保護を必要としないネットワークでご利用ください。";
 "networks permission dialog" = "Blokada は接続先のネットワークを認識して個別の設定を適用することができます。Blokada がこの機能を有効にするためにはネットワーク名を収集する必要があり、位置情報へのアクセス許可が必要です。アプリが閉じられているか使用されていない場合でも、場合によっては位置情報へのアクセスに関するシステム通知が表示されることがあります。Blokada はネットワーク名のみを読み取りその他の情報は利用しません。";
 
 
@@ -282,8 +280,8 @@
 "account action tap to show" = "タップして表示";
 "account action restoring" = "アカウントを復元中: %@";
 "account label enter to continue" = "続行するにはアカウント ID を入力してください";
-"account restore description" = "アカウント ID を紛失または忘れてしまった場合、 当社のサポートに連絡してください。その際、お客様の購入を確認するためにクレジットカードの下4桁または PayPal メールを提供してください。";
-"account create description" = "これはあなたのアカウントIDです。サブスクリプションにアクセスする唯一の方法です。他の人から見られない場所で確実に保管してください。";
+"account restore description" = "アカウント ID を紛失または忘れてしまった場合は、サポートに連絡してください。その際、お客様の購入を確認するためにクレジットカードの下 4 桁または PayPal メールを提供してください。";
+"account create description" = "これはあなたのアカウント ID です。サブスクリプションにアクセスする唯一の方法です。他の人から見られない場所で確実に保管してください。";
 "account create confirm" = "保管しました";
 
 "account section header my subscription" = "サブスクリプション";
@@ -335,11 +333,11 @@
 "account lease label this device" = " （このデバイス）";
 "account lease label name" = "デバイス名";
 "account lease label location" = "接続先";
-"account lease label generate" = "接続先を選択すると、Wireguard をサポートする VPN アプリで使用できる設定ファイルが生成されます。これにより、まだアプリのないプラットフォームでも VPN を使用できます。対応プラットフォームでは Blokada アプリを使用することをお勧めします。";
+"account lease label generate" = "接続先を選択すると、WireGuard をサポートする VPN アプリで使用できる設定ファイルが生成されます。これにより、まだアプリのないプラットフォームでも VPN を使用できます。対応プラットフォームでは Blokada アプリを使用することをお勧めします。";
 "account lease action generate" = "設定ファイルを生成";
 "account lease action download" = "設定ファイルをダウンロード";
-"account lease generated" = "デバイスが追加されました！設定をダウンロードして、Wireguard でサポートされているすべてのデバイスで使用できます。";
-"account lease wireguard desc" = "Blokada は Wireguard を使用しています。設定をダウンロードして新しいデバイスを追加できます。";
+"account lease generated" = "デバイスが追加されました！ 設定ファイルをダウンロードして、WireGuard でサポートされているすべてのデバイスで使用できます。";
+"account lease wireguard desc" = "Blokada は WireGuard を使用しています。設定ファイルをダウンロードして新しいデバイスを追加できます。";
 "account lease label dns" = "DNS";
 "account lease action dns" = "DNS を選択";
 "account lease label public key" = "公開鍵";
@@ -348,7 +346,7 @@
 "account support action kb" = "サポートFAQ";
 
 "payment header activated" = "アクティベートされました！";
-"payment activated description" = "Blokada が Plus モードに切り替わり、安全な接続先の1つを介して接続します。どれを選択すればよいかわからない場合は、最も近いものをお勧めします。";
+"payment activated description" = "Blokada が Plus モードに切り替わり、安全な接続先の 1 つを介して接続します。どれを選択すればよいかわからない場合は、最も近いものをお勧めします。";
 "payment action choose location" = "接続先を選択";
 "payment action see locations" = "接続先";
 
@@ -356,25 +354,25 @@
 "payment feature title change location" = "接続先を変更";
 "payment feature desc change location" = "あなたの IP アドレスを非表示にして、あなたが他の国に居るように見せかけます。これは第三者からあなたを隠し、身元を保護するのに役立ちます。";
 "payment feature title encrypt data" = "データを暗号化";
-"payment feature desc encrypt data" = "当社の VPN トンネルを通じて送信されるデータは、権限のない当事者による傍受から保護するために強力なアルゴリズムを使用して暗号化されます。";
+"payment feature desc encrypt data" = "VPN トンネルを通じて送信されるデータは、権限のない人物による傍受から保護するために強力なアルゴリズムを使用して暗号化されます。";
 "payment feature title encrypt dns" = "DNS を暗号化";
-"payment feature desc encrypt dns" = "DNS 暗号化でプライバシーを保護しましょう。Blokada Cloud は最新のプロトコルを使用してクエリをプライベートに保ちます。";
+"payment feature desc encrypt dns" = "DNS 暗号化でプライバシーを保護しましょう。Blokada Cloud は最新のプロトコルを使用してトラフィックをプライベートに保ちます。";
 "payment feature title performance" = "最適なパフォーマンス";
 "payment feature desc performance" = "新しいクラウドソリューションで、デバイスやインターネット接続の速度を快適に保ちます。";
 "payment feature title battery" = "バッテリー持ちへの影響なし";
-"payment feature desc battery" = "Your battery life is going to be the same, with or without Blokada Cloud activated.";
+"payment feature desc battery" = "デバイスのバッテリーの消費量が増加することはありません。Blokada Cloud でさらに削減できる可能性があります。";
 "payment feature title devices cloud" = "複数デバイス";
-"payment feature desc devices cloud" = "1 つの Blokada Cloud サブスクリプションをすべてのデバイスで共有できます。モバイルアプリまたはウェブダッシュボードから設定してください。";
-"payment feature title cloud vpn" = "Cloud & VPN";
-"payment feature desc cloud vpn" = "Enjoy all the features of Blokada Cloud. Additionally, get access to our VPN network.";
+"payment feature desc devices cloud" = "モバイルアプリまたはウェブアプリからすべてのデバイスを 1 か所で集中管理します。";
+"payment feature title cloud vpn" = "Cloud と VPN";
+"payment feature desc cloud vpn" = "Blokada Cloud のすべての利点に加えて、グローバル VPN ネットワークにアクセスできます。";
 "payment feature title faster connection" = "より高速な接続";
-"payment feature desc faster connection" = "世界のさまざまな地域のサーバーで最高100Mbpsのスピードを実現します。";
-"payment feature title devices" = "最大5台のデバイス";
-"payment feature desc devices" = "1つのアカウントで最大5つのデバイス（iOS、Android、PC）を使用できます。";
+"payment feature desc faster connection" = "世界のさまざまな地域のサーバーで最高 100Mbps のスピードを実現します。";
+"payment feature title devices" = "最大 5 台のデバイス";
+"payment feature desc devices" = "1 つのアカウントで最大 5 つのデバイス（iOS、Android、PC）を使用できます。";
 "payment feature title no ads" = "広告ブロック";
 "payment feature desc no ads" = "Blokada の広告ブロック技術を使用して、デバイス上の広告をブロックします。高度な設定が可能です。";
 "payment feature title support" = "丁寧なサポート";
-"payment feature desc support" = "当社のカスタマーサポートと活気のあるオープンソースコミュニティのおかげで、質問に迅速に対応できます。";
+"payment feature desc support" = "カスタマーサポートとオープンソースコミュニティにより、質問に迅速に対応します。";
 "payment action see all features" = "すべての機能を見る";
 "payment action restore" = "購入を復元する";
 "payment action terms and privacy" = "利用規約とプライバシー";
@@ -382,23 +380,23 @@
 "payment action policy" = "プライバシーポリシー";
 "payment alert error header" = "App Store からのメッセージ";
 // As in saving money: You are saving $5
-"payment save text" = "%@ 割引";
+"payment save text" = "%@ 引き";
 "payment conversion note" = "ユーロを受け付けており、表示された価格は見積もりです。銀行手数料が多すぎる場合は払い戻しを受け付けます。";
 
-"payment subscription 1 month" = "1ヶ月";
-"payment subscription many months" = "%@ヶ月";
-"payment subscription per month" = "月額%@";
-"payment subscription offer" = "%@を保存";
+"payment subscription 1 month" = "1 か月";
+"payment subscription many months" = "%@ か月";
+"payment subscription per month" = "月額 %@";
+"payment subscription offer" = "%@ 引き";
 
 "payment success label" = "ありがとうございます！";
-"payment success desc" = "アカウントが有効になりました！すべてのデバイスで Blokada Plus 機能を使用できます。";
+"payment success desc" = "アカウントが有効になりました！ すべてのデバイスで Blokada Plus 機能を使用できます。";
 
 "payment redirect label" = "リダイレクトしています...";
 "payment redirect desc" = "少し時間がかかります
 しばらくお待ちください";
 
 "payment ongoing title" = "お支払いは現在処理中です。";
-"payment ongoing desc" = "クレジットカードの支払いは数分で完了します。暗号通貨の支払いは通常、あなたが選択した取引手数料に応じて1時間以内に完了します。PayPal の場合、最大24時間かかる場合があります。アカウントの準備が完了するとリダイレクトされます。この画面を閉じて、後で再度表示することもできます。取引に時間がかかりすぎる場合は、お問い合わせください。";
+"payment ongoing desc" = "クレジットカードの支払いは数分で完了します。暗号通貨の支払いは通常、あなたが選択した取引手数料に応じて 1 時間以内に完了します。PayPal の場合、最大 24 時間かかる場合があります。アカウントの準備が完了するとリダイレクトされます。この画面を閉じて、後で再度表示することもできます。取引に時間がかかりすぎる場合は、お問い合わせください。";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "変更";
@@ -413,13 +411,13 @@
 "payment label pay with card" = "カードで支払う";
 "payment label pay with paypal" = "PayPal で支払う";
 "payment label pay with crypto" = "暗号通貨で支払う";
-"payment package one month" = "1ヶ月";
-"payment package six months" = "6ヶ月";
-"payment package twelve months" = "12ヶ月";
-"payment label discount" = "%@ を保存（%@ / 月）";
+"payment package one month" = "1 か月";
+"payment package six months" = "6 か月";
+"payment package twelve months" = "12 か月";
+"payment label discount" = "%@ 引き（%@ / 月）";
 "payment label country" = "国";
 
-"payment euro desc" = "私たちはヨーロッパを拠点としているため、ユーロでお支払いいただいています。10ユーロはおよそ12ドルです。";
+"payment euro desc" = "私たちはヨーロッパを拠点としているため、ユーロでお支払いいただいています。10 ユーロはおよそ 12 ドルです。";
 "payment donate disclaimer" = "これにより、Blokada Plus アカウントは有効化されません。VPN サービスを利用したい場合は、寄付の代わりにサブスクリプションにご登録ください。";
 
 "payment action compare" = "プランを比較";
@@ -461,10 +459,10 @@
 "app settings section advanced" = "詳細";
 "app settings section use foreground" = "スリープモードにしない";
 
-"intro header" = "Blokada は有効です！";
-"intro text" = "青いリングは Blokada が動作していることを意味します。\n\n YouTube などの一部の広告はブロックできません。ただし、他の多くのアプリには有効です。\n\n システム設定で常時接続 VPN（Android）/ オンデマンド接続（iOS）を有効にすることをお勧めします。";
+"intro header" = "Blokada が有効です！";
+"intro text" = "青いリングは Blokada が動作していることを意味します。\n\nYouTube などの一部の広告はブロックできません。ただし、他の多くのアプリには有効です。\n\nシステム設定で常時接続 VPN（Android）/ オンデマンド接続（iOS）を有効にすることをお勧めします。";
 
-"location region worldwide" = "すべての場所";
+"location region worldwide" = "どこにでも";
 "location region america" = "アメリカ";
 "location region europe" = "ヨーロッパ";
 "location region asia" = "アジア";
@@ -483,7 +481,7 @@
 "homepage action source" = "ソース";
 "homepage action forums" = "フォーラム";
 "homepage action dashboard" = "ダッシュボード";
-"homepage about footer" = "Official";
+"homepage about footer" = "メディア";
 "homepage hero title" = "プライバシーアプリ";
 "homepage hero subtitle" = "無料でオープンソース";
 "homepage hero desc" = "Blokada は、オープンソースで開発されている Android と iOS 向けの広告ブロッカーです。広告をブロックしプライバシー侵害のないインターネットをお楽しみください。";
@@ -499,17 +497,17 @@
 "homepage about action plus" = "Blokada Plus の詳細";
 
 "homepage vpn title" = "Blokada 5 VPN";
-"homepage vpn desc" = "究極のプライバシー保護のために、Blokada Plus にアップグレードし、VPN 経由で接続できます。 最先端の VPN プロトコルである WireGuard® を使用して、ネットワークのアクティビティを暗号化し、IP アドレスを隠します。";
+"homepage vpn desc" = "究極のプライバシー保護のために、Blokada Plus にアップグレードし、VPN 経由で接続できます。最先端の VPN プロトコルである WireGuard® を使用して、ネットワークのアクティビティを暗号化し、IP アドレスを隠します。";
 "homepage vpn point one" = "帯域幅制限なし";
 "homepage vpn point two" = "高速で最先端の暗号化";
 "homepage vpn point three" = "アクティビティ ログの保存なし";
 "homepage vpn point four" = "デバイス最大 5 台に接続";
-"homepage vpn credit" = "「WireGuard」と「Wireguard」ロゴは Jason A. Donenfeld の登録商標です。";
+"homepage vpn credit" = "「WireGuard」と「WireGuard」ロゴは Jason A. Donenfeld の登録商標です。";
 
 "homepage faq header" = "よくある質問";
 "homepage faq action more" = "よくある質問を見る";
 "homepage faq title 1" = "どのような情報が Blokada に保存されますか？";
-"homepage faq desc 1" = "Blokada は、ネットワークのアクティビティを追跡または共有しません。 Blokada Plus を使用する場合は、技術的な理由から、サービスを維持するために必要な最小限のデータを収集する必要があります。詳細についてはプライバシーポリシーをご覧ください。";
+"homepage faq desc 1" = "Blokada は、ネットワークのアクティビティを追跡または共有しません。Blokada Plus を使用する場合は、技術的な理由から、サービスを維持するために必要な最小限のデータを収集する必要があります。詳細についてはプライバシーポリシーをご覧ください。";
 "homepage faq title 2" = "私のプライバシーはどのように保護されますか？";
 "homepage faq desc 2" = "Blokada は、デバイスにインストールされているアプリやブラウザーが、インターネットにプライベートデータ（いわゆるフィンガープリント）を送信することを防ぎます。また、一部のネットワークアクティビティ（DNS クエリ）を暗号化します。さらに保護が必要な場合、Blokada Plus を使用してデバイスを VPN 経由で接続し、WireGuard® プロトコルを使用してネットワークトラフィック全体を暗号化します。";
 "homepage faq title 3" = "Blokada Plus とは？";
@@ -528,7 +526,7 @@
 "homepage download option android four" = "Blokada 4 for Android";
 "homepage download option ios" = "Blokada 5 for iOS";
 "homepage download option other" = "Blokada for other platforms";
-"homepage download desc other" = "現在、他のプラットフォームで Blokada を使用できません。ただし、Blokada Plus ユーザーは、Windows、Linux、Mac、および Wireguard が利用可能なその他のプラットフォームで VPN を使用できます。";
+"homepage download desc other" = "現在、他のプラットフォームで Blokada を使用できません。ただし、Blokada Plus ユーザーは、Windows、Linux、Mac、および WireGuard が利用可能なその他のプラットフォームで VPN を使用できます。";
 "homepage download desc ios" = "Blokada 5 は App Store で入手できます。";
 "homepage download action ios" = "App Store を開く";
 "homepage download desc android five" = "これは、<b>Android 7 以降を搭載したスマートフォンやタブレット向けの新しい推奨バージョン</b>です。Blokada 4 と比較して、よりシンプルで高速です。";
@@ -565,15 +563,15 @@
 "web vpn devices open action" = "VPN デバイスを開く";
 "web action open setup" = "設定を開く";
 "web cta plus header" = "Blokada Plus にアップグレードして、あなたのプライバシーを管理し続けましょう。";
-"web cta plus desc" = "Libre アカウントでは、オープンソースアプリによる Android と iOS での広告ブロックを無料で使用できます。Blokada Plus にアップグレードすると VPN による更なる保護や、より速く、より使いやすい*クラウド広告ブロック*が選択できます。";
+"web cta plus desc" = "Libre アカウントでは、オープンソースアプリによる無料の広告ブロックをご利用いただけます。Blokada Plus にアップグレードするとグローバル VPN ネットワークによる更なる保護や、より速く、より使いやすい*クラウドベースの*広告ブロックが選択できます。";
 // A short word for a button to generate profile
 "web action generate" = "生成";
 
-"setup header" = "設定";
-"setup desc" = "デバイスで Blokada Cloud を使用する設定方法はいくつかあります。あなたに合うものを選択してください。";
+"setup header" = "新しいデバイス";
+"setup desc" = "お使いのデバイスに Blokada Cloud を設定する方法はいくつかあります。最適なものを選択してください。";
 "setup label which device" = "設定するデバイスを選択してください";
-"setup label choose" = "以下から設定を選択してください:";
-"setup comment wireguard" = "注意: Blokada VPN を使用すると、Blokada Cloud DNS が自動的に有効になります。その他のプラットフォームは今後サポートする予定です。「WireGuard」と「Wireguard」ロゴは Jason A. Donenfeld の登録商標です。";
+"setup label choose" = "対応する設定方法は以下の通りです:";
+"setup comment wireguard" = "注意: VPN では、デフォルトで Blokada Cloud が使用されます。その他の DNS を選択することでオプトアウトできます。「WireGuard」と「WireGuard」ロゴは Jason A. Donenfeld の登録商標です。";
 "setup comment native apps" = "注意: Android と iOS のネイティブアプリでは現在 Blokada Cloud をサポートしていません。今後のアップデートで対応する予定です。";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "ステップ %@: %@";
@@ -587,7 +585,7 @@
 "setup step install" = "Blokada アプリをインストールして開く";
 "setup step enter tag" = "指示に従ってタグを入力してください";
 "setup step download profile" = "プロファイルを生成してダウンロード";
-"setup step install wireguard" = "Wireguard をインストールして開く";
+"setup step install wireguard" = "WireGuard をインストールして開く";
 
 "stats header" = "統計";
 // A ratio between counter of allowed vs denied requests.
@@ -599,4 +597,4 @@
 "stats top allowed header" = "よく許可されるリクエスト";
 "stats top blocked header" = "よくブロックされるリクエスト";
 
-"dnsprofile desc" = "あなたの DNS プロファイルを作成しました。[General] -> [VPN, DNS & Device Management] -> [DNS] で設定できます。";
+"dnsprofile desc" = "あなたの DNS プロファイルを作成しました。[General] > [VPN, DNS & Device Management] > [DNS] で設定できます。";
