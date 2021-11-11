@@ -26,7 +26,7 @@ struct DnsProfileConfiguredView: View {
                     .bold()
                     .padding()
 
-                Text("In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.")
+                Text(L10n.dnsprofileDesc)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .trailing], 40)
                     .padding([.top, .bottom])
@@ -41,7 +41,7 @@ struct DnsProfileConfiguredView: View {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
                                 .frame(height: 44)
-                            Text("Open Settings")
+                            Text(L10n.dnsprofileActionOpenSettings)
                                 .foregroundColor(.white)
                                 .bold()
                         }
