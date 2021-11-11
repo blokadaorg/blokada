@@ -21,9 +21,10 @@ struct DnsProfileConfiguredView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Enable in Settings")
+                Text(L10n.dnsprofileHeader)
                     .font(.largeTitle)
                     .bold()
+                    .multilineTextAlignment(.center)
                     .padding()
 
                 Text(L10n.dnsprofileDesc)
