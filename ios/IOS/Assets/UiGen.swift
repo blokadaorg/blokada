@@ -346,6 +346,8 @@ internal enum L10n {
   internal static let dnsprofileActionOpenSettings = L10n.tr("Ui", "dnsprofile action open settings")
   /// In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.
   internal static let dnsprofileDesc = L10n.tr("Ui", "dnsprofile desc")
+  /// Enable Blokada in Settings
+  internal static let dnsprofileHeader = L10n.tr("Ui", "dnsprofile header")
   /// Your account is inactive. Please activate your account in order to continue using BLOKADA+.
   internal static let errorAccountInactive = L10n.tr("Ui", "error account inactive")
   /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.
