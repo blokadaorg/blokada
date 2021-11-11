@@ -21,25 +21,15 @@ struct DnsProfileConfiguredView: View {
     var body: some View {
         NavigationView {
             VStack {
-                BlokadaView(animate: true)
-                    .frame(width: 100, height: 100)
-
-                Text(L10n.mainAskForPermissionsHeader)
+                Text("Enable in Settings")
                     .font(.largeTitle)
                     .bold()
                     .padding()
 
-                Text(L10n.dnsprofileDesc)
+                Text("In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.")
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .trailing], 40)
                     .padding([.top, .bottom])
-
-                Button(action: {
-                    Links.openInBrowser(Links.whyVpnPermissions())
-                }) {
-                    Text(L10n.universalActionLearnMore)
-                        .padding()
-                }
 
                 VStack {
                     Button(action: {
@@ -51,7 +41,7 @@ struct DnsProfileConfiguredView: View {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
                                 .frame(height: 44)
-                            Text(L10n.universalActionContinue)
+                            Text("Open Settings")
                                 .foregroundColor(.white)
                                 .bold()
                         }

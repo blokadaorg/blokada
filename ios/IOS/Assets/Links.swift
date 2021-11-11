@@ -37,7 +37,12 @@ class Links {
     static func whyVpnPermissions() -> URLComponents {
        return self.URLComponentsFor(
        host: "go.blokada.org", path: "/vpnperms", queries: nil)
-   }
+    }
+
+    static func cloudDnsSetup() -> URLComponents {
+       return self.URLComponentsFor(
+       host: "go.blokada.org", path: "/cloudsetup_ios", queries: nil)
+    }
 
     static func howToRestore() -> URLComponents {
         return self.URLComponentsFor(

@@ -183,6 +183,10 @@ class Config {
         return localStorage.string(forKey: "logRetention") ?? ""
     }
 
+    func networkExtensionVersion() -> Int {
+        return localStorage.integer(forKey: "networkExtensionVersion")
+    }
+
     /**
             Thread safe setters
      */
@@ -287,6 +291,10 @@ class Config {
 
     func setLogRetention(retention: String) {
         localStorage.set(retention, forKey: "logRetention")
+    }
+
+    func markNetworkExtensionVersion() {
+        localStorage.set(6, forKey: "networkExtensionVersion")
     }
 
     /**

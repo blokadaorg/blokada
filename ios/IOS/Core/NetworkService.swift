@@ -34,6 +34,14 @@ class NetworkService {
 
     private init() {
         self.httpClient = api_new(10, BlockaApiService.userAgent())
+        if self.config.networkExtensionVersion() < 6 {
+            self.log.w("oldNetx: Old network extension version, stopping until config update")
+            self.stopTunnel(done: { error, _ in
+                guard error == nil else {
+                    return self.log.w("oldNetx: Could not stop tunnel".cause(error))
+                }
+            })
+        }
     }
 
     func syncConfig(done: @escaping Callback<Void>) {
@@ -97,6 +105,9 @@ class NetworkService {
                 self.log.e("saveConfig: could not save configuration".cause(error))
                 return done(error, nil)
             }
+
+            self.config.markNetworkExtensionVersion()
+            self.log.v("Marked NETX version")
 
             return done(nil, nil)
         }}
