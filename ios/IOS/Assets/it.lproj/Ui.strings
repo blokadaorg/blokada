@@ -137,9 +137,9 @@
 "home status active" = "Attiva";
 "home status deactivated" = "Disattivata";
 "home action tap to activate" = "Tocca per attivare";
-"home status detail paused" = "In pausa finché il timer non finisce";
+"home status detail paused" = "In pausa fino alla fine del timer";
 "home status detail active" = "Sto bloccando *pubblicità* e *tracker*";
-"home status detail active with counter" = "*%@* Pubblicità e tracker bloccati";
+"home status detail active with counter" = "*%@* pubblicità e tracker bloccati";
 "home status detail active slim" = "Blokada *Slim* è attiva";
 "home status detail plus" = "*+* proteggendo la tua *privacy*";
 "home status detail progress" = "Attendere prego...";
@@ -244,7 +244,7 @@
 "networks action encrypt dns" = "Cripta DNS";
 "networks action use dns" = "Usa DNS: %@";
 "networks action use network dns" = "Preferisci DNS di rete";
-"networks action force libre mode" = "Forza modalità Gratuita";
+"networks action force libre mode" = "Forza modalità Libre";
 "networks label specific network" = "Regola cosa dovrebbe accadere quando il dispositivo si connette a questa rete.";
 "networks label specific network type" = "Imposta cosa dovrebbe accadere quando il dispositivo si connette a una rete di questo tipo.";
 "networks label any wifi" = "Qualsiasi rete WiFi";
@@ -257,13 +257,13 @@
 "networks summary network dns" = "Se disponibile, Blokada userà i DNS della rete, altrimenti passerà a %@. Inoltre, le impostazioni di Crittografia DNS verranno ignorate se utilizzati i DNS di rete. L'utilizzo dei DNS di rete aiuta a risolvere i problemi di connettività su reti problematiche, ma non ti offre protezione.";
 "networks summary network dns and plus mode" = "Blokada disabiliterà temporaneamente la modalità Plus ogni volta che viene utilizzato il DNS di rete. Questo perché non è possibile accedere al DNS di rete in VPN. La modalità Plus verrà ripristinata automaticamente quando il dispositivo passerà ad un'altra rete.";
 "networks summary blocka plus mode" = "Blokada utilizzerà i DNS di Blokada in modalità Plus, per garantire un alto livello di crittografia e velocità. È possibile modificare questa impostazione nella parte inferiore della schermata Scegli DNS.";
-"networks summary force libre mode" = "Blokada userà sempre la modalità Gratuita su questa rete e ignorerà la tua posizione Blokada Plus. Ciò è utile per le reti delle quali non si desidera una protezione aggiuntiva.";
+"networks summary force libre mode" = "Blokada userà sempre la modalità Libre su questa rete e ignorerà la tua posizione Blokada Plus. Ciò è utile per le reti delle quali non si desidera una protezione aggiuntiva.";
 "networks permission dialog" = "Blokada può riconoscere le reti a cui ti connetti e consentire di configurare impostazioni separate per ognuna di loro. Tuttavia, per farlo, l'applicazione raccoglierà i dati della posizione per poter accedere al nome della rete, anche quando è chiusa o non in uso. Talvolta potresti vedere una notifica circa l'accesso alla posizione - Blokada leggerà solo il nome della rete.";
 
 
 "account section header settings" = "Impostazioni";
 "account status text" = "Il tuo account BLOKADA %@ è attivo fino a %@.";
-"account status text libre" = "Il tuo account Gratuito BLOKADA è attivo per sempre.";
+"account status text libre" = "Il tuo account BLOKADA Libre è attivo per sempre.";
 "account status text inactive" = "Il tuo account BLOKADA è inattivo.";
 
 "account section header primary" = "Primario";
@@ -336,8 +336,8 @@
 "account lease label generate" = "Selezionando una posizione si genererà un file di configurazione che è possibile utilizzare in qualsiasi app VPN che supporti WireGuard. Ciò è utile per le piattaforme per ora prive delle nostre app. Altrimenti, ti consigliamo di usare le nostre app native.";
 "account lease action generate" = "Genera Configurazione";
 "account lease action download" = "Scarica Configurazione";
-"account lease generated" = "Dispositivo aggiunto! Scarica la configurazione per usarla su qualsiasi dispositivo supportato da Wireguard.";
-"account lease wireguard desc" = "Blokada utilizza Wireguard. Le configurazioni possono essere scaricate quando si creano nuovi dispositivi.";
+"account lease generated" = "Dispositivo aggiunto! Scarica la configurazione per usarla su qualsiasi dispositivo supportato da WireGuard.";
+"account lease wireguard desc" = "Blokada utilizza WireGuard. Le configurazioni possono essere scaricate quando si creano nuovi dispositivi.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "Scegli DNS";
 "account lease label public key" = "Chiave pubblica";
@@ -356,7 +356,7 @@
 "payment feature title encrypt data" = "Crittografia dei dati";
 "payment feature desc encrypt data" = "I dati inviati attraverso il nostro tunnel VPN sono crittografati utilizzando algoritmi sicuri per proteggerli dalle intercettazioni da parte di soggetti non autorizzati.";
 "payment feature title encrypt dns" = "Cripta DNS";
-"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
+"payment feature desc encrypt dns" = "Migliora la tua privacy con la crittografia DNS. Blokada Cloud utilizza protocolli moderni per mantenere privato il tuo traffico dati.";
 "payment feature title performance" = "Grandi prestazioni";
 "payment feature desc performance" = "Mantieni il tuo dispositivo scattante e la tua connessione Internet alla massima velocità, grazie alla nostra nuova soluzione Cloud.";
 "payment feature title battery" = "Zero impatto sulla batteria";
@@ -562,7 +562,7 @@
 "web vpn devices open action" = "Apri Dispositivi VPN";
 "web action open setup" = "Apri configurazione";
 "web cta plus header" = "Aggiorna a Blokada Plus per mantenere il controllo della tua privacy.";
-"web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
+"web cta plus desc" = "Il tuo account Libre ti offre protezione gratuita dalle pubblicità grazie alle nostre app open source. Aggiorna a Blokada Plus per una maggior protezione. Avrai accesso alla nostra rete VPN globale e al nostro nuovo blocco pubblicità *basato sul cloud* che è molto più efficiente e facile da usare.";
 // A short word for a button to generate profile
 "web action generate" = "Genera";
 
@@ -570,7 +570,7 @@
 "setup desc" = "Ci sono molti modi per configurare il tuo dispositivo per usare Blokada Cloud. Scegli quello che ti è più congeniale.";
 "setup label which device" = "Che tipo di dispositivo desideri configurare?";
 "setup label choose" = "Scegli una delle seguenti opzioni:";
-"setup comment wireguard" = "Nota: la configurazione VPN utilizzerà Blokada Cloud per impostazione predefinita. Scegli un'impostazione DNS diversa se si desidera disattivare. 'WireGuard' e il logo 'WireGuard' sono marchi registrati di Jason A. Donenfeld.";
+"setup comment wireguard" = "Nota: la configurazione VPN utilizzerà Blokada Cloud per impostazione predefinita. Scegli un'impostazione DNS diversa se desideri disattivarla. 'WireGuard' e il logo 'WireGuard' sono marchi registrati di Jason A. Donenfeld.";
 "setup comment native apps" = "Nota: le app native per Android e iOS non supportano ancora Blokada Cloud. Stiamo lavorando sull'aggiornamento.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Passo %@: %@";
@@ -596,6 +596,6 @@
 "stats top allowed header" = "Richieste permesse maggiormente";
 "stats top blocked header" = "Richieste bloccate maggiormente";
 
-"dnsprofile header" = "Enable Blokada in Settings";
-"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
-"dnsprofile action open settings" = "Open Settings";
+"dnsprofile header" = "Abilita Blokada nelle Impostazioni";
+"dnsprofile desc" = "Nelle Impostazioni, vai su Generale → VPN, DNS e Gestione dispotivo → DNS, e seleziona Blokada.";
+"dnsprofile action open settings" = "Apri le Impostazioni";

@@ -100,9 +100,9 @@
     <string name="home_status_active">Attiva</string>
     <string name="home_status_deactivated">Disattivata</string>
     <string name="home_action_tap_to_activate">Tocca per attivare</string>
-    <string name="home_status_detail_paused">In pausa finché il timer non finisce</string>
+    <string name="home_status_detail_paused">In pausa fino alla fine del timer</string>
     <string name="home_status_detail_active">Sto bloccando *pubblicità* e *tracker*</string>
-    <string name="home_status_detail_active_with_counter">*%s* Pubblicità e tracker bloccati</string>
+    <string name="home_status_detail_active_with_counter">*%s* pubblicità e tracker bloccati</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* è attiva</string>
     <string name="home_status_detail_plus">*+* proteggendo la tua *privacy*</string>
     <string name="home_status_detail_progress">Attendere prego...</string>
@@ -191,7 +191,7 @@
     <string name="networks_action_encrypt_dns">Cripta DNS</string>
     <string name="networks_action_use_dns">Usa DNS: %s</string>
     <string name="networks_action_use_network_dns">Preferisci DNS di rete</string>
-    <string name="networks_action_force_libre_mode">Forza modalità Gratuita</string>
+    <string name="networks_action_force_libre_mode">Forza modalità Libre</string>
     <string name="networks_label_specific_network">Regola cosa dovrebbe accadere quando il dispositivo si connette a questa rete.</string>
     <string name="networks_label_specific_network_type">Imposta cosa dovrebbe accadere quando il dispositivo si connette a una rete di questo tipo.</string>
     <string name="networks_label_any_wifi">Qualsiasi rete WiFi</string>
@@ -204,11 +204,11 @@
     <string name="networks_summary_network_dns">Se disponibile, Blokada userà i DNS della rete, altrimenti passerà a %s. Inoltre, le impostazioni di Crittografia DNS verranno ignorate se utilizzati i DNS di rete. L\'utilizzo dei DNS di rete aiuta a risolvere i problemi di connettività su reti problematiche, ma non ti offre protezione.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada disabiliterà temporaneamente la modalità Plus ogni volta che viene utilizzato il DNS di rete. Questo perché non è possibile accedere al DNS di rete in VPN. La modalità Plus verrà ripristinata automaticamente quando il dispositivo passerà ad un\'altra rete.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada utilizzerà i DNS di Blokada in modalità Plus, per garantire un alto livello di crittografia e velocità. È possibile modificare questa impostazione nella parte inferiore della schermata Scegli DNS.</string>
-    <string name="networks_summary_force_libre_mode">Blokada userà sempre la modalità Gratuita su questa rete e ignorerà la tua posizione Blokada Plus. Ciò è utile per le reti delle quali non si desidera una protezione aggiuntiva.</string>
+    <string name="networks_summary_force_libre_mode">Blokada userà sempre la modalità Libre su questa rete e ignorerà la tua posizione Blokada Plus. Ciò è utile per le reti delle quali non si desidera una protezione aggiuntiva.</string>
     <string name="networks_permission_dialog">Blokada può riconoscere le reti a cui ti connetti e consentire di configurare impostazioni separate per ognuna di loro. Tuttavia, per farlo, l\'applicazione raccoglierà i dati della posizione per poter accedere al nome della rete, anche quando è chiusa o non in uso. Talvolta potresti vedere una notifica circa l\'accesso alla posizione - Blokada leggerà solo il nome della rete.</string>
     <string name="account_section_header_settings">Impostazioni</string>
     <string name="account_status_text">Il tuo account BLOKADA %s è attivo fino a %s.</string>
-    <string name="account_status_text_libre">Il tuo account Gratuito BLOKADA è attivo per sempre.</string>
+    <string name="account_status_text_libre">Il tuo account BLOKADA Libre è attivo per sempre.</string>
     <string name="account_status_text_inactive">Il tuo account BLOKADA è inattivo.</string>
     <string name="account_section_header_primary">Primario</string>
     <string name="account_section_header_other">Altro</string>
@@ -274,8 +274,8 @@
     <string name="account_lease_label_generate">Selezionando una posizione si genererà un file di configurazione che è possibile utilizzare in qualsiasi app VPN che supporti WireGuard. Ciò è utile per le piattaforme per ora prive delle nostre app. Altrimenti, ti consigliamo di usare le nostre app native.</string>
     <string name="account_lease_action_generate">Genera Configurazione</string>
     <string name="account_lease_action_download">Scarica Configurazione</string>
-    <string name="account_lease_generated">Dispositivo aggiunto! Scarica la configurazione per usarla su qualsiasi dispositivo supportato da Wireguard.</string>
-    <string name="account_lease_wireguard_desc">Blokada utilizza Wireguard. Le configurazioni possono essere scaricate quando si creano nuovi dispositivi.</string>
+    <string name="account_lease_generated">Dispositivo aggiunto! Scarica la configurazione per usarla su qualsiasi dispositivo supportato da WireGuard.</string>
+    <string name="account_lease_wireguard_desc">Blokada utilizza WireGuard. Le configurazioni possono essere scaricate quando si creano nuovi dispositivi.</string>
     <string name="account_lease_label_dns">DNS</string>
     <string name="account_lease_action_dns">Scegli DNS</string>
     <string name="account_lease_label_public_key">Chiave pubblica</string>
@@ -291,7 +291,7 @@
     <string name="payment_feature_title_encrypt_data">Crittografia dei dati</string>
     <string name="payment_feature_desc_encrypt_data">I dati inviati attraverso il nostro tunnel VPN sono crittografati utilizzando algoritmi sicuri per proteggerli dalle intercettazioni da parte di soggetti non autorizzati.</string>
     <string name="payment_feature_title_encrypt_dns">Cripta DNS</string>
-    <string name="payment_feature_desc_encrypt_dns">Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.</string>
+    <string name="payment_feature_desc_encrypt_dns">Migliora la tua privacy con la crittografia DNS. Blokada Cloud utilizza protocolli moderni per mantenere privato il tuo traffico dati.</string>
     <string name="payment_feature_title_performance">Grandi prestazioni</string>
     <string name="payment_feature_desc_performance">Mantieni il tuo dispositivo scattante e la tua connessione Internet alla massima velocità, grazie alla nostra nuova soluzione Cloud.</string>
     <string name="payment_feature_title_battery">Zero impatto sulla batteria</string>
@@ -475,13 +475,13 @@
     <string name="web_vpn_devices_open_action">Apri Dispositivi VPN</string>
     <string name="web_action_open_setup">Apri configurazione</string>
     <string name="web_cta_plus_header">Aggiorna a Blokada Plus per mantenere il controllo della tua privacy.</string>
-    <string name="web_cta_plus_desc">Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You\'ll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.</string>
+    <string name="web_cta_plus_desc">Il tuo account Libre ti offre protezione gratuita dalle pubblicità grazie alle nostre app open source. Aggiorna a Blokada Plus per una maggior protezione. Avrai accesso alla nostra rete VPN globale e al nostro nuovo blocco pubblicità *basato sul cloud* che è molto più efficiente e facile da usare.</string>
     <string name="web_action_generate">Genera</string>
     <string name="setup_header">Configurazione</string>
     <string name="setup_desc">Ci sono molti modi per configurare il tuo dispositivo per usare Blokada Cloud. Scegli quello che ti è più congeniale.</string>
     <string name="setup_label_which_device">Che tipo di dispositivo desideri configurare?</string>
     <string name="setup_label_choose">Scegli una delle seguenti opzioni:</string>
-    <string name="setup_comment_wireguard">Nota: la configurazione VPN utilizzerà Blokada Cloud per impostazione predefinita. Scegli un\'impostazione DNS diversa se si desidera disattivare. \'WireGuard\' e il logo \'WireGuard\' sono marchi registrati di Jason A. Donenfeld.</string>
+    <string name="setup_comment_wireguard">Nota: la configurazione VPN utilizzerà Blokada Cloud per impostazione predefinita. Scegli un\'impostazione DNS diversa se desideri disattivarla. \'WireGuard\' e il logo \'WireGuard\' sono marchi registrati di Jason A. Donenfeld.</string>
     <string name="setup_comment_native_apps">Nota: le app native per Android e iOS non supportano ancora Blokada Cloud. Stiamo lavorando sull\'aggiornamento.</string>
     <string name="setup_step">Passo %s: %s</string>
     <string name="setup_option_label_recommended">Consigliato: %s</string>
@@ -500,7 +500,7 @@
     <string name="stats_requests_subheader">Richieste nel tempo</string>
     <string name="stats_top_allowed_header">Richieste permesse maggiormente</string>
     <string name="stats_top_blocked_header">Richieste bloccate maggiormente</string>
-    <string name="dnsprofile_header">Enable Blokada in Settings</string>
-    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
-    <string name="dnsprofile_action_open_settings">Open Settings</string>
+    <string name="dnsprofile_header">Abilita Blokada nelle Impostazioni</string>
+    <string name="dnsprofile_desc">Nelle Impostazioni, vai su Generale → VPN, DNS e Gestione dispotivo → DNS, e seleziona Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Apri le Impostazioni</string>
 </resources>

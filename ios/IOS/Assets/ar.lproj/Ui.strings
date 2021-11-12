@@ -136,13 +136,13 @@
 "home status paused" = "إيقاف مؤقَّت";
 "home status active" = "مُفَعَّل";
 "home status deactivated" = "غير مُفعَّل";
-"home action tap to activate" = "Tap to activate";
-"home status detail paused" = "Paused until timer ends";
-"home status detail active" = "Blocking *ads* and *trackers*";
-"home status detail active with counter" = "Blocked *%@* ads and trackers";
+"home action tap to activate" = "اضغط للتفعيل";
+"home status detail paused" = "متوقّف مؤقّتاً حتّى ينتهي المؤقِّت";
+"home status detail active" = "حَظْر *الإعلانات* و *المتعقِّبين*";
+"home status detail active with counter" = "تمّ حَظْر *%@* الإعلانات و المتعقِّبين";
 "home status detail active slim" = "Blokada *Slim* نَشِط";
 "home status detail plus" = "*+* حماية *خصوصيّتك*";
-"home status detail progress" = "Please wait...";
+"home status detail progress" = "الرجاء الإنتظار...";
 
 "home plus button deactivated" = "معطَّل BLOKADA+";
 "home plus button deactivated cloud" = "الـ VPN غير نَشِط";
@@ -333,11 +333,11 @@
 "account lease label this device" = " (هذا الجهاز)";
 "account lease label name" = "اسم الجهاز";
 "account lease label location" = "الموقع";
-"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
+"account lease label generate" = "سيؤدّي تحديد موقع هنا إلى إنشاء ملف تكوين يمكنك استخدامه في أي تطبيق VPN يدعم WireGuard. هذا مفيد للمنصّات التي لا تتوفّر فيها تطبيقاتنا حتّى الآن. بخلاف ذلك ، نوصي باستخدام تطبيقاتنا الأصليّة بدلاً من ذلك.";
 "account lease action generate" = "إعدادات الإنشاء";
 "account lease action download" = "إعدادات التحميل";
-"account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
-"account lease wireguard desc" = "Blokada uses WireGuard. Configurations can be downloaded when creating new devices.";
+"account lease generated" = "تم إضافة الجهاز ! قُم بتحميل الإعدادات لاستخدامها على أي جهاز مدعوم من WireGuard.";
+"account lease wireguard desc" = "بلوكادا يستخدم WireGuard. يمكن تنزيل التهيئات عند إنشاء أجهزة جديدة.";
 "account lease label dns" = "نظام أسماء النطاقات (DNS)";
 "account lease action dns" = "اختر DNS";
 "account lease label public key" = "المفتاح العام";
@@ -356,7 +356,7 @@
 "payment feature title encrypt data" = "تشفير البيانات";
 "payment feature desc encrypt data" = "يتم تشفير البيانات المرسلة من خلال نفق VPN الخاص بنا باستخدام خوارزميات قويّة من أجل الحماية من اعتراض الأطراف غير المصرّح لها.";
 "payment feature title encrypt dns" = "تشفير الـ DNS";
-"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
+"payment feature desc encrypt dns" = "قم بتحسين خصوصيّتك باستخدام تشفير DNS. يستخدم Blokada Cloud البروتوكولات الحديثة للمساعدة في الحفاظ على خصوصيّة بياناتك.";
 "payment feature title performance" = "أداء عظيم";
 "payment feature desc performance" = "حافظ على سرعة أداء جهازك و اتصالك بالإنترنت بأقصى سرعات بفضل حل السحابة الجديد الذي نقدمه.";
 "payment feature title battery" = "تأثير البطّاريّة صفر";
@@ -501,7 +501,7 @@
 "homepage vpn point two" = "تشفير سريع و حديث";
 "homepage vpn point three" = "لا يوجد تسجيل لنشاط الشبكة الخاصّ بك";
 "homepage vpn point four" = "قم بتوصيل ما يصل إلى 5 أجهزة";
-"homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
+"homepage vpn credit" = "'WireGuard' و شعار 'WireGuard' علامات تجاريّة مسجّلة لـ Jason A. Donenfeld.";
 
 "homepage faq header" = "الأسئلة الشائعة";
 "homepage faq action more" = "مشاهدة المزيد من الأسئلة الشائعة";
@@ -525,7 +525,7 @@
 "homepage download option android four" = "Blokada 4 للأندرويد";
 "homepage download option ios" = "Blokada 5 لـ iOS";
 "homepage download option other" = "بلوكادا للمنصَّات الأُخرى";
-"homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.";
+"homepage download desc other" = "حاليّاً، نحن لا نوفّر بلوكادا للمنصّات الأُخرى. ومع ذلك، إذا كنت مستخدم بلوكادا بلس، فيُمكِنك استخدام شبكة VPN الخاصّة بنا على ويندوز، لينوكس، ماك، وغيرها من المنصّات التي يتوفّر فيها WireGuard.";
 "homepage download desc ios" = "Blokada 5 متاح ببساطة على متجر التطبيقات.";
 "homepage download action ios" = "فتح متجر التطبيقات";
 "homepage download desc android five" = "هذا هو الإصدار الجديد الموصى به <b>للهواتف الذكيّة و اللّوحيّة مع أندرويد 7 أو الأحدث</b>. إنّه أبسط وأسرع بالمقارنة مع بلوكادا 4.";
@@ -584,7 +584,7 @@
 "setup step install" = "تثبيت و بدء التطبيق الخاصّ بنا";
 "setup step enter tag" = "عند السؤال، أدخل العلامة الخاصّة بك";
 "setup step download profile" = "إنشاء و تنزيل ملفّك الشخّصي";
-"setup step install wireguard" = "Install and start WireGuard";
+"setup step install wireguard" = "تثبيت و بدء WireGuard";
 
 "stats header" = "الإحصائيّات";
 // A ratio between counter of allowed vs denied requests.
@@ -596,6 +596,6 @@
 "stats top allowed header" = "أكثر الطلبات المسموح بها";
 "stats top blocked header" = "أكثر الطلبات المَحظورة";
 
-"dnsprofile header" = "Enable Blokada in Settings";
+"dnsprofile header" = "تفعيل بلوكادا في الإعدادات";
 "dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
-"dnsprofile action open settings" = "Open Settings";
+"dnsprofile action open settings" = "فتح الإعدادات";

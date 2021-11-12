@@ -500,7 +500,7 @@
     <string name="stats_requests_subheader">時間の経過とクエリ</string>
     <string name="stats_top_allowed_header">よく許可されるリクエスト</string>
     <string name="stats_top_blocked_header">よくブロックされるリクエスト</string>
-    <string name="dnsprofile_header">Enable Blokada in Settings</string>
-    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
-    <string name="dnsprofile_action_open_settings">Open Settings</string>
+    <string name="dnsprofile_header">設定で Blokada を有効にする</string>
+    <string name="dnsprofile_desc">設定を開き、[一般] > [VPN &amp; ネットワーク] > [DNS] から Blokada を選択してください。</string>
+    <string name="dnsprofile_action_open_settings">設定を開く</string>
 </resources>

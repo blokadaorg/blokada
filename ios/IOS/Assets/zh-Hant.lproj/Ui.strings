@@ -596,6 +596,6 @@
 "stats top allowed header" = "允許最多次的請求";
 "stats top blocked header" = "阻擋最多次的請求";
 
-"dnsprofile header" = "Enable Blokada in Settings";
-"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
-"dnsprofile action open settings" = "Open Settings";
+"dnsprofile header" = "在設定中啟用 Blokada";
+"dnsprofile desc" = "在「設定」App 中，前往 [一般] → [VPN、DNS 與裝置管理] → DNS 並選取 Blokada。";
+"dnsprofile action open settings" = "開啟設定";

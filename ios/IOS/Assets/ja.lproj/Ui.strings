@@ -597,6 +597,6 @@
 "stats top allowed header" = "よく許可されるリクエスト";
 "stats top blocked header" = "よくブロックされるリクエスト";
 
-"dnsprofile header" = "Enable Blokada in Settings";
-"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
-"dnsprofile action open settings" = "Open Settings";
+"dnsprofile header" = "設定で Blokada を有効にする";
+"dnsprofile desc" = "設定を開き、[一般] > [VPN & ネットワーク] > [DNS] から Blokada を選択してください。";
+"dnsprofile action open settings" = "設定を開く";

@@ -500,7 +500,7 @@
     <string name="stats_requests_subheader">Consultas ao longo do tempo</string>
     <string name="stats_top_allowed_header">Principais solicitações permitidas</string>
     <string name="stats_top_blocked_header">Principais solicitações bloqueadas</string>
-    <string name="dnsprofile_header">Enable Blokada in Settings</string>
-    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
-    <string name="dnsprofile_action_open_settings">Open Settings</string>
+    <string name="dnsprofile_header">Ative o Blokada nas Configurações</string>
+    <string name="dnsprofile_desc">No aplicativo de Configurações, navegue até Geral → VPN, DNS e Gerenciamento de Dispositivos → DNS e selecione o Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Abrir Configurações</string>
 </resources>
