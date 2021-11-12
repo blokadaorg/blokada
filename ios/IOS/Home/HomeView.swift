@@ -124,14 +124,14 @@ struct HomeView: View {
                                 L10n.homeStatusDetailActive.withBoldSections(color: Color.cActivePlus)
                             } else {
                                 L10n.homeStatusDetailActiveWithCounter(String(self.vm.blockedCounter.compact))
-                                    .withBoldSections(color: Color.cActivePlus, font: .system(size: 18, design: .monospaced))
+                                    .withBoldSections(color: Color.cActivePlus)
                             }
 
                             L10n.homeStatusDetailPlus.withBoldSections(color: Color.cActivePlus)
                         }
                         .opacity(self.vm.mainSwitch && self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
-                            //self.activeSheet = .counter
+                            self.activeSheet = .counter
                         }
 
                         VStack {
@@ -139,12 +139,12 @@ struct HomeView: View {
                                 L10n.homeStatusDetailActive.withBoldSections(color: Color.cActive)
                             } else {
                                 L10n.homeStatusDetailActiveWithCounter(String(self.vm.blockedCounter.compact))
-                                .withBoldSections(color: Color.cActive, font: .system(size: 18, design: .monospaced))
+                                .withBoldSections(color: Color.cActive)
                             }
                         }
                         .opacity(self.vm.mainSwitch && !self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
-                            //self.activeSheet = .counter
+                            self.activeSheet = .counter
                         }
 
                         Text(L10n.homeStatusDetailProgress)

@@ -103,7 +103,7 @@ class ActivityViewModel: ObservableObject {
     }
 
     func refreshStats(ok: @escaping Ok<Void> = { _ in }) {
-        //self.sharedActions.refreshStats(ok)
+        self.sharedActions.refreshStats(ok)
         self.api.getCurrentDeviceActivity { error, activity in
             guard let activity = activity else {
                 return self.log.w("refreshStats: failed getting activity".cause(error))

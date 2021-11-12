@@ -238,6 +238,11 @@ struct BlockingExceptionRequest: Codable {
     let action: String
 }
 
+struct CounterStats: Decodable {
+    let total_allowed: String
+    let total_blocked: String
+}
+
 struct AppleCheckoutRequest: Codable {
     let account_id: AccountId
     let receipt: String

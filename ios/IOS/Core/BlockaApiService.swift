@@ -139,12 +139,44 @@ class BlockaApiService {
         })
     }
 
+    func getCounterStats(id: AccountId, done: @escaping Callback<CounterStats>) {
+        self.request(url: self.baseUrl + "/v1/stats?account_id=" + id, done: { (error, result) in
+            guard error == nil else {
+                done(error, nil)
+                return
+            }
+
+            guard let stringData = result else {
+                done("getCounterStats: request returned nil result", nil)
+                return
+            }
+
+            let jsonData = stringData.data(using: .utf8)
+            guard let json = jsonData else {
+                done("getCounterStats: parsing api response failed", nil)
+                return
+            }
+
+            do {
+                let val = try self.decoder.decode(CounterStats.self, from: json)
+                done(nil, val)
+            } catch {
+                self.log.e("getCounterStats: failed".cause(error))
+                done("getCounterStats: failed decoding api json response".cause(error), nil)
+            }
+        })
+    }
+
     func getCurrentAccount(done: @escaping Callback<Account>) {
         self.getAccount(id: Config.shared.accountId(), done: done)
     }
 
     func getCurrentDevice(done: @escaping Callback<DevicePayload>) {
         self.getDevice(id: Config.shared.accountId(), done: done)
+    }
+
+    func getCurrentCounterStats(done: @escaping Callback<CounterStats>) {
+        self.getCounterStats(id: Config.shared.accountId(), done: done)
     }
 
     func getGateways(done: @escaping Callback<[Gateway]>) {

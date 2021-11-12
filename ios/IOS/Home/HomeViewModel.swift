@@ -387,14 +387,6 @@ class HomeViewModel: ObservableObject {
                                     return self.handleError(CommonError.unknownError, cause: error)
                                 }
 
-//                                    self.refreshAdsCounter(delay: true) {
-//                                        if self.shouldShowRateScreen() {
-//                                            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-//                                                showRateScreen(())
-//                                            })
-//                                        }
-//                                    }
-
                                 // It is possible the profile is already activated by the user
                                 self.networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in
                                     guard dnsEnabled == true else {
@@ -408,6 +400,14 @@ class HomeViewModel: ObservableObject {
                                     self.mainSwitch = true
                                     self.working = false
                                     self.log.v("User action: switchMain: done")
+
+                                    self.refreshAdsCounter(delay: true) {
+                                        if self.shouldShowRateScreen() {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+                                                showRateScreen(())
+                                            })
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -873,36 +873,20 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    private let decoder = initJsonDecoder()
     func refreshAdsCounter(delay: Bool, ok: @escaping Ok<Void> = { _ in }) {
-        // Delay so that we get some entries on the activity list without the need to re-enter the app
-//        bgThread.asyncAfter(deadline: .now() + TimeInterval(delay ? 3 : 0), execute: {
-//            self.network.sendMessage(msg: "stats", skipReady: false) { error, result in
-//                if error != nil {
-//                    return self.log.w("refreshAdsCounter: failed sending stats message".cause(error))
-//                }
-//
-//                guard let stats = result else {
-//                    return self.log.e("refreshAdsCounter: could not read stats")
-//                }
-//
-//                let jsonData = stats.data(using: .utf8)
-//                guard let json = jsonData else {
-//                    return self.log.e("refreshAdsCounter: failed getting json")
-//                }
-//
-//                do {
-//                    let s = try self.decoder.decode(Stats.self, from: json)
-//                    onMain {
-//                        self.blockedCounter = Int(s.denied)
-//                        ActivityService.shared.setEntries(entries: s.entries)
-//                        ok(())
-//                    }
-//                } catch {
-//                    return self.log.e("refreshAdsCounter: Failed decoding account json".cause(error))
-//                }
-//            }
-//        })
+        self.api.getCurrentCounterStats { error, stats in
+            guard error == nil, let stats = stats else {
+                return self.log.w("refreshAdsCounter: failed api call".cause(error))
+            }
+
+            onMain {
+                guard let counter = Int(stats.total_blocked) else {
+                    return self.log.w("refreshAdsCounter: could not parse, implement uint64 counter support")
+                }
+                self.blockedCounter = counter
+                ok(())
+            }
+        }
     }
 
     private func shouldShowRateScreen() -> Bool {
