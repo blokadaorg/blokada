@@ -77,6 +77,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
 
         self.apiHandle = api_new(10, config["userAgent"] as! String)
 
+        guard let version = config["version"] as? String, version == "6" else {
+            NELogger.w("PacketTunnelProvider: old config version, doing passs through until config update")
+            return self.passThrough(completionHandler: startTunnelCompletionHandler)
+        }
+
         tunnelConfig = TunnelConfig(
             privateKey: config["privateKey"] as! String,
             gatewayId: config["gatewayId"] as! String,
@@ -236,6 +241,24 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
 //        self.persistedStats = Stats.load()
 //        dns_use_lists(dnsHandle, self.blocklist(), nil)
 //    }
+
+    // Needed when migrating from v5 to v6 in order to not cut out net before app UI is started
+    private func passThrough(completionHandler: @escaping ((Error?)) -> Void) {
+        NELogger.v("PacketTunnelProvider: passThrough")
+
+        setTunnelNetworkSettings(createPassThroughSettings()) { error in
+            if let error = error {
+                NELogger.e("PacketTunnelProvider: failed passThrough with tunnel network settings".cause(error))
+                completionHandler(PacketTunnelProviderError.couldNotSetNetworkSettings)
+            } else {
+                completionHandler(nil)
+            }
+        }
+    }
+
+    private func createPassThroughSettings() -> NEPacketTunnelNetworkSettings {
+        return createTunnelSettings(gatewayIp: "127.0.0.1", vip4: "127.0.0.1", vip6: "::1", dns: "8.8.8.8", defaultRoute: false)
+    }
 
     private var persistedStats: Stats = Stats.empty()
 

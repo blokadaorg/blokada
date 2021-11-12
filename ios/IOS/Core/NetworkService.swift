@@ -85,6 +85,7 @@ class NetworkService {
         protoConfig.username = ""
 
         protoConfig.providerConfiguration = [
+            "version": "6",
             "userAgent": BlockaApiService.userAgent(),
             "privateKey": Config.shared.privateKey(),
             "gatewayId": gateway.public_key,
