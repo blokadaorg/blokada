@@ -77,9 +77,17 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
 
         self.apiHandle = api_new(10, config["userAgent"] as! String)
 
-        guard let version = config["version"] as? String, version == "6" else {
-            NELogger.w("PacketTunnelProvider: old config version, doing passs through until config update")
-            return self.passThrough(completionHandler: startTunnelCompletionHandler)
+        var dns: String? = nil
+        if let version = config["version"] as? String, version == "6" {
+            // New config, all ok.
+        } else {
+            if config["mode"] as? String == "plus" {
+                // Old config, but plus was activated, so keep the VPN active (no adblocking) until user takes action
+                dns = "8.8.8.8"
+            } else {
+                NELogger.w("PacketTunnelProvider: old config version, doing passs through until config update")
+                return self.passThrough(completionHandler: startTunnelCompletionHandler)
+            }
         }
 
         tunnelConfig = TunnelConfig(
@@ -90,7 +98,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
             gatewayPort: config["port"] as! String,
             vip4: config["vip4"] as! String,
             vip6: config["vip6"] as! String,
-            dns: config["dns"] as! String
+            dns: dns ?? config["dns"] as! String
         )
         return self.connectVPN(completionHandler: startTunnelCompletionHandler)
     }
