@@ -187,6 +187,10 @@ class Config {
         return localStorage.integer(forKey: "networkExtensionVersion")
     }
 
+    func expireSeen() -> Bool {
+        return localStorage.bool(forKey: "expireSeen")
+    }
+
     /**
             Thread safe setters
      */
@@ -199,6 +203,7 @@ class Config {
         _account.value = account
         persistAccount(account)
         clearLease()
+        markExpireSeen(false)
 
         localStorage.set(privateKey, forKey: "privateKey")
         localStorage.set(publicKey, forKey: "publicKey")
@@ -218,6 +223,10 @@ class Config {
 
         if _account.value?.id != account.id {
             self.log.v("setAccount: Account ID changed")
+        }
+        
+        if account.isActive() {
+            markExpireSeen(false)
         }
 
         _account.value = account
@@ -295,6 +304,10 @@ class Config {
 
     func markNetworkExtensionVersion() {
         localStorage.set(6, forKey: "networkExtensionVersion")
+    }
+
+    func markExpireSeen(_ can: Bool) {
+        localStorage.set(can, forKey: "expireSeen")
     }
 
     /**

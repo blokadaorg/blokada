@@ -205,7 +205,7 @@ class HomeViewModel: ObservableObject {
                             //self.showExpiredAlert()
                             return self.afterStart(done)
                         } else {
-                            self.expiration.update(Config.shared.lease()!)
+                            self.expiration.update(Config.shared.account()!)
                             return self.afterStart(done)
                         }
                     } else {
@@ -265,6 +265,8 @@ class HomeViewModel: ObservableObject {
                         }
                     }
 
+                    self.expiration.update(Config.shared.account())
+
                     // Check if tunnel should stay active
                     if status?.hasGateway() ?? false {
                         if !Config.shared.accountActive() || !Config.shared.leaseActive() {
@@ -273,7 +275,6 @@ class HomeViewModel: ObservableObject {
                             //self.log.w("Foreground: lease expired, showing alert dialog")
                         } else {
                             if (Config.shared.hasLease()) {
-                                self.expiration.update(Config.shared.lease())
                                 self.recheckActiveLeaseAfterActivating()
                                 self.log.v("Foreground: synced (lease active)")
                             } else {
@@ -440,7 +441,7 @@ class HomeViewModel: ObservableObject {
                                         return self.handleError(CommonError.failedTunnel, cause: error)
                                     }
 
-                                    self.expiration.update(cfg.lease())
+                                    self.expiration.update(cfg.account())
                                     self.recheckActiveLeaseAfterActivating()
                                     self.refreshAdsCounter(delay: true)
                                     self.log.v("User action: switchMain: done")
@@ -459,7 +460,7 @@ class HomeViewModel: ObservableObject {
                                             return self.handleError(CommonError.failedTunnel, cause: error)
                                         }
 
-                                        self.expiration.update(cfg.lease())
+                                        self.expiration.update(cfg.account())
                                         self.refreshAdsCounter(delay: true)
                                         self.log.v("User action: switchMain: done")
                                     }}
@@ -567,7 +568,7 @@ class HomeViewModel: ObservableObject {
                                     return self.handleError(CommonError.failedVpn, cause: error)
                                 }
 
-                                self.expiration.update(Config.shared.lease())
+                                self.expiration.update(Config.shared.account())
                                 self.recheckActiveLeaseAfterActivating()
                                 self.log.v("User action: switchVpn: done")
                             }}
@@ -640,7 +641,7 @@ class HomeViewModel: ObservableObject {
                                 }
                             }
 
-                            self.expiration.update(Config.shared.lease())
+                            self.expiration.update(Config.shared.account())
                             self.log.v("User action: switchGateway: done")
                         }
                     }

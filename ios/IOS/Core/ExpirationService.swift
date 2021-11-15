@@ -28,9 +28,9 @@ class ExpirationService {
         }
     }
 
-    func update(_ lease: Lease?) {
+    func update(_ account: Account?) {
         onBackground {
-            let when = lease?.activeUntil() ?? Date()
+            let when = account?.activeUntil() ?? Date()
             if when <= Date() {
                 return self.checkExpiration()
             }
@@ -43,8 +43,9 @@ class ExpirationService {
 
     private func checkExpiration() {
         onMain {
-            if Config.shared.hasLease() {
+            if !Config.shared.accountActive() && !Config.shared.expireSeen() {
                 self.log.v("checkExpiration: executing")
+                Config.shared.markExpireSeen(true)
                 self.onExpired()
             }
         }

@@ -107,7 +107,7 @@ class NotificationService {
                     return fail(error)
                 } else if let lease = lease {
                     self.scheduleExpiredNotification(when: lease.activeUntil())
-                    self.expiration.update(lease)
+                    self.expiration.update(Config.shared.account())
                     return ok(true)
                 } else {
                     return ok(false)
