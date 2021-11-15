@@ -596,6 +596,6 @@
 "stats top allowed header" = "Permintaan teratas yang diizinkan";
 "stats top blocked header" = "Permintaan teratas yang diblokir";
 
-"dnsprofile header" = "Enable Blokada in Settings";
-"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
-"dnsprofile action open settings" = "Open Settings";
+"dnsprofile header" = "Aktifkan Blokada di Pengaturan";
+"dnsprofile desc" = "Di Pengaturan, cari Umum → Manajemen VPN, DNS, & Perangkat → DNS, kemudian pilih Blokada.";
+"dnsprofile action open settings" = "Buka Pengaturan";
