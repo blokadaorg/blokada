@@ -265,7 +265,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
     }
 
     private func createPassThroughSettings() -> NEPacketTunnelNetworkSettings {
-        return createTunnelSettings(gatewayIp: "127.0.0.1", vip4: "127.0.0.1", vip6: "::1", dns: "8.8.8.8", defaultRoute: false)
+        return createTunnelSettings(gatewayIp: "127.0.0.1", vip4: "127.0.0.1", vip6: "::1", dns: "1.1.1.1", defaultRoute: false)
     }
 
     private var persistedStats: Stats = Stats.empty()
