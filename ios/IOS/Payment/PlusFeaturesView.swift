@@ -45,12 +45,12 @@ struct PlusFeaturesView: View {
                                         .foregroundColor(Color.cActive)
 
                                     VStack(alignment: .leading) {
-                                        Text("Block ads")
+                                        Text(L10n.paymentFeatureTitleNoAds)
                                             .font(.system(size: 20))
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.")
+                                        Text(L10n.paymentFeatureDescNoAds)
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
@@ -67,12 +67,12 @@ struct PlusFeaturesView: View {
                                         .foregroundColor(Color.cActive)
 
                                     VStack(alignment: .leading) {
-                                        Text("Encrypt DNS")
+                                        Text(L10n.paymentFeatureTitleEncryptDns)
                                             .font(.system(size: 20))
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your queries private.")
+                                        Text(L10n.paymentFeatureDescEncryptDns)
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
@@ -89,12 +89,12 @@ struct PlusFeaturesView: View {
                                         .foregroundColor(Color.cActive)
 
                                     VStack(alignment: .leading) {
-                                        Text("Great performance")
+                                        Text(L10n.paymentFeatureTitlePerformance)
                                             .font(.system(size: 20))
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.")
+                                        Text(L10n.paymentFeatureDescPerformance)
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
@@ -111,12 +111,12 @@ struct PlusFeaturesView: View {
                                         .foregroundColor(Color.cActive)
 
                                     VStack(alignment: .leading) {
-                                        Text("Zero battery impact")
+                                        Text(L10n.paymentFeatureTitleBattery)
                                             .font(.system(size: 20))
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Your battery life is going to be the same, with our without Blokada Cloud activated.")
+                                        Text(L10n.paymentFeatureDescBattery)
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
@@ -133,12 +133,12 @@ struct PlusFeaturesView: View {
                                         .foregroundColor(Color.cActive)
 
                                     VStack(alignment: .leading) {
-                                        Text("Multiple devices")
+                                        Text(L10n.paymentFeatureTitleDevicesCloud)
                                             .font(.system(size: 20))
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Set up all your devices under one Blokada Cloud subscription. Use our mobile apps or our web dashboard.")
+                                        Text(L10n.paymentFeatureDescDevicesCloud)
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
@@ -227,12 +227,12 @@ struct PlusFeaturesView: View {
                                     }.padding([.trailing], 8)
 
                                     VStack(alignment: .leading) {
-                                        Text("Cloud & VPN")
+                                        Text(L10n.paymentFeatureTitleCloudVpn)
                                             .font(.system(size: 20))
                                             .bold()
                                             .padding(.bottom)
 
-                                        Text("Enjoy all the features of Blokada Cloud. Aditionally, get access to our VPN network.")
+                                        Text(L10n.paymentFeatureDescCloudVpn)
                                             .lineLimit(5)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }

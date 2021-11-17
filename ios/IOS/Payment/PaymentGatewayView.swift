@@ -123,7 +123,7 @@ struct PaymentGatewayView: View {
                                        .foregroundColor(Color.secondary)
                                        .padding(.bottom, 1)
 
-                                    Text("(includes Blokada Cloud)")
+                                    Text(L10n.paymentPlanSluglineCloudDetail)
                                        .multilineTextAlignment(.center)
                                        .lineLimit(2)
                                        .font(.system(size: 13))
