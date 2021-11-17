@@ -349,6 +349,7 @@
     <string name="payment_donate_disclaimer">لن يؤدّي هذا إلى تنشيط حساب بلوكادا بلس الخاصّ بك. إذا كنت ترغب في استخدام خدمة VPN الخاصّة بنا، يُرجى الإشتراك بدلاً من التبرُّع.</string>
     <string name="payment_action_compare">قارن الباقات</string>
     <string name="payment_plan_slugline_cloud">حَظْر الإعلانات و برمجيات التعقّب</string>
+    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
     <string name="payment_plan_slugline_plus">حماية إضافيّة مع VPN</string>
     <string name="payment_plan_cta_trial">ابدأ التجربة المجّانيّة لمدة 7 أيام</string>
     <string name="payment_plan_cta_monthly">اشترك شهريّاً</string>

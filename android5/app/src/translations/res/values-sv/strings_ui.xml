@@ -349,6 +349,7 @@
     <string name="payment_donate_disclaimer">Detta kommer inte att aktivera ditt Blokada Plus-konto. Om du vill använda vår VPN-tjänst, vänligen prenumerera istället för att donera.</string>
     <string name="payment_action_compare">Jämför betalplaner</string>
     <string name="payment_plan_slugline_cloud">Blockerar annonser och trackers</string>
+    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
     <string name="payment_plan_slugline_plus">Ytterligare skydd med VPN</string>
     <string name="payment_plan_cta_trial">Få en vecka kostnadsfritt</string>
     <string name="payment_plan_cta_monthly">Månadsvis prenumeration</string>

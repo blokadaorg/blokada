@@ -349,6 +349,7 @@
     <string name="payment_donate_disclaimer">這不會啟用您的 Blokada Plus 帳戶。如果你想使用我們的 VPN 服務，請改成「訂閱」而非捐助。</string>
     <string name="payment_action_compare">比較方案</string>
     <string name="payment_plan_slugline_cloud">阻擋廣告與追蹤器</string>
+    <string name="payment_plan_slugline_cloud_detail">（包含 Blokada Cloud）</string>
     <string name="payment_plan_slugline_plus">使用 VPN 獲得增強保護</string>
     <string name="payment_plan_cta_trial">開始 7 天免費試用期</string>
     <string name="payment_plan_cta_monthly">訂閱月付方案</string>

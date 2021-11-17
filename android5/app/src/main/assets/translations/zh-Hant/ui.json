@@ -348,6 +348,7 @@
     "payment donate disclaimer": "這不會啟用您的 Blokada Plus 帳戶。如果你想使用我們的 VPN 服務，請改成「訂閱」而非捐助。",
     "payment action compare": "比較方案",
     "payment plan slugline cloud": "阻擋廣告與追蹤器",
+    "payment plan slugline cloud detail": "（包含 Blokada Cloud）",
     "payment plan slugline plus": "使用 VPN 獲得增強保護",
     "payment plan cta trial": "開始 7 天免費試用期",
     "payment plan cta monthly": "訂閱月付方案",

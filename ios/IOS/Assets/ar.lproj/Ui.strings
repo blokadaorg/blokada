@@ -421,6 +421,8 @@
 
 "payment action compare" = "قارن الباقات";
 "payment plan slugline cloud" = "حَظْر الإعلانات و برمجيات التعقّب";
+"# A short information that Plus plan contains Cloud also.
+payment plan slugline cloud detail" = "(includes Blokada Cloud)";
 "payment plan slugline plus" = "حماية إضافيّة مع VPN";
 "payment plan cta trial" = "ابدأ التجربة المجّانيّة لمدة 7 أيام";
 "payment plan cta monthly" = "اشترك شهريّاً";

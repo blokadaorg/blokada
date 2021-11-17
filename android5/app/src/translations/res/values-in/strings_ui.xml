@@ -349,6 +349,7 @@
     <string name="payment_donate_disclaimer">Donasi yang Anda berikan tidak akan mengaktifkan akun Blokada Plus. Jika Anda ingin menggunakan layanan VPN kami, silakan pilih opsi berlangganan.</string>
     <string name="payment_action_compare">Bandingkan paket langganan</string>
     <string name="payment_plan_slugline_cloud">Memblokir iklan &amp; pelacak</string>
+    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
     <string name="payment_plan_slugline_plus">Perlindungan tambahan dengan VPN</string>
     <string name="payment_plan_cta_trial">Mulai Trial Gratis 7 Hari</string>
     <string name="payment_plan_cta_monthly">Langganan Bulanan</string>

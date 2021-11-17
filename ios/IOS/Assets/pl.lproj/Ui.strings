@@ -421,6 +421,8 @@
 
 "payment action compare" = "Porównaj plany";
 "payment plan slugline cloud" = "Blokuje reklamy i trackery";
+"# A short information that Plus plan contains Cloud also.
+payment plan slugline cloud detail" = "(zawiera Blokadę Cloud)";
 "payment plan slugline plus" = "Dodatkowa ochrona z VPN";
 "payment plan cta trial" = "Testuj 7 dni za darmo";
 "payment plan cta monthly" = "Subskrybuj miesięcznie";

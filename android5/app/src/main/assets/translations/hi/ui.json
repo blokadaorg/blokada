@@ -348,6 +348,7 @@
     "payment donate disclaimer": "This won't activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.",
     "payment action compare": "Compare plans",
     "payment plan slugline cloud": "Blocks ads and trackers",
+    "payment plan slugline cloud detail": "(includes Blokada Cloud)",
     "payment plan slugline plus": "Additional protection with VPN",
     "payment plan cta trial": "Start 7-Day Free Trial",
     "payment plan cta monthly": "Subscribe Monthly",

@@ -349,6 +349,7 @@
     <string name="payment_donate_disclaimer">Isso não vai ativar sua conta do Blokada Plus. Se você deseja usar nosso serviço de VPN, assine em vez de doar.</string>
     <string name="payment_action_compare">Comparar planos</string>
     <string name="payment_plan_slugline_cloud">Bloqueia anúncios e rastreadores</string>
+    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
     <string name="payment_plan_slugline_plus">Proteção adicional com VPN</string>
     <string name="payment_plan_cta_trial">Iniciar o Teste de 7 Dias Grátis</string>
     <string name="payment_plan_cta_monthly">Assinar Mensalmente</string>

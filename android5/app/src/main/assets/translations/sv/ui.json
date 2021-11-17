@@ -348,6 +348,7 @@
     "payment donate disclaimer": "Detta kommer inte att aktivera ditt Blokada Plus-konto. Om du vill använda vår VPN-tjänst, vänligen prenumerera istället för att donera.",
     "payment action compare": "Jämför betalplaner",
     "payment plan slugline cloud": "Blockerar annonser och trackers",
+    "payment plan slugline cloud detail": "(includes Blokada Cloud)",
     "payment plan slugline plus": "Ytterligare skydd med VPN",
     "payment plan cta trial": "Få en vecka kostnadsfritt",
     "payment plan cta monthly": "Månadsvis prenumeration",

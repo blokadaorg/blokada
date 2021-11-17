@@ -349,6 +349,7 @@
     <string name="payment_donate_disclaimer">Toto neaktivuje váš účet Blokada Plus. Pokud chcete používat naši službu VPN, místo darů se prosím přihlaste k předplatnému.</string>
     <string name="payment_action_compare">Porovnat plány</string>
     <string name="payment_plan_slugline_cloud">Blokuje reklamy a slídiče</string>
+    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
     <string name="payment_plan_slugline_plus">Dodatečná ochrana pomocí VPN</string>
     <string name="payment_plan_cta_trial">Zahájit 7denní bezplatnou zkušební dobu</string>
     <string name="payment_plan_cta_monthly">Měsíční předplatné</string>

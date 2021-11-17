@@ -348,6 +348,7 @@
     "payment donate disclaimer": "لن يؤدّي هذا إلى تنشيط حساب بلوكادا بلس الخاصّ بك. إذا كنت ترغب في استخدام خدمة VPN الخاصّة بنا، يُرجى الإشتراك بدلاً من التبرُّع.",
     "payment action compare": "قارن الباقات",
     "payment plan slugline cloud": "حَظْر الإعلانات و برمجيات التعقّب",
+    "payment plan slugline cloud detail": "(includes Blokada Cloud)",
     "payment plan slugline plus": "حماية إضافيّة مع VPN",
     "payment plan cta trial": "ابدأ التجربة المجّانيّة لمدة 7 أيام",
     "payment plan cta monthly": "اشترك شهريّاً",
