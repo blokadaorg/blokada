@@ -43,6 +43,12 @@ class HomeViewModel: ObservableObject {
                 self.syncUiWithTunnel(done: { _, _ in } )
             }
         }
+        Config.shared.setOnAccountIdChanged {
+            onMain {
+                self.blockedCounter = 0
+                self.refreshAdsCounter(delay: false)
+            }
+        }
         network.onStatusChanged = { status in
             onMain {
                 self.working = status.inProgress

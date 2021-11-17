@@ -40,6 +40,9 @@ class Config {
     // Called when account related propeties change
     private var onAccountUpdated = {}
 
+    // Called when account ID (user changes account)
+    private var onAccountIdChanged = {}
+
     // Called when device related properties change
     private var onDeviceUpdated = {}
 
@@ -53,6 +56,13 @@ class Config {
     func setOnAccountUpdated(callback: @escaping () -> Void) {
         onMain {
             self.onAccountUpdated = callback
+            callback()
+        }
+    }
+
+    func setOnAccountIdChanged(callback: @escaping () -> Void) {
+        onMain {
+            self.onAccountIdChanged = callback
             callback()
         }
     }
@@ -212,6 +222,7 @@ class Config {
             self.onConfigUpdated()
             self.onAccountUpdated()
             self.onDeviceUpdated()
+            self.onAccountIdChanged()
         }
     }
 
@@ -223,8 +234,9 @@ class Config {
 
         if _account.value?.id != account.id {
             self.log.v("setAccount: Account ID changed")
+            onMain { self.onAccountIdChanged() }
         }
-        
+
         if account.isActive() {
             markExpireSeen(false)
         }
