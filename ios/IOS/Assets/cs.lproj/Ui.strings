@@ -421,8 +421,8 @@
 
 "payment action compare" = "Porovnat plány";
 "payment plan slugline cloud" = "Blokuje reklamy a slídiče";
-"# A short information that Plus plan contains Cloud also.
-payment plan slugline cloud detail" = "(includes Blokada Cloud)";
+// A short information that Plus plan contains Cloud also.
+"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
 "payment plan slugline plus" = "Dodatečná ochrana pomocí VPN";
 "payment plan cta trial" = "Zahájit 7denní bezplatnou zkušební dobu";
 "payment plan cta monthly" = "Měsíční předplatné";

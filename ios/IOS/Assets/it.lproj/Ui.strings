@@ -421,8 +421,8 @@
 
 "payment action compare" = "Confronta abbonamenti";
 "payment plan slugline cloud" = "Blocca pubblicità e tracciamento";
-"# A short information that Plus plan contains Cloud also.
-payment plan slugline cloud detail" = "(include Blokada Cloud)";
+// A short information that Plus plan contains Cloud also.
+"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
 "payment plan slugline plus" = "Protezione aggiuntiva con la VPN";
 "payment plan cta trial" = "Inizia la prova gratuita di 7 giorni";
 "payment plan cta monthly" = "Abbonamento mensile";

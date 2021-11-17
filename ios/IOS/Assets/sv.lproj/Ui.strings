@@ -421,8 +421,8 @@
 
 "payment action compare" = "Jämför betalplaner";
 "payment plan slugline cloud" = "Blockerar annonser och trackers";
-"# A short information that Plus plan contains Cloud also.
-payment plan slugline cloud detail" = "(includes Blokada Cloud)";
+// A short information that Plus plan contains Cloud also.
+"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
 "payment plan slugline plus" = "Ytterligare skydd med VPN";
 "payment plan cta trial" = "Få en vecka kostnadsfritt";
 "payment plan cta monthly" = "Månadsvis prenumeration";
