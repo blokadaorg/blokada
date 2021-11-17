@@ -186,12 +186,45 @@ struct PlusFeaturesView: View {
 
                             VStack(alignment: .leading) {
                                 HStack(alignment: .top) {
-                                    Image(systemName: Image.fCloud)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 48, height: 48)
-                                        .padding([.leading, .trailing], 8)
-                                        .foregroundColor(Color.cAccent)
+                                    VStack {
+                                        Image(systemName: Image.fHide)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 32, height: 32)
+                                            .foregroundColor(Color.cActive)
+
+                                        Image(systemName: Image.fShield)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 32, height: 32)
+                                            .foregroundColor(Color.cActive)
+
+                                        Image(systemName: Image.fSpeed)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 32, height: 32)
+                                            .foregroundColor(Color.cActive)
+                                    }
+
+                                    VStack {
+                                            Image(systemName: "battery.100")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 32, height: 32)
+                                            .foregroundColor(Color.cActive)
+
+                                        Image(systemName: Image.fComputer)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 32, height: 32)
+                                            .foregroundColor(Color.cActive)
+
+                                        Image(systemName: Image.fMessage)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 32, height: 32)
+                                            .foregroundColor(Color.cActive)
+                                    }.padding([.trailing], 8)
 
                                     VStack(alignment: .leading) {
                                         Text("Cloud & VPN")
@@ -205,6 +238,13 @@ struct PlusFeaturesView: View {
                                     }
                                     Spacer()
                                 }
+                                .padding(12)
+                                .background(
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10).fill(Color.cActive)
+                                        RoundedRectangle(cornerRadius: 10).fill(Color.cSemiTransparent)
+                                    }
+                                )
                                 .padding(.bottom, 32)
 
                                 HStack(alignment: .top) {

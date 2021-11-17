@@ -121,6 +121,13 @@ struct PaymentGatewayView: View {
                                        .lineLimit(2)
                                        .font(.system(size: 13))
                                        .foregroundColor(Color.secondary)
+                                       .padding(.bottom, 1)
+
+                                    Text("(includes Blokada Cloud)")
+                                       .multilineTextAlignment(.center)
+                                       .lineLimit(2)
+                                       .font(.system(size: 13))
+                                       .foregroundColor(Color.secondary)
                                        .padding(.bottom, 24)
 
                                     PaymentListView(vm: vm, showType: "plus")
