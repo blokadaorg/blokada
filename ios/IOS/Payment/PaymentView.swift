@@ -22,11 +22,11 @@ struct PaymentView: View {
                 ButtonView(enabled: .constant(true), plus: .constant(self.vm.product.type == "plus"))
 
                 if self.vm.product.trial {
-                    Text("Start 7-Day Free Trial").foregroundColor(Color.primary).font(.headline)
+                    Text(L10n.paymentPlanCtaTrial).foregroundColor(Color.primary).font(.headline)
                 } else if self.vm.product.period == 12 {
-                    Text("Subscribe Anually").foregroundColor(Color.primary).font(.headline)
+                    Text(L10n.paymentPlanCtaAnnual).foregroundColor(Color.primary).font(.headline)
                 } else {
-                    Text("Subscribe Monthly").foregroundColor(Color.primary).font(.headline)
+                    Text(L10n.paymentPlanCtaMonthly).foregroundColor(Color.primary).font(.headline)
                 }
             }
             .frame(height: 44)
