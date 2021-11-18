@@ -48,7 +48,7 @@ struct PlusButtonView: View {
                                     Spacer()
                                 }
 
-                                Text("VPN deactivated")
+                                Text(L10n.homePlusButtonDeactivatedCloud)
                                     .foregroundColor(.white)
                                     .font(.system(size: 14))
                             } else if !self.vm.hasSelectedLocation {
