@@ -298,7 +298,7 @@
     <string name="payment_feature_desc_battery">Din batteritid kommer inte att påverkas, den kan till och med förbättras när Blokada Cloud är aktiverat.</string>
     <string name="payment_feature_title_devices_cloud">Flera enheter</string>
     <string name="payment_feature_desc_devices_cloud">Konfigurera och övervaka alla dina enheter på ett ställe. Antingen via vår mobilapp eller vår webbapp.</string>
-    <string name="payment_feature_title_cloud_vpn">Molnet plus VPN</string>
+    <string name="payment_feature_title_cloud_vpn">Cloud plus VPN</string>
     <string name="payment_feature_desc_cloud_vpn">Förutom alla fördelar med Blokada Cloud får du tillgång till vårt globala VPN-nätverk</string>
     <string name="payment_feature_title_faster_connection">Snabbare anslutning</string>
     <string name="payment_feature_desc_faster_connection">Stora hastigheter upp till 100 Mbps med servrar i olika delar av världen.</string>
@@ -349,7 +349,7 @@
     <string name="payment_donate_disclaimer">Detta kommer inte att aktivera ditt Blokada Plus-konto. Om du vill använda vår VPN-tjänst, vänligen prenumerera istället för att donera.</string>
     <string name="payment_action_compare">Jämför betalplaner</string>
     <string name="payment_plan_slugline_cloud">Blockerar annonser och trackers</string>
-    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
+    <string name="payment_plan_slugline_cloud_detail">(inkluderar Blokada Cloud)</string>
     <string name="payment_plan_slugline_plus">Ytterligare skydd med VPN</string>
     <string name="payment_plan_cta_trial">Få en vecka kostnadsfritt</string>
     <string name="payment_plan_cta_monthly">Månadsvis prenumeration</string>

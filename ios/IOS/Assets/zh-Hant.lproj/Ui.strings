@@ -422,7 +422,7 @@
 "payment action compare" = "比較方案";
 "payment plan slugline cloud" = "阻擋廣告與追蹤器";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
+"payment plan slugline cloud detail" = "（包含 Blokada Cloud）";
 "payment plan slugline plus" = "使用 VPN 獲得增強保護";
 "payment plan cta trial" = "開始 7 天免費試用期";
 "payment plan cta monthly" = "訂閱月付方案";

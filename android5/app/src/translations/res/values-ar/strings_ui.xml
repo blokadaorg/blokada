@@ -349,7 +349,7 @@
     <string name="payment_donate_disclaimer">لن يؤدّي هذا إلى تنشيط حساب بلوكادا بلس الخاصّ بك. إذا كنت ترغب في استخدام خدمة VPN الخاصّة بنا، يُرجى الإشتراك بدلاً من التبرُّع.</string>
     <string name="payment_action_compare">قارن الباقات</string>
     <string name="payment_plan_slugline_cloud">حَظْر الإعلانات و برمجيات التعقّب</string>
-    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
+    <string name="payment_plan_slugline_cloud_detail">(يشمل Blokada Cloud)</string>
     <string name="payment_plan_slugline_plus">حماية إضافيّة مع VPN</string>
     <string name="payment_plan_cta_trial">ابدأ التجربة المجّانيّة لمدة 7 أيام</string>
     <string name="payment_plan_cta_monthly">اشترك شهريّاً</string>
@@ -482,7 +482,7 @@
     <string name="setup_desc">هناك العديد من الطرق لتهيئة جهازك لاستخدام Blokada Cloud. اختر ما يناسبك.</string>
     <string name="setup_label_which_device">ما نوع الجهاز الذي ترغب في إعداده؟</string>
     <string name="setup_label_choose">اختر أيّاً من خيارات الإعداد التالية:</string>
-    <string name="setup_comment_wireguard">Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. \'WireGuard\' and the \'WireGuard\' logo are registered trademarks of Jason A. Donenfeld.</string>
+    <string name="setup_comment_wireguard">ملاحظة: إعدادات VPN سوف تستخدم Blokada Cloud بشكل افتراضي. اختر إعدادات DNS مختلفة إذا كنت ترغب في الإلغاء. الشعار \'WireGuard\' و \'WireGuard\' علامة تجارية مسجلة لـ Jason A. Donenfeld.</string>
     <string name="setup_comment_native_apps">ملاحظة: التطبيقات الأصليّة للأندرويد و iOS لا تدعم Blokada Cloud بعد. نحن نعمل على التحديث.</string>
     <string name="setup_step">الخطوة %s: %s</string>
     <string name="setup_option_label_recommended">موصى به: %s</string>
@@ -502,6 +502,6 @@
     <string name="stats_top_allowed_header">أكثر الطلبات المسموح بها</string>
     <string name="stats_top_blocked_header">أكثر الطلبات المَحظورة</string>
     <string name="dnsprofile_header">تفعيل بلوكادا في الإعدادات</string>
-    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
+    <string name="dnsprofile_desc">في إعدادات التطبيق ، انتقل إلى العام ←VPN, DNS &amp; إعدادات الجهاز ←DNS و حدّد Blokada.</string>
     <string name="dnsprofile_action_open_settings">فتح الإعدادات</string>
 </resources>

@@ -363,7 +363,7 @@
 "payment feature desc battery" = "Din batteritid kommer inte att påverkas, den kan till och med förbättras när Blokada Cloud är aktiverat.";
 "payment feature title devices cloud" = "Flera enheter";
 "payment feature desc devices cloud" = "Konfigurera och övervaka alla dina enheter på ett ställe. Antingen via vår mobilapp eller vår webbapp.";
-"payment feature title cloud vpn" = "Molnet plus VPN";
+"payment feature title cloud vpn" = "Cloud plus VPN";
 "payment feature desc cloud vpn" = "Förutom alla fördelar med Blokada Cloud får du tillgång till vårt globala VPN-nätverk";
 "payment feature title faster connection" = "Snabbare anslutning";
 "payment feature desc faster connection" = "Stora hastigheter upp till 100 Mbps med servrar i olika delar av världen.";
@@ -422,7 +422,7 @@
 "payment action compare" = "Jämför betalplaner";
 "payment plan slugline cloud" = "Blockerar annonser och trackers";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
+"payment plan slugline cloud detail" = "(inkluderar Blokada Cloud)";
 "payment plan slugline plus" = "Ytterligare skydd med VPN";
 "payment plan cta trial" = "Få en vecka kostnadsfritt";
 "payment plan cta monthly" = "Månadsvis prenumeration";

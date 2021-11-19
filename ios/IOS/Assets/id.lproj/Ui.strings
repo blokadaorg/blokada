@@ -422,7 +422,7 @@
 "payment action compare" = "Bandingkan paket langganan";
 "payment plan slugline cloud" = "Memblokir iklan & pelacak";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
+"payment plan slugline cloud detail" = "(termasuk Blokada Cloud)";
 "payment plan slugline plus" = "Perlindungan tambahan dengan VPN";
 "payment plan cta trial" = "Mulai Trial Gratis 7 Hari";
 "payment plan cta monthly" = "Langganan Bulanan";

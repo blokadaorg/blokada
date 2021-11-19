@@ -422,7 +422,7 @@
 "payment action compare" = "قارن الباقات";
 "payment plan slugline cloud" = "حَظْر الإعلانات و برمجيات التعقّب";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
+"payment plan slugline cloud detail" = "(يشمل Blokada Cloud)";
 "payment plan slugline plus" = "حماية إضافيّة مع VPN";
 "payment plan cta trial" = "ابدأ التجربة المجّانيّة لمدة 7 أيام";
 "payment plan cta monthly" = "اشترك شهريّاً";
@@ -572,7 +572,7 @@
 "setup desc" = "هناك العديد من الطرق لتهيئة جهازك لاستخدام Blokada Cloud. اختر ما يناسبك.";
 "setup label which device" = "ما نوع الجهاز الذي ترغب في إعداده؟";
 "setup label choose" = "اختر أيّاً من خيارات الإعداد التالية:";
-"setup comment wireguard" = "Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
+"setup comment wireguard" = "ملاحظة: إعدادات VPN سوف تستخدم Blokada Cloud بشكل افتراضي. اختر إعدادات DNS مختلفة إذا كنت ترغب في الإلغاء. الشعار 'WireGuard' و 'WireGuard' علامة تجارية مسجلة لـ Jason A. Donenfeld.";
 "setup comment native apps" = "ملاحظة: التطبيقات الأصليّة للأندرويد و iOS لا تدعم Blokada Cloud بعد. نحن نعمل على التحديث.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "الخطوة %@: %@";
@@ -599,5 +599,5 @@
 "stats top blocked header" = "أكثر الطلبات المَحظورة";
 
 "dnsprofile header" = "تفعيل بلوكادا في الإعدادات";
-"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile desc" = "في إعدادات التطبيق ، انتقل إلى العام ←VPN, DNS & إعدادات الجهاز ←DNS و حدّد Blokada.";
 "dnsprofile action open settings" = "فتح الإعدادات";
