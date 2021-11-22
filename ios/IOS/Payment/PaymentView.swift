@@ -25,7 +25,7 @@ struct PaymentView: View {
                     if self.vm.product.trial {
                         Text(L10n.paymentPlanCtaTrial).foregroundColor(Color.primary).font(.headline)
                             .padding(.bottom, 1)
-                        Text(L10n.paymentSubscriptionPerYear(self.vm.price))
+                        Text(L10n.paymentSubscriptionPerYearThen(self.vm.price))
                     } else if self.vm.product.period == 12 {
                         Text(L10n.paymentPlanCtaAnnual).foregroundColor(Color.primary).font(.headline)
                             .padding(.bottom, 1)
