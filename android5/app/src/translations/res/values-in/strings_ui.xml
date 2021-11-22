@@ -320,6 +320,7 @@
     <string name="payment_subscription_many_months">%s bulan</string>
     <string name="payment_subscription_per_month">%s per bulan</string>
     <string name="payment_subscription_per_year">%s per year</string>
+    <string name="payment_subscription_per_year_then">then %s per year</string>
     <string name="payment_subscription_offer">Hemat %s</string>
     <string name="payment_success_label">Terima kasih!</string>
     <string name="payment_success_desc">Akun Anda telah aktif! Sekarang Anda dapat menggunakan semua fitur Blokada Plus di semua perangkat Anda.</string>

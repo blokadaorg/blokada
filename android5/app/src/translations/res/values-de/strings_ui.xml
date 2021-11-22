@@ -101,8 +101,8 @@
     <string name="home_status_deactivated">Deaktiviert</string>
     <string name="home_action_tap_to_activate">Zum Aktivieren tippen</string>
     <string name="home_status_detail_paused">Paused until timer ends</string>
-    <string name="home_status_detail_active">Blocking *ads* and *trackers*</string>
-    <string name="home_status_detail_active_with_counter">Blocked *%s* ads and trackers</string>
+    <string name="home_status_detail_active">*Werbung* und *Tracker* blockieren</string>
+    <string name="home_status_detail_active_with_counter">*%s* Werbeanzeigen und Tracker blockiert</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* ist aktiv</string>
     <string name="home_status_detail_plus">*+* beschützt deine *Privatsphäre*</string>
     <string name="home_status_detail_progress">Bitte warte...</string>
@@ -319,7 +319,8 @@
     <string name="payment_subscription_one_month">1 Monat</string>
     <string name="payment_subscription_many_months">%s Monate</string>
     <string name="payment_subscription_per_month">%s pro Monat</string>
-    <string name="payment_subscription_per_year">%s per year</string>
+    <string name="payment_subscription_per_year">%s pro Jahr</string>
+    <string name="payment_subscription_per_year_then">dann %s pro Jahr</string>
     <string name="payment_subscription_offer">Spare %s</string>
     <string name="payment_success_label">Danke!</string>
     <string name="payment_success_desc">Dein Konto ist jetzt aktiv! Du kannst jetzt alle Blokada Plus-Funktionen auf all deinen Geräten verwenden.</string>
@@ -348,12 +349,12 @@
     <string name="payment_label_country">Land</string>
     <string name="payment_euro_desc">Wir sind in Europa ansässig und akzeptieren deshalb Euros: 10 € sind etwa 12 $.</string>
     <string name="payment_donate_disclaimer">Dies aktiviert nicht dein Blokada Plus-Konto. Wenn du unseren VPN-Service verwenden möchtest, abonniere bitte, anstatt zu spenden.</string>
-    <string name="payment_action_compare">Compare plans</string>
-    <string name="payment_plan_slugline_cloud">Blocks ads and trackers</string>
-    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
-    <string name="payment_plan_slugline_plus">Additional protection with VPN</string>
-    <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
-    <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
+    <string name="payment_action_compare">Abonnements vergleichen</string>
+    <string name="payment_plan_slugline_cloud">Blockiert Anzeigen &amp; Tracker</string>
+    <string name="payment_plan_slugline_cloud_detail">(beinhaltet Blokada-Cloud)</string>
+    <string name="payment_plan_slugline_plus">Zusätzlicher Schutz mit VPN</string>
+    <string name="payment_plan_cta_trial">Kostenlose 7-tägige Testversion starten</string>
+    <string name="payment_plan_cta_monthly">Monatlich abonnieren</string>
     <string name="payment_plan_cta_annual">Jährlich abonnieren</string>
     <string name="apps_section_header">Apps</string>
     <string name="apps_label_installed">Installiert</string>
@@ -502,7 +503,7 @@
     <string name="stats_requests_subheader">Abfragen im Laufe der Zeit</string>
     <string name="stats_top_allowed_header">Häufig zugelassene Anfragen</string>
     <string name="stats_top_blocked_header">Häufig blockierte Anfragen</string>
-    <string name="dnsprofile_header">Enable Blokada in Settings</string>
-    <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
-    <string name="dnsprofile_action_open_settings">Open Settings</string>
+    <string name="dnsprofile_header">Blokada in den Einstellungen aktivieren</string>
+    <string name="dnsprofile_desc">Navigieren Sie in der App Einstellungen zu Allgemein → VPN, DNS &amp; Device Management → DNS und wählen Sie Blokada.</string>
+    <string name="dnsprofile_action_open_settings">Einstellungen öffnen</string>
 </resources>

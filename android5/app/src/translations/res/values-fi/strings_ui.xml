@@ -320,6 +320,7 @@
     <string name="payment_subscription_many_months">%s kuukautta</string>
     <string name="payment_subscription_per_month">%s kuukaudessa</string>
     <string name="payment_subscription_per_year">%s per year</string>
+    <string name="payment_subscription_per_year_then">then %s per year</string>
     <string name="payment_subscription_offer">Säästä %s</string>
     <string name="payment_success_label">Kiitos!</string>
     <string name="payment_success_desc">Your account is now active! You may now use all Blokada Plus features on all your devices.</string>

@@ -320,6 +320,7 @@
     <string name="payment_subscription_many_months">%s Luni</string>
     <string name="payment_subscription_per_month">%s pe lună</string>
     <string name="payment_subscription_per_year">%s per year</string>
+    <string name="payment_subscription_per_year_then">then %s per year</string>
     <string name="payment_subscription_offer">Economisești %s</string>
     <string name="payment_success_label">Mulţumim!</string>
     <string name="payment_success_desc">Contul dvs. este acum activ! Acum puteți folosi toate funcțiile Blokada Plus pe toate dispozitivele dvs.</string>

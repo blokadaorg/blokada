@@ -319,6 +319,7 @@
     "payment subscription many months": "%s ay",
     "payment subscription per month": "Aylık %s",
     "payment subscription per year": "%s per year",
+    "payment subscription per year then": "then %s per year",
     "payment subscription offer": "%s indirim",
     "payment success label": "Teşekkürler!",
     "payment success desc": "Hesabınız artık etkin! Artık Blokada Plus özelliklerini tamamını tüm cihazlarınızda kullanabilirsiniz.",

@@ -319,7 +319,8 @@
     <string name="payment_subscription_one_month">1 Месец</string>
     <string name="payment_subscription_many_months">%s Месеца</string>
     <string name="payment_subscription_per_month">%s на месец</string>
-    <string name="payment_subscription_per_year">%s per year</string>
+    <string name="payment_subscription_per_year">%s на година</string>
+    <string name="payment_subscription_per_year_then">then %s per year</string>
     <string name="payment_subscription_offer">Запази %s</string>
     <string name="payment_success_label">Благодаря!</string>
     <string name="payment_success_desc">Вашият профил е активен! Вече можете да използвате всички функции на Blokada Plus на всичките си устройства.</string>
@@ -350,7 +351,7 @@
     <string name="payment_donate_disclaimer">Това няма да активира вашия профил в Blokada Plus. Ако искате да използвате нашата VPN услуга, моля абонирайте се, вместо да дарявате.</string>
     <string name="payment_action_compare">Сравнете плановете</string>
     <string name="payment_plan_slugline_cloud">Блокиране на реклами и тракери</string>
-    <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
+    <string name="payment_plan_slugline_cloud_detail">(включва Blokada облак)</string>
     <string name="payment_plan_slugline_plus">Допълнителна защита с VPN</string>
     <string name="payment_plan_cta_trial">Започнете 7-дневен безплатен пробен период</string>
     <string name="payment_plan_cta_monthly">Месечен абонамент</string>

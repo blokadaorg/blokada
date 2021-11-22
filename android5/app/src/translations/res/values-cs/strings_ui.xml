@@ -320,6 +320,7 @@
     <string name="payment_subscription_many_months">%s měsíců</string>
     <string name="payment_subscription_per_month">%s měsíčně</string>
     <string name="payment_subscription_per_year">%s per year</string>
+    <string name="payment_subscription_per_year_then">then %s per year</string>
     <string name="payment_subscription_offer">Ušetříte %s</string>
     <string name="payment_success_label">Děkujeme!</string>
     <string name="payment_success_desc">Váš účet je nyní aktivní! Nyní můžete používat všechny funkce Blokada Plus na všech vašich zařízeních.</string>

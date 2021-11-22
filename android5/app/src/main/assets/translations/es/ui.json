@@ -319,6 +319,7 @@
     "payment subscription many months": "%s meses",
     "payment subscription per month": "%s por mes",
     "payment subscription per year": "%s per year",
+    "payment subscription per year then": "then %s per year",
     "payment subscription offer": "Ahorra %s",
     "payment success label": "¡Gracias!",
     "payment success desc": "¡Tu cuenta está activa! Ahora puedes usar todas las funciones de Blokada Plus en todos tus dispositivos.",

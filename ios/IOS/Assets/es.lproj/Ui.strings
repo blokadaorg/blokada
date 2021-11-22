@@ -387,6 +387,7 @@
 "payment subscription many months" = "%@ meses";
 "payment subscription per month" = "%@ por mes";
 "payment subscription per year" = "%@ per year";
+"payment subscription per year then" = "then %@ per year";
 "payment subscription offer" = "Ahorra %@";
 
 "payment success label" = "¡Gracias!";

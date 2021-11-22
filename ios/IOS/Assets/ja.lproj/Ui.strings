@@ -386,7 +386,8 @@
 "payment subscription 1 month" = "1 か月";
 "payment subscription many months" = "%@ か月";
 "payment subscription per month" = "月額 %@";
-"payment subscription per year" = "%@ per year";
+"payment subscription per year" = "年額 %@";
+"payment subscription per year then" = "then %@ per year";
 "payment subscription offer" = "%@ 引き";
 
 "payment success label" = "ありがとうございます！";

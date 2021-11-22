@@ -319,6 +319,7 @@
     "payment subscription many months": "%s месяцев",
     "payment subscription per month": "%s в месяц",
     "payment subscription per year": "%s в год",
+    "payment subscription per year then": "затем %s в год",
     "payment subscription offer": "Сэкономить %s",
     "payment success label": "Спасибо!",
     "payment success desc": "Ваш аккаунт теперь активен! Теперь вы можете использовать все функции Blokada Plus на всех своих устройствах.",

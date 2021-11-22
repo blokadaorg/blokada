@@ -319,6 +319,7 @@
     "payment subscription many months": "%s kuukautta",
     "payment subscription per month": "%s kuukaudessa",
     "payment subscription per year": "%s per year",
+    "payment subscription per year then": "then %s per year",
     "payment subscription offer": "Säästä %s",
     "payment success label": "Kiitos!",
     "payment success desc": "Your account is now active! You may now use all Blokada Plus features on all your devices.",

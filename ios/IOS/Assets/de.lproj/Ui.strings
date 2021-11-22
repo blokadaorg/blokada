@@ -138,8 +138,8 @@
 "home status deactivated" = "Deaktiviert";
 "home action tap to activate" = "Zum Aktivieren tippen";
 "home status detail paused" = "Paused until timer ends";
-"home status detail active" = "Blocking *ads* and *trackers*";
-"home status detail active with counter" = "Blocked *%@* ads and trackers";
+"home status detail active" = "*Werbung* und *Tracker* blockieren";
+"home status detail active with counter" = "*%@* Werbeanzeigen und Tracker blockiert";
 "home status detail active slim" = "Blokada *Slim* ist aktiv";
 "home status detail plus" = "*+* beschützt deine *Privatsphäre*";
 "home status detail progress" = "Bitte warte...";
@@ -386,7 +386,8 @@
 "payment subscription 1 month" = "1 Monat";
 "payment subscription many months" = "%@ Monate";
 "payment subscription per month" = "%@ pro Monat";
-"payment subscription per year" = "%@ per year";
+"payment subscription per year" = "%@ pro Jahr";
+"payment subscription per year then" = "dann %@ pro Jahr";
 "payment subscription offer" = "Spare %@";
 
 "payment success label" = "Danke!";
@@ -420,13 +421,13 @@
 "payment euro desc" = "Wir sind in Europa ansässig und akzeptieren deshalb Euros: 10 € sind etwa 12 $.";
 "payment donate disclaimer" = "Dies aktiviert nicht dein Blokada Plus-Konto. Wenn du unseren VPN-Service verwenden möchtest, abonniere bitte, anstatt zu spenden.";
 
-"payment action compare" = "Compare plans";
-"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment action compare" = "Abonnements vergleichen";
+"payment plan slugline cloud" = "Blockiert Anzeigen & Tracker";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
-"payment plan slugline plus" = "Additional protection with VPN";
-"payment plan cta trial" = "Start 7-Day Free Trial";
-"payment plan cta monthly" = "Subscribe Monthly";
+"payment plan slugline cloud detail" = "(beinhaltet Blokada-Cloud)";
+"payment plan slugline plus" = "Zusätzlicher Schutz mit VPN";
+"payment plan cta trial" = "Kostenlose 7-tägige Testversion starten";
+"payment plan cta monthly" = "Monatlich abonnieren";
 "payment plan cta annual" = "Jährlich abonnieren";
 
 "apps section header" = "Apps";
@@ -599,6 +600,6 @@
 "stats top allowed header" = "Häufig zugelassene Anfragen";
 "stats top blocked header" = "Häufig blockierte Anfragen";
 
-"dnsprofile header" = "Enable Blokada in Settings";
-"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
-"dnsprofile action open settings" = "Open Settings";
+"dnsprofile header" = "Blokada in den Einstellungen aktivieren";
+"dnsprofile desc" = "Navigieren Sie in der App Einstellungen zu Allgemein → VPN, DNS & Device Management → DNS und wählen Sie Blokada.";
+"dnsprofile action open settings" = "Einstellungen öffnen";

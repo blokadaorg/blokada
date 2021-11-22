@@ -319,6 +319,7 @@
     "payment subscription many months": "%s bulan",
     "payment subscription per month": "%s per bulan",
     "payment subscription per year": "%s per year",
+    "payment subscription per year then": "then %s per year",
     "payment subscription offer": "Hemat %s",
     "payment success label": "Terima kasih!",
     "payment success desc": "Akun Anda telah aktif! Sekarang Anda dapat menggunakan semua fitur Blokada Plus di semua perangkat Anda.",

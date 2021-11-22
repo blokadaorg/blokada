@@ -387,6 +387,7 @@
 "payment subscription many months" = "%@ Luni";
 "payment subscription per month" = "%@ pe lună";
 "payment subscription per year" = "%@ per year";
+"payment subscription per year then" = "then %@ per year";
 "payment subscription offer" = "Economisești %@";
 
 "payment success label" = "Mulţumim!";

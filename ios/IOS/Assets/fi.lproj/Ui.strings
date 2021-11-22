@@ -387,6 +387,7 @@
 "payment subscription many months" = "%@ kuukautta";
 "payment subscription per month" = "%@ kuukaudessa";
 "payment subscription per year" = "%@ per year";
+"payment subscription per year then" = "then %@ per year";
 "payment subscription offer" = "Säästä %@";
 
 "payment success label" = "Kiitos!";

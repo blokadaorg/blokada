@@ -386,7 +386,8 @@
 "payment subscription 1 month" = "1 Месец";
 "payment subscription many months" = "%@ Месеца";
 "payment subscription per month" = "%@ на месец";
-"payment subscription per year" = "%@ per year";
+"payment subscription per year" = "%@ на година";
+"payment subscription per year then" = "then %@ per year";
 "payment subscription offer" = "Запази %@";
 
 "payment success label" = "Благодаря!";
@@ -423,7 +424,7 @@
 "payment action compare" = "Сравнете плановете";
 "payment plan slugline cloud" = "Блокиране на реклами и тракери";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
+"payment plan slugline cloud detail" = "(включва Blokada облак)";
 "payment plan slugline plus" = "Допълнителна защита с VPN";
 "payment plan cta trial" = "Започнете 7-дневен безплатен пробен период";
 "payment plan cta monthly" = "Месечен абонамент";

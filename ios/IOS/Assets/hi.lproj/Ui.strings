@@ -387,6 +387,7 @@
 "payment subscription many months" = "%@ महीने";
 "payment subscription per month" = "%@ प्रति माह";
 "payment subscription per year" = "%@ per year";
+"payment subscription per year then" = "then %@ per year";
 "payment subscription offer" = "बचाएं %@";
 
 "payment success label" = "धन्यवाद!";

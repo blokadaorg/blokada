@@ -319,7 +319,8 @@
     <string name="payment_subscription_one_month">شهر واحد</string>
     <string name="payment_subscription_many_months">%s أشهر</string>
     <string name="payment_subscription_per_month">%s في الشهر</string>
-    <string name="payment_subscription_per_year">%s per year</string>
+    <string name="payment_subscription_per_year">%s في السنة</string>
+    <string name="payment_subscription_per_year_then">then %s per year</string>
     <string name="payment_subscription_offer">توفير %s</string>
     <string name="payment_success_label">شكراً !</string>
     <string name="payment_success_desc">الآن حسابك نَشِط ! يُمكِنك الآن استخدام جميع ميّزات بلوكادا بلس على جميع أجهزتك.</string>

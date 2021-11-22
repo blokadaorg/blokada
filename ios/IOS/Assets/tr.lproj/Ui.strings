@@ -387,6 +387,7 @@
 "payment subscription many months" = "%@ ay";
 "payment subscription per month" = "Aylık %@";
 "payment subscription per year" = "%@ per year";
+"payment subscription per year then" = "then %@ per year";
 "payment subscription offer" = "%@ indirim";
 
 "payment success label" = "Teşekkürler!";
