@@ -45,20 +45,6 @@ struct PaymentGatewayView: View {
                     HStack {
                         Spacer()
                         VStack {
-                            HStack {
-                                Spacer()
-
-                                Text("BLOKADA")
-                                    .fontWeight(.heavy)
-                                    .kerning(3)
-                                    .foregroundColor(.primary)
-                                    .font(.title)
-
-
-                                Spacer()
-                            }
-                            .padding(.bottom, 28)
-
                             Text(L10n.paymentActionCompare)
                                 .foregroundColor(Color.cActivePlus)
                                 .onTapGesture {
@@ -70,7 +56,7 @@ struct PaymentGatewayView: View {
                                     PlusFeaturesView(showSheet: self.$showPlusFeaturesSheet)
 
                                 }
-                                .padding(.bottom, 28)
+                                .padding(.bottom, 14)
 
                             VStack {
                                 HStack {
@@ -232,22 +218,6 @@ struct PaymentGatewayView: View {
                     .padding()
                 }
             }
-
-            Button(action: {
-                withAnimation {
-                    self.activeSheet = nil
-                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                        self.activeSheet = .help
-                    })
-                }
-            }) {
-                Image(systemName: Image.fHelp)
-                    .imageScale(.medium)
-                    .foregroundColor(.primary)
-                    .frame(width: 32, height: 32, alignment: .center)
-                    .padding(8)
-            }
-            .contentShape(Rectangle())
         }
     }
 }

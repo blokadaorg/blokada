@@ -21,20 +21,30 @@ struct PaymentView: View {
             ZStack {
                 ButtonView(enabled: .constant(true), plus: .constant(self.vm.product.type == "plus"))
 
-                if self.vm.product.trial {
-                    Text(L10n.paymentPlanCtaTrial).foregroundColor(Color.primary).font(.headline)
-                } else if self.vm.product.period == 12 {
-                    Text(L10n.paymentPlanCtaAnnual).foregroundColor(Color.primary).font(.headline)
-                } else {
-                    Text(L10n.paymentPlanCtaMonthly).foregroundColor(Color.primary).font(.headline)
+                VStack {
+                    if self.vm.product.trial {
+                        Text(L10n.paymentPlanCtaTrial).foregroundColor(Color.primary).font(.headline)
+                            .padding(.bottom, 1)
+                        Text(L10n.paymentSubscriptionPerYear(self.vm.price))
+                    } else if self.vm.product.period == 12 {
+                        Text(L10n.paymentPlanCtaAnnual).foregroundColor(Color.primary).font(.headline)
+                            .padding(.bottom, 1)
+                        Text(L10n.paymentSubscriptionPerYear(self.vm.price))
+                    } else {
+                        Text(L10n.paymentPlanCtaMonthly).foregroundColor(Color.primary).font(.headline)
+                            .padding(.bottom, 1)
+                        Text(L10n.paymentSubscriptionPerMonth(self.vm.price))
+                    }
                 }
             }
-            .frame(height: 44)
+            .frame(height: 64)
 
-            Text(self.vm.description)
-                .foregroundColor(Color.secondary)
-                .font(.caption)
-                .multilineTextAlignment(.center)
+            if self.vm.product.period > 1 {
+                Text(self.vm.description)
+                    .foregroundColor(Color.secondary)
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
+            }
         }
         .padding(.bottom, 12)
         .padding(.leading, 8)

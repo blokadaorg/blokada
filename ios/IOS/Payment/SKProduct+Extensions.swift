@@ -54,10 +54,10 @@ extension SKProduct {
        } else if self.productIdentifier == "cloud_12month" {
            let price = self.price.dividing(by: NSDecimalNumber(decimal: (length as NSNumber).decimalValue))
            //return "then \(L10n.paymentSubscriptionPerMonth(formatPrice(price: price)))"
-           return "(\(localTitle) at \(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))))"
+           return "(\(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))))"
        } else {
            let price = self.price.dividing(by: NSDecimalNumber(decimal: (length as NSNumber).decimalValue))
-           return "(\(localTitle) at \(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))). \(localInfo))"
+           return "(\(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))). \(localInfo))"
        }
    }
 
