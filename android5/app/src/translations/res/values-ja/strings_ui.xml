@@ -319,6 +319,7 @@
     <string name="payment_subscription_one_month">1 か月</string>
     <string name="payment_subscription_many_months">%s か月</string>
     <string name="payment_subscription_per_month">月額 %s</string>
+    <string name="payment_subscription_per_year">%s per year</string>
     <string name="payment_subscription_offer">%s 引き</string>
     <string name="payment_success_label">ありがとうございます！</string>
     <string name="payment_success_desc">アカウントが有効になりました！ すべてのデバイスで Blokada Plus 機能を使用できます。</string>
@@ -385,7 +386,7 @@
     <string name="app_settings_section_use_foreground">スリープモードにしない</string>
     <string name="intro_header">Blokada が有効です！</string>
     <string name="intro_text">青いリングは Blokada が動作していることを意味します。\n\nYouTube などの一部の広告はブロックできません。ただし、他の多くのアプリには有効です。\n\nシステム設定で常時接続 VPN（Android）/ オンデマンド接続（iOS）を有効にすることをお勧めします。</string>
-    <string name="location_region_worldwide">どこにでも</string>
+    <string name="location_region_worldwide">ワールドワイド</string>
     <string name="location_region_america">アメリカ</string>
     <string name="location_region_europe">ヨーロッパ</string>
     <string name="location_region_asia">アジア</string>

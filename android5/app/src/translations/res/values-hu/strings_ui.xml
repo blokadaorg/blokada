@@ -319,6 +319,7 @@
     <string name="payment_subscription_one_month">1 hónap</string>
     <string name="payment_subscription_many_months">%s hónap</string>
     <string name="payment_subscription_per_month">%s havonta</string>
+    <string name="payment_subscription_per_year">%s per year</string>
     <string name="payment_subscription_offer">%s spórolása</string>
     <string name="payment_success_label">Köszönjük!</string>
     <string name="payment_success_desc">Your account is now active! You may now use all Blokada Plus features on all your devices.</string>

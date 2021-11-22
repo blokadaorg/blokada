@@ -386,6 +386,7 @@
 "payment subscription 1 month" = "1 個月";
 "payment subscription many months" = "%@ 個月";
 "payment subscription per month" = "每月 %@";
+"payment subscription per year" = "%@/年";
 "payment subscription offer" = "省下 %@";
 
 "payment success label" = "謝謝！";

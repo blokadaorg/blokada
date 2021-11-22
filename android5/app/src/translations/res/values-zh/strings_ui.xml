@@ -319,6 +319,7 @@
     <string name="payment_subscription_one_month">1 個月</string>
     <string name="payment_subscription_many_months">%s 個月</string>
     <string name="payment_subscription_per_month">每月 %s</string>
+    <string name="payment_subscription_per_year">%s/年</string>
     <string name="payment_subscription_offer">省下 %s</string>
     <string name="payment_success_label">謝謝！</string>
     <string name="payment_success_desc">您的帳號已可使用！您現在可以在您的裝置上使用所有的 Blokada Plus 功能。</string>

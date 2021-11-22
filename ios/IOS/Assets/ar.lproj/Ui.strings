@@ -386,6 +386,7 @@
 "payment subscription 1 month" = "شهر واحد";
 "payment subscription many months" = "%@ أشهر";
 "payment subscription per month" = "%@ في الشهر";
+"payment subscription per year" = "%@ per year";
 "payment subscription offer" = "توفير %@";
 
 "payment success label" = "شكراً !";

@@ -386,6 +386,7 @@
 "payment subscription 1 month" = "1 Bulan";
 "payment subscription many months" = "%@ bulan";
 "payment subscription per month" = "%@ per bulan";
+"payment subscription per year" = "%@ per year";
 "payment subscription offer" = "Hemat %@";
 
 "payment success label" = "Terima kasih!";

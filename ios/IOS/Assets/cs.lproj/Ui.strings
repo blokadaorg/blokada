@@ -386,6 +386,7 @@
 "payment subscription 1 month" = "1 měsíc";
 "payment subscription many months" = "%@ měsíců";
 "payment subscription per month" = "%@ měsíčně";
+"payment subscription per year" = "%@ per year";
 "payment subscription offer" = "Ušetříte %@";
 
 "payment success label" = "Děkujeme!";

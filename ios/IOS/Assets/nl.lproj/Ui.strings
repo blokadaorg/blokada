@@ -386,6 +386,7 @@
 "payment subscription 1 month" = "1 Maand";
 "payment subscription many months" = "%@ Maanden";
 "payment subscription per month" = "%@ per maand";
+"payment subscription per year" = "%@ per year";
 "payment subscription offer" = "%@ Opslaan";
 
 "payment success label" = "Bedankt!";

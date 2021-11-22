@@ -319,6 +319,7 @@
     <string name="payment_subscription_one_month">1 Månad</string>
     <string name="payment_subscription_many_months">%s Månader</string>
     <string name="payment_subscription_per_month">%s per månad</string>
+    <string name="payment_subscription_per_year">%s per år</string>
     <string name="payment_subscription_offer">Spara %s</string>
     <string name="payment_success_label">Tack!</string>
     <string name="payment_success_desc">Ditt konto är nu aktivt! Du kan nu använda alla Blokada Plus-funktioner på alla dina enheter.</string>

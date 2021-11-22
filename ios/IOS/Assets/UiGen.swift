@@ -896,6 +896,10 @@ internal enum L10n {
   internal static func paymentSubscriptionPerMonth(_ p1: Any) -> String {
     return L10n.tr("Ui", "payment subscription per month", String(describing: p1))
   }
+  /// %@ per year
+  internal static func paymentSubscriptionPerYear(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment subscription per year", String(describing: p1))
+  }
   /// Your account is now active! You may now use all Blokada Plus features on all your devices.
   internal static let paymentSuccessDesc = L10n.tr("Ui", "payment success desc")
   /// Thanks!

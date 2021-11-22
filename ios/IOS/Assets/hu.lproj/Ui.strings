@@ -386,6 +386,7 @@
 "payment subscription 1 month" = "1 hónap";
 "payment subscription many months" = "%@ hónap";
 "payment subscription per month" = "%@ havonta";
+"payment subscription per year" = "%@ per year";
 "payment subscription offer" = "%@ spórolása";
 
 "payment success label" = "Köszönjük!";

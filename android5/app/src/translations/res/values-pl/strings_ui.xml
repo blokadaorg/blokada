@@ -319,6 +319,7 @@
     <string name="payment_subscription_one_month">1 Miesiąc</string>
     <string name="payment_subscription_many_months">%s Miesięcy</string>
     <string name="payment_subscription_per_month">%s miesięcznie</string>
+    <string name="payment_subscription_per_year">%s na rok</string>
     <string name="payment_subscription_offer">Oszczędź %s</string>
     <string name="payment_success_label">Dzięki!</string>
     <string name="payment_success_desc">Twoje konto jest teraz aktywne! Możesz teraz używać wszystkich funkcji Blokady Plus na wszystkich swoich urządzeniach.</string>

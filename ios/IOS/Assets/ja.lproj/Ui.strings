@@ -386,6 +386,7 @@
 "payment subscription 1 month" = "1 か月";
 "payment subscription many months" = "%@ か月";
 "payment subscription per month" = "月額 %@";
+"payment subscription per year" = "%@ per year";
 "payment subscription offer" = "%@ 引き";
 
 "payment success label" = "ありがとうございます！";
@@ -464,7 +465,7 @@
 "intro header" = "Blokada が有効です！";
 "intro text" = "青いリングは Blokada が動作していることを意味します。\n\nYouTube などの一部の広告はブロックできません。ただし、他の多くのアプリには有効です。\n\nシステム設定で常時接続 VPN（Android）/ オンデマンド接続（iOS）を有効にすることをお勧めします。";
 
-"location region worldwide" = "どこにでも";
+"location region worldwide" = "ワールドワイド";
 "location region america" = "アメリカ";
 "location region europe" = "ヨーロッパ";
 "location region asia" = "アジア";

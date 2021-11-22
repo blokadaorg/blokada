@@ -319,6 +319,7 @@
     <string name="payment_subscription_one_month">1 Месец</string>
     <string name="payment_subscription_many_months">%s Месеца</string>
     <string name="payment_subscription_per_month">%s на месец</string>
+    <string name="payment_subscription_per_year">%s per year</string>
     <string name="payment_subscription_offer">Запази %s</string>
     <string name="payment_success_label">Благодаря!</string>
     <string name="payment_success_desc">Вашият профил е активен! Вече можете да използвате всички функции на Blokada Plus на всичките си устройства.</string>

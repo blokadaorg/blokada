@@ -319,6 +319,7 @@
     <string name="payment_subscription_one_month">1 ay</string>
     <string name="payment_subscription_many_months">%s ay</string>
     <string name="payment_subscription_per_month">Aylık %s</string>
+    <string name="payment_subscription_per_year">%s per year</string>
     <string name="payment_subscription_offer">%s indirim</string>
     <string name="payment_success_label">Teşekkürler!</string>
     <string name="payment_success_desc">Hesabınız artık etkin! Artık Blokada Plus özelliklerini tamamını tüm cihazlarınızda kullanabilirsiniz.</string>

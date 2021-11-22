@@ -319,6 +319,7 @@
     <string name="payment_subscription_one_month">1 Mese</string>
     <string name="payment_subscription_many_months">%s Mesi</string>
     <string name="payment_subscription_per_month">%s al mese</string>
+    <string name="payment_subscription_per_year">%s all\'anno</string>
     <string name="payment_subscription_offer">Risparmia %s</string>
     <string name="payment_success_label">Grazie!</string>
     <string name="payment_success_desc">Adesso il tuo account è attivo! Ora puoi utilizzare tutte le funzionalità Blokada Plus su tutti i tuoi dispositivi.</string>

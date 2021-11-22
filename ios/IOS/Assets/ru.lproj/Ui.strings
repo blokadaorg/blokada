@@ -386,6 +386,7 @@
 "payment subscription 1 month" = "1 месяц";
 "payment subscription many months" = "%@ месяцев";
 "payment subscription per month" = "%@ в месяц";
+"payment subscription per year" = "%@ в год";
 "payment subscription offer" = "Сэкономить %@";
 
 "payment success label" = "Спасибо!";
