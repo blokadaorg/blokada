@@ -116,7 +116,9 @@ class ActivityViewModel: ObservableObject {
     }
 
     func foreground() {
-        refreshStats()
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+            self.refreshStats()
+        })
     }
 
     func checkLogRetention() {

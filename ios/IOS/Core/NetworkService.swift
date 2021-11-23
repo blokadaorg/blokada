@@ -20,7 +20,7 @@ class NetworkService {
     private let log = Logger("Network")
     private let config = Config.shared
 
-    let httpClient: OpaquePointer?
+    var httpClient: OpaquePointer?
     private let configurationFilteringOnly = "No Server"
 
     var onStatusChanged = { (status: NetworkStatus) in }
@@ -33,7 +33,6 @@ class NetworkService {
     private var attempts = Atomic<Int>(0)
 
     private init() {
-        self.httpClient = api_new(10, BlockaApiService.userAgent())
         if self.config.networkExtensionVersion() < 6 {
             self.log.w("oldNetx: Old network extension version, stopping until config update")
             self.stopTunnel(done: { error, _ in
@@ -41,6 +40,21 @@ class NetworkService {
                     return self.log.w("oldNetx: Could not stop tunnel".cause(error))
                 }
             })
+        }
+    }
+
+    func foreground() {
+        onBackground {
+            self.log.v("foreground, creating httpclient")
+            self.httpClient = api_new(10, BlockaApiService.userAgent())
+        }
+    }
+
+    func background() {
+        onBackground {
+            self.log.v("background, free httpclient")
+            api_free(self.httpClient)
+            self.httpClient = nil
         }
     }
 
@@ -359,10 +373,11 @@ class NetworkService {
     }}
 
     func directRequest(url: String, method: String, body: String, done: @escaping Callback<String>) {
-        guard let httpClient = self.httpClient else {
-            return done("httpClient was not initialized", nil)
-        }
         onBackground {
+            guard let httpClient = self.httpClient else {
+                return done("httpClient was not initialized", nil)
+            }
+
             let result = api_request(httpClient, method, url, body)
             defer { api_response_free(result) }
             if let res = result {

@@ -370,7 +370,7 @@ class HomeViewModel: ObservableObject {
                         self.log.v("User action: switchMain: no active account")
                         self.working = false
                         self.mainSwitch = false
-                        return noActiveAccount(())
+                        return onMain { noActiveAccount(()) }
                     }
 
                     // Ask for permission to send notifications after power on
@@ -401,7 +401,7 @@ class HomeViewModel: ObservableObject {
                                         self.mainSwitch = false
                                         self.working = false
                                         self.log.v("User action: switchMain: done, dns profile unactivated")
-                                        return dnsProfileConfigured(())
+                                        return onMain { dnsProfileConfigured(()) }
                                     }
 
                                     self.mainSwitch = true
@@ -428,7 +428,7 @@ class HomeViewModel: ObservableObject {
                                         self.working = false
                                         self.mainSwitch = false
                                         self.syncUiWithConfig()
-                                        return noPermissions(())
+                                        return onMain { noPermissions(()) }
                                     }
                                 } else {
                                     return self.handleError(CommonError.failedTunnel, cause: error)
@@ -881,19 +881,21 @@ class HomeViewModel: ObservableObject {
     }
 
     func refreshAdsCounter(delay: Bool, ok: @escaping Ok<Void> = { _ in }) {
-        self.api.getCurrentCounterStats { error, stats in
-            guard error == nil, let stats = stats else {
-                return self.log.w("refreshAdsCounter: failed api call".cause(error))
-            }
-
-            onMain {
-                guard let counter = Int(stats.total_blocked) else {
-                    return self.log.w("refreshAdsCounter: could not parse, implement uint64 counter support")
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
+            self.api.getCurrentCounterStats { error, stats in
+                guard error == nil, let stats = stats else {
+                    return self.log.w("refreshAdsCounter: failed api call".cause(error))
                 }
-                self.blockedCounter = counter
-                ok(())
+
+                onMain {
+                    guard let counter = Int(stats.total_blocked) else {
+                        return self.log.w("refreshAdsCounter: could not parse, implement uint64 counter support")
+                    }
+                    self.blockedCounter = counter
+                    ok(())
+                }
             }
-        }
+        })
     }
 
     private func shouldShowRateScreen() -> Bool {

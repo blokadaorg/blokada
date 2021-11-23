@@ -98,6 +98,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        NetworkService.shared.foreground()
         self.homeVM.foreground()
         self.activityVM.foreground()
 
@@ -105,6 +106,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        NetworkService.shared.background()
         self.homeVM.background()
     }
 
