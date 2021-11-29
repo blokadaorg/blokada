@@ -13,9 +13,9 @@
 import Foundation
 import UIKit
 
-class ActivityService {
+class ActivityRepository {
 
-    static var shared = ActivityService()
+    static var shared = ActivityRepository()
 
     private init() {
         self.loadExceptions()

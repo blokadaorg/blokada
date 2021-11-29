@@ -26,7 +26,7 @@ class PackDetailViewModel: ObservableObject {
     }
 
     private let log = Logger("Pack")
-    private let service = PackService.shared
+    private let service = PackRepository.shared
 
     init(pack: Pack) {
         self.pack = pack

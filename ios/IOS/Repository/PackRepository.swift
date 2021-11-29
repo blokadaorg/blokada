@@ -12,9 +12,9 @@
 
 import Foundation
 
-class PackService {
+class PackRepository {
 
-    static let shared = PackService()
+    static let shared = PackRepository()
 
     private let api = BlockaApiService.shared
 

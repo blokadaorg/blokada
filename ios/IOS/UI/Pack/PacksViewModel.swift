@@ -32,7 +32,7 @@ class PacksViewModel: ObservableObject {
     @Published var showError: Bool = false
 
     private let log = Logger("Pack")
-    private let service = PackService.shared
+    private let service = PackRepository.shared
 
     init(tabVM: TabViewModel) {
         service.onPacksUpdated = { packs in

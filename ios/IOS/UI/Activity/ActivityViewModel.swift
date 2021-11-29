@@ -15,7 +15,7 @@ import Foundation
 class ActivityViewModel: ObservableObject {
 
     private let log = Logger("ActivityVM")
-    private let service = ActivityService.shared
+    private let service = ActivityRepository.shared
     private let sharedActions = SharedActionsService.shared
     private let api = BlockaApiService.shared
 
