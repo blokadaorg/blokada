@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E7FE98E244DC28900851E9F"
                BuildableName = "Preview.app"
-               BlueprintName = "Preview"
+               BlueprintName = "Mocked"
                ReferencedContainer = "container:IOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,7 +46,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E7FE98E244DC28900851E9F"
             BuildableName = "Preview.app"
-            BlueprintName = "Preview"
+            BlueprintName = "Mocked"
             ReferencedContainer = "container:IOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -63,7 +63,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E7FE98E244DC28900851E9F"
             BuildableName = "Preview.app"
-            BlueprintName = "Preview"
+            BlueprintName = "Mocked"
             ReferencedContainer = "container:IOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

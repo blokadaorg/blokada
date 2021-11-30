@@ -17,7 +17,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4ED3445A23E1B1450075B796"
                BuildableName = "IOSNetworkExtension.appex"
-               BlueprintName = "IOSNetworkExtension"
+               BlueprintName = "NETX"
                ReferencedContainer = "container:IOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,7 +31,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "47729E0122F447C800B9B36B"
                BuildableName = "Blokada.app"
-               BlueprintName = "IOS"
+               BlueprintName = "App"
                ReferencedContainer = "container:IOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,6 +50,16 @@
                BlueprintIdentifier = "4E201D27275619C0001FA2FF"
                BuildableName = "BlokadaTests.xctest"
                BlueprintName = "BlokadaTests"
+               ReferencedContainer = "container:IOS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4E201D3427561AA9001FA2FF"
+               BuildableName = "AppTests.xctest"
+               BlueprintName = "AppTests"
                ReferencedContainer = "container:IOS.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -73,7 +83,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "47729E0122F447C800B9B36B"
             BuildableName = "Blokada.app"
-            BlueprintName = "IOS"
+            BlueprintName = "App"
             ReferencedContainer = "container:IOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -92,7 +102,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "47729E0122F447C800B9B36B"
             BuildableName = "Blokada.app"
-            BlueprintName = "IOS"
+            BlueprintName = "App"
             ReferencedContainer = "container:IOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

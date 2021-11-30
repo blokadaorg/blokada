@@ -46,6 +46,7 @@
 		4E201D1C27551F0C001FA2FF /* InboxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57FCDF24A0D5F000960ADF /* InboxService.swift */; };
 		4E201D1E27554572001FA2FF /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* HttpClientService.swift */; };
 		4E201D1F27554572001FA2FF /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* HttpClientService.swift */; };
+		4E201D3827561AA9001FA2FF /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D3727561AA9001FA2FF /* AppTests.swift */; };
 		4E227F312433D7B7004F4955 /* BlockaApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F302433D7B7004F4955 /* BlockaApiService.swift */; };
 		4E227F3924347A95004F4955 /* VpnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F3824347A95004F4955 /* VpnService.swift */; };
 		4E227F40243496C5004F4955 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F3F243496C5004F4955 /* Thread.swift */; };
@@ -257,7 +258,7 @@
 		4ECFD5302441B5A300786F23 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFD52F2441B5A300786F23 /* PaymentService.swift */; };
 		4ED3445623E1B0D90075B796 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3445323E1B0A60075B796 /* NetworkExtension.framework */; };
 		4ED3445E23E1B1450075B796 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3445D23E1B1450075B796 /* PacketTunnelProvider.swift */; };
-		4ED3446323E1B1450075B796 /* IOSNetworkExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4ED3445B23E1B1450075B796 /* IOSNetworkExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4ED3446323E1B1450075B796 /* NETX.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4ED3445B23E1B1450075B796 /* NETX.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4ED3446723E1B1520075B796 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3445323E1B0A60075B796 /* NetworkExtension.framework */; };
 		4ED3446A23E1B7430075B796 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3443E23E190910075B796 /* libresolv.tbd */; };
 		4ED349C6246C6C0A00C843FA /* BlokadaPlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED349C5246C6C0A00C843FA /* BlokadaPlusView.swift */; };
@@ -288,7 +289,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4E201D2C275619C0001FA2FF /* PBXContainerItemProxy */ = {
+		4E201D3927561AA9001FA2FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
 			proxyType = 1;
@@ -318,7 +319,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4ED3446323E1B1450075B796 /* IOSNetworkExtension.appex in Embed App Extensions */,
+				4ED3446323E1B1450075B796 /* NETX.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -331,8 +332,6 @@
 		47729E0C22F447CA00B9B36B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47729E0F22F447CA00B9B36B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47729E1122F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47729E2522F447CA00B9B36B /* IOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSUITests.swift; sourceTree = "<group>"; };
-		47729E2722F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemViewModel.swift; sourceTree = "<group>"; };
 		4E08B9CF247E7C0300AED8F0 /* DnsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnsModel.swift; sourceTree = "<group>"; };
@@ -351,7 +350,8 @@
 		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1A84E02476AE19007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E201D1D27554572001FA2FF /* HttpClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
-		4E201D28275619C0001FA2FF /* BlokadaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlokadaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E201D3527561AA9001FA2FF /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E201D3727561AA9001FA2FF /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		4E227F302433D7B7004F4955 /* BlockaApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiService.swift; sourceTree = "<group>"; };
 		4E227F34243479F1004F4955 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4E227F3824347A95004F4955 /* VpnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VpnService.swift; sourceTree = "<group>"; };
@@ -436,7 +436,7 @@
 		4E78E359245EBFD90017B234 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		4E78E35C245EC4ED0017B234 /* PackConfigItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackConfigItemView.swift; sourceTree = "<group>"; };
 		4E78E362245ED1D80017B234 /* PackDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackDetailViewModel.swift; sourceTree = "<group>"; };
-		4E7FE9D8244DC28900851E9F /* Preview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Preview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E7FE9D8244DC28900851E9F /* Mocked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E85E98A243382B3001B2795 /* BlockaApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiModel.swift; sourceTree = "<group>"; };
 		4E8800F325C401CD001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Packs.strings; sourceTree = "<group>"; };
 		4E8800F425C401CE001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PackTags.strings; sourceTree = "<group>"; };
@@ -501,7 +501,7 @@
 		4ED3443E23E190910075B796 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		4ED3445323E1B0A60075B796 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4ED3445523E1B0D90075B796 /* IOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOS.entitlements; sourceTree = "<group>"; };
-		4ED3445B23E1B1450075B796 /* IOSNetworkExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = IOSNetworkExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4ED3445B23E1B1450075B796 /* NETX.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NETX.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ED3445D23E1B1450075B796 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		4ED3445F23E1B1450075B796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4ED3446023E1B1450075B796 /* IOSNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSNetworkExtension.entitlements; sourceTree = "<group>"; };
@@ -543,7 +543,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4E201D25275619C0001FA2FF /* Frameworks */ = {
+		4E201D3227561AA9001FA2FF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -573,11 +573,11 @@
 		47729DF922F447C800B9B36B = {
 			isa = PBXGroup;
 			children = (
-				47729E0422F447C800B9B36B /* IOS */,
-				B2240DBB2417F5DA00F13E97 /* Engine */,
+				47729E0422F447C800B9B36B /* App */,
+				4E201D3627561AA9001FA2FF /* AppTests */,
+				B2240DBB2417F5DA00F13E97 /* BlockaEngine */,
+				4ED3445C23E1B1450075B796 /* NETX */,
 				4ED3443D23E190910075B796 /* Frameworks */,
-				4ED3445C23E1B1450075B796 /* IOSNetworkExtension */,
-				47729E2422F447CA00B9B36B /* IOSUITests */,
 				47729E0322F447C800B9B36B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -586,15 +586,15 @@
 			isa = PBXGroup;
 			children = (
 				47729E0222F447C800B9B36B /* Blokada.app */,
-				4ED3445B23E1B1450075B796 /* IOSNetworkExtension.appex */,
+				4ED3445B23E1B1450075B796 /* NETX.appex */,
 				B2240DC72417F83100F13E97 /* liblibengine.a */,
-				4E7FE9D8244DC28900851E9F /* Preview.app */,
-				4E201D28275619C0001FA2FF /* BlokadaTests.xctest */,
+				4E7FE9D8244DC28900851E9F /* Mocked.app */,
+				4E201D3527561AA9001FA2FF /* AppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		47729E0422F447C800B9B36B /* IOS */ = {
+		47729E0422F447C800B9B36B /* App */ = {
 			isa = PBXGroup;
 			children = (
 				4E423545244F4969005A0779 /* Assets */,
@@ -606,16 +606,7 @@
 				4EEF1BEA2457FB7800734182 /* Debug */,
 				4E42353F244F4808005A0779 /* Util */,
 			);
-			path = IOS;
-			sourceTree = "<group>";
-		};
-		47729E2422F447CA00B9B36B /* IOSUITests */ = {
-			isa = PBXGroup;
-			children = (
-				47729E2522F447CA00B9B36B /* IOSUITests.swift */,
-				47729E2722F447CA00B9B36B /* Info.plist */,
-			);
-			path = IOSUITests;
+			path = App;
 			sourceTree = "<group>";
 		};
 		4E201D122755174B001FA2FF /* Model */ = {
@@ -722,6 +713,14 @@
 				4E423530244EE9DB005A0779 /* PaymentServiceMock.swift */,
 			);
 			path = ServiceMock;
+			sourceTree = "<group>";
+		};
+		4E201D3627561AA9001FA2FF /* AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E201D3727561AA9001FA2FF /* AppTests.swift */,
+			);
+			path = AppTests;
 			sourceTree = "<group>";
 		};
 		4E2ECCEB245AE49B009040F1 /* Pack */ = {
@@ -874,7 +873,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4ED3445C23E1B1450075B796 /* IOSNetworkExtension */ = {
+		4ED3445C23E1B1450075B796 /* NETX */ = {
 			isa = PBXGroup;
 			children = (
 				4E4562B1240D111A0022CBF6 /* Error.swift */,
@@ -885,7 +884,7 @@
 				4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */,
 				B285FFFC248F8AE5003EAA35 /* PacketLoop.swift */,
 			);
-			path = IOSNetworkExtension;
+			path = NETX;
 			sourceTree = "<group>";
 		};
 		4ED41CBF24783D1E00155C88 /* Activity */ = {
@@ -917,22 +916,22 @@
 			path = Debug;
 			sourceTree = "<group>";
 		};
-		B2240DBB2417F5DA00F13E97 /* Engine */ = {
+		B2240DBB2417F5DA00F13E97 /* BlockaEngine */ = {
 			isa = PBXGroup;
 			children = (
 				B2EED216241B8D6500407601 /* hosts.txt */,
 				B2240DC02417F66D00F13E97 /* libengine.h */,
 				B2240DBF2417F66D00F13E97 /* IOS-Bridging-Header.h */,
 			);
-			path = Engine;
+			path = BlockaEngine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		47729E0122F447C800B9B36B /* IOS */ = {
+		47729E0122F447C800B9B36B /* App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 47729E2A22F447CA00B9B36B /* Build configuration list for PBXNativeTarget "IOS" */;
+			buildConfigurationList = 47729E2A22F447CA00B9B36B /* Build configuration list for PBXNativeTarget "App" */;
 			buildPhases = (
 				B2240DB82417F42F00F13E97 /* Build Blocka Engine */,
 				47729DFE22F447C800B9B36B /* Sources */,
@@ -946,32 +945,32 @@
 				4ED3446223E1B1450075B796 /* PBXTargetDependency */,
 				B2F720912418F4AC0002B88E /* PBXTargetDependency */,
 			);
-			name = IOS;
+			name = App;
 			productName = IOS;
 			productReference = 47729E0222F447C800B9B36B /* Blokada.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4E201D27275619C0001FA2FF /* BlokadaTests */ = {
+		4E201D3427561AA9001FA2FF /* AppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E201D2E275619C0001FA2FF /* Build configuration list for PBXNativeTarget "BlokadaTests" */;
+			buildConfigurationList = 4E201D3B27561AA9001FA2FF /* Build configuration list for PBXNativeTarget "AppTests" */;
 			buildPhases = (
-				4E201D24275619C0001FA2FF /* Sources */,
-				4E201D25275619C0001FA2FF /* Frameworks */,
-				4E201D26275619C0001FA2FF /* Resources */,
+				4E201D3127561AA9001FA2FF /* Sources */,
+				4E201D3227561AA9001FA2FF /* Frameworks */,
+				4E201D3327561AA9001FA2FF /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4E201D2D275619C0001FA2FF /* PBXTargetDependency */,
+				4E201D3A27561AA9001FA2FF /* PBXTargetDependency */,
 			);
-			name = BlokadaTests;
-			productName = BlokadaTests;
-			productReference = 4E201D28275619C0001FA2FF /* BlokadaTests.xctest */;
+			name = AppTests;
+			productName = AppTests;
+			productReference = 4E201D3527561AA9001FA2FF /* AppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4E7FE98E244DC28900851E9F /* Preview */ = {
+		4E7FE98E244DC28900851E9F /* Mocked */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E7FE9D5244DC28900851E9F /* Build configuration list for PBXNativeTarget "Preview" */;
+			buildConfigurationList = 4E7FE9D5244DC28900851E9F /* Build configuration list for PBXNativeTarget "Mocked" */;
 			buildPhases = (
 				4E7FE994244DC28900851E9F /* Sources */,
 				4E7FE9CD244DC28900851E9F /* Frameworks */,
@@ -981,14 +980,14 @@
 			);
 			dependencies = (
 			);
-			name = Preview;
+			name = Mocked;
 			productName = IOS;
-			productReference = 4E7FE9D8244DC28900851E9F /* Preview.app */;
+			productReference = 4E7FE9D8244DC28900851E9F /* Mocked.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4ED3445A23E1B1450075B796 /* IOSNetworkExtension */ = {
+		4ED3445A23E1B1450075B796 /* NETX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4ED3446423E1B1450075B796 /* Build configuration list for PBXNativeTarget "IOSNetworkExtension" */;
+			buildConfigurationList = 4ED3446423E1B1450075B796 /* Build configuration list for PBXNativeTarget "NETX" */;
 			buildPhases = (
 				4ED3445723E1B1450075B796 /* Sources */,
 				4ED3445823E1B1450075B796 /* Frameworks */,
@@ -998,9 +997,9 @@
 			);
 			dependencies = (
 			);
-			name = IOSNetworkExtension;
+			name = NETX;
 			productName = IOSNetworkExtension;
-			productReference = 4ED3445B23E1B1450075B796 /* IOSNetworkExtension.appex */;
+			productReference = 4ED3445B23E1B1450075B796 /* NETX.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		B2240DC62417F83100F13E97 /* Blocka Engine */ = {
@@ -1033,7 +1032,7 @@
 						CreatedOnToolsVersion = 10.3;
 						LastSwiftMigration = 1130;
 					};
-					4E201D27275619C0001FA2FF = {
+					4E201D3427561AA9001FA2FF = {
 						CreatedOnToolsVersion = 13.1;
 						TestTargetID = 47729E0122F447C800B9B36B;
 					};
@@ -1071,11 +1070,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				47729E0122F447C800B9B36B /* IOS */,
-				4E7FE98E244DC28900851E9F /* Preview */,
-				4ED3445A23E1B1450075B796 /* IOSNetworkExtension */,
+				47729E0122F447C800B9B36B /* App */,
+				4E7FE98E244DC28900851E9F /* Mocked */,
+				4ED3445A23E1B1450075B796 /* NETX */,
 				B2240DC62417F83100F13E97 /* Blocka Engine */,
-				4E201D27275619C0001FA2FF /* BlokadaTests */,
+				4E201D3427561AA9001FA2FF /* AppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1094,7 +1093,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4E201D26275619C0001FA2FF /* Resources */ = {
+		4E201D3327561AA9001FA2FF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1297,10 +1296,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4E201D24275619C0001FA2FF /* Sources */ = {
+		4E201D3127561AA9001FA2FF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E201D3827561AA9001FA2FF /* AppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1454,14 +1454,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4E201D2D275619C0001FA2FF /* PBXTargetDependency */ = {
+		4E201D3A27561AA9001FA2FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 47729E0122F447C800B9B36B /* IOS */;
-			targetProxy = 4E201D2C275619C0001FA2FF /* PBXContainerItemProxy */;
+			target = 47729E0122F447C800B9B36B /* App */;
+			targetProxy = 4E201D3927561AA9001FA2FF /* PBXContainerItemProxy */;
 		};
 		4ED3446223E1B1450075B796 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4ED3445A23E1B1450075B796 /* IOSNetworkExtension */;
+			target = 4ED3445A23E1B1450075B796 /* NETX */;
 			targetProxy = 4ED3446123E1B1450075B796 /* PBXContainerItemProxy */;
 		};
 		B2F720912418F4AC0002B88E /* PBXTargetDependency */ = {
@@ -1743,7 +1743,7 @@
 			};
 			name = Release;
 		};
-		4E201D2F275619C0001FA2FF /* Debug */ = {
+		4E201D3C27561AA9001FA2FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1758,7 +1758,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.blokada.BlokadaTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.blokada.AppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1767,7 +1767,7 @@
 			};
 			name = Debug;
 		};
-		4E201D30275619C0001FA2FF /* Release */ = {
+		4E201D3D27561AA9001FA2FF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1782,7 +1782,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.blokada.BlokadaTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.blokada.AppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1978,7 +1978,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		47729E2A22F447CA00B9B36B /* Build configuration list for PBXNativeTarget "IOS" */ = {
+		47729E2A22F447CA00B9B36B /* Build configuration list for PBXNativeTarget "App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				47729E2B22F447CA00B9B36B /* Debug */,
@@ -1987,16 +1987,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E201D2E275619C0001FA2FF /* Build configuration list for PBXNativeTarget "BlokadaTests" */ = {
+		4E201D3B27561AA9001FA2FF /* Build configuration list for PBXNativeTarget "AppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4E201D2F275619C0001FA2FF /* Debug */,
-				4E201D30275619C0001FA2FF /* Release */,
+				4E201D3C27561AA9001FA2FF /* Debug */,
+				4E201D3D27561AA9001FA2FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E7FE9D5244DC28900851E9F /* Build configuration list for PBXNativeTarget "Preview" */ = {
+		4E7FE9D5244DC28900851E9F /* Build configuration list for PBXNativeTarget "Mocked" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E7FE9D6244DC28900851E9F /* Debug */,
@@ -2005,7 +2005,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4ED3446423E1B1450075B796 /* Build configuration list for PBXNativeTarget "IOSNetworkExtension" */ = {
+		4ED3446423E1B1450075B796 /* Build configuration list for PBXNativeTarget "NETX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4ED3446523E1B1450075B796 /* Debug */,
