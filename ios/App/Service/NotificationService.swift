@@ -99,7 +99,7 @@ class NotificationService {
         self.log.v("Notification cleared")
     }
 
-    func checkLease(ok: @escaping Ok<Bool>, fail: @escaping Fail) {
+    func checkLease(ok: @escaping Ok<Bool>, fail: @escaping Faile) {
         onBackground {
             self.api.getCurrentLease { error, lease in
                 if let error = error {

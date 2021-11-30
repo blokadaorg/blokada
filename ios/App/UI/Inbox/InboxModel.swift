@@ -108,7 +108,7 @@ extension InboxHistory {
            }
 
            do {
-               return try decoder.decode(InboxHistory.self, from: json)
+               return try blockaDecoder.decode(InboxHistory.self, from: json)
            } catch {
                Logger.e("Inbox", "Failed decoding chat json".cause(error))
                return InboxHistory.empty()

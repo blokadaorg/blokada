@@ -12,61 +12,16 @@
 
 import Foundation
 
+/**
+    Blocka.net JSON API
+ */
+
 typealias AccountId = String
 typealias GatewayId = String
 typealias PrivateKey = String
 typealias PublicKey = String
 typealias ActiveUntil = Date
 typealias DeviceToken = Data
-
-typealias ConfigChanged = Bool
-
-let blockaDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-let blockaDateFormatNoNanos = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-let userDateFormatSimple = "dMMMMyyyy"
-let userDateFormatFull = "yyyyMMd jms"
-let userDateFormatChat = "E., MMd, jms"
-
-let encoder = initJsonEncoder()
-let decoder = initJsonDecoder()
-
-func initJsonDecoder() -> JSONDecoder {
-    let decoder = JSONDecoder()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = blockaDateFormat
-    decoder.dateDecodingStrategy = .formatted(dateFormatter)
-    return decoder
-}
-
-func initJsonEncoder() -> JSONEncoder {
-    let encoder = JSONEncoder()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = blockaDateFormat
-    encoder.dateEncodingStrategy = .formatted(dateFormatter)
-    return encoder
-}
-
-extension Encodable {
-    func toJson() -> String? {
-        do {
-            let jsonData = try encoder.encode(self)
-            let jsonString = String(data: jsonData, encoding: .utf8)
-            guard let json = jsonString else {
-                Logger.e("JSON", "jsonString was nil")
-                return nil
-            }
-            return json
-        } catch {
-            Logger.e("JSON", "Failed encoding to json".cause(error))
-            return nil
-        }
-    }
-}
-
-/**
-    Blocka.net JSON API
- */
 
 struct Account: Codable {
     let id: AccountId
@@ -252,14 +207,4 @@ struct AppleDeviceTokenRequest: Codable {
     let account_id: AccountId
     let public_key: PublicKey
     let device_token: Data
-}
-
-extension String {
-    func capitalizingFirstLetter() -> String {
-        return prefix(1).capitalized + dropFirst()
-    }
-
-    mutating func capitalizeFirstLetter() {
-        self = self.capitalizingFirstLetter()
-    }
 }

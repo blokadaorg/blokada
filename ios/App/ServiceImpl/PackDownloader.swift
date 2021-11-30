@@ -16,7 +16,7 @@ class PackDownloader {
 
     private let log = Logger("Pack")
 
-    func download(url: Url, ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func download(url: Url, ok: @escaping Ok<Void>, fail: @escaping Faile) {
         let destinationUrl = getDestination(url)
 
         let count = api_hostlist(NetworkService.shared.httpClient, url, destinationUrl.path)

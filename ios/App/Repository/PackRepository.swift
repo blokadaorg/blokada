@@ -315,7 +315,7 @@ class PackRepository {
         }
     }
 
-    func installPack(pack: Pack, ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func installPack(pack: Pack, ok: @escaping Ok<Void>, fail: @escaping Faile) {
         var pack = pack
         if (pack.status.config.isEmpty) {
             self.log.v("installPack: selecting first config by default: \(pack.configs.first!)")
@@ -379,7 +379,7 @@ class PackRepository {
         }
     }
 
-    func uninstallPack(pack: Pack, ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func uninstallPack(pack: Pack, ok: @escaping Ok<Void>, fail: @escaping Faile) {
         self.update(pack.changeStatus(installing: true))
         onBackground {
             // Get active lists this user selected
@@ -435,7 +435,7 @@ class PackRepository {
     }
 
     // When user changes configuration (selects or deselects) for a pack that is active or not
-    func changeConfig(pack: Pack, config: PackConfig, fail: @escaping Fail) {
+    func changeConfig(pack: Pack, config: PackConfig, fail: @escaping Faile) {
         let updated = pack.changeStatus(installed: false, config: config)
         self.installPack(pack: updated, ok: { pack in
             

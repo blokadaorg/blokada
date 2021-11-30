@@ -26,6 +26,13 @@ extension String {
         return Data(self.utf8).base64EncodedString()
     }
 
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
 }
 
 extension Int {

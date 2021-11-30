@@ -16,7 +16,7 @@ class PackDownloader {
 
     private let log = Logger("Pack")
 
-    func download(url: Url, ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func download(url: Url, ok: @escaping Ok<Void>, fail: @escaping Faile) {
         // Create destination URL
         self.log.v("Mock download for \(url)")
         return ok(())

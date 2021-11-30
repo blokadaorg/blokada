@@ -29,7 +29,7 @@ class PaymentService {
 
     }
 
-    func refreshProducts(ok: @escaping Ok<[Product]>, fail: @escaping Fail) {
+    func refreshProducts(ok: @escaping Ok<[Product]>, fail: @escaping Faile) {
         onBackground {
             self.log.v("Refresh products")
             sleep(3)
@@ -45,7 +45,7 @@ class PaymentService {
         }
     }
 
-    func buy(_ product: Product, ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func buy(_ product: Product, ok: @escaping Ok<Void>, fail: @escaping Faile) {
         onBackground {
             self.log.v("Buy: \(product.id)")
             sleep(3)
@@ -69,7 +69,7 @@ class PaymentService {
         }
     }
 
-    func restoreTransaction(ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func restoreTransaction(ok: @escaping Ok<Void>, fail: @escaping Faile) {
         onBackground {
             self.log.v("Restore transaction")
             sleep(1)

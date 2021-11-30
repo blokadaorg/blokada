@@ -29,6 +29,14 @@ class NetworkService {
         pauseSeconds: 0
     ))
 
+    func foreground() {
+        
+    }
+
+    func background() {
+        
+    }
+
     func syncConfig(done: @escaping Callback<Void>) {
         done(nil, nil)
     }

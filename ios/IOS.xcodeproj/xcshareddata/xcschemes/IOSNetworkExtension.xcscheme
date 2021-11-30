@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4ED3445A23E1B1450075B796"
-               BuildableName = "IOSNetworkExtension.appex"
+               BuildableName = "NETX.appex"
                BlueprintName = "NETX"
                ReferencedContainer = "container:IOS.xcodeproj">
             </BuildableReference>

@@ -33,11 +33,11 @@ class PackDetailViewModel: ObservableObject {
         self.on = self.pack.status.installed
     }
 
-    func changeConfig(config: PackConfig, fail: @escaping Fail) {
+    func changeConfig(config: PackConfig, fail: @escaping Faile) {
         self.service.changeConfig(pack: self.pack, config: config, fail: fail)
     }
 
-    func install(fail: @escaping Fail) {
+    func install(fail: @escaping Faile) {
         self.log.v("Installing pack")
         self.service.installPack(pack: pack, ok: { pack in
 
@@ -49,7 +49,7 @@ class PackDetailViewModel: ObservableObject {
         })
    }
 
-    func uninstall(fail: @escaping Fail) {
+    func uninstall(fail: @escaping Faile) {
         self.log.v("uninstalling pack")
         self.service.uninstallPack(pack: pack, ok: { pack in
 

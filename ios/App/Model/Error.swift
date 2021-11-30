@@ -69,6 +69,7 @@ enum CommonError : Error {
     case paymentCancelled
     case noCurrentLease
     case tooManyLeases
+    case emptyResult
     case unknownError
 }
 
@@ -87,6 +88,7 @@ let errorDescriptions = [
     CommonError.paymentNotAvailable: L10n.errorPaymentNotAvailable,
     CommonError.noCurrentLease: L10n.errorVpnNoCurrentLease,
     CommonError.tooManyLeases: L10n.errorVpnTooManyLeases,
+    CommonError.emptyResult: L10n.errorUnknown,
     CommonError.unknownError: L10n.errorUnknown
 ]
 

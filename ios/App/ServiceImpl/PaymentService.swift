@@ -40,7 +40,7 @@ class PaymentService {
         })
     }
 
-    func refreshProducts(ok: @escaping Ok<[Product]> = { _ in }, fail: @escaping Fail = { _ in }) {
+    func refreshProducts(ok: @escaping Ok<[Product]> = { _ in }, fail: @escaping Faile = { _ in }) {
         onBackground {
             self.log.v("Refresh products")
 
@@ -64,7 +64,7 @@ class PaymentService {
         }
     }
 
-    func buy(_ product: Product, ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func buy(_ product: Product, ok: @escaping Ok<Void>, fail: @escaping Faile) {
         onBackground {
             self.log.v("Buy: \(product.id)")
             self.storeKit.purchase(productId: product.id,
@@ -96,7 +96,7 @@ class PaymentService {
         }
     }
 
-    private func finishOngoingTransaction(canRefreshReceipt: Bool = false, ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    private func finishOngoingTransaction(canRefreshReceipt: Bool = false, ok: @escaping Ok<Void>, fail: @escaping Faile) {
         guard let receipt = self.storeKit.getReceipt() else {
             if canRefreshReceipt {
                 self.log.w("No receipt, attempting to refresh")
@@ -141,7 +141,7 @@ class PaymentService {
         }
     }
 
-    func restoreTransaction(ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func restoreTransaction(ok: @escaping Ok<Void>, fail: @escaping Faile) {
         onBackground {
             self.log.v("Restore transaction")
 

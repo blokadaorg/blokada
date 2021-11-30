@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let tabVM = TabViewModel()
     private let activityVM = ActivityViewModel()
 
+    private lazy var foreground = Factories.foreground
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -98,6 +100,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        foreground.onForeground()
         NetworkService.shared.foreground()
         self.homeVM.foreground()
         self.activityVM.foreground()
@@ -106,6 +109,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+        foreground.onBackground()
         NetworkService.shared.background()
         self.homeVM.background()
     }

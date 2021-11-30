@@ -44,7 +44,7 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
     // Called when a transaction comes from StoreKit but no handler is set waiting
     var onOngoingTransaction = {}
 
-    func fetchProducts(ok: @escaping Ok<[SKProduct]>, fail: @escaping Fail) {
+    func fetchProducts(ok: @escaping Ok<[SKProduct]>, fail: @escaping Faile) {
         onBackground {
             guard SKPaymentQueue.canMakePayments() else {
                 return fail(CommonError.paymentNotAvailable)
@@ -68,7 +68,7 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
         }
     }
 
-    func purchase(productId: ProductId, ok: @escaping Ok<TransactionRestored>, fail: @escaping Fail) {
+    func purchase(productId: ProductId, ok: @escaping Ok<TransactionRestored>, fail: @escaping Faile) {
         onBackground {
             guard self.purchaseWaiting.value == nil else {
                 self.purchaseWaiting.value = Cb(ok: ok, fail: fail)
@@ -99,7 +99,7 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
         }
     }
 
-    func restorePurchase(ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func restorePurchase(ok: @escaping Ok<Void>, fail: @escaping Faile) {
         onBackground {
             guard self.restoreWaiting.value == nil else {
                 self.restoreWaiting.value = Cb(ok: ok, fail: fail)
@@ -133,7 +133,7 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
         }
     }
 
-    func refreshReceipt(ok: @escaping Ok<Void>, fail: @escaping Fail) {
+    func refreshReceipt(ok: @escaping Ok<Void>, fail: @escaping Faile) {
         guard self.refreshReceiptWaiting.value == nil else {
             self.refreshReceiptWaiting.value = Cb(ok: ok, fail: fail)
             return

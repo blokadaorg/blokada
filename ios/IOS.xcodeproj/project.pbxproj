@@ -42,11 +42,10 @@
 		4E1A84DF2476A6B9007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */; };
 		4E1A84E12476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
 		4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
-		4E201D16275517D5001FA2FF /* EngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCA8244DD464009B3CF0 /* EngineService.swift */; };
+		4E1DC4CB27564F3100A4CAB1 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1DC4CA27564F3100A4CAB1 /* AppTests.swift */; };
 		4E201D1C27551F0C001FA2FF /* InboxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57FCDF24A0D5F000960ADF /* InboxService.swift */; };
-		4E201D1E27554572001FA2FF /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* HttpClientService.swift */; };
-		4E201D1F27554572001FA2FF /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* HttpClientService.swift */; };
-		4E201D3827561AA9001FA2FF /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D3727561AA9001FA2FF /* AppTests.swift */; };
+		4E201D1E27554572001FA2FF /* BlockaApiService2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* BlockaApiService2.swift */; };
+		4E201D1F27554572001FA2FF /* BlockaApiService2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* BlockaApiService2.swift */; };
 		4E227F312433D7B7004F4955 /* BlockaApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F302433D7B7004F4955 /* BlockaApiService.swift */; };
 		4E227F3924347A95004F4955 /* VpnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F3824347A95004F4955 /* VpnService.swift */; };
 		4E227F40243496C5004F4955 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F3F243496C5004F4955 /* Thread.swift */; };
@@ -131,6 +130,12 @@
 		4E45F4F1248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4EF248EA503002D4DD6 /* EncryptionExplanationView.swift */; };
 		4E45F4F3248EA5F4002D4DD6 /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */; };
 		4E45F4F4248EA5F4002D4DD6 /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */; };
+		4E4EDBEC275E5CB7007B9394 /* ForegroundRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEB275E5CB7007B9394 /* ForegroundRepository.swift */; };
+		4E4EDBED275E5CB7007B9394 /* ForegroundRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEB275E5CB7007B9394 /* ForegroundRepository.swift */; };
+		4E4EDBEF275E5D13007B9394 /* ForegroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEE275E5D13007B9394 /* ForegroundModel.swift */; };
+		4E4EDBF0275E5D13007B9394 /* ForegroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEE275E5D13007B9394 /* ForegroundModel.swift */; };
+		4E4EDBF2275E8CA3007B9394 /* PersistedTimersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBF1275E8CA3007B9394 /* PersistedTimersRepository.swift */; };
+		4E4EDBF3275E8CA3007B9394 /* PersistedTimersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBF1275E8CA3007B9394 /* PersistedTimersRepository.swift */; };
 		4E52F3AD245AA9E6007E36EE /* RateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3AC245AA9E6007E36EE /* RateAppView.swift */; };
 		4E52F3AE245AA9E6007E36EE /* RateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3AC245AA9E6007E36EE /* RateAppView.swift */; };
 		4E53CCAC244DD549009B3CF0 /* EngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCA8244DD464009B3CF0 /* EngineService.swift */; };
@@ -223,6 +228,26 @@
 		4E7FE9D1244DC28900851E9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
 		4E7FE9D2244DC28900851E9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
 		4E85E98B243382B3001B2795 /* BlockaApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E85E98A243382B3001B2795 /* BlockaApiModel.swift */; };
+		4E8AE1E12756974F00BD2E5B /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E02756974F00BD2E5B /* AccountRepository.swift */; };
+		4E8AE1E22756974F00BD2E5B /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E02756974F00BD2E5B /* AccountRepository.swift */; };
+		4E8AE1E42757940300BD2E5B /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E32757940300BD2E5B /* PersistenceService.swift */; };
+		4E8AE1E52757940300BD2E5B /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E32757940300BD2E5B /* PersistenceService.swift */; };
+		4E8AE1E72758D0BD00BD2E5B /* JsonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */; };
+		4E8AE1E82758D0BD00BD2E5B /* JsonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */; };
+		4E8AE1EA2758D93800BD2E5B /* PublishersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E92758D93800BD2E5B /* PublishersRepository.swift */; };
+		4E8AE1EB2758D93800BD2E5B /* PublishersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E92758D93800BD2E5B /* PublishersRepository.swift */; };
+		4E8AE1ED2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */; };
+		4E8AE1EE2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */; };
+		4E8AE1F02758DD8600BD2E5B /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */; };
+		4E8AE1F12758DD8600BD2E5B /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */; };
+		4E8AE1F32758EC2A00BD2E5B /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F22758EC2A00BD2E5B /* CryptoService.swift */; };
+		4E8AE1F42758EC2A00BD2E5B /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F22758EC2A00BD2E5B /* CryptoService.swift */; };
+		4E8AE1F62758F06500BD2E5B /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F52758F06500BD2E5B /* AccountModel.swift */; };
+		4E8AE1F72758F06500BD2E5B /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F52758F06500BD2E5B /* AccountModel.swift */; };
+		4E8AE1F9275918B400BD2E5B /* CombineUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */; };
+		4E8AE1FA275918B400BD2E5B /* CombineUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */; };
+		4E8AE1FC27591F8E00BD2E5B /* FactoriesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1FB27591F8E00BD2E5B /* FactoriesRepository.swift */; };
+		4E8AE1FD27591F8E00BD2E5B /* FactoriesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1FB27591F8E00BD2E5B /* FactoriesRepository.swift */; };
 		4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4E94C2FF2420D3B00008E318 /* PaymentGatewayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */; };
 		4E94C3032428F1C20008E318 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C3022428F1C20008E318 /* Logger.swift */; };
@@ -289,12 +314,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4E201D3927561AA9001FA2FF /* PBXContainerItemProxy */ = {
+		4E1DC4CC27564F3100A4CAB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 47729E0122F447C800B9B36B;
-			remoteInfo = IOS;
+			remoteGlobalIDString = 4E7FE98E244DC28900851E9F;
+			remoteInfo = Mocked;
 		};
 		4ED3446123E1B1450075B796 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -349,9 +374,9 @@
 		4E1681AB247AF87C0040334B /* ActivityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepository.swift; sourceTree = "<group>"; };
 		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1A84E02476AE19007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
-		4E201D1D27554572001FA2FF /* HttpClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
-		4E201D3527561AA9001FA2FF /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E201D3727561AA9001FA2FF /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
+		4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E1DC4CA27564F3100A4CAB1 /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
+		4E201D1D27554572001FA2FF /* BlockaApiService2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiService2.swift; sourceTree = "<group>"; };
 		4E227F302433D7B7004F4955 /* BlockaApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiService.swift; sourceTree = "<group>"; };
 		4E227F34243479F1004F4955 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4E227F3824347A95004F4955 /* VpnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VpnService.swift; sourceTree = "<group>"; };
@@ -408,6 +433,9 @@
 		4E45F4EC248E87FF002D4DD6 /* AfterActivatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterActivatedView.swift; sourceTree = "<group>"; };
 		4E45F4EF248EA503002D4DD6 /* EncryptionExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionExplanationView.swift; sourceTree = "<group>"; };
 		4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
+		4E4EDBEB275E5CB7007B9394 /* ForegroundRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundRepository.swift; sourceTree = "<group>"; };
+		4E4EDBEE275E5D13007B9394 /* ForegroundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundModel.swift; sourceTree = "<group>"; };
+		4E4EDBF1275E8CA3007B9394 /* PersistedTimersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedTimersRepository.swift; sourceTree = "<group>"; };
 		4E52F3AC245AA9E6007E36EE /* RateAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateAppView.swift; sourceTree = "<group>"; };
 		4E53CCA8244DD464009B3CF0 /* EngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineService.swift; sourceTree = "<group>"; };
 		4E53CCB6244DFE21009B3CF0 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
@@ -441,6 +469,16 @@
 		4E8800F325C401CD001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Packs.strings; sourceTree = "<group>"; };
 		4E8800F425C401CE001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PackTags.strings; sourceTree = "<group>"; };
 		4E8800F525C401CE001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Ui.strings; sourceTree = "<group>"; };
+		4E8AE1E02756974F00BD2E5B /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
+		4E8AE1E32757940300BD2E5B /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtil.swift; sourceTree = "<group>"; };
+		4E8AE1E92758D93800BD2E5B /* PublishersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishersRepository.swift; sourceTree = "<group>"; };
+		4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiCurrentUserService.swift; sourceTree = "<group>"; };
+		4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
+		4E8AE1F22758EC2A00BD2E5B /* CryptoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoService.swift; sourceTree = "<group>"; };
+		4E8AE1F52758F06500BD2E5B /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtil.swift; sourceTree = "<group>"; };
+		4E8AE1FB27591F8E00BD2E5B /* FactoriesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoriesRepository.swift; sourceTree = "<group>"; };
 		4E94C2FC2420B0A60008E318 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayView.swift; sourceTree = "<group>"; };
 		4E94C3022428F1C20008E318 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -543,7 +581,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4E201D3227561AA9001FA2FF /* Frameworks */ = {
+		4E1DC4C527564F3100A4CAB1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -574,9 +612,9 @@
 			isa = PBXGroup;
 			children = (
 				47729E0422F447C800B9B36B /* App */,
-				4E201D3627561AA9001FA2FF /* AppTests */,
 				B2240DBB2417F5DA00F13E97 /* BlockaEngine */,
 				4ED3445C23E1B1450075B796 /* NETX */,
+				4E1DC4C927564F3100A4CAB1 /* AppTests */,
 				4ED3443D23E190910075B796 /* Frameworks */,
 				47729E0322F447C800B9B36B /* Products */,
 			);
@@ -589,7 +627,7 @@
 				4ED3445B23E1B1450075B796 /* NETX.appex */,
 				B2240DC72417F83100F13E97 /* liblibengine.a */,
 				4E7FE9D8244DC28900851E9F /* Mocked.app */,
-				4E201D3527561AA9001FA2FF /* AppTests.xctest */,
+				4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -600,6 +638,7 @@
 				4E423545244F4969005A0779 /* Assets */,
 				4E201D122755174B001FA2FF /* Model */,
 				4E201D1327551759001FA2FF /* Service */,
+				4E1DC4D12756501F00A4CAB1 /* ServiceImpl */,
 				4E201D1A27551E57001FA2FF /* ServiceMock */,
 				4E201D142755176F001FA2FF /* Repository */,
 				4E201D1527551796001FA2FF /* UI */,
@@ -607,6 +646,26 @@
 				4E42353F244F4808005A0779 /* Util */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		4E1DC4C927564F3100A4CAB1 /* AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E1DC4CA27564F3100A4CAB1 /* AppTests.swift */,
+			);
+			path = AppTests;
+			sourceTree = "<group>";
+		};
+		4E1DC4D12756501F00A4CAB1 /* ServiceImpl */ = {
+			isa = PBXGroup;
+			children = (
+				4E53CCA8244DD464009B3CF0 /* EngineService.swift */,
+				4E42355B2451959F005A0779 /* LoggerSaver.swift */,
+				4E227F34243479F1004F4955 /* NetworkService.swift */,
+				4E971F702469801500809EA6 /* PackDownloader.swift */,
+				4ECFD52F2441B5A300786F23 /* PaymentService.swift */,
+			);
+			path = ServiceImpl;
 			sourceTree = "<group>";
 		};
 		4E201D122755174B001FA2FF /* Model */ = {
@@ -622,6 +681,8 @@
 				4E971F7B246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift */,
 				4E53CCBA244DFF99009B3CF0 /* SKProduct+Extensions.swift */,
 				4E1A84E02476AE19007FEAFB /* StatsModel.swift */,
+				4E8AE1F52758F06500BD2E5B /* AccountModel.swift */,
+				4E4EDBEE275E5D13007B9394 /* ForegroundModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -631,20 +692,19 @@
 			children = (
 				47729E0522F447C800B9B36B /* AppDelegate.swift */,
 				4E227F302433D7B7004F4955 /* BlockaApiService.swift */,
+				4E201D1D27554572001FA2FF /* BlockaApiService2.swift */,
+				4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */,
 				4E971F81246C14A400809EA6 /* DeviceTokenService.swift */,
-				4E53CCA8244DD464009B3CF0 /* EngineService.swift */,
 				4E59E31A24751D12008C1AAA /* ExpirationService.swift */,
-				4E42355B2451959F005A0779 /* LoggerSaver.swift */,
 				4EB12414271DA6F600B10595 /* NetworkDnsService.swift */,
-				4E227F34243479F1004F4955 /* NetworkService.swift */,
 				4EEF1BE72457105E00734182 /* NotificationService.swift */,
-				4E971F702469801500809EA6 /* PackDownloader.swift */,
-				4ECFD52F2441B5A300786F23 /* PaymentService.swift */,
 				4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */,
 				4E4235532450714E005A0779 /* SharedActionsService.swift */,
 				4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */,
 				4E227F3824347A95004F4955 /* VpnService.swift */,
-				4E201D1D27554572001FA2FF /* HttpClientService.swift */,
+				4E8AE1E32757940300BD2E5B /* PersistenceService.swift */,
+				4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */,
+				4E8AE1F22758EC2A00BD2E5B /* CryptoService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -652,10 +712,15 @@
 		4E201D142755176F001FA2FF /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				4E8AE1E02756974F00BD2E5B /* AccountRepository.swift */,
 				4E1681AB247AF87C0040334B /* ActivityRepository.swift */,
 				4E2ECD01245B1497009040F1 /* PackRepository.swift */,
 				4E63194424446E1400191C16 /* Config.swift */,
 				4E9A04652449A006003AB48D /* Env.swift */,
+				4E8AE1E92758D93800BD2E5B /* PublishersRepository.swift */,
+				4E8AE1FB27591F8E00BD2E5B /* FactoriesRepository.swift */,
+				4E4EDBEB275E5CB7007B9394 /* ForegroundRepository.swift */,
+				4E4EDBF1275E8CA3007B9394 /* PersistedTimersRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -715,14 +780,6 @@
 			path = ServiceMock;
 			sourceTree = "<group>";
 		};
-		4E201D3627561AA9001FA2FF /* AppTests */ = {
-			isa = PBXGroup;
-			children = (
-				4E201D3727561AA9001FA2FF /* AppTests.swift */,
-			);
-			path = AppTests;
-			sourceTree = "<group>";
-		};
 		4E2ECCEB245AE49B009040F1 /* Pack */ = {
 			isa = PBXGroup;
 			children = (
@@ -748,6 +805,7 @@
 				4E08B9D5247EAD8100AED8F0 /* ContentHostingController.swift */,
 				4E423556245192C7005A0779 /* Date+Extensions.swift */,
 				4E118DF824640356005112C1 /* FileManager+Extensions.swift */,
+				4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */,
 				4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */,
 				4E290FBF2498A57000FC4C61 /* Localization.swift */,
 				4E94C3022428F1C20008E318 /* Logger.swift */,
@@ -756,6 +814,7 @@
 				4E118DF52463ED24005112C1 /* Swift+Extensions.swift */,
 				4E227F3F243496C5004F4955 /* Thread.swift */,
 				4EA105C1242B8A7900559CBB /* Transitions.swift */,
+				4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -950,22 +1009,22 @@
 			productReference = 47729E0222F447C800B9B36B /* Blokada.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4E201D3427561AA9001FA2FF /* AppTests */ = {
+		4E1DC4C727564F3100A4CAB1 /* AppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E201D3B27561AA9001FA2FF /* Build configuration list for PBXNativeTarget "AppTests" */;
+			buildConfigurationList = 4E1DC4CE27564F3100A4CAB1 /* Build configuration list for PBXNativeTarget "AppTests" */;
 			buildPhases = (
-				4E201D3127561AA9001FA2FF /* Sources */,
-				4E201D3227561AA9001FA2FF /* Frameworks */,
-				4E201D3327561AA9001FA2FF /* Resources */,
+				4E1DC4C427564F3100A4CAB1 /* Sources */,
+				4E1DC4C527564F3100A4CAB1 /* Frameworks */,
+				4E1DC4C627564F3100A4CAB1 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4E201D3A27561AA9001FA2FF /* PBXTargetDependency */,
+				4E1DC4CD27564F3100A4CAB1 /* PBXTargetDependency */,
 			);
 			name = AppTests;
 			productName = AppTests;
-			productReference = 4E201D3527561AA9001FA2FF /* AppTests.xctest */;
+			productReference = 4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4E7FE98E244DC28900851E9F /* Mocked */ = {
@@ -1032,9 +1091,9 @@
 						CreatedOnToolsVersion = 10.3;
 						LastSwiftMigration = 1130;
 					};
-					4E201D3427561AA9001FA2FF = {
+					4E1DC4C727564F3100A4CAB1 = {
 						CreatedOnToolsVersion = 13.1;
-						TestTargetID = 47729E0122F447C800B9B36B;
+						TestTargetID = 4E7FE98E244DC28900851E9F;
 					};
 					4ED3445A23E1B1450075B796 = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -1074,7 +1133,7 @@
 				4E7FE98E244DC28900851E9F /* Mocked */,
 				4ED3445A23E1B1450075B796 /* NETX */,
 				B2240DC62417F83100F13E97 /* Blocka Engine */,
-				4E201D3427561AA9001FA2FF /* AppTests */,
+				4E1DC4C727564F3100A4CAB1 /* AppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1093,7 +1152,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4E201D3327561AA9001FA2FF /* Resources */ = {
+		4E1DC4C627564F3100A4CAB1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1158,7 +1217,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nexport PATH=$PATH:~/.cargo/bin:/usr/local/bin\nexport LIBRARY_PATH=\"${DEVELOPER_SDK_DIR}/MacOSX.sdk/usr/lib:${LIBRARY_PATH:-}\"\n\ncd $BLOCKA_ENGINE_PATH\ncargo build --target aarch64-apple-ios ${CARGO_LIPO_FLAG} -p engine\ncp target/aarch64-apple-ios/${CARGO_TARGET}/libengine.a engine/libengine.h $PROJECT_DIR/Engine\n";
+			shellScript = "set -e\nexport PATH=$PATH:~/.cargo/bin:/usr/local/bin\nexport LIBRARY_PATH=\"${DEVELOPER_SDK_DIR}/MacOSX.sdk/usr/lib:${LIBRARY_PATH:-}\"\n\ncd $BLOCKA_ENGINE_PATH\ncargo build --target aarch64-apple-ios ${CARGO_LIPO_FLAG} -p engine\ncp target/aarch64-apple-ios/${CARGO_TARGET}/libengine.a engine/libengine.h $PROJECT_DIR/BlockaEngine\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1182,6 +1241,7 @@
 				4E971F7C246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift in Sources */,
 				4E08B9D6247EAD8100AED8F0 /* ContentHostingController.swift in Sources */,
 				4E118DF924640356005112C1 /* FileManager+Extensions.swift in Sources */,
+				4E8AE1F62758F06500BD2E5B /* AccountModel.swift in Sources */,
 				4E2ECD05245B1535009040F1 /* PacksViewModel.swift in Sources */,
 				4E290FB62497A1F700FC4C61 /* BlokadaText.swift in Sources */,
 				4E652943248FE04A00EB871A /* PreviewAllScreensView.swift in Sources */,
@@ -1189,12 +1249,15 @@
 				4E2ECCF0245AE5D1009040F1 /* PlaceholderView.swift in Sources */,
 				4E57FCE324A0D7BD00960ADF /* InboxViewModel.swift in Sources */,
 				4EC014012460741C001DF5F7 /* TabItemView.swift in Sources */,
+				4E4EDBF2275E8CA3007B9394 /* PersistedTimersRepository.swift in Sources */,
 				4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */,
 				4E63194524446E1400191C16 /* Config.swift in Sources */,
 				4E42352E244EE662005A0779 /* AccountViewModel.swift in Sources */,
 				4EF7EDF3240E8FBF001FA02E /* ContentView.swift in Sources */,
 				4E40DBCC2416496700662E10 /* HomeView.swift in Sources */,
+				4E8AE1FC27591F8E00BD2E5B /* FactoriesRepository.swift in Sources */,
 				4EB12415271DA6F600B10595 /* NetworkDnsService.swift in Sources */,
+				4E4EDBEF275E5D13007B9394 /* ForegroundModel.swift in Sources */,
 				4E290FC02498A57000FC4C61 /* Localization.swift in Sources */,
 				4EC013FE24606F6C001DF5F7 /* BadgeView.swift in Sources */,
 				4E2ECCF3245AEFA1009040F1 /* PackModel.swift in Sources */,
@@ -1208,6 +1271,7 @@
 				4E57FCDA24A0BE1400960ADF /* KeyboardAware.swift in Sources */,
 				4E94C2FF2420D3B00008E318 /* PaymentGatewayView.swift in Sources */,
 				4EECA5052418E91D003A2541 /* ChangeAccountView.swift in Sources */,
+				4E4EDBEC275E5CB7007B9394 /* ForegroundRepository.swift in Sources */,
 				4E78E363245ED1D80017B234 /* PackDetailViewModel.swift in Sources */,
 				4E11D2DD271F14C90042385B /* ActivityConverter.swift in Sources */,
 				4E1A84E12476AE19007FEAFB /* StatsModel.swift in Sources */,
@@ -1217,6 +1281,7 @@
 				4E57FCDD24A0D24500960ADF /* InboxModel.swift in Sources */,
 				4E59E3182472BFF6008C1AAA /* AdsCounterShareView.swift in Sources */,
 				4E356A8E243B230D0094EE27 /* StoreKitWrapper.swift in Sources */,
+				4E8AE1E12756974F00BD2E5B /* AccountRepository.swift in Sources */,
 				4E78E353245DA3600017B234 /* SettingsTabView.swift in Sources */,
 				4E971F7F246BCEA300809EA6 /* PlusFeaturesView.swift in Sources */,
 				4E971F6B246935D100809EA6 /* WebView.swift in Sources */,
@@ -1226,6 +1291,7 @@
 				4E1681A9247860490040334B /* ActivityItemView.swift in Sources */,
 				4EF7EDF5240E9E95001FA02E /* Resources.swift in Sources */,
 				4E1681AC247AF87C0040334B /* ActivityRepository.swift in Sources */,
+				4E8AE1F9275918B400BD2E5B /* CombineUtil.swift in Sources */,
 				4E53CCC6244E34A9009B3CF0 /* PaymentGatewayViewModel.swift in Sources */,
 				4E72D6752461407F00FE7737 /* TabViewModel.swift in Sources */,
 				4ECFD5302441B5A300786F23 /* PaymentService.swift in Sources */,
@@ -1235,10 +1301,11 @@
 				4E267F5C243CB79C00D3160F /* BenefitView.swift in Sources */,
 				4EA105C2242B8A7900559CBB /* Transitions.swift in Sources */,
 				4E57FCD724A0B9FC00960ADF /* ChatInputView.swift in Sources */,
-				4E201D1E27554572001FA2FF /* HttpClientService.swift in Sources */,
+				4E201D1E27554572001FA2FF /* BlockaApiService2.swift in Sources */,
 				4E356A8824376B3A0094EE27 /* SplashView.swift in Sources */,
 				4E53CCC9244E39F5009B3CF0 /* PaymentListView.swift in Sources */,
 				4E42354B244F9198005A0779 /* LeaseViewModel.swift in Sources */,
+				4E8AE1E42757940300BD2E5B /* PersistenceService.swift in Sources */,
 				4E78E35A245EBFD90017B234 /* Sequence+Extensions.swift in Sources */,
 				4E290FC32498A8EB00FC4C61 /* UiGen.swift in Sources */,
 				4EEF1BEC2457FBD900734182 /* DebugView.swift in Sources */,
@@ -1248,6 +1315,7 @@
 				4E53CCB9244DFEB1009B3CF0 /* PaymentModel.swift in Sources */,
 				4E2ECD0B245B2B14009040F1 /* TagView.swift in Sources */,
 				4E63194B2447436C00191C16 /* LeaseListView.swift in Sources */,
+				4E8AE1F32758EC2A00BD2E5B /* CryptoService.swift in Sources */,
 				4E2ECD08245B2794009040F1 /* PackConfigView.swift in Sources */,
 				4E11D2E027206C790042385B /* ActivityTabView.swift in Sources */,
 				4EEF1BEF2457FC4300734182 /* DebugViewModel.swift in Sources */,
@@ -1275,8 +1343,11 @@
 				4E40DBD02417D54E00662E10 /* LocationListView.swift in Sources */,
 				4ED41CC72478458100155C88 /* SearchBar.swift in Sources */,
 				4E59E31B24751D12008C1AAA /* ExpirationService.swift in Sources */,
+				4E8AE1F02758DD8600BD2E5B /* HttpClientService.swift in Sources */,
 				4E78E357245DB4D80017B234 /* InboxView.swift in Sources */,
 				4E267F5A243C8D4300D3160F /* ButtonChoiceView.swift in Sources */,
+				4E8AE1ED2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */,
+				4E8AE1EA2758D93800BD2E5B /* PublishersRepository.swift in Sources */,
 				4E85E98B243382B3001B2795 /* BlockaApiModel.swift in Sources */,
 				4EE5842C2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4E4235542450714E005A0779 /* SharedActionsService.swift in Sources */,
@@ -1293,14 +1364,15 @@
 				4E971F792469977100809EA6 /* DoubleColumnPlaceholderView.swift in Sources */,
 				4ED349C6246C6C0A00C843FA /* BlokadaPlusView.swift in Sources */,
 				4EA2783024657E9E00C6372E /* ShareSheet.swift in Sources */,
+				4E8AE1E72758D0BD00BD2E5B /* JsonUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4E201D3127561AA9001FA2FF /* Sources */ = {
+		4E1DC4C427564F3100A4CAB1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E201D3827561AA9001FA2FF /* AppTests.swift in Sources */,
+				4E1DC4CB27564F3100A4CAB1 /* AppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1323,25 +1395,30 @@
 				4E53CCCA244E3B48009B3CF0 /* PaymentListView.swift in Sources */,
 				4E53CCC7244E38E6009B3CF0 /* PaymentGatewayViewModel.swift in Sources */,
 				4E118DFA24640356005112C1 /* FileManager+Extensions.swift in Sources */,
+				4E4EDBF0275E5D13007B9394 /* ForegroundModel.swift in Sources */,
+				4E8AE1E82758D0BD00BD2E5B /* JsonUtil.swift in Sources */,
 				4E971F7D246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift in Sources */,
 				4E08B9D7247EAD8100AED8F0 /* ContentHostingController.swift in Sources */,
 				4E2ECCFD245B0B56009040F1 /* PacksView.swift in Sources */,
 				4E652944248FE04A00EB871A /* PreviewAllScreensView.swift in Sources */,
 				4E2ECD06245B1535009040F1 /* PacksViewModel.swift in Sources */,
 				4E2ECD00245B0E79009040F1 /* PackDetailView.swift in Sources */,
+				4E8AE1E22756974F00BD2E5B /* AccountRepository.swift in Sources */,
 				4EC014022460741C001DF5F7 /* TabItemView.swift in Sources */,
 				4E2ECCF1245AE5D1009040F1 /* PlaceholderView.swift in Sources */,
 				4E53CCC4244E3299009B3CF0 /* EngineServiceMock.swift in Sources */,
+				4E8AE1F42758EC2A00BD2E5B /* CryptoService.swift in Sources */,
+				4E8AE1F12758DD8600BD2E5B /* HttpClientService.swift in Sources */,
 				4E53CCBC244E00EC009B3CF0 /* PaymentModel.swift in Sources */,
 				4E53CCBD244E00EC009B3CF0 /* SKProduct+Extensions.swift in Sources */,
 				4E57FCD824A0B9FC00960ADF /* ChatInputView.swift in Sources */,
 				4E53CCBE244E00EC009B3CF0 /* PaymentViewModel.swift in Sources */,
+				4E4EDBF3275E8CA3007B9394 /* PersistedTimersRepository.swift in Sources */,
 				4EB12416271DA6F600B10595 /* NetworkDnsService.swift in Sources */,
 				4E57FCE424A0D7BD00960ADF /* InboxViewModel.swift in Sources */,
 				4E57FCDB24A0BE1400960ADF /* KeyboardAware.swift in Sources */,
 				4EC013FF24606F6C001DF5F7 /* BadgeView.swift in Sources */,
 				4E7FE995244DC28900851E9F /* Error.swift in Sources */,
-				4E201D16275517D5001FA2FF /* EngineService.swift in Sources */,
 				4E2ECCF4245AEFA1009040F1 /* PackModel.swift in Sources */,
 				4E7FE996244DC28900851E9F /* MainView.swift in Sources */,
 				4E7FE997244DC28900851E9F /* LocationView.swift in Sources */,
@@ -1352,17 +1429,20 @@
 				4E7FE99C244DC28900851E9F /* KeychainSwiftDistrib.swift in Sources */,
 				4E7FE99D244DC28900851E9F /* AccountView.swift in Sources */,
 				4E42354C244F9198005A0779 /* LeaseViewModel.swift in Sources */,
+				4E8AE1FA275918B400BD2E5B /* CombineUtil.swift in Sources */,
 				4E78E364245ED1D80017B234 /* PackDetailViewModel.swift in Sources */,
 				4E45F4F4248EA5F4002D4DD6 /* LevelView.swift in Sources */,
 				4E290FC12498A57000FC4C61 /* Localization.swift in Sources */,
 				4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4E423531244EE9DB005A0779 /* PaymentServiceMock.swift in Sources */,
 				4E11D2DB271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */,
+				4E8AE1EB2758D93800BD2E5B /* PublishersRepository.swift in Sources */,
 				4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */,
 				4E2ECD0F245B2F38009040F1 /* GridStack.swift in Sources */,
 				4E7FE99E244DC28900851E9F /* SupportView.swift in Sources */,
 				4E2ECCF7245AF870009040F1 /* LoadingButtonView.swift in Sources */,
 				4E59E3192472BFF6008C1AAA /* AdsCounterShareView.swift in Sources */,
+				4E4EDBED275E5CB7007B9394 /* ForegroundRepository.swift in Sources */,
 				4E7FE99F244DC28900851E9F /* Strings.swift in Sources */,
 				4E45F4EE248E87FF002D4DD6 /* AfterActivatedView.swift in Sources */,
 				4E971F6C246935D100809EA6 /* WebView.swift in Sources */,
@@ -1374,7 +1454,7 @@
 				4E1681AA247860490040334B /* ActivityItemView.swift in Sources */,
 				4E2ECD12245CBDB3009040F1 /* TabView.swift in Sources */,
 				4E45F4F1248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */,
-				4E201D1F27554572001FA2FF /* HttpClientService.swift in Sources */,
+				4E201D1F27554572001FA2FF /* BlockaApiService2.swift in Sources */,
 				4E1681AD247AF87C0040334B /* ActivityRepository.swift in Sources */,
 				4E7FE9A6244DC28900851E9F /* PaymentGatewayView.swift in Sources */,
 				4E72D6762461407F00FE7737 /* TabViewModel.swift in Sources */,
@@ -1397,12 +1477,14 @@
 				4E7FE9B4244DC28900851E9F /* BenefitView.swift in Sources */,
 				4E2ECD0C245B2B14009040F1 /* TagView.swift in Sources */,
 				4E7FE9B5244DC28900851E9F /* Transitions.swift in Sources */,
+				4E8AE1EE2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */,
 				4E2ECD09245B2794009040F1 /* PackConfigView.swift in Sources */,
 				4E7FE9B6244DC28900851E9F /* SplashView.swift in Sources */,
 				4E7FE9B8244DC28900851E9F /* NetworkServiceMock.swift in Sources */,
 				4EEF1BF02457FC4300734182 /* DebugViewModel.swift in Sources */,
 				4E7FE9BA244DC28900851E9F /* LeaseListView.swift in Sources */,
 				4E42355224502678005A0779 /* LogViewModel.swift in Sources */,
+				4E8AE1F72758F06500BD2E5B /* AccountModel.swift in Sources */,
 				4E2ECCEE245AE4DE009040F1 /* PackView.swift in Sources */,
 				4EEF1BE92457105E00734182 /* NotificationService.swift in Sources */,
 				4E42353B244F3ADE005A0779 /* LocationViewModel.swift in Sources */,
@@ -1417,6 +1499,8 @@
 				4E7FE9C4244DC28900851E9F /* Logger.swift in Sources */,
 				4E42353E244F3D21005A0779 /* LocationListViewModel.swift in Sources */,
 				4E7FE9C5244DC28900851E9F /* LocationListView.swift in Sources */,
+				4E8AE1E52757940300BD2E5B /* PersistenceService.swift in Sources */,
+				4E8AE1FD27591F8E00BD2E5B /* FactoriesRepository.swift in Sources */,
 				4ED41CC82478458100155C88 /* SearchBar.swift in Sources */,
 				4E59E31C24751D13008C1AAA /* ExpirationService.swift in Sources */,
 				4E78E358245DB4D80017B234 /* InboxView.swift in Sources */,
@@ -1454,10 +1538,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4E201D3A27561AA9001FA2FF /* PBXTargetDependency */ = {
+		4E1DC4CD27564F3100A4CAB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 47729E0122F447C800B9B36B /* App */;
-			targetProxy = 4E201D3927561AA9001FA2FF /* PBXContainerItemProxy */;
+			target = 4E7FE98E244DC28900851E9F /* Mocked */;
+			targetProxy = 4E1DC4CC27564F3100A4CAB1 /* PBXContainerItemProxy */;
 		};
 		4ED3446223E1B1450075B796 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1672,7 +1756,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = IOS/Assets/IOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1682,7 +1766,7 @@
 					"$(SRCROOT)/../common/build/xcode-frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = IOS/Assets/Info.plist;
+				INFOPLIST_FILE = App/Assets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1691,7 +1775,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Engine",
+					"$(PROJECT_DIR)/BlockaEngine",
 				);
 				MARKETING_VERSION = 6.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
@@ -1699,7 +1783,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = Blokada;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Engine/IOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "BlockaEngine/IOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1712,7 +1796,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = IOS/Assets/IOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1722,7 +1806,7 @@
 					"$(SRCROOT)/../common/build/xcode-frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = IOS/Assets/Info.plist;
+				INFOPLIST_FILE = App/Assets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1731,25 +1815,26 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Engine",
+					"$(PROJECT_DIR)/BlockaEngine",
 				);
 				MARKETING_VERSION = 6.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = Blokada;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Engine/IOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "BlockaEngine/IOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		4E201D3C27561AA9001FA2FF /* Debug */ = {
+		4E1DC4CF27564F3100A4CAB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HQH5AFGB68;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1763,17 +1848,18 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blokada.app/Blokada";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mocked.app/Mocked";
 			};
 			name = Debug;
 		};
-		4E201D3D27561AA9001FA2FF /* Release */ = {
+		4E1DC4D027564F3100A4CAB1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HQH5AFGB68;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1787,7 +1873,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blokada.app/Blokada";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mocked.app/Mocked";
 			};
 			name = Release;
 		};
@@ -1796,7 +1882,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = IOS/Assets/IOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1806,7 +1892,7 @@
 					"$(SRCROOT)/../common/build/xcode-frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = IOS/Assets/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1815,7 +1901,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Engine",
 				);
 				MARKETING_VERSION = 5.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
@@ -1823,7 +1908,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Engine/IOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1835,7 +1920,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = IOS/Assets/IOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1845,7 +1930,7 @@
 					"$(SRCROOT)/../common/build/xcode-frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = IOS/Assets/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1854,13 +1939,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Engine",
 				);
 				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Engine/IOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1869,13 +1953,13 @@
 		4ED3446523E1B1450075B796 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IOSNetworkExtension/IOSNetworkExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NETX/IOSNetworkExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = IOSNetworkExtension/Info.plist;
+				INFOPLIST_FILE = NETX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1884,14 +1968,14 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Engine",
+					"$(PROJECT_DIR)/BlockaEngine",
 				);
 				MARKETING_VERSION = 6.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Engine/IOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "BlockaEngine/IOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
@@ -1901,13 +1985,13 @@
 		4ED3446623E1B1450075B796 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IOSNetworkExtension/IOSNetworkExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NETX/IOSNetworkExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = IOSNetworkExtension/Info.plist;
+				INFOPLIST_FILE = NETX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1916,14 +2000,14 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Engine",
+					"$(PROJECT_DIR)/BlockaEngine",
 				);
 				MARKETING_VERSION = 6.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Engine/IOS-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "BlockaEngine/IOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
@@ -1987,11 +2071,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E201D3B27561AA9001FA2FF /* Build configuration list for PBXNativeTarget "AppTests" */ = {
+		4E1DC4CE27564F3100A4CAB1 /* Build configuration list for PBXNativeTarget "AppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4E201D3C27561AA9001FA2FF /* Debug */,
-				4E201D3D27561AA9001FA2FF /* Release */,
+				4E1DC4CF27564F3100A4CAB1 /* Debug */,
+				4E1DC4D027564F3100A4CAB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

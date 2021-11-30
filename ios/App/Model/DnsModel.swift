@@ -57,7 +57,7 @@ extension Dns {
         }
 
         do {
-            return try decoder.decode(Dns.self, from: json)
+            return try blockaDecoder.decode(Dns.self, from: json)
         } catch {
             Logger.e("Dns", "Failed decoding dns json".cause(error))
             return Dns.defaultDns()

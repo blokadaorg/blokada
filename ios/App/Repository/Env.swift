@@ -18,6 +18,10 @@ class Env {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "5.0.0-debug"
     }
 
+    static var osVersion: String {
+        return UIDevice.current.systemVersion
+    }
+
     static var buildType: String {
         #if DEBUG
             return "debug"
