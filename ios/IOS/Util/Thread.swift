@@ -15,11 +15,11 @@ import Foundation
 typealias Callback<T> = ((Error?, T?) -> Void)
 
 typealias Ok<T> = (T) -> Void
-typealias Fail = (Error) -> Void
+typealias Faile = (Error) -> Void
 
 struct Cb<T> {
     let ok: Ok<T>
-    let fail: Fail
+    let fail: Faile
 }
 
 extension Thread {

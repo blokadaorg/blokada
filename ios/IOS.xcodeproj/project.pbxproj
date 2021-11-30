@@ -44,6 +44,8 @@
 		4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
 		4E201D16275517D5001FA2FF /* EngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCA8244DD464009B3CF0 /* EngineService.swift */; };
 		4E201D1C27551F0C001FA2FF /* InboxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57FCDF24A0D5F000960ADF /* InboxService.swift */; };
+		4E201D1E27554572001FA2FF /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* HttpClientService.swift */; };
+		4E201D1F27554572001FA2FF /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* HttpClientService.swift */; };
 		4E227F312433D7B7004F4955 /* BlockaApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F302433D7B7004F4955 /* BlockaApiService.swift */; };
 		4E227F3924347A95004F4955 /* VpnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F3824347A95004F4955 /* VpnService.swift */; };
 		4E227F40243496C5004F4955 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F3F243496C5004F4955 /* Thread.swift */; };
@@ -286,6 +288,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4E201D2C275619C0001FA2FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 47729E0122F447C800B9B36B;
+			remoteInfo = IOS;
+		};
 		4ED3446123E1B1450075B796 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
@@ -322,8 +331,6 @@
 		47729E0C22F447CA00B9B36B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47729E0F22F447CA00B9B36B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47729E1122F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47729E1A22F447CA00B9B36B /* IOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSTests.swift; sourceTree = "<group>"; };
-		47729E1C22F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47729E2522F447CA00B9B36B /* IOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSUITests.swift; sourceTree = "<group>"; };
 		47729E2722F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
@@ -343,6 +350,8 @@
 		4E1681AB247AF87C0040334B /* ActivityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepository.swift; sourceTree = "<group>"; };
 		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1A84E02476AE19007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
+		4E201D1D27554572001FA2FF /* HttpClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
+		4E201D28275619C0001FA2FF /* BlokadaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlokadaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E227F302433D7B7004F4955 /* BlockaApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiService.swift; sourceTree = "<group>"; };
 		4E227F34243479F1004F4955 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4E227F3824347A95004F4955 /* VpnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VpnService.swift; sourceTree = "<group>"; };
@@ -534,6 +543,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4E201D25275619C0001FA2FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E7FE9CD244DC28900851E9F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -561,7 +577,6 @@
 				B2240DBB2417F5DA00F13E97 /* Engine */,
 				4ED3443D23E190910075B796 /* Frameworks */,
 				4ED3445C23E1B1450075B796 /* IOSNetworkExtension */,
-				47729E1922F447CA00B9B36B /* IOSTests */,
 				47729E2422F447CA00B9B36B /* IOSUITests */,
 				47729E0322F447C800B9B36B /* Products */,
 			);
@@ -574,6 +589,7 @@
 				4ED3445B23E1B1450075B796 /* IOSNetworkExtension.appex */,
 				B2240DC72417F83100F13E97 /* liblibengine.a */,
 				4E7FE9D8244DC28900851E9F /* Preview.app */,
+				4E201D28275619C0001FA2FF /* BlokadaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -591,15 +607,6 @@
 				4E42353F244F4808005A0779 /* Util */,
 			);
 			path = IOS;
-			sourceTree = "<group>";
-		};
-		47729E1922F447CA00B9B36B /* IOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				47729E1A22F447CA00B9B36B /* IOSTests.swift */,
-				47729E1C22F447CA00B9B36B /* Info.plist */,
-			);
-			path = IOSTests;
 			sourceTree = "<group>";
 		};
 		47729E2422F447CA00B9B36B /* IOSUITests */ = {
@@ -646,6 +653,7 @@
 				4E4235532450714E005A0779 /* SharedActionsService.swift */,
 				4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */,
 				4E227F3824347A95004F4955 /* VpnService.swift */,
+				4E201D1D27554572001FA2FF /* HttpClientService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -943,6 +951,24 @@
 			productReference = 47729E0222F447C800B9B36B /* Blokada.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4E201D27275619C0001FA2FF /* BlokadaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E201D2E275619C0001FA2FF /* Build configuration list for PBXNativeTarget "BlokadaTests" */;
+			buildPhases = (
+				4E201D24275619C0001FA2FF /* Sources */,
+				4E201D25275619C0001FA2FF /* Frameworks */,
+				4E201D26275619C0001FA2FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E201D2D275619C0001FA2FF /* PBXTargetDependency */,
+			);
+			name = BlokadaTests;
+			productName = BlokadaTests;
+			productReference = 4E201D28275619C0001FA2FF /* BlokadaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		4E7FE98E244DC28900851E9F /* Preview */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E7FE9D5244DC28900851E9F /* Build configuration list for PBXNativeTarget "Preview" */;
@@ -999,13 +1025,17 @@
 		47729DFA22F447C800B9B36B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Blocka AB";
 				TargetAttributes = {
 					47729E0122F447C800B9B36B = {
 						CreatedOnToolsVersion = 10.3;
 						LastSwiftMigration = 1130;
+					};
+					4E201D27275619C0001FA2FF = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 47729E0122F447C800B9B36B;
 					};
 					4ED3445A23E1B1450075B796 = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -1045,6 +1075,7 @@
 				4E7FE98E244DC28900851E9F /* Preview */,
 				4ED3445A23E1B1450075B796 /* IOSNetworkExtension */,
 				B2240DC62417F83100F13E97 /* Blocka Engine */,
+				4E201D27275619C0001FA2FF /* BlokadaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1060,6 +1091,13 @@
 				4E652939248F760700EB871A /* Ui.strings in Resources */,
 				47729E1022F447CA00B9B36B /* LaunchScreen.storyboard in Resources */,
 				47729E0D22F447CA00B9B36B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E201D26275619C0001FA2FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,6 +1236,7 @@
 				4E267F5C243CB79C00D3160F /* BenefitView.swift in Sources */,
 				4EA105C2242B8A7900559CBB /* Transitions.swift in Sources */,
 				4E57FCD724A0B9FC00960ADF /* ChatInputView.swift in Sources */,
+				4E201D1E27554572001FA2FF /* HttpClientService.swift in Sources */,
 				4E356A8824376B3A0094EE27 /* SplashView.swift in Sources */,
 				4E53CCC9244E39F5009B3CF0 /* PaymentListView.swift in Sources */,
 				4E42354B244F9198005A0779 /* LeaseViewModel.swift in Sources */,
@@ -1255,6 +1294,13 @@
 				4E971F792469977100809EA6 /* DoubleColumnPlaceholderView.swift in Sources */,
 				4ED349C6246C6C0A00C843FA /* BlokadaPlusView.swift in Sources */,
 				4EA2783024657E9E00C6372E /* ShareSheet.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E201D24275619C0001FA2FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1328,6 +1374,7 @@
 				4E1681AA247860490040334B /* ActivityItemView.swift in Sources */,
 				4E2ECD12245CBDB3009040F1 /* TabView.swift in Sources */,
 				4E45F4F1248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */,
+				4E201D1F27554572001FA2FF /* HttpClientService.swift in Sources */,
 				4E1681AD247AF87C0040334B /* ActivityRepository.swift in Sources */,
 				4E7FE9A6244DC28900851E9F /* PaymentGatewayView.swift in Sources */,
 				4E72D6762461407F00FE7737 /* TabViewModel.swift in Sources */,
@@ -1407,6 +1454,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4E201D2D275619C0001FA2FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 47729E0122F447C800B9B36B /* IOS */;
+			targetProxy = 4E201D2C275619C0001FA2FF /* PBXContainerItemProxy */;
+		};
 		4ED3446223E1B1450075B796 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4ED3445A23E1B1450075B796 /* IOSNetworkExtension */;
@@ -1691,6 +1743,54 @@
 			};
 			name = Release;
 		};
+		4E201D2F275619C0001FA2FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.blokada.BlokadaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blokada.app/Blokada";
+			};
+			name = Debug;
+		};
+		4E201D30275619C0001FA2FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.blokada.BlokadaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blokada.app/Blokada";
+			};
+			name = Release;
+		};
 		4E7FE9D6244DC28900851E9F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1883,6 +1983,15 @@
 			buildConfigurations = (
 				47729E2B22F447CA00B9B36B /* Debug */,
 				47729E2C22F447CA00B9B36B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E201D2E275619C0001FA2FF /* Build configuration list for PBXNativeTarget "BlokadaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E201D2F275619C0001FA2FF /* Debug */,
+				4E201D30275619C0001FA2FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
