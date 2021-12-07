@@ -49,11 +49,9 @@ class AccountViewModel: ObservableObject {
     private let api = BlockaApiService.shared
     private let vpn = VpnService.shared
     private let networkDns = NetworkDnsService.shared
+    private let accountRepo = Repos.accountRepo
 
     init() {
-        SharedActionsService.shared.newUser = newUser
-        SharedActionsService.shared.updateAccount = updateAccount
-
         Config.shared.setOnAccountUpdated {
             self.syncConfig()
             self.syncTag()
@@ -72,39 +70,6 @@ class AccountViewModel: ObservableObject {
         UIPasteboard.general.string = self.id
     }
 
-    func restoreAccount(_ newId: AccountId, success: @escaping () -> Void) {
-        self.log.v("Restore account")
-        self.working = true
-
-        onBackground {
-            let accountId = newId.lowercased().trimmingCharacters(in: CharacterSet.whitespaces)
-            self.api.getAccount(id: accountId) { error, account in onMain {
-                guard error == nil else {
-                    return self.onError(CommonError.accountInactiveAfterRestore, error)
-                }
-
-//            guard !Env.isProduction || account!.isActive() else {
-//                return self.onError(CommonError.accountInactiveAfterRestore)
-//            }
-
-                self.vpn.turnOffEverything { _, _ in
-                    self.log.v("Generating keypair after restoring account")
-                    let (privateKey, publicKey) = self.vpn.generateKeypair()
-                    Config.shared.newUser(
-                        account: account!,
-                        privateKey: privateKey,
-                        publicKey: publicKey
-                    )
-                    self.setAccount(account!)
-
-                    self.working = false
-                    self.log.v("Restore account: done")
-                    success()
-                }
-            }}
-        }
-    }
-
     private func syncConfig() {
         onMain {
             if Config.shared.hasAccount() && Config.shared.hasKeys() {
@@ -117,46 +82,13 @@ class AccountViewModel: ObservableObject {
         }
     }
 
-    private func updateAccount(account: Account) {
-        if Config.shared.accountId() != account.id || !Config.shared.hasKeys() {
-            self.log.v("Account id changed or no keys, regenerating keys")
-            let (privateKey, publicKey) = self.vpn.generateKeypair()
-            Config.shared.newUser(
-                account: account,
-                privateKey: privateKey,
-                publicKey: publicKey
-            )
-        } else {
-            Config.shared.setAccount(account)
-        }
-        self.setAccount(account)
-        self.log.v("Updated account")
+    func restoreAccount(_ newId: AccountId, success: @escaping () -> Void) {
+        accountRepo.restoreAccount(newId)
+        success()
     }
 
     private func setAccount(_ account: Account) {
         self.account = account
-    }
-
-    private func newUser(done: @escaping Callback<Void>) {
-        self.log.w("New user, creating account")
-
-        self.api.postAccount() { error, account in onMain {
-            guard error == nil else {
-                return done(error, nil)
-            }
-
-            self.log.v("Generating new keypair")
-            let (privateKey, publicKey) = self.vpn.generateKeypair()
-            Config.shared.newUser(
-                account: account!,
-                privateKey: privateKey,
-                publicKey: publicKey
-            )
-            self.setAccount(account!)
-            self.log.v("New account is set")
-
-            return done(nil, nil)
-        }}
     }
 
     private func syncTag() {

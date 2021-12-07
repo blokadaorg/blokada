@@ -42,7 +42,7 @@
 		4E1A84DF2476A6B9007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */; };
 		4E1A84E12476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
 		4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
-		4E1DC4CB27564F3100A4CAB1 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1DC4CA27564F3100A4CAB1 /* AppTests.swift */; };
+		4E1DC4CB27564F3100A4CAB1 /* AccountRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1DC4CA27564F3100A4CAB1 /* AccountRepositoryTests.swift */; };
 		4E201D1C27551F0C001FA2FF /* InboxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57FCDF24A0D5F000960ADF /* InboxService.swift */; };
 		4E201D1E27554572001FA2FF /* BlockaApiService2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* BlockaApiService2.swift */; };
 		4E201D1F27554572001FA2FF /* BlockaApiService2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* BlockaApiService2.swift */; };
@@ -89,6 +89,8 @@
 		4E2ECD0F245B2F38009040F1 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECD0D245B2F38009040F1 /* GridStack.swift */; };
 		4E2ECD11245CBDB3009040F1 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECD10245CBDB3009040F1 /* TabView.swift */; };
 		4E2ECD12245CBDB3009040F1 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECD10245CBDB3009040F1 /* TabView.swift */; };
+		4E2F2A01275F7AB3005A59F5 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A00275F7AB3005A59F5 /* Mocks.swift */; };
+		4E2F2A04275F7B64005A59F5 /* BlockaApiServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A03275F7B64005A59F5 /* BlockaApiServiceMock.swift */; };
 		4E356A8824376B3A0094EE27 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8724376B3A0094EE27 /* SplashView.swift */; };
 		4E356A8A2437711A0094EE27 /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A892437711A0094EE27 /* Links.swift */; };
 		4E356A8C24378CA80094EE27 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8B24378CA80094EE27 /* Strings.swift */; };
@@ -134,8 +136,6 @@
 		4E4EDBED275E5CB7007B9394 /* ForegroundRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEB275E5CB7007B9394 /* ForegroundRepository.swift */; };
 		4E4EDBEF275E5D13007B9394 /* ForegroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEE275E5D13007B9394 /* ForegroundModel.swift */; };
 		4E4EDBF0275E5D13007B9394 /* ForegroundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEE275E5D13007B9394 /* ForegroundModel.swift */; };
-		4E4EDBF2275E8CA3007B9394 /* PersistedTimersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBF1275E8CA3007B9394 /* PersistedTimersRepository.swift */; };
-		4E4EDBF3275E8CA3007B9394 /* PersistedTimersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBF1275E8CA3007B9394 /* PersistedTimersRepository.swift */; };
 		4E52F3AD245AA9E6007E36EE /* RateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3AC245AA9E6007E36EE /* RateAppView.swift */; };
 		4E52F3AE245AA9E6007E36EE /* RateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3AC245AA9E6007E36EE /* RateAppView.swift */; };
 		4E53CCAC244DD549009B3CF0 /* EngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCA8244DD464009B3CF0 /* EngineService.swift */; };
@@ -234,8 +234,8 @@
 		4E8AE1E52757940300BD2E5B /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E32757940300BD2E5B /* PersistenceService.swift */; };
 		4E8AE1E72758D0BD00BD2E5B /* JsonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */; };
 		4E8AE1E82758D0BD00BD2E5B /* JsonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */; };
-		4E8AE1EA2758D93800BD2E5B /* PublishersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E92758D93800BD2E5B /* PublishersRepository.swift */; };
-		4E8AE1EB2758D93800BD2E5B /* PublishersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E92758D93800BD2E5B /* PublishersRepository.swift */; };
+		4E8AE1EA2758D93800BD2E5B /* Repos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E92758D93800BD2E5B /* Repos.swift */; };
+		4E8AE1EB2758D93800BD2E5B /* Repos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E92758D93800BD2E5B /* Repos.swift */; };
 		4E8AE1ED2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */; };
 		4E8AE1EE2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */; };
 		4E8AE1F02758DD8600BD2E5B /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */; };
@@ -246,8 +246,8 @@
 		4E8AE1F72758F06500BD2E5B /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F52758F06500BD2E5B /* AccountModel.swift */; };
 		4E8AE1F9275918B400BD2E5B /* CombineUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */; };
 		4E8AE1FA275918B400BD2E5B /* CombineUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */; };
-		4E8AE1FC27591F8E00BD2E5B /* FactoriesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1FB27591F8E00BD2E5B /* FactoriesRepository.swift */; };
-		4E8AE1FD27591F8E00BD2E5B /* FactoriesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1FB27591F8E00BD2E5B /* FactoriesRepository.swift */; };
+		4E8AE1FC27591F8E00BD2E5B /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1FB27591F8E00BD2E5B /* Services.swift */; };
+		4E8AE1FD27591F8E00BD2E5B /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1FB27591F8E00BD2E5B /* Services.swift */; };
 		4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4E94C2FF2420D3B00008E318 /* PaymentGatewayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */; };
 		4E94C3032428F1C20008E318 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C3022428F1C20008E318 /* Logger.swift */; };
@@ -375,7 +375,7 @@
 		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1A84E02476AE19007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E1DC4CA27564F3100A4CAB1 /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
+		4E1DC4CA27564F3100A4CAB1 /* AccountRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepositoryTests.swift; sourceTree = "<group>"; };
 		4E201D1D27554572001FA2FF /* BlockaApiService2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiService2.swift; sourceTree = "<group>"; };
 		4E227F302433D7B7004F4955 /* BlockaApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiService.swift; sourceTree = "<group>"; };
 		4E227F34243479F1004F4955 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -406,6 +406,8 @@
 		4E2ECD0A245B2B14009040F1 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		4E2ECD0D245B2F38009040F1 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
 		4E2ECD10245CBDB3009040F1 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		4E2F2A00275F7AB3005A59F5 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		4E2F2A03275F7B64005A59F5 /* BlockaApiServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiServiceMock.swift; sourceTree = "<group>"; };
 		4E356A8724376B3A0094EE27 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		4E356A892437711A0094EE27 /* Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Links.swift; sourceTree = "<group>"; };
 		4E356A8B24378CA80094EE27 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -435,7 +437,6 @@
 		4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
 		4E4EDBEB275E5CB7007B9394 /* ForegroundRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundRepository.swift; sourceTree = "<group>"; };
 		4E4EDBEE275E5D13007B9394 /* ForegroundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundModel.swift; sourceTree = "<group>"; };
-		4E4EDBF1275E8CA3007B9394 /* PersistedTimersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedTimersRepository.swift; sourceTree = "<group>"; };
 		4E52F3AC245AA9E6007E36EE /* RateAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateAppView.swift; sourceTree = "<group>"; };
 		4E53CCA8244DD464009B3CF0 /* EngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineService.swift; sourceTree = "<group>"; };
 		4E53CCB6244DFE21009B3CF0 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
@@ -472,13 +473,13 @@
 		4E8AE1E02756974F00BD2E5B /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		4E8AE1E32757940300BD2E5B /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtil.swift; sourceTree = "<group>"; };
-		4E8AE1E92758D93800BD2E5B /* PublishersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishersRepository.swift; sourceTree = "<group>"; };
+		4E8AE1E92758D93800BD2E5B /* Repos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repos.swift; sourceTree = "<group>"; };
 		4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiCurrentUserService.swift; sourceTree = "<group>"; };
 		4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
 		4E8AE1F22758EC2A00BD2E5B /* CryptoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoService.swift; sourceTree = "<group>"; };
 		4E8AE1F52758F06500BD2E5B /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtil.swift; sourceTree = "<group>"; };
-		4E8AE1FB27591F8E00BD2E5B /* FactoriesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoriesRepository.swift; sourceTree = "<group>"; };
+		4E8AE1FB27591F8E00BD2E5B /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		4E94C2FC2420B0A60008E318 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayView.swift; sourceTree = "<group>"; };
 		4E94C3022428F1C20008E318 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -651,7 +652,7 @@
 		4E1DC4C927564F3100A4CAB1 /* AppTests */ = {
 			isa = PBXGroup;
 			children = (
-				4E1DC4CA27564F3100A4CAB1 /* AppTests.swift */,
+				4E1DC4CA27564F3100A4CAB1 /* AccountRepositoryTests.swift */,
 			);
 			path = AppTests;
 			sourceTree = "<group>";
@@ -717,10 +718,9 @@
 				4E2ECD01245B1497009040F1 /* PackRepository.swift */,
 				4E63194424446E1400191C16 /* Config.swift */,
 				4E9A04652449A006003AB48D /* Env.swift */,
-				4E8AE1E92758D93800BD2E5B /* PublishersRepository.swift */,
-				4E8AE1FB27591F8E00BD2E5B /* FactoriesRepository.swift */,
+				4E8AE1E92758D93800BD2E5B /* Repos.swift */,
+				4E8AE1FB27591F8E00BD2E5B /* Services.swift */,
 				4E4EDBEB275E5CB7007B9394 /* ForegroundRepository.swift */,
-				4E4EDBF1275E8CA3007B9394 /* PersistedTimersRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -776,6 +776,8 @@
 				4E9A045F2448A8C9003AB48D /* NetworkServiceMock.swift */,
 				4E971F722469809000809EA6 /* PackDownloaderMock.swift */,
 				4E423530244EE9DB005A0779 /* PaymentServiceMock.swift */,
+				4E2F2A00275F7AB3005A59F5 /* Mocks.swift */,
+				4E2F2A03275F7B64005A59F5 /* BlockaApiServiceMock.swift */,
 			);
 			path = ServiceMock;
 			sourceTree = "<group>";
@@ -1249,13 +1251,12 @@
 				4E2ECCF0245AE5D1009040F1 /* PlaceholderView.swift in Sources */,
 				4E57FCE324A0D7BD00960ADF /* InboxViewModel.swift in Sources */,
 				4EC014012460741C001DF5F7 /* TabItemView.swift in Sources */,
-				4E4EDBF2275E8CA3007B9394 /* PersistedTimersRepository.swift in Sources */,
 				4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */,
 				4E63194524446E1400191C16 /* Config.swift in Sources */,
 				4E42352E244EE662005A0779 /* AccountViewModel.swift in Sources */,
 				4EF7EDF3240E8FBF001FA02E /* ContentView.swift in Sources */,
 				4E40DBCC2416496700662E10 /* HomeView.swift in Sources */,
-				4E8AE1FC27591F8E00BD2E5B /* FactoriesRepository.swift in Sources */,
+				4E8AE1FC27591F8E00BD2E5B /* Services.swift in Sources */,
 				4EB12415271DA6F600B10595 /* NetworkDnsService.swift in Sources */,
 				4E4EDBEF275E5D13007B9394 /* ForegroundModel.swift in Sources */,
 				4E290FC02498A57000FC4C61 /* Localization.swift in Sources */,
@@ -1347,7 +1348,7 @@
 				4E78E357245DB4D80017B234 /* InboxView.swift in Sources */,
 				4E267F5A243C8D4300D3160F /* ButtonChoiceView.swift in Sources */,
 				4E8AE1ED2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */,
-				4E8AE1EA2758D93800BD2E5B /* PublishersRepository.swift in Sources */,
+				4E8AE1EA2758D93800BD2E5B /* Repos.swift in Sources */,
 				4E85E98B243382B3001B2795 /* BlockaApiModel.swift in Sources */,
 				4EE5842C2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4E4235542450714E005A0779 /* SharedActionsService.swift in Sources */,
@@ -1372,7 +1373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E1DC4CB27564F3100A4CAB1 /* AppTests.swift in Sources */,
+				4E1DC4CB27564F3100A4CAB1 /* AccountRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1413,7 +1414,6 @@
 				4E53CCBD244E00EC009B3CF0 /* SKProduct+Extensions.swift in Sources */,
 				4E57FCD824A0B9FC00960ADF /* ChatInputView.swift in Sources */,
 				4E53CCBE244E00EC009B3CF0 /* PaymentViewModel.swift in Sources */,
-				4E4EDBF3275E8CA3007B9394 /* PersistedTimersRepository.swift in Sources */,
 				4EB12416271DA6F600B10595 /* NetworkDnsService.swift in Sources */,
 				4E57FCE424A0D7BD00960ADF /* InboxViewModel.swift in Sources */,
 				4E57FCDB24A0BE1400960ADF /* KeyboardAware.swift in Sources */,
@@ -1433,10 +1433,11 @@
 				4E78E364245ED1D80017B234 /* PackDetailViewModel.swift in Sources */,
 				4E45F4F4248EA5F4002D4DD6 /* LevelView.swift in Sources */,
 				4E290FC12498A57000FC4C61 /* Localization.swift in Sources */,
+				4E2F2A04275F7B64005A59F5 /* BlockaApiServiceMock.swift in Sources */,
 				4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4E423531244EE9DB005A0779 /* PaymentServiceMock.swift in Sources */,
 				4E11D2DB271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */,
-				4E8AE1EB2758D93800BD2E5B /* PublishersRepository.swift in Sources */,
+				4E8AE1EB2758D93800BD2E5B /* Repos.swift in Sources */,
 				4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */,
 				4E2ECD0F245B2F38009040F1 /* GridStack.swift in Sources */,
 				4E7FE99E244DC28900851E9F /* SupportView.swift in Sources */,
@@ -1450,6 +1451,7 @@
 				4E78E354245DA3600017B234 /* SettingsTabView.swift in Sources */,
 				4E78E35E245EC4ED0017B234 /* PackConfigItemView.swift in Sources */,
 				4E7FE9A2244DC28900851E9F /* LeaseView.swift in Sources */,
+				4E2F2A01275F7AB3005A59F5 /* Mocks.swift in Sources */,
 				4E7FE9A4244DC28900851E9F /* PaymentView.swift in Sources */,
 				4E1681AA247860490040334B /* ActivityItemView.swift in Sources */,
 				4E2ECD12245CBDB3009040F1 /* TabView.swift in Sources */,
@@ -1500,7 +1502,7 @@
 				4E42353E244F3D21005A0779 /* LocationListViewModel.swift in Sources */,
 				4E7FE9C5244DC28900851E9F /* LocationListView.swift in Sources */,
 				4E8AE1E52757940300BD2E5B /* PersistenceService.swift in Sources */,
-				4E8AE1FD27591F8E00BD2E5B /* FactoriesRepository.swift in Sources */,
+				4E8AE1FD27591F8E00BD2E5B /* Services.swift in Sources */,
 				4ED41CC82478458100155C88 /* SearchBar.swift in Sources */,
 				4E59E31C24751D13008C1AAA /* ExpirationService.swift in Sources */,
 				4E78E358245DB4D80017B234 /* InboxView.swift in Sources */,

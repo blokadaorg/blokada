@@ -25,7 +25,7 @@ class BlockaApiService2: BlockaApiServiceIn {
     private let decoder = blockaDecoder
     private let encoder = blockaEncoder
 
-    private lazy var client = Factories.http
+    private lazy var client = Services.http
 
     func getAccount(id: AccountId) -> AnyPublisher<Account, Error> {
         return self.client.get("/v1/account?account_id=\(id)")
@@ -43,24 +43,6 @@ class BlockaApiService2: BlockaApiServiceIn {
                 return result.account
             }
             .eraseToAnyPublisher()
-    }
-
-}
-
-class BlockaApiServiceMock: BlockaApiServiceIn {
-
-    var mockAccount = { id in
-        return Just(Account(id: id ?? "wearetesting", active_until: nil, active: false, type: "free"))
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
-    }
-
-    func getAccount(id: AccountId) -> AnyPublisher<Account, Error> {
-        return mockAccount(id)
-    }
-
-    func postNewAccount() -> AnyPublisher<Account, Error> {
-        return mockAccount(nil)
     }
 
 }

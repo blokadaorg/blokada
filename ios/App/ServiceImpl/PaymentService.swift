@@ -21,6 +21,7 @@ class PaymentService {
 
     private let api = BlockaApiService.shared
     private let storeKit = StoreKitWrapper.shared
+    private lazy var accountRepo = Repos.accountRepo
 
     private init() {
         storeKit.onOngoingTransaction = handleOngoingTransaction
@@ -126,7 +127,7 @@ class PaymentService {
             self.storeKit.finishPurchase()
 
             if account != nil {
-                SharedActionsService.shared.updateAccount(account!)
+                self.accountRepo.proposeAccount(account!)
             }
 
             let active = account?.isActive() ?? Config.shared.accountActive()

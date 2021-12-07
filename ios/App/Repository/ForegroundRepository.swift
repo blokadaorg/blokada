@@ -7,16 +7,19 @@
 //
 //  Copyright © 2021 Blocka AB. All rights reserved.
 //
-//  @author Kar
+//  @author Karol Gusak
 //
 
 import Foundation
+import Combine
 
 class ForegroundRepository {
 
-    private let log = Logger("Foreground")
+    var foreground: AnyPublisher<IsForeground, Never> {
+        self.writeForeground.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
+    }
 
-    private lazy var writeForeground = Pubs.writeForeground
+    fileprivate let writeForeground = CurrentValueSubject<IsForeground?, Never>(nil)
 
     func onForeground() {
         writeForeground.send(true)
@@ -24,6 +27,26 @@ class ForegroundRepository {
 
     func onBackground() {
         writeForeground.send(false)
+    }
+
+}
+
+class DebugForegroundRepository: ForegroundRepository {
+
+    private let log = Logger("FgRepo")
+    private var cancellables = Set<AnyCancellable>()
+
+    override init() {
+        super.init()
+
+        foreground.sink(
+            onValue: { it in self.log.v("Foreground: \(it)") }
+        )
+        .store(in: &cancellables)
+    }
+
+    func injectForeground(isForeground: Bool) {
+        writeForeground.send(isForeground)
     }
 
 }

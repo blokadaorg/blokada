@@ -19,14 +19,14 @@ import Combine
  */
 class BlockaApiCurrentUserService {
 
-    lazy var client = Factories.api
-    private lazy var account = Pubs.account
+    lazy var client = Services.api
+    private lazy var account = Repos.accountRepo.account
 
-    func getAccountForCurrentUser() -> AnyPublisher<Account, Error> {
-        return self.account.flatMap { it in
-            self.client.getAccount(id: it.account.id)
-        }
-        .eraseToAnyPublisher()
-    }
+//    func getAccountForCurrentUser() -> AnyPublisher<Account, Error> {
+//        return self.account.flatMap { it in
+//            self.client.getAccount(id: it.account.id)
+//        }
+//        .eraseToAnyPublisher()
+//    }
 
 }

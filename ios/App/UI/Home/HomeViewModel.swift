@@ -193,31 +193,32 @@ class HomeViewModel: ObservableObject {
                     return done(error, nil)
                 }
 
-                if !Config.shared.hasAccount() {
-                    // New user scenario: just create account
-                    self.sharedActions.newUser { error, _ in
-                        guard error == nil else {
-                            self.handleError(CommonError.failedFetchingData, cause: error)
-                            return done(error, nil)
-                        }
-
-                        return self.afterStart(done)
-                    }
-                } else {
-                    // Tunnel is already up and running, check lease and account
-                    if status?.hasGateway() ?? false {
-                        if !Config.shared.accountActive() || !Config.shared.leaseActive() {
-                            //self.log.w("start: Lease expired, showing alert dialog")
-                            //self.showExpiredAlert()
-                            return self.afterStart(done)
-                        } else {
-                            self.expiration.update(Config.shared.account()!)
-                            return self.afterStart(done)
-                        }
-                    } else {
-                         return self.afterStart(done)
-                    }
-                }
+                return self.afterStart(done)
+//                if !Config.shared.hasAccount() {
+//                    // New user scenario: just create account
+//                    self.sharedActions.newUser { error, _ in
+//                        guard error == nil else {
+//                            self.handleError(CommonError.failedFetchingData, cause: error)
+//                            return done(error, nil)
+//                        }
+//
+//                        return self.afterStart(done)
+//                    }
+//                } else {
+//                    // Tunnel is already up and running, check lease and account
+//                    if status?.hasGateway() ?? false {
+//                        if !Config.shared.accountActive() || !Config.shared.leaseActive() {
+//                            //self.log.w("start: Lease expired, showing alert dialog")
+//                            //self.showExpiredAlert()
+//                            return self.afterStart(done)
+//                        } else {
+//                            self.expiration.update(Config.shared.account()!)
+//                            return self.afterStart(done)
+//                        }
+//                    } else {
+//                         return self.afterStart(done)
+//                    }
+//                }
             }}
         }
     }
@@ -247,8 +248,6 @@ class HomeViewModel: ObservableObject {
                 guard error == nil else {
                     return
                 }
-
-                self.maybeSyncUserAfterForeground()
 
                 self.syncUiWithTunnel { error, status in onMain {
                     guard error == nil else {
@@ -305,32 +304,6 @@ class HomeViewModel: ObservableObject {
         if timerSeconds != 0 {
             self.registerBackgroundTask()
         }
-    }
-
-    private let ACCOUNT_REFRESH_SEC: Double = 10 * 60 // Same as on Android
-    private var lastOnForeground: Double = 0
-    private func maybeSyncUserAfterForeground() {
-        if Date().timeIntervalSince1970 < lastOnForeground + ACCOUNT_REFRESH_SEC {
-            return
-        }
-
-        // Check account on foreground at least once a day
-        self.log.v("Foreground: check account after foreground")
-        self.api.getAccount(id: Config.shared.accountId()) { error, account in
-            if let account = account {
-                self.lastOnForeground = Date().timeIntervalSince1970
-
-                self.log.v("Foreground: updating account after foreground")
-                SharedActionsService.shared.updateAccount(account)
-
-                // Account got inactive from backend, turn off vpn and inform the user
-                if !Config.shared.accountActive() && Config.shared.vpnEnabled() {
-                    self.log.w("Foreground: account got deactivated")
-                    self.expiration.update(nil)
-                }
-            }
-        }
-
     }
 
     private func showExpiredAlert() {

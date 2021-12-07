@@ -12,9 +12,9 @@
 
 import Foundation
 
-var Factories = FactoriesRepository()
+var Services = ServicesSingleton()
 
-class FactoriesRepository {
+class ServicesSingleton {
 
     fileprivate init() {}
 
@@ -28,9 +28,8 @@ class FactoriesRepository {
     lazy var api: BlockaApiServiceIn = BlockaApiService2()
     lazy var apiForCurrentUser = BlockaApiCurrentUserService()
 
-    lazy var foreground = ForegroundRepository()
 }
 
-func resetFactories() {
-    Factories = FactoriesRepository()
+func resetServices() {
+    Services = ServicesSingleton()
 }

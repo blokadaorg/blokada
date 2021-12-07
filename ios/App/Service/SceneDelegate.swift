@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let tabVM = TabViewModel()
     private let activityVM = ActivityViewModel()
 
-    private lazy var foreground = Factories.foreground
+    private lazy var foreground = Repos.foregroundRepo
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.

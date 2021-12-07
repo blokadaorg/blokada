@@ -11,6 +11,7 @@
 //
 
 import Foundation
+import Combine
 
 class Config {
 
@@ -18,6 +19,30 @@ class Config {
 
     private init() {
         oldiCloud.synchronizable = true
+        listenToPublishers()
+    }
+
+    private lazy var accounts = Repos.accountRepo.account
+    private var cancellables = Set<AnyCancellable>()
+
+    private func listenToPublishers() {
+        accounts.sink(
+            onValue: { it in
+                let oldAccount = self._account.value
+                self._account.value = it.account
+                //self._keypair.value = it.keypair
+
+                if oldAccount?.id != it.account.id {
+                    self.onAccountIdChanged()
+                }
+
+                if oldAccount?.id != it.account.id || oldAccount?.active_until != it.account.active_until {
+                    self.onAccountUpdated()
+                    self.onConfigUpdated()
+                }
+            }
+        )
+        .store(in: &cancellables)
     }
 
     private let log = Logger("Config")
@@ -31,6 +56,7 @@ class Config {
 
     private let _deviceToken = Atomic<DeviceToken?>(nil)
     private let _account = Atomic<Account?>(nil)
+    private let _keypair = Atomic<Keypair?>(nil)
     private let _lease = Atomic<Lease?>(nil)
     private let _gateway = Atomic<Gateway?>(nil)
 
@@ -78,7 +104,6 @@ class Config {
     func load() {
         //onBackground {
             self.log.v("Loading config")
-            self._account.value = self.loadAccount()
             self._lease.value = self.loadLease()
             self._gateway.value = self.loadGateway()
 
@@ -205,51 +230,6 @@ class Config {
             Thread safe setters
      */
 
-    func newUser(account: Account, privateKey: String, publicKey: String) {
-        if (account.id.isEmpty) {
-            return self.log.e("newUser: provided empty ID, won't set account")
-        }
-
-        _account.value = account
-        persistAccount(account)
-        clearLease()
-        markExpireSeen(false)
-
-        localStorage.set(privateKey, forKey: "privateKey")
-        localStorage.set(publicKey, forKey: "publicKey")
-
-        onMain {
-            self.onConfigUpdated()
-            self.onAccountUpdated()
-            self.onDeviceUpdated()
-            self.onAccountIdChanged()
-        }
-    }
-
-    // XXX: Do not call this method directly, use SharedActionsService.shared.updateAccount(account)
-    func setAccount(_ account: Account) {
-        if (account.id.isEmpty) {
-            return self.log.e("setAccount: provided empty ID, won't set account")
-        }
-
-        if _account.value?.id != account.id {
-            self.log.v("setAccount: Account ID changed")
-            onMain { self.onAccountIdChanged() }
-        }
-
-        if account.isActive() {
-            markExpireSeen(false)
-        }
-
-        _account.value = account
-        persistAccount(account)
-
-        onMain {
-            self.onConfigUpdated()
-            self.onAccountUpdated()
-        }
-    }
-
     func setVpnEnabled(_ enabled: Bool) {
         if enabled != vpnEnabled() {
             localStorage.set(enabled, forKey: "vpnEnabled")
@@ -325,45 +305,6 @@ class Config {
     /**
            Private helper methods
     */
-
-    private func loadAccount() -> Account? {
-        var result = iCloud.string(forKey: "account")
-
-        if result == nil {
-            // A legacy read of the account - to be removed later
-            result = oldiCloud.get("account")
-            if result != nil {
-                log.w("Loaded account from old iCloud storage")
-            }
-        }
-
-        guard let stringData = result else {
-            log.w("No account loaded from config")
-            return nil
-        }
-
-        let jsonData = stringData.data(using: .utf8)
-        guard let json = jsonData else {
-            log.e("Failed getting account json")
-            return nil
-        }
-
-        do {
-            return try self.decoder.decode(Account.self, from: json)
-        } catch {
-            log.e("Failed decoding account json".cause(error))
-            return nil
-        }
-    }
-
-    private func persistAccount(_ account: Account) {
-        guard let body = account.toJson() else {
-            return log.e("Failed encoding account json")
-        }
-
-        iCloud.set(body, forKey: "account")
-        iCloud.synchronize()
-    }
 
     private func loadLease() -> Lease? {
         let result = localStorage.string(forKey: "lease")

@@ -16,27 +16,35 @@ import UIKit
 
 class AccountRepository {
 
-    private let log = Logger("AccRepo")
+    var account: AnyPublisher<AccountWithKeypair, Never> {
+        self.writeAccount.compactMap { $0 }.eraseToAnyPublisher()
+    }
+
+    var error: AnyPublisher<Error, Never> {
+        self.writeError.compactMap { $0 }.eraseToAnyPublisher()
+    }
+
+    private lazy var local = Services.persistenceLocal
+    private lazy var remote = Services.persistenceRemote
+    private lazy var remoteLegacy = Services.persistenceRemoteLegacy
+    private lazy var crypto = Services.crypto
+    private lazy var api = Services.apiForCurrentUser
+
+    private lazy var foreground = Repos.foregroundRepo.foreground
+
     private let decoder = blockaDecoder
     private let encoder = blockaEncoder
 
-    private lazy var local = Factories.persistenceLocal
-    private lazy var remote = Factories.persistenceRemote
-    private lazy var remoteLegacy = Factories.persistenceRemoteLegacy
-    private lazy var crypto = Factories.crypto
-    private lazy var api = Factories.apiForCurrentUser
-
-    private lazy var account = Pubs.account
-    private lazy var writeError = Pubs.writeError
-    private lazy var writeAccount = Pubs.writeAccount
-    private lazy var foreground = Pubs.foreground
-
     private let bgQueue = DispatchQueue(label: "AccRepoBgQueue")
 
-    private lazy var proposeAccountRequests = PassthroughSubject<Account, Never>()
-    private lazy var refreshAccountRequests = PassthroughSubject<AccountId, Never>()
-    private lazy var restoreAccountRequests = PassthroughSubject<AccountId, Never>()
-    private lazy var lastAccountRequestTimestamp = CurrentValueSubject<Double, Never>(0)
+    fileprivate let writeError = CurrentValueSubject<Error?, Never>(nil)
+    fileprivate let writeAccount = CurrentValueSubject<AccountWithKeypair?, Never>(nil)
+    fileprivate let proposeAccountRequests = PassthroughSubject<Account, Never>()
+    fileprivate let refreshAccountRequests = PassthroughSubject<AccountId, Never>()
+    fileprivate let restoreAccountRequests = PassthroughSubject<AccountId, Never>()
+
+    private let recentAccount = Atomic<AccountWithKeypair?>(nil)
+    private let lastAccountRequestTimestamp = Atomic<Double>(0)
 
     private let ACCOUNT_REFRESH_SEC: Double = 10 * 60 // Same as on Android
 
@@ -48,6 +56,7 @@ class AccountRepository {
         listenToProposeAccountRequests()
         listenToRefreshAccountRequests()
         listenToRestoreAccountRequests()
+        listenToAccountPublisherAndCacheLocally()
         refreshAccountPeriodically()
     }
     
@@ -89,8 +98,8 @@ class AccountRepository {
         proposeAccountRequests
         .debounce(for: 0.3, scheduler: bgQueue)
         //.removeDuplicates()
-        .combineLatest(self.account)
-        .tryMap { it -> (Account, AccountWithKeypair) in
+        .map { it in (it, self.recentAccount.value) }
+        .tryMap { it -> (Account, AccountWithKeypair?) in
             try self.validateAccountId(it.0.id)
             return it
         }
@@ -98,12 +107,13 @@ class AccountRepository {
             let accountPublisher: AnyPublisher<Account, Error> = Just(it.0)
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
-            var keypairPublisher: AnyPublisher<Keypair, Error> = Just(it.1.keypair)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
+            var keypairPublisher: AnyPublisher<Keypair, Error> = self.crypto.generateKeypair()
 
-            if it.1.account.id != it.0.id {
-                keypairPublisher = self.crypto.generateKeypair()
+            if let acc = it.1, acc.account.id == it.0.id {
+                // Use same keypair if account ID hasn't changed
+                keypairPublisher = Just(acc.keypair)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
             }
 
             return Publishers.CombineLatest(
@@ -132,7 +142,7 @@ class AccountRepository {
         .sink(
             onValue: { it in
                 self.proposeAccountRequests.send(it)
-                self.lastAccountRequestTimestamp.send(Date().timeIntervalSince1970)
+                self.lastAccountRequestTimestamp.value = Date().timeIntervalSince1970
             },
             onFailure: { err in self.writeError.send(err) }
         )
@@ -160,20 +170,16 @@ class AccountRepository {
     private func refreshAccountPeriodically() {
         foreground
         .filter { foreground in foreground == true }
-        .debounce(for: 2, scheduler: bgQueue)
-        .removeDuplicates()
-        .combineLatest(self.lastAccountRequestTimestamp)
-        .map { it in it.1 }
-        .filter { lastRefresh in
-            lastRefresh < Date().timeIntervalSince1970 - self.ACCOUNT_REFRESH_SEC
+        .debounce(for: 1, scheduler: bgQueue)
+        .filter { it in
+            self.lastAccountRequestTimestamp.value < Date().timeIntervalSince1970 - self.ACCOUNT_REFRESH_SEC
         }
-        .combineLatest(self.account)
-        .map { it in it.1 }
+        .compactMap { it in self.recentAccount.value }
         .sink(
             onValue: { it in
                 // This is not ideal as the timestamp may not be published yet on the next call
                 // But long debounce seems to fix it.
-                self.lastAccountRequestTimestamp.send(Date().timeIntervalSince1970)
+                self.lastAccountRequestTimestamp.value = Date().timeIntervalSince1970
                 self.refreshAccountRequests.send(it.account.id)
             }
         )
@@ -267,5 +273,44 @@ class AccountRepository {
             }.eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
+    }
+
+    // Take account from hot publisher to use in cold publishers (Combine has poor support for this)
+    private func listenToAccountPublisherAndCacheLocally() {
+        self.account.sink(
+            onValue: { it in self.recentAccount.value = it }
+        )
+        .store(in: &cancellables)
+    }
+
+}
+
+class DebugAccountRepository: AccountRepository {
+
+    private let log = Logger("AccRepo")
+    private var cancellables = Set<AnyCancellable>()
+
+    override init() {
+        super.init()
+
+        account.sink(
+            onValue: { it in self.log.v("Account: \(it)") }
+        )
+        .store(in: &cancellables)
+
+        proposeAccountRequests.sink(
+            onValue: { it in self.log.v("ProposeAccountRequest: \(it)") }
+        )
+        .store(in: &cancellables)
+
+        refreshAccountRequests.sink(
+            onValue: { it in self.log.v("RefreshAccountRequest: \(it)") }
+        )
+        .store(in: &cancellables)
+
+        restoreAccountRequests.sink(
+            onValue: { it in self.log.v("RestoreAccountRequest: \(it)") }
+        )
+        .store(in: &cancellables)
     }
 }
