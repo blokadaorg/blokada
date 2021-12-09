@@ -7,14 +7,14 @@
 //
 //  Copyright © 2021 Blocka AB. All rights reserved.
 //
-//  @author Kar
+//  @author Karol Gusak
 //
 
 import XCTest
 import Combine
 @testable import Mocked
 
-class AccountRepositoryTests: XCTestCase {
+class AccountRepoTests: XCTestCase {
 
     override func setUpWithError() throws {
         Mocks.resetEverythingForTest()
@@ -35,7 +35,7 @@ class AccountRepositoryTests: XCTestCase {
         resetReposForDebug()
 
         let exp = XCTestExpectation(description: "will return account in publisher")
-        let pub = Repos.accountRepo.account.sink(
+        let pub = Repos.accountRepo.accountHot.sink(
             onValue: { it in
                 XCTAssertEqual("wearetesting", it.account.id)
                 XCTAssert(!it.account.id.isEmpty)
@@ -72,7 +72,7 @@ class AccountRepositoryTests: XCTestCase {
 
         // First subscriber should get all accounts in order
         var firstResult = true
-        Repos.accountRepo.account.sink(
+        Repos.accountRepo.accountHot.sink(
             onValue: { it in
                 if firstResult {
                     XCTAssertEqual("111111111111", it.account.id)
@@ -88,7 +88,7 @@ class AccountRepositoryTests: XCTestCase {
 
         // Second subsrciber as well
         var firstResultForSecondSubscriber = true
-        Repos.accountRepo.account.sink(
+        Repos.accountRepo.accountHot.sink(
             onValue: { it in
                 if firstResultForSecondSubscriber {
                     XCTAssertEqual("111111111111", it.account.id)
@@ -119,7 +119,7 @@ class AccountRepositoryTests: XCTestCase {
 
         resetReposForDebug()
 
-        Repos.accountRepo.account
+        Repos.accountRepo.accountHot
         .filter { it in it.account.id == proposedAccount.id }
         .sink(
             onValue: { it in
@@ -152,7 +152,7 @@ class AccountRepositoryTests: XCTestCase {
 
         resetReposForDebug()
 
-        let foregroundDebug = Repos.foregroundRepo as! DebugForegroundRepository
+        let foregroundDebug = Repos.foregroundRepo as! DebugForegroundRepo
 
         // Shoot 10 quick foreground/background events to see how they are processed by the repo
         Array(0...10).publisher
@@ -163,7 +163,7 @@ class AccountRepositoryTests: XCTestCase {
         )
         .store(in: &cancellables)
 
-        Repos.foregroundRepo.foreground
+        Repos.foregroundRepo.foregroundHot
         .debounce(for: 2, scheduler: bg) // Debounce to wait a bit before checking the expectation
         .sink(
             onValue: { it in exp.fulfill() }

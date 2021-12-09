@@ -17,13 +17,20 @@ var Repos = RepositoriesSingleton()
 
 class RepositoriesSingleton {
 
-    lazy var foregroundRepo = ForegroundRepository()
-    lazy var accountRepo = AccountRepository()
+    lazy var envRepo = EnvRepo()
+    lazy var processingRepo = ProcessingRepo()
+    lazy var foregroundRepo = ForegroundRepo()
+    lazy var navRepo = NavRepo()
+    lazy var accountRepo = AccountRepo()
+    lazy var cloudRepo = CloudRepo()
+    lazy var appRepo = AppRepo()
 
 }
 
 func resetReposForDebug() {
     Repos = RepositoriesSingleton()
-    Repos.foregroundRepo = DebugForegroundRepository()
-    Repos.accountRepo = DebugAccountRepository()
+    Repos.processingRepo = DebugProcessingRepo()
+    Repos.foregroundRepo = DebugForegroundRepo()
+    Repos.accountRepo = DebugAccountRepo()
+    Repos.cloudRepo = DebugCloudRepo()
 }

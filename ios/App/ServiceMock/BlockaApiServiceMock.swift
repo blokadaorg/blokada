@@ -27,4 +27,12 @@ class BlockaApiServiceMock: BlockaApiServiceIn {
         return mockAccount(nil)
     }
 
+    func getDevice(id: AccountId) -> AnyPublisher<DevicePayload, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func putDevice(request: DeviceRequest) -> AnyPublisher<Never, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
 }

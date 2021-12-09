@@ -92,7 +92,7 @@ struct MainView: View {
                                         Image(systemName: "square.and.arrow.up")
                                     }
 
-                                    if !Env.isProduction {
+                                    if !Repos.envRepo.isProduction {
                                         Button(action: {
                                             self.activeSheet = .debug
                                         }) {

@@ -14,31 +14,32 @@ import Foundation
 import Combine
 import UIKit
 
-class AccountRepository {
+class AccountRepo {
 
-    var account: AnyPublisher<AccountWithKeypair, Never> {
+    var accountHot: AnyPublisher<AccountWithKeypair, Never> {
         self.writeAccount.compactMap { $0 }.eraseToAnyPublisher()
     }
 
-    var error: AnyPublisher<Error, Never> {
-        self.writeError.compactMap { $0 }.eraseToAnyPublisher()
+    var accountIdHot: AnyPublisher<AccountId, Never> {
+        self.accountHot.map { it in it.account.id }.removeDuplicates().eraseToAnyPublisher()
     }
 
     private lazy var local = Services.persistenceLocal
     private lazy var remote = Services.persistenceRemote
     private lazy var remoteLegacy = Services.persistenceRemoteLegacy
     private lazy var crypto = Services.crypto
-    private lazy var api = Services.apiForCurrentUser
+    private lazy var api = Services.api
 
-    private lazy var foreground = Repos.foregroundRepo.foreground
+    private lazy var processingRepo = Repos.processingRepo
+    private lazy var enteredForegroundHot = Repos.foregroundRepo.enteredForegroundHot
 
     private let decoder = blockaDecoder
     private let encoder = blockaEncoder
 
     private let bgQueue = DispatchQueue(label: "AccRepoBgQueue")
 
-    fileprivate let writeError = CurrentValueSubject<Error?, Never>(nil)
     fileprivate let writeAccount = CurrentValueSubject<AccountWithKeypair?, Never>(nil)
+
     fileprivate let proposeAccountRequests = PassthroughSubject<Account, Never>()
     fileprivate let refreshAccountRequests = PassthroughSubject<AccountId, Never>()
     fileprivate let restoreAccountRequests = PassthroughSubject<AccountId, Never>()
@@ -62,15 +63,26 @@ class AccountRepository {
     
     // Gets account from API based on user entered account ID. Does sanitization.
     func restoreAccount(_ newAccountId: AccountId) {
+        processingRepo.notify(self, ongoing: true)
         restoreAccountRequests.send(newAccountId)
     }
 
     // Accepts account received from the payment callback (usually old receipt).
     func proposeAccount(_ newAccount: Account) {
+        processingRepo.notify(self, ongoing: true)
         proposeAccountRequests.send(newAccount)
     }
 
+    // A cold publisher alternative to get the current account
+    func getAccount() -> AnyPublisher<AccountWithKeypair, Error> {
+        guard let account = recentAccount.value else {
+            return Fail(error: "getAccount: account not available yet").eraseToAnyPublisher()
+        }
+        return Just(account).setFailureType(to: Error.self).eraseToAnyPublisher()
+    }
+
     private func loadFromPersistenceOrCreateAccount() {
+        self.processingRepo.notify(self, ongoing: true)
         Publishers.CombineLatest(
             self.loadAccountFromPersistence(),
             self.loadKeypairFromPersistence()
@@ -86,9 +98,19 @@ class AccountRepository {
             }
             throw err
         }
+        .flatMap { it in
+            Publishers.CombineLatest(
+                self.saveAccountToPersistence(it.account),
+                self.saveKeypairToPersistence(it.keypair)
+            )
+            .tryMap { _ in it }
+        }
         .sink(
-            onValue: { it in self.writeAccount.send(it) },
-            onFailure: { err in self.writeError.send(err) }
+            onValue: { it in
+                self.processingRepo.notify(self, ongoing: false)
+                self.writeAccount.send(it)
+            },
+            onFailure: { err in self.processingRepo.notify(self, err, major: false) }
         )
         .store(in: &cancellables)
     }
@@ -96,7 +118,7 @@ class AccountRepository {
     // Receives Account object to be verified and saved. No request, but may regen keys.
     func listenToProposeAccountRequests() {
         proposeAccountRequests
-        .debounce(for: 0.3, scheduler: bgQueue)
+        .debounce(for: .seconds(DEFAULT_USER_INTERACTION_DEBOUNCE), scheduler: bgQueue)
         //.removeDuplicates()
         .map { it in (it, self.recentAccount.value) }
         .tryMap { it -> (Account, AccountWithKeypair?) in
@@ -122,13 +144,23 @@ class AccountRepository {
             )
             .eraseToAnyPublisher()
         }
-        .tryMap { it in
+        .tryMap { it -> AccountWithKeypair in
             try self.validateAccount(it.0, it.1)
             return AccountWithKeypair(account: it.0, keypair: it.1)
         }
+        .flatMap { it in
+            Publishers.CombineLatest(
+                self.saveAccountToPersistence(it.account),
+                self.saveKeypairToPersistence(it.keypair)
+            )
+            .tryMap { _ in it }
+        }
         .sink(
-            onValue: { it in self.writeAccount.send(it) },
-            onFailure: { err in self.writeError.send(err) }
+            onValue: { it in
+                self.processingRepo.notify(self, ongoing: false)
+                self.writeAccount.send(it)
+            },
+            onFailure: { err in self.processingRepo.notify(self, err, major: true) }
         )
         .store(in: &cancellables)
     }
@@ -137,14 +169,14 @@ class AccountRepository {
     func listenToRefreshAccountRequests() {
         refreshAccountRequests
         .flatMap { accountId in
-            self.api.client.getAccount(id: accountId)
+            self.api.getAccount(id: accountId)
         }
         .sink(
             onValue: { it in
-                self.proposeAccountRequests.send(it)
                 self.lastAccountRequestTimestamp.value = Date().timeIntervalSince1970
+                self.proposeAccountRequests.send(it)
             },
-            onFailure: { err in self.writeError.send(err) }
+            onFailure: { err in self.processingRepo.notify(self, err, major: false) }
         )
         .store(in: &cancellables)
     }
@@ -152,7 +184,7 @@ class AccountRepository {
     // Account ID is input from user, sanitize it and then forward to do the refresh
     func listenToRestoreAccountRequests() {
         restoreAccountRequests
-        .debounce(for: 0.3, scheduler: bgQueue)
+        .debounce(for: .seconds(DEFAULT_USER_INTERACTION_DEBOUNCE), scheduler: bgQueue)
         .removeDuplicates()
         .map { accountId in accountId.lowercased().trimmingCharacters(in: CharacterSet.whitespaces) }
         .tryMap { accountId in
@@ -161,25 +193,22 @@ class AccountRepository {
         }
         .sink(
             onValue: { it in self.refreshAccountRequests.send(it) },
-            onFailure: { err in self.writeError.send(err) }
+            onFailure: { err in self.processingRepo.notify(self, err, major: true) }
         )
         .store(in: &cancellables)
     }
 
     // When app enters foreground, periodically refresh account
     private func refreshAccountPeriodically() {
-        foreground
-        .filter { foreground in foreground == true }
-        .debounce(for: 1, scheduler: bgQueue)
+        enteredForegroundHot
         .filter { it in
             self.lastAccountRequestTimestamp.value < Date().timeIntervalSince1970 - self.ACCOUNT_REFRESH_SEC
         }
         .compactMap { it in self.recentAccount.value }
         .sink(
             onValue: { it in
-                // This is not ideal as the timestamp may not be published yet on the next call
-                // But long debounce seems to fix it.
                 self.lastAccountRequestTimestamp.value = Date().timeIntervalSince1970
+                self.processingRepo.notify(self, ongoing: true)
                 self.refreshAccountRequests.send(it.account.id)
             }
         )
@@ -188,7 +217,7 @@ class AccountRepository {
 
     private func createNewUser() -> AnyPublisher<AccountWithKeypair, Error> {
         return Publishers.CombineLatest(
-            self.api.client.postNewAccount(),
+            self.api.postNewAccount(),
             self.crypto.generateKeypair()
         )
         .tryMap { it in
@@ -211,31 +240,32 @@ class AccountRepository {
         }
     }
 
-    private func saveAccountToPersistence(_ account: Account) {
-        var cancellables = Set<AnyCancellable>()
+    private func saveAccountToPersistence(_ account: Account) -> AnyPublisher<Void, Error> {
         Just(account).encode(encoder: self.encoder)
         .tryMap { it -> String in
             guard let it = String(data: it, encoding: .utf8) else {
-                throw "setAccount: could not encode json data to string"
+                throw "account: could not encode json data to string"
             }
             return it
         }
-        .tryMap { it in
-            return self.remote.setString(it, forKey: "account").eraseToAnyPublisher()
+        .flatMap { it in
+            return self.remote.setString(it, forKey: "account")
         }
-        .sink(
-            receiveCompletion: { completion in
-                switch completion {
-                case .failure(let err):
-                    self.writeError.send(err)
-                    break
-                default:
-                    break
-                }
-            },
-            receiveValue: { it in }
-        )
-        .store(in: &cancellables)
+        .eraseToAnyPublisher()
+    }
+
+    private func saveKeypairToPersistence(_ keypair: Keypair) -> AnyPublisher<Void, Error> {
+        Just(keypair).encode(encoder: self.encoder)
+        .tryMap { it -> String in
+            guard let it = String(data: it, encoding: .utf8) else {
+                throw "keypair: could not encode json data to string"
+            }
+            return it
+        }
+        .flatMap { it in
+            return self.remote.setString(it, forKey: "keypair")
+        }
+        .eraseToAnyPublisher()
     }
 
     private func loadAccountFromPersistence() -> AnyPublisher<Account, Error> {
@@ -245,7 +275,7 @@ class AccountRepository {
         }
         .tryMap { it -> Data in
             guard let it = it.data(using: .utf8) else {
-                throw "failed reading persisted account data"
+                throw "account: failed reading persisted account data"
             }
 
             return it
@@ -257,7 +287,7 @@ class AccountRepository {
     private func loadKeypairFromPersistence() -> AnyPublisher<Keypair, Error> {
         return local.getString(forKey: "keypair").tryMap { it -> Data in
             guard let it = it.data(using: .utf8) else {
-                throw "failed reading persisted keypair data"
+                throw "keypair: failed reading persisted keypair data"
             }
 
             return it
@@ -268,16 +298,18 @@ class AccountRepository {
             return Publishers.CombineLatest(
                 self.local.getString(forKey: "privateKey"),
                 self.local.getString(forKey: "publicKey")
-            ).tryMap { it in
+            )
+            .tryMap { it in
                 return Keypair(privateKey: it.0, publicKey: it.1)
-            }.eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
     }
 
     // Take account from hot publisher to use in cold publishers (Combine has poor support for this)
     private func listenToAccountPublisherAndCacheLocally() {
-        self.account.sink(
+        self.accountHot.sink(
             onValue: { it in self.recentAccount.value = it }
         )
         .store(in: &cancellables)
@@ -285,7 +317,7 @@ class AccountRepository {
 
 }
 
-class DebugAccountRepository: AccountRepository {
+class DebugAccountRepo: AccountRepo {
 
     private let log = Logger("AccRepo")
     private var cancellables = Set<AnyCancellable>()
@@ -293,7 +325,7 @@ class DebugAccountRepository: AccountRepository {
     override init() {
         super.init()
 
-        account.sink(
+        accountHot.sink(
             onValue: { it in self.log.v("Account: \(it)") }
         )
         .store(in: &cancellables)

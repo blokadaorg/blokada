@@ -55,7 +55,7 @@ class Links {
             path: "/support",
             queries: [
                 URLQueryItem(name: "account-id", value: Config.shared.accountId()),
-                URLQueryItem(name: "user-agent", value: BlockaApiService.userAgent())
+                URLQueryItem(name: "user-agent", value: Services.http.userAgent())
             ])
     }
 

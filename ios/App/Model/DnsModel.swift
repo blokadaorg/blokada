@@ -77,10 +77,7 @@ extension Dns {
         //Dns(ips: ["1.1.1.3", "1.0.0.3", "2606:4700:4700::1113", "2606:4700:4700::1003"], port: 443, name: "cloudflare-dns.com", path: "dns-query", label: "Cloudflare: malware & adult blocking"),
         Dns(ips: ["185.95.218.42", "185.95.218.43", "2a05:fc84::42", "2a05:fc84::43"], port: 443, name: "dns.digitale-gesellschaft.ch", path: "dns-query", label: "Digitale Gesellschaft (Switzerland)", plusIps: nil),
         Dns(ips: ["8.8.8.8", "8.8.4.4", "2001:4860:4860::8888", "2001:4860:4860::8844"], port: 443, name: "dns.google", path: "resolve", label: "Google", plusIps: nil),
-    ] + (Env.isProduction ? [] : [
-        // Debug only entries
-        Dns(ips: ["0.0.0.0"], port: 443, name: "localhost", path: "dns-query", label: "Broken DNS (for testing only)", plusIps: nil)
-        ])
+    ]
 
     static func defaultDns() -> Dns {
         return hardcoded.first { $0.label == "Cloudflare" }!

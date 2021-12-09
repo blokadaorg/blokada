@@ -26,12 +26,10 @@ class BlockaApiService {
 
     private let network = NetworkService.shared
 
+    private let envRepo = Repos.envRepo
+
     private init() {
         // singleton
-    }
-
-    static func userAgent() -> String {
-        return "blokada/\(Env.appVersion) (ios-\(UIDevice.current.systemVersion) ios \(Env.buildType) \(Env.cpu) apple \(Env.deviceModel) touch api compatible)"
     }
 
     func postAccount(done: @escaping Callback<Account>) {
@@ -325,7 +323,7 @@ class BlockaApiService {
                 return done(error, nil)
             }
 
-            if let lease = leases?.first(where: { $0.alias == Env.aliasForLease }) {
+            if let lease = leases?.first(where: { $0.alias == self.envRepo.aliasForLease }) {
                 let leaseRequest = LeaseRequest(
                     account_id: lease.account_id,
                     public_key: lease.public_key,
@@ -381,7 +379,7 @@ class BlockaApiService {
                 return
             }
 
-            let thisDevice = Config.shared.deviceName()
+            let thisDevice = self.envRepo.deviceName
             // TODO: Including empty device because we cannot set device name in Plus mode
             done(nil, activity.filter { it in it.device_name == thisDevice || it.device_name.isEmpty })
         }

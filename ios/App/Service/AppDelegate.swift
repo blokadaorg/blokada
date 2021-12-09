@@ -23,13 +23,16 @@ import UIKit
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        resetReposForDebug()
+
         LoggerSaver.cleanup()
 
         let log = Logger("")
         log.w("*** ******************* ***")
         log.w("*** BLOKADA IOS STARTED ***")
         log.w("*** ******************* ***")
-        log.v(BlockaApiService.userAgent())
+        log.v(Services.http.userAgent())
 
         Config.shared.load()
         EngineService.shared.panicHook()

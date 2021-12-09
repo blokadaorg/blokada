@@ -17,6 +17,8 @@ import UIKit
 protocol BlockaApiServiceIn {
     func getAccount(id: AccountId) -> AnyPublisher<Account, Error>
     func postNewAccount() -> AnyPublisher<Account, Error>
+    func getDevice(id: AccountId) -> AnyPublisher<DevicePayload, Error>
+    func putDevice(request: DeviceRequest) -> AnyPublisher<Never, Error>
 }
 
 class BlockaApiService2: BlockaApiServiceIn {
@@ -29,20 +31,31 @@ class BlockaApiService2: BlockaApiServiceIn {
 
     func getAccount(id: AccountId) -> AnyPublisher<Account, Error> {
         return self.client.get("/v1/account?account_id=\(id)")
-            .decode(type: AccountWrapper.self, decoder: self.decoder)
-            .map { result in
-                return result.account
-            }
-            .eraseToAnyPublisher()
+        .decode(type: AccountWrapper.self, decoder: self.decoder)
+        .map { result in
+            return result.account
+        }
+        .eraseToAnyPublisher()
     }
 
     func postNewAccount() -> AnyPublisher<Account, Error> {
         return self.client.post("/v1/account", payload: nil)
-            .decode(type: AccountWrapper.self, decoder: self.decoder)
-            .map { result in
-                return result.account
-            }
-            .eraseToAnyPublisher()
+        .decode(type: AccountWrapper.self, decoder: self.decoder)
+        .map { result in
+            return result.account
+        }
+        .eraseToAnyPublisher()
     }
 
+    func getDevice(id: AccountId) -> AnyPublisher<DevicePayload, Error> {
+        return self.client.get("/v1/device?account_id=\(id)")
+        .decode(type: DevicePayload.self, decoder: self.decoder)
+        .eraseToAnyPublisher()
+    }
+
+    func putDevice(request: DeviceRequest) -> AnyPublisher<Never, Error> {
+        return self.client.put("/v1/device", payload: request)
+        .ignoreOutput()
+        .eraseToAnyPublisher()
+    }
 }

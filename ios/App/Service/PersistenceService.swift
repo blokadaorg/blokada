@@ -38,7 +38,7 @@ class LocalStoragePersistenceService: PersistenceService {
         return Deferred { () -> AnyPublisher<Void, Error> in
             self.localStorage.set(value, forKey: forKey)
 
-            return Empty<Void, Error>().eraseToAnyPublisher()
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
     }
@@ -66,7 +66,7 @@ class ICloudPersistenceService: PersistenceService {
             self.iCloud.set(value, forKey: forKey)
             self.iCloud.synchronize()
 
-            return Empty<Void, Error>().eraseToAnyPublisher()
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
     }
@@ -108,7 +108,7 @@ class PersistenceServiceMock: PersistenceService {
     
     func setString(_ value: String, forKey: String) -> AnyPublisher<Void, Error> {
         return Deferred { () -> AnyPublisher<Void, Error> in
-            return Empty<Void, Error>().eraseToAnyPublisher()
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
     }

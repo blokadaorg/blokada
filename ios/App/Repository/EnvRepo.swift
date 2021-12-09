@@ -13,32 +13,9 @@
 import Foundation
 import UIKit
 
-class Env {
-    static var appVersion: String {
-        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "5.0.0-debug"
-    }
+class EnvRepo {
 
-    static var osVersion: String {
-        return UIDevice.current.systemVersion
-    }
-
-    static var buildType: String {
-        #if DEBUG
-            return "debug"
-        #else
-            return "release"
-        #endif
-    }
-
-    static var deviceModel: String {
-        return UIDevice.current.modelName
-    }
-
-    static var name: String {
-        return UIDevice.current.name
-    }
-
-    static var cpu: String {
+    var cpu: String {
         #if PREVIEW
             return "sim"
         #else
@@ -46,13 +23,28 @@ class Env {
         #endif
     }
 
-    static var isProduction: Bool {
+    var buildType: String {
+        #if DEBUG
+            return "debug"
+        #else
+            return "release"
+        #endif
+    }
+
+    var isProduction: Bool {
         return buildType == "release"
     }
 
-    static var aliasForLease: String {
-        return UIDevice.current.name
-    }
+    let deviceModel = UIDevice.current.modelName
+
+    let deviceName = UIDevice.current.name
+
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "6.0.0-debug"
+
+    let osVersion = UIDevice.current.systemVersion
+
+    let aliasForLease = UIDevice.current.name
+
 }
 
 extension UIDevice {

@@ -22,7 +22,7 @@ class Config {
         listenToPublishers()
     }
 
-    private lazy var accounts = Repos.accountRepo.account
+    private lazy var accounts = Repos.accountRepo.accountHot
     private var cancellables = Set<AnyCancellable>()
 
     private func listenToPublishers() {
@@ -202,16 +202,7 @@ class Config {
     }
 
     func deviceTag() -> String {
-        if let key = localStorage.string(forKey: "deviceTag") {
-            return key
-        } else {
-            log.e("Accessing deviceTag before it is set")
-            return ""
-        }
-    }
-
-    func deviceName() -> String {
-        return Env.name
+        return "TODO-device-tag"
     }
 
     func logRetention() -> String {
@@ -284,10 +275,6 @@ class Config {
 
     func markFirstRun() {
         localStorage.set(true, forKey: "notFirstRun")
-    }
-
-    func setDeviceTag(tag: String) {
-        localStorage.set(tag, forKey: "deviceTag")
     }
 
     func setLogRetention(retention: String) {

@@ -46,7 +46,7 @@ class NetworkService {
     func foreground() {
         onBackground {
             self.log.v("foreground, creating httpclient")
-            self.httpClient = api_new(10, BlockaApiService.userAgent())
+            self.httpClient = api_new(10, Services.http.userAgent())
         }
     }
 
@@ -100,7 +100,7 @@ class NetworkService {
 
         protoConfig.providerConfiguration = [
             "version": "6",
-            "userAgent": BlockaApiService.userAgent(),
+            "userAgent": Services.http.userAgent(),
             "privateKey": Config.shared.privateKey(),
             "gatewayId": gateway.public_key,
             "ipv4": gateway.ipv4,

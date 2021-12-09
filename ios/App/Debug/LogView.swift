@@ -53,7 +53,7 @@ struct LogView: View {
                             onMain { self.activeSheet = .sharelog }
                         }
                     }
-                if !Env.isProduction {
+                if !Repos.envRepo.isProduction {
                     Image(systemName: "ant.circle")
                         .imageScale(.large)
                         .foregroundColor(Color.cActivePlus)

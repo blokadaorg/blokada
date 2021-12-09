@@ -48,13 +48,11 @@ class AccountViewModel: ObservableObject {
 
     private let api = BlockaApiService.shared
     private let vpn = VpnService.shared
-    private let networkDns = NetworkDnsService.shared
     private let accountRepo = Repos.accountRepo
 
     init() {
         Config.shared.setOnAccountUpdated {
             self.syncConfig()
-            self.syncTag()
         }
     }
 
@@ -89,25 +87,6 @@ class AccountViewModel: ObservableObject {
 
     private func setAccount(_ account: Account) {
         self.account = account
-    }
-
-    private func syncTag() {
-        onMain {
-            self.log.v("syncTag: account object updated, updating tag")
-            self.api.getCurrentDevice { error, device in
-                guard error == nil, let tag = device?.device_tag else {
-                    return self.log.e("syncTag: failed to update tag".cause(error))
-                }
-
-                Config.shared.setDeviceTag(tag: tag)
-
-                self.networkDns.saveBlokadaNetworkDns(tag: tag, name: Config.shared.deviceName()) { error, _ in
-                    guard error == nil else {
-                        return self.log.w("syncTag: failed saving new profile".cause(error))
-                    }
-                }
-            }
-        }
     }
 
     private func onError(_ error: CommonError, _ cause: Error? = nil) {

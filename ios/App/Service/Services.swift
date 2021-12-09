@@ -28,6 +28,9 @@ class ServicesSingleton {
     lazy var api: BlockaApiServiceIn = BlockaApiService2()
     lazy var apiForCurrentUser = BlockaApiCurrentUserService()
 
+    lazy var privateDns: PrivateDnsService = PrivateDnsServiceImpl()
+    lazy var systemNav = SystemNavService()
+
 }
 
 func resetServices() {

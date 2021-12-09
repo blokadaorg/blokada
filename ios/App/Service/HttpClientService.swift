@@ -15,13 +15,15 @@ import Combine
 
 class HttpClientService {
 
+    private lazy var envRepo = Repos.envRepo
+
     private let baseUrl = "https://api.blocka.net"
 
     private let session = URLSession.shared
     private let bgQueue = DispatchQueue(label: "httpClientBgQueue")
 
     func userAgent() -> String {
-        return "blokada/\(Env.appVersion) (ios-\(Env.osVersion) ios \(Env.buildType) \(Env.cpu) apple \(Env.deviceModel) touch api compatible)"
+        return "blokada/\(envRepo.appVersion) (ios-\(envRepo.osVersion) ios \(envRepo.buildType) \(envRepo.cpu) apple \(envRepo.deviceModel) touch api compatible)"
     }
 
     func get(_ path: String) -> AnyPublisher<Data, Error> {
@@ -57,6 +59,14 @@ class HttpClientService {
     }
 
     func post(_ path: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
+        return self.postOrPut(path, method: "POST", payload: payload)
+    }
+
+    func put(_ path: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
+        return self.postOrPut(path, method: "PUT", payload: payload)
+    }
+
+    private func postOrPut(_ path: String, method: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
         guard let url = URL(string: "\(self.baseUrl)\(path)") else {
             return Fail(error: "BlockaApi: post: invalid url: \(path)")
                 .eraseToAnyPublisher()
@@ -64,7 +74,7 @@ class HttpClientService {
 
         var request = URLRequest(url: url)
         request.setValue(self.userAgent(), forHTTPHeaderField: "User-Agent")
-        request.httpMethod = "POST"
+        request.httpMethod = method
 
         if payload != nil {
             guard let payloadEncoded = payload?.toJsonData() else {

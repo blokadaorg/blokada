@@ -70,6 +70,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
             
             self.tabVM.onTabChanged = { tab in
+                Repos.navRepo.setActiveTab(mapTabIdToTab(tab))
                 if (tab == "activity") {
                     self.activityVM.refreshStats()
                 }

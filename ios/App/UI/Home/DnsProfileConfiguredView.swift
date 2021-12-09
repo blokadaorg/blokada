@@ -16,7 +16,7 @@ struct DnsProfileConfiguredView: View {
 
     @Binding var activeSheet: ActiveSheet?
 
-    private let networkDns = NetworkDnsService.shared
+    private let systemNav = Services.systemNav
 
     var body: some View {
         NavigationView {
@@ -36,7 +36,7 @@ struct DnsProfileConfiguredView: View {
                     Button(action: {
                         self.activeSheet = nil
                        // DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                            self.networkDns.openSettingsScreen()
+                            self.systemNav.openSystemSettings()
                        // })
                     }) {
                         ZStack {

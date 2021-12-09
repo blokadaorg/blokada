@@ -13,11 +13,22 @@
 import Foundation
 import Combine
 
-class ForegroundRepository {
+class ForegroundRepo {
 
-    var foreground: AnyPublisher<IsForeground, Never> {
+    // All foreground / background events from the SceneDelegate
+    var foregroundHot: AnyPublisher<IsForeground, Never> {
         self.writeForeground.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
+
+    // Filtered IsForeground = true events, debounced to avoid user flippy-flap
+    var enteredForegroundHot: AnyPublisher<IsForeground, Never> {
+        foregroundHot
+        .filter { it in it == true }
+        .debounce(for: 1, scheduler: bgQueue)
+        .eraseToAnyPublisher()
+    }
+
+    private let bgQueue = DispatchQueue(label: "FgRepoBgQueue")
 
     fileprivate let writeForeground = CurrentValueSubject<IsForeground?, Never>(nil)
 
@@ -31,7 +42,7 @@ class ForegroundRepository {
 
 }
 
-class DebugForegroundRepository: ForegroundRepository {
+class DebugForegroundRepo: ForegroundRepo {
 
     private let log = Logger("FgRepo")
     private var cancellables = Set<AnyCancellable>()
@@ -39,7 +50,7 @@ class DebugForegroundRepository: ForegroundRepository {
     override init() {
         super.init()
 
-        foreground.sink(
+        foregroundHot.sink(
             onValue: { it in self.log.v("Foreground: \(it)") }
         )
         .store(in: &cancellables)

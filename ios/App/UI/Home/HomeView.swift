@@ -165,7 +165,6 @@ struct HomeView: View {
             LinearGradient(gradient: Gradient(colors: [Color.cHomeBackground, Color.cBackground]), startPoint: .top, endPoint: .bottom)
         )
         .onAppear {
-            self.vm.ensureAppStartedSuccessfully { _, _ in }
             self.vm.onAccountExpired = { self.activeSheet = nil }
         }
     }

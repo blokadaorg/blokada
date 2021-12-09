@@ -20,13 +20,34 @@ import Combine
 class BlockaApiCurrentUserService {
 
     lazy var client = Services.api
-    private lazy var account = Repos.accountRepo.account
 
-//    func getAccountForCurrentUser() -> AnyPublisher<Account, Error> {
-//        return self.account.flatMap { it in
-//            self.client.getAccount(id: it.account.id)
-//        }
-//        .eraseToAnyPublisher()
-//    }
+    private lazy var accountRepo = Repos.accountRepo
 
+    func getAccountForCurrentUser() -> AnyPublisher<Account, Error> {
+        return self.accountRepo.getAccount()
+        .flatMap { it in
+            self.client.getAccount(id: it.account.id)
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func getDeviceForCurrentUser() -> AnyPublisher<DevicePayload, Error> {
+        return self.accountRepo.getAccount()
+        .flatMap { it in
+            self.client.getDevice(id: it.account.id)
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func putActivityRetentionForCurrentUser(_ retention: String) -> AnyPublisher<Never, Error> {
+        return self.accountRepo.getAccount()
+        .map { it in DeviceRequest(
+            account_id: it.account.id,
+            lists: nil,
+            retention: retention,
+            paused: nil
+        )}
+        .flatMap { it in self.client.putDevice(request: it) }
+        .eraseToAnyPublisher()
+    }
 }
