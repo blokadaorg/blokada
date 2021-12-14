@@ -51,6 +51,15 @@ struct Account: Codable {
     }
 }
 
+extension Account: Equatable {
+    static func == (lhs: Account, rhs: Account) -> Bool {
+        return
+            lhs.id == rhs.id &&
+            lhs.active_until == rhs.active_until
+    }
+}
+
+
 struct AccountWrapper: Decodable {
     let account: Account
 }

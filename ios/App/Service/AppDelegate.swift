@@ -34,9 +34,9 @@ import UIKit
         log.w("*** ******************* ***")
         log.v(Services.http.userAgent())
 
+        Repos.stageRepo.onCreate()
         Config.shared.load()
         EngineService.shared.panicHook()
-        PaymentService.shared.startObservingPayments()
         DeviceTokenService.shared.startObserving()
         NotificationService.shared.registerNotifications(for: application)
         
@@ -74,7 +74,7 @@ import UIKit
 
     func applicationWillTerminate(_ application: UIApplication) {
         Logger.v("Main", "Application will terminate")
-        PaymentService.shared.stopObservingPayments()
+        Repos.stageRepo.onDestroy()
         Config.shared.markFirstRun()
     }
 

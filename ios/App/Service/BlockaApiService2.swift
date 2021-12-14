@@ -19,6 +19,7 @@ protocol BlockaApiServiceIn {
     func postNewAccount() -> AnyPublisher<Account, Error>
     func getDevice(id: AccountId) -> AnyPublisher<DevicePayload, Error>
     func putDevice(request: DeviceRequest) -> AnyPublisher<Never, Error>
+    func postAppleCheckout(request: AppleCheckoutRequest) -> AnyPublisher<Account, Error>
 }
 
 class BlockaApiService2: BlockaApiServiceIn {
@@ -32,18 +33,14 @@ class BlockaApiService2: BlockaApiServiceIn {
     func getAccount(id: AccountId) -> AnyPublisher<Account, Error> {
         return self.client.get("/v1/account?account_id=\(id)")
         .decode(type: AccountWrapper.self, decoder: self.decoder)
-        .map { result in
-            return result.account
-        }
+        .map { it in it.account }
         .eraseToAnyPublisher()
     }
 
     func postNewAccount() -> AnyPublisher<Account, Error> {
         return self.client.post("/v1/account", payload: nil)
         .decode(type: AccountWrapper.self, decoder: self.decoder)
-        .map { result in
-            return result.account
-        }
+        .map { it in it.account }
         .eraseToAnyPublisher()
     }
 
@@ -58,4 +55,12 @@ class BlockaApiService2: BlockaApiServiceIn {
         .ignoreOutput()
         .eraseToAnyPublisher()
     }
+
+    func postAppleCheckout(request: AppleCheckoutRequest) -> AnyPublisher<Account, Error> {
+        return self.client.post("/v1/apple/checkout", payload: request)
+        .decode(type: AccountWrapper.self, decoder: self.decoder)
+        .map { it in it.account }
+        .eraseToAnyPublisher()
+    }
+
 }

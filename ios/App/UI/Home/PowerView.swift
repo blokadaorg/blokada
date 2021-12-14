@@ -145,6 +145,8 @@ struct PowerView: View {
         .onTapGesture {
             withAnimation {
                 if self.vm.working {
+                } else if !self.vm.accountActive {
+                    self.activeSheet = .plus
                 } else if self.vm.mainSwitch {
                     self.showPauseSheet = true
                 } else {
@@ -159,9 +161,6 @@ struct PowerView: View {
                        },
                        dnsProfileConfigured: {
                            self.activeSheet = .dnsProfile
-                       },
-                       noActiveAccount: {
-                           self.activeSheet = .plus
                        }
                     )
                 }
@@ -181,7 +180,7 @@ struct PowerView: View {
                 },
                 .destructive(Text(L10n.homePowerActionTurnOff)) {
                     self.vm.mainSwitch = false
-                    self.vm.switchMain(activate: false, noPermissions: {}, showRateScreen: {}, dnsProfileConfigured: {}, noActiveAccount: {})
+                    self.vm.switchMain(activate: false, noPermissions: {}, showRateScreen: {}, dnsProfileConfigured: {})
                 },
                 .cancel()
             ])

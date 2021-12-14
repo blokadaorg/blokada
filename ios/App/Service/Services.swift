@@ -31,6 +31,8 @@ class ServicesSingleton {
     lazy var privateDns: PrivateDnsService = PrivateDnsServiceImpl()
     lazy var systemNav = SystemNavService()
 
+    lazy var storeKit = StoreKitService()
+
 }
 
 func resetServices() {

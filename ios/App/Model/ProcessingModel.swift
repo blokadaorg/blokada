@@ -18,9 +18,11 @@ struct ComponentError: Error {
     let major: Bool
 }
 
-struct ComponentOngoing {
+struct ComponentOngoing: CustomStringConvertible {
     let component: String
     let ongoing: Bool
+
+    public var description: String { return "\(component)" }
 }
 
 extension ComponentOngoing: Equatable {

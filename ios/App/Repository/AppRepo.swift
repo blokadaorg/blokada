@@ -28,17 +28,16 @@ class AppRepo {
         self.writeAccountType.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
-    private lazy var accountHot = Repos.accountRepo.accountHot
-    private lazy var dnsProfileActivatedHot = Repos.cloudRepo.dnsProfileActivatedHot
-    private lazy var adblockingPausedHot = Repos.cloudRepo.adblockingPausedHot
-
     fileprivate let writeActive = CurrentValueSubject<Bool?, Never>(nil)
     fileprivate let writeOngoing = CurrentValueSubject<Bool?, Never>(nil)
     fileprivate let writeAccountType = CurrentValueSubject<AccountType?, Never>(nil)
 
-    private let recentAccountType = Atomic<AccountType>(AccountType.Libre)
+    private lazy var accountHot = Repos.accountRepo.accountHot
+    private lazy var dnsProfileActivatedHot = Repos.cloudRepo.dnsProfileActivatedHot
+    private lazy var adblockingPausedHot = Repos.cloudRepo.adblockingPausedHot
 
     private var cancellables = Set<AnyCancellable>()
+    private let recentAccountType = Atomic<AccountType>(AccountType.Libre)
 
     init() {
         onAnythingThatAffectsActiveStatusUpdateIt()

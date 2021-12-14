@@ -137,9 +137,6 @@ struct EncryptionExplanationView: View {
                                    },
                                    dnsProfileConfigured: {
                                        self.activeSheet = .dnsProfile
-                                   },
-                                   noActiveAccount: {
-                                       self.activeSheet = .plus
                                    }
                                 )
                                 })

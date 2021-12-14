@@ -352,8 +352,7 @@ class HomeViewModel: ObservableObject {
     func switchMain(activate: Bool,
                     noPermissions: @escaping Ok<Void>,
                     showRateScreen: @escaping Ok<Void>,
-                    dnsProfileConfigured: @escaping Ok<Void>,
-                    noActiveAccount: @escaping Ok<Void>
+                    dnsProfileConfigured: @escaping Ok<Void>
     ) {
 //        onBackground {
 //                self.log.v("User action: switchMain: \(activate)")

@@ -19,7 +19,7 @@ class NavRepo {
         self.writeActiveTab.compactMap { $0 }.eraseToAnyPublisher()
     }
 
-    private lazy var enteredForegroundHot = Repos.foregroundRepo.enteredForegroundHot
+    private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
 
     // Nil to not double send event on start, when also foreground even will come
     fileprivate let writeActiveTab = CurrentValueSubject<Tab?, Never>(nil)

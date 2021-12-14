@@ -50,7 +50,7 @@ class CloudRepo {
 
     private lazy var envRepo = Repos.envRepo
     private lazy var processingRepo = Repos.processingRepo
-    private lazy var enteredForegroundHot = Repos.foregroundRepo.enteredForegroundHot
+    private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
     private lazy var activeTabHot = Repos.navRepo.activeTabHot
     private lazy var accountIdHot = Repos.accountRepo.accountIdHot
 
@@ -59,8 +59,8 @@ class CloudRepo {
     fileprivate let writeDnsProfileActivated = CurrentValueSubject<CloudDnsProfileActivated?, Never>(nil)
     fileprivate let writeDeviceInfo = CurrentValueSubject<DevicePayload?, Never>(nil)
 
-    fileprivate let requestsSetActivityRetention = PassthroughSubject<CloudActivityRetention, Never>()
-    fileprivate let requestsRefreshDeviceInfo = PassthroughSubject<Void, Never>()
+    fileprivate let setActivityRetentionT = PassthroughSubject<CloudActivityRetention, Never>()
+    fileprivate let refreshDeviceInfoT = PassthroughSubject<Void, Never>()
 
     // Subscribers with lifetime same as the repository
     private var cancellables = Set<AnyCancellable>()
@@ -76,11 +76,11 @@ class CloudRepo {
 
     func setActivityRetention(_ retention: CloudActivityRetention) {
         self.processingRepo.notify(self, ongoing: true)
-        requestsSetActivityRetention.send(retention)
+        setActivityRetentionT.send(retention)
     }
 
     private func onRefreshDeviceInfo() {
-        requestsRefreshDeviceInfo
+        refreshDeviceInfoT
         .debounce(for: .seconds(3), scheduler: bgQueue)
         .flatMap { _ in self.api.getDeviceForCurrentUser() }
         .sink(
@@ -94,12 +94,12 @@ class CloudRepo {
     }
     
     private func onSetActivityRetention() {
-        requestsSetActivityRetention
+        setActivityRetentionT
         .debounce(for: .seconds(DEFAULT_USER_INTERACTION_DEBOUNCE), scheduler: bgQueue)
         .flatMap { it in self.api.putActivityRetentionForCurrentUser(it) }
         .sink(
             onFailure: { err in self.processingRepo.notify(self, err, major: false) },
-            onFinished: { self.requestsRefreshDeviceInfo.send() }
+            onFinished: { self.refreshDeviceInfoT.send() }
         )
         .store(in: &cancellables)
     }
@@ -122,7 +122,7 @@ class CloudRepo {
         activeTabHot
         .sink(onValue: { it in
             self.processingRepo.notify(self, ongoing: true)
-            self.requestsRefreshDeviceInfo.send()
+            self.refreshDeviceInfoT.send()
         })
         .store(in: &cancellables)
     }
@@ -143,7 +143,7 @@ class CloudRepo {
         accountIdHot
         .sink(onValue: { it in
             self.processingRepo.notify(self, ongoing: true)
-            self.requestsRefreshDeviceInfo.send()
+            self.refreshDeviceInfoT.send()
         })
         .store(in: &cancellables)
     }
@@ -168,7 +168,7 @@ class DebugCloudRepo: CloudRepo {
         )
         .store(in: &cancellables)
 
-        requestsRefreshDeviceInfo.sink(
+        refreshDeviceInfoT.sink(
             onValue: { it in self.log.v("RefreshDeviceInfo: queued")}
         )
         .store(in: &cancellables)

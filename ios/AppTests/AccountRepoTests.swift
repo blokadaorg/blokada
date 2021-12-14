@@ -152,7 +152,7 @@ class AccountRepoTests: XCTestCase {
 
         resetReposForDebug()
 
-        let foregroundDebug = Repos.foregroundRepo as! DebugForegroundRepo
+        let foregroundDebug = Repos.stageRepo as! DebugStageRepo
 
         // Shoot 10 quick foreground/background events to see how they are processed by the repo
         Array(0...10).publisher
@@ -163,7 +163,7 @@ class AccountRepoTests: XCTestCase {
         )
         .store(in: &cancellables)
 
-        Repos.foregroundRepo.foregroundHot
+        Repos.stageRepo.stageHot
         .debounce(for: 2, scheduler: bg) // Debounce to wait a bit before checking the expectation
         .sink(
             onValue: { it in exp.fulfill() }
@@ -172,6 +172,7 @@ class AccountRepoTests: XCTestCase {
 
         wait(for: [exp], timeout: 5.0)
         XCTAssertEqual(1 + 1, requests) // 1 create account + 1 foreground refresh
+        cancellables.forEach { it in it.cancel() }
     }
 }
 

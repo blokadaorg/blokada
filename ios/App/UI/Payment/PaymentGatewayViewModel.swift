@@ -16,7 +16,9 @@ import Combine
 
 class PaymentGatewayViewModel: ObservableObject {
 
-    private let service = PaymentService.shared
+    private let paymentRepo = Repos.paymentRepo
+
+    private var cancellables = Set<AnyCancellable>()
 
     @Published var options = [PaymentViewModel]()
 
@@ -30,7 +32,7 @@ class PaymentGatewayViewModel: ObservableObject {
     }
 
     init() {
-        
+        onProductsChanged()
     }
 
     init(mocked: Bool) {
@@ -49,48 +51,59 @@ class PaymentGatewayViewModel: ObservableObject {
         error = nil
         working = true
 
-        service.refreshProducts(ok: { products in
-            self.options = products.map { product in
-                PaymentViewModel(product)
-            }
-            self.working = false
-        }, fail: { error in
-            self.working = false
-            self.error = mapErrorForUser(CommonError.paymentFailed, cause: error)
-        })
+        paymentRepo.refreshProducts()
+        .receive(on: RunLoop.main)
+        .sink(
+            onFailure: { err in
+                self.error = mapErrorForUser(CommonError.paymentFailed, cause: err)
+                self.working = false
+            },
+            onFinished: { self.working = false }
+        )
+        .store(in: &cancellables) // TODO: should hold for cold publishers?
     }
 
     func buy(_ product: Product) {
         error = nil
         working = true
-        service.buy(product, ok: { _ in
-            self.working = false
-        }, fail: { error in
-            if error.isCommon(CommonError.paymentCancelled) {
-                // No need to show error alert if user just cancelled
-                self.error = nil
-            } else {
-                self.error = mapErrorForUser(CommonError.paymentFailed, cause: error)
-            }
-            self.working = false
-        })
+
+        paymentRepo.buyProduct(product.id)
+        .receive(on: RunLoop.main)
+        .sink(
+            onFailure: { error in
+                if error.isCommon(CommonError.paymentCancelled) {
+                    // No need to show error alert if user just cancelled
+                    self.error = nil
+                } else {
+                    self.error = mapErrorForUser(CommonError.paymentFailed, cause: error)
+                }
+                self.working = false
+            },
+            onFinished: { self.working = false }
+        )
+        .store(in: &cancellables) // TODO: should hold for cold publishers?
     }
 
     func cancel() {
         error = nil
         working = false
-        self.service.cancelTransaction()
+        self.paymentRepo.cancelTransaction()
     }
 
     func restoreTransactions() {
         if error == nil {
             working = true
-            service.restoreTransaction (ok: { _ in
-                self.working = false
-            }, fail: { error in
-                self.working = false
-                self.error = mapErrorForUser(CommonError.paymentFailed, cause: error)
-            })
+
+            paymentRepo.restorePurchase()
+            .receive(on: RunLoop.main)
+            .sink(
+                onFailure: { err in
+                    self.error = mapErrorForUser(CommonError.paymentFailed, cause: err)
+                    self.working = false
+                },
+                onFinished: { self.working = false }
+            )
+            .store(in: &cancellables) // TODO: should hold for cold publishers?
         }
     }
 
@@ -104,6 +117,17 @@ class PaymentGatewayViewModel: ObservableObject {
 
     func showSupport() {
         Links.openInBrowser(Links.support())
+    }
+
+    private func onProductsChanged() {
+        paymentRepo.productsHot
+        .receive(on: RunLoop.main)
+        .sink(
+            onValue: { it in
+                self.options = it.map { p in PaymentViewModel(p) }
+            }
+        )
+        .store(in: &cancellables)
     }
 
 }

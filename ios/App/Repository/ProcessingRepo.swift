@@ -48,7 +48,7 @@ class ProcessingRepo {
         writeError.send(ComponentError(
             component: String(describing: component), error: error, major: major
         ))
-        notify(self, ongoing: false)
+        notify(component, ongoing: false)
     }
 
     func notify(_ component: Any, ongoing: Bool) {

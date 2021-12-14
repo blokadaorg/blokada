@@ -50,4 +50,15 @@ class BlockaApiCurrentUserService {
         .flatMap { it in self.client.putDevice(request: it) }
         .eraseToAnyPublisher()
     }
+
+    func postAppleCheckoutForCurrentUser(_ receipt: String) -> AnyPublisher<Account, Error> {
+        return self.accountRepo.getAccount()
+        .map { it in AppleCheckoutRequest(
+            account_id: it.account.id,
+            receipt: receipt
+        )}
+        .flatMap { it in self.client.postAppleCheckout(request: it) }
+        .eraseToAnyPublisher()
+    }
+
 }

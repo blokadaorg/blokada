@@ -35,4 +35,8 @@ class BlockaApiServiceMock: BlockaApiServiceIn {
         return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
     }
 
+    func postAppleCheckout(request: AppleCheckoutRequest) -> AnyPublisher<Account, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
 }
