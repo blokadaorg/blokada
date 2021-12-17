@@ -24,8 +24,6 @@ class NavRepo {
     // Nil to not double send event on start, when also foreground even will come
     fileprivate let writeActiveTab = CurrentValueSubject<Tab?, Never>(nil)
 
-    private let recentTab = Atomic<Tab>(Tab.Home)
-
     // Subscribers with lifetime same as the repository
     private var cancellables = Set<AnyCancellable>()
 
@@ -39,7 +37,7 @@ class NavRepo {
 
     func listenToForegroundAndRepublishActiveTab() {
         enteredForegroundHot
-        .map { _ in self.recentTab.value }
+        .flatMap { _ in self.activeTabHot.first() }
         .sink(onValue: { it in self.writeActiveTab.send(it) })
         .store(in: &cancellables)
     }

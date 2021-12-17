@@ -99,7 +99,7 @@ class DebugProcessingRepo: ProcessingRepo {
 
         currentlyOngoingHot.sink(
             onValue: { it in
-                self.log.v("Ongoing: \(it)")
+                self.log.v("\(it)")
             }
         )
         .store(in: &cancellables)

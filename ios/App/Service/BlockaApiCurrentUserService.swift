@@ -22,6 +22,7 @@ class BlockaApiCurrentUserService {
     lazy var client = Services.api
 
     private lazy var accountRepo = Repos.accountRepo
+    private lazy var envRepo = Repos.envRepo
 
     func getAccountForCurrentUser() -> AnyPublisher<Account, Error> {
         return self.accountRepo.getAccount()
@@ -81,6 +82,41 @@ class BlockaApiCurrentUserService {
             device_token: deviceToken
         )}
         .flatMap { it in self.client.postAppleDeviceToken(request: it) }
+        .eraseToAnyPublisher()
+    }
+
+    func getActivityForCurrentUserAndDevice() -> AnyPublisher<[Activity], Error> {
+        return accountRepo.accountIdHot.first()
+        .flatMap { it in self.client.getActivity(id: it) }
+        .tryMap { it in it.filter { $0.device_name == self.envRepo.deviceName }}
+        .eraseToAnyPublisher()
+    }
+
+    func getCustomListForCurrentUser() -> AnyPublisher<[CustomListEntry], Error> {
+        return accountRepo.accountIdHot.first()
+        .flatMap { it in self.client.getCustomList(id: it) }
+        .eraseToAnyPublisher()
+    }
+
+    func postCustomListForCurrentUser(_ entry: CustomListEntry) -> AnyPublisher<Ignored, Error> {
+        return accountRepo.accountIdHot.first()
+        .map { it in CustomListRequest(
+            account_id: it,
+            domain_name: entry.domain_name,
+            action: entry.action
+        )}
+        .flatMap { it in self.client.postCustomList(request: it) }
+        .eraseToAnyPublisher()
+    }
+
+    func deleteCustomListForCurrentUser(_ domainName: String) -> AnyPublisher<Ignored, Error> {
+        return accountRepo.accountIdHot.first()
+        .map { it in CustomListRequest(
+            account_id: it,
+            domain_name: domainName,
+            action: "fallthrough"
+        )}
+        .flatMap { it in self.client.deleteCustomList(request: it) }
         .eraseToAnyPublisher()
     }
 

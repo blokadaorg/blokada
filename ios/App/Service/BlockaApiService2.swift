@@ -21,6 +21,10 @@ protocol BlockaApiServiceIn {
     func putDevice(request: DeviceRequest) -> AnyPublisher<Ignored, Error>
     func postAppleCheckout(request: AppleCheckoutRequest) -> AnyPublisher<Account, Error>
     func postAppleDeviceToken(request: AppleDeviceTokenRequest) -> AnyPublisher<Ignored, Error>
+    func getActivity(id: AccountId) -> AnyPublisher<[Activity], Error>
+    func getCustomList(id: AccountId) -> AnyPublisher<[CustomListEntry], Error>
+    func postCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error>
+    func deleteCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error>
 }
 
 class BlockaApiService2: BlockaApiServiceIn {
@@ -66,6 +70,32 @@ class BlockaApiService2: BlockaApiServiceIn {
 
     func postAppleDeviceToken(request: AppleDeviceTokenRequest) -> AnyPublisher<Ignored, Error> {
         return self.client.post("/v1/apple/device", payload: request)
+        .tryMap { _ in true }
+        .eraseToAnyPublisher()
+    }
+
+    func getActivity(id: AccountId) -> AnyPublisher<[Activity], Error> {
+        return self.client.get("/v1/activity?account_id=\(id)")
+        .decode(type: ActivityWrapper.self, decoder: self.decoder)
+        .tryMap { it in it.activity }
+        .eraseToAnyPublisher()
+    }
+
+    func getCustomList(id: AccountId) -> AnyPublisher<[CustomListEntry], Error> {
+        return self.client.get("/v1/customlist?account_id=\(id)")
+        .decode(type: ExceptionWrapper.self, decoder: self.decoder)
+        .tryMap { it in it.customlist }
+        .eraseToAnyPublisher()
+    }
+
+    func postCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error> {
+        return self.client.post("/v1/customlist", payload: request)
+        .tryMap { _ in true }
+        .eraseToAnyPublisher()
+    }
+
+    func deleteCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error> {
+        return self.client.delete("/v1/customlist", payload: request)
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }

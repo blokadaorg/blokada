@@ -111,9 +111,6 @@ struct ActivityView: View {
                 }
             }
         }
-        .onAppear {
-            self.vm.refreshStats()
-        }
     }
 }
 

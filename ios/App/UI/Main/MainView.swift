@@ -111,7 +111,6 @@ struct MainView: View {
         .onAppear {
             self.tabVM.load()
             self.packsVM.fetch()
-            self.activityVM.fetch()
         }
     }
 }

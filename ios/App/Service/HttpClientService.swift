@@ -66,6 +66,10 @@ class HttpClientService {
         return self.postOrPut(path, method: "PUT", payload: payload)
     }
 
+    func delete(_ path: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
+        return self.postOrPut(path, method: "DELETE", payload: payload)
+    }
+
     private func postOrPut(_ path: String, method: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
         guard let url = URL(string: "\(self.baseUrl)\(path)") else {
             return Fail(error: "BlockaApi: post: invalid url: \(path)")

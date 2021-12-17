@@ -71,9 +71,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             self.tabVM.onTabChanged = { tab in
                 Repos.navRepo.setActiveTab(mapTabIdToTab(tab))
-                if (tab == "activity") {
-                    self.activityVM.refreshStats()
-                }
             }
         }
 
@@ -104,7 +101,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         foreground.onForeground()
         NetworkService.shared.foreground()
         self.homeVM.foreground()
-        self.activityVM.foreground()
 
         UIApplication.shared.applicationIconBadgeNumber = 0
     }

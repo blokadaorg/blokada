@@ -188,15 +188,24 @@ struct BlocklistWrapper: Decodable {
 }
 
 struct ExceptionWrapper: Decodable {
-    let customlist: [BlockingException]
+    let customlist: [CustomListEntry]
 }
 
-struct BlockingException: Decodable {
+struct CustomListEntry: Decodable {
     let domain_name: String
     let action: String
 }
 
-struct BlockingExceptionRequest: Codable {
+extension CustomListEntry: Equatable {
+    static func == (lhs: CustomListEntry, rhs: CustomListEntry) -> Bool {
+        return
+            lhs.domain_name == rhs.domain_name &&
+            lhs.action == rhs.action
+    }
+}
+
+
+struct CustomListRequest: Codable {
     let account_id: AccountId
     let domain_name: String
     let action: String

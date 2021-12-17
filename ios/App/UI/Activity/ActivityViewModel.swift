@@ -11,13 +11,14 @@
 //
 
 import Foundation
+import Combine
 
 class ActivityViewModel: ObservableObject {
 
     private let log = Logger("ActivityVM")
-    private let service = ActivityRepository.shared
-    private let sharedActions = SharedActionsService.shared
-    private let api = BlockaApiService.shared
+
+    private let activityRepo = Repos.activityRepo
+    private var cancellables = Set<AnyCancellable>()
 
     @Published var logRetention = Config.shared.logRetention()
     @Published var logRetentionSelected = ""
@@ -30,13 +31,13 @@ class ActivityViewModel: ObservableObject {
 
     @Published var sorting = 0 {
         didSet {
-            refreshStats(ok: { _ in self.apply() })
+            refreshStats()
         }
     }
 
     @Published var filtering = 0 {
         didSet {
-            refreshStats(ok: { _ in self.apply() })
+            refreshStats()
         }
     }
 
@@ -45,17 +46,44 @@ class ActivityViewModel: ObservableObject {
             apply()
         }
     }
+    
+    init() {
+        onEntriesUpdated()
+        onAllowedListUpdated()
+        onDeniedListUpdated()
+    }
 
-    func fetch() {
-        service.setOnUpdated { entries, whitelist, blacklist in
-            onMain {
-                self.whitelist = whitelist
-                self.blacklist = blacklist
-                self.allEntries = entries
-                self.apply()
-                self.objectWillChange.send()
-            }
-        }
+    private func onEntriesUpdated() {
+        activityRepo.entriesHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.allEntries = it
+            self.apply()
+            self.objectWillChange.send()
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onAllowedListUpdated() {
+        activityRepo.allowedListHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.whitelist = it
+            self.apply()
+            self.objectWillChange.send()
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onDeniedListUpdated() {
+        activityRepo.deniedListHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.blacklist = it
+            self.apply()
+            self.objectWillChange.send()
+        })
+        .store(in: &cancellables)
     }
 
     func apply() {
@@ -87,38 +115,24 @@ class ActivityViewModel: ObservableObject {
     }
 
     func allow(_ entry: HistoryEntry) {
-        self.service.allow(entry: entry)
+        activityRepo.allow(entry)
     }
 
     func unallow(_ entry: HistoryEntry) {
-        self.service.unallow(entry: entry)
+        activityRepo.unallow(entry)
     }
 
     func deny(_ entry: HistoryEntry) {
-        self.service.deny(entry: entry)
+        activityRepo.deny(entry)
     }
 
     func undeny(_ entry: HistoryEntry) {
-        self.service.undeny(entry: entry)
+        activityRepo.undeny(entry)
     }
 
-    func refreshStats(ok: @escaping Ok<Void> = { _ in }) {
-        self.sharedActions.refreshStats(ok)
-        self.api.getCurrentDeviceActivity { error, activity in
-            guard let activity = activity else {
-                return self.log.w("refreshStats: failed getting activity".cause(error))
-            }
-
-            self.service.setEntries(entries: convertActivity(activity: activity))
-
-            ok(())
-        }
-    }
-
-    func foreground() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-            self.refreshStats()
-        })
+    private func refreshStats() {
+        //self.sharedActions.refreshStats(ok)
+        activityRepo.refresh()
     }
 
     func checkLogRetention() {
