@@ -126,19 +126,19 @@ struct EncryptionExplanationView: View {
 
                             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
                                 // A copypaste from PowerView
-                                self.vm.mainSwitch = true
-                                self.vm.switchMain(activate: self.vm.mainSwitch,
-                                   noPermissions: {
-                                       // A callback trigerred when there is no VPN profile
-                                       self.activeSheet = .askvpn
-                                   },
-                                   showRateScreen: {
-                                       self.activeSheet = .rate
-                                   },
-                                   dnsProfileConfigured: {
-                                       self.activeSheet = .dnsProfile
-                                   }
-                                )
+                                //self.vm.mainSwitch = true
+//                                self.vm.switchMain(activate: self.vm.mainSwitch,
+//                                   noPermissions: {
+//                                       // A callback trigerred when there is no VPN profile
+//                                       self.activeSheet = .askvpn
+//                                   },
+//                                   showRateScreen: {
+//                                       self.activeSheet = .rate
+//                                   },
+//                                   dnsProfileConfigured: {
+//                                       self.activeSheet = .dnsProfile
+//                                   }
+//                                )
                                 })
                         }) {
                             ZStack {

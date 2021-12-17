@@ -16,6 +16,7 @@ import Combine
 protocol PersistenceService {
     func getString(forKey: String) -> AnyPublisher<String, Error>
     func setString(_ value: String, forKey: String) -> AnyPublisher<Void, Error>
+    func delete(forKey: String) -> AnyPublisher<Void, Error>
 }
 
 class LocalStoragePersistenceService: PersistenceService {
@@ -37,6 +38,15 @@ class LocalStoragePersistenceService: PersistenceService {
     func setString(_ value: String, forKey: String) -> AnyPublisher<Void, Error> {
         return Deferred { () -> AnyPublisher<Void, Error> in
             self.localStorage.set(value, forKey: forKey)
+
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func delete(forKey: String) -> AnyPublisher<Void, Error> {
+        return Deferred { () -> AnyPublisher<Void, Error> in
+            self.localStorage.removeObject(forKey: forKey)
 
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
@@ -70,6 +80,17 @@ class ICloudPersistenceService: PersistenceService {
         }
         .eraseToAnyPublisher()
     }
+
+    func delete(forKey: String) -> AnyPublisher<Void, Error> {
+        return Deferred { () -> AnyPublisher<Void, Error> in
+            self.iCloud.removeObject(forKey: forKey)
+            self.iCloud.synchronize()
+
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+
 }
 
 class KeychainPersistenceService: PersistenceService {
@@ -97,6 +118,11 @@ class KeychainPersistenceService: PersistenceService {
             .eraseToAnyPublisher()
     }
 
+    func delete(forKey: String) -> AnyPublisher<Void, Error> {
+        return Fail(error: "KeychainPersistenceService is a legacy persistence, do not delete from it")
+            .eraseToAnyPublisher()
+    }
+
 }
 
 class PersistenceServiceMock: PersistenceService {
@@ -107,6 +133,13 @@ class PersistenceServiceMock: PersistenceService {
     }
     
     func setString(_ value: String, forKey: String) -> AnyPublisher<Void, Error> {
+        return Deferred { () -> AnyPublisher<Void, Error> in
+            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func delete(forKey: String) -> AnyPublisher<Void, Error> {
         return Deferred { () -> AnyPublisher<Void, Error> in
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
         }

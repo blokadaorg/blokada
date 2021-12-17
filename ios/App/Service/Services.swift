@@ -32,6 +32,9 @@ class ServicesSingleton {
     lazy var systemNav = SystemNavService()
 
     lazy var storeKit = StoreKitService()
+    lazy var notification = NotificationService()
+    lazy var job = JobService()
+    lazy var timer = TimerService()
 
 }
 

@@ -18,7 +18,7 @@ protocol BlockaApiServiceIn {
     func getAccount(id: AccountId) -> AnyPublisher<Account, Error>
     func postNewAccount() -> AnyPublisher<Account, Error>
     func getDevice(id: AccountId) -> AnyPublisher<DevicePayload, Error>
-    func putDevice(request: DeviceRequest) -> AnyPublisher<Never, Error>
+    func putDevice(request: DeviceRequest) -> AnyPublisher<Ignored, Error>
     func postAppleCheckout(request: AppleCheckoutRequest) -> AnyPublisher<Account, Error>
 }
 
@@ -50,9 +50,9 @@ class BlockaApiService2: BlockaApiServiceIn {
         .eraseToAnyPublisher()
     }
 
-    func putDevice(request: DeviceRequest) -> AnyPublisher<Never, Error> {
+    func putDevice(request: DeviceRequest) -> AnyPublisher<Ignored, Error> {
         return self.client.put("/v1/device", payload: request)
-        .ignoreOutput()
+        .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
 

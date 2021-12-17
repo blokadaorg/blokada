@@ -32,13 +32,13 @@ struct PowerView: View {
                 ))
                 .padding(11)
                 .shadow(radius: 5)
-                .opacity(self.vm.mainSwitch ? 0 : 1)
+                .opacity(self.vm.appState != .Activated ? 1 : 0)
 
             // Button icon
             Image(systemName: Image.fPower)
                 .resizable()
                 .foregroundColor(
-                    (!self.vm.mainSwitch ? Color.black : self.vm.vpnEnabled ? Color.cActivePlus : Color.cActive)
+                    (self.vm.appState != .Activated ? Color.black : self.vm.vpnEnabled ? Color.cActivePlus : Color.cActive)
                 )
                 .padding(71)
                 .opacity(self.vm.working ? 0.2 : 1.0)
@@ -83,7 +83,7 @@ struct PowerView: View {
 
             // A ring that covers the above to hide colorful rings when off
             Circle()
-                .stroke(self.vm.mainSwitch ? Color.clear : Color.cPowerButtonOff, lineWidth: 9)
+                .stroke((self.vm.appState == .Activated || self.vm.timerSeconds > 0) ? Color.clear : Color.cPowerButtonOff, lineWidth: 9)
                 .transition(.opacity)
                 .animation(Animation.easeInOut(duration: 0.9).repeatCount(1))
                 .opacity(self.orientationOpacity)
@@ -147,22 +147,17 @@ struct PowerView: View {
                 if self.vm.working {
                 } else if !self.vm.accountActive {
                     self.activeSheet = .plus
-                } else if self.vm.mainSwitch {
+                } else if !self.vm.dnsProfileEnabled {
+                    self.activeSheet = .dnsProfile
+                    // TODO: vpn perms
+                    // TODO: show rate screen
+                } else if self.vm.appState == .Activated {
                     self.showPauseSheet = true
+                } else if self.vm.appState == .Paused {
+                    self.vm.unpause()
                 } else {
-                    self.vm.mainSwitch = true
-                    self.vm.switchMain(activate: self.vm.mainSwitch,
-                       noPermissions: {
-                           // A callback trigerred when there is no VPN profile
-                           self.activeSheet = .askvpn
-                       },
-                       showRateScreen: {
-                           self.activeSheet = .rate
-                       },
-                       dnsProfileConfigured: {
-                           self.activeSheet = .dnsProfile
-                       }
-                    )
+                    //self.vm.mainSwitch = true // TODO: should it be here or in vm?
+                    self.vm.turnOn()
                 }
             }
         }
@@ -173,14 +168,13 @@ struct PowerView: View {
             ActionSheet(title: Text(L10n.homePowerOffMenuHeader), buttons: [
                 .default(Text(self.vm.isPaused ? L10n.homePowerActionTurnOn : L10n.homePowerActionPause)) {
                     if self.vm.isPaused {
-                        self.vm.stopTimer()
+                        self.vm.unpause()
                     } else {
-                        self.vm.startTimer(seconds: 300)
+                        self.vm.pause(seconds: 30)
                     }
                 },
                 .destructive(Text(L10n.homePowerActionTurnOff)) {
-                    self.vm.mainSwitch = false
-                    self.vm.switchMain(activate: false, noPermissions: {}, showRateScreen: {}, dnsProfileConfigured: {})
+                    self.vm.pause(seconds: nil)
                 },
                 .cancel()
             ])
@@ -193,10 +187,10 @@ struct PowerView_Previews: PreviewProvider {
         let off = HomeViewModel()
 
         let on = HomeViewModel()
-        on.mainSwitch = true
+        //on.mainSwitch = true
 
         let timer = HomeViewModel()
-        timer.mainSwitch = true
+        //timer.mainSwitch = true
         timer.startTimer(seconds: 60 * 5 - 60)
 
         return Group {

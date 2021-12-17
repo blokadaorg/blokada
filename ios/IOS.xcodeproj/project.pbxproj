@@ -192,6 +192,13 @@
 		4E59E3192472BFF6008C1AAA /* AdsCounterShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59E3172472BFF6008C1AAA /* AdsCounterShareView.swift */; };
 		4E59E31B24751D12008C1AAA /* ExpirationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59E31A24751D12008C1AAA /* ExpirationService.swift */; };
 		4E59E31C24751D13008C1AAA /* ExpirationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59E31A24751D12008C1AAA /* ExpirationService.swift */; };
+		4E5CACE1276B5E5300F6F237 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE0276B5E5300F6F237 /* TimerService.swift */; };
+		4E5CACE2276B5E5300F6F237 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE0276B5E5300F6F237 /* TimerService.swift */; };
+		4E5CACE4276B906F00F6F237 /* JobService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE3276B906F00F6F237 /* JobService.swift */; };
+		4E5CACE5276B906F00F6F237 /* JobService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE3276B906F00F6F237 /* JobService.swift */; };
+		4E5CACE7276B92F200F6F237 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE6276B92F200F6F237 /* NotificationModel.swift */; };
+		4E5CACE8276B92F200F6F237 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE6276B92F200F6F237 /* NotificationModel.swift */; };
+		4E5CACEA276B9ADC00F6F237 /* CombineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */; };
 		4E63194524446E1400191C16 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194424446E1400191C16 /* Config.swift */; };
 		4E63194B2447436C00191C16 /* LeaseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194A2447436C00191C16 /* LeaseListView.swift */; };
 		4E63194D244743C300191C16 /* LeaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194C244743C300191C16 /* LeaseView.swift */; };
@@ -494,6 +501,10 @@
 		4E57FCE224A0D7BD00960ADF /* InboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewModel.swift; sourceTree = "<group>"; };
 		4E59E3172472BFF6008C1AAA /* AdsCounterShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsCounterShareView.swift; sourceTree = "<group>"; };
 		4E59E31A24751D12008C1AAA /* ExpirationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationService.swift; sourceTree = "<group>"; };
+		4E5CACE0276B5E5300F6F237 /* TimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
+		4E5CACE3276B906F00F6F237 /* JobService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobService.swift; sourceTree = "<group>"; };
+		4E5CACE6276B92F200F6F237 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTests.swift; sourceTree = "<group>"; };
 		4E63194424446E1400191C16 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4E63194A2447436C00191C16 /* LeaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseListView.swift; sourceTree = "<group>"; };
 		4E63194C244743C300191C16 /* LeaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseView.swift; sourceTree = "<group>"; };
@@ -696,6 +707,7 @@
 				4E1DC4CA27564F3100A4CAB1 /* AccountRepoTests.swift */,
 				4E2F2A202761EA39005A59F5 /* ProcessingRepoTests.swift */,
 				4E0F2B4F27688C3700444933 /* TaskerTests.swift */,
+				4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */,
 			);
 			path = AppTests;
 			sourceTree = "<group>";
@@ -730,6 +742,7 @@
 				4E2F2A142760BE6F005A59F5 /* NavModel.swift */,
 				4E2F2A1D2760F0A1005A59F5 /* ProcessingModel.swift */,
 				4E2F2A28276373EE005A59F5 /* AppModel.swift */,
+				4E5CACE6276B92F200F6F237 /* NotificationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -755,6 +768,8 @@
 				4E2F2A0E2760AB9D005A59F5 /* PrivateDnsService.swift */,
 				4E2F2A222762067E005A59F5 /* SystemNavService.swift */,
 				4EF564BD276A16E5005E3D70 /* StoreKitService.swift */,
+				4E5CACE0276B5E5300F6F237 /* TimerService.swift */,
+				4E5CACE3276B906F00F6F237 /* JobService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1386,6 +1401,8 @@
 				4E2F2A29276373EE005A59F5 /* AppModel.swift in Sources */,
 				4EEF1BEF2457FC4300734182 /* DebugViewModel.swift in Sources */,
 				4E42355124502678005A0779 /* LogViewModel.swift in Sources */,
+				4E5CACE4276B906F00F6F237 /* JobService.swift in Sources */,
+				4E5CACE1276B5E5300F6F237 /* TimerService.swift in Sources */,
 				4E42353A244F3ADE005A0779 /* LocationViewModel.swift in Sources */,
 				4E57FCD424A0AD9300960ADF /* ChatView.swift in Sources */,
 				4E0F6FF2243DB49E002E1DF6 /* PlusButtonView.swift in Sources */,
@@ -1398,6 +1415,7 @@
 				47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */,
 				4E227F40243496C5004F4955 /* Thread.swift in Sources */,
 				4E227F3924347A95004F4955 /* VpnService.swift in Sources */,
+				4E5CACE7276B92F200F6F237 /* NotificationModel.swift in Sources */,
 				4E11D2DA271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */,
 				4E72D678246160EF00FE7737 /* InstalledMarkView.swift in Sources */,
 				4E94C3032428F1C20008E318 /* Logger.swift in Sources */,
@@ -1441,6 +1459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E2F2A212761EA39005A59F5 /* ProcessingRepoTests.swift in Sources */,
+				4E5CACEA276B9ADC00F6F237 /* CombineTests.swift in Sources */,
 				4E0F2B5027688C3700444933 /* TaskerTests.swift in Sources */,
 				4E1DC4CB27564F3100A4CAB1 /* AccountRepoTests.swift in Sources */,
 			);
@@ -1524,6 +1543,7 @@
 				4E971F80246BCEA300809EA6 /* PlusFeaturesView.swift in Sources */,
 				4E78E354245DA3600017B234 /* SettingsTabView.swift in Sources */,
 				4E78E35E245EC4ED0017B234 /* PackConfigItemView.swift in Sources */,
+				4E5CACE2276B5E5300F6F237 /* TimerService.swift in Sources */,
 				4E7FE9A2244DC28900851E9F /* LeaseView.swift in Sources */,
 				4E2F2A01275F7AB3005A59F5 /* Mocks.swift in Sources */,
 				4E7FE9A4244DC28900851E9F /* PaymentView.swift in Sources */,
@@ -1588,6 +1608,8 @@
 				4E59E31C24751D13008C1AAA /* ExpirationService.swift in Sources */,
 				4E78E358245DB4D80017B234 /* InboxView.swift in Sources */,
 				4E7FE9C6244DC28900851E9F /* ButtonChoiceView.swift in Sources */,
+				4E5CACE8276B92F200F6F237 /* NotificationModel.swift in Sources */,
+				4E5CACE5276B906F00F6F237 /* JobService.swift in Sources */,
 				4E7FE9C7244DC28900851E9F /* BlockaApiModel.swift in Sources */,
 				4E4235552450714E005A0779 /* SharedActionsService.swift in Sources */,
 				4E2F2A1C2760EA8A005A59F5 /* ProcessingRepo.swift in Sources */,

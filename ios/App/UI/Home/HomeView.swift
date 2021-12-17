@@ -40,7 +40,7 @@ struct HomeView: View {
                 // Hides the animated rays if not active
                 Rectangle()
                     .fill(Color.cBackground)
-                    .opacity(self.vm.mainSwitch && !self.vm.showError && !self.vm.working && self.vm.timerSeconds == 0 ? 0 : 1)
+                    .opacity(self.vm.appState == .Activated ? 0 : 1)
                     .transition(.opacity)
                     .animation(Animation.easeIn(duration: 0.2))
 
@@ -65,7 +65,7 @@ struct HomeView: View {
                         }
                         .offset(x: 100)
                         .transition(.opacity)
-                        .opacity(self.vm.mainSwitch && self.vm.vpnEnabled ? 1.0 : 0.0)
+                        .opacity(self.vm.appState == .Activated && self.vm.vpnEnabled ? 1.0 : 0.0)
                         .animation(
                             Animation.easeOut(duration: 0.1).repeatCount(2)
                         )
@@ -74,12 +74,12 @@ struct HomeView: View {
                     Text(
                         self.vm.working ? "..."
                             : self.vm.timerSeconds > 0 ? L10n.homeStatusPaused.uppercased()
-                            : self.vm.mainSwitch ? L10n.homeStatusActive.uppercased()
+                            : self.vm.appState == .Activated ? L10n.homeStatusActive.uppercased()
                             : L10n.homeStatusDeactivated.uppercased()
                     )
                     .fontWeight(.heavy).kerning(2).padding(.bottom).font(.system(size: 15))
                     .foregroundColor(
-                        !self.vm.mainSwitch ? .primary
+                        self.vm.appState != .Activated ? .primary
                         : self.vm.vpnEnabled ? Color.cActivePlus
                         : Color.cActive
                     )
@@ -93,22 +93,22 @@ struct HomeView: View {
                 VStack {
                     ZStack {
                         Text(L10n.homeActionTapToActivate)
-                            .opacity(!self.vm.working && !self.vm.mainSwitch && !self.vm.showError ? 1 : 0)
+                            .opacity(!self.vm.working && self.vm.appState != .Activated && self.vm.timerSeconds == 0 && !self.vm.showError ? 1 : 0)
                             .onTapGesture {
                                 // Copypaste from PowerView
-                                self.vm.mainSwitch = true
-                                self.vm.switchMain(activate: self.vm.mainSwitch,
-                                    noPermissions: {
-                                        // A callback trigerred when there is no VPN profile
-                                        self.activeSheet = .askvpn
-                                    },
-                                    showRateScreen: {
-                                        self.activeSheet = .rate
-                                    },
-                                    dnsProfileConfigured: {
-                                        self.activeSheet = .dnsProfile
-                                    }
-                                )
+                               // self.vm.mainSwitch = true
+//                                self.vm.switchMain(activate: self.vm.mainSwitch,
+//                                    noPermissions: {
+//                                        // A callback trigerred when there is no VPN profile
+//                                        self.activeSheet = .askvpn
+//                                    },
+//                                    showRateScreen: {
+//                                        self.activeSheet = .rate
+//                                    },
+//                                    dnsProfileConfigured: {
+//                                        self.activeSheet = .dnsProfile
+//                                    }
+//                                )
                             }
 
                         (
@@ -126,7 +126,7 @@ struct HomeView: View {
 
                             L10n.homeStatusDetailPlus.withBoldSections(color: Color.cActivePlus)
                         }
-                        .opacity(self.vm.mainSwitch && self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
+                        .opacity(self.vm.appState == .Activated && self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
                             self.activeSheet = .counter
                         }
@@ -139,7 +139,7 @@ struct HomeView: View {
                                 .withBoldSections(color: Color.cActive)
                             }
                         }
-                        .opacity(self.vm.mainSwitch && !self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
+                        .opacity(self.vm.appState == .Activated && !self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
                             self.activeSheet = .counter
                         }

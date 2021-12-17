@@ -37,3 +37,9 @@ extension AccountType {
     }
 
 }
+
+enum AppState {
+    case Deactivated
+    case Paused
+    case Activated
+}

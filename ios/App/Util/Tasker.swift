@@ -28,12 +28,14 @@ class Tasker<T: Equatable, Y> {
 
     fileprivate let owner: String
     private let debounce: Double
+    private let errorIsMajor: Bool
     private let bgQueue = DispatchQueue(label: "TaskerBgQueue")
     private var cancellable: AnyCancellable? = nil
 
-    init(_ owner: String = "Unknown", debounce: Double = DEFAULT_USER_INTERACTION_DEBOUNCE) {
+    init(_ owner: String = "Unknown", debounce: Double = DEFAULT_USER_INTERACTION_DEBOUNCE, errorIsMajor: Bool = false) {
         self.debounce = debounce
         self.owner = owner
+        self.errorIsMajor = errorIsMajor
     }
 
     func setTask(_ task: @escaping (T) -> AnyPublisher<Y, Error>) {
@@ -59,7 +61,7 @@ class Tasker<T: Equatable, Y> {
             onValue: { it in
                 if let err = it.error {
                     // TODO: what about major errors
-                    self.processingRepo.notify(self.owner, err, major: false)
+                    self.processingRepo.notify(self.owner, err, major: self.errorIsMajor)
                 } else {
                     self.processingRepo.notify(self.owner, ongoing: false)
                 }
@@ -89,8 +91,8 @@ class Tasker<T: Equatable, Y> {
 
 class SimpleTasker<Y>: Tasker<Bool, Y> {
 
-    override init(_ owner: String = "Unknown", debounce: Double = DEFAULT_USER_INTERACTION_DEBOUNCE) {
-        super.init(owner, debounce: debounce)
+    override init(_ owner: String = "Unknown", debounce: Double = DEFAULT_USER_INTERACTION_DEBOUNCE, errorIsMajor: Bool = false) {
+        super.init(owner, debounce: debounce, errorIsMajor: errorIsMajor)
     }
 
     func send() -> AnyPublisher<Y, Error> {

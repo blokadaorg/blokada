@@ -13,7 +13,7 @@
 import UIKit
 
 @UIApplicationMain
- class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
@@ -38,24 +38,11 @@ import UIKit
         Config.shared.load()
         EngineService.shared.panicHook()
         DeviceTokenService.shared.startObserving()
-        NotificationService.shared.registerNotifications(for: application)
+        Services.notification.registerNotifications(for: application)
         
         return true
     }
 
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        NotificationService.shared.didRegisterForNotificationsWithDeviceToken(deviceToken: deviceToken)
-    }
-
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        NotificationService.shared.didFailToRegisterForNotificationsWithError(error: error)
-    }
-
-    // This notification type indicates that new content is available on the backend.
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        NotificationService.shared.didReceiveRemoteNotification(userInfo: userInfo, completionHandler: completionHandler)
-    }
-    
     func applicationWillResignActive(_ application: UIApplication) {
         // Use the methods in SceneDelegate instead
     }

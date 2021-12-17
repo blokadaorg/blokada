@@ -21,19 +21,24 @@ let userDateFormatChat = "E., MMd, jms"
 
 let blockaEncoder = initJsonEncoder()
 let blockaDecoder = initJsonDecoder()
+let blockaDateFormatter = initDateFormatter()
+
+func initDateFormatter() -> DateFormatter {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = blockaDateFormat
+    return dateFormatter
+}
 
 func initJsonDecoder() -> JSONDecoder {
     let decoder = JSONDecoder()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = blockaDateFormat
+    let dateFormatter = blockaDateFormatter
     decoder.dateDecodingStrategy = .formatted(dateFormatter)
     return decoder
 }
 
 func initJsonEncoder() -> JSONEncoder {
     let encoder = JSONEncoder()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = blockaDateFormat
+    let dateFormatter = blockaDateFormatter
     encoder.dateEncodingStrategy = .formatted(dateFormatter)
     return encoder
 }

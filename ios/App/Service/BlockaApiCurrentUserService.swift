@@ -39,13 +39,25 @@ class BlockaApiCurrentUserService {
         .eraseToAnyPublisher()
     }
 
-    func putActivityRetentionForCurrentUser(_ retention: String) -> AnyPublisher<Never, Error> {
+    func putActivityRetentionForCurrentUser(_ retention: String) -> AnyPublisher<Ignored, Error> {
         return self.accountRepo.getAccount()
         .map { it in DeviceRequest(
             account_id: it.account.id,
             lists: nil,
             retention: retention,
             paused: nil
+        )}
+        .flatMap { it in self.client.putDevice(request: it) }
+        .eraseToAnyPublisher()
+    }
+
+    func putPausedForCurrentUser(_ paused: Bool) -> AnyPublisher<Ignored, Error> {
+        return self.accountRepo.getAccount()
+        .map { it in DeviceRequest(
+            account_id: it.account.id,
+            lists: nil,
+            retention: nil,
+            paused: paused
         )}
         .flatMap { it in self.client.putDevice(request: it) }
         .eraseToAnyPublisher()

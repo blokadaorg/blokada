@@ -16,57 +16,112 @@ import Combine
 // Contains "main app state" mostly used in Home screen.
 class AppRepo {
 
-    var activeHot: AnyPublisher<Bool, Never> {
-        self.writeActive.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
+    var appStateHot: AnyPublisher<AppState, Never> {
+        self.writeAppState.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
-    var ongoingHot: AnyPublisher<Bool, Never> {
-        self.writeOngoing.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
+    var workingHot: AnyPublisher<Bool, Never> {
+        self.writeWorking.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
+    }
+
+    var pausedUntilHot: AnyPublisher<Date?, Never> {
+        self.writePausedUntil.removeDuplicates().eraseToAnyPublisher()
     }
 
     var accountType: AnyPublisher<AccountType, Never> {
         self.writeAccountType.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
-    fileprivate let writeActive = CurrentValueSubject<Bool?, Never>(nil)
-    fileprivate let writeOngoing = CurrentValueSubject<Bool?, Never>(nil)
+    fileprivate let writeAppState = CurrentValueSubject<AppState?, Never>(nil)
+    fileprivate let writeWorking = CurrentValueSubject<Bool?, Never>(nil)
+    fileprivate let writePausedUntil = CurrentValueSubject<Date?, Never>(nil)
     fileprivate let writeAccountType = CurrentValueSubject<AccountType?, Never>(nil)
 
+    private lazy var timer = Services.timer
+
     private lazy var accountHot = Repos.accountRepo.accountHot
-    private lazy var dnsProfileActivatedHot = Repos.cloudRepo.dnsProfileActivatedHot
-    private lazy var adblockingPausedHot = Repos.cloudRepo.adblockingPausedHot
+    private lazy var cloudRepo = Repos.cloudRepo
 
     private var cancellables = Set<AnyCancellable>()
     private let recentAccountType = Atomic<AccountType>(AccountType.Libre)
 
     init() {
-        onAnythingThatAffectsActiveStatusUpdateIt()
+        onAnythingThatAffectsAppStateUpdateIt()
         onAccountChangeUpdateAccountType()
+        onPauseWaitForExpirationToUnpause()
+        loadPauseTimerState()
     }
 
-    func onAnythingThatAffectsActiveStatusUpdateIt() {
-        Publishers.CombineLatest(
+    func pauseApp(until: Date?) -> AnyPublisher<Ignored, Error> {
+        let until = until ?? getDateInTheFuture(seconds: 60 * 60)
+        return appStateHot.first()
+        .flatMap { it -> AnyPublisher<Ignored, Error> in
+            if it == .Paused {
+                // App is already paused, only update timer
+                return self.timer.createTimer(NOTIF_PAUSE, when: until)
+            } else if it == .Activated {
+                return self.cloudRepo.setPaused(true)
+                .flatMap { _ in self.timer.createTimer(NOTIF_PAUSE, when: until) }
+                .eraseToAnyPublisher()
+            } else {
+                return Fail(error: "cannot pause, app in wrong state")
+                .eraseToAnyPublisher()
+            }
+        }
+        .map { _ in
+            self.writePausedUntil.send(until)
+            return true
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func unpauseApp() -> AnyPublisher<Ignored, Error> {
+        return appStateHot.first()
+        .flatMap { it -> AnyPublisher<Ignored, Error> in
+            if it == .Paused {
+                return self.cloudRepo.setPaused(false)
+                .flatMap { _ in self.timer.cancelTimer(NOTIF_PAUSE) }
+                .eraseToAnyPublisher()
+            } else {
+                return Fail(error: "cannot unpause, app in wrong state")
+                .eraseToAnyPublisher()
+            }
+        }
+        .map { _ in
+            self.writePausedUntil.send(nil)
+            return true
+        }
+        .eraseToAnyPublisher()
+    }
+
+    private func onAnythingThatAffectsAppStateUpdateIt() {
+        Publishers.CombineLatest3(
             accountType,
-            dnsProfileActivatedHot
+            cloudRepo.dnsProfileActivatedHot,
+            cloudRepo.adblockingPausedHot
         )
-        .map { it -> Bool in
-            let (accountType, dnsProfileActivated) = it
+        .map { it -> AppState in
+            let (accountType, dnsProfileActivated, adblockingPaused) = it
 
             if !accountType.isActive() {
-                return false
+                return AppState.Deactivated
+            }
+
+            if adblockingPaused {
+                return AppState.Paused
             }
 
             if dnsProfileActivated {
-                return true
+                return AppState.Activated
             }
 
-            return false
+            return AppState.Deactivated
         }
-        .sink(onValue: { it in self.writeActive.send(it) })
+        .sink(onValue: { it in self.writeAppState.send(it) })
         .store(in: &cancellables)
     }
 
-    func onAccountChangeUpdateAccountType() {
+    private func onAccountChangeUpdateAccountType() {
         accountHot.compactMap { it in it.account.type }
         .map { it in mapAccountType(it) }
         .sink(onValue: { it in
@@ -76,4 +131,34 @@ class AppRepo {
         .store(in: &cancellables)
     }
 
+    private func onPauseWaitForExpirationToUnpause() {
+        pausedUntilHot
+        .compactMap { $0 }
+        .flatMap { _ in
+            // This cold producer will finish once the timer expires.
+            // It will error out whenever this timer is modified.
+            self.timer.obtainTimer(NOTIF_PAUSE)
+        }
+        .flatMap { _ in
+            self.unpauseApp()
+        }
+        .sink()
+        .store(in: &cancellables)
+    }
+
+    private func loadPauseTimerState() {
+        timer.getTimerDate(NOTIF_PAUSE)
+        .tryMap { it in self.writePausedUntil.send(it) }
+        .sink()
+        .store(in: &cancellables)
+    }
+
+}
+
+func getDateInTheFuture(seconds: Int) -> Date {
+    let date = Date()
+    var components = DateComponents()
+    components.setValue(seconds, for: .second)
+    let dateInTheFuture = Calendar.current.date(byAdding: components, to: date)
+    return dateInTheFuture!
 }

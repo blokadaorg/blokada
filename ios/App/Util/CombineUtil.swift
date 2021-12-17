@@ -13,6 +13,10 @@
 import Foundation
 import Combine
 
+// Used as a non-meaningful return type for publishers, to avoid using Void as it brings
+// some problems in some cases.
+typealias Ignored = Bool
+
 extension Publisher {
 
     func sink(

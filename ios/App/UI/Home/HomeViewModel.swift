@@ -17,25 +17,21 @@ import Combine
 class HomeViewModel: ObservableObject {
 
     private let log = Logger("Home")
-    //private let network = NetworkService.shared
-    //private let vpn = VpnService.shared
-    //private let api = BlockaApiService.shared
-    //private let notification = NotificationService.shared
-    //private let sharedActions = SharedActionsService.shared
-    //private let expiration = ExpirationService.shared
 
-    private let envRepo = Repos.envRepo
     private let appRepo = Repos.appRepo
+    private let cloudRepo = Repos.cloudRepo
     private let errorsHot = Repos.processingRepo.errorsHot
     private var cancellables = Set<AnyCancellable>()
 
-    /**
-        Properties used by the HomeView
-     */
-
     @Published var showSplash = true
 
+    @Published var appState: AppState = .Deactivated
+    @Published var dnsProfileEnabled: Bool = false
+    @Published var vpnEnabled: Bool = false
     @Published var working: Bool = false
+    
+    @Published var accountActive = false
+    @Published var accountType = ""
 
     @Published var showError: Bool = false
     var errorHeader: String? = nil
@@ -70,14 +66,9 @@ class HomeViewModel: ObservableObject {
 
     var onAccountExpired = {}
 
-    @Published var mainSwitch: Bool = false
-    @Published var vpnEnabled: Bool = false
 
     @Published var timerSeconds: Int = 0
     private var timerBackgroundTask: UIBackgroundTaskIdentifier = .invalid
-
-    @Published var accountActive = false
-    @Published var accountType = ""
 
     @Published var selectedGateway: Gateway? = nil
 
@@ -100,7 +91,7 @@ class HomeViewModel: ObservableObject {
     var encryptionLevel: Int {
         if working {
             return 1
-        } else if !mainSwitch {
+        } else if appState == .Deactivated {
             return 1
         } else if !vpnEnabled {
             return 2
@@ -149,11 +140,14 @@ class HomeViewModel: ObservableObject {
 //        }
 
         onMajorErrorDisplayDialog()
-        onActiveStatusChanged()
+        onAppStateChanged()
+        onWorking()
+        onDnsProfileChanged()
         onAccountTypeChanged()
+        onPauseUpdateTimer()
     }
 
-    func onMajorErrorDisplayDialog() {
+    private func onMajorErrorDisplayDialog() {
         errorsHot.filter { it in it.major }
         .map { it in "Error:  \(it)" }
         .receive(on: RunLoop.main)
@@ -161,17 +155,34 @@ class HomeViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-    func onActiveStatusChanged() {
-        appRepo.activeHot
+    private func onAppStateChanged() {
+        appRepo.appStateHot
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
-            self.working = false
-            self.mainSwitch = it
+            self.appState = it
         })
         .store(in: &cancellables)
     }
 
-    func onAccountTypeChanged() {
+    private func onWorking() {
+        appRepo.workingHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.working = it
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onDnsProfileChanged() {
+        cloudRepo.dnsProfileActivatedHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.dnsProfileEnabled = it
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onAccountTypeChanged() {
         appRepo.accountType
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
@@ -181,9 +192,80 @@ class HomeViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-    /**
-        Public entrypoints caused by user action
-    */
+    private func onPauseUpdateTimer() {
+        appRepo.pausedUntilHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            // Display the countdown only for short timers.
+            // Long timer is the "backup" timer to remind user to unpause the app if
+            // they "turn it off" in Cloud mode (the app cannot be fully turned of in
+            // this mode, as we can't programatically deactivate the DNS profile.)
+            if let it = it, let seconds = Calendar.current.dateComponents([.second], from: Date(), to: it).second, seconds <= 60 * 30 {
+                return self.startTimer(seconds: seconds)
+            }
+
+            self.stopTimer()
+        })
+        .store(in: &cancellables)
+    }
+
+    func pause(seconds: Int?) {
+        let until = seconds != nil ? getDateInTheFuture(seconds: seconds!) : nil
+        appRepo.pauseApp(until: until)
+        .receive(on: RunLoop.main)
+        .sink(onFailure: { err in self.error = "\(err)" })
+        .store(in: &cancellables)
+    }
+
+    func unpause() {
+        appRepo.unpauseApp()
+        .receive(on: RunLoop.main)
+        .sink(onFailure: { err in self.error = "\(err)" })
+        .store(in: &cancellables)
+    }
+
+    func startTimer(seconds: Int) {
+        self.log.v("startTimer: starting pause")
+        self.timerSeconds = seconds
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            self.timerSeconds = self.timerSeconds - 1
+            if self.timerSeconds <= 0 {
+                self.stopTimer()
+                timer.invalidate()
+            }
+
+            if var timeLeft = Int(exactly: UIApplication.shared.backgroundTimeRemaining.rounded()) {
+                // It starts from 29 usually, thats why +1
+                timeLeft += 1
+                if timeLeft % 10 == 0 {
+                    self.log.v("Background time left: \(timeLeft)s")
+                }
+            }
+        }
+    }
+
+    var isPaused: Bool {
+        return self.timerSeconds != 0
+    }
+
+    func stopTimer() {
+        if self.timerSeconds >= 0 {
+            self.timerSeconds = 0
+            self.log.v("stopTimer: stopping pause")
+        } else {
+            self.timerSeconds = 0
+        }
+        endBackgroundTask()
+    }
+
+    func endBackgroundTask() {
+        if timerBackgroundTask != .invalid {
+        self.log.v("Background task ended")
+            UIApplication.shared.endBackgroundTask(timerBackgroundTask)
+            timerBackgroundTask = .invalid
+        }
+    }
+
 
 //    private func start(_ done: @escaping Callback<Void>) {
 //        self.log.v("Start")
@@ -255,21 +337,7 @@ class HomeViewModel: ObservableObject {
 //    }
 
     func foreground() {
-//        self.log.v("App entered foreground")
-//        syncUiWithConfig()
-//        onBackground {
-//            self.ensureAppStartedSuccessfully { error, _ in
-//                guard error == nil else {
-//                    return
-//                }
-//
-//                self.syncUiWithTunnel { error, status in onMain {
-//                    guard error == nil else {
-//                        if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
-//                           return self.log.v("No VPN profile")
-//                        }
-//                        return self.log.e("Foreground: failed syncing tunnel".cause(error))
-//                    }
+
 //
 //                    if let pause = status?.pauseSeconds {
 //                        if self.timerSeconds != pause {
@@ -346,7 +414,7 @@ class HomeViewModel: ObservableObject {
     func turnOff() {
         // TODO: in cloud mode, initiate untimed pause
         self.working = false
-        self.mainSwitch = false
+        //self.mainSwitch = false
     }
 
     func switchMain(activate: Bool,
@@ -697,7 +765,7 @@ class HomeViewModel: ObservableObject {
         // Blokada Cloud may be configured, but when there is no active account, it will be passthrough.
         if !self.accountActive {
             return onMain {
-                self.mainSwitch = false
+                //self.mainSwitch = false
                 self.working = false
                 return done(nil, NetworkStatus.disconnected())
             }
@@ -818,56 +886,12 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    func startTimer(seconds: Int) {
-//        self.log.v("startTimer: starting pause")
-//        self.timerSeconds = seconds
-//        self.api.pause(seconds: seconds, done: { _, _ in })
-//        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-//            self.timerSeconds = self.timerSeconds - 1
-//            if self.timerSeconds <= 0 {
-//                self.stopTimer()
-//                timer.invalidate()
-//            }
-//
-//            if var timeLeft = Int(exactly: UIApplication.shared.backgroundTimeRemaining.rounded()) {
-//                // It starts from 29 usually, thats why +1
-//                timeLeft += 1
-//                if timeLeft % 10 == 0 {
-//                    self.log.v("Background time left: \(timeLeft)s")
-//                }
-//            }
-//        }
-    }
-
-    var isPaused: Bool {
-        return self.timerSeconds != 0
-    }
-
-    func stopTimer() {
-//        if self.timerSeconds >= 0 {
-//            self.timerSeconds = 0
-//            self.log.v("stopTimer: stopping pause")
-//            self.api.pause(seconds: 0, done: { _, _ in })
-//        } else {
-//            self.timerSeconds = 0
-//        }
-//        endBackgroundTask()
-    }
-
     func registerBackgroundTask() {
         self.log.v("Registering background task")
         timerBackgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.stopTimer()
         }
         assert(timerBackgroundTask != .invalid)
-    }
-      
-    func endBackgroundTask() {
-        if timerBackgroundTask != .invalid {
-        self.log.v("Background task ended")
-            UIApplication.shared.endBackgroundTask(timerBackgroundTask)
-            timerBackgroundTask = .invalid
-        }
     }
 
     func refreshAdsCounter(delay: Bool, ok: @escaping Ok<Void> = { _ in }) {

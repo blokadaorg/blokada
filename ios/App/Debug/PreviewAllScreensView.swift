@@ -37,7 +37,7 @@ struct PreviewAllScreensView: View {
 
     var body: some View {
         let defaultHomeVM = HomeViewModel()
-        defaultHomeVM.mainSwitch = true
+        //defaultHomeVM.mainSwitch = true
         defaultHomeVM.vpnEnabled = true
         defaultHomeVM.accountActive = true
 

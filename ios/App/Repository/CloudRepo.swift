@@ -59,51 +59,62 @@ class CloudRepo {
     fileprivate let writeDnsProfileActivated = CurrentValueSubject<CloudDnsProfileActivated?, Never>(nil)
     fileprivate let writeDeviceInfo = CurrentValueSubject<DevicePayload?, Never>(nil)
 
-    fileprivate let setActivityRetentionT = PassthroughSubject<CloudActivityRetention, Never>()
-    fileprivate let refreshDeviceInfoT = PassthroughSubject<Void, Never>()
+    fileprivate let setActivityRetentionT = Tasker<CloudActivityRetention, Ignored>("setActivityRetention")
+    fileprivate let refreshDeviceInfoT = SimpleTasker<Ignored>("refreshDeviceInfo", debounce: 3.0, errorIsMajor: true)
+    fileprivate let setPausedT = Tasker<Ignored, Ignored>("setPaused", errorIsMajor: true)
 
-    // Subscribers with lifetime same as the repository
     private var cancellables = Set<AnyCancellable>()
 
     init() {
         onRefreshDeviceInfo()
         onSetActivityRetention()
+        onSetPaused()
         onForegroundCheckDnsProfileActivation()
         onTabChangeRefreshDeviceInfo()
         onDeviceTagChangeUpdateDnsProfile()
         onAccountIdChangeRefreshDeviceInfo()
     }
 
-    func setActivityRetention(_ retention: CloudActivityRetention) {
-        self.processingRepo.notify(self, ongoing: true)
-        setActivityRetentionT.send(retention)
+    func setActivityRetention(_ retention: CloudActivityRetention) -> AnyPublisher<Ignored, Error> {
+        return setActivityRetentionT.send(retention)
+    }
+
+    func setPaused(_ paused: Bool) -> AnyPublisher<Ignored, Error> {
+        return self.setPausedT.send(paused)
     }
 
     private func onRefreshDeviceInfo() {
-        refreshDeviceInfoT
-        .debounce(for: .seconds(3), scheduler: bgQueue)
-        .flatMap { _ in self.api.getDeviceForCurrentUser() }
-        .sink(
-            onValue: { it in
-                self.processingRepo.notify(self, ongoing: false)
+        refreshDeviceInfoT.setTask { _ in Just(true)
+            .flatMap { _ in self.api.getDeviceForCurrentUser() }
+            .tryMap { it in
                 self.writeDeviceInfo.send(it)
-            },
-            onFailure: { err in self.processingRepo.notify(self, err, major: true) }
-        )
-        .store(in: &cancellables)
+                return true
+            }
+            .eraseToAnyPublisher()
+        }
     }
     
     private func onSetActivityRetention() {
-        setActivityRetentionT
-        .debounce(for: .seconds(DEFAULT_USER_INTERACTION_DEBOUNCE), scheduler: bgQueue)
-        .flatMap { it in self.api.putActivityRetentionForCurrentUser(it) }
-        .sink(
-            onFailure: { err in self.processingRepo.notify(self, err, major: false) },
-            onFinished: { self.refreshDeviceInfoT.send() }
-        )
-        .store(in: &cancellables)
+        setActivityRetentionT.setTask { retention in Just(retention)
+            .flatMap { it in self.api.putActivityRetentionForCurrentUser(it) }
+            .tryMap { it in
+                self.refreshDeviceInfoT.send()
+                return true
+            }
+            .eraseToAnyPublisher()
+        }
     }
 
+    private func onSetPaused() {
+        setPausedT.setTask { paused in Just(paused)
+            .flatMap { it in self.api.putPausedForCurrentUser(it) }
+            .tryMap { it in
+                self.refreshDeviceInfoT.send()
+                return true
+            }
+            .eraseToAnyPublisher()
+        }
+    }
 
     // Will check the activation status on every foreground event
     private func onForegroundCheckDnsProfileActivation() {
@@ -120,10 +131,7 @@ class CloudRepo {
     // Entering foreground will also re-publish active tab even if user doesn't change it.
     private func onTabChangeRefreshDeviceInfo() {
         activeTabHot
-        .sink(onValue: { it in
-            self.processingRepo.notify(self, ongoing: true)
-            self.refreshDeviceInfoT.send()
-        })
+        .sink(onValue: { it in self.refreshDeviceInfoT.send() })
         .store(in: &cancellables)
     }
 
@@ -141,10 +149,7 @@ class CloudRepo {
     // Whenever account ID is changed, device tag will change, among other things.
     func onAccountIdChangeRefreshDeviceInfo() {
         accountIdHot
-        .sink(onValue: { it in
-            self.processingRepo.notify(self, ongoing: true)
-            self.refreshDeviceInfoT.send()
-        })
+        .sink(onValue: { it in self.refreshDeviceInfoT.send() })
         .store(in: &cancellables)
     }
 
@@ -168,9 +173,5 @@ class DebugCloudRepo: CloudRepo {
         )
         .store(in: &cancellables)
 
-        refreshDeviceInfoT.sink(
-            onValue: { it in self.log.v("RefreshDeviceInfo: queued")}
-        )
-        .store(in: &cancellables)
     }
 }
