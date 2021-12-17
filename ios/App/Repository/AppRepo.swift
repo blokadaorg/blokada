@@ -39,6 +39,7 @@ class AppRepo {
 
     private lazy var timer = Services.timer
 
+    private lazy var currentlyOngoingHot = Repos.processingRepo.currentlyOngoingHot
     private lazy var accountHot = Repos.accountRepo.accountHot
     private lazy var cloudRepo = Repos.cloudRepo
 
@@ -46,9 +47,10 @@ class AppRepo {
     private let recentAccountType = Atomic<AccountType>(AccountType.Libre)
 
     init() {
-        onAnythingThatAffectsAppStateUpdateIt()
-        onAccountChangeUpdateAccountType()
-        onPauseWaitForExpirationToUnpause()
+        onAnythingThatAffectsAppState_UpdateIt()
+        onAccountChange_UpdateAccountType()
+        onCurrentlyOngoing_ChangeWorkingState()
+        onPause_WaitForExpirationToUnpause()
         loadPauseTimerState()
     }
 
@@ -94,7 +96,7 @@ class AppRepo {
         .eraseToAnyPublisher()
     }
 
-    private func onAnythingThatAffectsAppStateUpdateIt() {
+    private func onAnythingThatAffectsAppState_UpdateIt() {
         Publishers.CombineLatest3(
             accountType,
             cloudRepo.dnsProfileActivatedHot,
@@ -121,7 +123,7 @@ class AppRepo {
         .store(in: &cancellables)
     }
 
-    private func onAccountChangeUpdateAccountType() {
+    private func onAccountChange_UpdateAccountType() {
         accountHot.compactMap { it in it.account.type }
         .map { it in mapAccountType(it) }
         .sink(onValue: { it in
@@ -131,7 +133,20 @@ class AppRepo {
         .store(in: &cancellables)
     }
 
-    private func onPauseWaitForExpirationToUnpause() {
+    private func onCurrentlyOngoing_ChangeWorkingState() {
+        let tasksThatMarkWorkingState = Set([
+            "refreshAccount", "restoreAccount",
+            "setPaused"
+        ])
+
+        currentlyOngoingHot
+        .map { it in Set(it.map { $0.component }) }
+        .map { it in !it.intersection(tasksThatMarkWorkingState).isEmpty }
+        .sink(onValue: { it in self.writeWorking.send(it) })
+        .store(in: &cancellables)
+    }
+
+    private func onPause_WaitForExpirationToUnpause() {
         pausedUntilHot
         .compactMap { $0 }
         .flatMap { _ in

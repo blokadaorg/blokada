@@ -32,3 +32,10 @@ extension ComponentOngoing: Equatable {
             lhs.ongoing == rhs.ongoing
     }
 }
+
+extension ComponentOngoing: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(component)
+        hasher.combine(ongoing)
+    }
+}
