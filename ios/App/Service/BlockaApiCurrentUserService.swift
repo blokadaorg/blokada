@@ -73,4 +73,15 @@ class BlockaApiCurrentUserService {
         .eraseToAnyPublisher()
     }
 
+    func postAppleDeviceTokenForCurrentUser(deviceToken: Data) -> AnyPublisher<Ignored, Error> {
+        return self.accountRepo.getAccount()
+        .map { it in AppleDeviceTokenRequest(
+            account_id: it.account.id,
+            public_key: it.keypair.publicKey,
+            device_token: deviceToken
+        )}
+        .flatMap { it in self.client.postAppleDeviceToken(request: it) }
+        .eraseToAnyPublisher()
+    }
+
 }

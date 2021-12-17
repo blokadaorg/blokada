@@ -27,16 +27,11 @@ class NotificationService {
 
     private var delegate: NotificationCenterDelegateHandler? = nil
 
-    func registerNotifications(for application: UIApplication) -> AnyPublisher<DeviceToken, Error> {
-        return Future<DeviceToken, Error> { promise in
-            let delegate = NotificationCenterDelegateHandler(
-                initPromise: promise,
-                writeNotification: self.writeNotification
-            )
-            self.center.delegate = delegate
-            application.registerForRemoteNotifications()
-        }
-        .eraseToAnyPublisher()
+    func registerNotifications() {
+        let delegate = NotificationCenterDelegateHandler(
+            writeNotification: self.writeNotification
+        )
+        self.center.delegate = delegate
     }
 
     func askForPermissions(which: UNAuthorizationOptions = [.badge, .alert, .sound]) -> AnyPublisher<Ignored, Error> {
@@ -90,12 +85,6 @@ class NotificationService {
         .eraseToAnyPublisher()
     }
 
-//        let content = UNMutableNotificationContent()
-//        content.title = L10n.notificationVpnExpiredHeader
-//        content.subtitle = L10n.notificationVpnExpiredSubtitle
-//        content.body = L10n.notificationVpnExpiredBody
-//        content.sound = .default
-
 //    func clearNotification() {
 //        notifications.removeAllDeliveredNotifications()
 //        notifications.removeAllPendingNotificationRequests()
@@ -122,31 +111,10 @@ class NotificationService {
 
 class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDelegate {
 
-    private let initPromise: Future<DeviceToken, Error>.Promise
     private let writeNotification: PassthroughSubject<String, Never>
 
-    init(
-        initPromise: @escaping Future<DeviceToken, Error>.Promise,
-        writeNotification: PassthroughSubject<String, Never>
-    ) {
-        self.initPromise = initPromise
+    init(writeNotification: PassthroughSubject<String, Never>) {
         self.writeNotification = writeNotification
-    }
-
-    // Notification registration callback: success
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
-    {
-        initPromise(.success(deviceToken))
-    }
-
-    // Notification registration callback: failure
-    func application(
-        _ application: UIApplication,
-        didFailToRegisterForRemoteNotificationsWithError error: Error
-    ) {
-        initPromise(.failure(error))
     }
 
     // Notification arrived (either in foreground or background)

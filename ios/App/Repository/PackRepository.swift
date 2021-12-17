@@ -265,54 +265,54 @@ class PackRepository {
         self.packs = hardcodedPacks
         self.onPacksUpdated(self.packs)
 
-        self.api.getCurrentDevice { error, device in
-            guard error == nil else {
-                return self.log.e("reload: could not get device".cause(error))
-            }
-
-            guard let device = device else {
-                return self.log.e("reload: device returned empty")
-            }
-
-            let activeLists = device.lists
-
-            self.api.getCurrentBlocklists { error, blocklists in
-                guard error == nil else {
-                    return self.log.e("reload: could not reload packs".cause(error))
-                }
-
-                guard let blocklists = blocklists else {
-                    return self.log.e("reload: blocklists returned empty")
-                }
-
-                let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false
-                    && activeLists.contains(b.id) }))
-
-                self.packs = self.hardcodedPacks
-                var packsDict: [String: Pack] = [:]
-                self.packs.forEach { pack in packsDict[pack.id] = pack }
-
-                mapped.forEach { mapping in
-                    let packId = mapping.packId
-                    let configName = mapping.packConfig
-                    let pack = packsDict[packId]
-                    guard let pack = pack else {
-                        return self.log.w("reload: unknown pack id: \(packId)")
-                    }
-
-                    guard pack.configs.contains(configName) else {
-                        return self.log.w("reload: pack \(packId) doesnt know config \(configName)")
-                    }
-
-                    let newPack = pack.changeStatus(installed: true, config: configName)
-                    packsDict[packId] = newPack
-                    self.packs = self.packs.map { $0.id == packId ? newPack : $0 }
-                }
-
-                // Replace item without reordering them
-                self.onPacksUpdated(self.packs)
-            }
-        }
+//        self.api.getCurrentDevice { error, device in
+//            guard error == nil else {
+//                return self.log.e("reload: could not get device".cause(error))
+//            }
+//
+//            guard let device = device else {
+//                return self.log.e("reload: device returned empty")
+//            }
+//
+//            let activeLists = device.lists
+//
+//            self.api.getCurrentBlocklists { error, blocklists in
+//                guard error == nil else {
+//                    return self.log.e("reload: could not reload packs".cause(error))
+//                }
+//
+//                guard let blocklists = blocklists else {
+//                    return self.log.e("reload: blocklists returned empty")
+//                }
+//
+//                let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false
+//                    && activeLists.contains(b.id) }))
+//
+//                self.packs = self.hardcodedPacks
+//                var packsDict: [String: Pack] = [:]
+//                self.packs.forEach { pack in packsDict[pack.id] = pack }
+//
+//                mapped.forEach { mapping in
+//                    let packId = mapping.packId
+//                    let configName = mapping.packConfig
+//                    let pack = packsDict[packId]
+//                    guard let pack = pack else {
+//                        return self.log.w("reload: unknown pack id: \(packId)")
+//                    }
+//
+//                    guard pack.configs.contains(configName) else {
+//                        return self.log.w("reload: pack \(packId) doesnt know config \(configName)")
+//                    }
+//
+//                    let newPack = pack.changeStatus(installed: true, config: configName)
+//                    packsDict[packId] = newPack
+//                    self.packs = self.packs.map { $0.id == packId ? newPack : $0 }
+//                }
+//
+//                // Replace item without reordering them
+//                self.onPacksUpdated(self.packs)
+//            }
+//        }
     }
 
     func installPack(pack: Pack, ok: @escaping Ok<Void>, fail: @escaping Faile) {
@@ -325,57 +325,57 @@ class PackRepository {
         self.update(pack.changeStatus(installing: true))
         onBackground {
             // Get active lists this user selected
-            self.api.getCurrentDevice { error, device in
-                guard error == nil else {
-                    self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                    return fail("installPack: could not get device".cause(error))
-                }
-
-                guard let device = device else {
-                    self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                    return fail("installPack: device returned empty")
-                }
-
-                // Map the list IDs to pack ID and config (that we use in client)
-                self.api.getCurrentBlocklists { error, blocklists in
-                    guard error == nil else {
-                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                        return fail("installPack: could not reload packs".cause(error))
-                    }
-
-                    guard let blocklists = blocklists else {
-                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                        return fail("installPack: blocklists returned empty")
-                    }
-
-                    let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false })).filter { it in
-                        // Get only mapping for selected pack
-                        it.packId == pack.id
-                        
-                        // And only for configs that are active for this pack
-                        && pack.status.config.contains(it.packConfig)
-                    }
-
-                    // Merge lists unique
-                    let newActiveLists = Set(mapped.map { it in it.id }).union(device.lists)
-
-                    self.api.postDevice(request: DeviceRequest(
-                        account_id: Config.shared.accountId(),
-                        lists: Array(newActiveLists),
-                        retention: nil,
-                        paused: nil
-                    )) { error, _ in
-                        guard error == nil else {
-                            self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                            return fail("installPack: failed postings lists".cause(error))
-                        }
-
-                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
-                        self.onPacksUpdated(self.packs)
-                        return ok(())
-                    }
-                }
-            }
+//            self.api.getCurrentDevice { error, device in
+//                guard error == nil else {
+//                    self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+//                    return fail("installPack: could not get device".cause(error))
+//                }
+//
+//                guard let device = device else {
+//                    self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+//                    return fail("installPack: device returned empty")
+//                }
+//
+//                // Map the list IDs to pack ID and config (that we use in client)
+//                self.api.getCurrentBlocklists { error, blocklists in
+//                    guard error == nil else {
+//                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+//                        return fail("installPack: could not reload packs".cause(error))
+//                    }
+//
+//                    guard let blocklists = blocklists else {
+//                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+//                        return fail("installPack: blocklists returned empty")
+//                    }
+//
+//                    let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false })).filter { it in
+//                        // Get only mapping for selected pack
+//                        it.packId == pack.id
+//
+//                        // And only for configs that are active for this pack
+//                        && pack.status.config.contains(it.packConfig)
+//                    }
+//
+//                    // Merge lists unique
+//                    let newActiveLists = Set(mapped.map { it in it.id }).union(device.lists)
+//
+//                    self.api.postDevice(request: DeviceRequest(
+//                        account_id: Config.shared.accountId(),
+//                        lists: Array(newActiveLists),
+//                        retention: nil,
+//                        paused: nil
+//                    )) { error, _ in
+//                        guard error == nil else {
+//                            self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+//                            return fail("installPack: failed postings lists".cause(error))
+//                        }
+//
+//                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+//                        self.onPacksUpdated(self.packs)
+//                        return ok(())
+//                    }
+//                }
+//            }
         }
     }
 
@@ -383,54 +383,54 @@ class PackRepository {
         self.update(pack.changeStatus(installing: true))
         onBackground {
             // Get active lists this user selected
-            self.api.getCurrentDevice { error, device in
-                guard error == nil else {
-                    self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
-                    return fail("uninstallPack: could not get device".cause(error))
-                }
-
-                guard let device = device else {
-                    self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
-                    return fail("uninstallPack: device returned empty")
-                }
-
-                // Map the list IDs to pack ID and config (that we use in client)
-                self.api.getCurrentBlocklists { error, blocklists in
-                    guard error == nil else {
-                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
-                        return fail("uninstallPack: could not reload packs".cause(error))
-                    }
-
-                    guard let blocklists = blocklists else {
-                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
-                        return fail("uninstallPack: blocklists returned empty")
-                    }
-
-                    let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false })).filter { it in
-                        // Get only mapping for selected pack
-                        it.packId == pack.id
-                    }
-
-                    // Merge lists unique
-                    let newActiveLists = Set(device.lists).subtracting(mapped.map { it in it.id })
-
-                    self.api.postDevice(request: DeviceRequest(
-                        account_id: Config.shared.accountId(),
-                        lists: Array(newActiveLists),
-                        retention: nil,
-                        paused: nil
-                    )) { error, _ in
-                        guard error == nil else {
-                            self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
-                            return fail("installPack: failed postings lists".cause(error))
-                        }
-
-                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
-                        self.onPacksUpdated(self.packs)
-                        return ok(())
-                    }
-                }
-            }
+//            self.api.getCurrentDevice { error, device in
+//                guard error == nil else {
+//                    self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+//                    return fail("uninstallPack: could not get device".cause(error))
+//                }
+//
+//                guard let device = device else {
+//                    self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+//                    return fail("uninstallPack: device returned empty")
+//                }
+//
+//                // Map the list IDs to pack ID and config (that we use in client)
+//                self.api.getCurrentBlocklists { error, blocklists in
+//                    guard error == nil else {
+//                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+//                        return fail("uninstallPack: could not reload packs".cause(error))
+//                    }
+//
+//                    guard let blocklists = blocklists else {
+//                        self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+//                        return fail("uninstallPack: blocklists returned empty")
+//                    }
+//
+//                    let mapped = convertBlocklists(blocklists: blocklists.filter({ b in b.is_allowlist == false })).filter { it in
+//                        // Get only mapping for selected pack
+//                        it.packId == pack.id
+//                    }
+//
+//                    // Merge lists unique
+//                    let newActiveLists = Set(device.lists).subtracting(mapped.map { it in it.id })
+//
+//                    self.api.postDevice(request: DeviceRequest(
+//                        account_id: Config.shared.accountId(),
+//                        lists: Array(newActiveLists),
+//                        retention: nil,
+//                        paused: nil
+//                    )) { error, _ in
+//                        guard error == nil else {
+//                            self.update(pack.changeStatus(installed: true, updatable: false, installing: false))
+//                            return fail("installPack: failed postings lists".cause(error))
+//                        }
+//
+//                        self.update(pack.changeStatus(installed: false, updatable: false, installing: false))
+//                        self.onPacksUpdated(self.packs)
+//                        return ok(())
+//                    }
+//                }
+//            }
         }
     }
 

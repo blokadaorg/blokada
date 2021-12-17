@@ -32,110 +32,6 @@ class BlockaApiService {
         // singleton
     }
 
-    func postAccount(done: @escaping Callback<Account>) {
-        self.request(url: self.baseUrl + "/v1/account", method: "POST", done: { (error, result) in
-            guard error == nil else {
-                done(error, nil)
-                return
-            }
-
-            guard let stringData = result else {
-                done("postAccount: request returned nil result", nil)
-                return
-            }
-
-            let jsonData = stringData.data(using: .utf8)
-            guard let json = jsonData else {
-                done("postAccount: parsing api response failed", nil)
-                return
-            }
-
-            do {
-                let account = try self.decoder.decode(AccountWrapper.self, from: json)
-                done(nil, account.account)
-            } catch {
-                self.log.e("postAccount: failed".cause(error))
-                done("postAccount: failed decoding api json response".cause(error), nil)
-            }
-        })
-    }
-
-    func getAccount(id: AccountId, done: @escaping Callback<Account>) {
-        self.request(url: self.baseUrl + "/v1/account?account_id=" + id, done: { (error, result) in
-            guard error == nil else {
-                done(error, nil)
-                return
-            }
-
-            guard let stringData = result else {
-                done("getAccount: request returned nil result", nil)
-                return
-            }
-
-            let jsonData = stringData.data(using: .utf8)
-            guard let json = jsonData else {
-                done("getAccount: parsing api response failed", nil)
-                return
-            }
-
-            do {
-                let account = try self.decoder.decode(AccountWrapper.self, from: json)
-                done(nil, account.account)
-            } catch {
-                self.log.e("getAccount: failed".cause(error))
-                done("getAccount: failed decoding api json response".cause(error), nil)
-            }
-        })
-    }
-
-    func getDevice(id: AccountId, done: @escaping Callback<DevicePayload>) {
-        self.request(url: self.baseUrl + "/v1/device?account_id=" + id, done: { (error, result) in
-            guard error == nil else {
-                done(error, nil)
-                return
-            }
-
-            guard let stringData = result else {
-                done("getDevice: request returned nil result", nil)
-                return
-            }
-
-            let jsonData = stringData.data(using: .utf8)
-            guard let json = jsonData else {
-                done("getDevice: parsing api response failed", nil)
-                return
-            }
-
-            do {
-                let val = try self.decoder.decode(DevicePayload.self, from: json)
-                done(nil, val)
-            } catch {
-                self.log.e("getDevice: failed".cause(error))
-                done("getDevice: failed decoding api json response".cause(error), nil)
-            }
-        })
-    }
-    
-    func postDevice(request: DeviceRequest, done: @escaping Callback<Void>) {
-        guard let body = request.toJson() else {
-            onMain { done("Failed encoding Device", nil) }
-            return
-        }
-
-        self.request(url: self.baseUrl + "/v1/device", method: "PUT", body: body, done: { (error, result) in
-            guard error == nil else {
-                done(error, nil)
-                return
-            }
-
-            guard result != nil else {
-                done("postDevice: request returned nil result", nil)
-                return
-            }
-
-            done(nil, ())
-        })
-    }
 
     func getCounterStats(id: AccountId, done: @escaping Callback<CounterStats>) {
         self.request(url: self.baseUrl + "/v1/stats?account_id=" + id, done: { (error, result) in
@@ -163,14 +59,6 @@ class BlockaApiService {
                 done("getCounterStats: failed decoding api json response".cause(error), nil)
             }
         })
-    }
-
-    func getCurrentAccount(done: @escaping Callback<Account>) {
-        self.getAccount(id: Config.shared.accountId(), done: done)
-    }
-
-    func getCurrentDevice(done: @escaping Callback<DevicePayload>) {
-        self.getDevice(id: Config.shared.accountId(), done: done)
     }
 
     func getCurrentCounterStats(done: @escaping Callback<CounterStats>) {
@@ -468,73 +356,6 @@ class BlockaApiService {
         })
     }
 
-    func postAppleCheckout(request: AppleCheckoutRequest, done: @escaping Callback<Account>) {
-        guard let body = request.toJson() else {
-            onMain { done("Failed encoding AppleCheckoutRequest", nil) }
-            return
-        }
-
-        self.request(url: self.baseUrl + "/v1/apple/checkout", method: "POST", body: body, done: { (error, result) in
-            guard error == nil else {
-                done(error, nil)
-                return
-            }
-
-            guard let stringData = result else {
-                done("postAppleCheckout: request returned nil result", nil)
-                return
-            }
-
-            let jsonData = stringData.data(using: .utf8)
-            guard let json = jsonData else {
-                done("postAppleCheckout: parsing api response failed", nil)
-                return
-            }
-
-            do {
-                let account = try self.decoder.decode(AccountWrapper.self, from: json)
-                done(nil, account.account)
-            } catch {
-                self.log.v("postAppleCheckout: failed".cause(error))
-                self.log.v(stringData)
-                done("postAppleCheckout: failed decoding api json response".cause(error), nil)
-            }
-        })
-    }
-
-    func postAppleDeviceToken(request: AppleDeviceTokenRequest, done: @escaping (Error?) -> Void) {
-        guard let body = request.toJson() else {
-            return done("postAppleDeviceToken: failed encoding AppleDeviceTokenRequest")
-        }
-
-        self.request(url: self.baseUrl + "/v1/apple/device", method: "POST", body: body) { (error, _) in
-            done(error)
-        }
-    }
-
-    func pause(seconds: Int, done: @escaping Callback<String>) {
-        onBackground {
-            if seconds > 0 {
-                self.postDevice(request: DeviceRequest(account_id: Config.shared.accountId(), lists: nil,
-                                                           retention: nil, paused: true)) { error, _ in
-                    guard error == nil else {
-                        return onMain { done("pause: request failed".cause(error), nil) }
-                    }
-
-                    return onMain { done(nil, nil) }
-                }
-            } else {
-                self.postDevice(request: DeviceRequest(account_id: Config.shared.accountId(), lists: nil,
-                                                           retention: nil, paused: false)) { error, _ in
-                    guard error == nil else {
-                        return onMain { done("pause: request failed".cause(error), nil) }
-                    }
-
-                    return onMain { done(nil, nil) }
-                }
-            }
-        }
-    }
 
     private func request(url: String, method: String = "GET", body: String = "", done: @escaping Callback<String>) {
         onBackground {

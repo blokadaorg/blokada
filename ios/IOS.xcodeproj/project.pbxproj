@@ -298,8 +298,8 @@
 		4E971F7D246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F7B246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift */; };
 		4E971F7F246BCEA300809EA6 /* PlusFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F7E246BCEA300809EA6 /* PlusFeaturesView.swift */; };
 		4E971F80246BCEA300809EA6 /* PlusFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F7E246BCEA300809EA6 /* PlusFeaturesView.swift */; };
-		4E971F82246C14A400809EA6 /* DeviceTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F81246C14A400809EA6 /* DeviceTokenService.swift */; };
-		4E971F83246C14A400809EA6 /* DeviceTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F81246C14A400809EA6 /* DeviceTokenService.swift */; };
+		4E971F82246C14A400809EA6 /* AppleTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F81246C14A400809EA6 /* AppleTokenService.swift */; };
+		4E971F83246C14A400809EA6 /* AppleTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F81246C14A400809EA6 /* AppleTokenService.swift */; };
 		4E9A04622448A93F003AB48D /* NetworkCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A04612448A93F003AB48D /* NetworkCommand.swift */; };
 		4E9A046424499317003AB48D /* NELogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A046324499317003AB48D /* NELogger.swift */; };
 		4E9A04662449A006003AB48D /* EnvRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A04652449A006003AB48D /* EnvRepo.swift */; };
@@ -543,7 +543,7 @@
 		4E971F782469977100809EA6 /* DoubleColumnPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleColumnPlaceholderView.swift; sourceTree = "<group>"; };
 		4E971F7B246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKPaymentTransaction+Extensions.swift"; sourceTree = "<group>"; };
 		4E971F7E246BCEA300809EA6 /* PlusFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusFeaturesView.swift; sourceTree = "<group>"; };
-		4E971F81246C14A400809EA6 /* DeviceTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenService.swift; sourceTree = "<group>"; };
+		4E971F81246C14A400809EA6 /* AppleTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTokenService.swift; sourceTree = "<group>"; };
 		4E99A3932514980E0054BF69 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Packs.strings"; sourceTree = "<group>"; };
 		4E99A3942514980E0054BF69 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PackTags.strings"; sourceTree = "<group>"; };
 		4E99A3952514980E0054BF69 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Ui.strings"; sourceTree = "<group>"; };
@@ -737,8 +737,8 @@
 				4E53CCBA244DFF99009B3CF0 /* SKProduct+Extensions.swift */,
 				4E1A84E02476AE19007FEAFB /* StatsModel.swift */,
 				4E8AE1F52758F06500BD2E5B /* AccountModel.swift */,
-				4E4EDBEE275E5D13007B9394 /* StageModel.swift */,
 				4E2F2A0B2760A936005A59F5 /* CloudModel.swift */,
+				4E4EDBEE275E5D13007B9394 /* StageModel.swift */,
 				4E2F2A142760BE6F005A59F5 /* NavModel.swift */,
 				4E2F2A1D2760F0A1005A59F5 /* ProcessingModel.swift */,
 				4E2F2A28276373EE005A59F5 /* AppModel.swift */,
@@ -755,7 +755,7 @@
 				4E227F302433D7B7004F4955 /* BlockaApiService.swift */,
 				4E201D1D27554572001FA2FF /* BlockaApiService2.swift */,
 				4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */,
-				4E971F81246C14A400809EA6 /* DeviceTokenService.swift */,
+				4E971F81246C14A400809EA6 /* AppleTokenService.swift */,
 				4E59E31A24751D12008C1AAA /* ExpirationService.swift */,
 				4EEF1BE72457105E00734182 /* NotificationService.swift */,
 				4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */,
@@ -1391,7 +1391,7 @@
 				4EEF1BEC2457FBD900734182 /* DebugView.swift in Sources */,
 				4E11D2E627206D810042385B /* NoLogRetentionView.swift in Sources */,
 				4E36D5ED24589AFF00E339F2 /* BlokadaView.swift in Sources */,
-				4E971F82246C14A400809EA6 /* DeviceTokenService.swift in Sources */,
+				4E971F82246C14A400809EA6 /* AppleTokenService.swift in Sources */,
 				4E53CCB9244DFEB1009B3CF0 /* PaymentModel.swift in Sources */,
 				4E2ECD0B245B2B14009040F1 /* TagView.swift in Sources */,
 				4E63194B2447436C00191C16 /* LeaseListView.swift in Sources */,
@@ -1571,7 +1571,7 @@
 				4E2F2A192760E400005A59F5 /* Constants.swift in Sources */,
 				4E971F732469809000809EA6 /* PackDownloaderMock.swift in Sources */,
 				4E11D2DE271F14C90042385B /* ActivityConverter.swift in Sources */,
-				4E971F83246C14A400809EA6 /* DeviceTokenService.swift in Sources */,
+				4E971F83246C14A400809EA6 /* AppleTokenService.swift in Sources */,
 				4E7FE9B4244DC28900851E9F /* BenefitView.swift in Sources */,
 				4E2ECD0C245B2B14009040F1 /* TagView.swift in Sources */,
 				4E7FE9B5244DC28900851E9F /* Transitions.swift in Sources */,

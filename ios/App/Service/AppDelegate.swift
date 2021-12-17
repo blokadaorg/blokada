@@ -15,6 +15,8 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private var token: AppleTokenService?
+
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
@@ -35,12 +37,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.v(Services.http.userAgent())
 
         Repos.stageRepo.onCreate()
+        token = AppleTokenService(application)
+
         Config.shared.load()
         EngineService.shared.panicHook()
-        DeviceTokenService.shared.startObserving()
-        Services.notification.registerNotifications(for: application)
         
         return true
+    }
+
+    // Notification registration callback: success
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
+    {
+        token?.onAppleTokenReceived(deviceToken)
+    }
+
+    // Notification registration callback: failure
+    func application(
+        _ application: UIApplication,
+        didFailToRegisterForRemoteNotificationsWithError error: Error
+    ) {
+        token?.onAppleTokenFailed(error)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

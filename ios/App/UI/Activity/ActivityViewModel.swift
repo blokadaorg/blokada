@@ -124,36 +124,36 @@ class ActivityViewModel: ObservableObject {
     func checkLogRetention() {
         // Set quickly from local storage and then refresh with a request
         self.logRetentionSelected = self.logRetention
-        self.api.getCurrentDevice { error, device in
-            guard error == nil else {
-                return self.log.w("checkLogRetention: error getting device".cause(error))
-            }
-
-            guard let device = device else {
-                return self.log.v("checkLogRetention: no device")
-            }
-
-            self.logRetention = device.retention
-            Config.shared.setLogRetention(retention: self.logRetention)
-            self.logRetentionSelected = self.logRetention
-            self.sharedActions.refreshPauseInformation(device.paused)
-        }
+//        self.api.getCurrentDevice { error, device in
+//            guard error == nil else {
+//                return self.log.w("checkLogRetention: error getting device".cause(error))
+//            }
+//
+//            guard let device = device else {
+//                return self.log.v("checkLogRetention: no device")
+//            }
+//
+//            self.logRetention = device.retention
+//            Config.shared.setLogRetention(retention: self.logRetention)
+//            self.logRetentionSelected = self.logRetention
+//            self.sharedActions.refreshPauseInformation(device.paused)
+//        }
     }
 
     func applyLogRetention() {
-        self.api.postDevice(request: DeviceRequest(
-            account_id: Config.shared.accountId(),
-            lists: nil,
-            retention: self.logRetentionSelected,
-            paused: nil
-        )) { error, _ in
-            guard error == nil else {
-                return self.log.w("applyLogRetention: request failed".cause(error))
-            }
-
-            Config.shared.setLogRetention(retention: self.logRetentionSelected)
-            self.logRetention = self.logRetentionSelected
-        }
+//        self.api.postDevice(request: DeviceRequest(
+//            account_id: Config.shared.accountId(),
+//            lists: nil,
+//            retention: self.logRetentionSelected,
+//            paused: nil
+//        )) { error, _ in
+//            guard error == nil else {
+//                return self.log.w("applyLogRetention: request failed".cause(error))
+//            }
+//
+//            Config.shared.setLogRetention(retention: self.logRetentionSelected)
+//            self.logRetention = self.logRetentionSelected
+//        }
     }
 
 }

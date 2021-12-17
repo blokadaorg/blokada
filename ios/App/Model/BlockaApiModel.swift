@@ -215,5 +215,7 @@ struct AppleCheckoutRequest: Codable {
 struct AppleDeviceTokenRequest: Codable {
     let account_id: AccountId
     let public_key: PublicKey
-    let device_token: Data
+    let device_token: AppleToken
 }
+
+typealias AppleToken = Data
