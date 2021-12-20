@@ -26,6 +26,8 @@
 		4E0F6FF2243DB49E002E1DF6 /* PlusButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F6FF1243DB49E002E1DF6 /* PlusButtonView.swift */; };
 		4E0F8133276CAE6C0030DF1D /* ActivityRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F8132276CAE6C0030DF1D /* ActivityRepo.swift */; };
 		4E0F8134276CAE6C0030DF1D /* ActivityRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F8132276CAE6C0030DF1D /* ActivityRepo.swift */; };
+		4E0FB70B27708FED00735E0D /* StatsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FB70A27708FED00735E0D /* StatsRepo.swift */; };
+		4E0FB70C27708FED00735E0D /* StatsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FB70A27708FED00735E0D /* StatsRepo.swift */; };
 		4E118DF62463ED24005112C1 /* Swift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF52463ED24005112C1 /* Swift+Extensions.swift */; };
 		4E118DF72463ED24005112C1 /* Swift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF52463ED24005112C1 /* Swift+Extensions.swift */; };
 		4E118DF924640356005112C1 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF824640356005112C1 /* FileManager+Extensions.swift */; };
@@ -401,6 +403,7 @@
 		4E0F6FEF243D1048002E1DF6 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		4E0F6FF1243DB49E002E1DF6 /* PlusButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButtonView.swift; sourceTree = "<group>"; };
 		4E0F8132276CAE6C0030DF1D /* ActivityRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepo.swift; sourceTree = "<group>"; };
+		4E0FB70A27708FED00735E0D /* StatsRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsRepo.swift; sourceTree = "<group>"; };
 		4E118DF52463ED24005112C1 /* Swift+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Extensions.swift"; sourceTree = "<group>"; };
 		4E118DF824640356005112C1 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		4E11D2D9271EE7DD0042385B /* DnsProfileConfiguredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnsProfileConfiguredView.swift; sourceTree = "<group>"; };
@@ -789,6 +792,7 @@
 				4E2F2A25276371C6005A59F5 /* AppRepo.swift */,
 				4E0F2B4C2767796200444933 /* PaymentRepo.swift */,
 				4E0F8132276CAE6C0030DF1D /* ActivityRepo.swift */,
+				4E0FB70A27708FED00735E0D /* StatsRepo.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1423,6 +1427,7 @@
 				4E53CCBB244DFF99009B3CF0 /* SKProduct+Extensions.swift in Sources */,
 				4E42355C2451959F005A0779 /* LoggerSaver.swift in Sources */,
 				4E42353D244F3D21005A0779 /* LocationListViewModel.swift in Sources */,
+				4E0FB70B27708FED00735E0D /* StatsRepo.swift in Sources */,
 				4E45F4ED248E87FF002D4DD6 /* AfterActivatedView.swift in Sources */,
 				4E40DBD02417D54E00662E10 /* LocationListView.swift in Sources */,
 				4E970C092769FE6F00ABD896 /* Tasker.swift in Sources */,
@@ -1474,6 +1479,7 @@
 				4E57FCD524A0AD9300960ADF /* ChatView.swift in Sources */,
 				4E36D5EE24589B2D00E339F2 /* BlokadaView.swift in Sources */,
 				4E08B9D1247E7C0300AED8F0 /* DnsModel.swift in Sources */,
+				4E0FB70C27708FED00735E0D /* StatsRepo.swift in Sources */,
 				4E36D5F32459D8BD00E339F2 /* PowerView.swift in Sources */,
 				4E42355D245195FA005A0779 /* LoggerSaverMock.swift in Sources */,
 				4E11D2E727206D810042385B /* NoLogRetentionView.swift in Sources */,

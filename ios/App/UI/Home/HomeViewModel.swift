@@ -21,6 +21,7 @@ class HomeViewModel: ObservableObject {
     private let appRepo = Repos.appRepo
     private let cloudRepo = Repos.cloudRepo
     private let errorsHot = Repos.processingRepo.errorsHot
+    private let blockedCounterHot = Repos.statsRepo.blockedHot
     private var cancellables = Set<AnyCancellable>()
 
     @Published var showSplash = true
@@ -103,29 +104,13 @@ class HomeViewModel: ObservableObject {
     
     init() {
 //        sharedActions.changeGateway = switchGateway
-//        sharedActions.refreshStats = { ok in
-//            self.refreshAdsCounter(delay: false, ok: ok)
-//        }
-//        sharedActions.refreshPauseInformation = { paused in
-//            self.log.v("Refreshing pause info")
-//            if !paused {
-//                self.stopTimer()
-//            } else {
-//                self.startTimer(seconds: 300)
-//            }
-//        }
         Config.shared.setOnConfigUpdated {
             onMain {
                 self.syncUiWithConfig()
                 self.syncUiWithTunnel(done: { _, _ in } )
             }
         }
-        Config.shared.setOnAccountIdChanged {
-            onMain {
-                self.blockedCounter = 0
-                //self.refreshAdsCounter(delay: false)
-            }
-        }
+
 //        network.onStatusChanged = { status in
 //            onMain {
 //                self.working = status.inProgress
@@ -144,6 +129,7 @@ class HomeViewModel: ObservableObject {
         onWorking()
         onDnsProfileChanged()
         onAccountTypeChanged()
+        onStatsChanged()
         onPauseUpdateTimer()
     }
 
@@ -188,6 +174,15 @@ class HomeViewModel: ObservableObject {
         .sink(onValue: { it in
             self.accountType = it.toString()
             self.accountActive = it.isActive()
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onStatsChanged() {
+        blockedCounterHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.blockedCounter = it
         })
         .store(in: &cancellables)
     }
@@ -472,13 +467,6 @@ class HomeViewModel: ObservableObject {
 ////                                    self.working = false
 ////                                    self.log.v("User action: switchMain: done")
 ////
-////                                    self.refreshAdsCounter(delay: true) {
-////                                        if self.shouldShowRateScreen() {
-////                                            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-////                                                showRateScreen(())
-////                                            })
-////                                        }
-////                                    }
 ////                                }
 ////                            }
 //                        }
@@ -513,7 +501,6 @@ class HomeViewModel: ObservableObject {
 //
 //                                    self.expiration.update(cfg.account())
 //                                    self.recheckActiveLeaseAfterActivating()
-//                                    self.refreshAdsCounter(delay: true)
 //                                    self.log.v("User action: switchMain: done")
 //                                }}
 //                            } else if cfg.hasLease() && cfg.accountActive() {
@@ -531,7 +518,6 @@ class HomeViewModel: ObservableObject {
 //                                        }
 //
 //                                        self.expiration.update(cfg.account())
-//                                        self.refreshAdsCounter(delay: true)
 //                                        self.log.v("User action: switchMain: done")
 //                                    }}
 //                                }}
@@ -798,7 +784,6 @@ class HomeViewModel: ObservableObject {
 //                    return done(nil, status)
 //                } else if status.active {
 //                    self.log.v(" NETX active")
-//                    self.refreshAdsCounter(delay: false)
 //                    if status.hasGateway() {
 //                        self.log.v("  Connected to gateway: \(status.gatewayId!)")
 //                        self.mainSwitch = true
@@ -892,24 +877,6 @@ class HomeViewModel: ObservableObject {
             self?.stopTimer()
         }
         assert(timerBackgroundTask != .invalid)
-    }
-
-    func refreshAdsCounter(delay: Bool, ok: @escaping Ok<Void> = { _ in }) {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-//            self.api.getCurrentCounterStats { error, stats in
-//                guard error == nil, let stats = stats else {
-//                    return self.log.w("refreshAdsCounter: failed api call".cause(error))
-//                }
-//
-//                onMain {
-//                    guard let counter = Int(stats.total_blocked) else {
-//                        return self.log.w("refreshAdsCounter: could not parse, implement uint64 counter support")
-//                    }
-//                    self.blockedCounter = counter
-//                    ok(())
-//                }
-//            }
-//        })
     }
 
     private func shouldShowRateScreen() -> Bool {

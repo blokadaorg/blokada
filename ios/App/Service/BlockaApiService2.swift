@@ -25,6 +25,9 @@ protocol BlockaApiServiceIn {
     func getCustomList(id: AccountId) -> AnyPublisher<[CustomListEntry], Error>
     func postCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error>
     func deleteCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error>
+    func getStats(id: AccountId) -> AnyPublisher<CounterStats, Error>
+    func getBlocklists(id: AccountId) -> AnyPublisher<[Blocklist], Error>
+
 }
 
 class BlockaApiService2: BlockaApiServiceIn {
@@ -97,6 +100,20 @@ class BlockaApiService2: BlockaApiServiceIn {
     func deleteCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error> {
         return self.client.delete("/v1/customlist", payload: request)
         .tryMap { _ in true }
+        .eraseToAnyPublisher()
+    }
+
+    func getStats(id: AccountId) -> AnyPublisher<CounterStats, Error> {
+        return self.client.get("/v1/stats?account_id=\(id)")
+        .decode(type: CounterStats.self, decoder: self.decoder)
+        .tryMap { it in it }
+        .eraseToAnyPublisher()
+    }
+
+    func getBlocklists(id: AccountId) -> AnyPublisher<[Blocklist], Error> {
+        return self.client.get("/v1/list?account_id=\(id)")
+        .decode(type: BlocklistWrapper.self, decoder: self.decoder)
+        .tryMap { it in it.lists }
         .eraseToAnyPublisher()
     }
 

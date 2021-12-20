@@ -120,4 +120,16 @@ class BlockaApiCurrentUserService {
         .eraseToAnyPublisher()
     }
 
+    func getStatsForCurrentUser() -> AnyPublisher<CounterStats, Error> {
+        return accountRepo.accountIdHot.first()
+        .flatMap { it in self.client.getStats(id: it) }
+        .eraseToAnyPublisher()
+    }
+
+    func getBlocklistsForCurrentUser() -> AnyPublisher<[Blocklist], Error> {
+        return accountRepo.accountIdHot.first()
+        .flatMap { it in self.client.getBlocklists(id: it) }
+        .eraseToAnyPublisher()
+    }
+
 }
