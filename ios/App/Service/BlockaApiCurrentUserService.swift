@@ -64,6 +64,18 @@ class BlockaApiCurrentUserService {
         .eraseToAnyPublisher()
     }
 
+    func putBlocklistsForCurrentUser(_ lists: CloudBlocklists) -> AnyPublisher<Ignored, Error> {
+        return self.accountRepo.getAccount()
+        .map { it in DeviceRequest(
+            account_id: it.account.id,
+            lists: lists,
+            retention: nil,
+            paused: nil
+        )}
+        .flatMap { it in self.client.putDevice(request: it) }
+        .eraseToAnyPublisher()
+    }
+
     func postAppleCheckoutForCurrentUser(_ receipt: String) -> AnyPublisher<Account, Error> {
         return self.accountRepo.getAccount()
         .map { it in AppleCheckoutRequest(

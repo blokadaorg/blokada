@@ -46,7 +46,7 @@ class DebugViewModel {
     }
 
     func resetPacks() {
-        PackRepository.shared.reload()
+        //PackRepository.shared.reload()
     }
 
     func activateFakeAdCounter() {

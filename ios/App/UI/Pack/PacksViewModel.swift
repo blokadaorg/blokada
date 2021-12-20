@@ -11,8 +11,12 @@
 //
 
 import Foundation
+import Combine
 
 class PacksViewModel: ObservableObject {
+
+    private let packRepo = Repos.packRepo
+    private var cancellables = Set<AnyCancellable>()
 
     @Published var packs = [Pack]()
     @Published var allTags = [Tag]()
@@ -32,21 +36,22 @@ class PacksViewModel: ObservableObject {
     @Published var showError: Bool = false
 
     private let log = Logger("Pack")
-    private let service = PackRepository.shared
 
     init(tabVM: TabViewModel) {
-        service.onPacksUpdated = { packs in
-            self.allPacks = packs
-            self.findTags()
-            self.filter()
-            tabVM.packsBadge = self.service.countBadges()
-            self.objectWillChange.send()
-        }
+        onPacksChanged()
     }
 
-    func fetch() {
-        self.log.v("Fetching packs")
-        service.reload()
+    private func onPacksChanged() {
+        packRepo.packsHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.allPacks = it
+            self.findTags()
+            self.filter()
+            //TODO: tab counter badge
+            self.objectWillChange.send()
+        })
+        .store(in: &cancellables)
     }
 
     func filter() {

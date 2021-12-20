@@ -24,7 +24,5 @@ class SharedActionsService {
     var present = { (vc: UIActivityViewController) in }
     var presentAlert = { (vc: UIAlertController) in }
     var newMessage = {}
-    var refreshStats = { (ok: @escaping Ok<Void>) in }
-    var refreshPauseInformation = { (paused: Bool) in }
 
 }

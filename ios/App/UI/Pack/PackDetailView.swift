@@ -77,9 +77,6 @@ struct PackDetailView: View {
                 .padding(.bottom, 10)
             }
             .padding()
-            .onAppear {
-                self.vm.unsetBadge()
-            }
         }
         .navigationBarTitle(Text(""), displayMode: .inline)
     }

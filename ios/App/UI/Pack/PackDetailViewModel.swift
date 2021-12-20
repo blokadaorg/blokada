@@ -11,8 +11,12 @@
 //
 
 import Foundation
+import Combine
 
 class PackDetailViewModel: ObservableObject {
+
+    private let packRepo = Repos.packRepo
+    private var cancellables = Set<AnyCancellable>()
 
     @Published var pack: Pack {
         didSet {
@@ -26,7 +30,6 @@ class PackDetailViewModel: ObservableObject {
     }
 
     private let log = Logger("Pack")
-    private let service = PackRepository.shared
 
     init(pack: Pack) {
         self.pack = pack
@@ -34,35 +37,26 @@ class PackDetailViewModel: ObservableObject {
     }
 
     func changeConfig(config: PackConfig, fail: @escaping Faile) {
-        self.service.changeConfig(pack: self.pack, config: config, fail: fail)
+        packRepo.changeConfig(pack: pack, config: config)
+        .receive(on: RunLoop.main)
+        .sink(onFailure: { err in fail(err)})
+        .store(in: &cancellables)
     }
 
     func install(fail: @escaping Faile) {
         self.log.v("Installing pack")
-        self.service.installPack(pack: pack, ok: { pack in
-
-        }, fail: { error in
-            onMain {
-                self.log.e("Failed installing pack".cause(error))
-                fail(error)
-            }
-        })
+        packRepo.installPack(pack)
+        .receive(on: RunLoop.main)
+        .sink(onFailure: { err in fail(err)} )
+        .store(in: &cancellables)
    }
 
     func uninstall(fail: @escaping Faile) {
         self.log.v("uninstalling pack")
-        self.service.uninstallPack(pack: pack, ok: { pack in
-
-        }, fail: { error in
-            onMain {
-                self.log.e("Failed uninstalling pack".cause(error))
-                fail(error)
-            }
-        })
-    }
-
-    func unsetBadge() {
-        self.service.unsetBadge(pack: self.pack)
+        packRepo.uninstallPack(pack)
+        .receive(on: RunLoop.main)
+        .sink(onFailure: { err in fail(err)} )
+        .store(in: &cancellables)
     }
 
     func openCreditUrl() {

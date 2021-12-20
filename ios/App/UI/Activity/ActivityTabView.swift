@@ -27,9 +27,6 @@ struct ActivityTabView: View {
                         NoLogRetentionView(vm: self.vm)
                     }
                 }
-                .onAppear {
-                    self.vm.checkLogRetention()
-                }
                 .navigationBarTitle(L10n.activitySectionHeader)
 
                 DoubleColumnPlaceholderView()

@@ -27,6 +27,7 @@ class RepositoriesSingleton {
     lazy var paymentRepo = PaymentRepo()
     lazy var activityRepo = ActivityRepo()
     lazy var statsRepo = StatsRepo()
+    lazy var packRepo = PackRepo()
 
 }
 

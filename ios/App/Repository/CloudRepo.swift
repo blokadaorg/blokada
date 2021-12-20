@@ -60,6 +60,8 @@ class CloudRepo {
     fileprivate let writeDeviceInfo = CurrentValueSubject<DevicePayload?, Never>(nil)
 
     fileprivate let setActivityRetentionT = Tasker<CloudActivityRetention, Ignored>("setActivityRetention")
+    fileprivate let setBlocklistsT = Tasker<CloudBlocklists, Ignored>("setBlocklists")
+
     fileprivate let refreshDeviceInfoT = SimpleTasker<Ignored>("refreshDeviceInfo", debounce: 3.0, errorIsMajor: true)
     fileprivate let setPausedT = Tasker<Ignored, Ignored>("setPaused", errorIsMajor: true)
 
@@ -68,6 +70,7 @@ class CloudRepo {
     init() {
         onRefreshDeviceInfo()
         onSetActivityRetention()
+        onSetBlocklists()
         onSetPaused()
         onForegroundCheckDnsProfileActivation()
         onTabChangeRefreshDeviceInfo()
@@ -81,6 +84,10 @@ class CloudRepo {
 
     func setPaused(_ paused: Bool) -> AnyPublisher<Ignored, Error> {
         return self.setPausedT.send(paused)
+    }
+
+    func setBlocklists(_ lists: CloudBlocklists) -> AnyPublisher<Ignored, Error> {
+        return setBlocklistsT.send(lists)
     }
 
     private func onRefreshDeviceInfo() {
@@ -108,6 +115,17 @@ class CloudRepo {
     private func onSetPaused() {
         setPausedT.setTask { paused in Just(paused)
             .flatMap { it in self.api.putPausedForCurrentUser(it) }
+            .tryMap { it in
+                self.refreshDeviceInfoT.send()
+                return true
+            }
+            .eraseToAnyPublisher()
+        }
+    }
+
+    private func onSetBlocklists() {
+        setBlocklistsT.setTask { lists in Just(lists)
+            .flatMap { it in self.api.putBlocklistsForCurrentUser(it) }
             .tryMap { it in
                 self.refreshDeviceInfoT.send()
                 return true

@@ -18,9 +18,10 @@ class ActivityViewModel: ObservableObject {
     private let log = Logger("ActivityVM")
 
     private let activityRepo = Repos.activityRepo
+    private let cloudRepo = Repos.cloudRepo
     private var cancellables = Set<AnyCancellable>()
 
-    @Published var logRetention = Config.shared.logRetention()
+    @Published var logRetention = ""
     @Published var logRetentionSelected = ""
 
     var allEntries = [HistoryEntry]()
@@ -51,6 +52,7 @@ class ActivityViewModel: ObservableObject {
         onEntriesUpdated()
         onAllowedListUpdated()
         onDeniedListUpdated()
+        onActivityRetentionUpdated()
     }
 
     private func onEntriesUpdated() {
@@ -82,6 +84,15 @@ class ActivityViewModel: ObservableObject {
             self.blacklist = it
             self.apply()
             self.objectWillChange.send()
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onActivityRetentionUpdated() {
+        cloudRepo.activityRetentionHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.logRetention = it
         })
         .store(in: &cancellables)
     }
@@ -131,43 +142,11 @@ class ActivityViewModel: ObservableObject {
     }
 
     private func refreshStats() {
-        //self.sharedActions.refreshStats(ok)
         activityRepo.refresh()
     }
 
-    func checkLogRetention() {
-        // Set quickly from local storage and then refresh with a request
-        self.logRetentionSelected = self.logRetention
-//        self.api.getCurrentDevice { error, device in
-//            guard error == nil else {
-//                return self.log.w("checkLogRetention: error getting device".cause(error))
-//            }
-//
-//            guard let device = device else {
-//                return self.log.v("checkLogRetention: no device")
-//            }
-//
-//            self.logRetention = device.retention
-//            Config.shared.setLogRetention(retention: self.logRetention)
-//            self.logRetentionSelected = self.logRetention
-//            self.sharedActions.refreshPauseInformation(device.paused)
-//        }
-    }
-
     func applyLogRetention() {
-//        self.api.postDevice(request: DeviceRequest(
-//            account_id: Config.shared.accountId(),
-//            lists: nil,
-//            retention: self.logRetentionSelected,
-//            paused: nil
-//        )) { error, _ in
-//            guard error == nil else {
-//                return self.log.w("applyLogRetention: request failed".cause(error))
-//            }
-//
-//            Config.shared.setLogRetention(retention: self.logRetentionSelected)
-//            self.logRetention = self.logRetentionSelected
-//        }
+        cloudRepo.setActivityRetention(self.logRetentionSelected)
     }
 
 }
