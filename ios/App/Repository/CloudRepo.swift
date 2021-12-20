@@ -115,10 +115,7 @@ class CloudRepo {
     private func onSetPaused() {
         setPausedT.setTask { paused in Just(paused)
             .flatMap { it in self.api.putPausedForCurrentUser(it) }
-            .tryMap { it in
-                self.refreshDeviceInfoT.send()
-                return true
-            }
+            .flatMap { it in self.refreshDeviceInfoT.send() }
             .eraseToAnyPublisher()
         }
     }

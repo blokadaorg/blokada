@@ -37,6 +37,9 @@ class AppRepo {
     fileprivate let writePausedUntil = CurrentValueSubject<Date?, Never>(nil)
     fileprivate let writeAccountType = CurrentValueSubject<AccountType?, Never>(nil)
 
+    fileprivate let pauseAppT = Tasker<Date?, Ignored>("pauseApp")
+    fileprivate let unpauseAppT = SimpleTasker<Ignored>("unpauseApp")
+
     private lazy var timer = Services.timer
 
     private lazy var currentlyOngoingHot = Repos.processingRepo.currentlyOngoingHot
@@ -47,6 +50,8 @@ class AppRepo {
     private let recentAccountType = Atomic<AccountType>(AccountType.Libre)
 
     init() {
+        onPauseApp()
+        onUnpauseApp()
         onAnythingThatAffectsAppState_UpdateIt()
         onAccountChange_UpdateAccountType()
         onCurrentlyOngoing_ChangeWorkingState()
@@ -55,45 +60,58 @@ class AppRepo {
     }
 
     func pauseApp(until: Date?) -> AnyPublisher<Ignored, Error> {
-        let until = until ?? getDateInTheFuture(seconds: 60 * 60)
-        return appStateHot.first()
-        .flatMap { it -> AnyPublisher<Ignored, Error> in
-            if it == .Paused {
-                // App is already paused, only update timer
-                return self.timer.createTimer(NOTIF_PAUSE, when: until)
-            } else if it == .Activated {
-                return self.cloudRepo.setPaused(true)
-                .flatMap { _ in self.timer.createTimer(NOTIF_PAUSE, when: until) }
-                .eraseToAnyPublisher()
-            } else {
-                return Fail(error: "cannot pause, app in wrong state")
-                .eraseToAnyPublisher()
-            }
-        }
-        .map { _ in
-            self.writePausedUntil.send(until)
-            return true
-        }
-        .eraseToAnyPublisher()
+        return pauseAppT.send(until)
     }
 
     func unpauseApp() -> AnyPublisher<Ignored, Error> {
-        return appStateHot.first()
-        .flatMap { it -> AnyPublisher<Ignored, Error> in
-            if it == .Paused {
-                return self.cloudRepo.setPaused(false)
-                .flatMap { _ in self.timer.cancelTimer(NOTIF_PAUSE) }
-                .eraseToAnyPublisher()
-            } else {
-                return Fail(error: "cannot unpause, app in wrong state")
-                .eraseToAnyPublisher()
+        return unpauseAppT.send()
+    }
+
+    private func onPauseApp() {
+        pauseAppT.setTask { until in
+            let until = until ?? getDateInTheFuture(seconds: 60 * 60)
+
+            return self.appStateHot.first()
+            .flatMap { it -> AnyPublisher<Ignored, Error> in
+                if it == .Paused {
+                    // App is already paused, only update timer
+                    return self.timer.createTimer(NOTIF_PAUSE, when: until)
+                } else if it == .Activated {
+                    return self.cloudRepo.setPaused(true)
+                    .flatMap { _ in self.timer.createTimer(NOTIF_PAUSE, when: until) }
+                    .eraseToAnyPublisher()
+                } else {
+                    return Fail(error: "cannot pause, app in wrong state")
+                    .eraseToAnyPublisher()
+                }
             }
+            .map { _ in
+                self.writePausedUntil.send(until)
+                return true
+            }
+            .eraseToAnyPublisher()
         }
-        .map { _ in
-            self.writePausedUntil.send(nil)
-            return true
+    }
+
+    private func onUnpauseApp() {
+        unpauseAppT.setTask { _ in
+            return self.appStateHot.first()
+            .flatMap { it -> AnyPublisher<Ignored, Error> in
+                if it == .Paused {
+                    return self.cloudRepo.setPaused(false)
+                    .flatMap { _ in self.timer.cancelTimer(NOTIF_PAUSE) }
+                    .eraseToAnyPublisher()
+                } else {
+                    return Fail(error: "cannot unpause, app in wrong state")
+                    .eraseToAnyPublisher()
+                }
+            }
+            .map { _ in
+                self.writePausedUntil.send(nil)
+                return true
+            }
+            .eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
     }
 
     private func onAnythingThatAffectsAppState_UpdateIt() {
@@ -136,7 +154,7 @@ class AppRepo {
     private func onCurrentlyOngoing_ChangeWorkingState() {
         let tasksThatMarkWorkingState = Set([
             "refreshAccount", "restoreAccount",
-            "setPaused"
+            "pauseApp", "unpauseApp"
         ])
 
         currentlyOngoingHot
