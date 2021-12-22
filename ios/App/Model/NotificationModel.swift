@@ -20,9 +20,9 @@ func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
     if id == NOTIF_ACC_EXP {
         // TODO: check those
         let content = UNMutableNotificationContent()
-        content.title = L10n.notificationVpnExpiredHeader
-        content.subtitle = L10n.notificationVpnExpiredSubtitle
-        content.body = L10n.notificationVpnExpiredBody
+        content.title = L10n.notificationAccHeader
+        content.subtitle = L10n.notificationAccSubtitle
+        content.body = L10n.notificationAccBody
         content.sound = .default
         return content
     } else if id == "plusLeaseExpired" {
@@ -34,17 +34,17 @@ func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
         return content
     } else if id == NOTIF_PAUSE {
         let content = UNMutableNotificationContent()
-        content.title = L10n.notificationVpnExpiredHeader
-        content.subtitle = L10n.notificationVpnExpiredSubtitle
-        content.body = L10n.notificationVpnExpiredBody
+        content.title = L10n.notificationPauseHeader
+        content.subtitle = L10n.notificationPauseSubtitle
+        content.body = L10n.notificationPauseBody
         content.sound = .default
         return content
     } else {
         // TODO: get also a default fallback
         let content = UNMutableNotificationContent()
-        content.title = L10n.notificationVpnExpiredHeader
-        content.subtitle = L10n.notificationVpnExpiredSubtitle
-        content.body = L10n.notificationVpnExpiredBody
+        content.title = L10n.notificationGenericHeader
+        content.subtitle = L10n.notificationGenericSubtitle
+        content.body = L10n.notificationGenericBody
         content.sound = .default
         return content
     }

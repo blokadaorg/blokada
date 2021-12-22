@@ -37,6 +37,8 @@ class AccountRepo {
     private lazy var remoteLegacy = Services.persistenceRemoteLegacy
     private lazy var crypto = Services.crypto
     private lazy var api = Services.api
+    private lazy var timer = Services.timer
+    private lazy var dialog = Services.dialog
 
     private let decoder = blockaDecoder
     private let encoder = blockaEncoder
@@ -50,6 +52,7 @@ class AccountRepo {
         onProposeAccountRequests()
         onRefreshAccountRequests()
         onRestoreAccountRequests()
+        onAccountExpired_RefreshAccountAndInformUser()
         loadFromPersistenceOrCreateAccount()
         refreshAccountPeriodically()
     }
@@ -177,6 +180,37 @@ class AccountRepo {
             }
             .eraseToAnyPublisher()
         }
+    }
+
+    private func onAccountExpired_RefreshAccountAndInformUser() {
+        accountHot.map { it in it.account }
+        .sink(onValue: { it in
+            if it.activeUntil() > Date() {
+                self.timer.createTimer(NOTIF_ACC_EXP, when: it.activeUntil())
+                .flatMap { _ in self.timer.obtainTimer(NOTIF_ACC_EXP) }
+                .sink(
+                    onFailure: { err in
+                        Logger.e("AppRepo", "Acc expiration timer failed: \(err)")
+                    },
+                    onSuccess: {
+                        // TODO: internet may be cut down at this point
+                        Logger.v("AppRepo", "Account expired, refreshing")
+                        self.refreshAccountT.send(it.id)
+
+                        self.dialog.showAlert(
+                            message: L10n.notificationAccBody,
+                            header: L10n.notificationAccHeader
+                        )
+                        .sink()
+                        .store(in: &self.cancellables)
+                    }
+                )
+                .store(in: &self.cancellables) // TODO: not sure if it's the best idea
+            } else {
+                self.timer.cancelTimer(NOTIF_ACC_EXP)
+            }
+        })
+        .store(in: &cancellables)
     }
 
     // When app enters foreground, periodically refresh account

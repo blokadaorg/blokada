@@ -12,6 +12,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 // Contains "main app state" mostly used in Home screen.
 class AppRepo {
@@ -32,6 +33,12 @@ class AppRepo {
         self.writeAccountType.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
+    private lazy var timer = Services.timer
+
+    private lazy var currentlyOngoingHot = Repos.processingRepo.currentlyOngoingHot
+    private lazy var accountHot = Repos.accountRepo.accountHot
+    private lazy var cloudRepo = Repos.cloudRepo
+
     fileprivate let writeAppState = CurrentValueSubject<AppState?, Never>(nil)
     fileprivate let writeWorking = CurrentValueSubject<Bool?, Never>(nil)
     fileprivate let writePausedUntil = CurrentValueSubject<Date?, Never>(nil)
@@ -39,12 +46,6 @@ class AppRepo {
 
     fileprivate let pauseAppT = Tasker<Date?, Ignored>("pauseApp")
     fileprivate let unpauseAppT = SimpleTasker<Ignored>("unpauseApp")
-
-    private lazy var timer = Services.timer
-
-    private lazy var currentlyOngoingHot = Repos.processingRepo.currentlyOngoingHot
-    private lazy var accountHot = Repos.accountRepo.accountHot
-    private lazy var cloudRepo = Repos.cloudRepo
 
     private var cancellables = Set<AnyCancellable>()
     private let recentAccountType = Atomic<AccountType>(AccountType.Libre)
@@ -145,8 +146,8 @@ class AppRepo {
         accountHot.compactMap { it in it.account.type }
         .map { it in mapAccountType(it) }
         .sink(onValue: { it in
-                self.recentAccountType.value = it
-                self.writeAccountType.send(it)
+            self.recentAccountType.value = it
+            self.writeAccountType.send(it)
         })
         .store(in: &cancellables)
     }

@@ -24,14 +24,6 @@ class BlockaApiCurrentUserService {
     private lazy var accountRepo = Repos.accountRepo
     private lazy var envRepo = Repos.envRepo
 
-    func getAccountForCurrentUser() -> AnyPublisher<Account, Error> {
-        return accountRepo.accountHot.first()
-        .flatMap { it in
-            self.client.getAccount(id: it.account.id)
-        }
-        .eraseToAnyPublisher()
-    }
-
     func getDeviceForCurrentUser() -> AnyPublisher<DevicePayload, Error> {
         return accountRepo.accountHot.first()
         .flatMap { it in
