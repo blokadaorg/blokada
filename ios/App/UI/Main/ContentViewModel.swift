@@ -32,6 +32,10 @@ class ContentViewModel: ObservableObject {
         sheetRepo.dismiss()
     }
 
+    func onDismissed() {
+        sheetRepo.onDismissed()
+    }
+
     private func onSheetChanged() {
         sheetRepo.currentSheet
         .receive(on: RunLoop.main)

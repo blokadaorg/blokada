@@ -20,7 +20,12 @@ class PaymentRepo {
         self.writeProducts.compactMap { $0 }.eraseToAnyPublisher()
     }
 
+    var successfulPurchasesHot: AnyPublisher<Account, Never> {
+        self.writeSuccessfulPurchases.compactMap { $0 }.eraseToAnyPublisher()
+    }
+
     fileprivate let writeProducts = CurrentValueSubject<[Product]?, Never>(nil)
+    fileprivate let writeSuccessfulPurchases = CurrentValueSubject<Account?, Never>(nil)
 
     fileprivate let refreshProductsT = SimpleTasker<Bool>("refreshProducts")
     fileprivate let restorePurchaseT = SimpleTasker<Bool>("restorePurchase")
@@ -188,6 +193,7 @@ class PaymentRepo {
             }
             .tryMap { account -> Bool in
                 self.storeKit.finishPurchase()
+                self.writeSuccessfulPurchases.send(account)
                 return true
             }
             .tryCatch { err -> AnyPublisher<Bool, Error> in

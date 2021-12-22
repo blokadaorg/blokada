@@ -16,7 +16,7 @@ func convertBlocklists(blocklists: [Blocklist]) -> [MappedBlocklist] {
     return blocklists.compactMap { blocklist in
         let mapped = getPackIdAndConfig(id: blocklist.id, pathName: blocklist.name)
         guard mapped != nil else {
-            Logger.w("Blocklist", "Could not recognize blocklist for path: \(blocklist.name)")
+            //Logger.w("Blocklist", "Could not recognize blocklist for path: \(blocklist.name)")
             return nil
         }
 

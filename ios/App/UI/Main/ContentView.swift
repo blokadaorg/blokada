@@ -28,7 +28,7 @@ struct ContentView: View {
                 MainView()
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .padding(.top, geometry.safeAreaInsets.top)
-                    .sheet(item: self.$vm.activeSheet, onDismiss: { self.vm.dismissSheet() }) { item in
+                    .sheet(item: self.$vm.activeSheet, onDismiss: { self.vm.onDismissed() }) { item in
                         switch item {
                         case .Payment:
                             PaymentGatewayView()

@@ -58,7 +58,7 @@ class PaymentGatewayViewModel: ObservableObject {
                 self.error = mapErrorForUser(CommonError.paymentFailed, cause: err)
                 self.working = false
             },
-            onFinished: { self.working = false }
+            onSuccess: { self.working = false }
         )
         .store(in: &cancellables) // TODO: should hold for cold publishers?
     }
@@ -79,7 +79,7 @@ class PaymentGatewayViewModel: ObservableObject {
                 }
                 self.working = false
             },
-            onFinished: { self.working = false }
+            onSuccess: { self.working = false }
         )
         .store(in: &cancellables) // TODO: should hold for cold publishers?
     }
@@ -101,7 +101,7 @@ class PaymentGatewayViewModel: ObservableObject {
                     self.error = mapErrorForUser(CommonError.paymentFailed, cause: err)
                     self.working = false
                 },
-                onFinished: { self.working = false }
+                onSuccess: { self.working = false }
             )
             .store(in: &cancellables) // TODO: should hold for cold publishers?
         }

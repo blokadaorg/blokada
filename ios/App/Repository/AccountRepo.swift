@@ -205,6 +205,7 @@ class AccountRepo {
     }
 
     private func createNewUser() -> AnyPublisher<AccountWithKeypair, Error> {
+        Logger.w("Account", "Creating new user")
         return Publishers.CombineLatest(
             self.api.postNewAccount(),
             self.crypto.generateKeypair()

@@ -22,7 +22,7 @@ extension Publisher {
     func sink(
         onValue: @escaping (Self.Output) -> Void = { _ in },
         onFailure: @escaping (Self.Failure) -> Void = { _ in },
-        onFinished: @escaping () -> Void = {}
+        onSuccess: @escaping () -> Void = {}
     ) -> AnyCancellable {
         return self.sink(receiveCompletion: { completion in
             switch (completion) {
@@ -30,7 +30,7 @@ extension Publisher {
                 onFailure(err)
                 break
             case .finished:
-                onFinished()
+                onSuccess()
                 break
             }
             

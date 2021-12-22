@@ -36,6 +36,7 @@ class PermsRepo {
     private lazy var sheetRepo = Repos.sheetRepo
     private lazy var dnsProfileActivatedHot = Repos.cloudRepo.dnsProfileActivatedHot
     private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
+    private lazy var successfulPurchasesHot = Repos.paymentRepo.successfulPurchasesHot
 
     fileprivate let writeDnsProfilePerms = CurrentValueSubject<Granted?, Never>(nil)
     fileprivate let writeVpnProfilePerms = CurrentValueSubject<Granted?, Never>(nil)
@@ -48,6 +49,7 @@ class PermsRepo {
         onDnsProfileActivated()
         onForeground_checkNotificationPerms()
         onVpnPerms()
+        onPurchaseSuccessful_showActivatedSheet()
     }
 
     func maybeDisplayDnsProfilePermsDialog() -> AnyPublisher<Ignored, Error> {
@@ -59,7 +61,10 @@ class PermsRepo {
                 return true
             }
         }
-        .catch { _ in self.displayDnsProfilePermsInstructions() }
+        .tryCatch { _ in
+            self.displayDnsProfilePermsInstructions()
+            .tryMap { _ in throw "we never know if dns profile has been chosen" }
+        }
         .eraseToAnyPublisher()
     }
 
@@ -72,28 +77,30 @@ class PermsRepo {
     func askNotificationPerms() -> AnyPublisher<Granted, Error> {
         return notification.askForPermissions()
         .tryCatch { err in
-            self.dialog.showAlert(message: "You denied notifications. If you wish to change it, please use System Preferences.")
+            self.dialog.showAlert(
+                message: "You denied notifications. If you wish to change it, please use System Preferences.",
+                header: L10n.activityInformationHeader,
+                okText: L10n.universalActionContinue
+            )
         }
         .eraseToAnyPublisher()
     }
 
     func askForAllMissingPermissions() -> AnyPublisher<Ignored, Error> {
         return sheetRepo.dismiss()
+        .delay(for: 0.3, scheduler: self.bgQueue)
         .flatMap { _ in self.askNotificationPerms() }
         .tryCatch { err in
             // Notification perm is optional, ask for others
             return Just(true)
         }
         .flatMap { _ in self.askVpnProfilePerms() }
-        .delay(for: 1.0, scheduler: self.bgQueue)
-        .flatMap { _ in
-            self.displayDnsProfilePermsInstructions()
-            .tryMap { _ in throw "we never know if dns profile has been chosen" }
-        }
+        .delay(for: 0.3, scheduler: self.bgQueue)
+        .flatMap { _ in self.maybeDisplayDnsProfilePermsDialog() }
         // Show the activation sheet again to confirm user choices, and propagate error
         .tryCatch { err -> AnyPublisher<Ignored, Error> in
             return Just(true)
-            .delay(for: 1.0, scheduler: self.bgQueue)
+            .delay(for: 0.3, scheduler: self.bgQueue)
             .tryMap { _ -> Ignored in
                 self.sheetRepo.showSheet(.Activated)
                 throw err
@@ -128,6 +135,33 @@ class PermsRepo {
     private func onVpnPerms() {
         // TODO: vpn perms
         self.writeVpnProfilePerms.send(true)
+    }
+
+    // Will display Activated sheet on successful purchase, if perms are not sufficient.
+    // This means dns perms, and in case of Plus account, also vpn perms.
+    // This will happen on first purchase, ie onboarding flow.
+    // It may happen on app start when StoreKit sends a restored transactions to us.
+    private func onPurchaseSuccessful_showActivatedSheet() {
+        successfulPurchasesHot
+        .flatMap { account in
+            Publishers.CombineLatest3(
+                Just(account), self.dnsProfilePerms, self.vpnProfilePerms
+            )
+        }
+        .map { it -> Bool in
+            let (account, dnsAllowed, vpnAllowed) = it
+            if dnsAllowed && (account.type != "plus" || vpnAllowed) {
+                return true
+            } else {
+                return false
+            }
+        }
+        .sink(onValue: { permsOk in
+            if !permsOk {
+                self.sheetRepo.showSheet(.Activated)
+            }
+        })
+        .store(in: &cancellables)
     }
 
 }

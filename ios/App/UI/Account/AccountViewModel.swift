@@ -13,6 +13,7 @@
 import Foundation
 import UIKit
 import LocalAuthentication
+import Combine
 
 class AccountViewModel: ObservableObject {
 
@@ -46,18 +47,24 @@ class AccountViewModel: ObservableObject {
 
     private let log = Logger("Account")
 
-    private let api = BlockaApiService.shared
-    private let vpn = VpnService.shared
     private let accountRepo = Repos.accountRepo
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
-        Config.shared.setOnAccountUpdated {
-            self.syncConfig()
-        }
+        onAccountUpdated()
     }
 
-    init(mocked: String) {
-        account = Account(id: mocked, active_until: "", active: false, type: "libre")
+    private func onAccountUpdated() {
+        accountRepo.accountHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in self.account = it.account })
+        .store(in: &cancellables)
+    }
+
+    func restoreAccount(_ newId: AccountId, success: @escaping () -> Void) {
+        accountRepo.restoreAccount(newId)
+        .sink(onSuccess: { success() })
+        .store(in: &cancellables)
     }
 
     func openManageSubscriptions() {
@@ -67,28 +74,7 @@ class AccountViewModel: ObservableObject {
     func copyAccountIdToClipboard() {
         UIPasteboard.general.string = self.id
     }
-
-    private func syncConfig() {
-        onMain {
-            if Config.shared.hasAccount() && Config.shared.hasKeys() {
-                if self.account == nil || Config.shared.accountId() != self.account!.id {
-                    self.account = Config.shared.account()
-                } else if Config.shared.account()!.active_until != self.account!.active_until ?? nil {
-                    self.account = Config.shared.account()
-                }
-            }
-        }
-    }
-
-    func restoreAccount(_ newId: AccountId, success: @escaping () -> Void) {
-        accountRepo.restoreAccount(newId)
-        success()
-    }
-
-    private func setAccount(_ account: Account) {
-        self.account = account
-    }
-
+   
     private func onError(_ error: CommonError, _ cause: Error? = nil) {
         self.log.e("\(error)".cause(cause))
 
