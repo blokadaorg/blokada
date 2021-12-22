@@ -14,8 +14,9 @@ import SwiftUI
 
 struct DebugView: View {
 
-    let vm: DebugViewModel
-    @Binding var activeSheet: ActiveSheet?
+    let vm = DebugViewModel(homeVM: ViewModels.home)
+    @ObservedObject var contentVM = ViewModels.content
+
     @Binding var showPreviewAllScreens: Bool
 
     var body: some View {
@@ -25,25 +26,26 @@ struct DebugView: View {
 
             List {
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
                     self.vm.activateAccount()
                 }) {
                     Text("Activate account")
                 }
 
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
                     self.vm.deactivateAccount()
                 }) {
                     Text("Deactivate account")
                 }
 
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
+
                     onBackground {
                         sleep(5)
                         onMain {
-                            self.activeSheet = .rate
+                            self.contentVM.showSheet(.RateApp)
                         }
                     }
                 }) {
@@ -51,7 +53,8 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
+
                     onBackground {
                         sleep(5)
                         onMain {
@@ -63,19 +66,19 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                   self.activeSheet = nil
-                   onBackground {
-                       sleep(5)
-                       onMain {
-                        InboxService.shared.resetChat()
+                    self.contentVM.dismissSheet()
+                       onBackground {
+                           sleep(5)
+                           onMain {
+                            InboxService.shared.resetChat()
+                           }
                        }
-                   }
                }) {
                    Text("Reset chat")
                }
 
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
                     onBackground {
                         sleep(5)
                         onMain {
@@ -87,7 +90,7 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
                     onBackground {
                         sleep(5)
                         onMain {
@@ -105,6 +108,6 @@ struct DebugView: View {
 
 struct DebugView_Previews: PreviewProvider {
     static var previews: some View {
-        DebugView(vm: DebugViewModel(homeVM: HomeViewModel()), activeSheet: .constant(nil), showPreviewAllScreens: .constant(false))
+        DebugView(showPreviewAllScreens: .constant(false))
     }
 }

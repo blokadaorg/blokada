@@ -14,7 +14,9 @@ import SwiftUI
 
 struct AfterActivatedView: View {
 
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var contentVM = ViewModels.content
+    @ObservedObject var homeVM = ViewModels.home
+
     @State var appear = false
 
     var body: some View {
@@ -22,30 +24,177 @@ struct AfterActivatedView: View {
             ZStack {
                 ScrollView {
                     VStack {
-                        BlokadaView(animate: true)
-                            .frame(width: 100, height: 100)
-
-                        Text(L10n.paymentHeaderActivated)
+                        Text("Almost there!")
                             .font(.largeTitle)
                             .bold()
                             .padding()
 
-                        Text(L10n.paymentActivatedDescription)
+                        Text("The following is necessary for Blokada to work properly:")
                             .fixedSize(horizontal: false, vertical: true)
-                            .padding([.leading, .trailing], 40)
+                            .padding([.leading, .trailing], 12)
                             .padding([.top, .bottom])
+                        
+                        VStack(spacing: 0) {
+                            Button(action: {
+                            }) {
+                                HStack {
+                                    Image(systemName: Image.fCheckmark)
+                                        .imageScale(.large)
+                                        .foregroundColor(Color.cOk)
+                                        .frame(width: 32, height: 32)
+
+                                    Text("Account is active")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.primary)
+
+                                    Spacer()
+                                }
+                                .padding([.leading, .trailing], 18)
+                                .padding([.top, .bottom], 4)
+                            }
+                            
+                            if self.homeVM.dnsPermsGranted {
+                                Button(action: {
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fCheckmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cOk)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("DNS profile activated")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            } else {
+                                Button(action: {
+                                    self.homeVM.finishSetup()
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fXmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cError)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("Activate DNS profile")
+                                            .foregroundColor(.primary)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            }
+
+                            if self.homeVM.notificationPermsGranted {
+                                Button(action: {
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fCheckmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cOk)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("Notifications allowed")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            } else {
+                                Button(action: {
+                                    self.homeVM.finishSetup()
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fXmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cError)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("Allow notifications")
+                                            .foregroundColor(.primary)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            }
+                            
+                            if self.homeVM.accountType != "plus" {
+                                Button(action: {
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fXmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cSecondaryBackground)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("Allow VPN (Plus only)")
+                                            .foregroundColor(.secondary)
+                                            .multilineTextAlignment(.leading)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            } else if !self.homeVM.vpnPermsGranted {
+                                Button(action: {
+                                    self.homeVM.finishSetup()
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fXmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cError)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("Allow VPN")
+                                            .foregroundColor(.primary)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            } else {
+                                Button(action: {
+                                    
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fCheckmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cOk)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("VPN allowed")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            }
+                        }
 
                         VStack {
                             Button(action: {
-                                self.activeSheet = nil
-                                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-                                    self.activeSheet = .location
-                                })
+                                self.homeVM.finishSetup()
                             }) {
                                 ZStack {
                                     ButtonView(enabled: .constant(true), plus: .constant(true))
                                         .frame(height: 44)
-                                    Text(L10n.paymentActionChooseLocation)
+                                    Text(L10n.universalActionContinue)
                                         .foregroundColor(.white)
                                         .bold()
                                 }
@@ -56,7 +205,7 @@ struct AfterActivatedView: View {
                     .frame(maxWidth: 500)
                     .navigationBarItems(trailing:
                         Button(action: {
-                            self.activeSheet = nil
+                            self.contentVM.dismissSheet()
                         }) {
                             Text(L10n.universalActionDone)
                         }
@@ -66,7 +215,6 @@ struct AfterActivatedView: View {
             }
         }
         .opacity(self.appear ? 1 : 0)
-        .animation(.easeInOut)
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(Color.cAccent)
         .onAppear {
@@ -78,9 +226,9 @@ struct AfterActivatedView: View {
 struct AfterActivatedView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AfterActivatedView(activeSheet: .constant(nil))
+            AfterActivatedView()
                 .previewDevice(PreviewDevice(rawValue: "iPhone X"))
-            AfterActivatedView(activeSheet: .constant(nil))
+            AfterActivatedView()
                 .environment(\.sizeCategory, .extraExtraExtraLarge)
                 .environment(\.colorScheme, .dark)
         }

@@ -14,16 +14,8 @@ import SwiftUI
 
 struct MainView: View {
 
-    let accountVM: AccountViewModel
-    let packsVM: PacksViewModel
-    let activityVM: ActivityViewModel
-    let vm: HomeViewModel
-    let inboxVM: InboxViewModel
-    let leaseVM: LeaseListViewModel
-
-    @ObservedObject var tabVM: TabViewModel
-
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var contentVM = ViewModels.content
+    @ObservedObject var tabVM = ViewModels.tab
 
     @State var showHelpActions = false
 
@@ -33,13 +25,13 @@ struct MainView: View {
     var body: some View {
         VStack {
             ZStack {
-                HomeView(vm: self.vm, activeSheet: self.$activeSheet)
+                HomeView()
                     .opacity(self.tabVM.activeTab == "home" ? 1 : 0)
-                ActivityTabView(vm: self.activityVM, tabVM: self.tabVM)
+                ActivityTabView()
                     .opacity(self.tabVM.activeTab == "activity" ? 1 : 0)
-                PacksView(vm: self.packsVM, tabVM: self.tabVM)
+                PacksView()
                     .opacity(self.tabVM.activeTab == "packs" ? 1 : 0)
-                SettingsTabView(homeVM: self.vm, vm: self.accountVM, tabVM: self.tabVM, inboxVM: self.inboxVM, leaseVM: self.leaseVM, activityVM: self.activityVM, activeSheet: self.$activeSheet)
+                SettingsTabView()
                     .opacity(self.tabVM.activeTab == "more" ? 1 : 0)
 
                 VStack {
@@ -48,7 +40,7 @@ struct MainView: View {
 
                         Button(action: {
                             withAnimation {
-                                self.activeSheet = .help
+                                self.contentVM.showSheet(.Help)
                             }
                         }) {
                             Image(systemName: Image.fHelp)
@@ -69,24 +61,24 @@ struct MainView: View {
                                             Links.openInBrowser(Links.support())
                                         },
                                         .default(Text(L10n.universalActionShowLog)) {
-                                            self.activeSheet = .log
+                                            self.contentVM.showSheet(.ShowLog)
                                         },
                                         .default(Text(L10n.universalActionShareLog)) {
-                                            self.activeSheet = .sharelog
+                                            self.contentVM.showSheet(.ShareLog)
                                         },
                                         .cancel()
                                     ])
                                 }
                                 .contextMenu {
                                     Button(action: {
-                                        self.activeSheet = .log
+                                        self.contentVM.showSheet(.ShowLog)
                                     }) {
                                         Text(L10n.universalActionShowLog)
                                         Image(systemName: "list.dash")
                                     }
 
                                     Button(action: {
-                                        self.activeSheet = .sharelog
+                                        self.contentVM.showSheet(.ShareLog)
                                     }) {
                                         Text(L10n.universalActionShareLog)
                                         Image(systemName: "square.and.arrow.up")
@@ -94,7 +86,7 @@ struct MainView: View {
 
                                     if !Repos.envRepo.isProduction {
                                         Button(action: {
-                                            self.activeSheet = .debug
+                                            self.contentVM.showSheet(.Debug)
                                         }) {
                                             Text("Debug tools")
                                             Image(systemName: "ant.circle")
@@ -106,10 +98,7 @@ struct MainView: View {
                     Spacer()
                 }
             }
-            TabView(vm: self.tabVM)
-        }
-        .onAppear {
-            self.tabVM.load()
+            TabView()
         }
     }
 }
@@ -125,46 +114,16 @@ private func afterDelay(callback: @escaping () -> Void) {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        let tabVM = TabViewModel()
-
         return Group {
-            MainView(
-                accountVM: AccountViewModel(),
-                packsVM: PacksViewModel(tabVM: tabVM),
-                activityVM: ActivityViewModel(),
-                vm: HomeViewModel(),
-                inboxVM: InboxViewModel(),
-                leaseVM: LeaseListViewModel(),
-                tabVM: tabVM,
-                activeSheet: .constant(nil)
-            )
+            MainView()
             .previewDevice(PreviewDevice(rawValue: "iPhone X"))
             .environment(\.colorScheme, .dark)
 
-            MainView(
-                accountVM: AccountViewModel(),
-                packsVM: PacksViewModel(tabVM: tabVM),
-                activityVM: ActivityViewModel(),
-                vm: HomeViewModel(),
-                inboxVM: InboxViewModel(),
-                leaseVM: LeaseListViewModel(),
-                tabVM: tabVM,
-                activeSheet: .constant(nil)
-            )
+            MainView()
             .environment(\.sizeCategory, .accessibilityExtraLarge)
             .environment(\.colorScheme, .dark)
 
-            MainView(
-                accountVM: AccountViewModel(),
-                packsVM: PacksViewModel(tabVM: tabVM),
-                activityVM: ActivityViewModel(),
-                vm: HomeViewModel(),
-                inboxVM: InboxViewModel(),
-                leaseVM: LeaseListViewModel(),
-                tabVM: tabVM,
-                activeSheet: .constant(nil)
-
-            )
+            MainView()
         }
     }
 }

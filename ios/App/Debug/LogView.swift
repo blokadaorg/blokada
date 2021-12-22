@@ -14,9 +14,8 @@ import SwiftUI
 
 struct LogView: View {
 
-    @ObservedObject var vm: LogViewModel
-
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var vm = ViewModels.log
+    @ObservedObject var contentVM = ViewModels.content
 
     var body: some View {
         return VStack(alignment: .leading) {
@@ -47,11 +46,7 @@ struct LogView: View {
                     .foregroundColor(Color.cActivePlus)
                     .frame(width: 32, height: 32)
                     .onTapGesture {
-                        self.activeSheet = nil
-                        onBackground {
-                            sleep(1)
-                            onMain { self.activeSheet = .sharelog }
-                        }
+                        self.contentVM.showSheet(.ShareLog)
                     }
                 if !Repos.envRepo.isProduction {
                     Image(systemName: "ant.circle")
@@ -59,11 +54,7 @@ struct LogView: View {
                         .foregroundColor(Color.cActivePlus)
                         .frame(width: 32, height: 32)
                         .onTapGesture {
-                            self.activeSheet = nil
-                            onBackground {
-                                sleep(1)
-                                onMain { self.activeSheet = .debug }
-                            }
+                            self.contentVM.showSheet(.Debug)
                         }
                 }
             }
@@ -89,6 +80,6 @@ struct LogView: View {
 
 struct LogView_Previews: PreviewProvider {
     static var previews: some View {
-        LogView(vm: LogViewModel(), activeSheet: .constant(nil))
+        LogView()
     }
 }

@@ -14,9 +14,8 @@ import SwiftUI
 
 struct PlusButtonView: View {
 
-    @ObservedObject var vm: HomeViewModel
-
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var vm = ViewModels.home
+    @ObservedObject var contentVM = ViewModels.content
 
     @State var orientationOpacity = 0.0
 
@@ -28,11 +27,11 @@ struct PlusButtonView: View {
                     self.vm.expiredAlertShown = false
 
                     if !self.vm.accountActive {
-                        self.activeSheet = .plus
+                        self.contentVM.showSheet(.Payment)
                     } else if self.vm.accountType == "cloud" {
                         Links.openInBrowser(Links.manageSubscriptions())
                     } else {
-                        self.activeSheet = .location
+                        self.contentVM.showSheet(.Location)
                     }
                 }) {
                     ZStack {
@@ -81,7 +80,7 @@ struct PlusButtonView: View {
                                 .onTapGesture {
                                     self.vm.switchVpn(activate: !self.vm.vpnEnabled, noPermissions: {
                                         // A callback trigerred when there is no VPN profile
-                                        self.activeSheet = .askvpn
+                                        self.contentVM.showSheet(.AskForVpn)
                                     })
                                 }
                                 .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
@@ -93,7 +92,7 @@ struct PlusButtonView: View {
                                 .onTapGesture {
                                     self.vm.switchVpn(activate: !self.vm.vpnEnabled, noPermissions: {
                                         // A callback trigerred when there is no VPN profile
-                                        self.activeSheet = .askvpn
+                                        self.contentVM.showSheet(.AskForVpn)
                                     })
                                 }
                         }
@@ -120,9 +119,6 @@ struct PlusButtonView: View {
 
 struct PlusButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        PlusButtonView(
-            vm: HomeViewModel(),
-            activeSheet: .constant(nil)
-        )
+        PlusButtonView()
     }
 }

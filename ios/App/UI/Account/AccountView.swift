@@ -14,9 +14,8 @@ import SwiftUI
 
 struct AccountView: View {
 
-    @ObservedObject var vm: AccountViewModel
-
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var vm = ViewModels.account
+    @ObservedObject var contentVM = ViewModels.content
 
     @State var showChangeAccount = false
     @State var showDevices = false
@@ -72,7 +71,7 @@ struct AccountView: View {
                             }
                         } else {
                             Button(action: {
-                                self.activeSheet = .plus
+                                self.contentVM.showSheet(.Payment)
                             }) {
                                 L10n.universalActionUpgrade.toBlokadaPlusText()
                             }
@@ -102,6 +101,6 @@ struct AccountView: View {
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountView(vm: AccountViewModel(), activeSheet: .constant(nil))
+        AccountView()
     }
 }

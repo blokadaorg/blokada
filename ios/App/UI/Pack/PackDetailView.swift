@@ -86,12 +86,12 @@ struct PackDetailView_Previews: PreviewProvider {
     static var previews: some View {
 
         return Group {
-            PackDetailView(packsVM: PacksViewModel(tabVM: TabViewModel()), vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: ["ads", "trackers", "regional", "porn", "something"],
+            PackDetailView(packsVM: PacksViewModel(), vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: ["ads", "trackers", "regional", "porn", "something"],
                 title: "Energized", slugline: "This is a short slug", description: "The best list on the market",
                 creditName: "Energized Team", configs: ["Spark", "Blue", "Full"])
                 .changeStatus(installed: true, enabledConfig: ["Blue"])
             ))
-            PackDetailView(packsVM: PacksViewModel(tabVM: TabViewModel()), vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: [],
+            PackDetailView(packsVM: PacksViewModel(), vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: [],
                 title: "Energized", description: "The best list on the market",
                 creditName: "Energized Team")
                 .changeStatus(installed: false, installing: true)

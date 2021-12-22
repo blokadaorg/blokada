@@ -41,7 +41,6 @@ class AccountRepo {
     private let decoder = blockaDecoder
     private let encoder = blockaEncoder
 
-    private let bgQueue = DispatchQueue(label: "AccRepoBgQueue")
     private var cancellables = Set<AnyCancellable>()
     private let recentAccount = Atomic<AccountWithKeypair?>(nil)
     private let lastAccountRequestTimestamp = Atomic<Double>(0)

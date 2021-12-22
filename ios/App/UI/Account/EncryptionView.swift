@@ -14,7 +14,8 @@ import SwiftUI
 
 struct EncryptionView: View {
 
-    @ObservedObject var homeVM: HomeViewModel
+    @ObservedObject var homeVM = ViewModels.home
+    @ObservedObject var contentVM = ViewModels.content
 
     private let selectedDns = Binding<Int>(get: {
         return Dns.hardcoded.firstIndex(of: Dns.load()) ?? 0
@@ -23,8 +24,6 @@ struct EncryptionView: View {
         selected.persist()
         VpnService.shared.restartTunnel { _, _ in }
     })
-
-    @Binding var activeSheet: ActiveSheet?
 
     var body: some View {
         Form {
@@ -48,7 +47,7 @@ struct EncryptionView: View {
                     }
                 }
                 .onTapGesture {
-                    self.activeSheet = .encryptionExplain
+                    self.contentVM.showSheet(.EncryptionExplain)
                 }
             }
 
@@ -101,8 +100,8 @@ struct EncryptionView_Previews: PreviewProvider {
         working.working = true
 
         return Group {
-            EncryptionView(homeVM: HomeViewModel(), activeSheet: .constant(nil))
-            EncryptionView(homeVM: working, activeSheet: .constant(nil))
+            EncryptionView()
+            EncryptionView(homeVM: working)
         }
     }
 }

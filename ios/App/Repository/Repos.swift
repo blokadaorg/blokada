@@ -28,6 +28,8 @@ class RepositoriesSingleton {
     lazy var activityRepo = ActivityRepo()
     lazy var statsRepo = StatsRepo()
     lazy var packRepo = PackRepo()
+    lazy var sheetRepo = SheetRepo()
+    lazy var permsRepo = PermsRepo()
 
 }
 
@@ -37,4 +39,5 @@ func resetReposForDebug() {
     Repos.stageRepo = DebugStageRepo()
     Repos.accountRepo = DebugAccountRepo()
     Repos.cloudRepo = DebugCloudRepo()
+    Repos.sheetRepo = DebugSheetRepo()
 }

@@ -14,9 +14,8 @@ import SwiftUI
 
 struct PowerView: View {
 
-    @ObservedObject var vm: HomeViewModel
-
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var vm = ViewModels.home
+    @ObservedObject var contentVM = ViewModels.content
 
     @State var point = UnitPoint(x: 0, y: 0)
     @State var orientationOpacity = 0.0
@@ -144,13 +143,15 @@ struct PowerView: View {
         .disabled(self.vm.working)
         .onTapGesture {
             withAnimation {
+                // TODO: show rate screen
+
                 if self.vm.working {
                 } else if !self.vm.accountActive {
-                    self.activeSheet = .plus
-                } else if !self.vm.dnsProfileEnabled {
-                    self.activeSheet = .dnsProfile
-                    // TODO: vpn perms
-                    // TODO: show rate screen
+                    self.contentVM.showSheet(.Payment)
+                } else if !self.vm.dnsPermsGranted {
+                    self.contentVM.showSheet(.Activated)
+                } else if !self.vm.vpnPermsGranted && self.vm.accountType == "plus" {
+                    self.contentVM.showSheet(.Activated)
                 } else if self.vm.appState == .Activated {
                     self.showPauseSheet = true
                 } else if self.vm.appState == .Paused {
@@ -194,18 +195,18 @@ struct PowerView_Previews: PreviewProvider {
         timer.startTimer(seconds: 60 * 5 - 60)
 
         return Group {
-            PowerView(vm: off, activeSheet: .constant(nil))
+            PowerView(vm: off)
                 .previewLayout(.fixed(width: 200, height: 200))
 
-            PowerView(vm: on, activeSheet: .constant(nil))
+            PowerView(vm: on)
                 .previewLayout(.fixed(width: 200, height: 200))
 
-            PowerView(vm: off, activeSheet: .constant(nil))
+            PowerView(vm: off)
                 .previewLayout(.fixed(width: 200, height: 200))
                 .environment(\.colorScheme, .dark)
                 .background(Color.black)
 
-            PowerView(vm: timer, activeSheet: .constant(nil))
+            PowerView(vm: timer)
                 .previewLayout(.fixed(width: 200, height: 200))
                 .environment(\.colorScheme, .dark)
                 .background(Color.black)

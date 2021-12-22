@@ -34,6 +34,19 @@ class NotificationService {
         self.center.delegate = delegate
     }
 
+    func getPermissions() -> AnyPublisher<Granted, Error> {
+        return Future<Granted, Error> { promise in
+            self.center.getNotificationSettings { settings in
+                guard settings.authorizationStatus == .authorized else {
+                    return promise(.success(false))
+                }
+
+                return promise(.success(true))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
     func askForPermissions(which: UNAuthorizationOptions = [.badge, .alert, .sound]) -> AnyPublisher<Ignored, Error> {
         return Future<Ignored, Error> { promise in
             self.center.requestAuthorization(options: which) { granted, error in

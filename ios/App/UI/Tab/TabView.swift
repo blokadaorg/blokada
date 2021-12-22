@@ -14,7 +14,7 @@ import SwiftUI
 
 struct TabView: View {
 
-    @ObservedObject var vm: TabViewModel
+    @ObservedObject var vm = ViewModels.tab
 
     var body: some View {
         VStack {
@@ -41,6 +41,9 @@ struct TabView: View {
                 }
             }
         )
+        .onAppear {
+            self.vm.load()
+        }
     }
 }
 
@@ -58,7 +61,7 @@ struct TabView_Previews: PreviewProvider {
 
 
         return Group {
-            TabView(vm: TabViewModel())
+            TabView()
                 .previewLayout(.sizeThatFits)
             TabView(vm: packs)
                 .previewLayout(.sizeThatFits)

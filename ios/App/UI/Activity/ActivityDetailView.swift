@@ -15,7 +15,7 @@ import SwiftUI
 struct ActivityDetailView: View {
 
     @ObservedObject var vm: ActivityItemViewModel
-    @ObservedObject var activityVM: ActivityViewModel
+    @ObservedObject var activityVM = ViewModels.activity
 
     var body: some View {
         ScrollView {
@@ -205,14 +205,14 @@ struct ActivityDetailView_Previews: PreviewProvider {
                 type: .whitelisted,
                 time: Date(timeIntervalSinceNow: -50000),
                 requests: 458
-            ), whitelisted: true, blacklisted: false), activityVM: ActivityViewModel())
+            ), whitelisted: true, blacklisted: false))
 
             ActivityDetailView(vm: ActivityItemViewModel(entry: HistoryEntry(
                 name: "super.long.boring.name.of.example.com",
                 type: .blocked,
                 time: Date(timeIntervalSinceNow: -5),
                 requests: 1
-            ), whitelisted: false, blacklisted: false), activityVM: ActivityViewModel())
+            ), whitelisted: false, blacklisted: false))
         }
     }
 }

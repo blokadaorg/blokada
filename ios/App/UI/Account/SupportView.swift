@@ -14,7 +14,7 @@ import SwiftUI
 
 struct SupportView: View {
 
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var contentVM = ViewModels.content
 
     var body: some View {
         NavigationView {
@@ -29,7 +29,7 @@ struct SupportView: View {
 
                 VStack {
                     Button(action: {
-                        self.activeSheet = nil
+                        self.contentVM.dismissSheet()
                         Links.openInBrowser(Links.knowledgeBase())
                     }) {
                         ZStack {
@@ -42,7 +42,7 @@ struct SupportView: View {
                     }
 
                     Button(action: {
-                        self.activeSheet = nil
+                        self.contentVM.dismissSheet()
                         Links.openInBrowser(Links.support())
                     }) {
                         ZStack {
@@ -60,7 +60,7 @@ struct SupportView: View {
 
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
                 }) {
                     Text(L10n.universalActionDone)
                 }
@@ -74,6 +74,6 @@ struct SupportView: View {
 
 struct SupportView_Previews: PreviewProvider {
     static var previews: some View {
-        SupportView(activeSheet: .constant(nil))
+        SupportView()
     }
 }

@@ -20,16 +20,22 @@ class HomeViewModel: ObservableObject {
 
     private let appRepo = Repos.appRepo
     private let cloudRepo = Repos.cloudRepo
+    private let permsRepo = Repos.permsRepo
+
     private let errorsHot = Repos.processingRepo.errorsHot
     private let blockedCounterHot = Repos.statsRepo.blockedHot
+
     private var cancellables = Set<AnyCancellable>()
 
     @Published var showSplash = true
 
     @Published var appState: AppState = .Deactivated
-    @Published var dnsProfileEnabled: Bool = false
     @Published var vpnEnabled: Bool = false
     @Published var working: Bool = false
+
+    @Published var dnsPermsGranted: Bool = false
+    @Published var vpnPermsGranted: Bool = false
+    @Published var notificationPermsGranted: Bool = false
     
     @Published var accountActive = false
     @Published var accountType = ""
@@ -127,9 +133,9 @@ class HomeViewModel: ObservableObject {
         onMajorErrorDisplayDialog()
         onAppStateChanged()
         onWorking()
-        onDnsProfileChanged()
         onAccountTypeChanged()
         onStatsChanged()
+        onPermsRepoChanged()
         onPauseUpdateTimer()
     }
 
@@ -159,15 +165,6 @@ class HomeViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-    private func onDnsProfileChanged() {
-        cloudRepo.dnsProfileActivatedHot
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in
-            self.dnsProfileEnabled = it
-        })
-        .store(in: &cancellables)
-    }
-
     private func onAccountTypeChanged() {
         appRepo.accountType
         .receive(on: RunLoop.main)
@@ -183,6 +180,29 @@ class HomeViewModel: ObservableObject {
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.blockedCounter = it
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onPermsRepoChanged() {
+        permsRepo.dnsProfilePerms
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.dnsPermsGranted = it
+        })
+        .store(in: &cancellables)
+
+        permsRepo.vpnProfilePerms
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.vpnPermsGranted = it
+        })
+        .store(in: &cancellables)
+
+        permsRepo.notificationPerms
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.notificationPermsGranted = it
         })
         .store(in: &cancellables)
     }
@@ -261,6 +281,11 @@ class HomeViewModel: ObservableObject {
         }
     }
 
+    func finishSetup() {
+        self.permsRepo.askForAllMissingPermissions()
+        .sink()
+        .store(in: &cancellables)
+    }
 
 //    private func start(_ done: @escaping Callback<Void>) {
 //        self.log.v("Start")

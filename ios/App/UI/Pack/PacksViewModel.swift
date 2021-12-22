@@ -37,7 +37,7 @@ class PacksViewModel: ObservableObject {
 
     private let log = Logger("Pack")
 
-    init(tabVM: TabViewModel) {
+    init() {
         onPacksChanged()
     }
 

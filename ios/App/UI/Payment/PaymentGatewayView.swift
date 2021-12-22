@@ -14,9 +14,8 @@ import SwiftUI
 
 struct PaymentGatewayView: View {
 
-    @ObservedObject var vm: PaymentGatewayViewModel
-
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var vm = ViewModels.payment
+    @ObservedObject var contentVM = ViewModels.content
 
     @State var showPrivacySheet = false
     @State var showPlusFeaturesSheet = false
@@ -25,7 +24,7 @@ struct PaymentGatewayView: View {
 
     var body: some View {
         if self.vm.accountActive {
-            self.activeSheet = nil
+            self.contentVM.dismissSheet()
 //            self.networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in
 //                guard dnsEnabled == true else {
 //                    // If not, show the prompt
@@ -226,10 +225,10 @@ struct PaymentGatewayView: View {
 struct PaymentGatewayView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PaymentGatewayView(vm: PaymentGatewayViewModel(mocked: true), activeSheet: .constant(nil))
-            PaymentGatewayView(vm: PaymentGatewayViewModel(), activeSheet: .constant(nil))
+            PaymentGatewayView()
+            PaymentGatewayView()
                 .environment(\.sizeCategory, .extraExtraExtraLarge)
-            PaymentGatewayView(vm: PaymentGatewayViewModel(), activeSheet: .constant(nil))
+            PaymentGatewayView()
                 .previewDevice(PreviewDevice(rawValue: "iPhone X"))
         }
     }

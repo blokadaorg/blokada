@@ -14,7 +14,7 @@ import SwiftUI
 
 struct DnsProfileConfiguredView: View {
 
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var contentVM = ViewModels.content
 
     private let systemNav = Services.systemNav
 
@@ -34,7 +34,7 @@ struct DnsProfileConfiguredView: View {
 
                 VStack {
                     Button(action: {
-                        self.activeSheet = nil
+                        self.contentVM.dismissSheet()
                        // DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
                             self.systemNav.openSystemSettings()
                        // })
@@ -54,7 +54,7 @@ struct DnsProfileConfiguredView: View {
 
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
                 }) {
                     Text(L10n.universalActionCancel)
                 }
@@ -68,6 +68,6 @@ struct DnsProfileConfiguredView: View {
 
 struct DnsProfileConfiguredView_Previews: PreviewProvider {
     static var previews: some View {
-        DnsProfileConfiguredView(activeSheet: .constant(nil))
+        DnsProfileConfiguredView()
     }
 }

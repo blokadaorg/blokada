@@ -56,12 +56,12 @@ class PaymentService {
                         receipt: ""
                     )
 
-                    self.api.postAppleCheckout(request: request) { error, account in
-                        //SharedActionsService.shared.updateAccount(account!)
-                        onMain {
-                            ok(())
-                        }
-                    }
+//                    self.api.postAppleCheckout(request: request) { error, account in
+//                        //SharedActionsService.shared.updateAccount(account!)
+//                        onMain {
+//                            ok(())
+//                        }
+//                    }
                 } else {
                     fail("Mocked error")
                 }

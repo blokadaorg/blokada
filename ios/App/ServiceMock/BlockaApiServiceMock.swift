@@ -31,11 +31,39 @@ class BlockaApiServiceMock: BlockaApiServiceIn {
         return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
     }
 
-    func putDevice(request: DeviceRequest) -> AnyPublisher<Never, Error> {
+    func putDevice(request: DeviceRequest) -> AnyPublisher<Ignored, Error> {
         return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
     }
 
     func postAppleCheckout(request: AppleCheckoutRequest) -> AnyPublisher<Account, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func postAppleDeviceToken(request: AppleDeviceTokenRequest) -> AnyPublisher<Ignored, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func getActivity(id: AccountId) -> AnyPublisher<[Activity], Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func getCustomList(id: AccountId) -> AnyPublisher<[CustomListEntry], Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func postCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func deleteCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func getStats(id: AccountId) -> AnyPublisher<CounterStats, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func getBlocklists(id: AccountId) -> AnyPublisher<[Blocklist], Error> {
         return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
     }
 

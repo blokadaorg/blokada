@@ -14,6 +14,7 @@ import SwiftUI
 
 extension Color {
     static let cError = Color.red
+    static let cOk = Color.green
     static let cAccent = Color("Orange")
 
     static let cActive = Color.blue
@@ -53,6 +54,7 @@ extension Image {
     static let fUp = "chevron.up"
     static let fLine = "minus"
     static let fCheckmark = "checkmark"
+    static let fXmark = "xmark"
     static let fMessage = "message"
     static let fComputer = "desktopcomputer"
     static let fHide = "eye.slash"

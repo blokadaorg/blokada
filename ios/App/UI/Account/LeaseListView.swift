@@ -14,7 +14,7 @@ import SwiftUI
 
 struct LeaseListView: View {
 
-    @ObservedObject var vm: LeaseListViewModel
+    @ObservedObject var vm = ViewModels.lease
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -36,6 +36,6 @@ struct LeaseListView: View {
 
 struct LeaseListView_Previews: PreviewProvider {
     static var previews: some View {
-        LeaseListView(vm: LeaseListViewModel())
+        LeaseListView()
     }
 }

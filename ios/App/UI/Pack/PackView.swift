@@ -61,7 +61,7 @@ struct PackView: View {
 
 struct PackView_Previews: PreviewProvider {
     static var previews: some View {
-        PackView(packsVM: PacksViewModel(tabVM: TabViewModel()), vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: ["ads", "trackers"],
+        PackView(packsVM: PacksViewModel(), vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: ["ads", "trackers"],
             title: "Energized", slugline: "The best list on the market",
             creditName: "Energized Team").changeStatus(installed: true, badge: true))
         )

@@ -14,8 +14,8 @@ import SwiftUI
 
 struct InboxView: View {
 
-    @ObservedObject var vm: InboxViewModel
-    @ObservedObject var tabVM: TabViewModel
+    @ObservedObject var vm = ViewModels.inbox
+    @ObservedObject var tabVM = ViewModels.tab
 
     var body: some View {
         //NavigationView {
@@ -55,6 +55,6 @@ struct InboxView: View {
 
 struct InboxView_Previews: PreviewProvider {
     static var previews: some View {
-        InboxView(vm: InboxViewModel(), tabVM: TabViewModel())
+        InboxView()
     }
 }

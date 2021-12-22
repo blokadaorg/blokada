@@ -14,8 +14,8 @@ import SwiftUI
 
 struct ActivityView: View {
 
-    @ObservedObject var vm: ActivityViewModel
-    @ObservedObject var tabVM: TabViewModel
+    @ObservedObject var vm = ViewModels.activity
+    @ObservedObject var tabVM = ViewModels.tab
 
     @State private var showFilteringOptions: Bool = false
 
@@ -107,7 +107,7 @@ struct ActivityView: View {
 //                                }
                             }
                     }
-                    .background(NavigationLink("", destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry, whitelisted: self.vm.whitelist.contains(entry.name), blacklisted: self.vm.blacklist.contains(entry.name)), activityVM: self.vm), tag: entry.name, selection: self.$tabVM.selection))
+                    .background(NavigationLink("", destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry, whitelisted: self.vm.whitelist.contains(entry.name), blacklisted: self.vm.blacklist.contains(entry.name))), tag: entry.name, selection: self.$tabVM.selection))
                 }
             }
         }
@@ -116,6 +116,6 @@ struct ActivityView: View {
 
 struct ActivityView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityView(vm: ActivityViewModel(), tabVM: TabViewModel())
+        ActivityView()
     }
 }

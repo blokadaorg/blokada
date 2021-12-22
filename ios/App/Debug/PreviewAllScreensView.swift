@@ -44,10 +44,6 @@ struct PreviewAllScreensView: View {
         let defaultAccountVM = AccountViewModel()
         defaultAccountVM.account = Account(id: "", active_until: "2069-03-15T11:38:38.48383Z", active: true, type: "plus")
 
-        let defaultActivityVM = ActivityViewModel()
-        let defaultTabVM = TabViewModel()
-        let defaultPacksVM = PacksViewModel(tabVM: defaultTabVM)
-
         let vmAdsCounter = HomeViewModel()
         vmAdsCounter.blockedCounter = 238348
 
@@ -108,44 +104,23 @@ struct PreviewAllScreensView: View {
                 }
                 .padding()
             } else if counter == 5 {
-                AskVpnProfileView(homeVM: defaultHomeVM, activeSheet: .constant(nil))
+                AskVpnProfileView()
             } else if counter == 6 {
-                RateAppView(activeSheet: .constant(nil))
+                RateAppView()
             } else if counter == 7 {
-                AdsCounterShareView(homeVM: vmAdsCounter, activeSheet: .constant(nil))
+                AdsCounterShareView()
             } else if counter == 8 {
-                MainView(
-                      accountVM: defaultAccountVM,
-                      packsVM: defaultPacksVM,
-                      activityVM: defaultActivityVM,
-                      vm: defaultHomeVM,
-                      inboxVM: InboxViewModel(),
-                      leaseVM: LeaseListViewModel(),
-                      tabVM: defaultTabVM,
-                      activeSheet: .constant(nil)
-                  )
+                MainView()
             } else if counter == 9 {
-                LocationListView(activeSheet: .constant(nil))
+                LocationListView()
             } else if counter == 10 {
-                SettingsTabView(
-                    homeVM: defaultHomeVM,
-                    vm: defaultAccountVM,
-                    tabVM: defaultTabVM,
-                    inboxVM: InboxViewModel(),
-                    leaseVM: LeaseListViewModel(),
-                    activityVM: defaultActivityVM,
-                    activeSheet: .constant(nil)
-                )
+                SettingsTabView()
             } else if counter == 11 {
                 EncryptionExplanationView(
-                    activeSheet: .constant(nil),
-                    vm: defaultHomeVM,
                     level: 3
                 )
             } else if counter == 12 {
-                AfterActivatedView(
-                    activeSheet: .constant(nil)
-                )
+                AfterActivatedView()
             } else {
                 EmptyView()
             }

@@ -64,21 +64,11 @@ class LogViewModel: ObservableObject {
         onBackground {
             sleep(1)
             onMain {
-                let activityVC = UIActivityViewController(
-                    activityItems: [LoggerSaver.logFile],
-                    applicationActivities: nil
-                )
+                guard let file = LoggerSaver.logFile else {
+                    return Logger.e("Logger", "Could not share log file: no log file")
+                }
 
-                //activityVC.popoverPresentationController?.sourceView = self.view
-                SharedActionsService.shared.present(activityVC)
-//                activityVC.completionWithItemsHandler = {
-//                    (activityType, completed: Bool, returnedItems: [Any]?, error: Error?) in
-//
-//                    if completed {
-//                        //self.dismiss(animated: true, completion: nil)
-//                        print("ok")
-//                    }
-//                }
+                Services.dialog.shareFile(file)
             }
         }
     }

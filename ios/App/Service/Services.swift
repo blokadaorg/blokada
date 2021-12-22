@@ -36,6 +36,7 @@ class ServicesSingleton {
     lazy var job = JobService()
     lazy var timer = TimerService()
 
+    lazy var dialog = DialogService()
 }
 
 func resetServices() {

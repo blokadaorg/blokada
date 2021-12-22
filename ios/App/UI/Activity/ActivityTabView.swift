@@ -14,17 +14,16 @@ import SwiftUI
 
 struct ActivityTabView: View {
 
-    @ObservedObject var vm: ActivityViewModel
-    @ObservedObject var tabVM: TabViewModel
+    @ObservedObject var vm = ViewModels.activity
 
     var body: some View {
         GeometryReader { geo in
             NavigationView {
                 ZStack {
                     if self.vm.logRetention != "" {
-                        ActivityView(vm: self.vm, tabVM: self.tabVM)
+                        ActivityView()
                     } else {
-                        NoLogRetentionView(vm: self.vm)
+                        NoLogRetentionView()
                     }
                 }
                 .navigationBarTitle(L10n.activitySectionHeader)
@@ -39,6 +38,6 @@ struct ActivityTabView: View {
 
 struct ActivityTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityTabView(vm: ActivityViewModel(), tabVM: TabViewModel())
+        ActivityTabView()
     }
 }

@@ -15,7 +15,7 @@ import StoreKit
 
 struct RateAppView: View {
 
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var contentVM = ViewModels.content
 
     @State var rating = 0
 
@@ -38,7 +38,7 @@ struct RateAppView: View {
                         Button(action: {
                             self.rating = number
                             if number < 4 {
-                                self.activeSheet = nil
+                                self.contentVM.dismissSheet()
                             }
                         }) {
                             Image(systemName: self.rating < number ? "star" : "star.fill")
@@ -56,7 +56,7 @@ struct RateAppView: View {
                         .padding()
 
                     Button(action: {
-                        self.activeSheet = nil
+                        self.contentVM.dismissSheet()
                         SKStoreReviewController.requestReview()
                     }) {
                         ZStack {
@@ -76,7 +76,7 @@ struct RateAppView: View {
 
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.activeSheet = nil
+                    self.contentVM.dismissSheet()
                 }) {
                     Text(L10n.universalActionDone)
                 }
@@ -94,10 +94,10 @@ struct RateAppView: View {
 struct RateAppView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RateAppView(activeSheet: .constant(nil))
-            RateAppView(activeSheet: .constant(nil), rating: 3)
+            RateAppView()
+            RateAppView(rating: 3)
                 .previewDevice(PreviewDevice(rawValue: "iPhone X"))
-            RateAppView(activeSheet: .constant(nil), rating: 5)
+            RateAppView(rating: 5)
                 .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (3rd generation)"))
         }
     }

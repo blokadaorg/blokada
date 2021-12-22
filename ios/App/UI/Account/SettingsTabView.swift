@@ -14,14 +14,9 @@ import SwiftUI
 
 struct SettingsTabView: View {
 
-    @ObservedObject var homeVM: HomeViewModel
-    @ObservedObject var vm: AccountViewModel
-    @ObservedObject var tabVM: TabViewModel
-    @ObservedObject var inboxVM: InboxViewModel
-    @ObservedObject var leaseVM: LeaseListViewModel
-    @ObservedObject var activityVM: ActivityViewModel
-
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var vm = ViewModels.account
+    @ObservedObject var tabVM = ViewModels.tab
+    @ObservedObject var contentVM = ViewModels.content
 
     var body: some View {
         GeometryReader { geo in
@@ -46,7 +41,7 @@ struct SettingsTabView: View {
                 }
 
                 Section(header: Text(L10n.accountSectionHeaderPrimary)) {
-                    NavigationLink(destination: AccountView(vm: self.vm, activeSheet: self.$activeSheet), tag: "manage", selection: self.$tabVM.selection) {
+                    NavigationLink(destination: AccountView(), tag: "manage", selection: self.$tabVM.selection) {
                         HStack {
                          Image(systemName: Image.fAccount)
                              .imageScale(.large)
@@ -59,7 +54,7 @@ struct SettingsTabView: View {
                         }
                     }
 
-                    NavigationLink(destination: InboxView(vm: self.inboxVM, tabVM: self.tabVM), tag: "inbox", selection: self.$tabVM.selection) {
+                    NavigationLink(destination: InboxView(), tag: "inbox", selection: self.$tabVM.selection) {
                         HStack {
                          Image(systemName: "tray")
                              .imageScale(.large)
@@ -80,7 +75,7 @@ struct SettingsTabView: View {
                     }
 
                     if (self.vm.active && self.vm.type == "plus") {
-                        NavigationLink(destination: LeaseListView(vm: self.leaseVM), tag: "leases", selection: self.$tabVM.selection) {
+                        NavigationLink(destination: LeaseListView(), tag: "leases", selection: self.$tabVM.selection) {
                             HStack {
                              Image(systemName: Image.fComputer)
                                  .imageScale(.large)
@@ -94,7 +89,7 @@ struct SettingsTabView: View {
                         }
                     }
 
-                    NavigationLink(destination: NoLogRetentionView(vm: self.activityVM), tag: "logRetention", selection: self.$tabVM.selection) {
+                    NavigationLink(destination: NoLogRetentionView(), tag: "logRetention", selection: self.$tabVM.selection) {
                         HStack {
                          Image(systemName: "chart.bar")
                              .imageScale(.large)
@@ -109,7 +104,7 @@ struct SettingsTabView: View {
                 }
 
                     Section(header: Text(L10n.accountSectionHeaderOther)) {
-                        NavigationLink(destination: ChangeAccountView(vm: self.vm, activeSheet: self.$activeSheet), tag: "changeaccount", selection: self.$tabVM.selection) {
+                        NavigationLink(destination: ChangeAccountView(), tag: "changeaccount", selection: self.$tabVM.selection) {
                             HStack {
                              Image(systemName: Image.fLogout)
                                  .imageScale(.large)
@@ -123,7 +118,7 @@ struct SettingsTabView: View {
                         }
 
                          Button(action: {
-                            self.activeSheet = .help
+                             self.contentVM.showSheet(.Help)
                          }) {
                             HStack {
                              Image(systemName: Image.fHelp)
@@ -167,6 +162,6 @@ struct SettingsTabView: View {
 
 struct SettingsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsTabView(homeVM: HomeViewModel(), vm: AccountViewModel(), tabVM: TabViewModel(), inboxVM: InboxViewModel(), leaseVM: LeaseListViewModel(), activityVM: ActivityViewModel(), activeSheet: .constant(nil))
+        SettingsTabView()
     }
 }

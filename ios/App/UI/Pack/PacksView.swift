@@ -14,8 +14,8 @@ import SwiftUI
 
 struct PacksView: View {
 
-    @ObservedObject var vm: PacksViewModel
-    @ObservedObject var tabVM: TabViewModel
+    @ObservedObject var vm = ViewModels.packs
+    @ObservedObject var tabVM = ViewModels.tab
 
     var body: some View {
         GeometryReader { geo in
@@ -66,6 +66,6 @@ struct PacksView: View {
 
 struct PacksView_Previews: PreviewProvider {
     static var previews: some View {
-        PacksView(vm: PacksViewModel(tabVM: TabViewModel()), tabVM: TabViewModel())
+        PacksView()
     }
 }

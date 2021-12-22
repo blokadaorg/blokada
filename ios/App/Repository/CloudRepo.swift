@@ -54,8 +54,6 @@ class CloudRepo {
     private lazy var activeTabHot = Repos.navRepo.activeTabHot
     private lazy var accountIdHot = Repos.accountRepo.accountIdHot
 
-    private let bgQueue = DispatchQueue(label: "CloudRepoBgQueue")
-
     fileprivate let writeDnsProfileActivated = CurrentValueSubject<CloudDnsProfileActivated?, Never>(nil)
     fileprivate let writeDeviceInfo = CurrentValueSubject<DevicePayload?, Never>(nil)
 
@@ -65,6 +63,7 @@ class CloudRepo {
     fileprivate let refreshDeviceInfoT = SimpleTasker<Ignored>("refreshDeviceInfo", debounce: 3.0, errorIsMajor: true)
     fileprivate let setPausedT = Tasker<Ignored, Ignored>("setPaused", errorIsMajor: true)
 
+    private let bgQueue = DispatchQueue(label: "CloudRepoBgQueue")
     private var cancellables = Set<AnyCancellable>()
 
     init() {

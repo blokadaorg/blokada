@@ -14,7 +14,7 @@ import SwiftUI
 
 struct NoLogRetentionView: View {
 
-    @ObservedObject var vm: ActivityViewModel
+    @ObservedObject var vm = ViewModels.activity
 
     var body: some View {
         VStack() {
@@ -73,6 +73,6 @@ struct NoLogRetentionView: View {
 
 struct NoLogRetentionView_Previews: PreviewProvider {
     static var previews: some View {
-        NoLogRetentionView(vm: ActivityViewModel())
+        NoLogRetentionView()
     }
 }

@@ -15,7 +15,7 @@ import SwiftUI
 struct LocationListView: View {
 
     @ObservedObject var vm = LocationListViewModel()
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var contentVM = ViewModels.content
 
     @State var showSpinner = true
 
@@ -28,7 +28,7 @@ struct LocationListView: View {
                     .bold()
                     .padding(16)
                     .onTapGesture {
-                        self.activeSheet = nil
+                        self.contentVM.dismissSheet()
                     }
             }
 
@@ -92,10 +92,10 @@ struct LocationListView: View {
                                         ForEach(locations, id: \.self) { item in
                                             Button(action: {
                                                 withAnimation {
-                                                    self.activeSheet = nil
+                                                    self.contentVM.dismissSheet()
                                                     self.vm.changeLocation(item, noPermissions: {
                                                         // A callback trigerred when there is no VPN profile
-                                                        self.activeSheet = .askvpn
+                                                        self.contentVM.showSheet(.AskForVpn)
                                                     })
                                                 }
                                             }) {
@@ -145,6 +145,6 @@ struct LocationListView: View {
 
 struct LocationListView_Previews: PreviewProvider {
     static var previews: some View {
-        return LocationListView(activeSheet: .constant(nil))
+        return LocationListView()
     }
 }

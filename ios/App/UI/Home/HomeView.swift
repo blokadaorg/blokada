@@ -14,9 +14,8 @@ import SwiftUI
 
 struct HomeView: View {
 
-    @ObservedObject var vm: HomeViewModel
-
-    @Binding var activeSheet: ActiveSheet?
+    @ObservedObject var vm = ViewModels.home
+    @ObservedObject var contentVM = ViewModels.content
 
     @State var size: CGFloat = 0.0
     @State var anOpacity = 0.6
@@ -44,7 +43,7 @@ struct HomeView: View {
                     .transition(.opacity)
                     .animation(Animation.easeIn(duration: 0.2))
 
-                PowerView(vm: self.vm, activeSheet: self.$activeSheet)
+                PowerView(vm: self.vm)
                     .frame(maxWidth: 196, maxHeight: 196)
             }
 
@@ -128,7 +127,7 @@ struct HomeView: View {
                         }
                         .opacity(self.vm.appState == .Activated && self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
-                            self.activeSheet = .counter
+                            self.contentVM.showSheet(.AdsCounter)
                         }
 
                         VStack {
@@ -141,7 +140,7 @@ struct HomeView: View {
                         }
                         .opacity(self.vm.appState == .Activated && !self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
-                            self.activeSheet = .counter
+                            self.contentVM.showSheet(.AdsCounter)
                         }
 
                         Text(L10n.homeStatusDetailProgress)
@@ -154,16 +153,16 @@ struct HomeView: View {
                 }
                 .frame(width: 280, height: 96, alignment: .top)
 
-                PlusButtonView(vm: self.vm, activeSheet: self.$activeSheet)
+                PlusButtonView(vm: self.vm)
                     .frame(maxWidth: 500)
             }
         }
         .background(
             LinearGradient(gradient: Gradient(colors: [Color.cHomeBackground, Color.cBackground]), startPoint: .top, endPoint: .bottom)
         )
-        .onAppear {
-            self.vm.onAccountExpired = { self.activeSheet = nil }
-        }
+//        .onAppear {
+//            self.vm.onAccountExpired = { self.activeSheet = nil }
+//        }
     }
 }
 
@@ -174,16 +173,10 @@ struct HomeView_Previews: PreviewProvider {
         error.showError = true
 
         return Group {
-            HomeView(
-                vm: HomeViewModel(),
-                activeSheet: .constant(nil)
-            )
+            HomeView()
             .previewDevice(PreviewDevice(rawValue: "iPhone X"))
 
-            HomeView(
-                vm: error,
-                activeSheet: .constant(nil)
-            )
+            HomeView(vm: error)
             .environment(\.locale, .init(identifier: "pl"))
         }
     }

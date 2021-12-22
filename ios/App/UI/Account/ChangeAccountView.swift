@@ -14,9 +14,9 @@ import SwiftUI
 
 struct ChangeAccountView: View {
 
-    @ObservedObject var vm: AccountViewModel
+    @ObservedObject var vm = ViewModels.account
+    @ObservedObject var contentVM = ViewModels.content
 
-    @Binding var activeSheet: ActiveSheet?
     @State var accountId = ""
 
     var body: some View {
@@ -28,7 +28,7 @@ struct ChangeAccountView: View {
                         Spacer()
                         Button(action: {
                             self.vm.restoreAccount(self.accountId) {
-                                self.activeSheet = nil
+                                self.contentVM.dismissSheet()
                             }
                         }) {
                             Text(L10n.universalActionSave)
@@ -72,6 +72,6 @@ struct ChangeAccountView: View {
 
 struct ChangeAccountView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangeAccountView(vm: AccountViewModel(), activeSheet: .constant(nil))
+        ChangeAccountView()
     }
 }

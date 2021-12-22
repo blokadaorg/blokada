@@ -17,9 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    private let homeVM = HomeViewModel()
-    private let tabVM = TabViewModel()
-    private let activityVM = ActivityViewModel()
+    private let homeVM = ViewModels.home
+    private let tabVM = ViewModels.tab
 
     private lazy var foreground = Repos.stageRepo
 
@@ -32,18 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let controller = ContentHostingController(rootView:
-                ContentView(
-                    accountVM: AccountViewModel(),
-                    tabVM: self.tabVM,
-                    paymentVM: PaymentGatewayViewModel(),
-                    locationVM: LocationListViewModel(),
-                    logVM: LogViewModel(),
-                    packsVM: PacksViewModel(tabVM: self.tabVM),
-                    activityVM: self.activityVM,
-                    inboxVM: InboxViewModel(),
-                    leaseVM: LeaseListViewModel(),
-                    vm: homeVM
-                )
+                ContentView()
             )
 
             controller.onTransitioning = { (transitioning: Bool) in
@@ -58,14 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             window.rootViewController = controller
             self.window = window
-
-            SharedActionsService.shared.present = { vc in
-                controller.present(vc, animated: true, completion: nil)
-            }
-
-            SharedActionsService.shared.presentAlert = { alert in
-                controller.present(alert, animated: true)
-            }
+            Services.dialog.setController(controller)
 
             window.makeKeyAndVisible()
             
