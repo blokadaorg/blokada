@@ -42,7 +42,6 @@ class AccountRepo {
     private let encoder = blockaEncoder
 
     private var cancellables = Set<AnyCancellable>()
-    private let recentAccount = Atomic<AccountWithKeypair?>(nil)
     private let lastAccountRequestTimestamp = Atomic<Double>(0)
 
     private let ACCOUNT_REFRESH_SEC: Double = 10 * 60 // Same as on Android
@@ -51,7 +50,6 @@ class AccountRepo {
         onProposeAccountRequests()
         onRefreshAccountRequests()
         onRestoreAccountRequests()
-        onAccountChangedCacheLocally()
         loadFromPersistenceOrCreateAccount()
         refreshAccountPeriodically()
     }
@@ -64,14 +62,6 @@ class AccountRepo {
     // Accepts account received from the payment callback (usually old receipt).
     func proposeAccount(_ newAccount: Account) -> AnyPublisher<Bool, Error> {
         return proposeAccountT.send(newAccount)
-    }
-
-    // A cold publisher alternative to get the current account
-    func getAccount() -> AnyPublisher<AccountWithKeypair, Error> {
-        guard let account = recentAccount.value else {
-            return Fail(error: "getAccount: account not available yet").eraseToAnyPublisher()
-        }
-        return Just(account).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
 
     private func loadFromPersistenceOrCreateAccount() {
@@ -111,7 +101,9 @@ class AccountRepo {
     // Receives Account object to be verified and saved. No request, but may regen keys.
     func onProposeAccountRequests() {
         proposeAccountT.setTask { account in Just(account)
-            .map { it in (it, self.recentAccount.value) }
+            .flatMap { it in Publishers.CombineLatest(
+                Just(it), self.accountHot.first()
+            )}
             .tryMap { it -> (Account, AccountWithKeypair?) in
                 try self.validateAccountId(it.0.id)
                 return it
@@ -193,7 +185,7 @@ class AccountRepo {
         .filter { it in
             self.lastAccountRequestTimestamp.value < Date().timeIntervalSince1970 - self.ACCOUNT_REFRESH_SEC
         }
-        .compactMap { it in self.recentAccount.value }
+        .flatMap { it in self.accountHot.first() }
         .sink(
             onValue: { it in
                 self.lastAccountRequestTimestamp.value = Date().timeIntervalSince1970
@@ -253,7 +245,7 @@ class AccountRepo {
             return it
         }
         .flatMap { it in
-            return self.remote.setString(it, forKey: "keypair")
+            return self.local.setString(it, forKey: "keypair")
         }
         .eraseToAnyPublisher()
     }
@@ -295,14 +287,6 @@ class AccountRepo {
             .eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
-    }
-
-    // Take account from hot publisher to use in cold publishers (Combine has poor support for this)
-    private func onAccountChangedCacheLocally() {
-        self.accountHot.sink(
-            onValue: { it in self.recentAccount.value = it }
-        )
-        .store(in: &cancellables)
     }
 
 }

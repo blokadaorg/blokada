@@ -25,7 +25,7 @@ class BlockaApiCurrentUserService {
     private lazy var envRepo = Repos.envRepo
 
     func getAccountForCurrentUser() -> AnyPublisher<Account, Error> {
-        return self.accountRepo.getAccount()
+        return accountRepo.accountHot.first()
         .flatMap { it in
             self.client.getAccount(id: it.account.id)
         }
@@ -33,7 +33,7 @@ class BlockaApiCurrentUserService {
     }
 
     func getDeviceForCurrentUser() -> AnyPublisher<DevicePayload, Error> {
-        return self.accountRepo.getAccount()
+        return accountRepo.accountHot.first()
         .flatMap { it in
             self.client.getDevice(id: it.account.id)
         }
@@ -41,7 +41,7 @@ class BlockaApiCurrentUserService {
     }
 
     func putActivityRetentionForCurrentUser(_ retention: String) -> AnyPublisher<Ignored, Error> {
-        return self.accountRepo.getAccount()
+        return accountRepo.accountHot.first()
         .map { it in DeviceRequest(
             account_id: it.account.id,
             lists: nil,
@@ -53,7 +53,7 @@ class BlockaApiCurrentUserService {
     }
 
     func putPausedForCurrentUser(_ paused: Bool) -> AnyPublisher<Ignored, Error> {
-        return self.accountRepo.getAccount()
+        return accountRepo.accountHot.first()
         .map { it in DeviceRequest(
             account_id: it.account.id,
             lists: nil,
@@ -65,7 +65,7 @@ class BlockaApiCurrentUserService {
     }
 
     func putBlocklistsForCurrentUser(_ lists: CloudBlocklists) -> AnyPublisher<Ignored, Error> {
-        return self.accountRepo.getAccount()
+        return accountRepo.accountHot.first()
         .map { it in DeviceRequest(
             account_id: it.account.id,
             lists: lists,
@@ -77,7 +77,7 @@ class BlockaApiCurrentUserService {
     }
 
     func postAppleCheckoutForCurrentUser(_ receipt: String) -> AnyPublisher<Account, Error> {
-        return self.accountRepo.getAccount()
+        return accountRepo.accountHot.first()
         .map { it in AppleCheckoutRequest(
             account_id: it.account.id,
             receipt: receipt
@@ -87,7 +87,7 @@ class BlockaApiCurrentUserService {
     }
 
     func postAppleDeviceTokenForCurrentUser(deviceToken: Data) -> AnyPublisher<Ignored, Error> {
-        return self.accountRepo.getAccount()
+        return accountRepo.accountHot.first()
         .map { it in AppleDeviceTokenRequest(
             account_id: it.account.id,
             public_key: it.keypair.publicKey,

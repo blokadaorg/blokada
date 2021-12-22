@@ -127,9 +127,13 @@ class KeychainPersistenceService: PersistenceService {
 
 class PersistenceServiceMock: PersistenceService {
 
-    func getString(forKey: String) -> AnyPublisher<String, Error> {
+    var mockGetString: (String) -> AnyPublisher<String, Error> = { forKey in
         return Fail<String, Error>(error: CommonError.emptyResult)
             .eraseToAnyPublisher()
+    }
+
+    func getString(forKey: String) -> AnyPublisher<String, Error> {
+        return mockGetString(forKey)
     }
     
     func setString(_ value: String, forKey: String) -> AnyPublisher<Void, Error> {

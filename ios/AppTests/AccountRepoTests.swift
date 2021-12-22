@@ -48,6 +48,74 @@ class AccountRepoTests: XCTestCase {
         pub.cancel()
     }
 
+    func testShouldNotCreateNewAccountIfPersisted() throws {
+        let exp = XCTestExpectation(description: "will load account from persistence")
+        let exp2 = XCTestExpectation(description: "will load keypair from persistence")
+        Mocks.useEmptyPersistence()
+        let mock = PersistenceServiceMock()
+        mock.mockGetString = { forKey in
+            if forKey == "account" {
+                exp.fulfill()
+                return Just(Mocks.account("123456789012"))
+                .encode(encoder: blockaEncoder)
+                .tryMap { it -> String in
+                    guard let it = String(data: it, encoding: .utf8) else {
+                        throw "account mock: could not encode json data to string"
+                    }
+                    return it
+                }
+                .eraseToAnyPublisher()
+            } else {
+                return Fail<String, Error>(error: CommonError.emptyResult)
+                    .eraseToAnyPublisher()
+            }
+        }
+        let mock2 = PersistenceServiceMock()
+        mock2.mockGetString = { forKey in
+            if forKey == "keypair" {
+                exp2.fulfill()
+                return Just(Keypair(privateKey: "mock-priv", publicKey: "mock-pub"))
+                .encode(encoder: blockaEncoder)
+                .tryMap { it -> String in
+                    guard let it = String(data: it, encoding: .utf8) else {
+                        throw "keypair mock: could not encode json data to string"
+                    }
+                    return it
+                }
+                .eraseToAnyPublisher()
+            } else {
+                return Fail<String, Error>(error: CommonError.emptyResult)
+                    .eraseToAnyPublisher()
+            }
+        }
+        Services.persistenceRemote = mock
+        Services.persistenceLocal = mock2
+
+        // Return account with ID that we expect
+        let apiMock = BlockaApiServiceMock()
+        apiMock.mockAccount = { id in
+            XCTAssertEqual("123456789012", id)
+            return Mocks.justAccount("123456789012")
+        }
+        Services.api = apiMock
+
+        resetReposForDebug()
+
+        let exp3 = XCTestExpectation(description: "will not create account")
+        let pub = Repos.accountRepo.accountHot.sink(
+            onValue: { it in
+                XCTAssertEqual("123456789012", it.account.id)
+                XCTAssert(!it.account.id.isEmpty)
+                XCTAssert(!it.keypair.privateKey.isEmpty)
+                exp3.fulfill()
+            }
+        )
+
+        wait(for: [exp, exp2, exp3], timeout: 5.0)
+        pub.cancel()
+    }
+
+
     func testMultipleSubscribersShouldReceiveSameThings() throws {
         Mocks.useEmptyPersistence()
 
