@@ -387,7 +387,7 @@
 "payment subscription many months" = "%@ أشهر";
 "payment subscription per month" = "%@ في الشهر";
 "payment subscription per year" = "%@ في السنة";
-"payment subscription per year then" = "then %@ per year";
+"payment subscription per year then" = "ثم %@ في السنة";
 "payment subscription offer" = "توفير %@";
 
 "payment success label" = "شكراً !";
@@ -478,7 +478,6 @@
 "homepage header support" = "ادعمنا";
 "homepage desc support" = "تَبرَّع لمساعدتنا على متابعة المشروع.";
 "homepage action faq" = "الأسئلة الشائعة";
-"homepage action vpn" = "VPN";
 "homepage action opinions" = "التعليقات";
 "homepage action authors" = "المؤلّفون";
 "homepage action source" = "المَصدر";
@@ -487,24 +486,40 @@
 "homepage about footer" = "دعونا نبقى على اتصال !";
 "homepage hero title" = "تطبيق الخصوصيّة";
 "homepage hero subtitle" = "مجّاني و مفتوح المَصدَر";
+"homepage hero opensource" = "مفتوح المصدر";
 "homepage hero desc" = "بلوكادا هو التطبيق الشهير لحظر الإعلانات و الخصوصيّة لنظاميّ التشغيل Android و iOS. يتمّ دعمه و تطويره بنشاط من قِبَل مجتمع المَصدَر المفتوح المذهل.";
-"homepage about title" = "Blokada 5، المانِع للإعلانات";
+"homepage about title" = "Blokada Libre، مانِع الإعلانات";
 "homepage about desc" = "إذا أَردت بكفاءة أن تَحظُر الإعلانات، التَّعقُّب و البرامج الضارّة ، إذا كنت تريد حفْظ خُطّة بياناتك ، و جَعلْ جهازك أسرع و حماية خصوصيّتك من خلال تطبيق واحد ، إذاً بلوكادا هو الأمثل لك. إنّه مجّاني و آمن و مفتوح المَصدَر.";
 "homepage about point one" = "حَظْر الإعلانات و المُتَعقِّبين";
 "homepage about point two" = "يعمل مع جميع التطبيقات و المتصفِّحات";
 "homepage about point three" = "لا يتطلَّب روت أو جيلبريك";
 "homepage about point four" = "التصميم الآمن (لا يكسر التشفير)";
 "homepage about point five" = "موثوق به و مجّاني إلى الأبد";
+"homepage about point six" = "رمز المصدر متاح لنظاميّ Android و iOS";
+"homepage about point seven" = "التنزيلات المتاحة للأندرويد";
+
+"homepage cloud title" = "Blokada Cloud، الطريقة الجديدة";
+"homepage cloud desc" = "حلّنا الحديث لحظر محتوى الجوّال. حماية أجهزة متعددة من الإعلانات و التعقّب ، و إدارة تفضيلاتك في مكان واحد. استمتع بعدم استنزاف البطّاريّة ، و عدم وجود تباطؤ ملحوظ ، و حظر الإعلانات بطريقة موثوقة للغاية.";
+"homepage cloud point one" = "حجب الإعلانات القائم على السحابة";
+"homepage cloud point two" = "إدارة و مراقبة على شبكة الإنترنت";
+"homepage cloud point three" = "DNS خاص مشفّر";
+"homepage cloud point four" = "توصيل أجهزة متعدّدة";
+"homepage cloud point five" = "التطبيق متاح لنظام iOS";
+"homepage cloud point six" = "استخدم على أي منصّة تدعم الـ DNS الخاص";
+"homepage cloud learn more" = "تعرّف على المزيد حول Blokada Cloud";
 
 "homepage about action faq" = "مشاهدة الأسئلة الشائعة";
 "homepage about action plus" = "تعرّف على المزيد حول Blokada Plus";
 
-"homepage vpn title" = "بلوكادا 5، VPN";
+"homepage vpn title" = "Blokada Plus، الـ VPN";
 "homepage vpn desc" = "لحماية مطلقة للخصوصيّة ، قم بالترقية إلى Blokada Plus و اتصل من خلال VPN الخاصّ بنا. نحن نستخدم WireGuard® ، بروتوكول VPN الأكثر تقدّماً ، لتشفير نشاط الشبكة و إخفاء عنوان IP الخاصّ بك.";
 "homepage vpn point one" = "لا قيود على النطاق التردّدي";
 "homepage vpn point two" = "تشفير سريع و حديث";
 "homepage vpn point three" = "لا يوجد تسجيل لنشاط الشبكة الخاصّ بك";
 "homepage vpn point four" = "قم بتوصيل ما يصل إلى 5 أجهزة";
+"homepage vpn point five" = "جميع مزايا Blokada Cloud";
+"homepage vpn point six" = "متاح لنظاميّ Android و iOS";
+"homepage vpn point seven" = "المزيد من المنصّات من خلال تطبيقات Wireguard®";
 "homepage vpn credit" = "'WireGuard' و شعار 'WireGuard' علامات تجاريّة مسجّلة لـ Jason A. Donenfeld.";
 
 "homepage faq header" = "الأسئلة الشائعة";
@@ -521,16 +536,18 @@
 "homepage faq desc 5" = "يمكنك استرداد أموالك في غضون 7 أيّام من شراء الاشتراك. اتصل بنا من خلال أيّ من تطبيقاتنا ، و اذكر ببساطة أنّك تريد استرداد أموالك.";
 "homepage faq title 6" = "أين يقع بلوكادا؟";
 "homepage faq desc 6" = "نحن موجودون في السويد ، حيث يتم التعامل مع الخصوصيّة بجديّة بالغة. خوادمنا متوفّرة في العديد من الأماكن حول العالم.";
+"homepage faq title 7" = "ما هو Blokada Cloud؟";
+"homepage faq desc 7" = "Blokada Cloud هو حل جديد لحظر الإعلانات المستند إلى السحابة. أسرع و أكثر موثوقيّة من الطريقة القديمة ، و تجلب العديد من الفوائد الإضافية. يمكن استخدام Blokada Cloud على أجهزة متعدّدة ، وهي تدعم أي منصّة متوافقة مع DNS عبر TLS/HTTPS.";
 
 "homepage download header" = "تحميل بلوكادا";
 "homepage download subheader" = "بلوكادا متوفّر للعديد من المنصات، اختر منصَّتك.";
 "homepage download option android five" = "Blokada 5 للأندرويد";
 "homepage download option android slim" = "Blokada 5 Slim للأندرويد";
 "homepage download option android four" = "Blokada 4 للأندرويد";
-"homepage download option ios" = "Blokada 5 لـ iOS";
+"homepage download option ios" = "Blokada 6 لنظام iOS";
 "homepage download option other" = "بلوكادا للمنصَّات الأُخرى";
 "homepage download desc other" = "حاليّاً، نحن لا نوفّر بلوكادا للمنصّات الأُخرى. ومع ذلك، إذا كنت مستخدم بلوكادا بلس، فيُمكِنك استخدام شبكة VPN الخاصّة بنا على ويندوز، لينوكس، ماك، وغيرها من المنصّات التي يتوفّر فيها WireGuard.";
-"homepage download desc ios" = "Blokada 5 متاح ببساطة على متجر التطبيقات.";
+"homepage download desc ios" = "Blokada 6 متاح ببساطة على متجر التطبيقات.";
 "homepage download action ios" = "فتح متجر التطبيقات";
 "homepage download desc android five" = "هذا هو الإصدار الجديد الموصى به <b>للهواتف الذكيّة و اللّوحيّة مع أندرويد 7 أو الأحدث</b>. إنّه أبسط وأسرع بالمقارنة مع بلوكادا 4.";
 "homepage download action android five" = "Blokada 5 .apk";
@@ -541,6 +558,10 @@
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "فتح F-Droid";
 
+"homepage download cloud desc" = "يمكن استخدام Blokada Cloud على أي منصّة تدعم DNS عبر TLS / HTTPS. يتضمّن ذلك Windows و MacOS و Linux وجميع المتصفّحات الحديثة. يمكنك العثور على إرشادات إعداد بسيطة لجميع الأنظمة الأساسيّة المدعومة في لوحة معلومات الويب.";
+"homepage download plus desc" = "يمكن استخدام Blokada Plus على أي منصّة يتوفّر بها تطبيق Wireguard®. يمكنك إنشاء ملف تعريف VPN في لوحة معلومات الويب ، ثم استيراده ببساطة في التطبيق.";
+"homepage download action open dashboard" = "فتح لوحة التحكّم";
+
 "homepage community header" = "المجتمع";
 "homepage community desc" = "بلوكادا ليس فقط تطبيق الخصوصيّة. بل أيضاً مجتمع من الأشخاص الذين يهتمّون بخصوصيّتهم الرقميّة و رفاهيّتهم. و ستجدوننا في منتدانا حيث يُمكِنكم طرح أي أسئلة قد تكون لديكم. و نحن موجودون أيضاً على وسائل التواصل الإجتماعي الأخرى و المحادثات.";
 "homepage community cta subheader" = "انضم إلينا و قل مرحبا !";
@@ -550,8 +571,10 @@
 
 "homepage support header" = "دعم المشروع";
 "homepage support desc" = "إذا أحببت ما نفعله، فكّر في دعمنا، حتى نتمكّن من مواصلة تطوير ميّزات و تحسينات جديدة. بهذه الطريقة، يُمكِن أن يبقى بلوكادا مفتوح المصدر و مجاناً إلى الأبد.";
+"homepage support desc2" = "إذا أعجبك ما نقوم به ، ففكّر في دعمنا ، حتّى نتمكّن من مواصلة تطوير مشاريعنا مفتوحة المصدر.";
 "homepage support cta header" = "بلوكادا يعتمد عليك";
 "homepage support cta desc" = "بلوكادا هو مشروع مفتوح المصدر ، ممّا يعني أنّه يُمكِنك التأكّد من أنّه سيكون دائماً مجّانيّاً و آمناً للإستخدام و بدون أي أجندة خفيّة. نعتقد أن هذه هي الطريقة الصحيحة الوحيدة لتطوير تطبيق خصوصيّة يُمكِنك الوثوق به.";
+"homepage support cta desc2" = "بلوكادا لديهه مصدرين للدخل لدعم تطوير المشروع: الاشتراكات و التبرعات. لا توجد عائدات إعلانات. Blokada لا تبيع بيانات المستخدم أيضاً.";
 "homepage support cta desc more" = "ومع ذلك ، فإن تطوير تطبيق عالي الجودة مثل بلوكادا يتطلّب قدراً كبيراً من الموارد. هذا المشروع موجود بفضل دعم أشخاص رائعين مثلك !";
 "homepage support cta action" = "تبرّع (كارت، PayPal)";
 "homepage support cta action alt" = "تبرّع (مصرف، عملة رقميّة)";

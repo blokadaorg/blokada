@@ -478,7 +478,6 @@
 "homepage header support" = "Bizi destekle";
 "homepage desc support" = "Projeye devam etmemize yardımcı olmak için bağışta bulunun.";
 "homepage action faq" = "SSS";
-"homepage action vpn" = "VPN";
 "homepage action opinions" = "İncelemeler";
 "homepage action authors" = "Yazarlar";
 "homepage action source" = "Kaynak";
@@ -487,24 +486,40 @@
 "homepage about footer" = "İletişimde kalalım!";
 "homepage hero title" = "Gizlilik uygulaması";
 "homepage hero subtitle" = "ücretsiz ve açık kaynaklı";
+"homepage hero opensource" = "open source";
 "homepage hero desc" = "Blokada, Android ve iOS için popüler bir reklam engelleyici ve gizlilik uygulamasıdır. Harika bir açık kaynak topluluğu tarafından desteklenmekte ve aktif olarak geliştirilmektedir.";
-"homepage about title" = "Blokada 5, reklam engelleyici";
+"homepage about title" = "Blokada Libre, the ad blocker";
 "homepage about desc" = "Tek bir uygulama ile reklamları, izleyicileri, kötü amaçlı yazılımları verimli bir şekilde engellemek; veri planınızdan tasarruf etmek, cihazınızı hızlandırmak ve gizliliğinizi korumak istiyorsanız, Blokada tam size göre. Ücretsiz, güvenli ve açık kaynaklı.";
 "homepage about point one" = "Reklamları ve izleyicileri engeller";
 "homepage about point two" = "Tüm uygulamalar ve tarayıcılarda çalışır";
 "homepage about point three" = "Root veya jailbreak gerektirmez";
 "homepage about point four" = "Güvenli tasarım (şifrelemeyi bozmaz)";
 "homepage about point five" = "Güvenilir ve sonsuza kadar ücretsiz";
+"homepage about point six" = "Source code available for Android and iOS";
+"homepage about point seven" = "Downloads available for Android";
+
+"homepage cloud title" = "Blokada Cloud, the new way";
+"homepage cloud desc" = "Our modern solution for mobile content blocking. Protect multiple devices from ads and tracking, and manage your preferences in one place. Enjoy zero battery drain, no noticeable slowdowns, and highly reliable adblocking.";
+"homepage cloud point one" = "Cloud based adblocking";
+"homepage cloud point two" = "Manage and monitor on web";
+"homepage cloud point three" = "Encrypted, private DNS";
+"homepage cloud point four" = "Connect multiple devices";
+"homepage cloud point five" = "App available for iOS";
+"homepage cloud point six" = "Use on any platform supporting private DNS";
+"homepage cloud learn more" = "Learn more about Blokada Cloud";
 
 "homepage about action faq" = "SSS'e bakın";
 "homepage about action plus" = "Blokada Plus hakkında daha fazla bilgi edinin";
 
-"homepage vpn title" = "Blokada 5, VPN";
+"homepage vpn title" = "Blokada Plus, the VPN";
 "homepage vpn desc" = "En üst düzey gizlilik koruması için Blokada Plus'a yükseltin ve VPN'imiz üzerinden bağlanın. Ağ etkinliğinizi şifrelemek ve IP adresinizi gizlemek için en gelişmiş VPN protokolü olan WireGuard® protokolünü kullanıyoruz.";
 "homepage vpn point one" = "Bant genişliği kısıtlanmaz";
 "homepage vpn point two" = "Hızlı ve modern şifreleme";
 "homepage vpn point three" = "Ağ etkinliğiniz günlüğe kaydedilmez";
 "homepage vpn point four" = "5 cihaza kadar bağlantı";
+"homepage vpn point five" = "All the benefits of Blokada Cloud";
+"homepage vpn point six" = "Available for Android and iOS";
+"homepage vpn point seven" = "More platforms through Wireguard® apps";
 "homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 
 "homepage faq header" = "Sıkça Sorulan Sorular";
@@ -521,16 +536,18 @@
 "homepage faq desc 5" = "Aboneliğinizi satın aldıktan sonra 7 gün içinde paranızı geri alabilirsiniz. Uygulamalarımızdan herhangi biri aracılığıyla bizimle iletişime geçin ve sadece iade istediğinizi belirtin.";
 "homepage faq title 6" = "Blokada nerede?";
 "homepage faq desc 6" = "Mahremiyetin çok ciddiye alındığı İsveç'te yaşıyoruz. Sunucularımız dünyanın birçok yerinde bulunuyor.";
+"homepage faq title 7" = "What is Blokada Cloud?";
+"homepage faq desc 7" = "Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.";
 
 "homepage download header" = "Blokada'yı İndir";
 "homepage download subheader" = "Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.";
 "homepage download option android five" = "Android için Blokada 5";
 "homepage download option android slim" = "Android için Blokada 5 Slim";
 "homepage download option android four" = "Android için Blokada 4";
-"homepage download option ios" = "iOS için Blokada 5";
+"homepage download option ios" = "Blokada 6 for iOS";
 "homepage download option other" = "Diğer platformalar için Blokada";
 "homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.";
-"homepage download desc ios" = "Blokada 5 sadece App Store'da mevcuttur.";
+"homepage download desc ios" = "Blokada 6 is simply available on App Store.";
 "homepage download action ios" = "App Store'u Aç";
 "homepage download desc android five" = "Bu, <b>Android 7 veya daha yenisine sahip akıllı telefonlar ve tabletler için</b> önerilen yeni sürümümüzdür. Blokada 4'e göre daha basit ve hızlıdır.";
 "homepage download action android five" = "Blokada 5 .apk";
@@ -541,6 +558,10 @@
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "F-Droid'i Aç";
 
+"homepage download cloud desc" = "Blokada Cloud can be used on any platform that supports DNS over TLS/HTTPS. This includes Windows, MacOS, Linux, and all modern browsers. You can find simple setup guides for all supported platforms in the web dashboard.";
+"homepage download plus desc" = "Blokada Plus can be used on any platform where the Wireguard® app is available. You can generate a VPN profile in the web dashboard, and then simply import it in the app.";
+"homepage download action open dashboard" = "Open Dashboard";
+
 "homepage community header" = "Topluluk";
 "homepage community desc" = "Blokada yalnızca bir gizlilik uygulaması değildir. Aynı zamanda dijital mahremiyetlerini ve refahlarını önemseyen insanların oluşturduğu topluluktur. Bizi her türlü sorunuzu sorabileceğiniz forumumuzda bulabilirsiniz. Diğer sosyal medyada ve sohbetlerde de varız.";
 "homepage community cta subheader" = "Selam verin ve bize katılın!";
@@ -550,8 +571,10 @@
 
 "homepage support header" = "Projeyi destekleyin";
 "homepage support desc" = "Yaptığımız işi beğendiyseniz, yeni özellikleri ve geliştirmeleri geliştirmeye devam edebilmemiz için bizi desteklemeyi düşünün. Bu şekilde, Blokada açık kaynaklı ve sonsuza kadar özgür kalabilir.";
+"homepage support desc2" = "If you like what we do, consider supporting us, so that we can continue developing our open source projects.";
 "homepage support cta header" = "Blokada size bağlıdır";
 "homepage support cta desc" = "Blokada açık kaynak kodlu bir projedir. Yani her zaman ücretsiz kalacağından, kullanımının güvenli olduğundan ve gizli bir ajandası olmayacağından emin olabilirsiniz. Bunun güvenebileceğiniz bir gizlilik uygulaması geliştirmenin tek doğru yolu olduğuna inanıyoruz.";
+"homepage support cta desc2" = "Blokada has two sources of revenue for supporting the project development: subscriptions, and donations. There is no ads revenue. Blokada does not sell user data either.";
 "homepage support cta desc more" = "Bununla birlikte, Blokada gibi kaliteli bir uygulamayı geliştirmek önemli miktarda kaynak gerektiriyor. Bu proje, sizin gibi harika insanların desteği sayesinde var!";
 "homepage support cta action" = "Bağış (kredi kartı, Paypal)";
 "homepage support cta action alt" = "Bağış (banka, kripto para)";

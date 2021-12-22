@@ -478,7 +478,6 @@
 "homepage header support" = "Поддержите нас";
 "homepage desc support" = "Пожертвуйте, чтобы помочь нам продолжить проект.";
 "homepage action faq" = "Часто задаваемые вопросы";
-"homepage action vpn" = "VPN";
 "homepage action opinions" = "Отзывы";
 "homepage action authors" = "Авторы";
 "homepage action source" = "Исходный код";
@@ -487,24 +486,40 @@
 "homepage about footer" = "Оставайтесь на связи!";
 "homepage hero title" = "Приложение для конфиденциальности";
 "homepage hero subtitle" = "бесплатно и с открытым исходным кодом";
+"homepage hero opensource" = "открытый исходный ход";
 "homepage hero desc" = "Blokada - популярное приложение для блокировки рекламы и обеспечения конфиденциальности для Android и iOS. Оно поддерживается и активно развивается удивительным сообществом разработчиков ПО с открытым исходным кодом.";
-"homepage about title" = "Blokada 5, блокировщик рекламы";
+"homepage about title" = "Blokada Libre, блокировщик рекламы";
 "homepage about desc" = "Если вы хотите эффективно блокировать рекламу, трекеры, вредоносные программы, экономить ваш трафик, ускорить работу вашего устройства и защитить конфиденциальность всего одним приложением, то Blokada для вас. Приложение бесплатно, безопасно и с открытым исходным кодом.";
 "homepage about point one" = "Блокировка рекламы и трекеров";
 "homepage about point two" = "Работает со всеми приложениями и браузерами";
 "homepage about point three" = "Не нужен ни рут, ни джейлбрейк";
 "homepage about point four" = "Защищенный дизайн (не нарушает шифрование)";
 "homepage about point five" = "Надежный и бесплатный навсегда";
+"homepage about point six" = "Исходный код доступен для Android и iOS";
+"homepage about point seven" = "Загрузки, доступные для Android";
+
+"homepage cloud title" = "Blokada Cloud - новый подход";
+"homepage cloud desc" = "Наше современное решение для блокировки мобильного контента. Защитите несколько устройств от рекламы и отслеживания и управляйте своими предпочтениями в одном месте. Не расходует заряд батареи, не замедляет работу и очень надежно блокирует рекламу.";
+"homepage cloud point one" = "Блокировка рекламы на основе облачных технологий";
+"homepage cloud point two" = "Управление и мониторинг через интернет";
+"homepage cloud point three" = "Зашифрованный, приватный DNS";
+"homepage cloud point four" = "Подключите несколько устройств";
+"homepage cloud point five" = "Приложение доступно для iOS";
+"homepage cloud point six" = "Используйте на любой платформе, поддерживающей приватные DNS";
+"homepage cloud learn more" = "Узнайте больше о Blokada Cloud";
 
 "homepage about action faq" = "См. часто задаваемые вопросы";
 "homepage about action plus" = "Узнайте больше о Blokada Plus";
 
-"homepage vpn title" = "Blokada 5, VPN";
+"homepage vpn title" = "Blokada Plus, это VPN";
 "homepage vpn desc" = "Для максимальной защиты конфиденциальности приобретите Blokada Plus и подключитесь через наш VPN. Мы используем самый современный VPN-протокол WireGuard® для шифрования вашей сетевой активности и скрытия IP-адреса.";
 "homepage vpn point one" = "Нет ограничений пропускной способности";
 "homepage vpn point two" = "Быстрое и современное шифрование";
 "homepage vpn point three" = "Никакого журналирования вашей сетевой активности";
 "homepage vpn point four" = "Подключите до 5 устройств";
+"homepage vpn point five" = "All the benefits of Blokada Cloud";
+"homepage vpn point six" = "Доступно для Android и iOS";
+"homepage vpn point seven" = "Больше платформ благодаря приложениям Wireguard®";
 "homepage vpn credit" = "'WireGuard' и логотип 'WireGuard' являются зарегистрированными торговыми марками Джейсона А. Доненфельда (Jason A. Donenfeld).";
 
 "homepage faq header" = "Часто задаваемые вопросы";
@@ -521,16 +536,18 @@
 "homepage faq desc 5" = "Вы можете получить возврат денежных средств в течение 7 дней с момента покупки подписки. Свяжитесь с нами через любое из наших приложений и просто укажите, что вы хотите вернуть деньги.";
 "homepage faq title 6" = "Где находится Blokada?";
 "homepage faq desc 6" = "Мы находимся в Швеции, где к конфиденциальности относятся очень серьезно. Наши серверы доступны во многих местах по всему миру.";
+"homepage faq title 7" = "Что такое Blokada Cloud?";
+"homepage faq desc 7" = "Blokada Cloud - это наше новое облачное решение для блокировки рекламы. Оно быстрее и надежнее, чем старый метод, и дает множество дополнительных преимуществ. Blokada Cloud может использоваться на нескольких устройствах и поддерживает любую платформу, совместимую с DNS через TLS/HTTPS.";
 
 "homepage download header" = "Скачать Blokada";
 "homepage download subheader" = "Blokada доступна для нескольких платформ. Выберите свою.";
 "homepage download option android five" = "Blokada 5 для Android";
 "homepage download option android slim" = "Blockade 5 Slim для Android";
 "homepage download option android four" = "Blokada 4 для Android";
-"homepage download option ios" = "Blokada 5 для iOS";
+"homepage download option ios" = "Blokada 6 для iOS";
 "homepage download option other" = "Blokada для других платформ";
 "homepage download desc other" = "В настоящее время мы не предлагаем Blokada для других платформ. Однако, если вы являетесь пользователем Blokada Plus, вы можете использовать наш VPN на Windows, Linux, Mac и других платформах, которые поддерживают WiregGuard.";
-"homepage download desc ios" = "Blokada 5 доступна в App Store.";
+"homepage download desc ios" = "Blokada 6 доступна в App Store.";
 "homepage download action ios" = "Открыть App Store";
 "homepage download desc android five" = "Это наша новая, рекомендуемая версия <b> для смартфонов и планшетов с операционной системой Android 7 и новее</b>. Она стала легче и быстрее по сравнению с Blokada 4.";
 "homepage download action android five" = "Blokada 5 .apk";
@@ -541,6 +558,10 @@
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "Открыть F-Droid";
 
+"homepage download cloud desc" = "Blokada Cloud можно использовать на любой платформе, которая поддерживает DNS через TLS/HTTPS. К ним относятся Windows, MacOS, Linux и все современные браузеры. Простые руководства по настройке для всех поддерживаемых платформ можно найти в веб-панели.";
+"homepage download plus desc" = "Blokada Plus можно использовать на любой платформе, где доступно приложение Wireguard®. Вы можете создать профиль VPN в веб-панели, а затем легко импортировать его в приложение.";
+"homepage download action open dashboard" = "Открыть панель управления";
+
 "homepage community header" = "Сообщество";
 "homepage community desc" = "Blokada - это не только приложение для обеспечения конфиденциальности. Это еще и сообщество людей, которые заботятся о своих цифровых приватности и благополучии. На нашем форуме вы сможете задать любые интересующие вас вопросы. Мы также представлены в различных социальных сетях и чатах.";
 "homepage community cta subheader" = "Присоединяйтесь к нам и поприветствуйте!";
@@ -550,8 +571,10 @@
 
 "homepage support header" = "Поддержать проект";
 "homepage support desc" = "Если вам нравится то, что мы делаем, подумайте о том, чтобы нас поддержать, чтобы мы могли продолжать разрабатывать новые возможности и улучшений. Таким образом, Blokada может оставаться открытой и свободной всегда.";
+"homepage support desc2" = "Если вам нравится то, что мы делаем, поддержите нас, чтобы мы могли продолжать развивать наши проекты с открытым исходным кодом.";
 "homepage support cta header" = "Blokada зависит от вас";
 "homepage support cta desc" = "Blokada - это проект с открытым исходным кодом, а это значит, что вы можете быть уверены, что он всегда будет свободным, безопасным в использовании и без каких-либо скрытых намерений. Мы считаем, что это единственный верный способ разработать приложение для конфиденциальности, которому можно доверять.";
+"homepage support cta desc2" = "У Blokada есть два источника дохода для поддержки развития проекта: подписки и пожертвования. Доходы от рекламы отсутствуют. Blokada также не продает данные пользователей.";
 "homepage support cta desc more" = "Однако разработка качественного приложения, такого как Blokada, требует значительных ресурсов. Этот проект существует благодаря поддержке таких потрясающих людей, как вы!";
 "homepage support cta action" = "Пожертвовать (карта, Paypal)";
 "homepage support cta action alt" = "Пожертвовать (банк, крипто)";

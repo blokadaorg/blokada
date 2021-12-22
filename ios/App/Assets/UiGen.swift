@@ -452,11 +452,15 @@ internal enum L10n {
   internal static let homepageAboutPointFour = L10n.tr("Ui", "homepage about point four")
   /// Blocks ads & trackers
   internal static let homepageAboutPointOne = L10n.tr("Ui", "homepage about point one")
+  /// Downloads available for Android
+  internal static let homepageAboutPointSeven = L10n.tr("Ui", "homepage about point seven")
+  /// Source code available for Android and iOS
+  internal static let homepageAboutPointSix = L10n.tr("Ui", "homepage about point six")
   /// Requires no root or jailbreak
   internal static let homepageAboutPointThree = L10n.tr("Ui", "homepage about point three")
   /// Works for all apps and all browsers
   internal static let homepageAboutPointTwo = L10n.tr("Ui", "homepage about point two")
-  /// Blokada 5, the ad blocker
+  /// Blokada Libre, the ad blocker
   internal static let homepageAboutTitle = L10n.tr("Ui", "homepage about title")
   /// Authors
   internal static let homepageActionAuthors = L10n.tr("Ui", "homepage action authors")
@@ -470,8 +474,24 @@ internal enum L10n {
   internal static let homepageActionOpinions = L10n.tr("Ui", "homepage action opinions")
   /// Source
   internal static let homepageActionSource = L10n.tr("Ui", "homepage action source")
-  /// VPN
-  internal static let homepageActionVpn = L10n.tr("Ui", "homepage action vpn")
+  /// Our modern solution for mobile content blocking. Protect multiple devices from ads and tracking, and manage your preferences in one place. Enjoy zero battery drain, no noticeable slowdowns, and highly reliable adblocking.
+  internal static let homepageCloudDesc = L10n.tr("Ui", "homepage cloud desc")
+  /// Learn more about Blokada Cloud
+  internal static let homepageCloudLearnMore = L10n.tr("Ui", "homepage cloud learn more")
+  /// App available for iOS
+  internal static let homepageCloudPointFive = L10n.tr("Ui", "homepage cloud point five")
+  /// Connect multiple devices
+  internal static let homepageCloudPointFour = L10n.tr("Ui", "homepage cloud point four")
+  /// Cloud based adblocking
+  internal static let homepageCloudPointOne = L10n.tr("Ui", "homepage cloud point one")
+  /// Use on any platform supporting private DNS
+  internal static let homepageCloudPointSix = L10n.tr("Ui", "homepage cloud point six")
+  /// Encrypted, private DNS
+  internal static let homepageCloudPointThree = L10n.tr("Ui", "homepage cloud point three")
+  /// Manage and monitor on web
+  internal static let homepageCloudPointTwo = L10n.tr("Ui", "homepage cloud point two")
+  /// Blokada Cloud, the new way
+  internal static let homepageCloudTitle = L10n.tr("Ui", "homepage cloud title")
   /// Go to forums
   internal static let homepageCommunityCtaAction = L10n.tr("Ui", "homepage community cta action")
   /// We base all of our work on the feedback of our users. Tell us what you think, what should we improve, or just hang out.
@@ -512,13 +532,17 @@ internal enum L10n {
   internal static let homepageDownloadActionAndroidSlim = L10n.tr("Ui", "homepage download action android slim")
   /// Open App Store
   internal static let homepageDownloadActionIos = L10n.tr("Ui", "homepage download action ios")
+  /// Open Dashboard
+  internal static let homepageDownloadActionOpenDashboard = L10n.tr("Ui", "homepage download action open dashboard")
+  /// Blokada Cloud can be used on any platform that supports DNS over TLS/HTTPS. This includes Windows, MacOS, Linux, and all modern browsers. You can find simple setup guides for all supported platforms in the web dashboard.
+  internal static let homepageDownloadCloudDesc = L10n.tr("Ui", "homepage download cloud desc")
   /// This is our new, recommended version <b>for smartphones and tablets with Android 7 or newer</b>. It is simpler and faster compared to Blokada 4.
   internal static let homepageDownloadDescAndroidFive = L10n.tr("Ui", "homepage download desc android five")
   /// We still maintain the older version of Blokada. It has more features, works on older devices, and TVs.
   internal static let homepageDownloadDescAndroidFour = L10n.tr("Ui", "homepage download desc android four")
   /// Blokada Slim is a <b>lightweight version of the app</b>, and it only contains features allowed by the Google Play policy.
   internal static let homepageDownloadDescAndroidSlim = L10n.tr("Ui", "homepage download desc android slim")
-  /// Blokada 5 is simply available on App Store.
+  /// Blokada 6 is simply available on App Store.
   internal static let homepageDownloadDescIos = L10n.tr("Ui", "homepage download desc ios")
   /// Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.
   internal static let homepageDownloadDescOther = L10n.tr("Ui", "homepage download desc other")
@@ -530,10 +554,12 @@ internal enum L10n {
   internal static let homepageDownloadOptionAndroidFour = L10n.tr("Ui", "homepage download option android four")
   /// Blokada 5 Slim for Android
   internal static let homepageDownloadOptionAndroidSlim = L10n.tr("Ui", "homepage download option android slim")
-  /// Blokada 5 for iOS
+  /// Blokada 6 for iOS
   internal static let homepageDownloadOptionIos = L10n.tr("Ui", "homepage download option ios")
   /// Blokada for other platforms
   internal static let homepageDownloadOptionOther = L10n.tr("Ui", "homepage download option other")
+  /// Blokada Plus can be used on any platform where the Wireguard® app is available. You can generate a VPN profile in the web dashboard, and then simply import it in the app.
+  internal static let homepageDownloadPlusDesc = L10n.tr("Ui", "homepage download plus desc")
   /// Blokada is available for several platforms, choose yours.
   internal static let homepageDownloadSubheader = L10n.tr("Ui", "homepage download subheader")
   /// See more FAQs
@@ -550,6 +576,8 @@ internal enum L10n {
   internal static let homepageFaqDesc5 = L10n.tr("Ui", "homepage faq desc 5")
   /// We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.
   internal static let homepageFaqDesc6 = L10n.tr("Ui", "homepage faq desc 6")
+  /// Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.
+  internal static let homepageFaqDesc7 = L10n.tr("Ui", "homepage faq desc 7")
   /// Frequently Asked Questions
   internal static let homepageFaqHeader = L10n.tr("Ui", "homepage faq header")
   /// What information does Blokada keep?
@@ -564,12 +592,16 @@ internal enum L10n {
   internal static let homepageFaqTitle5 = L10n.tr("Ui", "homepage faq title 5")
   /// Where is Blokada located?
   internal static let homepageFaqTitle6 = L10n.tr("Ui", "homepage faq title 6")
+  /// What is Blokada Cloud?
+  internal static let homepageFaqTitle7 = L10n.tr("Ui", "homepage faq title 7")
   /// Support us
   internal static let homepageHeaderSupport = L10n.tr("Ui", "homepage header support")
   /// What is Blokada?
   internal static let homepageHeaderWhatIsBlokada = L10n.tr("Ui", "homepage header what is blokada")
   /// Blokada is the popular ad blocker and privacy app for Android and iOS. It's being supported and actively developed by the amazing open source community.
   internal static let homepageHeroDesc = L10n.tr("Ui", "homepage hero desc")
+  /// open source
+  internal static let homepageHeroOpensource = L10n.tr("Ui", "homepage hero opensource")
   /// free and open source
   internal static let homepageHeroSubtitle = L10n.tr("Ui", "homepage hero subtitle")
   /// The privacy app
@@ -582,25 +614,35 @@ internal enum L10n {
   internal static let homepageSupportCtaDesc = L10n.tr("Ui", "homepage support cta desc")
   /// However, developing a quality app like Blokada requires a considerable amount of resources. This project exists thanks to the support of awesome people like you!
   internal static let homepageSupportCtaDescMore = L10n.tr("Ui", "homepage support cta desc more")
+  /// Blokada has two sources of revenue for supporting the project development: subscriptions, and donations. There is no ads revenue. Blokada does not sell user data either.
+  internal static let homepageSupportCtaDesc2 = L10n.tr("Ui", "homepage support cta desc2")
   /// Blokada is dependent on you
   internal static let homepageSupportCtaHeader = L10n.tr("Ui", "homepage support cta header")
   /// If you like what we do, consider supporting us, so that we can continue developing new features and improvements. This way, Blokada can stay open source and free forever.
   internal static let homepageSupportDesc = L10n.tr("Ui", "homepage support desc")
+  /// If you like what we do, consider supporting us, so that we can continue developing our open source projects.
+  internal static let homepageSupportDesc2 = L10n.tr("Ui", "homepage support desc2")
   /// Support the project
   internal static let homepageSupportHeader = L10n.tr("Ui", "homepage support header")
   /// 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.
   internal static let homepageVpnCredit = L10n.tr("Ui", "homepage vpn credit")
   /// For ultimate privacy protection, upgrade to Blokada Plus and connect through our VPN. We use WireGuard®, the most advanced VPN protocol, to encrypt your network activity and hide your IP address.
   internal static let homepageVpnDesc = L10n.tr("Ui", "homepage vpn desc")
+  /// All the benefits of Blokada Cloud
+  internal static let homepageVpnPointFive = L10n.tr("Ui", "homepage vpn point five")
   /// Connect up to 5 devices
   internal static let homepageVpnPointFour = L10n.tr("Ui", "homepage vpn point four")
   /// No bandwidth restrictions
   internal static let homepageVpnPointOne = L10n.tr("Ui", "homepage vpn point one")
+  /// More platforms through Wireguard® apps
+  internal static let homepageVpnPointSeven = L10n.tr("Ui", "homepage vpn point seven")
+  /// Available for Android and iOS
+  internal static let homepageVpnPointSix = L10n.tr("Ui", "homepage vpn point six")
   /// No logging of your network activity
   internal static let homepageVpnPointThree = L10n.tr("Ui", "homepage vpn point three")
   /// Fast & modern encryption
   internal static let homepageVpnPointTwo = L10n.tr("Ui", "homepage vpn point two")
-  /// Blokada 5, the VPN
+  /// Blokada Plus, the VPN
   internal static let homepageVpnTitle = L10n.tr("Ui", "homepage vpn title")
   /// Blokada is Active!
   internal static let introHeader = L10n.tr("Ui", "intro header")
@@ -706,8 +748,26 @@ internal enum L10n {
   internal static func networksSummaryUseDns(_ p1: Any) -> String {
     return L10n.tr("Ui", "networks summary use dns", String(describing: p1))
   }
+  /// Please update your subscription to continue using Blokada.
+  internal static let notificationAccBody = L10n.tr("Ui", "notification acc body")
+  /// Blokada account expired
+  internal static let notificationAccHeader = L10n.tr("Ui", "notification acc header")
+  /// Adblocking is disabled
+  internal static let notificationAccSubtitle = L10n.tr("Ui", "notification acc subtitle")
   /// Swipe the notification left or right for settings.
   internal static let notificationDescSettings = L10n.tr("Ui", "notification desc settings")
+  /// Please open the app for details.
+  internal static let notificationGenericBody = L10n.tr("Ui", "notification generic body")
+  /// Blokada: action required
+  internal static let notificationGenericHeader = L10n.tr("Ui", "notification generic header")
+  /// Tap to learn more
+  internal static let notificationGenericSubtitle = L10n.tr("Ui", "notification generic subtitle")
+  /// Please open the app to unpause Blokada.
+  internal static let notificationPauseBody = L10n.tr("Ui", "notification pause body")
+  /// Blokada is still paused
+  internal static let notificationPauseHeader = L10n.tr("Ui", "notification pause header")
+  /// Adblocking is disabled
+  internal static let notificationPauseSubtitle = L10n.tr("Ui", "notification pause subtitle")
   /// An update is available
   internal static let notificationUpdateHeader = L10n.tr("Ui", "notification update header")
   /// Please update your subscription to continue using BLOKADA+

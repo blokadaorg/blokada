@@ -386,8 +386,8 @@
 "payment subscription 1 month" = "1 Bulan";
 "payment subscription many months" = "%@ bulan";
 "payment subscription per month" = "%@ per bulan";
-"payment subscription per year" = "%@ per year";
-"payment subscription per year then" = "then %@ per year";
+"payment subscription per year" = "%@ per tahun";
+"payment subscription per year then" = "kemudian %@ per tahun";
 "payment subscription offer" = "Hemat %@";
 
 "payment success label" = "Terima kasih!";
@@ -478,7 +478,6 @@
 "homepage header support" = "Dukung kami";
 "homepage desc support" = "Beri donasi agar kami bisa tetap mengembangkan Blokada lebih baik lagi.";
 "homepage action faq" = "FAQ";
-"homepage action vpn" = "VPN";
 "homepage action opinions" = "Ulasan";
 "homepage action authors" = "Pembuat";
 "homepage action source" = "Sumber";
@@ -487,24 +486,40 @@
 "homepage about footer" = "Mari bersilaturahmi!";
 "homepage hero title" = "Aplikasi yang mengutamakan privasi";
 "homepage hero subtitle" = "gratis dan open source";
+"homepage hero opensource" = "open source";
 "homepage hero desc" = "Blokada adalah aplikasi pemblokir iklan dan privasi yang populer untuk platform Android dan iOS. Aplikasi ini didukung dan dikembangkan secara aktif oleh komunitas open source yang luar biasa.";
-"homepage about title" = "Blokada 5, pemblokir iklan";
+"homepage about title" = "Blokada Libre, pemblokir iklan";
 "homepage about desc" = "Jika Anda ingin memblokir iklan, pelacak, malware, memghemat paket data, mempercepat koneksi data, dan melindungi privasi Anda secara efisien hanya dengan satu aplikasi, Blokada adalah pilihan yang tepat untuk Anda. Aplikasi ini gratis, aman, dan open source.";
 "homepage about point one" = "Memblokir iklan & pelacak";
 "homepage about point two" = "Berfungsi di semua aplikasi dan browser";
 "homepage about point three" = "Tidak perlu root atau jailbreak";
 "homepage about point four" = "Rancangan aman (tak merusak enkripsi)";
 "homepage about point five" = "Terpercaya & gratis selamanya";
+"homepage about point six" = "Source code tersedia untuk Android dan iOS";
+"homepage about point seven" = "Bisa di-download di Android";
+
+"homepage cloud title" = "Blokada Cloud, cara baru";
+"homepage cloud desc" = "Solusi modern dari kami untuk pemblokiran konten yang tidak dikehendaki di perangkat Anda. Lindungi perangkat-perangkat Anda dari iklan dan pelacak, dan atur semuanya sesuai keinginan Anda di satu tempat. Nikmati pemblokiran iklan dengan konsumsi batre yang sangat minimal, tanpa adanya pelambatan, dan sangat bisa diandalkan.";
+"homepage cloud point one" = "Pemblokiran iklan berbasis cloud";
+"homepage cloud point two" = "Atur dan pantau melalui web";
+"homepage cloud point three" = "DNS yang terenkripsi dan terjaga privasinya";
+"homepage cloud point four" = "Hubungkan banyak perangkat";
+"homepage cloud point five" = "Aplikasi ini tersedia untuk iOS";
+"homepage cloud point six" = "Bisa digunakan di platform apa saja yang mendukung private DNS";
+"homepage cloud learn more" = "Pelajari lebih lanjut tentang Blokada Cloud";
 
 "homepage about action faq" = "Lihat FAQ";
 "homepage about action plus" = "Pelajari lebih lanjut tentang Blokada Plus";
 
-"homepage vpn title" = "Blokada 5, VPN";
+"homepage vpn title" = "Blokada Cloud, VPN";
 "homepage vpn desc" = "Untuk perlindungan privasi terbaik, upgrade ke Blokada Plus dan berselancar melalui VPN kami. Kami menggunakan WireGuard®, protokol VPN tercanggih saat ini, untuk mengenkripsi aktivitas internet dan menyembunyikan IP address Anda.";
 "homepage vpn point one" = "Tanpa pembatasan bandwidth";
 "homepage vpn point two" = "Enkripsi cepat & modern";
 "homepage vpn point three" = "Tanpa pencatatan aktivitas jaringan Anda";
 "homepage vpn point four" = "Cakupan koneksi hingga 5 perangkat";
+"homepage vpn point five" = "Keuntungan dari Blokada Cloud";
+"homepage vpn point six" = "Tersedia untuk Android dan iOS";
+"homepage vpn point seven" = "Bisa digunakan di platform lain dengan menggunakan aplikasi Wireguard®";
 "homepage vpn credit" = "'Wireguard' dan logo 'Wireguard' adalah merk terdaftar milik Jason A. Donenfeld.";
 
 "homepage faq header" = "Pertanyaan Yang Sering Diajukan";
@@ -521,16 +536,18 @@
 "homepage faq desc 5" = "Jika Anda tidak puas dengan layanan VPN kami, Anda dapat memperoleh uang Anda kembali dalam jangka waktu 7 hari sejak mulai berlangganan. Cukup hubungi kami melalui kanal manapun dan ajukan permintaan untuk pengembalian uang Anda.";
 "homepage faq title 6" = "Di mana Blokada berada?";
 "homepage faq desc 6" = "Kami berbasis di Swedia, di mana privasi ditangani secara serius. Server-server kami tersedia di berbagai lokasi di seluruh dunia.";
+"homepage faq title 7" = "Apa itu Blokada Cloud?";
+"homepage faq desc 7" = "Blokada Cloud adalah solusi pemblokiran iklan berbasis cloud terbaru dari kami. Blokada Cloud bekerja lebih cepat dan andal dibanding metode lama, dengan banyak keuntungan tambahan. Blokada Cloud bisa dipakai di banyak perangkat sekaligus, dan bisa digunakan di semua platform yang mendukung DNS over TLS/HTTPS.";
 
 "homepage download header" = "Unduh Blokada";
 "homepage download subheader" = "Blokada tersedia di berbagai platform, silahkan pilih mana yang sesuai untuk Anda.";
 "homepage download option android five" = "Blokada 5 untuk Android";
 "homepage download option android slim" = "Blokada 5 Slim untuk Android";
 "homepage download option android four" = "Blokada 4 untuk Android";
-"homepage download option ios" = "Blokada 5 untuk iOS";
+"homepage download option ios" = "Blokada 6 untuk iOS";
 "homepage download option other" = "Blokada untuk platform lain";
 "homepage download desc other" = "Untuk saat ini, Blokada belum tersedia di platform selain Android dan iOS. Namun, jika Anda berlangganan Blokada Plus, Anda bisa menggunakan fitur VPN kami di Windows, Linux, Mac, dan platform lain yang mendukung protokol Wireguard.";
-"homepage download desc ios" = "Blokada 5 tersedia di App Store.";
+"homepage download desc ios" = "Blokada 6 tersedia di App Store.";
 "homepage download action ios" = "Buka App Store";
 "homepage download desc android five" = "Versi ini adalah versi terbaru dan yang kami rekomendasikan <b>untuk smartphone dan tablet yang menggunakan Android 7 atau lebih baru</b>. Versi ini lebih simpel dan cepat dibandingkan Blokada 4.";
 "homepage download action android five" = "Blokada 5 .apk";
@@ -541,6 +558,10 @@
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "Buka F-Droid";
 
+"homepage download cloud desc" = "Blokada Cloud bisa digunakan di platform apapun yang mendukung DNS over TLS/HTTPS, termasuk Windows, MacOS, Linux, dan semua browser modern. Anda bisa menemukan panduan pengaturan untuk semua platform tersebut di web dashboard.";
+"homepage download plus desc" = "Blokada Plus bisa digunakan di platform apapun yang mendukung aplikasi Wireguard®. Anda bisa membuat profil VPN di web dashboard, kemudian dengan mudah mengimpornya ke aplikasi Wireguard®.";
+"homepage download action open dashboard" = "Buka Dashboard";
+
 "homepage community header" = "Komunitas";
 "homepage community desc" = "Blokada bukan hanya aplikasi yang menjaga privasi Anda. Blokada juga adalah sebuah komunitas orang-orang yang peduli tentang privasi dan keamanan di ranah digital. Anda bisa menemukan dan bergabung dengan forum kami, di mana Anda bisa bertanya mengenai apapun yang ingin Anda ketahui. Kami juga hadir di platform media sosial dan chat.";
 "homepage community cta subheader" = "Bergabunglah dengan kami dan perkenalkan diri Anda!";
@@ -550,8 +571,10 @@
 
 "homepage support header" = "Dukung Blokada";
 "homepage support desc" = "Jika Anda menyukai apa yang kami lakukan dengan Blokada, mungkin Anda bisa mendukung kami agar kami bisa terus mengembangkan Blokada dengan menambahkan lebih banyak lagi fitur. Dengan demikian, Blokada bisa tetap gratis dan open source.";
+"homepage support desc2" = "Jika Anda menyukai produk kami, Anda bisa menjadi pendukung kami agar kami bisa tetap mengembangkan proyek-proyek open source lainnya.";
 "homepage support cta header" = "Blokada bergantung pada sumbangsih Anda";
 "homepage support cta desc" = "Blokada merupakan proyek open source, yang artinya Anda bisa yakin bahwa aplikasi ini akan tetap gratis, aman digunakan, dan tanpa maksud-maksud tersembunyi di belakangnya. Kami percaya inilah satu-satunya cara untuk mengembangkan sebuah aplikasi yang bisa dipercaya.";
+"homepage support cta desc2" = "Blokada memiliki dua sumber pemasukan agar proyek ini bisa terus berlanjut: langganan dan sumbangan. Kami tidak mendapatkan pemasukan dari iklan. Blokada juga tidak menjual data pengguna ke pihak ketiga.";
 "homepage support cta desc more" = "Namun, mengembangkan aplikasi berkualitas seperti Blokada membutuhkan sumber daya yang tidak sedikit. Proyek ini ada berkat dukungan orang-orang keren seperti Anda!";
 "homepage support cta action" = "Donasi (card, Paypal)";
 "homepage support cta action alt" = "Donasi (bank, crypto)";

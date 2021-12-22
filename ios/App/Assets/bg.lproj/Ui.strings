@@ -387,7 +387,7 @@
 "payment subscription many months" = "%@ Месеца";
 "payment subscription per month" = "%@ на месец";
 "payment subscription per year" = "%@ на година";
-"payment subscription per year then" = "then %@ per year";
+"payment subscription per year then" = "след това %@ на година";
 "payment subscription offer" = "Запази %@";
 
 "payment success label" = "Благодаря!";
@@ -478,7 +478,6 @@
 "homepage header support" = "Подкрепи ни";
 "homepage desc support" = "Дарете за да ни помогнете да продължим проекта.";
 "homepage action faq" = "ЧЗВ";
-"homepage action vpn" = "VPN";
 "homepage action opinions" = "Отзиви";
 "homepage action authors" = "Автори";
 "homepage action source" = "Източник";
@@ -487,24 +486,40 @@
 "homepage about footer" = "Нека поддържаме връзка!";
 "homepage hero title" = "Поверителност на приложението";
 "homepage hero subtitle" = "безплатно и с отворен код";
+"homepage hero opensource" = "open source";
 "homepage hero desc" = "Blokada е популярно приложение, което блокира рекламите и защитава поверителността, предназначено за Android и iOS. То се поддържа и активно развива от невероятна общност и е с отворен код.";
-"homepage about title" = "Blokada 5, рекламният блокер";
+"homepage about title" = "Blokada Libre, the ad blocker";
 "homepage about desc" = "Ако искате ефективно да блокирате реклами, тракери, злонамерен софтуер, да спестите от плана си за данни, да ускорите устройството си и да защитите поверителността си само с едно приложение, то тогава Blokada е за вас. Тя е безплатна, сигурна и с отворен код.";
 "homepage about point one" = "Блокира реклами & тракери";
 "homepage about point two" = "Работи с всички приложения и всички браузъри";
 "homepage about point three" = "Не изисква root или jailbreak";
 "homepage about point four" = "Безопасен проект (не нарушава криптирането)";
 "homepage about point five" = "Сигурно & безплатно завинаги";
+"homepage about point six" = "Source code available for Android and iOS";
+"homepage about point seven" = "Downloads available for Android";
+
+"homepage cloud title" = "Blokada Cloud, the new way";
+"homepage cloud desc" = "Our modern solution for mobile content blocking. Protect multiple devices from ads and tracking, and manage your preferences in one place. Enjoy zero battery drain, no noticeable slowdowns, and highly reliable adblocking.";
+"homepage cloud point one" = "Cloud based adblocking";
+"homepage cloud point two" = "Manage and monitor on web";
+"homepage cloud point three" = "Encrypted, private DNS";
+"homepage cloud point four" = "Connect multiple devices";
+"homepage cloud point five" = "App available for iOS";
+"homepage cloud point six" = "Use on any platform supporting private DNS";
+"homepage cloud learn more" = "Learn more about Blokada Cloud";
 
 "homepage about action faq" = "Вижте ЧЗВ";
 "homepage about action plus" = "Научете повече за Blokada Plus";
 
-"homepage vpn title" = "Blokada 5, VPN";
+"homepage vpn title" = "Blokada Plus, the VPN";
 "homepage vpn desc" = "За максимална защита на поверителността надстройте до Blokada Plus и се свържете чрез нашата VPN. Ние използваме WireGuard®, най-усъвършенстваният VPN протокол за да шифроваме вашата мрежова активност и да скрием вашия IP адрес.";
 "homepage vpn point one" = "Без ограничения на честотната лента";
 "homepage vpn point two" = "Бързо & модерно криптиране";
 "homepage vpn point three" = "Не се регистрира вашата мрежова активност";
 "homepage vpn point four" = "Свържете до 5 устройства";
+"homepage vpn point five" = "All the benefits of Blokada Cloud";
+"homepage vpn point six" = "Available for Android and iOS";
+"homepage vpn point seven" = "More platforms through Wireguard® apps";
 "homepage vpn credit" = "„WireGuard“ и логото „Wireguard“ са регистрирани търговски марки на Jason A. Donenfeld.";
 
 "homepage faq header" = "Често Задавани Въпроси";
@@ -521,16 +536,18 @@
 "homepage faq desc 5" = "Можете да си върнете парите в рамките на 7 дни от закупуването на абонамента. Свържете се с нас чрез някое от нашите приложения и просто споменете, че искате възстановяване на сумата.";
 "homepage faq title 6" = "Къде се намира Blokada?";
 "homepage faq desc 6" = "Ние се намираме в Швеция, където на поверителността се гледа много сериозно. Нашите сървъри са достъпни на много места по света.";
+"homepage faq title 7" = "What is Blokada Cloud?";
+"homepage faq desc 7" = "Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.";
 
 "homepage download header" = "Изтегляне на Blokada";
 "homepage download subheader" = "Blokada се предлага за няколко платформи, изберете вашата.";
 "homepage download option android five" = "Blokada 5 за Android";
 "homepage download option android slim" = "Blokada 5 Slim за Android";
 "homepage download option android four" = "Blokada 4 за Android";
-"homepage download option ios" = "Blokada 5 за iOS";
+"homepage download option ios" = "Blokada 6 for iOS";
 "homepage download option other" = "Blokada за други платформи";
 "homepage download desc other" = "Понастоящем не предлагаме Blokada за други платформи. Ако обаче сте потребител на Blokada Plus можете да използвате нашата VPN на Windows, Linux, Mac и други платформи, ако е наличен Wireguard.";
-"homepage download desc ios" = "Blokada 5 просто е достъпна в App Store.";
+"homepage download desc ios" = "Blokada 6 is simply available on App Store.";
 "homepage download action ios" = "Отваряне на Play Store";
 "homepage download desc android five" = "Това е новата ни препоръчителна версия <b>за смартфони и таблети с Android 7 или по-нова версия</b>. Тя е по-проста и по-бърза в сравнение с Blokada 4.";
 "homepage download action android five" = "Blokada 5 .apk";
@@ -541,6 +558,10 @@
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "Отваряне на F-Droid";
 
+"homepage download cloud desc" = "Blokada Cloud can be used on any platform that supports DNS over TLS/HTTPS. This includes Windows, MacOS, Linux, and all modern browsers. You can find simple setup guides for all supported platforms in the web dashboard.";
+"homepage download plus desc" = "Blokada Plus can be used on any platform where the Wireguard® app is available. You can generate a VPN profile in the web dashboard, and then simply import it in the app.";
+"homepage download action open dashboard" = "Open Dashboard";
+
 "homepage community header" = "Общността";
 "homepage community desc" = "Blokada не е само приложение за поверителност. Това е и общността на хората, които се грижат за дигиталната неприкосновеност и благосъстояние. Ще ни намерите на нашия форум където можете да зададете всякакви въпроси, които имате. Присъстваме и в други социални медии и чатове.";
 "homepage community cta subheader" = "Присъединете се към нас и и кажете здравей!";
@@ -550,8 +571,10 @@
 
 "homepage support header" = "Подкрепете проекта";
 "homepage support desc" = "Ако ви харесва това, което правим помислете за Вашата подкрепа, така ще можем да продължим да разработваме нови функции и подобрения. По този начин Blokada може да остане с отворен код и безплатна завинаги.";
+"homepage support desc2" = "If you like what we do, consider supporting us, so that we can continue developing our open source projects.";
 "homepage support cta header" = "Blokada зависи от вас";
 "homepage support cta desc" = "Blokada е проект с отворен код, което означава, и можете да сте сигурни, че той винаги ще бъде безплатен, безопасен за използване и без никакви скрити програми. Вярваме, че това е единственият правилен начин за разработване на приложение за поверителност, на което можете да се доверите.";
+"homepage support cta desc2" = "Blokada has two sources of revenue for supporting the project development: subscriptions, and donations. There is no ads revenue. Blokada does not sell user data either.";
 "homepage support cta desc more" = "Разработването на качествено приложение като Blokada обаче изисква значителен обем ресурси. Този проект съществува благодарение на подкрепата на страхотни хора като теб!";
 "homepage support cta action" = "Дарете (карта, Paypal)";
 "homepage support cta action alt" = "Дарете (банка, crypto)";

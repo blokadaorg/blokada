@@ -478,7 +478,6 @@
 "homepage header support" = "Stöd oss";
 "homepage desc support" = "Donera för att hjälpa oss att fortsätta med projektet.";
 "homepage action faq" = "Vanliga frågor";
-"homepage action vpn" = "VPN";
 "homepage action opinions" = "Recensioner";
 "homepage action authors" = "Utvecklare";
 "homepage action source" = "Källkod";
@@ -487,24 +486,40 @@
 "homepage about footer" = "Låt oss hålla kontakten!";
 "homepage hero title" = "Integritetsappen";
 "homepage hero subtitle" = "gratis och öppen källkod";
+"homepage hero opensource" = "öppen källkod";
 "homepage hero desc" = "Blokada är den populära annonsblockeraren och integritetsappen för Android och iOS. Den stöds och utvecklas aktivt med hjälp av den fantastiska open source-miljön.";
-"homepage about title" = "Blokada 5, annonsblockeraren";
+"homepage about title" = "Blokada Libre, annonsblockeraren";
 "homepage about desc" = "Om du effektivt vill blockera annonser, trackers, skadlig kod, spara på din dataplan, snabba upp din enhet och skydda din integritet med bara en enda app, då är Blokada något för dig. Den är gratis, säker och har öppen källkod.";
 "homepage about point one" = "Blockerar annonser och trackers";
 "homepage about point two" = "Fungerar för alla appar och alla webbläsare";
 "homepage about point three" = "Kräver inte root eller jailbreak";
 "homepage about point four" = "Säker design (bryter inte kryptering)";
 "homepage about point five" = "Betrodd & gratis för alltid";
+"homepage about point six" = "Källkod tillgänglig för Android och iOS";
+"homepage about point seven" = "Nedladdningar tillgängliga för Android";
+
+"homepage cloud title" = "Blokada Cloud, det nya sättet";
+"homepage cloud desc" = "Vår moderna lösning för blockering av innehåll på språng. Skydda flera enheter mot annonser och tracking, hantera dina inställningar på ett enda ställe. Njut av samma batteritid som tidigare, inga märkbara försämringar i prestanda och en mycket tillförlitlig annonsblockering.";
+"homepage cloud point one" = "Molnbaserad annonsblockering";
+"homepage cloud point two" = "Hantera och övervaka på webben";
+"homepage cloud point three" = "Krypterad, privat DNS";
+"homepage cloud point four" = "Anslut flera enheter";
+"homepage cloud point five" = "App tillgänglig för iOS";
+"homepage cloud point six" = "Använd på valfri plattform som stöder privat DNS";
+"homepage cloud learn more" = "Läs mer om Blokada Cloud";
 
 "homepage about action faq" = "Se vanliga frågor";
 "homepage about action plus" = "Läs mer om Blokada Plus";
 
-"homepage vpn title" = "Blokada 5, VPN-tjänsten";
+"homepage vpn title" = "Blokada Plus, VPN-tjänsten";
 "homepage vpn desc" = "För ultimat integritetsskydd, uppgradera till Blokada Plus och anslut via vårt VPN. Vi använder WireGuard®, det mest avancerade VPN-protokollet, för att kryptera din nätverksaktivitet och dölja din IP-adress.";
 "homepage vpn point one" = "Inga bandbreddsbegränsningar";
 "homepage vpn point two" = "Snabb & modern kryptering";
 "homepage vpn point three" = "Ingen loggning av din nätverksaktivitet";
 "homepage vpn point four" = "Anslut upp till 5 enheter";
+"homepage vpn point five" = "Alla fördelar med Blokada Cloud";
+"homepage vpn point six" = "Tillgänglig för Android och iOS";
+"homepage vpn point seven" = "Fler plattformar genom Wireguard®-appar";
 "homepage vpn credit" = "'WireGuard' och logotypen 'WireGuard' är registrerade varumärken som tillhör Jason A. Donenfeld.";
 
 "homepage faq header" = "Vanliga frågor";
@@ -521,16 +536,18 @@
 "homepage faq desc 5" = "Du kan få tillbaka dina pengar inom 7 dagar efter att du beställt prenumerationen. Kontakta oss via någon av våra kanaler och nämn att du vill ha en återbetalning.";
 "homepage faq title 6" = "Var ligger Blokada?";
 "homepage faq desc 6" = "Vi är baserade i Sverige, där integritet hanteras på största allvar. Våra servrar finns på många platser runt om i världen.";
+"homepage faq title 7" = "Vad är Blokada Cloud?";
+"homepage faq desc 7" = "Blokada Cloud är vår nya molnbaserade lösning för annonsblockering. Den är snabbare och mer tillförlitlig än den gamla metoden och ger många ytterligare fördelar. Blokada Cloud kan användas på flera enheter och stöder alla plattformar som är kompatibla med DNS över TLS/HTTPS.";
 
 "homepage download header" = "Ladda ner Blokada";
 "homepage download subheader" = "Blokada finns till flera plattformar, välj din.";
 "homepage download option android five" = "Blokada 5 för Android";
 "homepage download option android slim" = "Blokada 5 Slim för Android";
 "homepage download option android four" = "Blokada 4 för Android";
-"homepage download option ios" = "Blokada 5 för iOS";
+"homepage download option ios" = "Blokada 6 för iOS";
 "homepage download option other" = "Blokada för andra plattformar";
 "homepage download desc other" = "För närvarande tillhandahåller vi inte Blokada för andra plattformar. Men om du är en Blokada Plus-användare kan du använda vår VPN-tjänst på Windows, Linux, Mac och andra plattformar där WireGuard finns tillgänglig.";
-"homepage download desc ios" = "Blokada 5 är helt enkelt tillgänglig på App Store.";
+"homepage download desc ios" = "Blokada 6 är helt enkelt tillgänglig på App Store.";
 "homepage download action ios" = "Öppna App Store";
 "homepage download desc android five" = "Detta är vår nya, rekommenderade version <b>för smartphones och surfplattor med Android 7 eller nyare</b>. Den är enklare och snabbare jämfört med Blokada 4.";
 "homepage download action android five" = "Blokada 5 .apk";
@@ -541,6 +558,10 @@
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "Öppna F-Droid";
 
+"homepage download cloud desc" = "Blokada Cloud kan användas på alla plattformar som stöder DNS över TLS/HTTPS. Detta inkluderar Windows, MacOS, Linux och alla moderna webbläsare. Du kan hitta enkla installationsguider för alla plattformar som stöds i webbpanelen.";
+"homepage download plus desc" = "Blokada Plus can be used on any platform where the Wireguard® app is available. You can generate a VPN profile in the web dashboard, and then simply import it in the app.";
+"homepage download action open dashboard" = "Öppna webbpanelen";
+
 "homepage community header" = "Mötesplatsen";
 "homepage community desc" = "Blokada är inte bara integritetsappen. Det är också en gemenskap med människor som bryr sig om sin digitala integritet och välbefinnande. Du hittar oss på vår mötesplats, där du kan ställa frågor som du kan ha. Vi finns också på andra sociala medier och chattar.";
 "homepage community cta subheader" = "Följ med oss och säg hej!";
@@ -550,8 +571,10 @@
 
 "homepage support header" = "Stöd projektet";
 "homepage support desc" = "Om du gillar det vi gör, överväg att stödja oss, så att vi kan fortsätta utveckla nya funktioner och förbättringar. På så sätt kan Blokada fortsätta ha öppen källkod och vara gratis för alltid.";
+"homepage support desc2" = "Om du gillar det vi gör, överväg att stödja oss så att vi kan fortsätta utveckla våra projekt med öppen källkod.";
 "homepage support cta header" = "Blokada är beroende av ditt stöd";
 "homepage support cta desc" = "Blokada är ett projekt med öppen källkod, vilket innebär att du kan vara säker på att det alltid kommer att vara gratis, säkert att använda och utan någon dold agenda. Vi anser att detta är det enda rätta sättet att utveckla en integritetsapp som du kan lita på.";
+"homepage support cta desc2" = "Blokada har två inkomstkällor för att stödja projektutvecklingen: prenumerationer och donationer. Det finns inga annonsintäkter. Blokada säljer inte heller användardata.";
 "homepage support cta desc more" = "Men att utveckla en kvalitetsapp som Blokada kräver en avsevärd mängd resurser. Detta projekt finns tack vare stöd av fantastiska människor som såna som dig själv!";
 "homepage support cta action" = "Donera (kort, Paypal)";
 "homepage support cta action alt" = "Donera (bank, krypto)";

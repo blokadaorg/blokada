@@ -478,7 +478,6 @@
 "homepage header support" = "Sostienici";
 "homepage desc support" = "Dona per aiutarci a continuare il progetto.";
 "homepage action faq" = "FAQ";
-"homepage action vpn" = "VPN";
 "homepage action opinions" = "Opinioni";
 "homepage action authors" = "Autori";
 "homepage action source" = "Sorgente";
@@ -487,24 +486,40 @@
 "homepage about footer" = "Teniamoci in contatto!";
 "homepage hero title" = "L'app della privacy";
 "homepage hero subtitle" = "gratuita e open source";
+"homepage hero opensource" = "open source";
 "homepage hero desc" = "Blokada è l'ad blocker e privacy app per Android e iOS. È supportata e sviluppata attivamente dalla straordinaria comunità open source.";
-"homepage about title" = "Blokada 5, l'ad blocker";
+"homepage about title" = "Blokada Libre, the ad blocker";
 "homepage about desc" = "Se vuoi bloccare con efficienza le pubblicità, i tracker e i malware, se vuoi risparmiare i tuoi giga, rendere il tuo dispositivo più veloce e proteggere la tua privacy con un'applicazione, Blokada fa per te. È gratuita, sicura e open source.";
 "homepage about point one" = "Blocca pubblicità & tracker";
 "homepage about point two" = "Funziona per tutte le applicazioni e tutti i browser";
 "homepage about point three" = "Non richiede root o jailbreak";
 "homepage about point four" = "Progettazione sicura (non viola la cifratura)";
 "homepage about point five" = "Affidabile e sempre gratuita";
+"homepage about point six" = "Source code available for Android and iOS";
+"homepage about point seven" = "Downloads available for Android";
+
+"homepage cloud title" = "Blokada Cloud, the new way";
+"homepage cloud desc" = "Our modern solution for mobile content blocking. Protect multiple devices from ads and tracking, and manage your preferences in one place. Enjoy zero battery drain, no noticeable slowdowns, and highly reliable adblocking.";
+"homepage cloud point one" = "Cloud based adblocking";
+"homepage cloud point two" = "Manage and monitor on web";
+"homepage cloud point three" = "Encrypted, private DNS";
+"homepage cloud point four" = "Connect multiple devices";
+"homepage cloud point five" = "App available for iOS";
+"homepage cloud point six" = "Use on any platform supporting private DNS";
+"homepage cloud learn more" = "Learn more about Blokada Cloud";
 
 "homepage about action faq" = "Vedi le FAQ";
 "homepage about action plus" = "Ulteriori informazioni su Blokada Plus";
 
-"homepage vpn title" = "Blokada 5, la VPN";
+"homepage vpn title" = "Blokada Plus, the VPN";
 "homepage vpn desc" = "Per la massima protezione della privacy, aggiorna a Blokada Plus e connettiti tramite la nostra VPN. Utilizziamo WireGuard®, il protocollo VPN più avanzato, per crittografare la tua attività di rete e nascondere il tuo indirizzo IP.";
 "homepage vpn point one" = "Nessuna restrizione della larghezza di banda";
 "homepage vpn point two" = "Crittografia veloce e moderna";
 "homepage vpn point three" = "Nessuna registrazione delle tue attività in rete";
 "homepage vpn point four" = "Collega fino a 5 dispositivi";
+"homepage vpn point five" = "All the benefits of Blokada Cloud";
+"homepage vpn point six" = "Available for Android and iOS";
+"homepage vpn point seven" = "More platforms through Wireguard® apps";
 "homepage vpn credit" = "'WireGuard' e il logo 'WireGuard' sono marchi registrati di Jason A. Donenfeld.";
 
 "homepage faq header" = "Domande Frequenti (FAQ)";
@@ -521,16 +536,18 @@
 "homepage faq desc 5" = "Puoi avere un rimborso entro 7 giorni dall'acquisto del tuo abbonamento. Contattaci attraverso una qualunque delle nostre app e dì semplicemente che desideri un rimborso.";
 "homepage faq title 6" = "Dove si trova Blokada?";
 "homepage faq desc 6" = "Abbiamo sede in Svezia, dove la privacy è gestita molto seriamente. I nostri server sono disponibili in varie località, in tutto il mondo.";
+"homepage faq title 7" = "What is Blokada Cloud?";
+"homepage faq desc 7" = "Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.";
 
 "homepage download header" = "Scarica Blokada";
 "homepage download subheader" = "Blokada è disponibile per diverse piattaforme, scegli la tua.";
 "homepage download option android five" = "Blokada 5 per Android";
 "homepage download option android slim" = "Blokada 5 Slim per Android";
 "homepage download option android four" = "Blokada 4 per Android";
-"homepage download option ios" = "Blokada 5 per iOS";
+"homepage download option ios" = "Blokada 6 for iOS";
 "homepage download option other" = "Blokada per altre piattaforme";
 "homepage download desc other" = "Attualmente non forniamo Blokada per altre piattaforme. Tuttavia, se sei utente Blokada Plus, puoi utilizzare la nostra VPN su Windows, Linux, Mac e altre piattaforme dove è disponibile WireGuard.";
-"homepage download desc ios" = "Blokada 5 è disponibile semplicemente su App Store.";
+"homepage download desc ios" = "Blokada 6 is simply available on App Store.";
 "homepage download action ios" = "Apri App Store";
 "homepage download desc android five" = "Questa è la nostra nuova versione <b>consigliata per smartphone e tablet con Android 7 o più recenti</b>. È più semplice e veloce rispetto a Blokada 4.";
 "homepage download action android five" = "Apk Blokada 5";
@@ -541,6 +558,10 @@
 "homepage download action android four" = "Apk Blokada 4";
 "homepage download action android four fdroid" = "Apri F-Droid";
 
+"homepage download cloud desc" = "Blokada Cloud can be used on any platform that supports DNS over TLS/HTTPS. This includes Windows, MacOS, Linux, and all modern browsers. You can find simple setup guides for all supported platforms in the web dashboard.";
+"homepage download plus desc" = "Blokada Plus can be used on any platform where the Wireguard® app is available. You can generate a VPN profile in the web dashboard, and then simply import it in the app.";
+"homepage download action open dashboard" = "Open Dashboard";
+
 "homepage community header" = "La Community";
 "homepage community desc" = "Blokada non è solo un'app per la privacy. È anche una comunità di persone che si preoccupano della loro privacy digitale e del loro benessere. Ci troverete sul nostro forum, dov'è possibile fare qualsiasi domanda. Siamo presenti anche su altri social media e chat.";
 "homepage community cta subheader" = "Unisciti a noi e lascia un saluto!";
@@ -550,8 +571,10 @@
 
 "homepage support header" = "Supporta il progetto";
 "homepage support desc" = "Se ti piace quello che facciamo, pensa di sostenerci, in modo da poter continuare a sviluppare nuove caratteristiche e miglioramenti. In questo modo, Blokada può rimanere open source e gratis per sempre.";
+"homepage support desc2" = "If you like what we do, consider supporting us, so that we can continue developing our open source projects.";
 "homepage support cta header" = "Blokada conta su di te";
 "homepage support cta desc" = "Blokada è un progetto open source, il che significa che puoi essere sicuro che sarà sempre gratuito, sicuro da usare e senza secondi fini. Crediamo che questo sia l'unico modo giusto per sviluppare un'app per la privacy di cui puoi fidarti.";
+"homepage support cta desc2" = "Blokada has two sources of revenue for supporting the project development: subscriptions, and donations. There is no ads revenue. Blokada does not sell user data either.";
 "homepage support cta desc more" = "D'altronde, lo sviluppo di un'app di qualità come Blokada richiede una notevole quantità di risorse. Questo progetto esiste grazie al supporto di persone eccezionali come te!";
 "homepage support cta action" = "Dona (carta, Paypal)";
 "homepage support cta action alt" = "Dona (banca, criptovalute)";
