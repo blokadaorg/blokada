@@ -19,4 +19,8 @@ class SystemNavService {
         UIApplication.shared.open(URL(string: "App-Prefs:root=General")!)
     }
 
+    func openAppSettings() {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+    }
+
 }

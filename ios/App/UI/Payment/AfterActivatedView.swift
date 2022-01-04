@@ -52,44 +52,6 @@ struct AfterActivatedView: View {
                                 .padding([.leading, .trailing], 18)
                                 .padding([.top, .bottom], 4)
                             }
-                            
-                            if self.homeVM.dnsPermsGranted {
-                                Button(action: {
-                                }) {
-                                    HStack {
-                                        Image(systemName: Image.fCheckmark)
-                                            .imageScale(.large)
-                                            .foregroundColor(Color.cOk)
-                                            .frame(width: 32, height: 32)
-
-                                        Text("DNS profile activated")
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.primary)
-
-                                        Spacer()
-                                    }
-                                    .padding([.leading, .trailing], 18)
-                                    .padding([.top, .bottom], 4)
-                                }
-                            } else {
-                                Button(action: {
-                                    self.homeVM.finishSetup()
-                                }) {
-                                    HStack {
-                                        Image(systemName: Image.fXmark)
-                                            .imageScale(.large)
-                                            .foregroundColor(Color.cError)
-                                            .frame(width: 32, height: 32)
-
-                                        Text("Activate DNS profile")
-                                            .foregroundColor(.primary)
-
-                                        Spacer()
-                                    }
-                                    .padding([.leading, .trailing], 18)
-                                    .padding([.top, .bottom], 4)
-                                }
-                            }
 
                             if self.homeVM.notificationPermsGranted {
                                 Button(action: {
@@ -128,7 +90,45 @@ struct AfterActivatedView: View {
                                     .padding([.top, .bottom], 4)
                                 }
                             }
-                            
+
+                            if self.homeVM.dnsPermsGranted {
+                                Button(action: {
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fCheckmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cOk)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("DNS profile activated")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            } else {
+                                Button(action: {
+                                    self.homeVM.finishSetup()
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fXmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cError)
+                                            .frame(width: 32, height: 32)
+
+                                        Text("Activate DNS profile")
+                                            .foregroundColor(.primary)
+
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
+                            }
+
                             if self.homeVM.accountType != "plus" {
                                 Button(action: {
                                 }) {

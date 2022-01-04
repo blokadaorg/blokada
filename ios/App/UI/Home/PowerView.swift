@@ -170,6 +170,8 @@ struct PowerView: View {
                 .default(Text(self.vm.isPaused ? L10n.homePowerActionTurnOn : L10n.homePowerActionPause)) {
                     if self.vm.isPaused {
                         self.vm.unpause()
+                    } else if !self.vm.notificationPermsGranted {
+                        self.vm.displayNotificationPermsInstructions()
                     } else {
                         self.vm.pause(seconds: 30)
                     }

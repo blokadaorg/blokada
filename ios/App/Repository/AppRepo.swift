@@ -68,16 +68,25 @@ class AppRepo {
         return unpauseAppT.send()
     }
 
+    // App can be paused with a timer (Date), or indefinitely (nil)
     private func onPauseApp() {
         pauseAppT.setTask { until in
-            let until = until ?? getDateInTheFuture(seconds: 60 * 60)
-
             return self.appStateHot.first()
             .flatMap { it -> AnyPublisher<Ignored, Error> in
+                // App is already paused, only update timer
                 if it == .Paused {
-                    // App is already paused, only update timer
+                    guard let until = until else {
+                        // Pause indefinitely instead
+                        return self.timer.cancelTimer(NOTIF_PAUSE)
+                    }
+
                     return self.timer.createTimer(NOTIF_PAUSE, when: until)
                 } else if it == .Activated {
+                    guard let until = until else {
+                        // Just pause indefinitely
+                        return self.cloudRepo.setPaused(true)
+                    }
+
                     return self.cloudRepo.setPaused(true)
                     .flatMap { _ in self.timer.createTimer(NOTIF_PAUSE, when: until) }
                     .eraseToAnyPublisher()

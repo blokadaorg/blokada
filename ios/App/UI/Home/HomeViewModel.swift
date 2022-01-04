@@ -287,6 +287,12 @@ class HomeViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
+    func displayNotificationPermsInstructions() {
+        self.permsRepo.displayNotificationPermsInstructions()
+        .sink()
+        .store(in: &cancellables)
+    }
+
 //    private func start(_ done: @escaping Callback<Void>) {
 //        self.log.v("Start")
 //        self.error = nil

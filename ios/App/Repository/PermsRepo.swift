@@ -110,6 +110,15 @@ class PermsRepo {
         .eraseToAnyPublisher()
     }
 
+    func displayNotificationPermsInstructions() -> AnyPublisher<Ignored, Error> {
+        return dialog.showAlert(
+            message: L10n.notificationPermsDesc,
+            header: L10n.notificationPermsHeader,
+            okText: L10n.dnsprofileActionOpenSettings,
+            okAction: { self.systemNav.openAppSettings() }
+        )
+    }
+
     private func displayDnsProfilePermsInstructions() -> AnyPublisher<Ignored, Error> {
         return dialog.showAlert(
             message: L10n.dnsprofileDesc,
