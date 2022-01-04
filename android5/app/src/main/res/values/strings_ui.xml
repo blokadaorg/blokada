@@ -536,4 +536,6 @@
     <string name="dnsprofile_header">Enable Blokada in Settings</string>
     <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
     <string name="dnsprofile_action_open_settings">Open Settings</string>
+    <string name="notification_perms_header">Enable notifications in Settings</string>
+    <string name="notification_perms_desc">This feature requires notifications, please switch them on for Blokada.</string>
 </resources>

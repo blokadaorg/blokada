@@ -768,6 +768,10 @@ internal enum L10n {
   internal static let notificationPauseHeader = L10n.tr("Ui", "notification pause header")
   /// Adblocking is disabled
   internal static let notificationPauseSubtitle = L10n.tr("Ui", "notification pause subtitle")
+  /// This feature requires notifications, please switch them on for Blokada.
+  internal static let notificationPermsDesc = L10n.tr("Ui", "notification perms desc")
+  /// Enable notifications in Settings
+  internal static let notificationPermsHeader = L10n.tr("Ui", "notification perms header")
   /// An update is available
   internal static let notificationUpdateHeader = L10n.tr("Ui", "notification update header")
   /// Please update your subscription to continue using BLOKADA+

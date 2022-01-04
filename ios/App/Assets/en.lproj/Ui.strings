@@ -638,3 +638,6 @@
 "dnsprofile header" = "Enable Blokada in Settings";
 "dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
 "dnsprofile action open settings" = "Open Settings";
+
+"notification perms header" = "Enable notifications in Settings";
+"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
