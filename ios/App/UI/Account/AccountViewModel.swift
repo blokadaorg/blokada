@@ -37,8 +37,8 @@ class AccountViewModel: ObservableObject {
         return account?.id ?? ""
     }
 
-    var type: String {
-        return Strings.accountType(account)
+    var type: AccountType {
+        return mapAccountType(account?.type)
     }
 
     var activeUntil: String {

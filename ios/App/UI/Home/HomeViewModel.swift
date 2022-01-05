@@ -21,9 +21,12 @@ class HomeViewModel: ObservableObject {
     private let appRepo = Repos.appRepo
     private let cloudRepo = Repos.cloudRepo
     private let permsRepo = Repos.permsRepo
+    private let plusRepo = Repos.plusRepo
 
     private let errorsHot = Repos.processingRepo.errorsHot
     private let blockedCounterHot = Repos.statsRepo.blockedHot
+    private let selectedGatewayHot = Repos.gatewayRepo.selectedHot
+    private let selectedLeaseHot = Repos.leaseRepo.currentHot
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -38,7 +41,7 @@ class HomeViewModel: ObservableObject {
     @Published var notificationPermsGranted: Bool = false
     
     @Published var accountActive = false
-    @Published var accountType = ""
+    @Published var accountType = AccountType.Libre
 
     @Published var showError: Bool = false
     var errorHeader: String? = nil
@@ -78,19 +81,18 @@ class HomeViewModel: ObservableObject {
     private var timerBackgroundTask: UIBackgroundTaskIdentifier = .invalid
 
     @Published var selectedGateway: Gateway? = nil
+    @Published var selectedLease: Lease? = nil
 
     var hasSelectedLocation : Bool {
         return selectedGateway != nil
     }
-//
+
     var location: String {
-        return "None"
-//        return selectedGateway?.niceName() ?? "None"
+        return selectedGateway?.niceName() ?? "None"
     }
-//
+
     var hasLease: Bool {
-        return false
-//        return accountActive && Config.shared.leaseActive()
+        return accountActive && selectedLease != nil
     }
 
     @Published var blockedCounter: Int = 0
@@ -109,22 +111,6 @@ class HomeViewModel: ObservableObject {
 
     
     init() {
-//        sharedActions.changeGateway = switchGateway
-        Config.shared.setOnConfigUpdated {
-            onMain {
-                self.syncUiWithConfig()
-                self.syncUiWithTunnel(done: { _, _ in } )
-            }
-        }
-
-//        network.onStatusChanged = { status in
-//            onMain {
-//                self.working = status.inProgress
-//                //self.mainSwitch = self.working ? self.mainSwitch : status.active
-//                Config.shared.setVpnEnabled(status.hasGateway())
-//                self.syncUiWithConfig()
-//            }
-//        }
 //        expiration.setOnExpired {
 //            self.showExpiredAlert()
 //            self.stopTimer()
@@ -136,6 +122,9 @@ class HomeViewModel: ObservableObject {
         onAccountTypeChanged()
         onStatsChanged()
         onPermsRepoChanged()
+        onSelectedGateway()
+        onSelectedLease()
+        onVpnEnabled()
         onPauseUpdateTimer()
     }
 
@@ -166,10 +155,10 @@ class HomeViewModel: ObservableObject {
     }
 
     private func onAccountTypeChanged() {
-        appRepo.accountType
+        appRepo.accountTypeHot
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
-            self.accountType = it.toString()
+            self.accountType = it
             self.accountActive = it.isActive()
         })
         .store(in: &cancellables)
@@ -204,6 +193,29 @@ class HomeViewModel: ObservableObject {
         .sink(onValue: { it in
             self.notificationPermsGranted = it
         })
+        .store(in: &cancellables)
+    }
+
+    private func onSelectedGateway() {
+        selectedGatewayHot
+        .map { it in it.gateway }
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in self.selectedGateway = it })
+        .store(in: &cancellables)
+    }
+
+    private func onSelectedLease() {
+        selectedLeaseHot
+        .map { it in it.lease }
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in self.selectedLease = it })
+        .store(in: &cancellables)
+    }
+
+    private func onVpnEnabled() {
+        plusRepo.plusEnabledHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in self.vpnEnabled = it })
         .store(in: &cancellables)
     }
 
@@ -293,75 +305,6 @@ class HomeViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-//    private func start(_ done: @escaping Callback<Void>) {
-//        self.log.v("Start")
-//        self.error = nil
-//        self.working = true
-//        self.syncUiWithConfig()
-//
-//        onBackground {
-//            self.syncUiWithTunnel { error, status in onMain {
-//                guard error == nil else {
-//                    if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
-//                       return onMain {
-//                           self.log.v("No VPN profile")
-//
-//                           // Do not treat this as an error
-//                           return self.afterStart(done)
-//                       }
-//                   }
-//
-//                    self.handleError(CommonError.failedTunnel, cause: error)
-//                    return done(error, nil)
-//                }
-//
-//                return self.afterStart(done)
-////                if !Config.shared.hasAccount() {
-////                    // New user scenario: just create account
-////                    self.sharedActions.newUser { error, _ in
-////                        guard error == nil else {
-////                            self.handleError(CommonError.failedFetchingData, cause: error)
-////                            return done(error, nil)
-////                        }
-////
-////                        return self.afterStart(done)
-////                    }
-////                } else {
-////                    // Tunnel is already up and running, check lease and account
-////                    if status?.hasGateway() ?? false {
-////                        if !Config.shared.accountActive() || !Config.shared.leaseActive() {
-////                            //self.log.w("start: Lease expired, showing alert dialog")
-////                            //self.showExpiredAlert()
-////                            return self.afterStart(done)
-////                        } else {
-////                            self.expiration.update(Config.shared.account()!)
-////                            return self.afterStart(done)
-////                        }
-////                    } else {
-////                         return self.afterStart(done)
-////                    }
-////                }
-//            }}
-//        }
-//    }
-
-//    private func afterStart(_ done: @escaping Callback<Void>) {
-//        self.log.v("Start procedure done")
-//        self.working = false
-//        done(nil, nil)
-//
-//        onBackground {
-//            if !Config.shared.accountActive() {
-//                PaymentService.shared.refreshProductsAfterStart()
-//            }
-//
-//            // Check lease on every fresh app start if using vpn
-//            if Config.shared.vpnEnabled() {
-//                self.recheckActiveLeaseAfterActivating()
-//            }
-//        }
-//    }
-
     func foreground() {
 
 //
@@ -377,27 +320,6 @@ class HomeViewModel: ObservableObject {
 //                            }
 //                        }
 //                    }
-//
-//                    self.expiration.update(Config.shared.account())
-//
-//                    // Check if tunnel should stay active
-//                    if status?.hasGateway() ?? false {
-//                        if !Config.shared.accountActive() || !Config.shared.leaseActive() {
-//                            // No active lease
-//                            //self.showExpiredAlert()
-//                            //self.log.w("Foreground: lease expired, showing alert dialog")
-//                        } else {
-//                            if (Config.shared.hasLease()) {
-//                                self.recheckActiveLeaseAfterActivating()
-//                                self.log.v("Foreground: synced (lease active)")
-//                            } else {
-//                                self.log.w("Foreground: synced: missing lease")
-//                            }
-//                        }
-//                    } else { // TODO: if cloud, and no active account, popup cta here?
-//                        self.log.v("Foreground: synced")
-//                    }
-//                }}
 //            }
 //        }
 //
@@ -412,35 +334,6 @@ class HomeViewModel: ObservableObject {
 //        if timerSeconds != 0 {
 //            self.registerBackgroundTask()
 //        }
-    }
-
-//    private func showExpiredAlert() {
-//        onMain {
-//            guard !self.expiredAlertShown else { return }
-//            self.expiredAlertShown = true
-//
-//            // Hide the current displaying sheet, if any
-//            self.onAccountExpired()
-//
-//            // Wait (seems to be necessary)
-//            onBackground {
-//                sleep(1)
-//                onMain {
-//                    // Show the alert
-//                    self.showExpired = true
-//                }
-//            }
-//        }
-//    }
-
-    func turnOn() {
-        
-    }
-
-    func turnOff() {
-        // TODO: in cloud mode, initiate untimed pause
-        self.working = false
-        //self.mainSwitch = false
     }
 
     func switchMain(activate: Bool,
@@ -479,27 +372,7 @@ class HomeViewModel: ObservableObject {
 //
 //                            //cfg.setDeviceTag(tag: tag)
 //
-////                            self.networkDns.saveBlokadaNetworkDns(tag: tag, name: self.envRepo.deviceName) { error, _ in
-////                                guard error == nil else {
-////                                    return self.handleError(CommonError.unknownError, cause: error)
-////                                }
-////
-////                                // It is possible the profile is already activated by the user
-////                                self.networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in
-////                                    guard dnsEnabled == true else {
-////                                        // If not, show the prompt
-////                                        self.mainSwitch = false
-////                                        self.working = false
-////                                        self.log.v("User action: switchMain: done, dns profile unactivated")
-////                                        return onMain { dnsProfileConfigured(()) }
-////                                    }
-////
-////                                    self.mainSwitch = true
-////                                    self.working = false
-////                                    self.log.v("User action: switchMain: done")
-////
-////                                }
-////                            }
+
 //                        }
 //                    } else {
 //                        // Plus mode
@@ -595,262 +468,17 @@ class HomeViewModel: ObservableObject {
 //            }
     }
 
-//    private func recheckActiveLeaseAfterActivating() {
-//        onBackground {
-//            self.log.v("Check lease after start")
-//            self.api.getCurrentLease { error, lease in
-//                guard error == nil else { return }
-//
-//                if !(lease?.isActive() ?? false) {
-//                    self.log.w("Lease got deactivated, recreating")
-//                    self.expiration.update(nil)
-//                }
-//            }
-//        }
-//    }
-//
-    func switchVpn(activate: Bool, noPermissions: @escaping Ok<Void>) {
-//        onBackground {
-//            self.ensureAppStartedSuccessfully { error, _ in
-//                guard error == nil else {
-//                    return
-//                }
-//
-//                Config.shared.setVpnEnabled(activate)
-//                self.log.v("User action: switchVpn: \(activate)")
-//
-//                self.network.queryStatus { error, status in onMain {
-//                    guard error == nil else {
-//                        Config.shared.setVpnEnabled(false)
-//                        if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
-//                            return onMain {
-//                                self.log.v("Showing ask for VPN sheet")
-//                                self.syncUiWithConfig()
-//                                return noPermissions(())
-//                            }
-//                        } else {
-//                            return self.handleError(CommonError.failedTunnel, cause: error)
-//                        }
-//                    }
-//
-//                    guard let status = status else {
-//                        Config.shared.setVpnEnabled(false)
-//                        return self.handleError(CommonError.failedTunnel, cause: error)
-//                    }
-//
-//                    if activate {
-//                        if !Config.shared.accountActive() {
-//                            Config.shared.setVpnEnabled(false)
-//                            return self.handleError(CommonError.accountInactive)
-//                        } else if !Config.shared.hasLease() || !Config.shared.leaseActive() {
-//                            self.log.v("No location selected")
-//                            onMain { self.syncUiWithConfig() }
-//                            Config.shared.setVpnEnabled(false)
-//                            return
-//                        } else {
-//                            self.vpn.applyGatewayFromConfig() { error, _ in onMain {
-//                                guard error == nil else {
-//                                    Config.shared.setVpnEnabled(false)
-//                                    return self.handleError(CommonError.failedVpn, cause: error)
-//                                }
-//
-//                                self.expiration.update(Config.shared.account())
-//                                self.recheckActiveLeaseAfterActivating()
-//                                self.log.v("User action: switchVpn: done")
-//                            }}
-//                        }
-//                    } else if !activate && Config.shared.hasGateway() {
-//                        self.vpn.turnOffEverything { error, _ in onMain {
-//                            guard error == nil else {
-//                                return self.handleError(CommonError.failedVpn, cause: error)
-//                            }
-//
-//                            self.log.v("User action: switchVpn: done")
-//                        }}
-//                    } else {
-//                        self.log.v("User action: switchVpn: done")
-//                    }
-//                }}
-//            }
-//        }
+    func switchVpn(activate: Bool) {
+        if activate {
+            plusRepo.switchPlusOn()
+        } else {
+            plusRepo.switchPlusOff()
+        }
     }
-//
-    func switchGateway(new: Gateway, noPermissions: @escaping Ok<Void>) {
-//        onBackground {
-//            self.ensureAppStartedSuccessfully { error, _ in
-//                guard error == nil else {
-//                    return
-//                }
-//
-//                self.log.v("User action: switchGateway: \(new.public_key)")
-//                self.working = true
-//
-//                let leaseRequest = LeaseRequest(
-//                    account_id: Config.shared.accountId(),
-//                    public_key: Config.shared.publicKey(),
-//                    gateway_id: new.public_key,
-//                    alias: self.envRepo.aliasForLease
-//                )
-//
-//                self.api.postLease(request: leaseRequest) { error, lease in onMain {
-//                    guard error == nil else {
-//                        if let e = error as? CommonError, e == CommonError.tooManyLeases {
-//                            return self.api.deleteLeasesWithAliasOfCurrentDevice(id: Config.shared.accountId()) { deleteError, _ in
-//                                if let deleteError = deleteError {
-//                                    // Return the initial error instead
-//                                    self.log.e("Deleting existing lease for same alias failed".cause(deleteError))
-//                                    return self.handleError(CommonError.failedFetchingData, cause: error)
-//                                }
-//
-//                                // We managed to free up the lease limit, try creating the lease again
-//                                return self.switchGateway(new: new, noPermissions: noPermissions)
-//                            }
-//                        } else {
-//                            return self.handleError(CommonError.failedFetchingData, cause: error)
-//                        }
-//                    }
-//
-//                    Config.shared.setLease(lease!, new)
-//
-//                    self.vpn.applyGatewayFromConfig() { error, _ in
-//                        onMain {
-//                            guard error == nil else {
-//                                if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
-//                                    return onMain {
-//                                        self.log.v("Showing ask for VPN sheet")
-//                                        self.working = false
-//                                        self.syncUiWithConfig()
-//                                        return noPermissions(())
-//                                    }
-//                                } else {
-//                                    return self.handleError(CommonError.failedTunnel, cause: error)
-//                                }
-//                            }
-//
-//                            self.expiration.update(Config.shared.account())
-//                            self.log.v("User action: switchGateway: done")
-//                        }
-//                    }
-//                }}
-//            }
-//        }
-    }
-
-    func turnVpnOffAfterExpired() {
-//       onBackground {
-//           self.ensureAppStartedSuccessfully { error, _ in
-//               guard error == nil else {
-//                   return
-//               }
-//
-//               self.log.v("User action: turnVpnOffAfterExpired")
-//
-//               Config.shared.setVpnEnabled(false)
-//               Config.shared.clearLease()
-//               self.vpn.turnOffEverything { _, _ in }
-//
-//               self.network.queryStatus { error, status in onMain {
-//                   guard error == nil else {
-//                        self.mainSwitch = false
-//                        self.working = false
-//                        return self.handleError(CommonError.failedTunnel, cause: error)
-//                   }
-//
-//                   self.log.v("User action: turnVpnOffAfterExpired done")
-//               }}
-//           }
-//       }
-   }
 
     /**
         Private methods used by those public entrypoints
     */
-
-    private func syncUiWithConfig() {
-//        if Config.shared.hasLease() && self.selectedGateway?.public_key != Config.shared.gateway()?.public_key {
-//            self.selectedGateway = Config.shared.gateway()
-//        } else if !Config.shared.hasLease() && self.selectedGateway != nil {
-//            self.selectedGateway = nil
-//        }
-
-        self.vpnEnabled = Config.shared.vpnEnabled()
-    }
-
-    private func syncUiWithTunnel(done: @escaping Callback<NetworkStatus>) {
-        self.log.v("Sync UI with NETX")
-        
-        // Blokada Cloud may be configured, but when there is no active account, it will be passthrough.
-        if !self.accountActive {
-            return onMain {
-                //self.mainSwitch = false
-                self.working = false
-                return done(nil, NetworkStatus.disconnected())
-            }
-        }
-
-//        networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in onMain {
-//            guard error == nil else {
-//                self.log.w("Could not get NetworkDns state".cause(error))
-//                self.mainSwitch = false
-//                self.working = false
-//                return done(error, nil)
-//            }
-//
-//            let mainSwitch = dnsEnabled ?? false
-//
-//            self.network.queryStatus { error, status in onMain {
-//                guard let status = status else {
-//                    self.log.v("  NETX not active".cause(error))
-//                    self.mainSwitch = mainSwitch
-//                    Config.shared.setVpnEnabled(false)
-//                    self.working = false
-//                    return done(error, nil)
-//                }
-//
-//                if status.inProgress {
-//                    self.log.v(" NETX in progress")
-//                    //self.mainSwitch = false
-//                    //self.vpnEnabled = false
-//                    self.working = true
-//                    return done(nil, status)
-//                } else if status.active {
-//                    self.log.v(" NETX active")
-//                    if status.hasGateway() {
-//                        self.log.v("  Connected to gateway: \(status.gatewayId!)")
-//                        self.mainSwitch = true
-//                        Config.shared.setVpnEnabled(true)
-//                        self.working = false
-//
-//                        if !Config.shared.hasLease() || Config.shared.gateway()?.public_key != status.gatewayId! {
-//                            self.log.w("Gateway and lease mismatch, disconnecting VPN")
-//                            self.turnVpnOffAfterExpired()
-//                            return done(nil, nil)
-//                        } else {
-//                            return done(nil, status)
-//                        }
-//                    } else {
-//                        self.log.w(" NETX in Libre mode, this should not happen")
-//                        self.mainSwitch = true
-//                        Config.shared.setVpnEnabled(false)
-//                        self.working = false
-//                        return done(nil, status)
-//                    }
-//                } else if (mainSwitch) {
-//                    self.log.v(" NETX inactive, Cloud mode")
-//                    self.mainSwitch = true
-//                    Config.shared.setVpnEnabled(false)
-//                    self.working = false
-//                    return done(nil, status)
-//                } else {
-//                    self.log.v(" NETX inactive, app deactivated")
-//                    self.mainSwitch = false
-//                    Config.shared.setVpnEnabled(false)
-//                    self.working = false
-//                    return done(nil, status)
-//                }
-//            }}
-//        }}
-    }
 
     private func handleError(_ error: CommonError, cause: Error? = nil) {
         onMain {
@@ -858,40 +486,7 @@ class HomeViewModel: ObservableObject {
 
             self.error = mapErrorForUser(error, cause: cause)
             self.working = false
-            self.syncUiWithConfig()
         }
-    }
-
-    private func refreshLease(done: @escaping Callback<Lease>) {
-//        let leaseRequest = LeaseRequest(
-//            account_id: Config.shared.accountId(),
-//            public_key: Config.shared.publicKey(),
-//            gateway_id: Config.shared.lease()!.gateway_id,
-//            alias: self.envRepo.aliasForLease
-//        )
-//
-//        self.api.postLease(request: leaseRequest) { error, lease in onMain {
-//            guard error == nil else {
-//                return done(error, nil)
-//            }
-//
-//            self.api.getGateways { error, gateways in
-//                guard error == nil else {
-//                    return done(error, nil)
-//                }
-//
-//                if let gateways = gateways {
-//                    let currentGateway = gateways.first(where: { it in
-//                        it.public_key == lease!.gateway_id
-//                    })
-//
-//                    Config.shared.setLease(lease!, currentGateway!)
-//                    done(nil, lease!)
-//                } else {
-//                    return done("Empty gateways", nil)
-//                }
-//            }
-//        }}
     }
 
     func showErrorMessage() -> String {

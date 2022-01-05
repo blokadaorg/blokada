@@ -28,7 +28,7 @@ struct PlusButtonView: View {
 
                     if !self.vm.accountActive {
                         self.contentVM.showSheet(.Payment)
-                    } else if self.vm.accountType == "cloud" {
+                    } else if self.vm.accountType == .Cloud {
                         Links.openInBrowser(Links.manageSubscriptions())
                     } else {
                         self.contentVM.showSheet(.Location)
@@ -36,7 +36,7 @@ struct PlusButtonView: View {
                 }) {
                     ZStack {
                         HStack {
-                            if !self.vm.accountActive || self.vm.accountType != "plus" {
+                            if !self.vm.accountActive || self.vm.accountType != .Plus {
                                 Spacer()
                                 L10n.universalActionUpgrade
                                     .toBlokadaPlusText(color: self.vm.vpnEnabled ? Color.primary : Color.white, plusColor: self.vm.vpnEnabled ? Color.primary : Color.white)
@@ -78,10 +78,7 @@ struct PlusButtonView: View {
                                 .frame(width: 64)
                                 .padding(.trailing, 4)
                                 .onTapGesture {
-                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled, noPermissions: {
-                                        // A callback trigerred when there is no VPN profile
-                                        self.contentVM.showSheet(.AskForVpn)
-                                    })
+                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled)
                                 }
                                 .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
                         } else {
@@ -90,10 +87,7 @@ struct PlusButtonView: View {
                                 .frame(width: 64)
                                 .padding(.trailing, 4)
                                 .onTapGesture {
-                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled, noPermissions: {
-                                        // A callback trigerred when there is no VPN profile
-                                        self.contentVM.showSheet(.AskForVpn)
-                                    })
+                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled)
                                 }
                         }
                     }

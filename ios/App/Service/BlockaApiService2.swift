@@ -27,7 +27,10 @@ protocol BlockaApiServiceIn {
     func deleteCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error>
     func getStats(id: AccountId) -> AnyPublisher<CounterStats, Error>
     func getBlocklists(id: AccountId) -> AnyPublisher<[Blocklist], Error>
-
+    func getGateways() -> AnyPublisher<[Gateway], Error>
+    func getLeases(id: AccountId) -> AnyPublisher<[Lease], Error>
+    func postLease(request: LeaseRequest) -> AnyPublisher<Lease, Error>
+    func deleteLease(request: LeaseRequest) -> AnyPublisher<Ignored, Error>
 }
 
 class BlockaApiService2: BlockaApiServiceIn {
@@ -42,6 +45,14 @@ class BlockaApiService2: BlockaApiServiceIn {
         return self.client.get("/v1/account?account_id=\(id)")
         .decode(type: AccountWrapper.self, decoder: self.decoder)
         .tryMap { it in it.account }
+//        .tryMap { it in
+//            return Account(
+//                id: it.id,
+//                active_until: self.fakeExpireTime(),
+//                active: self.accountOver > Date(),
+//                type: (self.accountOver > Date()) ? "plus" : "libre"
+//            )
+//        }
         .eraseToAnyPublisher()
     }
 
@@ -114,6 +125,79 @@ class BlockaApiService2: BlockaApiServiceIn {
         return self.client.get("/v1/list?account_id=\(id)")
         .decode(type: BlocklistWrapper.self, decoder: self.decoder)
         .tryMap { it in it.lists }
+        .eraseToAnyPublisher()
+    }
+
+    func getGateways() -> AnyPublisher<[Gateway], Error> {
+        return self.client.get("/v2/gateway")
+        .decode(type: Gateways.self, decoder: self.decoder)
+        .tryMap { it in it.gateways }
+        .eraseToAnyPublisher()
+    }
+
+    func getLeases(id: AccountId) -> AnyPublisher<[Lease], Error> {
+        return self.client.get("/v1/lease?account_id=\(id)")
+        .decode(type: Leases.self, decoder: self.decoder)
+        .tryMap { it in it.leases }
+//        .tryMap { it in
+//            it.map {
+//                if $0.public_key == "xJ+gKm8lfb+NcJaPDuNROR99uK60WF32FwW6AZY2jF0=" {
+//                    return Lease(
+//                        account_id: $0.account_id,
+//                        public_key: $0.public_key,
+//                        gateway_id: $0.gateway_id,
+//                        expires: self.fakeExpireTime(),
+//                        alias: $0.alias,
+//                        vip4: $0.vip4,
+//                        vip6: $0.vip6
+//                    )
+//                } else {
+//                    return $0
+//                }
+//            }
+//        }
+        .eraseToAnyPublisher()
+    }
+
+    var accountOver: Date = Date()
+    private func createFakeExp() {
+        let seconds = DateComponents(second: 40)
+        let date = Calendar.current.date(byAdding: seconds, to: Date()) ?? Date()
+        accountOver = date
+    }
+    init() {
+        createFakeExp()
+    }
+    
+    private func fakeExpireTime() -> String {
+        return blockaDateFormatter.string(from: accountOver)
+    }
+
+    func postLease(request: LeaseRequest) -> AnyPublisher<Lease, Error> {
+        return self.client.post("/v1/lease", payload: request)
+        .decode(type: LeaseWrapper.self, decoder: self.decoder)
+        .tryMap { it in it.lease }
+        // Convert to CommonError if known error
+        .tryCatch { err -> AnyPublisher<Lease, Error> in
+            if let e = err as? NetworkError {
+                switch e {
+                  case .http(let code):
+                    if code == 403 {
+                        throw CommonError.tooManyLeases
+                    } else {
+                        throw err
+                    }
+                }
+            } else {
+                throw err
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func deleteLease(request: LeaseRequest) -> AnyPublisher<Ignored, Error> {
+        return self.client.delete("/v1/lease", payload: request)
+        .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
 

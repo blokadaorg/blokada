@@ -31,6 +31,7 @@ class AccountRepo {
     fileprivate let restoreAccountT = Tasker<AccountId, Account>("restoreAccount")
 
     private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
+    private lazy var activeTabHot = Repos.navRepo.activeTabHot
 
     private lazy var local = Services.persistenceLocal
     private lazy var remote = Services.persistenceRemote
@@ -52,9 +53,11 @@ class AccountRepo {
         onProposeAccountRequests()
         onRefreshAccountRequests()
         onRestoreAccountRequests()
-        onAccountExpired_RefreshAccountAndInformUser()
-        loadFromPersistenceOrCreateAccount()
-        refreshAccountPeriodically()
+        onAccountExpiring_RefreshAccount()
+        onAccountAboutToExpire_MarkExpiredAndInformUser()
+        onForeground_RefreshAccountPeriodically()
+        onSettingsTab_RefreshAccount()
+        loadFromPersistenceOrCreateAccountOnStart()
     }
     
     // Gets account from API based on user entered account ID. Does sanitization.
@@ -67,7 +70,7 @@ class AccountRepo {
         return proposeAccountT.send(newAccount)
     }
 
-    private func loadFromPersistenceOrCreateAccount() {
+    private func loadFromPersistenceOrCreateAccountOnStart() {
         //self.processingRepo.notify(self, ongoing: true)
         Publishers.CombineLatest(
             self.loadAccountFromPersistence(),
@@ -182,26 +185,29 @@ class AccountRepo {
         }
     }
 
-    private func onAccountExpired_RefreshAccountAndInformUser() {
+    // Re-check account just before it expires in case it was extended externally.
+    // We do it to make sure we still have connectivity.
+    private func onAccountExpiring_RefreshAccount() {
         accountHot.map { it in it.account }
         .sink(onValue: { it in
-            if it.activeUntil() > Date() {
-                self.timer.createTimer(NOTIF_ACC_EXP, when: it.activeUntil())
+            let until = it.activeUntil().shortlyBefore()
+            if until > Date() {
+                self.timer.createTimer(NOTIF_ACC_EXP, when: until)
                 .flatMap { _ in self.timer.obtainTimer(NOTIF_ACC_EXP) }
                 .sink(
                     onFailure: { err in
                         Logger.e("AppRepo", "Acc expiration timer failed: \(err)")
                     },
                     onSuccess: {
-                        // TODO: internet may be cut down at this point
-                        Logger.v("AppRepo", "Account expired, refreshing")
+                        Logger.v("AppRepo", "Account soon to expire, refreshing")
                         self.refreshAccountT.send(it.id)
-
-                        self.dialog.showAlert(
-                            message: L10n.notificationAccBody,
-                            header: L10n.notificationAccHeader
-                        )
-                        .sink()
+                        .sink(onFailure: { err in
+                            // If cannot refresh, emit expired account manually.
+                            // We may be out of connectivity.
+                            self.proposeAccount(Account(
+                                id: it.id, active_until: nil, active: false, type: "libre"
+                            ))
+                        })
                         .store(in: &self.cancellables)
                     }
                 )
@@ -213,8 +219,29 @@ class AccountRepo {
         .store(in: &cancellables)
     }
 
+    private func onAccountAboutToExpire_MarkExpiredAndInformUser() {
+        accountHot.map { it in it.account }
+        .filter { it in it.isActive() && it.activeUntil().shortlyBefore() < Date() }
+        .sink(onValue: { it in
+            // Mark account as expired internally
+            Logger.v("AppRepo", "Marking account as expired")
+            self.proposeAccount(Account(
+                id: it.id, active_until: nil, active: false, type: "libre"
+            ))
+
+            // Inform user
+            self.dialog.showAlert(
+                message: L10n.notificationAccBody,
+                header: L10n.notificationAccHeader
+            )
+            .sink()
+            .store(in: &self.cancellables)
+        })
+        .store(in: &cancellables)
+    }
+
     // When app enters foreground, periodically refresh account
-    private func refreshAccountPeriodically() {
+    private func onForeground_RefreshAccountPeriodically() {
         enteredForegroundHot
         .filter { it in
             self.lastAccountRequestTimestamp.value < Date().timeIntervalSince1970 - self.ACCOUNT_REFRESH_SEC
@@ -227,6 +254,14 @@ class AccountRepo {
                 self.refreshAccountT.send(it.account.id)
             }
         )
+        .store(in: &cancellables)
+    }
+
+    private func onSettingsTab_RefreshAccount() {
+        activeTabHot
+        .filter { it in it == .Settings }
+        .flatMap { it in self.accountHot.first() }
+        .sink(onValue: { it in self.refreshAccountT.send(it.account.id) })
         .store(in: &cancellables)
     }
 
@@ -256,7 +291,7 @@ class AccountRepo {
         }
     }
 
-    private func saveAccountToPersistence(_ account: Account) -> AnyPublisher<Void, Error> {
+    private func saveAccountToPersistence(_ account: Account) -> AnyPublisher<Ignored, Error> {
         Just(account).encode(encoder: self.encoder)
         .tryMap { it -> String in
             guard let it = String(data: it, encoding: .utf8) else {
@@ -270,7 +305,7 @@ class AccountRepo {
         .eraseToAnyPublisher()
     }
 
-    private func saveKeypairToPersistence(_ keypair: Keypair) -> AnyPublisher<Void, Error> {
+    private func saveKeypairToPersistence(_ keypair: Keypair) -> AnyPublisher<Ignored, Error> {
         Just(keypair).encode(encoder: self.encoder)
         .tryMap { it -> String in
             guard let it = String(data: it, encoding: .utf8) else {

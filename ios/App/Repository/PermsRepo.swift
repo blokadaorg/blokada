@@ -47,7 +47,7 @@ class PermsRepo {
 
     init() {
         onDnsProfileActivated()
-        onForeground_checkNotificationPerms()
+        onForeground_checkNotificationPermsAndClearNotifications()
         onVpnPerms()
         onPurchaseSuccessful_showActivatedSheet()
     }
@@ -134,9 +134,18 @@ class PermsRepo {
         .store(in: &cancellables)
     }
 
-    private func onForeground_checkNotificationPerms() {
+    private func onForeground_checkNotificationPermsAndClearNotifications() {
         enteredForegroundHot
         .flatMap { _ in self.notification.getPermissions() }
+        // When entering foreground also clear all notifications.
+        // It's so that we do not clutter the lock screen.
+        // We do have any notifications that need to stay after entering fg.
+        .map { allowed in
+            if allowed {
+                self.notification.clearAllNotifications()
+            }
+            return allowed
+        }
         .sink(onValue: { it in self.writeNotificationPerms.send(it) })
         .store(in: &cancellables)
     }

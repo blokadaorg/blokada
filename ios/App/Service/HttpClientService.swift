@@ -38,7 +38,7 @@ class HttpClientService {
 
         return self.session.dataTaskPublisher(for: request)
             .tryCatch { error in
-                // A delayed retry
+                // A delayed retry (total 3 attemps spread 1-5 sec at random)
                 return self.session.dataTaskPublisher(for: request)
                     .delay(for: DispatchQueue.SchedulerTimeType.Stride(integerLiteral: Int.random(in: 1..<5)), scheduler: self.bgQueue)
                     .retry(2)
@@ -49,12 +49,11 @@ class HttpClientService {
                 }
 
                 guard r.statusCode == 200 else {
-                    throw "response code: \(r.statusCode)"
+                    throw NetworkError.http(r.statusCode)
                 }
 
                 return response.data
             }
-            .mapError { return "BlockaApi: get: \($0)" }
             .eraseToAnyPublisher()
     }
 
@@ -95,12 +94,11 @@ class HttpClientService {
                 }
 
                 guard r.statusCode == 200 else {
-                    throw "response code: \(r.statusCode)"
+                    throw NetworkError.http(r.statusCode)
                 }
 
                 return response.data
             }
-            .mapError { return "BlockaApi: post: \($0)" }
             .eraseToAnyPublisher()
     }
 

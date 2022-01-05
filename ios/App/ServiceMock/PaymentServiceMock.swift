@@ -17,7 +17,6 @@ class PaymentService {
     static let shared = PaymentService()
 
     private let log = Logger("Mock")
-    private let api = BlockaApiService.shared
 
     var onChangeAccount = { (account: Account) in }
 

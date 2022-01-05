@@ -12,6 +12,9 @@
 
 import Foundation
 
+// This file is only used in Mocked target. It replaces some services that cannot be
+// run in tests and mocked scenarios.
+
 var Services = ServicesSingleton()
 
 class ServicesSingleton {
@@ -22,7 +25,7 @@ class ServicesSingleton {
     lazy var persistenceRemote: PersistenceService = ICloudPersistenceService()
     lazy var persistenceRemoteLegacy: PersistenceService = ICloudPersistenceService()
 
-    lazy var crypto: CryptoService = CryptoServiceMock()
+    lazy var crypto: CryptoServiceIn = CryptoServiceMock()
 
     lazy var http = HttpClientService()
     lazy var api: BlockaApiServiceIn = BlockaApiService2()
@@ -37,6 +40,7 @@ class ServicesSingleton {
     lazy var timer = TimerService()
 
     lazy var dialog = DialogService()
+
 }
 
 func resetServices() {

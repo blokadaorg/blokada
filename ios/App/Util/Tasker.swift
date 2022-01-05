@@ -48,6 +48,10 @@ class Tasker<T: Equatable, Y> {
 
         cancellable = publisher
         .receive(on: bgQueue)
+        .map { argument in
+            Logger.v("Tasker", "\(self.owner): \(argument)")
+            return argument
+        }
         .flatMap { argument in
             task(argument)
             .tryMap { result in

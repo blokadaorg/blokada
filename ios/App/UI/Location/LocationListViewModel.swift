@@ -11,43 +11,58 @@
 //
 
 import Foundation
+import Combine
 
 class LocationListViewModel: ObservableObject {
 
+    private let gatewayRepo = Repos.gatewayRepo
+    private let plusRepo = Repos.plusRepo
+
+    private var cancellables = Set<AnyCancellable>()
+
     @Published var items = [String: [LocationViewModel]]()
 
-    private let api = BlockaApiService.shared
-    private let sharedActions = SharedActionsService.shared
+    init() {
+        onGatewaysChanged()
+    }
+
+    private func onGatewaysChanged() {
+        Publishers.CombineLatest(
+            gatewayRepo.gatewaysHot,
+            gatewayRepo.selectedHot
+        )
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            let (gateways, selection) = it
+            let vms = gateways.sorted { $0.location < $1.location }
+            .map { gateway in
+                LocationViewModel(
+                    gateway: gateway,
+                    selectedGateway: selection.gateway
+                )
+            }
+
+            self.items = Dictionary(
+                grouping: vms,
+                by: { $0.gateway.region.components(separatedBy: "-")[0]  }
+            )
+        })
+        .store(in: &cancellables)
+    }
 
     func loadGateways(done: @escaping Ok<Void>) {
-        self.items = Dictionary()
-
-        self.api.getGateways { error, gateways in
-            onMain {
-                guard error == nil else {
-                    return done(())
-                }
-                let vms = gateways!.sorted { $0.location < $1.location }
-                .map { gateway in
-                    LocationViewModel(gateway: gateway, selectedGateway: self.selectedGateway())
-                }
-
-                self.items = Dictionary(grouping: vms, by: { $0.gateway.region.components(separatedBy: "-")[0]  })
-
-                return done(())
-            }
-        }
+        items = Dictionary()
+        gatewayRepo.refreshGateways()
+        .receive(on: RunLoop.main)
+        .sink(
+            onFailure: { _ in done(()) },
+            onSuccess: { done(()) }
+        )
+        .store(in: &cancellables)
     }
 
-    func changeLocation(_ item: LocationViewModel, noPermissions: @escaping Ok<Void>) {
-        sharedActions.changeGateway(item.gateway, noPermissions)
+    func changeLocation(_ item: LocationViewModel) {
+        plusRepo.newPlus(item.gateway.public_key)
     }
 
-    private func selectedGateway() -> Gateway? {
-        if Config.shared.hasLease() && Config.shared.hasGateway() {
-            return Config.shared.gateway()
-        } else {
-            return nil
-        }
-    }
 }

@@ -29,7 +29,7 @@ class AppRepo {
         self.writePausedUntil.removeDuplicates().eraseToAnyPublisher()
     }
 
-    var accountType: AnyPublisher<AccountType, Never> {
+    var accountTypeHot: AnyPublisher<AccountType, Never> {
         self.writeAccountType.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
@@ -58,6 +58,7 @@ class AppRepo {
         onCurrentlyOngoing_ChangeWorkingState()
         onPause_WaitForExpirationToUnpause()
         loadPauseTimerState()
+        emitWorkingStateOnStart()
     }
 
     func pauseApp(until: Date?) -> AnyPublisher<Ignored, Error> {
@@ -69,7 +70,7 @@ class AppRepo {
     }
 
     // App can be paused with a timer (Date), or indefinitely (nil)
-    private func onPauseApp() {
+    private func onPauseApp() { // TODO: also pause plus
         pauseAppT.setTask { until in
             return self.appStateHot.first()
             .flatMap { it -> AnyPublisher<Ignored, Error> in
@@ -126,7 +127,7 @@ class AppRepo {
 
     private func onAnythingThatAffectsAppState_UpdateIt() {
         Publishers.CombineLatest3(
-            accountType,
+            accountTypeHot,
             cloudRepo.dnsProfileActivatedHot,
             cloudRepo.adblockingPausedHot
         )
@@ -164,7 +165,8 @@ class AppRepo {
     private func onCurrentlyOngoing_ChangeWorkingState() {
         let tasksThatMarkWorkingState = Set([
             "refreshAccount", "restoreAccount",
-            "pauseApp", "unpauseApp"
+            "pauseApp", "unpauseApp",
+            "newPlus", "clearPlus", "switchPlusOn", "switchPlusOff"
         ])
 
         currentlyOngoingHot
@@ -196,6 +198,10 @@ class AppRepo {
         .store(in: &cancellables)
     }
 
+    private func emitWorkingStateOnStart() {
+        writeAppState.send(.Paused)
+        writeWorking.send(true)
+    }
 }
 
 func getDateInTheFuture(seconds: Int) -> Date {

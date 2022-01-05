@@ -74,7 +74,7 @@ struct SettingsTabView: View {
                        }
                     }
 
-                    if (self.vm.active && self.vm.type == "plus") {
+                    if (self.vm.active && self.vm.type == .Plus ) {
                         NavigationLink(destination: LeaseListView(), tag: "leases", selection: self.$tabVM.selection) {
                             HStack {
                              Image(systemName: Image.fComputer)

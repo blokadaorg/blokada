@@ -54,7 +54,7 @@ struct AccountView: View {
                         HStack {
                             Text(L10n.accountLabelType)
                             Spacer()
-                            Text(self.vm.type).foregroundColor(.secondary)
+                            Text(self.vm.type.toString()).foregroundColor(.secondary)
                         }
 
                         HStack {

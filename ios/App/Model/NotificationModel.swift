@@ -14,22 +14,22 @@ import Foundation
 import UserNotifications
 
 let NOTIF_ACC_EXP = "accountExpired"
+let NOTIF_LEASE_EXP = "plusLeaseExpired"
 let NOTIF_PAUSE = "pauseTimeout"
 
 func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
     if id == NOTIF_ACC_EXP {
-        // TODO: check those
         let content = UNMutableNotificationContent()
         content.title = L10n.notificationAccHeader
         content.subtitle = L10n.notificationAccSubtitle
         content.body = L10n.notificationAccBody
         content.sound = .default
         return content
-    } else if id == "plusLeaseExpired" {
+    } else if id == NOTIF_LEASE_EXP {
         let content = UNMutableNotificationContent()
-        content.title = L10n.notificationVpnExpiredHeader
+        content.title = L10n.notificationLeaseHeader
         content.subtitle = L10n.notificationVpnExpiredSubtitle
-        content.body = L10n.notificationVpnExpiredBody
+        content.body = L10n.notificationGenericBody
         content.sound = .default
         return content
     } else if id == NOTIF_PAUSE {

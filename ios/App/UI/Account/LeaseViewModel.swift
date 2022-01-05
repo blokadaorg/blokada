@@ -17,8 +17,6 @@ struct LeaseViewModel {
     let lease: Lease
 
     private let log = Logger("Account")
-    private let api = BlockaApiService.shared
-    private let shared = SharedActionsService.shared
 
     var isMe: Bool {
         return lease.isMe()

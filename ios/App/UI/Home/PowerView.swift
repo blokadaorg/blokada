@@ -150,15 +150,17 @@ struct PowerView: View {
                     self.contentVM.showSheet(.Payment)
                 } else if !self.vm.dnsPermsGranted {
                     self.contentVM.showSheet(.Activated)
-                } else if !self.vm.vpnPermsGranted && self.vm.accountType == "plus" {
+                } else if !self.vm.vpnPermsGranted && self.vm.accountType == .Plus {
                     self.contentVM.showSheet(.Activated)
                 } else if self.vm.appState == .Activated {
                     self.showPauseSheet = true
                 } else if self.vm.appState == .Paused {
                     self.vm.unpause()
                 } else {
-                    //self.vm.mainSwitch = true // TODO: should it be here or in vm?
-                    self.vm.turnOn()
+                    // At this point app is just active (and user cannot tap this).
+                    // Or there is no connectivity and app did not start.
+                    // In that case, trigger the flow.
+                    self.vm.unpause()
                 }
             }
         }

@@ -30,18 +30,18 @@ class StageRepo {
     }
 
     // Event named "Creating". Sent only once on app creation.
-    var creatingHot: AnyPublisher<Void, Never> {
+    var creatingHot: AnyPublisher<Ignored, Never> {
         stageHot
         .filter { it in it == AppStage.Creating }
-        .map { _ in (()) }
+        .map { _ in (true) }
         .eraseToAnyPublisher()
     }
 
     // Event named "Destroying". Sent only once when app is being removed from memory.
-    var destroyingHot: AnyPublisher<Void, Never> {
+    var destroyingHot: AnyPublisher<Ignored, Never> {
         stageHot
         .filter { it in it == AppStage.Destroying }
-        .map { _ in (()) }
+        .map { _ in (true) }
         .eraseToAnyPublisher()
     }
 

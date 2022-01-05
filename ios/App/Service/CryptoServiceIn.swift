@@ -13,11 +13,11 @@
 import Foundation
 import Combine
 
-protocol CryptoService {
+protocol CryptoServiceIn {
     func generateKeypair() -> AnyPublisher<Keypair, Error>
 }
 
-class CryptoServiceMock: CryptoService {
+class CryptoServiceMock: CryptoServiceIn {
     func generateKeypair() -> AnyPublisher<Keypair, Error> {
         return Just(
             Keypair(

@@ -30,6 +30,10 @@ class RepositoriesSingleton {
     lazy var packRepo = PackRepo()
     lazy var sheetRepo = SheetRepo()
     lazy var permsRepo = PermsRepo()
+    lazy var gatewayRepo = GatewayRepo()
+    lazy var leaseRepo = LeaseRepo()
+    lazy var netxRepo = NetxRepo()
+    lazy var plusRepo = PlusRepo()
 
 }
 

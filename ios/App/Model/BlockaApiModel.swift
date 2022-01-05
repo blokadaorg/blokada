@@ -83,6 +83,16 @@ struct Gateway: Codable {
     }
 }
 
+extension Gateway: Equatable {
+    static func == (lhs: Gateway, rhs: Gateway) -> Bool {
+        return
+            lhs.public_key == rhs.public_key &&
+            lhs.ipv4 == rhs.ipv4 &&
+            lhs.ipv6 == rhs.ipv6 &&
+            lhs.port == rhs.port
+    }
+}
+
 struct Gateways: Decodable {
     let gateways: [Gateway]
 }
@@ -120,6 +130,20 @@ struct Lease: Codable, Identifiable {
 
     func isMe() -> Bool {
         return public_key == Config.shared.publicKey()
+    }
+}
+
+extension Lease: Equatable {
+    static func == (lhs: Lease, rhs: Lease) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+// Used to do stuff before lease / account expires (and we may get net cutoff)
+extension Date {
+    func shortlyBefore() -> Date {
+        let seconds = DateComponents(second: -10)
+        return Calendar.current.date(byAdding: seconds, to: self) ?? self
     }
 }
 

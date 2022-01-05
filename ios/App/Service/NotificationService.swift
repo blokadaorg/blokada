@@ -98,28 +98,11 @@ class NotificationService {
         .eraseToAnyPublisher()
     }
 
-//    func clearNotification() {
-//        notifications.removeAllDeliveredNotifications()
-//        notifications.removeAllPendingNotificationRequests()
-//        self.log.v("Notification cleared")
-//    }
+    func clearAllNotifications() {
+        center.removeAllDeliveredNotifications()
+        center.removeAllPendingNotificationRequests()
+    }
 
-//    func checkLease(ok: @escaping Ok<Bool>, fail: @escaping Faile) {
-//        onBackground {
-//            self.api.getCurrentLease { error, lease in
-//                if let error = error {
-//                    self.log.e("Failed getting current lease".cause(error))
-//                    return fail(error)
-//                } else if let lease = lease {
-//                    self.scheduleExpiredNotification(when: lease.activeUntil())
-//                    self.expiration.update(Config.shared.account())
-//                    return ok(true)
-//                } else {
-//                    return ok(false)
-//                }
-//            }
-//        }
-//    }
 }
 
 class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDelegate {

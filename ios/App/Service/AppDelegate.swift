@@ -38,9 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Repos.stageRepo.onCreate()
         token = AppleTokenService(application)
-
-        Config.shared.load()
-        EngineService.shared.panicHook()
         
         return true
     }

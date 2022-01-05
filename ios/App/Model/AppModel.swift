@@ -18,7 +18,7 @@ enum AccountType {
     case Plus
 }
 
-func mapAccountType(_ accountType: String) -> AccountType {
+func mapAccountType(_ accountType: String?) -> AccountType {
     switch (accountType) {
         case "cloud": return AccountType.Cloud
         case "plus": return AccountType.Plus

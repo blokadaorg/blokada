@@ -67,4 +67,20 @@ class BlockaApiServiceMock: BlockaApiServiceIn {
         return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
     }
 
+    func getGateways() -> AnyPublisher<[Gateway], Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func getLeases(id: AccountId) -> AnyPublisher<[Lease], Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func postLease(request: LeaseRequest) -> AnyPublisher<Lease, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
+    func deleteLease(request: LeaseRequest) -> AnyPublisher<Ignored, Error> {
+        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
+    }
+
 }

@@ -59,33 +59,33 @@ class NetworkService {
     }
 
     func syncConfig(done: @escaping Callback<Void>) {
-        guard config.hasLease() else {
-            return done("syncConfig: No lease set", nil)
-        }
-
-        let lease = config.lease()!
-
-        guard let gateway = config.gateway() else {
-            return done("syncConfig: No gateway set", nil)
-        }
-
-        let deviceTag = config.deviceTag()
-
-        onBackground {
-            self.getManager { error, manager in
-                onMain {
-                    guard error == nil else {
-                        return done(error, nil)
-                    }
-
-                    self.saveConfig(manager!, lease, gateway, deviceTag) { error, _ in
-                        onMain {
-                            return done(error, nil)
-                        }
-                    }
-                }
-            }
-        }
+//        guard config.hasLease() else {
+//            return done("syncConfig: No lease set", nil)
+//        }
+//
+//        let lease = config.lease()!
+//
+//        guard let gateway = config.gateway() else {
+//            return done("syncConfig: No gateway set", nil)
+//        }
+//
+//        let deviceTag = config.deviceTag()
+//
+//        onBackground {
+//            self.getManager { error, manager in
+//                onMain {
+//                    guard error == nil else {
+//                        return done(error, nil)
+//                    }
+//
+//                    self.saveConfig(manager!, lease, gateway, deviceTag) { error, _ in
+//                        onMain {
+//                            return done(error, nil)
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     private func saveConfig(_ manager: NETunnelProviderManager, _ lease: Lease, _ gateway: Gateway, _ deviceTag: String,
@@ -301,38 +301,38 @@ class NetworkService {
 
     func applyGateway(done: @escaping Callback<String>) {
         onBackground {
-            guard self.config.hasLease() else {
-                return done("syncGateway: No lease set", nil)
-            }
-
-            let lease = self.config.lease()!
-
-            guard let gateway = self.config.gateway() else {
-                return done("syncGateway: No gateway set", nil)
-            }
-
-            let connect = [
-                NetworkCommand.connect.rawValue,
-                Config.shared.privateKey(),
-                lease.gateway_id,
-                gateway.ipv4,
-                gateway.ipv6,
-                String(gateway.port),
-                lease.vip4,
-                lease.vip6,
-                self.getUserDnsIp(Config.shared.deviceTag())
-            ].joined(separator: " ")
-            self.sendMessage(msg: connect) { error, _ in
-                guard error == nil else {
-                    return onMain {
-                        self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: nil, pauseSeconds: 0))
-                        done(error, nil)
-                    }
-                }
-
-                self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: gateway.public_key, pauseSeconds: 0))
-                done(nil, nil)
-            }
+//            guard self.config.hasLease() else {
+//                return done("syncGateway: No lease set", nil)
+//            }
+//
+//            let lease = self.config.lease()!
+//
+//            guard let gateway = self.config.gateway() else {
+//                return done("syncGateway: No gateway set", nil)
+//            }
+//
+//            let connect = [
+//                NetworkCommand.connect.rawValue,
+//                Config.shared.privateKey(),
+//                lease.gateway_id,
+//                gateway.ipv4,
+//                gateway.ipv6,
+//                String(gateway.port),
+//                lease.vip4,
+//                lease.vip6,
+//                self.getUserDnsIp(Config.shared.deviceTag())
+//            ].joined(separator: " ")
+//            self.sendMessage(msg: connect) { error, _ in
+//                guard error == nil else {
+//                    return onMain {
+//                        self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: nil, pauseSeconds: 0))
+//                        done(error, nil)
+//                    }
+//                }
+//
+//                self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: gateway.public_key, pauseSeconds: 0))
+//                done(nil, nil)
+//            }
         }
     }
 
@@ -454,31 +454,31 @@ class NetworkService {
     func createVpnProfile(done: @escaping Callback<Void>) {
         onBackground {
             // According to Apple docs we need to call loadFromPreferences at least once
-            self.log.v("createVpnProfile: Using new VPN profile")
-            let manager = NETunnelProviderManager()
-            manager.onDemandRules = [NEOnDemandRuleConnect()]
-            manager.loadFromPreferences { error in onBackground {
-                guard error == nil else {
-                    self.log.e("createVpnProfile: loadFromPreferences failed".cause(error))
-                    return onMain { done(error, nil) }
-                }
-
-                guard self.config.hasLease() else {
-                    return done("createVpnProfile: No lease set", nil)
-                }
-
-                let lease = self.config.lease()!
-
-                guard let gateway = self.config.gateway() else {
-                    return done("createVpnProfile: No gateway set", nil)
-                }
-
-                let deviceTag = self.config.deviceTag()
-
-                self.saveConfig(manager, lease, gateway, deviceTag) { error, _ in
-                    return onMain { done(error, nil) }
-                }
-            }}
+//            self.log.v("createVpnProfile: Using new VPN profile")
+//            let manager = NETunnelProviderManager()
+//            manager.onDemandRules = [NEOnDemandRuleConnect()]
+//            manager.loadFromPreferences { error in onBackground {
+//                guard error == nil else {
+//                    self.log.e("createVpnProfile: loadFromPreferences failed".cause(error))
+//                    return onMain { done(error, nil) }
+//                }
+//
+//                guard self.config.hasLease() else {
+//                    return done("createVpnProfile: No lease set", nil)
+//                }
+//
+//                let lease = self.config.lease()!
+//
+//                guard let gateway = self.config.gateway() else {
+//                    return done("createVpnProfile: No gateway set", nil)
+//                }
+//
+//                let deviceTag = self.config.deviceTag()
+//
+//                self.saveConfig(manager, lease, gateway, deviceTag) { error, _ in
+//                    return onMain { done(error, nil) }
+//                }
+//            }}
         }
     }
 

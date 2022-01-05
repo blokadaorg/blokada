@@ -12,15 +12,15 @@
 
 import Foundation
 
+// An interface to Rust-based Blocka Engine lib.
+// Currently only used for keypair generation.
 class EngineService {
 
-    static let shared = EngineService()
-
-    private init() {
-        // singleton
+    init() {
+        registerPanicHook()
     }
 
-    func panicHook() {
+    private func registerPanicHook() {
         engine_logger("info")
         panic_hook { msg in
             if let msg = msg {
@@ -29,12 +29,12 @@ class EngineService {
         }
     }
 
-    func generateKeypair() -> (String, String) {
-       let keypair = keypair_new()!
-       let privKey = String(cString: keypair.pointee.private_key)
-       let pubKey = String(cString: keypair.pointee.public_key)
-       keypair_free(keypair)
-       return (privKey, pubKey)
+    func generateKeypair() -> Keypair {
+        let keypair = keypair_new()!
+        let privKey = String(cString: keypair.pointee.private_key)
+        let pubKey = String(cString: keypair.pointee.public_key)
+        keypair_free(keypair)
+        return Keypair(privateKey: privKey, publicKey: pubKey)
    }
 
 }

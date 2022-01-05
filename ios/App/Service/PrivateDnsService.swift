@@ -18,7 +18,7 @@ import NetworkExtension
 // The UX for user is far from ideal, but the is no other way currently in iOS.
 protocol PrivateDnsService {
     func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Never>
-    func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Void, Error>
+    func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Ignored, Error>
 }
 
 class PrivateDnsServiceImpl: PrivateDnsService {
@@ -34,7 +34,7 @@ class PrivateDnsServiceImpl: PrivateDnsService {
         .eraseToAnyPublisher()
     }
 
-    func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Void, Error> {
+    func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Ignored, Error> {
         return getManager()
         // Configure the new profile
         .tryMap { it -> NEDNSSettingsManager in
@@ -46,18 +46,18 @@ class PrivateDnsServiceImpl: PrivateDnsService {
         }
         // Save it to the OS preferences
         .flatMap { it in
-            Future<Void, Error> { promise in
+            Future<Ignored, Error> { promise in
                 it.saveToPreferences { error in
                     guard error == nil else {
                         // TODO: An ugly way to check for this error..
                         if (error!.localizedDescription == "configuration is unchanged") {
-                            return promise(.success(()))
+                            return promise(.success(true))
                         }
 
                         return promise(.failure(error!))
                     }
 
-                    return promise(.success(()))
+                    return promise(.success(true))
                 }
             }
         }

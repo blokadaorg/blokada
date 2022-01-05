@@ -136,4 +136,31 @@ class BlockaApiCurrentUserService {
         .eraseToAnyPublisher()
     }
 
+    func getLeasesForCurrentUser() -> AnyPublisher<[Lease], Error> {
+        return accountRepo.accountIdHot.first()
+        .flatMap { it in self.client.getLeases(id: it) }
+        .eraseToAnyPublisher()
+    }
+
+    func deleteLeasesForCurrentUserAndDevice() -> AnyPublisher<Ignored, Error> {
+        return getLeasesForCurrentUser()
+        .tryMap { leases -> LeaseRequest in
+            if let it = leases.first(where: { $0.alias == self.envRepo.aliasForLease }) {
+                return LeaseRequest(
+                    account_id: it.account_id,
+                    public_key: it.public_key,
+                    gateway_id: it.gateway_id,
+                    alias: it.alias
+                )
+            } else {
+                throw "Found no lease for current alias"
+            }
+        }
+        .flatMap { request -> AnyPublisher<Ignored, Error> in
+            Logger.w("BlockaApi", "Deleting one active lease for current alias")
+            return self.client.deleteLease(request: request)
+        }
+        .eraseToAnyPublisher()
+    }
+
 }

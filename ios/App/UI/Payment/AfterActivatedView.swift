@@ -129,7 +129,7 @@ struct AfterActivatedView: View {
                                 }
                             }
 
-                            if self.homeVM.accountType != "plus" {
+                            if self.homeVM.accountType != .Plus {
                                 Button(action: {
                                 }) {
                                     HStack {

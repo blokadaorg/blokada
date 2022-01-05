@@ -17,7 +17,6 @@ class VpnService {
     static let shared = VpnService()
 
     private let network = NetworkService.shared
-    private let engine = EngineService.shared
     private let log = Logger("Vpn")
 
     private init() {
@@ -48,10 +47,6 @@ class VpnService {
 //            }
 //        }
 //    }
-
-    func generateKeypair() -> (String, String) {
-        return engine.generateKeypair()
-    }
 
     func turnOffEverything(done: @escaping Callback<Void>) {
         onBackground {

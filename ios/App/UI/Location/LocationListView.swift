@@ -93,10 +93,7 @@ struct LocationListView: View {
                                             Button(action: {
                                                 withAnimation {
                                                     self.contentVM.dismissSheet()
-                                                    self.vm.changeLocation(item, noPermissions: {
-                                                        // A callback trigerred when there is no VPN profile
-                                                        self.contentVM.showSheet(.AskForVpn)
-                                                    })
+                                                    self.vm.changeLocation(item)
                                                 }
                                             }) {
                                                 LocationView(vm: item)
