@@ -109,6 +109,8 @@
 "notification pause subtitle" = "Adblocking is disabled";
 "notification pause body" = "Please open the app to unpause Blokada.";
 
+"notification lease header" = "Blokada Plus is off";
+
 "notification update header" = "An update is available";
 "alert update body" = "Blokada %@ is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.";
 "update label updated" = "Updated!";

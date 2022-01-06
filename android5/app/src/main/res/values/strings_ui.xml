@@ -81,6 +81,7 @@
     <string name="notification_pause_header">Blokada is still paused</string>
     <string name="notification_pause_subtitle">Adblocking is disabled</string>
     <string name="notification_pause_body">Please open the app to unpause Blokada.</string>
+    <string name="notification_lease_header">Blokada Plus is off</string>
     <string name="notification_update_header">An update is available</string>
     <string name="alert_update_body">Blokada %s is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.</string>
     <string name="update_label_updated">Updated!</string>
