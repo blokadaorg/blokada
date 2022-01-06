@@ -78,7 +78,6 @@ class HomeViewModel: ObservableObject {
 
 
     @Published var timerSeconds: Int = 0
-    private var timerBackgroundTask: UIBackgroundTaskIdentifier = .invalid
 
     @Published var selectedGateway: Gateway? = nil
     @Published var selectedLease: Lease? = nil
@@ -282,15 +281,6 @@ class HomeViewModel: ObservableObject {
         } else {
             self.timerSeconds = 0
         }
-        endBackgroundTask()
-    }
-
-    func endBackgroundTask() {
-        if timerBackgroundTask != .invalid {
-        self.log.v("Background task ended")
-            UIApplication.shared.endBackgroundTask(timerBackgroundTask)
-            timerBackgroundTask = .invalid
-        }
     }
 
     func finishSetup() {
@@ -326,13 +316,6 @@ class HomeViewModel: ObservableObject {
 //        // We don't need the background task if we are in foreground
 //        if timerSeconds != 0 {
 //            self.endBackgroundTask()
-//        }
-    }
-//
-    func background() {
-//        self.log.v("App entered background")
-//        if timerSeconds != 0 {
-//            self.registerBackgroundTask()
 //        }
     }
 
@@ -495,14 +478,6 @@ class HomeViewModel: ObservableObject {
         } else {
             return self.error!
         }
-    }
-
-    func registerBackgroundTask() {
-        self.log.v("Registering background task")
-        timerBackgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
-            self?.stopTimer()
-        }
-        assert(timerBackgroundTask != .invalid)
     }
 
     private func shouldShowRateScreen() -> Bool {

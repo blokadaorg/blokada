@@ -11,6 +11,7 @@
 //
 
 import Foundation
+import UIKit
 import Combine
 
 class StageRepo {
@@ -45,9 +46,16 @@ class StageRepo {
         .eraseToAnyPublisher()
     }
 
-    private let bgQueue = DispatchQueue(label: "StageRepoBgQueue")
-
     fileprivate let writeStage = CurrentValueSubject<AppStage?, Never>(nil)
+
+    private var cancellables = Set<AnyCancellable>()
+    private let bgQueue = DispatchQueue(label: "StageRepoBgQueue")
+    private var bgTask: UIBackgroundTaskIdentifier = .invalid
+
+    init() {
+        onBackground_StartBgTask()
+        onForeground_StopBgTask()
+    }
 
     func onCreate() {
         writeStage.send(AppStage.Creating)
@@ -63,6 +71,37 @@ class StageRepo {
 
     func onDestroy() {
         writeStage.send(AppStage.Destroying)
+    }
+
+    // Asking OS for a bg task will give us ~30sec of execution time after going to bg.
+    // We do this in order to give the app a chance to finish any pending requests etc.
+    private func onBackground_StartBgTask() {
+        stageHot
+        .filter { it in it == AppStage.Background }
+        .sink(onValue: { _ in
+            self.bgTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+                // If asked by OS, end task
+                self?.endBackgroundTask()
+            }
+            //assert(bgTask != .invalid)
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onForeground_StopBgTask() {
+        stageHot
+        .filter { it in it == AppStage.Foreground }
+        .sink(onValue: { _ in
+            self.endBackgroundTask()
+        })
+        .store(in: &cancellables)
+    }
+
+    private func endBackgroundTask() {
+        if bgTask != .invalid {
+            UIApplication.shared.endBackgroundTask(bgTask)
+            bgTask = .invalid
+        }
     }
 
 }
