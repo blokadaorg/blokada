@@ -349,6 +349,9 @@
 		4ED41CC52478406800155C88 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC32478406800155C88 /* ActivityViewModel.swift */; };
 		4ED41CC72478458100155C88 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC62478458100155C88 /* SearchBar.swift */; };
 		4ED41CC82478458100155C88 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC62478458100155C88 /* SearchBar.swift */; };
+		4EE25DBD2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
+		4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
+		4EE25DC0278828B000F2F79B /* NetxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBF278828B000F2F79B /* NetxService.swift */; };
 		4EE5842C2726D79C0042D34F /* BlocklistConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */; };
 		4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */; };
 		4EECA5032418D142003A2541 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA5022418D142003A2541 /* AccountView.swift */; };
@@ -635,6 +638,8 @@
 		4ED41CC02478403E00155C88 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4ED41CC32478406800155C88 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		4ED41CC62478458100155C88 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxServiceIn.swift; sourceTree = "<group>"; };
+		4EE25DBF278828B000F2F79B /* NetxService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxService.swift; sourceTree = "<group>"; };
 		4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistConverter.swift; sourceTree = "<group>"; };
 		4EECA5022418D142003A2541 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		4EECA5042418E91D003A2541 /* ChangeAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAccountView.swift; sourceTree = "<group>"; };
@@ -757,6 +762,7 @@
 				4E42355B2451959F005A0779 /* LoggerSaver.swift */,
 				4E227F34243479F1004F4955 /* NetworkService.swift */,
 				4E971F702469801500809EA6 /* PackDownloader.swift */,
+				4EE25DBF278828B000F2F79B /* NetxService.swift */,
 			);
 			path = ServiceImpl;
 			sourceTree = "<group>";
@@ -808,6 +814,7 @@
 				4E5CACE0276B5E5300F6F237 /* TimerService.swift */,
 				4E5CACE3276B906F00F6F237 /* JobService.swift */,
 				4EB4347C27731353003C1242 /* DialogService.swift */,
+				4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1450,6 +1457,7 @@
 				4E36D5ED24589AFF00E339F2 /* BlokadaView.swift in Sources */,
 				4E971F82246C14A400809EA6 /* AppleTokenService.swift in Sources */,
 				4E53CCB9244DFEB1009B3CF0 /* PaymentModel.swift in Sources */,
+				4EE25DBD2788245500F2F79B /* NetxServiceIn.swift in Sources */,
 				4E2ECD0B245B2B14009040F1 /* TagView.swift in Sources */,
 				4E63194B2447436C00191C16 /* LeaseListView.swift in Sources */,
 				4E8AE1F32758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */,
@@ -1469,6 +1477,7 @@
 				4EEF1BE82457105E00734182 /* NotificationService.swift in Sources */,
 				4E423548244F9169005A0779 /* LeaseListViewModel.swift in Sources */,
 				4E45F4F3248EA5F4002D4DD6 /* LevelView.swift in Sources */,
+				4EE25DC0278828B000F2F79B /* NetxService.swift in Sources */,
 				4EA9A298278490F1009764F1 /* LeaseRepo.swift in Sources */,
 				4E971F6E246955F500809EA6 /* AskVpnProfileView.swift in Sources */,
 				47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */,
@@ -1632,6 +1641,7 @@
 				4EA9A29627845C42009764F1 /* GatewayRepo.swift in Sources */,
 				4E7FE9AA244DC28900851E9F /* StoreKitWrapper.swift in Sources */,
 				4E423549244F9169005A0779 /* LeaseListViewModel.swift in Sources */,
+				4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */,
 				4E0FB7122770960C00735E0D /* PackRepo.swift in Sources */,
 				4E42354F2450265C005A0779 /* HomeViewModel.swift in Sources */,
 				4E7FE9AC244DC28900851E9F /* LogView.swift in Sources */,

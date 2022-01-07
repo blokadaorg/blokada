@@ -21,6 +21,10 @@ class PlusRepo {
 
     private lazy var persistence = Services.persistenceLocal
     private lazy var dialog = Services.dialog
+    private lazy var http = Services.http
+
+    private lazy var accountHot = Repos.accountRepo.accountHot
+    private lazy var deviceTagHot = Repos.cloudRepo.deviceTagHot
 
     private lazy var leaseRepo = Repos.leaseRepo
     private lazy var gatewayRepo = Repos.gatewayRepo
@@ -153,13 +157,21 @@ class PlusRepo {
 
     private func onCurrentLeaseAndGateway_UpdateNetx() {
         // Emit only if lease and gateway are actually set
-        Publishers.CombineLatest(
+        Publishers.CombineLatest4(
             gatewayRepo.selectedHot.compactMap { it in it.gateway },
-            leaseRepo.currentHot.compactMap { it in it.lease }
+            leaseRepo.currentHot.compactMap { it in it.lease },
+            accountHot.map { it in it.keypair.privateKey }.removeDuplicates(),
+            deviceTagHot
         )
         .sink(onValue: { it in
-            let (gateway, lease) = it
-            self.netxRepo.setConfig(lease, gateway)
+            let (gateway, lease, privateKey, deviceTag) = it
+            let config = NetxConfig(
+                lease: lease, gateway: gateway,
+                deviceTag: deviceTag,
+                userAgent: self.http.userAgent(),
+                privateKey: privateKey
+            )
+            self.netxRepo.setConfig(config)
         })
         .store(in: &cancellables)
     }

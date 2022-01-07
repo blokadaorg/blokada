@@ -23,22 +23,6 @@ class VpnService {
         // Singleton
     }
 
-    func applyGatewayFromConfig(done: @escaping Callback<String>) {
-        onBackground {
-            self.network.queryStatus { error, status in
-                self.network.syncConfig() { _, _ in
-                    if status?.active ?? false {
-                        self.log.v("change gateway, change gateway")
-                        // Uses the shared Config object to read current gateway and lease
-                        self.network.applyGateway(done: done)
-                    } else {
-                        self.log.v("change gateway, start tunnel")
-                        self.network.startTunnel(done: { error, _ in done(error, "") })
-                    }
-                }
-            }
-        }
-    }
 
 //    func disconnect(done: @escaping Callback<String>) {
 //        onBackground {
@@ -51,42 +35,42 @@ class VpnService {
     func turnOffEverything(done: @escaping Callback<Void>) {
         onBackground {
            self.log.v("Turning off everything")
-            self.network.queryStatus { error, status in onMain {
-                   guard let status = status else {
-                       return done(error, nil)
-                   }
-
-                if status.active {
-                    self.network.stopTunnel { error, _ in
-//                        self.network.updateConfig(lease: nil, gateway: nil) { error, _ in
-                            onMain {
-                                done(error, nil)
-                            }
-//                        }
-                    }
-                } else {
-                    done(nil, nil)
-                }
-            }}
+//            self.network.queryStatus { error, status in onMain {
+//                   guard let status = status else {
+//                       return done(error, nil)
+//                   }
+//
+//                if status.active {
+//                    self.network.stopTunnel { error, _ in
+////                        self.network.updateConfig(lease: nil, gateway: nil) { error, _ in
+//                            onMain {
+//                                done(error, nil)
+//                            }
+////                        }
+//                    }
+//                } else {
+//                    done(nil, nil)
+//                }
+//            }}
        }
     }
 
     func restartTunnel(done: @escaping Callback<Void>) {
        onBackground {
-           self.network.queryStatus { error, status in
-            //self.network.updateConfig(lease: Config.shared.lease(), gateway: Config.shared.gateway()) { _, _ in
-                    if status?.active ?? false {
-                        self.log.v("Restarting tunnel")
-                        self.network.stopTunnel { error, _ in
-                            if error == nil {
-                                self.network.startTunnel(done: done)
-                            } else {
-                                self.log.e("Failed restarting tunnel".cause(error))
-                            }
-                        }
-                    }
-                //}
-            }
+//           self.network.queryStatus { error, status in
+//            //self.network.updateConfig(lease: Config.shared.lease(), gateway: Config.shared.gateway()) { _, _ in
+//                    if status?.active ?? false {
+//                        self.log.v("Restarting tunnel")
+//                        self.network.stopTunnel { error, _ in
+//                            if error == nil {
+//                                self.network.startTunnel(done: done)
+//                            } else {
+//                                self.log.e("Failed restarting tunnel".cause(error))
+//                            }
+//                        }
+//                    }
+//                //}
+//            }
        }
    }
 }

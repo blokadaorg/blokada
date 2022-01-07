@@ -45,9 +45,9 @@ struct AskVpnProfileView: View {
                 VStack {
                     Button(action: {
                         self.contentVM.dismissSheet()
-                        self.network.createVpnProfile { _, _ in
-                            self.homeVM.switchVpn(activate: true)
-                        }
+//                        self.network.createVpnProfile { _, _ in
+//                            self.homeVM.switchVpn(activate: true)
+//                        }
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))

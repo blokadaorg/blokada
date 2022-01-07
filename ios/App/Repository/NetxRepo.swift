@@ -16,6 +16,9 @@ import Combine
 struct NetxConfig {
     let lease: Lease
     let gateway: Gateway
+    let deviceTag: String
+    let userAgent: String
+    let privateKey: String
 }
 
 extension NetxConfig: Equatable {
@@ -33,7 +36,14 @@ class NetxRepo {
         writeNetxState.compactMap { $0 }.eraseToAnyPublisher()
     }
 
+    var permsHot: AnyPublisher<Granted, Never> {
+        writePerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
+    }
+
+    private lazy var service = Services.netx
+
     fileprivate let writeNetxState = CurrentValueSubject<NetworkStatus?, Never>(nil)
+    fileprivate let writePerms = CurrentValueSubject<Granted?, Never>(nil)
 
     fileprivate let setConfigT = Tasker<NetxConfig, Ignored>("setConfigT")
     fileprivate let startVpnT = SimpleTasker<Ignored>("startVpn")
@@ -41,10 +51,6 @@ class NetxRepo {
     fileprivate let pauseVpnT = Tasker<Date, Ignored>("pauseVpn")
     fileprivate let createVpnProfileT = SimpleTasker<Ignored>("createVpnProfile")
 
-    // Just for mocking?
-    private var config: NetxConfig? = nil
-
-    private let bgQueue = DispatchQueue(label: "NetxRepoBgQueue")
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -52,11 +58,13 @@ class NetxRepo {
         onStartVpn()
         onStopVpn()
         onPauseVpn()
-        readNetxStateOnStart()
+        onCreateVpnProfile()
+        onNetxState_PropagateFromService()
+        onNetxPerms_PropagateFromService()
     }
 
-    func setConfig(_ lease: Lease, _ gateway: Gateway) -> AnyPublisher<Ignored, Error> {
-        return setConfigT.send(NetxConfig(lease: lease, gateway: gateway))
+    func setConfig(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
+        return setConfigT.send(config)
     }
 
     func startVpn() -> AnyPublisher<Ignored, Error> {
@@ -71,54 +79,50 @@ class NetxRepo {
         return pauseVpnT.send(until)
     }
 
-    func createVpnProfile() {
-        
+    func createVpnProfile() -> AnyPublisher<Ignored, Error> {
+        return createVpnProfileT.send()
     }
 
     private func onSetConfig() {
-        setConfigT.setTask { config in Just(config)
-            .tryMap { it in self.config = it }
-            .map { _ in true }
-            .eraseToAnyPublisher()
+        setConfigT.setTask { config in
+            self.service.setConfig(config)
         }
     }
 
     private func onStartVpn() {
-        startVpnT.setTask { _ in Just(true)
-            .delay(for: 3, scheduler: self.bgQueue)
-            .map { _ in self.config?.gateway.public_key }
-            .map { gatewayId in self.writeNetxState.send(NetworkStatus(
-                active: true, inProgress: false,
-                gatewayId: gatewayId, pauseSeconds: 0
-            )) }
-            .tryMap { _ in true }
-            .eraseToAnyPublisher()
+        startVpnT.setTask { _ in
+            self.service.startVpn()
         }
     }
 
     private func onStopVpn() {
-        stopVpnT.setTask { _ in Just(true)
-            .delay(for: 2, scheduler: self.bgQueue)
-            .map { _ in self.writeNetxState.send(NetworkStatus.disconnected()) }
-            .tryMap { _ in true }
-            .eraseToAnyPublisher()
+        stopVpnT.setTask { _ in
+            self.service.stopVpn()
         }
     }
 
     private func onPauseVpn() {
-        pauseVpnT.setTask { _ in Just(true)
-            .delay(for: 2, scheduler: self.bgQueue)
-            .map { _ in self.writeNetxState.send(NetworkStatus(
-                active: false, inProgress: false,
-                gatewayId: nil, pauseSeconds: 300
-            )) }
-            .tryMap { _ in true }
-            .eraseToAnyPublisher()
+        pauseVpnT.setTask { until in
+            self.service.pauseVpn(until: until)
         }
     }
 
-    private func readNetxStateOnStart() {
-        // TODO: tot
-        writeNetxState.send(NetworkStatus.disconnected())
+    private func onCreateVpnProfile() {
+        createVpnProfileT.setTask { _ in
+            self.service.createVpnProfile()
+        }
     }
+
+    private func onNetxState_PropagateFromService() {
+        service.getStatePublisher()
+        .sink(onValue: { it in self.writeNetxState.send(it) })
+        .store(in: &cancellables)
+    }
+
+    private func onNetxPerms_PropagateFromService() {
+        service.getPermsPublisher()
+        .sink(onValue: { it in self.writePerms.send(it) })
+        .store(in: &cancellables)
+    }
+
 }

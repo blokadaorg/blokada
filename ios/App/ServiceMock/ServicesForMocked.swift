@@ -41,6 +41,7 @@ class ServicesSingleton {
 
     lazy var dialog = DialogService()
 
+    lazy var netx = NetxServiceMock()
 }
 
 func resetServices() {

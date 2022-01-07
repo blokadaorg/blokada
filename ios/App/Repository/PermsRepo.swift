@@ -34,6 +34,7 @@ class PermsRepo {
     private lazy var systemNav = Services.systemNav
 
     private lazy var sheetRepo = Repos.sheetRepo
+    private lazy var netxRepo = Repos.netxRepo
     private lazy var dnsProfileActivatedHot = Repos.cloudRepo.dnsProfileActivatedHot
     private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
     private lazy var successfulPurchasesHot = Repos.paymentRepo.successfulPurchasesHot
@@ -69,9 +70,7 @@ class PermsRepo {
     }
 
     func askVpnProfilePerms() -> AnyPublisher<Granted, Error> {
-        return Just(true)
-        .setFailureType(to: Error.self)
-        .eraseToAnyPublisher()
+        return netxRepo.createVpnProfile()
     }
 
     func askNotificationPerms() -> AnyPublisher<Granted, Error> {
@@ -151,8 +150,9 @@ class PermsRepo {
     }
 
     private func onVpnPerms() {
-        // TODO: vpn perms
-        self.writeVpnProfilePerms.send(true)
+        netxRepo.permsHot
+        .sink(onValue: { it in self.writeVpnProfilePerms.send(it) })
+        .store(in: &cancellables)
     }
 
     // Will display Activated sheet on successful purchase, if perms are not sufficient.
