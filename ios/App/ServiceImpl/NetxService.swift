@@ -29,6 +29,7 @@ class NetxService: NetxServiceIn {
 
     private var netxStateObserver = Atomic<NSObjectProtocol?>(nil)
     private var cancellables = Set<AnyCancellable>()
+    private let bgQueue = DispatchQueue(label: "NetxServiceBgQueue")
 
     init() {
         // Emit initial state
@@ -85,7 +86,7 @@ class NetxService: NetxServiceIn {
         .tryCatch { error in
             // A delayed retry (total 3 attemps that wait up to 5 sec)
             return self.startVpnInternal()
-            .retry(2)
+            .retry(1)
         }
         .eraseToAnyPublisher()
     }
@@ -391,11 +392,19 @@ class NetxService: NetxServiceIn {
                 gatewayId: gatewayId, pauseSeconds: 0
             )
         }
-        // Get the pause information from the NETX itself
+        // Get the pause information from the NETX itself (ignore error)
         .flatMap { status in
             Publishers.CombineLatest(
                 Just(status).setFailureType(to: Error.self).eraseToAnyPublisher(),
                 self.sendNetxMessage(msg: "report")
+                // First retry, maybe we queried too soon
+                .tryCatch { err in
+                    self.sendNetxMessage(msg: "report")
+                    .delay(for: 3.0, scheduler: self.bgQueue)
+                    .retry(1)
+                }
+                // Then ignore error, it's not the crucial part of the query
+                .tryCatch { err in Just("0") }
             )
             .eraseToAnyPublisher()
         }
