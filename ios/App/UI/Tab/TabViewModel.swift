@@ -43,11 +43,11 @@ class TabViewModel : ObservableObject {
     var onTabChanged = { (tab: String) in }
 
     init() {
-        SharedActionsService.shared.newMessage = {
-            if self.selection != "inbox" {
-                self.setInboxUnseen()
-            }
-        }
+//        SharedActionsService.shared.newMessage = {
+//            if self.selection != "inbox" {
+//                self.setInboxUnseen()
+//            }
+//        }
     }
 
     func load() {

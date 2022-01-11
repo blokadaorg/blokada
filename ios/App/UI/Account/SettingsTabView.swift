@@ -54,25 +54,25 @@ struct SettingsTabView: View {
                         }
                     }
 
-                    NavigationLink(destination: InboxView(), tag: "inbox", selection: self.$tabVM.selection) {
-                        HStack {
-                         Image(systemName: "tray")
-                             .imageScale(.large)
-                             .foregroundColor(.secondary)
-                             .frame(width: 32, height: 32)
-
-                            Text(L10n.accountActionInbox)
-                                .padding(.leading, 6)
-                                .lineLimit(1)
-                        }
-
-                        Spacer()
-
-                       if self.tabVM.hasInboxBadge() {
-                            BadgeView(number: self.tabVM.inboxBadge)
-                                .padding(.trailing, 8)
-                       }
-                    }
+//                    NavigationLink(destination: InboxView(), tag: "inbox", selection: self.$tabVM.selection) {
+//                        HStack {
+//                         Image(systemName: "tray")
+//                             .imageScale(.large)
+//                             .foregroundColor(.secondary)
+//                             .frame(width: 32, height: 32)
+//
+//                            Text(L10n.accountActionInbox)
+//                                .padding(.leading, 6)
+//                                .lineLimit(1)
+//                        }
+//
+//                        Spacer()
+//
+//                       if self.tabVM.hasInboxBadge() {
+//                            BadgeView(number: self.tabVM.inboxBadge)
+//                                .padding(.trailing, 8)
+//                       }
+//                    }
 
                     if (self.vm.active && self.vm.type == .Plus ) {
                         NavigationLink(destination: LeaseListView(), tag: "leases", selection: self.$tabVM.selection) {
@@ -134,7 +134,7 @@ struct SettingsTabView: View {
                         }
 
                         Button(action: {
-                            Links.openInBrowser(Links.credits())
+                            self.contentVM.openLink(Link.Credits)
                         }) {
                             HStack {
                              Image(systemName: Image.fAbout)

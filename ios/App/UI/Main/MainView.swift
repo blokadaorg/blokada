@@ -55,10 +55,10 @@ struct MainView: View {
                                 .actionSheet(isPresented: $showHelpActions) {
                                     ActionSheet(title: Text(L10n.accountSupportActionHowHelp), buttons: [
                                         .default(Text(L10n.accountSupportActionKb)) {
-                                            Links.openInBrowser(Links.knowledgeBase())
+                                            self.contentVM.openLink(Link.KnowledgeBase)
                                         },
                                         .default(Text(L10n.universalActionContactUs)) {
-                                            Links.openInBrowser(Links.support())
+                                            self.contentVM.openLink(Link.Support)
                                         },
                                         .default(Text(L10n.universalActionShowLog)) {
                                             self.contentVM.showSheet(.ShowLog)

@@ -65,7 +65,7 @@ struct EncryptionView: View {
                     Spacer()
 
                     Button(action: {
-                        Links.openInBrowser(Links.whatIsDns())
+                        self.contentVM.openLink(Link.WhatIsDns)
                     }) {
                         Image(systemName: Image.fInfo)
                             .imageScale(.large)
@@ -79,7 +79,7 @@ struct EncryptionView: View {
                     Spacer()
 
                     Button(action: {
-                        Links.openInBrowser(Links.whyVpn())
+                        self.contentVM.openLink(Link.WhyVpn)
                     }) {
                         Image(systemName: Image.fInfo)
                             .imageScale(.large)

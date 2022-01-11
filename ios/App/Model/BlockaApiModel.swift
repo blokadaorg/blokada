@@ -128,9 +128,6 @@ struct Lease: Codable, Identifiable {
         return alias ?? String(public_key.prefix(5))
     }
 
-    func isMe() -> Bool {
-        return public_key == Config.shared.publicKey()
-    }
 }
 
 extension Lease: Equatable {

@@ -46,7 +46,7 @@ struct PacksView: View {
                             ZStack {
                                 PackView(packsVM: self.vm, vm: PackDetailViewModel(pack: pack))
                             }
-                            .background(NavigationLink("", destination: PackDetailView(packsVM: self.vm, vm: PackDetailViewModel(pack: pack)), tag: pack.id, selection: self.$tabVM.selection).opacity(0))
+                            .background(NavigationLink("", destination: PackDetailView(vm: PackDetailViewModel(pack: pack)), tag: pack.id, selection: self.$tabVM.selection).opacity(0))
                         }
 
                     }

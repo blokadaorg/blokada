@@ -43,9 +43,9 @@ class PaymentGatewayViewModel: ObservableObject {
         ]
     }
 
-    var accountActive: Bool {
-        return Config.shared.accountActive()
-    }
+//    var accountActive: Bool {
+//        return Config.shared.accountActive()
+//    }
 
     func fetchOptions() {
         error = nil
@@ -105,18 +105,6 @@ class PaymentGatewayViewModel: ObservableObject {
             )
             .store(in: &cancellables) // TODO: should hold for cold publishers?
         }
-    }
-
-    func showTerms() {
-        Links.openInBrowser(Links.tos())
-    }
-
-    func showPrivacy() {
-        Links.openInBrowser(Links.privacy())
-    }
-
-    func showSupport() {
-        Links.openInBrowser(Links.support())
     }
 
     private func onProductsChanged() {

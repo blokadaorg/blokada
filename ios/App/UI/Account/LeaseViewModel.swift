@@ -15,12 +15,7 @@ import Foundation
 struct LeaseViewModel {
 
     let lease: Lease
-
-    private let log = Logger("Account")
-
-    var isMe: Bool {
-        return lease.isMe()
-    }
+    let isMe: Bool
 
     var name: String {
         return lease.niceName()
@@ -29,10 +24,12 @@ struct LeaseViewModel {
     init(mocked: String) {
         lease = Lease(account_id: mocked, public_key: "", gateway_id: "",
                       expires: "", alias: mocked, vip4: "", vip6: "")
+        isMe = false
     }
 
-    init(_ lease: Lease) {
+    init(_ lease: Lease, isMe: Bool) {
         self.lease = lease
+        self.isMe = isMe
     }
 }
 

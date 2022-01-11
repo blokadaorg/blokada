@@ -14,8 +14,9 @@ import SwiftUI
 
 struct PackDetailView: View {
 
-    @ObservedObject var packsVM: PacksViewModel
     @ObservedObject var vm: PackDetailViewModel
+    @ObservedObject var packsVM = ViewModels.packs
+    @ObservedObject var contentVM = ViewModels.content
 
     var body: some View {
         ScrollView {
@@ -55,8 +56,8 @@ struct PackDetailView: View {
                 VStack(alignment: .leading) {
                     Button(action: {
                         withAnimation {
-                           self.vm.openCreditUrl()
-                      }
+                            self.contentVM.openLink(self.vm.pack.meta.creditUrl)
+                        }
                     }) {
                         HStack {
                             VStack(alignment: .leading) {
@@ -86,12 +87,12 @@ struct PackDetailView_Previews: PreviewProvider {
     static var previews: some View {
 
         return Group {
-            PackDetailView(packsVM: PacksViewModel(), vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: ["ads", "trackers", "regional", "porn", "something"],
+            PackDetailView(vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: ["ads", "trackers", "regional", "porn", "something"],
                 title: "Energized", slugline: "This is a short slug", description: "The best list on the market",
                 creditName: "Energized Team", configs: ["Spark", "Blue", "Full"])
                 .changeStatus(installed: true, enabledConfig: ["Blue"])
             ))
-            PackDetailView(packsVM: PacksViewModel(), vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: [],
+            PackDetailView(vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: [],
                 title: "Energized", description: "The best list on the market",
                 creditName: "Energized Team")
                 .changeStatus(installed: false, installing: true)

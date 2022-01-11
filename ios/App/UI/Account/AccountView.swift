@@ -65,7 +65,7 @@ struct AccountView: View {
 
                         if self.vm.active {
                             Button(action: {
-                                self.vm.openManageSubscriptions()
+                                self.contentVM.openLink(Link.ManageSubscriptions)
                             }) {
                                 Text(L10n.accountActionManageSubscription)
                             }
@@ -84,7 +84,7 @@ struct AccountView: View {
                         Spacer()
 
                         Button(action: {
-                            Links.openInBrowser(Links.whyVpn())
+                            self.contentVM.openLink(Link.WhyVpn)
                         }) {
                             Image(systemName: Image.fInfo)
                                 .imageScale(.large)

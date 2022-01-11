@@ -59,16 +59,4 @@ class PackDetailViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-    func openCreditUrl() {
-        if pack.meta.creditUrl.isEmpty {
-            self.log.w("No credit url")
-            return
-        }
-
-        if let url = URL(string: pack.meta.creditUrl) {
-            if let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-                Links.openInBrowser(components)
-            }
-        }
-    }
 }

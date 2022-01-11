@@ -81,7 +81,7 @@ class InboxService {
                     self.messages.append(Message.fromBlokada(msg))
                     self.onUpdated(self.messages, !(msg == messages.last ?? "") )
                     InboxHistory(messages: self.messages, version: self.version).persist()
-                    SharedActionsService.shared.newMessage()
+//                    SharedActionsService.shared.newMessage()
                 }
 
                 // Give time to read

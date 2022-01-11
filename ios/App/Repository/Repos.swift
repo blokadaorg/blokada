@@ -34,6 +34,7 @@ class RepositoriesSingleton {
     lazy var leaseRepo = LeaseRepo()
     lazy var netxRepo = NetxRepo()
     lazy var plusRepo = PlusRepo()
+    lazy var linkRepo = LinkRepo()
 
 }
 

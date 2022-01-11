@@ -20,23 +20,7 @@ struct PaymentGatewayView: View {
     @State var showPrivacySheet = false
     @State var showPlusFeaturesSheet = false
 
-    //private let networkDns = NetworkDnsService.shared
-
     var body: some View {
-        if self.vm.accountActive {
-            self.contentVM.dismissSheet()
-//            self.networkDns.isBlokadaNetworkDnsEnabled { error, dnsEnabled in
-//                guard dnsEnabled == true else {
-//                    // If not, show the prompt
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1), execute: {
-//                        //self.activeSheet = .activated
-//                        self.activeSheet = .dnsProfile
-//                    })
-//                    return
-//                }
-//            }
-        }
-
         return ZStack(alignment: .topTrailing) {
             ScrollView {
                 ZStack {
@@ -147,13 +131,13 @@ struct PaymentGatewayView: View {
                                     .actionSheet(isPresented: self.$showPrivacySheet) {
                                         ActionSheet(title: Text(L10n.paymentActionTermsAndPrivacy), buttons: [
                                             .default(Text(L10n.paymentActionTerms)) {
-                                                self.vm.showTerms()
+                                                self.contentVM.openLink(Link.Tos)
                                             },
                                             .default(Text(L10n.paymentActionPolicy)) {
-                                                self.vm.showPrivacy()
+                                                self.contentVM.openLink(Link.Privacy)
                                             },
                                             .default(Text(L10n.universalActionSupport)) {
-                                                self.vm.showSupport()
+                                                self.contentVM.openLink(Link.Support)
                                             },
                                             .cancel()
                                         ])
@@ -197,9 +181,6 @@ struct PaymentGatewayView: View {
                                 }
                                 Text(L10n.universalStatusProcessing)
                                     .multilineTextAlignment(.center)
-                            } else if self.vm.accountActive {
-                                Text(L10n.errorPaymentCanceled)
-                                    .multilineTextAlignment(.center)
                             } else if self.vm.error != nil {
                                 Text(errorDescriptions[CommonError.paymentFailed]!)
                                     .multilineTextAlignment(.center)
@@ -209,7 +190,7 @@ struct PaymentGatewayView: View {
                         Spacer()
                     }
                     .background(Color.cPrimaryBackground)
-                    .opacity(self.vm.working || self.vm.error != nil || self.vm.options.isEmpty || self.vm.accountActive ? 1.0 : 0.0)
+                    .opacity(self.vm.working || self.vm.error != nil || self.vm.options.isEmpty ? 1.0 : 0.0)
                     .transition(.opacity)
                     .animation(
                         Animation.easeIn(duration: 0.3).repeatCount(1)

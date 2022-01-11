@@ -16,6 +16,7 @@ import Combine
 class ContentViewModel: ObservableObject {
 
     private let sheetRepo = Repos.sheetRepo
+    private let linkRepo = Repos.linkRepo
     private var cancellables = Set<AnyCancellable>()
 
     @Published var activeSheet: ActiveSheet? = nil
@@ -34,6 +35,14 @@ class ContentViewModel: ObservableObject {
 
     func onDismissed() {
         sheetRepo.onDismissed()
+    }
+
+    func openLink(_ link: Link) {
+        linkRepo.openLink(link)
+    }
+
+    func openLink(_ link: String) {
+        linkRepo.openLink(link)
     }
 
     private func onSheetChanged() {

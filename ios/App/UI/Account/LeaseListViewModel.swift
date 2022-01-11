@@ -16,6 +16,7 @@ import Combine
 class LeaseListViewModel: ObservableObject {
 
     private let leaseRepo = Repos.leaseRepo
+    private let accountRepo = Repos.accountRepo
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -26,11 +27,24 @@ class LeaseListViewModel: ObservableObject {
     }
 
     private func onLeasesChanged() {
-        leaseRepo.leasesHot
+        // Get latest leases and account info
+        Publishers.CombineLatest(
+            leaseRepo.leasesHot, accountRepo.accountHot
+        )
+        // Map each lease to isMe flag (if lease is for current device)
+        .map { it -> Array<(Lease, Bool)> in
+            let (leases, account) = it
+            return leases.map { (
+                $0, // Lease
+                $0.public_key == account.keypair.publicKey // isMe
+            ) }
+        }
         .receive(on: RunLoop.main)
+        // Put all this to views
         .sink(onValue: { it in
-            self.leases = it.map { lease in
-                LeaseViewModel(lease)
+            self.leases = it.map { leaseAndMeFlag in
+                let (lease, isMe) = leaseAndMeFlag
+                return LeaseViewModel(lease, isMe: isMe)
             }
         })
         .store(in: &cancellables)

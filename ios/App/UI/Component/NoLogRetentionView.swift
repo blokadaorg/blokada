@@ -15,6 +15,7 @@ import SwiftUI
 struct NoLogRetentionView: View {
 
     @ObservedObject var vm = ViewModels.activity
+    @ObservedObject var contentVM = ViewModels.content
 
     var body: some View {
         VStack() {
@@ -37,7 +38,7 @@ struct NoLogRetentionView: View {
 
                 ZStack {
                     Button(action: {
-                        Links.openInBrowser(Links.cloudPrivacy())
+                        self.contentVM.openLink(Link.CloudPrivacy)
                     }) {
                         Text(L10n.activityRetentionPolicy)
                             .font(.footnote)

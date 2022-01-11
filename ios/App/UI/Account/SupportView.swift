@@ -30,7 +30,7 @@ struct SupportView: View {
                 VStack {
                     Button(action: {
                         self.contentVM.dismissSheet()
-                        Links.openInBrowser(Links.knowledgeBase())
+                        self.contentVM.openLink(Link.KnowledgeBase)
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
@@ -43,7 +43,7 @@ struct SupportView: View {
 
                     Button(action: {
                         self.contentVM.dismissSheet()
-                        Links.openInBrowser(Links.support())
+                        self.contentVM.openLink(Link.Support)
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))

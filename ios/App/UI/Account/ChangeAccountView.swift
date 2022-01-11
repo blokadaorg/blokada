@@ -43,7 +43,7 @@ struct ChangeAccountView: View {
                         Spacer()
 
                         Button(action: {
-                            Links.openInBrowser(Links.howToRestore())
+                            self.contentVM.openLink(Link.HowToRestore)
                         }) {
                             Image(systemName: Image.fInfo)
                                 .imageScale(.large)
@@ -52,7 +52,7 @@ struct ChangeAccountView: View {
                         }
                     }
                     Button(action: {
-                        Links.openInBrowser(Links.support())
+                        self.contentVM.openLink(Link.Support)
                     }) {
                         Text(L10n.universalActionContactUs)
                     }

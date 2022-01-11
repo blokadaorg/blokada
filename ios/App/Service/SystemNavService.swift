@@ -23,4 +23,12 @@ class SystemNavService {
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
     }
 
+    func openInBrowser(_ link: URLComponents) {
+        if let url = link.url {
+            UIApplication.shared.open(url, options: [:])
+        } else {
+            Logger.e("SystemNav", "Could not open link: \(link)")
+        }
+    }
+
 }

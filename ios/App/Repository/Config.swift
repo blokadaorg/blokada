@@ -34,40 +34,7 @@ class Config {
     private let _keypair = Atomic<Keypair?>(nil)
     private let _lease = Atomic<Lease?>(nil)
 
-    /**
-           Thread safe getters
-    */
-
-    func accountId() -> AccountId {
-        if let id = _account.value?.id, !id.isEmpty {
-            return id
-        } else {
-            log.e("Accessing accountId before account is set")
-            return ""
-        }
-    }
-
-    func accountActive() -> Bool {
-        return _account.value?.isActive() ?? false
-    }
-
-    func privateKey() -> String {
-        if let key = localStorage.string(forKey: "privateKey") {
-            return key
-        } else {
-            log.e("Accessing privateKey before account is set")
-            return ""
-        }
-    }
-
-    func publicKey() -> String {
-        if let key = localStorage.string(forKey: "publicKey") {
-            return key
-        } else {
-            log.e("Accessing publicKey before account is set")
-            return ""
-        }
-    }
+  
 
     func rateAppShown() -> Bool {
         return iCloud.bool(forKey: "rateAppShown")
@@ -77,31 +44,12 @@ class Config {
         return localStorage.bool(forKey: "notFirstRun")
     }
 
-    func deviceTag() -> String {
-        return "TODO-device-tag"
-    }
-
-    func networkExtensionVersion() -> Int {
-        return localStorage.integer(forKey: "networkExtensionVersion")
-    }
 
     func expireSeen() -> Bool {
         return localStorage.bool(forKey: "expireSeen")
     }
 
-    /**
-            Thread safe setters
-     */
-
-    func clearLease() {
-        _lease.value = nil
-        localStorage.removeObject(forKey: "lease")
-        //_gateway.value = nil
-        localStorage.removeObject(forKey: "gateway")
-        //setVpnEnabled(false)
-
-    }
-
+   
     func markRateAppShown() {
         // Persist in the cloud to not bother same user again
         iCloud.set(true, forKey: "rateAppShown")
@@ -110,14 +58,6 @@ class Config {
 
     func markFirstRun() {
         localStorage.set(true, forKey: "notFirstRun")
-    }
-
-    func setLogRetention(retention: String) {
-        localStorage.set(retention, forKey: "logRetention")
-    }
-
-    func markNetworkExtensionVersion() {
-        localStorage.set(6, forKey: "networkExtensionVersion")
     }
 
     func markExpireSeen(_ can: Bool) {

@@ -67,10 +67,6 @@ class AccountViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-    func openManageSubscriptions() {
-        Links.openInBrowser(Links.manageSubscriptions())
-    }
-
     func copyAccountIdToClipboard() {
         UIPasteboard.general.string = self.id
     }

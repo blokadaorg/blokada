@@ -34,7 +34,7 @@ struct AskVpnProfileView: View {
                     .padding([.top, .bottom])
 
                 Button(action: {
-                    Links.openInBrowser(Links.whyVpnPermissions())
+                    self.contentVM.openLink(Link.WhyVpnPermissions)
                 }) {
                     Text(L10n.universalActionLearnMore)
                         .padding()
