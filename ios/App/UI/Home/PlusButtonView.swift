@@ -30,6 +30,8 @@ struct PlusButtonView: View {
                         self.contentVM.showSheet(.Payment)
                     } else if self.vm.accountType == .Cloud {
                         Links.openInBrowser(Links.manageSubscriptions())
+                    } else if !self.vm.vpnPermsGranted {
+                        self.contentVM.showSheet(.Activated)
                     } else {
                         self.contentVM.showSheet(.Location)
                     }

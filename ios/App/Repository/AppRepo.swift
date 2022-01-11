@@ -164,7 +164,7 @@ class AppRepo {
 
     private func onCurrentlyOngoing_ChangeWorkingState() {
         let tasksThatMarkWorkingState = Set([
-            "refreshAccount", "restoreAccount",
+            "accountInit", "refreshAccount", "restoreAccount",
             "pauseApp", "unpauseApp",
             "newPlus", "clearPlus", "switchPlusOn", "switchPlusOff"
         ])

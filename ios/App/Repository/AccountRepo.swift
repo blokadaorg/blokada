@@ -31,6 +31,7 @@ class AccountRepo {
     fileprivate let writeAccount = CurrentValueSubject<AccountWithKeypair?, Never>(nil)
     fileprivate let writeAccountType = CurrentValueSubject<AccountType?, Never>(nil)
 
+    fileprivate let accountInitT = Tasker<Ignored, Bool>("accountInit")
     fileprivate let proposeAccountT = Tasker<Account, Bool>("proposeAccount")
     fileprivate let refreshAccountT = Tasker<AccountId, Account>("refreshAccount", debounce: 0.0)
     fileprivate let restoreAccountT = Tasker<AccountId, Account>("restoreAccount")
@@ -50,11 +51,13 @@ class AccountRepo {
     private let encoder = blockaEncoder
 
     private var cancellables = Set<AnyCancellable>()
+    private let bgQueue = DispatchQueue(label: "AccountRepoBgQueue")
     private let lastAccountRequestTimestamp = Atomic<Double>(0)
 
     private let ACCOUNT_REFRESH_SEC: Double = 10 * 60 // Same as on Android
 
     init() {
+        onAccountInit()
         onProposeAccountRequests()
         onRefreshAccountRequests()
         onRestoreAccountRequests()
@@ -63,7 +66,7 @@ class AccountRepo {
         onAccountChanged_EmitAccountType()
         onForeground_RefreshAccountPeriodically()
         onSettingsTab_RefreshAccount()
-        loadFromPersistenceOrCreateAccountOnStart()
+        accountInitT.send(true)
     }
     
     // Gets account from API based on user entered account ID. Does sanitization.
@@ -76,9 +79,35 @@ class AccountRepo {
         return proposeAccountT.send(newAccount)
     }
 
-    private func loadFromPersistenceOrCreateAccountOnStart() {
-        //self.processingRepo.notify(self, ongoing: true)
-        Publishers.CombineLatest(
+    private func onAccountInit() {
+        accountInitT.setTask { _ in
+            self.loadFromPersistenceOrCreateAccount()
+            // A delayed retry (total 3 attemps spread 1-5 sec at random)
+            .tryCatch { error -> AnyPublisher<AccountWithKeypair, Error> in
+                return self.loadFromPersistenceOrCreateAccount()
+                .delay(for: DispatchQueue.SchedulerTimeType.Stride(integerLiteral: Int.random(in: 1..<5)), scheduler: self.bgQueue)
+                .retry(2)
+                .eraseToAnyPublisher()
+            }
+            .map { it in self.writeAccount.send(it) }
+            .map { _ in true }
+            // Show dialog and rethrow error (user have to retry)
+            .tryCatch { err in
+                self.dialog.showAlert(
+                    message: L10n.errorCreatingAccount,
+                    header: L10n.alertErrorHeader,
+                    okText: L10n.universalActionContinue,
+                    okAction: { self.accountInitT.send(true) }
+                )
+                .tryMap { _ -> Ignored in throw err }
+                .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+        }
+    }
+
+    private func loadFromPersistenceOrCreateAccount() -> AnyPublisher<AccountWithKeypair, Error> {
+        return Publishers.CombineLatest(
             self.loadAccountFromPersistence(),
             self.loadKeypairFromPersistence()
         )
@@ -100,18 +129,11 @@ class AccountRepo {
             )
             .tryMap { _ in it }
         }
-        .sink(
-            onValue: { it in
-                //self.processingRepo.notify(self, ongoing: false)
-                self.writeAccount.send(it)
-            },
-            onFailure: { err in /*self.processingRepo.notify(self, err, major: false)*/ }
-        )
-        .store(in: &cancellables)
+        .eraseToAnyPublisher()
     }
 
     // Receives Account object to be verified and saved. No request, but may regen keys.
-    func onProposeAccountRequests() {
+    private func onProposeAccountRequests() {
         proposeAccountT.setTask { account in Just(account)
             .flatMap { it in Publishers.CombineLatest(
                 Just(it), self.accountHot.first()
@@ -159,7 +181,7 @@ class AccountRepo {
     }
 
     // Account ID is sanitised and validated, do the request and update Account model
-    func onRefreshAccountRequests() {
+    private func onRefreshAccountRequests() {
         refreshAccountT.setTask { accountId in
             Just(accountId)
             .flatMap { accountId in
@@ -175,7 +197,7 @@ class AccountRepo {
     }
 
     // Account ID is input from user, sanitize it and then forward to do the refresh
-    func onRestoreAccountRequests() {
+    private func onRestoreAccountRequests() {
         restoreAccountT.setTask { accountId in
             Just(accountId)
             // .removeDuplicates()
