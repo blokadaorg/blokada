@@ -22,7 +22,7 @@ struct EncryptionView: View {
     }, set: {
         let selected = Dns.hardcoded[$0]
         selected.persist()
-        VpnService.shared.restartTunnel { _, _ in }
+//        VpnService.shared.restartTunnel { _, _ in }
     })
 
     var body: some View {

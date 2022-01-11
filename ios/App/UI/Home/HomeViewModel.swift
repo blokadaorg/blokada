@@ -52,26 +52,10 @@ class HomeViewModel: ObservableObject {
             } else {
                 showError = false
                 errorHeader = nil
-//                if showExpired {
-//                    showExpired = false
-//                    expiredAlertShown = false
-//                }
             }
         }
     }
 
-//    private var showExpired: Bool = false {
-//        didSet {
-//            if showExpired {
-//                errorHeader = L10n.alertVpnExpiredHeader
-//                error = L10n.errorVpnExpired
-//                showError = true
-//            } else {
-//                self.turnVpnOffAfterExpired()
-//                self.notification.clearNotification()
-//            }
-//        }
-//    }
     var expiredAlertShown: Bool = false
 
     var onAccountExpired = {}
@@ -110,11 +94,6 @@ class HomeViewModel: ObservableObject {
 
     
     init() {
-//        expiration.setOnExpired {
-//            self.showExpiredAlert()
-//            self.stopTimer()
-//        }
-
         onMajorErrorDisplayDialog()
         onAppStateChanged()
         onWorking()
@@ -295,162 +274,6 @@ class HomeViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-    func foreground() {
-
-//
-//                    if let pause = status?.pauseSeconds {
-//                        if self.timerSeconds != pause {
-//                            self.log.v("Foreground: syncing pause timer, NETX reported \(pause)s")
-//                            if self.timerSeconds == 0 {
-//                                self.startTimer(seconds: pause)
-//                            } else if pause == 0 {
-//                                self.stopTimer()
-//                            } else {
-//                                self.timerSeconds = pause
-//                            }
-//                        }
-//                    }
-//            }
-//        }
-//
-//        // We don't need the background task if we are in foreground
-//        if timerSeconds != 0 {
-//            self.endBackgroundTask()
-//        }
-    }
-
-    func switchMain(activate: Bool,
-                    noPermissions: @escaping Ok<Void>,
-                    showRateScreen: @escaping Ok<Void>,
-                    dnsProfileConfigured: @escaping Ok<Void>
-    ) {
-//        onBackground {
-//                self.log.v("User action: switchMain: \(activate)")
-//                self.working = true
-//
-//                let cfg = Config.shared
-//                if activate {
-//                    // Turning on
-//                    if (!cfg.accountActive()) {
-//                        // Payment popup
-//                        self.log.v("User action: switchMain: no active account")
-//                        self.working = false
-//                        self.mainSwitch = false
-//                        return onMain { noActiveAccount(()) }
-//                    }
-//
-//                    // Ask for permission to send notifications after power on
-//                    defer { self.notification.askForPermissions() }
-//
-//                    if (!cfg.vpnEnabled()) {
-//                        // Cloud mode
-//                        self.api.getCurrentDevice { error, device in
-//                            guard error == nil else {
-//                                return self.handleError(CommonError.unknownError, cause: error)
-//                            }
-//
-//                            guard let tag = device?.device_tag else {
-//                                return self.handleError(CommonError.unknownError, cause: "No device tag")
-//                            }
-//
-//                            //cfg.setDeviceTag(tag: tag)
-//
-
-//                        }
-//                    } else {
-//                        // Plus mode
-//                        self.network.queryStatus { error, status in onMain {
-//                            guard error == nil else {
-//                                if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
-//                                    return onMain {
-//                                        self.log.v("Showing ask for VPN sheet")
-//                                        self.working = false
-//                                        self.mainSwitch = false
-//                                        self.syncUiWithConfig()
-//                                        return onMain { noPermissions(()) }
-//                                    }
-//                                } else {
-//                                    return self.handleError(CommonError.failedTunnel, cause: error)
-//                                }
-//                            }
-//
-//                            guard let status = status else {
-//                                return self.handleError(CommonError.failedTunnel, cause: error)
-//                            }
-//
-//                            if cfg.hasLease() && cfg.leaseActive() {
-//                                // Vpn should be on, and lease is OK
-//                                self.vpn.applyGatewayFromConfig() { error, _ in onMain {
-//                                    guard error == nil else {
-//                                        cfg.clearLease()
-//                                        return self.handleError(CommonError.failedTunnel, cause: error)
-//                                    }
-//
-//                                    self.expiration.update(cfg.account())
-//                                    self.recheckActiveLeaseAfterActivating()
-//                                    self.log.v("User action: switchMain: done")
-//                                }}
-//                            } else if cfg.hasLease() && cfg.accountActive() {
-//                                // Vpn should be on, but lease expired, refresh
-//                                self.refreshLease { error, _ in onMain {
-//                                    guard error == nil else {
-//                                        cfg.clearLease()
-//                                      return self.handleError(CommonError.failedFetchingData, cause: error)
-//                                    }
-//
-//                                    self.vpn.applyGatewayFromConfig() { error, _ in onMain {
-//                                        guard error == nil else {
-//                                            cfg.clearLease()
-//                                            return self.handleError(CommonError.failedTunnel, cause: error)
-//                                        }
-//
-//                                        self.expiration.update(cfg.account())
-//                                        self.log.v("User action: switchMain: done")
-//                                    }}
-//                                }}
-//                            } else {
-//                                // Vpn should be on, but account has expired
-//                                cfg.clearLease()
-//                                return self.handleError(CommonError.accountInactive, cause: error)
-//                            }
-//                        }}
-//                    }
-//                } else {
-//                    // Turning off
-//                    self.network.queryStatus { error, status in onMain {
-//                        guard error == nil, let status = status else {
-//                            if error is CommonError && (error as! CommonError) == CommonError.vpnNoPermissions {
-//                                self.working = false
-//                                self.mainSwitch = false
-//                                self.stopTimer()
-//                                return self.log.v("User action: switchMain: done (no vpn perms)")
-//                            }
-//                            return self.handleError(CommonError.failedTunnel, cause: error)
-//                        }
-//
-//                        if status.active {
-//                            // Turn off VPN
-//                            self.stopTimer()
-//                            self.vpn.turnOffEverything { error, _ in onMain {
-//                                guard error == nil else {
-//                                    return self.handleError(CommonError.failedTunnel, cause: error)
-//                                }
-//
-//                                self.error = nil
-//                                self.log.v("User action: switchMain: done")
-//                            }}
-//                        } else {
-//                            // Turning off Cloud is not possible, show a message TODO?
-//                            self.working = false
-//                            self.mainSwitch = false
-//                            self.stopTimer()
-//                            self.log.v("User action: switchMain: done")
-//                        }
-//                    }}
-//                }
-//            }
-    }
-
     func switchVpn(activate: Bool) {
         if activate {
             plusRepo.switchPlusOn()
@@ -483,4 +306,5 @@ class HomeViewModel: ObservableObject {
     private func shouldShowRateScreen() -> Bool {
         return self.blockedCounter >= 40 && !Config.shared.firstRun() && !Config.shared.rateAppShown()
     }
+
 }

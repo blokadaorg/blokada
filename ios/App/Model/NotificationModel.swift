@@ -40,7 +40,6 @@ func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
         content.sound = .default
         return content
     } else {
-        // TODO: get also a default fallback
         let content = UNMutableNotificationContent()
         content.title = L10n.notificationGenericHeader
         content.subtitle = L10n.notificationGenericSubtitle

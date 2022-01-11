@@ -26,8 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        resetReposForDebug()
-
         LoggerSaver.cleanup()
 
         let log = Logger("")
@@ -36,9 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.w("*** ******************* ***")
         log.v(Services.env.userAgent())
 
+        resetReposForDebug()
+
         Repos.stageRepo.onCreate()
         token = AppleTokenService(application)
-        
+
         return true
     }
 
@@ -77,7 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         Logger.v("Main", "Application will terminate")
         Repos.stageRepo.onDestroy()
-        Config.shared.markFirstRun()
     }
 
 }

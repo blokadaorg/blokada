@@ -80,15 +80,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         foreground.onForeground()
-        NetworkService.shared.foreground()
-        self.homeVM.foreground()
-
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         foreground.onBackground()
-        NetworkService.shared.background()
     }
 
 }

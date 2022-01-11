@@ -38,10 +38,9 @@ extension NetworkStatus {
 }
 
 enum NetworkCommand: String {
-    case connect = "connect"
-    case disconnect = "disconnect"
     case request = "request"
     case report = "report"
+    case pause = "pause"
 }
 
 enum ReportCommandResponse: String {

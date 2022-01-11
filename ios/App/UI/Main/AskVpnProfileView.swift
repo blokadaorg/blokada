@@ -17,8 +17,6 @@ struct AskVpnProfileView: View {
     @ObservedObject var homeVM = ViewModels.home
     @ObservedObject var contentVM = ViewModels.content
 
-    private let network = NetworkService.shared
-
     var body: some View {
         NavigationView {
             VStack {

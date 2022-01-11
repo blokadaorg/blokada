@@ -57,26 +57,7 @@ class ProcessingRepo {
         ))
     }
 
-    // OutputSubject is a CurrentValueSubject that automatically marks the owner component
-    // as idle whenever it pushes a new value to this subject. It is a pattern used across
-    // many repos to finish processing by pushing to a subject which is a hot publisher.
-//    func createOutputSubject<T>(_ component: Any) -> CurrentValueSubject<T?, Never> {
-//        let subject = CurrentValueSubject<T?, Never>(nil)
-//        subject.sink(
-//            onValue: { it in self.notify(component, ongoing: false)}
-//        )
-//        .store(in: &cancellables)
-//        return subject
-//    }
-
-    
 }
-//
-//func outputSubject<T>() -> CurrentValueSubject<T?, Never> {
-//    return Repos.processingRepo.createOutputSubject(component)
-//}
-
-
 
 class DebugProcessingRepo: ProcessingRepo {
 

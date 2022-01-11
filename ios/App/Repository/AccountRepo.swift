@@ -116,7 +116,6 @@ class AccountRepo {
             return AccountWithKeypair(account: it.0, keypair: it.1)
         }
         .tryCatch { err -> AnyPublisher<AccountWithKeypair, Error> in
-            // TODO: create new user on any error?
             if err as? CommonError == CommonError.emptyResult {
                 return self.createNewUser()
             }

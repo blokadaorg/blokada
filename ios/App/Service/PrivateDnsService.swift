@@ -49,7 +49,7 @@ class PrivateDnsServiceImpl: PrivateDnsService {
             Future<Ignored, Error> { promise in
                 it.saveToPreferences { error in
                     guard error == nil else {
-                        // TODO: An ugly way to check for this error..
+                        // XXX: An ugly way to check for this error..
                         if (error!.localizedDescription == "configuration is unchanged") {
                             return promise(.success(true))
                         }
@@ -65,7 +65,7 @@ class PrivateDnsServiceImpl: PrivateDnsService {
     }
 
     // Ensures we load from preferences before using manager. A pattern that seemed important to other managers.
-    // TODO: This might be an overkill.
+    // XXX: This might be an overkill.
     private func getManager() -> AnyPublisher<NEDNSSettingsManager, Error> {
         return Future<NEDNSSettingsManager, Error> { promise in
             self.manager.loadFromPreferences { error in

@@ -81,6 +81,42 @@ class NetxService: NetxServiceIn {
         .eraseToAnyPublisher()
     }
 
+    func switchConfigLive(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
+        return Fail(error: "not implemented").eraseToAnyPublisher()
+        //            guard self.config.hasLease() else {
+        //                return done("syncGateway: No lease set", nil)
+        //            }
+        //
+        //            let lease = self.config.lease()!
+        //
+        //            guard let gateway = self.config.gateway() else {
+        //                return done("syncGateway: No gateway set", nil)
+        //            }
+        //
+        //            let connect = [
+        //                NetworkCommand.connect.rawValue,
+        //                Config.shared.privateKey(),
+        //                lease.gateway_id,
+        //                gateway.ipv4,
+        //                gateway.ipv6,
+        //                String(gateway.port),
+        //                lease.vip4,
+        //                lease.vip6,
+        //                self.getUserDnsIp(Config.shared.deviceTag())
+        //            ].joined(separator: " ")
+        //            self.sendMessage(msg: connect) { error, _ in
+        //                guard error == nil else {
+        //                    return onMain {
+        //                        self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: nil, pauseSeconds: 0))
+        //                        done(error, nil)
+        //                    }
+        //                }
+        //
+        //                self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: gateway.public_key, pauseSeconds: 0))
+        //                done(nil, nil)
+        //            }
+    }
+
     func startVpn() -> AnyPublisher<Ignored, Error> {
         return startVpnInternal()
         .tryCatch { error in
@@ -250,12 +286,22 @@ class NetxService: NetxServiceIn {
     // It is used while VPN is on, in order to be able to do requests even
     // if tunnel is cut out (for example because it expired).
     func makeProtectedRequest(url: String, method: String, body: String) -> AnyPublisher<String, Error> {
-        let request = ["request", url, method, ":body:", body].joined(separator: " ")
+        let request = [
+            NetworkCommand.request.rawValue, url, method, ":body:", body
+        ].joined(separator: " ")
         return sendNetxMessage(msg: request)
     }
 
     func pauseVpn(until: Date) -> AnyPublisher<Ignored, Error> {
-        return Fail(error: "not implemented").eraseToAnyPublisher()
+        return Just(until)
+        .tryMap { until in Int(until.timeIntervalSince(Date())) }
+        .map { seconds in
+            [ NetworkCommand.pause.rawValue, String(seconds) ]
+            .joined(separator: " ")
+        }
+        .flatMap { request in self.sendNetxMessage(msg: request) }
+        .map { _ in true }
+        .eraseToAnyPublisher()
     }
 
     func getStatePublisher() -> AnyPublisher<NetworkStatus, Never> {
@@ -396,10 +442,10 @@ class NetxService: NetxServiceIn {
         .flatMap { status in
             Publishers.CombineLatest(
                 Just(status).setFailureType(to: Error.self).eraseToAnyPublisher(),
-                self.sendNetxMessage(msg: "report")
+                self.sendNetxMessage(msg: NetworkCommand.report.rawValue)
                 // First retry, maybe we queried too soon
                 .tryCatch { err in
-                    self.sendNetxMessage(msg: "report")
+                    self.sendNetxMessage(msg: NetworkCommand.report.rawValue)
                     .delay(for: 3.0, scheduler: self.bgQueue)
                     .retry(1)
                 }
