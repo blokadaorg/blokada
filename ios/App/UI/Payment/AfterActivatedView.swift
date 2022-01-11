@@ -24,12 +24,18 @@ struct AfterActivatedView: View {
             ZStack {
                 ScrollView {
                     VStack {
-                        Text("Almost there!")
+                        Text(L10n.activatedHeader)
                             .font(.largeTitle)
                             .bold()
                             .padding()
 
-                        Text("The following is necessary for Blokada to work properly:")
+                        Text((
+                            self.homeVM.dnsPermsGranted &&
+                            self.homeVM.notificationPermsGranted &&
+                            (self.homeVM.accountType == .Cloud || self.homeVM.vpnPermsGranted) ?
+                                L10n.activatedDescAllOk : L10n.activatedDesc
+                        )
+                        )
                             .fixedSize(horizontal: false, vertical: true)
                             .padding([.leading, .trailing], 12)
                             .padding([.top, .bottom])
@@ -43,7 +49,7 @@ struct AfterActivatedView: View {
                                         .foregroundColor(Color.cOk)
                                         .frame(width: 32, height: 32)
 
-                                    Text("Account is active")
+                                    Text(L10n.activatedLabelAccount(self.homeVM.accountType))
                                         .fontWeight(.bold)
                                         .foregroundColor(.primary)
 
@@ -62,7 +68,7 @@ struct AfterActivatedView: View {
                                             .foregroundColor(Color.cOk)
                                             .frame(width: 32, height: 32)
 
-                                        Text("Notifications allowed")
+                                        Text(L10n.activatedLabelNotifYes)
                                             .fontWeight(.bold)
                                             .foregroundColor(.primary)
 
@@ -81,7 +87,7 @@ struct AfterActivatedView: View {
                                             .foregroundColor(Color.cError)
                                             .frame(width: 32, height: 32)
 
-                                        Text("Allow notifications")
+                                        Text(L10n.activatedLabelNotifNo)
                                             .foregroundColor(.primary)
 
                                         Spacer()
@@ -100,7 +106,7 @@ struct AfterActivatedView: View {
                                             .foregroundColor(Color.cOk)
                                             .frame(width: 32, height: 32)
 
-                                        Text("DNS profile activated")
+                                        Text(L10n.activatedLabelDnsYes)
                                             .fontWeight(.bold)
                                             .foregroundColor(.primary)
 
@@ -119,7 +125,7 @@ struct AfterActivatedView: View {
                                             .foregroundColor(Color.cError)
                                             .frame(width: 32, height: 32)
 
-                                        Text("Activate DNS profile")
+                                        Text(L10n.activatedLabelDnsNo)
                                             .foregroundColor(.primary)
 
                                         Spacer()
@@ -138,7 +144,7 @@ struct AfterActivatedView: View {
                                             .foregroundColor(Color.cSecondaryBackground)
                                             .frame(width: 32, height: 32)
 
-                                        Text("Allow VPN (Plus only)")
+                                        Text(L10n.activatedLabelVpnCloud)
                                             .foregroundColor(.secondary)
                                             .multilineTextAlignment(.leading)
 
@@ -157,7 +163,7 @@ struct AfterActivatedView: View {
                                             .foregroundColor(Color.cError)
                                             .frame(width: 32, height: 32)
 
-                                        Text("Allow VPN")
+                                        Text(L10n.activatedLabelVpnNo)
                                             .foregroundColor(.primary)
 
                                         Spacer()
@@ -175,7 +181,7 @@ struct AfterActivatedView: View {
                                             .foregroundColor(Color.cOk)
                                             .frame(width: 32, height: 32)
 
-                                        Text("VPN allowed")
+                                        Text(L10n.activatedLabelVpnYes)
                                             .fontWeight(.bold)
                                             .foregroundColor(.primary)
 

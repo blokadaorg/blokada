@@ -24,7 +24,12 @@ class AccountRepo {
         self.accountHot.map { it in it.account.id }.removeDuplicates().eraseToAnyPublisher()
     }
 
+    var accountTypeHot: AnyPublisher<AccountType, Never> {
+        self.writeAccountType.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
+    }
+
     fileprivate let writeAccount = CurrentValueSubject<AccountWithKeypair?, Never>(nil)
+    fileprivate let writeAccountType = CurrentValueSubject<AccountType?, Never>(nil)
 
     fileprivate let proposeAccountT = Tasker<Account, Bool>("proposeAccount")
     fileprivate let refreshAccountT = Tasker<AccountId, Account>("refreshAccount", debounce: 0.0)
@@ -55,6 +60,7 @@ class AccountRepo {
         onRestoreAccountRequests()
         onAccountExpiring_RefreshAccount()
         onAccountAboutToExpire_MarkExpiredAndInformUser()
+        onAccountChanged_EmitAccountType()
         onForeground_RefreshAccountPeriodically()
         onSettingsTab_RefreshAccount()
         loadFromPersistenceOrCreateAccountOnStart()
@@ -237,6 +243,13 @@ class AccountRepo {
             .sink()
             .store(in: &self.cancellables)
         })
+        .store(in: &cancellables)
+    }
+
+    private func onAccountChanged_EmitAccountType() {
+        accountHot.map { it in it.account.type }
+        .map { it in mapAccountType(it) }
+        .sink(onValue: { it in self.writeAccountType.send(it) })
         .store(in: &cancellables)
     }
 

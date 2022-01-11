@@ -44,7 +44,7 @@ class StoreKitService {
             .flatMap { _ in
                 Future<[SKProduct], Error> { promise in
                     let r = SKProductsRequest(productIdentifiers: Set(self.productIdentifiers))
-                    let handler = StoreKitProductRequestHandler(promise) // This will not work, handler will be deallocated
+                    let handler = StoreKitProductRequestHandler(promise)
                     r.delegate = handler
                     r.start()
                 }

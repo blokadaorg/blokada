@@ -38,11 +38,13 @@ class PermsRepo {
     private lazy var dnsProfileActivatedHot = Repos.cloudRepo.dnsProfileActivatedHot
     private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
     private lazy var successfulPurchasesHot = Repos.paymentRepo.successfulPurchasesHot
+    private lazy var accountTypeHot = Repos.accountRepo.accountTypeHot
 
     fileprivate let writeDnsProfilePerms = CurrentValueSubject<Granted?, Never>(nil)
     fileprivate let writeVpnProfilePerms = CurrentValueSubject<Granted?, Never>(nil)
     fileprivate let writeNotificationPerms = CurrentValueSubject<Granted?, Never>(nil)
 
+    private var previousAccountType: AccountType? = nil
     private let bgQueue = DispatchQueue(label: "PermsRepoBgQueue")
     private var cancellables = Set<AnyCancellable>()
 
@@ -51,6 +53,7 @@ class PermsRepo {
         onForeground_checkNotificationPermsAndClearNotifications()
         onVpnPerms()
         onPurchaseSuccessful_showActivatedSheet()
+        onAccountTypeUpgraded_showActivatedSheet()
     }
 
     func maybeDisplayDnsProfilePermsDialog() -> AnyPublisher<Ignored, Error> {
@@ -77,9 +80,10 @@ class PermsRepo {
         return notification.askForPermissions()
         .tryCatch { err in
             self.dialog.showAlert(
-                message: "You denied notifications. If you wish to change it, please use System Preferences.",
-                header: L10n.activityInformationHeader,
-                okText: L10n.universalActionContinue
+                message: L10n.notificationPermsDenied,
+                header: L10n.notificationPermsHeader,
+                okText: L10n.dnsprofileActionOpenSettings,
+                okAction: { self.systemNav.openAppSettings() }
             )
         }
         .eraseToAnyPublisher()
@@ -155,30 +159,62 @@ class PermsRepo {
         .store(in: &cancellables)
     }
 
-    // Will display Activated sheet on successful purchase, if perms are not sufficient.
-    // This means dns perms, and in case of Plus account, also vpn perms.
-    // This will happen on first purchase, ie onboarding flow.
-    // It may happen on app start when StoreKit sends a restored transactions to us.
+    // Will display Activated sheet on successful purchase.
+    // This will happen on any purchase by user or if necessary perms are missing.
+    // It will ignore StoreKit auto restore if necessary perms are granted.
     private func onPurchaseSuccessful_showActivatedSheet() {
-        successfulPurchasesHot
-        .flatMap { account in
-            Publishers.CombineLatest3(
-                Just(account), self.dnsProfilePerms, self.vpnProfilePerms
-            )
-        }
-        .map { it -> Bool in
-            let (account, dnsAllowed, vpnAllowed) = it
-            if dnsAllowed && (account.type != "plus" || vpnAllowed) {
+//        successfulPurchasesHot
+//        .flatMap { it -> AnyPublisher<(Account, UserInitiated, Granted, Granted), Never> in
+//            let (account, userInitiated) = it
+//            return Publishers.CombineLatest4(
+//                Just(account), Just(userInitiated),
+//                self.dnsProfilePerms, self.vpnProfilePerms
+//            )
+//            .eraseToAnyPublisher()
+//        }
+//        .map { it -> Granted in
+//            let (account, userinitiated, dnsAllowed, vpnAllowed) = it
+//            if dnsAllowed && (account.type != "plus" || vpnAllowed) && !userinitiated {
+//                return true
+//            } else {
+//                return false
+//            }
+//        }
+//        .sink(onValue: { permsOk in
+//            if !permsOk {
+//                self.sheetRepo.showSheet(.Activated)
+//            }
+//        })
+//        .store(in: &cancellables)
+    }
+
+    // We want user to notice when they upgrade.
+    // From Libre to Cloud or Plus, as well as from Cloud to Plus.
+    // In the former case user will have to grant several permissions.
+    // In the latter case, probably just the VPN perm.
+    // If user is returning, it may be that he already has granted all perms.
+    // But we display the Activated sheet anyway, as a way to show that upgrade went ok.
+    // This will also trigger if StoreKit sends us transaction (on start) that upgrades.
+    private func onAccountTypeUpgraded_showActivatedSheet() {
+        accountTypeHot
+        .filter { now in
+            if self.previousAccountType == nil {
+                self.previousAccountType = now
+                return false
+            }
+
+            let prev = self.previousAccountType
+            self.previousAccountType = now
+
+            if prev == .Libre && now != .Libre {
+                return true
+            } else if prev == .Cloud && now == .Plus {
                 return true
             } else {
                 return false
             }
         }
-        .sink(onValue: { permsOk in
-            if !permsOk {
-                self.sheetRepo.showSheet(.Activated)
-            }
-        })
+        .sink(onValue: { _ in self.sheetRepo.showSheet(.Activated)} )
         .store(in: &cancellables)
     }
 
