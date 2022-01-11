@@ -31,8 +31,10 @@ class NetxService: NetxServiceIn {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        startMonitoringNetx()
-        checkPermsOnStart()
+        // Emit initial state
+        self.writeNetxState.send(NetworkStatus.disconnected())
+
+        onPermsGranted_startMonitoringNetx()
     }
 
     func setConfig(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
@@ -243,6 +245,14 @@ class NetxService: NetxServiceIn {
         .eraseToAnyPublisher()
     }
 
+    // Make a request outside of the tunnel while tunnel is established.
+    // It is used while VPN is on, in order to be able to do requests even
+    // if tunnel is cut out (for example because it expired).
+    func makeProtectedRequest(url: String, method: String, body: String) -> AnyPublisher<String, Error> {
+        let request = ["request", url, method, ":body:", body].joined(separator: " ")
+        return sendNetxMessage(msg: request)
+    }
+
     func pauseVpn(until: Date) -> AnyPublisher<Ignored, Error> {
         return Fail(error: "not implemented").eraseToAnyPublisher()
     }
@@ -253,6 +263,13 @@ class NetxService: NetxServiceIn {
     
     func getPermsPublisher() -> AnyPublisher<Granted, Never> {
         return permsHot
+    }
+
+    func checkPerms() {
+        // Getting the manager will emit perms state to self.writePerms
+        getManager()
+        .sink()
+        .store(in: &cancellables)
     }
 
     // Creates initial configuration (when user grants VPN permissions).
@@ -285,16 +302,22 @@ class NetxService: NetxServiceIn {
         .eraseToAnyPublisher()
     }
 
+    private func onPermsGranted_startMonitoringNetx() {
+        permsHot.filter { $0 == true }
+        // Calling startMonitoringNetx several times is ok
+        .sink(onValue: { _ in self.startMonitoringNetx() })
+        .store(in: &cancellables)
+    }
+
     private func startMonitoringNetx() {
-        // Emit initial state
-        self.writeNetxState.send(NetworkStatus.disconnected())
+        Logger.v("NetxService", "startMonitoringNetx")
 
         if let observer = netxStateObserver.value {
             NotificationCenter.default.removeObserver(observer)
         }
 
         getManager()
-        .tryMap { manager in
+        .tryMap { manager -> NETunnelProviderSession in
             guard let connection = manager.connection as? NETunnelProviderSession else {
                 throw "startMonitoringNetx: no connection in manager"
             }
@@ -308,6 +331,9 @@ class NetxService: NetxServiceIn {
                     queue: OperationQueue.main,
                     using: self.netxStateListener
                 )
+
+                // Check the current state as we'll only get state changes
+                self.queryNetxState()
             },
             onFailure: { err in
                 Logger.e("NetxService", "Could not start montioring".cause(err))
@@ -476,13 +502,6 @@ class NetxService: NetxServiceIn {
             }
         }
         .eraseToAnyPublisher()
-    }
-
-    private func checkPermsOnStart() {
-        // Getting the manager will emit perms state to self.writePerms
-        getManager()
-        .sink()
-        .store(in: &cancellables)
     }
 
     private func getUserDnsIp(_ tag: String) -> String {

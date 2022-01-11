@@ -47,8 +47,8 @@ class CloudRepo {
 
     private lazy var api = Services.apiForCurrentUser
     private lazy var privateDns = Services.privateDns
+    private lazy var env = Services.env
 
-    private lazy var envRepo = Repos.envRepo
     private lazy var processingRepo = Repos.processingRepo
     private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
     private lazy var activeTabHot = Repos.navRepo.activeTabHot
@@ -153,7 +153,7 @@ class CloudRepo {
     // User is meant to activate it manually, but our app can update it anytime.
     private func onDeviceTagChangeUpdateDnsProfile() {
         deviceTagHot
-        .flatMap { it in self.privateDns.savePrivateDnsProfile(tag: it, name: self.envRepo.deviceName) }
+        .flatMap { it in self.privateDns.savePrivateDnsProfile(tag: it, name: self.env.deviceName) }
         .sink(
             onFailure: { err in self.processingRepo.notify(self, err, major: true) }
         )

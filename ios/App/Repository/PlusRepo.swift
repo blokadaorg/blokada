@@ -21,7 +21,7 @@ class PlusRepo {
 
     private lazy var persistence = Services.persistenceLocal
     private lazy var dialog = Services.dialog
-    private lazy var http = Services.http
+    private lazy var env = Services.env
 
     private lazy var accountHot = Repos.accountRepo.accountHot
     private lazy var deviceTagHot = Repos.cloudRepo.deviceTagHot
@@ -53,6 +53,7 @@ class PlusRepo {
         onAppPaused_PausePlusIfNecessary()
         onAppActive_StartPlusIfNecessary()
         onPlusEnabled_Persist()
+        onNetxActuallyStarted_MarkPlusEnabled()
         loadPlusEnabledFromPersOnStart()
     }
 
@@ -168,7 +169,7 @@ class PlusRepo {
             let config = NetxConfig(
                 lease: lease, gateway: gateway,
                 deviceTag: deviceTag,
-                userAgent: self.http.userAgent(),
+                userAgent: self.env.userAgent(),
                 privateKey: privateKey
             )
             self.netxRepo.setConfig(config)
@@ -253,6 +254,13 @@ class PlusRepo {
         plusEnabledHot
         .tryMap { it in self.savePlusEnabledToPers(it) }
         .sink()
+        .store(in: &cancellables)
+    }
+
+    private func onNetxActuallyStarted_MarkPlusEnabled() {
+        netxRepo.netxStateHot.filter { !$0.inProgress }
+        .filter { $0.active }
+        .sink(onValue: { it in self.writePlusEnabled.send(true) })
         .store(in: &cancellables)
     }
 

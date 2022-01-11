@@ -315,6 +315,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
             let method = params[2]
             let body = data.components(separatedBy: ":body:")[1]
             NELogger.v("PacketTunnelProvider: request: \(method) \(url)")
+            //NELogger.v("PacketTunnelProvider: request body: \(body)")
             performProtectedHttpRequest(url: url, method: method, body: body, completionHandler: { error, response in
                 self.respond(command: command, error: error, response: response ?? "", completionHandler: completionHandler)
             })

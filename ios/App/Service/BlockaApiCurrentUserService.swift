@@ -22,7 +22,7 @@ class BlockaApiCurrentUserService {
     lazy var client = Services.api
 
     private lazy var accountRepo = Repos.accountRepo
-    private lazy var envRepo = Repos.envRepo
+    private lazy var envRepo = Services.env
 
     func getDeviceForCurrentUser() -> AnyPublisher<DevicePayload, Error> {
         return accountRepo.accountHot.first()

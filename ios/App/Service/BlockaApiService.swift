@@ -33,13 +33,13 @@ protocol BlockaApiServiceIn {
     func deleteLease(request: LeaseRequest) -> AnyPublisher<Ignored, Error>
 }
 
-class BlockaApiService2: BlockaApiServiceIn {
+class BlockaApiService: BlockaApiServiceIn {
 
     private let log = Logger("BlockaApi")
     private let decoder = blockaDecoder
     private let encoder = blockaEncoder
 
-    private lazy var client = Services.http
+    private lazy var client = Repos.httpRepo
 
     func getAccount(id: AccountId) -> AnyPublisher<Account, Error> {
         return self.client.get("/v1/account?account_id=\(id)")

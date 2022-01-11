@@ -13,7 +13,7 @@
 import Foundation
 import UIKit
 
-class EnvRepo {
+class EnvService {
 
     var cpu: String {
         #if PREVIEW
@@ -44,6 +44,12 @@ class EnvRepo {
     let osVersion = UIDevice.current.systemVersion
 
     let aliasForLease = UIDevice.current.name
+
+    func userAgent() -> String {
+        return "blokada/\(appVersion) (ios-\(osVersion) ios \(buildType) \(cpu) apple \(deviceModel) touch api compatible)"
+    }
+
+    let baseUrl = "https://api.blocka.net"
 
 }
 

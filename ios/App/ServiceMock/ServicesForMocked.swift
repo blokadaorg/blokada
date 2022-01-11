@@ -24,10 +24,12 @@ class ServicesSingleton {
     lazy var persistenceLocal: PersistenceService = LocalStoragePersistenceService()
     lazy var persistenceRemote: PersistenceService = ICloudPersistenceService()
     lazy var persistenceRemoteLegacy: PersistenceService = ICloudPersistenceService()
+    
+    lazy var httpStandard: HttpServiceIn = HttpStandardService()
+    lazy var httpProtected: HttpServiceIn = HttpStandardService() // No NETX in mock
 
     lazy var crypto: CryptoServiceIn = CryptoServiceMock()
 
-    lazy var http = HttpClientService()
     lazy var api: BlockaApiServiceIn = BlockaApiService2()
     lazy var apiForCurrentUser = BlockaApiCurrentUserService()
 
@@ -42,6 +44,8 @@ class ServicesSingleton {
     lazy var dialog = DialogService()
 
     lazy var netx = NetxServiceMock()
+    lazy var env = EnvService()
+
 }
 
 func resetServices() {

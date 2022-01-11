@@ -42,6 +42,8 @@ class NetxRepo {
 
     private lazy var service = Services.netx
 
+    private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
+
     fileprivate let writeNetxState = CurrentValueSubject<NetworkStatus?, Never>(nil)
     fileprivate let writePerms = CurrentValueSubject<Granted?, Never>(nil)
 
@@ -59,6 +61,7 @@ class NetxRepo {
         onStopVpn()
         onPauseVpn()
         onCreateVpnProfile()
+        onForeground_CheckPerms()
         onNetxState_PropagateFromService()
         onNetxPerms_PropagateFromService()
     }
@@ -113,6 +116,12 @@ class NetxRepo {
         }
     }
 
+    private func onForeground_CheckPerms() {
+        enteredForegroundHot
+        .sink(onValue: { _ in self.service.checkPerms() })
+        .store(in: &cancellables)
+    }
+
     private func onNetxState_PropagateFromService() {
         service.getStatePublisher()
         .sink(onValue: { it in self.writeNetxState.send(it) })
@@ -122,6 +131,24 @@ class NetxRepo {
     private func onNetxPerms_PropagateFromService() {
         service.getPermsPublisher()
         .sink(onValue: { it in self.writePerms.send(it) })
+        .store(in: &cancellables)
+    }
+
+}
+
+class DebugNetxRepo: NetxRepo {
+
+    private let log = Logger("Netx")
+    private var cancellables = Set<AnyCancellable>()
+
+    override init() {
+        super.init()
+
+        writeNetxState.sink(
+            onValue: { it in
+                self.log.v("State: \(it)")
+            }
+        )
         .store(in: &cancellables)
     }
 

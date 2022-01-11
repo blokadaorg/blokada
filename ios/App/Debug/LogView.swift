@@ -48,7 +48,7 @@ struct LogView: View {
                     .onTapGesture {
                         self.contentVM.showSheet(.ShareLog)
                     }
-                if !Repos.envRepo.isProduction {
+                if !Services.env.isProduction {
                     Image(systemName: "ant.circle")
                         .imageScale(.large)
                         .foregroundColor(Color.cActivePlus)

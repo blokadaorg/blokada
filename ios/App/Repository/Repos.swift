@@ -17,10 +17,10 @@ var Repos = RepositoriesSingleton()
 
 class RepositoriesSingleton {
 
-    lazy var envRepo = EnvRepo()
     lazy var processingRepo = ProcessingRepo()
     lazy var stageRepo = StageRepo()
     lazy var navRepo = NavRepo()
+    lazy var httpRepo = HttpRepo()
     lazy var accountRepo = AccountRepo()
     lazy var cloudRepo = CloudRepo()
     lazy var appRepo = AppRepo()
@@ -44,4 +44,5 @@ func resetReposForDebug() {
     Repos.accountRepo = DebugAccountRepo()
     Repos.cloudRepo = DebugCloudRepo()
     Repos.sheetRepo = DebugSheetRepo()
+    Repos.netxRepo = DebugNetxRepo()
 }

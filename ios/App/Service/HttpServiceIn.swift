@@ -13,27 +13,26 @@
 import Foundation
 import Combine
 
-class HttpClientService {
+protocol HttpServiceIn {
+    func get(_ path: String) -> AnyPublisher<Data, Error>
+    func postOrPut(_ path: String, method: String, payload: Encodable?) -> AnyPublisher<Data, Error>
+}
 
-    private lazy var envRepo = Repos.envRepo
+class HttpStandardService: HttpServiceIn {
 
-    private let baseUrl = "https://api.blocka.net"
+    private lazy var env = Services.env
 
     private let session = URLSession.shared
-    private let bgQueue = DispatchQueue(label: "httpClientBgQueue")
-
-    func userAgent() -> String {
-        return "blokada/\(envRepo.appVersion) (ios-\(envRepo.osVersion) ios \(envRepo.buildType) \(envRepo.cpu) apple \(envRepo.deviceModel) touch api compatible)"
-    }
+    private let bgQueue = DispatchQueue(label: "HttpClientBgQueue")
 
     func get(_ path: String) -> AnyPublisher<Data, Error> {
-        guard let url = URL(string: "\(self.baseUrl)\(path)") else {
-            return Fail(error: "BlockaApi: get: invalid url: \(path)")
+        guard let url = URL(string: "\(self.env.baseUrl)\(path)") else {
+            return Fail(error: "HttpStandardService: get: invalid url: \(path)")
                 .eraseToAnyPublisher()
         }
 
         var request = URLRequest(url: url)
-        request.setValue(self.userAgent(), forHTTPHeaderField: "User-Agent")
+        request.setValue(self.env.userAgent(), forHTTPHeaderField: "User-Agent")
         request.httpMethod = "GET"
 
         return self.session.dataTaskPublisher(for: request)
@@ -57,31 +56,20 @@ class HttpClientService {
             .eraseToAnyPublisher()
     }
 
-    func post(_ path: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
-        return self.postOrPut(path, method: "POST", payload: payload)
-    }
-
-    func put(_ path: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
-        return self.postOrPut(path, method: "PUT", payload: payload)
-    }
-
-    func delete(_ path: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
-        return self.postOrPut(path, method: "DELETE", payload: payload)
-    }
-
-    private func postOrPut(_ path: String, method: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
-        guard let url = URL(string: "\(self.baseUrl)\(path)") else {
-            return Fail(error: "BlockaApi: post: invalid url: \(path)")
+    // TODO: should post/put also repeat on fail?
+    func postOrPut(_ path: String, method: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
+        guard let url = URL(string: "\(self.env.baseUrl)\(path)") else {
+            return Fail(error: "HttpStandardService: post: invalid url: \(path)")
                 .eraseToAnyPublisher()
         }
 
         var request = URLRequest(url: url)
-        request.setValue(self.userAgent(), forHTTPHeaderField: "User-Agent")
+        request.setValue(self.env.userAgent(), forHTTPHeaderField: "User-Agent")
         request.httpMethod = method
 
         if payload != nil {
             guard let payloadEncoded = payload?.toJsonData() else {
-                return Fail(error: "BlockaApi: post: invalid payload (could not encode)")
+                return Fail(error: "HttpStandardService: could not encode payload")
                     .eraseToAnyPublisher()
             }
             request.httpBody = payloadEncoded

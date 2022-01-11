@@ -20,17 +20,17 @@ class PaymentRepo {
         self.writeProducts.compactMap { $0 }.eraseToAnyPublisher()
     }
 
-    var successfulPurchasesHot: AnyPublisher<Account, Never> {
+    var successfulPurchasesHot: AnyPublisher<(Account, UserInitiated), Never> {
         self.writeSuccessfulPurchases.compactMap { $0 }.eraseToAnyPublisher()
     }
 
     fileprivate let writeProducts = CurrentValueSubject<[Product]?, Never>(nil)
-    fileprivate let writeSuccessfulPurchases = CurrentValueSubject<Account?, Never>(nil)
+    fileprivate let writeSuccessfulPurchases = CurrentValueSubject<(Account, UserInitiated)?, Never>(nil)
 
-    fileprivate let refreshProductsT = SimpleTasker<Bool>("refreshProducts")
-    fileprivate let restorePurchaseT = SimpleTasker<Bool>("restorePurchase")
-    fileprivate let buyProductT = Tasker<ProductId, Bool>("buyProduct")
-    fileprivate let consumePurchaseT = SimpleTasker<Bool>("consumePurchase", debounce: 0.0)
+    fileprivate let refreshProductsT = SimpleTasker<Ignored>("refreshProducts")
+    fileprivate let restorePurchaseT = SimpleTasker<Ignored>("restorePurchase")
+    fileprivate let buyProductT = Tasker<ProductId, Ignored>("buyProduct")
+    fileprivate let consumePurchaseT = Tasker<UserInitiated, Ignored>("consumePurchase", debounce: 0.0)
 
     private lazy var processingRepo = Repos.processingRepo
     private lazy var stageRepo = Repos.stageRepo
@@ -111,12 +111,12 @@ class PaymentRepo {
                 }
             }
             .flatMap { _ in
-                self.consumePurchaseT.send()
+                self.consumePurchaseT.send(true)
             }
             .tryCatch { err in
                 // Try finishing transaction anyway, StoreKit seems very finnicky about the states.
                 // This will also cause a request to our backend, which may have already activated.
-                self.consumePurchaseT.send()
+                self.consumePurchaseT.send(true)
             }
             .eraseToAnyPublisher()
         }
@@ -136,7 +136,7 @@ class PaymentRepo {
             }
             // Consume this transaction
             .flatMap { restored in
-                self.consumePurchaseT.send()
+                self.consumePurchaseT.send(true)
             }
             // StoreKit may return a restored transaction that hasn't been consumed yet.
             // However, there might be many restored transactions that it gives us.
@@ -147,7 +147,7 @@ class PaymentRepo {
                     return self.buyProductT.send(productId)
                 } else {
                     // Try finishing transaction anyway, StoreKit seems very finnicky.
-                    return self.consumePurchaseT.send()
+                    return self.consumePurchaseT.send(true)
                 }
             }
             .eraseToAnyPublisher()
@@ -158,7 +158,7 @@ class PaymentRepo {
     // a pending transaction from StoreKit, a restore purchase action from user etc).
     // Eventually a pending transaction is consumed here.
     private func onConsumePurchase() {
-        consumePurchaseT.setTask { _ -> AnyPublisher<Bool, Error> in
+        consumePurchaseT.setTask { userInitiated -> AnyPublisher<Bool, Error> in
             // First, get the receipt of the pending transaction.
             Just(self.storeKit.getReceipt())
             // Try refreshing receipt if unavailable - just StoreKit things
@@ -193,7 +193,7 @@ class PaymentRepo {
             }
             .tryMap { account -> Bool in
                 self.storeKit.finishPurchase()
-                self.writeSuccessfulPurchases.send(account)
+                self.writeSuccessfulPurchases.send((account, userInitiated))
                 return true
             }
             .tryCatch { err -> AnyPublisher<Bool, Error> in
@@ -206,7 +206,7 @@ class PaymentRepo {
 
     private func onStoreKitOngoingTransaction() {
         storeKit.onOngoingTransaction = {
-            self.consumePurchaseT.send()
+            self.consumePurchaseT.send(false)
         }
     }
 
@@ -221,3 +221,5 @@ class PaymentRepo {
     }
 
 }
+
+typealias UserInitiated = Bool

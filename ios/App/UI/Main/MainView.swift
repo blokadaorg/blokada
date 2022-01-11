@@ -84,7 +84,7 @@ struct MainView: View {
                                         Image(systemName: "square.and.arrow.up")
                                     }
 
-                                    if !Repos.envRepo.isProduction {
+                                    if !Services.env.isProduction {
                                         Button(action: {
                                             self.contentVM.showSheet(.Debug)
                                         }) {

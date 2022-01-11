@@ -53,8 +53,8 @@
 		4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
 		4E1DC4CB27564F3100A4CAB1 /* AccountRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1DC4CA27564F3100A4CAB1 /* AccountRepoTests.swift */; };
 		4E201D1C27551F0C001FA2FF /* InboxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57FCDF24A0D5F000960ADF /* InboxService.swift */; };
-		4E201D1E27554572001FA2FF /* BlockaApiService2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* BlockaApiService2.swift */; };
-		4E201D1F27554572001FA2FF /* BlockaApiService2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* BlockaApiService2.swift */; };
+		4E201D1E27554572001FA2FF /* BlockaApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* BlockaApiService.swift */; };
+		4E201D1F27554572001FA2FF /* BlockaApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E201D1D27554572001FA2FF /* BlockaApiService.swift */; };
 		4E227F3924347A95004F4955 /* VpnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F3824347A95004F4955 /* VpnService.swift */; };
 		4E227F40243496C5004F4955 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F3F243496C5004F4955 /* Thread.swift */; };
 		4E227F4224363D30004F4955 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F4124363D30004F4955 /* LogView.swift */; };
@@ -242,7 +242,7 @@
 		4E7FE9AC244DC28900851E9F /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E227F4124363D30004F4955 /* LogView.swift */; };
 		4E7FE9AD244DC28900851E9F /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7EDF4240E9E95001FA02E /* Resources.swift */; };
 		4E7FE9B0244DC28900851E9F /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E267F57243C8C5200D3160F /* ButtonView.swift */; };
-		4E7FE9B3244DC28900851E9F /* EnvRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A04652449A006003AB48D /* EnvRepo.swift */; };
+		4E7FE9B3244DC28900851E9F /* EnvService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A04652449A006003AB48D /* EnvService.swift */; };
 		4E7FE9B4244DC28900851E9F /* BenefitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E267F5B243CB79C00D3160F /* BenefitView.swift */; };
 		4E7FE9B5244DC28900851E9F /* Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA105C1242B8A7900559CBB /* Transitions.swift */; };
 		4E7FE9B6244DC28900851E9F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8724376B3A0094EE27 /* SplashView.swift */; };
@@ -273,8 +273,8 @@
 		4E8AE1EB2758D93800BD2E5B /* Repos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E92758D93800BD2E5B /* Repos.swift */; };
 		4E8AE1ED2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */; };
 		4E8AE1EE2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */; };
-		4E8AE1F02758DD8600BD2E5B /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */; };
-		4E8AE1F12758DD8600BD2E5B /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */; };
+		4E8AE1F02758DD8600BD2E5B /* HttpServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpServiceIn.swift */; };
+		4E8AE1F12758DD8600BD2E5B /* HttpServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpServiceIn.swift */; };
 		4E8AE1F32758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */; };
 		4E8AE1F42758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */; };
 		4E8AE1F62758F06500BD2E5B /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F52758F06500BD2E5B /* AccountModel.swift */; };
@@ -311,7 +311,7 @@
 		4E971F83246C14A400809EA6 /* AppleTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F81246C14A400809EA6 /* AppleTokenService.swift */; };
 		4E9A04622448A93F003AB48D /* NetworkCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A04612448A93F003AB48D /* NetworkCommand.swift */; };
 		4E9A046424499317003AB48D /* NELogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A046324499317003AB48D /* NELogger.swift */; };
-		4E9A04662449A006003AB48D /* EnvRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A04652449A006003AB48D /* EnvRepo.swift */; };
+		4E9A04662449A006003AB48D /* EnvService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A04652449A006003AB48D /* EnvService.swift */; };
 		4EA105C2242B8A7900559CBB /* Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA105C1242B8A7900559CBB /* Transitions.swift */; };
 		4EA105C4242BABC200559CBB /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA105C3242BABC200559CBB /* SupportView.swift */; };
 		4EA2783024657E9E00C6372E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
@@ -352,6 +352,10 @@
 		4EE25DBD2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4EE25DC0278828B000F2F79B /* NetxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBF278828B000F2F79B /* NetxService.swift */; };
+		4EE25DC2278C4A9600F2F79B /* HttpProtectedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DC1278C4A9600F2F79B /* HttpProtectedService.swift */; };
+		4EE25DC3278C4A9600F2F79B /* HttpProtectedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DC1278C4A9600F2F79B /* HttpProtectedService.swift */; };
+		4EE25DC5278C4CEE00F2F79B /* HttpRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DC4278C4CEE00F2F79B /* HttpRepo.swift */; };
+		4EE25DC6278C4CEE00F2F79B /* HttpRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DC4278C4CEE00F2F79B /* HttpRepo.swift */; };
 		4EE5842C2726D79C0042D34F /* BlocklistConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */; };
 		4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */; };
 		4EECA5032418D142003A2541 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA5022418D142003A2541 /* AccountView.swift */; };
@@ -441,7 +445,7 @@
 		4E1A84E02476AE19007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E1DC4CA27564F3100A4CAB1 /* AccountRepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepoTests.swift; sourceTree = "<group>"; };
-		4E201D1D27554572001FA2FF /* BlockaApiService2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiService2.swift; sourceTree = "<group>"; };
+		4E201D1D27554572001FA2FF /* BlockaApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiService.swift; sourceTree = "<group>"; };
 		4E227F34243479F1004F4955 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4E227F3824347A95004F4955 /* VpnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VpnService.swift; sourceTree = "<group>"; };
 		4E227F3F243496C5004F4955 /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
@@ -554,7 +558,7 @@
 		4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtil.swift; sourceTree = "<group>"; };
 		4E8AE1E92758D93800BD2E5B /* Repos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repos.swift; sourceTree = "<group>"; };
 		4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiCurrentUserService.swift; sourceTree = "<group>"; };
-		4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
+		4E8AE1EF2758DD8600BD2E5B /* HttpServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceIn.swift; sourceTree = "<group>"; };
 		4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoServiceIn.swift; sourceTree = "<group>"; };
 		4E8AE1F52758F06500BD2E5B /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtil.swift; sourceTree = "<group>"; };
@@ -608,7 +612,7 @@
 		4E9A045F2448A8C9003AB48D /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
 		4E9A04612448A93F003AB48D /* NetworkCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCommand.swift; sourceTree = "<group>"; };
 		4E9A046324499317003AB48D /* NELogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NELogger.swift; sourceTree = "<group>"; };
-		4E9A04652449A006003AB48D /* EnvRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvRepo.swift; sourceTree = "<group>"; };
+		4E9A04652449A006003AB48D /* EnvService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvService.swift; sourceTree = "<group>"; };
 		4EA105C1242B8A7900559CBB /* Transitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transitions.swift; sourceTree = "<group>"; };
 		4EA105C3242BABC200559CBB /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
 		4EA2782F24657E9E00C6372E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
@@ -640,6 +644,8 @@
 		4ED41CC62478458100155C88 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxServiceIn.swift; sourceTree = "<group>"; };
 		4EE25DBF278828B000F2F79B /* NetxService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxService.swift; sourceTree = "<group>"; };
+		4EE25DC1278C4A9600F2F79B /* HttpProtectedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpProtectedService.swift; sourceTree = "<group>"; };
+		4EE25DC4278C4CEE00F2F79B /* HttpRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRepo.swift; sourceTree = "<group>"; };
 		4EE5842B2726D79C0042D34F /* BlocklistConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistConverter.swift; sourceTree = "<group>"; };
 		4EECA5022418D142003A2541 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		4EECA5042418E91D003A2541 /* ChangeAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAccountView.swift; sourceTree = "<group>"; };
@@ -796,7 +802,8 @@
 			isa = PBXGroup;
 			children = (
 				47729E0522F447C800B9B36B /* AppDelegate.swift */,
-				4E201D1D27554572001FA2FF /* BlockaApiService2.swift */,
+				4E9A04652449A006003AB48D /* EnvService.swift */,
+				4E201D1D27554572001FA2FF /* BlockaApiService.swift */,
 				4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */,
 				4E971F81246C14A400809EA6 /* AppleTokenService.swift */,
 				4E59E31A24751D12008C1AAA /* ExpirationService.swift */,
@@ -806,7 +813,8 @@
 				4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */,
 				4E227F3824347A95004F4955 /* VpnService.swift */,
 				4E8AE1E32757940300BD2E5B /* PersistenceService.swift */,
-				4E8AE1EF2758DD8600BD2E5B /* HttpClientService.swift */,
+				4E8AE1EF2758DD8600BD2E5B /* HttpServiceIn.swift */,
+				4EE25DC1278C4A9600F2F79B /* HttpProtectedService.swift */,
 				4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */,
 				4E2F2A0E2760AB9D005A59F5 /* PrivateDnsService.swift */,
 				4E2F2A222762067E005A59F5 /* SystemNavService.swift */,
@@ -828,7 +836,6 @@
 				4E2F2A112760BDED005A59F5 /* NavRepo.swift */,
 				4E8AE1E02756974F00BD2E5B /* AccountRepo.swift */,
 				4E2F2A082760A902005A59F5 /* CloudRepo.swift */,
-				4E9A04652449A006003AB48D /* EnvRepo.swift */,
 				4E63194424446E1400191C16 /* Config.swift */,
 				4E2F2A25276371C6005A59F5 /* AppRepo.swift */,
 				4E0F2B4C2767796200444933 /* PaymentRepo.swift */,
@@ -842,6 +849,7 @@
 				4EA9A297278490F1009764F1 /* LeaseRepo.swift */,
 				4EA9A29A2784C040009764F1 /* PlusRepo.swift */,
 				4EA9A29D2785AB50009764F1 /* NetxRepo.swift */,
+				4EE25DC4278C4CEE00F2F79B /* HttpRepo.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1394,6 +1402,7 @@
 				4E290FC02498A57000FC4C61 /* Localization.swift in Sources */,
 				4EC013FE24606F6C001DF5F7 /* BadgeView.swift in Sources */,
 				4E2ECCF3245AEFA1009040F1 /* PackModel.swift in Sources */,
+				4EE25DC2278C4A9600F2F79B /* HttpProtectedService.swift in Sources */,
 				4E057E77244DBB7500995A6E /* KeychainSwiftDistrib.swift in Sources */,
 				4EECA5032418D142003A2541 /* AccountView.swift in Sources */,
 				4EA105C4242BABC200559CBB /* SupportView.swift in Sources */,
@@ -1439,16 +1448,17 @@
 				4E72D6752461407F00FE7737 /* TabViewModel.swift in Sources */,
 				4E267F58243C8C5200D3160F /* ButtonView.swift in Sources */,
 				4E42354E2450265C005A0779 /* HomeViewModel.swift in Sources */,
-				4E9A04662449A006003AB48D /* EnvRepo.swift in Sources */,
+				4E9A04662449A006003AB48D /* EnvService.swift in Sources */,
 				4E267F5C243CB79C00D3160F /* BenefitView.swift in Sources */,
 				4EA105C2242B8A7900559CBB /* Transitions.swift in Sources */,
 				4E57FCD724A0B9FC00960ADF /* ChatInputView.swift in Sources */,
-				4E201D1E27554572001FA2FF /* BlockaApiService2.swift in Sources */,
+				4E201D1E27554572001FA2FF /* BlockaApiService.swift in Sources */,
 				4E356A8824376B3A0094EE27 /* SplashView.swift in Sources */,
 				4E53CCC9244E39F5009B3CF0 /* PaymentListView.swift in Sources */,
 				4E42354B244F9198005A0779 /* LeaseViewModel.swift in Sources */,
 				4E8AE1E42757940300BD2E5B /* PersistenceService.swift in Sources */,
 				4E78E35A245EBFD90017B234 /* Sequence+Extensions.swift in Sources */,
+				4EE25DC5278C4CEE00F2F79B /* HttpRepo.swift in Sources */,
 				4EF564BE276A16E5005E3D70 /* StoreKitService.swift in Sources */,
 				4E290FC32498A8EB00FC4C61 /* UiGen.swift in Sources */,
 				4E955DC82771DC12008DE06F /* ViewModels.swift in Sources */,
@@ -1498,7 +1508,7 @@
 				4E970C092769FE6F00ABD896 /* Tasker.swift in Sources */,
 				4ED41CC72478458100155C88 /* SearchBar.swift in Sources */,
 				4E59E31B24751D12008C1AAA /* ExpirationService.swift in Sources */,
-				4E8AE1F02758DD8600BD2E5B /* HttpClientService.swift in Sources */,
+				4E8AE1F02758DD8600BD2E5B /* HttpServiceIn.swift in Sources */,
 				4E2F2A1B2760EA8A005A59F5 /* ProcessingRepo.swift in Sources */,
 				4E78E357245DB4D80017B234 /* InboxView.swift in Sources */,
 				4E267F5A243C8D4300D3160F /* ButtonChoiceView.swift in Sources */,
@@ -1571,7 +1581,7 @@
 				4E2ECCF1245AE5D1009040F1 /* PlaceholderView.swift in Sources */,
 				4E53CCC4244E3299009B3CF0 /* EngineServiceMock.swift in Sources */,
 				4E8AE1F42758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */,
-				4E8AE1F12758DD8600BD2E5B /* HttpClientService.swift in Sources */,
+				4E8AE1F12758DD8600BD2E5B /* HttpServiceIn.swift in Sources */,
 				4E53CCBC244E00EC009B3CF0 /* PaymentModel.swift in Sources */,
 				4E53CCBD244E00EC009B3CF0 /* SKProduct+Extensions.swift in Sources */,
 				4E2F2A242762067E005A59F5 /* SystemNavService.swift in Sources */,
@@ -1601,6 +1611,7 @@
 				4E2F2A04275F7B64005A59F5 /* BlockaApiServiceMock.swift in Sources */,
 				4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4E423531244EE9DB005A0779 /* PaymentServiceMock.swift in Sources */,
+				4EE25DC6278C4CEE00F2F79B /* HttpRepo.swift in Sources */,
 				4E11D2DB271EE7DD0042385B /* DnsProfileConfiguredView.swift in Sources */,
 				4E8AE1EB2758D93800BD2E5B /* Repos.swift in Sources */,
 				4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */,
@@ -1625,7 +1636,7 @@
 				4E1681AA247860490040334B /* ActivityItemView.swift in Sources */,
 				4E2ECD12245CBDB3009040F1 /* TabView.swift in Sources */,
 				4E45F4F1248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */,
-				4E201D1F27554572001FA2FF /* BlockaApiService2.swift in Sources */,
+				4E201D1F27554572001FA2FF /* BlockaApiService.swift in Sources */,
 				4E7FE9A6244DC28900851E9F /* PaymentGatewayView.swift in Sources */,
 				4E72D6762461407F00FE7737 /* TabViewModel.swift in Sources */,
 				4E955DC62771D780008DE06F /* ContentViewModel.swift in Sources */,
@@ -1635,6 +1646,7 @@
 				4E42352F244EE662005A0779 /* AccountViewModel.swift in Sources */,
 				4E0F8134276CAE6C0030DF1D /* ActivityRepo.swift in Sources */,
 				4E2F2A102760AB9D005A59F5 /* PrivateDnsService.swift in Sources */,
+				4EE25DC3278C4A9600F2F79B /* HttpProtectedService.swift in Sources */,
 				4EA9A2A32785B927009764F1 /* ServicesForMocked.swift in Sources */,
 				4E7FE9A8244DC28900851E9F /* StreamReader.swift in Sources */,
 				4E57FCE124A0D5F000960ADF /* InboxService.swift in Sources */,
@@ -1647,7 +1659,7 @@
 				4E7FE9AC244DC28900851E9F /* LogView.swift in Sources */,
 				4E7FE9AD244DC28900851E9F /* Resources.swift in Sources */,
 				4E7FE9B0244DC28900851E9F /* ButtonView.swift in Sources */,
-				4E7FE9B3244DC28900851E9F /* EnvRepo.swift in Sources */,
+				4E7FE9B3244DC28900851E9F /* EnvService.swift in Sources */,
 				4EEF1BED2457FBD900734182 /* DebugView.swift in Sources */,
 				4E2F2A192760E400005A59F5 /* Constants.swift in Sources */,
 				4E971F732469809000809EA6 /* PackDownloaderMock.swift in Sources */,

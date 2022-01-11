@@ -31,7 +31,7 @@ class NELogger {
 
     static func v(_ message: String) {
         let line = makeLine(LogPrio.VERBOSE.rawValue, "NETX", message)
-        os_log("%{public}s", log: .default, type: .debug, line)
+        os_log("%{public}s", log: .default, type: .error, line) // .debug did not print
         LoggerSaver.log(line)
     }
 

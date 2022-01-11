@@ -34,7 +34,7 @@ class NetworkService {
     func foreground() {
         onBackground {
             self.log.v("foreground, creating httpclient")
-            self.httpClient = api_new(10, Services.http.userAgent())
+            self.httpClient = api_new(10, Services.env.userAgent())
         }
     }
 

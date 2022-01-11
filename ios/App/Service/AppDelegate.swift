@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.w("*** ******************* ***")
         log.w("*** BLOKADA IOS STARTED ***")
         log.w("*** ******************* ***")
-        log.v(Services.http.userAgent())
+        log.v(Services.env.userAgent())
 
         Repos.stageRepo.onCreate()
         token = AppleTokenService(application)

@@ -25,10 +25,12 @@ class ServicesSingleton {
     lazy var persistenceRemote: PersistenceService = ICloudPersistenceService()
     lazy var persistenceRemoteLegacy: PersistenceService = ICloudPersistenceService()
 
+    lazy var httpStandard: HttpServiceIn = HttpStandardService()
+    lazy var httpProtected: HttpServiceIn = HttpProtectedService()
+
     lazy var crypto: CryptoServiceIn = CryptoService()
 
-    lazy var http = HttpClientService()
-    lazy var api: BlockaApiServiceIn = BlockaApiService2()
+    lazy var api: BlockaApiServiceIn = BlockaApiService()
     lazy var apiForCurrentUser = BlockaApiCurrentUserService()
 
     lazy var privateDns: PrivateDnsService = PrivateDnsServiceImpl()
@@ -42,6 +44,8 @@ class ServicesSingleton {
     lazy var dialog = DialogService()
 
     lazy var netx = NetxService()
+    lazy var env = EnvService()
+
 }
 
 func resetServices() {

@@ -31,11 +31,11 @@ class LeaseRepo {
     private lazy var api = Services.apiForCurrentUser
     private lazy var dialog = Services.dialog
     private lazy var timer = Services.timer
+    private lazy var env = Services.env
 
     private lazy var accountHot = Repos.accountRepo.accountHot
     private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
     private lazy var gatewayRepo = Repos.gatewayRepo
-    private lazy var envRepo = Repos.envRepo
 
     fileprivate let writeLeases = CurrentValueSubject<[Lease]?, Never>(nil)
     fileprivate let writeCurrent = CurrentValueSubject<CurrentLease?, Never>(nil)
@@ -110,7 +110,7 @@ class LeaseRepo {
                 account_id: it.account.id,
                 public_key: it.keypair.publicKey,
                 gateway_id: gatewayId,
-                alias: self.envRepo.aliasForLease
+                alias: self.env.aliasForLease
             )}
             .flatMap { request in
                 self.api.client.postLease(request: request)
