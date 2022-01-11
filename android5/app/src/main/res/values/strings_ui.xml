@@ -19,7 +19,7 @@
     <string name="error_payment_canceled">The payment has been canceled. You have not been charged.</string>
     <string name="error_pack_install">Could not install (or uninstall) this feature. Please try again later.</string>
     <string name="error_location_failed_fetching">Could not fetch locations.</string>
-    <string name="error_unknown">An unknown problem occurred. Please try again. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="error_blocka_dns_in_filtering_mode">Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.</string>
     <string name="universal_action_continue">Continue</string>
     <string name="universal_action_cancel">Cancel</string>
@@ -539,4 +539,5 @@
     <string name="dnsprofile_action_open_settings">Open Settings</string>
     <string name="notification_perms_header">Enable notifications in Settings</string>
     <string name="notification_perms_desc">This feature requires notifications, please switch them on for Blokada.</string>
+    <string name="notification_perms_denied">You denied notifications. To change it, please use System Preferences.</string>
 </resources>

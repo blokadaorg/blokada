@@ -378,7 +378,7 @@ internal enum L10n {
   internal static let errorPaymentNotAvailable = L10n.tr("Ui", "error payment not available")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorTunnel = L10n.tr("Ui", "error tunnel")
-  /// An unknown problem occurred. Please try again. If the problem persists, please contact us by tapping the help icon at the top.
+  /// A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.
   internal static let errorUnknown = L10n.tr("Ui", "error unknown")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorVpn = L10n.tr("Ui", "error vpn")
@@ -770,6 +770,8 @@ internal enum L10n {
   internal static let notificationPauseHeader = L10n.tr("Ui", "notification pause header")
   /// Adblocking is disabled
   internal static let notificationPauseSubtitle = L10n.tr("Ui", "notification pause subtitle")
+  /// You denied notifications. To change it, please use System Preferences.
+  internal static let notificationPermsDenied = L10n.tr("Ui", "notification perms denied")
   /// This feature requires notifications, please switch them on for Blokada.
   internal static let notificationPermsDesc = L10n.tr("Ui", "notification perms desc")
   /// Enable notifications in Settings
