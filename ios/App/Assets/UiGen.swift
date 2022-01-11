@@ -174,6 +174,30 @@ internal enum L10n {
   internal static let accountSupportActionKb = L10n.tr("Ui", "account support action kb")
   /// Unlock to show your account ID
   internal static let accountUnlockToShow = L10n.tr("Ui", "account unlock to show")
+  /// The following is necessary for Blokada to work as expected:
+  internal static let activatedDesc = L10n.tr("Ui", "activated desc")
+  /// Your device is all set up and good to go:
+  internal static let activatedDescAllOk = L10n.tr("Ui", "activated desc all ok")
+  /// Almost there!
+  internal static let activatedHeader = L10n.tr("Ui", "activated header")
+  /// Account is active (%@)
+  internal static func activatedLabelAccount(_ p1: Any) -> String {
+    return L10n.tr("Ui", "activated label account", String(describing: p1))
+  }
+  /// Activate DNS profile
+  internal static let activatedLabelDnsNo = L10n.tr("Ui", "activated label dns no")
+  /// DNS profile is activated
+  internal static let activatedLabelDnsYes = L10n.tr("Ui", "activated label dns yes")
+  /// Allow notifications
+  internal static let activatedLabelNotifNo = L10n.tr("Ui", "activated label notif no")
+  /// Notifications are allowed
+  internal static let activatedLabelNotifYes = L10n.tr("Ui", "activated label notif yes")
+  /// Allow VPN (Plus only)
+  internal static let activatedLabelVpnCloud = L10n.tr("Ui", "activated label vpn cloud")
+  /// Allow VPN
+  internal static let activatedLabelVpnNo = L10n.tr("Ui", "activated label vpn no")
+  /// VPN is allowed
+  internal static let activatedLabelVpnYes = L10n.tr("Ui", "activated label vpn yes")
   /// Add to Blocked
   internal static let activityActionAddToBlacklist = L10n.tr("Ui", "activity action add to blacklist")
   /// Add to Allowed

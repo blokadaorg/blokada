@@ -540,4 +540,15 @@
     <string name="notification_perms_header">Enable notifications in Settings</string>
     <string name="notification_perms_desc">This feature requires notifications, please switch them on for Blokada.</string>
     <string name="notification_perms_denied">You denied notifications. To change it, please use System Preferences.</string>
+    <string name="activated_header">Almost there!</string>
+    <string name="activated_desc">The following is necessary for Blokada to work as expected:</string>
+    <string name="activated_desc_all_ok">Your device is all set up and good to go:</string>
+    <string name="activated_label_account">Account is active (%s)</string>
+    <string name="activated_label_notif_yes">Notifications are allowed</string>
+    <string name="activated_label_notif_no">Allow notifications</string>
+    <string name="activated_label_dns_yes">DNS profile is activated</string>
+    <string name="activated_label_dns_no">Activate DNS profile</string>
+    <string name="activated_label_vpn_cloud">Allow VPN (Plus only)</string>
+    <string name="activated_label_vpn_yes">VPN is allowed</string>
+    <string name="activated_label_vpn_no">Allow VPN</string>
 </resources>
