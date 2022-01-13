@@ -184,10 +184,14 @@ class PlusRepo {
         .filter { it in it.lease == nil }
         .flatMap { _ in self.plusEnabledHot.first() }
         .filter { plusEnabled in plusEnabled == true }
-        .sink(onValue: { _ in
+        .flatMap { _ in self.accountHot.first() }
+        .sink(onValue: { it in
             self.switchPlusOff()
+            let msg = (it.account.isActive()) ?
+                L10n.errorVpnNoCurrentLeaseNew : L10n.errorVpnExpired
+
             self.dialog.showAlert(
-                message: L10n.errorVpnNoCurrentLease,
+                message: msg,
                 header: L10n.notificationVpnExpiredSubtitle
             )
             .sink()
