@@ -10,6 +10,7 @@
     <string name="error_vpn">Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.</string>
     <string name="error_vpn_perms">No permissions granted to create a VPN profile.</string>
     <string name="error_vpn_no_current_lease">Please select a location first.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus is now disabled on this device. Please select a location to reactivate it.</string>
     <string name="error_vpn_too_many_leases">You reached your devices limit. Please remove one of your devices and try again.</string>
     <string name="error_vpn_expired">The VPN is disabled. Please update your subscription to continue using BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.</string>

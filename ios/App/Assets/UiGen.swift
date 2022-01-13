@@ -410,6 +410,8 @@ internal enum L10n {
   internal static let errorVpnExpired = L10n.tr("Ui", "error vpn expired")
   /// Please select a location first.
   internal static let errorVpnNoCurrentLease = L10n.tr("Ui", "error vpn no current lease")
+  /// Blokada Plus is now disabled on this device. Please select a location to reactivate it.
+  internal static let errorVpnNoCurrentLeaseNew = L10n.tr("Ui", "error vpn no current lease new")
   /// No permissions granted to create a VPN profile.
   internal static let errorVpnPerms = L10n.tr("Ui", "error vpn perms")
   /// You reached your devices limit. Please remove one of your devices and try again.

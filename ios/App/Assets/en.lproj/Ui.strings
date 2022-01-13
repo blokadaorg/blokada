@@ -20,6 +20,7 @@
 "error vpn" = "Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.";
 "error vpn perms" = "No permissions granted to create a VPN profile.";
 "error vpn no current lease" = "Please select a location first.";
+"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
 "error vpn too many leases" = "You reached your devices limit. Please remove one of your devices and try again.";
 "error vpn expired" = "The VPN is disabled. Please update your subscription to continue using BLOKADA+";
 "error payment inactive after restore" = "Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.";
