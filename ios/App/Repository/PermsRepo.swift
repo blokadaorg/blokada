@@ -72,8 +72,17 @@ class PermsRepo {
         .eraseToAnyPublisher()
     }
 
-    func askVpnProfilePerms() -> AnyPublisher<Granted, Error> {
-        return netxRepo.createVpnProfile()
+    func maybeAskVpnProfilePerms() -> AnyPublisher<Granted, Error> {
+        return vpnProfilePerms.first()
+        .tryMap { granted -> Ignored in
+            if !granted {
+                throw "ask for vpn profile"
+            } else {
+                return true
+            }
+        }
+        .tryCatch { _ in self.netxRepo.createVpnProfile() }
+        .eraseToAnyPublisher()
     }
 
     func askNotificationPerms() -> AnyPublisher<Granted, Error> {
@@ -97,7 +106,7 @@ class PermsRepo {
             // Notification perm is optional, ask for others
             return Just(true)
         }
-        .flatMap { _ in self.askVpnProfilePerms() }
+        .flatMap { _ in self.maybeAskVpnProfilePerms() }
         .delay(for: 0.3, scheduler: self.bgQueue)
         .flatMap { _ in self.maybeDisplayDnsProfilePermsDialog() }
         // Show the activation sheet again to confirm user choices, and propagate error

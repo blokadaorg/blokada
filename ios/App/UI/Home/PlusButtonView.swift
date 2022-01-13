@@ -45,7 +45,7 @@ struct PlusButtonView: View {
                                     .foregroundColor(self.vm.vpnEnabled ? Color.primary : Color.white)
                                     .font(.system(size: 14))
                             } else if !self.vm.vpnEnabled {
-                                if !self.vm.hasLease {
+                                if !self.vm.hasSelectedLocation {
                                     Spacer()
                                 }
 
@@ -68,7 +68,7 @@ struct PlusButtonView: View {
                         .padding(.leading)
                     }
                 }
-                if self.vm.hasLease {
+                if self.vm.hasSelectedLocation {
                     ZStack(alignment: .center) {
                         RoundedRectangle(cornerRadius: 28, style: .continuous)
                             .fill(Color.cBackground)

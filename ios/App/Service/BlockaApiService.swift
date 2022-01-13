@@ -45,14 +45,14 @@ class BlockaApiService: BlockaApiServiceIn {
         return self.client.get("/v1/account?account_id=\(id)")
         .decode(type: AccountWrapper.self, decoder: self.decoder)
         .tryMap { it in it.account }
-//        .tryMap { it in
-//            return Account(
-//                id: it.id,
-//                active_until: self.fakeExpireTime(),
-//                active: self.accountOver > Date(),
-//                type: (self.accountOver > Date()) ? "plus" : "libre"
-//            )
-//        }
+        .tryMap { it in
+            return Account(
+                id: it.id,
+                active_until: self.fakeExpireTime(),
+                active: self.accountOver > Date(),
+                type: (self.accountOver > Date()) ? "plus" : "libre"
+            )
+        }
         .eraseToAnyPublisher()
     }
 
@@ -161,7 +161,7 @@ class BlockaApiService: BlockaApiServiceIn {
 
     var accountOver: Date = Date()
     private func createFakeExp() {
-        let seconds = DateComponents(second: 40)
+        let seconds = DateComponents(second: 120)
         let date = Calendar.current.date(byAdding: seconds, to: Date()) ?? Date()
         accountOver = date
     }

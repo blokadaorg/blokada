@@ -89,7 +89,7 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
     func finishPurchase() {
         onBackground {
             guard let t = self.ongoingTransaction.value else {
-                self.log.w("Tried to finish transaction, but nothing ongoing")
+                //self.log.w("Tried to finish transaction, but nothing ongoing")
                 return
             }
 
@@ -320,5 +320,8 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
         done.fail(error)
     }
 
-    func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {}
+    func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
+        Logger.e("StoreKit", "Removed transactions: \(transactions)")
+    }
+
 }

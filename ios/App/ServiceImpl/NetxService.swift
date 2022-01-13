@@ -60,7 +60,7 @@ class NetxService: NetxServiceIn {
 
             manager.protocolConfiguration = protoConfig
             manager.localizedDescription = "BLOKADA"
-            manager.isEnabled = true
+            //manager.isEnabled = true
             return manager
         }
         .flatMap { manager -> AnyPublisher<Ignored, Error> in
@@ -164,10 +164,8 @@ class NetxService: NetxServiceIn {
                 }
             }
             .delay(for: 0.5, scheduler: self.bgQueue)
-            .map { _ -> Ignored in
-                self.queryNetxState()
-                return true
-            }
+            .map { _ in self.queryNetxState() }
+            .map { _ in true }
             // Wait for completion or timeout
             .flatMap { _ in
                 Publishers.Merge(
@@ -252,6 +250,10 @@ class NetxService: NetxServiceIn {
                 .first()
                 .eraseToAnyPublisher()
             }
+            // As a last resort re-check current state
+            // It seems NETX can timeout at weird situations but it actually stops
+            .map { _ in self.queryNetxState() }
+            .map { _ in true }
             .eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
@@ -314,10 +316,8 @@ class NetxService: NetxServiceIn {
     }
 
     func checkPerms() {
-        // Getting the manager will emit perms state to self.writePerms
-        getManager()
-        .sink()
-        .store(in: &cancellables)
+        // Getting the state will emit perms state to self.writePerms
+        queryNetxState()
     }
 
     // Creates initial configuration (when user grants VPN permissions).
@@ -448,8 +448,9 @@ class NetxService: NetxServiceIn {
             )
         }
         // Get the pause information from the NETX itself (ignore error)
-        .flatMap { status in
-            Publishers.CombineLatest(
+        .flatMap { status  -> AnyPublisher<(NetworkStatus, String), Error> in
+            Logger.v("Netx", "Query state: before report")
+            return Publishers.CombineLatest(
                 Just(status).setFailureType(to: Error.self).eraseToAnyPublisher(),
                 self.sendNetxMessage(msg: NetworkCommand.report.rawValue)
                 // First retry, maybe we queried too soon
@@ -464,7 +465,8 @@ class NetxService: NetxServiceIn {
             .eraseToAnyPublisher()
         }
         // Put it all together
-        .tryMap { it in
+        .tryMap { it -> NetworkStatus in
+            Logger.v("Netx", "Query state: after report")
             let (status, response) = it
             var pauseSeconds = 0
             if response != "off" {

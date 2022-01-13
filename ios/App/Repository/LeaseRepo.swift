@@ -171,22 +171,22 @@ class LeaseRepo {
                     return
                 }
 
-                self.timer.createTimer(NOTIF_LEASE_EXP, when: expireAt)
-                .flatMap { _ in self.timer.obtainTimer(NOTIF_LEASE_EXP) }
-                .sink(
-                    onFailure: { err in
-                        Logger.e("LeaseRepo", "Lease expiration timer failed: \(err)")
-                    },
-                    onSuccess: {
-                        Logger.w("LeaseRepo", "Lease expired, refreshing")
-                        self.newLease(lease.gateway_id)
-                    }
-                )
-                .store(in: &self.cancellables) // TODO: not sure if it's the best idea
+//                self.timer.createTimer(NOTIF_LEASE_EXP, when: expireAt)
+//                .flatMap { _ in self.timer.obtainTimer(NOTIF_LEASE_EXP) }
+//                .sink(
+//                    onFailure: { err in
+//                        Logger.e("LeaseRepo", "Lease expiration timer failed: \(err)")
+//                    },
+//                    onSuccess: {
+//                        Logger.w("LeaseRepo", "Lease expired, refreshing")
+//                        self.newLease(lease.gateway_id)
+//                    }
+//                )
+//                .store(in: &self.cancellables) // TODO: not sure if it's the best idea
             } else {
-                self.timer.cancelTimer(NOTIF_LEASE_EXP)
-                .sink()
-                .store(in: &self.cancellables)
+//                self.timer.cancelTimer(NOTIF_LEASE_EXP)
+//                .sink()
+//                .store(in: &self.cancellables)
             }
         })
         .store(in: &cancellables)

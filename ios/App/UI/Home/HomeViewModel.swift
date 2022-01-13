@@ -67,7 +67,7 @@ class HomeViewModel: ObservableObject {
     @Published var selectedLease: Lease? = nil
 
     var hasSelectedLocation : Bool {
-        return selectedGateway != nil
+        return accountActive && selectedGateway != nil
     }
 
     var location: String {
