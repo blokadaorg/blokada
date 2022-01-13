@@ -85,9 +85,6 @@ struct RateAppView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(Color.cAccent)
-        .onAppear {
-            Config.shared.markRateAppShown()
-        }
     }
 }
 

@@ -303,8 +303,4 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    private func shouldShowRateScreen() -> Bool {
-        return self.blockedCounter >= 40 && !Config.shared.firstRun() && !Config.shared.rateAppShown()
-    }
-
 }

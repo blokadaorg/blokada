@@ -11,6 +11,8 @@
 		47729E0D22F447CA00B9B36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
 		47729E1022F447CA00B9B36B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
 		4E057E77244DBB7500995A6E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */; };
+		4E07F19827906E4300F5A310 /* RateRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07F19727906E4300F5A310 /* RateRepo.swift */; };
+		4E07F19927906E4300F5A310 /* RateRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07F19727906E4300F5A310 /* RateRepo.swift */; };
 		4E08B9CD247D72DD00AED8F0 /* ActivityItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */; };
 		4E08B9CE247D72DD00AED8F0 /* ActivityItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */; };
 		4E08B9D0247E7C0300AED8F0 /* DnsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9CF247E7C0300AED8F0 /* DnsModel.swift */; };
@@ -197,7 +199,6 @@
 		4E5CACE7276B92F200F6F237 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE6276B92F200F6F237 /* NotificationModel.swift */; };
 		4E5CACE8276B92F200F6F237 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE6276B92F200F6F237 /* NotificationModel.swift */; };
 		4E5CACEA276B9ADC00F6F237 /* CombineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */; };
-		4E63194524446E1400191C16 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194424446E1400191C16 /* Config.swift */; };
 		4E63194B2447436C00191C16 /* LeaseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194A2447436C00191C16 /* LeaseListView.swift */; };
 		4E63194D244743C300191C16 /* LeaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194C244743C300191C16 /* LeaseView.swift */; };
 		4E652939248F760700EB871A /* Ui.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E65293C248F760700EB871A /* Ui.strings */; };
@@ -221,7 +222,6 @@
 		4E7FE995244DC28900851E9F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B3240D114D0022CBF6 /* Error.swift */; };
 		4E7FE996244DC28900851E9F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7EE022410E138001FA02E /* MainView.swift */; };
 		4E7FE997244DC28900851E9F /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
-		4E7FE998244DC28900851E9F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194424446E1400191C16 /* Config.swift */; };
 		4E7FE999244DC28900851E9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7EDF2240E8FBF001FA02E /* ContentView.swift */; };
 		4E7FE99A244DC28900851E9F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40DBCB2416496700662E10 /* HomeView.swift */; };
 		4E7FE99C244DC28900851E9F /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */; };
@@ -413,6 +413,7 @@
 		47729E0F22F447CA00B9B36B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47729E1122F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
+		4E07F19727906E4300F5A310 /* RateRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateRepo.swift; sourceTree = "<group>"; };
 		4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemViewModel.swift; sourceTree = "<group>"; };
 		4E08B9CF247E7C0300AED8F0 /* DnsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnsModel.swift; sourceTree = "<group>"; };
 		4E08B9D5247EAD8100AED8F0 /* ContentHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHostingController.swift; sourceTree = "<group>"; };
@@ -523,7 +524,6 @@
 		4E5CACE3276B906F00F6F237 /* JobService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobService.swift; sourceTree = "<group>"; };
 		4E5CACE6276B92F200F6F237 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTests.swift; sourceTree = "<group>"; };
-		4E63194424446E1400191C16 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4E63194A2447436C00191C16 /* LeaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseListView.swift; sourceTree = "<group>"; };
 		4E63194C244743C300191C16 /* LeaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseView.swift; sourceTree = "<group>"; };
 		4E65293B248F760700EB871A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Ui.strings; sourceTree = "<group>"; };
@@ -815,7 +815,6 @@
 				4E2F2A112760BDED005A59F5 /* NavRepo.swift */,
 				4E8AE1E02756974F00BD2E5B /* AccountRepo.swift */,
 				4E2F2A082760A902005A59F5 /* CloudRepo.swift */,
-				4E63194424446E1400191C16 /* Config.swift */,
 				4E2F2A25276371C6005A59F5 /* AppRepo.swift */,
 				4E0F2B4C2767796200444933 /* PaymentRepo.swift */,
 				4E0F8132276CAE6C0030DF1D /* ActivityRepo.swift */,
@@ -831,6 +830,7 @@
 				4EE25DC4278C4CEE00F2F79B /* HttpRepo.swift */,
 				4E0B7E4F278DB6DA0032259C /* LinkRepo.swift */,
 				4E356A892437711A0094EE27 /* LinkDataSource.swift */,
+				4E07F19727906E4300F5A310 /* RateRepo.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1366,7 +1366,6 @@
 				4E2F2A26276371C6005A59F5 /* AppRepo.swift in Sources */,
 				4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */,
 				4EA9A2A12785B79D009764F1 /* CryptoService.swift in Sources */,
-				4E63194524446E1400191C16 /* Config.swift in Sources */,
 				4E42352E244EE662005A0779 /* AccountViewModel.swift in Sources */,
 				4E2F2A0F2760AB9D005A59F5 /* PrivateDnsService.swift in Sources */,
 				4EF7EDF3240E8FBF001FA02E /* ContentView.swift in Sources */,
@@ -1425,6 +1424,7 @@
 				4E42354E2450265C005A0779 /* HomeViewModel.swift in Sources */,
 				4E9A04662449A006003AB48D /* EnvService.swift in Sources */,
 				4E267F5C243CB79C00D3160F /* BenefitView.swift in Sources */,
+				4E07F19827906E4300F5A310 /* RateRepo.swift in Sources */,
 				4EA105C2242B8A7900559CBB /* Transitions.swift in Sources */,
 				4E57FCD724A0B9FC00960ADF /* ChatInputView.swift in Sources */,
 				4E201D1E27554572001FA2FF /* BlockaApiService.swift in Sources */,
@@ -1550,6 +1550,7 @@
 				4E2ECD06245B1535009040F1 /* PacksViewModel.swift in Sources */,
 				4E2ECD00245B0E79009040F1 /* PackDetailView.swift in Sources */,
 				4E8AE1E22756974F00BD2E5B /* AccountRepo.swift in Sources */,
+				4E07F19927906E4300F5A310 /* RateRepo.swift in Sources */,
 				4EC014022460741C001DF5F7 /* TabItemView.swift in Sources */,
 				4E2ECCF1245AE5D1009040F1 /* PlaceholderView.swift in Sources */,
 				4E53CCC4244E3299009B3CF0 /* EngineServiceMock.swift in Sources */,
@@ -1569,7 +1570,6 @@
 				4E2ECCF4245AEFA1009040F1 /* PackModel.swift in Sources */,
 				4E7FE996244DC28900851E9F /* MainView.swift in Sources */,
 				4E7FE997244DC28900851E9F /* LocationView.swift in Sources */,
-				4E7FE998244DC28900851E9F /* Config.swift in Sources */,
 				4E57FCDE24A0D24500960ADF /* InboxModel.swift in Sources */,
 				4E7FE999244DC28900851E9F /* ContentView.swift in Sources */,
 				4E7FE99A244DC28900851E9F /* HomeView.swift in Sources */,

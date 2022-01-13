@@ -45,14 +45,14 @@ class BlockaApiService: BlockaApiServiceIn {
         return self.client.get("/v1/account?account_id=\(id)")
         .decode(type: AccountWrapper.self, decoder: self.decoder)
         .tryMap { it in it.account }
-        .tryMap { it in
-            return Account(
-                id: it.id,
-                active_until: self.fakeExpireTime(),
-                active: self.accountOver > Date(),
-                type: (self.accountOver > Date()) ? "plus" : "libre"
-            )
-        }
+//        .tryMap { it in
+//            return Account(
+//                id: it.id,
+//                active_until: self.fakeExpireTime(),
+//                active: self.accountOver > Date(),
+//                type: (self.accountOver > Date()) ? "plus" : "libre"
+//            )
+//        }
         .eraseToAnyPublisher()
     }
 
@@ -141,7 +141,7 @@ class BlockaApiService: BlockaApiServiceIn {
         .tryMap { it in it.leases }
 //        .tryMap { it in
 //            it.map {
-//                if $0.public_key == "xJ+gKm8lfb+NcJaPDuNROR99uK60WF32FwW6AZY2jF0=" {
+//                if $0.public_key == "dt2ePyI/EToftiG4S/h6TTYfJi+8lbV64VsqOZmC6jc=" {
 //                    return Lease(
 //                        account_id: $0.account_id,
 //                        public_key: $0.public_key,

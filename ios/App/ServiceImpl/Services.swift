@@ -42,6 +42,7 @@ class ServicesSingleton {
     lazy var timer = TimerService()
 
     lazy var dialog = DialogService()
+    lazy var rate = RateService()
 
     lazy var netx = NetxService()
     lazy var env = EnvService()

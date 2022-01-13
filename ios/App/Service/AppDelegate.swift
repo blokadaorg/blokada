@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         resetReposForDebug()
 
         Repos.stageRepo.onCreate()
+        let rate = Services.rate // Lazy, noone else refs this.
         token = AppleTokenService(application)
 
         return true
