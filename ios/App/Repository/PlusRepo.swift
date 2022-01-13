@@ -114,9 +114,9 @@ class PlusRepo {
 
     private func onSwitchPlusOn() {
         switchPlusOnT.setTask { _ in Just(true)
-            // TODO: refresh lease, but maybe after we start vpn to not slow down it?
             .map { _ in self.writePlusEnabled.send(true) }
             .flatMap { _ in self.netxRepo.startVpn() }
+            .map { _ in self.leaseRepo.refreshLeases() }
             .map { _ in true }
             // On failure revert back the enabled switch
             .tryCatch { err -> AnyPublisher<Ignored, Error> in

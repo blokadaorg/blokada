@@ -94,20 +94,18 @@ struct HomeView: View {
                         Text(L10n.homeActionTapToActivate)
                             .opacity(!self.vm.working && self.vm.appState != .Activated && self.vm.timerSeconds == 0 && !self.vm.showError ? 1 : 0)
                             .onTapGesture {
-                                // Copypaste from PowerView
-                               // self.vm.mainSwitch = true
-//                                self.vm.switchMain(activate: self.vm.mainSwitch,
-//                                    noPermissions: {
-//                                        // A callback trigerred when there is no VPN profile
-//                                        self.activeSheet = .askvpn
-//                                    },
-//                                    showRateScreen: {
-//                                        self.activeSheet = .rate
-//                                    },
-//                                    dnsProfileConfigured: {
-//                                        self.activeSheet = .dnsProfile
-//                                    }
-//                                )
+                                if self.vm.working {
+                                } else if !self.vm.accountActive {
+                                    self.contentVM.showSheet(.Payment)
+                                } else if !self.vm.dnsPermsGranted {
+                                    self.contentVM.showSheet(.Activated)
+                                } else if !self.vm.vpnPermsGranted && self.vm.accountType == .Plus {
+                                    self.contentVM.showSheet(.Activated)
+                                } else if self.vm.appState == .Activated {
+                                    self.contentVM.showSheet(.AdsCounter)
+                                } else if self.vm.appState == .Paused {
+                                    self.vm.unpause()
+                                }
                             }
 
                         (

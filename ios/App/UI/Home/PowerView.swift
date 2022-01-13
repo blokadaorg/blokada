@@ -143,8 +143,6 @@ struct PowerView: View {
         .disabled(self.vm.working)
         .onTapGesture {
             withAnimation {
-                // TODO: show rate screen
-
                 if self.vm.working {
                 } else if !self.vm.accountActive {
                     self.contentVM.showSheet(.Payment)

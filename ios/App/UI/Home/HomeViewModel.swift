@@ -34,7 +34,7 @@ class HomeViewModel: ObservableObject {
 
     @Published var appState: AppState = .Deactivated
     @Published var vpnEnabled: Bool = false
-    @Published var working: Bool = false
+    @Published var working: Bool = true
 
     @Published var dnsPermsGranted: Bool = false
     @Published var vpnPermsGranted: Bool = false
