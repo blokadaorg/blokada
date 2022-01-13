@@ -32,9 +32,6 @@ class NetxService: NetxServiceIn {
     private let bgQueue = DispatchQueue(label: "NetxServiceBgQueue")
 
     init() {
-        // Emit initial state
-        self.writeNetxState.send(NetworkStatus.disconnected())
-
         onPermsGranted_startMonitoringNetx()
     }
 
@@ -166,6 +163,11 @@ class NetxService: NetxServiceIn {
                     throw error
                 }
             }
+            .delay(for: 0.5, scheduler: self.bgQueue)
+            .map { _ -> Ignored in
+                self.queryNetxState()
+                return true
+            }
             // Wait for completion or timeout
             .flatMap { _ in
                 Publishers.Merge(
@@ -175,7 +177,7 @@ class NetxService: NetxServiceIn {
 
                     // Also make a timeout
                     Just(true)
-                    .delay(for: 5.0, scheduler: bgThread)
+                    .delay(for: 3.0, scheduler: self.bgQueue)
                     .flatMap { _ in self.netxStateHot.first() }
                     .tryMap { state -> Ignored in
                         if !state.active {
@@ -237,7 +239,7 @@ class NetxService: NetxServiceIn {
 
                     // Also make a timeout
                     Just(true)
-                    .delay(for: 15.0, scheduler: bgThread)
+                    .delay(for: 15.0, scheduler: self.bgQueue)
                     .flatMap { _ in self.netxStateHot.first() }
                     .tryMap { state -> Ignored in
                         if state.active {
@@ -275,10 +277,7 @@ class NetxService: NetxServiceIn {
             }
         }
         .flatMap { manager in self.setInitialConfig(manager) }
-        .tryMap { _ in
-            self.startMonitoringNetx()
-            return true
-        }
+        .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
 
@@ -292,14 +291,16 @@ class NetxService: NetxServiceIn {
         return sendNetxMessage(msg: request)
     }
 
-    func pauseVpn(until: Date) -> AnyPublisher<Ignored, Error> {
-        return Just(until)
+    // Will create a NETX timer that is not killed in bg. No param means unpause.
+    func changePause(until: Date? = nil) -> AnyPublisher<Ignored, Error> {
+        return Just(until ?? Date())
         .tryMap { until in Int(until.timeIntervalSince(Date())) }
         .map { seconds in
             [ NetworkCommand.pause.rawValue, String(seconds) ]
             .joined(separator: " ")
         }
         .flatMap { request in self.sendNetxMessage(msg: request) }
+        .map { _ in self.queryNetxState() }
         .map { _ in true }
         .eraseToAnyPublisher()
     }
@@ -350,9 +351,17 @@ class NetxService: NetxServiceIn {
     }
 
     private func onPermsGranted_startMonitoringNetx() {
-        permsHot.filter { $0 == true }
-        // Calling startMonitoringNetx several times is ok
-        .sink(onValue: { _ in self.startMonitoringNetx() })
+        permsHot
+        .sink(onValue: { granted in
+            if granted {
+                // Calling startMonitoringNetx several times is ok
+                self.startMonitoringNetx()
+            } else {
+                // Emit disconnected (fresh app install, or perms rejected)
+                self.writeNetxState.send(NetworkStatus.disconnected())
+            }
+            
+        })
         .store(in: &cancellables)
     }
 

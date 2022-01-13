@@ -42,7 +42,7 @@ func onMain(run: @escaping () -> Void) {
     }
 }
 
-let bgThread = DispatchQueue(label: "background.thread")
+fileprivate let bgThread = DispatchQueue(label: "background.thread")
 
 func onBackground(run: @escaping () -> Void) {
     bgThread.async {

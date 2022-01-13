@@ -37,20 +37,23 @@ class PlusRepo {
     fileprivate let clearPlusT = SimpleTasker<Ignored>("clearPlus")
     fileprivate let switchPlusOnT = SimpleTasker<Ignored>("switchPlusOn")
     fileprivate let switchPlusOffT = SimpleTasker<Ignored>("switchPlusOff")
-    fileprivate let pausePlusT = Tasker<Date, Ignored>("pausePlus")
+    fileprivate let changePlusPauseT = Tasker<Date?, Ignored>("changePlusPause")
 
     private var cancellables = Set<AnyCancellable>()
+    private let bgQueue = DispatchQueue(label: "PlusRepoBgQueue")
 
     init() {
         onNewPlus()
         onClearPlus()
         onSwitchPlusOn()
         onSwitchPlusOff()
-        onPausePlus()
+        onChangePlusPause()
         onCurrentLease_UpdateGatewaySelection()
         onCurrentLeaseAndGateway_UpdateNetx()
         onCurrentLeaseGone_StopPlus()
-        onAppPaused_PausePlusIfNecessary()
+        onAppPausedIndefinitely_StopPlusIfNecessary()
+        onAppPausedWithTimer_PausePlusIfNecessary()
+        onAppUnpaused_UnpausePlusIfNecessary()
         onAppActive_StartPlusIfNecessary()
         onPlusEnabled_Persist()
         onNetxActuallyStarted_MarkPlusEnabled()
@@ -138,10 +141,9 @@ class PlusRepo {
         }
     }
 
-    private func onPausePlus() {
-        pausePlusT.setTask { until in Just(until)
-            .flatMap { _ in self.netxRepo.pauseVpn(until: until) }
-            //.map { _ in self.writePlusEnabled.send(false) }
+    private func onChangePlusPause() {
+        changePlusPauseT.setTask { until in Just(until)
+            .flatMap { _ in self.netxRepo.changePause(until: until) }
             .map { _ in true }
             .eraseToAnyPublisher()
         }
@@ -194,8 +196,29 @@ class PlusRepo {
         .store(in: &cancellables)
     }
 
-    private func onAppPaused_PausePlusIfNecessary() {
-        // Timed pause
+    // Untimed pause (appState Paused, but no pausedUntilHot value)
+    private func onAppPausedIndefinitely_StopPlusIfNecessary() {
+        appRepo.appStateHot
+        .filter { it in it == .Paused }
+        .delay(for: 0.5, scheduler: bgQueue)
+        .flatMap { _ in self.appRepo.pausedUntilHot.first() }
+        .filter { it in it == nil }
+        .flatMap { _ in
+            // Get NETX state once it settles
+            self.netxRepo.netxStateHot.filter { !$0.inProgress }.first()
+        }
+        // Do only if NETX is active
+        .filter { it in it.active || it.pauseSeconds > 0 }
+        // Just switch off Plus
+        .sink(onValue: { it in
+            Logger.v("PlusRepo", "Stopping VPN as app is paused undefinitely")
+            self.netxRepo.stopVpn()
+        })
+        .store(in: &cancellables)
+    }
+
+    // Timed pause
+    private func onAppPausedWithTimer_PausePlusIfNecessary() {
         appRepo.pausedUntilHot
         .compactMap { $0 }
         .flatMap { until in Publishers.CombineLatest(
@@ -207,22 +230,29 @@ class PlusRepo {
         // Do only if NETX is active
         .filter { it in it.1.active || it.1.pauseSeconds > 0 }
         // Make NETX pause (also will update "until" if changed)
-        .sink(onValue: { it in self.pausePlusT.send(it.0) })
+        .sink(onValue: { it in
+            Logger.v("PlusRepo", "Pausing VPN as app is paused with timer")
+            self.changePlusPauseT.send(it.0)
+        })
         .store(in: &cancellables)
+    }
 
-        // Untimed pause (appState Paused, but no pausedUntilHot value)
-        appRepo.appStateHot
-        .filter { it in it == .Paused }
-        .flatMap { _ in self.appRepo.pausedUntilHot.first() }
+    private func onAppUnpaused_UnpausePlusIfNecessary() {
+        appRepo.pausedUntilHot
         .filter { it in it == nil }
-        .flatMap { _ in
+        .flatMap { until in Publishers.CombineLatest(
+            Just(until),
             // Get NETX state once it settles
+            // TODO: this may introduce delay, not sure if it's safe
             self.netxRepo.netxStateHot.filter { !$0.inProgress }.first()
-        }
-        // Do only if NETX is active
-        .filter { it in it.active || it.pauseSeconds > 0 }
-        // Just switch off Plus
-        .sink(onValue: { it in self.netxRepo.stopVpn() })
+        ) }
+        // Do only if NETX is paused
+        .filter { it in it.1.pauseSeconds > 0 }
+        // Make NETX unpause
+        .sink(onValue: { it in
+            Logger.v("PlusRepo", "Unpausing VPN as app is unpaused")
+            self.changePlusPauseT.send(nil)
+        })
         .store(in: &cancellables)
     }
 
@@ -237,8 +267,8 @@ class PlusRepo {
             return appState == .Activated && currentLease.lease != nil
         }
         .flatMap { _ in Publishers.CombineLatest(
-            self.plusEnabledHot,
-            self.netxRepo.netxStateHot.filter { !$0.inProgress }
+            self.plusEnabledHot.first(),
+            self.netxRepo.netxStateHot.filter { !$0.inProgress }.first()
         ) }
         // ... and while plus is enabled, but netx is not active...
         .filter { it in
@@ -246,7 +276,10 @@ class PlusRepo {
             return plusEnabled && !netxState.active
         }
         // ... start Plus
-        .sink(onValue: { it in self.switchPlusOn() })
+        .sink(onValue: { it in
+            Logger.v("PlusRepo", "Switch VPN on because app is active and Plus is enabled")
+            self.switchPlusOn()
+        })
         .store(in: &cancellables)
     }
 

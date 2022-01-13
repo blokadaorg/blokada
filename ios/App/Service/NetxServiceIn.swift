@@ -20,7 +20,7 @@ protocol NetxServiceIn {
     func setConfig(_ config: NetxConfig) -> AnyPublisher<Ignored, Error>
     func startVpn() -> AnyPublisher<Ignored, Error>
     func stopVpn() -> AnyPublisher<Ignored, Error>
-    func pauseVpn(until: Date) -> AnyPublisher<Ignored, Error>
+    func changePause(until: Date?) -> AnyPublisher<Ignored, Error>
     func createVpnProfile() -> AnyPublisher<Ignored, Error>
 
 }
@@ -84,12 +84,12 @@ class NetxServiceMock: NetxServiceIn {
         .eraseToAnyPublisher()
     }
     
-    func pauseVpn(until: Date) -> AnyPublisher<Ignored, Error> {
+    func changePause(until: Date?) -> AnyPublisher<Ignored, Error> {
         return Just(true)
         .delay(for: 2, scheduler: self.bgQueue)
         .map { _ in self.writeNetxState.send(NetworkStatus(
             active: false, inProgress: false,
-            gatewayId: nil, pauseSeconds: 300
+            gatewayId: nil, pauseSeconds: until != nil ? 300 : 0
         )) }
         .tryMap { _ in true }
         .eraseToAnyPublisher()

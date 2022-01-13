@@ -211,3 +211,21 @@ func getDateInTheFuture(seconds: Int) -> Date {
     let dateInTheFuture = Calendar.current.date(byAdding: components, to: date)
     return dateInTheFuture!
 }
+
+class DebugAppRepo: AppRepo {
+
+    private let log = Logger("App")
+    private var cancellables = Set<AnyCancellable>()
+
+    override init() {
+        super.init()
+
+        writeAppState.sink(
+            onValue: { it in
+                self.log.v("App state: \(it)")
+            }
+        )
+        .store(in: &cancellables)
+    }
+
+}

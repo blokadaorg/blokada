@@ -43,6 +43,7 @@ func resetReposForDebug() {
     Repos.processingRepo = DebugProcessingRepo()
     Repos.stageRepo = DebugStageRepo()
     Repos.accountRepo = DebugAccountRepo()
+    Repos.appRepo = DebugAppRepo()
     Repos.cloudRepo = DebugCloudRepo()
     Repos.sheetRepo = DebugSheetRepo()
     Repos.netxRepo = DebugNetxRepo()

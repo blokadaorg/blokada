@@ -220,35 +220,27 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         completionHandler()
     }
 
-//    private func pause(seconds: Int) {
-//        guard let dnsHandle = self.dnsHandle else { return }
-//
-//        if let timer = self.pauseTimer {
-//            timer.invalidate()
-//            self.pauseTimer = nil
-//        }
-//        if seconds == 0 {
-//            return self.unpause()
-//        }
-//
-//        // Start pausing
-//        NELogger.v("PacketTunnelProvider: pausing for \(seconds)s")
-//        self.stats()?.persist()
-//        self.pauseTimer = Timer.scheduledTimer(
-//            timeInterval: TimeInterval(seconds),
-//            target: self, selector: #selector(unpause), userInfo: nil, repeats: false
-//        )
-//        dns_use_lists(dnsHandle, nil, nil)
-//    }
-//
-//    @objc private func unpause() {
-//        guard tunnelStarted else { return }
-//        guard let dnsHandle = self.dnsHandle else { return }
-//
-//        NELogger.v("PacketTunnelProvider: unpausing")
-//        self.persistedStats = Stats.load()
-//        dns_use_lists(dnsHandle, self.blocklist(), nil)
-//    }
+    private func pause(seconds: Int) {
+        if let timer = self.pauseTimer {
+            timer.invalidate()
+            self.pauseTimer = nil
+        }
+        if seconds == 0 {
+            return self.unpause()
+        }
+
+        // Start pausing
+        NELogger.v("PacketTunnelProvider: pausing for \(seconds)s")
+        self.pauseTimer = Timer.scheduledTimer(
+            timeInterval: TimeInterval(seconds),
+            target: self, selector: #selector(unpause), userInfo: nil, repeats: false
+        )
+    }
+
+    @objc private func unpause() {
+        guard tunnelStarted else { return }
+        NELogger.v("PacketTunnelProvider: unpausing")
+    }
 
     // Needed when migrating from v5 to v6 in order to not cut out net before app UI is started
     private func passThrough(completionHandler: @escaping ((Error?)) -> Void) {
@@ -329,10 +321,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
                 tunnelState = String(Int(pauseTimer?.fireDate.timeIntervalSinceNow ?? 0))
             }
             self.respond(command: command, error: nil, response: tunnelState, completionHandler: completionHandler)
-//        case "pause":
-//            let pauseSeconds = Int(params[1]) ?? 0
-//            self.pause(seconds: pauseSeconds)
-//            self.respond(command: command, error: nil, response: "", completionHandler: completionHandler)
+        case "pause":
+            let pauseSeconds = Int(params[1]) ?? 0
+            self.pause(seconds: pauseSeconds)
+            self.respond(command: command, error: nil, response: "", completionHandler: completionHandler)
         case "stats":
             var response = ""
             if let statsString = self.stats()?.toJson() {

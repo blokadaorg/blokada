@@ -49,6 +49,7 @@ class LeaseRepo {
     private let encoder = blockaEncoder
 
     private var cancellables = Set<AnyCancellable>()
+    private let bgQueue = DispatchQueue(label: "LeaseRepoBgQueue")
 
     init() {
         onLoadLeases()
@@ -152,7 +153,7 @@ class LeaseRepo {
     private func onCurrentLease_ManageExpiration() {
         currentHot
         // Allow other components (like VPN) settle before potentially stopping them
-        .delay(for: 4.0, scheduler: bgThread)
+        .delay(for: 4.0, scheduler: bgQueue)
         .sink(onValue: { it in
             if let lease = it.lease {
                 let expireAt = lease.activeUntil().shortlyBefore()
@@ -193,7 +194,7 @@ class LeaseRepo {
 
     private func onForeground_RefreshLeases() {
         enteredForegroundHot
-        .debounce(for: 3.0, scheduler: bgThread)
+        .debounce(for: 3.0, scheduler: bgQueue)
         .sink(onValue: { _ in self.refreshLeases() })
         .store(in: &cancellables)
     }

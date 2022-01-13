@@ -50,7 +50,7 @@ class NetxRepo {
     fileprivate let setConfigT = Tasker<NetxConfig, Ignored>("setConfigT")
     fileprivate let startVpnT = SimpleTasker<Ignored>("startVpn")
     fileprivate let stopVpnT = SimpleTasker<Ignored>("stopVpn")
-    fileprivate let pauseVpnT = Tasker<Date, Ignored>("pauseVpn")
+    fileprivate let changeVpnPauseT = Tasker<Date?, Ignored>("changeVpnPause")
     fileprivate let createVpnProfileT = SimpleTasker<Ignored>("createVpnProfile")
 
     private var cancellables = Set<AnyCancellable>()
@@ -73,13 +73,13 @@ class NetxRepo {
     func startVpn() -> AnyPublisher<Ignored, Error> {
         return startVpnT.send()
     }
-    
+
     func stopVpn() -> AnyPublisher<Ignored, Error> {
         return stopVpnT.send()
     }
 
-    func pauseVpn(until: Date) -> AnyPublisher<Ignored, Error> {
-        return pauseVpnT.send(until)
+    func changePause(until: Date?) -> AnyPublisher<Ignored, Error> {
+        return changeVpnPauseT.send(until)
     }
 
     func createVpnProfile() -> AnyPublisher<Ignored, Error> {
@@ -105,8 +105,8 @@ class NetxRepo {
     }
 
     private func onPauseVpn() {
-        pauseVpnT.setTask { until in
-            self.service.pauseVpn(until: until)
+        changeVpnPauseT.setTask { until in
+            self.service.changePause(until: until)
         }
     }
 
@@ -146,7 +146,7 @@ class DebugNetxRepo: NetxRepo {
 
         writeNetxState.sink(
             onValue: { it in
-                self.log.v("State: \(it)")
+                self.log.v("Netx state: \(it)")
             }
         )
         .store(in: &cancellables)
