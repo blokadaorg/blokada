@@ -20,6 +20,7 @@
 "error vpn" = "Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.";
 "error vpn perms" = "Inga behörigheter beviljade för att skapa en VPN-profil.";
 "error vpn no current lease" = "Välj en plats först.";
+"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
 "error vpn too many leases" = "Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.";
 "error vpn expired" = "VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+";
 "error payment inactive after restore" = "Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
@@ -29,7 +30,7 @@
 "error payment canceled" = "Betalningen har avbrutits. Du har inte debiterats.";
 "error pack install" = "Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.";
 "error location failed fetching" = "Kunde inte hämta platser.";
-"error unknown" = "Ett okänt problem uppstod. Försök igen. Om problemet kvarstår, kontakta oss genom att trycka på hjälpikonen högst upp.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 "error blocka dns in filtering mode" = "Blokada DNS stöds för närvarande endast i Plus-läge. Välj en annan DNS och försök igen.";
 
 "universal action continue" = "Fortsätt";
@@ -96,6 +97,21 @@
 "notification vpn expired subtitle" = "VPN är inaktiverat";
 "notification vpn expired body" = "Uppdatera din prenumeration för att fortsätta använda BLOKADA+";
 "notification desc settings" = "Svep aviseringen åt vänster eller höger för inställningar.";
+
+"notification generic header" = "Blokada: action required";
+"notification generic subtitle" = "Tap to learn more";
+"notification generic body" = "Please open the app for details.";
+
+"notification acc header" = "Blokada account expired";
+"notification acc subtitle" = "Adblocking is disabled";
+"notification acc body" = "Please update your subscription to continue using Blokada.";
+
+"notification pause header" = "Blokada is still paused";
+"notification pause subtitle" = "Adblocking is disabled";
+"notification pause body" = "Please open the app to unpause Blokada.";
+
+// Displayed in a notification title. Do not translate "Plus".
+"notification lease header" = "Blokada Plus is off";
 
 "notification update header" = "En uppdatering är tillgänglig";
 "alert update body" = "Blokada %@ är nu tillgänglig för nedladdning. Vi rekommenderar att du håller appen uppdaterad och endast laddar ner den från våra officiella källor.";
@@ -626,3 +642,21 @@
 "dnsprofile header" = "Aktivera Blokada i Inställningar";
 "dnsprofile desc" = "I appen Inställningar, navigera till Allmänt → VPN & enhetshantering → DNS och välj Blokada.";
 "dnsprofile action open settings" = "Öppna Inställningar";
+
+"notification perms header" = "Enable notifications in Settings";
+"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
+"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
+
+// A short header text displayed to user when permissions still have to be granted. Keep it very short.
+"activated header" = "Almost there!";
+"activated desc" = "The following is necessary for Blokada to work as expected:";
+"activated desc all ok" = "Your device is all set up and good to go:";
+"activated label account" = "Account is active (%@)";
+"activated label notif yes" = "Notifications are allowed";
+"activated label notif no" = "Allow notifications";
+"activated label dns yes" = "DNS profile is activated";
+"activated label dns no" = "Activate DNS profile";
+// Displayed when user does not have Plus account. Do not translate "Plus".
+"activated label vpn cloud" = "Allow VPN (Plus only)";
+"activated label vpn yes" = "VPN is allowed";
+"activated label vpn no" = "Allow VPN";

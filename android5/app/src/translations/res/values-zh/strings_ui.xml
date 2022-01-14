@@ -10,6 +10,7 @@
     <string name="error_vpn">無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。</string>
     <string name="error_vpn_perms">未授予建立 VPN 設定檔的權限。</string>
     <string name="error_vpn_no_current_lease">請先選擇位置。</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus 現已在本裝置上停用。請選擇位置以重新啟用。</string>
     <string name="error_vpn_too_many_leases">您已達裝置限制。請移除您其中一個裝置後重試。</string>
     <string name="error_vpn_expired">已停用 VPN。請續訂訂閱以繼續使用 BLOKADA+。</string>
     <string name="error_payment_inactive_after_restore">已還原您上個付款，但訂閱已經到期。如有任何問題，請按上方的協助按鈕聯絡我們。</string>
@@ -19,7 +20,7 @@
     <string name="error_payment_canceled">付款已取消。未收取您的費用。</string>
     <string name="error_pack_install">無法安裝或解除安裝此功能。請稍候再試。</string>
     <string name="error_location_failed_fetching">無法取得地點。</string>
-    <string name="error_unknown">發生未知錯誤，請重試。如仍有問題，請按一下上方的協助圖示聯絡我們。</string>
+    <string name="error_unknown">發生問題。請確定您是否有連線網路，然後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。</string>
     <string name="error_blocka_dns_in_filtering_mode">Blokada DNS 目前僅在 Plus 模式中支援。請選擇其他 DNS 並再試一次。</string>
     <string name="universal_action_continue">繼續</string>
     <string name="universal_action_cancel">取消</string>
@@ -72,6 +73,16 @@
     <string name="notification_vpn_expired_subtitle">VPN 已停用</string>
     <string name="notification_vpn_expired_body">請更新您的訂閱以繼續使用 BLOKADA+</string>
     <string name="notification_desc_settings">將通知向左或向右滑動以進行設定。</string>
+    <string name="notification_generic_header">Blokada：需要操作</string>
+    <string name="notification_generic_subtitle">點一下深入了解</string>
+    <string name="notification_generic_body">請開啟 App 顯示詳細內容。</string>
+    <string name="notification_acc_header">Blokada 帳號過期</string>
+    <string name="notification_acc_subtitle">廣告封鎖功能被停用</string>
+    <string name="notification_acc_body">請更新您的訂閱以繼續使用 Blokada。</string>
+    <string name="notification_pause_header">Blokada 尚處於暫停狀態</string>
+    <string name="notification_pause_subtitle">廣告封鎖功能被停用</string>
+    <string name="notification_pause_body">請開啟 App 讓 Blokada 恢復運作。</string>
+    <string name="notification_lease_header">Blokada Plus 已停用</string>
     <string name="notification_update_header">有更新版本</string>
     <string name="alert_update_body">現在可以下載 Blokada %s。我們建議將本 APP 保持在最新版本，並只從我們的官方來源下載。</string>
     <string name="update_label_updated">已更新！</string>
@@ -527,4 +538,18 @@
     <string name="dnsprofile_header">在設定中啟用 Blokada</string>
     <string name="dnsprofile_desc">在「設定」App 中，前往 [一般] → [VPN、DNS 與裝置管理] → DNS 並選取 Blokada。</string>
     <string name="dnsprofile_action_open_settings">開啟設定</string>
+    <string name="notification_perms_header">在設定中啟用通知</string>
+    <string name="notification_perms_desc">這個功能需要通知功能才能運作。請開啟 Blokada 的通知功能。</string>
+    <string name="notification_perms_denied">您拒絕了通知。若要變更，請前往系統偏好設定更改。</string>
+    <string name="activated_header">快完成了！</string>
+    <string name="activated_desc">要讓 Blokada 按預期運作，以下動作是必要的：</string>
+    <string name="activated_desc_all_ok">您的裝置已設定完成，隨時可以使用：</string>
+    <string name="activated_label_account">帳號處於活躍狀態 (%s)</string>
+    <string name="activated_label_notif_yes">已允許通知</string>
+    <string name="activated_label_notif_no">允許通知</string>
+    <string name="activated_label_dns_yes">DNS 設定檔已啟用</string>
+    <string name="activated_label_dns_no">啟用 DNS 設定檔</string>
+    <string name="activated_label_vpn_cloud">允許 VPN（僅 Plus）</string>
+    <string name="activated_label_vpn_yes">允許 VPN</string>
+    <string name="activated_label_vpn_no">允許 VPN</string>
 </resources>

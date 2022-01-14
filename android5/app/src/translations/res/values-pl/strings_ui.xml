@@ -10,6 +10,7 @@
     <string name="error_vpn">Nie udało się ustawić VPN. Zrestartuj to urządzenie, lub usuń profil VPN Blokady w ustawieniach systemowych, i spróbuj ponownie.</string>
     <string name="error_vpn_perms">Brak uprawnień do utworzenia profilu VPN.</string>
     <string name="error_vpn_no_current_lease">Wybierz lokalizację.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus jest teraz wyłączona na tym urządzeniu. Wybierz lokalizację, aby ją reaktywować.</string>
     <string name="error_vpn_too_many_leases">Z Twojego konta korzysta już maksymalna dozwolona liczba urządzeń. Usuń któreś z listy urządzeń, i spróbuj ponownie.</string>
     <string name="error_vpn_expired">VPN został dezaktywowany. Wznów swoją subskrypcję, aby kontynuować korzystanie z BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Twoja ostatnia płatność została znaleziona, ale jej ważność już upłynęła. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.</string>
@@ -19,7 +20,7 @@
     <string name="error_payment_canceled">Płatność została anulowana. Twoje konto nie zostało obciążone.</string>
     <string name="error_pack_install">Nie można zainstalować (lub odinstalować) tej funkcji. Spróbuj ponownie później.</string>
     <string name="error_location_failed_fetching">Nie można pobrać lokalizacji.</string>
-    <string name="error_unknown">Wystąpił nieznany problem. Proszę spróbować ponownie. Jeśli problem będzie się powtarzał, skontaktuj się z nami, stukając ikonę pomocy u góry.</string>
+    <string name="error_unknown">Wystąpił problem. Upewnij się, że jesteś online i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami poprzez stuknięcie ikony pomocy u góry.</string>
     <string name="error_blocka_dns_in_filtering_mode">Blokada DNS jest obecnie obsługiwana tylko w trybie Plus. Wybierz inny DNS i spróbuj ponownie.</string>
     <string name="universal_action_continue">Kontynuuj</string>
     <string name="universal_action_cancel">Anuluj</string>
@@ -72,6 +73,16 @@
     <string name="notification_vpn_expired_subtitle">VPN jest wyłączony</string>
     <string name="notification_vpn_expired_body">Zaktualizuj subskrypcję, aby kontynuować korzystanie z BLOKADA+</string>
     <string name="notification_desc_settings">Przesuń powiadomienie w lewo lub w prawo, aby wyświetlić ustawienia.</string>
+    <string name="notification_generic_header">Blokada: wymagane działanie</string>
+    <string name="notification_generic_subtitle">Stuknij, aby dowiedzieć się więcej</string>
+    <string name="notification_generic_body">Otwórz aplikację, aby uzyskać szczegóły.</string>
+    <string name="notification_acc_header">Konto Blokady wygasło</string>
+    <string name="notification_acc_subtitle">Blokowanie reklam jest wyłączone</string>
+    <string name="notification_acc_body">Zaktualizuj subskrypcję, aby kontynuować korzystanie z Blokady.</string>
+    <string name="notification_pause_header">Blokada jest nadal wstrzymana</string>
+    <string name="notification_pause_subtitle">Blokowanie reklam jest wyłączone</string>
+    <string name="notification_pause_body">Otwórz aplikację, aby wznowić Blokadę.</string>
+    <string name="notification_lease_header">Blokada Plus jest wyłączona</string>
     <string name="notification_update_header">Aktualizacja jest dostępna</string>
     <string name="alert_update_body">Blokada %s jest teraz dostępna do pobrania. Zalecamy szybką aktualizację aplikacji i pobieranie jej tylko z naszych oficjalnych źródeł.</string>
     <string name="update_label_updated">Zaktualizowano!</string>
@@ -527,4 +538,18 @@
     <string name="dnsprofile_header">Aktywuj Blokadę w Ustawieniach</string>
     <string name="dnsprofile_desc">W aplikacji Ustawienia przejdź do Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.</string>
     <string name="dnsprofile_action_open_settings">Otwórz Ustawienia</string>
+    <string name="notification_perms_header">Włącz powiadomienia w ustawieniach</string>
+    <string name="notification_perms_desc">Ta funkcja wymaga powiadomień, włącz je dla Blokady.</string>
+    <string name="notification_perms_denied">Odmówiono powiadomień. Aby to zmienić, użyj ustawień systemowych.</string>
+    <string name="activated_header">Prawie gotowe!</string>
+    <string name="activated_desc">Aby Blokada działała zgodnie z oczekiwaniami, konieczne jest:</string>
+    <string name="activated_desc_all_ok">Twoje urządzenie jest skonfigurowane i gotowe:</string>
+    <string name="activated_label_account">Konto jest aktywne (%s)</string>
+    <string name="activated_label_notif_yes">Powiadomienia są dozwolone</string>
+    <string name="activated_label_notif_no">Zezwalaj na powiadomienia</string>
+    <string name="activated_label_dns_yes">Profil DNS jest aktywowany</string>
+    <string name="activated_label_dns_no">Aktywuj profil DNS</string>
+    <string name="activated_label_vpn_cloud">Zezwalaj na VPN (tylko Plus)</string>
+    <string name="activated_label_vpn_yes">VPN jest dozwolona</string>
+    <string name="activated_label_vpn_no">Zezwalaj na VPN</string>
 </resources>

@@ -10,6 +10,7 @@
     <string name="error_vpn">Não foi possível estabelecer a VPN. Por favor, reinicie seu dispositivo ou remova o perfil de VPN do Blokada nas configurações do sistema e tente novamente.</string>
     <string name="error_vpn_perms">Nenhuma permissão concedida para criar um perfil de VPN.</string>
     <string name="error_vpn_no_current_lease">Por favor, selecione uma localidade primeiro.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus is now disabled on this device. Please select a location to reactivate it.</string>
     <string name="error_vpn_too_many_leases">Você atingiu o seu limite de dispositivos. Por favor, remova um dos seus dispositivos e tente novamente.</string>
     <string name="error_vpn_expired">A VPN está desativada. Atualize sua assinatura para continuar a utilizar o BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
@@ -19,7 +20,7 @@
     <string name="error_payment_canceled">O pagamento foi cancelado. Você não foi cobrado.</string>
     <string name="error_pack_install">Não foi possível instalar (ou desinstalar) este recurso. Por favor, tente novamente mais tarde.</string>
     <string name="error_location_failed_fetching">Não foi possível buscar as localizações.</string>
-    <string name="error_unknown">Ocorreu um problema desconhecido. Por favor, tente novamente. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda no topo.</string>
+    <string name="error_unknown">Ocorreu um problema. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
     <string name="error_blocka_dns_in_filtering_mode">O Blokada DNS é atualmente suportado apenas no modo Plus. Por favor, escolha outro DNS e tente novamente.</string>
     <string name="universal_action_continue">Continuar</string>
     <string name="universal_action_cancel">Cancelar</string>
@@ -72,6 +73,16 @@
     <string name="notification_vpn_expired_subtitle">A VPN está desativada</string>
     <string name="notification_vpn_expired_body">Por favor, atualize sua assinatura para continuar usando o BLOKADA+</string>
     <string name="notification_desc_settings">Deslize a notificação para a esquerda ou direita para acessar as configurações.</string>
+    <string name="notification_generic_header">Blokada: ação necessária</string>
+    <string name="notification_generic_subtitle">Toque para saber mais</string>
+    <string name="notification_generic_body">Por favor, abra o aplicativo para mais detalhes.</string>
+    <string name="notification_acc_header">Conta do Blokada expirada</string>
+    <string name="notification_acc_subtitle">O bloqueio de anúncios está desativado</string>
+    <string name="notification_acc_body">Por favor, atualize sua assinatura para continuar usando o Blokada.</string>
+    <string name="notification_pause_header">O Blokada ainda está em pausa</string>
+    <string name="notification_pause_subtitle">O bloqueio de anúncios está desativado</string>
+    <string name="notification_pause_body">Por favor, abra o aplicativo para retomar o Blokada.</string>
+    <string name="notification_lease_header">O Blokada Plus está inativo</string>
     <string name="notification_update_header">Atualização disponível</string>
     <string name="alert_update_body">Blokada %s está agora disponível para baixar. Recomendamos manter o aplicativo atualizado, e baixá-lo apenas de nossas fontes oficiais.</string>
     <string name="update_label_updated">Atualizado!</string>
@@ -527,4 +538,18 @@
     <string name="dnsprofile_header">Ative o Blokada nas Configurações</string>
     <string name="dnsprofile_desc">No aplicativo de Configurações, navegue até Geral → VPN, DNS e Gerenciamento de Dispositivos → DNS e selecione o Blokada.</string>
     <string name="dnsprofile_action_open_settings">Abrir Configurações</string>
+    <string name="notification_perms_header">Ative as notificações nas Configurações</string>
+    <string name="notification_perms_desc">Este recurso requer as notificações, por favor, ative-as para o Blokada.</string>
+    <string name="notification_perms_denied">You denied notifications. To change it, please use System Preferences.</string>
+    <string name="activated_header">Almost there!</string>
+    <string name="activated_desc">The following is necessary for Blokada to work as expected:</string>
+    <string name="activated_desc_all_ok">Your device is all set up and good to go:</string>
+    <string name="activated_label_account">Account is active (%s)</string>
+    <string name="activated_label_notif_yes">Notifications are allowed</string>
+    <string name="activated_label_notif_no">Allow notifications</string>
+    <string name="activated_label_dns_yes">DNS profile is activated</string>
+    <string name="activated_label_dns_no">Activate DNS profile</string>
+    <string name="activated_label_vpn_cloud">Allow VPN (Plus only)</string>
+    <string name="activated_label_vpn_yes">VPN is allowed</string>
+    <string name="activated_label_vpn_no">Allow VPN</string>
 </resources>

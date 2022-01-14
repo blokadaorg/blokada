@@ -20,6 +20,7 @@
 "error vpn" = "無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。";
 "error vpn perms" = "未授予建立 VPN 設定檔的權限。";
 "error vpn no current lease" = "請先選擇位置。";
+"error vpn no current lease new" = "Blokada Plus 現已在本裝置上停用。請選擇位置以重新啟用。";
 "error vpn too many leases" = "您已達裝置限制。請移除您其中一個裝置後重試。";
 "error vpn expired" = "已停用 VPN。請續訂訂閱以繼續使用 BLOKADA+。";
 "error payment inactive after restore" = "已還原您上個付款，但訂閱已經到期。如有任何問題，請按上方的協助按鈕聯絡我們。";
@@ -29,7 +30,7 @@
 "error payment canceled" = "付款已取消。未收取您的費用。";
 "error pack install" = "無法安裝或解除安裝此功能。請稍候再試。";
 "error location failed fetching" = "無法取得地點。";
-"error unknown" = "發生未知錯誤，請重試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error unknown" = "發生問題。請確定您是否有連線網路，然後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
 "error blocka dns in filtering mode" = "Blokada DNS 目前僅在 Plus 模式中支援。請選擇其他 DNS 並再試一次。";
 
 "universal action continue" = "繼續";
@@ -96,6 +97,21 @@
 "notification vpn expired subtitle" = "VPN 已停用";
 "notification vpn expired body" = "請更新您的訂閱以繼續使用 BLOKADA+";
 "notification desc settings" = "將通知向左或向右滑動以進行設定。";
+
+"notification generic header" = "Blokada：需要操作";
+"notification generic subtitle" = "點一下深入了解";
+"notification generic body" = "請開啟 App 顯示詳細內容。";
+
+"notification acc header" = "Blokada 帳號過期";
+"notification acc subtitle" = "廣告封鎖功能被停用";
+"notification acc body" = "請更新您的訂閱以繼續使用 Blokada。";
+
+"notification pause header" = "Blokada 尚處於暫停狀態";
+"notification pause subtitle" = "廣告封鎖功能被停用";
+"notification pause body" = "請開啟 App 讓 Blokada 恢復運作。";
+
+// Displayed in a notification title. Do not translate "Plus".
+"notification lease header" = "Blokada Plus 已停用";
 
 "notification update header" = "有更新版本";
 "alert update body" = "現在可以下載 Blokada %@。我們建議將本 APP 保持在最新版本，並只從我們的官方來源下載。";
@@ -626,3 +642,21 @@
 "dnsprofile header" = "在設定中啟用 Blokada";
 "dnsprofile desc" = "在「設定」App 中，前往 [一般] → [VPN、DNS 與裝置管理] → DNS 並選取 Blokada。";
 "dnsprofile action open settings" = "開啟設定";
+
+"notification perms header" = "在設定中啟用通知";
+"notification perms desc" = "這個功能需要通知功能才能運作。請開啟 Blokada 的通知功能。";
+"notification perms denied" = "您拒絕了通知。若要變更，請前往系統偏好設定更改。";
+
+// A short header text displayed to user when permissions still have to be granted. Keep it very short.
+"activated header" = "快完成了！";
+"activated desc" = "要讓 Blokada 按預期運作，以下動作是必要的：";
+"activated desc all ok" = "您的裝置已設定完成，隨時可以使用：";
+"activated label account" = "帳號處於活躍狀態 (%@)";
+"activated label notif yes" = "已允許通知";
+"activated label notif no" = "允許通知";
+"activated label dns yes" = "DNS 設定檔已啟用";
+"activated label dns no" = "啟用 DNS 設定檔";
+// Displayed when user does not have Plus account. Do not translate "Plus".
+"activated label vpn cloud" = "允許 VPN（僅 Plus）";
+"activated label vpn yes" = "允許 VPN";
+"activated label vpn no" = "允許 VPN";

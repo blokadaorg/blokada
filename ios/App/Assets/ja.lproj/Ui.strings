@@ -15,21 +15,22 @@
 "error account inactive after restore" = "有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error account invalid" = "アカウントを確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
-"error fetching data" = "この操作は完了できませんでした。インターネット接続があることを確認し、時間を置いてもう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error fetching data" = "操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error tunnel" = "VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
 "error vpn" = "VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
 "error vpn perms" = "VPN プロファイルを作成する権限がありません。";
 "error vpn no current lease" = "接続先を選択してください。";
+"error vpn no current lease new" = "Blokada Plus が無効になりました。接続先を選択して有効にしてください。";
 "error vpn too many leases" = "デバイス数の上限に達しました。いずれかのデバイスを削除して、もう一度やり直してください。";
 "error vpn expired" = "VPN は無効です。BLOKADA+ を引き続き使用するには、サブスクリプションを更新してください。";
 "error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
-"error payment failed" = "現在、お支払いいただくことができません。オンラインであることを確認して、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error payment failed alternative" = "お支払いを完了できませんでした。入力内容が正しいことを確認して、もう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error payment failed" = "現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error payment failed alternative" = "お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error payment not available" = "このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国からのお支払いに対応していません。";
 "error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
 "error pack install" = "この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。";
 "error location failed fetching" = "接続先を取得できませんでした。";
-"error unknown" = "不明な問題が発生しました。もう一度やり直してください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error unknown" = "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error blocka dns in filtering mode" = "Blokada DNS は現在 Plus モードでのみサポートされています。別の DNS を選択して再度お試し下さい。";
 
 "universal action continue" = "続行";
@@ -96,6 +97,21 @@
 "notification vpn expired subtitle" = "VPN が無効になっています";
 "notification vpn expired body" = "BLOKADA+ を引き続き使用するには、サブスクリプションを更新してください";
 "notification desc settings" = "通知を右または左にスワイプして設定";
+
+"notification generic header" = "Blokada: アクションが必要";
+"notification generic subtitle" = "タップして詳細を表示します";
+"notification generic body" = "詳細はアプリを開いてください。";
+
+"notification acc header" = "Blokada アカウントの有効期限が終了しました";
+"notification acc subtitle" = "広告ブロックが無効になります";
+"notification acc body" = "Blokada を引き続き使用するには、サブスクリプションを更新してください。";
+
+"notification pause header" = "Blokada は停止しています";
+"notification pause subtitle" = "広告ブロックが無効です";
+"notification pause body" = "アプリを開いて Blokada の停止を解除してください。";
+
+// Displayed in a notification title. Do not translate "Plus".
+"notification lease header" = "Blokada Plus がオフです";
 
 "notification update header" = "アップデートが利用可能です";
 "alert update body" = "Blokada %@ がダウンロード可能になりました。公式ソースから最新版へアップデートすることをお勧めします。";
@@ -627,3 +643,21 @@
 "dnsprofile header" = "設定で Blokada を有効にする";
 "dnsprofile desc" = "設定を開き、[一般] > [VPN & ネットワーク] > [DNS] から Blokada を選択してください。";
 "dnsprofile action open settings" = "設定を開く";
+
+"notification perms header" = "設定で通知を有効にしてください";
+"notification perms desc" = "この機能は通知を必要とします。Blokada の通知を ON にしてください。";
+"notification perms denied" = "通知が拒否されています。必要な場合はシステム環境設定から変更してください。";
+
+// A short header text displayed to user when permissions still have to be granted. Keep it very short.
+"activated header" = "もう少しで完了です";
+"activated desc" = "Blokada が正常に動作するには、以下が必要です:";
+"activated desc all ok" = "すべての設定を完了しました:";
+"activated label account" = "アカウントがアクティブ（%@）";
+"activated label notif yes" = "通知が許可されています";
+"activated label notif no" = "通知を許可してください";
+"activated label dns yes" = "DNS プロファイルが有効";
+"activated label dns no" = "DNS プロファイルを有効にしてください";
+// Displayed when user does not have Plus account. Do not translate "Plus".
+"activated label vpn cloud" = "VPN を許可してください（Plus のみ）";
+"activated label vpn yes" = "VPN が許可されています";
+"activated label vpn no" = "VPN を許可してください";

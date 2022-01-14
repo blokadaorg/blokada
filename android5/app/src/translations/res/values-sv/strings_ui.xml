@@ -10,6 +10,7 @@
     <string name="error_vpn">Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.</string>
     <string name="error_vpn_perms">Inga behörigheter beviljade för att skapa en VPN-profil.</string>
     <string name="error_vpn_no_current_lease">Välj en plats först.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus is now disabled on this device. Please select a location to reactivate it.</string>
     <string name="error_vpn_too_many_leases">Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.</string>
     <string name="error_vpn_expired">VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
@@ -19,7 +20,7 @@
     <string name="error_payment_canceled">Betalningen har avbrutits. Du har inte debiterats.</string>
     <string name="error_pack_install">Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.</string>
     <string name="error_location_failed_fetching">Kunde inte hämta platser.</string>
-    <string name="error_unknown">Ett okänt problem uppstod. Försök igen. Om problemet kvarstår, kontakta oss genom att trycka på hjälpikonen högst upp.</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="error_blocka_dns_in_filtering_mode">Blokada DNS stöds för närvarande endast i Plus-läge. Välj en annan DNS och försök igen.</string>
     <string name="universal_action_continue">Fortsätt</string>
     <string name="universal_action_cancel">Avbryt</string>
@@ -72,6 +73,16 @@
     <string name="notification_vpn_expired_subtitle">VPN är inaktiverat</string>
     <string name="notification_vpn_expired_body">Uppdatera din prenumeration för att fortsätta använda BLOKADA+</string>
     <string name="notification_desc_settings">Svep aviseringen åt vänster eller höger för inställningar.</string>
+    <string name="notification_generic_header">Blokada: action required</string>
+    <string name="notification_generic_subtitle">Tap to learn more</string>
+    <string name="notification_generic_body">Please open the app for details.</string>
+    <string name="notification_acc_header">Blokada account expired</string>
+    <string name="notification_acc_subtitle">Adblocking is disabled</string>
+    <string name="notification_acc_body">Please update your subscription to continue using Blokada.</string>
+    <string name="notification_pause_header">Blokada is still paused</string>
+    <string name="notification_pause_subtitle">Adblocking is disabled</string>
+    <string name="notification_pause_body">Please open the app to unpause Blokada.</string>
+    <string name="notification_lease_header">Blokada Plus is off</string>
     <string name="notification_update_header">En uppdatering är tillgänglig</string>
     <string name="alert_update_body">Blokada %s är nu tillgänglig för nedladdning. Vi rekommenderar att du håller appen uppdaterad och endast laddar ner den från våra officiella källor.</string>
     <string name="update_label_updated">Uppdaterad!</string>
@@ -527,4 +538,18 @@
     <string name="dnsprofile_header">Aktivera Blokada i Inställningar</string>
     <string name="dnsprofile_desc">I appen Inställningar, navigera till Allmänt → VPN &amp; enhetshantering → DNS och välj Blokada.</string>
     <string name="dnsprofile_action_open_settings">Öppna Inställningar</string>
+    <string name="notification_perms_header">Enable notifications in Settings</string>
+    <string name="notification_perms_desc">This feature requires notifications, please switch them on for Blokada.</string>
+    <string name="notification_perms_denied">You denied notifications. To change it, please use System Preferences.</string>
+    <string name="activated_header">Almost there!</string>
+    <string name="activated_desc">The following is necessary for Blokada to work as expected:</string>
+    <string name="activated_desc_all_ok">Your device is all set up and good to go:</string>
+    <string name="activated_label_account">Account is active (%s)</string>
+    <string name="activated_label_notif_yes">Notifications are allowed</string>
+    <string name="activated_label_notif_no">Allow notifications</string>
+    <string name="activated_label_dns_yes">DNS profile is activated</string>
+    <string name="activated_label_dns_no">Activate DNS profile</string>
+    <string name="activated_label_vpn_cloud">Allow VPN (Plus only)</string>
+    <string name="activated_label_vpn_yes">VPN is allowed</string>
+    <string name="activated_label_vpn_no">Allow VPN</string>
 </resources>

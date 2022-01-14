@@ -20,6 +20,7 @@
 "error vpn" = "Tidak dapat terhubung dengan VPN. Silakan me-restart perangkat Anda, atau hapus profil Blokada VPN di pengaturan sistem, dan coba kembali.";
 "error vpn perms" = "Izin tidak diberikan untuk membuat profil VPN.";
 "error vpn no current lease" = "Silakan pilih lokasi terlebih dahulu.";
+"error vpn no current lease new" = "Blokada Plus telah dinonaktifkan di perangkat ini. Silakan memilih lokasi untuk kembali mengaktifkan Blokada Plus.";
 "error vpn too many leases" = "Jumlah perangkat yang bisa menggunakan VPN telah terlampaui. Silakan hapus salah satu perangkat Anda dan coba kembali.";
 "error vpn expired" = "VPN dinonaktifkan. Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali";
 "error payment inactive after restore" = "Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.";
@@ -29,7 +30,7 @@
 "error payment canceled" = "Pembayaran telah dibatalkan. Tidak ada biaya yang dibebankan kepada Anda.";
 "error pack install" = "Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.";
 "error location failed fetching" = "Tidak bisa mendapatkan data lokasi.";
-"error unknown" = "Telah terjadi masalah yang tidak diketahui. Silakan coba lagi. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.";
+"error unknown" = "Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.";
 "error blocka dns in filtering mode" = "Saat ini Blokada DNS hanya bisa diaktifkan di mode Plus. Silahkan pilih server DNS yang lain dan coba kembali.";
 
 "universal action continue" = "Lanjut";
@@ -96,6 +97,21 @@
 "notification vpn expired subtitle" = "VPN dinonaktifkan";
 "notification vpn expired body" = "Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali";
 "notification desc settings" = "Geser notifikasi ke kiri atau kanan untuk mengakses pengaturan.";
+
+"notification generic header" = "Blokada: perlu tindakan lebih lanjut";
+"notification generic subtitle" = "Ketuk untuk mengetahui lebih jauh";
+"notification generic body" = "Lebih lengkapnya silakan buka app.";
+
+"notification acc header" = "Akun Blokada telah kedaluwarsa";
+"notification acc subtitle" = "Mode pemblokiran iklan dinonaktifkan";
+"notification acc body" = "Silakan perbarui langganan Anda agar Anda bisa terus menggunakan Blokada.";
+
+"notification pause header" = "Blokada masih dijeda";
+"notification pause subtitle" = "Mode pemblokiran iklan dinonaktifkan";
+"notification pause body" = "Silakan buka app untuk menyalakan kembali Blokada.";
+
+// Displayed in a notification title. Do not translate "Plus".
+"notification lease header" = "Blokada Plus nonaktif";
 
 "notification update header" = "Pembaruan tersedia";
 "alert update body" = "Blokada %@ telah tersedia untuk diunduh. Kami menyarankan agar Anda terus memperbarui Blokada, dan hanya mengunduhnya dari sumber-sumber resmi.";
@@ -626,3 +642,21 @@
 "dnsprofile header" = "Aktifkan Blokada di Pengaturan";
 "dnsprofile desc" = "Di Pengaturan, cari Umum → Manajemen VPN, DNS, & Perangkat → DNS, kemudian pilih Blokada.";
 "dnsprofile action open settings" = "Buka Pengaturan";
+
+"notification perms header" = "Aktifkan notifikasi di Settings";
+"notification perms desc" = "Fitur in mengharuskan notifikasi diaktifkan, silakan aktifkan notifikasi untuk Blokada.";
+"notification perms denied" = "Anda tidak mengizinkan notifikasi. Jika Anda ingin mengubahnya silakan atur di Preferensi Sistem.";
+
+// A short header text displayed to user when permissions still have to be granted. Keep it very short.
+"activated header" = "Sebentar lagi!";
+"activated desc" = "Hal-hal berikut diperlukan supaya Blokada bisa berjalan sebagaimana mestinya:";
+"activated desc all ok" = "Perangkat Anda sudah di-set up dan siap untuk digunakan:";
+"activated label account" = "Akun aktif (%@)";
+"activated label notif yes" = "Notifikasi diizinkan";
+"activated label notif no" = "Izinkan notifikasi";
+"activated label dns yes" = "Profil DNS diaktifkan";
+"activated label dns no" = "Aktifkan profil DNS";
+// Displayed when user does not have Plus account. Do not translate "Plus".
+"activated label vpn cloud" = "Izinkan koneksi VPN (hanya Blokada Plus)";
+"activated label vpn yes" = "Koneksi VPN diizinkan";
+"activated label vpn no" = "Izinkan VPN";

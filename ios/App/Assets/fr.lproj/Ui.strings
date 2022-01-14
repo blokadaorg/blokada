@@ -20,6 +20,7 @@
 "error vpn" = "Impossible d'établir le VPN. Veuillez redémarrer votre appareil, ou retirer le profil VPN Blokada dans vos paramètres système, et réessayer.";
 "error vpn perms" = "Aucune permission accordée pour créer un profil VPN.";
 "error vpn no current lease" = "Veuillez d'abord saisir un emplacement.";
+"error vpn no current lease new" = "Blokada Plus est maintenant désactivé sur cet appareil. Veuillez sélectionner un emplacement pour le réactiver.";
 "error vpn too many leases" = "Vous avez atteint votre limite d'appareils. Veuillez retirer l'un de vos appareils et réessayer.";
 "error vpn expired" = "Le VPN est désactivé. Veuillez mettre votre abonnement à jour pour continuer d'utiliser BLOKADA+";
 "error payment inactive after restore" = "Votre paiement précédent a été restauré, mais l'abonnement a déjà expiré. Si vous pensez que c'est une erreur, veuillez nous contacter en cliquant sur le bouton d'aide en haut de l'écran.";
@@ -29,7 +30,7 @@
 "error payment canceled" = "Le paiement a été annulé. Vous n'avez pas été débité.";
 "error pack install" = "Impossible d'installer (ou désinstaller) cette fonctionnalité. Veuillez réessayer plus tard.";
 "error location failed fetching" = "Impossible de récupérer les locations.";
-"error unknown" = "Un problème inconnu est survenu. Veuillez réessayer. Si le problème persiste, contactez-nous en appuyant sur l'icône d'aide en haut.";
+"error unknown" = "Une erreur est survenue. Assurez-vous d'être en ligne puis réessayez. Si le problème persiste, contactez-nous en utilisant l'icône d'aide en haut de l'écran.";
 "error blocka dns in filtering mode" = "Blokada DNS n'est actuellement pris en charge que dans le mode Plus. Veuillez choisir un autre DNS et réessayez.";
 
 "universal action continue" = "Continuer";
@@ -96,6 +97,21 @@
 "notification vpn expired subtitle" = "Le VPN est désactivé";
 "notification vpn expired body" = "Veuillez mettre à jour votre abonnement pour continuer à utiliser BLOKADA+";
 "notification desc settings" = "Faites glisser la notification à droite ou a gauche pour accéder aux paramètres.";
+
+"notification generic header" = "Blokada: action required";
+"notification generic subtitle" = "Tap to learn more";
+"notification generic body" = "Please open the app for details.";
+
+"notification acc header" = "Blokada account expired";
+"notification acc subtitle" = "Adblocking is disabled";
+"notification acc body" = "Please update your subscription to continue using Blokada.";
+
+"notification pause header" = "Blokada is still paused";
+"notification pause subtitle" = "Adblocking is disabled";
+"notification pause body" = "Please open the app to unpause Blokada.";
+
+// Displayed in a notification title. Do not translate "Plus".
+"notification lease header" = "Blokada Plus est désactivé";
 
 "notification update header" = "Une mise à jour est disponible";
 "alert update body" = "Blokada %@ est maintenant disponible au téléchargement. Nous vous recommandons de garder l'appli à jour, et de ne la télécharger que depuis nos sources officielles.";
@@ -355,7 +371,7 @@
 "payment feature desc change location" = "Masquez votre adresse IP et apparaissez dans un autre pays. Cela protégera votre identité.";
 "payment feature title encrypt data" = "Chiffrement des données";
 "payment feature desc encrypt data" = "Les données transitant par notre tunnel VPN sont chiffrées avec de puissants algorithmes pour les prémunir d'une interception par de tierces parties.";
-"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature title encrypt dns" = "Chiffrement DNS";
 "payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
 "payment feature title performance" = "Grande performance";
 "payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
@@ -626,3 +642,21 @@
 "dnsprofile header" = "Activer Blokada dans les Paramètres";
 "dnsprofile desc" = "Dans l'application Paramètres : allez dans Général → VPN, DNS & Gestion des périphériques → DNS et enfin sélectionnez Blokada.";
 "dnsprofile action open settings" = "Ouvrir les Paramètres";
+
+"notification perms header" = "Activez les notifications dans les paramètres";
+"notification perms desc" = "Cette fonctionnalité nécessite des notifications, veuillez les autoriser pour Blokada.";
+"notification perms denied" = "Vous avez refusé les notifications. Pour modifier ce choix, allez dans les préférences système.";
+
+// A short header text displayed to user when permissions still have to be granted. Keep it very short.
+"activated header" = "On y est presque !";
+"activated desc" = "The following is necessary for Blokada to work as expected:";
+"activated desc all ok" = "Votre appareil est paramétré et prêt à l'emploi :";
+"activated label account" = "Le compte est actif (%@)";
+"activated label notif yes" = "Les notifications sont autorisées";
+"activated label notif no" = "Autoriser les notifications";
+"activated label dns yes" = "Le profil DNS est activé";
+"activated label dns no" = "Activer le profil DNS";
+// Displayed when user does not have Plus account. Do not translate "Plus".
+"activated label vpn cloud" = "Autoriser le VPN (Blokada Plus)";
+"activated label vpn yes" = "Le VPN est autorisé";
+"activated label vpn no" = "Autoriser le VPN";

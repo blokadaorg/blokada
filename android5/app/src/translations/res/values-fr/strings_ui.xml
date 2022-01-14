@@ -10,6 +10,7 @@
     <string name="error_vpn">Impossible d\'établir le VPN. Veuillez redémarrer votre appareil, ou retirer le profil VPN Blokada dans vos paramètres système, et réessayer.</string>
     <string name="error_vpn_perms">Aucune permission accordée pour créer un profil VPN.</string>
     <string name="error_vpn_no_current_lease">Veuillez d\'abord saisir un emplacement.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus est maintenant désactivé sur cet appareil. Veuillez sélectionner un emplacement pour le réactiver.</string>
     <string name="error_vpn_too_many_leases">Vous avez atteint votre limite d\'appareils. Veuillez retirer l\'un de vos appareils et réessayer.</string>
     <string name="error_vpn_expired">Le VPN est désactivé. Veuillez mettre votre abonnement à jour pour continuer d\'utiliser BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Votre paiement précédent a été restauré, mais l\'abonnement a déjà expiré. Si vous pensez que c\'est une erreur, veuillez nous contacter en cliquant sur le bouton d\'aide en haut de l\'écran.</string>
@@ -19,7 +20,7 @@
     <string name="error_payment_canceled">Le paiement a été annulé. Vous n\'avez pas été débité.</string>
     <string name="error_pack_install">Impossible d\'installer (ou désinstaller) cette fonctionnalité. Veuillez réessayer plus tard.</string>
     <string name="error_location_failed_fetching">Impossible de récupérer les locations.</string>
-    <string name="error_unknown">Un problème inconnu est survenu. Veuillez réessayer. Si le problème persiste, contactez-nous en appuyant sur l\'icône d\'aide en haut.</string>
+    <string name="error_unknown">Une erreur est survenue. Assurez-vous d\'être en ligne puis réessayez. Si le problème persiste, contactez-nous en utilisant l\'icône d\'aide en haut de l\'écran.</string>
     <string name="error_blocka_dns_in_filtering_mode">Blokada DNS n\'est actuellement pris en charge que dans le mode Plus. Veuillez choisir un autre DNS et réessayez.</string>
     <string name="universal_action_continue">Continuer</string>
     <string name="universal_action_cancel">Annuler</string>
@@ -72,6 +73,16 @@
     <string name="notification_vpn_expired_subtitle">Le VPN est désactivé</string>
     <string name="notification_vpn_expired_body">Veuillez mettre à jour votre abonnement pour continuer à utiliser BLOKADA+</string>
     <string name="notification_desc_settings">Faites glisser la notification à droite ou a gauche pour accéder aux paramètres.</string>
+    <string name="notification_generic_header">Blokada: action required</string>
+    <string name="notification_generic_subtitle">Tap to learn more</string>
+    <string name="notification_generic_body">Please open the app for details.</string>
+    <string name="notification_acc_header">Blokada account expired</string>
+    <string name="notification_acc_subtitle">Adblocking is disabled</string>
+    <string name="notification_acc_body">Please update your subscription to continue using Blokada.</string>
+    <string name="notification_pause_header">Blokada is still paused</string>
+    <string name="notification_pause_subtitle">Adblocking is disabled</string>
+    <string name="notification_pause_body">Please open the app to unpause Blokada.</string>
+    <string name="notification_lease_header">Blokada Plus est désactivé</string>
     <string name="notification_update_header">Une mise à jour est disponible</string>
     <string name="alert_update_body">Blokada %s est maintenant disponible au téléchargement. Nous vous recommandons de garder l\'appli à jour, et de ne la télécharger que depuis nos sources officielles.</string>
     <string name="update_label_updated">Mis à jour !</string>
@@ -290,7 +301,7 @@
     <string name="payment_feature_desc_change_location">Masquez votre adresse IP et apparaissez dans un autre pays. Cela protégera votre identité.</string>
     <string name="payment_feature_title_encrypt_data">Chiffrement des données</string>
     <string name="payment_feature_desc_encrypt_data">Les données transitant par notre tunnel VPN sont chiffrées avec de puissants algorithmes pour les prémunir d\'une interception par de tierces parties.</string>
-    <string name="payment_feature_title_encrypt_dns">Encrypt DNS</string>
+    <string name="payment_feature_title_encrypt_dns">Chiffrement DNS</string>
     <string name="payment_feature_desc_encrypt_dns">Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.</string>
     <string name="payment_feature_title_performance">Grande performance</string>
     <string name="payment_feature_desc_performance">Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.</string>
@@ -527,4 +538,18 @@
     <string name="dnsprofile_header">Activer Blokada dans les Paramètres</string>
     <string name="dnsprofile_desc">Dans l\'application Paramètres : allez dans Général → VPN, DNS &amp; Gestion des périphériques → DNS et enfin sélectionnez Blokada.</string>
     <string name="dnsprofile_action_open_settings">Ouvrir les Paramètres</string>
+    <string name="notification_perms_header">Activez les notifications dans les paramètres</string>
+    <string name="notification_perms_desc">Cette fonctionnalité nécessite des notifications, veuillez les autoriser pour Blokada.</string>
+    <string name="notification_perms_denied">Vous avez refusé les notifications. Pour modifier ce choix, allez dans les préférences système.</string>
+    <string name="activated_header">On y est presque !</string>
+    <string name="activated_desc">The following is necessary for Blokada to work as expected:</string>
+    <string name="activated_desc_all_ok">Votre appareil est paramétré et prêt à l\'emploi :</string>
+    <string name="activated_label_account">Le compte est actif (%s)</string>
+    <string name="activated_label_notif_yes">Les notifications sont autorisées</string>
+    <string name="activated_label_notif_no">Autoriser les notifications</string>
+    <string name="activated_label_dns_yes">Le profil DNS est activé</string>
+    <string name="activated_label_dns_no">Activer le profil DNS</string>
+    <string name="activated_label_vpn_cloud">Autoriser le VPN (Blokada Plus)</string>
+    <string name="activated_label_vpn_yes">Le VPN est autorisé</string>
+    <string name="activated_label_vpn_no">Autoriser le VPN</string>
 </resources>

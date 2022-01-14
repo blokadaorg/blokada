@@ -20,6 +20,7 @@
 "error vpn" = "VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.";
 "error vpn perms" = "Nicio permisiune acordată pentru a crea un profil VPN.";
 "error vpn no current lease" = "Vă rugăm să selectaţi mai întâi o locaţie.";
+"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
 "error vpn too many leases" = "Ați atins limita maximă de dispozitive. Vă rugăm să eliminați unul dintre dispozitivele dvs. și să încercați din nou.";
 "error vpn expired" = "VPN-ul este dezactivat. Vă rugăm să vă actualizezi abonamentul pentru a continua să folosiți BLOKADA+";
 "error payment inactive after restore" = "Plata dvs. anterioară a fost restituită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.";
@@ -29,7 +30,7 @@
 "error payment canceled" = "Plata a fost anulată. Nu ați fost taxat.";
 "error pack install" = "Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.";
 "error location failed fetching" = "Nu s-au putut prelua locațiile.";
-"error unknown" = "A apărut o problemă necunoscută. Vă rugăm să încercați din nou. Dacă problema persistă, contactați-ne apăsând pe pictograma de ajutor din partea de sus.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 "error blocka dns in filtering mode" = "Blokada DNS funcționează în prezent doar în modul Plus. Vă rugăm să alegeți un alt DNS și să încercați din nou.";
 
 "universal action continue" = "Continuă";
@@ -96,6 +97,21 @@
 "notification vpn expired subtitle" = "VPN-ul este dezactivat";
 "notification vpn expired body" = "Vă rugăm să vă actualizați abonamentul pentru a continua să utilizați BLOKADA+";
 "notification desc settings" = "Glisați notificarea înspre stânga sau dreapta pentru setări.";
+
+"notification generic header" = "Blokada: action required";
+"notification generic subtitle" = "Tap to learn more";
+"notification generic body" = "Please open the app for details.";
+
+"notification acc header" = "Blokada account expired";
+"notification acc subtitle" = "Adblocking is disabled";
+"notification acc body" = "Please update your subscription to continue using Blokada.";
+
+"notification pause header" = "Blokada is still paused";
+"notification pause subtitle" = "Adblocking is disabled";
+"notification pause body" = "Please open the app to unpause Blokada.";
+
+// Displayed in a notification title. Do not translate "Plus".
+"notification lease header" = "Blokada Plus is off";
 
 "notification update header" = "Este disponibilă o actualizare";
 "alert update body" = "Blokada %@ este acum disponibilă pentru descărcare. Vă recomandăm să păstrați aplicația la zi și să o descărcați doar din sursele noastre oficiale.";
@@ -626,3 +642,21 @@
 "dnsprofile header" = "Enable Blokada in Settings";
 "dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
 "dnsprofile action open settings" = "Open Settings";
+
+"notification perms header" = "Enable notifications in Settings";
+"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
+"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
+
+// A short header text displayed to user when permissions still have to be granted. Keep it very short.
+"activated header" = "Almost there!";
+"activated desc" = "The following is necessary for Blokada to work as expected:";
+"activated desc all ok" = "Your device is all set up and good to go:";
+"activated label account" = "Account is active (%@)";
+"activated label notif yes" = "Notifications are allowed";
+"activated label notif no" = "Allow notifications";
+"activated label dns yes" = "DNS profile is activated";
+"activated label dns no" = "Activate DNS profile";
+// Displayed when user does not have Plus account. Do not translate "Plus".
+"activated label vpn cloud" = "Allow VPN (Plus only)";
+"activated label vpn yes" = "VPN is allowed";
+"activated label vpn no" = "Allow VPN";

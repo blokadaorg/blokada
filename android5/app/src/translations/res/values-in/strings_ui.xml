@@ -10,6 +10,7 @@
     <string name="error_vpn">Tidak dapat terhubung dengan VPN. Silakan me-restart perangkat Anda, atau hapus profil Blokada VPN di pengaturan sistem, dan coba kembali.</string>
     <string name="error_vpn_perms">Izin tidak diberikan untuk membuat profil VPN.</string>
     <string name="error_vpn_no_current_lease">Silakan pilih lokasi terlebih dahulu.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus telah dinonaktifkan di perangkat ini. Silakan memilih lokasi untuk kembali mengaktifkan Blokada Plus.</string>
     <string name="error_vpn_too_many_leases">Jumlah perangkat yang bisa menggunakan VPN telah terlampaui. Silakan hapus salah satu perangkat Anda dan coba kembali.</string>
     <string name="error_vpn_expired">VPN dinonaktifkan. Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali</string>
     <string name="error_payment_inactive_after_restore">Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.</string>
@@ -19,7 +20,7 @@
     <string name="error_payment_canceled">Pembayaran telah dibatalkan. Tidak ada biaya yang dibebankan kepada Anda.</string>
     <string name="error_pack_install">Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.</string>
     <string name="error_location_failed_fetching">Tidak bisa mendapatkan data lokasi.</string>
-    <string name="error_unknown">Telah terjadi masalah yang tidak diketahui. Silakan coba lagi. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.</string>
+    <string name="error_unknown">Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.</string>
     <string name="error_blocka_dns_in_filtering_mode">Saat ini Blokada DNS hanya bisa diaktifkan di mode Plus. Silahkan pilih server DNS yang lain dan coba kembali.</string>
     <string name="universal_action_continue">Lanjut</string>
     <string name="universal_action_cancel">Batal</string>
@@ -72,6 +73,16 @@
     <string name="notification_vpn_expired_subtitle">VPN dinonaktifkan</string>
     <string name="notification_vpn_expired_body">Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali</string>
     <string name="notification_desc_settings">Geser notifikasi ke kiri atau kanan untuk mengakses pengaturan.</string>
+    <string name="notification_generic_header">Blokada: perlu tindakan lebih lanjut</string>
+    <string name="notification_generic_subtitle">Ketuk untuk mengetahui lebih jauh</string>
+    <string name="notification_generic_body">Lebih lengkapnya silakan buka app.</string>
+    <string name="notification_acc_header">Akun Blokada telah kedaluwarsa</string>
+    <string name="notification_acc_subtitle">Mode pemblokiran iklan dinonaktifkan</string>
+    <string name="notification_acc_body">Silakan perbarui langganan Anda agar Anda bisa terus menggunakan Blokada.</string>
+    <string name="notification_pause_header">Blokada masih dijeda</string>
+    <string name="notification_pause_subtitle">Mode pemblokiran iklan dinonaktifkan</string>
+    <string name="notification_pause_body">Silakan buka app untuk menyalakan kembali Blokada.</string>
+    <string name="notification_lease_header">Blokada Plus nonaktif</string>
     <string name="notification_update_header">Pembaruan tersedia</string>
     <string name="alert_update_body">Blokada %s telah tersedia untuk diunduh. Kami menyarankan agar Anda terus memperbarui Blokada, dan hanya mengunduhnya dari sumber-sumber resmi.</string>
     <string name="update_label_updated">Diperbarui!</string>
@@ -527,4 +538,18 @@
     <string name="dnsprofile_header">Aktifkan Blokada di Pengaturan</string>
     <string name="dnsprofile_desc">Di Pengaturan, cari Umum → Manajemen VPN, DNS, &amp; Perangkat → DNS, kemudian pilih Blokada.</string>
     <string name="dnsprofile_action_open_settings">Buka Pengaturan</string>
+    <string name="notification_perms_header">Aktifkan notifikasi di Settings</string>
+    <string name="notification_perms_desc">Fitur in mengharuskan notifikasi diaktifkan, silakan aktifkan notifikasi untuk Blokada.</string>
+    <string name="notification_perms_denied">Anda tidak mengizinkan notifikasi. Jika Anda ingin mengubahnya silakan atur di Preferensi Sistem.</string>
+    <string name="activated_header">Sebentar lagi!</string>
+    <string name="activated_desc">Hal-hal berikut diperlukan supaya Blokada bisa berjalan sebagaimana mestinya:</string>
+    <string name="activated_desc_all_ok">Perangkat Anda sudah di-set up dan siap untuk digunakan:</string>
+    <string name="activated_label_account">Akun aktif (%s)</string>
+    <string name="activated_label_notif_yes">Notifikasi diizinkan</string>
+    <string name="activated_label_notif_no">Izinkan notifikasi</string>
+    <string name="activated_label_dns_yes">Profil DNS diaktifkan</string>
+    <string name="activated_label_dns_no">Aktifkan profil DNS</string>
+    <string name="activated_label_vpn_cloud">Izinkan koneksi VPN (hanya Blokada Plus)</string>
+    <string name="activated_label_vpn_yes">Koneksi VPN diizinkan</string>
+    <string name="activated_label_vpn_no">Izinkan VPN</string>
 </resources>

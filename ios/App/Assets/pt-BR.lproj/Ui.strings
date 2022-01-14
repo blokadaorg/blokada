@@ -20,6 +20,7 @@
 "error vpn" = "Não foi possível estabelecer a VPN. Por favor, reinicie seu dispositivo ou remova o perfil de VPN do Blokada nas configurações do sistema e tente novamente.";
 "error vpn perms" = "Nenhuma permissão concedida para criar um perfil de VPN.";
 "error vpn no current lease" = "Por favor, selecione uma localidade primeiro.";
+"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
 "error vpn too many leases" = "Você atingiu o seu limite de dispositivos. Por favor, remova um dos seus dispositivos e tente novamente.";
 "error vpn expired" = "A VPN está desativada. Atualize sua assinatura para continuar a utilizar o BLOKADA+";
 "error payment inactive after restore" = "Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
@@ -29,7 +30,7 @@
 "error payment canceled" = "O pagamento foi cancelado. Você não foi cobrado.";
 "error pack install" = "Não foi possível instalar (ou desinstalar) este recurso. Por favor, tente novamente mais tarde.";
 "error location failed fetching" = "Não foi possível buscar as localizações.";
-"error unknown" = "Ocorreu um problema desconhecido. Por favor, tente novamente. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda no topo.";
+"error unknown" = "Ocorreu um problema. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error blocka dns in filtering mode" = "O Blokada DNS é atualmente suportado apenas no modo Plus. Por favor, escolha outro DNS e tente novamente.";
 
 "universal action continue" = "Continuar";
@@ -96,6 +97,21 @@
 "notification vpn expired subtitle" = "A VPN está desativada";
 "notification vpn expired body" = "Por favor, atualize sua assinatura para continuar usando o BLOKADA+";
 "notification desc settings" = "Deslize a notificação para a esquerda ou direita para acessar as configurações.";
+
+"notification generic header" = "Blokada: ação necessária";
+"notification generic subtitle" = "Toque para saber mais";
+"notification generic body" = "Por favor, abra o aplicativo para mais detalhes.";
+
+"notification acc header" = "Conta do Blokada expirada";
+"notification acc subtitle" = "O bloqueio de anúncios está desativado";
+"notification acc body" = "Por favor, atualize sua assinatura para continuar usando o Blokada.";
+
+"notification pause header" = "O Blokada ainda está em pausa";
+"notification pause subtitle" = "O bloqueio de anúncios está desativado";
+"notification pause body" = "Por favor, abra o aplicativo para retomar o Blokada.";
+
+// Displayed in a notification title. Do not translate "Plus".
+"notification lease header" = "O Blokada Plus está inativo";
 
 "notification update header" = "Atualização disponível";
 "alert update body" = "Blokada %@ está agora disponível para baixar. Recomendamos manter o aplicativo atualizado, e baixá-lo apenas de nossas fontes oficiais.";
@@ -626,3 +642,21 @@
 "dnsprofile header" = "Ative o Blokada nas Configurações";
 "dnsprofile desc" = "No aplicativo de Configurações, navegue até Geral → VPN, DNS e Gerenciamento de Dispositivos → DNS e selecione o Blokada.";
 "dnsprofile action open settings" = "Abrir Configurações";
+
+"notification perms header" = "Ative as notificações nas Configurações";
+"notification perms desc" = "Este recurso requer as notificações, por favor, ative-as para o Blokada.";
+"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
+
+// A short header text displayed to user when permissions still have to be granted. Keep it very short.
+"activated header" = "Almost there!";
+"activated desc" = "The following is necessary for Blokada to work as expected:";
+"activated desc all ok" = "Your device is all set up and good to go:";
+"activated label account" = "Account is active (%@)";
+"activated label notif yes" = "Notifications are allowed";
+"activated label notif no" = "Allow notifications";
+"activated label dns yes" = "DNS profile is activated";
+"activated label dns no" = "Activate DNS profile";
+// Displayed when user does not have Plus account. Do not translate "Plus".
+"activated label vpn cloud" = "Allow VPN (Plus only)";
+"activated label vpn yes" = "VPN is allowed";
+"activated label vpn no" = "Allow VPN";

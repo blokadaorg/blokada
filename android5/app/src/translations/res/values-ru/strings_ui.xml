@@ -10,6 +10,7 @@
     <string name="error_vpn">Не удалось запустить VPN. Пожалуйста, перезагрузите устройство или удалите профиль Blokada VPN в системных настройках и повторите попытку.</string>
     <string name="error_vpn_perms">Нет разрешений для создания профиля VPN.</string>
     <string name="error_vpn_no_current_lease">Пожалуйста, сначала выберите местоположение.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus отключена на этом устройстве. Выберите местоположение для повторной активации.</string>
     <string name="error_vpn_too_many_leases">Вы достигли ограничения по количеству устройств. Пожалуйста, отключите одно из ваших устройств и повторите попытку.</string>
     <string name="error_vpn_expired">VPN отключен. Пожалуйста, обновите подписку, чтобы продолжить использовать BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Ваш предыдущий платеж был возмещен, но срок действия подписки уже истек. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами, нажав на иконку справки в верхней части.</string>
@@ -19,7 +20,7 @@
     <string name="error_payment_canceled">Платеж отменен. Сумма списана не была.</string>
     <string name="error_pack_install">Не удалось установить (или удалить) эту функцию. Пожалуйста, попробуйте позже.</string>
     <string name="error_location_failed_fetching">Не удалось получить местоположения.</string>
-    <string name="error_unknown">Возникла неизвестная проблема. Пожалуйста, попробуйте еще раз. Если проблема сохраняется, пожалуйста, свяжитесь с нами, нажав на значок справки в верхней части.</string>
+    <string name="error_unknown">Возникла проблема. Убедитесь, что вы в сети, и повторите попытку позже. Если проблема сохраняется, свяжитесь с нами, нажав на значок помощи вверху.</string>
     <string name="error_blocka_dns_in_filtering_mode">Blokada DNS в настоящее время поддерживается только в режиме Plus. Пожалуйста, выберите другой DNS и повторите попытку.</string>
     <string name="universal_action_continue">Продолжить</string>
     <string name="universal_action_cancel">Отмена</string>
@@ -72,6 +73,16 @@
     <string name="notification_vpn_expired_subtitle">VPN отключен</string>
     <string name="notification_vpn_expired_body">Пожалуйста, обновите подписку, чтобы продолжить использовать BLOKADA+</string>
     <string name="notification_desc_settings">Смахните уведомление влево или вправо для отображения настроек.</string>
+    <string name="notification_generic_header">Blokada: требуется действие</string>
+    <string name="notification_generic_subtitle">Нажмите, чтобы узнать больше</string>
+    <string name="notification_generic_body">Пожалуйста, откройте приложение для получения подробной информации.</string>
+    <string name="notification_acc_header">Срок действия аккаунта Blokada истек</string>
+    <string name="notification_acc_subtitle">Блокировка рекламы отключена</string>
+    <string name="notification_acc_body">Пожалуйста, обновите подписку, чтобы продолжить использовать Blokada.</string>
+    <string name="notification_pause_header">Blokada приостановлена</string>
+    <string name="notification_pause_subtitle">Блокировка рекламы отключена</string>
+    <string name="notification_pause_body">Пожалуйста, откройте приложение, чтобы возобновить Blokada.</string>
+    <string name="notification_lease_header">Blokada Plus отключена</string>
     <string name="notification_update_header">Доступно обновление</string>
     <string name="alert_update_body">Blokada %s теперь доступна для скачивания. Мы рекомендуем поддерживать актуальную версию приложения, и скачивать его только из наших официальных источников.</string>
     <string name="update_label_updated">Обновлено!</string>
@@ -527,4 +538,18 @@
     <string name="dnsprofile_header">Включите Blokada в Настройках</string>
     <string name="dnsprofile_desc">В настройках устройства перейдите в раздел Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.</string>
     <string name="dnsprofile_action_open_settings">Открыть Настройки</string>
+    <string name="notification_perms_header">Включить уведомления в настройках</string>
+    <string name="notification_perms_desc">Эта функция требует уведомлений, включите их для Blokada.</string>
+    <string name="notification_perms_denied">Вы отказались от уведомлений. Чтобы изменить это, используйте системные настройки.</string>
+    <string name="activated_header">Почти готово!</string>
+    <string name="activated_desc">Чтобы Blokada работала должным образом, необходимо:</string>
+    <string name="activated_desc_all_ok">Ваше устройство настроено и готово к работе:</string>
+    <string name="activated_label_account">Аккаунт активен (%s)</string>
+    <string name="activated_label_notif_yes">Уведомления разрешены</string>
+    <string name="activated_label_notif_no">Разрешить уведомления</string>
+    <string name="activated_label_dns_yes">Профиль DNS активирован</string>
+    <string name="activated_label_dns_no">Активировать профиль DNS</string>
+    <string name="activated_label_vpn_cloud">Разрешить VPN (только Plus)</string>
+    <string name="activated_label_vpn_yes">VPN разрешен</string>
+    <string name="activated_label_vpn_no">Разрешить VPN</string>
 </resources>
