@@ -94,7 +94,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
             privateKey: config["privateKey"] as! String,
             gatewayId: config["gatewayId"] as! String,
             gatewayIpv4: config["ipv4"] as! String,
-            gatewayIpv6: config["ipv6"] as! String,
+            //gatewayIpv6: config["ipv6"] as! String,
+            gatewayIpv6: "",
             gatewayPort: config["port"] as! String,
             vip4: config["vip4"] as! String,
             vip6: config["vip6"] as! String,
@@ -356,5 +357,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
             handler(data)
         }
     }
+
 }
 
