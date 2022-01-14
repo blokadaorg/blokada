@@ -115,7 +115,7 @@ class DebugStageRepo: StageRepo {
         super.init()
 
         stageHot.sink(
-            onValue: { it in self.log.v("Stage: \(it)") }
+            onValue: { it in self.log.w("Stage: \(it)") }
         )
         .store(in: &cancellables)
     }
