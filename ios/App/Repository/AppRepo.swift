@@ -199,7 +199,7 @@ class AppRepo {
     }
 
     private func emitWorkingStateOnStart() {
-        writeAppState.send(.Paused)
+        writeAppState.send(.Deactivated)
         writeWorking.send(true)
     }
 }
