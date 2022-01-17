@@ -108,7 +108,7 @@ class AppRepo {
         unpauseAppT.setTask { _ in
             return self.appStateHot.first()
             .flatMap { it -> AnyPublisher<Ignored, Error> in
-                if it == .Paused {
+                if it == .Paused || it == .Deactivated {
                     return self.cloudRepo.setPaused(false)
                     .flatMap { _ in self.timer.cancelTimer(NOTIF_PAUSE) }
                     .eraseToAnyPublisher()
