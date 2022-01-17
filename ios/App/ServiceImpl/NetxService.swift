@@ -75,43 +75,35 @@ class NetxService: NetxServiceIn {
             }
             .eraseToAnyPublisher()
         }
+        .flatMap { _ in self.netxStateHot.first() }
+        .flatMap { netxState -> AnyPublisher<Ignored, Error> in
+            if (netxState.active) {
+                Logger.v("NetxService", "Updating NETX config live")
+                return self.switchConfigLive(config)
+            } else {
+                return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
+            }
+        }
         .eraseToAnyPublisher()
     }
 
-    func switchConfigLive(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
-        return Fail(error: "not implemented").eraseToAnyPublisher()
-        //            guard self.config.hasLease() else {
-        //                return done("syncGateway: No lease set", nil)
-        //            }
-        //
-        //            let lease = self.config.lease()!
-        //
-        //            guard let gateway = self.config.gateway() else {
-        //                return done("syncGateway: No gateway set", nil)
-        //            }
-        //
-        //            let connect = [
-        //                NetworkCommand.connect.rawValue,
-        //                Config.shared.privateKey(),
-        //                lease.gateway_id,
-        //                gateway.ipv4,
-        //                gateway.ipv6,
-        //                String(gateway.port),
-        //                lease.vip4,
-        //                lease.vip6,
-        //                self.getUserDnsIp(Config.shared.deviceTag())
-        //            ].joined(separator: " ")
-        //            self.sendMessage(msg: connect) { error, _ in
-        //                guard error == nil else {
-        //                    return onMain {
-        //                        self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: nil, pauseSeconds: 0))
-        //                        done(error, nil)
-        //                    }
-        //                }
-        //
-        //                self.onStatusChanged(NetworkStatus(active: true, inProgress: false, gatewayId: gateway.public_key, pauseSeconds: 0))
-        //                done(nil, nil)
-        //            }
+    private func switchConfigLive(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
+        let connect = [
+            NetworkCommand.connect.rawValue,
+            config.privateKey,
+            config.gateway.public_key,
+            config.gateway.ipv4,
+            config.gateway.ipv6,
+            String(config.gateway.port),
+            config.lease.vip4,
+            config.lease.vip6,
+            self.getUserDnsIp(config.deviceTag)
+        ].joined(separator: " ")
+
+        return self.sendNetxMessage(msg: connect)
+        .map { _ in true }
+        .eraseToAnyPublisher()
+        // TODO: emit network status here?
     }
 
     func startVpn() -> AnyPublisher<Ignored, Error> {

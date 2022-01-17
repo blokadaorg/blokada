@@ -41,6 +41,7 @@ enum NetworkCommand: String {
     case request = "request"
     case report = "report"
     case pause = "pause"
+    case connect = "connect"
 }
 
 enum ReportCommandResponse: String {
