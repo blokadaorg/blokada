@@ -73,12 +73,22 @@ class PermsRepo {
     }
 
     func maybeAskVpnProfilePerms() -> AnyPublisher<Granted, Error> {
-        return vpnProfilePerms.first()
-        .tryMap { granted -> Ignored in
-            if !granted {
-                throw "ask for vpn profile"
+        return accountTypeHot.first()
+        .flatMap { it -> AnyPublisher<Granted, Error> in
+            if it == .Plus {
+                return self.vpnProfilePerms.first()
+                .tryMap { granted -> Ignored in
+                    if !granted {
+                        throw "ask for vpn profile"
+                    } else {
+                        return true
+                    }
+                }
+                .eraseToAnyPublisher()
             } else {
-                return true
+                return Just(true)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
             }
         }
         .tryCatch { _ in self.netxRepo.createVpnProfile() }
