@@ -58,6 +58,7 @@ class LeaseRepo {
         onDeleteLease()
         onCurrentLease_ManageExpiration()
         onForeground_RefreshLeases()
+        onAccountNotPlus_RemoveLease()
     }
 
     func refreshLeases() -> AnyPublisher<Ignored, Error> {
@@ -198,4 +199,19 @@ class LeaseRepo {
         .sink(onValue: { _ in self.refreshLeases() })
         .store(in: &cancellables)
     }
+
+    private func onAccountNotPlus_RemoveLease() {
+        accountHot
+        .delay(for: 3.0, scheduler: bgQueue)
+        .tryMap { it in mapAccountType(it.account.type) }
+        .filter { it in it != .Plus }
+        .flatMap { _ in self.currentHot.first() }
+        .compactMap { it in it.lease }
+        .sink(onValue: { currentLease in
+            Logger.w("LeaseRepo", "Removing lease because account is not plus")
+            self.deleteLease(currentLease)
+        })
+        .store(in: &cancellables)
+    }
+
 }
