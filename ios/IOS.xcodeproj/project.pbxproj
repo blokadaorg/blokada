@@ -11,8 +11,8 @@
 		47729E0D22F447CA00B9B36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
 		47729E1022F447CA00B9B36B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
 		4E057E77244DBB7500995A6E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */; };
-		4E07F19827906E4300F5A310 /* RateRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07F19727906E4300F5A310 /* RateRepo.swift */; };
-		4E07F19927906E4300F5A310 /* RateRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07F19727906E4300F5A310 /* RateRepo.swift */; };
+		4E07F19827906E4300F5A310 /* RateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07F19727906E4300F5A310 /* RateService.swift */; };
+		4E07F19927906E4300F5A310 /* RateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07F19727906E4300F5A310 /* RateService.swift */; };
 		4E08B9CD247D72DD00AED8F0 /* ActivityItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */; };
 		4E08B9CE247D72DD00AED8F0 /* ActivityItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */; };
 		4E08B9D0247E7C0300AED8F0 /* DnsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9CF247E7C0300AED8F0 /* DnsModel.swift */; };
@@ -413,7 +413,7 @@
 		47729E0F22F447CA00B9B36B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47729E1122F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
-		4E07F19727906E4300F5A310 /* RateRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateRepo.swift; sourceTree = "<group>"; };
+		4E07F19727906E4300F5A310 /* RateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateService.swift; sourceTree = "<group>"; };
 		4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemViewModel.swift; sourceTree = "<group>"; };
 		4E08B9CF247E7C0300AED8F0 /* DnsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnsModel.swift; sourceTree = "<group>"; };
 		4E08B9D5247EAD8100AED8F0 /* ContentHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHostingController.swift; sourceTree = "<group>"; };
@@ -802,6 +802,7 @@
 				4E5CACE3276B906F00F6F237 /* JobService.swift */,
 				4EB4347C27731353003C1242 /* DialogService.swift */,
 				4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */,
+				4E07F19727906E4300F5A310 /* RateService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -830,7 +831,6 @@
 				4EE25DC4278C4CEE00F2F79B /* HttpRepo.swift */,
 				4E0B7E4F278DB6DA0032259C /* LinkRepo.swift */,
 				4E356A892437711A0094EE27 /* LinkDataSource.swift */,
-				4E07F19727906E4300F5A310 /* RateRepo.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1424,7 +1424,7 @@
 				4E42354E2450265C005A0779 /* HomeViewModel.swift in Sources */,
 				4E9A04662449A006003AB48D /* EnvService.swift in Sources */,
 				4E267F5C243CB79C00D3160F /* BenefitView.swift in Sources */,
-				4E07F19827906E4300F5A310 /* RateRepo.swift in Sources */,
+				4E07F19827906E4300F5A310 /* RateService.swift in Sources */,
 				4EA105C2242B8A7900559CBB /* Transitions.swift in Sources */,
 				4E57FCD724A0B9FC00960ADF /* ChatInputView.swift in Sources */,
 				4E201D1E27554572001FA2FF /* BlockaApiService.swift in Sources */,
@@ -1550,7 +1550,7 @@
 				4E2ECD06245B1535009040F1 /* PacksViewModel.swift in Sources */,
 				4E2ECD00245B0E79009040F1 /* PackDetailView.swift in Sources */,
 				4E8AE1E22756974F00BD2E5B /* AccountRepo.swift in Sources */,
-				4E07F19927906E4300F5A310 /* RateRepo.swift in Sources */,
+				4E07F19927906E4300F5A310 /* RateService.swift in Sources */,
 				4EC014022460741C001DF5F7 /* TabItemView.swift in Sources */,
 				4E2ECCF1245AE5D1009040F1 /* PlaceholderView.swift in Sources */,
 				4E53CCC4244E3299009B3CF0 /* EngineServiceMock.swift in Sources */,

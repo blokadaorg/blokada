@@ -70,52 +70,49 @@ class ICloudPersistenceService: PersistenceService {
     private let iCloud = NSUbiquitousKeyValueStore()
 
     func getString(forKey: String) -> AnyPublisher<String, Error> {
-        return Deferred { () -> AnyPublisher<String, Error> in
+        return Just(true)
+        .tryMap { _ in
             guard let it = self.iCloud.string(forKey: forKey) else {
-                return Fail<String, Error>(error: CommonError.emptyResult)
-                    .eraseToAnyPublisher()
+                throw CommonError.emptyResult
             }
-
-            return Just(it).setFailureType(to: Error.self).eraseToAnyPublisher()
+            return it
         }
         .eraseToAnyPublisher()
     }
 
     func setString(_ value: String, forKey: String) -> AnyPublisher<Ignored, Error> {
-        return Deferred { () -> AnyPublisher<Ignored, Error> in
+        return Just(value)
+        .tryMap { value in
             self.iCloud.set(value, forKey: forKey)
             self.iCloud.synchronize()
-
-            return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
+        .map { _ in true }
         .eraseToAnyPublisher()
     }
 
     func delete(forKey: String) -> AnyPublisher<Ignored, Error> {
-        return Deferred { () -> AnyPublisher<Ignored, Error> in
+        return Just(true)
+        .tryMap { value in
             self.iCloud.removeObject(forKey: forKey)
             self.iCloud.synchronize()
-
-            return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
+        .map { _ in true }
         .eraseToAnyPublisher()
     }
 
     func getBool(forKey: String) -> AnyPublisher<Bool, Error> {
-        return Deferred { () -> AnyPublisher<Bool, Error> in
-            let it = self.iCloud.bool(forKey: forKey)
-            return Just(it).setFailureType(to: Error.self).eraseToAnyPublisher()
-        }
+        return Just(true)
+        .tryMap { _ in self.iCloud.bool(forKey: forKey) }
         .eraseToAnyPublisher()
     }
 
     func setBool(_ value: Bool, forKey: String) -> AnyPublisher<Ignored, Error> {
-        return Deferred { () -> AnyPublisher<Ignored, Error> in
+        return Just(value)
+        .tryMap { value in
             self.iCloud.set(value, forKey: forKey)
             self.iCloud.synchronize()
-
-            return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
+        .map { _ in true }
         .eraseToAnyPublisher()
     }
 
@@ -130,13 +127,12 @@ class KeychainPersistenceService: PersistenceService {
     }
 
     func getString(forKey: String) -> AnyPublisher<String, Error> {
-        return Deferred { () -> AnyPublisher<String, Error> in
+        return Just(true)
+        .tryMap { _ in
             guard let it = self.keychain.get(forKey) else {
-                return Fail<String, Error>(error: CommonError.emptyResult)
-                    .eraseToAnyPublisher()
+                throw CommonError.emptyResult
             }
-
-            return Just(it).setFailureType(to: Error.self).eraseToAnyPublisher()
+            return it
         }
         .eraseToAnyPublisher()
     }

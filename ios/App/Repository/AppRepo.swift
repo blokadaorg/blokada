@@ -166,7 +166,8 @@ class AppRepo {
         let tasksThatMarkWorkingState = Set([
             "accountInit", "refreshAccount", "restoreAccount",
             "pauseApp", "unpauseApp",
-            "newPlus", "clearPlus", "switchPlusOn", "switchPlusOff"
+            "newPlus", "clearPlus", "switchPlusOn", "switchPlusOff",
+            "consumePurchase"
         ])
 
         currentlyOngoingHot
