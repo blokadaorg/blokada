@@ -147,6 +147,7 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
     }
 
     func startObservingPayments() {
+        Logger.v("StoreKit", "Starting observing payments")
         SKPaymentQueue.default().add(self)
     }
 

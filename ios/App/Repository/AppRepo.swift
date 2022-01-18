@@ -187,7 +187,9 @@ class AppRepo {
         .flatMap { _ in
             self.unpauseApp()
         }
-        .sink()
+        .sink(
+            onFailure: { err in Logger.w("AppRepo", "Pause timer failed: \(err)")}
+        )
         .store(in: &cancellables)
     }
 
