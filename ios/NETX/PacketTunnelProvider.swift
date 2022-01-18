@@ -133,6 +133,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
 
     override func wake() {
         self.device.wake()
+        // TODO: experimental
+        connectVPN { error in
+            NELogger.e("PacketTunnelProvider: error connecting after wake: \(error)")
+        }
     }
 
     func createSession() -> NWUDPSession {
