@@ -60,7 +60,7 @@ class CloudRepo {
     fileprivate let setActivityRetentionT = Tasker<CloudActivityRetention, Ignored>("setActivityRetention")
     fileprivate let setBlocklistsT = Tasker<CloudBlocklists, Ignored>("setBlocklists")
 
-    fileprivate let refreshDeviceInfoT = SimpleTasker<Ignored>("refreshDeviceInfo", debounce: 3.0, errorIsMajor: true)
+    fileprivate let refreshDeviceInfoT = SimpleTasker<Ignored>("refreshDeviceInfo", debounce: 0.5, errorIsMajor: true)
     fileprivate let setPausedT = Tasker<Ignored, Ignored>("setPaused", errorIsMajor: true)
 
     private let bgQueue = DispatchQueue(label: "CloudRepoBgQueue")
