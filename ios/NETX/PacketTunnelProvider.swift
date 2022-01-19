@@ -298,7 +298,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider, TunnelSessionDelegate {
         switch command {
         case "connect":
             previousConfig = tunnelConfig
-            tunnelConfig = TunnelConfig(privateKey: params[1], gatewayId: params[2], gatewayIpv4: params[3], gatewayIpv6: params[4], gatewayPort: params[5], vip4: params[6], vip6: params[7], dns: params[8])
+            tunnelConfig = TunnelConfig(privateKey: params[1], gatewayId: params[2], gatewayIpv4: params[3], gatewayIpv6: "" /*params[4]*/, gatewayPort: params[5], vip4: params[6], vip6: params[7], dns: params[8])
             if (tunnelStarted) {
                 connectVPN { error in
                     self.respond(command: command, error: error, response: "", completionHandler: completionHandler)
