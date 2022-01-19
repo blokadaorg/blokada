@@ -206,7 +206,13 @@ class PaymentRepo {
 
     private func onStoreKitOngoingTransaction() {
         storeKit.onOngoingTransaction = {
-            self.consumePurchaseT.send(false)
+            // Only restore implicitly if current account is not active
+            self.accountRepo.accountTypeHot.first()
+            .filter { it in it == .Libre }
+            .sink (onValue: { _ in
+                self.consumePurchaseT.send(false)
+            })
+            .store(in: &self.cancellables)
         }
     }
 
