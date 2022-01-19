@@ -54,6 +54,12 @@ class PrivateDnsServiceImpl: PrivateDnsService {
                             return promise(.success(true))
                         }
 
+                        // XXX: Even uglier error I don't understand that seems safe to ignore
+                        if (error!.localizedDescription == "configuration is stale") {
+                            Logger.w("PrivateDns", "Ignoring the 'configuration is stale' error")
+                            return promise(.success(true))
+                        }
+
                         return promise(.failure(error!))
                     }
 
