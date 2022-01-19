@@ -24,7 +24,9 @@ class LeaseRepo {
     }
 
     var currentHot: AnyPublisher<CurrentLease, Never> {
-        writeCurrent.compactMap { $0 }.eraseToAnyPublisher()
+        writeCurrent.compactMap { $0 }
+        .removeDuplicates { a, b in a.lease == b.lease }
+        .eraseToAnyPublisher()
     }
 
     private lazy var persistence = Services.persistenceLocal
