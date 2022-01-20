@@ -91,8 +91,9 @@ struct HomeView: View {
 
                 VStack {
                     ZStack {
+                        // "Tap to activate" text
                         Text(L10n.homeActionTapToActivate)
-                            .opacity(!self.vm.working && self.vm.appState != .Activated && self.vm.timerSeconds == 0 && !self.vm.showError ? 1 : 0)
+                            .opacity(!self.vm.working && self.vm.appState != .Activated && self.vm.timerSeconds == 0 ? 1 : 0)
                             .onTapGesture {
                                 if self.vm.working {
                                 } else if !self.vm.accountActive {
@@ -108,11 +109,11 @@ struct HomeView: View {
                                 }
                             }
 
-                        (
-                            Text(L10n.homeStatusDetailPaused)
-                        )
+                        // "Paused" text
+                        Text(L10n.homeStatusDetailPaused)
                         .opacity(self.vm.timerSeconds > 0 ? 1 : 0)
 
+                        // "x ads and trackers blocked" text + protecting privacy (vpn)
                         VStack {
                             if self.vm.blockedCounter <= 1 {
                                 L10n.homeStatusDetailActive.withBoldSections(color: Color.cActivePlus)
@@ -123,11 +124,12 @@ struct HomeView: View {
 
                             L10n.homeStatusDetailPlus.withBoldSections(color: Color.cActivePlus)
                         }
-                        .opacity(self.vm.appState == .Activated && self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
+                        .opacity(self.vm.appState == .Activated && self.vm.vpnEnabled && !self.vm.working &&  self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
                             self.contentVM.showSheet(.AdsCounter)
                         }
 
+                        // "x ads and trackers blocked" text (cloud only)
                         VStack {
                             if self.vm.blockedCounter <= 1 {
                                 L10n.homeStatusDetailActive.withBoldSections(color: Color.cActive)
@@ -136,11 +138,12 @@ struct HomeView: View {
                                 .withBoldSections(color: Color.cActive)
                             }
                         }
-                        .opacity(self.vm.appState == .Activated && !self.vm.vpnEnabled && !self.vm.working && !self.vm.showError && self.vm.timerSeconds == 0 ? 1 : 0)
+                        .opacity(self.vm.appState == .Activated && !self.vm.vpnEnabled && !self.vm.working && self.vm.timerSeconds == 0 ? 1 : 0)
                         .onTapGesture {
                             self.contentVM.showSheet(.AdsCounter)
                         }
 
+                        // "In progress" text
                         Text(L10n.homeStatusDetailProgress)
                             .frame(width: 240, height: 96)
                             .background(Color.cBackground)
