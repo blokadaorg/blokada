@@ -653,10 +653,10 @@
 "activated desc all ok" = "Twoje urządzenie jest skonfigurowane i gotowe:";
 "activated label account" = "Konto jest aktywne (%@)";
 "activated label notif yes" = "Powiadomienia są dozwolone";
-"activated label notif no" = "Zezwalaj na powiadomienia";
+"activated label notif no" = "Zezwól na powiadomienia";
 "activated label dns yes" = "Profil DNS jest aktywowany";
 "activated label dns no" = "Aktywuj profil DNS";
 // Displayed when user does not have Plus account. Do not translate "Plus".
-"activated label vpn cloud" = "Zezwalaj na VPN (tylko Plus)";
+"activated label vpn cloud" = "Zezwól na VPN (tylko Plus)";
 "activated label vpn yes" = "VPN jest dozwolona";
-"activated label vpn no" = "Zezwalaj na VPN";
+"activated label vpn no" = "Zezwól na VPN";

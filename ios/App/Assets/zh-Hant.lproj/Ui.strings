@@ -103,11 +103,11 @@
 "notification generic body" = "請開啟 App 顯示詳細內容。";
 
 "notification acc header" = "Blokada 帳號過期";
-"notification acc subtitle" = "廣告封鎖功能被停用";
+"notification acc subtitle" = "廣告封鎖功能已停用";
 "notification acc body" = "請更新您的訂閱以繼續使用 Blokada。";
 
-"notification pause header" = "Blokada 尚處於暫停狀態";
-"notification pause subtitle" = "廣告封鎖功能被停用";
+"notification pause header" = "Blokada 未運作";
+"notification pause subtitle" = "廣告封鎖功能已停用";
 "notification pause body" = "請開啟 App 讓 Blokada 恢復運作。";
 
 // Displayed in a notification title. Do not translate "Plus".
@@ -574,7 +574,7 @@
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "開啟 F-Droid";
 
-"homepage download cloud desc" = "Blokada Cloud 可用於任何支援 DNS over TLS/HTTPS 的平台。這包含了 Windows、macOS、Linux 與所有現代瀏覽器。您可以在網路儀表板中找到所有受支援平台的簡易設定指南。";
+"homepage download cloud desc" = "Blokada Cloud 可用於任何支援 DNS over TLS/HTTPS 的平台。包含 Windows、macOS、Linux 與所有現代瀏覽器。您可以在網路儀表板中找到所有受支援平台的簡易設定指南。";
 "homepage download plus desc" = "Blokada Plus 可以用在支援 Wireguard® app 的任何平台。您可以在監控面板產生 VPN 設定檔，然後匯入到 App 即可。";
 "homepage download action open dashboard" = "開啟監控面板";
 
@@ -649,7 +649,7 @@
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "快完成了！";
-"activated desc" = "要讓 Blokada 按預期運作，以下動作是必要的：";
+"activated desc" = "要讓 Blokada 按預期運作，請依下述操作：";
 "activated desc all ok" = "您的裝置已設定完成，隨時可以使用：";
 "activated label account" = "帳號處於活躍狀態 (%@)";
 "activated label notif yes" = "已允許通知";

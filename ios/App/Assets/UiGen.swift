@@ -776,7 +776,7 @@ internal enum L10n {
   }
   /// Please update your subscription to continue using Blokada.
   internal static let notificationAccBody = L10n.tr("Ui", "notification acc body")
-  /// Blokada account expired
+  /// Subscription expired
   internal static let notificationAccHeader = L10n.tr("Ui", "notification acc header")
   /// Adblocking is disabled
   internal static let notificationAccSubtitle = L10n.tr("Ui", "notification acc subtitle")
@@ -784,13 +784,13 @@ internal enum L10n {
   internal static let notificationDescSettings = L10n.tr("Ui", "notification desc settings")
   /// Please open the app for details.
   internal static let notificationGenericBody = L10n.tr("Ui", "notification generic body")
-  /// Blokada: action required
+  /// Blokada: Action required
   internal static let notificationGenericHeader = L10n.tr("Ui", "notification generic header")
   /// Tap to learn more
   internal static let notificationGenericSubtitle = L10n.tr("Ui", "notification generic subtitle")
   /// Blokada Plus is off
   internal static let notificationLeaseHeader = L10n.tr("Ui", "notification lease header")
-  /// Please open the app to unpause Blokada.
+  /// Please open the app to resume Blokada.
   internal static let notificationPauseBody = L10n.tr("Ui", "notification pause body")
   /// Blokada is still paused
   internal static let notificationPauseHeader = L10n.tr("Ui", "notification pause header")

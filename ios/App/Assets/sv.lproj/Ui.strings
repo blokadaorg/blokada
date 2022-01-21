@@ -20,7 +20,7 @@
 "error vpn" = "Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.";
 "error vpn perms" = "Inga behörigheter beviljade för att skapa en VPN-profil.";
 "error vpn no current lease" = "Välj en plats först.";
-"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn no current lease new" = "Blokada Plus är nu inaktiverat på den här enhet. Välj en plats för att återaktivera.";
 "error vpn too many leases" = "Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.";
 "error vpn expired" = "VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+";
 "error payment inactive after restore" = "Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
@@ -30,7 +30,7 @@
 "error payment canceled" = "Betalningen har avbrutits. Du har inte debiterats.";
 "error pack install" = "Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.";
 "error location failed fetching" = "Kunde inte hämta platser.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error unknown" = "Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
 "error blocka dns in filtering mode" = "Blokada DNS stöds för närvarande endast i Plus-läge. Välj en annan DNS och försök igen.";
 
 "universal action continue" = "Fortsätt";
@@ -98,20 +98,20 @@
 "notification vpn expired body" = "Uppdatera din prenumeration för att fortsätta använda BLOKADA+";
 "notification desc settings" = "Svep aviseringen åt vänster eller höger för inställningar.";
 
-"notification generic header" = "Blokada: action required";
-"notification generic subtitle" = "Tap to learn more";
-"notification generic body" = "Please open the app for details.";
+"notification generic header" = "Blokada: Åtgärd krävs";
+"notification generic subtitle" = "Tryck för att lära dig mer";
+"notification generic body" = "Vänligen öppna appen för detaljer.";
 
-"notification acc header" = "Blokada account expired";
-"notification acc subtitle" = "Adblocking is disabled";
-"notification acc body" = "Please update your subscription to continue using Blokada.";
+"notification acc header" = "Din prenumeration har upphört";
+"notification acc subtitle" = "Annonsblockering är inaktiverat";
+"notification acc body" = "Vänligen uppdatera din prenumeration för att fortsätta använda Blokada.";
 
-"notification pause header" = "Blokada is still paused";
-"notification pause subtitle" = "Adblocking is disabled";
-"notification pause body" = "Please open the app to unpause Blokada.";
+"notification pause header" = "Blokada är fortfarande pausad";
+"notification pause subtitle" = "Annonsblockering är inaktiverat";
+"notification pause body" = "Vänligen öppna appen för att återaktivera Blokada.";
 
 // Displayed in a notification title. Do not translate "Plus".
-"notification lease header" = "Blokada Plus is off";
+"notification lease header" = "Blokada Plus är av";
 
 "notification update header" = "En uppdatering är tillgänglig";
 "alert update body" = "Blokada %@ är nu tillgänglig för nedladdning. Vi rekommenderar att du håller appen uppdaterad och endast laddar ner den från våra officiella källor.";
@@ -575,7 +575,7 @@
 "homepage download action android four fdroid" = "Öppna F-Droid";
 
 "homepage download cloud desc" = "Blokada Cloud kan användas på alla plattformar som stöder DNS över TLS/HTTPS. Detta inkluderar Windows, MacOS, Linux och alla moderna webbläsare. Du kan hitta enkla installationsguider för alla plattformar som stöds i webbpanelen.";
-"homepage download plus desc" = "Blokada Plus can be used on any platform where the Wireguard® app is available. You can generate a VPN profile in the web dashboard, and then simply import it in the app.";
+"homepage download plus desc" = "Blokada Plus kan användas på alla plattformar där Wireguard®-appen finns tillgänglig. Du kan generera en VPN-profil i webbpanelen och sedan helt enkelt importera den i appen.";
 "homepage download action open dashboard" = "Öppna webbpanelen";
 
 "homepage community header" = "Mötesplatsen";
@@ -643,20 +643,20 @@
 "dnsprofile desc" = "I appen Inställningar, navigera till Allmänt → VPN & enhetshantering → DNS och välj Blokada.";
 "dnsprofile action open settings" = "Öppna Inställningar";
 
-"notification perms header" = "Enable notifications in Settings";
-"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
-"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
+"notification perms header" = "Aktivera notiser i Inställningar";
+"notification perms desc" = "Denna funktion kräver notiser, vänligen slå på dem för Blokada.";
+"notification perms denied" = "Du nekade notiser. För att ändra det, använd Systeminställningar.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
-"activated header" = "Almost there!";
-"activated desc" = "The following is necessary for Blokada to work as expected:";
-"activated desc all ok" = "Your device is all set up and good to go:";
-"activated label account" = "Account is active (%@)";
-"activated label notif yes" = "Notifications are allowed";
-"activated label notif no" = "Allow notifications";
-"activated label dns yes" = "DNS profile is activated";
-"activated label dns no" = "Activate DNS profile";
+"activated header" = "Nästan där!";
+"activated desc" = "Följande är nödvändigt för att Blokada ska fungera som förväntat:";
+"activated desc all ok" = "Din enhet är konfigurerad och redo att användas:";
+"activated label account" = "Kontot är aktivt (%@)";
+"activated label notif yes" = "Notiser är tillåtna";
+"activated label notif no" = "Tillåt notiser";
+"activated label dns yes" = "DNS-profilen är aktiverad";
+"activated label dns no" = "Aktivera DNS-profil";
 // Displayed when user does not have Plus account. Do not translate "Plus".
-"activated label vpn cloud" = "Allow VPN (Plus only)";
-"activated label vpn yes" = "VPN is allowed";
-"activated label vpn no" = "Allow VPN";
+"activated label vpn cloud" = "Tillåt VPN (endast Plus)";
+"activated label vpn yes" = "VPN är tillåtet";
+"activated label vpn no" = "Tillåt VPN";

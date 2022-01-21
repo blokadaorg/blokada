@@ -546,10 +546,10 @@
     <string name="activated_desc_all_ok">Twoje urządzenie jest skonfigurowane i gotowe:</string>
     <string name="activated_label_account">Konto jest aktywne (%s)</string>
     <string name="activated_label_notif_yes">Powiadomienia są dozwolone</string>
-    <string name="activated_label_notif_no">Zezwalaj na powiadomienia</string>
+    <string name="activated_label_notif_no">Zezwól na powiadomienia</string>
     <string name="activated_label_dns_yes">Profil DNS jest aktywowany</string>
     <string name="activated_label_dns_no">Aktywuj profil DNS</string>
-    <string name="activated_label_vpn_cloud">Zezwalaj na VPN (tylko Plus)</string>
+    <string name="activated_label_vpn_cloud">Zezwól na VPN (tylko Plus)</string>
     <string name="activated_label_vpn_yes">VPN jest dozwolona</string>
-    <string name="activated_label_vpn_no">Zezwalaj na VPN</string>
+    <string name="activated_label_vpn_no">Zezwól na VPN</string>
 </resources>

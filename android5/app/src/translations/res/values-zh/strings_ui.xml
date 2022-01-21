@@ -77,10 +77,10 @@
     <string name="notification_generic_subtitle">點一下深入了解</string>
     <string name="notification_generic_body">請開啟 App 顯示詳細內容。</string>
     <string name="notification_acc_header">Blokada 帳號過期</string>
-    <string name="notification_acc_subtitle">廣告封鎖功能被停用</string>
+    <string name="notification_acc_subtitle">廣告封鎖功能已停用</string>
     <string name="notification_acc_body">請更新您的訂閱以繼續使用 Blokada。</string>
-    <string name="notification_pause_header">Blokada 尚處於暫停狀態</string>
-    <string name="notification_pause_subtitle">廣告封鎖功能被停用</string>
+    <string name="notification_pause_header">Blokada 未運作</string>
+    <string name="notification_pause_subtitle">廣告封鎖功能已停用</string>
     <string name="notification_pause_body">請開啟 App 讓 Blokada 恢復運作。</string>
     <string name="notification_lease_header">Blokada Plus 已停用</string>
     <string name="notification_update_header">有更新版本</string>
@@ -484,7 +484,7 @@
     <string name="homepage_download_desc_android_four">我們仍在維護較舊版本的 Blokada。它有更多功能，且可在較舊的裝置與電視上執行。</string>
     <string name="homepage_download_action_android_four">Blokada 4 .apk</string>
     <string name="homepage_download_action_android_four_fdroid">開啟 F-Droid</string>
-    <string name="homepage_download_cloud_desc">Blokada Cloud 可用於任何支援 DNS over TLS/HTTPS 的平台。這包含了 Windows、macOS、Linux 與所有現代瀏覽器。您可以在網路儀表板中找到所有受支援平台的簡易設定指南。</string>
+    <string name="homepage_download_cloud_desc">Blokada Cloud 可用於任何支援 DNS over TLS/HTTPS 的平台。包含 Windows、macOS、Linux 與所有現代瀏覽器。您可以在網路儀表板中找到所有受支援平台的簡易設定指南。</string>
     <string name="homepage_download_plus_desc">Blokada Plus 可以用在支援 Wireguard® app 的任何平台。您可以在監控面板產生 VPN 設定檔，然後匯入到 App 即可。</string>
     <string name="homepage_download_action_open_dashboard">開啟監控面板</string>
     <string name="homepage_community_header">社群</string>
@@ -542,7 +542,7 @@
     <string name="notification_perms_desc">這個功能需要通知功能才能運作。請開啟 Blokada 的通知功能。</string>
     <string name="notification_perms_denied">您拒絕了通知。若要變更，請前往系統偏好設定更改。</string>
     <string name="activated_header">快完成了！</string>
-    <string name="activated_desc">要讓 Blokada 按預期運作，以下動作是必要的：</string>
+    <string name="activated_desc">要讓 Blokada 按預期運作，請依下述操作：</string>
     <string name="activated_desc_all_ok">您的裝置已設定完成，隨時可以使用：</string>
     <string name="activated_label_account">帳號處於活躍狀態 (%s)</string>
     <string name="activated_label_notif_yes">已允許通知</string>

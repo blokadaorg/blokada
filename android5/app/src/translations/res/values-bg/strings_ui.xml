@@ -10,7 +10,7 @@
     <string name="error_vpn">VPN не можа да бъде създаден. Моля, рестартирайте устройството или премахнете профила на Blokada VPN от системните настройки и опитайте отново.</string>
     <string name="error_vpn_perms">Няма предоставено разрешение за създаване на VPN профил.</string>
     <string name="error_vpn_no_current_lease">Моля, първо изберете местоположение.</string>
-    <string name="error_vpn_no_current_lease_new">Blokada Plus is now disabled on this device. Please select a location to reactivate it.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus е деактивиран на това устройство. Моля, изберете местоположение за да го активирате отново.</string>
     <string name="error_vpn_too_many_leases">Достигнат е лимита на устройствата. Моля, премахнете едно от устройствата си и опитайте отново.</string>
     <string name="error_vpn_expired">VPN е деактивиран. Моля, актуализирайте абонамента си за да продължите да използвате BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Плащането не е прието защото абонаментът ви е изтекъл. Ако смятате, че това е грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
@@ -397,7 +397,7 @@
     <string name="app_settings_section_advanced">Разширени</string>
     <string name="app_settings_section_use_foreground">Винаги в активност</string>
     <string name="intro_header">Blokada е активна!</string>
-    <string name="intro_text">Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Въпреки това, ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN / Мрежа и интернет - VPN, или Always on VPN / Connect on Demand в системните настройки.</string>
+    <string name="intro_text">Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Но въпреки това ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN / Мрежа и интернет - VPN, или Always on VPN / Connect on Demand в системните настройки.</string>
     <string name="location_region_worldwide">Навсякъде</string>
     <string name="location_region_america">Америка</string>
     <string name="location_region_europe">Европа</string>

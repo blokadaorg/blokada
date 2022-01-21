@@ -20,7 +20,7 @@
 "error vpn" = "Não foi possível estabelecer a VPN. Por favor, reinicie seu dispositivo ou remova o perfil de VPN do Blokada nas configurações do sistema e tente novamente.";
 "error vpn perms" = "Nenhuma permissão concedida para criar um perfil de VPN.";
 "error vpn no current lease" = "Por favor, selecione uma localidade primeiro.";
-"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn no current lease new" = "O Blokada Plus está desativado neste dispositivo. Por favor, selecione um local para reativá-lo.";
 "error vpn too many leases" = "Você atingiu o seu limite de dispositivos. Por favor, remova um dos seus dispositivos e tente novamente.";
 "error vpn expired" = "A VPN está desativada. Atualize sua assinatura para continuar a utilizar o BLOKADA+";
 "error payment inactive after restore" = "Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
@@ -645,18 +645,18 @@
 
 "notification perms header" = "Ative as notificações nas Configurações";
 "notification perms desc" = "Este recurso requer as notificações, por favor, ative-as para o Blokada.";
-"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
+"notification perms denied" = "Você negou as notificações. Para alterar, use as Preferências do Sistema.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
-"activated header" = "Almost there!";
-"activated desc" = "The following is necessary for Blokada to work as expected:";
-"activated desc all ok" = "Your device is all set up and good to go:";
-"activated label account" = "Account is active (%@)";
-"activated label notif yes" = "Notifications are allowed";
-"activated label notif no" = "Allow notifications";
-"activated label dns yes" = "DNS profile is activated";
-"activated label dns no" = "Activate DNS profile";
+"activated header" = "Quase lá!";
+"activated desc" = "O seguinte é necessário para que o Blokada funcione conforme o esperado:";
+"activated desc all ok" = "Seu dispositivo está configurado e pronto para uso:";
+"activated label account" = "A conta está ativa (%@)";
+"activated label notif yes" = "Notificações permitidas";
+"activated label notif no" = "Permitir notificações";
+"activated label dns yes" = "O perfil DNS está ativado";
+"activated label dns no" = "Ativar o perfil DNS";
 // Displayed when user does not have Plus account. Do not translate "Plus".
-"activated label vpn cloud" = "Allow VPN (Plus only)";
-"activated label vpn yes" = "VPN is allowed";
-"activated label vpn no" = "Allow VPN";
+"activated label vpn cloud" = "Permitir VPN (apenas Plus)";
+"activated label vpn yes" = "A VPN é permitida";
+"activated label vpn no" = "Permitir VPN";
