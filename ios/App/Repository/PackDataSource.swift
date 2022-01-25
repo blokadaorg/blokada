@@ -209,17 +209,8 @@ class PackDataSource {
         )
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/d3host/standard/hosts.txt", applyFor: "Standard")),
 
-        Pack.mocked(id: "cyberthreatcoalition", tags: [Pack.official, Pack.recommended, "phishing", "security", "covid19"],
-            title: "COVID-19 Cyber Thread Coalition",
-            slugline: "Protects from COVID-19 related cyber threads",
-            description: "This blocklist is maintained by a coalition of cybersecurity experts working to protect individuals and organizations from COVID-19-related cyber threats.",
-            creditName: "cyberthreatcoalition",
-            creditUrl: "https://go.blokada.org/cyberthreatcoalition",
-            configs: ["Vetted"]
-        )
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/cyberthreatcoalition/vetted/hosts.txt", applyFor: "Vetted")),
     ]
 
-    let version = 30
+    let version = 31
     
 }
