@@ -133,7 +133,7 @@ object DnsDataSource {
         ),
         Dns.plaintextDns(
             id = "quad9",
-            ips = listOf("9.9.9.9", "149.112.112.112"),
+            ips = listOf("9.9.9.9", "149.112.112.112", "2620:fe::fe", "2620:fe::9"),
             label = "Quad9"
         ),
         Dns.plaintextDns(
