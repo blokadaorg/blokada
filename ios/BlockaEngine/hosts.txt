@@ -3219,7 +3219,6 @@ ad.netowl.jp
 ad.nettvservices.com
 ad.network60.com
 ad.netzquadrat.de
-ad.nicovideo.jp
 ad.nl.doubleclick.net
 ad.no.doubleclick.net
 ad.nozonedata.com
@@ -5475,7 +5474,6 @@ ads.newsobserver.com
 ads.newtention.net
 ads.nghenhinvietnam.vn
 ads.nhadatmoi.net
-ads.nicovideo.jp
 ads.nikkeibp.co.jp
 ads.ninemsn.com.au
 ads.nobid.com
@@ -18395,8 +18393,6 @@ cover9.adultfriendfinder.com
 coverapparatus.com
 coveredbetting.com
 covetoussyndrome.com
-covid19.cyberschool.or.id
-covivado.club
 cowana-adserver.de
 cowardlymissinggranulated.com
 cowboy.contextuads.com
