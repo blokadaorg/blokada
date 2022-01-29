@@ -78,6 +78,11 @@ object DnsDataSource {
             label = "Cloudflare: malware & adult blocking"
         ),
         Dns.plaintextDns(
+            id = "comodo_secure_dns",
+            ips = listOf("8.26.56.26", "8.20.247.20"),
+            label = "Comodo Secure DNS"
+        ),
+        Dns.plaintextDns(
             id = "digitalcourage",
             ips = listOf("46.182.19.48", "5.9.164.112"),
             label = "Digitalcourage"
