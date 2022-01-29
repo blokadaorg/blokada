@@ -55,6 +55,38 @@ object DnsDataSource {
             ips = listOf("176.103.130.132", "176.103.130.134"),
             label = "AdGuard: family"
         ),
+        Dns(
+            id = "ahadns.au"
+            ips = listOf("103.73.64.132", "2406:ef80:100:11::11"),
+            port = 443,
+            name = "doh.au.ahadns.net",
+            path = "dns-query",
+            label = "AhaDNS (Australia)"
+        ),
+        Dns(
+            id = "ahadns.chi"
+            ips = listOf("193.29.62.196", "2605:4840:3:c4::c4"),
+            port = 443,
+            name = "doh.chi.ahadns.net",
+            path = "dns-query",
+            label = "AhaDNS (Chicago)"
+        ),
+        Dns(
+            id = "ahadns.nl"
+            ips = listOf("5.2.75.75", "2a04:52c0:101:75::75"),
+            port = 443,
+            name = "doh.nl.ahadns.net",
+            path = "dns-query",
+            label = "AhaDNS (Netherlands)"
+        ),
+        Dns(
+            id = "ahadns.no"
+            ips = listOf("185.175.56.133", "2a0d:5600:30:28::28"),
+            port = 443,
+            name = "doh.no.ahadns.net",
+            path = "dns-query",
+            label = "AhaDNS (Norway)"
+        ),
         Dns.plaintextDns(
             id = "alternate",
             ips = listOf("76.76.19.19", "76.223.122.150", "2001:4801:7825:103:be76:4eff:fe10:2e49", "2001:4800:780e:510:a8cf:392e:ff04:8982"),
