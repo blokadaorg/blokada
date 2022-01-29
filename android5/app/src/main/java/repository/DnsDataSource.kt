@@ -52,7 +52,7 @@ object DnsDataSource {
         ),
         Dns.plaintextDns(
             id = "adguard_family",
-            ips = listOf("176.103.130.132", "176.103.130.134"),
+            ips = listOf("94.140.14.15", "94.140.15.16", "2a10:50c0::bad1:ff", "2a10:50c0::bad2:ff"),
             label = "AdGuard: family"
         ),
         Dns.plaintextDns(
