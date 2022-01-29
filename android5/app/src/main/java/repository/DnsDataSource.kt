@@ -131,6 +131,13 @@ object DnsDataSource {
             ips = listOf("208.67.220.123", "208.67.222.123"),
             label = "Open DNS: family"
         ),
+        Dns(
+            id = "oszx",
+            port = 443,
+            name = "dns.oszx.co",
+            path = "dns-query",
+            label = "OSZX secure DNS"
+        ),
         Dns.plaintextDns(
             id = "quad9",
             ips = listOf("9.9.9.9", "149.112.112.112"),
