@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">Redirect links to</string>
     <string name="app_settings_browser_internal">Internal browser</string>
     <string name="app_settings_browser_external">External browser (if possible)</string>
-    <string name="app_settings_ipv_label">Allow IPv6</string>
+    <string name="app_settings_ipvsix_label">Allow IPv6</string>
     <string name="app_settings_section_system">System</string>
     <string name="app_settings_action_app_info">Open App Information</string>
     <string name="app_settings_action_vpn_profile">Open VPN Profile</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">No, the upgrade is optional. You may stick to the free version of Blokada, forever. It is a recommended upgrade if you wish to increase your privacy protection even more, or need any of the popular features VPNs provide.</string>
     <string name="homepage_faq_title_five">What is the Blokada Plus refund policy?</string>
     <string name="homepage_faq_desc_five">You can get your money back within 7-days of purchasing the subscription. Contact us through any of our apps, and simply mention you want a refund.</string>
-    <string name="homepage_faq_title_">Where is Blokada located?</string>
-    <string name="homepage_faq_desc_">We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.</string>
-    <string name="homepage_faq_title_">What is Blokada Cloud?</string>
-    <string name="homepage_faq_desc_">Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.</string>
+    <string name="homepage_faq_title_six">Where is Blokada located?</string>
+    <string name="homepage_faq_desc_six">We are based in Sweden, where privacy is handled very seriously. Our servers are available in many places around the world.</string>
+    <string name="homepage_faq_title_seven">What is Blokada Cloud?</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.</string>
     <string name="homepage_download_header">Download Blokada</string>
     <string name="homepage_download_subheader">Blokada is available for several platforms, choose yours.</string>
     <string name="homepage_download_option_android_five">Blokada 5 for Android</string>

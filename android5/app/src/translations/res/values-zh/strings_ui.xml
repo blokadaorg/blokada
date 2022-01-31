@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">重新導向連結至</string>
     <string name="app_settings_browser_internal">內建瀏覽器</string>
     <string name="app_settings_browser_external">外部瀏覽器 （如果有）</string>
-    <string name="app_settings_ipv_label">允許 IPv6</string>
+    <string name="app_settings_ipvsix_label">允許 IPv6</string>
     <string name="app_settings_section_system">系統</string>
     <string name="app_settings_action_app_info">開啟應用程式資訊</string>
     <string name="app_settings_action_vpn_profile">開啟 VPN 設定檔</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">否，升級是選擇性的。您可能想要永遠留在免費版本的 Blokada。如果您想要增強您的隱私保護，或是需要任何 VPN 提供的流行功能，則建議升級。</string>
     <string name="homepage_faq_title_five">那麼 Blokada Plus 的退款政策呢？</string>
     <string name="homepage_faq_desc_five">您可以在購買訂閱後的七天內取回款項。透過我們的任何應用程式聯絡我們，只要提到您想要退款即可。</string>
-    <string name="homepage_faq_title_">Blokada 位於哪裡？</string>
-    <string name="homepage_faq_desc_">我們立足於瑞典，一個非常注重隱私權的國家。我們的伺服器在世界不少地方都有開設。</string>
-    <string name="homepage_faq_title_">Blokada Cloud 是什麼？</string>
-    <string name="homepage_faq_desc_">Blokada Cloud 是我們新的以雲端為基礎的廣告封鎖解決方案。其比舊的方法更快更可靠，並帶來更多額外的好處。Blokada 可用於多個裝置，並支援任何與 DNS over TLS/HTTPS 相容的平台。</string>
+    <string name="homepage_faq_title_six">Blokada 位於哪裡？</string>
+    <string name="homepage_faq_desc_six">我們立足於瑞典，一個非常注重隱私權的國家。我們的伺服器在世界不少地方都有開設。</string>
+    <string name="homepage_faq_title_seven">Blokada Cloud 是什麼？</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud 是我們新的以雲端為基礎的廣告封鎖解決方案。其比舊的方法更快更可靠，並帶來更多額外的好處。Blokada 可用於多個裝置，並支援任何與 DNS over TLS/HTTPS 相容的平台。</string>
     <string name="homepage_download_header">下載 Blokada</string>
     <string name="homepage_download_subheader">Blokada 可用於多種平台，請選擇您要的。</string>
     <string name="homepage_download_option_android_five">供 Android 使用的 Blokada 5</string>

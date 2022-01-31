@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">Přesměrovat odkazy na</string>
     <string name="app_settings_browser_internal">Interní prohlížeč</string>
     <string name="app_settings_browser_external">Externí prohlížeč (je-li to možné)</string>
-    <string name="app_settings_ipv_label">Povolit IPv6</string>
+    <string name="app_settings_ipvsix_label">Povolit IPv6</string>
     <string name="app_settings_section_system">Systémové</string>
     <string name="app_settings_action_app_info">Otevřít informace o aplikaci</string>
     <string name="app_settings_action_vpn_profile">Otevřít VPN profil</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">Ne, upgrade je volitelný. Můžete zůstat u bezplatné verze Blokady, navždy. Jedná se o doporučený upgrade, pokud si přejete ještě více zvýšit ochranu svého soukromí nebo potřebujete některou z populárních funkcí, které VPN poskytují.</string>
     <string name="homepage_faq_title_five">Jaké jsou podmínky vracení peněz za přechod na Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Peníze můžete získat zpět do 7 dnů od zakoupení předplatného. Kontaktujte nás prostřednictvím kterékoli z našich aplikací a jednoduše nám sdělte, že chcete vrátit peníze.</string>
-    <string name="homepage_faq_title_">Odkud Blokada pochází?</string>
-    <string name="homepage_faq_desc_">Sídlíme ve Švédsku, kde se se soukromím zachází velmi obezřetně. Naše servery se nacházejí na mnoha místech po celém světě.</string>
-    <string name="homepage_faq_title_">Co je Blokada Cloud?</string>
-    <string name="homepage_faq_desc_">Blokada Cloud je naše nové cloudové řešení pro blokování reklam. Je rychlejší a spolehlivější než předchůdce a přináší mnoho dalších výhod. Blokada Cloud lze používat na více zařízeních a podporuje jakoukoliv platformu kompatibilní s DNS přes TLS/HTTPS.</string>
+    <string name="homepage_faq_title_six">Odkud Blokada pochází?</string>
+    <string name="homepage_faq_desc_six">Sídlíme ve Švédsku, kde se se soukromím zachází velmi obezřetně. Naše servery se nacházejí na mnoha místech po celém světě.</string>
+    <string name="homepage_faq_title_seven">Co je Blokada Cloud?</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud je naše nové cloudové řešení pro blokování reklam. Je rychlejší a spolehlivější než předchůdce a přináší mnoho dalších výhod. Blokada Cloud lze používat na více zařízeních a podporuje jakoukoliv platformu kompatibilní s DNS přes TLS/HTTPS.</string>
     <string name="homepage_download_header">Stáhnout Blokadu</string>
     <string name="homepage_download_subheader">Blokada je k dispozici pro několik platforem, vyberte si.</string>
     <string name="homepage_download_option_android_five">Blokada 5 pro Android</string>

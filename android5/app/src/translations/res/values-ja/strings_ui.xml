@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">リンクを開く</string>
     <string name="app_settings_browser_internal">内部ブラウザー</string>
     <string name="app_settings_browser_external">外部ブラウザー（可能な場合）</string>
-    <string name="app_settings_ipv_label">IPv6 を許可する</string>
+    <string name="app_settings_ipvsix_label">IPv6 を許可する</string>
     <string name="app_settings_section_system">システム</string>
     <string name="app_settings_action_app_info">アプリ情報</string>
     <string name="app_settings_action_vpn_profile">VPN プロファイル</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">いいえ、アップグレードは任意です。Blokada は無料のまま使い続けることができます。プライバシー保護をさらに強化したい場合や、VPN が提供する一般的な機能が必要な場合は、Blokada Plus へのアップグレードをお勧めします。</string>
     <string name="homepage_faq_title_five">Blokada Plus 払い戻しポリシーとは何ですか？</string>
     <string name="homepage_faq_desc_five">サブスクリプションを購入してから 7 日以内であれば返金できます。アプリを通じて私たちに連絡し、払い戻しをしてほしいと伝えるだけで構いません。</string>
-    <string name="homepage_faq_title_">Blokada の所在地</string>
-    <string name="homepage_faq_desc_">私たちの拠点はプライバシーを厳格に取り扱うように求められるスウェーデンにあります。私たちのサーバーは世界中の多くの場所で利用できます。</string>
-    <string name="homepage_faq_title_">Blokada Cloud とは？</string>
-    <string name="homepage_faq_desc_">Blokada Cloud はクラウドベースの広告ブロックの最新のソリューションです。今までよりも高速で信頼性が高く、さらに多くのメリットをもたらします。Blokada Cloud は複数のデバイスで使用でき、DNS over HTTPS/TLS をサポートするすべてのプラットフォームに対応します。</string>
+    <string name="homepage_faq_title_six">Blokada の所在地</string>
+    <string name="homepage_faq_desc_six">私たちの拠点はプライバシーを厳格に取り扱うように求められるスウェーデンにあります。私たちのサーバーは世界中の多くの場所で利用できます。</string>
+    <string name="homepage_faq_title_seven">Blokada Cloud とは？</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud はクラウドベースの広告ブロックの最新のソリューションです。今までよりも高速で信頼性が高く、さらに多くのメリットをもたらします。Blokada Cloud は複数のデバイスで使用でき、DNS over HTTPS/TLS をサポートするすべてのプラットフォームに対応します。</string>
     <string name="homepage_download_header">Blokada をダウンロード</string>
     <string name="homepage_download_subheader">Blokada は複数のプラットフォームで利用可能です。ご利用のプラットフォームを選択してください。</string>
     <string name="homepage_download_option_android_five">Blokada 5 for Android</string>

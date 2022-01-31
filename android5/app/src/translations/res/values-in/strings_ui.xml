@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">Alihkan tautan ke</string>
     <string name="app_settings_browser_internal">Browser internal</string>
     <string name="app_settings_browser_external">Browser eksternal (jika memungkinkan)</string>
-    <string name="app_settings_ipv_label">Izinkan IPv6</string>
+    <string name="app_settings_ipvsix_label">Izinkan IPv6</string>
     <string name="app_settings_section_system">Sistem</string>
     <string name="app_settings_action_app_info">Buka Info Aplikasi</string>
     <string name="app_settings_action_vpn_profile">Buka Profil VPN</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">Tidak, upgrade ke Blokada Plus bersifat opsional. Anda bisa tetap menggunakan Blokada versi gratis, selamanya. Upgrade ke Blokada Plus disarankan jika Anda ingin meningkatkan perlindungan privasi Anda ke level yang lebih tinggi, atau Anda memerlukan fitur-fitur yang hanya bisa disediakan oleh layanan VPN.</string>
     <string name="homepage_faq_title_five">Bagaimana kebijakan refund Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Jika Anda tidak puas dengan layanan VPN kami, Anda dapat memperoleh uang Anda kembali dalam jangka waktu 7 hari sejak mulai berlangganan. Cukup hubungi kami melalui kanal manapun dan ajukan permintaan untuk pengembalian uang Anda.</string>
-    <string name="homepage_faq_title_">Di mana Blokada berada?</string>
-    <string name="homepage_faq_desc_">Kami berbasis di Swedia, di mana privasi ditangani secara serius. Server-server kami tersedia di berbagai lokasi di seluruh dunia.</string>
-    <string name="homepage_faq_title_">Apa itu Blokada Cloud?</string>
-    <string name="homepage_faq_desc_">Blokada Cloud adalah solusi pemblokiran iklan berbasis cloud terbaru dari kami. Blokada Cloud bekerja lebih cepat dan andal dibanding metode lama, dengan banyak keuntungan tambahan. Blokada Cloud bisa dipakai di banyak perangkat sekaligus, dan bisa digunakan di semua platform yang mendukung DNS over TLS/HTTPS.</string>
+    <string name="homepage_faq_title_six">Di mana Blokada berada?</string>
+    <string name="homepage_faq_desc_six">Kami berbasis di Swedia, di mana privasi ditangani secara serius. Server-server kami tersedia di berbagai lokasi di seluruh dunia.</string>
+    <string name="homepage_faq_title_seven">Apa itu Blokada Cloud?</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud adalah solusi pemblokiran iklan berbasis cloud terbaru dari kami. Blokada Cloud bekerja lebih cepat dan andal dibanding metode lama, dengan banyak keuntungan tambahan. Blokada Cloud bisa dipakai di banyak perangkat sekaligus, dan bisa digunakan di semua platform yang mendukung DNS over TLS/HTTPS.</string>
     <string name="homepage_download_header">Unduh Blokada</string>
     <string name="homepage_download_subheader">Blokada tersedia di berbagai platform, silahkan pilih mana yang sesuai untuk Anda.</string>
     <string name="homepage_download_option_android_five">Blokada 5 untuk Android</string>

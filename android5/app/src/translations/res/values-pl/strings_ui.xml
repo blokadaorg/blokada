@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">Przekieruj linki do</string>
     <string name="app_settings_browser_internal">Wewnętrzna przeglądarka</string>
     <string name="app_settings_browser_external">Zewnętrzna przeglądarka (jeśli to możliwe)</string>
-    <string name="app_settings_ipv_label">Zezwalaj na IPv6</string>
+    <string name="app_settings_ipvsix_label">Zezwalaj na IPv6</string>
     <string name="app_settings_section_system">System</string>
     <string name="app_settings_action_app_info">Otwórz informacje o aplikacji</string>
     <string name="app_settings_action_vpn_profile">Otwórz profil VPN</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">Nie, aktualizacja jest opcjonalna. Możesz pozostać przy darmowej wersji Blokady, na zawsze. Jest to zalecane ulepszenie, jeśli chcesz jeszcze bardziej zwiększyć ochronę prywatności lub potrzebujesz którejkolwiek z popularnych funkcji VPN.</string>
     <string name="homepage_faq_title_five">Jaka jest polityka zwrotu kosztów Blokady Plus?</string>
     <string name="homepage_faq_desc_five">Możesz odzyskać pieniądze w ciągu 7 dni od zakupu subskrypcji. Skontaktuj się z nami za pośrednictwem naszej dowolnej aplikacji i po prostu poinformuj o chęci zwrotu.</string>
-    <string name="homepage_faq_title_">Gdzie znajduje się Blokada?</string>
-    <string name="homepage_faq_desc_">Mamy siedzibę w Szwecji, gdzie prywatność traktowana jest bardzo poważnie. Nasze serwery są dostępne w wielu miejscach na całym świecie.</string>
-    <string name="homepage_faq_title_">Czym jest Blokada Cloud?</string>
-    <string name="homepage_faq_desc_">Blokada Cloud to nasze nowe rozwiązanie blokowania reklam oparte na chmurze. Jest szybsza i bardziej niezawodna niż stara metoda i przynosi wiele dodatkowych korzyści. Blokada Cloud może być używana na wielu urządzeniach i obsługuje każdą platformę kompatybilną z DNS over TLS/HTTPS.</string>
+    <string name="homepage_faq_title_six">Gdzie znajduje się Blokada?</string>
+    <string name="homepage_faq_desc_six">Mamy siedzibę w Szwecji, gdzie prywatność traktowana jest bardzo poważnie. Nasze serwery są dostępne w wielu miejscach na całym świecie.</string>
+    <string name="homepage_faq_title_seven">Czym jest Blokada Cloud?</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud to nasze nowe rozwiązanie blokowania reklam oparte na chmurze. Jest szybsza i bardziej niezawodna niż stara metoda i przynosi wiele dodatkowych korzyści. Blokada Cloud może być używana na wielu urządzeniach i obsługuje każdą platformę kompatybilną z DNS over TLS/HTTPS.</string>
     <string name="homepage_download_header">Pobierz Blokadę</string>
     <string name="homepage_download_subheader">Blokada jest dostępna dla kilku platform, wybierz swoją.</string>
     <string name="homepage_download_option_android_five">Blokada 5 dla Androida</string>

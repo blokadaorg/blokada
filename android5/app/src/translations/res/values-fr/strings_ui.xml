@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">Rediriger les liens vers</string>
     <string name="app_settings_browser_internal">Navigateur interne</string>
     <string name="app_settings_browser_external">Navigateur externe (si possible)</string>
-    <string name="app_settings_ipv_label">Autoriser l\'IPV6</string>
+    <string name="app_settings_ipvsix_label">Autoriser l\'IPV6</string>
     <string name="app_settings_section_system">Système</string>
     <string name="app_settings_action_app_info">Ouvrir les informations de l\'application</string>
     <string name="app_settings_action_vpn_profile">Ouvrir le profil VPN</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">Non, cette amélioration est optionnelle. Vous pouvez conserver la version gratuite de Blokada pour toujours. Nous vous recommandons cette amélioration si vous souhaitez augmenter votre niveau de confidentialité ou si vous avez besoin d\'utiliser un VPN.</string>
     <string name="homepage_faq_title_five">Quelle est la politique de remboursement de Blokada Plus ?</string>
     <string name="homepage_faq_desc_five">Vous pouvez récupérer votre argent dans les 7 jours suivant l\'achat de l\'abonnement. Contactez-nous via l\'une de nos applications, et mentionnez simplement que vous souhaitez un remboursement.</string>
-    <string name="homepage_faq_title_">Où est situé Blokada ?</string>
-    <string name="homepage_faq_desc_">Nous sommes basés en Suède, où la vie privée est traitée très sérieusement. Nos serveurs sont disponibles dans de nombreux lieux à travers le monde.</string>
-    <string name="homepage_faq_title_">Qu\'est-ce que Blokada Cloud ?</string>
-    <string name="homepage_faq_desc_">Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.</string>
+    <string name="homepage_faq_title_six">Où est situé Blokada ?</string>
+    <string name="homepage_faq_desc_six">Nous sommes basés en Suède, où la vie privée est traitée très sérieusement. Nos serveurs sont disponibles dans de nombreux lieux à travers le monde.</string>
+    <string name="homepage_faq_title_seven">Qu\'est-ce que Blokada Cloud ?</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.</string>
     <string name="homepage_download_header">Télécharger Blokada</string>
     <string name="homepage_download_subheader">Blokada est disponible sur plusieurs plateformes, sélectionnez la vôtre.</string>
     <string name="homepage_download_option_android_five">Blokada 5 pour Android</string>

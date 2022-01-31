@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">Bağlantıları yönlendir</string>
     <string name="app_settings_browser_internal">Dahili tarayıcı</string>
     <string name="app_settings_browser_external">Harici tarayıcı (mümkünse)</string>
-    <string name="app_settings_ipv_label">IPv6\'ya izin ver</string>
+    <string name="app_settings_ipvsix_label">IPv6\'ya izin ver</string>
     <string name="app_settings_section_system">Sistem</string>
     <string name="app_settings_action_app_info">Uygulama bilgisini aç</string>
     <string name="app_settings_action_vpn_profile">VPN profilini aç</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">Hayır, yükseltme isteğe bağlıdır. Sonsuza kadar Blokada\'nın ücretsiz sürümünü kullanabilirsiniz. Gizlilik korumanızı daha da artırmak istiyorsanız veya VPN\'lerin sunduğu popüler özelliklerden herhangi birine ihtiyaç duyuyorsanız, bu önerilen bir yükseltmedir.</string>
     <string name="homepage_faq_title_five">Blokada Plus iade politikası nedir?</string>
     <string name="homepage_faq_desc_five">Aboneliğinizi satın aldıktan sonra 7 gün içinde paranızı geri alabilirsiniz. Uygulamalarımızdan herhangi biri aracılığıyla bizimle iletişime geçin ve sadece iade istediğinizi belirtin.</string>
-    <string name="homepage_faq_title_">Blokada nerede?</string>
-    <string name="homepage_faq_desc_">Mahremiyetin çok ciddiye alındığı İsveç\'te yaşıyoruz. Sunucularımız dünyanın birçok yerinde bulunuyor.</string>
-    <string name="homepage_faq_title_">What is Blokada Cloud?</string>
-    <string name="homepage_faq_desc_">Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.</string>
+    <string name="homepage_faq_title_six">Blokada nerede?</string>
+    <string name="homepage_faq_desc_six">Mahremiyetin çok ciddiye alındığı İsveç\'te yaşıyoruz. Sunucularımız dünyanın birçok yerinde bulunuyor.</string>
+    <string name="homepage_faq_title_seven">What is Blokada Cloud?</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.</string>
     <string name="homepage_download_header">Blokada\'yı İndir</string>
     <string name="homepage_download_subheader">Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.</string>
     <string name="homepage_download_option_android_five">Android için Blokada 5</string>

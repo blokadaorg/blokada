@@ -384,7 +384,7 @@
     <string name="app_settings_browser_label">Omdirigera länkar till</string>
     <string name="app_settings_browser_internal">Intern webbläsare</string>
     <string name="app_settings_browser_external">Extern webbläsare (om möjligt)</string>
-    <string name="app_settings_ipv_label">Tillåt IPv6</string>
+    <string name="app_settings_ipvsix_label">Tillåt IPv6</string>
     <string name="app_settings_section_system">System</string>
     <string name="app_settings_action_app_info">Öppna appinformation</string>
     <string name="app_settings_action_vpn_profile">Öppna VPN-profil</string>
@@ -462,10 +462,10 @@
     <string name="homepage_faq_desc_four">Nej, uppgraderingen är frivillig. Du kan hålla dig till den fria versionen av Blokada, för evigt. Det är en rekommenderad uppgradering om du vill öka din integritet ännu mer, eller behöver någon av de populära funktioner VPN-tjänsten tillhandahåller.</string>
     <string name="homepage_faq_title_five">Vilken är återbetalningspolicyn för Blokada Plus?</string>
     <string name="homepage_faq_desc_five">Du kan få tillbaka dina pengar inom 7 dagar efter att du beställt prenumerationen. Kontakta oss via någon av våra kanaler och nämn att du vill ha en återbetalning.</string>
-    <string name="homepage_faq_title_">Var ligger Blokada?</string>
-    <string name="homepage_faq_desc_">Vi är baserade i Sverige, där integritet hanteras på största allvar. Våra servrar finns på många platser runt om i världen.</string>
-    <string name="homepage_faq_title_">Vad är Blokada Cloud?</string>
-    <string name="homepage_faq_desc_">Blokada Cloud är vår nya molnbaserade lösning för annonsblockering. Den är snabbare och mer tillförlitlig än den gamla metoden och ger många ytterligare fördelar. Blokada Cloud kan användas på flera enheter och stöder alla plattformar som är kompatibla med DNS över TLS/HTTPS.</string>
+    <string name="homepage_faq_title_six">Var ligger Blokada?</string>
+    <string name="homepage_faq_desc_six">Vi är baserade i Sverige, där integritet hanteras på största allvar. Våra servrar finns på många platser runt om i världen.</string>
+    <string name="homepage_faq_title_seven">Vad är Blokada Cloud?</string>
+    <string name="homepage_faq_desc_seven">Blokada Cloud är vår nya molnbaserade lösning för annonsblockering. Den är snabbare och mer tillförlitlig än den gamla metoden och ger många ytterligare fördelar. Blokada Cloud kan användas på flera enheter och stöder alla plattformar som är kompatibla med DNS över TLS/HTTPS.</string>
     <string name="homepage_download_header">Ladda ner Blokada</string>
     <string name="homepage_download_subheader">Blokada finns till flera plattformar, välj din.</string>
     <string name="homepage_download_option_android_five">Blokada 5 för Android</string>
