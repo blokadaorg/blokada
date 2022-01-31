@@ -27,11 +27,14 @@ class NetxService: NetxServiceIn {
     fileprivate let writeNetxState = CurrentValueSubject<NetworkStatus?, Never>(nil)
     fileprivate let writePerms = CurrentValueSubject<Granted?, Never>(nil)
 
+    fileprivate let queryNetxStateT = SimpleTasker<Ignored>("queryNetxState")
+
     private var netxStateObserver = Atomic<NSObjectProtocol?>(nil)
     private var cancellables = Set<AnyCancellable>()
     private let bgQueue = DispatchQueue(label: "NetxServiceBgQueue")
 
     init() {
+        onQueryNetxState()
         onPermsGranted_startMonitoringNetx()
     }
 
@@ -416,70 +419,76 @@ class NetxService: NetxServiceIn {
         }
     }
 
-    private func queryNetxState() {
-        getManager()
-        // Get the status information from the manager connection
-        .tryMap { manager -> NetworkStatus in
-            guard let connection = manager.connection as? NETunnelProviderSession else {
-                throw "queryNetxState: no connection in manager"
-            }
-
-            var gatewayId: String? = nil
-            if let server = (manager.protocolConfiguration as? NETunnelProviderProtocol)?.providerConfiguration?["gatewayId"] {
-                gatewayId = server as? String
-            }
-
-            let active = connection.status == NEVPNStatus.connected && manager.isEnabled
-            let inProgress = [
-                NEVPNStatus.connecting, NEVPNStatus.disconnecting, NEVPNStatus.reasserting
-            ].contains(connection.status)
-
-            return NetworkStatus(
-                active: active, inProgress: inProgress,
-                gatewayId: gatewayId, pauseSeconds: 0
-            )
-        }
-        // Get the pause information from the NETX itself (ignore error)
-        .flatMap { status  -> AnyPublisher<(NetworkStatus, String), Error> in
-            Logger.v("Netx", "Query state: before report")
-            return Publishers.CombineLatest(
-                Just(status).setFailureType(to: Error.self).eraseToAnyPublisher(),
-                self.sendNetxMessage(msg: NetworkCommand.report.rawValue)
-                // First retry, maybe we queried too soon
-                .tryCatch { err in
-                    self.sendNetxMessage(msg: NetworkCommand.report.rawValue)
-                    .delay(for: 3.0, scheduler: self.bgQueue)
-                    .retry(1)
+    private func onQueryNetxState() {
+        queryNetxStateT.setTask { _ in
+            self.getManager()
+            // Get the status information from the manager connection
+            .tryMap { manager -> NetworkStatus in
+                guard let connection = manager.connection as? NETunnelProviderSession else {
+                    throw "queryNetxState: no connection in manager"
                 }
-                // Then ignore error, it's not the crucial part of the query
-                .tryCatch { err in Just("0") }
-            )
-            .eraseToAnyPublisher()
-        }
-        // Put it all together
-        .tryMap { it -> NetworkStatus in
-            Logger.v("Netx", "Query state: after report")
-            let (status, response) = it
-            var pauseSeconds = 0
-            if response != "off" {
-                pauseSeconds = Int(response) ?? 0
+
+                var gatewayId: String? = nil
+                if let server = (manager.protocolConfiguration as? NETunnelProviderProtocol)?.providerConfiguration?["gatewayId"] {
+                    gatewayId = server as? String
+                }
+
+                let active = connection.status == NEVPNStatus.connected && manager.isEnabled
+                let inProgress = [
+                    NEVPNStatus.connecting, NEVPNStatus.disconnecting, NEVPNStatus.reasserting
+                ].contains(connection.status)
+
+                return NetworkStatus(
+                    active: active, inProgress: inProgress,
+                    gatewayId: gatewayId, pauseSeconds: 0
+                )
             }
-            return NetworkStatus(
-                active: status.active, inProgress: status.inProgress,
-                gatewayId: status.gatewayId, pauseSeconds: pauseSeconds
-            )
-        }
-        .sink(
-            onValue: { it in self.writeNetxState.send(it) },
-            onFailure: { err in
+            // Get the pause information from the NETX itself (ignore error)
+            .flatMap { status  -> AnyPublisher<(NetworkStatus, String), Error> in
+                Logger.v("Netx", "Query state: before report")
+                return Publishers.CombineLatest(
+                    Just(status).setFailureType(to: Error.self).eraseToAnyPublisher(),
+                    self.sendNetxMessage(msg: NetworkCommand.report.rawValue)
+                    // First retry, maybe we queried too soon
+                    .tryCatch { err in
+                        self.sendNetxMessage(msg: NetworkCommand.report.rawValue)
+                        .delay(for: 3.0, scheduler: self.bgQueue)
+                        .retry(1)
+                    }
+                    // Then ignore error, it's not the crucial part of the query
+                    //.tryCatch { err in Just("0") }
+                )
+                .eraseToAnyPublisher()
+            }
+            // Put it all together
+            .tryMap { it -> NetworkStatus in
+                Logger.v("Netx", "Query state: after report")
+                let (status, response) = it
+                var pauseSeconds = 0
+                if response != "off" {
+                    pauseSeconds = Int(response) ?? 0
+                }
+                return NetworkStatus(
+                    active: status.active, inProgress: status.inProgress,
+                    gatewayId: status.gatewayId, pauseSeconds: pauseSeconds
+                )
+            }
+            .tryMap { it in self.writeNetxState.send(it) }
+            .tryMap { _ in true }
+            .tryCatch { err -> AnyPublisher<Ignored, Error> in
                 Logger.e(
                     "NetxState",
                     "Netx reporting connected, but could not get status info".cause(err)
                 )
                 self.writeNetxState.send(NetworkStatus.disconnected())
+                throw err
             }
-        )
-        .store(in: &cancellables)
+            .eraseToAnyPublisher()
+        }
+    }
+
+    private func queryNetxState() {
+        queryNetxStateT.send()
     }
 
     private func sendNetxMessage(msg: String) -> AnyPublisher<String, Error> {
@@ -492,73 +501,100 @@ class NetxService: NetxServiceIn {
             let connection = manager.connection as! NETunnelProviderSession
             return (data, connection)
         }
-        // Send the message and wait for response or error
+        // Send the message and wait for response or error or timeout
         .flatMap { it -> AnyPublisher<String, Error> in
             let (data, connection) = it
-            return Future<String, Error> { promise in
-                do {
-                    try connection.sendProviderMessage(data) { reply in
-                        guard let reply = reply else {
-                            return promise(.failure("sendNetxMessage: got a nil reply back for command".cause(msg)))
-                        }
+            return Publishers.Merge(
+                // Actual request to NETX
+                Future<String, Error> { promise in
+                    do {
+                        try connection.sendProviderMessage(data) { reply in
+                            guard let reply = reply else {
+                                return promise(.failure("sendNetxMessage: got a nil reply back for command".cause(msg)))
+                            }
 
-                        let data = String.init(data: reply, encoding: String.Encoding.utf8)!
-                        if (data.starts(with: "error: code: ")) {
-                            let code = Int(data.components(separatedBy: "error: code: ")[1])!
-                            return promise(.failure(NetworkError.http(code)))
-                        } else if (data.starts(with: "error: ")) {
-                            return promise(.failure(data))
-                        } else {
-                            return promise(.success(data))
+                            let data = String.init(data: reply, encoding: String.Encoding.utf8)!
+                            if (data.starts(with: "error: code: ")) {
+                                let code = Int(data.components(separatedBy: "error: code: ")[1])!
+                                return promise(.failure(NetworkError.http(code)))
+                            } else if (data.starts(with: "error: ")) {
+                                return promise(.failure(data))
+                            } else {
+                                return promise(.success(data))
+                            }
                         }
+                    } catch {
+                        return promise(.failure("sendNetxMessage: sending message failed".cause(error)))
                     }
-                } catch {
-                    return promise(.failure("sendNetxMessage: sending message failed".cause(error)))
                 }
-            }
+                .eraseToAnyPublisher(),
+
+                // Also make a timeout
+                Just(true)
+                .delay(for: 10.0, scheduler: self.bgQueue)
+                .tryMap { state -> String in
+                    throw "next message timeout"
+                }
+                .eraseToAnyPublisher()
+            )
+            .first() // Whatever comes first: a response, or the timeout throwing
             .eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
     }
 
     private func getManager() -> AnyPublisher<NETunnelProviderManager, Error> {
-        return Future<NETunnelProviderManager, Error> { promise in
-            NETunnelProviderManager.loadAllFromPreferences { (managers, error) in
-                if let error = error {
-                    return promise(
-                        .failure("getManager: loadAllPreferences".cause(error))
-                    )
-                }
-
-                // Remove multiple profiles, we just need one
-                let managersCount = managers?.count ?? 0
-                if (managersCount > 1) {
-                    Logger.w("NetxService", "getManager: Found multiple VPN profiles, deleting others")
-                    for i in 0..<(managersCount - 1) {
-                        managers![i].removeFromPreferences(completionHandler: nil)
+        // Get the manager object or timeout
+        return Publishers.Merge(
+            // Actual query for object
+            Future<NETunnelProviderManager, Error> { promise in
+                NETunnelProviderManager.loadAllFromPreferences { (managers, error) in
+                    if let error = error {
+                        return promise(
+                            .failure("getManager: loadAllPreferences".cause(error))
+                        )
                     }
-                }
 
-                // No profiles means no perms, otherwise normal flow
-                if (managersCount == 0) {
-                    self.writePerms.send(false)
-                    return promise(.failure(CommonError.vpnNoPermissions))
-                } else {
-                    self.writePerms.send(true)
-                    // According to Apple docs we need to call loadFromPreferences at least once
-                    let manager = managers![0]
-                    manager.loadFromPreferences { error in
-                        if let error = error {
-                            return promise(
-                                .failure("getManager: loadFromPreferences".cause(error))
-                            )
+                    // Remove multiple profiles, we just need one
+                    let managersCount = managers?.count ?? 0
+                    if (managersCount > 1) {
+                        Logger.w("NetxService", "getManager: Found multiple VPN profiles, deleting others")
+                        for i in 0..<(managersCount - 1) {
+                            managers![i].removeFromPreferences(completionHandler: nil)
                         }
+                    }
 
-                        return promise(.success(manager))
+                    // No profiles means no perms, otherwise normal flow
+                    if (managersCount == 0) {
+                        self.writePerms.send(false)
+                        return promise(.failure(CommonError.vpnNoPermissions))
+                    } else {
+                        self.writePerms.send(true)
+                        // According to Apple docs we need to call loadFromPreferences at least once
+                        let manager = managers![0]
+                        manager.loadFromPreferences { error in
+                            if let error = error {
+                                return promise(
+                                    .failure("getManager: loadFromPreferences".cause(error))
+                                )
+                            }
+
+                            return promise(.success(manager))
+                        }
                     }
                 }
             }
-        }
+            .eraseToAnyPublisher(),
+
+            // Also make a timeout
+            Just(true)
+            .delay(for: 5.0, scheduler: self.bgQueue)
+            .tryMap { state -> NETunnelProviderManager in
+                throw "getManager timeout"
+            }
+            .eraseToAnyPublisher()
+        )
+        .first() // Whatever comes first: a manager object, or the timeout throwing
         .eraseToAnyPublisher()
     }
 
