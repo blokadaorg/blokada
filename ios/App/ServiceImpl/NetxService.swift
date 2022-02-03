@@ -32,6 +32,7 @@ class NetxService: NetxServiceIn {
     private var netxStateObserver = Atomic<NSObjectProtocol?>(nil)
     private var cancellables = Set<AnyCancellable>()
     private let bgQueue = DispatchQueue(label: "NetxServiceBgQueue")
+    private var manager = Atomic<NETunnelProviderManager?>(nil)
 
     init() {
         onQueryNetxState()
@@ -481,6 +482,7 @@ class NetxService: NetxServiceIn {
                     "Netx reporting connected, but could not get status info".cause(err)
                 )
                 self.writeNetxState.send(NetworkStatus.disconnected())
+                self.manager = Atomic(nil) // Re-load the manager (maybe VPN profile removed)
                 throw err
             }
             .eraseToAnyPublisher()
@@ -543,12 +545,28 @@ class NetxService: NetxServiceIn {
         .eraseToAnyPublisher()
     }
 
+    // Returns a manager ref, or loads it from API if not available
     private func getManager() -> AnyPublisher<NETunnelProviderManager, Error> {
+        if let m = manager.value {
+            return Just(m).setFailureType(to: Error.self).eraseToAnyPublisher()
+        }
+
+        return loadManager()
+        .map { m in
+            self.manager = Atomic(m)
+            return m
+        }
+        .eraseToAnyPublisher()
+    }
+
+    private func loadManager() -> AnyPublisher<NETunnelProviderManager, Error> {
         // Get the manager object or timeout
         return Publishers.Merge(
             // Actual query for object
             Future<NETunnelProviderManager, Error> { promise in
-                NETunnelProviderManager.loadAllFromPreferences { (managers, error) in
+                Logger.w("NetxService", "getManager: asking")
+                return NETunnelProviderManager.loadAllFromPreferences { (managers, error) in
+                    Logger.w("NetxService", "getManager: got callback")
                     if let error = error {
                         return promise(
                             .failure("getManager: loadAllPreferences".cause(error))
@@ -563,6 +581,7 @@ class NetxService: NetxServiceIn {
                             managers![i].removeFromPreferences(completionHandler: nil)
                         }
                     }
+                    Logger.w("NetxService", "getManager: after managersCount")
 
                     // No profiles means no perms, otherwise normal flow
                     if (managersCount == 0) {
@@ -572,7 +591,9 @@ class NetxService: NetxServiceIn {
                         self.writePerms.send(true)
                         // According to Apple docs we need to call loadFromPreferences at least once
                         let manager = managers![0]
+                        Logger.w("NetxService", "getManager: before second load")
                         manager.loadFromPreferences { error in
+                            Logger.w("NetxService", "getManager: second load callback rec")
                             if let error = error {
                                 return promise(
                                     .failure("getManager: loadFromPreferences".cause(error))
