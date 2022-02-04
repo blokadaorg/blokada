@@ -134,7 +134,7 @@ class PacketLoop: NSObject {
                     // If wifi doesn't support IPv6 while mobile does, and that's our current stack
                     // we won't switch to wifi without this.
                     if delegate.hasBetterEndpoint(session) {
-                        NELogger.v("PacketLoop: switch to cheaper endpoint path")
+                        NELogger.w("PacketLoop: switch to cheaper endpoint path")
                         self.session = .IsInvalid(session)
                     }
                 case .IsInvalid(let session):
@@ -416,7 +416,7 @@ class PacketLoop: NSObject {
     }
 }
 
-func tunnel_log(msg: UnsafePointer<Int8>?) {
+private func tunnel_log(msg: UnsafePointer<Int8>?) {
     guard let msg = msg else { return }
     let str = String(cString: msg)
     NELogger.v("PacketLoop: Tunnel: \(str)")
