@@ -98,17 +98,18 @@
 "notification vpn expired body" = "Kérjük frissítse előfizetését a BLOKADA+ további használatához";
 "notification desc settings" = "Húzza jobbra vagy balra az értesítéseket a beállításhoz.";
 
-"notification generic header" = "Blokada: beavatkozás szükséges";
+"notification generic header" = "Blokada: Action required";
 "notification generic subtitle" = "Koppintson több információért";
 "notification generic body" = "Nyissa meg az appot a további részletekért.";
 
-"notification acc header" = "Blokada fiók lejárt";
+// A short header in a notification shown when account expires
+"notification acc header" = "Subscription expired";
 "notification acc subtitle" = "Adblockolás kikapcsolva";
 "notification acc body" = "Kérjük újítsa meg előfizetését a Blokada további használatához.";
 
 "notification pause header" = "Blokada továbbra is szüneteltetve";
 "notification pause subtitle" = "Adblockolás szüneteltetve";
-"notification pause body" = "Nyissa meg az appot a Blokada szünetelésének feloldásához.";
+"notification pause body" = "Please open the app to resume Blokada.";
 
 // Displayed in a notification title. Do not translate "Plus".
 "notification lease header" = "Blokada Plus kikapcsolva";

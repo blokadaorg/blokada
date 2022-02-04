@@ -76,12 +76,12 @@
     <string name="notification_generic_header">Blokada: требуется действие</string>
     <string name="notification_generic_subtitle">Нажмите, чтобы узнать больше</string>
     <string name="notification_generic_body">Пожалуйста, откройте приложение для получения подробной информации.</string>
-    <string name="notification_acc_header">Срок действия аккаунта Blokada истек</string>
+    <string name="notification_acc_header">Срок действия подписки истек</string>
     <string name="notification_acc_subtitle">Блокировка рекламы отключена</string>
     <string name="notification_acc_body">Пожалуйста, обновите подписку, чтобы продолжить использовать Blokada.</string>
     <string name="notification_pause_header">Blokada приостановлена</string>
     <string name="notification_pause_subtitle">Блокировка рекламы отключена</string>
-    <string name="notification_pause_body">Пожалуйста, откройте приложение, чтобы возобновить Blokada.</string>
+    <string name="notification_pause_body">Пожалуйста, откройте приложение, чтобы возобновить работу Blokada.</string>
     <string name="notification_lease_header">Blokada Plus отключена</string>
     <string name="notification_update_header">Доступно обновление</string>
     <string name="alert_update_body">Blokada %s теперь доступна для скачивания. Мы рекомендуем поддерживать актуальную версию приложения, и скачивать его только из наших официальных источников.</string>

@@ -102,13 +102,14 @@
 "notification generic subtitle" = "Нажмите, чтобы узнать больше";
 "notification generic body" = "Пожалуйста, откройте приложение для получения подробной информации.";
 
-"notification acc header" = "Срок действия аккаунта Blokada истек";
+// A short header in a notification shown when account expires
+"notification acc header" = "Срок действия подписки истек";
 "notification acc subtitle" = "Блокировка рекламы отключена";
 "notification acc body" = "Пожалуйста, обновите подписку, чтобы продолжить использовать Blokada.";
 
 "notification pause header" = "Blokada приостановлена";
 "notification pause subtitle" = "Блокировка рекламы отключена";
-"notification pause body" = "Пожалуйста, откройте приложение, чтобы возобновить Blokada.";
+"notification pause body" = "Пожалуйста, откройте приложение, чтобы возобновить работу Blokada.";
 
 // Displayed in a notification title. Do not translate "Plus".
 "notification lease header" = "Blokada Plus отключена";

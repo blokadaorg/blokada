@@ -98,17 +98,18 @@
 "notification vpn expired body" = "Veuillez mettre à jour votre abonnement pour continuer à utiliser BLOKADA+";
 "notification desc settings" = "Faites glisser la notification à droite ou a gauche pour accéder aux paramètres.";
 
-"notification generic header" = "Blokada: action required";
+"notification generic header" = "Blokada : Action requise";
 "notification generic subtitle" = "Tap to learn more";
 "notification generic body" = "Please open the app for details.";
 
-"notification acc header" = "Blokada account expired";
+// A short header in a notification shown when account expires
+"notification acc header" = "Abonnement expiré";
 "notification acc subtitle" = "Adblocking is disabled";
 "notification acc body" = "Please update your subscription to continue using Blokada.";
 
 "notification pause header" = "Blokada is still paused";
 "notification pause subtitle" = "Adblocking is disabled";
-"notification pause body" = "Please open the app to unpause Blokada.";
+"notification pause body" = "Veuillez ouvrir l'application pour relancer Blokada.";
 
 // Displayed in a notification title. Do not translate "Plus".
 "notification lease header" = "Blokada Plus est désactivé";

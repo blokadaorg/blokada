@@ -76,7 +76,7 @@
     <string name="notification_generic_header">Blokada：需要操作</string>
     <string name="notification_generic_subtitle">點一下深入了解</string>
     <string name="notification_generic_body">請開啟 App 顯示詳細內容。</string>
-    <string name="notification_acc_header">Blokada 帳號過期</string>
+    <string name="notification_acc_header">訂閱已過期</string>
     <string name="notification_acc_subtitle">廣告封鎖功能已停用</string>
     <string name="notification_acc_body">請更新您的訂閱以繼續使用 Blokada。</string>
     <string name="notification_pause_header">Blokada 未運作</string>

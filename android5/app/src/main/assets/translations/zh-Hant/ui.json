@@ -75,7 +75,7 @@
     "notification generic header": "Blokada：需要操作",
     "notification generic subtitle": "點一下深入了解",
     "notification generic body": "請開啟 App 顯示詳細內容。",
-    "notification acc header": "Blokada 帳號過期",
+    "notification acc header": "訂閱已過期",
     "notification acc subtitle": "廣告封鎖功能已停用",
     "notification acc body": "請更新您的訂閱以繼續使用 Blokada。",
     "notification pause header": "Blokada 未運作",

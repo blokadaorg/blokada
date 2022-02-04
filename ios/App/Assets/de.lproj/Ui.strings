@@ -102,7 +102,8 @@
 "notification generic subtitle" = "Antippen, um mehr zu erfahren";
 "notification generic body" = "App öffnen für Details.";
 
-"notification acc header" = "Blokada-Konto abgelaufen";
+// A short header in a notification shown when account expires
+"notification acc header" = "Abonnement abgelaufen";
 "notification acc subtitle" = "Werbeblocker ist deaktiviert";
 "notification acc body" = "Bitte erneuere dein Abonnement, um Blokada weiter verwenden zu können.";
 
@@ -158,7 +159,7 @@
 "home status detail active with counter" = "*%@* Werbeanzeigen und Tracker blockiert";
 "home status detail active slim" = "Blokada *Slim* ist aktiv";
 "home status detail plus" = "*+* beschützt deine *Privatsphäre*";
-"home status detail progress" = "Bitte warte...";
+"home status detail progress" = "Bitte warte…";
 
 "home plus button deactivated" = "BLOKADA+ deaktiviert";
 "home plus button deactivated cloud" = "VPN deaktiviert";

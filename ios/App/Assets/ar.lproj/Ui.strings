@@ -20,7 +20,7 @@
 "error vpn" = "تَعذَّر إنشاء VPN. الرجاء إعادة تشغيل جهازك، أو إزالة الملف الشخصي لـ Blokada VPN في إعدادات النظام، و حاول مرّة أُخرى.";
 "error vpn perms" = "لا توجد أذونات ممنوحة لإنشاء ملف تعريف VPN.";
 "error vpn no current lease" = "الرجاء تحديد موقع أوّلاً.";
-"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn no current lease new" = "تم تعطيل Blokada Plus الآن على هذا الجهاز. الرجاء تحديد موقع لإعادة تنشيطه.";
 "error vpn too many leases" = "لقد وصلت إلى الحدّ الأقصى لأجهزتك. الرجاء إزالة أحد أجهزتك و الحاولة مرّة أُخرى.";
 "error vpn expired" = "الـ VPN معطَّل. الرجاء تحديث اشتراكك للاستمرار في استخدام BLOKADA+";
 "error payment inactive after restore" = "تم استعادة الدفعة السابقة الخاصة بك، ولكن انتهت صلاحية الاشتراك بالفعل. إذا كنت تعتقد أن هذا خطأ، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
@@ -102,13 +102,14 @@
 "notification generic subtitle" = "اضغط لمعرفة المزيد";
 "notification generic body" = "الرجاء فتح التطبيق للحصول على التفاصيل.";
 
-"notification acc header" = "انتهت صلاحيّة حساب بلوكادا";
+// A short header in a notification shown when account expires
+"notification acc header" = "انتهت مدّة الإشتراك";
 "notification acc subtitle" = "حَظْر الإعلانات مُعَطّل";
 "notification acc body" = "الرجاء تحديث إشتراكك للإستمرار في إستخدام بلوكادا.";
 
 "notification pause header" = "لا يزال بلوكادا متوقّف";
 "notification pause subtitle" = "حَظْر الإعلانات مُعَطّل";
-"notification pause body" = "الرجاء فتح التطبيق لإلغاء الإيقاف المؤقّت لبلوكادا.";
+"notification pause body" = "الرجاء فتح التطبيق لاستئناف تشغيل بلوكادا.";
 
 // Displayed in a notification title. Do not translate "Plus".
 "notification lease header" = "Blokada Plus متوقّف";
@@ -648,15 +649,15 @@
 "notification perms denied" = "لقد رفضت الإشعارات. لتغيير ذلك ، الرجاء استخدام تفضيلات النظام.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
-"activated header" = "Almost there!";
-"activated desc" = "The following is necessary for Blokada to work as expected:";
-"activated desc all ok" = "Your device is all set up and good to go:";
-"activated label account" = "Account is active (%@)";
-"activated label notif yes" = "Notifications are allowed";
-"activated label notif no" = "Allow notifications";
-"activated label dns yes" = "DNS profile is activated";
-"activated label dns no" = "Activate DNS profile";
+"activated header" = "انتهينا تقريباً !";
+"activated desc" = "ما يلي ضروري لكي يعمل بلوكادا كما هو متوقّع:";
+"activated desc all ok" = "تمّ إعداد جهازك بالكامل و هو جاهز للعمل:";
+"activated label account" = "الحساب نشِط (%@)";
+"activated label notif yes" = "الإشعارات مسموح بها";
+"activated label notif no" = "السماح بالإشعارات";
+"activated label dns yes" = "تمّ تنشيط ملف تعريف DNS";
+"activated label dns no" = "قم بتنشيط ملف تعريف DNS";
 // Displayed when user does not have Plus account. Do not translate "Plus".
-"activated label vpn cloud" = "Allow VPN (Plus only)";
-"activated label vpn yes" = "VPN is allowed";
-"activated label vpn no" = "Allow VPN";
+"activated label vpn cloud" = "السماح لـ VPN (Plus فقط)";
+"activated label vpn yes" = "مسموح به VPN";
+"activated label vpn no" = "السماح لـ VPN";

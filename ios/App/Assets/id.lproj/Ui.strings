@@ -98,17 +98,18 @@
 "notification vpn expired body" = "Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali";
 "notification desc settings" = "Geser notifikasi ke kiri atau kanan untuk mengakses pengaturan.";
 
-"notification generic header" = "Blokada: perlu tindakan lebih lanjut";
+"notification generic header" = "Blokada: Perlu tindakan lebih lanjut";
 "notification generic subtitle" = "Ketuk untuk mengetahui lebih jauh";
 "notification generic body" = "Lebih lengkapnya silakan buka app.";
 
-"notification acc header" = "Akun Blokada telah kedaluwarsa";
+// A short header in a notification shown when account expires
+"notification acc header" = "Langganan berakhir";
 "notification acc subtitle" = "Mode pemblokiran iklan dinonaktifkan";
 "notification acc body" = "Silakan perbarui langganan Anda agar Anda bisa terus menggunakan Blokada.";
 
 "notification pause header" = "Blokada masih dijeda";
 "notification pause subtitle" = "Mode pemblokiran iklan dinonaktifkan";
-"notification pause body" = "Silakan buka app untuk menyalakan kembali Blokada.";
+"notification pause body" = "Silakan buka app untuk mengaktifkan Blokada kembali.";
 
 // Displayed in a notification title. Do not translate "Plus".
 "notification lease header" = "Blokada Plus nonaktif";

@@ -76,7 +76,7 @@
     <string name="notification_generic_header">Blokada: wymagane działanie</string>
     <string name="notification_generic_subtitle">Stuknij, aby dowiedzieć się więcej</string>
     <string name="notification_generic_body">Otwórz aplikację, aby uzyskać szczegóły.</string>
-    <string name="notification_acc_header">Konto Blokady wygasło</string>
+    <string name="notification_acc_header">Subskrypcja wygasła</string>
     <string name="notification_acc_subtitle">Blokowanie reklam jest wyłączone</string>
     <string name="notification_acc_body">Zaktualizuj subskrypcję, aby kontynuować korzystanie z Blokady.</string>
     <string name="notification_pause_header">Blokada jest nadal wstrzymana</string>

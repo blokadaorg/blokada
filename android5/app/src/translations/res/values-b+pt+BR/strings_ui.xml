@@ -73,10 +73,10 @@
     <string name="notification_vpn_expired_subtitle">A VPN está desativada</string>
     <string name="notification_vpn_expired_body">Por favor, atualize sua assinatura para continuar usando o BLOKADA+</string>
     <string name="notification_desc_settings">Deslize a notificação para a esquerda ou direita para acessar as configurações.</string>
-    <string name="notification_generic_header">Blokada: ação necessária</string>
+    <string name="notification_generic_header">Blokada: Ação necessária</string>
     <string name="notification_generic_subtitle">Toque para saber mais</string>
     <string name="notification_generic_body">Por favor, abra o aplicativo para mais detalhes.</string>
-    <string name="notification_acc_header">Conta do Blokada expirada</string>
+    <string name="notification_acc_header">Assinatura expirada</string>
     <string name="notification_acc_subtitle">O bloqueio de anúncios está desativado</string>
     <string name="notification_acc_body">Por favor, atualize sua assinatura para continuar usando o Blokada.</string>
     <string name="notification_pause_header">O Blokada ainda está em pausa</string>

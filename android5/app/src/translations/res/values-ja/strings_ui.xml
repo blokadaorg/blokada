@@ -76,12 +76,12 @@
     <string name="notification_generic_header">Blokada: アクションが必要</string>
     <string name="notification_generic_subtitle">タップして詳細を表示します</string>
     <string name="notification_generic_body">詳細はアプリを開いてください。</string>
-    <string name="notification_acc_header">Blokada アカウントの有効期限が終了しました</string>
+    <string name="notification_acc_header">サブスクリプションの有効期限が終了しました</string>
     <string name="notification_acc_subtitle">広告ブロックが無効になります</string>
     <string name="notification_acc_body">Blokada を引き続き使用するには、サブスクリプションを更新してください。</string>
     <string name="notification_pause_header">Blokada は停止しています</string>
     <string name="notification_pause_subtitle">広告ブロックが無効です</string>
-    <string name="notification_pause_body">アプリを開いて Blokada の停止を解除してください。</string>
+    <string name="notification_pause_body">Blokada を再開するにはアプリを開いてください。</string>
     <string name="notification_lease_header">Blokada Plus がオフです</string>
     <string name="notification_update_header">アップデートが利用可能です</string>
     <string name="alert_update_body">Blokada %s がダウンロード可能になりました。公式ソースから最新版へアップデートすることをお勧めします。</string>

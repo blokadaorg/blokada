@@ -102,7 +102,8 @@
 "notification generic subtitle" = "Stuknij, aby dowiedzieć się więcej";
 "notification generic body" = "Otwórz aplikację, aby uzyskać szczegóły.";
 
-"notification acc header" = "Konto Blokady wygasło";
+// A short header in a notification shown when account expires
+"notification acc header" = "Subskrypcja wygasła";
 "notification acc subtitle" = "Blokowanie reklam jest wyłączone";
 "notification acc body" = "Zaktualizuj subskrypcję, aby kontynuować korzystanie z Blokady.";
 

@@ -76,7 +76,7 @@
     <string name="notification_generic_header">Blokada: Maßnahme erforderlich</string>
     <string name="notification_generic_subtitle">Antippen, um mehr zu erfahren</string>
     <string name="notification_generic_body">App öffnen für Details.</string>
-    <string name="notification_acc_header">Blokada-Konto abgelaufen</string>
+    <string name="notification_acc_header">Abonnement abgelaufen</string>
     <string name="notification_acc_subtitle">Werbeblocker ist deaktiviert</string>
     <string name="notification_acc_body">Bitte erneuere dein Abonnement, um Blokada weiter verwenden zu können.</string>
     <string name="notification_pause_header">Blokada ist weiterhin pausiert</string>
@@ -116,7 +116,7 @@
     <string name="home_status_detail_active_with_counter">*%s* Werbeanzeigen und Tracker blockiert</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* ist aktiv</string>
     <string name="home_status_detail_plus">*+* beschützt deine *Privatsphäre*</string>
-    <string name="home_status_detail_progress">Bitte warte...</string>
+    <string name="home_status_detail_progress">Bitte warte…</string>
     <string name="home_plus_button_deactivated">BLOKADA+ deaktiviert</string>
     <string name="home_plus_button_deactivated_cloud">VPN deaktiviert</string>
     <string name="home_plus_button_select_location">Standort wählen</string>

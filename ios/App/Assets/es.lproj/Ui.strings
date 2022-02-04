@@ -20,7 +20,7 @@
 "error vpn" = "No ha podido establecer el VPN. Reinicia tu dispositivo o elimine el perfil VPN de Blokada en la configuración del sistema, e inténtalo de nuevo.";
 "error vpn perms" = "No se han concedido permisos para crear un perfil VPN.";
 "error vpn no current lease" = "Por favor, primero elige una ubicación.";
-"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn no current lease new" = "Blokada Plus está desactivado en este dispositivo. Por favor, seleccione una ubicación para reactivarla.";
 "error vpn too many leases" = "Has alcanzado el límite de dispositivos. Por favor, elimina uno de tus dispositivos e inténtalo de nuevo.";
 "error vpn expired" = "El VPN está desactivado. Por favor, actualiza tu suscripción para seguir usando BLOKADA+";
 "error payment inactive after restore" = "Tu pago anterior se ha restaurado, pero la suscripción ya ha caducado. Si crees que esto es un error, ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.";
@@ -30,7 +30,7 @@
 "error payment canceled" = "El pago se ha cancelado. No se ha cobrado nada.";
 "error pack install" = "No se ha podido instalar (o desinstalar) esta característica. Inténtalo de nuevo más tarde.";
 "error location failed fetching" = "No se ha encontrado tu ubicación.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error unknown" = "Ha ocurrido un problema. Asegúrate de estar en línea e inténtalo de nuevo más tarde. Si el problema persiste, contáctanos tocando el icono de ayuda en la parte superior.";
 "error blocka dns in filtering mode" = "Blokada DNS actualmente sólo está soportado en modo Plus. Por favor, elige otro DNS y vuelva a intentarlo.";
 
 "universal action continue" = "Continuar";
@@ -98,20 +98,21 @@
 "notification vpn expired body" = "Por favor, actualiza tu suscripción para seguir usando BLOKADA+";
 "notification desc settings" = "Desliza la notificación a la izquierda o derecha para ver los ajustes.";
 
-"notification generic header" = "Blokada: acción requerida";
-"notification generic subtitle" = "Toca la notificación para obtener más información";
+"notification generic header" = "Blokada: Acción requerida";
+"notification generic subtitle" = "Toca para aprender más";
 "notification generic body" = "Por favor, abre la aplicación para más detalles.";
 
-"notification acc header" = "Cuenta Blokada expirada";
+// A short header in a notification shown when account expires
+"notification acc header" = "Suscripción expirada";
 "notification acc subtitle" = "El bloqueo de anuncios está desactivado";
-"notification acc body" = "Por favor, actualiza tu suscripción para seguir usando Blokada.";
+"notification acc body" = "Por favor, actualice su suscripción para seguir usando Blokada.";
 
 "notification pause header" = "Blokada sigue en pausa";
 "notification pause subtitle" = "El bloqueo de anuncios está desactivado";
-"notification pause body" = "Por favor, abre la aplicación para reanudar la pausa de Blokada.";
+"notification pause body" = "Por favor, abre la aplicación para reanudar Blokada.";
 
 // Displayed in a notification title. Do not translate "Plus".
-"notification lease header" = "Blokada Plus is off";
+"notification lease header" = "Blokada Plus está desactivado";
 
 "notification update header" = "Hay una actualización disponible";
 "alert update body" = "Blokada %@ ahora está disponible para descargar. Recomendamos descargar la aplicación solo desde nuestras fuentes oficiales y mantenerla actualizada.";
@@ -158,7 +159,7 @@
 "home status detail active with counter" = "*%@* anuncios y rastreadores bloqueados";
 "home status detail active slim" = "Blokada *Slim* está activo";
 "home status detail plus" = "*+* protegiendo tu *privacidad*";
-"home status detail progress" = "Espera, por favor...";
+"home status detail progress" = "Por favor, espere...";
 
 "home plus button deactivated" = "BLOKADA+ desactivado";
 "home plus button deactivated cloud" = "VPN desactivada";
@@ -236,7 +237,7 @@
 "activity retention option none" = "No guardar mi actividad";
 "activity retention option 24h" = "24 horas";
 "activity retention policy" = "Al activar la retención de registros, aceptas la política de privacidad.";
-"activity retention desc" = "Blokada Cloud no registra nada por defecto. Si desea ver las estadísticas y las actividades agregadas de todos sus dispositivos, elija el período de retención de registros que desea a continuación.";
+"activity retention desc" = "La Nube de Blokada no registra nada por defecto. Si desea ver las estadísticas y las actividades agregadas de todos sus dispositivos, elija el período de retención de registros que desea a continuación.";
 
 "userdenied section header" = "Excepciones";
 "userdenied section slugline" = "Administrar bloqueo de sitios web particulares";
@@ -372,15 +373,15 @@
 "payment feature title encrypt data" = "Encripta tus datos";
 "payment feature desc encrypt data" = "Los datos enviados a través de nuestro túnel VPN son cifrados usando algoritmos fuertes para protegerlos contra la interceptación por parte de partes no autorizadas.";
 "payment feature title encrypt dns" = "Encriptar DNS";
-"payment feature desc encrypt dns" = "Mejora tu privacidad con el cifrado DNS. Blokada Cloud utiliza protocolos modernos para ayudar a mantener tu tráfico privado.";
+"payment feature desc encrypt dns" = "Mejora tu privacidad con el cifrado DNS. La Nube de Blokada utiliza protocolos modernos para ayudar a mantener tu tráfico privado.";
 "payment feature title performance" = "Gran rendimiento";
 "payment feature desc performance" = "Mantén tu dispositivo rápido y tu conexión a Internet a máxima velocidad, gracias a nuestra nueva solución en la nube.";
 "payment feature title battery" = "Impacto de Batería Cero";
-"payment feature desc battery" = "La duración de tu batería no va a verse afectada, incluso puede mejorar cuando Blokada Cloud está activado.";
+"payment feature desc battery" = "La duración de tu batería no va a verse afectada, incluso puede mejorar cuando la Nube de Blokada está activada.";
 "payment feature title devices cloud" = "Múltiples dispositivos";
 "payment feature desc devices cloud" = "Configure y supervise todos sus dispositivos en un solo lugar. Ya sea a través de nuestra aplicación móvil o de nuestra aplicación web.";
-"payment feature title cloud vpn" = "Blokada Cloud más VPN";
-"payment feature desc cloud vpn" = "Además de todos los beneficios de Blokada Cloud, tendrás acceso a nuestra red VPN global";
+"payment feature title cloud vpn" = "La Nube de Blokada Plus VPN";
+"payment feature desc cloud vpn" = "Además de todos los beneficios de la Nube de Blokada, tendrás acceso a nuestra red VPN global";
 "payment feature title faster connection" = "Conexión más rápida";
 "payment feature desc faster connection" = "Alcanza velocidades de hasta 100Mbps gracias a servidores alrededor del mundo.";
 "payment feature title devices" = "Hasta 5 dispositivos";
@@ -440,7 +441,7 @@
 "payment action compare" = "Comparar planes";
 "payment plan slugline cloud" = "Bloquea anuncios y rastreadores";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "(incluye Blokada Cloud)";
+"payment plan slugline cloud detail" = "(incluye la Nube de Blokada)";
 "payment plan slugline plus" = "Protección adicional con VPN";
 "payment plan cta trial" = "Comenzar prueba gratuita de 7 días";
 "payment plan cta monthly" = "Suscripción mensual";
@@ -517,12 +518,12 @@
 "homepage cloud title" = "La nube de Blokada, la nueva vía";
 "homepage cloud desc" = "Nuestra solución moderna para el bloqueo de contenido móvil. Proteja múltiples dispositivos de anuncios y rastreos, y gestione sus preferencias en un solo lugar. Disfruta de un consumo de batería cero, sin desaceleraciones notables y con un bloqueo de anuncios altamente fiable.";
 "homepage cloud point one" = "Bloqueo de anuncios basado en la nube";
-"homepage cloud point two" = "Administrar y monitorizar en la web";
+"homepage cloud point two" = "Administrar y monitorear en la web";
 "homepage cloud point three" = "Encriptado, DNS privado";
 "homepage cloud point four" = "Conectar múltiples dispositivos";
 "homepage cloud point five" = "Aplicación disponible para iOS";
 "homepage cloud point six" = "Usar en cualquier plataforma que soporte DNS privado";
-"homepage cloud learn more" = "Más información sobre la nube de Blokada";
+"homepage cloud learn more" = "Aprender más sobre la nube de Blokada";
 
 "homepage about action faq" = "Ver las preguntas más frecuentes (FAQ)";
 "homepage about action plus" = "Aprende más sobre Blokada Plus";
@@ -533,7 +534,7 @@
 "homepage vpn point two" = "Cifrado rápido y moderno";
 "homepage vpn point three" = "No hay registro de la actividad de su red";
 "homepage vpn point four" = "Conecta hasta 5 dispositivos";
-"homepage vpn point five" = "Todos los beneficios de Blokada Cloud";
+"homepage vpn point five" = "Todos los beneficios de la Nube de Blokada";
 "homepage vpn point six" = "Disponible para Android e iOS";
 "homepage vpn point seven" = "Más plataformas a través de aplicaciones Wireguard®";
 "homepage vpn credit" = "'WireGuard' y el logotipo de 'Wireguard' son marcas comerciales registradas de Jason A. Donenfeld.";
@@ -553,7 +554,7 @@
 "homepage faq title 6" = "¿Dónde se encuentra Blokada?";
 "homepage faq desc 6" = "Nuestra sede se encuentra en Suecia, donde la privacidad es tratada con gran seriedad. Nuestros servidores están disponibles en muchos lugares del mundo.";
 "homepage faq title 7" = "¿Qué es la nube de Blokada?";
-"homepage faq desc 7" = "Blokada Cloud es nuestra nueva solución de bloqueo basado en la nube. Es más rápida y fiable que el método antiguo, y trae muchos beneficios adicionales. Blokada Cloud puede utilizarse en múltiples dispositivos, y soporta cualquier plataforma compatible con DNS a través de TLS/HTTPS.";
+"homepage faq desc 7" = "La Nube de Blokada es nuestra nueva solución de bloqueo basado en la nube. Es más rápida y fiable que el método antiguo, y trae muchos beneficios adicionales. La Nube de Blokada puede utilizarse en múltiples dispositivos, y soporta cualquier plataforma compatible con DNS a través de TLS/HTTPS.";
 
 "homepage download header" = "Descargar Blokada";
 "homepage download subheader" = "Blokada está disponible para varias plataformas, elige la tuya.";
@@ -574,7 +575,7 @@
 "homepage download action android four" = "Blokada 4 .apk";
 "homepage download action android four fdroid" = "Abrir F-Droid";
 
-"homepage download cloud desc" = "Blokada Cloud puede utilizarse en cualquier plataforma que soporte DNS sobre TLS/HTTPS. Esto incluye Windows, MacOS, Linux y todos los navegadores modernos. Puede encontrar guías de configuración simples para todas las plataformas soportadas en el panel de control web.";
+"homepage download cloud desc" = "La Nube de Blokada puede utilizarse en cualquier plataforma que soporte DNS sobre TLS/HTTPS. Esto incluye Windows, MacOS, Linux y todos los navegadores modernos. Puede encontrar guías de configuración simples para todas las plataformas soportadas en el panel de control web.";
 "homepage download plus desc" = "Blokada Plus puede utilizarse en cualquier plataforma donde la aplicación Wireguard® esté disponible. Puede generar un perfil VPN en el panel de control web, y luego simplemente importarlo desde la aplicación.";
 "homepage download action open dashboard" = "Abrir panel de control";
 
@@ -613,20 +614,20 @@
 "setup desc" = "Hay muchas maneras de configurar tu dispositivo para usar la nube de Blokada. Elige la que funcione para ti.";
 "setup label which device" = "¿Qué tipo de dispositivo desea configurar?";
 "setup label choose" = "Elija cualquiera de las siguientes opciones de configuración:";
-"setup comment wireguard" = "Nota: La configuración VPN usará Blokada Cloud por defecto. Elija una configuración de DNS diferente si desea excluirse. El logotipo \"WireGuard\" y \"WireGuard\" son marcas registradas de Jason A. Donenfeld.";
-"setup comment native apps" = "Nota: Las aplicaciones nativas para Android y iOS aún no soportan Blokada Cloud. Estamos trabajando en la actualización.";
+"setup comment wireguard" = "Nota: La configuración VPN usará la Nube de Blokada por defecto. Elija una configuración DNS diferente si desea excluirse. El logotipo \"WireGuard\" y \"WireGuard\" son marcas registradas de Jason A. Donenfeld.";
+"setup comment native apps" = "Nota: Las aplicaciones nativas para Android y iOS aún no soportan la Nube de Blokada. Estamos trabajando en la actualización.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Paso %@: %@";
 "setup option label recommended" = "Recomendado: %@";
 "setup option label alternative" = "Alternativa: %@";
 "setup name label unnamed" = "(sin nombre)";
 
-"setup step name" = "Nombre de su dispositivo (opcional)";
+"setup step name" = "Nombre del dispositivo (opcional)";
 "setup step copy" = "Copiar el nombre de su host";
 "setup step apply config" = "Aplicar la nueva configuración";
 "setup step install" = "Instalar e iniciar nuestra aplicación";
 "setup step enter tag" = "Cuando se le pregunte, introduzca su etiqueta";
-"setup step download profile" = "Generar y descargar tu perfil";
+"setup step download profile" = "Generar y descargar su perfil";
 "setup step install wireguard" = "Instalar e iniciar Wireguard";
 
 "stats header" = "Estadísticas";
@@ -636,27 +637,27 @@
 "stats requests header" = "Peticiones";
 // A subheader for the chart that display the number of requests over time. Can be a bit longer.
 "stats requests subheader" = "Consultas a lo largo del tiempo";
-"stats top allowed header" = "Solicitudes permitidas más solicitadas";
-"stats top blocked header" = "Solicitudes bloqueadas más solicitadas";
+"stats top allowed header" = "Top de solicitudes permitidas";
+"stats top blocked header" = "Top de solicitudes bloqueadas";
 
 "dnsprofile header" = "Activar Blokada en Ajustes";
 "dnsprofile desc" = "En la aplicación de configuración, vaya a General → VPN, DNS & Device Management → DNS y seleccione Blokada.";
 "dnsprofile action open settings" = "Abrir Ajustes";
 
-"notification perms header" = "Enable notifications in Settings";
-"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
-"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
+"notification perms header" = "Habilitar las notificaciones en Ajustes";
+"notification perms desc" = "Esta función requiere notificaciones, por favor actívalas para Blokada.";
+"notification perms denied" = "Has denegado las notificaciones. Para cambiar esto, por favor, usa las preferencias del sistema.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
-"activated header" = "Almost there!";
-"activated desc" = "The following is necessary for Blokada to work as expected:";
-"activated desc all ok" = "Your device is all set up and good to go:";
-"activated label account" = "Account is active (%@)";
-"activated label notif yes" = "Notifications are allowed";
-"activated label notif no" = "Allow notifications";
-"activated label dns yes" = "DNS profile is activated";
-"activated label dns no" = "Activate DNS profile";
+"activated header" = "¡Ya casi estamos!";
+"activated desc" = "Lo siguiente es necesario para que Blokada funcione como se espera:";
+"activated desc all ok" = "Su dispositivo está todo configurado y listo para funcionar:";
+"activated label account" = "La cuenta está activa (%@)";
+"activated label notif yes" = "Notificaciones permitidas";
+"activated label notif no" = "Permitir notificaciones";
+"activated label dns yes" = "El perfil DNS está activado";
+"activated label dns no" = "Activar perfil DNS";
 // Displayed when user does not have Plus account. Do not translate "Plus".
-"activated label vpn cloud" = "Allow VPN (Plus only)";
-"activated label vpn yes" = "VPN is allowed";
-"activated label vpn no" = "Allow VPN";
+"activated label vpn cloud" = "Permitir VPN (sólo Plus)";
+"activated label vpn yes" = "VPN permitido";
+"activated label vpn no" = "Permitir VPN";

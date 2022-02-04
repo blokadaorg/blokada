@@ -98,17 +98,18 @@
 "notification vpn expired body" = "Aktualizujte vaše předplatné a pokračujte v používání služby BLOKADA+";
 "notification desc settings" = "Nastavení zobrazíte přejetím oznámení doleva nebo doprava.";
 
-"notification generic header" = "Blokada: vyžadována akce";
+"notification generic header" = "Blokada: Vyžadována akce";
 "notification generic subtitle" = "Klepnutím se dozvíte více";
 "notification generic body" = "Pro podrobnosti otevřete aplikaci.";
 
-"notification acc header" = "Platnost účtu Blokada vypršela";
+// A short header in a notification shown when account expires
+"notification acc header" = "Předplatné vypršelo";
 "notification acc subtitle" = "Blokování reklam je zakázáno";
 "notification acc body" = "Aktualizujte vaše předplatné a pokračujte v používání služby Blokada.";
 
 "notification pause header" = "Blokada je stále pozastavena";
 "notification pause subtitle" = "Blokování reklam je zakázáno";
-"notification pause body" = "Otevřete aplikaci Blokada a zrušte její pozastavení.";
+"notification pause body" = "Pro pokračování otevřete aplikaci Blokáda.";
 
 // Displayed in a notification title. Do not translate "Plus".
 "notification lease header" = "Blokada Plus je vypnuta";
