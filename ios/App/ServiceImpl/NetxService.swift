@@ -237,7 +237,7 @@ class NetxService: NetxServiceIn {
                     .flatMap { _ in self.netxStateHot.first() }
                     .tryMap { state -> Ignored in
                         if state.active {
-                            throw "timeout"
+                            throw "stopvpn timeout"
                         }
                         return true
                     }
@@ -446,7 +446,7 @@ class NetxService: NetxServiceIn {
             }
             // Get the pause information from the NETX itself (ignore error)
             .flatMap { status  -> AnyPublisher<(NetworkStatus, String), Error> in
-                Logger.v("Netx", "Query state: before report")
+                Logger.v("NetxService", "Query state: before report")
                 return Publishers.CombineLatest(
                     Just(status).setFailureType(to: Error.self).eraseToAnyPublisher(),
                     self.sendNetxMessage(msg: NetworkCommand.report.rawValue)
@@ -463,7 +463,7 @@ class NetxService: NetxServiceIn {
             }
             // Put it all together
             .tryMap { it -> NetworkStatus in
-                Logger.v("Netx", "Query state: after report")
+                Logger.v("NetxService", "Query state: after report")
                 let (status, response) = it
                 var pauseSeconds = 0
                 if response != "off" {
@@ -478,11 +478,18 @@ class NetxService: NetxServiceIn {
             .tryMap { _ in true }
             .tryCatch { err -> AnyPublisher<Ignored, Error> in
                 Logger.e(
-                    "NetxState",
-                    "Netx reporting connected, but could not get status info".cause(err)
+                    "NetxService",
+                    "queryNetxState: could not get status info".cause(err)
                 )
-                self.writeNetxState.send(NetworkStatus.disconnected())
-                self.manager = Atomic(nil) // Re-load the manager (maybe VPN profile removed)
+
+                // Re-load the manager (maybe VPN profile removed)
+                self.manager = Atomic(nil)
+
+                if let e = err as? CommonError, e == .vpnNoPermissions {
+                    Logger.w("NetxService", "marking VPN as disabled")
+                    self.writeNetxState.send(NetworkStatus.disconnected())
+                }
+
                 throw err
             }
             .eraseToAnyPublisher()
@@ -533,7 +540,7 @@ class NetxService: NetxServiceIn {
 
                 // Also make a timeout
                 Just(true)
-                .delay(for: 10.0, scheduler: self.bgQueue)
+                .delay(for: 5.0, scheduler: self.bgQueue)
                 .tryMap { state -> String in
                     throw "next message timeout"
                 }
@@ -609,7 +616,7 @@ class NetxService: NetxServiceIn {
 
             // Also make a timeout
             Just(true)
-            .delay(for: 5.0, scheduler: self.bgQueue)
+            .delay(for: 2.0, scheduler: self.bgQueue)
             .tryMap { state -> NETunnelProviderManager in
                 throw "getManager timeout"
             }
