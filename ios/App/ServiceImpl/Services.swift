@@ -33,7 +33,7 @@ class ServicesSingleton {
     lazy var api: BlockaApiServiceIn = BlockaApiService()
     lazy var apiForCurrentUser = BlockaApiCurrentUserService()
 
-    lazy var privateDns: PrivateDnsService = PrivateDnsServiceImpl()
+    lazy var privateDns: PrivateDnsServiceIn = PrivateDnsService()
     lazy var systemNav = SystemNavService()
 
     lazy var storeKit = StoreKitService()

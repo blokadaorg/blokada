@@ -16,12 +16,28 @@ import NetworkExtension
 
 // Allows to check and save our Private DNS profile to be later selected by the user.
 // The UX for user is far from ideal, but the is no other way currently in iOS.
-protocol PrivateDnsService {
+protocol PrivateDnsServiceIn {
     func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Never>
     func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Ignored, Error>
 }
 
-class PrivateDnsServiceImpl: PrivateDnsService {
+class PrivateDnsServiceMock: PrivateDnsServiceIn {
+
+    private var active = false
+
+    func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Never> {
+        let a = active
+        active = true
+        return Just(a).eraseToAnyPublisher()
+    }
+
+    func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Ignored, Error> {
+        return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
+    }
+
+}
+
+class PrivateDnsService: PrivateDnsServiceIn {
 
     private lazy var manager = NEDNSSettingsManager.shared()
 

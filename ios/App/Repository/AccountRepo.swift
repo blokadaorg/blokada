@@ -284,7 +284,6 @@ class AccountRepo: Startable {
         .sink(
             onValue: { it in
                 self.lastAccountRequestTimestamp.value = Date().timeIntervalSince1970
-                //self.processingRepo.notify(self, ongoing: true)
                 self.refreshAccountT.send(it.account.id)
             }
         )

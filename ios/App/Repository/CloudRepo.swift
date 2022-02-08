@@ -155,7 +155,7 @@ class CloudRepo: Startable {
         deviceTagHot
         .flatMap { it in self.privateDns.savePrivateDnsProfile(tag: it, name: self.env.deviceName) }
         .sink(
-            onFailure: { err in self.processingRepo.notify(self, err, major: true) }
+            onFailure: { err in self.processingRepo.notify("setPrivateDnsProfile", err, major: true) }
         )
         .store(in: &cancellables)
     }
