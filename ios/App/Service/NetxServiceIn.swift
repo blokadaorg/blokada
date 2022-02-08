@@ -113,6 +113,7 @@ class NetxServiceMock: NetxServiceIn {
 
     private func emitNoPermsOnStart() {
         self.writePerms.send(false)
+        self.writeNetxState.send(NetworkStatus.disconnected())
     }
 
 }

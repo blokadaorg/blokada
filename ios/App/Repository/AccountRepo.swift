@@ -317,6 +317,11 @@ class AccountRepo: Startable {
         if keypair.privateKey.isEmpty || keypair.publicKey.isEmpty {
             throw "account with empty keypair"
         }
+
+        if Services.env.isProduction && CRYPTO_MOCKED_KEYS.contains(keypair) {
+            Logger.w("Account", "Mocked keys detected, recreating account")
+            throw CommonError.emptyResult
+        }
     }
 
     private func validateAccountId(_ accountId: AccountId) throws {

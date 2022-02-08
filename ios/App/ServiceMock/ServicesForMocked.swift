@@ -22,8 +22,8 @@ class ServicesSingleton {
     fileprivate init() {}
 
     lazy var persistenceLocal: PersistenceService = LocalStoragePersistenceService()
-    lazy var persistenceRemote: PersistenceService = ICloudPersistenceService()
-    lazy var persistenceRemoteLegacy: PersistenceService = ICloudPersistenceService()
+    lazy var persistenceRemote: PersistenceService = LocalStoragePersistenceService()
+    lazy var persistenceRemoteLegacy: PersistenceService = LocalStoragePersistenceService()
     
     lazy var httpStandard: HttpServiceIn = HttpStandardService()
     lazy var httpProtected: HttpServiceIn = HttpStandardService() // No NETX in mock

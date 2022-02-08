@@ -32,7 +32,7 @@ class EnvService {
     }
 
     var isProduction: Bool {
-        return buildType == "release"
+        return buildType == "release" && !isRunningTests
     }
 
     let deviceModel = UIDevice.current.modelName

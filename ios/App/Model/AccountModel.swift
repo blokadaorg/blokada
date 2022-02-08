@@ -17,6 +17,14 @@ struct Keypair: Codable {
     let publicKey: PublicKey
 }
 
+extension Keypair : Equatable {
+    static func == (lhs: Keypair, rhs: Keypair) -> Bool {
+        return
+            lhs.privateKey == rhs.privateKey &&
+            lhs.publicKey == rhs.publicKey
+    }
+}
+
 struct AccountWithKeypair {
     let account: Account
     let keypair: Keypair
