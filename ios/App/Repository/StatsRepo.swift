@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-class StatsRepo {
+class StatsRepo: Startable {
 
     var blockedHot: AnyPublisher<Int, Never> {
         statsHot.map { it in Int(it.total_blocked) }.compactMap { $0 }
@@ -36,7 +36,7 @@ class StatsRepo {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onRefreshStats()
         onAccountIdChange_refreshStats()
         onForeground_refreshStats()

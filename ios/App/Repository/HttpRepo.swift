@@ -16,7 +16,7 @@ import Combine
 // HttpRepo makes HTTP requests through either a standard client, or protected client.
 // It chooses one or another based on whether NETX is running or not.
 // If it is, requests needs to be protected (make outside) in case tunnel expires.
-class HttpRepo {
+class HttpRepo: Startable {
 
     private lazy var standard = Services.httpStandard
     private lazy var protected = Services.httpProtected
@@ -71,4 +71,5 @@ class HttpRepo {
         .eraseToAnyPublisher()
     }
 
+    func start() {}
 }

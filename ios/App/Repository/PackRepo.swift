@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-class PackRepo {
+class PackRepo: Startable {
 
     // Blocklists is server side representation of all known lists.
     private var blocklistsHot: AnyPublisher<[Blocklist], Never> {
@@ -47,7 +47,7 @@ class PackRepo {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onLoadBlocklists()
         onConvertBlocklistsToPacks()
         onInstallPack()

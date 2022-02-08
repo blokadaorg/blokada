@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-class SheetRepo {
+class SheetRepo: Startable {
 
     var currentSheet: AnyPublisher<ActiveSheet?, Never> {
         writeCurrentSheet.removeDuplicates().eraseToAnyPublisher()
@@ -29,7 +29,7 @@ class SheetRepo {
     private let bgQueue = DispatchQueue(label: "SheetRepoBgQueue")
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onAddSheet()
         onRemoveSheet()
         onSyncClosedSheet()
@@ -150,8 +150,8 @@ class DebugSheetRepo: SheetRepo {
     private let log = Logger("Sheet")
     private var cancellables = Set<AnyCancellable>()
 
-    override init() {
-        super.init()
+    override func start() {
+        super.start()
 
         currentSheet.sink(
             onValue: { it in

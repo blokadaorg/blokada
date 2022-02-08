@@ -51,6 +51,7 @@ class EnvService {
 
     let baseUrl = "https://api.blocka.net"
 
+    let isRunningTests = UserDefaults.standard.bool(forKey: "isRunningTests")
 }
 
 extension UIDevice {

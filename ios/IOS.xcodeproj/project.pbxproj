@@ -174,7 +174,6 @@
 		4E53CCBC244E00EC009B3CF0 /* PaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCB8244DFEB1009B3CF0 /* PaymentModel.swift */; };
 		4E53CCBD244E00EC009B3CF0 /* SKProduct+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCBA244DFF99009B3CF0 /* SKProduct+Extensions.swift */; };
 		4E53CCBE244E00EC009B3CF0 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCB6244DFE21009B3CF0 /* PaymentViewModel.swift */; };
-		4E53CCC4244E3299009B3CF0 /* EngineServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCC2244E3243009B3CF0 /* EngineServiceMock.swift */; };
 		4E53CCC6244E34A9009B3CF0 /* PaymentGatewayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCC5244E34A9009B3CF0 /* PaymentGatewayViewModel.swift */; };
 		4E53CCC7244E38E6009B3CF0 /* PaymentGatewayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCC5244E34A9009B3CF0 /* PaymentGatewayViewModel.swift */; };
 		4E53CCC9244E39F5009B3CF0 /* PaymentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCC8244E39F5009B3CF0 /* PaymentListView.swift */; };
@@ -510,7 +509,6 @@
 		4E53CCB6244DFE21009B3CF0 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		4E53CCB8244DFEB1009B3CF0 /* PaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModel.swift; sourceTree = "<group>"; };
 		4E53CCBA244DFF99009B3CF0 /* SKProduct+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+Extensions.swift"; sourceTree = "<group>"; };
-		4E53CCC2244E3243009B3CF0 /* EngineServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineServiceMock.swift; sourceTree = "<group>"; };
 		4E53CCC5244E34A9009B3CF0 /* PaymentGatewayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayViewModel.swift; sourceTree = "<group>"; };
 		4E53CCC8244E39F5009B3CF0 /* PaymentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentListView.swift; sourceTree = "<group>"; };
 		4E57FCD324A0AD9300960ADF /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
@@ -884,7 +882,6 @@
 			children = (
 				4E2F2A00275F7AB3005A59F5 /* Mocks.swift */,
 				4EA9A2A22785B927009764F1 /* ServicesForMocked.swift */,
-				4E53CCC2244E3243009B3CF0 /* EngineServiceMock.swift */,
 				4E42355924519582005A0779 /* LoggerSaverMock.swift */,
 				4E2F2A03275F7B64005A59F5 /* BlockaApiServiceMock.swift */,
 			);
@@ -1553,7 +1550,6 @@
 				4E07F19927906E4300F5A310 /* RateService.swift in Sources */,
 				4EC014022460741C001DF5F7 /* TabItemView.swift in Sources */,
 				4E2ECCF1245AE5D1009040F1 /* PlaceholderView.swift in Sources */,
-				4E53CCC4244E3299009B3CF0 /* EngineServiceMock.swift in Sources */,
 				4E8AE1F42758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */,
 				4E8AE1F12758DD8600BD2E5B /* HttpServiceIn.swift in Sources */,
 				4E53CCBC244E00EC009B3CF0 /* PaymentModel.swift in Sources */,

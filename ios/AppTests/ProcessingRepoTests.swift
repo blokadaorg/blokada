@@ -17,7 +17,6 @@ import Combine
 class ProcessingRepoTests: XCTestCase {
 
     override func setUpWithError() throws {
-        Mocks.resetEverythingForTest()
     }
 
     override func tearDownWithError() throws {
@@ -25,6 +24,7 @@ class ProcessingRepoTests: XCTestCase {
     }
 
     func testShouldKeepTrackOfOngoingComponents() throws {
+        // Don't call here: prepareReposForTesting()
         resetReposForDebug()
 
         let exp = XCTestExpectation(description: "will keep track of ongoing components")

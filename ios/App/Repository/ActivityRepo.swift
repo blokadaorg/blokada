@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-class ActivityRepo {
+class ActivityRepo: Startable {
 
     var entriesHot: AnyPublisher<[HistoryEntry], Never> {
         writeEntries.compactMap { $0 }.eraseToAnyPublisher()
@@ -47,7 +47,7 @@ class ActivityRepo {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onFetchEntries()
         onFetchCustomList()
         onUpdateCustomList()

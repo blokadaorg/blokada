@@ -15,7 +15,7 @@ import Combine
 import UIKit
 
 // Contains "main app state" mostly used in Home screen.
-class AppRepo {
+class AppRepo: Startable {
 
     var appStateHot: AnyPublisher<AppState, Never> {
         self.writeAppState.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
@@ -50,7 +50,7 @@ class AppRepo {
     private var cancellables = Set<AnyCancellable>()
     private let recentAccountType = Atomic<AccountType>(AccountType.Libre)
 
-    init() {
+    func start() {
         onPauseApp()
         onUnpauseApp()
         onAnythingThatAffectsAppState_UpdateIt()
@@ -220,8 +220,8 @@ class DebugAppRepo: AppRepo {
     private let log = Logger("App")
     private var cancellables = Set<AnyCancellable>()
 
-    override init() {
-        super.init()
+    override func start() {
+        super.start()
 
         writeAppState.sink(
             onValue: { it in

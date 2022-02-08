@@ -15,8 +15,8 @@ import Combine
 
 class LocationListViewModel: ObservableObject {
 
-    private let gatewayRepo = Repos.gatewayRepo
-    private let plusRepo = Repos.plusRepo
+    private lazy var gatewayRepo = Repos.gatewayRepo
+    private lazy var plusRepo = Repos.plusRepo
 
     private var cancellables = Set<AnyCancellable>()
 

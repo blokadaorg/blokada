@@ -15,8 +15,8 @@ import Combine
 
 class ContentViewModel: ObservableObject {
 
-    private let sheetRepo = Repos.sheetRepo
-    private let linkRepo = Repos.linkRepo
+    private lazy var sheetRepo = Repos.sheetRepo
+    private lazy var linkRepo = Repos.linkRepo
     private var cancellables = Set<AnyCancellable>()
 
     @Published var activeSheet: ActiveSheet? = nil

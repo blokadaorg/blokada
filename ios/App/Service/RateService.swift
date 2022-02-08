@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-class RateService {
+class RateService: Startable {
 
     private lazy var persistence = Services.persistenceRemote
 
@@ -24,7 +24,7 @@ class RateService {
     private var cancellables = Set<AnyCancellable>()
     private let bgQueue = DispatchQueue(label: "StageRepoBgQueue")
 
-    init() {
+    func start() {
         onSecondRunActivation_ShowRateSheet()
         onDeactivating_PersistAppStartedBefore()
     }

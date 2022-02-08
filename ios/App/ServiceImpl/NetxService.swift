@@ -34,7 +34,7 @@ class NetxService: NetxServiceIn {
     private let bgQueue = DispatchQueue(label: "NetxServiceBgQueue")
     private var manager = Atomic<NETunnelProviderManager?>(nil)
 
-    init() {
+    func start() {
         onQueryNetxState()
         onPermsGranted_startMonitoringNetx()
     }

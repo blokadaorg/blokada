@@ -28,7 +28,7 @@ enum Link {
     case Credits
 }
 
-class LinkRepo {
+class LinkRepo: Startable {
 
     var links: AnyPublisher<[Link: URLComponents], Never> {
         self.writeLinks.compactMap { $0 }.eraseToAnyPublisher()
@@ -44,7 +44,7 @@ class LinkRepo {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onAccountChanged_RefreshLinks()
     }
 

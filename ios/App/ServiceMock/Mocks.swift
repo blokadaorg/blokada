@@ -17,11 +17,6 @@ var Mocks = MocksService()
 
 class MocksService {
 
-    func resetEverythingForTest() {
-        resetServices()
-        resetReposForDebug()
-    }
-
     func useEmptyPersistence() {
         // Will return empty result from persistence
         Services.persistenceRemote = PersistenceServiceMock()
@@ -37,4 +32,5 @@ class MocksService {
     func account(_ id: AccountId) -> Account {
         return Account(id: id, active_until: nil, active: false, type: "free")
     }
+
 }

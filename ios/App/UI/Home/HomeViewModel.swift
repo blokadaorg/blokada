@@ -18,15 +18,15 @@ class HomeViewModel: ObservableObject {
 
     private let log = Logger("Home")
 
-    private let appRepo = Repos.appRepo
-    private let cloudRepo = Repos.cloudRepo
-    private let permsRepo = Repos.permsRepo
-    private let plusRepo = Repos.plusRepo
+    private lazy var appRepo = Repos.appRepo
+    private lazy var cloudRepo = Repos.cloudRepo
+    private lazy var permsRepo = Repos.permsRepo
+    private lazy var plusRepo = Repos.plusRepo
 
-    private let errorsHot = Repos.processingRepo.errorsHot
-    private let blockedCounterHot = Repos.statsRepo.blockedHot
-    private let selectedGatewayHot = Repos.gatewayRepo.selectedHot
-    private let selectedLeaseHot = Repos.leaseRepo.currentHot
+    private lazy var errorsHot = Repos.processingRepo.errorsHot
+    private lazy var blockedCounterHot = Repos.statsRepo.blockedHot
+    private lazy var selectedGatewayHot = Repos.gatewayRepo.selectedHot
+    private lazy var selectedLeaseHot = Repos.leaseRepo.currentHot
 
     private var cancellables = Set<AnyCancellable>()
 

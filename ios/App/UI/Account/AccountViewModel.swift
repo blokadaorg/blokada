@@ -47,7 +47,7 @@ class AccountViewModel: ObservableObject {
 
     private let log = Logger("Account")
 
-    private let accountRepo = Repos.accountRepo
+    private lazy var accountRepo = Repos.accountRepo
     private var cancellables = Set<AnyCancellable>()
 
     init() {

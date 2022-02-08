@@ -30,7 +30,7 @@ class ServicesSingleton {
 
     lazy var crypto: CryptoServiceIn = CryptoServiceMock()
 
-    lazy var api: BlockaApiServiceIn = BlockaApiService2()
+    lazy var api: BlockaApiServiceIn = BlockaApiService()
     lazy var apiForCurrentUser = BlockaApiCurrentUserService()
 
     lazy var privateDns: PrivateDnsService = PrivateDnsServiceImpl()
@@ -42,12 +42,9 @@ class ServicesSingleton {
     lazy var timer = TimerService()
 
     lazy var dialog = DialogService()
+    lazy var rate = RateService()
 
     lazy var netx = NetxServiceMock()
     lazy var env = EnvService()
 
-}
-
-func resetServices() {
-    Services = ServicesSingleton()
 }

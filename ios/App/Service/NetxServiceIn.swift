@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-protocol NetxServiceIn {
+protocol NetxServiceIn: Startable {
 
     func getStatePublisher() -> AnyPublisher<NetworkStatus, Never>
     func getPermsPublisher() -> AnyPublisher<Granted, Never>
@@ -44,16 +44,8 @@ class NetxServiceMock: NetxServiceIn {
     private var cancellables = Set<AnyCancellable>()
     private let bgQueue = DispatchQueue(label: "NetxMockBgQueue")
 
-    init() {
+    func start() {
         emitNoPermsOnStart()
-    }
-
-    func getStatePublisher() -> AnyPublisher<NetworkStatus, Never> {
-        return netxStateHot
-    }
-
-    func getPermsPublisher() -> AnyPublisher<Granted, Never> {
-        return permsHot
     }
 
     func setConfig(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
@@ -84,6 +76,18 @@ class NetxServiceMock: NetxServiceIn {
         .eraseToAnyPublisher()
     }
     
+    func createVpnProfile() -> AnyPublisher<Ignored, Error> {
+        return Just(true)
+        .delay(for: 3, scheduler: self.bgQueue)
+        .map { _ in self.writePerms.send(true) }
+        .tryMap { _ in true }
+        .eraseToAnyPublisher()
+    }
+
+    func makeProtectedRequest(url: String, method: String, body: String) -> AnyPublisher<String, Error> {
+        return Fail(error: "No protected requests in mock").eraseToAnyPublisher()
+    }
+
     func changePause(until: Date?) -> AnyPublisher<Ignored, Error> {
         return Just(true)
         .delay(for: 2, scheduler: self.bgQueue)
@@ -94,13 +98,17 @@ class NetxServiceMock: NetxServiceIn {
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
-    
-    func createVpnProfile() -> AnyPublisher<Ignored, Error> {
-        return Just(true)
-        .delay(for: 3, scheduler: self.bgQueue)
-        .map { _ in self.writePerms.send(true) }
-        .tryMap { _ in true }
-        .eraseToAnyPublisher()
+
+    func getStatePublisher() -> AnyPublisher<NetworkStatus, Never> {
+        return netxStateHot
+    }
+
+    func getPermsPublisher() -> AnyPublisher<Granted, Never> {
+        return permsHot
+    }
+
+    func checkPerms() {
+        
     }
 
     private func emitNoPermsOnStart() {

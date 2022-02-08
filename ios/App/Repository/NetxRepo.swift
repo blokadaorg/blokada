@@ -30,7 +30,7 @@ extension NetxConfig: Equatable {
 }
 
 // Tracks state of, and acts on the Network Extension.
-class NetxRepo {
+class NetxRepo: Startable {
 
     var netxStateHot: AnyPublisher<NetworkStatus, Never> {
         writeNetxState.compactMap { $0 }.eraseToAnyPublisher()
@@ -55,7 +55,7 @@ class NetxRepo {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onSetConfig()
         onStartVpn()
         onStopVpn()
@@ -141,8 +141,8 @@ class DebugNetxRepo: NetxRepo {
     private let log = Logger("Netx")
     private var cancellables = Set<AnyCancellable>()
 
-    override init() {
-        super.init()
+    override func start() {
+        super.start()
 
         writeNetxState.sink(
             onValue: { it in

@@ -14,7 +14,7 @@ import Foundation
 import UIKit
 import Combine
 
-class StageRepo {
+class StageRepo: Startable {
 
     // Current app stage from the AppDelegate or SceneDelegate (Creating, Foreground, etc)
     var stageHot: AnyPublisher<AppStage, Never> {
@@ -52,7 +52,7 @@ class StageRepo {
     private let bgQueue = DispatchQueue(label: "StageRepoBgQueue")
     private var bgTask: UIBackgroundTaskIdentifier = .invalid
 
-    init() {
+    func start() {
         onBackground_StartBgTask()
         onForeground_StopBgTask()
     }
@@ -111,8 +111,8 @@ class DebugStageRepo: StageRepo {
     private let log = Logger("StageRepo")
     private var cancellables = Set<AnyCancellable>()
 
-    override init() {
-        super.init()
+    override func start() {
+        super.start()
 
         stageHot.sink(
             onValue: { it in self.log.w("Stage: \(it)") }

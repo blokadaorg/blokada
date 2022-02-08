@@ -13,6 +13,13 @@
 import Foundation
 import Combine
 
+// Startable is used for Repos to manually start them (as opposed
+// to starting with init()) and have better control on when it
+// happens. It is because we need it in tests.
+protocol Startable {
+    func start()
+}
+
 var Repos = RepositoriesSingleton()
 
 class RepositoriesSingleton {
@@ -38,6 +45,31 @@ class RepositoriesSingleton {
 
 }
 
+func startAllRepos() {
+    Repos.processingRepo.start()
+    Repos.stageRepo.start()
+    Repos.navRepo.start()
+    Repos.httpRepo.start()
+    Repos.accountRepo.start()
+    Repos.cloudRepo.start()
+    Repos.appRepo.start()
+    Repos.paymentRepo.start()
+    Repos.activityRepo.start()
+    Repos.statsRepo.start()
+    Repos.packRepo.start()
+    Repos.sheetRepo.start()
+    Repos.permsRepo.start()
+    Repos.gatewayRepo.start()
+    Repos.leaseRepo.start()
+    Repos.netxRepo.start()
+    Repos.plusRepo.start()
+    Repos.linkRepo.start()
+
+    // Also start some services that probably should be repos?
+    Services.netx.start()
+    Services.rate.start()
+}
+
 func resetReposForDebug() {
     Repos = RepositoriesSingleton()
     Repos.processingRepo = DebugProcessingRepo()
@@ -47,4 +79,10 @@ func resetReposForDebug() {
     Repos.cloudRepo = DebugCloudRepo()
     Repos.sheetRepo = DebugSheetRepo()
     Repos.netxRepo = DebugNetxRepo()
+}
+
+func prepareReposForTesting() {
+    resetReposForDebug()
+    startAllRepos()
+    Logger.w("Repos", "Ready for testing")
 }

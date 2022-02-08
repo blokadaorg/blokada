@@ -17,8 +17,8 @@ class ActivityViewModel: ObservableObject {
 
     private let log = Logger("ActivityVM")
 
-    private let activityRepo = Repos.activityRepo
-    private let cloudRepo = Repos.cloudRepo
+    private lazy var activityRepo = Repos.activityRepo
+    private lazy var cloudRepo = Repos.cloudRepo
     private var cancellables = Set<AnyCancellable>()
 
     @Published var logRetention = ""

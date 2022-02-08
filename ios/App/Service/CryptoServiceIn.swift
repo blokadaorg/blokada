@@ -21,11 +21,14 @@ class CryptoServiceMock: CryptoServiceIn {
     func generateKeypair() -> AnyPublisher<Keypair, Error> {
         return Just(
             Keypair(
-                privateKey: "mocked-private-key",
-                publicKey: "mocked-public-key"
+                privateKey: CRYPTO_MOCKED_PRIVKEY,
+                publicKey: CRYPTO_MOCKED_PUBKEY
             )
         )
         .setFailureType(to: Error.self)
         .eraseToAnyPublisher()
     }
 }
+
+var CRYPTO_MOCKED_PRIVKEY = "mocked-private-key"
+var CRYPTO_MOCKED_PUBKEY = "mocked-public-key"

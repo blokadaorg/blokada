@@ -34,7 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.w("*** ******************* ***")
         log.v(Services.env.userAgent())
 
-        resetReposForDebug()
+        if Services.env.isRunningTests {
+            resetReposForDebug()
+        } else {
+            resetReposForDebug()
+            startAllRepos()
+        }
 
         Repos.stageRepo.onCreate()
         token = AppleTokenService(application)

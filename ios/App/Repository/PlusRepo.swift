@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-class PlusRepo {
+class PlusRepo: Startable {
 
     var plusEnabledHot: AnyPublisher<Bool, Never> {
         writePlusEnabled.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
@@ -42,7 +42,7 @@ class PlusRepo {
     private var cancellables = Set<AnyCancellable>()
     private let bgQueue = DispatchQueue(label: "PlusRepoBgQueue")
 
-    init() {
+    func start() {
         onNewPlus()
         onClearPlus()
         onSwitchPlusOn()

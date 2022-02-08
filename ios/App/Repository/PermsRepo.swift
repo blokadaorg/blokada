@@ -15,7 +15,7 @@ import Combine
 
 typealias Granted = Bool
 
-class PermsRepo {
+class PermsRepo: Startable {
 
     var dnsProfilePerms: AnyPublisher<Granted, Never> {
         writeDnsProfilePerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
@@ -48,7 +48,7 @@ class PermsRepo {
     private let bgQueue = DispatchQueue(label: "PermsRepoBgQueue")
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onDnsProfileActivated()
         onForeground_checkNotificationPermsAndClearNotifications()
         onVpnPerms()

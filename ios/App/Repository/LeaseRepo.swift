@@ -17,7 +17,7 @@ struct CurrentLease {
     let lease: Lease?
 }
 
-class LeaseRepo {
+class LeaseRepo: Startable {
 
     var leasesHot: AnyPublisher<[Lease], Never> {
         writeLeases.compactMap { $0 }.eraseToAnyPublisher()
@@ -53,7 +53,7 @@ class LeaseRepo {
     private var cancellables = Set<AnyCancellable>()
     private let bgQueue = DispatchQueue(label: "LeaseRepoBgQueue")
 
-    init() {
+    func start() {
         onLoadLeases()
         onLeaseOrAccountChange_FindCurrentLease()
         onNewLease()

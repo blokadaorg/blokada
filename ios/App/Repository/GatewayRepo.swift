@@ -17,7 +17,7 @@ struct GatewaySelection {
     let gateway: Gateway?
 }
 
-class GatewayRepo {
+class GatewayRepo: Startable {
 
     var gatewaysHot: AnyPublisher<[Gateway], Never> {
         writeGateways.compactMap { $0 }.eraseToAnyPublisher()
@@ -42,7 +42,7 @@ class GatewayRepo {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onLoadGateways()
         onGatewaySelectionChanged_Persist()
         loadGatewaySelectionOnStart()

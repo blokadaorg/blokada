@@ -14,7 +14,7 @@ import Foundation
 import Combine
 import StoreKit
 
-class PaymentRepo {
+class PaymentRepo: Startable {
 
     var productsHot: AnyPublisher<[Product], Never> {
         self.writeProducts.compactMap { $0 }.eraseToAnyPublisher()
@@ -43,7 +43,7 @@ class PaymentRepo {
     private let bgQueue = DispatchQueue(label: "PaymentRepoBgQueue")
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onRefreshProducts()
         onBuyProduct()
         onRestorePurchase()

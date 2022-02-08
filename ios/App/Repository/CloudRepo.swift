@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-class CloudRepo {
+class CloudRepo: Startable {
 
     // Whether DNS profile is currently selected or not, refreshed on foreground
     var dnsProfileActivatedHot: AnyPublisher<CloudDnsProfileActivated, Never> {
@@ -66,7 +66,7 @@ class CloudRepo {
     private let bgQueue = DispatchQueue(label: "CloudRepoBgQueue")
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         onRefreshDeviceInfo()
         onSetActivityRetention()
         onSetBlocklists()
@@ -174,8 +174,8 @@ class DebugCloudRepo: CloudRepo {
     private let log = Logger("Cloud")
     private var cancellables = Set<AnyCancellable>()
 
-    override init() {
-        super.init()
+    override func start() {
+        super.start()
 
         dnsProfileActivatedHot.sink(
             onValue: { it in self.log.v("dnsProfileActivated: \(it)") }

@@ -14,7 +14,7 @@ import Foundation
 import Combine
 
 // This repo is used by all other repos to report their processing state globally.
-class ProcessingRepo {
+class ProcessingRepo: Startable {
 
     var errorsHot: AnyPublisher<ComponentError, Never> {
         self.writeError.compactMap { $0 }.eraseToAnyPublisher()
@@ -44,6 +44,9 @@ class ProcessingRepo {
     // Subscribers with lifetime same as the repository
     private var cancellables = Set<AnyCancellable>()
 
+    func start() {
+    }
+
     func notify(_ component: Any, _ error: Error, major: Bool) {
         writeError.send(ComponentError(
             component: String(describing: component), error: error, major: major
@@ -64,8 +67,8 @@ class DebugProcessingRepo: ProcessingRepo {
     private let log = Logger("Processing")
     private var cancellables = Set<AnyCancellable>()
 
-    override init() {
-        super.init()
+    override func start() {
+        super.start()
 
         errorsHot.sink(
             onValue: { it in

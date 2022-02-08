@@ -16,7 +16,7 @@ import Combine
 
 class PaymentGatewayViewModel: ObservableObject {
 
-    private let paymentRepo = Repos.paymentRepo
+    private lazy var paymentRepo = Repos.paymentRepo
 
     private var cancellables = Set<AnyCancellable>()
 

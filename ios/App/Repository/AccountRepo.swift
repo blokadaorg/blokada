@@ -14,7 +14,7 @@ import Foundation
 import Combine
 import UIKit
 
-class AccountRepo {
+class AccountRepo: Startable {
 
     var accountHot: AnyPublisher<AccountWithKeypair, Never> {
         self.writeAccount.compactMap { $0 }.eraseToAnyPublisher()
@@ -56,7 +56,7 @@ class AccountRepo {
 
     private let ACCOUNT_REFRESH_SEC: Double = 10 * 60 // Same as on Android
 
-    init() {
+    func start() {
         onAccountInit()
         onProposeAccountRequests()
         onRefreshAccountRequests()
@@ -68,7 +68,7 @@ class AccountRepo {
         onSettingsTab_RefreshAccount()
         accountInitT.send(true)
     }
-    
+
     // Gets account from API based on user entered account ID. Does sanitization.
     func restoreAccount(_ newAccountId: AccountId) -> AnyPublisher<Account, Error> {
         return restoreAccountT.send(newAccountId)

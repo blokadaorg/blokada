@@ -15,8 +15,8 @@ import Combine
 
 class LeaseListViewModel: ObservableObject {
 
-    private let leaseRepo = Repos.leaseRepo
-    private let accountRepo = Repos.accountRepo
+    private lazy var leaseRepo = Repos.leaseRepo
+    private lazy var accountRepo = Repos.accountRepo
 
     private var cancellables = Set<AnyCancellable>()
 

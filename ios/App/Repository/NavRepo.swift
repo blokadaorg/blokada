@@ -13,7 +13,7 @@
 import Foundation
 import Combine
 
-class NavRepo {
+class NavRepo: Startable {
 
     var activeTabHot: AnyPublisher<Tab, Never> {
         self.writeActiveTab.compactMap { $0 }.eraseToAnyPublisher()
@@ -27,7 +27,7 @@ class NavRepo {
     // Subscribers with lifetime same as the repository
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    func start() {
         listenToForegroundAndRepublishActiveTab()
     }
 
