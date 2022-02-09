@@ -18,58 +18,84 @@ struct NoLogRetentionView: View {
     @ObservedObject var contentVM = ViewModels.content
 
     var body: some View {
-        VStack() {
-            Text(L10n.activityRetentionDesc)
+        Form {
+            Section(header: Text(L10n.activitySectionHeader)) {
+                Text(L10n.activityRetentionDesc)
                 .foregroundColor(.secondary)
-                .padding(32)
+                .padding()
 
-            VStack {
-                Picker(L10n.activityRetentionHeader, selection: self.$vm.logRetentionSelected) {
-                    Text(L10n.activityRetentionOptionNone)
-                        .foregroundColor(Color.cAccent)
-                        .tag("")
-                    Text(L10n.activityRetentionOption24h)
-                        .foregroundColor(Color.cAccent)
-                        .tag("24h")
-                }
-                .pickerStyle(.wheel)
+                HStack {
+                    Spacer()
 
-                Spacer()
+                    VStack {
+                        if self.vm.logRetention == "" {
+                            OptionView(
+                                text: L10n.activityRetentionOptionNone,
+                                image: Image.fHide,
+                                active: false
+                            )
 
-                ZStack {
-                    Button(action: {
-                        self.contentVM.openLink(Link.CloudPrivacy)
-                    }) {
-                        Text(L10n.activityRetentionPolicy)
-                            .font(.footnote)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(3)
-                            .padding([.leading, .trailing], 40)
+                            ZStack {
+                                ButtonView(enabled: .constant(true), plus: .constant(true))
+                                .frame(height: 44)
+
+                                Text(L10n.homePowerActionTurnOn)
+                                .foregroundColor(.white)
+                                .bold()
+                            }
+                            .padding()
+                            .onTapGesture {
+                                self.vm.logRetentionSelected = "24h"
+                                self.vm.applyLogRetention()
+                            }
+                            .frame(maxWidth: 300)
+                        } else {
+                            HStack {
+                                Text(L10n.activityRetentionHeader)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .multilineTextAlignment(.leading)
+                                .padding()
+
+                                Spacer()
+                            }
+
+                            OptionView(
+                                text: L10n.activityRetentionOption24h,
+                                image: Image.fShow,
+                                active: false
+                            )
+
+                            ZStack {
+                                ButtonView(enabled: .constant(true), plus: .constant(true))
+                                .frame(height: 44)
+
+                                Text(L10n.homePowerActionTurnOff)
+                                .foregroundColor(.white)
+                                .bold()
+                            }
+                            .padding()
+                            .onTapGesture {
+                                self.vm.logRetentionSelected = ""
+                                self.vm.applyLogRetention()
+                            }
+                            .frame(maxWidth: 300)
+                        }
                     }
                 }
-                .frame(height: 48, alignment: .bottom)
-                .padding(.bottom, 5)
 
-                
                 Button(action: {
-                    self.vm.applyLogRetention()
+                    self.contentVM.openLink(Link.CloudPrivacy)
                 }) {
-                    ZStack {
-                        ButtonView(enabled: .constant(true), plus: .constant(true))
-                            .frame(height: 44)
-                        Text(L10n.universalActionContinue)
-                            .foregroundColor(.white)
-                            .bold()
-                    }
-                    .padding([.leading, .trailing, .bottom], 40)
+                    Text(L10n.activityRetentionPolicy)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(3)
                 }
-                .disabled(self.vm.logRetentionSelected == self.vm.logRetention)
-                .opacity(self.vm.logRetentionSelected == self.vm.logRetention ? 0.5 : 1.0)
+                .padding()
             }
         }
-        .frame(maxWidth: 500)
+        .navigationBarTitle(L10n.activitySectionHeader)
+        .accentColor(Color.cAccent)
     }
-
 }
 
 struct NoLogRetentionView_Previews: PreviewProvider {

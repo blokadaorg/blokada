@@ -32,6 +32,7 @@ extension Color {
 
     static let cPrimaryBackground = Color(UIColor.systemBackground)
     static let cSecondaryBackground = Color(UIColor.secondarySystemBackground)
+    static let cPrimary = Color("Primary")
 
     static let cSemiTransparent = Color("SemiTransparent")
 }
@@ -58,6 +59,7 @@ extension Image {
     static let fMessage = "message"
     static let fComputer = "desktopcomputer"
     static let fHide = "eye.slash"
+    static let fShow = "eye"
     static let fSpeed = "speedometer"
     static let fLocation = "mappin.and.ellipse"
     static let fShield = "lock.shield"
@@ -66,4 +68,6 @@ extension Image {
     static let fCopy = "doc.on.doc"
     static let fPlus = "plus.diamond"
     static let fCloud = "cloud"
+    static let fChart = "chart.bar"
+    static let fPack = "cube.box.fill"
 }

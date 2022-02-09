@@ -90,4 +90,5 @@ class PacksViewModel: ObservableObject {
         }
         filter()
     }
+
 }

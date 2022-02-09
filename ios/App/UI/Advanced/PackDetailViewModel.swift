@@ -16,6 +16,7 @@ import Combine
 class PackDetailViewModel: ObservableObject {
 
     private let packRepo = Repos.packRepo
+    private let navRepo = Repos.navRepo
     private var cancellables = Set<AnyCancellable>()
 
     @Published var pack: Pack {
@@ -24,16 +25,24 @@ class PackDetailViewModel: ObservableObject {
         }
     }
 
-    @Published var on: Bool = false {
-        didSet {
-        }
-    }
+    @Published var on: Bool = false
+    @Published var selected: Bool = false
 
     private let log = Logger("Pack")
 
     init(pack: Pack) {
         self.pack = pack
         self.on = self.pack.status.installed
+        onNavChanged()
+    }
+
+    private func onNavChanged() {
+        navRepo.sectionHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.selected = (it as? Pack) == self.pack
+        })
+        .store(in: &cancellables)
     }
 
     func changeConfig(config: PackConfig, fail: @escaping Faile) {

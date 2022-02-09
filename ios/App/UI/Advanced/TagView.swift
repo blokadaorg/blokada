@@ -20,16 +20,17 @@ struct TagView: View {
     var body: some View {
         HStack {
             Text(text.trTag())
-              .font(.footnote)
-              .foregroundColor(.primary)
+            .lineLimit(1)
+            .font(.footnote)
+            .foregroundColor(.primary)
         }
+        .frame(width: 74)
         .padding([.leading, .trailing], 14)
-      .padding(.top, 4)
-      .padding(.bottom, 4)
-      .background(
-          RoundedRectangle(cornerRadius: 4)
+        .padding([.top, .bottom], 4)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
             .fill(self.active ? Color.cAccent : Color(UIColor.systemGray5))
-      )
+        )
         .padding(.bottom, 8)
     }
 }

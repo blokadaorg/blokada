@@ -12,22 +12,20 @@
 
 import SwiftUI
 
-struct DoubleColumnPlaceholderView: View {
-    var body: some View {
-        VStack {
-            //BlokadaView(animate: true)
-            //    .frame(width: 100, height: 100)
+struct PacksNarrowView: View {
 
-            Text(L10n.mainLabelUseSideMenu)
-                //.font(.largeTitle)
-                .bold()
-                .padding()
+    var body: some View {
+        NavigationView {
+            PacksView()
+            .navigationTitle(L10n.packSectionHeader)
         }
+        .accentColor(Color.cAccent)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
-struct DoubleColumnPlaceholderView_Previews: PreviewProvider {
+struct PacksNarrowView_Previews: PreviewProvider {
     static var previews: some View {
-        DoubleColumnPlaceholderView()
+        PacksNarrowView()
     }
 }

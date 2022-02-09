@@ -14,11 +14,16 @@ import SwiftUI
 
 struct HomeView: View {
 
+    @Environment(\.safeAreaInsets) var safeAreaInsets
     @ObservedObject var vm = ViewModels.home
     @ObservedObject var contentVM = ViewModels.content
 
     @State var size: CGFloat = 0.0
     @State var anOpacity = 0.6
+
+    @State var showHelpActions = false
+
+    var tabBar: Bool
 
     var body: some View {
         ZStack {
@@ -157,6 +162,67 @@ struct HomeView: View {
                 PlusButtonView(vm: self.vm)
                     .frame(maxWidth: 500)
             }
+            .padding(.bottom, self.safeAreaInsets.bottom)
+            .padding(.bottom, self.tabBar ? TAB_VIEW_HEIGHT : 0)
+
+            // Help icon in top right
+            VStack {
+                HStack {
+                    Spacer()
+
+                    Image(systemName: Image.fHelp)
+                        .imageScale(.medium)
+                        .foregroundColor(.primary)
+                        .frame(width: 36, height: 36, alignment: .center)
+                        .padding(12)
+                        .onTapGesture {
+                            self.showHelpActions = true
+                        }
+                        .actionSheet(isPresented: $showHelpActions) {
+                            ActionSheet(title: Text(L10n.accountSupportActionHowHelp), buttons: [
+                                .default(Text(L10n.accountSupportActionKb)) {
+                                    self.contentVM.openLink(Link.KnowledgeBase)
+                                },
+                                .default(Text(L10n.universalActionContactUs)) {
+                                    self.contentVM.openLink(Link.Support)
+                                },
+                                .default(Text(L10n.universalActionShowLog)) {
+                                    self.contentVM.showSheet(.ShowLog)
+                                },
+                                .default(Text(L10n.universalActionShareLog)) {
+                                    self.contentVM.showSheet(.ShareLog)
+                                },
+                                .cancel()
+                            ])
+                        }
+                        .contextMenu {
+                            Button(action: {
+                                self.contentVM.showSheet(.ShowLog)
+                            }) {
+                                Text(L10n.universalActionShowLog)
+                                Image(systemName: "list.dash")
+                            }
+
+                            Button(action: {
+                                self.contentVM.showSheet(.ShareLog)
+                            }) {
+                                Text(L10n.universalActionShareLog)
+                                Image(systemName: "square.and.arrow.up")
+                            }
+
+                            if !Services.env.isProduction {
+                                Button(action: {
+                                    self.contentVM.showSheet(.Debug)
+                                }) {
+                                    Text("Debug tools")
+                                    Image(systemName: "ant.circle")
+                                }
+                            }
+                        }
+                }
+                Spacer()
+            }
+            .padding(.top, self.safeAreaInsets.top)
         }
         .background(
             LinearGradient(gradient: Gradient(colors: [Color.cHomeBackground, Color.cBackground]), startPoint: .top, endPoint: .bottom)
@@ -174,10 +240,10 @@ struct HomeView_Previews: PreviewProvider {
         error.showError = true
 
         return Group {
-            HomeView()
+            HomeView(tabBar: true)
             .previewDevice(PreviewDevice(rawValue: "iPhone X"))
 
-            HomeView(vm: error)
+            HomeView(vm: error, tabBar: false)
             .environment(\.locale, .init(identifier: "pl"))
         }
     }

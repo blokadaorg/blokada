@@ -25,14 +25,14 @@ struct MainView: View {
     var body: some View {
         VStack {
             ZStack {
-                HomeView()
-                    .opacity(self.tabVM.activeTab == "home" ? 1 : 0)
-                ActivityTabView()
-                    .opacity(self.tabVM.activeTab == "activity" ? 1 : 0)
-                PacksView()
-                    .opacity(self.tabVM.activeTab == "packs" ? 1 : 0)
-                SettingsTabView()
-                    .opacity(self.tabVM.activeTab == "more" ? 1 : 0)
+                HomeView(tabBar: true)
+                    .opacity(self.tabVM.activeTab == .Home ? 1 : 0)
+                ActivitysNarrowView()
+                    .opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                PacksNarrowView()
+                    .opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
+                SettingsNarrowView()
+                    .opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
 
                 VStack {
                     HStack {
@@ -98,7 +98,7 @@ struct MainView: View {
                     Spacer()
                 }
             }
-            TabView()
+            TabHorizontalView()
         }
     }
 }

@@ -21,6 +21,11 @@ struct PackDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                Text(self.vm.pack.meta.title)
+                    .font(.system(size: 20))
+                    .bold()
+                    .padding(.bottom)
+
                 if !self.vm.pack.meta.slugline.isEmpty {
                     Text(self.vm.pack.meta.slugline.tr())
                         .padding(.bottom)
@@ -80,6 +85,7 @@ struct PackDetailView: View {
             .padding()
         }
         .navigationBarTitle(Text(""), displayMode: .inline)
+        .accentColor(Color.cAccent)
     }
 }
 

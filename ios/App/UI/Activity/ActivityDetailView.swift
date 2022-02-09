@@ -194,6 +194,7 @@ struct ActivityDetailView: View {
             .padding()
         }
         .navigationBarTitle(Text(""), displayMode: .inline)
+        .accentColor(Color.cAccent)
     }
 }
 
@@ -205,14 +206,14 @@ struct ActivityDetailView_Previews: PreviewProvider {
                 type: .whitelisted,
                 time: Date(timeIntervalSinceNow: -50000),
                 requests: 458
-            ), whitelisted: true, blacklisted: false))
+            )))
 
             ActivityDetailView(vm: ActivityItemViewModel(entry: HistoryEntry(
                 name: "super.long.boring.name.of.example.com",
                 type: .blocked,
                 time: Date(timeIntervalSinceNow: -5),
                 requests: 1
-            ), whitelisted: false, blacklisted: false))
+            )))
         }
     }
 }

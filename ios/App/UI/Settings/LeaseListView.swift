@@ -17,13 +17,18 @@ struct LeaseListView: View {
     @ObservedObject var vm = ViewModels.lease
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(L10n.accountLeaseLabelDevicesList).font(.caption).padding(.leading)
-            List {
-                ForEach(self.vm.leases, id: \.self) { lease in
-                    LeaseView(vm: lease)
+        Form {
+            Section(header: Text(L10n.webVpnDevicesHeader)) {
+                Text(L10n.accountLeaseLabelDevicesList)
+                .foregroundColor(.secondary)
+                .padding()
+
+                List {
+                    ForEach(self.vm.leases, id: \.self) { lease in
+                        LeaseView(vm: lease)
+                    }
+                    .onDelete(perform: self.vm.deleteLease)
                 }
-                .onDelete(perform: self.vm.deleteLease)
             }
         }
         .navigationBarTitle(L10n.webVpnDevicesHeader)

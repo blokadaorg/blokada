@@ -19,10 +19,19 @@ class NavRepo: Startable {
         self.writeActiveTab.compactMap { $0 }.eraseToAnyPublisher()
     }
 
+    // Section identifies the second-level nav, like a detail screen.
+    // This is a string specific to each tab.
+    var sectionHot: AnyPublisher<Any?, Never> {
+        writeSectionHot.eraseToAnyPublisher()
+    }
+
     private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
 
     // Nil to not double send event on start, when also foreground even will come
     fileprivate let writeActiveTab = CurrentValueSubject<Tab?, Never>(nil)
+
+    // Nil is valid and means tab's main screen
+    fileprivate let writeSectionHot = CurrentValueSubject<Any?, Never>(nil)
 
     // Subscribers with lifetime same as the repository
     private var cancellables = Set<AnyCancellable>()
@@ -33,6 +42,12 @@ class NavRepo: Startable {
 
     func setActiveTab(_ tab: Tab) {
         writeActiveTab.send(tab)
+        // This is how we navigate back from multi level navigation
+        writeSectionHot.send(nil)
+    }
+
+    func setSection(_ section: Any?) {
+        writeSectionHot.send(section)
     }
 
     func listenToForegroundAndRepublishActiveTab() {
@@ -41,4 +56,5 @@ class NavRepo: Startable {
         .sink(onValue: { it in self.writeActiveTab.send(it) })
         .store(in: &cancellables)
     }
+
 }

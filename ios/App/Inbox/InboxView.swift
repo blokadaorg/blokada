@@ -47,7 +47,7 @@ struct InboxView: View {
             .navigationBarTitle("Inbox", displayMode: .inline)
             .onAppear {
                 self.vm.fetch()
-                self.tabVM.seenInbox()
+                //self.tabVM.seenInbox()
             }
         //}
     }

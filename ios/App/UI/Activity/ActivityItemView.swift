@@ -28,7 +28,8 @@ struct ActivityItemView: View {
 
                     if vm.entry.type != .whitelisted {
                         Text(vm.entry.requests.upTo99)
-                            .font(.system(size: 13))
+                        .font(.system(size: 13))
+                        .foregroundColor(Color.primary)
                     }
                 }
             }
@@ -38,6 +39,7 @@ struct ActivityItemView: View {
                 Text(vm.entry.name)
                     .lineLimit(1)
                     .truncationMode(.middle)
+                    .foregroundColor(self.vm.selected ? Color.cAccent : Color.primary)
 
                 HStack {
                     Text(vm.entry.time.relative)
@@ -73,7 +75,7 @@ struct ActivityItemView_Previews: PreviewProvider {
                 type: .blocked,
                 time: Date(),
                 requests: 1
-            ), whitelisted: false, blacklisted: true))
+            )))
             .previewLayout(.sizeThatFits)
 
             ActivityItemView(vm: ActivityItemViewModel(entry: HistoryEntry(
@@ -81,7 +83,7 @@ struct ActivityItemView_Previews: PreviewProvider {
                 type: .whitelisted,
                 time: Date(timeIntervalSinceNow: -5),
                 requests: 1
-            ), whitelisted: false, blacklisted: false))
+            )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraExtraExtraLarge)
             .environment(\.colorScheme, .dark)
@@ -92,7 +94,7 @@ struct ActivityItemView_Previews: PreviewProvider {
                 type: .passed,
                 time: Date(timeIntervalSinceNow: -5),
                 requests: 999999999
-            ), whitelisted: false, blacklisted: false))
+            )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraSmall)
             .environment(\.colorScheme, .dark)
@@ -103,7 +105,7 @@ struct ActivityItemView_Previews: PreviewProvider {
                 type: .blocked,
                 time: Date(timeIntervalSinceNow: -5000000),
                 requests: 999999
-            ), whitelisted: true, blacklisted: false))
+            )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraExtraExtraLarge)
         }

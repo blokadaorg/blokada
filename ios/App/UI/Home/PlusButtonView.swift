@@ -101,7 +101,7 @@ struct PlusButtonView: View {
         .frame(height: 44)
         .padding([.bottom, .leading, .trailing])
         .transition(.slide)
-        .offset(y: self.vm.appState == .Activated ? 8 : 69)
+        .offset(y: self.vm.appState == .Activated ? 8 : 240)
         .animation(
             Animation.easeInOut(duration: 0.6).repeatCount(1)
         )

@@ -27,3 +27,7 @@ func mapTabIdToTab(_ tabId: String) -> Tab {
         default: return Tab.Settings
     }
 }
+
+protocol Navigable: Hashable {
+    
+}

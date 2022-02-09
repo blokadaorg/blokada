@@ -11,70 +11,59 @@
 //
 
 import Foundation
+import Combine
 
 class TabViewModel : ObservableObject {
 
-    @Published var activeTab = "home" {
-        didSet {
-            // This is how we navigate back from multi level navigation
-            self.selection = nil
-            onTabChanged(activeTab)
-        }
-    }
+    private lazy var navRepo = Repos.navRepo
 
-    @Published var activityBadge: Int? = nil
+    @Published var activeTab: Tab = .Home
+    @Published var section: Any? = nil
 
-    @Published var packsBadge: Int? = nil
+    // Used by SwiftUI NavigationLinks.
+    // We convert them to our internal nav so that we can do it
+    // manually in iPad views (built in nav is too limited there).
+    @Published var navActivity: HistoryEntry? = nil { didSet {
+            self.setSection(navActivity)
+    }}
+    @Published var navPack: Pack? = nil { didSet {
+        self.setSection(navPack)
+    }}
+    @Published var navSetting: String? = nil { didSet {
+        self.setSection(navSetting)
+    }}
 
-    @Published var inboxBadge: Int = -1 {
-        didSet {
-            UserDefaults.standard.set(inboxBadge, forKey: "badge.inbox")
-        }
-    }
-
-    @Published var settingsBadge: Int = -1 {
-        didSet {
-            UserDefaults.standard.set(settingsBadge, forKey: "badge.settings")
-        }
-    }
-
-    @Published var selection: String? = nil
-
-    var onTabChanged = { (tab: String) in }
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
-//        SharedActionsService.shared.newMessage = {
-//            if self.selection != "inbox" {
-//                self.setInboxUnseen()
-//            }
-//        }
+        onTabChanged()
+        onSectionChanged()
     }
 
-    func load() {
-        self.inboxBadge = UserDefaults.standard.integer(forKey: "badge.inbox")
-        self.settingsBadge = UserDefaults.standard.integer(forKey: "badge.settings")
-        if self.inboxBadge == 0 {
-            // First run, set to 1 to highlight the inbox section
-            //setInboxUnseen()
-        }
+    private func onTabChanged() {
+        navRepo.activeTabHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in self.activeTab = it })
+        .store(in: &cancellables)
     }
 
-    func setInboxUnseen() {
-        if self.inboxBadge > 0 {
-            self.inboxBadge += 1
-        } else {
-            self.inboxBadge = 1
-        }
-
-        self.settingsBadge = self.inboxBadge
+    private func onSectionChanged() {
+        navRepo.sectionHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in self.section = it })
+        .store(in: &cancellables)
     }
 
-    func seenInbox() {
-        self.inboxBadge = -1
-        self.settingsBadge = -1
+    func setActiveTab(_ tab: Tab) {
+        navRepo.setActiveTab(tab)
     }
 
-    func hasInboxBadge() -> Bool {
-        return inboxBadge > 0
+    func setSection(_ section: Any?) {
+        navRepo.setSection(section)
     }
+
+    func isSection(_ section: String) -> Bool {
+        return (self.section as? String) == section
+    }
+
 }

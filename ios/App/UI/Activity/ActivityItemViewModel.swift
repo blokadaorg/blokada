@@ -11,6 +11,7 @@
 //
 
 import Foundation
+import Combine
 
 class ActivityItemViewModel: ObservableObject {
 
@@ -18,13 +19,28 @@ class ActivityItemViewModel: ObservableObject {
     @Published var whitelisted: Bool
     @Published var blacklisted: Bool
 
+    private var vm = ViewModels.activity
+    private let navRepo = Repos.navRepo
+    private var cancellables = Set<AnyCancellable>()
+
+    @Published var selected: Bool = false
     private var timer: Timer? = nil
 
-    init(entry: HistoryEntry, whitelisted: Bool, blacklisted: Bool) {
+    init(entry: HistoryEntry) {
         self.entry = entry
-        self.whitelisted = whitelisted
-        self.blacklisted = blacklisted
+        self.whitelisted = vm.whitelist.contains(entry.name)
+        self.blacklisted = vm.blacklist.contains(entry.name)
         startTimer()
+        onNavChanged()
+    }
+
+    private func onNavChanged() {
+        navRepo.sectionHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.selected = (it as? HistoryEntry) == self.entry
+        })
+        .store(in: &cancellables)
     }
 
     private func startTimer() {

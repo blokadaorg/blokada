@@ -12,7 +12,7 @@
 
 import SwiftUI
 
-struct ActivityView: View {
+struct ActivitysView: View {
 
     @ObservedObject var vm = ViewModels.activity
     @ObservedObject var tabVM = ViewModels.tab
@@ -60,8 +60,10 @@ struct ActivityView: View {
                 .padding(.bottom, 12)
 
                 ForEach(self.vm.entries, id: \.self) { entry in
-                    ZStack {
-                        ActivityItemView(vm: ActivityItemViewModel(entry: entry, whitelisted: self.vm.whitelist.contains(entry.name), blacklisted: self.vm.blacklist.contains(entry.name)))
+                    Button(action: {
+                        self.tabVM.setSection(entry)
+                    }) {
+                        ActivityItemView(vm: ActivityItemViewModel(entry: entry))
                             .listRowInsets(EdgeInsets())
                             .contextMenu {
                                 if self.vm.whitelist.contains(entry.name) {
@@ -99,23 +101,21 @@ struct ActivityView: View {
                                     Text(L10n.activityActionCopyToClipboard)
                                     Image(systemName: Image.fCopy)
                                 }
-//                                Button(action: {
-//                                    ShareSheet(activityItems: [entry.name])
-//                                }) {
-//                                    Text("Share")
-//                                    Image(systemName: Image.fShare)
-//                                }
                             }
                     }
-                    .background(NavigationLink("", destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry, whitelisted: self.vm.whitelist.contains(entry.name), blacklisted: self.vm.blacklist.contains(entry.name))), tag: entry.name, selection: self.$tabVM.selection))
+                    .background(NavigationLink("",
+                       destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry)),
+                       tag: entry,
+                       selection: self.$tabVM.navActivity
+                      ))
                 }
             }
         }
     }
 }
 
-struct ActivityView_Previews: PreviewProvider {
+struct ActivitysView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityView()
+        ActivitysView()
     }
 }

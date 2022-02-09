@@ -12,7 +12,7 @@
 
 import SwiftUI
 
-struct ActivityTabView: View {
+struct ActivitysNarrowView: View {
 
     @ObservedObject var vm = ViewModels.activity
 
@@ -21,14 +21,13 @@ struct ActivityTabView: View {
             NavigationView {
                 ZStack {
                     if self.vm.logRetention != "" {
-                        ActivityView()
+                        ActivitysView()
                     } else {
                         NoLogRetentionView()
                     }
                 }
                 .navigationBarTitle(L10n.activitySectionHeader)
 
-                DoubleColumnPlaceholderView()
             }
             .accentColor(Color.cAccent)
             .padding(.leading, geo.size.height > geo.size.width ? 1 : 0) // To force double panel
@@ -36,8 +35,8 @@ struct ActivityTabView: View {
     }
 }
 
-struct ActivityTabView_Previews: PreviewProvider {
+struct ActivitysNarrowView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityTabView()
+        ActivitysNarrowView()
     }
 }

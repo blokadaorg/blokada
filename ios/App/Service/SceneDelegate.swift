@@ -31,7 +31,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let controller = ContentHostingController(rootView:
-                ContentView()
+                //ContentView()
+                ContentView2()
             )
 
             controller.onTransitioning = { (transitioning: Bool) in
@@ -49,10 +50,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             Services.dialog.setController(controller)
 
             window.makeKeyAndVisible()
-            
-            self.tabVM.onTabChanged = { tab in
-                Repos.navRepo.setActiveTab(mapTabIdToTab(tab))
-            }
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

@@ -12,63 +12,57 @@
 
 import SwiftUI
 
-struct TabView: View {
+struct TabHorizontalView: View {
 
+    @Environment(\.safeAreaInsets) var safeAreaInsets
     @ObservedObject var vm = ViewModels.tab
 
     var body: some View {
         VStack {
+            Rectangle()
+                .fill(Color(UIColor.systemGray4))
+                .frame(height: 1)
             Spacer()
             HStack(alignment: .bottom) {
                 Spacer()
-                TabItemView(id: "home", icon: "blokada", text: L10n.mainTabHome, badge: nil, active: self.$vm.activeTab)
-                TabItemView(id: "activity", icon: "chart.bar", text: L10n.mainTabActivity, badge: self.vm.activityBadge, active: self.$vm.activeTab)
-                TabItemView(id: "packs", icon: "cube", text: L10n.mainTabAdvanced, badge: self.vm.packsBadge, active: self.$vm.activeTab)
-                TabItemView(id: "more", icon: "gear", text: L10n.mainTabSettings, badge: self.vm.settingsBadge, active: self.$vm.activeTab)
+                TabItemView(id: .Home, icon: "blokada", text: L10n.mainTabHome, badge: nil)
+                TabItemView(id: .Activity, icon: "chart.bar", text: L10n.mainTabActivity, badge: nil)
+                TabItemView(id: .Advanced, icon: "cube", text: L10n.mainTabAdvanced, badge: nil)
+                TabItemView(id: .Settings, icon: "gear", text: L10n.mainTabSettings, badge: nil)
                 Spacer()
             }
             .padding(.bottom, 2)
         }
         .frame(height: 56)
+        .padding(.bottom, self.safeAreaInsets.bottom)
         .background(
-            ZStack {
-                Color.cBackgroundNavBar
-                VStack {
-                    Rectangle()
-                        .fill(Color(UIColor.systemGray4))
-                        .frame(height: 1)
-                    Spacer()
-                }
-            }
+            .ultraThinMaterial
         )
-        .onAppear {
-            self.vm.load()
-        }
     }
 }
 
-struct TabView_Previews: PreviewProvider {
+struct TabHorizontalView_Previews: PreviewProvider {
     static var previews: some View {
         let inbox = TabViewModel()
-        inbox.activeTab = "activity"
+        inbox.activeTab = .Activity
 
         let packs = TabViewModel()
-        packs.activeTab = "packs"
-        packs.packsBadge = 1
+        packs.activeTab = .Advanced
+        //packs.packsBadge = 1
 
         let account = TabViewModel()
-        account.activeTab = "more"
+        account.activeTab = .Settings
 
 
         return Group {
-            TabView()
+            TabHorizontalView()
                 .previewLayout(.sizeThatFits)
-            TabView(vm: packs)
+            TabHorizontalView(vm: packs)
                 .previewLayout(.sizeThatFits)
-            TabView(vm: account)
+            TabHorizontalView(vm: account)
                 .previewLayout(.sizeThatFits)
                 .environment(\.colorScheme, .dark)
-            TabView(vm: inbox)
+            TabHorizontalView(vm: inbox)
                 .previewLayout(.sizeThatFits)
                 .environment(\.colorScheme, .dark)
                 .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)

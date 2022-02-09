@@ -20,6 +20,7 @@ class AccountViewModel: ObservableObject {
     @Published var account: Account?
     @Published var working: Bool = true
     @Published var showError: Bool = false
+    @Published var selectedSettingsTab: String? = nil
 
     var error: String? = nil {
         didSet {
@@ -103,4 +104,9 @@ class AccountViewModel: ObservableObject {
             ok(self.id)
         }
     }
+
+    func selectSettings(_ settings: String) {
+        selectedSettingsTab = settings
+    }
+
 }

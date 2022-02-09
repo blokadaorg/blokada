@@ -32,13 +32,15 @@ struct PackView: View {
 
             VStack(alignment: .leading) {
                 Text(vm.pack.meta.title)
+                .foregroundColor(self.vm.selected ? Color.cAccent : Color.primary)
+
                 Text(
                     vm.pack.meta.slugline.isEmpty ?
                         vm.pack.meta.creditName
                         : vm.pack.meta.slugline.tr()
                 )
-                    .font(.footnote)
-                    .foregroundColor(Color.secondary)
+                .font(.footnote)
+                .foregroundColor(Color.secondary)
             }
 
             Spacer()
