@@ -92,7 +92,7 @@ class BlockaApiCurrentUserService {
     func getActivityForCurrentUserAndDevice() -> AnyPublisher<[Activity], Error> {
         return accountRepo.accountIdHot.first()
         .flatMap { it in self.client.getActivity(id: it) }
-        .tryMap { it in it.filter { $0.device_name == self.envRepo.deviceName }}
+        //.tryMap { it in it.filter { $0.device_name == self.envRepo.deviceName }}
         .eraseToAnyPublisher()
     }
 
