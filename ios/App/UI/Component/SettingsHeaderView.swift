@@ -34,6 +34,8 @@ struct SettingsHeaderView: View {
                 .toBlokadaText()
                 .font(.footnote)
                 .padding(.trailing)
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.leading)
             }
         }
     }
