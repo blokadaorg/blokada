@@ -27,30 +27,14 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            ZStack {
-                // Temporary disabled the rays, to see if they cause the ios14 screen animation issue
-//                Circle()
-//                    .stroke(lineWidth: 1)
-//                    .foregroundColor(.primary)
-//                    .opacity(anOpacity)
-//                    .scaleEffect(size)
-//                    .onAppear() {
-//                        withAnimation(Animation.easeInOut(duration: 4).repeatForever(autoreverses: false)) {
-//                            self.size = 1.0
-//                            self.anOpacity = 0.0
-//                        }
-//                    }
+//            ZStack {
+//                RippleView()
+//            }
+//            .background()
+            
 
-                // Hides the animated rays if not active
-                Rectangle()
-                    .fill(Color.cBackground)
-                    .opacity(self.vm.appState == .Activated ? 0 : 1)
-                    .transition(.opacity)
-                    .animation(Animation.easeIn(duration: 0.2))
-
-                PowerView(vm: self.vm)
-                    .frame(maxWidth: 196, maxHeight: 196)
-            }
+            PowerView(vm: self.vm)
+            .frame(maxWidth: 196, maxHeight: 196)
 
             VStack {
                 VStack {
@@ -242,6 +226,7 @@ struct HomeView_Previews: PreviewProvider {
         return Group {
             HomeView(tabBar: true)
             .previewDevice(PreviewDevice(rawValue: "iPhone X"))
+.previewInterfaceOrientation(.landscapeLeft)
 
             HomeView(vm: error, tabBar: false)
             .environment(\.locale, .init(identifier: "pl"))

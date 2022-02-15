@@ -226,6 +226,8 @@
 		4E63194D244743C300191C16 /* LeaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194C244743C300191C16 /* LeaseView.swift */; };
 		4E652939248F760700EB871A /* Ui.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E65293C248F760700EB871A /* Ui.strings */; };
 		4E65293A248F760700EB871A /* Ui.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E65293C248F760700EB871A /* Ui.strings */; };
+		4E68E9C627BABD7D0059648A /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68E9C527BABD7D0059648A /* RippleView.swift */; };
+		4E68E9C727BABD7D0059648A /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68E9C527BABD7D0059648A /* RippleView.swift */; };
 		4E72D6752461407F00FE7737 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72D6742461407F00FE7737 /* TabViewModel.swift */; };
 		4E72D6762461407F00FE7737 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72D6742461407F00FE7737 /* TabViewModel.swift */; };
 		4E72D678246160EF00FE7737 /* InstalledMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72D677246160EF00FE7737 /* InstalledMarkView.swift */; };
@@ -571,6 +573,7 @@
 		4E63194A2447436C00191C16 /* LeaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseListView.swift; sourceTree = "<group>"; };
 		4E63194C244743C300191C16 /* LeaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseView.swift; sourceTree = "<group>"; };
 		4E65293B248F760700EB871A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Ui.strings; sourceTree = "<group>"; };
+		4E68E9C527BABD7D0059648A /* RippleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleView.swift; sourceTree = "<group>"; };
 		4E72D6742461407F00FE7737 /* TabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewModel.swift; sourceTree = "<group>"; };
 		4E72D677246160EF00FE7737 /* InstalledMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledMarkView.swift; sourceTree = "<group>"; };
 		4E78E352245DA3600017B234 /* SettingsNarrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNarrowView.swift; sourceTree = "<group>"; };
@@ -918,6 +921,7 @@
 				4EA189B827B4495B00E57470 /* PlaceholderPaneView.swift */,
 				4EA189C727B507E200E57470 /* GenericHeaderView.swift */,
 				4EA189CA27B5218700E57470 /* OptionView.swift */,
+				4E68E9C527BABD7D0059648A /* RippleView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1419,6 +1423,7 @@
 				4E955DBF2771C09D008DE06F /* SheetModel.swift in Sources */,
 				4E08B9D6247EAD8100AED8F0 /* ContentHostingController.swift in Sources */,
 				4EB4347D27731353003C1242 /* DialogService.swift in Sources */,
+				4E68E9C627BABD7D0059648A /* RippleView.swift in Sources */,
 				4E118DF924640356005112C1 /* FileManager+Extensions.swift in Sources */,
 				4E8AE1F62758F06500BD2E5B /* AccountModel.swift in Sources */,
 				4E2ECD05245B1535009040F1 /* PacksViewModel.swift in Sources */,
@@ -1619,6 +1624,7 @@
 				4E2F2A132760BDED005A59F5 /* NavRepo.swift in Sources */,
 				4E423558245194E0005A0779 /* Date+Extensions.swift in Sources */,
 				4EAFCE312487BA47003601A1 /* ShowTime.swift in Sources */,
+				4E68E9C727BABD7D0059648A /* RippleView.swift in Sources */,
 				4E2ECCFA245AFBCB009040F1 /* SpinnerView.swift in Sources */,
 				4E53CCCA244E3B48009B3CF0 /* PaymentListView.swift in Sources */,
 				4E53CCC7244E38E6009B3CF0 /* PaymentGatewayViewModel.swift in Sources */,

@@ -60,3 +60,11 @@ struct MainView2: View {
     }
 
 }
+
+struct MainView2_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView2()
+        .previewDevice(PreviewDevice(rawValue: "iPhone X"))
+.previewInterfaceOrientation(.landscapeLeft)
+    }
+}
