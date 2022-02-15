@@ -52,7 +52,7 @@ extension Image {
     static let fAbout = "person.2"
     static let fPower = "power"
     static let fInfo = "info.circle"
-    static let fUp = "chevron.up"
+    static let fUp = "arrow.up.circle"
     static let fLine = "minus"
     static let fCheckmark = "checkmark"
     static let fXmark = "xmark"

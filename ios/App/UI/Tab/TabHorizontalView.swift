@@ -12,6 +12,8 @@
 
 import SwiftUI
 
+var TAB_VIEW_WIDTH = 56.0
+
 struct TabHorizontalView: View {
 
     @Environment(\.safeAreaInsets) var safeAreaInsets
@@ -33,7 +35,7 @@ struct TabHorizontalView: View {
             }
             .padding(.bottom, 2)
         }
-        .frame(height: 56)
+        .frame(height: TAB_VIEW_WIDTH)
         .padding(.bottom, self.safeAreaInsets.bottom)
         .background(
             .ultraThinMaterial

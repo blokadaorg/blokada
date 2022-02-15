@@ -298,6 +298,14 @@
 		4E8AE1F9275918B400BD2E5B /* CombineUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */; };
 		4E8AE1FA275918B400BD2E5B /* CombineUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */; };
 		4E8AE1FC27591F8E00BD2E5B /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1FB27591F8E00BD2E5B /* Services.swift */; };
+		4E90BA3327BBB4AF0051FD0C /* ScrollToTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3227BBB4AF0051FD0C /* ScrollToTopView.swift */; };
+		4E90BA3427BBB4AF0051FD0C /* ScrollToTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3227BBB4AF0051FD0C /* ScrollToTopView.swift */; };
+		4E90BA3627BBB5860051FD0C /* ActivitysNoBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3527BBB5860051FD0C /* ActivitysNoBarView.swift */; };
+		4E90BA3727BBB5860051FD0C /* ActivitysNoBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3527BBB5860051FD0C /* ActivitysNoBarView.swift */; };
+		4E90BA3927BBB5B40051FD0C /* ActivityFilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3827BBB5B40051FD0C /* ActivityFilterBarView.swift */; };
+		4E90BA3A27BBB5B40051FD0C /* ActivityFilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3827BBB5B40051FD0C /* ActivityFilterBarView.swift */; };
+		4E90BA3C27BBB6810051FD0C /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */; };
+		4E90BA3D27BBB6810051FD0C /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */; };
 		4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4E94C2FF2420D3B00008E318 /* PaymentGatewayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */; };
 		4E94C3032428F1C20008E318 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C3022428F1C20008E318 /* Logger.swift */; };
@@ -369,8 +377,8 @@
 		4ED3446A23E1B7430075B796 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3443E23E190910075B796 /* libresolv.tbd */; };
 		4ED349C6246C6C0A00C843FA /* BlokadaPlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED349C5246C6C0A00C843FA /* BlokadaPlusView.swift */; };
 		4ED349C7246C6C0A00C843FA /* BlokadaPlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED349C5246C6C0A00C843FA /* BlokadaPlusView.swift */; };
-		4ED41CC12478403E00155C88 /* ActivitysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC02478403E00155C88 /* ActivitysView.swift */; };
-		4ED41CC22478403E00155C88 /* ActivitysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC02478403E00155C88 /* ActivitysView.swift */; };
+		4ED41CC12478403E00155C88 /* ActivitysBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC02478403E00155C88 /* ActivitysBarView.swift */; };
+		4ED41CC22478403E00155C88 /* ActivitysBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC02478403E00155C88 /* ActivitysBarView.swift */; };
 		4ED41CC42478406800155C88 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC32478406800155C88 /* ActivityViewModel.swift */; };
 		4ED41CC52478406800155C88 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC32478406800155C88 /* ActivityViewModel.swift */; };
 		4ED41CC72478458100155C88 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC62478458100155C88 /* SearchBar.swift */; };
@@ -596,6 +604,10 @@
 		4E8AE1F52758F06500BD2E5B /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtil.swift; sourceTree = "<group>"; };
 		4E8AE1FB27591F8E00BD2E5B /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		4E90BA3227BBB4AF0051FD0C /* ScrollToTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToTopView.swift; sourceTree = "<group>"; };
+		4E90BA3527BBB5860051FD0C /* ActivitysNoBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitysNoBarView.swift; sourceTree = "<group>"; };
+		4E90BA3827BBB5B40051FD0C /* ActivityFilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFilterBarView.swift; sourceTree = "<group>"; };
+		4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListView.swift; sourceTree = "<group>"; };
 		4E94C2FC2420B0A60008E318 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayView.swift; sourceTree = "<group>"; };
 		4E94C3022428F1C20008E318 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -675,7 +687,7 @@
 		4ED3445F23E1B1450075B796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4ED3446023E1B1450075B796 /* IOSNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSNetworkExtension.entitlements; sourceTree = "<group>"; };
 		4ED349C5246C6C0A00C843FA /* BlokadaPlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokadaPlusView.swift; sourceTree = "<group>"; };
-		4ED41CC02478403E00155C88 /* ActivitysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitysView.swift; sourceTree = "<group>"; };
+		4ED41CC02478403E00155C88 /* ActivitysBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitysBarView.swift; sourceTree = "<group>"; };
 		4ED41CC32478406800155C88 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		4ED41CC62478458100155C88 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxServiceIn.swift; sourceTree = "<group>"; };
@@ -922,6 +934,9 @@
 				4EA189C727B507E200E57470 /* GenericHeaderView.swift */,
 				4EA189CA27B5218700E57470 /* OptionView.swift */,
 				4E68E9C527BABD7D0059648A /* RippleView.swift */,
+				4E90BA3227BBB4AF0051FD0C /* ScrollToTopView.swift */,
+				4E90BA3827BBB5B40051FD0C /* ActivityFilterBarView.swift */,
+				4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1133,7 +1148,8 @@
 				4E11D2DF27206C780042385B /* ActivitysNarrowView.swift */,
 				4E61D8FE27B4316C00C98D36 /* ActivitysWideVerticalView.swift */,
 				4E61D90127B4360B00C98D36 /* ActivitysWideHorizontalView.swift */,
-				4ED41CC02478403E00155C88 /* ActivitysView.swift */,
+				4ED41CC02478403E00155C88 /* ActivitysBarView.swift */,
+				4E90BA3527BBB5860051FD0C /* ActivitysNoBarView.swift */,
 				4E08B9D8247FF4BE00AED8F0 /* ActivityDetailView.swift */,
 				4E1681A8247860490040334B /* ActivityItemView.swift */,
 				4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */,
@@ -1481,6 +1497,7 @@
 				4EA189C527B5060B00E57470 /* SettingsFormNavView.swift in Sources */,
 				4E78E353245DA3600017B234 /* SettingsNarrowView.swift in Sources */,
 				4E971F7F246BCEA300809EA6 /* PlusFeaturesView.swift in Sources */,
+				4E90BA3627BBB5860051FD0C /* ActivitysNoBarView.swift in Sources */,
 				4E971F6B246935D100809EA6 /* WebView.swift in Sources */,
 				4E0F8133276CAE6C0030DF1D /* ActivityRepo.swift in Sources */,
 				4E78E35D245EC4ED0017B234 /* PackConfigItemView.swift in Sources */,
@@ -1498,6 +1515,7 @@
 				4E2F2A182760E400005A59F5 /* Constants.swift in Sources */,
 				4E72D6752461407F00FE7737 /* TabViewModel.swift in Sources */,
 				4E267F58243C8C5200D3160F /* ButtonView.swift in Sources */,
+				4E90BA3927BBB5B40051FD0C /* ActivityFilterBarView.swift in Sources */,
 				4EA189B927B4495B00E57470 /* PlaceholderPaneView.swift in Sources */,
 				4E42354E2450265C005A0779 /* HomeViewModel.swift in Sources */,
 				4E9A04662449A006003AB48D /* EnvService.swift in Sources */,
@@ -1512,6 +1530,7 @@
 				4E356A8824376B3A0094EE27 /* SplashView.swift in Sources */,
 				4E53CCC9244E39F5009B3CF0 /* PaymentListView.swift in Sources */,
 				4E42354B244F9198005A0779 /* LeaseViewModel.swift in Sources */,
+				4E90BA3327BBB4AF0051FD0C /* ScrollToTopView.swift in Sources */,
 				4E8AE1E42757940300BD2E5B /* PersistenceService.swift in Sources */,
 				4E78E35A245EBFD90017B234 /* Sequence+Extensions.swift in Sources */,
 				4EE25DC5278C4CEE00F2F79B /* HttpRepo.swift in Sources */,
@@ -1524,6 +1543,7 @@
 				4E36D5ED24589AFF00E339F2 /* BlokadaView.swift in Sources */,
 				4E971F82246C14A400809EA6 /* AppleTokenService.swift in Sources */,
 				4E53CCB9244DFEB1009B3CF0 /* PaymentModel.swift in Sources */,
+				4E90BA3C27BBB6810051FD0C /* ActivityListView.swift in Sources */,
 				4EE25DBD2788245500F2F79B /* NetxServiceIn.swift in Sources */,
 				4E2ECD0B245B2B14009040F1 /* TagView.swift in Sources */,
 				4E63194B2447436C00191C16 /* LeaseListView.swift in Sources */,
@@ -1582,7 +1602,7 @@
 				4EA189C827B507E200E57470 /* GenericHeaderView.swift in Sources */,
 				4E356A8A2437711A0094EE27 /* LinkDataSource.swift in Sources */,
 				4ED41CC42478406800155C88 /* ActivityViewModel.swift in Sources */,
-				4ED41CC12478403E00155C88 /* ActivitysView.swift in Sources */,
+				4ED41CC12478403E00155C88 /* ActivitysBarView.swift in Sources */,
 				4E118DF62463ED24005112C1 /* Swift+Extensions.swift in Sources */,
 				4E61D8FC27B42C2300C98D36 /* PacksFilterBarView.swift in Sources */,
 				4EA9A29E2785AB50009764F1 /* NetxRepo.swift in Sources */,
@@ -1682,6 +1702,7 @@
 				4EA189C627B5060B00E57470 /* SettingsFormNavView.swift in Sources */,
 				4E2ECD0F245B2F38009040F1 /* GridStack.swift in Sources */,
 				4E7FE99E244DC28900851E9F /* SupportView.swift in Sources */,
+				4E90BA3727BBB5860051FD0C /* ActivitysNoBarView.swift in Sources */,
 				4EA9A29C2784C040009764F1 /* PlusRepo.swift in Sources */,
 				4E2ECCF7245AF870009040F1 /* LoadingButtonView.swift in Sources */,
 				4E59E3192472BFF6008C1AAA /* AdsCounterShareView.swift in Sources */,
@@ -1699,6 +1720,7 @@
 				4E7FE9A2244DC28900851E9F /* LeaseView.swift in Sources */,
 				4E2F2A01275F7AB3005A59F5 /* Mocks.swift in Sources */,
 				4E7FE9A4244DC28900851E9F /* PaymentView.swift in Sources */,
+				4E90BA3A27BBB5B40051FD0C /* ActivityFilterBarView.swift in Sources */,
 				4EA189BA27B4495B00E57470 /* PlaceholderPaneView.swift in Sources */,
 				4E1681AA247860490040334B /* ActivityItemView.swift in Sources */,
 				4E2ECD12245CBDB3009040F1 /* TabHorizontalView.swift in Sources */,
@@ -1713,6 +1735,7 @@
 				4E11D2E127206C790042385B /* ActivitysNarrowView.swift in Sources */,
 				4EB4347E27731353003C1242 /* DialogService.swift in Sources */,
 				4E7FE9A7244DC28900851E9F /* ChangeAccountView.swift in Sources */,
+				4E90BA3427BBB4AF0051FD0C /* ScrollToTopView.swift in Sources */,
 				4E42352F244EE662005A0779 /* AccountViewModel.swift in Sources */,
 				4E0F8134276CAE6C0030DF1D /* ActivityRepo.swift in Sources */,
 				4E2F2A102760AB9D005A59F5 /* PrivateDnsService.swift in Sources */,
@@ -1725,6 +1748,7 @@
 				4E423549244F9169005A0779 /* LeaseListViewModel.swift in Sources */,
 				4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */,
 				4E0FB7122770960C00735E0D /* PackRepo.swift in Sources */,
+				4E90BA3D27BBB6810051FD0C /* ActivityListView.swift in Sources */,
 				4E42354F2450265C005A0779 /* HomeViewModel.swift in Sources */,
 				4E7FE9AC244DC28900851E9F /* LogView.swift in Sources */,
 				4E7FE9AD244DC28900851E9F /* Resources.swift in Sources */,
@@ -1782,7 +1806,7 @@
 				4E7FE9CA244DC28900851E9F /* LinkDataSource.swift in Sources */,
 				4EA189C927B507E200E57470 /* GenericHeaderView.swift in Sources */,
 				4ED41CC52478406800155C88 /* ActivityViewModel.swift in Sources */,
-				4ED41CC22478403E00155C88 /* ActivitysView.swift in Sources */,
+				4ED41CC22478403E00155C88 /* ActivitysBarView.swift in Sources */,
 				4E0FB70F277095D100735E0D /* PackDataSource.swift in Sources */,
 				4E118DF72463ED24005112C1 /* Swift+Extensions.swift in Sources */,
 				4E61D8FD27B42C2300C98D36 /* PacksFilterBarView.swift in Sources */,

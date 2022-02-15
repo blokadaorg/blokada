@@ -23,7 +23,7 @@ struct ActivitysWideVerticalView: View {
             HStack(spacing: 0) {
                 ZStack {
                     if self.vm.logRetention != "" {
-                        ActivitysView()
+                        ActivitysNoBarView() // Not sure why
                     } else {
                         NoLogRetentionView()
                     }
