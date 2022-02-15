@@ -45,14 +45,30 @@ struct MainView2: View {
                     }
                 }
             } else {
-                // Landscape, tab bar on the left, next to content
-                HStack(spacing: 0) {
-                    TabVerticalView()
+                // Small width landscape, like iPad with split screen in landscape
+                if geo.size.width < 800 {
                     ZStack {
-                        HomeView(tabBar: false).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                        ActivitysWideHorizontalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
-                        PacksWideHorizontalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
-                        SettingsWideHorizontalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
+                        ZStack {
+                            HomeView(tabBar: true).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
+                            ActivitysWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                            PacksWideVerticalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
+                            SettingsWideVerticalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
+                        }
+                        VStack {
+                            Spacer()
+                            TabHorizontalView()
+                        }
+                    }
+                } else {
+                    // Landscape, tab bar on the left, next to content
+                    HStack(spacing: 0) {
+                        TabVerticalView()
+                        ZStack {
+                            HomeView(tabBar: false).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
+                            ActivitysWideHorizontalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                            PacksWideHorizontalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
+                            SettingsWideHorizontalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
+                        }
                     }
                 }
             }
