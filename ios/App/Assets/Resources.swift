@@ -51,6 +51,7 @@ extension Image {
     static let fSettings = "gear"
     static let fAbout = "person.2"
     static let fPower = "power"
+    static let fPause = "pause"
     static let fInfo = "info.circle"
     static let fUp = "arrow.up.circle"
     static let fLine = "minus"

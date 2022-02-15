@@ -173,7 +173,7 @@ struct PowerView: View {
                     } else if !self.vm.notificationPermsGranted {
                         self.vm.displayNotificationPermsInstructions()
                     } else {
-                        self.vm.pause(seconds: 300)
+                        self.vm.pause(seconds: PAUSE_TIME_SECONDS)
                     }
                 },
                 .destructive(Text(L10n.homePowerActionTurnOff)) {

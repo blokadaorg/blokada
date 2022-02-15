@@ -306,6 +306,8 @@
 		4E90BA3A27BBB5B40051FD0C /* ActivityFilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3827BBB5B40051FD0C /* ActivityFilterBarView.swift */; };
 		4E90BA3C27BBB6810051FD0C /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */; };
 		4E90BA3D27BBB6810051FD0C /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */; };
+		4E90BA3F27BC09260051FD0C /* QuickActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */; };
+		4E90BA4027BC09260051FD0C /* QuickActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */; };
 		4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4E94C2FF2420D3B00008E318 /* PaymentGatewayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */; };
 		4E94C3032428F1C20008E318 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C3022428F1C20008E318 /* Logger.swift */; };
@@ -608,6 +610,7 @@
 		4E90BA3527BBB5860051FD0C /* ActivitysNoBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitysNoBarView.swift; sourceTree = "<group>"; };
 		4E90BA3827BBB5B40051FD0C /* ActivityFilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFilterBarView.swift; sourceTree = "<group>"; };
 		4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListView.swift; sourceTree = "<group>"; };
+		4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsService.swift; sourceTree = "<group>"; };
 		4E94C2FC2420B0A60008E318 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayView.swift; sourceTree = "<group>"; };
 		4E94C3022428F1C20008E318 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -868,6 +871,7 @@
 				4EB4347C27731353003C1242 /* DialogService.swift */,
 				4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */,
 				4E07F19727906E4300F5A310 /* RateService.swift */,
+				4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1507,6 +1511,7 @@
 				4E9EB99027B548420040F375 /* SettingsWideVerticalView.swift in Sources */,
 				4E1681A9247860490040334B /* ActivityItemView.swift in Sources */,
 				4EF7EDF5240E9E95001FA02E /* Resources.swift in Sources */,
+				4E90BA3F27BC09260051FD0C /* QuickActionsService.swift in Sources */,
 				4E8AE1F9275918B400BD2E5B /* CombineUtil.swift in Sources */,
 				4E53CCC6244E34A9009B3CF0 /* PaymentGatewayViewModel.swift in Sources */,
 				4E2F2A092760A902005A59F5 /* CloudRepo.swift in Sources */,
@@ -1712,6 +1717,7 @@
 				4E9EB99127B548420040F375 /* SettingsWideVerticalView.swift in Sources */,
 				4E971F6C246935D100809EA6 /* WebView.swift in Sources */,
 				4E2F2A0D2760A936005A59F5 /* CloudModel.swift in Sources */,
+				4E90BA4027BC09260051FD0C /* QuickActionsService.swift in Sources */,
 				4E955DC92771DC12008DE06F /* ViewModels.swift in Sources */,
 				4E971F80246BCEA300809EA6 /* PlusFeaturesView.swift in Sources */,
 				4E78E354245DA3600017B234 /* SettingsNarrowView.swift in Sources */,

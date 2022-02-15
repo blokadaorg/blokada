@@ -46,5 +46,6 @@ class ServicesSingleton {
 
     lazy var netx = NetxServiceMock()
     lazy var env = EnvService()
+    lazy var quickActions = QuickActionsService()
 
 }

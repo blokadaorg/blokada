@@ -46,6 +46,7 @@ class ServicesSingleton {
 
     lazy var netx = NetxService()
     lazy var env = EnvService()
+    lazy var quickActions = QuickActionsService()
 
 }
 

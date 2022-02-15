@@ -84,4 +84,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         foreground.onBackground()
     }
 
+    // Quick action selected by user
+    func windowScene(
+        _ scene: UIWindowScene,
+        performActionFor shortcutItem: UIApplicationShortcutItem,
+        completionHandler: @escaping (Bool) -> Void
+    ) {
+        Services.quickActions.onQuickAction(shortcutItem.type)
+    }
+
 }

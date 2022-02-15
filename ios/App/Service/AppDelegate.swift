@@ -16,6 +16,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private var token: AppleTokenService?
+    private var quick: QuickActionsService?
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
@@ -24,7 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
     }
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
 
         LoggerSaver.cleanup()
 
@@ -43,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Repos.stageRepo.onCreate()
         token = AppleTokenService(application)
+
+        Services.quickActions.start()
 
         // A bunch of lazy, noone else refs this (early enough).
         let rate = Services.rate
