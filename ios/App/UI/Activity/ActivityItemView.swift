@@ -18,6 +18,12 @@ struct ActivityItemView: View {
 
     var body: some View {
         HStack {
+            if vm.entry.type == .blocked {
+                Rectangle()
+                .fill(Color.red)
+                .frame(width: 3)
+            }
+
             ZStack {
                 ZStack {
                     Image(systemName: vm.entry.type == .whitelisted ? "shield.slash"  : "shield")
