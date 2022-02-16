@@ -98,7 +98,7 @@ struct MainView: View {
                     Spacer()
                 }
             }
-            TabHorizontalView()
+            TabHorizontalView(onTap: { _ in })
         }
     }
 }

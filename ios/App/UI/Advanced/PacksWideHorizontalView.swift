@@ -22,7 +22,7 @@ struct PacksWideHorizontalView: View {
         ZStack {
             HStack(spacing: 0) {
                 List {
-                    PacksFilterBarView(columns: 4)
+                    PacksFilterBarView(columns: 4).id("top-packs")
 
                     ForEach(self.vm.packs, id: \.self) { pack in
                         Button(action: {

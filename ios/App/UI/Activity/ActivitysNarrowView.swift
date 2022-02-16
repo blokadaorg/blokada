@@ -21,7 +21,7 @@ struct ActivitysNarrowView: View {
             NavigationView {
                 ZStack {
                     if self.vm.logRetention != "" {
-                        ActivitysBarView()
+                        ActivitysNoBarView()
                     } else {
                         NoLogRetentionView()
                     }

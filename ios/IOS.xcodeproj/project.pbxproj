@@ -379,8 +379,6 @@
 		4ED3446A23E1B7430075B796 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3443E23E190910075B796 /* libresolv.tbd */; };
 		4ED349C6246C6C0A00C843FA /* BlokadaPlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED349C5246C6C0A00C843FA /* BlokadaPlusView.swift */; };
 		4ED349C7246C6C0A00C843FA /* BlokadaPlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED349C5246C6C0A00C843FA /* BlokadaPlusView.swift */; };
-		4ED41CC12478403E00155C88 /* ActivitysBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC02478403E00155C88 /* ActivitysBarView.swift */; };
-		4ED41CC22478403E00155C88 /* ActivitysBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC02478403E00155C88 /* ActivitysBarView.swift */; };
 		4ED41CC42478406800155C88 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC32478406800155C88 /* ActivityViewModel.swift */; };
 		4ED41CC52478406800155C88 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC32478406800155C88 /* ActivityViewModel.swift */; };
 		4ED41CC72478458100155C88 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC62478458100155C88 /* SearchBar.swift */; };
@@ -690,7 +688,6 @@
 		4ED3445F23E1B1450075B796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4ED3446023E1B1450075B796 /* IOSNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSNetworkExtension.entitlements; sourceTree = "<group>"; };
 		4ED349C5246C6C0A00C843FA /* BlokadaPlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokadaPlusView.swift; sourceTree = "<group>"; };
-		4ED41CC02478403E00155C88 /* ActivitysBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitysBarView.swift; sourceTree = "<group>"; };
 		4ED41CC32478406800155C88 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		4ED41CC62478458100155C88 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxServiceIn.swift; sourceTree = "<group>"; };
@@ -1152,7 +1149,6 @@
 				4E11D2DF27206C780042385B /* ActivitysNarrowView.swift */,
 				4E61D8FE27B4316C00C98D36 /* ActivitysWideVerticalView.swift */,
 				4E61D90127B4360B00C98D36 /* ActivitysWideHorizontalView.swift */,
-				4ED41CC02478403E00155C88 /* ActivitysBarView.swift */,
 				4E90BA3527BBB5860051FD0C /* ActivitysNoBarView.swift */,
 				4E08B9D8247FF4BE00AED8F0 /* ActivityDetailView.swift */,
 				4E1681A8247860490040334B /* ActivityItemView.swift */,
@@ -1607,7 +1603,6 @@
 				4EA189C827B507E200E57470 /* GenericHeaderView.swift in Sources */,
 				4E356A8A2437711A0094EE27 /* LinkDataSource.swift in Sources */,
 				4ED41CC42478406800155C88 /* ActivityViewModel.swift in Sources */,
-				4ED41CC12478403E00155C88 /* ActivitysBarView.swift in Sources */,
 				4E118DF62463ED24005112C1 /* Swift+Extensions.swift in Sources */,
 				4E61D8FC27B42C2300C98D36 /* PacksFilterBarView.swift in Sources */,
 				4EA9A29E2785AB50009764F1 /* NetxRepo.swift in Sources */,
@@ -1812,7 +1807,6 @@
 				4E7FE9CA244DC28900851E9F /* LinkDataSource.swift in Sources */,
 				4EA189C927B507E200E57470 /* GenericHeaderView.swift in Sources */,
 				4ED41CC52478406800155C88 /* ActivityViewModel.swift in Sources */,
-				4ED41CC22478403E00155C88 /* ActivitysBarView.swift in Sources */,
 				4E0FB70F277095D100735E0D /* PackDataSource.swift in Sources */,
 				4E118DF72463ED24005112C1 /* Swift+Extensions.swift in Sources */,
 				4E61D8FD27B42C2300C98D36 /* PacksFilterBarView.swift in Sources */,

@@ -19,7 +19,7 @@ struct PacksView: View {
 
     var body: some View {
         List {
-            PacksFilterBarView(columns: 3)
+            PacksFilterBarView(columns: 3).id("top-packs")
 
             ForEach(self.vm.packs, id: \.self) { pack in
                 ZStack {

@@ -19,6 +19,8 @@ struct TabHorizontalView: View {
     @Environment(\.safeAreaInsets) var safeAreaInsets
     @ObservedObject var vm = ViewModels.tab
 
+    let onTap: (Tab) -> Void
+
     var body: some View {
         VStack {
             Rectangle()
@@ -27,10 +29,22 @@ struct TabHorizontalView: View {
             Spacer()
             HStack(alignment: .bottom) {
                 Spacer()
-                TabItemView(id: .Home, icon: "blokada", text: L10n.mainTabHome, badge: nil)
-                TabItemView(id: .Activity, icon: "chart.bar", text: L10n.mainTabActivity, badge: nil)
-                TabItemView(id: .Advanced, icon: "cube", text: L10n.mainTabAdvanced, badge: nil)
-                TabItemView(id: .Settings, icon: "gear", text: L10n.mainTabSettings, badge: nil)
+                TabItemView(
+                    id: .Home, icon: "blokada", text: L10n.mainTabHome, badge: nil,
+                    onTap: { self.onTap($0) }
+                )
+                TabItemView(
+                    id: .Activity, icon: "chart.bar", text: L10n.mainTabActivity, badge: nil,
+                    onTap: { self.onTap($0) }
+                )
+                TabItemView(
+                    id: .Advanced, icon: "cube", text: L10n.mainTabAdvanced, badge: nil,
+                    onTap: { self.onTap($0) }
+                )
+                TabItemView(
+                    id: .Settings, icon: "gear", text: L10n.mainTabSettings, badge: nil,
+                    onTap: { self.onTap($0) }
+                )
                 Spacer()
             }
             .padding(.bottom, 2)
@@ -57,14 +71,14 @@ struct TabHorizontalView_Previews: PreviewProvider {
 
 
         return Group {
-            TabHorizontalView()
+            TabHorizontalView(onTap: { _ in })
                 .previewLayout(.sizeThatFits)
-            TabHorizontalView(vm: packs)
+            TabHorizontalView(vm: packs, onTap: { _ in })
                 .previewLayout(.sizeThatFits)
-            TabHorizontalView(vm: account)
+            TabHorizontalView(vm: account, onTap: { _ in })
                 .previewLayout(.sizeThatFits)
                 .environment(\.colorScheme, .dark)
-            TabHorizontalView(vm: inbox)
+            TabHorizontalView(vm: inbox, onTap: { _ in })
                 .previewLayout(.sizeThatFits)
                 .environment(\.colorScheme, .dark)
                 .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)

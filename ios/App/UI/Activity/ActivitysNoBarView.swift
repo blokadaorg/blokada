@@ -14,19 +14,10 @@ import SwiftUI
 
 struct ActivitysNoBarView: View {
 
-    @Environment(\.safeAreaInsets) var safeAreaInsets
-
     var body: some View {
-        ScrollViewReader { scroll in
-            ZStack {
-                List {
-                    ActivityFilterBarView().id("top")
-                    ActivityListView()
-                }
-
-                ScrollToTopView(action: { scroll.scrollTo("top", anchor: .bottom) })
-                //.padding(.bottom, self.safeAreaInsets.bottom)
-            }
+        List {
+            ActivityFilterBarView().id("top-activitys")
+            ActivityListView()
         }
     }
 }
