@@ -18,7 +18,8 @@ func convertActivity(activity: [Activity]) -> [HistoryEntry] {
             name: act.domain_name,
             type: convertType(type: act.action),
             time: convertDate(timestamp: act.timestamp),
-            requests: 1
+            requests: 1,
+            device: act.device_name
         )
     }
     let groups = Dictionary(grouping: act, by: { [$0.type: $0.name] })
@@ -29,7 +30,8 @@ func convertActivity(activity: [Activity]) -> [HistoryEntry] {
             name: item.name,
             type: item.type,
             time: item.time,
-            requests: UInt64(value.count)
+            requests: UInt64(value.count),
+            device: item.device
         )
     }
 }

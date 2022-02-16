@@ -23,6 +23,7 @@ struct HistoryEntry: Codable {
     let type: HistoryEntryType
     let time: Date
     let requests: UInt64
+    let device: String
 }
 
 enum HistoryEntryType: Int, Codable {
@@ -35,11 +36,12 @@ extension HistoryEntry: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(type)
+        hasher.combine(device)
     }
 }
 
 extension HistoryEntry: Equatable {
     static func == (lhs: HistoryEntry, rhs: HistoryEntry) -> Bool {
-        lhs.name == rhs.name && lhs.type == rhs.type
+        lhs.name == rhs.name && lhs.type == rhs.type && lhs.device == rhs.device
     }
 }

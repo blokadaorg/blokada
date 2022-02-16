@@ -19,6 +19,9 @@ class ActivityViewModel: ObservableObject {
 
     private lazy var activityRepo = Repos.activityRepo
     private lazy var cloudRepo = Repos.cloudRepo
+
+    private lazy var envService = Services.env
+
     private var cancellables = Set<AnyCancellable>()
 
     @Published var logRetention = ""
@@ -30,6 +33,8 @@ class ActivityViewModel: ObservableObject {
     @Published var whitelist = [String]()
     @Published var blacklist = [String]()
 
+    @Published var devices = [String]()
+
     @Published var sorting = 0 {
         didSet {
             refreshStats()
@@ -37,6 +42,12 @@ class ActivityViewModel: ObservableObject {
     }
 
     @Published var filtering = 0 {
+        didSet {
+            refreshStats()
+        }
+    }
+
+    @Published var device = "." {
         didSet {
             refreshStats()
         }
@@ -53,6 +64,7 @@ class ActivityViewModel: ObservableObject {
         onAllowedListUpdated()
         onDeniedListUpdated()
         onActivityRetentionUpdated()
+        onDevicesUpdated()
     }
 
     private func onEntriesUpdated() {
@@ -97,12 +109,34 @@ class ActivityViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
+    private func onDevicesUpdated() {
+        activityRepo.devicesHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.devices = it.filter { $0 != self.envService.deviceName }
+            self.apply()
+            self.objectWillChange.send()
+        })
+        .store(in: &cancellables)
+    }
+
     func apply() {
         // Apply search term
         if search.isEmpty {
             entries = allEntries
         } else {
             entries = allEntries.filter { $0.name.range(of: search, options: .caseInsensitive) != nil }
+        }
+        
+        // Apply device
+        if device == "" {
+            // All devices
+            entries = entries
+        } else if device == "." {
+            // Current device
+            entries = entries.filter { $0.device == envService.deviceName }
+        } else {
+            entries = entries.filter { $0.device == device }
         }
 
         // Apply filtering
@@ -123,6 +157,7 @@ class ActivityViewModel: ObservableObject {
             // Sorted by recent
             entries = entries.sorted { $0.time > $1.time }
         }
+
     }
 
     func allow(_ entry: HistoryEntry) {

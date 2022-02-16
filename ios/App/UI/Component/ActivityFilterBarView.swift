@@ -18,33 +18,52 @@ struct ActivityFilterBarView: View {
     @ObservedObject var tabVM = ViewModels.tab
 
     @State private var showFilteringOptions: Bool = false
+    @State private var showDevices: Bool = false
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
+                Image(systemName: Image.fDevices)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 24, height: 24)
+                .foregroundColor(self.vm.device == "" ? .primary : Color.cAccent)
+                .onTapGesture {
+                    self.showDevices = true
+                }
+                .actionSheet(isPresented: self.$showDevices) {
+                    ActionSheet(
+                        title: Text(getDevicesText(self.vm.device)),
+                        buttons: getDeviceButtons(devices: self.vm.devices, onDevice: {
+                            self.vm.device = $0
+                        })
+                    )
+                }
+
                 SearchBar(text: self.$vm.search)
-                Image(systemName: "line.horizontal.3.decrease")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(self.vm.filtering == 0 ? .primary : Color.cAccent)
-                    .onTapGesture {
-                        self.showFilteringOptions = true
-                    }
+
+                Image(systemName: Image.fFilter)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 24, height: 24)
+                .foregroundColor(self.vm.filtering == 0 ? .primary : Color.cAccent)
+                .onTapGesture {
+                    self.showFilteringOptions = true
+                }
                 .actionSheet(isPresented: self.$showFilteringOptions) {
-                        ActionSheet(title: Text(L10n.activityFilterHeader), buttons: [
-                            .default(Text(L10n.activityFilterShowAll)) {
-                                self.vm.filtering = 0
-                            },
-                            .default(Text(L10n.activityFilterShowBlocked)) {
-                                self.vm.filtering = 1
-                            },
-                            .default(Text(L10n.activityFilterShowAllowed)) {
-                                self.vm.filtering = 2
-                            },
-                            .cancel()
-                        ])
-                    }
+                    ActionSheet(title: Text(L10n.activityFilterHeader), buttons: [
+                        .default(Text(L10n.activityFilterShowAll)) {
+                            self.vm.filtering = 0
+                        },
+                        .default(Text(L10n.activityFilterShowBlocked)) {
+                            self.vm.filtering = 1
+                        },
+                        .default(Text(L10n.activityFilterShowAllowed)) {
+                            self.vm.filtering = 2
+                        },
+                        .cancel()
+                    ])
+                }
             }
             Picker(selection: self.$vm.sorting, label: EmptyView()) {
                 Text(L10n.activityCategoryRecent).tag(0)
@@ -53,10 +72,47 @@ struct ActivityFilterBarView: View {
                 ).tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
-            .padding([.leading, .trailing], 9)
+            //.padding([.leading, .trailing], 9)
         }
         .padding(.bottom, 12)
     }
+}
+
+private func getDevicesText(_ device: String) -> String {
+    if device == "" {
+        return "Showing for: " + L10n.activityDeviceFilterShowAll
+    } else if device == "." {
+        return "Showing for: " + L10n.appSettingsSectionHeader
+    } else {
+        return "Showing for: " + device
+    }
+}
+
+private func getDeviceButtons(
+    devices: [String], onDevice: @escaping (String) -> Void
+) -> [ActionSheet.Button] {
+    var buttons: [ActionSheet.Button] = [
+        // "All devices" selector
+        .default(Text(L10n.activityDeviceFilterShowAll)) {
+            onDevice("")
+        },
+        // "My device" selector
+        .default(Text(L10n.appSettingsSectionHeader)) {
+            onDevice(".")
+        }
+    ]
+
+    // Add all devices except the current one (already pre filtered)
+    devices.forEach { device in
+        buttons = buttons + [
+            .default(Text(device)) {
+                onDevice(device)
+            }
+        ]
+    }
+
+    buttons = buttons + [.cancel()]
+    return buttons
 }
 
 struct ActivityFilterBarView_Previews: PreviewProvider {

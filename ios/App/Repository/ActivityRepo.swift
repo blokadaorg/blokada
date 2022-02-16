@@ -35,6 +35,12 @@ class ActivityRepo: Startable {
         writeCustomList.compactMap { $0 }.eraseToAnyPublisher()
     }
 
+    var devicesHot: AnyPublisher<[String], Never> {
+        entriesHot.map {
+            entries in entries.map { $0.device }.unique()
+        }.eraseToAnyPublisher()
+    }
+
     private lazy var api = Services.apiForCurrentUser
 
     private lazy var activeTabHot = Repos.navRepo.activeTabHot

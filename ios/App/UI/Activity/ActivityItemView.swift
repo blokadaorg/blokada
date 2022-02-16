@@ -68,7 +68,7 @@ struct ActivityItemView: View {
         }
         .frame(height: 54)
         .padding([.bottom, .top], 10)
-        .padding([.leading, .trailing], 9)
+        //.padding([.leading, .trailing], 9)
         .opacity((vm.entry.type == .whitelisted) != vm.whitelisted || (vm.entry.type == .passed) && vm.blacklisted ? 0.5 : 1)
     }
 }
@@ -80,7 +80,8 @@ struct ActivityItemView_Previews: PreviewProvider {
                 name: "doubleclick.com.",
                 type: .blocked,
                 time: Date(),
-                requests: 1
+                requests: 1,
+                device: "iphone"
             )))
             .previewLayout(.sizeThatFits)
 
@@ -88,7 +89,8 @@ struct ActivityItemView_Previews: PreviewProvider {
                 name: "super.long.domain.name.com.",
                 type: .whitelisted,
                 time: Date(timeIntervalSinceNow: -5),
-                requests: 1
+                requests: 1,
+                device: "iphone"
             )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraExtraExtraLarge)
@@ -99,7 +101,8 @@ struct ActivityItemView_Previews: PreviewProvider {
                 name: "google.com.",
                 type: .passed,
                 time: Date(timeIntervalSinceNow: -5),
-                requests: 999999999
+                requests: 999999999,
+                device: "iphone"
             )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraSmall)
@@ -110,7 +113,8 @@ struct ActivityItemView_Previews: PreviewProvider {
                 name: "super.long.domain.name.com",
                 type: .blocked,
                 time: Date(timeIntervalSinceNow: -5000000),
-                requests: 999999
+                requests: 999999,
+                device: "iphone"
             )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraExtraExtraLarge)

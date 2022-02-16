@@ -72,4 +72,6 @@ extension Image {
     static let fCloud = "cloud"
     static let fChart = "chart.bar"
     static let fPack = "cube.box.fill"
+    static let fFilter = "line.horizontal.3.decrease"
+    static let fDevices = "ipad.and.iphone"
 }

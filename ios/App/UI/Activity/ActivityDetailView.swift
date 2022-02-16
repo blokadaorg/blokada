@@ -137,6 +137,14 @@ struct ActivityDetailView: View {
                 }
                 .font(.footnote)
                 .padding(.bottom)
+
+                VStack(alignment: .leading) {
+                    Text(L10n.universalLabelDevice)
+                        .foregroundColor(.secondary)
+                    Text(String(self.vm.entry.device))
+                }
+                .font(.footnote)
+                .padding(.bottom)
             }
             .padding()
         }
@@ -152,14 +160,16 @@ struct ActivityDetailView_Previews: PreviewProvider {
                 name: "example.com",
                 type: .whitelisted,
                 time: Date(timeIntervalSinceNow: -50000),
-                requests: 458
+                requests: 458,
+                device: "iphone"
             )))
 
             ActivityDetailView(vm: ActivityItemViewModel(entry: HistoryEntry(
                 name: "super.long.boring.name.of.example.com",
                 type: .blocked,
                 time: Date(timeIntervalSinceNow: -5),
-                requests: 1
+                requests: 1,
+                device: "iphone"
             )))
         }
     }
