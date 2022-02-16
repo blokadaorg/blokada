@@ -56,106 +56,53 @@ struct ActivityDetailView: View {
                             Button(action: {
                                 self.activityVM.unallow(self.vm.entry)
                             }) {
-                                HStack {
-                                    Image(systemName: "shield.slash")
-                                        .imageScale(.large)
-                                        .foregroundColor(Color.cAccent)
-                                        .frame(width: 32, height: 32)
-
-                                    Text(L10n.activityActionAddedToWhitelist)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.primary)
-
-                                    Spacer()
-
-                                    Image(systemName: Image.fCheckmark)
-                                        .resizable()
-                                        .frame(width: 16, height: 16)
-                                        .foregroundColor(Color.cActivePlus)
-                                }
-                                .padding([.leading, .trailing])
-                                .padding([.top, .bottom], 4)
+                                OptionView(
+                                    text: L10n.activityActionAddedToWhitelist,
+                                    image: Image.fShieldSlash,
+                                    active: true
+                                )
                             }
                         } else if self.vm.blacklisted {
                             Button(action: {
                                 self.activityVM.undeny(self.vm.entry)
                             }) {
-                                HStack {
-                                    Image(systemName: "shield.slash")
-                                        .imageScale(.large)
-                                        .foregroundColor(Color.cAccent)
-                                        .frame(width: 32, height: 32)
-
-                                    Text(L10n.activityActionAddedToBlacklist)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.primary)
-
-                                    Spacer()
-
-                                    Image(systemName: Image.fCheckmark)
-                                        .resizable()
-                                        .frame(width: 16, height: 16)
-                                        .foregroundColor(Color.cActivePlus)
-                                }
-                                .padding([.leading, .trailing])
-                                .padding([.top, .bottom], 4)
+                                OptionView(
+                                    text: L10n.activityActionAddedToBlacklist,
+                                    image: Image.fShieldSlash,
+                                    active: true
+                                )
                             }
                             
                         } else if self.vm.entry.type == HistoryEntryType.passed {
                             Button(action: {
                                 self.activityVM.deny(self.vm.entry)
                             }) {
-                                HStack {
-                                    Image(systemName: "shield.slash")
-                                        .imageScale(.large)
-                                        .foregroundColor(Color.secondary)
-                                        .frame(width: 32, height: 32)
-
-                                    Text(L10n.activityActionAddToBlacklist)
-                                        .foregroundColor(.primary)
-
-                                    Spacer()
-                                }
-                                .padding([.leading, .trailing])
-                                .padding([.top, .bottom], 4)
+                                OptionView(
+                                    text: L10n.activityActionAddToBlacklist,
+                                    image: Image.fShieldSlash,
+                                    active: false
+                                )
                             }
                         } else {
                             Button(action: {
                                 self.activityVM.allow(self.vm.entry)
                             }) {
-                                HStack {
-                                    Image(systemName: "shield.slash")
-                                        .imageScale(.large)
-                                        .foregroundColor(Color.secondary)
-                                        .frame(width: 32, height: 32)
-
-                                    Text(L10n.activityActionAddToWhitelist)
-                                        .foregroundColor(.primary)
-
-                                    Spacer()
-                                }
-                                .padding([.leading, .trailing])
-                                .padding([.top, .bottom], 4)
+                                OptionView(
+                                    text: L10n.activityActionAddToWhitelist,
+                                    image: Image.fShieldSlash,
+                                    active: false
+                                )
                             }
                         }
 
                         Button(action: {
                             UIPasteboard.general.string = self.vm.entry.name
                         }) {
-                            HStack {
-                                Image(systemName: Image.fCopy)
-                                   .imageScale(.large)
-                                   .foregroundColor(Color.secondary)
-                                   .frame(width: 32, height: 32)
-
-                                Text(L10n.activityActionCopyToClipboard)
-                                   .fontWeight(.regular)
-                                    .foregroundColor(.primary)
-
-                               Spacer()
-                           }
-                            .padding([.leading, .trailing])
-                            .padding([.top, .bottom], 4)
+                            OptionView(
+                                text: L10n.activityActionCopyToClipboard,
+                                image: Image.fCopy,
+                                active: false
+                            )
                         }
                     }
                     .padding(.bottom)

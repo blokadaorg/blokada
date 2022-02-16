@@ -64,6 +64,7 @@ extension Image {
     static let fSpeed = "speedometer"
     static let fLocation = "mappin.and.ellipse"
     static let fShield = "lock.shield"
+    static let fShieldSlash = "shield.slash"
     static let fDelete = "delete.left"
     static let fShare = "square.and.arrow.up"
     static let fCopy = "doc.on.doc"
