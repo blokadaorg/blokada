@@ -23,6 +23,8 @@
 		4E08B9DA247FF4BE00AED8F0 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9D8247FF4BE00AED8F0 /* ActivityDetailView.swift */; };
 		4E0B7E50278DB6DA0032259C /* LinkRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B7E4F278DB6DA0032259C /* LinkRepo.swift */; };
 		4E0B7E51278DB6DA0032259C /* LinkRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B7E4F278DB6DA0032259C /* LinkRepo.swift */; };
+		4E0BF79B27BE849B0015D01E /* TopBarBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */; };
+		4E0BF79C27BE849B0015D01E /* TopBarBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */; };
 		4E0F2B4D2767796200444933 /* PaymentRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F2B4C2767796200444933 /* PaymentRepo.swift */; };
 		4E0F2B4E2767796200444933 /* PaymentRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F2B4C2767796200444933 /* PaymentRepo.swift */; };
 		4E0F2B5027688C3700444933 /* TaskerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F2B4F27688C3700444933 /* TaskerTests.swift */; };
@@ -450,6 +452,7 @@
 		4E08B9D5247EAD8100AED8F0 /* ContentHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHostingController.swift; sourceTree = "<group>"; };
 		4E08B9D8247FF4BE00AED8F0 /* ActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		4E0B7E4F278DB6DA0032259C /* LinkRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkRepo.swift; sourceTree = "<group>"; };
+		4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarBlurView.swift; sourceTree = "<group>"; };
 		4E0F2B4C2767796200444933 /* PaymentRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRepo.swift; sourceTree = "<group>"; };
 		4E0F2B4F27688C3700444933 /* TaskerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskerTests.swift; sourceTree = "<group>"; };
 		4E0F6FEF243D1048002E1DF6 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
@@ -919,6 +922,7 @@
 				4E2ECD0D245B2F38009040F1 /* GridStack.swift */,
 				4E2ECCF8245AFBCB009040F1 /* SpinnerView.swift */,
 				4E2ECD0A245B2B14009040F1 /* TagView.swift */,
+				4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1534,6 +1538,7 @@
 				4E5CACE1276B5E5300F6F237 /* TimerService.swift in Sources */,
 				4E42353A244F3ADE005A0779 /* LocationViewModel.swift in Sources */,
 				4E57FCD424A0AD9300960ADF /* ChatView.swift in Sources */,
+				4E0BF79B27BE849B0015D01E /* TopBarBlurView.swift in Sources */,
 				4E0F6FF2243DB49E002E1DF6 /* PlusButtonView.swift in Sources */,
 				4E2ECCED245AE4DE009040F1 /* PackView.swift in Sources */,
 				4EEF1BE82457105E00734182 /* NotificationService.swift in Sources */,
@@ -1733,6 +1738,7 @@
 				4E2ECD09245B2794009040F1 /* PackConfigView.swift in Sources */,
 				4E7FE9B6244DC28900851E9F /* SplashView.swift in Sources */,
 				4EEF1BF02457FC4300734182 /* DebugViewModel.swift in Sources */,
+				4E0BF79C27BE849B0015D01E /* TopBarBlurView.swift in Sources */,
 				4E7FE9BA244DC28900851E9F /* LeaseListView.swift in Sources */,
 				4E2F2A162760BE6F005A59F5 /* NavModel.swift in Sources */,
 				4E42355224502678005A0779 /* LogViewModel.swift in Sources */,
@@ -2027,7 +2033,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = App/Assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2067,7 +2073,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = App/Assets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2153,7 +2159,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2191,7 +2197,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

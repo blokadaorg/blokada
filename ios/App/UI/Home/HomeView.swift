@@ -150,7 +150,7 @@ struct HomeView: View {
                 .padding([.leading, .trailing, .bottom], 8)
             }
             .padding(.bottom, self.safeAreaInsets.bottom)
-            .padding(.bottom, self.tabBar ? TAB_VIEW_WIDTH : 0)
+            .padding(.bottom, self.tabBar ? TAB_VIEW_HEIGHT : 0)
 
             // Help icon in top right
             VStack {
@@ -229,7 +229,6 @@ struct HomeView_Previews: PreviewProvider {
         return Group {
             HomeView(tabBar: true)
             .previewDevice(PreviewDevice(rawValue: "iPhone X"))
-.previewInterfaceOrientation(.landscapeLeft)
 
             HomeView(vm: error, tabBar: false)
             .environment(\.locale, .init(identifier: "pl"))

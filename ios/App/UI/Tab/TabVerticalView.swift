@@ -12,7 +12,7 @@
 
 import SwiftUI
 
-var TAB_VIEW_HEIGHT = 80.0
+var TAB_VIEW_WIDTH = 80.0
 
 struct TabVerticalView: View {
 
@@ -22,6 +22,14 @@ struct TabVerticalView: View {
     let onTap: (Tab) -> Void
 
     var body: some View {
+        if #available(iOS 15.0, *) {
+            content.background(.ultraThinMaterial)
+        } else {
+            content.background(Color.cTertiaryBackground)
+        }
+    }
+
+    var content: some View {
         HStack {
             Spacer()
             VStack(alignment: .leading, spacing: 24) {
@@ -45,16 +53,21 @@ struct TabVerticalView: View {
             }
             .padding([.top, .bottom], 16)
             Spacer()
-
-//            Rectangle()
-//            .fill(Color(UIColor.systemGray4))
-//            .frame(width: 1)
         }
         .padding(.top, self.safeAreaInsets.top)
+        .overlay(
+            Rectangle()
+            .frame(width: 1, height: nil, alignment: .trailing)
+            .foregroundColor(Color(UIColor.systemGray4))
+            .padding(.trailing, 5), // Idk why it's needed
+
+            alignment: .trailing
+        )
+
         //.padding(.bottom, self.safeAreaInsets.bottom)
-        .frame(width: TAB_VIEW_HEIGHT)
-        .background(.ultraThinMaterial)
+        .frame(width: TAB_VIEW_WIDTH)
     }
+
 }
 
 struct TabVerticalView_Previews: PreviewProvider {

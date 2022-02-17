@@ -12,7 +12,7 @@
 
 import SwiftUI
 
-var TAB_VIEW_WIDTH = 56.0
+var TAB_VIEW_HEIGHT = 56.0
 
 struct TabHorizontalView: View {
 
@@ -22,6 +22,14 @@ struct TabHorizontalView: View {
     let onTap: (Tab) -> Void
 
     var body: some View {
+        if #available(iOS 15.0, *) {
+            content.background(.ultraThinMaterial)
+        } else {
+            content.background(Color.cTertiaryBackground)
+        }
+    }
+
+    var content: some View {
         VStack {
             Rectangle()
                 .fill(Color(UIColor.systemGray4))
@@ -49,12 +57,10 @@ struct TabHorizontalView: View {
             }
             .padding(.bottom, 2)
         }
-        .frame(height: TAB_VIEW_WIDTH)
+        .frame(height: TAB_VIEW_HEIGHT)
         .padding(.bottom, self.safeAreaInsets.bottom)
-        .background(
-            .ultraThinMaterial
-        )
     }
+
 }
 
 struct TabHorizontalView_Previews: PreviewProvider {

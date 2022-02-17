@@ -43,17 +43,7 @@ struct ActivitysWideHorizontalView: View {
                 .padding(.top, self.safeAreaInsets.top)
                 .background(Color.cBackground)
             }
-            // Blur bg below top bar
-            VStack {
-                HStack {
-                    EmptyView()
-                    Spacer()
-                }
-                .frame(height: self.safeAreaInsets.top)
-                .background(.ultraThinMaterial)
-                Spacer()
-            }
-            
+            TopBarBlurView()
         }
     }
 }

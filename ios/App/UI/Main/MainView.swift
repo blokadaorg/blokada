@@ -118,6 +118,5 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
         .previewDevice(PreviewDevice(rawValue: "iPhone X"))
-.previewInterfaceOrientation(.landscapeLeft)
     }
 }
