@@ -113,7 +113,7 @@ class ActivityViewModel: ObservableObject {
         activityRepo.devicesHot
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
-            self.devices = it.filter { $0 != self.envService.deviceName }
+            self.devices = it.filter { $0 != self.envService.deviceName }.filter { !$0.isEmpty }
             self.apply()
             self.objectWillChange.send()
         })
