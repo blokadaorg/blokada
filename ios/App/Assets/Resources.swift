@@ -32,6 +32,7 @@ extension Color {
 
     static let cPrimaryBackground = Color(UIColor.systemBackground)
     static let cSecondaryBackground = Color(UIColor.secondarySystemBackground)
+    static let cTertiaryBackground = Color(UIColor.tertiarySystemBackground)
     static let cPrimary = Color("Primary")
 
     static let cSemiTransparent = Color("SemiTransparent")

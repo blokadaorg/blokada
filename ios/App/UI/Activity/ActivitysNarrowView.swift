@@ -30,7 +30,6 @@ struct ActivitysNarrowView: View {
 
             }
             .accentColor(Color.cAccent)
-            .padding(.leading, geo.size.height > geo.size.width ? 1 : 0) // To force double panel
         }
     }
 }

@@ -46,9 +46,9 @@ struct TabVerticalView: View {
             .padding([.top, .bottom], 16)
             Spacer()
 
-            Rectangle()
-                .fill(Color(UIColor.systemGray4))
-                .frame(width: 1)
+//            Rectangle()
+//            .fill(Color(UIColor.systemGray4))
+//            .frame(width: 1)
         }
         .padding(.top, self.safeAreaInsets.top)
         //.padding(.bottom, self.safeAreaInsets.bottom)

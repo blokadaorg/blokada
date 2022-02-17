@@ -26,6 +26,8 @@ struct MainView2: View {
                         // Small width portrait, like iPhone or iPad with split screen
                         if geo.size.width < 700 {
                             ZStack {
+                                RippleView(multiplier: 1.0)
+
                                 HomeView(tabBar: true).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
                                 ActivitysNarrowView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                 PacksNarrowView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
@@ -34,6 +36,8 @@ struct MainView2: View {
                         // Big width portrait, like iPad fullscreen
                         } else {
                             ZStack {
+                                RippleView(multiplier: 2.0)
+
                                 HomeView(tabBar: true).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
                                 ActivitysWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                 PacksWideVerticalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
@@ -51,6 +55,8 @@ struct MainView2: View {
                     // Small width landscape, like iPad with split screen in landscape
                     if geo.size.width < 800 {
                         ZStack {
+                            RippleView(multiplier: 2.0)
+
                             ZStack {
                                 HomeView(tabBar: true).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
                                 ActivitysWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
@@ -66,15 +72,19 @@ struct MainView2: View {
                         }
                     } else {
                         // Landscape, tab bar on the left, next to content
-                        HStack(spacing: 0) {
-                            TabVerticalView(onTap: { it in
-                                handleTappedTab(it, scroll: scroll)
-                            })
-                            ZStack {
-                                HomeView(tabBar: false).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                ActivitysWideHorizontalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
-                                PacksWideHorizontalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
-                                SettingsWideHorizontalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
+                        ZStack {
+                            RippleView(multiplier: 1.5)
+
+                            HStack(spacing: 0) {
+                                TabVerticalView(onTap: { it in
+                                    handleTappedTab(it, scroll: scroll)
+                                })
+                                ZStack {
+                                    HomeView(tabBar: false).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
+                                    ActivitysWideHorizontalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                    PacksWideHorizontalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
+                                    SettingsWideHorizontalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
+                                }
                             }
                         }
                     }

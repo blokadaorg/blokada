@@ -14,6 +14,9 @@ import SwiftUI
 
 struct RippleView: View {
 
+    // Multiplier of gradient sizes for big screen
+    let multiplier: CGFloat
+
     @ObservedObject var vm = ViewModels.home
     @ObservedObject var tabVM = ViewModels.tab
 
@@ -22,35 +25,74 @@ struct RippleView: View {
     @State var animate = false
 
     var foreverAnimation: Animation {
-        Animation.linear(duration: 24)
+        Animation.linear(duration: 12)
             .repeatForever(autoreverses: true)
     }
 
     var body: some View {
         ZStack {
-            ForEach(1 ..< self.ripples, id: \.self) { i in
-                ZStack {
-                    Circle()
-//                    .fill(Color(
-//                        red: 1 + 0.06 * (5.0 - CGFloat(i)),
-//                        green: 0.58 + 0.06 * (5.0 - CGFloat(i)),
-//                        blue: 0 + 0.06 * (5.0 - CGFloat(i))
-//                    ))
-//                    .fill(Color(
-//                        red: 0.0431 + 0.06 * (5.0 - CGFloat(i)),
-//                        green: 0.517 + 0.06 * (5.0 - CGFloat(i)),
-//                        blue: 1 + 0.06 * (5.0 - CGFloat(i))
-//                    ))
-                    .fill(Color(
-                        red: 0.0 + (0.2 - 0.05 * CGFloat(i)) + (self.animate ? 0.00431 : 0),
-                        green: 0.0 + (0.2 - 0.05 * CGFloat(i)) + (self.animate ? 0.0517 : 0),
-                        blue: 0.0 + (0.2 - 0.05 * CGFloat(i)) + (self.animate ? 0.1 : 0)
+            // Gray gradient in the working or off state
+            Rectangle()
+            .fill(RadialGradient(gradient: Gradient(colors: [
+                    Color.cBackground,
+                    Color.cTertiaryBackground
+                ]),
+                center: .bottom,
+                startRadius: (self.animate ? 300 * multiplier : 200 * multiplier),
+                endRadius: (self.animate ? 800 * multiplier : 600 *  multiplier)
+            ))
+            .opacity(self.vm.working || self.vm.appState != .Activated ? 1.0 : 0.0)
+            .animation(.spring(), value: self.vm.appState)
+
+            // Blue gradient for Cloud state
+            Rectangle()
+            .fill(RadialGradient(gradient: Gradient(colors: [
+                    Color.cBackground,
+                    Color.cActive
+                ]),
+                center: .bottom,
+                startRadius: (self.animate ? 500 * multiplier : 300 * multiplier),
+                endRadius: (self.animate ? 1000 * multiplier : 900 * multiplier)
+            ))
+            .opacity(
+                self.vm.working || self.vm.appState != .Activated || self.vm.vpnEnabled
+                ? 0.0 : 1.0
+            )
+            .animation(.spring(), value: self.vm.working)
+
+            // Orange gradient for Plus state
+            Rectangle()
+            .fill(RadialGradient(gradient: Gradient(colors: [
+                    Color.cBackground,
+                    Color.cActivePlus
+                ]),
+                center: .bottom,
+                startRadius: (self.animate ? 500 * multiplier : 300 * multiplier),
+                endRadius: (self.animate ? 1000 * multiplier : 900 * multiplier)
+            ))
+            .opacity(
+                self.vm.working || self.vm.appState != .Activated || !self.vm.vpnEnabled
+                ? 0.0 : 1.0
+            )
+            .animation(.spring(), value: self.vm.working)
+
+            if multiplier == 1.0 {
+                VStack {
+                    Rectangle().opacity(0.0)
+                    Rectangle().opacity(0.0)
+                    Rectangle().opacity(0.0)
+
+                    Rectangle()
+                    .fill(LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color.cBackground,
+                            self.vm.appState != .Activated || self.vm.working ? Color.cTertiaryBackground :
+                                (self.vm.vpnEnabled ? Color.cActivePlus : Color.cActive)
+                        ]),
+                        startPoint: .center, endPoint: .bottom
                     ))
-                    .padding((self.animate ? 200 : 240) - 300 / CGFloat(i) * 1.9)
-                    //.padding(.leading, (self.animate ? -50 : 50) - 300 / CGFloat(i))
-                    //.padding(.trailing, (self.animate ? 20 : -40) - 600 / CGFloat(i))
-                    //.padding(.bottom, (self.animate ? -10 : 30) - 600 / CGFloat(i) * 1.5)
-                    //.padding(.bottom, (self.animate ? 80 : -40) - 600 / CGFloat(i) * 1.5)
+                    .opacity(self.vm.working ? 0.0 : 1.0)
+                    .animation(.spring(), value: self.vm.working)
                 }
             }
         }
@@ -64,6 +106,8 @@ struct RippleView: View {
 
 struct RippleView_Previews: PreviewProvider {
     static var previews: some View {
-        RippleView()
+        RippleView(multiplier: 1.0)
+        RippleView(multiplier: 2.0)
+
     }
 }
