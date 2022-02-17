@@ -22,7 +22,6 @@ enum ActiveSheet: Identifiable {
     case Payment // Main payment screen with plans
     case Location // Location selection screen for Blokada Plus
     case Activated // A welcome showing right after purchase
-    case AskForVpn // Info just before granting VPN permissions for Plus
     case EncryptionExplain // The "protection level" sheet
     case ShowLog // Shows log with a possibliity to share
     case ShareLog // Opens OS'es file sharing with the log attached
@@ -30,7 +29,6 @@ enum ActiveSheet: Identifiable {
     case RateApp // Asking user to put a review
     case AdsCounter // A big total ads blocked display with option no share
     case ShareAdsCounter // Opens OS'es sharing with a short message with blocked counter
-    case DnsProfileCta // Informs about how to enable the private DNS profile
 
     var id: Int {
         hashValue

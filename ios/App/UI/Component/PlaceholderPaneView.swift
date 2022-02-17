@@ -18,7 +18,14 @@ struct PlaceholderPaneView: View {
 
     var body: some View {
         VStack {
-            GenericHeaderView(title: title)
+            HStack {
+                Text(title)
+                .font(.title)
+                .bold()
+                .padding(.top)
+
+                Spacer()
+            }
             .padding(.bottom, 36)
 
             HStack {

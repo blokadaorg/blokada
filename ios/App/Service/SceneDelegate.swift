@@ -31,8 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let controller = ContentHostingController(rootView:
-                //ContentView()
-                ContentView2()
+                ContentView()
             )
 
             controller.onTransitioning = { (transitioning: Bool) in
