@@ -55,6 +55,7 @@ struct ContentView: View {
                         ShareSheet(activityItems: [L10n.mainShareMessage(self.homeVM.blockedCounter.compact)])
                     case .Help:
                         SupportView()
+                    }
                 }
 
                 // We need animated and non-animated cover screen when changing orientation
@@ -80,7 +81,6 @@ struct ContentView: View {
         // Draw under status bar and bottom bar (we manage it ourselves)
         .edgesIgnoringSafeArea([.top, .bottom])
         .background(Color.cBackground.edgesIgnoringSafeArea(.all))
-        }
     }
 }
 

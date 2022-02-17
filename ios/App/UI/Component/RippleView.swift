@@ -51,7 +51,7 @@ struct RippleView: View {
                     Color.cActive
                 ]),
                 center: .bottom,
-                startRadius: (self.animate ? 500 * multiplier : 300 * multiplier),
+                startRadius: (self.animate ? 500 * multiplier : 400 * multiplier),
                 endRadius: (self.animate ? 1000 * multiplier : 900 * multiplier)
             ))
             .opacity(
@@ -67,7 +67,7 @@ struct RippleView: View {
                     Color.cActivePlus
                 ]),
                 center: .bottom,
-                startRadius: (self.animate ? 500 * multiplier : 300 * multiplier),
+                startRadius: (self.animate ? 500 * multiplier : 400 * multiplier),
                 endRadius: (self.animate ? 1000 * multiplier : 900 * multiplier)
             ))
             .opacity(
@@ -76,25 +76,25 @@ struct RippleView: View {
             )
             .animation(.spring(), value: self.vm.working)
 
-            if multiplier == 1.0 {
-                VStack {
-                    Rectangle().opacity(0.0)
-                    Rectangle().opacity(0.0)
-                    Rectangle().opacity(0.0)
-
-                    Rectangle()
-                    .fill(LinearGradient(
-                        gradient: Gradient(colors: [
-                            Color.cBackground,
-                            self.vm.appState != .Activated || self.vm.working ? Color.cTertiaryBackground :
-                                (self.vm.vpnEnabled ? Color.cActivePlus : Color.cActive)
-                        ]),
-                        startPoint: .center, endPoint: .bottom
-                    ))
-                    .opacity(self.vm.working ? 0.0 : 1.0)
-                    .animation(.spring(), value: self.vm.working)
-                }
-            }
+//            if multiplier == 1.0 {
+//                VStack {
+//                    Rectangle().opacity(0.0)
+//                    Rectangle().opacity(0.0)
+//                    Rectangle().opacity(0.0)
+//
+//                    Rectangle()
+//                    .fill(LinearGradient(
+//                        gradient: Gradient(colors: [
+//                            Color.cBackground,
+//                            self.vm.appState != .Activated || self.vm.working ? Color.cTertiaryBackground :
+//                                (self.vm.vpnEnabled ? Color.cActivePlus : Color.cActive)
+//                        ]),
+//                        startPoint: .center, endPoint: .bottom
+//                    ))
+//                    .opacity(self.vm.working ? 0.0 : 1.0)
+//                    .animation(.spring(), value: self.vm.working)
+//                }
+//            }
         }
         .onAppear {
             withAnimation(foreverAnimation) {

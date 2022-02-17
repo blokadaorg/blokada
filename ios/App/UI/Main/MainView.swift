@@ -26,7 +26,7 @@ struct MainView: View {
                         // Small width portrait, like iPhone or iPad with split screen
                         if geo.size.width < 700 {
                             ZStack {
-                                RippleView(multiplier: 1.0)
+                                RippleView(multiplier: 1.2)
 
                                 HomeView(tabBar: true).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
                                 ActivitysNarrowView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
