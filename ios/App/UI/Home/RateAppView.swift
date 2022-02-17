@@ -57,7 +57,7 @@ struct RateAppView: View {
 
                     Button(action: {
                         self.contentVM.dismissSheet()
-                        SKStoreReviewController.requestReview()
+                        requestReview()
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
@@ -85,6 +85,12 @@ struct RateAppView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(Color.cAccent)
+    }
+}
+
+private func requestReview() {
+    if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+        SKStoreReviewController.requestReview(in: scene)
     }
 }
 

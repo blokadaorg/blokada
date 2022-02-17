@@ -121,7 +121,7 @@ class SheetRepo: Startable {
             Publishers.CombineLatest(Just(queue), self.currentSheet.first())
         }
         .map { it in
-            let (queue, current) = it
+            let (queue, _) = it
             let firstInQueue = queue.first ?? nil
             return firstInQueue
         }
