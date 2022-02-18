@@ -61,10 +61,10 @@ class PackDataSource {
             description: "A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps.",
             creditName: "Jerryn70",
             creditUrl: "https://github.com/jerryn70/GoodbyeAds",
-            configs: ["Standard", "YouTube", "Spotify"]
+            configs: ["Standard", "Youtube", "Spotify"]
         )
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/standard/hosts.txt", applyFor: "Standard"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/youtube/hosts.txt", applyFor: "YouTube"))
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/youtube/hosts.txt", applyFor: "Youtube"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/goodbyeads/spotify/hosts.txt", applyFor: "Spotify")),
 
         Pack.mocked(id: "adaway", tags: [Pack.official, "adblocking"],
@@ -128,14 +128,14 @@ class PackDataSource {
             description: "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.",
             creditName: "blocklistproject",
             creditUrl: "https://go.blokada.org/blocklistproject",
-            configs: ["Ads", "Facebook", "Malware", "Phishing", "Tracking", "YouTube"]
+            configs: ["Ads", "Facebook", "Malware", "Phishing", "Tracking", "Youtube"]
         )
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/ads/hosts.txt", applyFor: "Ads"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/facebook/hosts.txt", applyFor: "Facebook"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/malware/hosts.txt", applyFor: "Malware"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/phishing/hosts.txt", applyFor: "Phishing"))
             .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/tracking/hosts.txt", applyFor: "Tracking"))
-            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/youtube/hosts.txt", applyFor: "YouTube")),
+            .withSource(PackSource.new(url: "https://blokada.org/mirror/v5/blocklist/youtube/hosts.txt", applyFor: "Youtube")),
 
         Pack.mocked(id: "spam404", tags: [Pack.recommended, Pack.official, "privacy", "phishing", "security"],
             title: "Spam404",
