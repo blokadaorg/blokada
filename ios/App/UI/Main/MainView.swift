@@ -73,13 +73,13 @@ struct MainView: View {
                     } else {
                         // Landscape, tab bar on the left, next to content
                         ZStack {
-                            RippleView(multiplier: 1.5)
-
                             HStack(spacing: 0) {
                                 TabVerticalView(onTap: { it in
                                     handleTappedTab(it, scroll: scroll)
                                 })
                                 ZStack {
+                                    RippleView(multiplier: 1.5)
+
                                     HomeView(tabBar: false).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
                                     ActivitysWideHorizontalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                     PacksWideHorizontalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
