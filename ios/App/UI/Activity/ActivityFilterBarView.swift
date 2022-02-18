@@ -80,11 +80,11 @@ struct ActivityFilterBarView: View {
 
 private func getDevicesText(_ device: String) -> String {
     if device == "" {
-        return "Showing for: " + L10n.activityDeviceFilterShowAll
+        return L10n.activityFilterShowingFor(L10n.activityDeviceFilterShowAll)
     } else if device == "." {
-        return "Showing for: " + L10n.appSettingsSectionHeader
+        return L10n.activityFilterShowingFor(L10n.appSettingsSectionHeader)
     } else {
-        return "Showing for: " + device
+        return L10n.activityFilterShowingFor(device)
     }
 }
 
