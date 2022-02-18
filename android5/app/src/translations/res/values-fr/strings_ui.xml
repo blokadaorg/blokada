@@ -542,7 +542,7 @@
     <string name="notification_perms_desc">Cette fonctionnalité nécessite des notifications, veuillez les autoriser pour Blokada.</string>
     <string name="notification_perms_denied">Vous avez refusé les notifications. Pour modifier ce choix, allez dans les préférences système.</string>
     <string name="activated_header">On y est presque !</string>
-    <string name="activated_desc">The following is necessary for Blokada to work as expected:</string>
+    <string name="activated_desc">Ce qui suit est nécessaire pour que Blokada fonctionne comme prévu :</string>
     <string name="activated_desc_all_ok">Votre appareil est paramétré et prêt à l\'emploi :</string>
     <string name="activated_label_account">Le compte est actif (%s)</string>
     <string name="activated_label_notif_yes">Les notifications sont autorisées</string>

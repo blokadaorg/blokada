@@ -236,6 +236,10 @@ internal enum L10n {
   internal static let activityFilterShowAllowed = L10n.tr("Ui", "activity filter show allowed")
   /// Blocked only
   internal static let activityFilterShowBlocked = L10n.tr("Ui", "activity filter show blocked")
+  /// Showing for: %@
+  internal static func activityFilterShowingFor(_ p1: Any) -> String {
+    return L10n.tr("Ui", "activity filter showing for", String(describing: p1))
+  }
   /// %@ times
   internal static func activityHappenedManyTimes(_ p1: Any) -> String {
     return L10n.tr("Ui", "activity happened many times", String(describing: p1))

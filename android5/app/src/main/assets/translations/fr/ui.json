@@ -541,7 +541,7 @@
     "notification perms desc": "Cette fonctionnalité nécessite des notifications, veuillez les autoriser pour Blokada.",
     "notification perms denied": "Vous avez refusé les notifications. Pour modifier ce choix, allez dans les préférences système.",
     "activated header": "On y est presque !",
-    "activated desc": "The following is necessary for Blokada to work as expected:",
+    "activated desc": "Ce qui suit est nécessaire pour que Blokada fonctionne comme prévu :",
     "activated desc all ok": "Votre appareil est paramétré et prêt à l'emploi :",
     "activated label account": "Le compte est actif (%s)",
     "activated label notif yes": "Les notifications sont autorisées",
