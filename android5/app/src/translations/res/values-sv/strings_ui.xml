@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">Alla poster</string>
     <string name="activity_filter_show_blocked">Endast blockerade</string>
     <string name="activity_filter_show_allowed">Endast tillåtna</string>
+    <string name="activity_filter_showing_for">Showing for: %s</string>
     <string name="activity_empty_text">Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.</string>
     <string name="activity_device_filter_show_all">Alla enheter</string>
     <string name="activity_retention_header">Hur länge kan vi lagra din aktivitet?</string>

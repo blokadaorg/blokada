@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">Toate intrările</string>
     <string name="activity_filter_show_blocked">Doar cele blocate</string>
     <string name="activity_filter_show_allowed">Doar cele permise</string>
+    <string name="activity_filter_showing_for">Showing for: %s</string>
     <string name="activity_empty_text">Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.</string>
     <string name="activity_device_filter_show_all">Toate dispozitivele</string>
     <string name="activity_retention_header">For how long can we store your activity?</string>

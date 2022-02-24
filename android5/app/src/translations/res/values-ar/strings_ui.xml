@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">جميع المدخلات</string>
     <string name="activity_filter_show_blocked">محظور فقط</string>
     <string name="activity_filter_show_allowed">مسموح فقط</string>
+    <string name="activity_filter_showing_for">عرض لـ: %s</string>
     <string name="activity_empty_text">حاول استخدام جهازك، و العودة إلى هنا لاحقاً، لمعرفة من أين يتّصل جهازك.</string>
     <string name="activity_device_filter_show_all">جميع الأجهزة</string>
     <string name="activity_retention_header">كم من الوقت يمكننا تخزين نشاطك؟</string>

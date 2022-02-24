@@ -177,6 +177,7 @@
     "activity filter show all": "Tous les éléments",
     "activity filter show blocked": "Bloqués uniquement",
     "activity filter show allowed": "Autorisés uniquement",
+    "activity filter showing for": "Affichage pour : %s",
     "activity empty text": "Essayez d'utiliser votre appareil et revenez ici plus tard pour voir à quel endroit votre périphérique se connecte.",
     "activity device filter show all": "Tous les appareils",
     "activity retention header": "Combien de temps pouvons-nous stocker votre activité ?",

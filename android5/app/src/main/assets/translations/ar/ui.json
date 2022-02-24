@@ -177,6 +177,7 @@
     "activity filter show all": "جميع المدخلات",
     "activity filter show blocked": "محظور فقط",
     "activity filter show allowed": "مسموح فقط",
+    "activity filter showing for": "عرض لـ: %s",
     "activity empty text": "حاول استخدام جهازك، و العودة إلى هنا لاحقاً، لمعرفة من أين يتّصل جهازك.",
     "activity device filter show all": "جميع الأجهزة",
     "activity retention header": "كم من الوقت يمكننا تخزين نشاطك؟",

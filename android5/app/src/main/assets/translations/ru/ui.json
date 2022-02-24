@@ -177,6 +177,7 @@
     "activity filter show all": "Все записи",
     "activity filter show blocked": "Только блокированные",
     "activity filter show allowed": "Только разрешенные",
+    "activity filter showing for": "Показано для: %s",
     "activity empty text": "Попробуйте использовать свое устройство, а впоследствии вернитесь сюда, чтобы посмотреть, к чему оно подключается.",
     "activity device filter show all": "Все устройства",
     "activity retention header": "Как долго мы можем хранить вашу активность?",

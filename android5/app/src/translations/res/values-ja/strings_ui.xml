@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">すべて</string>
     <string name="activity_filter_show_blocked">ブロックされたリクエスト</string>
     <string name="activity_filter_show_allowed">許可されたリクエスト</string>
+    <string name="activity_filter_showing_for">表示: %s</string>
     <string name="activity_empty_text">デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。</string>
     <string name="activity_device_filter_show_all">すべてのデバイス</string>
     <string name="activity_retention_header">どのくらいの期間、あなたの活動を保存しますか？</string>

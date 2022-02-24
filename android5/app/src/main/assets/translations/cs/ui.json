@@ -177,6 +177,7 @@
     "activity filter show all": "Všechny položky",
     "activity filter show blocked": "Pouze blokované",
     "activity filter show allowed": "Pouze povolené",
+    "activity filter showing for": "Zobrazení pro: %s",
     "activity empty text": "Zkuste použít své zařízení a vraťte se sem později, abyste zjistili, kam se vaše zařízení připojuje.",
     "activity device filter show all": "Všechna zařízení",
     "activity retention header": "Jak dlouho můžeme ukládat vaši aktivitu?",

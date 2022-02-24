@@ -231,6 +231,8 @@
 "activity filter show all" = "Toate intrările";
 "activity filter show blocked" = "Doar cele blocate";
 "activity filter show allowed" = "Doar cele permise";
+// A short message "Showing for: Device A"
+"activity filter showing for" = "Showing for: %@";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
 "activity device filter show all" = "Toate dispozitivele";
 "activity retention header" = "For how long can we store your activity?";

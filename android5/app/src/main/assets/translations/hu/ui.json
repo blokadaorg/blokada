@@ -177,6 +177,7 @@
     "activity filter show all": "Minden bejegyzés",
     "activity filter show blocked": "Csak blokkolt",
     "activity filter show allowed": "Csak engedélyezett",
+    "activity filter showing for": "Showing for: %s",
     "activity empty text": "Próbálja használni eszközét, majd jöjjön vissza ha látja hogy hova csatlakozott.",
     "activity device filter show all": "Minden eszköz",
     "activity retention header": "Milyen sokáig tárolhatjuk tevékenységét?",

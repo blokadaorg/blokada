@@ -231,6 +231,8 @@
 "activity filter show all" = "Todas as entradas";
 "activity filter show blocked" = "Somente bloqueados";
 "activity filter show allowed" = "Somente permitidos";
+// A short message "Showing for: Device A"
+"activity filter showing for" = "Showing for: %@";
 "activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.";
 "activity device filter show all" = "Todos os dispositivos";
 "activity retention header" = "Por quanto tempo podemos armazenar sua atividade?";

@@ -231,6 +231,8 @@
 "activity filter show all" = "所有項目";
 "activity filter show blocked" = "只有阻擋項目";
 "activity filter show allowed" = "只有允許項目";
+// A short message "Showing for: Device A"
+"activity filter showing for" = "正在顯示：%@";
 "activity empty text" = "嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。";
 "activity device filter show all" = "所有裝置";
 "activity retention header" = "我們可以儲存您的使用活動多久？";

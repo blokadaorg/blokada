@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">Все записи</string>
     <string name="activity_filter_show_blocked">Только блокированные</string>
     <string name="activity_filter_show_allowed">Только разрешенные</string>
+    <string name="activity_filter_showing_for">Показано для: %s</string>
     <string name="activity_empty_text">Попробуйте использовать свое устройство, а впоследствии вернитесь сюда, чтобы посмотреть, к чему оно подключается.</string>
     <string name="activity_device_filter_show_all">Все устройства</string>
     <string name="activity_retention_header">Как долго мы можем хранить вашу активность?</string>

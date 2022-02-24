@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">所有項目</string>
     <string name="activity_filter_show_blocked">只有阻擋項目</string>
     <string name="activity_filter_show_allowed">只有允許項目</string>
+    <string name="activity_filter_showing_for">正在顯示：%s</string>
     <string name="activity_empty_text">嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。</string>
     <string name="activity_device_filter_show_all">所有裝置</string>
     <string name="activity_retention_header">我們可以儲存您的使用活動多久？</string>

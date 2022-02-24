@@ -73,15 +73,15 @@
     <string name="notification_vpn_expired_subtitle">VPN е деактивиран</string>
     <string name="notification_vpn_expired_body">Моля, актуализирайте абонамента си за да продължите да използвате BLOKADA+</string>
     <string name="notification_desc_settings">Плъзнете известието наляво или надясно за настройки.</string>
-    <string name="notification_generic_header">Blokada: Action required</string>
+    <string name="notification_generic_header">Blokada: Изисква се действие</string>
     <string name="notification_generic_subtitle">Докоснете за да научите повече</string>
     <string name="notification_generic_body">Моля, отворете приложението за повече подробности.</string>
-    <string name="notification_acc_header">Subscription expired</string>
+    <string name="notification_acc_header">Абонаментът е изтекъл</string>
     <string name="notification_acc_subtitle">Блокирането на реклами е деактивирано</string>
     <string name="notification_acc_body">Моля, актуализирайте абонамента си за да продължите да използвате Blokada.</string>
     <string name="notification_pause_header">Blokada все още е на пауза</string>
     <string name="notification_pause_subtitle">Блокирането на реклами е деактивирано</string>
-    <string name="notification_pause_body">Please open the app to resume Blokada.</string>
+    <string name="notification_pause_body">Моля, отворете приложението за да стратирате отново Blokada.</string>
     <string name="notification_lease_header">Blokada Plus е изключена</string>
     <string name="notification_update_header">Налична е актуализация</string>
     <string name="alert_update_body">Blokada %s вече е достъпна за изтегляне. Препоръчваме да поддържате приложението актуално, както и да бъде изтегленo само от нашите официални източници.</string>
@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">Всички записи</string>
     <string name="activity_filter_show_blocked">Блокирани само</string>
     <string name="activity_filter_show_allowed">Разрешени само</string>
+    <string name="activity_filter_showing_for">Показва се за: %s</string>
     <string name="activity_empty_text">Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.</string>
     <string name="activity_device_filter_show_all">Всички устройства</string>
     <string name="activity_retention_header">За колко време можем да съхраняваме вашата дейност?</string>

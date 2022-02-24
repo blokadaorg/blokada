@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">Minden bejegyzés</string>
     <string name="activity_filter_show_blocked">Csak blokkolt</string>
     <string name="activity_filter_show_allowed">Csak engedélyezett</string>
+    <string name="activity_filter_showing_for">Showing for: %s</string>
     <string name="activity_empty_text">Próbálja használni eszközét, majd jöjjön vissza ha látja hogy hova csatlakozott.</string>
     <string name="activity_device_filter_show_all">Minden eszköz</string>
     <string name="activity_retention_header">Milyen sokáig tárolhatjuk tevékenységét?</string>

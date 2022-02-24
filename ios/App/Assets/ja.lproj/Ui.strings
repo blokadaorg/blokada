@@ -231,6 +231,8 @@
 "activity filter show all" = "すべて";
 "activity filter show blocked" = "ブロックされたリクエスト";
 "activity filter show allowed" = "許可されたリクエスト";
+// A short message "Showing for: Device A"
+"activity filter showing for" = "表示: %@";
 "activity empty text" = "デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。";
 "activity device filter show all" = "すべてのデバイス";
 "activity retention header" = "どのくらいの期間、あなたの活動を保存しますか？";

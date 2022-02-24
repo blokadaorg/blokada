@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">Todas as entradas</string>
     <string name="activity_filter_show_blocked">Somente bloqueados</string>
     <string name="activity_filter_show_allowed">Somente permitidos</string>
+    <string name="activity_filter_showing_for">Showing for: %s</string>
     <string name="activity_empty_text">Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.</string>
     <string name="activity_device_filter_show_all">Todos os dispositivos</string>
     <string name="activity_retention_header">Por quanto tempo podemos armazenar sua atividade?</string>

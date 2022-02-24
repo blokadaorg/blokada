@@ -178,6 +178,7 @@
     <string name="activity_filter_show_all">Tanpilkan semua entri</string>
     <string name="activity_filter_show_blocked">Hanya tampilkan entri yang diblokir</string>
     <string name="activity_filter_show_allowed">Hanya tampilkan entri yang diizinkan</string>
+    <string name="activity_filter_showing_for">Menampilkan: %s</string>
     <string name="activity_empty_text">Coba gunakan perangkat Anda, lalu kembali ke sini untuk melihat perangkat Anda terhubung ke mana.</string>
     <string name="activity_device_filter_show_all">Semua perangkat</string>
     <string name="activity_retention_header">Berapa lama kami bisa menyimpan aktifitas Anda?</string>
