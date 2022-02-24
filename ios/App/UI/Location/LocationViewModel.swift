@@ -62,8 +62,16 @@ struct LocationViewModel {
             return "flag_au"
         case "SG":
             return "flag_sg"
-        default:
+        case "ES":
+            return "flag_es"
+        case "IT":
+            return "flag_it"
+        case "BG":
+            return "flag_bg"
+        case "US":
             return "flag_us"
+        default:
+            return "flag_un"
         }
     }
 }
