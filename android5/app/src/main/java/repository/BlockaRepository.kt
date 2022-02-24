@@ -23,7 +23,7 @@ object BlockaRepository {
 
     suspend fun createAccount() = dataSource.postAccount()
     suspend fun fetchAccount(accountId: AccountId) = dataSource.getAccount(accountId)
-    suspend fun fetchGateways() = dataSource.getGateways()
+    suspend fun fetchGateways() = dataSource.getGateways().sortedBy { it.niceName() }
     suspend fun fetchLeases(accountId: AccountId) = dataSource.getLeases(accountId)
     suspend fun createLease(leaseRequest: LeaseRequest) = dataSource.postLease(leaseRequest)
 
