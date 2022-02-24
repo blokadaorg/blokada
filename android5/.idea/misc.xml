@@ -4,6 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/flag_ae.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_ca.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_ch.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_de.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_fr.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_gb.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_jp.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_nl.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_sg.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_us.xml" value="0.141" />
       </map>
     </option>
   </component>
