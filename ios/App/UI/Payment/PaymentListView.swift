@@ -23,10 +23,12 @@ struct PaymentListView: View {
     var body: some View {
         VStack {
             ForEach(self.vm.options.filter({ it in it.product.type == self.showType}), id: \.self) { option in
-                PaymentView(vm: option).onTapGesture {
+                Button(action: {
                     withAnimation {
                         self.vm.buy(option.product)
                     }
+                }) {
+                    PaymentView(vm: option)
                 }
             }
         }

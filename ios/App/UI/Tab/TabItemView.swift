@@ -62,6 +62,7 @@ struct TabItemView: View {
             }
         }
         .frame(minWidth: 74)
+        .accessibilityLabel(Text(text))
     }
 }
 

@@ -27,19 +27,19 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            
 
             PowerView(vm: self.vm)
             .frame(maxWidth: 196, maxHeight: 196)
+            .accessibility(label: Text("Turn on"))
 
             VStack {
                 VStack {
                     ZStack {
                         Image(Image.iHeader)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .colorMultiply(.primary)
-                            .frame(height: 24)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .colorMultiply(.primary)
+                        .frame(height: 24)
 
                         HStack {
                             Text("+")
@@ -54,6 +54,7 @@ struct HomeView: View {
                             Animation.easeOut(duration: 0.1).repeatCount(2)
                         )
                     }
+                    .accessibility(hidden: true)
 
                     Text(
                         self.vm.working ? "..."
@@ -139,6 +140,7 @@ struct HomeView: View {
                         .lineLimit(3)
                     }
                     .frame(width: 280, height: 96, alignment: .top)
+                    .accessibility(hidden: true)
 
                     PlusButtonView(vm: self.vm)
                         .frame(maxWidth: 500)
@@ -210,6 +212,7 @@ struct HomeView: View {
                 Spacer()
             }
             .padding(.top, self.safeAreaInsets.top)
+            .accessibility(hidden: true)
         }
 //        .background(
 //            LinearGradient(gradient: Gradient(colors: [Color.cHomeBackground, Color.cBackground]), startPoint: .top, endPoint: .bottom)
