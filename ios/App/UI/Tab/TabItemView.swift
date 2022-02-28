@@ -23,10 +23,10 @@ struct TabItemView: View {
     let onTap: (Tab) -> Void
 
     var body: some View {
-        Button(action: {
-            self.onTap(self.id)
-        }) {
-            ZStack(alignment: .topTrailing) {
+        ZStack(alignment: .topTrailing) {
+            Button(action: {
+                self.onTap(self.id)
+            }) {
                 VStack {
                     ZStack {
                         if self.icon == "blokada" {
@@ -60,9 +60,8 @@ struct TabItemView: View {
                         .offset(y: -8)
                 }
             }
-            .frame(minWidth: 74)
         }
-
+        .frame(minWidth: 74)
     }
 }
 

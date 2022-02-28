@@ -31,9 +31,6 @@ struct TabHorizontalView: View {
 
     var content: some View {
         VStack {
-            Rectangle()
-                .fill(Color(UIColor.systemGray4))
-                .frame(height: 1)
             Spacer()
             HStack(alignment: .bottom) {
                 Spacer()
@@ -57,6 +54,12 @@ struct TabHorizontalView: View {
             }
             .padding(.bottom, 2)
         }
+        .overlay(
+            Rectangle()
+            .frame(width: nil, height: 1, alignment: .top)
+            .foregroundColor(Color(UIColor.systemGray4)),
+            alignment: .top
+        )
         .frame(height: TAB_VIEW_HEIGHT)
         .padding(.bottom, self.safeAreaInsets.bottom)
     }
