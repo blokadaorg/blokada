@@ -251,7 +251,11 @@ class AccountRepo: Startable {
         .filter { it in it.isActive() && it.activeUntil().shortlyBefore() < Date() }
         .sink(onValue: { it in
             // Mark account as expired internally
-            Logger.v("AppRepo", "Marking account as expired")
+            Logger.v(
+                "AppRepo",
+                 "Marking account as expired, now: \(Date()), acc: \(it.activeUntil().shortlyBefore())"
+            )
+
             self.proposeAccount(Account(
                 id: it.id, active_until: nil, active: false, type: "libre"
             ))
