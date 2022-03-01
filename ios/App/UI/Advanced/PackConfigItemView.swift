@@ -25,7 +25,9 @@ struct PackConfigItemView: View {
                     .foregroundColor(self.active ? Color.cAccent : Color.cSecondaryBackground)
                     .frame(width: 32, height: 32)
 
-                Text(self.text).fontWeight(self.active ? .bold : .regular)
+                Text(self.text)
+                .fontWeight(self.active ? .bold : .regular)
+                .foregroundColor(Color.cPrimary)
 
                 Spacer()
 

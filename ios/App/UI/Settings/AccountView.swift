@@ -25,17 +25,19 @@ struct AccountView: View {
     var body: some View {
         Form {
             Section(header: Text(L10n.accountSectionHeaderGeneral)) {
-                HStack {
-                    Text(L10n.accountLabelId)
-                    Spacer()
-                    Text(self.id)
-                        .foregroundColor(Color.secondary)
-                }
-                .onTapGesture {
+                Button(action: {
                     if self.id == "••••••" {
                         self.vm.authenticate { id in
                             self.id = id
                         }
+                    }
+                }) {
+                    HStack {
+                        Text(L10n.accountLabelId)
+                        .foregroundColor(Color.cPrimary)
+                        Spacer()
+                        Text(self.id)
+                            .foregroundColor(Color.secondary)
                     }
                 }
                 .contextMenu {

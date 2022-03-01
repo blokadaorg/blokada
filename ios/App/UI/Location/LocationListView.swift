@@ -23,13 +23,14 @@ struct LocationListView: View {
         return VStack {
             HStack {
                 Spacer()
-                Text(L10n.universalActionCancel)
+                Button(action: {
+                    self.contentVM.dismissSheet()
+                }) {
+                    Text(L10n.universalActionCancel)
                     .foregroundColor(Color.cAccent)
                     .bold()
                     .padding(16)
-                    .onTapGesture {
-                        self.contentVM.dismissSheet()
-                    }
+                }
             }
 
             ZStack {

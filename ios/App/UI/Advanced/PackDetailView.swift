@@ -45,12 +45,13 @@ struct PackDetailView: View {
 
                     VStack(spacing: 0) {
                         ForEach(self.vm.pack.configs, id: \.self) { item in
-                            PackConfigItemView(text: item, active: self.vm.pack.status.config.contains(item))
-                                .onTapGesture {
-                                    self.vm.changeConfig(config: item, fail: { error in
-                                        self.packsVM.showError = true
-                                    })
-                                }
+                            Button(action: {
+                                self.vm.changeConfig(config: item, fail: { error in
+                                    self.packsVM.showError = true
+                                })
+                            }) {
+                                PackConfigItemView(text: item, active: self.vm.pack.status.config.contains(item))
+                            }
                         }
                     }
                 }

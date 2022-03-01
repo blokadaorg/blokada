@@ -35,19 +35,20 @@ struct NoLogRetentionView: View {
                                 active: false
                             )
 
-                            ZStack {
-                                ButtonView(enabled: .constant(true), plus: .constant(true))
-                                .frame(height: 44)
-
-                                Text(L10n.homePowerActionTurnOn)
-                                .foregroundColor(.white)
-                                .bold()
-                            }
-                            .padding()
-                            .onTapGesture {
+                            Button(action: {
                                 self.vm.logRetentionSelected = "24h"
                                 self.vm.applyLogRetention()
+                            }) {
+                                ZStack {
+                                    ButtonView(enabled: .constant(true), plus: .constant(true))
+                                    .frame(height: 44)
+
+                                    Text(L10n.homePowerActionTurnOn)
+                                    .foregroundColor(.white)
+                                    .bold()
+                                }
                             }
+                            .padding()
                             .frame(maxWidth: 300)
                         } else {
                             HStack {
@@ -65,19 +66,20 @@ struct NoLogRetentionView: View {
                                 active: false
                             )
 
-                            ZStack {
-                                ButtonView(enabled: .constant(true), plus: .constant(true))
-                                .frame(height: 44)
-
-                                Text(L10n.homePowerActionTurnOff)
-                                .foregroundColor(.white)
-                                .bold()
-                            }
-                            .padding()
-                            .onTapGesture {
+                            Button(action: {
                                 self.vm.logRetentionSelected = ""
                                 self.vm.applyLogRetention()
+                            }) {
+                                ZStack {
+                                    ButtonView(enabled: .constant(true), plus: .constant(true))
+                                    .frame(height: 44)
+
+                                    Text(L10n.homePowerActionTurnOff)
+                                    .foregroundColor(.white)
+                                    .bold()
+                                }
                             }
+                            .padding()
                             .frame(maxWidth: 300)
                         }
                     }

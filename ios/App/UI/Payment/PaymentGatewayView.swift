@@ -28,19 +28,20 @@ struct PaymentGatewayView: View {
                     HStack {
                         Spacer()
                         VStack {
-                            Text(L10n.paymentActionCompare)
-                                .foregroundColor(Color.cActivePlus)
-                                .onTapGesture {
-                                    withAnimation {
-                                        self.showPlusFeaturesSheet = true
-                                    }
+                            Button(action: {
+                                withAnimation {
+                                    self.showPlusFeaturesSheet = true
                                 }
+                            }) {
+                                Text(L10n.paymentActionCompare)
+                                .foregroundColor(Color.cActivePlus)
                                 .sheet(isPresented: self.$showPlusFeaturesSheet) {
                                     PlusFeaturesView(showSheet: self.$showPlusFeaturesSheet)
 
                                 }
                                 .padding(.top, 12)
                                 .padding(.bottom, 14)
+                            }
 
                             VStack {
                                 HStack {
@@ -115,16 +116,22 @@ struct PaymentGatewayView: View {
                             Spacer()
 
                             VStack {
-                                Text(L10n.paymentActionRestore)
+                                Button(action: {
+                                    withAnimation {
+                                        self.vm.restoreTransactions()
+                                    }
+                                }) {
+                                    Text(L10n.paymentActionRestore)
                                     .foregroundColor(Color.cActivePlus)
                                     .multilineTextAlignment(.center)
-                                    .onTapGesture {
-                                        withAnimation {
-                                            self.vm.restoreTransactions()
-                                        }
-                                    }
+                                }
 
-                                Text(L10n.paymentActionTermsAndPrivacy)
+                                Button(action: {
+                                    withAnimation {
+                                        self.showPrivacySheet = true
+                                    }
+                                }) {
+                                    Text(L10n.paymentActionTermsAndPrivacy)
                                     .foregroundColor(Color.cActivePlus)
                                     .padding(.top, 8)
                                     .multilineTextAlignment(.center)
@@ -142,11 +149,7 @@ struct PaymentGatewayView: View {
                                             .cancel()
                                         ])
                                     }
-                                    .onTapGesture {
-                                        withAnimation {
-                                            self.showPrivacySheet = true
-                                        }
-                                    }
+                                }
                             }
                             .padding(.top, 16)
                         }
