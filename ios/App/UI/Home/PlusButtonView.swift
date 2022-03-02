@@ -69,28 +69,26 @@ struct PlusButtonView: View {
                     }
                 }
                 if self.vm.hasSelectedLocation {
-                    ZStack(alignment: .center) {
-                        RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    Button(action: {
+                        self.vm.switchVpn(activate: !self.vm.vpnEnabled)
+                    }) {
+                        ZStack(alignment: .center) {
+                            RoundedRectangle(cornerRadius: 28, style: .continuous)
                             .fill(Color.cBackground)
                             .frame(width: 58)
 
-                        if #available(iOS 14.0, *) {
-                            Toggle("", isOn: self.$vm.vpnEnabled)
+                            if #available(iOS 14.0, *) {
+                                Toggle("", isOn: self.$vm.vpnEnabled)
                                 .labelsHidden()
                                 .frame(width: 64)
                                 .padding(.trailing, 4)
-                                .onTapGesture {
-                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled)
-                                }
                                 .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
-                        } else {
-                            Toggle("", isOn: self.$vm.vpnEnabled)
+                            } else {
+                                Toggle("", isOn: self.$vm.vpnEnabled)
                                 .labelsHidden()
                                 .frame(width: 64)
                                 .padding(.trailing, 4)
-                                .onTapGesture {
-                                    self.vm.switchVpn(activate: !self.vm.vpnEnabled)
-                                }
+                            }
                         }
                     }
                     .padding(.top, 4)

@@ -40,6 +40,7 @@ struct ActivityItemView: View {
                 }
             }
             .frame(width: 44)
+            .accessibilityLabel("\(vm.entry.requests)")
 
             VStack(alignment: .leading) {
                 Text(vm.entry.name)

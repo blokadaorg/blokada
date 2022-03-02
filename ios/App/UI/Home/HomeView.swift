@@ -30,7 +30,10 @@ struct HomeView: View {
 
             PowerView(vm: self.vm)
             .frame(maxWidth: 196, maxHeight: 196)
-            .accessibility(label: Text("Turn on"))
+            .accessibility(label: Text(
+                (self.vm.appState == .Activated) ?
+                    L10n.homePowerActionTurnOff : L10n.homePowerActionTurnOn
+            ))
 
             VStack {
                 VStack {

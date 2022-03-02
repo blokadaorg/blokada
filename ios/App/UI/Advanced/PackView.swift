@@ -21,8 +21,9 @@ struct PackView: View {
         HStack {
             ZStack(alignment: .trailing) {
                 PlaceholderView(id: self.vm.pack.id, desaturate: true)
-                    .frame(width: 64, height: 64)
-                    .mask(RoundedRectangle(cornerRadius: 10))
+                .frame(width: 64, height: 64)
+                .mask(RoundedRectangle(cornerRadius: 10))
+                .accessibilityLabel(self.vm.pack.meta.title)
 
                 if self.vm.pack.status.badge {
                     BadgeView()
@@ -33,6 +34,7 @@ struct PackView: View {
             VStack(alignment: .leading) {
                 Text(vm.pack.meta.title)
                 .foregroundColor(self.vm.selected ? Color.cAccent : Color.primary)
+                .accessibilitySortPriority(1)
 
                 Text(
                     vm.pack.meta.slugline.isEmpty ?

@@ -200,6 +200,7 @@ struct PaymentGatewayView: View {
                     )
                     .frame(maxWidth: 500)
                     .padding()
+                    .accessibilityHidden(true)
                 }
             }
         }

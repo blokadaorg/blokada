@@ -63,6 +63,7 @@ struct LocationListView: View {
                 }
                 .opacity(!self.vm.items.isEmpty ? 1 : 0)
                 .frame(maxWidth: 500)
+                .accessibilityHidden(true)
 
                 ScrollView {
                     ZStack(alignment: .top) {
@@ -114,6 +115,7 @@ struct LocationListView: View {
                 .background(Color.cBackground)
                 .opacity(self.vm.items.isEmpty ? 0 : 1)
                 .disabled(self.vm.items.isEmpty)
+                .accessibilitySortPriority(1)
 
                 VStack {
                     HStack {

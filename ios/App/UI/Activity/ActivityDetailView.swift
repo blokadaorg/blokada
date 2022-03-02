@@ -40,6 +40,7 @@ struct ActivityDetailView: View {
                         .font(.footnote)
                         .foregroundColor(Color.secondary)
                     }
+                    .accessibilitySortPriority(1)
                     .frame(height: 96)
                     .padding(.leading, 10)
                 }
