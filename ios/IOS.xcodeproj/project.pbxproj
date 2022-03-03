@@ -132,7 +132,6 @@
 		4E36D5F22459D8BD00E339F2 /* PowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36D5F12459D8BD00E339F2 /* PowerView.swift */; };
 		4E36D5F32459D8BD00E339F2 /* PowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36D5F12459D8BD00E339F2 /* PowerView.swift */; };
 		4E40DBCC2416496700662E10 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40DBCB2416496700662E10 /* HomeView.swift */; };
-		4E40DBCE24167AE500662E10 /* EncryptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40DBCD24167AE500662E10 /* EncryptionView.swift */; };
 		4E40DBD02417D54E00662E10 /* LocationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40DBCF2417D54E00662E10 /* LocationListView.swift */; };
 		4E42352E244EE662005A0779 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42352D244EE662005A0779 /* AccountViewModel.swift */; };
 		4E42352F244EE662005A0779 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42352D244EE662005A0779 /* AccountViewModel.swift */; };
@@ -157,8 +156,6 @@
 		4E4562B8240E5E150022CBF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */; };
 		4E45F4ED248E87FF002D4DD6 /* AfterActivatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4EC248E87FF002D4DD6 /* AfterActivatedView.swift */; };
 		4E45F4EE248E87FF002D4DD6 /* AfterActivatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4EC248E87FF002D4DD6 /* AfterActivatedView.swift */; };
-		4E45F4F0248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4EF248EA503002D4DD6 /* EncryptionExplanationView.swift */; };
-		4E45F4F1248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4EF248EA503002D4DD6 /* EncryptionExplanationView.swift */; };
 		4E45F4F3248EA5F4002D4DD6 /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */; };
 		4E45F4F4248EA5F4002D4DD6 /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */; };
 		4E4EDBEC275E5CB7007B9394 /* StageRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEB275E5CB7007B9394 /* StageRepo.swift */; };
@@ -273,7 +270,6 @@
 		4E7FE9C8244DC28900851E9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */; };
 		4E7FE9C9244DC28900851E9F /* NetworkCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9A04612448A93F003AB48D /* NetworkCommand.swift */; };
 		4E7FE9CA244DC28900851E9F /* LinkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A892437711A0094EE27 /* LinkDataSource.swift */; };
-		4E7FE9CB244DC28900851E9F /* EncryptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40DBCD24167AE500662E10 /* EncryptionView.swift */; };
 		4E7FE9D1244DC28900851E9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
 		4E7FE9D2244DC28900851E9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
 		4E85E98B243382B3001B2795 /* BlockaApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E85E98A243382B3001B2795 /* BlockaApiModel.swift */; };
@@ -518,7 +514,6 @@
 		4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokadaView.swift; sourceTree = "<group>"; };
 		4E36D5F12459D8BD00E339F2 /* PowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerView.swift; sourceTree = "<group>"; };
 		4E40DBCB2416496700662E10 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		4E40DBCD24167AE500662E10 /* EncryptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionView.swift; sourceTree = "<group>"; };
 		4E40DBCF2417D54E00662E10 /* LocationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListView.swift; sourceTree = "<group>"; };
 		4E42352D244EE662005A0779 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		4E423539244F3ADE005A0779 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
@@ -534,7 +529,6 @@
 		4E4562B3240D114D0022CBF6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4E45F4EC248E87FF002D4DD6 /* AfterActivatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterActivatedView.swift; sourceTree = "<group>"; };
-		4E45F4EF248EA503002D4DD6 /* EncryptionExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionExplanationView.swift; sourceTree = "<group>"; };
 		4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
 		4E4EDBEB275E5CB7007B9394 /* StageRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageRepo.swift; sourceTree = "<group>"; };
 		4E4EDBEE275E5D13007B9394 /* StageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageModel.swift; sourceTree = "<group>"; };
@@ -1056,8 +1050,6 @@
 				4EECA5022418D142003A2541 /* AccountView.swift */,
 				4E42352D244EE662005A0779 /* AccountViewModel.swift */,
 				4EECA5042418E91D003A2541 /* ChangeAccountView.swift */,
-				4E45F4EF248EA503002D4DD6 /* EncryptionExplanationView.swift */,
-				4E40DBCD24167AE500662E10 /* EncryptionView.swift */,
 				4E63194A2447436C00191C16 /* LeaseListView.swift */,
 				4E423547244F9169005A0779 /* LeaseListViewModel.swift */,
 				4E63194C244743C300191C16 /* LeaseView.swift */,
@@ -1551,7 +1543,6 @@
 				4E5CACE7276B92F200F6F237 /* NotificationModel.swift in Sources */,
 				4E72D678246160EF00FE7737 /* InstalledMarkView.swift in Sources */,
 				4E94C3032428F1C20008E318 /* Logger.swift in Sources */,
-				4E45F4F0248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */,
 				4E53CCBB244DFF99009B3CF0 /* SKProduct+Extensions.swift in Sources */,
 				4E955DC22771C370008DE06F /* SheetRepo.swift in Sources */,
 				4E42355C2451959F005A0779 /* LoggerSaver.swift in Sources */,
@@ -1581,7 +1572,6 @@
 				4E118DF62463ED24005112C1 /* Swift+Extensions.swift in Sources */,
 				4E61D8FC27B42C2300C98D36 /* PacksFilterBarView.swift in Sources */,
 				4EA9A29E2785AB50009764F1 /* NetxRepo.swift in Sources */,
-				4E40DBCE24167AE500662E10 /* EncryptionView.swift in Sources */,
 				4ED349C6246C6C0A00C843FA /* BlokadaPlusView.swift in Sources */,
 				4E61D8E727B2DA7F00C98D36 /* MainView.swift in Sources */,
 				4EA2783024657E9E00C6372E /* ShareSheet.swift in Sources */,
@@ -1697,7 +1687,6 @@
 				4EA189BA27B4495B00E57470 /* PlaceholderPaneView.swift in Sources */,
 				4E1681AA247860490040334B /* ActivityItemView.swift in Sources */,
 				4E2ECD12245CBDB3009040F1 /* TabHorizontalView.swift in Sources */,
-				4E45F4F1248EA503002D4DD6 /* EncryptionExplanationView.swift in Sources */,
 				4E201D1F27554572001FA2FF /* BlockaApiService.swift in Sources */,
 				4E7FE9A6244DC28900851E9F /* PaymentGatewayView.swift in Sources */,
 				4E72D6762461407F00FE7737 /* TabViewModel.swift in Sources */,
@@ -1780,7 +1769,6 @@
 				4E0FB70F277095D100735E0D /* PackDataSource.swift in Sources */,
 				4E118DF72463ED24005112C1 /* Swift+Extensions.swift in Sources */,
 				4E61D8FD27B42C2300C98D36 /* PacksFilterBarView.swift in Sources */,
-				4E7FE9CB244DC28900851E9F /* EncryptionView.swift in Sources */,
 				4E0B7E51278DB6DA0032259C /* LinkRepo.swift in Sources */,
 				4EA9A299278490F1009764F1 /* LeaseRepo.swift in Sources */,
 				4E61D8E827B2DA7F00C98D36 /* MainView.swift in Sources */,
