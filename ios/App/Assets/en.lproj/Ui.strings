@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.";
+"error device offline" = "Your device is offline";
+"error account inactive" = "Your account is inactive. Please activate your account in order to continue using BLOKADA+.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.";
+"error account invalid" = "This account ID seems invalid.";
+"error creating account" = "Could not create a new account. Please try again later.";
+"error fetching data" = "This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error tunnel" = "Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.";
+"error vpn" = "Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.";
+"error vpn perms" = "No permissions granted to create a VPN profile.";
+"error vpn no current lease" = "Please select a location first.";
+"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn too many leases" = "You reached your devices limit. Please remove one of your devices and try again.";
+"error vpn expired" = "The VPN is disabled. Please update your subscription to continue using BLOKADA+";
+"error payment inactive after restore" = "Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.";
+"error payment failed" = "Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error payment failed alternative" = "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.";
+"error payment not available" = "Payments are unavailable for this device. Either Apple Pay is not activated, or we do not handle purchases in your country yet.";
+"error payment canceled" = "The payment has been canceled. You have not been charged.";
+"error pack install" = "Could not install (or uninstall) this feature. Please try again later.";
+"error location failed fetching" = "Could not fetch locations.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Continue";
 "universal action cancel" = "Cancel";
@@ -428,3 +449,4 @@
 
 "homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 "advanced section header packs" = "Blocklists";
+"app settings section header" = "This device";

@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS مدعوم حاليّاً في وضع Plus فقط. الرجاء اختيار DNS آخر و حاول مرّة أُخرى.";
+"error device offline" = "جهازك غير متّصل بالإنترنت";
+"error account inactive" = "حسابك غير نَشِط. الرجاء تنشيط حسابك من أجل الإستمرار في استخدام BLOKADA+.";
+"error account inactive after restore" = "لا يبدو أن هذا حساب نَشِط صالح. إذا كنت تعتقد أن هذا خطأ، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
+"error account invalid" = "يبدو أنّ مُعرِّف الحساب هذا غير صالح.";
+"error creating account" = "تَعذَّر إنشاء حساب جديد. الرجاء المحاولة مرّة أُخرى لاحقاً.";
+"error fetching data" = "تَعذَّر إكمال هذا الإجراء. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
+"error tunnel" = "تَعذَّر إنشاء VPN. الرجاء إعادة تشغيل جهازك، أو إزالة الملف الشخصي لـ Blokada VPN في إعدادات النظام، و حاول مرّة أُخرى.";
+"error vpn" = "تَعذَّر إنشاء VPN. الرجاء إعادة تشغيل جهازك، أو إزالة الملف الشخصي لـ Blokada VPN في إعدادات النظام، و حاول مرّة أُخرى.";
+"error vpn perms" = "لا توجد أذونات ممنوحة لإنشاء ملف تعريف VPN.";
+"error vpn no current lease" = "الرجاء تحديد موقع أوّلاً.";
+"error vpn no current lease new" = "تم تعطيل Blokada Plus الآن على هذا الجهاز. الرجاء تحديد موقع لإعادة تنشيطه.";
+"error vpn too many leases" = "لقد وصلت إلى الحدّ الأقصى لأجهزتك. الرجاء إزالة أحد أجهزتك و الحاولة مرّة أُخرى.";
+"error vpn expired" = "الـ VPN معطَّل. الرجاء تحديث اشتراكك للاستمرار في استخدام BLOKADA+";
+"error payment inactive after restore" = "تم استعادة الدفعة السابقة الخاصة بك، ولكن انتهت صلاحية الاشتراك بالفعل. إذا كنت تعتقد أن هذا خطأ، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
+"error payment failed" = "عمليات الدفع غير مُتاحة حاليّاً. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
+"error payment failed alternative" = "تَعذّر إكمال الدفع الخاصّ بك. الرّجاء التأكُّد من صحّة بياناتك، وحاول مرّة أُخرى. إذا استمرت المشكلة، يُرجى الإتصال بنا بالنقر على أيقونة المساعَدة في الأعلى.";
+"error payment not available" = "عمليات الدفع غير مُتاحة لهذا الجهاز. أو أن دفع Apple غير مُفعَّل، أو أننا لا نتعامل مع المشتريات في بلدك حتى الآن.";
+"error payment canceled" = "تم إلغاء الدّفع. لم يتمّ تحصيل رسوم منك.";
+"error pack install" = "تعذر تثبيت (أو إلغاء) هذه الميّزة. الرجاء المحاولة مرة أُخرى لاحقاً.";
+"error location failed fetching" = "تعذَّر جلب المواقع.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "واصِلْ";
 "universal action cancel" = "إلغاء";
@@ -353,7 +374,6 @@
 "payment label country" = "الدولة";
 
 "payment euro desc" = "نحن موجودون في أوروبا ، لذلك نقبل اليورو: 10 يورو تعادل 12 دولاراً تقريباً.";
-"payment donate disclaimer" = "لن يؤدّي هذا إلى تنشيط حساب بلوكادا بلس الخاصّ بك. إذا كنت ترغب في استخدام خدمة VPN الخاصّة بنا، يُرجى الإشتراك بدلاً من التبرُّع.";
 
 "payment action compare" = "قارن الباقات";
 "payment plan slugline cloud" = "حَظْر الإعلانات و برمجيات التعقّب";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "'WireGuard' و شعار 'WireGuard' علامات تجاريّة مسجّلة لـ Jason A. Donenfeld.";
 "advanced section header packs" = "قوائم الحَظْر";
+"app settings section header" = "هذا الجهاز";

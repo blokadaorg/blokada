@@ -10,7 +10,27 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS stöds för närvarande endast i Plus-läge. Välj en annan DNS och försök igen.";
+"error device offline" = "Din enhet är inte ansluten";
+"error account inactive" = "Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda BLOKADA+.";
+"error account inactive after restore" = "Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error account invalid" = "Detta konto-ID verkar ogiltigt.";
+"error creating account" = "Kunde inte skapa ett nytt konto. Försök igen senare.";
+"error fetching data" = "Denna åtgärd kunde inte slutföras. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error tunnel" = "Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.";
+"error vpn" = "Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.";
+"error vpn perms" = "Inga behörigheter beviljade för att skapa en VPN-profil.";
+"error vpn no current lease" = "Välj en plats först.";
+"error vpn no current lease new" = "Blokada Plus är nu inaktiverat på den här enhet. Välj en plats för att återaktivera.";
+"error vpn too many leases" = "Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.";
+"error vpn expired" = "VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+";
+"error payment inactive after restore" = "Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error payment failed" = "Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error payment failed alternative" = "Det gick inte att slutföra din betalning. Kontrollera att dina detaljer är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error payment not available" = "Betalningar är inte tillgängliga för den här enheten. Antingen är Apple Pay inte aktiverat, eller så kan vi inte hantera köp i ditt land ännu.";
+"error payment canceled" = "Betalningen har avbrutits. Du har inte debiterats.";
+"error pack install" = "Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.";
+"error location failed fetching" = "Kunde inte hämta platser.";
+"error unknown" = "Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
 
 "universal action continue" = "Fortsätt";
 "universal action cancel" = "Avbryt";
@@ -81,18 +101,18 @@
 "notification vpn expired body" = "Uppdatera din prenumeration för att fortsätta använda BLOKADA+";
 "notification desc settings" = "Svep aviseringen åt vänster eller höger för inställningar.";
 
-"notification generic header" = "Blokada: Action required";
+"notification generic header" = "Blokada: Åtgärd krävs";
 "notification generic subtitle" = "Tryck för att lära dig mer";
 "notification generic body" = "Vänligen öppna appen för detaljer.";
 
 // A short header in a notification shown when account expires
-"notification acc header" = "Subscription expired";
+"notification acc header" = "Prenumerationen har gått ut";
 "notification acc subtitle" = "Annonsblockering är inaktiverat";
 "notification acc body" = "Vänligen uppdatera din prenumeration för att fortsätta använda Blokada.";
 
 "notification pause header" = "Blokada är fortfarande pausad";
 "notification pause subtitle" = "Annonsblockering är inaktiverat";
-"notification pause body" = "Please open the app to resume Blokada.";
+"notification pause body" = "Vänligen öppna appen för att återaktivera Blokada.";
 
 // Displayed in a notification title. Do not translate "Plus".
 "notification lease header" = "Blokada Plus är av";
@@ -196,7 +216,7 @@
 "activity filter show blocked" = "Endast blockerade";
 "activity filter show allowed" = "Endast tillåtna";
 // A short message "Showing for: Device A"
-"activity filter showing for" = "Showing for: %@";
+"activity filter showing for" = "Visar tillfällen för: %@";
 "activity empty text" = "Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.";
 "activity device filter show all" = "Alla enheter";
 "activity retention header" = "Hur länge kan vi lagra din aktivitet?";
@@ -353,7 +373,6 @@
 "payment label country" = "Land";
 
 "payment euro desc" = "Vi är baserade i Europa, så vi accepterar Euro: € 10 är ungefär $ 12.";
-"payment donate disclaimer" = "Detta kommer inte att aktivera ditt Blokada Plus-konto. Om du vill använda vår VPN-tjänst, vänligen prenumerera istället för att donera.";
 
 "payment action compare" = "Jämför betalplaner";
 "payment plan slugline cloud" = "Blockerar annonser och trackers";
@@ -384,7 +403,7 @@
 "setup label which device" = "Vilken typ av enhet vill du konfigurera?";
 "setup label choose" = "Välj något av följande konfigurationsalternativ:";
 "setup comment wireguard" = "Obs: VPN-konfigurationen kommer att använda Blokada Cloud som standard. Välj en annan DNS-inställning om du vill undvika denna tjänst. 'WireGuard' och 'WireGuard' logotypen är registrerade varumärken som tillhör Jason A. Donenfeld.";
-"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
+"setup comment native apps" = "Obs: App för Android stöder inte Blokada Cloud ännu. Vi arbetar på en uppdatering.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Steg %@: %@";
 "setup option label recommended" = "Rekommenderat: %@";
@@ -429,3 +448,4 @@
 
 "homepage vpn credit" = "'WireGuard' och logotypen 'WireGuard' är registrerade varumärken som tillhör Jason A. Donenfeld.";
 "advanced section header packs" = "Blocklistor";
+"app settings section header" = "Denna enhet";

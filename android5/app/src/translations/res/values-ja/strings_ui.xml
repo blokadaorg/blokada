@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS は現在 Plus モードでのみサポートされています。別の DNS を選択して再度お試し下さい。</string>
+    <string name="error_device_offline">インターネットに接続されていません</string>
+    <string name="error_account_inactive">あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。</string>
+    <string name="error_account_inactive_after_restore">有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。</string>
+    <string name="error_account_invalid">アカウントを確認してください</string>
+    <string name="error_creating_account">新しいアカウントを作成できませんでした。後でもう一度お試しください。</string>
+    <string name="error_fetching_data">操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
+    <string name="error_tunnel">VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。</string>
+    <string name="error_vpn">VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。</string>
+    <string name="error_vpn_perms">VPN プロファイルを作成する権限がありません。</string>
+    <string name="error_vpn_no_current_lease">接続先を選択してください。</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus が無効になりました。接続先を選択して有効にしてください。</string>
+    <string name="error_vpn_too_many_leases">デバイス数の上限に達しました。いずれかのデバイスを削除して、もう一度やり直してください。</string>
+    <string name="error_vpn_expired">VPN は無効です。BLOKADA+ を引き続き使用するには、サブスクリプションを更新してください。</string>
+    <string name="error_payment_inactive_after_restore">以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。</string>
+    <string name="error_payment_failed">現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
+    <string name="error_payment_failed_alternative">お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
+    <string name="error_payment_not_available">このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国からのお支払いに対応していません。</string>
+    <string name="error_payment_canceled">お支払いがキャンセルされました。入金されていません。</string>
+    <string name="error_pack_install">この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。</string>
+    <string name="error_location_failed_fetching">接続先を取得できませんでした。</string>
+    <string name="error_unknown">問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
     <string name="universal_action_continue">続行</string>
     <string name="universal_action_cancel">キャンセル</string>
     <string name="universal_action_close">閉じる</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">%s 引き（%s / 月）</string>
     <string name="payment_label_country">国</string>
     <string name="payment_euro_desc">私たちはヨーロッパを拠点としているため、ユーロでお支払いいただいています。10 ユーロはおよそ 12 ドルです。</string>
-    <string name="payment_donate_disclaimer">これにより、Blokada Plus アカウントは有効化されません。VPN サービスを利用したい場合は、寄付の代わりにサブスクリプションにご登録ください。</string>
     <string name="payment_action_compare">プランを比較</string>
     <string name="payment_plan_slugline_cloud">広告とトラッカーをブロック</string>
     <string name="payment_plan_slugline_cloud_detail">（Blokada Cloud を含む）</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">VPN を許可してください</string>
     <string name="homepage_vpn_credit">「WireGuard」と「WireGuard」ロゴは Jason A. Donenfeld の登録商標です。</string>
     <string name="advanced_section_header_packs">ブロックリスト</string>
+    <string name="app_settings_section_header">設定</string>
 </resources>

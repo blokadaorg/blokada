@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.";
+"error device offline" = "आपका उपकरण ऑफ़लाइन है";
+"error account inactive" = "आपका खाता निष्क्रिय है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपने खाते को सक्रिय करें।";
+"error account inactive after restore" = "यह एक मान्य सक्रिय खाता नहीं लगता है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error account invalid" = "This account ID seems invalid.";
+"error creating account" = "नया खाता नहीं बनाया जा सका। बाद में पुन: प्रयास करें।";
+"error fetching data" = "यह कार्रवाई पूरी नहीं हो सकी। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error tunnel" = "वीपीएन स्थापित नहीं कर सका। कृपया अपने डिवाइस को पुनः आरंभ करें, या सिस्टम सेटिंग्स में Blokada VPN प्रोफाइल को हटा दें, और फिर से प्रयास करें।";
+"error vpn" = "वीपीएन स्थापित नहीं कर सका। कृपया अपने डिवाइस को पुनः आरंभ करें, या सिस्टम सेटिंग्स में Blokada VPN प्रोफाइल को हटा दें, और फिर से प्रयास करें।";
+"error vpn perms" = "वीपीएन प्रोफाइल बनाने के लिए कोई अनुमति नहीं दी गई।";
+"error vpn no current lease" = "कृपया पहले एक स्थान चुनें।";
+"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn too many leases" = "आप अपने उपकरणों की सीमा तक पहुँच गए। कृपया अपना एक उपकरण निकालें और पुनः प्रयास करें।";
+"error vpn expired" = "VPN अक्षम है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपनी सदस्यता अपडेट करें";
+"error payment inactive after restore" = "आपका पिछला भुगतान बहाल कर दिया गया था, लेकिन सदस्यता पहले ही समाप्त हो चुकी है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error payment failed" = "इस समय भुगतान उपलब्ध नहीं है। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error payment failed alternative" = "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.";
+"error payment not available" = "इस उपकरण के लिए भुगतान उपलब्ध नहीं हैं। या तो ऐप्पल पे सक्रिय नहीं है, या हम आपके देश में खरीद को अभी तक संभाल नहीं रहे हैं।";
+"error payment canceled" = "भुगतान रद्द कर दिया गया था। आपसे शुल्क नहीं लिया गया।";
+"error pack install" = "इस सुविधा को इंस्टॉल (या अनइंस्टॉल) नहीं कर सका। बाद में पुन: प्रयास करें।";
+"error location failed fetching" = "स्थानों को नहीं ला सके।";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "जारी रखें";
 "universal action cancel" = "रद्द करें";
@@ -353,7 +374,6 @@
 "payment label country" = "Country";
 
 "payment euro desc" = "We are based in Europe, so we accept Euro: €10 is roughly $12.";
-"payment donate disclaimer" = "This won't activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.";
 
 "payment action compare" = "Compare plans";
 "payment plan slugline cloud" = "Blocks ads and trackers";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 "advanced section header packs" = "Blocklists";
+"app settings section header" = "This device";

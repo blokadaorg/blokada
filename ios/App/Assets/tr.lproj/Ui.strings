@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS şu anda sadece Plus modunda desteklenmektedir. Lütfen başka bir DNS seçin ve tekrar deneyin.";
+"error device offline" = "Cihazınız çevrimdışı";
+"error account inactive" = "Hesabınız etkin değil. BLOKADA+ sürümünü kullanmaya devam etmek için lütfen hesabınızı etkinleştirin.";
+"error account inactive after restore" = "Bu geçerli bir etkin hesap gibi görünmüyor. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
+"error account invalid" = "Bu hesap kimliği geçersiz görünüyor.";
+"error creating account" = "Yeni bir hesap oluşturulamadı. Lütfen daha sonra tekrar deneyin.";
+"error fetching data" = "Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, üstteki yardım simgesine dokunarak lütfen bize ulaşın.";
+"error tunnel" = "VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.";
+"error vpn" = "VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.";
+"error vpn perms" = "VPN profili oluşturmak için izin verilmedi.";
+"error vpn no current lease" = "Lütfen önce bir konum seçin.";
+"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn too many leases" = "Cihazlarınızın sınırına ulaştınız. Lütfen cihazlarınızdan birini kaldırın ve tekrar deneyin.";
+"error vpn expired" = "VPN devre dışı bırakıldı. BLOKADA+ aboneliğini kullanmaya devam etmek için aboneliğinizi güncelleyin";
+"error payment inactive after restore" = "Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
+"error payment failed" = "Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
+"error payment failed alternative" = "Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
+"error payment not available" = "Bu cihaz için ödemeler mevcut değil. Apple Pay etkinleştirilmedi veya ülkenizdeki satın alımları henüz işlemiyoruz.";
+"error payment canceled" = "Ödeme iptal edildi. Sizden ücret alınmadı.";
+"error pack install" = "Bu özellik yüklenemedi (veya kaldırılamadı). Lütfen daha sonra tekrar deneyin.";
+"error location failed fetching" = "Yerler getiremedi.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Devam et";
 "universal action cancel" = "Vazgeç";
@@ -353,7 +374,6 @@
 "payment label country" = "Ülke";
 
 "payment euro desc" = "Merkezimiz Avrupa'da olduğundan Euro'yu kabul ediyoruz: 10 € kabaca 12 $'dır.";
-"payment donate disclaimer" = "Bu, Blokada Plus hesabını etkinleştirmez. VPN hizmetimizi kullanmak istiyorsan, lütfen bağış yapmak yerine abone ol.";
 
 "payment action compare" = "Compare plans";
 "payment plan slugline cloud" = "Blocks ads and trackers";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 "advanced section header packs" = "Engelleme listeleri";
+"app settings section header" = "Bu cihaz";

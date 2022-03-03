@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Saat ini Blokada DNS hanya bisa diaktifkan di mode Plus. Silahkan pilih server DNS yang lain dan coba kembali.";
+"error device offline" = "Perangkat Anda offline/tidak terkoneksi";
+"error account inactive" = "Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa menggunakan BLOKADA+.";
+"error account inactive after restore" = "Akun ini sepertinya tidak valid/aktif. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.";
+"error account invalid" = "ID akun ini sepertinya tidak valid.";
+"error creating account" = "Tidak bisa membuat akun baru. Silakan coba beberapa saat lagi.";
+"error fetching data" = "Pendaftaran akun tidak bisa dilanjutkan. Harap pastikan perangkat Anda terhubung dengan internet, dan coba kembali. Jika masalah berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.";
+"error tunnel" = "Tidak dapat terhubung dengan VPN. Silakan me-restart perangkat Anda, atau hapus profil Blokada VPN di pengaturan sistem, dan coba kembali.";
+"error vpn" = "Tidak dapat terhubung dengan VPN. Silakan me-restart perangkat Anda, atau hapus profil Blokada VPN di pengaturan sistem, dan coba kembali.";
+"error vpn perms" = "Izin tidak diberikan untuk membuat profil VPN.";
+"error vpn no current lease" = "Silakan pilih lokasi terlebih dahulu.";
+"error vpn no current lease new" = "Blokada Plus telah dinonaktifkan di perangkat ini. Silakan memilih lokasi untuk kembali mengaktifkan Blokada Plus.";
+"error vpn too many leases" = "Jumlah perangkat yang bisa menggunakan VPN telah terlampaui. Silakan hapus salah satu perangkat Anda dan coba kembali.";
+"error vpn expired" = "VPN dinonaktifkan. Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali";
+"error payment inactive after restore" = "Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.";
+"error payment failed" = "Pembayaran tidak bisa dilakukan pada saat ini. Harap pastikan perangkat Anda terkoneksi dengan internet, dan coba kembali. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.";
+"error payment failed alternative" = "Tidak dapat menyelesaikan pembayaran Anda. Harap pastikan data Anda benar, dan coba lagi. Jika masalah terus berlanjut, harap hubungi kami dengan mengetuk ikon bantuan di bagian atas.";
+"error payment not available" = "Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena Apple Pay belum diaktifkan, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.";
+"error payment canceled" = "Pembayaran telah dibatalkan. Tidak ada biaya yang dibebankan kepada Anda.";
+"error pack install" = "Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.";
+"error location failed fetching" = "Tidak bisa mendapatkan data lokasi.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Lanjut";
 "universal action cancel" = "Batal";
@@ -353,7 +374,6 @@
 "payment label country" = "Negara";
 
 "payment euro desc" = "Kami berbasis di Eropa, mata uang yang kami terima berupa Euro: di mana €10 kira-kira senilai Rp170.000.";
-"payment donate disclaimer" = "Donasi yang Anda berikan tidak akan mengaktifkan akun Blokada Plus. Jika Anda ingin menggunakan layanan VPN kami, silakan pilih opsi berlangganan.";
 
 "payment action compare" = "Bandingkan paket langganan";
 "payment plan slugline cloud" = "Memblokir iklan & pelacak";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "'Wireguard' dan logo 'Wireguard' adalah merk terdaftar milik Jason A. Donenfeld.";
 "advanced section header packs" = "Blocklist";
+"app settings section header" = "Perangkat ini";

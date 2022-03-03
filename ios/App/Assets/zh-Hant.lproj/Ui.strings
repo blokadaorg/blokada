@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS 目前僅在 Plus 模式中支援。請選擇其他 DNS 並再試一次。";
+"error device offline" = "您的裝置已離線";
+"error account inactive" = "您未啟用帳號。請啟用帳號，以便繼續使用 BLOKADA+。";
+"error account inactive after restore" = "這似乎不是一個有效的帳號。如果您認為其中有誤，請使用頂部的「輔助說明」來聯絡我們。";
+"error account invalid" = "此帳號 ID 似乎無效。";
+"error creating account" = "無法建立新帳號。請稍候再試。";
+"error fetching data" = "無法完成此動作。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error tunnel" = "無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。";
+"error vpn" = "無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。";
+"error vpn perms" = "未授予建立 VPN 設定檔的權限。";
+"error vpn no current lease" = "請先選擇位置。";
+"error vpn no current lease new" = "Blokada Plus 現已在本裝置上停用。請選擇位置以重新啟用。";
+"error vpn too many leases" = "您已達裝置限制。請移除您其中一個裝置後重試。";
+"error vpn expired" = "已停用 VPN。請續訂訂閱以繼續使用 BLOKADA+。";
+"error payment inactive after restore" = "已還原您上個付款，但訂閱已經到期。如有任何問題，請按上方的協助按鈕聯絡我們。";
+"error payment failed" = "此刻尚無法付款。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error payment failed alternative" = "無法完成您的付款。請確保您的資料是正確的，然後重試。如果問題仍然持續，請透過點擊頂部的說明圖示聯絡我們。";
+"error payment not available" = "此裝置無法付款。可能是 Apple Pay 未啟用，或是我們尚不處理您所在地區的付款。";
+"error payment canceled" = "付款已取消。未收取您的費用。";
+"error pack install" = "無法安裝或解除安裝此功能。請稍候再試。";
+"error location failed fetching" = "無法取得地點。";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "繼續";
 "universal action cancel" = "取消";
@@ -353,7 +374,6 @@
 "payment label country" = "國家";
 
 "payment euro desc" = "我們立足於歐洲，所以接受歐元：€10 大約是 $12。";
-"payment donate disclaimer" = "這不會啟用您的 Blokada Plus 帳戶。如果你想使用我們的 VPN 服務，請改成「訂閱」而非捐助。";
 
 "payment action compare" = "比較方案";
 "payment plan slugline cloud" = "阻擋廣告與追蹤器";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "「WireGuard」和「WireGuard」標誌是 Jason A. Donenfeld 的註冊商標。";
 "advanced section header packs" = "阻擋清單";
+"app settings section header" = "這台裝置";

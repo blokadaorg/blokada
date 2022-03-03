@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS şu anda sadece Plus modunda desteklenmektedir. Lütfen başka bir DNS seçin ve tekrar deneyin.</string>
+    <string name="error_device_offline">Cihazınız çevrimdışı</string>
+    <string name="error_account_inactive">Hesabınız etkin değil. BLOKADA+ sürümünü kullanmaya devam etmek için lütfen hesabınızı etkinleştirin.</string>
+    <string name="error_account_inactive_after_restore">Bu geçerli bir etkin hesap gibi görünmüyor. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
+    <string name="error_account_invalid">Bu hesap kimliği geçersiz görünüyor.</string>
+    <string name="error_creating_account">Yeni bir hesap oluşturulamadı. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="error_fetching_data">Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, üstteki yardım simgesine dokunarak lütfen bize ulaşın.</string>
+    <string name="error_tunnel">VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.</string>
+    <string name="error_vpn">VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.</string>
+    <string name="error_vpn_perms">VPN profili oluşturmak için izin verilmedi.</string>
+    <string name="error_vpn_no_current_lease">Lütfen önce bir konum seçin.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus is now disabled on this device. Please select a location to reactivate it.</string>
+    <string name="error_vpn_too_many_leases">Cihazlarınızın sınırına ulaştınız. Lütfen cihazlarınızdan birini kaldırın ve tekrar deneyin.</string>
+    <string name="error_vpn_expired">VPN devre dışı bırakıldı. BLOKADA+ aboneliğini kullanmaya devam etmek için aboneliğinizi güncelleyin</string>
+    <string name="error_payment_inactive_after_restore">Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
+    <string name="error_payment_failed">Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
+    <string name="error_payment_failed_alternative">Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
+    <string name="error_payment_not_available">Bu cihaz için ödemeler mevcut değil. Apple Pay etkinleştirilmedi veya ülkenizdeki satın alımları henüz işlemiyoruz.</string>
+    <string name="error_payment_canceled">Ödeme iptal edildi. Sizden ücret alınmadı.</string>
+    <string name="error_pack_install">Bu özellik yüklenemedi (veya kaldırılamadı). Lütfen daha sonra tekrar deneyin.</string>
+    <string name="error_location_failed_fetching">Yerler getiremedi.</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
     <string name="universal_action_continue">Devam et</string>
     <string name="universal_action_cancel">Vazgeç</string>
     <string name="universal_action_close">Kapat</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">%s (%s / ay) indirim</string>
     <string name="payment_label_country">Ülke</string>
     <string name="payment_euro_desc">Merkezimiz Avrupa\'da olduğundan Euro\'yu kabul ediyoruz: 10 € kabaca 12 $\'dır.</string>
-    <string name="payment_donate_disclaimer">Bu, Blokada Plus hesabını etkinleştirmez. VPN hizmetimizi kullanmak istiyorsan, lütfen bağış yapmak yerine abone ol.</string>
     <string name="payment_action_compare">Compare plans</string>
     <string name="payment_plan_slugline_cloud">Blocks ads and trackers</string>
     <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">Allow VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' and the \'WireGuard\' logo are registered trademarks of Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Engelleme listeleri</string>
+    <string name="app_settings_section_header">Bu cihaz</string>
 </resources>

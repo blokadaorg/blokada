@@ -10,7 +10,27 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS は現在 Plus モードでのみサポートされています。別の DNS を選択して再度お試し下さい。";
+"error device offline" = "インターネットに接続されていません";
+"error account inactive" = "あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。";
+"error account inactive after restore" = "有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
+"error account invalid" = "アカウントを確認してください";
+"error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
+"error fetching data" = "操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error tunnel" = "VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
+"error vpn" = "VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
+"error vpn perms" = "VPN プロファイルを作成する権限がありません。";
+"error vpn no current lease" = "接続先を選択してください。";
+"error vpn no current lease new" = "Blokada Plus が無効になりました。接続先を選択して有効にしてください。";
+"error vpn too many leases" = "デバイス数の上限に達しました。いずれかのデバイスを削除して、もう一度やり直してください。";
+"error vpn expired" = "VPN は無効です。BLOKADA+ を引き続き使用するには、サブスクリプションを更新してください。";
+"error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
+"error payment failed" = "現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error payment failed alternative" = "お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error payment not available" = "このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国からのお支払いに対応していません。";
+"error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
+"error pack install" = "この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。";
+"error location failed fetching" = "接続先を取得できませんでした。";
+"error unknown" = "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 
 "universal action continue" = "続行";
 "universal action cancel" = "キャンセル";
@@ -354,7 +374,6 @@
 "payment label country" = "国";
 
 "payment euro desc" = "私たちはヨーロッパを拠点としているため、ユーロでお支払いいただいています。10 ユーロはおよそ 12 ドルです。";
-"payment donate disclaimer" = "これにより、Blokada Plus アカウントは有効化されません。VPN サービスを利用したい場合は、寄付の代わりにサブスクリプションにご登録ください。";
 
 "payment action compare" = "プランを比較";
 "payment plan slugline cloud" = "広告とトラッカーをブロック";
@@ -430,3 +449,4 @@
 
 "homepage vpn credit" = "「WireGuard」と「WireGuard」ロゴは Jason A. Donenfeld の登録商標です。";
 "advanced section header packs" = "ブロックリスト";
+"app settings section header" = "設定";

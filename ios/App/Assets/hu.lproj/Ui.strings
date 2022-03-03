@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "A Blokada DNS csak a Plus módban érhető el. Kérjük válasszon másik DNS-t és próbálja újra.";
+"error device offline" = "A készüléked offline állapotban van";
+"error account inactive" = "Fiókod inaktív. Kérjük, aktiváld fiókodat a BLOKADA+ használatának folytatása érdekében.";
+"error account inactive after restore" = "Nem tűnik érvényes aktív fióknak. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.";
+"error account invalid" = "Ez az ID helytelennek tűnik.";
+"error creating account" = "Nem sikerült új fiókot létrehozni. Kérjük, próbáld újra később.";
+"error fetching data" = "Ezt a műveletet nem lehetett befejezni. Ellenőrizd, hogy online vagy-e, és próbálkozz később újra. Ha a probléma továbbra is fennáll, kérjük, vedd fel velünk a kapcsolatot súgó ikon megérintésével.";
+"error tunnel" = "A VPN létrehozása sikertelen. Indítsd újra a készüléket, vagy távolítsd el a Blokada VPN profilt a rendszerbeállításokból, és próbáld újra.";
+"error vpn" = "A VPN létrehozása sikertelen. Indítsd újra a készüléket, vagy távolítsd el a Blokada VPN profilt a rendszerbeállításokból, és próbáld újra.";
+"error vpn perms" = "Nincs engedély a VPN profil létrehozására.";
+"error vpn no current lease" = "Kérjük, először válaszd ki a helyet.";
+"error vpn no current lease new" = "Blokada Plus kikapcsolásra került az eszközön. Válasszon egy helyet az újraaktiváláshoz.";
+"error vpn too many leases" = "Elérted a készülékek számának korlátját. Kérjük, távolítsd el az egyik eszközt, és próbáld újra.";
+"error vpn expired" = "A VPN le van tiltva. Kérjük, frissítsd előfizetésed a BLOKADA+ további használatához";
+"error payment inactive after restore" = "Az előző befizetésed visszaállítottuk, de az előfizetésed már lejárt. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.";
+"error payment failed" = "A kifizetések jelenleg nem érhetők el. Győződj meg arról, hogy online vagy és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot a fenti súgó gomb megnyomásával.";
+"error payment failed alternative" = "Sikertelen fizetés. Ellenőrizze, hogy az adati helyesek-e, és próbálkozzon újra. Ha a probléma továbbra is fennáll, lépjen kapcsolatba velünk a fenti segítség ikonra kattintva.";
+"error payment not available" = "A készülékhez nem érhető el a kifizetés. Vagy az Apple Pay nincs aktiválva, vagy még nem fogadunk el kifizetéseket az adott országból.";
+"error payment canceled" = "A fizetés visszavonásra került. A terhelés nem történt meg.";
+"error pack install" = "Ezt a szolgáltatást nem lehetett telepíteni (vagy eltávolítani). Kérlek, próbáld újra később.";
+"error location failed fetching" = "Nem sikerült lekérdezni a helyet.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Folytatás";
 "universal action cancel" = "Mégse";
@@ -353,7 +374,6 @@
 "payment label country" = "Country";
 
 "payment euro desc" = "We are based in Europe, so we accept Euro: €10 is roughly $12.";
-"payment donate disclaimer" = "This won't activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.";
 
 "payment action compare" = "Compare plans";
 "payment plan slugline cloud" = "Blocks ads and trackers";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 "advanced section header packs" = "Tiltólista";
+"app settings section header" = "This device";

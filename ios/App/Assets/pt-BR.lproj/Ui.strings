@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "O Blokada DNS é atualmente suportado apenas no modo Plus. Por favor, escolha outro DNS e tente novamente.";
+"error device offline" = "O seu dispositivo está offline";
+"error account inactive" = "Sua conta está inativa. Por favor, ative sua conta para continuar a usar o BLOKADA+.";
+"error account inactive after restore" = "Esta não parece ser uma conta ativa válida. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error account invalid" = "O ID dessa conta parece inválido.";
+"error creating account" = "Não foi possível criar uma conta nova. Por favor, tente novamente mais tarde.";
+"error fetching data" = "Esta ação não pôde ser concluída. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error tunnel" = "Não foi possível estabelecer a VPN. Por favor, reinicie seu dispositivo ou remova o perfil de VPN do Blokada nas configurações do sistema e tente novamente.";
+"error vpn" = "Não foi possível estabelecer a VPN. Por favor, reinicie seu dispositivo ou remova o perfil de VPN do Blokada nas configurações do sistema e tente novamente.";
+"error vpn perms" = "Nenhuma permissão concedida para criar um perfil de VPN.";
+"error vpn no current lease" = "Por favor, selecione uma localidade primeiro.";
+"error vpn no current lease new" = "O Blokada Plus está desativado neste dispositivo. Por favor, selecione um local para reativá-lo.";
+"error vpn too many leases" = "Você atingiu o seu limite de dispositivos. Por favor, remova um dos seus dispositivos e tente novamente.";
+"error vpn expired" = "A VPN está desativada. Atualize sua assinatura para continuar a utilizar o BLOKADA+";
+"error payment inactive after restore" = "Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error payment failed" = "Os pagamentos não estão disponíveis neste momento. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error payment failed alternative" = "Não foi possível concluir seu pagamento. Por favor, certifique-se de que seus dados estão corretos e tente novamente. Se o problema persistir, por favor, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error payment not available" = "Pagamentos não estão disponíveis para este dispositivo. Ou o Apple Pay não está ativado, ou ainda não tratamos de compras em seu país.";
+"error payment canceled" = "O pagamento foi cancelado. Você não foi cobrado.";
+"error pack install" = "Não foi possível instalar (ou desinstalar) este recurso. Por favor, tente novamente mais tarde.";
+"error location failed fetching" = "Não foi possível buscar as localizações.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Continuar";
 "universal action cancel" = "Cancelar";
@@ -353,7 +374,6 @@
 "payment label country" = "País";
 
 "payment euro desc" = "Nós nos baseamos na Europa, então aceitamos Euro: €10 é aproximadamente $12.";
-"payment donate disclaimer" = "Isso não vai ativar sua conta do Blokada Plus. Se você deseja usar nosso serviço de VPN, assine em vez de doar.";
 
 "payment action compare" = "Comparar planos";
 "payment plan slugline cloud" = "Bloqueia anúncios e rastreadores";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "'WireGuard' e o logotipo 'WireGuard' são marcas registradas de Jason A. Donenfeld.";
 "advanced section header packs" = "Listas de bloqueio";
+"app settings section header" = "Este dispositivo";

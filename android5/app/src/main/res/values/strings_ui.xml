@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.</string>
+    <string name="error_device_offline">Your device is offline</string>
+    <string name="error_account_inactive">Your account is inactive. Please activate your account in order to continue using BLOKADA+.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.</string>
+    <string name="error_account_invalid">This account ID seems invalid.</string>
+    <string name="error_creating_account">Could not create a new account. Please try again later.</string>
+    <string name="error_fetching_data">This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="error_tunnel">Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.</string>
+    <string name="error_vpn">Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.</string>
+    <string name="error_vpn_perms">No permissions granted to create a VPN profile.</string>
+    <string name="error_vpn_no_current_lease">Please select a location first.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus is now disabled on this device. Please select a location to reactivate it.</string>
+    <string name="error_vpn_too_many_leases">You reached your devices limit. Please remove one of your devices and try again.</string>
+    <string name="error_vpn_expired">The VPN is disabled. Please update your subscription to continue using BLOKADA+</string>
+    <string name="error_payment_inactive_after_restore">Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.</string>
+    <string name="error_payment_failed">Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="error_payment_failed_alternative">Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either Apple Pay is not activated, or we do not handle purchases in your country yet.</string>
+    <string name="error_payment_canceled">The payment has been canceled. You have not been charged.</string>
+    <string name="error_pack_install">Could not install (or uninstall) this feature. Please try again later.</string>
+    <string name="error_location_failed_fetching">Could not fetch locations.</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
     <string name="universal_action_continue">Continue</string>
     <string name="universal_action_cancel">Cancel</string>
     <string name="universal_action_close">Close</string>
@@ -340,4 +360,5 @@
     <string name="activated_label_vpn_no">Allow VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' and the \'WireGuard\' logo are registered trademarks of Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Blocklists</string>
+    <string name="app_settings_section_header">This device</string>
 </resources>

@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS wird derzeit nur im Plus-Modus unterstützt. Bitte wähle einen anderen DNS und versuche es erneut.";
+"error device offline" = "Das Gerät ist nicht verbunden";
+"error account inactive" = "Dein Konto ist inaktiv. Bitte aktiviere dein Konto, damit du weiterhin BLOKADA+ verwenden kannst.";
+"error account inactive after restore" = "Dies scheint kein gültiges Konto zu sein. Wenn du denkst, dass dies ein Fehler ist, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.";
+"error account invalid" = "Diese Konto-ID scheint ungültig zu sein.";
+"error creating account" = "Konnte kein neues Konto erstellen. Bitte probiere es später erneut.";
+"error fetching data" = "Diese Aktion konnte nicht richtig beendet werden. Stelle sicher, dass du online bist und versuche es später nochmal. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.";
+"error tunnel" = "Das VPN konnte nicht eingerichtet werden. Bitte starte dein Gerät neu oder entferne Blokadas VPN-Profil in den Systemeinstellungen und versuche es erneut.";
+"error vpn" = "VPN konnte nicht eingerichtet werden. Bitte starte dein Gerät neu oder entferne Blokadas VPN-Profil in den Systemeinstellungen und versuche es erneut.";
+"error vpn perms" = "Keine Berechtigung zum Erstellen eines VPN-Profils erteilt.";
+"error vpn no current lease" = "Bitte wähle zuerst einen Standort aus.";
+"error vpn no current lease new" = "Blokada Plus ist jetzt auf diesem Gerät deaktiviert. Bitte wähle zur Reaktivierung einen Standort aus.";
+"error vpn too many leases" = "Du hast die maximale Anzahl an Geräten erreicht. Bitte entferne eines deiner Geräte und versuche es erneut.";
+"error vpn expired" = "Das VPN ist deaktiviert. Bitte erneuere dein Abonnement, um BLOKADA+ weiter verwenden zu können";
+"error payment inactive after restore" = "Deine bisherige Zahlung wurde wiederhergestellt, aber dein Abo ist bereits ausgelaufen. Wenn du denkst, dass dies ein Fehler ist, kontaktiere uns bitte, indem du auf den Hilfe-Knopf oben tippst.";
+"error payment failed" = "Zahlungen sind derzeit nicht möglich. Stelle sicher, dass du online bist und probiere es später erneut. Wenn das Problem weiterhin besteht, kontaktiere und bitte, indem du den Hilfe-Knopf oben drückst.";
+"error payment failed alternative" = "Deine Zahlung konnte nicht abgeschlossen werden. Bitte stelle sicher, dass deine Daten korrekt sind, und versuche es erneut. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du oben auf das Hilfe-Symbol tippst.";
+"error payment not available" = "Die Zahlung ist mit deinem Gerät nicht möglich. Entweder ist Apple Pay nicht aktiviert oder wir akzeptieren noch keine Zahlungen aus deinem Land.";
+"error payment canceled" = "Der Zahlungsvorgang wurde abgebrochen. Die gewählte Zahlungsmethode wurde nicht belastet.";
+"error pack install" = "Diese Erweiterung konnte nicht installiert (oder deinstalliert) werden. Bitte versuch es später erneut.";
+"error location failed fetching" = "Standorte konnten nicht abgerufen werden.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Fortsetzen";
 "universal action cancel" = "Abbrechen";
@@ -353,7 +374,6 @@
 "payment label country" = "Land";
 
 "payment euro desc" = "Wir sind in Europa ansässig und akzeptieren deshalb Euros: 10 € sind etwa 12 $.";
-"payment donate disclaimer" = "Dies aktiviert nicht dein Blokada Plus-Konto. Wenn du unseren VPN-Service verwenden möchtest, abonniere bitte, anstatt zu spenden.";
 
 "payment action compare" = "Abonnements vergleichen";
 "payment plan slugline cloud" = "Blockiert Anzeigen & Tracker";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "'WireGuard' und das 'WireGuard'-Logo sind eingetragene Marken von Jason A. Donenfeld.";
 "advanced section header packs" = "Sperrlisten";
+"app settings section header" = "Dieses Gerät";

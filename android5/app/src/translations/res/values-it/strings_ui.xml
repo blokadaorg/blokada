@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Attualmente, Blokada DNS è supportato soltanto in modalità Plus. Seleziona un altro DNS e riprova.</string>
+    <string name="error_device_offline">Il tuo dispositivo è offline</string>
+    <string name="error_account_inactive">Il tuo account non è attivo. Si prega di attivare il tuo account per continuare a utilizzare BLOKADA+.</string>
+    <string name="error_account_inactive_after_restore">Questo non sembra essere un account attivo valido. Se credi che sia un errore, contattaci toccando l\'icona di aiuto in alto.</string>
+    <string name="error_account_invalid">Questo ID account non sembra valido.</string>
+    <string name="error_creating_account">Impossibile creare un nuovo account. Riprova più tardi.</string>
+    <string name="error_fetching_data">Questa azione non può essere completata. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l\'icona di aiuto in alto.</string>
+    <string name="error_tunnel">Impossibile stabilire la VPN. Riavvia il dispositivo o rimuovi il profilo VPN Blokada nelle impostazioni di sistema e riprova.</string>
+    <string name="error_vpn">Impossibile stabilire la VPN. Riavvia il dispositivo o rimuovi il profilo VPN Blokada nelle impostazioni di sistema e riprova.</string>
+    <string name="error_vpn_perms">Non è stato concesso nessun permesso per creare un profilo VPN.</string>
+    <string name="error_vpn_no_current_lease">Anzitutto, si prega di selezionare la posizione.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus è ora disattivata su questo dispositivo. Selezionare una posizione per riattivarla.</string>
+    <string name="error_vpn_too_many_leases">Hai raggiunto il limite dei tuoi dispositivi. Rimuovi uno dei tuoi dispositivi e riprova.</string>
+    <string name="error_vpn_expired">La VPN è disabilitata. Aggiorna il tuo abbonamento per continuare a utilizzare BLOKADA+</string>
+    <string name="error_payment_inactive_after_restore">Il pagamento precedente è stato ripristinato, ma l\'abbonamento è già scaduto. Se credi che questo sia un errore, contattaci toccando l\'icona di aiuto in alto.</string>
+    <string name="error_payment_failed">Al momento i pagamenti non sono disponibili. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l\'icona di aiuto in alto.</string>
+    <string name="error_payment_failed_alternative">Impossibile completare il pagamento. Assicurati che i tuoi dati siano corretti e riprova. Se il problema persiste, si prega di contattarci toccando l\'icona di aiuto in alto.</string>
+    <string name="error_payment_not_available">I pagamenti non sono disponibili per questo dispositivo. O Apple Pay non è attivato, o non gestiamo ancora gli acquisti nel tuo paese.</string>
+    <string name="error_payment_canceled">Il pagamento è stato annullato. Non ti è stato addebitato nulla.</string>
+    <string name="error_pack_install">Impossibile installare (o disinstallare) questa funzione. Riprova più tardi.</string>
+    <string name="error_location_failed_fetching">Impossibile ottenere la posizione.</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
     <string name="universal_action_continue">Continua</string>
     <string name="universal_action_cancel">Annulla</string>
     <string name="universal_action_close">Chiudi</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">Risparmia %s (%s / mese)</string>
     <string name="payment_label_country">Paese</string>
     <string name="payment_euro_desc">Abbiamo sede in Europa, quindi accettiamo l\'euro: 10€ sono circa 12$.</string>
-    <string name="payment_donate_disclaimer">La donazione non attiverà un account Blokada Plus. Per usufruire del servizio VPN ti preghiamo di abbonarti anziché donare.</string>
     <string name="payment_action_compare">Confronta abbonamenti</string>
     <string name="payment_plan_slugline_cloud">Blocca pubblicità e tracciamento</string>
     <string name="payment_plan_slugline_cloud_detail">(Blokada Cloud incluso)</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">Consenti VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' e il logo \'WireGuard\' sono marchi registrati di Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Liste di blocco</string>
+    <string name="app_settings_section_header">Questo dispositivo</string>
 </resources>

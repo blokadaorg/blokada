@@ -10,7 +10,28 @@
 //  @author Karol Gusak
 //
 
-"error blocka dns in filtering mode" = "Blokada DNS je aktuálně podporována pouze v režimu Plus. Vyberte jiné DNS a zkuste to znovu.";
+"error device offline" = "Vaše zařízení je offline";
+"error account inactive" = "Váš není aktivní. Aktivujte prosím svůj účet, abyste mohli pokračovat v používání služby BLOKADA+.";
+"error account inactive after restore" = "Nezdá se, že by se jednalo o platný aktivní účet. Pokud se domníváte, že se jedná o chybu, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
+"error account invalid" = "Toto ID účtu se zdá být neplatné.";
+"error creating account" = "Nelze vytvořit nový účet. Opakujte akci později.";
+"error fetching data" = "Tuto akci nelze dokončit. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
+"error tunnel" = "Nelze vytvořit VPN. Restartujte zařízení nebo odstraňte profil Blokada VPN v systémovém nastavení a zkuste to znovu.";
+"error vpn" = "Nelze vytvořit VPN. Restartujte zařízení nebo odstraňte profil Blokada VPN v systémovém nastavení a zkuste to znovu.";
+"error vpn perms" = "K vytvoření profilu VPN nebyla udělena žádná oprávnění.";
+"error vpn no current lease" = "Nejprve prosím vyberte umístění.";
+"error vpn no current lease new" = "Aplikace Blokada Plus je nyní v tomto zařízení zakázána. Pro její opětovnou aktivaci vyberte umístění.";
+"error vpn too many leases" = "Dosáhli jste limitu zařízení. Prosím odeberte jedno z vašich zařízení a zkuste to znovu.";
+"error vpn expired" = "VPN je zakázána. Aktualizujte vaše předplatné a pokračujte v používání služby BLOKADA+";
+"error payment inactive after restore" = "Vaše předchozí platba byla obnovena, ale předplatné již vypršelo. Pokud se domníváte, že se jedná o chybu, kontaktujte nás kliknutím na ikonu nápovědy v horní části.";
+"error payment failed" = "Platby nejsou momentálně k dispozici. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
+"error payment failed alternative" = "Nelze dokončit Vaši platbu. Ujistěte se, že jsou vaše údaje správné, a zkuste to znovu. Pokud problém přetrvává, prosím, kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
+"error payment not available" = "Pro toto zařízení nejsou platby k dispozici. Buď není aktivován Apple Pay, nebo nákupy ve vaší zemi zatím nezpracováváme.";
+"error payment canceled" = "Platba byla zrušena. Nebyli vám účtovány žádné poplatky.";
+"error pack install" = "Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.";
+"error location failed fetching" = "Nelze načíst umístění.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
+sts, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Pokračovat";
 "universal action cancel" = "Zrušit";
@@ -353,7 +374,6 @@
 "payment label country" = "Stát";
 
 "payment euro desc" = "Máme sídlo v Evropě, takže akceptujeme euro: 10 eur je zhruba 12 dolarů.";
-"payment donate disclaimer" = "Toto neaktivuje váš účet Blokada Plus. Pokud chcete používat naši službu VPN, místo darů se prosím přihlaste k předplatnému.";
 
 "payment action compare" = "Porovnat plány";
 "payment plan slugline cloud" = "Blokuje reklamy a slídiče";
@@ -429,3 +449,4 @@
 
 "homepage vpn credit" = "'WireGuard' a logo 'WireGuard' jsou registrované ochranné známky Jasona A. Donenfelda.";
 "advanced section header packs" = "Blocklisty";
+"app settings section header" = "Toto zařízení";

@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS funcționează în prezent doar în modul Plus. Vă rugăm să alegeți un alt DNS și să încercați din nou.</string>
+    <string name="error_device_offline">Dispozitivul dumneavoastră este oprit</string>
+    <string name="error_account_inactive">Contul dvs. este inactiv. Vă rugăm să vă activați contul pentru a putea continua să folosiți BLOKADA+.</string>
+    <string name="error_account_inactive_after_restore">Acesta nu pare a fi un cont activ valid. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.</string>
+    <string name="error_account_invalid">ID-ul acestui cont pare nevalid.</string>
+    <string name="error_creating_account">Nu s-a putut crea un cont nou. Vă rugăm să încercați din nou mai târziu.</string>
+    <string name="error_fetching_data">Această acțiune nu a putut fi finalizată. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>
+    <string name="error_tunnel">VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.</string>
+    <string name="error_vpn">VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.</string>
+    <string name="error_vpn_perms">Nicio permisiune acordată pentru a crea un profil VPN.</string>
+    <string name="error_vpn_no_current_lease">Vă rugăm să selectaţi mai întâi o locaţie.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus is now disabled on this device. Please select a location to reactivate it.</string>
+    <string name="error_vpn_too_many_leases">Ați atins limita maximă de dispozitive. Vă rugăm să eliminați unul dintre dispozitivele dvs. și să încercați din nou.</string>
+    <string name="error_vpn_expired">VPN-ul este dezactivat. Vă rugăm să vă actualizezi abonamentul pentru a continua să folosiți BLOKADA+</string>
+    <string name="error_payment_inactive_after_restore">Plata dvs. anterioară a fost restituită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.</string>
+    <string name="error_payment_failed">Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>
+    <string name="error_payment_failed_alternative">Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>
+    <string name="error_payment_not_available">Plățile nu sunt disponibile pentru acest dispozitiv. Fie Apple Pay nu este activat, fie nu ne ocupăm încă de achizițiile din țara dvs.</string>
+    <string name="error_payment_canceled">Plata a fost anulată. Nu ați fost taxat.</string>
+    <string name="error_pack_install">Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.</string>
+    <string name="error_location_failed_fetching">Nu s-au putut prelua locațiile.</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
     <string name="universal_action_continue">Continuă</string>
     <string name="universal_action_cancel">Anulare</string>
     <string name="universal_action_close">Închide</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">Salvează %s (%s / lună)</string>
     <string name="payment_label_country">Țara</string>
     <string name="payment_euro_desc">Suntem stabiliți în Europa, așadar acceptăm Euro: €10 sunt aproximativ $12.</string>
-    <string name="payment_donate_disclaimer">Aceasta nu vă va activa contul Blokada Plus. Dacă doriți să folosiți serviciul nostru VPN, vă rugăm să vă abonați în loc să donați.</string>
     <string name="payment_action_compare">Compare plans</string>
     <string name="payment_plan_slugline_cloud">Blocks ads and trackers</string>
     <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">Allow VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' and the \'WireGuard\' logo are registered trademarks of Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Lista Neagră</string>
+    <string name="app_settings_section_header">Acest dispozitiv</string>
 </resources>

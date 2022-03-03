@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS 目前僅在 Plus 模式中支援。請選擇其他 DNS 並再試一次。</string>
+    <string name="error_device_offline">您的裝置已離線</string>
+    <string name="error_account_inactive">您未啟用帳號。請啟用帳號，以便繼續使用 BLOKADA+。</string>
+    <string name="error_account_inactive_after_restore">這似乎不是一個有效的帳號。如果您認為其中有誤，請使用頂部的「輔助說明」來聯絡我們。</string>
+    <string name="error_account_invalid">此帳號 ID 似乎無效。</string>
+    <string name="error_creating_account">無法建立新帳號。請稍候再試。</string>
+    <string name="error_fetching_data">無法完成此動作。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。</string>
+    <string name="error_tunnel">無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。</string>
+    <string name="error_vpn">無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。</string>
+    <string name="error_vpn_perms">未授予建立 VPN 設定檔的權限。</string>
+    <string name="error_vpn_no_current_lease">請先選擇位置。</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus 現已在本裝置上停用。請選擇位置以重新啟用。</string>
+    <string name="error_vpn_too_many_leases">您已達裝置限制。請移除您其中一個裝置後重試。</string>
+    <string name="error_vpn_expired">已停用 VPN。請續訂訂閱以繼續使用 BLOKADA+。</string>
+    <string name="error_payment_inactive_after_restore">已還原您上個付款，但訂閱已經到期。如有任何問題，請按上方的協助按鈕聯絡我們。</string>
+    <string name="error_payment_failed">此刻尚無法付款。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。</string>
+    <string name="error_payment_failed_alternative">無法完成您的付款。請確保您的資料是正確的，然後重試。如果問題仍然持續，請透過點擊頂部的說明圖示聯絡我們。</string>
+    <string name="error_payment_not_available">此裝置無法付款。可能是 Apple Pay 未啟用，或是我們尚不處理您所在地區的付款。</string>
+    <string name="error_payment_canceled">付款已取消。未收取您的費用。</string>
+    <string name="error_pack_install">無法安裝或解除安裝此功能。請稍候再試。</string>
+    <string name="error_location_failed_fetching">無法取得地點。</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
     <string name="universal_action_continue">繼續</string>
     <string name="universal_action_cancel">取消</string>
     <string name="universal_action_close">關閉</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">省下 %s (每個月 %s)</string>
     <string name="payment_label_country">國家</string>
     <string name="payment_euro_desc">我們立足於歐洲，所以接受歐元：€10 大約是 $12。</string>
-    <string name="payment_donate_disclaimer">這不會啟用您的 Blokada Plus 帳戶。如果你想使用我們的 VPN 服務，請改成「訂閱」而非捐助。</string>
     <string name="payment_action_compare">比較方案</string>
     <string name="payment_plan_slugline_cloud">阻擋廣告與追蹤器</string>
     <string name="payment_plan_slugline_cloud_detail">（包含 Blokada Cloud）</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">允許 VPN</string>
     <string name="homepage_vpn_credit">「WireGuard」和「WireGuard」標誌是 Jason A. Donenfeld 的註冊商標。</string>
     <string name="advanced_section_header_packs">阻擋清單</string>
+    <string name="app_settings_section_header">這台裝置</string>
 </resources>

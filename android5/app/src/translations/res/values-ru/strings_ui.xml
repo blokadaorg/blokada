@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS в настоящее время поддерживается только в режиме Plus. Пожалуйста, выберите другой DNS и повторите попытку.</string>
+    <string name="error_device_offline">Ваше устройство не в сети</string>
+    <string name="error_account_inactive">Ваш аккаунт неактивен. Пожалуйста, его, чтобы продолжить использовать BLOKADA+.</string>
+    <string name="error_account_inactive_after_restore">Похоже, что это недействительный аккаунт. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами, нажав на значок помощи в верхней части.</string>
+    <string name="error_account_invalid">Этот ID аккаунта кажется недействительным.</string>
+    <string name="error_creating_account">Не удалось создать новый аккаунт. Пожалуйста, попробуйте позже.</string>
+    <string name="error_fetching_data">Это действие не могло быть завершено. Убедитесь, что вы в сети, и попробуйте позже. Если проблема сохраняется, пожалуйста, свяжитесь с нами, нажав на значок справки в верхней части.</string>
+    <string name="error_tunnel">Не удалось запустить VPN. Пожалуйста, перезагрузите устройство или удалите профиль Blokada VPN в системных настройках и повторите попытку.</string>
+    <string name="error_vpn">Не удалось запустить VPN. Пожалуйста, перезагрузите устройство или удалите профиль Blokada VPN в системных настройках и повторите попытку.</string>
+    <string name="error_vpn_perms">Нет разрешений для создания профиля VPN.</string>
+    <string name="error_vpn_no_current_lease">Пожалуйста, сначала выберите местоположение.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus отключена на этом устройстве. Выберите местоположение для повторной активации.</string>
+    <string name="error_vpn_too_many_leases">Вы достигли ограничения по количеству устройств. Пожалуйста, отключите одно из ваших устройств и повторите попытку.</string>
+    <string name="error_vpn_expired">VPN отключен. Пожалуйста, обновите подписку, чтобы продолжить использовать BLOKADA+</string>
+    <string name="error_payment_inactive_after_restore">Ваш предыдущий платеж был возмещен, но срок действия подписки уже истек. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами, нажав на иконку справки в верхней части.</string>
+    <string name="error_payment_failed">Платежи в данный момент недоступны. Убедитесь, что вы в сети, и попробуйте позже. Если проблема сохраняется, пожалуйста, свяжитесь с нами, нажав на значок справки в верхней части.</string>
+    <string name="error_payment_failed_alternative">Не удалось завершить платеж. Убедитесь, что ваши данные верны, и попробуйте еще раз. Если проблема не исчезнет, ​​свяжитесь с нами, нажав на значок справки вверху.</string>
+    <string name="error_payment_not_available">Платежи для данного устройства недоступны. Либо Apple Pay не активирована, либо мы еще не обрабатываем покупки в вашей стране.</string>
+    <string name="error_payment_canceled">Платеж отменен. Сумма списана не была.</string>
+    <string name="error_pack_install">Не удалось установить (или удалить) эту функцию. Пожалуйста, попробуйте позже.</string>
+    <string name="error_location_failed_fetching">Не удалось получить местоположения.</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
     <string name="universal_action_continue">Продолжить</string>
     <string name="universal_action_cancel">Отмена</string>
     <string name="universal_action_close">Закрыть</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">Сэкономить %s (%s / месяц)</string>
     <string name="payment_label_country">Страна</string>
     <string name="payment_euro_desc">Мы находимся в Европе, поэтому мы принимаем евро: €10 - это примерно $12.</string>
-    <string name="payment_donate_disclaimer">Это не активирует ваш аккаунт Blokada Plus. Если вы хотите использовать наш сервис VPN, пожалуйста, подпишитесь вместо того, чтобы сделать пожертвование.</string>
     <string name="payment_action_compare">Сравните тарифы</string>
     <string name="payment_plan_slugline_cloud">Блокировка рекламы и трекеров</string>
     <string name="payment_plan_slugline_cloud_detail">(включает Blokada Cloud)</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">Разрешить VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' и логотип \'WireGuard\' являются зарегистрированными торговыми марками Джейсона А. Доненфельда (Jason A. Donenfeld).</string>
     <string name="advanced_section_header_packs">Списки блокировки</string>
+    <string name="app_settings_section_header">Это устройство</string>
 </resources>

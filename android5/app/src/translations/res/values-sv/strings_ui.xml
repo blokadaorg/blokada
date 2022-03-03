@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS stöds för närvarande endast i Plus-läge. Välj en annan DNS och försök igen.</string>
+    <string name="error_device_offline">Din enhet är inte ansluten</string>
+    <string name="error_account_inactive">Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda BLOKADA+.</string>
+    <string name="error_account_inactive_after_restore">Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_account_invalid">Detta konto-ID verkar ogiltigt.</string>
+    <string name="error_creating_account">Kunde inte skapa ett nytt konto. Försök igen senare.</string>
+    <string name="error_fetching_data">Denna åtgärd kunde inte slutföras. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_tunnel">Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.</string>
+    <string name="error_vpn">Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.</string>
+    <string name="error_vpn_perms">Inga behörigheter beviljade för att skapa en VPN-profil.</string>
+    <string name="error_vpn_no_current_lease">Välj en plats först.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus är nu inaktiverat på den här enhet. Välj en plats för att återaktivera.</string>
+    <string name="error_vpn_too_many_leases">Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.</string>
+    <string name="error_vpn_expired">VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+</string>
+    <string name="error_payment_inactive_after_restore">Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_payment_failed">Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_payment_failed_alternative">Det gick inte att slutföra din betalning. Kontrollera att dina detaljer är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_payment_not_available">Betalningar är inte tillgängliga för den här enheten. Antingen är Apple Pay inte aktiverat, eller så kan vi inte hantera köp i ditt land ännu.</string>
+    <string name="error_payment_canceled">Betalningen har avbrutits. Du har inte debiterats.</string>
+    <string name="error_pack_install">Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.</string>
+    <string name="error_location_failed_fetching">Kunde inte hämta platser.</string>
+    <string name="error_unknown">Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
     <string name="universal_action_continue">Fortsätt</string>
     <string name="universal_action_cancel">Avbryt</string>
     <string name="universal_action_close">Stäng</string>
@@ -55,15 +75,15 @@
     <string name="notification_vpn_expired_subtitle">VPN är inaktiverat</string>
     <string name="notification_vpn_expired_body">Uppdatera din prenumeration för att fortsätta använda BLOKADA+</string>
     <string name="notification_desc_settings">Svep aviseringen åt vänster eller höger för inställningar.</string>
-    <string name="notification_generic_header">Blokada: Action required</string>
+    <string name="notification_generic_header">Blokada: Åtgärd krävs</string>
     <string name="notification_generic_subtitle">Tryck för att lära dig mer</string>
     <string name="notification_generic_body">Vänligen öppna appen för detaljer.</string>
-    <string name="notification_acc_header">Subscription expired</string>
+    <string name="notification_acc_header">Prenumerationen har gått ut</string>
     <string name="notification_acc_subtitle">Annonsblockering är inaktiverat</string>
     <string name="notification_acc_body">Vänligen uppdatera din prenumeration för att fortsätta använda Blokada.</string>
     <string name="notification_pause_header">Blokada är fortfarande pausad</string>
     <string name="notification_pause_subtitle">Annonsblockering är inaktiverat</string>
-    <string name="notification_pause_body">Please open the app to resume Blokada.</string>
+    <string name="notification_pause_body">Vänligen öppna appen för att återaktivera Blokada.</string>
     <string name="notification_lease_header">Blokada Plus är av</string>
     <string name="notification_update_header">En uppdatering är tillgänglig</string>
     <string name="alert_update_body">Blokada %s är nu tillgänglig för nedladdning. Vi rekommenderar att du håller appen uppdaterad och endast laddar ner den från våra officiella källor.</string>
@@ -147,7 +167,7 @@
     <string name="activity_filter_show_all">Alla poster</string>
     <string name="activity_filter_show_blocked">Endast blockerade</string>
     <string name="activity_filter_show_allowed">Endast tillåtna</string>
-    <string name="activity_filter_showing_for">Showing for: %s</string>
+    <string name="activity_filter_showing_for">Visar tillfällen för: %s</string>
     <string name="activity_empty_text">Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.</string>
     <string name="activity_device_filter_show_all">Alla enheter</string>
     <string name="activity_retention_header">Hur länge kan vi lagra din aktivitet?</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">Spara %s (%s / må)</string>
     <string name="payment_label_country">Land</string>
     <string name="payment_euro_desc">Vi är baserade i Europa, så vi accepterar Euro: € 10 är ungefär $ 12.</string>
-    <string name="payment_donate_disclaimer">Detta kommer inte att aktivera ditt Blokada Plus-konto. Om du vill använda vår VPN-tjänst, vänligen prenumerera istället för att donera.</string>
     <string name="payment_action_compare">Jämför betalplaner</string>
     <string name="payment_plan_slugline_cloud">Blockerar annonser och trackers</string>
     <string name="payment_plan_slugline_cloud_detail">(inkluderar Blokada Cloud)</string>
@@ -307,7 +326,7 @@
     <string name="setup_label_which_device">Vilken typ av enhet vill du konfigurera?</string>
     <string name="setup_label_choose">Välj något av följande konfigurationsalternativ:</string>
     <string name="setup_comment_wireguard">Obs: VPN-konfigurationen kommer att använda Blokada Cloud som standard. Välj en annan DNS-inställning om du vill undvika denna tjänst. \'WireGuard\' och \'WireGuard\' logotypen är registrerade varumärken som tillhör Jason A. Donenfeld.</string>
-    <string name="setup_comment_native_apps">Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.</string>
+    <string name="setup_comment_native_apps">Obs: App för Android stöder inte Blokada Cloud ännu. Vi arbetar på en uppdatering.</string>
     <string name="setup_step">Steg %s: %s</string>
     <string name="setup_option_label_recommended">Rekommenderat: %s</string>
     <string name="setup_option_label_alternative">Alternativ: %s</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">Tillåt VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' och logotypen \'WireGuard\' är registrerade varumärken som tillhör Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Blocklistor</string>
+    <string name="app_settings_section_header">Denna enhet</string>
 </resources>

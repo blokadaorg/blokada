@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS on tällä hetkellä tuettu vain Plus-tilassa. Valitse toinen DNS ja yritä uudelleen.</string>
+    <string name="error_device_offline">Laitteesi on offline-tilassa</string>
+    <string name="error_account_inactive">Tilisi on toimeton. Aktivoi tilisi jatkaaksesi BLOKADA+:n käyttöä.</string>
+    <string name="error_account_inactive_after_restore">Tämä ei vaikuta olevan kelvollinen aktiivinen tili. Jos uskot, että tämä on virhe, ota yhteyttä meihin napauttamalla yläosassa olevaa ohjekuvaketta.</string>
+    <string name="error_account_invalid">This account ID seems invalid.</string>
+    <string name="error_creating_account">Uutta tiliä ei voitu luoda. Yritä uudelleen myöhemmin.</string>
+    <string name="error_fetching_data">Tätä toimintoa ei voitu suorittaa. Varmista, että olet online-tilassa ja yritä myöhemmin uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napsauttamalla yläosaa olevaa ohjekuvaketta.</string>
+    <string name="error_tunnel">VPN:tä ei voitu luoda. Käynnistä laite uudelleen tai poista Blokadan VPN-profiili järjestelmäasetuksista ja yritä uudelleen.</string>
+    <string name="error_vpn">VPN:tä ei voitu luoda. Käynnistä laite uudelleen tai poista Blokadan VPN-profiili järjestelmäasetuksista ja yritä uudelleen.</string>
+    <string name="error_vpn_perms">VPN-profiilin luomiseen ei ole oikeuksia.</string>
+    <string name="error_vpn_no_current_lease">Ole hyvä, ja valitse sijainti.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus is now disabled on this device. Please select a location to reactivate it.</string>
+    <string name="error_vpn_too_many_leases">Saavutit laitteiden enimmäisrajan. Poista yksi laitteistasi ja yritä uudelleen.</string>
+    <string name="error_vpn_expired">VPN on poistettu käytöstä. Päivitä tilauksesi jatkaaksesi BLOKADA+ -sovelluksen käyttöä</string>
+    <string name="error_payment_inactive_after_restore">Aikaisempi maksusi palautettiin, mutta tilauksesi on jo vanhentunut. Jos uskot, että tämä on virhe, ota yhteyttä meihin napauttamalla yläosassa olevaa ohjekuvaketta.</string>
+    <string name="error_payment_failed">Maksut eivät ole tällä hetkellä käytettävissä. Varmista, että olet online-tilassa ja yritä myöhemmin uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napsauttamalla yläosaa olevaa ohjekuvaketta.</string>
+    <string name="error_payment_failed_alternative">Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="error_payment_not_available">Maksut eivät ole käytettävissä tällä laitteella. Joko Apple Pay ei ole aktivoitu tai emme vielä käsittele ostoksia maassasi.</string>
+    <string name="error_payment_canceled">Maksu on peruutettu. Sinua ei ole laskutettu.</string>
+    <string name="error_pack_install">Tätä ominaisuutta ei voitu asentaa (tai poistaa). Yritä uudelleen myöhemmin.</string>
+    <string name="error_location_failed_fetching">Sijainteja ei voitu hakea.</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
     <string name="universal_action_continue">Jatka</string>
     <string name="universal_action_cancel">Peruuta</string>
     <string name="universal_action_close">Sulje</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">Save %s (%s / mo)</string>
     <string name="payment_label_country">Country</string>
     <string name="payment_euro_desc">We are based in Europe, so we accept Euro: €10 is roughly $12.</string>
-    <string name="payment_donate_disclaimer">This won\'t activate your Blokada Plus account. If you wish to use our VPN service, please subscribe instead of donating.</string>
     <string name="payment_action_compare">Compare plans</string>
     <string name="payment_plan_slugline_cloud">Blocks ads and trackers</string>
     <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">Allow VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' and the \'WireGuard\' logo are registered trademarks of Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Estolistat</string>
+    <string name="app_settings_section_header">Tämä laite</string>
 </resources>

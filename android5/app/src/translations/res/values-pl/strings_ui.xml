@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_blocka_dns_in_filtering_mode">Blokada DNS jest obecnie obsługiwana tylko w trybie Plus. Wybierz inny DNS i spróbuj ponownie.</string>
+    <string name="error_device_offline">Twoje urządzenie jest offline</string>
+    <string name="error_account_inactive">Twoje konto jest nieaktywne. Aktywuj swoje konto, jeśli chcesz nadal korzystać z BLOKADA+.</string>
+    <string name="error_account_inactive_after_restore">To nie wygląda na poprawne, aktywne konto. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.</string>
+    <string name="error_account_invalid">Ten identyfikator konta wygląda na niepoprawny.</string>
+    <string name="error_creating_account">Nie można stworzyć nowego konta. Spróbuj ponownie później.</string>
+    <string name="error_fetching_data">Coś poszło nie tak. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.</string>
+    <string name="error_tunnel">Nie udało się ustawić VPN. Zrestartuj to urządzenie, lub usuń profil VPN Blokady w ustawieniach systemowych, i spróbuj ponownie.</string>
+    <string name="error_vpn">Nie udało się ustawić VPN. Zrestartuj to urządzenie, lub usuń profil VPN Blokady w ustawieniach systemowych, i spróbuj ponownie.</string>
+    <string name="error_vpn_perms">Brak uprawnień do utworzenia profilu VPN.</string>
+    <string name="error_vpn_no_current_lease">Wybierz lokalizację.</string>
+    <string name="error_vpn_no_current_lease_new">Blokada Plus jest teraz wyłączona na tym urządzeniu. Wybierz lokalizację, aby ją reaktywować.</string>
+    <string name="error_vpn_too_many_leases">Z Twojego konta korzysta już maksymalna dozwolona liczba urządzeń. Usuń któreś z listy urządzeń, i spróbuj ponownie.</string>
+    <string name="error_vpn_expired">VPN został dezaktywowany. Wznów swoją subskrypcję, aby kontynuować korzystanie z BLOKADA+</string>
+    <string name="error_payment_inactive_after_restore">Twoja ostatnia płatność została znaleziona, ale jej ważność już upłynęła. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.</string>
+    <string name="error_payment_failed">Płatności są chwilowo niedostępne. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.</string>
+    <string name="error_payment_failed_alternative">Nie można dokończyć płatności. Upewnij się, że dane są poprawne i spróbuj ponownie. Jeśli problem będzie się powtarzał, skontaktuj się z nami, stukając ikonę pomocy u góry.</string>
+    <string name="error_payment_not_available">Płatności nie są dostępne dla tego urządzenia. Twój Apple Pay nie został aktywowany, lub nie obsługujemy jeszcze płatności w Twoim kraju.</string>
+    <string name="error_payment_canceled">Płatność została anulowana. Twoje konto nie zostało obciążone.</string>
+    <string name="error_pack_install">Nie można zainstalować (lub odinstalować) tej funkcji. Spróbuj ponownie później.</string>
+    <string name="error_location_failed_fetching">Nie można pobrać lokalizacji.</string>
+    <string name="error_unknown">Wystąpił problem. Upewnij się, że jesteś online i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami poprzez stuknięcie ikony pomocy u góry.</string>
     <string name="universal_action_continue">Kontynuuj</string>
     <string name="universal_action_cancel">Anuluj</string>
     <string name="universal_action_close">Zamknij</string>
@@ -283,7 +303,6 @@
     <string name="payment_label_discount">Oszczędź %s (%s / mies.)</string>
     <string name="payment_label_country">Kraj</string>
     <string name="payment_euro_desc">Mamy siedzibę w Europie, więc akceptujemy euro: 10 euro to około 12 dolarów.</string>
-    <string name="payment_donate_disclaimer">To nie aktywuje Twojego konta Blokada Plus. Jeśli chcesz korzystać z naszej usługi VPN, wykup subskrypcję zamiast przekazywać darowiznę.</string>
     <string name="payment_action_compare">Porównaj plany</string>
     <string name="payment_plan_slugline_cloud">Blokuje reklamy i trackery</string>
     <string name="payment_plan_slugline_cloud_detail">(zawiera Blokadę Cloud)</string>
@@ -341,4 +360,5 @@
     <string name="activated_label_vpn_no">Zezwól na VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' i logo \'WireGuard\' są zarejestrowanymi znakami towarowymi Jasona A. Donenfelda.</string>
     <string name="advanced_section_header_packs">Blocklisty</string>
+    <string name="app_settings_section_header">To urządzenie</string>
 </resources>

@@ -260,14 +260,57 @@ internal enum L10n {
   }
   /// BLOKADA+ expired
   internal static let alertVpnExpiredHeader = L10n.tr("Ui", "alert vpn expired header")
+  /// This device
+  internal static let appSettingsSectionHeader = L10n.tr("Ui", "app settings section header")
   /// Open Settings
   internal static let dnsprofileActionOpenSettings = L10n.tr("Ui", "dnsprofile action open settings")
   /// In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.
   internal static let dnsprofileDesc = L10n.tr("Ui", "dnsprofile desc")
   /// Enable Blokada in Settings
   internal static let dnsprofileHeader = L10n.tr("Ui", "dnsprofile header")
-  /// Blokada DNS is currently supported only in Plus mode. Please choose another DNS and try again.
-  internal static let errorBlockaDnsInFilteringMode = L10n.tr("Ui", "error blocka dns in filtering mode")
+  /// Your account is inactive. Please activate your account in order to continue using BLOKADA+.
+  internal static let errorAccountInactive = L10n.tr("Ui", "error account inactive")
+  /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.
+  internal static let errorAccountInactiveAfterRestore = L10n.tr("Ui", "error account inactive after restore")
+  /// This account ID seems invalid.
+  internal static let errorAccountInvalid = L10n.tr("Ui", "error account invalid")
+  /// Could not create a new account. Please try again later.
+  internal static let errorCreatingAccount = L10n.tr("Ui", "error creating account")
+  /// Your device is offline
+  internal static let errorDeviceOffline = L10n.tr("Ui", "error device offline")
+  /// This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.
+  internal static let errorFetchingData = L10n.tr("Ui", "error fetching data")
+  /// Could not fetch locations.
+  internal static let errorLocationFailedFetching = L10n.tr("Ui", "error location failed fetching")
+  /// Could not install (or uninstall) this feature. Please try again later.
+  internal static let errorPackInstall = L10n.tr("Ui", "error pack install")
+  /// The payment has been canceled. You have not been charged.
+  internal static let errorPaymentCanceled = L10n.tr("Ui", "error payment canceled")
+  /// Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.
+  internal static let errorPaymentFailed = L10n.tr("Ui", "error payment failed")
+  /// Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.
+  internal static let errorPaymentFailedAlternative = L10n.tr("Ui", "error payment failed alternative")
+  /// Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.
+  internal static let errorPaymentInactiveAfterRestore = L10n.tr("Ui", "error payment inactive after restore")
+  /// Payments are unavailable for this device. Either Apple Pay is not activated, or we do not handle purchases in your country yet.
+  internal static let errorPaymentNotAvailable = L10n.tr("Ui", "error payment not available")
+  /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
+  internal static let errorTunnel = L10n.tr("Ui", "error tunnel")
+  /// A problem occurred. Make sure you are online, and try again later. If the problem persi
+  /// sts, please contact us by tapping the help icon at the top.
+  internal static let errorUnknown = L10n.tr("Ui", "error unknown")
+  /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
+  internal static let errorVpn = L10n.tr("Ui", "error vpn")
+  /// The VPN is disabled. Please update your subscription to continue using BLOKADA+
+  internal static let errorVpnExpired = L10n.tr("Ui", "error vpn expired")
+  /// Please select a location first.
+  internal static let errorVpnNoCurrentLease = L10n.tr("Ui", "error vpn no current lease")
+  /// Blokada Plus is now disabled on this device. Please select a location to reactivate it.
+  internal static let errorVpnNoCurrentLeaseNew = L10n.tr("Ui", "error vpn no current lease new")
+  /// No permissions granted to create a VPN profile.
+  internal static let errorVpnPerms = L10n.tr("Ui", "error vpn perms")
+  /// You reached your devices limit. Please remove one of your devices and try again.
+  internal static let errorVpnTooManyLeases = L10n.tr("Ui", "error vpn too many leases")
   /// Tap to activate
   internal static let homeActionTapToActivate = L10n.tr("Ui", "home action tap to activate")
   /// ads and trackers blocked since installation
