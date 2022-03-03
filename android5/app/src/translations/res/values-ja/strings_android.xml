@@ -8,7 +8,6 @@
     <string name="home_level_low">保護: 低</string>
     <string name="home_level_medium">保護: 中</string>
     <string name="home_level_high">保護: 高</string>
-    <string name="advanced_section_header_packs">フィルター</string>
     <string name="advanced_section_slugline_packs">ブロックに利用するフィルターを管理する</string>
     <string name="advanced_section_slugline_apps">アプリのバイパスを管理する</string>
     <string name="advanced_section_slugline_encryption">暗号化レベルと DNS を管理する</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">バイパスされたアプリ</string>
     <string name="apps_filter_action_show_not_bypassed">バイパスされていないアプリ</string>
     <string name="apps_filter_action_toggle_system">すべてのシステムアプリを切り替える</string>
-    <string name="app_settings_section_header">設定</string>
     <string name="app_settings_language_label">言語</string>
     <string name="app_settings_theme_label">アプリのテーマ</string>
     <string name="app_settings_theme_light">ライト</string>

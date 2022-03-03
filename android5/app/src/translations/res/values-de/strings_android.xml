@@ -8,7 +8,6 @@
     <string name="home_level_low">Schutz: Niedrig</string>
     <string name="home_level_medium">Schutz: Mittel</string>
     <string name="home_level_high">Schutz: Hoch</string>
-    <string name="advanced_section_header_packs">Sperrlisten</string>
     <string name="advanced_section_slugline_packs">Für restriktiveres Blockieren aktivieren</string>
     <string name="advanced_section_slugline_apps">Wähle Apps, die niemals blockiert werden sollen</string>
     <string name="advanced_section_slugline_encryption">Passe die Verschlüsselungsstufe und DNS an</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Nur umgeleitete</string>
     <string name="apps_filter_action_show_not_bypassed">Nur nicht umgeleitete</string>
     <string name="apps_filter_action_toggle_system">Alle System-Apps umschalten</string>
-    <string name="app_settings_section_header">Dieses Gerät</string>
     <string name="app_settings_language_label">Sprache</string>
     <string name="app_settings_theme_label">App-Design</string>
     <string name="app_settings_theme_light">Hell</string>

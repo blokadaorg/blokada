@@ -8,7 +8,6 @@
     <string name="home_level_low">الحماية: منخفضة</string>
     <string name="home_level_medium">الحماية: متوسّطة</string>
     <string name="home_level_high">الحماية: عالية</string>
-    <string name="advanced_section_header_packs">قوائم الحَظْر</string>
     <string name="advanced_section_slugline_packs">تفعيل لحظْر أكثر تقييداً</string>
     <string name="advanced_section_slugline_apps">اختر التطبيقات التي لا يجب حظرها أبداً</string>
     <string name="advanced_section_slugline_encryption">ضبط مستوى التشفير الخاصّ بك و DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">تمّ تجاوزه فقط</string>
     <string name="apps_filter_action_show_not_bypassed">لم يتمّ تجاوزه فقط</string>
     <string name="apps_filter_action_toggle_system">تحديد كافة تطبيقات النظام</string>
-    <string name="app_settings_section_header">هذا الجهاز</string>
     <string name="app_settings_language_label">اللُّغة</string>
     <string name="app_settings_theme_label">مَظهر التطبيق</string>
     <string name="app_settings_theme_light">فاتح</string>

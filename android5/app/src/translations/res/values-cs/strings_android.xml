@@ -8,7 +8,6 @@
     <string name="home_level_low">Ochrana: Nízká</string>
     <string name="home_level_medium">Ochrana: Střední</string>
     <string name="home_level_high">Ochrana: Vysoká</string>
-    <string name="advanced_section_header_packs">Blocklisty</string>
     <string name="advanced_section_slugline_packs">Aktivujte pro restriktivnější blokování</string>
     <string name="advanced_section_slugline_apps">Vyberte aplikace, které by nikdy neměly být blokovány</string>
     <string name="advanced_section_slugline_encryption">Upravte svou úroveň šifrování a DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Pouze vyloučené</string>
     <string name="apps_filter_action_show_not_bypassed">Pouze nevyloučené</string>
     <string name="apps_filter_action_toggle_system">Přepnout všechny systémové aplikace</string>
-    <string name="app_settings_section_header">Toto zařízení</string>
     <string name="app_settings_language_label">Jazyk</string>
     <string name="app_settings_theme_label">Motiv aplikace</string>
     <string name="app_settings_theme_light">Světlý</string>

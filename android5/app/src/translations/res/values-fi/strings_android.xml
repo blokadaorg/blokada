@@ -8,7 +8,6 @@
     <string name="home_level_low">Protection: Low</string>
     <string name="home_level_medium">Protection: Medium</string>
     <string name="home_level_high">Protection: High</string>
-    <string name="advanced_section_header_packs">Estolistat</string>
     <string name="advanced_section_slugline_packs">Aktivoi rajoittavampi estäminen</string>
     <string name="advanced_section_slugline_apps">Valitse sovellukset joita ei pitäisi koskaan estää</string>
     <string name="advanced_section_slugline_encryption">Säädä DNS:n ja salauksen tasoa</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Bypassed only</string>
     <string name="apps_filter_action_show_not_bypassed">Not bypassed only</string>
     <string name="apps_filter_action_toggle_system">Vaihda kaikki järjestelmän sovellukset</string>
-    <string name="app_settings_section_header">Tämä laite</string>
     <string name="app_settings_language_label">Kieli</string>
     <string name="app_settings_theme_label">Sovelluksen teema</string>
     <string name="app_settings_theme_light">Vaalea</string>

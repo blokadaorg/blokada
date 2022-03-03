@@ -8,7 +8,6 @@
     <string name="home_level_low">Protección: Baja</string>
     <string name="home_level_medium">Protección: Media</string>
     <string name="home_level_high">Protección: Alta</string>
-    <string name="advanced_section_header_packs">Listas de bloqueo</string>
     <string name="advanced_section_slugline_packs">Activar para un bloqueo más restrictivo</string>
     <string name="advanced_section_slugline_apps">Elige las aplicaciones que nunca deben ser bloqueadas</string>
     <string name="advanced_section_slugline_encryption">Ajusta tu nivel de cifrado y DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Solo omitido</string>
     <string name="apps_filter_action_show_not_bypassed">Solo no omitido</string>
     <string name="apps_filter_action_toggle_system">Filtrar todas las aplicaciones del sistema</string>
-    <string name="app_settings_section_header">Este dispositivo</string>
     <string name="app_settings_language_label">Idioma</string>
     <string name="app_settings_theme_label">Tema de la aplicación</string>
     <string name="app_settings_theme_light">Claro</string>

@@ -8,7 +8,6 @@
     <string name="home_level_low">Perlindungan: Rendah</string>
     <string name="home_level_medium">Perlindungan: Sedang</string>
     <string name="home_level_high">Perlindungan: Tinggi</string>
-    <string name="advanced_section_header_packs">Blocklist</string>
     <string name="advanced_section_slugline_packs">Aktifkan untuk pemblokiran yang lebih ketat</string>
     <string name="advanced_section_slugline_apps">Pilih aplikasi yang tidak boleh diblokir</string>
     <string name="advanced_section_slugline_encryption">Atur tingkat enkripsi dan pilih server DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Hanya tampilkan entri yang di-bypass</string>
     <string name="apps_filter_action_show_not_bypassed">Hanya tampilkan entri yang tidak di-bypass</string>
     <string name="apps_filter_action_toggle_system">Tampilkan semua aplikasi sistem</string>
-    <string name="app_settings_section_header">Perangkat ini</string>
     <string name="app_settings_language_label">Bahasa</string>
     <string name="app_settings_theme_label">Tema aplikasi</string>
     <string name="app_settings_theme_light">Terang</string>

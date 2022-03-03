@@ -8,7 +8,6 @@
     <string name="home_level_low">Protection : Faible</string>
     <string name="home_level_medium">Protection : Moyenne</string>
     <string name="home_level_high">Protection : Forte</string>
-    <string name="advanced_section_header_packs">Listes de blocage</string>
     <string name="advanced_section_slugline_packs">Activer pour un blocage plus restrictif</string>
     <string name="advanced_section_slugline_apps">Choisissez les applications qui ne doivent jamais être bloquées</string>
     <string name="advanced_section_slugline_encryption">Ajustez votre niveau de chiffrement et de DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Contournées uniquement</string>
     <string name="apps_filter_action_show_not_bypassed">Non contournées uniquement</string>
     <string name="apps_filter_action_toggle_system">Activer/désactiver toutes les applications système</string>
-    <string name="app_settings_section_header">Cet appareil</string>
     <string name="app_settings_language_label">Langue</string>
     <string name="app_settings_theme_label">Thème de l\'application</string>
     <string name="app_settings_theme_light">Clair</string>

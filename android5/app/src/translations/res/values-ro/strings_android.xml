@@ -8,7 +8,6 @@
     <string name="home_level_low">Protecție: Scăzută</string>
     <string name="home_level_medium">Protecție: Medie</string>
     <string name="home_level_high">Protecție: Ridicată</string>
-    <string name="advanced_section_header_packs">Lista Neagră</string>
     <string name="advanced_section_slugline_packs">Activați pentru o blocare mai restrictivă</string>
     <string name="advanced_section_slugline_apps">Alegeți aplicațiile ce nu ar trebui să fie blocate niciodată</string>
     <string name="advanced_section_slugline_encryption">Ajustați nivelul de criptare şi DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Doar ocolit</string>
     <string name="apps_filter_action_show_not_bypassed">Nu doar cele ocolite</string>
     <string name="apps_filter_action_toggle_system">Comută toate aplicațiile de sistem</string>
-    <string name="app_settings_section_header">Acest dispozitiv</string>
     <string name="app_settings_language_label">Limbă</string>
     <string name="app_settings_theme_label">Tema aplicației</string>
     <string name="app_settings_theme_light">Deschisă</string>

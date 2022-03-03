@@ -8,7 +8,6 @@
     <string name="home_level_low">保護級別：弱</string>
     <string name="home_level_medium">保護級別：中</string>
     <string name="home_level_high">保護級別：強</string>
-    <string name="advanced_section_header_packs">阻擋清單</string>
     <string name="advanced_section_slugline_packs">啟用以進行更嚴格的阻擋</string>
     <string name="advanced_section_slugline_apps">選擇不要被阻擋的 APP</string>
     <string name="advanced_section_slugline_encryption">調整您的加密等級與 DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">只有繞過的 App</string>
     <string name="apps_filter_action_show_not_bypassed">只有沒繞過的 App</string>
     <string name="apps_filter_action_toggle_system">切換所有系統 App</string>
-    <string name="app_settings_section_header">這台裝置</string>
     <string name="app_settings_language_label">語言</string>
     <string name="app_settings_theme_label">App 主題</string>
     <string name="app_settings_theme_light">亮色</string>

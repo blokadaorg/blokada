@@ -8,7 +8,6 @@
     <string name="home_level_low">Защита: Низкая</string>
     <string name="home_level_medium">Защита: Средняя</string>
     <string name="home_level_high">Защита: Высокая</string>
-    <string name="advanced_section_header_packs">Списки блокировки</string>
     <string name="advanced_section_slugline_packs">Активируйте для более строгой блокировки</string>
     <string name="advanced_section_slugline_apps">Выберите приложения, которые никогда не следует блокировать</string>
     <string name="advanced_section_slugline_encryption">Настройте уровень шифрования и DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Только в обход</string>
     <string name="apps_filter_action_show_not_bypassed">Только не в обход</string>
     <string name="apps_filter_action_toggle_system">Скрыть/показать все системные приложения</string>
-    <string name="app_settings_section_header">Это устройство</string>
     <string name="app_settings_language_label">Язык</string>
     <string name="app_settings_theme_label">Тема приложения</string>
     <string name="app_settings_theme_light">Светлая</string>

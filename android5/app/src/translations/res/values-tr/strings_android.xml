@@ -8,7 +8,6 @@
     <string name="home_level_low">Koruma: Düşük</string>
     <string name="home_level_medium">Koruma: Orta</string>
     <string name="home_level_high">Koruma: Yüksek</string>
-    <string name="advanced_section_header_packs">Engelleme listeleri</string>
     <string name="advanced_section_slugline_packs">Daha kısıtlayıcı engelleme için etkinleştirin</string>
     <string name="advanced_section_slugline_apps">Asla engellenmemesi gereken uygulamaları seçin</string>
     <string name="advanced_section_slugline_encryption">Şifreleme seviyenizi ve DNS\'nizi ayarlayın</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Yalnızca atlandı</string>
     <string name="apps_filter_action_show_not_bypassed">Yalnızca atlanmadı</string>
     <string name="apps_filter_action_toggle_system">Tüm sistem uygulamalarını değiştir</string>
-    <string name="app_settings_section_header">Bu cihaz</string>
     <string name="app_settings_language_label">Dil</string>
     <string name="app_settings_theme_label">Uygulama teması</string>
     <string name="app_settings_theme_light">Açık</string>

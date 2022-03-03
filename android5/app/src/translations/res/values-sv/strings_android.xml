@@ -8,7 +8,6 @@
     <string name="home_level_low">Skydd: Lågt</string>
     <string name="home_level_medium">Skydd: Medium</string>
     <string name="home_level_high">Skydd: Högt</string>
-    <string name="advanced_section_header_packs">Blocklistor</string>
     <string name="advanced_section_slugline_packs">Aktivera för en mer restriktiv blockering</string>
     <string name="advanced_section_slugline_apps">Välj appar som aldrig ska blockeras</string>
     <string name="advanced_section_slugline_encryption">Justera din krypteringsnivå och DNS</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Endast förbigångna</string>
     <string name="apps_filter_action_show_not_bypassed">Endast ej förbigångna</string>
     <string name="apps_filter_action_toggle_system">Växla alla systemappar</string>
-    <string name="app_settings_section_header">Denna enhet</string>
     <string name="app_settings_language_label">Språk</string>
     <string name="app_settings_theme_label">Apptema</string>
     <string name="app_settings_theme_light">Ljust</string>

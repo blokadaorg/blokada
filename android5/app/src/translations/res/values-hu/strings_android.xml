@@ -8,7 +8,6 @@
     <string name="home_level_low">Védelem: Alacsony</string>
     <string name="home_level_medium">Védelem: Közepes</string>
     <string name="home_level_high">Védelem: Magas</string>
-    <string name="advanced_section_header_packs">Tiltólista</string>
     <string name="advanced_section_slugline_packs">Aktiválja a szigorúbb blokkoláshoz</string>
     <string name="advanced_section_slugline_apps">Válassza ki az appokat, amelyeket sosem kíván blokkolni</string>
     <string name="advanced_section_slugline_encryption">Állítsa be a titkosítási szintet és DNS-t</string>
@@ -68,7 +67,6 @@
     <string name="apps_filter_action_show_bypassed">Bypassed only</string>
     <string name="apps_filter_action_show_not_bypassed">Not bypassed only</string>
     <string name="apps_filter_action_toggle_system">Toggle all system apps</string>
-    <string name="app_settings_section_header">This device</string>
     <string name="app_settings_language_label">Language</string>
     <string name="app_settings_theme_label">App theme</string>
     <string name="app_settings_theme_light">Light</string>
