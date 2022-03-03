@@ -22,7 +22,6 @@ enum ActiveSheet: Identifiable {
     case Payment // Main payment screen with plans
     case Location // Location selection screen for Blokada Plus
     case Activated // A welcome showing right after purchase
-    case EncryptionExplain // The "protection level" sheet
     case ShowLog // Shows log with a possibliity to share
     case ShareLog // Opens OS'es file sharing with the log attached
     case Debug // Debug shortcuts and actions, not accessible in production builds

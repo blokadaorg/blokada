@@ -39,8 +39,6 @@ struct ContentView: View {
                         LocationListView()
                     case .Activated:
                         AfterActivatedView()
-                    case .EncryptionExplain:
-                        EncryptionExplanationView(level: self.homeVM.encryptionLevel)
                     case .ShowLog:
                         LogView()
                     case .ShareLog:

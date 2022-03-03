@@ -22,7 +22,7 @@ struct SettingsHeaderView: View {
             .frame(width: 64, height: 64)
             .padding([.bottom, .top, .trailing], 6)
 
-            if self.vm.active {
+            if self.vm.active && self.vm.type != .Libre {
                 L10n.accountStatusText(
                     self.vm.type, self.vm.activeUntil
                 )

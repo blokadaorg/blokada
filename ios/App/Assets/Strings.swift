@@ -13,7 +13,6 @@
 import Foundation
 
 class Strings {
-    static let account_active_forever = L10n.accountActiveForever
     static let account_type_free = "Libre"
     static let account_type_cloud = "Cloud"
     static let account_type_plus = "Plus"
@@ -25,7 +24,7 @@ class Strings {
         if account?.isActive() ?? false {
             return dateFormatter.string(for: account!.activeUntil())!
         } else {
-            return account_active_forever
+            return ""
         }
     }
 
