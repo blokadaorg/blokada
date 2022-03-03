@@ -1,5 +1,5 @@
 { "strings": {
-    "Ads and trackers blocking list": "Списък за блокиране на реклами и тракери",
+    "Ads and trackers blocking list": "Списък с проследяващи тракери и реклами",
     "This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave.": "Energized System е предназначен за подобни на Unix системи и съдържа списък от множество реномирани източници на домейни, които показват реклами, проследяване на скриптове, зловреден софтуер и създава хост файл, който не позволява на системата ви да се свърже с тях. Внимавайте, инсталирането на конфигурацията „Социални“ може да направи социалните ви приложения \"лоши\", например като Messenger.",
     "Popular for adblocking": "Блокиране на популярни реклами",
     "Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories.": "Утвърдени и разширяващи се хост файлове от няколко избрани добри източници. По избор можете да изберете разширенията, с които да блокирате порно, социални медии и други категории.",

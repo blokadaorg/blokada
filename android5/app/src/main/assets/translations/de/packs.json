@@ -1,5 +1,5 @@
 { "strings": {
-    "Ads and trackers blocking list": "Sperrliste für Tracker und Werbung",
+    "Ads and trackers blocking list": "Werbungen und Tracker Blockierliste",
     "This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave.": "Dieses Energized-System wurde für Unix-ähnliche Systeme entwickelt, bezieht eine Liste von Domains, die Werbung, Tracking-Skripte und Malware aus mehreren seriösen Quellen bereitstellen, und erstellt eine Hosts-Datei, die verhindert, dass dein System eine Verbindung zu ihnen herstellt. Beachte: Wenn du die \"Social\"-Konfiguration installierst, können deine sozialen Apps wie z. B. Messenger ein Fehlverhalten aufweisen.",
     "Popular for adblocking": "Beliebt für Werbeblocker",
     "Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories.": "Zusammenfassen und Erweitern von Host-Dateien von mehreren gut-kuratierten Quellen. Du kannst optional die Erweiterungen Porn, Social Media und andere Kategorien auswählen, um diese zu blockieren.",

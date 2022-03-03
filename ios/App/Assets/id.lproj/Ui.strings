@@ -10,27 +10,6 @@
 //  @author Karol Gusak
 //
 
-"error device offline" = "Perangkat Anda offline/tidak terkoneksi";
-"error account inactive" = "Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa menggunakan BLOKADA+.";
-"error account inactive after restore" = "Akun ini sepertinya tidak valid/aktif. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.";
-"error account invalid" = "ID akun ini sepertinya tidak valid.";
-"error creating account" = "Tidak bisa membuat akun baru. Silakan coba beberapa saat lagi.";
-"error fetching data" = "Pendaftaran akun tidak bisa dilanjutkan. Harap pastikan perangkat Anda terhubung dengan internet, dan coba kembali. Jika masalah berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.";
-"error tunnel" = "Tidak dapat terhubung dengan VPN. Silakan me-restart perangkat Anda, atau hapus profil Blokada VPN di pengaturan sistem, dan coba kembali.";
-"error vpn" = "Tidak dapat terhubung dengan VPN. Silakan me-restart perangkat Anda, atau hapus profil Blokada VPN di pengaturan sistem, dan coba kembali.";
-"error vpn perms" = "Izin tidak diberikan untuk membuat profil VPN.";
-"error vpn no current lease" = "Silakan pilih lokasi terlebih dahulu.";
-"error vpn no current lease new" = "Blokada Plus telah dinonaktifkan di perangkat ini. Silakan memilih lokasi untuk kembali mengaktifkan Blokada Plus.";
-"error vpn too many leases" = "Jumlah perangkat yang bisa menggunakan VPN telah terlampaui. Silakan hapus salah satu perangkat Anda dan coba kembali.";
-"error vpn expired" = "VPN dinonaktifkan. Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali";
-"error payment inactive after restore" = "Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.";
-"error payment failed" = "Pembayaran tidak bisa dilakukan pada saat ini. Harap pastikan perangkat Anda terkoneksi dengan internet, dan coba kembali. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.";
-"error payment failed alternative" = "Tidak dapat menyelesaikan pembayaran Anda. Harap pastikan data Anda benar, dan coba lagi. Jika masalah terus berlanjut, harap hubungi kami dengan mengetuk ikon bantuan di bagian atas.";
-"error payment not available" = "Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena Apple Pay belum diaktifkan, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.";
-"error payment canceled" = "Pembayaran telah dibatalkan. Tidak ada biaya yang dibebankan kepada Anda.";
-"error pack install" = "Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.";
-"error location failed fetching" = "Tidak bisa mendapatkan data lokasi.";
-"error unknown" = "Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.";
 "error blocka dns in filtering mode" = "Saat ini Blokada DNS hanya bisa diaktifkan di mode Plus. Silahkan pilih server DNS yang lain dan coba kembali.";
 
 "universal action continue" = "Lanjut";
@@ -93,6 +72,10 @@
 "alert vpn expired header" = "BLOKADA+ kedaluwarsa";
 "alert download link body" = "Untuk alasan keamanan, untuk mengunduh file ini, Blokada harus membuka situs yang dituju di browser Anda. Silahkan tekan tautan download kembali.";
 
+"notification perms header" = "Aktifkan notifikasi di Settings";
+"notification perms desc" = "Fitur in mengharuskan notifikasi diaktifkan, silakan aktifkan notifikasi untuk Blokada.";
+"notification perms denied" = "Anda tidak mengizinkan notifikasi. Jika Anda ingin mengubahnya silakan atur di Preferensi Sistem.";
+
 "notification vpn expired header" = "Langganan BLOKADA+ Anda telah berakhir";
 "notification vpn expired subtitle" = "VPN dinonaktifkan";
 "notification vpn expired body" = "Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali";
@@ -120,12 +103,6 @@
 "update desc updated" = "Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, donasi atau berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.";
 "update downloading description" = "Pembaruan sedang diunduh, dan Anda akan melihat instruksi untuk menginstal beberapa saat kemudian.";
 
-"account active forever" = "Selamanya";
-"account active forever full" = "Aktif selamanya";
-
-"main ask for permissions header" = "Satu langkah lagi";
-"main ask for permissions description" = "Blokada menggunakan konfigurasi VPN untuk memblokir iklan. Anda akan diminta untuk memberikan izin di langkah selanjutnya.";
-
 "main share message" = "Blokada iOS membantu saya memblokir %@ iklan dan pelacak!";
 
 "main rate us header" = "Beri kami rating!";
@@ -141,8 +118,6 @@
 "main tab advanced" = "Tingkat Lanjut";
 // Make sure each tab name has a similar length
 "main tab settings" = "Pengaturan";
-
-"main label use side menu" = "Gunakan menu di samping untuk menavigasi";
 
 "home ads counter footnote" = "iklan dan pelacak yang diblokir sejak Blokada diinstal";
 "home power off menu header" = "Apa yang ingin Anda lakukan?";
@@ -166,11 +141,6 @@
 "home plus button select location" = "Pilih lokasi";
 "home plus button location" = "Lokasi: *%@*";
 
-"home level low" = "Perlindungan: Rendah";
-"home level medium" = "Perlindungan: Sedang";
-"home level high" = "Perlindungan: Tinggi";
-
-
 "pack section header" = "Fitur lanjutan";
 "pack section header details" = "Detail Fitur";
 "pack action install" = "DAPATKAN";
@@ -184,12 +154,6 @@
 "pack category highlights" = "Highlights";
 "pack category active" = "Aktif";
 "pack category all" = "Semua";
-
-"advanced section header packs" = "Blocklist";
-"advanced section slugline packs" = "Aktifkan untuk pemblokiran yang lebih ketat";
-"advanced section slugline apps" = "Pilih aplikasi yang tidak boleh diblokir";
-"advanced section slugline encryption" = "Atur tingkat enkripsi dan pilih server DNS";
-"advanced action slim migrate to full" = "Anda sedang menggunakan Blokada Slim. Pelajari lebih lanjut";
 
 "location choice header" = "Pilih lokasi";
 
@@ -252,37 +216,8 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Blokir";
 
-"networks section header" = "Jaringan";
-"networks section label" = "Pengaturan untuk WiFi dan jaringan seluler";
-"networks label all networks" = "Semua jaringan";
-"networks action network specific" = "Ketuk di sini untuk merubah pengaturan bawaan. Untuk pengaturan aplikasi di jaringan berbeda, ketuk di bawah.";
-"networks label configuration active" = "Pengaturan ini sedang aktif";
-"networks label configuration enabled" = "Tidak tersambung ke jaringan ini";
-"networks label configuration inactive" = "Ketuk untuk memodifikasi pengaturan jaringan ini";
-"networks label details default network" = "Pengaturan di bawah ini diterapkan secara default untuk semua jaringan. Anda bisa merubahnya untuk jaringan yang Anda pilih (di menu sebelumnya).";
-"networks action encrypt dns" = "Enkripsikan DNS";
-"networks action use dns" = "Gunakan DNS: %@";
-"networks action use network dns" = "Utamakan DNS jaringan";
-"networks action force libre mode" = "Tetap pakai Libre Mode";
-"networks label specific network" = "Atur apa yang terjadi ketika perangkat Anda tersambung dengan jaringan ini.";
-"networks label specific network type" = "Pengaturan ketika perangkat Anda tersambung dengan jaringan ini.";
-"networks label any wifi" = "Jaringan WiFi manapun";
-"networks label any mobile" = "Jaringan seluler manapun";
-"networks permission request" = "Ketuk di sini untuk mengizinkan Blokada mengenali semua jaringan.";
-"networks permission request granted" = "Anda mungkin akan melihat pemberitahuan ketika Blokada memindai nama jaringan Anda di latar belakang.";
-"networks section choose dns" = "Pilih server DNS";
-"networks summary encrypt dns" = "Blokada akan mengenkripsi DNS jika memungkinkan. Hal ini akan memperkuat keamanan dan mencegah orang lain memata-matai situs web dan aplikasi yang Anda pakai.";
-"networks summary use dns" = "Blokada akan mempergunakan %@ sebagai DNS perangkat Anda. Memilih DNS yang mendukung enkripsi (bertanda ikon kunci) dan lokasi yang berdekatan dengan Anda akan membantu melindungi serta mempercepat koneksi Anda.";
-"networks summary network dns" = "Blokada akan mempergunakan DNS dari jaringan jika tersedia, jika tidak memungkinkan Blokada akan menggunakan %@. Pengaturan Enkripsi DNS akan diabaikan ketika DNS jaringan aktif. Penggunaan DNS dari jaringan membantu perbaikan kendala koneksi pada jaringan bermasalah, namun akan membuat koneksi Anda tak terlindungi.";
-"networks summary network dns and plus mode" = "Blokada akan menonaktifkan Mode Plus untuk sementara waktu ketika DNS jaringan digunakan. Hal ini terjadi karena pengguna tidak akan mungkin mengakses DNS jaringan saat menggunakan VPN. Mode Plus akan kembali aktif secara otomatis ketika perangkat Anda beralih ke jaringan lain.";
-"networks summary blocka plus mode" = "Blokada akan mempergunakan Blokada DNS dalam Mode Plus demi menjamin kecepatan dan tingkat enkripsi tinggi. Anda dapat mengubah pengaturan ini di bagian bawah layar Pilih DNS.";
-"networks summary force libre mode" = "Blokada akan selalu menggunakan Mode Libre di jaringan ini, dan mengabaikan lokasi yang Anda pilih di mode Blokada Plus. Ini berguna untuk jaringan di mana Anda tidak menginginkan perlindungan tambahan.";
-"networks permission dialog" = "Blokada bisa mengenali jaringan apa saja yang terkoneksi dengan perangkat Anda, dan memungkinkan Anda untuk membuat pengaturan terpisah untuk masing-masing jaringan tersebut. Namun, Blokada akan mengumpulkan data lokasi dalam bentuk nama jaringan supaya fitur ini bisa berfungsi dengan baik, bahkan ketika Blokada sedang non aktif atau tidak digunakan. Anda sesekali akan mendapat notifikasi sistem tentang Blokada yang mengakses informasi lokasi, namun Blokada hanya membaca nama jaringan yang Anda gunakan.";
-
-
 "account section header settings" = "Pengaturan";
 "account status text" = "%@ Akun BLOKADA Anda aktif sampai %@.";
-"account status text libre" = "Akun BLOKADA Libre Anda telah aktif tanpa batas waktu.";
 "account status text inactive" = "Akun BLOKADA Anda tidak aktif.";
 
 "account section header primary" = "Utama";
@@ -326,26 +261,6 @@
 "account devices remaining" = "Perangkat tersisa:%@";
 "account devices not available" = "Tidak tersedia";
 "account devices out of" = "%@ dari %@";
-
-"account encrypt level low" = "Rendah";
-"account encrypt level medium" = "Sedang";
-"account encrypt level high" = "Tinggi";
-"account encrypt label dns only" = "DNS terenkripsi";
-"account encrypt desc dns only" = "Domain Name System adalah cara perangkat Anda mengetahui di mana mencari situs yang ingin Anda kunjungi. Sayangnya, sebagian besar masih menggunakan DNS yang tidak dienkripsi, yang memungkinkan browsing history Anda dilihat pihak lain. Jika diaktifkan, Blokada memaksa perangkat Anda untuk terkoneksi hanya dengan server DNS yang terenkripsi (disebut juga dengan DNS over HTTPS).";
-"account encrypt label everything" = "Terhubung melalui VPN";
-"account encrypt desc everything" = "Perangkat Anda terhubung melalui server VPN kami yang aman, dan semua komunikasi, dari dan menuju perangkat Anda, dienkripsi dengan algoritma kuat. Ini menjadikan data pribadi Anda, seperti data perbankan atau foto-foto pribadi, aman dari pihak-pihak yang ingin mencurinya jika Anda mengakses internet di tempat yang tidak aman, misalnya jaringan WiFi sebuah kedai kopi.";
-"account encrypt action turn on" = "Aktifkan BLOKADA";
-"account encrypt header level" = "Tingkat Enkripsi";
-"account encrypt label level" = "Tingkatan";
-"account encrypt label level low" = "Rendah: Tanpa Enkripsi";
-"account encrypt label level medium" = "Sedang: DNS terenkripsi";
-"account encrypt label level high" = "Tinggi: Enkripsi Semuanya";
-"account encrypt header explanation" = "DNS memungkinkan perangkat Anda menemukan situs yang ingin Anda akses. BLOKADA hanya mendukung DNS yang terenkripsi.";
-"account encrypt label dns" = "DNS";
-"account encrypt action what is dns" = "Apakah DNS itu?";
-"account encrypt section header" = "Enkripsi";
-"account encrypt section blocka dns" = "Blokada DNS";
-"account encrypt label use blocka dns" = "Gunakan Blokada DNS di mode Plus";
 
 "account lease label devices list" = "Perangkat-perangkat ini terhubung dengan akun Anda.";
 "account lease label devices" = "Perangkat";
@@ -449,159 +364,11 @@
 "payment plan cta monthly" = "Langganan Bulanan";
 "payment plan cta annual" = "Langganan Tahunan";
 
-"apps section header" = "Aplikasi";
-"apps label installed" = "Terinstal";
-"apps label system" = "Sistem";
-"apps status bypassed" = "(di-bypass)";
-"apps filter header" = "Aplikasi mana yang ingin Anda lihat?";
-"apps filter action show all" = "Semua aplikasi";
-"apps filter action show bypassed" = "Hanya tampilkan entri yang di-bypass";
-"apps filter action show not bypassed" = "Hanya tampilkan entri yang tidak di-bypass";
-"apps filter action toggle system" = "Tampilkan semua aplikasi sistem";
-
-"app settings section header" = "Perangkat ini";
-"app settings language label" = "Bahasa";
-"app settings theme label" = "Tema aplikasi";
-"app settings theme light" = "Terang";
-"app settings theme dark" = "Gelap";
-// A setting for changing if to open links internally in the app, or by using this device's web browser
-"app settings browser label" = "Alihkan tautan ke";
-"app settings browser internal" = "Browser internal";
-"app settings browser external" = "Browser eksternal (jika memungkinkan)";
-"app settings ipv6 label" = "Izinkan IPv6";
-"app settings section system" = "Sistem";
-"app settings action app info" = "Buka Info Aplikasi";
-"app settings action vpn profile" = "Buka Profil VPN";
-"app settings action notifications" = "Buka Pengaturan Notifikasi";
-"app settings section details" = "Detail";
-"app settings status default" = "Bawaan sistem";
-"app settings start on boot" = "Aktifkan saat boot";
-"app settings use dns over https" = "Gunakan DNS over HTTPS";
-"app settings backup" = "Gunakan cloud backup";
-"app settings section advanced" = "Tingkat Lanjut";
-"app settings section use foreground" = "Tetap hidupkan";
-
-"intro header" = "Blokada Aktif!";
-"intro text" = "Lingkaran biru menandakan Blokada sedang aktif \n\nIngat, beberapa iklan, seperti yang ada di YouTube, tidak bisa diblokir. Namun Anda bisa saja melihat perbedaan di aplikasi yang lain.\n\nKami sarankan Anda untuk mengaktifkan Always On VPN/Connect on Demand di pengaturan perangkat Anda.";
-
 "location region worldwide" = "Dimana saja";
 "location region america" = "Amerika";
 "location region europe" = "Eropa";
 "location region asia" = "Asia";
 "location region australia" = "Australia";
-
-"homepage header what is blokada" = "Apa itu Blokada?";
-"homepage desc what is blokada" = "Pelajari informasi dasar tentang Blokada.";
-"homepage desc download" = "Unduh Blokada untuk platform Anda.";
-"homepage desc community" = "Bergabunglah dengan komunitas kami yang luar biasa.";
-"homepage header support" = "Dukung kami";
-"homepage desc support" = "Beri donasi agar kami bisa tetap mengembangkan Blokada lebih baik lagi.";
-"homepage action faq" = "FAQ";
-"homepage action opinions" = "Ulasan";
-"homepage action authors" = "Pembuat";
-"homepage action source" = "Sumber";
-"homepage action forums" = "Forum";
-"homepage action dashboard" = "Dashboard";
-"homepage about footer" = "Mari bersilaturahmi!";
-"homepage hero title" = "Aplikasi yang mengutamakan privasi";
-"homepage hero subtitle" = "gratis dan open source";
-"homepage hero opensource" = "open source";
-"homepage hero desc" = "Blokada adalah aplikasi pemblokir iklan dan privasi yang populer untuk platform Android dan iOS. Aplikasi ini didukung dan dikembangkan secara aktif oleh komunitas open source yang luar biasa.";
-"homepage about title" = "Blokada Libre, pemblokir iklan";
-"homepage about desc" = "Jika Anda ingin memblokir iklan, pelacak, malware, memghemat paket data, mempercepat koneksi data, dan melindungi privasi Anda secara efisien hanya dengan satu aplikasi, Blokada adalah pilihan yang tepat untuk Anda. Aplikasi ini gratis, aman, dan open source.";
-"homepage about point one" = "Memblokir iklan & pelacak";
-"homepage about point two" = "Berfungsi di semua aplikasi dan browser";
-"homepage about point three" = "Tidak perlu root atau jailbreak";
-"homepage about point four" = "Rancangan aman (tak merusak enkripsi)";
-"homepage about point five" = "Terpercaya & gratis selamanya";
-"homepage about point six" = "Source code tersedia untuk Android dan iOS";
-"homepage about point seven" = "Bisa di-download di Android";
-
-"homepage cloud title" = "Blokada Cloud, cara baru";
-"homepage cloud desc" = "Solusi modern dari kami untuk pemblokiran konten yang tidak dikehendaki di perangkat Anda. Lindungi perangkat-perangkat Anda dari iklan dan pelacak, dan atur semuanya sesuai keinginan Anda di satu tempat. Nikmati pemblokiran iklan dengan konsumsi batre yang sangat minimal, tanpa adanya pelambatan, dan sangat bisa diandalkan.";
-"homepage cloud point one" = "Pemblokiran iklan berbasis cloud";
-"homepage cloud point two" = "Atur dan pantau melalui web";
-"homepage cloud point three" = "DNS yang terenkripsi dan terjaga privasinya";
-"homepage cloud point four" = "Hubungkan banyak perangkat";
-"homepage cloud point five" = "Aplikasi ini tersedia untuk iOS";
-"homepage cloud point six" = "Bisa digunakan di platform apa saja yang mendukung private DNS";
-"homepage cloud learn more" = "Pelajari lebih lanjut tentang Blokada Cloud";
-
-"homepage about action faq" = "Lihat FAQ";
-"homepage about action plus" = "Pelajari lebih lanjut tentang Blokada Plus";
-
-"homepage vpn title" = "Blokada Cloud, VPN";
-"homepage vpn desc" = "Untuk perlindungan privasi terbaik, upgrade ke Blokada Plus dan berselancar melalui VPN kami. Kami menggunakan WireGuard®, protokol VPN tercanggih saat ini, untuk mengenkripsi aktivitas internet dan menyembunyikan IP address Anda.";
-"homepage vpn point one" = "Tanpa pembatasan bandwidth";
-"homepage vpn point two" = "Enkripsi cepat & modern";
-"homepage vpn point three" = "Tanpa pencatatan aktivitas jaringan Anda";
-"homepage vpn point four" = "Cakupan koneksi hingga 5 perangkat";
-"homepage vpn point five" = "Keuntungan dari Blokada Cloud";
-"homepage vpn point six" = "Tersedia untuk Android dan iOS";
-"homepage vpn point seven" = "Bisa digunakan di platform lain dengan menggunakan aplikasi Wireguard®";
-"homepage vpn credit" = "'Wireguard' dan logo 'Wireguard' adalah merk terdaftar milik Jason A. Donenfeld.";
-
-"homepage faq header" = "Pertanyaan Yang Sering Diajukan";
-"homepage faq action more" = "Lihat selengkapnya";
-"homepage faq title 1" = "Informasi apa yang disimpan oleh Blokada?";
-"homepage faq desc 1" = "Blokada tidak melacak atau membagikan detail aktivitas Anda selama menggunakan internet. Jika Anda berlangganan Blokada Plus, untuk beberapa alasan teknis kami akan mengumpulkan data seminimal mungkin yang diperlukan agar layanan kami bisa berfungsi optimal. Harap lihat Kebijakan Privasi kami yang tersedia di menu bagian atas untuk informasi lebih lanjut.";
-"homepage faq title 2" = "Bagaimana privasi saya terlindungi?";
-"homepage faq desc 2" = "Blokada mencegah pengiriman data pribadi oleh aplikasi dan browser yang ada di perangkat Anda (dikenal sebagai tracking fingerprints) melalui internet. Blokada juga mengenkripsi sebagian aktivitas berselancar Anda (DNS queries). Jika Anda membutuhkan perlindungan lebih, kami menyediakan Blokada Plus yang akan menghubungkan perangkat Anda dengan VPN kami yang menggunakan protokol WireGuard® untuk mengenkripsi seluruh lalu lintas data Anda.";
-"homepage faq title 3" = "Apa itu Blokada Plus?";
-"homepage faq desc 3" = "Blokada Plus adalah layanan VPN (Virtual Private Network) kami yang modern dan dijamin aman. Layanan VPN kami menggunakan WireGuard® - protokol gegas dengan tingkat enkripsi terbaik di kelasnya dengan konsumsi daya yang minimal. Blokada Plus mengenkripsi semua lalu lintas data Anda secara real-time, memberikan Anda perlindungan tertinggi. Dengan Blokada Plus, Anda juga mendapatkan fitur-fitur VPN populer lainnya - menyembunyikan IP address, mengubah lokasi, dan mengakses konten yang hanya tersedia di negara-negara tertentu.";
-"homepage faq title 4" = "Perlukah saya meng-upgrade ke Blokada Plus?";
-"homepage faq desc 4" = "Tidak, upgrade ke Blokada Plus bersifat opsional. Anda bisa tetap menggunakan Blokada versi gratis, selamanya. Upgrade ke Blokada Plus disarankan jika Anda ingin meningkatkan perlindungan privasi Anda ke level yang lebih tinggi, atau Anda memerlukan fitur-fitur yang hanya bisa disediakan oleh layanan VPN.";
-"homepage faq title 5" = "Bagaimana kebijakan refund Blokada Plus?";
-"homepage faq desc 5" = "Jika Anda tidak puas dengan layanan VPN kami, Anda dapat memperoleh uang Anda kembali dalam jangka waktu 7 hari sejak mulai berlangganan. Cukup hubungi kami melalui kanal manapun dan ajukan permintaan untuk pengembalian uang Anda.";
-"homepage faq title 6" = "Di mana Blokada berada?";
-"homepage faq desc 6" = "Kami berbasis di Swedia, di mana privasi ditangani secara serius. Server-server kami tersedia di berbagai lokasi di seluruh dunia.";
-"homepage faq title 7" = "Apa itu Blokada Cloud?";
-"homepage faq desc 7" = "Blokada Cloud adalah solusi pemblokiran iklan berbasis cloud terbaru dari kami. Blokada Cloud bekerja lebih cepat dan andal dibanding metode lama, dengan banyak keuntungan tambahan. Blokada Cloud bisa dipakai di banyak perangkat sekaligus, dan bisa digunakan di semua platform yang mendukung DNS over TLS/HTTPS.";
-
-"homepage download header" = "Unduh Blokada";
-"homepage download subheader" = "Blokada tersedia di berbagai platform, silahkan pilih mana yang sesuai untuk Anda.";
-"homepage download option android five" = "Blokada 5 untuk Android";
-"homepage download option android slim" = "Blokada 5 Slim untuk Android";
-"homepage download option android four" = "Blokada 4 untuk Android";
-"homepage download option ios" = "Blokada 6 untuk iOS";
-"homepage download option other" = "Blokada untuk platform lain";
-"homepage download desc other" = "Untuk saat ini, Blokada belum tersedia di platform selain Android dan iOS. Namun, jika Anda berlangganan Blokada Plus, Anda bisa menggunakan fitur VPN kami di Windows, Linux, Mac, dan platform lain yang mendukung protokol Wireguard.";
-"homepage download desc ios" = "Blokada 6 tersedia di App Store.";
-"homepage download action ios" = "Buka App Store";
-"homepage download desc android five" = "Versi ini adalah versi terbaru dan yang kami rekomendasikan <b>untuk smartphone dan tablet yang menggunakan Android 7 atau lebih baru</b>. Versi ini lebih simpel dan cepat dibandingkan Blokada 4.";
-"homepage download action android five" = "Blokada 5 .apk";
-"homepage download action android five beta" = "Beta .apk";
-"homepage download desc android slim" = "Blokada Slim adalah <b>versi lebih ringan dari Blokada</b>, dan hanya berisi fitur-fitur yang memenuhi syarat kebijakan Google Play Store.";
-"homepage download action android slim" = "Buka Google Play";
-"homepage download desc android four" = "Kami masih me-maintain Blokada versi lama. Versi ini memiliki lebih banyak fitur dan berfungsi pada perangkat yang lama dan juga smart TV.";
-"homepage download action android four" = "Blokada 4 .apk";
-"homepage download action android four fdroid" = "Buka F-Droid";
-
-"homepage download cloud desc" = "Blokada Cloud bisa digunakan di platform apapun yang mendukung DNS over TLS/HTTPS, termasuk Windows, MacOS, Linux, dan semua browser modern. Anda bisa menemukan panduan pengaturan untuk semua platform tersebut di web dashboard.";
-"homepage download plus desc" = "Blokada Plus bisa digunakan di platform apapun yang mendukung aplikasi Wireguard®. Anda bisa membuat profil VPN di web dashboard, kemudian dengan mudah mengimpornya ke aplikasi Wireguard®.";
-"homepage download action open dashboard" = "Buka Dashboard";
-
-"homepage community header" = "Komunitas";
-"homepage community desc" = "Blokada bukan hanya aplikasi yang menjaga privasi Anda. Blokada juga adalah sebuah komunitas orang-orang yang peduli tentang privasi dan keamanan di ranah digital. Anda bisa menemukan dan bergabung dengan forum kami, di mana Anda bisa bertanya mengenai apapun yang ingin Anda ketahui. Kami juga hadir di platform media sosial dan chat.";
-"homepage community cta subheader" = "Bergabunglah dengan kami dan perkenalkan diri Anda!";
-"homepage community cta desc" = "Kinerja kami didasarkan pada feedback yang kami terima dari Anda - para pengguna Blokada. Sampaikan saran Anda, atau ngobrol-ngobrol di forum/group chat kami.";
-"homepage community cta action" = "Buka forum";
-"homepage community opinions" = "Berikut ini adalah sebagian pendapat dari pengguna Blokada.";
-
-"homepage support header" = "Dukung Blokada";
-"homepage support desc" = "Jika Anda menyukai apa yang kami lakukan dengan Blokada, mungkin Anda bisa mendukung kami agar kami bisa terus mengembangkan Blokada dengan menambahkan lebih banyak lagi fitur. Dengan demikian, Blokada bisa tetap gratis dan open source.";
-"homepage support desc2" = "Jika Anda menyukai produk kami, Anda bisa menjadi pendukung kami agar kami bisa tetap mengembangkan proyek-proyek open source lainnya.";
-"homepage support cta header" = "Blokada bergantung pada sumbangsih Anda";
-"homepage support cta desc" = "Blokada merupakan proyek open source, yang artinya Anda bisa yakin bahwa aplikasi ini akan tetap gratis, aman digunakan, dan tanpa maksud-maksud tersembunyi di belakangnya. Kami percaya inilah satu-satunya cara untuk mengembangkan sebuah aplikasi yang bisa dipercaya.";
-"homepage support cta desc2" = "Blokada memiliki dua sumber pemasukan agar proyek ini bisa terus berlanjut: langganan dan sumbangan. Kami tidak mendapatkan pemasukan dari iklan. Blokada juga tidak menjual data pengguna ke pihak ketiga.";
-"homepage support cta desc more" = "Namun, mengembangkan aplikasi berkualitas seperti Blokada membutuhkan sumber daya yang tidak sedikit. Proyek ini ada berkat dukungan orang-orang keren seperti Anda!";
-"homepage support cta action" = "Donasi (card, Paypal)";
-"homepage support cta action alt" = "Donasi (bank, crypto)";
-
-"homepage developer header" = "Apakah Anda seorang pengembang aplikasi";
-"homepage developer subheader" = "dan Anda ingin membuat Blokada lebih baik lagi?";
-"homepage developer desc" = "Blokada adalah proyek open source yang didedikasikan untuk membuat aplikasi pemblokir iklan dan penjaga privasi di platform Android dan iOS. Silahkan buka GitHub kami, dan beritahu kami jika Anda membutuhkan bantain dalam membuat PR pertama Anda di sana.";
-"homepage developer action" = "Buka repo";
 
 "web vpn devices header" = "Perangkat VPN";
 // A button to open section called "VPN Devices"
@@ -617,7 +384,7 @@
 "setup label which device" = "Apa jenis pernagkat yang ingin Anda atur untuk Blokada Cloud?";
 "setup label choose" = "Silakan pilih salah satu dari opsi pengaturan berikut:";
 "setup comment wireguard" = "Catatan: Konfigurasi VPN bawaan adalah Blokada Cloud. Silakan pilih pengaturan DNS lain jika Anda ingin menggunakan server lain. 'Wireguard' dan logo 'Wireguard' adalah merk dagang terdaftar milik Jason A. Donenfeld.";
-"setup comment native apps" = "Catatan: Aplikasi bawaan Android dan iOS saat ini belum mendukung Blokada Cloud. Kami sedang mengusahakan update untuk mengatasi hal ini.";
+"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Langkah %@: %@";
 "setup option label recommended" = "Disarankan: %@";
@@ -646,10 +413,6 @@
 "dnsprofile desc" = "Di Pengaturan, cari Umum → Manajemen VPN, DNS, & Perangkat → DNS, kemudian pilih Blokada.";
 "dnsprofile action open settings" = "Buka Pengaturan";
 
-"notification perms header" = "Aktifkan notifikasi di Settings";
-"notification perms desc" = "Fitur in mengharuskan notifikasi diaktifkan, silakan aktifkan notifikasi untuk Blokada.";
-"notification perms denied" = "Anda tidak mengizinkan notifikasi. Jika Anda ingin mengubahnya silakan atur di Preferensi Sistem.";
-
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Sebentar lagi!";
 "activated desc" = "Hal-hal berikut diperlukan supaya Blokada bisa berjalan sebagaimana mestinya:";
@@ -663,3 +426,6 @@
 "activated label vpn cloud" = "Izinkan koneksi VPN (hanya Blokada Plus)";
 "activated label vpn yes" = "Koneksi VPN diizinkan";
 "activated label vpn no" = "Izinkan VPN";
+
+"homepage vpn credit" = "'Wireguard' dan logo 'Wireguard' adalah merk terdaftar milik Jason A. Donenfeld.";
+"advanced section header packs" = "Blocklist";

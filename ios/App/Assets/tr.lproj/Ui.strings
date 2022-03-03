@@ -10,30 +10,9 @@
 //  @author Karol Gusak
 //
 
-"error device offline" = "Cihazınız çevrimdışı";
-"error account inactive" = "Hesabınız etkin değil. BLOKADA+ sürümünü kullanmaya devam etmek için lütfen hesabınızı etkinleştirin.";
-"error account inactive after restore" = "Bu geçerli bir etkin hesap gibi görünmüyor. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
-"error account invalid" = "Bu hesap kimliği geçersiz görünüyor.";
-"error creating account" = "Yeni bir hesap oluşturulamadı. Lütfen daha sonra tekrar deneyin.";
-"error fetching data" = "Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, üstteki yardım simgesine dokunarak lütfen bize ulaşın.";
-"error tunnel" = "VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.";
-"error vpn" = "VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.";
-"error vpn perms" = "VPN profili oluşturmak için izin verilmedi.";
-"error vpn no current lease" = "Lütfen önce bir konum seçin.";
-"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
-"error vpn too many leases" = "Cihazlarınızın sınırına ulaştınız. Lütfen cihazlarınızdan birini kaldırın ve tekrar deneyin.";
-"error vpn expired" = "VPN devre dışı bırakıldı. BLOKADA+ aboneliğini kullanmaya devam etmek için aboneliğinizi güncelleyin";
-"error payment inactive after restore" = "Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
-"error payment failed" = "Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
-"error payment failed alternative" = "Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
-"error payment not available" = "Bu cihaz için ödemeler mevcut değil. Apple Pay etkinleştirilmedi veya ülkenizdeki satın alımları henüz işlemiyoruz.";
-"error payment canceled" = "Ödeme iptal edildi. Sizden ücret alınmadı.";
-"error pack install" = "Bu özellik yüklenemedi (veya kaldırılamadı). Lütfen daha sonra tekrar deneyin.";
-"error location failed fetching" = "Yerler getiremedi.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 "error blocka dns in filtering mode" = "Blokada DNS şu anda sadece Plus modunda desteklenmektedir. Lütfen başka bir DNS seçin ve tekrar deneyin.";
 
-"universal action continue" = "İleri";
+"universal action continue" = "Devam et";
 "universal action cancel" = "Vazgeç";
 "universal action close" = "Kapat";
 "universal action done" = "Bitti";
@@ -74,9 +53,9 @@
 // Common label when some feature has no setting
 "universal label none" = "Hiçbiri";
 // Common label in tables for the Name column. Think "name of host".
-"universal label name" = "Name";
+"universal label name" = "Ad";
 // Common label in tables for the Time column. Think "time of event".
-"universal label time" = "Time";
+"universal label time" = "Zaman";
 // Common label in tables for the Count column. Think "number of items".
 "universal label count" = "Count";
 // Common label in tables for the Type column. Think "type of item".
@@ -92,6 +71,10 @@
 "alert error header" = "Hay aksi!";
 "alert vpn expired header" = "BLOKADA+ süresi doldu";
 "alert download link body" = "Güvenlik nedeniyle, bir dosya indirmek için bu web sitesini tarayıcınızda açmamız gerekiyor. Ardından, lütfen indirme bağlantısına tekrar dokunun.";
+
+"notification perms header" = "Enable notifications in Settings";
+"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
+"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
 
 "notification vpn expired header" = "BLOKADA+ aboneliğinin süresi doldu";
 "notification vpn expired subtitle" = "VPN devre dışı";
@@ -120,12 +103,6 @@
 "update desc updated" = "Şimdi Blokada'nın en yeni sürümünü kullanıyorsunuz! Unutmayın, Blokada Plus'a bağış yapmak veya abone olmak, uygulamayı geliştirmeye devam etmemizi sağlar.";
 "update downloading description" = "Güncelleme şu anda indiriliyor ve kısa bir süre sonra kurulum istemini görmelisiniz.";
 
-"account active forever" = "Sonsuza kadar";
-"account active forever full" = "Sonsuza kadar etkin";
-
-"main ask for permissions header" = "Sadece bir adım daha";
-"main ask for permissions description" = "Blokada reklamları engellemek için bir VPN yapılandırması kullanıyor. Bir sonraki adımda buna izin vermeniz istenecektir.";
-
 "main share message" = "iOS için Blokada, %@ reklamlarını ve izleyicilerini engellememe yardımcı oldu!";
 
 "main rate us header" = "Bizi değerlendirin!";
@@ -142,8 +119,6 @@
 // Make sure each tab name has a similar length
 "main tab settings" = "Ayarlar";
 
-"main label use side menu" = "Gezinmek için yan menüyü kullanın";
-
 "home ads counter footnote" = "kurulumdan bu yana engellenen reklamlar ve izleyiciler";
 "home power off menu header" = "Ne yapmak istiyorsunuz?";
 "home power action turn on" = "Aç";
@@ -155,21 +130,16 @@
 "home status deactivated" = "Devre dışı";
 "home action tap to activate" = "Tap to activate";
 "home status detail paused" = "Paused until timer ends";
-"home status detail active" = "Blocking *ads* and *trackers*";
-"home status detail active with counter" = "Blocked *%@* ads and trackers";
+"home status detail active" = "*Reklam* ve *izleyici* engelleniyor";
+"home status detail active with counter" = "*%@* Reklamları ve izleyicileri engellendi";
 "home status detail active slim" = "Blokada *Slim* etkin";
 "home status detail plus" = "*+* *gizliliğinizi* koruyor";
-"home status detail progress" = "Please wait...";
+"home status detail progress" = "Lütfen bekleyin...";
 
 "home plus button deactivated" = "BLOKADA+ devre dışı";
 "home plus button deactivated cloud" = "VPN deactivated";
 "home plus button select location" = "Konum seçin";
 "home plus button location" = "Konum: *%@*";
-
-"home level low" = "Koruma: Düşük";
-"home level medium" = "Koruma: Orta";
-"home level high" = "Koruma: Yüksek";
-
 
 "pack section header" = "Gelişmiş Özellikler";
 "pack section header details" = "Özellik Ayrıntıları";
@@ -182,14 +152,8 @@
 "pack tags header" = "Etiketler";
 "pack tags none" = "Hiçbiri";
 "pack category highlights" = "Öne çıkanlar";
-"pack category active" = "Aktif";
+"pack category active" = "Etkin";
 "pack category all" = "Tümü";
-
-"advanced section header packs" = "Engelleme listeleri";
-"advanced section slugline packs" = "Daha kısıtlayıcı engelleme için etkinleştirin";
-"advanced section slugline apps" = "Asla engellenmemesi gereken uygulamaları seçin";
-"advanced section slugline encryption" = "Şifreleme seviyenizi ve DNS'nizi ayarlayın";
-"advanced action slim migrate to full" = "Blokada Slim'i kullanıyorsunuz. Daha fazla bilgi edinin";
 
 "location choice header" = "Bir konum seçin";
 
@@ -248,41 +212,12 @@
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Engellendi";
 // A short one word action to allow a hostname.
-"userdenied action allow" = "Allow";
+"userdenied action allow" = "İzin ver";
 // A short one word action to block a hostname.
-"userdenied action block" = "Block";
-
-"networks section header" = "Ağlar";
-"networks section label" = "Kablosuz ve mobil ağlar için ayarları yapın";
-"networks label all networks" = "Tüm ağlar";
-"networks action network specific" = "Varsayılan ayarları değiştirmek için buraya dokunun. Uygulamanın bazı ağlarda farklı davranmasını sağlamak için aşağıya dokunun.";
-"networks label configuration active" = "Bu ayarlar şu anda aktif";
-"networks label configuration enabled" = "Bu ağa bağlı değil";
-"networks label configuration inactive" = "Bu ağın ayarlarını değiştirmek için dokunun";
-"networks label details default network" = "Aşağıdaki ayarlar varsayılan olarak tüm ağlar için uygulanır. Seçili ağlar için bunları geçersiz kılabilirsiniz (önceki ekranda).";
-"networks action encrypt dns" = "DNS'yi şifrele";
-"networks action use dns" = "DNS'i kullan: %@";
-"networks action use network dns" = "Ağ DNS'sini tercih et";
-"networks action force libre mode" = "Libre moduna zorla";
-"networks label specific network" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
-"networks label specific network type" = "Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.";
-"networks label any wifi" = "Herhangi kablosuz ağ";
-"networks label any mobile" = "Herhangi mobil ağ";
-"networks permission request" = "Daha fazla kontrole sahip olmak için buraya dokunun ve uygulamanın tüm ağları tanımasına izin verin.";
-"networks permission request granted" = "Blokada arka planda ağ adınızı okuduğunda bir bildirim görebilirsiniz.";
-"networks section choose dns" = "DNS seç";
-"networks summary encrypt dns" = "Blokada, mümkün olduğunda DNS'yi şifreleyecektir. Bu, güvenliğinizi artırır ve kötü niyetli kişilerin hangi web sitelerini ve uygulamaları kullandığınız hakkında casusluk yapmasını engeller.";
-"networks summary use dns" = "Blokada, cihazınızın DNS'si olarak %@ kullanacaktır. Şifrelemeye izin veren (kilit simgesi olan) ve size yakın olanı seçmek, verilerinizin korunmasına ve bağlantınızın hızlı olmasına yardımcı olacaktır.";
-"networks summary network dns" = "Blokada, varsa ağın DNS'sini kullanacak veya aksi takdirde %@ geçecektir. Ayrıca, DNS'yi Şifrele ayarları, ağ DNS'si her kullanıldığında yok sayılacaktır. Ağın DNS'sini kullanmak, sorunlu ağlardaki bağlantı sorunlarını çözmenize yardımcı olur, ancak sizi korumasız bırakır.";
-"networks summary network dns and plus mode" = "Blokada, ağ DNS'si her kullanıldığındaPlus modunu geçici olarak devre dışı bırakır. Bunun nedeni, VPN'de ağ DNS'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.";
-"networks summary blocka plus mode" = "Blokada, yüksek düzeyde şifreleme ve hız sağlamak için Blokada DNS'yi Plus modunda kullanacaktır. Bu ayarı DNS Seçin ekranının altında değiştirebilirsiniz.";
-"networks summary force libre mode" = "Blokada, bu ağda her zaman Libre modunu kullanacak ve Blokada Plus konumunuzu yok sayacaktır. Bu, ek koruma istemediğiniz ağlar için kullanışlıdır.";
-"networks permission dialog" = "Blokada, bağlandığınız ağları tanıyabilir ve onlar için ayrı ayarlar yapılandırmanıza izin verebilir. Ancak bu uygulama, uygulama kapalıyken veya kullanımda değilken bile bu özelliği etkinleştirmek için konum verilerini ağ adı biçiminde toplayacaktır. Bazen konum erişimi hakkında bir sistem bildirimi görebilirsiniz - Blokada yalnızca ağın adını okuyacaktır.";
-
+"userdenied action block" = "Engelle";
 
 "account section header settings" = "Ayarlar";
 "account status text" = "BLOKADA %@ hesabınız %@ kadar etkindir.";
-"account status text libre" = "BLOKADA Libre hesabınız sonsuza kadar etkindir.";
 "account status text inactive" = "Your BLOKADA account is inactive.";
 
 "account section header primary" = "Birincil";
@@ -327,26 +262,6 @@
 "account devices not available" = "Kullanılabilir değil";
 "account devices out of" = "%@ dışında %@";
 
-"account encrypt level low" = "Düşük";
-"account encrypt level medium" = "Orta";
-"account encrypt level high" = "Yüksek";
-"account encrypt label dns only" = "DNS şifreleniyor";
-"account encrypt desc dns only" = "Alan Adı Sistemi, cihazınızın ziyaret etmek istediğiniz web sitelerini nerede bulacağını bilme şeklidir. Ne yazık ki, İnternet'in çoğu hala şifrelenmemiş DNS kullanıyor, bu da tarama geçmişinizi casusluk riskiyle karşı karşıya bırakıyor. Etkinleştirildiğinde Blokada, cihazınızı yalnızca şifrelenmiş DNS sunucularına (HTTPS üzerinden DNS olarak da adlandırılır) bağlanmaya zorlar.";
-"account encrypt label everything" = "VPN üzerinden bağlanıyor";
-"account encrypt desc everything" = "Cihazınız güvenli VPN sunucularımız üzerinden bağlanıyor ve cihazınızdan gelen tüm iletişim, güçlü algoritmalar kullanılarak şifreleniyor. Bu, banka bilgileri veya kişisel fotoğraflar gibi kişisel bilgilerinizin, kahve dükkanındaki WiFi gibi güvenli olmayan yerlerde çalınmasını önler.";
-"account encrypt action turn on" = "BLOKADA'yı aç";
-"account encrypt header level" = "Şifreleme Seviyesi";
-"account encrypt label level" = "Seviye";
-"account encrypt label level low" = "Düşük: Şifreleme Yok";
-"account encrypt label level medium" = "Orta: DNS Şifreleniyor";
-"account encrypt label level high" = "Yüksek: Her Şey Şifreleniyor";
-"account encrypt header explanation" = "DNS, cihazınızın web sitelerini nerede bulacağını nasıl bildiğidir. BLOKADA sadece şifreli sunucuları destekler.";
-"account encrypt label dns" = "DNS";
-"account encrypt action what is dns" = "DNS nedir?";
-"account encrypt section header" = "Şifreleme";
-"account encrypt section blocka dns" = "Blokada DNS";
-"account encrypt label use blocka dns" = "Plus modunda Blokada DNS'i kullan";
-
 "account lease label devices list" = "Bu cihazlar hesabınıza bağlı.";
 "account lease label devices" = "Cihazlar";
 "account lease label this device" = " (bu cihaz)";
@@ -374,7 +289,7 @@
 "payment feature desc change location" = "IP adresinizi gizleyin ve başka bir ülkede olduğunuzu iddia edin. Bu sizi üçüncü taraflardan maskeleyecek ve kimliğinizi korumaya yardımcı olacaktır.";
 "payment feature title encrypt data" = "Verileri Şifreleme";
 "payment feature desc encrypt data" = "VPN tünelimizden gönderilen veriler, yetkisiz tarafların müdahalesine karşı korunması için güçlü algoritmalar kullanılarak şifrelenir.";
-"payment feature title encrypt dns" = "Encrypt DNS";
+"payment feature title encrypt dns" = "DNS'yi şifrele";
 "payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
 "payment feature title performance" = "Great Performance";
 "payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
@@ -449,159 +364,11 @@
 "payment plan cta monthly" = "Subscribe Monthly";
 "payment plan cta annual" = "Subscribe Annually";
 
-"apps section header" = "Uygulamalar";
-"apps label installed" = "Yüklü";
-"apps label system" = "Sistem";
-"apps status bypassed" = "(atlandı)";
-"apps filter header" = "Hangi uygulamaları görmek istersiniz?";
-"apps filter action show all" = "Tüm uygulamalar";
-"apps filter action show bypassed" = "Yalnızca atlandı";
-"apps filter action show not bypassed" = "Yalnızca atlanmadı";
-"apps filter action toggle system" = "Tüm sistem uygulamalarını değiştir";
-
-"app settings section header" = "Bu cihaz";
-"app settings language label" = "Dil";
-"app settings theme label" = "Uygulama teması";
-"app settings theme light" = "Açık";
-"app settings theme dark" = "Koyu";
-// A setting for changing if to open links internally in the app, or by using this device's web browser
-"app settings browser label" = "Bağlantıları yönlendir";
-"app settings browser internal" = "Dahili tarayıcı";
-"app settings browser external" = "Harici tarayıcı (mümkünse)";
-"app settings ipv6 label" = "IPv6'ya izin ver";
-"app settings section system" = "Sistem";
-"app settings action app info" = "Uygulama bilgisini aç";
-"app settings action vpn profile" = "VPN profilini aç";
-"app settings action notifications" = "Bildirim ayarlarını aç";
-"app settings section details" = "Ayrıntılar";
-"app settings status default" = "Sistem varsayılanı";
-"app settings start on boot" = "Açılışta başlat";
-"app settings use dns over https" = "HTTPS üzerinden DNS kullan";
-"app settings backup" = "Bulut yedeklemesini kullan";
-"app settings section advanced" = "Gelişmiş";
-"app settings section use foreground" = "Sürekli çalış";
-
-"intro header" = "Blokada etkin!";
-"intro text" = "Mavi halka, Blokada'nın çalıştığı anlamına gelir.\n\nUnutmayın, YouTube'daki reklamlar gibi bazı reklamlar engellenemez. Ancak, diğer birçok uygulamada farkı göreceksiniz.\n\nSistem ayarlarınızdan Her zaman VPN/Talep üzerine bağlan seçeneğini etkinleştirmenizi öneririz.";
-
 "location region worldwide" = "Her yerde";
 "location region america" = "Amerika";
 "location region europe" = "Avrupa";
 "location region asia" = "Asya";
 "location region australia" = "Avustralya";
-
-"homepage header what is blokada" = "Blokada nedir?";
-"homepage desc what is blokada" = "Uygulama hakkında temel bilgileri öğrenin.";
-"homepage desc download" = "Platformunuz için Blokada'yı indirin.";
-"homepage desc community" = "Harika topluluğumuza katılın.";
-"homepage header support" = "Bizi destekle";
-"homepage desc support" = "Projeye devam etmemize yardımcı olmak için bağışta bulunun.";
-"homepage action faq" = "SSS";
-"homepage action opinions" = "İncelemeler";
-"homepage action authors" = "Yazarlar";
-"homepage action source" = "Kaynak";
-"homepage action forums" = "Forumlar";
-"homepage action dashboard" = "Kontrol paneli";
-"homepage about footer" = "İletişimde kalalım!";
-"homepage hero title" = "Gizlilik uygulaması";
-"homepage hero subtitle" = "ücretsiz ve açık kaynaklı";
-"homepage hero opensource" = "open source";
-"homepage hero desc" = "Blokada, Android ve iOS için popüler bir reklam engelleyici ve gizlilik uygulamasıdır. Harika bir açık kaynak topluluğu tarafından desteklenmekte ve aktif olarak geliştirilmektedir.";
-"homepage about title" = "Blokada Libre, the ad blocker";
-"homepage about desc" = "Tek bir uygulama ile reklamları, izleyicileri, kötü amaçlı yazılımları verimli bir şekilde engellemek; veri planınızdan tasarruf etmek, cihazınızı hızlandırmak ve gizliliğinizi korumak istiyorsanız, Blokada tam size göre. Ücretsiz, güvenli ve açık kaynaklı.";
-"homepage about point one" = "Reklamları ve izleyicileri engeller";
-"homepage about point two" = "Tüm uygulamalar ve tarayıcılarda çalışır";
-"homepage about point three" = "Root veya jailbreak gerektirmez";
-"homepage about point four" = "Güvenli tasarım (şifrelemeyi bozmaz)";
-"homepage about point five" = "Güvenilir ve sonsuza kadar ücretsiz";
-"homepage about point six" = "Source code available for Android and iOS";
-"homepage about point seven" = "Downloads available for Android";
-
-"homepage cloud title" = "Blokada Cloud, the new way";
-"homepage cloud desc" = "Our modern solution for mobile content blocking. Protect multiple devices from ads and tracking, and manage your preferences in one place. Enjoy zero battery drain, no noticeable slowdowns, and highly reliable adblocking.";
-"homepage cloud point one" = "Cloud based adblocking";
-"homepage cloud point two" = "Manage and monitor on web";
-"homepage cloud point three" = "Encrypted, private DNS";
-"homepage cloud point four" = "Connect multiple devices";
-"homepage cloud point five" = "App available for iOS";
-"homepage cloud point six" = "Use on any platform supporting private DNS";
-"homepage cloud learn more" = "Learn more about Blokada Cloud";
-
-"homepage about action faq" = "SSS'e bakın";
-"homepage about action plus" = "Blokada Plus hakkında daha fazla bilgi edinin";
-
-"homepage vpn title" = "Blokada Plus, the VPN";
-"homepage vpn desc" = "En üst düzey gizlilik koruması için Blokada Plus'a yükseltin ve VPN'imiz üzerinden bağlanın. Ağ etkinliğinizi şifrelemek ve IP adresinizi gizlemek için en gelişmiş VPN protokolü olan WireGuard® protokolünü kullanıyoruz.";
-"homepage vpn point one" = "Bant genişliği kısıtlanmaz";
-"homepage vpn point two" = "Hızlı ve modern şifreleme";
-"homepage vpn point three" = "Ağ etkinliğiniz günlüğe kaydedilmez";
-"homepage vpn point four" = "5 cihaza kadar bağlantı";
-"homepage vpn point five" = "All the benefits of Blokada Cloud";
-"homepage vpn point six" = "Available for Android and iOS";
-"homepage vpn point seven" = "More platforms through Wireguard® apps";
-"homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
-
-"homepage faq header" = "Sıkça Sorulan Sorular";
-"homepage faq action more" = "SSS'den daha fazlasına bakın";
-"homepage faq title 1" = "Blokada hangi bilgileri saklıyor?";
-"homepage faq desc 1" = "Blokada, ağ etkinliğinizdeki hiçbir şeyi izlemez veya paylaşmaz. Blokada Plus'ı kullanıyorsanız, teknik nedenlerden dolayı, hizmetin çalışmasını sağlamak için gereken en az veriyi toplamamız gerekiyor. Ayrıntılar için lütfen üst menüde mevcut olan Gizlilik Politikamıza danışın.";
-"homepage faq title 2" = "Gizliliğim nasıl korunuyor?";
-"homepage faq desc 2" = "Blokada, cihazınızda yüklü olan uygulamaların ve tarayıcıların özel verilerinizi (izleme parmak izleri olarak bilinir) İnternet'e göndermesini engeller. Ayrıca bazı ağ etkinliklerinizi (DNS sorguları) şifreler. Daha fazla korumaya ihtiyacınız varsa, Blokada Plus, cihazınızın VPN'miz aracılığıyla bağlanmasını sağlar ve tüm ağ trafiğinizi şifrelemek için WireGuard® protokolünü kullanır.";
-"homepage faq title 3" = "Blokada Plus nedir?";
-"homepage faq desc 3" = "Blokada Plus, güvenli ve modern VPN (Sanal Özel Ağ) hizmetimizdir. Sınıfının en iyisi şifreleme ve düşük pil kullanımı ile hızlı bir protokol olan WireGuard®'ı kullanır. Blokada Plus, tüm ağ faaliyetlerinizi gerçek zamanlı olarak şifreler ve size mümkün olan en yüksek seviyede koruma sağlar. Ayrıca popüler VPN özelliklerine de sahip olursunuz - IP adresinizi gizleyin, konumunuzu değiştirin ve coğrafi olarak kısıtlanmış içeriğin engelini kaldırın.";
-"homepage faq title 4" = "Blokada Plus'a geçmem gerekiyor mu?";
-"homepage faq desc 4" = "Hayır, yükseltme isteğe bağlıdır. Sonsuza kadar Blokada'nın ücretsiz sürümünü kullanabilirsiniz. Gizlilik korumanızı daha da artırmak istiyorsanız veya VPN'lerin sunduğu popüler özelliklerden herhangi birine ihtiyaç duyuyorsanız, bu önerilen bir yükseltmedir.";
-"homepage faq title 5" = "Blokada Plus iade politikası nedir?";
-"homepage faq desc 5" = "Aboneliğinizi satın aldıktan sonra 7 gün içinde paranızı geri alabilirsiniz. Uygulamalarımızdan herhangi biri aracılığıyla bizimle iletişime geçin ve sadece iade istediğinizi belirtin.";
-"homepage faq title 6" = "Blokada nerede?";
-"homepage faq desc 6" = "Mahremiyetin çok ciddiye alındığı İsveç'te yaşıyoruz. Sunucularımız dünyanın birçok yerinde bulunuyor.";
-"homepage faq title 7" = "What is Blokada Cloud?";
-"homepage faq desc 7" = "Blokada Cloud is our new cloud based adblocking solution. It is faster and more reliable than the old method, and brings many additional benefits. Blokada Cloud can be used on multiple devices, and supports any platform compatible with DNS over TLS/HTTPS.";
-
-"homepage download header" = "Blokada'yı İndir";
-"homepage download subheader" = "Blokada çeşitli platformlar için kullanılabilir, platformunuzu seçin.";
-"homepage download option android five" = "Android için Blokada 5";
-"homepage download option android slim" = "Android için Blokada 5 Slim";
-"homepage download option android four" = "Android için Blokada 4";
-"homepage download option ios" = "Blokada 6 for iOS";
-"homepage download option other" = "Diğer platformalar için Blokada";
-"homepage download desc other" = "Currently, we do not provide Blokada for other platforms. However, if you are Blokada Plus user, you can use our VPN on Windows, Linux, Mac, and other platforms where WireGuard is available.";
-"homepage download desc ios" = "Blokada 6 is simply available on App Store.";
-"homepage download action ios" = "App Store'u Aç";
-"homepage download desc android five" = "Bu, <b>Android 7 veya daha yenisine sahip akıllı telefonlar ve tabletler için</b> önerilen yeni sürümümüzdür. Blokada 4'e göre daha basit ve hızlıdır.";
-"homepage download action android five" = "Blokada 5 .apk";
-"homepage download action android five beta" = "Beta .apk";
-"homepage download desc android slim" = "Blokada Slim, <b>uygulamanın hafif bir sürümüdür</b> ve yalnızca Google Play politikası tarafından izin verilen özellikleri içerir.";
-"homepage download action android slim" = "Google Play'i Aç";
-"homepage download desc android four" = "Hala Blokada'nın eski sürümünü sürdürüyoruz. Daha fazla özelliğe sahiptir, eski cihazlarda ve TV'lerde çalışır.";
-"homepage download action android four" = "Blokada 4 .apk";
-"homepage download action android four fdroid" = "F-Droid'i Aç";
-
-"homepage download cloud desc" = "Blokada Cloud can be used on any platform that supports DNS over TLS/HTTPS. This includes Windows, MacOS, Linux, and all modern browsers. You can find simple setup guides for all supported platforms in the web dashboard.";
-"homepage download plus desc" = "Blokada Plus can be used on any platform where the Wireguard® app is available. You can generate a VPN profile in the web dashboard, and then simply import it in the app.";
-"homepage download action open dashboard" = "Open Dashboard";
-
-"homepage community header" = "Topluluk";
-"homepage community desc" = "Blokada yalnızca bir gizlilik uygulaması değildir. Aynı zamanda dijital mahremiyetlerini ve refahlarını önemseyen insanların oluşturduğu topluluktur. Bizi her türlü sorunuzu sorabileceğiniz forumumuzda bulabilirsiniz. Diğer sosyal medyada ve sohbetlerde de varız.";
-"homepage community cta subheader" = "Selam verin ve bize katılın!";
-"homepage community cta desc" = "Tüm çalışmalarımız kullanıcılarımızın geri bildirimlerine dayanıyor. Ne düşündüğünüzü söyleyin, neyi geliştirebiliriz ya da sadece takılın.";
-"homepage community cta action" = "Forumlara git";
-"homepage community opinions" = "İşte kullanıcılarımızın görüşlerinden bazıları.";
-
-"homepage support header" = "Projeyi destekleyin";
-"homepage support desc" = "Yaptığımız işi beğendiyseniz, yeni özellikleri ve geliştirmeleri geliştirmeye devam edebilmemiz için bizi desteklemeyi düşünün. Bu şekilde, Blokada açık kaynaklı ve sonsuza kadar özgür kalabilir.";
-"homepage support desc2" = "If you like what we do, consider supporting us, so that we can continue developing our open source projects.";
-"homepage support cta header" = "Blokada size bağlıdır";
-"homepage support cta desc" = "Blokada açık kaynak kodlu bir projedir. Yani her zaman ücretsiz kalacağından, kullanımının güvenli olduğundan ve gizli bir ajandası olmayacağından emin olabilirsiniz. Bunun güvenebileceğiniz bir gizlilik uygulaması geliştirmenin tek doğru yolu olduğuna inanıyoruz.";
-"homepage support cta desc2" = "Blokada has two sources of revenue for supporting the project development: subscriptions, and donations. There is no ads revenue. Blokada does not sell user data either.";
-"homepage support cta desc more" = "Bununla birlikte, Blokada gibi kaliteli bir uygulamayı geliştirmek önemli miktarda kaynak gerektiriyor. Bu proje, sizin gibi harika insanların desteği sayesinde var!";
-"homepage support cta action" = "Bağış (kredi kartı, Paypal)";
-"homepage support cta action alt" = "Bağış (banka, kripto para)";
-
-"homepage developer header" = "Geliştirici misiniz?";
-"homepage developer subheader" = "Blokada'yı daha iyi hale getirmek ister misiniz?";
-"homepage developer desc" = "Blokada, Android ve iOS için en iyi reklam engelleyici ve gizlilik uygulamasını geliştirmeye adanmış açık kaynaklı bir projedir. Github'umuzu kontrol edin ve ilk PR'nizi yapmak için herhangi bir yardıma ihtiyacınız varsa bize bildirin.";
-"homepage developer action" = "Depoya git";
 
 "web vpn devices header" = "VPN Devices";
 // A button to open section called "VPN Devices"
@@ -610,14 +377,14 @@
 "web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
 "web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
 // A short word for a button to generate profile
-"web action generate" = "Generate";
+"web action generate" = "Oluştur";
 
 "setup header" = "Setup";
 "setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
 "setup label which device" = "What type of device you wish to set up?";
 "setup label choose" = "Choose any of the following setup options:";
 "setup comment wireguard" = "Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
-"setup comment native apps" = "Note: Native apps for Android and iOS do not support Blokada Cloud yet. We are working on the update.";
+"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Step %@: %@";
 "setup option label recommended" = "Recommended: %@";
@@ -646,10 +413,6 @@
 "dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
 "dnsprofile action open settings" = "Open Settings";
 
-"notification perms header" = "Enable notifications in Settings";
-"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
-"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
-
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Almost there!";
 "activated desc" = "The following is necessary for Blokada to work as expected:";
@@ -663,3 +426,6 @@
 "activated label vpn cloud" = "Allow VPN (Plus only)";
 "activated label vpn yes" = "VPN is allowed";
 "activated label vpn no" = "Allow VPN";
+
+"homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
+"advanced section header packs" = "Engelleme listeleri";

@@ -9,18 +9,32 @@
 //
 //  @author Karol Gusak
 //
+// One of the tags used for searching blocklists
 
 "recommended" = "raccomandato";
+// One of the tags used for searching blocklists
 "official" = "ufficiale";
+// One of the tags used for searching blocklists
 "adblocking" = "blocco pubblicità";
+// One of the tags used for searching blocklists
 "tracking" = "tracciamento";
+// One of the tags used for searching blocklists
 "privacy" = "privacy";
+// One of the tags used for searching blocklists
 "adult" = "adulti";
+// One of the tags used for searching blocklists
 "porn" = "porno";
+// One of the tags used for searching blocklists
 "social" = "social";
+// One of the tags used for searching blocklists
 "regional" = "locale";
+// One of the tags used for searching blocklists
 "fake news" = "fake news";
+// One of the tags used for searching blocklists
 "gambling" = "gioco d'azzardo";
+// One of the tags used for searching blocklists
 "youtube" = "youtube";
+// One of the tags used for searching blocklists
 "phishing" = "phishing";
+// One of the tags used for searching blocklists
 "security" = "sicurezza";

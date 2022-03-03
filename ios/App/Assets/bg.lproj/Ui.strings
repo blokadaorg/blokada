@@ -10,27 +10,6 @@
 //  @author Karol Gusak
 //
 
-"error device offline" = "Устройството ви е офлайн";
-"error account inactive" = "Вашият профил не е активен. Моля, активирайте го за да продължите да използвате BLOKADA+.";
-"error account inactive after restore" = "Изглежда, че това не е валиден активен профил. Ако смятате това за грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.";
-"error account invalid" = "Това ID на този профил изглежда невалидно.";
-"error creating account" = "Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.";
-"error fetching data" = "Действието не можа да приключи. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
-"error tunnel" = "VPN не можа да бъде създаден. Моля, рестартирайте устройството или премахнете профила на Blokada VPN от системните настройки и опитайте отново.";
-"error vpn" = "VPN не можа да бъде създаден. Моля, рестартирайте устройството или премахнете профила на Blokada VPN от системните настройки и опитайте отново.";
-"error vpn perms" = "Няма предоставено разрешение за създаване на VPN профил.";
-"error vpn no current lease" = "Моля, първо изберете местоположение.";
-"error vpn no current lease new" = "Blokada Plus е деактивиран на това устройство. Моля, изберете местоположение за да го активирате отново.";
-"error vpn too many leases" = "Достигнат е лимита на устройствата. Моля, премахнете едно от устройствата си и опитайте отново.";
-"error vpn expired" = "VPN е деактивиран. Моля, актуализирайте абонамента си за да продължите да използвате BLOKADA+";
-"error payment inactive after restore" = "Плащането не е прието защото абонаментът ви е изтекъл. Ако смятате, че това е грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.";
-"error payment failed" = "В момента няма налично плащане. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
-"error payment failed alternative" = "Не можахме да завършим плащането Ви. Моля уверете се, че вашите данни са верни и опитайте отново. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
-"error payment not available" = "Плащанията не са активни за това устройство. Или Apple Pay не е активиран, или все още не обработваме плащания от вашата страна.";
-"error payment canceled" = "Плащането е анулирано. Не сте таксувани.";
-"error pack install" = "Функцията не можа да се инсталира (или деинсталира). Моля, опитайте отново по-късно.";
-"error location failed fetching" = "Местоположенията не можаха да бъдат извлечени.";
-"error unknown" = "Възникна проблем. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконката за помощ в горната част.";
 "error blocka dns in filtering mode" = "Понастоящем Blokada DNS се поддържа само в режим Plus. Моля, изберете друг DNS и опитайте отново.";
 
 "universal action continue" = "Продължи";
@@ -59,7 +38,7 @@
 "universal action delete" = "Изтриване";
 "universal action hide" = "Скриване";
 "universal action select" = "Изберете";
-"universal action selected" = "Избрани";
+"universal action selected" = "Избиране";
 // A verb "to search in the list"
 "universal action search" = "Търсене";
 // A verb "to filter the list"
@@ -93,6 +72,10 @@
 "alert vpn expired header" = "BLOKADA+ е изтекла";
 "alert download link body" = "От съображения за сигурност за да изтеглите файл ще трябва този уебсайт да се отвори във вашия браузър. След това, моля докоснете отново връзката за изтегляне.";
 
+"notification perms header" = "Включване на известията в Настройки";
+"notification perms desc" = "Тази функция изисква известия, моля включете ги за Blokada.";
+"notification perms denied" = "Вие се отказахте известията. За да го промените, моля използвайте системните предпочитания.";
+
 "notification vpn expired header" = "Изтекъл срок на абонамента за BLOKADA+";
 "notification vpn expired subtitle" = "VPN е деактивиран";
 "notification vpn expired body" = "Моля, актуализирайте абонамента си за да продължите да използвате BLOKADA+";
@@ -120,12 +103,6 @@
 "update desc updated" = "Вече използвате най-новата версия на Blokada! Не забравяйте, че дарението или абонамента за Blokada Plus ни позволява да продължим подобряването на приложението.";
 "update downloading description" = "Актуализацията вече се изтегля и след малко трябва да видите подкана за инсталиране.";
 
-"account active forever" = "Завинаги";
-"account active forever full" = "Активен завинаги";
-
-"main ask for permissions header" = "Само още една стъпка";
-"main ask for permissions description" = "Blokada използва VPN конфигурация за блокиране на рекламите. В следващата стъпка ще бъдете помолени това да бъде разрешено.";
-
 "main share message" = "Blokada за iOS ми помогна да блокирам %@ реклами и тракери!";
 
 "main rate us header" = "Оценете ни!";
@@ -141,8 +118,6 @@
 "main tab advanced" = "Разширени";
 // Make sure each tab name has a similar length
 "main tab settings" = "Настройки";
-
-"main label use side menu" = "Използвайте страничното меню за навигация";
 
 "home ads counter footnote" = "рекламите и тракерите са блокирани след инсталирането";
 "home power off menu header" = "Какво искате да направите?";
@@ -166,11 +141,6 @@
 "home plus button select location" = "Избор на местоположение";
 "home plus button location" = "Местоположение: *%@*";
 
-"home level low" = "Защита: Ниска";
-"home level medium" = "Защита: Средна";
-"home level high" = "Защита: Висока";
-
-
 "pack section header" = "Разширени функции";
 "pack section header details" = "Особености и Детайли";
 "pack action install" = "ВЗЕМИ";
@@ -184,12 +154,6 @@
 "pack category highlights" = "Акценти";
 "pack category active" = "Активни";
 "pack category all" = "Всички";
-
-"advanced section header packs" = "Блокиращи списъци";
-"advanced section slugline packs" = "Активирайте за по-ограничително блокиране";
-"advanced section slugline apps" = "Изберете приложения, които никога да не бъдат блокирани";
-"advanced section slugline encryption" = "Регулирайте нивото си на криптиране и DNS";
-"advanced action slim migrate to full" = "Използвате Blokada Slim. Научете повече";
 
 "location choice header" = "Избор на местоположение";
 
@@ -252,37 +216,8 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Блокирай";
 
-"networks section header" = "Мрежи";
-"networks section label" = "Регулиране на настройките за WiFi и мобилни мрежи";
-"networks label all networks" = "Всички мрежи";
-"networks action network specific" = "Докоснете тук за да промените настройките по подразбиране. За да определите различно поведение на приложението в някои мрежи, докоснете по-долу.";
-"networks label configuration active" = "В момента тези настройки са активни";
-"networks label configuration enabled" = "Не е свързана с тази мрежа";
-"networks label configuration inactive" = "Докоснете за да промените настройката за тази мрежа";
-"networks label details default network" = "Настройките по-долу се прилагат по подразбиране за всички мрежи. Можете да ги запишете само и за избрани мрежи (в предишния екран).";
-"networks action encrypt dns" = "Криптиран DNS";
-"networks action use dns" = "Използвайте DNS: %@";
-"networks action use network dns" = "Предпочитан мрежов DNS";
-"networks action force libre mode" = "Принудителен Libre режим";
-"networks label specific network" = "Настройте поведението на устройството, когато се свърже с тази мрежа.";
-"networks label specific network type" = "Настройте поведението на устройството, когато се свърже с мрежа от този тип.";
-"networks label any wifi" = "Всяка WiFi мрежа";
-"networks label any mobile" = "Всяка мобилна мрежа";
-"networks permission request" = "За да имате повече контрол, докоснете тук и оставете приложението да разпознава всички мрежи.";
-"networks permission request granted" = "Може да видите известие, когато Blokada във фонов режим прочете името на вашата мрежа.";
-"networks section choose dns" = "Изберете DNS";
-"networks summary encrypt dns" = "Blokada ще шифрова DNS, ако е възможно. Това ще подобри вашата сигурност и ще предотврати злонамерени участници да шпионират какви уебсайтове и приложения използвате.";
-"networks summary use dns" = "Blokada ще използва %@ като DNS на вашето устройство. Изборът му позволява криптиране (има икона на ключ) и е близо до вас, това ще помогне за защита на вашите данни и за по-бърза връзка.";
-"networks summary network dns" = "Blokada ще използва мрежов DNS, ако е наличен, или ще превключи на %@. Когато се използва мрежов DNSС настройките за шифроване на DNS ще бъдат игнорирани. Използването на мрежов DNS помага за отстраняване на проблеми с връзката в цъмнителни мрежи, но ви оставя незащитени.";
-"networks summary network dns and plus mode" = "Blokada временно ще деактивира режим Плюс, когато се използва мрежов DNS. Това е така, защото не е възможен достъп до мрежовия DNS във VPN. Плюс режимът ще се възстанови автоматично, когато вашето устройство превключи към друга мрежа.";
-"networks summary blocka plus mode" = "Blokada ще използва Blokada DNS в режим Plus за да осигури високо ниво на криптиране и скорост. Можете да промените тази настройка в долната част на екрана Избор на DNS.";
-"networks summary force libre mode" = "Blokada винаги ще използва режим Libre в тази мрежа и ще игнорира Blokada Plus от това местоположение. Това е полезно за мрежи, при които не искате допълнителна защита.";
-"networks permission dialog" = "Blokada може да разпознава мрежите, към които се свързвате и ви позволява да конфигурирате отделни настройки за тях. Приложението обаче ще събира данни за местоположението под формата на име на мрежа за да активира тази функция, дори когато е затворено или не се използва. Понякога може да видите системно известие за достъп до местоположение - Blokada ще прочете само името на мрежата.";
-
-
 "account section header settings" = "Настройки";
 "account status text" = "Вашият BLOKADA %@ профил е активен до %@.";
-"account status text libre" = "Вашият профил в BLOKADA Libre е активен завинаги.";
 "account status text inactive" = "Вашият BLOKADA профил не е активен.";
 
 "account section header primary" = "Основен";
@@ -295,7 +230,7 @@
 "account action logout" = "Възстановяване на покупка";
 "account action logout only" = "Изход от профила";
 "account action create" = "Генериране на нов профил";
-"account action about" = "За приложението";
+"account action about" = "Относно";
 "account action tap to show" = "Докоснете за да се покаже";
 "account action restoring" = "Възстановяване на профил: %@";
 "account label enter to continue" = "Въведете ID номер на профила за да продължите";
@@ -326,26 +261,6 @@
 "account devices remaining" = "Оставащи устройства: %@";
 "account devices not available" = "Не е налично";
 "account devices out of" = "%@ от %@";
-
-"account encrypt level low" = "Ниско";
-"account encrypt level medium" = "Средно";
-"account encrypt level high" = "Високо";
-"account encrypt label dns only" = "Криптиране на DNS";
-"account encrypt desc dns only" = "Системата за имена на домейни показва на вашето устройство къде да намери уеб сайтовете, които искате да посетите. За съжаление по-голямата част от Интернет все още използва некриптиран DNS, което излага историята на сърфирането ви в риск да бъде шпионирана. Когато е активирана, Blokada принуждава вашето устройство да се свързва само към криптирани DNS сървъри (наричани също DNS през HTTPS).";
-"account encrypt label everything" = "Свързване чрез VPN";
-"account encrypt desc everything" = "Вашето устройство се свързва чрез нашите защитени VPN сървъри и цялата комуникация, идваща от или към вашето устройство се криптира чрез силни алгоритми. Това предпазва личната ви информация, като банкови данни или лични снимки от кражба на несигурни места, като WiFi в кафене.";
-"account encrypt action turn on" = "Включване на BLOKADA";
-"account encrypt header level" = "Ниво на криптиране";
-"account encrypt label level" = "Ниво";
-"account encrypt label level low" = "Ниско: Няма криптиране";
-"account encrypt label level medium" = "Средно: Криптиран DNS";
-"account encrypt label level high" = "Високо: Криптирано е всичко";
-"account encrypt header explanation" = "DNS е как вашето устройство знае къде да намира уеб сайтовете. BLOKADA поддържа само криптирани сървъри.";
-"account encrypt label dns" = "DNS";
-"account encrypt action what is dns" = "Какво е DNS?";
-"account encrypt section header" = "Криптиране";
-"account encrypt section blocka dns" = "Blokada DNS";
-"account encrypt label use blocka dns" = "Използвайте Blokada DNS в режим Plus";
 
 "account lease label devices list" = "Тези устройства са свързани с вашият профил.";
 "account lease label devices" = "Устройства";
@@ -449,159 +364,11 @@
 "payment plan cta monthly" = "Месечен абонамент";
 "payment plan cta annual" = "Годишен абонамент";
 
-"apps section header" = "Приложения";
-"apps label installed" = "Инсталирани";
-"apps label system" = "Система";
-"apps status bypassed" = "(заобиколено)";
-"apps filter header" = "Кои приложения искате да видите?";
-"apps filter action show all" = "Всички приложения";
-"apps filter action show bypassed" = "Заобиколени само";
-"apps filter action show not bypassed" = "Не заобиколени само";
-"apps filter action toggle system" = "Превключване към всички системни приложения";
-
-"app settings section header" = "Това устройство";
-"app settings language label" = "Език";
-"app settings theme label" = "Тема на приложението";
-"app settings theme light" = "Светла";
-"app settings theme dark" = "Тъмна";
-// A setting for changing if to open links internally in the app, or by using this device's web browser
-"app settings browser label" = "Пренасочване на връзките към";
-"app settings browser internal" = "Вътрешен браузър";
-"app settings browser external" = "Външен браузър (ако е възможно)";
-"app settings ipv6 label" = "Разрешаване на IPv6";
-"app settings section system" = "Система";
-"app settings action app info" = "Отваряне на информацията за приложението";
-"app settings action vpn profile" = "Отваряне на VPN профила";
-"app settings action notifications" = "Отваряне на настройките за известия";
-"app settings section details" = "Детайли";
-"app settings status default" = "Настройки по подразбиране";
-"app settings start on boot" = "Старт със системата";
-"app settings use dns over https" = "Използване на DNS през HTTPS";
-"app settings backup" = "Използване на облачно архивиране";
-"app settings section advanced" = "Разширени";
-"app settings section use foreground" = "Винаги в активност";
-
-"intro header" = "Blokada е активна!";
-"intro text" = "Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Но въпреки това ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN / Мрежа и интернет - VPN, или Always on VPN / Connect on Demand в системните настройки.";
-
 "location region worldwide" = "Навсякъде";
 "location region america" = "Америка";
 "location region europe" = "Европа";
 "location region asia" = "Азия";
 "location region australia" = "Австралия";
-
-"homepage header what is blokada" = "Какво е Blokada?";
-"homepage desc what is blokada" = "Запознайте се с основната информация за приложението.";
-"homepage desc download" = "Изтеглете Blokada за вашата платформа.";
-"homepage desc community" = "Присъединете се към нашата страхотна общност.";
-"homepage header support" = "Подкрепи ни";
-"homepage desc support" = "Дарете за да ни помогнете да продължим проекта.";
-"homepage action faq" = "ЧЗВ";
-"homepage action opinions" = "Отзиви";
-"homepage action authors" = "Автори";
-"homepage action source" = "Източник";
-"homepage action forums" = "Форуми";
-"homepage action dashboard" = "Табло";
-"homepage about footer" = "Нека поддържаме връзка!";
-"homepage hero title" = "Поверителност на приложението";
-"homepage hero subtitle" = "безплатно и с отворен код";
-"homepage hero opensource" = "отворен код";
-"homepage hero desc" = "Blokada е популярно приложение, което блокира рекламите и защитава поверителността, предназначено за Android и iOS. То се поддържа и активно развива от невероятна общност и е с отворен код.";
-"homepage about title" = "Blokada Libre, рекламния блокер";
-"homepage about desc" = "Ако искате ефективно да блокирате реклами, тракери, злонамерен софтуер, да спестите от плана си за данни, да ускорите устройството си и да защитите поверителността си само с едно приложение, то тогава Blokada е за вас. Тя е безплатна, сигурна и с отворен код.";
-"homepage about point one" = "Блокира реклами & тракери";
-"homepage about point two" = "Работи с всички приложения и всички браузъри";
-"homepage about point three" = "Не изисква root или jailbreak";
-"homepage about point four" = "Безопасен проект (не нарушава криптирането)";
-"homepage about point five" = "Сигурно & безплатно завинаги";
-"homepage about point six" = "Отворен изходен код за Android и iOS";
-"homepage about point seven" = "Налична за изтегляне за Android";
-
-"homepage cloud title" = "Blokada Cloud, новият начин";
-"homepage cloud desc" = "Нашето модерно решение за блокиране на мобилно съдържание. Защитете множество устройства от реклами и проследяване и управлявайте предпочитанията си на едно място. Насладете се на нулево изтощаване на батерията, без забележимо забавяне и изключително надеждно блокиране на реклами.";
-"homepage cloud point one" = "Облачно базирано блокиране на реклами";
-"homepage cloud point two" = "Управлявайте и наблюдавайте мрежата";
-"homepage cloud point three" = "Криптиран, частен DNS";
-"homepage cloud point four" = "Свържете няколко устройства";
-"homepage cloud point five" = "Приложението е налично за iOS";
-"homepage cloud point six" = "Използвайте всяка платформа, поддържаща частен DNS";
-"homepage cloud learn more" = "Научете повече за Blokada Cloud";
-
-"homepage about action faq" = "Вижте ЧЗВ";
-"homepage about action plus" = "Научете повече за Blokada Plus";
-
-"homepage vpn title" = "Blokada Plus, VPN";
-"homepage vpn desc" = "За максимална защита на поверителността надстройте до Blokada Plus и се свържете чрез нашата VPN. Ние използваме WireGuard®, най-усъвършенстваният VPN протокол за да шифроваме вашата мрежова активност и да скрием вашия IP адрес.";
-"homepage vpn point one" = "Без ограничения на честотната лента";
-"homepage vpn point two" = "Бързо & модерно криптиране";
-"homepage vpn point three" = "Не се регистрира вашата мрежова активност";
-"homepage vpn point four" = "Свържете до 5 устройства";
-"homepage vpn point five" = "Всички предимства на Blokada Cloud";
-"homepage vpn point six" = "Предлага се за Android и iOS";
-"homepage vpn point seven" = "Повече платформи чрез Wireguard® приложения";
-"homepage vpn credit" = "„WireGuard“ и логото „Wireguard“ са регистрирани търговски марки на Jason A. Donenfeld.";
-
-"homepage faq header" = "Често Задавани Въпроси";
-"homepage faq action more" = "Вижте още ЧЗВ";
-"homepage faq title 1" = "Каква информация съхранява Blokada?";
-"homepage faq desc 1" = "Blokada не проследява или споделя никоя от мрежовите ви дейности. Ако използвате Blokada Plus, то тогава по технически причини трябва да съберем възможно най-малко данни необходими за поддържане на услугата. Моля, направете справка с нашата Политика за поверителност налична в горното меню за подробности.";
-"homepage faq title 2" = "Как е защитена поверителността ми?";
-"homepage faq desc 2" = "Blokada пречи на приложенията и браузърите инсталирани на вашето устройство да изпращат вашите лични данни (известни като проследяване на пръстови отпечатъци) в Интернет. Тя също така криптира част от вашата мрежова активност (DNS заявки). Ако се нуждаете от повече защита, Blokada Plus кара вашето устройство да се свързва чрез нашата VPN и използва протокола WireGuard® за да шифрова целия ви мрежов трафик.";
-"homepage faq title 3" = "Какво представлява Blokada Plus?";
-"homepage faq desc 3" = "Blokada Plus е нашата безопасна и модерна VPN (Виртуална частна мрежа) услуга. Тя използва WireGuard® - бърз протокол с най-доброто в класа криптиране и ниска употреба на батерията. Blokada Plus шифрова цялата ви мрежова активност в реално време и ви осигурява най-високото ниво на защита, което е на разположение. Получавате и популярните VPN функции - скрийте своя IP адрес, променете местоположението си и деблокирайте гео ограничено съдържание.";
-"homepage faq title 4" = "Трябва ли да надстроя до Blokada Plus?";
-"homepage faq desc 4" = "Не, надстройката не е задължителна. Можете да се придържате към безплатната версия на Blokada, завинаги. Препоръчва се надстройка, ако искате да увеличите още повече защитата си за поверителност или се нуждаете от някоя от популярните функции, които VPN предлага.";
-"homepage faq title 5" = "Каква е политиката за възстановяване на средства Blokada Plus?";
-"homepage faq desc 5" = "Можете да си върнете парите в рамките на 7 дни от закупуването на абонамента. Свържете се с нас чрез някое от нашите приложения и просто споменете, че искате възстановяване на сумата.";
-"homepage faq title 6" = "Къде се намира Blokada?";
-"homepage faq desc 6" = "Ние се намираме в Швеция, където на поверителността се гледа много сериозно. Нашите сървъри са достъпни на много места по света.";
-"homepage faq title 7" = "Какво е Blokada Cloud?";
-"homepage faq desc 7" = "Blokada Cloud е нашето ново облачно базирано решение за блокиране на реклами. Той е по-бърз и по-надежден от стария метод и носи много допълнителни предимства. Blokada Cloud може да се използва на множество устройства и поддържа всяка платформа, съвместима с DNS през TLS/HTTPS.";
-
-"homepage download header" = "Изтегляне на Blokada";
-"homepage download subheader" = "Blokada се предлага за няколко платформи, изберете вашата.";
-"homepage download option android five" = "Blokada 5 за Android";
-"homepage download option android slim" = "Blokada 5 Slim за Android";
-"homepage download option android four" = "Blokada 4 за Android";
-"homepage download option ios" = "Blokada 6 за iOS";
-"homepage download option other" = "Blokada за други платформи";
-"homepage download desc other" = "Понастоящем не предлагаме Blokada за други платформи. Ако обаче сте потребител на Blokada Plus можете да използвате нашата VPN на Windows, Linux, Mac и други платформи, ако е наличен Wireguard.";
-"homepage download desc ios" = "Blokada 6 просто е достъпен в App Store.";
-"homepage download action ios" = "Отваряне на Play Store";
-"homepage download desc android five" = "Това е новата ни препоръчителна версия <b>за смартфони и таблети с Android 7 или по-нова версия</b>. Тя е по-проста и по-бърза в сравнение с Blokada 4.";
-"homepage download action android five" = "Blokada 5 .apk";
-"homepage download action android five beta" = "Beta .apk";
-"homepage download desc android slim" = "Blokada Slim е <b>леката версия на приложението</b> и съдържа само функции, които са разрешени от правилата на Google Play.";
-"homepage download action android slim" = "Отваряне на Google Play";
-"homepage download desc android four" = "Все още поддържаме и старата версия на Blokada. Тя има повече функции и работи на по-стари устройства и телевизори.";
-"homepage download action android four" = "Blokada 4 .apk";
-"homepage download action android four fdroid" = "Отваряне на F-Droid";
-
-"homepage download cloud desc" = "Blokada Cloud може да се използва на всяка платформа, която поддържа DNS през TLS/HTTPS. Това включва Windows, MacOS, Linux и всички съвременни браузъри. Можете да намерите прости ръководства за настройка за всички поддържани платформи в уеб таблото за управление.";
-"homepage download plus desc" = "Blokada Plus може да се използва на всяка платформа, където е достъпно приложението Wireguard®. Можете да генерирате VPN профил в уеб таблото за управление и след това просто да го импортирате в приложението.";
-"homepage download action open dashboard" = "Отваряне на таблото за управление";
-
-"homepage community header" = "Общността";
-"homepage community desc" = "Blokada не е само приложение за поверителност. Това е и общността на хората, които се грижат за дигиталната неприкосновеност и благосъстояние. Ще ни намерите на нашия форум където можете да зададете всякакви въпроси, които имате. Присъстваме и в други социални медии и чатове.";
-"homepage community cta subheader" = "Присъединете се към нас и и кажете здравей!";
-"homepage community cta desc" = "В основата на нашата работа се основаваме на обратната връзка с нашите потребители. Кажете ни какво мислите, какво трябва да подобрим или просто да премахнем.";
-"homepage community cta action" = "Към форумите";
-"homepage community opinions" = "Ето някои от мненията на нашите потребители.";
-
-"homepage support header" = "Подкрепете проекта";
-"homepage support desc" = "Ако ви харесва това, което правим помислете за Вашата подкрепа, така ще можем да продължим да разработваме нови функции и подобрения. По този начин Blokada може да остане с отворен код и безплатна завинаги.";
-"homepage support desc2" = "Ако харесвате това, което правим, помислете дали да не ни подкрепите за да можем да продължим да развиваме нашият проект с отворен код.";
-"homepage support cta header" = "Blokada зависи от вас";
-"homepage support cta desc" = "Blokada е проект с отворен код, което означава, и можете да сте сигурни, че той винаги ще бъде безплатен, безопасен за използване и без никакви скрити програми. Вярваме, че това е единственият правилен начин за разработване на приложение за поверителност, на което можете да се доверите.";
-"homepage support cta desc2" = "Blokada има два източника на приходи за подпомагане на развитието на проекта: абонаменти и дарения. Няма приходи от реклами. Blokada също не продава потребителски данни.";
-"homepage support cta desc more" = "Разработването на качествено приложение като Blokada обаче изисква значителен обем ресурси. Този проект съществува благодарение на подкрепата на страхотни хора като теб!";
-"homepage support cta action" = "Дарете (карта, Paypal)";
-"homepage support cta action alt" = "Дарете (банка, crypto)";
-
-"homepage developer header" = "Вие сте разработчик";
-"homepage developer subheader" = "и искате да направите Blokada по-добра?";
-"homepage developer desc" = "Blokada е проект с отворен код посветен на разработването на най-добрия рекламен блокер и приложение за поверителност за Android и iOS. Проверете нашия Github и ни уведомете ако имате нужда от помощ за да направите първия си PR.";
-"homepage developer action" = "Към repo";
 
 "web vpn devices header" = "VPN устройства";
 // A button to open section called "VPN Devices"
@@ -617,7 +384,7 @@
 "setup label which device" = "Какъв тип устройство искате да настроите?";
 "setup label choose" = "Изберете някоя от опциите за настройка:";
 "setup comment wireguard" = "Забележка: Конфигурацията на VPN ще използва Blokada Cloud по подразбиране. Изберете друга настройка на DNS, ако искате да се откажете. 'WireGuard' и логото 'WireGuard' са регистрирани търговски марки на Jason A. Donenfeld.";
-"setup comment native apps" = "Забележка: Приложенията за Android и iOS все още не поддържат Blokada Cloud. Работим по актуализацията.";
+"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Стъпка %@: %@";
 "setup option label recommended" = "Препоръчително: %@";
@@ -646,10 +413,6 @@
 "dnsprofile desc" = "В Настройки на приложението отворете Общи → VPN, DNS и управление на устройства → DNS и изберете Blokada.";
 "dnsprofile action open settings" = "Отваряне на настройките";
 
-"notification perms header" = "Включване на известията в Настройки";
-"notification perms desc" = "Тази функция изисква известия, моля включете ги за Blokada.";
-"notification perms denied" = "Вие се отказахте известията. За да го промените, моля използвайте системните предпочитания.";
-
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Почти сме готови!";
 "activated desc" = "Необходимо е следното за да работи Blokada според очакванията:";
@@ -663,3 +426,6 @@
 "activated label vpn cloud" = "Разрешаване на VPN (само за Plus)";
 "activated label vpn yes" = "VPN е разрешен";
 "activated label vpn no" = "Разрешаване на VPN";
+
+"homepage vpn credit" = "„WireGuard“ и логото „Wireguard“ са регистрирани търговски марки на Jason A. Donenfeld.";
+"advanced section header packs" = "Блокиращи списъци";

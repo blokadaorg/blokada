@@ -17,7 +17,7 @@
 "Alternative blocklist with advanced features" = "高度な機能を備えた Alternative ブロックリスト";
 "A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "カスタマイズできる多様な選択肢を持つブロックリスト。より強力であり、アプリやサイトが誤動作したり、表示が崩れる可能性があります。graph.facebook.com と mqtt-mini.facebook.com をブロックします。Facebook アプリで問題が発生した場合は、[アクティビティ] からリクエストを許可することを検討してください。";
 "Adblocking for your mobile device" = "モバイルデバイスの広告ブロック";
-"A special blocklist containing mobile ad providers." = "モバイル広告プロバイダーを含む特別なブロックリスト。";
+"A special blocklist containing mobile ad providers." = "モバイル広告プロバイダーを含む特別なフィルター";
 "Protects against cyber attacks" = "サイバー攻撃から保護";
 "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "フィッシングサイトをブロックするためのリスト。フィッシングは、元のサイトと同じように見える偽のサイトに誘導して個人情報やパスワードを盗み取る不正行為です。このリストはフィッシングからあなたを保護します。";
 "A new and expanding tracker database" = "新しく拡張されたトラッカーデータベース";
