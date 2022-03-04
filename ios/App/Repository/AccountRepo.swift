@@ -217,7 +217,7 @@ class AccountRepo: Startable {
     private func onAccountExpiring_RefreshAccount() {
         accountHot.map { it in it.account }
         .sink(onValue: { it in
-            let until = it.activeUntil().shortlyBefore()
+            let until = it.activeUntil()?.shortlyBefore() ?? Date()
             if until > Date() {
                 self.timer.createTimer(NOTIF_ACC_EXP, when: until)
                 .flatMap { _ in self.timer.obtainTimer(NOTIF_ACC_EXP) }
@@ -248,12 +248,22 @@ class AccountRepo: Startable {
 
     private func onAccountAboutToExpire_MarkExpiredAndInformUser() {
         accountHot.map { it in it.account }
-        .filter { it in it.isActive() && it.activeUntil().shortlyBefore() < Date() }
+        .filter { it in
+            if !it.isActive() {
+                return false
+            }
+
+            if let until = it.activeUntil(), until.shortlyBefore() < Date() {
+                return true
+            } else {
+                return false
+            }
+        }
         .sink(onValue: { it in
             // Mark account as expired internally
             Logger.v(
                 "AppRepo",
-                 "Marking account as expired, now: \(Date()), acc: \(it.activeUntil().shortlyBefore())"
+                 "Marking account as expired, now: \(Date()), acc: \(it.activeUntil()?.shortlyBefore())"
             )
 
             self.proposeAccount(Account(

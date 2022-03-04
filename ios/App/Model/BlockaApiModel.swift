@@ -26,12 +26,12 @@ typealias DeviceToken = Data
 struct Account: Codable {
     let id: AccountId
     let active_until: String?
-    let active: Bool?
+    let active: Bool
     let type: String?
 
-    func activeUntil() -> ActiveUntil {
+    func activeUntil() -> ActiveUntil? {
         guard let active = active_until else {
-            return Date(timeIntervalSince1970: 0)
+            return nil
         }
 
         let dateFormatter = DateFormatter()
@@ -39,7 +39,7 @@ struct Account: Codable {
         guard let date = dateFormatter.date(from: active) else {
             dateFormatter.dateFormat = blockaDateFormatNoNanos
             guard let date = dateFormatter.date(from: active) else {
-                return Date(timeIntervalSince1970: 0)
+                return nil
             }
             return date
         }
@@ -47,7 +47,7 @@ struct Account: Codable {
     }
 
     func isActive() -> Bool {
-        return active ?? (activeUntil() > Date())
+        return active
     }
 }
 
