@@ -425,7 +425,9 @@ mod test {
         "dns-query".into(),
         vec![
           "185.95.218.42".parse().unwrap(),
-          "2a05:fc84::4".parse().unwrap(),
+          "2a05:fc84::42".parse().unwrap(),
+          "185.95.218.43".parse().unwrap(),
+          "2a05:fc84::43".parse().unwrap(),
         ],
         Duration::from_secs(1),
       )),
@@ -477,7 +479,8 @@ mod test {
       cloudflare,
       cloudflare_malware,
       cloudflare_adult,
-      gesellschaft,
+      // TODO #927: require DoH according to RFC 8484 support
+      // gesellschaft,
       // opendns,
       // opendns_family,
       opennic_eu,
