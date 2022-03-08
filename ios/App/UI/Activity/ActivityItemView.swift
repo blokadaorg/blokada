@@ -18,11 +18,9 @@ struct ActivityItemView: View {
 
     var body: some View {
         HStack {
-            if vm.entry.type == .blocked {
-                Rectangle()
-                .fill(Color.red)
-                .frame(width: 3)
-            }
+            Rectangle()
+            .fill(vm.entry.type == .blocked ? Color.red : Color.clear)
+            .frame(width: 3)
 
             ZStack {
                 ZStack {
