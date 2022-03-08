@@ -103,16 +103,17 @@ object DnsDataSource {
             ips = listOf("80.67.169.12", "80.67.169.40"),
             label = "French Data Network"
         ),
-        Dns(
-            id = "digitalegesellschaft",
-            ips = listOf("185.95.218.42", "185.95.218.43", "2a05:fc84::42", "2a05:fc84::43"),
-            port = 443,
-            name = "dns.digitale-gesellschaft.ch",
-            path = "dns-query",
-            label = "Digitale Gesellschaft (Switzerland)",
-            canUseInCleartext = false,
-            region = "europe"
-        ),
+        // TODO #927: require DoH according to RFC 8484 support
+        //Dns(
+        //    id = "digitalegesellschaft",
+        //    ips = listOf("185.95.218.42", "185.95.218.43", "2a05:fc84::42", "2a05:fc84::43"),
+        //    port = 443,
+        //    name = "dns.digitale-gesellschaft.ch",
+        //    path = "dns-query",
+        //    label = "Digitale Gesellschaft (Switzerland)",
+        //    canUseInCleartext = false,
+        //    region = "europe"
+        //),
         Dns(
             id = "google",
             ips = listOf("8.8.8.8", "8.8.4.4", "2001:4860:4860::8888", "2001:4860:4860::8844"),
