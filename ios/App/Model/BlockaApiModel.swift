@@ -26,7 +26,7 @@ typealias DeviceToken = Data
 struct Account: Codable {
     let id: AccountId
     let active_until: String?
-    let active: Bool
+    let active: Bool?
     let type: String?
 
     func activeUntil() -> ActiveUntil? {
@@ -47,7 +47,7 @@ struct Account: Codable {
     }
 
     func isActive() -> Bool {
-        return active
+        return active ?? false
     }
 }
 
