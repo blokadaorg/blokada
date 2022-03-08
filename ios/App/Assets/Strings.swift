@@ -21,8 +21,8 @@ class Strings {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: userDateFormatSimple, options: 0, locale: Locale.current)!
 
-        if account?.isActive() ?? false {
-            return dateFormatter.string(for: account!.activeUntil())!
+        if let account = account, account.isActive() {
+            return dateFormatter.string(for: account.activeUntil()) ?? ""
         } else {
             return ""
         }
