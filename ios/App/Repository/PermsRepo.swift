@@ -111,7 +111,7 @@ class PermsRepo: Startable {
     func askForAllMissingPermissions() -> AnyPublisher<Ignored, Error> {
         return sheetRepo.dismiss()
         .delay(for: 0.3, scheduler: self.bgQueue)
-        .flatMap { _ in self.askNotificationPerms() }
+        .flatMap { _ in self.notification.askForPermissions() }
         .tryCatch { err in
             // Notification perm is optional, ask for others
             return Just(true)
