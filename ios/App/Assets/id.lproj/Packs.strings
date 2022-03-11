@@ -19,7 +19,7 @@
 "Adblocking for your mobile device" = "Pemblokir iklan untuk perangkat seluler Anda";
 "A special blocklist containing mobile ad providers." = "Blocklist khusus berisi penyedia iklan di perangkat seluler.";
 "Protects against cyber attacks" = "Melindungi dari serangan siber";
-"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Swbuah blocklist untuk menyaring situs-situs phishing. Phishing adalah sebuah metode untuk mencuri data-data pribadi yang bersifat sensitif, dengan cara mengalihkan lalu lintas data Anda ke situs-situs palsu yang terlihat mirip dengan situs resmi. Blocklist ini dapat membantu Anda terhindar dari situs-situs palsu.";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Sebuah blocklist untuk menyaring situs-situs phishing. Phishing adalah sebuah metode untuk mencuri data-data pribadi yang bersifat sensitif, dengan cara mengalihkan lalu lintas data Anda ke situs-situs palsu yang terlihat mirip dengan situs resmi. Blocklist ini dapat membantu Anda terhindar dari situs-situs palsu.";
 "A new and expanding tracker database" = "Database tracker baru dan terus diperbarui";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar adalah dataset terbaik di kelasnya. DuckDuckGo Tracker Radar menghasilkan data secara otomatis dan diperbarui melalui analisis yang berkelanjutan. Silakan kunjungi situs pembuat list ini untuk informasi lebih detail.";
 "Curated blocklist to block trackers and advertisements" = "Daftar cekal untuk memblokir trackers dan iklan";
@@ -31,7 +31,7 @@
 "A blocklist for ads and tracking, updated regularly" = "Sebuah blocklist untuk menangkal iklan dan tracker, diperbarui berkala";
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Cocok dipakai sebagai blocklist utama. Cukup seimbang, berukuran sedang, dan sering diperbarui.";
 "A collection of blocklists for various use cases." = "Kumpulan blocklist untuk berbagai macam kegunaan.";
-"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Daftar ini dibuat karena sang pendiri menginginkan sebuah blocklist yang lebih bisa diatur dalam hal entri apa saja yang diblokir.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Daftar ini dibuat karena sang pembuat menginginkan sebuah blocklist yang lebih bisa diatur dalam hal entri apa saja yang diblokir.";
 "A blocklist based on spam reports" = "Sebuah blocklist yang didasarkan pada laporan spam";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 adalah layanan yang membantu banyak bisnis online dalam hal memantau konten, uji penetrasi dan perlindungan merk. Daftar ini didasarkan pada laporan yang didapat dari banyak perusahaan.";
 "A comprehensive lists to block ads and tracking" = "Daftar host yang cukup komprehensif untuk memblokir iklan dan pelacak";
@@ -41,7 +41,7 @@
 "A reasonably balanced ad blocking hosts file" = "File host pemblokiran iklan yang cukup seimbang";
 "This is a well known, general purpose blocklist of small size, updated regularly." = "Blocklist yang cukup dikenal, berukuran kecil, dan diperbarui secara berkala.";
 "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Data pribadi dan perhatian Anda rawan dijual ke pengiklan dengan penawaran tertinggi. Gunakan konfigurasi Ringan untuk mencegahnya. Jika konfigurasi itu dirasa kurang, Anda bisa mencoba konfigurasi Pro.";
-"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "List ini bersifat universal dan memblokir iklan, baik di broswer maupun app. Tidak mempengaruhi kinerja aplikasi dan layanan seluler lainnya.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "List ini bersifat universal dan memblokir iklan, baik di browser maupun app. Tidak mempengaruhi kinerja aplikasi dan layanan seluler lainnya.";
 "A blocklist based on malware database" = "Blocklist yang didasarkan pada database malware";
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Blocklist yang berisi daftar situs-situs berbahaya yang digunakan untuk menyebarkan malware, bersumber dari urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "Blocklist yang dikompilasi oleh pembuat adblocker test";

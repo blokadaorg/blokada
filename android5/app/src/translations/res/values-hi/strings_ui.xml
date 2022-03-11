@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">भुगतान रद्द कर दिया गया था। आपसे शुल्क नहीं लिया गया।</string>
     <string name="error_pack_install">इस सुविधा को इंस्टॉल (या अनइंस्टॉल) नहीं कर सका। बाद में पुन: प्रयास करें।</string>
     <string name="error_location_failed_fetching">स्थानों को नहीं ला सके।</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="universal_action_continue">जारी रखें</string>
     <string name="universal_action_cancel">रद्द करें</string>
     <string name="universal_action_close">बंद करें</string>

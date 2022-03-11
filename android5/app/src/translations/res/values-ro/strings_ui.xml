@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">Plata a fost anulată. Nu ați fost taxat.</string>
     <string name="error_pack_install">Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.</string>
     <string name="error_location_failed_fetching">Nu s-au putut prelua locațiile.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="universal_action_continue">Continuă</string>
     <string name="universal_action_cancel">Anulare</string>
     <string name="universal_action_close">Închide</string>

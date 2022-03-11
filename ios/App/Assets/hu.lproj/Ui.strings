@@ -30,8 +30,7 @@
 "error payment canceled" = "A fizetés visszavonásra került. A terhelés nem történt meg.";
 "error pack install" = "Ezt a szolgáltatást nem lehetett telepíteni (vagy eltávolítani). Kérlek, próbáld újra később.";
 "error location failed fetching" = "Nem sikerült lekérdezni a helyet.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Folytatás";
 "universal action cancel" = "Mégse";

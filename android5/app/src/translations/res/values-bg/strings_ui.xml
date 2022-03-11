@@ -3,7 +3,7 @@
     <string name="error_device_offline">Устройството ви е офлайн</string>
     <string name="error_account_inactive">Вашият профил не е активен. Моля, активирайте го за да продължите да използвате BLOKADA+.</string>
     <string name="error_account_inactive_after_restore">Изглежда, че това не е валиден активен профил. Ако смятате това за грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
-    <string name="error_account_invalid">Това ID на този профил изглежда невалидно.</string>
+    <string name="error_account_invalid">ID на този профил изглежда невалиден.</string>
     <string name="error_creating_account">Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.</string>
     <string name="error_fetching_data">Действието не можа да приключи. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
     <string name="error_tunnel">VPN не можа да бъде създаден. Моля, рестартирайте устройството или премахнете профила на Blokada VPN от системните настройки и опитайте отново.</string>
@@ -13,14 +13,14 @@
     <string name="error_vpn_no_current_lease_new">Blokada Plus е деактивиран на това устройство. Моля, изберете местоположение за да го активирате отново.</string>
     <string name="error_vpn_too_many_leases">Достигнат е лимита на устройствата. Моля, премахнете едно от устройствата си и опитайте отново.</string>
     <string name="error_vpn_expired">VPN е деактивиран. Моля, актуализирайте абонамента си за да продължите да използвате BLOKADA+</string>
-    <string name="error_payment_inactive_after_restore">Плащането не е прието защото абонаментът ви е изтекъл. Ако смятате, че това е грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
-    <string name="error_payment_failed">В момента няма налично плащане. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблема продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
-    <string name="error_payment_failed_alternative">Не можахме да завършим плащането Ви. Моля уверете се, че вашите данни са верни и опитайте отново. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
-    <string name="error_payment_not_available">Плащанията не са активни за това устройство. Или Apple Pay не е активиран, или все още не обработваме плащания от вашата страна.</string>
+    <string name="error_payment_inactive_after_restore">Плащането ви беше възстановено и абонаментът вече е прекратен. Ако смятате, че това е грешка, моля, свържете се с нас, като докоснете иконата за помощ в горната част.</string>
+    <string name="error_payment_failed">В момента няма налично плащане. Уверете се, че сте онлайн и опитайте отново по-късно. Ако този проблем продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
+    <string name="error_payment_failed_alternative">Не можахме да завършим плащането Ви. Моля уверете се, че вашите данни са верни и опитайте отново. Ако този проблем продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.</string>
+    <string name="error_payment_not_available">Плащанията не са налични за това устройство. Или Apple Pay не е активиран, или все още не обработваме плащания от вашата страна.</string>
     <string name="error_payment_canceled">Плащането е анулирано. Не сте таксувани.</string>
     <string name="error_pack_install">Функцията не можа да се инсталира (или деинсталира). Моля, опитайте отново по-късно.</string>
     <string name="error_location_failed_fetching">Местоположенията не можаха да бъдат извлечени.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="universal_action_continue">Продължи</string>
     <string name="universal_action_cancel">Отказ</string>
     <string name="universal_action_close">Затвори</string>
@@ -28,7 +28,7 @@
     <string name="universal_action_try_again">Опитайте отново</string>
     <string name="universal_action_learn_more">Научете повече</string>
     <string name="universal_action_help">Помощ</string>
-    <string name="universal_action_show_log">Регистри</string>
+    <string name="universal_action_show_log">Дневници</string>
     <string name="universal_action_share_log">Сподели дневника</string>
     <string name="universal_action_copy">Копирай</string>
     <string name="universal_action_save">Запази</string>
@@ -165,8 +165,8 @@
     <string name="activity_category_top_allowed">Най-много разрешени</string>
     <string name="activity_filter_header">Кои записи искате да видите?</string>
     <string name="activity_filter_show_all">Всички записи</string>
-    <string name="activity_filter_show_blocked">Блокирани само</string>
-    <string name="activity_filter_show_allowed">Разрешени само</string>
+    <string name="activity_filter_show_blocked">Само блокирани</string>
+    <string name="activity_filter_show_allowed">Само разрешени</string>
     <string name="activity_filter_showing_for">Показва се за: %s</string>
     <string name="activity_empty_text">Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.</string>
     <string name="activity_device_filter_show_all">Всички устройства</string>
@@ -270,7 +270,7 @@
     <string name="payment_action_policy">Декларация за поверителност</string>
     <string name="payment_alert_error_header">Съобщение от App Store</string>
     <string name="payment_save_text">Вие спестявате %s</string>
-    <string name="payment_conversion_note">Приемаме Euro и показаните цени са ориентировъчни. Възстановяването на сумата е възможно, ако банката Ви таксува твърде много.</string>
+    <string name="payment_conversion_note">Приемаме Евро и показаните цени са ориентировъчни. Възстановяването на сумата е възможно, само ако таксите на банката не са твърде високи.</string>
     <string name="payment_subscription_one_month">1 Месец</string>
     <string name="payment_subscription_many_months">%s Месеца</string>
     <string name="payment_subscription_per_month">%s на месец</string>
@@ -300,7 +300,7 @@
     <string name="payment_package_one_month">1 Месец</string>
     <string name="payment_package_six_months">6 Месеца</string>
     <string name="payment_package_twelve_months">12 Месеца</string>
-    <string name="payment_label_discount">Спестете %s (%s / mo)</string>
+    <string name="payment_label_discount">Спестете %s (%s / м.)</string>
     <string name="payment_label_country">Държава</string>
     <string name="payment_euro_desc">Ние се намираме в Европа, така че приемаме Евро: €10 са приблизително $12.</string>
     <string name="payment_action_compare">Сравнете плановете</string>
@@ -316,7 +316,7 @@
     <string name="location_region_asia">Азия</string>
     <string name="location_region_australia">Австралия</string>
     <string name="web_vpn_devices_header">VPN устройства</string>
-    <string name="web_vpn_devices_open_action">Отваряне на VPN устройства</string>
+    <string name="web_vpn_devices_open_action">Отваряне на VPN устройствата</string>
     <string name="web_action_open_setup">Отваряне на настройката</string>
     <string name="web_cta_plus_header">Надстройте до Blokada Plus за да контролирате поверителността си.</string>
     <string name="web_cta_plus_desc">Вашият акаунт в Libre ви дава безплатно блокиране на реклами на вашето устройство с нашите приложения с отворен код. Надстройте до Blokada Plus за още по-добра защита. Ще получите достъп до нашата глобална VPN мрежа, както и новото ни *облачно* блокиране на реклами, което е по-ефективно и по-лесно за използване.</string>
@@ -325,8 +325,8 @@
     <string name="setup_desc">Има много начини да конфигурирате устройството си да използва Blokada Cloud. Изберете този, който работи за вас.</string>
     <string name="setup_label_which_device">Какъв тип устройство искате да настроите?</string>
     <string name="setup_label_choose">Изберете някоя от опциите за настройка:</string>
-    <string name="setup_comment_wireguard">Забележка: Конфигурацията на VPN ще използва Blokada Cloud по подразбиране. Изберете друга настройка на DNS, ако искате да се откажете. \'WireGuard\' и логото \'WireGuard\' са регистрирани търговски марки на Jason A. Donenfeld.</string>
-    <string name="setup_comment_native_apps">Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.</string>
+    <string name="setup_comment_wireguard">Забележка: Конфигурацията на VPN ще използва Blokada Cloud по подразбиране. Изберете друга настройка за DNS, ако искате да се откажете. \'WireGuard\' и логото \'WireGuard\' са регистрирани търговски марки на Jason A. Donenfeld.</string>
+    <string name="setup_comment_native_apps">Забележка: Приложенията за Android и iOS все още не поддържат Blokada Cloud. Работим по актуализацията.</string>
     <string name="setup_step">Стъпка %s: %s</string>
     <string name="setup_option_label_recommended">Препоръчително: %s</string>
     <string name="setup_option_label_alternative">Алтернативно: %s</string>
@@ -337,7 +337,7 @@
     <string name="setup_step_install">Инсталирайте и стартирайте приложението си</string>
     <string name="setup_step_enter_tag">Когато бъдете помолени, въведете своя маркер</string>
     <string name="setup_step_download_profile">Генерирайте и изтеглете вашия профил</string>
-    <string name="setup_step_install_wireguard">Инсталирайте и стартирайте Wireguard</string>
+    <string name="setup_step_install_wireguard">Инсталирайте и стартирайте WireGuard</string>
     <string name="stats_header">Статистика</string>
     <string name="stats_ratio_header">Съотношение</string>
     <string name="stats_requests_header">Заявки</string>
@@ -349,16 +349,16 @@
     <string name="dnsprofile_action_open_settings">Отваряне на настройките</string>
     <string name="activated_header">Почти сме готови!</string>
     <string name="activated_desc">Необходимо е следното за да работи Blokada според очакванията:</string>
-    <string name="activated_desc_all_ok">Вашето устройство е настроено и готово:</string>
+    <string name="activated_desc_all_ok">Вашето устройство е готово и настроено:</string>
     <string name="activated_label_account">Профилът е активен (%s)</string>
     <string name="activated_label_notif_yes">Известията са разрешени</string>
-    <string name="activated_label_notif_no">Разрешаване на известия</string>
+    <string name="activated_label_notif_no">Разрешаване на известията</string>
     <string name="activated_label_dns_yes">DNS профилът е активиран</string>
     <string name="activated_label_dns_no">Активиране на DNS профил</string>
     <string name="activated_label_vpn_cloud">Разрешаване на VPN (само за Plus)</string>
     <string name="activated_label_vpn_yes">VPN е разрешен</string>
     <string name="activated_label_vpn_no">Разрешаване на VPN</string>
-    <string name="homepage_vpn_credit">„WireGuard“ и логото „Wireguard“ са регистрирани търговски марки на Jason A. Donenfeld.</string>
+    <string name="homepage_vpn_credit">„WireGuard“ и логото „WireGuard“ са регистрирани търговски марки на Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Блокиращи списъци</string>
     <string name="app_settings_section_header">Това устройство</string>
 </resources>

@@ -296,8 +296,7 @@ internal enum L10n {
   internal static let errorPaymentNotAvailable = L10n.tr("Ui", "error payment not available")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorTunnel = L10n.tr("Ui", "error tunnel")
-  /// A problem occurred. Make sure you are online, and try again later. If the problem persi
-  /// sts, please contact us by tapping the help icon at the top.
+  /// A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.
   internal static let errorUnknown = L10n.tr("Ui", "error unknown")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorVpn = L10n.tr("Ui", "error vpn")

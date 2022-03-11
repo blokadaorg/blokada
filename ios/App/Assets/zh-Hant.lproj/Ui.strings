@@ -30,8 +30,7 @@
 "error payment canceled" = "付款已取消。未收取您的費用。";
 "error pack install" = "無法安裝或解除安裝此功能。請稍候再試。";
 "error location failed fetching" = "無法取得地點。";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "出了問題。請確定您已連上網路，然後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
 
 "universal action continue" = "繼續";
 "universal action cancel" = "取消";

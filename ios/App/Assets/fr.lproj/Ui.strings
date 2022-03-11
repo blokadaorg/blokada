@@ -30,8 +30,7 @@
 "error payment canceled" = "Le paiement a été annulé. Vous n'avez pas été débité.";
 "error pack install" = "Impossible d'installer (ou désinstaller) cette fonctionnalité. Veuillez réessayer plus tard.";
 "error location failed fetching" = "Impossible de récupérer les locations.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "Une erreur est survenue. Assurez-vous d'être en ligne puis réessayez. Si le problème persiste, contactez-nous en utilisant l'icône d'aide en haut de l'écran.";
 
 "universal action continue" = "Continuer";
 "universal action cancel" = "Annuler";
@@ -248,7 +247,7 @@ sts, please contact us by tapping the help icon at the top.";
 "account action devices" = "Appareils";
 "account action new device" = "Nouvel appareil";
 "account action inbox" = "Messagerie";
-"account action logout" = "Résilier l'achat";
+"account action logout" = "Restaurer mon achat";
 "account action logout only" = "Déconnexion";
 "account action create" = "Générer un nouveau compte";
 "account action about" = "À propos";
@@ -273,7 +272,7 @@ sts, please contact us by tapping the help icon at the top.";
 
 "account unlock to show" = "Débloquez pour afficher l'ID de votre compte";
 
-"account header logout" = "Résilier l'achat";
+"account header logout" = "Restaurer mon achat";
 "account logout description" = "Veuillez saisir un autre ID de compte, ou revenez en arrière pour continuer d'utiliser le compte actuel (vous devez être connecté pour utiliser cette app).";
 "account id status unchanged" = "(inchangé)";
 "account action how to restore" = "Comment puis-je restaurer mon ancien compte ?";

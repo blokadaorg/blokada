@@ -30,8 +30,7 @@
 "error payment canceled" = "El pago se ha cancelado. No se ha cobrado nada.";
 "error pack install" = "No se ha podido instalar (o desinstalar) esta característica. Inténtalo de nuevo más tarde.";
 "error location failed fetching" = "No se ha encontrado tu ubicación.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Continuar";
 "universal action cancel" = "Cancelar";

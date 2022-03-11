@@ -30,7 +30,7 @@
 "error payment canceled" = "Betalningen har avbrutits. Du har inte debiterats.";
 "error pack install" = "Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.";
 "error location failed fetching" = "Kunde inte hämta platser.";
-"error unknown" = "Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Fortsätt";
 "universal action cancel" = "Avbryt";

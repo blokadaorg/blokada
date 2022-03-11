@@ -3,8 +3,8 @@
     <string name="error_blocka_dns_in_filtering_mode">Attualmente, Blokada DNS è supportato soltanto in modalità Plus. Seleziona un altro DNS e riprova.</string>
     <string name="account_active_forever">Per sempre</string>
     <string name="account_active_forever_full">Attivo per sempre</string>
-    <string name="main_ask_for_permissions_header">Solo un altro passo</string>
-    <string name="main_ask_for_permissions_description">Blokada usa una configurazione VPN per bloccare gli annunci. Ti verrà chiesto di consentirla nel prossimo passo.</string>
+    <string name="main_ask_for_permissions_header">Solo un altro passaggio</string>
+    <string name="main_ask_for_permissions_description">Blokada usa una configurazione VPN per bloccare gli annunci. Nel prossimo passaggio ti verrà chiesto di consentirla.</string>
     <string name="home_level_low">Protezione: Bassa</string>
     <string name="home_level_medium">Protezione: Media</string>
     <string name="home_level_high">Protezione: Alta</string>

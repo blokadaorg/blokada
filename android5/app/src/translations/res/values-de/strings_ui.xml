@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">Der Zahlungsvorgang wurde abgebrochen. Die gewählte Zahlungsmethode wurde nicht belastet.</string>
     <string name="error_pack_install">Diese Erweiterung konnte nicht installiert (oder deinstalliert) werden. Bitte versuch es später erneut.</string>
     <string name="error_location_failed_fetching">Standorte konnten nicht abgerufen werden.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">Ein Problem ist aufgetreten. Stelle sicher, dass du online bist und versuche es später noch einmal. Wenn das Problem bestehen bleibt, kontaktiere uns bitte, indem du oben auf die Hilfe-Schaltfläche tippst.</string>
     <string name="universal_action_continue">Fortsetzen</string>
     <string name="universal_action_cancel">Abbrechen</string>
     <string name="universal_action_close">Schließen</string>
@@ -167,7 +167,7 @@
     <string name="activity_filter_show_all">Alle Einträge</string>
     <string name="activity_filter_show_blocked">Nur blockierte</string>
     <string name="activity_filter_show_allowed">Nur erlaubte</string>
-    <string name="activity_filter_showing_for">Showing for: %s</string>
+    <string name="activity_filter_showing_for">Ergebnisse für: %s</string>
     <string name="activity_empty_text">Verwende dein Gerät einfach weiter und komme später hierher zurück, um zu sehen, wohin sich dein Gerät verbindet.</string>
     <string name="activity_device_filter_show_all">Alle Geräte</string>
     <string name="activity_retention_header">Für wie lange können wir deine Aktivitäten speichern?</string>
@@ -326,7 +326,7 @@
     <string name="setup_label_which_device">Welche Art von Gerät möchtest du einrichten?</string>
     <string name="setup_label_choose">Wähle eine der folgenden Setup-Optionen:</string>
     <string name="setup_comment_wireguard">Hinweis: Die VPN-Konfiguration verwendet standardmäßig Blokada Cloud. Wähle eine andere DNS-Einstellung, wenn du dich dagegen entscheiden möchtest. \'WireGuard\' und das \'WireGuard\'-Logo sind eingetragene Marken von Jason A. Donenfeld.</string>
-    <string name="setup_comment_native_apps">Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.</string>
+    <string name="setup_comment_native_apps">Hinweis: Native App für Android unterstützen Blokada Cloud noch nicht. Wir arbeiten an einem Update.</string>
     <string name="setup_step">Schritt %s: %s</string>
     <string name="setup_option_label_recommended">Empfohlen: %s</string>
     <string name="setup_option_label_alternative">Alternative: %s</string>

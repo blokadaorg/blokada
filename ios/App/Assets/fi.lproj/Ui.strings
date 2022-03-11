@@ -30,8 +30,7 @@
 "error payment canceled" = "Maksu on peruutettu. Sinua ei ole laskutettu.";
 "error pack install" = "Tätä ominaisuutta ei voitu asentaa (tai poistaa). Yritä uudelleen myöhemmin.";
 "error location failed fetching" = "Sijainteja ei voitu hakea.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Jatka";
 "universal action cancel" = "Peruuta";

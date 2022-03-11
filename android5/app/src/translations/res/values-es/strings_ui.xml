@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">El pago se ha cancelado. No se ha cobrado nada.</string>
     <string name="error_pack_install">No se ha podido instalar (o desinstalar) esta característica. Inténtalo de nuevo más tarde.</string>
     <string name="error_location_failed_fetching">No se ha encontrado tu ubicación.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="universal_action_continue">Continuar</string>
     <string name="universal_action_cancel">Cancelar</string>
     <string name="universal_action_close">Cerrar</string>

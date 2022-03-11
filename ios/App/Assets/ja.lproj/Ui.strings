@@ -30,7 +30,7 @@
 "error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
 "error pack install" = "この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。";
 "error location failed fetching" = "接続先を取得できませんでした。";
-"error unknown" = "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "続行";
 "universal action cancel" = "キャンセル";

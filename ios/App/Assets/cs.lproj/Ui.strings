@@ -30,8 +30,7 @@
 "error payment canceled" = "Platba byla zrušena. Nebyli vám účtovány žádné poplatky.";
 "error pack install" = "Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.";
 "error location failed fetching" = "Nelze načíst umístění.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Pokračovat";
 "universal action cancel" = "Zrušit";

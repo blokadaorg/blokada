@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">Le paiement a été annulé. Vous n\'avez pas été débité.</string>
     <string name="error_pack_install">Impossible d\'installer (ou désinstaller) cette fonctionnalité. Veuillez réessayer plus tard.</string>
     <string name="error_location_failed_fetching">Impossible de récupérer les locations.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">Une erreur est survenue. Assurez-vous d\'être en ligne puis réessayez. Si le problème persiste, contactez-nous en utilisant l\'icône d\'aide en haut de l\'écran.</string>
     <string name="universal_action_continue">Continuer</string>
     <string name="universal_action_cancel">Annuler</string>
     <string name="universal_action_close">Fermer</string>
@@ -191,7 +191,7 @@
     <string name="account_action_devices">Appareils</string>
     <string name="account_action_new_device">Nouvel appareil</string>
     <string name="account_action_inbox">Messagerie</string>
-    <string name="account_action_logout">Résilier l\'achat</string>
+    <string name="account_action_logout">Restaurer mon achat</string>
     <string name="account_action_logout_only">Déconnexion</string>
     <string name="account_action_create">Générer un nouveau compte</string>
     <string name="account_action_about">À propos</string>
@@ -213,7 +213,7 @@
     <string name="account_subscription_header_payment_method">Moyen de paiement</string>
     <string name="account_subscription_renew_unsupported">Votre méthode de paiement ne vous permet pas de contrôler les paramètres de renouvellement automatique ici.</string>
     <string name="account_unlock_to_show">Débloquez pour afficher l\'ID de votre compte</string>
-    <string name="account_header_logout">Résilier l\'achat</string>
+    <string name="account_header_logout">Restaurer mon achat</string>
     <string name="account_logout_description">Veuillez saisir un autre ID de compte, ou revenez en arrière pour continuer d\'utiliser le compte actuel (vous devez être connecté pour utiliser cette app).</string>
     <string name="account_id_status_unchanged">(inchangé)</string>
     <string name="account_action_how_to_restore">Comment puis-je restaurer mon ancien compte ?</string>

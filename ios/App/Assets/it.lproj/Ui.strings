@@ -11,7 +11,7 @@
 //
 
 "error device offline" = "Il tuo dispositivo è offline";
-"error account inactive" = "Il tuo account non è attivo. Si prega di attivare il tuo account per continuare a utilizzare BLOKADA+.";
+"error account inactive" = "Il tuo account non è attivo. Per favore, attiva il tuo account per continuare a utilizzare BLOKADA+.";
 "error account inactive after restore" = "Questo non sembra essere un account attivo valido. Se credi che sia un errore, contattaci toccando l'icona di aiuto in alto.";
 "error account invalid" = "Questo ID account non sembra valido.";
 "error creating account" = "Impossibile creare un nuovo account. Riprova più tardi.";
@@ -30,8 +30,7 @@
 "error payment canceled" = "Il pagamento è stato annullato. Non ti è stato addebitato nulla.";
 "error pack install" = "Impossibile installare (o disinstallare) questa funzione. Riprova più tardi.";
 "error location failed fetching" = "Impossibile ottenere la posizione.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.";
 
 "universal action continue" = "Continua";
 "universal action cancel" = "Annulla";

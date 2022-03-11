@@ -30,8 +30,7 @@
 "error payment canceled" = "De betaling is geannuleerd. Er is niets in rekening gebracht.";
 "error pack install" = "Kon deze functie niet installeren (of deïnstalleren). Probeer het later opnieuw.";
 "error location failed fetching" = "Kon locaties niet ophalen.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 
 "universal action continue" = "Doorgaan";
 "universal action cancel" = "Annuleren";

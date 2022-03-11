@@ -30,8 +30,7 @@
 "error payment canceled" = "Der Zahlungsvorgang wurde abgebrochen. Die gewählte Zahlungsmethode wurde nicht belastet.";
 "error pack install" = "Diese Erweiterung konnte nicht installiert (oder deinstalliert) werden. Bitte versuch es später erneut.";
 "error location failed fetching" = "Standorte konnten nicht abgerufen werden.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "Ein Problem ist aufgetreten. Stelle sicher, dass du online bist und versuche es später noch einmal. Wenn das Problem bestehen bleibt, kontaktiere uns bitte, indem du oben auf die Hilfe-Schaltfläche tippst.";
 
 "universal action continue" = "Fortsetzen";
 "universal action cancel" = "Abbrechen";
@@ -217,7 +216,7 @@ sts, please contact us by tapping the help icon at the top.";
 "activity filter show blocked" = "Nur blockierte";
 "activity filter show allowed" = "Nur erlaubte";
 // A short message "Showing for: Device A"
-"activity filter showing for" = "Showing for: %@";
+"activity filter showing for" = "Ergebnisse für: %@";
 "activity empty text" = "Verwende dein Gerät einfach weiter und komme später hierher zurück, um zu sehen, wohin sich dein Gerät verbindet.";
 "activity device filter show all" = "Alle Geräte";
 "activity retention header" = "Für wie lange können wir deine Aktivitäten speichern?";
@@ -404,7 +403,7 @@ sts, please contact us by tapping the help icon at the top.";
 "setup label which device" = "Welche Art von Gerät möchtest du einrichten?";
 "setup label choose" = "Wähle eine der folgenden Setup-Optionen:";
 "setup comment wireguard" = "Hinweis: Die VPN-Konfiguration verwendet standardmäßig Blokada Cloud. Wähle eine andere DNS-Einstellung, wenn du dich dagegen entscheiden möchtest. 'WireGuard' und das 'WireGuard'-Logo sind eingetragene Marken von Jason A. Donenfeld.";
-"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
+"setup comment native apps" = "Hinweis: Native App für Android unterstützen Blokada Cloud noch nicht. Wir arbeiten an einem Update.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Schritt %@: %@";
 "setup option label recommended" = "Empfohlen: %@";

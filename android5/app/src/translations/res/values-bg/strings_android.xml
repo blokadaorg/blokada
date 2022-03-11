@@ -8,7 +8,7 @@
     <string name="home_level_low">Защита: Ниска</string>
     <string name="home_level_medium">Защита: Средна</string>
     <string name="home_level_high">Защита: Висока</string>
-    <string name="advanced_section_slugline_packs">Активирайте за по-ограничително блокиране</string>
+    <string name="advanced_section_slugline_packs">Активирайте за по-строго блокиране</string>
     <string name="advanced_section_slugline_apps">Изберете приложения, които никога да не бъдат блокирани</string>
     <string name="advanced_section_slugline_encryption">Регулирайте нивото си на криптиране и DNS</string>
     <string name="advanced_action_slim_migrate_to_full">Използвате Blokada Slim. Научете повече</string>
@@ -33,7 +33,7 @@
     <string name="networks_section_choose_dns">Изберете DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada ще шифрова DNS, ако е възможно. Това ще подобри вашата сигурност и ще предотврати злонамерени участници да шпионират какви уебсайтове и приложения използвате.</string>
     <string name="networks_summary_use_dns">Blokada ще използва %s като DNS на вашето устройство. Изборът му позволява криптиране (има икона на ключ) и е близо до вас, това ще помогне за защита на вашите данни и за по-бърза връзка.</string>
-    <string name="networks_summary_network_dns">Blokada ще използва мрежов DNS, ако е наличен, или ще превключи на %s. Когато се използва мрежов DNSС настройките за шифроване на DNS ще бъдат игнорирани. Използването на мрежов DNS помага за отстраняване на проблеми с връзката в цъмнителни мрежи, но ви оставя незащитени.</string>
+    <string name="networks_summary_network_dns">Blokada ще използва мрежов DNS, ако е наличен, или ще превключи на %s. Когато се използва мрежов DNS настройките за шифроване на DNS ще бъдат игнорирани. Използването на мрежов DNS помага за отстраняване на проблеми с връзката в съмнителни мрежи, но ви оставя незащитени.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada временно ще деактивира режим Плюс, когато се използва мрежов DNS. Това е така, защото не е възможен достъп до мрежовия DNS във VPN. Плюс режимът ще се възстанови автоматично, когато вашето устройство превключи към друга мрежа.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada ще използва Blokada DNS в режим Plus за да осигури високо ниво на криптиране и скорост. Можете да промените тази настройка в долната част на екрана Избор на DNS.</string>
     <string name="networks_summary_force_libre_mode">Blokada винаги ще използва режим Libre в тази мрежа и ще игнорира Blokada Plus от това местоположение. Това е полезно за мрежи, при които не искате допълнителна защита.</string>
@@ -43,16 +43,16 @@
     <string name="account_encrypt_level_medium">Средно</string>
     <string name="account_encrypt_level_high">Високо</string>
     <string name="account_encrypt_label_dns_only">Криптиране на DNS</string>
-    <string name="account_encrypt_desc_dns_only">Системата за имена на домейни показва на вашето устройство къде да намери уеб сайтовете, които искате да посетите. За съжаление по-голямата част от Интернет все още използва некриптиран DNS, което излага историята на сърфирането ви в риск да бъде шпионирана. Когато е активирана, Blokada принуждава вашето устройство да се свързва само към криптирани DNS сървъри (наричани също DNS през HTTPS).</string>
+    <string name="account_encrypt_desc_dns_only">Системата за имена на домейни показва на вашето устройство къде да намери уеб сайтовете, които искате да посетите. За съжаление по-голямата част от Интернет все още използва некриптиран DNS, което излага историята на сърфирането ви в риск и да бъде шпионирана. Когато е активирана, Blokada принуждава вашето устройство да се свързва само към криптирани DNS сървъри (наричани също DNS през HTTPS).</string>
     <string name="account_encrypt_label_everything">Свързване чрез VPN</string>
-    <string name="account_encrypt_desc_everything">Вашето устройство се свързва чрез нашите защитени VPN сървъри и цялата комуникация, идваща от или към вашето устройство се криптира чрез силни алгоритми. Това предпазва личната ви информация, като банкови данни или лични снимки от кражба на несигурни места, като WiFi в кафене.</string>
+    <string name="account_encrypt_desc_everything">Вашето устройство се свързва чрез нашите защитени VPN сървъри и цялата комуникация, идваща от или към вашето устройство се криптира чрез силни алгоритми. Това предпазва личната ви информация, като банкови данни или лични снимки от кражба на несигурни места, например WiFi в кафене.</string>
     <string name="account_encrypt_action_turn_on">Включване на BLOKADA</string>
     <string name="account_encrypt_header_level">Ниво на криптиране</string>
     <string name="account_encrypt_label_level">Ниво</string>
     <string name="account_encrypt_label_level_low">Ниско: Няма криптиране</string>
     <string name="account_encrypt_label_level_medium">Средно: Криптиран DNS</string>
     <string name="account_encrypt_label_level_high">Високо: Криптирано е всичко</string>
-    <string name="account_encrypt_header_explanation">DNS е как вашето устройство знае къде да намира уеб сайтовете. BLOKADA поддържа само криптирани сървъри.</string>
+    <string name="account_encrypt_header_explanation">DNS, е как вашето устройство знае къде да намира уеб сайтовете. BLOKADA поддържа само криптирани сървъри.</string>
     <string name="account_encrypt_label_dns">DNS</string>
     <string name="account_encrypt_action_what_is_dns">Какво е DNS?</string>
     <string name="account_encrypt_section_header">Криптиране</string>

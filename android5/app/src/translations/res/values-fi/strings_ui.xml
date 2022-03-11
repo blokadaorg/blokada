@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">Maksu on peruutettu. Sinua ei ole laskutettu.</string>
     <string name="error_pack_install">Tätä ominaisuutta ei voitu asentaa (tai poistaa). Yritä uudelleen myöhemmin.</string>
     <string name="error_location_failed_fetching">Sijainteja ei voitu hakea.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="universal_action_continue">Jatka</string>
     <string name="universal_action_cancel">Peruuta</string>
     <string name="universal_action_close">Sulje</string>

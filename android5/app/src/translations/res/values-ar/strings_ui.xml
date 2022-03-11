@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">تم إلغاء الدّفع. لم يتمّ تحصيل رسوم منك.</string>
     <string name="error_pack_install">تعذر تثبيت (أو إلغاء) هذه الميّزة. الرجاء المحاولة مرة أُخرى لاحقاً.</string>
     <string name="error_location_failed_fetching">تعذَّر جلب المواقع.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="universal_action_continue">واصِلْ</string>
     <string name="universal_action_cancel">إلغاء</string>
     <string name="universal_action_close">إغلاق</string>

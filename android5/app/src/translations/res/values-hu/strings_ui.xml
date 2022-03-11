@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">A fizetés visszavonásra került. A terhelés nem történt meg.</string>
     <string name="error_pack_install">Ezt a szolgáltatást nem lehetett telepíteni (vagy eltávolítani). Kérlek, próbáld újra később.</string>
     <string name="error_location_failed_fetching">Nem sikerült lekérdezni a helyet.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="universal_action_continue">Folytatás</string>
     <string name="universal_action_cancel">Mégse</string>
     <string name="universal_action_close">Bezárás</string>

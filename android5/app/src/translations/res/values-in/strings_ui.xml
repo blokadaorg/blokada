@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">Pembayaran telah dibatalkan. Tidak ada biaya yang dibebankan kepada Anda.</string>
     <string name="error_pack_install">Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.</string>
     <string name="error_location_failed_fetching">Tidak bisa mendapatkan data lokasi.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persi</string>
+    <string name="error_unknown">Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.</string>
     <string name="universal_action_continue">Lanjut</string>
     <string name="universal_action_cancel">Batal</string>
     <string name="universal_action_close">Tutup</string>
@@ -310,7 +310,7 @@
     <string name="payment_plan_cta_trial">Mulai Trial Gratis 7 Hari</string>
     <string name="payment_plan_cta_monthly">Langganan Bulanan</string>
     <string name="payment_plan_cta_annual">Langganan Tahunan</string>
-    <string name="location_region_worldwide">Dimana saja</string>
+    <string name="location_region_worldwide">Di mana saja</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Eropa</string>
     <string name="location_region_asia">Asia</string>
@@ -319,14 +319,14 @@
     <string name="web_vpn_devices_open_action">Buka Perangkat VPN</string>
     <string name="web_action_open_setup">Buka Setup</string>
     <string name="web_cta_plus_header">Upgrade ke Blokada Plus supaya Anda bisa mengendalikan privasi Anda.</string>
-    <string name="web_cta_plus_desc">Akun Libre memberi Anda fitur pemblokiran iklan gratis di perangkat Anda lewat aplikasi open source kami. Silakan upgrade ke Blokada PLus untuk perlindungan yang lebih baik lagi. Anda akan dapat menggunakan jaringan VPN global kami, dan juga fitur pemblokiran iklan *berbasis cloud* yang lebih efisien dan mudah digunakan.</string>
+    <string name="web_cta_plus_desc">Akun Libre memberi Anda fitur pemblokiran iklan gratis di perangkat Anda lewat aplikasi open source kami. Silakan upgrade ke Blokada Plus untuk perlindungan yang lebih baik lagi. Anda akan dapat menggunakan jaringan VPN global kami, dan juga fitur pemblokiran iklan *berbasis cloud* yang lebih efisien dan mudah digunakan.</string>
     <string name="web_action_generate">Buat profil</string>
     <string name="setup_header">Pengaturan</string>
     <string name="setup_desc">Ada banyak cara untuk mengkonfigurasikan perangkat Anda agar bisa menggunakan Blokada Cloud. Pilih salah satu yang cocok untuk Anda.</string>
     <string name="setup_label_which_device">Apa jenis pernagkat yang ingin Anda atur untuk Blokada Cloud?</string>
     <string name="setup_label_choose">Silakan pilih salah satu dari opsi pengaturan berikut:</string>
     <string name="setup_comment_wireguard">Catatan: Konfigurasi VPN bawaan adalah Blokada Cloud. Silakan pilih pengaturan DNS lain jika Anda ingin menggunakan server lain. \'Wireguard\' dan logo \'Wireguard\' adalah merk dagang terdaftar milik Jason A. Donenfeld.</string>
-    <string name="setup_comment_native_apps">Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.</string>
+    <string name="setup_comment_native_apps">Catatan: Aplikasi bawaan Android untuk saat ini belum mendukung Blokada Cloud. Kami sedang mengusahakan update untuk mengatasi hal ini.</string>
     <string name="setup_step">Langkah %s: %s</string>
     <string name="setup_option_label_recommended">Disarankan: %s</string>
     <string name="setup_option_label_alternative">Alternatif: %s</string>

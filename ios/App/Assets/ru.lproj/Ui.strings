@@ -30,8 +30,7 @@
 "error payment canceled" = "Платеж отменен. Сумма списана не была.";
 "error pack install" = "Не удалось установить (или удалить) эту функцию. Пожалуйста, попробуйте позже.";
 "error location failed fetching" = "Не удалось получить местоположения.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persi
-sts, please contact us by tapping the help icon at the top.";
+"error unknown" = "Возникла проблема. Убедитесь, что вы в сети, и повторите попытку позже. Если проблема сохраняется, свяжитесь с нами, нажав на значок помощи вверху.";
 
 "universal action continue" = "Продолжить";
 "universal action cancel" = "Отмена";
