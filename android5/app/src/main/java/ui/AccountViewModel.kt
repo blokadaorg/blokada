@@ -16,11 +16,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import model.*
 import org.blokada.R
-import repository.BlockaRepository
-import service.AlertDialogService
-import service.ConnectivityService
-import service.EnvironmentService
-import service.PersistenceService
+import service.*
 import ui.utils.cause
 import ui.utils.now
 import utils.Logger
@@ -29,7 +25,7 @@ import java.util.*
 class AccountViewModel: ViewModel() {
 
     private val log = Logger("Account")
-    private val blocka = BlockaRepository
+    private val blocka = BlockaApiService
     private val persistence = PersistenceService
     private val alert = AlertDialogService
     private val connectivity = ConnectivityService
@@ -47,7 +43,7 @@ class AccountViewModel: ViewModel() {
             log.w("Restoring account")
             try {
                 val accountId = accountId.toLowerCase(Locale.ENGLISH).trim()
-                val account = blocka.fetchAccount(accountId)
+                val account = blocka.getAccount(accountId)
                 if (EnvironmentService.isPublicBuild() && !account.isActive()) throw BlokadaException("Account inactive after restore")
                 updateLiveData(account)
             } catch (ex: BlokadaException) {
@@ -64,7 +60,7 @@ class AccountViewModel: ViewModel() {
                 log.v("Refreshing account")
                 requestOngoing = true
                 val accountId = _account.value?.id ?: persistence.load(Account::class).id
-                val account = blocka.fetchAccount(accountId)
+                val account = blocka.getAccount(accountId)
                 updateLiveData(account)
                 log.v("Account refreshed, plus: ${account.isActive()}")
                 lastAccountRefresh = now()
@@ -98,7 +94,7 @@ class AccountViewModel: ViewModel() {
                 try {
                     log.w("Creating new account")
                     requestOngoing = true
-                    val account = blocka.createAccount()
+                    val account = blocka.postNewAccount()
                     updateLiveData(account)
                     requestOngoing = false
                 } catch (ex: Exception) {

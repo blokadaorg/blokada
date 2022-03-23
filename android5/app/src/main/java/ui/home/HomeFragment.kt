@@ -43,6 +43,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var powerButton: PowerView
 
+    private var libreMode = false
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,

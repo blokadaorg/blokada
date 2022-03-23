@@ -32,7 +32,7 @@ object LegacyAccountImport {
             val currentAccount: CurrentAccount = Paper.book().read(key)
             Paper.book().delete(key)
             Logger.w("Legacy", "Using legacy imported account ID")
-            Account(id = currentAccount.id)
+            Account(id = currentAccount.id, active = false, type = "libre")
         } catch (ex: Exception) {
             null
         }

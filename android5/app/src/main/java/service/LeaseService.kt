@@ -13,14 +13,13 @@
 package service
 
 import model.*
-import repository.BlockaRepository
 import ui.utils.cause
 import utils.Logger
 
 object LeaseService {
 
     private val log = Logger("Lease")
-    private val blocka = BlockaRepository
+    private val blocka = BlockaApiService
     private val env = EnvironmentService
 
     suspend fun createLease(config: BlockaConfig, gateway: Gateway): Lease {
@@ -33,21 +32,27 @@ object LeaseService {
         )
 
         try {
-            return blocka.createLease(request)
+            return blocka.postLease(request)
         } catch (ex: TooManyDevices) {
             log.w("Too many devices, attempting to remove one lease")
             deleteLeaseWithAliasOfCurrentDevice(config)
-            return blocka.createLease(request)
+            return blocka.postLease(request)
         }
     }
 
     suspend fun fetchLeases(accountId: AccountId): List<Lease> {
-        return blocka.fetchLeases(accountId)
+        return blocka.getLeases(accountId)
     }
 
     suspend fun deleteLease(lease: Lease) {
         log.w("Deleting lease")
-        return blocka.deleteLease(lease.account_id, lease)
+        val request = LeaseRequest(
+            account_id = lease.account_id,
+            public_key = lease.public_key,
+            gateway_id = lease.gateway_id,
+            alias = lease.alias ?: ""
+        )
+        return blocka.deleteLease(request)
     }
 
     suspend fun checkLease(config: BlockaConfig) {
@@ -58,7 +63,7 @@ object LeaseService {
                     val currentLease = getCurrentLease(config, gateway)
                     if (!currentLease.isActive()) {
                         log.w("Lease expired, refreshing")
-                        blocka.createLease(
+                        blocka.postLease(
                             LeaseRequest(
                                 account_id = config.getAccountId(),
                                 public_key = config.publicKey,
@@ -76,7 +81,7 @@ object LeaseService {
     }
 
     private suspend fun getCurrentLease(config: BlockaConfig, gateway: Gateway): Lease {
-        val leases = blocka.fetchLeases(config.getAccountId())
+        val leases = blocka.getLeases(config.getAccountId())
         if (leases.isEmpty()) throw BlokadaException("No leases found for this account")
         val current = leases.firstOrNull { it.public_key == config.publicKey && it.gateway_id == gateway.public_key }
         return current ?: throw BlokadaException("No lease found for this device")
@@ -85,7 +90,7 @@ object LeaseService {
     // This is used to automatically clear the max devices limit, in some scenarios
     private suspend fun deleteLeaseWithAliasOfCurrentDevice(config: BlockaConfig) {
         log.v("Deleting lease with alias of current device")
-        val leases = blocka.fetchLeases(config.getAccountId())
+        val leases = blocka.getLeases(config.getAccountId())
         val lease = leases.firstOrNull { it.alias == env.getDeviceAlias() }
         lease?.let { deleteLease(it) } ?: log.w("No lease with current device alias found")
     }

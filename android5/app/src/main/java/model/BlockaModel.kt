@@ -37,12 +37,14 @@ data class Leases(val leases: List<Lease>)
 @JsonClass(generateAdapter = true)
 data class Account(
     val id: AccountId,
-    val active_until: ActiveUntil = Date(0)
+    val active_until: ActiveUntil = Date(0),
+    val active: Boolean?,
+    val type: String?
 ) {
-    fun isActive() = active_until > Date()
+    fun isActive() = active ?: false
 
     override fun toString(): String {
-        return "Account(activeUntil=$active_until)"
+        return "Account(activeUntil=$active_until, type=$type)"
     }
 }
 
@@ -98,6 +100,129 @@ data class LeaseRequest(
         return "LeaseRequest(publicKey='$public_key', gatewayId='$gateway_id', alias='$alias')"
     }
 }
+
+@JsonClass(generateAdapter = true)
+data class ActivityWrapper(
+    val activity: List<Activity>
+)
+
+@JsonClass(generateAdapter = true)
+data class Activity(
+    val device_name: String,
+    val domain_name: String,
+    val action: String,
+    val list: String,
+    val timestamp: String
+)
+
+@JsonClass(generateAdapter = true)
+data class DeviceWrapper(
+    val device: DevicePayload
+)
+
+@JsonClass(generateAdapter = true)
+data class DevicePayload(
+    val device_tag : String,
+    val lists: List<String>,
+    val retention: String,
+    val paused: Boolean
+)
+
+@JsonClass(generateAdapter = true)
+data class DeviceRequest(
+    val account_id: AccountId,
+    val lists: Array<String>?,
+    val retention: String?,
+    val paused: Boolean?
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as DeviceRequest
+
+        if (account_id != other.account_id) return false
+        if (lists != null) {
+            if (other.lists == null) return false
+            if (!lists.contentEquals(other.lists)) return false
+        } else if (other.lists != null) return false
+        if (retention != other.retention) return false
+        if (paused != other.paused) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = account_id.hashCode()
+        result = 31 * result + (lists?.contentHashCode() ?: 0)
+        result = 31 * result + (retention?.hashCode() ?: 0)
+        result = 31 * result + (paused?.hashCode() ?: 0)
+        return result
+    }
+}
+
+@JsonClass(generateAdapter = true)
+data class Blocklist(
+    val id: String,
+    val name: String,
+    val managed: Boolean,
+    val is_allowlist: Boolean
+)
+
+// Our internal version of the Blocklist
+data class MappedBlocklist(
+    val id: String,
+    val packId: String,
+    val packConfig: String
+)
+
+@JsonClass(generateAdapter = true)
+data class BlocklistWrapper(
+    val lists: List<Blocklist>
+)
+
+data class ExceptionWrapper(
+    val customlist: List<CustomListEntry>
+)
+
+data class CustomListEntry(
+    val domain_name: String,
+    val action: String
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as CustomListEntry
+
+        if (domain_name != other.domain_name) return false
+        if (action != other.action) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = domain_name.hashCode()
+        result = 31 * result + action.hashCode()
+        return result
+    }
+}
+
+data class CustomListRequest(
+    val account_id: AccountId,
+    val domain_name: String,
+    val action: String
+)
+
+data class CustomListWrapper(
+    val customlist: List<CustomListEntry>
+)
+
+data class CounterStats(
+    val total_allowed: String,
+    val total_blocked: String
+)
+
 
 fun Gateway.Companion.mocked(name: String) = Gateway(
     public_key = "mocked-$name",
