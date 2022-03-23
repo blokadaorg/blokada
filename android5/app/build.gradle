@@ -19,16 +19,15 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "kotlin-kapt"
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    compileSdkVersion 31
     ndkVersion "24.0.7856742"
 
     defaultConfig {
         applicationId "org.blokada" // Not a real name, see flavors below
-        minSdkVersion 24
-        targetSdkVersion 30
-        versionCode 521000000
-        versionName "5.21.0"
+        minSdkVersion 28
+        targetSdkVersion 31
+        versionCode 600000000
+        versionName "6.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -140,30 +139,30 @@ android {
 
 dependencies {
     // forgot what is it for
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     // androidx and kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0-alpha02'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'androidx.navigation:navigation-fragment:2.3.0'
-    implementation 'androidx.navigation:navigation-ui:2.3.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
-    implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.6.0-alpha03'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    //implementation 'androidx.navigation:navigation-fragment:2.4.1'
+    //implementation 'androidx.navigation:navigation-ui:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.browser:browser:1.2.0'
-    implementation 'androidx.webkit:webkit:1.3.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8'
+    implementation 'androidx.browser:browser:1.4.0'
+    implementation 'androidx.webkit:webkit:1.4.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     // json
-    implementation 'com.squareup.moshi:moshi:1.9.3'
-    implementation 'com.squareup.moshi:moshi-adapters:1.9.3'
-    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.3'
+    implementation 'com.squareup.moshi:moshi:1.13.0'
+    implementation 'com.squareup.moshi:moshi-adapters:1.13.0'
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
 
     // http and rest
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -186,9 +185,9 @@ dependencies {
     implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
 
     // test deps
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // legacy (for import of v4 settings)
     implementation 'io.paperdb:paperdb:2.7.1'

@@ -18,6 +18,7 @@ import android.net.*
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.SubscriptionManager
+import androidx.annotation.RequiresApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.*
@@ -47,6 +48,7 @@ object ConnectivityService {
     var onConnectivityChanged = { isConnected: Boolean -> }
     var onNetworkAvailable = { network: NetworkDescriptor -> }
     var onActiveNetworkChanged = { network: NetworkDescriptor -> }
+    var onPrivateDnsChanged = { privateDns: String? -> }
 
     var pingToCheckNetwork = false
         @Synchronized set
@@ -152,6 +154,16 @@ object ConnectivityService {
         if (default && defaultRouteNetwork != network.networkHandle) {
             log.v("New default route through network: ${network.networkHandle}")
             defaultRouteNetwork = network.networkHandle
+        }
+
+        checkPrivateDns(link)
+    }
+
+    private fun checkPrivateDns(link: LinkProperties) {
+        if (link.isPrivateDnsActive) {
+            onPrivateDnsChanged(link.privateDnsServerName)
+        } else {
+            onPrivateDnsChanged(null)
         }
     }
 
