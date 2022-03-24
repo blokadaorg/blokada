@@ -175,14 +175,14 @@ class ForegroundService: Service() {
     private var tunnelStatus: TunnelStatus = TunnelStatus.off()
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        ContextService.setContext(this)
+        ContextService.setApp(this.application)
         updateNotification()
         return START_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         if (FOREGROUND_BINDER_ACTION == intent?.action) {
-            ContextService.setContext(this)
+            ContextService.setApp(this.application)
             binder = ForegroundBinder { counter, lastDenied, tunnelStatus, dnsLabel ->
                 this.counter = counter ?: this.counter
                 this.lastDenied = lastDenied ?: this.lastDenied

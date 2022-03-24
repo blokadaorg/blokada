@@ -19,7 +19,6 @@ class HomeViewModel: ObservableObject {
     private let log = Logger("Home")
 
     private lazy var appRepo = Repos.appRepo
-    private lazy var cloudRepo = Repos.cloudRepo
     private lazy var permsRepo = Repos.permsRepo
     private lazy var plusRepo = Repos.plusRepo
 

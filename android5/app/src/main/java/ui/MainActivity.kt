@@ -32,7 +32,10 @@ import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import model.Tab
 import org.blokada.R
+import repository.Repos
+import repository.StageRepo
 import service.*
 import ui.home.ActivatedFragment
 import ui.home.FirstTimeFragment
@@ -56,12 +59,17 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     private lateinit var blockaRepoVM: BlockaRepoViewModel
     private lateinit var activationVM: ActivationViewModel
 
+    private val navRepo by lazy { Repos.nav }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Logger.v("MainActivity", "onCreate: $this")
 
         ContextService.setActivityContext(this)
         TranslationService.setup()
+        Services.sheet.onShowFragment = { fragment ->
+            fragment.show(supportFragmentManager, null)
+        }
         setupEvents()
 
         settingsVM.getTheme()?.let { setTheme(it) }
@@ -109,6 +117,18 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             }
             navController.navigate(nav)
             item.title = title
+
+            // Also emit tab change in NavRepo
+            lifecycleScope.launch {
+                val tab = when(item.itemId) {
+                    R.id.navigation_activity -> Tab.Activity
+                    R.id.advancedFragment -> Tab.Advanced
+                    R.id.navigation_settings -> Tab.Settings
+                    else -> Tab.Home
+                }
+                navRepo.setActiveTab(tab)
+            }
+
             true
         }
         navView.setOnNavigationItemSelectedListener(selectionListener)
@@ -197,6 +217,10 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 }
             }
         })
+
+        lifecycleScope.launch {
+            Repos.account.hackyAccount()
+        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -228,6 +252,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     private var lastOnResume = 0L
     override fun onResume() {
         super.onResume()
+        Repos.stage.onForeground()
 
         // Avoid multiple consecutive quick onResume events
         if (lastOnResume + 5 * 1000 > now()) return
@@ -246,12 +271,14 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     override fun onPause() {
         Logger.w("MainActivity", "onPause: $this")
         super.onPause()
+        Repos.stage.onBackground()
         tunnelVM.goToBackground()
     }
 
     override fun onDestroy() {
         Logger.w("MainActivity", "onDestroy: $this")
         super.onDestroy()
+        Repos.stage.onDestroy()
     }
 
     override fun onSupportNavigateUp(): Boolean {

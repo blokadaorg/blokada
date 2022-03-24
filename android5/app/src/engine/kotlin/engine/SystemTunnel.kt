@@ -45,7 +45,7 @@ class SystemTunnel : VpnService() {
         @Synchronized set
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int = {
-        ContextService.setContext(this)
+        ContextService.setApp(this.application)
         log.v("onStartCommand received: $this, intent: $intent")
 
         if (!reactedToStart) {

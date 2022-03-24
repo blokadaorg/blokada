@@ -14,14 +14,18 @@ package ui.home
 
 import android.os.Bundle
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import model.*
 import org.blokada.R
+import repository.PermsRepo
+import repository.Repos
 import service.AlertDialogService
 import service.EnvironmentService
 import service.UpdateService
@@ -32,16 +36,17 @@ import ui.app
 import ui.settings.SettingsFragmentDirections
 import ui.utils.getColorFromAttr
 import utils.Links
+import utils.Logger
 import utils.withBoldSections
 
 class HomeFragment : Fragment() {
 
     private val alert = AlertDialogService
-    private lateinit var vm: TunnelViewModel
-    private lateinit var accountVM: AccountViewModel
-    private lateinit var adsCounterVm: AdsCounterViewModel
 
-    private lateinit var powerButton: PowerView
+    private lateinit var vm: TunnelViewModel
+
+    private lateinit var homeLibre: HomeLibreView
+    private lateinit var homeCloud: HomeCloudView
 
     private var libreMode = false
 
@@ -49,147 +54,34 @@ class HomeFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(TunnelViewModel::class.java)
-            accountVM = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
-            adsCounterVm = ViewModelProvider(it.app()).get(AdsCounterViewModel::class.java)
-        }
+    ): View {
+        val root = inflater.inflate(
+            R.layout.fragment_home_container, container, false
+        ) as ViewGroup
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        homeLibre = HomeLibreView(requireContext())
+        homeLibre.parentFragmentManager = parentFragmentManager
+        homeLibre.viewLifecycleOwner = viewLifecycleOwner
+        homeLibre.lifecycleScope = lifecycleScope
+        homeLibre.showVpnPermsSheet = ::showVpnPermsSheet
+        homeLibre.showLocationSheet = ::showLocationSheet
+        homeLibre.showPlusSheet = ::showPlusSheet
+        homeLibre.showFailureDialog = ::showFailureDialog
+        homeLibre.setHasOptionsMenu = { setHasOptionsMenu(it) }
+        homeLibre.setup()
+        root.addView(homeLibre)
 
-        val plusButton: PlusButton = root.findViewById(R.id.home_plusbutton)
-        powerButton = root.findViewById(R.id.home_powerview)
-
-        var plusButtonReady = false
-
-        val longStatus: TextView = root.findViewById(R.id.home_longstatus)
-        val updateLongStatus = { s: TunnelStatus, counter: Long? ->
-            longStatus.text = when {
-                s.inProgress -> getString(R.string.home_status_detail_progress)
-                s.active && s.gatewayId != null && counter == null -> {
-                    (
-                        getString(R.string.home_status_detail_active) + "\n" +
-                        getString(R.string.home_status_detail_plus)
-                    ).withBoldSections(requireContext().getColorFromAttr(R.attr.colorRingPlus1))
-                }
-                s.active && EnvironmentService.isSlim() -> {
-                    getString(R.string.home_status_detail_active_slim)
-                        .withBoldSections(requireContext().getColorFromAttr(R.attr.colorRingLibre1))
-                }
-                s.active && counter == null -> {
-                    getString(R.string.home_status_detail_active)
-                        .withBoldSections(requireContext().getColorFromAttr(R.attr.colorRingLibre1))
-                }
-                s.active && s.gatewayId != null -> {
-                    (
-                        getString(R.string.home_status_detail_active_with_counter, counter.toString()) + "\n" +
-                        getString(R.string.home_status_detail_plus)
-                    ).withBoldSections(requireContext().getColorFromAttr(R.attr.colorRingPlus1))
-                }
-                s.active -> {
-                    getString(R.string.home_status_detail_active_with_counter, counter.toString())
-                        .withBoldSections(requireContext().getColorFromAttr(R.attr.colorRingLibre1))
-                }
-                else -> getString(R.string.home_action_tap_to_activate)
-            }
-
-            longStatus.setOnClickListener {
-                when {
-                    s.inProgress -> Unit
-                    s.error != null -> Unit
-                    s.active -> {
-                        val fragment = ProtectionLevelFragment.newInstance()
-                        fragment.show(parentFragmentManager, null)
-                    }
-                    else -> vm.turnOn()
-                }
-            }
-        }
-
-        vm.tunnelStatus.observe(viewLifecycleOwner, Observer { s ->
-            powerButton.cover = !s.inProgress && !s.active
-            powerButton.loading = s.inProgress
-            powerButton.blueMode = s.active
-            powerButton.orangeMode = !s.inProgress && s.gatewayId != null
-            powerButton.isEnabled = !s.inProgress
-
-            powerButton.setOnClickListener {
-                when {
-                    s.inProgress -> Unit
-                    s.error != null -> Unit
-                    s.active -> {
-                        vm.turnOff()
-                        adsCounterVm.roll()
-                    }
-                    else -> vm.turnOn()
-                }
-            }
-
-            val status: TextView = root.findViewById(R.id.home_status)
-            status.text = when {
-                s.inProgress -> "..."
-                s.active -> getString(R.string.home_status_active).toUpperCase()
-                else -> getString(R.string.home_status_deactivated).toUpperCase()
-            }
-
-            updateLongStatus(s, adsCounterVm.counter.value?.let {
-                if (it == 0L) null else it
-            })
-
-            when {
-                s.error == null -> Unit
-                s.error is NoPermissions -> showVpnPermsSheet()
-                else -> showFailureDialog(s.error)
-            }
-
-            plusButton.visible = s.inProgress || s.active
-            plusButton.isEnabled = !s.inProgress
-            if (!s.inProgress) {
-                // Trying to fix a weird out of sync switch state
-                lifecycleScope.launch {
-                    plusButton.plusActive = s.isPlusMode()
-                }
-            }
-
-            // Only after first init, to not animate on fragment creation
-            powerButton.animate = true
-            plusButton.animate = plusButtonReady
-            plusButtonReady = true // Hacky
-        })
-
-        adsCounterVm.counter.observe(viewLifecycleOwner, Observer { counter ->
-            vm.tunnelStatus.value?.let { s ->
-                updateLongStatus(s, counter)
-            }
-        })
-
-        vm.config.observe(viewLifecycleOwner, Observer { config ->
-            plusButton.location = config.gateway?.niceName()
-            plusButton.plusEnabled = config.vpnEnabled
-        })
-
-        plusButton.onNoLocation = ::showLocationSheet
-
-        plusButton.onActivated = { activated ->
-            if (activated) vm.switchGatewayOn()
-            else vm.switchGatewayOff()
-        }
-
-        accountVM.account.observe(viewLifecycleOwner, Observer { account ->
-            plusButton.upgrade = !account.isActive()
-            plusButton.animate = plusButtonReady
-            plusButtonReady = true // Hacky
-
-            plusButton.onClick = {
-                if (account.isActive()) showLocationSheet()
-                else showPlusSheet()
-            }
-
-            if (!account.isActive()) {
-                setHasOptionsMenu(true)
-            }
-        })
+        homeCloud = HomeCloudView(requireContext())
+        homeCloud.parentFragmentManager = parentFragmentManager
+        homeCloud.viewLifecycleOwner = viewLifecycleOwner
+        homeCloud.lifecycleScope = lifecycleScope
+        homeCloud.showVpnPermsSheet = ::showVpnPermsSheet
+        homeCloud.showLocationSheet = ::showLocationSheet
+        homeCloud.showPlusSheet = ::showPlusSheet
+        homeCloud.showFailureDialog = ::showFailureDialog
+        homeCloud.setHasOptionsMenu = { setHasOptionsMenu(it) }
+        homeCloud.setup()
+        root.addView(homeCloud)
 
         lifecycleScope.launchWhenCreated {
             delay(1000)
@@ -215,16 +107,25 @@ class HomeFragment : Fragment() {
                 }
             )
         }
+
+        updateHomeView()
         return root
+    }
+
+    private fun updateHomeView() {
+        homeCloud.visibility = if (libreMode) View.GONE else View.VISIBLE
+        homeLibre.visibility = if (libreMode) View.VISIBLE else View.GONE
     }
 
     override fun onResume() {
         super.onResume()
-        powerButton.start()
+        homeLibre.onResume()
+        homeCloud.onResume()
     }
 
     override fun onPause() {
-        powerButton.stop()
+        homeLibre.onPause()
+        homeCloud.onPause()
         super.onPause()
     }
 
@@ -277,6 +178,11 @@ class HomeFragment : Fragment() {
                     SettingsFragmentDirections.actionNavigationSettingsToWebFragment(
                         Links.donate, getString(R.string.universal_action_donate)
                     ))
+                true
+            }
+            R.id.home_switchlibre -> {
+                libreMode = !libreMode
+                updateHomeView()
                 true
             }
             else -> false

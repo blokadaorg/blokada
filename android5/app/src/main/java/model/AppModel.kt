@@ -42,3 +42,7 @@ class App(
 class BypassedAppIds(
     val ids: List<AppId>
 )
+
+enum class AppState {
+    Deactivated, Paused, Activated
+}

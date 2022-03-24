@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/flag_ae.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_ca.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_ch.xml" value="0.141" />
@@ -14,6 +15,10 @@
         <entry key="app/src/main/res/drawable/flag_nl.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_sg.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_us.xml" value="0.141" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home_container.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_onboarding.xml" value="0.2740628166160081" />
+        <entry key="app/src/notgoogle/res/menu/home_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

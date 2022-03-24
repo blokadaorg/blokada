@@ -54,6 +54,10 @@ object ConnectivityService {
         @Synchronized set
         @Synchronized get
 
+    var privateDns: String? = null
+        @Synchronized set
+        @Synchronized get
+
     // Hold on to data we get from the async callbacks, as per docs mixing them with sync calls is not ok
     private val networkDescriptors = mutableMapOf<NetworkHandle, NetworkDescriptor>()
     private val networkLinks = mutableMapOf<NetworkHandle, LinkProperties>()
@@ -161,8 +165,10 @@ object ConnectivityService {
 
     private fun checkPrivateDns(link: LinkProperties) {
         if (link.isPrivateDnsActive) {
+            privateDns = link.privateDnsServerName
             onPrivateDnsChanged(link.privateDnsServerName)
         } else {
+            privateDns = null
             onPrivateDnsChanged(null)
         }
     }

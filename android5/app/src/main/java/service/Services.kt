@@ -12,19 +12,8 @@
 
 package service
 
-object PrivateDnsService {
+object Services {
 
-    private val connectivity = ConnectivityService
-    private var currentPrivateDns: String? = null
-
-    init {
-        connectivity.onPrivateDnsChanged = {
-            currentPrivateDns = it
-        }
-    }
-
-    fun isPrivateDnsProfileActive(dns: String): Boolean {
-        return currentPrivateDns == dns
-    }
+    val sheet = SheetService()
 
 }

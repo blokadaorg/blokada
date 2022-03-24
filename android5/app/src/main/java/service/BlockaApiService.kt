@@ -53,9 +53,9 @@ object BlockaApiService {
         }
     }
 
-    suspend fun putDevice(request: DeviceRequest): Void {
+    suspend fun putDevice(request: DeviceRequest) {
         return async {
-            api.putDevice(request).execute().resultOrThrow()
+            api.putDevice(request).execute()
         }
     }
 
@@ -71,15 +71,15 @@ object BlockaApiService {
         }
     }
 
-    suspend fun postCustomList(request: CustomListRequest): Void {
+    suspend fun postCustomList(request: CustomListRequest) {
         return async {
-            api.postCustomList(request).execute().resultOrThrow()
+            api.postCustomList(request).execute()
         }
     }
 
-    suspend fun deleteCustomList(request: CustomListRequest): Void {
+    suspend fun deleteCustomList(request: CustomListRequest) {
         return async {
-            api.deleteCustomList(request).execute().resultOrThrow()
+            api.deleteCustomList(request).execute()
         }
     }
 

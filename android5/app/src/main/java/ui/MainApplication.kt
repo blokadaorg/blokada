@@ -14,7 +14,6 @@ package ui
 
 import android.app.Activity
 import android.app.Service
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
@@ -27,6 +26,10 @@ import model.BlockaRepoConfig
 import model.BlockaRepoPayload
 import engine.FilteringService
 import model.BlockaConfig
+import repository.CloudRepo
+import repository.PermsRepo
+import repository.Repos
+import repository.StageRepo
 import service.*
 import ui.advanced.packs.PacksViewModel
 import ui.utils.cause
@@ -58,12 +61,13 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
 
     override fun onCreate() {
         super.onCreate()
-        ContextService.setContext(this)
-        LegacyAccountImport.setup()
+        ContextService.setApp(this)
         LogService.setup()
+        LegacyAccountImport.setup()
         DozeService.setup(this)
         setupEvents()
         MonitorService.setup(settingsVM.getUseForegroundService())
+        Repos.start()
     }
 
     private fun setupEvents() {

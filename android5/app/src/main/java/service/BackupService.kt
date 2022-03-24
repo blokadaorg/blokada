@@ -38,13 +38,13 @@ object BackupService {
  * - Blocklist files (merged blocklist, allowed list and denied list)
  *
  * What is saved to the default shared preferences namespace is controlled by PersistenceService, and
- * depends on the useBackup flag. Same flag is used here to decide wether to backup the blocklist
+ * depends on the useBackup flag. Same flag is used here to decide whether to backup the blocklist
  * files or not.
  */
 class BackupAgent : BackupAgentHelper() {
 
     override fun onCreate() {
-        ContextService.setContext(this)
+        ContextService.setAppContext(this.applicationContext)
 
         log.v("Registering backup agent")
 

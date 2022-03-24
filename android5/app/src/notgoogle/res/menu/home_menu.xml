@@ -20,4 +20,10 @@
         android:title="@string/universal_action_donate"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/home_switchlibre"
+        android:icon="@drawable/ic_baseline_refresh_24"
+        android:title="Libre / Cloud"
+        app:showAsAction="always" />
+
 </menu>
