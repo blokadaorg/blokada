@@ -82,7 +82,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 
         // Inflate
         LayoutInflater.from(context).inflate(R.layout.fragment_home, this, true)
-        setBackgroundResource(R.drawable.bg_gradient)
+        setBackgroundResource(R.drawable.bg_home_cloud)
     }
 
     fun setup() {

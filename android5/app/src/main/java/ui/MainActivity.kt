@@ -31,6 +31,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import model.Tab
 import org.blokada.R
@@ -60,6 +61,9 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     private lateinit var activationVM: ActivationViewModel
 
     private val navRepo by lazy { Repos.nav }
+    private val paymentRepo by lazy { Repos.payment }
+
+    private val sheet = Services.sheet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -220,6 +224,21 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
         lifecycleScope.launch {
             Repos.account.hackyAccount()
+            onPaymentSuccessful_UpdateAccount()
+        }
+    }
+
+    private suspend fun onPaymentSuccessful_UpdateAccount() {
+        paymentRepo.successfulPurchasesHot
+        .collect {
+            if (it != null) {
+                Logger.v("Payment", "Received account after payment")
+                accountVM.restoreAccount(it.first.id)
+                if (it.first.isActive()) {
+                    delay(1000)
+                    sheet.showSheet(Sheet.Activated)
+                }
+            }
         }
     }
 

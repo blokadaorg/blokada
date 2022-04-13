@@ -22,6 +22,7 @@ import model.Granted
 import service.BlockaApiForCurrentUserService
 import service.ConnectivityService
 import service.EnvironmentService
+import service.Services
 import utils.Ignored
 import utils.Logger
 import utils.SimpleTasker
@@ -30,7 +31,7 @@ import utils.Tasker
 open class CloudRepo {
 
     private val env by lazy { EnvironmentService }
-    private val api by lazy { BlockaApiForCurrentUserService }
+    private val api by lazy { Services.apiForCurrentUser }
     private val connectivity by lazy { ConnectivityService }
 
     private val enteredForegroundHot by lazy { Repos.stage.enteredForegroundHot }

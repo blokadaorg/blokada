@@ -36,6 +36,8 @@ class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
 
     private lateinit var vm: AccountViewModel
 
+    var cloud = false
+
     companion object {
         fun newInstance() = PaymentFeaturesFragment()
     }
@@ -48,7 +50,10 @@ class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
             vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
         }
 
-        val root = inflater.inflate(R.layout.fragment_payment_features, container, false)
+        val root = inflater.inflate(
+            if (cloud) R.layout.fragment_payment_features_cloud
+            else R.layout.fragment_payment_features
+        , container, false)
 
         val back: View = root.findViewById(R.id.back)
         back.setOnClickListener {
@@ -60,7 +65,8 @@ class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
         val paymentContinue: View = root.findViewById(R.id.payment_continue)
         paymentContinue.setOnClickListener {
             dismiss()
-            val fragment = PaymentFragment.newInstance()
+            val fragment = if (cloud) CloudPaymentFragment.newInstance()
+                else PaymentFragment.newInstance()
             fragment.show(parentFragmentManager, null)
         }
 

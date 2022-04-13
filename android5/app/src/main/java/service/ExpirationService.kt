@@ -22,6 +22,8 @@ import ui.beforeNow
 import ui.utils.cause
 import utils.ExpiredNotification
 import utils.Logger
+import utils.NotificationPrototype
+import utils.notificationFromId
 import java.util.Date
 
 
@@ -33,20 +35,21 @@ object ExpirationService {
         context.requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 
-    var onExpired = {}
+    var onExpired: (NotificationPrototype) -> Any = {}
 
-    fun setExpirationAlarm(activeUntil: ActiveUntil) {
-        log.v("Setting expiration alarm at: $activeUntil")
+    fun setExpirationAlarm(n: NotificationPrototype, activeUntil: ActiveUntil) {
+        log.v("Setting expiration alarm for: $n at: $activeUntil")
 
         if (activeUntil.beforeNow()) {
             log.w("Tried to set alarm for a date in the past, triggering immediately")
-            onExpired()
+            onExpired(n)
             return
         }
 
         try {
             context.requireContext().let { ctx ->
                 val operation = Intent(ctx, ExpirationReceiver::class.java).let { intent ->
+                    intent.putExtra("notificationId", n.id)
                     PendingIntent.getBroadcast(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 }
                 alarmManager.set(AlarmManager.RTC, activeUntil.time, operation)
@@ -60,9 +63,11 @@ object ExpirationService {
 }
 
 class ExpirationReceiver : BroadcastReceiver() {
-    override fun onReceive(ctx: Context, p1: Intent) {
+    override fun onReceive(ctx: Context, intent: Intent) {
         Logger.v("Expiration", "Alarm received")
-        NotificationService.show(ExpiredNotification())
-        ExpirationService.onExpired()
+        val id = intent.getIntExtra("notificationId", 0)
+        val n = notificationFromId(id)
+        NotificationService.show(n)
+        ExpirationService.onExpired(n)
     }
 }

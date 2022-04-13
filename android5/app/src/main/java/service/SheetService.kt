@@ -15,6 +15,7 @@ package service
 import androidx.fragment.app.DialogFragment
 import model.BlokadaException
 import ui.home.ActivatedFragment
+import ui.home.CloudPaymentFragment
 import ui.home.OnboardingFragment
 import ui.home.PaymentFragment
 
@@ -35,7 +36,7 @@ class SheetService {
 
     fun showSheet(sheet: Sheet) {
         val fragment = when (sheet) {
-            Sheet.Payment -> PaymentFragment.newInstance()
+            Sheet.Payment -> CloudPaymentFragment.newInstance()
             Sheet.Activated -> OnboardingFragment.newInstance()
             else -> throw BlokadaException("unsupported sheet")
         }

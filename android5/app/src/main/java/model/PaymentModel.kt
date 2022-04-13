@@ -10,12 +10,17 @@
  * @author Karol Gusak (karol@blocka.net)
  */
 
-package service
+package model
 
-object Services {
+typealias ProductId = String
+typealias UserInitiated = Boolean
 
-    val apiForCurrentUser = BlockaApiForCurrentUserService
-    val sheet = SheetService()
-    val payment: IPaymentService = PaymentServiceMock()
-
-}
+data class Product(
+        val id: ProductId,
+        val title: String,
+        val description: String,
+        val price: String,
+        val periodMonths: Int,
+        val type: String,
+        val trial: Boolean
+)

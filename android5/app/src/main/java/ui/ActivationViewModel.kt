@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import model.ActiveUntil
 import service.ExpirationService
 import service.PersistenceService
+import utils.ExpiredNotification
 import utils.Logger
 import java.util.*
 
@@ -69,7 +70,7 @@ class ActivationViewModel: ViewModel() {
                     }
                 }
 
-                if (active) expiration.setExpirationAlarm(activeUntil)
+                if (active) expiration.setExpirationAlarm(ExpiredNotification(), activeUntil)
             }
         }
     }

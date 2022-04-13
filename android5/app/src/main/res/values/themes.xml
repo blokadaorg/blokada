@@ -28,6 +28,7 @@
         <item name="android:textColorPrimary">@color/light_text</item>
         <item name="android:textColorSecondary">@color/light_textSecondary</item>
         <item name="android:textColorTertiary">@color/light_inactive</item>
+        <item name="android:textColorTertiaryInverse">@color/dark_inactive</item>
         <item name="android:shadowColor">@color/light_shadow</item>
         <item name="actionBarStyle">@style/Widget.ActionBar.Blokada</item>
         <item name="android:windowBackground">@drawable/splash</item>
@@ -55,6 +56,7 @@
         <item name="android:textColorPrimary">@color/dark_text</item>
         <item name="android:textColorSecondary">@color/dark_textSecondary</item>
         <item name="android:textColorTertiary">@color/dark_inactive</item>
+        <item name="android:textColorTertiaryInverse">@color/light_inactive</item>
         <item name="android:shadowColor">@color/dark_shadow</item>
         <item name="actionBarStyle">@style/Widget.ActionBar.Blokada</item>
         <item name="android:windowBackground">@drawable/splash</item>
@@ -82,6 +84,7 @@
         <item name="android:textColorPrimary">@color/dark_text</item>
         <item name="android:textColorSecondary">@color/dark_textSecondary</item>
         <item name="android:textColorTertiary">@color/dark_inactive</item>
+        <item name="android:textColorTertiaryInverse">@color/light_inactive</item>
         <item name="android:shadowColor">@color/dark_shadow</item>
         <item name="actionBarStyle">@style/Widget.ActionBar.Blokada</item>
         <item name="android:windowBackground">@drawable/splash</item>

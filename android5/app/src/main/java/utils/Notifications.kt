@@ -12,12 +12,14 @@
 
 package utils
 
+import android.accounts.AccountsException
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import model.TunnelStatus
 import engine.Host
+import model.BlokadaException
 import org.blokada.R
 import service.Localised
 import ui.Command
@@ -259,3 +261,74 @@ class ExpiredNotification: NotificationPrototype(4, NotificationChannels.BLOCKA,
 //    }
 //
 //}
+
+// The following are the notifications for v6.
+// The old ones are left untouched to not change v5 behavior
+// in case we want separate flavors.
+
+class AccountExpiredNotification: NotificationPrototype(5, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle(ctx.getString(R.string.notification_acc_header))
+        b.setContentText(ctx.getString(R.string.notification_acc_subtitle))
+        b.setStyle(NotificationCompat.BigTextStyle().bigText(
+            ctx.getString(R.string.notification_acc_body)
+        ))
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
+// When Plus lease expires. This should normally not happen as leases are
+// automatically extended while the account is active.
+class PlusLeaseExpiredNotification: NotificationPrototype(6, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle(ctx.getString(R.string.notification_lease_header))
+        b.setContentText(ctx.getString(R.string.notification_vpn_expired_subtitle))
+        b.setStyle(NotificationCompat.BigTextStyle().bigText(
+            ctx.getString(R.string.notification_generic_body)
+        ))
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
+// When timed-pause runs out.
+class PauseTimeoutNotification: NotificationPrototype(7, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle(ctx.getString(R.string.notification_pause_header))
+        b.setContentText(ctx.getString(R.string.notification_pause_subtitle))
+        b.setStyle(NotificationCompat.BigTextStyle().bigText(
+            ctx.getString(R.string.notification_pause_body)
+        ))
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
+fun notificationFromId(id: Int): NotificationPrototype {
+    return when (id) {
+        4 -> ExpiredNotification()
+        5 -> AccountExpiredNotification()
+        6 -> PlusLeaseExpiredNotification()
+        7 -> PauseTimeoutNotification()
+        else -> throw BlokadaException("unknown notification id")
+    }
+}

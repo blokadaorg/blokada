@@ -5,6 +5,11 @@
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_home_cloud.xml" value="0.2325" />
+        <entry key="app/src/main/res/drawable/bg_payment_group_cloud.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/bg_payment_group_plus.xml" value="0.2575" />
+        <entry key="app/src/main/res/drawable/bg_payment_item_cloud.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/bg_payment_item_plus.xml" value="0.2575" />
         <entry key="app/src/main/res/drawable/flag_ae.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_ca.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_ch.xml" value="0.141" />
@@ -15,9 +20,16 @@
         <entry key="app/src/main/res/drawable/flag_nl.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_sg.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_us.xml" value="0.141" />
+        <entry key="app/src/main/res/layout/fragment_dnschoice.xml" value="0.10739614994934144" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_container.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_onboarding.xml" value="0.2740628166160081" />
+        <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.11930091185410334" />
+        <entry key="app/src/main/res/layout/fragment_payment_cloud.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_payment_features.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_payment_features_cloud.xml" value="0.22871376811594202" />
+        <entry key="app/src/main/res/layout/fragment_payment_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_payment.xml" value="0.1" />
         <entry key="app/src/notgoogle/res/menu/home_menu.xml" value="0.1" />
       </map>
     </option>
