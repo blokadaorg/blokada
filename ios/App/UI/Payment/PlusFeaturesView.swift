@@ -384,15 +384,15 @@ struct PlusFeaturesView: View {
                     self.showSheet = false
                 }) {
                     Text(L10n.universalActionDone)
+                    .foregroundColor(Color.cAccent)
                 }
                 .contentShape(Rectangle())
             )
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(Color.cAccent)
-        .onAppear {
-
-        }
+        .foregroundColor(Color.cPrimary)
+        .multilineTextAlignment(.leading)
     }
 }
 
